@@ -1,0 +1,35 @@
+type User @table {
+  name: String!
+  email: String!
+  password: String!
+  createdAt: Timestamp!
+  bio: String
+  profilePicture: String
+  contactInfo: String
+}
+
+type Project @table {
+  title: String!
+  description: String!
+  createdAt: Timestamp!
+  client: String
+  role: String
+  link: String
+  user: User
+}
+
+type Image @table {
+  url: String!
+  altText: String!
+  project: Project
+}
+
+type Skill @table {
+  name: String!
+  user: User
+}
+
+type ProjectSkill @table(key: ["project", "skill"]) {
+  project: Project!
+  skill: Skill!
+}
