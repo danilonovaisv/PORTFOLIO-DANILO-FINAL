@@ -14,9 +14,10 @@ const HeroGlassCanvas: React.FC<{ className?: string }> = ({ className }) => {
         {/* @ts-ignore */}
         <directionalLight position={[10, 10, 5]} intensity={2} color="#ffffff" />
         
-        <TorusDan />
-        
-        <Environment preset="city" />
+        <React.Suspense fallback={null}>
+          <TorusDan />
+          <Environment preset="city" />
+        </React.Suspense>
       </Canvas>
     </div>
   );
