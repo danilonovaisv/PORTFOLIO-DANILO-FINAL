@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ASSETS } from '../../lib/constants';
@@ -33,9 +35,9 @@ const Manifesto: React.FC = () => {
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 text-gray-500 p-6 text-center">
             <AlertCircle className="w-10 h-10 mb-3 opacity-50" />
             <p className="font-medium">Não foi possível carregar o vídeo.</p>
-            <a 
-              href={ASSETS.videoManifesto} 
-              target="_blank" 
+            <a
+              href={ASSETS.videoManifesto}
+              target="_blank"
               rel="noopener noreferrer"
               className="mt-2 text-primary text-sm hover:underline underline-offset-4"
             >
