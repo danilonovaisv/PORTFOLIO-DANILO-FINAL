@@ -1,0 +1,3 @@
+module.exports=[34537,a=>{a.n(a.i(34309))},60090,a=>{a.n(a.i(53363))},40198,a=>{a.n(a.i(30914))},2974,a=>{a.n(a.i(95598))},43648,a=>{a.n(a.i(17039))},8629,a=>{"use strict";var b=a.i(83426),c=a.i(34309);function d(){return(0,b.jsx)(c.default,{children:(0,b.jsxs)("div",{className:"pt-32 px-4 container mx-auto text-center min-h-[50vh]",children:[(0,b.jsx)("h1",{className:"text-4xl font-bold mb-4",children:"Sobre"}),(0,b.jsx)("p",{className:"text-gray-600",children:"Página em construção..."})]})})}a.s(["default",()=>d])}];
+
+//# sourceMappingURL=_danilonov_portfolio_42c68fe8._.js.map

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Environment, PerspectiveCamera, Float } from '@react-three/drei';

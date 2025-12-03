@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { NAV_LINKS, ASSETS } from '../../lib/constants';
@@ -20,8 +22,8 @@ const Header: React.FC = () => {
       <motion.header
         className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-8 lg:px-10 transition-all duration-300 ease-in-out`}
         initial={{ y: -100, opacity: 0 }}
-        animate={{ 
-          y: 0, 
+        animate={{
+          y: 0,
           opacity: 1,
           backgroundColor: isScrolled ? 'rgba(255, 255, 255, 0.95)' : 'rgba(255, 255, 255, 0)',
           backdropFilter: isScrolled ? 'blur(12px)' : 'blur(0px)',
@@ -33,15 +35,15 @@ const Header: React.FC = () => {
       >
         <div className="flex items-center shrink-0">
           <a href="/" className="block relative z-50 group">
-             <img 
-              src={ASSETS.logoDark} 
-              alt="Danilo Novais" 
+            <img
+              src={ASSETS.logoDark}
+              alt="Danilo Novais"
               className="h-8 md:h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  e.currentTarget.parentElement!.innerHTML = '<span class="text-2xl font-bold text-dark tracking-tighter">Danilo.</span>';
+                e.currentTarget.style.display = 'none';
+                e.currentTarget.parentElement!.innerHTML = '<span class="text-2xl font-bold text-dark tracking-tighter">Danilo.</span>';
               }}
-             />
+            />
           </a>
         </div>
 
@@ -49,7 +51,7 @@ const Header: React.FC = () => {
           <ul className="flex items-center space-x-8 lg:space-x-10">
             {NAV_LINKS.map((link) => (
               <li key={link.label}>
-                <motion.a 
+                <motion.a
                   href={link.href}
                   className="relative text-sm lg:text-base font-medium text-gray-700 hover:text-primary transition-colors duration-200 lowercase tracking-wide block py-2"
                   whileHover="hover"
@@ -71,12 +73,12 @@ const Header: React.FC = () => {
         </nav>
 
         <div className="md:hidden">
-          <button 
+          <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="text-dark p-2 hover:text-primary transition-colors"
             aria-label="Toggle menu"
           >
-             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </motion.header>
@@ -93,13 +95,13 @@ const Header: React.FC = () => {
             <nav className="w-full max-w-sm">
               <ul className="flex flex-col space-y-6 text-center">
                 {NAV_LINKS.map((link, i) => (
-                  <motion.li 
+                  <motion.li
                     key={link.label}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.1, duration: 0.4 }}
                   >
-                    <a 
+                    <a
                       href={link.href}
                       onClick={() => setIsMobileMenuOpen(false)}
                       className="text-2xl font-semibold text-dark hover:text-primary transition-colors block lowercase"
