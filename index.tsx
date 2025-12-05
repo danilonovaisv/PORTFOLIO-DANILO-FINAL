@@ -2,6 +2,8 @@ import './setupPolyfills';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Home from './src/app/page';
+import MainLayout from './src/components/layout/MainLayout';
+import './src/app/globals.css';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -11,6 +13,8 @@ if (!rootElement) {
 const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
-    <Home />
+    <MainLayout>
+      <Home />
+    </MainLayout>
   </React.StrictMode>
 );
