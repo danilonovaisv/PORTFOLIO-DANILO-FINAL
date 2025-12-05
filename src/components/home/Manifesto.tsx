@@ -45,54 +45,63 @@ const Manifesto: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Ativa/desativa áudio apenas em desktop quando 100% do vídeo está visível
-  useEffect(() => {
-    const videoEl = videoRef.current;
-    if (!videoEl || !shouldLoad || forceMute) {
-      if (videoEl) videoEl.muted = true;
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!videoRef.current) return;
-        if (entry.isIntersecting) {
-          videoRef.current.muted = false;
-          if (videoRef.current.paused) {
-            videoRef.current.play().catch(() => null);
-          }
-        } else {
-          videoRef.current.muted = true;
-          videoRef.current.pause();
-        }
-      },
-      { threshold: 1.0 },
-    );
-
-    observer.observe(videoEl);
-    return () => observer.disconnect();
-  }, [forceMute, shouldLoad]);
-
-  // Ao sair completamente da sessão, garante mute mesmo se o vídeo estiver parcialmente visível
+  // Controla áudio baseado no viewport e estado da página
   useEffect(() => {
     if (!shouldLoad) return;
     const sectionEl = sectionRef.current;
     const videoEl = videoRef.current;
     if (!sectionEl || !videoEl) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!videoRef.current) return;
-        if (!entry.isIntersecting) {
-          videoRef.current.muted = true;
-        }
-      },
-      { threshold: 0.01, rootMargin: "0px 0px -15% 0px" },
-    );
+    const evaluateVisibility = () => {
+      if (!videoRef.current || !sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      const fullyVisible = rect.top >= 0 && rect.bottom <= viewportHeight;
+      const partiallyVisible = rect.bottom > 0 && rect.top < viewportHeight;
+      const pageHidden = document.visibilityState === "hidden";
 
-    observer.observe(sectionEl);
-    return () => observer.disconnect();
-  }, [shouldLoad]);
+      if (forceMute || pageHidden || !partiallyVisible) {
+        videoRef.current.muted = true;
+        if (!videoRef.current.paused) {
+          videoRef.current.pause();
+        }
+        return;
+      }
+
+      if (fullyVisible) {
+        videoRef.current.muted = false;
+        if (videoRef.current.paused) {
+          videoRef.current.play().catch(() => null);
+        }
+      } else {
+        videoRef.current.muted = true;
+        if (!videoRef.current.paused) {
+          videoRef.current.pause();
+        }
+      }
+    };
+
+    let frame = 0;
+    const handleScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        evaluateVisibility();
+        frame = 0;
+      });
+    };
+
+    evaluateVisibility();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", evaluateVisibility);
+    document.addEventListener("visibilitychange", evaluateVisibility);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", evaluateVisibility);
+      document.removeEventListener("visibilitychange", evaluateVisibility);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, [forceMute, shouldLoad]);
 
   return (
     <section

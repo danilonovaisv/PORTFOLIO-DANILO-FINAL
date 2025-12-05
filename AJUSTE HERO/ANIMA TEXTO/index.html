@@ -2,140 +2,234 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Subtext Animation</title>
+  <title>Hero Section - Final</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&family=Bayon&display=swap" rel="stylesheet">
   
   <style>
     /* --- CONFIGURAÇÕES GERAIS --- */
+    :root {
+      --color-blue: #0057FF; /* Azul vibrante */
+      --color-black: #101010; /* Preto sólido */
+      --bg-color: #F4F4F4;    /* Fundo cinza claro */
+    }
+
     body {
-      font-family: 'Inter', sans-serif; /* Fonte Inter */
-      background-color: #f0f0f0;
+      background-color: var(--bg-color);
       min-height: 100vh;
       display: flex;
       align-items: center;
-      justify-content: center;
+      /* Alinhamento horizontal à esquerda, com uma margem de segurança */
+      justify-content: flex-start;
+      padding-left: 10vw; /* Margem esquerda para simular o layout do site */
       margin: 0;
+      user-select: none;
     }
 
-    .tagline-container {
+    /* Contentor Principal */
+    .hero-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start; /* ALINHAMENTO À ESQUERDA */
+      text-align: left;
+      gap: 1.5rem; /* Espaço entre o Título e o Subtítulo */
+    }
+
+    /* --- ESTILO DO TÍTULO (BAYON) --- */
+    .main-title {
+      font-family: 'Bayon', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start; /* Garante que as linhas fiquem à esquerda */
+      line-height: 0.85;
+    }
+
+    /* Linhas individuais */
+    .title-line {
+      display: flex;
+      gap: 1.2rem; /* Espaço entre palavras */
+      flex-wrap: wrap; /* Segurança para telas muito pequenas */
+    }
+
+    /* --- ESTILO DO SUBTÍTULO (INTER) --- */
+    .sub-text {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+      font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 0.6rem; /* Espaço entre as palavras */
-      font-size: clamp(1rem, 2.5vw, 1.5rem); /* Tamanho menor, adequado para subtítulo */
+      flex-wrap: wrap;
+      gap: 0.3rem; /* Espaço entre palavras do subtítulo */
+      color: var(--color-blue);
+      margin-top: 1rem; /* Espaçamento extra do título */
     }
 
-    /* --- ESTILO DAS PALAVRAS --- */
+    /* --- LÓGICA DA ANIMAÇÃO --- */
     .word {
       --translate-distance: -1lh;
-      --trans-duration: 600ms; /* Um pouco mais rápido para texto pequeno */
-      --trans-delay-factor: 30ms;
-      --trans-timimg-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --trans-duration: 800ms;
+      --trans-delay-factor: 50ms;
+      --trans-timing: cubic-bezier(0.34, 1.56, 0.64, 1);
       
-      /* COMPORTAMENTO PADRÃO (Preto -> Azul) */
-      /* Usado em "é estratégia" e "é experiência" */
-      color: #000000;
-      --text-color-hover: #0057FF; /* Azul vibrante no hover */
+      /* Tamanho responsivo do Título */
+      --font-size: clamp(4rem, 11vw, 9rem);
+      
+      /* Cores Padrão (Preto -> Azul) */
+      --text-main: var(--color-black);
+      --text-hover: var(--color-blue);
+
+      font-size: var(--font-size);
+      color: var(--text-main);
       
       text-decoration: none;
-      text-transform: lowercase; /* Força caixa baixa */
+      /* REMOVIDO O UPPERCASE: Agora respeita a letra minúscula do HTML */
       margin: 0;
-      font-weight: 400; /* Inter Regular/Semi-bold */
-      line-height: 1;
       display: flex;
       overflow: hidden;
       cursor: pointer;
     }
 
-    /* COMPORTAMENTO INVERTIDO (Azul -> Preto) */
-    /* Usado em "É intenção" */
+    /* VARIANTE: AZUL INICIAL (Design e Subtítulo) */
     .word.blue-start {
-      color: #0057FF; /* Começa Azul */
-      --text-color-hover: #000000; /* Vira Preto no hover */
+      --text-main: var(--color-blue);
+      --text-hover: var(--color-black); /* Hover vira preto */
     }
 
-    /* Lógica da animação (mantida) */
+    /* VARIANTE: PEQUENO (Subtítulo) */
+    .word.small {
+      --font-size: inherit;
+      line-height: 1.4;
+    }
+
     .word > span {
       --i: sibling-index();
       --translate: calc(var(--translate-distance) * 2);
       --trans-delay: calc(var(--i) * var(--trans-delay-factor));
       
-      text-shadow: 0 1lh var(--text-color-hover);
+      text-shadow: 0 1lh var(--text-hover);
+      
       display: inline-block;
-      transition: translate var(--trans-duration) var(--trans-timimg-function) var(--trans-delay);
+      transition: translate var(--trans-duration) var(--trans-timing) var(--trans-delay);
     }
 
     .word:hover > span {
       translate: 0 var(--translate-distance);
     }
-    
-    /* Apenas para os colchetes ficarem estáticos ou pretos (opcional) */
+
     .bracket {
+      color: var(--color-blue);
       font-weight: 600;
-      color: #000;
+      margin: 0 2px;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="tagline-container">
+  <div class="hero-wrapper">
     
-    <span class="bracket">[</span>
+    <div class="main-title">
+      
+      <div class="title-line">
+        <a class="word blue-start" aria-label="Design,">
+          <span aria-hidden="true">D</span>
+          <span aria-hidden="true">e</span>
+          <span aria-hidden="true">s</span>
+          <span aria-hidden="true">i</span>
+          <span aria-hidden="true">g</span>
+          <span aria-hidden="true">n</span>
+          <span aria-hidden="true">,</span>
+        </a>
+      </div>
 
-    <a href="#" class="word blue-start" aria-label="é">
-      <span aria-hidden="true">é</span>
-    </a>
-    <a href="#" class="word blue-start" aria-label="intenção">
-      <span aria-hidden="true">i</span>
-      <span aria-hidden="true">n</span>
-      <span aria-hidden="true">t</span>
-      <span aria-hidden="true">e</span>
-      <span aria-hidden="true">n</span>
-      <span aria-hidden="true">ç</span>
-      <span aria-hidden="true">ã</span>
-      <span aria-hidden="true">o</span>
-      <span aria-hidden="true">,</span>
-    </a>
+      <div class="title-line">
+        <a class="word" aria-label="não">
+          <span aria-hidden="true">n</span>
+          <span aria-hidden="true">ã</span>
+          <span aria-hidden="true">o</span>
+        </a>
+        <a class="word" aria-label="é">
+          <span aria-hidden="true">é</span>
+        </a>
+        <a class="word" aria-label="só">
+          <span aria-hidden="true">s</span>
+          <span aria-hidden="true">ó</span>
+        </a>
+      </div>
 
-    <a href="#" class="word" aria-label="é">
-      <span aria-hidden="true">é</span>
-    </a>
-    <a href="#" class="word" aria-label="estratégia">
-      <span aria-hidden="true">e</span>
-      <span aria-hidden="true">s</span>
-      <span aria-hidden="true">t</span>
-      <span aria-hidden="true">r</span>
-      <span aria-hidden="true">a</span>
-      <span aria-hidden="true">t</span>
-      <span aria-hidden="true">é</span>
-      <span aria-hidden="true">g</span>
-      <span aria-hidden="true">i</span>
-      <span aria-hidden="true">a</span>
-      <span aria-hidden="true">,</span>
-    </a>
+      <div class="title-line">
+        <a class="word" aria-label="estética.">
+          <span aria-hidden="true">e</span>
+          <span aria-hidden="true">s</span>
+          <span aria-hidden="true">t</span>
+          <span aria-hidden="true">é</span>
+          <span aria-hidden="true">t</span>
+          <span aria-hidden="true">i</span>
+          <span aria-hidden="true">c</span>
+          <span aria-hidden="true">a</span>
+          <span aria-hidden="true">.</span>
+        </a>
+      </div>
 
-    <a href="#" class="word" aria-label="é">
-      <span aria-hidden="true">é</span>
-    </a>
-    <a href="#" class="word" aria-label="experiência">
-      <span aria-hidden="true">e</span>
-      <span aria-hidden="true">x</span>
-      <span aria-hidden="true">p</span>
-      <span aria-hidden="true">e</span>
-      <span aria-hidden="true">r</span>
-      <span aria-hidden="true">i</span>
-      <span aria-hidden="true">ê</span>
-      <span aria-hidden="true">n</span>
-      <span aria-hidden="true">c</span>
-      <span aria-hidden="true">i</span>
-      <span aria-hidden="true">a</span>
-      <span aria-hidden="true">.</span>
-    </a>
+    </div>
 
-    <span class="bracket">]</span>
+    <div class="sub-text">
+      <span class="bracket">[</span>
+      
+      <a class="word small blue-start" aria-label="É">
+        <span aria-hidden="true">É</span>
+      </a>
+      <a class="word small blue-start" aria-label="intenção,">
+        <span aria-hidden="true">i</span>
+        <span aria-hidden="true">n</span>
+        <span aria-hidden="true">t</span>
+        <span aria-hidden="true">e</span>
+        <span aria-hidden="true">n</span>
+        <span aria-hidden="true">ç</span>
+        <span aria-hidden="true">ã</span>
+        <span aria-hidden="true">o</span>
+        <span aria-hidden="true">,</span>
+      </a>
+
+      <a class="word small blue-start" aria-label="é">
+        <span aria-hidden="true">é</span>
+      </a>
+      <a class="word small blue-start" aria-label="estratégia,">
+        <span aria-hidden="true">e</span>
+        <span aria-hidden="true">s</span>
+        <span aria-hidden="true">t</span>
+        <span aria-hidden="true">r</span>
+        <span aria-hidden="true">a</span>
+        <span aria-hidden="true">t</span>
+        <span aria-hidden="true">é</span>
+        <span aria-hidden="true">g</span>
+        <span aria-hidden="true">i</span>
+        <span aria-hidden="true">a</span>
+        <span aria-hidden="true">,</span>
+      </a>
+
+      <a class="word small blue-start" aria-label="é">
+        <span aria-hidden="true">é</span>
+      </a>
+      <a class="word small blue-start" aria-label="experiência.">
+        <span aria-hidden="true">e</span>
+        <span aria-hidden="true">x</span>
+        <span aria-hidden="true">p</span>
+        <span aria-hidden="true">e</span>
+        <span aria-hidden="true">r</span>
+        <span aria-hidden="true">i</span>
+        <span aria-hidden="true">ê</span>
+        <span aria-hidden="true">n</span>
+        <span aria-hidden="true">c</span>
+        <span aria-hidden="true">i</span>
+        <span aria-hidden="true">a</span>
+        <span aria-hidden="true">.</span>
+      </a>
+
+      <span class="bracket">]</span>
+    </div>
 
   </div>
 
