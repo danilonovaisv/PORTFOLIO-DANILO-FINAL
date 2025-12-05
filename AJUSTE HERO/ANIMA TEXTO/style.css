@@ -3,7 +3,7 @@
 
 @layer demo {
 	body{
-		font-family: 'Bayon', sans-serif;
+		font-family: 'Inter', sans-serif;
 	}
 	.word {
 		--translate-distance: -1lh;
@@ -15,7 +15,7 @@
 		
 		margin: 0;
 		font-size: 4rem;
-		font-weight: 700;
+		font-weight: 800;
 		line-height: 1;
 		display: flex;
 		overflow: hidden;

@@ -2,18 +2,20 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
-  <title>Hero Section - Final</title>
+  <title>Hero Section - Final Inter Update</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&family=Bayon&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  
+  <link href="https://fonts.bunny.net/css?family=bayon:400" rel="stylesheet" />
   
   <style>
     /* --- CONFIGURAÇÕES GERAIS --- */
     :root {
-      --color-blue: #0057FF; /* Azul vibrante */
-      --color-black: #101010; /* Preto sólido */
-      --bg-color: #F4F4F4;    /* Fundo cinza claro */
+      --color-blue: #0057FF;
+      --color-black: #101010;
+      --bg-color: #F4F4F4;
     }
 
     body {
@@ -21,95 +23,99 @@
       min-height: 100vh;
       display: flex;
       align-items: center;
-      /* Alinhamento horizontal à esquerda, com uma margem de segurança */
-      justify-content: flex-start;
-      padding-left: 10vw; /* Margem esquerda para simular o layout do site */
+      justify-content: flex-start; /* Alinha o bloco todo à esquerda */
+      padding-left: 10vw; /* Margem lateral idêntica à imagem */
       margin: 0;
       user-select: none;
+    }
+
+    /* A classe utilitária que pediste para a fonte Inter */
+    .inter-style {
+      font-family: "Inter", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 400; /* Peso ajustado para o subtítulo */
+      font-style: normal;
     }
 
     /* Contentor Principal */
     .hero-wrapper {
       display: flex;
       flex-direction: column;
-      align-items: flex-start; /* ALINHAMENTO À ESQUERDA */
+      align-items: flex-start;
       text-align: left;
-      gap: 1.5rem; /* Espaço entre o Título e o Subtítulo */
+      gap: 1.5rem;
     }
 
     /* --- ESTILO DO TÍTULO (BAYON) --- */
     .main-title {
-      font-family: 'Bayon', sans-serif;
+      font-family: "Inter", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 800;
+      font-style: normal; /* Fonte do título grande */
       display: flex;
       flex-direction: column;
-      align-items: flex-start; /* Garante que as linhas fiquem à esquerda */
-      line-height: 0.85;
+      align-items: flex-start;
+      line-height: 0.95;
     }
 
-    /* Linhas individuais */
     .title-line {
       display: flex;
-      gap: 1.2rem; /* Espaço entre palavras */
-      flex-wrap: wrap; /* Segurança para telas muito pequenas */
+      gap: 1.2rem;
+      flex-wrap: wrap;
     }
 
     /* --- ESTILO DO SUBTÍTULO (INTER) --- */
+    /* Aplica a classe .inter-style aqui */
     .sub-text {
-      font-family: 'Inter', sans-serif;
       font-size: clamp(0.9rem, 1.5vw, 1.1rem);
-      font-weight: 600;
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      gap: 0.3rem; /* Espaço entre palavras do subtítulo */
+      gap: 0.4rem;
       color: var(--color-blue);
-      margin-top: 1rem; /* Espaçamento extra do título */
+      margin-top: 1rem;
     }
 
-    /* --- LÓGICA DA ANIMAÇÃO --- */
+    /* --- ANIMAÇÃO --- */
     .word {
       --translate-distance: -1lh;
       --trans-duration: 800ms;
       --trans-delay-factor: 50ms;
       --trans-timing: cubic-bezier(0.34, 1.56, 0.64, 1);
       
-      /* Tamanho responsivo do Título */
       --font-size: clamp(4rem, 11vw, 9rem);
       
-      /* Cores Padrão (Preto -> Azul) */
       --text-main: var(--color-black);
       --text-hover: var(--color-blue);
 
       font-size: var(--font-size);
       color: var(--text-main);
-      
       text-decoration: none;
-      /* REMOVIDO O UPPERCASE: Agora respeita a letra minúscula do HTML */
       margin: 0;
       display: flex;
       overflow: hidden;
       cursor: pointer;
     }
 
-    /* VARIANTE: AZUL INICIAL (Design e Subtítulo) */
+    /* Variante: Azul Inicial (Design + Subtítulo) */
     .word.blue-start {
       --text-main: var(--color-blue);
-      --text-hover: var(--color-black); /* Hover vira preto */
+      --text-hover: var(--color-black);
     }
 
-    /* VARIANTE: PEQUENO (Subtítulo) */
+    /* Variante: Pequeno (Para o Subtítulo usar Inter) */
     .word.small {
       --font-size: inherit;
       line-height: 1.4;
+      /* Garante que o span interno herde a fonte Inter do pai */
+      font-family: inherit;
     }
 
     .word > span {
       --i: sibling-index();
       --translate: calc(var(--translate-distance) * 2);
       --trans-delay: calc(var(--i) * var(--trans-delay-factor));
-      
       text-shadow: 0 1lh var(--text-hover);
-      
       display: inline-block;
       transition: translate var(--trans-duration) var(--trans-timing) var(--trans-delay);
     }
@@ -120,8 +126,8 @@
 
     .bracket {
       color: var(--color-blue);
-      font-weight: 600;
-      margin: 0 2px;
+      font-weight: 800;
+      margin: 0 4px;
     }
   </style>
 </head>
@@ -175,7 +181,7 @@
 
     </div>
 
-    <div class="sub-text">
+    <div class="sub-text inter-style">
       <span class="bracket">[</span>
       
       <a class="word small blue-start" aria-label="É">

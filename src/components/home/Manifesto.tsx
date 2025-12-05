@@ -45,63 +45,72 @@ const Manifesto: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Controla áudio baseado no viewport e estado da página
+  // Controla áudio quando 100% do vídeo está visível
+  useEffect(() => {
+    if (!shouldLoad) return;
+    const videoEl = videoRef.current;
+    if (!videoEl) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!videoRef.current) return;
+
+        if (forceMute) {
+          videoRef.current.muted = true;
+          videoRef.current.pause();
+          return;
+        }
+
+        if (entry.intersectionRatio >= 0.999) {
+          videoRef.current.muted = false;
+          if (videoRef.current.paused) {
+            videoRef.current.play().catch(() => null);
+          }
+        } else {
+          videoRef.current.muted = true;
+          videoRef.current.pause();
+        }
+      },
+      { threshold: [0, 1] },
+    );
+
+    observer.observe(videoEl);
+    return () => observer.disconnect();
+  }, [forceMute, shouldLoad]);
+
+  // Ao sair da sessão (mesmo parcialmente), silencia e pausa o vídeo
   useEffect(() => {
     if (!shouldLoad) return;
     const sectionEl = sectionRef.current;
-    const videoEl = videoRef.current;
-    if (!sectionEl || !videoEl) return;
+    if (!sectionEl) return;
 
-    const evaluateVisibility = () => {
-      if (!videoRef.current || !sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-      const fullyVisible = rect.top >= 0 && rect.bottom <= viewportHeight;
-      const partiallyVisible = rect.bottom > 0 && rect.top < viewportHeight;
-      const pageHidden = document.visibilityState === "hidden";
-
-      if (forceMute || pageHidden || !partiallyVisible) {
-        videoRef.current.muted = true;
-        if (!videoRef.current.paused) {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!videoRef.current) return;
+        if (!entry.isIntersecting) {
+          videoRef.current.muted = true;
           videoRef.current.pause();
         }
-        return;
-      }
+      },
+      { threshold: 0 },
+    );
 
-      if (fullyVisible) {
-        videoRef.current.muted = false;
-        if (videoRef.current.paused) {
-          videoRef.current.play().catch(() => null);
-        }
-      } else {
+    observer.observe(sectionEl);
+    return () => observer.disconnect();
+  }, [shouldLoad]);
+
+  // Pausa/muta quando a aba não está visível
+  useEffect(() => {
+    const handleVisibility = () => {
+      if (document.visibilityState === "hidden" && videoRef.current) {
         videoRef.current.muted = true;
-        if (!videoRef.current.paused) {
-          videoRef.current.pause();
-        }
+        videoRef.current.pause();
       }
     };
 
-    let frame = 0;
-    const handleScroll = () => {
-      if (frame) return;
-      frame = window.requestAnimationFrame(() => {
-        evaluateVisibility();
-        frame = 0;
-      });
-    };
-
-    evaluateVisibility();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", evaluateVisibility);
-    document.addEventListener("visibilitychange", evaluateVisibility);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", evaluateVisibility);
-      document.removeEventListener("visibilitychange", evaluateVisibility);
-      if (frame) cancelAnimationFrame(frame);
-    };
-  }, [forceMute, shouldLoad]);
+    document.addEventListener("visibilitychange", handleVisibility);
+    return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, []);
 
   return (
     <section
