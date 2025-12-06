@@ -2,13 +2,14 @@
 
 import { ArrowRight } from 'lucide-react';
 import type { CSSProperties } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   motion,
   useMotionValueEvent,
   useScroll,
   useSpring,
   useTransform,
+  useReducedMotion,
 } from 'framer-motion';
 import { ASSETS } from '../../lib/constants';
 
@@ -20,6 +21,7 @@ type AnimatedWordProps = {
   variant?: WordVariant;
   size?: WordSize;
   delayOffset?: number;
+  disableAnimation?: boolean;
 };
 
 const AnimatedWord = ({
@@ -27,6 +29,7 @@ const AnimatedWord = ({
   variant = 'default',
   size = 'lg',
   delayOffset = 0,
+  disableAnimation = false,
 }: AnimatedWordProps) => {
   const letters = text.split('');
   const letterOccurrences = new Map<string, number>();
@@ -34,6 +37,15 @@ const AnimatedWord = ({
   return (
     <span
       className={`word ${variant === 'accent' ? 'blue-start' : ''} ${size === 'sm' ? 'small' : ''}`}
+      style={
+        disableAnimation
+          ? ({
+              // Evita animações excessivas quando o usuário prefere menos movimento
+              '--trans-duration': '0ms',
+              '--trans-delay-factor': '0ms',
+            } as CSSProperties)
+          : undefined
+      }
     >
       <span className="sr-only">{text}</span>
       <span className="word-letters" aria-hidden="true">
@@ -71,6 +83,7 @@ const BASE_DURATION = 0.65;
 const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const shouldReduceMotion = useReducedMotion();
   const [isVisible, setIsVisible] = useState(false);
   const [parallaxEnabled, setParallaxEnabled] = useState(false);
   const [shouldLoad, setShouldLoad] = useState(false);
@@ -87,13 +100,13 @@ const Hero = () => {
 
   useEffect(() => {
     const updateDeviceMode = () => {
-      setParallaxEnabled(window.innerWidth >= 1024);
+      setParallaxEnabled(!shouldReduceMotion && window.innerWidth >= 1024);
     };
 
     updateDeviceMode();
     window.addEventListener('resize', updateDeviceMode);
     return () => window.removeEventListener('resize', updateDeviceMode);
-  }, []);
+  }, [shouldReduceMotion]);
 
   useEffect(() => {
     if (!sectionRef.current) return;
@@ -148,16 +161,36 @@ const Hero = () => {
     }
   });
 
-  // Animations
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-  const contentScale = useTransform(scrollYProgress, [0, 0.15], [1, 0.95]);
-  const contentY = useTransform(scrollYProgress, [0, 0.15], [0, -50]);
+  // Animations (mantêm suavidade mas respeitam preferências de movimento reduzido)
+  const contentOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.15],
+    [1, shouldReduceMotion ? 1 : 0]
+  );
+  const contentScale = useTransform(
+    scrollYProgress,
+    [0, 0.15],
+    [1, shouldReduceMotion ? 1 : 0.95]
+  );
+  const contentY = useTransform(
+    scrollYProgress,
+    [0, 0.15],
+    [0, shouldReduceMotion ? 0 : -50]
+  );
 
   // Video transitions
-  const videoScale = useTransform(scrollYProgress, [0, 0.25], [0.25, 1]);
+  const videoScale = useTransform(
+    scrollYProgress,
+    [0, 0.25],
+    [0.25, shouldReduceMotion ? 0.9 : 1]
+  );
   const videoX = useTransform(scrollYProgress, [0, 0.25], ['35%', '0%']);
   const videoY = useTransform(scrollYProgress, [0, 0.25], ['30%', '0%']);
-  const videoRadius = useTransform(scrollYProgress, [0, 0.2], [12, 0]);
+  const videoRadius = useTransform(
+    scrollYProgress,
+    [0, 0.2],
+    [shouldReduceMotion ? 4 : 12, 0]
+  );
 
   // Subtle mouse parallax (desktop only)
   const textParallaxX = useSpring(0, { stiffness: 110, damping: 18 });
@@ -166,7 +199,7 @@ const Hero = () => {
   const videoParallaxY = useSpring(0, { stiffness: 110, damping: 18 });
 
   const handleParallax = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (!parallaxEnabled) return;
+    if (!parallaxEnabled || shouldReduceMotion) return;
     const rect = event.currentTarget.getBoundingClientRect();
     const relativeX = (event.clientX - rect.left) / rect.width - 0.5;
     const relativeY = (event.clientY - rect.top) / rect.height - 0.5;
@@ -201,6 +234,19 @@ const Hero = () => {
     initial: { opacity: 0, y: 32 },
     animate: { opacity: 1, y: 0 },
   };
+
+  const textContainerClasses = useMemo(
+    () =>
+      [
+        'absolute inset-0 container mx-auto px-6 md:px-12 lg:px-16 h-full z-10 pointer-events-none',
+        shouldReduceMotion
+          ? 'hero-text-visible'
+          : isVisible
+            ? 'hero-text-visible'
+            : '',
+      ].join(' '),
+    [isVisible, shouldReduceMotion]
+  );
 
   return (
     /* biome-ignore lint/correctness/useUniqueElementIds: anchor needed for navigation */
@@ -321,6 +367,16 @@ const Hero = () => {
         }
       `}</style>
 
+      {/* Plano de fundo suave para reforçar contraste e guiar a leitura */}
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-[#f6f7fb] via-white to-[#eef3ff]"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-x-0 top-10 h-40 bg-[radial-gradient(circle_at_top,#c8d9ff_0%,transparent_55%)] opacity-60"
+        aria-hidden="true"
+      />
+
       {/* Container Sticky */}
       <motion.div
         className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center"
@@ -332,11 +388,11 @@ const Hero = () => {
         {/* 1. TEXT CONTENT LAYER */}
         <motion.div
           style={{ opacity: contentOpacity, scale: contentScale, y: contentY }}
-          className={`absolute inset-0 container mx-auto px-6 md:px-12 lg:px-16 h-full z-10 pointer-events-none ${isVisible ? 'hero-text-visible' : ''}`}
+          className={textContainerClasses}
         >
           <motion.div
             style={{ x: textParallaxX, y: textParallaxY }}
-            className="flex flex-col justify-center items-start h-full pt-24 md:pt-0 max-w-4xl gap-8 pointer-events-auto"
+            className="flex flex-col justify-center items-start h-full pt-24 md:pt-0 max-w-4xl gap-8 pointer-events-auto rounded-3xl border border-white/60 bg-white/75 px-6 py-8 md:px-10 md:py-12 shadow-[0_25px_80px_-55px_rgba(0,0,0,0.75)] backdrop-blur-[6px]"
           >
             {/* Título Principal */}
             <motion.h1
@@ -355,15 +411,32 @@ const Hero = () => {
                     text="Design,"
                     variant="accent"
                     delayOffset={0}
+                    disableAnimation={shouldReduceMotion}
                   />
                 </div>
                 <div className="title-line">
-                  <AnimatedWord text="não" delayOffset={10} />
-                  <AnimatedWord text="é" delayOffset={12} />
-                  <AnimatedWord text="só" delayOffset={13} />
+                  <AnimatedWord
+                    text="não"
+                    delayOffset={10}
+                    disableAnimation={shouldReduceMotion}
+                  />
+                  <AnimatedWord
+                    text="é"
+                    delayOffset={12}
+                    disableAnimation={shouldReduceMotion}
+                  />
+                  <AnimatedWord
+                    text="só"
+                    delayOffset={13}
+                    disableAnimation={shouldReduceMotion}
+                  />
                 </div>
                 <div className="title-line">
-                  <AnimatedWord text="estética." delayOffset={18} />
+                  <AnimatedWord
+                    text="estética."
+                    delayOffset={18}
+                    disableAnimation={shouldReduceMotion}
+                  />
                 </div>
               </div>
 
@@ -406,6 +479,7 @@ const Hero = () => {
                     variant="accent"
                     size="sm"
                     delayOffset={index}
+                    disableAnimation={shouldReduceMotion}
                   />
                 ))}
                 <span className="bracket block" aria-hidden="true">
