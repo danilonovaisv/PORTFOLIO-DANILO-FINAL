@@ -1,8 +1,8 @@
 'use client';
 
-import { ArrowRight } from 'lucide-react';
 import type { CSSProperties } from 'react';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { ArrowRight } from 'lucide-react';
 import {
   motion,
   useMotionValueEvent,
@@ -40,7 +40,6 @@ const AnimatedWord = ({
       style={
         disableAnimation
           ? ({
-              // Evita animações excessivas quando o usuário prefere menos movimento
               '--trans-duration': '0ms',
               '--trans-delay-factor': '0ms',
             } as CSSProperties)
@@ -52,11 +51,12 @@ const AnimatedWord = ({
         {letters.map((letter, order) => {
           const occurrence = letterOccurrences.get(letter) ?? 0;
           letterOccurrences.set(letter, occurrence + 1);
+          const letterDelay = order + delayOffset;
           return (
             <span
               key={`${text}-${letter}-${occurrence}`}
               className="animated-letter"
-              style={{ '--i': order + delayOffset } as CSSProperties}
+              style={{ '--i': letterDelay } as CSSProperties}
             >
               {letter === ' ' ? '\u00A0' : letter}
             </span>
@@ -274,10 +274,6 @@ const Hero = () => {
           position: relative;
         }
 
-        .title-line:nth-child(2) {
-          margin-left: -0.3em;
-        }
-
         .sub-text {
           font-family: "Inter", sans-serif;
           font-weight: 500;
@@ -296,7 +292,7 @@ const Hero = () => {
           --trans-duration: 800ms;
           --trans-delay-factor: 50ms;
           --trans-timing: cubic-bezier(0.34, 1.56, 0.64, 1);
-          --font-size: clamp(4rem, 11vw, 9rem);
+          --font-size: clamp(3.5rem, 9.5vw, 7.5rem);
           --text-main: #101010;
           --text-hover: #0057FF;
           font-size: var(--font-size);
@@ -392,7 +388,7 @@ const Hero = () => {
         >
           <motion.div
             style={{ x: textParallaxX, y: textParallaxY }}
-            className="flex flex-col justify-center items-start h-full pt-24 md:pt-0 max-w-4xl gap-8 pointer-events-auto rounded-3xl border border-white/60 bg-white/75 px-6 py-8 md:px-10 md:py-12 shadow-[0_25px_80px_-55px_rgba(0,0,0,0.75)] backdrop-blur-[6px]"
+            className="flex flex-col justify-center items-start h-full pt-24 md:pt-0 max-w-3xl gap-8 lg:gap-10 pointer-events-auto px-2 sm:px-4"
           >
             {/* Título Principal */}
             <motion.h1
