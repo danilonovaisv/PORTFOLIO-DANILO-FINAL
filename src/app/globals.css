@@ -57,4 +57,21 @@ button:hover {
   .text-text-main {
     color: var(--color-text-main);
   }
+  
+  /* Animated letter styles */
+  .animated-letter {
+    display: inline-block;
+    animation: fadeIn 0.5s calc(0.025s * var(--i)) both;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }

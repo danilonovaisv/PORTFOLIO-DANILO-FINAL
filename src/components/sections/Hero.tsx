@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { ArrowRight } from 'lucide-react';
 import type { CSSProperties } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   motion,
   useMotionValueEvent,
@@ -9,7 +10,6 @@ import {
   useSpring,
   useTransform,
 } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
 import { ASSETS } from '../../lib/constants';
 
 type WordVariant = 'default' | 'accent';
@@ -43,6 +43,7 @@ const AnimatedWord = ({
           return (
             <span
               key={`${text}-${letter}-${occurrence}`}
+              className="animated-letter"
               style={{ '--i': order + delayOffset } as CSSProperties}
             >
               {letter === ' ' ? '\u00A0' : letter}
@@ -478,7 +479,7 @@ const Hero = () => {
                   type="button"
                   onClick={handleAudioToggle}
                   className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/85 text-[#0057FF] text-xl shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-                  aria-pressed={!isMuted}
+                  aria-pressed={!isMuted ? 'true' : 'false'}
                   aria-label={
                     isMuted
                       ? 'Ativar áudio do manifesto'
