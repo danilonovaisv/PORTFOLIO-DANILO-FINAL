@@ -1,7 +1,7 @@
-import "intersection-observer";
-import ResizeObserver from "resize-observer-polyfill";
+import 'intersection-observer';
+import ResizeObserver from 'resize-observer-polyfill';
 
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   if (!window.ResizeObserver) {
     window.ResizeObserver = ResizeObserver;
   }

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { FC, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { CATEGORIES } from "../../lib/constants";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import React, { FC, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { CATEGORIES } from '../../lib/constants';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
 const PortfolioShowcaseSection: FC = () => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
@@ -17,13 +17,13 @@ const PortfolioShowcaseSection: FC = () => {
   const getItemAlignment = (index: number) => {
     switch (index) {
       case 0:
-        return "justify-end"; // 1. Direita (Brand)
+        return 'justify-end'; // 1. Direita (Brand)
       case 1:
-        return "justify-center"; // 2. Centro (Videos)
+        return 'justify-center'; // 2. Centro (Videos)
       case 2:
-        return "justify-start"; // 3. Esquerda (Web)
+        return 'justify-start'; // 3. Esquerda (Web)
       default:
-        return "justify-start";
+        return 'justify-start';
     }
   };
 
@@ -35,7 +35,7 @@ const PortfolioShowcaseSection: FC = () => {
           {/* Título Principal */}
           <div className="w-full flex justify-center mb-8">
             <h2 className="text-center text-4xl md:text-6xl font-bold tracking-tight">
-              <span className="text-[#0057FF]">portfólio</span>{" "}
+              <span className="text-[#0057FF]">portfólio</span>{' '}
               <span className="text-[#111111]">showcase</span>
             </h2>
           </div>
@@ -51,7 +51,7 @@ const PortfolioShowcaseSection: FC = () => {
               const alignmentClass = getItemAlignment(index);
 
               // Verifica se é o 3º item para formatação especial
-              const isWebItem = category.id === "websites-webcampaigns-tech";
+              const isWebItem = category.id === 'websites-webcampaigns-tech';
 
               if (isHidden) return null;
 
@@ -60,7 +60,7 @@ const PortfolioShowcaseSection: FC = () => {
                   key={category.id}
                   layout
                   initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
+                  animate={{ opacity: 1, height: 'auto' }}
                   exit={{
                     opacity: 0,
                     height: 0,
@@ -69,7 +69,7 @@ const PortfolioShowcaseSection: FC = () => {
                   onClick={() => handleExpand(category.id)}
                   className={`
                     relative border-b border-neutral-300 group cursor-pointer w-full
-                    ${isExpanded ? "border-none" : ""}
+                    ${isExpanded ? 'border-none' : ''}
                   `}
                   onMouseEnter={() => !isExpanded && setHoveredId(category.id)}
                   onMouseLeave={() => setHoveredId(null)}
@@ -87,13 +87,13 @@ const PortfolioShowcaseSection: FC = () => {
                   <motion.div
                     layout="position"
                     className={`flex w-full transition-all duration-500 ease-out
-                      ${isExpanded ? "py-8 flex-col items-start gap-8" : "py-10 md:py-14 items-center"}
-                      ${!isExpanded ? alignmentClass : ""}
+                      ${isExpanded ? 'py-8 flex-col items-start gap-8' : 'py-10 md:py-14 items-center'}
+                      ${!isExpanded ? alignmentClass : ''}
                     `}
                   >
                     {/* Conteúdo do Item (Texto + Ícone) */}
                     <div
-                      className={`flex items-center relative ${!isExpanded ? "gap-6 md:gap-8" : "gap-6 w-full"}`}
+                      className={`flex items-center relative ${!isExpanded ? 'gap-6 md:gap-8' : 'gap-6 w-full'}`}
                     >
                       {/* Thumbnail Animada (Slide-in on Hover - aparece à esquerda do texto) */}
                       <AnimatePresence>
@@ -138,7 +138,7 @@ const PortfolioShowcaseSection: FC = () => {
                             layout="position"
                             className={`
                               font-light text-[#111111] transition-all duration-300 tracking-tight leading-[1.1] group-hover:text-[#0057FF]
-                              ${isExpanded ? "text-4xl md:text-6xl" : "text-3xl md:text-5xl lg:text-6xl"}
+                              ${isExpanded ? 'text-4xl md:text-6xl' : 'text-3xl md:text-5xl lg:text-6xl'}
                             `}
                           >
                             {category.label}
@@ -151,8 +151,8 @@ const PortfolioShowcaseSection: FC = () => {
                         layout="position"
                         className={`
                           flex items-center justify-center rounded-full bg-[#0057FF] text-white shrink-0 transition-all duration-500 shadow-sm
-                          ${isExpanded ? "w-12 h-12 md:w-16 md:h-16" : "w-8 h-8 md:w-12 md:h-12"}
-                          ${isWebItem && !isExpanded ? "self-end mb-1" : ""} /* Alinha ícone com a última linha no item 3 */
+                          ${isExpanded ? 'w-12 h-12 md:w-16 md:h-16' : 'w-8 h-8 md:w-12 md:h-12'}
+                          ${isWebItem && !isExpanded ? 'self-end mb-1' : ''} /* Alinha ícone com a última linha no item 3 */
                         `}
                       >
                         <motion.div
@@ -160,7 +160,7 @@ const PortfolioShowcaseSection: FC = () => {
                           transition={{ duration: 0.4 }}
                         >
                           <ArrowRight
-                            className={`${isExpanded ? "w-6 h-6" : "w-4 h-4 md:w-6 md:h-6"}`}
+                            className={`${isExpanded ? 'w-6 h-6' : 'w-4 h-4 md:w-6 md:h-6'}`}
                           />
                         </motion.div>
                       </motion.div>
@@ -187,9 +187,9 @@ const PortfolioShowcaseSection: FC = () => {
                         <div className="w-full md:w-1/2 flex flex-col justify-between py-2">
                           <div>
                             <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-10 font-light">
-                              Explorando os limites da criatividade em{" "}
+                              Explorando os limites da criatividade em{' '}
                               <span className="text-[#0057FF] font-medium">
-                                {category.label.replace(",", "").toLowerCase()}
+                                {category.label.replace(',', '').toLowerCase()}
                               </span>
                               . Nossos projetos combinam estratégia e design
                               para criar experiências memoráveis.
@@ -268,7 +268,7 @@ const PortfolioShowcaseSection: FC = () => {
             >
               <span className="group-hover:-translate-x-1 transition-transform">
                 ←
-              </span>{" "}
+              </span>{' '}
               Voltar para a lista
             </button>
           </motion.div>

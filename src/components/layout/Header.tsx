@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   motion,
   useScroll,
   useTransform,
   AnimatePresence,
-} from "framer-motion";
-import { NAV_LINKS, ASSETS } from "../../lib/constants";
-import { Menu, X } from "lucide-react";
+} from 'framer-motion';
+import { NAV_LINKS, ASSETS } from '../../lib/constants';
+import { Menu, X } from 'lucide-react';
 
 const Header: React.FC = () => {
   const { scrollY } = useScroll();
@@ -16,21 +16,21 @@ const Header: React.FC = () => {
   const [logoError, setLogoError] = useState(false);
 
   // Otimização: Transformações diretas de valor sem re-renderizar o componente React
-  const headerHeight = useTransform(scrollY, [0, 50], ["110px", "80px"]);
+  const headerHeight = useTransform(scrollY, [0, 50], ['110px', '80px']);
   const backgroundColor = useTransform(
     scrollY,
     [0, 50],
-    ["rgba(244, 245, 247, 0)", "rgba(255, 255, 255, 0.85)"],
+    ['rgba(244, 245, 247, 0)', 'rgba(255, 255, 255, 0.85)']
   );
   const backdropFilter = useTransform(
     scrollY,
     [0, 50],
-    ["blur(0px)", "blur(12px)"],
+    ['blur(0px)', 'blur(12px)']
   );
   const boxShadow = useTransform(
     scrollY,
     [0, 50],
-    ["0 0 0 rgba(0,0,0,0)", "0 4px 30px rgba(0, 0, 0, 0.05)"],
+    ['0 0 0 rgba(0,0,0,0)', '0 4px 30px rgba(0, 0, 0, 0.05)']
   );
 
   return (
@@ -93,9 +93,9 @@ const Header: React.FC = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, clipPath: "circle(0% at 100% 0%)" }}
-            animate={{ opacity: 1, clipPath: "circle(150% at 100% 0%)" }}
-            exit={{ opacity: 0, clipPath: "circle(0% at 100% 0%)" }}
+            initial={{ opacity: 0, clipPath: 'circle(0% at 100% 0%)' }}
+            animate={{ opacity: 1, clipPath: 'circle(150% at 100% 0%)' }}
+            exit={{ opacity: 0, clipPath: 'circle(0% at 100% 0%)' }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="fixed inset-0 z-[900] bg-[#F4F5F7] pt-32 px-6 md:hidden flex flex-col items-center"
           >

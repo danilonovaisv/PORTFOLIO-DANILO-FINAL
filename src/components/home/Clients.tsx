@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React from "react";
-import { motion } from "framer-motion";
-import { CLIENT_LOGOS } from "../../lib/constants";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { CLIENT_LOGOS } from '../../lib/constants';
 
 const Clients: React.FC = () => {
   return (
@@ -32,7 +32,7 @@ const Clients: React.FC = () => {
                 alt={`Client ${index + 1}`}
                 className="w-full h-auto brightness-0 invert"
                 onError={(e) => {
-                  e.currentTarget.style.display = "none";
+                  e.currentTarget.style.display = 'none';
                   e.currentTarget.parentElement!.innerHTML = `<div class="text-white font-bold text-xl opacity-50">CLIENT ${index + 1}</div>`;
                 }}
               />

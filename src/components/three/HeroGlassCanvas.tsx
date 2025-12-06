@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
-import { Environment, PerspectiveCamera, Lightformer } from "@react-three/drei";
-import TorusDan from "./TorusDan";
+import React, { Suspense } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { Environment, PerspectiveCamera, Lightformer } from '@react-three/drei';
+import TorusDan from './TorusDan';
 
 const HeroGlassCanvas: React.FC<{ className?: string }> = ({ className }) => {
   return (

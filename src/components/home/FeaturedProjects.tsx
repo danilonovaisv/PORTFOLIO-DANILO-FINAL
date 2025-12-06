@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useRef } from "react";
-import { motion } from "framer-motion";
-import { FEATURED_PROJECTS } from "../../lib/constants";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import React, { useRef } from 'react';
+import { motion } from 'framer-motion';
+import { FEATURED_PROJECTS } from '../../lib/constants';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
 const FeaturedProjects: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -22,8 +22,8 @@ const FeaturedProjects: React.FC = () => {
 
             // Define o aspect ratio: Hero é wide, cards normais são portrait
             const aspectRatioClass = isHero
-              ? "aspect-video md:aspect-[2.2/1]"
-              : "aspect-[4/5]";
+              ? 'aspect-video md:aspect-[2.2/1]'
+              : 'aspect-[4/5]';
 
             return (
               <motion.a
@@ -31,13 +31,13 @@ const FeaturedProjects: React.FC = () => {
                 href={`/portfolio/${project.slug}`}
                 initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-10%" }}
+                viewport={{ once: true, margin: '-10%' }}
                 transition={{
                   duration: 0.8,
                   ease: [0.21, 0.47, 0.32, 0.98],
                   delay: index * 0.1,
                 }}
-                className={`group relative flex flex-col w-full ${isHero ? "md:col-span-2" : ""}`}
+                className={`group relative flex flex-col w-full ${isHero ? 'md:col-span-2' : ''}`}
               >
                 {/* Container da Imagem */}
                 <div
@@ -58,7 +58,7 @@ const FeaturedProjects: React.FC = () => {
                     </span>
                     {project.displayCategory !== project.category && (
                       <span className="bg-[#111111]/80 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
-                        {project.displayCategory.split("&")[1] || "Design"}
+                        {project.displayCategory.split('&')[1] || 'Design'}
                       </span>
                     )}
                   </div>

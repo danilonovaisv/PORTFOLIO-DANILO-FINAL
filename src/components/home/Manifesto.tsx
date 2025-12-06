@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
-import { ASSETS } from "../../lib/constants";
-import { AlertCircle } from "lucide-react";
+import React, { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import { ASSETS } from '../../lib/constants';
+import { AlertCircle } from 'lucide-react';
 
 const Manifesto: React.FC = () => {
   const [hasError, setHasError] = useState(false);
@@ -23,8 +23,8 @@ const Manifesto: React.FC = () => {
     };
 
     updateAudioPreference();
-    window.addEventListener("resize", updateAudioPreference);
-    return () => window.removeEventListener("resize", updateAudioPreference);
+    window.addEventListener('resize', updateAudioPreference);
+    return () => window.removeEventListener('resize', updateAudioPreference);
   }, []);
 
   // Lazy-load: só inicia carregamento quando metade da seção está visível
@@ -38,7 +38,7 @@ const Manifesto: React.FC = () => {
           observer.disconnect();
         }
       },
-      { threshold: 0.5 },
+      { threshold: 0.5 }
     );
 
     observer.observe(sectionRef.current);
@@ -71,7 +71,7 @@ const Manifesto: React.FC = () => {
           videoRef.current.pause();
         }
       },
-      { threshold: [0, 1] },
+      { threshold: [0, 1] }
     );
 
     observer.observe(videoEl);
@@ -92,7 +92,7 @@ const Manifesto: React.FC = () => {
           videoRef.current.pause();
         }
       },
-      { threshold: 0 },
+      { threshold: 0 }
     );
 
     observer.observe(sectionEl);
@@ -102,14 +102,15 @@ const Manifesto: React.FC = () => {
   // Pausa/muta quando a aba não está visível
   useEffect(() => {
     const handleVisibility = () => {
-      if (document.visibilityState === "hidden" && videoRef.current) {
+      if (document.visibilityState === 'hidden' && videoRef.current) {
         videoRef.current.muted = true;
         videoRef.current.pause();
       }
     };
 
-    document.addEventListener("visibilitychange", handleVisibility);
-    return () => document.removeEventListener("visibilitychange", handleVisibility);
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () =>
+      document.removeEventListener('visibilitychange', handleVisibility);
   }, []);
 
   return (
@@ -141,7 +142,7 @@ const Manifesto: React.FC = () => {
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
           className="relative w-full overflow-hidden rounded-2xl bg-gray-100 shadow-lg"
         >
           {!hasError ? (

@@ -1,11 +1,11 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --color-surface-main: #f4f5f7;
   --color-text-main: #111111;
   --color-accent-blue: #0057ff;
 
-  --font-sans: "Inter", sans-serif;
+  --font-sans: 'Inter', sans-serif;
 }
 
 /* Custom Utilities if needed */

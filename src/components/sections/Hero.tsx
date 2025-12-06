@@ -1,40 +1,42 @@
-"use client";
+'use client';
 
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState } from 'react';
 import {
   motion,
   useScroll,
   useTransform,
   useMotionValueEvent,
-} from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { ASSETS } from "../../lib/constants";
+  useSpring,
+} from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+import { ASSETS } from '../../lib/constants';
 
-// Reference Animation Logic adapted for React
-// Uses the specific linear() easing from the provided CSS reference
-const RefAnimatedText: React.FC<{
+type WordVariant = 'default' | 'accent';
+type WordSize = 'lg' | 'sm';
+
+const AnimatedWord: React.FC<{
   text: string;
-  className?: string;
-  delayStart?: number; // offset index for stagger
-}> = ({ text, className, delayStart = 0 }) => {
-  const letters = text.split("");
+  variant?: WordVariant;
+  size?: WordSize;
+  delayOffset?: number;
+}> = ({ text, variant = 'default', size = 'lg', delayOffset = 0 }) => {
+  const letters = text.split('');
 
   return (
-    <p
-      className={`ref-word-anim flex overflow-hidden leading-[1.15] ${className}`}
+    <span
+      className={`word ${variant === 'accent' ? 'blue-start' : ''} ${size === 'sm' ? 'small' : ''}`}
       aria-label={text}
     >
-      {letters.map((letter, i) => (
+      {letters.map((letter, index) => (
         <span
-          key={i}
+          key={`${letter}-${index}`}
           aria-hidden="true"
-          style={{ "--i": i + delayStart } as React.CSSProperties}
-          className="block"
+          style={{ '--i': index + delayOffset } as React.CSSProperties}
         >
-          {letter === " " ? "\u00A0" : letter}
+          {letter === ' ' ? '\u00A0' : letter}
         </span>
       ))}
-    </p>
+    </span>
   );
 };
 
@@ -42,6 +44,7 @@ const Hero: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [parallaxEnabled, setParallaxEnabled] = useState(false);
 
   // Trigger animation on mount/view
   useEffect(() => {
@@ -50,14 +53,24 @@ const Hero: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const updateDeviceMode = () => {
+      setParallaxEnabled(window.innerWidth >= 1024);
+    };
+
+    updateDeviceMode();
+    window.addEventListener('resize', updateDeviceMode);
+    return () => window.removeEventListener('resize', updateDeviceMode);
+  }, []);
+
   // Control Scroll for timeline animation
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start start", "end end"],
+    offset: ['start start', 'end end'],
   });
 
   // Monitor scroll for video audio
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
     if (videoRef.current) {
       if (latest > 0.01) {
         videoRef.current.muted = false;
@@ -74,9 +87,50 @@ const Hero: React.FC = () => {
 
   // Video transitions
   const videoScale = useTransform(scrollYProgress, [0, 0.25], [0.25, 1]);
-  const videoX = useTransform(scrollYProgress, [0, 0.25], ["35%", "0%"]);
-  const videoY = useTransform(scrollYProgress, [0, 0.25], ["30%", "0%"]);
+  const videoX = useTransform(scrollYProgress, [0, 0.25], ['35%', '0%']);
+  const videoY = useTransform(scrollYProgress, [0, 0.25], ['30%', '0%']);
   const videoRadius = useTransform(scrollYProgress, [0, 0.2], [12, 0]);
+
+  // Subtle mouse parallax (desktop only)
+  const textParallaxX = useSpring(0, { stiffness: 110, damping: 18 });
+  const textParallaxY = useSpring(0, { stiffness: 110, damping: 18 });
+  const videoParallaxX = useSpring(0, { stiffness: 110, damping: 18 });
+  const videoParallaxY = useSpring(0, { stiffness: 110, damping: 18 });
+
+  const handleParallax = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (!parallaxEnabled) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const relativeX = (event.clientX - rect.left) / rect.width - 0.5;
+    const relativeY = (event.clientY - rect.top) / rect.height - 0.5;
+
+    const maxX = 20;
+    const maxY = 14;
+
+    textParallaxX.set(relativeX * maxX);
+    textParallaxY.set(relativeY * maxY);
+    videoParallaxX.set(relativeX * -maxX * 0.6);
+    videoParallaxY.set(relativeY * -maxY * 0.6);
+  };
+
+  const resetParallax = () => {
+    textParallaxX.set(0);
+    textParallaxY.set(0);
+    videoParallaxX.set(0);
+    videoParallaxY.set(0);
+  };
+
+  const titleFade = {
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0 },
+  };
+  const subTitleFade = {
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0 },
+  };
+  const ctaFade = {
+    initial: { opacity: 0, y: 30 },
+    animate: { opacity: 1, y: 0 },
+  };
 
   return (
     <section
@@ -84,34 +138,110 @@ const Hero: React.FC = () => {
       ref={sectionRef}
       className="relative h-[450vh] w-full bg-[#F4F5F7]"
     >
-      {/* Inject specific CSS for the reference animation */}
       <style>{`
-        .ref-word-anim {
-          --trans-duration: 3000ms; /* Updated to match reference exactly */
-          --trans-delay-factor: 20ms; /* Updated to match reference exactly */
-          /* The specific linear easing from the reference */
-          --trans-timing-function: linear(0, 0.011 0.6%, 0.041 1.2%, 0.173 2.6%, 0.894 7.4%, 1.128 9.3%, 1.271 11.1%, 1.311 12%, 1.333 13%, 1.328 14.4%, 1.286 15.9%, 1.031 21%, 0.95 23%, 0.907 24.7%, 0.888 26.5%, 0.89 27.9%, 0.904 29.4%, 1.034 42.5%, 0.997 49.3%, 0.987 53.3%, 1.004 66.5%, 1);
-        }
-        
-        .ref-word-anim span {
-          transform: translateY(110%);
-          opacity: 0;
-          transition: transform var(--trans-duration) var(--trans-timing-function), opacity var(--trans-duration) var(--trans-timing-function);
-          transition-delay: calc(var(--i) * var(--trans-delay-factor));
+        .main-title {
+          font-family: "Inter", sans-serif;
+          font-weight: 800;
+          letter-spacing: -0.03em;
+          line-height: 0.9;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
         }
 
-        .hero-text-visible .ref-word-anim span {
-          transform: translateY(0);
-          opacity: 1;
+        .title-line {
+          display: flex;
+          gap: 1rem;
+          flex-wrap: wrap;
+          position: relative;
+        }
+
+        .title-line:nth-child(2) {
+          margin-left: -0.3em;
+        }
+
+        .sub-text {
+          font-family: "Inter", sans-serif;
+          font-weight: 500;
+          font-size: clamp(1rem, 2vw, 1.3rem);
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 0.35rem;
+          color: #0057FF;
+          margin-top: 0.5rem;
+        }
+
+        .word {
+          --translate-distance: -1lh;
+          --trans-duration: 800ms;
+          --trans-delay-factor: 50ms;
+          --trans-timing: cubic-bezier(0.34, 1.56, 0.64, 1);
+          --font-size: clamp(4rem, 11vw, 9rem);
+          --text-main: #101010;
+          --text-hover: #0057FF;
+          font-size: var(--font-size);
+          color: var(--text-main);
+          text-decoration: none;
+          margin: 0;
+          display: flex;
+          overflow: hidden;
+          cursor: pointer;
+          line-height: 1;
+          font-weight: 800;
+        }
+
+        .word.blue-start {
+          --text-main: #0057FF;
+          --text-hover: #101010;
+        }
+
+        .word.small {
+          --font-size: inherit;
+          line-height: 1.4;
+          font-weight: 500;
+          letter-spacing: normal;
+        }
+
+        .word > span {
+          display: inline-block;
+          translate: 0 var(--translate-distance);
+          text-shadow: 0 1lh var(--text-hover);
+          transition: translate var(--trans-duration) var(--trans-timing)
+            calc(var(--i) * var(--trans-delay-factor));
+        }
+
+        .hero-text-visible .word > span {
+          translate: 0 0;
+        }
+
+        .word:hover > span {
+          translate: 0 var(--translate-distance);
+        }
+
+        .bracket {
+          color: #0057FF;
+          font-weight: 700;
+          margin-right: 2px;
+        }
+
+        .bracket:last-child {
+          margin-left: 2px;
+          margin-right: 0;
         }
       `}</style>
 
       {/* Container Sticky */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+      <div
+        className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center"
+        onMouseMove={handleParallax}
+        onMouseLeave={resetParallax}
+      >
         {/* 1. TEXT CONTENT LAYER */}
         <motion.div
           style={{ opacity: contentOpacity, scale: contentScale, y: contentY }}
-          className={`absolute inset-0 container mx-auto px-6 md:px-12 lg:px-16 h-full z-10 pointer-events-none ${isVisible ? "hero-text-visible" : ""}`}
+          className={`absolute inset-0 container mx-auto px-6 md:px-12 lg:px-16 h-full z-10 pointer-events-none ${isVisible ? 'hero-text-visible' : ''}`}
         >
           {/* TAG LATERAL: BRAND AWARENESS */}
           <motion.div
@@ -125,69 +255,86 @@ const Hero: React.FC = () => {
             </span>
           </motion.div>
 
-          <div className="flex flex-col justify-center items-start h-full pt-24 md:pt-0 max-w-4xl">
+          <motion.div
+            style={{ x: textParallaxX, y: textParallaxY }}
+            className="flex flex-col justify-center items-start h-full pt-24 md:pt-0 max-w-4xl gap-8"
+          >
             {/* Título Principal */}
-            <div className="text-[4.5rem] md:text-7xl lg:text-[7.5rem] font-extrabold tracking-[-0.04em] mb-6 md:mb-10 font-sans flex flex-col items-start gap-1">
-              {/* Animação unificada (Mobile & Desktop) usando a referência CSS */}
-              <div className="flex flex-col items-start gap-2">
-                <RefAnimatedText
-                  text="Design,"
-                  className="text-[#0057FF]"
-                  delayStart={0}
-                />
-                <RefAnimatedText
-                  text="não é só"
-                  className="text-[#111111]"
-                  delayStart={7}
-                />
-                <RefAnimatedText
-                  text="estética."
-                  className="text-[#111111]"
-                  delayStart={15}
-                />
+            <motion.div
+              initial={titleFade.initial}
+              animate={isVisible ? titleFade.animate : titleFade.initial}
+              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
+              className="main-title"
+            >
+              <div className="title-line">
+                <AnimatedWord text="Design," variant="accent" delayOffset={0} />
               </div>
-            </div>
+              <div className="title-line">
+                <AnimatedWord text="não" delayOffset={10} />
+                <AnimatedWord text="é" delayOffset={12} />
+                <AnimatedWord text="só" delayOffset={13} />
+              </div>
+              <div className="title-line">
+                <AnimatedWord text="estética." delayOffset={18} />
+              </div>
+            </motion.div>
 
             {/* Subtítulo */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1.2, ease: "easeOut", delay: 1.8 }}
-              className="mb-10 md:mb-14 relative"
+              initial={subTitleFade.initial}
+              animate={isVisible ? subTitleFade.animate : subTitleFade.initial}
+              transition={{ duration: 0.55, ease: 'easeOut', delay: 0.35 }}
+              className="relative"
             >
-              <p className="text-[#0057FF] text-lg md:text-xl font-medium tracking-wide bg-white/5 backdrop-blur-sm rounded-lg pr-4 inline-block">
-                [ É intenção, é estratégia, é experiência. ]
-              </p>
+              <div className="bg-white/80 backdrop-blur-lg rounded-full px-6 py-3 flex flex-wrap items-center gap-2 sub-text">
+                <span className="bracket" aria-hidden="true">
+                  [
+                </span>
+                {[
+                  'É',
+                  'intenção,',
+                  'é',
+                  'estratégia,',
+                  'é',
+                  'experiência.',
+                ].map((word, index) => (
+                  <AnimatedWord
+                    key={word + index}
+                    text={word}
+                    variant="accent"
+                    size="sm"
+                    delayOffset={index}
+                  />
+                ))}
+                <span className="bracket" aria-hidden="true">
+                  ]
+                </span>
+              </div>
             </motion.div>
 
             {/* CTA Button */}
             <motion.div
-              className="pointer-events-auto" // Re-enable clicks
+              initial={ctaFade.initial}
+              animate={isVisible ? ctaFade.animate : ctaFade.initial}
+              transition={{ duration: 0.55, ease: 'easeOut', delay: 0.5 }}
+              className="pointer-events-auto"
             >
               <motion.a
                 href="/sobre"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.8,
-                  ease: [0.22, 1, 0.36, 1],
-                  delay: 2.0,
-                }}
                 whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 10px 30px -10px rgba(0, 87, 255, 0.5)",
+                  scale: 1.04,
+                  boxShadow: '0 20px 45px -25px rgba(0, 87, 255, 0.7)',
                 }}
-                whileTap={{ scale: 0.98 }}
-                className="group bg-[#0057FF] text-white rounded-full pl-8 pr-6 py-4 flex items-center gap-3 font-semibold text-base md:text-lg shadow-xl shadow-[#0057FF]/20 transition-all"
+                whileTap={{ scale: 0.97 }}
+                className="group inline-flex items-center gap-3 rounded-full bg-[#0057FF] px-10 py-5 text-white text-base md:text-lg font-semibold shadow-lg transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
               >
                 get to know me better
-                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors">
-                  <ArrowRight className="w-4 h-4 text-white" />
+                <span className="flex items-center justify-center w-8 h-8 rounded-full bg-white/25 group-hover:bg-white/35 transition-colors">
+                  <ArrowRight className="w-4 h-4" />
                 </span>
               </motion.a>
             </motion.div>
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* 2. VIDEO LAYER (Foreground) */}
@@ -200,7 +347,10 @@ const Hero: React.FC = () => {
           }}
           className="absolute z-40 w-full h-full flex items-center justify-center overflow-hidden shadow-2xl origin-center bg-black pointer-events-none"
         >
-          <div className="relative w-full h-full block group pointer-events-auto">
+          <motion.div
+            style={{ x: videoParallaxX, y: videoParallaxY }}
+            className="relative w-full h-full block group pointer-events-auto"
+          >
             <video
               ref={videoRef}
               src={ASSETS.videoManifesto}
@@ -210,7 +360,7 @@ const Hero: React.FC = () => {
               playsInline
               className="w-full h-full object-cover transition-opacity duration-500"
             />
-          </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>

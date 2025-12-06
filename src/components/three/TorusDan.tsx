@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React, { useRef } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
-import { MeshTransmissionMaterial, Float } from "@react-three/drei";
-import * as THREE from "three";
+import React, { useRef } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
+import { MeshTransmissionMaterial, Float } from '@react-three/drei';
+import * as THREE from 'three';
 
 const TorusDan = () => {
   const { viewport } = useThree();
@@ -20,13 +20,13 @@ const TorusDan = () => {
       meshRef.current.rotation.x = THREE.MathUtils.lerp(
         meshRef.current.rotation.x,
         y * 0.2, // Sensitivity
-        0.05, // Smoothness
+        0.05 // Smoothness
       );
 
       meshRef.current.rotation.y = THREE.MathUtils.lerp(
         meshRef.current.rotation.y,
         x * 0.2, // Sensitivity
-        0.05, // Smoothness
+        0.05 // Smoothness
       );
     }
   });
@@ -67,7 +67,7 @@ const TorusDan = () => {
             attenuationDistance={0.5}
             attenuationColor="#ffffff"
             color="#ffffff"
-            background={new THREE.Color("#F4F5F7")}
+            background={new THREE.Color('#F4F5F7')}
           />
         </mesh>
       </Float>

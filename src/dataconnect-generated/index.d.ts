@@ -1,4 +1,4 @@
-import { ConnectorConfig } from "firebase/data-connect";
+import { ConnectorConfig } from 'firebase/data-connect';
 
 export const connectorConfig: ConnectorConfig;
 
@@ -9,26 +9,26 @@ export type DateString = string;
 
 export interface Image_Key {
   id: UUIDString;
-  __typename?: "Image_Key";
+  __typename?: 'Image_Key';
 }
 
 export interface ProjectSkill_Key {
   projectId: UUIDString;
   skillId: UUIDString;
-  __typename?: "ProjectSkill_Key";
+  __typename?: 'ProjectSkill_Key';
 }
 
 export interface Project_Key {
   id: UUIDString;
-  __typename?: "Project_Key";
+  __typename?: 'Project_Key';
 }
 
 export interface Skill_Key {
   id: UUIDString;
-  __typename?: "Skill_Key";
+  __typename?: 'Skill_Key';
 }
 
 export interface User_Key {
   id: UUIDString;
-  __typename?: "User_Key";
+  __typename?: 'User_Key';
 }

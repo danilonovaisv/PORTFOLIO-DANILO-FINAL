@@ -6,12 +6,12 @@ Source: https://sketchfab.com/3d-models/color-orb-4d5882be5eaa4214aa394ae96563f1
 Title: Color orb
 */
 
-import * as THREE from "three";
-import { createContext, useContext, useMemo } from "react";
-import type { ComponentProps, ComponentType, ReactNode } from "react";
-import { Merged, useGLTF } from "@react-three/drei";
-import type { ThreeElements } from "@react-three/fiber";
-import { GLTF } from "three-stdlib";
+import * as THREE from 'three';
+import { createContext, useContext, useMemo } from 'react';
+import type { ComponentProps, ComponentType, ReactNode } from 'react';
+import { Merged, useGLTF } from '@react-three/drei';
+import type { ThreeElements } from '@react-three/fiber';
+import { GLTF } from 'three-stdlib';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -33,17 +33,17 @@ const InstancesContext = createContext<InstancesContextValue | null>(null);
 
 type InstancesProps = {
   children: ReactNode;
-} & Omit<ComponentProps<typeof Merged>, "children" | "meshes">;
+} & Omit<ComponentProps<typeof Merged>, 'children' | 'meshes'>;
 
 export function Instances({ children, ...props }: InstancesProps) {
-  const gltf = useGLTF("/media/color_orb.glb") as unknown as GLTFResult;
+  const gltf = useGLTF('/media/color_orb.glb') as unknown as GLTFResult;
   const { nodes } = gltf;
   const meshes = useMemo(
     () => ({
       Object: nodes.Object_4,
       Object1: nodes.Object_6,
     }),
-    [nodes],
+    [nodes]
   );
   return (
     <Merged meshes={meshes} {...props}>
@@ -58,7 +58,7 @@ export function Instances({ children, ...props }: InstancesProps) {
   );
 }
 
-type GroupProps = ThreeElements["group"];
+type GroupProps = ThreeElements['group'];
 
 export function Model(props: GroupProps) {
   const instances = useContext(InstancesContext);
@@ -86,4 +86,4 @@ export function Model(props: GroupProps) {
   );
 }
 
-useGLTF.preload("/media/color_orb.glb");
+useGLTF.preload('/media/color_orb.glb');

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import React from "react";
-import { motion } from "framer-motion";
-import { CONTACT_INFO, SOCIALS } from "../../lib/constants";
-import { ArrowRight } from "lucide-react";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { CONTACT_INFO, SOCIALS } from '../../lib/constants';
+import { ArrowRight } from 'lucide-react';
 
 const Contact: React.FC = () => {
   return (
@@ -64,7 +64,7 @@ const Contact: React.FC = () => {
               method="POST"
               className="space-y-6"
             >
-              <input type="text" name="_honey" style={{ display: "none" }} />
+              <input type="text" name="_honey" style={{ display: 'none' }} />
               <input type="hidden" name="_captcha" value="false" />
 
               <div>

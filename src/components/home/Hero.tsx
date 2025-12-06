@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useRef } from "react";
+import { useRef } from 'react';
 import {
   motion,
   useMotionValueEvent,
   useScroll,
   useTransform,
-} from "framer-motion";
-import type { Variants } from "framer-motion";
-import HeroGlassCanvas from "../three/HeroGlassCanvas";
-import { ArrowRight } from "lucide-react";
-import { ASSETS } from "../../lib/constants";
+} from 'framer-motion';
+import type { Variants } from 'framer-motion';
+import HeroGlassCanvas from '../three/HeroGlassCanvas';
+import { ArrowRight } from 'lucide-react';
+import { ASSETS } from '../../lib/constants';
 
 // Componente para animar texto letra por letra (efeito "digitação/reveal")
 type AnimatedTextLineProps = {
@@ -24,10 +24,10 @@ const AnimatedTextLine = ({
   text,
   className,
   delay = 0,
-  colorClass = "text-[#111111]",
+  colorClass = 'text-[#111111]',
 }: AnimatedTextLineProps) => {
   // Separa o texto em caracteres
-  const letters = text.split("");
+  const letters = text.split('');
 
   const container: Variants = {
     hidden: { opacity: 0 },
@@ -42,7 +42,7 @@ const AnimatedTextLine = ({
 
   const child: Variants = {
     hidden: {
-      y: "110%", // Garante que saia totalmente da máscara
+      y: '110%', // Garante que saia totalmente da máscara
       opacity: 0,
     },
     visible: {
@@ -67,7 +67,7 @@ const AnimatedTextLine = ({
           variants={child}
           className={`block ${colorClass} leading-[0.9]`}
         >
-          {letter === " " ? "\u00A0" : letter}
+          {letter === ' ' ? '\u00A0' : letter}
         </motion.span>
       ))}
     </motion.div>
@@ -81,11 +81,11 @@ const Hero = () => {
   // Controle de Scroll para a animação da timeline
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start start", "end end"],
+    offset: ['start start', 'end end'],
   });
 
   // Monitora o progresso do scroll para controlar o áudio do vídeo
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
     if (videoRef.current) {
       if (latest > 0.01) {
         videoRef.current.muted = false;
@@ -106,8 +106,8 @@ const Hero = () => {
 
   // Video transitions
   const videoScale = useTransform(scrollYProgress, [0, 0.25], [0.25, 1]);
-  const videoX = useTransform(scrollYProgress, [0, 0.25], ["35%", "0%"]);
-  const videoY = useTransform(scrollYProgress, [0, 0.25], ["30%", "0%"]);
+  const videoX = useTransform(scrollYProgress, [0, 0.25], ['35%', '0%']);
+  const videoY = useTransform(scrollYProgress, [0, 0.25], ['30%', '0%']);
   const videoRadius = useTransform(scrollYProgress, [0, 0.2], [12, 0]);
 
   return (
@@ -200,7 +200,7 @@ const Hero = () => {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: "easeOut", delay: 1.2 }}
+              transition={{ duration: 1.2, ease: 'easeOut', delay: 1.2 }}
               className="mb-10 md:mb-14 relative"
             >
               <p className="text-[#0057FF] text-lg md:text-xl font-medium tracking-wide bg-white/5 backdrop-blur-sm rounded-lg pr-4 inline-block">
@@ -224,7 +224,7 @@ const Hero = () => {
                 }}
                 whileHover={{
                   scale: 1.05,
-                  boxShadow: "0 10px 30px -10px rgba(0, 87, 255, 0.5)",
+                  boxShadow: '0 10px 30px -10px rgba(0, 87, 255, 0.5)',
                 }}
                 whileTap={{ scale: 0.98 }}
                 className="group bg-[#0057FF] text-white rounded-full pl-8 pr-6 py-4 flex items-center gap-3 font-semibold text-base md:text-lg shadow-xl shadow-[#0057FF]/20 transition-all"

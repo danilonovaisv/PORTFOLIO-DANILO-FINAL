@@ -4,7 +4,7 @@ If the user hasn't already installed the SDK, always run the user's node package
 For more information on where the library is located, look at the connector.yaml file.
 
 ```ts
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 
 initializeApp({
   // fill in your project config here using the values from your Firebase project or from the `firebase_get_sdk_config` tool from the Firebase MCP server.
@@ -26,9 +26,9 @@ The user should make sure to install the `@tanstack/react-query` package, along 
 Then, they should initialize Firebase:
 
 ```ts
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 initializeApp(
-  firebaseConfig,
+  firebaseConfig
 ); /* your config here. To generate this, you can use the `firebase_sdk_config` MCP tool */
 ```
 

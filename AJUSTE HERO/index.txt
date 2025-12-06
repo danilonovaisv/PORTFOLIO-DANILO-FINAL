@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <title>Hero Section - Final Inter Adjusted</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* --- CONFIGURAÇÕES GERAIS --- */
+    :root {
+      --color-blue: #0057FF;
+      --color-black: #101010;
+      --bg-color: #F4F4F4;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 10vw; /* Margem lateral da página */
+      margin: 0;
+      user-select: none;
+    }
+
+    /* Classe utilitária para fonte Inter */
+    .inter-style {
+      font-family: "Inter", sans-serif;
+      font-optical-sizing: auto;
+      font-style: normal;
+    }
+
+    /* Contentor Principal */
+    .hero-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start; /* Alinha tudo à ESQUERDA */
+      text-align: left;
+      gap: 1rem; /* Espaço entre o bloco de título e o subtítulo */
+    }
+
+    /* --- ESTILO DO TÍTULO (AGORA INTER) --- */
+    .main-title {
+      font-family: "Inter", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 800; /* ExtraBold para parecer com a imagem HERO.jpg */
+      letter-spacing: -0.03em; /* Letras mais juntas para estilo "Poster" */
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      
+      /* Aumentei ligeiramente para 1.0 para evitar colisão do 'g' com acentos */
+      line-height: 0.9;
+    }
+
+    .title-line {
+      display: flex;
+      gap: 1rem; /* Espaço entre palavras */
+      flex-wrap: wrap;
+      position: relative; /* Necessário para o z-index funcionar */
+    }
+
+    /* --- SOLUÇÃO PARA A PERNA DO "G" --- */
+    /* Fazemos a linha de cima ficar visualmente "sobre" a linha de baixo */
+    .title-line:nth-child(1) { z-index: 1; }
+    .title-line:nth-child(9) { z-index: 6; margin-top: 2.05 em; /* Pequeno ajuste para aproximar se necessário */ }
+    .title-line:nth-child(3) { z-index: 1; }
+
+
+    /* --- ESTILO DO SUBTÍTULO --- */
+    .sub-text {
+      font-family: "Inter", sans-serif;
+      font-weight: 500; /* Peso médio para leitura */
+      font-size: clamp(1.9rem, 1.1vw, 1.1rem);
+      
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      
+      color: var(--color-blue);
+      
+      /* Alinhamento visual: Garante que começa flush com o título */
+      margin-top: 0.5rem;
+      padding-left: 0.2rem; /* Ajuste fino para alinhar visualmente com a curva das letras grandes acima */
+    }
+
+    /* --- ANIMAÇÃO (MANTIDA) --- */
+    .word {
+      --translate-distance: -1lh;
+      --trans-duration: 800ms;
+      --trans-delay-factor: 50ms;
+      --trans-timing: cubic-bezier(0.34, 1.56, 0.64, 1);
+      
+      --font-size: clamp(4rem, 11vw, 9rem);
+      --text-main: var(--color-black);
+      --text-hover: var(--color-blue);
+
+      font-size: var(--font-size);
+      color: var(--text-main);
+      text-decoration: none;
+      margin: 0;
+      display: flex;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .word.blue-start {
+      --text-main: var(--color-blue);
+      --text-hover: var(--color-black);
+    }
+
+    .word.small {
+      --font-size: inherit;
+      line-height: 1.4;
+      font-family: inherit;
+      letter-spacing: normal;
+    }
+
+    .word > span {
+      --i: sibling-index();
+      --translate: calc(var(--translate-distance) * 2);
+      --trans-delay: calc(var(--i) * var(--trans-delay-factor));
+      text-shadow: 0 1lh var(--text-hover);
+      display: inline-block;
+      transition: translate var(--trans-duration) var(--trans-timing) var(--trans-delay);
+    }
+
+    .word:hover > span {
+      translate: 0 var(--translate-distance);
+    }
+
+    .bracket {
+      color: var(--color-blue);
+      font-weight: 700;
+      margin-right: 2px;
+    }
+    .bracket:last-child {
+      margin-left: 2px;
+      margin-right: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="hero-wrapper">
+    
+    <div class="main-title">
+      
+      <div class="title-line">
+        <a class="word blue-start" aria-label="Design,">
+          <span aria-hidden="true">D</span>
+          <span aria-hidden="true">e</span>
+          <span aria-hidden="true">s</span>
+          <span aria-hidden="true">i</span>
+          <span aria-hidden="true">g</span>
+          <span aria-hidden="true">n</span>
+          <span aria-hidden="true">,</span>
+        </a>
+      </div>
+
+      <div class="title-line">
+        <a class="word" aria-label="não">
+          <span aria-hidden="true">n</span>
+          <span aria-hidden="true">ã</span>
+          <span aria-hidden="true">o</span>
+        </a>
+        <a class="word" aria-label="é">
+          <span aria-hidden="true">é</span>
+        </a>
+        <a class="word" aria-label="só">
+          <span aria-hidden="true">s</span>
+          <span aria-hidden="true">ó</span>
+        </a>
+      </div>
+
+      <div class="title-line">
+        <a class="word" aria-label="estética.">
+          <span aria-hidden="true">e</span>
+          <span aria-hidden="true">s</span>
+          <span aria-hidden="true">t</span>
+          <span aria-hidden="true">é</span>
+          <span aria-hidden="true">t</span>
+          <span aria-hidden="true">i</span>
+          <span aria-hidden="true">c</span>
+          <span aria-hidden="true">a</span>
+          <span aria-hidden="true">.</span>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="sub-text">
+      <span class="bracket">[</span>
+      
+      <a class="word small blue-start" aria-label="É">
+        <span aria-hidden="true">É</span>
+      </a>
+      <a class="word small blue-start" aria-label="intenção,">
+        <span aria-hidden="true">i</span>
+        <span aria-hidden="true">n</span>
+        <span aria-hidden="true">t</span>
+        <span aria-hidden="true">e</span>
+        <span aria-hidden="true">n</span>
+        <span aria-hidden="true">ç</span>
+        <span aria-hidden="true">ã</span>
+        <span aria-hidden="true">o</span>
+        <span aria-hidden="true">,</span>
+      </a>
+
+      <a class="word small blue-start" aria-label="é">
+        <span aria-hidden="true">é</span>
+      </a>
+      <a class="word small blue-start" aria-label="estratégia,">
+        <span aria-hidden="true">e</span>
+        <span aria-hidden="true">s</span>
+        <span aria-hidden="true">t</span>
+        <span aria-hidden="true">r</span>
+        <span aria-hidden="true">a</span>
+        <span aria-hidden="true">t</span>
+        <span aria-hidden="true">é</span>
+        <span aria-hidden="true">g</span>
+        <span aria-hidden="true">i</span>
+        <span aria-hidden="true">a</span>
+        <span aria-hidden="true">,</span>
+      </a>
+
+      <a class="word small blue-start" aria-label="é">
+        <span aria-hidden="true">é</span>
+      </a>
+      <a class="word small blue-start" aria-label="experiência.">
+        <span aria-hidden="true">e</span>
+        <span aria-hidden="true">x</span>
+        <span aria-hidden="true">p</span>
+        <span aria-hidden="true">e</span>
+        <span aria-hidden="true">r</span>
+        <span aria-hidden="true">i</span>
+        <span aria-hidden="true">ê</span>
+        <span aria-hidden="true">n</span>
+        <span aria-hidden="true">c</span>
+        <span aria-hidden="true">i</span>
+        <span aria-hidden="true">a</span>
+        <span aria-hidden="true">.</span>
+      </a>
+
+      <span class="bracket">]</span>
+    </div>
+
+  </div>
+
+</body>
+</html>

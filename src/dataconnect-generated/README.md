@@ -23,8 +23,8 @@ You can use this generated SDK by importing from the package `@dataconnect/gener
 You can also follow the instructions from the [Data Connect documentation](https://firebase.google.com/docs/data-connect/web-sdk#set-client).
 
 ```typescript
-import { getDataConnect } from "firebase/data-connect";
-import { connectorConfig } from "@dataconnect/generated";
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig } from '@dataconnect/generated';
 
 const dataConnect = getDataConnect(connectorConfig);
 ```
@@ -40,11 +40,11 @@ You can also follow the emulator instructions from the [Data Connect documentati
 import {
   connectDataConnectEmulator,
   getDataConnect,
-} from "firebase/data-connect";
-import { connectorConfig } from "@dataconnect/generated";
+} from 'firebase/data-connect';
+import { connectorConfig } from '@dataconnect/generated';
 
 const dataConnect = getDataConnect(connectorConfig);
-connectDataConnectEmulator(dataConnect, "localhost", 9399);
+connectDataConnectEmulator(dataConnect, 'localhost', 9399);
 ```
 
 After it's initialized, you can call your Data Connect [queries](#queries) and [mutations](#mutations) from your generated SDK.

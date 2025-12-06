@@ -46,7 +46,7 @@ You can also follow the installation instructions from the [Data Connect documen
 In order to use the React generated SDK in your application, you must wrap your application's component tree in a `QueryClientProvider` component from TanStack React Query. None of your generated React SDK hooks will work without this provider.
 
 ```javascript
-import { QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from '@tanstack/react-query';
 
 // Create a TanStack Query client instance
 const queryClient = new QueryClient();
@@ -70,8 +70,8 @@ A connector is a collection of Queries and Mutations. One SDK is generated for e
 You can find more information about connectors in the [Data Connect documentation](https://firebase.google.com/docs/data-connect#how-does).
 
 ```javascript
-import { getDataConnect } from "firebase/data-connect";
-import { connectorConfig } from "@dataconnect/generated";
+import { getDataConnect } from 'firebase/data-connect';
+import { connectorConfig } from '@dataconnect/generated';
 
 const dataConnect = getDataConnect(connectorConfig);
 ```
@@ -87,11 +87,11 @@ You can also follow the emulator instructions from the [Data Connect documentati
 import {
   connectDataConnectEmulator,
   getDataConnect,
-} from "firebase/data-connect";
-import { connectorConfig } from "@dataconnect/generated";
+} from 'firebase/data-connect';
+import { connectorConfig } from '@dataconnect/generated';
 
 const dataConnect = getDataConnect(connectorConfig);
-connectDataConnectEmulator(dataConnect, "localhost", 9399);
+connectDataConnectEmulator(dataConnect, 'localhost', 9399);
 ```
 
 After it's initialized, you can call your Data Connect [queries](#queries) and [mutations](#mutations) using the hooks provided from your generated React SDK.
