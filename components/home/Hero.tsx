@@ -146,52 +146,60 @@ const Hero = () => {
 
           <div className="flex flex-col justify-center items-start h-full pt-24 md:pt-0 max-w-4xl">
             {/* Título Principal */}
-            <div className="text-[4.5rem] md:text-7xl lg:text-[7.5rem] font-extrabold tracking-[-0.04em] mb-6 md:mb-10 font-sans flex flex-col items-start gap-1">
-              {/* Mobile: Fade In Simples */}
-              <div className="md:hidden flex flex-col leading-[0.9]">
-                <motion.span
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="text-[#0057FF]"
-                >
-                  Design,
-                </motion.span>
-                <motion.span
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="text-[#111111]"
-                >
-                  não é só
-                </motion.span>
-                <motion.span
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="text-[#111111]"
-                >
-                  estética.
-                </motion.span>
-              </div>
+            <div className="relative w-full max-w-4xl mb-6 md:mb-10">
+              <h1 className="sr-only">
+                Design, não é só estética. É intenção, é estratégia, é experiência.
+              </h1>
+              <div
+                aria-hidden="true"
+                className="text-[4.5rem] md:text-7xl lg:text-[7.5rem] font-extrabold tracking-[-0.04em] font-sans flex flex-col items-start gap-1"
+              >
+                {/* Mobile: Fade In Simples */}
+                <div className="md:hidden flex flex-col leading-[0.9]">
+                  <motion.span
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="text-[#0057FF]"
+                  >
+                    Design,
+                  </motion.span>
+                  <motion.span
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="text-[#111111]"
+                  >
+                    não é só
+                  </motion.span>
+                  <motion.span
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 }}
+                    className="text-[#111111]"
+                  >
+                    estética.
+                  </motion.span>
+                </div>
 
-              {/* Desktop: Animação Letra por Letra */}
-              <div className="hidden md:flex flex-col items-start gap-0">
-                <AnimatedTextLine
-                  text="Design,"
-                  delay={0.2}
-                  colorClass="text-[#0057FF]"
-                />
-                <AnimatedTextLine
-                  text="não é só"
-                  delay={0.4}
-                  colorClass="text-[#111111]"
-                />
-                <AnimatedTextLine
-                  text="estética."
-                  delay={0.6}
-                  colorClass="text-[#111111]"
-                />
+                {/* Desktop: Animação Letra por Letra */}
+                <div className="hidden md:flex flex-col items-start gap-0">
+                  <AnimatedTextLine
+                    text="Design,"
+                    delay={0.2}
+                    colorClass="text-[#0057FF]"
+                  />
+                  <AnimatedTextLine
+                    text="não é só"
+                    delay={0.4}
+                    colorClass="text-[#111111]"
+                  />
+                  <AnimatedTextLine
+                    text="estética."
+                    delay={0.6}
+                    colorClass="text-[#111111]"
+                  />
+                </div>
               </div>
             </div>
 
