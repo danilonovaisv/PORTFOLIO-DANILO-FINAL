@@ -71,7 +71,14 @@ const Contact: React.FC = () => {
               method="POST"
               className="space-y-6"
             >
-              <input type="text" name="_honey" style={{ display: 'none' }} />
+              <input
+                type="text"
+                name="_honey"
+                className="hidden"
+                aria-hidden="true"
+                tabIndex={-1}
+                autoComplete="off"
+              />
               <input type="hidden" name="_captcha" value="false" />
 
               <div>

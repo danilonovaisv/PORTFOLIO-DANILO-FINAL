@@ -30,7 +30,7 @@ const PortfolioShowcaseSection: FC = () => {
 
   return (
     <section
-      id="portfolio-showcase"
+      id="portfolio"
       aria-labelledby="portfolio-showcase-title"
       className="relative w-full bg-[#f5f5f5] py-24 overflow-hidden min-h-screen flex flex-col justify-center"
     >
@@ -57,6 +57,7 @@ const PortfolioShowcaseSection: FC = () => {
               const isHidden = expandedId !== null && !isExpanded;
               const isHovered = hoveredId === category.id;
               const alignmentClass = getItemAlignment(index);
+              const titleId = `portfolio-category-${category.id}-title`;
 
               // Verifica se é o 3º item para formatação especial
               const isWebItem = category.id === 'websites-webcampaigns-tech';
@@ -66,6 +67,8 @@ const PortfolioShowcaseSection: FC = () => {
               return (
                 <motion.div
                   key={category.id}
+                  role="region"
+                  aria-labelledby={titleId}
                   layout
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
@@ -137,6 +140,7 @@ const PortfolioShowcaseSection: FC = () => {
                         {isWebItem && !isExpanded ? (
                           // Layout especial para o 3º item quando fechado
                           <motion.h3
+                            id={titleId}
                             layout="position"
                             className="font-light text-[#111111] transition-all duration-300 tracking-tight leading-[1.0] text-3xl md:text-5xl lg:text-6xl group-hover:text-[#0057FF]"
                           >
@@ -146,6 +150,7 @@ const PortfolioShowcaseSection: FC = () => {
                         ) : (
                           // Layout padrão
                           <motion.h3
+                            id={titleId}
                             layout="position"
                             className={`
                               font-light text-[#111111] transition-all duration-300 tracking-tight leading-[1.1] group-hover:text-[#0057FF]

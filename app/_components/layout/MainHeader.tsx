@@ -127,36 +127,37 @@ const MainHeader: React.FC = () => {
   const mobileNav = (
     <AnimatePresence>
       {isMobileMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0, clipPath: 'circle(0% at 100% 0%)' }}
-          animate={{ opacity: 1, clipPath: 'circle(150% at 100% 0%)' }}
-          exit={{ opacity: 0, clipPath: 'circle(0% at 100% 0%)' }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-[900] bg-[#F4F5F7] pt-32 px-6 md:hidden flex flex-col items-center"
-        >
+          <motion.div
+            initial={{ opacity: 0, clipPath: 'circle(0% at 100% 0%)' }}
+            animate={{ opacity: 1, clipPath: 'circle(150% at 100% 0%)' }}
+            exit={{ opacity: 0, clipPath: 'circle(0% at 100% 0%)' }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-900 bg-[#F4F5F7] pt-32 px-6 md:hidden flex flex-col items-center"
+          >
           <nav className="w-full max-w-sm" aria-label="Navegação principal">
             <ul className="flex flex-col space-y-6 text-center">
               {activeLink.map((link, i) => (
-                <motion.li
-                  key={link.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + i * 0.1, duration: 0.4 }}
-                >
-                  <a
-                    href={link.href}
-                    onClick={(event) => {
-                      handleSmoothScroll(link, event);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    aria-current={link.isActive ? 'page' : undefined}
-                    className={`text-3xl font-medium lowercase transition-colors duration-200 ${
-                      link.isActive ? 'text-[#0057FF]' : 'text-[#111111]'
-                    } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0057FF]/70`}
+                <li key={link.label}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + i * 0.1, duration: 0.4 }}
                   >
-                    {link.label}
-                  </a>
-                </motion.li>
+                    <a
+                      href={link.href}
+                      onClick={(event) => {
+                        handleSmoothScroll(link, event);
+                        setIsMobileMenuOpen(false);
+                      }}
+                      aria-current={link.isActive ? 'page' : undefined}
+                      className={`text-3xl font-medium lowercase transition-colors duration-200 ${
+                        link.isActive ? 'text-[#0057FF]' : 'text-[#111111]'
+                      } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0057FF]/70`}
+                    >
+                      {link.label}
+                    </a>
+                  </motion.div>
+                </li>
               ))}
             </ul>
           </nav>
@@ -174,12 +175,12 @@ const MainHeader: React.FC = () => {
           backdropFilter,
           boxShadow,
         }}
-        className="fixed top-0 left-0 right-0 z-[999] flex items-center justify-between px-4 sm:px-8 lg:px-12 will-change-transform"
+        className="fixed top-0 left-0 right-0 z-999 flex items-center justify-between px-4 sm:px-8 lg:px-12 will-change-transform"
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="flex items-center shrink-0 relative z-[1000]">
+        <div className="flex items-center shrink-0 relative z-1000">
           <a href="/" className="block relative group" aria-label="Home">
             {!logoError ? (
               <div className="relative h-8 md:h-10 w-[130px] md:w-[180px]">
@@ -203,7 +204,7 @@ const MainHeader: React.FC = () => {
 
         {desktopNav}
 
-        <div className="md:hidden z-[1000]">
+        <div className="md:hidden z-1000">
           <button
             onClick={() => setIsMobileMenuOpen((prev) => !prev)}
             className="text-[#111111] p-2 hover:text-[#0057FF] transition-colors tappable focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0057FF]/70"

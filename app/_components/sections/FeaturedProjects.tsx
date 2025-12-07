@@ -1,10 +1,10 @@
 'use client';
 
-import Image from 'next/image';
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FEATURED_PROJECTS } from '@/src/lib/constants';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import ProjectsGrid from '@/app/_components/projects/ProjectsGrid';
+import { ArrowUpRight } from 'lucide-react';
 
 const FeaturedProjects: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -15,90 +15,16 @@ const FeaturedProjects: React.FC = () => {
       ref={containerRef}
       className="relative py-24 bg-[#F4F5F7] overflow-hidden"
     >
-      <div className="container mx-auto px-4 md:px-8 max-w-7xl relative z-10">
-        {/* Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16">
-          {FEATURED_PROJECTS.map((project, index) => {
-            const isHero = project.isHero;
-
-            // Define o aspect ratio: Hero é wide, cards normais são portrait
-            const aspectRatioClass = isHero
-              ? 'aspect-video md:aspect-[2.2/1]'
-              : 'aspect-[4/5]';
-
-            return (
-              <motion.a
-                key={project.slug}
-                href={`/portfolio/${project.slug}`}
-                initial={{ opacity: 0, y: 60 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-10%' }}
-                transition={{
-                  duration: 0.8,
-                  ease: [0.21, 0.47, 0.32, 0.98],
-                  delay: index * 0.1,
-                }}
-                className={`group relative flex flex-col w-full ${isHero ? 'md:col-span-2' : ''} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-4 focus-visible:ring-offset-white focus-visible:ring-[#0057FF]/70`}
-              >
-                {/* Container da Imagem */}
-                <div
-                  className={`relative overflow-hidden rounded-2xl bg-gray-200 w-full ${aspectRatioClass} mb-6 shadow-sm`}
-                >
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 z-10" />
-
-                  <Image
-                    src={project.imageUrl}
-                    alt={project.title}
-                    fill
-                    sizes="(min-width: 1024px) 50vw, 100vw"
-                    priority={isHero}
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-
-                  {/* Badges de Categoria */}
-                  <div className="absolute top-6 right-6 z-20 flex flex-col gap-2 items-end">
-                    <span className="bg-white/95 backdrop-blur-md text-[#0057FF] text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
-                      {project.category}
-                    </span>
-                    {project.displayCategory !== project.category && (
-                      <span className="bg-[#111111]/80 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
-                        {project.displayCategory.split('&')[1] || 'Design'}
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Informações do Projeto */}
-                <div className="flex justify-between items-end px-2">
-                  <div className="flex flex-col gap-1 pr-4">
-                    <h3 className="text-2xl md:text-3xl font-bold text-[#111111] leading-tight group-hover:text-[#0057FF] transition-colors duration-300">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-500 text-sm uppercase tracking-widest font-bold">
-                      {project.client}
-                    </p>
-                  </div>
-
-                  {/* Botão de Seta */}
-                  <div className="mb-1 shrink-0">
-                    <div className="w-12 h-12 rounded-full bg-[#0057FF] text-white flex items-center justify-center transform translate-x-0 group-hover:translate-x-2 transition-all duration-300 shadow-lg group-hover:scale-110">
-                      <ArrowRight size={20} />
-                    </div>
-                  </div>
-                </div>
-              </motion.a>
-            );
-          })}
-
-          {/* Bloco "Like what you see?" - Ocupa o último espaço do grid */}
+      <div className="container mx-auto px-4 md:px-8 max-w-6xl relative z-10">
+        <ProjectsGrid projects={FEATURED_PROJECTS}>
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex flex-col justify-center items-center text-center min-h-[400px]"
+            className="flex flex-col justify-center gap-6 rounded-3xl border border-neutral-200 bg-white/95 px-6 py-10 text-center shadow-xl min-h-[400px]"
           >
-            <h3 className="text-4xl md:text-5xl font-light text-[#111111] mb-8 leading-tight">
+            <h3 className="text-4xl md:text-5xl font-light text-[#111111] leading-tight">
               Like what
               <br />
               you see?
@@ -118,7 +44,7 @@ const FeaturedProjects: React.FC = () => {
               </span>
             </motion.a>
           </motion.div>
-        </div>
+        </ProjectsGrid>
       </div>
     </section>
   );
