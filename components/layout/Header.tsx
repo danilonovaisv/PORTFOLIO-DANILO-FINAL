@@ -1,21 +1,83 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   motion,
   useScroll,
   useTransform,
   AnimatePresence,
 } from 'framer-motion';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import { NAV_LINKS, ASSETS } from '../../lib/constants';
 import { Menu, X } from 'lucide-react';
 
 const Header: React.FC = () => {
   const { scrollY } = useScroll();
+  const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [logoError, setLogoError] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('');
 
-  // Otimização: Transformações diretas de valor sem re-renderizar o componente React
+  // Sincroniza o activeSection com a rota atual ou scroll
+  useEffect(() => {
+    // 1. Verifica rotas diretas
+    if (pathname === '/sobre') {
+      setActiveSection('sobre');
+      return;
+    }
+    if (pathname?.startsWith('/portfolio')) {
+      setActiveSection('portfolio showcase');
+      return;
+    }
+    
+    // 2. Se for Home, observa as seções para "home" e "contato"
+    if (pathname === '/') {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              if (entry.target.id === 'hero') setActiveSection('home');
+              if (entry.target.id === 'contact') setActiveSection('contato');
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      const heroSection = document.getElementById('hero');
+      const contactSection = document.getElementById('contact');
+
+      if (heroSection) observer.observe(heroSection);
+      if (contactSection) observer.observe(contactSection);
+
+      return () => observer.disconnect();
+    }
+    
+    setActiveSection('');
+  }, [pathname]);
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // Se for link âncora (#) e estivermos na home, scroll suave
+    if (href.startsWith('#') && pathname === '/') {
+      e.preventDefault();
+      const targetId = href.replace('#', '');
+      const element = document.getElementById(targetId);
+      if (element) {
+        // Fecha menu mobile se estiver aberto
+        setIsMobileMenuOpen(false);
+        // Scroll suave
+        element.scrollIntoView({ behavior: 'smooth' });
+        // Atualiza hash na URL sem pular
+        window.history.pushState(null, '', href);
+      }
+    } else {
+      // Comportamento padrão para outras páginas ou links
+      setIsMobileMenuOpen(false);
+    }
+  };
+
+  // Animações do Header no Scroll
   const headerHeight = useTransform(scrollY, [0, 50], ['6.875rem', '5rem']);
   const backgroundColor = useTransform(
     scrollY,
@@ -48,7 +110,12 @@ const Header: React.FC = () => {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="flex items-center shrink-0 relative z-[1000]">
-          <a href="/" className="block relative group">
+          <Link 
+            href="/" 
+            className="block relative group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] rounded-lg p-1"
+            onClick={(e) => handleLinkClick(e, '#hero')}
+            aria-label="Ir para página inicial"
+          >
             {!logoError ? (
               <img
                 src={ASSETS.logoDark}
@@ -61,29 +128,42 @@ const Header: React.FC = () => {
                 Danilo.
               </span>
             )}
-          </a>
+          </Link>
         </div>
 
-        <nav className="hidden md:block">
-          <ul className="flex items-center space-x-8 lg:space-x-12">
-            {NAV_LINKS.map((link) => (
-              <li key={link.label}>
-                <a
-                  href={link.href}
-                  className="relative text-sm font-medium text-[#111111] hover:text-[#0057FF] transition-colors duration-200 lowercase tracking-wide block py-2"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
+        <nav aria-label="Navegação principal" className="hidden md:block">
+          <ul className="flex items-center space-x-2 lg:space-x-4">
+            {NAV_LINKS.map((link) => {
+              const isActive = activeSection === link.label;
+              return (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    onClick={(e) => handleLinkClick(e, link.href)}
+                    className={`
+                      relative text-sm font-medium transition-all duration-300 lowercase tracking-wide block px-4 py-2 rounded-full
+                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF]
+                      ${isActive 
+                        ? 'bg-[#111111] text-white shadow-md' 
+                        : 'text-[#111111] hover:text-[#0057FF] hover:bg-black/5'}
+                    `}
+                    aria-current={isActive ? 'page' : undefined}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
         <div className="md:hidden z-[1000]">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-[#111111] p-2 hover:text-[#0057FF] transition-colors tappable"
-            aria-label="Toggle menu"
+            className="text-[#111111] p-2 hover:text-[#0057FF] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] rounded-lg"
+            aria-label={isMobileMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -93,30 +173,39 @@ const Header: React.FC = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
+            id="mobile-menu"
             initial={{ opacity: 0, clipPath: 'circle(0% at 100% 0%)' }}
             animate={{ opacity: 1, clipPath: 'circle(150% at 100% 0%)' }}
             exit={{ opacity: 0, clipPath: 'circle(0% at 100% 0%)' }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="fixed inset-0 z-[900] bg-[#F4F5F7] pt-32 px-6 md:hidden flex flex-col items-center"
           >
-            <nav className="w-full max-w-sm">
+            <nav className="w-full max-w-sm" aria-label="Navegação mobile">
               <ul className="flex flex-col space-y-6 text-center">
-                {NAV_LINKS.map((link, i) => (
-                  <motion.li
-                    key={link.label}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 + i * 0.1, duration: 0.4 }}
-                  >
-                    <a
-                      href={link.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="text-3xl font-medium text-[#111111] hover:text-[#0057FF] transition-colors block lowercase"
+                {NAV_LINKS.map((link, i) => {
+                  const isActive = activeSection === link.label;
+                  return (
+                    <motion.li
+                      key={link.label}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 + i * 0.1, duration: 0.4 }}
                     >
-                      {link.label}
-                    </a>
-                  </motion.li>
-                ))}
+                      <Link
+                        href={link.href}
+                        onClick={(e) => handleLinkClick(e, link.href)}
+                        className={`
+                          text-3xl font-medium transition-colors block lowercase
+                          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] rounded-lg px-4 py-2
+                          ${isActive ? 'text-[#0057FF]' : 'text-[#111111] hover:text-[#0057FF]'}
+                        `}
+                        aria-current={isActive ? 'page' : undefined}
+                      >
+                        {link.label}
+                      </Link>
+                    </motion.li>
+                  );
+                })}
               </ul>
             </nav>
           </motion.div>
