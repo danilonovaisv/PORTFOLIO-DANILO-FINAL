@@ -1,6 +1,7 @@
 # Portfólio Institucional de Danilo Novais
 
 Uma página única refinada criada com React, TypeScript, Framer Motion e React Three Fiber para entregar a experiência descrita em `docs/PORT DAN REVISADO - NEXT.md`:
+
 - **Hero** com modelo de vidro líquido, CTA e vídeo manifesto sincronizados ao scroll.
 - **Portfolio showcase** baseado em categorias com thumbs e expansão interativa.
 - **Featured projects**, **clients/brands** e **contact form** alinhados com os textos e ativos recomendados no documento.
@@ -24,6 +25,7 @@ Uma página única refinada criada com React, TypeScript, Framer Motion e React 
 ## Seções implementadas
 
 ### Hero + Manifesto
+
 - Tag `[BRAND AWARENESS]`, título `Design, não é só estética.`, subtítulo `[É intenção, é estratégia, é experiência.]` conforme doc.
 - Vídeo manifesto (`ASSETS.videoManifesto`) aparece sobre o pano de fundo 3D; o componente `Manifesto` (ainda disponível em `src/components/home/Manifesto.tsx`) garante fallback com alerta quando o arquivo falhar.
 - O canvas 3D (`HeroGlassCanvas`) usa `PerspectiveCamera`, `Environment` e `Lightformer` para iluminar o `TorusDan`.
@@ -31,10 +33,12 @@ Uma página única refinada criada com React, TypeScript, Framer Motion e React 
 - Ajustes de performance: `samples`, `resolution` e `background` do material seguem os parâmetros recomendados (`512–1024`, `samples 6–16`, `transmission ~1`).
 
 ### Portfolio & Featured Projects
+
 - `PortfolioShowcase` renderiza `CATEGORIES` com layout dividido (alinhamento por linha), expansão de card, previews e CTA para `/portfolio`.
 - `FeaturedProjects` mostra `FEATURED_PROJECTS` com grids responsivos, badges de categoria e bloco “Like what you see?”; os links apontam para rotas como `/portfolio/{slug}`.
 
 ### Clients & Contact
+
 - Os logos `CLIENT_LOGOS` são exibidos em grid sobre fundo azul e recebem fallback textual caso o SVG falhe.
 - `Contact` oferece contatos e sociais a partir de `CONTACT_INFO` e `SOCIALS`, além de formulário que envia para `https://formsubmit.co/danilo@portfoliodanilo.com`.
 

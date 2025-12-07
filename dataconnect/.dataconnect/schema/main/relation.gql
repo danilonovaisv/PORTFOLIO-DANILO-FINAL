@@ -82,7 +82,8 @@ extend type Project {
     Filter condition to apply to the groups of aggregate queries.
     """
     having: Image_Having
-  ): [Image!]! @fdc_generated(from: "Image.project", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  ): [Image!]!
+    @fdc_generated(from: "Image.project", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
   """
   ✨ List `ProjectSkill` objects in a one-to-many relationship (where `ProjectSkill`.`project` is this object).
   """
@@ -116,7 +117,11 @@ extend type Project {
     Filter condition to apply to the groups of aggregate queries.
     """
     having: ProjectSkill_Having
-  ): [ProjectSkill!]! @fdc_generated(from: "ProjectSkill.project", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  ): [ProjectSkill!]!
+    @fdc_generated(
+      from: "ProjectSkill.project"
+      purpose: QUERY_MULTIPLE_ONE_TO_MANY
+    )
   """
   ✨ List `Skill` objects using `ProjectSkill` as the join table (a `ProjectSkill` object exists where its `project` is this and its `skill` is that).
   """
@@ -150,7 +155,8 @@ extend type Project {
     Filter condition to apply to the groups of aggregate queries.
     """
     having: ProjectSkill_Having
-  ): [Skill!]! @fdc_generated(from: "ProjectSkill", purpose: QUERY_MULTIPLE_MANY_TO_MANY)
+  ): [Skill!]!
+    @fdc_generated(from: "ProjectSkill", purpose: QUERY_MULTIPLE_MANY_TO_MANY)
   """
   Implicit metadata field that cannot be written. It provides extra information about query results.
   """
@@ -234,11 +240,13 @@ extend type Project {
   """
   ✨ Minimum of the `createdAt` field in the `Project` table.
   """
-  createdAt_min: Timestamp @fdc_generated(from: "Project.createdAt", purpose: QUERY_MIN)
+  createdAt_min: Timestamp
+    @fdc_generated(from: "Project.createdAt", purpose: QUERY_MIN)
   """
   ✨ Maximum of the `createdAt` field in the `Project` table.
   """
-  createdAt_max: Timestamp @fdc_generated(from: "Project.createdAt", purpose: QUERY_MAX)
+  createdAt_max: Timestamp
+    @fdc_generated(from: "Project.createdAt", purpose: QUERY_MAX)
   """
   A generated field that is used for caching results in SDKs.
   """
@@ -248,7 +256,8 @@ extend type ProjectSkill {
   """
   Implicit metadata field that cannot be written. It provides extra information about query results.
   """
-  _metadata: _Metadata @fdc_generated(from: "ProjectSkill", purpose: METADATA_FIELD)
+  _metadata: _Metadata
+    @fdc_generated(from: "ProjectSkill", purpose: METADATA_FIELD)
   """
   ✨ Count the number of rows in the `ProjectSkill` table.
   """
@@ -274,7 +283,8 @@ extend type ProjectSkill {
   """
   A generated field that is used for caching results in SDKs.
   """
-  _id: ID! @fdc_generated(from: "ProjectSkill.projectId,skillId", purpose: GLOBAL_ID)
+  _id: ID!
+    @fdc_generated(from: "ProjectSkill.projectId,skillId", purpose: GLOBAL_ID)
 }
 extend type Skill {
   """
@@ -310,7 +320,11 @@ extend type Skill {
     Filter condition to apply to the groups of aggregate queries.
     """
     having: ProjectSkill_Having
-  ): [ProjectSkill!]! @fdc_generated(from: "ProjectSkill.skill", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  ): [ProjectSkill!]!
+    @fdc_generated(
+      from: "ProjectSkill.skill"
+      purpose: QUERY_MULTIPLE_ONE_TO_MANY
+    )
   """
   ✨ List `Project` objects using `ProjectSkill` as the join table (a `ProjectSkill` object exists where its `skill` is this and its `project` is that).
   """
@@ -344,7 +358,8 @@ extend type Skill {
     Filter condition to apply to the groups of aggregate queries.
     """
     having: ProjectSkill_Having
-  ): [Project!]! @fdc_generated(from: "ProjectSkill", purpose: QUERY_MULTIPLE_MANY_TO_MANY)
+  ): [Project!]!
+    @fdc_generated(from: "ProjectSkill", purpose: QUERY_MULTIPLE_MANY_TO_MANY)
   """
   Implicit metadata field that cannot be written. It provides extra information about query results.
   """
@@ -419,7 +434,8 @@ extend type User {
     Filter condition to apply to the groups of aggregate queries.
     """
     having: Project_Having
-  ): [Project!]! @fdc_generated(from: "Project.user", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  ): [Project!]!
+    @fdc_generated(from: "Project.user", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
   """
   ✨ List `Skill` objects in a one-to-many relationship (where `Skill`.`user` is this object).
   """
@@ -453,7 +469,8 @@ extend type User {
     Filter condition to apply to the groups of aggregate queries.
     """
     having: Skill_Having
-  ): [Skill!]! @fdc_generated(from: "Skill.user", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
+  ): [Skill!]!
+    @fdc_generated(from: "Skill.user", purpose: QUERY_MULTIPLE_ONE_TO_MANY)
   """
   Implicit metadata field that cannot be written. It provides extra information about query results.
   """
@@ -537,11 +554,13 @@ extend type User {
   """
   ✨ Minimum of the `createdAt` field in the `User` table.
   """
-  createdAt_min: Timestamp @fdc_generated(from: "User.createdAt", purpose: QUERY_MIN)
+  createdAt_min: Timestamp
+    @fdc_generated(from: "User.createdAt", purpose: QUERY_MIN)
   """
   ✨ Maximum of the `createdAt` field in the `User` table.
   """
-  createdAt_max: Timestamp @fdc_generated(from: "User.createdAt", purpose: QUERY_MAX)
+  createdAt_max: Timestamp
+    @fdc_generated(from: "User.createdAt", purpose: QUERY_MAX)
   """
   A generated field that is used for caching results in SDKs.
   """
