@@ -238,7 +238,7 @@ const Hero = () => {
   const textContainerClasses = useMemo(
     () =>
       [
-        'absolute inset-0 container mx-auto px-6 md:px-12 lg:px-16 h-full z-10 pointer-events-none',
+        'absolute inset-0 mx-auto h-full w-full max-w-screen-xl px-4 sm:px-8 lg:px-16 z-10 pointer-events-none',
         shouldReduceMotion
           ? 'hero-text-visible'
           : isVisible
@@ -253,7 +253,7 @@ const Hero = () => {
     <section
       id="hero"
       ref={sectionRef}
-      className="relative h-[450vh] w-full bg-[#F4F5F7]"
+      className="relative min-h-[320vh] md:min-h-[400vh] lg:min-h-[450vh] w-full bg-[#F4F5F7]"
     >
       <style>{`
         .main-title {
@@ -375,7 +375,7 @@ const Hero = () => {
 
       {/* Container Sticky */}
       <motion.div
-        className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center"
+        className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center px-4 sm:px-6"
         role="presentation"
         tabIndex={-1}
         onMouseMove={handleParallax}
@@ -388,7 +388,7 @@ const Hero = () => {
         >
           <motion.div
             style={{ x: textParallaxX, y: textParallaxY }}
-            className="flex flex-col justify-center items-start h-full pt-24 md:pt-0 max-w-3xl gap-8 lg:gap-10 pointer-events-auto px-2 sm:px-4"
+            className="flex flex-col justify-center items-start h-full pt-24 md:pt-0 w-full max-w-screen-lg gap-8 lg:gap-10 pointer-events-auto px-1 sm:px-4"
           >
             {/* Título Principal */}
             <motion.h1
@@ -503,7 +503,7 @@ const Hero = () => {
                   backgroundColor: '#1A69FF',
                 }}
                 whileTap={{ scale: 0.97 }}
-                className="group inline-flex items-center gap-3 rounded-full bg-[#0057FF] px-10 py-5 text-white text-base md:text-lg font-semibold shadow-lg transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+                className="group inline-flex items-center gap-3 rounded-full bg-[#0057FF] px-6 sm:px-8 md:px-10 py-4 md:py-5 text-white text-base md:text-lg font-semibold shadow-lg transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white min-h-[3.25rem]"
               >
                 get to know me better
                 <span className="flex items-center justify-center w-8 h-8 rounded-full bg-white/25 group-hover:bg-white/35 transition-colors">

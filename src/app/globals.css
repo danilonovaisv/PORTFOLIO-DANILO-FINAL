@@ -5,7 +5,34 @@
   --color-text-main: #111111;
   --color-accent-blue: #0057ff;
 
+  /* Largura máxima fluida para manter espaçamento seguro em telas pequenas */
+  --max-content-width: min(78rem, 100%);
+  --page-gutter: clamp(1rem, 4vw, 2.5rem);
+
   --font-sans: 'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-surface-main);
+  color: var(--color-text-main);
+  text-rendering: optimizeLegibility;
+}
+
+/* Imagens e mídias fluidas para evitar overflow em telas estreitas */
+img,
+picture,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Áreas clicáveis confortáveis no mobile */
+.tappable {
+  min-height: 3rem;
+  min-width: 3rem;
+  border-radius: 9999px;
 }
 
 :focus-visible {
@@ -34,11 +61,11 @@ button:hover {
 
 /* Custom Utilities if needed */
 .container-custom {
-  max-width: 1440px;
+  width: var(--max-content-width);
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding-left: var(--page-gutter);
+  padding-right: var(--page-gutter);
 }
 
 @layer utilities {
@@ -57,13 +84,13 @@ button:hover {
   .text-text-main {
     color: var(--color-text-main);
   }
-  
+
   /* Animated letter styles */
   .animated-letter {
     display: inline-block;
     animation: fadeIn 0.5s calc(0.025s * var(--i)) both;
   }
-  
+
   @keyframes fadeIn {
     from {
       opacity: 0;

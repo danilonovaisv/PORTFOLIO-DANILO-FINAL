@@ -48,6 +48,9 @@ const FeaturedProjects: React.FC = () => {
                   <img
                     src={project.imageUrl}
                     alt={project.title}
+                    loading="lazy"
+                    decoding="async"
+                    sizes="(min-width: 1024px) 50vw, 100vw"
                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
 

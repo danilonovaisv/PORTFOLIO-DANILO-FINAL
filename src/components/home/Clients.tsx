@@ -30,6 +30,9 @@ const Clients: React.FC = () => {
               <img
                 src={logo}
                 alt={`Client ${index + 1}`}
+                loading="lazy"
+                decoding="async"
+                sizes="(min-width: 1024px) 12vw, 40vw"
                 className="w-full h-auto brightness-0 invert"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';

@@ -16,7 +16,7 @@ const Header: React.FC = () => {
   const [logoError, setLogoError] = useState(false);
 
   // Otimização: Transformações diretas de valor sem re-renderizar o componente React
-  const headerHeight = useTransform(scrollY, [0, 50], ['110px', '80px']);
+  const headerHeight = useTransform(scrollY, [0, 50], ['6.875rem', '5rem']);
   const backgroundColor = useTransform(
     scrollY,
     [0, 50],
@@ -42,7 +42,7 @@ const Header: React.FC = () => {
           backdropFilter,
           boxShadow,
         }}
-        className="fixed top-0 left-0 right-0 z-[999] flex items-center justify-between px-6 md:px-12 will-change-transform"
+        className="fixed top-0 left-0 right-0 z-[999] flex items-center justify-between px-4 sm:px-8 lg:px-12 will-change-transform"
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -82,7 +82,7 @@ const Header: React.FC = () => {
         <div className="md:hidden z-[1000]">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-[#111111] p-2 hover:text-[#0057FF] transition-colors"
+            className="text-[#111111] p-2 hover:text-[#0057FF] transition-colors tappable"
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

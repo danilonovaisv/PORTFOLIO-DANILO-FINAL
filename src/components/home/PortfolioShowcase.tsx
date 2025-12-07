@@ -115,6 +115,9 @@ const PortfolioShowcaseSection: FC = () => {
                             <img
                               src={category.thumbnailUrl}
                               alt=""
+                              loading="lazy"
+                              decoding="async"
+                              sizes="(min-width: 768px) 12rem, 40vw"
                               className="absolute inset-0 w-full h-full object-cover"
                             />
                           </motion.div>
@@ -179,6 +182,9 @@ const PortfolioShowcaseSection: FC = () => {
                           <img
                             src={category.thumbnailUrl}
                             alt={category.label}
+                            loading="lazy"
+                            decoding="async"
+                            sizes="(min-width: 1024px) 50vw, 100vw"
                             className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                           />
                         </div>
