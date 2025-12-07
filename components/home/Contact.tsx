@@ -7,7 +7,7 @@ import { ArrowRight } from 'lucide-react';
 
 const Contact: React.FC = () => {
   return (
-    <section id="contact" className="py-24 bg-[#F4F5F7]">
+    <section id="contact" aria-labelledby="contact-title" className="py-24 bg-[#F4F5F7]">
       <div className="container mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
           <motion.div
@@ -15,7 +15,7 @@ const Contact: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-[#0057FF] mb-4 lowercase">
+            <h2 id="contact-title" className="text-4xl md:text-5xl font-bold text-[#0057FF] mb-4 lowercase">
               contato
             </h2>
             <p className="text-xl text-dark mb-12">

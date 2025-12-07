@@ -122,6 +122,7 @@ const Hero = () => {
       /* biome-ignore lint/correctness/useUniqueElementIds: Este ID precisa ser estático para anchors globais */
       id="hero"
       ref={sectionRef}
+      aria-labelledby="hero-title"
       className="relative h-[450vh] w-full bg-[#F4F5F7]"
     >
       {/* Container Sticky */}
@@ -154,7 +155,7 @@ const Hero = () => {
           <div className="flex flex-col justify-center items-start h-full pt-24 md:pt-0 max-w-4xl">
             {/* Título Principal */}
             <div className="relative w-full max-w-4xl mb-6 md:mb-10">
-              <h1 className="sr-only">
+              <h1 id="hero-title" className="sr-only">
                 Design, não é só estética. É intenção, é estratégia, é experiência.
               </h1>
               <div

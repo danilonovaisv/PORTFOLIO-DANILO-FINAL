@@ -29,13 +29,16 @@ const PortfolioShowcaseSection: FC = () => {
   };
 
   return (
-    <section className="relative w-full bg-[#f5f5f5] py-24 overflow-hidden min-h-screen flex flex-col justify-center">
+    <section 
+      aria-labelledby="portfolio-title"
+      className="relative w-full bg-[#f5f5f5] py-24 overflow-hidden min-h-screen flex flex-col justify-center"
+    >
       <div className="container mx-auto px-4 md:px-8 max-w-[90%] md:max-w-7xl relative z-10">
         {/* Cabeçalho da Seção */}
         <div className="flex flex-col w-full mb-12">
           {/* Título Principal */}
           <div className="w-full flex justify-center mb-8">
-            <h2 className="text-center text-4xl md:text-6xl font-bold tracking-tight">
+            <h2 id="portfolio-title" className="text-center text-4xl md:text-6xl font-bold tracking-tight">
               <span className="text-[#0057FF]">portfólio</span>{' '}
               <span className="text-[#111111]">showcase</span>
             </h2>
@@ -115,7 +118,7 @@ const PortfolioShowcaseSection: FC = () => {
                           >
                             <Image
                               src={category.thumbnailUrl}
-                              alt=""
+                              alt={category.label}
                               fill
                               sizes="(max-width: 768px) 100vw, 140px"
                               className="object-cover"

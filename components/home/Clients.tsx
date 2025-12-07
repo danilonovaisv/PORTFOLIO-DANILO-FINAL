@@ -7,9 +7,10 @@ import { CLIENT_LOGOS } from '../../lib/constants';
 
 const Clients: React.FC = () => {
   return (
-    <section id="clients" className="py-20 bg-[#0057FF] text-white">
+    <section id="clients" aria-labelledby="clients-title" className="py-20 bg-[#0057FF] text-white">
       <div className="container mx-auto px-6 md:px-12 text-center">
         <motion.h2
+          id="clients-title"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
