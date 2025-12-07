@@ -5,7 +5,8 @@ import Link from 'next/link';
 import { motion, HTMLMotionProps } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
-interface ButtonProps extends HTMLMotionProps<'button'> {
+interface ButtonProps extends Omit<HTMLMotionProps<'button'>, 'children'> {
+  children?: React.ReactNode;
   href?: string;
   variant?: 'primary' | 'secondary' | 'outline';
   icon?: boolean;

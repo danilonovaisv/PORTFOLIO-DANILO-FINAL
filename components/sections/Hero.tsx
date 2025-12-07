@@ -1,7 +1,12 @@
 'use client';
 
-import type { CSSProperties } from 'react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  type CSSProperties,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { ArrowRight } from 'lucide-react';
 import {
   motion,
@@ -83,7 +88,7 @@ const BASE_DURATION = 0.65;
 const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useReducedMotion() ?? false;
   const [isVisible, setIsVisible] = useState(false);
   const [parallaxEnabled, setParallaxEnabled] = useState(false);
   const [shouldLoad, setShouldLoad] = useState(false);

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import type { Project } from '../../lib/types';
 

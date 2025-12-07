@@ -2,22 +2,17 @@ extend type Image {
   """
   ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
   """
-  id: UUID!
-    @default(expr: "uuidV4()")
-    @fdc_generated(from: "Image", purpose: IMPLICIT_KEY_FIELD)
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "Image", purpose: IMPLICIT_KEY_FIELD)
   """
   ✨ Implicit foreign key field based on `Image`.`project`. It must match the value of `Project`.`id`. See `@ref` for how to customize it.
   """
-  projectId: UUID
-    @fdc_generated(from: "Image.project", purpose: IMPLICIT_REF_FIELD)
+  projectId: UUID @fdc_generated(from: "Image.project", purpose: IMPLICIT_REF_FIELD)
 }
 extend type Project {
   """
   ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
   """
-  id: UUID!
-    @default(expr: "uuidV4()")
-    @fdc_generated(from: "Project", purpose: IMPLICIT_KEY_FIELD)
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "Project", purpose: IMPLICIT_KEY_FIELD)
   """
   ✨ Implicit foreign key field based on `Project`.`user`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
   """
@@ -27,21 +22,17 @@ extend type ProjectSkill {
   """
   ✨ Implicit foreign key field based on `ProjectSkill`.`project`. It must match the value of `Project`.`id`. See `@ref` for how to customize it.
   """
-  projectId: UUID!
-    @fdc_generated(from: "ProjectSkill.project", purpose: IMPLICIT_REF_FIELD)
+  projectId: UUID! @fdc_generated(from: "ProjectSkill.project", purpose: IMPLICIT_REF_FIELD)
   """
   ✨ Implicit foreign key field based on `ProjectSkill`.`skill`. It must match the value of `Skill`.`id`. See `@ref` for how to customize it.
   """
-  skillId: UUID!
-    @fdc_generated(from: "ProjectSkill.skill", purpose: IMPLICIT_REF_FIELD)
+  skillId: UUID! @fdc_generated(from: "ProjectSkill.skill", purpose: IMPLICIT_REF_FIELD)
 }
 extend type Skill {
   """
   ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
   """
-  id: UUID!
-    @default(expr: "uuidV4()")
-    @fdc_generated(from: "Skill", purpose: IMPLICIT_KEY_FIELD)
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "Skill", purpose: IMPLICIT_KEY_FIELD)
   """
   ✨ Implicit foreign key field based on `Skill`.`user`. It must match the value of `User`.`id`. See `@ref` for how to customize it.
   """
@@ -51,7 +42,5 @@ extend type User {
   """
   ✨ Implicit primary key field. It's a UUID column default to a generated new value. See `@table` for how to customize it.
   """
-  id: UUID!
-    @default(expr: "uuidV4()")
-    @fdc_generated(from: "User", purpose: IMPLICIT_KEY_FIELD)
+  id: UUID! @default(expr: "uuidV4()") @fdc_generated(from: "User", purpose: IMPLICIT_KEY_FIELD)
 }

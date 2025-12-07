@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import {
   motion,
   useMotionValueEvent,
@@ -106,7 +106,7 @@ const AnimatedTextLine = ({
 const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useReducedMotion() ?? false;
 
   // Controle de Scroll para a animação da timeline
   const { scrollYProgress } = useScroll({
