@@ -2,12 +2,10 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { motion, MotionProps } from 'framer-motion';
+import { motion, HTMLMotionProps } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
-interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    MotionProps {
+interface ButtonProps extends HTMLMotionProps<'button'> {
   href?: string;
   variant?: 'primary' | 'secondary' | 'outline';
   icon?: boolean;

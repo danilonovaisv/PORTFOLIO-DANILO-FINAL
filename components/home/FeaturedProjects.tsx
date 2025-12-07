@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { FEATURED_PROJECTS } from '../../lib/constants';
 import { ArrowUpRight } from 'lucide-react';
 import ProjectsGrid from '../ui/ProjectsGrid';
-import ProjectCard from '../ui/ProjectCard';
 
 const FeaturedProjects: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -22,28 +21,7 @@ const FeaturedProjects: React.FC = () => {
         Precisamos apenas garantir o padding lateral do wrapper ou passar padding para ob grid.
       */}
       <div className="container mx-auto px-4 md:px-8 relative z-10">
-        
-        {/* Usando o Componente Grid Reutilizável */}
-        <ProjectsGrid className="grid-cols-1 md:grid-cols-2 xl:grid-cols-2"> 
-          {/* Override temporário para manter o layout 2 colunas como no design original desta seção específica, se desejado.
-              O ProjectsGrid padrão tem xl:grid-cols-3. O FeaturedProjects original era md:grid-cols-2.
-              Vou passar className para forçar o layout original de Featured se for estrito, 
-              mas o requisito diz "Desktop: 2-3 colunas". Vou deixar o padrão do componente (3 cols xl) 
-              OU forçar 2 cols se for para manter fidelidade exata ao "Featured".
-              Dado que temos 4 itens (3 projetos + 1 CTA), 2 colunas fariam mais sentido para ficar simétrico (2x2).
-              Vou forçar 2 colunas no desktop para esta seção específica.
-          */}
-          
-          {FEATURED_PROJECTS.map((project, index) => (
-            <ProjectCard 
-              key={project.slug} 
-              project={project} 
-              className={project.isHero ? 'md:col-span-2' : ''}
-              priority={index === 0}
-            />
-          ))}
-
-          {/* Bloco "Like what you see?" - Usando motion div diretamente pois é um card customizado */}
+        <ProjectsGrid projects={FEATURED_PROJECTS} className="lg:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -71,7 +49,6 @@ const FeaturedProjects: React.FC = () => {
               </span>
             </motion.a>
           </motion.div>
-
         </ProjectsGrid>
       </div>
     </section>
@@ -79,4 +56,3 @@ const FeaturedProjects: React.FC = () => {
 };
 
 export default FeaturedProjects;
-
