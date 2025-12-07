@@ -6,16 +6,15 @@ import {
   useMotionValueEvent,
   useScroll,
   useTransform,
+  useReducedMotion,
+  Variants,
 } from 'framer-motion';
-import type { Variants } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import Button from '../ui/Button';
 
 const HeroGlassCanvas = dynamic(() => import('../three/HeroGlassCanvas'), {
   ssr: false,
-  loading: () => (
-    <div className="absolute inset-0 bg-gradient-to-br from-[#f4f5f7] to-[#eef2ff] opacity-50" />
-  ),
+  loading: () => null,
 });
 import { ASSETS } from '../../lib/constants';
 
@@ -25,6 +24,7 @@ type AnimatedTextLineProps = {
   className?: string;
   delay?: number;
   colorClass?: string;
+  shouldReduceMotion?: boolean;
 };
 
 const AnimatedTextLine = ({
@@ -32,6 +32,7 @@ const AnimatedTextLine = ({
   className,
   delay = 0,
   colorClass = 'text-[#111111]',
+  shouldReduceMotion = false,
 }: AnimatedTextLineProps) => {
   // Separa o texto em caracteres
   const letters = text.split('');
@@ -60,6 +61,21 @@ const AnimatedTextLine = ({
     },
   };
 
+  // Se o usuário preferir movimento reduzido, simplificamos para um fade in
+  if (shouldReduceMotion) {
+    return (
+        <motion.div
+            className={`flex ${className}`}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay, duration: 0.5 }}
+            viewport={{ once: true }}
+        >
+            <span className={`block ${colorClass} leading-[0.9]`}>{text}</span>
+        </motion.div>
+    );
+  }
+
   return (
     <motion.div
       className={`flex overflow-hidden ${className}`} // overflow-hidden é crucial para o efeito de máscara
@@ -84,6 +100,7 @@ const AnimatedTextLine = ({
 const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   // Controle de Scroll para a animação da timeline
   const { scrollYProgress } = useScroll({
@@ -102,20 +119,23 @@ const Hero = () => {
     }
   });
 
-  // Animações
+  // Animações Scroll-Driven 
+  // (Simplified or disabled if reduced motion is preferred could be handled here, 
+  // but framer motion handles some automatically. We explicitly limit ranges for performance)
+  
   const contentOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-  const contentScale = useTransform(scrollYProgress, [0, 0.15], [1, 0.95]);
-  const contentY = useTransform(scrollYProgress, [0, 0.15], [0, -50]);
+  const contentScale = useTransform(scrollYProgress, [0, 0.15], [1, 0.98]); // Reduced scale intensity
+  const contentY = useTransform(scrollYProgress, [0, 0.15], [0, shouldReduceMotion ? 0 : -30]);
 
-  // Animação específica para o Glass Orb (Desaparece mais rápido para limpar o vídeo)
+  // Animação Glass Orb
   const glassOrbOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
-  const glassOrbScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
+  const glassOrbScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.9]); // Subtle scale
 
   // Video transitions
-  const videoScale = useTransform(scrollYProgress, [0, 0.25], [0.25, 1]);
-  const videoX = useTransform(scrollYProgress, [0, 0.25], ['35%', '0%']);
-  const videoY = useTransform(scrollYProgress, [0, 0.25], ['30%', '0%']);
-  const videoRadius = useTransform(scrollYProgress, [0, 0.2], [12, 0]);
+  const videoScale = useTransform(scrollYProgress, [0, 0.25], [0.4, 1]); // Starting larger to avoid too much scaling
+  const videoX = useTransform(scrollYProgress, [0, 0.25], ['30%', '0%']);
+  const videoY = useTransform(scrollYProgress, [0, 0.25], ['20%', '0%']);
+  const videoRadius = useTransform(scrollYProgress, [0, 0.2], [24, 0]);
 
   return (
     <section
@@ -130,7 +150,11 @@ const Hero = () => {
         
         {/* Main Content Layer */}
         <motion.div
-            style={{ opacity: contentOpacity, scale: contentScale, y: contentY }}
+            style={{ 
+                opacity: contentOpacity, 
+                scale: shouldReduceMotion ? 1 : contentScale, 
+                y: contentY 
+            }}
             className="absolute inset-0 container mx-auto px-6 md:px-12 lg:px-16 h-full z-10 pointer-events-none"
         >
             <div className="grid grid-cols-1 lg:grid-cols-2 h-full gap-8">
@@ -148,7 +172,7 @@ const Hero = () => {
                             {/* Mobile: Fade In Simples */}
                             <div className="md:hidden flex flex-col leading-[0.9]">
                             <motion.span
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.2 }}
                                 className="text-[#0057FF]"
@@ -156,7 +180,7 @@ const Hero = () => {
                                 Design,
                             </motion.span>
                             <motion.span
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.4 }}
                                 className="text-[#111111]"
@@ -164,7 +188,7 @@ const Hero = () => {
                                 não é só
                             </motion.span>
                             <motion.span
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.6 }}
                                 className="text-[#111111]"
@@ -179,16 +203,19 @@ const Hero = () => {
                                 text="Design,"
                                 delay={0.2}
                                 colorClass="text-[#0057FF]"
+                                shouldReduceMotion={Boolean(shouldReduceMotion)}
                             />
                             <AnimatedTextLine
                                 text="não é só"
                                 delay={0.4}
                                 colorClass="text-[#111111]"
+                                shouldReduceMotion={Boolean(shouldReduceMotion)}
                             />
                             <AnimatedTextLine
                                 text="estética."
                                 delay={0.6}
                                 colorClass="text-[#111111]"
+                                shouldReduceMotion={Boolean(shouldReduceMotion)}
                             />
                             </div>
                         </div>
@@ -210,7 +237,7 @@ const Hero = () => {
                     {/* CTA Button */}
                     <motion.div
                         className="pointer-events-auto"
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{
@@ -230,7 +257,7 @@ const Hero = () => {
                     {/* A orb pode transbordar, mas o anchor dela fica aqui */}
                      {/* TAG LATERAL: BRAND AWARENESS - Dentro da grid ou posicionado relativo ao conteúdo */}
                      <motion.div
-                        initial={{ opacity: 0, x: 20 }}
+                        initial={{ opacity: 0, x: shouldReduceMotion ? 0 : 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 1.0, duration: 0.8 }}
                         className="absolute right-0 top-1/2 -translate-y-1/2"
@@ -245,7 +272,10 @@ const Hero = () => {
 
         {/* 3D Orb Background/Layer - Mantendo posicionado e dimensionado via container, mas visualmente "atrás" */}
         <motion.div
-            style={{ opacity: glassOrbOpacity, scale: glassOrbScale }}
+            style={{ 
+                opacity: glassOrbOpacity, 
+                scale: shouldReduceMotion ? 1 : glassOrbScale 
+            }}
             className="absolute inset-0 z-0 pointer-events-auto"
         >
           {/* Note: HeroGlassCanvas handles its own responsive sizing, typically filling the parent. 
