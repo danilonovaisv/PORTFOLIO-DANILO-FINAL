@@ -38,7 +38,7 @@ const Manifesto: React.FC = () => {
           observer.disconnect();
         }
       },
-      { threshold: 0.5 }
+      { rootMargin: '200px', threshold: 0 }
     );
 
     observer.observe(sectionRef.current);

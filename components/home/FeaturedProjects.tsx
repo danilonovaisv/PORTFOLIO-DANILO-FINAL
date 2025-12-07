@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FEATURED_PROJECTS } from '../../lib/constants';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
@@ -45,13 +46,12 @@ const FeaturedProjects: React.FC = () => {
                 >
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 z-10" />
 
-                  <img
+                  <Image
                     src={project.imageUrl}
                     alt={project.title}
-                    loading="lazy"
-                    decoding="async"
+                    fill
                     sizes="(min-width: 1024px) 50vw, 100vw"
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
 
                   {/* Badges de Categoria */}

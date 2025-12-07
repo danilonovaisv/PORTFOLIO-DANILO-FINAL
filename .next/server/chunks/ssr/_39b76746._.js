@@ -1,0 +1,3 @@
+module.exports=[70864,a=>{a.n(a.i(33290))},43619,a=>{a.n(a.i(79962))},13718,a=>{a.n(a.i(85523))},18198,a=>{a.n(a.i(45518))},62212,a=>{a.n(a.i(66114))},95775,a=>{"use strict";var b=a.i(7997);function c(){return(0,b.jsxs)("div",{className:"pt-32 px-4 container mx-auto text-center min-h-[50vh]",children:[(0,b.jsx)("h1",{className:"text-4xl font-bold mb-4",children:"Sobre"}),(0,b.jsx)("p",{className:"text-gray-600",children:"Página em construção..."})]})}a.s(["default",()=>c,"metadata",0,{title:"Sobre | Danilo Novais",description:"Conheça mais sobre minha trajetória e filosofia de design."}])}];
+
+//# sourceMappingURL=_39b76746._.js.map

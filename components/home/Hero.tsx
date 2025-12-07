@@ -8,7 +8,14 @@ import {
   useTransform,
 } from 'framer-motion';
 import type { Variants } from 'framer-motion';
-import HeroGlassCanvas from '../three/HeroGlassCanvas';
+import dynamic from 'next/dynamic';
+
+const HeroGlassCanvas = dynamic(() => import('../three/HeroGlassCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 bg-gradient-to-br from-[#f4f5f7] to-[#eef2ff] opacity-50" />
+  ),
+});
 import { ArrowRight } from 'lucide-react';
 import { ASSETS } from '../../lib/constants';
 

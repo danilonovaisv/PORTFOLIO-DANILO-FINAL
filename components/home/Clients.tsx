@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { CLIENT_LOGOS } from '../../lib/constants';
 
@@ -27,18 +28,15 @@ const Clients: React.FC = () => {
               transition={{ delay: index * 0.05 }}
               className="w-full max-w-[140px] opacity-70 hover:opacity-100 transition-opacity duration-300"
             >
-              <img
-                src={logo}
-                alt={`Client ${index + 1}`}
-                loading="lazy"
-                decoding="async"
-                sizes="(min-width: 1024px) 12vw, 40vw"
-                className="w-full h-auto brightness-0 invert"
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  e.currentTarget.parentElement!.innerHTML = `<div class="text-white font-bold text-xl opacity-50">CLIENT ${index + 1}</div>`;
-                }}
-              />
+              <div className="relative w-full h-12 md:h-16">
+                <Image
+                  src={logo}
+                  alt={`Client ${index + 1}`}
+                  fill
+                  sizes="(max-width: 768px) 40vw, 20vw"
+                  className="object-contain brightness-0 invert"
+                />
+              </div>
             </motion.div>
           ))}
         </div>
