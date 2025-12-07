@@ -168,7 +168,6 @@ const Hero = () => {
         >
           <div className="relative h-full">
             <div className="grid h-full gap-12 md:gap-16 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-
               <motion.div
                 className="pointer-events-auto flex flex-col gap-8"
                 initial={
@@ -225,9 +224,16 @@ const Hero = () => {
                     href="/sobre"
                     className="group"
                     whileHover={
-                      prefersReducedMotion ? undefined : { y: -2, boxShadow: '0 15px 35px rgba(0, 87, 255, 0.3)' }
+                      prefersReducedMotion
+                        ? undefined
+                        : {
+                            y: -2,
+                            boxShadow: '0 15px 35px rgba(0, 87, 255, 0.3)',
+                          }
                     }
-                    whileTap={prefersReducedMotion ? undefined : { scale: 0.98 }}
+                    whileTap={
+                      prefersReducedMotion ? undefined : { scale: 0.98 }
+                    }
                   >
                     <span>get to know me better</span>
                     <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors">

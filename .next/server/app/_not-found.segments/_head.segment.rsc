@@ -1,7 +1,7 @@
 1:"$Sreact.fragment"
-2:I[97367,["/_next/static/chunks/35a25147a8519c83.js","/_next/static/chunks/a914345fa01667a3.js","/_next/static/chunks/42879de7b8087bc9.js"],"ViewportBoundary"]
-4:I[97367,["/_next/static/chunks/35a25147a8519c83.js","/_next/static/chunks/a914345fa01667a3.js","/_next/static/chunks/42879de7b8087bc9.js"],"MetadataBoundary"]
+2:I[97367,["/_next/static/chunks/116c3ef5f6f08a55.js","/_next/static/chunks/9fca4664357508d2.js","/_next/static/chunks/247eb132b7f7b574.js"],"ViewportBoundary"]
+4:I[97367,["/_next/static/chunks/116c3ef5f6f08a55.js","/_next/static/chunks/9fca4664357508d2.js","/_next/static/chunks/247eb132b7f7b574.js"],"MetadataBoundary"]
 5:"$Sreact.suspense"
-0:{"buildId":"FLbFctjYj7TmTXCQV2IsF","rsc":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],null]}],"loading":null,"isPartial":false}
+0:{"buildId":"cPlUH2tlJYtFqCDO9d-3w","rsc":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],null]}],"loading":null,"isPartial":false}
 3:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
-6:[]
+6:[["$","meta","0",{"name":"application-name","content":"Portfólio Danilo Novais"}],["$","meta","1",{"property":"og:title","content":"Danilo Novais | Portfólio"}],["$","meta","2",{"property":"og:description","content":"Design, não é só estética. É intenção, é estratégia, é experiência."}],["$","meta","3",{"property":"og:url","content":"https://portfoliodanilo.com"}],["$","meta","4",{"property":"og:site_name","content":"Portfólio Danilo Novais"}],["$","meta","5",{"property":"og:type","content":"website"}],["$","meta","6",{"name":"twitter:card","content":"summary"}],["$","meta","7",{"name":"twitter:title","content":"Danilo Novais | Portfólio"}],["$","meta","8",{"name":"twitter:description","content":"Design, não é só estética. É intenção, é estratégia, é experiência."}]]

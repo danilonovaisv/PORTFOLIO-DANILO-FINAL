@@ -1,7 +1,7 @@
 1:"$Sreact.fragment"
-2:I[97367,["/_next/static/chunks/42879de7b8087bc9.js"],"ViewportBoundary"]
-4:I[97367,["/_next/static/chunks/42879de7b8087bc9.js"],"MetadataBoundary"]
+2:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/247eb132b7f7b574.js"],"ViewportBoundary"]
+4:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/247eb132b7f7b574.js"],"MetadataBoundary"]
 5:"$Sreact.suspense"
-0:{"buildId":"FLbFctjYj7TmTXCQV2IsF","rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],null]}],"loading":null,"isPartial":false}
+0:{"buildId":"cPlUH2tlJYtFqCDO9d-3w","rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],null]}],"loading":null,"isPartial":false}
 3:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
-6:[]
+6:[["$","title","0",{"children":"Danilo Novais | Portfólio"}],["$","meta","1",{"name":"description","content":"Design, não é só estética. É intenção, é estratégia, é experiência."}],["$","meta","2",{"name":"application-name","content":"Portfólio Danilo Novais"}],["$","meta","3",{"property":"og:title","content":"Danilo Novais | Portfólio"}],["$","meta","4",{"property":"og:description","content":"Design, não é só estética. É intenção, é estratégia, é experiência."}],["$","meta","5",{"property":"og:url","content":"https://portfoliodanilo.com"}],["$","meta","6",{"property":"og:site_name","content":"Portfólio Danilo Novais"}],["$","meta","7",{"property":"og:type","content":"website"}],["$","meta","8",{"name":"twitter:card","content":"summary"}],["$","meta","9",{"name":"twitter:title","content":"Danilo Novais | Portfólio"}],["$","meta","10",{"name":"twitter:description","content":"Design, não é só estética. É intenção, é estratégia, é experiência."}]]
