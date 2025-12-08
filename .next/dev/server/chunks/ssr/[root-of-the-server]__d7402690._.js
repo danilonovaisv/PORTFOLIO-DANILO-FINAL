@@ -39,6 +39,8 @@ __turbopack_context__.s([
     ()=>FEATURED_PROJECTS,
     "NAV_LINKS",
     ()=>NAV_LINKS,
+    "PROJECT_SHOWCASE_CARDS",
+    ()=>PROJECT_SHOWCASE_CARDS,
     "SOCIALS",
     ()=>SOCIALS
 ]);
@@ -74,6 +76,136 @@ const NAV_LINKS = [
     {
         label: 'contato',
         href: '#contact'
+    }
+];
+const PROJECT_SHOWCASE_CARDS = [
+    {
+        id: 'magic-radio',
+        title: 'Magic — devolvendo a magia ao rádio',
+        subtitle: 'Rebranding e motion strategy para o clássico canal de áudio',
+        imageUrl: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp',
+        tags: [
+            'Branding',
+            'Motion',
+            'Voice'
+        ],
+        category: 'brand campaigns',
+        overlayGradient: 'linear-gradient(135deg, rgba(0,87,255,0.75) 0%, rgba(0,0,0,0.05) 100%)',
+        accentColor: '#0057FF',
+        shape: {
+            borderRadius: [
+                32,
+                48,
+                18,
+                24
+            ],
+            aspectRatio: {
+                desktop: 2,
+                tablet: 1.4,
+                mobile: 0.8
+            },
+            gridOffset: {
+                columnSpan: 2,
+                rowSpan: 1
+            },
+            rotation: -1.5
+        }
+    },
+    {
+        id: 'fearless-sportswear',
+        title: 'Fearless — Taking Sportswear to the Skies',
+        subtitle: 'Campanha digital com storytelling em pequenos filmes',
+        imageUrl: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
+        tags: [
+            'Video',
+            'Campaign',
+            'Narrative'
+        ],
+        category: 'campaign',
+        overlayGradient: 'linear-gradient(145deg, rgba(239,68,68,0.7) 0%, rgba(249,115,22,0.35) 100%)',
+        accentColor: '#f97316',
+        shape: {
+            borderRadius: [
+                48,
+                24,
+                32,
+                16
+            ],
+            aspectRatio: {
+                desktop: 1.6,
+                tablet: 1.1,
+                mobile: 0.9
+            },
+            gridOffset: {
+                columnSpan: 1,
+                rowSpan: 2
+            },
+            rotation: 2
+        }
+    },
+    {
+        id: 'unmatched-europe',
+        title: 'Unmatched — European Excellence',
+        subtitle: 'Website e experiências digitais para atleta global',
+        imageUrl: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp',
+        tags: [
+            'Web',
+            'Experience',
+            'Fullstack'
+        ],
+        category: 'web + motion',
+        overlayGradient: 'linear-gradient(215deg, rgba(16,185,129,0.6) 0%, rgba(14,165,233,0.35) 100%)',
+        accentColor: '#10b981',
+        shape: {
+            borderRadius: [
+                26,
+                38,
+                48,
+                22
+            ],
+            aspectRatio: {
+                desktop: 1.8,
+                tablet: 1.3,
+                mobile: 0.8
+            },
+            gridOffset: {
+                columnSpan: 1,
+                rowSpan: 1
+            },
+            rotation: -2.2
+        }
+    },
+    {
+        id: 'fff-legal',
+        title: 'FFF Legal — building trust with identity',
+        subtitle: 'Identidade e digital experience para escritório jurídico',
+        imageUrl: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp',
+        tags: [
+            'Branding',
+            'Web',
+            'Strategy'
+        ],
+        category: 'brand + web',
+        overlayGradient: 'linear-gradient(120deg, rgba(79,70,229,0.65) 0%, rgba(14,165,233,0.4) 100%)',
+        accentColor: '#4f46e5',
+        shape: {
+            borderRadius: [
+                34,
+                16,
+                32,
+                48
+            ],
+            aspectRatio: {
+                desktop: 1.4,
+                tablet: 1,
+                mobile: 0.7
+            },
+            gridOffset: {
+                columnSpan: 2,
+                rowSpan: 1
+            },
+            rotation: 1
+        }
     }
 ];
 const CATEGORIES = [
@@ -154,7 +286,7 @@ const SOCIALS = [
             size: 20
         }, void 0, false, {
             fileName: "[project]/lib/constants.tsx",
-            lineNumber: 119,
+            lineNumber: 219,
             columnNumber: 11
         }, ("TURBOPACK compile-time value", void 0))
     },
@@ -165,7 +297,7 @@ const SOCIALS = [
             size: 20
         }, void 0, false, {
             fileName: "[project]/lib/constants.tsx",
-            lineNumber: 124,
+            lineNumber: 224,
             columnNumber: 11
         }, ("TURBOPACK compile-time value", void 0))
     },
@@ -176,7 +308,7 @@ const SOCIALS = [
             size: 20
         }, void 0, false, {
             fileName: "[project]/lib/constants.tsx",
-            lineNumber: 129,
+            lineNumber: 229,
             columnNumber: 11
         }, ("TURBOPACK compile-time value", void 0))
     },
@@ -187,7 +319,7 @@ const SOCIALS = [
             size: 20
         }, void 0, false, {
             fileName: "[project]/lib/constants.tsx",
-            lineNumber: 134,
+            lineNumber: 234,
             columnNumber: 11
         }, ("TURBOPACK compile-time value", void 0))
     }
@@ -200,7 +332,7 @@ const CONTACT_INFO = [
             size: 20
         }, void 0, false, {
             fileName: "[project]/lib/constants.tsx",
-            lineNumber: 142,
+            lineNumber: 242,
             columnNumber: 11
         }, ("TURBOPACK compile-time value", void 0))
     },
@@ -211,7 +343,7 @@ const CONTACT_INFO = [
             size: 20
         }, void 0, false, {
             fileName: "[project]/lib/constants.tsx",
-            lineNumber: 147,
+            lineNumber: 247,
             columnNumber: 11
         }, ("TURBOPACK compile-time value", void 0))
     },
@@ -222,7 +354,7 @@ const CONTACT_INFO = [
             size: 20
         }, void 0, false, {
             fileName: "[project]/lib/constants.tsx",
-            lineNumber: 152,
+            lineNumber: 252,
             columnNumber: 11
         }, ("TURBOPACK compile-time value", void 0))
     },
@@ -233,7 +365,7 @@ const CONTACT_INFO = [
             size: 20
         }, void 0, false, {
             fileName: "[project]/lib/constants.tsx",
-            lineNumber: 157,
+            lineNumber: 257,
             columnNumber: 11
         }, ("TURBOPACK compile-time value", void 0))
     }
