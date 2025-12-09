@@ -1,1 +1,36 @@
-Nothing should be ignored based on the provided file changes. The only change is the addition of a 'portfolio/' directory, which appears to be a regular project directory that should be tracked by Git. No build artifacts, dependencies, or temporary files are present in the changes.
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+ts-debug.log*
+
+# local env files
+.env*.local
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+node_modules
+node_modules
+node_modules
