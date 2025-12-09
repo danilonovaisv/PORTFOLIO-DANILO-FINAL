@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
-import { genkit, z } from 'genkit';
-import { googleAI } from '@genkit-ai/google-genai';
+import {genkit, z} from "genkit";
+import {googleAI} from "@genkit-ai/google-genai";
 
 // Cloud Functions for Firebase supports Genkit natively.
 // The onCallGenkit function creates a callable function from a Genkit action.
@@ -8,7 +8,7 @@ import { googleAI } from '@genkit-ai/google-genai';
 // The https library also has other utility methods such as hasClaim,
 // which verifies that a caller's token has a specific claim
 // (optionally matching a specific value)
-import { onCallGenkit } from 'firebase-functions/https';
+import {onCallGenkit} from "firebase-functions/https";
 
 // Gemini Developer API models and Vertex Express Mode models depend
 // on an API key. API keys should be stored in Cloud Secret Manager
@@ -18,13 +18,13 @@ import { onCallGenkit } from 'firebase-functions/https';
 // API key at https://aistudio.google.com/app/apikey
 // If you are using Vertex Express Mode (vertexAI with apiKey) you can
 // get an API key from the Vertex AI Studio Express Mode setup.
-import { defineSecret } from 'firebase-functions/params';
-const apiKey = defineSecret('GOOGLE_GENAI_API_KEY');
+import {defineSecret} from "firebase-functions/params";
+const apiKey = defineSecret("GOOGLE_GENAI_API_KEY");
 
 // The Firebase telemetry plugin exports a combination of metrics,
 // traces, and logs to Google Cloud Observability.
 // See https://firebase.google.com/docs/genkit/observability/telemetry-collection.
-import { enableFirebaseTelemetry } from '@genkit-ai/firebase';
+import {enableFirebaseTelemetry} from "@genkit-ai/firebase";
 enableFirebaseTelemetry();
 
 const ai = genkit({
@@ -40,16 +40,16 @@ const ai = genkit({
 // Define a simple flow that prompts an LLM to generate menu suggestions.
 const menuSuggestionFlow = ai.defineFlow(
   {
-    name: 'menuSuggestionFlow',
-    inputSchema: z.string().describe('A restaurant theme').default('seafood'),
+    name: "menuSuggestionFlow",
+    inputSchema: z.string().describe("A restaurant theme").default("seafood"),
     outputSchema: z.string(),
     streamSchema: z.string(),
   },
-  async (subject, { sendChunk }) => {
+  async (subject, {sendChunk}) => {
     // Construct a request and send it to the model API.
     const prompt = `Suggest an item for the menu of a ${subject} themed restaurant`;
-    const { response, stream } = ai.generateStream({
-      model: googleAI.model('gemini-2.5-flash'),
+    const {response, stream} = ai.generateStream({
+      model: googleAI.model("gemini-2.5-flash"),
       prompt: prompt,
       config: {
         temperature: 1,
