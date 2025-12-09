@@ -91,7 +91,7 @@ const ProjectCard = ({
       viewport={{ once: true, margin: '-5%' }}
     >
       {/* Image Container */}
-      <div className="relative overflow-hidden rounded-[2.0rem] bg-[#E5E7EB] aspect-4/3 w-full transform-gpu shadow-sm group-hover:shadow-xl group-hover:shadow-blue-500/10 transition-shadow duration-300">
+      <div className="relative overflow-hidden rounded-4xl bg-[#E5E7EB] aspect-4/3 w-full transform-gpu shadow-sm group-hover:shadow-xl group-hover:shadow-blue-500/10 transition-shadow duration-300">
         {/* Parallax Image Wrapper */}
         <motion.div
           style={{ x: mouseX, y: mouseY, scale: 1.05 }}

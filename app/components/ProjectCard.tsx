@@ -1,6 +1,6 @@
 'use client';
 
-import { KeyboardEvent, useRef } from 'react';
+import React, { KeyboardEvent, useRef } from 'react';
 import { motion, useInView, Variants } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -62,7 +62,7 @@ const ProjectCard = ({ project, index, className }: ProjectCardProps) => {
         scale: 1.02,
         boxShadow: '0px 12px 30px rgba(15, 23, 42, 0.15)',
       }}
-      className={`relative overflow-hidden rounded-[1.5rem] bg-white shadow-sm transition-all duration-300 ${slotClass}`}
+      className={`relative overflow-hidden rounded-none bg-white shadow-sm transition-all duration-300 ${slotClass}`}
       onClick={navigateToProject}
       onKeyDown={handleKeyDown}
       role="button"
@@ -71,7 +71,7 @@ const ProjectCard = ({ project, index, className }: ProjectCardProps) => {
     >
       <div className="group block">
         <div
-          className={`relative w-full overflow-hidden rounded-[1.3rem] bg-gray-100 ${aspectClass}`}
+          className={`relative w-full overflow-hidden rounded-none bg-gray-100 ${aspectClass}`}
         >
           <Image
             src={project.imageUrl}

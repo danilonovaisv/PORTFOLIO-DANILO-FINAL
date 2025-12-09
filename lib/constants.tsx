@@ -54,17 +54,18 @@ export interface ProjectShowcaseCard {
   accentColor: string;
   shape: DynamicProjectShape;
   liveUrl?: string;
+  overlayText?: string[];
 }
 
 export const PROJECT_SHOWCASE_CARDS: ProjectShowcaseCard[] = [
   {
     id: 'magic-radio',
-    title: 'Magic — devolvendo a magia ao rádio',
-    subtitle: 'Rebranding e motion strategy para o clássico canal de áudio',
+    title: 'Bringing the Magic Back to Radio',
+    subtitle: 'Magic',
     imageUrl:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp',
-    tags: ['Branding', 'Motion', 'Voice'],
-    category: 'brand campaigns',
+    tags: ['Branding'],
+    category: 'branding',
     overlayGradient:
       'linear-gradient(135deg, rgba(0,87,255,0.75) 0%, rgba(0,0,0,0.05) 100%)',
     accentColor: '#0057FF',
@@ -77,11 +78,11 @@ export const PROJECT_SHOWCASE_CARDS: ProjectShowcaseCard[] = [
   },
   {
     id: 'fearless-sportswear',
-    title: 'Fearless — Taking Sportswear to the Skies',
-    subtitle: 'Campanha digital com storytelling em pequenos filmes',
+    title: 'Taking Sportswear to the Skies',
+    subtitle: 'Fearless',
     imageUrl:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
-    tags: ['Video', 'Campaign', 'Narrative'],
+    tags: ['campaign'],
     category: 'campaign',
     overlayGradient:
       'linear-gradient(145deg, rgba(239,68,68,0.7) 0%, rgba(249,115,22,0.35) 100%)',
@@ -92,15 +93,16 @@ export const PROJECT_SHOWCASE_CARDS: ProjectShowcaseCard[] = [
       gridOffset: { columnSpan: 1, rowSpan: 2 },
       rotation: 2,
     },
+    overlayText: ['Fearless.', 'Unmatched.'],
   },
   {
-    id: 'unmatched-europe',
-    title: 'Unmatched — European Excellence',
-    subtitle: 'Website e experiências digitais para atleta global',
+    id: 'epic-look',
+    title: 'Refreshing a Telecom Challenger',
+    subtitle: 'Epic',
     imageUrl:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp',
-    tags: ['Web', 'Experience', 'Fullstack'],
-    category: 'web + motion',
+    tags: ['branding'],
+    category: 'branding',
     overlayGradient:
       'linear-gradient(215deg, rgba(16,185,129,0.6) 0%, rgba(14,165,233,0.35) 100%)',
     accentColor: '#10b981',
@@ -113,12 +115,12 @@ export const PROJECT_SHOWCASE_CARDS: ProjectShowcaseCard[] = [
   },
   {
     id: 'fff-legal',
-    title: 'FFF Legal — building trust with identity',
-    subtitle: 'Identidade e digital experience para escritório jurídico',
+    title: 'Designing Trust — The FFF Legal Identity',
+    subtitle: 'FFF Legal',
     imageUrl:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp',
-    tags: ['Branding', 'Web', 'Strategy'],
-    category: 'brand + web',
+    tags: ['branding'],
+    category: 'branding',
     overlayGradient:
       'linear-gradient(120deg, rgba(79,70,229,0.65) 0%, rgba(14,165,233,0.4) 100%)',
     accentColor: '#4f46e5',

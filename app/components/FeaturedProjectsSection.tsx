@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import Link from 'next/link';
 import { motion, Variants } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
@@ -27,15 +28,8 @@ const FeaturedProjectsSection = ({ projects = featuredProjects }: FeaturedProjec
   const [smallProject, mediumProject, wideProject, rectangleProject] = arranged;
 
   return (
-    <section id="featured-projects" className="bg-white py-16 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-6xl space-y-10">
-        <div className="text-center space-y-3">
-          <span className="text-[0.65rem] uppercase tracking-[0.6em] text-[#0057FF]">featured projects</span>
-          <h2 className="text-3xl font-semibold text-[#111111] sm:text-4xl lg:text-5xl">
-            Recent collaborations
-          </h2>
-        </div>
-
+    <section id="featured-projects" className="bg-[#F4F5F7] py-16 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl space-y-6">
         <div className="space-y-8">
           {(smallProject || mediumProject) && (
             <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)]">
@@ -64,20 +58,20 @@ const FeaturedProjectsSection = ({ projects = featuredProjects }: FeaturedProjec
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.6 }}
-                className="flex min-h-[260px] w-full flex-col justify-between gap-6 rounded-[1.5rem] bg-[#F4F5F7] p-8"
+                className="flex min-h-[260px] w-full flex-col justify-center gap-6 rounded-[1.5rem] bg-[#F4F5F7] p-8"
               >
-                <div>
-                  <p className="text-sm uppercase tracking-[0.45em] text-[#7D8297]">portfolio</p>
-                  <h3 className="mt-4 text-3xl font-light text-[#111111] leading-tight">
-                    Like what <br /> you see?
-                  </h3>
-                </div>
+                <p className="text-sm font-normal text-[#7D8297] tracking-normal">Like what</p>
+                <h3 className="text-4xl font-light text-[#111111] leading-tight">
+                  you see?
+                </h3>
                 <Link
                   href="/portfolio"
-                  className="inline-flex items-center gap-3 rounded-full bg-[#0057FF] px-6 py-3 text-sm font-semibold uppercase tracking-[0.3em] text-white transition-all duration-300 hover:bg-[#0045d6]"
+                  className="inline-flex items-center gap-3 rounded-full bg-[#0057FF] px-6 py-3 text-sm font-semibold tracking-[0.25em] text-white transition-all duration-300 hover:bg-[#0045d6]"
                 >
-                  view projects
-                  <ArrowUpRight className="h-4 w-4" />
+                  <span>view projects</span>
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#0057FF]">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
                 </Link>
             </motion.div>
           </div>
