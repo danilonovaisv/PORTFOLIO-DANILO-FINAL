@@ -18,14 +18,22 @@ interface HeroGlassCanvasProps {
   prefersReducedMotion?: boolean;
 }
 
+type ResponsiveTorusProps = {
+  scrollYProgress?: MotionValue<number>;
+  prefersReducedMotion?: boolean;
+  lowRenderMode?: boolean;
+};
+
 const ResponsiveTorus = ({
   scrollYProgress,
   prefersReducedMotion,
-}: Omit<HeroGlassCanvasProps, 'className' | 'eventSource'>) => {
+  lowRenderMode,
+}: ResponsiveTorusProps) => {
   const orbitRef = useRef<THREE.Group>(null);
   const { viewport } = useThree();
 
-  const scale = viewport.width < 4.5 ? 1.4 : 2.2;
+  const isMobile = viewport.width < 4.5;
+  const scale = isMobile ? 1.4 : 2.2;
 
   useFrame((_, delta) => {
     if (orbitRef.current && !prefersReducedMotion) {
@@ -38,6 +46,8 @@ const ResponsiveTorus = ({
       <TorusDan
         scrollYProgress={scrollYProgress}
         prefersReducedMotion={prefersReducedMotion}
+        lowRenderMode={lowRenderMode}
+        isMobile={isMobile}
       />
     </group>
   );
@@ -50,6 +60,7 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
   prefersReducedMotion,
 }) => {
   const [dpr, setDpr] = useState(1.5);
+  const [lowRenderMode, setLowRenderMode] = useState(false);
   const eventSourceNode = eventSource?.current ?? undefined;
 
   return (
@@ -61,12 +72,14 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
         gl={{ alpha: true, antialias: true, toneMappingExposure: 1.05 }}
       >
         <PerformanceMonitor
-          onDecline={({ factor }) =>
-            setDpr((prev) => Math.max(0.75, prev - (factor ?? 0.15)))
-          }
-          onIncline={({ factor }) =>
-            setDpr((prev) => Math.min(2, prev + (factor ?? 0.1)))
-          }
+          onDecline={({ factor }) => {
+            setDpr((prev) => Math.max(0.75, prev - (factor ?? 0.15)));
+            setLowRenderMode(true);
+          }}
+          onIncline={({ factor }) => {
+            setDpr((prev) => Math.min(2, prev + (factor ?? 0.1)));
+            setLowRenderMode(false);
+          }}
         />
         <PerspectiveCamera makeDefault position={[0, 0, 12]} fov={32} />
 
@@ -93,6 +106,7 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
           <ResponsiveTorus
             scrollYProgress={scrollYProgress}
             prefersReducedMotion={prefersReducedMotion}
+            lowRenderMode={lowRenderMode}
           />
 
           <Environment preset="city" blur={1} background={false} />

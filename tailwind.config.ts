@@ -12,7 +12,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      spacing: {
+        'screen-dvh': '100dvh',
+      },
       colors: {
+        background: 'var(--color-surface-main, #F4F4F5)',
+        foreground: 'var(--color-text-main, #18181B)',
         zinc: {
           ...colors.zinc,
           100: '#F4F4F5',
@@ -26,6 +31,9 @@ const config: Config = {
       },
       letterSpacing: {
         modern: '-0.02em',
+      },
+      fontSize: {
+        display: ['12vw', { lineHeight: '0.9', letterSpacing: '-0.04em' }],
       },
     },
   },

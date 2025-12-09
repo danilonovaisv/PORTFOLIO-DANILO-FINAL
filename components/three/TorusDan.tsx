@@ -9,15 +9,25 @@ import * as THREE from 'three';
 interface TorusDanProps {
   scrollYProgress?: MotionValue<number>;
   prefersReducedMotion?: boolean;
+  lowRenderMode?: boolean;
+  isMobile?: boolean;
 }
 
 useGLTF.preload('/models/torus_dan.glb');
 
-const TorusDan = ({ scrollYProgress, prefersReducedMotion }: TorusDanProps) => {
+const TorusDan = ({
+  scrollYProgress,
+  prefersReducedMotion,
+  lowRenderMode,
+  isMobile,
+}: TorusDanProps) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const gltf = useGLTF('/models/torus_dan.glb');
   const { size } = useThree();
-  const resolution = size.width < 600 ? 512 : 1024;
+  const viewportMobile = isMobile ?? size.width < 600;
+  const useLowQuality = lowRenderMode || viewportMobile;
+  const resolution = useLowQuality ? 512 : 1024;
+  const samples = useLowQuality ? 4 : 10;
 
   const geometry = useMemo(() => {
     const mesh = gltf.scene.children.find(
@@ -30,21 +40,21 @@ const TorusDan = ({ scrollYProgress, prefersReducedMotion }: TorusDanProps) => {
   useFrame((state, delta) => {
     if (meshRef.current) {
       const pointer = prefersReducedMotion ? { x: 0, y: 0 } : state.pointer;
-
-      const baseRotation = prefersReducedMotion ? 0.02 : 0.05;
-      meshRef.current.rotation.z += delta * baseRotation;
-
+      const lerpFactor = prefersReducedMotion ? 0.01 : 0.05;
       meshRef.current.rotation.x = THREE.MathUtils.lerp(
         meshRef.current.rotation.x,
         pointer.y * 0.2,
-        prefersReducedMotion ? 0.01 : 0.05
+        lerpFactor
       );
-
       meshRef.current.rotation.y = THREE.MathUtils.lerp(
         meshRef.current.rotation.y,
         pointer.x * 0.2,
-        prefersReducedMotion ? 0.01 : 0.05
+        lerpFactor
       );
+
+      const baseRotation = prefersReducedMotion ? 0.01 : 0.035;
+      meshRef.current.rotation.y += delta * baseRotation;
+      meshRef.current.rotation.x += delta * baseRotation * 0.4;
 
       if (scrollYProgress) {
         const scrollValue = scrollYProgress.get();
@@ -70,16 +80,16 @@ const TorusDan = ({ scrollYProgress, prefersReducedMotion }: TorusDanProps) => {
       >
 
         <MeshTransmissionMaterial
-          backside={true}
-          samples={4}
+          backside
+          samples={samples}
           resolution={resolution}
           transmission={0.98}
-          roughness={0.0}
+          roughness={0.05}
           clearcoat={1}
           clearcoatRoughness={0}
           thickness={0.5}
           ior={1.4}
-          chromaticAberration={0.05}
+          chromaticAberration={0.06}
           anisotropy={0.1}
           distortion={0.4}
           distortionScale={0.4}
