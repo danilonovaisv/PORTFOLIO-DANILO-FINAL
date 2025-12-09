@@ -58,12 +58,12 @@ type ProjectCardProps = {
   project: Project;
   index: number;
   className?: string;
-  trackRef: RefObject<HTMLDivElement | null>;
+  trackRef: RefObject<HTMLDivElement>;
 };
 
 type ProjectSceneProps = {
   project: Project;
-  trackRef: RefObject<HTMLDivElement | null>;
+  trackRef: RefObject<HTMLDivElement>;
   index: number;
 };
 

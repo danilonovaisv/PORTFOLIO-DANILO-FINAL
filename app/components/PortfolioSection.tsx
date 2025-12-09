@@ -37,8 +37,8 @@ const PortfolioSection = ({ projects = featuredProjects }: PortfolioSectionProps
   const [eventSource, setEventSource] = useState<HTMLElement | null>(null);
   const lenisFrame = useRef<number | null>(null);
 
-  const cardRefs = useMemo<RefObject<HTMLDivElement | null>[]>(
-    () => projects.map(() => createRef<HTMLDivElement | null>()),
+  const cardRefs = useMemo<RefObject<HTMLDivElement>[]>(
+    () => projects.map(() => createRef<HTMLDivElement>()),
     [projects]
   );
 
