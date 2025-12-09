@@ -15,13 +15,13 @@ const Hero: React.FC = () => {
   });
 
   // Memoize transform values for better performance
-  const contentOpacity = useMemo(() => useTransform(scrollYProgress, [0, 0.15], [1, 0]), [scrollYProgress]);
-  const contentScale = useMemo(() => useTransform(scrollYProgress, [0, 0.15], [1, 0.95]), [scrollYProgress]);
-  const contentY = useMemo(() => useTransform(scrollYProgress, [0, 0.15], [0, -50]), [scrollYProgress]);
-  const videoScale = useMemo(() => useTransform(scrollYProgress, [0, 0.25], [0.25, 1]), [scrollYProgress]);
-  const videoX = useMemo(() => useTransform(scrollYProgress, [0, 0.25], ['35%', '0%']), [scrollYProgress]);
-  const videoY = useMemo(() => useTransform(scrollYProgress, [0, 0.25], ['30%', '0%']), [scrollYProgress]);
-  const videoRadius = useMemo(() => useTransform(scrollYProgress, [0, 0.2], [32, 0]), [scrollYProgress]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+  const contentScale = useTransform(scrollYProgress, [0, 0.15], [1, 0.95]);
+  const contentY = useTransform(scrollYProgress, [0, 0.15], [0, -50]);
+  const videoScale = useTransform(scrollYProgress, [0, 0.25], [0.25, 1]);
+  const videoX = useTransform(scrollYProgress, [0, 0.25], ['35%', '0%']);
+  const videoY = useTransform(scrollYProgress, [0, 0.25], ['30%', '0%']);
+  const videoRadius = useTransform(scrollYProgress, [0, 0.2], [12, 0]);
 
   // Style objects extracted for clarity
   const contentStyle = useMemo(() => ({
