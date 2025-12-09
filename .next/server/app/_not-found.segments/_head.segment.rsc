@@ -2,6 +2,6 @@
 2:I[97367,["/_next/static/chunks/c4a928bd57ec27ff.js","/_next/static/chunks/4324a44681a15bf0.js","/_next/static/chunks/247eb132b7f7b574.js"],"ViewportBoundary"]
 4:I[97367,["/_next/static/chunks/c4a928bd57ec27ff.js","/_next/static/chunks/4324a44681a15bf0.js","/_next/static/chunks/247eb132b7f7b574.js"],"MetadataBoundary"]
 5:"$Sreact.suspense"
-0:{"buildId":"JT-Z6FV6lkdnzCh2y2QyL","rsc":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],null]}],"loading":null,"isPartial":false}
+0:{"buildId":"dWQBZZ2zug240FB0MqmjQ","rsc":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],null]}],"loading":null,"isPartial":false}
 3:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
 6:[["$","title","0",{"children":"Danilo Novais | Portfolio"}],["$","meta","1",{"name":"description","content":"Design, não é só estética. É intenção, é estratégia, é experiência."}]]
