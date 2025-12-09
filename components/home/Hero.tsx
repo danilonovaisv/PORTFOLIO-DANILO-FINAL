@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback, useState } from 'react';
 import {
   motion,
   useMotionValueEvent,
@@ -9,6 +9,7 @@ import {
   useReducedMotion,
   Variants,
 } from 'framer-motion';
+
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Button from '../ui/Button';
@@ -109,10 +110,20 @@ const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const shouldReduceMotion = useReducedMotion() ?? false;
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const updateHeroAudioMute = useCallback(
     (progress: number) => {
       if (!videoRef.current) return;
-      const shouldMute = progress >= HERO_AUDIO_MUTE_THRESHOLD;
+      // Mute while it's a "thumb" (start of scroll), Unmute when expanded
+      const shouldMute = progress < 0.2;
       if (videoRef.current.muted !== shouldMute) {
         videoRef.current.muted = shouldMute;
       }
@@ -149,10 +160,7 @@ const Hero = () => {
   const glassOrbScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.9]); // Subtle scale
 
   // Video transitions
-  const videoScale = useTransform(scrollYProgress, [0, 0.25], [0.4, 1]); // Starting larger to avoid too much scaling
-  const videoX = useTransform(scrollYProgress, [0, 0.25], ['30%', '0%']);
-  const videoY = useTransform(scrollYProgress, [0, 0.25], ['20%', '0%']);
-  const videoRadius = useTransform(scrollYProgress, [0, 0.2], [24, 0]);
+
 
   return (
     <section
@@ -284,16 +292,37 @@ const Hero = () => {
             </div>
 
             {/* Coluna Direita: Orb 3D (Desktop) */}
-            <div className="hidden lg:block relative h-full pointer-events-none">
-              {/* A orb pode transbordar, mas o anchor dela fica aqui */}
-              {/* TAG LATERAL: BRAND AWARENESS - Dentro da grid ou posicionado relativo ao conteúdo */}
+            {/* Coluna Direita: Orb 3D / Video (Desktop) */}
+            <div className="hidden lg:flex flex-col justify-center items-end relative h-full pointer-events-none">
+               <motion.div
+                 initial={{ opacity: 0, x: 40 }}
+                 animate={{ opacity: 1, x: 0 }}
+                 transition={{ delay: 0.6, duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+                 className="pointer-events-auto relative z-20 w-full max-w-[400px] xl:max-w-[480px] mr-0 xl:mr-8"
+               >
+                  <div className="relative overflow-hidden rounded-[1.75rem] border border-white/60 bg-[#050505] shadow-[0_25px_60px_rgba(2,6,23,0.65)]">
+                     <div className="aspect-video w-full">
+                       <video
+                         ref={videoRef}
+                         src={ASSETS.videoManifesto}
+                         autoPlay
+                         muted
+                         loop
+                         playsInline
+                         className="w-full h-full object-cover"
+                       />
+                     </div>
+                     <div className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/40" />
+                  </div>
+               </motion.div>
+
               <motion.div
-                initial={{ opacity: 0, x: shouldReduceMotion ? 0 : 20 }}
+                initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.0, duration: 0.8 }}
-                className="absolute right-0 top-1/2 -translate-y-1/2"
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-8 md:translate-x-12"
               >
-                <span className="text-[#0057FF] font-medium tracking-widest text-lg md:text-xl">
+                <span className="writing-vertical-rl text-[#0057FF] font-medium tracking-widest text-lg md:text-xl opacity-80 whitespace-nowrap rotate-180">
                   [ BRAND AWARENESS ]
                 </span>
               </motion.div>
@@ -316,34 +345,7 @@ const Hero = () => {
         </motion.div>
 
         {/* 3. VIDEO LAYER (Foreground) */}
-        <motion.div
-          style={{
-            scale: videoScale,
-            x: videoX,
-            y: videoY,
-            borderRadius: videoRadius,
-          }}
-          className="absolute z-40 w-full h-full flex items-center justify-center overflow-hidden shadow-2xl origin-center bg-black pointer-events-none"
-        >
-          <div className="pointer-events-auto flex w-full justify-center px-4 sm:px-8">
-            <div className="w-[min(640px,92vw)]">
-              <div className="relative overflow-hidden rounded-[1.75rem] border border-white/60 bg-[#050505] shadow-[0_25px_60px_rgba(2,6,23,0.65)]">
-                <div className="aspect-[16/9] w-full">
-                  <video
-                    ref={videoRef}
-                    src={ASSETS.videoManifesto}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="w-full h-full object-cover transition-opacity duration-500"
-                  />
-                </div>
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
-              </div>
-            </div>
-          </div>
-        </motion.div>
+
       </div>
     </section>
   );
