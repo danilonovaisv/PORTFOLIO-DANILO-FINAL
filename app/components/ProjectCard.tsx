@@ -1,14 +1,14 @@
 'use client';
 
-import { useMemo, useRef, RefObject } from 'react';
+import React, { useEffect, useMemo, useRef, RefObject } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, useInView } from 'framer-motion';
+import { motion, Variants, useInView } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { View, PerspectiveCamera, useTexture, shaderMaterial } from '@react-three/drei';
-import { useFrame, extend, ReactThreeFiber } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { damp, damp3 } from 'maath/easing';
 import { Project } from '@/content/projects';
-import { ShaderMaterial, Vector3 } from 'three';
+import { Vector3 } from 'three';
 import * as THREE from 'three';
 
 const imageLayouts: Record<Project['layout'], string> = {
@@ -18,7 +18,7 @@ const imageLayouts: Record<Project['layout'], string> = {
   rectangle: 'aspect-[3/2]',
 };
 
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: (index: number) => ({
     opacity: 1,
@@ -26,7 +26,7 @@ const cardVariants = {
     transition: {
       delay: index * 0.1,
       duration: 0.75,
-      ease: [0.22, 1, 0.36, 1],
+      ease: 'easeOut',
     },
   }),
 };
@@ -54,39 +54,35 @@ const GrayscaleFabric = shaderMaterial(
   `
 );
 
-extend({ GrayscaleFabric });
-
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      grayscaleFabric: ReactThreeFiber.Object3DNode<
-        ShaderMaterial,
-        typeof ShaderMaterial
-      >;
-    }
-  }
-}
-
 type ProjectCardProps = {
   project: Project;
   index: number;
   className?: string;
-  trackRef: RefObject<HTMLDivElement>;
+  trackRef: RefObject<HTMLDivElement | null>;
 };
 
 type ProjectSceneProps = {
   project: Project;
-  trackRef: RefObject<HTMLDivElement>;
+  trackRef: RefObject<HTMLDivElement | null>;
   index: number;
 };
 
 const Project3DImage = ({ textureUrl }: { textureUrl: string }) => {
   const texture = useTexture(textureUrl);
   const meshRef = useRef<THREE.Mesh>(null);
-  const materialRef = useRef<ShaderMaterial>(null);
   const hoverState = useRef(false);
   const grayscaleVal = useRef(1);
   const targetScale = useRef(new Vector3(1, 1, 1));
+  const material = useMemo(() => new GrayscaleFabric(), []);
+
+  useEffect(() => {
+    material.uniforms.map.value = texture;
+    material.uniforms.grayscale.value = 1;
+    material.toneMapped = false;
+    return () => {
+      material.dispose();
+    };
+  }, [material, texture]);
 
   const aspect = useMemo(() => {
     const image = texture.image as HTMLImageElement | undefined;
@@ -101,10 +97,9 @@ const Project3DImage = ({ textureUrl }: { textureUrl: string }) => {
     const heightFactor = aspect >= 1 ? baseScale : baseScale / aspect;
     targetScale.current.set(widthFactor, heightFactor, 1);
     damp3(meshRef.current.scale, targetScale.current, 9, delta);
-    damp(grayscaleVal, hoverState.current ? 0 : 1, 10, delta);
-    if (materialRef.current) {
-      materialRef.current.uniforms.grayscale.value = grayscaleVal.current;
-    }
+    damp(grayscaleVal, 'current', hoverState.current ? 0 : 1, 10, delta);
+    material.uniforms.grayscale.value = grayscaleVal.current;
+    material.uniforms.map.value = texture;
   });
 
   return (
@@ -127,12 +122,7 @@ const Project3DImage = ({ textureUrl }: { textureUrl: string }) => {
           64,
         ]}
       />
-      <grayscaleFabric
-        ref={materialRef}
-        map={texture}
-        grayscale={grayscaleVal.current}
-        toneMapped={false}
-      />
+      <primitive object={material} attach="material" />
     </mesh>
   );
 };

@@ -10,20 +10,20 @@ import React, {
 } from 'react';
 import Link from 'next/link';
 import { Canvas } from '@react-three/fiber';
-import { motion } from 'framer-motion';
+import { Variants, motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import Lenis from 'lenis';
 import { featuredProjects, Project } from '@/content/projects';
 import ProjectCard, { ProjectCardScene } from './ProjectCard';
 
-const ctaVariant = {
+const ctaVariant: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
       duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
+      ease: 'easeOut',
     },
   },
 };
@@ -35,11 +35,11 @@ type PortfolioSectionProps = {
 const PortfolioSection = ({ projects = featuredProjects }: PortfolioSectionProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [eventSource, setEventSource] = useState<HTMLElement | null>(null);
-  const lenisFrame = useRef<number>();
+  const lenisFrame = useRef<number | null>(null);
 
-  const cardRefs = useMemo<RefObject<HTMLDivElement>[]>(
-    () => projects.map(() => createRef<HTMLDivElement>()),
-    [projects.length]
+  const cardRefs = useMemo<RefObject<HTMLDivElement | null>[]>(
+    () => projects.map(() => createRef<HTMLDivElement | null>()),
+    [projects]
   );
 
   useEffect(() => {
@@ -54,7 +54,6 @@ const PortfolioSection = ({ projects = featuredProjects }: PortfolioSectionProps
       duration: 1.4,
       easing: (t: number) => t * (2 - t),
       smoothWheel: true,
-      smoothTouch: true,
     });
 
     const animate = (time: number) => {
@@ -132,7 +131,6 @@ const PortfolioSection = ({ projects = featuredProjects }: PortfolioSectionProps
       {eventSource && (
         <Canvas
           eventSource={eventSource}
-          eventPrefix="portfolio"
           className="pointer-events-none absolute inset-0 z-0"
           dpr={[1, 2]}
           gl={{ antialias: true, toneMappingExposure: 1.2 }}
