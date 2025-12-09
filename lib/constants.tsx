@@ -19,6 +19,8 @@ export const ASSETS = {
   videoManifesto:
     'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
   heroAbstractModel: '/media/abstract_element.glb', // Fallback to procedural if not found
+  heroManifestThumb:
+    'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
 };
 
 // Navigation

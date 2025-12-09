@@ -4,6 +4,7 @@ const nextConfig = {
   experimental: {
     // any needed experimental flags
   },
+  allowedDevOrigins: ['http://192.168.0.5:3000'],
   images: {
     remotePatterns: [
       {

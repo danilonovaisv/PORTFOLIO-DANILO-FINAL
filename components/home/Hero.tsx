@@ -105,10 +105,21 @@ const AnimatedTextLine = ({
 };
 
 const HERO_AUDIO_MUTE_THRESHOLD = 0.9;
+const thumbVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const },
+  },
+};
 
 const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const heroStickyRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [thumbRevealed, setThumbRevealed] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const shouldReduceMotion = useReducedMotion() ?? false;
   const [isMobile, setIsMobile] = useState(false);
 
@@ -143,6 +154,75 @@ const Hero = () => {
     updateHeroAudioMute(scrollYProgress.get());
   }, [scrollYProgress, updateHeroAudioMute]);
 
+  const handleOpenModal = useCallback(() => {
+    setIsModalOpen(true);
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+  }, []);
+
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      setThumbRevealed(true);
+      return undefined;
+    }
+
+    const target = heroStickyRef.current;
+    if (!target || typeof IntersectionObserver === 'undefined') {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry && entry.isIntersecting && entry.intersectionRatio >= 0.99) {
+          setThumbRevealed(true);
+        }
+      },
+      { threshold: [0.99, 1] }
+    );
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, [shouldReduceMotion]);
+
+  useEffect(() => {
+    if (!isModalOpen) {
+      return undefined;
+    }
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsModalOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isModalOpen]);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') {
+      return undefined;
+    }
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = isModalOpen ? 'hidden' : originalOverflow;
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isModalOpen]);
+
+  const thumbSizeClasses =
+    'w-[260px] h-[150px] md:w-[280px] md:h-[160px] lg:w-[200px] lg:h-[120px]';
+  const thumbHoverClasses = shouldReduceMotion
+    ? ''
+    : 'transition-all duration-300 ease hover:scale-[1.05] hover:shadow-[0_4px_16px_rgba(0,0,0,0.08)]';
+  const thumbAnimationState =
+    shouldReduceMotion || thumbRevealed ? 'visible' : 'hidden';
+  const thumbInitialState = shouldReduceMotion ? 'visible' : 'hidden';
+
   // Animações Scroll-Driven
   // (Simplified or disabled if reduced motion is preferred could be handled here,
   // but framer motion handles some automatically. We explicitly limit ranges for performance)
@@ -171,7 +251,10 @@ const Hero = () => {
       className="relative h-[450vh] w-full bg-[#F4F5F7]"
     >
       {/* Container Sticky */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+      <div
+        ref={heroStickyRef}
+        className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center"
+      >
         {/* Logo no canto superior esquerdo */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -188,6 +271,37 @@ const Hero = () => {
             className="h-8 md:h-10 lg:h-12 w-auto"
           />
         </motion.div>
+
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 lg:left-auto lg:right-6 lg:translate-x-0 md:bottom-8 lg:bottom-10 pointer-events-none">
+            <motion.button
+              type="button"
+              aria-label="Abrir manifesto em vídeo"
+              className={`pointer-events-auto relative group rounded-[1.75rem] bg-white/90 shadow-[0_15px_35px_rgba(15,23,42,0.2)] border border-[#CAE0FF] overflow-hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0057FF] ${thumbSizeClasses} ${thumbHoverClasses}`}
+              onClick={handleOpenModal}
+              variants={thumbVariants}
+              initial={thumbInitialState}
+              animate={thumbAnimationState}
+            >
+              <div className="relative w-full h-full rounded-[1.75rem] overflow-hidden">
+                <Image
+                  src={ASSETS.heroManifestThumb}
+                  alt="Miniatura do manifesto em vídeo"
+                  fill
+                  sizes="(max-width: 1024px) 280px, 200px"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-white/75 backdrop-blur-sm" />
+              </div>
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-4 text-center">
+                <span className="text-[0.65rem] md:text-[0.75rem] tracking-[0.35em] font-semibold text-[#0057FF]">
+                  [ BRAND AWARENESS ]
+                </span>
+                <span className="text-2xl md:text-[2.4rem] text-[#0057FF] leading-none">↓</span>
+              </div>
+            </motion.button>
+          </div>
+        </div>
         {/* Main Content Layer */}
         <motion.div
           style={{
@@ -329,6 +443,45 @@ const Hero = () => {
             </div>
           </div>
         </motion.div>
+
+        {isModalOpen && (
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Vídeo manifesto em fullscreen"
+            tabIndex={-1}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm px-4 py-6"
+            onClick={handleCloseModal}
+          >
+            <div
+              className="relative w-full max-w-4xl"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <button
+                type="button"
+                aria-label="Fechar vídeo"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  handleCloseModal();
+                }}
+                className="absolute right-4 top-4 z-10 rounded-full border border-white/40 bg-black/40 px-3 py-1 text-lg font-semibold text-white transition-all duration-200 hover:bg-black/70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                ×
+              </button>
+              <div className="aspect-video w-full rounded-[2rem] border border-white/40 bg-black shadow-[0_20px_60px_rgba(2,6,23,0.6)]">
+                <video
+                  src={ASSETS.videoManifesto}
+                  autoPlay
+                  muted
+                  playsInline
+                  loop
+                  controls
+                  className="h-full w-full rounded-[2rem] object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* 3D Orb Background/Layer - Mantendo posicionado e dimensionado via container, mas visualmente "atrás" */}
         <motion.div
