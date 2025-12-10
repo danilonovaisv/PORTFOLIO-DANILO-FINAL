@@ -98,6 +98,7 @@ const Contact: React.FC = () => {
                   id="name"
                   name="name"
                   required
+                  aria-required="true"
                   className="w-full px-5 py-3 bg-[#F4F5F7] border-transparent rounded-xl text-[#111111] placeholder:text-gray-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0057FF] transition-all"
                   placeholder="João da Silva"
                 />
@@ -115,6 +116,7 @@ const Contact: React.FC = () => {
                   id="email"
                   name="email"
                   required
+                  aria-required="true"
                   className="w-full px-5 py-3 bg-[#F4F5F7] border-transparent rounded-xl text-[#111111] placeholder:text-gray-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0057FF] transition-all"
                   placeholder="joao@empresa.com"
                 />
@@ -132,6 +134,7 @@ const Contact: React.FC = () => {
                   id="phone"
                   name="phone"
                   required
+                  aria-required="true"
                   className="w-full px-5 py-3 bg-[#F4F5F7] border-transparent rounded-xl text-[#111111] placeholder:text-gray-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0057FF] transition-all"
                   placeholder="(11) 99999-9999"
                 />
@@ -148,6 +151,7 @@ const Contact: React.FC = () => {
                   id="message"
                   name="message"
                   required
+                  aria-required="true"
                   rows={4}
                   className="w-full px-5 py-3 bg-[#F4F5F7] border-transparent rounded-xl text-[#111111] placeholder:text-gray-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0057FF] transition-all resize-none"
                   placeholder="Conte-me sobre seu projeto..."

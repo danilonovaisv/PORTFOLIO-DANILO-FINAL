@@ -52,7 +52,7 @@ const PortfolioShowcaseSection: FC = () => {
             <div className="flex gap-3">
               <a
                 href="/portfolio"
-                className="inline-flex items-center gap-2 rounded-full bg-white text-[#0057FF] px-5 py-3 text-sm font-semibold uppercase tracking-widest shadow-md shadow-[#0057FF]/10 ring-1 ring-[#0057FF]/20 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#0057FF]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0057FF]"
+                className="inline-flex items-center gap-2 rounded-full bg-[#0057FF] text-white px-6 py-3 text-sm font-semibold uppercase tracking-widest shadow-md shadow-[#0057FF]/20 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[#0057FF]/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0057FF]"
               >
                 veja mais →
               </a>
@@ -103,9 +103,13 @@ const PortfolioShowcaseSection: FC = () => {
                     }
                     onMouseLeave={() => setHoveredId(null)}
                     className={`
-                      relative flex w-full cursor-pointer border-b border-neutral-300 transition duration-150 ease-out rounded-2xl
+                      relative flex w-full cursor-pointer border-b border-neutral-300 transition duration-200 ease-out rounded-2xl
                       focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0057FF]
-                      ${isExpanded ? 'border-none' : 'hover:bg-white/60 hover:shadow-md hover:shadow-[#0057FF]/10'}
+                      ${
+                        isExpanded
+                          ? 'border-none'
+                          : 'hover:bg-[#F4F5F7] hover:shadow-md hover:shadow-blue-500/10'
+                      }
                     `}
                   >
                     {/* Subtítulo alinhado com o primeiro item (Desktop Only) */}
@@ -123,7 +127,7 @@ const PortfolioShowcaseSection: FC = () => {
                         className={`flex w-full transition-all duration-200 ease-out
                       ${isExpanded ? 'py-8 flex-col items-start gap-8' : 'py-8 md:py-12 items-center'}
                       ${!isExpanded ? alignmentClass : ''}
-                      ${!isExpanded ? 'hover:scale-[1.01] focus-visible:scale-[1.01]' : ''}
+                      ${!isExpanded ? 'hover:scale-[1.005] focus-visible:scale-[1.005]' : ''}
                     `}
                       >
                       {/* Conteúdo do Item (Texto + Ícone) */}
@@ -192,7 +196,7 @@ const PortfolioShowcaseSection: FC = () => {
                               layout="position"
                               className={`
                               font-bold text-[#111111] transition-all duration-300 tracking-tight leading-[1.1] group-hover:text-[#0057FF]
-                              ${isExpanded ? 'text-2xl md:text-3xl' : 'text-xl md:text-2xl'}
+                              text-xl md:text-2xl
                             `}
                             >
                               {category.label}
@@ -311,10 +315,10 @@ const PortfolioShowcaseSection: FC = () => {
               href="/#contact"
               whileHover={shouldAnimate ? { scale: 1.05 } : undefined}
               whileTap={shouldAnimate ? { scale: 0.95 } : undefined}
-              className="group relative inline-flex items-center gap-4 rounded-full bg-[#0057FF] px-10 py-5 md:px-12 md:py-6 text-white shadow-xl hover:shadow-[#0057FF]/40 transition-all duration-300"
+              className="group relative inline-flex items-center gap-4 rounded-full bg-[#0057FF] px-10 py-5 md:px-12 md:py-6 text-white shadow-xl shadow-[#0057FF]/20 hover:shadow-[#0057FF]/40 transition-all duration-300"
             >
               <span className="text-lg md:text-xl font-semibold tracking-wide">
-                let’s build something great
+                let’s build something great →
               </span>
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 group-hover:bg-white text-[#0057FF] transition-colors duration-300">
                 <ArrowUpRight className="w-4 h-4 text-white group-hover:text-[#0057FF]" />

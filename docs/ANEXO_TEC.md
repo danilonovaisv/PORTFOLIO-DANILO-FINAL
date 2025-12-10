@@ -6,6 +6,18 @@
 **Páginas Principais:** Home, Sobre, Portfólio, Contato  
 **Foco deste Documento:** Home Page (seções: Header, Hero, Manifesto, Portfolio Showcase, Featured Projects, Clients/Brands, Contact, Footer)
 
+🔍 Etapas:
+1. Analise o escopo detalhado fornecido.
+2. Monte um plano de execução com base nesse escopo.
+3. Implemente os ajustes necessários no código.
+4. Utilize as imagens anexas como **referência visual absoluta** — o layout e comportamento final devem refletir exatamente o que está nelas.
+5. Ao concluir, revise e valide se:
+   - Todas as alterações foram aplicadas corretamente.
+   - O sistema está funcionando como esperado.
+   - O visual está 100% fiel às referências.
+
+✅ Nenhum ponto deve ser ignorado.
+
 ## \*\* ANEXO TÉCNICO
 
 Implementação de Estética de Vidro Líquido Interativo de Alta Fidelidade em Ambientes Web

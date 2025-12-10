@@ -1,5 +1,6 @@
 import React from 'react';
 import Hero from '../components/home/Hero';
+import Manifesto from '../components/home/Manifesto';
 import PortfolioShowcase from '../components/home/PortfolioShowcase';
 import PortfolioSection from './components/PortfolioSection';
 import Clients from '../components/home/Clients';
@@ -46,6 +47,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <Manifesto />
       <PortfolioShowcase />
       <PortfolioSection />
       <Clients />

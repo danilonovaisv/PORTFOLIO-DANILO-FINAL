@@ -22,7 +22,7 @@ const ManifestoVideo: React.FC<ManifestoVideoProps> = ({
         loop
         playsInline
         autoPlay
-        controls
+        controls={false}
         preload="metadata"
         onError={onError}
         aria-label="Vídeo Manifesto do portfólio"

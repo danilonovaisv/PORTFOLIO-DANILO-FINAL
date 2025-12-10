@@ -12,6 +12,23 @@ const Clients: React.FC = () => {
     ? {}
     : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 } };
 
+  const listVariants = prefersReducedMotion
+    ? {}
+    : {
+        hidden: {},
+        visible: {
+          transition: {
+            staggerChildren: 0.04,
+          },
+        },
+      };
+  const itemVariants = prefersReducedMotion
+    ? {}
+    : {
+        hidden: { opacity: 0, y: 10 },
+        visible: { opacity: 1, y: 0 },
+      };
+
   return (
     <section
       id="clients"
@@ -28,44 +45,43 @@ const Clients: React.FC = () => {
           marcas com as quais já trabalhei
         </motion.h2>
 
-        <ul
+        <motion.ul
           role="list"
-          className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-10 md:gap-x-12 md:gap-y-12 items-center justify-items-center py-6 md:py-8 px-2"
+          initial={prefersReducedMotion ? undefined : 'hidden'}
+          whileInView={prefersReducedMotion ? undefined : 'visible'}
+          viewport={prefersReducedMotion ? undefined : { once: true, amount: 0.2 }}
+          variants={listVariants}
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-6 gap-y-8 md:gap-x-10 md:gap-y-10 items-center justify-items-center py-6 md:py-8 px-2"
         >
           {CLIENT_LOGOS.map((logo, index) => {
             return (
               <motion.li
                 key={logo.src}
                 role="listitem"
-                initial={
-                  prefersReducedMotion ? undefined : { opacity: 0, y: 10 }
-                }
-                whileInView={
-                  prefersReducedMotion ? undefined : { opacity: 1, y: 0 }
-                }
-                viewport={prefersReducedMotion ? undefined : { once: true }}
-                transition={
-                  prefersReducedMotion
-                    ? undefined
-                    : { delay: index * 0.03, duration: 0.4 }
-                }
+                variants={itemVariants}
                 className="w-full flex items-center justify-center"
               >
-                <div className="relative w-20 h-14 md:w-28 md:h-16 flex items-center justify-center group">
-                  <div className="relative w-full h-full flex items-center justify-center opacity-60 group-hover:opacity-100 transition-opacity duration-300 min-h-[72px] max-h-16">
+                <motion.div
+                  whileHover={prefersReducedMotion ? undefined : { scale: 1.04 }}
+                  className="relative w-20 h-14 md:w-28 md:h-16 flex items-center justify-center group"
+                >
+                  <motion.div
+                    animate={prefersReducedMotion ? undefined : { scale: 1 }}
+                    className="relative w-full h-full flex items-center justify-center opacity-70 group-hover:opacity-100 transition-opacity duration-300 min-h-[72px] max-h-16"
+                  >
                     <Image
                       src={logo.src}
                       alt={`Logo da ${logo.name}`}
                       fill
                       sizes="(max-width: 640px) 60px, (max-width: 1024px) 80px, 112px"
-                      className="object-contain brightness-0 invert"
+                      className="object-contain brightness-0 invert group-hover:brightness-110"
                     />
-                  </div>
-                </div>
+                  </motion.div>
+                </motion.div>
               </motion.li>
             );
           })}
-        </ul>
+        </motion.ul>
       </div>
     </section>
   );

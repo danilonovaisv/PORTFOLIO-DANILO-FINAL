@@ -27,10 +27,10 @@ const Manifesto: React.FC = () => {
   });
   const videoScale = prefersReducedMotion
     ? undefined
-    : useTransform(scrollYProgress, [0, 0.5, 1], [1.02, 1, 0.98]);
+    : useTransform(scrollYProgress, [0, 0.5, 1], [1.08, 1.02, 0.96]);
   const videoTranslateY = prefersReducedMotion
     ? undefined
-    : useTransform(scrollYProgress, [0, 0.5, 1], [20, 0, -10]);
+    : useTransform(scrollYProgress, [0, 0.5, 1], [30, 0, -20]);
   const manifestoMotionProps = prefersReducedMotion
     ? {}
     : {
@@ -142,92 +142,50 @@ const Manifesto: React.FC = () => {
     <section
       id="manifesto"
       ref={sectionRef}
-      aria-labelledby="manifesto-title"
-      className="w-full bg-[#F4F5F7] px-6 py-24 md:py-32"
+      className="w-full bg-[#F4F5F7] px-0 py-10 md:py-16"
     >
-      <div className="container mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Coluna de Texto */}
-          <div className="flex flex-col gap-6 order-1">
-            <h2
-              id="manifesto-title"
-              className="text-3xl md:text-4xl font-bold text-[#111111] tracking-tight"
-            >
-              Vídeo Manifesto
-            </h2>
-            <p className="text-lg text-[#111111]/80 leading-relaxed max-w-lg">
-              Este vídeo apresenta meu manifesto em design. O áudio é ativado
-              automaticamente quando visível em tela cheia.
-            </p>
-            {/* Mantendo o aviso sobre mobile, mas simplificado na UI */}
-            <p className="text-sm text-[#111111]/60">
-              Em dispositivos móveis o áudio permanece desativado para respeitar
-              o ambiente do usuário.
-            </p>
-          </div>
-
-          {/* Coluna de Vídeo */}
-          <motion.div {...manifestoMotionProps} className="order-2 w-full">
-            <motion.div
-              style={{ scale: videoScale, y: videoTranslateY }}
-              className="relative w-full overflow-hidden rounded-2xl bg-[#e5e7eb] shadow-xl aspect-video"
-            >
-              {hasError ? (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 text-gray-500 p-6 text-center">
-                  <AlertCircle className="mb-3 h-10 w-10 opacity-50" />
-                  <p className="font-medium">
-                    Não foi possível carregar o vídeo.
-                  </p>
-                  <a
-                    href={ASSETS.videoManifesto}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-2 text-[#0057FF] text-sm underline-offset-4 hover:underline"
-                  >
-                    Assistir diretamente
-                  </a>
-                </div>
-              ) : shouldLoad ? (
-                <Suspense fallback={videoLoadingFallback}>
-                  <ManifestoVideo
-                    videoRef={videoRef}
-                    onError={() => setHasError(true)}
-                  />
-                </Suspense>
-              ) : (
-                videoLoadingFallback
-              )}
-              {/* Overlay contextual + badge de controle */}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent" />
-              <div className="absolute inset-0 flex flex-col justify-end p-5 gap-3 text-white">
-                <div className="text-xs uppercase tracking-[0.25em] font-semibold text-white/70 pointer-events-none">
-                  Manifesto em vídeo — visão e processo
-                </div>
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={togglePlay}
-                    aria-label={
-                      isPlaying
-                        ? 'Pausar manifesto em vídeo'
-                        : 'Reproduzir manifesto em vídeo'
-                    }
-                    className="pointer-events-auto inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/30 backdrop-blur-sm hover:bg-white/20 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 focus-visible:ring-white"
-                  >
-                    {isPlaying ? (
-                      <Pause className="w-5 h-5" />
-                    ) : (
-                      <Play className="w-5 h-5" />
-                    )}
-                  </button>
-                  <p className="pointer-events-none text-sm text-white/90 leading-snug">
-                    Assista ao manifesto — áudio ativa quando visível.
-                  </p>
-                </div>
+      <div className="w-full">
+        <motion.div {...manifestoMotionProps} className="w-full">
+          <motion.div
+            style={{ scale: videoScale, y: videoTranslateY }}
+            className="relative w-full overflow-hidden rounded-3xl bg-[#e5e7eb] shadow-xl aspect-[21/10] max-w-7xl mx-auto"
+          >
+            {hasError ? (
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 text-gray-500 p-6 text-center">
+                <AlertCircle className="mb-3 h-10 w-10 opacity-50" />
+                <p className="font-medium">Não foi possível carregar o vídeo.</p>
+                <a
+                  href={ASSETS.videoManifesto}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 text-[#0057FF] text-sm underline-offset-4 hover:underline"
+                >
+                  Assistir diretamente
+                </a>
               </div>
-            </motion.div>
+            ) : shouldLoad ? (
+              <Suspense fallback={videoLoadingFallback}>
+                <ManifestoVideo videoRef={videoRef} onError={() => setHasError(true)} />
+              </Suspense>
+            ) : (
+              videoLoadingFallback
+            )}
+
+            <div className="pointer-events-none absolute inset-0" />
+
+            <div className="absolute inset-0 flex items-end justify-start p-6">
+              <button
+                type="button"
+                onClick={togglePlay}
+                aria-label={isPlaying ? 'Pausar manifesto em vídeo' : 'Reproduzir manifesto em vídeo'}
+                className="pointer-events-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur-sm ring-1 ring-white/30 transition hover:bg-black/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
+              >
+                {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+                <span className="sr-only">Controle do manifesto</span>
+              </button>
+            </div>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
