@@ -16,14 +16,14 @@ const CursorImage = ({ activeItem, x, y }: CursorImageProps) => {
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.9, opacity: 0 }}
       transition={{ type: 'spring', stiffness: 300, damping: 26 }}
-      className="pointer-events-none fixed top-0 left-0 z-50 hidden h-[320px] w-[420px] overflow-hidden rounded-xl shadow-2xl ring-1 ring-black/5 md:block"
+      className="pointer-events-none fixed top-0 left-0 z-50 hidden h-[320px] w-[440px] overflow-hidden rounded-2xl border border-[#dcdfe6] bg-white/90 shadow-[0_32px_90px_rgba(0,0,0,0.18)] backdrop-blur-sm md:block"
     >
       <div className="relative h-full w-full bg-white">
         <Image
           src={activeItem.src}
           alt={activeItem.label}
           fill
-          sizes="420px"
+          sizes="440px"
           priority
           className="object-cover"
         />
