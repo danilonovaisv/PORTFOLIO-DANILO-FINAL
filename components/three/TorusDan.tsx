@@ -43,21 +43,21 @@ const TorusDan = ({
     if (isMobileDevice) {
       return {
         resolution: 512,
-        samples: 4,
+        samples: 6,
         anisotropy: 0,
-        distortion: 0.35,
-        distortionScale: 0.3,
-        temporalDistortion: 0.18,
+        distortion: 0.28,
+        distortionScale: 0.22,
+        temporalDistortion: 0.12,
       };
     }
 
     return {
       resolution: 1024,
-      samples: 16,
+      samples: 12,
       anisotropy: 16,
-      distortion: 0.55,
-      distortionScale: 0.45,
-      temporalDistortion: 0.25,
+      distortion: 0.5,
+      distortionScale: 0.38,
+      temporalDistortion: 0.2,
     };
   }, [isMobileDevice]);
 
@@ -101,16 +101,17 @@ const TorusDan = ({
   useFrame((state, delta) => {
     if (!meshRef.current) return;
 
-    const pointerX = prefersReducedMotion ? 0 : state.pointer.x;
-    const pointerY = prefersReducedMotion ? 0 : state.pointer.y;
+    const pointerInfluence = prefersReducedMotion ? 0 : isMobileDevice ? 0.1 : 0.18;
+    const pointerX = prefersReducedMotion ? 0 : state.pointer.x * pointerInfluence;
+    const pointerY = prefersReducedMotion ? 0 : state.pointer.y * pointerInfluence;
     const scrollOffset = prefersReducedMotion ? 0 : scroll.offset ?? 0;
-    const timeRotate = prefersReducedMotion ? 0 : state.clock.elapsedTime * 0.05;
+    const timeRotate = prefersReducedMotion || lowRenderMode ? 0 : state.clock.elapsedTime * 0.05;
 
-    const targetRotX = pointerY * 0.15;
-    const targetRotZ = pointerX * 0.15;
+    const targetRotX = pointerY * 0.7;
+    const targetRotZ = pointerX * 0.7;
     const targetRotY = prefersReducedMotion
       ? scrollOffset * Math.PI * 0.2
-      : scrollOffset * Math.PI * 2 + timeRotate;
+      : scrollOffset * Math.PI * 1.6 + timeRotate;
 
     meshRef.current.rotation.x = THREE.MathUtils.damp(
       meshRef.current.rotation.x,
@@ -150,17 +151,17 @@ const TorusDan = ({
     if (scrollYProgress && useTransmissionMaterial) {
       const scrollValue = scrollYProgress.get();
       if (materialRef.current) {
-        materialRef.current.distortion = 0.5 + scrollValue * 0.4;
-        materialRef.current.chromaticAberration = 0.06 + scrollValue * 0.05;
+        materialRef.current.distortion = 0.4 + scrollValue * 0.35;
+        materialRef.current.chromaticAberration = 0.05 + scrollValue * 0.04;
       }
     }
   });
 
   return (
     <Float
-      speed={prefersReducedMotion ? 0 : 2}
-      rotationIntensity={prefersReducedMotion ? 0 : 0.5}
-      floatIntensity={0.8}
+      speed={prefersReducedMotion || lowRenderMode ? 0 : 2}
+      rotationIntensity={prefersReducedMotion || lowRenderMode ? 0 : 0.45}
+      floatIntensity={prefersReducedMotion || lowRenderMode ? 0 : 0.8}
       floatingRange={[-0.15, 0.15]}
     >
         {/* @ts-ignore */}

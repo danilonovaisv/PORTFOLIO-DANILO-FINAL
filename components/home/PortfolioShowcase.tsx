@@ -5,10 +5,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { CATEGORIES } from '../../lib/constants';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import usePrefersReducedMotion from '@/hooks/usePrefersReducedMotion';
 
 const PortfolioShowcaseSection: FC = () => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const shouldAnimate = !prefersReducedMotion;
 
   const handleExpand = (id: string) => {
     setExpandedId((prev) => (prev === id ? null : id));
@@ -64,14 +67,18 @@ const PortfolioShowcaseSection: FC = () => {
               return (
                 <motion.div
                   key={category.id}
-                  layout
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{
-                    opacity: 0,
-                    height: 0,
-                    transition: { duration: 0.3 },
-                  }}
+                  layout={shouldAnimate}
+                  initial={shouldAnimate ? { opacity: 0, height: 0 } : undefined}
+                  animate={shouldAnimate ? { opacity: 1, height: 'auto' } : undefined}
+                  exit={
+                    shouldAnimate
+                      ? {
+                          opacity: 0,
+                          height: 0,
+                          transition: { duration: 0.3 },
+                        }
+                      : undefined
+                  }
                   className="relative"
                 >
                   <button
@@ -111,17 +118,33 @@ const PortfolioShowcaseSection: FC = () => {
                       <AnimatePresence>
                         {isHovered && !isExpanded && (
                           <motion.div
-                            initial={{ width: 0, opacity: 0, marginRight: 0 }}
-                            animate={{
-                              width: 140,
-                              opacity: 1,
-                              marginRight: 24,
-                            }}
-                            exit={{ width: 0, opacity: 0, marginRight: 0 }}
-                            transition={{
-                              duration: 0.4,
-                              ease: [0.33, 1, 0.68, 1],
-                            }}
+                            initial={
+                              shouldAnimate
+                                ? { width: 0, opacity: 0, marginRight: 0 }
+                                : undefined
+                            }
+                            animate={
+                              shouldAnimate
+                                ? {
+                                    width: 140,
+                                    opacity: 1,
+                                    marginRight: 24,
+                                  }
+                                : undefined
+                            }
+                            exit={
+                              shouldAnimate
+                                ? { width: 0, opacity: 0, marginRight: 0 }
+                                : undefined
+                            }
+                            transition={
+                              shouldAnimate
+                                ? {
+                                    duration: 0.4,
+                                    ease: [0.33, 1, 0.68, 1],
+                                  }
+                                : undefined
+                            }
                             className="hidden md:block h-20 relative overflow-hidden rounded-md shrink-0 origin-right order-first"
                           >
                             <Image
@@ -184,9 +207,11 @@ const PortfolioShowcaseSection: FC = () => {
                     {/* Conteúdo Expandido (Detalhes) */}
                     {isExpanded && (
                       <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2, duration: 0.5 }}
+                        initial={shouldAnimate ? { opacity: 0, y: 20 } : undefined}
+                        animate={shouldAnimate ? { opacity: 1, y: 0 } : undefined}
+                        transition={
+                          shouldAnimate ? { delay: 0.2, duration: 0.5 } : undefined
+                        }
                         className="w-full mt-3 flex flex-col md:flex-row gap-6 md:gap-12"
                       >
                         {/* Imagem Grande */}
@@ -254,14 +279,14 @@ const PortfolioShowcaseSection: FC = () => {
         {/* CTA Inferior */}
         {!expandedId && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={shouldAnimate ? { opacity: 0, y: 20 } : undefined}
+            animate={shouldAnimate ? { opacity: 1, y: 0 } : undefined}
             className="mt-16 md:mt-24 flex justify-center w-full"
           >
             <motion.a
               href="/#contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={shouldAnimate ? { scale: 1.05 } : undefined}
+              whileTap={shouldAnimate ? { scale: 0.95 } : undefined}
               className="group relative inline-flex items-center gap-4 rounded-full bg-[#0057FF] px-10 py-5 md:px-12 md:py-6 text-white shadow-xl hover:shadow-[#0057FF]/40 transition-all duration-300"
             >
               <span className="text-lg md:text-xl font-semibold tracking-wide">
@@ -277,8 +302,8 @@ const PortfolioShowcaseSection: FC = () => {
         {/* Botão para fechar expansão */}
         {expandedId && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={shouldAnimate ? { opacity: 0 } : undefined}
+            animate={shouldAnimate ? { opacity: 1 } : undefined}
             className="mt-12 flex justify-start border-t border-neutral-200 pt-6"
           >
             <button

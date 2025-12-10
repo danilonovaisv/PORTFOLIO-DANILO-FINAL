@@ -18,14 +18,12 @@ const ManifestoVideo: React.FC<ManifestoVideoProps> = ({ videoRef, onError }) =>
         muted
         loop
         playsInline
+        autoPlay
         controls
         preload="metadata"
         onError={onError}
         aria-label="Vídeo Manifesto do portfólio"
       />
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/10 transition-colors">
-        <div className="h-14 w-14 rounded-full border border-white/20 bg-white/10" />
-      </div>
     </>
   );
 };

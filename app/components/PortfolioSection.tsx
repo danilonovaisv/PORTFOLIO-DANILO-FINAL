@@ -26,7 +26,8 @@ const PROJECT_CARDS: ProjectCard[] = [
     href: '/portfolio/magic-radio-branding',
     imageUrl:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp',
-    imageAlt: 'Cartão roxo com o lettering Magic',
+    imageAlt:
+      'Magic — devolvendo a magia ao rádio, projeto de branding & campanha para Magic',
     tags: ['branding'],
   },
   {
@@ -36,7 +37,8 @@ const PROJECT_CARDS: ProjectCard[] = [
     href: '/portfolio/taking-sportswear',
     imageUrl:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
-    imageAlt: 'Atleta flutuando ao pôr do sol com tons pastéis',
+    imageAlt:
+      'Taking Sportswear to the Skies, campanha para Eurosport com atleta flutuando ao pôr do sol',
     tags: ['campaign'],
     overlayText: ['Fearless.', 'Unmatched.'],
   },
@@ -47,7 +49,8 @@ const PROJECT_CARDS: ProjectCard[] = [
     href: '/portfolio/epic-look',
     imageUrl:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp',
-    imageAlt: 'Pessoa usando celular com céu urbano ao fundo',
+    imageAlt:
+      'Refreshing a Telecom Challenger, key visual de branding para Epic com pessoa usando celular',
     tags: ['branding'],
     overlayText: ['Refreshing a Telecom Challenger'],
   },
@@ -58,7 +61,8 @@ const PROJECT_CARDS: ProjectCard[] = [
     href: '/portfolio/fff-legal',
     imageUrl:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp',
-    imageAlt: 'Placa preta e laranja com a marca FFF Legal',
+    imageAlt:
+      'Designing Trust — identidade visual da FFF Legal, placa preta e laranja com a marca',
     tags: ['branding', 'website'],
   },
 ];

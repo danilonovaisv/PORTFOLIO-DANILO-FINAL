@@ -8,9 +8,9 @@ import Contact from '../components/home/Contact';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Danilo Novais | Portfolio',
+  title: 'Portfólio — Danilo Novais | Design, não é só estética.',
   description:
-    'Design, não é só estética. É intenção, é estratégia, é experiência.',
+    'Branding, campanhas, motion e experiências digitais com WebGL/3D. Design estratégico para impacto real.',
 };
 
 export default function Home() {

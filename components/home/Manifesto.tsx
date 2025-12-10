@@ -5,7 +5,7 @@ import { motion, type Easing } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import usePrefersReducedMotion from '@/hooks/usePrefersReducedMotion';
 import { ASSETS } from '@/lib/constants';
-import { AlertCircle } from 'lucide-react';
+import { AlertCircle, Pause, Play } from 'lucide-react';
 
 const ManifestoVideo = dynamic(() => import('./ManifestoVideo'), {
   ssr: false,
@@ -19,6 +19,7 @@ const Manifesto: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isAudioEnabled, setIsAudioEnabled] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const prefersReducedMotion = usePrefersReducedMotion();
   const manifestoMotionProps = prefersReducedMotion
     ? {}
@@ -52,6 +53,16 @@ const Manifesto: React.FC = () => {
     observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
+
+  // Garante autoplay (muted) quando carregar
+  useEffect(() => {
+    if (shouldLoad && videoRef.current) {
+      videoRef.current
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch(() => setIsPlaying(false));
+    }
+  }, [shouldLoad]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -98,6 +109,21 @@ const Manifesto: React.FC = () => {
       videoRef.current.volume = 0.7;
     }
   }, [isAudioEnabled]);
+
+  const togglePlay = async () => {
+    if (!videoRef.current) return;
+    if (videoRef.current.paused) {
+      try {
+        await videoRef.current.play();
+        setIsPlaying(true);
+      } catch {
+        setIsPlaying(false);
+      }
+    } else {
+      videoRef.current.pause();
+      setIsPlaying(false);
+    }
+  };
 
   return (
     <section
@@ -153,11 +179,35 @@ const Manifesto: React.FC = () => {
                   <ManifestoVideo
                     videoRef={videoRef}
                     onError={() => setHasError(true)}
-                  />
-                </Suspense>
-              ) : (
-                videoLoadingFallback
-              )}
+                    />
+                  </Suspense>
+                ) : (
+                  videoLoadingFallback
+                )}
+              {/* Overlay contextual + badge de controle */}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent" />
+              <div className="absolute inset-0 flex flex-col justify-end p-5 gap-3 text-white">
+                <div className="text-xs uppercase tracking-[0.25em] font-semibold text-white/70 pointer-events-none">
+                  Manifesto em vídeo — visão e processo
+                </div>
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={togglePlay}
+                    aria-label={
+                      isPlaying
+                        ? 'Pausar manifesto em vídeo'
+                        : 'Reproduzir manifesto em vídeo'
+                    }
+                    className="pointer-events-auto inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/30 backdrop-blur-sm hover:bg-white/20 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 focus-visible:ring-white"
+                  >
+                    {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+                  </button>
+                  <p className="pointer-events-none text-sm text-white/90 leading-snug">
+                    Assista ao manifesto — áudio ativa quando visível.
+                  </p>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>

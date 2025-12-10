@@ -4,8 +4,17 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CONTACT_INFO, SOCIALS } from '../../lib/constants';
 import { ArrowRight } from 'lucide-react';
+import usePrefersReducedMotion from '@/hooks/usePrefersReducedMotion';
 
 const Contact: React.FC = () => {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const motionBlockProps = prefersReducedMotion
+    ? {}
+    : { initial: { opacity: 0, x: -30 }, whileInView: { opacity: 1, x: 0 } };
+  const motionFormProps = prefersReducedMotion
+    ? {}
+    : { initial: { opacity: 0, x: 30 }, whileInView: { opacity: 1, x: 0 } };
+
   return (
     <section
       id="contact"
@@ -16,9 +25,8 @@ const Contact: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
           {/* Informações de Contato */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            {...motionBlockProps}
+            viewport={prefersReducedMotion ? undefined : { once: true }}
             className="flex flex-col gap-8"
           >
             <div>
@@ -66,9 +74,8 @@ const Contact: React.FC = () => {
 
           {/* Formulário */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            {...motionFormProps}
+            viewport={prefersReducedMotion ? undefined : { once: true }}
             className="bg-white p-8 md:p-12 rounded-4xl shadow-xl shadow-black/5 ring-1 ring-black/5"
           >
             <form

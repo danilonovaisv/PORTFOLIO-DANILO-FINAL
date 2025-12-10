@@ -100,6 +100,10 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
             setDpr(1); // Downgrade resolution
             setLowRenderMode(true);
           }}
+          onIncline={() => {
+            setDpr([1, 1.5]);
+            setLowRenderMode(false);
+          }}
         />
         <ambientLight intensity={0.5} color="#ffffff" />
         <directionalLight position={[5, 10, 7.5]} intensity={1.2} castShadow />

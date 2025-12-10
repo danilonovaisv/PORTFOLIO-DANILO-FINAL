@@ -32,6 +32,8 @@ const ManifestoThumb: React.FC<ManifestoThumbProps> = ({
           muted
           playsInline
           preload="metadata"
+          aria-label="Thumb do vídeo manifesto do portfólio de Danilo Novais"
+          title="Thumb do vídeo manifesto do portfólio de Danilo Novais"
         />
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/10 transition-colors hover:bg-black/5">
           <div className="h-14 w-14 rounded-full border border-white/20 bg-white/10" />

@@ -1,919 +1,366 @@
-# Roadmap de Ajustes — Prompts de Instrução por Seção
-
-Use os blocos abaixo como prompts individuais para um agente aplicar as correções no projeto.
-Cada bloco está organizado por **seção da página** e contém prompts autocontidos.
+analise todo o detalhamento, monte um plano de execução, execute os ajustes e após executar, confira se todas os ajustes foram feitos da maneira correta e estão funcionando. 
 
 
----
+## 1. Globais — Acessibilidade, SEO e Estrutura
 
-## BLOCO 1 — GLOBAL / ARQUITETURA / PERFORMANCE
+### [Alta] Ajustar Hierarquia de Headings e Semântica da Home
 
-### Prompt 1.1 — Otimizar Canvas 3D global (DPR, eventSource, posicionamento)
-
-**Sessão/Área:** Global (Canvas R3F usado na Home, principalmente Hero)
-
-**Severidade:** Alta
-
-**Arquivos-alvo (ajuste conforme o projeto):**  
-- Layout ou provider global que contém o `<Canvas>` (ex.: `app/layout.tsx`, `app/(site)/layout.tsx` ou componente `SceneCanvas.tsx`)
-- Cena/scene atual da Hero (ex.: `HeroGlassScene.tsx`, `Model.js` / `Model.tsx`)
-
-**Objetivo**  
-Configurar o Canvas R3F para ter boa performance e integração com scroll/mouse, limitando DPR, usando `eventSource` adequado e evitando bloquear interações do DOM.
-
-**Instruções para o agente**
-
-1. Localize o componente que renderiza o `<Canvas>` principal do 3D na Home.
-2. Ajuste o `<Canvas>` para:
-   - Ter `dpr={[1, 1.5]}` (ou semelhante) para limitar o devicePixelRatio.
-   - Definir a câmera com algo na linha de `camera={{ position: [0, 0, 4], fov: 45 }}`.
-   - Usar `eventSource={typeof window !== 'undefined' ? document.body : undefined}` (ou equivalente) para que eventos de mouse/scroll sejam globais.
-3. Se o Canvas ficar sobreposto ao conteúdo e bloquear cliques:
-   - Envolva-o em um container com classes similares a:
-     - `className="pointer-events-none fixed inset-0"` (ou `absolute` conforme o layout).
-4. Garanta que o Canvas seja carregado apenas onde necessário (ex.: somente na Home, não globalmente em todas as páginas).
-
-**Critérios de aceite**
-
-- Canvas não degrada fortemente a performance em laptops e mobile.
-- Interações de mouse/scroll funcionam em toda a página (não apenas área do Canvas).
-- Links e botões do DOM continuam clicáveis mesmo com o Canvas renderizado.
-
+- **Localização:** Layout principal da Home (`app/page.tsx` ou equivalente) e componentes de seção (`Header`, `Hero`, `Manifesto`, `PortfolioShowcase`, `FeaturedProjects`, `Clients`, `Contact`, `Footer`).
+- **Descrição Técnica:**  
+  Há risco de múltiplos `h1` ou headings fora de ordem, o que prejudica acessibilidade e SEO.
+- **Solução Proposta (passos):**
+  1. Garantir que apenas a Hero use `<h1>` com o texto `Design, não é só estética.`.
+  2. Em cada seção da Home, usar `<h2>` para o título principal:
+     - `portfólio showcase`
+     - `Projetos em Destaque`
+     - `marcas com as quais já trabalhei`
+     - `contato`
+  3. Subtítulos/labels internos (como microtexto, categorias de stripes, etc.) devem ser `<h3>` ou `<p>`, conforme o caso.
+  4. Envolver o conteúdo principal da página em `<main>` e manter Header/Footer fora do `<main>`.
+- **Impacto Esperado:**  
+  Melhora significativa em acessibilidade (leitores de tela navegam corretamente) e SEO (crawlers entendem melhor a hierarquia de conteúdo).
 
 ---
 
-### Prompt 1.2 — Aplicar “tiering” de performance no MeshTransmissionMaterial (vidro)
+### [Alta] Implementar `prefers-reduced-motion` Globalmente
 
-**Sessão/Área:** Global 3D (modelo de vidro: toro/esfera)
-
-**Severidade:** Alta
-
-**Arquivos-alvo:**  
-- Componente do modelo 3D que usa `MeshTransmissionMaterial` ou material equivalente (ex.: `Model.js`, `TorusDan.tsx`, `HeroGlassScene.tsx`)
-
-**Objetivo**  
-Diminuir a carga de GPU em dispositivos mais fracos, ajustando qualidade do material de vidro conforme o dispositivo (desktop vs mobile) e, se necessário, aplicando fallback.
-
-**Instruções para o agente**
-
-1. Localize o mesh que usa `MeshTransmissionMaterial` (ou material de vidro semelhante) no componente do modelo.
-2. Crie ou utilize um hook/helper para detectar mobile:
-   - Ex.: `useIsMobile` usando `window.matchMedia('(max-width: 768px)')` ou user agent.
-3. Condicione as props do material conforme o dispositivo. Por exemplo:
-   - Em desktop: `samples` e `resolution` mais altos.
-   - Em mobile: `samples` e `resolution` reduzidos e menor `distortion`.
-4. Se for detectado FPS muito baixo (se houver métrica disponível), prever fallback para `meshPhysicalMaterial` mais simples (mesmo tom e transparência aproximada).
-5. Garanta que o material esteja memoizado quando possível, para não recriar instâncias a cada render.
-
-**Critérios de aceite**
-
-- Em mobile, a cena continua fluida (sem quedas bruscas de FPS) mantendo aparência aceitável.
-- Em desktop, o vidro mantém boa qualidade visual.
-- Não há regressões visuais severas no hero 3D.
-
+- **Localização:**  
+  - Configuração global de estilos (`globals.css`/`tailwind.css`).  
+  - Componentes que usam `framer-motion` e R3F (Hero, vídeo manifesto, cards, logos).
+- **Descrição Técnica:**  
+  Hoje, animações 3D e de scroll podem desrespeitar a preferência do usuário por menos movimento, especialmente no Hero (esfera de vidro) e nos reveals.
+- **Solução Proposta:**
+  1. Criar um hook utilitário, por exemplo `useReducedMotionPreference`, que use `window.matchMedia('(prefers-reduced-motion: reduce)')`.
+  2. Em componentes `motion.*`, condicionar props `initial`/`animate`/`whileInView`:
+     - Se `reduce` estiver ativo, usar apenas `opacity` + pequena `translateY`.
+  3. No componente R3F da esfera de vidro, quando `reduce` estiver ativo:
+     - Desativar rotação contínua.
+     - Desabilitar parallax (não ler mouse/scroll).
+  4. Em CSS/Tailwind, declarar:
+     ```css
+     @media (prefers-reduced-motion: reduce) {
+       html, body {
+         scroll-behavior: auto;
+       }
+     }
+     ```
+- **Impacto Esperado:**  
+  Conformidade com boas práticas de acessibilidade, experiência melhor para usuários sensíveis a movimento e redução de carga de GPU/CPU nesses casos.
 
 ---
 
-### Prompt 1.3 — Respeitar `prefers-reduced-motion` em 3D e animações (Framer Motion)
+### [Alta] Melhorar SEO (Title, Description, OG/Twitter) da Home
 
-**Sessão/Área:** Global (3D da Hero, animações Framer Motion, animações baseadas em scroll)
-
-**Severidade:** Alta
-
-**Arquivos-alvo:**  
-- Componentes com animações Framer Motion (ex.: `Hero.tsx`, `ManifestoSection.tsx`, cards de projetos)
-- Cena 3D (ex.: `Model.js`, `HeroGlassScene.tsx`)
-
-**Objetivo**  
-Desativar ou simplificar animações intensas quando o usuário tiver `prefers-reduced-motion: reduce` configurado no sistema.
-
-**Instruções para o agente**
-
-1. Adicione um hook global ou use `useReducedMotion` do Framer Motion para detectar `prefers-reduced-motion`.
-2. Aplique esta flag em:
-   - Rotação contínua do modelo 3D (toro/esfera).
-   - Animações de parallax baseadas em `useFrame` e scroll.
-   - Animations de entrada/scroll (Framer Motion) dos blocos de texto e seções.
-3. Em modo “reduced”:
-   - Congele a rotação do 3D ou reduza muito a velocidade.
-   - Desative parallax (use apenas posição estática).
-   - Troque animações elaboradas (slide/rotate 3D) por fades simples, ou exiba o conteúdo já visível sem transições.
-4. Garanta que esse comportamento seja consistente em todas as seções.
-
-**Critérios de aceite**
-
-- Com `prefers-reduced-motion: reduce`, o site praticamente não usa animações complexas.
-- Sem o flag, a experiência mantém as animações atuais (ou melhoradas).
-- Não há warnings ou erros novos relacionados a hooks ou SSR.
-
+- **Localização:** `app/layout.tsx` ou `app/head.tsx` (App Router), configuração de metadata da rota da Home.
+- **Descrição Técnica:**  
+  Metadados básicos reduzem o potencial de descoberta e de compartilhamento social.
+- **Solução Proposta (passos):**
+  1. Definir `metadata` da página principal com:
+     - `title`: `"Portfólio — Danilo Novais | Design, não é só estética."`
+     - `description`: frase clara sobre design estratégico, UX, motion, WebGL.
+  2. Configurar `openGraph`:
+     - `title`, `description`, `url: 'https://portfoliodanilo.com'`, `images` com uma imagem de destaque do portfolio.
+  3. Configurar `twitter`:
+     - `card: 'summary_large_image'`, `creator: '@danilo_novais'`.
+- **Impacto Esperado:**  
+  Melhora de CTR em resultados de busca e prévias mais profissionais em redes sociais.
 
 ---
 
-### Prompt 1.4 — Lazy load de elementos pesados (vídeo manifesto, seções densas)
+### [Média] Revisar `alt` de Imagens e Logos
 
-**Sessão/Área:** Global (principalmente seção Manifesto + vídeos/projetos pesados)
-
-**Severidade:** Média
-
-**Arquivos-alvo:**  
-- Componente do vídeo manifesto (ex.: `ManifestoSection.tsx`, `ManifestoVideo.tsx`)
-- Seções com grids de projetos e imagens pesadas (ex.: `FeaturedProjectsSection.tsx`)
-
-**Objetivo**  
-Evitar que vídeo e seções pesadas sejam carregados logo no carregamento inicial, melhorando LCP e uso de banda.
-
-**Instruções para o agente**
-
-1. Localize o componente de vídeo manifesto e transforme-o em import dinâmico:
-   - Ex.: `const ManifestoVideo = dynamic(() => import('./ManifestoVideo'), { ssr: false });`
-2. Use `Suspense` ou algum mecanismo de `IntersectionObserver` (caso já haja infra) para só montar o vídeo quando a seção estiver próxima da viewport.
-3. Em seções de projetos com muitas imagens:
-   - Garanta que estejam usando `next/image` (ver Prompt 1.5).
-   - Se necessário, avalie `loading="lazy"` combinado com `sizes` corretos.
-4. Teste em mobile (rede 3G/4G) para validar que o vídeo não comece a carregar muito antes do usuário chegar à seção.
-
-**Critérios de aceite**
-
-- LCP e tempo até primeira interação melhoram (perceptivelmente) em conexões médias.
-- Vídeo manifesto não consome banda até que o usuário role para perto da seção.
-- Não há flash ou quebra visual ao montar o vídeo.
-
-
----
-
-### Prompt 1.5 — Otimizar imagens com `next/image` e `sizes` adequados
-
-**Sessão/Área:** Global (principalmente cards de projetos e imagens de destaque)
-
-**Severidade:** Média
-
-**Arquivos-alvo:**  
-- Seções e componentes de projetos (ex.: `FeaturedProjectsSection.tsx`, `ProjectCard.tsx`)
-- Qualquer `<img>` que traga imagens grandes
-
-**Objetivo**  
-Reduzir peso das imagens e evitar downloads maiores que o necessário, melhorando LCP e layout.
-
-**Instruções para o agente**
-
-1. Substitua `<img>` por `<Image>` de `next/image` em todos os cards/projetos relevantes.
-2. Defina:
-   - `width` e `height` proporcionais à imagem.
-   - `alt` descritivo (sem mudar a copy do texto visível).
-3. Configure `sizes` coerentes com o layout. Exemplo típico para uma grid de projetos:
-   - `sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"`
-4. Verifique se não há `layout shift` (CLS) ao carregar as imagens:
-   - Use `fill` + container com posição relativa e altura fixa ou
-   - Defina `width`/`height` melhorando a reserva de espaço.
-5. Teste em 3 resoluções (mobile, tablet, desktop) para garantir que imagens são nítidas mas não excessivamente pesadas.
-
-**Critérios de aceite**
-
-- Lighthouse aponta melhor pontuação em “Performance” e “Best Practices”.
-- Nenhum layout é quebrado ou “pulando” quando imagens carregam.
-- Imagens ainda mantêm boa qualidade visual.
-
-
----
-
-### Prompt 1.6 — Ajustar espaçamentos globais para aderir ao layout de referência
-
-**Sessão/Área:** Todas as seções (Portfolio Showcase, Featured Projects, Clients, Contact, etc.)
-
-**Severidade:** Baixa
-
-**Arquivos-alvo:**  
-- Componentes de seção (ex.: `PortfolioShowcaseSection.tsx`, `FeaturedProjectsSection.tsx`, `ClientsSection.tsx`, `ContactSection.tsx`)
-- Estilos globais (`globals.css`, módulos CSS ou classes Tailwind utilizadas)
-
-**Objetivo**  
-Refinar `padding`, `gap` e `space-y` nas seções para ficar mais próximo do mock de referência, sem alterar conteúdo.
-
-**Instruções para o agente**
-
-1. Revise cada seção da Home e compare com o layout de referência:
-   - `py` de cada seção (ex.: `py-16`, `py-20`).
-   - `gap` entre título e conteúdo (`gap-4`, `gap-8`, etc.).
-   - Espaçamento entre grid de cards e CTA.
-2. Ajuste utilitários Tailwind ou classes CSS para:
-   - Dar mais respiro onde a seção está “apertada”.
-   - Reduzir espaço onde a seção parece “solta” demais.
-3. Nos clientes/logos:
-   - Alinhe verticalmente os logos no centro das faixas.
-   - Ajuste margens laterais para não colar nas bordas em mobile.
-4. No formulário de contato:
-   - Garanta ritmo vertical consistente entre label, input e mensagens de erro.
-   - Use mesma escala de espaçamento (ex.: múltiplos de 4).
-
-**Critérios de aceite**
-
-- Layout visualmente mais limpo e coerente com o mock.
-- Nenhuma quebra de responsividade em 3 principais breakpoints (mobile, tablet, desktop).
-
+- **Localização:**  
+  - Componente de imagem dos projetos (`FeaturedProjects`).  
+  - Componente de logos dos clientes (`Clients`).  
+  - Thumb do vídeo manifesto na Hero e na seção Manifesto.
+- **Descrição Técnica:**  
+  `alt` genérico ou ausente prejudica acessibilidade; cada imagem deve descrever sua função.
+- **Solução Proposta (passos):**
+  1. Para cada card de projeto, definir `alt` com o título do projeto + categoria + cliente (ex.: `"Magic — devolvendo a magia ao rádio, projeto de branding & campanha para Magic"`).
+  2. Para cada logo de cliente, usar `alt="Logo da [Nome da Marca]"`.
+  3. Para a thumb do manifesto, usar `alt="Thumb do vídeo manifesto do portfólio de Danilo Novais"`.
+- **Impacto Esperado:**  
+  Aumenta a acessibilidade e clareza em leitores de tela, sem alterar copy visual.
 
 ---
 
 
-# BLOCO ESPECÍFICO — SESSÃO DE PROJETOS EM DESTAQUE (GRID DE CASES)
+analise todo o detalhamento, monte um plano de execução, execute os ajustes e após executar, confira se todas os ajustes foram feitos da maneira correta e estão funcionando. 
 
-### Prompt — Implementar sessão de trabalhos em destaque *idêntica* à referência visual
+## 2. Hero — Layout, 3D (R3F) e Animações
 
-**Sessão/Área:** Grade de cases com cards grandes + CTA “Like what you see? / view projects” (seção mostrada na imagem de referência).
+### [Alta] Otimizar Renderização da Esfera de Vidro (MeshTransmissionMaterial)
 
-**Severidade:** Crítica
-
-**Arquivos-alvo sugeridos (ajuste conforme o projeto):**
-- \`FeaturedProjectsSection.tsx\` (ou equivalente).
-- Componentes de card de projeto (ex.: \`ProjectCard.tsx\`).
-- Estilos da seção (Tailwind direto, módulo CSS ou styled components).
-
----
-
-## 1. REGRA OBRIGATÓRIA DE CONTEÚDO TEXTUAL
-
-Esta sessão **NÃO PODE** incluir **nenhum texto visível diferente** do que está na imagem de referência.
-
-Só é permitido renderizar exatamente os seguintes textos (mesmo idioma, ortografia, pontuação e capitalização):
-
-- \`let's build something great\`
-- \`branding\` (tag do card “magic”)
-- \`Bringing the Magic Back to Radio\`
-- \`Magic\`
-- \`campaign\` (tag do card da atleta)
-- \`Fearless.\`
-- \`Unmatched.\`
-- \`Taking Sportswear to the Skies\`
-- \`Eurosport\`
-- \`Epic look\`
-- \`Refreshing a Telecom Challenger\`
-- \`EPIC\`
-- \`branding\` (tag do card FFF Legal)
-- \`website\` (tag do card FFF Legal)
-- \`Designing Trust – The FFF Legal Identity\`
-- \`FFF Legal\`
-- \`Like what you see?\`
-- \`view projects\`
-
-**Não é permitido, nesta sessão:**
-
-- Adicionar headings extras como \`Featured Projects\`, \`Work\`, \`Cases\` etc.
-- Criar descrições adicionais, subtítulos, legendas, rótulos de botões ou qualquer outro texto além dos listados acima.
-- Traduzir, reescrever ou variar esses textos (por exemplo, não usar \`Vamos construir algo incrível\` no lugar de \`let's build something great\`).
-
-> Se precisar de atributos não visíveis para acessibilidade (ex.: \`aria-label\`, \`alt\`), use variações baseadas nesses mesmos textos ou descrições mínimas, mas **não renderize** esses textos extra visualmente na interface.
-
-Esta regra de conteúdo textual **vale apenas para esta sessão específica** (grid de cases + CTA “Like what you see? / view projects”) e **não** para as demais seções da página.
+- **Localização:** Componente 3D da Hero (ex.: `components/HeroGlassScene.tsx` / `components/ModelCanvas.tsx`).
+- **Descrição Técnica:**  
+  A esfera de vidro usa material de transmissão custoso; sem tiering, isso sobrecarrega dispositivos mobile.
+- **Solução Proposta:**
+  1. Ajustar `<Canvas>`:
+     - `dpr={[1, 1.5]}` para limitar pixel ratio.
+     - `eventSource={document.body}` quando houver scroll suave (Lenis ou similar).
+  2. Introduzir um hook `useMobile` (user-agent, largura de viewport ou heurística simples).
+  3. Dobrar a configuração de material:
+     - Desktop:
+       - `samples={12-16}`, `resolution={1024}`, `transmission={1}`, `roughness={0.0-0.1}`.
+     - Mobile:
+       - `samples={4-6}`, `resolution={512}`, `chromaticAberration` e `distortion` ligeiramente reduzidos.
+  4. Em um estado ainda mais reduzido (FPS < ~30), trocar `MeshTransmissionMaterial` por `MeshPhysicalMaterial` translúcido (vidro fosco) sem refração dinâmica.
+- **Impacto Esperado:**  
+  Aumento significativo de FPS em mobile e laptops fracos, mantendo o visual de vidro líquido como destaque de marca.
 
 ---
 
-## 2. ESTRUTURA E LAYOUT DA SESSÃO
+### [Média] Implementar Parallax Suave e Controle de Scroll na Esfera
 
-1. **Organização geral**
-   - A sessão deve reproduzir a grade mostrada na imagem:
-     - Linha 1:
-       - Card “magic” (esquerda).
-       - Card da atleta “Fearless. / Unmatched.” (direita).
-       - Pill flutuante no topo: \`let's build something great\`.
-     - Linha 2:
-       - Card grande “Epic look” ocupando toda a largura.
-     - Linha 3:
-       - Card “FFF Legal” à esquerda.
-       - Bloco de CTA “Like what you see? / view projects” à direita.
-
-2. **Cards de projeto**
-   - Cada card é clicável (use \`<button>\` ou \`<a>\` abrangendo toda a área clicável).
-   - Inclua:
-     - Imagem principal.
-     - Tag(s) no canto superior direito (ex.: \`branding\`, \`campaign\`, \`website\`).
-     - Título do projeto (linha principal abaixo da imagem).
-     - Nome do cliente (linha menor logo abaixo do título).
-     - Ícone de seta azul no canto inferior direito.
-
-3. **CTA “Like what you see?”**
-   - Composto por:
-     - Texto \`Like what you see?\` em duas linhas (quebra responsiva ok).
-     - Botão pill azul com \`view projects\` + ícone de seta.
+- **Localização:** Mesmo componente 3D da Hero.
+- **Descrição Técnica:**  
+  A experiência esperada é de interação leve com mouse/scroll (rotações e distorções). Isso precisa ser feito com `useFrame` e `state.mouse` para evitar listeners manuais.
+- **Solução Proposta (conceito):**
+  1. Usar `useFrame((state, delta) => { ... })` para:
+     - Ler `state.mouse.x`/`state.mouse.y` no range -1..1.
+     - Aplicar damped rotation ao mesh principal (ex.: `rotation.y` e `rotation.x`).
+  2. Se houver `useScroll`, mapear `scroll.offset` (0..1) para uma rotação extra ou leve ajuste de `distortion`.
+  3. Encapsular isso em condicional: se `prefers-reduced-motion`, não aplicar transformações contínuas.
+- **Impacto Esperado:**  
+  Hero mais viva e responsiva ao usuário, reforçando o posicionamento de alta fidelidade 3D.
 
 ---
 
-## 3. ESTILOS E INTERAÇÃO (SEM MUDAR TEXTO)
+### [Média] Ajustar Animação de Entrada do Título da Hero
 
-1. **Hover e foco**
-   - Cards e CTA devem ter feedback claro:
-     - Leve elevação/scale no hover.
-     - \`cursor-pointer\`.
-     - Estados de foco acessíveis, por exemplo:
-       - \`focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0057FF]\`.
-
-2. **Tipografia**
-   - Respeitar o contraste e peso aparentes:
-     - Títulos dos projetos com peso maior que o nome do cliente.
-     - CTA “Like what you see?” com tipografia forte, seguindo a referência.
-
-3. **Responsividade**
-   - Mobile: cards empilhados verticalmente, mantendo ordem visual da referência.
-   - Desktop: manter a grade 2x2 e o CTA à direita do card FFF Legal, como na imagem.
+- **Localização:** Componente `Hero` (texto principal).
+- **Descrição Técnica:**  
+  O título deve entrar com efeito 3D leve (`rotateX`) e `stagger` entre linhas, mas respeitando fallback simples quando motion reduzido.
+- **Solução Proposta:**
+  1. Usar `motion.div` com `variants`:
+     - Container com `staggerChildren`.
+     - Cada linha/palavra com `initial={{ opacity: 0, y: 24, rotateX: -15 }}` → `animate={{ opacity: 1, y: 0, rotateX: 0 }}`.
+  2. Quando `prefers-reduced-motion`, reduzir para:
+     - `initial={{ opacity: 0, y: 8 }}` → `animate={{ opacity: 1, y: 0 }}`, sem `rotateX`.
+- **Impacto Esperado:**  
+  Entrada mais impactante alinhada à referência visual, sem comprometer acessibilidade.
 
 ---
 
-## 4. RESTRIÇÕES ADICIONAIS
+### [Média] Implementar Seção Hero com Bloco Interno Sticky e Altura ~200vh
 
-- **Não inventar cópias**:
-  - Proibido criar qualquer texto auxiliar, tooltips visíveis, microcopies novas ou rótulos extras.
-- **Acessibilidade sem poluir a UI**:
-  - Pode-se usar \`aria-label\`, \`aria-describedby\` e \`alt\` para acessibilidade, desde que esses textos extras **não sejam exibidos visualmente**.
-  - Quando possível, derive esses textos diretamente das strings permitidas (por ex., \`aria-label="Bringing the Magic Back to Radio — Magic"\`).
-
----
-
-## 5. CRITÉRIOS DE ACEITE
-
-- A sessão mostra **apenas** os textos da lista de permitidos.
-- O layout da grade e CTA corresponde visualmente à referência da imagem.
-- Interações de hover/foco funcionam e são acessíveis, sem introduzir textos visíveis novos.
-`;
-
-// Componente 3D simples (orb girando) apenas para seguir o padrão do projeto com R3F.
-function SpinningOrb() {
-  const meshRef = useRef<Mesh | null>(null);
-
-  useFrame((state) => {
-    if (!meshRef.current) return;
-    const t = state.clock.getElapsedTime();
-    meshRef.current.rotation.x = t * 0.2;
-    meshRef.current.rotation.y = t * 0.35;
-  });
-
-  return (
-    <mesh ref={meshRef} castShadow receiveShadow>
-      <torusKnotGeometry args={[1, 0.35, 128, 32]} />
-      <meshStandardMaterial
-        color="#2563eb"
-        metalness={0.85}
-        roughness={0.2}
-      />
-    </mesh>
-  );
-}
-
-export default function FeaturedProjectsPromptPage() {
-  return (
-    <main className="min-h-screen bg-slate-950 text-slate-50 grid md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] gap-8 p-6 md:p-10">
-      {/* Coluna esquerda: Markdown do prompt para copiar e colar */}
-      <section className="relative rounded-2xl border border-slate-800 bg-slate-900/80 backdrop-blur-sm p-4 md:p-6 overflow-hidden">
-        <h1 className="mb-4 text-lg font-semibold text-slate-100">
-          Prompt da sessão de projetos em destaque (copiar e colar em .md)
-        </h1>
-        <pre className="max-h-[70vh] overflow-auto whitespace-pre-wrap text-[11px] leading-relaxed md:text-xs font-mono text-slate-100">
-          {featuredProjectsPromptMarkdown}
-        </pre>
-      </section>
-
-      {/* Coluna direita: Canvas R3F decorativo */}
-      <aside className="relative h-[320px] md:h-auto rounded-2xl border border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950 overflow-hidden">
-        <Canvas
-          shadows
-          camera={{ position: [0, 0, 4], fov: 45 }}
-          dpr={[1, 1.5]}
-        >
-          <color attach="background" args={["#020617"]} />
-          <ambientLight intensity={0.3} />
-          <directionalLight
-            position={[4, 6, 4]}
-            intensity={1.4}
-            castShadow
-          />
-          <SpinningOrb />
-          <OrbitControls enablePan={false} enableZoom={false} />
-        </Canvas>
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950 to-transparent" />
-        <div className="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-center p-4">
-          <span className="rounded-full bg-slate-900/80 px-4 py-1 text-xs font-medium text-slate-200 shadow-lg shadow-blue-500/20">
-            Visual helper — não faz parte da UI final da sessão
-          </span>
-        </div>
-      </aside>
-    </main>
-  );
-}
-
-## BLOCO 2 — HERO + 3D
-
-### Prompt 2.1 — Reestruturar layout da Hero com sticky e 2 colunas claras
-
-**Sessão/Área:** Hero
-
-**Severidade:** Alta
-
-**Arquivos-alvo:**  
-- Componente da Hero (ex.: `Hero.tsx`, `app/page.tsx` ou `app/(site)/page.tsx`)
-- Estilos da Hero (Tailwind direto ou módulo CSS correspondente)
-
-**Objetivo**  
-Garantir que a Hero siga o layout de 2 colunas bem definidas, com bloco sticky ocupando aproximadamente `200vh`, texto à esquerda e 3D + thumb de vídeo à direita.
-
-**Instruções para o agente**
-
-1. Transforme a Hero em um `<section id="hero">` com altura estendida:
-   - Ex.: `className="relative min-h-[200vh] bg-[...]"` (ajuste conforme design).
-2. Dentro da seção, crie um wrapper sticky:
-   - Algo como: `className="sticky top-0 min-h-screen flex items-center"`.
-3. Implemente um grid responsivo:
-   - `md:grid md:grid-cols-2 md:gap-8` (ou semelhante).
-   - Mobile: colunas em stack, 3D abaixo do texto.
-4. Organize conteúdo:
-   - **Coluna esquerda:** tag `[BRAND AWARENESS]`, H1 principal, subtítulo (bloco translúcido) e CTA.
-   - **Coluna direita:** Canvas 3D (topo) e thumb do vídeo manifesto (parte inferior direita).
-5. Ajuste z-index e posicionamento do 3D para não sobrepor indevidamente o texto.
-6. Refine o bloco branco translúcido do subtítulo para destacar melhor (ex.: `bg-white/60 backdrop-blur-md rounded-xl px-4 py-3`).
-
-**Critérios de aceite**
-
-- Em desktop, Hero se comporta como um painel sticky entre ~1–2 páginas de rolagem.
-- A separação de colunas é clara: texto à esquerda, 3D e thumb à direita.
-- Em mobile, layout se adapta sem sobreposição confusa entre título e 3D.
-
+- **Localização:** Estrutura da seção Hero na Home.
+- **Descrição Técnica:**  
+  A especificação prevê uma hero com altura estendida, onde o conteúdo interno fica `sticky` enquanto o usuário rola, liberando espaço para a transição da thumb do vídeo manifesto.
+- **Solução Proposta:**
+  1. Envolver o conteúdo da Hero em um wrapper com `min-h-[200vh]` (ou cálculo equivalente).
+  2. Dentro, criar um container `sticky top-0 min-h-screen` que mantém o grid texto + 3D + thumb fixo ao rolar.
+  3. Conectar `useScroll` (Framer Motion) a este container para animar:
+     - Opacidade do texto (esmaecendo na segunda metade do scroll).
+     - Posição/escala da thumb (preparando transição para o Manifesto).
+- **Impacto Esperado:**  
+  Experiência imersiva e fluida, aproximando o comportamento à proposta original sem alterar copy.
 
 ---
 
-### Prompt 2.2 — Sincronizar rotação/parallax do toro/esfera com scroll e mouse
 
-**Sessão/Área:** Hero (3D)
+analise todo o detalhamento, monte um plano de execução, execute os ajustes e após executar, confira se todas os ajustes foram feitos da maneira correta e estão funcionando. 
 
-**Severidade:** Alta
+## 3. Thumb do Vídeo Manifesto (Hero) e Seção Manifesto
 
-**Arquivos-alvo:**  
-- Componente do modelo 3D (ex.: `Model.js`, `TorusDan.tsx`)
-- Cena que utiliza `useFrame`/`useScroll` (ex.: `HeroGlassScene.tsx`)
+### [Média] Animar Thumb do Manifesto com `scrollYProgress`
 
-**Objetivo**  
-Fazer com que o toro/esfera reaja suavemente ao scroll e ao movimento do mouse, passando sensação de interação viva e fluida.
-
-**Instruções para o agente**
-
-1. Envolva a cena do 3D em `<ScrollControls>` do drei (se ainda não estiver):
-   - Ex.: `<ScrollControls pages={2}> ... </ScrollControls>` dentro do `<Canvas>`.
-2. Dentro do componente do modelo:
-   - Crie um `ref` para o mesh principal (ex.: `const mesh = useRef<THREE.Mesh>(null);`).
-   - Use `const scroll = useScroll();`.
-3. No `useFrame`, atualize `rotation` e, se necessário, `position` baseado em:
-   - `scroll.offset` (0 → 1) para rotação em Y (ex.: `offset * Math.PI * 2`).
-   - `state.mouse` para parallax leve (X e Y).
-   - Use funções de amortecimento (`THREE.MathUtils.damp`) para transições suaves.
-4. Respeite `prefers-reduced-motion` (ver Prompt 1.3):
-   - Se reduzido, fixe rotação em um ângulo estável e desative parallax.
-5. Teste se o movimento responde bem tanto em mouse quanto em trackpad/touch.
-
-**Critérios de aceite**
-
-- Ao rolar, o toro/esfera gira de forma suave e coerente, sem travadas.
-- Ao mexer o mouse, há um parallax leve, sem exagero.
-- Em modo “reduced motion”, o modelo fica quase estático.
-
+- **Localização:** Componente da Hero que contém a thumb do vídeo manifesto.
+- **Descrição Técnica:**  
+  Hoje a thumb é estática; a especificação pede que ela cresça e se mova com o scroll em direção à seção Manifesto.
+- **Solução Proposta:**
+  1. Usar `useScroll` e `useTransform` sobre o container sticky da Hero.
+  2. Mapear `scrollYProgress` (0 → 1) para:
+     - `scale` da thumb (ex.: 0.9 → 1.2).
+     - `y` da thumb (ex.: 0 → `-150px`).
+     - Opcionalmente, `borderRadius` (ex.: 24px → 0) simulando expansão para vídeo completo.
+  3. Em `prefers-reduced-motion`, fixar a thumb sem essas transformações; manter apenas um fade-in.
+- **Impacto Esperado:**  
+  Criação de um elo visual forte entre Hero e Manifesto, reforçando a narrativa de “mergulho” no manifesto.
 
 ---
 
-## BLOCO 3 — INTEGRAÇÃO HERO ↔ MANIFESTO / VÍDEO MANIFESTO
+### [Média] Enriquecer a Seção Manifesto com Overlay e Badge de Play Acessível
 
-### Prompt 3.1 — Implementar animação da thumb do vídeo manifesto baseada em scroll
+- **Localização:** Seção `Manifesto (Vídeo)`.
+- **Descrição Técnica:**  
+  O vídeo aparece, mas falta overlay de contexto e botão de play/pause acessível.
+- **Solução Proposta:**
+  1. Criar overlay com gradiente inferior (ex.: `from-black/60 to-transparent`) dentro do wrapper do vídeo.
+  2. Adicionar microtexto (ex.: “Manifesto em vídeo — visão e processo”) sem alterar copy original da página.
+  3. Criar botão de play/pause:
+     - Ícone (triângulo/círculo) com label `aria-label="Reproduzir manifesto em vídeo"` / `aria-label="Pausar manifesto em vídeo"`.
+     - Controlar o elemento `<video>` via ref (play/pause).
+  4. Garantir que autoplay inicie com som desligado; o usuário deve habilitar áudio manualmente.
+- **Impacto Esperado:**  
+  Melhor compreensão da função da seção, controles claros e maior alinhamento à especificação.
 
-**Sessão/Área:** Transição Hero → Manifesto
+---
+analise todo o detalhamento, monte um plano de execução, execute os ajustes e após executar, confira se todas os ajustes foram feitos da maneira correta e estão funcionando. 
 
-**Severidade:** Alta
+## 4. Portfolio Showcase
 
-**Arquivos-alvo:**  
-- `Hero.tsx` (ou página que contém a Hero)
-- `ManifestoSection.tsx` (ou equivalente)
-- Componente compartilhado para thumb/vídeo, se criado (ex.: `ManifestoThumb.tsx`)
+### [Média] Alinhar Tipografia, Stripes e CTAs ao Layout de Referência
 
-**Objetivo**  
-Transformar a thumb de vídeo da Hero em um elemento que cresce e se reposiciona, tornando-se o player principal na seção Manifesto conforme o usuário rola.
+- **Localização:** Componente `PortfolioShowcase`.
+- **Descrição Técnica:**  
+  A estrutura de 3 stripes e CTAs está presente, mas detalhes de tipografia, espaçamentos e microinterações podem divergir do mockup.
+- **Solução Proposta:**
+  1. Garantir que:
+     - Título `portfólio showcase` seja `<h2>` com `text-2xl md:text-3xl`, `font-bold`, cor azul.
+     - Microtexto `[what we love working on]` fique na lateral ou logo abaixo dependendo do breakpoint.
+  2. Stripes:
+     - Cada stripe é um bloco horizontal com tipografia grande (`text-xl md:text-2xl`), `font-bold`.
+     - Em desktop, usar `hover` com:
+       - Fundo levemente cinza (`bg-[#F4F5F7]` ou `bg-white/40`).
+       - Sombra suave (`shadow-md shadow-blue-500/10`).
+  3. CTAs:
+     - `VEJA MAIS →` aponta para `/portfolio`.
+     - `let’s build something great →` aponta para `/#contact`.
+     - Ambos com estilo alinhado ao CTA da hero (mesma paleta, radius, animação hover).
+- **Impacto Esperado:**  
+  Seção mais editorial, coerente e claramente clicável, reforçando o entendimento das categorias de atuação.
 
-**Instruções para o agente**
+---
+analise todo o detalhamento, monte um plano de execução, execute os ajustes e após executar, confira se todas os ajustes foram feitos da maneira correta e estão funcionando. 
+## 5. Featured Projects
 
-1. Crie um componente para a thumb de vídeo (se ainda não existir) que possa ser animado via Framer Motion (`motion.div`).
-2. Em `Hero.tsx`, envolva a thumb em um elemento animável:
-   - Use `useScroll` + `useTransform` do Framer Motion com `target` apontando para a Hero.
-3. Mapeie `scrollYProgress` da Hero para:
-   - `scale` (ex.: de `0.6` a `1.2`).
-   - `translateY` e `translateX` (para mover da coluna da Hero até a posição aproximada da seção Manifesto).
-   - `borderRadius` (de `24px` até `0px`, por exemplo).
-4. Na seção Manifesto:
-   - Garanta que o container do player final esteja alinhado com o estado final da animação da thumb, para que a continuação pareça natural (mesma proporção, alinhamento aproximado).
-5. Sincronize opacidade/escala do texto da Hero:
-   - Conforme a thumb se aproxima do tamanho máximo, reduza a opacidade do texto principal da Hero (H1, subtítulo).
-6. Respeite `prefers-reduced-motion`:
-   - Se ativo, desative a animação de transição e apenas exiba a thumb em estado estático na Hero e o vídeo completo na seção Manifesto sem transição contínua.
+### [Média] Padronizar Grid Responsivo e Interações dos Cards
 
-**Critérios de aceite**
+- **Localização:** Componente `FeaturedProjects`.
+- **Descrição Técnica:**  
+  Os cards atuais exibem conteúdo correto, mas precisam de ajustes finos de grid e hover para bater com a especificação.
+- **Solução Proposta:**
+  1. Grid:
+     - Mobile: 1 coluna.
+     - Tablet: 2 colunas.
+     - Desktop grande: 3 colunas, com `gap-6`/`gap-8`.
+  2. Cards:
+     - Usar `motion.div` com animação de entrada:
+       - Container: `initial={{ opacity: 0, y: 40 }}` → `whileInView={{ opacity: 1, y: 0 }}` + `viewport={{ once: true }}`.
+       - Stagger via `AnimatePresence`/`variants`.
+     - Hover:
+       - Imagem aumenta levemente (`scale: 1.03`, `y: -4`).
+       - Sombra azulada suave.
+  3. CTA “view projects”:
+     - Botão grande alinhado ao layout, com ícone de seta e leve animação no eixo X em loop lento (ex.: `x: [0, 4, 0]`).
+- **Impacto Esperado:**  
+  Maior sensação de polimento, foco em projetos principais e incentivo para navegar ao portfólio completo.
 
-- Ao rolar da Hero para o Manifesto, o usuário percebe claramente que é o mesmo elemento de vídeo “crescendo”.
-- A transição é suave, sem saltos bruscos de posição ou escala.
-- Não há glitches visuais em breakpoints mobile/desktop.
+---
+analise todo o detalhamento, monte um plano de execução, execute os ajustes e após executar, confira se todas os ajustes foram feitos da maneira correta e estão funcionando. 
+## 6. Clients / Brands
 
+### [Média] Garantir Grid de Logos Acessível e Animado com Suavidade
+
+- **Localização:** Componente `Clients`.
+- **Descrição Técnica:**  
+  A faixa azul está correta, mas é preciso garantir animações leves e acessíveis.
+- **Solução Proposta:**
+  1. Logos em grid fluido:
+     - Mobile: 2–3 colunas.
+     - Desktop: 4–6 colunas com `gap-4`.
+  2. Animação de entrada:
+     - Título: `initial={{ opacity: 0, y: 16 }}` → `whileInView={{ opacity: 1, y: 0 }}`.
+     - Logos: `staggerChildren` curto (0.03–0.05).
+  3. Hover:
+     - `whileHover={{ scale: 1.04 }}` + leve `brightness(1.1)`.
+  4. Garantir `alt` conforme item global de acessibilidade.
+- **Impacto Esperado:**  
+  Seção de credibilidade mais dinâmica e responsiva, sem sacrificar performance ou acessibilidade.
 
 ---
 
-### Prompt 3.2 — Otimizar carregamento do vídeo manifesto e acessibilidade do player
+## 7. Contact
 
-**Sessão/Área:** Manifesto (vídeo principal)
+### [Alta] Melhorar Acessibilidade do Formulário de Contato
 
-**Severidade:** Alta/Média
-
-**Arquivos-alvo:**  
-- `ManifestoSection.tsx`
-- Componente do player de vídeo (ex.: `ManifestoVideo.tsx`)
-
-**Objetivo**  
-Garantir que o vídeo manifesto seja carregado de forma eficiente e tenha controles acessíveis (teclado, screen reader, `aria-labels`), além de respeitar autoplay sem som por padrão.
-
-**Instruções para o agente**
-
-1. Configure o elemento `<video>` com:
-   - `preload="metadata"`.
-   - `playsInline`.
-   - `muted`.
-   - `autoPlay` apenas se o vídeo estiver sem som e for coerente com o design.
-2. Se controles nativos forem ocultos:
-   - Crie um botão customizado de play/pause:
-     - `role="button"`.
-     - `tabIndex={0}`.
-     - `aria-pressed={isPlaying}`.
-     - `aria-label` dinâmico entre:
-       - `"Reproduzir manifesto em vídeo"` / `"Pausar manifesto em vídeo"`.
-   - Permita ativação por teclado (`Enter` / `Space`).
-3. Forneça fallback de texto:
-   - Pequena descrição ou resumo textual do manifesto.
-   - Opcional: link para uma página com transcrição completa (se existir/planejada).
-4. Combine com lazy load (Prompt 1.4) para só carregar o vídeo próximo da viewport.
-5. Teste em mobile:
-   - Verifique se o vídeo respeita 16:9.
-   - Use `object-fit: cover` ou `contain` conforme o layout.
-   - Garanta margens internas adequadas para não colar nas outras seções.
-
-**Critérios de aceite**
-
-- Usuário consegue controlar o vídeo somente com teclado.
-- Leitores de tela anunciam o botão de play/pause corretamente.
-- Em conexões mais lentas, o vídeo não bloqueia a renderização inicial do restante da página.
-
+- **Localização:** Componente `Contact`.
+- **Descrição Técnica:**  
+  Inputs podem não ter `label` devidamente associado, o que prejudica leitores de tela e navegação por teclado.
+- **Solução Proposta:**
+  1. Para cada `<input>`/`<textarea>`, garantir:
+     - `id` único.
+     - `<label htmlFor="...">` com texto descritivo (sem alterar o texto exibido se já existir).
+  2. Adicionar `aria-required="true"` em campos obrigatórios se for o caso.
+  3. Garantir foco visível:
+     - Tailwind: `focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`.
+- **Impacto Esperado:**  
+  Formulário utilizável por teclado e leitores de tela, alinhado a boas práticas de acessibilidade.
 
 ---
 
-## BLOCO 4 — PORTFOLIO SHOWCASE
+### [Média] Ajustar Layout Responsivo do Contact
 
-### Prompt 4.1 — Melhorar affordance das “stripes” como elementos clicáveis
-
-**Sessão/Área:** Portfolio Showcase (stripes de categorias)
-
-**Severidade:** Média
-
-**Arquivos-alvo:**  
-- `PortfolioShowcaseSection.tsx`
-- Componente de stripe de categoria (se existir, ex.: `ShowcaseStripe.tsx`)
-
-**Objetivo**  
-Deixar claro que as “stripes” são clicáveis (filtros/navegação), reforçando interação via hover, foco e feedback visual.
-
-**Instruções para o agente**
-
-1. Garanta que cada stripe seja um `<button>` ou `<a>` cobrindo toda a área clicável:
-   - Se filtra conteúdo: prefira `<button>`.
-   - Se navega para outra rota/página: use `<Link>` + `<a>`.
-2. Aplique classes de interação:
-   - `cursor-pointer`.
-   - `transition-transform`, `transition-shadow`, `duration-150` (ou similar).
-   - Hover: leve `scale-105`, `shadow-md` e/ou mudança sutil de background.
-3. Adicione estados de foco visíveis:
-   - Ex.: `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0057FF]`.
-4. Garanta semântica de destino:
-   - Se for filtro: atualize estado de filtro ao clicar e exiba visual de “ativo”.
-   - Se for link: direcione para `/portfolio?category={id}` (ou rota equivalente).
-5. Verifique textos longos em mobile (ex.: “Web Campaigns, Websites & Tech”) para evitar quebra ruim ou barra horizontal:
-   - Use `flex-wrap` adequado ou ajuste `text-sm` e `leading-tight`.
-
-**Critérios de aceite**
-
-- Usuário tem percepção imediata de que as stripes são clicáveis.
-- Navegação/filtro funciona bem tanto com mouse quanto teclado.
-- Em mobile, o layout das stripes continua legível e sem overflow lateral.
-
+- **Localização:** Mesmo componente `Contact`.
+- **Descrição Técnica:**  
+  Em breakpoints menores, informações e formulário podem ficar muito próximos horizontalmente.
+- **Solução Proposta:**
+  1. Grid responsivo:
+     - Mobile: stack vertical (`flex-col` ou `grid-cols-1`).
+     - Desktop: grid 2 colunas (`md:grid-cols-2`) com `gap-8` ou maior.
+  2. Garantir `py-12` ou `py-16` consistentes com outras seções.
+  3. Manter título `contato` como `<h2>` e subtítulo como `<p>` com espaçamento inferior adequado (`mb-4`/`mb-6`).
+- **Impacto Esperado:**  
+  Melhor legibilidade, sensação de respiro e Harmonia com demais seções.
 
 ---
 
-### Prompt 4.2 — Alinhar microcopy “[what we love working on]” e contraste
+## 8. Footer
 
-**Sessão/Área:** Portfolio Showcase (microcopy de apoio)
+### [Média] Unificar Copyright e Links
 
-**Severidade:** Baixa
-
-**Arquivos-alvo:**  
-- `PortfolioShowcaseSection.tsx`
-- Estilos específicos desta microcopy
-
-**Objetivo**  
-Garantir que a microcopy “[what we love working on]” tenha alinhamento e contraste suficientes para ser lida e funcionar como elemento de apoio visual.
-
-**Instruções para o agente**
-
-1. Reposicione a microcopy em relação ao título da seção para seguir o mock (alinhamento à esquerda, abaixo ou acima do título, conforme referência).
-2. Ajuste contraste de cor:
-   - Se estiver muito claro sobre fundo claro, escureça levemente (ex.: `text-slate-600` ou equivalente).
-3. Garanta tamanho e espaçamento:
-   - Ex.: `text-sm` ou `text-xs` com `tracking-wide` e `uppercase` se o design pedir.
-   - Margem vertical coerente (ex.: `mt-2`/`mb-4`).
-4. Verifique legibilidade em mobile e desktop.
-
-**Critérios de aceite**
-
-- Microcopy é perceptível e legível, não desaparecendo visualmente.
-- Mantém estética sutil, sem competir com o título principal da seção.
-
+- **Localização:** Componente `Footer`.
+- **Descrição Técnica:**  
+  A especificação sugere unificar para `© 2025 Danilo Novais Vilela — todos os direitos reservados.` e padronizar destinos dos links.
+- **Solução Proposta:**
+  1. Fixar o texto de copyright exatamente conforme especificado.
+  2. Links:
+     - `home` → `#hero`.
+     - `portfólio showcase` → `#portfolio-showcase`.
+     - `Sobre` → `/sobre` (preferível ao `#clients`).
+     - `contato` → `#contact`.
+  3. Garantir que links tenham o mesmo sublinhado animado do header e ícones sociais com hover consistente.
+- **Impacto Esperado:**  
+  Rodapé mais coerente, funcional e alinhado à navegação global.
 
 ---
 
-## BLOCO 5 — FEATURED PROJECTS
+## 9. Performance de Imagens, Vídeo e Fonte
 
-### Prompt 5.1 — Refinar hierarquia visual e espaçamento da seção Featured Projects
+### [Média] Otimizar Imagens com Next/Image e Lazy Loading
 
-**Sessão/Área:** Featured Projects (projetos em destaque)
-
-**Severidade:** Média
-
-**Arquivos-alvo:**  
-- `FeaturedProjectsSection.tsx`
-- Componentes de card de projeto (ex.: `ProjectCard.tsx`)
-
-**Objetivo**  
-Reforçar visualmente a hierarquia da seção (título → grid de cards → CTA “view projects”), com espaçamentos coerentes e leitura clara.
-
-**Instruções para o agente**
-
-1. Garanta que o título da seção esteja marcado como `h2` (ver Prompt 9.1 sobre headings).
-2. Ajuste espaçamento:
-   - Espaço razoável entre título/subtítulo e grid (ex.: `mt-8`).
-   - Espaço entre grid e CTA “view projects” (ex.: `mt-10`), para separar claramente os blocos.
-3. Em cada card:
-   - Verifique tamanho e peso da tipografia do título do projeto vs descrição.
-   - Use `line-clamp` se necessário para evitar textos muito longos quebrando a grid.
-4. Posicione o CTA “view projects” de forma consistente:
-   - Preferencialmente alinhado à direita ou centro abaixo da grid, com bom respiro.
-5. Combine com otimização de imagens (Prompt 1.5) para performance.
-
-**Critérios de aceite**
-
-- O olho do usuário lê naturalmente: título da seção → cards → CTA.
-- Nenhum elemento parece “colado” ou perdido visualmente.
-- Em mobile, cards continuam legíveis e ordenados.
-
+- **Localização:** Componentes de cards de projeto, logos e qualquer imagem estática.
+- **Descrição Técnica:**  
+  Uso de `<img>` sem otimização pode prejudicar LCP, principalmente em seções com muitas imagens (Featured Projects, Clients).
+- **Solução Proposta:**
+  1. Substituir `<img>` por `<Image>` do Next.
+  2. Declarar `sizes` apropriados por breakpoint.
+  3. Habilitar `loading="lazy"` para imagens abaixo da dobra.
+  4. Manter URLs Supabase, apenas aproveitando o loader automático do Next.
+- **Impacto Esperado:**  
+  Melhora de LCP e uso de banda, especialmente em mobile.
 
 ---
 
-## BLOCO 6 — CLIENTS / BRANDS
+### [Média] Otimizar Carregamento do Vídeo Manifesto
 
-### Prompt 6.1 — Refinar espaçamento vertical e tamanho dos logos de clientes
-
-**Sessão/Área:** Clients / Brands
-
-**Severidade:** Baixa
-
-**Arquivos-alvo:**  
-- `ClientsSection.tsx`
-- Componente de logo/brand stripe, se existir (ex.: `ClientLogo.tsx`)
-
-**Objetivo**  
-Aproximar ainda mais a seção do layout de referência, ajustando espaçamentos verticais e tamanhos de logo, especialmente em telas pequenas.
-
-**Instruções para o agente**
-
-1. Revise `py` da seção:
-   - Ajuste para que o bloco azul (ou cor equivalente) não fique nem apertado nem exageradamente alto.
-2. Padronize o tamanho dos logos:
-   - Use wrappers com altura fixa e `object-fit: contain`/`max-h-*` para limitar crescimento.
-3. Em mobile:
-   - Garanta espaçamento suficiente entre linhas de logos (`gap-y-6` ou similar).
-   - Evite logos encostados em bordas laterais (`px-4`/`px-6`).
-4. Em desktop:
-   - Verifique alinhamento e distribuição (grid ou flex) seguindo o mock.
-
-**Critérios de aceite**
-
-- Seção de clientes parece “âncora visual” sólida, sem desconforto de proporções.
-- Logos são claramente reconhecíveis em mobile, sem ficarem minúsculos.
-
+- **Localização:** Componentes da thumb na Hero e da seção Manifesto.
+- **Descrição Técnica:**  
+  Carregar o vídeo imediatamente pode pesar para conexões lentas.
+- **Solução Proposta:**
+  1. Usar atributo `preload="metadata"` ou similar.
+  2. Exibir `poster` estático leve.
+  3. Iniciar autoplay somente quando o vídeo estiver visível (`IntersectionObserver` ou `whileInView`).
+- **Impacto Esperado:**  
+  Redução do tempo de carga inicial e melhor desempenho geral sem sacrificar a narrativa em vídeo.
 
 ---
 
-## BLOCO 7 — CONTACT
+## 10. Conclusão
 
-### Prompt 7.1 — Alinhar grid e ritmo vertical do formulário de contato
+Executando os ajustes na ordem sugerida (acessibilidade + SEO + performance crítica, depois hero/manifesto e demais seções), a Home ficará:
 
-**Sessão/Área:** Contact
-
-**Severidade:** Baixa
-
-**Arquivos-alvo:**  
-- `ContactSection.tsx`
-- Eventuais componentes de input genéricos
-
-**Objetivo**  
-Deixar o formulário mais próximo do mock, com um grid mais rígido, colunas alinhadas e ritmo vertical consistente entre labels e campos.
-
-**Instruções para o agente**
-
-1. Estruture o formulário em grid:
-   - Ex.: `md:grid md:grid-cols-2 md:gap-8` para campos lado a lado em desktop, uma coluna em mobile.
-2. Alinhe labels e inputs:
-   - Use `flex` ou `grid` internos para que labels fiquem alinhados verticalmente.
-   - Aplique espaçamento uniforme entre label e input (`mb-1` ou `mb-2`).
-3. Padronize altura dos campos:
-   - Inputs de texto e textareas com `py-3`/`py-2.5`, mesma fonte.
-4. Verifique consistência das mensagens de erro (se existirem):
-   - Mesma cor, tamanho de fonte e espaçamento.
-5. Em mobile:
-   - Garanta que o formulário não encoste nas bordas laterais (`px-4`/`px-6`).
-
-**Critérios de aceite**
-
-- Formulário tem aparência profissional e organizada.
-- Em desktop, colunas são alinhadas; em mobile, o conteúdo continua legível e coerente.
-
-
----
-
-## BLOCO 8 — NAVEGAÇÃO (HEADER & FOOTER)
-
-### Prompt 8.1 — Refinar estados de foco e acessibilidade na navegação
-
-**Sessão/Área:** Header, Footer, botões e links em geral
-
-**Severidade:** Média
-
-**Arquivos-alvo:**  
-- `SiteHeader.tsx` / `Header.tsx`
-- `Footer.tsx`
-- Componentes de botão/link reutilizáveis
-
-**Objetivo**  
-Garantir que todos os links e botões tenham foco visível e navegação por teclado consistente, especialmente sobre fundos azul/branco.
-
-**Instruções para o agente**
-
-1. Para todos os links e botões principais (nav, CTAs, stripes, cards):
-   - Adicione classes de foco, por exemplo:
-     - `focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-white`
-   - Ajuste cores de `ring-offset` conforme o fundo (azul vs branco).
-2. Verifique ordem de tabulação no header e footer:
-   - Deve seguir a ordem visual dos itens.
-   - Não incluir elementos “invisíveis” (a não ser que tenham função clara).
-3. Nos cards/stripes clicáveis:
-   - Se não forem `<button>/<a>`, garanta `tabIndex={0}` e handlers para teclado (`Enter`).
-4. Teste com teclado:
-   - Navegue do topo ao fim da página apenas com `Tab` e `Shift+Tab`, garantindo que o foco é sempre visível.
-
-**Critérios de aceite**
-
-- Qualquer usuário vê claramente onde está o foco ao navegar por teclado.
-- Não há “traps” de foco ou elementos inacessíveis.
-
-
----
-
-### Prompt 8.2 — Uniformizar comportamento/estilo de header e footer (links, microanimações)
-
-**Sessão/Área:** Header & Footer
-
-**Severidade:** Baixa
-
-**Arquivos-alvo:**  
-- `SiteHeader.tsx`
-- `Footer.tsx`
-- Eventual componente compartilhado de navegação (ex.: `MainNav.tsx`)
-
-**Objetivo**  
-Padronizar rotas, textos e microanimações de navegação entre header e footer, incluindo ano de copyright.
-
-**Instruções para o agente**
-
-1. Padronize textos e destinos dos links:
-   - `home` → `#hero`
-   - `portfólio showcase` → `#portfolio-showcase`
-   - `sobre` → `/sobre` (ou rota equivalente real)
-   - `contato` → `#contact`
-2. Certifique-se de que header e footer reutilizam a mesma lógica/componente de navegação quando possível (ex.: `MainNav`).
-3. Uniformize o texto de copyright:
-   - Exemplo sugerido: `© 2025 Danilo Novais Vilela — todos os direitos reservados.`
-4. Aplique microanimações consistentes em links:
-   - Underline animado, mudança de cor suave em hover, etc.
-   - Use o mesmo estilo visual em header e footer.
-
-**Critérios de aceite**
-
-- Header e footer comunicam a mesma estrutura de navegação.
-- Microanimações são sutis e consistentes em todo o site.
-- Nenhum link aponta para âncoras erradas ou rotas inconsistentes.
-
-
----
-
-## BLOCO 9 — ACESSIBILIDADE & SEO
-
-### Prompt 9.1 — Garantir hierarquia de headings (H1/H2/H3) correta
-
-**Sessão/Área:** Toda a Home
-
-**Severidade:** Média
-
-**Arquivos-alvo:**  
-- `Hero.tsx` / `page.tsx` (H1)
-- Todas as seções subsequentes (`ManifestoSection.tsx`, `PortfolioShowcaseSection.tsx`, `FeaturedProjectsSection.tsx`, `ClientsSection.tsx`, `ContactSection.tsx`)
-
-**Objetivo**  
-Assegurar que exista apenas um `h1` (na Hero) e que cada seção use `h2` como título principal, com subtítulos usando `h3` ou `p`.
-
-**Instruções para o agente**
-
-1. Verifique a presença de `h1`:
-   - Garanta que o título principal da Hero seja o único `h1` na página.
-2. Em cada seção principal:
-   - Título da seção como `h2` (Manifesto, Portfolio Showcase, Projetos em Destaque, Clientes, Contato).
-3. Subtítulos e microcopies:
-   - Use `h3`, `h4` ou `p` conforme necessário, sem pular níveis sem necessidade.
-4. Ajuste CSS/Tailwind para manter a mesma aparência visual mesmo mudando os elementos semânticos, se preciso.
-
-**Critérios de aceite**
-
-- Ferramentas de acessibilidade (ex.: plugins de headings) mostram uma árvore de headings clara e linear.
-- SEO bots conseguem compreender a estrutura de tópicos da página.
-
-
----
-
-### Prompt 9.2 — Revisar `alt` em imagens, `aria-labels` e foco em elementos interativos
-
-**Sessão/Área:** Global
-
-**Severidade:** Média
-
-**Arquivos-alvo:**  
-- Todos os componentes que usam imagens, ícones e vídeos
-- Botões/links com ícones sem texto
-
-**Objetivo**  
-Aumentar a acessibilidade geral com `alt` descritivos, `aria-labels` adequados para elementos icônicos e foco correto.
-
-**Instruções para o agente**
-
-1. Em todas as imagens:
-   - Adicione `alt` descritivo (o que é a imagem e por que está ali).
-   - Use `alt=""` apenas quando a imagem for puramente decorativa.
-2. Em ícones de botões/links (ex.: ícone de play do vídeo, ícones de redes sociais):
-   - Adicione `aria-label` descritivo no botão/link que envolve o ícone.
-3. Em qualquer componente “custom” interativo:
-   - Verifique que possui `role` adequado (`button`, `link`, etc.) se não for nativamente interativo.
-   - Verifique `tabIndex` e handlers de teclado.
-4. Teste com um leitor de tela (ou extensão) para validar a experiência.
-
-**Critérios de aceite**
-
-- Leitores de tela conseguem informar corretamente o propósito de imagens importantes e botões.
-- Não há elementos “clicáveis” escondidos sem descrição.
-
-
----
-
-### Prompt 9.3 — Configurar `metadata` e Open Graph (OG tags) para a Home
-
-**Sessão/Área:** SEO global (App Router)
-
-**Severidade:** Baixa
-
-**Arquivos-alvo:**  
-- `app/layout.tsx` ou `app/page.tsx` (`export const metadata = { ... }`)
-
-**Objetivo**  
-Aprimorar SEO e aparência da página em compartilhamentos (redes sociais, etc.) com título, descrição e imagem OG coerentes.
-
-**Instruções para o agente**
-
-1. Localize o arquivo de layout ou página raiz onde `metadata` é exportado.
-2. Defina um objeto de metadata similar a:
-
-   ```ts
-   export const metadata = {
-     title: 'Danilo Novais — Portfólio de Design, Estratégia e Experiência',
-     description:
-       'Portfólio institucional de Danilo Novais, focado em design estratégico, campanhas, vídeos & motions e experiências digitais.',
-     openGraph: {
-       title: 'Danilo Novais — Portfólio',
-       description: 'Design não é só estética. É intenção, estratégia e experiência.',
-       url: 'https://portfoliodanilo.com', // ajuste para a URL real
-       images: ['/og-image.jpg'],          // ajuste para o caminho real da imagem
-     },
-     twitter: {
-       card: 'summary_large_image',
-       title: 'Danilo Novais — Portfólio',
-       description: 'Design, não é só estética.',
-       images: ['/og-image.jpg'],
-     },
-   }
+- Mais alinhada ao layout de referência `HOME-PORTFOLIO-LAYOUYT_ESPERADO.jpg`.
+- Mais fluida, imersiva e responsiva (especialmente na Hero em 3D e no vídeo manifesto).
+- Mais robusta em acessibilidade, SEO e performance, sem mudança de conteúdo textual.

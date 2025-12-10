@@ -4,8 +4,14 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { CLIENT_LOGOS } from '../../lib/constants';
+import usePrefersReducedMotion from '@/hooks/usePrefersReducedMotion';
 
 const Clients: React.FC = () => {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const headingMotion = prefersReducedMotion
+    ? {}
+    : { initial: { opacity: 0, y: 20 }, whileInView: { opacity: 1, y: 0 } };
+
   return (
     <section
       id="clients"
@@ -15,9 +21,8 @@ const Clients: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 md:px-12 text-center max-w-7xl">
         <motion.h2
           id="clients-title"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          {...headingMotion}
+          viewport={prefersReducedMotion ? undefined : { once: true }}
           className="text-3xl md:text-4xl lg:text-5xl font-bold mb-16 tracking-tight"
         >
           marcas com as quais já trabalhei.
@@ -34,17 +39,23 @@ const Clients: React.FC = () => {
               <motion.li
                 key={index}
                 role="listitem"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.03, duration: 0.4 }}
+                initial={
+                  prefersReducedMotion ? undefined : { opacity: 0, y: 10 }
+                }
+                whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                viewport={prefersReducedMotion ? undefined : { once: true }}
+                transition={
+                  prefersReducedMotion
+                    ? undefined
+                    : { delay: index * 0.03, duration: 0.4 }
+                }
                 className="w-full flex items-center justify-center"
               >
                 <div className="relative w-20 h-14 md:w-28 md:h-16 flex items-center justify-center group">
                   <div className="relative w-full h-full flex items-center justify-center opacity-60 group-hover:opacity-100 transition-opacity duration-300 min-h-[72px] max-h-16">
                     <Image
                       src={logo}
-                      alt={`Logo ${clientName}`}
+                      alt={`Logo do ${clientName}`}
                       fill
                       sizes="(max-width: 640px) 60px, (max-width: 1024px) 80px, 112px"
                       className="object-contain brightness-0 invert"

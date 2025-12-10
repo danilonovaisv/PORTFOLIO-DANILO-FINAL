@@ -26,12 +26,32 @@ const HERO_SECTION_VARIANTS = {
   },
 };
 
+const HERO_SECTION_VARIANTS_REDUCED = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.05,
+    },
+  },
+};
+
 const HERO_FADE_VARIANTS = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
     transition: { duration: 0.6, ease: HERO_FADE_EASE },
+  },
+};
+
+const HERO_FADE_VARIANTS_REDUCED = {
+  hidden: { opacity: 0, y: 8 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.35, ease: [0.25, 0.1, 0.25, 1] },
   },
 };
 
@@ -42,6 +62,17 @@ const HERO_HEADLINE_VARIANTS = {
     transition: {
       staggerChildren: 0.1,
       delayChildren: 0.1,
+    },
+  },
+};
+
+const HERO_HEADLINE_VARIANTS_REDUCED = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.04,
     },
   },
 };
@@ -59,6 +90,18 @@ const HERO_TITLE_LINE_VARIANTS = {
   },
 };
 
+const HERO_TITLE_LINE_VARIANTS_REDUCED = {
+  hidden: { opacity: 0, y: 8 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.45,
+      ease: 'easeOut',
+    },
+  },
+};
+
 const Hero: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -72,16 +115,16 @@ const Hero: React.FC = () => {
 
   const thumbScale = prefersReducedMotion
     ? useTransform(scrollYProgress, [0, 1], [1, 1])
-    : useTransform(scrollYProgress, [0, 0.7], [0.65, 1.15]);
+    : useTransform(scrollYProgress, [0, 1], [0.9, 1.2]);
   const thumbTranslateY = prefersReducedMotion
     ? useTransform(scrollYProgress, [0, 1], [0, 0])
-    : useTransform(scrollYProgress, [0, 0.7], [0, 420]);
+    : useTransform(scrollYProgress, [0, 1], [0, -150]);
   const thumbTranslateX = prefersReducedMotion
     ? useTransform(scrollYProgress, [0, 1], [0, 0])
-    : useTransform(scrollYProgress, [0, 0.7], [0, -140]);
+    : useTransform(scrollYProgress, [0, 1], [0, -80]);
   const thumbRadius = prefersReducedMotion
     ? useTransform(scrollYProgress, [0, 1], ['16px', '16px'])
-    : useTransform(scrollYProgress, [0, 0.7], ['16px', '4px']);
+    : useTransform(scrollYProgress, [0, 1], ['24px', '6px']);
 
   const handleVideoExpand = useCallback(() => {
     if (typeof window === 'undefined') return;
@@ -92,14 +135,25 @@ const Hero: React.FC = () => {
     }
   }, []);
 
-  const heroIntroMotionProps = prefersReducedMotion
-    ? {}
-    : {
-        initial: 'hidden',
-        whileInView: 'visible',
-        viewport: { once: true, margin: '-100px' },
-        variants: HERO_SECTION_VARIANTS,
-      };
+  const sectionVariants = prefersReducedMotion
+    ? HERO_SECTION_VARIANTS_REDUCED
+    : HERO_SECTION_VARIANTS;
+  const fadeVariants = prefersReducedMotion
+    ? HERO_FADE_VARIANTS_REDUCED
+    : HERO_FADE_VARIANTS;
+  const headlineVariants = prefersReducedMotion
+    ? HERO_HEADLINE_VARIANTS_REDUCED
+    : HERO_HEADLINE_VARIANTS;
+  const lineVariants = prefersReducedMotion
+    ? HERO_TITLE_LINE_VARIANTS_REDUCED
+    : HERO_TITLE_LINE_VARIANTS;
+
+  const heroIntroMotionProps = {
+    initial: 'hidden',
+    whileInView: 'visible',
+    viewport: prefersReducedMotion ? { once: true } : { once: true, margin: '-100px' },
+    variants: sectionVariants,
+  };
 
   return (
     <section
@@ -117,30 +171,30 @@ const Hero: React.FC = () => {
             <div className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
               <div className="relative z-10 space-y-6 md:space-y-8">
                 <motion.div
-                  {...(!prefersReducedMotion ? { variants: HERO_FADE_VARIANTS } : {})}
+                  variants={fadeVariants}
                   className="inline-flex items-center gap-3 rounded-full border border-[#111111]/5 bg-white/60 px-4 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.2em] text-[#0057FF] backdrop-blur-md"
                 >
                   [ BRAND AWARENESS ]
                 </motion.div>
 
                 <motion.h1
-                  {...(!prefersReducedMotion ? { variants: HERO_HEADLINE_VARIANTS } : {})}
+                  variants={headlineVariants}
                   className="font-display font-extrabold text-[clamp(3.5rem,10vw,8rem)] leading-[0.9] tracking-tight text-[#111111]"
                 >
                   <motion.span
-                    {...(!prefersReducedMotion ? { variants: HERO_TITLE_LINE_VARIANTS } : {})}
+                    variants={lineVariants}
                     className="block text-[#0057FF]"
                   >
                     Design,
                   </motion.span>
                   <motion.span
-                    {...(!prefersReducedMotion ? { variants: HERO_TITLE_LINE_VARIANTS } : {})}
+                    variants={lineVariants}
                     className="block pl-12 md:pl-24"
                   >
                     não é só
                   </motion.span>
                   <motion.span
-                    {...(!prefersReducedMotion ? { variants: HERO_TITLE_LINE_VARIANTS } : {})}
+                    variants={lineVariants}
                     className="block"
                   >
                     estética.
@@ -148,14 +202,14 @@ const Hero: React.FC = () => {
                 </motion.h1>
 
                 <motion.div
-                  {...(!prefersReducedMotion ? { variants: HERO_FADE_VARIANTS } : {})}
+                  variants={fadeVariants}
                   className="max-w-lg rounded-xl bg-white/60 px-4 py-3 text-lg font-medium leading-relaxed text-[#111111]/80 backdrop-blur-md shadow-sm"
                 >
                   [É intenção, é estratégia, é experiência.]
                 </motion.div>
 
                 <motion.div
-                  {...(!prefersReducedMotion ? { variants: HERO_FADE_VARIANTS } : {})}
+                  variants={fadeVariants}
                   className="flex flex-wrap gap-4"
                 >
                   <Button
