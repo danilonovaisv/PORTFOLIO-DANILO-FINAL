@@ -6,63 +6,66 @@ Source: https://sketchfab.com/3d-models/color-orb-4d5882be5eaa4214aa394ae96563f1
 Title: Color orb
 */
 
-import * as THREE from 'three'
-import { createContext, useContext, useMemo } from 'react'
-import type { ComponentProps, ComponentType, ReactNode } from 'react'
-import { Merged, useGLTF } from '@react-three/drei'
-import type { ThreeElements } from '@react-three/fiber'
-import { GLTF } from 'three-stdlib'
+import React from 'react';
+import * as THREE from 'three';
+import { createContext, useContext, useMemo } from 'react';
+import type { ComponentProps, ComponentType, ReactNode } from 'react';
+import { Merged, useGLTF } from '@react-three/drei';
+import type { ThreeElements } from '@react-three/fiber';
+import { GLTF } from 'three-stdlib';
 
 type GLTFResult = GLTF & {
   nodes: {
-    Object_4: THREE.Mesh
-    Object_6: THREE.Mesh
-  }
+    Object_4: THREE.Mesh;
+    Object_6: THREE.Mesh;
+  };
   materials: {
-    material: THREE.MeshPhysicalMaterial
-    material_0: THREE.MeshPhysicalMaterial
-  }
-}
+    material: THREE.MeshPhysicalMaterial;
+    material_0: THREE.MeshPhysicalMaterial;
+  };
+};
 
 type InstancesContextValue = {
-  Object: ComponentType<{ name: string }>
-  Object1: ComponentType<{ name: string }>
-}
+  Object: ComponentType<{ name: string }>;
+  Object1: ComponentType<{ name: string }>;
+};
 
-const InstancesContext = createContext<InstancesContextValue | null>(null)
+const InstancesContext = createContext<InstancesContextValue | null>(null);
 
 type InstancesProps = {
-  children: ReactNode
-} & Omit<ComponentProps<typeof Merged>, 'children' | 'meshes'>
+  children: ReactNode;
+} & Omit<ComponentProps<typeof Merged>, 'children' | 'meshes'>;
 
 export function Instances({ children, ...props }: InstancesProps) {
-  const gltf = useGLTF('/media/color_orb.glb') as unknown as GLTFResult
-  const { nodes } = gltf
+  const gltf = useGLTF('/media/color_orb.glb') as unknown as GLTFResult;
+  const { nodes } = gltf;
   const meshes = useMemo(
     () => ({
       Object: nodes.Object_4,
       Object1: nodes.Object_6,
     }),
     [nodes]
-  )
+  );
   return (
     <Merged meshes={meshes} {...props}>
       {(mergedInstances) => (
-        <InstancesContext.Provider value={mergedInstances as unknown as InstancesContextValue}>
+        <InstancesContext.Provider
+          value={mergedInstances as unknown as InstancesContextValue}
+        >
           {children}
         </InstancesContext.Provider>
       )}
     </Merged>
-  )
+  );
 }
 
-type GroupProps = ThreeElements['group']
+type GroupProps = ThreeElements['group'];
 
 export function Model(props: GroupProps) {
-  const instances = useContext(InstancesContext)
+  const instances = useContext(InstancesContext);
 
   if (!instances) {
-    return null
+    return null;
   }
   return (
     <group {...props} dispose={null}>
@@ -81,7 +84,7 @@ export function Model(props: GroupProps) {
         </group>
       </group>
     </group>
-  )
+  );
 }
 
-useGLTF.preload('/media/color_orb.glb')
+useGLTF.preload('/media/color_orb.glb');

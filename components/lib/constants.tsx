@@ -1,12 +1,23 @@
 import { NavLink, Project, ProjectCategory } from './types';
-import { Instagram, Facebook, Linkedin, Twitter, Phone, Mail, Globe } from 'lucide-react';
+import {
+  Instagram,
+  Facebook,
+  Linkedin,
+  Twitter,
+  Phone,
+  Mail,
+  Globe,
+} from 'lucide-react';
 import React from 'react';
 
 // Assets
 export const ASSETS = {
-  logoLight: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/faivcon-02.svg',
-  logoDark: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/logo.svg',
-  videoManifesto: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
+  logoLight:
+    'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/faivcon-02.svg',
+  logoDark:
+    'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/logo.svg',
+  videoManifesto:
+    'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
   heroAbstractModel: '/media/abstract_element.glb', // Fallback to procedural if not found
 };
 
@@ -23,17 +34,20 @@ export const CATEGORIES: ProjectCategory[] = [
   {
     id: 'brand-campaigns',
     label: 'Brand & Campaigns',
-    thumbnailUrl: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
+    thumbnailUrl:
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
   },
   {
     id: 'videos-motions',
     label: 'Videos & Motions',
-    thumbnailUrl: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
+    thumbnailUrl:
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
   },
   {
     id: 'websites-webcampaigns-tech',
     label: 'Web Campaigns, Websites & Tech',
-    thumbnailUrl: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp',
+    thumbnailUrl:
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp',
   },
 ];
 
@@ -46,7 +60,8 @@ export const FEATURED_PROJECTS: Project[] = [
     displayCategory: 'branding & campanha',
     client: 'Magic',
     year: '2023',
-    imageUrl: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp',
+    imageUrl:
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp',
   },
   {
     slug: 'branding-project-01',
@@ -55,7 +70,8 @@ export const FEATURED_PROJECTS: Project[] = [
     displayCategory: 'branding',
     client: 'Cliente confidencial',
     year: '2022',
-    imageUrl: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
+    imageUrl:
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
   },
   {
     slug: 'key-visual-campaign',
@@ -64,7 +80,8 @@ export const FEATURED_PROJECTS: Project[] = [
     displayCategory: 'campanha',
     client: 'Cliente confidencial',
     year: '2021',
-    imageUrl: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp',
+    imageUrl:
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp',
     isHero: true,
   },
   {
@@ -74,7 +91,8 @@ export const FEATURED_PROJECTS: Project[] = [
     displayCategory: 'web & motion',
     client: 'Cliente confidencial',
     year: '2023',
-    imageUrl: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
+    imageUrl:
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
   },
 ];
 
@@ -95,15 +113,47 @@ export const CLIENT_LOGOS = [
 ];
 
 export const SOCIALS = [
-  { platform: 'LinkedIn', url: 'https://linkedin.com/in/danilonovais', icon: <Linkedin size={20} /> },
-  { platform: 'Instagram', url: 'https://instagram.com/danilo_novais', icon: <Instagram size={20} /> },
-  { platform: 'Facebook', url: 'https://facebook.com/danilonovaisvilela', icon: <Facebook size={20} /> },
-  { platform: 'Twitter', url: 'https://twitter.com/danilo_novais', icon: <Twitter size={20} /> },
+  {
+    platform: 'LinkedIn',
+    url: 'https://linkedin.com/in/danilonovais',
+    icon: <Linkedin size={20} />,
+  },
+  {
+    platform: 'Instagram',
+    url: 'https://instagram.com/danilo_novais',
+    icon: <Instagram size={20} />,
+  },
+  {
+    platform: 'Facebook',
+    url: 'https://facebook.com/danilonovaisvilela',
+    icon: <Facebook size={20} />,
+  },
+  {
+    platform: 'Twitter',
+    url: 'https://twitter.com/danilo_novais',
+    icon: <Twitter size={20} />,
+  },
 ];
 
 export const CONTACT_INFO = [
-  { label: '+55 11 98396 6838', href: 'tel:+5511983966838', icon: <Phone size={20} /> },
-  { label: 'dannovaisv@gmail.com', href: 'mailto:dannovaisv@gmail.com', icon: <Mail size={20} /> },
-  { label: 'danilo@portfoliodanilo.com', href: 'mailto:danilo@portfoliodanilo.com', icon: <Mail size={20} /> },
-  { label: 'portfoliodanilo.com', href: 'https://portfoliodanilo.com', icon: <Globe size={20} /> },
+  {
+    label: '+55 11 98396 6838',
+    href: 'tel:+5511983966838',
+    icon: <Phone size={20} />,
+  },
+  {
+    label: 'dannovaisv@gmail.com',
+    href: 'mailto:dannovaisv@gmail.com',
+    icon: <Mail size={20} />,
+  },
+  {
+    label: 'danilo@portfoliodanilo.com',
+    href: 'mailto:danilo@portfoliodanilo.com',
+    icon: <Mail size={20} />,
+  },
+  {
+    label: 'portfoliodanilo.com',
+    href: 'https://portfoliodanilo.com',
+    icon: <Globe size={20} />,
+  },
 ];
