@@ -1,11 +1,12 @@
 'use client';
 
-import React, { Suspense, useRef, useState } from 'react';
+import React, { Suspense, useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import {
   Environment,
   PerspectiveCamera,
   PerformanceMonitor,
+  Preload,
 } from '@react-three/drei';
 import { MotionValue } from 'framer-motion';
 import * as THREE from 'three';
@@ -30,19 +31,34 @@ const ResponsiveTorus = ({
   lowRenderMode,
 }: ResponsiveTorusProps) => {
   const orbitRef = useRef<THREE.Group>(null);
-  const { viewport } = useThree();
+  const { size } = useThree();
 
-  const isMobile = viewport.width < 4.5;
-  const scale = isMobile ? 1.4 : 2.2;
+  // Responsividade:
+  // Mobile: Modelo menor e deslocado para cima ou centro (não bloqueia texto quebre)
+  // Desktop wide: Modelo à direita
+  // 3xl screens: Centralizado e maior
+
+  const isMobile = size.width < 768; 
+  const isTablet = size.width >= 768 && size.width < 1024;
+  
+  // Escala base do modelo
+  let scale = 2.4;
+  if (isMobile) scale = 1.6;
+  if (isTablet) scale = 2.0;
+
+  // Posição base do modelo [x, y, z]
+  let position: [number, number, number] = [3, 0, 0];
+  if (isMobile) position = [0, 1.5, 0]; // Mobile: mais acima
+  if (isTablet) position = [2, 0, 0];
 
   useFrame((_, delta) => {
     if (orbitRef.current && !prefersReducedMotion) {
-      orbitRef.current.rotation.y += delta * 0.08;
+      orbitRef.current.rotation.y += delta * 0.05;
     }
   });
 
   return (
-    <group ref={orbitRef} scale={[scale, scale, scale]}>
+    <group ref={orbitRef} scale={[scale, scale, scale]} position={position}>
       <TorusDan
         scrollYProgress={scrollYProgress}
         prefersReducedMotion={prefersReducedMotion}
@@ -59,9 +75,14 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
   scrollYProgress,
   prefersReducedMotion,
 }) => {
-  const [dpr, setDpr] = useState(1.5);
+  const [dpr, setDpr] = useState(1);
   const [lowRenderMode, setLowRenderMode] = useState(false);
   const eventSourceNode = eventSource?.current ?? undefined;
+
+  // Set initial DPR safely on mount
+  useEffect(() => {
+    setDpr(Math.min(window.devicePixelRatio, 2));
+  }, []);
 
   return (
     <div className={`w-full h-full ${className}`}>
@@ -69,37 +90,28 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
         eventSource={eventSourceNode}
         eventPrefix="client"
         dpr={dpr}
-        gl={{ alpha: true, antialias: true, toneMappingExposure: 1.05 }}
+        gl={{ alpha: true, antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.1 }}
       >
         <PerformanceMonitor
-          onDecline={({ factor }) => {
-            setDpr((prev) => Math.max(0.75, prev - (factor ?? 0.15)));
+          onDecline={() => {
+            setDpr(1); // Downgrade resolution
             setLowRenderMode(true);
           }}
-          onIncline={({ factor }) => {
-            setDpr((prev) => Math.min(2, prev + (factor ?? 0.1)));
-            setLowRenderMode(false);
-          }}
         />
-        <PerspectiveCamera makeDefault position={[0, 0, 12]} fov={32} />
+        <PerspectiveCamera makeDefault position={[0, 0, 12]} fov={30} />
 
-        <ambientLight intensity={0.3} color="#f8fafc" />
+        <ambientLight intensity={0.5} color="#ffffff" />
         <directionalLight
-          position={[4, 6, 8]}
-          intensity={0.65}
-          color="#ffffff"
+          position={[5, 10, 7.5]}
+          intensity={1.2}
+          castShadow
         />
+        
+        {/* Fill light from opposite side */}
         <spotLight
-          position={[-6, -4, -5]}
-          intensity={0.4}
-          angle={0.6}
-          penumbra={0.5}
-          color="#aacfff"
-        />
-        <hemisphereLight
-          color="#ffffff"
-          groundColor="#0f172a"
-          intensity={0.15}
+          position={[-5, 0, -5]}
+          intensity={0.5}
+          color="#0057FF"
         />
 
         <Suspense fallback={null}>
@@ -109,7 +121,8 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
             lowRenderMode={lowRenderMode}
           />
 
-          <Environment preset="city" blur={1} background={false} />
+          <Environment preset="city" blur={0.8} />
+          <Preload all />
         </Suspense>
       </Canvas>
     </div>

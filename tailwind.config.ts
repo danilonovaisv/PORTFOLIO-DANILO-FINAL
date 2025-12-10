@@ -12,28 +12,40 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      spacing: {
-        'screen-dvh': '100dvh',
-      },
       colors: {
-        background: 'var(--color-surface-main, #F4F4F5)',
-        foreground: 'var(--color-text-main, #18181B)',
-        zinc: {
-          ...colors.zinc,
-          100: '#F4F4F5',
-          900: '#18181B',
+        background: '#F4F5F7',
+        foreground: '#111111',
+        primary: {
+          DEFAULT: '#0057FF',
+          hover: '#0046cc',
         },
-        surface: 'var(--color-surface-main, #F4F4F5)',
-        text: 'var(--color-text-main, #18181B)',
+        secondary: '#111111',
+        muted: '#555555',
+        white: '#FFFFFF',
       },
       fontFamily: {
-        sans: ['var(--font-sans)', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-outfit)', 'system-ui', 'sans-serif'],
+      },
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: '1.5rem',
+          sm: '2rem',
+          lg: '4rem',
+          xl: '5rem',
+        },
+        screens: {
+          '2xl': '1440px',
+        },
       },
       letterSpacing: {
-        modern: '-0.02em',
+        tight: '-0.02em',
+        tighter: '-0.04em',
+        widest: '0.1em',
       },
       fontSize: {
-        display: ['12vw', { lineHeight: '0.9', letterSpacing: '-0.04em' }],
+        'display-lg': ['clamp(3rem, 8vw, 7rem)', { lineHeight: '0.95', letterSpacing: '-0.04em', fontWeight: '800' }],
       },
     },
   },
