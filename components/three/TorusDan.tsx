@@ -41,6 +41,9 @@ const TorusDan = ({
     return mesh?.geometry ?? new THREE.TorusGeometry(1, 0.4, 64, 128);
   }, [gltf]);
 
+  /* @ts-ignore */
+  const materialRef = useRef<any>(null);
+
   useFrame((state, delta) => {
     if (meshRef.current) {
       if (!prefersReducedMotion) {
@@ -64,8 +67,11 @@ const TorusDan = ({
       // Scroll interaction
       if (scrollYProgress) {
         const scroll = scrollYProgress.get();
-        // Aumenta a distorção levemente ao rolar
-        meshRef.current.rotation.x += scroll * 0.02;
+        // Aumenta a distorção levemente ao rolar (0.5 base + up to 0.4 based on scroll)
+        if (materialRef.current) {
+          materialRef.current.distortion = 0.5 + scroll * 0.4;
+          materialRef.current.chromaticAberration = 0.06 + scroll * 0.05;
+        }
       }
     }
   });
@@ -80,6 +86,7 @@ const TorusDan = ({
       {/* @ts-ignore */}
       <mesh ref={meshRef} geometry={geometry} position={[0, 0, 0]}>
         <MeshTransmissionMaterial
+          ref={materialRef}
           backside
           background={new THREE.Color('#F4F5F7')}
           {...config}

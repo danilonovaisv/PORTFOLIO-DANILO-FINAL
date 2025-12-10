@@ -60,7 +60,7 @@ const Hero: React.FC = () => {
         {/* Layer 1: 3D Canvas Background */}
         <div className="absolute inset-0 z-0 select-none">
           <HeroGlassCanvas
-            className="w-full h-full"
+            className="pointer-events-none"
             eventSource={sectionRef}
             scrollYProgress={scrollYProgress}
             prefersReducedMotion={prefersReducedMotion}
@@ -103,33 +103,54 @@ const Hero: React.FC = () => {
                 >
                   {/* Updated to match reference color and style */}
                   <span className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-[#0057FF]">
-                    [ brand awareness ]
+                    [ BRAND AWARENESS ]
                   </span>
                 </motion.div>
 
                 {/* H1 Typography updates: Tighter tracking, specific leading for display font */}
-                <h1 className="font-display font-extrabold text-[clamp(3.5rem,10vw,8rem)] leading-[0.9] tracking-tighter text-[#111111] mb-8">
+                <motion.h1 // Changed to motion.h1
+                  className="font-display font-extrabold text-[clamp(3.5rem,10vw,8rem)] leading-[0.9] tracking-tighter text-[#111111] mb-8"
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: {
+                      opacity: 1,
+                      transition: {
+                        staggerChildren: 0.1, // Stagger lines internally
+                        delayChildren: 0.1,
+                      },
+                    },
+                  }}
+                >
                   <motion.span
                     className="block text-[#0057FF]"
                     variants={{
-                      hidden: { opacity: 0, y: 30 },
+                      hidden: { opacity: 0, y: 40, rotateX: 20 },
                       visible: {
                         opacity: 1,
                         y: 0,
-                        transition: { duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] },
+                        rotateX: 0,
+                        transition: {
+                          duration: 0.8,
+                          ease: [0.2, 0.65, 0.3, 0.9],
+                        },
                       },
                     }}
                   >
                     Design,
                   </motion.span>
+                  {/* Added indentation (pl-12 / md:pl-24) to match visual hierarchy */}
                   <motion.span
-                    className="block"
+                    className="block pl-12 md:pl-24"
                     variants={{
-                      hidden: { opacity: 0, y: 30 },
+                      hidden: { opacity: 0, y: 40, rotateX: 20 },
                       visible: {
                         opacity: 1,
                         y: 0,
-                        transition: { duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] },
+                        rotateX: 0,
+                        transition: {
+                          duration: 0.8,
+                          ease: [0.2, 0.65, 0.3, 0.9],
+                        },
                       },
                     }}
                   >
@@ -138,17 +159,21 @@ const Hero: React.FC = () => {
                   <motion.span
                     className="block"
                     variants={{
-                      hidden: { opacity: 0, y: 30 },
+                      hidden: { opacity: 0, y: 40, rotateX: 20 },
                       visible: {
                         opacity: 1,
                         y: 0,
-                        transition: { duration: 0.8, ease: [0.2, 0.65, 0.3, 0.9] },
+                        rotateX: 0,
+                        transition: {
+                          duration: 0.8,
+                          ease: [0.2, 0.65, 0.3, 0.9],
+                        },
                       },
                     }}
                   >
                     estética.
                   </motion.span>
-                </h1>
+                </motion.h1>
 
                 <motion.div
                   variants={{

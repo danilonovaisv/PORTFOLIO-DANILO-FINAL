@@ -45,7 +45,10 @@ const config: Config = {
         widest: '0.1em',
       },
       fontSize: {
-        'display-lg': ['clamp(3rem, 8vw, 7rem)', { lineHeight: '0.95', letterSpacing: '-0.04em', fontWeight: '800' }],
+        'display-lg': [
+          'clamp(3rem, 8vw, 7rem)',
+          { lineHeight: '0.95', letterSpacing: '-0.04em', fontWeight: '800' },
+        ],
       },
     },
   },

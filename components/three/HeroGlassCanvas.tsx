@@ -38,9 +38,9 @@ const ResponsiveTorus = ({
   // Desktop wide: Modelo à direita
   // 3xl screens: Centralizado e maior
 
-  const isMobile = size.width < 768; 
+  const isMobile = size.width < 768;
   const isTablet = size.width >= 768 && size.width < 1024;
-  
+
   // Escala base do modelo
   let scale = 2.4;
   if (isMobile) scale = 1.6;
@@ -90,7 +90,12 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
         eventSource={eventSourceNode}
         eventPrefix="client"
         dpr={dpr}
-        gl={{ alpha: true, antialias: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.1 }}
+        gl={{
+          alpha: true,
+          antialias: true,
+          toneMapping: THREE.ACESFilmicToneMapping,
+          toneMappingExposure: 1.1,
+        }}
       >
         <PerformanceMonitor
           onDecline={() => {
@@ -101,18 +106,10 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
         <PerspectiveCamera makeDefault position={[0, 0, 12]} fov={30} />
 
         <ambientLight intensity={0.5} color="#ffffff" />
-        <directionalLight
-          position={[5, 10, 7.5]}
-          intensity={1.2}
-          castShadow
-        />
-        
+        <directionalLight position={[5, 10, 7.5]} intensity={1.2} castShadow />
+
         {/* Fill light from opposite side */}
-        <spotLight
-          position={[-5, 0, -5]}
-          intensity={0.5}
-          color="#0057FF"
-        />
+        <spotLight position={[-5, 0, -5]} intensity={0.5} color="#0057FF" />
 
         <Suspense fallback={null}>
           <ResponsiveTorus
@@ -121,7 +118,7 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
             lowRenderMode={lowRenderMode}
           />
 
-          <Environment preset="city" blur={0.8} />
+          <Environment preset="city" blur={1} />
           <Preload all />
         </Suspense>
       </Canvas>

@@ -581,3 +581,21 @@ I1209 14:57:54.111583   63976 load.go:109] Finished reloading
 [debug] [2025-12-09T19:38:25.087Z] <<< [apiv2][status] GET http://127.0.0.1:4400/emulators 200
 [debug] [2025-12-09T19:38:25.087Z] <<< [apiv2][body] GET http://127.0.0.1:4400/emulators {"hub":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"name":"hub","host":"127.0.0.1","port":4400},"ui":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"name":"ui","host":"127.0.0.1","port":4000},"logging":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"name":"logging","host":"127.0.0.1","port":4500},"functions":{"name":"functions","host":"127.0.0.1","port":5001},"eventarc":{"name":"eventarc","host":"127.0.0.1","port":9299},"tasks":{"name":"tasks","host":"127.0.0.1","port":9499}}
 [debug] [2025-12-09T19:39:06.831Z] [Firebase Plugin] Received emulators shutdown notification.
+[debug] [2025-12-10T01:52:48.777Z] [Firebase Plugin] Received emulators started notification. Running detection.
+[debug] [2025-12-10T01:52:48.779Z] Emulator locator file path: /var/folders/bt/f92zbr813px3njpjng3byf280000gn/T/hub-portfolio-danilo-novais.json
+[debug] [2025-12-10T01:52:48.780Z] Found emulator locator with different version: {"version":"14.26.0","origins":["http://127.0.0.1:4400","http://[::1]:4400"]}, CLI_VERSION: 14.24.2
+[debug] [2025-12-10T01:52:48.783Z] >>> [apiv2][query] GET http://127.0.0.1:4400/emulators [none]
+[debug] [2025-12-10T01:52:48.808Z] <<< [apiv2][status] GET http://127.0.0.1:4400/emulators 200
+[debug] [2025-12-10T01:52:48.808Z] <<< [apiv2][body] GET http://127.0.0.1:4400/emulators {"hub":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"name":"hub","host":"127.0.0.1","port":4400},"ui":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"name":"ui","host":"127.0.0.1","port":4000},"logging":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"name":"logging","host":"127.0.0.1","port":4500},"functions":{"name":"functions","host":"127.0.0.1","port":5001},"eventarc":{"name":"eventarc","host":"127.0.0.1","port":9299},"tasks":{"name":"tasks","host":"127.0.0.1","port":9499}}
+[debug] [2025-12-10T01:53:14.653Z] [Firebase Plugin] Received emulators shutdown notification.
+[debug] [2025-12-10T01:54:55.807Z] [Firebase Plugin] Received emulators started notification. Running detection.
+[debug] [2025-12-10T01:54:55.808Z] Emulator locator file path: /var/folders/bt/f92zbr813px3njpjng3byf280000gn/T/hub-portfolio-danilo-novais.json
+[debug] [2025-12-10T01:54:55.808Z] Found emulator locator with different version: {"version":"14.26.0","origins":["http://127.0.0.1:4400","http://[::1]:4400"]}, CLI_VERSION: 14.24.2
+[debug] [2025-12-10T01:54:55.809Z] >>> [apiv2][query] GET http://127.0.0.1:4400/emulators [none]
+[debug] [2025-12-10T01:54:56.143Z] <<< [apiv2][status] GET http://127.0.0.1:4400/emulators 200
+[debug] [2025-12-10T01:54:56.144Z] <<< [apiv2][body] GET http://127.0.0.1:4400/emulators {"hub":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"name":"hub","host":"127.0.0.1","port":4400},"ui":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"name":"ui","host":"127.0.0.1","port":4000},"logging":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"name":"logging","host":"127.0.0.1","port":4500},"functions":{"name":"functions","host":"127.0.0.1","port":5001},"eventarc":{"name":"eventarc","host":"127.0.0.1","port":9299},"tasks":{"name":"tasks","host":"127.0.0.1","port":9499}}
+[debug] [2025-12-10T01:55:37.926Z] [Firebase Plugin] Received emulators shutdown notification.
+[debug] [2025-12-10T01:55:46.627Z] [Firebase Plugin] Received CLI notification.
+[debug] [2025-12-10T01:55:46.630Z] [Firebase Plugin] Received emulators shutdown notification.
+[debug] [2025-12-10T01:56:26.276Z] [Firebase Plugin] Received CLI notification.
+[debug] [2025-12-10T01:56:26.278Z] [Firebase Plugin] Received emulators shutdown notification.

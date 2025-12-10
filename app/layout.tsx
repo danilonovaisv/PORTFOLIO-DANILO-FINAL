@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     siteName: 'Danilo Novais Portfolio',
     images: [
       {
-        url: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp', 
+        url: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
         width: 1200,
         height: 630,
         alt: 'Danilo Novais Portfolio Cover',
@@ -63,7 +63,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className={`scroll-smooth antialiased ${inter.variable} ${outfit.variable}`}>
+    <html
+      lang="pt-BR"
+      className={`scroll-smooth antialiased ${inter.variable} ${outfit.variable}`}
+    >
       <body className="bg-[#F4F5F7] text-[#111111] font-sans">
         <MainLayout>{children}</MainLayout>
       </body>
