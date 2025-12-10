@@ -10,6 +10,7 @@ const Manifesto: React.FC = () => {
   const [shouldLoad, setShouldLoad] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isAudioEnabled, setIsAudioEnabled] = useState(false);
 
   // Lazy-load: só inicia carregamento quando seção está próxima da viewport
   useEffect(() => {
@@ -28,6 +29,52 @@ const Manifesto: React.FC = () => {
     observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const playHandler = () => {
+      setShouldLoad(true);
+      setIsAudioEnabled(true);
+      if (videoRef.current) {
+        videoRef.current.muted = false;
+        videoRef.current.volume = 0.7;
+        videoRef.current
+          .play()
+          .catch(() => {
+            /* fail silently if autoplay disallows playback */
+          });
+      }
+    };
+
+    window.addEventListener('hero:playManifesto', playHandler);
+
+    return () => {
+      window.removeEventListener('hero:playManifesto', playHandler);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const audioObserver = new IntersectionObserver(
+      ([entry]) => {
+        setIsAudioEnabled(entry.intersectionRatio > 0.55);
+      },
+      { threshold: [0, 0.25, 0.55, 0.75, 1], rootMargin: '0px' }
+    );
+
+    audioObserver.observe(sectionRef.current);
+    return () => audioObserver.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+    videoRef.current.muted = !isAudioEnabled;
+    if (isAudioEnabled) {
+      videoRef.current.volume = 0.7;
+    }
+  }, [isAudioEnabled]);
 
   return (
     <section

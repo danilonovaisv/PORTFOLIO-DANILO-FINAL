@@ -551,4 +551,4 @@ _(Mantido como bloco técnico extra, mas não exigido como implementação princ
 
 ---
 
-/Users/PROJETOS DEV/_danilonov_portfolio/docs/HERO_E_VIDEO_MANIFESTO.png
+/Users/PROJETOS DEV/\_danilonov_portfolio/docs/HERO_E_VIDEO_MANIFESTO.png

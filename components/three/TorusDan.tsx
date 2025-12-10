@@ -13,7 +13,7 @@ interface TorusDanProps {
   isMobile?: boolean;
 }
 
-useGLTF.preload('/models/torus_dan.glb');
+useGLTF.preload('/media/torus_dan.glb');
 
 const TorusDan = ({
   scrollYProgress,
@@ -22,7 +22,7 @@ const TorusDan = ({
   isMobile,
 }: TorusDanProps) => {
   const meshRef = useRef<THREE.Mesh>(null);
-  const gltf = useGLTF('/models/torus_dan.glb');
+  const gltf = useGLTF('/media/torus_dan.glb');
   const { size } = useThree();
 
   // Ajuste: Detecção mobile mais robusta ou via props

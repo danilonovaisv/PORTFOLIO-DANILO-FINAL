@@ -91,11 +91,11 @@ npx gltfjsx public/media/torus_dan.glb --transform
 import { useGLTF } from '@react-three/drei';
 
 export function TorusDan(props: JSX.IntrinsicElements['group']) {
-const { nodes } = useGLTF('/media/torus_dan.glb');
+const { nodes } = useGLTF('/media/torus*dan.glb');
 return (
 <group {...props} dispose={null}>
 <mesh geometry={nodes.Torus.geometry}>
-{/_ material será substituído _/}
+{/* material será substituído \_/}
 </mesh>
 </group>
 );

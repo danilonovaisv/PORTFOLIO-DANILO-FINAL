@@ -6,8 +6,8 @@ import {
   useReducedMotion,
   useScroll,
   useTransform,
+  useMotionTemplate,
 } from 'framer-motion';
-import { Play } from 'lucide-react';
 import HeroGlassCanvas from '@/components/three/HeroGlassCanvas';
 import Button from '@/components/ui/Button';
 import { ASSETS } from '@/lib/constants';
@@ -25,16 +25,13 @@ const Hero: React.FC = () => {
 
   // Ajuste das transformações do vídeo para melhor comportamento responsivo
   // Mobile: Começa maior e centralizado em baixo. Desktop: Canto direito.
-  const videoWidth = useTransform(
-    scrollYProgress,
-    [0, 0.35],
-    ['280px', '100vw']
-  );
-  const videoHeight = useTransform(
-    scrollYProgress,
-    [0, 0.35],
-    ['160px', '100vh']
-  );
+  const expandProgress = useTransform(scrollYProgress, [0, 0.35], [0, 1]);
+  const videoWidth = useMotionTemplate`
+    calc(280px + (100vw - 280px) * ${expandProgress})
+  `;
+  const videoHeight = useMotionTemplate`
+    calc(160px + (100vh - 160px) * ${expandProgress})
+  `;
 
   // Desktop positions (calculado em % para fluidez)
   const desktopX = useTransform(scrollYProgress, [0, 0.35], ['35vw', '0vw']);
@@ -47,6 +44,7 @@ const Hero: React.FC = () => {
     const target = document.getElementById('manifesto');
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
+      window.dispatchEvent(new CustomEvent('hero:playManifesto'));
     }
   }, []);
 
@@ -239,12 +237,7 @@ const Hero: React.FC = () => {
                 playsInline
               />
               <div className="absolute inset-0 flex items-center justify-center bg-black/10 transition-colors hover:bg-black/5">
-                <div className="flex items-center gap-3 rounded-full bg-white/10 px-5 py-2 backdrop-blur-md border border-white/20">
-                  <Play className="w-3 h-3 text-white fill-current" />
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white">
-                    Manifesto
-                  </span>
-                </div>
+                <div className="h-14 w-14 rounded-full border border-white/20 bg-white/10" />
               </div>
             </div>
           </motion.button>
