@@ -171,7 +171,10 @@ const Hero: React.FC = () => {
                   variants={headlineVariants}
                   className="font-display font-extrabold text-[clamp(3.4rem,9vw,7.8rem)] leading-[0.9] tracking-tight text-[#111111]"
                 >
-                  <motion.span variants={lineVariants} className="block text-[#0057FF]">
+                  <motion.span
+                    variants={lineVariants}
+                    className="block text-[#0057FF]"
+                  >
                     Design,
                   </motion.span>
                   <motion.span variants={lineVariants} className="block">
@@ -189,7 +192,10 @@ const Hero: React.FC = () => {
                   [É intenção, é estratégia, é experiência.]
                 </motion.div>
 
-                <motion.div variants={fadeVariants} className="flex flex-wrap gap-4">
+                <motion.div
+                  variants={fadeVariants}
+                  className="flex flex-wrap gap-4"
+                >
                   <Button
                     variant="primary"
                     href="/sobre"

@@ -225,7 +225,8 @@ const PortfolioSection: React.FC = () => {
                 Like what you see?
               </h3>
               <p className="text-base text-slate-600">
-                Projetos selecionados, branding, campanhas e experiências digitais.
+                Projetos selecionados, branding, campanhas e experiências
+                digitais.
               </p>
             </div>
             <Link
