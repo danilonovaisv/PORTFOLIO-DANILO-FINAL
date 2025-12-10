@@ -10,21 +10,21 @@ const Contact: React.FC = () => {
     <section
       id="contact"
       aria-labelledby="contact-title"
-      className="py-24 bg-[#F4F5F7]"
+      className="py-20 md:py-24 bg-[#F4F5F7]"
     >
-      <div className="container mx-auto px-6 md:px-12 max-w-7xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-7xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
           {/* Informações de Contato */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="flex flex-col gap-10"
+            className="flex flex-col gap-8"
           >
             <div>
               <h2
                 id="contact-title"
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0057FF] mb-6 lowercase tracking-tight"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0057FF] mb-4 lowercase tracking-tight"
               >
                 contato
               </h2>
@@ -33,7 +33,7 @@ const Contact: React.FC = () => {
               </p>
             </div>
 
-            <div className="space-y-6">
+            <div className="space-y-5">
               {CONTACT_INFO.map((item, idx) => (
                 <a
                   key={idx}
@@ -48,7 +48,7 @@ const Contact: React.FC = () => {
               ))}
             </div>
 
-            <div className="flex gap-4 pt-4">
+            <div className="flex gap-4 pt-6">
               {SOCIALS.map((social) => (
                 <a
                   key={social.platform}
@@ -79,10 +79,10 @@ const Contact: React.FC = () => {
               <input type="text" name="_honey" style={{ display: 'none' }} />
               <input type="hidden" name="_captcha" value="false" />
 
-              <div>
+              <div className="space-y-2">
                 <label
                   htmlFor="name"
-                  className="block text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wider"
+                  className="block text-sm font-semibold text-gray-700 uppercase tracking-wider"
                 >
                   Seu nome
                 </label>
@@ -96,10 +96,10 @@ const Contact: React.FC = () => {
                 />
               </div>
 
-              <div>
+              <div className="space-y-2">
                 <label
                   htmlFor="email"
-                  className="block text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wider"
+                  className="block text-sm font-semibold text-gray-700 uppercase tracking-wider"
                 >
                   Seu email
                 </label>
@@ -113,10 +113,10 @@ const Contact: React.FC = () => {
                 />
               </div>
 
-              <div>
+              <div className="space-y-2">
                 <label
                   htmlFor="phone"
-                  className="block text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wider"
+                  className="block text-sm font-semibold text-gray-700 uppercase tracking-wider"
                 >
                   Telefone
                 </label>
@@ -130,10 +130,10 @@ const Contact: React.FC = () => {
                 />
               </div>
 
-              <div>
+              <div className="space-y-2">
                 <label
                   htmlFor="message"
-                  className="block text-sm font-semibold text-gray-700 mb-2 uppercase tracking-wider"
+                  className="block text-sm font-semibold text-gray-700 uppercase tracking-wider"
                 >
                   Sua mensagem
                 </label>

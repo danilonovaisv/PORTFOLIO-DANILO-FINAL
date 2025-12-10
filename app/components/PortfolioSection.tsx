@@ -75,9 +75,9 @@ const PortfolioSection = ({
     <section
       ref={containerRef}
       id="portfolio"
-      className="relative isolate overflow-hidden bg-[#F8F9FB] px-6 py-16 lg:px-12"
+      className="relative isolate overflow-hidden bg-[#F8F9FB] px-4 sm:px-6 lg:px-12 py-20 md:py-24"
     >
-      <div className="relative z-10 mx-auto flex max-w-6xl flex-col gap-12">
+      <div className="relative z-10 mx-auto flex max-w-6xl flex-col gap-10">
         <div className="flex flex-col gap-3 text-slate-900">
           <p className="text-sm uppercase tracking-[0.6em] text-slate-400">
             Selected Work
@@ -87,12 +87,12 @@ const PortfolioSection = ({
           </h2>
         </div>
 
-        <div className="grid gap-12 lg:grid-cols-2">
+        <div className="grid gap-10 lg:gap-12 lg:grid-cols-2">
           {projects.map((project, index) => (
             <div
               key={project.slug}
               className={`w-full ${
-                index % 2 === 1 ? 'lg:mt-24 lg:pl-6' : 'lg:pr-6'
+                index % 2 === 1 ? 'lg:mt-20 lg:pl-6' : 'lg:pr-6'
               }`}
             >
               <ProjectCard
@@ -110,9 +110,9 @@ const PortfolioSection = ({
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-10%' }}
-          className="flex flex-col rounded-[2.5rem] border border-slate-200/70 bg-white/70 p-10 shadow-[0_30px_60px_rgba(15,23,42,0.08)] md:flex-row md:items-center md:justify-between"
+          className="flex flex-col gap-8 rounded-[2.5rem] border border-slate-200/70 bg-white/70 p-8 shadow-[0_30px_60px_rgba(15,23,42,0.08)] md:flex-row md:items-center md:justify-between md:gap-4 md:p-10"
         >
-          <div className="flex-1 space-y-2">
+          <div className="flex-1 space-y-3">
             <p className="text-xs uppercase tracking-[0.55em] text-slate-400">
               Fala comigo
             </p>

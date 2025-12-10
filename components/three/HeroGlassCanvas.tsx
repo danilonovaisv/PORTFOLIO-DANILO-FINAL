@@ -1,20 +1,14 @@
 'use client';
 
-import React, { Suspense, useRef, useState, useEffect } from 'react';
+import React, { Suspense, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import {
-  Environment,
-  PerspectiveCamera,
-  PerformanceMonitor,
-  Preload,
-} from '@react-three/drei';
+import { Environment, PerformanceMonitor, Preload } from '@react-three/drei';
 import { MotionValue } from 'framer-motion';
 import * as THREE from 'three';
 import TorusDan from './TorusDan';
 
 interface HeroGlassCanvasProps {
   className?: string;
-  eventSource?: React.RefObject<HTMLElement | null>;
   scrollYProgress?: MotionValue<number>;
   prefersReducedMotion?: boolean;
 }
@@ -71,25 +65,24 @@ const ResponsiveTorus = ({
 
 const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
   className,
-  eventSource,
   scrollYProgress,
   prefersReducedMotion,
 }) => {
-  const [dpr, setDpr] = useState(1);
+  const [dpr, setDpr] = useState<[number, number] | number>(() => [
+    1,
+    1.5,
+  ]);
   const [lowRenderMode, setLowRenderMode] = useState(false);
-  const eventSourceNode = eventSource?.current ?? undefined;
-
-  // Set initial DPR safely on mount
-  useEffect(() => {
-    setDpr(Math.min(window.devicePixelRatio, 2));
-  }, []);
+  const eventSourceNode =
+    typeof window !== 'undefined' ? document.body : undefined;
 
   return (
     <div className={`w-full h-full ${className}`}>
       <Canvas
-        eventSource={eventSourceNode}
-        eventPrefix="client"
+        camera={{ position: [0, 0, 4], fov: 45 }}
         dpr={dpr}
+        eventPrefix="client"
+        eventSource={eventSourceNode}
         gl={{
           alpha: true,
           antialias: true,
@@ -103,8 +96,6 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
             setLowRenderMode(true);
           }}
         />
-        <PerspectiveCamera makeDefault position={[0, 0, 12]} fov={30} />
-
         <ambientLight intensity={0.5} color="#ffffff" />
         <directionalLight position={[5, 10, 7.5]} intensity={1.2} castShadow />
 

@@ -1,9 +1,15 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ASSETS } from '../../lib/constants';
+import dynamic from 'next/dynamic';
+import usePrefersReducedMotion from '@/hooks/usePrefersReducedMotion';
+import { ASSETS } from '@/lib/constants';
 import { AlertCircle } from 'lucide-react';
+
+const ManifestoVideo = dynamic(() => import('./ManifestoVideo'), {
+  ssr: false,
+});
 
 const Manifesto: React.FC = () => {
   const [hasError, setHasError] = useState(false);
@@ -11,6 +17,21 @@ const Manifesto: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isAudioEnabled, setIsAudioEnabled] = useState(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const manifestoMotionProps = prefersReducedMotion
+    ? {}
+    : {
+        initial: { opacity: 0, y: 30 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true },
+        transition: { duration: 0.8, ease: 'easeOut' },
+      };
+  const videoLoadingFallback = (
+    <div className="absolute inset-0 flex items-center justify-center bg-gray-200">
+      <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-[#0057FF]" />
+      <span className="sr-only">Carregando player...</span>
+    </div>
+  );
 
   // Lazy-load: só inicia carregamento quando seção está próxima da viewport
   useEffect(() => {
@@ -106,34 +127,11 @@ const Manifesto: React.FC = () => {
 
           {/* Coluna de Vídeo */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
+            {...manifestoMotionProps}
             className="order-2 w-full"
           >
             <div className="relative w-full overflow-hidden rounded-2xl bg-[#e5e7eb] shadow-xl aspect-video">
-              {!hasError ? (
-                shouldLoad ? (
-                  <video
-                    ref={videoRef}
-                    src={ASSETS.videoManifesto}
-                    className="w-full h-full object-cover"
-                    muted // Padrão
-                    loop
-                    playsInline
-                    controls // Controles Nativos
-                    preload="metadata"
-                    onError={() => setHasError(true)}
-                    aria-label="Vídeo Manifesto do portfólio"
-                  />
-                ) : (
-                  <div className="absolute inset-0 flex items-center justify-center bg-gray-200">
-                    <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-[#0057FF]" />
-                    <span className="sr-only">Carregando player...</span>
-                  </div>
-                )
-              ) : (
+              {hasError ? (
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 text-gray-500 p-6 text-center">
                   <AlertCircle className="mb-3 h-10 w-10 opacity-50" />
                   <p className="font-medium">
@@ -148,6 +146,15 @@ const Manifesto: React.FC = () => {
                     Assistir diretamente
                   </a>
                 </div>
+              ) : shouldLoad ? (
+                <Suspense fallback={videoLoadingFallback}>
+                  <ManifestoVideo
+                    videoRef={videoRef}
+                    onError={() => setHasError(true)}
+                  />
+                </Suspense>
+              ) : (
+                videoLoadingFallback
               )}
             </div>
           </motion.div>

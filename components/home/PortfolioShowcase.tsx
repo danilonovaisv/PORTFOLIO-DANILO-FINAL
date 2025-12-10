@@ -2,6 +2,7 @@
 
 import React, { FC, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { CATEGORIES } from '../../lib/constants';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
@@ -28,12 +29,12 @@ const PortfolioShowcaseSection: FC = () => {
   };
 
   return (
-    <section className="relative w-full bg-[#f5f5f5] py-24 overflow-hidden min-h-screen flex flex-col justify-center">
+    <section className="relative w-full bg-[#f5f5f5] py-20 md:py-24 overflow-hidden min-h-screen flex flex-col justify-center">
       <div className="container mx-auto px-4 md:px-8 max-w-[90%] md:max-w-7xl relative z-10">
         {/* Cabeçalho da Seção */}
-        <div className="flex flex-col w-full mb-12">
+        <div className="flex flex-col w-full mb-10">
           {/* Título Principal */}
-          <div className="w-full flex justify-center mb-8">
+          <div className="w-full flex justify-center mb-6">
             <h2 className="text-center text-4xl md:text-6xl font-bold tracking-tight">
               <span className="text-[#0057FF]">portfólio</span>{' '}
               <span className="text-[#111111]">showcase</span>
@@ -87,13 +88,13 @@ const PortfolioShowcaseSection: FC = () => {
                   <motion.div
                     layout="position"
                     className={`flex w-full transition-all duration-500 ease-out
-                      ${isExpanded ? 'py-8 flex-col items-start gap-8' : 'py-10 md:py-14 items-center'}
+                      ${isExpanded ? 'py-8 flex-col items-start gap-8' : 'py-8 md:py-12 items-center'}
                       ${!isExpanded ? alignmentClass : ''}
                     `}
                   >
                     {/* Conteúdo do Item (Texto + Ícone) */}
                     <div
-                      className={`flex items-center relative ${!isExpanded ? 'gap-6 md:gap-8' : 'gap-6 w-full'}`}
+                      className={`flex items-center relative ${!isExpanded ? 'gap-5 md:gap-6' : 'gap-5 w-full'}`}
                     >
                       {/* Thumbnail Animada (Slide-in on Hover - aparece à esquerda do texto) */}
                       <AnimatePresence>
@@ -112,10 +113,13 @@ const PortfolioShowcaseSection: FC = () => {
                             }}
                             className="hidden md:block h-20 relative overflow-hidden rounded-md shrink-0 origin-right order-first"
                           >
-                            <img
+                            <Image
                               src={category.thumbnailUrl}
-                              alt=""
-                              className="absolute inset-0 w-full h-full object-cover"
+                              alt={`${category.label} thumbnail`}
+                              fill
+                              sizes="140px"
+                              className="absolute inset-0 object-cover"
+                              loading="lazy"
                             />
                           </motion.div>
                         )}
@@ -172,14 +176,17 @@ const PortfolioShowcaseSection: FC = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.5 }}
-                        className="w-full mt-4 flex flex-col md:flex-row gap-8 md:gap-16"
+                        className="w-full mt-3 flex flex-col md:flex-row gap-6 md:gap-12"
                       >
                         {/* Imagem Grande */}
-                        <div className="w-full md:w-1/2 aspect-video rounded-lg overflow-hidden bg-gray-200 shadow-lg">
-                          <img
+                        <div className="w-full md:w-1/2 aspect-video rounded-lg overflow-hidden bg-gray-200 shadow-lg relative">
+                          <Image
                             src={category.thumbnailUrl}
                             alt={category.label}
-                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="absolute inset-0 object-cover hover:scale-105 transition-transform duration-700"
+                            loading="lazy"
                           />
                         </div>
 
@@ -237,7 +244,7 @@ const PortfolioShowcaseSection: FC = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-24 md:mt-32 flex justify-center w-full"
+            className="mt-16 md:mt-24 flex justify-center w-full"
           >
             <motion.a
               href="/#contact"
@@ -260,7 +267,7 @@ const PortfolioShowcaseSection: FC = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="mt-16 flex justify-start border-t border-neutral-200 pt-8"
+            className="mt-12 flex justify-start border-t border-neutral-200 pt-6"
           >
             <button
               onClick={() => setExpandedId(null)}

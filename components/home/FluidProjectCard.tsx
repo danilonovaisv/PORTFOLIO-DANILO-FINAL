@@ -2,8 +2,9 @@
 
 import clsx from 'clsx';
 import React, { useEffect, useRef } from 'react';
-import { motion, useMotionValue, useReducedMotion } from 'framer-motion';
+import { motion, useMotionValue } from 'framer-motion';
 import { ProjectShowcaseCard, ProjectViewport } from '../../lib/constants';
+import usePrefersReducedMotion from '@/hooks/usePrefersReducedMotion';
 
 interface FluidProjectCardProps {
   card: ProjectShowcaseCard;
@@ -19,7 +20,7 @@ const FluidProjectCard: React.FC<FluidProjectCardProps> = ({
   className,
 }) => {
   const cardRef = useRef<HTMLDivElement>(null);
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = usePrefersReducedMotion();
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
