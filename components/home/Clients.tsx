@@ -49,11 +49,13 @@ const Clients: React.FC = () => {
           role="list"
           initial={prefersReducedMotion ? undefined : 'hidden'}
           whileInView={prefersReducedMotion ? undefined : 'visible'}
-          viewport={prefersReducedMotion ? undefined : { once: true, amount: 0.2 }}
+          viewport={
+            prefersReducedMotion ? undefined : { once: true, amount: 0.2 }
+          }
           variants={listVariants}
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-10 md:gap-x-10 md:gap-y-12 items-center justify-items-center py-8 md:py-10 px-2"
         >
-          {CLIENT_LOGOS.map((logo, index) => {
+          {CLIENT_LOGOS.map((logo) => {
             return (
               <motion.li
                 key={logo.src}
@@ -62,7 +64,9 @@ const Clients: React.FC = () => {
                 className="w-full flex items-center justify-center"
               >
                 <motion.div
-                  whileHover={prefersReducedMotion ? undefined : { scale: 1.04 }}
+                  whileHover={
+                    prefersReducedMotion ? undefined : { scale: 1.04 }
+                  }
                   className="relative w-20 h-14 md:w-28 md:h-16 flex items-center justify-center group"
                 >
                   <motion.div

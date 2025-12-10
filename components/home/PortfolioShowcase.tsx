@@ -45,7 +45,7 @@ const PortfolioShowcaseSection: FC = () => {
 
         <div className="overflow-hidden rounded-[28px] border border-[#dfe1e5] bg-white/70 shadow-[0_24px_60px_rgba(15,23,42,0.06)] backdrop-blur">
           <div className="divide-y divide-[#dfe1e5]">
-            {CATEGORIES.map((category, index) => (
+            {CATEGORIES.map((category) => (
               <motion.a
                 key={category.id}
                 href={`/portfolio?category=${category.id}`}

@@ -117,19 +117,19 @@ const Header: React.FC = () => {
   return (
     <>
       <motion.header
-      style={{
-        backgroundColor,
-        backdropFilter,
-        boxShadow,
-        paddingTop: paddingY,
-        paddingBottom: paddingY,
-      }}
-      data-scrolled={isCondensed}
-      className="fixed top-0 left-0 right-0 z-999 flex items-center justify-between px-5 lg:px-12 will-change-transform border-b border-transparent data-[scrolled=true]:border-[#e6e8ec]"
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-    >
+        style={{
+          backgroundColor,
+          backdropFilter,
+          boxShadow,
+          paddingTop: paddingY,
+          paddingBottom: paddingY,
+        }}
+        data-scrolled={isCondensed}
+        className="fixed top-0 left-0 right-0 z-999 flex items-center justify-between px-5 lg:px-12 will-change-transform border-b border-transparent data-[scrolled=true]:border-[#e6e8ec]"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      >
         <div className="flex items-center shrink-0 relative z-1000">
           <Link
             href="/"

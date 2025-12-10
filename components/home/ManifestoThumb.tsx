@@ -1,7 +1,9 @@
 'use client';
 
+import Image from 'next/image';
 import React from 'react';
 import { motion, MotionStyle } from 'framer-motion';
+import { Play } from 'lucide-react';
 import { ASSETS } from '@/lib/constants';
 
 type ManifestoThumbProps = {
@@ -20,23 +22,24 @@ const ManifestoThumb: React.FC<ManifestoThumbProps> = ({
       type="button"
       onClick={onClick}
       style={motionStyle}
-      className="flex w-[240px] max-w-full cursor-pointer items-center overflow-hidden rounded-[18px] border-2 border-white/60 bg-white/40 shadow-xl transition-shadow hover:shadow-[0_26px_36px_rgba(0,0,0,0.18)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+      className="group relative flex w-[250px] max-w-full cursor-pointer items-center overflow-hidden rounded-2xl border border-white/60 bg-white/50 shadow-xl backdrop-blur focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
       aria-label="Abrir manifesto em vídeo"
     >
-      <div className="relative h-full w-full bg-black">
-        <video
-          src={ASSETS.videoManifesto}
-          className="h-full w-full object-cover opacity-90 transition-opacity duration-500 hover:opacity-100"
-          autoPlay={!prefersReducedMotion}
-          loop
-          muted
-          playsInline
-          preload="metadata"
-          aria-label="Thumb do vídeo manifesto do portfólio de Danilo Novais"
-          title="Thumb do vídeo manifesto do portfólio de Danilo Novais"
+      <div className="relative aspect-[16/9] w-full overflow-hidden">
+        <Image
+          src={ASSETS.heroManifestThumb}
+          alt="Thumb do manifesto em vídeo"
+          fill
+          className="object-cover transition duration-500 group-hover:scale-[1.03]"
+          sizes="(max-width: 768px) 220px, 250px"
+          priority={!prefersReducedMotion}
         />
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/10 transition-colors hover:bg-black/5">
-          <div className="h-14 w-14 rounded-full border border-white/20 bg-white/10" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/50" />
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="flex items-center gap-2 rounded-full bg-white/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#111111] shadow-md ring-1 ring-black/5">
+            <Play className="h-4 w-4" />
+            manifesto
+          </div>
         </div>
       </div>
     </motion.button>

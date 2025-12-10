@@ -1,15 +1,11 @@
 'use client';
 
-import React, { Suspense, useEffect, useRef, useState } from 'react';
-import { motion, type Easing, useScroll, useTransform } from 'framer-motion';
-import dynamic from 'next/dynamic';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, type Easing } from 'framer-motion';
 import usePrefersReducedMotion from '@/hooks/usePrefersReducedMotion';
 import { ASSETS } from '@/lib/constants';
+import HeroShowreel from './HeroShowreel';
 import { AlertCircle, Pause, Play } from 'lucide-react';
-
-const ManifestoVideo = dynamic(() => import('./ManifestoVideo'), {
-  ssr: false,
-});
 
 const MANIFESTO_EASE: Easing = 'easeOut';
 
@@ -21,16 +17,6 @@ const Manifesto: React.FC = () => {
   const [isAudioEnabled, setIsAudioEnabled] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
-  const videoScale = prefersReducedMotion
-    ? undefined
-    : useTransform(scrollYProgress, [0, 0.5, 1], [1.08, 1.02, 0.96]);
-  const videoTranslateY = prefersReducedMotion
-    ? undefined
-    : useTransform(scrollYProgress, [0, 0.5, 1], [30, 0, -20]);
   const manifestoMotionProps = prefersReducedMotion
     ? {}
     : {
@@ -40,8 +26,8 @@ const Manifesto: React.FC = () => {
         transition: { duration: 0.8, ease: MANIFESTO_EASE },
       };
   const videoLoadingFallback = (
-    <div className="absolute inset-0 flex items-center justify-center bg-gray-200">
-      <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-[#0057FF]" />
+    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-200 via-gray-100 to-white">
+      <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-300 border-t-[#0057FF]" />
       <span className="sr-only">Carregando player...</span>
     </div>
   );
@@ -142,51 +128,73 @@ const Manifesto: React.FC = () => {
     <section
       id="manifesto"
       ref={sectionRef}
-      className="w-full bg-[#F4F5F7] px-0 py-10 md:py-16"
+      className="w-full bg-[#F4F5F7] px-0 pb-10 pt-14 md:pb-20 md:pt-20"
     >
-      <div className="w-full">
-        <motion.div {...manifestoMotionProps} className="w-full">
-          <motion.div
-            style={{ scale: videoScale, y: videoTranslateY }}
-            className="relative w-full overflow-hidden rounded-3xl bg-[#e5e7eb] shadow-xl aspect-[21/10] max-w-7xl mx-auto"
-          >
-            {hasError ? (
-              <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 text-gray-500 p-6 text-center">
-                <AlertCircle className="mb-3 h-10 w-10 opacity-50" />
-                <p className="font-medium">Não foi possível carregar o vídeo.</p>
-                <a
-                  href={ASSETS.videoManifesto}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 text-[#0057FF] text-sm underline-offset-4 hover:underline"
-                >
-                  Assistir diretamente
-                </a>
-              </div>
-            ) : shouldLoad ? (
-              <Suspense fallback={videoLoadingFallback}>
-                <ManifestoVideo videoRef={videoRef} onError={() => setHasError(true)} />
-              </Suspense>
-            ) : (
-              videoLoadingFallback
-            )}
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 md:gap-6 md:px-10">
+        <motion.div {...manifestoMotionProps} className="flex flex-col gap-3">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <span className="inline-flex items-center rounded-full border border-[#0057FF]/30 bg-white px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-[#0057FF] shadow-sm">
+              [ Brand Awareness ]
+            </span>
+            <p className="text-sm font-medium uppercase tracking-[0.2em] text-gray-500">
+              manifesto • motion design • estratégia
+            </p>
+          </div>
+        </motion.div>
+      </div>
 
-            <div className="pointer-events-none absolute inset-0" />
-
-            <div className="absolute inset-0 flex items-end justify-start p-6">
+      <HeroShowreel
+        videoSrc={ASSETS.videoManifesto}
+        posterSrc={ASSETS.manifestoPoster}
+        videoRef={videoRef}
+        shouldLoad={shouldLoad}
+        hasError={hasError}
+        onError={() => setHasError(true)}
+        loadingFallback={videoLoadingFallback}
+        errorFallback={
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 p-6 text-center text-gray-600">
+            <AlertCircle className="mb-3 h-10 w-10 opacity-50" />
+            <p className="font-medium">Não foi possível carregar o vídeo.</p>
+            <a
+              href={ASSETS.videoManifesto}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 text-[#0057FF] text-sm underline-offset-4 hover:underline"
+            >
+              Assistir diretamente
+            </a>
+          </div>
+        }
+        overlayContent={
+          <>
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+            <div className="pointer-events-none absolute top-6 left-6 inline-flex items-center gap-2 rounded-full bg-white/85 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#0f172a] shadow-md ring-1 ring-black/5">
+              strategy
+            </div>
+            <div className="absolute inset-0 flex items-end justify-start px-6 pb-6">
               <button
                 type="button"
                 onClick={togglePlay}
-                aria-label={isPlaying ? 'Pausar manifesto em vídeo' : 'Reproduzir manifesto em vídeo'}
-                className="pointer-events-auto inline-flex h-12 w-12 items-center justify-center rounded-full bg-black/35 text-white backdrop-blur-sm ring-1 ring-white/30 transition hover:bg-black/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/30"
+                aria-label={
+                  isPlaying
+                    ? 'Pausar manifesto em vídeo'
+                    : 'Reproduzir manifesto em vídeo'
+                }
+                disabled={!shouldLoad || hasError}
+                className="pointer-events-auto inline-flex h-14 w-14 items-center justify-center rounded-full bg-white/80 text-black backdrop-blur-sm ring-1 ring-black/10 transition hover:bg-white disabled:cursor-not-allowed disabled:opacity-70"
               >
-                {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+                {isPlaying ? (
+                  <Pause className="w-5 h-5" />
+                ) : (
+                  <Play className="w-5 h-5" />
+                )}
                 <span className="sr-only">Controle do manifesto</span>
               </button>
             </div>
-          </motion.div>
-        </motion.div>
-      </div>
+          </>
+        }
+        prefersReducedMotion={prefersReducedMotion}
+      />
     </section>
   );
 };
