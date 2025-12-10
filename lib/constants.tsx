@@ -202,18 +202,54 @@ export const FEATURED_PROJECTS: Project[] = [
 
 // Client Logos (Using placeholders for simplicity as per request, but mapping to provided URLs)
 export const CLIENT_LOGOS = [
-  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client1.svg',
-  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client2.svg',
-  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client3.svg',
-  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client4.svg',
-  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client5.svg',
-  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client6.svg',
-  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client7.svg',
-  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client8.svg',
-  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client9.svg',
-  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client10.svg',
-  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client11.svg',
-  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client12.svg',
+  {
+    name: 'Brand Awareness Partner 1',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client1.svg',
+  },
+  {
+    name: 'Brand Awareness Partner 2',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client2.svg',
+  },
+  {
+    name: 'Brand Awareness Partner 3',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client3.svg',
+  },
+  {
+    name: 'Brand Awareness Partner 4',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client4.svg',
+  },
+  {
+    name: 'Brand Awareness Partner 5',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client5.svg',
+  },
+  {
+    name: 'Brand Awareness Partner 6',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client6.svg',
+  },
+  {
+    name: 'Brand Awareness Partner 7',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client7.svg',
+  },
+  {
+    name: 'Brand Awareness Partner 8',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client8.svg',
+  },
+  {
+    name: 'Brand Awareness Partner 9',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client9.svg',
+  },
+  {
+    name: 'Brand Awareness Partner 10',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client10.svg',
+  },
+  {
+    name: 'Brand Awareness Partner 11',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client11.svg',
+  },
+  {
+    name: 'Brand Awareness Partner 12',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client12.svg',
+  },
 ];
 
 export const SOCIALS = [

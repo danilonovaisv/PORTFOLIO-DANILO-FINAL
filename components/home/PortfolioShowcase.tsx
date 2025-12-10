@@ -68,8 +68,12 @@ const PortfolioShowcaseSection: FC = () => {
                 <motion.div
                   key={category.id}
                   layout={shouldAnimate}
-                  initial={shouldAnimate ? { opacity: 0, height: 0 } : undefined}
-                  animate={shouldAnimate ? { opacity: 1, height: 'auto' } : undefined}
+                  initial={
+                    shouldAnimate ? { opacity: 0, height: 0 } : undefined
+                  }
+                  animate={
+                    shouldAnimate ? { opacity: 1, height: 'auto' } : undefined
+                  }
                   exit={
                     shouldAnimate
                       ? {
@@ -84,7 +88,9 @@ const PortfolioShowcaseSection: FC = () => {
                   <button
                     type="button"
                     onClick={() => handleExpand(category.id)}
-                    onMouseEnter={() => !isExpanded && setHoveredId(category.id)}
+                    onMouseEnter={() =>
+                      !isExpanded && setHoveredId(category.id)
+                    }
                     onMouseLeave={() => setHoveredId(null)}
                     className={`
                       relative flex w-full cursor-pointer border-b border-neutral-300 transition duration-150 ease-out
@@ -92,183 +98,191 @@ const PortfolioShowcaseSection: FC = () => {
                       ${isExpanded ? 'border-none' : ''}
                     `}
                   >
-                  {/* Subtítulo alinhado com o primeiro item (Desktop Only) */}
-                  {index === 0 && !isExpanded && (
-                    <div className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
-                      <span className="text-[10px] md:text-xs text-slate-600 font-medium tracking-[0.25em] uppercase">
-                        [ what we love working on ]
-                      </span>
-                    </div>
-                  )}
+                    {/* Subtítulo alinhado com o primeiro item (Desktop Only) */}
+                    {index === 0 && !isExpanded && (
+                      <div className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
+                        <span className="text-[10px] md:text-xs text-slate-600 font-medium tracking-[0.25em] uppercase">
+                          [ what we love working on ]
+                        </span>
+                      </div>
+                    )}
 
-                  {/* Container Principal do Item */}
-                  <motion.div
-                    layout="position"
-                    className={`flex w-full transition-all duration-200 ease-out
+                    {/* Container Principal do Item */}
+                    <motion.div
+                      layout="position"
+                      className={`flex w-full transition-all duration-200 ease-out
                       ${isExpanded ? 'py-8 flex-col items-start gap-8' : 'py-8 md:py-12 items-center'}
                       ${!isExpanded ? alignmentClass : ''}
                       ${!isExpanded ? 'hover:scale-[1.02] hover:shadow-md focus-visible:scale-[1.02]' : ''}
                     `}
-                  >
-                    {/* Conteúdo do Item (Texto + Ícone) */}
-                    <div
-                      className={`flex items-center relative ${!isExpanded ? 'gap-5 md:gap-6' : 'gap-5 w-full'}`}
                     >
-                      {/* Thumbnail Animada (Slide-in on Hover - aparece à esquerda do texto) */}
-                      <AnimatePresence>
-                        {isHovered && !isExpanded && (
-                          <motion.div
-                            initial={
-                              shouldAnimate
-                                ? { width: 0, opacity: 0, marginRight: 0 }
-                                : undefined
-                            }
-                            animate={
-                              shouldAnimate
-                                ? {
-                                    width: 140,
-                                    opacity: 1,
-                                    marginRight: 24,
-                                  }
-                                : undefined
-                            }
-                            exit={
-                              shouldAnimate
-                                ? { width: 0, opacity: 0, marginRight: 0 }
-                                : undefined
-                            }
-                            transition={
-                              shouldAnimate
-                                ? {
-                                    duration: 0.4,
-                                    ease: [0.33, 1, 0.68, 1],
-                                  }
-                                : undefined
-                            }
-                            className="hidden md:block h-20 relative overflow-hidden rounded-md shrink-0 origin-right order-first"
-                          >
-                            <Image
-                              src={category.thumbnailUrl}
-                              alt={`${category.label} thumbnail`}
-                              fill
-                              sizes="140px"
-                              className="absolute inset-0 object-cover"
-                              loading="lazy"
-                            />
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                      {/* Conteúdo do Item (Texto + Ícone) */}
+                      <div
+                        className={`flex items-center relative ${!isExpanded ? 'gap-5 md:gap-6' : 'gap-5 w-full'}`}
+                      >
+                        {/* Thumbnail Animada (Slide-in on Hover - aparece à esquerda do texto) */}
+                        <AnimatePresence>
+                          {isHovered && !isExpanded && (
+                            <motion.div
+                              initial={
+                                shouldAnimate
+                                  ? { width: 0, opacity: 0, marginRight: 0 }
+                                  : undefined
+                              }
+                              animate={
+                                shouldAnimate
+                                  ? {
+                                      width: 140,
+                                      opacity: 1,
+                                      marginRight: 24,
+                                    }
+                                  : undefined
+                              }
+                              exit={
+                                shouldAnimate
+                                  ? { width: 0, opacity: 0, marginRight: 0 }
+                                  : undefined
+                              }
+                              transition={
+                                shouldAnimate
+                                  ? {
+                                      duration: 0.4,
+                                      ease: [0.33, 1, 0.68, 1],
+                                    }
+                                  : undefined
+                              }
+                              className="hidden md:block h-20 relative overflow-hidden rounded-md shrink-0 origin-right order-first"
+                            >
+                              <Image
+                                src={category.thumbnailUrl}
+                                alt={`${category.label} thumbnail`}
+                                fill
+                                sizes="140px"
+                                className="absolute inset-0 object-cover"
+                                loading="lazy"
+                              />
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
 
-                      {/* Texto da Categoria - Fonte alterada para font-light (suave) */}
-                      <div className="flex flex-col items-end text-right">
-                        {isWebItem && !isExpanded ? (
-                          // Layout especial para o 3º item quando fechado
-                          <motion.h3
-                            layout="position"
-                            className="font-light text-[#111111] transition-all duration-300 tracking-tight leading-none text-3xl md:text-5xl lg:text-6xl group-hover:text-[#0057FF]"
-                          >
-                            <span className="block">Web Campaigns,</span>
-                            <span className="block">Websites & Tech</span>
-                          </motion.h3>
-                        ) : (
-                          // Layout padrão
-                          <motion.h3
-                            layout="position"
-                            className={`
+                        {/* Texto da Categoria - Fonte alterada para font-light (suave) */}
+                        <div className="flex flex-col items-end text-right">
+                          {isWebItem && !isExpanded ? (
+                            // Layout especial para o 3º item quando fechado
+                            <motion.h3
+                              layout="position"
+                              className="font-light text-[#111111] transition-all duration-300 tracking-tight leading-none text-3xl md:text-5xl lg:text-6xl group-hover:text-[#0057FF]"
+                            >
+                              <span className="block">Web Campaigns,</span>
+                              <span className="block">Websites & Tech</span>
+                            </motion.h3>
+                          ) : (
+                            // Layout padrão
+                            <motion.h3
+                              layout="position"
+                              className={`
                               font-light text-[#111111] transition-all duration-300 tracking-tight leading-[1.1] group-hover:text-[#0057FF]
                               ${isExpanded ? 'text-4xl md:text-6xl' : 'text-3xl md:text-5xl lg:text-6xl'}
                             `}
-                          >
-                            {category.label}
-                          </motion.h3>
-                        )}
-                      </div>
+                            >
+                              {category.label}
+                            </motion.h3>
+                          )}
+                        </div>
 
-                      {/* Ícone Azul (Seta) - Agora à DIREITA do texto */}
-                      <motion.div
-                        layout="position"
-                        className={`
+                        {/* Ícone Azul (Seta) - Agora à DIREITA do texto */}
+                        <motion.div
+                          layout="position"
+                          className={`
                           flex items-center justify-center rounded-full bg-[#0057FF] text-white shrink-0 transition-all duration-500 shadow-sm
                           ${isExpanded ? 'w-12 h-12 md:w-16 md:h-16' : 'w-8 h-8 md:w-12 md:h-12'}
                           ${isWebItem && !isExpanded ? 'self-end mb-1' : ''} /* Alinha ícone com a última linha no item 3 */
                         `}
-                      >
-                        <motion.div
-                          animate={{ rotate: isExpanded ? 90 : 0 }}
-                          transition={{ duration: 0.4 }}
                         >
-                          <ArrowRight
-                            className={`${isExpanded ? 'w-6 h-6' : 'w-4 h-4 md:w-6 md:h-6'}`}
-                          />
+                          <motion.div
+                            animate={{ rotate: isExpanded ? 90 : 0 }}
+                            transition={{ duration: 0.4 }}
+                          >
+                            <ArrowRight
+                              className={`${isExpanded ? 'w-6 h-6' : 'w-4 h-4 md:w-6 md:h-6'}`}
+                            />
+                          </motion.div>
                         </motion.div>
-                      </motion.div>
-                    </div>
+                      </div>
 
-                    {/* Conteúdo Expandido (Detalhes) */}
-                    {isExpanded && (
-                      <motion.div
-                        initial={shouldAnimate ? { opacity: 0, y: 20 } : undefined}
-                        animate={shouldAnimate ? { opacity: 1, y: 0 } : undefined}
-                        transition={
-                          shouldAnimate ? { delay: 0.2, duration: 0.5 } : undefined
-                        }
-                        className="w-full mt-3 flex flex-col md:flex-row gap-6 md:gap-12"
-                      >
-                        {/* Imagem Grande */}
-                        <div className="w-full md:w-1/2 aspect-video rounded-lg overflow-hidden bg-gray-200 shadow-lg relative">
-                          <Image
-                            src={category.thumbnailUrl}
-                            alt={category.label}
-                            fill
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            className="absolute inset-0 object-cover hover:scale-105 transition-transform duration-700"
-                            loading="lazy"
-                          />
-                        </div>
-
-                        {/* Texto descritivo / Links */}
-                        <div className="w-full md:w-1/2 flex flex-col justify-between py-2">
-                          <div>
-                            <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-10 font-light">
-                              Explorando os limites da criatividade em{' '}
-                              <span className="text-[#0057FF] font-medium">
-                                {category.label.replace(',', '').toLowerCase()}
-                              </span>
-                              . Nossos projetos combinam estratégia e design
-                              para criar experiências memoráveis.
-                            </p>
-
-                            <h4 className="text-sm uppercase tracking-widest text-gray-500 mb-6 font-bold border-b border-gray-100 pb-2">
-                              Destaques
-                            </h4>
-                            <ul className="space-y-4 mb-10">
-                              {[1, 2, 3].map((i) => (
-                                <li
-                                  key={i}
-                                  className="flex items-center gap-4 text-lg md:text-xl font-medium text-[#111111] group/item cursor-pointer"
-                                >
-                                  <span className="w-2 h-2 rounded-full bg-[#0057FF] group-hover/item:scale-150 transition-transform" />
-                                  <span className="group-hover/item:translate-x-2 transition-transform">
-                                    Projeto Exemplo {i}
-                                  </span>
-                                </li>
-                              ))}
-                            </ul>
+                      {/* Conteúdo Expandido (Detalhes) */}
+                      {isExpanded && (
+                        <motion.div
+                          initial={
+                            shouldAnimate ? { opacity: 0, y: 20 } : undefined
+                          }
+                          animate={
+                            shouldAnimate ? { opacity: 1, y: 0 } : undefined
+                          }
+                          transition={
+                            shouldAnimate
+                              ? { delay: 0.2, duration: 0.5 }
+                              : undefined
+                          }
+                          className="w-full mt-3 flex flex-col md:flex-row gap-6 md:gap-12"
+                        >
+                          {/* Imagem Grande */}
+                          <div className="w-full md:w-1/2 aspect-video rounded-lg overflow-hidden bg-gray-200 shadow-lg relative">
+                            <Image
+                              src={category.thumbnailUrl}
+                              alt={category.label}
+                              fill
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                              className="absolute inset-0 object-cover hover:scale-105 transition-transform duration-700"
+                              loading="lazy"
+                            />
                           </div>
 
-                          <div className="flex gap-4">
-                            <a
-                              href={`/portfolio?category=${category.id}`}
-                              className="inline-flex items-center gap-3 text-[#0057FF] font-bold text-lg md:text-xl hover:underline underline-offset-8 decoration-2"
-                            >
-                              Ver todos os projetos
-                              <ArrowUpRight className="w-6 h-6" />
-                            </a>
+                          {/* Texto descritivo / Links */}
+                          <div className="w-full md:w-1/2 flex flex-col justify-between py-2">
+                            <div>
+                              <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-10 font-light">
+                                Explorando os limites da criatividade em{' '}
+                                <span className="text-[#0057FF] font-medium">
+                                  {category.label
+                                    .replace(',', '')
+                                    .toLowerCase()}
+                                </span>
+                                . Nossos projetos combinam estratégia e design
+                                para criar experiências memoráveis.
+                              </p>
+
+                              <h4 className="text-sm uppercase tracking-widest text-gray-500 mb-6 font-bold border-b border-gray-100 pb-2">
+                                Destaques
+                              </h4>
+                              <ul className="space-y-4 mb-10">
+                                {[1, 2, 3].map((i) => (
+                                  <li
+                                    key={i}
+                                    className="flex items-center gap-4 text-lg md:text-xl font-medium text-[#111111] group/item cursor-pointer"
+                                  >
+                                    <span className="w-2 h-2 rounded-full bg-[#0057FF] group-hover/item:scale-150 transition-transform" />
+                                    <span className="group-hover/item:translate-x-2 transition-transform">
+                                      Projeto Exemplo {i}
+                                    </span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+
+                            <div className="flex gap-4">
+                              <a
+                                href={`/portfolio?category=${category.id}`}
+                                className="inline-flex items-center gap-3 text-[#0057FF] font-bold text-lg md:text-xl hover:underline underline-offset-8 decoration-2"
+                              >
+                                Ver todos os projetos
+                                <ArrowUpRight className="w-6 h-6" />
+                              </a>
+                            </div>
                           </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </motion.div>
+                        </motion.div>
+                      )}
+                    </motion.div>
                   </button>
                 </motion.div>
               );

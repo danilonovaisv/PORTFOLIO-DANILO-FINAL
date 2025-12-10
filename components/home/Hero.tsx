@@ -1,12 +1,7 @@
 'use client';
 
 import React, { useCallback, useRef } from 'react';
-import {
-  motion,
-  useScroll,
-  useTransform,
-  type Easing,
-} from 'framer-motion';
+import { motion, useScroll, useTransform, type Easing } from 'framer-motion';
 import usePrefersReducedMotion from '@/hooks/usePrefersReducedMotion';
 import HeroGlassCanvas from '@/components/three/HeroGlassCanvas';
 import ManifestoThumb from '@/components/home/ManifestoThumb';
@@ -151,7 +146,9 @@ const Hero: React.FC = () => {
   const heroIntroMotionProps = {
     initial: 'hidden',
     whileInView: 'visible',
-    viewport: prefersReducedMotion ? { once: true } : { once: true, margin: '-100px' },
+    viewport: prefersReducedMotion
+      ? { once: true }
+      : { once: true, margin: '-100px' },
     variants: sectionVariants,
   };
 
@@ -193,10 +190,7 @@ const Hero: React.FC = () => {
                   >
                     não é só
                   </motion.span>
-                  <motion.span
-                    variants={lineVariants}
-                    className="block"
-                  >
+                  <motion.span variants={lineVariants} className="block">
                     estética.
                   </motion.span>
                 </motion.h1>

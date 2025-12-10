@@ -8,7 +8,10 @@ interface ManifestoVideoProps {
   onError: () => void;
 }
 
-const ManifestoVideo: React.FC<ManifestoVideoProps> = ({ videoRef, onError }) => {
+const ManifestoVideo: React.FC<ManifestoVideoProps> = ({
+  videoRef,
+  onError,
+}) => {
   return (
     <>
       <video

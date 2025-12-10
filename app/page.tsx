@@ -10,7 +10,7 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Portfólio — Danilo Novais | Design, não é só estética.',
   description:
-    'Branding, campanhas, motion e experiências digitais com WebGL/3D. Design estratégico para impacto real.',
+    'Design estratégico, UX, motion design e experiências digitais em WebGL/3D. Portfólio de Danilo Novais com projetos que unem intenção, estratégia e experiência.',
 };
 
 export default function Home() {

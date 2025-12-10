@@ -73,10 +73,7 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
   scrollYProgress,
   prefersReducedMotion,
 }) => {
-  const [dpr, setDpr] = useState<[number, number] | number>(() => [
-    1,
-    1.5,
-  ]);
+  const [dpr, setDpr] = useState<[number, number] | number>(() => [1, 1.5]);
   const [lowRenderMode, setLowRenderMode] = useState(false);
   const eventSourceNode =
     typeof window !== 'undefined' ? document.body : undefined;

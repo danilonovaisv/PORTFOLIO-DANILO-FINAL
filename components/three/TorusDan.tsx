@@ -3,7 +3,12 @@
 import React, { useMemo, useRef } from 'react';
 import { MotionValue } from 'framer-motion';
 import { useFrame, useThree } from '@react-three/fiber';
-import { MeshTransmissionMaterial, Float, useGLTF, useScroll } from '@react-three/drei';
+import {
+  MeshTransmissionMaterial,
+  Float,
+  useGLTF,
+  useScroll,
+} from '@react-three/drei';
 import * as THREE from 'three';
 import useIsMobile from '@/hooks/useIsMobile';
 
@@ -101,17 +106,49 @@ const TorusDan = ({
   useFrame((state, delta) => {
     if (!meshRef.current) return;
 
-    const pointerInfluence = prefersReducedMotion ? 0 : isMobileDevice ? 0.1 : 0.18;
-    const pointerX = prefersReducedMotion ? 0 : state.pointer.x * pointerInfluence;
-    const pointerY = prefersReducedMotion ? 0 : state.pointer.y * pointerInfluence;
-    const scrollOffset = prefersReducedMotion ? 0 : scroll.offset ?? 0;
-    const timeRotate = prefersReducedMotion || lowRenderMode ? 0 : state.clock.elapsedTime * 0.05;
+    if (prefersReducedMotion) {
+      meshRef.current.rotation.x = THREE.MathUtils.damp(
+        meshRef.current.rotation.x,
+        0,
+        6,
+        delta
+      );
+      meshRef.current.rotation.y = THREE.MathUtils.damp(
+        meshRef.current.rotation.y,
+        0,
+        6,
+        delta
+      );
+      meshRef.current.rotation.z = THREE.MathUtils.damp(
+        meshRef.current.rotation.z,
+        0,
+        6,
+        delta
+      );
+      meshRef.current.position.x = THREE.MathUtils.damp(
+        meshRef.current.position.x,
+        0,
+        4,
+        delta
+      );
+      meshRef.current.position.y = THREE.MathUtils.damp(
+        meshRef.current.position.y,
+        0,
+        4,
+        delta
+      );
+      return;
+    }
+
+    const pointerInfluence = isMobileDevice ? 0.1 : 0.18;
+    const pointerX = state.pointer.x * pointerInfluence;
+    const pointerY = state.pointer.y * pointerInfluence;
+    const scrollOffset = scroll.offset ?? 0;
+    const timeRotate = lowRenderMode ? 0 : state.clock.elapsedTime * 0.05;
 
     const targetRotX = pointerY * 0.7;
     const targetRotZ = pointerX * 0.7;
-    const targetRotY = prefersReducedMotion
-      ? scrollOffset * Math.PI * 0.2
-      : scrollOffset * Math.PI * 1.6 + timeRotate;
+    const targetRotY = scrollOffset * Math.PI * 1.6 + timeRotate;
 
     meshRef.current.rotation.x = THREE.MathUtils.damp(
       meshRef.current.rotation.x,
@@ -132,8 +169,8 @@ const TorusDan = ({
       delta
     );
 
-    const targetPosX = prefersReducedMotion ? 0 : pointerX * 0.25;
-    const targetPosY = prefersReducedMotion ? 0 : pointerY * 0.1;
+    const targetPosX = pointerX * 0.25;
+    const targetPosY = pointerY * 0.1;
 
     meshRef.current.position.x = THREE.MathUtils.damp(
       meshRef.current.position.x,
@@ -164,17 +201,17 @@ const TorusDan = ({
       floatIntensity={prefersReducedMotion || lowRenderMode ? 0 : 0.8}
       floatingRange={[-0.15, 0.15]}
     >
-        {/* @ts-ignore */}
-        <mesh ref={meshRef} geometry={geometry} position={[0, 0, 0]}>
-          {useTransmissionMaterial ? (
-            <MeshTransmissionMaterial
-              ref={materialRef}
-              {...transmissionMaterialProps}
-            />
-          ) : (
-            <meshPhysicalMaterial ref={materialRef} {...fallbackMaterialProps} />
-          )}
-        </mesh>
+      {/* @ts-ignore */}
+      <mesh ref={meshRef} geometry={geometry} position={[0, 0, 0]}>
+        {useTransmissionMaterial ? (
+          <MeshTransmissionMaterial
+            ref={materialRef}
+            {...transmissionMaterialProps}
+          />
+        ) : (
+          <meshPhysicalMaterial ref={materialRef} {...fallbackMaterialProps} />
+        )}
+      </mesh>
     </Float>
   );
 };

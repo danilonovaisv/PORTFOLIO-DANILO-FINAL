@@ -73,11 +73,9 @@ const Manifesto: React.FC = () => {
       if (videoRef.current) {
         videoRef.current.muted = false;
         videoRef.current.volume = 0.7;
-        videoRef.current
-          .play()
-          .catch(() => {
-            /* fail silently if autoplay disallows playback */
-          });
+        videoRef.current.play().catch(() => {
+          /* fail silently if autoplay disallows playback */
+        });
       }
     };
 
@@ -154,10 +152,7 @@ const Manifesto: React.FC = () => {
           </div>
 
           {/* Coluna de Vídeo */}
-          <motion.div
-            {...manifestoMotionProps}
-            className="order-2 w-full"
-          >
+          <motion.div {...manifestoMotionProps} className="order-2 w-full">
             <div className="relative w-full overflow-hidden rounded-2xl bg-[#e5e7eb] shadow-xl aspect-video">
               {hasError ? (
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 text-gray-500 p-6 text-center">
@@ -179,11 +174,11 @@ const Manifesto: React.FC = () => {
                   <ManifestoVideo
                     videoRef={videoRef}
                     onError={() => setHasError(true)}
-                    />
-                  </Suspense>
-                ) : (
-                  videoLoadingFallback
-                )}
+                  />
+                </Suspense>
+              ) : (
+                videoLoadingFallback
+              )}
               {/* Overlay contextual + badge de controle */}
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-transparent" />
               <div className="absolute inset-0 flex flex-col justify-end p-5 gap-3 text-white">
@@ -201,7 +196,11 @@ const Manifesto: React.FC = () => {
                     }
                     className="pointer-events-auto inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/30 backdrop-blur-sm hover:bg-white/20 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-black/30 focus-visible:ring-white"
                   >
-                    {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
+                    {isPlaying ? (
+                      <Pause className="w-5 h-5" />
+                    ) : (
+                      <Play className="w-5 h-5" />
+                    )}
                   </button>
                   <p className="pointer-events-none text-sm text-white/90 leading-snug">
                     Assista ao manifesto — áudio ativa quando visível.
