@@ -8,7 +8,7 @@ Title: Color orb
 
 import * as THREE from 'three';
 import React, { useRef, useMemo, useContext, createContext } from 'react';
-import { useGLTF, Merged, useAnimations } from '@react-three/drei';
+import { useGLTF, Merged } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 
 type GLTFResult = GLTF & {
@@ -21,9 +21,6 @@ type GLTFResult = GLTF & {
     material_0: THREE.MeshPhysicalMaterial;
   };
 };
-
-type ActionName = 'Animation';
-type GLTFActions = Record<ActionName, THREE.AnimationAction>;
 
 const context = createContext<any>(null);
 export function Instances({
@@ -53,11 +50,7 @@ export function Instances({
 
 export function Model(props: React.JSX.IntrinsicElements['group']) {
   const instances = useContext(context);
-  const { animations } = useGLTF(
-    '/media/color_orb.glb'
-  ) as unknown as GLTFResult;
   const group = useRef<THREE.Group>(null);
-  const { actions } = useAnimations(animations, group);
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Sketchfab_Scene">

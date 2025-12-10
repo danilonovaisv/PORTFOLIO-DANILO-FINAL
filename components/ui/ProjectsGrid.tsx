@@ -16,11 +16,10 @@ const ProjectsGrid = ({
   <div
     className={`grid grid-cols-1 gap-y-10 gap-x-6 md:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 ${className}`}
   >
-    {projects.map((project, index) => (
+    {projects.map((project) => (
       <ProjectCard
         key={project.slug}
         project={project}
-        index={index}
         priority={project.isHero}
       />
     ))}

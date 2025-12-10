@@ -1,1 +1,2 @@
-**/dataconnect/example/*.gql
+/dataconnect/example/*.gql
+functions/lib/*.js

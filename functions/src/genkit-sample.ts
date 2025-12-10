@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { genkit, z } from 'genkit';
 import { googleAI } from '@genkit-ai/google-genai';
 

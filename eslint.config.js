@@ -10,7 +10,9 @@ export default [
       '.firebase/**',
       'dataconnect-generated/**',
       'functions/lib/**',
+      'functions/src/**',
       'functions/.eslintrc.js',
+      'src/dataconnect-generated/**',
     ],
   },
   {

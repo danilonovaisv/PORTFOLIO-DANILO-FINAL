@@ -1,19 +1,17 @@
 import Image from 'next/image';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import React, { useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import type { Project } from '../../lib/types';
 
 type ProjectCardProps = {
   project: Project;
-  index: number;
   priority?: boolean;
   className?: string;
 };
 
 const ProjectCard = ({
   project,
-  index,
   priority = false,
   className = '',
 }: ProjectCardProps) => {
