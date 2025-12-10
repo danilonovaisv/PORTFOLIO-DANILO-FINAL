@@ -23,13 +23,12 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'Danilo Novais | Portfolio',
+  title: 'Danilo Novais — Portfólio de Design, Estratégia e Experiência',
   description:
-    'Design, não é só estética. É intenção, é estratégia, é experiência.',
+    'Portfólio institucional de Danilo Novais, focado em design estratégico, campanhas, vídeos & motions e experiências digitais.',
   openGraph: {
-    title: 'Danilo Novais | Portfolio',
-    description:
-      'Design, não é só estética. É intenção, é estratégia, é experiência.',
+    title: 'Danilo Novais — Portfólio',
+    description: 'Design não é só estética. É intenção, estratégia e experiência.',
     url: 'https://portfoliodanilo.com',
     siteName: 'Danilo Novais Portfolio',
     images: [
@@ -37,7 +36,7 @@ export const metadata: Metadata = {
         url: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
         width: 1200,
         height: 630,
-        alt: 'Danilo Novais Portfolio Cover',
+        alt: 'Capa do portfólio de Danilo Novais',
       },
     ],
     locale: 'pt_BR',
@@ -45,10 +44,11 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Danilo Novais | Portfolio',
-    description:
-      'Design, não é só estética. É intenção, é estratégia, é experiência.',
-    creator: '@danilo_novais',
+    title: 'Danilo Novais — Portfólio',
+    description: 'Design, não é só estética. É intenção, é estratégia, é experiência.',
+    images: [
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
+    ],
   },
   icons: {
     icon: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/faivcon-02.svg',

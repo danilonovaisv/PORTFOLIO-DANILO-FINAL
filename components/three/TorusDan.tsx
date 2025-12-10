@@ -3,7 +3,7 @@
 import React, { useMemo, useRef } from 'react';
 import { MotionValue } from 'framer-motion';
 import { useFrame, useThree } from '@react-three/fiber';
-import { MeshTransmissionMaterial, Float, useGLTF } from '@react-three/drei';
+import { MeshTransmissionMaterial, Float, useGLTF, useScroll } from '@react-three/drei';
 import * as THREE from 'three';
 import useIsMobile from '@/hooks/useIsMobile';
 
@@ -96,33 +96,62 @@ const TorusDan = ({
   /* @ts-ignore */
   const materialRef = useRef<any>(null);
 
+  const scroll = useScroll();
+
   useFrame((state, delta) => {
-    if (meshRef.current) {
-      if (!prefersReducedMotion) {
-        // Rotação base constante (líquido em movimento)
-        meshRef.current.rotation.y += delta * 0.1;
+    if (!meshRef.current) return;
 
-        // Mouse Parallax Suave
-        const { x, y } = state.pointer;
-        meshRef.current.rotation.x = THREE.MathUtils.lerp(
-          meshRef.current.rotation.x,
-          y * 0.1,
-          0.05
-        );
-        meshRef.current.rotation.z = THREE.MathUtils.lerp(
-          meshRef.current.rotation.z,
-          x * 0.1,
-          0.05
-        );
-      }
+    const pointerX = prefersReducedMotion ? 0 : state.pointer.x;
+    const pointerY = prefersReducedMotion ? 0 : state.pointer.y;
+    const scrollOffset = prefersReducedMotion ? 0 : scroll.offset ?? 0;
+    const timeRotate = prefersReducedMotion ? 0 : state.clock.elapsedTime * 0.05;
 
-      // Scroll interaction
-      if (scrollYProgress && useTransmissionMaterial) {
-        const scroll = scrollYProgress.get();
-        if (materialRef.current) {
-          materialRef.current.distortion = 0.5 + scroll * 0.4;
-          materialRef.current.chromaticAberration = 0.06 + scroll * 0.05;
-        }
+    const targetRotX = pointerY * 0.15;
+    const targetRotZ = pointerX * 0.15;
+    const targetRotY = prefersReducedMotion
+      ? scrollOffset * Math.PI * 0.2
+      : scrollOffset * Math.PI * 2 + timeRotate;
+
+    meshRef.current.rotation.x = THREE.MathUtils.damp(
+      meshRef.current.rotation.x,
+      targetRotX,
+      6,
+      delta
+    );
+    meshRef.current.rotation.z = THREE.MathUtils.damp(
+      meshRef.current.rotation.z,
+      targetRotZ,
+      6,
+      delta
+    );
+    meshRef.current.rotation.y = THREE.MathUtils.damp(
+      meshRef.current.rotation.y,
+      targetRotY,
+      4,
+      delta
+    );
+
+    const targetPosX = prefersReducedMotion ? 0 : pointerX * 0.25;
+    const targetPosY = prefersReducedMotion ? 0 : pointerY * 0.1;
+
+    meshRef.current.position.x = THREE.MathUtils.damp(
+      meshRef.current.position.x,
+      targetPosX,
+      4,
+      delta
+    );
+    meshRef.current.position.y = THREE.MathUtils.damp(
+      meshRef.current.position.y,
+      targetPosY,
+      4,
+      delta
+    );
+
+    if (scrollYProgress && useTransmissionMaterial) {
+      const scrollValue = scrollYProgress.get();
+      if (materialRef.current) {
+        materialRef.current.distortion = 0.5 + scrollValue * 0.4;
+        materialRef.current.chromaticAberration = 0.06 + scrollValue * 0.05;
       }
     }
   });

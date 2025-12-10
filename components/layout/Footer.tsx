@@ -7,8 +7,7 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-8 max-w-7xl">
         <div className="text-center md:text-left text-sm opacity-80 font-medium">
           <p>
-            © {new Date().getFullYear()} Danilo Novais Vilela. Todos os direitos
-            reservados.
+            © 2025 Danilo Novais Vilela — todos os direitos reservados.
           </p>
         </div>
 
@@ -18,7 +17,7 @@ const Footer: React.FC = () => {
               <li key={link.label}>
                 <a
                   href={link.href}
-                  className="text-sm font-bold hover:text-white/70 transition-colors lowercase tracking-wide focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0057FF] rounded-sm px-1"
+                  className="text-sm font-bold hover:text-white/70 transition-colors lowercase tracking-wide focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0057FF] rounded-sm px-1 hover:underline underline-offset-8 decoration-2"
                 >
                   {link.label}
                 </a>

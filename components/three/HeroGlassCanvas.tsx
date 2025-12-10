@@ -2,7 +2,12 @@
 
 import React, { Suspense, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Environment, PerformanceMonitor, Preload } from '@react-three/drei';
+import {
+  Environment,
+  PerformanceMonitor,
+  Preload,
+  ScrollControls,
+} from '@react-three/drei';
 import { MotionValue } from 'framer-motion';
 import * as THREE from 'three';
 import TorusDan from './TorusDan';
@@ -98,20 +103,20 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
         />
         <ambientLight intensity={0.5} color="#ffffff" />
         <directionalLight position={[5, 10, 7.5]} intensity={1.2} castShadow />
-
-        {/* Fill light from opposite side */}
         <spotLight position={[-5, 0, -5]} intensity={0.5} color="#0057FF" />
 
-        <Suspense fallback={null}>
-          <ResponsiveTorus
-            scrollYProgress={scrollYProgress}
-            prefersReducedMotion={prefersReducedMotion}
-            lowRenderMode={lowRenderMode}
-          />
+        <ScrollControls pages={2} damping={0.45}>
+          <Suspense fallback={null}>
+            <ResponsiveTorus
+              scrollYProgress={scrollYProgress}
+              prefersReducedMotion={prefersReducedMotion}
+              lowRenderMode={lowRenderMode}
+            />
 
-          <Environment preset="city" blur={1} />
-          <Preload all />
-        </Suspense>
+            <Environment preset="city" blur={1} />
+            <Preload all />
+          </Suspense>
+        </ScrollControls>
       </Canvas>
     </div>
   );

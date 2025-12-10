@@ -14,17 +14,15 @@ import {
 } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { ASSETS } from '../../lib/constants';
+import { ASSETS, NAV_LINKS } from '../../lib/constants';
 import { Menu, X } from 'lucide-react';
 import clsx from 'clsx';
 
-const NAV_ITEMS = [
-  { label: 'home', href: '/', isAnchor: false },
-  { label: 'manifesto', href: '/manifesto', isAnchor: false },
-  { label: 'sobre', href: '/sobre', isAnchor: false },
-  { label: 'portfolio showcase', href: '#portfolio', isAnchor: true },
-  { label: 'contato', href: '#contato', isAnchor: true },
-];
+const NAV_ITEMS = NAV_LINKS.map((item) => ({
+  label: item.label,
+  href: item.href,
+  isAnchor: item.href.startsWith('#'),
+}));
 
 const Header: React.FC = () => {
   const { scrollY } = useScroll();
@@ -73,7 +71,7 @@ const Header: React.FC = () => {
             if (entry.isIntersecting) {
               if (entry.target.id === 'hero') setActiveSection('home');
               if (entry.target.id === 'contact') setActiveSection('contato');
-              if (entry.target.id === 'portfolio')
+              if (entry.target.id === 'portfolio-showcase')
                 setActiveSection('portfolio showcase');
             }
           });
@@ -81,7 +79,7 @@ const Header: React.FC = () => {
         { threshold: 0.3 }
       );
 
-      const sections = ['hero', 'contact', 'portfolio'];
+      const sections = ['hero', 'contact', 'portfolio-showcase'];
       sections.forEach((id) => {
         const el = document.getElementById(id);
         if (el) observer.observe(el);
@@ -127,7 +125,7 @@ const Header: React.FC = () => {
         <div className="flex items-center shrink-0 relative z-1000">
           <Link
             href="/"
-            className="block relative group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] rounded-lg p-1"
+            className="block relative group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-lg p-1"
             onClick={(e) => handleLinkClick(e, '#hero', true)}
             aria-label="Ir para página inicial"
           >
@@ -164,7 +162,7 @@ const Header: React.FC = () => {
                       handleLinkClick(e, link.href, link.isAnchor)
                     }
                     className={clsx(
-                      'relative text-sm font-medium transition-all duration-300 lowercase tracking-wide block px-4 py-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF]',
+                      'relative text-sm font-medium transition-all duration-300 lowercase tracking-wide block px-4 py-2 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white hover:underline underline-offset-8 decoration-2',
                       isActive
                         ? 'text-[#0057FF] bg-blue-50/50'
                         : 'text-[#111111] hover:text-[#0057FF] hover:bg-black/5'
@@ -182,7 +180,7 @@ const Header: React.FC = () => {
         <div className="md:hidden z-1000 flex items-center">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="text-[#111111] p-2 hover:text-[#0057FF] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] rounded-lg"
+            className="text-[#111111] p-2 hover:text-[#0057FF] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white rounded-lg"
             aria-label={isMobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"
@@ -220,7 +218,7 @@ const Header: React.FC = () => {
                         }
                         className={`
                           text-3xl font-medium transition-colors block lowercase
-                          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] rounded-lg px-4 py-2
+                          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F5F7] rounded-lg px-4 py-2 hover:underline underline-offset-6 decoration-2
                           ${isActive ? 'text-[#0057FF]' : 'text-[#111111] hover:text-[#0057FF]'}
                         `}
                         aria-current={isActive ? 'page' : undefined}

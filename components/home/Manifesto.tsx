@@ -1,7 +1,7 @@
 'use client';
 
 import React, { Suspense, useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, type Easing } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import usePrefersReducedMotion from '@/hooks/usePrefersReducedMotion';
 import { ASSETS } from '@/lib/constants';
@@ -10,6 +10,8 @@ import { AlertCircle } from 'lucide-react';
 const ManifestoVideo = dynamic(() => import('./ManifestoVideo'), {
   ssr: false,
 });
+
+const MANIFESTO_EASE: Easing = 'easeOut';
 
 const Manifesto: React.FC = () => {
   const [hasError, setHasError] = useState(false);
@@ -24,7 +26,7 @@ const Manifesto: React.FC = () => {
         initial: { opacity: 0, y: 30 },
         whileInView: { opacity: 1, y: 0 },
         viewport: { once: true },
-        transition: { duration: 0.8, ease: 'easeOut' },
+        transition: { duration: 0.8, ease: MANIFESTO_EASE },
       };
   const videoLoadingFallback = (
     <div className="absolute inset-0 flex items-center justify-center bg-gray-200">

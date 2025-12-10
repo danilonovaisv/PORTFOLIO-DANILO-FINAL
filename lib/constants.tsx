@@ -26,8 +26,8 @@ export const ASSETS = {
 // Navigation
 export const NAV_LINKS: NavLink[] = [
   { label: 'home', href: '#hero' },
+  { label: 'portfolio showcase', href: '#portfolio-showcase' },
   { label: 'sobre', href: '/sobre' },
-  { label: 'portfolio showcase', href: '/portfolio' },
   { label: 'contato', href: '#contact' },
 ];
 

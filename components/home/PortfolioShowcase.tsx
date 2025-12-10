@@ -29,12 +29,17 @@ const PortfolioShowcaseSection: FC = () => {
   };
 
   return (
-    <section className="relative w-full bg-[#f5f5f5] py-20 md:py-24 overflow-hidden min-h-screen flex flex-col justify-center">
+    <section
+      id="portfolio-showcase"
+      className="relative w-full bg-[#f5f5f5] py-20 md:py-24 overflow-hidden min-h-screen flex flex-col justify-center"
+    >
       <div className="container mx-auto px-4 md:px-8 max-w-[90%] md:max-w-7xl relative z-10">
         {/* Cabeçalho da Seção */}
         <div className="flex flex-col w-full mb-10">
-          {/* Título Principal */}
-          <div className="w-full flex justify-center mb-6">
+          <div className="w-full flex flex-col items-center gap-2">
+            <span className="text-xs md:text-sm uppercase tracking-[0.3em] text-slate-600">
+              [ what we love working on ]
+            </span>
             <h2 className="text-center text-4xl md:text-6xl font-bold tracking-tight">
               <span className="text-[#0057FF]">portfólio</span>{' '}
               <span className="text-[#111111]">showcase</span>
@@ -67,18 +72,23 @@ const PortfolioShowcaseSection: FC = () => {
                     height: 0,
                     transition: { duration: 0.3 },
                   }}
-                  onClick={() => handleExpand(category.id)}
-                  className={`
-                    relative border-b border-neutral-300 group cursor-pointer w-full
-                    ${isExpanded ? 'border-none' : ''}
-                  `}
-                  onMouseEnter={() => !isExpanded && setHoveredId(category.id)}
-                  onMouseLeave={() => setHoveredId(null)}
+                  className="relative"
                 >
+                  <button
+                    type="button"
+                    onClick={() => handleExpand(category.id)}
+                    onMouseEnter={() => !isExpanded && setHoveredId(category.id)}
+                    onMouseLeave={() => setHoveredId(null)}
+                    className={`
+                      relative flex w-full cursor-pointer border-b border-neutral-300 transition duration-150 ease-out
+                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0057FF]
+                      ${isExpanded ? 'border-none' : ''}
+                    `}
+                  >
                   {/* Subtítulo alinhado com o primeiro item (Desktop Only) */}
                   {index === 0 && !isExpanded && (
                     <div className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
-                      <span className="text-[10px] md:text-xs text-gray-400 font-medium tracking-[0.25em] uppercase">
+                      <span className="text-[10px] md:text-xs text-slate-600 font-medium tracking-[0.25em] uppercase">
                         [ what we love working on ]
                       </span>
                     </div>
@@ -87,9 +97,10 @@ const PortfolioShowcaseSection: FC = () => {
                   {/* Container Principal do Item */}
                   <motion.div
                     layout="position"
-                    className={`flex w-full transition-all duration-500 ease-out
+                    className={`flex w-full transition-all duration-200 ease-out
                       ${isExpanded ? 'py-8 flex-col items-start gap-8' : 'py-8 md:py-12 items-center'}
                       ${!isExpanded ? alignmentClass : ''}
+                      ${!isExpanded ? 'hover:scale-[1.02] hover:shadow-md focus-visible:scale-[1.02]' : ''}
                     `}
                   >
                     {/* Conteúdo do Item (Texto + Ícone) */}
@@ -233,6 +244,7 @@ const PortfolioShowcaseSection: FC = () => {
                       </motion.div>
                     )}
                   </motion.div>
+                  </button>
                 </motion.div>
               );
             })}

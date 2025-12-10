@@ -214,345 +214,188 @@ Refinar `padding`, `gap` e `space-y` nas seções para ficar mais próximo do mo
 ---
 
 
-`# Prompt de ajuste — Seção de Cards de Portfólio (alinhada à referência loandbehold.studio)
+# BLOCO ESPECÍFICO — SESSÃO DE PROJETOS EM DESTAQUE (GRID DE CASES)
 
-## Contexto
+### Prompt — Implementar sessão de trabalhos em destaque *idêntica* à referência visual
 
-- **Site atual:** \`portfoliodanilo.com\`, seção de cards de portfólio (provavelmente “Featured Work” / “Projetos em destaque”).
-- **Referência:** \`loandbehold.studio\`, seção equivalente mostrada na imagem \`PROTFOLIO_CARDS.png\`.
-- **Objetivo:** Ajustar **layout**, **disposição dos cards**, **interações de hover** e **animações de entrada/scroll** para ficar visualmente e comportamentalmente muito próximo da referência.
+**Sessão/Área:** Grade de cases com cards grandes + CTA “Like what you see? / view projects” (seção mostrada na imagem de referência).
 
----
+**Severidade:** Crítica
 
-## 1. Estrutura de layout e grid da seção
-
-### Objetivo
-
-Recriar o layout em **três blocos principais** (linhas) com **grid assimétrico**, mantendo forte hierarquia visual e respiro, como na referência.
-
-### Arquivos-alvo
-
-- Componente da seção de cards de portfólio, por exemplo:
-  - \`FeaturedProjectsSection.tsx\` ou \`PortfolioCardsSection.tsx\`
-  - Qualquer componente \`ProjectCard\` reutilizado nessa seção
-- Estilos relacionados (Tailwind via \`className\` ou módulos CSS)
-
-### Instruções
-
-1. Transforme a seção de portfólio em um bloco independente, semânticamente correto:
-   - Use algo como:
-     - \`<section id="featured-projects" aria-labelledby="featured-projects-heading">\`
-   - Título da seção em \`<h2 id="featured-projects-heading">\` (mantendo o \`h1\` apenas na hero).
-
-2. Aplique um **container centralizado** que replica o “tapete” de conteúdo da referência:
-   - \`max-w-6xl\` ou \`max-w-7xl\`
-   - \`mx-auto\`, \`px-4 md:px-8\`
-   - \`py-16 md:py-24\`
-   - Fundo da página em um cinza muito claro (\`#f3f4f6\` / \`slate-50\`), com a seção “flutuando” sobre este fundo.
-
-3. Implemente uma **grid responsiva em 12 colunas** para organizar as três linhas da seção:
-
-   - **Linha 1 (topo)**
-     - Card 1 (esquerda): \`col-span-12 md:col-span-5\`
-     - Card 2 (direita): \`col-span-12 md:col-span-7\`
-     - Um chip CTA no topo (“let’s build something great”) alinhado aproximadamente sobre o card direito.
-   - **Linha 2 (meio)**
-     - Um único card full-width: \`col-span-12\`.
-   - **Linha 3 (base)**
-     - Card 4 (esquerda): \`col-span-12 md:col-span-7\`
-     - Bloco de CTA textual (“Like what you see?” + botão \`view projects\`) na direita: \`col-span-12 md:col-span-5\`.
-
-4. Em **mobile**, os cards devem **empilhar verticalmente**:
-   - Todas as linhas viram uma única coluna (cards em stack com \`space-y-8\`).
-   - O bloco “Like what you see?” vem logo abaixo do último card.
-
-5. Garanta que o espaçamento vertical entre os blocos da seção (linha 1, 2 e 3) siga um ritmo claro:
-   - Ex.: \`space-y-10 md:space-y-16\` entre linhas.
+**Arquivos-alvo sugeridos (ajuste conforme o projeto):**
+- \`FeaturedProjectsSection.tsx\` (ou equivalente).
+- Componentes de card de projeto (ex.: \`ProjectCard.tsx\`).
+- Estilos da seção (Tailwind direto, módulo CSS ou styled components).
 
 ---
 
-## 2. Visual dos cards (UI, tipografia, labels e CTA)
+## 1. REGRA OBRIGATÓRIA DE CONTEÚDO TEXTUAL
 
-### Objetivo
+Esta sessão **NÃO PODE** incluir **nenhum texto visível diferente** do que está na imagem de referência.
 
-Reproduzir o visual limpo e “card-first” da referência, com imagens dominantes, cantos arredondados e CTA circular azul.
+Só é permitido renderizar exatamente os seguintes textos (mesmo idioma, ortografia, pontuação e capitalização):
 
-### Instruções
+- \`let's build something great\`
+- \`branding\` (tag do card “magic”)
+- \`Bringing the Magic Back to Radio\`
+- \`Magic\`
+- \`campaign\` (tag do card da atleta)
+- \`Fearless.\`
+- \`Unmatched.\`
+- \`Taking Sportswear to the Skies\`
+- \`Eurosport\`
+- \`Epic look\`
+- \`Refreshing a Telecom Challenger\`
+- \`EPIC\`
+- \`branding\` (tag do card FFF Legal)
+- \`website\` (tag do card FFF Legal)
+- \`Designing Trust – The FFF Legal Identity\`
+- \`FFF Legal\`
+- \`Like what you see?\`
+- \`view projects\`
 
-1. Cada card de projeto deve ser um \`<article>\` com estrutura interna semelhante:
+**Não é permitido, nesta sessão:**
 
-   - Container do card:
-     - \`rounded-3xl\`
-     - \`overflow-hidden\`
-     - \`bg-white\`
-     - \`shadow-[0_20px_60px_rgba(15,23,42,0.18)]\` ou sombra suave que simule profundidade.
-     - Borda sutil opcional: \`border border-slate-100\`.
-   - Dentro do card:
-     - Bloco da **imagem** em topo:
-       - Aspect ratio 16:9 (ou similar).
-       - Uso obrigatório de \`next/image\` com \`fill\` ou \`width/height\` adequados.
-       - \`className="w-full object-cover"\`.
-     - Contêiner de conteúdo textual inferior com:
-       - \`padding: 20–24px\` (\`px-6 py-5\`).
-       - Título, cliente, CTA.
+- Adicionar headings extras como \`Featured Projects\`, \`Work\`, \`Cases\` etc.
+- Criar descrições adicionais, subtítulos, legendas, rótulos de botões ou qualquer outro texto além dos listados acima.
+- Traduzir, reescrever ou variar esses textos (por exemplo, não usar \`Vamos construir algo incrível\` no lugar de \`let's build something great\`).
 
-2. **Label de categoria**:
-   - Posicionar um **pill** (chip) no canto superior direito da imagem do card:
-     - Use posicionamento absoluto dentro do container da imagem.
-     - Estilo aproximado:
-       - \`rounded-full bg-slate-900/80 text-white text-[11px] font-medium tracking-wide px-3 py-1\`
-     - Conteúdos: “branding”, “campaign”, “website”, etc., conforme cada projeto.
-   - Garantir que o chip tenha contraste alto com a imagem (background escurecido).
+> Se precisar de atributos não visíveis para acessibilidade (ex.: \`aria-label\`, \`alt\`), use variações baseadas nesses mesmos textos ou descrições mínimas, mas **não renderize** esses textos extra visualmente na interface.
 
-3. **Tipografia e textos**:
-   - Título do projeto: \`text-lg md:text-xl font-semibold text-slate-900\`.
-   - Nome do cliente: \`text-sm text-slate-500 mt-1 uppercase tracking-wide\` ou estilo discreto logo abaixo do título.
-   - No card grande central (linha 2), pode-se usar \`text-xl md:text-2xl\` para o título, reforçando a hierarquia.
-
-4. **CTA circular com seta**:
-   - No canto inferior direito de cada card, criar um botão circular azul com ícone de seta (para frente/diagonal):
-     - \`w-10 h-10\`
-     - \`rounded-full bg-[#0057FF] text-white flex items-center justify-center\`
-     - Ícone pode ser um SVG simples de seta.
-   - Em hover:
-     - Aumentar levemente o tamanho (\`scale-110\`) e/ou mover a seta alguns pixels para a direita.
-   - O CTA deve ser completamente clicável e ter semântica de botão/link correta.
+Esta regra de conteúdo textual **vale apenas para esta sessão específica** (grid de cases + CTA “Like what you see? / view projects”) e **não** para as demais seções da página.
 
 ---
 
-## 3. Disposição e conteúdo dos 4 cards e bloco de CTA final
+## 2. ESTRUTURA E LAYOUT DA SESSÃO
 
-### Objetivo
+1. **Organização geral**
+   - A sessão deve reproduzir a grade mostrada na imagem:
+     - Linha 1:
+       - Card “magic” (esquerda).
+       - Card da atleta “Fearless. / Unmatched.” (direita).
+       - Pill flutuante no topo: \`let's build something great\`.
+     - Linha 2:
+       - Card grande “Epic look” ocupando toda a largura.
+     - Linha 3:
+       - Card “FFF Legal” à esquerda.
+       - Bloco de CTA “Like what you see? / view projects” à direita.
 
-Seguir a **mesma hierarquia de importância** que a referência: dois cards menores em topo, um card herói no meio, um card de suporte embaixo à esquerda e um CTA de texto à direita.
+2. **Cards de projeto**
+   - Cada card é clicável (use \`<button>\` ou \`<a>\` abrangendo toda a área clicável).
+   - Inclua:
+     - Imagem principal.
+     - Tag(s) no canto superior direito (ex.: \`branding\`, \`campaign\`, \`website\`).
+     - Título do projeto (linha principal abaixo da imagem).
+     - Nome do cliente (linha menor logo abaixo do título).
+     - Ícone de seta azul no canto inferior direito.
 
-### Instruções
-
-1. Defina um array de dados de projetos, por exemplo:
-
-   - Card 1 (linha 1, esquerda): projeto 1 (ex.: \`Magic\`).
-   - Card 2 (linha 1, direita): projeto 2 (ex.: campanha esportiva).
-   - Card 3 (linha 2, full width): projeto principal (ex.: “Epic look”).
-   - Card 4 (linha 3, esquerda): projeto 4 (ex.: identidade visual FFF Legal).
-
-2. Mantenha **ordem e variação de tamanho**:
-   - Card da linha 2 deve ser visualmente o mais largo e impactante.
-   - Cards 1 e 4 têm tamanho médio.
-   - Card 2, apesar de na mesma linha de Card 1, deve parecer ligeiramente mais largo.
-
-3. Bloco de CTA “Like what you see?” (linha 3, direita):
-
-   - \`<aside>\` sem fundo branco, em cima do fundo cinza da página.
-   - Conteúdo:
-     - Título grande: “Like what you see?”
-       - \`text-2xl md:text-3xl font-semibold text-slate-900\`.
-     - Subtexto opcional explicando que há mais projetos.
-     - Botão “view projects” em estilo pill azul:
-       - \`inline-flex items-center gap-2 rounded-full bg-[#0057FF] px-6 py-3 text-sm font-medium text-white shadow-sm\`.
-       - Ícone de seta diagonal sugerindo saída para a página de projetos completa.
-
-4. Em mobile:
-   - Depois do card 4, o bloco “Like what you see?” vem completo, ocupando 100% da largura, com bom \`padding\` lateral.
+3. **CTA “Like what you see?”**
+   - Composto por:
+     - Texto \`Like what you see?\` em duas linhas (quebra responsiva ok).
+     - Botão pill azul com \`view projects\` + ícone de seta.
 
 ---
 
-## 4. Interações de hover nos cards
+## 3. ESTILOS E INTERAÇÃO (SEM MUDAR TEXTO)
 
-### Objetivo
+1. **Hover e foco**
+   - Cards e CTA devem ter feedback claro:
+     - Leve elevação/scale no hover.
+     - \`cursor-pointer\`.
+     - Estados de foco acessíveis, por exemplo:
+       - \`focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0057FF]\`.
 
-Fazer cada card parecer vivo, com **elevação**, **parallax leve da imagem** e **realce do CTA circular** em hover, inspirado na referência.
+2. **Tipografia**
+   - Respeitar o contraste e peso aparentes:
+     - Títulos dos projetos com peso maior que o nome do cliente.
+     - CTA “Like what you see?” com tipografia forte, seguindo a referência.
 
-### Instruções
-
-1. Use Framer Motion nos cards:
-
-   - Cada card deve ser um \`motion.article\`.
-   - \`whileHover\`:
-     - \`scale: 1.02\`
-     - \`y: -6\` (elevação leve)
-     - \`box-shadow\` mais intensa (\`shadow-xl\`/custom)
-   - \`transition\` suave com curva tipo \`[0.19, 1, 0.22, 1]\`.
-
-2. Parallax da imagem:
-   - Envolva a imagem dentro de um \`motion.div\`.
-   - Em \`whileHover\`, mova a imagem alguns pixels para cima/direita (\`y: -8\`, \`x: 4\`) ou aplique leve \`scale: 1.03\`.
-   - Aplique \`overflow-hidden\` no container do card para o efeito ficar contido.
-
-3. CTA circular:
-   - Ícone de seta gira alguns graus ou move-se para a direita em hover:
-     - Ex.: \`whileHover={{ x: 2, rotate: 12 }}\`.
-   - Em foco/hover de teclado, mantenha o mesmo comportamento.
-
-4. Garanta que **o card inteiro seja clicável**:
-   - Use \`<Link>\` envolvendo o card ou um \`button\`/link principal interno cobrindo toda a área.
-   - Cursor \`pointer\` no card inteiro.
-
-5. Respeitar \`prefers-reduced-motion\`:
-   - Quando detectado, reduza o hover a mudanças de cor/sombra sem movimento forte (\`scale\` e \`translate\` mínimos ou zero).
+3. **Responsividade**
+   - Mobile: cards empilhados verticalmente, mantendo ordem visual da referência.
+   - Desktop: manter a grade 2x2 e o CTA à direita do card FFF Legal, como na imagem.
 
 ---
 
-## 5. Animações de entrada e scroll
+## 4. RESTRIÇÕES ADICIONAIS
 
-### Objetivo
-
-Reproduzir a sensação suave de entrada dos cards ao rolar a página, com leves **fades + slide up** e **stagger** entre elementos, semelhante ao site de referência.
-
-### Instruções
-
-1. Envolva a seção em um contexto de Framer Motion:
-
-   - Cada card \`motion.article\` deve possuir:
-     - \`initial={{ opacity: 0, y: 32 }}\`
-     - \`whileInView={{ opacity: 1, y: 0 }}\`
-     - \`transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1], delay: index * 0.08 }}\`
-     - \`viewport={{ once: true, margin: '-20% 0px' }}\` para disparar animação próximo à viewport.
-
-2. Stagger:
-   - Nas linhas com dois cards (linha 1 e linha 3), garanta leve diferença de \`delay\` entre o card da esquerda e o da direita, para que não apareçam simultâneos de forma “robótica”.
-
-3. Chip “let’s build something great”:
-   - Aplicar \`motion.div\` com animação de “slide down” + fade:
-     - \`initial={{ opacity: 0, y: -16 }}\`
-     - \`whileInView={{ opacity: 1, y: 0 }}\`
-     - \`transition={{ duration: 0.6, delay: 0.1 }}\`.
-   - Em hover, apenas um pequeno \`scale: 1.03\` e mudança de cor do fundo.
-
-4. Bloco final “Like what you see?”:
-   - Animação independente, levemente atrasada em relação ao card 4:
-     - \`initial={{ opacity: 0, y: 40 }}\`
-     - \`whileInView={{ opacity: 1, y: 0 }}\`
-     - \`transition={{ duration: 0.7, delay: 0.2 }}\`.
-
-5. \`prefers-reduced-motion\`:
-   - Ao detectar \`useReducedMotion === true\`, deixar os cards já em \`opacity: 1, y: 0\` (sem transições) e desativar \`whileInView\`.
+- **Não inventar cópias**:
+  - Proibido criar qualquer texto auxiliar, tooltips visíveis, microcopies novas ou rótulos extras.
+- **Acessibilidade sem poluir a UI**:
+  - Pode-se usar \`aria-label\`, \`aria-describedby\` e \`alt\` para acessibilidade, desde que esses textos extras **não sejam exibidos visualmente**.
+  - Quando possível, derive esses textos diretamente das strings permitidas (por ex., \`aria-label="Bringing the Magic Back to Radio — Magic"\`).
 
 ---
 
-## 6. Acessibilidade e semântica
+## 5. CRITÉRIOS DE ACEITE
 
-### Objetivo
+- A sessão mostra **apenas** os textos da lista de permitidos.
+- O layout da grade e CTA corresponde visualmente à referência da imagem.
+- Interações de hover/foco funcionam e são acessíveis, sem introduzir textos visíveis novos.
+`;
 
-Garantir que a seção seja navegável por teclado, tenha semântica correta e textos alternativos adequados.
+// Componente 3D simples (orb girando) apenas para seguir o padrão do projeto com R3F.
+function SpinningOrb() {
+  const meshRef = useRef<Mesh | null>(null);
 
-### Instruções
+  useFrame((state) => {
+    if (!meshRef.current) return;
+    const t = state.clock.getElapsedTime();
+    meshRef.current.rotation.x = t * 0.2;
+    meshRef.current.rotation.y = t * 0.35;
+  });
 
-1. **Semântica:**
-   - Seção com \`<section aria-labelledby="featured-projects-heading">\`.
-   - Cards como \`<article>\` contendo título em \`<h3>\`.
-
-2. **Navegação por teclado:**
-   - Card clicável deve ser um \`<a>\` ou \`<button>\` em toda a área.
-   - Foco visível:
-     - \`focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0057FF]\`.
-
-3. **Imagens:**
-   - Cada imagem deve ter \`alt\` descritivo curto (ex.: “Visual da campanha Magic para rádio”).  
-   - Se imagem for meramente decorativa, usar \`alt=""\`.
-
-4. **CTA “view projects”:**
-   - \`aria-label="Ver todos os projetos do portfólio"\` no botão.
-   - Certificar que o foco vá primeiro para o título e depois para o botão, em ordem lógica.
-
----
-
-## 7. Dados e links reais
-
-### Objetivo
-
-Ligar cada card ao respectivo case real no site \`portfoliodanilo.com\`.
-
-### Instruções
-
-1. Para cada item no array de projetos, incluir:
-   - \`slug\` ou \`href\` para a rota do case.
-   - \`title\`, \`client\`, \`category\`, \`imageSrc\`, \`imageAlt\`.
-2. O clique no card deve:
-   - Levar para a página de detalhe do projeto correspondente.
-   - Opcional: abrir em mesma aba, mantendo consistência com resto do site.
-
----
-
-## 8. Resultado esperado
-
-Ao final:
-
-- A seção de cards de portfólio em \`portfoliodanilo.com\` deve:
-  - Ter **layout em 3 blocos** com assimetria e hierarquia, idêntico (ou muito próximo) ao da referência \`loandbehold.studio\`.
-  - Apresentar **cards com imagens grandes, labels de categoria, títulos e CTA circular azul**, com visual refinado.
-  - Reagir ao **hover** com elevação, leve parallax e movimento da seta, mantendo suavidade.
-  - Animar a entrada ao rolar a página de forma consistente, respeitando \`prefers-reduced-motion\`.
-  - Ser plenamente **navegável via teclado e acessível**, com headings e \`alt\` bem definidos.
-
-Aplique todos os ajustes acima na seção de portfólio, garantindo que o resultado visual e interativo se aproxime ao máximo da referência apresentada.\n`
-
-function PromptBackgroundScene() {
   return (
-    <>
-      <ambientLight intensity={0.4} />
-      <directionalLight position={[5, 5, 5]} intensity={1.1} />
-      <mesh castShadow receiveShadow position={[0, 0, 0]}>
-        <icosahedronGeometry args={[1.4, 1]} />
-        <meshStandardMaterial
-          color="#2563eb"
-          metalness={0.6}
-          roughness={0.2}
-        />
-      </mesh>
-      <Environment preset="studio" />
-      <OrbitControls enableZoom={false} enablePan={false} />
-    </>
-  )
+    <mesh ref={meshRef} castShadow receiveShadow>
+      <torusKnotGeometry args={[1, 0.35, 128, 32]} />
+      <meshStandardMaterial
+        color="#2563eb"
+        metalness={0.85}
+        roughness={0.2}
+      />
+    </mesh>
+  );
 }
 
-export default function PortfolioCardsPromptPage() {
+export default function FeaturedProjectsPromptPage() {
   return (
-    <main className="relative min-h-screen bg-slate-900 text-slate-50">
-      {/* Background 3D decorativo com R3F */}
-      <div className="pointer-events-none fixed inset-0 -z-10">
+    <main className="min-h-screen bg-slate-950 text-slate-50 grid md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] gap-8 p-6 md:p-10">
+      {/* Coluna esquerda: Markdown do prompt para copiar e colar */}
+      <section className="relative rounded-2xl border border-slate-800 bg-slate-900/80 backdrop-blur-sm p-4 md:p-6 overflow-hidden">
+        <h1 className="mb-4 text-lg font-semibold text-slate-100">
+          Prompt da sessão de projetos em destaque (copiar e colar em .md)
+        </h1>
+        <pre className="max-h-[70vh] overflow-auto whitespace-pre-wrap text-[11px] leading-relaxed md:text-xs font-mono text-slate-100">
+          {featuredProjectsPromptMarkdown}
+        </pre>
+      </section>
+
+      {/* Coluna direita: Canvas R3F decorativo */}
+      <aside className="relative h-[320px] md:h-auto rounded-2xl border border-slate-800 bg-gradient-to-b from-slate-900 to-slate-950 overflow-hidden">
         <Canvas
-          camera={{ position: [0, 0, 4], fov: 50 }}
+          shadows
+          camera={{ position: [0, 0, 4], fov: 45 }}
           dpr={[1, 1.5]}
         >
-          <PromptBackgroundScene />
+          <color attach="background" args={["#020617"]} />
+          <ambientLight intensity={0.3} />
+          <directionalLight
+            position={[4, 6, 4]}
+            intensity={1.4}
+            castShadow
+          />
+          <SpinningOrb />
+          <OrbitControls enablePan={false} enableZoom={false} />
         </Canvas>
-      </div>
-
-      {/* Conteúdo principal: prompt em formato Markdown para copiar e colar */}
-      <section className="relative mx-auto flex max-w-5xl flex-col gap-8 px-4 py-16 md:px-8 md:py-20">
-        <motion.header
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-          className="space-y-3"
-        >
-          <p className="inline-flex rounded-full bg-slate-800/70 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-slate-300">
-            prompt de ajuste · portfolio cards
-          </p>
-          <h1 className="text-2xl font-semibold tracking-tight text-slate-50 md:text-3xl">
-            Instruções para alinhar a seção de cards de portfólio ao layout e
-            animações da referência
-          </h1>
-          <p className="max-w-2xl text-sm text-slate-300 md:text-base">
-            Copie o conteúdo abaixo (Markdown) e use como prompt de instrução
-            para o agente aplicar todos os ajustes necessários na seção de
-            projetos em destaque.
-          </p>
-        </motion.header>
-
-        <motion.pre
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-          className="max-h-[70vh] overflow-auto rounded-2xl bg-slate-950/70 p-4 text-xs text-slate-100 shadow-2xl ring-1 ring-slate-700/60 md:p-6 md:text-sm"
-        >
-          {portfolioCardsPromptMd}
-        </motion.pre>
-      </section>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-center p-4">
+          <span className="rounded-full bg-slate-900/80 px-4 py-1 text-xs font-medium text-slate-200 shadow-lg shadow-blue-500/20">
+            Visual helper — não faz parte da UI final da sessão
+          </span>
+        </div>
+      </aside>
     </main>
-  )
+  );
 }
-
 
 ## BLOCO 2 — HERO + 3D
 

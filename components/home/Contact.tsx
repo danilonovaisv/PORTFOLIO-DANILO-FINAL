@@ -74,7 +74,7 @@ const Contact: React.FC = () => {
             <form
               action="https://formsubmit.co/danilo@portfoliodanilo.com"
               method="POST"
-              className="space-y-6"
+              className="grid grid-cols-1 md:grid-cols-2 gap-6"
             >
               <input type="text" name="_honey" style={{ display: 'none' }} />
               <input type="hidden" name="_captcha" value="false" />
@@ -91,7 +91,7 @@ const Contact: React.FC = () => {
                   id="name"
                   name="name"
                   required
-                  className="w-full px-5 py-4 bg-[#F4F5F7] border-transparent rounded-xl text-[#111111] placeholder:text-gray-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0057FF] transition-all"
+                  className="w-full px-5 py-3 bg-[#F4F5F7] border-transparent rounded-xl text-[#111111] placeholder:text-gray-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0057FF] transition-all"
                   placeholder="João da Silva"
                 />
               </div>
@@ -108,7 +108,7 @@ const Contact: React.FC = () => {
                   id="email"
                   name="email"
                   required
-                  className="w-full px-5 py-4 bg-[#F4F5F7] border-transparent rounded-xl text-[#111111] placeholder:text-gray-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0057FF] transition-all"
+                  className="w-full px-5 py-3 bg-[#F4F5F7] border-transparent rounded-xl text-[#111111] placeholder:text-gray-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0057FF] transition-all"
                   placeholder="joao@empresa.com"
                 />
               </div>
@@ -125,12 +125,12 @@ const Contact: React.FC = () => {
                   id="phone"
                   name="phone"
                   required
-                  className="w-full px-5 py-4 bg-[#F4F5F7] border-transparent rounded-xl text-[#111111] placeholder:text-gray-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0057FF] transition-all"
+                  className="w-full px-5 py-3 bg-[#F4F5F7] border-transparent rounded-xl text-[#111111] placeholder:text-gray-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0057FF] transition-all"
                   placeholder="(11) 99999-9999"
                 />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 md:col-span-2">
                 <label
                   htmlFor="message"
                   className="block text-sm font-semibold text-gray-700 uppercase tracking-wider"
@@ -142,18 +142,20 @@ const Contact: React.FC = () => {
                   name="message"
                   required
                   rows={4}
-                  className="w-full px-5 py-4 bg-[#F4F5F7] border-transparent rounded-xl text-[#111111] placeholder:text-gray-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0057FF] transition-all resize-none"
+                  className="w-full px-5 py-3 bg-[#F4F5F7] border-transparent rounded-xl text-[#111111] placeholder:text-gray-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#0057FF] transition-all resize-none"
                   placeholder="Conte-me sobre seu projeto..."
                 />
               </div>
 
-              <button
-                type="submit"
-                className="w-full bg-[#0057FF] text-white font-bold py-4 px-6 rounded-full hover:bg-[#0046cc] hover:shadow-lg hover:shadow-[#0057FF]/30 transition-all flex items-center justify-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0057FF]"
-              >
-                Enviar Mensagem
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+              <div className="md:col-span-2">
+                <button
+                  type="submit"
+                  className="w-full bg-[#0057FF] text-white font-bold py-4 px-6 rounded-full hover:bg-[#0046cc] hover:shadow-lg hover:shadow-[#0057FF]/30 transition-all flex items-center justify-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0057FF]"
+                >
+                  Enviar Mensagem
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
             </form>
           </motion.div>
         </div>
