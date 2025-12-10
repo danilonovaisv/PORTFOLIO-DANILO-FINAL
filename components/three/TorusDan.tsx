@@ -3,11 +3,7 @@
 import React, { useMemo, useRef } from 'react';
 import { MotionValue } from 'framer-motion';
 import { useFrame, useThree } from '@react-three/fiber';
-import {
-  MeshTransmissionMaterial,
-  Float,
-  useGLTF,
-} from '@react-three/drei';
+import { MeshTransmissionMaterial, Float, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import useIsMobile from '@/hooks/useIsMobile';
 
