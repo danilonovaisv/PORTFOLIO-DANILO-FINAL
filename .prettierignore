@@ -1,2 +1,9 @@
 /dataconnect/example/*.gql
 functions/lib/*.js
+.firebase
+dist
+src/dataconnect-generated
+dataconnect/.dataconnect
+docs
+portfolio
+public

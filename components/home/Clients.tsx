@@ -33,16 +33,16 @@ const Clients: React.FC = () => {
           className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-10 md:gap-x-12 md:gap-y-12 items-center justify-items-center py-6 md:py-8 px-2"
         >
           {CLIENT_LOGOS.map((logo, index) => {
-            const clientName = `Cliente Parceiro ${index + 1}`;
-
             return (
               <motion.li
-                key={index}
+                key={logo.src}
                 role="listitem"
                 initial={
                   prefersReducedMotion ? undefined : { opacity: 0, y: 10 }
                 }
-                whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                whileInView={
+                  prefersReducedMotion ? undefined : { opacity: 1, y: 0 }
+                }
                 viewport={prefersReducedMotion ? undefined : { once: true }}
                 transition={
                   prefersReducedMotion
@@ -54,8 +54,8 @@ const Clients: React.FC = () => {
                 <div className="relative w-20 h-14 md:w-28 md:h-16 flex items-center justify-center group">
                   <div className="relative w-full h-full flex items-center justify-center opacity-60 group-hover:opacity-100 transition-opacity duration-300 min-h-[72px] max-h-16">
                     <Image
-                      src={logo}
-                      alt={`Logo do ${clientName}`}
+                      src={logo.src}
+                      alt={`Logo da ${logo.name}`}
                       fill
                       sizes="(max-width: 640px) 60px, (max-width: 1024px) 80px, 112px"
                       className="object-contain brightness-0 invert"

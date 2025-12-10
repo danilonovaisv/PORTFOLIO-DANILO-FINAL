@@ -68,8 +68,21 @@ const PROJECT_CARDS: ProjectCard[] = [
 ];
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 32 },
-  visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: 'easeOut' },
+  },
+};
+
+const listVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.08,
+    },
+  },
 };
 
 const PortfolioSection: React.FC = () => {
@@ -84,7 +97,7 @@ const PortfolioSection: React.FC = () => {
         transition: { duration: 0.6 },
       };
 
-  const renderCard = (project: ProjectCard, index: number) => (
+  const renderCard = (project: ProjectCard) => (
     <motion.article
       key={project.slug}
       {...motionProps}
@@ -136,10 +149,10 @@ const PortfolioSection: React.FC = () => {
         </div>
 
         <div className="flex flex-col gap-1 px-6 py-5">
-          <h3 className="text-lg font-semibold tracking-tight text-[#111111]">{project.title}</h3>
-          <p className="text-sm font-medium text-[#111111]">
-            {project.client}
-          </p>
+          <h3 className="text-lg font-semibold tracking-tight text-[#111111]">
+            {project.title}
+          </h3>
+          <p className="text-sm font-medium text-[#111111]">{project.client}</p>
         </div>
 
         <div className="mt-auto flex items-center justify-end px-6 pb-6">
@@ -151,8 +164,6 @@ const PortfolioSection: React.FC = () => {
     </motion.article>
   );
 
-  const [magicCard, sportsCard, epicCard, fffCard] = PROJECT_CARDS;
-
   return (
     <section
       id="portfolio-cards"
@@ -161,38 +172,24 @@ const PortfolioSection: React.FC = () => {
     >
       <div className="mx-auto flex max-w-6xl flex-col gap-10 md:gap-12">
         <div className="flex flex-col gap-3">
-          <h2 className="text-2xl font-semibold text-[#111111]">Featured Projects</h2>
+          <h2 className="text-2xl md:text-3xl font-semibold text-[#111111] lowercase">
+            Projetos em Destaque
+          </h2>
         </div>
 
-        <div className="grid grid-cols-12 gap-x-6 gap-y-10 md:gap-y-14">
-        <div className="col-span-12 md:col-span-5">{magicCard && renderCard(magicCard, 0)}</div>
-        <div className="col-span-12 md:col-span-7">{sportsCard && renderCard(sportsCard, 1)}</div>
+        <motion.div
+          {...motionProps}
+          variants={listVariants}
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8"
+        >
+          {PROJECT_CARDS.map((project) => renderCard(project))}
+        </motion.div>
 
-        <div className="col-span-12">{epicCard && renderCard(epicCard, 2)}</div>
-
-        <div className="col-span-12 md:col-span-7">{fffCard && renderCard(fffCard, 3)}</div>
-        <div className="col-span-12 md:col-span-5">
-          <motion.div
-            {...motionProps}
-            variants={cardVariants}
-            className="flex h-full flex-col items-start justify-center gap-6 p-2 md:pl-4"
-          >
-            <p className="text-2xl font-semibold leading-tight text-[#111111]">Like what you see?</p>
-            <Link
-              href="/portfolio"
-              className="inline-flex items-center justify-center gap-3 rounded-full bg-[#0057FF] px-6 py-3 text-sm font-medium text-white shadow-[0_12px_28px_rgba(0,87,255,0.35)] transition-transform duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0057FF]"
-              aria-label="view projects"
-            >
-              view projects
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </motion.div>
-        </div>
-      </div>
         <div className="flex justify-center md:justify-end">
           <Link
             href="/portfolio"
             className="inline-flex items-center gap-3 rounded-full bg-[#0057FF] px-6 py-3 text-sm font-medium text-white shadow-[0_12px_28px_rgba(0,87,255,0.35)] transition-transform duration-300 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0057FF]"
+            aria-label="view projects"
           >
             view projects
             <ArrowUpRight className="h-4 w-4" />

@@ -30,7 +30,8 @@ export const featuredProjects: Project[] = [
     layout: 'medium',
     imageUrl:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
-    imageAlt: 'Atleta flutuando em tons vibrantes diante de um céu multicolorido',
+    imageAlt:
+      'Atleta flutuando em tons vibrantes diante de um céu multicolorido',
     description:
       'Campanha editorial que combina movimento, cor e atitude para uma marca ousada.',
   },
@@ -42,7 +43,8 @@ export const featuredProjects: Project[] = [
     layout: 'wide',
     imageUrl:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp',
-    imageAlt: 'Pessoa olhando para o celular diante de um skyline urbano iluminado',
+    imageAlt:
+      'Pessoa olhando para o celular diante de um skyline urbano iluminado',
     description:
       'Key visual cinematográfico que reposiciona a marca como parceira urbana disruptiva.',
   },

@@ -25,11 +25,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: 'Portfólio — Danilo Novais | Design, não é só estética.',
   description:
-    'Design estratégico, branding, campanhas, motion e experiências digitais em WebGL/3D. Portfólio de Danilo Novais com projetos que unem intenção, estratégia e experiência.',
+    'Design estratégico, UX, motion design e experiências digitais em WebGL/3D. Portfólio de Danilo Novais com projetos que unem intenção, estratégia e experiência.',
   openGraph: {
     title: 'Portfólio — Danilo Novais | Design, não é só estética.',
     description:
-      'Design estratégico, branding, campanhas, motion e experiências digitais em WebGL/3D. Portfólio de Danilo Novais.',
+      'Design estratégico, UX, motion design e experiências digitais em WebGL/3D. Portfólio de Danilo Novais.',
     url: 'https://portfoliodanilo.com',
     siteName: 'Danilo Novais Portfolio',
     images: [
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Portfólio — Danilo Novais | Design, não é só estética.',
     description:
-      'Branding, campanhas, motion e experiências digitais com WebGL/3D. Design estratégico para impacto real.',
+      'Design estratégico, UX, motion design e experiências digitais em WebGL/3D. Portfólio de Danilo Novais com projetos que unem intenção, estratégia e experiência.',
     creator: '@danilo_novais',
     images: [
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
