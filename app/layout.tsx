@@ -1,7 +1,14 @@
 import React from 'react';
+import { Inter } from 'next/font/google';
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import './globals.css';
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
 
 export default function RootLayout({
   children,
@@ -9,9 +16,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR">
-      <body>
-        <div className="min-h-screen bg-[#F4F5F7] text-[#111111] font-sans selection:bg-[#0057FF] selection:text-white">
+    <html lang="pt-BR" className={inter.variable}>
+      <body
+        className={`${inter.className} bg-surface-main text-text-main selection:bg-[#0057FF] selection:text-white`}
+      >
+        <div className="min-h-screen font-sans">
           <Header />
           <main>{children}</main>
           <Footer />

@@ -5,7 +5,13 @@
   --color-text-main: #111111;
   --color-accent-blue: #0057ff;
 
-  --font-sans: 'Inter', sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+}
+
+body {
+  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
+  background-color: var(--color-surface-main);
+  color: var(--color-text-main);
 }
 
 /* Custom Utilities if needed */
