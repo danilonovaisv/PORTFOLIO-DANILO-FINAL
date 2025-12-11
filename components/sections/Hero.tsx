@@ -7,7 +7,7 @@ import {
   useTransform,
   useMotionValueEvent,
 } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Volume2, VolumeX, AlertCircle } from 'lucide-react';
 import { ASSETS } from '../../lib/constants';
 
 // Reference Animation Logic adapted for React
@@ -41,7 +41,17 @@ const RefAnimatedText: React.FC<{
 const Hero: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const hasUnmutedRef = useRef(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const [hasError, setHasError] = useState(false);
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setIsMuted(videoRef.current.muted);
+    }
+  };
 
   // Trigger animation on mount/view
   useEffect(() => {
@@ -59,12 +69,15 @@ const Hero: React.FC = () => {
   // Monitor scroll for video audio
   useMotionValueEvent(scrollYProgress, 'change', (latest) => {
     if (videoRef.current) {
-      // Play sound when scrolling past the hero section (above 0.01)
-      // and stop sound when reaching the portfolio showcase section (around 0.3+)
-      if (latest > 0.01 && latest < 0.3) {
+      // Unmute once when the user engages the section; avoid re-muting on scroll
+      if (!hasUnmutedRef.current && latest > 0.01 && latest < 0.9) {
         videoRef.current.muted = false;
-      } else {
+        setIsMuted(false);
+        hasUnmutedRef.current = true;
+      } else if (latest > 0.9) {
+        // Mute when approaching the next section
         videoRef.current.muted = true;
+        setIsMuted(true);
       }
     }
   });
@@ -236,15 +249,38 @@ const Hero: React.FC = () => {
           className="absolute z-40 w-full h-full flex items-center justify-center overflow-hidden shadow-2xl origin-center bg-black pointer-events-none"
         >
           <div className="relative w-full h-full block group pointer-events-auto">
-            <video
-              ref={videoRef}
-              src={ASSETS.videoManifesto}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full h-full object-cover transition-opacity duration-500"
-            />
+            {!hasError ? (
+              <>
+                <video
+                  ref={videoRef}
+                  src={ASSETS.videoManifesto}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-full object-cover transition-opacity duration-500"
+                  onError={() => setHasError(true)}
+                />
+                <button
+                  onClick={toggleMute}
+                  className="absolute bottom-8 right-8 bg-black/30 backdrop-blur-sm rounded-full p-3 hover:bg-black/50 transition-all duration-300 z-50 opacity-0 group-hover:opacity-100"
+                  aria-label={isMuted ? 'Unmute video' : 'Mute video'}
+                >
+                  {isMuted ? (
+                    <VolumeX className="w-6 h-6 text-white" />
+                  ) : (
+                    <Volume2 className="w-6 h-6 text-white" />
+                  )}
+                </button>
+              </>
+            ) : (
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-900 text-gray-500 p-6 text-center">
+                <AlertCircle className="w-10 h-10 mb-3 opacity-50" />
+                <p className="font-medium">
+                  Não foi possível carregar o vídeo.
+                </p>
+              </div>
+            )}
           </div>
         </motion.div>
       </div>
