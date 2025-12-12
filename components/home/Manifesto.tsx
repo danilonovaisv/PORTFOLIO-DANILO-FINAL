@@ -12,17 +12,17 @@ const Manifesto: React.FC = () => {
   return (
     <section id="manifesto" className="w-full bg-[#F4F5F7]">
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+        initial={{ opacity: 0.6, scale: 1.02 }}
+        whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 1.0, ease: 'easeOut' }}
-        className="relative w-full aspect-video md:aspect-[21/9] overflow-hidden bg-gray-100 shadow-sm"
+        transition={{ duration: 0.9, ease: 'easeOut' }}
+        className="relative w-full aspect-video md:aspect-[21/9] overflow-hidden bg-gray-100 shadow-sm rounded-3xl"
       >
         {!hasError ? (
-          <video
+          <motion.video
             ref={videoRef}
             src={ASSETS.videoManifesto}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover rounded-3xl"
             autoPlay
             muted
             loop
@@ -30,6 +30,10 @@ const Manifesto: React.FC = () => {
             controls
             onError={() => setHasError(true)}
             aria-label="Vídeo Manifesto do Portfólio"
+            initial={{ opacity: 0, scale: 1.05 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
           />
         ) : (
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 text-gray-500 p-6 text-center">

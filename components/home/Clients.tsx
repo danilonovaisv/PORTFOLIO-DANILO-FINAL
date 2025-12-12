@@ -21,16 +21,21 @@ const Clients: React.FC = () => {
           {CLIENT_LOGOS.map(({ src, name }, index) => (
             <motion.div
               key={name}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.05 }}
-              className="w-full max-w-[140px] opacity-70 hover:opacity-100 transition-opacity duration-300"
+              whileHover={{ scale: 1.05, opacity: 1 }}
+              transition={{
+                duration: 0.35,
+                ease: 'easeOut',
+                delay: index * 0.05,
+              }}
+              className="w-full max-w-[150px] aspect-[4/3] opacity-80 transition-transform transition-opacity duration-300 ease-out rounded-xl bg-white/5 flex items-center justify-center p-4"
             >
               <img
                 src={src}
                 alt={name}
-                className="w-full h-auto brightness-0 invert"
+                className="w-full h-full object-contain brightness-0 invert"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                   e.currentTarget.parentElement!.innerHTML = `<div class="text-white font-bold text-xl opacity-50">CLIENT ${index + 1}</div>`;

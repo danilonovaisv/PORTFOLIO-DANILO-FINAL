@@ -17,10 +17,16 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
     <html>
       <body className="bg-black text-white min-h-screen flex items-center justify-center px-6">
         <div className="max-w-xl text-center space-y-4">
-          <p className="text-sm uppercase tracking-wide text-white/70">Algo deu errado</p>
-          <h1 className="text-3xl font-semibold">Não foi possível carregar a página.</h1>
+          <p className="text-sm uppercase tracking-wide text-white/70">
+            Algo deu errado
+          </p>
+          <h1 className="text-3xl font-semibold">
+            Não foi possível carregar a página.
+          </h1>
           {error?.digest && (
-            <p className="text-xs text-white/60 break-all">Código: {error.digest}</p>
+            <p className="text-xs text-white/60 break-all">
+              Código: {error.digest}
+            </p>
           )}
           <div className="flex gap-3 justify-center">
             <button

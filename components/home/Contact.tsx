@@ -135,13 +135,17 @@ const Contact: React.FC = () => {
                 />
               </div>
 
-              <button
+              <motion.button
                 type="submit"
-                className="w-full bg-primary text-white font-bold py-4 rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 group"
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 260, damping: 18 }}
+                className="w-full bg-primary text-white font-bold py-4 rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 group focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary/20"
+                aria-label="Open contact form"
               >
                 Enviar Mensagem
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </motion.button>
             </form>
           </motion.div>
         </div>

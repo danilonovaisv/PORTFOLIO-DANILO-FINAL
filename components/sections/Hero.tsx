@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import {
   motion,
   useMotionValueEvent,
@@ -121,6 +121,9 @@ const Hero = () => {
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
         {/* 1. BACKGROUND AMBIENT 3D LAYER (Absolute behind everything) */}
         <motion.div
+          initial={{ opacity: 0, y: 12, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.9, ease: 'easeOut', delay: 0.15 }}
           style={{ opacity: glassOrbOpacity, scale: glassOrbScale }}
           className="absolute inset-0 z-[-1] pointer-events-auto"
         >
@@ -136,7 +139,7 @@ const Hero = () => {
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.0, duration: 0.8 }}
+            transition={{ delay: 1.0, duration: 0.8, ease: 'easeOut' }}
             className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 hidden md:block"
           >
             <span className="text-[#0057FF] font-medium tracking-widest text-lg md:text-xl">
@@ -146,13 +149,13 @@ const Hero = () => {
 
           <div className="flex flex-col justify-center items-start h-full pt-24 md:pt-0 max-w-4xl">
             {/* Título Principal */}
-            <div className="text-[4.5rem] md:text-7xl lg:text-[7.5rem] font-extrabold tracking-[-0.04em] mb-6 md:mb-10 font-sans flex flex-col items-start gap-1">
+            <div className="text-[clamp(3rem,7vw,7.5rem)] font-extrabold tracking-[-0.04em] mb-6 md:mb-10 font-sans flex flex-col items-start gap-1">
               {/* Mobile: Fade In Simples */}
               <div className="md:hidden flex flex-col leading-[0.9]">
                 <motion.span
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
+                  transition={{ delay: 0.2, duration: 0.8, ease: 'easeOut' }}
                   className="text-[#0057FF]"
                 >
                   Design,
@@ -160,7 +163,7 @@ const Hero = () => {
                 <motion.span
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
+                  transition={{ delay: 0.4, duration: 0.8, ease: 'easeOut' }}
                   className="text-[#111111]"
                 >
                   não é só
@@ -168,7 +171,7 @@ const Hero = () => {
                 <motion.span
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
+                  transition={{ delay: 0.6, duration: 0.8, ease: 'easeOut' }}
                   className="text-[#111111]"
                 >
                   estética.

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { FC, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { CATEGORIES } from '../../lib/constants';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
@@ -27,6 +27,23 @@ const PortfolioShowcaseSection: FC = () => {
     }
   };
 
+  const listVariants: Variants = {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: 0.12, delayChildren: 0.08 },
+    },
+  };
+
+  const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20, height: 0 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      height: 'auto',
+      transition: { duration: 0.6, ease: 'easeOut' },
+    },
+  };
+
   return (
     <section className="relative w-full bg-[#f5f5f5] py-24 overflow-hidden min-h-screen flex flex-col justify-center">
       <div className="container mx-auto px-4 md:px-8 max-w-[90%] md:max-w-7xl relative z-10">
@@ -42,7 +59,13 @@ const PortfolioShowcaseSection: FC = () => {
         </div>
 
         {/* Lista de Categorias */}
-        <div className="flex flex-col w-full border-t border-neutral-300">
+        <motion.div
+          className="flex flex-col w-full border-t border-neutral-300"
+          variants={listVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-10%' }}
+        >
           <AnimatePresence mode="popLayout">
             {CATEGORIES.map((category, index) => {
               const isExpanded = expandedId === category.id;
@@ -58,9 +81,10 @@ const PortfolioShowcaseSection: FC = () => {
               return (
                 <motion.div
                   key={category.id}
+                  variants={itemVariants}
                   layout
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
+                  initial="hidden"
+                  animate="visible"
                   exit={{
                     opacity: 0,
                     height: 0,
@@ -230,7 +254,7 @@ const PortfolioShowcaseSection: FC = () => {
               );
             })}
           </AnimatePresence>
-        </div>
+        </motion.div>
 
         {/* CTA Inferior */}
         {!expandedId && (

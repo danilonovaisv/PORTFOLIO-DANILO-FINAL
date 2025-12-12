@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
               <li key={link.label}>
                 <a
                   href={link.href}
-                  className="text-sm font-medium hover:text-white transition-colors duration-300 lowercase focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  className="text-sm font-medium text-neutral-200 hover:text-white transition-colors duration-300 lowercase focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded"
                 >
                   {link.label}
                 </a>
@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-white/70 transition-colors duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              className="text-neutral-200 hover:text-white transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-full"
               aria-label={social.platform}
             >
               {social.icon}
