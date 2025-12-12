@@ -235,6 +235,38 @@ const Hero = () => {
                 </span>
               </motion.a>
             </motion.div>
+
+            {/* Anchor link to manifesto section */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 1.6, duration: 0.8 }}
+              className="absolute bottom-8 left-1/2 transform -translate-x-1/2 hidden md:block"
+            >
+              <a
+                href="#manifesto"
+                className="flex flex-col items-center group"
+                aria-label="Scroll to manifesto section"
+              >
+                <span className="text-sm text-gray-600 mb-1 group-hover:text-gray-900 transition-colors">
+                  manifesto
+                </span>
+                <svg
+                  className="w-4 h-4 text-gray-600 group-hover:text-gray-900 transition-colors animate-bounce"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                  />
+                </svg>
+              </a>
+            </motion.div>
           </div>
         </motion.div>
 
