@@ -87,3 +87,84 @@ Type error: Type '{ children: string; href: string; className: string; "aria-cur
 [debug] [2025-12-11T23:13:32.017Z] Error: ENOENT: no such file or directory, open '/Users/danilonovais/_danilonov_portfolio/.next/export-marker.json'
 [error] 
 [error] Error: An unexpected error has occurred.
+[debug] [2025-12-11T23:17:48.863Z] ----------------------------------------------------------------------
+[debug] [2025-12-11T23:17:48.865Z] Command:       /Users/danilonovais/.nvm/versions/node/v24.11.1/bin/node /Users/danilonovais/.nvm/versions/node/v24.11.1/bin/firebase deploy --only hosting
+[debug] [2025-12-11T23:17:48.865Z] CLI Version:   14.26.0
+[debug] [2025-12-11T23:17:48.865Z] Platform:      darwin
+[debug] [2025-12-11T23:17:48.865Z] Node Version:  v24.11.1
+[debug] [2025-12-11T23:17:48.865Z] Time:          Thu Dec 11 2025 20:17:48 GMT-0300 (Brasilia Standard Time)
+[debug] [2025-12-11T23:17:48.865Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-12-11T23:17:48.955Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-11T23:17:48.955Z] > authorizing via signed-in user (dannovaisv@gmail.com)
+[debug] [2025-12-11T23:17:48.956Z] [iam] checking project portfolio-danilo-novais for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-12-11T23:17:48.956Z] Checked if tokens are valid: true, expires at: 1765498395657
+[debug] [2025-12-11T23:17:48.956Z] Checked if tokens are valid: true, expires at: 1765498395657
+[debug] [2025-12-11T23:17:48.957Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions [none]
+[debug] [2025-12-11T23:17:48.957Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions x-goog-quota-user=projects/portfolio-danilo-novais
+[debug] [2025-12-11T23:17:48.957Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-12-11T23:17:50.080Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions 200
+[debug] [2025-12-11T23:17:50.080Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-12-11T23:17:50.080Z] Checked if tokens are valid: true, expires at: 1765498395657
+[debug] [2025-12-11T23:17:50.080Z] Checked if tokens are valid: true, expires at: 1765498395657
+[debug] [2025-12-11T23:17:50.081Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/portfolio-danilo-novais [none]
+[debug] [2025-12-11T23:17:50.716Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/portfolio-danilo-novais 200
+[debug] [2025-12-11T23:17:50.716Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/portfolio-danilo-novais {"projectId":"portfolio-danilo-novais","projectNumber":"350817205989","displayName":"Portfolio Danilo Novais","name":"projects/portfolio-danilo-novais","resources":{"hostingSite":"portfolio-danilo-novais","realtimeDatabaseInstance":"portfolio-danilo-novais-default-rtdb"},"state":"ACTIVE","etag":"1_8228a080-6dec-4334-ac90-5934755a5e83"}
+[debug] [2025-12-11T23:17:52.042Z] Checked if tokens are valid: true, expires at: 1765498395657
+[debug] [2025-12-11T23:17:52.042Z] Checked if tokens are valid: true, expires at: 1765498395657
+[debug] [2025-12-11T23:17:52.042Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/portfolio-danilo-novais/sites pageToken=&pageSize=10
+[debug] [2025-12-11T23:17:53.250Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/portfolio-danilo-novais/sites 200
+[debug] [2025-12-11T23:17:53.250Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/portfolio-danilo-novais/sites {"sites":[{"name":"projects/portfolio-danilo-novais/sites/portfolio-danilo-novais","defaultUrl":"https://portfolio-danilo-novais.web.app","appId":"1:350817205989:web:f7ae32f12d353ef081de0c","type":"DEFAULT_SITE"}]}
+[debug] [2025-12-11T23:17:53.251Z] Checked if tokens are valid: true, expires at: 1765498395657
+[debug] [2025-12-11T23:17:53.251Z] Checked if tokens are valid: true, expires at: 1765498395657
+[debug] [2025-12-11T23:17:53.251Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:350817205989:web:f7ae32f12d353ef081de0c/config [none]
+[debug] [2025-12-11T23:17:54.317Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:350817205989:web:f7ae32f12d353ef081de0c/config 200
+[debug] [2025-12-11T23:17:54.317Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:350817205989:web:f7ae32f12d353ef081de0c/config {"projectId":"portfolio-danilo-novais","appId":"1:350817205989:web:f7ae32f12d353ef081de0c","databaseURL":"https://portfolio-danilo-novais-default-rtdb.firebaseio.com","storageBucket":"portfolio-danilo-novais.firebasestorage.app","apiKey":"AIzaSyBe7uThxjKtP0A9QgK9KMu59bAUB4GXj4g","authDomain":"portfolio-danilo-novais.firebaseapp.com","messagingSenderId":"350817205989","measurementId":"G-PM34VYPZZW","projectNumber":"350817205989","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2025-12-11T23:17:57.515Z] Checked if tokens are valid: true, expires at: 1765498395657
+[debug] [2025-12-11T23:17:57.515Z] Checked if tokens are valid: true, expires at: 1765498395657
+[debug] [2025-12-11T23:17:57.515Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/portfolio-danilo-novais/sites/portfolio-danilo-novais [none]
+[debug] [2025-12-11T23:17:57.767Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/portfolio-danilo-novais/sites/portfolio-danilo-novais 200
+[debug] [2025-12-11T23:17:57.767Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/portfolio-danilo-novais/sites/portfolio-danilo-novais {"name":"projects/portfolio-danilo-novais/sites/portfolio-danilo-novais","defaultUrl":"https://portfolio-danilo-novais.web.app","appId":"1:350817205989:web:f7ae32f12d353ef081de0c","type":"DEFAULT_SITE"}
+[info]    ▲ Next.js 16.0.8 (Turbopack)
+   - Environments: .env.local
+
+
+[info]    Creating an optimized production build ...
+
+[info]  ✓ Compiled successfully in 2.1s
+
+[info]    Running TypeScript ...
+
+[info] Failed to compile.
+
+
+[info] ./components/layout/Header.tsx:122:18
+Type error: Type '{ children: string; href: string; className: string; "aria-current": string; }' is not assignable to type 'DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>'.
+  Type '{ children: string; href: string; className: string; "aria-current": string; }' is not assignable to type 'AnchorHTMLAttributes<HTMLAnchorElement>'.
+    Types of property '"aria-current"' are incompatible.
+      Type 'string' is not assignable to type 'boolean | "page" | "time" | "false" | "true" | "date" | "step" | "location"'.
+
+  120 |             {NAV_LINKS.map((link) => (
+  121 |               <li key={link.label}>
+> 122 |                 <a
+      |                  ^
+  123 |                   href={link.href}
+  124 |                   className="relative text-sm font-medium text-text-main hover:text-primary transition-colors duration-200 lowercase tracking-wide block py-2"
+  125 |                   aria-current={getAriaCurrent(link.href)}
+
+[info] Next.js build worker exited with code: 1 and signal: null
+
+[debug] [2025-12-11T23:18:03.961Z] Error: ENOENT: no such file or directory, open '/Users/danilonovais/_danilonov_portfolio/.next/export-marker.json'
+[error] 
+[error] Error: An unexpected error has occurred.
