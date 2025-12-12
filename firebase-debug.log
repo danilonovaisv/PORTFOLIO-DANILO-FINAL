@@ -60,3 +60,6 @@ Before we get started, keep in mind:
 [info] 
 [info] ✔  Success! Logged into GitHub as danilonovaisv 
 [info] 
+[debug] [2025-12-12T05:36:05.114Z] >>> [apiv2][query] GET https://api.github.com/repos/danilonovais/_danilonov_portfolio/actions/secrets/public-key type=owner
+[debug] [2025-12-12T05:36:05.682Z] <<< [apiv2][status] GET https://api.github.com/repos/danilonovais/_danilonov_portfolio/actions/secrets/public-key 401
+[debug] [2025-12-12T05:36:05.683Z] <<< [apiv2][body] GET https://api.github.com/repos/danilonovais/_danilonov_portfolio/actions/secrets/public-key {"message":"Bad credentials","documentation_url":"https://docs.github.com/rest","status":"401"}
