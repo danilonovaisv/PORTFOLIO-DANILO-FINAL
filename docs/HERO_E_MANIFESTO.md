@@ -649,3 +649,5 @@ em ~0.6s, easing suave.
 * Formato full em autoplay.
 * **Vídeo sem texto ou ícones sobrepostos.**
 * **Som ativo apenas na versão full (Manifesto) e apenas enquanto a seção estiver em foco, voltando a mute ao sair.**
+
+

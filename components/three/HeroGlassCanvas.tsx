@@ -2,12 +2,7 @@
 
 import React, { Suspense, lazy } from 'react';
 import { Canvas } from '@react-three/fiber';
-import {
-  Environment,
-  OrbitControls,
-  PerspectiveCamera,
-  Lightformer,
-} from '@react-three/drei';
+import { Environment, PerspectiveCamera, Lightformer } from '@react-three/drei';
 
 const TorusDan = lazy(() => import('./TorusDan'));
 
@@ -20,6 +15,11 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
   className,
   reduceMotion = false,
 }) => {
+  const eventSource =
+    typeof document !== 'undefined'
+      ? (document.body as HTMLElement)
+      : undefined;
+
   return (
     <div
       className={`relative flex h-full w-full items-center justify-center ${className ?? ''}`}
@@ -33,14 +33,17 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
       >
         <Canvas
           frameloop={reduceMotion ? 'demand' : 'always'}
-          dpr={[1, reduceMotion ? 1.5 : 2]}
+          dpr={[1, 1.5]}
           gl={{
             alpha: true,
             antialias: !reduceMotion,
             toneMappingExposure: 1.05,
           }}
+          camera={{ position: [0, 0, 3.5], fov: 42 }}
+          eventSource={eventSource}
+          eventPrefix="client"
         >
-          <PerspectiveCamera makeDefault position={[0, 0, 12]} fov={30} />
+          <PerspectiveCamera makeDefault position={[0, 0, 3.5]} fov={42} />
 
           {/* Lights designed to enhance glass reflection/refraction */}
           {/* @ts-ignore */}
@@ -106,7 +109,6 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
               )}
             </Environment>
           </Suspense>
-          <OrbitControls enableZoom={false} enablePan={false} />
         </Canvas>
       </Suspense>
     </div>

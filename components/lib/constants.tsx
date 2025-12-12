@@ -23,10 +23,10 @@ export const ASSETS = {
 
 // Navigation
 export const NAV_LINKS: NavLink[] = [
-  { label: 'home', href: '/' },
+  { label: 'home', href: '#hero' },
   { label: 'sobre', href: '/sobre' },
-  { label: 'portfolio', href: '/portfolio' },
-  { label: 'contato', href: '/#contact' },
+  { label: 'portfolio showcase', href: '/portfolio' },
+  { label: 'contato', href: '#contact' },
 ];
 
 // Portfolio Categories

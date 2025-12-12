@@ -26,6 +26,7 @@ jest.mock('framer-motion', () => ({
   },
   useScroll: () => ({ scrollY: { get: () => 0, onChange: () => {} } }),
   useTransform: () => '0px',
+  useMotionValueEvent: () => {},
   AnimatePresence: ({ children }: any) => <>{children}</>,
 }));
 
@@ -62,7 +63,7 @@ describe('Header Component', () => {
 
     // O menu mobile deve começar fechado
     // Verifica se o botão de menu está presente
-    const toggleButton = screen.getByLabelText('Toggle menu');
+    const toggleButton = screen.getByLabelText('Abrir menu');
     expect(toggleButton).toBeInTheDocument();
 
     // Verifica ícone de menu inicial
@@ -72,11 +73,12 @@ describe('Header Component', () => {
     fireEvent.click(toggleButton);
 
     // Agora deve mostrar o ícone de fechar (X)
+    expect(screen.getByLabelText('Fechar menu')).toBeInTheDocument();
     expect(screen.getByTestId('close-icon')).toBeInTheDocument();
     expect(screen.queryByTestId('menu-icon')).not.toBeInTheDocument();
 
     // Clica para fechar
-    fireEvent.click(toggleButton);
+    fireEvent.click(screen.getByLabelText('Fechar menu'));
 
     // Deve voltar ao ícone de menu
     expect(screen.getByTestId('menu-icon')).toBeInTheDocument();

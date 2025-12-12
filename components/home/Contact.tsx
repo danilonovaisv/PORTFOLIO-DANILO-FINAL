@@ -7,9 +7,9 @@ import { ArrowRight } from 'lucide-react';
 
 const Contact: React.FC = () => {
   return (
-    <section id="contact" className="py-24 bg-[#F4F5F7]">
+    <section id="contact" className="bg-[#F4F5F7] py-20 md:py-24">
       <div className="container mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 gap-14 md:grid-cols-2 md:gap-16">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -27,9 +27,9 @@ const Contact: React.FC = () => {
                 <a
                   key={idx}
                   href={item.href}
-                  className="flex items-center gap-4 text-dark hover:text-primary transition-colors text-lg font-medium group"
+                  className="group flex items-center gap-4 text-lg font-medium text-dark transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F5F7]"
                 >
-                  <span className="p-3 bg-white rounded-full text-primary shadow-sm group-hover:scale-110 transition-transform">
+                  <span className="rounded-full bg-white p-3 text-primary shadow-sm transition-transform group-hover:scale-110">
                     {item.icon}
                   </span>
                   {item.label}
@@ -44,7 +44,7 @@ const Contact: React.FC = () => {
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 bg-white rounded-full text-dark hover:text-primary hover:scale-110 hover:opacity-80 transition-all shadow-sm duration-300"
+                  className="rounded-full bg-white p-3 text-dark shadow-sm transition-all duration-300 hover:scale-110 hover:opacity-80 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F5F7]"
                   aria-label={social.platform}
                 >
                   {social.icon}
@@ -79,7 +79,8 @@ const Contact: React.FC = () => {
                   id="name"
                   name="name"
                   required
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  autoComplete="name"
+                  className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                   placeholder="João da Silva"
                 />
               </div>
@@ -96,7 +97,8 @@ const Contact: React.FC = () => {
                   id="email"
                   name="email"
                   required
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  autoComplete="email"
+                  className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                   placeholder="joao@empresa.com"
                 />
               </div>
@@ -112,8 +114,8 @@ const Contact: React.FC = () => {
                   type="tel"
                   id="phone"
                   name="phone"
-                  required
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all"
+                  autoComplete="tel"
+                  className="w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                   placeholder="(11) 99999-9999"
                 />
               </div>
@@ -130,7 +132,7 @@ const Contact: React.FC = () => {
                   name="message"
                   required
                   rows={4}
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all resize-none"
+                  className="w-full resize-none rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                   placeholder="Conte-me sobre seu projeto..."
                 />
               </div>
@@ -140,7 +142,7 @@ const Contact: React.FC = () => {
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
                 transition={{ type: 'spring', stiffness: 260, damping: 18 }}
-                className="w-full bg-primary text-white font-bold py-4 rounded-xl hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 group focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary/20"
+                className="group flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-4 font-bold text-white transition-colors hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-primary/20"
                 aria-label="Open contact form"
               >
                 Enviar Mensagem

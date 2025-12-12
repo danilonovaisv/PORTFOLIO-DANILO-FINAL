@@ -1,7 +1,13 @@
 'use client';
 
-import React from 'react';
-import { motion, type Variants } from 'framer-motion';
+import React, { useMemo, useState } from 'react';
+import {
+  motion,
+  type Variants,
+  useReducedMotion,
+  useMotionValue,
+  useSpring,
+} from 'framer-motion';
 import Image from 'next/image';
 import { FEATURED_PROJECTS } from '../../lib/constants';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
@@ -20,134 +26,204 @@ const containerVariants: Variants = {
 };
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 24, scale: 0.96 },
+  hidden: { opacity: 0, y: 28 },
   visible: {
     opacity: 1,
     y: 0,
-    scale: 1,
-    transition: { duration: 0.8, ease: 'easeOut' },
+    transition: { duration: 0.75, ease: 'easeOut' },
   },
 };
 
 const textVariants: Variants = {
-  hidden: { opacity: 0, y: 12 },
+  hidden: { opacity: 0, y: 10 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: 'easeOut', delay: 0.05 },
+    transition: { duration: 0.6, ease: 'easeOut', delay: 0.05 },
   },
 };
 
+type Project = (typeof FEATURED_PROJECTS)[number];
+
 const FeaturedProjects: React.FC = () => {
-  const heroProjectSlug = FEATURED_PROJECTS.find((p) => p.isHero)?.slug;
+  const prefersReducedMotion = useReducedMotion();
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const cursorX = useMotionValue(0);
+  const cursorY = useMotionValue(0);
+  const cursorScale = useSpring(useMotionValue(0), {
+    stiffness: 200,
+    damping: 20,
+  });
+
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+    cursorX.set(event.clientX - 32);
+    cursorY.set(event.clientY - 32);
+  };
+
+  const handleHover = (index: number | null) => {
+    setHoveredIndex(index);
+    cursorScale.set(index === null ? 0 : 1);
+  };
+
+  const cardHeight = 'h-[360px] md:h-[500px]';
+
+  const extractTags = (project: Project) =>
+    useMemo(() => {
+      const items: string[] = [];
+      if (project.category) items.push(project.category);
+      if (
+        project.displayCategory &&
+        project.displayCategory !== project.category
+      ) {
+        items.push(
+          ...project.displayCategory
+            .split('&')
+            .map((tag) => tag.trim())
+            .filter(Boolean)
+        );
+      }
+      return Array.from(new Set(items));
+    }, [project.category, project.displayCategory]);
+
+  const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
+    const tags = extractTags(project);
+
+    return (
+      <motion.a
+        key={project.slug}
+        href={`/portfolio/${project.slug}`}
+        variants={cardVariants}
+        className={`group relative flex w-full flex-col gap-4 outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F5F7] ${
+          hoveredIndex !== null && hoveredIndex !== index ? 'opacity-65' : ''
+        }`}
+        onMouseEnter={() => handleHover(index)}
+        onMouseLeave={() => handleHover(null)}
+      >
+        <div className={`relative w-full overflow-hidden rounded-[6px] bg-[#0f0f11] ${cardHeight}`}>
+          <motion.div
+            className="absolute inset-0"
+            whileHover={prefersReducedMotion ? undefined : { scale: 1.05 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <Image
+              src={project.imageUrl}
+              alt={project.title}
+              fill
+              sizes="(min-width: 1280px) 60vw, (min-width: 1024px) 70vw, (min-width: 768px) 90vw, 100vw"
+              className="object-cover brightness-[0.98]"
+              priority={project.isHero}
+            />
+          </motion.div>
+
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/15 to-transparent" />
+
+          <div className="absolute right-3 top-3 z-10 flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full bg-white/18 px-3 py-1 text-[10px] font-light uppercase tracking-[0.14em] text-white backdrop-blur-sm"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex flex-col gap-1">
+            <motion.h3
+              variants={textVariants}
+              className="text-base md:text-lg font-semibold text-[#111111] tracking-tight"
+            >
+              {project.title}
+            </motion.h3>
+            <motion.p
+              variants={textVariants}
+              className="text-sm font-light uppercase tracking-[0.12em] text-neutral-600"
+            >
+              {project.client || '—'}
+            </motion.p>
+          </div>
+
+          <motion.span
+            whileHover={prefersReducedMotion ? undefined : { scale: 1.08 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            className="mt-1 flex h-10 w-10 items-center justify-center rounded-full border border-[#0057FF] text-[#0057FF] shadow-sm"
+          >
+            <ArrowRight size={18} />
+          </motion.span>
+        </div>
+      </motion.a>
+    );
+  };
+
+  const [card1, card2, card3, card4] = FEATURED_PROJECTS;
 
   return (
     <section
       id="featured-projects"
-      className="relative w-full overflow-hidden bg-[#F4F5F7] text-[#0b0b0b] py-20 md:py-28"
+      className="relative w-full bg-[#F4F5F7] text-[#0b0b0b] py-16 md:py-24"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => handleHover(null)}
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-12">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-10%' }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 auto-rows-max"
-        >
-          {FEATURED_PROJECTS.map((project) => {
-            const isHero = project.slug === heroProjectSlug;
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        className="mx-auto flex max-w-6xl flex-col gap-12 px-6 md:px-10"
+      >
+        {/* Primeira linha: dois cards verticais alinhados pela base */}
+        <div className="grid grid-cols-1 items-end gap-8 md:grid-cols-5">
+          <div className="md:col-span-2">
+            {card1 && <ProjectCard project={card1} index={0} />}
+          </div>
+          <div className="md:col-span-3">
+            {card2 && <ProjectCard project={card2} index={1} />}
+          </div>
+        </div>
 
-            return (
-              <motion.a
-                key={project.slug}
-                variants={cardVariants}
-                href={`/portfolio/${project.slug}`}
-                className={`group relative overflow-hidden rounded-2xl bg-transparent transition-all duration-500 ${isHero ? 'md:col-span-2' : ''}`}
-              >
-                <motion.div
-                  whileHover={{ scale: 1.03, y: -4 }}
-                  transition={{ duration: 0.45, ease: 'easeOut' }}
-                  className={`relative w-full overflow-hidden ${isHero ? 'aspect-[2.1/1]' : 'aspect-[4/5]'} rounded-2xl bg-[#0f0f11] shadow-xl shadow-blue-500/10`}
-                >
-                  <Image
-                    src={project.imageUrl}
-                    alt={project.title}
-                    fill
-                    sizes={
-                      isHero
-                        ? '(min-width: 1024px) 90vw, 100vw'
-                        : '(min-width: 1024px) 45vw, (min-width: 768px) 50vw, 100vw'
-                    }
-                    className="object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
-                    priority={isHero}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+        {/* Segunda linha: card horizontal full width */}
+        <div className="w-full">
+          {card3 && <ProjectCard project={card3} index={2} />}
+        </div>
 
-                  <div className="absolute top-4 right-4 z-20 flex flex-col gap-2 items-end">
-                    <span className="bg-white/95 backdrop-blur-md text-[#0057FF] text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
-                      {project.category}
-                    </span>
-                    {project.displayCategory &&
-                      project.displayCategory !== project.category && (
-                        <span className="bg-[#111111]/85 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
-                          {project.displayCategory?.split('&')[1] || 'Design'}
-                        </span>
-                      )}
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  variants={textVariants}
-                  className="flex items-start justify-between gap-4 pt-4 px-1"
-                >
-                  <div className="flex flex-col gap-1">
-                    <h3 className="text-lg md:text-xl font-medium text-[#1a1a1a] leading-tight">
-                      {project.title}
-                    </h3>
-                    <p className="text-xs uppercase tracking-[0.18em] text-neutral-500">
-                      {project.client}
-                    </p>
-                  </div>
-                  <motion.div
-                    whileHover={{ x: 4 }}
-                    transition={{ duration: 0.25, ease: 'easeOut' }}
-                    className="w-10 h-10 rounded-full bg-[#0057FF] text-white flex items-center justify-center shadow-lg shadow-blue-500/25"
-                  >
-                    <ArrowRight size={18} />
-                  </motion.div>
-                </motion.div>
-              </motion.a>
-            );
-          })}
-
-          {/* Card CTA */}
-          <motion.div
-            variants={cardVariants}
-            className="relative flex flex-col justify-center items-start md:items-center text-left md:text-center gap-6 p-2 bg-transparent"
-          >
-            <h3 className="text-3xl md:text-4xl font-light text-[#111111] leading-tight">
+        {/* Terceira linha: card + CTA lateral */}
+        <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-5">
+          <div className="md:col-span-3">
+            {card4 && <ProjectCard project={card4} index={3} />}
+          </div>
+          <div className="md:col-span-2 flex flex-col items-center justify-center gap-4 rounded-[10px] bg-[#F4F5F7] px-8 py-10 text-center">
+            <h3 className="text-2xl md:text-3xl font-light text-[#111111] leading-tight">
               Like what
               <br />
               you see?
             </h3>
-            <motion.a
+            <a
               href="/portfolio"
-              className="group relative inline-flex items-center gap-3 rounded-full bg-[#0057FF] px-8 py-4 text-white font-semibold shadow-lg shadow-[#0057FF]/25 transition-all"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.96 }}
+              className="group inline-flex items-center gap-3 rounded-full bg-[#0057FF] px-6 py-3 text-white text-sm font-semibold shadow-lg shadow-[#0057FF]/25 transition-transform duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0057FF]"
             >
               view projects
-              <motion.span
-                animate={{ x: [0, 4, 0] }}
-                transition={{ duration: 1.6, ease: 'easeInOut', repeat: Infinity }}
-                className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20 group-hover:bg-white/30"
-              >
-                <ArrowUpRight className="w-4 h-4 text-white" />
-              </motion.span>
-            </motion.a>
-          </motion.div>
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 transition-colors duration-300 group-hover:bg-white/30">
+                <ArrowUpRight className="h-4 w-4 text-white" />
+              </span>
+            </a>
+          </div>
+        </div>
+      </motion.div>
+
+      {!prefersReducedMotion && (
+        <motion.div
+          className="pointer-events-none fixed left-0 top-0 z-[60] hidden h-16 w-16 items-center justify-center rounded-full border-2 border-[#0057FF] bg-white/80 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0057FF] md:flex"
+          style={{
+            x: cursorX,
+            y: cursorY,
+            scale: cursorScale,
+          }}
+        >
+          VIEW
         </motion.div>
-      </div>
+      )}
     </section>
   );
 };
