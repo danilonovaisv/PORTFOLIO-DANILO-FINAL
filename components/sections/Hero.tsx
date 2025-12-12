@@ -172,7 +172,9 @@ const Hero: React.FC = () => {
                 onClick={() => setIsMuted((prev) => !prev)}
                 className="inline-flex items-center gap-2 rounded-full border border-primary bg-white/90 px-4 py-2 text-sm font-medium text-primary shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
                 aria-pressed={!isMuted}
-                aria-label={isMuted ? 'Ativar áudio do vídeo' : 'Desativar áudio do vídeo'}
+                aria-label={
+                  isMuted ? 'Ativar áudio do vídeo' : 'Desativar áudio do vídeo'
+                }
               >
                 {isMuted ? (
                   <VolumeX className="h-4 w-4" />

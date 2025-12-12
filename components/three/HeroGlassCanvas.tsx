@@ -34,7 +34,11 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
           intensity={0.9}
         />
         {/* @ts-ignore */}
-        <pointLight position={[-10, -10, -10]} intensity={0.9} color="#0057FF" />
+        <pointLight
+          position={[-10, -10, -10]}
+          intensity={0.9}
+          color="#0057FF"
+        />
 
         <Suspense fallback={null}>
           <TorusDan reduceMotion={reduceMotion} />
