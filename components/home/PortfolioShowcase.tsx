@@ -1,278 +1,125 @@
 'use client';
 
-import React, { FC, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { CATEGORIES } from '../../lib/constants';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import React, { FC } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { motion, type Variants } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 
-const PortfolioShowcaseSection: FC = () => {
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+import { FEATURED_PROJECTS } from '../../lib/constants';
+import type { Project } from '../../lib/types';
 
-  const handleExpand = (id: string) => {
-    setExpandedId((prev) => (prev === id ? null : id));
-  };
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { delay: i * 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
 
-  // Função para determinar o alinhamento do container do item na linha
-  const getItemAlignment = (index: number) => {
-    switch (index) {
-      case 0:
-        return 'justify-end'; // 1. Direita (Brand)
-      case 1:
-        return 'justify-center'; // 2. Centro (Videos)
-      case 2:
-        return 'justify-start'; // 3. Esquerda (Web)
-      default:
-        return 'justify-start';
-    }
-  };
-
+const PortfolioShowcaseSection: FC<{ projects?: Project[] }> = ({
+  projects = FEATURED_PROJECTS,
+}) => {
   return (
-    <section className="relative w-full bg-[#f5f5f5] py-24 overflow-hidden min-h-screen flex flex-col justify-center">
-      <div className="container mx-auto px-4 md:px-8 max-w-[90%] md:max-w-7xl relative z-10">
-        {/* Cabeçalho da Seção */}
-        <div className="flex flex-col w-full mb-12">
-          {/* Título Principal */}
-          <div className="w-full flex justify-center mb-8">
-            <h2 className="text-center text-4xl md:text-6xl font-bold tracking-tight">
-              <span className="text-[#0057FF]">portfólio</span>{' '}
-              <span className="text-[#111111]">showcase</span>
-            </h2>
-          </div>
+    <section
+      className="bg-[#f5f5f5] px-6 py-24 text-[#111111] md:px-12 md:py-40"
+      aria-labelledby="portfolio-showcase-title"
+    >
+      <div className="mx-auto flex max-w-6xl flex-col gap-12 md:gap-16">
+        <div className="text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+            className="text-xs font-semibold uppercase tracking-[0.3em] text-gray-500"
+          >
+            [ portfolio em destaque ]
+          </motion.p>
+          <motion.h2
+            id="portfolio-showcase-title"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
+            className="mt-4 text-4xl font-bold tracking-tight md:mt-5 md:text-6xl"
+          >
+            <span className="text-[#0057FF]">portfólio</span>{' '}
+            <span>showcase</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, delay: 0.2, ease: 'easeOut' }}
+            className="mx-auto mt-5 max-w-2xl text-base text-neutral-600 md:text-lg"
+          >
+            Seleção de projetos que equilibram estratégia, estética e
+            performance digital.
+          </motion.p>
         </div>
 
-        {/* Lista de Categorias */}
-        <div className="flex flex-col w-full border-t border-neutral-300">
-          <AnimatePresence mode="popLayout">
-            {CATEGORIES.map((category, index) => {
-              const isExpanded = expandedId === category.id;
-              const isHidden = expandedId !== null && !isExpanded;
-              const isHovered = hoveredId === category.id;
-              const alignmentClass = getItemAlignment(index);
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 md:gap-10">
+          {projects.map((project, index) => (
+            <motion.article
+              key={project.slug}
+              className="group relative"
+              custom={index}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+            >
+              <div className="relative aspect-square overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:border-[#0057FF]">
+                <Image
+                  src={project.imageUrl}
+                  alt={project.title}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 45vw, 90vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                  priority={false}
+                />
 
-              // Verifica se é o 3º item para formatação especial
-              const isWebItem = category.id === 'websites-webcampaigns-tech';
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-              if (isHidden) return null;
-
-              return (
-                <motion.div
-                  key={category.id}
-                  layout
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{
-                    opacity: 0,
-                    height: 0,
-                    transition: { duration: 0.3 },
-                  }}
-                  onClick={() => handleExpand(category.id)}
-                  className={`
-                    relative border-b border-neutral-300 group cursor-pointer w-full
-                    ${isExpanded ? 'border-none' : ''}
-                  `}
-                  onMouseEnter={() => !isExpanded && setHoveredId(category.id)}
-                  onMouseLeave={() => setHoveredId(null)}
-                >
-                  {/* Subtítulo alinhado com o primeiro item (Desktop Only) */}
-                  {index === 0 && !isExpanded && (
-                    <div className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
-                      <span className="text-[10px] md:text-xs text-gray-400 font-medium tracking-[0.25em] uppercase">
-                        [ what we love working on ]
-                      </span>
-                    </div>
-                  )}
-
-                  {/* Container Principal do Item */}
-                  <motion.div
-                    layout="position"
-                    className={`flex w-full transition-all duration-500 ease-out
-                      ${isExpanded ? 'py-8 flex-col items-start gap-8' : 'py-10 md:py-14 items-center'}
-                      ${!isExpanded ? alignmentClass : ''}
-                    `}
-                  >
-                    {/* Conteúdo do Item (Texto + Ícone) */}
-                    <div
-                      className={`flex items-center relative ${!isExpanded ? 'gap-6 md:gap-8' : 'gap-6 w-full'}`}
-                    >
-                      {/* Thumbnail Animada (Slide-in on Hover - aparece à esquerda do texto) */}
-                      <AnimatePresence>
-                        {isHovered && !isExpanded && (
-                          <motion.div
-                            initial={{ width: 0, opacity: 0, marginRight: 0 }}
-                            animate={{
-                              width: 140,
-                              opacity: 1,
-                              marginRight: 24,
-                            }}
-                            exit={{ width: 0, opacity: 0, marginRight: 0 }}
-                            transition={{
-                              duration: 0.4,
-                              ease: [0.33, 1, 0.68, 1],
-                            }}
-                            className="hidden md:block h-20 relative overflow-hidden rounded-md shrink-0 origin-right order-first"
-                          >
-                            <img
-                              src={category.thumbnailUrl}
-                              alt=""
-                              className="absolute inset-0 w-full h-full object-cover"
-                            />
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-
-                      {/* Texto da Categoria - Fonte alterada para font-light (suave) */}
-                      <div className="flex flex-col items-end text-right">
-                        {isWebItem && !isExpanded ? (
-                          // Layout especial para o 3º item quando fechado
-                          <motion.h3
-                            layout="position"
-                            className="font-light text-[#111111] transition-all duration-300 tracking-tight leading-none text-3xl md:text-5xl lg:text-6xl group-hover:text-[#0057FF]"
-                          >
-                            <span className="block">Web Campaigns,</span>
-                            <span className="block">Websites & Tech</span>
-                          </motion.h3>
-                        ) : (
-                          // Layout padrão
-                          <motion.h3
-                            layout="position"
-                            className={`
-                              font-light text-[#111111] transition-all duration-300 tracking-tight leading-[1.1] group-hover:text-[#0057FF]
-                              ${isExpanded ? 'text-4xl md:text-6xl' : 'text-3xl md:text-5xl lg:text-6xl'}
-                            `}
-                          >
-                            {category.label}
-                          </motion.h3>
-                        )}
-                      </div>
-
-                      {/* Ícone Azul (Seta) - Agora à DIREITA do texto */}
-                      <motion.div
-                        layout="position"
-                        className={`
-                          flex items-center justify-center rounded-full bg-[#0057FF] text-white shrink-0 transition-all duration-500 shadow-sm
-                          ${isExpanded ? 'w-12 h-12 md:w-16 md:h-16' : 'w-8 h-8 md:w-12 md:h-12'}
-                          ${isWebItem && !isExpanded ? 'self-end mb-1' : ''} /* Alinha ícone com a última linha no item 3 */
-                        `}
-                      >
-                        <motion.div
-                          animate={{ rotate: isExpanded ? 90 : 0 }}
-                          transition={{ duration: 0.4 }}
-                        >
-                          <ArrowRight
-                            className={`${isExpanded ? 'w-6 h-6' : 'w-4 h-4 md:w-6 md:h-6'}`}
-                          />
-                        </motion.div>
-                      </motion.div>
-                    </div>
-
-                    {/* Conteúdo Expandido (Detalhes) */}
-                    {isExpanded && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2, duration: 0.5 }}
-                        className="w-full mt-4 flex flex-col md:flex-row gap-8 md:gap-16"
-                      >
-                        {/* Imagem Grande */}
-                        <div className="w-full md:w-1/2 aspect-video rounded-lg overflow-hidden bg-gray-200 shadow-lg">
-                          <img
-                            src={category.thumbnailUrl}
-                            alt={category.label}
-                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                          />
-                        </div>
-
-                        {/* Texto descritivo / Links */}
-                        <div className="w-full md:w-1/2 flex flex-col justify-between py-2">
-                          <div>
-                            <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-10 font-light">
-                              Explorando os limites da criatividade em{' '}
-                              <span className="text-[#0057FF] font-medium">
-                                {category.label.replace(',', '').toLowerCase()}
-                              </span>
-                              . Nossos projetos combinam estratégia e design
-                              para criar experiências memoráveis.
-                            </p>
-
-                            <h4 className="text-sm uppercase tracking-widest text-gray-500 mb-6 font-bold border-b border-gray-100 pb-2">
-                              Destaques
-                            </h4>
-                            <ul className="space-y-4 mb-10">
-                              {[1, 2, 3].map((i) => (
-                                <li
-                                  key={i}
-                                  className="flex items-center gap-4 text-lg md:text-xl font-medium text-[#111111] group/item cursor-pointer"
-                                >
-                                  <span className="w-2 h-2 rounded-full bg-[#0057FF] group-hover/item:scale-150 transition-transform" />
-                                  <span className="group-hover/item:translate-x-2 transition-transform">
-                                    Projeto Exemplo {i}
-                                  </span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-
-                          <div className="flex gap-4">
-                            <a
-                              href={`/portfolio?category=${category.id}`}
-                              className="inline-flex items-center gap-3 text-[#0057FF] font-bold text-lg md:text-xl hover:underline underline-offset-8 decoration-2"
-                            >
-                              Ver todos os projetos
-                              <ArrowUpRight className="w-6 h-6" />
-                            </a>
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
-                  </motion.div>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
+                <div className="absolute inset-0 flex flex-col justify-end gap-3 p-6">
+                  <p className="text-xs uppercase tracking-[0.2em] text-white/70">
+                    {project.displayCategory}
+                  </p>
+                  <h3 className="text-xl font-semibold text-white leading-tight">
+                    {project.title}
+                  </h3>
+                  <div className="flex items-center justify-between text-sm text-white/80">
+                    <span>{project.client}</span>
+                    <span>{project.year}</span>
+                  </div>
+                </div>
+              </div>
+            </motion.article>
+          ))}
         </div>
 
-        {/* CTA Inferior */}
-        {!expandedId && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-24 md:mt-32 flex justify-center w-full"
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="flex justify-center"
+        >
+          <Link
+            href="/#contact"
+            className="group inline-flex items-center gap-3 rounded-full bg-[#0057FF] px-8 py-4 text-white shadow-lg shadow-[#0057FF]/30 transition-transform duration-300 hover:-translate-y-1"
           >
-            <motion.a
-              href="/#contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="group relative inline-flex items-center gap-4 rounded-full bg-[#0057FF] px-10 py-5 md:px-12 md:py-6 text-white shadow-xl hover:shadow-[#0057FF]/40 transition-all duration-300"
-            >
-              <span className="text-lg md:text-xl font-semibold tracking-wide">
-                let’s build something great
-              </span>
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 group-hover:bg-white text-[#0057FF] transition-colors duration-300">
-                <ArrowUpRight className="w-4 h-4 text-white group-hover:text-[#0057FF]" />
-              </span>
-            </motion.a>
-          </motion.div>
-        )}
-
-        {/* Botão para fechar expansão */}
-        {expandedId && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mt-16 flex justify-start border-t border-neutral-200 pt-8"
-          >
-            <button
-              onClick={() => setExpandedId(null)}
-              className="text-gray-500 hover:text-[#0057FF] text-sm tracking-widest uppercase font-bold flex items-center gap-3 group"
-            >
-              <span className="group-hover:-translate-x-1 transition-transform">
-                ←
-              </span>{' '}
-              Voltar para a lista
-            </button>
-          </motion.div>
-        )}
+            <span className="text-base font-semibold tracking-wide">
+              let’s build something great
+            </span>
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/20 transition-colors duration-300 group-hover:bg-white">
+              <ArrowUpRight className="h-5 w-5 text-white group-hover:text-[#0057FF]" />
+            </span>
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

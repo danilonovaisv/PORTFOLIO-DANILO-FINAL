@@ -74,8 +74,9 @@ const Header: React.FC = () => {
     };
   }, [isMobileMenuOpen]);
 
-  const getAriaCurrent = (href: string) => {
-    if (href.startsWith('/sobre') && pathname.startsWith('/sobre')) return 'page';
+  const getAriaCurrent = (href: string): 'page' | undefined => {
+    if (href.startsWith('/sobre') && pathname.startsWith('/sobre'))
+      return 'page';
     if (href.startsWith('/#hero') && pathname === '/') return 'page';
     return undefined;
   };

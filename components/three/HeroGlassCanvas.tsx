@@ -28,12 +28,60 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
         dpr={[1, reduceMotion ? 1.5 : 2]}
         gl={{ alpha: true, antialias: !reduceMotion, toneMappingExposure: 1.1 }}
       >
-        <Suspense fallback={<div className="text-primary">Carregando...</div>}>
-          {/* Lights designed to enhance glass reflection/refraction */}
-          <ambientLight intensity={0.8} />
-          <directionalLight position={[2, 2, 5]} intensity={1.2} />
-          <Environment preset="studio" background={false} />
-          {torus}
+        <PerspectiveCamera makeDefault position={[0, 0, 12]} fov={30} />
+
+        {/* Lights designed to enhance glass reflection/refraction */}
+        {/* @ts-ignore */}
+        <ambientLight intensity={0.45} />
+        {/* @ts-ignore */}
+        <spotLight
+          position={[10, 10, 10]}
+          angle={0.18}
+          penumbra={1}
+          intensity={0.9}
+        />
+        {/* @ts-ignore */}
+        <pointLight
+          position={[-10, -10, -10]}
+          intensity={0.9}
+          color="#0057FF"
+        />
+
+        <Suspense fallback={null}>
+          <TorusDan reduceMotion={reduceMotion} />
+
+          {/* Environment for realistic reflections */}
+          <Environment preset="city" background={false} blur={0.9}>
+            {!reduceMotion && (
+              // @ts-ignore
+              <group rotation={[-Math.PI / 2, 0, 0]}>
+                <Lightformer
+                  intensity={4}
+                  rotation-x={Math.PI / 2}
+                  position={[0, 5, -9]}
+                  scale={[10, 10, 1]}
+                />
+                <Lightformer
+                  intensity={2}
+                  rotation-y={Math.PI / 2}
+                  position={[-5, 1, -1]}
+                  scale={[20, 0.1, 1]}
+                />
+                <Lightformer
+                  intensity={2}
+                  rotation-y={Math.PI / 2}
+                  position={[-5, -1, -1]}
+                  scale={[20, 0.5, 1]}
+                />
+                <Lightformer
+                  intensity={2}
+                  rotation-y={-Math.PI / 2}
+                  position={[10, 1, 0]}
+                  scale={[20, 1, 1]}
+                />
+              </group>
+            )}
+          </Environment>
         </Suspense>
         <OrbitControls enableZoom={false} enablePan={false} />
       </Canvas>
