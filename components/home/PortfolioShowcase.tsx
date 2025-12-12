@@ -45,7 +45,10 @@ const PortfolioShowcaseSection: FC = () => {
   };
 
   return (
-    <section className="relative w-full bg-[#f5f5f5] py-24 overflow-hidden min-h-screen flex flex-col justify-center">
+    <section
+      id="portfolio-showcase"
+      className="relative w-full bg-[#f5f5f5] py-24 overflow-hidden min-h-screen flex flex-col justify-center"
+    >
       <div className="container mx-auto px-4 md:px-8 max-w-[90%] md:max-w-7xl relative z-10">
         {/* Cabeçalho da Seção */}
         <div className="flex flex-col w-full mb-12">

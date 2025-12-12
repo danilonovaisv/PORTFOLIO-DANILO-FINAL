@@ -24,13 +24,13 @@ const Clients: React.FC = () => {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              whileHover={{ scale: 1.05, opacity: 1 }}
+              whileHover={{ scale: 1.03, opacity: 1 }}
               transition={{
                 duration: 0.35,
                 ease: 'easeOut',
                 delay: index * 0.05,
               }}
-              className="w-full max-w-[150px] aspect-[4/3] opacity-80 transition-transform transition-opacity duration-300 ease-out rounded-xl bg-white/5 flex items-center justify-center p-4"
+              className="w-full max-w-[130px] opacity-80 transition-opacity duration-300 ease-out flex items-center justify-center"
             >
               <img
                 src={src}
