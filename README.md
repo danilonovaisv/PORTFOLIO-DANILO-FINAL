@@ -1,99 +1,61 @@
-# Portfólio Institucional de Danilo Novais
+# Portfólio Danilo Novais — Next.js
 
-Uma página única refinada criada com React, TypeScript, Framer Motion e React Three Fiber para entregar a experiência descrita em `docs/PORT DAN REVISADO - NEXT.md`:
+Home page interativa do portfólio institucional alinhada ao briefing em `docs/PORT DAN REVISADO - NEXT.md` e ao layout `docs/HOME-PORTFOLIO-LAYOUYT.jpg`. O foco é replicar a experiência com hero 3D, manifesto em vídeo, navegação suave e vitrine de projetos.
 
-- **Hero** com modelo de vidro líquido, CTA e vídeo manifesto sincronizados ao scroll.
-- **Portfolio showcase** baseado em categorias com thumbs e expansão interativa.
-- **Featured projects**, **clients/brands** e **contact form** alinhados com os textos e ativos recomendados no documento.
+## Visão geral
+- Cabeçalho fixo com logo claro e navegação para `home`, `sobre`, `portfolio showcase` e `contato`.
+- Hero sticky com orb de vidro líquido (R3F), título “Design, não é só estética.”, subtítulo “[É intenção, é estratégia, é experiência.]”, CTA para `/sobre` e vídeo manifesto que escala para full ao rolar.
+- Portfolio showcase com três categorias (Brand & Campaigns, Videos & Motions, Web Campaigns/Websites & Tech) que expandem em linha, seguindo o alinhamento do mock.
+- Featured projects em cards grandes com tags, CTA para `/portfolio/{slug}` e destaque “Key visual” no grid.
+- Faixa de marcas em fundo azul e seção de contato com links rápidos, redes sociais e formulário enviado para `https://formsubmit.co/danilo@portfoliodanilo.com`.
+- Footer espelhando a navegação e copyright `© 2025 Danilo Novais Vilela — todos os direitos reservados`.
 
----
+## Stack e libs
+- **Framework:** Next.js 16 (App Router) + React 19 + TypeScript.
+- **Estilos:** Tailwind CSS 4 (`app/globals.css`) com tokens de cor e tipografia Inter.
+- **Animações:** Framer Motion (reveals, sticky/scroll interactions, microinterações) com fallback a `prefers-reduced-motion`.
+- **3D:** React Three Fiber + Drei (Canvas fixo, `MeshTransmissionMaterial`, `Environment` preset city) para o orb de vidro.
+- **Ícones/UX:** Lucide, anchors suaves e foco visível em navegação.
+- **Formulário:** envio via FormSubmit; links sociais e de contato em `lib/constants.tsx`.
 
-## Arquitetura e pilha
+## Organização rápida
+- `app/` — rotas (`page.tsx` para home, `/sobre`, `/portfolio` placeholder), layout global com `Header` e `Footer`.
+- `components/sections/Hero.tsx` — hero sticky, lógica de scroll, vídeo manifesto e CTA.
+- `components/home/` — `PortfolioShowcase`, `FeaturedProjects`, `Clients`, `Contact` e manifesto auxiliar.
+- `components/layout/` — `Header` (condensa no scroll, menu mobile acessível) e `Footer`.
+- `components/three/` — `HeroGlassCanvas` (Canvas + luzes), `TorusDan` (orb com material transmissivo) e hooks.
+- `lib/constants.tsx` — textos, thumbs, logos, links e assets (Supabase) centralizados.
+- `public/media/torus_dan.glb` — modelo 3D usado no hero (gerado via `gltfjsx`).
 
-- **Bundler:** Vite + React (entrada em `index.tsx` carrega `src/app/page.tsx`).
-- **Componentes principais:**
-- `app/page.tsx` monta as seções `Hero`, `PortfolioShowcase`, `PortfolioSection`, `Clients` e `Contact`.
-  - Seções com animações e layout estão em `src/components/home/*`.
-  - Layout estático (header/footer) vivos em `src/components/layout`.
-  - Cenas 3D encapsuladas em `src/components/three/HeroGlassCanvas.tsx` e `TorusDan.tsx`.
-- **Dados e assets controlados via `src/lib/constants.tsx`** (navegação, categorias, projetos em destaque, logos, contatos e links sociais).
-- **Estilo:** utilitários Tailwind configurados diretamente nos componentes; a tipografia e paleta seguem o guia da especificação.
-- **3D + animação:** `Hero` combina `framer-motion` + `useScroll`, `React Three Fiber` com `MeshTransmissionMaterial`, `Suspense` e `useFrame` para controlar rotação e feedback ao mouse.
+## Conteúdo e assets
+- Hero usa `ASSETS.videoManifesto` para thumb e vídeo em loop/mudo; clique/scroll revela a versão full.
+- Categorias e projetos usam os thumbnails do bucket Supabase indicados na especificação; substitua URLs em `lib/constants.tsx` se necessário.
+- Formulário de contato envia para `danilo@portfoliodanilo.com`; telefone e emails estão na mesma constante.
+- Paleta principal: fundo `#F4F5F7`, acento azul `#0057FF`, textos escuros; siga os mesmos tokens para novas seções.
 
----
+## Rodar localmente
+1) Instale dependências:
+```bash
+npm install
+```
+2) Desenvolvimento (http://localhost:3000):
+```bash
+npm run dev
+```
+3) Build de produção:
+```bash
+npm run build
+```
+4) Start da build:
+```bash
+npm start
+```
+5) Type-check rápido:
+```bash
+npm run lint
+```
 
-## Seções implementadas
-
-### Hero + Manifesto
-
-- Tag `[BRAND AWARENESS]`, título `Design, não é só estética.`, subtítulo `[É intenção, é estratégia, é experiência.]` conforme doc.
-- Vídeo manifesto (`ASSETS.videoManifesto`) aparece sobre o pano de fundo 3D; o componente `Manifesto` (ainda disponível em `src/components/home/Manifesto.tsx`) garante fallback com alerta quando o arquivo falhar.
-- O canvas 3D (`HeroGlassCanvas`) usa `PerspectiveCamera`, `Environment` e `Lightformer` para iluminar o `TorusDan`.
-- `TorusDan` combina geometria procedural com `MeshTransmissionMaterial` e parabólica de scroll/mouse; o GLB original está em `public/media/torus_dan.glb` (gerado via `gltfjsx`).
-- Ajustes de performance: `samples`, `resolution` e `background` do material seguem os parâmetros recomendados (`512–1024`, `samples 6–16`, `transmission ~1`).
-
-### Portfolio & Featured Projects
-
-- `PortfolioShowcase` renderiza `CATEGORIES` com layout dividido (alinhamento por linha), expansão de card, previews e CTA para `/portfolio`.
-- `PortfolioSection` orquestra os mesmos projetos com um grid assimétrico, cards tridimensionais e um CTA inspirado em studios; os links continuam navegando para `/portfolio/{slug}`.
-
-### Clients & Contact
-
-- Os logos `CLIENT_LOGOS` são exibidos em grid sobre fundo azul e recebem fallback textual caso o SVG falhe.
-- `Contact` oferece contatos e sociais a partir de `CONTACT_INFO` e `SOCIALS`, além de formulário que envia para `https://formsubmit.co/danilo@portfoliodanilo.com`.
-
----
-
-## Configurações e personalização
-
-- **Constantes:** atualize `src/lib/constants.tsx` para mudar hero assets, categorias, projetos, logos, contatos e redes sociais. Os valores atuais usam arquivos públicos do Supabase indicados no documento técnico.
-- **Assets 3D:** `public/media/torus_dan.glb` (com `public/media/Torus_dan.jsx`) pode ser substituído; ao trocar, reexecute `npx gltfjsx public/media/novo-modelo.glb --transform` para gerar um wrapper similar ao existente.
-- **Vídeo manifesto:** altere `ASSETS.videoManifesto` ou substitua o arquivo hospedado para manter o fluxo descrito na seção “Manifesto (vídeo)” do documento.
-- **Hero scroll pacing:** `Hero.tsx` usa `useScroll` para controlar opacidade, escala e vídeo. Qualquer refinamento adicional deve respeitar os limites definidos nos mapas (`contentOpacity`, `glassOrbOpacity`, `videoScale`, etc.).
-- **Estética geral:** todas as sombras, `backdrop-blur` e cores estão em Tailwind; mantenha a hierarquia de `z-index` e containers sticky para preservar o comportamento de rolagem.
-
----
-
-## Executando localmente
-
-**Pré-requisitos:** `Node.js` 18 ou superior (configurada no `package-lock`).
-
-1. Instale as dependências:
-   ```bash
-   npm install
-   ```
-2. Suba o servidor de desenvolvimento:
-   ```bash
-   npm run dev
-   ```
-   O projeto roda em `http://localhost:5173` por padrão.
-3. Build de produção:
-   ```bash
-   npm run build
-   ```
-4. Preview da build:
-   ```bash
-   npm run preview
-   ```
-5. Lint (ESLint):
-   ```bash
-   npm run lint
-   ```
-6. Testes (Vitest):
-   ```bash
-   npm run test
-   ```
-
----
-
-## Observações para deploy
-
-- A saída do `npm run build` é uma SPA estática; hospede em Firebase Hosting, Netlify, Vercel ou outro host estático.
-- Se quiser reproduzir o layout App Router indicado no documento, mantenha o diretório `src/app` e invista em rotas adicionais (`/sobre`, `/portfolio`) usando componentes do `Home` como base.
-- Antes de publicar, valide os ativos remotos (SVGs de clientes, vídeo manifesto, thumbnails, GLB). Eles estão referenciados e hospedados no bucket público do Supabase mencionado no documento técnico.
-
----
-
-## Mais informações
-
-Consulte `docs/PORT DAN REVISADO - NEXT.md` para o briefing completo de seções, texto, assets e o guia de implementação. Use esse documento como referência única ao ajustar a experiência visual, 3D e narrativa do site.
+## Próximos passos sugeridos
+- Completar conteúdo das rotas `/sobre` e `/portfolio` com o mesmo tom visual da home.
+- Afinar parâmetros do orb (`components/three/TorusDan.tsx`) para mobile low-end se notar queda de FPS.
+- Validar se todos os assets remotos continuam acessíveis; manter o fallback textual das logos e do 3D em caso de erro.
