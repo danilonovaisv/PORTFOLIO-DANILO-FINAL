@@ -1,3 +1,4 @@
+import React from 'react';
 import BuildInfoClient from './BuildInfoClient';
 
 export default function BuildPage() {

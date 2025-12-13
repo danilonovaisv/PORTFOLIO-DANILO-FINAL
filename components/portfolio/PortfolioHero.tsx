@@ -101,11 +101,11 @@ export default function PortfolioHero() {
         </motion.div>
       </div>
 
-      <div className="mx-auto flex w-full max-w-6xl flex-col items-start justify-between gap-6 px-6 pb-10 pt-6 sm:flex-row sm:items-center sm:gap-8 lg:px-8">
-        <p className="text-3xl font-bold lowercase tracking-tight text-[#111111] text-left">
+      <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-6 px-6 pb-10 pt-6 text-center sm:flex-row sm:items-center sm:gap-8 sm:text-left lg:px-8">
+        <h1 className="text-3xl font-bold lowercase tracking-tight text-[#111111]">
           <span className="text-[#0057FF]">portfólio</span>{' '}
           <span className="text-[#111111]">showcase</span>
-        </p>
+        </h1>
 
         <a
           href="#contact"

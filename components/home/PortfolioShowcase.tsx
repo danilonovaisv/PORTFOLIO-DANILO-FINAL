@@ -147,12 +147,14 @@ const PortfolioShowcaseSection: FC = () => {
                       </AnimatePresence>
 
                       {/* Texto da Categoria - Fonte alterada para font-light (suave) */}
-                      <div className={`flex flex-1 flex-col min-w-0 ${textAlignClass}`}>
+                      <div
+                        className={`flex flex-1 flex-col min-w-0 ${textAlignClass}`}
+                      >
                         {isWebItem && !isExpanded ? (
                           // Layout especial para o 3º item quando fechado
                           <motion.h3
                             layout="position"
-                            className="font-light text-[#111111] transition-all duration-300 tracking-tight leading-none text-3xl md:text-5xl lg:text-6xl group-hover:text-[#0057FF]"
+                            className="font-light text-[#111111] transition-all duration-300 tracking-tight leading-tight md:leading-none text-2xl sm:text-3xl md:text-5xl lg:text-6xl group-hover:text-[#0057FF]"
                           >
                             <span className="block">Web Campaigns,</span>
                             <span className="block">Websites & Tech</span>
@@ -162,8 +164,8 @@ const PortfolioShowcaseSection: FC = () => {
                           <motion.h3
                             layout="position"
                             className={`
-                              font-light text-[#111111] transition-all duration-300 tracking-tight leading-[1.1] group-hover:text-[#0057FF]
-                              ${isExpanded ? 'text-4xl md:text-6xl' : 'text-3xl md:text-5xl lg:text-6xl'}
+                              font-light text-[#111111] transition-all duration-300 tracking-tight leading-tight md:leading-[1.1] group-hover:text-[#0057FF]
+                              ${isExpanded ? 'text-3xl md:text-6xl' : 'text-2xl sm:text-3xl md:text-5xl lg:text-6xl'}
                             `}
                           >
                             {category.label}

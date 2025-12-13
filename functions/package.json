@@ -13,7 +13,7 @@
     "serve": "npm run build && firebase emulators:start --only apphosting",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
-    "deploy": "firebase deploy --only apphosting",
+    "deploy": "firebase deploy --only hosting --project portfolio-danilo-novais",
     "logs": "firebase functions:log"
   },
   "engines": {

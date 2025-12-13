@@ -42,6 +42,7 @@
     width: 100%;
     height: 200px;
     border: none;
+    flex: 0 0 200px !important; /* Force height to prevent collapse due to inline flex:1 */
   }
 
   .item + .item {

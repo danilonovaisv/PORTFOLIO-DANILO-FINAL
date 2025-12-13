@@ -40,24 +40,6 @@ const Manifesto: React.FC = () => {
     };
   }, [updateMute]);
 
-  useEffect(() => {
-    if (typeof document === 'undefined') return undefined;
-    const portfolioSection = document.getElementById('portfolio-showcase');
-    if (!portfolioSection) return undefined;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          updateMute(true);
-        }
-      },
-      { threshold: [0.1] }
-    );
-
-    observer.observe(portfolioSection);
-
-    return () => observer.disconnect();
-  }, [updateMute]);
-
   return (
     <section
       id="manifesto"
@@ -71,22 +53,22 @@ const Manifesto: React.FC = () => {
         transition={{ duration: 0.9, ease: 'easeOut' }}
         className="mx-auto w-full max-w-6xl overflow-hidden rounded-3xl bg-gray-100 shadow-sm"
       >
-        <div className="relative w-full overflow-hidden aspect-[16/9] bg-black">
+        <div className="relative w-full aspect-video bg-black flex items-center justify-center overflow-hidden rounded-[inherit]">
           {!hasError ? (
             <motion.video
               ref={videoRef}
               src={ASSETS.videoManifesto}
-              className="absolute inset-0 h-full w-full object-contain"
+              className="w-full h-full object-contain"
               autoPlay
               muted={isMuted}
               loop
               playsInline
-              preload="metadata"
-              controls
+              preload="auto"
+              controls={false}
               onError={() => setHasError(true)}
               aria-label="Vídeo Manifesto do Portfólio"
-              initial={{ opacity: 0, scale: 1.05 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
             />

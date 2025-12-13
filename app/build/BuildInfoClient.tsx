@@ -10,7 +10,9 @@ type BuildInfo = {
 };
 
 async function fetchBuildInfo(): Promise<BuildInfo> {
-  const res = await fetch(`/build-info.json?t=${Date.now()}`, { cache: 'no-store' });
+  const res = await fetch(`/build-info.json?t=${Date.now()}`, {
+    cache: 'no-store',
+  });
   if (!res.ok) return {};
   return (await res.json()) as BuildInfo;
 }
@@ -42,7 +44,11 @@ export default function BuildInfoClient() {
       })
       .catch((err) => {
         if (!mounted) return;
-        setError(err instanceof Error ? err.message : 'Falha ao carregar build-info.json');
+        setError(
+          err instanceof Error
+            ? err.message
+            : 'Falha ao carregar build-info.json'
+        );
       });
 
     return () => {
@@ -52,10 +58,12 @@ export default function BuildInfoClient() {
 
   return (
     <section className="mx-auto max-w-3xl px-4 py-10">
-      <h1 className="text-2xl font-semibold tracking-tight text-white">Build / Deploy stamp</h1>
+      <h1 className="text-2xl font-semibold tracking-tight text-white">
+        Build / Deploy stamp
+      </h1>
       <p className="mt-2 text-sm leading-relaxed text-white/70">
-        Esta página confirma objetivamente se o Firebase está servindo o build mais recente
-        (sem depender de cache no browser).
+        Esta página confirma objetivamente se o Firebase está servindo o build
+        mais recente (sem depender de cache no browser).
       </p>
 
       <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
@@ -69,19 +77,31 @@ export default function BuildInfoClient() {
         ) : (
           <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <dt className="text-xs uppercase tracking-widest text-white/50">buildTime (local)</dt>
-              <dd className="mt-1 font-mono text-sm text-white">{formatDate(info.buildTimeISO)}</dd>
+              <dt className="text-xs uppercase tracking-widest text-white/50">
+                buildTime (local)
+              </dt>
+              <dd className="mt-1 font-mono text-sm text-white">
+                {formatDate(info.buildTimeISO)}
+              </dd>
             </div>
 
             <div>
-              <dt className="text-xs uppercase tracking-widest text-white/50">buildTime (ISO)</dt>
-              <dd className="mt-1 font-mono text-sm text-white">{info.buildTimeISO ?? '—'}</dd>
+              <dt className="text-xs uppercase tracking-widest text-white/50">
+                buildTime (ISO)
+              </dt>
+              <dd className="mt-1 font-mono text-sm text-white">
+                {info.buildTimeISO ?? '—'}
+              </dd>
             </div>
 
             <div className="sm:col-span-2">
-              <dt className="text-xs uppercase tracking-widest text-white/50">git sha</dt>
+              <dt className="text-xs uppercase tracking-widest text-white/50">
+                git sha
+              </dt>
               <dd className="mt-1 flex flex-wrap items-center gap-2">
-                <span className="font-mono text-sm text-white">{info.gitSha ?? '—'}</span>
+                <span className="font-mono text-sm text-white">
+                  {info.gitSha ?? '—'}
+                </span>
                 {info.gitSha ? (
                   <button
                     type="button"
@@ -103,13 +123,19 @@ export default function BuildInfoClient() {
         <h2 className="text-sm font-medium text-white">Checklist rápido</h2>
         <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-white/70">
           <li>
-            O campo <span className="font-mono">buildTime</span> deve mudar a cada deploy.
+            O campo <span className="font-mono">buildTime</span> deve mudar a
+            cada deploy.
           </li>
           <li>
-            HTML responde com <span className="font-mono">Cache-Control: max-age=0, must-revalidate</span>.
+            HTML responde com{' '}
+            <span className="font-mono">
+              Cache-Control: max-age=0, must-revalidate
+            </span>
+            .
           </li>
           <li>
-            Assets em <span className="font-mono">/_next/static/</span> podem (e devem) ficar em cache longo.
+            Assets em <span className="font-mono">/_next/static/</span> podem (e
+            devem) ficar em cache longo.
           </li>
         </ul>
       </div>
