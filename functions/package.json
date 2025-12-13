@@ -2,7 +2,7 @@
   "main": "lib/index.js",
   "scripts": {
     "genkit:start": "genkit start -- tsx --watch src/genkit-sample.ts",
-    "lint": "eslint .",
+    "lint": "ESLINT_USE_FLAT_CONFIG=false eslint --ext .js,.ts .",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "serve": "npm run build && firebase emulators:start --only functions",
