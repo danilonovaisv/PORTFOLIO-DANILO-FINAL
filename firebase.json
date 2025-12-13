@@ -3,8 +3,7 @@
     "source": ".",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "frameworksBackend": {
-      "region": "us-east1",
-      "backendId": "portfoliodannovais"
+      "region": "us-east1"
     }
   },
   "remoteconfig": {
@@ -18,7 +17,6 @@
     {
       "backendId": "portfoliodannovais",
       "rootDir": ".",
-      "buildCommand": "npm run build",
       "ignore": [
         "node_modules",
         ".git",
@@ -58,8 +56,7 @@
     }
   ],
   "storage": {
-    "rules": "storage.rules",
-    "bucket": "portfolio-danilo-novais.firebasestorage.app"
+    "rules": "storage.rules"
   },
   "emulators": {
     "apphosting": {

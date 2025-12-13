@@ -50,6 +50,9 @@ const config: Config = {
           { lineHeight: '0.95', letterSpacing: '-0.04em', fontWeight: '800' },
         ],
       },
+      aspectRatio: {
+        '21/9': '21 / 9',
+      },
     },
   },
   plugins: [require('@tailwindcss/typography')],
