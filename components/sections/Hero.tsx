@@ -115,7 +115,7 @@ const Hero = () => {
       /* biome-ignore lint/correctness/useUniqueElementIds: Este ID precisa ser estático para anchors globais */
       id="hero"
       ref={sectionRef}
-      className="relative h-[450vh] w-full bg-[#F4F5F7]"
+      className="relative h-[320vh] md:h-[450vh] w-full bg-[#F4F5F7]"
     >
       {/* Container Sticky */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
@@ -133,7 +133,7 @@ const Hero = () => {
         {/* 2. TEXT CONTENT LAYER */}
         <motion.div
           style={{ opacity: contentOpacity, scale: contentScale, y: contentY }}
-          className="absolute inset-0 container mx-auto px-6 md:px-12 lg:px-16 h-full z-10 pointer-events-none"
+          className="absolute inset-0 container mx-auto px-6 md:px-12 lg:px-16 h-full z-10 pointer-events-none flex"
         >
           {/* TAG LATERAL: BRAND AWARENESS */}
           <motion.div
@@ -147,9 +147,9 @@ const Hero = () => {
             </span>
           </motion.div>
 
-          <div className="flex flex-col justify-center items-start h-full pt-24 md:pt-0 max-w-4xl">
+          <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left h-full pt-24 md:pt-0 max-w-4xl mx-auto md:mx-0 gap-6 md:gap-0">
             {/* Título Principal */}
-            <div className="text-[clamp(3rem,7vw,7.5rem)] font-extrabold tracking-[-0.04em] mb-6 md:mb-10 font-sans flex flex-col items-start gap-1">
+            <div className="text-[clamp(3rem,7vw,7.5rem)] font-extrabold tracking-[-0.04em] mb-6 md:mb-10 font-sans flex flex-col items-center md:items-start gap-1">
               {/* Mobile: Fade In Simples */}
               <div className="md:hidden flex flex-col leading-[0.9]">
                 <motion.span
@@ -204,7 +204,7 @@ const Hero = () => {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 1.2, ease: 'easeOut', delay: 1.2 }}
-              className="mb-10 md:mb-14 relative"
+              className="mb-10 md:mb-14 relative w-full flex justify-center md:justify-start"
             >
               <p className="text-[#0057FF] text-lg md:text-xl font-medium tracking-wide bg-white/5 backdrop-blur-sm rounded-lg pr-4 inline-block">
                 [ É intenção, é estratégia, é experiência. ]
@@ -213,7 +213,7 @@ const Hero = () => {
 
             {/* CTA Button */}
             <motion.div
-              className="pointer-events-auto" // Re-enable clicks
+              className="pointer-events-auto w-full flex justify-center md:justify-start" // Re-enable clicks
             >
               <motion.a
                 href="/sobre"

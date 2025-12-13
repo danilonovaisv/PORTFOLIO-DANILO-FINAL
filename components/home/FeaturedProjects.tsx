@@ -85,7 +85,13 @@ const FeaturedProjects: React.FC = () => {
       return Array.from(new Set(items));
     }, [project.category, project.displayCategory]);
 
-  const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
+  const ProjectCard = ({
+    project,
+    index,
+  }: {
+    project: Project;
+    index: number;
+  }) => {
     const tags = extractTags(project);
 
     return (
@@ -99,7 +105,9 @@ const FeaturedProjects: React.FC = () => {
         onMouseEnter={() => handleHover(index)}
         onMouseLeave={() => handleHover(null)}
       >
-        <div className={`relative w-full overflow-hidden rounded-[6px] bg-[#0f0f11] ${cardHeight}`}>
+        <div
+          className={`relative w-full overflow-hidden rounded-[6px] bg-[#0f0f11] ${cardHeight}`}
+        >
           <motion.div
             className="absolute inset-0"
             whileHover={prefersReducedMotion ? undefined : { scale: 1.05 }}

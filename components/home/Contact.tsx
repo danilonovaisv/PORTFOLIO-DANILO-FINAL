@@ -15,19 +15,19 @@ const Contact: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-[#0057FF] mb-4 lowercase">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#0057FF] mb-4 lowercase text-center md:text-left">
               contato
             </h2>
-            <p className="text-xl text-dark mb-12">
+            <p className="text-xl text-dark mb-12 text-center md:text-left">
               Tem uma pergunta ou quer trabalhar junto?
             </p>
 
-            <div className="space-y-6 mb-12">
+            <div className="space-y-6 mb-12 flex flex-col items-center md:items-start">
               {CONTACT_INFO.map((item, idx) => (
                 <a
                   key={idx}
                   href={item.href}
-                  className="group flex items-center gap-4 text-lg font-medium text-dark transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F5F7]"
+                  className="group flex items-center gap-4 text-lg font-medium text-dark transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F5F7] justify-center md:justify-start"
                 >
                   <span className="rounded-full bg-white p-3 text-primary shadow-sm transition-transform group-hover:scale-110">
                     {item.icon}
@@ -37,7 +37,7 @@ const Contact: React.FC = () => {
               ))}
             </div>
 
-            <div className="flex gap-4">
+            <div className="flex gap-4 justify-center md:justify-start">
               {SOCIALS.map((social) => (
                 <a
                   key={social.platform}
@@ -57,7 +57,7 @@ const Contact: React.FC = () => {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-white p-8 md:p-10 rounded-3xl shadow-lg border border-gray-100"
+            className="bg-white p-8 md:p-10 rounded-3xl shadow-lg border border-gray-100 max-w-2xl w-full mx-auto md:mx-0"
           >
             <form
               action="https://formsubmit.co/danilo@portfoliodanilo.com"

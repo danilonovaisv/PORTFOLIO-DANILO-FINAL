@@ -87,13 +87,13 @@ const PortfolioShowcaseSection: FC = () => {
                   <motion.div
                     layout="position"
                     className={`flex w-full transition-all duration-500 ease-out
-                      ${isExpanded ? 'py-8 flex-col items-start gap-8' : 'py-10 md:py-14 items-center'}
-                      ${!isExpanded ? alignmentClass : ''}
+                      ${isExpanded ? 'py-8 flex-col items-start gap-8' : 'py-10 md:py-14 gap-6 md:gap-0 flex-col md:flex-row items-center'}
+                      ${!isExpanded ? `justify-center md:${alignmentClass}` : ''}
                     `}
                   >
                     {/* Conteúdo do Item (Texto + Ícone) */}
                     <div
-                      className={`flex items-center relative ${!isExpanded ? 'gap-6 md:gap-8' : 'gap-6 w-full'}`}
+                      className={`flex items-center relative ${!isExpanded ? 'gap-6 md:gap-8' : 'gap-6 w-full'} flex-col md:flex-row text-center md:text-left`}
                     >
                       {/* Thumbnail Animada (Slide-in on Hover - aparece à esquerda do texto) */}
                       <AnimatePresence>
@@ -122,7 +122,7 @@ const PortfolioShowcaseSection: FC = () => {
                       </AnimatePresence>
 
                       {/* Texto da Categoria - Fonte alterada para font-light (suave) */}
-                      <div className="flex flex-col items-end text-right">
+                      <div className="flex flex-col items-center md:items-end text-center md:text-right">
                         {isWebItem && !isExpanded ? (
                           // Layout especial para o 3º item quando fechado
                           <motion.h3
@@ -152,7 +152,7 @@ const PortfolioShowcaseSection: FC = () => {
                         className={`
                           flex items-center justify-center rounded-full bg-[#0057FF] text-white shrink-0 transition-all duration-500 shadow-sm
                           ${isExpanded ? 'w-12 h-12 md:w-16 md:h-16' : 'w-8 h-8 md:w-12 md:h-12'}
-                          ${isWebItem && !isExpanded ? 'self-end mb-1' : ''} /* Alinha ícone com a última linha no item 3 */
+                          ${isWebItem && !isExpanded ? 'self-end md:self-end mb-1' : 'self-center md:self-auto'} /* Alinha ícone com a última linha no item 3 */
                         `}
                       >
                         <motion.div
@@ -172,7 +172,7 @@ const PortfolioShowcaseSection: FC = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.5 }}
-                        className="w-full mt-4 flex flex-col md:flex-row gap-8 md:gap-16"
+                        className="w-full mt-4 flex flex-col md:flex-row gap-8 md:gap-16 text-center md:text-left"
                       >
                         {/* Imagem Grande */}
                         <div className="w-full md:w-1/2 aspect-video rounded-lg overflow-hidden bg-gray-200 shadow-lg">
