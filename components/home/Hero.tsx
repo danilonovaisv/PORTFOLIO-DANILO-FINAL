@@ -115,10 +115,79 @@ const Hero = () => {
       /* biome-ignore lint/correctness/useUniqueElementIds: Este ID precisa ser estático para anchors globais */
       id="hero"
       ref={sectionRef}
-      className="relative h-[450vh] w-full bg-[#F4F5F7]"
+      className="relative w-full bg-[#F4F5F7] md:h-[450vh]"
     >
-      {/* Container Sticky */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+      {/* Mobile layout (stacked) */}
+      <div className="md:hidden flex flex-col items-center text-center px-5 pt-24 pb-16 gap-8">
+        <div className="w-full max-w-xl">
+          <div className="relative h-80 w-full">
+            <HeroGlassCanvas />
+          </div>
+        </div>
+
+        <span className="text-[#0057FF] font-medium tracking-widest text-base">
+          [ BRAND AWARENESS ]
+        </span>
+
+        <div className="flex flex-col items-center gap-2 leading-[0.95] text-4xl font-extrabold tracking-tight text-[#111111]">
+          <motion.span
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="text-[#0057FF]"
+          >
+            Design, não é
+          </motion.span>
+          <motion.span
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
+          >
+            só estética.
+          </motion.span>
+        </div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 }}
+          className="text-[#0057FF] text-base font-medium tracking-wide bg-white/10 backdrop-blur-sm rounded-lg px-4 py-3"
+        >
+          [É intenção, é estratégia, é experiência.]
+        </motion.p>
+
+        <motion.a
+          href="/sobre"
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: 'easeOut', delay: 0.3 }}
+          className="group bg-[#0057FF] text-white rounded-full px-8 py-4 flex items-center gap-3 font-semibold text-base shadow-lg shadow-[#0057FF]/20 transition-all"
+        >
+          get to know me better
+          <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors">
+            <ArrowRight className="w-4 h-4 text-white" />
+          </span>
+        </motion.a>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut', delay: 0.35 }}
+          className="w-full max-w-3xl overflow-hidden rounded-2xl shadow-xl border border-black/5"
+        >
+          <video
+            src={ASSETS.videoManifesto}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+      </div>
+
+      {/* Desktop / tablet layout */}
+      <div className="hidden md:flex sticky top-0 h-screen w-full overflow-hidden items-center justify-center">
         {/* 1. BACKGROUND AMBIENT 3D LAYER (Absolute behind everything) */}
         <motion.div
           style={{ opacity: glassOrbOpacity, scale: glassOrbScale }}
@@ -130,7 +199,7 @@ const Hero = () => {
         {/* 2. TEXT CONTENT LAYER */}
         <motion.div
           style={{ opacity: contentOpacity, scale: contentScale, y: contentY }}
-          className="absolute inset-0 container mx-auto px-6 md:px-12 lg:px-16 h-full z-10 pointer-events-none"
+          className="absolute inset-0 container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 h-full z-10 pointer-events-none"
         >
           {/* TAG LATERAL: BRAND AWARENESS */}
           <motion.div
@@ -144,38 +213,10 @@ const Hero = () => {
             </span>
           </motion.div>
 
-          <div className="flex flex-col justify-center items-start h-full pt-24 md:pt-0 max-w-4xl">
+          <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left h-full pt-24 md:pt-0 max-w-4xl w-full mx-auto">
             {/* Título Principal */}
-            <div className="text-[4.5rem] md:text-7xl lg:text-[7.5rem] font-extrabold tracking-[-0.04em] mb-6 md:mb-10 font-sans flex flex-col items-start gap-1">
-              {/* Mobile: Fade In Simples */}
-              <div className="md:hidden flex flex-col leading-[0.9]">
-                <motion.span
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="text-[#0057FF]"
-                >
-                  Design,
-                </motion.span>
-                <motion.span
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="text-[#111111]"
-                >
-                  não é só
-                </motion.span>
-                <motion.span
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="text-[#111111]"
-                >
-                  estética.
-                </motion.span>
-              </div>
-
-              {/* Desktop: Animação Letra por Letra */}
+            <div className="text-[4.5rem] md:text-7xl lg:text-[7.5rem] font-extrabold tracking-[-0.04em] mb-6 md:mb-10 font-sans flex flex-col items-center md:items-start gap-1">
+              {/* Mobile hidden / Desktop shown */}
               <div className="hidden md:flex flex-col items-start gap-0">
                 <AnimatedTextLine
                   text="Design,"
@@ -210,7 +251,7 @@ const Hero = () => {
 
             {/* CTA Button */}
             <motion.div
-              className="pointer-events-auto" // Re-enable clicks
+              className="pointer-events-auto"
             >
               <motion.a
                 href="/sobre"
@@ -227,7 +268,7 @@ const Hero = () => {
                   boxShadow: '0 10px 30px -10px rgba(0, 87, 255, 0.5)',
                 }}
                 whileTap={{ scale: 0.98 }}
-                className="group bg-[#0057FF] text-white rounded-full pl-8 pr-6 py-4 flex items-center gap-3 font-semibold text-base md:text-lg shadow-xl shadow-[#0057FF]/20 transition-all"
+                className="group bg-[#0057FF] text-white rounded-full pl-8 pr-6 py-4 flex items-center gap-3 font-semibold text-base md:text-lg shadow-xl shadow-[#0057FF]/20 transition-all mx-auto md:mx-0"
               >
                 get to know me better
                 <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors">

@@ -146,7 +146,7 @@ const FeaturedProjects: React.FC = () => {
         {/* Primeira linha: dois cards verticais alinhados pela base */}
         <div className="grid grid-cols-1 items-end gap-8 md:grid-cols-5">
           <div className="md:col-span-2">
-            {card1 && <ProjectCard project={card1} index={0} />}
+            {card1 && <ProjectCard project={card1} />}
           </div>
           <div className="md:col-span-3">
             {card2 && <ProjectCard project={card2} />}

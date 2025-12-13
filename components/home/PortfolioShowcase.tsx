@@ -28,10 +28,10 @@ const PortfolioShowcaseSection: FC = () => {
   };
 
   return (
-    <section className="relative w-full bg-[#f5f5f5] py-24 overflow-hidden min-h-screen flex flex-col justify-center">
-      <div className="container mx-auto px-4 md:px-8 max-w-[90%] md:max-w-7xl relative z-10">
+    <section className="relative w-full bg-[#f5f5f5] py-24 overflow-hidden min-h-screen flex flex-col justify-center items-center">
+      <div className="container mx-auto px-5 md:px-8 max-w-[92%] md:max-w-7xl relative z-10">
         {/* Cabeçalho da Seção */}
-        <div className="flex flex-col w-full mb-12">
+        <div className="flex flex-col w-full mb-12 items-center text-center">
           {/* Título Principal */}
           <div className="w-full flex justify-center mb-8">
             <h2 className="text-center text-4xl md:text-6xl font-bold tracking-tight">
@@ -87,7 +87,7 @@ const PortfolioShowcaseSection: FC = () => {
                   <motion.div
                     layout="position"
                     className={`flex w-full transition-all duration-500 ease-out
-                      ${isExpanded ? 'py-8 flex-col items-start gap-8' : 'py-10 md:py-14 gap-6 md:gap-0 flex-col md:flex-row items-center'}
+                      ${isExpanded ? 'py-8 flex-col items-center md:items-start gap-8' : 'py-10 md:py-14 gap-6 md:gap-0 flex-col md:flex-row items-center'}
                       ${!isExpanded ? `justify-center md:${alignmentClass}` : ''}
                     `}
                   >

@@ -22,7 +22,7 @@ export default function RootLayout({
       >
         <div className="min-h-screen font-sans">
           <Header />
-          <main>{children}</main>
+          <main className="pb-32 md:pb-0">{children}</main>
           <Footer />
         </div>
       </body>
