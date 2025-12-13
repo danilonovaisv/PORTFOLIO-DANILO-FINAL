@@ -1,0 +1,115 @@
+/* [project]/components/portfolio/PortfolioHeroCards.module.css [app-client] (css) */
+.PortfolioHeroCards-module__v9CuGq__card {
+  aspect-ratio: 4 / 5;
+  background: var(--card-gradient, linear-gradient(135deg, #0f172a, #111827));
+  cursor: pointer;
+  isolation: isolate;
+  width: clamp(240px, 70vw, 360px);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  border: 1px solid #ffffff2e;
+  border-radius: 22px;
+  transition: filter .22s, box-shadow .28s, outline-color .24s, outline-offset .24s;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 22px 60px -32px #0f172a99, 0 20px 48px -40px #000000bf;
+}
+
+.PortfolioHeroCards-module__v9CuGq__card:before {
+  content: "";
+  mix-blend-mode: screen;
+  opacity: .7;
+  pointer-events: none;
+  z-index: 1;
+  background: linear-gradient(160deg, #ffffff1f, #fff0), radial-gradient(circle at 15% 20%, #fff3, #0000 35%), radial-gradient(circle at 80% 85%, #ffffff1f, #0000 40%);
+  position: absolute;
+  inset: -1px;
+}
+
+.PortfolioHeroCards-module__v9CuGq__cardActive {
+  filter: saturate(1.05) brightness(1.02);
+  box-shadow: 0 32px 90px -40px #000000a6, 0 32px 80px -48px #0057ff80, inset 0 0 30px #ffffff14;
+}
+
+.PortfolioHeroCards-module__v9CuGq__cardMuted {
+  filter: saturate(.85) brightness(.92);
+  opacity: .9;
+}
+
+.PortfolioHeroCards-module__v9CuGq__card:focus-visible {
+  outline: 2px solid var(--card-accent, #0057ff);
+  outline-offset: 4px;
+}
+
+.PortfolioHeroCards-module__v9CuGq__glow {
+  background: radial-gradient(circle at 32% 32%, #ffffff4d, transparent 30%), radial-gradient(circle at 80% 80%, var(--card-accent, #0057ff), transparent 55%), radial-gradient(circle at 10% 85%, #ffffff2e, transparent 45%);
+  filter: blur(45px);
+  opacity: .55;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 0;
+  position: absolute;
+  inset: -35%;
+}
+
+.PortfolioHeroCards-module__v9CuGq__grid {
+  opacity: .12;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 2;
+  background-image: linear-gradient(90deg, #ffffff0f 1px, #0000 0), linear-gradient(0deg, #ffffff0f 1px, #0000 0);
+  background-size: 28px 28px;
+  position: absolute;
+  inset: 0;
+}
+
+.PortfolioHeroCards-module__v9CuGq__shine {
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(120deg, #fff0 0%, #ffffff73 45%, #fff0 70%);
+  position: absolute;
+  inset: -30%;
+  transform: translate3d(-65%, -12%, 0)rotate(12deg);
+}
+
+.PortfolioHeroCards-module__v9CuGq__card:hover .PortfolioHeroCards-module__v9CuGq__shine, .PortfolioHeroCards-module__v9CuGq__card:focus-visible .PortfolioHeroCards-module__v9CuGq__shine {
+  animation: .8s cubic-bezier(.22, 1, .36, 1) forwards PortfolioHeroCards-module__v9CuGq__sweep;
+}
+
+@keyframes PortfolioHeroCards-module__v9CuGq__sweep {
+  from {
+    opacity: 0;
+    transform: translate3d(-65%, -12%, 0)rotate(12deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(65%, 12%, 0)rotate(12deg);
+  }
+}
+
+.PortfolioHeroCards-module__v9CuGq__edge {
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 4;
+  border: 1px solid #ffffff29;
+  border-radius: 22px;
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 1px #ffffff3d, inset 0 0 36px #ffffff1a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .PortfolioHeroCards-module__v9CuGq__card {
+    transition: filter .15s, box-shadow .15s, outline-color .15s, outline-offset .15s;
+  }
+
+  .PortfolioHeroCards-module__v9CuGq__shine {
+    opacity: .35;
+    animation: none;
+    transform: translate3d(0, 0, 0)rotate(8deg);
+  }
+}
+
+/*# sourceMappingURL=components_portfolio_PortfolioHeroCards_module_cf04d9c1.css.map*/

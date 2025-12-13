@@ -40,6 +40,7 @@ const heroItems = [
 
 export default function PortfolioHero() {
   const reduceMotion = useReducedMotion();
+  const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
   return (
     <section
       id="portfolio-hero"
@@ -71,15 +72,27 @@ export default function PortfolioHero() {
                 className={styles.item}
                 aria-label={item.label}
                 style={{ backgroundImage: `url(${item.image})` }}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 12, flex: 1 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  flex: reduceMotion
+                    ? 1
+                    : activeIndex === null
+                    ? 1
+                    : activeIndex === index
+                    ? 7
+                    : 1,
+                }}
                 transition={{
-                  duration: reduceMotion ? 0 : 0.6,
-                  delay: reduceMotion ? 0 : index * 0.1,
+                  duration: reduceMotion ? 0 : 0.8,
+                  delay: reduceMotion ? 0 : index * 0.08,
                   ease: 'easeOut',
                 }}
-                whileHover={reduceMotion ? undefined : { scale: 1.02 }}
-                whileFocus={reduceMotion ? undefined : { scale: 1.02 }}
+                onMouseEnter={() => setActiveIndex(index)}
+                onMouseLeave={() => setActiveIndex(null)}
+                onFocus={() => setActiveIndex(index)}
+                onBlur={() => setActiveIndex(null)}
               >
                 <span className="sr-only">{item.label}</span>
               </motion.button>

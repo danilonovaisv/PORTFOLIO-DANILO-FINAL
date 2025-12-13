@@ -1,0 +1,14 @@
+[00:00:00.664] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:00.730] Server  LOG      ✓ Ready in 531ms
+[00:00:04.730] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
+[00:00:04.730] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
+[00:00:04.840] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:00:13.901] Browser LOG     THREE.WebGLRenderer: Context Lost.
+[00:01:16.831] Server  LOG      ✓ Compiled in 63ms
+[00:04:40.547] Server  LOG      ✓ Compiled in 119ms
+[00:05:08.199] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
+[00:05:08.199] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
+[00:05:08.479] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:05:10.693] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
+[00:05:10.693] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
+[00:05:10.852] Browser LOG     THREE.WebGLRenderer: Context Lost.

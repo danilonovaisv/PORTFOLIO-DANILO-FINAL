@@ -1,0 +1,668 @@
+[debug] [2025-12-13T06:14:49.656Z] ----------------------------------------------------------------------
+[debug] [2025-12-13T06:14:49.658Z] Command:       /Users/danilonovais/.nvm/versions/node/v24.11.1/bin/node /Users/danilonovais/.nvm/versions/node/v24.11.1/bin/firebase deploy --only hosting
+[debug] [2025-12-13T06:14:49.658Z] CLI Version:   14.26.0
+[debug] [2025-12-13T06:14:49.659Z] Platform:      darwin
+[debug] [2025-12-13T06:14:49.659Z] Node Version:  v24.11.1
+[debug] [2025-12-13T06:14:49.659Z] Time:          Sat Dec 13 2025 03:14:49 GMT-0300 (Brasilia Standard Time)
+[debug] [2025-12-13T06:14:49.659Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-12-13T06:14:49.751Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-13T06:14:49.751Z] > authorizing via signed-in user (dannovaisv@gmail.com)
+[debug] [2025-12-13T06:14:49.751Z] [iam] checking project portfolio-danilo-novais for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2025-12-13T06:14:49.751Z] Checked if tokens are valid: false, expires at: 1765595715362
+[debug] [2025-12-13T06:14:49.751Z] Checked if tokens are valid: false, expires at: 1765595715362
+[debug] [2025-12-13T06:14:49.751Z] > refreshing access token with scopes: []
+[debug] [2025-12-13T06:14:49.752Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-12-13T06:14:49.752Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-13T06:14:49.914Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-12-13T06:14:49.914Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-12-13T06:14:49.930Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions [none]
+[debug] [2025-12-13T06:14:49.930Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions x-goog-quota-user=projects/portfolio-danilo-novais
+[debug] [2025-12-13T06:14:49.930Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-12-13T06:14:50.815Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions 200
+[debug] [2025-12-13T06:14:50.815Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2025-12-13T06:14:50.816Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:14:50.816Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:14:50.816Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/portfolio-danilo-novais [none]
+[debug] [2025-12-13T06:14:51.352Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/portfolio-danilo-novais 200
+[debug] [2025-12-13T06:14:51.352Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/portfolio-danilo-novais {"projectId":"portfolio-danilo-novais","projectNumber":"350817205989","displayName":"Portfolio Danilo Novais","name":"projects/portfolio-danilo-novais","resources":{"hostingSite":"portfolio-danilo-novais","realtimeDatabaseInstance":"portfolio-danilo-novais-default-rtdb"},"state":"ACTIVE","etag":"1_8228a080-6dec-4334-ac90-5934755a5e83"}
+[debug] [2025-12-13T06:14:52.423Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:14:52.424Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:14:52.424Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/portfolio-danilo-novais/sites pageToken=&pageSize=10
+[debug] [2025-12-13T06:14:53.668Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/portfolio-danilo-novais/sites 200
+[debug] [2025-12-13T06:14:53.669Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/portfolio-danilo-novais/sites {"sites":[{"name":"projects/portfolio-danilo-novais/sites/portfolio-danilo-novais","defaultUrl":"https://portfolio-danilo-novais.web.app","appId":"1:350817205989:web:f7ae32f12d353ef081de0c","type":"DEFAULT_SITE"}]}
+[debug] [2025-12-13T06:14:53.669Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:14:53.669Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:14:53.669Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:350817205989:web:f7ae32f12d353ef081de0c/config [none]
+[debug] [2025-12-13T06:14:55.212Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:350817205989:web:f7ae32f12d353ef081de0c/config 200
+[debug] [2025-12-13T06:14:55.212Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/-/webApps/1:350817205989:web:f7ae32f12d353ef081de0c/config {"projectId":"portfolio-danilo-novais","appId":"1:350817205989:web:f7ae32f12d353ef081de0c","databaseURL":"https://portfolio-danilo-novais-default-rtdb.firebaseio.com","storageBucket":"portfolio-danilo-novais.firebasestorage.app","apiKey":"AIzaSyBe7uThxjKtP0A9QgK9KMu59bAUB4GXj4g","authDomain":"portfolio-danilo-novais.firebaseapp.com","messagingSenderId":"350817205989","measurementId":"G-PM34VYPZZW","projectNumber":"350817205989","version":"2"}
+[info] 
+   Thank you for trying our early preview of Next.js support on Firebase Hosting.
+   During the preview, support is best-effort and breaking changes can be expected. Proceed with caution.
+   The integration is known to work with Next.js version 12 - 15.0. You may encounter errors.
+
+   Documentation: https://firebase.google.com/docs/hosting/frameworks/nextjs
+   File a bug: https://github.com/firebase/firebase-tools/issues/new?template=bug_report.md
+   Submit a feature request: https://github.com/firebase/firebase-tools/issues/new?template=feature_request.md
+
+   We'd love to learn from you. Express your interest in helping us shape the future of Firebase Hosting: https://goo.gle/41enW5X
+
+[debug] [2025-12-13T06:14:58.005Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:14:58.006Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:14:58.006Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/portfolio-danilo-novais/sites/portfolio-danilo-novais [none]
+[debug] [2025-12-13T06:14:58.265Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/portfolio-danilo-novais/sites/portfolio-danilo-novais 200
+[debug] [2025-12-13T06:14:58.265Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/portfolio-danilo-novais/sites/portfolio-danilo-novais {"name":"projects/portfolio-danilo-novais/sites/portfolio-danilo-novais","defaultUrl":"https://portfolio-danilo-novais.web.app","appId":"1:350817205989:web:f7ae32f12d353ef081de0c","type":"DEFAULT_SITE"}
+[info]    ▲ Next.js 16.0.10 (Turbopack)
+
+[info]    - Environments: .env.local
+
+
+[info]  ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+
+[info]    Creating an optimized production build ...
+
+[info]  ✓ Compiled successfully in 4.2s
+
+[info]    Running TypeScript ...
+
+[info]    Collecting page data using 9 workers ...
+
+[info]    Generating static pages using 9 workers (0/11) ...
+
+[info]    Generating static pages using 9 workers (2/11) 
+
+[info]    Generating static pages using 9 workers (5/11) 
+
+[info]    Generating static pages using 9 workers (8/11) 
+
+[info]  ✓ Generating static pages using 9 workers (11/11) in 426.1ms
+
+[info]    Finalizing page optimization ...
+
+[info] 
+
+[info] Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /admin/dashboard
+├ ○ /admin/login
+├ ƒ /admin/media
+├ ƒ /admin/posts
+├ ƒ /admin/posts/[id]
+├ ○ /admin/posts/new
+├ ƒ /api/admin/posts
+├ ○ /portfolio
+└ ○ /sobre
+
+
+ƒ Proxy (Middleware)
+
+[info] 
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+[info] Building a Cloud Function to run this application. This is needed due to:
+[info]  • middleware
+[info]  • non-static component /admin/dashboard/page
+[info]  • non-static component /admin/media/page
+[info]  • non-static component /admin/posts/[id]/page
+[info]  • non-static component /admin/posts/page
+[debug] [2025-12-13T06:15:09.125Z]  • non-static component /api/admin/posts/route
+[info]  • and 1 other reasons, use --debug to see more
+[info] 
+[debug] [2025-12-13T06:15:09.511Z] skipping /_global-error due to it matching an unsupported rewrite/redirect/header or middlware
+[debug] [2025-12-13T06:15:09.511Z] skipping /_not-found due to it matching an unsupported rewrite/redirect/header or middlware
+[debug] [2025-12-13T06:15:09.511Z] skipping /admin/login due to it matching an unsupported rewrite/redirect/header or middlware
+[debug] [2025-12-13T06:15:09.511Z] skipping /admin/posts/new due to it matching an unsupported rewrite/redirect/header or middlware
+[debug] [2025-12-13T06:15:09.511Z] skipping / due to it matching an unsupported rewrite/redirect/header or middlware
+[debug] [2025-12-13T06:15:09.511Z] skipping /portfolio due to it matching an unsupported rewrite/redirect/header or middlware
+[debug] [2025-12-13T06:15:09.511Z] skipping /sobre due to it matching an unsupported rewrite/redirect/header or middlware
+[debug] [2025-12-13T06:15:09.511Z] skipping /404 due to it matching an unsupported rewrite/redirect/header or middlware
+[debug] [2025-12-13T06:15:09.511Z] skipping /500 due to it matching an unsupported rewrite/redirect/header or middlware
+[debug] [2025-12-13T06:15:11.319Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:11.319Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:11.319Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/portfolio-danilo-novais/sites/portfolio-danilo-novais [none]
+[debug] [2025-12-13T06:15:12.284Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/portfolio-danilo-novais/sites/portfolio-danilo-novais 200
+[debug] [2025-12-13T06:15:12.284Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/portfolio-danilo-novais/sites/portfolio-danilo-novais {"name":"projects/portfolio-danilo-novais/sites/portfolio-danilo-novais","defaultUrl":"https://portfolio-danilo-novais.web.app","appId":"1:350817205989:web:f7ae32f12d353ef081de0c","type":"DEFAULT_SITE"}
+[warn] ⚠  This integration expects Node version 16, 18, or 20. You're running version 24, problems may be encountered. 
+[debug] [2025-12-13T06:15:34.003Z] [web frameworks] effective firebase.json:  {
+  "hosting": [
+    {
+      "source": ".",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "frameworksBackend": {
+        "region": "us-east1"
+      },
+      "site": "portfolio-danilo-novais",
+      "rewrites": [
+        {
+          "source": "**",
+          "function": {
+            "functionId": "ssrportfoliodanilonovai",
+            "region": "us-east1",
+            "pinTag": true
+          }
+        }
+      ],
+      "redirects": [],
+      "headers": [
+        {
+          "source": "/_global-error",
+          "headers": [
+            {
+              "key": "x-nextjs-stale-time",
+              "value": "300"
+            },
+            {
+              "key": "x-nextjs-prerender",
+              "value": "1"
+            },
+            {
+              "key": "x-next-cache-tags",
+              "value": "_N_T_/layout,_N_T_/_global-error/layout,_N_T_/_global-error/page,_N_T_/_global-error"
+            }
+          ]
+        },
+        {
+          "source": "/admin/login",
+          "headers": [
+            {
+              "key": "x-nextjs-stale-time",
+              "value": "300"
+            },
+            {
+              "key": "x-nextjs-prerender",
+              "value": "1"
+            },
+            {
+              "key": "x-next-cache-tags",
+              "value": "_N_T_/layout,_N_T_/admin/layout,_N_T_/admin/login/layout,_N_T_/admin/login/page,_N_T_/admin/login"
+            }
+          ]
+        },
+        {
+          "source": "/_not-found",
+          "headers": [
+            {
+              "key": "x-nextjs-stale-time",
+              "value": "300"
+            },
+            {
+              "key": "x-nextjs-prerender",
+              "value": "1"
+            },
+            {
+              "key": "x-next-cache-tags",
+              "value": "_N_T_/layout,_N_T_/_not-found/layout,_N_T_/_not-found/page,_N_T_/_not-found"
+            }
+          ]
+        },
+        {
+          "source": "/admin/posts/new",
+          "headers": [
+            {
+              "key": "x-nextjs-stale-time",
+              "value": "300"
+            },
+            {
+              "key": "x-nextjs-prerender",
+              "value": "1"
+            },
+            {
+              "key": "x-next-cache-tags",
+              "value": "_N_T_/layout,_N_T_/admin/layout,_N_T_/admin/posts/layout,_N_T_/admin/posts/new/layout,_N_T_/admin/posts/new/page,_N_T_/admin/posts/new"
+            }
+          ]
+        },
+        {
+          "source": "/sobre",
+          "headers": [
+            {
+              "key": "x-nextjs-stale-time",
+              "value": "300"
+            },
+            {
+              "key": "x-nextjs-prerender",
+              "value": "1"
+            },
+            {
+              "key": "x-next-cache-tags",
+              "value": "_N_T_/layout,_N_T_/sobre/layout,_N_T_/sobre/page,_N_T_/sobre"
+            }
+          ]
+        },
+        {
+          "source": "/portfolio",
+          "headers": [
+            {
+              "key": "x-nextjs-stale-time",
+              "value": "300"
+            },
+            {
+              "key": "x-nextjs-prerender",
+              "value": "1"
+            },
+            {
+              "key": "x-next-cache-tags",
+              "value": "_N_T_/layout,_N_T_/portfolio/layout,_N_T_/portfolio/page,_N_T_/portfolio"
+            }
+          ]
+        },
+        {
+          "source": "**/*.[jt]s",
+          "headers": [
+            {
+              "key": "Set-Cookie",
+              "value": "__FIREBASE_DEFAULTS__=eyJjb25maWciOnsicHJvamVjdElkIjoicG9ydGZvbGlvLWRhbmlsby1ub3ZhaXMiLCJhcHBJZCI6IjE6MzUwODE3MjA1OTg5OndlYjpmN2FlMzJmMTJkMzUzZWYwODFkZTBjIiwiZGF0YWJhc2VVUkwiOiJodHRwczovL3BvcnRmb2xpby1kYW5pbG8tbm92YWlzLWRlZmF1bHQtcnRkYi5maXJlYmFzZWlvLmNvbSIsInN0b3JhZ2VCdWNrZXQiOiJwb3J0Zm9saW8tZGFuaWxvLW5vdmFpcy5maXJlYmFzZXN0b3JhZ2UuYXBwIiwiYXBpS2V5IjoiQUl6YVN5QmU3dVRoeGpLdFAwQTlRZ0s5S011NTliQVVCNEdYajRnIiwiYXV0aERvbWFpbiI6InBvcnRmb2xpby1kYW5pbG8tbm92YWlzLmZpcmViYXNlYXBwLmNvbSIsIm1lc3NhZ2luZ1NlbmRlcklkIjoiMzUwODE3MjA1OTg5IiwibWVhc3VyZW1lbnRJZCI6IkctUE0zNFZZUFpaVyIsInByb2plY3ROdW1iZXIiOiIzNTA4MTcyMDU5ODkiLCJ2ZXJzaW9uIjoiMiJ9LCJfYXV0aFRva2VuU3luY1VSTCI6Ii9fX3Nlc3Npb24ifQ; SameSite=Strict; Expires=2027-11-07T16:55:34.003Z; Path=/;"
+            }
+          ]
+        }
+      ],
+      "cleanUrls": true,
+      "trailingSlash": false,
+      "public": ".firebase/portfolio-danilo-novais/hosting",
+      "webFramework": "next_ssr"
+    }
+  ],
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "disallowLegacyRuntimeConfig": true,
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run lint",
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ]
+    },
+    {
+      "source": ".firebase/portfolio-danilo-novais/functions",
+      "codebase": "firebase-frameworks-portfolio-danilo-novais"
+    }
+  ]
+}
+[debug] [2025-12-13T06:15:34.004Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-13T06:15:34.004Z] > authorizing via FIREBASE_TOKEN environment variable
+[warn] ⚠  Authenticating with `FIREBASE_TOKEN` is deprecated and will be removed in a future major version of `firebase-tools`. Instead, use a service account key with `GOOGLE_APPLICATION_CREDENTIALS`: https://cloud.google.com/docs/authentication/getting-started 
+[debug] [2025-12-13T06:15:34.004Z] [iam] checking project portfolio-danilo-novais for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2025-12-13T06:15:34.004Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:34.004Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:34.004Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions [none]
+[debug] [2025-12-13T06:15:34.004Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions x-goog-quota-user=projects/portfolio-danilo-novais
+[debug] [2025-12-13T06:15:34.004Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-12-13T06:15:34.845Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions 200
+[debug] [2025-12-13T06:15:34.845Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[debug] [2025-12-13T06:15:34.845Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:34.845Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:34.845Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/portfolio-danilo-novais/locations/-/functions [none]
+[debug] [2025-12-13T06:15:36.236Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/portfolio-danilo-novais/locations/-/functions 200
+[debug] [2025-12-13T06:15:36.236Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/portfolio-danilo-novais/locations/-/functions {}
+[debug] [2025-12-13T06:15:36.236Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:36.236Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:36.236Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/-/functions filter=environment%3D%22GEN_2%22
+[debug] [2025-12-13T06:15:37.880Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/-/functions 200
+[debug] [2025-12-13T06:15:37.880Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/-/functions {"functions":[{"name":"projects/portfolio-danilo-novais/locations/southamerica-east1/functions/annotate_gcs","description":"Vision API Image Annotate with GCS","buildConfig":{"build":"projects/350817205989/locations/southamerica-east1/builds/05265522-299e-4eaf-8df0-50fbe3e25625","runtime":"python310","entryPoint":"annotate_gcs","source":{"storageSource":{"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"annotate_gcs/function-source.zip","generation":"1749079648113526"}},"environmentVariables":{"BUILD_CONFIG_TEST":"build_test"},"dockerRepository":"projects/portfolio-danilo-novais/locations/southamerica-east1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"annotate_gcs/function-source.zip","generation":"1749079648113526"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/portfolio-danilo-novais/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/portfolio-danilo-novais/locations/southamerica-east1/services/annotate-gcs","timeoutSeconds":120,"environmentVariables":{"ANNOTATIONS_BUCKET":"vision-annotations-350817205989","FEATURES":"FACE_DETECTION,PRODUCT_SEARCH,SAFE_SEARCH_DETECTION","INPUT_BUCKET":"vision-input-350817205989","LOG_LEVEL":"","LOG_EXECUTION_ID":"true"},"maxInstanceCount":10,"ingressSettings":"ALLOW_INTERNAL_ONLY","uri":"https://annotate-gcs-qc26fkohcq-rj.a.run.app","serviceAccountEmail":"gcf-sa@portfolio-danilo-novais.iam.gserviceaccount.com","availableMemory":"256M","allTrafficOnLatestRevision":true,"revision":"annotate-gcs-00001-lah","maxInstanceRequestConcurrency":1,"availableCpu":"0.1666"},"eventTrigger":{"trigger":"projects/portfolio-danilo-novais/locations/southamerica-east1/triggers/annotate-gcs-598050","triggerRegion":"southamerica-east1","eventType":"google.cloud.storage.object.v1.finalized","eventFilters":[{"attribute":"bucket","value":"vision-input-350817205989"}],"pubsubTopic":"projects/portfolio-danilo-novais/topics/eventarc-southamerica-east1-annotate-gcs-598050-778","serviceAccountEmail":"gcf-sa@portfolio-danilo-novais.iam.gserviceaccount.com","retryPolicy":"RETRY_POLICY_RETRY"},"state":"ACTIVE","updateTime":"2025-10-22T15:41:28.807082005Z","labels":{"goog-solutions-console-solution-id":"aiml-image-processing-on-cloud-functions","goog-ccm":"true","goog-solutions-console-deployment-name":"aiml-image-processing-on-cloud-functions"},"environment":"GEN_2","url":"https://southamerica-east1-portfolio-danilo-novais.cloudfunctions.net/annotate_gcs","satisfiesPzs":true,"createTime":"2025-06-04T23:27:28.541042455Z","satisfiesPzi":true},{"name":"projects/portfolio-danilo-novais/locations/southamerica-east1/functions/knowledge-base-webhook","buildConfig":{"build":"projects/350817205989/locations/southamerica-east1/builds/aa75bb76-f163-4099-8520-5cb3a11d8bfb","runtime":"python312","entryPoint":"on_cloud_event","source":{"storageSource":{"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"knowledge-base-webhook/function-source.zip","generation":"1745479179400411"}},"dockerRepository":"projects/portfolio-danilo-novais/locations/southamerica-east1/repositories/knowledge-base-repo","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"knowledge-base-webhook/function-source.zip","generation":"1745479179400411"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/portfolio-danilo-novais/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/portfolio-danilo-novais/locations/southamerica-east1/services/knowledge-base-webhook","timeoutSeconds":300,"environmentVariables":{"DATABASE":"knowledge-base-database","DOCAI_LOCATION":"us","DOCAI_PROCESSOR":"projects/portfolio-danilo-novais/locations/us/processors/19044296709a82ba","INDEX_ID":"projects/portfolio-danilo-novais/locations/southamerica-east1/indexes/1677837151800131584","LOCATION":"southamerica-east1","LOG_EXECUTION_ID":"true","OUTPUT_BUCKET":"knowledge-base-bucket-portfolio-danilo-novais","PROJECT_ID":"portfolio-danilo-novais"},"maxInstanceCount":20,"ingressSettings":"ALLOW_ALL","uri":"https://knowledge-base-webhook-qc26fkohcq-rj.a.run.app","serviceAccountEmail":"knowledge-base-webhook-sa@portfolio-danilo-novais.iam.gserviceaccount.com","availableMemory":"4G","allTrafficOnLatestRevision":true,"revision":"knowledge-base-webhook-00001-laq","maxInstanceRequestConcurrency":1,"availableCpu":"2"},"state":"ACTIVE","updateTime":"2025-10-22T15:41:28.649621783Z","labels":{"goog-ccm":"true","goog-solutions-console-deployment-name":"generative-ai-knowledge-base","goog-solutions-console-solution-id":"generative-ai-knowledge-base"},"environment":"GEN_2","url":"https://southamerica-east1-portfolio-danilo-novais.cloudfunctions.net/knowledge-base-webhook","satisfiesPzs":true,"createTime":"2025-04-24T07:19:39.844004529Z","satisfiesPzi":true},{"name":"projects/portfolio-danilo-novais/locations/southamerica-east1/functions/function-1","buildConfig":{"build":"projects/350817205989/locations/southamerica-east1/builds/a243a8b1-69ad-4293-ac69-ead6cab9ec4e","runtime":"nodejs20","entryPoint":"helloGCS","source":{"storageSource":{"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"function-1/function-source.zip","generation":"1748470570876615"}},"dockerRepository":"projects/portfolio-danilo-novais/locations/southamerica-east1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"function-1/function-source.zip","generation":"1748470570876615"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/portfolio-danilo-novais/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/portfolio-danilo-novais/locations/southamerica-east1/services/function-1","timeoutSeconds":60,"environmentVariables":{"LOG_EXECUTION_ID":"true"},"maxInstanceCount":100,"ingressSettings":"ALLOW_ALL","uri":"https://function-1-qc26fkohcq-rj.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"function-1-00001-kes","maxInstanceRequestConcurrency":1,"availableCpu":"167m"},"eventTrigger":{"trigger":"projects/portfolio-danilo-novais/locations/southamerica-east1/triggers/function-1-805841","triggerRegion":"southamerica-east1","eventType":"google.cloud.storage.object.v1.metadataUpdated","eventFilters":[{"attribute":"bucket","value":"bucket-portfolio-danilo"}],"pubsubTopic":"projects/portfolio-danilo-novais/topics/eventarc-southamerica-east1-function-1-805841-242","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","retryPolicy":"RETRY_POLICY_DO_NOT_RETRY"},"state":"ACTIVE","updateTime":"2025-10-22T15:41:28.815893263Z","labels":{"deployment-tool":"console-cloud","goog-managed-by":"storage"},"environment":"GEN_2","url":"https://southamerica-east1-portfolio-danilo-novais.cloudfunctions.net/function-1","satisfiesPzs":true,"createTime":"2025-05-28T22:16:11.383618549Z","satisfiesPzi":true},{"name":"projects/portfolio-danilo-novais/locations/southamerica-east1/functions/annotate-http","description":"Vision API Image Annotate via HTTP, external","buildConfig":{"build":"projects/350817205989/locations/southamerica-east1/builds/e39fa15f-e73c-4276-9683-1d08ac2384c7","runtime":"python311","entryPoint":"annotate_http","source":{"storageSource":{"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"annotate-http/function-source.zip","generation":"1749079648299518"}},"dockerRepository":"projects/portfolio-danilo-novais/locations/southamerica-east1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-350817205989-southamerica-east1","object":"annotate-http/function-source.zip","generation":"1749079648299518"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/portfolio-danilo-novais/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/portfolio-danilo-novais/locations/southamerica-east1/services/annotate-http","timeoutSeconds":120,"environmentVariables":{"ANNOTATIONS_BUCKET":"vision-annotations-350817205989","FEATURES":"FACE_DETECTION,PRODUCT_SEARCH,SAFE_SEARCH_DETECTION","INPUT_BUCKET":"vision-input-350817205989","LOG_LEVEL":"","LOG_EXECUTION_ID":"true"},"maxInstanceCount":10,"ingressSettings":"ALLOW_ALL","uri":"https://annotate-http-qc26fkohcq-rj.a.run.app","serviceAccountEmail":"gcf-sa@portfolio-danilo-novais.iam.gserviceaccount.com","availableMemory":"256M","allTrafficOnLatestRevision":true,"revision":"annotate-http-00001-siq","maxInstanceRequestConcurrency":1,"availableCpu":"0.1666"},"state":"ACTIVE","updateTime":"2025-10-22T15:41:28.868738978Z","labels":{"goog-solutions-console-solution-id":"aiml-image-processing-on-cloud-functions","goog-ccm":"true","goog-solutions-console-deployment-name":"aiml-image-processing-on-cloud-functions"},"environment":"GEN_2","url":"https://southamerica-east1-portfolio-danilo-novais.cloudfunctions.net/annotate-http","satisfiesPzs":true,"createTime":"2025-06-04T23:27:28.687018198Z","satisfiesPzi":true},{"name":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","buildConfig":{"build":"projects/350817205989/locations/us-east1/builds/b564f08d-98ca-406a-a7df-4bf3a0b4b359","runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":{"storageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765100755779220"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/portfolio-danilo-novais/locations/us-east1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765100755779220"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/portfolio-danilo-novais/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"portfolio-danilo-novais.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"portfolio-danilo-novais\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\",\"apiKey\":\"AIzaSyBe7uThxjKtP0A9QgK9KMu59bAUB4GXj4g\",\"authDomain\":\"portfolio-danilo-novais.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"portfolio-danilo-novais\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\"}","GCLOUD_PROJECT":"portfolio-danilo-novais","EVENTARC_CLOUD_EVENT_SOURCE":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"},"maxInstanceCount":20,"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-ue.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00001-vey","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","updateTime":"2025-12-07T09:48:39.300854255Z","labels":{"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-portfolio-danilo-novais","firebase-functions-hash":"ae423184fcb1b0fa0960bfea35d3aa6436da1a24"},"environment":"GEN_2","url":"https://us-east1-portfolio-danilo-novais.cloudfunctions.net/ssrportfoliodanilonovai","createTime":"2025-10-31T05:27:14.858736723Z","satisfiesPzi":true}]}
+[debug] [2025-12-13T06:15:37.881Z] Converting a function to an endpoint with an invalid memory option 244.140625
+[debug] [2025-12-13T06:15:37.881Z] Converting a function to an endpoint with an invalid memory option 3814.697265625
+[debug] [2025-12-13T06:15:37.881Z] Converting a function to an endpoint with an invalid memory option 244.140625
+[info] i  hosting: The following function(s) are pinned to site portfolio-danilo-novais and will be deployed as well: ssrportfoliodanilonovai 
+[info] 
+[info] === Deploying to 'portfolio-danilo-novais'...
+[info] 
+[info] i  deploying functions, hosting 
+[debug] [2025-12-13T06:15:37.883Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:37.883Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:37.883Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais [none]
+[debug] [2025-12-13T06:15:38.082Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais 200
+[debug] [2025-12-13T06:15:38.082Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais {"projectNumber":"350817205989","projectId":"portfolio-danilo-novais","lifecycleState":"ACTIVE","name":"Portfolio Danilo Novais","labels":{"firebase":"enabled","firebase-core":"disabled","generative-language":"enabled"},"createTime":"2025-04-23T19:44:33.277227Z","parent":{"type":"organization","id":"106397661751"}}
+[info] i  functions: preparing codebase firebase-frameworks-portfolio-danilo-novais for deployment 
+[info] i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+[info] i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+[info] i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[debug] [2025-12-13T06:15:38.083Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:38.083Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:38.083Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/portfolio-danilo-novais/adminSdkConfig [none]
+[debug] [2025-12-13T06:15:39.190Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/portfolio-danilo-novais/adminSdkConfig 200
+[debug] [2025-12-13T06:15:39.190Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/portfolio-danilo-novais/adminSdkConfig {"projectId":"portfolio-danilo-novais","databaseURL":"https://portfolio-danilo-novais-default-rtdb.firebaseio.com","storageBucket":"portfolio-danilo-novais.firebasestorage.app"}
+[debug] [2025-12-13T06:15:39.190Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:39.190Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:39.190Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/portfolio-danilo-novais/configs [none]
+[debug] [2025-12-13T06:15:39.676Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/portfolio-danilo-novais/configs 200
+[debug] [2025-12-13T06:15:39.676Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/portfolio-danilo-novais/configs {}
+[debug] [2025-12-13T06:15:39.677Z] Validating nodejs source
+[debug] [2025-12-13T06:15:40.139Z] > [functions] package.json contents: {
+  "name": "danilo-novais-portfolio-backup",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "keywords": [
+    "react",
+    "three",
+    "threejs",
+    "react-three-fiber"
+  ],
+  "dependencies": {
+    "@dataconnect/generated": "file:src/dataconnect-generated",
+    "@hookform/resolvers": "^5.2.2",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.4.2",
+    "@supabase/ssr": "^0.8.0",
+    "@supabase/supabase-js": "^2.87.1",
+    "@tiptap/react": "^3.13.0",
+    "@tiptap/starter-kit": "^3.13.0",
+    "clsx": "^2.1.1",
+    "firebase": "^12.6.0",
+    "firebase-functions": "^7.0.1",
+    "framer-motion": "^12.23.26",
+    "lenis": "^1.3.16",
+    "lucide-react": "^0.561.0",
+    "maath": "^0.10.8",
+    "next": "^16.0.10",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-hook-form": "^7.68.0",
+    "resize-observer-polyfill": "^1.5.1",
+    "tailwind-merge": "^3.4.0",
+    "three": "^0.182.0",
+    "three-stdlib": "^2.36.1",
+    "zod": "^4.1.13",
+    "firebase-frameworks": "^0.11.0",
+    "firebase-admin": "^11.11.1"
+  },
+  "overrides": {
+    "test-exclude": "7.0.1"
+  },
+  "main": "server.js",
+  "engines": {
+    "node": "20"
+  }
+}
+[debug] [2025-12-13T06:15:40.139Z] Building nodejs source
+[info] i  functions: Loading and analyzing source code for codebase firebase-frameworks-portfolio-danilo-novais to determine what to deploy 
+[debug] [2025-12-13T06:15:40.140Z] Could not find functions.yaml. Must use http discovery
+[debug] [2025-12-13T06:15:40.145Z] Found firebase-functions binary at '/Users/danilonovais/_danilonov_portfolio/.firebase/portfolio-danilo-novais/functions/node_modules/.bin/firebase-functions'
+[info] Serving at port 8463
+
+[debug] [2025-12-13T06:15:40.635Z] Got response from /__/functions.yaml {"endpoints":{"ssrportfoliodanilonovai":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","region":["us-east1"],"labels":{},"httpsTrigger":{},"entryPoint":"ssrportfoliodanilonovai"}},"specVersion":"v1alpha1","requiredAPIs":[],"extensions":{}}
+[info] i  extensions: ensuring required API firebaseextensions.googleapis.com is enabled... 
+[debug] [2025-12-13T06:15:44.651Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-12-13T06:15:44.651Z] > authorizing via FIREBASE_TOKEN environment variable
+[warn] ⚠  Authenticating with `FIREBASE_TOKEN` is deprecated and will be removed in a future major version of `firebase-tools`. Instead, use a service account key with `GOOGLE_APPLICATION_CREDENTIALS`: https://cloud.google.com/docs/authentication/getting-started 
+[debug] [2025-12-13T06:15:44.651Z] [iam] checking project portfolio-danilo-novais for permissions ["firebase.projects.get","firebaseextensions.instances.list"]
+[debug] [2025-12-13T06:15:44.651Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:44.651Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:44.651Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions [none]
+[debug] [2025-12-13T06:15:44.651Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions x-goog-quota-user=projects/portfolio-danilo-novais
+[debug] [2025-12-13T06:15:44.651Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions {"permissions":["firebase.projects.get","firebaseextensions.instances.list"]}
+[debug] [2025-12-13T06:15:45.489Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions 200
+[debug] [2025-12-13T06:15:45.489Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais:testIamPermissions {"permissions":["firebase.projects.get","firebaseextensions.instances.list"]}
+[debug] [2025-12-13T06:15:45.489Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:45.489Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:45.489Z] >>> [apiv2][query] GET https://firebaseextensions.googleapis.com/v1beta/projects/portfolio-danilo-novais/instances pageSize=100&pageToken=
+[debug] [2025-12-13T06:15:46.542Z] <<< [apiv2][status] GET https://firebaseextensions.googleapis.com/v1beta/projects/portfolio-danilo-novais/instances 200
+[debug] [2025-12-13T06:15:46.543Z] <<< [apiv2][body] GET https://firebaseextensions.googleapis.com/v1beta/projects/portfolio-danilo-novais/instances {}
+[info] i  functions: Loaded environment variables from .env. 
+[info] i  functions: preparing .firebase/portfolio-danilo-novais/functions directory for uploading... 
+[info] i  functions: packaged /Users/danilonovais/_danilonov_portfolio/.firebase/portfolio-danilo-novais/functions (36.41 MB) for uploading 
+[info] i  functions: ensuring required API run.googleapis.com is enabled... 
+[info] i  functions: ensuring required API eventarc.googleapis.com is enabled... 
+[info] i  functions: ensuring required API pubsub.googleapis.com is enabled... 
+[info] i  functions: ensuring required API storage.googleapis.com is enabled... 
+[info] i  functions: generating the service identity for pubsub.googleapis.com... 
+[debug] [2025-12-13T06:15:48.400Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:48.400Z] Checked if tokens are valid: true, expires at: 1765610088915
+[info] i  functions: generating the service identity for eventarc.googleapis.com... 
+[debug] [2025-12-13T06:15:48.400Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:48.400Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:48.400Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/pubsub.googleapis.com:generateServiceIdentity [none]
+[debug] [2025-12-13T06:15:48.400Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/pubsub.googleapis.com:generateServiceIdentity x-goog-quota-user=projects/350817205989
+[debug] [2025-12-13T06:15:48.400Z] >>> [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/pubsub.googleapis.com:generateServiceIdentity {}
+[debug] [2025-12-13T06:15:48.401Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/eventarc.googleapis.com:generateServiceIdentity [none]
+[debug] [2025-12-13T06:15:48.401Z] >>> [apiv2][(partial)header] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/eventarc.googleapis.com:generateServiceIdentity x-goog-quota-user=projects/350817205989
+[debug] [2025-12-13T06:15:48.401Z] >>> [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/eventarc.googleapis.com:generateServiceIdentity {}
+[debug] [2025-12-13T06:15:49.528Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/eventarc.googleapis.com:generateServiceIdentity 200
+[debug] [2025-12-13T06:15:49.529Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/eventarc.googleapis.com:generateServiceIdentity {"name":"operations/finished.DONE_OPERATION","done":true,"response":{"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-350817205989@gcp-sa-eventarc.iam.gserviceaccount.com","uniqueId":"110776938226831059605"}}
+[debug] [2025-12-13T06:15:49.539Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/pubsub.googleapis.com:generateServiceIdentity 200
+[debug] [2025-12-13T06:15:49.539Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/350817205989/services/pubsub.googleapis.com:generateServiceIdentity {"name":"operations/finished.DONE_OPERATION","done":true,"response":{"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-350817205989@gcp-sa-pubsub.iam.gserviceaccount.com","uniqueId":"118155262370014226082"}}
+[debug] [2025-12-13T06:15:49.540Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:49.540Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:49.540Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais [none]
+[debug] [2025-12-13T06:15:49.729Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais 200
+[debug] [2025-12-13T06:15:49.729Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/projects/portfolio-danilo-novais {"projectNumber":"350817205989","projectId":"portfolio-danilo-novais","lifecycleState":"ACTIVE","name":"Portfolio Danilo Novais","labels":{"firebase":"enabled","firebase-core":"disabled","generative-language":"enabled"},"createTime":"2025-04-23T19:44:33.277227Z","parent":{"type":"organization","id":"106397661751"}}
+[debug] [2025-12-13T06:15:49.729Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:49.729Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:49.729Z] >>> [apiv2][query] GET https://compute.googleapis.com/compute/v1/projects/350817205989 [none]
+[debug] [2025-12-13T06:15:50.262Z] <<< [apiv2][status] GET https://compute.googleapis.com/compute/v1/projects/350817205989 200
+[debug] [2025-12-13T06:15:50.262Z] <<< [apiv2][body] GET https://compute.googleapis.com/compute/v1/projects/350817205989 {"kind":"compute#project","id":"6236362438918620630","creationTimestamp":"2025-10-22T08:41:45.457-07:00","name":"portfolio-danilo-novais","commonInstanceMetadata":{"kind":"compute#metadata","fingerprint":"Gst5Vv_56EI="},"quotas":[{"metric":"SNAPSHOTS","limit":1000,"usage":0},{"metric":"NETWORKS","limit":5,"usage":1},{"metric":"FIREWALLS","limit":100,"usage":4},{"metric":"IMAGES","limit":100,"usage":0},{"metric":"STATIC_ADDRESSES","limit":8,"usage":0},{"metric":"ROUTES","limit":200,"usage":0},{"metric":"FORWARDING_RULES","limit":15,"usage":0},{"metric":"TARGET_POOLS","limit":50,"usage":0},{"metric":"HEALTH_CHECKS","limit":75,"usage":0},{"metric":"IN_USE_ADDRESSES","limit":8,"usage":0},{"metric":"TARGET_INSTANCES","limit":50,"usage":0},{"metric":"TARGET_HTTP_PROXIES","limit":10,"usage":0},{"metric":"URL_MAPS","limit":10,"usage":0},{"metric":"BACKEND_SERVICES","limit":50,"usage":0},{"metric":"INSTANCE_TEMPLATES","limit":100,"usage":0},{"metric":"TARGET_VPN_GATEWAYS","limit":5,"usage":0},{"metric":"VPN_TUNNELS","limit":10,"usage":0},{"metric":"BACKEND_BUCKETS","limit":3,"usage":0},{"metric":"ROUTERS","limit":10,"usage":0},{"metric":"TARGET_SSL_PROXIES","limit":10,"usage":0},{"metric":"TARGET_HTTPS_PROXIES","limit":10,"usage":0},{"metric":"SSL_CERTIFICATES","limit":10,"usage":0},{"metric":"SUBNETWORKS","limit":100,"usage":0},{"metric":"TARGET_TCP_PROXIES","limit":10,"usage":0},{"metric":"CPUS_ALL_REGIONS","limit":32,"usage":0},{"metric":"SECURITY_POLICIES","limit":10,"usage":0},{"metric":"SECURITY_POLICY_RULES","limit":100,"usage":0},{"metric":"XPN_SERVICE_PROJECTS","limit":1000,"usage":0},{"metric":"PACKET_MIRRORINGS","limit":20,"usage":0},{"metric":"NETWORK_ENDPOINT_GROUPS","limit":100,"usage":0},{"metric":"INTERCONNECTS","limit":6,"usage":0},{"metric":"SSL_POLICIES","limit":10,"usage":0},{"metric":"GLOBAL_INTERNAL_ADDRESSES","limit":5000,"usage":0},{"metric":"VPN_GATEWAYS","limit":5,"usage":0},{"metric":"MACHINE_IMAGES","limit":100,"usage":0},{"metric":"SECURITY_POLICY_CEVAL_RULES","limit":20,"usage":0},{"metric":"GPUS_ALL_REGIONS","limit":0,"usage":0},{"metric":"EXTERNAL_VPN_GATEWAYS","limit":5,"usage":0},{"metric":"PUBLIC_ADVERTISED_PREFIXES","limit":1,"usage":0},{"metric":"PUBLIC_DELEGATED_PREFIXES","limit":10,"usage":0},{"metric":"STATIC_BYOIP_ADDRESSES","limit":128,"usage":0},{"metric":"NETWORK_FIREWALL_POLICIES","limit":10,"usage":0},{"metric":"INTERNAL_TRAFFIC_DIRECTOR_FORWARDING_RULES","limit":15,"usage":0},{"metric":"GLOBAL_EXTERNAL_MANAGED_FORWARDING_RULES","limit":15,"usage":0},{"metric":"GLOBAL_INTERNAL_MANAGED_BACKEND_SERVICES","limit":50,"usage":0},{"metric":"GLOBAL_EXTERNAL_MANAGED_BACKEND_SERVICES","limit":50,"usage":0},{"metric":"GLOBAL_EXTERNAL_PROXY_LB_BACKEND_SERVICES","limit":50,"usage":0},{"metric":"GLOBAL_INTERNAL_TRAFFIC_DIRECTOR_BACKEND_SERVICES","limit":250,"usage":0}],"selfLink":"https://www.googleapis.com/compute/v1/projects/portfolio-danilo-novais","defaultServiceAccount":"350817205989-compute@developer.gserviceaccount.com","xpnProjectStatus":"UNSPECIFIED_XPN_PROJECT_STATUS","defaultNetworkTier":"PREMIUM","vmDnsSetting":"ZONAL_ONLY","cloudArmorTier":"CA_STANDARD"}
+[debug] [2025-12-13T06:15:50.263Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:50.264Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:50.264Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/portfolio-danilo-novais/versions [none]
+[debug] [2025-12-13T06:15:50.264Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/portfolio-danilo-novais/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase","firebase-web-framework":"next_ssr"}}
+[debug] [2025-12-13T06:15:51.616Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/portfolio-danilo-novais/versions 200
+[debug] [2025-12-13T06:15:51.616Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/portfolio-danilo-novais/versions {"name":"projects/350817205989/sites/portfolio-danilo-novais/versions/902b2db29dcc9632","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase","firebase-web-framework":"next_ssr"}}
+[debug] [2025-12-13T06:15:51.617Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:51.617Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:51.617Z] >>> [apiv2][query] GET https://cloudbilling.googleapis.com/v1/projects/portfolio-danilo-novais/billingInfo [none]
+[debug] [2025-12-13T06:15:52.814Z] <<< [apiv2][status] GET https://cloudbilling.googleapis.com/v1/projects/portfolio-danilo-novais/billingInfo 200
+[debug] [2025-12-13T06:15:52.814Z] <<< [apiv2][body] GET https://cloudbilling.googleapis.com/v1/projects/portfolio-danilo-novais/billingInfo {"name":"projects/portfolio-danilo-novais/billingInfo","projectId":"portfolio-danilo-novais","billingAccountName":"billingAccounts/016D4D-8B2FB9-6874B3","billingEnabled":true}
+[debug] [2025-12-13T06:15:52.815Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:52.815Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:52.815Z] >>> [apiv2][query] POST https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/functions:generateUploadUrl [none]
+[debug] [2025-12-13T06:15:54.052Z] <<< [apiv2][status] POST https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/functions:generateUploadUrl 200
+[debug] [2025-12-13T06:15:54.052Z] <<< [apiv2][body] POST https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/functions:generateUploadUrl {"uploadUrl":"https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-east1.cloudfunctions.appspot.com/cc6f63fc-be9c-49fe-ab4c-a34424f89043.zip?GoogleAccessId=service-350817205989@gcf-admin-robot.iam.gserviceaccount.com&Expires=1765608353&Signature=WXPGU9ZPNa6YAYRfxrMw7dSl3k6yiR9mjAo7SE0M8yY%2FWjtLiBBcecNJv2BvUEIX0GurhKyhd8WzraXv8I2%2FFcFaOLtvU7yWdAOZUfNJHZjZLU2FOkhbp%2B4V55F5yI4aGZepfee4dYP2WCmPIYAn0kIzgewckfSY0rdjX5UdNN4pYtG%2Fdm9CzinZD1kS9GT%2FP%2FTo6TgXrFEnM2M7onTrvpiUjHsnlpWC4%2B7Fl0KEEcVx7UuwIrnHw14rvuDQN71NYYYA92hCT2ZF3BOWFJtL6VrEwToXcixNYVu94z8e3kHNKCWVlZyzs2C3U55xJG6QGsCsf2qCMRLPVc3iNTRE6g%3D%3D","storageSource":{"bucket":"gcf-v2-uploads-350817205989.us-east1.cloudfunctions.appspot.com","object":"cc6f63fc-be9c-49fe-ab4c-a34424f89043.zip"}}
+[debug] [2025-12-13T06:15:54.053Z] >>> [apiv2][query] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-east1.cloudfunctions.appspot.com/cc6f63fc-be9c-49fe-ab4c-a34424f89043.zip GoogleAccessId=service-350817205989%40gcf-admin-robot.iam.gserviceaccount.com&Expires=1765608353&Signature=WXPGU9ZPNa6YAYRfxrMw7dSl3k6yiR9mjAo7SE0M8yY%2FWjtLiBBcecNJv2BvUEIX0GurhKyhd8WzraXv8I2%2FFcFaOLtvU7yWdAOZUfNJHZjZLU2FOkhbp%2B4V55F5yI4aGZepfee4dYP2WCmPIYAn0kIzgewckfSY0rdjX5UdNN4pYtG%2Fdm9CzinZD1kS9GT%2FP%2FTo6TgXrFEnM2M7onTrvpiUjHsnlpWC4%2B7Fl0KEEcVx7UuwIrnHw14rvuDQN71NYYYA92hCT2ZF3BOWFJtL6VrEwToXcixNYVu94z8e3kHNKCWVlZyzs2C3U55xJG6QGsCsf2qCMRLPVc3iNTRE6g%3D%3D
+[debug] [2025-12-13T06:15:54.053Z] >>> [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-east1.cloudfunctions.appspot.com/cc6f63fc-be9c-49fe-ab4c-a34424f89043.zip [stream]
+[debug] [2025-12-13T06:15:57.317Z] <<< [apiv2][status] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-east1.cloudfunctions.appspot.com/cc6f63fc-be9c-49fe-ab4c-a34424f89043.zip 200
+[debug] [2025-12-13T06:15:57.317Z] <<< [apiv2][body] PUT https://storage.googleapis.com/gcf-v2-uploads-350817205989.us-east1.cloudfunctions.appspot.com/cc6f63fc-be9c-49fe-ab4c-a34424f89043.zip [omitted]
+[info] ✔  functions: .firebase/portfolio-danilo-novais/functions source uploaded successfully 
+[info] i  hosting[portfolio-danilo-novais]: beginning deploy... 
+[info] i  hosting[portfolio-danilo-novais]: found 40 files in .firebase/portfolio-danilo-novais/hosting 
+[debug] [2025-12-13T06:15:57.325Z] [hosting] uploading with 200 concurrency
+[debug] [2025-12-13T06:15:57.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:57.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:57.375Z] [hosting] hash cache [LmZpcmViYXNlL3BvcnRmb2xpby1kYW5pbG8tbm92YWlzL2hvc3Rpbmc] stored for 40 files
+[debug] [2025-12-13T06:15:57.375Z] [hosting][hash queue][FINAL] {"max":46,"min":11,"avg":16.425,"active":0,"complete":40,"success":40,"errored":0,"retried":0,"total":40,"elapsed":49}
+[debug] [2025-12-13T06:15:57.375Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/350817205989/sites/portfolio-danilo-novais/versions/902b2db29dcc9632:populateFiles [none]
+[debug] [2025-12-13T06:15:57.375Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/350817205989/sites/portfolio-danilo-novais/versions/902b2db29dcc9632:populateFiles {"files":{"/media/index.html":"b4271f225497b1a2a16e9c2cc2606f5597bcf3697746753ad75f9aacb87e032b","/media/torus_dan.jsx":"b11df57fc455b9ad8bcc7075a1fae8487dd7be0a3ecadd78ff9780e7c787f900","/_next/static/media/ad66f9afd8947f86-s.7a40eb73.woff2":"1a0e14609112860ada68bcd117557d881c437c49a652fc25f03478d32db23261","/media/license.txt":"3ff240a58593efee590e296953dda66e9d6fe044568a49173a3bfc6fc265ee8c","/_next/static/chunks/fc279acc7863c436.css":"e268137d76f27d6b3952c747374f562b2ed011bc2e8ea27fc116e8a3da1ebea0","/_next/static/chunks/ff1a16fafef87110.js":"4be93412f85014c30f16ba239de81bca42ce83993b244ac2707f2bb806f7faa8","/_next/static/chunks/turbopack-bc6fc16f6b163ec5.js":"db1b909be1c96e1a48ab5fd934c60f8064bfb1f502fd728eb3f63c0618af80a7","/_next/static/chunks/ce76161f347c6eb4.js":"7a199c8ad6c4592f3d944a810a01332c4bfd01cd271d4f466b60891977c006e1","/_next/static/chunks/faea067c947cf747.js":"63d6f4950cdebc4efc388c46d482e65acaabee97a0a894829a644ac9e130f1e6","/_next/static/chunks/f80c6f7097b39754.js":"bc9afeff8d6aa88e6630085b882edc52c76ff51b35f358ef85da2f6f3cc524bd","/_next/static/chunks/b686244bb399c18a.js":"5bdd6fe2f49005386d211396c79ed1461d32928e8f8c2e2806ee08a32d57735f","/_next/static/chunks/9bf981c07d6bdd84.js":"db8bbca55beb23aa2747780e02416a020bcb453ba0c5530d21ef2829c2d21a8b","/_next/static/chunks/b00aa0006088835b.js":"c3cef1566c08bce401e5ccedaffbe65e2a575591135ccf49fc1ceb3969f6e25c","/_next/static/chunks/8403ec66b553d538.js":"bc075608d0b0fa518f08cdeb964fec8125f3cab9fa7333bfd9e2b154462d0176","/_next/static/chunks/95edfe5b957bea43.js":"95f1e0a7f77349204416f231813b91f4117904a295641e0c96ff3c84f16f4d2c","/_next/static/media/2bbe8d2671613f1f-s.76dcb0b2.woff2":"bbf2b69affb52c37fbd41b4c75ae7fc2f2421b70be2218dbe876cef0fcdc18a9","/_next/static/chunks/6688d40876c08b39.js":"1a48f611b928235836409e661c96bc29555633212b9d2349b3de54d73b53101c","/_next/static/chunks/2f7db4f9ca2f11c7.js":"5b6b5cc2f583f74faf46bdeff0dba44181134d5a8539dd3d7ecd297d15a86fde","/_next/static/chunks/49c14924959f5b3b.js":"1ca806355218f6398650fe05319476a61405b93ca0ade468dd58aefe3323cded","/_next/static/chunks/247eb132b7f7b574.js":"b251db27752c188925603d0124f6861c669eb03aadc968eb1bfe890a7a9177cf","/_next/static/JUWuzaqMRbb6vAvIPk_81/_ssgManifest.js":"02dbc1aeab6ef0a6ff2ff9a1643158cf9bb38929945eaa343a3627dee9ba6778","/_next/static/media/5476f68d60460930-s.c995e352.woff2":"9158a62c685560cf2e28de5854b559863dc9dbda0bf98277ab1ed711bddd8a77","/_next/static/chunks/38e5f7108e872db4.js":"0e5c8c18cc0dd87bcc5efdc97d685a1e71f6f89ef4d912a61002b397b3149bc1","/_next/static/media/2c55a0e60120577a-s.2a48534a.woff2":"60bcc7eca099398d9118a54458d766e098397b9b59a1788046e101bc7797906b","/_next/static/JUWuzaqMRbb6vAvIPk_81/_buildManifest.js":"30ef2ac8f5c7eb81cae36ed0e00068cbbdf1fe45eaa179abe62d8e5cbcb54834","/_next/static/JUWuzaqMRbb6vAvIPk_81/_clientMiddlewareManifest.json":"e468582e015fe40865baf9ee08715782aa95d59be12f71035a441fad22831dab","/_next/static/chunks/0819e5eb5312d18e.css":"acb8bcd5824d0f9d0ff725da0d47ed238e8c3c16f0c657914a66c581e0d8855a","/_next/static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2":"28d3c49d99e0f60c3d54343c8188ada21c804877b2b1fd9acc1695bf6b47ef22","/_next/static/chunks/b7d8123870a93c0e.js":"972adf62ec6d0dd13d5371eea1d3257fd3570468083a12ac65c6e001cf13b48b","/_next/static/chunks/ece393d7c24a577a.js":"c78be5e2bd9d0665491199eaa92c194309a066f6d57604291a3c3f3bc80e5962","/_next/static/media/9c72aa0f40e4eef8-s.18a48cbc.woff2":"a30747ba3d635d16cfc52331d3364bcbb1024d1d1bfe0e830e6329ef1e7dda23","/_next/static/chunks/a6dad97d9634a72d.js":"67dee1c02c6a6700d63b5c1898cf2df618101a68a395db469192763d24925a23","/_next/static/chunks/3d73a8e2bcaa223c.js":"6f44adc81774cbf8f9c61b53555480b605ce0c064325e8f33aacadf7e16e8470","/_next/static/chunks/940087073e2c3853.js":"a64b6cf021d138a19c5142661dd13797640a207f3f90f30437e1551831c903ab","/_next/static/media/1bffadaabf893a1e-s.7cd81963.woff2":"865e90fb09b8be8261d53d6a40c80daa87669020b3d5fa186cb66c1944efca21","/_next/static/chunks/b929eae3e42d4bc2.js":"396ce6c7296707ff289a7af65f5b844f16f388e81c926431cb4d4ad92a374e0b","/_next/static/chunks/023d923a37d494fc.js":"0cd8e117731d04c617c898742d88cff99d7af15c2c2d237d5a37caecb941f25a","/media/torus_dan.glb":"c926181984d093281d191f3b0eafc88a88dda99317c810bba4bde03d1236e079","/_next/static/chunks/cc7a729cbbeb414e.js":"d74c56a2c25e988b6c9ac7f742ee3864dadb715bbdfa5d8936c488c946667f8d","/_next/static/chunks/8b3d896bfc762a06.js":"14f898690a29c3e62cff852d35db946da91725a3472b0d936d7300135e8d78a2"}}
+[debug] [2025-12-13T06:15:58.373Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/350817205989/sites/portfolio-danilo-novais/versions/902b2db29dcc9632:populateFiles 200
+[debug] [2025-12-13T06:15:58.373Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/350817205989/sites/portfolio-danilo-novais/versions/902b2db29dcc9632:populateFiles {"uploadRequiredHashes":["bc075608d0b0fa518f08cdeb964fec8125f3cab9fa7333bfd9e2b154462d0176","bc9afeff8d6aa88e6630085b882edc52c76ff51b35f358ef85da2f6f3cc524bd","db8bbca55beb23aa2747780e02416a020bcb453ba0c5530d21ef2829c2d21a8b","5bdd6fe2f49005386d211396c79ed1461d32928e8f8c2e2806ee08a32d57735f","db1b909be1c96e1a48ab5fd934c60f8064bfb1f502fd728eb3f63c0618af80a7","d74c56a2c25e988b6c9ac7f742ee3864dadb715bbdfa5d8936c488c946667f8d","a64b6cf021d138a19c5142661dd13797640a207f3f90f30437e1551831c903ab","acb8bcd5824d0f9d0ff725da0d47ed238e8c3c16f0c657914a66c581e0d8855a","7a199c8ad6c4592f3d944a810a01332c4bfd01cd271d4f466b60891977c006e1","14f898690a29c3e62cff852d35db946da91725a3472b0d936d7300135e8d78a2","396ce6c7296707ff289a7af65f5b844f16f388e81c926431cb4d4ad92a374e0b","e468582e015fe40865baf9ee08715782aa95d59be12f71035a441fad22831dab","c78be5e2bd9d0665491199eaa92c194309a066f6d57604291a3c3f3bc80e5962","e268137d76f27d6b3952c747374f562b2ed011bc2e8ea27fc116e8a3da1ebea0","95f1e0a7f77349204416f231813b91f4117904a295641e0c96ff3c84f16f4d2c","1a48f611b928235836409e661c96bc29555633212b9d2349b3de54d73b53101c","1ca806355218f6398650fe05319476a61405b93ca0ade468dd58aefe3323cded","6f44adc81774cbf8f9c61b53555480b605ce0c064325e8f33aacadf7e16e8470","0e5c8c18cc0dd87bcc5efdc97d685a1e71f6f89ef4d912a61002b397b3149bc1","5b6b5cc2f583f74faf46bdeff0dba44181134d5a8539dd3d7ecd297d15a86fde"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files"}
+[debug] [2025-12-13T06:15:58.373Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.374Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:15:58.375Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/bc075608d0b0fa518f08cdeb964fec8125f3cab9fa7333bfd9e2b154462d0176 [none]
+[debug] [2025-12-13T06:15:58.375Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/bc075608d0b0fa518f08cdeb964fec8125f3cab9fa7333bfd9e2b154462d0176 [stream]
+[debug] [2025-12-13T06:15:58.375Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/bc9afeff8d6aa88e6630085b882edc52c76ff51b35f358ef85da2f6f3cc524bd [none]
+[debug] [2025-12-13T06:15:58.375Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/bc9afeff8d6aa88e6630085b882edc52c76ff51b35f358ef85da2f6f3cc524bd [stream]
+[debug] [2025-12-13T06:15:58.376Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/db8bbca55beb23aa2747780e02416a020bcb453ba0c5530d21ef2829c2d21a8b [none]
+[debug] [2025-12-13T06:15:58.376Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/db8bbca55beb23aa2747780e02416a020bcb453ba0c5530d21ef2829c2d21a8b [stream]
+[debug] [2025-12-13T06:15:58.376Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/5bdd6fe2f49005386d211396c79ed1461d32928e8f8c2e2806ee08a32d57735f [none]
+[debug] [2025-12-13T06:15:58.376Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/5bdd6fe2f49005386d211396c79ed1461d32928e8f8c2e2806ee08a32d57735f [stream]
+[debug] [2025-12-13T06:15:58.376Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/db1b909be1c96e1a48ab5fd934c60f8064bfb1f502fd728eb3f63c0618af80a7 [none]
+[debug] [2025-12-13T06:15:58.376Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/db1b909be1c96e1a48ab5fd934c60f8064bfb1f502fd728eb3f63c0618af80a7 [stream]
+[debug] [2025-12-13T06:15:58.376Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/d74c56a2c25e988b6c9ac7f742ee3864dadb715bbdfa5d8936c488c946667f8d [none]
+[debug] [2025-12-13T06:15:58.376Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/d74c56a2c25e988b6c9ac7f742ee3864dadb715bbdfa5d8936c488c946667f8d [stream]
+[debug] [2025-12-13T06:15:58.377Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/a64b6cf021d138a19c5142661dd13797640a207f3f90f30437e1551831c903ab [none]
+[debug] [2025-12-13T06:15:58.377Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/a64b6cf021d138a19c5142661dd13797640a207f3f90f30437e1551831c903ab [stream]
+[debug] [2025-12-13T06:15:58.377Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/acb8bcd5824d0f9d0ff725da0d47ed238e8c3c16f0c657914a66c581e0d8855a [none]
+[debug] [2025-12-13T06:15:58.377Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/acb8bcd5824d0f9d0ff725da0d47ed238e8c3c16f0c657914a66c581e0d8855a [stream]
+[debug] [2025-12-13T06:15:58.377Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/7a199c8ad6c4592f3d944a810a01332c4bfd01cd271d4f466b60891977c006e1 [none]
+[debug] [2025-12-13T06:15:58.377Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/7a199c8ad6c4592f3d944a810a01332c4bfd01cd271d4f466b60891977c006e1 [stream]
+[debug] [2025-12-13T06:15:58.380Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/14f898690a29c3e62cff852d35db946da91725a3472b0d936d7300135e8d78a2 [none]
+[debug] [2025-12-13T06:15:58.380Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/14f898690a29c3e62cff852d35db946da91725a3472b0d936d7300135e8d78a2 [stream]
+[debug] [2025-12-13T06:15:58.389Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/396ce6c7296707ff289a7af65f5b844f16f388e81c926431cb4d4ad92a374e0b [none]
+[debug] [2025-12-13T06:15:58.391Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/396ce6c7296707ff289a7af65f5b844f16f388e81c926431cb4d4ad92a374e0b [stream]
+[debug] [2025-12-13T06:15:58.416Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/e468582e015fe40865baf9ee08715782aa95d59be12f71035a441fad22831dab [none]
+[debug] [2025-12-13T06:15:58.416Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/e468582e015fe40865baf9ee08715782aa95d59be12f71035a441fad22831dab [stream]
+[debug] [2025-12-13T06:15:58.421Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/c78be5e2bd9d0665491199eaa92c194309a066f6d57604291a3c3f3bc80e5962 [none]
+[debug] [2025-12-13T06:15:58.421Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/c78be5e2bd9d0665491199eaa92c194309a066f6d57604291a3c3f3bc80e5962 [stream]
+[debug] [2025-12-13T06:15:58.423Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/e268137d76f27d6b3952c747374f562b2ed011bc2e8ea27fc116e8a3da1ebea0 [none]
+[debug] [2025-12-13T06:15:58.423Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/e268137d76f27d6b3952c747374f562b2ed011bc2e8ea27fc116e8a3da1ebea0 [stream]
+[debug] [2025-12-13T06:15:58.423Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/95f1e0a7f77349204416f231813b91f4117904a295641e0c96ff3c84f16f4d2c [none]
+[debug] [2025-12-13T06:15:58.423Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/95f1e0a7f77349204416f231813b91f4117904a295641e0c96ff3c84f16f4d2c [stream]
+[debug] [2025-12-13T06:15:58.424Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/1a48f611b928235836409e661c96bc29555633212b9d2349b3de54d73b53101c [none]
+[debug] [2025-12-13T06:15:58.425Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/1a48f611b928235836409e661c96bc29555633212b9d2349b3de54d73b53101c [stream]
+[debug] [2025-12-13T06:15:58.430Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/1ca806355218f6398650fe05319476a61405b93ca0ade468dd58aefe3323cded [none]
+[debug] [2025-12-13T06:15:58.430Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/1ca806355218f6398650fe05319476a61405b93ca0ade468dd58aefe3323cded [stream]
+[debug] [2025-12-13T06:15:58.436Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/6f44adc81774cbf8f9c61b53555480b605ce0c064325e8f33aacadf7e16e8470 [none]
+[debug] [2025-12-13T06:15:58.447Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/6f44adc81774cbf8f9c61b53555480b605ce0c064325e8f33aacadf7e16e8470 [stream]
+[debug] [2025-12-13T06:15:58.449Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/0e5c8c18cc0dd87bcc5efdc97d685a1e71f6f89ef4d912a61002b397b3149bc1 [none]
+[debug] [2025-12-13T06:15:58.449Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/0e5c8c18cc0dd87bcc5efdc97d685a1e71f6f89ef4d912a61002b397b3149bc1 [stream]
+[debug] [2025-12-13T06:15:58.456Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/5b6b5cc2f583f74faf46bdeff0dba44181134d5a8539dd3d7ecd297d15a86fde [none]
+[debug] [2025-12-13T06:15:58.456Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/5b6b5cc2f583f74faf46bdeff0dba44181134d5a8539dd3d7ecd297d15a86fde [stream]
+[debug] [2025-12-13T06:15:58.458Z] [hosting][populate queue][FINAL] {"max":1000,"min":1000,"avg":1000,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":1084}
+[debug] [2025-12-13T06:15:58.458Z] [hosting] uploads queued: 20
+[debug] [2025-12-13T06:15:59.569Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/db8bbca55beb23aa2747780e02416a020bcb453ba0c5530d21ef2829c2d21a8b 200
+[debug] [2025-12-13T06:15:59.569Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/db8bbca55beb23aa2747780e02416a020bcb453ba0c5530d21ef2829c2d21a8b [stream]
+[debug] [2025-12-13T06:15:59.701Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/396ce6c7296707ff289a7af65f5b844f16f388e81c926431cb4d4ad92a374e0b 200
+[debug] [2025-12-13T06:15:59.701Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/396ce6c7296707ff289a7af65f5b844f16f388e81c926431cb4d4ad92a374e0b [stream]
+[debug] [2025-12-13T06:15:59.737Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/e468582e015fe40865baf9ee08715782aa95d59be12f71035a441fad22831dab 200
+[debug] [2025-12-13T06:15:59.737Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/e468582e015fe40865baf9ee08715782aa95d59be12f71035a441fad22831dab [stream]
+[debug] [2025-12-13T06:15:59.762Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/1ca806355218f6398650fe05319476a61405b93ca0ade468dd58aefe3323cded 200
+[debug] [2025-12-13T06:15:59.762Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/1ca806355218f6398650fe05319476a61405b93ca0ade468dd58aefe3323cded [stream]
+[debug] [2025-12-13T06:15:59.825Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/bc075608d0b0fa518f08cdeb964fec8125f3cab9fa7333bfd9e2b154462d0176 200
+[debug] [2025-12-13T06:15:59.825Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/bc075608d0b0fa518f08cdeb964fec8125f3cab9fa7333bfd9e2b154462d0176 [stream]
+[debug] [2025-12-13T06:15:59.865Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/e268137d76f27d6b3952c747374f562b2ed011bc2e8ea27fc116e8a3da1ebea0 200
+[debug] [2025-12-13T06:15:59.865Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/e268137d76f27d6b3952c747374f562b2ed011bc2e8ea27fc116e8a3da1ebea0 [stream]
+[debug] [2025-12-13T06:15:59.890Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/db1b909be1c96e1a48ab5fd934c60f8064bfb1f502fd728eb3f63c0618af80a7 200
+[debug] [2025-12-13T06:15:59.890Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/db1b909be1c96e1a48ab5fd934c60f8064bfb1f502fd728eb3f63c0618af80a7 [stream]
+[debug] [2025-12-13T06:15:59.907Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/7a199c8ad6c4592f3d944a810a01332c4bfd01cd271d4f466b60891977c006e1 200
+[debug] [2025-12-13T06:15:59.907Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/7a199c8ad6c4592f3d944a810a01332c4bfd01cd271d4f466b60891977c006e1 [stream]
+[debug] [2025-12-13T06:15:59.957Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/a64b6cf021d138a19c5142661dd13797640a207f3f90f30437e1551831c903ab 200
+[debug] [2025-12-13T06:15:59.957Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/a64b6cf021d138a19c5142661dd13797640a207f3f90f30437e1551831c903ab [stream]
+[debug] [2025-12-13T06:15:59.999Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/5bdd6fe2f49005386d211396c79ed1461d32928e8f8c2e2806ee08a32d57735f 200
+[debug] [2025-12-13T06:15:59.999Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/5bdd6fe2f49005386d211396c79ed1461d32928e8f8c2e2806ee08a32d57735f [stream]
+[debug] [2025-12-13T06:16:00.034Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/95f1e0a7f77349204416f231813b91f4117904a295641e0c96ff3c84f16f4d2c 200
+[debug] [2025-12-13T06:16:00.034Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/95f1e0a7f77349204416f231813b91f4117904a295641e0c96ff3c84f16f4d2c [stream]
+[debug] [2025-12-13T06:16:00.124Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/0e5c8c18cc0dd87bcc5efdc97d685a1e71f6f89ef4d912a61002b397b3149bc1 200
+[debug] [2025-12-13T06:16:00.124Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/0e5c8c18cc0dd87bcc5efdc97d685a1e71f6f89ef4d912a61002b397b3149bc1 [stream]
+[debug] [2025-12-13T06:16:00.303Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/5b6b5cc2f583f74faf46bdeff0dba44181134d5a8539dd3d7ecd297d15a86fde 200
+[debug] [2025-12-13T06:16:00.303Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/5b6b5cc2f583f74faf46bdeff0dba44181134d5a8539dd3d7ecd297d15a86fde [stream]
+[debug] [2025-12-13T06:16:00.347Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/bc9afeff8d6aa88e6630085b882edc52c76ff51b35f358ef85da2f6f3cc524bd 200
+[debug] [2025-12-13T06:16:00.347Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/bc9afeff8d6aa88e6630085b882edc52c76ff51b35f358ef85da2f6f3cc524bd [stream]
+[debug] [2025-12-13T06:16:00.355Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/6f44adc81774cbf8f9c61b53555480b605ce0c064325e8f33aacadf7e16e8470 200
+[debug] [2025-12-13T06:16:00.355Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/6f44adc81774cbf8f9c61b53555480b605ce0c064325e8f33aacadf7e16e8470 [stream]
+[debug] [2025-12-13T06:16:00.389Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/d74c56a2c25e988b6c9ac7f742ee3864dadb715bbdfa5d8936c488c946667f8d 200
+[debug] [2025-12-13T06:16:00.389Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/d74c56a2c25e988b6c9ac7f742ee3864dadb715bbdfa5d8936c488c946667f8d [stream]
+[debug] [2025-12-13T06:16:00.467Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/14f898690a29c3e62cff852d35db946da91725a3472b0d936d7300135e8d78a2 200
+[debug] [2025-12-13T06:16:00.468Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/14f898690a29c3e62cff852d35db946da91725a3472b0d936d7300135e8d78a2 [stream]
+[debug] [2025-12-13T06:16:00.596Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/c78be5e2bd9d0665491199eaa92c194309a066f6d57604291a3c3f3bc80e5962 200
+[debug] [2025-12-13T06:16:00.596Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/c78be5e2bd9d0665491199eaa92c194309a066f6d57604291a3c3f3bc80e5962 [stream]
+[debug] [2025-12-13T06:16:00.675Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/1a48f611b928235836409e661c96bc29555633212b9d2349b3de54d73b53101c 200
+[debug] [2025-12-13T06:16:00.676Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/1a48f611b928235836409e661c96bc29555633212b9d2349b3de54d73b53101c [stream]
+[debug] [2025-12-13T06:16:00.760Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/acb8bcd5824d0f9d0ff725da0d47ed238e8c3c16f0c657914a66c581e0d8855a 200
+[debug] [2025-12-13T06:16:00.760Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/portfolio-danilo-novais/versions/902b2db29dcc9632/files/acb8bcd5824d0f9d0ff725da0d47ed238e8c3c16f0c657914a66c581e0d8855a [stream]
+[debug] [2025-12-13T06:16:00.760Z] [hosting][upload queue][FINAL] {"max":2386,"min":1195,"avg":1739.35,"active":0,"complete":20,"success":20,"errored":0,"retried":0,"total":20,"elapsed":2387}
+[info] ✔  hosting[portfolio-danilo-novais]: file upload complete 
+[debug] [2025-12-13T06:16:00.760Z] [hosting] deploy completed after 3441ms
+[info] i  functions: updating Node.js 20 (2nd Gen) function firebase-frameworks-portfolio-danilo-novais:ssrportfoliodanilonovai(us-east1)... 
+[debug] [2025-12-13T06:16:00.762Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:00.762Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:00.762Z] >>> [apiv2][query] PATCH https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai updateMask=name%2CbuildConfig.runtime%2CbuildConfig.entryPoint%2CbuildConfig.source.storageSource.bucket%2CbuildConfig.source.storageSource.object%2CbuildConfig.environmentVariables%2CbuildConfig.sourceToken%2CserviceConfig.environmentVariables%2CserviceConfig.ingressSettings%2CserviceConfig.timeoutSeconds%2CserviceConfig.serviceAccountEmail%2CserviceConfig.availableMemory%2CserviceConfig.minInstanceCount%2CserviceConfig.maxInstanceCount%2CserviceConfig.maxInstanceRequestConcurrency%2CserviceConfig.availableCpu%2CserviceConfig.vpcConnector%2CserviceConfig.vpcConnectorEgressSettings%2Clabels
+[debug] [2025-12-13T06:16:00.762Z] >>> [apiv2][body] PATCH https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai {"name":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":{"storageSource":{"bucket":"gcf-v2-uploads-350817205989.us-east1.cloudfunctions.appspot.com","object":"cc6f63fc-be9c-49fe-ab4c-a34424f89043.zip"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""}},"serviceConfig":{"environmentVariables":{"VERCEL_URL":"portfolio-danilo-novais.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"portfolio-danilo-novais\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\",\"apiKey\":\"AIzaSyBe7uThxjKtP0A9QgK9KMu59bAUB4GXj4g\",\"authDomain\":\"portfolio-danilo-novais.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"portfolio-danilo-novais\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\"}","GCLOUD_PROJECT":"portfolio-danilo-novais","EVENTARC_CLOUD_EVENT_SOURCE":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"},"ingressSettings":null,"timeoutSeconds":null,"serviceAccountEmail":null,"availableMemory":"256Mi","minInstanceCount":null,"maxInstanceCount":null,"maxInstanceRequestConcurrency":80,"availableCpu":"1","vpcConnector":null,"vpcConnectorEgressSettings":null},"labels":{"deployment-tool":"cli-firebase","firebase-functions-codebase":"firebase-frameworks-portfolio-danilo-novais","firebase-functions-hash":"886a21741725783745f09f1310f7de7168e9bb70"}}
+[debug] [2025-12-13T06:16:02.764Z] <<< [apiv2][status] PATCH https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai 200
+[debug] [2025-12-13T06:16:02.764Z] <<< [apiv2][body] PATCH https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai {"name":"projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-12-13T06:16:02.636038257Z","target":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2"},"done":false}
+[debug] [2025-12-13T06:16:02.764Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:02.764Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:02.764Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 [none]
+[debug] [2025-12-13T06:16:03.862Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 200
+[debug] [2025-12-13T06:16:03.862Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 {"name":"projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-12-13T06:16:02.636038257Z","target":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":{"storageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765606562532841"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/portfolio-danilo-novais/locations/us-east1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765100755779220"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/portfolio-danilo-novais/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"portfolio-danilo-novais.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"portfolio-danilo-novais\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\",\"apiKey\":\"AIzaSyBe7uThxjKtP0A9QgK9KMu59bAUB4GXj4g\",\"authDomain\":\"portfolio-danilo-novais.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"portfolio-danilo-novais\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\"}","GCLOUD_PROJECT":"portfolio-danilo-novais","EVENTARC_CLOUD_EVENT_SOURCE":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-ue.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00001-vey","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cloudfunctions","firebase-functions-codebase":"firebase-frameworks-portfolio-danilo-novais","firebase-functions-hash":"886a21741725783745f09f1310f7de7168e9bb70"},"environment":"GEN_2","url":"https://us-east1-portfolio-danilo-novais.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-east1/builds/a793e9be-ecdc-4e24-93fa-2625481ec090","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-east1/a793e9be-ecdc-4e24-93fa-2625481ec090?project=350817205989"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-east1/builds/a793e9be-ecdc-4e24-93fa-2625481ec090"},"done":false}
+[debug] [2025-12-13T06:16:04.363Z] [update-firebase-frameworks-portfolio-danilo-novais-us-east1-ssrportfoliodanilonovai] Retrying task index 0
+[debug] [2025-12-13T06:16:04.364Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:04.364Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:04.364Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 [none]
+[debug] [2025-12-13T06:16:05.469Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 200
+[debug] [2025-12-13T06:16:05.469Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 {"name":"projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-12-13T06:16:02.636038257Z","target":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":{"storageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765606562532841"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/portfolio-danilo-novais/locations/us-east1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765100755779220"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/portfolio-danilo-novais/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"portfolio-danilo-novais.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"portfolio-danilo-novais\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\",\"apiKey\":\"AIzaSyBe7uThxjKtP0A9QgK9KMu59bAUB4GXj4g\",\"authDomain\":\"portfolio-danilo-novais.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"portfolio-danilo-novais\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\"}","GCLOUD_PROJECT":"portfolio-danilo-novais","EVENTARC_CLOUD_EVENT_SOURCE":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-ue.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00001-vey","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cloudfunctions","firebase-functions-codebase":"firebase-frameworks-portfolio-danilo-novais","firebase-functions-hash":"886a21741725783745f09f1310f7de7168e9bb70"},"environment":"GEN_2","url":"https://us-east1-portfolio-danilo-novais.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-east1/builds/a793e9be-ecdc-4e24-93fa-2625481ec090","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-east1/a793e9be-ecdc-4e24-93fa-2625481ec090?project=350817205989"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-east1/builds/a793e9be-ecdc-4e24-93fa-2625481ec090"},"done":false}
+[debug] [2025-12-13T06:16:06.470Z] [update-firebase-frameworks-portfolio-danilo-novais-us-east1-ssrportfoliodanilonovai] Retrying task index 0
+[debug] [2025-12-13T06:16:06.470Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:06.470Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:06.470Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 [none]
+[debug] [2025-12-13T06:16:07.559Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 200
+[debug] [2025-12-13T06:16:07.559Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 {"name":"projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-12-13T06:16:02.636038257Z","target":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":{"storageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765606562532841"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/portfolio-danilo-novais/locations/us-east1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765100755779220"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/portfolio-danilo-novais/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"portfolio-danilo-novais.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"portfolio-danilo-novais\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\",\"apiKey\":\"AIzaSyBe7uThxjKtP0A9QgK9KMu59bAUB4GXj4g\",\"authDomain\":\"portfolio-danilo-novais.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"portfolio-danilo-novais\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\"}","GCLOUD_PROJECT":"portfolio-danilo-novais","EVENTARC_CLOUD_EVENT_SOURCE":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-ue.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00001-vey","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cloudfunctions","firebase-functions-codebase":"firebase-frameworks-portfolio-danilo-novais","firebase-functions-hash":"886a21741725783745f09f1310f7de7168e9bb70"},"environment":"GEN_2","url":"https://us-east1-portfolio-danilo-novais.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-east1/builds/a793e9be-ecdc-4e24-93fa-2625481ec090","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-east1/a793e9be-ecdc-4e24-93fa-2625481ec090?project=350817205989"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-east1/builds/a793e9be-ecdc-4e24-93fa-2625481ec090"},"done":false}
+[debug] [2025-12-13T06:16:09.560Z] [update-firebase-frameworks-portfolio-danilo-novais-us-east1-ssrportfoliodanilonovai] Retrying task index 0
+[debug] [2025-12-13T06:16:09.560Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:09.560Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:09.560Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 [none]
+[debug] [2025-12-13T06:16:10.637Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 200
+[debug] [2025-12-13T06:16:10.637Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 {"name":"projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-12-13T06:16:02.636038257Z","target":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":{"storageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765606562532841"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/portfolio-danilo-novais/locations/us-east1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765100755779220"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/portfolio-danilo-novais/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"portfolio-danilo-novais.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"portfolio-danilo-novais\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\",\"apiKey\":\"AIzaSyBe7uThxjKtP0A9QgK9KMu59bAUB4GXj4g\",\"authDomain\":\"portfolio-danilo-novais.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"portfolio-danilo-novais\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\"}","GCLOUD_PROJECT":"portfolio-danilo-novais","EVENTARC_CLOUD_EVENT_SOURCE":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-ue.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00001-vey","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cloudfunctions","firebase-functions-codebase":"firebase-frameworks-portfolio-danilo-novais","firebase-functions-hash":"886a21741725783745f09f1310f7de7168e9bb70"},"environment":"GEN_2","url":"https://us-east1-portfolio-danilo-novais.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-east1/builds/a793e9be-ecdc-4e24-93fa-2625481ec090","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-east1/a793e9be-ecdc-4e24-93fa-2625481ec090?project=350817205989"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-east1/builds/a793e9be-ecdc-4e24-93fa-2625481ec090"},"done":false}
+[debug] [2025-12-13T06:16:14.638Z] [update-firebase-frameworks-portfolio-danilo-novais-us-east1-ssrportfoliodanilonovai] Retrying task index 0
+[debug] [2025-12-13T06:16:14.638Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:14.638Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:14.638Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 [none]
+[debug] [2025-12-13T06:16:15.722Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 200
+[debug] [2025-12-13T06:16:15.722Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 {"name":"projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-12-13T06:16:02.636038257Z","target":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":{"storageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765606562532841"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/portfolio-danilo-novais/locations/us-east1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765100755779220"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/portfolio-danilo-novais/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"portfolio-danilo-novais.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"portfolio-danilo-novais\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\",\"apiKey\":\"AIzaSyBe7uThxjKtP0A9QgK9KMu59bAUB4GXj4g\",\"authDomain\":\"portfolio-danilo-novais.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"portfolio-danilo-novais\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\"}","GCLOUD_PROJECT":"portfolio-danilo-novais","EVENTARC_CLOUD_EVENT_SOURCE":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-ue.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00001-vey","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cloudfunctions","firebase-functions-codebase":"firebase-frameworks-portfolio-danilo-novais","firebase-functions-hash":"886a21741725783745f09f1310f7de7168e9bb70"},"environment":"GEN_2","url":"https://us-east1-portfolio-danilo-novais.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-east1/builds/a793e9be-ecdc-4e24-93fa-2625481ec090","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-east1/a793e9be-ecdc-4e24-93fa-2625481ec090?project=350817205989"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-east1/builds/a793e9be-ecdc-4e24-93fa-2625481ec090"},"done":false}
+[debug] [2025-12-13T06:16:23.723Z] [update-firebase-frameworks-portfolio-danilo-novais-us-east1-ssrportfoliodanilonovai] Retrying task index 0
+[debug] [2025-12-13T06:16:23.723Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:23.723Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:23.723Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 [none]
+[debug] [2025-12-13T06:16:24.876Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 200
+[debug] [2025-12-13T06:16:24.876Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 {"name":"projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-12-13T06:16:02.636038257Z","target":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":{"storageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765606562532841"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/portfolio-danilo-novais/locations/us-east1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765100755779220"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/portfolio-danilo-novais/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"portfolio-danilo-novais.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"portfolio-danilo-novais\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\",\"apiKey\":\"AIzaSyBe7uThxjKtP0A9QgK9KMu59bAUB4GXj4g\",\"authDomain\":\"portfolio-danilo-novais.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"portfolio-danilo-novais\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\"}","GCLOUD_PROJECT":"portfolio-danilo-novais","EVENTARC_CLOUD_EVENT_SOURCE":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-ue.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00001-vey","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cloudfunctions","firebase-functions-codebase":"firebase-frameworks-portfolio-danilo-novais","firebase-functions-hash":"886a21741725783745f09f1310f7de7168e9bb70"},"environment":"GEN_2","url":"https://us-east1-portfolio-danilo-novais.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-east1/builds/a793e9be-ecdc-4e24-93fa-2625481ec090","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-east1/a793e9be-ecdc-4e24-93fa-2625481ec090?project=350817205989"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-east1/builds/a793e9be-ecdc-4e24-93fa-2625481ec090"},"done":false}
+[debug] [2025-12-13T06:16:34.877Z] [update-firebase-frameworks-portfolio-danilo-novais-us-east1-ssrportfoliodanilonovai] Retrying task index 0
+[debug] [2025-12-13T06:16:34.878Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:34.878Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:34.878Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 [none]
+[debug] [2025-12-13T06:16:36.034Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 200
+[debug] [2025-12-13T06:16:36.034Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 {"name":"projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-12-13T06:16:02.636038257Z","target":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":{"storageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765606562532841"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/portfolio-danilo-novais/locations/us-east1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765100755779220"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/portfolio-danilo-novais/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"portfolio-danilo-novais.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"portfolio-danilo-novais\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\",\"apiKey\":\"AIzaSyBe7uThxjKtP0A9QgK9KMu59bAUB4GXj4g\",\"authDomain\":\"portfolio-danilo-novais.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"portfolio-danilo-novais\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\"}","GCLOUD_PROJECT":"portfolio-danilo-novais","EVENTARC_CLOUD_EVENT_SOURCE":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-ue.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00001-vey","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cloudfunctions","firebase-functions-codebase":"firebase-frameworks-portfolio-danilo-novais","firebase-functions-hash":"886a21741725783745f09f1310f7de7168e9bb70"},"environment":"GEN_2","url":"https://us-east1-portfolio-danilo-novais.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-east1/builds/a793e9be-ecdc-4e24-93fa-2625481ec090","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-east1/a793e9be-ecdc-4e24-93fa-2625481ec090?project=350817205989"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-east1/builds/a793e9be-ecdc-4e24-93fa-2625481ec090"},"done":false}
+[debug] [2025-12-13T06:16:46.035Z] [update-firebase-frameworks-portfolio-danilo-novais-us-east1-ssrportfoliodanilonovai] Retrying task index 0
+[debug] [2025-12-13T06:16:46.035Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:46.035Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:46.036Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 [none]
+[debug] [2025-12-13T06:16:47.197Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 200
+[debug] [2025-12-13T06:16:47.197Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 {"name":"projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-12-13T06:16:02.636038257Z","target":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":{"storageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765606562532841"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/portfolio-danilo-novais/locations/us-east1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765100755779220"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/portfolio-danilo-novais/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"portfolio-danilo-novais.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"portfolio-danilo-novais\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\",\"apiKey\":\"AIzaSyBe7uThxjKtP0A9QgK9KMu59bAUB4GXj4g\",\"authDomain\":\"portfolio-danilo-novais.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"portfolio-danilo-novais\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\"}","GCLOUD_PROJECT":"portfolio-danilo-novais","EVENTARC_CLOUD_EVENT_SOURCE":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-ue.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00001-vey","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cloudfunctions","firebase-functions-codebase":"firebase-frameworks-portfolio-danilo-novais","firebase-functions-hash":"886a21741725783745f09f1310f7de7168e9bb70"},"environment":"GEN_2","url":"https://us-east1-portfolio-danilo-novais.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-east1/builds/a793e9be-ecdc-4e24-93fa-2625481ec090","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-east1/a793e9be-ecdc-4e24-93fa-2625481ec090?project=350817205989"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-east1/builds/a793e9be-ecdc-4e24-93fa-2625481ec090"},"done":false}
+[debug] [2025-12-13T06:16:57.198Z] [update-firebase-frameworks-portfolio-danilo-novais-us-east1-ssrportfoliodanilonovai] Retrying task index 0
+[debug] [2025-12-13T06:16:57.199Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:57.199Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:16:57.199Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 [none]
+[debug] [2025-12-13T06:16:58.360Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 200
+[debug] [2025-12-13T06:16:58.360Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 {"name":"projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1","metadata":{"@type":"type.googleapis.com/google.cloud.functions.v2.OperationMetadata","createTime":"2025-12-13T06:16:02.636038257Z","target":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","verb":"update","cancelRequested":false,"apiVersion":"v2","requestResource":{"@type":"type.googleapis.com/google.cloud.functions.v2.Function","name":"projects/portfolio-danilo-novais/locations/us-east1/functions/ssrportfoliodanilonovai","buildConfig":{"runtime":"nodejs20","entryPoint":"ssrportfoliodanilonovai","source":{"storageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765606562532841"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/portfolio-danilo-novais/locations/us-east1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-350817205989-us-east1","object":"ssrportfoliodanilonovai/function-source.zip","generation":"1765100755779220"}},"dockerRegistry":"ARTIFACT_REGISTRY","serviceAccount":"projects/portfolio-danilo-novais/serviceAccounts/350817205989-compute@developer.gserviceaccount.com","automaticUpdatePolicy":{}},"serviceConfig":{"service":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","timeoutSeconds":60,"environmentVariables":{"VERCEL_URL":"portfolio-danilo-novais.web.app","__FIREBASE_FRAMEWORKS_ENTRY__":"next.js","__FIREBASE_DEFAULTS__":"{\"config\":{\"projectId\":\"portfolio-danilo-novais\",\"appId\":\"1:350817205989:web:f7ae32f12d353ef081de0c\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\",\"apiKey\":\"AIzaSyBe7uThxjKtP0A9QgK9KMu59bAUB4GXj4g\",\"authDomain\":\"portfolio-danilo-novais.firebaseapp.com\",\"messagingSenderId\":\"350817205989\",\"measurementId\":\"G-PM34VYPZZW\",\"projectNumber\":\"350817205989\",\"version\":\"2\"},\"_authTokenSyncURL\":\"/__session\"}","FIREBASE_CONFIG":"{\"projectId\":\"portfolio-danilo-novais\",\"databaseURL\":\"https://portfolio-danilo-novais-default-rtdb.firebaseio.com\",\"storageBucket\":\"portfolio-danilo-novais.firebasestorage.app\"}","GCLOUD_PROJECT":"portfolio-danilo-novais","EVENTARC_CLOUD_EVENT_SOURCE":"projects/portfolio-danilo-novais/locations/us-east1/services/ssrportfoliodanilonovai","FUNCTION_TARGET":"ssrportfoliodanilonovai","LOG_EXECUTION_ID":"true"},"ingressSettings":"ALLOW_ALL","uri":"https://ssrportfoliodanilonovai-qc26fkohcq-ue.a.run.app","serviceAccountEmail":"350817205989-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"ssrportfoliodanilonovai-00001-vey","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","labels":{"deployment-tool":"cloudfunctions","firebase-functions-codebase":"firebase-frameworks-portfolio-danilo-novais","firebase-functions-hash":"886a21741725783745f09f1310f7de7168e9bb70"},"environment":"GEN_2","url":"https://us-east1-portfolio-danilo-novais.cloudfunctions.net/ssrportfoliodanilonovai","satisfiesPzi":true},"stages":[{"name":"BUILD","message":"Build in progress","state":"IN_PROGRESS","resource":"projects/350817205989/locations/us-east1/builds/a793e9be-ecdc-4e24-93fa-2625481ec090","resourceUri":"https://console.cloud.google.com/cloud-build/builds;region=us-east1/a793e9be-ecdc-4e24-93fa-2625481ec090?project=350817205989"},{"name":"SERVICE","state":"NOT_STARTED"}],"operationType":"UPDATE_FUNCTION","buildName":"projects/350817205989/locations/us-east1/builds/a793e9be-ecdc-4e24-93fa-2625481ec090"},"done":false}
+[debug] [2025-12-13T06:17:08.361Z] [update-firebase-frameworks-portfolio-danilo-novais-us-east1-ssrportfoliodanilonovai] Retrying task index 0
+[debug] [2025-12-13T06:17:08.361Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:17:08.361Z] Checked if tokens are valid: true, expires at: 1765610088915
+[debug] [2025-12-13T06:17:08.362Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/portfolio-danilo-novais/locations/us-east1/operations/operation-1765606561838-645cf4fee75fb-bea8196c-0a149cf1 [none]
