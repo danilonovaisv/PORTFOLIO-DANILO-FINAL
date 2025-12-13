@@ -10,6 +10,7 @@ const PortfolioShowcaseSection: FC = () => {
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const handleExpand = (id: string) => {
+    setHoveredId(null);
     setExpandedId((prev) => (prev === id ? null : id));
   };
 
@@ -24,6 +25,18 @@ const PortfolioShowcaseSection: FC = () => {
         return 'justify-start'; // 3. Esquerda (Web)
       default:
         return 'justify-start';
+    }
+  };
+
+  const getTextAlignment = (index: number) => {
+    switch (index) {
+      case 0:
+        return 'md:items-end md:text-right';
+      case 1:
+        return 'md:items-center md:text-center';
+      case 2:
+      default:
+        return 'md:items-start md:text-left';
     }
   };
 
@@ -43,12 +56,13 @@ const PortfolioShowcaseSection: FC = () => {
 
         {/* Lista de Categorias */}
         <div className="flex flex-col w-full border-t border-neutral-300">
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence initial={false} mode="sync">
             {CATEGORIES.map((category, index) => {
               const isExpanded = expandedId === category.id;
               const isHidden = expandedId !== null && !isExpanded;
               const isHovered = hoveredId === category.id;
               const alignmentClass = getItemAlignment(index);
+              const textAlignClass = getTextAlignment(index);
 
               // Verifica se é o 3º item para formatação especial
               const isWebItem = category.id === 'websites-webcampaigns-tech';
@@ -59,12 +73,12 @@ const PortfolioShowcaseSection: FC = () => {
                 <motion.div
                   key={category.id}
                   layout
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{
-                    opacity: 0,
-                    height: 0,
-                    transition: { duration: 0.3 },
+                  initial={false}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    layout: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+                    opacity: { duration: 0.2 },
                   }}
                   onClick={() => handleExpand(category.id)}
                   className={`
@@ -93,7 +107,7 @@ const PortfolioShowcaseSection: FC = () => {
                   >
                     {/* Conteúdo do Item (Texto + Ícone) */}
                     <div
-                      className={`flex items-center relative ${!isExpanded ? 'gap-6 md:gap-8' : 'gap-6 w-full'} flex-col md:flex-row text-center md:text-left`}
+                      className={`flex items-center relative ${!isExpanded ? 'gap-6 md:gap-8' : 'gap-6 w-full'} flex-col md:flex-row text-center`}
                     >
                       {/* Thumbnail Animada (Slide-in on Hover - aparece à esquerda do texto) */}
                       <AnimatePresence>
@@ -122,7 +136,7 @@ const PortfolioShowcaseSection: FC = () => {
                       </AnimatePresence>
 
                       {/* Texto da Categoria - Fonte alterada para font-light (suave) */}
-                      <div className="flex flex-col items-center md:items-end text-center md:text-right">
+                      <div className={`flex flex-col items-center text-center ${textAlignClass}`}>
                         {isWebItem && !isExpanded ? (
                           // Layout especial para o 3º item quando fechado
                           <motion.h3

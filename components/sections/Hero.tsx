@@ -115,10 +115,72 @@ const Hero = () => {
       /* biome-ignore lint/correctness/useUniqueElementIds: Este ID precisa ser estático para anchors globais */
       id="hero"
       ref={sectionRef}
-      className="relative h-[320vh] md:h-[450vh] w-full bg-[#F4F5F7]"
+      className="relative w-full bg-[#F4F5F7] md:h-[450vh]"
     >
-      {/* Container Sticky */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+      {/* Mobile layout (estático, fiel ao mock) */}
+      <div className="md:hidden flex flex-col items-center text-center px-6 pt-24 pb-12 gap-6">
+        <div className="relative w-full flex justify-center">
+          <div className="relative h-[220px] w-[220px]">
+            <HeroGlassCanvas />
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center gap-2 leading-[1.05] text-5xl font-extrabold tracking-tight text-[#111111]">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="flex flex-wrap items-baseline justify-center gap-2"
+          >
+            <span className="text-[#0057FF]">Design,</span>
+            <span className="text-[#111111]">não é</span>
+          </motion.div>
+          <motion.span
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
+            className="text-[#111111]"
+          >
+            só estética.
+          </motion.span>
+        </div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 }}
+          className="text-[#0057FF] text-base font-medium tracking-wide"
+        >
+          [É intenção, é estratégia, é experiência.]
+        </motion.p>
+
+        <motion.a
+          href="/sobre"
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: 'easeOut', delay: 0.3 }}
+          className="group inline-flex items-center justify-center gap-3 rounded-full bg-[#0057FF] px-7 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_-12px_rgba(0,87,255,0.6)] transition-transform duration-300"
+        >
+          get to know me better
+          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-[#0057FF] shadow-[0_6px_14px_rgba(0,87,255,0.25)] transition-transform duration-300 group-hover:translate-x-0.5">
+            <ArrowRight className="w-4 h-4" />
+          </span>
+        </motion.a>
+      </div>
+
+      <div className="md:hidden relative w-screen -mx-6 mt-8 aspect-[375/330] min-h-[300px] overflow-hidden">
+        <video
+          src={ASSETS.videoManifesto}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      </div>
+
+      {/* Container Sticky Desktop */}
+      <div className="hidden md:flex sticky top-0 h-screen w-full overflow-hidden items-center justify-center">
         {/* 1. BACKGROUND AMBIENT 3D LAYER (Absolute behind everything) */}
         <motion.div
           initial={{ opacity: 0, y: 12, scale: 0.98 }}

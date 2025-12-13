@@ -118,9 +118,14 @@ const FeaturedProjects: React.FC = () => {
           </div>
 
           <motion.span
-            whileHover={prefersReducedMotion ? undefined : { scale: 1.08 }}
+            whileHover={
+              prefersReducedMotion
+                ? undefined
+                : { scale: 1.08, boxShadow: '0 10px 24px -12px rgba(0,87,255,0.65)' }
+            }
+            whileTap={prefersReducedMotion ? undefined : { scale: 0.95 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
-            className="mt-1 flex h-10 w-10 items-center justify-center rounded-full border border-[#0057FF] text-[#0057FF] shadow-sm"
+            className="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-[#0057FF] text-white shadow-md"
           >
             <ArrowRight size={18} />
           </motion.span>
@@ -169,15 +174,28 @@ const FeaturedProjects: React.FC = () => {
               <br />
               you see?
             </h3>
-            <a
+            <motion.a
               href="/portfolio"
-              className="group inline-flex items-center gap-3 rounded-full bg-[#0057FF] px-6 py-3 text-white text-sm font-semibold shadow-lg shadow-[#0057FF]/25 transition-transform duration-200 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0057FF]"
+              whileHover={{ scale: 1.05, boxShadow: '0 14px 36px -18px rgba(0,87,255,0.6)' }}
+              whileTap={{ scale: 0.97 }}
+              className="group inline-flex items-center gap-3 rounded-full bg-[#0057FF] px-6 py-3 text-white text-sm font-semibold shadow-lg shadow-[#0057FF]/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0057FF]"
             >
               view projects
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 transition-colors duration-300 group-hover:bg-white/30">
+              <motion.span
+                variants={{
+                  hover: { x: 6, rotate: 15 },
+                  tap: { x: 2 },
+                  initial: { x: 0, rotate: 0 },
+                }}
+                initial="initial"
+                animate="initial"
+                whileHover="hover"
+                whileTap="tap"
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 transition-colors duration-300 group-hover:bg-white/80"
+              >
                 <ArrowUpRight className="h-4 w-4 text-white" />
-              </span>
-            </a>
+              </motion.span>
+            </motion.a>
           </div>
         </div>
       </motion.div>

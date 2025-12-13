@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, lazy } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Environment, PerspectiveCamera, Lightformer } from '@react-three/drei';
 
@@ -15,10 +15,26 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
   className,
   reduceMotion = false,
 }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const eventSource =
     typeof document !== 'undefined'
       ? (document.body as HTMLElement)
       : undefined;
+
+  if (!mounted) {
+    return (
+      <div
+        className={`relative flex h-full w-full items-center justify-center ${className ?? ''}`}
+      >
+        <div className="absolute inset-0 bg-transparent" />
+      </div>
+    );
+  }
 
   return (
     <div
