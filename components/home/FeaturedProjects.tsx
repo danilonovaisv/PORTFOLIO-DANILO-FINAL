@@ -1,13 +1,7 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
-import {
-  motion,
-  type Variants,
-  useReducedMotion,
-  useMotionValue,
-  useSpring,
-} from 'framer-motion';
+import React, { useMemo } from 'react';
+import { motion, type Variants, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import { FEATURED_PROJECTS } from '../../lib/constants';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
@@ -47,28 +41,11 @@ type Project = (typeof FEATURED_PROJECTS)[number];
 
 const FeaturedProjects: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const cursorX = useMotionValue(0);
-  const cursorY = useMotionValue(0);
-  const cursorScale = useSpring(useMotionValue(0), {
-    stiffness: 200,
-    damping: 20,
-  });
-
-  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
-    cursorX.set(event.clientX - 32);
-    cursorY.set(event.clientY - 32);
-  };
-
-  const handleHover = (index: number | null) => {
-    setHoveredIndex(index);
-    cursorScale.set(index === null ? 0 : 1);
-  };
 
   const cardHeight = 'h-[360px] md:h-[500px]';
 
-  const extractTags = (project: Project) =>
-    useMemo(() => {
+  const ProjectCard = ({ project }: { project: Project }) => {
+    const tags = useMemo(() => {
       const items: string[] = [];
       if (project.category) items.push(project.category);
       if (
@@ -85,25 +62,12 @@ const FeaturedProjects: React.FC = () => {
       return Array.from(new Set(items));
     }, [project.category, project.displayCategory]);
 
-  const ProjectCard = ({
-    project,
-    index,
-  }: {
-    project: Project;
-    index: number;
-  }) => {
-    const tags = extractTags(project);
-
     return (
       <motion.a
         key={project.slug}
         href={`/portfolio/${project.slug}`}
         variants={cardVariants}
-        className={`group relative flex w-full flex-col gap-4 outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F5F7] ${
-          hoveredIndex !== null && hoveredIndex !== index ? 'opacity-65' : ''
-        }`}
-        onMouseEnter={() => handleHover(index)}
-        onMouseLeave={() => handleHover(null)}
+        className="group relative flex w-full flex-col gap-4 outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F5F7]"
       >
         <div
           className={`relative w-full overflow-hidden rounded-[6px] bg-[#0f0f11] ${cardHeight}`}
@@ -170,11 +134,7 @@ const FeaturedProjects: React.FC = () => {
   return (
     <section
       id="featured-projects"
-      className={`relative w-full bg-[#F4F5F7] text-[#0b0b0b] py-16 md:py-24 ${
-        prefersReducedMotion ? '' : 'md:cursor-none'
-      }`}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={() => handleHover(null)}
+      className="relative w-full bg-[#F4F5F7] text-[#0b0b0b] py-16 md:py-24"
     >
       <motion.div
         variants={containerVariants}
@@ -189,19 +149,19 @@ const FeaturedProjects: React.FC = () => {
             {card1 && <ProjectCard project={card1} index={0} />}
           </div>
           <div className="md:col-span-3">
-            {card2 && <ProjectCard project={card2} index={1} />}
+            {card2 && <ProjectCard project={card2} />}
           </div>
         </div>
 
         {/* Segunda linha: card horizontal full width */}
         <div className="w-full">
-          {card3 && <ProjectCard project={card3} index={2} />}
+          {card3 && <ProjectCard project={card3} />}
         </div>
 
         {/* Terceira linha: card + CTA lateral */}
         <div className="grid grid-cols-1 items-start gap-10 md:grid-cols-5">
           <div className="md:col-span-3">
-            {card4 && <ProjectCard project={card4} index={3} />}
+            {card4 && <ProjectCard project={card4} />}
           </div>
           <div className="md:col-span-2 flex flex-col items-center justify-center gap-4 rounded-[10px] bg-[#F4F5F7] px-8 py-10 text-center">
             <h3 className="text-2xl md:text-3xl font-light text-[#111111] leading-tight">
@@ -222,18 +182,6 @@ const FeaturedProjects: React.FC = () => {
         </div>
       </motion.div>
 
-      {!prefersReducedMotion && (
-        <motion.div
-          className="pointer-events-none fixed left-0 top-0 z-[60] hidden h-16 w-16 items-center justify-center rounded-full border-2 border-[#0057FF] bg-white/80 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#0057FF] md:flex"
-          style={{
-            x: cursorX,
-            y: cursorY,
-            scale: cursorScale,
-          }}
-        >
-          VIEW
-        </motion.div>
-      )}
     </section>
   );
 };
