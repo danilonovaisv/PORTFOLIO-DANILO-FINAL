@@ -4571,3 +4571,12 @@ Generated sources: esm/package.json [17B] index.cjs.js [179B] package.json [632B
  {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1213 03:48:45.486487   16939 installsdk.go:55] Package @dataconnect/admin-generated is already installed. Skipping installation\n"}}
 [debug] [2025-12-13T06:48:45.486Z] I1213 03:48:45.486521   16939 load.go:109] Finished reloading
  {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1213 03:48:45.486521   16939 load.go:109] Finished reloading\n"}}
+[debug] [2025-12-13T07:58:23.470Z] [Firebase Plugin] Received emulators started notification. Running detection.
+[debug] [2025-12-13T07:58:23.471Z] Emulator locator file path: /var/folders/bt/f92zbr813px3njpjng3byf280000gn/T/hub-portfolio-danilo-novais.json
+[debug] [2025-12-13T07:58:23.471Z] Found emulator locator with different version: {"version":"14.26.0","origins":["http://127.0.0.1:4400","http://[::1]:4400"]}, CLI_VERSION: 15.0.0
+[debug] [2025-12-13T07:58:23.472Z] >>> [apiv2][query] GET http://127.0.0.1:4400/emulators [none]
+[debug] [2025-12-13T07:58:23.491Z] <<< [apiv2][status] GET http://127.0.0.1:4400/emulators 200
+[debug] [2025-12-13T07:58:23.491Z] <<< [apiv2][body] GET http://127.0.0.1:4400/emulators {"hub":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"name":"hub","host":"127.0.0.1","port":4400},"ui":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"name":"ui","host":"127.0.0.1","port":4000},"logging":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"name":"logging","host":"127.0.0.1","port":4500},"functions":{"name":"functions","host":"127.0.0.1","port":5001},"eventarc":{"name":"eventarc","host":"127.0.0.1","port":9299},"tasks":{"name":"tasks","host":"127.0.0.1","port":9499}}
+[debug] [2025-12-13T08:00:34.370Z] [Firebase Plugin] Received CLI notification.
+[debug] [2025-12-13T08:00:34.373Z] [Firebase Plugin] Received emulators shutdown notification.
+[debug] [2025-12-13T08:01:56.781Z] [Firebase Plugin] Received emulators shutdown notification.
