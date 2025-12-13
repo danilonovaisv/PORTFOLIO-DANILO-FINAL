@@ -1,4 +1,21 @@
-[00:00:00.967] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:01.074] Server  LOG      ✓ Ready in 784ms
-[00:00:07.099] Server  WARN     ⚠ Blocked cross-origin request from 192.168.0.10 to /_next/* resource. To allow this, configure "allowedDevOrigins" in next.config
-Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[00:00:00.953] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:01.032] Server  LOG      ✓ Ready in 751ms
+[00:00:22.349] Server  LOG      ○ Compiling / ...
+[00:00:23.968] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:00:36.032] Browser LOG     THREE.WebGLRenderer: Context Lost.
+[00:04:57.583] Server  LOG      ✓ Compiled in 62ms
+[00:05:06.247] Server  LOG      ✓ Compiled in 45ms
+[00:05:30.576] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
+[00:05:30.576] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
+[00:05:30.576] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:09:11.334] Server  LOG      ✓ Compiled in 55ms
+[00:09:15.977] Server  LOG      ✓ Compiled in 37ms
+[00:09:38.289] Server  LOG      ✓ Compiled in 34ms
+[00:12:19.099] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:12:19.250] Browser ERROR   Cannot update a component (`%s`) while rendering a different component (`%s`). To locate the bad setState() call inside `%s`, follow the stack trace as described in https://react.dev/link/setstate-in-render ProgressObserver EnvironmentCube EnvironmentCube
+[00:12:19.378] Browser ERROR   uncaughtError: SyntaxError: Unexpected token ':'
+[00:12:19.378] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
+[00:12:19.378] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
+[00:21:37.738] Server  LOG      ✓ Compiled in 66ms
+[00:21:52.984] Server  LOG      ✓ Compiled in 55ms
+[00:21:57.125] Server  LOG      ✓ Compiled in 53ms
