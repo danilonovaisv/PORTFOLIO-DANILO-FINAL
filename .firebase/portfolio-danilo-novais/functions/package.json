@@ -10,7 +10,9 @@
     "react-three-fiber"
   ],
   "dependencies": {
-    "@dataconnect/generated": "file:src/dataconnect-generated",
+    "firebase-admin": "^13.6.0",
+    "@dataconnect/admin-generated": "file:dataconnect-admin-generated-0.0.1.tgz",
+    "@dataconnect/generated": "file:dataconnect-generated-1.0.0.tgz",
     "@hookform/resolvers": "^5.2.2",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.4.2",
@@ -34,8 +36,7 @@
     "three": "^0.182.0",
     "three-stdlib": "^2.36.1",
     "zod": "^4.1.13",
-    "firebase-frameworks": "^0.11.0",
-    "firebase-admin": "^11.11.1"
+    "firebase-frameworks": "^0.11.0"
   },
   "overrides": {
     "test-exclude": "7.0.1"
