@@ -1,9 +1,8 @@
-import React from 'react';
 import PortfolioHero from '../../components/portfolio/PortfolioHero';
-import PortfolioMosaicGrid, {
-  type MosaicItem,
-  type MosaicRow,
-} from '../../components/portfolio/PortfolioMosaicGrid';
+import PortfolioMosaicGrid from '../../components/portfolio/PortfolioMosaicGrid';
+import type { MosaicItem, MosaicRow } from '../../components/portfolio/types';
+import Clients from '../../components/home/Clients';
+import Contact from '../../components/home/Contact';
 
 const MOSAIC_SEED = 'portfolio-mosaic-v1';
 
@@ -206,6 +205,8 @@ export default function PortfolioPage() {
     <>
       <PortfolioHero />
       <PortfolioMosaicGrid rows={rows} />
+      <Clients />
+      <Contact />
     </>
   );
 }
