@@ -147,7 +147,7 @@ const Hero = () => {
                   whileTap={{ scale: 0.98 }}
                   className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-[#0057FF] px-8 py-4 text-base font-semibold text-white shadow-[0_20px_40px_-15px_rgba(0,87,255,0.6)] transition-transform duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0057FF]/30"
                 >
-                  <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-white/10 via-white/40 to-white/10 transition-transform duration-500 group-hover:translate-x-full group-focus-visible:translate-x-full" />
+                  <span className="absolute inset-0 -translate-x-full bg-linear-to-r from-white/10 via-white/40 to-white/10 transition-transform duration-500 group-hover:translate-x-full group-focus-visible:translate-x-full" />
                   <span className="relative">get to know me better</span>
                   <span className="relative flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#0057FF] shadow-[0_6px_14px_rgba(0,87,255,0.25)] transition-transform duration-300 group-hover:translate-x-0.5">
                     <ArrowRight className="h-4 w-4" />
@@ -207,9 +207,9 @@ const Hero = () => {
                     className="relative overflow-hidden rounded-2xl border border-white/60 bg-white/40 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.3)] backdrop-blur-md transition-transform duration-500 group-hover:scale-[1.02]"
                   >
                     {/* Glass Effect Card Backing (Separate decorative element) */}
-                    <div className="absolute -inset-2 bg-gradient-to-br from-white/40 to-white/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                     <div className="absolute -inset-2 bg-linear-to-br from-white/40 to-white/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-                    <div className="relative aspect-[4/5] w-full overflow-hidden">
+                      <div className="relative aspect-4/5 w-full overflow-hidden">
                       <motion.video
                         layoutId="manifesto-video-media" // Optional: morph the video element itself
                         src={ASSETS.videoManifesto}
@@ -220,7 +220,7 @@ const Hero = () => {
                         className="absolute inset-0 h-full w-full object-cover scale-105 group-hover:scale-100 transition-transform duration-700"
                       />
                       {/* Overlay Gradient for Text Readability if needed */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-60" />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-60" />
                     </div>
                   </motion.div>
                 </motion.div>
