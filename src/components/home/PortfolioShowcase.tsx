@@ -2,7 +2,7 @@
 
 import React, { FC, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CATEGORIES } from '../../lib/constants';
+import { CATEGORIES } from '@/lib/constants';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
 const PortfolioShowcaseSection: FC = () => {

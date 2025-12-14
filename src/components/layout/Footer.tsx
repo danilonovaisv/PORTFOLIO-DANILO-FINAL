@@ -1,5 +1,5 @@
 import React from 'react';
-import { NAV_LINKS, SOCIALS } from '../../lib/constants';
+import { NAV_LINKS, SOCIALS } from '@/lib/constants';
 
 const Footer: React.FC = () => {
   return (

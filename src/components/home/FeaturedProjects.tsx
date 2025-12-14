@@ -3,7 +3,7 @@
 import React, { useMemo } from 'react';
 import { motion, type Variants, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
-import { FEATURED_PROJECTS } from '../../lib/constants';
+import { FEATURED_PROJECTS } from '@/lib/constants';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
 const containerVariants: Variants = {

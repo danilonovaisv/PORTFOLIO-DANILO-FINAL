@@ -8,9 +8,9 @@ import {
   useTransform,
 } from 'framer-motion';
 import type { Variants } from 'framer-motion';
-import HeroGlassCanvas from '../three/HeroGlassCanvas';
+import HeroGlassCanvas from '@/components/three/HeroGlassCanvas';
+import { ASSETS } from '@/lib/constants';
 import { ArrowRight } from 'lucide-react';
-import { ASSETS } from '../../lib/constants';
 
 // Componente para animar texto letra por letra (efeito "digitação/reveal")
 type AnimatedTextLineProps = {

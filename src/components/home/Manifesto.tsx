@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ASSETS } from '../../lib/constants';
+import { ASSETS } from '@/lib/constants';
 import { AlertCircle } from 'lucide-react';
 
 const Manifesto: React.FC = () => {

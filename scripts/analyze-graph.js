@@ -12,7 +12,9 @@ if (!hasGraphviz()) {
   process.exit(0);
 }
 
-const madge = spawnSync('madge', ['app', '--image', 'graph.svg'], { stdio: 'inherit' });
+const madge = spawnSync('madge', ['app', '--image', 'graph.svg'], {
+  stdio: 'inherit',
+});
 if (madge.status !== 0) {
   process.exit(madge.status || 1);
 }
