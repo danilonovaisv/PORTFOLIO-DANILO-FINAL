@@ -53,39 +53,41 @@ const Manifesto: React.FC = () => {
         transition={{ duration: 0.9, ease: 'easeOut' }}
         className="mx-auto w-full max-w-6xl overflow-hidden rounded-3xl bg-gray-100 shadow-sm"
       >
-        <div className="relative w-full aspect-video bg-black flex items-center justify-center overflow-hidden rounded-[inherit]">
-          {!hasError ? (
-            <motion.video
-              ref={videoRef}
-              src={ASSETS.videoManifesto}
-              className="w-full h-full object-contain"
-              autoPlay
-              muted={isMuted}
-              loop
-              playsInline
-              preload="auto"
-              controls={false}
-              onError={() => setHasError(true)}
-              aria-label="Vídeo Manifesto do Portfólio"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
-            />
-          ) : (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 text-gray-500 p-6 text-center">
-              <AlertCircle className="w-10 h-10 mb-3 opacity-50" />
-              <p className="font-medium">Não foi possível carregar o vídeo.</p>
-              <a
-                href={ASSETS.videoManifesto}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-2 text-primary text-sm hover:underline underline-offset-4"
-              >
-                Assistir diretamente
-              </a>
-            </div>
-          )}
+        <div className="relative w-full bg-black flex items-center justify-center overflow-hidden rounded-[inherit]">
+          <div className="w-full aspect-video relative">
+            {!hasError ? (
+              <motion.video
+                ref={videoRef}
+                src={ASSETS.videoManifesto}
+                className="w-full h-full object-contain"
+                autoPlay
+                muted={isMuted}
+                loop
+                playsInline
+                preload="metadata"
+                controls={false}
+                onError={() => setHasError(true)}
+                aria-label="Vídeo Manifesto do Portfólio"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
+              />
+            ) : (
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 text-gray-500 p-6 text-center">
+                <AlertCircle className="w-10 h-10 mb-3 opacity-50" />
+                <p className="font-medium">Não foi possível carregar o vídeo.</p>
+                <a
+                  href={ASSETS.videoManifesto}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 text-primary text-sm hover:underline underline-offset-4"
+                >
+                  Assistir diretamente
+                </a>
+              </div>
+            )}
+          </div>
         </div>
       </motion.div>
     </section>

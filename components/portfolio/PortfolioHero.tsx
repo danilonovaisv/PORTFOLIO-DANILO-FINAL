@@ -7,34 +7,28 @@ import styles from './PortfolioHeroGallery.module.css';
 
 const heroItems = [
   {
-    id: 'gallery-1',
-    label: 'Glasshouse campaign',
+    id: 'brand-identity',
+    label: 'Brand Identity',
     image:
-      'https://images.unsplash.com/photo-1499198116522-4a6235013d63?auto=format&fit=crop&w=1233&q=80',
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp',
   },
   {
-    id: 'gallery-2',
-    label: 'Immersive motion',
+    id: 'key-visual',
+    label: 'Key Visual',
     image:
-      'https://images.unsplash.com/photo-1492760864391-753aaae87234?auto=format&fit=crop&w=1336&q=80',
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp',
   },
   {
-    id: 'gallery-3',
-    label: 'Spatial interaction',
+    id: 'web-design',
+    label: 'Web Design',
     image:
-      'https://images.unsplash.com/photo-1503631285924-e1544dce8b28?auto=format&fit=crop&w=1234&q=80',
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
   },
   {
-    id: 'gallery-4',
-    label: 'Brand scale',
+    id: 'motion-design',
+    label: 'Motion Design',
     image:
-      'https://images.unsplash.com/photo-1510425463958-dcced28da480?auto=format&fit=crop&w=1352&q=80',
-  },
-  {
-    id: 'gallery-5',
-    label: 'Runway texture',
-    image:
-      'https://images.unsplash.com/photo-1503602642458-232111445657?auto=format&fit=crop&w=1234&q=80',
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/videos-motions-thumb.webp',
   },
 ];
 
@@ -58,6 +52,7 @@ export default function PortfolioHero() {
         >
           <motion.div
             className={styles.galleryWrap}
+            style={{ minHeight: '400px' }}
             initial={{ scale: 0.98 }}
             animate={{ scale: 1 }}
             transition={{
