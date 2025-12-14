@@ -3,9 +3,18 @@
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
-import HeroGlassCanvas from '../three/HeroGlassCanvas';
+import dynamic from 'next/dynamic';
 import { ArrowRight } from 'lucide-react';
 import { ASSETS } from '../../lib/constants';
+
+const HeroGlassCanvas = dynamic(() => import('../three/HeroGlassCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex h-full w-full items-center justify-center text-sm text-[#0057FF]/70">
+      carregando orb 3D...
+    </div>
+  ),
+});
 
 // Componente para animar texto letra por letra (efeito "digitação/reveal")
 type AnimatedTextLineProps = {

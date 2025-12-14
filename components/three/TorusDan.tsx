@@ -47,10 +47,10 @@ const TorusDan = ({
       return {
         ...common,
         transmission: 1,
-        roughness: 0.08,
-        thickness: 0.45,
-        samples: 4,
-        resolution: 512,
+        roughness: 0.1,
+        thickness: 0.4,
+        samples: 3,
+        resolution: 320,
       };
     }
 
