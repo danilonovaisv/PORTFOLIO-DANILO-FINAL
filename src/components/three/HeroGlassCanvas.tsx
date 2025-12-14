@@ -55,6 +55,8 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
     setPreloaderProgress(value);
   }, []);
 
+  const devicePixelRatio: [number, number] = isMobile ? [0.85, 1.1] : [1, 1.6];
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -101,10 +103,11 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
       >
         <Canvas
           frameloop={shouldReduceMotion ? 'demand' : 'always'}
-          dpr={[1, 1.5]}
+          dpr={devicePixelRatio}
           gl={{
             alpha: true,
-            antialias: !shouldReduceMotion,
+            antialias: !shouldReduceMotion && !isMobile,
+            powerPreference: 'high-performance',
             toneMappingExposure: 1.05,
           }}
           camera={{ position: [0, 0, 3.5], fov: 42 }}

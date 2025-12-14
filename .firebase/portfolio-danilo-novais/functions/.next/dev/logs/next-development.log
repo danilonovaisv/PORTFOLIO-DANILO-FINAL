@@ -1,8 +1,2 @@
-[00:00:00.929] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:01.013] Server  LOG      ✓ Ready in 771ms
-[00:00:07.119] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
-[00:00:07.120] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
-[00:00:07.120] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
-[00:00:07.369] Browser ERROR   Cannot update a component (`%s`) while rendering a different component (`%s`). To locate the bad setState() call inside `%s`, follow the stack trace as described in https://react.dev/link/setstate-in-render ProgressObserver EnvironmentCube EnvironmentCube
-[00:01:03.405] Browser LOG     THREE.WebGLRenderer: Context Lost.
-[00:01:03.405] Browser LOG     THREE.WebGLRenderer: Context Lost.
+[00:00:00.947] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:01.039] Server  LOG      ✓ Ready in 796ms
