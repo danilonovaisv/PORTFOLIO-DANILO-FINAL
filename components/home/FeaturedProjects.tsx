@@ -42,7 +42,7 @@ type Project = (typeof FEATURED_PROJECTS)[number];
 const FeaturedProjects: React.FC = () => {
   const prefersReducedMotion = useReducedMotion();
 
-  const cardHeight = 'h-[360px] md:h-[500px]';
+  const cardAspectClass = 'aspect-[4/3] sm:aspect-[3/2] md:aspect-[16/9]';
 
   const ProjectCard = ({ project }: { project: Project }) => {
     const tags = useMemo(() => {
@@ -70,7 +70,7 @@ const FeaturedProjects: React.FC = () => {
         className="group relative flex w-full flex-col gap-4 outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F5F7]"
       >
         <div
-          className={`relative w-full overflow-hidden rounded-[6px] bg-[#0f0f11] ${cardHeight}`}
+          className={`relative w-full overflow-hidden rounded-[8px] bg-[#0f0f11] ${cardAspectClass}`}
         >
           <motion.div
             className="absolute inset-0"
@@ -88,6 +88,15 @@ const FeaturedProjects: React.FC = () => {
           </motion.div>
 
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/15 to-transparent" />
+
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 flex items-center justify-center"
+          >
+            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-white transition duration-300">
+              <span className="h-3 w-3 translate-x-0.5 border-l-[6px] border-l-white border-y-[6px] border-y-transparent" />
+            </span>
+          </div>
 
           <div className="absolute right-3 top-3 z-10 flex flex-wrap gap-2">
             {tags.map((tag) => (

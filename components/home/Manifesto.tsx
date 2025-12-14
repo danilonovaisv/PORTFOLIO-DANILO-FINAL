@@ -16,18 +16,26 @@ const Manifesto: React.FC = () => {
     if (videoRef.current) {
       videoRef.current.muted = mute;
       if (!mute) {
+        // Tentar definir volume apenas se estiver desmutando
         videoRef.current.volume = 1;
       }
     }
   }, []);
 
+  const toggleMuteManual = useCallback((e?: React.MouseEvent) => {
+    e?.stopPropagation(); 
+    updateMute(!isMuted);
+  }, [isMuted, updateMute]);
+
   useEffect(() => {
     if (!manifestRef.current) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
+        // Auto-unmute apenas quando >55% visível
         const shouldPlayWithSound =
           entry.isIntersecting && entry.intersectionRatio >= 0.55;
 
+        // Atualiza estado de mute baseado na visibilidade
         updateMute(!shouldPlayWithSound);
       },
       { threshold: [0.55] }
@@ -43,7 +51,7 @@ const Manifesto: React.FC = () => {
   return (
     <section
       id="manifesto"
-      className="w-full bg-[#F4F5F7] px-4 py-10 sm:px-6 sm:py-14"
+      className="w-full bg-[#F4F5F7] px-4 py-16 sm:px-6 sm:py-24"
     >
       <motion.div
         ref={manifestRef}
@@ -51,10 +59,13 @@ const Manifesto: React.FC = () => {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.9, ease: 'easeOut' }}
-        className="mx-auto w-full max-w-6xl overflow-hidden rounded-3xl bg-gray-100 shadow-sm"
+        className="mx-auto w-full max-w-6xl flex flex-col gap-4"
       >
-        <div className="relative w-full bg-black flex items-center justify-center overflow-hidden rounded-[inherit]">
-          <div className="w-full aspect-video relative">
+        <div 
+          className="relative w-full overflow-hidden rounded-3xl bg-gray-100 shadow-sm cursor-pointer group" 
+          onClick={toggleMuteManual}
+        >
+          <div className="w-full aspect-video relative bg-black">
             {!hasError ? (
               <motion.video
                 ref={videoRef}
@@ -67,7 +78,7 @@ const Manifesto: React.FC = () => {
                 preload="metadata"
                 controls={false}
                 onError={() => setHasError(true)}
-                aria-label="Vídeo Manifesto do Portfólio"
+                aria-label="Vídeo Manifesto do Portfólio. Clique para ligar/desligar o som."
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -88,6 +99,19 @@ const Manifesto: React.FC = () => {
               </div>
             )}
           </div>
+        </div>
+
+        {/* Controls / Status Below Video */}
+        <div className="flex items-center justify-between px-2 text-sm font-medium text-gray-500">
+           <span>Manifesto</span>
+           <button 
+             onClick={toggleMuteManual}
+             className="flex items-center gap-2 hover:text-[#0057FF] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] rounded px-2 py-1"
+             aria-label={isMuted ? "Ligar som" : "Desligar som"}
+           >
+             <span className={`w-2 h-2 rounded-full ${isMuted ? 'bg-gray-400' : 'bg-[#0057FF] animate-pulse'}`} />
+             {isMuted ? 'Som desligado' : 'Som ligado'}
+           </button>
         </div>
       </motion.div>
     </section>
