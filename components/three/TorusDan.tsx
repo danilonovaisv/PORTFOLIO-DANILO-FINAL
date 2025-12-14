@@ -85,7 +85,12 @@ const TorusDan = ({
   if (reduceMotion) {
     return (
       // @ts-ignore
-      <group ref={groupRef} dispose={null} scale={2.8}>
+      <group
+        ref={groupRef}
+        dispose={null}
+        scale={3.2}
+        rotation={[0.18, Math.PI / 5, 0]}
+      >
         {mesh}
       </group>
     );
@@ -93,7 +98,12 @@ const TorusDan = ({
 
   return (
     // @ts-ignore
-    <group ref={groupRef} dispose={null} scale={2.8}>
+    <group
+      ref={groupRef}
+      dispose={null}
+      scale={3.2}
+      rotation={[0.18, Math.PI / 5, 0]}
+    >
       <Float
         speed={1.4}
         rotationIntensity={0.2}
