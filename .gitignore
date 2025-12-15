@@ -1,38 +1,59 @@
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
+```gitignore
+# Dependencies
+node_modules/
 
-# testing
-/coverage
+# Build outputs
+dist/
+build/
+.next/
+out/
 
-# next.js
-/.next/
-/out/
+# Logs
+*.log
 
-# production
-/build
+# Environment variables
+.env
+.env.local
+*.env.*
 
-# misc
-.DS_Store
-*.pem
+# IDE specific
+.vscode/
+.idea/
+*.swp
+*.swo
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-ts-debug.log*
-
-# local env files
-.env*.local
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-node_modules
-node_modules
-node_modules
-node_modules
-public/build-info.json
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git/modules/
+*.sublime-project
+*.sublime-workspace
+.pytest_cache/
+.hypothesis/
+.coverage*
+.eggs/
+.egg-info/
+.well-known/
+*.pot
+*.po
+*~
+.pyre/
+.pytype/
+.ipynb_checkpoints/
+```
