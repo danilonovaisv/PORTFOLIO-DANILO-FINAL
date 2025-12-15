@@ -1,15 +1,17 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   motion,
   useScroll,
   useTransform,
+  AnimatePresence,
 } from 'framer-motion';
 import type { Variants } from 'framer-motion';
-import HeroGlassCanvas from '../three/HeroGlassCanvas';
+import HeroGlassCanvas from '@/components/three/HeroGlassCanvas';
+import { ASSETS } from '@/lib/constants';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
-import { ASSETS } from '../../lib/constants';
+import ManifestoOverlay from '@/components/home/ManifestoOverlay';
 
 // Componente para animar texto letra por letra (efeito "digitação/reveal")
 type AnimatedTextLineProps = {
@@ -74,6 +76,7 @@ const AnimatedTextLine = ({
 
 const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const [isManifestoOpen, setManifestoOpen] = useState(false);
 
   // Parallax / Scroll Animations
   const { scrollYProgress } = useScroll({
@@ -82,19 +85,12 @@ const Hero = () => {
   });
 
   // Thumb Animations linked to scroll
-  const thumbScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
-  const thumbY = useTransform(scrollYProgress, [0, 1], [0, -24]);
+  const thumbScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  const thumbY = useTransform(scrollYProgress, [0, 1], [0, -60]);
 
   // Text Animations linked to scroll
-  const textOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.2]);
-  const textY = useTransform(scrollYProgress, [0, 0.7], [0, -24]);
-
-  const scrollToManifesto = () => {
-    const manifestoSection = document.getElementById('manifesto');
-    if (manifestoSection) {
-      manifestoSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+  const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const textY = useTransform(scrollYProgress, [0, 0.5], [0, -40]);
 
   return (
     <>
@@ -119,7 +115,7 @@ const Hero = () => {
               </div>
 
               <div className="flex flex-col gap-0 font-sans text-[clamp(3rem,8vw,7rem)] font-extrabold leading-[0.85] tracking-[-0.04em]">
-                {/* Sequence: Tag(0.1) -> H1(0.2) -> Sub(0.6) -> CTA(0.8) */}
+                {/* Sequence: H1(0.2) -> Sub(0.6) -> CTA(0.8) */}
                 <AnimatedTextLine
                   text="Design,"
                   delay={0.2}
@@ -205,26 +201,25 @@ const Hero = () => {
               <motion.div
                 style={{ scale: thumbScale, y: thumbY }} // Scroll Parallax
                 className="relative w-full max-w-[360px] cursor-pointer origin-center pointer-events-auto"
-                onClick={scrollToManifesto}
-                role="button"
-                aria-label="Ir para manifesto em vídeo"
+                onClick={() => setManifestoOpen(true)}
               >
                 <motion.div // Entry Animation
                   initial={{ opacity: 0, scale: 1.05 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.7, ease: 'easeOut', delay: 0.9 }}
-                  whileHover={{ scale: 1.02 }}
                   className="w-full group"
                 >
                   {/* Layout Morphing Container */}
-                  <div
-                    className="relative overflow-hidden rounded-2xl border border-white/60 bg-white/40 shadow-[0_30px_50px_-20px_rgba(0,0,0,0.3)] backdrop-blur-md transition-transform duration-500"
+                  <motion.div
+                    layoutId="manifesto-video-main"
+                    className="relative overflow-hidden rounded-2xl border border-white/60 bg-white/40 shadow-[0_30px_50px_-20px_rgba(0,0,0,0.3)] backdrop-blur-md transition-transform duration-500 group-hover:scale-[1.02]"
                   >
                      {/* Glass Effect Card Backing */}
                      <div className="absolute -inset-2 bg-linear-to-br from-white/40 to-white/10 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
                       <div className="relative aspect-4/5 w-full overflow-hidden">
                       <motion.video
+                        layoutId="manifesto-video-media"
                         src={ASSETS.videoManifesto}
                         autoPlay
                         muted
@@ -234,13 +229,24 @@ const Hero = () => {
                       />
                       <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-60" />
                     </div>
-                  </div>
+                  </motion.div>
                 </motion.div>
               </motion.div>
             </motion.div>
           </div>
         </div>
       </section>
+
+      {/* Fullscreen Overlay Portal */}
+      <AnimatePresence>
+        {isManifestoOpen && (
+          <ManifestoOverlay
+            isOpen={isManifestoOpen}
+            onClose={() => setManifestoOpen(false)}
+            layoutId="manifesto-video-main"
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };
