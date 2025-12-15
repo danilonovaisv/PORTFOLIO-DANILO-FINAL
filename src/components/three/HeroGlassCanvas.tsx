@@ -186,7 +186,7 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
       {!overlayUnmounted && (
         <div
           aria-hidden="true"
-          className={`pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-b from-[#050509]/90 to-transparent text-white transition-opacity duration-500 ${
+          className={`pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3 bg-linear-to-b from-[#050509]/90 to-transparent text-white transition-opacity duration-500 ${
             preloaderProgress >= 100 ? 'opacity-0' : 'opacity-100'
           }`}
         >

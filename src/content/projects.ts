@@ -2,8 +2,8 @@ export type Project = {
   slug: string;
   title: string;
   client: string;
-  category: string;
-  layout: 'small' | 'medium' | 'wide' | 'rectangle';
+  tags: string[];
+  layout: 'normal' | 'wide';
   imageUrl: string;
   imageAlt: string;
   description: string;
@@ -14,11 +14,12 @@ export const featuredProjects: Project[] = [
     slug: 'magic-radio-branding',
     title: 'Bringing the Magic Back to Radio',
     client: 'Magic',
-    category: 'branding',
-    layout: 'small',
+    tags: ['branding'],
+    layout: 'normal',
     imageUrl:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp',
-    imageAlt: 'Cartão roxo com o lettering Magic em amarelo vibrante',
+    imageAlt:
+      'Visual identity for Magic radio featuring purple background and yellow logo',
     description:
       'Identidade sonora e visuais fluídos que celebram o rádio com atitude futurista.',
   },
@@ -26,38 +27,35 @@ export const featuredProjects: Project[] = [
     slug: 'taking-sportswear',
     title: 'Taking Sportswear to the Skies',
     client: 'Eurosport',
-    category: 'campaign',
-    layout: 'medium',
+    tags: ['campaign'],
+    layout: 'normal', // Updated: Eurosport is normal width in reference row 1
     imageUrl:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
-    imageAlt:
-      'Atleta flutuando em tons vibrantes diante de um céu multicolorido',
+    imageAlt: 'Athlete floating against a colorful sky background',
     description:
       'Campanha editorial que combina movimento, cor e atitude para uma marca ousada.',
   },
   {
     slug: 'epic-look-campaign',
     title: 'Refreshing a Telecom Challenger',
-    client: 'Epic',
-    category: 'branding',
-    layout: 'wide',
+    client: 'EPIC',
+    tags: ['branding'],
+    layout: 'wide', // Updated: Epic is full width in reference row 2
     imageUrl:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp',
-    imageAlt:
-      'Pessoa olhando para o celular diante de um skyline urbano iluminado',
+    imageAlt: 'Person looking at smartphone with Epic Look text overlay',
     description:
       'Key visual cinematográfico que reposiciona a marca como parceira urbana disruptiva.',
   },
   {
     slug: 'fff-legal-identity',
-    title: 'Designing Trust — The FFF Legal Identity',
+    title: 'Designing Trust – The FFF Legal Identity',
     client: 'FFF Legal',
-    category: 'branding / website',
-    layout: 'rectangle',
+    tags: ['branding', 'website'],
+    layout: 'normal',
     imageUrl:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp',
-    imageAlt:
-      'Fachada escura com a logomarca FFF Legal aplicada em elementos de metal e luz',
+    imageAlt: 'FFF Legal logo textual design on building facade',
     description:
       'Narrativa visual sólida para transmitir confiança e consistência em múltiplas telas.',
   },

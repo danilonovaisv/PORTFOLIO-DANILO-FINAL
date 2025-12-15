@@ -2,8 +2,7 @@
 # **Documento de Especificação Técnica — Home Page**
 **Projeto:** Portfólio Institucional de Danilo Novais
 **Páginas Principais:** Home, Sobre, Portfólio, Contato
-**Foco deste Documento:** Home Page (seções: Header, Hero, Manifesto,
-Portfolio Showcase, Featured Projects, Clients/Brands, Contact, Footer)
+**Foco deste Documento:** Home Page (seções: Header, Hero, Manifesto,Portfolio Showcase, Featured Projects, Clients/Brands, Contact, Footer)
 ---
 ## INFORMAÇÕES GLOBAIS
 ### 1. Contexto do Projeto
@@ -295,22 +294,28 @@ em ~0.6s, easing suave.
 - Comportamento de scroll para o link "contato".
 ---
 
-
 # **SECTION NAME: Hero**
 
 **SECTION PURPOSE (what this section must achieve):**
 
 * Apresentar a proposta de valor do designer.
 * Criar impacto visual inicial com elemento 3D.
+* Estabelecer ritmo editorial e narrativa visual.
 * Direcionar o usuário para a próxima etapa (seção Sobre/Manifesto).
+
+---
 
 **PRIMARY MESSAGE / HEADLINE:**
 
 * `Design, não é só estética.`
 
+---
+
 **SECONDARY MESSAGE / SUPPORT TEXT:**
 
 * `[É intenção, é estratégia, é experiência.]`
+
+---
 
 **KEY CONTENT ELEMENTS (bullets, stats, quotes, etc.):**
 
@@ -320,48 +325,69 @@ em ~0.6s, easing suave.
 * CTA principal `get to know me better →`.
 * Elemento 3D (modelo GLB com material de vidro).
 * Thumb de vídeo manifesto (mesmo vídeo da seção Manifesto):
+  * Autoplay.
+  * Loop.
+  * Muted.
+  * **Sem texto, badge ou ícone sobreposto.**
 
-  * **Autoplay, loop, mute.**
-  * **Sem nenhum texto, badge ou ícone sobreposto ao vídeo.**
+---
 
 **CALL TO ACTION (if any):**
 
-* CTA principal:
+* Texto: `get to know me better →`
+* Destino: `/sobre`.
 
-  * Texto: `get to know me better →`
-  * Destino: `/sobre`.
+---
 
 **LINKS GLOBAIS:**
 
-* CTA envia para `/sobre`.
-* Thumb rola até `#manifesto` (seção Manifesto – Vídeo).
+* CTA → `/sobre`.
+* Thumb → `#manifesto`.
+
+---
 
 **Manifesto (Vídeo)**
 
 * Vídeo URL (compartilhado entre thumb e full):
   `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
 
+---
+
 **LAYOUT TYPE (hero, grid, list, carousel, form, etc.):**
 
-* Hero section com 2 colunas (desktop) e 1 coluna (mobile).
+* Desktop / Tablet: Hero em 2 colunas.
+* Mobile: Hero em 1 coluna.
+
+---
 
 **ALIGNMENT (left/center/right, vertical alignment):**
 
-* Horizontal:
+* Desktop:
+  * Texto à esquerda.
+  * 3D + thumb à direita.
+* Mobile:
+  * Conteúdo empilhado verticalmente.
+  * Thumb full-width abaixo do CTA.
+* Conteúdo centralizado verticalmente.
 
-  * Texto à esquerda; 3D + thumb à direita.
-* Vertical:
-
-  * Conteúdo centralizado verticalmente.
+---
 
 **SPACING (top/bottom padding, breathing room):**
 
-* Padding interno `p-8`.
-* Espaço horizontal `space-x-8`.
+* Desktop:
+  * Padding: `p-8`.
+  * Espaço horizontal: `space-x-8`.
+* Mobile:
+  * Padding: `p-6`.
+  * Espaço vertical ampliado entre CTA e thumb.
+
+---
 
 **BACKGROUND (color, gradient, image, video):**
 
 * Cor sólida cinza claro `#F4F5F7`.
+
+---
 
 **SECTION COLORS (overrides or specific tokens):**
 
@@ -369,21 +395,34 @@ em ~0.6s, easing suave.
 * Texto secundário e tag: `#0057FF`.
 * CTA: fundo `#0057FF`, texto `#FFFFFF`.
 
+---
+
 **TYPOGRAPHY (any overrides for headings/body in this section):**
 
 * Fonte: sans-serif neo-grotesca (Inter ou similar).
-* Título: peso heavy, `text-4xl` em mobile, `text-6xl` em desktop.
-* Subtítulo: peso médio, `text-lg`.
+* Headline:
+  * Mobile: `text-4xl`.
+  * Tablet: `text-5xl`.
+  * Desktop: `text-6xl`.
+* Subtítulo:
+  * Mobile: `text-base`.
+  * Desktop: `text-lg`.
+
+---
 
 **IMAGERY (what to show: photos, illustrations, icons, logos):**
 
 * Modelo 3D `/public/models/torus_dan.glb`.
 * Thumb do vídeo manifesto (frame do próprio vídeo, sem overlay).
 
+---
+
 **MEDIA (video, animation, Lottie, 3D, etc.):**
 
-* Elemento 3D animado (rotação + parallax).
+* Elemento 3D animado (rotação suave + parallax).
 * Thumb com vídeo manifesto em autoplay (loop, mudo, sem texto/ícones).
+
+---
 
 **COMPONENTS USED (buttons, cards, tabs, accordions, sliders, etc.):**
 
@@ -391,547 +430,514 @@ em ~0.6s, easing suave.
 * 3D: `<Canvas>`, `<ModelCanvas>`.
 * Vídeo (thumb): `<video>` / `motion.video`.
 
+---
+
 **STATE VARIANTS (hover, active, focus, disabled, selected):**
 
 * CTA:
-
-  * Hover: leve elevação.
-  * Tap: compressão sutil.
+  * Hover: `scale 1.03` + `translateY -1px`.
+  * Tap: `scale 0.98`.
 * Thumb:
+  * Hover (desktop): `scale 1.02`.
+  * **Sem ícone de play.**
 
-  * Hover (desktop): leve escala (parallax/zoom sutil), **sem ícone de play**.
+---
 
 **INTERACTIONS (click, hover, tap, drag, scroll-trigger, etc.):**
 
 * Clique no CTA: navega para `/sobre`.
-* Clique/tap na thumb (área inteira do vídeo): rola para `#manifesto` com scroll suave.
-* Movimento do mouse: parallax no elemento 3D (ligado ao cursor).
+* Clique/tap na thumb: scroll suave até `#manifesto`.
+* Movimento do mouse (desktop): parallax sutil no elemento 3D.
 * Scroll dentro da Hero:
+  * Thumb ganha leve escala e parallax.
+  * Texto perde protagonismo progressivamente.
+  * **Thumb não vira fullscreen.**
 
-  * Parallax leve da thumb.
-  * Texto perde um pouco de opacidade para o vídeo ganhar protagonismo.
-  * **Sem transformação da thumb em full-screen dentro da Hero**; a versão full acontece apenas na seção Manifesto.
+---
 
 **SCROLL BEHAVIOUR (sticky, parallax, reveal on scroll):**
 
-* Seção com altura ≈ `100vh`.
-* Sem sticky global (`no sticky 200vh`).
-* Parallax leve aplicado à thumb e ajusta opacidade/posição do bloco de texto via `scrollYProgress`.
+* Altura:
+  * Desktop: ≈ `100vh`.
+  * Mobile: ≥ `85vh`.
+* Sem sticky global.
+* Scroll progressivo baseado em `scrollYProgress`.
+
+---
 
 **ANIMATIONS (what moves, when, duration, easing):**
 
-* Título:
+* Entrada do texto:
+  * Mobile: `y 16 → 0`, `opacity 0 → 1`, `0.6s`.
+  * Tablet: `y 20 → 0`, `0.7s`.
+  * Desktop: `y 24 → 0`, `0.8s`.
+  * Easing: `easeOut` / `cubic-bezier(0.22,1,0.36,1)`.
+  * `staggerChildren`: `0.06–0.1s`.
 
-  * Animação de entrada (pode ser “3D flip” suave ou `translateY + opacity`).
-  * `staggerChildren` entre linhas/palavras.
-  * `prefers-reduced-motion`: fallback para simples fade + translateY.
-* Thumb do vídeo:
+* Thumb (entrada):
+  * Mobile: `scale 1.03 → 1`.
+  * Tablet: `scale 1.04 → 1`.
+  * Desktop: `scale 1.05 → 1`.
+  * `opacity 0 → 1`.
 
-  * Entrada: fade-in + scale (`1.05 → 1.0`).
-  * Scroll: animação de escala (`1.0 → ~1.08`) e `translateY` inverso (parallax suave).
-* Texto e tag:
+* Thumb (scroll):
+  * Mobile:
+    * `scale 1 → 1.04`
+    * `translateY 0 → -12px`
+  * Tablet:
+    * `scale 1 → 1.06`
+    * `translateY 0 → -18px`
+  * Desktop:
+    * `scale 1 → 1.08`
+    * `translateY 0 → -24px`
 
-  * Opacidade reduzida conforme o scroll avança (ex.: `1 → ~0.2` até 60–70% de `scrollYProgress`).
-  * Pequeno `translateY` para cima.
-* CTA:
+* Texto (scroll):
+  * Mobile: `opacity 1 → 0.4`, `y 0 → -12px`.
+  * Tablet: `opacity 1 → 0.3`, `y 0 → -18px`.
+  * Desktop: `opacity 1 → 0.2`, `y 0 → -24px`.
 
-  * Microanimações em hover/tap (scale, y).
+---
 
-**MICRO-INTERACTIONS (small feedback, e.g. button press, icon change):**
+**MICRO-INTERACTIONS:**
 
-* Hover no CTA com feedback imediato (scale + sombra).
-* Hover na thumb com leve escala/parallax (sem aparecer ícone ou texto sobre o vídeo).
+* CTA com feedback imediato.
+* Thumb com hover extremamente sutil (desktop apenas).
 
-**TEXT LIMITS (max characters for headline, body, CTA):**
+---
 
-* Título: até 50 caracteres.
+**TEXT LIMITS:**
+
+* Headline: até 50 caracteres.
 * Subtítulo: até 100 caracteres.
 * CTA: até 30 caracteres.
 
-**CONTENT PRIORITY (what must be seen first):**
+---
 
-* Alta: Título e elemento 3D.
-* Média: Subtítulo e CTA.
-* Baixa: Tag e thumb.
+**CONTENT PRIORITY:**
 
-**ALTERNATIVE CONTENT (fallback if image/video not available):**
-
-* Elemento 3D: texto “Elemento 3D”.
-* Thumb/vídeo: texto “Vídeo Manifesto”.
-
-**LINKS / DESTINATIONS (where CTAs point):**
-
-* CTA: `/sobre`.
-* Thumb: `#manifesto`.
-
-**DATA HOOKS / TRACKING (events to track in analytics):**
-
-* Clique no CTA (`hero_cta_click`).
-* Clique na thumb (`hero_thumb_click`).
-
-**DEPENDENCIES (APIs, forms, integrations for this section):**
-
-* `HOMEPAGE_CONTENT.hero`.
-* `ModelCanvas` (3D).
-
-**ACCESSIBILITY NOTES (alt text, motion reduction, ARIA if needed):**
-
-* Título com `aria-label` se necessário.
-* CTA e thumb navegáveis via teclado.
-* Respeitar `prefers-reduced-motion` (desativar rotação e parallax no 3D e animações ligadas ao scroll).
-* Mesmo com autoplay, vídeo da thumb permanece **sempre mudo**.
-
-**SPECIAL STATES (empty state, error state, loading state):**
-
-* Carregamento:
-
-  * Spinner/placeholder para vídeo/3D.
-* Erro:
-
-  * Mensagem de erro simples.
-
-**NOTES / INSPIRATION (links, references, moodboards):**
-
-* Animação do título: [https://codepen.io/cbolson/pen/NPNjvOQ](https://codepen.io/cbolson/pen/NPNjvOQ)
-* Elemento 3D: [https://youtu.be/9FDt6tuFP-k?si=kpet4Xc8Od3B_t5X](https://youtu.be/9FDt6tuFP-k?si=kpet4Xc8Od3B_t5X)
-* Layout: `HOME-PORTFOLIO-LAYOUYT_ESPERADO.jpg`
-* Thumb: [https://loandbehold.studio/](https://loandbehold.studio/)
-
-**REFERENCES:**
-
-* Arquivos de layout internos.
-* Sites de referência mencionados.
-
-**ELEMENTE BOLA DE VIDRO:**
-
-* Contexto: Introdução imersiva com esfera de vidro refrativa.
-* Visual 3D: Esfera de vidro (MeshTransmissionMaterial) distorcendo o background ou uma imagem interna.
-* Iluminação (Crítico): Vidro precisa de reflexos para parecer real.
-
-  * Adição: Implementar `<Environment preset="city" />` (ou textura customizada .hdr) com `blur={1}` e baixa intensidade para gerar reflexos realistas na superfície da esfera sem mostrar um fundo explícito.
-* Interatividade:
-
-  * Movimento do mouse afeta levemente a rotação da esfera (efeito parallax).
-  * Scroll altera a distorção (chromaticAberration ou distortion) conforme o usuário desce.
-
-**“NON-NEGOTIABLES” (things that cannot change in this section):**
-
-* Elemento 3D animado (com fallback em motion-reduced).
-* Título com animação de entrada.
-* CTA para `/sobre`.
-* Thumb com vídeo autoplay (loop, mudo, sem overlay).
-* Animação da thumb no scroll (scale/parallax + texto perdendo foco).
+* Alta: Headline + elemento 3D.
+* Média: Subheadline + CTA.
+* Baixa: Tag + thumb.
 
 ---
 
-### **Detalhes da Animação da Thumb do Vídeo Manifesto**
+**ALTERNATIVE CONTENT:**
 
-*(Versão inspirada na hero em vídeo de `https://loandbehold.studio/` – foco em entrada suave e parallax leve.)*
-
-> Mantido como bloco técnico extra, guia de comportamento para implementação (Framer Motion + React).
-
-* **Posicionamento inicial (estado 0):**
-
-  * Thumb do vídeo manifesto posicionada na **parte inferior direita da Hero**, alinhada à coluna de conteúdo visual (lado direito em desktop, full-width acima/abaixo do texto em mobile).
-  * Ocupa ~40–50% da largura útil da hero em desktop, com **cantos levemente arredondados** e borda/outline sutil para destacá-la do fundo.
-
-* **Comportamento na ENTRADA da página (on load):**
-
-  1. A página carrega com o header + fundo neutro da hero.
-  2. O **vídeo da thumb** entra com **fade-in** (`opacity: 0 → 1`) + **scale leve** (`1.05 → 1.0`), como se “ganhasse foco” após o carregamento.
-  3. Tag `[BRAND AWARENESS]`, H1, subtítulo e CTA entram em sequência com `translateY + opacity` (`y: 12–24px → 0`, `opacity: 0 → 1`), com `stagger` curto (tag → H1 → subtítulo → CTA → thumb).
-
-* **Comportamento no SCROLL (parallax suave, sem virar full-screen):**
-
-  1. A seção Hero ocupa aproximadamente a altura do viewport (≈ `100vh`).
-  2. À medida que o usuário rola de `scrollYProgress = 0 → 1` **dentro da Hero**:
-
-     * **Thumb do vídeo**:
-
-       * `scale`: `1.0 → ~1.08`.
-       * `translateY`: `0 → -24px` (parallax leve, deslocamento contrário ao scroll).
-     * **Texto da hero** (tag, H1, subtítulo, CTA):
-
-       * `opacity`: `1 → ~0.2` até ~60–70% de `scrollYProgress`.
-       * `translateY`: `0 → -16/24px`.
-  3. A thumb **não** se transforma em vídeo tela cheia dentro da Hero.
-
-     * Ela simplesmente sai do viewport com o scroll, e a próxima seção (Manifesto – Vídeo) assume o papel de vídeo em destaque (formato full).
-
-* **Interações diretas com a thumb:**
-
-  * **Hover (desktop):**
-
-    * Leve aumento de escala da thumb (`scale: 1.0 → 1.02`).
-    * Nenhum ícone, badge ou texto sobreposto ao vídeo — foco total no conteúdo do vídeo.
-  * **Tap/Click (desktop e mobile):**
-
-    * Não abre modal.
-    * Ao clicar/tocar, **rola suavemente até `#manifesto`** (`scrollIntoView({ behavior: 'smooth' })` ou equivalente).
-    * Tracking: evento `hero_thumb_click`.
-
-* **Comportamento do vídeo em si (na thumb):**
-
-  * `autoplay={true}`, `loop={true}`, `muted={true}`, `playsInline`.
-  * **Sempre mudo** na Hero; o áudio é responsabilidade da seção Manifesto (full).
-  * **Sem qualquer overlay** (sem texto, sem ícone, sem badge de play).
-  * Opcional: leve “drift” de enquadramento via `transform: scale(1.02 → 1.05)` em loop bem lento, desde que não conflite com `prefers-reduced-motion`.
-  * Em dispositivos com restrição de autoplay:
-
-    * Fallback: frame estático do vídeo ou poster, ainda **sem overlay**.
-    * Comportamento de clique (scroll para `#manifesto`) permanece.
-
-* **Implementação sugerida (stack principal – Framer Motion):**
-
-  ```ts
-  const heroRef = useRef<HTMLDivElement | null>(null)
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  })
-
-  const thumbScale = useTransform(scrollYProgress, [0, 1], [1, 1.08])
-  const thumbTranslateY = useTransform(scrollYProgress, [0, 1], [0, -24])
-  const textOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0.2])
-  const textTranslateY = useTransform(scrollYProgress, [0, 0.7], [0, -24])
-  ```
-
-  * Entrada da thumb:
-
-    ```tsx
-    <motion.video
-      initial={{ opacity: 0, scale: 1.05 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.7, ease: 'easeOut' }}
-      muted
-      autoPlay
-      loop
-      playsInline
-      ...
-    />
-    ```
-
-* **Alternativa em JS puro (fallback conceitual):**
-
-  * Listener de scroll + `requestAnimationFrame`:
-
-    * `progress = clamp01((scrollY - heroTop) / heroHeight)`.
-    * `scale = lerp(1.0, 1.08, progress)`.
-    * `translateY = lerp(0, -24, progress)`.
-    * `opacityTexto = lerp(1, 0.2, min(progress, 0.7))`.
-  * Aplicar via `style.transform` e `style.opacity`.
-
-* **Easing / sensação de movimento:**
-
-  * Curvas suaves (`easeOut`, `easeInOut`), sem overshoot.
-  * Transformações em ranges curtos (pouca escala, poucos pixels).
-
-* **Performance:**
-
-  * Animar apenas `transform` e `opacity`.
-  * `will-change: transform, opacity` na thumb somente enquanto a Hero estiver visível.
-
-* **Acessibilidade / motion-reduction:**
-
-  * Respeitar `prefers-reduced-motion: reduce`:
-
-    * Desativar animações ligadas a `scrollYProgress`.
-    * Manter apenas um fade-in simples na entrada da Hero.
-  * Vídeo da thumb permanece sempre mudo; áudio só existe na seção Manifesto.
-  * Thumb clicável com `role="button"` (se não for link direto) e `aria-label="Ir para manifesto em vídeo"`.
+* 3D: texto “Elemento 3D”.
+* Vídeo: poster estático “Vídeo Manifesto”.
 
 ---
+
+**DATA HOOKS / TRACKING:**
+
+* `hero_cta_click`
+* `hero_thumb_click`
+
+---
+
+**DEPENDENCIES:**
+
+* `HOMEPAGE_CONTENT.hero`
+* `ModelCanvas`
+
+---
+
+**ACCESSIBILITY NOTES:**
+
+* Navegação por teclado completa.
+* `aria-label` em CTA e thumb.
+* `prefers-reduced-motion`:
+  * Desativar parallax e scale.
+  * Manter apenas fade-in simples.
+* Vídeo da thumb sempre mudo.
+
+---
+
+**NON-NEGOTIABLES:**
+
+* Sem fullscreen na Hero.
+* Sem overlays sobre vídeo.
+* Thumb sempre em autoplay mudo.
+* Transferência de foco do texto para a mídia via scroll.
+
+
+
 
 # **SECTION NAME: Manifesto (Vídeo)**
 
 **SECTION PURPOSE (what this section must achieve):**
 
-* Apresentar o vídeo manifesto em destaque, consolidando o que foi introduzido na Hero.
-* Reforçar valores, processo e posicionamento de Danilo em formato audiovisual.
+* Apresentar o vídeo manifesto em destaque.
+* Consolidar a narrativa iniciada na Hero.
+* Reforçar valores, processo e posicionamento.
+
+---
 
 **PRIMARY MESSAGE / HEADLINE:**
 
-* `TBD` (se houver título textual acima do vídeo).
+* `TBD`
+
+---
 
 **SECONDARY MESSAGE / SUPPORT TEXT:**
 
-* `TBD` (pode haver breve texto contextual — opcional). **[SUGESTÃO]**
+* `TBD`
 
-**KEY CONTENT ELEMENTS (bullets, stats, quotes, etc.):**
+---
 
-* Player de vídeo manifesto em destaque (formato full/hero secundário).
-* **Vídeo limpo, sem overlay de texto, badges ou ícones sobre a área de vídeo.**
-* Conteúdo textual (headline/descrição) pode existir **acima ou abaixo** do vídeo, nunca sobre ele.
+**KEY CONTENT ELEMENTS:**
 
-**CALL TO ACTION (if any):**
+* Vídeo manifesto em destaque (full).
+* **Sem overlays visuais sobre o vídeo.**
+* Texto opcional acima ou abaixo do player.
 
-* `TBD` — foco principal é assistir o vídeo; não há CTA textual obrigatório.
+---
 
 **LINKS GLOBAIS:**
 
-* Âncora `#manifesto` para navegação a partir da Hero.
+* Âncora: `#manifesto`.
+
+---
 
 **Manifesto (Vídeo)**
 
-* Vídeo URL (mesmo da Hero/thumb):
+* URL:
   `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
 
-**LAYOUT TYPE (hero, grid, list, carousel, form, etc.):**
+---
 
-* Seção de mídia em destaque (vídeo em posição de hero secundário).
+**LAYOUT TYPE:**
 
-**ALIGNMENT (left/center/right, vertical alignment):**
+* Seção de mídia em destaque (hero secundário).
+
+---
+
+**ALIGNMENT:**
 
 * Vídeo centralizado.
-* Textos auxiliares (se existirem) alinhados acima/abaixo.
+* Texto auxiliar acima ou abaixo.
 
-**SPACING (top/bottom padding, breathing room):**
+---
 
-* Padding vertical generoso (`py-16`).
-* Margens laterais adequadas em desktop; full-bleed opcional em mobile.
+**SPACING:**
 
-**BACKGROUND (color, gradient, image, video):**
+* Padding vertical: `py-16`.
+* Mobile pode usar full-bleed.
 
-* Fundo: neutro escuro ou mesmo fundo do site, deixando o vídeo como foco.
+---
 
-**SECTION COLORS (overrides or specific tokens):**
+**BACKGROUND:**
 
-* Textos auxiliares: branco ou cinza-claro sobre fundo escuro/neutro.
+* Fundo neutro escuro ou padrão do site.
 
-**TYPOGRAPHY (any overrides for headings/body in this section):**
+---
 
-* Se houver headline/descrição: fonte limpa, alta legibilidade.
-* Microtexto manifesto (se usado): fonte pequena, alta legibilidade.
+**MEDIA:**
 
-**IMAGERY (what to show: photos, illustrations, icons, logos):**
+* `<video>` ou `motion.video`.
+* Autoplay.
+* Loop.
+* Som ativo **apenas enquanto a seção estiver em foco**.
 
-* O próprio vídeo é o foco visual.
-* Evitar overlays gráficos fixos sobre o vídeo.
+---
 
-**MEDIA (video, animation, Lottie, 3D, etc.):**
+**INTERACTIONS:**
 
-* `<video>` ou `motion.video` (mesma fonte da Hero).
-* **Autoplay, com som enquanto a seção estiver em foco/viewport.**
-* Ao sair da seção (scroll para próxima), vídeo permanece tocando opcionalmente, mas **volta a ficar `muted`** para não vazar áudio.
+* Entrada na viewport:
+  * Vídeo toca automaticamente.
+  * Tentativa de ativar áudio.
+* Saída da viewport:
+  * Vídeo continua tocando.
+  * Áudio retorna para `muted`.
 
-**COMPONENTS USED (buttons, cards, tabs, accordions, sliders, etc.):**
+---
 
-* Player de vídeo (custom ou nativo).
-* Controles podem ser:
+**SCROLL BEHAVIOUR:**
 
-  * Nativos do browser (barra de controle inferior), ou
-  * Controles minimalistas fora da área do vídeo (abaixo), para manter o vídeo limpo.
+* Fade-in na entrada.
+* Sem sticky.
+* Controle de áudio via `IntersectionObserver`.
 
-**STATE VARIANTS (hover, active, focus, disabled, selected):**
+---
 
-* Estado tocando x pausado.
-* Estado com som x mudo (tracking interno).
+**ANIMATIONS:**
 
-**INTERACTIONS (click, hover, tap, drag, scroll-trigger, etc.):**
+* Container:
+  * `opacity 0 → 1`
+  * `scale 0.98 → 1`
+* Sem animações sobre o vídeo.
 
-* Ao entrar na seção (`#manifesto` em viewport):
+---
 
-  * Vídeo **já está em autoplay** (loop) e
-  * Se permitido pelo navegador, **áudio é desmutado automaticamente** enquanto a seção está em destaque.
-* Ao sair da seção (scroll para próxima seção):
+**DATA HOOKS / TRACKING:**
 
-  * Vídeo continua em autoplay, porém **`muted = true`** para evitar áudio fora de contexto.
-* Interações diretas:
+* `manifesto_video_auto_play`
+* `manifesto_video_complete`
+* `manifesto_audio_unmuted_auto`
+* `manifesto_audio_muted_on_leave`
 
-  * Clique/tap no vídeo ou em controles externos: play/pause e mute/unmute manual — respeitando o estado automático de “som ativo apenas enquanto em viewport”.
+---
 
-**SCROLL BEHAVIOUR (sticky, parallax, reveal on scroll):**
+**ACCESSIBILITY NOTES:**
 
-* Entrada via fade-in ao chegar na área `#manifesto`.
-* Não sticky (Hero já cumpre esse papel).
-* Comportamento de áudio ligado a scroll:
+* `aria-label` nos controles.
+* Legendas ou transcrição recomendadas.
+* Fallback para autoplay bloqueado:
+  * Inicia mudo.
+  * Som apenas após interação.
 
-  * Uso de `IntersectionObserver` ou `useScroll` para saber quando a seção está majoritariamente visível.
+---
 
-**ANIMATIONS (what moves, when, duration, easing):**
+**NON-NEGOTIABLES:**
 
-* Entrada do container de vídeo:
+* Vídeo em destaque (full).
+* Mesmo arquivo da Hero.
+* Sem texto ou ícones sobrepostos.
+* Som ativo somente enquanto a seção estiver em foco.
 
-  * Fade-in + pequeno ajuste de escala (`scale: 0.98 → 1`).
-* O próprio vídeo fornece a “animação” principal (conteúdo em movimento).
-* Sem animações de overlay sobre o vídeo (sem badges, sem ícones animados sobre a imagem).
-
-**MICRO-INTERACTIONS (small feedback, e.g. button press, icon change):**
-
-* Feedback visual discreto ao interagir com os controles (se existirem fora da área de vídeo).
-* Possível indicador textual pequeno abaixo do vídeo (ex.: “som ligado / som desligado”), não sobre o vídeo.
-
-**TEXT LIMITS (max characters for headline, body, CTA):**
-
-* Se houver headline/descrição textual:
-
-  * Manter bem curto (< 100 caracteres).
-
-**CONTENT PRIORITY (what must be seen first):**
-
-* Vídeo manifesto (full).
-
-**ALTERNATIVE CONTENT (fallback if image/video not available):**
-
-* Imagem estática + texto “Não foi possível carregar o manifesto em vídeo”.
-* Link alternativo para YouTube/Vimeo. **[SUGESTÃO]**
-
-**LINKS / DESTINATIONS (where CTAs point):**
-
-* `TBD` — se houver CTA complementar (ex.: “ver portfólio”).
-
-**DATA HOOKS / TRACKING (events to track in analytics):**
-
-* `manifesto_video_play`.
-* `manifesto_video_pause`.
-* `manifesto_video_complete`.
-* `manifesto_audio_unmuted_auto` (ao entrar na seção).
-* `manifesto_audio_muted_on_leave` (ao sair da seção).
-
-**DEPENDENCIES (APIs, forms, integrations for this section):**
-
-* Vídeo armazenado em Supabase (mesma URL usada na Hero).
-* Player de vídeo.
-* Integração com hook de visibilidade (IntersectionObserver / `useInView`).
-
-**ACCESSIBILITY NOTES (alt text, motion reduction, ARIA if needed):**
-
-* Legendas ou transcrição textual do conteúdo do vídeo. **[SUGESTÃO]**
-* `aria-label` para qualquer botão de play/pause ou mute/unmute.
-* Respeitar configurações do usuário:
-
-  * Muitos browsers bloqueiam autoplay com som; fallback:
-
-    * Iniciar como **autoplay mudo**,
-    * Ativar som somente após interação explícita, **tentando ainda assim manter a lógica de “som ligado enquanto em viewport, mudo ao sair”**.
-
-**SPECIAL STATES (empty state, error state, loading state):**
-
-* Loading: placeholder/skeleton.
-* Erro: fallback textual + link externo, se disponível.
-
-**NOTES / INSPIRATION (links, references, moodboards):**
-
-* Continuar a linha de animação e clima imersivo iniciados na Hero.
-* Manter sensação de “manifesto pessoal” em estúdio.
-
-**REFERENCES:**
-
-* Mesmo vídeo especificado globalmente.
-
-**“NON-NEGOTIABLES” (things that cannot change in this section):**
-
-* Existência de uma área clara na Home para o manifesto em vídeo.
-* Uso do vídeo especificado (mesma URL da Hero).
-* Formato full em autoplay.
-* **Vídeo sem texto ou ícones sobrepostos.**
-* **Som ativo apenas na versão full (Manifesto) e apenas enquanto a seção estiver em foco, voltando a mute ao sair.**
-
+---
 
 # **SECTION NAME: Portfolio Showcase**
-_(Conteúdo já descrito, agora dentro do template.)_
-**SECTION PURPOSE (what this section must achieve):**
-- Apresentar claramente as áreas de atuação de Danilo.
-- Organizar mentalmente o portfólio em categorias.
-**PRIMARY MESSAGE / HEADLINE:**
-- `portfólio showcase`.
-**SECONDARY MESSAGE / SUPPORT TEXT:**
-- Microtexto `[what we love working on]`.
-**KEY CONTENT ELEMENTS (bullets, stats, quotes, etc.):**
-- Título `portfólio showcase`.
-- Microtexto lateral.
-- 3 stripes de categoria.
-- CTAs `VEJA MAIS →` e `let’s build something great →`.
-**CALL TO ACTION (if any):**
-- `VEJA MAIS →` → `/portfolio`.
-- `let’s build something great →` → `/#contact`.
-**LINKS GLOBAIS:**
-- Integração com `/portfolio` (com e sem filtro).
+
+### SECTION PURPOSE (what this section must achieve)
+Apresentar claramente as áreas de atuação de Danilo.
+Organizar mentalmente o portfólio em categorias.
+Criar navegação editorial premium com foco em clareza, ritmo e interatividade suave.
+
+### PRIMARY MESSAGE / HEADLINE
+`portfólio showcase`
+
+### SECONDARY MESSAGE / SUPPORT TEXT
+`[what we love working on]`
+
+### KEY CONTENT ELEMENTS
+- Headline central da seção.
+- Microtexto lateral `[what we love working on]`.
+- 3 stripes de categorias interativas.
+- CTA aspiracional inferior.
+
+### CALL TO ACTION (if any)
+- `Ver todos os projetos →` → `/portfolio?category={id}`
+- `let’s build something great →` → `/#contact`
+
+### LINKS GLOBAIS
+- Integração com `/portfolio` (com filtro por categoria).
 - Integração com `/#contact`.
-**LAYOUT TYPE (hero, grid, list, carousel, form, etc.):**
-- Seção editorial de categorias (stripes + CTAs).
-**ALIGNMENT (left/center/right, vertical alignment):**
-- Desktop:
-- Título central ao grid.
-- Microtexto lateral esquerda.
-- Stripes em coluna.
-- Mobile:
-- Todos os elementos empilhados e alinhados à esquerda.
-**SPACING (top/bottom padding, breathing room):**
-- Padding vertical generoso (`py-16`).
-- Gaps verticais entre stripes.
-- Espaço antes dos CTAs.
-**BACKGROUND (color, gradient, image, video):**
-- `#F4F5F7`.
-**SECTION COLORS (overrides or specific tokens):**
-- Azul da marca no título e ícones.
-- Neutro escuro para textos complementares.
-**TYPOGRAPHY (any overrides for headings/body in this section):**
-- Headline em bold.
-- Stripes em tipografia grande, bold.
-**IMAGERY (what to show: photos, illustrations, icons, logos):**
-- Sem imagens de casos, apenas texto + ícones circulares (pontos azuis).
-**MEDIA (video, animation, Lottie, 3D, etc.):**
-- N/A.
-**COMPONENTS USED:**
-- Stripes (divs clicáveis).
-- Botões/links para CTAs.
-**STATE VARIANTS:**
-- Hover em stripes: fundo e sombra.
-- Hover em ícones: scale leve.
-**INTERACTIONS:**
-- Clique em stripes: vai para `/portfolio?category=...`.
-- Clique em ícones: mesmo destino das stripes.
-**SCROLL BEHAVIOUR:**
-- Reveal on scroll via animação de entrada (sem sticky).
-**ANIMATIONS:**
-- Entrada dos stripes da direita/esquerda.
-- Pulsar dos pontos azuis em loop longo (se permitido).
-**MICRO-INTERACTIONS:**
-- Hover nos stripes e ícones.
-**TEXT LIMITS:**
-- Nomes das categorias curtos (1–2 palavras chave + complemento).
-**CONTENT PRIORITY:**
-- Título da seção.
-- Stripes de categorias.
-**ALTERNATIVE CONTENT (fallback if image/video not available):**
-- N/A (conteúdo somente textual).
-**LINKS / DESTINATIONS (where CTAs point):**
-- ID: brand-campaigns
-Label (UI): Brand & Campaigns
-Label PT (explicativo): Brand & Campanhas
-Thumbnail URL:
-https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/project-images/Branding-Project.webp
-- ID: videos-motions
-Label (UI): Videos & Motions
-Label PT (explicativo): Vídeos & Motions
-Thumbnail URL:
-https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/project-images/webdesigner-2%202.gif
-- ID: websites-webcampaigns-tech
-Label (UI): Web Campaigns, Websites & Tech
-Label PT (explicativo): Campanhas Web, Websites & Tech
-Thumbnail URL:
-https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp
-**DATA HOOKS / TRACKING (events to track in analytics):**
-- `portfolio_showcase_category_click`.
-- `portfolio_showcase_cta_click`.
-**DEPENDENCIES (APIs, forms, integrations for this section):**
+
+---
+
+## LAYOUT & DESIGN (Adaptado da Referência Lo&Behold)
+
+### ALIGNMENT
+**Desktop (≥1024px)**
+- Headline centralizada.
+- Microtexto alinhado à esquerda do primeiro stripe.
+- Stripes com alinhamento alternado:
+    - Direita
+    - Centro
+    - Esquerda
+- **Referência Lo&Behold:** As linhas são delimitadas por finas bordas horizontais. O conteúdo dentro de cada stripe é alinhado de forma que o título e o ícone de seta fiquem visualmente centrados no espaço disponível, criando um ritmo fluido.
+
+**Mobile (≤768px)**
+- Todos os elementos empilhados.
+- Alinhamento à esquerda.
+- Stripes ocupam 100% da largura.
+
+### SPACING
+**Desktop:**
+- `py-24`
+- `gap-14` entre stripes
+- Espaço claro antes do CTA final.
+
+**Mobile:**
+- `py-16`
+- `gap-10`
+
+### BACKGROUND
+- Fundo sólido `#F4F5F7`.
+
+### SECTION COLORS
+- Azul da marca `#0057FF`.
+- Texto principal `#111111`.
+- Texto secundário em tons neutros.
+
+### TYPOGRAPHY
+- **Headline:**
+    - Mobile: `text-4xl`
+    - Desktop: `text-6xl`
+- **Stripes:**
+    - Mobile: `text-2xl`
+    - Desktop: `text-5xl / text-6xl`
+- **Microtexto:**
+    - Uppercase
+    - Tracking amplo apenas em desktop
+
+---
+
+## INTERAÇÕES & ANIMAÇÕES (Equivalência Comportamental à Referência Lo&Behold)
+
+### IMAGERY & MEDIA
+- Miniaturas animadas apenas em hover (desktop).
+- Imagem grande apenas no estado expandido.
+- Mobile não exibe thumbnails em hover.
+- **Referência Lo&Behold:** As miniaturas aparecem com uma animação de slide-in suave do lado esquerdo ao passar o mouse sobre a linha. A imagem é um preview do projeto associado à categoria.
+
+### COMPONENTS USED
+- `PortfolioShowcaseSection`
+- `CategoryStripe`
+- `ExpandedCategoryPanel`
+- CTA Button
+
+### STATE VARIANTS
+- **Hover (desktop):**
+    - Slide-in da thumbnail da esquerda para a direita.
+    - Mudança sutil de cor ou peso do título (ex: escurecimento ou leve aumento de peso).
+    - Ícone de seta rotaciona levemente (aproximadamente 45 graus) para indicar interatividade.
+- **Active:**
+    - Stripe expandido, revelando mais detalhes ou uma galeria de projetos.
+- **Focus:**
+    - Outline visível (keyboard).
+
+### INTERACTIONS
+- **Clique / Enter / Space no stripe:**
+    - Expande a categoria para mostrar mais detalhes ou redireciona para a página de portfólio filtrada.
+- **Clique em CTA:**
+    - Navegação direta.
+- **Hover:**
+    - Micro-interações sutis (desktop apenas). A animação deve ser fluida, sem jank, e respeitar o tempo de transição da referência (aproximadamente 0.3s).
+
+### SCROLL BEHAVIOUR
+- Reveal on scroll com fade + translateY.
+- Sem sticky.
+
+### ANIMATIONS
+- **Entrada da seção:**
+    - `opacity: 0 → 1`
+    - `y: 24 → 0`
+- **Expansão:**
+    - Animação de layout (`layout` animation).
+    - Easing: `cubic-bezier(0.22,1,0.36,1)`
+- **Hover:**
+    - Apenas `transform` e `opacity`.
+    - `prefers-reduced-motion`: Desativa animações não essenciais.
+
+### MICRO-INTERACTIONS
+- Hover no ponto azul (scale ligeiro).
+- Ícone de seta rotaciona ao expandir.
+
+---
+
+## TEXT LIMITS & CONTENT PRIORITY
+- Labels curtos e escaneáveis.
+- **Content Priority:**
+    1. Headline
+    2. Stripes
+    3. CTA final
+
+### ALTERNATIVE CONTENT
+- Imagem fallback neutra.
+- Conteúdo textual sempre visível.
+
+### LINKS / DESTINATIONS
+- `brand-campaigns` → Brand & Campaigns
+- `videos-motions` → Videos & Motions
+- `websites-webcampaigns-tech` → Web Campaigns, Websites & Tech
+
+### DATA HOOKS / TRACKING
+- `portfolio_showcase_category_click`
+- `portfolio_showcase_cta_click`
+
+### DEPENDENCIES
 - Página `/portfolio` com suporte a filtros.
-**ACCESSIBILITY NOTES (alt text, motion reduction, ARIA if needed):**
-- Stripes e ícones focáveis.
-- Respeito a movimento reduzido (sem animações agressivas).
-**SPECIAL STATES (empty state, error state, loading state):**
-- `TBD` (página é estática; não há estado vazio).
-**NOTES / INSPIRATION (links, references, moodboards):**
-- `https://loandbehold.studio/` como referência visual.
-**REFERENCES:**
-- `HOME-PORTFOLIO-LAYOUYT_ESPERADO.jpg`.
-**“NON-NEGOTIABLES” (things that cannot change in this section):**
-- 3 stripes de categoria.
-- CTAs principal e aspiracional.
+
+---
+
+## ACCESSIBILITY NOTES
+- `role="button"` nos stripes.
+- `aria-expanded` no estado ativo.
+- Navegação completa por teclado.
+- Foco visível.
+- Respeito a `prefers-reduced-motion`.
+
+---
+
+## SPECIAL STATES
+- Não aplicável (conteúdo estático).
+
+---
+
+## ULTRAWIDE STRATEGY (1920px+)
+- **Objetivo:** Evitar aparência “apertada” ou excessivamente centralizada em telas grandes, mantendo elegância editorial.
+- **Container Strategy:**
+    - Substituir container rígido por container fluido controlado:
+        - `max-width: 1680px`
+        - `padding-inline: clamp(24px, 5vw, 96px)`
+    - Centralizar conteúdo com `mx-auto`.
+- **Layout:**
+    - Headline mantém centralização visual.
+    - Stripes ganham mais “respiro” lateral.
+    - Microtexto permanece alinhado ao primeiro stripe, não ao viewport.
+- **Animações:**
+    - Mesmos timings do desktop.
+    - Nenhuma animação baseada em largura do viewport.
+
+---
+
+## CHECKLIST DE QA VISUAL — Portfolio Showcase
+
+✅ **Desktop (1280 / 1440 / 1680)**
+- [ ] Headline centralizada visualmente.
+- [ ] Microtexto visível apenas no primeiro stripe.
+- [ ] Alinhamento alternado correto (direita / centro / esquerda).
+- [ ] Hover revela thumbnail suavemente (slide-in da esquerda).
+- [ ] Nenhum layout shift ao hover.
+- [ ] Expansão fluida, sem jank.
+- [ ] CTA final visível e equilibrado.
+
+✅ **Ultrawide (1920+)**
+- [ ] Conteúdo não parece “estreito”.
+- [ ] Padding lateral confortável.
+- [ ] Stripes não colam nas bordas.
+- [ ] Ritmo visual consistente com desktop.
+- [ ] Nada parece “perdido” no centro.
+
+✅ **Tablet (768 / 820 / 1024)**
+- [ ] Stripes ocupam largura correta.
+- [ ] Textos legíveis sem quebra estranha.
+- [ ] Expansão não causa overflow.
+- [ ] CTA acessível sem scroll excessivo.
+
+✅ **Mobile (320 / 375 / 414)**
+- [ ] Sem overflow horizontal.
+- [ ] Todos os textos legíveis.
+- [ ] Stripes clicáveis com boa área de toque.
+- [ ] Thumbnails não aparecem em hover.
+- [ ] Expansão vertical suave.
+- [ ] CTA final claramente visível.
+
+✅ **Acessibilidade**
+- [ ] Navegação completa por teclado.
+- [ ] Foco visível em stripes e CTAs.
+- [ ] `aria-expanded` correto.
+- [ ] Movimento reduzido respeitado.
+
+✅ **Performance**
+- [ ] Nenhuma animação de `width` em mobile.
+- [ ] Apenas `transform` e `opacity` animados.
+- [ ] Sem layout shift perceptível.
+- [ ] Imagens carregam corretamente.
+
+✅ **Fidelidade Premium**
+- [ ] Ritmo editorial consistente com a referência Lo&Behold.
+- [ ] Espaçamento equilibrado.
+- [ ] Tipografia hierárquica.
+- [ ] Comportamento de hover e expansão alinhado à referência.
+
+---
+
+## STATUS FINAL
+Este documento representa a versão final validada da seção Portfolio Showcase para a Home Page, adaptada com equivalência de comportamento, layout e ritmo da referência https://loandbehold.studio.
+
 ---
 
 # **SECTION NAME: Featured Projects**
