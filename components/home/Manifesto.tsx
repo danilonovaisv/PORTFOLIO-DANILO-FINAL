@@ -9,6 +9,45 @@ const Manifesto: React.FC = () => {
   const [hasError, setHasError] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  React.useEffect(() => {
+    const videoElement = videoRef.current;
+    if (!videoElement) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Entrou na tela: Toca e tira o mudo
+            // eslint-disable-next-line no-console
+            videoElement.play().catch((e) => console.log('Autoplay blocked:', e));
+            videoElement.muted = false;
+            // eslint-disable-next-line no-console
+            console.log('manifesto_video_auto_play');
+            // eslint-disable-next-line no-console
+            console.log('manifesto_audio_unmuted_auto');
+          } else {
+            // Saiu da tela: Mute
+            videoElement.muted = true;
+            // eslint-disable-next-line no-console
+            console.log('manifesto_audio_muted_on_leave');
+          }
+        });
+      },
+      { threshold: 0.6 } // 60% visível para ativar
+    );
+
+    observer.observe(videoElement);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  const handleVideoComplete = () => {
+    // eslint-disable-next-line no-console
+    console.log('manifesto_video_complete');
+  };
+
   return (
     <section id="manifesto" className="w-full bg-[#F4F5F7]">
       <motion.div
@@ -23,11 +62,8 @@ const Manifesto: React.FC = () => {
             ref={videoRef}
             src={ASSETS.videoManifesto}
             className="w-full h-full object-cover"
-            autoPlay
-            muted
-            loop
             playsInline
-            controls
+            onEnded={handleVideoComplete}
             onError={() => setHasError(true)}
             aria-label="Vídeo Manifesto do Portfólio"
           />
