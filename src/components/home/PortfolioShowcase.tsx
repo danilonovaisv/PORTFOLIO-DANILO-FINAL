@@ -78,11 +78,11 @@ const PortfolioShowcaseSection: FC = () => {
     >
       <div className="container mx-auto px-[clamp(1.25rem,5vw,6rem)] max-w-[92%] xl:max-w-[1680px] relative z-10">
         {/* Cabeçalho da Seção */}
-        <motion.div
+        <motion.div 
           className="flex flex-col w-full mb-12 md:mb-16 items-center text-center"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-10%' }}
+          viewport={{ once: true, margin: "-10%" }}
           variants={fadeInUp}
         >
           {/* Título Principal */}
@@ -95,7 +95,7 @@ const PortfolioShowcaseSection: FC = () => {
         </motion.div>
 
         {/* Lista de Categorias */}
-        <motion.div
+        <motion.div 
           className="flex flex-col w-full border-t border-neutral-300"
           initial="hidden"
           whileInView="visible"
@@ -299,7 +299,7 @@ const PortfolioShowcaseSection: FC = () => {
                             alt=""
                             className="w-full h-full object-cover"
                           />
-                          <div className="absolute inset-0 bg-linear-to-r from-black/10 to-transparent" />
+                          <div className="absolute inset-0 bg-linear-to-r from-black/20 to-transparent" />
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -343,27 +343,38 @@ const PortfolioShowcaseSection: FC = () => {
                             </h4>
                             <ul className="space-y-3 mb-10">
                               {[1, 2, 3].map((i) => (
-                                <li
+                                <motion.li
                                   key={i}
+                                  initial={{ opacity: 0, x: -20 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ 
+                                    delay: 0.1 * i,
+                                    duration: 0.5,
+                                    ease: [0.22, 1, 0.36, 1] as const
+                                  }}
                                   className="flex items-center gap-4 text-base md:text-lg font-medium text-[#111111] group/item cursor-pointer py-1"
                                 >
                                   <span className="w-2 h-2 rounded-full bg-[#0057FF] group-hover/item:scale-150 transition-transform duration-500" />
                                   <span className="group-hover/item:translate-x-1.5 transition-transform duration-500">
                                     Projeto Exemplo {i}
                                   </span>
-                                </li>
+                                </motion.li>
                               ))}
                             </ul>
                           </div>
 
                           <div className="flex flex-col gap-4">
-                            <a
+                            <motion.a
                               href={`/portfolio?category=${category.id}`}
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              transition={{ delay: 0.5 }}
+                              whileHover={{ x: 5 }}
                               className="inline-flex items-center gap-3 text-[#0057FF] font-bold text-base md:text-lg hover:underline underline-offset-4 decoration-2"
                             >
                               Ver todos os projetos
                               <ArrowUpRight className="w-5 h-5" />
-                            </a>
+                            </motion.a>
                           </div>
                         </div>
                       </motion.div>
@@ -405,6 +416,7 @@ const PortfolioShowcaseSection: FC = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
             className="mt-16 flex justify-start border-t border-neutral-200 pt-8"
           >
             <button

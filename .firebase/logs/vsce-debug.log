@@ -4848,3 +4848,10 @@ I1215 04:25:46.668087   38596 load.go:109] Finished reloading
  {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1215 04:25:46.950998   38596 engine.go:179] [/emulator/portfolio-danilo-novais-service 7a26] ExecuteGraphqlRead IntrospectionQuery: succeeded. \n"}}
 [debug] [2025-12-15T07:26:00.577Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
 [debug] [2025-12-15T07:26:00.578Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[debug] [2025-12-15T07:51:10.030Z] [Firebase Plugin] Received emulators started notification. Running detection.
+[debug] [2025-12-15T07:51:10.030Z] Emulator locator file path: /var/folders/bt/f92zbr813px3njpjng3byf280000gn/T/hub-portfolio-danilo-novais.json
+[debug] [2025-12-15T07:51:10.031Z] Found emulator locator with different version: {"version":"14.26.0","origins":["http://127.0.0.1:4400","http://[::1]:4400"]}, CLI_VERSION: 15.0.0
+[debug] [2025-12-15T07:51:10.031Z] >>> [apiv2][query] GET http://127.0.0.1:4400/emulators [none]
+[debug] [2025-12-15T07:51:10.046Z] <<< [apiv2][status] GET http://127.0.0.1:4400/emulators 200
+[debug] [2025-12-15T07:51:10.047Z] <<< [apiv2][body] GET http://127.0.0.1:4400/emulators {"hub":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"name":"hub","host":"127.0.0.1","port":4400},"logging":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"name":"logging","host":"127.0.0.1","port":4500},"apphosting":{"listen":[{"address":"127.0.0.1","family":"IPv4","port":5002}],"name":"apphosting","host":"localhost","port":5002}}
+[debug] [2025-12-15T07:52:59.814Z] [Firebase Plugin] Received emulators shutdown notification.
