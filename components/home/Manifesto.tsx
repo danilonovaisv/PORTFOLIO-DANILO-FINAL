@@ -18,12 +18,10 @@ const Manifesto: React.FC = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             // Entrou na tela: Toca e tira o mudo
-            videoElement
-              .play()
-              .catch((e) => {
-                // eslint-disable-next-line no-console
-                console.log('Autoplay blocked:', e);
-              });
+            videoElement.play().catch((e) => {
+              // eslint-disable-next-line no-console
+              console.log('Autoplay blocked:', e);
+            });
             videoElement.muted = false;
             // eslint-disable-next-line no-console
             console.log('manifesto_video_auto_play');

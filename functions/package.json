@@ -2,7 +2,7 @@
   "name": "functions",
   "main": "lib/index.js",
   "scripts": {
-    "genkit:start": "genkit start -- tsx --watch src/genkit/sample.ts",
+    "genkit:start": "genkit start -- tsx --env-file=.env --watch src/genkit/sample.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "build": "tsc",

@@ -61,7 +61,7 @@ const FeaturedProjects: React.FC = () => {
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-white/95 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-[#111111] shadow-sm backdrop-blur-md transition-colors group-hover:bg-white group-hover:text-[#0057FF]"
+                        className="rounded-full bg-white/70 px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-[#111111] shadow-sm backdrop-blur-md transition-colors group-hover:bg-white group-hover:text-[#0057FF]"
                       >
                         {tag}
                       </span>

@@ -1,11 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import {
-  motion,
-  useScroll,
-  useTransform,
-} from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 import HeroGlassCanvas from '../three/HeroGlassCanvas';
 import { ArrowRight } from 'lucide-react';
@@ -95,7 +91,7 @@ const Hero = () => {
   const videoScale = useTransform(scrollYProgress, [0, 0.3], [1, 1.08]);
   // Y: Parallax effect (moves slower than scroll, creating depth)
   const videoY = useTransform(scrollYProgress, [0, 0.3], ['0%', '20%']);
-  
+
   const handleThumbClick = () => {
     const manifestoSection = document.getElementById('manifesto');
     if (manifestoSection) {
@@ -114,20 +110,20 @@ const Hero = () => {
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
         {/* 1. BACKGROUND AMBIENT 3D LAYER */}
         <div className="absolute inset-0 z-[-1] pointer-events-auto opacity-60 mix-blend-multiply">
-             {/* Maintained Glass Canvas but reduced prominence to let Thumb shine */}
-           <HeroGlassCanvas />
+          {/* Maintained Glass Canvas but reduced prominence to let Thumb shine */}
+          <HeroGlassCanvas />
         </div>
 
         {/* 2. TEXT CONTENT LAYER */}
         <motion.div
-           style={{ 
-             opacity: prefersReducedMotion ? 1 : contentOpacity, 
-             y: prefersReducedMotion ? 0 : contentY 
-           }}
+          style={{
+            opacity: prefersReducedMotion ? 1 : contentOpacity,
+            y: prefersReducedMotion ? 0 : contentY,
+          }}
           className="absolute inset-0 container mx-auto px-6 md:px-12 lg:px-16 h-full z-10 pointer-events-none flex flex-col justify-center"
         >
-             {/* TAG LATERAL: BRAND AWARENESS */}
-           <motion.div
+          {/* TAG LATERAL: BRAND AWARENESS */}
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 1.0, duration: 0.8 }}
@@ -203,9 +199,7 @@ const Hero = () => {
             </motion.div>
 
             {/* CTA Button */}
-            <motion.div
-              className="pointer-events-auto"
-            >
+            <motion.div className="pointer-events-auto">
               <motion.a
                 href="/sobre"
                 initial={{ opacity: 0, y: 20 }}
@@ -254,9 +248,9 @@ const Hero = () => {
           }}
         >
           <div className="relative w-full h-full overflow-hidden rounded-2xl shadow-2xl shadow-black/20 group">
-             {/* Overlay sutil para integração */}
+            {/* Overlay sutil para integração */}
             <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500 z-10" />
-            
+
             <video
               ref={videoRef}
               src={ASSETS.videoManifesto}
