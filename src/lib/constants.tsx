@@ -9,7 +9,7 @@ import {
   Globe,
 } from 'lucide-react';
 import React from 'react';
-import { MAIN_ROUTES } from '../components/config/navigation';
+import { MAIN_ROUTES } from '../config/navigation';
 
 // Assets
 export const ASSETS = {

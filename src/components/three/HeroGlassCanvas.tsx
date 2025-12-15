@@ -15,8 +15,8 @@ import {
   Lightformer,
   useProgress,
 } from '@react-three/drei';
-import useIsMobile from '../hooks/useIsMobile';
-import usePrefersReducedMotion from '../hooks/usePrefersReducedMotion';
+import useIsMobile from '@/hooks/useIsMobile';
+import usePrefersReducedMotion from '@/hooks/usePrefersReducedMotion';
 
 const TorusDan = lazy(() => import('./TorusDan'));
 

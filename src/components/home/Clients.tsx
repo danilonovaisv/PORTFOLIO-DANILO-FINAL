@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CLIENT_LOGOS } from '../../lib/constants';
+import { CLIENT_LOGOS } from '@/lib/constants';
 
 const Clients: React.FC = () => {
   return (

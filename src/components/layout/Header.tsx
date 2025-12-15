@@ -10,8 +10,8 @@ import {
   useMotionValueEvent,
 } from 'framer-motion';
 import { usePathname, useRouter } from 'next/navigation';
-import { NAV_LINKS, ASSETS } from '../../lib/constants';
-import type { NavLink } from '../../lib/types';
+import { NAV_LINKS, ASSETS } from '@/lib/constants';
+import type { NavLink } from '@/lib/types';
 import { Menu, X } from 'lucide-react';
 
 function Header(): React.ReactElement {

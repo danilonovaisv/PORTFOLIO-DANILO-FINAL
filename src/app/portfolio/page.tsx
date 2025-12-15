@@ -1,9 +1,9 @@
 import React from 'react';
-import PortfolioHero from '../../components/portfolio/PortfolioHero';
-import PortfolioMosaicGrid from '../../components/portfolio/PortfolioMosaicGrid';
-import type { MosaicItem, MosaicRow } from '../../components/portfolio/types';
-import Clients from '../../components/home/Clients';
-import Contact from '../../components/home/Contact';
+import PortfolioHero from '@/components/portfolio/PortfolioHero';
+import PortfolioMosaicGrid from '@/components/portfolio/PortfolioMosaicGrid';
+import type { MosaicItem, MosaicRow } from '@/components/portfolio/types';
+import Clients from '@/components/home/Clients';
+import Contact from '@/components/home/Contact';
 
 const MOSAIC_SEED = 'portfolio-mosaic-v1';
 

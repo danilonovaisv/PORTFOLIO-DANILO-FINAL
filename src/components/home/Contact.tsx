@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CONTACT_INFO, SOCIALS } from '../../lib/constants';
+import { CONTACT_INFO, SOCIALS } from '@/lib/constants';
 import { ArrowRight } from 'lucide-react';
 
 const Contact: React.FC = () => {

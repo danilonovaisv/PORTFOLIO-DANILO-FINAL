@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, expect, it, jest } from '@jest/globals';
 import Header from './Header';
-import { NAV_LINKS } from '../../lib/constants';
+import { NAV_LINKS } from '@/lib/constants';
 
 // Mock do Framer Motion para evitar complexidade de animação nos testes
 jest.mock('framer-motion', () => ({
