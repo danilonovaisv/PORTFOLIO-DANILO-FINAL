@@ -1,10 +1,10 @@
-// ../next.config.mjs
+// next.config.mjs
 var nextConfig = {
   reactStrictMode: true,
   experimental: {
     // any needed experimental flags
   },
-  allowedDevOrigins: ["http://192.168.0.5:3000"],
+  allowedDevOrigins: ["http://192.168.0.14:3000"],
   images: {
     // Firebase Hosting/App Hosting não está servindo a rota /_next/image;
     // desabilitamos o otimizador para servir os assets diretamente das URLs remotas.

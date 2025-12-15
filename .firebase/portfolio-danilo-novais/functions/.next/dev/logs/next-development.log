@@ -1,9 +1,21 @@
-[00:00:01.216] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:01.329] Server  LOG      ✓ Ready in 1022ms
-[00:00:12.738] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
-[00:01:09.272] Browser LOG     THREE.WebGLRenderer: Context Lost.
-[00:42:01.151] Server  LOG      ✓ Compiled in 573ms
-[00:43:59.237] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
-[00:43:59.502] Browser ERROR   uncaughtError: SyntaxError: Unexpected token ':'
-[00:43:59.502] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
-[00:43:59.502] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
+[00:00:00.759] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:00.843] Server  LOG      ✓ Ready in 626ms
+[00:00:06.345] Browser ERROR   uncaughtError: SyntaxError: Unexpected token ':'
+[00:00:06.524] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
+[00:00:06.524] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
+[00:00:06.524] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:15:25.801] Server  LOG      ✓ Compiled in 141ms
+[00:16:19.080] Browser ERROR   uncaughtError: SyntaxError: Unexpected token ':'
+[00:16:19.365] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
+[00:16:19.365] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
+[00:16:19.365] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:17:52.881] Server  LOG      ✓ Compiled in 351ms
+[00:18:59.504] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:23:11.909] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
+[00:23:12.299] Browser ERROR   uncaughtError: SyntaxError: Unexpected token ':'
+[00:23:12.300] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
+[00:23:12.300] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
+[00:28:18.253] Server  LOG      ✓ Compiled in 133ms
+[00:28:42.826] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
+[00:28:42.826] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
+[00:28:42.826] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.

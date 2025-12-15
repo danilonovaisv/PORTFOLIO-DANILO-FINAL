@@ -23,13 +23,13 @@ const PortfolioShowcaseSection: FC = () => {
   // --- ANIMATION VARIANTS ---
   // Main fade-in for section header
   const fadeInUp = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 24 },
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 32 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+        duration: 0.6,
+        ease: [0.25, 1, 0.5, 1] as [number, number, number, number],
         when: 'beforeChildren',
         staggerChildren: 0.1,
       },
@@ -50,23 +50,16 @@ const PortfolioShowcaseSection: FC = () => {
 
   // Item variants for the category entries
   const itemVariants = {
-    hidden: (i: number) => {
-      if (shouldReduceMotion) return { opacity: 0, x: 0, y: 0 };
-
-      // Use subtle scale and opacity for a more cinematic feel
-      return {
-        opacity: 0,
-        scale: 0.95, // Start slightly smaller
-        y: i % 2 === 0 ? 32 : -32, // Alternate entry direction for visual interest
-      };
+    hidden: {
+      opacity: 0,
+      y: shouldReduceMotion ? 0 : 24,
     },
     visible: {
       opacity: 1,
-      scale: 1,
       y: 0,
       transition: {
-        duration: 0.8, // Slightly faster than before for fluidity
-        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+        duration: 0.6,
+        ease: [0.25, 1, 0.5, 1] as [number, number, number, number],
       },
     },
   } as const;
@@ -240,12 +233,13 @@ const PortfolioShowcaseSection: FC = () => {
                       >
                         <motion.div
                           animate={{
-                            rotate: isExpanded ? 90 : isHovered ? 45 : 0,
-                            scale: isHovered ? 1.1 : 1,
+                            rotate: isExpanded ? 90 : 0,
+                            scale: isHovered ? 1.05 : 1,
+                            x: isHovered && !isExpanded ? 3 : 0,
                           }}
                           transition={{
-                            duration: 0.4,
-                            ease: [0.22, 1, 0.36, 1],
+                            duration: 0.2,
+                            ease: 'easeOut',
                           }}
                         >
                           <ArrowRight
@@ -253,70 +247,49 @@ const PortfolioShowcaseSection: FC = () => {
                           />
                         </motion.div>
                       </motion.div>
+                      {/* Thumbnail Animada (Slide-in on Hover - Atrás do texto) */}
+                      <AnimatePresence>
+                        {isHovered && !isExpanded && (
+                          <motion.div
+                            key="thumbnail"
+                            initial={{ width: 0, opacity: 0 }}
+                            animate={{ width: 320, opacity: 1 }}
+                            exit={{ width: 0, opacity: 0 }}
+                            transition={{
+                              duration: 0.5,
+                              ease: [0.25, 1, 0.5, 1],
+                            }}
+                            className="hidden md:block absolute right-full top-1/2 -translate-y-1/2 mr-8 overflow-hidden rounded-lg z-[-1] pointer-events-none shadow-lg origin-right"
+                          >
+                            <motion.div
+                              className="w-[320px] h-full relative"
+                              initial={{ x: 20, scale: 1.1 }}
+                              animate={{ x: 0, scale: 1 }}
+                              exit={{ x: 20, opacity: 0 }}
+                              transition={{
+                                duration: 0.5,
+                                ease: [0.25, 1, 0.5, 1],
+                              }}
+                            >
+                              <img
+                                src={category.thumbnailUrl}
+                                alt=""
+                                className="w-full h-full object-cover"
+                              />
+                              <div className="absolute inset-0 bg-black/10" />
+                            </motion.div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-
-                    {/* Thumbnail Animada (Slide-in on Hover - Atrás do texto) */}
-                    <AnimatePresence>
-                      {isHovered && !isExpanded && (
-                        <motion.div
-                          initial={{
-                            width: 0,
-                            opacity: 0,
-                            x: index === 0 ? -20 : index === 2 ? 20 : 0,
-                          }}
-                          animate={{
-                            width: 320,
-                            opacity: 1,
-                            x: 0,
-                          }}
-                          exit={{
-                            width: 0,
-                            opacity: 0,
-                            x: index === 0 ? -20 : index === 2 ? 20 : 0,
-                          }}
-                          transition={{
-                            duration: 0.6,
-                            ease: [0.22, 1, 0.36, 1],
-                          }}
-                          className={`hidden md:block absolute h-[120%] top-1/2 -translate-y-1/2 overflow-hidden rounded-lg z-0 pointer-events-none shadow-lg
-                            ${
-                              index === 0
-                                ? 'right-full origin-right' /* Right aligned item -> thumb appears to left */
-                                : index === 1
-                                  ? 'left-[60%] -translate-x-1/2 origin-center' /* Center aligned -> thumb appears behind/center */
-                                  : 'left-full origin-left' /* Left aligned -> thumb appears to right */
-                            }
-                           `}
-                          style={{
-                            /* Fine tune positioning based on reference */
-                            ...(index === 1 ? { left: '50%', zIndex: 0 } : {}),
-                            ...(index === 0
-                              ? { right: 'calc(100% + 1.5rem)' }
-                              : {}),
-                            ...(index === 2
-                              ? { left: 'calc(100% + 1.5rem)' }
-                              : {}),
-                          }}
-                        >
-                          <img
-                            src={category.thumbnailUrl}
-                            alt=""
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute inset-0 bg-linear-to-r from-black/20 to-transparent" />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
 
                     {/* Conteúdo Expandido (Detalhes) */}
                     {isExpanded && (
                       <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
                         transition={{
-                          delay: 0.25,
-                          duration: 0.7,
-                          ease: [0.22, 1, 0.36, 1],
+                          delay: 0.1,
+                          duration: 0.5,
+                          ease: [0.25, 1, 0.5, 1],
                         }}
                         className="w-full mt-6 flex flex-col md:flex-row gap-8 md:gap-12 text-center md:text-left"
                       >
