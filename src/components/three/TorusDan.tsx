@@ -1,12 +1,7 @@
 'use client';
 
 import React, { useMemo, useRef } from 'react';
-import {
-  Float,
-  MeshTransmissionMaterial,
-  useGLTF,
-  useAspect,
-} from '@react-three/drei';
+import { Float, MeshTransmissionMaterial, useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
@@ -22,7 +17,7 @@ const TorusDan = ({
   const groupRef = useRef<THREE.Group>(null);
   const GLTF_PATH = '/media/torus_dan.glb';
   const { nodes } = useGLTF(GLTF_PATH);
-  useAspect('cover', 'auto');
+
   const geometry =
     (nodes as any).Torus?.geometry ||
     (nodes as any).Torus002?.geometry ||

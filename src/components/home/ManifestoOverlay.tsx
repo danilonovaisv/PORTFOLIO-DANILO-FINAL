@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { X, Volume2, VolumeX } from 'lucide-react';
 import { ASSETS } from '../../lib/constants';
 
@@ -57,6 +57,7 @@ export default function ManifestoOverlay({
       onClick={onClose} // Click outside to close
       role="dialog"
       aria-modal="true"
+      style={{ zIndex: 9999 }}
     >
       {/* Container Layout Animation */}
       <motion.div

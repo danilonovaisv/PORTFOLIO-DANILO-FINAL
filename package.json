@@ -21,7 +21,7 @@
     "lint:fix": "eslint --ext .js,.ts,.tsx . --fix",
     "prepare": "yarn build",
     "eslint": "eslint --fix .",
-    "eslint:ci": "eslint .",
+    "eslnt:ci": "eslint .",
     "prettier": "prettier --check .",
     "prettier-fix": "prettier --write .",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false --strict --jsx react",
