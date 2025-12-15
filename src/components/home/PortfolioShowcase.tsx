@@ -20,6 +20,8 @@ const PortfolioShowcaseSection: FC = () => {
     );
   };
 
+  // --- ANIMATION VARIANTS ---
+  // Main fade-in for section header
   const fadeInUp = {
     hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 24 },
     visible: {
@@ -34,6 +36,7 @@ const PortfolioShowcaseSection: FC = () => {
     },
   } as const;
 
+  // Container for the list of categories
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -45,28 +48,24 @@ const PortfolioShowcaseSection: FC = () => {
     },
   } as const;
 
+  // Item variants for the category entries
   const itemVariants = {
     hidden: (i: number) => {
       if (shouldReduceMotion) return { opacity: 0, x: 0, y: 0 };
 
-      // Define a direção de entrada baseada no alinhamento do item
-      switch (i) {
-        case 0: // Alinhado à direita -> Entra da direita
-          return { opacity: 0, x: 100, y: 0 };
-        case 1: // Centralizado -> Entra de baixo
-          return { opacity: 0, x: 0, y: 100 };
-        case 2: // Alinhado à esquerda -> Entra da esquerda
-          return { opacity: 0, x: -100, y: 0 };
-        default:
-          return { opacity: 0, y: 32 };
-      }
+      // Use subtle scale and opacity for a more cinematic feel
+      return {
+        opacity: 0,
+        scale: 0.95, // Start slightly smaller
+        y: i % 2 === 0 ? 32 : -32, // Alternate entry direction for visual interest
+      };
     },
     visible: {
       opacity: 1,
-      x: 0,
+      scale: 1,
       y: 0,
       transition: {
-        duration: 1.0, // Duração mais longa para "cinematic feel"
+        duration: 0.8, // Slightly faster than before for fluidity
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       },
     },
