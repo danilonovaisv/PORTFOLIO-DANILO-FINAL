@@ -136,40 +136,33 @@ const Hero = () => {
       className="relative w-full bg-[#F4F5F7] md:h-[450vh]"
     >
       {/* Mobile layout (estático, fiel ao mock) */}
-      <div className="md:hidden flex flex-col items-center text-center px-6 pt-24 pb-12 gap-6">
-        <div className="relative w-full flex justify-center">
-          <div className="relative h-[220px] w-[220px]">
+      <div className="md:hidden flex flex-col items-center text-center px-4 pt-16 pb-12 gap-8">
+        <div className="relative w-full flex justify-center -mb-8">
+          <div className="relative h-[280px] w-[280px]">
             <HeroGlassCanvas />
           </div>
         </div>
 
-        <div className="flex flex-col items-center gap-2 leading-[1.05] text-5xl font-extrabold tracking-tight text-[#111111]">
+        <div className="flex flex-col items-center gap-0 leading-[0.95] text-[3.5rem] font-extrabold tracking-[-0.04em] text-[#111111]">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="flex flex-wrap items-baseline justify-center gap-2"
+            className="flex flex-col items-center"
           >
             <span className="text-[#0057FF]">Design,</span>
-            <span className="text-[#111111]">não é</span>
+            <span className="text-[#111111]">não é só</span>
+            <span className="text-[#111111]">estética.</span>
           </motion.div>
-          <motion.span
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
-            className="text-[#111111]"
-          >
-            só estética.
-          </motion.span>
         </div>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, ease: 'easeOut', delay: 0.2 }}
-          className="text-[#0057FF] text-base font-medium tracking-wide"
+          className="text-[#0057FF] text-xs font-semibold tracking-widest uppercase mt-2"
         >
-          [É intenção, é estratégia, é experiência.]
+          [ É intenção, é estratégia, é experiência. ]
         </motion.p>
 
         <motion.a
@@ -177,11 +170,11 @@ const Hero = () => {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: 'easeOut', delay: 0.3 }}
-          className="group inline-flex items-center justify-center gap-3 rounded-full bg-[#0057FF] px-7 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_-12px_rgba(0,87,255,0.6)] transition-transform duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2"
+          className="group inline-flex items-center justify-center gap-3 rounded-full bg-[#0057FF] px-8 py-4 text-sm font-semibold text-white shadow-[0_10px_24px_-12px_rgba(0,87,255,0.6)] transition-transform duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 mt-2"
         >
           get to know me better
-          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-[#0057FF] shadow-[0_6px_14px_rgba(0,87,255,0.25)] transition-transform duration-300 group-hover:translate-x-0.5">
-            <ArrowRight className="w-4 h-4" />
+          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-[#0057FF] shadow-sm transition-transform duration-300 group-hover:translate-x-0.5">
+            <ArrowRight className="w-3.5 h-3.5" />
           </span>
         </motion.a>
       </div>

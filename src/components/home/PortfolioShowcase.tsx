@@ -275,16 +275,15 @@ const PortfolioShowcaseSection: FC = () => {
                       src={category.thumbnailUrl}
                       poster={
                         category.posterUrl ||
-                        category.thumbnailUrl.replace(/\.[^.]+$/, '.jpg')
-                      } // Usa uma imagem como preview
+                        // Fallback seguro se não houver posterUrl (evita 404 de regex em URLs desconhecidas)
+                        'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+                      }
                       preload="metadata"
                       playsInline
                       autoPlay={false}
                       muted
                       loop
-                      tabIndex={0}
-                      aria-label={`Reproduzir preview de ${category.label}`}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2"
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-pointer bg-gray-100"
                       onClick={(e) => {
                         const video = e.currentTarget;
                         if (video.paused) {
@@ -373,7 +372,7 @@ const PortfolioShowcaseSection: FC = () => {
       ref={sectionRef}
       className="relative w-full bg-[#F4F5F7] py-20 md:py-24 overflow-hidden min-h-screen flex flex-col justify-center items-center"
     >
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
+      <div className="container mx-auto px-[clamp(1.25rem,5vw,6rem)] max-w-[92%] xl:max-w-420 relative z-10">
         {/* Cabeçalho da Seção */}
         <motion.div
           className="flex flex-col w-full mb-12 md:mb-16 items-center text-center"
