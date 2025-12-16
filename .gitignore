@@ -1,4 +1,4 @@
-```
+
 # Dependencies
 node_modules/
 
@@ -66,4 +66,3 @@ __pycache__/
 *.Z
 *.lz
 *.lzo
-```
