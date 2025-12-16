@@ -273,7 +273,7 @@ const PortfolioShowcaseSection: FC = () => {
                   <div className="w-full md:w-2/3 aspect-video rounded-xl overflow-hidden bg-gray-200 shadow-xl">
                     <video
                       src={category.thumbnailUrl}
-                      poster={category.thumbnailUrl.replace(/\.[^.]+$/, '.jpg')} // Usa uma imagem como preview
+                      poster={category.posterUrl || category.thumbnailUrl.replace(/\.[^.]+$/, '.jpg')} // Usa uma imagem como preview
                       preload="metadata"
                       playsInline
                       autoPlay={false}

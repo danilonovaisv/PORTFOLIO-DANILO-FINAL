@@ -92,6 +92,28 @@ const Manifesto: React.FC = () => {
                 </a>
               </div>
             )}
+            {/* Video overlay with mute toggle */}
+            <div 
+              className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer"
+              onClick={() => updateMute(!isMuted)}
+              aria-label={isMuted ? "Ativar som do vídeo" : "Desativar som do vídeo"}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === 'Enter' && updateMute(!isMuted)}
+            >
+              <div className="bg-black/30 backdrop-blur-sm rounded-full p-4">
+                {isMuted ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072M12 6l-4 4H6a2 2 0 00-2 2v4a2 2 0 002 2h2l4 4V6z" />
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+                  </svg>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       </motion.div>
