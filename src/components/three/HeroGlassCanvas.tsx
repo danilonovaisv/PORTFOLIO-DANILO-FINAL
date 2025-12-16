@@ -1,37 +1,49 @@
 'use client';
 
-import React, { Suspense, memo } from 'react';
+import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { Environment } from '@react-three/drei';
+import { ContactShadows, Environment, Html } from '@react-three/drei';
 import { TorusDan } from './TorusDan';
 
 type HeroGlassCanvasProps = {
-  className?: string;
+  /** 0–1, vindo do scroll da Hero (opcional) */
+  scrollIntensity?: number | import('framer-motion').MotionValue<number>;
 };
 
-function HeroGlassCanvasImpl({ className }: HeroGlassCanvasProps) {
+export default function HeroGlassCanvas({
+  scrollIntensity = 0,
+}: HeroGlassCanvasProps) {
   return (
-    <div className={className}>
-      <Canvas
-        dpr={[1, 1.75]}
-        camera={{ position: [0, 0, 3.2], fov: 45, near: 0.1, far: 100 }}
-        gl={{
-          antialias: true,
-          alpha: true,
-          powerPreference: 'high-performance',
-        }}
-      >
-        <ambientLight intensity={0.65} />
-        <directionalLight intensity={1.25} position={[2.5, 2.0, 3.0]} />
-        <directionalLight intensity={0.65} position={[-3.0, 1.0, 2.0]} />
+    <Canvas
+      dpr={[1, 1.7]}
+      gl={{ antialias: true, alpha: true }}
+      camera={{ position: [0, 0, 4.5], fov: 35 }}
+    >
+      <color attach="background" args={['#F4F5F7']} />
 
-        <Suspense fallback={null}>
-          <Environment preset="city" />
-          <TorusDan position={[0, 0, 0]} />
-        </Suspense>
-      </Canvas>
-    </div>
+      <Suspense
+        fallback={
+          <Html center>
+            <div className="h-20 w-20 rounded-full bg-gradient-to-br from-blue-400/40 to-indigo-500/40 blur-xl" />
+          </Html>
+        }
+      >
+        <ambientLight intensity={0.4} />
+        <directionalLight position={[5, 5, 5]} intensity={1.8} />
+        <directionalLight position={[-4, -2, -4]} intensity={0.4} />
+
+        <Environment preset="city" resolution={1024} />
+
+        <TorusDan variant="refraction" scrollIntensity={scrollIntensity} />
+
+        <ContactShadows
+          position={[0, -1.4, 0]}
+          opacity={0.35}
+          blur={2.5}
+          scale={8}
+          far={4}
+        />
+      </Suspense>
+    </Canvas>
   );
 }
-
-export default memo(HeroGlassCanvasImpl);

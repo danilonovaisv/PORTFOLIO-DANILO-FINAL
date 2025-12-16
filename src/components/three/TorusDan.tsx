@@ -1,116 +1,103 @@
 'use client';
 
-import * as THREE from 'three';
-import React, { memo, useMemo, useRef } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
-import { MeshTransmissionMaterial, useGLTF } from '@react-three/drei';
+import React, { useMemo, useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
+import { Mesh } from 'three';
+import {
+  MeshTransmissionMaterial,
+  MeshRefractionMaterial,
+  useGLTF,
+  useEnvironment,
+} from '@react-three/drei';
+
+import { MotionValue } from 'framer-motion';
 
 type TorusDanProps = {
-  /** Multiplicador adicional de escala (além do scale responsivo por viewport) */
-  scaleMultiplier?: number;
-  /** Posição do grupo */
-  position?: THREE.Vector3 | [number, number, number];
-  /** Rotação base do grupo */
-  rotation?: THREE.Euler | [number, number, number];
-  /** Intensidade do “float” (seno) */
-  floatIntensity?: number;
-  /** Velocidade do “float” */
-  floatSpeed?: number;
-  /** Velocidade de rotação */
-  rotationSpeed?: number;
+  variant?: 'transmission' | 'refraction';
+  scrollIntensity?: number | MotionValue<number>; // 0–1 vindo do Hero
 };
 
-function TorusDanImpl({
-  scaleMultiplier = 1,
-  position = [0, 0, 0],
-  rotation = [0.2, 0.7, 0],
-  floatIntensity = 0.12,
-  floatSpeed = 0.9,
-  rotationSpeed = 0.25,
+type GLTFResult = {
+  nodes: Record<string, { geometry?: any }>;
+};
+
+export function TorusDan({
+  variant = 'transmission',
+  scrollIntensity = 0,
 }: TorusDanProps) {
-  const group = useRef<THREE.Group>(null);
-  const { viewport } = useThree();
+  const { nodes } = useGLTF('/media/torus_dan.glb') as unknown as GLTFResult;
+  const envMap = useEnvironment({ preset: 'city' });
 
-  // Ajuste responsivo: quanto maior a viewport, maior o torus.
-  const responsiveScale = useMemo(() => {
-    const s = viewport.width / 3.2;
-    return THREE.MathUtils.clamp(s, 0.85, 1.8) * scaleMultiplier;
-  }, [viewport.width, scaleMultiplier]);
+  const meshRef = useRef<Mesh | null>(null);
 
-  // types do GLTF podem variar; `any` evita depender de gltfjsx/types.
-  const gltf = useGLTF('/media/torus_dan.glb') as any;
-  const nodes = (gltf?.nodes ?? {}) as Record<string, any>;
-
-  const meshes = useMemo(() => {
-    return Object.values(nodes).filter(
-      (n) => n && (n.isMesh || n.isSkinnedMesh)
-    );
+  const geometry = useMemo(() => {
+    const candidates = ['Torus', 'torus', 'Mesh_0', 'Mesh001', 'Object_0'];
+    for (const key of candidates) {
+      if (nodes[key]?.geometry) return nodes[key]!.geometry!;
+    }
+    const first = Object.values(nodes).find((n) => n.geometry);
+    return first?.geometry;
   }, [nodes]);
 
-  const mat = useMemo(
-    () => ({
-      transmission: 1,
-      thickness: 0.45,
-      roughness: 0.02,
-      ior: 1.35,
-      chromaticAberration: 0.12,
-      anisotropy: 0.2,
-      distortion: 0.35,
-      distortionScale: 0.3,
-      temporalDistortion: 0.15,
-      clearcoat: 1,
-      attenuationDistance: 0.75,
-      attenuationColor: '#ffffff',
-      samples: 8,
-      resolution: 512,
-      backside: true,
-    }),
-    []
-  );
+  // Animação contínua + resposta leve ao scroll
+  useFrame((state, delta) => {
+    if (!meshRef.current) return;
 
-  useFrame(({ clock }) => {
-    const t = clock.getElapsedTime();
-    if (!group.current) return;
+    const t = state.clock.getElapsedTime();
+    const baseX = 0.15;
+    const baseY = 0.25;
 
-    group.current.rotation.y = (rotation as any)[1] + t * rotationSpeed;
-    group.current.rotation.x = (rotation as any)[0] + Math.sin(t * 0.7) * 0.06;
-    group.current.rotation.z = (rotation as any)[2] + Math.cos(t * 0.5) * 0.04;
+    // Resolve current scroll intensity (number or MotionValue)
+    const currentIntensity =
+      typeof scrollIntensity === 'number'
+        ? scrollIntensity
+        : scrollIntensity.get();
 
-    group.current.position.y =
-      (Array.isArray(position) ? position[1] : position.y) +
-      Math.sin(t * floatSpeed) * floatIntensity;
+    const scrollBoost = (currentIntensity ?? 0) * 0.35;
+
+    meshRef.current.rotation.x += delta * (baseX + scrollBoost);
+    meshRef.current.rotation.y += delta * (baseY + scrollBoost);
+    meshRef.current.position.y = Math.sin(t * 0.6) * 0.05;
   });
 
-  return (
-    <group
-      ref={group}
-      position={position as any}
-      rotation={rotation as any}
-      scale={responsiveScale}
-      dispose={null}
-    >
-      {meshes.map((m: any, i: number) => {
-        const geom = m.geometry as THREE.BufferGeometry | undefined;
-        if (!geom) return null;
+  if (!geometry) return null;
 
-        return (
-          <mesh
-            key={m.uuid ?? i}
-            geometry={geom}
-            position={m.position}
-            rotation={m.rotation}
-            scale={m.scale}
-            castShadow={false}
-            receiveShadow={false}
-          >
-            <MeshTransmissionMaterial {...(mat as any)} />
-          </mesh>
-        );
-      })}
+  return (
+    <group position={[0.4, 0.2, 0]} scale={1.1}>
+      <mesh ref={meshRef} geometry={geometry} castShadow receiveShadow>
+        {variant === 'refraction' ? (
+          <MeshRefractionMaterial
+            envMap={envMap}
+            aberrationStrength={0.02}
+            color="#ffffff"
+            ior={2.1}
+            fresnel={1}
+            bounces={2}
+            fastChroma
+          />
+        ) : (
+          <MeshTransmissionMaterial
+            backside
+            samples={16}
+            resolution={1024}
+            thickness={0.65}
+            chromaticAberration={0.18}
+            anisotropy={0.2}
+            distortion={0.25}
+            distortionScale={0.4}
+            temporalDistortion={0.2}
+            iridescence={0.8}
+            iridescenceIOR={1.1}
+            iridescenceThicknessRange={[50, 300]}
+            attenuationColor="#91c9ff"
+            attenuationDistance={0.8}
+            roughness={0.1}
+            envMapIntensity={1.3}
+          />
+        )}
+      </mesh>
     </group>
   );
 }
-
-export const TorusDan = memo(TorusDanImpl);
 
 useGLTF.preload('/media/torus_dan.glb');
