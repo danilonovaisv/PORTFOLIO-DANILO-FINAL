@@ -2,6 +2,7 @@
 
 import React, { useRef } from 'react';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import {
   motion,
   useMotionValueEvent,
@@ -25,6 +26,8 @@ const HeroGlassCanvas = dynamic(
     ),
   }
 );
+
+const MotionLink = motion.create(Link);
 
 // Componente para animar texto letra por letra (efeito "digitação/reveal")
 type AnimatedTextLineProps = {
@@ -167,7 +170,7 @@ const Hero = () => {
           [ É intenção, é estratégia, é experiência. ]
         </motion.p>
 
-        <motion.a
+        <MotionLink
           href="/sobre"
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
@@ -178,7 +181,7 @@ const Hero = () => {
           <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-[#0057FF] shadow-sm transition-transform duration-300 group-hover:translate-x-0.5">
             <ArrowRight className="w-3.5 h-3.5" />
           </span>
-        </motion.a>
+        </MotionLink>
       </div>
 
       <div className="md:hidden relative w-screen -mx-6 mt-8 aspect-375/330 min-h-[300px] overflow-hidden">
@@ -297,7 +300,7 @@ const Hero = () => {
             <motion.div
               className="pointer-events-auto w-full flex justify-center md:justify-start" // Re-enable clicks
             >
-              <motion.a
+              <MotionLink
                 href="/sobre"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -318,7 +321,7 @@ const Hero = () => {
                 <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors">
                   <ArrowRight className="w-4 h-4 text-white" />
                 </span>
-              </motion.a>
+              </MotionLink>
             </motion.div>
           </div>
         </motion.div>
