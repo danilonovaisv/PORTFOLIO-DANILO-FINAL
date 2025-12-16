@@ -1,9 +1,0 @@
-[00:00:00.982] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:01.114] Server  LOG      ✓ Ready in 868ms
-[00:00:05.172] Browser ERROR   uncaughtError: SyntaxError: Unexpected token ':'
-[00:00:05.392] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
-[00:00:05.392] Browser ERROR   unhandledRejection: NotSupportedError: Cannot define multiple custom elements with the same tag name
-[00:00:05.392] Browser WARN    Please ensure that the container has a non-static position, like 'relative', 'fixed', or 'absolute' to ensure scroll offset is calculated correctly.
-[00:00:25.040] Server  WARN    Error: Route "/portfolio" used `searchParams.category`. `searchParams` is a Promise and must be unwrapped with `await` or `React.use()` before accessing its properties. Learn more: https://nextjs.org/docs/messages/sync-dynamic-apis
-[00:00:25.801] Browser LOG     THREE.WebGLRenderer: Context Lost.
-[00:01:10.976] Server  LOG      ✓ Compiled in 110ms

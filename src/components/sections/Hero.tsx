@@ -177,7 +177,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: 'easeOut', delay: 0.3 }}
-          className="group inline-flex items-center justify-center gap-3 rounded-full bg-[#0057FF] px-7 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_-12px_rgba(0,87,255,0.6)] transition-transform duration-300"
+          className="group inline-flex items-center justify-center gap-3 rounded-full bg-[#0057FF] px-7 py-3 text-sm font-semibold text-white shadow-[0_10px_24px_-12px_rgba(0,87,255,0.6)] transition-transform duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2"
         >
           get to know me better
           <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white text-[#0057FF] shadow-[0_6px_14px_rgba(0,87,255,0.25)] transition-transform duration-300 group-hover:translate-x-0.5">

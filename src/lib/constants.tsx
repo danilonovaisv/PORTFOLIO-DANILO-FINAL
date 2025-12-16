@@ -143,18 +143,24 @@ export const CATEGORIES: ProjectCategory[] = [
     id: 'brand-campaigns',
     label: 'Brand & Campaigns',
     thumbnailUrl:
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/brand-video.mp4',
+    posterUrl:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
   },
   {
     id: 'videos-motions',
     label: 'Videos & Motions',
     thumbnailUrl:
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/motion-video.mp4',
+    posterUrl:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
   },
   {
     id: 'websites-webcampaigns-tech',
     label: 'Web Campaigns, Websites & Tech',
     thumbnailUrl:
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/web-video.mp4',
+    posterUrl:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp',
   },
 ];

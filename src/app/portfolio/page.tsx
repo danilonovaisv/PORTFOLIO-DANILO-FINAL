@@ -7,7 +7,7 @@ import Clients from '@/components/home/Clients';
 import Contact from '@/components/home/Contact';
 
 
-const MOSAIC_SEED = 'portfolio-mosaic-v1';
+
 
 // Base items for different categories
 const BASE_MOSAIC_ITEMS: Record<string, MosaicItem[]> = {
@@ -78,7 +78,7 @@ const BASE_MOSAIC_ITEMS: Record<string, MosaicItem[]> = {
     },
     {
       id: 'mosaic-unilever',
-      imageSrc: 'https://loandbehold.studio/app/uploads/2025/04/Unilever.png',
+      imageSrc: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Unilever.png',
       gradient:
         'linear-gradient(140deg, rgba(255,255,255,0.1), rgba(0,0,0,0.55))',
       accent: '#2563eb',
@@ -149,7 +149,7 @@ const BASE_MOSAIC_ITEMS: Record<string, MosaicItem[]> = {
     },
     {
       id: 'mosaic-unilever',
-      imageSrc: 'https://loandbehold.studio/app/uploads/2025/04/Unilever.png',
+      imageSrc: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Unilever.png',
       gradient:
         'linear-gradient(140deg, rgba(255,255,255,0.1), rgba(0,0,0,0.55))',
       accent: '#2563eb',
@@ -158,7 +158,7 @@ const BASE_MOSAIC_ITEMS: Record<string, MosaicItem[]> = {
     },
     {
       id: 'mosaic-magic-2',
-      imageSrc: 'https://loandbehold.studio/app/uploads/2025/04/Magic-1.png',
+      imageSrc: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Magic-1.png',
       gradient:
         'linear-gradient(135deg, rgba(255,255,255,0.08), rgba(0,87,255,0.3))',
       accent: '#0057ff',
@@ -167,7 +167,7 @@ const BASE_MOSAIC_ITEMS: Record<string, MosaicItem[]> = {
     },
     {
       id: 'mosaic-epic',
-      imageSrc: 'https://loandbehold.studio/app/uploads/2025/04/Epic.png',
+      imageSrc: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Epic.png',
       gradient:
         'linear-gradient(150deg, rgba(15,23,42,0.85), rgba(99,102,241,0.35))',
       accent: '#4f46e5',
@@ -201,77 +201,35 @@ const BASE_MOSAIC_ITEMS: Record<string, MosaicItem[]> = {
   ]
 };
 
-function hashSeed(seed: string): number {
-  let hash = 1779033703 ^ seed.length;
 
-  for (let index = 0; index < seed.length; index += 1) {
-    hash = Math.imul(hash ^ seed.charCodeAt(index), 3432918353);
-    hash = (hash << 13) | (hash >>> 19);
-  }
-
-  return hash >>> 0;
-}
-
-function createPRNG(seed: string): () => number {
-  let state = hashSeed(seed) || 1;
-
-  return () => {
-    state ^= state << 13;
-    state ^= state >>> 17;
-    state ^= state << 5;
-
-    return ((state >>> 0) % 4294967296) / 4294967296;
-  };
-}
-
-function shuffleArray<T>(input: T[], random: () => number): T[] {
-  const array = [...input];
-
-  for (let index = array.length - 1; index > 0; index -= 1) {
-    const j = Math.floor(random() * (index + 1));
-    [array[index], array[j]] = [array[j], array[index]];
-  }
-
-  return array;
-}
-
-function generateGridPattern(
-  totalItems: number,
-  random: () => number
-): MosaicRow['columns'][] {
-  const pattern: MosaicRow['columns'][] = [];
-  let remaining = totalItems;
-
-  while (remaining > 0) {
-    const options = [1, 2, 3].filter((count) => count <= remaining) as MosaicRow['columns'][];
-    const columns = options[Math.floor(random() * options.length)];
-    pattern.push(columns);
-    remaining -= columns;
-  }
-
-  return pattern;
-}
 
 function buildMosaicRows(category: string): MosaicRow[] {
-  const random = createPRNG(`${MOSAIC_SEED}-${category}`);
   const categoryItems = BASE_MOSAIC_ITEMS[category] || BASE_MOSAIC_ITEMS['all'];
-  const palette = shuffleArray(categoryItems, random);
-  const pattern = generateGridPattern(palette.length, random);
-
+  
+  // Define fixed layouts for each category to ensure visual consistency
+  const layouts: Record<string, number[]> = {
+    'brand-campaigns': [2, 1, 1], // 2 items in first row, 1 in second, 1 in third
+    'videos-motions': [1, 2],     // 1 item in first row, 2 in second
+    'websites-webcampaigns-tech': [2, 1], // 2 items in first row, 1 in second
+    'all': [2, 1, 2, 1, 2, 1, 1] // Fixed layout for all items
+  };
+  
+  const pattern = layouts[category] || layouts['all'];
   let cursor = 0;
-
+  
   return pattern.map((columns, rowIndex) => {
     const items = Array.from({ length: columns }, (_, itemIndex) => {
-      const source = palette[(cursor + itemIndex) % palette.length];
-
+      // Cycle through items if we run out
+      const source = categoryItems[(cursor + itemIndex) % categoryItems.length];
+      
       return {
         ...source,
         id: `${source.id}-r${rowIndex}-c${itemIndex}`,
       };
     });
-
+    
     cursor += columns;
-
+    
     return {
       id: `row-${rowIndex}`,
       columns,
@@ -286,11 +244,19 @@ type Props = {
 
 export default async function PortfolioPage(props: Props) {
   const searchParams = await props.searchParams;
-  const category = (searchParams.category as string) || 'all';
+  let category = searchParams.category;
+  
+  // Handle case where category might be an array
+  if (Array.isArray(category)) {
+    category = category[0] || 'all';
+  }
+  
+  category = (category as string) || 'all';
   
   // Validate category
-  if (category !== 'all' && category !== 'brand-campaigns' && category !== 'videos-motions' && category !== 'websites-webcampaigns-tech') {
-    notFound();
+  const validCategories = ['all', 'brand-campaigns', 'videos-motions', 'websites-webcampaigns-tech'];
+  if (!validCategories.includes(category)) {
+    category = 'all';
   }
 
   const rows = buildMosaicRows(category);

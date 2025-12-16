@@ -9,6 +9,7 @@ export interface ProjectCategory {
   id: string;
   label: string;
   thumbnailUrl: string;
+  posterUrl?: string;
 }
 
 export interface Project {
