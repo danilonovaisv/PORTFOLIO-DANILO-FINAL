@@ -1,0 +1,15 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/admin/dashboard/page": "app/admin/dashboard/page.js",
+  "/admin/login/page": "app/admin/login/page.js",
+  "/admin/media/page": "app/admin/media/page.js",
+  "/admin/posts/[id]/page": "app/admin/posts/[id]/page.js",
+  "/admin/posts/new/page": "app/admin/posts/new/page.js",
+  "/admin/posts/page": "app/admin/posts/page.js",
+  "/api/admin/posts/route": "app/api/admin/posts/route.js",
+  "/build/page": "app/build/page.js",
+  "/page": "app/page.js",
+  "/portfolio/page": "app/portfolio/page.js",
+  "/sobre/page": "app/sobre/page.js"
+}

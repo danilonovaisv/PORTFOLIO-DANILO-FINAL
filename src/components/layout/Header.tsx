@@ -148,9 +148,9 @@ function Header(): React.ReactElement {
                     >
                       {link.label}
                       <motion.span
-                        layoutId="nav-underline"
                         className="absolute -bottom-1 left-0 h-0.5 w-full origin-left bg-[#0057FF]"
                         initial={{ scaleX: 0 }}
+                        animate={{ scaleX: isActive ? 1 : 0 }}
                         whileHover={{ scaleX: 1 }}
                         whileFocus={{ scaleX: 1 }}
                         transition={{ duration: 0.2 }}

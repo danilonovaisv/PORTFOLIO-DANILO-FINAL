@@ -211,7 +211,7 @@ const Hero = () => {
             opacity: prefersReducedMotion ? 1 : glassOrbOpacity,
             scale: prefersReducedMotion ? 1 : glassOrbScale,
           }}
-          className="absolute inset-0 z-[-1] pointer-events-auto"
+          className="absolute inset-0 z-[-1] pointer-events-none"
         >
           <HeroGlassCanvas />
         </motion.div>
@@ -296,8 +296,8 @@ const Hero = () => {
                 className="group bg-[#0057FF] text-white rounded-full pl-8 pr-6 py-4 flex items-center gap-3 font-semibold text-base md:text-lg shadow-xl shadow-[#0057FF]/20 transition-all"
               >
                 get to know me better
-                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors">
-                  <ArrowRight className="w-4 h-4 text-white" />
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-[#0057FF] shadow-sm transition-transform duration-300 group-hover:translate-x-0.5">
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </span>
               </MotionLink>
             </motion.div>
