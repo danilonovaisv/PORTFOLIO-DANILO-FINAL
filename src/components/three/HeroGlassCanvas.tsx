@@ -1,20 +1,8 @@
 'use client';
 
-import React, {
-  Suspense,
-  lazy,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { Suspense, lazy, useEffect, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import {
-  Environment,
-  PerspectiveCamera,
-  Lightformer,
-  useProgress,
-} from '@react-three/drei';
+import { Environment, PerspectiveCamera, Lightformer } from '@react-three/drei';
 import useIsMobile from '@/hooks/useIsMobile';
 import usePrefersReducedMotion from '@/hooks/usePrefersReducedMotion';
 
@@ -26,19 +14,7 @@ type HeroGlassCanvasProps = {
   scale?: number;
 };
 
-type ProgressObserverProps = {
-  onProgress: (_value: number) => void;
-};
-
-const ProgressObserver: React.FC<ProgressObserverProps> = ({ onProgress }) => {
-  const { progress } = useProgress();
-
-  useEffect(() => {
-    onProgress(progress);
-  }, [progress, onProgress]);
-
-  return null;
-};
+/* Removed unused ProgressObserver component */
 
 const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
   className,
@@ -47,16 +23,14 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
 }) => {
   const [mounted, setMounted] = useState(false);
   const [eventSource, setEventSource] = useState<HTMLElement | undefined>();
-  const [preloaderProgress, setPreloaderProgress] = useState(0);
-  const [overlayUnmounted, setOverlayUnmounted] = useState(false);
+  /* Removed unused state: preloaderProgress */
+  /* Removed unused state */
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
   const isMobile = useIsMobile();
   const shouldReduceMotion = reduceMotion || prefersReducedMotion;
 
-  const handleProgressUpdate = useCallback((value: number) => {
-    setPreloaderProgress(value);
-  }, []);
+  /* Removed unused callback: handleProgressUpdate */
 
   // Limit DPR as requested: [1, 1.5] generally, or [1, 1.2] for mobile to save battery/perf
   // Original was [0.85, 1.1] mobile, [1, 1.6] desktop.
@@ -79,21 +53,14 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
     }
   }, [mounted]);
 
-  useEffect(() => {
-    if (preloaderProgress >= 100) {
-      const timer = setTimeout(() => setOverlayUnmounted(true), 600);
-      return () => clearTimeout(timer);
-    }
-    setOverlayUnmounted(false);
-    return undefined;
-  }, [preloaderProgress]);
+  /* Removed unused overlayUnmounted effect */
 
   const containerClassName = `relative flex h-full w-full items-center justify-center pointer-events-none ${className ?? ''}`;
 
   // Visual Fallback faithful to layout (Gradient Orb)
   const FallbackVisual = () => (
     <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-       <div className="w-[60vw] h-[60vw] max-w-[500px] max-h-[500px] rounded-full bg-gradient-to-br from-blue-400/30 to-indigo-600/30 blur-3xl animate-pulse" />
+      <div className="w-[60vw] h-[60vw] max-w-[500px] max-h-[500px] rounded-full bg-gradient-to-br from-blue-400/30 to-indigo-600/30 blur-3xl animate-pulse" />
     </div>
   );
 
@@ -126,7 +93,6 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
           eventSource={eventSource}
           eventPrefix="client"
         >
-          <ProgressObserver onProgress={handleProgressUpdate} />
           <PerspectiveCamera makeDefault position={[0, 0, 3.5]} fov={42} />
 
           {/* Lights designed to enhance glass reflection/refraction */}

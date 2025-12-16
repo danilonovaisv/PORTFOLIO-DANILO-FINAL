@@ -13,15 +13,15 @@ const PortfolioShowcase: FC = () => {
   const prefersReducedMotion = usePrefersReducedMotion();
 
   // Easing "Premium"
-  const easePremium = [0.22, 1, 0.36, 1];
+  const easePremium: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: easePremium }
-    }
+      transition: { duration: 0.8, ease: easePremium },
+    },
   };
 
   const staggerContainer = {
@@ -30,9 +30,9 @@ const PortfolioShowcase: FC = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
+        delayChildren: 0.2,
+      },
+    },
   };
 
   return (
@@ -46,7 +46,7 @@ const PortfolioShowcase: FC = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-10%" }}
+          viewport={{ once: true, margin: '-10%' }}
           variants={fadeInUp}
           className="flex flex-col items-center text-center mb-16 md:mb-20"
         >
@@ -61,7 +61,7 @@ const PortfolioShowcase: FC = () => {
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-10%" }}
+          viewport={{ once: true, margin: '-10%' }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16 md:mb-20"
         >
           {CATEGORIES.map((category) => (
@@ -75,11 +75,11 @@ const PortfolioShowcase: FC = () => {
 
         {/* Bottom CTA */}
         <motion.div
-           initial="hidden"
-           whileInView="visible"
-           viewport={{ once: true }}
-           variants={fadeInUp}
-           className="flex justify-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="flex justify-center"
         >
           <Button
             href="/#contact"
@@ -93,16 +93,22 @@ const PortfolioShowcase: FC = () => {
   );
 };
 
-const PortfolioCard = ({ category, prefersReducedMotion }: { category: typeof CATEGORIES[0], prefersReducedMotion: boolean }) => {
-  const easePremium = [0.22, 1, 0.36, 1];
+const PortfolioCard = ({
+  category,
+  prefersReducedMotion,
+}: {
+  category: (typeof CATEGORIES)[0];
+  prefersReducedMotion: boolean;
+}) => {
+  const easePremium: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: easePremium }
-    }
+      transition: { duration: 0.8, ease: easePremium },
+    },
   };
 
   return (
@@ -130,20 +136,24 @@ const PortfolioCard = ({ category, prefersReducedMotion }: { category: typeof CA
               {category.label}
             </span>
 
-            <div className={`w-10 h-10 rounded-full bg-white text-[#111111] flex items-center justify-center shadow-lg transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${prefersReducedMotion ? '' : 'group-hover:rotate-45 group-hover:scale-110'}`}>
+            <div
+              className={`w-10 h-10 rounded-full bg-white text-[#111111] flex items-center justify-center shadow-lg transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${prefersReducedMotion ? '' : 'group-hover:rotate-45 group-hover:scale-110'}`}
+            >
               <ArrowUpRight className="w-5 h-5" />
             </div>
           </div>
 
           {/* Bottom Text Overlay */}
-          <div className={`transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] translate-y-2 ${prefersReducedMotion ? 'translate-y-0' : 'group-hover:translate-y-0'}`}>
+          <div
+            className={`transform transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] translate-y-2 ${prefersReducedMotion ? 'translate-y-0' : 'group-hover:translate-y-0'}`}
+          >
             <h3 className="text-2xl md:text-3xl font-bold text-white leading-tight">
               {category.label}
             </h3>
             <div className="h-0 overflow-hidden group-hover:h-auto transition-all duration-500">
-               <span className="block mt-2 text-sm text-white/80 font-medium tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                 Ver projetos
-               </span>
+              <span className="block mt-2 text-sm text-white/80 font-medium tracking-wide opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                Ver projetos
+              </span>
             </div>
           </div>
         </div>

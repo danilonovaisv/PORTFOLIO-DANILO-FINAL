@@ -65,8 +65,8 @@ const TorusDan = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$project
                 transmission: 1,
                 roughness: 0.05,
                 thickness: 0.55,
-                samples: 12,
-                resolution: 1024
+                samples: 6,
+                resolution: 512
             };
         }
     }["TorusDan.useMemo[materialConfig]"], [
@@ -87,7 +87,7 @@ const TorusDan = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$project
             ...materialConfig
         }, void 0, false, {
             fileName: "[project]/src/components/three/TorusDan.tsx",
-            lineNumber: 88,
+            lineNumber: 87,
             columnNumber: 9
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
@@ -110,7 +110,7 @@ const TorusDan = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$project
             children: mesh
         }, void 0, false, {
             fileName: "[project]/src/components/three/TorusDan.tsx",
-            lineNumber: 95,
+            lineNumber: 94,
             columnNumber: 9
         }, ("TURBOPACK compile-time value", void 0)));
     }
@@ -136,12 +136,12 @@ const TorusDan = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$project
             children: mesh
         }, void 0, false, {
             fileName: "[project]/src/components/three/TorusDan.tsx",
-            lineNumber: 116,
+            lineNumber: 115,
             columnNumber: 9
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/src/components/three/TorusDan.tsx",
-        lineNumber: 109,
+        lineNumber: 108,
         columnNumber: 7
     }, ("TURBOPACK compile-time value", void 0)));
 }, "3uzlaejYWN6iD12zztzYpDVd+fU=", false, function() {
@@ -157,6 +157,7 @@ const TorusDan = /*#__PURE__*/ _s((0, __TURBOPACK__imported__module__$5b$project
 });
 _c1 = TorusDan;
 TorusDan.displayName = 'TorusDan';
+// Preload ensuring absolute path
 __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$react$2d$three$2f$drei$2f$core$2f$Gltf$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGLTF"].preload('/media/torus_dan.glb');
 const __TURBOPACK__default__export__ = TorusDan;
 var _c, _c1;

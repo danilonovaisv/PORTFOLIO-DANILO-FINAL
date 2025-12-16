@@ -240,7 +240,6 @@ const Hero = () => {
           <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left h-full pt-24 md:pt-0 max-w-4xl mx-auto md:mx-0 gap-6 md:gap-0">
             {/* Título Principal */}
             <div className="text-[clamp(3rem,7vw,7.5rem)] font-extrabold tracking-[-0.04em] mb-6 md:mb-10 font-sans flex flex-col items-center md:items-start gap-1">
-
               {/* Desktop: Animação Letra por Letra */}
               <div className="hidden md:flex flex-col items-start gap-0">
                 <AnimatedTextLine
@@ -266,7 +265,11 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }} // Added y
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.8 }}
+              transition={{
+                duration: 0.8,
+                ease: [0.22, 1, 0.36, 1],
+                delay: 0.8,
+              }}
               className="mb-10 md:mb-14 relative w-full flex justify-center md:justify-start"
             >
               <p className="text-[#0057FF] text-lg md:text-xl font-medium tracking-wide bg-white/5 backdrop-blur-sm rounded-lg pr-4 inline-block">
@@ -275,9 +278,7 @@ const Hero = () => {
             </motion.div>
 
             {/* CTA Button */}
-            <motion.div
-              className="pointer-events-auto w-full flex justify-center md:justify-start"
-            >
+            <motion.div className="pointer-events-auto w-full flex justify-center md:justify-start">
               <MotionLink
                 href="/sobre"
                 initial={{ opacity: 0, y: 20 }}
