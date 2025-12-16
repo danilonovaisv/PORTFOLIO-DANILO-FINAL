@@ -2,6 +2,7 @@
 
 import React, { FC, useState, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { CATEGORIES } from '@/lib/constants';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
@@ -261,11 +262,16 @@ const PortfolioShowcaseSection: FC = () => {
                           ease: [0.25, 1, 0.5, 1],
                         }}
                       >
-                        <img
-                          src={category.posterUrl}
-                          alt=""
-                          className="w-full h-full object-cover"
-                        />
+                        <div className="w-full h-full relative">
+                          <Image
+                            src={category.posterUrl}
+                            alt=""
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            priority={false}
+                          />
+                        </div>
                         <div className="absolute inset-0 bg-black/10" />
                       </motion.div>
                     </motion.div>

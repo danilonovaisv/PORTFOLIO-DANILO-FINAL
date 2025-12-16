@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   motion,
@@ -115,12 +116,17 @@ function Header(): React.ReactElement {
             className="relative block shrink-0 transition-transform duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
           >
             {!logoError ? (
-              <img
-                src={ASSETS.logoDark}
-                alt="Danilo Novais"
-                className="h-8 md:h-10 w-auto object-contain"
-                onError={() => setLogoError(true)}
-              />
+              <div className="relative h-8 md:h-10 w-auto">
+                <Image
+                  src={ASSETS.logoDark}
+                  alt="Danilo Novais"
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 2rem, (max-width: 1200px) 2.5rem, 2.5rem"
+                  priority={pathname === '/'}
+                  onError={() => setLogoError(true)}
+                />
+              </div>
             ) : (
               <span className="text-2xl font-bold text-[#111111] tracking-tighter">
                 Danilo.
