@@ -53,11 +53,15 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
   const prefersReducedMotion = usePrefersReducedMotion();
   const isMobile = useIsMobile();
   const shouldReduceMotion = reduceMotion || prefersReducedMotion;
+
   const handleProgressUpdate = useCallback((value: number) => {
     setPreloaderProgress(value);
   }, []);
 
-  const devicePixelRatio: [number, number] = isMobile ? [0.85, 1.1] : [1, 1.6];
+  // Limit DPR as requested: [1, 1.5] generally, or [1, 1.2] for mobile to save battery/perf
+  // Original was [0.85, 1.1] mobile, [1, 1.6] desktop.
+  // Prompt asks for [1, 1.5] explicitly.
+  const devicePixelRatio: [number, number] = isMobile ? [1, 1.2] : [1, 1.5];
 
   useEffect(() => {
     setMounted(true);
@@ -86,29 +90,35 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
 
   const containerClassName = `relative flex h-full w-full items-center justify-center pointer-events-none ${className ?? ''}`;
 
+  // Visual Fallback faithful to layout (Gradient Orb)
+  const FallbackVisual = () => (
+    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+       <div className="w-[60vw] h-[60vw] max-w-[500px] max-h-[500px] rounded-full bg-gradient-to-br from-blue-400/30 to-indigo-600/30 blur-3xl animate-pulse" />
+    </div>
+  );
+
   if (!mounted) {
     return (
       <div className={containerClassName}>
-        <div className="absolute inset-0 bg-transparent" />
+        <FallbackVisual />
       </div>
     );
   }
 
   return (
     <div ref={containerRef} className={containerClassName}>
-      <Suspense
-        fallback={
-          <div className="absolute inset-0 flex items-center justify-center text-sm text-white/70 bg-transparent">
-            Carregando orb 3D...
-          </div>
-        }
-      >
+      <Suspense fallback={<FallbackVisual />}>
         <Canvas
+          // Prompt suggested evaluating 'demand'. Since we have a rotation animation in TorusDan,
+          // 'demand' would stop it unless we invalidate frames manually or use on demand rendering only when scrolling.
+          // However, for "smooth" continuous rotation, 'always' is required.
+          // We can use 'demand' if we accept the orb stops spinning when idle.
+          // Let's stick to 'always' for the animation, but we optimized DPR and use performance scaling.
           frameloop={shouldReduceMotion ? 'demand' : 'always'}
           dpr={devicePixelRatio}
           gl={{
             alpha: true,
-            antialias: !shouldReduceMotion && !isMobile,
+            antialias: !shouldReduceMotion && !isMobile, // Disable antialias on mobile for perf
             powerPreference: 'high-performance',
             toneMappingExposure: 1.05,
           }}
@@ -136,18 +146,7 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
             color="#0057FF"
           />
 
-          <Suspense
-            fallback={
-              <mesh>
-                <sphereGeometry args={[1, 16, 16]} />
-                <meshStandardMaterial
-                  color="#9dbdff"
-                  transparent
-                  opacity={0.15}
-                />
-              </mesh>
-            }
-          >
+          <Suspense fallback={null}>
             <TorusDan
               reduceMotion={shouldReduceMotion}
               isMobile={isMobile}
@@ -189,29 +188,6 @@ const HeroGlassCanvas: React.FC<HeroGlassCanvasProps> = ({
           </Suspense>
         </Canvas>
       </Suspense>
-      {!overlayUnmounted && (
-        <div
-          aria-hidden="true"
-          className={`pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3 bg-linear-to-b from-[#050509]/90 to-transparent text-white transition-opacity duration-500 ${
-            preloaderProgress >= 100 ? 'opacity-0' : 'opacity-100'
-          }`}
-        >
-          <span className="text-xs uppercase tracking-[0.3em] text-white/80">
-            carregando orb 3D
-          </span>
-          <span className="text-sm font-medium tracking-wide">
-            {Math.min(Math.max(Math.round(preloaderProgress), 0), 100)}%
-          </span>
-          <div className="h-[2px] w-28 overflow-hidden rounded-full bg-white/20">
-            <div
-              className="h-full bg-white transition-all duration-300"
-              style={{
-                width: `${Math.min(Math.max(preloaderProgress, 0), 100)}%`,
-              }}
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 };
