@@ -66,8 +66,8 @@ const TorusDan = memo(
         transmission: 1,
         roughness: 0.05,
         thickness: 0.55,
-        samples: 12,
-        resolution: 1024,
+        samples: 6, // Reduced from 12 to 6 for better performance without much visual loss
+        resolution: 512, // Reduced from 1024 to 512 for better performance
       };
     }, [isMobile, reduceMotion]);
 
@@ -84,7 +84,6 @@ const TorusDan = memo(
     const mesh = (
       // @ts-ignore
       <mesh geometry={geometry}>
-        {/* Ajuste de material para vidro com tier mobile */}
         <MeshTransmissionMaterial {...materialConfig} />
       </mesh>
     );
@@ -128,6 +127,7 @@ const TorusDan = memo(
 
 TorusDan.displayName = 'TorusDan';
 
+// Preload ensuring absolute path
 useGLTF.preload('/media/torus_dan.glb');
 
 export default TorusDan;
