@@ -109,6 +109,7 @@ const PortfolioShowcaseSection: FC = () => {
             className={`
           relative border-b border-neutral-300 group cursor-pointer w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-inset
           ${isExpanded ? 'border-none' : ''}
+          ${isHovered ? 'z-30' : 'z-10'}
         `}
             onMouseEnter={() => !isExpanded && setHoveredId(category.id)}
             onMouseLeave={() => setHoveredId(null)}
@@ -223,7 +224,7 @@ const PortfolioShowcaseSection: FC = () => {
                     />
                   </motion.div>
                 </motion.div>
-                {/* Thumbnail Animada (Slide-in on Hover - Atrás do texto) */}
+                {/* Thumbnail Animada (Slide-in on Hover - Side relative to text) */}
                 <AnimatePresence>
                   {isHovered && !isExpanded && (
                     <motion.div
@@ -235,13 +236,25 @@ const PortfolioShowcaseSection: FC = () => {
                         duration: 0.5,
                         ease: [0.25, 1, 0.5, 1],
                       }}
-                      className="hidden md:block absolute right-full top-1/2 -translate-y-1/2 mr-8 overflow-hidden rounded-lg z-[-1] pointer-events-none shadow-lg origin-right"
+                      className={`hidden md:block absolute top-1/2 -translate-y-1/2 h-[180px] overflow-hidden rounded-lg z-[-1] pointer-events-none shadow-lg
+                        ${
+                          index >= 2
+                            ? 'left-full ml-8 origin-left' // Text is on left -> Thumb goes to Right
+                            : 'right-full mr-8 origin-right' // Text is on right/center -> Thumb goes to Left
+                        }
+                      `}
                     >
                       <motion.div
                         className="w-[320px] h-full relative"
-                        initial={{ x: 20, scale: 1.1 }}
+                        initial={{
+                          x: index >= 2 ? -20 : 20,
+                          scale: 1.1,
+                        }}
                         animate={{ x: 0, scale: 1 }}
-                        exit={{ x: 20, opacity: 0 }}
+                        exit={{
+                          x: index >= 2 ? -20 : 20,
+                          opacity: 0,
+                        }}
                         transition={{
                           duration: 0.5,
                           ease: [0.25, 1, 0.5, 1],
