@@ -282,13 +282,26 @@ const PortfolioShowcaseSection: FC = () => {
                       autoPlay={false}
                       muted
                       loop
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-pointer"
+                      tabIndex={0}
+                      aria-label={`Reproduzir preview de ${category.label}`}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2"
                       onClick={(e) => {
                         const video = e.currentTarget;
                         if (video.paused) {
                           video.play();
                         } else {
                           video.pause();
+                        }
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          const video = e.currentTarget;
+                          if (video.paused) {
+                            video.play();
+                          } else {
+                            video.pause();
+                          }
                         }
                       }}
                     />
