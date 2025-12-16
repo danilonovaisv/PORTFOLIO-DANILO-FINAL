@@ -31,7 +31,9 @@ const textVariants = {
 };
 
 export default function MosaicCard({ item, priority = false }: MosaicCardProps) {
-  const [imageError, setImageError] = React.useState(false);
+  // Calculate the percentage for padding-bottom based on aspect ratio (default to 16:10 if not specified)
+  const aspectRatio = item.aspectRatio || 1.6; // 16:10 = 1.6
+  const paddingBottomPercentage = (1 / aspectRatio) * 100;
 
   return (
     <motion.article
@@ -44,7 +46,11 @@ export default function MosaicCard({ item, priority = false }: MosaicCardProps) 
       transition={{ duration: 0.45, ease: easing }}
       className="relative overflow-hidden rounded-none border border-white/30 bg-[#0f172a]/5"
     >
-      <div className="relative aspect-[16/10] w-full">
+      {/* Wrapper with fixed aspect ratio to prevent CLS */}
+      <div 
+        className="relative w-full"
+        style={{ paddingBottom: `${paddingBottomPercentage}%` }}
+      >
         <div
           className="absolute inset-0"
           style={{
@@ -53,21 +59,14 @@ export default function MosaicCard({ item, priority = false }: MosaicCardProps) 
           aria-hidden="true"
         />
 
-        {item.imageSrc && !imageError ? (
+        {item.imageSrc && (
           <Image
             src={item.imageSrc}
             alt={item.title}
             fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             priority={priority}
             className="absolute inset-0 h-full w-full object-cover"
-            onError={() => setImageError(true)}
-          />
-        ) : (
-          // Fallback gradient/blur effect when no image or image fails to load
-          <div 
-            className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20 backdrop-blur-sm"
-            aria-hidden="true"
           />
         )}
 
