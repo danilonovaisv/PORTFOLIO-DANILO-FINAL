@@ -383,7 +383,7 @@ const PortfolioShowcaseSection: FC = () => {
     <section
       id="portfolio-showcase"
       ref={sectionRef}
-      className="relative w-full bg-[#F4F5F7] py-20 md:py-24 overflow-hidden min-h-screen flex flex-col justify-center items-center"
+      className="relative w-full bg-[#F4F5F7] py-24 md:py-40 overflow-hidden min-h-screen flex flex-col justify-center items-center"
     >
       <div className="container mx-auto px-[clamp(1.25rem,5vw,6rem)] max-w-[92%] xl:max-w-420 relative z-10">
         {/* Cabeçalho da Seção */}

@@ -43,14 +43,16 @@ export async function updateSession(request: NextRequest) {
       url.pathname = '/admin/login';
       return NextResponse.redirect(url);
     }
-    // Ideally check for role = 'admin' here if using custom claims or a table lookup,
-    // but for now Supabase Auth user existence is the base.
-    // The prompt says "Apenas usuários com role = 'admin' podem acessar".
-    // This usually requires checking public.users table or custom claims.
-    // For simplicity I will assume checking user existence first.
-    // To strictly enforce admin role, we might need a db call or custom claim check.
-    // I'll stick to basic auth for middleware to avoid slow db calls, and enforce role in layout/page.
-    // Or if Supabase jwt has role.
+
+    // Check for admin role in app_metadata
+    // Only check app_metadata as it is secure and not editable by the user
+    const userRole = user.app_metadata?.role || 'user';
+
+    if (userRole !== 'admin') {
+      const url = request.nextUrl.clone();
+      url.pathname = '/';
+      return NextResponse.redirect(url);
+    }
   }
 
   return supabaseResponse;
