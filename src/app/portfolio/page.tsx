@@ -207,7 +207,7 @@ function buildMosaicRows(category: string): MosaicRow[] {
   const categoryItems = BASE_MOSAIC_ITEMS[category] || BASE_MOSAIC_ITEMS['all'];
   
   // Define fixed layouts for each category to ensure visual consistency
-  const layouts: Record<string, number[]> = {
+  const layouts: Record<string, (1 | 2 | 3)[]> = {
     'brand-campaigns': [2, 1, 1], // 2 items in first row, 1 in second, 1 in third
     'videos-motions': [1, 2],     // 1 item in first row, 2 in second
     'websites-webcampaigns-tech': [2, 1], // 2 items in first row, 1 in second
