@@ -257,7 +257,7 @@ type Props = {
 
 export default async function PortfolioPage(props: Props) {
   const searchParams = await props.searchParams;
-  let category = searchParams.category;
+  let { category } = searchParams;
   
   // Handle case where category might be an array
   if (Array.isArray(category)) {
