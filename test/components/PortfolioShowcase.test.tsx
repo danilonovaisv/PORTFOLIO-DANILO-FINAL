@@ -215,7 +215,7 @@ jest.mock('framer-motion', () => ({
       ].forEach((prop) => delete validProps[prop]);
       return <video {...validProps}>{children}</video>;
     },
-    img: ({ children, ...props }: any) => {
+    img: ({ ...props }: any) => {
       const validProps = { ...props };
       [
         'initial',
