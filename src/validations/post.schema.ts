@@ -11,8 +11,6 @@ export const postSchema = z.object({
   published: z.boolean().default(false),
   seo_title: z.string().optional(),
   seo_description: z.string().optional(),
-  created_at: z.string().datetime().optional(),
-  updated_at: z.string().datetime().optional(),
 });
 
 // Form input values (pre-parse)

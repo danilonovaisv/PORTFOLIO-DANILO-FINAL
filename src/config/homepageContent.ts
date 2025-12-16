@@ -114,19 +114,18 @@ export const HOMEPAGE_CONTENT: HomepageContent = {
         id: 'brand-campaigns',
         label: 'Brand & Campaigns',
         thumbnailUrl:
-          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Magic-1.png',
+          'https://loandbehold.studio/app/uploads/2025/04/Magic-1.png',
       },
       {
         id: 'videos-motions',
         label: 'Videos & Motions',
-        thumbnailUrl:
-          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Epic.png',
+        thumbnailUrl: 'https://loandbehold.studio/app/uploads/2025/04/Epic.png',
       },
       {
         id: 'websites-webcampaigns-tech',
         label: 'Websites, Web Campaigns & Tech',
         thumbnailUrl:
-          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Unilever.png',
+          'https://loandbehold.studio/app/uploads/2025/04/Unilever.png',
       },
     ],
     finalCtaLabel: 'VEJA MAIS →',

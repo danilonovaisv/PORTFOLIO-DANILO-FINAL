@@ -137,7 +137,7 @@ Resultado esperado:
 Nenhum tile quebra por indisponibilidade de domínio externo.
 
 ---
- ########
+
 ### Prompt #06 — Correção do Hero (HOME): fidelidade + 3D estável
 
 Objetivo:

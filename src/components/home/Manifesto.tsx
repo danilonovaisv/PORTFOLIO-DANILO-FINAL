@@ -62,7 +62,7 @@ const Manifesto: React.FC = () => {
               <motion.video
                 ref={videoRef}
                 src={ASSETS.videoManifesto}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain cursor-pointer"
                 autoPlay
                 muted={isMuted}
                 loop
@@ -75,6 +75,14 @@ const Manifesto: React.FC = () => {
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, ease: 'easeOut', delay: 0.1 }}
+                onClick={(e) => {
+                  const video = e.currentTarget;
+                  if (video.paused) {
+                    video.play();
+                  } else {
+                    video.pause();
+                  }
+                }}
               />
             ) : (
               <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 text-gray-500 p-6 text-center">

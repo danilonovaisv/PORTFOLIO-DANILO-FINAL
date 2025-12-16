@@ -108,7 +108,7 @@ function Header(): React.ReactElement {
             : 'bg-transparent'
         }`}
       >
-        <div className="container mx-auto flex items-center justify-between px-6 md:px-12">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4">
           <Link
             href="/"
             aria-label="Ir para a home"

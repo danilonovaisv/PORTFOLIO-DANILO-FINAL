@@ -262,7 +262,7 @@ const PortfolioShowcaseSection: FC = () => {
                         }}
                       >
                         <img
-                          src={category.thumbnailUrl}
+                          src={category.posterUrl}
                           alt=""
                           className="w-full h-full object-cover"
                         />
@@ -304,17 +304,6 @@ const PortfolioShowcaseSection: FC = () => {
                           video.play();
                         } else {
                           video.pause();
-                        }
-                      }}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          e.preventDefault();
-                          const video = e.currentTarget;
-                          if (video.paused) {
-                            video.play();
-                          } else {
-                            video.pause();
-                          }
                         }
                       }}
                     />

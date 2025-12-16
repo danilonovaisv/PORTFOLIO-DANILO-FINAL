@@ -36,8 +36,8 @@ export async function POST(request: Request) {
   try {
     const json = await request.json();
     // Validate with Zod (optional but good practice)
+    // Note: postSchema might require transforming dates or managing defaults usually handled by DB.
     // We accept partial or full matching schema.
-    // Dates (created_at, updated_at) are optional and will default to now() in DB if not provided.
     const body = postSchema.parse(json);
 
     const { data, error } = await supabase

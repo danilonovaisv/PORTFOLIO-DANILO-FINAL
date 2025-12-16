@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { notFound } from 'next/navigation';
 import PortfolioHero from '@/components/portfolio/PortfolioHero';
 import PortfolioMosaicGrid from '@/components/portfolio/PortfolioMosaicGrid';
 import type { MosaicItem, MosaicRow } from '@/components/portfolio/types';
@@ -203,139 +203,61 @@ const BASE_MOSAIC_ITEMS: Record<string, MosaicItem[]> = {
 
 
 
-
-const CTA_ITEM: MosaicItem = {
-  id: 'mosaic-cta',
-  gradient: 'linear-gradient(135deg, #0057FF 0%, #002D8F 100%)',
-  accent: '#ffffff',
-  title: 'Like what you see?',
-  subtitle: 'Start a Project',
-  imageSrc: undefined, // Explicitly no image for CTA to show gradient
-};
-
-// Frozen layouts for each category
 function buildMosaicRows(category: string): MosaicRow[] {
-  const allItems = BASE_MOSAIC_ITEMS['all']; // Fallback source
+  const categoryItems = BASE_MOSAIC_ITEMS[category] || BASE_MOSAIC_ITEMS['all'];
   
-  // Helper to find item by substring or ID
-  const find = (idPart: string) => allItems.find(i => i.id.includes(idPart)) || allItems[0];
+  // Define fixed layouts for each category to ensure visual consistency
+  const layouts: Record<string, (1 | 2 | 3)[]> = {
+    'brand-campaigns': [2, 1, 1], // 2 items in first row, 1 in second, 1 in third
+    'videos-motions': [1, 2],     // 1 item in first row, 2 in second
+    'websites-webcampaigns-tech': [2, 1], // 2 items in first row, 1 in second
+    'all': [2, 1, 2, 1, 2, 1, 1] // Fixed layout for all items
+  };
   
-  // Define strict item placements matches visual reference
-  const brandRows: MosaicRow[] = [
-    {
-      id: 'brand-r0',
-      columns: 2,
-      items: [
-        find('mosaic-magic'),
-        find('mosaic-branding')
-      ]
-    },
-    {
-      id: 'brand-r1',
-      columns: 1,
-      items: [find('mosaic-keyvisual')]
-    }
-  ];
+  const pattern = layouts[category] || layouts['all'];
+  let cursor = 0;
 
-  const motionRows: MosaicRow[] = [
-     {
-      id: 'motion-r0',
-      columns: 2,
-      items: [
-        find('mosaic-motion'),
-        find('mosaic-thumb')
-      ]
-    }
-  ];
+  return pattern.map((columns, rowIndex) => {
+    const items = Array.from({ length: columns }, (_, itemIndex) => {
+      // Cycle through items if we run out
+      const source = categoryItems[(cursor + itemIndex) % categoryItems.length];
 
-  // Specific layout from reference: 
-  // Row 1: Magic (Left), Running/KeyVisual (Right) -> 2 cols
-  // Row 2: Epic -> 1 col
-  // Row 3: Flux/FFF (Left), CTA (Right) -> 2 cols
-  const webRows: MosaicRow[] = [
-    {
-      id: 'web-r0',
-      columns: 2,
-      items: [
-        { ...find('mosaic-magic'), id: 'web-magic' }, 
-        { ...find('mosaic-keyvisual'), id: 'web-keyvisual' } // Running girl matches Key Visual text
-      ]
-    },
-    {
-      id: 'web-r1',
-      columns: 1,
-      items: [
-        { ...find('mosaic-epic'), id: 'web-epic' }
-      ]
-    },
-    {
-      id: 'web-r2',
-      columns: 2,
-      items: [
-        { ...find('mosaic-branding'), id: 'web-flux' }, // Using Flux for FFF Legal
-        { ...CTA_ITEM, id: 'web-cta' }
-      ]
-    }
-  ];
+      return {
+        ...source,
+        id: `${source.id}-r${rowIndex}-c${itemIndex}`,
+      };
+    });
 
-  const allRows: MosaicRow[] = [
-    // Mix of best items
-    {
-      id: 'all-r0',
-      columns: 2,
-      items: [find('mosaic-magic'), find('mosaic-branding')]
-    },
-    {
-      id: 'all-r1',
-      columns: 1,
-      items: [find('mosaic-keyvisual')]
-    },
-    {
-      id: 'all-r2',
-      columns: 2,
-      items: [find('mosaic-motion'), find('mosaic-thumb')]
-    },
-    {
-      id: 'all-r3',
-      columns: 1,
-      items: [find('mosaic-welcome')]
-    },
-    {
-      id: 'all-r4',
-      columns: 2,
-      items: [find('mosaic-unilever'), CTA_ITEM]
-    }
-  ];
+    cursor += columns;
 
-  switch(category) {
-    case 'brand-campaigns': return brandRows;
-    case 'videos-motions': return motionRows;
-    case 'websites-webcampaigns-tech': return webRows;
-    default: return allRows;
-  }
+    return {
+      id: `row-${rowIndex}`,
+      columns,
+      items,
+    };
+  });
 }
-
 
 type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
-
-const VALID_CATEGORIES = ['all', 'brand-campaigns', 'videos-motions', 'websites-webcampaigns-tech'] as const;
-type Category = (typeof VALID_CATEGORIES)[number];
-
 export default async function PortfolioPage(props: Props) {
   const searchParams = await props.searchParams;
-  const rawCategory = searchParams.category;
+  let category = searchParams.category;
   
   // Handle case where category might be an array
-  const categoryString = Array.isArray(rawCategory) ? rawCategory[0] : rawCategory;
+  if (Array.isArray(category)) {
+    category = category[0] || 'all';
+  }
   
-  // Validate category against strict constant
-  const category: Category = VALID_CATEGORIES.includes(categoryString as any)
-    ? (categoryString as Category)
-    : 'all';
+  category = (category as string) || 'all';
 
+  // Validate category
+  const validCategories = ['all', 'brand-campaigns', 'videos-motions', 'websites-webcampaigns-tech'];
+  if (!validCategories.includes(category)) {
+    category = 'all';
+  }
 
   const rows = buildMosaicRows(category);
 
