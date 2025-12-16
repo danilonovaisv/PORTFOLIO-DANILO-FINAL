@@ -46,12 +46,18 @@
         "hostname": "^(?:^(?:aymuvxysygrwoicsjgxj\\.supabase\\.co)$)$",
         "port": "",
         "pathname": "^(?:\\/storage\\/v1\\/object\\/public(?:\\/(?!\\.{1,2}(?:\\/|$))(?:(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$)).)*?)|$))$"
+      },
+      {
+        "protocol": "https",
+        "hostname": "^(?:^(?:formsubmit\\.co)$)$",
+        "port": "",
+        "pathname": "^(?:\\/(?!\\.{1,2}(?:\\/|$))(?:(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$)).)*?))$"
       }
     ],
     "qualities": [
       75
     ],
-    "unoptimized": true,
+    "unoptimized": false,
     "sizes": [
       640,
       750,

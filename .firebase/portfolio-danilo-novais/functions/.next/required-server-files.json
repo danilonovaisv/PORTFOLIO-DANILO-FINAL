@@ -68,12 +68,18 @@
           "hostname": "aymuvxysygrwoicsjgxj.supabase.co",
           "port": "",
           "pathname": "/storage/v1/object/public/**"
+        },
+        {
+          "protocol": "https",
+          "hostname": "formsubmit.co",
+          "port": "",
+          "pathname": "/**"
         }
       ],
       "qualities": [
         75
       ],
-      "unoptimized": true
+      "unoptimized": false
     },
     "devIndicators": {
       "position": "bottom-left"

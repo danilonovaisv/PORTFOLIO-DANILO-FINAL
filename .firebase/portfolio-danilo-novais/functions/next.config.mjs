@@ -8,13 +8,20 @@ var nextConfig = {
   images: {
     // Firebase Hosting/App Hosting não está servindo a rota /_next/image;
     // desabilitamos o otimizador para servir os assets diretamente das URLs remotas.
-    unoptimized: true,
+    unoptimized: false,
+    // Changed to allow optimization
     remotePatterns: [
       {
         protocol: "https",
         hostname: "aymuvxysygrwoicsjgxj.supabase.co",
         port: "",
         pathname: "/storage/v1/object/public/**"
+      },
+      {
+        protocol: "https",
+        hostname: "formsubmit.co",
+        port: "",
+        pathname: "/**"
       }
     ],
     dangerouslyAllowSVG: true,

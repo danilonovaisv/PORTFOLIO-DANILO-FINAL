@@ -373,9 +373,22 @@ function buildMosaicRows(category) {
         }, (_, itemIndex)=>{
             // Cycle through items if we run out
             const source = categoryItems[(cursor + itemIndex) % categoryItems.length];
+            // Set aspect ratio based on number of columns in the row
+            // Single column: taller card (portrait-like)
+            // Two columns: square-ish or landscape
+            // Three columns: wider landscape
+            let aspectRatio;
+            if (columns === 1) {
+                aspectRatio = 1.2; // Taller card for single column (5:4 or 6:5)
+            } else if (columns === 2) {
+                aspectRatio = 1.4; // Medium width for two columns (7:5)
+            } else {
+                aspectRatio = 1.6; // Wider for three columns (16:10)
+            }
             return {
                 ...source,
-                id: `${source.id}-r${rowIndex}-c${itemIndex}`
+                id: `${source.id}-r${rowIndex}-c${itemIndex}`,
+                aspectRatio
             };
         });
         cursor += columns;
@@ -409,24 +422,24 @@ async function PortfolioPage(props) {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$portfolio$2f$PortfolioHero$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/portfolio/page.tsx",
-                lineNumber: 266,
+                lineNumber: 279,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$portfolio$2f$PortfolioMosaicGrid$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
                 rows: rows
             }, void 0, false, {
                 fileName: "[project]/src/app/portfolio/page.tsx",
-                lineNumber: 267,
+                lineNumber: 280,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$home$2f$Clients$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/portfolio/page.tsx",
-                lineNumber: 268,
+                lineNumber: 281,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$home$2f$Contact$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/src/app/portfolio/page.tsx",
-                lineNumber: 269,
+                lineNumber: 282,
                 columnNumber: 7
             }, this)
         ]
