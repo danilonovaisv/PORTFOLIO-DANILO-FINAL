@@ -9,6 +9,25 @@ import { CATEGORIES } from '../../src/lib/constants';
 // Mock do Framer Motion para evitar complexidade de animação nos testes
 jest.mock('framer-motion', () => ({
   motion: {
+    create: (Component: any) => {
+      return ({ children, ...props }: any) => {
+        const validProps = { ...props };
+        [
+          'initial',
+          'whileInView',
+          'viewport',
+          'variants',
+          'animate',
+          'transition',
+          'exit',
+          'layout',
+          'custom',
+          'whileHover',
+          'whileTap',
+        ].forEach((prop) => delete validProps[prop]);
+        return <Component {...validProps}>{children}</Component>;
+      };
+    },
     section: ({ children, ...props }: any) => {
       const validProps = { ...props };
       [
@@ -196,6 +215,23 @@ jest.mock('framer-motion', () => ({
       ].forEach((prop) => delete validProps[prop]);
       return <video {...validProps}>{children}</video>;
     },
+    img: ({ ...props }: any) => {
+      const validProps = { ...props };
+      [
+        'initial',
+        'whileInView',
+        'viewport',
+        'variants',
+        'animate',
+        'transition',
+        'exit',
+        'layout',
+        'custom',
+        'whileHover',
+        'whileTap',
+      ].forEach((prop) => delete validProps[prop]);
+      return <img {...validProps} />;
+    },
   },
   AnimatePresence: ({ children }: any) => <>{children}</>,
 }));
@@ -210,7 +246,8 @@ jest.mock('lucide-react', () => {
 
 // Mock do hook usePrefersReducedMotion
 jest.mock('../../src/hooks/usePrefersReducedMotion', () => ({
-  usePrefersReducedMotion: () => false,
+  __esModule: true,
+  default: () => false,
 }));
 
 describe('PortfolioShowcaseSection Component', () => {

@@ -13,6 +13,7 @@ const baseConfig = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
+  transformIgnorePatterns: ['node_modules/(?!(framer-motion)/)'],
   testMatch: ['**/test/**/*.test.{ts,tsx,js}'],
 };
 

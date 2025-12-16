@@ -4,3 +4,4 @@ export const connectorConfig = {
   serviceId: 'portfolio-danilo-novais-service',
   location: 'southamerica-west1'
 };
+

@@ -2,18 +2,19 @@
 
 import React, { FC, useState, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CATEGORIES } from '@/lib/constants';
+import Image from 'next/image';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { CATEGORIES } from '@/lib/constants';
 import { Button } from '@/components/ui/Button';
-
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import usePrefersReducedMotion from '@/hooks/usePrefersReducedMotion';
 import { ProjectCategory } from '@/lib/types';
 
-const PortfolioShowcaseSection: FC = () => {
+const PortfolioShowcase: FC = () => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const shouldReduceMotion = usePrefersReducedMotion();
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const shouldReduceMotion = prefersReducedMotion;
 
   const handleExpand = useCallback((id: string): void => {
     setHoveredId(null);
@@ -23,25 +24,20 @@ const PortfolioShowcaseSection: FC = () => {
   }, []);
 
   // --- ANIMATION VARIANTS ---
-  // Main fade-in for section header
-  const fadeInUp = useMemo(
-    () => ({
-      hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 32 },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-          duration: 0.6,
-          ease: [0.25, 1, 0.5, 1] as [number, number, number, number],
-          when: 'beforeChildren',
-          staggerChildren: 0.1,
-        },
+  const fadeInUp = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 32 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.25, 1, 0.5, 1] as [number, number, number, number],
+        when: 'beforeChildren',
+        staggerChildren: 0.1,
       },
-    }),
-    [shouldReduceMotion]
-  );
+    },
+  };
 
-  // Container for the list of categories
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -53,7 +49,6 @@ const PortfolioShowcaseSection: FC = () => {
     },
   };
 
-  // Item variants for the category entries
   const itemVariants = useMemo(
     () => ({
       hidden: {
@@ -82,14 +77,12 @@ const PortfolioShowcaseSection: FC = () => {
     [handleExpand]
   );
 
-  // Memoize the category list to prevent unnecessary re-renders
   const categoryList = useMemo(
     () =>
       CATEGORIES.map((category: ProjectCategory, index) => {
         const isExpanded = expandedId === category.id;
         const isHidden = expandedId !== null && !isExpanded;
         const isHovered = hoveredId === category.id;
-
         const isWebItem = category.id === 'websites-webcampaigns-tech';
 
         if (isHidden) return null;
@@ -115,7 +108,7 @@ const PortfolioShowcaseSection: FC = () => {
             onMouseEnter={() => !isExpanded && setHoveredId(category.id)}
             onMouseLeave={() => setHoveredId(null)}
           >
-            {/* Subtítulo alinhado com o primeiro item (Desktop Only) */}
+            {/* Subtítulo (Desktop Only) */}
             {index === 0 && !isExpanded && (
               <div className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 z-10 pointer-events-none">
                 <span className="text-[10px] md:text-xs text-gray-400 font-medium tracking-[0.25em] uppercase">
@@ -124,7 +117,7 @@ const PortfolioShowcaseSection: FC = () => {
               </div>
             )}
 
-            {/* Container Principal do Item */}
+            {/* Container Principal */}
             <motion.div
               layout="position"
               className={`flex w-full transition-all duration-500 ease-out relative
@@ -141,13 +134,13 @@ const PortfolioShowcaseSection: FC = () => {
             }
           `}
             >
-              {/* Conteúdo do Item (Texto + Ícone) - Wrapper para garantir z-index acima da thumb */}
+              {/* Conteúdo (Texto + Seta) */}
               <div
                 className={`relative z-20 flex items-center gap-4 md:gap-6
               ${isExpanded ? 'w-full flex-col md:flex-row md:items-start' : 'w-full md:w-auto flex-row'}
             `}
               >
-                {/* Texto da Categoria */}
+                {/* Texto */}
                 <div
                   className={`flex flex-col gap-1 min-w-0
                 ${
@@ -199,7 +192,7 @@ const PortfolioShowcaseSection: FC = () => {
                   )}
                 </div>
 
-                {/* Ícone Azul (Seta) */}
+                {/* Seta */}
                 <motion.div
                   layout="position"
                   className={`
@@ -225,7 +218,8 @@ const PortfolioShowcaseSection: FC = () => {
                     />
                   </motion.div>
                 </motion.div>
-                {/* Thumbnail Animada (Slide-in on Hover - Side relative to text) */}
+
+                {/* Thumbnail Hover */}
                 <AnimatePresence>
                   {isHovered && !isExpanded && (
                     <motion.div
@@ -240,8 +234,8 @@ const PortfolioShowcaseSection: FC = () => {
                       className={`hidden md:block absolute top-1/2 -translate-y-1/2 h-[180px] overflow-hidden rounded-lg z-[-1] pointer-events-none shadow-lg
                         ${
                           index >= 2
-                            ? 'left-full ml-8 origin-left' // Text is on left -> Thumb goes to Right
-                            : 'right-full mr-8 origin-right' // Text is on right/center -> Thumb goes to Left
+                            ? 'left-full ml-8 origin-left'
+                            : 'right-full mr-8 origin-right'
                         }
                       `}
                     >
@@ -261,11 +255,19 @@ const PortfolioShowcaseSection: FC = () => {
                           ease: [0.25, 1, 0.5, 1],
                         }}
                       >
-                        <img
-                          src={category.posterUrl}
-                          alt=""
-                          className="w-full h-full object-cover"
-                        />
+                        <div className="w-full h-full relative">
+                          <Image
+                            src={
+                              category.posterUrl ||
+                              'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+                            }
+                            alt=""
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            priority={false}
+                          />
+                        </div>
                         <div className="absolute inset-0 bg-black/10" />
                       </motion.div>
                     </motion.div>
@@ -273,7 +275,7 @@ const PortfolioShowcaseSection: FC = () => {
                 </AnimatePresence>
               </div>
 
-              {/* Conteúdo Expandido (Detalhes) */}
+              {/* Detalhes Expandidos */}
               {isExpanded && (
                 <motion.div
                   transition={{
@@ -283,15 +285,10 @@ const PortfolioShowcaseSection: FC = () => {
                   }}
                   className="w-full mt-6 flex flex-col md:flex-row gap-8 md:gap-12 text-center md:text-left"
                 >
-                  {/* Vídeo Grande com otimizações de carregamento */}
                   <div className="w-full md:w-2/3 aspect-video rounded-xl overflow-hidden bg-gray-200 shadow-xl">
                     <video
                       src={category.thumbnailUrl}
-                      poster={
-                        category.posterUrl ||
-                        // Fallback seguro se não houver posterUrl (evita 404 de regex em URLs desconhecidas)
-                        'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
-                      }
+                      poster={category.posterUrl}
                       preload="metadata"
                       playsInline
                       autoPlay={false}
@@ -309,7 +306,6 @@ const PortfolioShowcaseSection: FC = () => {
                     />
                   </div>
 
-                  {/* Texto descritivo / Links */}
                   <div className="w-full md:w-1/3 flex flex-col justify-between py-2">
                     <div>
                       <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-8 font-light">
@@ -376,7 +372,6 @@ const PortfolioShowcaseSection: FC = () => {
       className="relative w-full bg-[#F4F5F7] py-24 md:py-40 overflow-hidden min-h-screen flex flex-col justify-center items-center"
     >
       <div className="container mx-auto px-[clamp(1.25rem,5vw,6rem)] max-w-[92%] xl:max-w-420 relative z-10">
-        {/* Cabeçalho da Seção */}
         <motion.div
           className="flex flex-col w-full mb-12 md:mb-16 items-center text-center"
           initial="hidden"
@@ -384,7 +379,6 @@ const PortfolioShowcaseSection: FC = () => {
           viewport={{ once: true, margin: '-10%' }}
           variants={fadeInUp}
         >
-          {/* Título Principal */}
           <div className="w-full flex justify-center mb-6 md:mb-8">
             <h2 className="text-center text-4xl md:text-5xl lg:text-6xl xl:text-[4.5rem] font-bold tracking-tighter leading-none">
               <span className="text-[#0057FF]">portfólio</span>{' '}
@@ -393,7 +387,6 @@ const PortfolioShowcaseSection: FC = () => {
           </div>
         </motion.div>
 
-        {/* Lista de Categorias */}
         <motion.div
           className="flex flex-col w-full border-t border-neutral-300"
           initial="hidden"
@@ -404,7 +397,6 @@ const PortfolioShowcaseSection: FC = () => {
           <AnimatePresence mode="sync">{categoryList}</AnimatePresence>
         </motion.div>
 
-        {/* CTA Inferior */}
         {!expandedId && (
           <motion.div
             initial="hidden"
@@ -428,7 +420,6 @@ const PortfolioShowcaseSection: FC = () => {
           </motion.div>
         )}
 
-        {/* Botão para fechar expansão */}
         {expandedId && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -454,4 +445,4 @@ const PortfolioShowcaseSection: FC = () => {
   );
 };
 
-export default PortfolioShowcaseSection;
+export default PortfolioShowcase;

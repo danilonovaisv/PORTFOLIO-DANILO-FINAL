@@ -1,5 +1,4 @@
 import React from 'react';
-import { notFound } from 'next/navigation';
 import PortfolioHero from '@/components/portfolio/PortfolioHero';
 import PortfolioMosaicGrid from '@/components/portfolio/PortfolioMosaicGrid';
 import type { MosaicItem, MosaicRow } from '@/components/portfolio/types';
@@ -221,10 +220,24 @@ function buildMosaicRows(category: string): MosaicRow[] {
     const items = Array.from({ length: columns }, (_, itemIndex) => {
       // Cycle through items if we run out
       const source = categoryItems[(cursor + itemIndex) % categoryItems.length];
+      
+      // Set aspect ratio based on number of columns in the row
+      // Single column: taller card (portrait-like)
+      // Two columns: square-ish or landscape
+      // Three columns: wider landscape
+      let aspectRatio;
+      if (columns === 1) {
+        aspectRatio = 1.2; // Taller card for single column (5:4 or 6:5)
+      } else if (columns === 2) {
+        aspectRatio = 1.4; // Medium width for two columns (7:5)
+      } else { // columns === 3
+        aspectRatio = 1.6; // Wider for three columns (16:10)
+      }
 
       return {
         ...source,
         id: `${source.id}-r${rowIndex}-c${itemIndex}`,
+        aspectRatio,
       };
     });
 
@@ -244,7 +257,7 @@ type Props = {
 
 export default async function PortfolioPage(props: Props) {
   const searchParams = await props.searchParams;
-  let category = searchParams.category;
+  let { category } = searchParams;
   
   // Handle case where category might be an array
   if (Array.isArray(category)) {

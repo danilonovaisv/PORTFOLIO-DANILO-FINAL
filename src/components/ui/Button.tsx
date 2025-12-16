@@ -6,7 +6,7 @@ import { motion, type HTMLMotionProps } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 
-const MotionLink = motion(Link);
+const MotionLink = motion.create(Link);
 
 export interface ButtonProps extends Omit<HTMLMotionProps<'button'>, 'ref'> {
   href?: string;
