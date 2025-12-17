@@ -1,5 +1,5 @@
 import React from 'react';
-import { Inter } from 'next/font/google';
+import { Inter, Outfit } from 'next/font/google';
 import SmoothScroll from '@/components/layout/SmoothScroll';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -11,13 +11,19 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
+const outfit = Outfit({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-outfit',
+});
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" className={inter.variable}>
+    <html lang="pt-BR" className={`${inter.variable} ${outfit.variable}`}>
       <body
         className={`${inter.className} bg-surface-main text-text-main selection:bg-[#0057FF] selection:text-white`}
       >

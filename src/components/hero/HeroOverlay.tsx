@@ -12,18 +12,18 @@ export default function HeroOverlay() {
       {/* Left */}
       <div className="lg:col-span-6">
         <motion.h1
-          className="leading-[0.92] tracking-tight"
+          className="leading-[0.9] tracking-tighter font-display"
           initial={reducedMotion ? { opacity: 1 } : { opacity: 0, y: 18 }}
           animate={reducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.2, 0.8, 0.2, 1] }}
         >
-          <span className="block text-[clamp(56px,7vw,96px)] font-semibold text-[#1457ff]">
+          <span className="block text-[clamp(42px,8vw,100px)] font-bold text-[#1457ff]">
             Design,
           </span>
-          <span className="mt-2 block text-[clamp(56px,7vw,96px)] font-semibold text-black">
+          <span className="mt-1 block text-[clamp(42px,8vw,100px)] font-bold text-black">
             não é só
           </span>
-          <span className="mt-2 block text-[clamp(56px,7vw,96px)] font-semibold text-black">
+          <span className="mt-1 block text-[clamp(42px,8vw,100px)] font-bold text-black">
             estética.
           </span>
         </motion.h1>

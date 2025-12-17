@@ -17,11 +17,9 @@ type Props = {
   reducedMotion: boolean;
 };
 
-type ExtractedMesh = {
-  geometry: THREE.BufferGeometry;
-  position: THREE.Vector3;
-  rotation: THREE.Euler;
-  scale: THREE.Vector3;
+type GLTFResult = {
+  nodes: Record<string, THREE.Mesh>;
+  materials: Record<string, THREE.Material>;
 };
 
 export default function GlassOrb({
@@ -33,54 +31,43 @@ export default function GlassOrb({
   reducedMotion,
 }: Props) {
   const group = React.useRef<THREE.Group>(null!);
-  const meshRef = React.useRef<THREE.Mesh>(null!);
   const materialRef = React.useRef<any>(null);
 
-  const gltf = useGLTF(modelUrl);
+  // Load GLTF
+  const { nodes } = useGLTF(modelUrl) as unknown as GLTFResult;
   const { viewport } = useThree();
 
-  const extracted = React.useMemo<ExtractedMesh>(() => {
-    const meshes: THREE.Mesh[] = [];
-    gltf.scene.traverse((o) => {
-      if ((o as any).isMesh) meshes.push(o as THREE.Mesh);
-    });
-    const found = meshes[0];
-
-    if (!found?.geometry) {
-      const fallback = new THREE.TorusGeometry(1, 0.35, 64, 80);
-      fallback.computeVertexNormals();
-      fallback.computeBoundingSphere();
-      return {
-        geometry: fallback,
-        position: new THREE.Vector3(0, 0, 0),
-        rotation: new THREE.Euler(0, 0, 0),
-        scale: new THREE.Vector3(0.5, 0.5, 0.5),
-      };
+  // Robust geometry extraction
+  const geometry = React.useMemo(() => {
+    const candidates = ['Torus', 'torus', 'Mesh_0', 'Mesh001', 'Object_0'];
+    for (const key of candidates) {
+      if (nodes[key]?.geometry) return nodes[key].geometry;
     }
+    // Fallback: finding first mesh
+    const firstMesh = Object.values(nodes).find((node) => node.isMesh);
+    if (firstMesh?.geometry) return firstMesh.geometry;
 
-    const geometry = found.geometry.clone();
-    geometry.computeVertexNormals();
-    geometry.computeBoundingSphere();
+    // Fallback: creates a Torus
+    const fallback = new THREE.TorusGeometry(1, 0.35, 64, 80);
+    return fallback;
+  }, [nodes]);
 
-    // Preserve node transform from GLB (important for fidelity)
-    const position = found.position?.clone?.() ?? new THREE.Vector3();
-    const rotation = found.rotation?.clone?.() ?? new THREE.Euler();
-    const scale = found.scale?.clone?.() ?? new THREE.Vector3(0.5, 0.5, 0.5);
-
-    return { geometry, position, rotation, scale };
-  }, [gltf.scene]);
+  // Ensure geometry is centered
+  React.useLayoutEffect(() => {
+    if (geometry) {
+      geometry.center();
+      geometry.computeVertexNormals();
+    }
+  }, [geometry]);
 
   const baseScale = React.useMemo(() => {
-    // Responsive scale similar ao tutorial do Olivier (viewport-based)
-    // Increased divisor to make the orb smaller
-    const s = viewport.width / 4.4;
-    return THREE.MathUtils.clamp(s, 0.5, 1.0);
+    // Increased divisor to match reference scale
+    const s = viewport.width / 7.4;
+    return THREE.MathUtils.clamp(s, 0.5, 1.2);
   }, [viewport.width]);
 
   const basePosition = React.useMemo(() => {
-    // viewport.width (em units) muda conforme camera e tela.
-    // Heurística: em mobile, centraliza; em desktop, desloca para a direita.
-    const isMobileish = viewport.width < 6;
+    const isMobileish = viewport.width < 10;
     return {
       x: isMobileish ? 0 : viewport.width * 0.16,
       y: 0.05,
@@ -113,13 +100,13 @@ export default function GlassOrb({
     group.current.rotation.x = THREE.MathUtils.damp(
       group.current.rotation.x,
       targetRotX,
-      4.5,
+      8.5,
       delta
     );
     group.current.rotation.y = THREE.MathUtils.damp(
       group.current.rotation.y,
       targetRotY,
-      4.5,
+      8.5,
       delta
     );
     group.current.rotation.z = THREE.MathUtils.damp(
@@ -155,63 +142,60 @@ export default function GlassOrb({
     // Subtle scroll-driven material modulation (distortion / chroma)
     if (materialRef.current && materialVariant === 'transmission') {
       const sprog = interaction.scrollYProgress.get();
-      const chromaBase = 0.045;
-      const distBase = 0.28;
+      const chromaBase = 0.18;
+      const distBase = 0.25;
 
       materialRef.current.chromaticAberration = chromaBase + sprog * 0.03;
       materialRef.current.distortion = distBase + sprog * 0.08;
-      materialRef.current.temporalDistortion = reducedMotion ? 0 : 0.12;
+      materialRef.current.temporalDistortion = reducedMotion ? 0 : 0.2;
     }
   });
 
-  // Render path: Transmission = simple mesh + MeshTransmissionMaterial
+  // Responsive samples
+  const samples = React.useMemo(() => {
+    if (reducedMotion) return 2;
+    return viewport.width < 6 ? 4 : 16;
+  }, [viewport.width, reducedMotion]);
+
   if (materialVariant === 'transmission') {
     return (
       <group ref={group} renderOrder={2}>
-        <mesh
-          ref={meshRef}
-          geometry={extracted.geometry}
-          position={extracted.position}
-          rotation={extracted.rotation}
-          scale={extracted.scale}
-        >
+        <mesh geometry={geometry} castShadow receiveShadow>
           <GlassRefractionMaterial
             ref={materialRef}
             variant="transmission"
             transmission={1}
-            thickness={0.42}
-            roughness={0.06}
+            thickness={0.65}
+            roughness={0.1}
             ior={1.18}
-            chromaticAberration={0.045}
-            anisotropy={0.15}
+            chromaticAberration={0.18}
+            anisotropy={0.2}
             anisotropicBlur={0.12}
-            distortion={0.28}
-            distortionScale={0.7}
-            temporalDistortion={0.12}
-            samples={10}
+            distortion={0.25}
+            distortionScale={0.4}
+            temporalDistortion={reducedMotion ? 0 : 0.2}
+            samples={samples}
+            resolution={1024}
             backside
             transparent
-            envMapIntensity={1.1}
+            envMapIntensity={1.3}
             color="#ffffff"
+            iridescence={0.8}
+            iridescenceIOR={1.1}
+            iridescenceThicknessRange={[50, 300]}
+            attenuationColor="#91c9ff"
+            attenuationDistance={0.8}
           />
         </mesh>
       </group>
     );
   }
 
-  // Render path: Refraction = CubeCamera + MeshRefractionMaterial
-  // (mais caro, mas refração "diamond-like" + aberração)
   return (
     <group ref={group} renderOrder={2}>
-      <CubeCamera resolution={256} frames={reducedMotion ? 1 : 60}>
+      <CubeCamera resolution={1200} frames={reducedMotion ? 1 : 30}>
         {(envMap) => (
-          <mesh
-            ref={meshRef}
-            geometry={extracted.geometry}
-            position={extracted.position}
-            rotation={extracted.rotation}
-            scale={extracted.scale}
-          >
+          <mesh geometry={geometry}>
             <GlassRefractionMaterial
               variant="refraction"
               envMap={envMap}

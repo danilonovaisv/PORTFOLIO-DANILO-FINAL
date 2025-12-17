@@ -101,7 +101,7 @@ const PortfolioShowcase: FC = () => {
             aria-expanded={isExpanded ? true : false}
             aria-label={`${category.label} ${isExpanded ? 'collapse' : 'expand'}`}
             className={`
-          relative border-b border-neutral-300 group cursor-pointer w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-inset
+          relative border-b border-black/10 group cursor-pointer w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-inset
           ${isExpanded ? 'border-none' : ''}
           ${isHovered ? 'z-30' : 'z-10'}
         `}
@@ -380,7 +380,7 @@ const PortfolioShowcase: FC = () => {
           variants={fadeInUp}
         >
           <div className="w-full flex justify-center mb-6 md:mb-8">
-            <h2 className="text-center text-4xl md:text-5xl lg:text-6xl xl:text-[4.5rem] font-bold tracking-tighter leading-none">
+            <h2 className="text-center font-display text-[clamp(3.5rem,8vw,6rem)] font-bold tracking-tighter leading-[0.9]">
               <span className="text-[#0057FF]">portfólio</span>{' '}
               <span className="text-[#111111]">showcase</span>
             </h2>
@@ -388,7 +388,7 @@ const PortfolioShowcase: FC = () => {
         </motion.div>
 
         <motion.div
-          className="flex flex-col w-full border-t border-neutral-300"
+          className="flex flex-col w-full border-t border-black/10"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}

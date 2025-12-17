@@ -67,7 +67,7 @@ const FeaturedProjects: React.FC = () => {
                 {/* Informações do Projeto */}
                 <div className="flex justify-between items-end px-2">
                   <div className="flex flex-col gap-1 pr-4">
-                    <h3 className="text-2xl md:text-3xl font-bold text-[#111111] leading-tight group-hover:text-[#0057FF] transition-colors duration-300">
+                    <h3 className="text-2xl md:text-3xl font-bold font-display tracking-tight text-[#111111] leading-tight group-hover:text-[#0057FF] transition-colors duration-300">
                       {project.title}
                     </h3>
                     <p className="text-gray-500 text-sm uppercase tracking-widest font-bold">
@@ -94,7 +94,7 @@ const FeaturedProjects: React.FC = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="flex flex-col justify-center items-center text-center min-h-[400px]"
           >
-            <h3 className="text-4xl md:text-5xl font-light text-[#111111] mb-8 leading-tight">
+            <h3 className="text-4xl md:text-5xl font-display tracking-tighter text-[#111111] mb-8 leading-[0.9]">
               Like what
               <br />
               you see?
