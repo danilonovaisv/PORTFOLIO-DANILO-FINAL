@@ -1,53 +1,101 @@
-"use client";
+'use client';
 
-import React, { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import { ASSETS } from '../../lib/constants';
-import { AlertCircle } from 'lucide-react';
+import * as React from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 
-const Manifesto: React.FC = () => {
-  const [hasError, setHasError] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
+const MANIFESTO_VIDEO_URL =
+  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4';
+
+function track(event: string, detail?: Record<string, unknown>) {
+  if (typeof window === 'undefined') return;
+  window.dispatchEvent(
+    new CustomEvent('portfolio:track', { detail: { event, ...detail } })
+  );
+}
+
+export default function ManifestoSection() {
+  const reduceMotion = useReducedMotion();
+  const videoRef = React.useRef<HTMLVideoElement | null>(null);
+  const rootRef = React.useRef<HTMLElement | null>(null);
+  const hasPlayedRef = React.useRef(false);
+
+  // Áudio ativo somente enquanto a seção estiver em foco (IntersectionObserver)
+  React.useEffect(() => {
+    const el = rootRef.current;
+    const video = videoRef.current;
+    if (!el || !video) return;
+
+    const io = new IntersectionObserver(
+      async (entries) => {
+        const entry = entries[0];
+        if (!entry) return;
+
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.55) {
+          // Mantém autoplay mudo (política do browser), tenta desmutar com grace
+          // Se o browser bloquear, continua mudo (comportamento esperado).
+          try {
+            if (!hasPlayedRef.current) {
+              // primeiro play (mudo)
+              await video.play();
+              hasPlayedRef.current = true;
+              track('manifesto_video_auto_play');
+            }
+
+            video.muted = false;
+            track('manifesto_audio_unmuted_auto');
+          } catch {
+            // Bloqueado sem gesto do usuário → ok, permanece mudo
+            video.muted = true;
+          }
+        } else {
+          video.muted = true;
+          track('manifesto_audio_muted_on_leave');
+        }
+      },
+      { threshold: [0, 0.55, 0.75] }
+    );
+
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   return (
-    <section id="manifesto" className="w-full bg-[#F4F5F7]">
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.0, ease: "easeOut" }}
-        className="relative w-full aspect-video md:aspect-[21/9] overflow-hidden bg-gray-100 shadow-sm"
-      >
-        {!hasError ? (
-          <video
-            ref={videoRef}
-            src={ASSETS.videoManifesto}
-            className="w-full h-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-            controls
-            onError={() => setHasError(true)}
-            aria-label="Vídeo Manifesto do Portfólio"
-          />
-        ) : (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 text-gray-500 p-6 text-center">
-            <AlertCircle className="w-10 h-10 mb-3 opacity-50" />
-            <p className="font-medium">Não foi possível carregar o vídeo.</p>
-            <a 
-              href={ASSETS.videoManifesto} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="mt-2 text-primary text-sm hover:underline underline-offset-4"
-            >
-              Assistir diretamente
-            </a>
+    <section
+      id="manifesto"
+      ref={rootRef}
+      aria-label="Manifesto"
+      className="bg-[#0E0F12] py-16"
+    >
+      <div className="mx-auto w-full max-w-[1240px] px-6 lg:px-8">
+        <motion.div
+          initial={reduceMotion ? undefined : { opacity: 0, scale: 0.98 }}
+          whileInView={reduceMotion ? undefined : { opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className={[
+            'overflow-hidden rounded-2xl',
+            'shadow-[0_26px_90px_rgba(0,0,0,0.35)]',
+            'bg-white/5',
+          ].join(' ')}
+        >
+          <div className="aspect-video w-full">
+            <video
+              ref={videoRef}
+              className="h-full w-full object-cover"
+              src={MANIFESTO_VIDEO_URL}
+              autoPlay
+              loop
+              muted
+              playsInline
+              controls
+              preload="metadata"
+              aria-label="Vídeo manifesto"
+              data-track="manifesto_video_auto_play"
+              onPlay={() => track('manifesto_video_auto_play')}
+            />
           </div>
-        )}
-      </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
-};
-
-export default Manifesto;
+}

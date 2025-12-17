@@ -13,6 +13,7 @@ export default [
       'functions/src/**',
       'functions/.eslintrc.js',
       'src/dataconnect-generated/**',
+      'docs/**',
     ],
   },
   {

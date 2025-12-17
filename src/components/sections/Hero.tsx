@@ -1,111 +1,68 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
+import React, { useRef, useEffect, useState } from 'react';
 import {
   motion,
-  useMotionValueEvent,
   useScroll,
   useTransform,
+  useMotionValueEvent,
+  useReducedMotion,
 } from 'framer-motion';
-import type { Variants } from 'framer-motion';
-import { ASSETS } from '@/lib/constants';
 import { ArrowRight } from 'lucide-react';
-import usePrefersReducedMotion from '@/hooks/usePrefersReducedMotion';
+import { ASSETS } from '../../lib/constants';
+import HeroGlassScene from '../../components/three/HeroGlassScene';
 
-// Dynamically import the 3D component with SSR disabled
-const HeroGlassCanvas = dynamic(
-  () => import('@/components/three/HeroGlassCanvas'),
-  {
-    ssr: false,
-    loading: () => (
-      <div className="h-full w-full flex items-center justify-center">
-        <div className="h-[60vw] w-[60vw] max-w-[300px] max-h-[300px] rounded-full bg-gradient-to-br from-blue-400/30 to-indigo-600/30 blur-3xl animate-pulse" />
-      </div>
-    ),
-  }
-);
-
-const MotionLink = motion.create(Link);
-
-// Componente para animar texto letra por letra (efeito "digitação/reveal")
-type AnimatedTextLineProps = {
+// Reference Animation Logic adapted for React
+// Uses the specific linear() easing from the provided CSS reference
+const RefAnimatedText: React.FC<{
   text: string;
   className?: string;
-  delay?: number;
-  colorClass?: string;
-};
-
-const AnimatedTextLine = ({
-  text,
-  className,
-  delay = 0,
-  colorClass = 'text-[#111111]',
-}: AnimatedTextLineProps) => {
-  // Separa o texto em caracteres
+  delayStart?: number; // offset index for stagger
+}> = ({ text, className, delayStart = 0 }) => {
   const letters = text.split('');
 
-  const container: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.03, // Stagger mais rápido para fluxo contínuo
-        delayChildren: delay,
-      },
-    },
-  };
-
-  const child: Variants = {
-    hidden: {
-      y: '100%',
-      opacity: 0,
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 1.0, ease: [0.22, 1, 0.36, 1] },
-    },
-  };
-
   return (
-    <motion.div
-      className={`flex overflow-hidden ${className}`}
-      variants={container}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
+    <p
+      className={`ref-word-anim flex overflow-hidden leading-[0.9] ${className}`}
+      aria-label={text}
     >
-      {letters.map((letter, index) => (
-        <motion.span
-          key={`${letter}-${index}`}
-          variants={child}
-          className={`block ${colorClass} leading-[0.9]`}
+      {letters.map((letter, i) => (
+        <span
+          key={i}
+          aria-hidden="true"
+          style={{ '--i': i + delayStart } as React.CSSProperties}
+          className="block"
         >
           {letter === ' ' ? '\u00A0' : letter}
-        </motion.span>
+        </span>
       ))}
-    </motion.div>
+    </p>
   );
 };
 
-const Hero = () => {
+const Hero: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const reduceMotion = useReducedMotion();
 
-  const prefersReducedMotion = usePrefersReducedMotion();
+  // Trigger animation on mount/view
+  useEffect(() => {
+    // Small delay to ensure render before animating
+    const timer = setTimeout(() => setIsVisible(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
-  // Controle de Scroll para a animação da timeline
+  // Control Scroll for timeline animation
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end end'],
   });
 
-  // Monitora o progresso do scroll para controlar o áudio do vídeo
+  // Monitor scroll for video audio
   useMotionValueEvent(scrollYProgress, 'change', (latest) => {
     if (videoRef.current) {
-      if (latest > 0.01 && latest < 0.9) {
+      if (latest > 0.01) {
         videoRef.current.muted = false;
       } else {
         videoRef.current.muted = true;
@@ -113,14 +70,10 @@ const Hero = () => {
     }
   });
 
-  // Animações Scroll
+  // Animations
   const contentOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
   const contentScale = useTransform(scrollYProgress, [0, 0.15], [1, 0.95]);
   const contentY = useTransform(scrollYProgress, [0, 0.15], [0, -50]);
-
-  // Animação específica para o Glass Orb (para framer-motion container)
-  const glassOrbOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
-  const glassOrbScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
 
   // Video transitions
   const videoScale = useTransform(scrollYProgress, [0, 0.25], [0.25, 1]);
@@ -128,119 +81,51 @@ const Hero = () => {
   const videoY = useTransform(scrollYProgress, [0, 0.25], ['30%', '0%']);
   const videoRadius = useTransform(scrollYProgress, [0, 0.2], [12, 0]);
 
-  // Intensidade da animação interna da ORB (usada dentro do Canvas)
-  const orbIntensityMotion = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [0.3, 1, 0.3]
-  );
-  const [orbIntensity, setOrbIntensity] = useState(1);
-
-  useMotionValueEvent(orbIntensityMotion, 'change', (latest) => {
-    if (!prefersReducedMotion) {
-      setOrbIntensity(latest);
-    }
-  });
-
   return (
     <section
       id="hero"
       ref={sectionRef}
-      className="relative w-full bg-[#F4F5F7] md:h-[450vh]"
+      className="relative h-[450vh] w-full bg-[#F4F5F7]"
     >
-      {/* Mobile layout */}
-      <div className="md:hidden flex flex-col items-center text-center px-4 pt-16 pb-12 gap-8">
-        <div className="relative w-full flex justify-center -mb-8">
-          <div className="relative h-[280px] w-[280px]">
-            <HeroGlassCanvas
-              variant="transmission" // mude para "refraction" se quiser testar
-              scrollIntensity={1}
-            />
-          </div>
+      {/* Inject specific CSS for the reference animation */}
+      <style>{`
+        .ref-word-anim {
+          --trans-duration: 3000ms; /* Updated to match reference exactly */
+          --trans-delay-factor: 20ms; /* Updated to match reference exactly */
+          /* The specific linear easing from the reference */
+          --trans-timing-function: linear(0, 0.011 0.6%, 0.041 1.2%, 0.173 2.6%, 0.894 7.4%, 1.128 9.3%, 1.271 11.1%, 1.311 12%, 1.333 13%, 1.328 14.4%, 1.286 15.9%, 1.031 21%, 0.95 23%, 0.907 24.7%, 0.888 26.5%, 0.89 27.9%, 0.904 29.4%, 1.034 42.5%, 0.997 49.3%, 0.987 53.3%, 1.004 66.5%, 1);
+        }
+        
+        .ref-word-anim span {
+          transform: translateY(110%);
+          opacity: 0;
+          transition: transform var(--trans-duration) var(--trans-timing-function), opacity var(--trans-duration) var(--trans-timing-function);
+          transition-delay: calc(var(--i) * var(--trans-delay-factor));
+        }
+
+        .hero-text-visible .ref-word-anim span {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      `}</style>
+
+      {/* Container Sticky */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+        {/* 0. ORB LAYER (Background) */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <HeroGlassScene reduceMotion={Boolean(reduceMotion)} />
         </div>
 
-        <div className="flex flex-col items-center gap-0 leading-[0.95] text-[2.75rem] sm:text-[3.5rem] font-extrabold tracking-[-0.04em] text-[#111111]">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col items-center"
-          >
-            <div className="flex flex-row justify-center gap-[0.2em] whitespace-nowrap">
-              <span className="text-[#0057FF]">Design,</span>
-              <span className="text-[#111111]">não é</span>
-            </div>
-            <span className="text-[#111111]">só estética.</span>
-          </motion.div>
-        </div>
-
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-          className="text-[#0057FF] text-xs font-semibold tracking-widest uppercase mt-2"
-        >
-          [ É intenção, é estratégia, é experiência. ]
-        </motion.p>
-
-        <MotionLink
-          href="/sobre"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
-          className="group inline-flex items-center justify-center gap-3 rounded-full bg-[#0057FF] px-8 py-4 text-sm font-semibold text-white shadow-[0_10px_24px_-12px_rgba(0,87,255,0.6)] transition-transform duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 mt-2"
-        >
-          get to know me better
-          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-[#0057FF] shadow-sm transition-transform duration-300 group-hover:translate-x-0.5">
-            <ArrowRight className="w-3.5 h-3.5" />
-          </span>
-        </MotionLink>
-      </div>
-
-      <div className="md:hidden relative w-screen -mx-6 mt-8 aspect-375/330 min-h-[300px] overflow-hidden">
-        <video
-          src={ASSETS.videoManifesto}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-      </div>
-
-      {/* Container Sticky Desktop */}
-      <div className="hidden md:flex sticky top-0 h-screen w-full overflow-hidden items-center justify-center">
-        {/* 1. BACKGROUND AMBIENT 3D LAYER */}
+        {/* 1. TEXT CONTENT LAYER */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, ease: 'easeOut' }}
-          style={{
-            opacity: prefersReducedMotion ? 1 : glassOrbOpacity,
-            scale: prefersReducedMotion ? 1 : glassOrbScale,
-          }}
-          className="absolute inset-0 z-[-1] pointer-events-none"
-        >
-          <HeroGlassCanvas
-            variant="transmission" // mude para "refraction" para usar MeshRefractionMaterial
-            scrollIntensity={prefersReducedMotion ? 0.7 : orbIntensity}
-          />
-        </motion.div>
-
-        {/* 2. TEXT CONTENT LAYER */}
-        <motion.div
-          style={{
-            opacity: prefersReducedMotion ? 1 : contentOpacity,
-            scale: prefersReducedMotion ? 1 : contentScale,
-            y: prefersReducedMotion ? 0 : contentY,
-          }}
-          className="absolute inset-0 container mx-auto px-6 md:px-12 lg:px-16 h-full z-10 pointer-events-none flex"
+          style={{ opacity: contentOpacity, scale: contentScale, y: contentY }}
+          className={`absolute inset-0 container mx-auto px-6 md:px-12 lg:px-16 h-full z-10 pointer-events-none ${isVisible ? 'hero-text-visible' : ''}`}
         >
           {/* TAG LATERAL: BRAND AWARENESS */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 1.0, duration: 0.8 }}
             className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 hidden md:block"
           >
             <span className="text-[#0057FF] font-medium tracking-widest text-lg md:text-xl">
@@ -248,40 +133,36 @@ const Hero = () => {
             </span>
           </motion.div>
 
-          <div className="flex flex-col justify-center items-center md:items-start text-center md:text-left h-full pt-24 md:pt-0 max-w-4xl mx-auto md:mx-0 gap-6 md:gap-0">
+          <div className="flex flex-col justify-center items-start h-full pt-24 md:pt-0 max-w-4xl">
             {/* Título Principal */}
-            <div className="text-[clamp(3rem,7vw,7.5rem)] font-extrabold tracking-[-0.04em] mb-6 md:mb-10 font-sans flex flex-col items-center md:items-start gap-1">
-              {/* Desktop: Animação Letra por Letra */}
-              <div className="hidden md:flex flex-col items-start gap-0">
-                <AnimatedTextLine
+            <div className="text-[4.5rem] md:text-7xl lg:text-[7.5rem] font-extrabold tracking-[-0.04em] mb-6 md:mb-10 font-sans flex flex-col items-start gap-1">
+              {/* Animação unificada (Mobile & Desktop) usando a referência CSS */}
+              <div className="flex flex-col items-start gap-0">
+                <RefAnimatedText
                   text="Design,"
-                  delay={0.2}
-                  colorClass="text-[#0057FF]"
+                  className="text-[#0057FF]"
+                  delayStart={0}
                 />
-                <AnimatedTextLine
+                <RefAnimatedText
                   text="não é só"
-                  delay={0.4}
-                  colorClass="text-[#111111]"
+                  className="text-[#111111]"
+                  delayStart={7}
                 />
-                <AnimatedTextLine
+                <RefAnimatedText
                   text="estética."
-                  delay={0.6}
-                  colorClass="text-[#111111]"
+                  className="text-[#111111]"
+                  delayStart={15}
                 />
               </div>
             </div>
 
             {/* Subtítulo */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{
-                duration: 0.8,
-                ease: [0.22, 1, 0.36, 1],
-                delay: 0.8,
-              }}
-              className="mb-10 md:mb-14 relative w-full flex justify-center md:justify-start"
+              transition={{ duration: 1.2, ease: 'easeOut', delay: 1.8 }}
+              className="mb-10 md:mb-14 relative"
             >
               <p className="text-[#0057FF] text-lg md:text-xl font-medium tracking-wide bg-white/5 backdrop-blur-sm rounded-lg pr-4 inline-block">
                 [ É intenção, é estratégia, é experiência. ]
@@ -289,8 +170,10 @@ const Hero = () => {
             </motion.div>
 
             {/* CTA Button */}
-            <motion.div className="pointer-events-auto w-full flex justify-center md:justify-start">
-              <MotionLink
+            <motion.div
+              className="pointer-events-auto" // Re-enable clicks
+            >
+              <motion.a
                 href="/sobre"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -298,7 +181,7 @@ const Hero = () => {
                 transition={{
                   duration: 0.8,
                   ease: [0.22, 1, 0.36, 1],
-                  delay: 1.0,
+                  delay: 2.0,
                 }}
                 whileHover={{
                   scale: 1.05,
@@ -308,21 +191,21 @@ const Hero = () => {
                 className="group bg-[#0057FF] text-white rounded-full pl-8 pr-6 py-4 flex items-center gap-3 font-semibold text-base md:text-lg shadow-xl shadow-[#0057FF]/20 transition-all"
               >
                 get to know me better
-                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-[#0057FF] shadow-sm transition-transform duration-300 group-hover:translate-x-0.5">
-                  <ArrowRight className="w-3.5 h-3.5" />
+                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors">
+                  <ArrowRight className="w-4 h-4 text-white" />
                 </span>
-              </MotionLink>
+              </motion.a>
             </motion.div>
           </div>
         </motion.div>
 
-        {/* 3. VIDEO LAYER (Foreground) */}
+        {/* 2. VIDEO LAYER (Foreground) */}
         <motion.div
           style={{
-            scale: prefersReducedMotion ? 1 : videoScale,
-            x: prefersReducedMotion ? '0%' : videoX,
-            y: prefersReducedMotion ? '0%' : videoY,
-            borderRadius: prefersReducedMotion ? 0 : videoRadius,
+            scale: videoScale,
+            x: videoX,
+            y: videoY,
+            borderRadius: videoRadius,
           }}
           className="absolute z-40 w-full h-full flex items-center justify-center overflow-hidden shadow-2xl origin-center bg-black pointer-events-none"
         >

@@ -39,5 +39,5 @@
     "**/*.ts",
     "**/*.tsx"
   ],
-  "exclude": ["node_modules", "AJUSTES", "AJUSTE HERO"]
+  "exclude": ["node_modules", "AJUSTES", "AJUSTE HERO", "docs"]
 }

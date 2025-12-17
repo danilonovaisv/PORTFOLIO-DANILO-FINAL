@@ -5,7 +5,7 @@ export const motionConfig = {
     fast: { duration: 0.4, ease: [0.26, 0.84, 0.44, 1] as const },
   },
   float: {
-    amplitude: 0.12,   // intensidade do float da orb
-    speed: 0.6,        // rotações por segundo
+    amplitude: 0.12, // intensidade do float da orb
+    speed: 0.6, // rotações por segundo
   },
-}
+};

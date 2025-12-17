@@ -362,3 +362,9 @@ container relative
 use <HeroOrb modelUrl="/media/SEU_ARQUIVO.glb" /> apontando para o GLB real dentro de public/media.
 
 Valide no DevTools > Network se o GLB retorna 200 (não 404). Se der 404, a orb não renderiza (mas agora o fallback procedural evita a seção “sumir”).
+
+
+
+            meshPhysicalMaterial={false}
+            transmissionSampler={false}
+            backside={false}

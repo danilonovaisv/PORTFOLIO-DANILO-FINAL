@@ -19,8 +19,6 @@ export const ASSETS = {
     'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/logo.svg',
   videoManifesto:
     'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
-  heroAbstractModel:
-    '/rage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
   heroAbstractModel: '/media/torus_dan.glb',
   heroManifestThumb:
     'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/videos-motions-thumb.webp',
