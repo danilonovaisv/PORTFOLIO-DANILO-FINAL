@@ -3,7 +3,7 @@
 
 import React, { useRef, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { useGLTF, MeshTransmissionMaterial } from '@react-three/drei';
+import { useGLTF } from '@react-three/drei';
 import { useControls } from 'leva';
 import GlassSceneLighting from './GlassSceneLighting'; // Importe o novo componente
 
@@ -14,8 +14,9 @@ export default function HeroGlassScene({
   reduceMotion: boolean;
 }) {
   const torusRef = useRef<any>(null);
+  const { viewport } = useThree();
 
-  // Controles para ajustar o MATERIAL DE VIDRO (separado da iluminação)
+  // Controles apenas para o MATERIAL DE VIDRO (separado da iluminação e transformações)
   const materialProps = useControls('Glass Material', {
     thickness: { value: 0.5, min: 0, max: 3, step: 0.05 },
     roughness: { value: 0.1, min: 0, max: 1, step: 0.1 },
@@ -31,9 +32,9 @@ export default function HeroGlassScene({
   });
 
   // Carrega o modelo GLB
-  const { nodes } = useGLTF('/media/torus_dan.glb');
+  const { nodes } = useGLTF('/models/torus_dan.glb');
 
-  // Animação de rotação contínua
+  // Animação de rotação contínua (agora aplicada ao mesh referenciado)
   useFrame(() => {
     if (torusRef.current && !reduceMotion) {
       torusRef.current.rotation.x += 0.005;
@@ -55,13 +56,29 @@ export default function HeroGlassScene({
       <GlassSceneLighting reduceMotion={reduceMotion} environment="city">
         {' '}
         {/* Pode trocar 'city' por um caminho para um HDRI personalizado */}
+        {/* O modelo é renderizado aqui dentro do grupo de transformação */}
         <mesh ref={torusRef} {...nodes.Torus002}>
           {/* Aplica o material de vidro refinado */}
-          <MeshTransmissionMaterial
+          <meshPhysicalMaterial
+            {...materialProps}
+            transmission={materialProps.transmission}
+            roughness={materialProps.roughness}
+            thickness={materialProps.thickness}
+            ior={materialProps.ior}
+            chromaticAberration={materialProps.chromaticAberration}
+            anisotropy={materialProps.anisotropy}
+            distortion={materialProps.distortion}
+            distortionScale={materialProps.distortionScale}
+            color={materialProps.color}
+            side={materialProps.backside ? undefined : 0} // Usa o lado correto se backside for verdadeiro
+            envMapIntensity={1} // Intensidade do ambiente no material
+          />
+          {/* OU use MeshTransmissionMaterial se preferir */}
+          {/* <MeshTransmissionMaterial
             {...materialProps}
             resolution={materialProps.resolution}
             toneMapped={false}
-          />
+          /> */}
         </mesh>
       </GlassSceneLighting>
 
