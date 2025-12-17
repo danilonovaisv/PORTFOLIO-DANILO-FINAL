@@ -1,190 +1,173 @@
 'use client';
 
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
-import HeroGlassScene from './HeroGlassScene';
+import React, { useRef, useEffect, useState } from 'react';
+import FluidGlassOverlay from './FluidGlassOverlay';
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValueEvent,
+} from 'framer-motion';
+import dynamic from 'next/dynamic';
+import { ArrowRight } from 'lucide-react';
 import { ASSETS } from '../../lib/constants';
+import FluidGlassOverlay from './FluidGlassOverlay';
+import { useHeroMouse } from './useHeroMouse';
 
-function AnimatedWord({
-                          text,
-                          className = '',
-                          delayStart = 0,
-                          as = 'h1',
-                      }: {
-    text: string;
-    className?: string;
-    delayStart?: number;
-    as?: 'h1' | 'p';
-}) {
-    const Tag = as as any;
-    return (
-        <Tag className={`word ${className}`}>
-            {text.split('').map((ch, i) => (
-                <span key={i} style={{ '--i': i + delayStart } as React.CSSProperties}>
-          {ch === ' ' ? '\u00A0' : ch}
+const HeroOrbLayer = dynamic(() => import('./HeroOrbLayer'), {
+  ssr: false,
+});
+
+/* ===== TEXTO ANIMADO (SEU ORIGINAL) ===== */
+const RefAnimatedText: React.FC<{
+  text: string;
+  blueStart?: boolean;
+  delayBase?: number;
+}> = ({ text, blueStart = false, delayBase = 0 }) => {
+  const words = text.split(' ');
+  let totalCharIndex = delayBase;
+
+  return (
+    <div className="flex flex-wrap gap-[0.25em]">
+      {words.map((word, wIndex) => (
+        <span
+          key={wIndex}
+          className={`word ${blueStart ? 'blue-start' : ''}`}
+          aria-label={word}
+        >
+          {word.split('').map((letter, lIndex) => {
+            const currentDelay = totalCharIndex++;
+            return (
+              <span
+                key={lIndex}
+                aria-hidden="true"
+                style={{ '--i': currentDelay } as React.CSSProperties}
+              >
+                {letter}
+              </span>
+            );
+          })}
         </span>
-            ))}
-        </Tag>
-    );
-}
+      ))}
+    </div>
+  );
+};
 
 export default function Hero() {
-    const [reduceMotion, setReduceMotion] = useState(false);
-    const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const sectionRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const mouse = useHeroMouse();
+  const [isVisible, setIsVisible] = useState(false);
 
-    useEffect(() => {
-        const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-        const onChange = () => setReduceMotion(mq.matches);
-        onChange();
-        mq.addEventListener?.('change', onChange);
-        return () => mq.removeEventListener?.('change', onChange);
-    }, []);
+  useEffect(() => {
+    const t = setTimeout(() => setIsVisible(true), 100);
+    return () => clearTimeout(t);
+  }, []);
 
-    useEffect(() => {
-        const onMove = (e: MouseEvent) => {
-            setMouse({
-                x: (e.clientX / window.innerWidth - 0.5) * 2,
-                y: (e.clientY / window.innerHeight - 0.5) * 2,
-            });
-        };
-        window.addEventListener('mousemove', onMove);
-        return () => window.removeEventListener('mousemove', onMove);
-    }, []);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end end'],
+  });
 
-    const nav = useMemo(
-        () => [
-            { label: 'home', href: '#home' },
-            { label: 'sobre', href: '#sobre' },
-            { label: 'portfolio showcase', href: '#portfolio' },
-            { label: 'contato', href: '#contato' },
-        ],
-        []
-    );
+  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+    if (videoRef.current) {
+      videoRef.current.muted = latest <= 0.01;
+    }
+  });
 
-    // vídeo: gatilho confiável (não “falha” como whileInView)
-    const videoRef = useRef<HTMLDivElement | null>(null);
-    const videoInView = useInView(videoRef, { once: true, margin: '-20% 0px -20% 0px' });
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
+  const contentScale = useTransform(scrollYProgress, [0, 0.15], [1, 0.95]);
+  const contentY = useTransform(scrollYProgress, [0, 0.15], [0, -50]);
 
-    return (
-        <main id="home" className="bg-surface-main">
-            {/* HEADER (igual referência) */}
-            <header className="container-custom pt-8 flex items-center justify-between">
-                <div className="flex items-center gap-6">
-                    <div className="text-primary font-semibold">anilo</div>
-                    <div className="hidden sm:block font-semibold text-black/90">Danilo.</div>
-                </div>
+  const videoScale = useTransform(scrollYProgress, [0, 0.25], [0.25, 1]);
+  const videoX = useTransform(scrollYProgress, [0, 0.25], ['35%', '0%']);
+  const videoY = useTransform(scrollYProgress, [0, 0.25], ['30%', '0%']);
+  const videoRadius = useTransform(scrollYProgress, [0, 0.2], [12, 0]);
 
-                <nav className="hidden md:flex items-center gap-10 text-primary">
-                    {nav.map((item) => (
-                        <a key={item.href} href={item.href} className="hover:underline underline-offset-8">
-                            {item.label}
-                        </a>
-                    ))}
-                </nav>
+  return (
+    <section
+      ref={sectionRef}
+      id="hero"
+      className="relative h-[450vh] w-full bg-[#F4F4F4]"
+    >
+      {/* ===== CSS ORIGINAL + FLUID GLASS ===== */}
+      <style>{`
+        .fluid-glass-overlay {
+          position: absolute;
+          inset: -0.25em;
+          pointer-events: none;
+          z-index: 20;
+          backdrop-filter: blur(10px) saturate(1.1);
+          -webkit-backdrop-filter: blur(10px) saturate(1.1);
+          border-radius: 0.3em;
+          overflow: hidden;
+        }
+      `}</style>
 
-                <button
-                    className="md:hidden w-12 h-12 rounded-xl bg-white/40 border border-black/10 flex items-center justify-center"
-                    aria-label="Abrir menu"
-                >
-                    <span className="text-2xl leading-none">≡</span>
-                </button>
-            </header>
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+        {/* ===== TEXTO ===== */}
+        <motion.div
+          style={{
+            opacity: contentOpacity,
+            scale: contentScale,
+            y: contentY,
+          }}
+          className={`absolute inset-0 container mx-auto px-6 md:px-12 lg:px-16 h-full z-10 pointer-events-none ${
+            isVisible ? 'hero-text-visible' : ''
+          }`}
+        >
+          <div className="flex flex-col justify-center h-full max-w-5xl pointer-events-auto">
+            <div className="text-[4.5rem] md:text-[7rem] lg:text-[8.7rem] font-extrabold tracking-[-0.06em] leading-[0.9]">
+              <RefAnimatedText text="Design," blueStart delayBase={0} />
 
-            {/* HERO AREA */}
-            <section className="container-custom relative">
-                {/* MOBILE (igual imagem: globo em cima + texto centralizado) */}
-                <div className="md:hidden relative min-h-[78vh] flex flex-col items-center pt-10 pb-12">
-                    <div className="relative w-full max-w-[520px] h-[280px]">
-                        <div className="absolute inset-0 pointer-events-none">
-                            <HeroGlassScene reduceMotion={reduceMotion} mouse={mouse} />
-                        </div>
-                    </div>
+              <div className="relative">
+                <RefAnimatedText text="não é só" delayBase={6} />
+                <FluidGlassOverlay progress={scrollYProgress} />
+              </div>
 
-                    <div className="mt-8 text-center w-full flex flex-col items-center">
-                        <AnimatedWord text="Design," className="blue-start justify-center" delayStart={0} />
-                        <AnimatedWord text="não é só" className="justify-center" delayStart={7} />
-                        <AnimatedWord text="estética." className="justify-center" delayStart={15} />
+              <RefAnimatedText text="estética." delayBase={14} />
+            </div>
 
-                        <AnimatedWord
-                            as="p"
-                            text="[É intenção, é estratégia, é experiência.]"
-                            className="small justify-center mt-4 text-primary"
-                        />
+            <p className="mt-6 text-[#0057FF] text-lg md:text-xl font-medium">
+              [ É intenção, é estratégia, é experiência. ]
+            </p>
 
-                        <button className="mt-10 inline-flex items-center gap-3 bg-primary text-white px-8 py-4 rounded-full font-medium">
-                            get to know me better <span className="text-xl">↗</span>
-                        </button>
-                    </div>
-                </div>
+            <motion.a
+              href="/sobre"
+              className="mt-10 inline-flex items-center gap-3 bg-[#0057FF] text-white rounded-full pl-8 pr-6 py-4 font-semibold"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              get to know me better
+              <ArrowRight className="w-4 h-4" />
+            </motion.a>
+          </div>
+        </motion.div>
 
-                {/* DESKTOP (igual imagem: texto esquerda, globo centro, brand+thumb direita) */}
-                <div className="hidden md:grid relative min-h-[78vh] grid-cols-12 items-center py-12">
-                    {/* LEFT */}
-                    <div className="col-span-5">
-                        <div className="max-w-[520px]">
-                            <AnimatedWord text="Design," className="blue-start" delayStart={0} />
-                            <AnimatedWord text="não é só" delayStart={7} />
-                            <AnimatedWord text="estética." delayStart={15} />
+        {/* ===== ORB (ACIMA DO TEXTO) ===== */}
+        <HeroOrbLayer mouse={mouse} scrollYProgress={scrollYProgress} />
 
-                            <AnimatedWord
-                                as="p"
-                                text="[É intenção, é estratégia, é experiência.]"
-                                className="small mt-4 text-primary"
-                            />
-
-                            <button className="mt-10 inline-flex items-center gap-3 bg-primary text-white px-10 py-4 rounded-full font-medium">
-                                get to know me better <span className="text-xl">↗</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* CENTER (globo) */}
-                    <div className="col-span-4 relative h-[520px]">
-                        <div className="absolute inset-0 pointer-events-none">
-                            <HeroGlassScene reduceMotion={reduceMotion} mouse={mouse} />
-                        </div>
-                    </div>
-
-                    {/* RIGHT */}
-                    <aside className="col-span-3 flex flex-col items-end gap-10">
-                        <div className="w-full bg-white/20 border border-black/5 rounded-2xl p-10 flex items-center justify-center">
-                            <span className="text-primary tracking-wide font-medium">[ BRAND AWARENESS ]</span>
-                        </div>
-
-                        <div className="relative w-[200px]">
-                            <div className="absolute -top-10 left-1/2 -translate-x-1/2 text-primary">↙</div>
-
-                            {/* Troque pelo seu thumbnail real se quiser */}
-                            <div className="rounded-xl border border-black/10 bg-cyan-100 p-2">
-                                <div className="rounded-lg overflow-hidden bg-black/10 aspect-video flex items-center justify-center text-black/50">
-                                    thumb/video
-                                </div>
-                            </div>
-                        </div>
-                    </aside>
-                </div>
-            </section>
-
-            {/* VIDEO MANIFESTO (animação real tipo loandbehold) */}
-            <section className="container-custom pb-14">
-                <motion.div
-                    ref={videoRef}
-                    style={{ perspective: 1200, transformStyle: 'preserve-3d' }}
-                    initial={{ opacity: 0, y: 140, rotateX: 16, scale: 0.98 }}
-                    animate={videoInView ? { opacity: 1, y: 0, rotateX: 0, scale: 1 } : {}}
-                    transition={{ duration: 1.15, ease: [0.22, 1, 0.36, 1] }}
-                    className="video-thumb"
-                >
-                    <video
-                        src={ASSETS.videoManifesto}
-                        muted
-                        autoPlay
-                        loop
-                        playsInline
-                        className="w-full rounded-2xl shadow-2xl"
-                    />
-                </motion.div>
-            </section>
-        </main>
-    );
+        {/* ===== VÍDEO ===== */}
+        <motion.div
+          style={{
+            scale: videoScale,
+            x: videoX,
+            y: videoY,
+            borderRadius: videoRadius,
+          }}
+          className="absolute z-40 w-full h-full overflow-hidden bg-black pointer-events-none"
+        >
+          <video
+            ref={videoRef}
+            src={ASSETS.videoManifesto}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+      </div>
+    </section>
+  );
 }

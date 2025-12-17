@@ -18,6 +18,11 @@ export default function supabaseLoader({
     return src;
   }
 
+  // SVGs should not be transformed by Supabase Image API (often leads to errors or isn't needed)
+  if (src.endsWith('.svg')) {
+    return src;
+  }
+
   let projectId = '';
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   if (supabaseUrl) {

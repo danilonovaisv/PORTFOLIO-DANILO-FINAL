@@ -118,7 +118,7 @@ function Header(): React.ReactElement {
             {!logoError ? (
               <div className="relative h-8 md:h-10 w-auto">
                 <Image
-                  src={ASSETS.logoDark}
+                  src={ASSETS.favicon}
                   alt="Danilo Novais"
                   fill
                   className="object-contain"

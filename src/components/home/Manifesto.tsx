@@ -2,9 +2,7 @@
 
 import * as React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-
-const MANIFESTO_VIDEO_URL =
-  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4';
+import { ASSETS } from '../../lib/constants';
 
 function track(event: string, detail?: Record<string, unknown>) {
   if (typeof window === 'undefined') return;
@@ -82,7 +80,7 @@ export default function ManifestoSection() {
             <video
               ref={videoRef}
               className="h-full w-full object-cover"
-              src={MANIFESTO_VIDEO_URL}
+              src={ASSETS.videoManifesto}
               autoPlay
               loop
               muted
