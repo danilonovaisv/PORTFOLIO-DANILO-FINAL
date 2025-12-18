@@ -96,6 +96,8 @@ function Header(): React.ReactElement {
       setIsMobileMenuOpen(false);
     };
 
+  /* Removed unused showHeader vars */
+
   return (
     <>
       <motion.header
