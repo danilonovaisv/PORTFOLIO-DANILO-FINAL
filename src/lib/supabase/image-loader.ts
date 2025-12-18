@@ -68,7 +68,7 @@ export default function supabaseLoader({
     // or we decided it wasn't a supabase URL above, return as is.
     return src;
 
-  } catch (e) {
+  } catch {
     // If URL parsing fails (shouldn't given logic above), return original
     return src;
   }

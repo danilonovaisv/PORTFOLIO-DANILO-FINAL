@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
 interface GhostSceneProps {
-  onLightMove: (data: {
+  onLightMove: (_data: {
     x: number; // 0–1
     y: number; // 0–1
     intensity: number;

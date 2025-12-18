@@ -8,7 +8,7 @@ import {
   Instagram,
   Twitter,
 } from 'lucide-react';
-import { ProjectCategory, Project, Social, NavLink, Asset } from './types';
+import { ProjectCategory } from './types';
 
 // --- ASSETS ---
 export const ASSETS = {
