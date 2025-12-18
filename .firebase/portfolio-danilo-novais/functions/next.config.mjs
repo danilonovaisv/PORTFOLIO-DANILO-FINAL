@@ -1,4 +1,4 @@
-// ../next.config.mjs
+// next.config.mjs
 var nextConfig = {
   reactStrictMode: true,
   experimental: {

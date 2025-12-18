@@ -10,6 +10,7 @@
   "/api/admin/posts/route": "/api/admin/posts",
   "/build/page": "/build",
   "/page": "/",
+  "/playground/page": "/playground",
   "/portfolio/page": "/portfolio",
   "/sobre/page": "/sobre"
 }
