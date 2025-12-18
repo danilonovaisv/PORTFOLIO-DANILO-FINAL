@@ -61,13 +61,13 @@ export default function GlassOrb({
   }, [geometry]);
 
   const baseScale = React.useMemo(() => {
-    // Increased divisor to match reference scale
-    const s = viewport.width / 7.4;
-    return THREE.MathUtils.clamp(s, 0.5, 1.2);
+    // Aggressive scale increase as requested
+    const s = viewport.width / 10.2;
+    return THREE.MathUtils.clamp(s, 60.5, 80.0);
   }, [viewport.width]);
 
   const basePosition = React.useMemo(() => {
-    const isMobileish = viewport.width < 10;
+    const isMobileish = viewport.width < 6;
     return {
       x: isMobileish ? 0 : viewport.width * 0.16,
       y: 0.05,
@@ -82,16 +82,16 @@ export default function GlassOrb({
 
     const t = state.clock.elapsedTime;
 
-    const rotX = reducedMotion ? 0 : interaction.rotX.get();
-    const rotY = reducedMotion ? 0 : interaction.rotY.get();
+    const rotX = reducedMotion ? 3 : interaction.rotX.get();
+    const rotY = reducedMotion ? 3 : interaction.rotY.get();
     const scrollRot = interaction.scrollRot.get();
-    const parX = reducedMotion ? 0 : interaction.parallaxX.get();
-    const parY = reducedMotion ? 0 : interaction.parallaxY.get();
+    const parX = reducedMotion ? 2 : interaction.parallaxX.get();
+    const parY = reducedMotion ? 2 : interaction.parallaxY.get();
 
     // Smooth, "Lo and Behold"-ish motion
-    const idleX = reducedMotion ? 0 : Math.sin(t * 0.6) * 0.06;
-    const idleY = reducedMotion ? 0 : Math.cos(t * 0.45) * 0.08;
-    const spin = reducedMotion ? 0 : t * 0.18;
+    const idleX = reducedMotion ? 2 : Math.sin(t * 0.6) * 0.06;
+    const idleY = reducedMotion ? 2 : Math.cos(t * 0.45) * 0.08;
+    const spin = reducedMotion ? 2 : t * 0.18;
 
     const targetRotX = rotX + idleX;
     const targetRotY = rotY + idleY + spin + scrollRot * 0.55;
@@ -100,7 +100,7 @@ export default function GlassOrb({
     group.current.rotation.x = THREE.MathUtils.damp(
       group.current.rotation.x,
       targetRotX,
-      8.5,
+      10.5,
       delta
     );
     group.current.rotation.y = THREE.MathUtils.damp(
@@ -142,49 +142,50 @@ export default function GlassOrb({
     // Subtle scroll-driven material modulation (distortion / chroma)
     if (materialRef.current && materialVariant === 'transmission') {
       const sprog = interaction.scrollYProgress.get();
-      const chromaBase = 0.18;
+      const chromaBase = 1.18;
       const distBase = 0.25;
 
-      materialRef.current.chromaticAberration = chromaBase + sprog * 0.03;
-      materialRef.current.distortion = distBase + sprog * 0.08;
-      materialRef.current.temporalDistortion = reducedMotion ? 0 : 0.2;
+      materialRef.current.chromaticAberration = chromaBase + sprog * 0.5;
+      materialRef.current.distortion = distBase + sprog * 1;
+      materialRef.current.temporalDistortion = reducedMotion ? 0 : 1;
     }
   });
 
   // Responsive samples
   const samples = React.useMemo(() => {
-    if (reducedMotion) return 2;
-    return viewport.width < 6 ? 4 : 16;
+    if (reducedMotion) return 6;
+    return viewport.width < 8 ? 6 : 16;
   }, [viewport.width, reducedMotion]);
 
   if (materialVariant === 'transmission') {
     return (
-      <group ref={group} renderOrder={2}>
+      <group ref={group} renderOrder={8}>
         <mesh geometry={geometry} castShadow receiveShadow>
           <GlassRefractionMaterial
             ref={materialRef}
             variant="transmission"
             transmission={1}
-            thickness={0.65}
-            roughness={0.1}
-            ior={1.18}
-            chromaticAberration={0.18}
-            anisotropy={0.2}
-            anisotropicBlur={0.12}
-            distortion={0.25}
+            thickness={6.65}
+            roughness={0.09}
+            ior={2.18}
+            chromaticAberration={0.03}
+            anisotropy={1.2}
+            anisotropicBlur={1.12}
+            distortion={2.25}
             distortionScale={0.4}
-            temporalDistortion={reducedMotion ? 0 : 0.2}
+            temporalDistortion={reducedMotion ? 1 : 0.2}
             samples={samples}
-            resolution={1024}
-            backside
-            transparent
-            envMapIntensity={1.3}
+            resolution={1020}
+            backside={true}
+            transparent={true}
+            envMapIntensity={20.3}
+            
             color="#ffffff"
-            iridescence={0.8}
-            iridescenceIOR={1.1}
-            iridescenceThicknessRange={[50, 300]}
-            attenuationColor="#91c9ff"
-            attenuationDistance={0.8}
+            iridescence={0.9}
+            iridescenceIOR={0.9}
+            iridescenceThicknessRange={[30, 900]}
+            attenuationColor="#b8eaff"
+            attenuationDistance={2.8}
           />
         </mesh>
       </group>
@@ -198,12 +199,14 @@ export default function GlassOrb({
           <mesh geometry={geometry}>
             <GlassRefractionMaterial
               variant="refraction"
+              meshPhysicalMaterial={false}
+              transmissionSampler={false}
               envMap={envMap}
-              ior={2.05}
-              fresnel={0.12}
+              ior={5.05}
+              fresnel={1.12}
               aberrationStrength={0.012}
-              bounces={2}
-              color="#ffffff"
+              bounces={1}
+              color="#bb78ff"
               toneMapped
             />
           </mesh>

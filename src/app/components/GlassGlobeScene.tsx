@@ -96,7 +96,7 @@ function SceneLights() {
         rimPosZ,
     } = useControls('Iluminação', {
         ambientIntensity: { value: 0.35, min: 0, max: 3, step: 0.01 },
-        ambientColor: { value: '#ffffff' },
+        ambientColor: { value: '#bdf8de' },
 
         keyIntensity: { value: 3, min: 0, max: 20, step: 0.01 },
         keyColor: { value: '#ffffff' },
@@ -111,7 +111,7 @@ function SceneLights() {
         fillPosZ: { value: 2, min: -20, max: 20, step: 0.01 },
 
         rimIntensity: { value: 2.5, min: 0, max: 20, step: 0.01 },
-        rimColor: { value: '#ffffff' },
+        rimColor: { value: '#ff9bf7' },
         rimPosX: { value: 0, min: -20, max: 20, step: 0.01 },
         rimPosY: { value: 6, min: -20, max: 20, step: 0.01 },
         rimPosZ: { value: -8, min: -20, max: 20, step: 0.01 },
@@ -149,7 +149,7 @@ export default function GlassGlobeScene() {
     return (
         <motion.section
             className="relative h-[70vh] w-full overflow-hidden bg-[#05060a]"
-            initial={{ opacity: 0 }}
+            initial={{ opacity: 1 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.45, ease: 'easeOut' }}
         >
@@ -183,7 +183,7 @@ export default function GlassGlobeScene() {
                 camera={{ position: [0, 0, 7], fov: 45, near: 0.1, far: 100 }}
             >
                 <Suspense fallback={null}>
-                    <color attach="background" args={['#05060a']} />
+                    <color attach="background" args={['#ffffff']} />
 
                     <SceneLights />
                     <Environment preset="studio" />
