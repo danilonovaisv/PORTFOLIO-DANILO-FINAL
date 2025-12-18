@@ -1,42 +1,77 @@
-import React from 'react';
-import { Inter, Outfit } from 'next/font/google';
-import { Metadata } from 'next';
-import SmoothScroll from '@/components/layout/SmoothScroll';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import './globals.css';
+import React from "react";
+import { Inter, Outfit } from "next/font/google";
+import { Metadata } from "next";
+import SmoothScroll from "@/layouts/SmoothScroll";
+import Header from "@/layouts/Header";
+import Footer from "@/layouts/Footer";
+import "./globals.css";
 
 const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
 });
 
 const outfit = Outfit({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-outfit',
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-outfit",
 });
 
 export const metadata: Metadata = {
-  title: 'Danilo Novais | Motion & Interactive Developer',
+  metadataBase: new URL("https://portfoliodanilo.com"),
+  title: {
+    default: "Danilo Novais | Motion & Interactive Developer",
+    template: "%s | Danilo Novais",
+  },
   description:
-    'Portfólio de Danilo Novais - Designer e Desenvolvedor focado em Motion, 3D e Experiências Interativas.',
+    "Portfólio de Danilo Novais - Designer e Desenvolvedor focado em Motion, 3D e Experiências Interativas.",
+  keywords: [
+    "Motion Design",
+    "Interactive Developer",
+    "Creative Developer",
+    "Web Design",
+    "3D",
+    "Frontend",
+    "React",
+    "Next.js",
+    "Danilo Novais",
+  ],
+  authors: [{ name: "Danilo Novais", url: "https://portfoliodanilo.com" }],
+  creator: "Danilo Novais",
+  publisher: "Danilo Novais",
   openGraph: {
-    title: 'Danilo Novais | Motion & Interactive Developer',
+    title: "Danilo Novais | Motion & Interactive Developer",
     description:
-      'Design, não é só estética. É intenção, estratégia e experiência.',
-    url: 'https://danilonovais.com',
-    siteName: 'Danilo Novais Portfolio',
-    locale: 'pt_BR',
-    type: 'website',
+      "Design, não é só estética. É intenção, estratégia e experiência.",
+    url: "https://portfoliodanilo.com",
+    siteName: "Danilo Novais Portfolio",
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Danilo Novais | Motion & Interactive Developer",
+    description:
+      "Design, não é só estética. É intenção, estratégia e experiência.",
+    creator: "@danilo_novais",
+  },
+  alternates: {
+    canonical: "/",
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: "/favicon.ico",
   },
 };
 

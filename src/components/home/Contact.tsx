@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { CONTACT_INFO, SOCIALS } from '@/lib/constants';
-import { Button } from '@/components/ui/Button';
-import { ArrowRight } from 'lucide-react';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { CONTACT_INFO, SOCIALS } from "@/lib/constants";
+import { Button } from "@/ui/Button";
+import { ArrowRight } from "lucide-react";
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -19,17 +19,17 @@ const Contact: React.FC = () => {
 
   const validateField = (name: string, value: string) => {
     switch (name) {
-      case 'name':
-        return value.trim() ? '' : 'Nome é obrigatório';
-      case 'email':
+      case "name":
+        return value.trim() ? "" : "Nome é obrigatório";
+      case "email":
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(value) ? '' : 'Email inválido';
-      case 'message':
+        return emailRegex.test(value) ? "" : "Email inválido";
+      case "message":
         return value.trim().length >= 10
-          ? ''
-          : 'Mensagem deve ter pelo menos 10 caracteres';
+          ? ""
+          : "Mensagem deve ter pelo menos 10 caracteres";
       default:
-        return '';
+        return "";
     }
   };
 
@@ -74,23 +74,23 @@ const Contact: React.FC = () => {
       });
 
       const response = await fetch(
-        'https://formsubmit.co/ajax/danilo@portfoliodanilo.com',
+        "https://formsubmit.co/ajax/danilo@portfoliodanilo.com",
         {
-          method: 'POST',
+          method: "POST",
           body: formDataToSend,
         }
       );
 
       if (response.ok) {
         setSubmitSuccess(true);
-        setFormData({ name: '', email: '', phone: '', message: '' });
+        setFormData({ name: "", email: "", phone: "", message: "" });
         setTimeout(() => setSubmitSuccess(false), 5000);
       } else {
-        throw new Error('Submission failed');
+        throw new Error("Submission failed");
       }
     } catch {
       setErrors({
-        submit: 'Falha ao enviar mensagem. Por favor tente novamente.',
+        submit: "Falha ao enviar mensagem. Por favor tente novamente.",
       });
     } finally {
       setIsSubmitting(false);
@@ -181,7 +181,7 @@ const Contact: React.FC = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-6">
-                <input type="text" name="_honey" style={{ display: 'none' }} />
+                <input type="text" name="_honey" style={{ display: "none" }} />
                 <input type="hidden" name="_captcha" value="false" />
 
                 <div>
@@ -199,7 +199,9 @@ const Contact: React.FC = () => {
                     onChange={handleChange}
                     required
                     autoComplete="name"
-                    className={`w-full rounded-xl border ${errors.name ? 'border-red-500' : 'border-gray-200'} bg-gray-50 px-4 py-3 transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white`}
+                    className={`w-full rounded-xl border ${
+                      errors.name ? "border-red-500" : "border-gray-200"
+                    } bg-gray-50 px-4 py-3 transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white`}
                     placeholder="João da Silva"
                   />
                   {errors.name && (
@@ -222,7 +224,9 @@ const Contact: React.FC = () => {
                     onChange={handleChange}
                     required
                     autoComplete="email"
-                    className={`w-full rounded-xl border ${errors.email ? 'border-red-500' : 'border-gray-200'} bg-gray-50 px-4 py-3 transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white`}
+                    className={`w-full rounded-xl border ${
+                      errors.email ? "border-red-500" : "border-gray-200"
+                    } bg-gray-50 px-4 py-3 transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white`}
                     placeholder="joao@empresa.com"
                   />
                   {errors.email && (
@@ -244,7 +248,9 @@ const Contact: React.FC = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     autoComplete="tel"
-                    className={`w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white ${errors.phone ? 'focus-visible:ring-red-500' : ''}`}
+                    className={`w-full rounded-xl border border-gray-200 bg-gray-50 px-4 py-3 transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white ${
+                      errors.phone ? "focus-visible:ring-red-500" : ""
+                    }`}
                     placeholder="(11) 99999-9999"
                   />
                   {errors.phone && (
@@ -266,7 +272,9 @@ const Contact: React.FC = () => {
                     onChange={handleChange}
                     required
                     rows={4}
-                    className={`w-full resize-none rounded-xl border ${errors.message ? 'border-red-500' : 'border-gray-200'} bg-gray-50 px-4 py-3 transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white`}
+                    className={`w-full resize-none rounded-xl border ${
+                      errors.message ? "border-red-500" : "border-gray-200"
+                    } bg-gray-50 px-4 py-3 transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white`}
                     placeholder="Conte-me sobre seu projeto..."
                   />
                   {errors.message && (
@@ -288,7 +296,7 @@ const Contact: React.FC = () => {
                   className="w-full gap-2 rounded-xl py-4 font-bold"
                   aria-label="Send message"
                 >
-                  {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
+                  {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
                   {!isSubmitting && (
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   )}

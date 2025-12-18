@@ -1,9 +1,10 @@
-'use client';
+"use client";
 
-import React, { useRef } from 'react';
-import { motion } from 'framer-motion';
-import { FEATURED_PROJECTS } from '../../lib/constants';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import React, { useRef } from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { FEATURED_PROJECTS } from "../../lib/constants";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 const FeaturedProjects: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -12,6 +13,7 @@ const FeaturedProjects: React.FC = () => {
     <section
       id="featured-projects"
       ref={containerRef}
+      aria-label="Featured Projects"
       className="relative py-24 bg-[#F4F5F7] overflow-hidden"
     >
       <div className="container mx-auto px-4 md:px-8 max-w-7xl relative z-10">
@@ -22,8 +24,8 @@ const FeaturedProjects: React.FC = () => {
 
             // Define o aspect ratio: Hero é wide, cards normais são portrait
             const aspectRatioClass = isHero
-              ? 'aspect-video md:aspect-[2.2/1]'
-              : 'aspect-[4/5]';
+              ? "aspect-video md:aspect-[2.2/1]"
+              : "aspect-[4/5]";
 
             return (
               <motion.a
@@ -31,13 +33,15 @@ const FeaturedProjects: React.FC = () => {
                 href={`/portfolio/${project.slug}`}
                 initial={{ opacity: 0, y: 60 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-10%' }}
+                viewport={{ once: true, margin: "-10%" }}
                 transition={{
                   duration: 0.8,
                   ease: [0.21, 0.47, 0.32, 0.98],
                   delay: index * 0.1,
                 }}
-                className={`group relative flex flex-col w-full ${isHero ? 'md:col-span-2' : ''}`}
+                className={`group relative flex flex-col w-full ${
+                  isHero ? "md:col-span-2" : ""
+                }`}
               >
                 {/* Container da Imagem */}
                 <div
@@ -45,10 +49,12 @@ const FeaturedProjects: React.FC = () => {
                 >
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500 z-10" />
 
-                  <img
+                  <Image
                     src={project.imageUrl}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
 
                   {/* Badges de Categoria */}
@@ -58,7 +64,7 @@ const FeaturedProjects: React.FC = () => {
                     </span>
                     {project.displayCategory !== project.category && (
                       <span className="bg-[#111111]/80 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">
-                        {project.displayCategory?.split('&')[1] || 'Design'}
+                        {project.displayCategory?.split("&")[1] || "Design"}
                       </span>
                     )}
                   </div>

@@ -1,30 +1,37 @@
-import React from 'react';
+import { ReactNode } from 'react';
+
+export interface ProjectCategory {
+  id: string;
+  label: string;
+  thumbnailUrl: string;
+  posterUrl: string;
+}
 
 export interface NavLink {
   label: string;
   href: string;
 }
 
-export interface ProjectCategory {
-  id: string;
-  label: string;
-  thumbnailUrl: string;
-  posterUrl?: string;
+export interface Social {
+  platform: string;
+  url: string;
+  icon: ReactNode;
 }
 
 export interface Project {
   slug: string;
   title: string;
-  category: string; // Used for filtering
-  displayCategory?: string; // Used for UI tags
-  client?: string;
-  year?: string | number;
+  client: string;
+  category: string;
+  displayCategory: string;
   imageUrl: string;
-  isHero?: boolean;
+  isHero: boolean;
+  year?: string;
 }
 
-export interface SocialLink {
-  platform: string;
-  url: string;
-  icon?: React.ReactNode;
+export interface Asset {
+  videoManifesto: string;
+  favicon: string;
+  logoLight: string;
+  logoDark: string;
 }

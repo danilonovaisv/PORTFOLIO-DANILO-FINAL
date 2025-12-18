@@ -1,8 +1,9 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { CLIENT_LOGOS } from '@/lib/constants';
+import React from "react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { CLIENT_LOGOS } from "@/lib/constants";
 
 const Clients: React.FC = () => {
   return (
@@ -27,16 +28,17 @@ const Clients: React.FC = () => {
               whileHover={{ scale: 1.05 }}
               transition={{
                 duration: 0.35,
-                ease: 'easeOut',
+                ease: "easeOut",
                 delay: index * 0.04,
               }}
               className="flex h-16 w-full max-w-[140px] items-center justify-center opacity-85 outline-none transition-all duration-200 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0057FF]"
             >
-              <img
+              <Image
                 src={src}
                 alt={name}
-                className="h-full w-full object-contain brightness-0 invert drop-shadow"
-                loading="lazy"
+                fill
+                className="object-contain brightness-0 invert drop-shadow"
+                sizes="(max-width: 768px) 33vw, 16vw"
               />
             </motion.div>
           ))}

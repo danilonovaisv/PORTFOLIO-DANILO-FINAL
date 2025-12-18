@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import React, { FC, useState, useRef, useCallback, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
-import { CATEGORIES } from '@/lib/constants';
-import { Button } from '@/components/ui/Button';
-import usePrefersReducedMotion from '@/hooks/usePrefersReducedMotion';
-import { ProjectCategory } from '@/lib/types';
+import React, { FC, useState, useRef, useCallback, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { CATEGORIES } from "@/lib/constants";
+import { Button } from "@/ui/Button";
+import usePrefersReducedMotion from "@/hooks/usePrefersReducedMotion";
+import { ProjectCategory } from "@/lib/types";
 
 const PortfolioShowcase: FC = () => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
@@ -32,7 +32,7 @@ const PortfolioShowcase: FC = () => {
       transition: {
         duration: 0.6,
         ease: [0.25, 1, 0.5, 1] as [number, number, number, number],
-        when: 'beforeChildren',
+        when: "beforeChildren",
         staggerChildren: 0.1,
       },
     },
@@ -69,7 +69,7 @@ const PortfolioShowcase: FC = () => {
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>, id: string): void => {
-      if (e.key === 'Enter' || e.key === ' ') {
+      if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
         handleExpand(id);
       }
@@ -83,7 +83,7 @@ const PortfolioShowcase: FC = () => {
         const isExpanded = expandedId === category.id;
         const isHidden = expandedId !== null && !isExpanded;
         const isHovered = hoveredId === category.id;
-        const isWebItem = category.id === 'websites-webcampaigns-tech';
+        const isWebItem = category.id === "websites-webcampaigns-tech";
 
         if (isHidden) return null;
 
@@ -99,11 +99,13 @@ const PortfolioShowcase: FC = () => {
             role="button"
             tabIndex={0}
             aria-expanded={isExpanded ? true : false}
-            aria-label={`${category.label} ${isExpanded ? 'collapse' : 'expand'}`}
+            aria-label={`${category.label} ${
+              isExpanded ? "collapse" : "expand"
+            }`}
             className={`
           relative border-b border-black/10 group cursor-pointer w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-inset
-          ${isExpanded ? 'border-none' : ''}
-          ${isHovered ? 'z-30' : 'z-10'}
+          ${isExpanded ? "border-none" : ""}
+          ${isHovered ? "z-30" : "z-10"}
         `}
             onMouseEnter={() => !isExpanded && setHoveredId(category.id)}
             onMouseLeave={() => setHoveredId(null)}
@@ -123,13 +125,13 @@ const PortfolioShowcase: FC = () => {
               className={`flex w-full transition-all duration-500 ease-out relative
             ${
               isExpanded
-                ? 'py-8 flex-col items-center md:items-start gap-8'
+                ? "py-8 flex-col items-center md:items-start gap-8"
                 : `py-10 md:py-14 flex-row items-center ${
                     index === 0
-                      ? 'justify-between md:justify-end'
+                      ? "justify-between md:justify-end"
                       : index === 1
-                        ? 'justify-between md:justify-center'
-                        : 'justify-between md:justify-start hover:md:translate-x-20'
+                      ? "justify-between md:justify-center"
+                      : "justify-between md:justify-start hover:md:translate-x-20"
                   }`
             }
           `}
@@ -137,7 +139,11 @@ const PortfolioShowcase: FC = () => {
               {/* Conteúdo (Texto + Seta) */}
               <div
                 className={`relative z-20 flex items-center gap-4 md:gap-6
-              ${isExpanded ? 'w-full flex-col md:flex-row md:items-start' : 'w-full md:w-auto flex-row'}
+              ${
+                isExpanded
+                  ? "w-full flex-col md:flex-row md:items-start"
+                  : "w-full md:w-auto flex-row"
+              }
             `}
               >
                 {/* Texto */}
@@ -145,12 +151,12 @@ const PortfolioShowcase: FC = () => {
                   className={`flex flex-col gap-1 min-w-0
                 ${
                   isExpanded
-                    ? 'items-center text-center md:items-start md:text-left'
+                    ? "items-center text-center md:items-start md:text-left"
                     : index === 0
-                      ? 'items-start text-left md:items-end md:text-right'
-                      : index === 1
-                        ? 'items-start text-left md:items-center md:text-center'
-                        : 'items-start text-left md:items-start md:text-left'
+                    ? "items-start text-left md:items-end md:text-right"
+                    : index === 1
+                    ? "items-start text-left md:items-center md:text-center"
+                    : "items-start text-left md:items-start md:text-left"
                 }
               `}
                 >
@@ -169,7 +175,11 @@ const PortfolioShowcase: FC = () => {
                         className={`
                       font-light text-[#111111] transition-all duration-500 tracking-tight leading-tight md:leading-[1.1]
                       group-hover:text-[#0057FF] group-hover:tracking-normal group-hover:font-medium
-                      ${isExpanded ? 'text-3xl md:text-6xl' : 'text-2xl sm:text-3xl md:text-5xl lg:text-6xl'}
+                      ${
+                        isExpanded
+                          ? "text-3xl md:text-6xl"
+                          : "text-2xl sm:text-3xl md:text-5xl lg:text-6xl"
+                      }
                     `}
                       >
                         {category.label}
@@ -179,8 +189,8 @@ const PortfolioShowcase: FC = () => {
                           className={`flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.6em] text-[#0057FF] mt-1
                         ${
                           index === 0
-                            ? 'md:flex-row-reverse' /* Dot on left for right-aligned text */
-                            : ''
+                            ? "md:flex-row-reverse" /* Dot on left for right-aligned text */
+                            : ""
                         }
                       `}
                         >
@@ -197,8 +207,12 @@ const PortfolioShowcase: FC = () => {
                   layout="position"
                   className={`
                 flex items-center justify-center rounded-full bg-[#0057FF] text-white shrink-0 transition-all duration-500 shadow-sm relative z-30
-                ${isExpanded ? 'w-12 h-12 md:w-16 md:h-16' : 'w-8 h-8 md:w-12 md:h-12'}
-                ${isWebItem && !isExpanded ? 'self-end md:self-end mb-1' : ''}
+                ${
+                  isExpanded
+                    ? "w-12 h-12 md:w-16 md:h-16"
+                    : "w-8 h-8 md:w-12 md:h-12"
+                }
+                ${isWebItem && !isExpanded ? "self-end md:self-end mb-1" : ""}
                 group-hover:bg-[#111111] group-hover:scale-110
               `}
                 >
@@ -210,11 +224,13 @@ const PortfolioShowcase: FC = () => {
                     }}
                     transition={{
                       duration: 0.2,
-                      ease: 'easeOut',
+                      ease: "easeOut",
                     }}
                   >
                     <ArrowRight
-                      className={`${isExpanded ? 'w-6 h-6' : 'w-4 h-4 md:w-6 md:h-6'}`}
+                      className={`${
+                        isExpanded ? "w-6 h-6" : "w-4 h-4 md:w-6 md:h-6"
+                      }`}
                     />
                   </motion.div>
                 </motion.div>
@@ -234,8 +250,8 @@ const PortfolioShowcase: FC = () => {
                       className={`hidden md:block absolute top-1/2 -translate-y-1/2 h-[180px] overflow-hidden rounded-lg z-[-1] pointer-events-none shadow-lg
                         ${
                           index >= 2
-                            ? 'left-full ml-8 origin-left'
-                            : 'right-full mr-8 origin-right'
+                            ? "left-full ml-8 origin-left"
+                            : "right-full mr-8 origin-right"
                         }
                       `}
                     >
@@ -259,7 +275,7 @@ const PortfolioShowcase: FC = () => {
                           <Image
                             src={
                               category.posterUrl ||
-                              'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+                              "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
                             }
                             alt=""
                             fill
@@ -309,9 +325,9 @@ const PortfolioShowcase: FC = () => {
                   <div className="w-full md:w-1/3 flex flex-col justify-between py-2">
                     <div>
                       <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-8 font-light">
-                        Explorando os limites da criatividade em{' '}
+                        Explorando os limites da criatividade em{" "}
                         <span className="text-[#0057FF] font-medium tracking-tight">
-                          {category.label.replace(',', '').toLowerCase()}
+                          {category.label.replace(",", "").toLowerCase()}
                         </span>
                         . Nossos projetos combinam estratégia e design para
                         criar experiências memoráveis.
@@ -376,12 +392,12 @@ const PortfolioShowcase: FC = () => {
           className="flex flex-col w-full mb-12 md:mb-16 items-center text-center"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-10%' }}
+          viewport={{ once: true, margin: "-10%" }}
           variants={fadeInUp}
         >
           <div className="w-full flex justify-center mb-6 md:mb-8">
             <h2 className="text-center font-display text-[clamp(3.5rem,8vw,6rem)] font-bold tracking-tighter leading-[0.9]">
-              <span className="text-[#0057FF]">portfólio</span>{' '}
+              <span className="text-[#0057FF]">portfólio</span>{" "}
               <span className="text-[#111111]">showcase</span>
             </h2>
           </div>
@@ -435,7 +451,7 @@ const PortfolioShowcase: FC = () => {
             >
               <span className="group-hover:-translate-x-1 transition-transform">
                 ←
-              </span>{' '}
+              </span>{" "}
               Voltar para a lista
             </Button>
           </motion.div>
