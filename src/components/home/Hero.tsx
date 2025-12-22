@@ -11,40 +11,11 @@ import {
 } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { ASSETS } from '../../lib/constants';
-import HeroScene from './HeroScene'; // Corrected import
-
-// Reference Animation Logic adapted for React
-// Uses the specific linear() easing from the provided CSS reference
-const RefAnimatedText: React.FC<{
-  text: string;
-  className?: string;
-  delayStart?: number; // offset index for stagger
-}> = ({ text, className, delayStart = 0 }) => {
-  const letters = text.split('');
-
-  return (
-    <p
-      className={`ref-word-anim flex overflow-hidden leading-[1.15] ${className}`}
-      aria-label={text}
-    >
-      {letters.map((letter, i) => (
-        <span
-          key={i}
-          aria-hidden="true"
-          style={{ '--i': i + delayStart } as React.CSSProperties}
-          className="block"
-        >
-          {letter === ' ' ? '\u00A0' : letter}
-        </span>
-      ))}
-    </p>
-  );
-};
+import HeroScene from './HeroScene';
 
 const Hero: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
   const reduceMotion = useReducedMotion();
 
   // Mouse tracking for HeroScene
@@ -54,9 +25,6 @@ const Hero: React.FC = () => {
   const onPointerMove = React.useCallback(
     (e: React.PointerEvent) => {
       const { clientX, clientY } = e;
-      // Normalizing to -1 to 1 range or 0 to 1 depending on HeroScene expectation.
-      // Assuming HeroScene handles normalization or expects 0.1.
-      // Let's pass normalized 0..1 for now as per typings usually.
       const { innerWidth, innerHeight } = window;
       mouseX.set(clientX / innerWidth);
       mouseY.set(clientY / innerHeight);
@@ -64,23 +32,15 @@ const Hero: React.FC = () => {
     [mouseX, mouseY]
   );
 
-  // Trigger animation on mount/view
-  useEffect(() => {
-    // Small delay to ensure render before animating
-    const timer = setTimeout(() => setIsVisible(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Control Scroll for timeline animation
+  // Scroll
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end end'],
   });
 
-  // Monitor scroll for video audio
+  // Video audio control
   useMotionValueEvent(scrollYProgress, 'change', (latest) => {
     if (videoRef.current) {
-      // Unmute only when scrolled into the section AND not yet leaving it (0.9 threshold)
       if (latest > 0.01 && latest < 0.9) {
         videoRef.current.muted = false;
       } else {
@@ -89,12 +49,12 @@ const Hero: React.FC = () => {
     }
   });
 
-  // Animations
+  // Content transforms (mantidos)
   const contentOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
   const contentScale = useTransform(scrollYProgress, [0, 0.15], [1, 0.95]);
   const contentY = useTransform(scrollYProgress, [0, 0.15], [0, -50]);
 
-  // Video transitions
+  // Video transforms (mantidos)
   const videoScale = useTransform(scrollYProgress, [0, 0.25], [0.25, 1]);
   const videoX = useTransform(scrollYProgress, [0, 0.25], ['35%', '0%']);
   const videoY = useTransform(scrollYProgress, [0, 0.25], ['30%', '0%']);
@@ -105,33 +65,12 @@ const Hero: React.FC = () => {
       id="hero"
       ref={sectionRef}
       onPointerMove={onPointerMove}
-      className="relative h-[250vh] w-full bg-[#F4F5F7]" // Reduced height for better scroll feel
+      className="relative h-[250vh] w-full bg-[#06071f]"
+      aria-label="Hero section"
     >
-      {/* Inject specific CSS for the reference animation */}
-      <style>{`
-        .ref-word-anim {
-          --trans-duration: 3000ms; /* Updated to match reference exactly */
-          --trans-delay-factor: 20ms; /* Updated to match reference exactly */
-          /* The specific linear easing from the reference */
-          --trans-timing-function: linear(0, 0.011 0.6%, 0.041 1.2%, 0.173 2.6%, 0.894 7.4%, 1.128 9.3%, 1.271 11.1%, 1.311 12%, 1.333 13%, 1.328 14.4%, 1.286 15.9%, 1.031 21%, 0.95 23%, 0.907 24.7%, 0.888 26.5%, 0.89 27.9%, 0.904 29.4%, 1.034 42.5%, 0.997 49.3%, 0.987 53.3%, 1.004 66.5%, 1);
-        }
-        
-        .ref-word-anim span {
-          transform: translateY(110%);
-          opacity: 0;
-          transition: transform var(--trans-duration) var(--trans-timing-function), opacity var(--trans-duration) var(--trans-timing-function);
-          transition-delay: calc(var(--i) * var(--trans-delay-factor));
-        }
-
-        .hero-text-visible .ref-word-anim span {
-          transform: translateY(0);
-          opacity: 1;
-        }
-      `}</style>
-
       {/* Container Sticky */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
-        {/* 0. ORB LAYER (Background) */}
+        {/* 0. GHOST / CANVAS LAYER */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <HeroScene
             mouseX={mouseX}
@@ -141,90 +80,27 @@ const Hero: React.FC = () => {
           />
         </div>
 
-        {/* 1. TEXT CONTENT LAYER */}
+        {/* 1. TEXT CONTENT (SEM ANIMAÇÃO) */}
         <motion.div
           style={{ opacity: contentOpacity, scale: contentScale, y: contentY }}
-          className={`absolute inset-0 container mx-auto px-6 md:px-12 lg:px-16 h-full z-10 pointer-events-none ${isVisible ? 'hero-text-visible' : ''}`}
+          className="absolute inset-0 container mx-auto px-6 md:px-12 lg:px-16 h-full z-10 pointer-events-none flex items-center justify-center"
         >
-          {/* TAG LATERAL: BRAND AWARENESS */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1.0, duration: 0.8 }}
-            className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 hidden md:block"
-          >
-            <span className="text-[#0057FF] font-medium tracking-widest text-lg md:text-xl">
-              [ BRAND AWARENESS ]
-            </span>
-          </motion.div>
+          <div className="text-center max-w-4xl">
+            <p className="mb-6 text-[#d9dade] text-lg md:text-xl tracking-wider uppercase">
+              [BRAND AWARENESS]
+            </p>
 
-          <div className="flex flex-col justify-center items-start h-full pt-20 max-w-4xl pointer-events-auto">
-            {/* Título Principal */}
-            <div className="text-[clamp(3.5rem,10vw,7.5rem)] font-extrabold tracking-[-0.04em] mb-6 md:mb-10 font-sans flex flex-col items-start gap-1">
-              {/* Animação unificada (Mobile & Desktop) usando a referência CSS */}
-              <div className="flex flex-col items-start gap-2">
-                <RefAnimatedText
-                  text="Design,"
-                  className="text-[#0057FF]"
-                  delayStart={0}
-                />
-                <RefAnimatedText
-                  text="não é só"
-                  className="text-[#111111]"
-                  delayStart={7}
-                />
-                <RefAnimatedText
-                  text="estética."
-                  className="text-[#111111]"
-                  delayStart={15}
-                />
-              </div>
-            </div>
+            <h1 className="text-[#d9dade] text-4xl md:text-6xl font-bold leading-tight mb-8">
+              Design, não <br />é só estética.
+            </h1>
 
-            {/* Subtítulo */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: 'easeOut', delay: 1.8 }}
-              className="mb-10 md:mb-14 relative"
-            >
-              <p className="text-[#0057FF] text-lg md:text-xl font-medium tracking-wide bg-white/5 backdrop-blur-sm rounded-lg pr-4 inline-block">
-                [ É intenção, é estratégia, é experiência. ]
-              </p>
-            </motion.div>
-
-            {/* CTA Button */}
-            <motion.div
-              className="pointer-events-auto" // Re-enable clicks
-            >
-              <motion.a
-                href="/sobre"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.8,
-                  ease: [0.22, 1, 0.36, 1],
-                  delay: 2.0,
-                }}
-                whileHover={{
-                  scale: 1.05,
-                  boxShadow: '0 10px 30px -10px rgba(0, 87, 255, 0.5)',
-                }}
-                whileTap={{ scale: 0.98 }}
-                className="group bg-[#0057FF] text-white rounded-full pl-8 pr-6 py-4 flex items-center gap-3 font-semibold text-base md:text-lg shadow-xl shadow-[#0057FF]/20 transition-all"
-              >
-                get to know me better
-                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors">
-                  <ArrowRight className="w-4 h-4 text-white" />
-                </span>
-              </motion.a>
-            </motion.div>
+            <p className="text-[#d9dade] text-2xl md:text-3xl italic">
+              [É intenção, é estratégia, é experiência.]
+            </p>
           </div>
         </motion.div>
 
-        {/* 2. VIDEO LAYER (Foreground) */}
+        {/* 2. VIDEO LAYER (INALTERADO) */}
         <motion.div
           style={{
             scale: videoScale,
@@ -246,6 +122,32 @@ const Hero: React.FC = () => {
             />
           </div>
         </motion.div>
+
+        {/* CTA (INALTERADO) */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-50 pointer-events-auto">
+          <motion.a
+            href="/sobre"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{
+              duration: 0.8,
+              ease: [0.22, 1, 0.36, 1],
+              delay: 2.0,
+            }}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: '0 10px 30px -10px rgba(0, 87, 255, 0.5)',
+            }}
+            whileTap={{ scale: 0.98 }}
+            className="group bg-[#0057FF] text-white rounded-full pl-8 pr-6 py-4 flex items-center gap-3 font-semibold text-base md:text-lg shadow-xl shadow-[#0057FF]/20 transition-all"
+          >
+            get to know me better
+            <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors">
+              <ArrowRight className="w-4 h-4 text-white" />
+            </span>
+          </motion.a>
+        </div>
       </div>
     </section>
   );

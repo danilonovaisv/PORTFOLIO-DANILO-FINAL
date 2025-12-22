@@ -1,272 +1,4 @@
-segue os codigos da referencia: [“@import url("https://fonts.googleapis.com/css2?family=Boldonse&display=swap");
-@font-face {
-  font-family: "PPSupplyMono";
-  src: url("https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-}
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html,
-body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background-color: #111;
-  letter-spacing: -0.03em;
-}
-
-/* Preloader Styles */
-.preloader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 10000;
-  opacity: 1;
-  transition: opacity 1s ease-out;
-}
-
-.preloader.fade-out {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.preloader-content {
-  text-align: center;
-  color: #e0e0e0;
-}
-
-.ghost-loader {
-  position: relative;
-  width: 64px;
-  height: 64px;
-  margin: 0 auto 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.ghost-svg {
-  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
-  -webkit-animation: ghostFloat 3s ease-in-out infinite;
-          animation: ghostFloat 3s ease-in-out infinite;
-}
-
-.ghost-body {
-  fill: white;
-  opacity: 0.9;
-}
-
-.ghost-eye {
-  fill: black;
-  -webkit-animation: eyePulse 2s ease-in-out infinite;
-          animation: eyePulse 2s ease-in-out infinite;
-  transform-origin: center;
-}
-
-.left-eye {
-  -webkit-animation-delay: 0s;
-          animation-delay: 0s;
-}
-
-.right-eye {
-  -webkit-animation-delay: 0.1s;
-          animation-delay: 0.1s;
-}
-
-@-webkit-keyframes ghostFloat {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes ghostFloat {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-@-webkit-keyframes eyePulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.3);
-  }
-}
-@keyframes eyePulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.3);
-  }
-}
-/* Remove the old ghost-orb and ghost-trail styles */
-.ghost-orb,
-.ghost-trail {
-  display: none;
-}
-
-.loading-text {
-  font-family: "PPSupplyMono", monospace;
-  font-size: 12px;
-  text-transform: uppercase;
-  opacity: 1;
-  margin-bottom: 12px;
-  -webkit-animation: textPulse 2s ease-in-out infinite;
-          animation: textPulse 2s ease-in-out infinite;
-}
-
-@-webkit-keyframes textPulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.1;
-  }
-}
-
-@keyframes textPulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.1;
-  }
-}
-.loading-progress {
-  width: 96px;
-  height: 1px;
-  margin: 0 auto;
-  border-radius: 1px;
-  overflow: hidden;
-}
-
-.progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #00ff80, #00cc66);
-  opacity: 0.1;
-  width: 0%;
-  transition: width 0.8s ease;
-}
-
-/* Main Content Styles */
-.content {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  text-align: center;
-  color: #e0e0e0;
-  opacity: 0;
-  transition: opacity 1.5s ease-in;
-}
-
-.content.fade-in {
-  opacity: 1;
-}
-
-.quote-container {
-  max-width: 90%;
-  overflow: hidden;
-}
-
-.quote {
-  font-family: "Boldonse", system-ui;
-  font-size: 6vw;
-  line-height: 1.3;
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  margin-bottom: 5vh;
-  text-transform: uppercase;
-}
-
-.author {
-  font-family: "PPSupplyMono", monospace;
-  font-size: 12px;
-  text-transform: uppercase;
-  opacity: 0.7;
-  margin-top: 2vh;
-}
-
-/* Canvas initially hidden */
-canvas {
-  opacity: 0 !important;
-  transition: opacity 2s ease-in;
-}
-
-canvas.fade-in {
-  opacity: 1 !important;
-}"]. ["<!DOCTYPE html>
-<html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>Spooky Spectral Ghost</title>
-    <link rel="stylesheet" href="https://public.codepenassets.com/css/reset-2.0.min.css">
-<link rel="stylesheet" href="./style.css">
-
-  </head>
-
-  <body>
-  <!-- Preloader -->
-<div id="preloader" class="preloader">
-  <div class="preloader-content">
-    <div class="ghost-loader">
-      <svg class="ghost-svg" height="80" viewBox="0 0 512 512" width="80" xmlns="http://www.w3.org/2000/svg">
-        <!-- Ghost body - white -->
-        <path class="ghost-body" d="m508.374 432.802s-46.6-39.038-79.495-275.781c-8.833-87.68-82.856-156.139-172.879-156.139-90.015 0-164.046 68.458-172.879 156.138-32.895 236.743-79.495 275.782-79.495 275.782-15.107 25.181 20.733 28.178 38.699 27.94 35.254-.478 35.254 40.294 70.516 40.294 35.254 0 35.254-35.261 70.508-35.261s37.396 45.343 72.65 45.343 37.389-45.343 72.651-45.343c35.254 0 35.254 35.261 70.508 35.261s35.27-40.772 70.524-40.294c17.959.238 53.798-2.76 38.692-27.94z" fill="white" />
-        <!-- Left eye - black with pulsing animation -->
-        <circle class="ghost-eye left-eye" cx="208" cy="225" r="22" fill="black" />
-        <!-- Right eye - black with pulsing animation -->
-        <circle class="ghost-eye right-eye" cx="297" cy="225" r="22" fill="black" />
-      </svg>
-    </div>
-    <div class="loading-text">Summoning spirits</div>
-    <div class="loading-progress">
-      <div class="progress-bar"></div>
-    </div>
-  </div>
-</div>
-
-<!-- Main Content (initially hidden) -->
-<div class="content" id="main-content">
-  <div class="quote-container">
-    <h1 class="quote">
-      Veil of Dust<br />
-      Trail of Ash<br />
-      Heart of Ice
-    </h1>
-    <span class="author">Whispers through memory</span>
-  </div>
-</div>
-    <script type="module" src="./script.js"></script>
-
-  </body>
-
-</html>"] e ["import * as THREE from "https://esm.sh/three";
+import * as THREE from "https://esm.sh/three";
 import { Pane } from "https://cdn.skypack.dev/tweakpane@4.0.4";
 import { EffectComposer } from "https://esm.sh/three/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "https://esm.sh/three/examples/jsm/postprocessing/RenderPass.js";
@@ -424,34 +156,34 @@ const analogDecayShader = {
     uniform float uAnalogJitter;
     uniform float uAnalogIntensity;
     uniform float uLimboMode;
-
+    
     varying vec2 vUv;
-
+    
     float random(vec2 st) {
       return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123);
     }
-
+    
     float random(float x) {
       return fract(sin(x) * 43758.5453123);
     }
-
+    
     // Advanced procedural grain based on film grain simulation
     float gaussian(float z, float u, float o) {
       return (1.0 / (o * sqrt(2.0 * 3.1415))) * exp(-(((z - u) * (z - u)) / (2.0 * (o * o))));
     }
-
+    
     vec3 grain(vec2 uv, float time, float intensity) {
       float seed = dot(uv, vec2(12.9898, 78.233));
       float noise = fract(sin(seed) * 43758.5453 + time * 2.0);
       noise = gaussian(noise, 0.0, 0.5 * 0.5);
-
+      
       return vec3(noise) * intensity;
     }
-
+    
     void main() {
       vec2 uv = vUv;
       float time = uTime * 1.8;
-
+      
       // Analog Jitter - temporal instability
       vec2 jitteredUV = uv;
       if (uAnalogJitter > 0.01) {
@@ -459,62 +191,62 @@ const analogDecayShader = {
         jitteredUV.x += jitterAmount;
         jitteredUV.y += (random(vec2(floor(time * 30.0) + 1.0)) - 0.5) * 0.001 * uAnalogJitter * uAnalogIntensity;
       }
-
+      
       // VHS-style vertical sync roll
       if (uAnalogVSync > 0.01) {
         float vsyncRoll = sin(time * 2.0 + uv.y * 100.0) * 0.02 * uAnalogVSync * uAnalogIntensity;
         float vsyncChance = step(0.95, random(vec2(floor(time * 4.0))));
         jitteredUV.y += vsyncRoll * vsyncChance;
       }
-
+      
       vec4 color = texture2D(tDiffuse, jitteredUV);
-
+      
       // Color bleeding/channel separation
       if (uAnalogBleeding > 0.01) {
         float bleedAmount = 0.012 * uAnalogBleeding * uAnalogIntensity;
         float offsetPhase = time * 1.5 + uv.y * 20.0;
-
+        
         vec2 redOffset = vec2(sin(offsetPhase) * bleedAmount, 0.0);
         vec2 blueOffset = vec2(-sin(offsetPhase * 1.1) * bleedAmount * 0.8, 0.0);
-
+        
         float r = texture2D(tDiffuse, jitteredUV + redOffset).r;
         float g = texture2D(tDiffuse, jitteredUV).g;
         float b = texture2D(tDiffuse, jitteredUV + blueOffset).b;
-
+        
         color = vec4(r, g, b, color.a);
       }
-
+      
       // Improved procedural film grain
       if (uAnalogGrain > 0.01) {
         vec3 grainEffect = grain(uv, time, 0.075 * uAnalogGrain * uAnalogIntensity);
         grainEffect *= (1.0 - color.rgb);
         color.rgb += grainEffect;
       }
-
+      
       // Scanlines
       if (uAnalogScanlines > 0.01) {
         float scanlineFreq = 600.0 + uAnalogScanlines * 400.0;
         float scanlinePattern = sin(uv.y * scanlineFreq) * 0.5 + 0.5;
         float scanlineIntensity = 0.1 * uAnalogScanlines * uAnalogIntensity;
         color.rgb *= (1.0 - scanlinePattern * scanlineIntensity);
-
+        
         float horizontalLines = sin(uv.y * scanlineFreq * 0.1) * 0.02 * uAnalogScanlines * uAnalogIntensity;
         color.rgb *= (1.0 - horizontalLines);
       }
-
+      
       // Vignetting
       if (uAnalogVignette > 0.01) {
         vec2 vignetteUV = (uv - 0.5) * 2.0;
         float vignette = 1.0 - dot(vignetteUV, vignetteUV) * 0.3 * uAnalogVignette * uAnalogIntensity;
         color.rgb *= vignette;
       }
-
+      
       // Simple Limbo Mode (Black and White)
       if (uLimboMode > 0.5) {
         float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
         color.rgb = vec3(gray);
       }
-
+      
       gl_FragColor = color;
     }
   `
@@ -629,20 +361,20 @@ const atmosphereMaterial = new THREE.ShaderMaterial({
     uniform float time;
     varying vec2 vUv;
     varying vec3 vWorldPosition;
-
+    
     void main() {
       float dist = distance(vWorldPosition.xy, ghostPosition.xy);
-
+      
       // Pulsing reveal radius
       float dynamicRadius = revealRadius + sin(time * 2.0) * 5.0;
-
+      
       // Create smooth reveal gradient
       float reveal = smoothstep(dynamicRadius * 0.2, dynamicRadius, dist);
       reveal = pow(reveal, fadeStrength);
-
+      
       // Mix between revealed and base opacity
       float opacity = mix(revealOpacity, baseOpacity, reveal);
-
+      
       // EXTREMELY low RGB values to avoid bloom
       gl_FragColor = vec4(0.001, 0.001, 0.002, opacity);
     }
@@ -1558,4 +1290,4 @@ const fakeEvent = new MouseEvent("mousemove", {
 });
 window.dispatchEvent(fakeEvent);
 
-animate(0);"]
+animate(0);

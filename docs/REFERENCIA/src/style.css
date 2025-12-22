@@ -1,10 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Boldonse&display=swap");
+
 @font-face {
   font-family: "PPSupplyMono";
-  src: url("https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2") format("woff2");
+  src: url("https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2")
+    format("woff2");
   font-weight: 100 900;
   font-style: normal;
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -58,8 +61,7 @@ body {
 
 .ghost-svg {
   filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
-  -webkit-animation: ghostFloat 3s ease-in-out infinite;
-          animation: ghostFloat 3s ease-in-out infinite;
+  animation: ghostFloat 3s ease-in-out infinite;
 }
 
 .ghost-body {
@@ -69,54 +71,38 @@ body {
 
 .ghost-eye {
   fill: black;
-  -webkit-animation: eyePulse 2s ease-in-out infinite;
-          animation: eyePulse 2s ease-in-out infinite;
+  animation: eyePulse 2s ease-in-out infinite;
   transform-origin: center;
 }
 
 .left-eye {
-  -webkit-animation-delay: 0s;
-          animation-delay: 0s;
+  animation-delay: 0s;
 }
 
 .right-eye {
-  -webkit-animation-delay: 0.1s;
-          animation-delay: 0.1s;
-}
-
-@-webkit-keyframes ghostFloat {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
+  animation-delay: 0.1s;
 }
 
 @keyframes ghostFloat {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
     transform: translateY(-8px);
   }
 }
-@-webkit-keyframes eyePulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.3);
-  }
-}
+
 @keyframes eyePulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
     transform: scale(1.3);
   }
 }
+
 /* Remove the old ghost-orb and ghost-trail styles */
 .ghost-orb,
 .ghost-trail {
@@ -129,27 +115,19 @@ body {
   text-transform: uppercase;
   opacity: 1;
   margin-bottom: 12px;
-  -webkit-animation: textPulse 2s ease-in-out infinite;
-          animation: textPulse 2s ease-in-out infinite;
-}
-
-@-webkit-keyframes textPulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.1;
-  }
+  animation: textPulse 2s ease-in-out infinite;
 }
 
 @keyframes textPulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
     opacity: 0.1;
   }
 }
+
 .loading-progress {
   width: 96px;
   height: 1px;
