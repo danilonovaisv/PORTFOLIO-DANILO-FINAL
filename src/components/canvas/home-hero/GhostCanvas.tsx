@@ -6,7 +6,6 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
 import * as THREE from 'three';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
-import { MotionValue } from 'framer-motion';
 import Ghost from './Ghost';
 import AtmosphereVeil from './AtmosphereVeil';
 import Particles from './Particles';

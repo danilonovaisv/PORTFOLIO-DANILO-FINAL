@@ -1,87 +1,154 @@
 // src/components/home/ManifestoSection.tsx
 'use client';
 
-import { motion, useInView, Variants } from 'framer-motion';
-import { useRef, useEffect } from 'react';
+import { motion, useReducedMotion, Variants } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import { BRAND } from '@/config/brand';
 
-const manifestoVideoVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.95, y: 30 },
+const videoVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.98 },
   visible: {
     opacity: 1,
     scale: 1,
-    y: 0,
     transition: {
-      duration: 1.2,
-      ease: [0.22, 1, 0.36, 1],
+      duration: 0.8,
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
     },
   },
 };
 
 export default function ManifestoSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Track if fully in view to enable audio, without 'once: true'
-  const isVideoInView = useInView(sectionRef, { amount: 0.6 });
+  const heroObserverRef = useRef<IntersectionObserver | null>(null);
+  const audioObserverRef = useRef<IntersectionObserver | null>(null);
+  const delayTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [shouldShowVideo, setShouldShowVideo] = useState(false);
 
   useEffect(() => {
-    if (videoRef.current) {
-      // Toggle audio based on visibility
-      videoRef.current.muted = !isVideoInView;
+    const heroEl = document.getElementById('hero');
+    if (!heroEl) {
+      setShouldShowVideo(true);
+      return;
     }
-  }, [isVideoInView]);
+
+    heroObserverRef.current = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldShowVideo(false);
+          if (delayTimerRef.current) {
+            clearTimeout(delayTimerRef.current);
+            delayTimerRef.current = null;
+          }
+        } else if (!entry.isIntersecting) {
+          if (!delayTimerRef.current) {
+            delayTimerRef.current = setTimeout(() => {
+              setShouldShowVideo(true);
+              delayTimerRef.current = null;
+            }, 2000);
+          }
+        }
+      },
+      { threshold: [0, 0.1] }
+    );
+
+    heroObserverRef.current.observe(heroEl);
+
+    return () => {
+      if (heroObserverRef.current) {
+        heroObserverRef.current.disconnect();
+      }
+      if (delayTimerRef.current) {
+        clearTimeout(delayTimerRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const videoEl = videoRef.current;
+    if (!videoEl) return;
+
+    audioObserverRef.current = new IntersectionObserver(
+      ([entry]) => {
+        if (!shouldShowVideo || !videoEl) return;
+
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+          if (videoEl.muted) {
+            videoEl.muted = false;
+          }
+          videoEl.volume = 1;
+          videoEl.play().catch(() => {
+            videoEl.muted = true;
+            videoEl.volume = 0;
+          });
+        } else {
+          videoEl.muted = true;
+          videoEl.volume = 0;
+        }
+      },
+      { threshold: [0, 0.6, 0.8] }
+    );
+
+    audioObserverRef.current.observe(sectionRef.current);
+
+    return () => {
+      if (audioObserverRef.current) {
+        audioObserverRef.current.disconnect();
+      }
+    };
+  }, [shouldShowVideo]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.loop = true;
+    video.autoplay = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.preload = 'metadata';
+  }, []);
+
+  if (!shouldShowVideo) {
+    return (
+      <section
+        id="manifesto"
+        ref={sectionRef}
+        aria-label="Manifesto"
+        className="w-full h-[50vh] bg-[#050505]"
+      />
+    );
+  }
 
   return (
     <section
       id="manifesto"
       ref={sectionRef}
-      className="w-full py-32 bg-[#050505] flex flex-col items-center justify-center overflow-hidden"
+      aria-label="Manifesto"
+      className="w-full bg-[#050505] py-16 flex justify-center"
     >
-      <div className="max-w-6xl w-full px-6 flex flex-col items-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mb-16 text-center"
-        >
-          <span className="text-[#0057FF] text-xs font-bold uppercase tracking-[0.6em] mb-4 block">
-            Manifesto
-          </span>
-          <h2 className="text-[#F0F0F0] text-3xl md:text-5xl font-bold tracking-tighter max-w-2xl mx-auto leading-tight">
-            Uma visão sobre o design além do pixel.
-          </h2>
-        </motion.div>
-
-        <motion.div
-          variants={manifestoVideoVariants}
-          initial="hidden"
-          animate={isVideoInView ? 'visible' : 'hidden'}
-          className="w-full aspect-video rounded-3xl overflow-hidden shadow-2xl relative border border-white/5"
-        >
+      <motion.div
+        className="w-full max-w-6xl"
+        variants={videoVariants}
+        initial="hidden"
+        whileInView={reduceMotion ? undefined : 'visible'}
+        viewport={{ once: true, amount: 0.25 }}
+      >
+        <div className="aspect-video w-full overflow-hidden">
           <video
             ref={videoRef}
             src={BRAND.video.manifesto}
+            className="h-full w-full object-cover"
+            playsInline
             muted
             loop
-            playsInline
             autoPlay
-            className="w-full h-full object-cover"
+            preload="metadata"
           />
-          {/* Overlay sutil para profundidade */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.3)_100%)] pointer-events-none" />
-        </motion.div>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 1 }}
-          className="mt-16 text-center text-[#888888] max-w-xl text-sm md:text-base leading-relaxed tracking-wide font-medium"
-        >
-          Explore como transformamos complexidade em simplicidade, estratégia em
-          impacto e design em experiência.
-        </motion.p>
-      </div>
+        </div>
+      </motion.div>
     </section>
   );
 }

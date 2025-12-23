@@ -1,7 +1,7 @@
-:HL["/_next/static/chunks/49ca48594d1086fd.css","style"]
+:HL["/_next/static/chunks/22a96172ffd08412.css","style"]
 :HL["/_next/static/media/TT%20Norms%20Pro%20Bold-s.p.8a47e495.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/media/TT%20Norms%20Pro%20Light-s.p.d147fdc2.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/media/TT%20Norms%20Pro%20Medium-s.p.c17faf8c.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/media/TT%20Norms%20Pro%20Regular-s.p.da89f05d.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/media/TT%20Norms%20Pro%20Thin-s.p.e7e05ef8.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-0:{"buildId":"hnyHDeTy7raT4Y3zwDFRk","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
+0:{"buildId":"rCtYyLEHut1kg41uD0A_l","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":true},"staleTime":300}

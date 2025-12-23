@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState, useId } from 'react';
+import React, { useEffect, useRef, useId } from 'react';
 
 export interface GlassSurfaceProps {
   children?: React.ReactNode;
@@ -43,22 +43,7 @@ export interface GlassSurfaceProps {
   style?: React.CSSProperties;
 }
 
-const useDarkMode = () => {
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    setIsDark(mediaQuery.matches);
-
-    const handler = (e: MediaQueryListEvent) => setIsDark(e.matches);
-    mediaQuery.addEventListener('change', handler);
-    return () => mediaQuery.removeEventListener('change', handler);
-  }, []);
-
-  return isDark;
-};
+import { useDarkMode } from '@/hooks/useDarkMode';
 
 const GlassSurface: React.FC<GlassSurfaceProps> = ({
   children,
@@ -141,7 +126,10 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 
     channels.forEach(({ ref, offset }) => {
       if (ref.current) {
-        ref.current.setAttribute('scale', (distortionScale + offset).toString());
+        ref.current.setAttribute(
+          'scale',
+          (distortionScale + offset).toString()
+        );
         ref.current.setAttribute('xChannelSelector', xChannel);
         ref.current.setAttribute('yChannelSelector', yChannel);
       }
@@ -185,7 +173,8 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 
   const supportsSVGFilters = () => {
     if (!isBrowser) return false;
-    const isWebkit = /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
+    const isWebkit =
+      /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent);
     const isFirefox = /Firefox/.test(navigator.userAgent);
 
     if (isWebkit || isFirefox) {
@@ -218,7 +207,9 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
     if (svgSupported) {
       return {
         ...baseStyles,
-        background: isDarkMode ? `hsl(0 0% 0% / ${backgroundOpacity})` : `hsl(0 0% 100% / ${backgroundOpacity})`,
+        background: isDarkMode
+          ? `hsl(0 0% 0% / ${backgroundOpacity})`
+          : `hsl(0 0% 100% / ${backgroundOpacity})`,
         backdropFilter: `url(#${filterId}) saturate(${saturation})`,
         boxShadow: isDarkMode
           ? `0 0 2px 1px color-mix(in oklch, white, transparent 65%) inset,
@@ -236,7 +227,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
              0px 16px 56px rgba(17, 17, 26, 0.05),
              0px 4px 16px rgba(17, 17, 26, 0.05) inset,
              0px 8px 24px rgba(17, 17, 26, 0.05) inset,
-             0px 16px 56px rgba(17, 17, 26, 0.05) inset`
+             0px 16px 56px rgba(17, 17, 26, 0.05) inset`,
       };
     }
 
@@ -303,10 +294,31 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          <filter id={filterId} colorInterpolationFilters="sRGB" x="0%" y="0%" width="100%" height="100%">
-            <feImage ref={feImageRef} x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map" />
+          <filter
+            id={filterId}
+            colorInterpolationFilters="sRGB"
+            x="0%"
+            y="0%"
+            width="100%"
+            height="100%"
+          >
+            <feImage
+              ref={feImageRef}
+              x="0"
+              y="0"
+              width="100%"
+              height="100%"
+              preserveAspectRatio="none"
+              result="map"
+            />
 
-            <feDisplacementMap ref={redChannelRef} in="SourceGraphic" in2="map" id="redchannel" result="dispRed" />
+            <feDisplacementMap
+              ref={redChannelRef}
+              in="SourceGraphic"
+              in2="map"
+              id="redchannel"
+              result="dispRed"
+            />
             <feColorMatrix
               in="dispRed"
               type="matrix"
@@ -334,7 +346,13 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
               result="green"
             />
 
-            <feDisplacementMap ref={blueChannelRef} in="SourceGraphic" in2="map" id="bluechannel" result="dispBlue" />
+            <feDisplacementMap
+              ref={blueChannelRef}
+              in="SourceGraphic"
+              in2="map"
+              id="bluechannel"
+              result="dispBlue"
+            />
             <feColorMatrix
               in="dispBlue"
               type="matrix"
@@ -347,7 +365,11 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 
             <feBlend in="red" in2="green" mode="screen" result="rg" />
             <feBlend in="rg" in2="blue" mode="screen" result="output" />
-            <feGaussianBlur ref={gaussianBlurRef} in="output" stdDeviation="0.7" />
+            <feGaussianBlur
+              ref={gaussianBlurRef}
+              in="output"
+              stdDeviation="0.7"
+            />
           </filter>
         </defs>
       </svg>

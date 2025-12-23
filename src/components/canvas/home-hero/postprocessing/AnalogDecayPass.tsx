@@ -1,6 +1,6 @@
-// src/components/home/webgl/postprocessing/AnalogDecayPass.ts
+import React from 'react';
 import { shaderMaterial } from '@react-three/drei';
-import { extend } from '@react-three/fiber';
+import { extend, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 const AnalogDecayShader = shaderMaterial(
@@ -64,26 +64,25 @@ import { ShaderPass } from 'three-stdlib';
 extend({ AnalogDecayShader, ShaderPass });
 
 // Define types for JSX
+/* eslint-disable no-unused-vars */
 declare global {
-  namespace React {
-    namespace JSX {
-      interface IntrinsicElements {
-        analogDecayShader: any;
-        shaderPass: any;
-      }
+  namespace JSX {
+    interface IntrinsicElements {
+      analogDecayShader: any;
+      shaderPass: any;
     }
   }
 }
+/* eslint-enable no-unused-vars */
 
 export default function AnalogDecayPass() {
-  return (
-    <shaderPass
-      args={[AnalogDecayShader]}
-      uTime={0}
-      uIntensity={0.7}
-      uGrain={0.4}
-      uScanlines={1.0}
-      uJitter={0.5}
-    />
-  );
+  const material = React.useMemo(() => new AnalogDecayShader(), []);
+
+  useFrame((state) => {
+    if (material) {
+      material.uniforms.uTime.value = state.clock.elapsedTime;
+    }
+  });
+
+  return <shaderPass args={[material]} />;
 }

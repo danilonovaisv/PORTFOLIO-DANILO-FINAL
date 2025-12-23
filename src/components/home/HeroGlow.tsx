@@ -8,7 +8,11 @@ interface HeroGlowProps {
 }
 
 const GhostIcon = () => (
-  <svg viewBox="0 0 64 64" className="relative w-24 h-24 text-white/90 drop-shadow-[0_0_30px_rgba(0,87,255,0.8)]" fill="none">
+  <svg
+    viewBox="0 0 64 64"
+    className="relative w-24 h-24 text-white/90 drop-shadow-[0_0_30px_rgba(0,87,255,0.8)]"
+    fill="none"
+  >
     <path
       d="M13 23.5c0-9.393 7.607-17 17-17s17 7.607 17 17V55c0 1.105-.895 2-2 2h-5c-1.105 0-2-1-2-2s-1.1-2-2.2-2c-1.1 0-2.05 1.1-3.2 2s-2.6 0-3.7-2c-1.1-2-2.6-2-3.7-2s-2.6 2-3.7 2c-1.1 0-2.1-.9-2.1-2s-1-2-2-2h-3c-1.105 0-2-.895-2-2V23.5Z"
       fill="currentColor"
@@ -24,7 +28,12 @@ export default function HeroGlow({ className = '' }: HeroGlowProps) {
       className={`pointer-events-none ${className}`}
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1, y: [-6, 0, -6] }}
-      transition={{ duration: 3.2, repeat: Infinity, repeatType: 'mirror', ease: 'easeInOut' }}
+      transition={{
+        duration: 3.2,
+        repeat: Infinity,
+        repeatType: 'mirror',
+        ease: 'easeInOut',
+      }}
     >
       <GlassSurface
         width={250}

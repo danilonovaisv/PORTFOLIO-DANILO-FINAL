@@ -2,7 +2,6 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { MotionValue } from 'framer-motion';
 
 const GhostCanvas = dynamic(() => import('./home-hero/GhostCanvas'), {
   ssr: false,

@@ -1,7 +1,7 @@
 // src/components/home/ManifestoThumb.tsx
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   motion,
   useMotionValue,
@@ -20,11 +20,23 @@ export default function ManifestoThumb() {
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const nextSectionEnteringRef = useRef(false);
+  const isFullScreenRef = useRef(false);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
-  const scale = useTransform(progress, [0, 0.12, 0.46], [1, 1, 2.4]);
-  const translateX = useTransform(progress, [0, 0.12, 0.46], [0, -10, -80]);
-  const translateY = useTransform(progress, [0, 0.12, 0.46], [0, 0, -65]);
-  const borderRadius = useTransform(progress, [0, 0.46], [24, 6]);
+  const scale = useTransform(progress, [0, 0.12, 0.46], [1, 1, 1]);
+  const translateX = useTransform(progress, [0, 0.12, 0.46], [0, -10, 0]);
+  const translateY = useTransform(progress, [0, 0.12, 0.46], [0, 0, -30]);
+  const borderRadius = useTransform(progress, [0, 0.46], [24, 0]);
+  const width = useTransform(
+    progress,
+    [0, 0.12, 0.46],
+    ['192px', '192px', '100vw']
+  );
+  const height = useTransform(
+    progress,
+    [0, 0.12, 0.46],
+    ['120px', '120px', '100vh']
+  );
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -66,7 +78,14 @@ export default function ManifestoThumb() {
       return;
     }
 
-    if (latest >= 0.46 && latest < 0.78 && !nextSectionEnteringRef.current) {
+    const shouldBeFull =
+      latest >= 0.46 && latest < 0.78 && !nextSectionEnteringRef.current;
+    if (isFullScreenRef.current !== shouldBeFull) {
+      isFullScreenRef.current = shouldBeFull;
+      setIsFullScreen(shouldBeFull);
+    }
+
+    if (shouldBeFull) {
       if (video.muted) {
         video.muted = false;
         video.volume = 1;
@@ -86,9 +105,13 @@ export default function ManifestoThumb() {
     }
   });
 
+  const containerPositionStyle: React.CSSProperties = isFullScreen
+    ? { position: 'fixed', inset: 0, padding: 0 }
+    : { position: 'absolute', bottom: 40, right: 24 };
+
   return (
     <motion.div
-      style={{ x: translateX, y: translateY }}
+      style={{ ...containerPositionStyle, x: translateX, y: translateY } as any}
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1 }}
       transition={{
@@ -98,8 +121,14 @@ export default function ManifestoThumb() {
       className="relative z-20 flex flex-col items-end"
     >
       <motion.div
-        style={{ scale, borderRadius, transformOrigin: 'bottom right' }}
-        className="relative mb-2 w-48 md:w-64 aspect-video overflow-hidden shadow-2xl border border-white/10 bg-black/60"
+        style={{
+          width,
+          height,
+          scale,
+          borderRadius,
+          transformOrigin: 'bottom right',
+        }}
+        className="relative mb-2 overflow-hidden shadow-2xl border border-white/10 bg-black/60"
       >
         <video
           ref={videoRef}

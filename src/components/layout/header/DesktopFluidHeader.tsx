@@ -18,7 +18,7 @@ export default function DesktopFluidHeader() {
   return (
     <header className="fixed inset-x-0 top-0 z-40 pointer-events-none">
       <div className="pointer-events-auto">
-        <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-10 rounded-b-[10px] border-b border-white/20 bg-gradient-to-b from-[#03040c]/90 via-[#010108]/90 to-[#010104]/70 px-8 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-white/80 backdrop-blur-lg shadow-[0_20px_60px_rgba(0,0,0,0.45)]">
+        <div className="relative mx-auto flex max-w-6xl items-center justify-between gap-10 rounded-b-[10px] border-b border-white/20 bg-linear-to-b from-[#03040c]/90 via-[#010108]/90 to-[#010104]/70 px-8 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-white/80 backdrop-blur-lg shadow-[0_20px_60px_rgba(0,0,0,0.45)]">
           <Link
             href="/"
             aria-label="Ir para a home"
@@ -54,7 +54,9 @@ export default function DesktopFluidHeader() {
                   {link.label}
                   <span
                     className={`absolute -bottom-2 left-0 h-[2px] w-full origin-left rounded-full bg-[#0057FF] transition-transform duration-300 ${
-                      isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                      isActive
+                        ? 'scale-x-100'
+                        : 'scale-x-0 group-hover:scale-x-100'
                     }`}
                     aria-hidden
                   />
@@ -63,7 +65,7 @@ export default function DesktopFluidHeader() {
             })}
           </nav>
 
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-white/80 via-white/40 to-transparent opacity-60" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-white/80 via-white/40 to-transparent opacity-60" />
         </div>
       </div>
     </header>
