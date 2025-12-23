@@ -41,6 +41,7 @@
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.4.2",
     "@react-three/postprocessing": "^3.0.4",
+    "@studio-freight/react-lenis": "^0.0.47",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.89.0",
     "clsx": "^2.1.1",
@@ -54,7 +55,8 @@
     "resize-observer-polyfill": "^1.5.1",
     "tailwind-merge": "^3.4.0",
     "three": "^0.182.0",
-    "zod": "^4.2.1"
+    "zod": "^4.2.1",
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@jest/globals": "^30.2.0",
