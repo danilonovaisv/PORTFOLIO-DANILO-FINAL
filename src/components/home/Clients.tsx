@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { CLIENT_LOGOS } from '@/lib/constants';
+import { HOME_CONTENT } from '@/config/content';
 
 const Clients: React.FC = () => {
   return (
@@ -19,7 +19,7 @@ const Clients: React.FC = () => {
         </motion.h2>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12 items-center justify-items-center">
-          {CLIENT_LOGOS.map(({ src, name }, index) => (
+          {HOME_CONTENT.clients.map(({ src, name }, index) => (
             <motion.div
               key={name}
               initial={{ opacity: 0, y: 16 }}

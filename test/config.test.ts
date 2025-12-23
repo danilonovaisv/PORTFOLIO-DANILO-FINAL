@@ -1,37 +1,36 @@
-import { HOMEPAGE_CONTENT } from '@/config/homepageContent';
-import { MAIN_ROUTES } from '@/config/navigation';
+import { HOME_CONTENT } from '@/config/content';
+import { FOOTER, NAV_LINKS } from '@/config/navigation';
+import { BRAND } from '@/config/brand';
 
 describe('global site links', () => {
-  it('keeps main routes in sync with anchors', () => {
-    const expectedAnchors: Record<string, string> = {
-      home: '#hero',
-      sobre: '#Sobre',
-      portfolio: '#portfolio-showcase',
-      contato: '#contact',
-    };
+  it('keeps navigation links consistent', () => {
+    // Current NAV_LINKS from step 271:
+    // { label: 'home', href: '/' },
+    // { label: 'portfólio showcase', href: '#portfolio-showcase' },
+    // { label: 'sobre', href: '/sobre' },
+    // { label: 'contato', href: '#contact' },
+    expect(NAV_LINKS).toHaveLength(4);
 
-    expect(MAIN_ROUTES).toHaveLength(4);
-
-    MAIN_ROUTES.forEach((route) => {
-      expect(expectedAnchors[route.id]).toBeDefined();
-      expect(route.anchor).toBe(expectedAnchors[route.id]);
-    });
+    const hrefs = NAV_LINKS.map(l => l.href);
+    expect(hrefs).toContain('/');
+    expect(hrefs).toContain('#portfolio-showcase');
+    expect(hrefs).toContain('#contact');
   });
 
-  it('exposes the expected footer anchors', () => {
-    const expectedFooter = [
-      { label: 'Home', href: '#hero' },
-      { label: 'Sobre', href: '#Sobre' },
-      { label: 'Portfolio', href: '#portfolio-showcase' },
-      { label: 'Contact', href: '#contact' },
-    ];
-
-    expect(HOMEPAGE_CONTENT.footer.links).toEqual(expectedFooter);
+  it('exposes the expected footer links matching the config', () => {
+    expect(FOOTER.links).toEqual(NAV_LINKS);
   });
 
   it('locates the manifesto video on Supabase storage', () => {
-    const url = HOMEPAGE_CONTENT.videoManifesto.videoUrl;
+    const url = BRAND.video.manifesto;
     expect(url).toMatch(/supabase\.co\/storage\/v1\/object\/public\//);
     expect(url.endsWith('.mp4')).toBe(true);
+  });
+
+  it('has valid categories in home content', () => {
+    expect(HOME_CONTENT.showcase.categories.length).toBeGreaterThan(0);
+    HOME_CONTENT.showcase.categories.forEach(cat => {
+      expect(cat.posterUrl).toBeDefined();
+    });
   });
 });

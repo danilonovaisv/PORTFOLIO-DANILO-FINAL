@@ -5,7 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useMotionValueEvent, useScroll } from 'framer-motion';
-import { NAV_LINKS, ASSETS } from '@/lib/constants';
+import { BRAND } from '@/config/brand';
+import { NAV_LINKS } from '@/config/navigation';
 import StaggeredMenu from './StaggeredMenu';
 
 // Workflow: Header (SiteHeader)
@@ -30,8 +31,8 @@ export default function SiteHeader() {
 
   // Determines if a link is active
   const isLinkActive = (href: string) => {
-    if (href === '/#hero' && pathname === '/') return true;
-    if (href !== '/#hero' && pathname.startsWith(href)) return true;
+    if (href === '/' && pathname === '/') return true;
+    if (href !== '/' && pathname.startsWith(href)) return true;
     return false;
   };
 
@@ -47,8 +48,8 @@ export default function SiteHeader() {
         {/* Left: Logo */}
         <Link href="/" className="relative block w-24 h-8 shrink-0 group">
           <Image
-            src={ASSETS.logoDark}
-            alt="Danilo Novais"
+            src={BRAND.logos.dark}
+            alt={BRAND.name}
             fill
             className="object-contain object-left transition-opacity duration-300 group-hover:opacity-80"
             sizes="(max-width: 768px) 100vw, 120px"

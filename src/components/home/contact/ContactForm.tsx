@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import { ArrowRight } from 'lucide-react';
 import { InputField, TextAreaField } from './FormFields';
+import { CONTACT_FORM } from '@/config/navigation';
 
 const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -69,7 +70,7 @@ const ContactForm: React.FC = () => {
       });
 
       const response = await fetch(
-        'https://formsubmit.co/ajax/danilo@portfoliodanilo.com',
+        `${CONTACT_FORM.action.replace('formsubmit.co/', 'formsubmit.co/ajax/')}`,
         {
           method: 'POST',
           body: formDataToSend,

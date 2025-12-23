@@ -23,12 +23,18 @@ export const InputField: React.FC<InputFieldProps> = ({
     </label>
     <input
       id={id}
+      aria-invalid={!!error}
+      aria-describedby={error ? `${id}-error` : undefined}
       className={`w-full rounded-xl border ${
         error ? 'border-red-500' : 'border-gray-200'
       } bg-gray-50 px-4 py-3 transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white ${className}`}
       {...props}
     />
-    {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
+    {error && (
+      <p id={`${id}-error`} className="mt-1 text-sm text-red-500">
+        {error}
+      </p>
+    )}
   </div>
 );
 
@@ -53,11 +59,17 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
     </label>
     <textarea
       id={id}
+      aria-invalid={!!error}
+      aria-describedby={error ? `${id}-error` : undefined}
       className={`w-full resize-none rounded-xl border ${
         error ? 'border-red-500' : 'border-gray-200'
       } bg-gray-50 px-4 py-3 transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white ${className}`}
       {...props}
     />
-    {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
+    {error && (
+      <p id={`${id}-error`} className="mt-1 text-sm text-red-500">
+        {error}
+      </p>
+    )}
   </div>
 );

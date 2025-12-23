@@ -1,10 +1,11 @@
 'use client';
 
+import Link from 'next/link';
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
-import { FEATURED_PROJECTS } from '../../lib/constants';
+import { HOME_CONTENT } from '@/config/content';
+import { Project } from '@/lib/types';
 import { ArrowUpRight } from 'lucide-react';
-import Link from 'next/link';
 import ProjectCard from './ProjectCard';
 
 const FeaturedProjects: React.FC = () => {
@@ -23,9 +24,11 @@ const FeaturedProjects: React.FC = () => {
 
         {/* Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 md:gap-y-20">
-          {FEATURED_PROJECTS.map((project, index) => (
-            <ProjectCard key={project.slug} project={project} index={index} />
-          ))}
+          {(HOME_CONTENT.featuredProjects as Project[]).map(
+            (project, index) => (
+              <ProjectCard key={project.slug} project={project} index={index} />
+            )
+          )}
 
           {/* "Like what you see?" Block - Occupies the last grid slot or spans common width */}
           <motion.div
@@ -42,7 +45,7 @@ const FeaturedProjects: React.FC = () => {
             </h3>
 
             <Link
-              href="/portfolio"
+              href="#portfolio-showcase"
               className="group relative inline-flex items-center gap-4 rounded-full bg-[#0057FF] px-8 py-4 md:px-10 md:py-5 text-white shadow-lg shadow-[#0057FF]/20 hover:shadow-[#0057FF]/40 transition-all duration-300 transform hover:-translate-y-1"
             >
               <span className="text-base md:text-lg font-bold tracking-wide">

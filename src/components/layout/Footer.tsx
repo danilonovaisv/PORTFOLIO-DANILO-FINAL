@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { NAV_LINKS, SOCIALS } from '@/lib/constants';
+import { NAV_LINKS, SOCIALS, FOOTER } from '@/config/navigation';
 import { motion } from 'framer-motion';
 
 const Footer: React.FC = () => {
@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-6 md:px-12 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
         {/* Copyright */}
         <div className="order-2 md:order-1 text-center md:text-left text-xs md:text-sm text-white/90">
-          <p>© 2025 Danilo Novais Vilela — todos os direitos reservados.</p>
+          <p>{FOOTER.copyright}</p>
         </div>
 
         {/* Navigation & Socials */}

@@ -3,7 +3,7 @@
 
 import { motion } from 'framer-motion';
 import { useRef } from 'react';
-import { ASSETS } from '../../lib/constants';
+import { BRAND } from '@/config/brand';
 
 export default function ManifestoThumb() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -24,7 +24,7 @@ export default function ManifestoThumb() {
     >
       <video
         ref={videoRef}
-        src={ASSETS.videoManifesto}
+        src={BRAND.video.manifesto}
         muted
         loop
         autoPlay // autoplay no thumbnail também, para consistência visual

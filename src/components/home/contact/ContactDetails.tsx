@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { motion } from 'framer-motion';
-import { CONTACT_INFO, SOCIALS } from '@/lib/constants';
+import { CONTACT_INFO, SOCIALS } from '@/config/navigation';
 import { Button } from '@/components/ui/Button';
 
 const ContactDetails: FC = () => {

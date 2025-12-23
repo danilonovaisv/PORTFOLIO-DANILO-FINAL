@@ -3,7 +3,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { NAV_LINKS, ASSETS } from '@/lib/constants';
+import { BRAND } from '@/config/brand';
+import { NAV_LINKS } from '@/config/navigation';
 import { Canvas } from '@react-three/fiber';
 import FluidGlass from '@/components/canvas/webgl/FluidGlass';
 
@@ -19,11 +20,8 @@ export default function DesktopFluidHeader() {
   const pathname = usePathname();
 
   const getAriaCurrent = (href: string): 'page' | undefined => {
-    if (href.startsWith('/sobre') && pathname.startsWith('/sobre'))
-      return 'page';
-    if (href.startsWith('/portfolio') && pathname.startsWith('/portfolio'))
-      return 'page';
-    if (href === '/#hero' && pathname === '/') return 'page';
+    if (href === '/' && pathname === '/') return 'page';
+    if (href !== '/' && pathname.startsWith(href)) return 'page';
     return undefined;
   };
 
@@ -39,16 +37,10 @@ export default function DesktopFluidHeader() {
         >
           <div className="relative h-6 w-20">
             <Image
-              src={ASSETS.logoDark}
-              alt="Danilo Novais"
+              src={BRAND.logos.dark}
+              alt={BRAND.name}
               fill
               className="object-contain"
-              // Since it's on glass, we might want Dark or Light depending on glass contrast.
-              // Spec says "Logo (Light)". But standard Header had "logoDark".
-              // Let's stick to spec "Logo Light" BUT check contrast.
-              // If glass is "White-ish/Translucent", Dark text is better.
-              // Let's stick with what works for readability for now (Dark or Light).
-              // Spec says "Logo (Light)". Let's try that.
             />
           </div>
         </Link>

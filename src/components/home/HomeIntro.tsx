@@ -8,7 +8,7 @@ import HeroPreloader from './HeroPreloader';
 import HeroCopy from './HeroCopy';
 import GhostStage from './GhostStage';
 import HeroGhost from './HeroGhost';
-import { ASSETS } from '@/lib/constants';
+import { BRAND } from '@/config/brand';
 
 /**
  * HomeIntro orchestrates the transition between the Hero and the Manifesto Video.
@@ -160,7 +160,7 @@ export default function HomeIntro() {
             >
               <video
                 ref={videoRef}
-                src={ASSETS.videoManifesto}
+                src={BRAND.video.manifesto}
                 muted
                 loop
                 autoPlay

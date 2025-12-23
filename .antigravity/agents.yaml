@@ -1,25 +1,25 @@
 agents:
-  - handle: '@TechLead'
-    role: 'Architect & Stability Guardian'
-    description: 'Responsável pela estrutura Next.js, regras de clean code e integridade do projeto.'
+  - handle: "@TechLead"
+    role: "Architect & Stability Guardian"
+    description: "Responsável pela estrutura Next.js, regras de clean code e integridade do projeto."
     knowledge_base:
-      - '.agent/rules/00-project-context.md'
-      - '.agent/rules/01-tech-stack.md'
-      - '.agent/rules/03-non-negotiables.md'
+      - ".agent/rules/00-project-context.md"
+      - ".agent/rules/01-tech-stack.md"
+      - ".agent/rules/03-non-negotiables.md"
     temperature: 0.2 # Mais preciso e rígido
 
-  - handle: '@VisualCore'
-    role: 'WebGL & Creative Developer'
-    description: 'Especialista em R3F, Shaders, Animações e o conceito Ghost/Blue Energy.'
+  - handle: "@VisualCore"
+    role: "WebGL & Creative Developer"
+    description: "Especialista em R3F, Shaders, Animações e o conceito Ghost/Blue Energy."
     knowledge_base:
-      - '.agent/rules/05-r3f-glass-system.md'
-      - '.agent/rules/02-ux-motion-principles.md'
-      - '.agent/workflows/hero-section.md'
+      - ".agent/rules/05-r3f-glass-system.md"
+      - ".agent/rules/02-ux-motion-principles.md"
+      - ".agent/workflows/hero-section.md"
     temperature: 0.7 # Mais criativo para shaders
 
-  - handle: '@Auditor'
-    role: 'QA & Performance'
-    description: 'Verifica acessibilidade, performance e conformidade com o design.'
+  - handle: "@Auditor"
+    role: "QA & Performance"
+    description: "Verifica acessibilidade, performance e conformidade com o design."
     knowledge_base:
-      - '.agent/rules/04-accessibility-performance.md'
-      - '.agent/workflows/performance-audit.md'
+      - ".agent/rules/04-accessibility-performance.md"
+      - ".agent/workflows/performance-audit.md"

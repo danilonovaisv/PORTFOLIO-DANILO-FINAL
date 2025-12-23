@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 import SmoothScroll from '@/components/layout/SmoothScroll';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import { ASSETS } from '@/lib/constants';
+import { BRAND } from '@/config/brand';
 import './globals.css';
 
 const ttNorms = localFont({
@@ -94,9 +94,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: ASSETS.favicon,
-    shortcut: ASSETS.favicon,
-    apple: ASSETS.favicon,
+    icon: BRAND.logos.favicon,
+    shortcut: BRAND.logos.favicon,
+    apple: BRAND.logos.favicon,
   },
 };
 

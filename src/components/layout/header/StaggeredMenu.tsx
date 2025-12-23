@@ -4,7 +4,8 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { NAV_LINKS, ASSETS } from '@/lib/constants';
+import { BRAND } from '@/config/brand';
+import { NAV_LINKS, FOOTER } from '@/config/navigation';
 import Image from 'next/image';
 
 // Adapted Staggered Menu for Mobile
@@ -42,8 +43,8 @@ export default function StaggeredMenu() {
           >
             <div className="absolute top-8 left-8">
               <Image
-                src={ASSETS.logoLight} // Light logo for dark bg
-                alt="Danilo Novais"
+                src={BRAND.logos.light} // Light logo for dark bg
+                alt={BRAND.name}
                 width={120}
                 height={40}
                 className="object-contain"
@@ -71,7 +72,7 @@ export default function StaggeredMenu() {
             </nav>
 
             <div className="absolute bottom-12 text-white/50 text-sm">
-              © 2025 Danilo Novais.
+              {FOOTER.copyright}
             </div>
           </motion.div>
         )}

@@ -3,7 +3,7 @@
 import React, { FC, useState, useRef, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-import { CATEGORIES } from '@/lib/constants';
+import { HOME_CONTENT } from '@/config/content';
 import { Button } from '@/components/ui/Button';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { ProjectCategory } from '@/lib/types';
@@ -69,28 +69,30 @@ const PortfolioShowcase: FC = () => {
 
   const categoryList = useMemo(
     () =>
-      CATEGORIES.map((category: ProjectCategory, index) => {
-        const isExpanded = expandedId === category.id;
-        const isHidden = expandedId !== null && !isExpanded;
-        const isHovered = hoveredId === category.id;
-        const isWebItem = category.id === 'websites-webcampaigns-tech';
+      (HOME_CONTENT.showcase.categories as ProjectCategory[]).map(
+        (category: ProjectCategory, index) => {
+          const isExpanded = expandedId === category.id;
+          const isHidden = expandedId !== null && !isExpanded;
+          const isHovered = hoveredId === category.id;
+          const isWebItem = category.id === 'websites-webcampaigns-tech';
 
-        if (isHidden) return null;
+          if (isHidden) return null;
 
-        return (
-          <CategoryStripe
-            key={category.id}
-            category={category}
-            index={index}
-            isExpanded={isExpanded}
-            isHovered={isHovered}
-            onExpand={handleExpand}
-            onHover={setHoveredId}
-            isWebItem={isWebItem}
-            itemVariants={itemVariants}
-          />
-        );
-      }),
+          return (
+            <CategoryStripe
+              key={category.id}
+              category={category}
+              index={index}
+              isExpanded={isExpanded}
+              isHovered={isHovered}
+              onExpand={handleExpand}
+              onHover={setHoveredId}
+              isWebItem={isWebItem}
+              itemVariants={itemVariants}
+            />
+          );
+        }
+      ),
     [expandedId, hoveredId, handleExpand, itemVariants, setHoveredId]
   );
 

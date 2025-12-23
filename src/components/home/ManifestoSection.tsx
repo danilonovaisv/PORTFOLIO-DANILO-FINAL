@@ -3,7 +3,7 @@
 
 import * as React from 'react';
 import { motion, useInView, Variants } from 'framer-motion';
-import { ASSETS } from '../../lib/constants';
+import { BRAND } from '@/config/brand';
 
 // Variants para a animação de entrada
 const manifestoVariants: Variants = {
@@ -49,7 +49,7 @@ export default function ManifestoSection() {
             {/* Mantém a proporção 16:9 */}
             <video
               className="h-full w-full object-cover"
-              src={ASSETS.videoManifesto}
+              src={BRAND.video.manifesto}
               autoPlay
               loop
               muted // Começa mudo, conforme regras
