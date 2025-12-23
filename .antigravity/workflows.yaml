@@ -39,3 +39,8 @@ commands:
     description: 'Configura Metadata, Sitemap e OG Tags'
     agent: '@Auditor'
     source: '.agent/workflows/seo-optimization.md'
+
+  - name: 'cleanup'
+    description: 'Executa limpeza estrutural da codebase'
+    agent: '@TechLead'
+    source: '.agent/workflows/structure-cleanup.md'

@@ -1,8 +1,11 @@
-```
 # Next.js build outputs
 .next/
+out/
+build/
+dist/
 
 # Environment variables
+.env
 .env.local
 .env.*
 
@@ -14,6 +17,9 @@ firestore-debug.log
 # Dependencies
 node_modules/
 
+# Firebase
+.firebase/
+
 # IDE
 .vscode/
 .idea/
@@ -21,6 +27,7 @@ node_modules/
 # OS
 .DS_Store
 Thumbs.db
+*.zip
 
 # Coverage
 coverage/
@@ -39,5 +46,3 @@ venv/
 pip-log.txt
 pip-delete-this-directory.txt
 *.so
-.Python
-```

@@ -32,7 +32,7 @@ const FeaturedProjects: React.FC = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex flex-col justify-center items-center text-center min-h-[300px] md:min-h-[auto] p-8 md:p-0 rounded-2xl bg-white/5 md:bg-transparent border border-gray-200 md:border-none"
+            className="flex flex-col justify-center items-center text-center min-h-[300px] md:min-h-auto p-8 md:p-0 rounded-2xl bg-white/5 md:bg-transparent border border-gray-200 md:border-none"
           >
             <h3 className="text-3xl md:text-5xl font-bold font-sans tracking-tight text-[#111111] mb-8 leading-tight">
               Like what
