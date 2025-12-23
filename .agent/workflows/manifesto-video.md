@@ -1,3 +1,7 @@
+---
+description: manifest
+---
+
 # Workflow: Seção Manifesto (Scroll Expansion)
 
 **Conceito Visual:**

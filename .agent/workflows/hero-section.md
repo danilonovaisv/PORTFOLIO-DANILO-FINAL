@@ -1,3 +1,7 @@
+---
+description: hero
+---
+
 # Workflow: Implementação da Hero Section (Ghost Atmosphere)
 
 **Conceito Visual (Atualizado - Master Sync):**
