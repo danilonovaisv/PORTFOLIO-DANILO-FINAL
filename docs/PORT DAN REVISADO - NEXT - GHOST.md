@@ -42,13 +42,16 @@
 - Tag: `[BRAND AWARENESS]`
 - Título:
   ```
-  Design, não
-  é só estética.
+  Design, não é
+  só estética.
   ```
 - Subtítulo: `[É intenção, é estratégia, é experiência.]`
 - CTA label: `get to know me better →`
 - CTA secundário (scroll): `#manifesto`
 - **WebGL Atmosférico:** Ghost abstrato + pós-processamento (substitui qualquer modelo GLB)
+
+**TYPOGRAPHY:**
+- Fonte: TT Norms Pro
 
 #### Manifesto (Vídeo)
 - Vídeo URL (usado na Hero e na seção Manifesto):  
@@ -409,7 +412,8 @@ z-0  → WebGL Hero Canvas
 ---
 
 ## CONTEÚDO (FIXO — SEM ANIMAÇÃO)
-Cor do texto: `#d9dade`
+- Cor do texto: `#d9dade`
+- Fonte: TT Norms Pro - Normal para subtitulos e Bold para titulos
 
 ```
 [BRAND AWARENESS]
@@ -898,7 +902,7 @@ Este documento representa a versão final validada da seção Portfolio Showcase
 - Texto dos cards: `text-[#111111]`
 - CTA: `bg-[#0057FF]`, `text-white`
 **TYPOGRAPHY:**
-- Fonte: Sans-serif neo-grotesca (Inter ou similar)
+- Fonte: TT Norms Pro
 - Peso: Bold para o título, Regular para o conteúdo dos cards
 - Tamanho: Título `text-2xl`, Conteúdo dos cards `text-lg`
 **IMAGERY:**

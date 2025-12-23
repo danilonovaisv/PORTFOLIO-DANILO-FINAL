@@ -21,7 +21,7 @@ export default function HeroCopy() {
       </p>
 
       <div className="mt-8 flex justify-center">
-        <Button href="/sobre" className="group" size="lg">
+        <Button href="#manifesto" className="group" size="lg">
           get to know me better
           <ArrowUpRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
         </Button>

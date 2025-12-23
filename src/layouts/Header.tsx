@@ -105,10 +105,10 @@ function Header(): React.ReactElement {
           paddingTop: paddingY,
           paddingBottom: paddingY,
         }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-gray-100 ${
           isCondensed
-            ? 'bg-white/95 backdrop-blur supports-backdrop-filter:bg-white/80'
-            : 'bg-transparent'
+            ? 'bg-white/95 backdrop-blur supports-backdrop-filter:bg-white/80 shadow-sm'
+            : 'bg-white'
         }`}
       >
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4">
@@ -118,13 +118,13 @@ function Header(): React.ReactElement {
             className="relative block shrink-0 transition-transform duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
           >
             {!logoError ? (
-              <div className="relative h-8 md:h-10 w-auto">
+              <div className="relative h-8 md:h-10 w-32 md:w-32">
                 <Image
-                  src={ASSETS.favicon}
+                  src={ASSETS.logoDark}
                   alt="Danilo Novais"
                   fill
-                  className="object-contain"
-                  sizes="(max-width: 768px) 2rem, (max-width: 1200px) 2.5rem, 2.5rem"
+                  className="object-contain object-left"
+                  sizes="(max-width: 768px) 8rem, 10rem"
                   priority={pathname === '/'}
                   onError={() => setLogoError(true)}
                 />
@@ -151,7 +151,7 @@ function Header(): React.ReactElement {
                       href={link.href}
                       onClick={handleNavClick(link.href)}
                       aria-current={getAriaCurrent(link.href)}
-                      className="relative block py-2 text-sm font-medium lowercase tracking-wide text-[#4a4a4a] transition-colors duration-200 hover:text-[#0057FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white data-[active=true]:text-[#0057FF]"
+                      className="relative block py-2 text-sm font-medium lowercase tracking-wide text-gray-700 transition-colors duration-200 hover:text-[#0057FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white data-[active=true]:text-[#0057FF]"
                       data-active={isActive}
                     >
                       {link.label}

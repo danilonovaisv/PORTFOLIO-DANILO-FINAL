@@ -4,6 +4,7 @@ import { Metadata } from 'next';
 import SmoothScroll from '@/layouts/SmoothScroll';
 import Header from '@/layouts/Header';
 import Footer from '@/layouts/Footer';
+import { ASSETS } from '@/lib/constants';
 import './globals.css';
 
 const inter = Inter({
@@ -73,7 +74,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: ASSETS.favicon,
+    shortcut: ASSETS.favicon,
+    apple: ASSETS.favicon,
   },
 };
 

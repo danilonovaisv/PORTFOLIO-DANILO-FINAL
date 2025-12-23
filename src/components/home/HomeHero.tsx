@@ -51,8 +51,14 @@ export default function HomeHero({ children, style }: HomeHeroProps) {
         </div>
       </motion.div>
 
-      {/* 3. Manifesto Thumb (z-30) - Absolute Bottom Right */}
-      <div className="absolute bottom-8 right-8 z-30 w-[280px] h-[160px] hidden md:block pointer-events-auto">
+      {/* 3. Manifesto Thumb (z-30) */}
+      {/* 
+          Desktop: Rendered directly to allow Fullscreen Expansion via HomeIntro transforms.
+          It must be 'absolute inset-0' so the transforms (scale, x, y) work from the center.
+          The 'pointer-events-none' on the wrapper allows clicks to pass through to Hero text 
+          when video is small/cornered (unless video itself has pointer-events-auto).
+      */}
+      <div className="hidden md:block absolute inset-0 z-30 pointer-events-none">
         {children || <ManifestoThumb />}
       </div>
 

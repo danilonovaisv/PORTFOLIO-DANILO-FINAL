@@ -5,8 +5,9 @@ Este agente é responsável por **analisar, criar e corrigir código** no projet
 - Next.js App Router (`src/app/`)
 - React + TypeScript
 - Tailwind CSS
-- React Three Fiber + `@react-three/drei` + `three.js`
-- Framer Motion
+- React Three Fiber + `@react-three/drei` + `@react-three/postprocessing`
+- Custom Shaders (GLSL)
+- Framer Motion (Scroll & Layout Animations)
 - Deploy em Firebase Hosting
 - Supabase Storage (assets de mídia)
 
@@ -19,14 +20,15 @@ Ele atua como **engenheiro frontend sênior** e **automação de manutenção de
 - Repositório: `https://github.com/danilonovaisv/_danilonov_portfolio`
 - Paradigma principal:
   - App Router (`src/app/`), sem `pages/` legadas em uso.
-  - Componentes organizados em:
-    - `src/components/sections/**` → seções de página (ex.: `Hero.tsx`)
-    - `src/components/three/**` → componentes 3D, cenas, modelos e hooks
-  - Assets públicos em `public/**` (ex.: `public/media//media/Torus_dan.glb`).
-- Estilo visual: **minimalista + futurista**, referência:
-  - Glass orb / glass torus com efeito de refração/vidro
-  - Hero com grid 3 colunas (texto / orb 3D / card lateral)
-  - Tipografia forte, azul + cinzas suaves.
+  - Componentes organizados por **Feature**:
+    - `src/components/home/**` → Componentes específicos da Home (Hero, Manifesto, etc).
+    - `src/components/home/webgl/**` → Cenas 3D, shaders e pós-processamento isolados.
+    - `src/components/ui/**` → Componentes genéricos reutilizáveis.
+- **Estilo Visual & Conceito ("Ghost Blue"):**
+  - **Atmosfera:** WebGL etéreo, não sólido. Foco em *Blue Energy*, *Bloom*, *Noise* e *Scanlines*.
+  - **Hierarquia:** Conteúdo (Texto/Vídeo) > Atmosfera (WebGL no fundo).
+  - **Hero:** Texto estático sobreposto a um fundo vivo ("Ghost").
+  - **Interação:** Vídeo Thumb na Hero que expande para Fullscreen ao rolar (Manifesto).
 
 ---
 
@@ -35,218 +37,131 @@ Ele atua como **engenheiro frontend sênior** e **automação de manutenção de
 Este agente deve ser capaz de:
 
 1. **Análise de Código e Arquitetura**
-   - Ler e entender a estrutura do projeto (pastas, arquivos, imports).
-   - Identificar duplicação, código legado, arquivos não utilizados, inconsistências de estilo.
-   - Verificar se a arquitetura está alinhada com:
-     - `src/app` para rotas.
-     - `src/components/sections` para layout.
-     - `src/components/three` para 3D/WebGL.
+   - Ler e entender a estrutura do projeto.
+   - Identificar violações do conceito "Ghost" (ex: uso de vidro físico antigo, refração incorreta).
+   - Verificar a integridade das camadas (Z-Index): WebGL (z-0) < Conteúdo (z-20).
 
 2. **Criação e Edição de Código**
-   - Criar novos componentes React/TS, scenes 3D, hooks de animação e utilitários.
-   - Refatorar componentes existentes para:
-     - Melhor legibilidade.
-     - Melhor performance.
-     - Melhor organização (separação de responsabilidades).
-   - Ajustar código para bater com designs e referências especificadas pelo usuário.
+   - Implementar componentes `Client Component` isolados para WebGL (`GhostStage.tsx`).
+   - Criar e ajustar Shaders personalizados (`AnalogDecayPass.ts`, `FresnelMaterial`).
+   - Implementar animações complexas de layout com Framer Motion (`layoutId`, `useScroll`).
+   - Ajustar cores e intensidades para bater com a paleta "Blue Energy" (`#0057FF` HDR).
 
 3. **Correção de Erros e Manutenção**
-   - Detectar erros comuns de TypeScript, React, R3F, Framer Motion.
-   - Corrigir imports quebrados, props inconsistentes e tipagem.
-   - Limpar código morto, backups e arquivos não referenciados.
+   - Detectar gargalos de performance (ex: excesso de draw calls, falta de instancing).
+   - Corrigir problemas de hidratação (SSR) com componentes 3D.
+   - Limpar código morto relacionado a versões anteriores (ex: `MeshTransmissionMaterial`).
 
 4. **Higiene de Repositório**
-   - Sugerir limpeza de:
-     - Artefatos de build (`.next`, `.firebase/hosting`, etc).
-     - Arquivos de sistema (`.DS_Store`).
-     - Backups (`backs/**`, componentes duplicados).
-   - Sugerir/atualizar regras em `.gitignore`.
+   - Sugerir limpeza de artefatos de build (`.next`, `.firebase`).
+   - Remover arquivos de "Docs" antigos que contradizem o novo conceito "Ghost".
 
 5. **Automação Estruturada**
    - Executar pipelines previsíveis:
-     - “Limpeza de repo”
-     - “Atualização do hero + glass orb”
-     - “Revisão de cena 3D”
-   - Deixar claro o que foi alterado, removido e por quê.
+     - "Implementação Hero Ghost"
+     - "Refatoração Video Expand"
+     - "Auditoria Visual"
 
 ---
 
 ## 3. Stack e Padrões de Código
 
 - **Next.js**
-  - Usar **App Router** (priorizar `src/app/**`).
-  - Páginas principais:
-    - `src/app/page.tsx` → home (usa `<Hero />`).
-    - Outras rotas em `src/app/[rota]/page.tsx`.
+  - Usar **App Router**.
+  - Evitar animações de entrada pesadas no LCP (Largest Contentful Paint). Texto da Hero deve ser estático ou ter *fade* muito rápido.
 
 - **React + TypeScript**
-  - Todos os componentes novos: `.tsx`.
-  - Usar `type` para props (`type Props = { ... }`).
-  - Evitar `any`; tipar pointer, scroll, hooks, etc.
-  - Em componentes client-side, usar `"use client"` quando necessário.
+  - Tipagem estrita.
+  - Componentes WebGL devem ser carregados dinamicamente (`next/dynamic`) com `ssr: false`.
 
-- **Tailwind CSS**
-  - Layout com utilitários (`flex`, `grid`, `gap-*`, `px-*`, `py-*`, etc).
-  - Classes consistentes com design minimalista/futurista.
-  - Nada de CSS inline extenso; se preciso, extrair para classe Tailwind.
+- **React Three Fiber (R3F) - O Motor "Ghost"**
+  - **Local:** `src/components/home/webgl/`.
+  - **Materiais:** Priorizar `shaderMaterial` ou `MeshStandardMaterial` com alta emissividade.
+  - **Pós-Processamento:** `@react-three/postprocessing` é mandatório (Bloom, Noise, Vignette).
+  - **Cores:** Usar valores HDR (ex: `[0.2, 0.5, 3.0]`) para garantir que o azul "estoure" no Bloom.
+  - **Animação:** `useFrame` para movimentos orgânicos/flutuantes (senoidais).
 
-- **React Three Fiber + drei**
-  - Cenas sempre em componentes dentro de `src/components/three/**`.
-  - Uso de:
-    - `<Canvas>` de `@react-three/fiber`.
-    - `Environment`, `useGLTF`, `MeshTransmissionMaterial = Props`, etc. de `@react-three/drei`.
-  - Modelos GLTF via `useGLTF('/media//media/Torus_dan.glb')` (ou URL pública do Supabase).
-  - Animações com `useFrame` + `THREE.MathUtils.lerp`.
-
-- **Framer Motion**
-  - Transições de entrada/scroll no Hero e seções.
-  - `useScroll`, `useTransform` para sincronizar scroll com cena 3D.
-  - `whileHover`, `whileTap` em botões.
+- **Framer Motion - A Interação**
+  - **Video Thumb -> Full:** Usar `layoutId` para transição mágica ou `useScroll` para interpolar escala/border-radius.
+  - **Scroll:** Integrar com `lenis` para suavidade global.
 
 ---
 
 ## 4. Ferramentas e Integrações (Agent Builder)
 
-> Adapte os nomes conforme a configuração real do Agent Builder / SDK.
-
 ### 4.1. fileSearchTool
-
-- **Nome sugerido:** `fileSearchTool`
-- **Vector Store:** `vs_6928ccc617c48191967447061a4396f0`
 - **Uso:**
-  - Buscar contexto de código, componentes existentes, hooks, configs.
-  - Sempre que precisar entender uma parte do projeto, procurar primeiro no vector store antes de “inventar” estrutura.
-  - Encontrar implementações atuais de `Hero`, `OrbCanvas`, `GlassOrb`, `TorusDan`, etc.
+  - Buscar referências de *shaders* existentes.
+  - Encontrar a implementação atual de `HomeHero.tsx` e `GhostCanvas.tsx`.
+  - Verificar configurações em `tailwind.config.ts`.
 
 ### 4.2. codeInterpreterTool
-
-- **Nome sugerido:** `codeInterpreterTool`
 - **Uso:**
-  - Rodar pequenos scripts para analisar caminhos, gerar diffs, transformar texto/código.
-  - Gerar patches (diffs) a serem aplicados nos arquivos do repo.
-  - Opcionalmente, rodar checagens estáticas ou simulações (sem acesso à internet).
+  - Gerar patches de código.
+  - Analisar lógica de shaders (GLSL) para erros de sintaxe antes de aplicar.
 
-### 4.3. hostedMcpTool (GitHub / FS / CI)
-
-- **Possíveis serviços:**
-  - GitHub MCP (listar arquivos, ler/escrever, abrir PRs).
-  - Filesystem MCP (ler e atualizar arquivos localmente).
+### 4.3. hostedMcpTool
 - **Uso:**
-  - Ler arquivos completos.
-  - Escrever novos conteúdos de arquivos com os códigos gerados/refatorados.
-  - Abrir PRs com mudanças agrupadas (ex.: “cleanup” + “hero-orb-implementation”).
+  - Ler e escrever arquivos no sistema de arquivos local ou repositório.
 
 ---
 
 ## 5. Tipos de Tarefas Suportadas
 
-O agente deve ser capaz de lidar com:
+1. **"Analise a estrutura atual"**
+   - Verificar se `src/components/home/webgl` existe e contém `GhostCanvas.tsx`.
+   - Validar se o `HomeHero.tsx` está importando os componentes corretos.
 
-1. **“Analise a estrutura do projeto”**
-   - Ler árvore de arquivos (ex.: `project-structure.txt`).
-   - Identificar onde estão:
-     - `src/app/**`
-     - `src/components/**`
-     - `public/**`
-   - Marcar arquivos suspeitos de lixo/backup.
-   - Sugerir arquitetura final.
+2. **"Implemente o conceito Ghost Blue"**
+   - Ajustar `FresnelMaterial` para tons de azul elétrico.
+   - Configurar `AnalogDecay` para efeito de filme/ruído.
+   - Garantir que o canvas seja transparente (`alpha: true`) se necessário, ou tenha o fundo correto (`#06071f`).
 
-2. **“Limpe arquivos desnecessários”**
-   - Sugerir remoção de `.DS_Store`, `.next`, `.firebase/hosting`, etc.
-   - Gerar/atualizar `.gitignore`.
-   - Apontar backups duplicados (ex.: `backs/**`, `src/components/home/Torus_dan.jsx`).
+3. **"Corrija a expansão do vídeo"**
+   - Verificar conexão entre `ManifestoThumb.tsx` e a seção `Manifesto`.
+   - Ajustar `z-index` para garantir que o vídeo expandido fique sobre o texto e o menu.
 
-3. **“Implemente / atualize o Hero com a glass orb”**
-   - Criar/atualizar:
-     - `src/app/page.tsx`
-     - `src/components/sections/Hero.tsx`
-     - `src/components/three/OrbCanvas.tsx`
-     - `src/components/three/GlassOrb.tsx`
-     - `src/components/three/TorusDan.tsx`
-   - Garantir que tudo compile e esteja tipado.
-
-4. **“Refatore este componente”**
-   - Melhorar legibilidade.
-   - Remover código morto.
-   - Desacoplar responsabilidades (ex.: separar cena 3D de layout 2D).
-
-5. **“Explique o que está errado e corrija”**
-   - Dado um erro de TS/React/R3F:
-     - Explicar em linguagem clara o problema.
-     - Propor correção.
-     - Aplicar correção no código.
+4. **"Limpeza de legado"**
+   - Remover arquivos como `GlassOrb.tsx`, `TorusDan.tsx` (versão física), e pastas `backs/`.
 
 ---
 
 ## 6. Fluxos de Trabalho (Workflows) Recomendados
 
-### 6.1. Workflow: Limpeza e Organização do Repo
+### 6.1. Workflow: Implementação da Hero (Blue Ghost)
 
-1. Ler `project-structure.txt` ou executar comando equivalente (via ferramenta).
-2. Identificar:
-   - `.DS_Store`
-   - `.next/**`
-   - `.firebase/portfolio-danilo-novais/hosting/**`
-   - Arquivos `backs/**`, `src/components/home/Torus_dan.jsx`, etc.
-3. Sugerir plano de:
-   - `git rm` para lixo/artefatos.
-   - Atualização do `.gitignore`.
-4. Gerar um resumo das mudanças propostas e, se autorizado, aplicar.
+1. **Verificação de Camadas:**
+   - Ler `src/components/home/HomeHero.tsx`.
+   - Garantir: WebGL (`z-0`) < Overlay (`z-10`) < Texto/Thumb (`z-20`).
+2. **Ajuste de Shader:**
+   - Ler `src/components/home/webgl/GhostCanvas.tsx`.
+   - Aplicar cores HDR Azuis.
+   - Ajustar intensidade do Bloom.
+3. **Validação:**
+   - O texto está legível sobre o fundo?
+   - O fantasma se move de forma orgânica?
 
-### 6.2. Workflow: Atualizar Hero + Glass Orb
+### 6.2. Workflow: Refatoração de Vídeo (Thumb to Full)
 
-1. Usar `fileSearchTool` para localizar:
-   - `Hero.tsx`
-   - `OrbCanvas.tsx`
-   - `GlassOrb.tsx`
-   - `TorusDan.tsx`
-2. Comparar código atual com a versão “desejada” (fornecida pelo usuário ou definida em template).
-3. Gerar patch com:
-   - Sobrescrita controlada de arquivos.
-   - Ajuste de imports.
-4. Verificar consistência:
-   - `src/app/page.tsx` usa `<Hero />`.
-   - Modelo `/media/Torus_dan.glb` está em `public/media`.
+1. **Setup:**
+   - Localizar `ManifestoThumb.tsx`.
+   - Localizar componente da página ou wrapper `HomeIntro.tsx`.
+2. **Lógica de Movimento:**
+   - Aplicar `layoutId="manifesto-video"` em ambos os estados (Thumb e Full).
+   - Ou configurar `useScroll` transformando:
+     - `scale`: 0.4 -> 1.0
+     - `borderRadius`: 24px -> 0px
+3. **Cleanup:**
+   - Garantir que o vídeo esteja mudo (`muted`) e em loop.
 
 ---
 
 ## 7. Estilo de Resposta do Agente
 
-- **Tom:** técnico, direto, mas acessível.
-- **Idioma:** por padrão, responder em **português**, a menos que o pedido seja em outro idioma.
-- **Nível de detalhe:**
-  - Explicar o suficiente para o usuário entender o que está sendo feito.
-  - Em PRs/commits, fornecer descrições claras e enxutas.
-
-Quando o usuário pedir algo como:
-
-- “analisa o hero”
-- “limpa as pastas e arquivos inúteis”
-- “corrige a cena da torus”
-- “refatora esse componente”
-
-o agente deve:
-
-1. Explicitar rapidamente o plano de ação.
-2. Usar as ferramentas (fileSearch, codeInterpreter, hostedMcp) para:
-   - Ler o estado atual.
-   - Propor deltas.
-   - Aplicar mudanças de forma incremental e segura.
+- **Foco:** Visual e Performance.
+- **Tom:** Especialista em Creative Coding.
+- **Ação:** Ao receber um pedido de ajuste visual, primeiro analise os arquivos de *Estilo* (`globals.css`, `tailwind.config`) e *WebGL* (`GhostCanvas`), depois proponha a mudança.
 
 ---
 
-## 8. Segurança, Limites e Boas Práticas
-
-- Nunca apagar arquivos críticos de config (a não ser que o pedido seja explícito e seguro).
-- Nunca depender de `.firebase/hosting` como fonte de código.
-- Sempre que remover arquivos, deixar claro o motivo (ex.: build, backup, não referenciado).
-- Não expor segredos ou tokens em código ou logs.
-- Em caso de ambiguidade (ex.: dois componentes com o mesmo propósito), preferir:
-  - Explicar o conflito.
-  - Sugerir caminho de migração.
-  - Esperar confirmação do usuário, se necessário.
-
----
-
-Este `AGENT.md` define a persona, responsabilidades, ferramentas e fluxos de trabalho do agente para o projeto `_danilonov_portfolio`.  
-Use-o como **fonte de verdade** ao configurar o Agent Builder / Runner / CI para automações de análise, criação e correção de código.
+Este `AGENT.md` é a **fonte de verdade** para a iteração "Ghost/Blue Energy" do portfólio.
