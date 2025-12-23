@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 10, "column": 0}, "map": {"version":3,"sources":["file:///Users/danilonovais/_danilonov_portfolio/src/layouts/SmoothScroll.tsx"],"sourcesContent":["'use client';\n\nimport { ReactNode, useEffect } from 'react';\nimport Lenis from 'lenis';\n\nexport default function SmoothScroll({ children }: { children: ReactNode }) {\n  useEffect(() => {\n    const lenis = new Lenis({\n      duration: 1.2,\n      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),\n      orientation: 'vertical',\n      gestureOrientation: 'vertical',\n      smoothWheel: true,\n      wheelMultiplier: 1,\n      touchMultiplier: 2,\n    });\n\n    function raf(time: number) {\n      lenis.raf(time);\n      requestAnimationFrame(raf);\n    }\n\n    requestAnimationFrame(raf);\n\n    return () => {\n      lenis.destroy();\n    };\n  }, []);\n\n  return <>{children}</>;\n}\n"],"names":[],"mappings":";;;;;AAEA;AACA;AAHA;;;;AAKe,SAAS,aAAa,EAAE,QAAQ,EAA2B;IACxE,IAAA,kNAAS,EAAC;QACR,MAAM,QAAQ,IAAI,kJAAK,CAAC;YACtB,UAAU;YACV,QAAQ,CAAC,IAAM,KAAK,GAAG,CAAC,GAAG,QAAQ,KAAK,GAAG,CAAC,GAAG,CAAC,KAAK;YACrD,aAAa;YACb,oBAAoB;YACpB,aAAa;YACb,iBAAiB;YACjB,iBAAiB;QACnB;QAEA,SAAS,IAAI,IAAY;YACvB,MAAM,GAAG,CAAC;YACV,sBAAsB;QACxB;QAEA,sBAAsB;QAEtB,OAAO;YACL,MAAM,OAAO;QACf;IACF,GAAG,EAAE;IAEL,qBAAO;kBAAG;;AACZ"}}]
-}

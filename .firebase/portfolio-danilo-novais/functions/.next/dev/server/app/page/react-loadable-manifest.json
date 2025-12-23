@@ -1,9 +1,0 @@
-{
-  "[project]/node_modules/@react-three/fiber/dist/react-three-fiber.esm.js [app-client] (ecmascript, next/dynamic entry)": {
-    "id": "[project]/node_modules/@react-three/fiber/dist/react-three-fiber.esm.js [app-client] (ecmascript, next/dynamic entry)",
-    "files": [
-      "static/chunks/node_modules_cf7f3423._.js",
-      "static/chunks/node_modules_@react-three_fiber_dist_react-three-fiber_esm_a618476d.js"
-    ]
-  }
-}
