@@ -1,0 +1,106 @@
+===========================================
+ Projeto: _danilonov_portfolio
+ Data: Tue Dec 23 11:50:56 -03 2025
+ Package manager detectado: pnpm
+===========================================
+
+### Ambiente
+
+$ node -v
+v24.11.1
+
+$ npm -v
+11.7.0
+
+Sistema operacional:
+Darwin danilo-novais.local 25.3.0 Darwin Kernel Version 25.3.0: Fri Dec  5 23:12:09 PST 2025; root:xnu-12377.80.260.0.1~42/RELEASE_ARM64_T6000 arm64
+
+-------------------------------------------
+### Git status
+
+$ git status -sb
+## main...origin/main
+ M .DS_Store
+ M package.json
+ M pnpm-lock.yaml
+ M src/.DS_Store
+ M tsconfig.tsbuildinfo
+?? project-report-20251223-115056.txt
+?? project-tools.sh
+
+-------------------------------------------
+### Lint (npm run lint)
+
+$ npm run lint
+
+> danilo-novais-portfolio-backup@0.0.0 lint
+> eslint .
+
+
+-------------------------------------------
+### Testes (npm run test)
+
+$ npm run test
+
+> danilo-novais-portfolio-backup@0.0.0 test
+> npm run eslint:ci && npm run typecheck && npm run prettier && npm run jest && (cd test/e2e; ./e2e.sh 0.180)
+
+
+> danilo-novais-portfolio-backup@0.0.0 eslint:ci
+> eslint .
+
+
+> danilo-novais-portfolio-backup@0.0.0 typecheck
+> tsc --noEmit --emitDeclarationOnly false --strict --jsx react-jsx
+
+
+> danilo-novais-portfolio-backup@0.0.0 prettier
+> prettier --check .
+
+Checking formatting...
+[warn] .agent/workflows/manifesto-video.md
+[warn] .context/PORT DAN REVISADO - NEXT - GHOST.md
+[warn] functions/lib/genkit/sample.js
+[warn] next-env.d.ts
+[warn] src/components/canvas/webgl/ghost/GhostParams.ts
+[warn] Code style issues found in 5 files. Run Prettier with --write to fix.
+
+-------------------------------------------
+### Dependências desatualizadas
+
+$ pnpm outdated
+ WARN  Unsupported engine: wanted: {"node":"22"} (current: {"node":"v24.11.1","pnpm":"10.24.0"})
+┌─────────────────────────────┬─────────┬────────────┐
+│ Package                     │ Current │ Latest     │
+├─────────────────────────────┼─────────┼────────────┤
+│ @studio-freight/react-lenis │ 0.0.47  │ Deprecated │
+└─────────────────────────────┴─────────┴────────────┘
+
+-------------------------------------------
+### Depcheck (dependências não usadas / faltando)
+
+$ npx depcheck
+Unused dependencies
+* @dataconnect/admin-generated
+* @dataconnect/generated
+* @studio-freight/react-lenis
+* three-stdlib
+* tweakpane
+* zustand
+Unused devDependencies
+* @tailwindcss/postcss
+* @typescript-eslint/eslint-plugin
+* autoprefixer
+* jest-environment-jsdom
+* postcss
+* rimraf
+Missing dependencies
+* eslint-config-next: ./docs/REFERENCIA_HERO-GHOST/.eslintrc.json
+
+-------------------------------------------
+### Observações
+Use este relatório para colar em uma IA (Codex/ChatGPT) e pedir:
+- Sugestões para corrigir erros de lint e testes;
+- Ajustes de dependências desatualizadas ou não utilizadas;
+- Refatorações sugeridas com base nos erros.
+

@@ -1,4 +1,5 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
+  "/opengraph-image/route": "app-edge-has-no-entrypoint",
   "/page": "app/page.js"
 }

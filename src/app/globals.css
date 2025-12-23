@@ -1,5 +1,49 @@
 @import 'tailwindcss';
 
+@theme {
+  /* Site Theme Colors */
+  --color-background: #f4f5f7;
+  --color-foreground: #111111;
+  --color-primary: #0057ff;
+  --color-primary-hover: #0046cc;
+  --color-secondary: #111111;
+  --color-muted: #555555;
+  --color-white: #ffffff;
+
+  /* Ghost/Ethereal Theme Colors */
+  --color-ghost-bg: #06071f;
+  --color-ghost-dark: #0f2027;
+  --color-ghost-blue: #4a90e2;
+  --color-ghost-green: #50e3c2;
+  --color-ghost-ambient: #0a0a2e;
+  --color-ghost-text: #d9dade;
+
+  /* Ghost/Ethereal Surface Variables (Already in :root) */
+  --color-surface-main: #06071f;
+  --color-text-main: #d9dade;
+  --color-accent-blue: #0057ff;
+
+  /* Typography */
+  --font-sans: var(--font-tt-norms), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-tt-norms), system-ui, -apple-system, sans-serif;
+
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-tighter: -0.04em;
+  --letter-spacing-widest: 0.1em;
+
+  --font-size-display-lg: clamp(3rem, 8vw, 7rem);
+  --line-height-display-lg: 0.95;
+  --font-weight-display-lg: 800;
+
+  /* Aspect Ratios */
+  --aspect-ratio-21-9: 21 / 9;
+
+  /* Container */
+  --container-2xl: 1440px;
+}
+
+@plugin "@tailwindcss/typography";
+
 @font-face {
   font-family: 'PPSupplyMono';
   src: url('https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2')
@@ -9,32 +53,21 @@
 }
 
 :root {
-  /* Ghost Theme Colors */
-  --color-surface-main: #06071f;
-  --color-text-main: #d9dade;
-  --color-accent-blue: #0057ff;
-
-  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
-
   /* Fallback Ghost Position */
   --gx: 50vw;
   --gy: 35vh;
 }
 
 body {
-  font-family:
-    var(--font-inter),
-    system-ui,
-    -apple-system,
-    sans-serif;
+  font-family: var(--font-sans);
   background-color: var(--color-surface-main);
   color: var(--color-text-main);
   overflow-x: hidden;
 }
 
-/* Custom Utilities if needed */
+/* Custom Utilities */
 .container-custom {
-  max-width: 1440px;
+  max-width: var(--container-2xl);
   margin-left: auto;
   margin-right: auto;
   padding-left: 1.5rem;
@@ -43,11 +76,11 @@ body {
 
 @layer utilities {
   .bg-primary {
-    background-color: var(--color-accent-blue);
+    background-color: var(--color-primary);
   }
 
   .text-primary {
-    color: var(--color-accent-blue);
+    color: var(--color-primary);
   }
 
   .bg-surface-main {
