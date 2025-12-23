@@ -1,41 +1,41 @@
 # yaml-language-server: $schema=http://json-schema.org/draft-07/schema
 commands:
-  - name: "build-hero"
-    description: "Implementa a Hero Section seguindo o roteiro Ghost/Glass"
-    agent: "@VisualCore"
-    source: ".agent/workflows/hero-section.md"
-  
-  - name: "audit"
-    description: "Roda verificação de performance e acessibilidade"
-    agent: "@Auditor"
-    source: ".agent/workflows/performance-audit.md"
-  
-  - name: "refactor-manifesto"
-    description: "Reimplementa o vídeo manifesto"
-    agent: "@TechLead"
-    source: ".agent/workflows/manifesto-video.md"
-    
-  - name: "build-manifesto"
-    description: "Cria a seção de vídeo e tipografia"
-    agent: "@VisualCore"
-    source: ".agent/workflows/manifesto-video.md"
+  - name: 'build-hero'
+    description: 'Implementa a Hero Section seguindo o roteiro Ghost/Glass'
+    agent: '@VisualCore'
+    source: '.agent/workflows/hero-section.md'
 
-  - name: "build-portfolio"
-    description: "Cria o grid mosaico conectado ao Supabase"
-    agent: "@Architect"
-    source: ".agent/workflows/portfolio-showcase.md"
+  - name: 'audit'
+    description: 'Roda verificação de performance e acessibilidade'
+    agent: '@Auditor'
+    source: '.agent/workflows/performance-audit.md'
 
-  - name: "build-footer"
-    description: "Implementa Marquee, Contato e Footer"
-    agent: "@Architect"
-    source: ".agent/workflows/brands-footer.md"
+  - name: 'refactor-manifesto'
+    description: 'Reimplementa o vídeo manifesto'
+    agent: '@TechLead'
+    source: '.agent/workflows/manifesto-video.md'
 
-  - name: "refactor-all"
-    description: "Limpa imports, tipos e padroniza CSS"
-    agent: "@TechLead"
-    source: ".agent/workflows/code-quality-refactor.md"
-    
-  - name: "seo-setup"
-    description: "Configura Metadata, Sitemap e OG Tags"
-    agent: "@Auditor"
-    source: ".agent/workflows/seo-optimization.md"
+  - name: 'build-manifesto'
+    description: 'Cria a seção de vídeo e tipografia'
+    agent: '@VisualCore'
+    source: '.agent/workflows/manifesto-video.md'
+
+  - name: 'build-portfolio'
+    description: 'Cria o grid mosaico conectado ao Supabase'
+    agent: '@Architect'
+    source: '.agent/workflows/portfolio-showcase.md'
+
+  - name: 'build-footer'
+    description: 'Implementa Marquee, Contato e Footer'
+    agent: '@Architect'
+    source: '.agent/workflows/brands-footer.md'
+
+  - name: 'refactor-all'
+    description: 'Limpa imports, tipos e padroniza CSS'
+    agent: '@TechLead'
+    source: '.agent/workflows/code-quality-refactor.md'
+
+  - name: 'seo-setup'
+    description: 'Configura Metadata, Sitemap e OG Tags'
+    agent: '@Auditor'
+    source: '.agent/workflows/seo-optimization.md'

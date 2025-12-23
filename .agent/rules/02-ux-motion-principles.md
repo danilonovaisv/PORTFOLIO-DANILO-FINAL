@@ -14,7 +14,7 @@ trigger: always_on
 
 - **Micro-interações:** Hover nos cards deve ser sutil (scale 1.02, brilho aumenta).
 - **Scroll:** O scroll deve parecer "pesado" mas fluido (Lenis `lerp: 0.08`).
-- **Mouse Follow:** Na Hero, o elemento 3D deve seguir o mouse com *atraso* significativo para simular inércia em meio líquido/gasoso.
+- **Mouse Follow:** Na Hero, o elemento 3D deve seguir o mouse com _atraso_ significativo para simular inércia em meio líquido/gasoso.
 
 ## Transições de Página
 

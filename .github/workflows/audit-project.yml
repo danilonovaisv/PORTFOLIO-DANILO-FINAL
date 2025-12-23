@@ -2,7 +2,7 @@ name: 🔍 Project Audit
 
 on:
   schedule:
-    - cron: "0 3 * * 1" # toda segunda-feira às 3h UTC
+    - cron: '0 3 * * 1' # toda segunda-feira às 3h UTC
   workflow_dispatch: # execução manual
 
 jobs:

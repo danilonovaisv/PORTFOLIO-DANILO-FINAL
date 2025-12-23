@@ -72,7 +72,7 @@ waitForPreviousTools?: boolean,
 type grep_search = (*: {
 // If true, performs a case-insensitive search.
 CaseInsensitive?: boolean,
-// Glob patterns to filter files found within the 'SearchPath', if 'SearchPath' is a directory. For example, '*.go' to only include Go files, or '!\*\*/vendor/*' to exclude vendor directories.
+// Glob patterns to filter files found within the 'SearchPath', if 'SearchPath' is a directory. For example, '_.go' to only include Go files, or '!\*\*/vendor/_' to exclude vendor directories.
 Includes?: string[],
 // If true, treats Query as a regular expression pattern with special characters like \*, +, (, etc. having regex meaning. If false, treats Query as a literal string where all characters are matched exactly. Use false for normal text searches and true only when you specifically need regex functionality.
 IsRegex?: boolean,

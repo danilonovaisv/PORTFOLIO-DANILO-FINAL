@@ -1,5 +1,5 @@
 ---
-description: 
+description:
 ---
 
 # Workflow: Featured Projects (Destaques)
@@ -8,11 +8,12 @@ description:
 Exibição de projetos selecionados num grid responsivo para direcionar tráfego.
 
 **Dados Obrigatórios (Mockup Inicial):**
+
 1.  **Magic** (Branding) - "Devolvendo a magia ao rádio" - 2023.
 2.  **Confidential** (Branding) - "Uma marca ousada e consistente" - 2022.
 3.  **Confidential** (Campanha) - "Key visual para campanha sazonal" - 2021.
 4.  **Confidential** (Web & Motion) - "Experiência web em movimento" - 2023.
-    *Nota: Usar placeholders do Supabase se as imagens finais não estiverem disponíveis, mas manter os slugs.*
+    _Nota: Usar placeholders do Supabase se as imagens finais não estiverem disponíveis, mas manter os slugs._
 
 **Passo a Passo de Implementação:**
 
@@ -24,9 +25,9 @@ Exibição de projetos selecionados num grid responsivo para direcionar tráfego
 2.  **Componente `ProjectCard.tsx`:**
     - **Animação de Entrada:** Staggered (`0.08s` entre cards). `initial={{ opacity: 0, y: 24 }}`.
     - **Hover State:**
-        - Scale container: `1.03`.
-        - Sombra: `shadow-xl` + `shadow-blue-500/15` (glow subtil).
-        - Overlay: Gradiente escuro suave que revela o título em branco.
+      - Scale container: `1.03`.
+      - Sombra: `shadow-xl` + `shadow-blue-500/15` (glow subtil).
+      - Overlay: Gradiente escuro suave que revela o título em branco.
 
 3.  **Conteúdo do Card:**
     - Imagem (Aspect Ratio 4:3 ou 16:9).
@@ -38,5 +39,6 @@ Exibição de projetos selecionados num grid responsivo para direcionar tráfego
     - Ação: Redireciona para `/portfolio`.
 
 **Validação (@Auditor):**
+
 - Alt text descritivo em todas as imagens.
 - Se a imagem falhar, existe um fallback elegante ("Imagem do projeto")?

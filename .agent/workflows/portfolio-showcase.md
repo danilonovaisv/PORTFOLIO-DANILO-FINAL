@@ -1,13 +1,14 @@
 ---
-description: 
+description:
 ---
 
 # Workflow: Implementação do Portfolio Showcase (Lo&Behold Style)
 
 **Contexto:**
-Esta é a secção de navegação editorial premium. Deve apresentar 3 categorias principais num formato de "Stripes" interativos. O comportamento deve replicar a fluidez da referência *Lo&Behold*: linhas delimitadas, tipografia hierárquica e previews laterais.
+Esta é a secção de navegação editorial premium. Deve apresentar 3 categorias principais num formato de "Stripes" interativos. O comportamento deve replicar a fluidez da referência _Lo&Behold_: linhas delimitadas, tipografia hierárquica e previews laterais.
 
 **Design Specs & Comportamento:**
+
 - **Layout:** 3 linhas horizontais (Stripes).
 - **Alinhamento Desktop:** Alternado (Direita / Centro / Esquerda).
 - **Ultrawide Strategy (≥1920px):** Container fluído controlado (`max-width: 1680px`, `padding-inline: clamp(24px, 5vw, 96px)`).
@@ -23,11 +24,11 @@ Esta é a secção de navegação editorial premium. Deve apresentar 3 categoria
 2.  **Componente `CategoryStripe.tsx`:**
     - **Estrutura:** Flexbox/Grid com bordas horizontais finas.
     - **Interatividade (Desktop):**
-        - **Hover:** Slide-in suave da imagem (thumbnail) da esquerda para a direita (`duration-300`).
-        - **Hover Texto:** Ligeiro aumento de peso ou escurecimento.
-        - **Hover Ícone:** Seta roda ~45º.
+      - **Hover:** Slide-in suave da imagem (thumbnail) da esquerda para a direita (`duration-300`).
+      - **Hover Texto:** Ligeiro aumento de peso ou escurecimento.
+      - **Hover Ícone:** Seta roda ~45º.
     - **Estado Ativo (Expandido):**
-        - Deve usar `AnimatePresence` (Framer Motion) para expandir a altura e revelar detalhes.
+      - Deve usar `AnimatePresence` (Framer Motion) para expandir a altura e revelar detalhes.
 
 3.  **Dados das Categorias (Hardcoded para MVP):**
     - **Stripe 1:** "Brand & Campaigns" (Link: `/portfolio?category=brand`)
@@ -44,5 +45,6 @@ Esta é a secção de navegação editorial premium. Deve apresentar 3 categoria
     - Espaçamento generoso (`py-24` desktop).
 
 **Validação Visual (@VisualCore):**
+
 - O ritmo visual coincide com a referência?
 - Em ecrãs 1920px+, o conteúdo está contido em 1680px e não esticado?

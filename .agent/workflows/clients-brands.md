@@ -1,5 +1,5 @@
 ---
-description: 
+description:
 ---
 
 # Workflow: Clients & Brands (Social Proof)
@@ -8,6 +8,7 @@ description:
 Faixa de alta confiança visual com logótipos de clientes.
 
 **Design Specs:**
+
 - **Fundo:** Azul Sólido (`#0057FF`).
 - **Logótipos:** Branco Puro (`filter: brightness(0) invert(1)`).
 - **Layout:** Grid de logótipos (não Marquee, conforme especificação "Grid de logos").
@@ -28,4 +29,5 @@ Faixa de alta confiança visual com logótipos de clientes.
     - **Hover:** `scale(1.04)` + `brightness(1.1)`.
 
 **Nota Técnica:**
+
 - Garantir que os SVGs tenham dimensões controladas (ex: `h-12` ou `max-w-[120px]`) para manter a harmonia visual.

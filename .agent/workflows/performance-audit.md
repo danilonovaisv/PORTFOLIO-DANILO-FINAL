@@ -1,5 +1,5 @@
 ---
-description: 
+description:
 ---
 
 # Workflow: Checklist de Auditoria

@@ -1,5 +1,5 @@
 ---
-description: 
+description:
 ---
 
 # Workflow: Contact Form & Footer
@@ -12,6 +12,7 @@ As duas últimas secções da Home. Uma focada em conversão (Contact) e outra e
 ## Parte A: Secção de Contacto
 
 **Design Specs:**
+
 - Layout: 2 Colunas (Desktop) - Info à Esquerda, Form à Direita.
 - Fundo: Branco (`bg-white`).
 - Cores: Título `#0057FF`, Texto `#111111`.
@@ -35,7 +36,8 @@ As duas últimas secções da Home. Uma focada em conversão (Contact) e outra e
 ## Parte B: Footer
 
 **Design Specs:**
-- **Posição:** Fixo no fundo (`fixed bottom-0`). *Nota: Verificar se "Fixed" não tapa o conteúdo. Se for fixo, adicionar padding-bottom ao `body` igual à altura do footer.*
+
+- **Posição:** Fixo no fundo (`fixed bottom-0`). _Nota: Verificar se "Fixed" não tapa o conteúdo. Se for fixo, adicionar padding-bottom ao `body` igual à altura do footer._
 - **Fundo:** Azul (`#0057FF`).
 - **Texto:** Branco.
 
@@ -51,6 +53,7 @@ As duas últimas secções da Home. Uma focada em conversão (Contact) e outra e
     - Entrada: FadeIn simples (`opacity: 0 -> 1`).
 
 **Validação (@TechLead):**
+
 - Testar envio do formulário.
 - Verificar se o Footer Fixo não sobrepõe o botão de envio do formulário em ecrãs pequenos.
 - Verificar tags ARIA nos inputs.
