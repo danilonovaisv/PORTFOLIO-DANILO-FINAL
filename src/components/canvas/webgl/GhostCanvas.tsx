@@ -11,8 +11,13 @@ import { Particles } from './Particles';
 import { Fireflies } from './Fireflies';
 import { AnalogDecayEffect } from './postprocessing/AnalogDecayPass';
 import { GhostParams } from './ghost/GhostParams';
+import { cn } from '@/lib/utils';
 
-export default function GhostCanvas() {
+type GhostCanvasProps = {
+  className?: string;
+};
+
+export default function GhostCanvas({ className }: GhostCanvasProps) {
   const ghostPosRef = useRef(new THREE.Vector3(0, 0, 0));
   const [isGhostMoving, setIsGhostMoving] = useState(false);
   const [movementSpeed, setMovementSpeed] = useState(0);
@@ -23,7 +28,12 @@ export default function GhostCanvas() {
   };
 
   return (
-    <div className="fixed inset-0 z-0 pointer-events-none">
+    <div
+      className={cn(
+        'absolute inset-0 z-0 pointer-events-none',
+        className ?? ''
+      )}
+    >
       <Canvas
         dpr={[1, 2]}
         camera={{ position: [0, 0, 20], fov: 75 }}
@@ -65,8 +75,8 @@ export default function GhostCanvas() {
             <Bloom
               luminanceThreshold={0.0}
               mipmapBlur
-              intensity={0.3}
-              radius={0.5} // Ajuste fino pode ser necessário aqui
+              intensity={0.85}
+              radius={0.7} // Ajuste fino pode ser necessário aqui
             />
             <AnalogDecayEffect />
           </EffectComposer>
