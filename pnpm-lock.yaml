@@ -12,6 +12,12 @@ importers:
 
   .:
     dependencies:
+      '@dataconnect/admin-generated':
+        specifier: link:src/dataconnect-admin-generated
+        version: link:src/dataconnect-admin-generated
+      '@dataconnect/generated':
+        specifier: link:src/dataconnect-generated
+        version: link:src/dataconnect-generated
       '@react-three/drei':
         specifier: ^10.7.7
         version: 10.7.7(@react-three/fiber@9.4.2(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(three@0.182.0))(@types/react@19.2.7)(@types/three@0.182.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(three@0.182.0)

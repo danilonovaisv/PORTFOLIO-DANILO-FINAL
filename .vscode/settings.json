@@ -5,5 +5,8 @@
     "{**/.c4z/.extsrcs/*.PROTSYM.cbl,**/.c4z/.extsrcs/*.PROTSYM.listing}": true
   },
   "typescript.tsdk": "node_modules/typescript/lib",
-  "tailwindCSS.files.exclude": ["functions/**"]
+  "tailwindCSS.files.exclude": ["functions/**"],
+  "Lingma.DisplayLanguage": "English",
+  "Lingma.PreferredLanguage for AI Chat": "English",
+  "Lingma.PreferredLanguage forCommitMessage": "English"
 }
