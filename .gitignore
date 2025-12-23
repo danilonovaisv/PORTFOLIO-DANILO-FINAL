@@ -29,6 +29,11 @@ node_modules/
 Thumbs.db
 *.zip
 
+# Media Cache (Prevent heavy commits)
+*.mov
+*.mp4
+*.webm
+
 # Coverage
 coverage/
 htmlcov/

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import Image from 'next/image';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { ProjectCategory } from '@/lib/types';
@@ -13,7 +13,7 @@ interface CategoryStripeProps {
   onExpand: (_id: string) => void;
   onHover: (_id: string | null) => void;
   isWebItem: boolean;
-  itemVariants: any;
+  itemVariants: Variants;
 }
 
 const CategoryStripe: FC<CategoryStripeProps> = ({

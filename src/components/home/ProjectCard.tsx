@@ -29,9 +29,9 @@ const ProjectCard: FC<ProjectCardProps> = ({ project, index }) => {
     >
       <Link href={`/portfolio/${project.slug}`} className="block w-full">
         {/* Generative/Image Container */}
-        <div className="relative overflow-hidden rounded-lg bg-gray-200 w-full aspect-[4/3] md:aspect-video mb-4 shadow-sm group-hover:shadow-xl group-hover:shadow-blue-500/15 transition-all duration-500 transform group-hover:scale-[1.03]">
+        <div className="relative overflow-hidden rounded-lg bg-gray-200 w-full aspect-4/3 md:aspect-video mb-4 shadow-sm group-hover:shadow-xl group-hover:shadow-blue-500/15 transition-all duration-500 transform group-hover:scale-[1.03]">
           {/* Overlay Gradient (Hover) */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
 
           <Image
             src={project.imageUrl}

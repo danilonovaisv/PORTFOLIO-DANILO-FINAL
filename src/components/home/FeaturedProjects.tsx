@@ -18,6 +18,7 @@ const FeaturedProjects: React.FC = () => {
       className="relative py-24 bg-[#F4F5F7] overflow-hidden"
     >
       <div className="container mx-auto px-6 md:px-12 lg:px-16 max-w-[92%] xl:max-w-420 relative z-10">
+        <h2 className="sr-only">Projetos em Destaque</h2>
         {/* Section Header (Optional/Hidden based on design - usually Showcase covers it, but nice to simply list) */}
 
         {/* Grid Layout */}

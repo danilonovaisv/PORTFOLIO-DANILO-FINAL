@@ -14,6 +14,8 @@ import { ProjectCategory } from './types';
 export const ASSETS = {
   videoManifesto:
     'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
+  videoManifestoPoster:
+    'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp',
   favicon:
     'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/logo.svg',
   logoLight:

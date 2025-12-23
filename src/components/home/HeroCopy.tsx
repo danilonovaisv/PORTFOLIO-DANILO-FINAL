@@ -1,53 +1,31 @@
 'use client';
 
-import React from 'react';
-import { motion, MotionValue } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { Button } from '@/ui/Button';
+import { ArrowUpRight } from 'lucide-react';
 
-interface HeroCopyProps {
-  style?: {
-    opacity: MotionValue<number>;
-    scale: MotionValue<number>;
-    y: MotionValue<number>;
-  };
-}
-
-const HeroCopy: React.FC<HeroCopyProps> = ({ style }) => {
+export default function HeroCopy() {
   return (
-    <motion.div
-      style={style}
-      className="relative z-20 flex flex-col items-center justify-center text-center px-6 pointer-events-none w-full max-w-4xl mx-auto"
-    >
-      {/* Label */}
-      <span className="text-[#d9dade] text-sm md:text-base tracking-[0.2em] uppercase mb-6 font-light transition-opacity duration-300">
+    <div className="text-center text-ghost-text">
+      <div className="mb-4 text-xs font-medium tracking-[0.28em] text-ghost-text/70">
         [BRAND AWARENESS]
-      </span>
+      </div>
 
-      {/* Headline */}
-      <h1 className="text-[#d9dade] text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.1] tracking-tight mb-8 drop-shadow-2xl transition-colors duration-300">
-        Design, não <br />é só estética.
+      {/* Text centered, no animations */}
+      <h1 className="text-balance font-semibold leading-[1.05] tracking-[-0.03em] text-4xl sm:text-5xl md:text-6xl drop-shadow-2xl">
+        <span className="block">Design, não</span>
+        <span className="block">é só estética.</span>
       </h1>
 
-      {/* Subhead */}
-      <p className="text-[#d9dade] text-lg md:text-2xl font-light italic tracking-wide mb-12">
+      <p className="mt-5 text-pretty text-base text-ghost-text/80 sm:text-lg">
         [É intenção, é estratégia, é experiência.]
       </p>
 
-      {/* CTA (Pointer Events Auto to clickable) */}
-      <div className="pointer-events-auto flex flex-col items-center gap-4">
-        <a
-          href="/sobre"
-          className="group relative flex items-center gap-3 bg-[#0057FF] text-white px-8 py-4 rounded-full font-medium transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(0,87,255,0.5)]"
-          aria-label="Get to know me better"
-        >
-          <span className="text-lg">get to know me better</span>
-          <span className="bg-white/20 p-1.5 rounded-full group-hover:bg-white/30 transition-colors -rotate-45 group-hover:rotate-0 duration-300">
-            <ArrowRight className="w-4 h-4" />
-          </span>
-        </a>
+      <div className="mt-8 flex justify-center">
+        <Button href="/sobre" className="group" size="lg">
+          get to know me better
+          <ArrowUpRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+        </Button>
       </div>
-    </motion.div>
+    </div>
   );
-};
-
-export default HeroCopy;
+}

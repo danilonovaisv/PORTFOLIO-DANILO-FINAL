@@ -14,6 +14,14 @@ const config: Config = {
         secondary: '#111111',
         muted: '#555555',
         white: '#FFFFFF',
+        ghost: {
+          bg: '#06071f',
+          dark: '#0f2027',
+          blue: '#4a90e2',
+          green: '#50e3c2',
+          ambient: '#0a0a2e',
+          text: '#d9dade',
+        },
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
