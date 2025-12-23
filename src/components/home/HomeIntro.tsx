@@ -7,7 +7,6 @@ import { Volume2, VolumeX } from 'lucide-react';
 import HeroPreloader from './HeroPreloader';
 import HeroCopy from './HeroCopy';
 import GhostStage from './GhostStage';
-import HeroGhost from './HeroGhost';
 import { BRAND } from '@/config/brand';
 
 /**
@@ -32,10 +31,6 @@ export default function HomeIntro() {
   });
 
   // Hero Content Transitions (0 -> 0.15)
-  const heroOpacity = useTransform(smoothProgress, [0, 0.15], [1, 0]);
-  const heroScale = useTransform(smoothProgress, [0, 0.15], [1, 0.9]);
-  const heroY = useTransform(smoothProgress, [0, 0.15], [0, -60]);
-
   // Video Thumb Expansion Transitions (0.1 -> 0.85)
   // Initially small and in the corner, it expands to cover the viewport.
   const videoWidth = useTransform(
@@ -105,41 +100,46 @@ export default function HomeIntro() {
             }}
             className="absolute inset-0 z-0 origin-center"
           >
-            <GhostStage />
-            {/* Dark gradient overlay for DEPTH */}
-            <div
-              className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(7,9,40,0.5)_0%,#050505_100%)] pointer-events-none"
-              aria-hidden="true"
-            />
+            <GhostStage className="!pointer-events-none" />
           </motion.div>
+
+          {/* Dark gradient overlay for DEPTH */}
+          <div
+            className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,rgba(7,9,40,0.55)_0%,#050505_100%)] pointer-events-none"
+            aria-hidden="true"
+          />
 
           {/* Layer 2: Hero Content (Text & CTA) */}
-          <motion.div
-            style={{ opacity: heroOpacity, scale: heroScale, y: heroY }}
-            className="absolute inset-0 z-10 flex flex-col justify-center items-center pointer-events-none px-6"
-          >
-            <div className="pointer-events-auto mt-[-5vh]">
+          <div className="absolute inset-0 z-20 flex flex-col justify-center items-start px-6 pointer-events-none">
+            <div className="pointer-events-auto w-full max-w-6xl mx-auto">
               <HeroCopy />
             </div>
-          </motion.div>
+          </div>
 
-          {/* NOVO LOCAL PARA O GHOST: Spectral Ghost posicionado no canto inferior direito */}
+          {/* Foreground glow overlay to let the ghost invade the type */}
+          <div className="absolute inset-0 z-[18] pointer-events-none bg-[radial-gradient(circle_at_40%_50%,rgba(0,87,255,0.3)_0%,rgba(0,23,68,0)_50%)]" />
+
+          {/* NOVO LOCAL PARA O GHOST: Spectral Ghost posicionado sobre o texto */}
           <motion.div
-            initial={{ opacity: 0, y: 100 }}
+            initial={{ opacity: 0, y: 120 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-              duration: 2,
-              delay: 0.8,
-              ease: [0.22, 1, 0.36, 1], // Custom ease-out
+              duration: 1.6,
+              delay: 0.4,
+              ease: [0.22, 1, 0.36, 1],
             }}
-            style={{ opacity: ghostOpacity }} // Also fades out with the atmosphere on scroll
-            className="absolute bottom-0 right-0 z-20 w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] pointer-events-none"
+            style={{
+              opacity: ghostOpacity,
+              scale: ghostScale,
+              filter: ghostBlur,
+            }}
+            className="absolute left-[14%] top-[42%] z-[35] h-[46vw] w-[46vw] max-h-[540px] max-w-[540px] -translate-y-1/2 pointer-events-none"
           >
-            <HeroGhost />
+            <GhostStage className="!pointer-events-none" />
           </motion.div>
 
           {/* Layer 3: Expanding Manifesto Video */}
-          <div className="absolute inset-0 z-30 pointer-events-none">
+          <div className="absolute inset-0 z-50 pointer-events-none">
             <motion.div
               initial={{ opacity: 0, y: 100 }}
               animate={{ opacity: 1, y: 0 }}

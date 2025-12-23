@@ -26,7 +26,7 @@ export default function DesktopFluidHeader() {
   };
 
   return (
-    <header className="fixed top-6 left-1/2 -translate-x-1/2 z-40 w-full max-w-2xl h-16 flex items-center justify-center pointer-events-none">
+    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-40 w-full max-w-3xl h-16 flex items-center justify-center pointer-events-none">
       {/* HTML Content (Pointer Events Auto) */}
       <div className="relative z-10 flex items-center justify-between w-full px-8 pointer-events-auto">
         {/* Logo */}
@@ -35,32 +35,40 @@ export default function DesktopFluidHeader() {
           aria-label="Ir para a home"
           className="relative block shrink-0 transition-transform duration-300 hover:scale-105"
         >
-          <div className="relative h-6 w-20">
+          <div className="relative h-8 w-24 drop-shadow-[0_10px_30px_rgba(0,0,0,0.35)]">
             <Image
-              src={BRAND.logos.dark}
+              src={BRAND.logos.light}
               alt={BRAND.name}
               fill
               className="object-contain"
+              sizes="160px"
+              priority
             />
           </div>
         </Link>
 
         {/* Links */}
-        <nav className="flex items-center gap-6">
+        <nav className="flex items-center gap-8">
           {NAV_LINKS.map((link) => {
             const isActive = getAriaCurrent(link.href) === 'page';
             return (
               <Link
                 key={link.label}
                 href={link.href}
-                className={`text-sm font-medium lowercase tracking-wide transition-colors duration-200 ${
+                className={`relative text-sm font-medium lowercase tracking-wide transition-colors duration-200 ${
                   isActive
                     ? 'text-[#0057FF]'
-                    : 'text-gray-800 hover:text-[#0057FF]'
+                    : 'text-white/85 hover:text-white'
                 }`}
-                aria-current={isActive}
+                aria-current={isActive ? 'page' : undefined}
               >
                 {link.label}
+                <span
+                  className={`absolute -bottom-1 left-0 h-[2px] w-full origin-left rounded-full bg-[#0057FF] transition-transform duration-300 ${
+                    isActive ? 'scale-x-100' : 'scale-x-0 hover:scale-x-100'
+                  }`}
+                  aria-hidden
+                />
               </Link>
             );
           })}
@@ -73,9 +81,9 @@ export default function DesktopFluidHeader() {
             Performance warning: Multiple Canvases.
             But Spec says "Canvas WebGL isolado".
         */}
-      <div className="absolute inset-0 z-0 rounded-full overflow-hidden">
+      <div className="absolute inset-0 z-0 rounded-full overflow-hidden shadow-[0_25px_90px_rgba(0,0,0,0.45)]">
         {/* Fallback CSS background if WebGL fails or loading */}
-        <div className="absolute inset-0 bg-white/70 backdrop-blur-md -z-10" />
+        <div className="absolute inset-0 -z-10 border border-white/8 bg-white/10 backdrop-blur-xl" />
 
         <Canvas
           camera={{ position: [0, 0, 5], fov: 45 }}
@@ -83,7 +91,7 @@ export default function DesktopFluidHeader() {
           dpr={[1, 2]}
           className="pointer-events-none"
         >
-          <ambientLight intensity={0.5} />
+          <ambientLight intensity={0.35} />
           <pointLight position={[10, 10, 10]} />
           <FluidGlass />
         </Canvas>

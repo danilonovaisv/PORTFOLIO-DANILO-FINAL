@@ -1,13 +1,16 @@
 export const GhostParams = {
   // Ghost appearance
-  bodyColor: '#0f2027',
-  glowColor: 'blue', // blue
+  bodyColor: '#0c1833',
+  overlayBodyColor: '#0b1d3f',
+  glowColor: '#1b5cff', // blue energy
   eyeGlowColor: 'violet', // violet
-  ghostOpacity: 0.88,
+  ghostOpacity: 0.84,
+  overlayOpacity: 0.52,
   ghostScale: 2.4,
 
   // Glow effects
-  emissiveIntensity: 5.8,
+  emissiveIntensity: 7.8,
+  overlayGlowBoost: 1.35,
   pulseSpeed: 1.6,
   pulseIntensity: 0.6,
 
@@ -20,8 +23,8 @@ export const GhostParams = {
   rimLightIntensity: 1.8,
 
   // Behavior
-  followSpeed: 0.05,
-  wobbleAmount: 0.35,
+  followSpeed: 0.08,
+  wobbleAmount: 0.32,
   floatSpeed: 1.6,
   movementThreshold: 0.07,
 
@@ -44,12 +47,12 @@ export const GhostParams = {
 
   // Analog Decay settings
   analogIntensity: 0.9,
-  analogGrain: 0.4,
-  analogBleeding: 0.9,
-  analogVSync: 1.7,
-  analogScanlines: 1.0,
-  analogVignette: 2.4,
-  analogJitter: 0.5,
+  analogGrain: 0.35,
+  analogBleeding: 0.95,
+  analogVSync: 1.6,
+  analogScanlines: 0.95,
+  analogVignette: 2.2,
+  analogJitter: 0.45,
   limboMode: 0, // 0 ou 1
 };
 

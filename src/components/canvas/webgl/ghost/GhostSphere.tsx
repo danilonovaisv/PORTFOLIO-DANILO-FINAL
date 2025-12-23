@@ -124,7 +124,7 @@ export function GhostSphere({
   });
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} renderOrder={20}>
       <mesh ref={meshRef} geometry={geometry}>
         <meshStandardMaterial
           color={GhostParams.bodyColor}
@@ -135,7 +135,28 @@ export function GhostSphere({
           roughness={0.02}
           metalness={0.0}
           side={THREE.DoubleSide}
-          alphaTest={0.1}
+          alphaTest={0.05}
+          depthWrite={false}
+          depthTest={false}
+          blending={THREE.AdditiveBlending}
+        />
+      </mesh>
+      {/* Overlay glow shell to ensure the ghost sits above the copy visually */}
+      <mesh geometry={geometry} scale={1.04}>
+        <meshStandardMaterial
+          color={GhostParams.overlayBodyColor}
+          transparent
+          opacity={GhostParams.overlayOpacity}
+          emissive={GhostParams.glowColor}
+          emissiveIntensity={
+            GhostParams.emissiveIntensity * GhostParams.overlayGlowBoost
+          }
+          roughness={0.08}
+          metalness={0.0}
+          side={THREE.DoubleSide}
+          depthWrite={false}
+          depthTest={false}
+          blending={THREE.AdditiveBlending}
         />
       </mesh>
       <Eyes eyeOpacity={eyeOpacity} />
