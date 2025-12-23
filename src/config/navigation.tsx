@@ -1,5 +1,13 @@
 import React from 'react';
-import { Mail, Phone, MapPin, Linkedin, Instagram, Twitter, Facebook } from 'lucide-react';
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Linkedin,
+  Instagram,
+  Twitter,
+  Facebook,
+} from 'lucide-react';
 
 export const SOCIALS = [
   {
@@ -43,17 +51,17 @@ export const CONTACT_INFO = [
 ];
 
 export const CONTACT_FORM = {
-  action: "https://formsubmit.co/danilo@portfoliodanilo.com",
+  action: 'https://formsubmit.co/danilo@portfoliodanilo.com',
 };
 
 export const FOOTER = {
-  copyright: "© 2025 Danilo Novais Vilela — todos os direitos reservados.",
+  copyright: '© 2025 Danilo Novais Vilela — todos os direitos reservados.',
   links: [
     { label: 'home', href: '/' },
     { label: 'portfólio showcase', href: '#portfolio-showcase' },
     { label: 'sobre', href: '/sobre' },
     { label: 'contato', href: '#contact' },
-  ]
+  ],
 };
 
 export const NAV_LINKS = FOOTER.links;

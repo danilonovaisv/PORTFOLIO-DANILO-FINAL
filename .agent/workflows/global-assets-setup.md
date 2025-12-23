@@ -93,3 +93,4 @@ Varra os componentes Hero.tsx, Footer.tsx, Contact.tsx e substitua strings solta
 
 Valide se todas as imagens carregam corretamente.
 }
+```

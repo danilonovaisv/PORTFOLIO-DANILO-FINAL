@@ -11,7 +11,7 @@ describe('global site links', () => {
     // { label: 'contato', href: '#contact' },
     expect(NAV_LINKS).toHaveLength(4);
 
-    const hrefs = NAV_LINKS.map(l => l.href);
+    const hrefs = NAV_LINKS.map((l) => l.href);
     expect(hrefs).toContain('/');
     expect(hrefs).toContain('#portfolio-showcase');
     expect(hrefs).toContain('#contact');
@@ -29,7 +29,7 @@ describe('global site links', () => {
 
   it('has valid categories in home content', () => {
     expect(HOME_CONTENT.showcase.categories.length).toBeGreaterThan(0);
-    HOME_CONTENT.showcase.categories.forEach(cat => {
+    HOME_CONTENT.showcase.categories.forEach((cat) => {
       expect(cat.posterUrl).toBeDefined();
     });
   });

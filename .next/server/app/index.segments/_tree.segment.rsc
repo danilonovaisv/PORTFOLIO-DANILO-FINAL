@@ -4,4 +4,4 @@
 :HL["/_next/static/media/TT%20Norms%20Pro%20Medium-s.p.c17faf8c.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/media/TT%20Norms%20Pro%20Regular-s.p.da89f05d.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/media/TT%20Norms%20Pro%20Thin-s.p.e7e05ef8.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-0:{"buildId":"NHjoxFaHeEotU7gtmQgD_","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":true},"staleTime":300}
+0:{"buildId":"CH6GZwNH6Lgidwdse3187","tree":{"name":"","paramType":null,"paramKey":"","hasRuntimePrefetch":false,"slots":{"children":{"name":"__PAGE__","paramType":null,"paramKey":"__PAGE__","hasRuntimePrefetch":false,"slots":null,"isRootLayout":false}},"isRootLayout":true},"staleTime":300}

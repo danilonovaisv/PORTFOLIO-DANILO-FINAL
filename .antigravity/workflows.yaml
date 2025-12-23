@@ -1,41 +1,41 @@
 # yaml-language-server: $schema=http://json-schema.org/draft-07/schema
 commands:
-  - name: "build-hero"
-    description: "Implementa a Hero Section com conceito Blue Ghost e camadas corrigidas"
-    agent: "@VisualCore"
-    source: ".agent/workflows/hero-section.md"
+  - name: 'build-hero'
+    description: 'Implementa a Hero Section com conceito Blue Ghost e camadas corrigidas'
+    agent: '@VisualCore'
+    source: '.agent/workflows/hero-section.md'
 
-  - name: "build-manifesto"
-    description: "Implementa a expansão de vídeo (Thumb to Fullscreen) via scroll"
-    agent: "@VisualCore"
-    source: ".agent/workflows/manifesto-video.md"
+  - name: 'build-manifesto'
+    description: 'Implementa a expansão de vídeo (Thumb to Fullscreen) via scroll'
+    agent: '@VisualCore'
+    source: '.agent/workflows/manifesto-video.md'
 
-  - name: "build-portfolio"
-    description: "Cria o grid mosaico e stripes editoriais conectados ao Supabase"
-    agent: "@TechLead"
-    source: ".agent/workflows/portfolio-showcase.md"
+  - name: 'build-portfolio'
+    description: 'Cria o grid mosaico e stripes editoriais conectados ao Supabase'
+    agent: '@TechLead'
+    source: '.agent/workflows/portfolio-showcase.md'
 
-  - name: "build-footer"
-    description: "Implementa Marquee de Clientes, Contacto e Rodapé"
-    agent: "@TechLead"
-    source: ".agent/workflows/brands-footer.md"
+  - name: 'build-footer'
+    description: 'Implementa Marquee de Clientes, Contacto e Rodapé'
+    agent: '@TechLead'
+    source: '.agent/workflows/brands-footer.md'
 
-  - name: "audit"
-    description: "Auditoria de performance (Web Vitals) e acessibilidade"
-    agent: "@Auditor"
-    source: ".agent/workflows/performance-audit.md"
+  - name: 'audit'
+    description: 'Auditoria de performance (Web Vitals) e acessibilidade'
+    agent: '@Auditor'
+    source: '.agent/workflows/performance-audit.md'
 
-  - name: "refactor-all"
-    description: "Limpeza de imports, tipagem e padronização de código"
-    agent: "@TechLead"
-    source: ".agent/workflows/code-quality-refactor.md"
+  - name: 'refactor-all'
+    description: 'Limpeza de imports, tipagem e padronização de código'
+    agent: '@TechLead'
+    source: '.agent/workflows/code-quality-refactor.md'
 
-  - name: "seo-setup"
-    description: "Configuração de Metadados, Sitemap e Open Graph"
-    agent: "@Auditor"
-    source: ".agent/workflows/seo-optimization.md"
+  - name: 'seo-setup'
+    description: 'Configuração de Metadados, Sitemap e Open Graph'
+    agent: '@Auditor'
+    source: '.agent/workflows/seo-optimization.md'
 
-  - name: "setup-assets"
-    description: "Configura e centraliza todos os assets globais (Logos, Links, Textos)"
-    agent: "@TechLead"
-    source: ".agent/workflows/global-assets-setup.md"
+  - name: 'setup-assets'
+    description: 'Configura e centraliza todos os assets globais (Logos, Links, Textos)'
+    agent: '@TechLead'
+    source: '.agent/workflows/global-assets-setup.md'
