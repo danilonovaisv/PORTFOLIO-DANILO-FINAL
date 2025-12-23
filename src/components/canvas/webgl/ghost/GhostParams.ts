@@ -1,4 +1,4 @@
-  export const GhostParams = {
+export const GhostParams = {
   // Ghost appearance
   bodyColor: '#0f2027',
   glowColor: 'blue', // blue
@@ -50,7 +50,7 @@
   analogScanlines: 1.0,
   analogVignette: 2.4,
   analogJitter: 0.5,
-  limboMode: 0 // 0 ou 1
+  limboMode: 0, // 0 ou 1
 };
 
 export const FluorescentColors = {
@@ -65,5 +65,5 @@ export const FluorescentColors = {
   green: '#00ff80',
   red: '#ff0040',
   teal: '#00ffaa',
-  violet: '#8a2be2'
+  violet: '#8a2be2',
 };

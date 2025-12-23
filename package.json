@@ -36,12 +36,9 @@
     "clean": "rimraf .next"
   },
   "dependencies": {
-    "@dataconnect/admin-generated": "file:src/dataconnect-admin-generated",
-    "@dataconnect/generated": "file:src/dataconnect-generated",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.4.2",
     "@react-three/postprocessing": "^3.0.4",
-    "@studio-freight/react-lenis": "^0.0.47",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.89.0",
     "clsx": "^2.1.1",
@@ -55,10 +52,7 @@
     "resize-observer-polyfill": "^1.5.1",
     "tailwind-merge": "^3.4.0",
     "three": "^0.182.0",
-    "three-stdlib": "^2.36.1",
-    "tweakpane": "^4.0.5",
-    "zod": "^4.2.1",
-    "zustand": "^5.0.9"
+    "zod": "^4.2.1"
   },
   "devDependencies": {
     "@jest/globals": "^30.2.0",
@@ -77,6 +71,7 @@
     "autoprefixer": "^10.4.23",
     "depcheck": "^1.4.7",
     "eslint": "^9.39.2",
+    "eslint-config-next": "^16.1.1",
     "jest": "^30.2.0",
     "jest-environment-jsdom": "^30.2.0",
     "postcss": "^8.5.6",

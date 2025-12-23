@@ -1,9 +1,9 @@
-
 # **Documento de Especificação Técnica — Home Page**
 
 **Projeto:** Portfólio Institucional de Danilo Novais
 **Páginas Principais:** Home, Sobre, Portfólio, Contato
 **Foco deste Documento:** Home Page (seções: Header, Hero, Manifesto,Portfolio Showcase, Featured Projects, Clients/Brands, Contact, Footer)
+
 ---
 
 ## INFORMAÇÕES GLOBAIS
@@ -84,13 +84,14 @@
 - **Portfolio Showcase**
 - Título: `portfólio showcase`
 - Categorias:
-| ID | Label (UI) |
-Label PT (explicativo) | Thumbnail URL
-|
-| ---------------------------- | -------------------------------- |
--------------------------------- |
+  | ID | Label (UI) |
+  Label PT (explicativo) | Thumbnail URL
+  |
+  | ---------------------------- | -------------------------------- |
+  -------------------------------- |
 
------------------------------------------------------------------------
+---
+
 ------------------------------------ |
 | `brand-campaigns` | `Brand & Campaigns` |
 `Brand & Campanhas` |
@@ -109,13 +110,14 @@ Label PT (explicativo) | Thumbnail URL
 - Label: `VEJA MAIS →`
 - Href: `/portfolio`
 - **Featured Projects — cards**
-| Slug | Título |
-Categoria | Cliente | Ano | Imagem URL
-|
-| ---------------------- | ------------------------------------- |
---------------------- | ---------------------- | ---- |
+  | Slug | Título |
+  Categoria | Cliente | Ano | Imagem URL
+  |
+  | ---------------------- | ------------------------------------- |
+  --------------------- | ---------------------- | ---- |
 
--------------------------------------------------------------------------
+---
+
 ------------------------------------ |
 | `magic-radio-branding` | `Magic — devolvendo a magia ao rádio` |
 `branding & campanha` | `Magic` | 2023 |
@@ -137,11 +139,12 @@ motion` | `Cliente confidencial` | 2023 |
 - **Clients / Brands**
 - Título: `marcas com as quais já trabalhei`
 - Logos (monocromáticos claros):
-| # | URL
-|
-| --- |
+  | # | URL
+  |
+  | --- |
 
------------------------------------------------------------------------
+---
+
 ---------------------- |
 | 1 |
 `https://aymuvxysygrwoicsjgxj.supabase
@@ -200,7 +203,7 @@ motion` | `Cliente confidencial` | 2023 |
 - Home: `© 2025 Danilo Novais Vilela — todos os direitos reservados.`
 - Footer seção: `© 2023 Danilo Novais Vilela. Todos os direitos
 reservados.`
-**[SUGESTÃO]** Unificar para `© 2025 ...` em todo o site.
+  **[SUGESTÃO]** Unificar para `© 2025 ...` em todo o site.
 - Links:
 - `home` → `#hero`
 - `portfólio showcase` → `#portfolio-showcase`
@@ -217,9 +220,9 @@ reservados.`
 - Respeitar `prefers-reduced-motion: reduce`:
 - Desativar rotação 3D contínua, parallax e morph thumb→vídeo.
 - Manter estados estáticos + fades simples.
-**implementação padrão**
-para animações de scroll, com JS puro (`requestAnimationFrame`) apenas
-como alternativa se necessário.
+  **implementação padrão**
+  para animações de scroll, com JS puro (`requestAnimationFrame`) apenas
+  como alternativa se necessário.
 
 ---
 
@@ -229,7 +232,7 @@ como alternativa se necessário.
 
 # **SECTION NAME: Header (SiteHeader)**
 
-### Desktop: Fluid Glass Navigation  
+### Desktop: Fluid Glass Navigation
 
 ### Mobile & Tablet: Staggered Menu Navigation
 
@@ -262,17 +265,18 @@ como alternativa se necessário.
 
 ## BREAKPOINT STRATEGY
 
-| Device | Behaviour |
-|------|----------|
+| Device           | Behaviour          |
+| ---------------- | ------------------ |
 | Desktop ≥ 1024px | Fluid Glass Header |
-| Tablet ≤ 1023px | Staggered Menu |
-| Mobile ≤ 640px | Staggered Menu |
+| Tablet ≤ 1023px  | Staggered Menu     |
+| Mobile ≤ 640px   | Staggered Menu     |
 
 ---
 
 ## DESKTOP — FLUID GLASS HEADER
 
 ### VISUAL REFERENCE
+
 <https://reactbits.dev/components/fluid-glass>
 
 ---
@@ -329,7 +333,7 @@ components/header/
     ior: 1.15,
     thickness: 5,
     chromaticAberration: 0.1,
-    anisotropy: 0.01
+    anisotropy: 0.01,
   }}
 />
 ```
@@ -373,6 +377,7 @@ components/header/
 ## MOBILE & TABLET — STAGGERED MENU
 
 ### VISUAL REFERENCE
+
 <https://reactbits.dev/components/staggered-menu>
 
 ---
@@ -461,28 +466,50 @@ import { motion } from 'framer-motion';
 
 export default function HeroPreloader() {
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 1 }}
       animate={{ opacity: 0 }}
       transition={{ delay: 1.5, duration: 1 }}
       className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-[#0a0a0a] to-[#1a1a1a]"
     >
       <div className="ghost-loader mb-8">
-        <svg className="ghost-svg" height="80" viewBox="0 0 512 512" width="80" xmlns="http://www.w3.org/2000/svg">
-          <path className="ghost-body" d="m508.374 432.802s-46.6-39.038-79.495-275.781c-8.833-87.68-82.856-156.139-172.879-156.139-90.015 0-164.046 68.458-172.879 156.138-32.895 236.743-79.495 275.782-79.495 275.782-15.107 25.181 20.733 28.178 38.699 27.94 35.254-.478 35.254 40.294 70.516 40.294 35.254 0 35.254-35.261 70.508-35.261s37.396 45.343 72.65 45.343 37.389-45.343 72.651-45.343c35.254 0 35.254 35.261 70.508 35.261s35.27-40.772 70.524-40.294c17.959.238 53.798-2.76 38.692-27.94z" fill="white" />
-          <circle className="ghost-eye left-eye" cx="208" cy="225" r="22" fill="black" />
-          <circle className="ghost-eye right-eye" cx="297" cy="225" r="22" fill="black" />
+        <svg
+          className="ghost-svg"
+          height="80"
+          viewBox="0 0 512 512"
+          width="80"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            className="ghost-body"
+            d="m508.374 432.802s-46.6-39.038-79.495-275.781c-8.833-87.68-82.856-156.139-172.879-156.139-90.015 0-164.046 68.458-172.879 156.138-32.895 236.743-79.495 275.782-79.495 275.782-15.107 25.181 20.733 28.178 38.699 27.94 35.254-.478 35.254 40.294 70.516 40.294 35.254 0 35.254-35.261 70.508-35.261s37.396 45.343 72.65 45.343 37.389-45.343 72.651-45.343c35.254 0 35.254 35.261 70.508 35.261s35.27-40.772 70.524-40.294c17.959.238 53.798-2.76 38.692-27.94z"
+            fill="white"
+          />
+          <circle
+            className="ghost-eye left-eye"
+            cx="208"
+            cy="225"
+            r="22"
+            fill="black"
+          />
+          <circle
+            className="ghost-eye right-eye"
+            cx="297"
+            cy="225"
+            r="22"
+            fill="black"
+          />
         </svg>
       </div>
       <div className="loading-text font-mono text-xs uppercase tracking-widest text-[#e0e0e0] mb-4">
         Summoning spirits
       </div>
       <div className="loading-progress w-24 h-0.5 bg-[#06071f] rounded-full overflow-hidden">
-        <motion.div 
+        <motion.div
           className="progress-bar h-full bg-gradient-to-r from-[#0057FF] to-[#5227FF]"
           initial={{ width: 0 }}
-          animate={{ width: "100%" }}
-          transition={{ duration: 2, ease: "easeInOut" }}
+          animate={{ width: '100%' }}
+          transition={{ duration: 2, ease: 'easeInOut' }}
         />
       </div>
     </motion.div>
@@ -515,7 +542,7 @@ Design, não
 ✅ **Texto 100% estático** - Nenhuma animação de entrada  
 ✅ **Sem glassmorphism** - Nenhum efeito de vidro/blur CSS  
 ✅ **Sem reveal progressivo** - Todo o texto aparece imediatamente  
-✅ **Sem scroll binding** - Texto nunca depende de posição de scroll  
+✅ **Sem scroll binding** - Texto nunca depende de posição de scroll
 
 ### Componente
 
@@ -530,8 +557,8 @@ export default function HeroCopy() {
         [BRAND AWARENESS]
       </div>
       <h1 className="text-[#d9dade] font-bold text-4xl md:text-5xl lg:text-6xl leading-tight mb-6">
-        Design, não<br />
-        é só estética.
+        Design, não
+        <br />é só estética.
       </h1>
       <div className="text-[#d9dade] text-base md:text-lg mb-8">
         [É intenção, é estratégia, é experiência.]
@@ -574,7 +601,7 @@ O WebGL funciona como uma **camada sensorial** no fundo, não como objeto princi
 - **Follow sutil** do mouse apenas no desktop
 - **Pulso temporal** orgânico (sem movimento mecânico)
 
-### Referência Visual: <https://codepen.io/danilonovaisv/pen/azZbdQo>  
+### Referência Visual: <https://codepen.io/danilonovaisv/pen/azZbdQo>
 
 ### Elementos Principais
 
@@ -612,12 +639,12 @@ components/home/
 
 ## Z-INDEX (CRÍTICO)
 
-| Z-Index | Elemento                  | Descrição                                  |
-|---------|---------------------------|--------------------------------------------|
-| **z-0** | **WebGL Canvas**          | Cena 3D completa (Ghost + Atmosfera + Partículas) |
-| **z-10**| **Overlay Gradiente**     | Camada de vinheta opcional para integração visual |
-| **z-20**| **Conteúdo**              | Texto H1 + Thumb do vídeo (interativo)     |
-| **z-50**| **Preloader**             | Tela de carregamento (aparece apenas no início) |
+| Z-Index  | Elemento              | Descrição                                         |
+| -------- | --------------------- | ------------------------------------------------- |
+| **z-0**  | **WebGL Canvas**      | Cena 3D completa (Ghost + Atmosfera + Partículas) |
+| **z-10** | **Overlay Gradiente** | Camada de vinheta opcional para integração visual |
+| **z-20** | **Conteúdo**          | Texto H1 + Thumb do vídeo (interativo)            |
+| **z-50** | **Preloader**         | Tela de carregamento (aparece apenas no início)   |
 
 ---
 
@@ -657,8 +684,10 @@ function MouseFollower({ children }: { children: React.ReactNode }) {
 
   useFrame(() => {
     if (reducedMotion || !ghostRef.current) return;
-    ghostRef.current.position.x += (mouseRef.current.x * 8 - ghostRef.current.position.x) * 0.05;
-    ghostRef.current.position.y += (mouseRef.current.y * 5 - ghostRef.current.position.y) * 0.05;
+    ghostRef.current.position.x +=
+      (mouseRef.current.x * 8 - ghostRef.current.position.x) * 0.05;
+    ghostRef.current.position.y +=
+      (mouseRef.current.y * 5 - ghostRef.current.position.y) * 0.05;
   });
 
   return <group ref={ghostRef}>{children}</group>;
@@ -673,18 +702,18 @@ export default function GhostCanvas() {
       className="absolute inset-0 z-0"
     >
       <color attach="background" args={['#06071f']} />
-      
+
       <ambientLight intensity={0.08} color="#0a0a2e" />
-      
+
       <AtmosphereVeil />
-      
+
       <MouseFollower>
         <Ghost />
         <Particles />
       </MouseFollower>
-      
+
       <Fireflies />
-      
+
       <EffectComposer>
         <Bloom
           intensity={2.8}
@@ -712,17 +741,17 @@ import Eyes from './Eyes';
 export default function Ghost() {
   const meshRef = useRef<THREE.Mesh>(null);
   const ghostColor = new THREE.Color('#0057FF');
-  
+
   useFrame((state) => {
     if (!meshRef.current) return;
     const t = state.clock.elapsedTime;
-    
+
     // Pulsing emissive
     meshRef.current.material.emissiveIntensity = 3.5 + Math.sin(t * 1.2) * 0.6;
-    
+
     // Floating animation
     meshRef.current.position.y = Math.sin(t * 0.8) * 0.15;
-    
+
     // Gentle wobble
     meshRef.current.rotation.y = Math.sin(t * 0.3) * 0.1;
   });
@@ -769,33 +798,33 @@ export default function Eyes() {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (reducedMotion) return;
-      
+
       const mousePos = {
         x: (e.clientX / window.innerWidth) * 2 - 1,
-        y: -(e.clientY / window.innerHeight) * 2 + 1
+        y: -(e.clientY / window.innerHeight) * 2 + 1,
       };
-      
+
       mouseSpeedRef.current.x = Math.abs(mousePos.x - lastMousePos.current.x);
       mouseSpeedRef.current.y = Math.abs(mousePos.y - lastMousePos.current.y);
       lastMousePos.current = mousePos;
-      
-      currentMovement.current = 
-        currentMovement.current * 0.95 + 
+
+      currentMovement.current =
+        currentMovement.current * 0.95 +
         (mouseSpeedRef.current.x + mouseSpeedRef.current.y) * 0.5;
     };
-    
+
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [reducedMotion]);
 
   useFrame(() => {
     if (reducedMotion || !leftEyeRef.current || !rightEyeRef.current) return;
-    
+
     // Eye glow based on movement speed
     const glowIntensity = Math.min(currentMovement.current * 5, 1);
     leftEyeRef.current.material.opacity = glowIntensity;
     rightEyeRef.current.material.opacity = glowIntensity;
-    
+
     // Make eyes look at camera
     leftEyeRef.current.lookAt(camera.position);
     rightEyeRef.current.lookAt(camera.position);
@@ -812,13 +841,13 @@ export default function Eyes() {
         <sphereGeometry args={[0.45, 16, 16]} />
         <meshBasicMaterial color="#000000" />
       </mesh>
-      
+
       {/* Glowing eyes */}
       <mesh ref={leftEyeRef} position={[-0.7, 0.6, 2.0]}>
         <sphereGeometry args={[0.3, 12, 12]} />
-        <meshBasicMaterial 
-          color="#0057FF" 
-          transparent 
+        <meshBasicMaterial
+          color="#0057FF"
+          transparent
           opacity={0}
           emissive="#5227FF"
           emissiveIntensity={4.5}
@@ -826,30 +855,30 @@ export default function Eyes() {
       </mesh>
       <mesh ref={rightEyeRef} position={[0.7, 0.6, 2.0]}>
         <sphereGeometry args={[0.3, 12, 12]} />
-        <meshBasicMaterial 
-          color="#0057FF" 
-          transparent 
+        <meshBasicMaterial
+          color="#0057FF"
+          transparent
           opacity={0}
           emissive="#5227FF"
           emissiveIntensity={4.5}
         />
       </mesh>
-      
+
       {/* Outer glow */}
       <mesh position={[-0.7, 0.6, 1.95]}>
         <sphereGeometry args={[0.525, 12, 12]} />
-        <meshBasicMaterial 
-          color="#5227FF" 
-          transparent 
+        <meshBasicMaterial
+          color="#5227FF"
+          transparent
           opacity={0}
           side={THREE.BackSide}
         />
       </mesh>
       <mesh position={[0.7, 0.6, 1.95]}>
         <sphereGeometry args={[0.525, 12, 12]} />
-        <meshBasicMaterial 
-          color="#5227FF" 
-          transparent 
+        <meshBasicMaterial
+          color="#5227FF"
+          transparent
           opacity={0}
           side={THREE.BackSide}
         />
@@ -969,32 +998,34 @@ import { useRef } from 'react';
 
 const manifestoVideoVariants: Variants = {
   hidden: { opacity: 0, scale: 0.95, y: 20 },
-  visible: { 
-    opacity: 1, 
-    scale: 1, 
+  visible: {
+    opacity: 1,
+    scale: 1,
     y: 0,
-    transition: { 
-      duration: 0.6, 
-      ease: [0.22, 1, 0.36, 1] // Easing premium
-    }
-  }
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1], // Easing premium
+    },
+  },
 };
 
 export default function ManifestoSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" }); // Aciona quando 100px entram na view
+  const isInView = useInView(sectionRef, { once: true, margin: '-100px' }); // Aciona quando 100px entram na view
 
   return (
-    <section 
+    <section
       id="manifesto"
       ref={sectionRef}
       className="w-full py-20 bg-[#06071f] flex items-center justify-center" // Espaçamento e cor de fundo
     >
-      <div className="max-w-4xl w-full px-4"> {/* Container centralizado */}
+      <div className="max-w-4xl w-full px-4">
+        {' '}
+        {/* Container centralizado */}
         <motion.div
           variants={manifestoVideoVariants}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"} // Animação acionada pelo Intersection Observer
+          animate={isInView ? 'visible' : 'hidden'} // Animação acionada pelo Intersection Observer
           className="w-full aspect-video rounded-xl overflow-hidden" // Mantém proporção e cantos arredondados
         >
           <video
@@ -1055,8 +1086,8 @@ export default function HomePage() {
 - Desativa bloom intenso
 - **Desativa animação de entrada do vídeo manifesto**
 - Mantém layout estático
-✅ **`aria-label`** em todos os elementos interativos
-✅ **Vídeo sempre inicia mudo**
+  ✅ **`aria-label`** em todos os elementos interativos
+  ✅ **Vídeo sempre inicia mudo**
 
 ### Performance
 
@@ -1076,15 +1107,12 @@ export default function HomePage() {
 
 import dynamic from 'next/dynamic';
 
-const GhostCanvas = dynamic(
-  () => import('./webgl/GhostCanvas'),
-  { 
-    ssr: false,
-    loading: () => (
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,_#0b0d3a_0%,_#06071f_60%)]" />
-    )
-  }
-);
+const GhostCanvas = dynamic(() => import('./webgl/GhostCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,_#0b0d3a_0%,_#06071f_60%)]" />
+  ),
+});
 
 export default function GhostStage() {
   return <GhostCanvas />;
@@ -1131,11 +1159,11 @@ export function usePrefersReducedMotion() {
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setPrefersReducedMotion(mediaQuery.matches);
-    
+
     const handleChange = (e: MediaQueryListEvent) => {
       setPrefersReducedMotion(e.matches);
     };
-    
+
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
@@ -1307,9 +1335,9 @@ Criar navegação editorial premium com foco em clareza, ritmo e interatividade 
 
 - Labels curtos e escaneáveis.
 - **Content Priority:**
-    1. Headline
-    2. Stripes
-    3. CTA final
+  1. Headline
+  2. Stripes
+  3. CTA final
 
 ### ALTERNATIVE CONTENT
 
@@ -1438,55 +1466,55 @@ Este documento representa a versão final validada da seção Portfolio Showcase
 
 - Exibir projetos em destaque
 - Direcionar o usuário para mais detalhes
-**PRIMARY MESSAGE / HEADLINE:**
+  **PRIMARY MESSAGE / HEADLINE:**
 - "Projetos em Destaque"
-**SECONDARY MESSAGE / SUPPORT TEXT:**
+  **SECONDARY MESSAGE / SUPPORT TEXT:**
 - N/A
-**KEY CONTENT ELEMENTS:**
+  **KEY CONTENT ELEMENTS:**
 - Grid de cards com imagens dos projetos
 - Título, cliente, ano e categoria para cada projeto
 - CTA "view projects"
-**CALL TO ACTION:**
+  **CALL TO ACTION:**
 - Texto: "view projects"
 - Comportamento: Ao clicar, redireciona para a página Portfólio Showcase
-(`/portfolio`)
-**LAYOUT TYPE:**
+  (`/portfolio`)
+  **LAYOUT TYPE:**
 - Grid responsivo com 1, 2 ou 3 colunas
-**ALIGNMENT:**
+  **ALIGNMENT:**
 - Horizontal: Cards centralizados
 - Vertical: Centralizado verticalmente
-**SPACING:**
+  **SPACING:**
 - Padding interno: `py-12`
 - Margem entre os cards: `gap-6`
-**BACKGROUND:**
+  **BACKGROUND:**
 - Cor sólida cinza claro (`bg-[#F4F5F7]`)
-**SECTION COLORS:**
+  **SECTION COLORS:**
 - Título: `text-[#0057FF]`
 - Texto dos cards: `text-[#111111]`
 - CTA: `bg-[#0057FF]`, `text-white`
-**TYPOGRAPHY:**
+  **TYPOGRAPHY:**
 - Fonte: TT Norms Pro
 - Peso: Bold para o título, Regular para o conteúdo dos cards
 - Tamanho: Título `text-2xl`, Conteúdo dos cards `text-lg`
-**IMAGERY:**
+  **IMAGERY:**
 - Imagens dos projetos
-**MEDIA:**
+  **MEDIA:**
 - N/A
-**COMPONENTS USED:**
+  **COMPONENTS USED:**
 - `<section>`, `<div>`, `<h2>`, `<div>` (card), `<img>`, `<h3>`, `<p>`,
-`<a>`
-**STATE VARIANTS:**
+  `<a>`
+  **STATE VARIANTS:**
 - Hover no card: Leve elevação (`translateY(-5px)`) e sombra
 - Hover no CTA: Leve elevação (`translateY(-1px)`)
-**INTERACTIONS:**
+  **INTERACTIONS:**
 - Clique no card: Redireciona para a página do projeto
 - Clique no CTA: Redireciona para `/portfolio`
-**SCROLL BEHAVIOUR:**
+  **SCROLL BEHAVIOUR:**
 - Reveal on scroll: Animação de entrada staggered ao entrar na viewport
-**ANIMATIONS:**
+  **ANIMATIONS:**
 - Entrada da seção:
 - Container: initial={{ opacity: 0, y: 40 }} → whileInView={{ opacity: 1,
-y: 0 }}
+  y: 0 }}
 - Cards: staggerChildren: 0.08
 - Cada card:
 - initial={{ opacity: 0, y: 24, scale: 0.96 }}
@@ -1498,73 +1526,73 @@ y: 0 }}
 - Card "Like what you see? view projects":
 - Botão com o mesmo hover do CTA da hero
 - Ícone de seta com animação sutil de x (0 → 4px → 0) em loop lento
-**MICRO-INTERACTIONS:**
+  **MICRO-INTERACTIONS:**
 - Feedback visual ao hover no card e no CTA
-**TEXT LIMITS:**
+  **TEXT LIMITS:**
 - Título: Máximo 30 caracteres
 - Título dos projetos: Máximo 50 caracteres
 - Cliente: Máximo 30 caracteres
 - Categoria: Máximo 30 caracteres
 - CTA: Máximo 30 caracteres
-**CONTENT PRIORITY:**
+  **CONTENT PRIORITY:**
 - Alta: Título e cards
 - Média: CTA
-**ALTERNATIVE CONTENT:**
+  **ALTERNATIVE CONTENT:**
 - Se nenhuma imagem for exibida, mostrar um placeholder com o texto "Imagem
-do projeto"
-**LINKS / DESTINATIONS:**
+  do projeto"
+  **LINKS / DESTINATIONS:**
 - Cards: Link para a página do projeto
 - CTA: `/portfolio`
 
 ### Projetos
 
 - **Slug:** `magic-radio-branding`
-**Título:** Magic — devolvendo a magia ao rádio
-**Categoria:** branding & campanha
-**Cliente:** Magic
-**Ano:** 2023
-**Imagem URL:**
-<https://aymuvxysygrwoicsjgxj.supabase>
-.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp
+  **Título:** Magic — devolvendo a magia ao rádio
+  **Categoria:** branding & campanha
+  **Cliente:** Magic
+  **Ano:** 2023
+  **Imagem URL:**
+  <https://aymuvxysygrwoicsjgxj.supabase>
+  .co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp
 - **Slug:** `branding-project-01`
-**Título:** Uma marca ousada e consistente
-**Categoria:** branding
-**Cliente:** Cliente confidencial
-**Ano:** 2022
-**Imagem URL:**
-<https://aymuvxysygrwoicsjgxj.supabase>
-.co/storage/v1/object/public/project-images/Branding-Project.webp
+  **Título:** Uma marca ousada e consistente
+  **Categoria:** branding
+  **Cliente:** Cliente confidencial
+  **Ano:** 2022
+  **Imagem URL:**
+  <https://aymuvxysygrwoicsjgxj.supabase>
+  .co/storage/v1/object/public/project-images/Branding-Project.webp
 - **Slug:** `key-visual-campaign`
-**Título:** Key visual para campanha sazonal
-**Categoria:** campanha
-**Cliente:** Cliente confidencial
-**Ano:** 2021
-**Imagem URL:**
-<https://aymuvxysygrwoicsjgxj.supabase>
-.co/storage/v1/object/public/project-images/Key-Visual.webp
+  **Título:** Key visual para campanha sazonal
+  **Categoria:** campanha
+  **Cliente:** Cliente confidencial
+  **Ano:** 2021
+  **Imagem URL:**
+  <https://aymuvxysygrwoicsjgxj.supabase>
+  .co/storage/v1/object/public/project-images/Key-Visual.webp
 - **Slug:** `webdesigner-motion`
-**Título:** Experiência web em movimento
-**Categoria:** web & motion
-**Cliente:** Cliente confidencial
-**Ano:** 2023
-**Imagem URL:**
-<https://aymuvxysygrwoicsjgxj.supabase>
-.co/storage/v1/object/public/project-images/webdesigner-2%202.gif
-**DATA HOOKS / TRACKING:**
+  **Título:** Experiência web em movimento
+  **Categoria:** web & motion
+  **Cliente:** Cliente confidencial
+  **Ano:** 2023
+  **Imagem URL:**
+  <https://aymuvxysygrwoicsjgxj.supabase>
+  .co/storage/v1/object/public/project-images/webdesigner-2%202.gif
+  **DATA HOOKS / TRACKING:**
 - Eventos de clique nos cards e no CTA para analytics
-**DEPENDENCIES:**
+  **DEPENDENCIES:**
 - `HOMEPAGE_CONTENT.projectCards`
-**ACCESSIBILITY NOTES:**
+  **ACCESSIBILITY NOTES:**
 - As imagens dos projetos devem ter `alt` descritivo
 - Os cards devem ser acessíveis via teclado
 - Respeitar `prefers-reduced-motion: reduce` desativando animações de
-entrada
-**SPECIAL STATES:**
+  entrada
+  **SPECIAL STATES:**
 - Carregamento: Mostrar spinner ou placeholder
 - Erro: Mostrar mensagem de erro
-**NOTES / INSPIRATION:**
+  **NOTES / INSPIRATION:**
 - Layout inspirado em `HOME-PORTFOLIO-LAYOUYT_ESPERADO.jpg`
-**NON-NEGOTIABLES:**
+  **NON-NEGOTIABLES:**
 - Grid de cards com imagens dos projetos
 - Informações de cada projeto (título, cliente, ano, categoria)
 - CTA que redireciona para a página Portfólio Showcase
@@ -1577,116 +1605,105 @@ entrada
 
 - Mostrar marcas com as quais o designer já trabalhou
 - Construir confiança e credibilidade
-**PRIMARY MESSAGE / HEADLINE:**
+  **PRIMARY MESSAGE / HEADLINE:**
 - "marcas com as quais já trabalhei"
-**SECONDARY MESSAGE / SUPPORT TEXT:**
+  **SECONDARY MESSAGE / SUPPORT TEXT:**
 - N/A
-**KEY CONTENT ELEMENTS:**
+  **KEY CONTENT ELEMENTS:**
 - Logos das marcas
 - Faixa azul de fundo
-**CALL TO ACTION:**
+  **CALL TO ACTION:**
 - N/A
-**LAYOUT TYPE:**
+  **LAYOUT TYPE:**
 - Grid de logos
-**ALIGNMENT:**
+  **ALIGNMENT:**
 - Horizontal: Logos centralizadas
 - Vertical: Centralizado verticalmente
-**SPACING:**
+  **SPACING:**
 - Padding interno: `py-12`
 - Margem entre os logos: `gap-4`
-**BACKGROUND:**
+  **BACKGROUND:**
 - Cor sólida azul (`bg-[#0057FF]`)
-**SECTION COLORS:**
+  **SECTION COLORS:**
 - Título: `text-white`
 - Logos: Branco (`filter brightness-0 invert`)
-**TYPOGRAPHY:**
+  **TYPOGRAPHY:**
 - Fonte: Sans-serif neo-grotesca (Inter ou similar)
 - Peso: Bold
 - Tamanho: `text-xl md:text-2xl`
-**IMAGERY:**
+  **IMAGERY:**
 - Logos das marcas
-**MEDIA:**
+  **MEDIA:**
 - N/A
-**COMPONENTS USED:**
+  **COMPONENTS USED:**
 - `<section>`, `<div>`, `<h2>`, `<div>` (logo), `<img>`
-**STATE VARIANTS:**
+  **STATE VARIANTS:**
 - Hover no logo: Leve escala (`scale(1.02)`)
-**INTERACTIONS:**
+  **INTERACTIONS:**
 - Hover no logo: Leve escala (`scale(1.02)`)
-**SCROLL BEHAVIOUR:**
+  **SCROLL BEHAVIOUR:**
 - Reveal on scroll: Animação de entrada staggered ao entrar na viewport
-**ANIMATIONS:**
+  **ANIMATIONS:**
 - Entrada:
 - Título: initial={{ opacity: 0, y: 16 }} → whileInView={{ opacity: 1, y:
-0 }}
+  0 }}
 - Logos: staggerChildren: 0.03
 - Cada logo: initial={{ opacity: 0, y: 12, scale: 0.9 }} → animate={{
-opacity: 1, y: 0, scale: 1 }}
+  opacity: 1, y: 0, scale: 1 }}
 - Hover:
 - whileHover={{ scale: 1.04 }} + leve brightness(1.1)
-**MICRO-INTERACTIONS:**
+  **MICRO-INTERACTIONS:**
 - Feedback visual ao hover no logo
-**TEXT LIMITS:**
+  **TEXT LIMITS:**
 - Título: Máximo 50 caracteres
-**CONTENT PRIORITY:**
+  **CONTENT PRIORITY:**
 - Alta: Título e logos
-**ALTERNATIVE CONTENT:**
+  **ALTERNATIVE CONTENT:**
 - Se nenhum logo for exibido, mostrar uma mensagem de erro
-**LINKS / Globais:**
+  **LINKS / Globais:**
 
 1.
 
 `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client1.svg`
-2.
+.co/storage/v1/object/public/client-logos/client1.svg` 2.
 `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client2.svg`
-3.
+.co/storage/v1/object/public/client-logos/client2.svg` 3.
 `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client3.svg`
-4.
+.co/storage/v1/object/public/client-logos/client3.svg` 4.
 `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client4.svg`
-5.
+.co/storage/v1/object/public/client-logos/client4.svg` 5.
 `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client5.svg`
-6.
+.co/storage/v1/object/public/client-logos/client5.svg` 6.
 `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client6.svg`
-7.
+.co/storage/v1/object/public/client-logos/client6.svg` 7.
 `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client7.svg`
-8.
+.co/storage/v1/object/public/client-logos/client7.svg` 8.
 `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client8.svg`
-9.
+.co/storage/v1/object/public/client-logos/client8.svg` 9.
 `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client9.svg`
-10.
+.co/storage/v1/object/public/client-logos/client9.svg` 10.
 `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client10.svg`
-11.
+.co/storage/v1/object/public/client-logos/client10.svg` 11.
 `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client11.svg`
-12.
+.co/storage/v1/object/public/client-logos/client11.svg` 12.
 `https://aymuvxysygrwoicsjgxj.supabase
 .co/storage/v1/object/public/client-logos/client12.svg`
 **DATA HOOKS / TRACKING:**
 
 - Eventos de hover nos logos para analytics
-**DEPENDENCIES:**
+  **DEPENDENCIES:**
 - `HOMEPAGE_CONTENT.clients`
-**ACCESSIBILITY NOTES:**
+  **ACCESSIBILITY NOTES:**
 - Os logos devem ter `alt` descritivo
 - Os logos devem ser acessíveis via teclado
 - Respeitar `prefers-reduced-motion: reduce` desativando animações de
-entrada
-**SPECIAL STATES:**
+  entrada
+  **SPECIAL STATES:**
 - Carregamento: Mostrar spinner ou placeholder
 - Erro: Mostrar mensagem de erro
-**NOTES / INSPIRATION:**
+  **NOTES / INSPIRATION:**
 - Layout inspirado em `HOME-PORTFOLIO-LAYOUYT_ESPERADO.jpg`
-**NON-NEGOTIABLES:**
+  **NON-NEGOTIABLES:**
 - Faixa azul de fundo
 - Logos das marcas
 - Título "marcas com as quais já trabalhei"
@@ -1699,74 +1716,74 @@ entrada
 
 - Fornecer informações de contato
 - Permitir que os usuários enviem mensagens
-**PRIMARY MESSAGE / HEADLINE:**
+  **PRIMARY MESSAGE / HEADLINE:**
 - "contato"
-**SECONDARY MESSAGE / SUPPORT TEXT:**
+  **SECONDARY MESSAGE / SUPPORT TEXT:**
 - "Tem uma pergunta ou quer trabalhar junto?"
-**KEY CONTENT ELEMENTS:**
+  **KEY CONTENT ELEMENTS:**
 - Informações de contato (telefone, email, site)
 - Formulário de contato
 - Redes sociais
-**CALL TO ACTION:**
+  **CALL TO ACTION:**
 - Texto: "Enviar Mensagem"
 - Comportamento: Ao enviar, envia o formulário para o endpoint definido
-**LAYOUT TYPE:**
+  **LAYOUT TYPE:**
 - Duas colunas em desktop, uma em mobile
-**ALIGNMENT:**
+  **ALIGNMENT:**
 - Horizontal: Informações à esquerda, formulário à direita
 - Vertical: Centralizado verticalmente
-**SPACING:**
+  **SPACING:**
 - Padding interno: `py-12`
 - Margem entre as colunas: `space-x-8`
-**BACKGROUND:**
+  **BACKGROUND:**
 - Cor sólida branca (`bg-white`)
-**SECTION COLORS:**
+  **SECTION COLORS:**
 - Título: `text-[#0057FF]`
 - Texto: `text-[#111111]`
 - Botão: `bg-[#0057FF]`, `text-white`
-**TYPOGRAPHY:**
+  **TYPOGRAPHY:**
 - Fonte: Sans-serif neo-grotesca (Inter ou similar)
 - Peso: Bold para o título, Regular para o conteúdo
 - Tamanho: Título `text-2xl`, Conteúdo `text-lg`
-**IMAGERY:**
+  **IMAGERY:**
 - Ícones de redes sociais
-**MEDIA:**
+  **MEDIA:**
 - N/A
-**COMPONENTS USED:**
+  **COMPONENTS USED:**
 - `<section>`, `<div>`, `<h2>`, `<p>`, `<form>`, `<input>`, `<textarea>`,
-`<button>`, `<a>`
-**STATE VARIANTS:**
+  `<button>`, `<a>`
+  **STATE VARIANTS:**
 - Focus nos inputs: Borda e sombra
 - Hover no botão: Leve elevação (`translateY(-1px)`)
-**INTERACTIONS:**
+  **INTERACTIONS:**
 - Envio do formulário: Envia os dados para o endpoint definido
 - Clique nas redes sociais: Abre o link em nova aba
-**SCROLL BEHAVIOUR:**
+  **SCROLL BEHAVIOUR:**
 - N/A
-**ANIMATIONS:**
+  **ANIMATIONS:**
 - Entrada:
 - Seção: whileInView={{ opacity: 1, y: 0 }} partindo de initial={{
-opacity: 0, y: 24 }}
+  opacity: 0, y: 24 }}
 - Campos do formulário com staggerChildren
 - Interações:
 - Inputs com focus-visible: ring-2 ring-blue-500 ring-offset-2
-ring-offset-[#f5f5f7]
+  ring-offset-[#f5f5f7]
 - Botão "enviar mensagem":
 - whileHover={{ scale: 1.02, y: -1 }}
 - whileTap={{ scale: 0.98 }}
-**MICRO-INTERACTIONS:**
+  **MICRO-INTERACTIONS:**
 - Feedback visual ao focus nos inputs e ao hover no botão
-**TEXT LIMITS:**
+  **TEXT LIMITS:**
 - Título: Máximo 30 caracteres
 - Subtítulo: Máximo 100 caracteres
 - Inputs: Máximo 100 caracteres
 - Botão: Máximo 30 caracteres
-**CONTENT PRIORITY:**
+  **CONTENT PRIORITY:**
 - Alta: Título e formulário
 - Média: Informações de contato e redes sociais
-**ALTERNATIVE CONTENT:**
+  **ALTERNATIVE CONTENT:**
 - Se o formulário não carregar, mostrar uma mensagem de erro
-**LINKS / DESTINATIONS:**
+  **LINKS / DESTINATIONS:**
 - Formulário: Endpoint definido em `HOMEPAGE_CONTENT.contact.form.action`
 - Action: `https://formsubmit.co/danilo@portfoliodanilo.com`
 - **Redes sociais: Links externos:**
@@ -1778,21 +1795,21 @@ ring-offset-[#f5f5f7]
 - LinkedIn: `https://linkedin.com/in/danilonovais`
 - Portfolio: `https://portfoliodanilo.com`
 - Twitter: `https://twitter.com/danilo_novais`
-**DATA HOOKS / TRACKING:**
+  **DATA HOOKS / TRACKING:**
 - Eventos de envio do formulário para analytics
-**DEPENDENCIES:**
+  **DEPENDENCIES:**
 - `HOMEPAGE_CONTENT.contact`
-**ACCESSIBILITY NOTES:**
+  **ACCESSIBILITY NOTES:**
 - Todos os inputs devem ter `label` associado
 - O formulário deve ser acessível via teclado
 - Respeitar `prefers-reduced-motion: reduce` desativando animações
-**SPECIAL STATES:**
+  **SPECIAL STATES:**
 - Carregamento: Mostrar spinner ou placeholder
 - Erro: Mostrar mensagem de erro
 - Sucesso: Mostrar mensagem de sucesso
-**NOTES / INSPIRATION:**
+  **NOTES / INSPIRATION:**
 - Layout inspirado em `HOME-PORTFOLIO-LAYOUYT-GHOST.jpg`
-**NON-NEGOTIABLES:**
+  **NON-NEGOTIABLES:**
 - Formulário de contato
 - Informações de contato
 - Redes sociais
@@ -1805,63 +1822,63 @@ ring-offset-[#f5f5f7]
 
 - Fornecer informações legais e de contato
 - Permitir que os usuários voltem ao topo da página
-**PRIMARY MESSAGE / HEADLINE:**
+  **PRIMARY MESSAGE / HEADLINE:**
 - N/A
-**SECONDARY MESSAGE / SUPPORT TEXT:**
+  **SECONDARY MESSAGE / SUPPORT TEXT:**
 - "© 2025 Danilo Novais Vilela — todos os direitos reservados"
-**KEY CONTENT ELEMENTS:**
+  **KEY CONTENT ELEMENTS:**
 - Copyright
 - Links de navegação (Home, Portfolio Showcase, Brands, Contact)
 - Redes sociais
-**CALL TO ACTION:**
+  **CALL TO ACTION:**
 - N/A
-**LAYOUT TYPE:**
+  **LAYOUT TYPE:**
 - Barra fixa no rodapé da página
-**ALIGNMENT:**
+  **ALIGNMENT:**
 - Horizontal: Copyright à esquerda, links e redes sociais à direita
 - Vertical: Centralizado verticalmente
-**SPACING:**
+  **SPACING:**
 - Padding interno: `py-4`
 - Margem entre os elementos: `space-x-4`
-**BACKGROUND:**
+  **BACKGROUND:**
 - Cor sólida azul (`bg-[#0057FF]`)
-**SECTION COLORS:**
+  **SECTION COLORS:**
 - Texto: `text-white`
 - Links: `text-white`, `hover:text-[#0057FF]`
-**TYPOGRAPHY:**
+  **TYPOGRAPHY:**
 - Fonte: Sans-serif neo-grotesca (Inter ou similar)
 - Peso: Regular
 - Tamanho: `text-sm`
-**IMAGERY:**
+  **IMAGERY:**
 - Ícones de redes sociais
-**MEDIA:**
+  **MEDIA:**
 - N/A
-**COMPONENTS USED:**
+  **COMPONENTS USED:**
 - `<footer>`, `<div>`, `<p>`, `<ul>`, `<li>`, `<a>`
-**STATE VARIANTS:**
+  **STATE VARIANTS:**
 - Hover nos links: Muda a cor do texto para azul (`text-[#0057FF]`)
-**INTERACTIONS:**
+  **INTERACTIONS:**
 - Clique nos links: Redireciona para a página ou faz scroll até a seção
 - Clique nas redes sociais: Abre o link em nova aba
-**SCROLL BEHAVIOUR:**
+  **SCROLL BEHAVIOUR:**
 - Fixo no rodapé da página (`fixed bottom-0 left-0 right-0`)
-**ANIMATIONS:**
+  **ANIMATIONS:**
 - Apenas um fadeIn simples:
 - initial={{ opacity: 0 }}
 - whileInView={{ opacity: 1 }}
 - Links com sublinhado animado igual ao header; ícones sociais com hover
-scale(1.05) + leve mudança de opacidade
-**MICRO-INTERACTIONS:**
+  scale(1.05) + leve mudança de opacidade
+  **MICRO-INTERACTIONS:**
 - Feedback visual ao hover nos links
-**TEXT LIMITS:**
+  **TEXT LIMITS:**
 - Copyright: Máximo 100 caracteres
 - Links: Máximo 30 caracteres
-**CONTENT PRIORITY:**
+  **CONTENT PRIORITY:**
 - Alta: Copyright e links de navegação
 - Média: Redes sociais
-**ALTERNATIVE CONTENT:**
+  **ALTERNATIVE CONTENT:**
 - Se nenhuma rede social for exibida, mostrar uma mensagem de erro
-**LINKS / DESTINATIONS:**
+  **LINKS / DESTINATIONS:**
 - Copyright:
 - Home: `© 2025 Danilo Novais Vilela — todos os direitos reservados.`
 - Footer seção: `© 2023 Danilo Novais Vilela. Todos os direitos
@@ -1871,18 +1888,18 @@ reservados.`
 - `portfólio showcase` → `#portfolio-showcase`
 - `sobre` → `#clients`
 - `contato` → `#contact`
-**DATA HOOKS / TRACKING:**
+  **DATA HOOKS / TRACKING:**
 - Eventos de clique nos links e redes sociais para analytics
-**DEPENDENCIES:**
+  **DEPENDENCIES:**
 - `HOMEPAGE_CONTENT.footer`
-**ACCESSIBILITY NOTES:**
+  **ACCESSIBILITY NOTES:**
 - Todos os links devem ter `aria-label` descritivo
 - O footer deve ser navegável via teclado (tab)
-**SPECIAL STATES:**
+  **SPECIAL STATES:**
 - N/A
-**NOTES / INSPIRATION:**
+  **NOTES / INSPIRATION:**
 - Layout inspirado em `HOME-PORTFOLIO-LAYOUYT_ESPERADO.jpg`
-**NON-NEGOTIABLES:**
+  **NON-NEGOTIABLES:**
 - Footer fixo
 - Copyright
 - Links de navegação
@@ -1924,10 +1941,9 @@ Documentar o pipeline técnico da Hero Ghost WebGL, substituindo completamente a
 
 ```ts
 useFrame((state, delta) => {
-  ghost.position.lerp(target, 0.08)
-  material.emissiveIntensity =
-    1 + Math.sin(state.clock.elapsedTime) * 0.2
-})
+  ghost.position.lerp(target, 0.08);
+  material.emissiveIntensity = 1 + Math.sin(state.clock.elapsedTime) * 0.2;
+});
 ```
 
 ---
@@ -1949,5 +1965,5 @@ useFrame((state, delta) => {
 ---
 
 ## Regra de Ouro
->
+
 > WebGL apoia a narrativa. Nunca a substitui.
