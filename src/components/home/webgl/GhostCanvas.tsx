@@ -6,16 +6,21 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
 import * as THREE from 'three';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { MotionValue } from 'framer-motion';
 import Ghost from './Ghost';
 import AtmosphereVeil from './AtmosphereVeil';
 import Particles from './Particles';
 import Fireflies from './Fireflies';
 import AnalogDecayPass from './postprocessing/AnalogDecayPass';
+import { useScrollContext } from '@/contexts/ScrollContext';
 
-function MouseFollower({ children }: { children: React.ReactNode }) {
+// 1. Ghost Scene Orchestrator to sync elements
+function GhostScene() {
+  const { scrollYProgress } = useScrollContext();
   const reducedMotion = usePrefersReducedMotion();
-  const ghostRef = useRef<THREE.Group>(null);
+  const ghostGroupRef = useRef<THREE.Group>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
+  const ghostPosRef = useRef(new THREE.Vector3(0, 0, 0));
   const { size } = useThree();
 
   useEffect(() => {
@@ -29,22 +34,49 @@ function MouseFollower({ children }: { children: React.ReactNode }) {
   }, [reducedMotion, size]);
 
   useFrame(() => {
-    if (reducedMotion || !ghostRef.current) return;
-    // Smooth follow with 0.05 speed as per spec
-    ghostRef.current.position.x +=
-      (mouseRef.current.x * 6 - ghostRef.current.position.x) * 0.05;
-    ghostRef.current.position.y +=
-      (mouseRef.current.y * 3 - ghostRef.current.position.y) * 0.05;
+    if (!ghostGroupRef.current) return;
+
+    // Calculate Scroll Offset
+    const scroll = scrollYProgress?.get() || 0;
+    const scrollY = scroll * -15; // Move up out of screen
+    const scrollX = scroll * 8; // Move right
+    const scrollScale = 1 - scroll * 0.4;
+
+    // Base Positioning (Offset to the left as per reference image)
+    const baseLX = -4;
+
+    // Calculate Mouse Offset
+    const targetMouseX = reducedMotion ? 0 : mouseRef.current.x * 4;
+    const targetMouseY = reducedMotion ? 0 : mouseRef.current.y * 2;
+
+    // Apply Smooth Interpolation to Ghost Group
+    ghostGroupRef.current.position.x +=
+      (baseLX + targetMouseX + scrollX - ghostGroupRef.current.position.x) *
+      0.05;
+    ghostGroupRef.current.position.y +=
+      (targetMouseY + scrollY - ghostGroupRef.current.position.y) * 0.05;
+    ghostGroupRef.current.scale.setScalar(scrollScale);
+
+    // Sync World Position to Ghost Pos Ref for Veil
+    ghostPosRef.current.copy(ghostGroupRef.current.position);
   });
 
-  return <group ref={ghostRef}>{children}</group>;
+  return (
+    <>
+      <AtmosphereVeil ghostPosRef={ghostPosRef} />
+      <group ref={ghostGroupRef}>
+        <Ghost />
+        <Particles count={60} />
+      </group>
+    </>
+  );
 }
 
 export default function GhostCanvas() {
   return (
     <Canvas
       camera={{ position: [0, 0, 7], fov: 45 }}
-      dpr={[1, 2]}
+      dpr={[1, 1.5]}
       gl={{ antialias: false, alpha: true }}
       className="absolute inset-0 z-0"
     >
@@ -52,12 +84,7 @@ export default function GhostCanvas() {
 
       <ambientLight intensity={0.1} color="#0a0a2e" />
 
-      <AtmosphereVeil />
-
-      <MouseFollower>
-        <Ghost />
-        <Particles count={60} />
-      </MouseFollower>
+      <GhostScene />
 
       <Fireflies count={15} />
 

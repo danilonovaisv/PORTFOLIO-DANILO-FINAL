@@ -2,7 +2,7 @@
 'use client';
 
 import { motion, useInView, Variants } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { BRAND } from '@/config/brand';
 
 const manifestoVideoVariants: Variants = {
@@ -20,7 +20,17 @@ const manifestoVideoVariants: Variants = {
 
 export default function ManifestoSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-20%' });
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Track if fully in view to enable audio, without 'once: true'
+  const isVideoInView = useInView(sectionRef, { amount: 0.6 });
+
+  useEffect(() => {
+    if (videoRef.current) {
+      // Toggle audio based on visibility
+      videoRef.current.muted = !isVideoInView;
+    }
+  }, [isVideoInView]);
 
   return (
     <section
@@ -46,10 +56,11 @@ export default function ManifestoSection() {
         <motion.div
           variants={manifestoVideoVariants}
           initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
+          animate={isVideoInView ? 'visible' : 'hidden'}
           className="w-full aspect-video rounded-3xl overflow-hidden shadow-2xl relative border border-white/5"
         >
           <video
+            ref={videoRef}
             src={BRAND.video.manifesto}
             muted
             loop

@@ -5,7 +5,11 @@ import * as THREE from 'three';
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 
-export default function AtmosphereVeil() {
+export default function AtmosphereVeil({
+  ghostPosRef,
+}: {
+  ghostPosRef?: React.RefObject<THREE.Vector3>;
+}) {
   const meshRef = useRef<THREE.Mesh>(null);
 
   const atmosphereMaterial = {
@@ -14,7 +18,7 @@ export default function AtmosphereVeil() {
       revealRadius: { value: 37 },
       fadeStrength: { value: 1.7 },
       baseOpacity: { value: 0.9 },
-      revealOpacity: { value: 0.05 },
+      revealOpacity: { value: 0.1 },
       time: { value: 0 },
     },
     vertexShader: `
@@ -38,20 +42,20 @@ export default function AtmosphereVeil() {
       varying vec3 vWorldPosition;
       
       void main() {
+        // Calculate distance in screen-ish space for reveal
         float dist = distance(vWorldPosition.xy, ghostPosition.xy);
         
         // Pulsing reveal radius
         float dynamicRadius = revealRadius + sin(time * 2.0) * 5.0;
         
         // Create smooth reveal gradient
-        float reveal = smoothstep(dynamicRadius * 0.2, dynamicRadius, dist);
+        float reveal = smoothstep(dynamicRadius * 0.1, dynamicRadius, dist);
         reveal = pow(reveal, fadeStrength);
         
         // Mix between revealed and base opacity
         float opacity = mix(revealOpacity, baseOpacity, reveal);
         
-        // EXTREMELY low RGB values to avoid bloom
-        gl_FragColor = vec4(0.001, 0.001, 0.002, opacity);
+        gl_FragColor = vec4(0.0, 0.0, 0.0, opacity);
       }
     `,
   };
@@ -61,12 +65,13 @@ export default function AtmosphereVeil() {
     const material = meshRef.current.material as THREE.ShaderMaterial;
     material.uniforms.time.value = state.clock.elapsedTime;
 
-    // We'll need to sync ghostPosition here if we want the reveal to follow
-    // For now, let's just make it a static atmosphere veil as defined
+    if (ghostPosRef?.current) {
+      material.uniforms.ghostPosition.value.copy(ghostPosRef.current);
+    }
   });
 
   return (
-    <mesh ref={meshRef} position={[0, 0, -50]} renderOrder={-100}>
+    <mesh ref={meshRef} position={[0, 0, -40]} renderOrder={-100}>
       <planeGeometry args={[300, 300]} />
       <shaderMaterial
         args={[atmosphereMaterial]}
