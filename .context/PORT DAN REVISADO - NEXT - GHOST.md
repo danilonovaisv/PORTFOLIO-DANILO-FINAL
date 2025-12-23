@@ -33,11 +33,11 @@
 ### 2. Assets Globais
 
 - **Logo Light:**  
-  https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/faivcon-02.svg
+  <https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/faivcon-02.svg>
 - **Logo Dark:**  
-  https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/faivcon.svg
+  <https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/faivcon.svg>
 - **Favicon:**  
-  https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/logo.svg
+  <https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/logo.svg>
 
 ---
 
@@ -47,19 +47,25 @@
 
 - Tag: `[BRAND AWARENESS]`
 - Título:
+
   ```
-  Design, não
-  é só estética.
+  Design, não é
+  só estética.
   ```
+
 - Subtítulo: `[É intenção, é estratégia, é experiência.]`
 - CTA label: `get to know me better →`
 - CTA secundário (scroll): `#manifesto`
 - **WebGL Atmosférico:** Ghost abstrato + pós-processamento (substitui qualquer modelo GLB)
 
+**TYPOGRAPHY:**
+
+- Fonte: TT Norms Pro
+
 #### Manifesto (Vídeo)
 
 - Vídeo URL (usado na Hero e na seção Manifesto):  
-  https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4
+  <https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4>
 
 ---
 
@@ -271,7 +277,7 @@ reservados.`
 
 ### VISUAL REFERENCE
 
-https://reactbits.dev/components/fluid-glass
+<https://reactbits.dev/components/fluid-glass>
 
 ---
 
@@ -372,7 +378,7 @@ components/header/
 
 ### VISUAL REFERENCE
 
-https://reactbits.dev/components/staggered-menu
+<https://reactbits.dev/components/staggered-menu>
 
 ---
 
@@ -427,145 +433,182 @@ z-0  → WebGL Hero Canvas
 
 ---
 
-### PROPÓSITO DA SEÇÃO
+# \*\*SECTION NAME: Hero
 
-- Criar impacto visual imediato
-- Estabelecer tom premium e experimental
-- Comunicar posicionamento estratégico
-- Usar WebGL como atmosfera narrativa, **não como espetáculo**
+### SECTION PURPOSE
+
+- Criar impacto visual inicial com atmosfera etérea
+- Comunicar posicionamento estratégico através de texto editorial forte
+- Introduzir linguagem digital experimental com WebGL como camada sensorial
+- Direcionar o usuário ao Manifesto com mínima distração
 
 ---
 
-## CONTEÚDO EDITORIAL (ESTÁTICO — NÃO ANIMADO)
+## \*\*VISÃO GERAL
 
-**Cor base do texto**: `#d9dade`
+Este documento descreve a implementação da Hero e Manifesto utilizando Next.js App Router + React + TypeScript + Tailwind CSS + React Three Fiber + Framer Motion, adaptando o conceito do CodePen de referência (<https://codepen.io/danilonovaisv/pen/azZbdQo>) mantendo a identidade premium e preparando uma base escalável para evolução.
+
+---
+
+## PRÉ-CARREGAMENTO (PRELOADER)
+
+### Conceito
+
+- Preloader minimalista com SVG animado do "ghost"
+- Progresso visual discreto durante carregamento de assets
+- Transição suave para o conteúdo principal
+
+### Componentes
+
+```tsx
+// src/components/home/HeroPreloader.tsx
+import { motion } from 'framer-motion';
+
+export default function HeroPreloader() {
+  return (
+    <motion.div
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 0 }}
+      transition={{ delay: 1.5, duration: 1 }}
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-[#0a0a0a] to-[#1a1a1a]"
+    >
+      <div className="ghost-loader mb-8">
+        <svg
+          className="ghost-svg"
+          height="80"
+          viewBox="0 0 512 512"
+          width="80"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            className="ghost-body"
+            d="m508.374 432.802s-46.6-39.038-79.495-275.781c-8.833-87.68-82.856-156.139-172.879-156.139-90.015 0-164.046 68.458-172.879 156.138-32.895 236.743-79.495 275.782-79.495 275.782-15.107 25.181 20.733 28.178 38.699 27.94 35.254-.478 35.254 40.294 70.516 40.294 35.254 0 35.254-35.261 70.508-35.261s37.396 45.343 72.65 45.343 37.389-45.343 72.651-45.343c35.254 0 35.254 35.261 70.508 35.261s35.27-40.772 70.524-40.294c17.959.238 53.798-2.76 38.692-27.94z"
+            fill="white"
+          />
+          <circle
+            className="ghost-eye left-eye"
+            cx="208"
+            cy="225"
+            r="22"
+            fill="black"
+          />
+          <circle
+            className="ghost-eye right-eye"
+            cx="297"
+            cy="225"
+            r="22"
+            fill="black"
+          />
+        </svg>
+      </div>
+      <div className="loading-text font-mono text-xs uppercase tracking-widest text-[#e0e0e0] mb-4">
+        Summoning spirits
+      </div>
+      <div className="loading-progress w-24 h-0.5 bg-[#06071f] rounded-full overflow-hidden">
+        <motion.div
+          className="progress-bar h-full bg-gradient-to-r from-[#0057FF] to-[#5227FF]"
+          initial={{ width: 0 }}
+          animate={{ width: '100%' }}
+          transition={{ duration: 2, ease: 'easeInOut' }}
+        />
+      </div>
+    </motion.div>
+  );
+}
+```
+
+### Animações
+
+- `ghostFloat`: Animação de flutuação suave (3s)
+- `eyePulse`: Animação pulsante dos olhos (2s)
+- `textPulse`: Efeito de respiração no texto de carregamento
+- Progresso visual com gradient azul
+
+---
+
+## CONTEÚDO (FIXO — SEM ANIMAÇÃO)
+
+### Cor do texto: `#d9dade`
 
 ```
 [BRAND AWARENESS]
-
 Design, não
 é só estética.
-
 [É intenção, é estratégia, é experiência.]
 ```
 
-### 🚫 REGRAS ABSOLUTAS
+### Regras absolutas
 
-- ❌ Nenhuma animação no texto  
-- ❌ Nenhum blur  
-- ❌ Nenhum glassmorphism  
-- ❌ Nenhum reveal por scroll  
-- ❌ Nenhum binding com mouse ou WebGL  
-- ❌ Nenhuma opacidade dinâmica aplicada ao texto  
+✅ **Texto 100% estático** - Nenhuma animação de entrada  
+✅ **Sem glassmorphism** - Nenhum efeito de vidro/blur CSS  
+✅ **Sem reveal progressivo** - Todo o texto aparece imediatamente  
+✅ **Sem scroll binding** - Texto nunca depende de posição de scroll
 
-> O texto **não reage ao usuário**.  
-> Ele **existe** — o ambiente **reage ao redor dele**.
+### Componente
+
+```tsx
+// src/components/home/HeroCopy.tsx
+export default function HeroCopy() {
+  return (
+    <div className="z-20 flex flex-col items-center text-center px-4 sm:px-6 max-w-3xl mx-auto">
+      <div className="text-[#d9dade] text-sm uppercase tracking-wide mb-4">
+        [BRAND AWARENESS]
+      </div>
+      <h1 className="text-[#d9dade] font-bold text-4xl md:text-5xl lg:text-6xl leading-tight mb-6">
+        Design, não
+        <br />é só estética.
+      </h1>
+      <div className="text-[#d9dade] text-base md:text-lg mb-8">
+        [É intenção, é estratégia, é experiência.]
+      </div>
+      <Link
+        href="/sobre"
+        className="text-[#d9dade] hover:text-white transition-colors duration-300 font-normal text-sm md:text-base tracking-wide"
+        aria-label="Conheça mais sobre Danilo Novais"
+      >
+        get to know me better →
+      </Link>
+    </div>
+  );
+}
+```
 
 ---
 
-## BACKGROUND DA HERO
+## BACKGROUND
 
-- **Cor base sólida**: `#06071f`
-- **Gradiente opcional muito sutil**:
+### Cor base: `#06071f`
+
+### Gradiente opcional
 
 ```css
-background: radial-gradient(
-  circle at center,
-  #0b0d3a 0%,
-  #06071f 60%
-);
+radial-gradient(circle at center, #0b0d3a 0%, #06071f 60%)
 ```
 
 ---
 
-## WEBGL ATMOSFÉRICO — GHOST (BLUE)
+## WEBGL ATMOSFÉRICO (GHOST)
 
-### CONCEITO
+### Conceito
 
-- O ghost é uma **entidade etérea**
-- Atua como **fonte de luz narrativa**
-- Seu *glow* **ilumina o texto**, criando legibilidade progressiva
-- Ele **não toca**, **não empurra**, **não anima** o texto
-- Apenas **revela pelo contraste**
+O WebGL funciona como uma **camada sensorial** no fundo, não como objeto principal:
 
----
+- **Elemento etéreo** ("ghost") abstrato com alta emissividade
+- **Glow intenso** com Bloom HDR na cor `#0057FF`
+- **Ruído analógico** com scanlines sutis e vinheta
+- **Follow sutil** do mouse apenas no desktop
+- **Pulso temporal** orgânico (sem movimento mecânico)
 
-## POSICIONAMENTO VISUAL (CRÍTICO)
+### Referência Visual: <https://codepen.io/danilonovaisv/pen/azZbdQo>
 
-### Z-INDEX HIERARQUIA
+### Elementos Principais
 
-- `z-0` → Canvas WebGL  
-- `z-10` → Ghost (mesh + glow)  
-- `z-20` → Texto (HeroCopy)  
-
-### 📍 POSIÇÃO DO GHOST
-
-- Sempre **ACIMA** do bloco de texto  
-- Eixo Y positivo  
-- Flutuação lenta  
-- **Nunca cruza o texto**
-
----
-
-## COR & LUZ DO GHOST (AJUSTE OBRIGATÓRIO)
-
-### 🎨 COR PRINCIPAL
-
-```ts
-color: 'blue'
-```
-
-### 🌟 EMISSIVE / GLOW
-
-```ts
-emissive: new THREE.Color('#2f6bff')
-emissiveIntensity: 1.4
-```
-
-### BLOOM
-
-- Cor predominante: **azul**
-- Intensidade **média**
-- **Sem estourar highlights**
-- Deve “lavar” levemente o texto quando próximo
-
----
-
-## COMPORTAMENTO DO GHOST
-
-### MOVIMENTO
-
-- Follow do mouse **sutil**
-- **Desktop apenas**
-- **Mobile** → posição fixa
-
-### ANIMAÇÃO
-
-- Pulso lento no emissive  
-- Movimento orgânico (senoidal)  
-- Nenhuma rotação agressiva  
-
-### `prefers-reduced-motion`
-
-- ❌ Follow desativado  
-- ❌ Pulso desativado  
-- Ghost fica **estático**
-
----
-
-## EFEITO DE “REVELAÇÃO” DO TEXTO
-
-> ⚠️ **IMPORTANTE**:  
-> O texto **não anima**, **não muda opacidade**.
-
-O efeito acontece por:
-
-- Contraste dinâmico do *glow* azul  
-- Leve *veil* escuro no fundo  
-- Bloom que “beija” as letras  
-
-> O usuário **sente** que o texto aparece,  
-> mas tecnicamente ele **sempre esteve lá**.
+1. **Ghost Principal**: Mesh esférico com base deformada organicamente
+2. **Atmosfera de Revelação**: Shader que revela o fundo conforme o ghost se move
+3. **Sistema de Partículas**: Partículas que emergem do ghost durante movimento
+4. **Olhos Interativos**: Brilho que responde à velocidade de movimento
+5. **Fireflies**: Elementos luminosos flutuantes no fundo
+6. **Pós-processamento**: Bloom + Analog Decay (grain, scanlines, jitter)
 
 ---
 
@@ -573,143 +616,555 @@ O efeito acontece por:
 
 ```
 components/home/
- ├─ HomeHero.tsx
- ├─ HeroCopy.tsx
- ├─ ManifestoThumb.tsx
- ├─ GhostStage.tsx
- └─ webgl/
-     ├─ GhostCanvas.tsx
-     ├─ Ghost.tsx
-     ├─ BackgroundVeil.tsx
-     └─ postprocessing/
-         └─ AnalogDecayPass.ts
+├─ HomeHero.tsx            ← Orchestrator (z-index layers)
+├─ HeroPreloader.tsx       ← Componente de carregamento
+├─ HeroCopy.tsx            ← Texto estático (sem animação)
+├─ ManifestoThumb.tsx      ← Thumb do vídeo manifesto (expande ao scroll)
+├─ GhostStage.tsx          ← Client boundary wrapper
+└─ webgl/
+   ├─ GhostCanvas.tsx      ← Cena principal R3F + postprocessing
+   ├─ Ghost.tsx            ← Mesh etéreo com follow mouse
+   ├─ Eyes.tsx             ← Sistema de olhos reativos
+   ├─ Particles.tsx        ← Sistema de partículas
+   ├─ Fireflies.tsx        ← Elementos luminosos de fundo
+   ├─ AtmosphereVeil.tsx   ← Shader de revelação do fundo
+   └─ postprocessing/
+       ├─ AnalogDecayPass.ts  ← Efeitos analógicos (grain, scanlines)
+       └─ BloomPass.ts        ← Bloom HDR customizado
 ```
 
 ---
 
-## RESPONSABILIDADE DE CADA ARQUIVO
+## Z-INDEX (CRÍTICO)
 
-### `HomeHero.tsx`
-
-- Container principal  
-- Define altura mínima  
-- Controla z-index das camadas  
-
----
-
-### `HeroCopy.tsx`
-
-- Renderiza texto **100% estático**  
-- Centralização absoluta  
-- Nenhuma dependência de animação  
+| Z-Index  | Elemento              | Descrição                                         |
+| -------- | --------------------- | ------------------------------------------------- |
+| **z-0**  | **WebGL Canvas**      | Cena 3D completa (Ghost + Atmosfera + Partículas) |
+| **z-10** | **Overlay Gradiente** | Camada de vinheta opcional para integração visual |
+| **z-20** | **Conteúdo**          | Texto H1 + Thumb do vídeo (interativo)            |
+| **z-50** | **Preloader**         | Tela de carregamento (aparece apenas no início)   |
 
 ---
 
-### `GhostStage.tsx`
+## DETALHAMENTO TÉCNICO DOS COMPONENTES WEBGL
 
-- Boundary `client-only`  
-- Dynamic import do Canvas  
-- Evita SSR e layout shift  
+### 1. `GhostCanvas.tsx` (Setup Principal)
 
----
+```tsx
+// src/components/home/webgl/GhostCanvas.tsx
+'use client';
 
-### `GhostCanvas.tsx`
+import { useRef, useEffect } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import Ghost from './Ghost';
+import AtmosphereVeil from './AtmosphereVeil';
+import Particles from './Particles';
+import Fireflies from './Fireflies';
+import AnalogDecayPass from './postprocessing/AnalogDecayPass';
 
-- Canvas fullscreen  
-- Setup de câmera  
-- Bloom azul  
-- Analog decay  
-- DPR ≤ 2  
+function MouseFollower({ children }: { children: React.ReactNode }) {
+  const reducedMotion = usePrefersReducedMotion();
+  const ghostRef = useRef<THREE.Group>(null);
+  const mouseRef = useRef({ x: 0, y: 0 });
+  const { size } = useThree();
 
----
+  useEffect(() => {
+    if (reducedMotion) return;
+    const handleMove = (e: MouseEvent) => {
+      mouseRef.current.x = (e.clientX / size.width) * 2 - 1;
+      mouseRef.current.y = -(e.clientY / size.height) * 2 + 1;
+    };
+    window.addEventListener('mousemove', handleMove);
+    return () => window.removeEventListener('mousemove', handleMove);
+  }, [reducedMotion, size]);
 
-### `Ghost.tsx`
+  useFrame(() => {
+    if (reducedMotion || !ghostRef.current) return;
+    ghostRef.current.position.x +=
+      (mouseRef.current.x * 8 - ghostRef.current.position.x) * 0.05;
+    ghostRef.current.position.y +=
+      (mouseRef.current.y * 5 - ghostRef.current.position.y) * 0.05;
+  });
 
-- Mesh do fantasma  
-- Cor azul  
-- Emissive pulsante  
-- Follow sutil do mouse  
+  return <group ref={ghostRef}>{children}</group>;
+}
 
----
+export default function GhostCanvas() {
+  return (
+    <Canvas
+      camera={{ position: [0, 0, 7], fov: 45 }}
+      dpr={[1, 2]}
+      gl={{ antialias: false, alpha: true }}
+      className="absolute inset-0 z-0"
+    >
+      <color attach="background" args={['#06071f']} />
 
-### `BackgroundVeil.tsx`
+      <ambientLight intensity={0.08} color="#0a0a2e" />
 
-- Plano fullscreen  
-- Shader escuro  
-- Amplifica contraste do glow  
+      <AtmosphereVeil />
 
----
+      <MouseFollower>
+        <Ghost />
+        <Particles />
+      </MouseFollower>
 
-## MANIFESTO — VÍDEO
+      <Fireflies />
 
-### REGRAS INVIOLÁVEIS
-
-- Mesmo arquivo da Hero  
-- Autoplay  
-- Loop  
-- Muted por padrão  
-- Áudio somente quando em foco  
-- ❌ Nenhum overlay  
-- ❌ Nenhum texto sobreposto  
-
-### URL
-
+      <EffectComposer>
+        <Bloom
+          intensity={2.8}
+          luminanceThreshold={0.1}
+          luminanceSmoothing={0.9}
+          radius={0.6}
+        />
+        <AnalogDecayPass />
+        <Vignette eskil={false} offset={0.1} darkness={0.4} />
+      </EffectComposer>
+    </Canvas>
+  );
+}
 ```
-https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4
+
+### 2. `Ghost.tsx` (Mesh Principal)
+
+```tsx
+// src/components/home/webgl/Ghost.tsx
+import { useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
+import * as THREE from 'three';
+import Eyes from './Eyes';
+
+export default function Ghost() {
+  const meshRef = useRef<THREE.Mesh>(null);
+  const ghostColor = new THREE.Color('#0057FF');
+
+  useFrame((state) => {
+    if (!meshRef.current) return;
+    const t = state.clock.elapsedTime;
+
+    // Pulsing emissive
+    meshRef.current.material.emissiveIntensity = 3.5 + Math.sin(t * 1.2) * 0.6;
+
+    // Floating animation
+    meshRef.current.position.y = Math.sin(t * 0.8) * 0.15;
+
+    // Gentle wobble
+    meshRef.current.rotation.y = Math.sin(t * 0.3) * 0.1;
+  });
+
+  return (
+    <group>
+      <mesh ref={meshRef}>
+        <sphereGeometry args={[2, 64, 64]} />
+        <meshStandardMaterial
+          color="#06071f"
+          emissive={ghostColor}
+          emissiveIntensity={3.5}
+          transparent
+          opacity={0.92}
+          roughness={0}
+          metalness={0}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+      <Eyes />
+    </group>
+  );
+}
+```
+
+### 3. `Eyes.tsx` (Sistema de Olhos Reativos)
+
+```tsx
+// src/components/home/webgl/Eyes.tsx
+import { useRef, useEffect } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
+import * as THREE from 'three';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+
+export default function Eyes() {
+  const reducedMotion = usePrefersReducedMotion();
+  const { camera } = useThree();
+  const leftEyeRef = useRef<THREE.Mesh>(null);
+  const rightEyeRef = useRef<THREE.Mesh>(null);
+  const mouseSpeedRef = useRef({ x: 0, y: 0 });
+  const lastMousePos = useRef({ x: 0, y: 0 });
+  const currentMovement = useRef(0);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (reducedMotion) return;
+
+      const mousePos = {
+        x: (e.clientX / window.innerWidth) * 2 - 1,
+        y: -(e.clientY / window.innerHeight) * 2 + 1,
+      };
+
+      mouseSpeedRef.current.x = Math.abs(mousePos.x - lastMousePos.current.x);
+      mouseSpeedRef.current.y = Math.abs(mousePos.y - lastMousePos.current.y);
+      lastMousePos.current = mousePos;
+
+      currentMovement.current =
+        currentMovement.current * 0.95 +
+        (mouseSpeedRef.current.x + mouseSpeedRef.current.y) * 0.5;
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, [reducedMotion]);
+
+  useFrame(() => {
+    if (reducedMotion || !leftEyeRef.current || !rightEyeRef.current) return;
+
+    // Eye glow based on movement speed
+    const glowIntensity = Math.min(currentMovement.current * 5, 1);
+    leftEyeRef.current.material.opacity = glowIntensity;
+    rightEyeRef.current.material.opacity = glowIntensity;
+
+    // Make eyes look at camera
+    leftEyeRef.current.lookAt(camera.position);
+    rightEyeRef.current.lookAt(camera.position);
+  });
+
+  return (
+    <group>
+      {/* Eye sockets */}
+      <mesh position={[-0.7, 0.6, 1.9]} scale={[1.1, 1.0, 0.6]}>
+        <sphereGeometry args={[0.45, 16, 16]} />
+        <meshBasicMaterial color="#000000" />
+      </mesh>
+      <mesh position={[0.7, 0.6, 1.9]} scale={[1.1, 1.0, 0.6]}>
+        <sphereGeometry args={[0.45, 16, 16]} />
+        <meshBasicMaterial color="#000000" />
+      </mesh>
+
+      {/* Glowing eyes */}
+      <mesh ref={leftEyeRef} position={[-0.7, 0.6, 2.0]}>
+        <sphereGeometry args={[0.3, 12, 12]} />
+        <meshBasicMaterial
+          color="#0057FF"
+          transparent
+          opacity={0}
+          emissive="#5227FF"
+          emissiveIntensity={4.5}
+        />
+      </mesh>
+      <mesh ref={rightEyeRef} position={[0.7, 0.6, 2.0]}>
+        <sphereGeometry args={[0.3, 12, 12]} />
+        <meshBasicMaterial
+          color="#0057FF"
+          transparent
+          opacity={0}
+          emissive="#5227FF"
+          emissiveIntensity={4.5}
+        />
+      </mesh>
+
+      {/* Outer glow */}
+      <mesh position={[-0.7, 0.6, 1.95]}>
+        <sphereGeometry args={[0.525, 12, 12]} />
+        <meshBasicMaterial
+          color="#5227FF"
+          transparent
+          opacity={0}
+          side={THREE.BackSide}
+        />
+      </mesh>
+      <mesh position={[0.7, 0.6, 1.95]}>
+        <sphereGeometry args={[0.525, 12, 12]} />
+        <meshBasicMaterial
+          color="#5227FF"
+          transparent
+          opacity={0}
+          side={THREE.BackSide}
+        />
+      </mesh>
+    </group>
+  );
+}
+```
+
+### 4. `AnalogDecayPass.ts` (Pós-processamento)
+
+```tsx
+// src/components/home/webgl/postprocessing/AnalogDecayPass.ts
+import { shaderMaterial } from '@react-three/drei';
+import { extend } from '@react-three/fiber';
+import * as THREE from 'three';
+
+const AnalogDecayShader = shaderMaterial(
+  {
+    tDiffuse: new THREE.Texture(),
+    uTime: 0,
+    uIntensity: 0.7,
+    uGrain: 0.4,
+    uScanlines: 1.0,
+    uJitter: 0.5,
+  },
+  /* glsl */ `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  /* glsl */ `
+    uniform sampler2D tDiffuse;
+    uniform float uTime;
+    uniform float uIntensity;
+    uniform float uGrain;
+    uniform float uScanlines;
+    uniform float uJitter;
+    varying vec2 vUv;
+
+    float rand(vec2 co) {
+      return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
+    }
+
+    void main() {
+      vec2 uv = vUv;
+      
+      // Jitter sutil
+      if (uJitter > 0.01) {
+        uv += (rand(vec2(uTime)) - 0.5) * uJitter * 0.002;
+      }
+
+      vec4 color = texture2D(tDiffuse, uv);
+
+      // Grain
+      if (uGrain > 0.01) {
+        float grain = rand(uv + uTime) * 2.0 - 1.0;
+        color.rgb += grain * uGrain * 0.08 * uIntensity;
+      }
+
+      // Scanlines
+      if (uScanlines > 0.01) {
+        float scan = sin(uv.y * 1200.0 + uTime * 2.0) * 0.5 + 0.5;
+        color.rgb *= mix(1.0, 0.97, scan * uScanlines * uIntensity);
+      }
+
+      gl_FragColor = color;
+    }
+  `
+);
+
+extend({ AnalogDecayShader });
+
+export default function AnalogDecayPass() {
+  return (
+    <shaderPass
+      args={[AnalogDecayShader]}
+      tDiffuse={null}
+      uTime={0}
+      uIntensity={0.7}
+      uGrain={0.4}
+      uScanlines={1.0}
+      uJitter={0.5}
+    />
+  );
+}
 ```
 
 ---
 
-## INTERAÇÃO HERO → MANIFESTO
+## \*\*MANIFESTO — VÍDEO
 
-- Clique na thumb:  
-  - Scroll suave até `#manifesto`  
-  - Nenhuma transição agressiva  
-  - Thumb mantém hover leve (`scale`)
+### Regras Mantidas (SEM ALTERAÇÃO)
+
+- **Mesmo arquivo** da Hero: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
+- **Autoplay** + **Loop**
+- **Muted por padrão** - Áudio apenas quando em foco (IntersectionObserver)
+- **Sem overlays** - Nenhum elemento visual sobreposto ao vídeo
+- **Sem fullscreen forçado** - Respeita a proporção original
+
+### Componente
+
+```tsx
+// src/components/home/ManifestoThumb.tsx
+'use client';
+
+import { motion } from 'framer-motion';
+import { useRef } from 'react';
+
+export default function ManifestoThumb() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleClick = () => {
+    document.querySelector('#manifesto')?.scrollIntoView({
+      behavior: 'smooth',
+    });
+  };
+
+  return (
+    <motion.div
+      className="z-20 mt-8 w-full max-w-md aspect-video rounded-xl overflow-hidden cursor-pointer relative"
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
+      onClick={handleClick}
+      aria-label="Assista ao vídeo manifesto"
+    >
+      <video
+        ref={videoRef}
+        src="https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4"
+        muted
+        loop
+        playsInline
+        className="w-full h-full object-cover"
+      />
+    </motion.div>
+  );
+}
+```
 
 ---
 
-## PERFORMANCE
+## \*\*INTERAÇÃO HERO → MANIFESTO
 
-- Canvas isolado  
-- DPR máximo: **2**  
-- Bloom controlado  
-- Fallback estático se WebGL falhar  
-- **Zero CLS**
+### Comportamento
+
+- **Clique na thumb**: Scroll suave até `#manifesto`
+- **Nenhuma transição visual agressiva** entre estados
+- **Thumb mantém animação própria** (hover/scale) mas não expande visualmente
+- **Scroll suave** com easing natural
+
+### Implementação
+
+```tsx
+// src/components/home/HomeHero.tsx
+import HeroPreloader from './HeroPreloader';
+import HeroCopy from './HeroCopy';
+import ManifestoThumb from './ManifestoThumb';
+import GhostStage from './GhostStage';
+
+export default function HomeHero() {
+  return (
+    <>
+      <HeroPreloader />
+      <section
+        id="hero"
+        className="relative w-full h-[100vh] md:h-[85vh] bg-[#06071f] overflow-hidden"
+      >
+        {/* WebGL Atmosfera */}
+        <GhostStage />
+
+        {/* Overlay Radial (opcional, z-10) */}
+        <div
+          className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,_#0b0d3a_0%,_#06071f_60%)] pointer-events-none"
+          aria-hidden="true"
+        />
+
+        {/* Conteúdo editorial — z-20 */}
+        <div className="absolute inset-0 z-20 flex flex-col justify-center items-center">
+          <HeroCopy />
+          <ManifestoThumb />
+        </div>
+      </section>
+    </>
+  );
+}
+```
 
 ---
 
-## ACESSIBILIDADE
+## ACESSIBILIDADE E PERFORMANCE
 
-- Contraste **AA garantido**  
-- `prefers-reduced-motion` respeitado  
-- Texto sempre legível  
-- Vídeo inicia sempre **mudo**  
-- `aria-label` em CTAs  
+### Acessibilidade
+
+✅ **Contraste AA garantido** (#d9dade sobre #06071f = ~7.2:1)  
+✅ **`prefers-reduced-motion`**:
+
+- Desativa follow do mouse
+- Desativa bloom intenso
+- Mantém layout estático
+  ✅ **`aria-label`** em todos os elementos interativos
+  ✅ **Vídeo sempre inicia mudo**
+
+### Performance
+
+✅ **Canvas isolado** (client-only com dynamic import)
+✅ **DPR máximo: 2** para dispositivos móveis
+✅ **Fallback CSS** se WebGL falhar
+✅ **Carregamento progressivo** com preloader
+✅ **Limite de partículas** (máximo 250, renderização parcial)
+✅ **Instancing** para fireflies
+
+### Implementação de fallback
+
+```tsx
+// src/components/home/GhostStage.tsx
+'use client';
+
+import dynamic from 'next/dynamic';
+
+const GhostCanvas = dynamic(() => import('./webgl/GhostCanvas'), {
+  ssr: false,
+  loading: () => (
+    <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,_#0b0d3a_0%,_#06071f_60%)]" />
+  ),
+});
+
+export default function GhostStage() {
+  return <GhostCanvas />;
+}
+```
 
 ---
 
 ## NÃO NEGOCIÁVEL
 
-- ❌ Sem glassmorphism  
-- ❌ Sem texto animado  
-- ❌ Sem 3D tradicional  
-- ❌ Sem overlays sobre vídeo  
-- ✅ Ghost azul como fonte de luz  
-- ✅ Texto como âncora editorial  
-- ✅ WebGL como atmosfera  
+❌ **Sem glassmorphism** - Nenhum efeito de vidro/blur CSS  
+❌ **Sem texto animado** - Texto 100% estático desde o primeiro frame  
+❌ **Sem 3D tradicional** - Nenhum modelo GLB ou objeto sólido  
+❌ **Sem overlays sobre vídeo** - Vídeo puro sem elementos visuais sobrepostos  
+✅ **WebGL como atmosfera** - Elemento de fundo que não compete com o conteúdo  
+✅ **Texto como âncora editorial** - Hierarquia clara: conteúdo > atmosfera
 
 ---
 
 ## RESULTADO ESPERADO
 
-- Hero **silenciosa**, **forte** e **editorial**  
-- Fantasma azul **flutuando acima do texto**  
-- Glow **revelando o discurso**  
-- Experiência **premium**, **não chamativa**  
-- Base **escalável** para futuras camadas narrativas
+- **Hero silenciosa e editorial** com texto imediatamente legível
+- **Animação como pano de fundo vivo** que responde organicamente ao usuário
+- **Narrativa clara** sem distrações visuais desnecessárias
+- **Base escalável** para futuras interações mantendo a identidade "Ghost Blue"
 
 ---
+
+## NOTAS DE IMPLEMENTAÇÃO
+
+1. **TT Norms Pro** deve ser configurada no `tailwind.config.ts` e carregada globalmente via `next/font`
+2. **Hook de reduced motion**:
+
+```tsx
+// src/hooks/usePrefersReducedMotion.ts
+import { useState, useEffect } from 'react';
+
+export function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setPrefersReducedMotion(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  return prefersReducedMotion;
+}
+```
+
+3. **Otimização de performance**:
+   - Limitar número de draw calls
+   - Usar `drei/instances` para fireflies
+   - Desativar antialiasing no canvas (`antialias: false`)
+   - Manter geometrias simples
 
 # **SECTION NAME: Portfolio Showcase**
 
@@ -988,7 +1443,7 @@ Criar navegação editorial premium com foco em clareza, ritmo e interatividade 
 
 ## STATUS FINAL
 
-Este documento representa a versão final validada da seção Portfolio Showcase para a Home Page, adaptada com equivalência de comportamento, layout e ritmo da referência https://loandbehold.studio.
+Este documento representa a versão final validada da seção Portfolio Showcase para a Home Page, adaptada com equivalência de comportamento, layout e ritmo da referência <https://loandbehold.studio>.
 
 ---
 
@@ -1025,7 +1480,7 @@ Este documento representa a versão final validada da seção Portfolio Showcase
 - Texto dos cards: `text-[#111111]`
 - CTA: `bg-[#0057FF]`, `text-white`
   **TYPOGRAPHY:**
-- Fonte: Sans-serif neo-grotesca (Inter ou similar)
+- Fonte: TT Norms Pro
 - Peso: Bold para o título, Regular para o conteúdo dos cards
 - Tamanho: Título `text-2xl`, Conteúdo dos cards `text-lg`
   **IMAGERY:**
@@ -1084,7 +1539,7 @@ Este documento representa a versão final validada da seção Portfolio Showcase
   **Cliente:** Magic
   **Ano:** 2023
   **Imagem URL:**
-  https://aymuvxysygrwoicsjgxj.supabase
+  <https://aymuvxysygrwoicsjgxj.supabase>
   .co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp
 - **Slug:** `branding-project-01`
   **Título:** Uma marca ousada e consistente
@@ -1092,7 +1547,7 @@ Este documento representa a versão final validada da seção Portfolio Showcase
   **Cliente:** Cliente confidencial
   **Ano:** 2022
   **Imagem URL:**
-  https://aymuvxysygrwoicsjgxj.supabase
+  <https://aymuvxysygrwoicsjgxj.supabase>
   .co/storage/v1/object/public/project-images/Branding-Project.webp
 - **Slug:** `key-visual-campaign`
   **Título:** Key visual para campanha sazonal
@@ -1100,7 +1555,7 @@ Este documento representa a versão final validada da seção Portfolio Showcase
   **Cliente:** Cliente confidencial
   **Ano:** 2021
   **Imagem URL:**
-  https://aymuvxysygrwoicsjgxj.supabase
+  <https://aymuvxysygrwoicsjgxj.supabase>
   .co/storage/v1/object/public/project-images/Key-Visual.webp
 - **Slug:** `webdesigner-motion`
   **Título:** Experiência web em movimento
@@ -1108,7 +1563,7 @@ Este documento representa a versão final validada da seção Portfolio Showcase
   **Cliente:** Cliente confidencial
   **Ano:** 2023
   **Imagem URL:**
-  https://aymuvxysygrwoicsjgxj.supabase
+  <https://aymuvxysygrwoicsjgxj.supabase>
   .co/storage/v1/object/public/project-images/webdesigner-2%202.gif
   **DATA HOOKS / TRACKING:**
 - Eventos de clique nos cards e no CTA para analytics
@@ -1194,31 +1649,33 @@ Este documento representa a versão final validada da seção Portfolio Showcase
 - Se nenhum logo for exibido, mostrar uma mensagem de erro
   **LINKS / Globais:**
 
-1.  `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client1.svg`
-2.  `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client2.svg`
-3.  `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client3.svg`
-4.  `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client4.svg`
-5.  `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client5.svg`
-6.  `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client6.svg`
-7.  `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client7.svg`
-8.  `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client8.svg`
-9.  `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client9.svg`
-10. `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client10.svg`
-11. `https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/client-logos/client11.svg`
-12. `https://aymuvxysygrwoicsjgxj.supabase
+1.
+
+`https://aymuvxysygrwoicsjgxj.supabase
+.co/storage/v1/object/public/client-logos/client1.svg` 2.
+`https://aymuvxysygrwoicsjgxj.supabase
+.co/storage/v1/object/public/client-logos/client2.svg` 3.
+`https://aymuvxysygrwoicsjgxj.supabase
+.co/storage/v1/object/public/client-logos/client3.svg` 4.
+`https://aymuvxysygrwoicsjgxj.supabase
+.co/storage/v1/object/public/client-logos/client4.svg` 5.
+`https://aymuvxysygrwoicsjgxj.supabase
+.co/storage/v1/object/public/client-logos/client5.svg` 6.
+`https://aymuvxysygrwoicsjgxj.supabase
+.co/storage/v1/object/public/client-logos/client6.svg` 7.
+`https://aymuvxysygrwoicsjgxj.supabase
+.co/storage/v1/object/public/client-logos/client7.svg` 8.
+`https://aymuvxysygrwoicsjgxj.supabase
+.co/storage/v1/object/public/client-logos/client8.svg` 9.
+`https://aymuvxysygrwoicsjgxj.supabase
+.co/storage/v1/object/public/client-logos/client9.svg` 10.
+`https://aymuvxysygrwoicsjgxj.supabase
+.co/storage/v1/object/public/client-logos/client10.svg` 11.
+`https://aymuvxysygrwoicsjgxj.supabase
+.co/storage/v1/object/public/client-logos/client11.svg` 12.
+`https://aymuvxysygrwoicsjgxj.supabase
 .co/storage/v1/object/public/client-logos/client12.svg`
-    **DATA HOOKS / TRACKING:**
+**DATA HOOKS / TRACKING:**
 
 - Eventos de hover nos logos para analytics
   **DEPENDENCIES:**
@@ -1338,7 +1795,7 @@ Este documento representa a versão final validada da seção Portfolio Showcase
 - Erro: Mostrar mensagem de erro
 - Sucesso: Mostrar mensagem de sucesso
   **NOTES / INSPIRATION:**
-- Layout inspirado em `HOME-PORTFOLIO-LAYOUYT_ESPERADO.jpg`
+- Layout inspirado em `HOME-PORTFOLIO-LAYOUYT-GHOST.jpg`
   **NON-NEGOTIABLES:**
 - Formulário de contato
 - Informações de contato

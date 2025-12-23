@@ -1,17 +1,17 @@
-import * as THREE from "https://esm.sh/three";
-import { Pane } from "https://cdn.skypack.dev/tweakpane@4.0.4";
-import { EffectComposer } from "https://esm.sh/three/examples/jsm/postprocessing/EffectComposer.js";
-import { RenderPass } from "https://esm.sh/three/examples/jsm/postprocessing/RenderPass.js";
-import { UnrealBloomPass } from "https://esm.sh/three/examples/jsm/postprocessing/UnrealBloomPass.js";
-import { OutputPass } from "https://esm.sh/three/examples/jsm/postprocessing/OutputPass.js";
-import { ShaderPass } from "https://esm.sh/three/examples/jsm/postprocessing/ShaderPass.js";
+import * as THREE from 'https://esm.sh/three';
+import { Pane } from 'https://cdn.skypack.dev/tweakpane@4.0.4';
+import { EffectComposer } from 'https://esm.sh/three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'https://esm.sh/three/examples/jsm/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'https://esm.sh/three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'https://esm.sh/three/examples/jsm/postprocessing/OutputPass.js';
+import { ShaderPass } from 'https://esm.sh/three/examples/jsm/postprocessing/ShaderPass.js';
 
 // Preloader management
 class PreloaderManager {
   constructor() {
-    this.preloader = document.getElementById("preloader");
-    this.mainContent = document.getElementById("main-content");
-    this.progressBar = document.querySelector(".progress-bar");
+    this.preloader = document.getElementById('preloader');
+    this.mainContent = document.getElementById('main-content');
+    this.progressBar = document.querySelector('.progress-bar');
     this.loadingSteps = 0;
     this.totalSteps = 5; // Adjust based on loading steps
     this.isComplete = false;
@@ -33,15 +33,15 @@ class PreloaderManager {
     // Wait a moment then start the reveal
     setTimeout(() => {
       // Fade out preloader
-      this.preloader.classList.add("fade-out");
+      this.preloader.classList.add('fade-out');
 
       // Fade in content and canvas simultaneously
-      this.mainContent.classList.add("fade-in");
-      canvas.classList.add("fade-in");
+      this.mainContent.classList.add('fade-in');
+      canvas.classList.add('fade-in');
 
       // Remove preloader from DOM after animation
       setTimeout(() => {
-        this.preloader.style.display = "none";
+        this.preloader.style.display = 'none';
       }, 1000);
     }, 1500);
   }
@@ -51,9 +51,9 @@ class PreloaderManager {
 const preloader = new PreloaderManager();
 
 // Force browser to use GPU acceleration
-document.body.style.transform = "translateZ(0)";
-document.body.style.backfaceVisibility = "hidden";
-document.body.style.perspective = "1000px";
+document.body.style.transform = 'translateZ(0)';
+document.body.style.backfaceVisibility = 'hidden';
+document.body.style.perspective = '1000px';
 
 preloader.updateProgress(1);
 
@@ -74,12 +74,12 @@ preloader.updateProgress(2);
 // Enhanced renderer with transparency
 const renderer = new THREE.WebGLRenderer({
   antialias: true,
-  powerPreference: "high-performance",
+  powerPreference: 'high-performance',
   alpha: true,
   premultipliedAlpha: false,
   stencil: false,
   depth: true,
-  preserveDrawingBuffer: false
+  preserveDrawingBuffer: false,
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -88,18 +88,18 @@ renderer.setClearColor(0x000000, 0);
 document.body.appendChild(renderer.domElement);
 
 // Canvas styling - initially hidden
-renderer.domElement.style.position = "absolute";
-renderer.domElement.style.top = "0";
-renderer.domElement.style.left = "0";
-renderer.domElement.style.zIndex = "2";
-renderer.domElement.style.pointerEvents = "auto";
-renderer.domElement.style.background = "transparent";
+renderer.domElement.style.position = 'absolute';
+renderer.domElement.style.top = '0';
+renderer.domElement.style.left = '0';
+renderer.domElement.style.zIndex = '2';
+renderer.domElement.style.pointerEvents = 'auto';
+renderer.domElement.style.background = 'transparent';
 
 // Store original bloom values
 const originalBloomSettings = {
   strength: 0.3,
   radius: 1.25,
-  threshold: 0.0
+  threshold: 0.0,
 };
 
 // Setup post-processing for bloom effects
@@ -124,7 +124,7 @@ const analogDecayShader = {
     tDiffuse: { value: null },
     uTime: { value: 0.0 },
     uResolution: {
-      value: new THREE.Vector2(window.innerWidth, window.innerHeight)
+      value: new THREE.Vector2(window.innerWidth, window.innerHeight),
     },
     uAnalogGrain: { value: 0.4 },
     uAnalogBleeding: { value: 1.0 },
@@ -133,7 +133,7 @@ const analogDecayShader = {
     uAnalogVignette: { value: 1.0 },
     uAnalogJitter: { value: 0.4 },
     uAnalogIntensity: { value: 0.6 },
-    uLimboMode: { value: 0.0 }
+    uLimboMode: { value: 0.0 },
   },
 
   vertexShader: `
@@ -249,7 +249,7 @@ const analogDecayShader = {
       
       gl_FragColor = color;
     }
-  `
+  `,
 };
 
 // Add analog decay pass
@@ -263,8 +263,8 @@ composer.addPass(outputPass);
 const params = {
   // Ghost appearance
   bodyColor: 0x0f2027,
-  glowColor: "blue",
-  eyeGlowColor: "violet",
+  glowColor: 'blue',
+  eyeGlowColor: 'violet',
   ghostOpacity: 0.88,
   ghostScale: 2.4,
 
@@ -290,7 +290,7 @@ const params = {
   // Particles
   particleCount: 250,
   particleDecayRate: 0.005,
-  particleColor: "violet",
+  particleColor: 'violet',
   createParticlesOnlyWhenMoving: true,
   particleCreationRate: 5,
 
@@ -312,7 +312,7 @@ const params = {
   analogScanlines: 1.0,
   analogVignette: 2.4,
   analogJitter: 0.5,
-  limboMode: false
+  limboMode: false,
 };
 
 // Fluorescent color palette
@@ -328,7 +328,7 @@ const fluorescentColors = {
   green: 0x00ff80,
   red: 0xff0040,
   teal: 0x00ffaa,
-  violet: 0x8a2be2
+  violet: 0x8a2be2,
 };
 
 // Create bloom-resistant atmosphere
@@ -340,7 +340,7 @@ const atmosphereMaterial = new THREE.ShaderMaterial({
     fadeStrength: { value: params.fadeStrength },
     baseOpacity: { value: params.baseOpacity },
     revealOpacity: { value: params.revealOpacity },
-    time: { value: 0 }
+    time: { value: 0 },
   },
   vertexShader: `
     varying vec2 vUv;
@@ -380,7 +380,7 @@ const atmosphereMaterial = new THREE.ShaderMaterial({
     }
   `,
   transparent: true,
-  depthWrite: false
+  depthWrite: false,
 });
 
 const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
@@ -400,7 +400,7 @@ scene.add(ghostGroup);
 const ghostGeometry = new THREE.SphereGeometry(2, 40, 40);
 
 // Create organic wavy bottom
-const positionAttribute = ghostGeometry.getAttribute("position");
+const positionAttribute = ghostGeometry.getAttribute('position');
 const positions = positionAttribute.array;
 for (let i = 0; i < positions.length; i += 3) {
   if (positions[i + 1] < -0.2) {
@@ -425,7 +425,7 @@ const ghostMaterial = new THREE.MeshStandardMaterial({
   roughness: 0.02,
   metalness: 0.0,
   side: THREE.DoubleSide,
-  alphaTest: 0.1
+  alphaTest: 0.1,
 });
 
 const ghostBody = new THREE.Mesh(ghostGeometry, ghostMaterial);
@@ -457,7 +457,7 @@ function createEyes() {
   const socketGeometry = new THREE.SphereGeometry(0.45, 16, 16);
   const socketMaterial = new THREE.MeshBasicMaterial({
     color: 0x000000,
-    transparent: false
+    transparent: false,
   });
 
   // Left eye socket - positioned better
@@ -479,7 +479,7 @@ function createEyes() {
   const leftEyeMaterial = new THREE.MeshBasicMaterial({
     color: fluorescentColors[params.eyeGlowColor],
     transparent: true,
-    opacity: 0
+    opacity: 0,
   });
   const leftEye = new THREE.Mesh(eyeGeometry, leftEyeMaterial);
   leftEye.position.set(-0.7, 0.6, 2.0);
@@ -489,7 +489,7 @@ function createEyes() {
   const rightEyeMaterial = new THREE.MeshBasicMaterial({
     color: fluorescentColors[params.eyeGlowColor],
     transparent: true,
-    opacity: 0
+    opacity: 0,
   });
   const rightEye = new THREE.Mesh(eyeGeometry, rightEyeMaterial);
   rightEye.position.set(0.7, 0.6, 2.0);
@@ -502,7 +502,7 @@ function createEyes() {
     color: fluorescentColors[params.eyeGlowColor],
     transparent: true,
     opacity: 0,
-    side: THREE.BackSide
+    side: THREE.BackSide,
   });
   const leftOuterGlow = new THREE.Mesh(
     outerGlowGeometry,
@@ -515,7 +515,7 @@ function createEyes() {
     color: fluorescentColors[params.eyeGlowColor],
     transparent: true,
     opacity: 0,
-    side: THREE.BackSide
+    side: THREE.BackSide,
   });
   const rightOuterGlow = new THREE.Mesh(
     outerGlowGeometry,
@@ -532,7 +532,7 @@ function createEyes() {
     leftOuterGlow,
     rightOuterGlow,
     leftOuterGlowMaterial,
-    rightOuterGlowMaterial
+    rightOuterGlowMaterial,
   };
 }
 
@@ -550,7 +550,7 @@ function createFireflies() {
     const fireflyMaterial = new THREE.MeshBasicMaterial({
       color: 0xffff44,
       transparent: true,
-      opacity: 0.9
+      opacity: 0.9,
     });
 
     const firefly = new THREE.Mesh(fireflyGeometry, fireflyMaterial);
@@ -568,7 +568,7 @@ function createFireflies() {
       color: 0xffff88,
       transparent: true,
       opacity: 0.4,
-      side: THREE.BackSide
+      side: THREE.BackSide,
     });
 
     const glow = new THREE.Mesh(glowGeometry, glowMaterial);
@@ -590,7 +590,7 @@ function createFireflies() {
       glow: glow,
       glowMaterial: glowMaterial,
       fireflyMaterial: fireflyMaterial,
-      light: fireflyLight
+      light: fireflyLight,
     };
 
     fireflyGroup.add(firefly);
@@ -609,14 +609,14 @@ const particlePool = [];
 const particleGeometries = [
   new THREE.SphereGeometry(0.05, 6, 6),
   new THREE.TetrahedronGeometry(0.04, 0),
-  new THREE.OctahedronGeometry(0.045, 0)
+  new THREE.OctahedronGeometry(0.045, 0),
 ];
 
 const particleBaseMaterial = new THREE.MeshBasicMaterial({
   color: fluorescentColors[params.particleColor],
   transparent: true,
   opacity: 0,
-  alphaTest: 0.1
+  alphaTest: 0.1,
 });
 
 function initParticlePool(count) {
@@ -676,12 +676,12 @@ function createParticle() {
   particle.userData.rotationSpeed = {
     x: (Math.random() - 0.5) * 0.015,
     y: (Math.random() - 0.5) * 0.015,
-    z: (Math.random() - 0.5) * 0.015
+    z: (Math.random() - 0.5) * 0.015,
   };
   particle.userData.velocity = {
     x: (Math.random() - 0.5) * 0.012,
     y: (Math.random() - 0.5) * 0.012 - 0.002,
-    z: (Math.random() - 0.5) * 0.012 - 0.006
+    z: (Math.random() - 0.5) * 0.012 - 0.006,
   };
 
   particle.material.opacity = Math.random() * 0.9;
@@ -691,88 +691,88 @@ function createParticle() {
 
 // Enhanced GUI
 const pane = new Pane({
-  title: "Spectral Ghost",
-  expanded: false
+  title: 'Spectral Ghost',
+  expanded: false,
 });
 
 const paneElement = pane.element;
-paneElement.style.position = "fixed";
-paneElement.style.top = "20px";
-paneElement.style.right = "20px";
-paneElement.style.zIndex = "10000";
-paneElement.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
-paneElement.style.borderRadius = "12px";
-paneElement.style.padding = "15px";
-paneElement.style.backdropFilter = "blur(10px)";
-paneElement.style.border = "1px solid rgba(0, 212, 255, 0.3)";
-paneElement.style.pointerEvents = "auto";
+paneElement.style.position = 'fixed';
+paneElement.style.top = '20px';
+paneElement.style.right = '20px';
+paneElement.style.zIndex = '10000';
+paneElement.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+paneElement.style.borderRadius = '12px';
+paneElement.style.padding = '15px';
+paneElement.style.backdropFilter = 'blur(10px)';
+paneElement.style.border = '1px solid rgba(0, 212, 255, 0.3)';
+paneElement.style.pointerEvents = 'auto';
 
 // Glow effects folder
 const glowFolder = pane.addFolder({
-  title: "Glow Effects",
-  expanded: true
+  title: 'Glow Effects',
+  expanded: true,
 });
 
 const glowColorBinding = glowFolder
-  .addBinding(params, "glowColor", {
-    label: "Glow Color",
+  .addBinding(params, 'glowColor', {
+    label: 'Glow Color',
     options: {
-      Cyan: "cyan",
-      Lime: "lime",
-      Magenta: "magenta",
-      Yellow: "yellow",
-      Orange: "orange",
-      Pink: "pink",
-      Purple: "purple",
-      Blue: "blue",
-      Green: "green",
-      Red: "red",
-      Teal: "teal",
-      Violet: "violet"
-    }
+      Cyan: 'cyan',
+      Lime: 'lime',
+      Magenta: 'magenta',
+      Yellow: 'yellow',
+      Orange: 'orange',
+      Pink: 'pink',
+      Purple: 'purple',
+      Blue: 'blue',
+      Green: 'green',
+      Red: 'red',
+      Teal: 'teal',
+      Violet: 'violet',
+    },
   })
-  .on("change", (ev) => {
+  .on('change', (ev) => {
     const color = fluorescentColors[ev.value];
     ghostMaterial.emissive.set(color);
   });
 
 glowFolder
-  .addBinding(params, "emissiveIntensity", {
-    label: "Ghost Glow",
+  .addBinding(params, 'emissiveIntensity', {
+    label: 'Ghost Glow',
     min: 1.0,
     max: 10.0,
-    step: 0.1
+    step: 0.1,
   })
-  .on("change", (ev) => {
+  .on('change', (ev) => {
     ghostMaterial.emissiveIntensity = ev.value;
   });
 
 // Eye controls folder
 const eyeFolder = pane.addFolder({
-  title: "Eye Controls",
-  expanded: true
+  title: 'Eye Controls',
+  expanded: true,
 });
 
 // Fixed eye glow color picker
 eyeFolder
-  .addBinding(params, "eyeGlowColor", {
-    label: "Eye Glow Color",
+  .addBinding(params, 'eyeGlowColor', {
+    label: 'Eye Glow Color',
     options: {
-      Cyan: "cyan",
-      Lime: "lime",
-      Magenta: "magenta",
-      Yellow: "yellow",
-      Orange: "orange",
-      Pink: "pink",
-      Purple: "purple",
-      Blue: "blue",
-      Green: "green",
-      Red: "red",
-      Teal: "teal",
-      Violet: "violet"
-    }
+      Cyan: 'cyan',
+      Lime: 'lime',
+      Magenta: 'magenta',
+      Yellow: 'yellow',
+      Orange: 'orange',
+      Pink: 'pink',
+      Purple: 'purple',
+      Blue: 'blue',
+      Green: 'green',
+      Red: 'red',
+      Teal: 'teal',
+      Violet: 'violet',
+    },
   })
-  .on("change", (ev) => {
+  .on('change', (ev) => {
     const color = fluorescentColors[ev.value];
     eyes.leftEyeMaterial.color.set(color);
     eyes.rightEyeMaterial.color.set(color);
@@ -780,91 +780,91 @@ eyeFolder
     eyes.rightOuterGlowMaterial.color.set(color);
   });
 
-eyeFolder.addBinding(params, "eyeGlowDecay", {
-  label: "Glow Fade Speed",
+eyeFolder.addBinding(params, 'eyeGlowDecay', {
+  label: 'Glow Fade Speed',
   min: 0.9,
   max: 0.99,
-  step: 0.01
+  step: 0.01,
 });
 
-eyeFolder.addBinding(params, "eyeGlowResponse", {
-  label: "Glow Response",
+eyeFolder.addBinding(params, 'eyeGlowResponse', {
+  label: 'Glow Response',
   min: 0.05,
   max: 0.5,
-  step: 0.01
+  step: 0.01,
 });
 
-eyeFolder.addBinding(params, "movementThreshold", {
-  label: "Movement Threshold",
+eyeFolder.addBinding(params, 'movementThreshold', {
+  label: 'Movement Threshold',
   min: 0.01,
   max: 0.1,
-  step: 0.01
+  step: 0.01,
 });
 
 // Background Reveal folder
 const revealFolder = pane.addFolder({
-  title: "Background Reveal",
-  expanded: true
+  title: 'Background Reveal',
+  expanded: true,
 });
 
 revealFolder
-  .addBinding(params, "revealRadius", {
-    label: "Reveal Radius",
+  .addBinding(params, 'revealRadius', {
+    label: 'Reveal Radius',
     min: 5,
     max: 100,
-    step: 2
+    step: 2,
   })
-  .on("change", (ev) => {
+  .on('change', (ev) => {
     atmosphereMaterial.uniforms.revealRadius.value = ev.value;
   });
 
 revealFolder
-  .addBinding(params, "fadeStrength", {
-    label: "Fade Strength",
+  .addBinding(params, 'fadeStrength', {
+    label: 'Fade Strength',
     min: 0.1,
     max: 3,
-    step: 0.1
+    step: 0.1,
   })
-  .on("change", (ev) => {
+  .on('change', (ev) => {
     atmosphereMaterial.uniforms.fadeStrength.value = ev.value;
   });
 
 revealFolder
-  .addBinding(params, "baseOpacity", {
-    label: "Base Darkness",
+  .addBinding(params, 'baseOpacity', {
+    label: 'Base Darkness',
     min: 0,
     max: 1,
-    step: 0.05
+    step: 0.05,
   })
-  .on("change", (ev) => {
+  .on('change', (ev) => {
     atmosphereMaterial.uniforms.baseOpacity.value = ev.value;
   });
 
 revealFolder
-  .addBinding(params, "revealOpacity", {
-    label: "Revealed Opacity",
+  .addBinding(params, 'revealOpacity', {
+    label: 'Revealed Opacity',
     min: 0,
     max: 0.5,
-    step: 0.01
+    step: 0.01,
   })
-  .on("change", (ev) => {
+  .on('change', (ev) => {
     atmosphereMaterial.uniforms.revealOpacity.value = ev.value;
   });
 
 // Fireflies folder
 const firefliesFolder = pane.addFolder({
-  title: "Fireflies",
-  expanded: false
+  title: 'Fireflies',
+  expanded: false,
 });
 
 firefliesFolder
-  .addBinding(params, "fireflyGlowIntensity", {
-    label: "Firefly Glow",
+  .addBinding(params, 'fireflyGlowIntensity', {
+    label: 'Firefly Glow',
     min: 0,
     max: 5,
-    step: 0.1
+    step: 0.1,
   })
-  .on("change", (ev) => {
+  .on('change', (ev) => {
     fireflies.forEach((firefly) => {
       firefly.userData.glowMaterial.opacity = ev.value * 0.4;
       firefly.userData.fireflyMaterial.opacity = ev.value * 0.9;
@@ -872,167 +872,167 @@ firefliesFolder
     });
   });
 
-firefliesFolder.addBinding(params, "fireflySpeed", {
-  label: "Firefly Speed",
+firefliesFolder.addBinding(params, 'fireflySpeed', {
+  label: 'Firefly Speed',
   min: 0.005,
   max: 0.1,
-  step: 0.005
+  step: 0.005,
 });
 
 // Analog Decay folder
 const analogFolder = pane.addFolder({
-  title: "Analog Decay",
-  expanded: true
+  title: 'Analog Decay',
+  expanded: true,
 });
 
 analogFolder
-  .addBinding(params, "limboMode", {
-    label: "Limbo"
+  .addBinding(params, 'limboMode', {
+    label: 'Limbo',
   })
-  .on("change", (ev) => {
+  .on('change', (ev) => {
     analogDecayPass.uniforms.uLimboMode.value = ev.value ? 1.0 : 0.0;
   });
 
 analogFolder
-  .addBinding(params, "analogIntensity", {
-    label: "Overall Intensity",
+  .addBinding(params, 'analogIntensity', {
+    label: 'Overall Intensity',
     min: 0,
     max: 2,
-    step: 0.1
+    step: 0.1,
   })
-  .on("change", (ev) => {
+  .on('change', (ev) => {
     analogDecayPass.uniforms.uAnalogIntensity.value = ev.value;
   });
 
 analogFolder
-  .addBinding(params, "analogGrain", {
-    label: "Film Grain",
+  .addBinding(params, 'analogGrain', {
+    label: 'Film Grain',
     min: 0,
     max: 3,
-    step: 0.1
+    step: 0.1,
   })
-  .on("change", (ev) => {
+  .on('change', (ev) => {
     analogDecayPass.uniforms.uAnalogGrain.value = ev.value;
   });
 
 analogFolder
-  .addBinding(params, "analogBleeding", {
-    label: "Color Bleeding",
+  .addBinding(params, 'analogBleeding', {
+    label: 'Color Bleeding',
     min: 0,
     max: 3,
-    step: 0.1
+    step: 0.1,
   })
-  .on("change", (ev) => {
+  .on('change', (ev) => {
     analogDecayPass.uniforms.uAnalogBleeding.value = ev.value;
   });
 
 analogFolder
-  .addBinding(params, "analogVSync", {
-    label: "VSync Roll",
+  .addBinding(params, 'analogVSync', {
+    label: 'VSync Roll',
     min: 0,
     max: 3,
-    step: 0.1
+    step: 0.1,
   })
-  .on("change", (ev) => {
+  .on('change', (ev) => {
     analogDecayPass.uniforms.uAnalogVSync.value = ev.value;
   });
 
 analogFolder
-  .addBinding(params, "analogScanlines", {
-    label: "Scanlines",
+  .addBinding(params, 'analogScanlines', {
+    label: 'Scanlines',
     min: 0,
     max: 3,
-    step: 0.1
+    step: 0.1,
   })
-  .on("change", (ev) => {
+  .on('change', (ev) => {
     analogDecayPass.uniforms.uAnalogScanlines.value = ev.value;
   });
 
 analogFolder
-  .addBinding(params, "analogVignette", {
-    label: "Vignetting",
+  .addBinding(params, 'analogVignette', {
+    label: 'Vignetting',
     min: 0,
     max: 3,
-    step: 0.1
+    step: 0.1,
   })
-  .on("change", (ev) => {
+  .on('change', (ev) => {
     analogDecayPass.uniforms.uAnalogVignette.value = ev.value;
   });
 
 analogFolder
-  .addBinding(params, "analogJitter", {
-    label: "Temporal Jitter",
+  .addBinding(params, 'analogJitter', {
+    label: 'Temporal Jitter',
     min: 0,
     max: 3,
-    step: 0.1
+    step: 0.1,
   })
-  .on("change", (ev) => {
+  .on('change', (ev) => {
     analogDecayPass.uniforms.uAnalogJitter.value = ev.value;
   });
 
 // Behavior folder
 const behaviorFolder = pane.addFolder({
-  title: "Behavior",
-  expanded: false
+  title: 'Behavior',
+  expanded: false,
 });
 
-behaviorFolder.addBinding(params, "followSpeed", {
-  label: "Follow Speed",
+behaviorFolder.addBinding(params, 'followSpeed', {
+  label: 'Follow Speed',
   min: 0.01,
   max: 0.2,
-  step: 0.005
+  step: 0.005,
 });
 
-behaviorFolder.addBinding(params, "wobbleAmount", {
-  label: "Wobble",
+behaviorFolder.addBinding(params, 'wobbleAmount', {
+  label: 'Wobble',
   min: 0,
   max: 1,
-  step: 0.05
+  step: 0.05,
 });
 
 // Particles folder
 const particlesFolder = pane.addFolder({
-  title: "Particles",
-  expanded: false
+  title: 'Particles',
+  expanded: false,
 });
 
 particlesFolder
-  .addBinding(params, "particleColor", {
-    label: "Particle Color",
+  .addBinding(params, 'particleColor', {
+    label: 'Particle Color',
     options: {
-      Cyan: "cyan",
-      Lime: "lime",
-      Magenta: "magenta",
-      Yellow: "yellow",
-      Orange: "orange",
-      Pink: "pink",
-      Purple: "purple",
-      Blue: "blue",
-      Green: "green",
-      Red: "red",
-      Teal: "teal",
-      Violet: "violet"
-    }
+      Cyan: 'cyan',
+      Lime: 'lime',
+      Magenta: 'magenta',
+      Yellow: 'yellow',
+      Orange: 'orange',
+      Pink: 'pink',
+      Purple: 'purple',
+      Blue: 'blue',
+      Green: 'green',
+      Red: 'red',
+      Teal: 'teal',
+      Violet: 'violet',
+    },
   })
-  .on("change", (ev) => {
+  .on('change', (ev) => {
     const color = fluorescentColors[ev.value];
     particleBaseMaterial.color.set(color);
   });
 
-particlesFolder.addBinding(params, "createParticlesOnlyWhenMoving", {
-  label: "Only When Moving"
+particlesFolder.addBinding(params, 'createParticlesOnlyWhenMoving', {
+  label: 'Only When Moving',
 });
 
-particlesFolder.addBinding(params, "particleCount", {
-  label: "Particle Count",
+particlesFolder.addBinding(params, 'particleCount', {
+  label: 'Particle Count',
   min: 50,
   max: 400,
-  step: 10
+  step: 10,
 });
 
 // Window resize handler
 let resizeTimeout;
-window.addEventListener("resize", () => {
+window.addEventListener('resize', () => {
   if (resizeTimeout) clearTimeout(resizeTimeout);
   resizeTimeout = setTimeout(() => {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -1056,7 +1056,7 @@ let lastMouseUpdate = 0;
 let isMouseMoving = false;
 let mouseMovementTimer = null;
 
-window.addEventListener("mousemove", (e) => {
+window.addEventListener('mousemove', (e) => {
   const now = performance.now();
   if (now - lastMouseUpdate > 16) {
     prevMouse.x = mouse.x;
@@ -1284,9 +1284,9 @@ function animate(timestamp) {
 }
 
 // Initialize
-const fakeEvent = new MouseEvent("mousemove", {
+const fakeEvent = new MouseEvent('mousemove', {
   clientX: window.innerWidth / 2,
-  clientY: window.innerHeight / 2
+  clientY: window.innerHeight / 2,
 });
 window.dispatchEvent(fakeEvent);
 

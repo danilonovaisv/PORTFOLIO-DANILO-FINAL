@@ -66,6 +66,7 @@ const AnalogDecayShader = shaderMaterial(
 extend({ AnalogDecayShader });
 
 // Add types for the extended elements
+/* eslint-disable no-unused-vars */
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -73,6 +74,7 @@ declare global {
     }
   }
 }
+/* eslint-enable no-unused-vars */
 
 export default function AnalogDecayPass() {
   const shader = useMemo(() => new AnalogDecayShader(), []);

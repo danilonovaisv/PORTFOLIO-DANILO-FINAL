@@ -8,15 +8,8 @@
           "url": "https://github.com/danilonovaisv/DATABASE_AGENT_NEXT",
           "ref": "a555b06cc50bf209fbda61e7fe66fafa37e08ec1",
           "scanMode": "recursive",
-          "includePaths": [
-            "repos/**"
-          ],
-          "fileTypes": [
-            ".md",
-            ".json",
-            ".ts",
-            ".js"
-          ]
+          "includePaths": ["repos/**"],
+          "fileTypes": [".md", ".json", ".ts", ".js"]
         },
         "description": "Fonte de verdade para análise de repositórios estruturados do Database Agent Next."
       }

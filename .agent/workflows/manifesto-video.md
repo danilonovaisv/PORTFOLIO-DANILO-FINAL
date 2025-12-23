@@ -12,32 +12,32 @@ A transição entre Hero e Manifesto acontece através da expansão fluida do v�
 **Estratégia de Implementação (`HomeIntro.tsx`):**
 
 1. **Orquestrador Central (`HomeIntro.tsx`):**
-    - Este componente gerencia o espaço vertical total (ex: `250vh` ou `300vh`) para permitir o scroll.
-    - Utiliza `position: sticky` para fixar a Hero/Vídeo enquanto o usuário rola.
-    - **Hook:** `useScroll` do Framer Motion.
+   - Este componente gerencia o espaço vertical total (ex: `250vh` ou `300vh`) para permitir o scroll.
+   - Utiliza `position: sticky` para fixar a Hero/Vídeo enquanto o usuário rola.
+   - **Hook:** `useScroll` do Framer Motion.
 
 2. **Estados do Vídeo (`ManifestoThumb.tsx`):**
-    - **Estado Inicial (Hero):**
-        - Tamanho: Thumbnail (~25-30% da tela ou tamanho fixo harmônico).
-        - Posição: Integrado ao layout da Hero (ex: canto inferior direito ou centralizado abaixo do texto).
-        - Border-Radius: Arredondado (ex: `16px` ou `24px`).
-        - Audio: Muted.
-    - **Estado Final (Manifesto):**
-        - Tamanho: Fullscreen (`width: 100%`, `height: 100vh`).
-        - Posição: `inset-0` (cobre tudo).
-        - Border-Radius: `0px`.
-        - Audio: Unmuted (opcional/interativo).
+   - **Estado Inicial (Hero):**
+     - Tamanho: Thumbnail (~25-30% da tela ou tamanho fixo harmônico).
+     - Posição: Integrado ao layout da Hero (ex: canto inferior direito ou centralizado abaixo do texto).
+     - Border-Radius: Arredondado (ex: `16px` ou `24px`).
+     - Audio: Muted.
+   - **Estado Final (Manifesto):**
+     - Tamanho: Fullscreen (`width: 100%`, `height: 100vh`).
+     - Posição: `inset-0` (cobre tudo).
+     - Border-Radius: `0px`.
+     - Audio: Unmuted (opcional/interativo).
 
 3. **Transição Hero -> Manifesto:**
-    - Conforme `scrollYProgress` avança (0 -> 0.25+):
-        - **Hero Text:** Fade out (`opacity: 1 -> 0`) e Scale down (`scale: 1 -> 0.9`).
-        - **Video Thumb:** Scale up, Radius -> 0, Position -> Center.
-    - O vídeo deve cobrir completamente a Hero ao final da transição.
+   - Conforme `scrollYProgress` avança (0 -> 0.25+):
+     - **Hero Text:** Fade out (`opacity: 1 -> 0`) e Scale down (`scale: 1 -> 0.9`).
+     - **Video Thumb:** Scale up, Radius -> 0, Position -> Center.
+   - O vídeo deve cobrir completamente a Hero ao final da transição.
 
 4. **Componente de Vídeo:**
-    - Tag `<video>` nativa otimizada.
-    - Props: `autoplay`, `loop`, `muted`, `playsinline`.
-    - `layoutId="manifesto-video"` (se usar AnimatePresence, caso contrário, use `style` transforms diretos para performance).
+   - Tag `<video>` nativa otimizada.
+   - Props: `autoplay`, `loop`, `muted`, `playsinline`.
+   - `layoutId="manifesto-video"` (se usar AnimatePresence, caso contrário, use `style` transforms diretos para performance).
 
 ---
 

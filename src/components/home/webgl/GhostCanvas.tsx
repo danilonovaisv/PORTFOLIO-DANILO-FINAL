@@ -335,7 +335,7 @@ export default function GhostCanvas() {
       }}
       className="absolute inset-0 z-0 fade-in" // Added fade-in class concept
     >
-      <color attach="background" args={['#000000']} />{' '}
+      <color attach="background" args={['#06071f']} />{' '}
       {/* Fallback hidden by atmosphere */}
       <Atmosphere />
       <GhostMesh />

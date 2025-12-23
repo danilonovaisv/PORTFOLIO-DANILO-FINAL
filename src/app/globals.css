@@ -9,12 +9,13 @@
 }
 
 :root {
-  --color-surface-main: #f4f5f7;
-  --color-text-main: #111111;
+  /* Ghost Theme Colors */
+  --color-surface-main: #06071f;
+  --color-text-main: #d9dade;
   --color-accent-blue: #0057ff;
 
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
-  
+
   /* Fallback Ghost Position */
   --gx: 50vw;
   --gy: 35vh;
@@ -89,22 +90,22 @@ body {
   /* Máscara radial que segue ox/y */
   -webkit-mask-image: radial-gradient(
     circle 180px at var(--gx) var(--gy),
-    rgba(0,0,0,1) 0%,
-    rgba(0,0,0,1) 34%,
-    rgba(0,0,0,0) 72%
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 34%,
+    rgba(0, 0, 0, 0) 72%
   );
   mask-image: radial-gradient(
     circle 180px at var(--gx) var(--gy),
-    rgba(0,0,0,1) 0%,
-    rgba(0,0,0,1) 34%,
-    rgba(0,0,0,0) 72%
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 34%,
+    rgba(0, 0, 0, 0) 72%
   );
 
   /* Glow azul no texto iluminado */
   text-shadow:
     0 0 22px rgba(59, 130, 246, 0.35),
     0 0 48px rgba(59, 130, 246, 0.18);
-  
+
   /* Performance hint */
   will-change: mask-image;
 }

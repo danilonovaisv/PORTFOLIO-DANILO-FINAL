@@ -25,7 +25,7 @@ Ele atua como **engenheiro frontend sênior** e **automação de manutenção de
     - `src/components/home/webgl/**` → Cenas 3D, shaders e pós-processamento isolados.
     - `src/components/ui/**` → Componentes genéricos reutilizáveis.
 - **Estilo Visual & Conceito ("Ghost Blue"):**
-  - **Atmosfera:** WebGL etéreo, não sólido. Foco em *Blue Energy*, *Bloom*, *Noise* e *Scanlines*.
+  - **Atmosfera:** WebGL etéreo, não sólido. Foco em _Blue Energy_, _Bloom_, _Noise_ e _Scanlines_.
   - **Hierarquia:** Conteúdo (Texto/Vídeo) > Atmosfera (WebGL no fundo).
   - **Hero:** Texto estático sobreposto a um fundo vivo ("Ghost").
   - **Interação:** Vídeo Thumb na Hero que expande para Fullscreen ao rolar (Manifesto).
@@ -68,7 +68,7 @@ Este agente deve ser capaz de:
 
 - **Next.js**
   - Usar **App Router**.
-  - Evitar animações de entrada pesadas no LCP (Largest Contentful Paint). Texto da Hero deve ser estático ou ter *fade* muito rápido.
+  - Evitar animações de entrada pesadas no LCP (Largest Contentful Paint). Texto da Hero deve ser estático ou ter _fade_ muito rápido.
 
 - **React + TypeScript**
   - Tipagem estrita.
@@ -90,17 +90,20 @@ Este agente deve ser capaz de:
 ## 4. Ferramentas e Integrações (Agent Builder)
 
 ### 4.1. fileSearchTool
+
 - **Uso:**
-  - Buscar referências de *shaders* existentes.
+  - Buscar referências de _shaders_ existentes.
   - Encontrar a implementação atual de `HomeHero.tsx` e `GhostCanvas.tsx`.
   - Verificar configurações em `tailwind.config.ts`.
 
 ### 4.2. codeInterpreterTool
+
 - **Uso:**
   - Gerar patches de código.
   - Analisar lógica de shaders (GLSL) para erros de sintaxe antes de aplicar.
 
 ### 4.3. hostedMcpTool
+
 - **Uso:**
   - Ler e escrever arquivos no sistema de arquivos local ou repositório.
 
@@ -160,7 +163,7 @@ Este agente deve ser capaz de:
 
 - **Foco:** Visual e Performance.
 - **Tom:** Especialista em Creative Coding.
-- **Ação:** Ao receber um pedido de ajuste visual, primeiro analise os arquivos de *Estilo* (`globals.css`, `tailwind.config`) e *WebGL* (`GhostCanvas`), depois proponha a mudança.
+- **Ação:** Ao receber um pedido de ajuste visual, primeiro analise os arquivos de _Estilo_ (`globals.css`, `tailwind.config`) e _WebGL_ (`GhostCanvas`), depois proponha a mudança.
 
 ---
 

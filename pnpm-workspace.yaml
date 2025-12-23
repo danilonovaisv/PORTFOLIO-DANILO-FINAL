@@ -1,3 +1,7 @@
+ignoredBuiltDependencies:
+  - sharp
+  - unrs-resolver
+
 overrides:
   '@dataconnect/admin-generated': link:src/dataconnect-admin-generated
   '@dataconnect/generated': link:src/dataconnect-generated

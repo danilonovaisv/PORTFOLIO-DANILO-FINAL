@@ -247,7 +247,7 @@ jest.mock('lucide-react', () => {
 // Mock do hook usePrefersReducedMotion
 jest.mock('../../src/hooks/usePrefersReducedMotion', () => ({
   __esModule: true,
-  default: () => false,
+  usePrefersReducedMotion: () => false,
 }));
 
 describe('PortfolioShowcaseSection Component', () => {
