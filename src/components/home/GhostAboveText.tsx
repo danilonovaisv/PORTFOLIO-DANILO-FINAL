@@ -2,14 +2,11 @@
 
 import { useRef, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
+import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import * as THREE from 'three';
-import Ghost from './Ghost';
-import AtmosphereVeil from './AtmosphereVeil';
-import Particles from './Particles';
-import Fireflies from './Fireflies';
-import AnalogDecayPass from './postprocessing/AnalogDecayPass';
+import Ghost from './webgl/Ghost';
+import AnalogDecayPass from './webgl/postprocessing/AnalogDecayPass';
 
 function MouseFollower({ children }: { children: React.ReactNode }) {
   const reducedMotion = usePrefersReducedMotion();
@@ -38,44 +35,44 @@ function MouseFollower({ children }: { children: React.ReactNode }) {
   return <group ref={ghostRef}>{children}</group>;
 }
 
-export default function GhostCanvas() {
+function GhostScene() {
+  return (
+    <>
+      <ambientLight intensity={0.08} color="#0a0a2e" />
+      
+      <MouseFollower>
+        <Ghost />
+      </MouseFollower>
+
+      <EffectComposer>
+        <Bloom
+          intensity={1.2}
+          luminanceThreshold={0.15}
+          luminanceSmoothing={0.85}
+          radius={0.5}
+        />
+        <AnalogDecayPass />
+      </EffectComposer>
+    </>
+  );
+}
+
+export default function GhostAboveText() {
   return (
     <Canvas
       camera={{ position: [0, 0, 7], fov: 45 }}
       dpr={[1, 2]}
-      gl={{ antialias: false, alpha: true }}
-      className="absolute inset-0 z-0"
+      gl={{ 
+        antialias: false, 
+        alpha: true,
+        depth: false  // Disable depth buffer to allow proper blending
+      }}
+      className="absolute inset-0 z-30 pointer-events-none"
       style={{ 
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
+        mixBlendMode: 'screen',  // This allows the ghost to blend with the text below
       }}
     >
-      <color attach="background" args={['#06071f']} />
-
-      <ambientLight intensity={0.08} color="#0a0a2e" />
-
-      <AtmosphereVeil />
-
-      <MouseFollower>
-        <Ghost />
-        <Particles />
-      </MouseFollower>
-
-      <Fireflies />
-
-      <EffectComposer>
-        <Bloom
-          intensity={2.8}
-          luminanceThreshold={0.1}
-          luminanceSmoothing={0.9}
-          radius={0.6}
-        />
-        <AnalogDecayPass />
-        <Vignette eskil={false} offset={0.1} darkness={0.4} />
-      </EffectComposer>
+      <GhostScene />
     </Canvas>
   );
 }

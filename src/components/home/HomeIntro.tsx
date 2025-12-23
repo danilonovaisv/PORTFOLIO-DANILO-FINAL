@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import HomeHero from './HomeHero';
 import HeroCopy from './HeroCopy';
 import ManifestoThumb from './ManifestoThumb';
+import GhostAboveText from './GhostAboveText';
 
 export default function HomeIntro() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -79,10 +80,15 @@ export default function HomeIntro() {
           {/* Copy needs pointer events for links, but container is pointer-events-none to let clicks pass to video if needed?
                  Actually we want interaction on Copy when visible. */}
           <div
-            className="pointer-events-auto"
+            className="relative z-20 pointer-events-auto"
             style={{ pointerEvents: heroPointerEvents as any }}
           >
             <HeroCopy />
+          </div>
+          
+          {/* Ghost Canvas Above Text - Creates the "Ghost Above Text" effect */}
+          <div className="absolute inset-0 z-30">
+            <GhostAboveText />
           </div>
         </motion.div>
 

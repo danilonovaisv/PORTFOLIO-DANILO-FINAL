@@ -1,53 +1,54 @@
-# Next.js build outputs
-.next/
-out/
-build/
+```
+# Compiled and build artifacts
+*.pyc
+__pycache__/
+*.o
+*.obj
 dist/
+build/
+target/
 
-# Environment variables
+# Dependencies
+node_modules/
+venv/
+.venv/
 .env
 .env.local
 .env.*
 
-# Logs
+# Logs and temp files
 *.log
-database-debug.log
-firestore-debug.log
+*.tmp
+*.swp
 
-# Dependencies
-node_modules/
-
-# Firebase
-.firebase/
-
-# IDE
+# Editors
 .vscode/
 .idea/
+*.swp
+*.swo
 
-# OS
+# OS generated files
 .DS_Store
 Thumbs.db
-*.zip
-
-# Media Cache (Prevent heavy commits)
-*.mov
-*.mp4
-*.webm
 
 # Coverage
 coverage/
 htmlcov/
 .coverage
 
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
-venv/
-.venv/
-pip-log.txt
-pip-delete-this-directory.txt
+# Python specific
+.mypy_cache/
+.pytest_cache/
+
+# Node.js specific
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+*.out
+*.exe
+*.dll
 *.so
+*.a
+```

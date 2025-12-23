@@ -39,10 +39,12 @@ export default function Ghost() {
           emissive={ghostColor}
           emissiveIntensity={3.5}
           transparent
-          opacity={0.92}
+          opacity={0.85}
           roughness={0}
           metalness={0}
           side={THREE.DoubleSide}
+          depthWrite={false}  // Important: allows the ghost to blend with content below
+          blending={THREE.AdditiveBlending}  // Creates the glowing effect
         />
       </mesh>
       <Eyes />
