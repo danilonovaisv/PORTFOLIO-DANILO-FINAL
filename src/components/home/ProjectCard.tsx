@@ -29,9 +29,9 @@ const ProjectCard: FC<ProjectCardProps> = ({ project, index }) => {
     >
       <Link href={`/portfolio/${project.slug}`} className="block w-full">
         {/* Generative/Image Container */}
-        <div className="relative overflow-hidden rounded-lg bg-gray-200 w-full aspect-4/3 md:aspect-video mb-4 shadow-sm group-hover:shadow-xl group-hover:shadow-blue-500/15 transition-all duration-500 transform group-hover:scale-[1.03]">
+        <div className="relative overflow-hidden rounded-lg bg-white/10 w-full aspect-4/3 md:aspect-video mb-4 shadow-sm group-hover:shadow-xl group-hover:shadow-blue-500/15 transition-all duration-500 transform group-hover:scale-[1.03]">
           {/* Overlay Gradient (Hover) */}
-          <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
 
           <Image
             src={project.imageUrl}
@@ -51,14 +51,14 @@ const ProjectCard: FC<ProjectCardProps> = ({ project, index }) => {
 
         {/* Legend / Info (Bottom) */}
         <div className="flex flex-col gap-1">
-          <h3 className="text-xl md:text-2xl font-bold font-sans tracking-tight text-[#111111] leading-tight group-hover:text-[#0057FF] transition-colors duration-300">
+          <h3 className="text-xl md:text-2xl font-bold font-sans tracking-tight text-[#F0F0F0] leading-tight group-hover:text-[#0057FF] transition-colors duration-300">
             {project.title}
           </h3>
-          <div className="flex items-center gap-3 text-sm text-gray-500 font-medium uppercase tracking-wide">
+          <div className="flex items-center gap-3 text-sm text-[#888888] font-medium uppercase tracking-wide">
             <span>{project.client}</span>
             {project.year && (
               <>
-                <span className="w-1 h-1 rounded-full bg-gray-300" />
+                <span className="w-1 h-1 rounded-full bg-white/20" />
                 <span>{project.year}</span>
               </>
             )}

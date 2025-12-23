@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useScroll, useTransform, Variants } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { BRAND } from '@/config/brand';
 
 interface HeroShowreelProps {

@@ -11,7 +11,7 @@
   --color-white: #ffffff;
 
   /* Ghost/Ethereal Theme Colors */
-  --color-ghost-bg: #06071f;
+  --color-ghost-bg: #050505;
   --color-ghost-dark: #0f2027;
   --color-ghost-blue: #4a90e2;
   --color-ghost-green: #50e3c2;
@@ -19,7 +19,7 @@
   --color-ghost-text: #d9dade;
 
   /* Ghost/Ethereal Surface Variables (Already in :root) */
-  --color-surface-main: #06071f;
+  --color-surface-main: #050505;
   --color-text-main: #d9dade;
   --color-accent-blue: #0057ff;
 

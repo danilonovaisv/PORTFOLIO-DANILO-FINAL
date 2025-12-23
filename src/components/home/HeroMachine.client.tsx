@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 interface HeroMachineProps {

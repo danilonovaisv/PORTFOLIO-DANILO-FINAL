@@ -31,7 +31,7 @@ const CategoryText: FC<CategoryTextProps> = ({
       {isWebItem && !isExpanded ? (
         <motion.h3
           layout="position"
-          className="font-light text-[#111111] transition-all duration-500 tracking-tight leading-tight md:leading-none text-2xl sm:text-3xl md:text-5xl lg:text-6xl group-hover:text-[#0057FF] group-hover:tracking-normal"
+          className="font-light text-[#F0F0F0] transition-all duration-500 tracking-tight leading-tight md:leading-none text-2xl sm:text-3xl md:text-5xl lg:text-6xl group-hover:text-[#0057FF] group-hover:tracking-normal"
         >
           <span className="block">Web Campaigns,</span>
           <span className="block">Websites & Tech</span>
@@ -41,7 +41,7 @@ const CategoryText: FC<CategoryTextProps> = ({
           <motion.h3
             layout="position"
             className={`
-              font-light text-[#111111] transition-all duration-500 tracking-tight leading-tight md:leading-[1.1]
+              font-light text-[#F0F0F0] transition-all duration-500 tracking-tight leading-tight md:leading-[1.1]
               group-hover:text-[#0057FF] group-hover:tracking-normal group-hover:font-medium
               ${
                 isExpanded
