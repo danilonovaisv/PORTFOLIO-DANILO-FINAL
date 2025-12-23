@@ -17,7 +17,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   <div>
     <label
       htmlFor={id}
-      className="block text-sm font-semibold text-gray-600 mb-2"
+      className="block text-sm font-semibold text-[#888888] mb-2"
     >
       {label}
     </label>
@@ -26,8 +26,8 @@ export const InputField: React.FC<InputFieldProps> = ({
       aria-invalid={!!error}
       aria-describedby={error ? `${id}-error` : undefined}
       className={`w-full rounded-xl border ${
-        error ? 'border-red-500' : 'border-gray-200'
-      } bg-gray-50 px-4 py-3 transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white ${className}`}
+        error ? 'border-red-500' : 'border-white/10'
+      } bg-white/5 px-4 py-3 text-[#F0F0F0] transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] ${className}`}
       {...props}
     />
     {error && (
@@ -53,7 +53,7 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
   <div>
     <label
       htmlFor={id}
-      className="block text-sm font-semibold text-gray-600 mb-2"
+      className="block text-sm font-semibold text-[#888888] mb-2"
     >
       {label}
     </label>
@@ -62,8 +62,8 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
       aria-invalid={!!error}
       aria-describedby={error ? `${id}-error` : undefined}
       className={`w-full resize-none rounded-xl border ${
-        error ? 'border-red-500' : 'border-gray-200'
-      } bg-gray-50 px-4 py-3 transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white ${className}`}
+        error ? 'border-red-500' : 'border-white/10'
+      } bg-white/5 px-4 py-3 text-[#F0F0F0] transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] ${className}`}
       {...props}
     />
     {error && (

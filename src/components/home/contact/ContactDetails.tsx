@@ -13,7 +13,7 @@ const ContactDetails: FC = () => {
       <h2 className="text-4xl md:text-5xl font-bold text-[#0057FF] mb-4 text-center md:text-left">
         Contato
       </h2>
-      <p className="text-xl text-[#111111] mb-12 text-center md:text-left">
+      <p className="text-xl text-[#F0F0F0] mb-12 text-center md:text-left">
         Tem uma pergunta ou quer trabalhar junto?
       </p>
 
@@ -23,9 +23,9 @@ const ContactDetails: FC = () => {
             key={idx}
             href={item.href}
             variant="ghost"
-            className="justify-start text-lg font-medium text-dark hover:text-primary gap-4 h-auto py-3 px-4"
+            className="justify-start text-lg font-medium text-[#F0F0F0] hover:text-[#0057FF] hover:bg-white/5 gap-4 h-auto py-3 px-4"
           >
-            <span className="rounded-full bg-white p-2 text-primary shadow-sm group-hover:scale-110 transition-transform">
+            <span className="rounded-full bg-white/10 p-2 text-[#0057FF] shadow-sm group-hover:scale-110 transition-transform">
               {item.icon}
             </span>
             {item.label}
@@ -42,7 +42,7 @@ const ContactDetails: FC = () => {
             target="_blank"
             variant="secondary"
             size="icon"
-            className="rounded-full bg-white text-dark shadow-sm hover:text-primary h-12 w-12"
+            className="rounded-full bg-white/10 text-[#F0F0F0] shadow-sm hover:text-[#0057FF] hover:bg-white/20 h-12 w-12 border border-white/5"
             aria-label={social.platform}
           >
             {social.icon}

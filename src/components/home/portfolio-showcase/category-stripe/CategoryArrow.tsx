@@ -20,7 +20,7 @@ const CategoryArrow: FC<CategoryArrowProps> = ({
         flex items-center justify-center rounded-full bg-[#0057FF] text-white shrink-0 transition-all duration-500 shadow-sm relative z-30
         ${isExpanded ? 'w-12 h-12 md:w-16 md:h-16' : 'w-8 h-8 md:w-12 md:h-12'}
         ${isWebItem && !isExpanded ? 'self-end md:self-end mb-1' : ''}
-        group-hover:bg-[#111111] group-hover:scale-110
+        group-hover:bg-[#F0F0F0] group-hover:text-[#0057FF] group-hover:scale-110
       `}
     >
       <motion.div

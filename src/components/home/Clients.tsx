@@ -7,16 +7,24 @@ import { HOME_CONTENT } from '@/config/content';
 
 const Clients: React.FC = () => {
   return (
-    <section id="clients" className="bg-[#0057FF] py-16 md:py-24 text-white">
-      <div className="mx-auto max-w-6xl px-6 md:px-10">
-        <motion.h2
+    <section
+      id="clients"
+      className="bg-[#050505] py-24 md:py-32 border-t border-white/5"
+    >
+      <div className="mx-auto max-w-7xl px-6 md:px-10">
+        <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          className="mb-12 md:mb-16 text-center text-2xl md:text-3xl font-bold font-sans tracking-tight"
+          className="mb-16 md:mb-24 flex flex-col items-center text-center"
         >
-          Marcas com as quais já trabalhei.
-        </motion.h2>
+          <span className="text-[#0057FF] text-xs font-bold uppercase tracking-[0.4em] mb-4">
+            Trusted By
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold font-sans tracking-tight text-[#F0F0F0]">
+            Marcas com as quais já trabalhei.
+          </h2>
+        </motion.div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12 items-center justify-items-center">
           {HOME_CONTENT.clients.map(({ src, name }, index) => (

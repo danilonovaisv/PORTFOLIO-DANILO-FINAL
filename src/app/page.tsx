@@ -1,5 +1,5 @@
-import HeroSection from '@/components/home/HeroSection';
-import HeroShowreel from '@/components/home/HeroShowreel';
+import HomeHero from '@/components/home/HomeHero';
+import ManifestoSection from '@/components/home/ManifestoSection';
 import PortfolioShowcase from '@/components/home/PortfolioShowcase';
 import FeaturedProjects from '@/components/home/FeaturedProjects';
 import Clients from '@/components/home/Clients';
@@ -8,11 +8,11 @@ import Contact from '@/components/home/Contact';
 export default function Home() {
   return (
     <main className="relative min-h-screen bg-[#050505]">
-      {/* 1. Hero Cinematic (Somente Vídeo + Máquina de Estados) */}
-      <HeroSection />
+      {/* 1. Hero Atmosphere (Ghost Blue + R3F + Static Text) */}
+      <HomeHero />
 
-      {/* 2. O Vídeo de Transição (Efeito Cortina) para o portfólio */}
-      <HeroShowreel />
+      {/* 2. Manifesto Section (Cinematic Reveal) */}
+      <ManifestoSection />
 
       {/* 3. Portfolio Content */}
       <PortfolioShowcase />

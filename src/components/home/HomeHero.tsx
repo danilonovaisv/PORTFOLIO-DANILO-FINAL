@@ -1,0 +1,49 @@
+// src/components/home/HomeHero.tsx
+'use client';
+
+import { useRef } from 'react';
+import { motion, useScroll } from 'framer-motion';
+import HeroCopy from './HeroCopy';
+import ManifestoThumb from './ManifestoThumb';
+import GhostStage from './GhostStage';
+import HeroPreloader from './HeroPreloader';
+
+/**
+ * HomeHero (Ghost Atmosphere Orchestrator)
+ * Hierarquia de Camadas (Master Sync):
+ * z-0: WebGL Canvas (GhostStage)
+ * z-10: Gradient Overlay (opcional)
+ * z-20: Conteúdo Editorial (HeroCopy + ManifestoThumb)
+ * z-50: Preloader
+ */
+export default function HomeHero() {
+  return (
+    <section className="relative w-full h-screen bg-[#050505] overflow-hidden">
+      {/* 1. Preloader (z-50) */}
+      <HeroPreloader />
+
+      {/* 2. WebGL Atmosfera (z-0) */}
+      <GhostStage />
+
+      {/* 3. Overlay Radial de Integração (z-10) */}
+      <div
+        className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,rgba(11,13,58,0.2)_0%,#050505_70%)] pointer-events-none"
+        aria-hidden="true"
+      />
+
+      {/* 4. Conteúdo Editorial (z-20) */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.8, duration: 1.5 }}
+        className="absolute inset-0 z-20 flex flex-col justify-center items-center px-4"
+      >
+        <HeroCopy />
+        <ManifestoThumb />
+      </motion.div>
+
+      {/* 5. Analog Decay Overlay Global (Scanlines/Noise) */}
+      <div className="absolute inset-0 z-30 pointer-events-none opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
+    </section>
+  );
+}

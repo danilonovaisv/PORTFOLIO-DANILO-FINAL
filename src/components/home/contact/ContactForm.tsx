@@ -98,7 +98,7 @@ const ContactForm: React.FC = () => {
       initial={{ opacity: 0, x: 30 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
-      className="bg-white p-8 md:p-10 rounded-3xl shadow-lg border border-gray-100 max-w-2xl w-full mx-auto md:mx-0"
+      className="bg-white/5 backdrop-blur-md p-8 md:p-10 rounded-3xl shadow-2xl border border-white/10 max-w-2xl w-full mx-auto md:mx-0"
     >
       {submitSuccess ? (
         <div className="text-center py-8">
@@ -118,10 +118,10 @@ const ContactForm: React.FC = () => {
               />
             </svg>
           </div>
-          <h3 className="text-2xl font-bold text-gray-800 mb-2">
+          <h3 className="text-2xl font-bold text-[#F0F0F0] mb-2">
             Mensagem Enviada!
           </h3>
-          <p className="text-gray-600">
+          <p className="text-[#888888]">
             Obrigado por entrar em contato. Em breve retornarei sua mensagem.
           </p>
         </div>
