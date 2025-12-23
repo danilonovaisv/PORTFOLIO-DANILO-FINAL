@@ -1,0 +1,11 @@
+{
+  "projectIntelligence": {
+    "contextSource": "local",
+    "contextPath": ".agent",
+    "autonomyLevel": "hybrid",
+    "liveContext": {
+      "watchMode": true,
+      "watchPatterns": [".agent/**/*.md", "docs/**/*.md"]
+    }
+  }
+}

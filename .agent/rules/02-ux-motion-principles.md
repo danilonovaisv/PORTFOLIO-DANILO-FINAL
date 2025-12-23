@@ -2,20 +2,20 @@
 trigger: always_on
 ---
 
----
+# Princípios de Motion & UX
 
-## activation: always_on
+## Timing "Ghost"
 
-Princípios de animação:
+- As animações não devem ser "bouncy" ou elásticas demais.
+- Preferir curvas de Bézier suaves (Sine/Quad in-out) para criar sensação de flutuação e mistério.
+- Duração média de transições: 0.6s a 1.2s (lento, etéreo).
 
-- Motion serve narrativa, não decoração
-- Animar apenas transform e opacity
-- Usar Framer Motion como padrão
-- Scroll = progressivo, nunca abrupto
-- Nada de easings exagerados ou overshoot
+## Interação
 
-Obrigatório:
+- **Micro-interações:** Hover nos cards deve ser sutil (scale 1.02, brilho aumenta).
+- **Scroll:** O scroll deve parecer "pesado" mas fluido (Lenis `lerp: 0.08`).
+- **Mouse Follow:** Na Hero, o elemento 3D deve seguir o mouse com *atraso* significativo para simular inércia em meio líquido/gasoso.
 
-- whileInView para reveals
-- useScroll + useTransform para parallax
-- prefers-reduced-motion SEMPRE respeitado
+## Transições de Página
+
+- Não usar transições de corte seco. Usar fade-out/fade-in suave ou máscaras de revelação.

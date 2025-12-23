@@ -1218,7 +1218,7 @@ ring-offset-[#f5f5f7]
 - Erro: Mostrar mensagem de erro
 - Sucesso: Mostrar mensagem de sucesso
 **NOTES / INSPIRATION:**
-- Layout inspirado em `HOME-PORTFOLIO-LAYOUYT_ESPERADO.jpg`
+- Layout inspirado em `HOME-PORTFOLIO-LAYOUYT-GHOST.jpg`
 **NON-NEGOTIABLES:**
 - Formulário de contato
 - Informações de contato

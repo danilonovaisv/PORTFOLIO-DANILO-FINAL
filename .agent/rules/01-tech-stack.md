@@ -2,26 +2,27 @@
 trigger: always_on
 ---
 
----
+# Tech Stack Oficial
 
-## activation: always_on
+## Core
 
-Stack obrigatória:
+- **Framework:** Next.js 14+ (App Router obrigatório).
+- **Linguagem:** TypeScript (Strict Mode).
+- **Estilização:** Tailwind CSS (com `tailwind-merge` e `clsx`).
 
-- Next.js (App Router)
-- React 18+
-- TypeScript strict
-- Tailwind CSS
-- Framer Motion
-- React Three Fiber
-- @react-three/drei
-- Zustand (estado global)
-- Lenis (scroll suave)
-- Supabase (assets)
+## Gráficos & Animação
 
-Padrões:
+- **3D Engine:** React Three Fiber (R3F) / Three.js.
+- **Helpers:** @react-three/drei.
+- **Post-Processing:** @react-three/postprocessing (Bloom, Noise, Vignette).
+- **Motion:** Framer Motion (para UI) e GSAP (se complexidade exigir timeline).
+- **Scroll:** Lenis (Smooth Scrolling).
 
-- Server Components por padrão
-- Client Components apenas quando necessário (motion, canvas, scroll)
-- Separar claramente UI / Motion / Logic
-- Nunca misturar lógica de scroll DOM com lógica de WebGL sem coordenação
+## Dados & Backend
+
+- **CMS/Database:** Supabase (Armazenamento de imagens e textos dos projetos).
+- **Deploy:** Vercel ou Firebase Hosting.
+
+## Gerenciamento de Estado
+
+- Zustand (para estados globais de UI e WebGL).

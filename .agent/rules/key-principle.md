@@ -14,7 +14,7 @@ Previously solved similar problems Common "deceptively simple" requests:
 
 KI Structure
 
-Each KI in C:\Users\Lucas.gemini\antigravity\knowledge contains:
+Each KI in C:/Users/danilonovais/.antigravity/knowledge contains:
 
 metadata.json: Summary, timestamps, and references to original sources
 artifacts/: Related files, documentation, and implementation details

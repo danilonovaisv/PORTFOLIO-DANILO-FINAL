@@ -2,20 +2,11 @@
 trigger: always_on
 ---
 
----
+# Regras Inegociáveis (Non-Negotiables)
 
-## activation: always_on
-
-O Agent NÃO PODE:
-
-- Colocar texto, ícones ou badges sobre vídeos
-- Abrir vídeo da Hero em modal
-- Transformar thumb da Hero em full-screen
-- Criar animações não documentadas
-- Ignorar estados de fallback
-
-Obrigatório:
-
-- Vídeo da Hero SEMPRE mudo
-- Som ativo apenas no Manifesto (em viewport)
-- 3D com fallback em motion-reduced
+1. **Clean Code:** Componentes pequenos e funcionais. Use composição.
+2. **Diretório `src/`:** Todo o código fonte deve estar dentro de `src/`.
+3. **Componentes do Servidor:** Por padrão, use Server Components. Use `'use client'` apenas onde houver interatividade (hooks, eventos).
+4. **Responsividade:** Mobile-first. O WebGL deve ser otimizado ou simplificado para telas móveis.
+5. **Performance:** Proibido bloquear a main thread. Carregamento de assets 3D deve ser assíncrono com `Suspense`.
+6. **Semântica:** Use tags HTML corretas (`<section>`, `<article>`, `<nav>`) antes de aplicar classes de estilo.

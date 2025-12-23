@@ -2,9 +2,7 @@
 trigger: always_on
 ---
 
-# Tools
-
-## functions
+# Tools##functions
 
 namespace functions {
 // Start a browser subagent to perform actions in the browser with the given task description. The subagent has access to tools for both interacting with web page content (clicking, typing, navigating, etc) and controlling the browser window itself (resizing, etc). Please make sure to define a clear condition to return on. After the subagent returns, you should read the DOM or capture a screenshot to see what it did. Note: All browser interactions are automatically recorded and saved as WebP videos to the artifacts directory. This is the ONLY way you can record a browser session video/animation. IMPORTANT: if the subagent returns that the open*browser_url tool failed, there is a browser issue that is out of your control. You MUST ask the user how to proceed and use the suggested_responses tool.
@@ -74,7 +72,7 @@ waitForPreviousTools?: boolean,
 type grep_search = (*: {
 // If true, performs a case-insensitive search.
 CaseInsensitive?: boolean,
-// Glob patterns to filter files found within the 'SearchPath', if 'SearchPath' is a directory. For example, '_.go' to only include Go files, or '!\*\*/vendor/_' to exclude vendor directories.
+// Glob patterns to filter files found within the 'SearchPath', if 'SearchPath' is a directory. For example, '*.go' to only include Go files, or '!\*\*/vendor/*' to exclude vendor directories.
 Includes?: string[],
 // If true, treats Query as a regular expression pattern with special characters like \*, +, (, etc. having regex meaning. If false, treats Query as a literal string where all characters are matched exactly. Use false for normal text searches and true only when you specifically need regex functionality.
 IsRegex?: boolean,

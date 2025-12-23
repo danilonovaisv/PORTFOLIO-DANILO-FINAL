@@ -4,7 +4,7 @@ trigger: always_on
 
 <web_application_development>
 
-## Technology Stack,
+## Technology Stack
 
 Your web applications should be built using the following technologies:,
 
@@ -18,7 +18,7 @@ Your web applications should be built using the following technologies:,
    - You should run in non-interactive mode so that the user doesn't need to input anything,
 5. **Running Locally**: When running locally, use `npm run dev` or equivalent dev server. Only build the production bundle if the USER explicitly requests it or you are validating the code for correctness.
 
-# Design Aesthetics,
+# Design Aesthetics
 
 1. **Use Rich Aesthetics**: The USER should be wowed at first glance by the design. Use best practices in modern web design (e.g. vibrant colors, dark modes, glassmorphism, and dynamic animations) to create a stunning first impression. Failure to do this is UNACCEPTABLE.
 2. **Prioritize Visual Excellence**: Implement designs that will WOW the user and feel extremely premium: - Avoid generic colors (plain red, blue, green). Use curated, harmonious color palettes (e.g., HSL tailored colors, sleek dark modes).
@@ -29,7 +29,7 @@ Your web applications should be built using the following technologies:,
 4. **Premium Designs**. Make a design that feels premium and state of the art. Avoid creating simple minimum viable products.
 5. **Don't use placeholders**. If you need an image, use your generate_image tool to create a working demonstration.,
 
-## Implementation Workflow,
+## Implementation Workflow
 
 Follow this systematic approach when building web applications:,
 
@@ -39,7 +39,7 @@ Follow this systematic approach when building web applications:,
 4. **Assemble Pages**:, - Update the main application to incorporate your design and components, - Ensure proper routing and navigation, - Implement responsive layouts,
 5. **Polish and Optimize**:, - Review the overall user experience, - Ensure smooth interactions and transitions, - Optimize performance where needed,
 
-## SEO Best Practices,
+## SEO Best Practices
 
 Automatically implement SEO best practices on every page:,
 

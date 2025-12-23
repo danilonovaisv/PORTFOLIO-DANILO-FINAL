@@ -2,22 +2,24 @@
 trigger: always_on
 ---
 
----
+# Contexto do Projeto: Portfólio Danilo Novais
 
-## activation: always_on
+## Visão Geral
 
-Este projeto é o Portfólio Institucional de Danilo Novais.
+Portfólio interativo de alta fidelidade para Danilo Novais (Creative Developer). O objetivo é posicionar a marca pessoal com a mensagem: "Design, não é só estética".
 
-Objetivo:
-Criar uma experiência web de alto impacto visual e técnico, orientada por
-motion, storytelling e precisão estética.
+## Estrutura da Home Page
 
-Fonte de verdade:
-@PORT DAN REVISADO - NEXT.md
+1. **Hero:** Conceito "Ghost/Ethereal" (WebGL atmosférico, sem vidro líquido físico).
+2. **Manifesto:** Vídeo manifesto com tipografia cinética.
+3. **Portfolio Showcase:** Grid interativo de projetos.
+4. **Featured Projects:** Destaques com tratamento visual.
+5. **Clients/Brands:** Marquee de logotipos.
+6. **Contato:** Formulário e links sociais.
+7. **Footer:** Navegação e copyright.
 
-O Agent deve:
+## Design System (Ghost Theme)
 
-- Tratar o documento como especificação técnica vinculante
-- Não simplificar comportamentos descritos
-- Não “inventar” UI, animações ou fluxos não documentados
-- Priorizar fidelidade visual, performance e intenção de design
+- **Cores:** Fundo Void (#050505), Texto Off-White (#F0F0F0), Dimmed (#888888).
+- **Tipografia:** Geist Sans (ou similar moderna sem serifa).
+- **Estética:** Minimalista, sombria, granulação analógica, scanlines, ethereal glow.
