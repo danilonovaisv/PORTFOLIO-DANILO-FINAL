@@ -6,6 +6,7 @@ import { motion, useScroll } from 'framer-motion';
 import HeroCopy from './HeroCopy';
 import ManifestoThumb from './ManifestoThumb';
 import GhostStage from './GhostStage';
+import HeroGlow from './HeroGlow';
 import HeroPreloader from './HeroPreloader';
 import { ScrollProvider } from '@/contexts/ScrollContext';
 
@@ -44,19 +45,22 @@ export default function HomeHero() {
           />
 
           {/* 4. Conteúdo Editorial (z-20) */}
-          <div className="absolute inset-0 z-20 flex flex-col justify-center items-center px-4">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 2.8, duration: 1.5 }}
-            >
-              <HeroCopy />
-            </motion.div>
-          </div>
-
-          {/* 5. Manifesto Thumb (z-20) - Positioned bottom right as per reference */}
-          <div className="absolute bottom-10 right-10 z-20">
-            <ManifestoThumb />
+          <div className="absolute inset-0 z-20 flex items-center justify-center px-4">
+            <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-10 lg:grid lg:grid-cols-[1fr_auto] lg:items-start">
+              <div className="relative flex flex-col gap-8 overflow-visible">
+                <HeroGlow className="absolute -left-28 top-4 hidden lg:block" />
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 2.8, duration: 1.5 }}
+                >
+                  <HeroCopy className="lg:pl-16" />
+                </motion.div>
+              </div>
+              <div className="flex justify-center lg:justify-end">
+                <ManifestoThumb />
+              </div>
+            </div>
           </div>
 
           {/* 6. Analog Decay Overlay Global (Scanlines/Noise) */}
