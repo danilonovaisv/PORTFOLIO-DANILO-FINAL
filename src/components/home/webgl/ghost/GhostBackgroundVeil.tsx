@@ -3,7 +3,7 @@
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useMemo } from 'react';
-import { DEFAULT } from './GhostParams';
+import { GhostParams } from './GhostParams';
 
 interface BackgroundVeilProps {
   ghostPos: THREE.Vector3;
@@ -15,10 +15,10 @@ export function GhostBackgroundVeil({ ghostPos }: BackgroundVeilProps) {
       new THREE.ShaderMaterial({
         uniforms: {
           ghostPosition: { value: ghostPos },
-          revealRadius: { value: DEFAULT.revealRadius },
-          fadeStrength: { value: DEFAULT.fadeStrength },
-          baseOpacity: { value: DEFAULT.baseOpacity },
-          revealOpacity: { value: DEFAULT.revealOpacity },
+          revealRadius: { value: GhostParams.revealRadius },
+          fadeStrength: { value: GhostParams.fadeStrength },
+          baseOpacity: { value: GhostParams.baseOpacity },
+          revealOpacity: { value: GhostParams.revealOpacity },
           time: { value: 0 },
         },
         vertexShader: /* glsl */ `

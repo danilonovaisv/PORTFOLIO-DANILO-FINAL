@@ -7,14 +7,7 @@ import Contact from '@/components/home/Contact';
 export default function Home() {
   return (
     <main className="relative min-h-screen">
-      {/* 
-        Hero + Manifesto Section 
-        (Scroll driven transition handled internally by HomeIntro)
-      */}
       <HomeIntro />
-
-      {/* Anchor for automatic scroll from thumb click */}
-      <div id="manifesto" className="absolute top-[200vh]" />
 
       <PortfolioShowcase />
       <FeaturedProjects />

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { GhostParams, FluorescentColors } from './ghost/GhostParams';
+import { GhostParams } from './ghost/GhostParams';
 
 interface EyesProps {
   eyeOpacity: number;

@@ -2,48 +2,54 @@
 description: manifest
 ---
 
-# Workflow: Seção Manifesto (Scroll Expansion)
+### Workflow Seção Manifesto (Reveal Suave, não Scroll Expansion)
 
-**Conceito Visual:**
-A transição entre Hero e Manifesto acontece através da expansão fluida do vídeo thumbnail. O vídeo, inicialmente um elemento da composição da Hero, cresce até ocupar **100% da viewport** (100vw/100vh), tornando-se a seção Manifesto.
-
----
-
-**Estratégia de Implementação (`HomeIntro.tsx`):**
-
-1. **Orquestrador Central (`HomeIntro.tsx`):**
-   - Este componente gerencia o espaço vertical total (ex: `250vh` ou `300vh`) para permitir o scroll.
-   - Utiliza `position: sticky` para fixar a Hero/Vídeo enquanto o usuário rola.
-   - **Hook:** `useScroll` do Framer Motion.
-
-2. **Estados do Vídeo (`ManifestoThumb.tsx`):**
-   - **Estado Inicial (Hero):**
-     - Tamanho: Thumbnail (~25-30% da tela ou tamanho fixo harmônico).
-     - Posição: Integrado ao layout da Hero (ex: canto inferior direito ou centralizado abaixo do texto).
-     - Border-Radius: Arredondado (ex: `16px` ou `24px`).
-     - Audio: Muted.
-   - **Estado Final (Manifesto):**
-     - Tamanho: Fullscreen (`width: 100%`, `height: 100vh`).
-     - Posição: `inset-0` (cobre tudo).
-     - Border-Radius: `0px`.
-     - Audio: Unmuted (opcional/interativo).
-
-3. **Transição Hero -> Manifesto:**
-   - Conforme `scrollYProgress` avança (0 -> 0.25+):
-     - **Hero Text:** Fade out (`opacity: 1 -> 0`) e Scale down (`scale: 1 -> 0.9`).
-     - **Video Thumb:** Scale up, Radius -> 0, Position -> Center.
-   - O vídeo deve cobrir completamente a Hero ao final da transição.
-
-4. **Componente de Vídeo:**
-   - Tag `<video>` nativa otimizada.
-   - Props: `autoplay`, `loop`, `muted`, `playsinline`.
-   - `layoutId="manifesto-video"` (se usar AnimatePresence, caso contrário, use `style` transforms diretos para performance).
+**Conceito Visual (Ajustado):**
+A seção Manifesto deve aparecer com um **efeito de revelação suave** quando entra na viewport, semelhante ao comportamento observado no site de referência para as seções subsequentes à hero. O vídeo é o elemento central e deve ganhar destaque com uma animação de fade-in e scale leve. A transição entre Hero e Manifesto é uma **mudança de seção clara**, não uma expansão contínua do mesmo elemento.
 
 ---
 
-**Non-Negotiables:**
+**Estratégia de Implementação (`ManifestoSection.tsx`):**
 
-- **Performance:** Use `useTransform` e `motion.div` para garantir 60fps. Evite re-renders de estado React durante o scroll.
-- **Fluidez:** A expansão não deve ter "pulos". Deve ser diretamente atrelada ao scroll (`scrub`).
-- **Limpeza:** Quando Fullscreen, nenhum texto da Hero deve ser visível ou clicável por baixo.
-- **Acessibilidade:** Botão de Mute/Unmute visualmente claro se o som ativar automaticamente.
+1.  **Orquestrador Central (`ManifestoSection.tsx`):**
+    - Este componente representa a seção Manifesto como um bloco independente após a Hero.
+    - Utiliza `whileInView`, `useInView`, `variants` do Framer Motion para acionar a animação de entrada quando a seção entra na viewport do usuário.
+    - O scroll é natural, sem `position: sticky` ou scrubbing complexo.
+
+2.  **Animação de Entrada do Vídeo (`ManifestoVideo.tsx` ou dentro de `ManifestoSection.tsx`):**
+    - **Estado Inicial (Fora da Viewport):**
+      - `opacity: 0`
+      - `scale: 0.95` ou `y: 20px` (levemente abaixo ou menor)
+      - `transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }` (easing premium)
+    - **Estado Final (Na Viewport):**
+      - `opacity: 1`
+      - `scale: 1` ou `y: 0`
+    - A animação deve ser suave e enfocar o vídeo como o elemento principal da seção.
+
+3.  **Conteúdo da Seção:**
+    - O vídeo é o foco. Outros elementos (título, descrição) também podem receber uma leve animação staggered, mas o vídeo entra primeiro e com mais ênfase.
+    - A seção Manifesto ocupa `100vh` ou mais, centralizando o vídeo.
+
+4.  **Componente de Vídeo:**
+    - Tag `<video>` nativa otimizada ou `next-video` se disponível.
+    - Props: `autoPlay`, `loop`, `muted`, `playsInline`, `controls` (opcional).
+    - **Não** usa `layoutId` para expansão da Hero.
+    - Pode usar `object-fit: cover` e estar centralizado no contêiner da seção.
+
+---
+
+**Non-Negotiables (Ajustados):**
+
+- **Performance:** Animações via Framer Motion (`whileInView`, `variants`) usando apenas `opacity` e `transform`. Evitar animações de `width`, `height`, `bordewrRadius` em scroll (a menos que seja uma interação específica, não uma animação de entrada).
+- **Fluidez:** A animação de entrada deve ser suave e consistente, respeitando o easing premium.
+- **Estética:** Alinhada com a estética editorial e premium do site de referência: limpa, espaçada, com foco no conteúdo principal (vídeo).
+- **Acessibilidade:** `prefers-reduced-motion: reduce` deve desativar a animação de entrada (`initial` e `animate` devem ser iguais nesse caso). O vídeo deve ter controles ou um botão de mute claro se o som for ativado.
+
+---
+
+**Relação com a Hero e o Thumbnail:**
+
+- O `ManifestoThumb.tsx` na Hero **não se expandirá para esta seção**.
+- O `ManifestoThumb.tsx` pode ter sua própria micro-interação (ex: `whileHover`) para indicar que é um link para a seção Manifesto.
+- O clique no `ManifestoThumb.tsx` deve **realizar um scroll suave** para a âncora `#manifesto` ou para o ID do componente `ManifestoSection.tsx`.
+- A seção Manifesto tem seu **próprio vídeo independente**. Pode ser o mesmo arquivo ou uma versão otimizada para o tamanho da seção.

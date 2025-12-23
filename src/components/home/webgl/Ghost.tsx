@@ -1,53 +1,42 @@
+'use client';
+
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import Eyes from './Eyes';
+// CORREÇÃO: Importação nomeada ao invés de default
+import { Eyes } from './Eyes';
 
 export default function Ghost() {
   const meshRef = useRef<THREE.Mesh>(null);
-  // Color from spec: #0057FF
-  const ghostColor = new THREE.Color('#0057FF');
+  const groupRef = useRef<THREE.Group>(null);
 
   useFrame((state) => {
-    if (!meshRef.current) return;
-    const t = state.clock.elapsedTime;
+    if (!meshRef.current || !groupRef.current) return;
 
-    // Pulsing emissive (Google Antigravity Spec)
-    if (meshRef.current.material instanceof THREE.MeshStandardMaterial) {
-      meshRef.current.material.emissiveIntensity =
-        5.8 + Math.sin(t * 1.6) * 0.6;
-    }
+    const time = state.clock.getElapsedTime();
 
-    // Floating animation (Google Antigravity Style)
-    // 3 overlay sine waves for organic feel
-    const float1 = Math.sin(t * 1.6) * 0.03; // Main movement
-    const float2 = Math.cos(t * 0.7) * 0.018; // Secondary
-    const float3 = Math.sin(t * 2.3) * 0.008; // Micro-movement
+    // Animação suave de flutuação
+    meshRef.current.position.y = Math.sin(time * 0.5) * 0.2;
 
-    meshRef.current.position.y = float1 + float2 + float3;
-
-    // Gentle wobble
-    meshRef.current.rotation.y = Math.sin(t * 0.3) * 0.1;
+    // Rotação suave baseada no mouse (se necessário adicionar interatividade aqui)
+    // Por enquanto, uma rotação leve para dar vida
+    groupRef.current.rotation.y = Math.sin(time * 0.3) * 0.1;
   });
 
   return (
-    <group>
+    <group ref={groupRef}>
       <mesh ref={meshRef}>
-        <sphereGeometry args={[2, 64, 64]} />
+        <sphereGeometry args={[2, 32, 32]} />
         <meshStandardMaterial
-          color="#06071f"
-          emissive={ghostColor}
-          emissiveIntensity={3.5}
+          color="#0f2027"
+          roughness={0.2}
+          metalness={0.5}
           transparent
-          opacity={0.85}
-          roughness={0}
-          metalness={0}
-          side={THREE.DoubleSide}
-          depthWrite={false}  // Important: allows the ghost to blend with content below
-          blending={THREE.AdditiveBlending}  // Creates the glowing effect
+          opacity={0.9}
         />
       </mesh>
-      <Eyes />
+      {/* CORREÇÃO: Uso do componente nomeado (certifique-se de passar props se necessário) */}
+      <Eyes eyeOpacity={1} />
     </group>
   );
 }

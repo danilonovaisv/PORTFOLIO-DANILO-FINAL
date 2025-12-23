@@ -36,8 +36,6 @@ export default function GhostCanvas() {
         }}
       >
         <Suspense fallback={null}>
-          <color attach="background" args={['#000000']} />{' '}
-          {/* Fallback dark bg, or remove for transparent */}
           {/* Lights */}
           <ambientLight intensity={0.08} color="#0a0a2e" />
           <directionalLight
@@ -63,7 +61,7 @@ export default function GhostCanvas() {
           />
           <Fireflies />
           {/* Post Processing */}
-          <EffectComposer disableNormalPass>
+          <EffectComposer enableNormalPass={false}>
             <Bloom
               luminanceThreshold={0.0}
               mipmapBlur

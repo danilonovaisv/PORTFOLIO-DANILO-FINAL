@@ -8,7 +8,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
-import { DEFAULT } from './GhostParams';
+import { GhostParams } from './GhostParams';
 
 function useComposer() {
   const { gl, scene, camera, size } = useThree();
@@ -21,13 +21,13 @@ function useComposer() {
         tDiffuse: { value: null },
         uTime: { value: 0.0 },
         uResolution: { value: new THREE.Vector2(size.width, size.height) },
-        uAnalogGrain: { value: DEFAULT.analogGrain },
-        uAnalogBleeding: { value: DEFAULT.analogBleeding },
-        uAnalogVSync: { value: DEFAULT.analogVSync },
-        uAnalogScanlines: { value: DEFAULT.analogScanlines },
-        uAnalogVignette: { value: DEFAULT.analogVignette },
-        uAnalogJitter: { value: DEFAULT.analogJitter },
-        uAnalogIntensity: { value: DEFAULT.analogIntensity },
+        uAnalogGrain: { value: GhostParams.analogGrain },
+        uAnalogBleeding: { value: GhostParams.analogBleeding },
+        uAnalogVSync: { value: GhostParams.analogVSync },
+        uAnalogScanlines: { value: GhostParams.analogScanlines },
+        uAnalogVignette: { value: GhostParams.analogVignette },
+        uAnalogJitter: { value: GhostParams.analogJitter },
+        uAnalogIntensity: { value: GhostParams.analogIntensity },
         uLimboMode: { value: 0.0 },
       },
       vertexShader: /* glsl */ `
@@ -185,20 +185,21 @@ export function GhostEffect() {
     if (!c) return;
     if (analogPass.current) {
       analogPass.current.uniforms.uTime.value = clock.getElapsedTime();
-      analogPass.current.uniforms.uLimboMode.value = DEFAULT.limboMode
+      analogPass.current.uniforms.uLimboMode.value = GhostParams.limboMode
         ? 1.0
         : 0.0;
       analogPass.current.uniforms.uAnalogIntensity.value =
-        DEFAULT.analogIntensity;
-      analogPass.current.uniforms.uAnalogGrain.value = DEFAULT.analogGrain;
+        GhostParams.analogIntensity;
+      analogPass.current.uniforms.uAnalogGrain.value = GhostParams.analogGrain;
       analogPass.current.uniforms.uAnalogBleeding.value =
-        DEFAULT.analogBleeding;
-      analogPass.current.uniforms.uAnalogVSync.value = DEFAULT.analogVSync;
+        GhostParams.analogBleeding;
+      analogPass.current.uniforms.uAnalogVSync.value = GhostParams.analogVSync;
       analogPass.current.uniforms.uAnalogScanlines.value =
-        DEFAULT.analogScanlines;
+        GhostParams.analogScanlines;
       analogPass.current.uniforms.uAnalogVignette.value =
-        DEFAULT.analogVignette;
-      analogPass.current.uniforms.uAnalogJitter.value = DEFAULT.analogJitter;
+        GhostParams.analogVignette;
+      analogPass.current.uniforms.uAnalogJitter.value =
+        GhostParams.analogJitter;
     }
     c.render();
   }, 1);

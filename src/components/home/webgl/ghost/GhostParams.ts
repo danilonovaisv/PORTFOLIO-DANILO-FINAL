@@ -1,8 +1,8 @@
-export const GhostParams = {
+  export const GhostParams = {
   // Ghost appearance
   bodyColor: '#0f2027',
-  glowColor: '#0080ff', // blue
-  eyeGlowColor: '#8a2be2', // violet
+  glowColor: 'blue', // blue
+  eyeGlowColor: 'violet', // violet
   ghostOpacity: 0.88,
   ghostScale: 2.4,
 

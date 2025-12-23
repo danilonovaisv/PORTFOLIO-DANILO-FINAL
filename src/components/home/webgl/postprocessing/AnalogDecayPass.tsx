@@ -1,6 +1,5 @@
 'use client';
 
-import React, { forwardRef, useMemo } from 'react';
 import { Uniform } from 'three';
 import { Effect } from 'postprocessing';
 import { wrapEffect } from '@react-three/postprocessing';

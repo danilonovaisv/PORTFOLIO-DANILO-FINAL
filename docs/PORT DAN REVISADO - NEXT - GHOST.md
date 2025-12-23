@@ -402,7 +402,7 @@ z-0  → WebGL Hero Canvas
 
 
 
-# **SECTION NAME: Hero
+# **SECTION NAME: Hero**
 
 ### SECTION PURPOSE
 - Criar impacto visual inicial com atmosfera etérea
@@ -411,7 +411,7 @@ z-0  → WebGL Hero Canvas
 - Direcionar o usuário ao Manifesto com mínima distração
 
 ---
-## **VISÃO GERAL
+## VISÃO GERAL
 
 Este documento descreve a implementação da Hero e Manifesto utilizando Next.js App Router + React + TypeScript + Tailwind CSS + React Three Fiber + Framer Motion, adaptando o conceito do CodePen de referência (https://codepen.io/danilonovaisv/pen/azZbdQo) mantendo a identidade premium e preparando uma base escalável para evolução.
 
@@ -485,6 +485,8 @@ Design, não
 ### Componente
 ```tsx
 // src/components/home/HeroCopy.tsx
+import Link from 'next/link';
+
 export default function HeroCopy() {
   return (
     <div className="z-20 flex flex-col items-center text-center px-4 sm:px-6 max-w-3xl mx-auto">
@@ -530,7 +532,7 @@ O WebGL funciona como uma **camada sensorial** no fundo, não como objeto princi
 - **Follow sutil** do mouse apenas no desktop
 - **Pulso temporal** orgânico (sem movimento mecânico)
 
-### Referência Visual: https://codepen.io/danilonovaisv/pen/azZbdQo
+### Referência Visual: https://codepen.io/danilonovaisv/pen/azZbdQo  
 ### Elementos Principais:
 1. **Ghost Principal**: Mesh esférico com base deformada organicamente
 2. **Atmosfera de Revelação**: Shader que revela o fundo conforme o ghost se move
@@ -890,94 +892,96 @@ export default function AnalogDecayPass() {
 
 ---
 
-## **MANIFESTO — VÍDEO
+## MANIFESTO — VÍDEO (Animação Ajustada: Reveal Suave)
 
-### Regras Mantidas (SEM ALTERAÇÃO)
+### Conceito de Animação
+A seção Manifesto deve aparecer com um **efeito de revelação suave** quando entra na viewport, semelhante ao comportamento observado no site de referência para as seções subsequentes à hero. O vídeo é o elemento central e deve ganhar destaque com uma animação de fade-in e scale leve. A transição entre Hero e Manifesto é uma **mudança de seção clara**, não uma expansão contínua do mesmo elemento.
+
+### Regras Atualizadas
 - **Mesmo arquivo** da Hero: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
 - **Autoplay** + **Loop**
 - **Muted por padrão** - Áudio apenas quando em foco (IntersectionObserver)
 - **Sem overlays** - Nenhum elemento visual sobreposto ao vídeo
 - **Sem fullscreen forçado** - Respeita a proporção original
+- **Animação de entrada**: Fade-in e scale leve usando Framer Motion (`whileInView`, `variants`).
+- **Nenhuma expansão via scroll** do vídeo thumbnail da Hero.
 
-### Componente
+### Componente da Seção Manifesto
 ```tsx
-// src/components/home/ManifestoThumb.tsx
+// src/components/home/ManifestoSection.tsx
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useInView, Variants } from 'framer-motion';
 import { useRef } from 'react';
 
-export default function ManifestoThumb() {
-  const videoRef = useRef<HTMLVideoElement>(null);
+const manifestoVideoVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.95, y: 20 },
+  visible: { 
+    opacity: 1, 
+    scale: 1, 
+    y: 0,
+    transition: { 
+      duration: 0.6, 
+      ease: [0.22, 1, 0.36, 1] // Easing premium
+    }
+  }
+};
 
-  const handleClick = () => {
-    document.querySelector('#manifesto')?.scrollIntoView({
-      behavior: 'smooth'
-    });
-  };
+export default function ManifestoSection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" }); // Aciona quando 100px entram na view
 
   return (
-    <motion.div
-      className="z-20 mt-8 w-full max-w-md aspect-video rounded-xl overflow-hidden cursor-pointer relative"
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      onClick={handleClick}
-      aria-label="Assista ao vídeo manifesto"
+    <section 
+      id="manifesto"
+      ref={sectionRef}
+      className="w-full py-20 bg-[#06071f] flex items-center justify-center" // Espaçamento e cor de fundo
     >
-      <video
-        ref={videoRef}
-        src="https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4"
-        muted
-        loop
-        playsInline
-        className="w-full h-full object-cover"
-      />
-    </motion.div>
+      <div className="max-w-4xl w-full px-4"> {/* Container centralizado */}
+        <motion.div
+          variants={manifestoVideoVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"} // Animação acionada pelo Intersection Observer
+          className="w-full aspect-video rounded-xl overflow-hidden" // Mantém proporção e cantos arredondados
+        >
+          <video
+            src="https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4"
+            muted
+            loop
+            playsInline
+            autoPlay // Opcional, dependendo do comportamento desejado ao entrar na view
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+      </div>
+    </section>
   );
 }
 ```
 
 ---
 
-## **INTERAÇÃO HERO → MANIFESTO
+## INTERAÇÃO HERO → MANIFESTO (Atualizado)
 
 ### Comportamento
 - **Clique na thumb**: Scroll suave até `#manifesto`
 - **Nenhuma transição visual agressiva** entre estados
-- **Thumb mantém animação própria** (hover/scale) mas não expande visualmente
-- **Scroll suave** com easing natural
+- **Thumb mantém animação própria** (hover/scale) mas **não expande visualmente**.
+- **Scroll suave** com easing natural.
+- **A seção Manifesto tem sua própria animação de entrada** quando entra na viewport.
 
-### Implementação
+### Implementação (Exemplo em Home Page)
 ```tsx
-// src/components/home/HomeHero.tsx
-import HeroPreloader from './HeroPreloader';
-import HeroCopy from './HeroCopy';
-import ManifestoThumb from './ManifestoThumb';
-import GhostStage from './GhostStage';
+// src/app/page.tsx (ou src/app/home/page.tsx)
+import HomeHero from '@/components/home/HomeHero';
+import ManifestoSection from '@/components/home/ManifestoSection';
 
-export default function HomeHero() {
+export default function HomePage() {
   return (
     <>
-      <HeroPreloader />
-      <section 
-        id="hero"
-        className="relative w-full h-[100vh] md:h-[85vh] bg-[#06071f] overflow-hidden"
-      >
-        {/* WebGL Atmosfera */}
-        <GhostStage />
-        
-        {/* Overlay Radial (opcional, z-10) */}
-        <div
-          className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_center,_#0b0d3a_0%,_#06071f_60%)] pointer-events-none"
-          aria-hidden="true"
-        />
-        
-        {/* Conteúdo editorial — z-20 */}
-        <div className="absolute inset-0 z-20 flex flex-col justify-center items-center">
-          <HeroCopy />
-          <ManifestoThumb />
-        </div>
-      </section>
+      <HomeHero />
+      <ManifestoSection />
+      {/* Outras seções... */}
     </>
   );
 }
@@ -991,6 +995,7 @@ export default function HomeHero() {
 ✅ **`prefers-reduced-motion`**:
    - Desativa follow do mouse
    - Desativa bloom intenso
+   - **Desativa animação de entrada do vídeo manifesto**
    - Mantém layout estático
 ✅ **`aria-label`** em todos os elementos interativos
 ✅ **Vídeo sempre inicia mudo**
@@ -1002,6 +1007,7 @@ export default function HomeHero() {
 ✅ **Carregamento progressivo** com preloader
 ✅ **Limite de partículas** (máximo 250, renderização parcial)
 ✅ **Instancing** para fireflies
+✅ **Animações de entrada via `useInView`** para otimizar performance de scroll
 
 ### Implementação de fallback:
 ```tsx
@@ -1032,8 +1038,10 @@ export default function GhostStage() {
 ❌ **Sem texto animado** - Texto 100% estático desde o primeiro frame  
 ❌ **Sem 3D tradicional** - Nenhum modelo GLB ou objeto sólido  
 ❌ **Sem overlays sobre vídeo** - Vídeo puro sem elementos visuais sobrepostos  
+❌ **Sem expansão via scroll do vídeo** - O vídeo da Hero não se transforma/expande para a seção Manifesto  
 ✅ **WebGL como atmosfera** - Elemento de fundo que não compete com o conteúdo  
 ✅ **Texto como âncora editorial** - Hierarquia clara: conteúdo > atmosfera  
+✅ **Animação de entrada do vídeo manifesto** - Usar `whileInView` e `useInView` do Framer Motion
 
 ---
 
@@ -1041,6 +1049,7 @@ export default function GhostStage() {
 - **Hero silenciosa e editorial** com texto imediatamente legível
 - **Animação como pano de fundo vivo** que responde organicamente ao usuário
 - **Narrativa clara** sem distrações visuais desnecessárias
+- **Seção Manifesto com entrada suave e premium**, alinhada com a estética do site de referência
 - **Base escalável** para futuras interações mantendo a identidade "Ghost Blue"
 
 ---
@@ -1075,8 +1084,7 @@ export function usePrefersReducedMotion() {
    - Usar `drei/instances` para fireflies
    - Desativar antialiasing no canvas (`antialias: false`)
    - Manter geometrias simples
-
-
+   - Usar `useInView` para acionar animações de scroll de forma performática
 
 
 

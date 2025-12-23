@@ -1,14 +1,14 @@
 'use client';
 
-import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
-import { GhostParams, FluorescentColors } from './GhostParams';
+import { GhostParams } from './GhostParams';
 import { Eyes } from '../Eyes';
 
 interface GhostSphereProps {
   positionRef: React.MutableRefObject<THREE.Vector3>;
-  onMovementUpdate: (isMoving: boolean, speed: number) => void;
+  onMovementUpdate: (_isMoving: boolean, _speed: number) => void;
 }
 
 export function GhostSphere({
@@ -43,7 +43,7 @@ export function GhostSphere({
     return geo;
   }, []);
 
-  useFrame((state, delta) => {
+  useFrame((state, _delta) => {
     if (!groupRef.current || !meshRef.current) return;
 
     const time = state.clock.elapsedTime;
