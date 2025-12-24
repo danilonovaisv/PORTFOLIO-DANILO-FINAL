@@ -8,7 +8,7 @@ import { BRAND } from '@/config/brand';
 const NAV_ITEMS = [
   { href: '/', label: 'home' },
   { href: '/about', label: 'sobre' },
-  { href: '/portfolio', label: 'portfolio showcase' },
+  { href: '/portfolio', label: 'portfolio' },
   { href: '/contact', label: 'contato' },
 ];
 

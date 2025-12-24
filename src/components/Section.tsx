@@ -1,4 +1,16 @@
-export default function Section({ children, title, className = "" }) {
+import type { ReactNode } from 'react';
+
+type SectionProps = {
+  children: ReactNode;
+  title?: string;
+  className?: string;
+};
+
+export default function Section({
+  children,
+  title,
+  className = '',
+}: SectionProps) {
   return (
     <section className={`py-16 ${className}`}>
       <div className="container mx-auto px-4">
