@@ -1,45 +1,55 @@
 export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-purple-900/20"></div>
+      {/* Background pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="w-full h-full bg-gradient-to-br from-transparent via-blue-900 to-transparent"></div>
+      </div>
       
-      <div className="container mx-auto px-4 relative z-10 text-center">
-        <div className="mb-12">
-          <p className="text-blue-400 text-sm uppercase tracking-wider mb-6">
-            [BRAND AWARENESS]
-          </p>
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="text-center mb-12">
+          <p className="text-sm uppercase tracking-wider text-blue-500 mb-6">[BRAND AWARENESS]</p>
           
           <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+            {/* Ghost element - centered */}
             <div className="relative">
-              <div className="w-24 h-24 md:w-32 md:h-32 mx-auto">
-                <GhostIcon className="w-full h-full" />
+              <div className="w-32 h-32 md:w-40 md:h-40 mx-auto relative">
+                <div className="absolute inset-0 bg-blue-500 rounded-full blur-xl opacity-75 animate-pulse"></div>
+                <img 
+                  src="/ghost.png" 
+                  alt="Ghost" 
+                  className="relative w-full h-full object-contain"
+                />
               </div>
-              <div className="absolute inset-0 bg-blue-500 rounded-full blur-xl opacity-70 animate-pulse"></div>
             </div>
             
-            <div className="text-left">
+            <div className="text-left md:text-right">
               <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight mb-4">
                 Design, não é<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-                  só estética.
-                </span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600">só estética.</span>
               </h1>
-              
-              <p className="text-blue-400 text-lg md:text-xl mb-8">
+              <p className="text-lg md:text-xl text-blue-500 mb-8">
                 [É intenção, é estratégia, é experiência.]
               </p>
+              
+              <button className="group inline-flex items-center px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-full transition-colors duration-200 transform hover:scale-105">
+                <span>get to know me better</span>
+                <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
             </div>
           </div>
         </div>
-        
-        <button className="group inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-black">
-          <span>get to know me better</span>
-          <ArrowRightIcon className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-        </button>
       </div>
       
-      {/* Background elements */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black to-transparent"></div>
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+        <div className="flex items-center">
+          <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
+          <span className="text-white text-sm">Scroll down</span>
+        </div>
+      </div>
     </section>
   );
 }
