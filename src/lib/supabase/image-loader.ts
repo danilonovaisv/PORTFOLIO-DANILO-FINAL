@@ -44,8 +44,11 @@ export default function supabaseLoader({
     // If not Supabase, return as is
     if (!isSupabase) return src;
 
-    // If Supabase but not optimizable, return as is (Standard Object URL)
-    if (isNotOptimizable) return src;
+    // If Supabase but not optimizable, return with width as query param to satisfy Next.js warning
+    if (isNotOptimizable) {
+      const sep = src.includes('?') ? '&' : '?';
+      return `${src}${sep}width=${width}`;
+    }
 
     // If Supabase and already a 'render' URL, just update params
     if (src.includes('/storage/v1/render/image/public/')) {
@@ -79,7 +82,7 @@ export default function supabaseLoader({
   const baseUrl = `${supabaseUrl}/storage/v1/object/public/${key}`;
 
   if (isNotOptimizable) {
-    return baseUrl;
+    return `${baseUrl}?width=${width}`;
   }
 
   // Transform to render URL for relative paths

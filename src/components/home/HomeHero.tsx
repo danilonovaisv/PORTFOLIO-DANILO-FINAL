@@ -41,19 +41,19 @@ export default function HomeHero() {
   });
 
   // Desktop context animations (fade out as video expands)
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
-  const contentScale = useTransform(scrollYProgress, [0, 0.1], [1, 0.95]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  const contentScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.98]);
 
   // Video animations (Desktop only)
-  const videoScale = useTransform(scrollYProgress, [0, 0.25], [0.25, 1]);
-  const videoX = useTransform(scrollYProgress, [0, 0.25], ['35%', '0%']);
-  const videoY = useTransform(scrollYProgress, [0, 0.25], ['30%', '0%']);
-  const videoRadius = useTransform(scrollYProgress, [0, 0.2], [12, 0]);
+  const videoScale = useTransform(scrollYProgress, [0, 0.8], [0.3, 1]); // Expand over most of the scroll
+  const videoX = useTransform(scrollYProgress, [0, 0.8], ['35%', '0%']);
+  const videoY = useTransform(scrollYProgress, [0, 0.8], ['30%', '0%']);
+  const videoRadius = useTransform(scrollYProgress, [0, 0.6], [12, 0]);
 
   // Handle Video Unmute on Scroll (Desktop only)
   useMotionValueEvent(scrollYProgress, 'change', (latest) => {
     if (!isMobile && videoRef.current) {
-      if (latest > 0.05 && latest < 0.9) {
+      if (latest > 0.1 && latest < 0.95) {
         videoRef.current.muted = false;
       } else {
         videoRef.current.muted = true;
@@ -66,7 +66,7 @@ export default function HomeHero() {
       <section
         id="hero"
         ref={sectionRef}
-        className={`relative w-full bg-[#050505] overflow-hidden ${isMobile ? 'h-screen' : 'h-[250vh]'}`}
+        className={`relative w-full bg-[#050505] overflow-hidden ${isMobile ? 'h-screen' : 'h-[140vh]'}`}
       >
         {/* SYNC MASK STYLES */}
         <style>{`

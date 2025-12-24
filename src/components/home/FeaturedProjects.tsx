@@ -32,10 +32,10 @@ const FeaturedProjects: React.FC = () => {
 
           {/* "Like what you see?" Block - Occupies the last grid slot or spans common width */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.6, delay: 0.1 }}
             className="flex flex-col justify-center items-center text-center min-h-[300px] md:min-h-auto p-8 md:p-0 rounded-2xl bg-black/5 md:bg-transparent border border-black/5 md:border-none"
           >
             <h3 className="text-3xl md:text-5xl font-bold font-sans tracking-tight text-[#111111] mb-8 leading-tight">

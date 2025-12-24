@@ -7,6 +7,7 @@ import { HOME_CONTENT } from '@/config/content';
 import { Button } from '@/components/ui/Button';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { ProjectCategory } from '@/lib/types';
+import { MOTION_TOKENS } from '@/config/motion';
 import CategoryStripe from './CategoryStripe';
 
 const PortfolioShowcase: FC = () => {
@@ -25,15 +26,15 @@ const PortfolioShowcase: FC = () => {
 
   // --- ANIMATION VARIANTS ---
   const fadeInUp = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 32 },
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1] as [number, number, number, number], // Revisado Spec Smooth Easing
+        duration: MOTION_TOKENS.duration.normal,
+        ease: MOTION_TOKENS.easing.base,
         when: 'beforeChildren',
-        staggerChildren: 0.1,
+        staggerChildren: MOTION_TOKENS.stagger.tight,
       },
     },
   };
@@ -43,8 +44,8 @@ const PortfolioShowcase: FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.18,
-        delayChildren: 0.25,
+        staggerChildren: MOTION_TOKENS.stagger.normal,
+        delayChildren: 0.1, // Reduced from 0.25
       },
     },
   };
@@ -53,14 +54,14 @@ const PortfolioShowcase: FC = () => {
     () => ({
       hidden: {
         opacity: 0,
-        y: shouldReduceMotion ? 0 : 24,
+        y: shouldReduceMotion ? 0 : 15,
       },
       visible: {
         opacity: 1,
         y: 0,
         transition: {
-          duration: 0.8,
-          ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+          duration: MOTION_TOKENS.duration.normal,
+          ease: MOTION_TOKENS.easing.base,
         },
       },
     }),
@@ -107,7 +108,7 @@ const PortfolioShowcase: FC = () => {
           className="flex flex-col w-full mb-12 md:mb-16 items-center text-center"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-10%' }}
+          viewport={{ once: true, margin: '-5%' }}
           variants={fadeInUp}
         >
           <div className="w-full flex justify-center mb-6 md:mb-8">

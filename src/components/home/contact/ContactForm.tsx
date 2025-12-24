@@ -95,9 +95,10 @@ const ContactForm: React.FC = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 30 }}
+      initial={{ opacity: 0, x: 20 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
       className="bg-gray-50 p-8 md:p-10 rounded-3xl shadow-2xl border border-black/5 max-w-2xl w-full mx-auto md:mx-0"
     >
       {submitSuccess ? (
@@ -127,7 +128,15 @@ const ContactForm: React.FC = () => {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6">
-          <input type="text" name="_honey" style={{ display: 'none' }} />
+          <input
+            type="text"
+            name="_honey"
+            className="hidden"
+            aria-hidden="true"
+            tabIndex={-1}
+            title="Ignore this field"
+            autoComplete="off"
+          />
           <input type="hidden" name="_captcha" value="false" />
 
           <InputField

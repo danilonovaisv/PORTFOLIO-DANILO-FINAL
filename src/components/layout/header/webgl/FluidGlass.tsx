@@ -1,17 +1,9 @@
 'use client';
 
 import * as THREE from 'three';
-import {
-  useRef,
-  useState,
-  useEffect,
-  // memo, // Removido - não utilizado
-  // forwardRef, // Removido - não utilizado
-  useMemo,
-} from 'react';
+import { useRef, useState, useEffect, useMemo, type ReactNode } from 'react';
 import { Canvas, createPortal, useFrame, useThree } from '@react-three/fiber';
 import {
-  // Plane, // Removido - não utilizado
   useFBO,
   MeshTransmissionMaterial,
   Preload,
@@ -70,7 +62,7 @@ function BarOrchester(props: FluidGlassProps) {
   const buffer = useFBO();
   const [contentScene] = useState(() => new THREE.Scene());
 
-  useFrame((state) => {
+  useFrame((_state) => {
     // Render the Logo/Nav scene into the buffer so the bar can distort it
     gl.setRenderTarget(buffer);
     gl.setClearColor('#000000', 0);
@@ -152,83 +144,42 @@ function NavItem({
   label: string;
   href: string;
   fontSize: number;
-  onNavigate: (l: string) => void; // Corrigido nome do parâmetro para 'l'
+  onNavigate: (_l: string) => void;
 }) {
   const ref = useRef<THREE.Mesh>(null!);
   const [hovered, setHovered] = useState(false);
-  // Estados para armazenar os valores interpolados usando THREE.Vector3 e THREE.Color
   const scale = useRef(new THREE.Vector3(1, 1, 1));
-  const color = useRef(new THREE.Color('white')); // Inicializado com a cor padrão
+  const color = useRef(new THREE.Color('white'));
 
-  // Memoizar as cores para evitar recriações desnecessárias
   const hoverColor = useMemo(() => new THREE.Color('#0057ff'), []);
   const defaultColor = useMemo(() => new THREE.Color('white'), []);
 
-  useFrame((state, delta) => {
+  useFrame((_state, delta) => {
     if (!ref.current) return;
 
     const targetScale = hovered ? 1.1 : 1;
-    // Interpolar a escala - Agora passa THREE.Vector3
     easing.damp3(
       scale.current,
       new THREE.Vector3(targetScale, targetScale, 1),
       0.15,
       delta
     );
-    // Aplicar a escala interpolada
     ref.current.scale.copy(scale.current);
 
-    // Interpolar a cor
     const targetColor = hovered ? hoverColor : defaultColor;
     easing.dampC(color.current, targetColor, 0.15, delta);
 
-    // --- CORREÇÃO CRÍTICA ---
-    // O Text do Drei não tem um material.color acessível diretamente do objeto mesh
-    // Ele usa um material gerado internamente. A propriedade 'color' no componente Text é reativa.
-    // Portanto, devemos atualizar a propriedade 'color' do componente Text via estado ou uma abordagem baseada em material.
-    // A maneira mais confiável é criar um estado para a cor do Text e atualizá-lo.
-    // Vamos manter a cor interpolada em 'color.current' e aplicá-la ao Text via uma atualização direta da propriedade de material,
-    // mas precisamos garantir que o material seja do tipo correto.
-    // A melhor abordagem é usar um estado para a cor e aplicá-la diretamente ao componente Text.
-    // Vamos usar uma abordagem baseada em estado para a cor do Text.
-    // A interpolação da cor é feita em color.current, e aplicamos ao material.
-    // O Text do Drei atualiza seu material quando a propriedade color muda.
-    // Portanto, a atualização deve ser feita no material associado ao ref.current.
-    // No entanto, o Drei Text pode encapsular o material.
-    // A solução mais robusta é usar um estado para a cor e passá-la como propriedade ao Text.
-    // Mas para manter a interpolação suave, vamos atualizar o material.color diretamente, mas com uma verificação de tipo mais segura.
-    // A propriedade ref.current.material pode ser um array se houver múltiplos materiais, ou pode ser nula inicialmente.
-    // Vamos tentar uma abordagem mais direta e segura:
-
-    const material = ref.current.material;
-    if (material) {
-      if (Array.isArray(material)) {
-        // Se for um array, iterar sobre os materiais
-        material.forEach((mat) => {
-          if (mat && (mat as THREE.MeshStandardMaterial).color) {
-            (mat as THREE.MeshStandardMaterial).color.copy(color.current);
-          }
-        });
-      } else if ((material as THREE.MeshStandardMaterial).color) {
-        // Se for um único material, verificar se tem a propriedade color
-        (material as THREE.MeshStandardMaterial).color.copy(color.current);
-      }
+    const material = ref.current.material as any;
+    if (material && material.color) {
+      material.color.copy(color.current);
     }
   });
-
-  // Agora, o Text recebe a cor interpolada como propriedade
-  // A interpolação é feita no useFrame, e a cor é aplicada ao material do objeto mesh.
-  // O Text pode não atualizar automaticamente o material se a propriedade color não mudar.
-  // Para garantir a atualização, precisamos forçar a atualização do material no useFrame.
-  // A abordagem acima com material.color.copy(color.current) deve funcionar.
-  // Se não funcionar, uma alternativa é usar um estado para a cor e atualizar a propriedade color do Text.
-  // Por enquanto, vamos manter a abordagem de atualização direta do material.
 
   return (
     <Text
       ref={ref}
       fontSize={fontSize}
-      color={color.current} // A cor interpolada é passada como propriedade
+      color={color.current}
       anchorX="center"
       anchorY="middle"
       onPointerOver={() => {
@@ -277,7 +228,6 @@ interface BarWrapperProps extends FluidGlassProps {
   buffer: THREE.Texture;
 }
 
-// Removido memo e forwardRef pois não são mais necessários para este componente
 function BarWrapper({
   buffer,
   ior = 1.3,
@@ -285,35 +235,31 @@ function BarWrapper({
   chromaticAberration = 0.15,
   anisotropy = 0.4,
 }: BarWrapperProps) {
-  // Removido ref
   const { viewport: vp, camera } = useThree();
   const internalRef = useRef<THREE.Mesh>(null!);
 
-  useFrame((state, delta) => {
-    const mesh = internalRef.current; // Usando apenas internalRef
+  useFrame((_state, _delta) => {
+    const mesh = internalRef.current;
     if (!mesh) return;
     const v = vp.getCurrentViewport(camera, [0, 0, 5.1]);
 
-    // Centered bar
     mesh.position.set(0, 0, 5.1);
 
-    // Stretched Rectangular Pill Scale
-    const targetScaleX = v.width * 0.96;
-    const targetScaleY = 0.65;
+    const targetScaleX = v.width * 0.94; // Slightly more breathing room
+    const targetScaleY = 0.95; // Increased from 0.65 for a substantial pill
     const targetScaleZ = 0.2;
 
-    // Interpolar a escala para suavizar
     mesh.scale.lerp(
       new THREE.Vector3(targetScaleX, targetScaleY, targetScaleZ),
-      0.1
+      0.15
     );
   });
 
   return (
     <RoundedBox
-      ref={internalRef} // Apenas internalRef
+      ref={internalRef}
       args={[1, 1, 1]}
-      radius={0.3} // Pill shape corner
+      radius={0.45} // Half of height 0.95 is ~0.475, so 0.45 creates a nice pill
       smoothness={4}
       renderOrder={100}
     >

@@ -50,9 +50,9 @@ function GhostScene() {
     let targetY = 0;
 
     if (isMobile) {
-      // Automatic organic movement for mobile (Sine/Cosine loop)
-      targetX = Math.sin(t * 0.4) * 8;
-      targetY = Math.cos(t * 0.3) * 5;
+      // Automatic organic movement for mobile (Sine/Cosine loop - slower for ethereal feel)
+      targetX = Math.sin(t * 0.2) * 6; // Reduced speed and distance
+      targetY = Math.cos(t * 0.15) * 4;
     } else {
       // Mouse tracking for desktop
       targetX = mouseRef.current.x * 12;

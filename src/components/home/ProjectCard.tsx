@@ -15,13 +15,13 @@ interface ProjectCardProps {
 const ProjectCard: FC<ProjectCardProps> = ({ project, index }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 15 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-10%' }}
+      viewport={{ once: true, margin: '-50px' }}
       transition={{
-        duration: 0.8,
-        ease: [0.21, 0.47, 0.32, 0.98],
-        delay: index * 0.08,
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+        delay: index * 0.04,
       }}
       className={`group relative flex flex-col w-full ${
         project.isHero ? 'md:col-span-2' : ''

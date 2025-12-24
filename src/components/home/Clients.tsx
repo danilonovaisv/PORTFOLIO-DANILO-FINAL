@@ -13,9 +13,9 @@ const Clients: React.FC = () => {
     >
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.1 }}
           className="mb-16 md:mb-24 flex flex-col items-center text-center"
         >
           <span className="text-white/80 text-xs font-bold uppercase tracking-[0.4em] mb-4">
@@ -30,14 +30,14 @@ const Clients: React.FC = () => {
           {HOME_CONTENT.clients.map(({ src, name }, index) => (
             <motion.div
               key={name}
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: '-20px' }}
               whileHover={{ scale: 1.05, filter: 'brightness(1.2)' }}
               transition={{
-                duration: 0.5,
-                ease: [0.21, 0.47, 0.32, 0.98],
-                delay: index * 0.06,
+                duration: 0.4,
+                ease: [0.22, 1, 0.36, 1],
+                delay: index * 0.03,
               }}
               className="relative h-12 md:h-14 w-full max-w-[120px] flex items-center justify-center opacity-90 transition-all duration-300"
             >

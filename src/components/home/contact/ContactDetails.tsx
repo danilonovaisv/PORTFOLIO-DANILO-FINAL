@@ -8,7 +8,8 @@ const ContactDetails: FC = () => {
     <motion.div
       initial={{ opacity: 0, x: -30 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
       <h2 className="text-4xl md:text-5xl font-bold text-[#0057FF] mb-4 text-center md:text-left">
         Contato

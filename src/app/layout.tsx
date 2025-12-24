@@ -1,6 +1,6 @@
 import React from 'react';
 import localFont from 'next/font/local';
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 import SmoothScroll from '@/components/layout/SmoothScroll';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -63,12 +63,6 @@ export const metadata: Metadata = {
   creator: BRAND.name,
   publisher: BRAND.name,
   category: 'technology',
-  themeColor: '#050505',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
-  },
   openGraph: {
     title: `${BRAND.name} | Creative Developer & Interactive Designer`,
     description:
@@ -112,6 +106,13 @@ export const metadata: Metadata = {
     shortcut: BRAND.logos.favicon,
     apple: BRAND.logos.favicon,
   },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#050505',
 };
 
 export default function RootLayout({
