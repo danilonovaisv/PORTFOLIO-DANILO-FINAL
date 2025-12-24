@@ -7,8 +7,6 @@ export const BRAND = {
     dark: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/faivcon.svg',
     favicon:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/logo.svg',
-    faviconLight:
-      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/logoHeaderClaro.svg',
   },
   video: {
     manifesto:

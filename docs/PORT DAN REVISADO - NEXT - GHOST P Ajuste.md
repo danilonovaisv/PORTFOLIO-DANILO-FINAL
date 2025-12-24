@@ -89,15 +89,19 @@ Label PT (explicativo) | Thumbnail URL
 .co/storage/v1/object/public/project-images/Branding-Project.webp` |
 | `videos-motions` | `Videos & Motions` |
 `Vídeos & Motions` |
-`https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/project-images/webdesigner-2%202.gif` |
+`https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/y2mate.com%20-%20promoao_ta_podendo_nestle_ta_de_volta__wanzLKTQOE_1080p.mp4` |
 | `websites-webcampaigns-tech` | `Web Campaigns, Websites & Tech` |
 `Campanhas Web, Websites & Tech` |
-`https://aymuvxysygrwoicsjgxj.supabase
-.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp` |
+`https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp` |
+
+
 - CTA final:
 - Label: `VEJA MAIS →`
 - Href: `/portfolio`
+
+
+
+
 - **Featured Projects — cards**
 | Slug | Título |
 Categoria | Cliente | Ano | Imagem URL
@@ -122,6 +126,11 @@ Categoria | Cliente | Ano | Imagem URL
 motion` | `Cliente confidencial` | 2023 |
 `https://aymuvxysygrwoicsjgxj.supabase
 .co/storage/v1/object/public/project-images/webdesigner-2%202.gif` |
+
+
+
+
+
 - **Clients / Brands**
 - Título: `marcas com as quais já trabalhei`
 - Logos (monocromáticos claros):

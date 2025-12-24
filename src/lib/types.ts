@@ -3,8 +3,7 @@ import { ReactNode } from 'react';
 export interface ProjectCategory {
   id: string;
   label: string;
-  thumbnailUrl: string;
-  posterUrl: string;
+  thumb: string;
 }
 
 export interface NavLink {
@@ -23,10 +22,10 @@ export interface Project {
   title: string;
   client: string;
   category: string;
-  displayCategory: string;
-  imageUrl: string;
-  isHero: boolean;
-  year?: string;
+  displayCategory?: string;
+  img: string;
+  isHero?: boolean;
+  year: number;
 }
 
 export interface Asset {

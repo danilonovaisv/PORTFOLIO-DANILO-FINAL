@@ -6,7 +6,7 @@ import Contact from '@/components/home/Contact';
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-[#050505]">
+    <div className="relative min-h-screen bg-[#050505]">
       {/* 1. Hero with Video Expansion */}
       <HomeHero />
 
@@ -15,6 +15,6 @@ export default function Home() {
       <FeaturedProjects />
       <Clients />
       <Contact />
-    </main>
+    </div>
   );
 }

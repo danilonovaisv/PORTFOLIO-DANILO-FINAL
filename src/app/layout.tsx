@@ -135,7 +135,12 @@ export default function RootLayout({
               name: BRAND.name,
               url: 'https://portfoliodanilo.com',
               jobTitle: 'Creative Developer',
-              sameAs: SOCIALS.map((s) => s.url),
+              sameAs: [
+                SOCIALS.linkedin,
+                SOCIALS.instagram,
+                SOCIALS.twitter,
+                SOCIALS.facebook,
+              ],
             }),
           }}
         />

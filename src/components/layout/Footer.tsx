@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { NAV_LINKS, SOCIALS, FOOTER } from '@/config/navigation';
+import { NAV_LINKS, SOCIAL_LIST, FOOTER } from '@/config/navigation';
 import { motion } from 'framer-motion';
 
 const Footer: React.FC = () => {
@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
 
           <div className="flex gap-4 border-l border-white/20 pl-0 md:pl-6">
             {/* Note: Workflow mentions "Links/Social à direita". Grouping them makes sense. */}
-            {SOCIALS.map((social) => (
+            {SOCIAL_LIST.map((social) => (
               <a
                 key={social.platform}
                 href={social.url}

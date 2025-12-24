@@ -5,7 +5,10 @@ describe('supabaseLoader', () => {
 
   beforeEach(() => {
     jest.resetModules();
-    process.env = { ...originalEnv };
+    process.env = {
+      ...originalEnv,
+      NEXT_PUBLIC_SUPABASE_URL: 'https://testproject.supabase.co',
+    };
   });
 
   afterAll(() => {

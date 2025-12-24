@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { motion } from 'framer-motion';
-import { CONTACT_INFO, SOCIALS } from '@/config/navigation';
+import { CONTACT_INFO, SOCIAL_LIST } from '@/config/navigation';
 import { Button } from '@/components/ui/Button';
 
 const ContactDetails: FC = () => {
@@ -34,7 +34,7 @@ const ContactDetails: FC = () => {
       </div>
 
       <div className="flex gap-4 justify-center md:justify-start">
-        {SOCIALS.map((social) => (
+        {SOCIAL_LIST.map((social) => (
           <Button
             key={social.platform}
             asExternal

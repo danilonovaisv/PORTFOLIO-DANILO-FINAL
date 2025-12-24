@@ -35,7 +35,9 @@ function analyzeDependencies() {
     );
     logSection(
       '🧱 Dependências de desenvolvimento não utilizadas',
-      unusedDevDeps.length ? unusedDevDeps : ['Nenhuma dependência inútil detectada']
+      unusedDevDeps.length
+        ? unusedDevDeps
+        : ['Nenhuma dependência inútil detectada']
     );
   } catch (err: any) {
     // Depcheck retorna exit code 255 se houver dependências não utilizadas, o que é um "erro" no execSync
@@ -43,9 +45,14 @@ function analyzeDependencies() {
       try {
         const result = JSON.parse(err.stdout);
         logSection('📦 Dependências não utilizadas', result.dependencies || []);
-        logSection('🧱 Dependências de desenvolvimento não utilizadas', result.devDependencies || []);
+        logSection(
+          '🧱 Dependências de desenvolvimento não utilizadas',
+          result.devDependencies || []
+        );
       } catch (e) {
-        logSection('⚠️ Erro ao analisar dependências', ['Não foi possível parsear o output do depcheck']);
+        logSection('⚠️ Erro ao analisar dependências', [
+          'Não foi possível parsear o output do depcheck',
+        ]);
       }
     } else {
       logSection('⚠️ Erro ao analisar dependências', [err.message]);
@@ -59,7 +66,7 @@ function analyzeGitBranches() {
       encoding: 'utf8',
     })
       .split('\n')
-      .map(b => b.trim())
+      .map((b) => b.trim())
       .filter(Boolean);
 
     const oldBranches = branches.filter(

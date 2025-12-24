@@ -8,8 +8,12 @@ import {
   useGLTF,
   MeshTransmissionMaterial,
   Preload,
+  Text,
+  Image as DreiImage,
 } from '@react-three/drei';
 import { easing } from 'maath';
+import { NAV_LINKS } from '@/config/navigation';
+import { BRAND } from '@/config/brand';
 
 interface FluidGlassProps {
   children?: ReactNode;
@@ -20,17 +24,10 @@ interface FluidGlassProps {
   anisotropy?: number;
 }
 
-// Preload the GLB model
+// Preload assets
 useGLTF.preload('/assets/3d/lens.glb');
 
-export default function FluidGlass({
-  children,
-  scale = 0.25,
-  ior = 1.15,
-  thickness = 5,
-  chromaticAberration = 0.1,
-  anisotropy = 0.01,
-}: FluidGlassProps) {
+export default function FluidGlass(props: FluidGlassProps) {
   const [webglSupported, setWebglSupported] = useState(true);
 
   useEffect(() => {
@@ -38,91 +35,183 @@ export default function FluidGlass({
       const canvas = document.createElement('canvas');
       const gl =
         canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-      if (!gl) {
-        setWebglSupported(false);
-      }
+      if (!gl) setWebglSupported(false);
     } catch {
       setWebglSupported(false);
     }
   }, []);
 
-  if (!webglSupported) {
-    // Fallback: render children without glass effect
-    return <>{children}</>;
-  }
+  if (!webglSupported) return <>{props.children}</>;
 
   return (
     <div className="absolute inset-0 w-full h-full">
       <Canvas
         camera={{ position: [0, 0, 20], fov: 15 }}
         gl={{ alpha: true, antialias: true }}
-        dpr={[1, 1.5]} // Limit DPR for performance
+        dpr={[1, 1.5]}
         style={{ background: 'transparent' }}
       >
-        <LensWrapper
-          scale={scale}
-          ior={ior}
-          thickness={thickness}
-          chromaticAberration={chromaticAberration}
-          anisotropy={anisotropy}
-        >
-          {children}
-        </LensWrapper>
+        <BarWrapper {...props} />
         <Preload all />
       </Canvas>
     </div>
   );
 }
 
-interface LensWrapperProps {
-  children?: ReactNode;
-  scale?: number;
-  ior?: number;
-  thickness?: number;
-  chromaticAberration?: number;
-  anisotropy?: number;
+function NavItems() {
+  const group = useRef<THREE.Group>(null!);
+  const { viewport, camera } = useThree();
+
+  const spacing = 1.35;
+  const fontSize = 0.1; // Reduced for premium fit
+
+  useFrame(() => {
+    if (!group.current) return;
+    const v = viewport.getCurrentViewport(camera, [0, 0, 15]);
+    // Align links to the right side of the header area within the bar
+    group.current.position.set(v.width / 2 - 4.0, v.height / 2 - 0.9, 15.1);
+
+    group.current.children.forEach((child, i) => {
+      child.position.x = i * spacing;
+    });
+  });
+
+  const handleNavigate = (link: string) => {
+    if (!link) return;
+    if (link.startsWith('#')) {
+      const el = document.querySelector(link);
+      el?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.location.href = link;
+    }
+  };
+
+  return (
+    <group ref={group}>
+      {NAV_LINKS.map((link) => (
+        <NavItem
+          key={link.label}
+          label={link.label}
+          href={link.href}
+          fontSize={fontSize}
+          onNavigate={handleNavigate}
+        />
+      ))}
+    </group>
+  );
 }
 
-const LensWrapper = memo(function LensWrapper({
-  children,
-  scale = 0.25,
-  ior = 1.15,
-  thickness = 5,
-  chromaticAberration = 0.1,
-  anisotropy = 0.01,
-}: LensWrapperProps) {
+function NavItem({
+  label,
+  href,
+  fontSize,
+  onNavigate,
+}: {
+  label: string;
+  href: string;
+  fontSize: number;
+  onNavigate: (l: string) => void;
+}) {
+  const ref = useRef<any>(null!);
+  const [hovered, setHovered] = useState(false);
+
+  useFrame((state, delta) => {
+    easing.damp(ref.current, 'scale', hovered ? 1.1 : 1, 0.15, delta);
+    easing.damp3(
+      ref.current.color,
+      hovered ? [0, 0.34, 1] : [1, 1, 1],
+      0.15,
+      delta
+    );
+  });
+
+  return (
+    <Text
+      ref={ref}
+      fontSize={fontSize}
+      color="white"
+      anchorX="center"
+      anchorY="middle"
+      onPointerOver={() => {
+        setHovered(true);
+        document.body.style.cursor = 'pointer';
+      }}
+      onPointerOut={() => {
+        setHovered(false);
+        document.body.style.cursor = 'auto';
+      }}
+      onClick={(e) => {
+        e.stopPropagation();
+        onNavigate(href);
+      }}
+    >
+      {label.toUpperCase()}
+    </Text>
+  );
+}
+
+function Logo() {
+  const { viewport, camera } = useThree();
+  const ref = useRef<THREE.Group>(null!);
+
+  useFrame(() => {
+    if (!ref.current) return;
+    const v = viewport.getCurrentViewport(camera, [0, 0, 15]);
+    // Left-aligned logo position
+    ref.current.position.set(-v.width / 2 + 1.4, v.height / 2 - 0.9, 15.1);
+  });
+
+  return (
+    <group ref={ref}>
+      <DreiImage
+        url={BRAND.logos.light}
+        transparent
+        scale={[1.8, 0.5]} // Corrected scale to fit inside bar
+        onPointerOver={() => (document.body.style.cursor = 'pointer')}
+        onPointerOut={() => (document.body.style.cursor = 'auto')}
+        onClick={() => (window.location.href = '/')}
+      />
+    </group>
+  );
+}
+
+const BarWrapper = memo(function BarWrapper({
+  scale = 1,
+  ior = 1.4,
+  thickness = 8,
+  chromaticAberration = 0.2,
+  anisotropy = 0.6,
+}: FluidGlassProps) {
   const meshRef = useRef<THREE.Mesh>(null!);
   const { nodes } = useGLTF('/assets/3d/lens.glb');
   const buffer = useFBO();
   const { viewport: vp, gl, camera } = useThree();
   const [scene] = useState<THREE.Scene>(() => new THREE.Scene());
-  const geoWidthRef = useRef<number>(1);
 
-  // Get geometry from GLB
+  // Use Cylinder geometry from lens.glb and stretch it
   const geometry = (nodes['Cylinder'] as THREE.Mesh)?.geometry;
-
-  useEffect(() => {
-    if (geometry) {
-      geometry.computeBoundingBox();
-      geoWidthRef.current =
-        geometry.boundingBox!.max.x - geometry.boundingBox!.min.x || 1;
-    }
-  }, [geometry]);
 
   useFrame((state, delta) => {
     if (!meshRef.current) return;
 
-    const { pointer } = state;
     const v = vp.getCurrentViewport(camera, [0, 0, 15]);
 
-    // Smooth pointer following with significant delay for ethereal feel
-    const destX = (pointer.x * v.width) / 2;
-    const destY = (pointer.y * v.height) / 2;
-    easing.damp3(meshRef.current.position, [destX, destY, 15], 0.08, delta);
+    // FIXED POSITION: Header bar at the top
+    const targetX = 0;
+    const targetY = v.height / 2 - 0.9;
 
-    // Render scene to buffer
+    easing.damp3(meshRef.current.position, [targetX, targetY, 15], 0.2, delta);
+
+    // DYNAMIC SCALE: Long rectangular bar format
+    const targetScaleX = v.width * 0.96; // Spans almost full width
+    const targetScaleY = 0.55; // Slightly taller bar for better text fit
+    const targetScaleZ = 0.25;
+
+    meshRef.current.scale.set(targetScaleX, targetScaleY, targetScaleZ);
+
+    // Render internal UI (Logo/Links) to buffer for distortion
     gl.setRenderTarget(buffer);
-    gl.setClearColor(0x000000, 0); // Transparent background
+    gl.setClearColor(0x000000, 0);
     gl.render(scene, camera);
     gl.setRenderTarget(null);
   });
@@ -131,21 +220,26 @@ const LensWrapper = memo(function LensWrapper({
 
   return (
     <>
-      {/* Portal children into scene for rendering behind glass */}
-      {createPortal(children, scene)}
+      {createPortal(
+        <>
+          <Logo />
+          <NavItems />
+        </>,
+        scene
+      )}
 
-      {/* Background plane showing captured scene */}
-      <mesh scale={[vp.width, vp.height, 1]}>
+      {/* Screen background plane for the portaled contents (Logo/Nav) */}
+      <mesh scale={[vp.width * 2, vp.height * 2, 1]}>
         <planeGeometry />
-        <meshBasicMaterial map={buffer.texture} transparent />
+        <meshBasicMaterial map={buffer.texture} transparent opacity={1} />
       </mesh>
 
-      {/* Glass lens mesh */}
+      {/* RECTANGULAR GLASS BAR (Fixed Header) */}
       <mesh
         ref={meshRef}
-        scale={scale}
         rotation-x={Math.PI / 2}
         geometry={geometry}
+        renderOrder={100}
       >
         <MeshTransmissionMaterial
           buffer={buffer.texture}
@@ -153,9 +247,12 @@ const LensWrapper = memo(function LensWrapper({
           thickness={thickness}
           anisotropy={anisotropy}
           chromaticAberration={chromaticAberration}
-          distortion={0.1}
-          distortionScale={0.2}
-          temporalDistortion={0.1}
+          distortion={0.5}
+          distortionScale={0.3}
+          temporalDistortion={0.05}
+          transmission={1}
+          roughness={0.02}
+          backside
         />
       </mesh>
     </>

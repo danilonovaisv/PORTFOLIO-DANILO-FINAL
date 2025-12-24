@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { ProjectCategory } from '@/lib/types';
 
@@ -18,25 +19,35 @@ const CategoryExpanded: FC<CategoryExpandedProps> = ({ category }) => {
       }}
       className="w-full mt-6 flex flex-col md:flex-row gap-8 md:gap-12 text-center md:text-left"
     >
-      <div className="w-full md:w-2/3 aspect-video rounded-xl overflow-hidden bg-gray-200 shadow-xl">
-        <video
-          src={category.thumbnailUrl}
-          poster={category.posterUrl}
-          preload="metadata"
-          playsInline
-          autoPlay={false}
-          muted
-          loop
-          className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-pointer bg-gray-100"
-          onClick={(e) => {
-            const video = e.currentTarget;
-            if (video.paused) {
-              video.play();
-            } else {
-              video.pause();
-            }
-          }}
-        />
+      <div className="w-full md:w-2/3 aspect-video rounded-xl overflow-hidden bg-gray-200 shadow-xl relative">
+        {category.thumb.match(/\.(mp4|webm|ogg)$/i) ? (
+          <video
+            src={category.thumb}
+            poster={category.thumb}
+            preload="metadata"
+            playsInline
+            autoPlay={false}
+            muted
+            loop
+            className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] cursor-pointer bg-gray-100"
+            onClick={(e) => {
+              const video = e.currentTarget;
+              if (video.paused) {
+                video.play();
+              } else {
+                video.pause();
+              }
+            }}
+          />
+        ) : (
+          <Image
+            src={category.thumb}
+            alt={category.label}
+            fill
+            className="object-cover hover:scale-105 transition-transform duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            sizes="(max-width: 768px) 100vw, 66vw"
+          />
+        )}
       </div>
 
       <div className="w-full md:w-1/3 flex flex-col justify-between py-2">

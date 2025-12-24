@@ -33,8 +33,12 @@ const CategoryText: FC<CategoryTextProps> = ({
           layout="position"
           className="font-light text-[#111111] transition-all duration-500 tracking-tight leading-tight md:leading-none text-2xl sm:text-3xl md:text-5xl lg:text-6xl group-hover:text-[#0057FF] group-hover:tracking-normal"
         >
-          <span className="block">Web Campaigns,</span>
-          <span className="block">Websites & Tech</span>
+          {label.split(', ').map((part, i, arr) => (
+            <span key={i} className="block">
+              {part}
+              {i < arr.length - 1 ? ',' : ''}
+            </span>
+          ))}
         </motion.h3>
       ) : (
         <>

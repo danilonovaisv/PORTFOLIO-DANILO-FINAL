@@ -6,7 +6,8 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
 export default function Fireflies({ count = 20 }) {
-  const meshRef = useRef<THREE.Group>(null);
+  const meshRef = useRef<THREE.InstancedMesh>(null);
+  const dummy = useMemo(() => new THREE.Object3D(), []);
 
   const fireflies = useMemo(() => {
     const temp = [];
@@ -18,54 +19,50 @@ export default function Fireflies({ count = 20 }) {
           (Math.random() - 0.5) * 20
         ),
         velocity: new THREE.Vector3(
-          (Math.random() - 0.5) * 0.09,
-          (Math.random() - 0.5) * 0.09,
-          (Math.random() - 0.5) * 0.09
+          (Math.random() - 0.5) * 0.05,
+          (Math.random() - 0.5) * 0.05,
+          (Math.random() - 0.5) * 0.05
         ),
         phase: Math.random() * Math.PI * 2,
-        pulseSpeed: 2 + Math.random() * 3,
+        pulseSpeed: 1 + Math.random() * 2,
       });
     }
     return temp;
   }, [count]);
 
-  const fireflyRefs = useRef<THREE.Mesh[]>([]);
-
   useFrame((state) => {
     const t = state.clock.elapsedTime;
-    fireflyRefs.current.forEach((mesh, i) => {
-      if (!mesh) return;
-      const data = fireflies[i];
-
+    fireflies.forEach((data, i) => {
       // Update position
-      mesh.position.add(data.velocity);
-
-      // Pulse opacity
-      const pulse = Math.sin(t * data.pulseSpeed + data.phase) * 0.5 + 0.5;
-      (mesh.material as THREE.MeshBasicMaterial).opacity = 0.4 + pulse * 0.5;
+      data.position.add(data.velocity);
 
       // Bounds check
-      if (Math.abs(mesh.position.x) > 25) data.velocity.x *= -1;
-      if (Math.abs(mesh.position.y) > 20) data.velocity.y *= -1;
-      if (Math.abs(mesh.position.z) > 15) data.velocity.z *= -1;
+      if (Math.abs(data.position.x) > 25) data.velocity.x *= -1;
+      if (Math.abs(data.position.y) > 20) data.velocity.y *= -1;
+      if (Math.abs(data.position.z) > 15) data.velocity.z *= -1;
+
+      dummy.position.copy(data.position);
+
+      // Pulse scale/opacity
+      const pulse = Math.sin(t * data.pulseSpeed + data.phase) * 0.5 + 0.5;
+      const scale = 0.8 + pulse * 0.4;
+      dummy.scale.setScalar(scale);
+      dummy.updateMatrix();
+
+      if (meshRef.current) {
+        meshRef.current.setMatrixAt(i, dummy.matrix);
+      }
     });
+
+    if (meshRef.current) {
+      meshRef.current.instanceMatrix.needsUpdate = true;
+    }
   });
 
   return (
-    <group ref={meshRef}>
-      {fireflies.map((data, i) => (
-        <mesh
-          key={i}
-          ref={(el) => {
-            if (el) fireflyRefs.current[i] = el;
-          }}
-          position={data.position}
-        >
-          <sphereGeometry args={[0.05, 8, 8]} />
-          <meshBasicMaterial color="#f75f2d" transparent opacity={0.8} />
-          <pointLight color="#8f44ff" intensity={0.5} distance={3} />
-        </mesh>
-      ))}
-    </group>
+    <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
+      <sphereGeometry args={[0.06, 8, 8]} />
+      <meshBasicMaterial color="#f75f2d" transparent opacity={0.6} />
+    </instancedMesh>
   );
 }

@@ -3,14 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
 interface CategoryThumbnailProps {
-  posterUrl: string;
+  thumb: string;
   isHovered: boolean;
   isExpanded: boolean;
   index: number;
 }
 
 const CategoryThumbnail: FC<CategoryThumbnailProps> = ({
-  posterUrl,
+  thumb,
   isHovered,
   isExpanded,
   index,
@@ -52,17 +52,28 @@ const CategoryThumbnail: FC<CategoryThumbnailProps> = ({
             }}
           >
             <div className="w-full h-full relative">
-              <Image
-                src={
-                  posterUrl ||
-                  'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
-                }
-                alt=""
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                priority={false}
-              />
+              {thumb.match(/\.(mp4|webm|ogg)$/i) ? (
+                <video
+                  src={thumb}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <Image
+                  src={
+                    thumb ||
+                    'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+                  }
+                  alt=""
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  priority={false}
+                />
+              )}
             </div>
             <div className="absolute inset-0 bg-black/10" />
           </motion.div>

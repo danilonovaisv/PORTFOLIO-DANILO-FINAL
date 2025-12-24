@@ -102,7 +102,7 @@ const CategoryStripe: FC<CategoryStripeProps> = ({
           />
 
           <CategoryThumbnail
-            posterUrl={category.posterUrl}
+            thumb={category.thumb}
             isHovered={isHovered}
             isExpanded={isExpanded}
             index={index}

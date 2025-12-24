@@ -70,7 +70,7 @@ export default function SiteHeader() {
             aria-label="Ir para a home"
           >
             <Image
-              src={BRAND.logos.faviconLight}
+              src={BRAND.logos.light}
               alt={BRAND.name}
               fill
               className="object-contain"

@@ -13,6 +13,7 @@ import { ArrowRight } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { BRAND } from '@/config/brand';
+import { HOME_CONTENT } from '@/config/content';
 
 // Dynamically import WebGL canvas to avoid SSR issues
 const GhostStage = dynamic(() => import('@/components/canvas/GhostStage'), {
@@ -144,7 +145,7 @@ export default function HomeHero() {
             className="mb-6"
           >
             <span className="text-white/70 font-medium tracking-widest text-sm uppercase">
-              [ BRAND AWARENESS ]
+              {HOME_CONTENT.hero.tag}
             </span>
           </motion.div>
 
@@ -152,12 +153,12 @@ export default function HomeHero() {
           <div className="text-center mb-6 pointer-events-auto">
             <div className="text-[clamp(3rem,10vw,8rem)] font-extrabold tracking-[-0.04em] flex flex-col items-center gap-0 leading-[1.05]">
               <AnimatedText
-                text="Design, não"
+                text={HOME_CONTENT.hero.title[0]}
                 className="text-white"
                 delayStart={0}
               />
               <AnimatedText
-                text="é só estética."
+                text={HOME_CONTENT.hero.title[1]}
                 className="text-white"
                 delayStart={10}
               />
@@ -171,7 +172,7 @@ export default function HomeHero() {
             transition={{ delay: 1.5, duration: 1 }}
             className="text-white/60 text-base md:text-lg mb-10 text-center"
           >
-            [ É intenção, é estratégia, é experiência. ]
+            {HOME_CONTENT.hero.subtitle}
           </motion.p>
 
           {/* CTA Button */}
@@ -185,7 +186,7 @@ export default function HomeHero() {
               href="/sobre"
               className="group inline-flex items-center gap-3 bg-[#0057FF] hover:bg-[#0047DD] text-white font-semibold text-sm md:text-base rounded-full px-6 py-3.5 transition-all duration-300 shadow-lg shadow-[#0057FF]/25 hover:shadow-xl hover:shadow-[#0057FF]/30"
             >
-              get to know me better
+              {HOME_CONTENT.hero.cta.replace(' →', '')}
               <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white/20 group-hover:bg-white/30 transition-colors">
                 <ArrowRight className="w-4 h-4" />
               </span>

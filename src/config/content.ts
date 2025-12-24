@@ -11,25 +11,20 @@ export const HOME_CONTENT = {
       {
         id: 'brand-campaigns',
         label: 'Brand & Campaigns',
-        thumbnailUrl:
-          'https://loandbehold.studio/app/uploads/2025/04/Magic-1.png',
-        posterUrl:
+        thumb:
           'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
       },
       {
         id: 'videos-motions',
         label: 'Videos & Motions',
-        thumbnailUrl: 'https://loandbehold.studio/app/uploads/2025/04/Epic.png',
-        posterUrl:
-          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
+        thumb:
+          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/y2mate.com%20-%20promoao_ta_podendo_nestle_ta_de_volta__wanzLKTQOE_1080p.mp4',
       },
       {
         id: 'websites-webcampaigns-tech',
         label: 'Web Campaigns, Websites & Tech',
-        thumbnailUrl:
-          'https://loandbehold.studio/app/uploads/2025/04/Unilever.png',
-        posterUrl:
-          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp',
+        thumb:
+          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp',
       },
     ],
   },
@@ -39,44 +34,32 @@ export const HOME_CONTENT = {
       title: 'Magic — devolvendo a magia ao rádio',
       category: 'branding & campanha',
       client: 'Magic',
-      year: '2023',
-      imageUrl:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp',
-      isHero: true,
-      displayCategory: 'branding & campanha',
+      year: 2023,
+      img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp',
     },
     {
       slug: 'branding-project-01',
       title: 'Uma marca ousada e consistente',
       category: 'branding',
       client: 'Cliente confidencial',
-      year: '2022',
-      imageUrl:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
-      isHero: false,
-      displayCategory: 'branding',
+      year: 2022,
+      img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
     },
     {
       slug: 'key-visual-campaign',
       title: 'Key visual para campanha sazonal',
       category: 'campanha',
       client: 'Cliente confidencial',
-      year: '2021',
-      imageUrl:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp',
-      isHero: false,
-      displayCategory: 'campanha',
+      year: 2021,
+      img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp',
     },
     {
       slug: 'webdesigner-motion',
       title: 'Experiência web em movimento',
       category: 'web & motion',
       client: 'Cliente confidencial',
-      year: '2023',
-      imageUrl:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
-      isHero: false,
-      displayCategory: 'web & motion',
+      year: 2023,
+      img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
     },
   ],
   clients: Array.from({ length: 12 }, (_, i) => ({

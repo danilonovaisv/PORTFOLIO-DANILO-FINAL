@@ -137,15 +137,15 @@ const PortfolioShowcase: FC = () => {
             className="mt-24 md:mt-32 flex justify-center w-full"
           >
             <Button
-              href="/#contact"
+              href="/portfolio"
               size="xl"
               className="group rounded-full shadow-xl hover:shadow-[#0057FF]/40 gap-4"
             >
-              <span className="text-lg md:text-xl font-semibold tracking-wide">
-                let’s build something great
+              <span className="text-lg md:text-xl font-semibold tracking-wide uppercase">
+                veja mais
               </span>
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 group-hover:bg-white text-[#0057FF] transition-colors duration-300">
-                <ArrowUpRight className="w-4 h-4 text-white group-hover:text-[#0057FF]" />
+                <ArrowUpRight className="w-5 h-5 text-white group-hover:text-[#0057FF]" />
               </span>
             </Button>
           </motion.div>

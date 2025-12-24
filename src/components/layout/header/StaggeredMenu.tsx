@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BRAND } from '@/config/brand';
-import { NAV_LINKS, FOOTER, SOCIALS } from '@/config/navigation';
+import { NAV_LINKS, FOOTER, SOCIAL_LIST } from '@/config/navigation';
 import Image from 'next/image';
 
 /**
@@ -62,11 +62,11 @@ export default function StaggeredMenu() {
       {/* Menu Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`relative z-[110] flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-300 ${
+        className={`relative z-110 flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-300 ${
           isOpen ? 'text-black bg-white/10' : 'text-[#e9e9ef] hover:bg-white/10'
         }`}
         aria-label={isOpen ? 'Fechar menu' : 'Abrir menu'}
-        aria-expanded={isOpen}
+        aria-expanded={isOpen ? 'true' : 'false'}
         type="button"
       >
         <motion.div
@@ -90,7 +90,7 @@ export default function StaggeredMenu() {
               }}
               exit={{ clipPath: 'circle(0% at calc(100% - 2.5rem) 2.5rem)' }}
               transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
-              className="fixed inset-0 bg-[#B19EEF] z-[100]"
+              className="fixed inset-0 bg-[#B19EEF] z-100"
             />
             <motion.div
               initial={{ clipPath: 'circle(0% at calc(100% - 2.5rem) 2.5rem)' }}
@@ -103,7 +103,7 @@ export default function StaggeredMenu() {
                 ease: [0.76, 0, 0.24, 1],
                 delay: 0.05,
               }}
-              className="fixed inset-0 bg-[#5227FF] z-[101]"
+              className="fixed inset-0 bg-[#5227FF] z-101"
             />
 
             {/* Menu Content */}
@@ -118,7 +118,7 @@ export default function StaggeredMenu() {
                 ease: [0.76, 0, 0.24, 1],
                 delay: 0.1,
               }}
-              className="fixed inset-0 bg-[#06071f] z-[102] flex flex-col"
+              className="fixed inset-0 bg-[#06071f] z-102 flex flex-col"
             >
               {/* Header with Logo */}
               <div className="flex items-center justify-between px-6 py-6 sm:px-8">
@@ -128,7 +128,7 @@ export default function StaggeredMenu() {
                   transition={{ delay: 0.4, duration: 0.5 }}
                 >
                   <Image
-                    src={BRAND.logos.faviconLight}
+                    src={BRAND.logos.light}
                     alt={BRAND.name}
                     width={120}
                     height={40}
@@ -188,7 +188,7 @@ export default function StaggeredMenu() {
               >
                 {/* Social Links */}
                 <div className="flex items-center gap-6">
-                  {SOCIALS.map((social, index) => (
+                  {SOCIAL_LIST.map((social, index) => (
                     <motion.a
                       key={social.platform}
                       href={social.url}
