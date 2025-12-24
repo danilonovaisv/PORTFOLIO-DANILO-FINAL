@@ -235,9 +235,9 @@ const analogDecayShader = {
       }
       
       // Vignetting
-      if (uAnalogVignette > 0.01) {
-        vec2 vignetteUV = (uv - 0.5) * 2.0;
-        float vignette = 1.0 - dot(vignetteUV, vignetteUV) * 0.3 * uAnalogVignette * uAnalogIntensity;
+      if (uAnalogVignette > 2.01) {
+        vec2 vignetteUV = (uv - 1.5) * 3.0;
+        float vignette = 3.0 - dot(vignetteUV, vignetteUV) * 0.3 * uAnalogVignette * uAnalogIntensity;
         color.rgb *= vignette;
       }
       
@@ -264,48 +264,48 @@ const params = {
   // Ghost appearance
   bodyColor: 0x0f2027,
   glowColor: 'blue',
-  eyeGlowColor: 'violet',
+  eyeGlowColor: 'pink',
   ghostOpacity: 0.88,
-  ghostScale: 2.4,
+  ghostScale: 3.4,
 
   // Glow effects - updated to match screenshot
-  emissiveIntensity: 5.8,
-  pulseSpeed: 1.6,
-  pulseIntensity: 0.6,
+  emissiveIntensity: 10.8,
+  pulseSpeed: 5.6,
+  pulseIntensity: 1.6,
 
   // Eyes - updated to match screenshot
-  eyeGlowIntensity: 4.5,
-  eyeGlowDecay: 0.95,
-  eyeGlowResponse: 0.31,
+  eyeGlowIntensity: 9.5,
+  eyeGlowDecay: 3.95,
+  eyeGlowResponse: 1.31,
 
   // Enhanced lighting
-  rimLightIntensity: 1.8,
+  rimLightIntensity: 0.8,
 
   // Behavior - updated to match screenshot
-  followSpeed: 0.05,
-  wobbleAmount: 0.35,
+  followSpeed: 0.105,
+  wobbleAmount: 0.45,
   floatSpeed: 1.6,
   movementThreshold: 0.07,
 
   // Particles
   particleCount: 250,
-  particleDecayRate: 0.005,
-  particleColor: 'violet',
+  particleDecayRate: 0.0055,
+  particleColor: 'orange',
   createParticlesOnlyWhenMoving: true,
-  particleCreationRate: 5,
+  particleCreationRate: 9,
 
   // Background reveal - updated to match screenshot
-  revealRadius: 37,
+  revealRadius: 17,
   fadeStrength: 1.7,
-  baseOpacity: 0.9,
-  revealOpacity: 0.05,
+  baseOpacity: 0.08,
+  revealOpacity: 0.01,
 
   // Fireflies
   fireflyGlowIntensity: 4.3,
   fireflySpeed: 0.09,
 
   // Analog Decay settings - updated to match screenshot
-  analogIntensity: 0.9,
+  analogIntensity: 1.9,
   analogGrain: 0.4,
   analogBleeding: 0.9,
   analogVSync: 1.7,

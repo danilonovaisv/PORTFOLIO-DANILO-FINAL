@@ -60,21 +60,21 @@ export default function Eyes() {
       {/* Eye sockets */}
       <mesh position={[-0.7, 0.6, 1.9]} scale={[1.1, 1.0, 0.6]}>
         <sphereGeometry args={[0.45, 16, 16]} />
-        <meshBasicMaterial color="#000000" />
+        <meshBasicMaterial color="#270296" />
       </mesh>
       <mesh position={[0.7, 0.6, 1.9]} scale={[1.1, 1.0, 0.6]}>
         <sphereGeometry args={[0.45, 16, 16]} />
-        <meshBasicMaterial color="#000000" />
+        <meshBasicMaterial color="#270296" />
       </mesh>
 
       {/* Glowing eyes */}
-      <mesh ref={leftEyeRef} position={[-0.7, 0.6, 2.0]}>
+      <mesh ref={leftEyeRef} position={[-0.7, 0.6, 2.2]}>
         <sphereGeometry args={[0.3, 12, 12]} />
-        <meshBasicMaterial color="#0057FF" transparent opacity={0} />
+        <meshBasicMaterial color="#ff03b3" transparent opacity={0} />
       </mesh>
       <mesh ref={rightEyeRef} position={[0.7, 0.6, 2.0]}>
         <sphereGeometry args={[0.3, 12, 12]} />
-        <meshBasicMaterial color="#0057FF" transparent opacity={0} />
+        <meshBasicMaterial color="#ff03b3" transparent opacity={0} />
       </mesh>
     </group>
   );

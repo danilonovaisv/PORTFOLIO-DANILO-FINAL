@@ -62,8 +62,8 @@ export default function Fireflies({ count = 20 }) {
           position={data.position}
         >
           <sphereGeometry args={[0.05, 8, 8]} />
-          <meshBasicMaterial color="#ffff88" transparent opacity={0.8} />
-          <pointLight color="#ffff44" intensity={0.5} distance={3} />
+          <meshBasicMaterial color="#f75f2d" transparent opacity={0.8} />
+          <pointLight color="#8f44ff" intensity={0.5} distance={3} />
         </mesh>
       ))}
     </group>

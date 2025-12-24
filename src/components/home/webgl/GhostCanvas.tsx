@@ -87,35 +87,35 @@ function GhostScene() {
 export default function GhostCanvas() {
   return (
     <Canvas
-      camera={{ position: [0, 0, 20], fov: 75 }}
+      camera={{ position: [1, 0, 20], fov: 75 }}
       dpr={[1, 1.5]}
       gl={{ antialias: true, alpha: true, premultipliedAlpha: false }}
       className="absolute inset-0"
       style={{ background: 'transparent' }}
     >
       {/* No solid background - fully transparent canvas */}
-      <ambientLight intensity={0.08} color="#0a0a2e" />
+      <ambientLight intensity={0.01} color="#020214" />
       {/* Rim lights for ghost glow (per reference) */}
       <directionalLight
         position={[-8, 6, -4]}
-        intensity={1.8}
-        color="#4a90e2"
+        intensity={0.8}
+        color="#b9e24a"
       />
       <directionalLight
         position={[8, -4, -6]}
         intensity={1.3}
-        color="#50e3c2"
+        color="#ed1cdf"
       />
       <GhostScene />
-      <Fireflies count={15} />
+      <Fireflies count={35} />
       <EffectComposer>
         <Bloom
-          intensity={1.5}
-          luminanceThreshold={0.2}
-          luminanceSmoothing={0.9}
+          intensity={3.8}
+          luminanceThreshold={0.4}
+          luminanceSmoothing={1.4}
         />
         <AnalogDecayPass />
-        <Vignette offset={0.3} darkness={0.5} />
+        <Vignette offset={0.11} darkness={0.6} />
       </EffectComposer>
     </Canvas>
   );

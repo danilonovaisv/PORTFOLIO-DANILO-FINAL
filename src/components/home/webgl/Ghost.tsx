@@ -55,16 +55,16 @@ export default function Ghost() {
   });
 
   return (
-    <group scale={1.6}>
+    <group scale={1.3}>
       <mesh ref={meshRef} geometry={geometry}>
         <meshStandardMaterial
           color="#06071f"
           emissive={ghostColor}
-          emissiveIntensity={5.8}
+          emissiveIntensity={8.8}
           transparent
-          opacity={0.88}
+          opacity={0.78}
           roughness={0.02}
-          metalness={0}
+          metalness={0.3}
           side={THREE.DoubleSide}
         />
       </mesh>

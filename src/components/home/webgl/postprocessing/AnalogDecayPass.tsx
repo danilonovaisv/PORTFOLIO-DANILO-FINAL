@@ -6,10 +6,10 @@ import * as THREE from 'three';
 const AnalogDecayShader = shaderMaterial(
   {
     tDiffuse: new THREE.Texture(),
-    uTime: 0,
-    uIntensity: 0.7,
-    uGrain: 0.4,
-    uScanlines: 1.0,
+    uTime: 1,
+    uIntensity: 0.9,
+    uGrain: 1.4,
+    uScanlines: 3.0,
     uJitter: 0.5,
   },
   /* glsl */ `

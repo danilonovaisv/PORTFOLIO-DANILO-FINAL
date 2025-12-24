@@ -5,7 +5,7 @@ import { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
-export default function Particles({ count = 100 }) {
+export default function Particles({ count = 250 }) {
   const meshRef = useRef<THREE.InstancedMesh>(null);
 
   const dummy = useMemo(() => new THREE.Object3D(), []);
@@ -53,9 +53,9 @@ export default function Particles({ count = 100 }) {
       // Position with swirling motion
       const swirl = Math.cos(t * 1.8 + particle.phase) * 0.3;
       dummy.position.set(
-        particle.xFactor + swirl + particle.velocity.x * t * 10,
-        particle.yFactor + particle.velocity.y * t * 10,
-        particle.zFactor + particle.velocity.z * t * 10
+        particle.xFactor + swirl + particle.velocity.x * t * 15,
+        particle.yFactor + particle.velocity.y * t * 15,
+        particle.zFactor + particle.velocity.z * t * 15
       );
 
       // Scale based on life (fade out)
@@ -63,7 +63,7 @@ export default function Particles({ count = 100 }) {
       dummy.scale.set(scale, scale, scale);
 
       // Rotation animation
-      dummy.rotation.set(t * 0.5, t * 0.3, t * 0.2);
+      dummy.rotation.set(t * 1.5, t * 0.3, t * 0.2);
       dummy.updateMatrix();
 
       if (meshRef.current) {
@@ -78,8 +78,8 @@ export default function Particles({ count = 100 }) {
 
   return (
     <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
-      <sphereGeometry args={[1, 6, 6]} />
-      <meshBasicMaterial color="#8a2be2" transparent opacity={0.7} />
+      <sphereGeometry args={[3, 6, 6]} />
+      <meshBasicMaterial color="#5e00f5" transparent opacity={0.5} />
     </instancedMesh>
   );
 }
