@@ -8,46 +8,69 @@ import { BRAND } from '@/config/brand';
 import StaggeredMenu from './StaggeredMenu';
 import DesktopFluidHeader from './DesktopFluidHeader';
 
-// Workflow: Header (SiteHeader)
-// Visual Specification:
-// - Position: Fixed top-0 left-0 right-0 z-50
-// - Background: Solid White
-// - Dimensions: max-w-6xl centered
-// - Padding: Initial py-4, Condensed py-2
-// - Logo: logoDark
-// - interactions: Hover blue text + underline
+/**
+ * SiteHeader Component
+ *
+ * SECTION PURPOSE:
+ * - Provide global navigation and site visual identity
+ * - Remain visible across all pages
+ * - Reinforce the premium + experimental project identity
+ * - Act as an atmospheric layer complementing the Hero Ghost
+ *
+ * BREAKPOINT STRATEGY:
+ * - Desktop ≥ 1024px: Fluid Glass Header (WebGL)
+ * - Tablet ≤ 1023px: Staggered Menu
+ * - Mobile ≤ 640px: Staggered Menu
+ *
+ * Z-INDEX STRATEGY:
+ * - z-[100] → Header / Glass effect (above everything for distortion effect)
+ * - z-40 → Hero Video
+ * - z-20 → Hero WebGL Canvas
+ * - z-10 → Hero Content
+ *
+ * NON-NEGOTIABLES:
+ * - ❌ Header does not compete with Hero
+ * - ❌ No fake CSS glassmorphism
+ * - ❌ No gratuitous decorative animations
+ * - ✅ WebGL only on Desktop
+ * - ✅ Mobile without heavy WebGL
+ * - ✅ Mandatory functional fallback
+ */
 
 export default function SiteHeader() {
   const { scrollY } = useScroll();
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Update scroll state for compact mode
+  // Update scroll state for mobile compact mode
   useMotionValueEvent(scrollY, 'change', (latest) => {
-    // Threshold > 40px as per workflow
     setIsScrolled(latest > 40);
   });
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[60] pointer-events-none">
-      {/* Desktop Fluid Glass */}
-      <div className="hidden lg:block pointer-events-auto transition-transform duration-500">
+    <>
+      {/* Desktop Fluid Glass Header (≥1024px) */}
+      <div className="hidden lg:block">
         <DesktopFluidHeader />
       </div>
 
-      {/* Mobile / Tablet Staggered Menu */}
-      <div
-        className={`lg:hidden pointer-events-auto transition-all duration-300 ${
-          isScrolled ? 'py-3 backdrop-blur-md bg-black/30' : 'py-5'
+      {/* Mobile / Tablet Header (< 1024px) */}
+      <header
+        className={`fixed top-0 left-0 right-0 z-[100] lg:hidden transition-all duration-300 ${
+          isScrolled ? 'backdrop-blur-md bg-black/30' : ''
         }`}
       >
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4">
+        <div
+          className={`mx-auto flex max-w-6xl items-center justify-between px-4 transition-all duration-300 ${
+            isScrolled ? 'py-3' : 'py-5'
+          }`}
+        >
           <Link
             href="/"
             className="relative block h-9 w-28 shrink-0"
             aria-label="Ir para a home"
           >
             <Image
-              src={BRAND.logos.light}
+              src={BRAND.logos.faviconLight}
               alt={BRAND.name}
               fill
               className="object-contain"
@@ -57,7 +80,7 @@ export default function SiteHeader() {
           </Link>
           <StaggeredMenu />
         </div>
-      </div>
-    </header>
+      </header>
+    </>
   );
 }

@@ -64,4 +64,10 @@ export const FOOTER = {
   ],
 };
 
-export const NAV_LINKS = FOOTER.links;
+// Header navigation links (different from footer)
+export const NAV_LINKS = [
+  { label: 'Home', href: '/' },
+  { label: 'Sobre', href: '/sobre' },
+  { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Contato', href: '#contact' },
+];
