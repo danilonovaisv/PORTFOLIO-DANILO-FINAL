@@ -14,62 +14,43 @@ const projectRoot = process.cwd();
 /** @type {ReportSection[]} */
 const report = [];
 
-function logSection(title, content) {
+function logSection(title: string, content: string[]) {
   report.push({ title, content });
   console.log(`✅ ${title}`);
 }
 
-function listFiles(dir, allFiles = []) {
-  const files = fs.readdirSync(dir);
-  files.forEach((file) => {
-    const filePath = path.join(dir, file);
-    if (fs.statSync(filePath).isDirectory()) {
-      if (!['node_modules', '.next', '.git'].includes(file)) {
-        listFiles(filePath, allFiles);
+function analyzeDependencies() {
+  console.log('--- Analisando dependências (depcheck) ---');
+  try {
+    // Usar o npx para garantir que o depcheck seja executado mesmo se não estiver no path
+    const output = execSync('npx depcheck --json', { encoding: 'utf8' });
+    const result = JSON.parse(output);
+
+    const unusedDeps = result.dependencies || [];
+    const unusedDevDeps = result.devDependencies || [];
+
+    logSection(
+      '📦 Dependências não utilizadas (depcheck)',
+      unusedDeps.length ? unusedDeps : ['Nenhuma dependência inútil detectada']
+    );
+    logSection(
+      '🧱 Dependências de desenvolvimento não utilizadas',
+      unusedDevDeps.length ? unusedDevDeps : ['Nenhuma dependência inútil detectada']
+    );
+  } catch (err: any) {
+    // Depcheck retorna exit code 255 se houver dependências não utilizadas, o que é um "erro" no execSync
+    if (err.stdout) {
+      try {
+        const result = JSON.parse(err.stdout);
+        logSection('📦 Dependências não utilizadas', result.dependencies || []);
+        logSection('🧱 Dependências de desenvolvimento não utilizadas', result.devDependencies || []);
+      } catch (e) {
+        logSection('⚠️ Erro ao analisar dependências', ['Não foi possível parsear o output do depcheck']);
       }
     } else {
-      allFiles.push(filePath);
+      logSection('⚠️ Erro ao analisar dependências', [err.message]);
     }
-  });
-  return allFiles;
-}
-
-function analyzeDependencies() {
-  const pkgPath = path.join(projectRoot, 'package.json');
-  const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
-  const deps = Object.keys(pkg.dependencies || {});
-  const devDeps = Object.keys(pkg.devDependencies || {});
-
-  const files = listFiles(projectRoot);
-  const unusedDeps = deps.filter(
-    (dep) => !files.some((file) => fs.readFileSync(file, 'utf8').includes(dep))
-  );
-
-  logSection(
-    '📦 Dependências não utilizadas',
-    unusedDeps.length ? unusedDeps : ['Nenhuma dependência inútil detectada']
-  );
-  logSection('🧱 Dependências de desenvolvimento', devDeps);
-}
-
-function findUnusedFiles() {
-  const srcPath = path.join(projectRoot, 'app');
-  if (!fs.existsSync(srcPath)) return;
-
-  const allFiles = listFiles(srcPath);
-  const tsxFiles = allFiles.filter(
-    (f) => f.endsWith('.tsx') || f.endsWith('.ts')
-  );
-
-  const imports = tsxFiles
-    .map((file) => fs.readFileSync(file, 'utf8'))
-    .join('\n');
-
-  const unused = tsxFiles.filter(
-    (f) => !imports.includes(path.basename(f).replace(/\.(tsx|ts)$/, ''))
-  );
-
-  logSection('🧹 Componentes / arquivos possivelmente não usados', unused);
+  }
 }
 
 function analyzeGitBranches() {
@@ -78,7 +59,9 @@ function analyzeGitBranches() {
       encoding: 'utf8',
     })
       .split('\n')
+      .map(b => b.trim())
       .filter(Boolean);
+
     const oldBranches = branches.filter(
       (b) =>
         b.includes('remotes/') && !b.includes('main') && !b.includes('master')
@@ -111,8 +94,6 @@ function generateReport() {
 }
 
 console.log('🚀 Iniciando auditoria...');
-listFiles(projectRoot);
 analyzeDependencies();
-findUnusedFiles();
 analyzeGitBranches();
 generateReport();

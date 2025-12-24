@@ -10,7 +10,7 @@ const nextConfig = {
     // Utilizamos um loader customizado para usar as transformações de imagem do Supabase.
     // unoptimized: true, // Removido para permitir otimização via loader
     loader: 'custom',
-    loaderFile: './src/lib/supabase/image-loader.ts',
+    loaderFile: 'src/lib/supabase/image-loader.ts',
     remotePatterns: [
       {
         protocol: 'https',
