@@ -140,7 +140,7 @@ export default function GhostCanvas() {
   }, []);
 
   // Determine DPR based on device and reduced motion preferences
-  const dpr = reducedMotion ? 1 : (isMobile ? [1, 1.25] : [1, 2]);
+  const dpr = reducedMotion ? 1 : (isMobile ? [1, 1.25] as [number, number] : [1, 2] as [number, number]);
 
   return (
     <Canvas
