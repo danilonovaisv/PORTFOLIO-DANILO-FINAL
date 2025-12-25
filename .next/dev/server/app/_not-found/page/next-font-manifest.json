@@ -1,0 +1,14 @@
+{
+  "pages": {},
+  "app": {
+    "[project]/src/app/_not-found/page": [
+      "static/media/TT Norms Pro Thin-s.p.e7e05ef8.woff2",
+      "static/media/TT Norms Pro Light-s.p.d147fdc2.woff2",
+      "static/media/TT Norms Pro Regular-s.p.da89f05d.woff2",
+      "static/media/TT Norms Pro Medium-s.p.c17faf8c.woff2",
+      "static/media/TT Norms Pro Bold-s.p.8a47e495.woff2"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pagesUsingSizeAdjust": false
+}

@@ -1,0 +1,10 @@
+{
+  "[project]/src/components/home/webgl/GhostCanvas.tsx [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/src/components/home/webgl/GhostCanvas.tsx [app-client] (ecmascript, next/dynamic entry)",
+    "files": [
+      "static/chunks/node_modules_cd86662d._.js",
+      "static/chunks/src_components_home_webgl_27c6bea6._.js",
+      "static/chunks/src_components_home_webgl_GhostCanvas_tsx_77efd65b._.js"
+    ]
+  }
+}
