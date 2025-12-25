@@ -10,7 +10,7 @@ import Ghost from './Ghost';
 import AtmosphereVeil from './AtmosphereVeil';
 import Particles from './Particles';
 import Fireflies from './Fireflies';
-import AnalogDecayPass from './postprocessing/AnalogDecayPass';
+
 
 // Ghost Scene Orchestrator
 function GhostScene() {
@@ -124,7 +124,7 @@ export default function GhostCanvas() {
           luminanceSmoothing={1.2}
           mipmapBlur
         />
-        <AnalogDecayPass />
+        {/* <AnalogDecayPass /> */}
         <Vignette offset={0.1} darkness={0.7} />
       </EffectComposer>
     </Canvas>

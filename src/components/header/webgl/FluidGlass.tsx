@@ -1,20 +1,16 @@
 'use client';
 
-import * as THREE from 'three';
 import { useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import {
   MeshTransmissionMaterial,
   Text,
-  Center,
-  RoundedBox
+  RoundedBox,
 } from '@react-three/drei';
 import { useRouter } from 'next/navigation';
 
-type Mode = 'lens' | 'bar';
-
 interface FluidGlassProps {
-  mode: Mode;
+  mode: 'lens' | 'bar';
   lensProps: {
     scale: number;
     ior: number;
@@ -25,68 +21,89 @@ interface FluidGlassProps {
   }
 }
 
-const GlassContent = ({ lensProps }: { lensProps: FluidGlassProps['lensProps'] }) => {
+const GlassBar = ({ lensProps }: { lensProps: FluidGlassProps['lensProps'] }) => {
   const { navItems, ior, thickness, chromaticAberration, anisotropy } = lensProps;
   const router = useRouter();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  
-  // Calculate width based on items roughly
-  // 4 items.
-  // We want to fill the viewport mostly.
 
-  
-  // Create a bar shape
-  // Viewport width/height matches the 600px/80px ratio effectively.
-  
+  // Medium pill-shaped bar - adjusted to fill container properly
+  const barWidth = 4.8;
+  const barHeight = 0.5;
+  const barDepth = 0.12;
+
+  // Calculate text positions - spread evenly
+  const textSpacing = barWidth / (navItems.length + 1);
+
   return (
     <group>
-      {/* Navigation Text */}
-      <group position={[0, 0, -1]}>
-        <Center>
-            <group>
-                {navItems.map((item, index) => {
-                    const spacing = 1.2;
-                    const xPos = (index - (navItems.length - 1) / 2) * spacing;
-                    return (
-                        <Text
-                            key={item.link}
-                            position={[xPos, 0, 0]}
-                            fontSize={0.22}
-                            color={hoveredIndex === index ? "#ffffff" : "#cccccc"}
-                            font="/fonts/Inter-Medium.woff" // Assuming font exists or fallback
-                            anchorX="center"
-                            anchorY="middle"
-                            onPointerOver={() => { document.body.style.cursor = 'pointer'; setHoveredIndex(index); }}
-                            onPointerOut={() => { document.body.style.cursor = 'auto'; setHoveredIndex(null); }}
-                            onClick={() => router.push(item.link)}
-                        >
-                            {item.label}
-                        </Text>
-                    );
-                })}
-            </group>
-        </Center>
-      </group>
-
-      {/* Glass Layer */}
-      <RoundedBox args={[6, 0.8, 0.5]} radius={0.4} smoothness={4}>
-        <MeshTransmissionMaterial 
-            backside
-            samples={8}
-            resolution={512}
-            transmission={1}
-            roughness={0.1}
-            thickness={thickness}
-            ior={ior}
-            chromaticAberration={chromaticAberration}
-            anisotropy={anisotropy}
-            distortion={0.2}
-            distortionScale={0.3}
-            temporalDistortion={0}
-            color="#ffffff"
-            background={new THREE.Color('#000000')}
+      {/* Dark Glass Bar */}
+      <RoundedBox
+        args={[barWidth, barHeight, barDepth]}
+        radius={0.25}
+        smoothness={8}
+      >
+        <MeshTransmissionMaterial
+          backside
+          samples={8}
+          resolution={128}
+          transmission={0.5}
+          roughness={0.25}
+          thickness={thickness}
+          ior={ior}
+          chromaticAberration={chromaticAberration}
+          anisotropy={anisotropy}
+          distortion={0.05}
+          distortionScale={0.1}
+          temporalDistortion={0}
+          color="#0a0a18"
+          attenuationColor="#1a1a2e"
+          attenuationDistance={0.3}
         />
       </RoundedBox>
+
+      {/* Blue glow outline effect */}
+      <RoundedBox
+        args={[barWidth + 0.06, barHeight + 0.06, barDepth - 0.04]}
+        radius={0.28}
+        smoothness={8}
+        position={[0, 0, -0.03]}
+      >
+        <meshBasicMaterial
+          color="#3b82f6"
+          transparent
+          opacity={0.12}
+        />
+      </RoundedBox>
+
+      {/* Navigation Text */}
+      <group position={[0, 0, 0.08]}>
+        {navItems.map((item, index) => {
+          const xPos = -barWidth / 2 + textSpacing * (index + 1);
+          return (
+            <Text
+              key={item.link}
+              position={[xPos, 0, 0]}
+              fontSize={0.14}
+              color={hoveredIndex === index ? "#ffffff" : "#b0b0b0"}
+              font="/fonts/RobotoBlack.ttf"
+              anchorX="center"
+              anchorY="middle"
+              letterSpacing={0.02}
+              onPointerOver={() => { 
+                document.body.style.cursor = 'pointer'; 
+                setHoveredIndex(index); 
+              }}
+              onPointerOut={() => { 
+                document.body.style.cursor = 'auto'; 
+                setHoveredIndex(null); 
+              }}
+              onClick={() => router.push(item.link)}
+            >
+              {item.label}
+            </Text>
+          );
+        })}
+      </group>
     </group>
   );
 };
@@ -94,13 +111,15 @@ const GlassContent = ({ lensProps }: { lensProps: FluidGlassProps['lensProps'] }
 const FluidGlass = ({ lensProps }: FluidGlassProps) => {
   return (
     <Canvas 
-      camera={{ position: [0, 0, 4], fov: 45 }} 
-      gl={{ alpha: true }}
-      style={{ pointerEvents: 'auto' }} // Enable interaction
+      camera={{ position: [0, 0, 3], fov: 50 }} 
+      gl={{ alpha: true, antialias: true }}
+      style={{ pointerEvents: 'auto' }}
     >
-      <ambientLight intensity={1.5} />
-      <pointLight position={[10, 10, 10]} intensity={1} />
-      <GlassContent lensProps={lensProps} />
+      <ambientLight intensity={0.4} />
+      <directionalLight position={[0, 2, 3]} intensity={0.5} color="#ffffff" />
+      <pointLight position={[0, 0, 2]} intensity={0.3} color="#3b82f6" />
+      
+      <GlassBar lensProps={lensProps} />
     </Canvas>
   );
 };

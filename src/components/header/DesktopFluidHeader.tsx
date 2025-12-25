@@ -13,21 +13,21 @@ const DesktopFluidHeader = () => {
 
   return (
     <header className="fixed top-6 left-1/2 transform -translate-x-1/2 z-40 w-auto">
-      <div className="relative" style={{ height: '80px', width: '600px' }}>
+      <div className="relative" style={{ height: '70px', width: '550px' }}>
         <FluidGlass 
-          mode="lens"
+          mode="bar"
           lensProps={{
             scale: 0.25,
-            ior: 1.15,
-            thickness: 5,
-            chromaticAberration: 0.1,
-            anisotropy: 0.01,
+            ior: 1.4,
+            thickness: 2,
+            chromaticAberration: 0.15,
+            anisotropy: 0.3,
             navItems
           }}
         />
         
-        {/* Fallback navigation if WebGL fails */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 pointer-events-none">
+        {/* Fallback navigation if WebGL fails - hidden behind canvas */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 pointer-events-none -z-10">
           <nav className="flex space-x-8">
             {navItems.map((item) => (
               <Link 
