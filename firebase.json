@@ -1,14 +1,17 @@
 {
   "hosting": {
-    "source": ".",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
     ],
-    "frameworksBackend": {
-      "region": "us-east1"
-    }
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
   },
   "remoteconfig": {
     "template": "remoteconfig.template.json"
@@ -73,7 +76,7 @@
     "apphosting": {
       "port": 5002,
       "rootDirectory": "./",
-      "startCommand": "npm run dev"
+      "startCommand": "pnpm run dev"
     },
     "auth": {
       "port": 9099
