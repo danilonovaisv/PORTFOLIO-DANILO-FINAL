@@ -119,13 +119,13 @@ export default function GhostCanvas() {
 
       <EffectComposer>
         <Bloom
-          intensity={1.0}
-          luminanceThreshold={0.55}
-          luminanceSmoothing={2.2}
+          intensity={4.0}
+          luminanceThreshold={0.15}
+          luminanceSmoothing={1.2}
           mipmapBlur
         />
         {/* <AnalogDecayPass /> */}
-        <Vignette offset={0.3} darkness={0.9} />
+        <Vignette offset={0.1} darkness={0.7} />
       </EffectComposer>
     </Canvas>
   );

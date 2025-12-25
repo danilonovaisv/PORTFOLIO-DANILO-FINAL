@@ -12,8 +12,8 @@ const DesktopFluidHeader = () => {
   ];
 
   return (
-    <header className="fixed top-6 left-1/2 transform -translate-x-1/2 z-40">
-      <div className="relative" style={{ height: '200px', width: '1000px' }}>
+    <header className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 max-w-full">
+      <div className="relative z-40 overflow-hidden sm:h-20 sm:w-[400px] md:h-24 md:w-[600px]" style={{ height: '80px', width: '600px' }}>
         <FluidGlass 
           mode="bar"
           lensProps={{
@@ -27,7 +27,7 @@ const DesktopFluidHeader = () => {
         />
         
         {/* Fallback navigation if WebGL fails - hidden behind canvas */}
-        <div className="absolute inset-0 flex items-center justify-center opacity-0 pointer-events-none -z-10">
+        <div className="absolute inset-0 flex items-center justify-center opacity-0 pointer-events-none z-[-1]">
           <nav className="flex space-x-8">
             {navItems.map((item) => (
               <Link 

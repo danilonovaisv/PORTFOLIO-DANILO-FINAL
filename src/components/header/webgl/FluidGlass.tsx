@@ -26,9 +26,9 @@ const GlassBar = ({ lensProps }: { lensProps: FluidGlassProps['lensProps'] }) =>
   const router = useRouter();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  // Bar dimensions to fill the canvas
-  const barWidth = 8;
-  const barHeight = 0.8;
+  // Bar dimensions
+  const barWidth = 6;
+  const barHeight = 0.7;
   const barDepth = 0.15;
 
   // Calculate text positions
@@ -39,7 +39,7 @@ const GlassBar = ({ lensProps }: { lensProps: FluidGlassProps['lensProps'] }) =>
       {/* Dark Glass Bar */}
       <RoundedBox
         args={[barWidth, barHeight, barDepth]}
-        radius={0.4}
+        radius={0.35}
         smoothness={8}
       >
         <MeshTransmissionMaterial
@@ -64,7 +64,7 @@ const GlassBar = ({ lensProps }: { lensProps: FluidGlassProps['lensProps'] }) =>
       {/* Blue glow outline */}
       <RoundedBox
         args={[barWidth + 0.08, barHeight + 0.08, barDepth - 0.06]}
-        radius={0.44}
+        radius={0.38}
         smoothness={8}
         position={[0, 0, -0.04]}
       >
@@ -83,7 +83,7 @@ const GlassBar = ({ lensProps }: { lensProps: FluidGlassProps['lensProps'] }) =>
             <Text
               key={item.link}
               position={[xPos, 0, 0]}
-              fontSize={0.22}
+              fontSize={0.14}
               color={hoveredIndex === index ? "#ffffff" : "#b0b0b0"}
               font="/fonts/RobotoBlack.ttf"
               anchorX="center"

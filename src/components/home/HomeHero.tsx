@@ -14,6 +14,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { BRAND } from '@/config/brand';
 import { HOME_CONTENT } from '@/config/content';
+import ManifestoThumb from './ManifestoThumb';
 
 // Dynamically import WebGL canvas to avoid SSR issues
 const GhostStage = dynamic(() => import('@/components/canvas/GhostStage'), {
@@ -109,7 +110,7 @@ export default function HomeHero() {
           </div>
 
           {/* Layer 0: Hidden/Base Text Layer (Accessibility & subtle hint) */}
-          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center pointer-events-none hero-base-layer outline-hidden">
+          <div className="absolute inset-0 z-20 flex flex-col items-center justify-center px-6 text-center pointer-events-none hero-base-layer outline-hidden">
             {/* Same content as masked one but dimmed */}
             <div className="mb-6">
               <span className="text-white/40 font-medium tracking-widest text-xs md:text-sm uppercase">
@@ -194,16 +195,8 @@ export default function HomeHero() {
 
       {/* Mobile Manifesto Video Section (Separate from Hero) */}
       {isMobile && (
-        <section className="relative w-full h-screen bg-black overflow-hidden flex items-center justify-center">
-          <video
-            src={BRAND.video.manifesto}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover"
-            aria-label="Manifesto Video Mobile"
-          />
+        <section className="relative w-full bg-black flex flex-col items-center justify-center p-6">
+           <ManifestoThumb />
         </section>
       )}
     </>
