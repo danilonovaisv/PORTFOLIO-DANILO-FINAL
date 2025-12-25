@@ -1,20 +1,17 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import dynamic from 'next/dynamic';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
-import { HOME_CONTENT } from '@/config/content';
+import { useEffect, useState } from 'react';
+import { ArrowUpRight } from 'lucide-react';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import ManifestoThumb from './ManifestoThumb';
-
-// Dynamically import WebGL canvas to avoid SSR issues
-const GhostStage = dynamic(() => import('@/components/canvas/GhostStage'), {
-  ssr: false,
-  loading: () => <div className="absolute inset-0 z-0 bg-[#050505]" />,
-});
+import HeroCopy from './HeroCopy';
+import GhostStage from './GhostStage';
+import HeroPreloader from './HeroPreloader';
 
 export default function HomeHero() {
   const [isMobile, setIsMobile] = useState(false);
+  const reducedMotion = usePrefersReducedMotion();
+  const [showPreloader, setShowPreloader] = useState(!reducedMotion);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
@@ -23,6 +20,15 @@ export default function HomeHero() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  useEffect(() => {
+    if (reducedMotion) {
+      setShowPreloader(false);
+      return;
+    }
+    const timer = window.setTimeout(() => setShowPreloader(false), 1800);
+    return () => window.clearTimeout(timer);
+  }, [reducedMotion]);
+
   return (
     <>
       <section
@@ -30,32 +36,19 @@ export default function HomeHero() {
         className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-[#06071f]"
       >
         <div className="absolute inset-0 z-0 pointer-events-none">
-          <GhostStage />
+          <GhostStage enabled={!reducedMotion} />
+          <div
+            className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(0,87,255,0.24),transparent_42%),radial-gradient(circle_at_70%_35%,rgba(82,39,255,0.18),transparent_48%)] mix-blend-screen"
+            aria-hidden
+          />
+          <div
+            className="absolute inset-0 bg-gradient-to-b from-transparent via-black/15 to-black/40"
+            aria-hidden
+          />
         </div>
-        <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_30%_50%,rgba(0,87,255,0.22),transparent_42%),radial-gradient(circle_at_70%_35%,rgba(82,39,255,0.14),transparent_45%)] pointer-events-none" />
 
-        <div className="relative z-20 flex w-full max-w-[1200px] flex-col items-center gap-6 px-6 text-center md:px-10">
-          <span className="text-xs uppercase tracking-[0.35em] text-[#d9dade] md:text-sm">
-            {HOME_CONTENT.hero.tag}
-          </span>
-          <h1 className="text-[clamp(2.8rem,7vw,6rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-[#d9dade] drop-shadow-[0_0_28px_rgba(0,87,255,0.28)]">
-            {HOME_CONTENT.hero.title[0]}
-            <br />
-            {HOME_CONTENT.hero.title[1]}
-          </h1>
-          <p className="text-base text-[#d9dade] opacity-80 md:text-lg">
-            {HOME_CONTENT.hero.subtitle}
-          </p>
-
-          <div className="pt-2">
-            <Link
-              href="/sobre"
-              className="group inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#0057FF] to-[#2b7bff] px-8 py-4 text-base font-semibold text-white shadow-[0_0_40px_rgba(0,87,255,0.45)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_55px_rgba(0,87,255,0.6)]"
-            >
-              {HOME_CONTENT.hero.cta.replace(' →', '')}
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-          </div>
+        <div className="relative z-20 flex w-full max-w-[1100px] flex-col items-center px-6 py-16 text-center md:px-10">
+          <HeroCopy />
         </div>
 
         {!isMobile && (
@@ -68,12 +61,13 @@ export default function HomeHero() {
         )}
       </section>
 
-      {/* Mobile Manifesto Video Section (Separate from Hero) */}
       {isMobile && (
         <section className="relative flex w-full flex-col items-center justify-center bg-black p-6">
           <ManifestoThumb />
         </section>
       )}
+
+      <HeroPreloader isVisible={showPreloader} />
     </>
   );
 }

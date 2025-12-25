@@ -1,12 +1,16 @@
 // src/components/home/webgl/Eyes.tsx
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { MutableRefObject, useEffect, useRef } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
-export default function Eyes() {
+type EyesProps = {
+  speedRef?: MutableRefObject<number>;
+};
+
+export default function Eyes({ speedRef }: EyesProps) {
   const reducedMotion = usePrefersReducedMotion();
   const { camera } = useThree();
   const leftEyeRef = useRef<THREE.Mesh>(null);
@@ -41,7 +45,11 @@ export default function Eyes() {
     if (reducedMotion) return;
 
     // Eye glow based on movement speed
-    const glowIntensity = Math.min(currentMovement.current * 5, 1);
+    const mouseGlow = Math.min(currentMovement.current * 5, 1);
+    const velocityGlow = speedRef?.current
+      ? THREE.MathUtils.clamp(speedRef.current * 0.05, 0, 1)
+      : 0;
+    const glowIntensity = Math.min(mouseGlow + velocityGlow, 1.2);
 
     if (leftEyeRef.current) {
       (leftEyeRef.current.material as THREE.MeshBasicMaterial).opacity =
@@ -60,21 +68,21 @@ export default function Eyes() {
       {/* Eye sockets */}
       <mesh position={[-0.7, 0.6, 1.9]} scale={[1.1, 1.0, 0.6]}>
         <sphereGeometry args={[0.45, 16, 16]} />
-        <meshBasicMaterial color="#270296" />
+        <meshBasicMaterial color="#0c1d52" />
       </mesh>
       <mesh position={[0.7, 0.6, 1.9]} scale={[1.1, 1.0, 0.6]}>
         <sphereGeometry args={[0.45, 16, 16]} />
-        <meshBasicMaterial color="#270296" />
+        <meshBasicMaterial color="#0c1d52" />
       </mesh>
 
       {/* Glowing eyes */}
       <mesh ref={leftEyeRef} position={[-0.7, 0.6, 2.2]}>
         <sphereGeometry args={[0.3, 12, 12]} />
-        <meshBasicMaterial color="#ff03b3" transparent opacity={0} />
+        <meshBasicMaterial color="#7cb6ff" transparent opacity={0} />
       </mesh>
       <mesh ref={rightEyeRef} position={[0.7, 0.6, 2.0]}>
         <sphereGeometry args={[0.3, 12, 12]} />
-        <meshBasicMaterial color="#ff03b3" transparent opacity={0} />
+        <meshBasicMaterial color="#7cb6ff" transparent opacity={0} />
       </mesh>
     </group>
   );

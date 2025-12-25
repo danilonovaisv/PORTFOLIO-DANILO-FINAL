@@ -18,6 +18,8 @@ function GhostScene() {
   const ghostGroupRef = useRef<THREE.Group>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
   const ghostPosRef = useRef(new THREE.Vector3(0, 0, 0));
+  const ghostSpeedRef = useRef(0);
+  const lastGhostPosRef = useRef(new THREE.Vector3(0, 0, 0));
   const { size, camera } = useThree();
   const [isMobile, setIsMobile] = useState(false);
 
@@ -26,7 +28,9 @@ function GhostScene() {
     checkMobile();
     window.addEventListener('resize', checkMobile);
 
-    if (reducedMotion) return;
+    if (reducedMotion) {
+      return () => window.removeEventListener('resize', checkMobile);
+    }
 
     const handleMove = (e: MouseEvent) => {
       if (window.innerWidth >= 1024) {
@@ -42,7 +46,7 @@ function GhostScene() {
     };
   }, [reducedMotion, size]);
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     if (!ghostGroupRef.current) return;
     const t = state.clock.elapsedTime;
 
@@ -72,6 +76,23 @@ function GhostScene() {
     // Sync Ref for Veil
     ghostPosRef.current.copy(ghostGroupRef.current.position);
 
+    // Track ghost velocity for reactive eyes/particles
+    if (lastGhostPosRef.current.lengthSq() === 0) {
+      lastGhostPosRef.current.copy(ghostGroupRef.current.position);
+    }
+
+    const distanceMoved = ghostGroupRef.current.position
+      .clone()
+      .sub(lastGhostPosRef.current).length();
+    const velocity = delta > 0 ? distanceMoved / delta : 0;
+    const clampedVelocity = Math.min(velocity, 40);
+    ghostSpeedRef.current = THREE.MathUtils.lerp(
+      ghostSpeedRef.current,
+      clampedVelocity,
+      0.08
+    );
+    lastGhostPosRef.current.copy(ghostGroupRef.current.position);
+
     // PROJECT POSITION TO SCREEN FOR MASKING
     // Convert 3D position to Screen Coordinates (0-100%)
     const vector = ghostGroupRef.current.position.clone();
@@ -90,8 +111,8 @@ function GhostScene() {
     <>
       <AtmosphereVeil ghostPosRef={ghostPosRef} />
       <group ref={ghostGroupRef}>
-        <Ghost />
-        <Particles count={isMobile ? 30 : 60} />
+        <Ghost speedRef={ghostSpeedRef} />
+        <Particles count={isMobile ? 80 : 160} speedRef={ghostSpeedRef} />
       </group>
     </>
   );
@@ -101,8 +122,13 @@ export default function GhostCanvas() {
   return (
     <Canvas
       camera={{ position: [0, 0, 20], fov: 75 }}
-      dpr={[1, 1.5]}
-      gl={{ antialias: true, alpha: true, premultipliedAlpha: false }}
+      dpr={[1, 2]}
+      gl={{
+        antialias: true,
+        alpha: true,
+        premultipliedAlpha: false,
+        powerPreference: 'high-performance',
+      }}
       className="absolute inset-0 pointer-events-none"
       style={{ background: 'transparent' }}
     >
@@ -115,13 +141,13 @@ export default function GhostCanvas() {
       <directionalLight position={[8, -4, -6]} intensity={2} color="#0057ff" />
 
       <GhostScene />
-      <Fireflies count={40} />
+      <Fireflies count={48} />
 
       <EffectComposer>
         <Bloom
-          intensity={4.0}
-          luminanceThreshold={0.15}
-          luminanceSmoothing={1.2}
+          intensity={2.8}
+          luminanceThreshold={0.1}
+          luminanceSmoothing={0.9}
           mipmapBlur
         />
         <AnalogDecayPass />

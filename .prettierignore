@@ -1,4 +1,7 @@
 /dataconnect/example/*.gql
+/dataconnect/default/*.gql
+/functions/src/dataconnect-admin-generated
+/src/dataconnect-admin-generated
 functions/lib/*.js
 .firebase
 dist

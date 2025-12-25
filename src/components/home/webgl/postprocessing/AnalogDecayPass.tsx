@@ -7,10 +7,10 @@ const AnalogDecayShader = shaderMaterial(
   {
     tDiffuse: new THREE.Texture(),
     uTime: 10,
-    uIntensity: 5.9,
-    uGrain: 5.4,
-    uScanlines: 9.0,
-    uJitter: 1.5,
+    uIntensity: 1.35,
+    uGrain: 1.4,
+    uScanlines: 1.0,
+    uJitter: 0.9,
   },
   /* glsl */ `
     varying vec2 vUv;
@@ -40,12 +40,20 @@ const AnalogDecayShader = shaderMaterial(
         uv += (rand(vec2(uTime)) - 0.5) * uJitter * 0.002;
       }
 
-      vec4 color = texture2D(tDiffuse, uv);
+      vec2 jitter = vec2(
+        rand(vec2(uTime * 0.7, uv.y)) - 0.5,
+        rand(vec2(uv.x, uTime * 0.9)) - 0.5
+      ) * uJitter * 0.0015;
+
+      vec4 baseColor = texture2D(tDiffuse, uv + jitter);
+      vec4 colorR = texture2D(tDiffuse, uv + jitter + vec2(0.001 * uJitter, 0.0));
+      vec4 colorB = texture2D(tDiffuse, uv + jitter - vec2(0.001 * uJitter, 0.0));
+      vec4 color = vec4(colorR.r, baseColor.g, colorB.b, baseColor.a);
 
       // Grain
       if (uGrain > 0.01) {
         float grain = rand(uv + uTime) * 2.0 - 1.0;
-        color.rgb += grain * uGrain * 0.08 * uIntensity;
+        color.rgb += grain * uGrain * 0.06 * uIntensity;
       }
 
       // Scanlines
