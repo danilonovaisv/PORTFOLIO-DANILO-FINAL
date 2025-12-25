@@ -3,7 +3,7 @@
 import { useMemo, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { MeshTransmissionMaterial, RoundedBox } from '@react-three/drei';
-import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry';
+import { RoundedBoxGeometry } from 'three-stdlib';
 import * as THREE from 'three';
 
 interface FluidGlassProps {
