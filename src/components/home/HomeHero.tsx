@@ -47,7 +47,7 @@ export default function HomeHero() {
           />
         </div>
 
-        <div className="relative z-20 flex w-full max-w-[1100px] flex-col items-center px-6 pt-24 pb-16 text-center md:px-10 md:pt-28">
+        <div className="relative z-20 flex w-full max-w-6xl flex-col items-center px-6 pt-24 pb-16 text-center md:px-10 md:pt-28 xl:px-12">
           <HeroCopy />
         </div>
 
