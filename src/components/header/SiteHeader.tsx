@@ -6,8 +6,10 @@ import MobileStaggeredMenu from '@/components/header/MobileStaggeredMenu';
 
 const SiteHeader = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth < 1024);
     };
@@ -19,6 +21,11 @@ const SiteHeader = () => {
       window.removeEventListener('resize', checkIsMobile);
     };
   }, []);
+
+  // Don't render anything during SSR to avoid hydration issues
+  if (!isMounted) {
+    return null;
+  }
 
   return <>{isMobile ? <MobileStaggeredMenu /> : <DesktopFluidHeader />}</>;
 };

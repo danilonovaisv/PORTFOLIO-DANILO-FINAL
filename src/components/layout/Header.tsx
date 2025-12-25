@@ -1,6 +1,6 @@
 'use client';
 
-// Refactored Header Layout to use new Component Architecture
+// Canonical Header Component
 import SiteHeader from '@/components/header/SiteHeader';
 
 export default function Header() {

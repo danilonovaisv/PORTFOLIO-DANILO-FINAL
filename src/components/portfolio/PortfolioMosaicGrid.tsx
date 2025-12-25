@@ -34,7 +34,7 @@ export default function PortfolioMosaicGrid({
       {/* Overlay de fundo */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/60 to-white pointer-events-none" />
 
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
+      <div className="container mx-auto px-6 md:px-12 relative z-10 xl:px-12">
         {/* Grid Editorial */}
         <div className="flex flex-col gap-8 md:gap-12 pb-10">
           {rows.map((row) => (

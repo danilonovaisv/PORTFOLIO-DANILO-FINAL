@@ -129,10 +129,23 @@ function GhostScene() {
 }
 
 export default function GhostCanvas() {
+  const [isMobile, setIsMobile] = useState(false);
+  const reducedMotion = usePrefersReducedMotion();
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Determine DPR based on device and reduced motion preferences
+  const dpr = reducedMotion ? 1 : (isMobile ? [1, 1.25] : [1, 2]);
+
   return (
     <Canvas
       camera={{ position: [0, 0, 20], fov: 75 }}
-      dpr={[1, 2]}
+      dpr={dpr}
       gl={{
         antialias: false,
         alpha: true,
