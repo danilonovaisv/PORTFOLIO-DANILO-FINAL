@@ -1,9 +1,10 @@
-```
 # Dependencies
 node_modules/
 
 # Build artifacts
 tsconfig.tsbuildinfo
+.next/
+out/
 
 # System files
 .DS_Store
@@ -90,4 +91,3 @@ coverage/
 *.tar.bz2
 *.tar.xz
 *.tar.zst
-```
