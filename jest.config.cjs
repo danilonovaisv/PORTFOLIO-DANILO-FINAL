@@ -16,6 +16,7 @@ const baseConfig = {
   transformIgnorePatterns: ['node_modules/(?!(framer-motion)/)'],
   modulePathIgnorePatterns: ['<rootDir>/functions/'],
   testMatch: ['**/test/**/*.test.{ts,tsx,js}'],
+  setupFilesAfterEnv: ['<rootDir>/test/setup.ts'],
 };
 
 module.exports = baseConfig;

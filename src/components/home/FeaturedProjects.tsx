@@ -22,7 +22,6 @@ const FeaturedProjects: React.FC = () => {
       className="relative py-8 md:py-12 bg-[#F4F5F7] overflow-hidden"
     >
       <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-[95%] xl:max-w-[1800px] relative z-10">
-        
         {/* Grid Layout - Bento Style como na referência */}
         {/* 
           Layout da referência:
@@ -31,48 +30,31 @@ const FeaturedProjects: React.FC = () => {
           Row 3: Card horizontal | CTA Card
         */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
-          
           {/* Card 1 - Vertical Portrait (Esquerda) */}
           {projects[0] && (
             <div className="md:col-span-5 h-[380px] md:h-[480px]">
-              <ProjectCard 
-                project={projects[0]} 
-                index={0}
-                className="h-full"
-              />
+              <ProjectCard project={projects[0]} index={0} className="h-full" />
             </div>
           )}
 
           {/* Card 2 - Horizontal (Direita) */}
           {projects[1] && (
             <div className="md:col-span-7 h-[280px] md:h-[480px]">
-              <ProjectCard 
-                project={projects[1]} 
-                index={1}
-                className="h-full"
-              />
+              <ProjectCard project={projects[1]} index={1} className="h-full" />
             </div>
           )}
 
           {/* Card 3 - Full Width Cinematic */}
           {projects[2] && (
             <div className="md:col-span-12 h-[240px] md:h-[360px]">
-              <ProjectCard 
-                project={projects[2]} 
-                index={2}
-                className="h-full"
-              />
+              <ProjectCard project={projects[2]} index={2} className="h-full" />
             </div>
           )}
 
           {/* Card 4 - Horizontal */}
           {projects[3] && (
             <div className="md:col-span-7 h-[280px] md:h-[340px]">
-              <ProjectCard 
-                project={projects[3]} 
-                index={3}
-                className="h-full"
-              />
+              <ProjectCard project={projects[3]} index={3} className="h-full" />
             </div>
           )}
 
@@ -88,17 +70,21 @@ const FeaturedProjects: React.FC = () => {
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none overflow-hidden rounded-3xl">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,#0057FF_0%,transparent_50%)]" />
             </div>
-            
+
             <div className="relative z-10 flex flex-col gap-6">
               <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold font-sans tracking-tight text-[#111111] leading-[0.95]">
-                Like what<br/>you see?
+                Like what
+                <br />
+                you see?
               </h3>
 
               <Link
                 href="/portfolio"
                 className="inline-flex items-center gap-3 w-fit rounded-full bg-[#0057FF] px-7 py-3.5 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:-translate-y-1 transition-all duration-300"
               >
-                <span className="text-sm font-bold tracking-wide uppercase">view projects</span>
+                <span className="text-sm font-bold tracking-wide uppercase">
+                  view projects
+                </span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>

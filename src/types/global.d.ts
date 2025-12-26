@@ -28,8 +28,12 @@ export interface AnalogDecayShaderMaterial extends ShaderMaterial {
  * Extensão dos ThreeElements para elementos customizados do R3F
  */
 declare module '@react-three/fiber' {
+  // eslint-disable-next-line no-unused-vars
   interface ThreeElements {
-    analogDecayShader: Object3DNode<AnalogDecayShaderMaterial, typeof AnalogDecayShaderMaterial>;
+    analogDecayShader: Object3DNode<
+      AnalogDecayShaderMaterial,
+      typeof AnalogDecayShaderMaterial
+    >;
     shaderPass: Object3DNode<ShaderPass, typeof ShaderPass>;
   }
 }
@@ -38,6 +42,7 @@ declare module '@react-three/fiber' {
  * Declaração global para variáveis CSS customizadas do Ghost
  */
 declare global {
+  // eslint-disable-next-line no-unused-vars
   interface CSSProperties {
     '--gx'?: string;
     '--gy'?: string;

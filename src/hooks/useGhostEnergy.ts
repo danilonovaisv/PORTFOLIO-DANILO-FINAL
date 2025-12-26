@@ -12,9 +12,10 @@ export function useGhostEnergy(): number {
 
   useEffect(() => {
     const update = () => {
-      const value = getComputedStyle(document.documentElement)
-        .getPropertyValue('--ghost-energy');
-      
+      const value = getComputedStyle(document.documentElement).getPropertyValue(
+        '--ghost-energy'
+      );
+
       if (value) {
         const parsed = parseFloat(value);
         if (!isNaN(parsed)) {
@@ -25,7 +26,7 @@ export function useGhostEnergy(): number {
 
     // Poll at 20fps (50ms interval) - organic feel without excessive updates
     const id = setInterval(update, 50);
-    
+
     // Initial update
     update();
 

@@ -41,7 +41,8 @@ export default function HeroCopy() {
         {/* Base */}
         <h1 className="select-none text-balance font-semibold leading-[0.92] tracking-[-0.03em] text-white/20 text-[clamp(2.5rem,6vw,4.6rem)]">
           <strong>
-            {HOME_CONTENT.hero.title[0]}<br />
+            {HOME_CONTENT.hero.title[0]}
+            <br />
             {HOME_CONTENT.hero.title[1]}
           </strong>
         </h1>
@@ -53,7 +54,8 @@ export default function HeroCopy() {
           style={maskStyle}
         >
           <strong>
-            {HOME_CONTENT.hero.title[0]}<br />
+            {HOME_CONTENT.hero.title[0]}
+            <br />
             {HOME_CONTENT.hero.title[1]}
           </strong>
         </h1>

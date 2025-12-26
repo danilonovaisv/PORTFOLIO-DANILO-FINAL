@@ -1,4 +1,3 @@
-
 # Portfólio — Danilo Novais
 
 **Next.js · WebGL · Motion · Design Systems**
@@ -32,32 +31,31 @@ O foco é **clareza editorial + impacto sensorial controlado**.
 
 ### Framework & Linguagem
 
-* **Next.js** (App Router)
-* **React**
-* **TypeScript**
+- **Next.js** (App Router)
+- **React**
+- **TypeScript**
 
 ### Estilo & UI
 
-* **Tailwind CSS**
-* Tipografia: **TT Norms Pro**
-* Tokens centralizados em `config/`
+- **Tailwind CSS**
+- Tipografia: **TT Norms Pro**
+- Tokens centralizados em `config/`
 
 ### Motion & Interação
 
-* **Framer Motion**
+- **Framer Motion**
+  - `whileInView` para reveals
+  - microinterações (`hover`, `tap`)
 
-  * `whileInView` para reveals
-  * microinterações (`hover`, `tap`)
-* Respeito total a `prefers-reduced-motion`
+- Respeito total a `prefers-reduced-motion`
 
 ### WebGL / 3D
 
-* **React Three Fiber**
-* **@react-three/drei**
-* **Postprocessing customizado**
-
-  * Bloom
-  * Analog Decay (grain, scanlines, jitter)
+- **React Three Fiber**
+- **@react-three/drei**
+- **Postprocessing customizado**
+  - Bloom
+  - Analog Decay (grain, scanlines, jitter)
 
 > ⚠️ O WebGL é **atmosférico**, nunca estrutural.
 > Ele **não controla layout** e **não compete com o conteúdo**.
@@ -115,55 +113,52 @@ components/
 
 ### Hero Ghost (WebGL)
 
-* Entidade etérea abstrata
-* Glow azul emissivo (`#0057FF`)
-* Follow sutil do cursor (desktop apenas)
-* Pulsação orgânica (não mecânica)
-* Olhos reativos à velocidade do mouse
-* Pós-processamento analógico para textura visual
+- Entidade etérea abstrata
+- Glow azul emissivo (`#0057FF`)
+- Follow sutil do cursor (desktop apenas)
+- Pulsação orgânica (não mecânica)
+- Olhos reativos à velocidade do mouse
+- Pós-processamento analógico para textura visual
 
 ### Texto da Hero
 
-* **100% estático**
-* Nenhuma animação de entrada
-* Nenhum glassmorphism em CSS
-* Hierarquia editorial clara
+- **100% estático**
+- Nenhuma animação de entrada
+- Nenhum glassmorphism em CSS
+- Hierarquia editorial clara
 
 ### Manifesto (Vídeo)
 
-* Mesmo vídeo usado na Hero e na seção Manifesto
-* **Animação cinematográfica de entrada**
+- Mesmo vídeo usado na Hero e na seção Manifesto
+- **Animação cinematográfica de entrada**
+  - escala + deslocamento + raio
 
-  * escala + deslocamento + raio
-* Mobile:
-
-  * vídeo aparece apenas abaixo da Hero
-  * sem animação agressiva
+- Mobile:
+  - vídeo aparece apenas abaixo da Hero
+  - sem animação agressiva
 
 ### Header
 
-* **Desktop (≥1024px)**
+- **Desktop (≥1024px)**
+  - Objeto óptico fluido em WebGL (Fluid Glass)
+  - Refração real (`MeshTransmissionMaterial`)
+  - Sincronizado com a energia luminosa do Ghost
 
-  * Objeto óptico fluido em WebGL (Fluid Glass)
-  * Refração real (`MeshTransmissionMaterial`)
-  * Sincronizado com a energia luminosa do Ghost
-
-* **Mobile / Tablet**
-
-  * Menu fullscreen staggered
-  * Sem WebGL pesado
-  * Foco em performance e acessibilidade
+- **Mobile / Tablet**
+  - Menu fullscreen staggered
+  - Sem WebGL pesado
+  - Foco em performance e acessibilidade
 
 ---
 
 ## ✦ Acessibilidade & Performance
 
-* `prefers-reduced-motion` respeitado globalmente
-* Navegação completa por teclado
-* Foco visível em todos os elementos interativos
-* Canvas WebGL isolado (`ssr: false`)
-* DPR limitado em dispositivos móveis
-* Apenas `transform` e `opacity` são animados no DOM
+- `prefers-reduced-motion` respeitado globalmente
+- Navegação completa por teclado
+- Foco visível em todos os elementos interativos
+- Canvas WebGL isolado (`ssr: false`)
+- DPR limitado em dispositivos móveis
+- Apenas `transform` e `opacity` são animados no DOM
 
 ---
 
@@ -199,30 +194,30 @@ npm start
 
 ## ✦ Conteúdo & Assets
 
-* Vídeos e imagens hospedados no **Supabase Storage**
-* URLs centralizadas em arquivos de configuração
-* Logos em SVG monocromáticos
-* Formulário de contato via **FormSubmit**
+- Vídeos e imagens hospedados no **Supabase Storage**
+- URLs centralizadas em arquivos de configuração
+- Logos em SVG monocromáticos
+- Formulário de contato via **FormSubmit**
 
 ---
 
 ## ✦ Princípios Não-Negociáveis
 
-* ❌ Sem glassmorphism fake em CSS
+- ❌ Sem glassmorphism fake em CSS
 
-* ❌ Sem animações decorativas gratuitas
+- ❌ Sem animações decorativas gratuitas
 
-* ❌ Sem WebGL no mobile
+- ❌ Sem WebGL no mobile
 
-* ❌ Sem texto animado na Hero
+- ❌ Sem texto animado na Hero
 
-* ✅ Conteúdo > efeito
+- ✅ Conteúdo > efeito
 
-* ✅ Movimento como linguagem
+- ✅ Movimento como linguagem
 
-* ✅ WebGL como atmosfera
+- ✅ WebGL como atmosfera
 
-* ✅ Código legível e escalável
+- ✅ Código legível e escalável
 
 ---
 
