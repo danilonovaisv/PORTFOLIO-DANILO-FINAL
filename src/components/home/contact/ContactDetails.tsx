@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { CONTACT_INFO, SOCIAL_LIST } from '@/config/navigation';
 import { Button } from '@/components/ui/Button';
 

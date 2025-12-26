@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/Button';

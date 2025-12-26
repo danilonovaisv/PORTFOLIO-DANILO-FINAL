@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import MosaicCard from './MosaicCard';
 import type { MosaicRow } from './types';
 

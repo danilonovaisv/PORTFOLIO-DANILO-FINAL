@@ -2,7 +2,7 @@
 'use client';
 
 import * as React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion } from 'motion/react';
 import { ASSETS } from '@/lib/constants';
 
 // Função auxiliar de tracking (segura para SSR)

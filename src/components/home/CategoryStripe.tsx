@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { motion, Variants } from 'framer-motion';
+import { motion, Variants } from 'motion/react';
 import { ProjectCategory } from '@/lib/types';
 import CategoryText from './portfolio-showcase/category-stripe/CategoryText';
 import CategoryArrow from './portfolio-showcase/category-stripe/CategoryArrow';

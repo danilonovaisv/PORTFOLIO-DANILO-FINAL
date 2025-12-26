@@ -1,7 +1,7 @@
 'use client';
 
 import React, { FC, useState, useRef, useCallback, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 import { HOME_CONTENT } from '@/config/content';
 import { Button } from '@/components/ui/Button';

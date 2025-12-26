@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Button } from '@/components/ui/Button';
 import { ArrowRight } from 'lucide-react';
 import { InputField, TextAreaField } from './FormFields';

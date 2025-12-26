@@ -2,7 +2,7 @@
 
 import React, { forwardRef } from 'react';
 import Link from 'next/link';
-import { motion, type HTMLMotionProps } from 'framer-motion';
+import { motion, type HTMLMotionProps } from 'motion/react';
 import { cn } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 

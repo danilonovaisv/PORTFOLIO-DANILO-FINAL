@@ -2,7 +2,7 @@
 
 import React, { useRef } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { HOME_CONTENT } from '@/config/content';
 import { Project } from '@/lib/types';
 import { ArrowRight } from 'lucide-react';

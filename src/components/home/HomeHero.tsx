@@ -2,7 +2,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { motion, useTransform, useMotionValue } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'motion/react';
 
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { ASSETS } from '@/lib/constants';
@@ -25,36 +25,18 @@ export default function HomeHero() {
   const [showPreloader, setShowPreloader] = useState(true);
 
   // Scroll Animation Hooks - with conditional initialization to avoid hydration issues
-  const [scrollYProgress, setScrollYProgress] = useState<any>(null);
+  // Scroll Animation Hooks
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
 
-  useEffect(() => {
-    // Only initialize useScroll on the client side after mount
-    if (typeof window !== 'undefined' && heroRef.current && !scrollYProgress) {
-      // Dynamically import useScroll to ensure it's only used client-side
-      import('framer-motion').then(({ useScroll }) => {
-        const { scrollYProgress: progress } = useScroll({
-          target: heroRef,
-          offset: ['start start', 'end start'],
-        });
-        setScrollYProgress(progress);
-      });
-    }
-  }, [scrollYProgress]);
-
-  // Initialize motion values with useMotionValue as fallbacks
-  const videoScale = scrollYProgress
-    ? useTransform(scrollYProgress, [0, 0.3], [0.4, 1])
-    : useMotionValue(0.4);
-  const videoY = scrollYProgress
-    ? useTransform(scrollYProgress, [0, 0.3], ['20%', '0%'])
-    : useMotionValue('20%');
-  const videoRadius = scrollYProgress
-    ? useTransform(scrollYProgress, [0, 0.3], [24, 0])
-    : useMotionValue(24);
+  // Transições refinadas
+  const videoScale = useTransform(scrollYProgress, [0, 0.3], [0.4, 1]);
+  const videoY = useTransform(scrollYProgress, [0, 0.3], ['20%', '0%']);
+  const videoRadius = useTransform(scrollYProgress, [0, 0.3], [24, 0]);
   // Opacidade do texto enquanto fazemos scroll
-  const contentOpacity = scrollYProgress
-    ? useTransform(scrollYProgress, [0, 0.15], [1, 0])
-    : useMotionValue(1);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
 
   // 1. Check de montagem e mobile
   useEffect(() => {
