@@ -1,6 +1,12 @@
 import * as THREE from 'three';
 import { useRef, useState, useEffect, memo, ReactNode } from 'react';
-import { Canvas, createPortal, useFrame, useThree, ThreeElements } from '@react-three/fiber';
+import {
+  Canvas,
+  createPortal,
+  useFrame,
+  useThree,
+  ThreeElements,
+} from '@react-three/fiber';
 import {
   useFBO,
   useGLTF,
@@ -10,7 +16,7 @@ import {
   Preload,
   ScrollControls,
   MeshTransmissionMaterial,
-  Text
+  Text,
 } from '@react-three/drei';
 import { easing } from 'maath';
 
@@ -30,15 +36,21 @@ interface FluidGlassProps {
   cubeProps?: ModeProps;
 }
 
-export default function FluidGlass({ mode = 'lens', lensProps = {}, barProps = {}, cubeProps = {} }: FluidGlassProps) {
+export default function FluidGlass({
+  mode = 'lens',
+  lensProps = {},
+  barProps = {},
+  cubeProps = {},
+}: FluidGlassProps) {
   const Wrapper = mode === 'bar' ? Bar : mode === 'cube' ? Cube : Lens;
-  const rawOverrides = mode === 'bar' ? barProps : mode === 'cube' ? cubeProps : lensProps;
+  const rawOverrides =
+    mode === 'bar' ? barProps : mode === 'cube' ? cubeProps : lensProps;
 
   const {
     navItems = [
       { label: 'Home', link: '' },
       { label: 'About', link: '' },
-      { label: 'Contact', link: '' }
+      { label: 'Contact', link: '' },
     ],
     ...modeProps
   } = rawOverrides;
@@ -105,7 +117,11 @@ const ModeWrapper = memo(function ModeWrapper({
     const v = viewport.getCurrentViewport(camera, [0, 0, 15]);
 
     const destX = followPointer ? (pointer.x * v.width) / 2 : 0;
-    const destY = lockToBottom ? -v.height / 2 + 0.2 : followPointer ? (pointer.y * v.height) / 2 : 0;
+    const destY = lockToBottom
+      ? -v.height / 2 + 0.2
+      : followPointer
+        ? (pointer.y * v.height) / 2
+        : 0;
     easing.damp3(ref.current.position, [destX, destY, 15], 0.15, delta);
 
     if ((modeProps as { scale?: number }).scale == null) {
@@ -120,7 +136,14 @@ const ModeWrapper = memo(function ModeWrapper({
     gl.setClearColor(0x5227ff, 1);
   });
 
-  const { scale, ior, thickness, anisotropy, chromaticAberration, ...extraMat } = modeProps as {
+  const {
+    scale,
+    ior,
+    thickness,
+    anisotropy,
+    chromaticAberration,
+    ...extraMat
+  } = modeProps as {
     scale?: number;
     ior?: number;
     thickness?: number;
@@ -149,7 +172,9 @@ const ModeWrapper = memo(function ModeWrapper({
           thickness={thickness ?? 5}
           anisotropy={anisotropy ?? 0.01}
           chromaticAberration={chromaticAberration ?? 0.1}
-          {...(typeof extraMat === 'object' && extraMat !== null ? extraMat : {})}
+          {...(typeof extraMat === 'object' && extraMat !== null
+            ? extraMat
+            : {})}
         />
       </mesh>
     </>
@@ -157,11 +182,27 @@ const ModeWrapper = memo(function ModeWrapper({
 });
 
 function Lens({ modeProps, ...p }: { modeProps?: ModeProps } & MeshProps) {
-  return <ModeWrapper glb="/assets/3d/lens.glb" geometryKey="Cylinder" followPointer modeProps={modeProps} {...p} />;
+  return (
+    <ModeWrapper
+      glb="/assets/3d/lens.glb"
+      geometryKey="Cylinder"
+      followPointer
+      modeProps={modeProps}
+      {...p}
+    />
+  );
 }
 
 function Cube({ modeProps, ...p }: { modeProps?: ModeProps } & MeshProps) {
-  return <ModeWrapper glb="/assets/3d/cube.glb" geometryKey="Cube" followPointer modeProps={modeProps} {...p} />;
+  return (
+    <ModeWrapper
+      glb="/assets/3d/cube.glb"
+      geometryKey="Cube"
+      followPointer
+      modeProps={modeProps}
+      {...p}
+    />
+  );
 }
 
 function Bar({ modeProps = {}, ...p }: { modeProps?: ModeProps } & MeshProps) {
@@ -172,7 +213,7 @@ function Bar({ modeProps = {}, ...p }: { modeProps?: ModeProps } & MeshProps) {
     ior: 1.15,
     color: '#ffffff',
     attenuationColor: '#ffffff',
-    attenuationDistance: 0.25
+    attenuationDistance: 0.25,
   };
 
   return (
@@ -194,11 +235,15 @@ function NavItems({ items }: { items: NavItem[] }) {
   const DEVICE = {
     mobile: { max: 639, spacing: 0.2, fontSize: 0.035 },
     tablet: { max: 1023, spacing: 0.24, fontSize: 0.045 },
-    desktop: { max: Infinity, spacing: 0.3, fontSize: 0.045 }
+    desktop: { max: Infinity, spacing: 0.3, fontSize: 0.045 },
   };
   const getDevice = () => {
     const w = window.innerWidth;
-    return w <= DEVICE.mobile.max ? 'mobile' : w <= DEVICE.tablet.max ? 'tablet' : 'desktop';
+    return w <= DEVICE.mobile.max
+      ? 'mobile'
+      : w <= DEVICE.tablet.max
+        ? 'tablet'
+        : 'desktop';
   };
 
   const [device, setDevice] = useState<keyof typeof DEVICE>(getDevice());
@@ -223,7 +268,9 @@ function NavItems({ items }: { items: NavItem[] }) {
 
   const handleNavigate = (link: string) => {
     if (!link) return;
-    link.startsWith('#') ? (window.location.hash = link) : (window.location.href = link);
+    link.startsWith('#')
+      ? (window.location.hash = link)
+      : (window.location.href = link);
   };
 
   return (
@@ -240,7 +287,7 @@ function NavItems({ items }: { items: NavItem[] }) {
           outlineColor="#000"
           outlineOpacity={0.5}
           renderOrder={10}
-          onClick={e => {
+          onClick={(e) => {
             e.stopPropagation();
             handleNavigate(link);
           }}
@@ -257,23 +304,42 @@ function NavItems({ items }: { items: NavItem[] }) {
 function Images() {
   const group = useRef<ZoomGroup>(null!);
   const data = useScroll();
-  const { height } = useThree(s => s.viewport);
+  const { height } = useThree((s) => s.viewport);
 
   useFrame(() => {
     group.current.children[0].material.zoom = 1 + data.range(0, 1 / 3) / 3;
     group.current.children[1].material.zoom = 1 + data.range(0, 1 / 3) / 3;
-    group.current.children[2].material.zoom = 1 + data.range(1.15 / 3, 1 / 3) / 2;
-    group.current.children[3].material.zoom = 1 + data.range(1.15 / 3, 1 / 3) / 2;
-    group.current.children[4].material.zoom = 1 + data.range(1.15 / 3, 1 / 3) / 2;
+    group.current.children[2].material.zoom =
+      1 + data.range(1.15 / 3, 1 / 3) / 2;
+    group.current.children[3].material.zoom =
+      1 + data.range(1.15 / 3, 1 / 3) / 2;
+    group.current.children[4].material.zoom =
+      1 + data.range(1.15 / 3, 1 / 3) / 2;
   });
 
   return (
     <group ref={group}>
-      <Image position={[-2, 0, 0]} scale={[3, height / 1.1]} url="/assets/demo/cs1.webp" />
+      <Image
+        position={[-2, 0, 0]}
+        scale={[3, height / 1.1]}
+        url="/assets/demo/cs1.webp"
+      />
       <Image position={[2, 0, 3]} scale={3} url="/assets/demo/cs2.webp" />
-      <Image position={[-2.05, -height, 6]} scale={[1, 3]} url="/assets/demo/cs3.webp" />
-      <Image position={[-0.6, -height, 9]} scale={[1, 2]} url="/assets/demo/cs1.webp" />
-      <Image position={[0.75, -height, 10.5]} scale={1.5} url="/assets/demo/cs2.webp" />
+      <Image
+        position={[-2.05, -height, 6]}
+        scale={[1, 3]}
+        url="/assets/demo/cs3.webp"
+      />
+      <Image
+        position={[-0.6, -height, 9]}
+        scale={[1, 2]}
+        url="/assets/demo/cs1.webp"
+      />
+      <Image
+        position={[0.75, -height, 10.5]}
+        scale={1.5}
+        url="/assets/demo/cs2.webp"
+      />
     </group>
   );
 }
@@ -282,7 +348,7 @@ function Typography() {
   const DEVICE = {
     mobile: { fontSize: 0.2 },
     tablet: { fontSize: 0.4 },
-    desktop: { fontSize: 0.6 }
+    desktop: { fontSize: 0.6 },
   };
   const getDevice = () => {
     const w = window.innerWidth;

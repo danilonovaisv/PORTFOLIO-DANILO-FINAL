@@ -32,20 +32,19 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'aymuvxysygrwoicsjgxj.supabase.co',
         port: '',
-        pathname: '/storage/v1/object/public/**'
+        pathname: '/storage/v1/object/public/**',
       },
       {
         protocol: 'https',
         hostname: 'aymuvxysygrwoicsjgxj.supabase.co',
         port: '',
-        pathname: '/storage/v1/render/image/public/**'
-      }
+        pathname: '/storage/v1/render/image/public/**',
+      },
     ],
 
     dangerouslyAllowSVG: true,
-    contentSecurityPolicy:
-      "default-src 'self'; script-src 'none'; sandbox;"
-  }
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+  },
 };
 
 export default nextConfig;

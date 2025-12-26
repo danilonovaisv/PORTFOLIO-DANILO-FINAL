@@ -84,7 +84,6 @@ function GhostScene() {
     const baseScale = isMobile ? 0.9 : 1.4;
     ghostGroupRef.current.scale.setScalar(baseScale);
 
-
     // Sync Ref for Veil
     ghostPosRef.current.copy(ghostGroupRef.current.position);
 

@@ -1,6 +1,6 @@
 # 🧩 Auditoria do Projeto Danilo Novais Portfolio
 
-Gerado em: 12/26/2025, 1:12:24 AM
+Gerado em: 12/26/2025, 4:26:36 AM
 
 ---
 
@@ -9,18 +9,17 @@ Gerado em: 12/26/2025, 1:12:24 AM
 - @dataconnect/admin-generated
 - @dataconnect/generated
 - firebase-admin
-- maath
 - postprocessing
 
 ## 🧱 Dependências de desenvolvimento não utilizadas
 
 - @tailwindcss/postcss
 - @tailwindcss/typography
-- @types/jest
 - autoprefixer
 - jest-environment-jsdom
 - postcss
 - rimraf
+- shadcn
 - tailwindcss
 
 ## 🌿 Branches no repositório
