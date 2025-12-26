@@ -52,7 +52,6 @@ export default function FluidGlass({ mode = 'lens', lensProps = {}, barProps = {
             <Typography />
             <Images />
           </Scroll>
-          <Scroll html />
           <Preload />
         </Wrapper>
       </ScrollControls>

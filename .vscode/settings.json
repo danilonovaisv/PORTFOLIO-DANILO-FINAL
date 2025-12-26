@@ -8,5 +8,16 @@
   "tailwindCSS.files.exclude": ["functions/**"],
   "Lingma.DisplayLanguage": "English",
   "Lingma.PreferredLanguage for AI Chat": "English",
-  "Lingma.PreferredLanguage forCommitMessage": "English"
+  "Lingma.PreferredLanguage forCommitMessage": "English",
+  "chat.mcp.serverSampling": {
+    "_danilonov_portfolio/.vscode/mcp.json: shadcn": {
+      "allowedModels": [
+        "copilot/auto",
+        "copilot/claude-haiku-4.5",
+        "copilot/gpt-4.1",
+        "copilot/gpt-4o",
+        "copilot/gpt-5-mini"
+      ]
+    }
+  }
 }

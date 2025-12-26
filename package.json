@@ -85,6 +85,7 @@
     "prettier": "^3.7.4",
     "rimraf": "^6.1.2",
     "serve": "^14.2.4",
+    "shadcn": "^3.6.2",
     "tailwindcss": "^4.1.18",
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
