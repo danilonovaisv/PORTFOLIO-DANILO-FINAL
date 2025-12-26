@@ -21,13 +21,13 @@ export type ProjectCategory = {
 // --- 1. ASSETS GLOBAIS ---
 export const ASSETS = {
   videoManifesto:
-      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
+    'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
   favicon:
-      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/logo.svg',
+    'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/logo.svg',
   logoLight:
-      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/faivcon-02.svg',
+    'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/faivcon-02.svg',
   logoDark:
-      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/faivcon.svg',
+    'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/faivcon.svg',
   // Adicionado conforme spec (seção Hero)
   model3D: '/media/abstract_element.glb',
 };
@@ -60,7 +60,7 @@ export const FEATURED_PROJECTS = [
     category: 'branding & campanha',
     displayCategory: 'branding & campanha',
     imageUrl:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp',
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp',
     isHero: true,
     year: '2023',
   },
@@ -71,7 +71,7 @@ export const FEATURED_PROJECTS = [
     category: 'branding',
     displayCategory: 'branding',
     imageUrl:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
     isHero: false,
     year: '2022',
   },
@@ -82,7 +82,7 @@ export const FEATURED_PROJECTS = [
     category: 'campanha',
     displayCategory: 'campanha',
     imageUrl:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp',
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp',
     isHero: false,
     year: '2021',
   },
@@ -93,7 +93,7 @@ export const FEATURED_PROJECTS = [
     category: 'web & motion',
     displayCategory: 'web & motion',
     imageUrl:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
     isHero: false,
     year: '2023',
   },
@@ -105,39 +105,75 @@ export const CATEGORIES: ProjectCategory[] = [
     id: 'brand-campaigns',
     label: 'Brand & Campaigns',
     posterUrl:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
     thumbnailUrl: '',
   },
   {
     id: 'videos-motions',
     label: 'Videos & Motions',
     posterUrl:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
     thumbnailUrl: '',
   },
   {
     id: 'websites-webcampaigns-tech',
     label: 'Web Campaigns, Websites & Tech',
     posterUrl:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp',
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp',
     thumbnailUrl: '',
   },
 ];
 
 // --- 6. CLIENTES ---
 export const CLIENT_LOGOS = [
-  { name: 'Client 1', src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client1.svg' },
-  { name: 'Client 2', src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client2.svg' },
-  { name: 'Client 3', src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client3.svg' },
-  { name: 'Client 4', src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client4.svg' },
-  { name: 'Client 5', src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client5.svg' },
-  { name: 'Client 6', src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client6.svg' },
-  { name: 'Client 7', src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client7.svg' },
-  { name: 'Client 8', src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client8.svg' },
-  { name: 'Client 9', src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client9.svg' },
-  { name: 'Client 10', src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client10.svg' },
-  { name: 'Client 11', src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client11.svg' },
-  { name: 'Client 12', src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client12.svg' },
+  {
+    name: 'Client 1',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client1.svg',
+  },
+  {
+    name: 'Client 2',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client2.svg',
+  },
+  {
+    name: 'Client 3',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client3.svg',
+  },
+  {
+    name: 'Client 4',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client4.svg',
+  },
+  {
+    name: 'Client 5',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client5.svg',
+  },
+  {
+    name: 'Client 6',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client6.svg',
+  },
+  {
+    name: 'Client 7',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client7.svg',
+  },
+  {
+    name: 'Client 8',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client8.svg',
+  },
+  {
+    name: 'Client 9',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client9.svg',
+  },
+  {
+    name: 'Client 10',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client10.svg',
+  },
+  {
+    name: 'Client 11',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client11.svg',
+  },
+  {
+    name: 'Client 12',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client12.svg',
+  },
 ];
 
 // --- 7. CONFIGURAÇÃO DE CONTATO ---
@@ -148,8 +184,8 @@ export const CONTACT_CONFIG = {
   submitLabel: 'Enviar Mensagem',
   emails: {
     primary: 'dannovaisv@gmail.com',
-    secondary: 'danilo@portfoliodanilo.com'
-  }
+    secondary: 'danilo@portfoliodanilo.com',
+  },
 };
 
 export const CONTACT_INFO = [

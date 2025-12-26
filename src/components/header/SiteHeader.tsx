@@ -4,14 +4,14 @@ import MobileStaggeredMenu from './MobileStaggeredMenu';
 
 export default function SiteHeader() {
   return (
-      <>
-        <div className="hidden md:block">
-          <DesktopFluidHeader />
-        </div>
+    <>
+      <div className="hidden md:block">
+        <DesktopFluidHeader />
+      </div>
 
-        <div className="md:hidden">
-          <MobileStaggeredMenu />
-        </div>
-      </>
+      <div className="md:hidden">
+        <MobileStaggeredMenu />
+      </div>
+    </>
   );
 }
