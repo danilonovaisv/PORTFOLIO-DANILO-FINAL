@@ -34,8 +34,11 @@ export const metadata: Metadata = {
     'Creative Developer',
     'Three.js',
     'React Three Fiber',
+    'R3F',
     'WebGL',
+    'Next.js',
     'Frontend Engineer',
+    'Brazil',
     'Danilo Novais',
   ],
   authors: [{ name: BRAND.name, url: 'https://portfoliodanilo.com' }],
@@ -48,14 +51,7 @@ export const metadata: Metadata = {
       'Design é intenção, estratégia e experiência. Explore projetos imersivos em WebGL e 3D.',
     url: 'https://portfoliodanilo.com',
     siteName: `${BRAND.name} Portfolio`,
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: `${BRAND.name} Portfolio`,
-      },
-    ],
+
     locale: 'pt_BR',
     type: 'website',
   },
@@ -64,7 +60,6 @@ export const metadata: Metadata = {
     title: `${BRAND.name} | Creative Developer`,
     description: 'Experiências digitais com WebGL, Motion e 3D.',
     creator: '@danilo_novais',
-    images: ['/og-image.png'],
   },
   alternates: {
     canonical: '/',

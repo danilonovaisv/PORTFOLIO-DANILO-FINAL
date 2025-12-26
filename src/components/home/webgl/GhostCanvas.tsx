@@ -14,13 +14,14 @@ import AnalogDecayPass from './postprocessing/AnalogDecayPass';
 
 // Ghost Scene Orchestrator
 function GhostScene() {
-  const reducedMotion = usePrefersReducedMotion();
   const ghostGroupRef = useRef<THREE.Group>(null);
-  const mouseRef = useRef({ x: 0, y: 0 });
+
+  // Refs para física
   const ghostPosRef = useRef(new THREE.Vector3(0, 0, 0));
   const ghostSpeedRef = useRef(0);
   const lastGhostPosRef = useRef(new THREE.Vector3(0, 0, 0));
-  const { size, camera } = useThree();
+
+  const { camera, pointer } = useThree(); // Use pointer from R3F
   const [isMobile, setIsMobile] = useState(false);
 
   // Set initial position at (-7, 0) to place ghost on the LEFT
@@ -34,24 +35,8 @@ function GhostScene() {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
     checkMobile();
     window.addEventListener('resize', checkMobile);
-
-    if (reducedMotion) {
-      return () => window.removeEventListener('resize', checkMobile);
-    }
-
-    const handleMove = (e: MouseEvent) => {
-      if (window.innerWidth >= 1024) {
-        mouseRef.current.x = (e.clientX / size.width) * 2 - 1;
-        mouseRef.current.y = -(e.clientY / size.height) * 2 + 1;
-      }
-    };
-
-    window.addEventListener('mousemove', handleMove);
-    return () => {
-      window.removeEventListener('mousemove', handleMove);
-      window.removeEventListener('resize', checkMobile);
-    };
-  }, [reducedMotion, size]);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useFrame((state, delta) => {
     if (!ghostGroupRef.current) return;
@@ -61,13 +46,13 @@ function GhostScene() {
     let targetY = 0;
 
     if (isMobile) {
-      // Automatic organic movement for mobile (Sine/Cosine loop - slower for ethereal feel)
+      // Automatic organic movement for mobile
       targetX = Math.sin(t * 0.25) * 4;
       targetY = Math.cos(t * 0.18) * 3;
     } else {
-      // Mouse tracking for desktop - reduced range for more subtle effect
-      targetX = mouseRef.current.x * 5; // Reduced for focus
-      targetY = mouseRef.current.y * 3.5; // Reduced for focus
+      // Mouse tracking for desktop using R3F state pointer
+      targetX = pointer.x * 5;
+      targetY = pointer.y * 3.5;
     }
 
     // Ghost anchor at LEFT (fixed position)
@@ -120,9 +105,7 @@ function GhostScene() {
 
     // Emit Ghost Energy for Header synchronization
     // Energy based on proximity to center (0,0) -> normalized 0 to 1
-    const energy =
-      1 -
-      Math.min(1, Math.sqrt(mouseRef.current.x ** 2 + mouseRef.current.y ** 2));
+    const energy = 1 - Math.min(1, Math.sqrt(pointer.x ** 2 + pointer.y ** 2));
     // Clamp to avoid zero (minimum baseline glow)
     const clampedEnergy = Math.max(0.15, energy);
     document.documentElement.style.setProperty(
@@ -142,7 +125,11 @@ function GhostScene() {
   );
 }
 
-export default function GhostCanvas() {
+interface GhostCanvasProps {
+  eventSource?: React.RefObject<HTMLElement>;
+}
+
+export default function GhostCanvas({ eventSource }: GhostCanvasProps) {
   const [isMobile, setIsMobile] = useState(false);
   const reducedMotion = usePrefersReducedMotion();
 
@@ -171,6 +158,7 @@ export default function GhostCanvas() {
         premultipliedAlpha: false,
         powerPreference: 'high-performance',
       }}
+      eventSource={eventSource}
       className="absolute inset-0 pointer-events-none"
       style={{ background: 'transparent' }}
     >

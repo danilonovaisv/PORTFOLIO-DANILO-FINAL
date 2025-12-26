@@ -1,97 +1,47 @@
-// src/components/home/HeroCopy.tsx
 'use client';
 
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
-import { HOME_CONTENT } from '@/lib/constants'; // Ajustado o import
+import { HOME_CONTENT } from '@/lib/constants';
 
 export default function HeroCopy() {
-  const reducedMotion = usePrefersReducedMotion();
-
-  // Otimização: Memoizar ou definir estilo condicionalmente
-  const maskStyle: React.CSSProperties | undefined = reducedMotion
-    ? undefined
-    : {
-        WebkitMaskImage:
-          'radial-gradient(140px circle at var(--gx, 25%) var(--gy, 48%), rgba(0,0,0,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 65%)',
-        maskImage:
-          'radial-gradient(140px circle at var(--gx, 25%) var(--gy, 48%), rgba(0,0,0,1) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 65%)',
-      };
-
   return (
-    <div className="relative z-30 w-full max-w-4xl px-4 sm:px-6 text-center">
-      {/* ===== TAG ===== */}
-      <div className="relative mb-4">
-        <div className="select-none text-xs font-medium tracking-[0.28em] text-white/25">
+    <div className="relative z-20 w-full max-w-5xl px-6 text-center">
+      {/* TAG */}
+      <div className="mb-6 flex justify-center">
+        <span className="inline-block text-[10px] sm:text-xs font-bold tracking-[0.3em] text-white/30 uppercase select-none">
           {HOME_CONTENT.hero.tag}
-        </div>
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 select-none text-xs font-medium tracking-[0.28em] text-white/70 drop-shadow-[0_0_12px_rgba(120,180,255,0.4)]"
-          style={maskStyle}
-        >
-          {HOME_CONTENT.hero.tag}
-        </div>
+        </span>
       </div>
 
-      {/* ===== TITLE ===== */}
-      <div className="relative mx-auto max-w-[45ch]">
-        <h1 className="select-none text-balance font-semibold leading-[0.92] tracking-[-0.03em] text-white/20 text-[clamp(2.5rem,6vw,4.6rem)]">
-          <strong>
-            {HOME_CONTENT.hero.title[0]}
-            <br />
-            {HOME_CONTENT.hero.title[1]}
-          </strong>
-        </h1>
+      {/* TÍTULO */}
+      <h1 className="font-sans text-[clamp(2.5rem,7vw,5.5rem)] leading-[0.95] tracking-tight text-white font-semibold mb-8 select-none">
+        <span className="block opacity-95">{HOME_CONTENT.hero.title[0]}</span>
+        <span className="block opacity-95 text-white/90">
+          {HOME_CONTENT.hero.title[1]}
+        </span>
+      </h1>
 
-        <h1
-          aria-hidden
-          className="pointer-events-none absolute inset-0 select-none text-balance font-semibold leading-[0.92] tracking-[-0.03em] text-white text-[clamp(2.5rem,6vw,4.6rem)] drop-shadow-[0_0_20px_rgba(120,180,255,0.55)]"
-          style={maskStyle}
-        >
-          <strong>
-            {HOME_CONTENT.hero.title[0]}
-            <br />
-            {HOME_CONTENT.hero.title[1]}
-          </strong>
-        </h1>
-      </div>
-
-      {/* ===== SUBTITLE ===== */}
-      <div className="relative mx-auto mt-6 max-w-[58ch]">
-        <p className="select-none text-pretty text-sm leading-relaxed text-white/25 md:text-base">
-          {HOME_CONTENT.hero.subtitle}
-        </p>
-
-        <p
-          aria-hidden
-          className="pointer-events-none absolute inset-0 select-none text-pretty text-sm leading-relaxed text-white/65 md:text-base drop-shadow-[0_0_14px_rgba(120,180,255,0.35)]"
-          style={maskStyle}
-        >
-          {HOME_CONTENT.hero.subtitle}
-        </p>
-      </div>
+      {/* SUBTÍTULO */}
+      <p className="mx-auto max-w-[55ch] text-sm sm:text-base leading-relaxed text-white/50 font-light mb-10 text-balance">
+        {HOME_CONTENT.hero.subtitle}
+      </p>
 
       {/* CTA */}
-      <div className="mt-10 flex justify-center pointer-events-auto">
+      <div className="flex justify-center pointer-events-auto">
         <Link
           href="/sobre"
           className="
-            inline-flex items-center gap-3 rounded-full bg-[#0057FF]
-            px-6 py-3 text-sm font-medium text-white
-            shadow-[0_14px_40px_rgba(0,87,255,0.28)]
-            transition-transform duration-300
-            hover:-translate-y-px
-            focus-visible:outline-none focus-visible:ring-2
-            focus-visible:ring-white focus-visible:ring-offset-2
-            focus-visible:ring-offset-black
+            group flex items-center gap-3 px-8 py-3.5 rounded-full
+            bg-white/5 hover:bg-white/10
+            border border-white/10 hover:border-white/20 hover:scale-105
+            backdrop-blur-md transition-all duration-500 ease-out
           "
         >
-          {HOME_CONTENT.hero.cta}
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-white/10">
-            <ArrowUpRight className="h-5 w-5" />
+          <span className="text-xs font-bold tracking-widest text-white uppercase">
+            {HOME_CONTENT.hero.cta}
           </span>
+          <ArrowUpRight className="w-4 h-4 text-[#0057FF] group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
         </Link>
       </div>
     </div>

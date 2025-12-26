@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef } from 'react';
 import dynamic from 'next/dynamic';
 
 type GhostStageProps = {
@@ -17,6 +18,8 @@ const GhostCanvas = dynamic(
 );
 
 export default function GhostStage({ enabled = true }: GhostStageProps) {
+  const parentRef = useRef<HTMLDivElement>(null);
+
   if (!enabled) {
     return (
       <div
@@ -26,5 +29,10 @@ export default function GhostStage({ enabled = true }: GhostStageProps) {
     );
   }
 
-  return <GhostCanvas />;
+  return (
+    <div ref={parentRef} className="absolute inset-0 pointer-events-none">
+      {/* Use wrapper div as event source */}
+      <GhostCanvas eventSource={parentRef as React.RefObject<HTMLElement>} />
+    </div>
+  );
 }
