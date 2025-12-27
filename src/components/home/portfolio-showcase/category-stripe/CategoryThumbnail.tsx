@@ -28,9 +28,10 @@ const CategoryThumbnail: FC<CategoryThumbnailProps> = ({
             ease: [0.25, 1, 0.5, 1],
           }}
           className={`hidden md:block absolute top-1/2 -translate-y-1/2 h-[180px] overflow-hidden rounded-lg z-[-1] pointer-events-none shadow-lg
-            ${index >= 2
-              ? 'left-full ml-8 origin-left'
-              : 'right-full mr-8 origin-right'
+            ${
+              index >= 2
+                ? 'left-full ml-8 origin-left'
+                : 'right-full mr-8 origin-right'
             }
           `}
         >

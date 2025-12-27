@@ -71,10 +71,10 @@ const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
     const isInteractive = variant !== 'link' && !disabled && !loading;
     const motionProps = isInteractive
       ? {
-        whileHover: { scale: 1.05 },
-        whileTap: { scale: 0.95 },
-        transition: { type: 'spring' as const, stiffness: 400, damping: 17 },
-      }
+          whileHover: { scale: 1.05 },
+          whileTap: { scale: 0.95 },
+          transition: { type: 'spring' as const, stiffness: 400, damping: 17 },
+        }
       : {};
 
     const content = (
