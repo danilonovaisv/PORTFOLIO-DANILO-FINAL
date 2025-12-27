@@ -24,9 +24,9 @@ function HomeHeroContent() {
 
   // PlayButton timetable
   const playButtonOpacity = useTransform(
-      scrollYProgress,
-      [0, 0.1, 0.3, 0.6],
-      [0, 1, 1, 0]
+    scrollYProgress,
+    [0, 0.1, 0.3, 0.6],
+    [0, 1, 1, 0]
   );
 
   // HeroCopy limpa rapidamente (0 -> 10%)
@@ -41,44 +41,44 @@ function HomeHeroContent() {
   }, []);
 
   return (
-      <section
-          ref={heroRef}
-          // Altura ajustada: Mobile precisa de menos scroll space (~140vh) vs Desktop (~220vh)
-          className={`relative w-full bg-[#06071f] ${isMobile ? 'h-[140vh]' : 'h-[220vh]'}`}
+    <section
+      ref={heroRef}
+      // Scroll curto e direto para o takeover do vídeo
+      className={`relative w-full bg-[#06071f] ${isMobile ? 'h-[120vh]' : 'h-[130vh]'}`}
+    >
+      {/* Layer 0 — WebGL Atmosphere */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <GhostStage enabled />
+      </div>
+
+      {/* Layer 2 — Texto Editorial (Z-20 para ficar ACIMA do vídeo inicialmente) */}
+      <motion.div
+        style={{ opacity: copyOpacity }}
+        className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none"
       >
-        {/* Layer 0 — WebGL Atmosphere */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <GhostStage enabled />
+        <HeroCopy />
+      </motion.div>
+
+      {/* Layer 1 — Vídeo HERO (Sticky + Scroll Driven) - Z-10 */}
+      <div className="absolute inset-0 z-10">
+        <div className="sticky top-0 h-screen w-full flex items-end justify-end overflow-hidden">
+          <ManifestoThumb
+            scrollProgress={scrollYProgress}
+            isMobile={isMobile}
+          />
         </div>
+      </div>
 
-        {/* Layer 2 — Texto Editorial (Z-20 para ficar ACIMA do vídeo inicialmente) */}
-        <motion.div
-            style={{ opacity: copyOpacity }}
-            className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none"
-        >
-          <HeroCopy />
-        </motion.div>
-
-        {/* Layer 1 — Vídeo HERO (Sticky + Scroll Driven) - Z-10 */}
-        <div className="absolute inset-0 z-10">
-          <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
-            <ManifestoThumb
-                scrollProgress={scrollYProgress}
-                isMobile={isMobile}
-            />
-          </div>
+      {/* Layer 3 — Play Button */}
+      <motion.div
+        style={{ opacity: playButtonOpacity }}
+        className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none"
+      >
+        <div className="pointer-events-auto cursor-pointer">
+          <PlayButton />
         </div>
-
-        {/* Layer 3 — Play Button */}
-        <motion.div
-            style={{ opacity: playButtonOpacity }}
-            className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none"
-        >
-          <div className="pointer-events-auto cursor-pointer">
-            <PlayButton />
-          </div>
-        </motion.div>
-      </section>
+      </motion.div>
+    </section>
   );
 }
 
@@ -97,18 +97,18 @@ export default function HomeHero() {
   // O hook useScroll NÃO corre aqui, prevenindo o erro.
   if (!isMounted) {
     return (
-        <>
-          <HeroPreloader isVisible={true} />
-          <div className="h-screen w-full bg-[#06071f]" />
-        </>
+      <>
+        <HeroPreloader isVisible={true} />
+        <div className="h-screen w-full bg-[#06071f]" />
+      </>
     );
   }
 
   return (
-      <>
-        <HeroPreloader isVisible={showPreloader} />
-        {/* Renderizamos o conteúdo real apenas agora */}
-        <HomeHeroContent />
-      </>
+    <>
+      <HeroPreloader isVisible={showPreloader} />
+      {/* Renderizamos o conteúdo real apenas agora */}
+      <HomeHeroContent />
+    </>
   );
 }
