@@ -41,7 +41,7 @@ describe('ManifestoThumb Component', () => {
     expect(section).toBeInTheDocument();
 
     // Verifica classes de layout
-    expect(section).toHaveClass('w-full');
+    expect(section).toHaveClass('pointer-events-none');
   });
 
   it('deve renderizar o vídeo com os atributos corretos de acessibilidade', () => {
@@ -55,11 +55,12 @@ describe('ManifestoThumb Component', () => {
     expect(video).toHaveAttribute('playsInline');
     expect(video).toHaveAttribute('loop');
     expect((video as HTMLVideoElement).muted).toBe(true); // Verificamos a propriedade funcional
+    expect((video as HTMLVideoElement).autoplay).toBe(true);
   });
 
-  it('deve exibir os controles de vídeo (importante para mobile)', () => {
+  it('não deve exibir controles ou responder ao mouse', () => {
     render(<ManifestoThumb />);
     const video = screen.getByLabelText('Manifesto video presentation');
-    expect(video).toHaveAttribute('controls');
+    expect(video).not.toHaveAttribute('controls');
   });
 });
