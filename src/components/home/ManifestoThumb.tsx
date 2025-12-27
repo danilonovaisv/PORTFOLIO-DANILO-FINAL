@@ -1,79 +1,115 @@
 'use client';
 
-import { motion, MotionValue, useMotionValue, useTransform } from 'framer-motion';
+import { useEffect, useMemo, useState } from 'react';
+import {
+  motion,
+  MotionValue,
+  useMotionValue,
+  useReducedMotion,
+  useTransform,
+} from 'framer-motion';
 import { ASSETS } from '@/lib/constants';
 
 interface ManifestoThumbProps {
-    scrollProgress?: MotionValue<number>;
-    isMobile?: boolean;
+  scrollProgress?: MotionValue<number>;
+  isMobile?: boolean;
 }
 
+const BASE_DESKTOP_WIDTH = 300;
+const MOBILE_MAX_WIDTH = 420;
+const ASPECT_RATIO = 9 / 16;
+
 export default function ManifestoThumb({
-                                           scrollProgress,
-                                           isMobile = false,
-                                       }: ManifestoThumbProps) {
-    /**
-     * SCROLL TIMELINE (0 → 1)
-     *
-     * 0–5%   : Thumb estática
-     * 5–25%  : Zoom cinematográfico
-     * 25–55% : Morph estrutural
-     * 55–75% : Fullpage takeover
-     * 75–100: Lock
-     */
+  scrollProgress,
+  isMobile = false,
+}: ManifestoThumbProps) {
+  const fallbackProgress = useMotionValue(0);
+  const progress = scrollProgress ?? fallbackProgress;
+  const prefersReducedMotion = useReducedMotion();
 
-    const fallbackProgress = useMotionValue(0);
-    const progress = scrollProgress ?? fallbackProgress;
-    const isControlled = !!scrollProgress && !isMobile;
+  const [targetScale, setTargetScale] = useState(4);
+  const [baseWidth, setBaseWidth] = useState<number>(
+    isMobile ? MOBILE_MAX_WIDTH : BASE_DESKTOP_WIDTH
+  );
 
-    const scale = useTransform(
-        progress,
-        [0, 0.05, 0.25, 0.55, 1],
-        [0.58, 0.58, 0.75, 1, 1]
-    );
+  useEffect(() => {
+    const updateScaleTarget = () => {
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      const initialWidth = isMobile
+        ? Math.min(viewportWidth * 0.9, MOBILE_MAX_WIDTH)
+        : BASE_DESKTOP_WIDTH;
+      const initialHeight = initialWidth * ASPECT_RATIO;
+      const scaleToWidth = viewportWidth / initialWidth;
+      const scaleToHeight = viewportHeight / initialHeight;
+      setBaseWidth(initialWidth);
+      setTargetScale(
+        isMobile
+          ? Math.max(1.05, Math.max(scaleToWidth, scaleToHeight))
+          : Math.max(scaleToWidth, scaleToHeight)
+      );
+    };
 
-    const borderRadius = useTransform(
-        progress,
-        [0, 0.25, 0.55, 0.75],
-        [24, 24, 6, 0]
-    );
+    updateScaleTarget();
+    window.addEventListener('resize', updateScaleTarget);
+    return () => window.removeEventListener('resize', updateScaleTarget);
+  }, [isMobile]);
 
-    const y = useTransform(
-        progress,
-        [0.55, 0.75],
-        ['0%', '-2%']
-    );
+  const scale = useTransform(progress, [0, 1], [1, targetScale]);
+  const borderRadius = useTransform(progress, [0, 1], [isMobile ? 8 : 16, 0]);
 
-    return (
-        <div className="relative h-full w-full flex items-center justify-center">
-            <motion.div
-                style={
-                    isControlled
-                        ? { scale, borderRadius, y }
-                        : undefined
-                }
-                className={`
-          relative overflow-hidden bg-black shadow-2xl
-          ${
-                    isControlled
-                        ? 'w-screen h-screen'
-                        : 'w-full aspect-video rounded-xl border border-white/10'
-                }
-        `}
-            >
-                <video
-                    src={ASSETS.videoManifesto}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
-                    className="h-full w-full object-cover"
-                />
+  const sizingClasses = useMemo(
+    () =>
+      prefersReducedMotion
+        ? 'w-screen h-screen'
+        : isMobile
+          ? 'w-[90vw] max-w-[420px]'
+          : 'max-w-[360px]',
+    [prefersReducedMotion, isMobile]
+  );
 
-                {/* Vinheta sutil */}
-                <div className="absolute inset-0 pointer-events-none bg-black/10" />
-            </motion.div>
-        </div>
-    );
+  const sizingStyle = prefersReducedMotion
+    ? undefined
+    : {
+        width: isMobile ? undefined : baseWidth,
+        aspectRatio: '16 / 9',
+      };
+
+  const motionStyle = prefersReducedMotion
+    ? {
+        borderRadius: 0,
+        transform: 'none',
+      }
+    : {
+        scale,
+        borderRadius,
+        transformOrigin: 'bottom right',
+        willChange: 'transform, border-radius',
+      };
+
+  return (
+    <div
+      className="relative h-full w-full flex items-end justify-end pointer-events-none"
+      role="region"
+      aria-label="Manifesto video"
+    >
+      <motion.div
+        style={{ ...motionStyle, ...sizingStyle }}
+        className={`relative overflow-hidden bg-black shadow-2xl pointer-events-none ${sizingClasses}`}
+      >
+        <video
+          src={ASSETS.videoManifesto}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-label="Manifesto video presentation"
+          className="h-full w-full object-cover"
+        />
+
+        <div className="absolute inset-0 pointer-events-none bg-black/10" />
+      </motion.div>
+    </div>
+  );
 }
