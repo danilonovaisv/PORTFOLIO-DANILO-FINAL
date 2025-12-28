@@ -37,7 +37,7 @@ export const HOME_CONTENT = {
     // O componente HeroCopy espera um array para quebrar a linha visualmente
     title: ['Design,não é', 'só estética.'],
     subtitle: '[É intenção, é estratégia, é experiência.]',
-    cta: 'get to know me better →',
+    cta: 'get to know me better',
   },
 };
 

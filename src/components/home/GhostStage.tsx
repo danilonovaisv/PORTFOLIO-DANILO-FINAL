@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 
 type GhostStageProps = {
@@ -17,8 +17,21 @@ const GhostCanvas = dynamic(
 
 export default function GhostStage({ enabled = true }: GhostStageProps) {
   const parentRef = useRef<HTMLDivElement>(null);
+  const [supportsWebGL, setSupportsWebGL] = useState(true);
 
-  if (!enabled) {
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      const canvas = document.createElement('canvas');
+      const gl =
+        canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      setSupportsWebGL(!!(window.WebGLRenderingContext && gl));
+    } catch {
+      setSupportsWebGL(false);
+    }
+  }, []);
+
+  if (!enabled || !supportsWebGL) {
     return (
       <div
         className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--color-ghost-abyss)_0%,var(--color-ghost-void)_65%)]"

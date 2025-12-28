@@ -1,20 +1,18 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useScroll } from 'framer-motion';
 
 import GhostStage from './GhostStage';
 import HeroCopy from './HeroCopy';
 import HeroPreloader from './HeroPreloader';
 import ManifestoThumb from './ManifestoThumb';
-import PlayButton from './PlayButton';
 
 // --- SUB-COMPONENTE COM LÓGICA DE SCROLL SEGURA ---
 // Este componente só é montado quando o browser está pronto, evitando o erro de "ref not hydrated"
 function HomeHeroContent() {
   const heroRef = useRef<HTMLElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
+  const [isDesktop, setIsDesktop] = useState(false);
   // Scroll progress relativo APENAS à Hero
   // Agora é seguro porque heroRef estará sempre ligado ao <section> retornado
   const { scrollYProgress } = useScroll({
@@ -22,62 +20,44 @@ function HomeHeroContent() {
     offset: ['start start', 'end start'], // 0 → 1 ao longo da Hero
   });
 
-  // PlayButton timetable
-  const playButtonOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.1, 0.3, 0.6],
-    [0, 1, 1, 0]
-  );
-
-  // HeroCopy limpa rapidamente (0 -> 10%)
-  const copyOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
-
   useEffect(() => {
     // Deteção de mobile dentro do componente montado
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+    return () => window.removeEventListener('resize', checkDesktop);
   }, []);
 
   return (
     <section
       ref={heroRef}
-      // Scroll curto e direto para o takeover do vídeo
-      className={`relative w-full bg-[#06071f] ${isMobile ? 'h-[120vh]' : 'h-[130vh]'}`}
+      id="hero"
+      className="relative w-full min-h-[90vh] overflow-hidden bg-[#06071f]"
     >
-      {/* Layer 0 — WebGL Atmosphere */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <GhostStage enabled />
+      {/* Layer 0 — Background */}
+      <div
+        className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,#0b0d3a_0%,#06071f_60%)]"
+        aria-hidden
+      />
+
+      {/* Layer 1 — WebGL Ghost (Desktop only) */}
+      <div className="absolute inset-0 z-10 pointer-events-none">
+        <GhostStage enabled={isDesktop} />
       </div>
 
-      {/* Layer 2 — Texto Editorial (Z-20 para ficar ACIMA do vídeo inicialmente) */}
-      <motion.div
-        style={{ opacity: copyOpacity }}
-        className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none"
-      >
+      {/* Layer 2 — Conteúdo estático */}
+      <div className="relative z-20 flex min-h-[90vh] items-center justify-center">
         <HeroCopy />
-      </motion.div>
-
-      {/* Layer 1 — Vídeo HERO (Sticky + Scroll Driven) - Z-10 */}
-      <div className="absolute inset-0 z-10">
-        <div className="sticky top-0 h-screen w-full flex items-end justify-end overflow-hidden">
-          <ManifestoThumb
-            scrollProgress={scrollYProgress}
-            isMobile={isMobile}
-          />
-        </div>
       </div>
 
-      {/* Layer 3 — Play Button */}
-      <motion.div
-        style={{ opacity: playButtonOpacity }}
-        className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none"
-      >
-        <div className="pointer-events-auto cursor-pointer">
-          <PlayButton />
+      {/* Layer 3 — Manifesto Thumb (Desktop only) */}
+      {isDesktop && (
+        <div className="absolute inset-0 z-30 pointer-events-none">
+          <div className="absolute bottom-10 right-10">
+            <ManifestoThumb scrollProgress={scrollYProgress} />
+          </div>
         </div>
-      </motion.div>
+      )}
     </section>
   );
 }
@@ -99,7 +79,7 @@ export default function HomeHero() {
     return (
       <>
         <HeroPreloader isVisible={true} />
-        <div className="h-screen w-full bg-[#06071f]" />
+        <div className="h-screen w-full bg-ghost-void" />
       </>
     );
   }

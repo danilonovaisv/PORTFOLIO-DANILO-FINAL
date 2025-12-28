@@ -94,3 +94,9 @@ coverage/
 *.tar.bz2
 *.tar.xz
 *.tar.zst
+
+# Documentation Assets
+docs/*.mp4
+docs/*.zip
+docs/*.mov
+docs/*.pdf

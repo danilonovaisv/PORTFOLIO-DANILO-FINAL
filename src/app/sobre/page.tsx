@@ -8,7 +8,7 @@ import { ArrowUpRight } from 'lucide-react';
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-[#050505] text-[#F0F0F0] selection:bg-[#0057FF] selection:text-white pt-24 md:pt-32">
+    <main className="min-h-screen bg-surface-main text-[#F0F0F0] selection:bg-[#0057FF] selection:text-white pt-24 md:pt-32">
       {/* Hero Section */}
       <section className="relative px-6 md:px-12 lg:px-24 mb-24 md:mb-40">
         <div className="max-w-7xl mx-auto">

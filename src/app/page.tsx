@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen w-full bg-[#050505] overflow-x-hidden">
+    <main className="relative min-h-screen w-full bg-surface-main overflow-x-hidden">
       <HomeHero />
       <PortfolioShowcase />
       <FeaturedProjects />
