@@ -1,15 +1,30 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
+import type { NavItem, SiteHeaderProps } from './types';
 import DesktopFluidHeader from './DesktopFluidHeader';
 import MobileStaggeredMenu from './MobileStaggeredMenu';
-import { headerTokens } from '@/components/header/headerTokens.ts';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
-import { useWebGLSupport } from '@/hooks/useWebGLSupport';
-import type { SiteHeaderProps } from './types';
-import { BRAND } from '@/config/brand';
-import { NAVIGATION } from '@/config/navigation';
+import { useActiveSection } from './useActiveSection';
+import { useRouter } from 'next/navigation';
+
+function isHashHref(href: string) {
+  return href.startsWith('#');
+}
+
+function scrollToHash(hashHref: string) {
+  const id = hashHref.replace('#', '');
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function isExternalHref(href: string) {
+  return (
+    /^https?:\/\//.test(href) ||
+    href.startsWith('mailto:') ||
+    href.startsWith('tel:')
+  );
+}
 
 export default function SiteHeader({
   navItems,
@@ -17,58 +32,63 @@ export default function SiteHeader({
   gradient,
   accentColor,
   disableWebGL,
-  reducedMotion,
-  forcedMode,
-  className,
 }: SiteHeaderProps) {
-  const supportsWebGL = useWebGLSupport();
-  const isDesktop = useMediaQuery('(min-width: 1024px)');
-  const prefersReducedMotion = usePrefersReducedMotion();
-  const allowWebGL =
-    supportsWebGL && !disableWebGL && !reducedMotion && !prefersReducedMotion;
-  const resolvedMode = forcedMode ?? (isDesktop ? 'desktop' : 'mobile');
+  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const items = useMemo(() => {
-    // Use props if provided, otherwise config
-    if (navItems && navItems.length > 0) return navItems;
-    return NAVIGATION.header.map((link) => ({
-      ...link,
-      ariaLabel: `Ir para ${link.label}`,
-    }));
-  }, [navItems]);
+  const sectionIds = useMemo(
+    () =>
+      navItems
+        .filter((n) => isHashHref(n.href))
+        .map((n) => n.href.replace('#', '')),
+    [navItems]
+  );
 
-  if (resolvedMode === 'desktop') {
-    return (
-      <DesktopFluidHeader
-        navItems={items}
-        supportsWebGL={allowWebGL}
-        glass={{
-          ior: 1.15,
-          thickness: 2,
-          chromaticAberration: 0.05,
-          anisotropy: 0.01,
-          smoothness: 0.9,
-          followDamping: headerTokens.motion.glass.followDamping,
-          maxTranslateX: headerTokens.motion.glass.maxTranslateX,
-        }}
-        height={headerTokens.layout.height}
-        onNavigate={() => undefined}
-        className={className}
-      />
-    );
-  }
+  const activeHref = useActiveSection(sectionIds);
+
+  const onNavigate = useCallback(
+    (href: string) => {
+      if (isHashHref(href)) {
+        scrollToHash(href);
+        setIsOpen(false);
+        return;
+      }
+
+      if (isExternalHref(href)) {
+        window.open(href, '_blank', 'noopener,noreferrer');
+        setIsOpen(false);
+        return;
+      }
+
+      router.push(href);
+      setIsOpen(false);
+    },
+    [router]
+  );
+
+  const normalizedNavItems: NavItem[] = useMemo(() => navItems, [navItems]);
 
   return (
-    <MobileStaggeredMenu
-      navItems={items}
-      logoUrl={logoUrl ?? BRAND.logos.dark}
-      gradient={gradient ?? ['#0d0d10', '#1a1a20']}
-      accentColor={accentColor ?? BRAND.colors.primary}
-      isFixed
-      staggerDelay={headerTokens.motion.mobile.staggerDelay}
-      onOpen={() => undefined}
-      onClose={() => undefined}
-      className={className}
-    />
+    <>
+      <DesktopFluidHeader
+        navItems={normalizedNavItems}
+        logoUrl={logoUrl}
+        accentColor={accentColor}
+        disableWebGL={disableWebGL}
+        onNavigate={onNavigate}
+        activeHref={activeHref}
+      />
+
+      <MobileStaggeredMenu
+        navItems={normalizedNavItems}
+        logoUrl={logoUrl}
+        gradient={gradient}
+        accentColor={accentColor}
+        isOpen={isOpen}
+        onOpen={() => setIsOpen(true)}
+        onClose={() => setIsOpen(false)}
+        onNavigate={onNavigate}
+      />
+    </>
   );
 }

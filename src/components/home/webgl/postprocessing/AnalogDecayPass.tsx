@@ -105,23 +105,19 @@ void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor)
 
 class AnalogDecayEffectImpl extends Effect {
   constructor() {
-    super(
-      'AnalogDecayEffect',
-      fragmentShader,
-      {
-        uniforms: new Map([
-          ['uTime', new Uniform(0.0)],
-          ['uAnalogGrain', new Uniform(0.4)],
-          ['uAnalogBleeding', new Uniform(0.9)],
-          ['uAnalogVSync', new Uniform(1.7)],
-          ['uAnalogScanlines', new Uniform(1.0)],
-          ['uAnalogVignette', new Uniform(2.4)],
-          ['uAnalogJitter', new Uniform(0.5)],
-          ['uAnalogIntensity', new Uniform(0.9)],
-          ['uLimboMode', new Uniform(0.0)],
-        ]),
-      }
-    );
+    super('AnalogDecayEffect', fragmentShader, {
+      uniforms: new Map([
+        ['uTime', new Uniform(0.0)],
+        ['uAnalogGrain', new Uniform(0.4)],
+        ['uAnalogBleeding', new Uniform(0.9)],
+        ['uAnalogVSync', new Uniform(1.7)],
+        ['uAnalogScanlines', new Uniform(1.0)],
+        ['uAnalogVignette', new Uniform(2.4)],
+        ['uAnalogJitter', new Uniform(0.5)],
+        ['uAnalogIntensity', new Uniform(0.9)],
+        ['uLimboMode', new Uniform(0.0)],
+      ]),
+    });
   }
 
   update(renderer: any, inputBuffer: any, deltaTime: number) {

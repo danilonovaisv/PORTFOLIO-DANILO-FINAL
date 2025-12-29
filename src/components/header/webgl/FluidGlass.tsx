@@ -15,7 +15,7 @@ import {
 } from '@react-three/drei';
 import { RoundedBoxGeometry } from 'three-stdlib';
 import { easing } from 'maath';
-import { headerTokens } from '@/components/header/headerTokens.ts';
+import { HEADER_TOKENS } from '@/components/header/headerTokens';
 
 export type FluidGlassMode = 'bar';
 const BAR_GLB_PATH = '/assets/3d/bar.glb';
@@ -332,10 +332,9 @@ function GlassBar({
 
     // Apply motion logic
     const maxTranslateX =
-      materialProps.maxTranslateX ?? headerTokens.motion.glass.maxTranslateX;
+      materialProps.maxTranslateX ?? HEADER_TOKENS.desktop.maxTranslateX;
     const rangeX = (maxTranslateX * viewport.width) / size.width;
-    const damping =
-      materialProps.followDamping ?? headerTokens.motion.glass.followDamping;
+    const damping = materialProps.followDamping ?? 0.1;
 
     const normalizedX = reducedMotion ? 0 : (pointer.x - 0.5) * 2;
     const tx = normalizedX * rangeX;
@@ -356,8 +355,8 @@ function GlassBar({
     }
 
     const scaleAmount = Math.min(1, Math.abs(normalizedX));
-    const scaleX = 1 + (headerTokens.motion.glass.maxScaleX - 1) * scaleAmount;
-    const scaleY = 1 + (headerTokens.motion.glass.maxScaleY - 1) * scaleAmount;
+    const scaleX = 1 + (HEADER_TOKENS.desktop.maxScaleX - 1) * scaleAmount;
+    const scaleY = 1 + (HEADER_TOKENS.desktop.maxScaleY - 1) * scaleAmount;
     const targetScale: [number, number, number] = [
       resolvedScale[0] * scaleX,
       resolvedScale[1] * scaleY,
@@ -498,7 +497,7 @@ export function FluidGlass({
       style={{
         position: 'relative',
         width: '100%',
-        height: headerTokens.layout.height,
+        height: HEADER_TOKENS.desktop.height,
       }}
     >
       <Canvas

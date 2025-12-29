@@ -50,10 +50,16 @@ class ParticleSystem {
   initPool(count: number) {
     // localized pool init
     for (let i = 0; i < count; i++) {
-      const geom = this.geometries[Math.floor(Math.random() * this.geometries.length)];
+      const geom =
+        this.geometries[Math.floor(Math.random() * this.geometries.length)];
       const mesh = new THREE.Mesh(geom, this.material.clone()); // Clone material to control opacity individually
       mesh.visible = false;
-      mesh.userData = { life: 0, decay: 0, velocity: new THREE.Vector3(), rotationSpeed: new THREE.Euler() };
+      mesh.userData = {
+        life: 0,
+        decay: 0,
+        velocity: new THREE.Vector3(),
+        rotationSpeed: new THREE.Euler(),
+      };
       this.group.add(mesh);
       this.pool.push(mesh);
     }
@@ -83,7 +89,8 @@ class ParticleSystem {
     const color = new THREE.Color(FLUORESCENT_COLORS.violet);
     color.offsetHSL(Math.random() * 0.1 - 0.05, 0, 0);
     (particle.material as THREE.MeshBasicMaterial).color.copy(color);
-    (particle.material as THREE.MeshBasicMaterial).opacity = Math.random() * 0.9;
+    (particle.material as THREE.MeshBasicMaterial).opacity =
+      Math.random() * 0.9;
 
     // Dynamics
     particle.userData.life = 1.0;
@@ -92,13 +99,13 @@ class ParticleSystem {
     particle.userData.velocity = {
       x: (Math.random() - 0.5) * 0.012,
       y: (Math.random() - 0.5) * 0.012 - 0.002, // slight gravity
-      z: (Math.random() - 0.5) * 0.012 - 0.006
+      z: (Math.random() - 0.5) * 0.012 - 0.006,
     };
 
     particle.userData.rotationSpeed = {
       x: (Math.random() - 0.5) * 0.015,
       y: (Math.random() - 0.5) * 0.015,
-      z: (Math.random() - 0.5) * 0.015
+      z: (Math.random() - 0.5) * 0.015,
     };
 
     this.particles.push(particle);
@@ -138,7 +145,11 @@ class ParticleSystem {
   }
 }
 
-export default function Particles({ count = 250, speedRef, ghostPosRef }: ParticlesProps) {
+export default function Particles({
+  count = 250,
+  speedRef,
+  ghostPosRef,
+}: ParticlesProps) {
   const groupRef = useRef<THREE.Group>(null);
   const systemRef = useRef<ParticleSystem | null>(null);
   const reducedMotion = usePrefersReducedMotion();

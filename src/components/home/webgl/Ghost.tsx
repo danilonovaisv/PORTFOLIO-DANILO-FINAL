@@ -38,7 +38,8 @@ function GhostEyes({ speedRef }: { speedRef: React.MutableRefObject<number> }) {
 
   useFrame(() => {
     // Intensity based on speed
-    const targetIntensity = 0.5 + speedRef.current * GHOST_PARAMS.eyeGlowResponse;
+    const targetIntensity =
+      0.5 + speedRef.current * GHOST_PARAMS.eyeGlowResponse;
 
     // Lerp current opacity
     if (leftEyeMat.current) {
@@ -62,27 +63,57 @@ function GhostEyes({ speedRef }: { speedRef: React.MutableRefObject<number> }) {
   return (
     <group>
       {/* Sockets */}
-      <mesh position={[-0.7, 0.6, 1.9]} scale={[1.1, 1.0, 0.6]} geometry={socketGeo}>
+      <mesh
+        position={[-0.7, 0.6, 1.9]}
+        scale={[1.1, 1.0, 0.6]}
+        geometry={socketGeo}
+      >
         <meshBasicMaterial color="#000000" />
       </mesh>
-      <mesh position={[0.7, 0.6, 1.9]} scale={[1.1, 1.0, 0.6]} geometry={socketGeo}>
+      <mesh
+        position={[0.7, 0.6, 1.9]}
+        scale={[1.1, 1.0, 0.6]}
+        geometry={socketGeo}
+      >
         <meshBasicMaterial color="#000000" />
       </mesh>
 
       {/* Eyes */}
       <mesh position={[-0.7, 0.6, 2.0]} geometry={eyeGeo}>
-        <meshBasicMaterial ref={leftEyeMat} color={GHOST_PARAMS.eyeGlowColor} transparent opacity={0} />
+        <meshBasicMaterial
+          ref={leftEyeMat}
+          color={GHOST_PARAMS.eyeGlowColor}
+          transparent
+          opacity={0}
+        />
       </mesh>
       <mesh position={[0.7, 0.6, 2.0]} geometry={eyeGeo}>
-        <meshBasicMaterial ref={rightEyeMat} color={GHOST_PARAMS.eyeGlowColor} transparent opacity={0} />
+        <meshBasicMaterial
+          ref={rightEyeMat}
+          color={GHOST_PARAMS.eyeGlowColor}
+          transparent
+          opacity={0}
+        />
       </mesh>
 
       {/* Outer Glows */}
       <mesh position={[-0.7, 0.6, 1.95]} geometry={glowGeo}>
-        <meshBasicMaterial ref={leftGlowMat} color={GHOST_PARAMS.eyeGlowColor} transparent opacity={0} side={THREE.BackSide} />
+        <meshBasicMaterial
+          ref={leftGlowMat}
+          color={GHOST_PARAMS.eyeGlowColor}
+          transparent
+          opacity={0}
+          side={THREE.BackSide}
+        />
       </mesh>
       <mesh position={[0.7, 0.6, 1.95]} geometry={glowGeo}>
-        <meshBasicMaterial ref={rightGlowMat} color={GHOST_PARAMS.eyeGlowColor} transparent opacity={0} side={THREE.BackSide} />
+        <meshBasicMaterial
+          ref={rightGlowMat}
+          color={GHOST_PARAMS.eyeGlowColor}
+          transparent
+          opacity={0}
+          side={THREE.BackSide}
+        />
       </mesh>
     </group>
   );
@@ -120,7 +151,7 @@ export default function Ghost({ speedRef }: GhostProps) {
       const t = state.clock.elapsedTime;
       const pulse = Math.sin(t * 1.6) * 0.5 + 0.5; // 0 to 1
       // Base intensity + pulse
-      // Gist: emissiveIntensity (5.8) 
+      // Gist: emissiveIntensity (5.8)
       // Logic might be static 5.8 or pulsing? Gist implies parameters but maybe not animated loop for intensity?
       // Wait, Gist "pulseSpeed: 1.6, pulseIntensity: 0.6"
       // Let's implement gentle pulse around 5.8

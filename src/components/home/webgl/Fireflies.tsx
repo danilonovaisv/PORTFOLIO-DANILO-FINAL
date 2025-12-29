@@ -44,7 +44,8 @@ function Firefly() {
     if (pos.z < -10) pos.z = 10;
 
     // Pulse
-    const pulse = Math.sin(t * initialData.pulseSpeed + initialData.phase) * 0.5 + 0.5;
+    const pulse =
+      Math.sin(t * initialData.pulseSpeed + initialData.phase) * 0.5 + 0.5;
 
     if (glowRef.current) {
       // Opacity pulse (base 0.4)
@@ -68,11 +69,22 @@ function Firefly() {
       {/* Glow */}
       <mesh ref={glowRef}>
         <sphereGeometry args={[0.08, 8, 8]} />
-        <meshBasicMaterial color={0xffff88} transparent opacity={0.4} side={THREE.BackSide} />
+        <meshBasicMaterial
+          color={0xffff88}
+          transparent
+          opacity={0.4}
+          side={THREE.BackSide}
+        />
       </mesh>
 
       {/* Light */}
-      <pointLight ref={lightRef} color={0xffff44} distance={3} decay={2} intensity={0.8} />
+      <pointLight
+        ref={lightRef}
+        color={0xffff44}
+        distance={3}
+        decay={2}
+        intensity={0.8}
+      />
     </group>
   );
 }

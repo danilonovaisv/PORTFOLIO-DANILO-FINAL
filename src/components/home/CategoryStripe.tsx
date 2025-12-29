@@ -65,23 +65,26 @@ const CategoryStripe: FC<CategoryStripeProps> = ({
       <motion.div
         layout="position"
         className={`flex w-full transition-all duration-500 ease-out relative
-          ${isExpanded
-            ? 'py-8 flex-col items-center md:items-start gap-8'
-            : `py-10 md:py-14 flex-row items-center ${index === 0
-              ? 'justify-between md:justify-end'
-              : index === 1
-                ? 'justify-between md:justify-center'
-                : 'justify-between md:justify-start'
-            }`
+          ${
+            isExpanded
+              ? 'py-8 flex-col items-center md:items-start gap-8'
+              : `py-10 md:py-14 flex-row items-center ${
+                  index === 0
+                    ? 'justify-between md:justify-end'
+                    : index === 1
+                      ? 'justify-between md:justify-center'
+                      : 'justify-between md:justify-start'
+                }`
           }
         `}
       >
         {/* Conteúdo (Texto + Seta) */}
         <div
           className={`relative z-20 flex items-center gap-4 md:gap-6
-            ${isExpanded
-              ? 'w-full flex-col md:flex-row md:items-start'
-              : 'w-full md:w-auto flex-row'
+            ${
+              isExpanded
+                ? 'w-full flex-col md:flex-row md:items-start'
+                : 'w-full md:w-auto flex-row'
             }
           `}
         >

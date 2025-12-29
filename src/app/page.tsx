@@ -1,27 +1,32 @@
-import { Metadata } from 'next';
-import { BRAND } from '@/config/brand';
+import SiteHeader from '@/components/header/SiteHeader';
 import HomeHero from '@/components/home/HomeHero';
-import ManifestoSection from '@/components/home/ManifestoSection';
-import PortfolioShowcase from '@/components/home/PortfolioShowcase';
-import FeaturedProjects from '@/components/home/FeaturedProjects';
-import Clients from '@/components/home/Clients';
-import Contact from '@/components/home/Contact';
+import PortfolioShowcaseSection from '@/components/home/PortfolioShowcaseSection';
+import FeaturedProjectsSection from '@/components/home/FeaturedProjectsSection';
+import ClientsBrandsSection from '@/components/home/ClientsBrandsSection';
+import ContactSection from '@/components/home/ContactSection';
+import SiteFooter from '@/components/layout/SiteFooter';
 
-export const metadata: Metadata = {
-  title: `${BRAND.name} | Creative Developer & Interactive Designer`,
-  description:
-    'Exploração visual e técnica de Danilo Novais. Creative Developer especializado em WebGL, R3F e experiências digitais interativas de alto impacto.',
-};
-
-export default function Home() {
+export default function Page() {
   return (
-    <main className="relative min-h-screen w-full bg-surface-main overflow-x-hidden">
+    <main>
+      <SiteHeader
+        navItems={[
+          { label: 'home', href: '#hero' },
+          { label: 'sobre', href: '/sobre' },
+          { label: 'portfolio showcase', href: '#portfolio-showcase' },
+          { label: 'contato', href: '#contact' },
+        ]}
+        logoUrl="https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg"
+        gradient={['rgba(0,87,255,0.55)', 'rgba(82,39,255,0.45)']}
+        accentColor="#0057FF"
+      />
+
       <HomeHero />
-      <ManifestoSection />
-      <PortfolioShowcase />
-      <FeaturedProjects />
-      <Clients />
-      <Contact />
+      <PortfolioShowcaseSection />
+      <FeaturedProjectsSection />
+      <ClientsBrandsSection />
+      <ContactSection />
+      <SiteFooter />
     </main>
   );
 }

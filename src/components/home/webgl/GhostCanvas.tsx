@@ -1,227 +1,212 @@
-// src/components/home/webgl/GhostCanvas.tsx
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Bloom, EffectComposer, Vignette } from '@react-three/postprocessing';
+import { Canvas, useFrame } from '@react-three/fiber';
+import {
+  EffectComposer,
+  Bloom,
+  Noise,
+  Vignette,
+  Scanline,
+} from '@react-three/postprocessing';
+import React, { memo, useMemo, useRef } from 'react';
 import * as THREE from 'three';
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
-import Ghost from './Ghost';
-import AtmosphereVeil from './AtmosphereVeil';
-import Particles from './Particles';
-import Fireflies from './Fireflies';
-import AnalogDecayPass from './postprocessing/AnalogDecayPass';
 
-// Ghost Scene Orchestrator
-function GhostScene() {
-  const ghostGroupRef = useRef<THREE.Group>(null);
+function Ghost({ reducedMotion }: { reducedMotion: boolean }) {
+  const group = useRef<THREE.Group>(null);
+  const ghostMesh = useRef<THREE.Mesh>(null);
+  const target = useRef(new THREE.Vector3(0, 0, 0));
 
-  // Refs para física
-  const ghostPosRef = useRef(new THREE.Vector3(0, 0, 0));
-  const ghostSpeedRef = useRef(0);
-  const lastGhostPosRef = useRef(new THREE.Vector3(0, 0, 0));
-
-  const { camera, pointer } = useThree(); // Use pointer from R3F
-  const [isMobile, setIsMobile] = useState(false);
-  const reducedMotion = usePrefersReducedMotion();
-
-  // Set initial position at (-7, 0) to place ghost on the LEFT
-  useEffect(() => {
-    if (ghostGroupRef.current) {
-      ghostGroupRef.current.position.set(-7, 0, 0);
-    }
+  const material = useMemo(() => {
+    return new THREE.MeshStandardMaterial({
+      color: new THREE.Color('#0b0d3a'),
+      emissive: new THREE.Color('#0057FF'),
+      emissiveIntensity: 2.0,
+      roughness: 0.35,
+      metalness: 0.0,
+    });
   }, []);
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  useFrame((state) => {
+    if (!group.current || !ghostMesh.current) return;
 
-  useFrame((state, delta) => {
-    if (!ghostGroupRef.current) return;
     const t = state.clock.elapsedTime;
 
-    let targetX = 0;
-    let targetY = 0;
+    if (!reducedMotion) {
+      const mx = (state.pointer.x ?? 0) * 0.75;
+      const my = (state.pointer.y ?? 0) * 0.35;
+      target.current.set(mx, my, 0);
 
-    if (reducedMotion) {
-      // Reduced Motion: Fixed position, barely moving
-      targetX = 0;
-      targetY = Math.sin(t * 0.5) * 0.2; // Very subtle vertically
-    } else if (isMobile) {
-      // Mobile: Gentle organic movement, no mouse tracking
-      // Slower and smaller amplitude than before
-      targetX = Math.sin(t * 0.2) * 2.0;
-      targetY = Math.cos(t * 0.15) * 1.5;
-    } else {
-      // Desktop: Mouse tracking active
-      targetX = pointer.x * 5;
-      targetY = pointer.y * 3.5;
+      group.current.position.lerp(target.current, 0.08);
+      group.current.position.y += Math.sin(t * 0.8) * 0.06;
+      group.current.rotation.z = Math.sin(t * 0.35) * 0.08;
     }
 
-    // Ghost anchor at LEFT (fixed position)
-    const anchorX = -7;
-    const anchorY = 0;
+    material.emissiveIntensity = 2.0 + Math.sin(t * 1.2) * 0.25;
 
-    // Smooth dampening
-    // Slower damping for reduced motion to avoid jerkiness if logic changes
-    const damping = reducedMotion ? 0.02 : 0.05;
-
-    ghostGroupRef.current.position.x +=
-      (anchorX + targetX - ghostGroupRef.current.position.x) * damping;
-    ghostGroupRef.current.position.y +=
-      (anchorY + targetY - ghostGroupRef.current.position.y) * damping;
-
-    // Scale adjustment logic
-    let targetScale = 1.4; // Desktop default
-    if (reducedMotion) targetScale = 1.25;
-    else if (isMobile) targetScale = 0.9;
-
-    // Smooth scale transition
-    ghostGroupRef.current.scale.lerp(
-      new THREE.Vector3(targetScale, targetScale, targetScale),
-      0.1
-    );
-
-    // Sync Ref for Veil
-    ghostPosRef.current.copy(ghostGroupRef.current.position);
-
-    // Track ghost velocity for reactive eyes/particles
-    if (lastGhostPosRef.current.lengthSq() === 0) {
-      lastGhostPosRef.current.copy(ghostGroupRef.current.position);
-    }
-
-    const distanceMoved = ghostGroupRef.current.position
-      .clone()
-      .sub(lastGhostPosRef.current)
-      .length();
-    const velocity = delta > 0 ? distanceMoved / delta : 0;
-    const clampedVelocity = Math.min(velocity, 40);
-    ghostSpeedRef.current = THREE.MathUtils.lerp(
-      ghostSpeedRef.current,
-      clampedVelocity,
-      0.08
-    );
-    lastGhostPosRef.current.copy(ghostGroupRef.current.position);
-
-    // PROJECT POSITION TO SCREEN FOR MASKING
-    // Convert 3D position to Screen Coordinates (0-100%)
-    const vector = ghostGroupRef.current.position.clone();
-    vector.project(camera);
-
-    // Convert (-1 to 1) to (0% to 100%)
-    const screenX = (vector.x * 0.5 + 0.5) * 100;
-    const screenY = (1 - (vector.y * 0.5 + 0.5)) * 100;
-
-    // Update CSS variables for DOM text masking
-    document.documentElement.style.setProperty('--gx', `${screenX}%`);
-    document.documentElement.style.setProperty('--gy', `${screenY}%`);
-
-    // Emit Ghost Energy for Header synchronization
-    let energy = 0;
-    if (reducedMotion) {
-      energy = 0.5; // Constant low energy
-    } else {
-      // Energy based on proximity to center (0,0) -> normalized 0 to 1
-      energy = 1 - Math.min(1, Math.sqrt(pointer.x ** 2 + pointer.y ** 2));
-    }
-
-    // Clamp to avoid zero (minimum baseline glow)
-    const clampedEnergy = Math.max(0.15, energy);
-    document.documentElement.style.setProperty(
-      '--ghost-energy',
-      clampedEnergy.toFixed(3)
-    );
+    const s = 1.0 + Math.sin(t * 0.9) * 0.035;
+    ghostMesh.current.scale.setScalar(s);
   });
 
   return (
-    <>
-      <AtmosphereVeil ghostPosRef={ghostPosRef} />
-      <group ref={ghostGroupRef}>
-        <Ghost speedRef={ghostSpeedRef} />
-        {/* Reduce particles for mobile/reduced motion */}
-        <Particles
-          count={reducedMotion ? 40 : isMobile ? 60 : 250}
-          speedRef={ghostSpeedRef}
-          ghostPosRef={ghostPosRef}
+    <group ref={group}>
+      <mesh ref={ghostMesh} material={material}>
+        <sphereGeometry args={[0.7, 64, 64]} />
+      </mesh>
+
+      <mesh position={[-0.22, 0.08, 0.55]}>
+        <sphereGeometry args={[0.1, 24, 24]} />
+        <meshStandardMaterial
+          emissive={'#ffffff'}
+          emissiveIntensity={2.6}
+          color={'#0b0d3a'}
         />
-      </group>
-    </>
+      </mesh>
+
+      <mesh position={[0.22, 0.08, 0.55]}>
+        <sphereGeometry args={[0.1, 24, 24]} />
+        <meshStandardMaterial
+          emissive={'#ffffff'}
+          emissiveIntensity={2.6}
+          color={'#0b0d3a'}
+        />
+      </mesh>
+    </group>
   );
 }
 
-interface GhostCanvasProps {
-  eventSource?: React.RefObject<HTMLElement>;
-}
+function Particles({
+  count = 800,
+  reducedMotion,
+}: {
+  count?: number;
+  reducedMotion: boolean;
+}) {
+  const points = useRef<THREE.Points>(null);
 
-export default function GhostCanvas({ eventSource }: GhostCanvasProps) {
-  const [isMobile, setIsMobile] = useState(false);
-  const reducedMotion = usePrefersReducedMotion();
+  const positions = useMemo(() => {
+    const pos = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      const r = THREE.MathUtils.randFloat(0.8, 3.0);
+      const theta = Math.random() * Math.PI * 2;
+      const y = THREE.MathUtils.randFloatSpread(1.8);
+      pos[i * 3 + 0] = Math.cos(theta) * r;
+      pos[i * 3 + 1] = y;
+      pos[i * 3 + 2] = Math.sin(theta) * r - 0.5;
+    }
+    return pos;
+  }, [count]);
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // Determine DPR based on device and reduced motion preferences
-  const dpr = reducedMotion
-    ? 1
-    : isMobile
-      ? ([1, 1.5] as [number, number]) // Cap mobile DPR slightly higher if perf allows, or keep 1.25
-      : ([1, 2] as [number, number]);
+  useFrame((state) => {
+    if (!points.current || reducedMotion) return;
+    const t = state.clock.elapsedTime;
+    points.current.rotation.y = t * 0.05;
+    points.current.rotation.x = Math.sin(t * 0.12) * 0.04;
+  });
 
   return (
-    <Canvas
-      frameloop={reducedMotion ? 'demand' : 'always'} // Use 'demand' for reduced motion to save resources
-      camera={{ position: [0, 0, 20], fov: 75 }}
-      dpr={dpr}
-      gl={{
-        antialias: false,
-        alpha: true,
-        premultipliedAlpha: false,
-        powerPreference: 'high-performance',
-      }}
-      eventSource={eventSource?.current ?? undefined}
-      className="absolute inset-0 pointer-events-none"
-      style={{ background: 'transparent' }}
-    >
-      <ambientLight intensity={0.08} color="#0a0a2e" />{' '}
-      {/* Reference: 0.08, 0x0a0a2e */}
-      <directionalLight
-        position={[-8, 6, -4]}
-        intensity={1.8}
-        color="#4a90e2"
-      />
-      <directionalLight
-        position={[8, -4, -6]}
-        intensity={1.26}
-        color="#50e3c2"
-      />{' '}
-      {/* Reference: 0.7 * 1.8 = 1.26, color 0x50e3c2 */}
-      <GhostScene />
-      <Fireflies count={reducedMotion ? 20 : 20} />{' '}
-      {/* Reference: 20 fireflies */}
-      {/* Bloom - matching Reference Strength 0.3, Threshold 0, Radius 1.25 */}
-      {/* R3F Bloom intensity behaves differently, sticking to ~1.0 for vanilla equivalence roughly, or keeping high if needed */}
-      <EffectComposer enableNormalPass={false}>
-        <Bloom
-          key="bloom"
-          intensity={0.5} // Closest to vanilla 0.3 visually in R3F
-          luminanceThreshold={0}
-          luminanceSmoothing={0.9}
-          mipmapBlur={false}
+    <points ref={points}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          args={[positions, 3]}
         />
-        {reducedMotion || isMobile ? (
-          <></>
-        ) : (
-          <AnalogDecayPass key="analog-decay" />
-        )}
-        <Vignette key="vignette" offset={0.12} darkness={0.78} />
+      </bufferGeometry>
+      <pointsMaterial
+        size={0.02}
+        color={'#FFFFFF'}
+        transparent
+        opacity={0.35}
+        depthWrite={false}
+        blending={THREE.AdditiveBlending}
+        sizeAttenuation
+      />
+    </points>
+  );
+}
+
+function Fireflies({
+  count = 28,
+  reducedMotion,
+}: {
+  count?: number;
+  reducedMotion: boolean;
+}) {
+  const group = useRef<THREE.Group>(null);
+
+  const items = useMemo(() => {
+    return Array.from({ length: count }).map((_, i) => ({
+      key: i,
+      x: THREE.MathUtils.randFloatSpread(3.2),
+      y: THREE.MathUtils.randFloatSpread(1.6),
+      z: THREE.MathUtils.randFloat(-1.2, 1.2),
+      s: THREE.MathUtils.randFloat(0.02, 0.05),
+      sp: THREE.MathUtils.randFloat(0.6, 1.4),
+      ph: Math.random() * Math.PI * 2,
+    }));
+  }, [count]);
+
+  useFrame((state) => {
+    if (!group.current || reducedMotion) return;
+    const t = state.clock.elapsedTime;
+    group.current.children.forEach((child, idx) => {
+      const it = items[idx];
+      child.position.y = it.y + Math.sin(t * it.sp + it.ph) * 0.18;
+      child.position.x = it.x + Math.cos(t * (it.sp * 0.7) + it.ph) * 0.12;
+    });
+  });
+
+  return (
+    <group ref={group}>
+      {items.map((it) => (
+        <mesh key={it.key} position={[it.x, it.y, it.z]}>
+          <sphereGeometry args={[it.s, 12, 12]} />
+          <meshStandardMaterial
+            emissive={'#5227FF'}
+            emissiveIntensity={2.5}
+            color={'#06071f'}
+          />
+        </mesh>
+      ))}
+    </group>
+  );
+}
+
+const GhostCanvas = memo(function GhostCanvas({
+  reducedMotion,
+}: {
+  reducedMotion: boolean;
+}) {
+  return (
+    <Canvas
+      dpr={[1, 2]}
+      gl={{ antialias: false, alpha: true }}
+      camera={{ position: [0, 0, 5], fov: 45 }}
+    >
+      <ambientLight intensity={0.65} />
+      <directionalLight
+        position={[4, 3, 5]}
+        intensity={0.85}
+        color={'#9fb8ff'}
+      />
+      <pointLight position={[-3, 0.5, 2]} intensity={1.2} color={'#0057FF'} />
+
+      <Ghost reducedMotion={reducedMotion} />
+      <Particles reducedMotion={reducedMotion} />
+      <Fireflies reducedMotion={reducedMotion} />
+
+      <EffectComposer multisampling={0}>
+        <Bloom
+          intensity={2.8}
+          luminanceThreshold={0.1}
+          luminanceSmoothing={0.9}
+          mipmapBlur
+        />
+        <Noise opacity={0.12} />
+        <Scanline density={1.25} opacity={0.18} />
+        <Vignette eskil={false} offset={0.25} darkness={0.55} />
       </EffectComposer>
     </Canvas>
   );
-}
+});
+
+export default GhostCanvas;

@@ -1458,6 +1458,7 @@ import { CTAProjectCard } from './CTAProjectCard';
 
 export const FeaturedProjectsSection = () => {
 return (
+
 <section aria-label="Projetos em Destaque" className="bg-[#F4F5F7] py-16 md:py-24">
 <div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)]">
 <h2 className="text-2xl md:text-3xl font-bold text-[#0057FF] text-center mb-12 md:mb-16">

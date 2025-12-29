@@ -1,186 +1,126 @@
 'use client';
 
-import { useRef, useCallback, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-
+import React, { useRef } from 'react';
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'framer-motion';
 import HeroPreloader from './HeroPreloader';
 import HeroCopy from './HeroCopy';
 import ManifestoThumb from './ManifestoThumb';
 import GhostStage from './GhostStage';
+import ManifestoSection from './ManifestoSection';
 
-import { useAntigravityStore } from '@/store/antigravity.store';
-import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
-import { TIMELINE } from '@/config/timeline';
-
-/**
- * HomeHero Component
- *
- * SCROLL TIMELINE (200vh):
- * - 0-15%: Hero Copy + Ghost fade out
- * - 5-35%: Video morphs from thumb → fullscreen
- * - 35-85%: Video stays fullscreen (~50% of scroll ≈ 2s at normal speed)
- * - 85-100%: Video exits (next section enters)
- *
- * Z-INDEX STACKING ORDER:
- * - z-50: HeroPreloader (temporário, desaparece após carregamento)
- * - z-40: Header (SiteHeader/DesktopFluidHeader) — SEMPRE ACIMA
- * - z-30: ManifestoThumb (vídeo scroll-driven)
- * - z-20: GhostStage (WebGL ethereal effect)
- * - z-10: HeroCopy (texto editorial)
- * - z-0:  Background radial gradient
- *
- * REDUCED MOTION:
- * - Desativa scroll morph (vídeo fica estático em thumb size)
- * - Desativa fade out do copy/ghost
- * - Mantém layout visual intacto
- */
 export default function HomeHero() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { flags, narrativeState } = useAntigravityStore();
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const reducedMotion = useReducedMotion();
+  const ref = useRef<HTMLElement | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start start', 'end end'],
   });
 
-  // 🎞️ TRANSFORMS DO VÍDEO (APENAS DESKTOP, disabled for reduced motion)
-  // Scale: 0.3 (thumb) → 1 (fullscreen)
-  const scaleVideo = useTransform(
-    scrollYProgress,
-    [TIMELINE.MANIFESTO.SCALE_START, TIMELINE.MANIFESTO.SCALE_END],
-    prefersReducedMotion ? [0.3, 0.3] : [0.3, 1]
-  );
-
-  // Position Y: 50% (bottom) → 0% (center)
-  const posYVideo = useTransform(
-    scrollYProgress,
-    [TIMELINE.MANIFESTO.SCALE_START, TIMELINE.MANIFESTO.SCALE_END],
-    prefersReducedMotion ? ['50%', '50%'] : ['50%', '0%']
-  );
-
-  // Position X: 40% (right side) → 0% (center)
-  const posXVideo = useTransform(
-    scrollYProgress,
-    [TIMELINE.MANIFESTO.SCALE_START, TIMELINE.MANIFESTO.SCALE_END],
-    prefersReducedMotion ? ['40%', '40%'] : ['40%', '0%']
-  );
-
-  // Border Radius: 16px (rounded) → 0px (square)
-  const borderRadius = useTransform(
-    scrollYProgress,
-    [TIMELINE.MANIFESTO.SCALE_START, TIMELINE.MANIFESTO.SCALE_END],
-    prefersReducedMotion ? ['16px', '16px'] : ['16px', '0px']
-  );
-
-  // Text Opacity: 1 → 0 (fade out as video expands)
-  const opacityText = useTransform(
-    scrollYProgress,
-    [TIMELINE.HERO.FADE_OUT_START, TIMELINE.HERO.FADE_OUT_END],
-    prefersReducedMotion ? [1, 1] : [1, 0]
-  );
-
-  const [preloaderComplete, setPreloaderComplete] = useState(false);
-
-  const handlePreloaderComplete = useCallback(() => {
-    setPreloaderComplete(true);
-  }, []);
-
-  // Ghost Opacity: Scroll-driven fade out
-  const scrollOpacityGhost = useTransform(
-    scrollYProgress,
-    [TIMELINE.HERO.FADE_OUT_START, TIMELINE.HERO.FADE_OUT_END],
-    prefersReducedMotion ? [1, 1] : [1, 0]
-  );
-
-  /**
-   * Skip to fullscreen state (desktop click action)
-   * Scrolls to 80% of hero timeline where video is fully expanded
-   */
-  const handleSkipToFullscreen = useCallback(() => {
-    if (ref.current) {
-      const heroTop = ref.current.offsetTop;
-      const heroHeight = ref.current.offsetHeight;
-      // Target 40% of scroll (where video reaches fullscreen)
-      const targetScroll = heroTop + heroHeight * 0.4;
-
-      window.scrollTo({
-        top: targetScroll,
-        behavior: prefersReducedMotion ? 'auto' : 'smooth',
-      });
-    }
-  }, [prefersReducedMotion]);
+  // Desktop morph (thumb -> fullscreen)
+  const scaleVideo = useTransform(scrollYProgress, [0, 1], [0.32, 1]);
+  const xVideo = useTransform(scrollYProgress, [0, 1], ['0%', '-50%']);
+  const yVideo = useTransform(scrollYProgress, [0, 1], ['0%', '-50%']);
+  const rightVideo = useTransform(scrollYProgress, [0, 1], ['40px', '50%']);
+  const bottomVideo = useTransform(scrollYProgress, [0, 1], ['40px', '50%']);
+  const borderRadius = useTransform(scrollYProgress, [0, 1], ['16px', '0px']);
 
   return (
-    <section
-      id="hero"
-      ref={ref}
-      className="relative h-[200vh] overflow-hidden bg-ghost-void"
-      aria-label="Hero Section"
-    >
-      {/* STICKY CONTAINER - Keeps content visible during scroll */}
-      <div className="sticky top-0 h-dvh w-full overflow-hidden">
-        {/* BACKGROUND RADIAL (z-0) */}
-        <div
-          className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,#0b0d3a_0%,#06071f_60%)] pointer-events-none"
-          aria-hidden="true"
-        />
+    <>
+      <section
+        id="hero"
+        ref={ref}
+        className="relative h-[200vh] overflow-hidden"
+        style={{
+          background:
+            'radial-gradient(circle at 30% 30%, #0b0d3a 0%, #06071f 55%, #06071f 100%)',
+        }}
+        aria-label="Hero"
+      >
+        <HeroPreloader />
 
-        {/* PRELOADER (z-50) */}
-        <HeroPreloader onComplete={handlePreloaderComplete} />
+        {/* sticky stage */}
+        <div className="sticky top-0 h-screen">
+          {/* WebGL Layer */}
+          <div className="absolute inset-0 z-20">
+            <GhostStage />
+          </div>
 
-        {/* 👻 WEBGL (z-10) — ENTRY + SCROLL ANIMATION */}
-        <motion.div
-          animate={
-            preloaderComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }
-          }
-          transition={{ duration: 1.5, ease: 'easeOut' }}
-          className="absolute inset-0 z-10 pointer-events-none"
-        >
-          <motion.div
-            style={{ opacity: scrollOpacityGhost }}
-            className="w-full h-full"
-          >
-            <GhostStage enabled={flags.mountWebGL} />
-          </motion.div>
-        </motion.div>
-
-        {/* OVERLAY GLASS (z-20) - Improve text contrast */}
-        <div
-          className="absolute inset-0 z-20 bg-black/30 backdrop-blur-[30px] pointer-events-none"
-          aria-hidden="true"
-        />
-
-        {/* TEXTO EDITORIAL (z-30) */}
-        <motion.div
-          style={{ opacity: opacityText }}
-          className="absolute inset-0 z-30 flex items-center justify-center pointer-events-none"
-        >
-          <div className="w-full max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)] flex justify-center pointer-events-auto">
+          {/* Editorial Copy (SEM animação / SEM binding de scroll) */}
+          <div className="absolute z-10 inset-0 flex flex-col items-center justify-center text-center px-6">
             <HeroCopy />
           </div>
-        </motion.div>
 
-        {/* 🎞️ MANIFESTO THUMB (z-40) — APENAS DESKTOP */}
-        {flags.enableManifestoScroll && (
+          {/* Manifesto Thumb - Desktop */}
           <motion.div
+            aria-label="Vídeo manifesto"
+            className="absolute z-30 overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.55)] hidden md:block"
             style={{
-              scale: scaleVideo,
-              y: posYVideo,
-              x: posXVideo,
+              width: 'min(520px, 34vw)',
+              aspectRatio: '16/9',
+              right: reducedMotion ? '40px' : (rightVideo as unknown as string),
+              bottom: reducedMotion
+                ? '40px'
+                : (bottomVideo as unknown as string),
+              x: reducedMotion ? '0%' : (xVideo as unknown as string),
+              y: reducedMotion ? '0%' : (yVideo as unknown as string),
+              scale: reducedMotion ? 1 : scaleVideo,
               borderRadius,
             }}
-            className="absolute inset-0 z-40 hidden md:flex items-center justify-center overflow-hidden origin-bottom-right"
+            onClick={() => {
+              // Desktop click: "skip" -> scroll to end of hero
+              if (typeof window === 'undefined') return;
+              if (window.innerWidth >= 768) {
+                const top =
+                  (ref.current?.offsetTop ?? 0) +
+                  (ref.current?.clientHeight ?? 0) -
+                  window.innerHeight;
+                window.scrollTo({
+                  top,
+                  behavior: reducedMotion ? 'auto' : 'smooth',
+                });
+              }
+            }}
           >
-            <div className="w-full h-full">
-              <ManifestoThumb
-                narrativeState={narrativeState}
-                onSkipToFullscreen={handleSkipToFullscreen}
-              />
+            <ManifestoThumb muted />
+            <div className="pointer-events-none absolute top-3 right-3">
+              <div className="h-9 w-9 rounded-full bg-white/10 border border-white/15 grid place-items-center">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                  className="-rotate-45"
+                >
+                  <path
+                    d="M7 17L17 7"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M9 7H17V15"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
             </div>
           </motion.div>
-        )}
-      </div>
-    </section>
+        </div>
+      </section>
+
+      {/* Mobile manifesto como seção independente */}
+      <ManifestoSection />
+    </>
   );
 }
