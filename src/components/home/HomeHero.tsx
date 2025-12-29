@@ -1,86 +1,69 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
-import GhostStage from './GhostStage';
-import HeroCopy from './HeroCopy';
 import HeroPreloader from './HeroPreloader';
+import HeroCopy from './HeroCopy';
 import ManifestoThumb from './ManifestoThumb';
+import GhostStage from './GhostStage';
 
-// --- SUB-COMPONENTE COM LÓGICA DE SCROLL SEGURA ---
-// Este componente só é montado quando o browser está pronto, evitando o erro de "ref not hydrated"
-function HomeHeroContent() {
-  const heroRef = useRef<HTMLElement>(null);
-  const [isDesktop, setIsDesktop] = useState(false);
-  // Scroll progress relativo APENAS à Hero
-  // Agora é seguro porque heroRef estará sempre ligado ao <section> retornado
+import { useExperienceStore } from '@/store/experience.store';
+import { resolveScrollState } from '@/antigravity';
+
+export default function HomeHero() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { flags } = useExperienceStore();
+
   const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end end'], // 0 → 1 ao longo da Hero
+    target: ref,
+    offset: ['start start', 'end end']
   });
 
-  useEffect(() => {
-    // Deteção de mobile dentro do componente montado
-    const checkDesktop = () => setIsDesktop(window.innerWidth >= 768);
-    checkDesktop();
-    window.addEventListener('resize', checkDesktop);
-    return () => window.removeEventListener('resize', checkDesktop);
-  }, []);
-
+  // 🎞️ TRANSFORMS DO VÍDEO (APENAS DESKTOP)
   const scaleVideo = useTransform(scrollYProgress, [0, 1], [0.3, 1]);
   const posYVideo = useTransform(scrollYProgress, [0, 1], ['50%', '0%']);
   const borderRadius = useTransform(scrollYProgress, [0, 1], ['16px', '0px']);
-  const opacityText = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const opacityText = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  const narrativeState = resolveScrollState(scrollYProgress.get());
 
   return (
     <section
-      ref={heroRef}
-      id="hero"
-      className="relative w-full h-[200vh] overflow-hidden bg-[#06071f]"
+      ref={ref}
+      className="relative h-[200vh] overflow-hidden bg-[#06071f]"
     >
-      {/* Layer 0 — Background */}
-      <div
-        className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,#0b0d3a_0%,#06071f_60%)]"
-        aria-hidden
-      />
+      {/* PRELOADER */}
+      <HeroPreloader />
 
-      {/* Layer 20 — WebGL Ghost (Atmosphere) */}
-      <div className="absolute inset-0 z-20">
-        <GhostStage enabled={isDesktop} />
-      </div>
+      {/* 👻 WEBGL — APENAS SE PERMITIDO */}
+      {flags.mountWebGL && (
+        <div className="absolute inset-0 z-20">
+          <GhostStage />
+        </div>
+      )}
 
-      {/* Layer 10 — Conteúdo estático */}
+      {/* TEXTO EDITORIAL — NUNCA ANIMA */}
       <motion.div
         style={{ opacity: opacityText }}
-        className="absolute z-10 inset-0 flex flex-col items-center justify-center text-center px-4"
+        className="absolute inset-0 z-10 flex items-center justify-center px-4 text-center"
       >
         <HeroCopy />
       </motion.div>
 
-      {/* Layer 30 — Manifesto Thumb (Desktop only) */}
-      {isDesktop && (
+      {/* 🎞️ MANIFESTO — APENAS DESKTOP */}
+      {flags.enableManifestoScroll && (
         <motion.div
           style={{
             scale: scaleVideo,
             y: posYVideo,
-            borderRadius: borderRadius,
+            borderRadius
           }}
-          className="absolute bottom-10 right-10 z-30 w-[30vw] aspect-video overflow-hidden rounded-2xl shadow-lg"
+          className="absolute bottom-10 right-10 z-30 hidden aspect-video w-[30vw] overflow-hidden rounded-2xl shadow-xl md:block"
         >
-          <ManifestoThumb />
+          <ManifestoThumb narrativeState={narrativeState} />
         </motion.div>
       )}
     </section>
-  );
-}
-
-// --- COMPONENTE PRINCIPAL (WRAPPER) ---
-export default function HomeHero() {
-  return (
-    <>
-      <HeroPreloader />
-      <HomeHeroContent />
-    </>
   );
 }

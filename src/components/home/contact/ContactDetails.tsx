@@ -1,9 +1,36 @@
 import { FC } from 'react';
 import { motion } from 'framer-motion';
-import { CONTACT_INFO, SOCIAL_LIST } from '@/config/navigation';
+import { SOCIALS } from '@/config/navigation';
 import { Button } from '@/components/ui/Button';
+import { Mail, Phone, MapPin, Linkedin, Instagram, Twitter, Facebook } from 'lucide-react';
 
 const ContactDetails: FC = () => {
+  const contactInfo = [
+    {
+      label: SOCIALS.emailSecondary.replace('mailto:', ''),
+      href: SOCIALS.emailSecondary,
+      icon: <Mail className="w-5 h-5" />,
+    },
+    {
+      label: SOCIALS.phone.replace('tel:', ''),
+      href: SOCIALS.phone,
+      icon: <Phone className="w-5 h-5" />,
+    },
+    {
+      label: 'São Paulo, SP',
+      href: '#',
+      icon: <MapPin className="w-5 h-5" />,
+    },
+  ];
+
+  /* Helper for social icons matching Footer logic or reusing specific list */
+  const socialList = [
+    { platform: 'LinkedIn', url: SOCIALS.linkedin, icon: <Linkedin className="w-5 h-5" /> },
+    { platform: 'Instagram', url: SOCIALS.instagram, icon: <Instagram className="w-5 h-5" /> },
+    { platform: 'Facebook', url: SOCIALS.facebook, icon: <Facebook className="w-5 h-5" /> },
+    { platform: 'Twitter', url: SOCIALS.twitter, icon: <Twitter className="w-5 h-5" /> },
+  ];
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -30 }}
@@ -19,7 +46,7 @@ const ContactDetails: FC = () => {
       </p>
 
       <div className="space-y-6 mb-12 flex flex-col items-center md:items-start">
-        {CONTACT_INFO.map((item, idx) => (
+        {contactInfo.map((item, idx) => (
           <Button
             key={idx}
             href={item.href}
@@ -35,7 +62,7 @@ const ContactDetails: FC = () => {
       </div>
 
       <div className="flex gap-4 justify-center md:justify-start">
-        {SOCIAL_LIST.map((social) => (
+        {socialList.map((social) => (
           <Button
             key={social.platform}
             asExternal

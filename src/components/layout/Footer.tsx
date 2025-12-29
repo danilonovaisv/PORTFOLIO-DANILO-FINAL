@@ -1,10 +1,30 @@
 'use client';
 
 import React from 'react';
-import { NAV_LINKS, SOCIAL_LIST, FOOTER } from '@/config/navigation';
+import { NAVIGATION, SOCIALS } from '@/config/navigation';
 import { motion } from 'framer-motion';
+import { Instagram, Linkedin, Twitter, Facebook } from 'lucide-react';
 
 const Footer: React.FC = () => {
+  // Helper to map social keys to icons
+  const getSocialIcon = (key: string) => {
+    switch (key) {
+      case 'instagram': return <Instagram className="w-5 h-5" />;
+      case 'linkedin': return <Linkedin className="w-5 h-5" />;
+      case 'twitter': return <Twitter className="w-5 h-5" />;
+      case 'facebook': return <Facebook className="w-5 h-5" />;
+      default: return null;
+    }
+  };
+
+  const socialLinks = Object.entries(SOCIALS)
+    .filter(([key]) => ['instagram', 'linkedin', 'twitter', 'facebook'].includes(key))
+    .map(([key, url]) => ({
+      platform: key,
+      url,
+      icon: getSocialIcon(key)
+    }));
+
   return (
     <motion.footer
       initial={{ opacity: 0 }}
@@ -15,14 +35,14 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-6 md:px-12 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
         {/* Copyright */}
         <div className="order-2 md:order-1 text-center md:text-left text-xs md:text-sm text-white/90">
-          <p>{FOOTER.copyright}</p>
+          <p>{NAVIGATION.footer.copyright}</p>
         </div>
 
         {/* Navigation & Socials */}
         <div className="order-1 md:order-2 flex flex-col md:flex-row items-center gap-6 md:gap-8">
           <nav>
             <ul className="flex flex-wrap justify-center gap-4 md:gap-6">
-              {NAV_LINKS.map((link) => (
+              {NAVIGATION.footer.links.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
@@ -37,8 +57,7 @@ const Footer: React.FC = () => {
           </nav>
 
           <div className="flex gap-4 border-l border-white/20 pl-0 md:pl-6">
-            {/* Note: Workflow mentions "Links/Social à direita". Grouping them makes sense. */}
-            {SOCIAL_LIST.map((social) => (
+            {socialLinks.map((social) => (
               <a
                 key={social.platform}
                 href={social.url}

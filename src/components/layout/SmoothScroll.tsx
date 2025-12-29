@@ -1,18 +1,27 @@
 'use client';
 
 import { ReactNode, useEffect } from 'react';
-import Lenis from 'lenis';
+import Lenis from '@studio-freight/lenis';
 
-export default function SmoothScroll({ children }: { children: ReactNode }) {
+import { useExperienceStore } from '@/store/experience.store';
+
+interface SmoothScrollProps {
+  children: ReactNode;
+}
+
+export default function SmoothScroll({ children }: SmoothScrollProps) {
+  const { flags } = useExperienceStore();
+
   useEffect(() => {
+    // ♿ SE REDUCED MOTION → SEM LENIS
+    if (flags.reducedMotion) return;
+
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
+      smooth: true,
+      lerp: 0.08,
       wheelMultiplier: 1,
-      touchMultiplier: 2,
+      touchMultiplier: 1.2,
+      smoothTouch: false
     });
 
     function raf(time: number) {
@@ -25,7 +34,7 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
     return () => {
       lenis.destroy();
     };
-  }, []);
+  }, [flags.reducedMotion]);
 
   return <>{children}</>;
 }

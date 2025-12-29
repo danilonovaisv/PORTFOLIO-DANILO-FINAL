@@ -10,23 +10,8 @@ import type {
   NavItem,
   SiteHeaderProps,
 } from './types';
-import LogoDark from '@/assets/logos/LogoDark.svg';
-import FaviconLight from '@/assets/logos/FaviconLight.svg';
-
-const DEFAULT_NAV_ITEMS: NavItem[] = [
-  { label: 'Home', href: '#hero', ariaLabel: 'Ir para a Home' },
-  {
-    label: 'Sobre',
-    href: '/sobre',
-    ariaLabel: 'Ir para a página Sobre',
-  },
-  {
-    label: 'Portfólio',
-    href: '/portfolio',
-    ariaLabel: 'Ir para o portfólio',
-  },
-  { label: 'Contato', href: '#contact', ariaLabel: 'Ir para contato' },
-];
+import { BRAND } from '@/config/brand';
+import { NAVIGATION } from '@/config/navigation';
 
 const checkWebGLSupport = () => {
   if (typeof window === 'undefined') return false;
@@ -71,7 +56,7 @@ function HeaderFallback({
             className="h-8 w-8"
           />
           <span className="text-[15px] font-semibold tracking-tight text-white">
-            Danilo Novais
+            {BRAND.name}
           </span>
         </a>
 
@@ -80,7 +65,7 @@ function HeaderFallback({
             <a
               key={item.href}
               href={item.href}
-              aria-label={item.ariaLabel}
+              aria-label={item.ariaLabel || item.label}
               className="relative px-2 py-1 transition-opacity hover:opacity-[0.85]"
               target={item.external ? '_blank' : undefined}
               rel={item.external ? 'noreferrer' : undefined}
@@ -114,7 +99,14 @@ export default function SiteHeader({
   const resolvedMode = forcedMode ?? (isDesktop ? 'desktop' : 'mobile');
 
   const items = useMemo(
-    () => (navItems && navItems.length > 0 ? navItems : DEFAULT_NAV_ITEMS),
+    () => {
+      // Use props if provided, otherwise config
+      if (navItems && navItems.length > 0) return navItems;
+      return NAVIGATION.header.map(link => ({
+        ...link,
+        ariaLabel: `Ir para ${link.label}`
+      }));
+    },
     [navItems]
   );
 
@@ -123,7 +115,7 @@ export default function SiteHeader({
       return (
         <HeaderFallback
           navItems={items}
-          logoUrl={FaviconLight.src}
+          logoUrl={BRAND.logos.faviconLight} // Using light favicon for fallback (dark bg)
           className={className}
         />
       );
@@ -149,7 +141,7 @@ export default function SiteHeader({
   return (
     <MobileStaggeredMenu
       navItems={items}
-      logoUrl={LogoDark.src}
+      logoUrl={BRAND.logos.dark} // Mobile menu usually light theme background?
       gradient={[
         headerTokens.color.gradient[0],
         headerTokens.color.gradient[1],

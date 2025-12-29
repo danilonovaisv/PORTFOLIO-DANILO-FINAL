@@ -1,11 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { BRAND } from '@/config/brand';
 
 export default function ManifestoThumb() {
   return (
     <motion.video
-      src="https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4 "
+      src={BRAND.video.manifesto}
       autoPlay
       muted
       loop
