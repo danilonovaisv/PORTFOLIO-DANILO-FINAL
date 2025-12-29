@@ -84,15 +84,15 @@ export const NAV_LINKS = [
 ];
 
 export const HEADER_LINKS_DESKTOP = [
-  { label: 'Home', href: '/' },
-  { label: 'Sobre', href: '/sobre' },
-  { label: 'Portfólio', href: '/portfolio' },
-  { label: 'Contato', href: '#contact' },
+  { label: 'Home', href: '/', ariaLabel: 'Ir para a home' },
+  { label: 'Sobre', href: '/sobre', ariaLabel: 'Ir para sobre' },
+  { label: 'Portfólio', href: '/portfolio', ariaLabel: 'Ir para portfólio' },
+  { label: 'Contato', href: '#contact', ariaLabel: 'Ir para contato' },
 ];
 
 export const HEADER_LINKS_MOBILE = [
-  { label: 'Home', href: '/' },
-  { label: 'Sobre', href: '/sobre' },
-  { label: 'Portfólio', href: '/portfolio' },
-  { label: 'Contato', href: '/#contato' },
+  { label: 'Home', href: '/', ariaLabel: 'Ir para a home' },
+  { label: 'Sobre', href: '/sobre', ariaLabel: 'Ir para sobre' },
+  { label: 'Portfólio', href: '/portfolio', ariaLabel: 'Ir para portfólio' },
+  { label: 'Contato', href: '#contact', ariaLabel: 'Ir para contato' },
 ];

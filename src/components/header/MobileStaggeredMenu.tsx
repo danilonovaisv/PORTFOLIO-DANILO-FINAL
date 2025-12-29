@@ -3,20 +3,21 @@
 import React, { useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, type Variants } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { HEADER_LINKS_MOBILE } from '@/config/navigation';
 import { BRAND } from '@/config/brand';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
-import LogoLight from '@/assets/logos/LogoLight.svg';
+import LogoDark from '@/assets/logos/LogoDark.svg';
+import { headerTokens } from '@/design-system/headerTokens';
 
-const overlayVariants = {
+const overlayVariants: Variants = {
   hidden: { x: '100%', opacity: 0 },
   visible: { x: 0, opacity: 1 },
   exit: { x: '100%', opacity: 0 },
 };
 
-const listVariants = {
+const listVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -27,12 +28,12 @@ const listVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 18 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
@@ -89,8 +90,13 @@ const MobileStaggeredMenu: React.FC = () => {
             role="dialog"
             aria-modal="true"
           >
-            <div className="relative h-full w-[85%] max-w-md sm:w-full">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#B19EEF] via-[#7C63FF] to-[#5227FF]" />
+            <div className="relative h-full w-full">
+              <div
+                className="absolute inset-0"
+                style={{
+                  background: `linear-gradient(135deg, ${headerTokens.color.gradient[0]}, ${headerTokens.color.gradient[1]})`,
+                }}
+              />
               <motion.div
                 className="absolute -top-24 -left-16 h-64 w-64 rounded-full bg-white/15 blur-3xl"
                 animate={
@@ -124,8 +130,8 @@ const MobileStaggeredMenu: React.FC = () => {
                       <Link
                         href={link.href}
                         onClick={() => setIsOpen(false)}
-                        className="text-3xl font-medium tracking-tight text-white transition-opacity hover:opacity-80"
-                        aria-label={`Navegar para ${link.label}`}
+                        className="text-3xl font-medium tracking-tight text-white transition-opacity hover:opacity-[0.85]"
+                        aria-label={link.ariaLabel}
                       >
                         {link.label}
                       </Link>
@@ -144,18 +150,15 @@ const MobileStaggeredMenu: React.FC = () => {
 
       <header className="fixed inset-x-0 top-0 z-40 lg:hidden">
         <div className="flex items-center justify-between px-6 py-4">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center" aria-label="Ir para a home">
             <Image
-              src={LogoLight}
+              src={LogoDark}
               alt={`Logo ${BRAND.name}`}
               width={32}
               height={32}
               className="h-8 w-8"
               priority
             />
-            <span className="text-[18px] font-semibold tracking-tight text-white">
-              {BRAND.name.split(' ')[0]}
-            </span>
           </Link>
 
           <button
