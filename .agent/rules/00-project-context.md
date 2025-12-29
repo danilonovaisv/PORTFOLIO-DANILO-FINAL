@@ -11,14 +11,15 @@ Portfólio interativo de alta fidelidade para Danilo Novais (Creative Developer)
 ## Estrutura da Home Page
 
 1. Contexto do Projeto
-• Projeto: Portfólio Institucional de Danilo Novais
-• Páginas principais:
+   • Projeto: Portfólio Institucional de Danilo Novais
+   • Páginas principais:
    • Home
    • Sobre
    • Portfólio
    • Contato
 
 Ordem das seções da Home
+
 1. Header
 2. Hero + thumb video manifesto
 3. Portfolio Showcase
@@ -26,7 +27,6 @@ Ordem das seções da Home
 5. Clients / Brands
 6. Contact
 7. Footer
-
 
 ## Design System (Ghost Theme)
 
@@ -43,5 +43,5 @@ Typography
 • Fonte principal: TT Norms Pro (self-host, se licenciado)
 • Fallbacks: ui-sans-serif, system-ui
 • Tamanhos e pesos:
-   • Logo: 18–22px, font-semibold
-   • Navegação: 15–16px, font-medium, tracking-tight
+• Logo: 18–22px, font-semibold
+• Navegação: 15–16px, font-medium, tracking-tight

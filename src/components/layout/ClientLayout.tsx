@@ -17,19 +17,19 @@ import { AntigravityDebugger } from '@/components/debug/AntigravityDebugger';
  * - Debug overlay
  */
 export default function ClientLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    // 🧠 ORQUESTRAÇÃO GLOBAL DA EXPERIÊNCIA
-    useExperience();
+  // 🧠 ORQUESTRAÇÃO GLOBAL DA EXPERIÊNCIA
+  useExperience();
 
-    return (
-        <SmoothScroll>
-            <Header />
-            {children}
-            <Footer />
-            <AntigravityDebugger />
-        </SmoothScroll>
-    );
+  return (
+    <SmoothScroll>
+      <Header />
+      {children}
+      <Footer />
+      <AntigravityDebugger />
+    </SmoothScroll>
+  );
 }

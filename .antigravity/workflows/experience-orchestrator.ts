@@ -9,6 +9,6 @@ export function runExperienceOrchestrator(
     mountWebGL: viewport === 'desktop' && !prefersReducedMotion,
     enableManifestoScroll: viewport === 'desktop',
     enableHoverInteractions: viewport === 'desktop',
-    reducedMotion: prefersReducedMotion
+    reducedMotion: prefersReducedMotion,
   };
 }

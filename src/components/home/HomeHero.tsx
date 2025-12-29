@@ -14,13 +14,13 @@ import { TIMELINE } from '@/config/timeline';
 
 /**
  * HomeHero Component
- * 
+ *
  * SCROLL TIMELINE (200vh):
  * - 0-15%: Hero Copy + Ghost fade out
  * - 5-35%: Video morphs from thumb → fullscreen
  * - 35-85%: Video stays fullscreen (~50% of scroll ≈ 2s at normal speed)
  * - 85-100%: Video exits (next section enters)
- * 
+ *
  * Z-INDEX STACKING ORDER:
  * - z-50: HeroPreloader (temporário, desaparece após carregamento)
  * - z-40: Header (SiteHeader/DesktopFluidHeader) — SEMPRE ACIMA
@@ -28,7 +28,7 @@ import { TIMELINE } from '@/config/timeline';
  * - z-20: GhostStage (WebGL ethereal effect)
  * - z-10: HeroCopy (texto editorial)
  * - z-0:  Background radial gradient
- * 
+ *
  * REDUCED MOTION:
  * - Desativa scroll morph (vídeo fica estático em thumb size)
  * - Desativa fade out do copy/ghost
@@ -41,7 +41,7 @@ export default function HomeHero() {
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start start', 'end end']
+    offset: ['start start', 'end end'],
   });
 
   // 🎞️ TRANSFORMS DO VÍDEO (APENAS DESKTOP, disabled for reduced motion)
@@ -102,11 +102,11 @@ export default function HomeHero() {
       const heroTop = ref.current.offsetTop;
       const heroHeight = ref.current.offsetHeight;
       // Target 40% of scroll (where video reaches fullscreen)
-      const targetScroll = heroTop + (heroHeight * 0.4);
+      const targetScroll = heroTop + heroHeight * 0.4;
 
       window.scrollTo({
         top: targetScroll,
-        behavior: prefersReducedMotion ? 'auto' : 'smooth'
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
       });
     }
   }, [prefersReducedMotion]);
@@ -120,7 +120,6 @@ export default function HomeHero() {
     >
       {/* STICKY CONTAINER - Keeps content visible during scroll */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-
         {/* BACKGROUND RADIAL (z-0) */}
         <div
           className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,#0b0d3a_0%,#06071f_60%)] pointer-events-none"
@@ -132,8 +131,10 @@ export default function HomeHero() {
 
         {/* 👻 WEBGL (z-20) — ENTRY + SCROLL ANIMATION */}
         <motion.div
-          animate={preloaderComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
+          animate={
+            preloaderComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }
+          }
+          transition={{ duration: 1.5, ease: 'easeOut' }}
           className="absolute inset-0 z-20 pointer-events-none"
         >
           <motion.div
@@ -147,9 +148,11 @@ export default function HomeHero() {
         {/* TEXTO EDITORIAL (z-10) */}
         <motion.div
           style={{ opacity: opacityText }}
-          className="absolute inset-0 z-10 flex items-center justify-center px-[clamp(24px,5vw,96px)] text-center pointer-events-auto"
+          className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
         >
-          <HeroCopy />
+          <div className="w-full max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)] flex justify-center pointer-events-auto">
+            <HeroCopy />
+          </div>
         </motion.div>
 
         {/* 🎞️ MANIFESTO THUMB (z-30) — APENAS DESKTOP */}
@@ -159,7 +162,7 @@ export default function HomeHero() {
               scale: scaleVideo,
               y: posYVideo,
               x: posXVideo,
-              borderRadius
+              borderRadius,
             }}
             className="absolute inset-0 z-30 hidden md:flex items-center justify-center overflow-hidden origin-bottom-right"
           >

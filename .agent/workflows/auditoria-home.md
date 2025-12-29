@@ -1,5 +1,5 @@
 ---
-description: 
+description:
 ---
 
 Aqui está um prompt de workflow pronto pra você colar num agente/orquestrador:
@@ -18,7 +18,7 @@ Sua missão é:
 
 ## 1. Leitura e parsing do documento
 
-1. Abra e leia o arquivo:  
+1. Abra e leia o arquivo:
    - `/docs/AUDITORIA_HOME_PORTFOLIO.md`
 2. Identifique seções no formato (ou equivalente):
    - Títulos como: `### Prompt #XX — ...` ou blocos marcados como prompt.
@@ -30,11 +30,13 @@ Sua missão é:
    - **Critérios de aceite / Checklist**
 
 ## REFRENCIAS VISUAIS:
+
 1. /docs/HERO-PORTFOLIO-GHOST.jpg
 2. /docs/HOME-PORTFOLIO-LAYOUYT-GHOST.jpg
 3. /docs/PORTFOLIO-PAGE-LAYOUYT.jpg
 
 ## REFRENCIAS ANIMAÇÃO:
+
 1. /docs/HEADER
 2. /docs/REFERENCIA_HERO-GHOST
 
@@ -53,7 +55,7 @@ Para **cada prompt**, em ordem:
 
 ### 2.2. Aplicação das mudanças
 
-1. Siga exatamente os **Passos/Ações** descritos no prompt.  
+1. Siga exatamente os **Passos/Ações** descritos no prompt.
 2. Respeite as **Regras** do documento, por exemplo:
    - Não alterar textos ou ordem das seções.
    - Não criar layouts ou animações que não estejam especificados.
@@ -79,9 +81,9 @@ Para cada prompt aplicado, faça um teste visual focado nos arquivos/rotas menci
 1. Suba o projeto em modo dev (ex.: `npm run dev`) e acesse:
    - `/` (Home) ou a rota correspondente.
 2. Valide o layout em pelo menos 3 larguras:
-   - **Mobile:** 375px (aprox. iPhone)  
-   - **Tablet:** ~768px  
-   - **Desktop:** ≥ 1280px  
+   - **Mobile:** 375px (aprox. iPhone)
+   - **Tablet:** ~768px
+   - **Desktop:** ≥ 1280px
 3. Verifique:
    - Grid (colunas, larguras, gutters).
    - Margens laterais e alinhamento em “duas laterais”.
@@ -93,6 +95,7 @@ Para cada prompt aplicado, faça um teste visual focado nos arquivos/rotas menci
    - Qualquer diferença relevante deve ser tratada como possível bug do prompt atual ou de um futuro prompt.
 
 Se o workflow tiver suporte a screenshot diff:
+
 - Gere screenshots antes/depois e valide que a diferença visual está de acordo com o objetivo do prompt.
 
 ---
@@ -147,7 +150,7 @@ Ao terminar **todos os prompts**:
 
 Regras gerais:
 
-- Siga **rigorosamente** o que está em `/docs/AUDITORIA_HOME_PORTFOLIO.md`.  
-- Execute os prompts **um por vez**, sem pular etapas e sem agrupar mudanças de prompts diferentes.  
-- Não faça refatorações ou melhorias fora do escopo dos prompts descritos.  
+- Siga **rigorosamente** o que está em `/docs/AUDITORIA_HOME_PORTFOLIO.md`.
+- Execute os prompts **um por vez**, sem pular etapas e sem agrupar mudanças de prompts diferentes.
+- Não faça refatorações ou melhorias fora do escopo dos prompts descritos.
 - Trate o documento como a **fonte de verdade** do workflow.

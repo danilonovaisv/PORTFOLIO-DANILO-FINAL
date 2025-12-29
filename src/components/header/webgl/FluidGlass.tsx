@@ -237,10 +237,10 @@ function GlassBar({
     return Array.isArray(materialProps.scale)
       ? (materialProps.scale as [number, number, number])
       : ([materialProps.scale, materialProps.scale, materialProps.scale] as [
-        number,
-        number,
-        number
-      ]);
+          number,
+          number,
+          number,
+        ]);
   }, [materialProps.scale]);
   const material = useMemo(() => {
     const mat = new FluidMaterial();
@@ -334,32 +334,16 @@ function GlassBar({
     const maxTranslateX =
       materialProps.maxTranslateX ?? headerTokens.motion.glass.maxTranslateX;
     const rangeX = (maxTranslateX * viewport.width) / size.width;
-    const damping = materialProps.followDamping ?? headerTokens.motion.glass.followDamping;
+    const damping =
+      materialProps.followDamping ?? headerTokens.motion.glass.followDamping;
 
     const normalizedX = reducedMotion ? 0 : (pointer.x - 0.5) * 2;
     const tx = normalizedX * rangeX;
     const ty = reducedMotion ? -0.05 : -0.05 + parallax * -0.8;
 
-    easing.damp3(
-      meshRef.current.position,
-      [tx, ty, 3.3],
-      damping,
-      delta
-    );
-    easing.damp(
-      meshRef.current.rotation,
-      'y',
-      0,
-      damping + 0.02,
-      delta
-    );
-    easing.damp(
-      meshRef.current.rotation,
-      'x',
-      0,
-      damping + 0.04,
-      delta
-    );
+    easing.damp3(meshRef.current.position, [tx, ty, 3.3], damping, delta);
+    easing.damp(meshRef.current.rotation, 'y', 0, damping + 0.02, delta);
+    easing.damp(meshRef.current.rotation, 'x', 0, damping + 0.04, delta);
 
     if (glowRef.current) {
       easing.damp(
@@ -372,10 +356,8 @@ function GlassBar({
     }
 
     const scaleAmount = Math.min(1, Math.abs(normalizedX));
-    const scaleX =
-      1 + (headerTokens.motion.glass.maxScaleX - 1) * scaleAmount;
-    const scaleY =
-      1 + (headerTokens.motion.glass.maxScaleY - 1) * scaleAmount;
+    const scaleX = 1 + (headerTokens.motion.glass.maxScaleX - 1) * scaleAmount;
+    const scaleY = 1 + (headerTokens.motion.glass.maxScaleY - 1) * scaleAmount;
     const targetScale: [number, number, number] = [
       resolvedScale[0] * scaleX,
       resolvedScale[1] * scaleY,
@@ -398,7 +380,8 @@ function GlassBar({
     materialRef.current.uMouse.set(pointer.x, 1 - pointer.y);
     materialRef.current.uParallax = parallax;
     materialRef.current.uIOR = materialProps.ior;
-    materialRef.current.uChromaticAberration = materialProps.chromaticAberration;
+    materialRef.current.uChromaticAberration =
+      materialProps.chromaticAberration;
     materialRef.current.uThickness = materialProps.thickness;
     materialRef.current.uAnisotropy = materialProps.anisotropy;
     materialRef.current.uOpacity = 0.82 + smoothness * 0.14;
@@ -413,11 +396,11 @@ function GlassBar({
         ref={glowRef}
         geometry={glbGeometry}
         scale={
-          [resolvedScale[0] * 1.03, resolvedScale[1] * 1.03, resolvedScale[2] * 1.03] as [
-            number,
-            number,
-            number
-          ]
+          [
+            resolvedScale[0] * 1.03,
+            resolvedScale[1] * 1.03,
+            resolvedScale[2] * 1.03,
+          ] as [number, number, number]
         }
       >
         <meshBasicMaterial

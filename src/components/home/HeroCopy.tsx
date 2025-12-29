@@ -29,7 +29,7 @@ export default function HeroCopy() {
       {/* CTA Button - Styled as per reference */}
       <Link
         href="/sobre"
-        className="group inline-flex items-center gap-3 px-6 py-3 rounded-full bg-focus-ring text-white text-sm uppercase tracking-wider transition-all duration-300 hover:bg-[#0047cc] hover:scale-105"
+        className="group inline-flex items-center gap-3 px-6 py-3 rounded-full bg-focus-ring text-white text-sm uppercase tracking-wider transition-all duration-300 hover:bg-[#0047cc] hover:scale-105 motion-reduce:hover:scale-100 motion-reduce:transition-none"
       >
         <span>get to know me better</span>
         <span className="flex items-center justify-center w-6 h-6 rounded-full bg-white text-focus-ring transition-transform duration-300 group-hover:rotate-45">

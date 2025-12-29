@@ -16,7 +16,9 @@ describe('global site links', () => {
 
   it('exposes the expected footer links matching the config', () => {
     expect(NAVIGATION.footer.links).toHaveLength(4);
-    const footerHrefs = NAVIGATION.footer.links.map((l: { href: string }) => l.href);
+    const footerHrefs = NAVIGATION.footer.links.map(
+      (l: { href: string }) => l.href
+    );
     expect(footerHrefs).toContain('#hero');
     expect(footerHrefs).toContain('#portfolio-showcase');
     expect(footerHrefs).toContain('/sobre');

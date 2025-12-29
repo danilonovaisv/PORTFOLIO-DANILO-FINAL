@@ -28,17 +28,25 @@ const CategoryText: FC<CategoryTextProps> = ({
       `}
     >
       {isWebItem && !isExpanded ? (
-        <motion.h3
-          layout="position"
-          className="font-light text-text-dark transition-all duration-500 tracking-tight leading-tight md:leading-none text-2xl sm:text-3xl md:text-5xl lg:text-6xl group-hover:text-primary group-hover:tracking-normal"
-        >
-          {label.split(', ').map((part, i, arr) => (
-            <span key={i} className="block">
-              {part}
-              {i < arr.length - 1 ? ',' : ''}
-            </span>
-          ))}
-        </motion.h3>
+        <>
+          <motion.h3
+            layout="position"
+            className="font-light text-text-dark transition-all duration-500 tracking-tight leading-tight md:leading-none text-2xl sm:text-3xl md:text-5xl lg:text-6xl group-hover:text-primary group-hover:tracking-normal"
+          >
+            {label.split(', ').map((part, i, arr) => (
+              <span key={i} className="block">
+                {part}
+                {i < arr.length - 1 ? ',' : ''}
+              </span>
+            ))}
+          </motion.h3>
+          <span
+            className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.6em] text-primary mt-1"
+          >
+            <span className="h-3 w-3 rounded-full bg-primary transition-transform duration-500 group-hover:scale-150 group-hover:bg-text-dark" />
+            <span className="text-[10px] leading-none">·</span>
+          </span>
+        </>
       ) : (
         <>
           <motion.h3

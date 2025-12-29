@@ -1,7 +1,7 @@
 interface FirefliesProps {
-    count: number;
+  count: number;
 }
 
 export default function Fireflies({ count: _count }: FirefliesProps) {
-    return null;
+  return null;
 }

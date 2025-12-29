@@ -6,7 +6,7 @@ import { BRAND } from '@/config/brand';
 
 /**
  * ManifestoSection - Mobile-Only Fullscreen Video
- * 
+ *
  * Aparece logo após a Hero como seção independente em mobile.
  * - Fullscreen com aspect-video
  * - Tap para toggle mute/unmute
@@ -57,7 +57,11 @@ export default function ManifestoSection() {
         muted={isMuted}
         playsInline
         className="w-full h-full object-cover"
-        aria-label={isMuted ? 'Manifesto Video (muted) - tap to unmute' : 'Manifesto Video (unmuted) - tap to mute'}
+        aria-label={
+          isMuted
+            ? 'Manifesto Video (muted) - tap to unmute'
+            : 'Manifesto Video (unmuted) - tap to mute'
+        }
       />
     </motion.section>
   );

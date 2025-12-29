@@ -9,7 +9,7 @@
   --color-primary: #0057ff;
   --color-primary-hover: #0046cc;
   --color-secondary: #000000;
-  --color-muted: #F5F5F5;
+  --color-muted: #f5f5f5;
   --color-white: #ffffff;
 
   /* Text Colors */
@@ -17,12 +17,12 @@
   --color-text-muted: #666666;
 
   /* Section & Component Backgrounds */
-  --color-section-bg: #F4F5F7;
-  --color-section-bg-hover: #ECEDF0;
+  --color-section-bg: #f4f5f7;
+  --color-section-bg-hover: #ecedf0;
   --color-card-bg: #f7f7f7;
 
   /* Focus Ring Colors */
-  --color-focus-ring: #0057FF;
+  --color-focus-ring: #0057ff;
 
   /* Ghost/Ethereal Theme Colors */
   --color-ghost-bg: #050505;

@@ -2,7 +2,6 @@
 description: hero
 ---
 
-
 # Workflow: Hero Section Implementation (Ghost Atmosphere)
 
 ## Overview
@@ -16,7 +15,7 @@ description: hero
 
 1. **Create `HomeHero.tsx` (Orchestrator)**
 
-   *Aligns with "ESPECIFICAÇÃO POR SEÇÃO: Hero"*
+   _Aligns with "ESPECIFICAÇÃO POR SEÇÃO: Hero"_
 
    ```tsx
    // src/components/home/HomeHero.tsx
@@ -33,16 +32,20 @@ description: hero
      const ref = useRef<HTMLDivElement>(null);
      const { scrollYProgress } = useScroll({
        target: ref,
-       offset: ["start start", "end end"]
+       offset: ['start start', 'end end'],
      });
 
      // Video Scroll Transformation (Desktop)
      // Scale: Starts small (0.3) -> Fullscreen (1)
      const scaleVideo = useTransform(scrollYProgress, [0, 1], [0.3, 1]);
      // Position: Starts centered vertically relative to bottom -> Moves to top (0%)
-     const posYVideo = useTransform(scrollYProgress, [0, 1], ["50%", "0%"]);
+     const posYVideo = useTransform(scrollYProgress, [0, 1], ['50%', '0%']);
      // Radius: Starts rounded -> Becomes square when fullscreen
-     const borderRadius = useTransform(scrollYProgress, [0, 1], ["16px", "0px"]);
+     const borderRadius = useTransform(
+       scrollYProgress,
+       [0, 1],
+       ['16px', '0px']
+     );
      // Text Opacity: Fades out as user scrolls
      const opacityText = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
 
@@ -66,7 +69,7 @@ description: hero
          {/* 3. Ghost Atmosphere WebGL (z-20) */}
          {/* pointer-events-none allows clicks to pass through to text */}
          <div className="absolute inset-0 z-20 pointer-events-none">
-            <GhostStage />
+           <GhostStage />
          </div>
 
          {/* 4. Editorial Text (z-10) */}
@@ -85,8 +88,9 @@ description: hero
        </section>
      );
    }
+   ```
 
-```
+````
 
 2. **Ghost WebGL (`Ghost.tsx`)** – Organic Motion
 *Uses the specific harmonic sine waves from the spec.*
@@ -126,11 +130,11 @@ export default function Ghost() {
   );
 }
 
-```
-
+````
 
 3. **Mouse Follow (`GhostCanvas.tsx`)**
-*Implements the "Ghost segue lentamente o cursor (lerp 0.05)" rule.*
+   _Implements the "Ghost segue lentamente o cursor (lerp 0.05)" rule._
+
 ```tsx
 // src/components/home/webgl/GhostCanvas.tsx
 'use client';
@@ -161,31 +165,39 @@ function MouseFollower({ children }: { children: React.ReactNode }) {
     const targetX = mouse.current.x * 2; // Movement range multiplier
     const targetY = mouse.current.y * 1;
 
-    groupRef.current.position.x += (targetX - groupRef.current.position.x) * 0.05;
-    groupRef.current.position.y += (targetY - groupRef.current.position.y) * 0.05;
+    groupRef.current.position.x +=
+      (targetX - groupRef.current.position.x) * 0.05;
+    groupRef.current.position.y +=
+      (targetY - groupRef.current.position.y) * 0.05;
 
     // Subtle rotation based on movement
-    groupRef.current.rotation.y += (mouse.current.x * 0.5 - groupRef.current.rotation.y) * 0.02;
+    groupRef.current.rotation.y +=
+      (mouse.current.x * 0.5 - groupRef.current.rotation.y) * 0.02;
   });
 
   return <group ref={groupRef}>{children}</group>;
 }
 
-export default function GhostCanvas({ children }: { children: React.ReactNode }) {
-   return (
-     <Canvas dpr={[1, 2]} gl={{ antialias: false }} camera={{ position: [0, 0, 5], fov: 45 }}>
-       <MouseFollower>
-          {children}
-       </MouseFollower>
-     </Canvas>
-   )
+export default function GhostCanvas({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <Canvas
+      dpr={[1, 2]}
+      gl={{ antialias: false }}
+      camera={{ position: [0, 0, 5], fov: 45 }}
+    >
+      <MouseFollower>{children}</MouseFollower>
+    </Canvas>
+  );
 }
-
 ```
 
-
 4. **Preloader (`HeroPreloader.tsx`)**
-*Implements "Summoning spirits" with Ghost Blue gradient.*
+   _Implements "Summoning spirits" with Ghost Blue gradient._
+
 ```tsx
 // src/components/home/HeroPreloader.tsx
 'use client';
@@ -198,12 +210,22 @@ export default function HeroPreloader() {
       initial={{ opacity: 1 }}
       animate={{ opacity: 0 }}
       transition={{ delay: 1.5, duration: 1 }}
-      onAnimationComplete={() => { document.body.style.overflow = 'auto'; }}
+      onAnimationComplete={() => {
+        document.body.style.overflow = 'auto';
+      }}
       className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#06071f]"
     >
       {/* Ghost SVG Icon */}
-      <svg className="ghost-svg mb-4 animate-bounce" height="80" viewBox="0 0 512 512" width="80">
-         <path fill="white" d="M508.3 432.8s-46.6-39-79.5-275.8C420 69.3 346 0 256 0S92 69.3 83.2 157C50.3 393.7 3.7 432.8 3.7 432.8-11.4 458 24.4 461 42.4 460.7c35.3-.5 35.3 40.3 70.5 40.3s35.3-35.3 70.5-35.3 37.4 45.3 72.7 45.3 37.4-45.3 72.7-45.3 35.3 35.3 70.5 35.3 35.3-40.8 70.6-40.3c18 0.3 53.8-2.8 38.7-27.9z"/>
+      <svg
+        className="ghost-svg mb-4 animate-bounce"
+        height="80"
+        viewBox="0 0 512 512"
+        width="80"
+      >
+        <path
+          fill="white"
+          d="M508.3 432.8s-46.6-39-79.5-275.8C420 69.3 346 0 256 0S92 69.3 83.2 157C50.3 393.7 3.7 432.8 3.7 432.8-11.4 458 24.4 461 42.4 460.7c35.3-.5 35.3 40.3 70.5 40.3s35.3-35.3 70.5-35.3 37.4 45.3 72.7 45.3 37.4-45.3 72.7-45.3 35.3 35.3 70.5 35.3 35.3-40.8 70.6-40.3c18 0.3 53.8-2.8 38.7-27.9z"
+        />
       </svg>
 
       <p className="font-mono text-xs uppercase tracking-widest text-[#e0e0e0] mb-2">
@@ -215,19 +237,18 @@ export default function HeroPreloader() {
         <motion.div
           className="h-full bg-gradient-to-r from-[#0057FF] to-[#5227FF]" // primary to accent
           initial={{ width: 0 }}
-          animate={{ width: "100%" }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
+          animate={{ width: '100%' }}
+          transition={{ duration: 1.5, ease: 'easeInOut' }}
         />
       </div>
     </motion.div>
   );
 }
-
 ```
 
-
 5. **Manifesto Thumb Component (`ManifestoThumb.tsx`)**
-*Uses the specific Supabase video URL.*
+   _Uses the specific Supabase video URL._
+
 ```tsx
 // src/components/home/ManifestoThumb.tsx
 export default function ManifestoThumb() {
@@ -243,16 +264,12 @@ export default function ManifestoThumb() {
     />
   );
 }
-
 ```
-
-
 
 ## Non‑Negotiables
 
-* **Z-Index Hierarchy:** Preloader (50) > Thumb (30) > Ghost (20) > Text (10).
-* **Colors:** Background `#06071f`, Text `#d9dade` (Contrast 7.2:1).
-* **Performance:** `dpr` limited to 2, `antialias: false` for GhostCanvas.
-* **Accessibility:** `prefers-reduced-motion` must disable Ghost movement and Video expansion.
-* **Content:** Hero Text must remain legible despite being z-index 10.
-
+- **Z-Index Hierarchy:** Preloader (50) > Thumb (30) > Ghost (20) > Text (10).
+- **Colors:** Background `#06071f`, Text `#d9dade` (Contrast 7.2:1).
+- **Performance:** `dpr` limited to 2, `antialias: false` for GhostCanvas.
+- **Accessibility:** `prefers-reduced-motion` must disable Ghost movement and Video expansion.
+- **Content:** Hero Text must remain legible despite being z-index 10.

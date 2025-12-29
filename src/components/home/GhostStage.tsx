@@ -10,8 +10,6 @@ type GhostStageProps = {
 };
 
 const FallbackGradient = () => {
-
-
   return (
     <div
       className={`absolute inset-0 pointer-events-none ${styles.fallbackGradient}`}

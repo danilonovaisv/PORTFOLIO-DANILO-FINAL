@@ -64,13 +64,15 @@ const CategoryThumbnail: FC<CategoryThumbnailProps> = ({
                 : 'right-full mr-8 origin-right'
             }
           `}
+        >
+          <motion.div
+            className="w-full h-full relative"
+            initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.02 }}
+            animate={{ scale: 1, transition }}
+            exit={
+              shouldReduceMotion ? { scale: 1 } : { scale: 1.02, transition }
+            }
           >
-            <motion.div
-              className="w-full h-full relative"
-              initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.02 }}
-              animate={{ scale: 1, transition }}
-              exit={shouldReduceMotion ? { scale: 1 } : { scale: 1.02, transition }}
-            >
             <div className="w-full h-full relative">
               {thumb.match(/\.(mp4|webm|ogg)$/i) ? (
                 <video

@@ -71,7 +71,7 @@ const CategoryStripe: FC<CategoryStripeProps> = ({
               ? 'justify-between md:justify-end'
               : index === 1
                 ? 'justify-between md:justify-center'
-                : 'justify-between md:justify-start hover:md:translate-x-20'
+                : 'justify-between md:justify-start'
             }`
           }
         `}

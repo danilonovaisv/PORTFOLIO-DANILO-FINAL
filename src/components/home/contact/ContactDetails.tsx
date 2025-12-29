@@ -2,7 +2,15 @@ import { FC } from 'react';
 import { motion } from 'framer-motion';
 import { SOCIALS } from '@/config/navigation';
 import { Button } from '@/components/ui/Button';
-import { Mail, Phone, MapPin, Linkedin, Instagram, Twitter, Facebook } from 'lucide-react';
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Linkedin,
+  Instagram,
+  Twitter,
+  Facebook,
+} from 'lucide-react';
 
 const ContactDetails: FC = () => {
   const contactInfo = [
@@ -25,10 +33,26 @@ const ContactDetails: FC = () => {
 
   /* Helper for social icons matching Footer logic or reusing specific list */
   const socialList = [
-    { platform: 'LinkedIn', url: SOCIALS.linkedin, icon: <Linkedin className="w-5 h-5" /> },
-    { platform: 'Instagram', url: SOCIALS.instagram, icon: <Instagram className="w-5 h-5" /> },
-    { platform: 'Facebook', url: SOCIALS.facebook, icon: <Facebook className="w-5 h-5" /> },
-    { platform: 'Twitter', url: SOCIALS.twitter, icon: <Twitter className="w-5 h-5" /> },
+    {
+      platform: 'LinkedIn',
+      url: SOCIALS.linkedin,
+      icon: <Linkedin className="w-5 h-5" />,
+    },
+    {
+      platform: 'Instagram',
+      url: SOCIALS.instagram,
+      icon: <Instagram className="w-5 h-5" />,
+    },
+    {
+      platform: 'Facebook',
+      url: SOCIALS.facebook,
+      icon: <Facebook className="w-5 h-5" />,
+    },
+    {
+      platform: 'Twitter',
+      url: SOCIALS.twitter,
+      icon: <Twitter className="w-5 h-5" />,
+    },
   ];
 
   return (

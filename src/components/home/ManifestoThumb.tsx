@@ -13,7 +13,7 @@ interface ManifestoThumbProps {
 
 /**
  * ManifestoThumb Component
- * 
+ *
  * Premium editorial entry animation with scroll-driven morph.
  * - Desktop: Click skips to fullscreen state
  * - Mobile: Click toggles audio
@@ -21,7 +21,7 @@ interface ManifestoThumbProps {
  */
 export default function ManifestoThumb({
   narrativeState: _narrativeState,
-  onSkipToFullscreen
+  onSkipToFullscreen,
 }: ManifestoThumbProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true);
@@ -53,10 +53,11 @@ export default function ManifestoThumb({
         const heroSection = document.getElementById('hero');
         if (heroSection) {
           // Scroll to 80% of hero height (where video is fullscreen)
-          const targetScroll = heroSection.offsetTop + (heroSection.offsetHeight * 0.8);
+          const targetScroll =
+            heroSection.offsetTop + heroSection.offsetHeight * 0.8;
           window.scrollTo({
             top: targetScroll,
-            behavior: 'smooth'
+            behavior: 'smooth',
           });
         }
       }
@@ -67,8 +68,8 @@ export default function ManifestoThumb({
   const entryVariants = {
     hidden: {
       opacity: 0,
-      y: prefersReducedMotion ? 0 : 18,
-      scale: prefersReducedMotion ? 1 : 0.98
+      y: prefersReducedMotion ? 0 : 12,
+      scale: prefersReducedMotion ? 1 : 0.98,
     },
     visible: {
       opacity: 1,
@@ -76,13 +77,13 @@ export default function ManifestoThumb({
       scale: 1,
       transition: {
         duration: prefersReducedMotion ? 0 : 0.7,
-        ease: [0.22, 1, 0.36, 1] as const // Smooth expo out - typed as Bézier tuple
-      }
-    }
+        ease: [0.22, 1, 0.36, 1] as const, // Smooth expo out - typed as Bézier tuple
+      },
+    },
   };
 
   // Hover animation (disabled for reduced motion)
-  const hoverScale = prefersReducedMotion ? 1 : 1.02;
+  const hoverScale = prefersReducedMotion ? 1 : 1.04;
 
   return (
     <motion.div
@@ -120,7 +121,11 @@ export default function ManifestoThumb({
       {/* Sound Toggle Indicator (Mobile) */}
       <div className="absolute bottom-4 right-4 md:hidden" aria-hidden="true">
         <span className="flex items-center justify-center w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white">
-          {isMuted ? <VolumeX className="w-5 h-5" /> : <Volume2 className="w-5 h-5" />}
+          {isMuted ? (
+            <VolumeX className="w-5 h-5" />
+          ) : (
+            <Volume2 className="w-5 h-5" />
+          )}
         </span>
       </div>
 

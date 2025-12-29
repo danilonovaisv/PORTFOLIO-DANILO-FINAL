@@ -20,7 +20,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       lerp: 0.08,
       wheelMultiplier: 1,
       touchMultiplier: 1.2,
-      // smoothTouch is deprecated or not available in standard types depending on version, 
+      // smoothTouch is deprecated or not available in standard types depending on version,
       // but 'smooth' definitely doesn't exist. Keeping others for now.
     });
 

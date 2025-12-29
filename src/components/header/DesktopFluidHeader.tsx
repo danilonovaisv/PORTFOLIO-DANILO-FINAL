@@ -49,7 +49,8 @@ const DesktopFluidHeader: React.FC<DesktopFluidHeaderProps> = ({
   const navItemRefs = useRef<Array<HTMLAnchorElement | undefined>>([]);
 
   const magnetizedNavItems = useMemo<NavItem[]>(() => navItems, [navItems]);
-  const headerClassName = `fixed left-0 top-0 z-40 w-full overflow-hidden ${className ?? ''}`.trim();
+  const headerClassName =
+    `fixed left-0 top-0 z-40 w-full overflow-hidden ${className ?? ''}`.trim();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -171,7 +172,9 @@ const DesktopFluidHeader: React.FC<DesktopFluidHeaderProps> = ({
           {magnetizedNavItems.map((link, idx) => {
             const isActive =
               (link.href === '/' && pathname === '/') ||
-              (link.href !== '/' && !link.href.startsWith('#') && pathname.startsWith(link.href));
+              (link.href !== '/' &&
+                !link.href.startsWith('#') &&
+                pathname.startsWith(link.href));
             return (
               <Link
                 key={link.href}
@@ -181,13 +184,13 @@ const DesktopFluidHeader: React.FC<DesktopFluidHeaderProps> = ({
                   navItemRefs.current[idx] = node ?? undefined;
                 }}
                 onClick={() => onNavigate(link.href)}
-                className={`group relative px-2 py-1 transition-all duration-300 hover:text-white ${isActive ? 'text-sky-300' : ''}`}
+                className={`group relative px-2 py-1 transition-all duration-300 hover:text-white ${isActive ? 'text-focus-ring' : ''}`}
                 target={link.external ? '_blank' : undefined}
                 rel={link.external ? 'noreferrer' : undefined}
               >
                 <span className="relative z-10">{link.label}</span>
                 <span
-                  className={`absolute inset-x-1 -bottom-1 h-px origin-center bg-linear-to-r from-transparent via-sky-400 to-transparent transition-transform duration-300 ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
+                  className={`absolute inset-x-1 -bottom-1 h-px origin-center bg-linear-to-r from-transparent via-focus-ring to-transparent transition-transform duration-300 ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
                 />
               </Link>
             );

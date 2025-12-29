@@ -34,7 +34,11 @@ const FeaturedProjects: React.FC = () => {
           {projects[0] && (
             <div className="md:col-span-5">
               <div className="h-[360px] w-full md:h-[520px]">
-                <ProjectCard project={projects[0]} index={0} className="h-full" />
+                <ProjectCard
+                  project={projects[0]}
+                  index={0}
+                  className="h-full"
+                />
               </div>
             </div>
           )}
@@ -43,7 +47,11 @@ const FeaturedProjects: React.FC = () => {
           {projects[1] && (
             <div className="md:col-span-7">
               <div className="h-[320px] w-full md:h-[520px]">
-                <ProjectCard project={projects[1]} index={1} className="h-full" />
+                <ProjectCard
+                  project={projects[1]}
+                  index={1}
+                  className="h-full"
+                />
               </div>
             </div>
           )}
@@ -52,7 +60,11 @@ const FeaturedProjects: React.FC = () => {
           {projects[2] && (
             <div className="md:col-span-12">
               <div className="h-[300px] w-full md:h-[420px]">
-                <ProjectCard project={projects[2]} index={2} className="h-full" />
+                <ProjectCard
+                  project={projects[2]}
+                  index={2}
+                  className="h-full"
+                />
               </div>
             </div>
           )}
@@ -61,7 +73,11 @@ const FeaturedProjects: React.FC = () => {
           {projects[3] && (
             <div className="md:col-span-8">
               <div className="h-[280px] w-full md:h-[420px]">
-                <ProjectCard project={projects[3]} index={3} className="h-full" />
+                <ProjectCard
+                  project={projects[3]}
+                  index={3}
+                  className="h-full"
+                />
               </div>
             </div>
           )}

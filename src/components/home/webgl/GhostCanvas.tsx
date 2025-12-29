@@ -80,7 +80,10 @@ function GhostScene() {
     else if (isMobile) targetScale = 0.9;
 
     // Smooth scale transition
-    ghostGroupRef.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, targetScale), 0.1);
+    ghostGroupRef.current.scale.lerp(
+      new THREE.Vector3(targetScale, targetScale, targetScale),
+      0.1
+    );
 
     // Sync Ref for Veil
     ghostPosRef.current.copy(ghostGroupRef.current.position);
@@ -185,7 +188,8 @@ export default function GhostCanvas({ eventSource }: GhostCanvasProps) {
       className="absolute inset-0 pointer-events-none"
       style={{ background: 'transparent' }}
     >
-      <ambientLight intensity={0.08} color="#0a0a2e" /> {/* Reference: 0.08, 0x0a0a2e */}
+      <ambientLight intensity={0.08} color="#0a0a2e" />{' '}
+      {/* Reference: 0.08, 0x0a0a2e */}
       <directionalLight
         position={[-8, 6, -4]}
         intensity={1.8}
@@ -195,11 +199,11 @@ export default function GhostCanvas({ eventSource }: GhostCanvasProps) {
         position={[8, -4, -6]}
         intensity={1.26}
         color="#50e3c2"
-      /> {/* Reference: 0.7 * 1.8 = 1.26, color 0x50e3c2 */}
-
+      />{' '}
+      {/* Reference: 0.7 * 1.8 = 1.26, color 0x50e3c2 */}
       <GhostScene />
-      <Fireflies count={reducedMotion ? 20 : 20} /> {/* Reference: 20 fireflies */}
-
+      <Fireflies count={reducedMotion ? 20 : 20} />{' '}
+      {/* Reference: 20 fireflies */}
       {/* Bloom - matching Reference Strength 0.3, Threshold 0, Radius 1.25 */}
       {/* R3F Bloom intensity behaves differently, sticking to ~1.0 for vanilla equivalence roughly, or keeping high if needed */}
       <EffectComposer enableNormalPass={false}>
@@ -210,7 +214,11 @@ export default function GhostCanvas({ eventSource }: GhostCanvasProps) {
           luminanceSmoothing={0.9}
           mipmapBlur={false}
         />
-        {reducedMotion || isMobile ? <></> : <AnalogDecayPass key="analog-decay" />}
+        {reducedMotion || isMobile ? (
+          <></>
+        ) : (
+          <AnalogDecayPass key="analog-decay" />
+        )}
         <Vignette key="vignette" offset={0.12} darkness={0.78} />
       </EffectComposer>
     </Canvas>

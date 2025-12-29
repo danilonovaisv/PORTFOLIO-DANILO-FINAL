@@ -1,6 +1,13 @@
 'use client';
 
-import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { gsap } from 'gsap';
@@ -196,7 +203,11 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
 
     if (resolvedIsOpen) {
       const tl = gsap.timeline();
-      tl.to(overlay, { opacity: 1, duration: OVERLAY_DURATION, ease: 'power2.out' }, 0);
+      tl.to(
+        overlay,
+        { opacity: 1, duration: OVERLAY_DURATION, ease: 'power2.out' },
+        0
+      );
       tl.to(
         panel,
         { xPercent: 0, duration: PANEL_DURATION, ease: 'power2.out' },
@@ -233,7 +244,11 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
       const tl = gsap.timeline({
         onComplete: () => setIsRendered(false),
       });
-      tl.to(overlay, { opacity: 0, duration: OVERLAY_DURATION, ease: 'power2.in' }, 0);
+      tl.to(
+        overlay,
+        { opacity: 0, duration: OVERLAY_DURATION, ease: 'power2.in' },
+        0
+      );
       if (items.length) {
         tl.to(
           [...items].reverse(),
@@ -296,20 +311,19 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
             <div
               ref={panelRef}
               className="absolute inset-0 bg-[linear-gradient(135deg,var(--menu-gradient-start),var(--menu-gradient-end))]"
-              style={{
-                '--menu-gradient-start': resolvedGradient[0],
-                '--menu-gradient-end': resolvedGradient[1],
-              } as React.CSSProperties}
+              style={
+                {
+                  '--menu-gradient-start': resolvedGradient[0],
+                  '--menu-gradient-end': resolvedGradient[1],
+                } as React.CSSProperties
+              }
             />
 
             {/* Conteúdo do menu */}
             <div className="relative flex h-full flex-col justify-between px-8 pb-12 pt-24 text-white">
               <nav>
                 {navItems.map((link, index) => (
-                  <div
-                    key={link.href}
-                    className="flex items-center gap-4 py-3"
-                  >
+                  <div key={link.href} className="flex items-center gap-4 py-3">
                     <span
                       ref={(node) => {
                         if (node) numberRefs.current[index] = node;
@@ -335,7 +349,6 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
                   </div>
                 ))}
               </nav>
-
             </div>
           </div>
         </div>
@@ -369,20 +382,25 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
             aria-expanded={resolvedIsOpen}
             aria-controls={MENU_ID}
             aria-haspopup="dialog"
-            className={`flex h-10 w-10 items-center justify-center rounded-md border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent ${resolvedIsOpen
-              ? 'border-white/50 bg-white/85 text-black'
-              : 'bg-white/10'
-              }`}
+            className={`flex h-10 w-10 items-center justify-center rounded-md border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent ${
+              resolvedIsOpen
+                ? 'border-white/50 bg-white/85 text-black'
+                : 'bg-white/10'
+            }`}
             style={
               resolvedIsOpen
                 ? undefined
                 : ({
-                  color: accentColor,
-                  borderColor: `${accentColor}40`,
-                } as React.CSSProperties)
+                    color: accentColor,
+                    borderColor: `${accentColor}40`,
+                  } as React.CSSProperties)
             }
           >
-            {resolvedIsOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {resolvedIsOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
           </button>
         </div>
       </header>

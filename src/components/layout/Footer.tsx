@@ -13,20 +13,27 @@ const Footer: React.FC = () => {
   // Helper to map social keys to icons
   const getSocialIcon = (key: string) => {
     switch (key) {
-      case 'instagram': return <Instagram className="w-5 h-5" />;
-      case 'linkedin': return <Linkedin className="w-5 h-5" />;
-      case 'twitter': return <Twitter className="w-5 h-5" />;
-      case 'facebook': return <Facebook className="w-5 h-5" />;
-      default: return null;
+      case 'instagram':
+        return <Instagram className="w-5 h-5" />;
+      case 'linkedin':
+        return <Linkedin className="w-5 h-5" />;
+      case 'twitter':
+        return <Twitter className="w-5 h-5" />;
+      case 'facebook':
+        return <Facebook className="w-5 h-5" />;
+      default:
+        return null;
     }
   };
 
   const socialLinks = Object.entries(SOCIALS)
-    .filter(([key]) => ['instagram', 'linkedin', 'twitter', 'facebook'].includes(key))
+    .filter(([key]) =>
+      ['instagram', 'linkedin', 'twitter', 'facebook'].includes(key)
+    )
     .map(([key, url]) => ({
       platform: key,
       url,
-      icon: getSocialIcon(key)
+      icon: getSocialIcon(key),
     }));
 
   const footerLinks = NAVIGATION.footer.links;
@@ -39,8 +46,8 @@ const Footer: React.FC = () => {
 
   return (
     <motion.footer
-      initial={isDesktop ? "hidden" : undefined}
-      animate={isDesktop ? "visible" : undefined}
+      initial={isDesktop ? 'hidden' : undefined}
+      animate={isDesktop ? 'visible' : undefined}
       variants={footerVariants}
       className="w-full bg-focus-ring text-white overflow-hidden relative lg:fixed lg:bottom-0 lg:left-0 lg:z-50 lg:border-t lg:border-white/10"
     >
@@ -76,16 +83,25 @@ const Footer: React.FC = () => {
                   </span>
                 );
 
-                const className = "group relative text-sm font-medium lowercase text-white/85 transition-opacity duration-300 hover:text-white lg:hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-focus-ring rounded px-2 py-1";
+                const className =
+                  'group relative text-sm font-medium lowercase text-white/85 transition-opacity duration-300 hover:text-white lg:hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-focus-ring rounded px-2 py-1';
 
                 return (
                   <li key={link.label}>
                     {isInternal && !isAnchor ? (
-                      <Link href={link.href} className={className} aria-label={`Ir para ${link.label}`}>
+                      <Link
+                        href={link.href}
+                        className={className}
+                        aria-label={`Ir para ${link.label}`}
+                      >
                         {content}
                       </Link>
                     ) : (
-                      <a href={link.href} className={className} aria-label={`Ir para ${link.label}`}>
+                      <a
+                        href={link.href}
+                        className={className}
+                        aria-label={`Ir para ${link.label}`}
+                      >
                         {content}
                       </a>
                     )}

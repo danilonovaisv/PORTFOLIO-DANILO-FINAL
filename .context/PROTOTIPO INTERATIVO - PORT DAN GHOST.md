@@ -1,22 +1,23 @@
-
 # **Documento de Especificação Técnica — Home Page**
+
 **Projeto:** Portfólio Institucional de Danilo Novais
 **Páginas Principais:** Home, Sobre, Portfólio, Contato
 **Foco deste Documento:** Home Page (seções: Header, Hero,Portfolio Showcase, Featured Projects, Clients/Brands, Contact, Footer)
+
 ---
 
-## **INFORMAÇÕES GLOBAIS
-
+## \*\*INFORMAÇÕES GLOBAIS
 
 1. Contexto do Projeto
-• Projeto: Portfólio Institucional de Danilo Novais
-• Páginas principais:
+   • Projeto: Portfólio Institucional de Danilo Novais
+   • Páginas principais:
    • Home
    • Sobre
    • Portfólio
    • Contato
 
 Ordem das seções da Home
+
 1. Header
 2. Hero
 3. Portfolio Showcase
@@ -42,8 +43,8 @@ Typography
 • Fonte principal: TT Norms Pro (self-host, se licenciado)
 • Fallbacks: ui-sans-serif, system-ui
 • Tamanhos e pesos:
-   • Logo: 18–22px, font-semibold
-   • Navegação: 15–16px, font-medium, tracking-tight
+• Logo: 18–22px, font-semibold
+• Navegação: 15–16px, font-medium, tracking-tight
 
 ⸻
 
@@ -68,7 +69,7 @@ https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/Favi
 Hero
 • Tag: [BRAND AWARENESS]
 • Título: Design, não é
-  só estética.
+só estética.
 • Subtítulo: [É intenção, é estratégia, é experiência.]
 • CTA (label): get to know me better →
 • CTA secundário (scroll): #manifesto
@@ -84,13 +85,13 @@ https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos
 ⸻
 
 4. Princípios Globais de Animação
-• DOM: Framer Motion
+   • DOM: Framer Motion
    • Reveals: whileInView
    • Microinterações: whileHover, whileTap
    • Scroll: useScroll, useTransform
-• Animar apenas transform e opacity
-• WebGL: React Three Fiber (useFrame)
-• prefers-reduced-motion: reduce
+   • Animar apenas transform e opacity
+   • WebGL: React Three Fiber (useFrame)
+   • prefers-reduced-motion: reduce
    • Desativar follow, bloom intenso e parallax
    • Manter layout e fades simples
 
@@ -101,23 +102,22 @@ Portfolio Showcase
 
 Categorias
 • brand-campaigns
-   • UI: Brand & Campaigns
-   • PT: Brand & Campanhas
-   • Thumbnail:
+• UI: Brand & Campaigns
+• PT: Brand & Campanhas
+• Thumbnail:
 https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp
 
 • videos-motions
-   • UI: Videos & Motions
-   • PT: Vídeos & Motions
-   • Thumbnail:
+• UI: Videos & Motions
+• PT: Vídeos & Motions
+• Thumbnail:
 https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif
 
 • websites-webcampaigns-tech
-   • UI: Web Campaigns, Websites & Tech
-   • PT: Campanhas Web, Websites & Tech
-   • Thumbnail:
+• UI: Web Campaigns, Websites & Tech
+• PT: Campanhas Web, Websites & Tech
+• Thumbnail:
 https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp
-
 
 CTA final:
 • Label: VEJA MAIS →
@@ -164,6 +164,7 @@ Clients / Brands
 • Título: marcas com as quais já trabalhei
 
 Logos (monocromáticos claros)
+
 1. https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client1.svg
 2. https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client2.svg
 3. https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client3.svg
@@ -189,7 +190,7 @@ Form
 
 Links
 • Telefone: tel:+5511983966838
-• Email primário: mailto:danilo@portfoliodanilo.com 
+• Email primário: mailto:danilo@portfoliodanilo.com
 • Email secundário: mailto:dannovaisv@gmail.com
 • Instagram: https://instagram.com/danilo_novais
 • Facebook: https://facebook.com/danilonovaisvilela
@@ -201,43 +202,46 @@ Links
 
 Footer
 • Copyright:
-   • Home: © 2025 Danilo Novais Vilela — todos os direitos reservados.
-   • Footer (seção): © 2023 Danilo Novais Vilela. Todos os direitos reservados.
-   • Sugestão: Unificar para © 2025 ... em todo o site.
+• Home: © 2025 Danilo Novais Vilela — todos os direitos reservados.
+• Footer (seção): © 2023 Danilo Novais Vilela. Todos os direitos reservados.
+• Sugestão: Unificar para © 2025 ... em todo o site.
 
 • Links:
-   • home → #hero
-   • portfólio showcase → #portfolio-showcase
-   • sobre → #clients (atual) — sugestão: preferir /sobre
-   • contato → #contact
+• home → #hero
+• portfólio showcase → #portfolio-showcase
+• sobre → #clients (atual) — sugestão: preferir /sobre
+• contato → #contact
 
 ⸻
 
 4. Princípios Globais de Animação (consolidados)
-• Usar Framer Motion para:
+   • Usar Framer Motion para:
    • Reveals no scroll: whileInView, useInView
    • Microinterações: whileHover, whileTap
    • Animações de scroll: useScroll, useTransform
-• Animar apenas transform e opacity
-• Respeitar prefers-reduced-motion: reduce:
+   • Animar apenas transform e opacity
+   • Respeitar prefers-reduced-motion: reduce:
    • Desativar rotação 3D contínua, parallax e morph thumb→vídeo
    • Manter estados estáticos e fades simples
-• Implementação padrão com JS puro (requestAnimationFrame) apenas como alternativa quando necessário
+   • Implementação padrão com JS puro (requestAnimationFrame) apenas como alternativa quando necessário
 
 ## ESPECIFICAÇÃO POR SEÇÃO (TEMPLATE COMPLETO)
+
 ---
 
 # **SECTION NAME: Header (SiteHeader)**
-### Desktop: Fluid Glass Header (WebGL)  
+
+### Desktop: Fluid Glass Header (WebGL)
+
 ### Mobile & Tablet: Staggered Menu Header
 
 ---
 
 ## 🎯 SECTION PURPOSE
 
-- Entregar uma **navegação principal clara e acessível**, sempre visível.  
-- Criar uma **camada atmosférica premium** que conversa com a Hero, mas não compete com ela.  
-- Mostrar imediatamente as principais seções (ex.: Home, Sobre, Portfólio, Contato).  
+- Entregar uma **navegação principal clara e acessível**, sempre visível.
+- Criar uma **camada atmosférica premium** que conversa com a Hero, mas não compete com ela.
+- Mostrar imediatamente as principais seções (ex.: Home, Sobre, Portfólio, Contato).
 - Reforçar a identidade visual com o efeito de **vidro fluido (desktop)** e o **menu em cascata (mobile)**.
 
 > Regra geral: o Header é moldura, não protagonista. Ele complementa a Hero em vez de disputar atenção.
@@ -246,20 +250,20 @@ Footer
 
 ## 🎨 DESIGN & TOKENS
 
-- **Cores**  
-  - Fundo do header: vidro translúcido usando `primary`, `gradientStart`, `gradientEnd`.  
-  - Texto de navegação: `text` em desktop; `textInverse` quando necessário para contraste.  
+- **Cores**
+  - Fundo do header: vidro translúcido usando `primary`, `gradientStart`, `gradientEnd`.
+  - Texto de navegação: `text` em desktop; `textInverse` quando necessário para contraste.
   - Ícones (menu/close): usam `accentColor` do sistema.
 
-- **Tipografia**  
-  - Logo / Marca: mesma fonte do logotipo (ou variação display).  
-  - Itens de navegação: `font-medium`, tracking levemente positivo.  
+- **Tipografia**
+  - Logo / Marca: mesma fonte do logotipo (ou variação display).
+  - Itens de navegação: `font-medium`, tracking levemente positivo.
   - Itens secundários (social, etc. em mobile): `font-normal`, menor que nav principal.
 
-- **Z-Index / Camadas**  
-  - `z-0` → Background da página / Hero.  
-  - `z-20` → Conteúdo da Hero.  
-  - `z-40` → SiteHeader (sempre por cima da Hero).  
+- **Z-Index / Camadas**
+  - `z-0` → Background da página / Hero.
+  - `z-20` → Conteúdo da Hero.
+  - `z-40` → SiteHeader (sempre por cima da Hero).
 
 > Regra: sempre garantir contraste suficiente entre o header e o que estiver atrás (Hero, conteúdo, etc.).
 
@@ -270,25 +274,25 @@ Footer
 ### Desktop (≥1024px) — Fluid Glass Header
 
 - Posicionamento:
-  - Header flutuante, **fixo no topo** (`position: sticky` ou `fixed`, a definir), com margem superior.  
+  - Header flutuante, **fixo no topo** (`position: sticky` ou `fixed`, a definir), com margem superior.
   - Largura parcial (não full-width), centralizado horizontalmente.
 - Estilo:
-  - Container com **bordas bem arredondadas** (pill).  
-  - Fundo com vidro translúcido (blur + refração WebGL).  
+  - Container com **bordas bem arredondadas** (pill).
+  - Fundo com vidro translúcido (blur + refração WebGL).
   - Padding confortável em X e Y (altura aproximada: 56–72px).
 - Conteúdo interno:
-  - Esquerda: logo / marca.  
-  - Centro/Direita: lista horizontal de navegação (4–6 itens).  
+  - Esquerda: logo / marca.
+  - Centro/Direita: lista horizontal de navegação (4–6 itens).
   - Opcional: call-to-action discreto ou ícones sociais.
 
 ### Tablet & Mobile (≤1023px) — Staggered Menu Header
 
 - Barra superior fixa, full-width:
-  - Esquerda: logo.  
+  - Esquerda: logo.
   - Direita: ícone de menu (hamburger) que vira “X” ao abrir.
 - Altura semelhante ao desktop (48–64px), mas sem vidro flutuante “largo” — aqui o header é mais funcional.
 - Ao abrir o menu:
-  - Menu em **overlay fullscreen** (ou quase), vindo da direita, com gradiente de fundo.  
+  - Menu em **overlay fullscreen** (ou quase), vindo da direita, com gradiente de fundo.
   - Navegação em coluna, com texto grande e bem espaçado.
 
 ---
@@ -300,32 +304,32 @@ Footer
 **Comportamento principal:**
 
 - Header funciona como um “bloco de vidro líquido” que reage levemente ao cursor:
-  - Movimento **apenas no eixo X** (horizontal), acompanhado por uma leve escala.  
+  - Movimento **apenas no eixo X** (horizontal), acompanhado por uma leve escala.
   - Efeito de elasticidade / mola (spring), nunca “teleportando” pro cursor.
 
 **Parâmetros sugeridos (tokens de motion):**
 
-- `motion.glassDamping`  
-  - `followDamping` ≈ 0.08–0.12s (tempo para “alcançar” o cursor).  
-  - `maxTranslateX` ≈ 40–60px (deslocamento máximo).  
-  - `maxScaleX` ≈ 1.05  
-  - `maxScaleY` ≈ 1.02  
+- `motion.glassDamping`
+  - `followDamping` ≈ 0.08–0.12s (tempo para “alcançar” o cursor).
+  - `maxTranslateX` ≈ 40–60px (deslocamento máximo).
+  - `maxScaleX` ≈ 1.05
+  - `maxScaleY` ≈ 1.02
   - Easing: spring suave (leve overshoot, sem bounce exagerado).
 
 **Efeito visual do vidro:**
 
-- Refração e distorção sutil do conteúdo de fundo.  
-- Cromatismo leve nas bordas (aberração RGB discreta).  
+- Refração e distorção sutil do conteúdo de fundo.
+- Cromatismo leve nas bordas (aberração RGB discreta).
 - Blur de fundo ajustado para manter legibilidade do texto.
 
 **Interações de navegação:**
 
 - Hover em itens de nav:
-  - `opacity: 0.8 → 1`.  
-  - Subtle underline ou deslocamento Y de 1–2px no máximo.  
+  - `opacity: 0.8 → 1`.
+  - Subtle underline ou deslocamento Y de 1–2px no máximo.
   - Transição de 120–180ms, ease-out.
 - Clique:
-  - Navega para seção correspondente.  
+  - Navega para seção correspondente.
   - Scroll suave quando for âncora interna (a ser definido na implementação).
 
 ---
@@ -335,10 +339,10 @@ Footer
 Para `disableWebGL` ou `prefers-reduced-motion: reduce`:
 
 - Header mantém a **mesma forma, layout e tipografia**, mas:
-  - Sem refração, sem aberração cromática, sem follow ao cursor.  
+  - Sem refração, sem aberração cromática, sem follow ao cursor.
   - Usa blur padrão (`backdrop-filter`) ou um fundo sólido/gradient suave.
 - Motion:
-  - Nenhum movimento ligado ao cursor.  
+  - Nenhum movimento ligado ao cursor.
   - Apenas transições simples de opacidade / leve translate (se necessário).
 
 > Regra: o fallback deve ser visualmente consistente, mas sem depender de WebGL.
@@ -349,36 +353,36 @@ Para `disableWebGL` ou `prefers-reduced-motion: reduce`:
 
 **Estados do menu:**
 
-- `closed`  
-  - Header simples no topo.  
-  - Ícone de menu (hamburger).  
+- `closed`
+  - Header simples no topo.
+  - Ícone de menu (hamburger).
   - Corpo da página rolando normalmente.
 
-- `opening`  
-  - Overlay gradiente: `opacity 0 → 1` em ~200–250ms.  
-  - Painel lateral (menu): `translateX 100% → 0` em ~260–320ms (spring leve).  
+- `opening`
+  - Overlay gradiente: `opacity 0 → 1` em ~200–250ms.
+  - Painel lateral (menu): `translateX 100% → 0` em ~260–320ms (spring leve).
   - Ícone de menu faz morph para ícone “X”.
 
-- `open`  
-  - Menu ocupa praticamente toda a tela.  
-  - Scroll do `body` bloqueado.  
+- `open`
+  - Menu ocupa praticamente toda a tela.
+  - Scroll do `body` bloqueado.
   - Itens de navegação aparecem em **stagger** (cascata):
-    - Cada item:  
-      - `opacity 0 → 1`  
-      - `translateY 16px → 0`  
-      - `duration` ≈ 220ms  
+    - Cada item:
+      - `opacity 0 → 1`
+      - `translateY 16px → 0`
+      - `duration` ≈ 220ms
     - Delay incremental usando `motion.staggerDelay` (ex.: 0ms, 100ms, 200ms, 300ms…).
 
-- `closing`  
-  - Animações reversas: itens somem em ordem inversa, painel recua, overlay some.  
+- `closing`
+  - Animações reversas: itens somem em ordem inversa, painel recua, overlay some.
   - Ícone volta para hamburger.
 
 **Interações de fechar menu:**
 
-- Tap no ícone “X”.  
+- Tap no ícone “X”.
 - Tap em qualquer item de navegação:
-  - Fecha o menu + navega.  
-- Tap fora da área principal (overlay clicável) deve fechar o menu.  
+  - Fecha o menu + navega.
+- Tap fora da área principal (overlay clicável) deve fechar o menu.
 - (Opcional) Tecla ESC / gesto de back no navegador deve fechar quando relevante.
 
 ---
@@ -402,7 +406,7 @@ export interface SiteHeaderProps {
   disableWebGL?: boolean;
   reducedMotion?: boolean;
 }
-````
+```
 
 #### DesktopFluidHeader
 
@@ -418,7 +422,7 @@ export interface DesktopFluidHeaderProps {
     anisotropy: number;
     smoothness: number;
     maxTranslateX?: number;
-    followDamping?: number;   // mapeia para motion.glassDamping
+    followDamping?: number; // mapeia para motion.glassDamping
   };
 }
 ```
@@ -431,58 +435,54 @@ export interface MobileStaggeredMenuProps {
   logoUrl: string;
   gradient: [string, string];
   accentColor: string;
-  isOpen: boolean;            // controlado pelo SiteHeader
+  isOpen: boolean; // controlado pelo SiteHeader
   isFixed?: boolean;
   onOpen?: () => void;
   onClose?: () => void;
-  staggerDelay?: number;      // mapeia para motion.staggerDelay
+  staggerDelay?: number; // mapeia para motion.staggerDelay
 }
 ```
 
 ### Organização de arquivos (sugerida)
 
-* `components/header/SiteHeader.tsx`
-* `components/header/DesktopFluidHeader.tsx`
-* `components/header/MobileStaggeredMenu.tsx`
-* `components/header/headerTokens.ts`
-* `components/webgl/header/HeaderGlassCanvas.tsx` (quando necessário)
+- `components/header/SiteHeader.tsx`
+- `components/header/DesktopFluidHeader.tsx`
+- `components/header/MobileStaggeredMenu.tsx`
+- `components/header/headerTokens.ts`
+- `components/webgl/header/HeaderGlassCanvas.tsx` (quando necessário)
 
 ---
 
 ## ♿ ACCESSIBILITY & PERFORMANCE
 
-* Header sempre visível, com contraste adequado em todas as páginas.
+- Header sempre visível, com contraste adequado em todas as páginas.
 
-* Suporte a `prefers-reduced-motion: reduce`:
+- Suporte a `prefers-reduced-motion: reduce`:
+  - Desabilitar WebGL e movimentos baseados no cursor.
+  - Animações substituídas por transições discretas ou instantâneas.
 
-  * Desabilitar WebGL e movimentos baseados no cursor.
-  * Animações substituídas por transições discretas ou instantâneas.
+- Navegação por teclado:
+  - Foco visível nos links do header e itens de menu mobile.
+  - Ordem de tabulação coerente (logo → nav → CTA).
 
-* Navegação por teclado:
+- ARIA:
+  - Header marcado semanticamente (`<header>`).
+  - Ícone de menu com `aria-label` (“Abrir menu”, “Fechar menu”) e `aria-expanded`.
 
-  * Foco visível nos links do header e itens de menu mobile.
-  * Ordem de tabulação coerente (logo → nav → CTA).
-
-* ARIA:
-
-  * Header marcado semanticamente (`<header>`).
-  * Ícone de menu com `aria-label` (“Abrir menu”, “Fechar menu”) e `aria-expanded`.
-
-* Performance:
-
-  * WebGL do header deve ser leve (mesh / shader simples) e pausado ou simplificado em dispositivos fracos quando possível.
-  * Evitar re-renderizações desnecessárias no scroll.
+- Performance:
+  - WebGL do header deve ser leve (mesh / shader simples) e pausado ou simplificado em dispositivos fracos quando possível.
+  - Evitar re-renderizações desnecessárias no scroll.
 
 ---
 
 ## 🚫 NON-NEGOTIABLES
 
-* ❌ Header não pode comprometer legibilidade do conteúdo nem da Hero.
-* ❌ Sem animações agressivas de seguir cursor (nada “chiclete”).
-* ❌ Sem transições longas que atrasem a abertura do menu mobile.
-* ✅ Desktop: efeito Fluid Glass elegante, com interação moderada.
-* ✅ Mobile/Tablet: menu em cascata, rápido, claro e acessível.
-* ✅ Fallback sem WebGL totalmente funcional e visualmente coerente.
+- ❌ Header não pode comprometer legibilidade do conteúdo nem da Hero.
+- ❌ Sem animações agressivas de seguir cursor (nada “chiclete”).
+- ❌ Sem transições longas que atrasem a abertura do menu mobile.
+- ✅ Desktop: efeito Fluid Glass elegante, com interação moderada.
+- ✅ Mobile/Tablet: menu em cascata, rápido, claro e acessível.
+- ✅ Fallback sem WebGL totalmente funcional e visualmente coerente.
 
 ---
 
@@ -491,92 +491,92 @@ export interface MobileStaggeredMenuProps {
 **Status:** Prototipado e refinado para implementação
 **Owner:** UI Systems / Header
 
-
 ### 🧩 ASSETS GLOBAIS — Logos
 
 Miniatura para janela
-    •    Logo Light:
+• Logo Light:
 ["./src/assets/logos/LogoLight.svg"]
 https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg
-    •    Logo Dark:
+• Logo Dark:
 ["./src/assets/logos/LogoDark.svg"]
 https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg
 
 ⸻
 
 Logos para páginas e menu
-    •    Favicon:
+• Favicon:
 ["./src/assets/logos/Favicon.svg"]
 https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/Favicon.svg
-    •    Favicon Light:
+• Favicon Light:
 ["./src/assets/logos/FaviconLight.svg"]
 https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg
 
 ---
 
-
-
-
-#  **HERO + MANIFESTO — Portfólio Institucional de Danilo Novais**
+# **HERO + MANIFESTO — Portfólio Institucional de Danilo Novais**
 
 ## SECTION NAME
+
 **Hero (Ghost Atmosphere + Texto Editorial + Manifesto Subsection)**
 
 ---
 
 ## 🎯 SECTION PURPOSE
-- Criar impacto visual inicial com atmosfera **Ghost Blue** etérea e viva.  
-- Comunicar posicionamento estratégico através de **texto editorial estático**.  
+
+- Criar impacto visual inicial com atmosfera **Ghost Blue** etérea e viva.
+- Comunicar posicionamento estratégico através de **texto editorial estático**.
 - Integrar o **vídeo manifesto** como subcamada sensorial da Hero (desktop)  
-  e seção independente em fullscreen no mobile.  
-- Introduzir a identidade “premium + experimental” sem poluição visual.  
+  e seção independente em fullscreen no mobile.
+- Introduzir a identidade “premium + experimental” sem poluição visual.
 
 ---
 
 ## 💠 DESIGN TOKENS
 
 ### Colors
-| Token | Value | Description |
-|--------|--------|-------------|
-| `primary` | `#0057FF` | Cor principal da atmosfera “Ghost Blue” |
-| `accent` | `#5227FF` | Glow e emissive secundário |
-| `bg` | `#06071f` | Fundo escuro de base |
-| `neutral` | `#0b0d3a` | Gradiente de transição para o fundo |
-| `text` | `#d9dade` | Texto editorial principal |
+
+| Token       | Value     | Description                                  |
+| ----------- | --------- | -------------------------------------------- |
+| `primary`   | `#0057FF` | Cor principal da atmosfera “Ghost Blue”      |
+| `accent`    | `#5227FF` | Glow e emissive secundário                   |
+| `bg`        | `#06071f` | Fundo escuro de base                         |
+| `neutral`   | `#0b0d3a` | Gradiente de transição para o fundo          |
+| `text`      | `#d9dade` | Texto editorial principal                    |
 | `highlight` | `#FFFFFF` | Picos de luminosidade e brilho de partículas |
 
 ---
 
 ### Typography
-- **TT Norms Pro**, self-host *(ou fallback: `ui-sans-serif`, `system-ui`)*  
+
+- **TT Norms Pro**, self-host _(ou fallback: `ui-sans-serif`, `system-ui`)_
 - Hierarquia:
   - `[BRAND AWARENESS]` → 12px, uppercase, `font-mono`
   - `h1` → 4rem–6rem, `font-bold`, `tracking-tight`
   - Subcopy → 1rem–1.25rem, regular
-  - CTA → 0.9rem, uppercase, `tracking-wide`, `duration-300`, hover branco  
+  - CTA → 0.9rem, uppercase, `tracking-wide`, `duration-300`, hover branco
 
 ---
 
 ## 🧱 LAYER STRUCTURE (Z-INDEX HIERARCHY)
 
-| Ordem | Layer | Descrição |
-|-------|--------|------------|
-| **z-50** | 🩵 **Preloader (Ghost Loader)** | SVG animado “Summoning spirits” com barra de progresso |
-| **z-30** | 🎞️ **Thumb Vídeo Manifesto** | Vídeo interativo flutuante (subcategoria da Hero) |
-| **z-20** | 👻 **Animação Ghost (WebGL)** | Atmosfera viva: Ghost, partículas e fireflies |
-| **z-10** | ✍️ **Texto Editorial (HeroCopy)** | Conteúdo fixo e centralizado |
-| **z-0** | 🌌 **Gradiente Base** | Fundo `#06071f` + radial `#0b0d3a` |
+| Ordem    | Layer                             | Descrição                                              |
+| -------- | --------------------------------- | ------------------------------------------------------ |
+| **z-50** | 🩵 **Preloader (Ghost Loader)**   | SVG animado “Summoning spirits” com barra de progresso |
+| **z-30** | 🎞️ **Thumb Vídeo Manifesto**      | Vídeo interativo flutuante (subcategoria da Hero)      |
+| **z-20** | 👻 **Animação Ghost (WebGL)**     | Atmosfera viva: Ghost, partículas e fireflies          |
+| **z-10** | ✍️ **Texto Editorial (HeroCopy)** | Conteúdo fixo e centralizado                           |
+| **z-0**  | 🌌 **Gradiente Base**             | Fundo `#06071f` + radial `#0b0d3a`                     |
 
 ---
 
 ## 🧩 COMPONENTS
 
 components/home/
-├─ HomeHero.tsx            ← Orquestrador (todas as layers)
-├─ HeroPreloader.tsx       ← Animação inicial “ghost-loader”
-├─ HeroCopy.tsx            ← Texto editorial fixo
-├─ ManifestoThumb.tsx      ← Vídeo manifesto flutuante (desktop)
-├─ GhostStage.tsx          ← Wrapper dinâmico (Canvas 3D)
+├─ HomeHero.tsx ← Orquestrador (todas as layers)
+├─ HeroPreloader.tsx ← Animação inicial “ghost-loader”
+├─ HeroCopy.tsx ← Texto editorial fixo
+├─ ManifestoThumb.tsx ← Vídeo manifesto flutuante (desktop)
+├─ GhostStage.tsx ← Wrapper dinâmico (Canvas 3D)
 └─ webgl/
 ├─ GhostCanvas.tsx
 ├─ Ghost.tsx
@@ -594,7 +594,7 @@ components/home/
 
 ## ⚙️ COMPONENTE PRINCIPAL — `HomeHero.tsx`
 
-```tsx
+````tsx
 'use client';
 
 import HeroPreloader from './HeroPreloader';
@@ -623,7 +623,7 @@ export default function HomeHero() {
       </div>
 
       {/* Texto Editorial */}
-      <motion.div 
+      <motion.div
         style={{ opacity: opacityText }}
         className="absolute z-10 inset-0 flex flex-col items-center justify-center text-center px-4"
       >
@@ -651,7 +651,7 @@ import { motion } from 'framer-motion';
 
 export default function HeroPreloader() {
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 1 }}
       animate={{ opacity: 0 }}
       transition={{ delay: 1.5, duration: 1 }}
@@ -662,7 +662,7 @@ export default function HeroPreloader() {
       </svg>
       <p className="font-mono text-xs uppercase tracking-widest text-[#e0e0e0] mb-2">Summoning spirits</p>
       <div className="w-24 h-0.5 bg-[#06071f] rounded-full overflow-hidden">
-        <motion.div 
+        <motion.div
           className="h-full bg-gradient-to-r from-[#0057FF] to-[#5227FF]"
           initial={{ width: 0 }}
           animate={{ width: "100%" }}
@@ -689,31 +689,31 @@ export default function HeroCopy() {
 ## ⚙️ INTERACTIVE PROTOTYPE FLOW
 
 ### 🩵 1. PRELOADER — “Ghost Loader”
-- SVG flutuante animado (`ghostFloat`, `eyePulse`, `textPulse`).  
-- Mensagem: `"Summoning spirits"`.  
-- Barra de progresso (`from-[#0057FF] to-[#5227FF]`).  
-- Fade-out suave (`opacity 1 → 0` após 1.5s).  
+- SVG flutuante animado (`ghostFloat`, `eyePulse`, `textPulse`).
+- Mensagem: `"Summoning spirits"`.
+- Barra de progresso (`from-[#0057FF] to-[#5227FF]`).
+- Fade-out suave (`opacity 1 → 0` após 1.5s).
 
 ---
 
 ### 🌫️ 2. GHOST ATMOSPHERE (WEBGL CANVAS)
 **Camada sensorial viva**, inspirada em *Spooky Spectral Ghost* [https://gist.github.com/danilonovaisv/6fb4ce27767d6e7f26c27244d4c39873] E [https://codepen.io/danilonovaisv/pen/azZbdQo]
-- Mesh esférico emissivo (`#0057FF`), pulso harmônico e flutuação vertical.  
-- Olhos reativos (`Eyes.tsx`) → brilho aumenta conforme movimento do mouse.  
-- Partículas orgânicas e fireflies orbitam o ghost.  
-- Pós-processamento:  
-  - `BloomPass` → brilho HDR (intensidade 2.8).  
-  - `AnalogDecayPass` → *grain*, *scanlines*, *jitter*, *vignette*.  
+- Mesh esférico emissivo (`#0057FF`), pulso harmônico e flutuação vertical.
+- Olhos reativos (`Eyes.tsx`) → brilho aumenta conforme movimento do mouse.
+- Partículas orgânicas e fireflies orbitam o ghost.
+- Pós-processamento:
+  - `BloomPass` → brilho HDR (intensidade 2.8).
+  - `AnalogDecayPass` → *grain*, *scanlines*, *jitter*, *vignette*.
 
 **Interações:**
-- Cursor move → Ghost segue lentamente o ponteiro (`lerp 0.05`).  
-- Movimento senoidal orgânico (`sin(t * 0.8)` / `sin(t * 0.3)`).  
-- Performance: `DPR 2`, `antialias false`, desativado em `prefers-reduced-motion`.  
+- Cursor move → Ghost segue lentamente o ponteiro (`lerp 0.05`).
+- Movimento senoidal orgânico (`sin(t * 0.8)` / `sin(t * 0.3)`).
+- Performance: `DPR 2`, `antialias false`, desativado em `prefers-reduced-motion`.
 
 ---
 
 ### ✍️ 3. HERO TEXT BLOCK
-**Conteúdo editorial centralizado (HeroCopy.tsx)**  
+**Conteúdo editorial centralizado (HeroCopy.tsx)**
 
 [BRAND AWARENESS]
 Design, não
@@ -721,20 +721,20 @@ Design, não
 [É intenção, é estratégia, é experiência.]
 
 **Características:**
-- 100% estático, sem fade ou scroll binding.  
-- `text-[#d9dade]` sobre fundo `#06071f`.  
-- Centralizado (`flex-col`, `items-center`, `text-center`).  
-- CTA: `"get to know me better →"` com hover branco.  
+- 100% estático, sem fade ou scroll binding.
+- `text-[#d9dade]` sobre fundo `#06071f`.
+- Centralizado (`flex-col`, `items-center`, `text-center`).
+- CTA: `"get to know me better →"` com hover branco.
 
 ---
 
 ### 🎞️ 4. MANIFESTO THUMB (SUBSECTION DESKTOP)
-**Comportamento (Desktop)**  
-- Vídeo miniatura flutuante (`bottom-right`, `z-30`).  
-- Vídeo:  
-  `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`  
-- Autoplay, muted, loop, playsInline.  
-- Fade-in suave após preloader.  
+**Comportamento (Desktop)**
+- Vídeo miniatura flutuante (`bottom-right`, `z-30`).
+- Vídeo:
+  `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
+- Autoplay, muted, loop, playsInline.
+- Fade-in suave após preloader.
 
 'use client';
 
@@ -765,18 +765,18 @@ export default function ManifestoThumb() {
 | Click | Mobile | Alterna som (mute/unmute) |
 
 **Transições:**
-- `ease-in-out`, `duration-500ms`.  
-- `border-radius: 12px → 0px`.  
-- `scale: 0.3 → 1`.  
+- `ease-in-out`, `duration-500ms`.
+- `border-radius: 12px → 0px`.
+- `scale: 0.3 → 1`.
 
 ---
 
 ### 📱 5. MANIFESTO (MOBILE VERSION)
-**Na versão mobile, o vídeo manifesto é uma seção independente logo abaixo da Hero.**  
-- Ocupa 100% da viewport (`aspect-video`).  
-- Autoplay, loop, muted.  
-- `whileInView` + `useInView` (Framer Motion) → fade-in + scale 0.95 → 1.  
-- Fundo idêntico à Hero (`#06071f`), garantindo continuidade visual.  
+**Na versão mobile, o vídeo manifesto é uma seção independente logo abaixo da Hero.**
+- Ocupa 100% da viewport (`aspect-video`).
+- Autoplay, loop, muted.
+- `whileInView` + `useInView` (Framer Motion) → fade-in + scale 0.95 → 1.
+- Fundo idêntico à Hero (`#06071f`), garantindo continuidade visual.
 
 'use client';
 
@@ -995,8 +995,8 @@ components/home/
 
 # **SECTION NAME: PORTFOLIO SHOWCASE**
 
-**Versão:** 1.0  
-**Última atualização:** 29/12/2025  
+**Versão:** 1.0
+**Última atualização:** 29/12/2025
 **Status:** ✅ Validado | 🎨 Design System Compatível | ♿ A11y Ready
 
 ## 🎯 VISÃO GERAL
@@ -1016,11 +1016,12 @@ components/home/
   brandBlue: '#0057FF',
   textSecondary: 'neutros suaves'
 }
-```
+````
 
 ## 💻 LAYOUT RESPONSIVO
 
 ### 🖥️ DESKTOP (≥1024px)
+
 ```
 ┌───────────────────────────────────────────────────────┐
 │                    [portfólio showcase]               │
@@ -1045,6 +1046,7 @@ components/home/
 ```
 
 ### 📱 MOBILE (≤768px)
+
 ```
 ┌───────────────────────────────┐
 │   [portfólio showcase]        │
@@ -1069,6 +1071,7 @@ components/home/
 ## ⚡ INTERAÇÕES PRINCIPAIS
 
 ### HOVER (Desktop Only)
+
 ```js
 // Pseudo-código da animação
 onHover(Stripe) => {
@@ -1077,12 +1080,12 @@ onHover(Stripe) => {
     opacity: "0 → 1",
     timing: "700ms cubic-bezier(0.22, 1, 0.36, 1)"
   });
-  
+
   contentGap.animate({
     spacing: "gap-7 → gap-10",
     duration: "300ms ease-in-out"
   });
-  
+
   arrowIcon.animate({
     rotation: "-45deg → 0deg",
     duration: "500ms"
@@ -1091,6 +1094,7 @@ onHover(Stripe) => {
 ```
 
 ### SCROLL REVEAL
+
 - **Trigger:** Intersection Observer (30% no viewport)
 - **Animation:** Staggered Fade Up
   - `opacity: 0 → 1`
@@ -1100,6 +1104,7 @@ onHover(Stripe) => {
 ## 💻 IMPLEMENTAÇÃO TÉCNICA
 
 ### PortfolioShowcase.tsx
+
 ```tsx
 import { AccordionRow } from './AccordionRow';
 
@@ -1107,12 +1112,12 @@ export const PortfolioShowcase = () => {
   const categories = [
     { id: 'brand-campaigns', title: 'Brand & Campaigns', align: 'end' },
     { id: 'videos-motion', title: 'Videos & Motion', align: 'center' },
-    { id: 'websites-tech', title: 'Websites & Tech', align: 'start' }
+    { id: 'websites-tech', title: 'Websites & Tech', align: 'start' },
   ];
 
   return (
-    <section 
-      aria-label="Portfolio Categories" 
+    <section
+      aria-label="Portfolio Categories"
       className="bg-[#F4F5F7] py-24 md:py-32"
     >
       <div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)]">
@@ -1122,23 +1127,23 @@ export const PortfolioShowcase = () => {
             [what we love working on]
           </span>
         </div>
-        
+
         {/* Headline Centralizada */}
         <h2 className="text-4xl md:text-6xl font-bold text-center mb-14 md:mb-20">
           portfólio showcase
         </h2>
-        
+
         {/* Accordion Rows */}
         <div className="flex flex-col gap-10 md:gap-14">
           {categories.map((category) => (
-            <AccordionRow 
-              key={category.id} 
-              category={category} 
+            <AccordionRow
+              key={category.id}
+              category={category}
               alignment={category.align}
             />
           ))}
         </div>
-        
+
         {/* CTAs Aspiracionais */}
         <div className="mt-20 flex flex-col md:flex-row md:justify-center gap-6">
           <PrimaryButton href="/portfolio" variant="outline">
@@ -1155,6 +1160,7 @@ export const PortfolioShowcase = () => {
 ```
 
 ### AccordionRow.tsx
+
 ```tsx
 import { ArrowIcon } from './icons';
 
@@ -1162,11 +1168,11 @@ export const AccordionRow = ({ category, alignment }) => {
   const alignmentClasses = {
     start: 'md:justify-start',
     center: 'md:justify-center',
-    end: 'md:justify-end'
+    end: 'md:justify-end',
   };
 
   return (
-    <Link 
+    <Link
       href={`/portfolio?category=${category.id}`}
       className={`group flex w-full border-t border-[#0057FF] py-8 md:py-14 items-center transition-all ${alignmentClasses[alignment]}`}
       aria-label={`Ver projetos de ${category.title}`}
@@ -1174,24 +1180,24 @@ export const AccordionRow = ({ category, alignment }) => {
       <div className="flex items-center gap-5 md:gap-7 group-hover:gap-10 transition-all duration-300 w-full">
         {/* Thumbnail Revealer - Desktop Only */}
         <div className="hidden md:block w-0 overflow-hidden group-hover:w-72 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] rounded-md relative h-40 shrink-0">
-          <Image 
-            src={`/thumbnails/${category.id}.jpg`} 
-            alt="" 
+          <Image
+            src={`/thumbnails/${category.id}.jpg`}
+            alt=""
             fill
             className="object-cover"
             aria-hidden="true"
           />
         </div>
-        
+
         {/* Category Title */}
         <h3 className="text-2xl md:text-5xl/none font-medium whitespace-nowrap">
           {category.title}
         </h3>
-        
+
         {/* Icon Identifier */}
         <div className="bg-[#0057FF] rounded-full p-2.5 md:p-3.5 shrink-0">
-          <ArrowIcon 
-            className="text-white w-4 h-4 md:w-5 md:h-5 -rotate-45 group-hover:rotate-0 transition-transform duration-500" 
+          <ArrowIcon
+            className="text-white w-4 h-4 md:w-5 md:h-5 -rotate-45 group-hover:rotate-0 transition-transform duration-500"
             aria-hidden="true"
           />
         </div>
@@ -1202,51 +1208,56 @@ export const AccordionRow = ({ category, alignment }) => {
 ```
 
 ## ♿ ACESSIBILIDADE (A11Y)
+
 ```js
 // Checklist A11y
 const a11yCompliance = {
   semanticStructure: [
     "Usar <section> com aria-label='Portfolio Categories'",
-    "Links com texto descritivo ou aria-label"
+    'Links com texto descritivo ou aria-label',
   ],
   keyboardNavigation: [
-    "focus-visible:ring-[#0057FF] em todos os elementos interativos",
-    "Área de toque mínima de 48x48px em mobile"
+    'focus-visible:ring-[#0057FF] em todos os elementos interativos',
+    'Área de toque mínima de 48x48px em mobile',
   ],
   reducedMotion: [
-    "@media (prefers-reduced-motion: reduce) {",
-    "  transition: none !important;",
-    "  animation: none !important;",
-    "  /* Manter thumbnails visíveis sem animação */",
-    "}"
+    '@media (prefers-reduced-motion: reduce) {',
+    '  transition: none !important;',
+    '  animation: none !important;',
+    '  /* Manter thumbnails visíveis sem animação */',
+    '}',
   ],
   screenReaders: [
     "Thumbnails com alt='' (decorativas)",
-    "CTAs com texto completo visível"
-  ]
+    'CTAs com texto completo visível',
+  ],
 };
 ```
 
 ## ✅ CHECKLIST DE QA
 
 ### Layout & Visual
+
 - [ ] **Desktop:** Floating label posicionado corretamente à esquerda
 - [ ] **Desktop:** Alinhamento alternado das stripes (direita/centro/esquerda)
 - [ ] **Mobile:** Nenhum overflow horizontal
 - [ ] **Ultrawide:** Conteúdo não parece "estreito" em telas >1920px
 
 ### Interações
+
 - [ ] **Desktop:** Hover revela thumbnail com animação suave (700ms)
 - [ ] **Desktop:** Sem layout shift durante hover
 - [ ] **Mobile:** Thumbnail não aparece em hover
 - [ ] **Todos:** Navegação por teclado completa com foco visível
 
 ### Performance
+
 - [ ] **Mobile:** Nenhuma animação de width (apenas transform/opacity)
 - [ ] **Todos:** Tempo de animação otimizado (máx 700ms)
 - [ ] **Performance:** Imagens com otimização adequada
 
 ## 🔗 DEPENDÊNCIAS
+
 ```js
 {
   pages: [
@@ -1266,21 +1277,17 @@ const a11yCompliance = {
 ```
 
 ## 📊 TRACKING
+
 ```js
 // Eventos para analytics
 const trackingEvents = {
-  categoryClick: "portfolio_showcase_category_click",
-  ctaClick: "portfolio_showcase_cta_click",
-  impression: "portfolio_showcase_view"
+  categoryClick: 'portfolio_showcase_category_click',
+  ctaClick: 'portfolio_showcase_cta_click',
+  impression: 'portfolio_showcase_view',
 };
 ```
+
 > 💡 **Dica para implementação:** A referência visual é https://loandbehold.studio - priorize o ritmo editorial e a sensação premium nas transições. A animação de hover deve sentir-se orgânica, não mecânica.
-
-
-
-
-
-
 
 # **SECTION NAME: Featured Projects**
 
@@ -1308,26 +1315,25 @@ Baseado na referência visual fornecida (`PROTFOLIO_CARDS.png`) e no layout Lo&B
 ### 🖥️ DESKTOP (≥1024px)
 
 ┌──────────────────────────────────────────────────────────────────┐
-│                       [Projetos em Destaque]                     │
-│                                                                  │
-│  ┌──────────────┐    ┌───────────────────────────────────────┐  │
-│  │   Card 1     │    │                Card 2                 │  │ ← Linha 1 (50% + 50%)
-│  │  (336×500)   │    │             (840×500)                 │  │
-│  └──────────────┘    └───────────────────────────────────────┘  │
-│                                                                  │
-│  ┌───────────────────────────────────────────────────────────┐  │
-│  │                        Card 3                             │  │ ← Linha 2 (100% width, 1176×600)
-│  │                    (1176×600)                             │  │
-│  └───────────────────────────────────────────────────────────┘  │
-│                                                                  │
-│  ┌──────────────────────────────────────────────┐  ┌──────────┐ │
-│  │                   Card 4                     │  │   CTA    │ │ ← Linha 3 (66% + 33%)
-│  │                (784×400)                     │  │ (392×400)│ │
-│  └──────────────────────────────────────────────┘  └──────────┘ │
+│ [Projetos em Destaque] │
+│ │
+│ ┌──────────────┐ ┌───────────────────────────────────────┐ │
+│ │ Card 1 │ │ Card 2 │ │ ← Linha 1 (50% + 50%)
+│ │ (336×500) │ │ (840×500) │ │
+│ └──────────────┘ └───────────────────────────────────────┘ │
+│ │
+│ ┌───────────────────────────────────────────────────────────┐ │
+│ │ Card 3 │ │ ← Linha 2 (100% width, 1176×600)
+│ │ (1176×600) │ │
+│ └───────────────────────────────────────────────────────────┘ │
+│ │
+│ ┌──────────────────────────────────────────────┐ ┌──────────┐ │
+│ │ Card 4 │ │ CTA │ │ ← Linha 3 (66% + 33%)
+│ │ (784×400) │ │ (392×400)│ │
+│ └──────────────────────────────────────────────┘ └──────────┘ │
 └──────────────────────────────────────────────────────────────────┘
 
-
-## **📱 MOBILE (≤768px)
+## \*\*📱 MOBILE (≤768px)
 
 - Todos os cards empilhados verticalmente
 - Cada card: `width: 100%`, altura adaptada ao conteúdo ou mídia
@@ -1335,64 +1341,64 @@ Baseado na referência visual fornecida (`PROTFOLIO_CARDS.png`) e no layout Lo&B
 
 ---
 
-## 📊 **CONTEÚDO DOS PROJETOS
+## 📊 \*\*CONTEÚDO DOS PROJETOS
 
 ["js
 const featuredProjects = [
-  {
-    id: 1,
-    slug: "magic-radio-branding",
-    title: "Magic — devolvendo a magia ao rádio",
-    category: "branding & campanha",
-    client: "Magic",
-    year: 2023,
-    tags: ["Branding", "Strategy", "Campaign"],
-    image: "https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp",
-    layout: { w: "md:w-5/12", h: "h-[500px]" } // ~336px
-  },
-  {
-    id: 2,
-    slug: "branding-project-01",
-    title: "Uma marca ousada e consistente",
-    category: "branding",
-    client: "Cliente confidencial",
-    year: 2022,
-    tags: ["Branding", "Identity"],
-    image: "https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp",
-    layout: { w: "md:w-7/12", h: "h-[500px]" } // ~840px
-  },
-  {
-    id: 3,
-    slug: "key-visual-campaign",
-    title: "Key visual para campanha sazonal",
-    category: "campanha",
-    client: "Cliente confidencial",
-    year: 2021,
-    tags: ["Campaign", "Print", "Art Direction"],
-    image: "https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp",
-    layout: { w: "w-full", h: "h-[600px]" }
-  },
-  {
-    id: 4,
-    slug: "webdesigner-motion",
-    title: "Experiência web em movimento",
-    category: "web & motion",
-    client: "Cliente confidencial",
-    year: 2023,
-    tags: ["Web", "Motion", "UX"],
-    image: "https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif",
-    layout: { w: "md:w-8/12", h: "h-[400px]" } // ~784px
-  }
+{
+id: 1,
+slug: "magic-radio-branding",
+title: "Magic — devolvendo a magia ao rádio",
+category: "branding & campanha",
+client: "Magic",
+year: 2023,
+tags: ["Branding", "Strategy", "Campaign"],
+image: "https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp",
+layout: { w: "md:w-5/12", h: "h-[500px]" } // ~336px
+},
+{
+id: 2,
+slug: "branding-project-01",
+title: "Uma marca ousada e consistente",
+category: "branding",
+client: "Cliente confidencial",
+year: 2022,
+tags: ["Branding", "Identity"],
+image: "https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp",
+layout: { w: "md:w-7/12", h: "h-[500px]" } // ~840px
+},
+{
+id: 3,
+slug: "key-visual-campaign",
+title: "Key visual para campanha sazonal",
+category: "campanha",
+client: "Cliente confidencial",
+year: 2021,
+tags: ["Campaign", "Print", "Art Direction"],
+image: "https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp",
+layout: { w: "w-full", h: "h-[600px]" }
+},
+{
+id: 4,
+slug: "webdesigner-motion",
+title: "Experiência web em movimento",
+category: "web & motion",
+client: "Cliente confidencial",
+year: 2023,
+tags: ["Web", "Motion", "UX"],
+image: "https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif",
+layout: { w: "md:w-8/12", h: "h-[400px]" } // ~784px
+}
 ];"]
-
 
 > **NOTA:** As proporções são baseadas em um container de `max-width: 1176px` (equivalente a `1680px` total com padding). Ajuste conforme seu sistema de layout.
 
 ---
 
-## 🎨 **DESIGN TOKENS
+## 🎨 \*\*DESIGN TOKENS
 
 ### Cores
+
 ```js
 {
   background: "#F4F5F7",
@@ -1405,31 +1411,36 @@ const featuredProjects = [
 ```
 
 ### Tipografia (TT Norms Pro)
+
 - **Seção Headline**: `text-2xl md:text-3xl`, `font-bold`, `text-[#0057FF]`
 - **Card Title**: `text-lg md:text-xl`, `font-medium`, `text-[#111111]`
 - **Meta Info (Cliente/Ano)**: `text-sm md:text-base`, `text-[#6B7280]`
 - **Pills**: `text-xs md:text-sm`, `font-medium`, `uppercase`, `tracking-wide`
 
 ### Espaçamento
+
 - **Seção**: `py-16 md:py-24`
 - **Gap entre cards**: `gap-y-12 md:gap-y-16`
 - **Padding interno do container**: `px-[clamp(24px,5vw,96px)]`
 
 ---
 
-## ⚡ **INTERAÇÕES & ANIMAÇÕES
+## ⚡ \*\*INTERAÇÕES & ANIMAÇÕES
 
 ### Hover no Card (Desktop)
+
 - **Seta**: `translate-x-5` (20px para direita), `duration-700 ease-out`
 - **Mídia**: `scale-103 + -translate-y-1`, `duration-500`
 - **Sombra**: `shadow-xl shadow-blue-500/10` com transição suave
 
 ### Scroll Reveal
+
 - **Container**: `opacity: 0 → 1`, `y: 40px → 0`
 - **Cards**: `staggerChildren: 0.12`, `scale: 0.96 → 1`
 - **Duração**: `0.7s ease-out`
 
 ### CTA Final (Card Especial)
+
 - **Texto**: “Like what you see?”
 - **Botão**: “view projects →” com ícone de seta
 - **Hover**: Fundo troca para `lightBlue`, seta faz `translate-x-1`
@@ -1439,19 +1450,19 @@ const featuredProjects = [
 
 ## 💻 IMPLEMENTAÇÃO TÉCNICA (React + Tailwind)
 
-### **FeaturedProjectsSection.tsx
+### \*\*FeaturedProjectsSection.tsx
 
 ["tsx
 import { ProjectCard } from './ProjectCard';
 import { CTAProjectCard } from './CTAProjectCard';
 
 export const FeaturedProjectsSection = () => {
-  return (
-    <section aria-label="Projetos em Destaque" className="bg-[#F4F5F7] py-16 md:py-24">
-      <div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)]">
-        <h2 className="text-2xl md:text-3xl font-bold text-[#0057FF] text-center mb-12 md:mb-16">
-          Projetos em Destaque
-        </h2>
+return (
+<section aria-label="Projetos em Destaque" className="bg-[#F4F5F7] py-16 md:py-24">
+<div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)]">
+<h2 className="text-2xl md:text-3xl font-bold text-[#0057FF] text-center mb-12 md:mb-16">
+Projetos em Destaque
+</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-y-16 gap-x-6">
           {/* Linha 1 */}
@@ -1477,22 +1488,24 @@ export const FeaturedProjectsSection = () => {
         </div>
       </div>
     </section>
-  );
+
+);
 };"]
 
-
-## **ProjectCard.tsx
+## \*\*ProjectCard.tsx
 
 ```tsx
 import { ArrowIcon } from '@/components/icons';
 
 export const ProjectCard = ({ project }) => (
-  <Link 
+  <Link
     href={`/portfolio/${project.slug}`}
     className="group block h-full"
     aria-label={`Ver projeto: ${project.title}`}
   >
-    <div className={`relative overflow-hidden rounded-md ${project.layout.h} w-full`}>
+    <div
+      className={`relative overflow-hidden rounded-md ${project.layout.h} w-full`}
+    >
       {/* Pills */}
       <div className="absolute top-4 right-4 z-20 flex gap-1.5 flex-wrap justify-end">
         {project.tags.map((tag, i) => (
@@ -1507,7 +1520,13 @@ export const ProjectCard = ({ project }) => (
 
       {/* Mídia */}
       {project.image.endsWith('.gif') ? (
-        <video autoPlay muted loop playsInline className="w-full h-full object-cover" />
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover"
+        />
       ) : (
         <img
           src={project.image}
@@ -1520,8 +1539,12 @@ export const ProjectCard = ({ project }) => (
     {/* Info */}
     <div className="mt-4 flex justify-between items-start">
       <div>
-        <h3 className="text-lg md:text-xl font-medium leading-tight">{project.title}</h3>
-        <p className="text-[#6B7280] text-sm">{project.client} • {project.year}</p>
+        <h3 className="text-lg md:text-xl font-medium leading-tight">
+          {project.title}
+        </h3>
+        <p className="text-[#6B7280] text-sm">
+          {project.client} • {project.year}
+        </p>
       </div>
       <div className="bg-[#0057FF] p-2.5 rounded-full aspect-square flex items-center justify-center text-white shrink-0 transition-transform duration-700 group-hover:translate-x-5">
         <ArrowIcon className="w-4 h-4" />
@@ -1531,7 +1554,7 @@ export const ProjectCard = ({ project }) => (
 );
 ```
 
-## **CTAProjectCard.tsx
+## \*\*CTAProjectCard.tsx
 
 ```tsx
 export const CTAProjectCard = () => (
@@ -1566,22 +1589,26 @@ export const CTAProjectCard = () => (
 ## ✅ CHECKLIST DE QA
 
 ### Layout
+
 - [ ] Linha 1: 2 cards lado a lado (5/12 + 7/12)
 - [ ] Linha 2: 1 card full-width
 - [ ] Linha 3: Card grande + CTA (8/12 + 4/12)
 - [ ] Mobile: todos os cards empilhados
 
 ### Visual
+
 - [ ] Pills posicionadas no canto superior direito
 - [ ] Títulos e metadados com hierarquia clara
 - [ ] Cores de fundo e texto conforme design tokens
 
 ### Interação
+
 - [ ] Hover move seta 20px para direita
 - [ ] Mídia faz leve zoom ao hover
 - [ ] CTA muda cor e anima seta ao hover
 
 ### Performance
+
 - [ ] Imagens otimizadas (WebP/GIF leve)
 - [ ] Lazy load para cards fora do viewport
 - [ ] Sem layout shift durante carregamento
@@ -1610,203 +1637,192 @@ export const CTAProjectCard = () => (
 > **Inspiração:** [Lo&Behold Studio](https://loandbehold.studio)  
 > **Objetivo final:** Criar uma experiência editorial premium que equilibra **clareza**, **ritmo visual** e **interatividade suave** — sem distrair do conteúdo principal: os projetos.
 
-
 ---
 
-
-
-
-
 # **SECTION NAME: Clients/Brands**
+
 **SECTION PURPOSE:**
+
 - Mostrar marcas com as quais o designer já trabalhou
 - Construir confiança e credibilidade
-**PRIMARY MESSAGE / HEADLINE:**
+  **PRIMARY MESSAGE / HEADLINE:**
 - "marcas com as quais já trabalhei"
-**SECONDARY MESSAGE / SUPPORT TEXT:**
+  **SECONDARY MESSAGE / SUPPORT TEXT:**
 - N/A
-**KEY CONTENT ELEMENTS:**
+  **KEY CONTENT ELEMENTS:**
 - Logos das marcas
 - Faixa azul de fundo
-**CALL TO ACTION:**
+  **CALL TO ACTION:**
 - N/A
-**LAYOUT TYPE:**
+  **LAYOUT TYPE:**
 - Grid de logos
-**ALIGNMENT:**
+  **ALIGNMENT:**
 - Horizontal: Logos centralizadas
 - Vertical: Centralizado verticalmente
-**SPACING:**
+  **SPACING:**
 - Padding interno: `py-12`
 - Margem entre os logos: `gap-4`
-**BACKGROUND:**
+  **BACKGROUND:**
 - Cor sólida azul (`bg-[#0057FF]`)
-**SECTION COLORS:**
+  **SECTION COLORS:**
 - Título: `text-white`
 - Logos: Branco (`filter brightness-0 invert`)
-**TYPOGRAPHY:**
+  **TYPOGRAPHY:**
 - Fonte: Sans-serif neo-grotesca (Inter ou similar)
 - Peso: Bold
 - Tamanho: `text-xl md:text-2xl`
-**IMAGERY:**
+  **IMAGERY:**
 - Logos das marcas
-**MEDIA:**
+  **MEDIA:**
 - N/A
-**COMPONENTS USED:**
+  **COMPONENTS USED:**
 - `<section>`, `<div>`, `<h2>`, `<div>` (logo), `<img>`
-**STATE VARIANTS:**
+  **STATE VARIANTS:**
 - Hover no logo: Leve escala (`scale(1.02)`)
-**INTERACTIONS:**
+  **INTERACTIONS:**
 - Hover no logo: Leve escala (`scale(1.02)`)
-**SCROLL BEHAVIOUR:**
+  **SCROLL BEHAVIOUR:**
 - Reveal on scroll: Animação de entrada staggered ao entrar na viewport
-**ANIMATIONS:**
+  **ANIMATIONS:**
 - Entrada:
 - Título: initial={{ opacity: 0, y: 16 }} → whileInView={{ opacity: 1, y:
-0 }}
+  0 }}
 - Logos: staggerChildren: 0.03
 - Cada logo: initial={{ opacity: 0, y: 12, scale: 0.9 }} → animate={{
-opacity: 1, y: 0, scale: 1 }}
+  opacity: 1, y: 0, scale: 1 }}
 - Hover:
 - whileHover={{ scale: 1.04 }} + leve brightness(1.1)
-**MICRO-INTERACTIONS:**
+  **MICRO-INTERACTIONS:**
 - Feedback visual ao hover no logo
-**TEXT LIMITS:**
+  **TEXT LIMITS:**
 - Título: Máximo 50 caracteres
-**CONTENT PRIORITY:**
+  **CONTENT PRIORITY:**
 - Alta: Título e logos
-**ALTERNATIVE CONTENT:**
+  **ALTERNATIVE CONTENT:**
 - Se nenhum logo for exibido, mostrar uma mensagem de erro
-**LINKS / Globais:**
-1.
-`https://aymuvxysygrwoicsjgxj.supabase
+  **LINKS / Globais:**
+
+1.  `https://aymuvxysygrwoicsjgxj.supabase
 .co/storage/v1/object/public/client-logos/client1.svg`
-2.
-`https://aymuvxysygrwoicsjgxj.supabase
+2.  `https://aymuvxysygrwoicsjgxj.supabase
 .co/storage/v1/object/public/client-logos/client2.svg`
-3.
-`https://aymuvxysygrwoicsjgxj.supabase
+3.  `https://aymuvxysygrwoicsjgxj.supabase
 .co/storage/v1/object/public/client-logos/client3.svg`
-4.
-`https://aymuvxysygrwoicsjgxj.supabase
+4.  `https://aymuvxysygrwoicsjgxj.supabase
 .co/storage/v1/object/public/client-logos/client4.svg`
-5.
-`https://aymuvxysygrwoicsjgxj.supabase
+5.  `https://aymuvxysygrwoicsjgxj.supabase
 .co/storage/v1/object/public/client-logos/client5.svg`
-6.
-`https://aymuvxysygrwoicsjgxj.supabase
+6.  `https://aymuvxysygrwoicsjgxj.supabase
 .co/storage/v1/object/public/client-logos/client6.svg`
-7.
-`https://aymuvxysygrwoicsjgxj.supabase
+7.  `https://aymuvxysygrwoicsjgxj.supabase
 .co/storage/v1/object/public/client-logos/client7.svg`
-8.
-`https://aymuvxysygrwoicsjgxj.supabase
+8.  `https://aymuvxysygrwoicsjgxj.supabase
 .co/storage/v1/object/public/client-logos/client8.svg`
-9.
-`https://aymuvxysygrwoicsjgxj.supabase
+9.  `https://aymuvxysygrwoicsjgxj.supabase
 .co/storage/v1/object/public/client-logos/client9.svg`
-10.
-`https://aymuvxysygrwoicsjgxj.supabase
+10. `https://aymuvxysygrwoicsjgxj.supabase
 .co/storage/v1/object/public/client-logos/client10.svg`
-11.
-`https://aymuvxysygrwoicsjgxj.supabase
+11. `https://aymuvxysygrwoicsjgxj.supabase
 .co/storage/v1/object/public/client-logos/client11.svg`
-12.
-`https://aymuvxysygrwoicsjgxj.supabase
+12. `https://aymuvxysygrwoicsjgxj.supabase
 .co/storage/v1/object/public/client-logos/client12.svg`
 
 **DATA HOOKS / TRACKING:**
+
 - Eventos de hover nos logos para analytics
-**DEPENDENCIES:**
+  **DEPENDENCIES:**
 - `HOMEPAGE_CONTENT.clients`
-**ACCESSIBILITY NOTES:**
+  **ACCESSIBILITY NOTES:**
 - Os logos devem ter `alt` descritivo
 - Os logos devem ser acessíveis via teclado
 - Respeitar `prefers-reduced-motion: reduce` desativando animações de
-entrada
-**SPECIAL STATES:**
+  entrada
+  **SPECIAL STATES:**
 - Carregamento: Mostrar spinner ou placeholder
 - Erro: Mostrar mensagem de erro
-**NOTES / INSPIRATION:**
+  **NOTES / INSPIRATION:**
 - Layout inspirado em `HOME-PORTFOLIO-LAYOUYT_ESPERADO.jpg`
-**NON-NEGOTIABLES:**
+  **NON-NEGOTIABLES:**
 - Faixa azul de fundo
 - Logos das marcas
 - Título "marcas com as quais já trabalhei"
+
 ---
 
-
 # **SECTION NAME: Contact**
+
 **SECTION PURPOSE:**
+
 - Fornecer informações de contato
 - Permitir que os usuários enviem mensagens
-**PRIMARY MESSAGE / HEADLINE:**
+  **PRIMARY MESSAGE / HEADLINE:**
 - "contato"
-**SECONDARY MESSAGE / SUPPORT TEXT:**
+  **SECONDARY MESSAGE / SUPPORT TEXT:**
 - "Tem uma pergunta ou quer trabalhar junto?"
-**KEY CONTENT ELEMENTS:**
+  **KEY CONTENT ELEMENTS:**
 - Informações de contato (telefone, email, site)
 - Formulário de contato
 - Redes sociais
-**CALL TO ACTION:**
+  **CALL TO ACTION:**
 - Texto: "Enviar Mensagem"
 - Comportamento: Ao enviar, envia o formulário para o endpoint definido
-**LAYOUT TYPE:**
+  **LAYOUT TYPE:**
 - Duas colunas em desktop, uma em mobile
-**ALIGNMENT:**
+  **ALIGNMENT:**
 - Horizontal: Informações à esquerda, formulário à direita
 - Vertical: Centralizado verticalmente
-**SPACING:**
+  **SPACING:**
 - Padding interno: `py-12`
 - Margem entre as colunas: `space-x-8`
-**BACKGROUND:**
+  **BACKGROUND:**
 - Cor sólida branca (`bg-white`)
-**SECTION COLORS:**
+  **SECTION COLORS:**
 - Título: `text-[#0057FF]`
 - Texto: `text-[#111111]`
 - Botão: `bg-[#0057FF]`, `text-white`
-**TYPOGRAPHY:**
+  **TYPOGRAPHY:**
 - Fonte: Sans-serif neo-grotesca (Inter ou similar)
 - Peso: Bold para o título, Regular para o conteúdo
 - Tamanho: Título `text-2xl`, Conteúdo `text-lg`
-**IMAGERY:**
+  **IMAGERY:**
 - Ícones de redes sociais
-**MEDIA:**
+  **MEDIA:**
 - N/A
-**COMPONENTS USED:**
+  **COMPONENTS USED:**
 - `<section>`, `<div>`, `<h2>`, `<p>`, `<form>`, `<input>`, `<textarea>`,
-`<button>`, `<a>`
-**STATE VARIANTS:**
+  `<button>`, `<a>`
+  **STATE VARIANTS:**
 - Focus nos inputs: Borda e sombra
 - Hover no botão: Leve elevação (`translateY(-1px)`)
-**INTERACTIONS:**
+  **INTERACTIONS:**
 - Envio do formulário: Envia os dados para o endpoint definido
 - Clique nas redes sociais: Abre o link em nova aba
-**SCROLL BEHAVIOUR:**
+  **SCROLL BEHAVIOUR:**
 - N/A
-**ANIMATIONS:**
+  **ANIMATIONS:**
 - Entrada:
 - Seção: whileInView={{ opacity: 1, y: 0 }} partindo de initial={{
-opacity: 0, y: 24 }}
+  opacity: 0, y: 24 }}
 - Campos do formulário com staggerChildren
 - Interações:
 - Inputs com focus-visible: ring-2 ring-blue-500 ring-offset-2
-ring-offset-[#f5f5f7]
+  ring-offset-[#f5f5f7]
 - Botão "enviar mensagem":
 - whileHover={{ scale: 1.02, y: -1 }}
 - whileTap={{ scale: 0.98 }}
-**MICRO-INTERACTIONS:**
+  **MICRO-INTERACTIONS:**
 - Feedback visual ao focus nos inputs e ao hover no botão
-**TEXT LIMITS:**
+  **TEXT LIMITS:**
 - Título: Máximo 30 caracteres
 - Subtítulo: Máximo 100 caracteres
 - Inputs: Máximo 100 caracteres
 - Botão: Máximo 30 caracteres
-**CONTENT PRIORITY:**
+  **CONTENT PRIORITY:**
 - Alta: Título e formulário
 - Média: Informações de contato e redes sociais
-**ALTERNATIVE CONTENT:**
+  **ALTERNATIVE CONTENT:**
 - Se o formulário não carregar, mostrar uma mensagem de erro
-**LINKS / DESTINATIONS:**
+  **LINKS / DESTINATIONS:**
 - Formulário: Endpoint definido em `HOMEPAGE_CONTENT.contact.form.action`
 - Action: `https://formsubmit.co/danilo@portfoliodanilo.com`
 - **Redes sociais: Links externos:**
@@ -1818,302 +1834,298 @@ ring-offset-[#f5f5f7]
 - LinkedIn: `https://linkedin.com/in/danilonovais`
 - Portfolio: `https://portfoliodanilo.com`
 - Twitter: `https://twitter.com/danilo_novais`
-**DATA HOOKS / TRACKING:**
+  **DATA HOOKS / TRACKING:**
 - Eventos de envio do formulário para analytics
-**DEPENDENCIES:**
+  **DEPENDENCIES:**
 - `HOMEPAGE_CONTENT.contact`
-**ACCESSIBILITY NOTES:**
+  **ACCESSIBILITY NOTES:**
 - Todos os inputs devem ter `label` associado
 - O formulário deve ser acessível via teclado
 - Respeitar `prefers-reduced-motion: reduce` desativando animações
-**SPECIAL STATES:**
+  **SPECIAL STATES:**
 - Carregamento: Mostrar spinner ou placeholder
 - Erro: Mostrar mensagem de erro
 - Sucesso: Mostrar mensagem de sucesso
-**NOTES / INSPIRATION:**
+  **NOTES / INSPIRATION:**
 - Layout inspirado em `HOME-PORTFOLIO-LAYOUYT-GHOST.jpg`
-**NON-NEGOTIABLES:**
+  **NON-NEGOTIABLES:**
 - Formulário de contato
 - Informações de contato
 - Redes sociais
+
 ---
-
-
-
 
 # **SECTION NAME: Footer**
 
 ⸻
 
 SECTION PURPOSE
-    •    Fornecer informações legais e institucionais
-    •    Oferecer navegação secundária clara
-    •    Disponibilizar acesso às redes sociais
-    •    Encerrar a experiência de forma limpa e editorial (especialmente no mobile)
+• Fornecer informações legais e institucionais
+• Oferecer navegação secundária clara
+• Disponibilizar acesso às redes sociais
+• Encerrar a experiência de forma limpa e editorial (especialmente no mobile)
 
 ⸻
 
 PRIMARY MESSAGE / HEADLINE
-    •    N/A
+• N/A
 
 ⸻
 
 SECONDARY MESSAGE / SUPPORT TEXT
-    •    © 2025 Danilo Novais Vilela — todos os direitos reservados
+• © 2025 Danilo Novais Vilela — todos os direitos reservados
 
 ⸻
 
 KEY CONTENT ELEMENTS
-    •    Copyright
-    •    Links de navegação (Home, Portfólio Showcase, Sobre, Contato)
-    •    Links para redes sociais
+• Copyright
+• Links de navegação (Home, Portfólio Showcase, Sobre, Contato)
+• Links para redes sociais
 
 ⸻
 
 CALL TO ACTION
-    •    N/A
+• N/A
 
 ⸻
 
 LAYOUT TYPE
 
 🖥️ Desktop (≥1024px)
-    •    Barra fixa no rodapé da viewport
-    •    Comportamento persistente
-    •    Atua como “âncora” institucional do site
+• Barra fixa no rodapé da viewport
+• Comportamento persistente
+• Atua como “âncora” institucional do site
 
 📱 Mobile & Tablet (≤1023px)
-    •    Footer estático no fluxo da página
-    •    Renderizado como seção final
-    •    Nunca fixo
-    •    Nunca sobrepõe conteúdo
-    •    Nunca compete com CTAs ou Manifesto
+• Footer estático no fluxo da página
+• Renderizado como seção final
+• Nunca fixo
+• Nunca sobrepõe conteúdo
+• Nunca compete com CTAs ou Manifesto
 
 ⸻
 
 ALIGNMENT
 
 Desktop
-    •    Horizontal:
-    •    Copyright → esquerda
-    •    Links de navegação + redes sociais → direita
-    •    Vertical:
-    •    Conteúdo centralizado verticalmente na barra
+• Horizontal:
+• Copyright → esquerda
+• Links de navegação + redes sociais → direita
+• Vertical:
+• Conteúdo centralizado verticalmente na barra
 
 Mobile
-    •    Vertical (stacked):
-    •    Copyright
-    •    Links de navegação
-    •    Redes sociais
-    •    Alinhamento central ou left-aligned (preferência editorial)
+• Vertical (stacked):
+• Copyright
+• Links de navegação
+• Redes sociais
+• Alinhamento central ou left-aligned (preferência editorial)
 
 ⸻
 
 SPACING
 
 Desktop
-    •    Padding interno: py-4 px-6
-    •    Espaçamento horizontal entre elementos: space-x-4
+• Padding interno: py-4 px-6
+• Espaçamento horizontal entre elementos: space-x-4
 
 Mobile
-    •    Padding vertical: py-10
-    •    Espaçamento entre blocos: space-y-6
-    •    Espaçamento entre links: space-y-3
-    •    Área mínima de toque: 48px
+• Padding vertical: py-10
+• Espaçamento entre blocos: space-y-6
+• Espaçamento entre links: space-y-3
+• Área mínima de toque: 48px
 
 ⸻
 
 BACKGROUND
-    •    Cor sólida azul institucional: bg-[#0057FF]
+• Cor sólida azul institucional: bg-[#0057FF]
 
 ⸻
 
 SECTION COLORS
-    •    Texto: text-white
-    •    Links:
-    •    Estado normal: text-white
-    •    Hover (desktop): leve redução de opacidade (opacity-80)
-    •    ⚠️ Em mobile, sem hover visual dependente
+• Texto: text-white
+• Links:
+• Estado normal: text-white
+• Hover (desktop): leve redução de opacidade (opacity-80)
+• ⚠️ Em mobile, sem hover visual dependente
 
 ⸻
 
 TYPOGRAPHY
-    •    Fonte: Sans-serif neo-grotesca (Inter ou fallback do sistema)
-    •    Peso: Regular
-    •    Tamanho:
-    •    Desktop: text-sm
-    •    Mobile: text-sm (com maior espaçamento)
+• Fonte: Sans-serif neo-grotesca (Inter ou fallback do sistema)
+• Peso: Regular
+• Tamanho:
+• Desktop: text-sm
+• Mobile: text-sm (com maior espaçamento)
 
 ⸻
 
 IMAGERY
-    •    Ícones SVG monocromáticos para redes sociais
+• Ícones SVG monocromáticos para redes sociais
 
 ⸻
 
 MEDIA
-    •    N/A
+• N/A
 
 ⸻
 
 COMPONENTS USED
-    •    <footer>
-    •    <nav>
-    •    <ul>, <li>
-    •    <p>
-    •    <a>
+• <footer>
+• <nav>
+• <ul>, <li>
+• <p>
+• <a>
 
 ⸻
 
 STATE VARIANTS
 
 Desktop
-    •    Hover nos links:
-    •    Mudança sutil de opacidade
-    •    Sublinhado animado (mesmo padrão do header)
-    •    Hover nos ícones sociais:
-    •    scale(1.05)
-    •    Leve mudança de opacidade
+• Hover nos links:
+• Mudança sutil de opacidade
+• Sublinhado animado (mesmo padrão do header)
+• Hover nos ícones sociais:
+• scale(1.05)
+• Leve mudança de opacidade
 
 Mobile
-    •    Sem dependência de hover
-    •    Feedback apenas no :active / :focus-visible
+• Sem dependência de hover
+• Feedback apenas no :active / :focus-visible
 
 ⸻
 
 INTERACTIONS
-    •    Clique nos links:
-    •    Desktop: scroll suave para seção ou navegação
-    •    Mobile: navegação direta (sem animações complexas)
-    •    Clique nas redes sociais:
-    •    Abre em nova aba (target="_blank", rel="noopener noreferrer")
+• Clique nos links:
+• Desktop: scroll suave para seção ou navegação
+• Mobile: navegação direta (sem animações complexas)
+• Clique nas redes sociais:
+• Abre em nova aba (target="\_blank", rel="noopener noreferrer")
 
 ⸻
 
 SCROLL BEHAVIOUR
 
 Desktop
-    •    Footer fixo:
-    •    position: fixed
-    •    bottom: 0
-    •    left: 0
-    •    right: 0
+• Footer fixo:
+• position: fixed
+• bottom: 0
+• left: 0
+• right: 0
 
 Mobile
-    •    Footer não fixo
-    •    Fluxo natural do documento
-    •    Última seção da página
-    •    Nunca ocupa viewport persistentemente
+• Footer não fixo
+• Fluxo natural do documento
+• Última seção da página
+• Nunca ocupa viewport persistentemente
 
 ⸻
 
 ANIMATIONS
 
 Desktop
-    •    Fade-in simples na primeira renderização:
+• Fade-in simples na primeira renderização:
 
 initial={{ opacity: 0 }}
 animate={{ opacity: 1 }}
 transition={{ duration: 0.4 }}
 
-
-
 Mobile
-    •    Sem animação obrigatória
-    •    Respeitar prefers-reduced-motion
+• Sem animação obrigatória
+• Respeitar prefers-reduced-motion
 
 ⸻
 
 MICRO-INTERACTIONS
-    •    Desktop:
-    •    Hover visual discreto
-    •    Mobile:
-    •    Feedback de toque via :active / focus-visible
+• Desktop:
+• Hover visual discreto
+• Mobile:
+• Feedback de toque via :active / focus-visible
 
 ⸻
 
 TEXT LIMITS
-    •    Copyright:
-    •    Máx. 100 caracteres
-    •    Links:
-    •    Máx. 30 caracteres
+• Copyright:
+• Máx. 100 caracteres
+• Links:
+• Máx. 30 caracteres
 
 ⸻
 
 CONTENT PRIORITY
-    •    Alta:
-    •    Copyright
-    •    Links de navegação
-    •    Média:
-    •    Redes sociais
+• Alta:
+• Copyright
+• Links de navegação
+• Média:
+• Redes sociais
 
 ⸻
 
 ALTERNATIVE CONTENT
-    •    Se não houver redes sociais:
-    •    Simplesmente não renderizar o bloco
-    •    ❌ Nenhuma mensagem de erro visível ao usuário
+• Se não houver redes sociais:
+• Simplesmente não renderizar o bloco
+• ❌ Nenhuma mensagem de erro visível ao usuário
 
 ⸻
 
 LINKS / DESTINATIONS
-    •    home → #hero
-    •    portfólio showcase → #portfolio-showcase
-    •    sobre → /sobre (preferível a âncora)
-    •    contato → #contact
+• home → #hero
+• portfólio showcase → #portfolio-showcase
+• sobre → /sobre (preferível a âncora)
+• contato → #contact
 
 ⚠️ Sugestão aplicada: remover âncora #clients como “sobre” no footer.
 
 ⸻
 
 DATA HOOKS / TRACKING
-    •    footer_link_click
-    •    footer_social_click
+• footer_link_click
+• footer_social_click
 
 ⸻
 
 DEPENDENCIES
-    •    HOMEPAGE_CONTENT.footer
+• HOMEPAGE_CONTENT.footer
 
 ⸻
 
 ACCESSIBILITY NOTES
-    •    Todos os links com aria-label descritivo
-    •    Navegável via teclado
-    •    Ordem lógica de tabulação
-    •    Área mínima de toque garantida em mobile
-    •    Contraste AA garantido (branco sobre azul)
+• Todos os links com aria-label descritivo
+• Navegável via teclado
+• Ordem lógica de tabulação
+• Área mínima de toque garantida em mobile
+• Contraste AA garantido (branco sobre azul)
 
 ⸻
 
 NON-NEGOTIABLES
-    •    Footer fixo apenas no desktop
-    •    Footer não fixo no mobile
-    •    Copyright
-    •    Links de navegação
-    •    Redes sociais
-    •    Sem competição visual com Hero ou Manifesto
+• Footer fixo apenas no desktop
+• Footer não fixo no mobile
+• Copyright
+• Links de navegação
+• Redes sociais
+• Sem competição visual com Hero ou Manifesto
 
 ⸻
 
 ✅ RESULTADO FINAL ESPERADO
-    •    Desktop: footer institucional, discreto e sempre presente
-    •    Mobile: encerramento limpo, confortável e sem fricção
-    •    UX consistente, sem overlays invasivos
-    •    Sistema coerente com a filosofia editorial do projeto
-
+• Desktop: footer institucional, discreto e sempre presente
+• Mobile: encerramento limpo, confortável e sem fricção
+• UX consistente, sem overlays invasivos
+• Sistema coerente com a filosofia editorial do projeto
 
 ---
-
 
 # **ANEXO TÉCNICO — WEBGL ATMOSFÉRICO (GHOST)**
 
 ## Objetivo
+
 Documentar o pipeline técnico da Hero Ghost WebGL, substituindo completamente a abordagem anterior baseada em vidro líquido, GLB e MeshTransmissionMaterial.
 
 ---
 
 ## Paradigma Atual
+
 - Sem modelos GLB
 - Sem MeshTransmissionMaterial
 - Sem ScrollControls
@@ -2123,6 +2135,7 @@ Documentar o pipeline técnico da Hero Ghost WebGL, substituindo completamente a
 ---
 
 ## Canvas
+
 ```tsx
 <Canvas
   dpr={[1, 2]}
@@ -2134,17 +2147,18 @@ Documentar o pipeline técnico da Hero Ghost WebGL, substituindo completamente a
 ---
 
 ## Loop de Animação
+
 ```ts
 useFrame((state, delta) => {
-  ghost.position.lerp(target, 0.08)
-  material.emissiveIntensity =
-    1 + Math.sin(state.clock.elapsedTime) * 0.2
-})
+  ghost.position.lerp(target, 0.08);
+  material.emissiveIntensity = 1 + Math.sin(state.clock.elapsedTime) * 0.2;
+});
 ```
 
 ---
 
 ## Postprocessing
+
 - Bloom para aura
 - Analog Decay para textura temporal
 - Intensidade moderada (premium)
@@ -2152,6 +2166,7 @@ useFrame((state, delta) => {
 ---
 
 ## Regras Não-Negociáveis
+
 - WebGL nunca controla layout
 - Texto nunca depende de shader
 - Se o Canvas falhar, a Hero continua funcional
@@ -2159,4 +2174,5 @@ useFrame((state, delta) => {
 ---
 
 ## Regra de Ouro
+
 > WebGL apoia a narrativa. Nunca a substitui.

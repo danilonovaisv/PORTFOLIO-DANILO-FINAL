@@ -28,17 +28,14 @@ export default function SiteHeader({
     supportsWebGL && !disableWebGL && !reducedMotion && !prefersReducedMotion;
   const resolvedMode = forcedMode ?? (isDesktop ? 'desktop' : 'mobile');
 
-  const items = useMemo(
-    () => {
-      // Use props if provided, otherwise config
-      if (navItems && navItems.length > 0) return navItems;
-      return NAVIGATION.header.map(link => ({
-        ...link,
-        ariaLabel: `Ir para ${link.label}`
-      }));
-    },
-    [navItems]
-  );
+  const items = useMemo(() => {
+    // Use props if provided, otherwise config
+    if (navItems && navItems.length > 0) return navItems;
+    return NAVIGATION.header.map((link) => ({
+      ...link,
+      ariaLabel: `Ir para ${link.label}`,
+    }));
+  }, [navItems]);
 
   if (resolvedMode === 'desktop') {
     return (
