@@ -9,7 +9,7 @@ const Clients: React.FC = () => {
   return (
     <section
       id="clients"
-      className="bg-[#0057FF] py-24 md:py-32 border-t border-white/10"
+      className="relative bg-focus-ring py-24 md:py-32 overflow-hidden"
     >
       <div className="mx-auto w-full px-[clamp(1.5rem,5vw,6rem)] max-w-[1680px]">
         <motion.div

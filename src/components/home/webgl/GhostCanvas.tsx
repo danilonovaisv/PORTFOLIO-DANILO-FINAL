@@ -160,18 +160,20 @@ function Effects() {
   }, []);
 
   return (
-    <EffectComposer disableNormalPass>
-      <Bloom
-        intensity={reducedMotion ? 1.0 : isMobile ? 2.0 : 3.2}
-        luminanceThreshold={0.08}
-        luminanceSmoothing={0.85}
-        mipmapBlur={!isMobile} // Disable mipmap blur on mobile for perf if needed, or keep for aesthetics
-      />
+    <EffectComposer enableNormalPass={false}>
+      <>
+        <Bloom
+          intensity={reducedMotion ? 1.0 : isMobile ? 2.0 : 3.2}
+          luminanceThreshold={0.08}
+          luminanceSmoothing={0.85}
+          mipmapBlur={!isMobile} // Disable mipmap blur on mobile for perf if needed, or keep for aesthetics
+        />
 
-      {/* Disable noise on reduced motion to reduce visual busyness */}
-      <AnalogDecayPass enabled={!reducedMotion} />
+        {/* Disable noise on reduced motion to reduce visual busyness */}
+        <AnalogDecayPass enabled={!reducedMotion} />
 
-      <Vignette offset={0.12} darkness={0.78} />
+        <Vignette offset={0.12} darkness={0.78} />
+      </>
     </EffectComposer>
   );
 }

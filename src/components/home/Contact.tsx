@@ -14,7 +14,7 @@ const Contact: React.FC = () => {
       <div className="mx-auto w-full px-[clamp(1.5rem,5vw,6rem)] max-w-[1680px]">
         {/* Cabeçalho centralizado conforme referência */}
         <div className="text-center mb-16 md:mb-24">
-          <h2 className="text-4xl md:text-5xl font-bold text-[#0057FF] mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-focus-ring mb-4">
             contato
           </h2>
           <p className="text-xl text-text-muted">
