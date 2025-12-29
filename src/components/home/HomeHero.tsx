@@ -23,20 +23,17 @@ export default function HomeHero() {
   });
 
   // Desktop morph (thumb -> fullscreen)
-  const scaleVideo = useTransform(scrollYProgress, [0, 1], [0.32, 1]);
+  const scaleVideo = useTransform(scrollYProgress, [0, 1], [0.4, 3.2]);
   const xVideo = useTransform(scrollYProgress, [0, 1], ['0%', '-50%']);
   const yVideo = useTransform(scrollYProgress, [0, 1], ['0%', '-50%']);
-  const rightVideo = useTransform(
+  const rightVideo = useTransform(scrollYProgress, [0, 1], ['5vw', '50%']);
+  const bottomVideo = useTransform(scrollYProgress, [0, 1], ['5vw', '50%']);
+  const videoWidth = useTransform(
     scrollYProgress,
     [0, 1],
-    ['calc(0% + 5vw)', 'calc(50% + 0vw)']
+    ['min(360px, 26vw)', 'calc(100vw - 1.5rem)']
   );
-  const bottomVideo = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ['calc(0% + 5vw)', 'calc(50% + 0vw)']
-  );
-  const borderRadius = useTransform(scrollYProgress, [0, 1], ['16px', '0px']);
+  const borderRadius = useTransform(scrollYProgress, [0, 1], ['18px', '0px']);
 
   return (
     <>
@@ -65,16 +62,15 @@ export default function HomeHero() {
             aria-label="Vídeo manifesto"
             className="absolute z-30 overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.55)] hidden md:block"
             style={{
-              width: 'min(520px, 34vw)',
+              width: reducedMotion ? 'min(520px, 34vw)' : videoWidth,
               aspectRatio: '16/9',
-              right: reducedMotion ? '5vw' : (rightVideo as unknown as string),
-              bottom: reducedMotion
-                ? '5vw'
-                : (bottomVideo as unknown as string),
-              x: reducedMotion ? '0%' : (xVideo as unknown as string),
-              y: reducedMotion ? '0%' : (yVideo as unknown as string),
+              right: reducedMotion ? '5vw' : rightVideo,
+              bottom: reducedMotion ? '5vw' : bottomVideo,
+              x: reducedMotion ? '0%' : xVideo,
+              y: reducedMotion ? '0%' : yVideo,
               scale: reducedMotion ? 1 : scaleVideo,
               borderRadius,
+              transformOrigin: '100% 100%',
             }}
             onClick={() => {
               // Desktop click: "skip" -> scroll to end of hero

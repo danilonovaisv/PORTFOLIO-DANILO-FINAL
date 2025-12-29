@@ -1,16 +1,16 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
+
+import { BRAND } from '@/config/brand';
 
 export default function ManifestoThumb({ muted = true }: { muted?: boolean }) {
   const reducedMotion = useReducedMotion();
 
-  const src = useMemo(() => '/assets/thumb-hero.mp4', []);
-
   return (
     <motion.video
-      src={src}
+      src={BRAND.video.manifesto}
       autoPlay
       muted={muted}
       loop
