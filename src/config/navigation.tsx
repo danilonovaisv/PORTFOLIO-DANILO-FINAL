@@ -82,3 +82,17 @@ export const NAV_LINKS = [
   { label: 'sobre', href: '/sobre' },
   { label: 'contato', href: '#contact' },
 ];
+
+export const HEADER_LINKS_DESKTOP = [
+  { label: 'Home', href: '/' },
+  { label: 'Sobre', href: '/sobre' },
+  { label: 'Portfólio', href: '/portfolio' },
+  { label: 'Contato', href: '#contact' },
+];
+
+export const HEADER_LINKS_MOBILE = [
+  { label: 'Home', href: '/' },
+  { label: 'Sobre', href: '/sobre' },
+  { label: 'Portfólio', href: '/portfolio' },
+  { label: 'Contato', href: '/#contato' },
+];

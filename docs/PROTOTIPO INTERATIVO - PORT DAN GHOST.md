@@ -2,7 +2,7 @@
 # **Documento de Especificação Técnica — Home Page**
 **Projeto:** Portfólio Institucional de Danilo Novais
 **Páginas Principais:** Home, Sobre, Portfólio, Contato
-**Foco deste Documento:** Home Page (seções: Header, Hero, Manifesto,Portfolio Showcase, Featured Projects, Clients/Brands, Contact, Footer)
+**Foco deste Documento:** Home Page (seções: Header, Hero,Portfolio Showcase, Featured Projects, Clients/Brands, Contact, Footer)
 ---
 ## INFORMAÇÕES GLOBAIS
 
@@ -17,24 +17,27 @@
 **Ordem das seções da Home:**
 1. Header
 2. Hero
-3. Vídeo Manifesto (Manifesto)
-4. Portfolio Showcase
-5. Featured Projects
-6. Clients / Brands
-7. Contact
-8. Footer
+3. Portfolio Showcase
+4. Featured Projects
+5. Clients / Brands
+6. Contact
+7. Footer
 
 ---
 
-### 2. Assets Globais
+### 2. Assets Globais logos
+
+miniatura para janela:
 - **Logo Light:**  ["./src/assets/logos/LogoLight.svg"]
-  https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/faivcon-02.svg
+ https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg
 - **Logo Dark:**  ["./src/assets/logos/LogoDark.svg"]
-  https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/faivcon.svg
+ https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg
+ 
+ Logos para paginas.
 - **Favicon:**  ["./src/assets/logos/Favicon.svg"]
-  https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/logo.svg
+ https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/Favicon.svg
  - **Favicon Light:**  ["./src/assets/logos/FaviconLight.svg"]
-https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/logoHeaderClaro.svg
+https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg
 
 ---
 
@@ -89,19 +92,15 @@ Label PT (explicativo) | Thumbnail URL
 .co/storage/v1/object/public/project-images/Branding-Project.webp` |
 | `videos-motions` | `Videos & Motions` |
 `Vídeos & Motions` |
-`https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/y2mate.com%20-%20promoao_ta_podendo_nestle_ta_de_volta__wanzLKTQOE_1080p.mp4` |
+`https://aymuvxysygrwoicsjgxj.supabase
+.co/storage/v1/object/public/project-images/webdesigner-2%202.gif` |
 | `websites-webcampaigns-tech` | `Web Campaigns, Websites & Tech` |
 `Campanhas Web, Websites & Tech` |
-`https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp` |
-
-
+`https://aymuvxysygrwoicsjgxj.supabase
+.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp` |
 - CTA final:
 - Label: `VEJA MAIS →`
 - Href: `/portfolio`
-
-
-
-
 - **Featured Projects — cards**
 | Slug | Título |
 Categoria | Cliente | Ano | Imagem URL
@@ -126,11 +125,6 @@ Categoria | Cliente | Ano | Imagem URL
 motion` | `Cliente confidencial` | 2023 |
 `https://aymuvxysygrwoicsjgxj.supabase
 .co/storage/v1/object/public/project-images/webdesigner-2%202.gif` |
-
-
-
-
-
 - **Clients / Brands**
 - Título: `marcas com as quais já trabalhei`
 - Logos (monocromáticos claros):
@@ -224,153 +218,135 @@ como alternativa se necessário.
 ### Desktop: Fluid Glass Navigation  
 ### Mobile & Tablet: Staggered Menu Navigation
 
----
 
-## SECTION PURPOSE (what this section must achieve)
-- Fornecer navegação global e identidade visual do site.
-- Permanecer visível em todas as páginas.
-- Reforçar a identidade **premium + experimental** do projeto.
-- Atuar como camada atmosférica complementar à Hero Ghost.
-
----
-
-## RESPONSABILIDADE CONCEITUAL
-
-### Desktop
-- O header se comporta como um **objeto óptico fluido**.
-- Utiliza **refração real em WebGL** (Fluid Glass).
-- Não disputa atenção com a Hero — apenas dialoga visualmente.
-
-### Mobile & Tablet
-- O header é **funcional e minimalista**.
-- A navegação ocorre via **menu fullscreen staggered**.
-- Performance e clareza são priorizadas sobre efeitos visuais.
+## 🎯 SECTION PURPOSE
+- Fornecer navegação global e identidade visual do site.  
+- Permanecer visível em todas as páginas.  
+- Reforçar a identidade **premium + experimental** do projeto.  
+- Atuar como camada atmosférica complementar à **Hero Ghost**.  
 
 ---
 
-## BREAKPOINT STRATEGY
+## 🎨 DESIGN TOKENS
 
-| Device | Behaviour |
-|------|----------|
-| Desktop ≥ 1024px | Fluid Glass Header |
-| Tablet ≤ 1023px | Staggered Menu |
-| Mobile ≤ 640px | Staggered Menu |
-
----
-
-## DESKTOP — FLUID GLASS HEADER
-
-### VISUAL REFERENCE
-https://reactbits.dev/components/fluid-glass
+### Colors
+| Token | Value | Description |
+|--------|--------|-------------|
+| `primary` | `#0057FF` | Cor de destaque e interação |
+| `bg` | `#f0f0f0` | Fundo padrão neutro |
+| `text` | `#000000` | Texto padrão |
+| `textInverse` | `#FFFFFF` | Texto sobre fundo escuro |
+| `neutralLight` | `#F5F5F5` | Fundo secundário e elementos suaves |
 
 ---
 
-### VISUAL BEHAVIOR
-- Elemento translúcido com refração real (MeshTransmissionMaterial)
-- Distorção óptica sutil
-- Chromatic aberration controlada
-- Movimento leve seguindo o cursor
-- Renderiza o conteúdo por trás (não possui fundo sólido)
+### Typography
+- **Fonte principal:** TT Norms Pro *(self-host, se licenciado)*  
+- **Fallbacks:** `ui-sans-serif`, `system-ui`  
+- **Tamanhos e pesos:**
+  - Logo: `18–22px`, `font-semibold`
+  - Navegação: `15–16px`, `font-medium`, `tracking-tight`
 
 ---
 
-### CONTENT (DESKTOP)
-- Logo (Light)
-- Navigation links:
+## 💠 LAYOUT
+
+| Device | Tipo | Comportamento |
+|---------|------|---------------|
+| Desktop ≥1024px | **Fluid Glass Header (modo "bar")** | Objeto óptico fluido horizontal com refração leve e movimento sutil |
+| Tablet ≤1023px | **Staggered Menu** | Menu fullscreen com animação em cascata |
+| Mobile ≤640px | **Staggered Menu** | Menu lateral animado minimalista |
+
+---
+
+### Desktop — Fluid Glass Header (modo `"bar"`)
+
+**Visual Behavior**
+- Barra translúcida horizontal com refração e distorção óptica suave.  
+- Movimento fluido horizontal acompanhando o cursor.  
+- Permite visualizar o conteúdo por trás (sem fundo sólido).  
+- Interações sutis: hover com opacidade, sem underline.  
+
+**Conteúdo**
+- Logo Light  
+- Navegação:
   - Home → `/` ou `#hero`
   - Sobre → `/sobre`
-  - Portfolio → `/portfolio`
+  - Portfólio → `/portfolio`
   - Contato → `#contact`
 
----
-
-### LAYOUT TYPE
-- Header flutuante
-- Centralizado horizontalmente
-- Altura compacta
-- Não ocupa 100% da largura (aspecto de “objeto”)
+**Layout**
+- Header flutuante, centralizado horizontalmente.  
+- Altura compacta (~64px).  
+- Padding horizontal: 24px.  
+- Não ocupa 100% da largura — aparência de “objeto independente”.  
 
 ---
 
-### FILE ARCHITECTURE (DESKTOP)
+### Mobile & Tablet — Staggered Menu Navigation
 
-```
+**Visual Behavior**
+- Menu fullscreen com entrada lateral.  
+- Animação “staggered editorial” (itens surgem em cascata).  
+- Ícone Menu ↔ Close com morph suave.  
+- Cores de gradiente e camadas animadas.  
+
+**Menu Links**
+- Home → `/`
+- Sobre → `/sobre`
+- Portfólio → `/portfolio`
+- Contato → `/#contato`
+
+**Layout**
+- Logo à esquerda, botão Menu à direita.  
+- Fundo gradiente: `#B19EEF → #5227FF`.  
+- Texto branco puro (`#FFFFFF`).  
+
+---
+
+## ⚙️ INTERACTIONS
+
+| Ação | Efeito |
+|------|---------|
+| Hover nos links | Aumento leve de opacidade |
+| Pointer move | Vidro acompanha suavemente o cursor (movimento horizontal) |
+| Scroll | Header fixo, sem morph de tamanho |
+| Tap (mobile) | Abrir/fechar menu fullscreen |
+| Tap item (mobile) | Navegar e fechar menu |
+
+---
+
+## 🧱 COMPONENTS USED
+
 components/header/
- ├─ SiteHeader.tsx
- ├─ DesktopFluidHeader.tsx
- └─ webgl/
-     └─ FluidGlass.tsx
-```
+├─ SiteHeader.tsx
+├─ DesktopFluidHeader.tsx
+├─ MobileStaggeredMenu.tsx
+└─ webgl/
+└─ FluidGlass.tsx
 
 ---
 
-### FLUID GLASS — DEFAULT CONFIGURATION
+## ⚡ CONFIGURAÇÕES PADRÃO
 
-```tsx
+### Fluid Glass (modo `"bar"`)
+
+```
+tsx
 <FluidGlass
-  mode="lens"
-  lensProps={{
-    scale: 0.25,
+  mode="bar"
+  barProps={{
+    scale: [1.2, 0.25, 0.2],
     ior: 1.15,
-    thickness: 5,
-    chromaticAberration: 0.1,
-    anisotropy: 0.01
+    thickness: 4,
+    chromaticAberration: 0.08,
+    anisotropy: 0.02,
+    smoothness: 0.9
   }}
 />
-```
 
----
+Staggered Menu
 
-### INTERACTIONS (DESKTOP)
-- Hover nos links:
-  - Apenas alteração de opacidade
-  - ❌ Sem underline
-  - ❌ Sem animações chamativas
-- Pointer move:
-  - Vidro acompanha suavemente o cursor
-- Scroll:
-  - Header permanece fixo
-  - ❌ Sem morph de tamanho
-  - ❌ Sem animação por scroll
-
----
-
-### PERFORMANCE (DESKTOP)
-- Canvas WebGL isolado
-- Sem ScrollControls
-- DPR limitado
-- Geometria simples (`lens.glb`)
-- Fallback automático se WebGL falhar
-
----
-
-### ACCESSIBILITY (DESKTOP)
-- Navegação por teclado funcional
-- Links com `aria-label`
-- Fallback HTML:
-  - Logo + links estáticos se WebGL não estiver disponível
-
----
-
-## MOBILE & TABLET — STAGGERED MENU
-
-### VISUAL REFERENCE
-https://reactbits.dev/components/staggered-menu
-
----
-
-### VISUAL BEHAVIOR
-- Menu fullscreen
-- Entrada lateral
-- Animação staggered editorial
-- Camadas de cor animadas (prelayers)
-- Ícone Menu ↔ Close animado
-
----
-
-### STAGGERED MENU — DEFAULT CONFIGURATION
-
-```tsx
 <StaggeredMenu
   position="right"
   items={menuItems}
@@ -386,31 +362,562 @@ https://reactbits.dev/components/staggered-menu
 />
 ```
 
----
+⸻
 
-## Z-INDEX STRATEGY
+### Z-INDEX STRATEGY
 
-```
-z-40 → Header / Menu
-z-20 → Hero Content
+z-40 → Header / Menu  
+z-20 → Hero Content  
 z-0  → WebGL Hero Canvas
-```
+
+
+⸻
+
+### ♿ ACCESSIBILITY
+    •    Navegação por teclado funcional.
+    •    Links com aria-label.
+    •    Fallback HTML (logo + links estáticos) se WebGL não estiver disponível.
+    •    Contraste mínimo 4.5:1.
+    •    Botões e ícones com área mínima de toque 48×48px.
+
+⸻
+
+### 🚫 NON-NEGOTIABLES
+    •    ❌ Header não compete com a Hero.
+    •    ❌ Sem glassmorphism fake em CSS.
+    •    ❌ Sem animações decorativas gratuitas.
+    •    ✅ WebGL apenas no Desktop.
+    •    ✅ Mobile sem efeitos pesados.
+    •    ✅ Fallback funcional obrigatório.
+
+⸻
+
+### 🧩 ASSETS GLOBAIS — Logos
+
+Miniatura para janela
+    •    Logo Light:
+["./src/assets/logos/LogoLight.svg"]
+https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg
+    •    Logo Dark:
+["./src/assets/logos/LogoDark.svg"]
+https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg
+
+⸻
+
+Logos para páginas
+    •    Favicon:
+["./src/assets/logos/Favicon.svg"]
+https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/Favicon.svg
+    •    Favicon Light:
+["./src/assets/logos/FaviconLight.svg"]
+https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg
 
 ---
 
-## NON-NEGOTIABLES (HEADER)
-- ❌ Header não compete com a Hero
-- ❌ Sem glassmorphism fake em CSS
-- ❌ Sem animações decorativas gratuitas
-- ✅ WebGL apenas no Desktop
-- ✅ Mobile sem WebGL pesado
-- ✅ Fallback funcional obrigatório
+
+
+
+#  **HERO + MANIFESTO — Portfólio Institucional de Danilo Novais**
+
+## SECTION NAME
+**Hero (Ghost Atmosphere + Texto Editorial + Manifesto Subsection)**
+
+---
+
+## 🎯 SECTION PURPOSE
+- Criar impacto visual inicial com atmosfera **Ghost Blue** etérea e viva.  
+- Comunicar posicionamento estratégico através de **texto editorial estático**.  
+- Integrar o **vídeo manifesto** como subcamada sensorial da Hero (desktop)  
+  e seção independente em fullscreen no mobile.  
+- Introduzir a identidade “premium + experimental” sem poluição visual.  
+
+---
+
+## 💠 DESIGN TOKENS
+
+### Colors
+| Token | Value | Description |
+|--------|--------|-------------|
+| `primary` | `#0057FF` | Cor principal da atmosfera “Ghost Blue” |
+| `accent` | `#5227FF` | Glow e emissive secundário |
+| `bg` | `#06071f` | Fundo escuro de base |
+| `neutral` | `#0b0d3a` | Gradiente de transição para o fundo |
+| `text` | `#d9dade` | Texto editorial principal |
+| `highlight` | `#FFFFFF` | Picos de luminosidade e brilho de partículas |
+
+---
+
+### Typography
+- **TT Norms Pro**, self-host *(ou fallback: `ui-sans-serif`, `system-ui`)*  
+- Hierarquia:
+  - `[BRAND AWARENESS]` → 12px, uppercase, `font-mono`
+  - `h1` → 4rem–6rem, `font-bold`, `tracking-tight`
+  - Subcopy → 1rem–1.25rem, regular
+  - CTA → 0.9rem, uppercase, `tracking-wide`, `duration-300`, hover branco  
+
+---
+
+## 🧱 LAYER STRUCTURE (Z-INDEX HIERARCHY)
+
+| Ordem | Layer | Descrição |
+|-------|--------|------------|
+| **z-50** | 🩵 **Preloader (Ghost Loader)** | SVG animado “Summoning spirits” com barra de progresso |
+| **z-30** | 🎞️ **Thumb Vídeo Manifesto** | Vídeo interativo flutuante (subcategoria da Hero) |
+| **z-20** | 👻 **Animação Ghost (WebGL)** | Atmosfera viva: Ghost, partículas e fireflies |
+| **z-10** | ✍️ **Texto Editorial (HeroCopy)** | Conteúdo fixo e centralizado |
+| **z-0** | 🌌 **Gradiente Base** | Fundo `#06071f` + radial `#0b0d3a` |
+
+---
+
+## 🧩 COMPONENTS
+
+components/home/
+├─ HomeHero.tsx            ← Orquestrador (todas as layers)
+├─ HeroPreloader.tsx       ← Animação inicial “ghost-loader”
+├─ HeroCopy.tsx            ← Texto editorial fixo
+├─ ManifestoThumb.tsx      ← Vídeo manifesto flutuante (desktop)
+├─ GhostStage.tsx          ← Wrapper dinâmico (Canvas 3D)
+└─ webgl/
+├─ GhostCanvas.tsx
+├─ Ghost.tsx
+├─ Eyes.tsx
+├─ Particles.tsx
+├─ Fireflies.tsx
+├─ AtmosphereVeil.tsx
+└─ postprocessing/
+├─ AnalogDecayPass.ts
+└─ BloomPass.ts
+
+---
+
+## ⚙️ INTERACTIVE PROTOTYPE FLOW
+
+### 🩵 1. PRELOADER — “Ghost Loader”
+- SVG flutuante animado (`ghostFloat`, `eyePulse`, `textPulse`).  
+- Mensagem: `"Summoning spirits"`.  
+- Barra de progresso (`from-[#0057FF] to-[#5227FF]`).  
+- Fade-out suave (`opacity 1 → 0` após 1.5s).  
+
+---
+
+### 🌫️ 2. GHOST ATMOSPHERE (WEBGL CANVAS)
+**Camada sensorial viva**, inspirada em *Spooky Spectral Ghost* [oai_citation:0‡webgl-threejs-spooky-spectral-ghost.markdown](sediment://file_00000000eb8871f5a1454647d72cb53c)  
+- Mesh esférico emissivo (`#0057FF`), pulso harmônico e flutuação vertical.  
+- Olhos reativos (`Eyes.tsx`) → brilho aumenta conforme movimento do mouse.  
+- Partículas orgânicas e fireflies orbitam o ghost.  
+- Pós-processamento:  
+  - `BloomPass` → brilho HDR (intensidade 2.8).  
+  - `AnalogDecayPass` → *grain*, *scanlines*, *jitter*, *vignette*.  
+
+**Interações:**
+- Cursor move → Ghost segue lentamente o ponteiro (`lerp 0.05`).  
+- Movimento senoidal orgânico (`sin(t * 0.8)` / `sin(t * 0.3)`).  
+- Performance: `DPR 2`, `antialias false`, desativado em `prefers-reduced-motion`.  
+
+---
+
+### ✍️ 3. HERO TEXT BLOCK
+**Conteúdo editorial centralizado (HeroCopy.tsx)**  
+
+[BRAND AWARENESS]
+Design, não
+é só estética.
+[É intenção, é estratégia, é experiência.]
+
+**Características:**
+- 100% estático, sem fade ou scroll binding.  
+- `text-[#d9dade]` sobre fundo `#06071f`.  
+- Centralizado (`flex-col`, `items-center`, `text-center`).  
+- CTA: `"get to know me better →"` com hover branco.  
+
+---
+
+### 🎞️ 4. MANIFESTO THUMB (SUBSECTION DESKTOP)
+**Comportamento (Desktop)**  
+- Vídeo miniatura flutuante (`bottom-right`, `z-30`).  
+- Vídeo:  
+  `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`  
+- Autoplay, muted, loop, playsInline.  
+- Fade-in suave após preloader.  
+
+**Estados:**
+| Estado | Ação | Efeito |
+|--------|------|---------|
+| Idle | Página carregada | Opacity 0 → 1, scale 0.9 → 1 |
+| Hover | Mouse sobre vídeo | Scale 1 → 1.05, ícone gira (-45° → 0°) |
+| Scroll | Usuário desce | Vídeo cresce e centraliza, cobrindo o texto |
+| Click | Desktop | Salta para estado fullscreen instantâneo |
+| Click | Mobile | Alterna som (mute/unmute) |
+
+**Transições:**
+- `ease-in-out`, `duration-500ms`.  
+- `border-radius: 12px → 0px`.  
+- `scale: 0.3 → 1`.  
+
+---
+
+### 📱 5. MANIFESTO (MOBILE VERSION)
+**Na versão mobile, o vídeo manifesto é uma seção independente logo abaixo da Hero.**  
+- Ocupa 100% da viewport (`aspect-video`).  
+- Autoplay, loop, muted.  
+- `whileInView` + `useInView` (Framer Motion) → fade-in + scale 0.95 → 1.  
+- Fundo idêntico à Hero (`#06071f`), garantindo continuidade visual.  
+
+```tsx
+<motion.section
+  id="manifesto"
+  variants={{
+    hidden: { opacity: 0, scale: 0.95, y: 20 },
+    visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+  }}
+  initial="hidden"
+  whileInView="visible"
+  className="w-full bg-[#06071f] flex items-center justify-center aspect-video"
+>
+  <video
+    src="https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4"
+    muted
+    autoPlay
+    loop
+    playsInline
+    className="w-full h-full object-cover"
+  />
+</motion.section>```
+
+
+⸻
+
+### 🧱 FINAL Z-INDEX STACK (HERO + MANIFESTO)
+
+z-index    Elemento    Descrição
+z-50    Preloader    Ghost Loader
+z-30    ManifestoThumb (desktop)    Vídeo flutuante interativo
+z-20    GhostCanvas    Ghost + partículas + atmosfera
+z-10    HeroCopy    Texto editorial central
+z-0    Fundo radial    radial-gradient(circle, #0b0d3a, #06071f)
+mobile-only    ManifestoSection    Fullscreen abaixo da Hero
+
+
+⸻
+
+### ♿ ACCESSIBILIDADE
+    •    Contraste AA garantido (#d9dade / #06071f = 7.2:1).
+    •    prefers-reduced-motion:
+    •    Desativa movimentos e pós-processamento.
+    •    Mantém layout estático.
+    •    aria-label em links e botões.
+    •    Vídeo sempre inicia mudo.
+
+⸻
+
+###⚡ PERFORMANCE
+    •    WebGL carregado via dynamic import (ssr: false).
+    •    DPR máximo: 2.
+    •    Partículas limitadas a 250.
+    •    Fallback: background radial se WebGL falhar.
+    •    useInView aciona animações do vídeo manifesto apenas quando visível.
+
+⸻
+
+###🚫 NON-NEGOTIABLES
+    •    ❌ Sem glassmorphism.
+    •    ❌ Sem texto animado.
+    •    ❌ Sem 3D sólido (GLB).
+    •    ❌ Sem overlays sobre o vídeo.
+    •    ✅ Ghost é camada atmosférica, não protagonista.
+    •    ✅ Texto é âncora editorial.
+    •    ✅ Vídeo manifesto integrado apenas no desktop; isolado no mobile.
+
+⸻
+
+###🧠 VISUAL HIERARCHY (DESKTOP)
+    1.    Preloader (Ghost Loader)
+    2.    Hero Background + WebGL Atmosphere
+    3.    Ghost Mesh (emissivo, flutuante)
+    4.    Fireflies + Partículas
+    5.    Hero Text Block (Editorial)
+    6.    Manifesto Video Thumb (Floating Layer)
+    7.    Transition → Manifesto Section (scroll ou click)
+
+⸻
+
+###📐 FILE ARCHITECTURE SUMMARY
+
+components/home/
+├─ HomeHero.tsx
+├─ HeroPreloader.tsx
+├─ HeroCopy.tsx
+├─ ManifestoThumb.tsx
+├─ GhostStage.tsx
+├─ ManifestoSection.tsx  ← apenas para mobile
+└─ webgl/
+   ├─ GhostCanvas.tsx
+   ├─ Ghost.tsx
+   ├─ Eyes.tsx
+   ├─ Particles.tsx
+   ├─ Fireflies.tsx
+   ├─ AtmosphereVeil.tsx
+   └─ postprocessing/
+       ├─ AnalogDecayPass.ts
+       └─ BloomPass.ts
+
+
+⸻
+
+###🪞 EXPECTED RESULT
+    •    Hero silenciosa e cinematográfica.
+    •    Texto editorial fixo e legível desde o primeiro frame.
+    •    Ghost flutuante reagindo organicamente ao cursor.
+    •    Vídeo manifesto aparece como miniatura e cresce ao scroll (desktop).
+    •    No mobile, manifesto abre já em fullscreen logo abaixo da Hero.
+    •    Atmosfera “Ghost Blue” contínua, com profundidade e leveza.
 
 ---
 
 
 
+# **SECTION NAME: Portfolio Showcase**
 
+### SECTION PURPOSE (what this section must achieve)
+Apresentar claramente as áreas de atuação de Danilo.
+Organizar mentalmente o portfólio em categorias.
+Criar navegação editorial premium com foco em clareza, ritmo e interatividade suave.
+
+### PRIMARY MESSAGE / HEADLINE
+`portfólio showcase`
+
+### SECONDARY MESSAGE / SUPPORT TEXT
+`[what we love working on]`
+
+### KEY CONTENT ELEMENTS
+- Headline central da seção.
+- Microtexto lateral `[what we love working on]`.
+- 3 stripes de categorias interativas.
+- CTA aspiracional inferior.
+
+### CALL TO ACTION (if any)
+- `Ver todos os projetos →` → `/portfolio?category={id}`
+- `let’s build something great →` → `/#contact`
+
+### LINKS GLOBAIS
+- Integração com `/portfolio` (com filtro por categoria).
+- Integração com `/#contact`.
+
+---
+
+## LAYOUT & DESIGN (Adaptado da Referência Lo&Behold)
+
+### ALIGNMENT
+**Desktop (≥1024px)**
+- Headline centralizada.
+- Microtexto alinhado à esquerda do primeiro stripe.
+- Stripes com alinhamento alternado:
+    - Direita
+    - Centro
+    - Esquerda
+- **Referência Lo&Behold:** As linhas são delimitadas por finas bordas horizontais. O conteúdo dentro de cada stripe é alinhado de forma que o título e o ícone de seta fiquem visualmente centrados no espaço disponível, criando um ritmo fluido.
+
+**Mobile (≤768px)**
+- Todos os elementos empilhados.
+- Alinhamento à esquerda.
+- Stripes ocupam 100% da largura.
+
+### SPACING
+**Desktop:**
+- `py-24`
+- `gap-14` entre stripes
+- Espaço claro antes do CTA final.
+
+**Mobile:**
+- `py-16`
+- `gap-10`
+
+### BACKGROUND
+- Fundo sólido `#F4F5F7`.
+
+### SECTION COLORS
+- Azul da marca `#0057FF`.
+- Texto principal `#111111`.
+- Texto secundário em tons neutros.
+
+### TYPOGRAPHY
+- **Headline:**
+    - Mobile: `text-4xl`
+    - Desktop: `text-6xl`
+- **Stripes:**
+    - Mobile: `text-2xl`
+    - Desktop: `text-5xl / text-6xl`
+- **Microtexto:**
+    - Uppercase
+    - Tracking amplo apenas em desktop
+
+---
+
+## INTERAÇÕES & ANIMAÇÕES (Equivalência Comportamental à Referência Lo&Behold)
+
+### IMAGERY & MEDIA
+- Miniaturas animadas apenas em hover (desktop).
+- Imagem grande apenas no estado expandido.
+- Mobile não exibe thumbnails em hover.
+- **Referência Lo&Behold:** As miniaturas aparecem com uma animação de slide-in suave do lado esquerdo ao passar o mouse sobre a linha. A imagem é um preview do projeto associado à categoria.
+
+### COMPONENTS USED
+- `PortfolioShowcaseSection`
+- `CategoryStripe`
+- `ExpandedCategoryPanel`
+- CTA Button
+
+### STATE VARIANTS
+- **Hover (desktop):**
+    - Slide-in da thumbnail da esquerda para a direita.
+    - Mudança sutil de cor ou peso do título (ex: escurecimento ou leve aumento de peso).
+    - Ícone de seta rotaciona levemente (aproximadamente 45 graus) para indicar interatividade.
+- **Active:**
+    - Stripe expandido, revelando mais detalhes ou uma galeria de projetos.
+- **Focus:**
+    - Outline visível (keyboard).
+
+### INTERACTIONS
+- **Clique / Enter / Space no stripe:**
+    - Expande a categoria para mostrar mais detalhes ou redireciona para a página de portfólio filtrada.
+- **Clique em CTA:**
+    - Navegação direta.
+- **Hover:**
+    - Micro-interações sutis (desktop apenas). A animação deve ser fluida, sem jank, e respeitar o tempo de transição da referência (aproximadamente 0.3s).
+
+### SCROLL BEHAVIOUR
+- Reveal on scroll com fade + translateY.
+- Sem sticky.
+
+### ANIMATIONS
+- **Entrada da seção:**
+    - `opacity: 0 → 1`
+    - `y: 24 → 0`
+- **Expansão:**
+    - Animação de layout (`layout` animation).
+    - Easing: `cubic-bezier(0.22,1,0.36,1)`
+- **Hover:**
+    - Apenas `transform` e `opacity`.
+    - `prefers-reduced-motion`: Desativa animações não essenciais.
+
+### MICRO-INTERACTIONS
+- Hover no ponto azul (scale ligeiro).
+- Ícone de seta rotaciona ao expandir.
+
+---
+
+## TEXT LIMITS & CONTENT PRIORITY
+- Labels curtos e escaneáveis.
+- **Content Priority:**
+    1. Headline
+    2. Stripes
+    3. CTA final
+
+### ALTERNATIVE CONTENT
+- Imagem fallback neutra.
+- Conteúdo textual sempre visível.
+
+### LINKS / DESTINATIONS
+- `brand-campaigns` → Brand & Campaigns
+- `videos-motions` → Videos & Motions
+- `websites-webcampaigns-tech` → Web Campaigns, Websites & Tech
+
+### DATA HOOKS / TRACKING
+- `portfolio_showcase_category_click`
+- `portfolio_showcase_cta_click`
+
+### DEPENDENCIES
+- Página `/portfolio` com suporte a filtros.
+
+---
+
+## ACCESSIBILITY NOTES
+- `role="button"` nos stripes.
+- `aria-expanded` no estado ativo.
+- Navegação completa por teclado.
+- Foco visível.
+- Respeito a `prefers-reduced-motion`.
+
+---
+
+## SPECIAL STATES
+- Não aplicável (conteúdo estático).
+
+---
+
+## ULTRAWIDE STRATEGY (1920px+)
+- **Objetivo:** Evitar aparência “apertada” ou excessivamente centralizada em telas grandes, mantendo elegância editorial.
+- **Container Strategy:**
+    - Substituir container rígido por container fluido controlado:
+        - `max-width: 1680px`
+        - `padding-inline: clamp(24px, 5vw, 96px)`
+    - Centralizar conteúdo com `mx-auto`.
+- **Layout:**
+    - Headline mantém centralização visual.
+    - Stripes ganham mais “respiro” lateral.
+    - Microtexto permanece alinhado ao primeiro stripe, não ao viewport.
+- **Animações:**
+    - Mesmos timings do desktop.
+    - Nenhuma animação baseada em largura do viewport.
+
+---
+
+## CHECKLIST DE QA VISUAL — Portfolio Showcase
+
+✅ **Desktop (1280 / 1440 / 1680)**
+- [ ] Headline centralizada visualmente.
+- [ ] Microtexto visível apenas no primeiro stripe.
+- [ ] Alinhamento alternado correto (direita / centro / esquerda).
+- [ ] Hover revela thumbnail suavemente (slide-in da esquerda).
+- [ ] Nenhum layout shift ao hover.
+- [ ] Expansão fluida, sem jank.
+- [ ] CTA final visível e equilibrado.
+
+✅ **Ultrawide (1920+)**
+- [ ] Conteúdo não parece “estreito”.
+- [ ] Padding lateral confortável.
+- [ ] Stripes não colam nas bordas.
+- [ ] Ritmo visual consistente com desktop.
+- [ ] Nada parece “perdido” no centro.
+
+✅ **Tablet (768 / 820 / 1024)**
+- [ ] Stripes ocupam largura correta.
+- [ ] Textos legíveis sem quebra estranha.
+- [ ] Expansão não causa overflow.
+- [ ] CTA acessível sem scroll excessivo.
+
+✅ **Mobile (320 / 375 / 414)**
+- [ ] Sem overflow horizontal.
+- [ ] Todos os textos legíveis.
+- [ ] Stripes clicáveis com boa área de toque.
+- [ ] Thumbnails não aparecem em hover.
+- [ ] Expansão vertical suave.
+- [ ] CTA final claramente visível.
+
+✅ **Acessibilidade**
+- [ ] Navegação completa por teclado.
+- [ ] Foco visível em stripes e CTAs.
+- [ ] `aria-expanded` correto.
+- [ ] Movimento reduzido respeitado.
+
+✅ **Performance**
+- [ ] Nenhuma animação de `width` em mobile.
+- [ ] Apenas `transform` e `opacity` animados.
+- [ ] Sem layout shift perceptível.
+- [ ] Imagens carregam corretamente.
+
+✅ **Fidelidade Premium**
+- [ ] Ritmo editorial consistente com a referência Lo&Behold.
+- [ ] Espaçamento equilibrado.
+- [ ] Tipografia hierárquica.
+- [ ] Comportamento de hover e expansão alinhado à referência.
+
+---
+
+## STATUS FINAL
+Este documento representa a versão final validada da seção Portfolio Showcase para a Home Page, adaptada com equivalência de comportamento, layout e ritmo da referência https://loandbehold.studio.
+
+---
 
 # **SECTION NAME: Featured Projects**
 **SECTION PURPOSE:**
