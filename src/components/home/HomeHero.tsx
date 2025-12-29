@@ -55,9 +55,9 @@ export default function HomeHero() {
     observer.observe(wrapper);
 
     return () => observer.disconnect();
-  }, []);
+  }, [reducedMotion]);
 
-  // Scroll pin + animação da thumb até virar miniatura
+  // Scroll pin + animação da thumb expandindo até full-screen
   useEffect(() => {
     const hero = heroRef.current;
     const wrapper = videoWrapperRef.current;
@@ -73,11 +73,16 @@ export default function HomeHero() {
           scrollTrigger: {
             trigger: hero,
             start: 'top top',
-            end: '+=150%',
+            end: '+=180%',
             pin: true,
             scrub: true,
           },
         });
+
+        const overlayTargets = [
+          videoTextRef.current,
+          toggleSoundRef.current,
+        ].filter(Boolean) as HTMLElement[];
 
         timeline.fromTo(
           wrapper,
@@ -91,15 +96,26 @@ export default function HomeHero() {
             transformOrigin: '100% 100%',
           },
           {
-            bottom: 30,
-            right: 30,
-            width: '11.5635%',
-            height: '15.6782%',
-            borderRadius: 5,
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            width: '100%',
+            height: '100%',
+            borderRadius: 0,
             scale: 1,
+            transformOrigin: '50% 50%',
             ease: 'none',
           }
         );
+
+        if (overlayTargets.length) {
+          timeline.to(
+            overlayTargets,
+            { autoAlpha: 0, yPercent: 20, ease: 'none' },
+            0
+          );
+        }
       });
     }, hero);
 
@@ -107,7 +123,7 @@ export default function HomeHero() {
       mm.revert();
       ctx.revert();
     };
-  }, []);
+  }, [reducedMotion]);
 
   // Toggle de som
   useEffect(() => {
@@ -121,7 +137,7 @@ export default function HomeHero() {
       <section
         id="hero"
         ref={heroRef}
-        className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_30%_30%,#0b0d3a_0%,#06071f_55%,#06071f_100%)]"
+        className="relative min-h-screen md:min-h-[200vh] overflow-hidden bg-[radial-gradient(circle_at_30%_30%,#0b0d3a_0%,#06071f_55%,#06071f_100%)]"
         aria-label="Hero"
       >
         <HeroPreloader />
@@ -140,7 +156,7 @@ export default function HomeHero() {
         <div
           ref={videoWrapperRef}
           aria-label="Vídeo manifesto"
-          className="video-wrapper z-30 relative mx-auto mt-10 flex aspect-[9/14] w-[220px] max-w-[360px] flex-col items-end overflow-hidden rounded-[18px] shadow-[0_20px_80px_rgba(0,0,0,0.55)] transition-transform duration-700 md:absolute md:bottom-[5vw] md:right-[5vw] md:w-[min(520px,34vw)] md:aspect-video"
+          className="video-wrapper group/video z-30 relative mx-auto mt-10 flex aspect-[9/14] w-[220px] max-w-[360px] flex-col items-end overflow-hidden rounded-[18px] shadow-[0_20px_80px_rgba(0,0,0,0.55)] transition-transform duration-500 ease-in-out md:absolute md:bottom-[5vw] md:right-[5vw] md:w-[min(520px,34vw)] md:aspect-video md:hover:scale-[1.05]"
           onClick={() => {
             if (typeof window === 'undefined') return;
             if (window.innerWidth >= 768 && heroRef.current) {
@@ -152,7 +168,10 @@ export default function HomeHero() {
                 top,
                 behavior: reducedMotion ? 'auto' : 'smooth',
               });
+              return;
             }
+
+            setMuted((prev) => !prev);
           }}
         >
           <ManifestoThumb ref={videoRef} muted={muted} />
@@ -165,7 +184,7 @@ export default function HomeHero() {
                 viewBox="0 0 24 24"
                 fill="none"
                 aria-hidden="true"
-                className="-rotate-45"
+                className="manifesto-arrow -rotate-45 transition-transform duration-500 ease-in-out group-hover/video:rotate-0"
               >
                 <path
                   d="M7 17L17 7"
