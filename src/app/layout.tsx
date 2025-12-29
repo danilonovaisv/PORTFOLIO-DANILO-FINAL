@@ -10,6 +10,7 @@ import Footer from '@/components/layout/Footer';
 
 import { useExperience } from '@/hooks/useExperience';
 
+import { AntigravityDebugger } from '@/components/debug/AntigravityDebugger';
 import './globals.css';
 
 const ttNorms = localFont({
@@ -39,6 +40,7 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
+          <AntigravityDebugger />
         </SmoothScroll>
       </body>
     </html>

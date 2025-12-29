@@ -1,0 +1,25 @@
+# WebGL Performance Budget
+# Hard limits for R3F scenes to ensure consistent 60fps
+
+budget:
+  desktop:
+    max_triangles: 100000
+    max_draw_calls: 50
+    max_textures: 5
+    texture_size_limit: 2048
+    ms_per_frame: 16.0
+
+  mobile:
+    max_triangles: 0 # WebGL Disabled by default
+    max_draw_calls: 0
+    fallback: 'Static Image / CSS Gradient'
+
+  shaders:
+    complexity_limit: 'medium'
+    post_processing:
+      allowed: ['Bloom', 'Noise', 'Vignette']
+      max_passes: 2
+
+monitoring:
+  warn_at: 80%
+  error_at: 100%

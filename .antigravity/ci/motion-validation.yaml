@@ -1,0 +1,24 @@
+# Motion Validation Rules
+# Defines boundaries for animations to ensure premium feel and accessibility
+
+rules:
+  duration:
+    min: 0.2s
+    max: 1.2s
+    default: 0.6s
+    rationale: 'Prevent sluggish or jittery motion'
+
+  easing:
+    primary: 'cubic-bezier(0.25, 0.1, 0.25, 1.0)' # Smooth/Ghost
+    entrance: 'cubic-bezier(0.22, 1, 0.36, 1)'
+    exit: 'cubic-bezier(0.32, 0, 0.67, 0)'
+    banned: ['bounce', 'elastic']
+
+  transforms:
+    allowed: ['translate', 'scale', 'opacity', 'rotate']
+    disallowed: ['skew', 'width', 'height', 'top', 'left']
+    rationale: 'Performance: only compose-layer properties'
+
+  reduced_motion:
+    behavior: 'OPACITY_ONLY'
+    duration_multiplier: 0.0 # Instant or fade only
