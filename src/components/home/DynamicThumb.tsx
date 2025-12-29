@@ -120,7 +120,10 @@ export default function DynamicThumb() {
       className="fixed bottom-5 right-5 md:bottom-8 md:right-8 z-[999]"
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: reducedMotion ? 0.1 : 0.4, ease: [0.22, 1, 0.36, 1] }}
+      transition={{
+        duration: reducedMotion ? 0.1 : 0.4,
+        ease: [0.22, 1, 0.36, 1],
+      }}
     >
       <div className="relative w-[200px] h-[128px] md:w-[280px] md:h-[180px] rounded-xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.35)] bg-neutral-900 border border-white/5">
         <AnimatePresence mode="wait">
@@ -129,7 +132,10 @@ export default function DynamicThumb() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: reducedMotion ? 0.12 : 0.4, ease: 'easeInOut' }}
+            transition={{
+              duration: reducedMotion ? 0.12 : 0.4,
+              ease: 'easeInOut',
+            }}
             className="absolute inset-0"
           >
             {current.kind === 'video' ? (
