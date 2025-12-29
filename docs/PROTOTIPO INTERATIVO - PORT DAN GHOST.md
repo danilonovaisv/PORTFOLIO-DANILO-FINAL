@@ -1811,8 +1811,8 @@ ring-offset-[#f5f5f7]
 - Action: `https://formsubmit.co/danilo@portfoliodanilo.com`
 - **Redes sociais: Links externos:**
 - Telefone: `tel:+5511983966838`
-- Email primário: `mailto:dannovaisv@gmail.com`
-- Email secundário: `mailto:danilo@portfoliodanilo.com`
+- Email primário: `mailto:danilo@portfoliodanilo.com`
+- Email secundário:  `mailto:dannovaisv@gmail.com` 
 - Instagram: `https://instagram.com/danilo_novais`
 - Facebook: `https://facebook.com/danilonovaisvilela`
 - LinkedIn: `https://linkedin.com/in/danilonovais`
