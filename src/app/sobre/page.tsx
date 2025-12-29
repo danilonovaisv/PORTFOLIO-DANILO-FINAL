@@ -8,7 +8,7 @@ import { ArrowUpRight } from 'lucide-react';
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-surface-main text-[#F0F0F0] selection:bg-[#0057FF] selection:text-white pt-24 md:pt-32">
+    <main className="min-h-screen bg-surface-main text-[#F0F0F0] selection:bg-focus-ring selection:text-white pt-24 md:pt-32">
       {/* Hero Section */}
       <section className="relative px-6 md:px-12 lg:px-24 mb-24 md:mb-40">
         <div className="max-w-7xl mx-auto">
@@ -18,7 +18,7 @@ export default function AboutPage() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="flex flex-col gap-6 md:gap-8"
           >
-            <span className="text-[#0057FF] font-mono tracking-widest uppercase text-sm md:text-base">
+            <span className="text-focus-ring font-mono tracking-widest uppercase text-sm md:text-base">
               {ABOUT_CONTENT.hero.subtitle}
             </span>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tighter leading-[0.9] text-transparent bg-clip-text bg-linear-to-b from-white to-white/60">
@@ -80,7 +80,7 @@ export default function AboutPage() {
               <Button
                 href="/portfolio"
                 size="lg"
-                className="bg-[#0057FF] text-white hover:bg-[#0046CC] rounded-full px-8 py-6 text-lg gap-3 shadow-[0_0_20px_rgba(0,87,255,0.3)] hover:shadow-[0_0_30px_rgba(0,87,255,0.5)] transition-all"
+                className="bg-focus-ring text-white hover:bg-[#0046CC] rounded-full px-8 py-6 text-lg gap-3 shadow-[0_0_20px_rgba(0,87,255,0.3)] hover:shadow-[0_0_30px_rgba(0,87,255,0.5)] transition-all"
               >
                 Ver Projetos
                 <ArrowUpRight className="w-5 h-5" />
