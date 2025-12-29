@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { useScroll } from 'framer-motion';
+import { useScroll, useTransform } from 'framer-motion';
 
 import GhostStage from './GhostStage';
 import HeroCopy from './HeroCopy';
@@ -17,22 +17,27 @@ function HomeHeroContent() {
   // Agora é seguro porque heroRef estará sempre ligado ao <section> retornado
   const { scrollYProgress } = useScroll({
     target: heroRef,
-    offset: ['start start', 'end start'], // 0 → 1 ao longo da Hero
+    offset: ['start start', 'end end'], // 0 → 1 ao longo da Hero
   });
 
   useEffect(() => {
     // Deteção de mobile dentro do componente montado
-    const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
+    const checkDesktop = () => setIsDesktop(window.innerWidth >= 768);
     checkDesktop();
     window.addEventListener('resize', checkDesktop);
     return () => window.removeEventListener('resize', checkDesktop);
   }, []);
 
+  const scaleVideo = useTransform(scrollYProgress, [0, 1], [0.3, 1]);
+  const posYVideo = useTransform(scrollYProgress, [0, 1], ["50%", "0%"]);
+  const borderRadius = useTransform(scrollYProgress, [0, 1], ["16px", "0px"]);
+  const opacityText = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+
   return (
     <section
       ref={heroRef}
       id="hero"
-      className="relative w-full min-h-[90vh] overflow-hidden bg-[#06071f]"
+      className="relative w-full h-[200vh] overflow-hidden bg-[#06071f]"
     >
       {/* Layer 0 — Background */}
       <div
@@ -40,23 +45,31 @@ function HomeHeroContent() {
         aria-hidden
       />
 
-      {/* Layer 1 — WebGL Ghost (Desktop only) */}
-      <div className="absolute inset-0 z-10 pointer-events-none">
+      {/* Layer 20 — WebGL Ghost (Atmosphere) */}
+      <div className="absolute inset-0 z-20">
         <GhostStage enabled={isDesktop} />
       </div>
 
-      {/* Layer 2 — Conteúdo estático */}
-      <div className="relative z-20 flex min-h-[90vh] items-center justify-center">
+      {/* Layer 10 — Conteúdo estático */}
+      <motion.div 
+        style={{ opacity: opacityText }}
+        className="absolute z-10 inset-0 flex flex-col items-center justify-center text-center px-4"
+      >
         <HeroCopy />
-      </div>
+      </motion.div>
 
-      {/* Layer 3 — Manifesto Thumb (Desktop only) */}
+      {/* Layer 30 — Manifesto Thumb (Desktop only) */}
       {isDesktop && (
-        <div className="absolute inset-0 z-30 pointer-events-none">
-          <div className="absolute bottom-10 right-10">
-            <ManifestoThumb scrollProgress={scrollYProgress} />
-          </div>
-        </div>
+        <motion.div
+          style={{
+            scale: scaleVideo,
+            y: posYVideo,
+            borderRadius: borderRadius
+          }}
+          className="absolute bottom-10 right-10 z-30 w-[30vw] aspect-video overflow-hidden rounded-2xl shadow-lg"
+        >
+          <ManifestoThumb />
+        </motion.div>
       )}
     </section>
   );
@@ -64,30 +77,9 @@ function HomeHeroContent() {
 
 // --- COMPONENTE PRINCIPAL (WRAPPER) ---
 export default function HomeHero() {
-  const [isMounted, setIsMounted] = useState(false);
-  const [showPreloader, setShowPreloader] = useState(true);
-
-  useEffect(() => {
-    setIsMounted(true);
-    const timeout = setTimeout(() => setShowPreloader(false), 1200);
-    return () => clearTimeout(timeout);
-  }, []);
-
-  // Se não estiver montado, mostramos apenas o placeholder/preloader
-  // O hook useScroll NÃO corre aqui, prevenindo o erro.
-  if (!isMounted) {
-    return (
-      <>
-        <HeroPreloader isVisible={true} />
-        <div className="h-screen w-full bg-ghost-void" />
-      </>
-    );
-  }
-
   return (
     <>
-      <HeroPreloader isVisible={showPreloader} />
-      {/* Renderizamos o conteúdo real apenas agora */}
+      <HeroPreloader />
       <HomeHeroContent />
     </>
   );

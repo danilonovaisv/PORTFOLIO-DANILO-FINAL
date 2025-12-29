@@ -3,7 +3,7 @@
 
 import { useRef, useEffect, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
+import { EffectComposer, Vignette } from '@react-three/postprocessing';
 import * as THREE from 'three';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import Ghost from './Ghost';
@@ -11,6 +11,7 @@ import AtmosphereVeil from './AtmosphereVeil';
 import Particles from './Particles';
 import Fireflies from './Fireflies';
 import AnalogDecayPass from './postprocessing/AnalogDecayPass';
+import BloomPass from './postprocessing/BloomPass';
 
 // Ghost Scene Orchestrator
 function GhostScene() {
