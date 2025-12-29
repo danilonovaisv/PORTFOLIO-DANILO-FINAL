@@ -17,21 +17,20 @@ export const InputField: React.FC<InputFieldProps> = ({
   <div>
     <label
       htmlFor={id}
-      className="block text-sm font-semibold text-[#666666] mb-2"
+      className="sr-only" // Visualmente oculto para bater com referência, mas acessível
     >
       {label}
     </label>
     <input
       id={id}
-      aria-invalid={!!error}
+      aria-invalid={error ? "true" : "false"}
       aria-describedby={error ? `${id}-error` : undefined}
-      className={`w-full rounded-xl border ${
-        error ? 'border-red-500' : 'border-black/10'
-      } bg-white px-4 py-3 text-[#111111] transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] ${className}`}
+      className={`w-full rounded-xl border-none bg-[#F5F5F7] px-6 py-4 text-text-dark placeholder:text-text-muted/60 transition-all outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-white ${error ? 'ring-2 ring-red-500' : ''
+        } ${className}`}
       {...props}
     />
     {error && (
-      <p id={`${id}-error`} className="mt-1 text-sm text-red-500">
+      <p id={`${id}-error`} className="mt-2 text-sm text-red-500 font-medium pl-2">
         {error}
       </p>
     )}
@@ -53,21 +52,20 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
   <div>
     <label
       htmlFor={id}
-      className="block text-sm font-semibold text-[#666666] mb-2"
+      className="sr-only"
     >
       {label}
     </label>
     <textarea
       id={id}
-      aria-invalid={!!error}
+      aria-invalid={error ? 'true' : 'false'}
       aria-describedby={error ? `${id}-error` : undefined}
-      className={`w-full resize-none rounded-xl border ${
-        error ? 'border-red-500' : 'border-black/10'
-      } bg-white px-4 py-3 text-[#111111] transition-all outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] ${className}`}
+      className={`w-full resize-none rounded-xl border-none bg-[#F5F5F7] px-6 py-4 text-text-dark placeholder:text-text-muted/60 transition-all outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-white ${error ? 'ring-2 ring-red-500' : ''
+        } ${className}`}
       {...props}
     />
     {error && (
-      <p id={`${id}-error`} className="mt-1 text-sm text-red-500">
+      <p id={`${id}-error`} className="mt-2 text-sm text-red-500 font-medium pl-2">
         {error}
       </p>
     )}

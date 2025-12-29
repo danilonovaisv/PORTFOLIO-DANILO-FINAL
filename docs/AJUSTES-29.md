@@ -851,6 +851,7 @@ REFRENCIAS VISUAIS:
 REFRENCIAS ANIMAÇÃO:
 1. /docs/HEADER
 2. /docs/REFERENCIA_HERO-GHOST
+
 **Objetivo**
 - Se WebGL falhar, hero deve continuar funcional com layout idêntico (gradiente + texto + manifesto).
 
@@ -913,7 +914,23 @@ REFRENCIAS ANIMAÇÃO:
 ---
 
 ### 🛠️ Prompt #12 — PortfolioShowcase: thumbnail reveal apenas desktop (sem layout shift)
+ Ajuste o projeto utilizando as etapas essenciais para execução:
+1. Analise o escopo detalhado fornecido.
+2. Monte um plano de execução com base nesse escopo.
+3. Implemente os ajustes necessários no código.
+4. Utilize as imagens anexas como **referência visual absoluta** — o layout e comportamento final devem refletir exatamente o que está nelas.
+5. Ao concluir, revise e valide se:
+   - Todas as alterações foram aplicadas corretamente.
+   - O sistema está funcionando como esperado.
+   - O visual está 100% fiel às referências.
+REFRENCIAS VISUAIS:
+1. /docs/HERO-PORTFOLIO-GHOST.jpg
+2. /docs/HOME-PORTFOLIO-LAYOUYT-GHOST.jpg
+3. /docs/PORTFOLIO-PAGE-LAYOUYT.jpg
 
+REFRENCIAS ANIMAÇÃO:
+1. /docs/HEADER
+2. /docs/REFERENCIA_HERO-GHOST
 **Objetivo**
 - Reveal do thumbnail apenas desktop, com animação premium e sem empurrar layout.
 
@@ -961,6 +978,23 @@ REFRENCIAS ANIMAÇÃO:
 ---
 
 ### 🛠️ Prompt #14 — FeaturedProjects: hover editorial (seta + mídia) + reduced motion
+ Ajuste o projeto utilizando as etapas essenciais para execução:
+1. Analise o escopo detalhado fornecido.
+2. Monte um plano de execução com base nesse escopo.
+3. Implemente os ajustes necessários no código.
+4. Utilize as imagens anexas como **referência visual absoluta** — o layout e comportamento final devem refletir exatamente o que está nelas.
+5. Ao concluir, revise e valide se:
+   - Todas as alterações foram aplicadas corretamente.
+   - O sistema está funcionando como esperado.
+   - O visual está 100% fiel às referências.
+REFRENCIAS VISUAIS:
+1. /docs/HERO-PORTFOLIO-GHOST.jpg
+2. /docs/HOME-PORTFOLIO-LAYOUYT-GHOST.jpg
+3. /docs/PORTFOLIO-PAGE-LAYOUYT.jpg
+
+REFRENCIAS ANIMAÇÃO:
+1. /docs/HEADER
+2. /docs/REFERENCIA_HERO-GHOST
 
 **Objetivo**
 - Garantir microinterações premium e leves (seta +20px, mídia scale 1.03, -1px), respeitando reduced motion.
@@ -984,6 +1018,23 @@ REFRENCIAS ANIMAÇÃO:
 ---
 
 ### 🛠️ Prompt #15 — Clients: faixa azul + logos monocromáticos + reveal
+ Ajuste o projeto utilizando as etapas essenciais para execução:
+1. Analise o escopo detalhado fornecido.
+2. Monte um plano de execução com base nesse escopo.
+3. Implemente os ajustes necessários no código.
+4. Utilize as imagens anexas como **referência visual absoluta** — o layout e comportamento final devem refletir exatamente o que está nelas.
+5. Ao concluir, revise e valide se:
+   - Todas as alterações foram aplicadas corretamente.
+   - O sistema está funcionando como esperado.
+   - O visual está 100% fiel às referências.
+REFRENCIAS VISUAIS:
+1. /docs/HERO-PORTFOLIO-GHOST.jpg
+2. /docs/HOME-PORTFOLIO-LAYOUYT-GHOST.jpg
+3. /docs/PORTFOLIO-PAGE-LAYOUYT.jpg
+
+REFRENCIAS ANIMAÇÃO:
+1. /docs/HEADER
+2. /docs/REFERENCIA_HERO-GHOST
 
 **Objetivo**
 - Garantir faixa azul institucional e logos monocromáticos claros, com grid consistente e a11y.
@@ -1008,6 +1059,25 @@ REFRENCIAS ANIMAÇÃO:
 ---
 
 ### 🛠️ Prompt #16 — Contact: 2 colunas desktop + labels + focus rings
+
+ Ajuste o projeto utilizando as etapas essenciais para execução:
+1. Analise o escopo detalhado fornecido.
+2. Monte um plano de execução com base nesse escopo.
+3. Implemente os ajustes necessários no código.
+4. Utilize as imagens anexas como **referência visual absoluta** — o layout e comportamento final devem refletir exatamente o que está nelas.
+5. Ao concluir, revise e valide se:
+   - Todas as alterações foram aplicadas corretamente.
+   - O sistema está funcionando como esperado.
+   - O visual está 100% fiel às referências.
+REFRENCIAS VISUAIS:
+1. /docs/HERO-PORTFOLIO-GHOST.jpg
+2. /docs/HOME-PORTFOLIO-LAYOUYT-GHOST.jpg
+3. /docs/PORTFOLIO-PAGE-LAYOUYT.jpg
+
+REFRENCIAS ANIMAÇÃO:
+1. /docs/HEADER
+2. /docs/REFERENCIA_HERO-GHOST
+
 
 **Objetivo**
 - Garantir layout 2 colunas no desktop e form acessível.
@@ -1034,6 +1104,23 @@ REFRENCIAS ANIMAÇÃO:
 ---
 
 ### 🛠️ Prompt #17 — Footer: fixo só no desktop, nunca no mobile
+ Ajuste o projeto utilizando as etapas essenciais para execução:
+1. Analise o escopo detalhado fornecido.
+2. Monte um plano de execução com base nesse escopo.
+3. Implemente os ajustes necessários no código.
+4. Utilize as imagens anexas como **referência visual absoluta** — o layout e comportamento final devem refletir exatamente o que está nelas.
+5. Ao concluir, revise e valide se:
+   - Todas as alterações foram aplicadas corretamente.
+   - O sistema está funcionando como esperado.
+   - O visual está 100% fiel às referências.
+REFRENCIAS VISUAIS:
+1. /docs/HERO-PORTFOLIO-GHOST.jpg
+2. /docs/HOME-PORTFOLIO-LAYOUYT-GHOST.jpg
+3. /docs/PORTFOLIO-PAGE-LAYOUYT.jpg
+
+REFRENCIAS ANIMAÇÃO:
+1. /docs/HEADER
+2. /docs/REFERENCIA_HERO-GHOST
 
 **Objetivo**
 - Garantir footer fixo apenas desktop e no fluxo no mobile.
@@ -1057,7 +1144,23 @@ REFRENCIAS ANIMAÇÃO:
 ---
 
 ### 🛠️ Prompt #18 — Footer: unificar copyright e link “sobre”
+ Ajuste o projeto utilizando as etapas essenciais para execução:
+1. Analise o escopo detalhado fornecido.
+2. Monte um plano de execução com base nesse escopo.
+3. Implemente os ajustes necessários no código.
+4. Utilize as imagens anexas como **referência visual absoluta** — o layout e comportamento final devem refletir exatamente o que está nelas.
+5. Ao concluir, revise e valide se:
+   - Todas as alterações foram aplicadas corretamente.
+   - O sistema está funcionando como esperado.
+   - O visual está 100% fiel às referências.
+REFRENCIAS VISUAIS:
+1. /docs/HERO-PORTFOLIO-GHOST.jpg
+2. /docs/HOME-PORTFOLIO-LAYOUYT-GHOST.jpg
+3. /docs/PORTFOLIO-PAGE-LAYOUYT.jpg
 
+REFRENCIAS ANIMAÇÃO:
+1. /docs/HEADER
+2. /docs/REFERENCIA_HERO-GHOST
 **Objetivo**
 - Unificar ano para `© 2025...` e garantir que “sobre” aponte para `/sobre` (sem mudar label).
 
@@ -1081,7 +1184,23 @@ REFRENCIAS ANIMAÇÃO:
 ---
 
 ### 🛠️ Prompt #19 — Portfolio Page: container/padding idênticos à Home
+ Ajuste o projeto utilizando as etapas essenciais para execução:
+1. Analise o escopo detalhado fornecido.
+2. Monte um plano de execução com base nesse escopo.
+3. Implemente os ajustes necessários no código.
+4. Utilize as imagens anexas como **referência visual absoluta** — o layout e comportamento final devem refletir exatamente o que está nelas.
+5. Ao concluir, revise e valide se:
+   - Todas as alterações foram aplicadas corretamente.
+   - O sistema está funcionando como esperado.
+   - O visual está 100% fiel às referências.
+REFRENCIAS VISUAIS:
+1. /docs/HERO-PORTFOLIO-GHOST.jpg
+2. /docs/HOME-PORTFOLIO-LAYOUYT-GHOST.jpg
+3. /docs/PORTFOLIO-PAGE-LAYOUYT.jpg
 
+REFRENCIAS ANIMAÇÃO:
+1. /docs/HEADER
+2. /docs/REFERENCIA_HERO-GHOST
 **Objetivo**
 - Garantir que `/portfolio` use o mesmo edge rhythm e não tenha overflow/CLS.
 

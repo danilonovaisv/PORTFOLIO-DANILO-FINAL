@@ -9,7 +9,7 @@ const Clients: React.FC = () => {
   return (
     <section
       id="clients"
-      className="bg-primary py-24 md:py-32 border-t border-white/10"
+      className="bg-[#0057FF] py-24 md:py-32 border-t border-white/10"
     >
       <div className="mx-auto w-full px-[clamp(1.5rem,5vw,6rem)] max-w-[1680px]">
         <motion.div
@@ -33,13 +33,13 @@ const Clients: React.FC = () => {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-20px' }}
-              whileHover={{ scale: 1.05, filter: 'brightness(1.2)' }}
+              whileHover={{ scale: 1.05 }}
               transition={{
                 duration: 0.4,
                 ease: [0.22, 1, 0.36, 1],
                 delay: index * 0.03,
               }}
-              className="relative h-12 md:h-14 w-full max-w-[120px] flex items-center justify-center opacity-90 transition-all duration-300"
+              className="relative h-12 md:h-14 w-full max-w-[120px] flex items-center justify-center transition-transform duration-300"
             >
               <Image
                 src={src}

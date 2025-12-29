@@ -353,9 +353,9 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
             <Image
               src={logoUrl}
               alt={`Logo ${BRAND.name}`}
-              width={40}
-              height={40}
-              className="h-10 w-10"
+              width={53}
+              height={53}
+              className="h-[53px] w-[53px]"
               priority
               unoptimized
             />
@@ -369,7 +369,7 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
             aria-expanded={resolvedIsOpen ? 'true' : 'false'}
             aria-controls={MENU_ID}
             aria-haspopup="dialog"
-            className={`flex h-12 items-center gap-2 rounded-full border px-5 text-xs font-semibold uppercase tracking-[0.3em] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent ${resolvedIsOpen
+            className={`flex h-10 w-10 items-center justify-center rounded-md border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent ${resolvedIsOpen
               ? 'border-white/50 bg-white/85 text-black'
               : 'bg-white/10'
               }`}
@@ -382,12 +382,7 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
                 } as React.CSSProperties)
             }
           >
-            <span className="relative h-4 overflow-hidden">
-              <span className="block">{resolvedIsOpen ? 'Close' : 'Menu'}</span>
-            </span>
-            <span className={resolvedIsOpen ? 'text-black' : undefined}>
-              {resolvedIsOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </span>
+            {resolvedIsOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
       </header>

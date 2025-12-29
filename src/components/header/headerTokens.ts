@@ -1,7 +1,7 @@
 export const headerTokens = {
   // Colors & Typography now sourced from @/config/brand.ts
   layout: {
-    height: 64,
+    height: 72,
     paddingX: 24,
     minTouchTarget: 48,
   },

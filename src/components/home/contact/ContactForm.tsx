@@ -99,7 +99,7 @@ const ContactForm: React.FC = () => {
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-      className="bg-gray-50 p-8 md:p-10 rounded-3xl shadow-2xl border border-black/5 max-w-2xl w-full mx-auto md:mx-0"
+      className="w-full max-w-2xl mx-auto md:mx-0"
     >
       {submitSuccess ? (
         <div className="text-center py-8">

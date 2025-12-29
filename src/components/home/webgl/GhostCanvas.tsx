@@ -169,7 +169,7 @@ function Effects() {
       />
 
       {/* Disable noise on reduced motion to reduce visual busyness */}
-      {!reducedMotion ? <AnalogDecayPass /> : null}
+      <AnalogDecayPass enabled={!reducedMotion} />
 
       <Vignette offset={0.12} darkness={0.78} />
     </EffectComposer>
@@ -195,7 +195,7 @@ export default function GhostCanvas({ eventSource }: GhostCanvasProps) {
   const dpr = reducedMotion
     ? 1
     : isMobile
-      ? ([1, 1.5] as [number, number]) // Cap mobile DPR slightly higher if perf allows, or keep 1.25
+      ? ([1, 1.25] as [number, number]) // Cap mobile DPR agressively for performance
       : ([1, 2] as [number, number]);
 
   return (

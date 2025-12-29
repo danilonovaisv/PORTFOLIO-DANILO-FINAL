@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 import { BRAND } from '@/config/brand';
 import { headerTokens } from '@/components/header/headerTokens.ts';
@@ -43,12 +44,12 @@ const DesktopFluidHeader: React.FC<DesktopFluidHeaderProps> = ({
   });
   const [parallax, setParallax] = useState<number>(0);
   const prefersReducedMotion = usePrefersReducedMotion();
+  const pathname = usePathname();
   const containerRef = useRef<HTMLDivElement | null>(null);
   const navItemRefs = useRef<Array<HTMLAnchorElement | undefined>>([]);
 
   const magnetizedNavItems = useMemo<NavItem[]>(() => navItems, [navItems]);
-  // Height is set via Tailwind class (h-16 = 64px matches headerTokens.layout.height)
-  const headerClassName = `fixed left-0 top-6 z-40 w-full h-16 overflow-hidden ${className ?? ''}`.trim();
+  const headerClassName = `fixed left-0 top-0 z-40 w-full overflow-hidden ${className ?? ''}`.trim();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -111,59 +112,67 @@ const DesktopFluidHeader: React.FC<DesktopFluidHeaderProps> = ({
   };
 
   return (
-    <header className={headerClassName}>
+    <header
+      className={`${headerClassName} fluid-header-shell`}
+      style={{ height: _height }}
+    >
+      <div className="absolute inset-0 z-0 bg-[#0b0c14]/75 backdrop-blur-2xl" />
+      <div className="absolute inset-x-0 bottom-0 z-20 h-px bg-linear-to-r from-transparent via-sky-300/70 to-transparent" />
+      <div className="absolute inset-x-0 top-0 z-20 h-px bg-linear-to-r from-transparent via-white/35 to-transparent" />
+
+      {supportsWebGL ? (
+        <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden">
+          <FluidGlass
+            mode="bar"
+            pointer={prefersReducedMotion ? { x: 0.5, y: 0.5 } : pointer}
+            parallax={parallax}
+            reducedMotion={prefersReducedMotion}
+            className="h-full w-full"
+            barProps={{
+              scale: [1.2, 0.25, 0.2],
+              ior: glass.ior,
+              thickness: glass.thickness,
+              chromaticAberration: glass.chromaticAberration,
+              anisotropy: glass.anisotropy,
+              smoothness: glass.smoothness,
+            }}
+          />
+        </div>
+      ) : (
+        <div className="absolute inset-0 z-10 bg-linear-to-r from-white/20 via-white/10 to-white/20" />
+      )}
+
       <div
         ref={containerRef}
-        className="fluid-header-shell header-padding relative mx-auto flex h-full w-full max-w-5xl items-center justify-between px-6 py-3"
+        className="relative z-50 mx-auto flex h-full w-full max-w-[1200px] items-center justify-between px-10"
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
       >
-        <div className="absolute inset-0 z-0 rounded-full border border-white/10 bg-white/4 shadow-[0_24px_72px_rgba(0,0,0,0.28)] backdrop-blur-2xl" />
+        <Link
+          href="/"
+          aria-label="Ir para a home"
+          className="group flex items-center"
+        >
+          <Image
+            src={logoUrl ?? BRAND.logos.faviconLight}
+            alt={`Logo ${BRAND.name}`}
+            width={58}
+            height={58}
+            className="h-[58px] w-[58px] drop-shadow-[0_6px_24px_rgba(0,0,0,0.35)] transition-transform duration-500 group-hover:scale-105"
+            priority
+            unoptimized
+          />
+        </Link>
 
-        {supportsWebGL ? (
-          <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden rounded-full">
-            <FluidGlass
-              mode="bar"
-              pointer={prefersReducedMotion ? { x: 0.5, y: 0.5 } : pointer}
-              parallax={parallax}
-              reducedMotion={prefersReducedMotion}
-              className="h-full w-full"
-              barProps={{
-                scale: [1.2, 0.25, 0.2],
-                ior: glass.ior,
-                thickness: glass.thickness,
-                chromaticAberration: glass.chromaticAberration,
-                anisotropy: glass.anisotropy,
-                smoothness: glass.smoothness,
-              }}
-            />
-          </div>
-        ) : (
-          <div className="absolute inset-0 z-10 rounded-full bg-linear-to-r from-white/60 via-white/35 to-white/18 backdrop-blur-xl" />
-        )}
-
-        <div className="relative z-50 flex w-full items-center justify-between">
-          <Link
-            href="/"
-            aria-label="Ir para a home"
-            className="group flex items-center gap-3"
-          >
-            <Image
-              src={logoUrl ?? BRAND.logos.faviconLight}
-              alt={`Logo ${BRAND.name}`}
-              width={40}
-              height={40}
-              className="h-10 w-10 drop-shadow-lg transition-transform duration-500 group-hover:scale-105"
-              priority
-              unoptimized
-            />
-          </Link>
-
-          <nav
-            aria-label="Navegação principal"
-            className="relative flex items-center gap-6 text-sm font-medium uppercase tracking-[0.08em]"
-          >
-            {magnetizedNavItems.map((link, idx) => (
+        <nav
+          aria-label="Navegação principal"
+          className="relative flex items-center gap-8 text-[15px] font-medium tracking-[0.02em] text-white/80"
+        >
+          {magnetizedNavItems.map((link, idx) => {
+            const isActive =
+              (pathname === '/' && link.href === '#hero') ||
+              (pathname !== '/' && link.href === pathname);
+            return (
               <Link
                 key={link.href}
                 href={link.href}
@@ -172,18 +181,18 @@ const DesktopFluidHeader: React.FC<DesktopFluidHeaderProps> = ({
                   navItemRefs.current[idx] = node ?? undefined;
                 }}
                 onClick={() => onNavigate(link.href)}
-                className="group relative px-2 py-1 text-[14px] text-white/85 transition-all duration-300 hover:scale-[1.02] hover:text-white"
+                className={`group relative px-2 py-1 transition-all duration-300 hover:text-white ${isActive ? 'text-sky-300' : ''}`}
                 target={link.external ? '_blank' : undefined}
                 rel={link.external ? 'noreferrer' : undefined}
               >
-                <span className="relative z-10 bg-linear-to-r from-white to-white/70 bg-clip-text text-transparent drop-shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
-                  {link.label}
-                </span>
-                <span className="absolute inset-x-1 -bottom-2 h-px origin-center scale-x-0 bg-linear-to-r from-white via-sky-200 to-white/20 opacity-60 transition-transform duration-300 group-hover:scale-x-100" />
+                <span className="relative z-10">{link.label}</span>
+                <span
+                  className={`absolute inset-x-1 -bottom-1 h-px origin-center bg-linear-to-r from-transparent via-sky-400 to-transparent transition-transform duration-300 ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
+                />
               </Link>
-            ))}
-          </nav>
-        </div>
+            );
+          })}
+        </nav>
       </div>
     </header>
   );

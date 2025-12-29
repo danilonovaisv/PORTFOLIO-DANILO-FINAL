@@ -38,14 +38,7 @@ const ContactDetails: FC = () => {
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
-      <h2 className="text-4xl md:text-5xl font-bold text-primary mb-4 text-center md:text-left">
-        Contato
-      </h2>
-      <p className="text-xl text-text-dark mb-12 text-center md:text-left">
-        Tem uma pergunta ou quer trabalhar junto?
-      </p>
-
-      <div className="space-y-6 mb-12 flex flex-col items-center md:items-start">
+      <div className="space-y-6 flex flex-col items-center md:items-start w-full">
         {contactInfo.map((item, idx) => (
           <Button
             key={idx}

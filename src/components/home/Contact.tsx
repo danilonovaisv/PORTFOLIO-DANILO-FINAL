@@ -12,10 +12,19 @@ const Contact: React.FC = () => {
     >
       <span id="contato" className="sr-only" aria-hidden="true" />
       <div className="mx-auto w-full px-[clamp(1.5rem,5vw,6rem)] max-w-[1680px]">
-        <div className="grid grid-cols-1 gap-14 lg:grid-cols-2 lg:gap-24">
+        {/* Cabeçalho centralizado conforme referência */}
+        <div className="text-center mb-16 md:mb-24">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#0057FF] mb-4">
+            contato
+          </h2>
+          <p className="text-xl text-text-muted">
+            Tem uma pergunta ou quer trabalhar junto?
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-14 md:grid-cols-2 lg:gap-24 items-start">
           <ContactDetails />
           <div className="relative">
-            <div className="absolute -inset-4 bg-blue-500/5 blur-2xl rounded-full pointer-events-none" />
             <ContactForm />
           </div>
         </div>
