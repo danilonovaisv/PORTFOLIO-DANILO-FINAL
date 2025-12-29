@@ -124,15 +124,13 @@ export default function HomeHero() {
         {/* PRELOADER (z-50) */}
         <HeroPreloader />
 
-        {/* 👻 WEBGL (z-20) — APENAS SE PERMITIDO */}
-        {flags.mountWebGL && (
-          <motion.div
-            style={{ opacity: opacityGhost }}
-            className="absolute inset-0 z-20 pointer-events-none"
-          >
-            <GhostStage />
-          </motion.div>
-        )}
+        {/* 👻 WEBGL (z-20) — SEMPRE MANTER LAYOUT, MESMO SEM WEBGL */}
+        <motion.div
+          style={{ opacity: opacityGhost }}
+          className="absolute inset-0 z-20 pointer-events-none"
+        >
+          <GhostStage enabled={flags.mountWebGL} />
+        </motion.div>
 
         {/* TEXTO EDITORIAL (z-10) */}
         <motion.div
