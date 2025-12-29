@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 import HeroPreloader from './HeroPreloader';
@@ -80,8 +80,14 @@ export default function HomeHero() {
     prefersReducedMotion ? [1, 1] : [1, 0]
   );
 
-  // Ghost Opacity: 1 → 0 (fade out with text)
-  const opacityGhost = useTransform(
+  const [preloaderComplete, setPreloaderComplete] = useState(false);
+
+  const handlePreloaderComplete = useCallback(() => {
+    setPreloaderComplete(true);
+  }, []);
+
+  // Ghost Opacity: Scroll-driven fade out
+  const scrollOpacityGhost = useTransform(
     scrollYProgress,
     [TIMELINE.HERO.FADE_OUT_START, TIMELINE.HERO.FADE_OUT_END],
     prefersReducedMotion ? [1, 1] : [1, 0]
@@ -122,14 +128,20 @@ export default function HomeHero() {
         />
 
         {/* PRELOADER (z-50) */}
-        <HeroPreloader />
+        <HeroPreloader onComplete={handlePreloaderComplete} />
 
-        {/* 👻 WEBGL (z-20) — SEMPRE MANTER LAYOUT, MESMO SEM WEBGL */}
+        {/* 👻 WEBGL (z-20) — ENTRY + SCROLL ANIMATION */}
         <motion.div
-          style={{ opacity: opacityGhost }}
+          animate={preloaderComplete ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
           className="absolute inset-0 z-20 pointer-events-none"
         >
-          <GhostStage enabled={flags.mountWebGL} />
+          <motion.div
+            style={{ opacity: scrollOpacityGhost }}
+            className="w-full h-full"
+          >
+            <GhostStage enabled={flags.mountWebGL} />
+          </motion.div>
         </motion.div>
 
         {/* TEXTO EDITORIAL (z-10) */}

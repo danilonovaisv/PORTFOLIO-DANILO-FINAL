@@ -3,7 +3,11 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
-export default function HeroPreloader() {
+interface HeroPreloaderProps {
+  onComplete?: () => void;
+}
+
+export default function HeroPreloader({ onComplete }: HeroPreloaderProps) {
   const [isComplete, setIsComplete] = useState(false);
 
   return (
@@ -11,7 +15,10 @@ export default function HeroPreloader() {
       initial={{ opacity: 1 }}
       animate={{ opacity: 0 }}
       transition={{ delay: 1.5, duration: 1 }}
-      onAnimationComplete={() => setIsComplete(true)}
+      onAnimationComplete={() => {
+        setIsComplete(true);
+        onComplete?.();
+      }}
       className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-ghost-void ${isComplete ? 'pointer-events-none' : ''
         }`}
       aria-hidden={isComplete}
