@@ -6,7 +6,7 @@ import { PORTFOLIO_MOSAIC_DATA } from '@/config/content';
 
 export default function PortfolioPage() {
   return (
-    <main className="min-h-screen bg-[#F4F5F7]">
+    <main className="min-h-screen bg-section-bg">
       <PortfolioHero />
       <PortfolioMosaicGrid rows={PORTFOLIO_MOSAIC_DATA} />
     </main>

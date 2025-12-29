@@ -29,12 +29,12 @@ export default function PortfolioMosaicGrid({
     <section
       id="portfolio-mosaic"
       aria-label="Mural de projetos em mosaico"
-      className="relative bg-[#f7f7f7] text-[#0f172a] py-24 md:py-32"
+      className="relative bg-card-bg text-[#0f172a] py-24 md:py-32"
     >
       {/* Overlay de fundo */}
       <div className="absolute inset-0 bg-linear-to-b from-transparent via-white/60 to-white pointer-events-none" />
 
-      <div className="container mx-auto px-6 md:px-12 relative z-10 xl:px-12">
+      <div className="mx-auto w-full px-[clamp(1.5rem,5vw,6rem)] max-w-[1680px] relative z-10">
         {/* Grid Editorial */}
         <div className="flex flex-col gap-8 md:gap-12 pb-10">
           {rows.map((row) => (

@@ -511,6 +511,26 @@ Logo, este documento é um **QA técnico+visual orientado por spec + referência
 ---
 
 ### 🛠️ Prompt #02 — Header: Z-index fixo e não competir com Hero
+ Ajuste o projeto utilizando as etapas essenciais para execução:
+1. Analise o escopo detalhado fornecido.
+2. Monte um plano de execução com base nesse escopo.
+3. Implemente os ajustes necessários no código.
+4. Utilize as imagens anexas como **referência visual absoluta** — o layout e comportamento final devem refletir exatamente o que está nelas.
+5. Ao concluir, revise e valide se:
+   - Todas as alterações foram aplicadas corretamente.
+   - O sistema está funcionando como esperado.
+   - O visual está 100% fiel às referências.
+REFRENCIAS VISUAIS:
+1. /docs/HERO-PORTFOLIO-GHOST.jpg
+2. /docs/HOME-PORTFOLIO-LAYOUYT-GHOST.jpg
+3. /docs/PORTFOLIO-PAGE-LAYOUYT.jpg
+
+REFRENCIAS ANIMAÇÃO:
+1. /docs/HEADER
+2. /docs/REFERENCIA_HERO-GHOST
+
+✅ Nenhum ponto deve ser ignorado.
+
 
 **Objetivo**
 - Garantir que o header fique sempre acima da Hero e não “brigue” visualmente com o Ghost.
@@ -537,7 +557,25 @@ Logo, este documento é um **QA técnico+visual orientado por spec + referência
 ---
 
 ### 🛠️ Prompt #03 — Header Mobile: Menu fullscreen staggered + A11y completo
+ Ajuste o projeto utilizando as etapas essenciais para execução:
+1. Analise o escopo detalhado fornecido.
+2. Monte um plano de execução com base nesse escopo.
+3. Implemente os ajustes necessários no código.
+4. Utilize as imagens anexas como **referência visual absoluta** — o layout e comportamento final devem refletir exatamente o que está nelas.
+5. Ao concluir, revise e valide se:
+   - Todas as alterações foram aplicadas corretamente.
+   - O sistema está funcionando como esperado.
+   - O visual está 100% fiel às referências.
+REFRENCIAS VISUAIS:
+1. /docs/HERO-PORTFOLIO-GHOST.jpg
+2. /docs/HOME-PORTFOLIO-LAYOUYT-GHOST.jpg
+3. /docs/PORTFOLIO-PAGE-LAYOUYT.jpg
 
+REFRENCIAS ANIMAÇÃO:
+1. /docs/HEADER
+2. /docs/REFERENCIA_HERO-GHOST
+
+✅ Nenhum ponto deve ser ignorado.
 **Objetivo**
 - Implementar/validar menu mobile com overlay fullscreen, stagger de itens e bloqueio de scroll do body.
 
@@ -564,7 +602,25 @@ Logo, este documento é um **QA técnico+visual orientado por spec + referência
 ---
 
 ### 🛠️ Prompt #04 — Hero: Stack de camadas (z-index) conforme spec
+ Ajuste o projeto utilizando as etapas essenciais para execução:
+1. Analise o escopo detalhado fornecido.
+2. Monte um plano de execução com base nesse escopo.
+3. Implemente os ajustes necessários no código.
+4. Utilize as imagens anexas como **referência visual absoluta** — o layout e comportamento final devem refletir exatamente o que está nelas.
+5. Ao concluir, revise e valide se:
+   - Todas as alterações foram aplicadas corretamente.
+   - O sistema está funcionando como esperado.
+   - O visual está 100% fiel às referências.
+REFRENCIAS VISUAIS:
+1. /docs/HERO-PORTFOLIO-GHOST.jpg
+2. /docs/HOME-PORTFOLIO-LAYOUYT-GHOST.jpg
+3. /docs/PORTFOLIO-PAGE-LAYOUYT.jpg
 
+REFRENCIAS ANIMAÇÃO:
+1. /docs/HEADER
+2. /docs/REFERENCIA_HERO-GHOST
+
+✅ Nenhum ponto deve ser ignorado.
 **Objetivo**
 - Garantir hierarquia z-index: z-50 preloader, z-30 thumb, z-20 ghost, z-10 copy, z-0 background.
 
@@ -591,7 +647,25 @@ Logo, este documento é um **QA técnico+visual orientado por spec + referência
 ---
 
 ### 🛠️ Prompt #05 — Hero Desktop: Timeline 200vh + morph do manifesto por scroll/click
+ Ajuste o projeto utilizando as etapas essenciais para execução:
+1. Analise o escopo detalhado fornecido.
+2. Monte um plano de execução com base nesse escopo.
+3. Implemente os ajustes necessários no código.
+4. Utilize as imagens anexas como **referência visual absoluta** — o layout e comportamento final devem refletir exatamente o que está nelas.
+5. Ao concluir, revise e valide se:
+   - Todas as alterações foram aplicadas corretamente.
+   - O sistema está funcionando como esperado.
+   - O visual está 100% fiel às referências.
+REFRENCIAS VISUAIS:
+1. /docs/HERO-PORTFOLIO-GHOST.jpg
+2. /docs/HOME-PORTFOLIO-LAYOUYT-GHOST.jpg
+3. /docs/PORTFOLIO-PAGE-LAYOUYT.jpg
 
+REFRENCIAS ANIMAÇÃO:
+1. /docs/HEADER
+2. /docs/REFERENCIA_HERO-GHOST
+
+✅ Nenhum ponto deve ser ignorado.
 **Objetivo**
 - Garantir que a hero tenha `h-[200vh]` (ou equivalente) e o manifesto morph (scale/pos/borderRadius) conforme spec, sem CLS.
 
