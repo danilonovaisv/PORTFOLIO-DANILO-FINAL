@@ -41,8 +41,7 @@ const ManifestoThumb = forwardRef<HTMLVideoElement, ManifestoThumbProps>(
     return (
       <div
         ref={containerRef}
-        className="relative w-full overflow-hidden"
-        style={{ aspectRatio: '16/9' }}
+        className="relative w-full overflow-hidden aspect-video"
       >
         <motion.div
           className="relative h-full w-full"
@@ -54,10 +53,10 @@ const ManifestoThumb = forwardRef<HTMLVideoElement, ManifestoThumbProps>(
           animate={
             isInView
               ? {
-                  opacity: 1,
-                  scale: 1,
-                  filter: 'blur(0px)',
-                }
+                opacity: 1,
+                scale: 1,
+                filter: 'blur(0px)',
+              }
               : undefined
           }
           transition={{
@@ -84,7 +83,7 @@ const ManifestoThumb = forwardRef<HTMLVideoElement, ManifestoThumbProps>(
           />
 
           {/* Subtle gradient overlay for text readability */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent" />
         </motion.div>
       </div>
     );

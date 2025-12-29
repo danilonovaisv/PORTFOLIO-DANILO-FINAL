@@ -48,8 +48,7 @@ export const ManifestoThumb = forwardRef<HTMLVideoElement, ManifestoThumbProps>(
     return (
       <div
         ref={containerRef}
-        className="relative w-full overflow-hidden"
-        style={{ aspectRatio: '16/9' }}
+        className="relative w-full overflow-hidden aspect-video"
       >
         <motion.div
           className="relative h-full w-full"
@@ -61,10 +60,10 @@ export const ManifestoThumb = forwardRef<HTMLVideoElement, ManifestoThumbProps>(
           animate={
             isInView
               ? {
-                  opacity: 1,
-                  scale: 1,
-                  filter: 'blur(0px)',
-                }
+                opacity: 1,
+                scale: 1,
+                filter: 'blur(0px)',
+              }
               : undefined
           }
           transition={{
@@ -91,7 +90,7 @@ export const ManifestoThumb = forwardRef<HTMLVideoElement, ManifestoThumbProps>(
           />
 
           {/* Subtle gradient overlay for text readability */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent" />
         </motion.div>
       </div>
     );
@@ -237,9 +236,8 @@ export default function HeroVideoThumb({
 
   return (
     <motion.div
-      className={`fixed z-[1000] cursor-pointer ${
-        isFull ? 'inset-0' : 'bottom-5 right-5 md:bottom-8 md:right-8'
-      }`}
+      className={`fixed z-1000 cursor-pointer ${isFull ? 'inset-0' : 'bottom-5 right-5 md:bottom-8 md:right-8'
+        }`}
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{
         opacity: 1,
@@ -262,9 +260,9 @@ export default function HeroVideoThumb({
         reducedMotion
           ? undefined
           : {
-              scale: isFull ? 1 : 1.05,
-              boxShadow: '0 8px 30px rgba(0,0,0,0.25)',
-            }
+            scale: isFull ? 1 : 1.05,
+            boxShadow: '0 8px 30px rgba(0,0,0,0.25)',
+          }
       }
       onClick={handleClick}
       aria-label="Pré-visualização do vídeo manifesto"
@@ -296,7 +294,7 @@ export default function HeroVideoThumb({
           </motion.div>
         </AnimatePresence>
 
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-black/80 via-black/25 to-transparent" />
 
         <div className="pointer-events-none absolute left-3 bottom-3 flex flex-col gap-1">
           <span className="rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
@@ -313,9 +311,8 @@ export default function HeroVideoThumb({
             return (
               <span
                 key={state.id}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  isActive ? 'w-6 bg-white' : 'w-2 bg-white/35'
-                }`}
+                className={`h-1.5 rounded-full transition-all duration-300 ${isActive ? 'w-6 bg-white' : 'w-2 bg-white/35'
+                  }`}
               />
             );
           })}

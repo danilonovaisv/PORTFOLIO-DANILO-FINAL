@@ -156,7 +156,7 @@ export default function HomeHero() {
         <div
           ref={videoWrapperRef}
           aria-label="Vídeo manifesto"
-          className="video-wrapper group/video z-30 relative mx-auto mt-10 flex aspect-[9/14] w-[220px] max-w-[360px] flex-col items-end overflow-hidden rounded-[18px] shadow-[0_20px_80px_rgba(0,0,0,0.55)] transition-transform duration-500 ease-in-out md:absolute md:bottom-[5vw] md:right-[5vw] md:w-[min(520px,34vw)] md:aspect-video md:hover:scale-[1.05]"
+          className="video-wrapper group/video z-30 relative mx-auto mt-10 flex aspect-9/14 w-[220px] max-w-[360px] flex-col items-end overflow-hidden rounded-[18px] shadow-[0_20px_80px_rgba(0,0,0,0.55)] transition-transform duration-500 ease-in-out md:absolute md:bottom-[5vw] md:right-[5vw] md:w-[min(520px,34vw)] md:aspect-video md:hover:scale-[1.05]"
           onClick={() => {
             if (typeof window === 'undefined') return;
             if (window.innerWidth >= 768 && heroRef.current) {
@@ -222,9 +222,8 @@ export default function HomeHero() {
           >
             <span>{muted ? 'sound off' : 'sound on'}</span>
             <span
-              className="inline-block h-2 w-2 rounded-full"
+              className={`inline-block h-2 w-2 rounded-full ${muted ? 'bg-red-500' : 'bg-green-500'}`}
               aria-hidden="true"
-              style={{ backgroundColor: muted ? '#ef4444' : '#22c55e' }}
             />
           </button>
         </div>
