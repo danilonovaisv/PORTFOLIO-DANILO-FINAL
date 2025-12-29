@@ -42,7 +42,7 @@ const Footer: React.FC = () => {
       initial={isDesktop ? "hidden" : undefined}
       animate={isDesktop ? "visible" : undefined}
       variants={footerVariants}
-      className="w-full bg-[#0057FF] text-white overflow-hidden relative lg:fixed lg:bottom-0 lg:left-0 lg:z-50 lg:border-t lg:border-white/10"
+      className="w-full bg-focus-ring text-white overflow-hidden relative lg:fixed lg:bottom-0 lg:left-0 lg:z-50 lg:border-t lg:border-white/10"
     >
       <div
         className="
@@ -76,7 +76,7 @@ const Footer: React.FC = () => {
                   </span>
                 );
 
-                const className = "group relative text-sm font-medium lowercase text-white/85 transition-opacity duration-300 hover:text-white lg:hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0057FF] rounded px-2 py-1";
+                const className = "group relative text-sm font-medium lowercase text-white/85 transition-opacity duration-300 hover:text-white lg:hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-focus-ring rounded px-2 py-1";
 
                 return (
                   <li key={link.label}>
@@ -103,7 +103,7 @@ const Footer: React.FC = () => {
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/85 transition-all duration-300 hover:text-white lg:hover:scale-105 lg:hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0057FF] rounded-full p-1"
+                className="text-white/85 transition-all duration-300 hover:text-white lg:hover:scale-105 lg:hover:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-focus-ring rounded-full p-1"
                 aria-label={`Visitar ${social.platform}`}
               >
                 <span className="sr-only">{social.platform}</span>

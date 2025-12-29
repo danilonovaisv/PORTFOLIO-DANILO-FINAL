@@ -1,24 +1,139 @@
+# 🧠 Auditoria + Correções (Prompts Atômicos) — HOME + PORTFOLIO  
+**Projeto:** _danilonov_portfolio (Next.js App Router + TS + Tailwind + R3F + Framer Motion)  
+**Foco crítico:** HEADER + HERO (Home) + PORTFOLIO page  
+**Lei absoluta:** Fidelidade total às referências:
+- `docs/HERO-PORTFOLIO-GHOST.jpg`
+- `docs/HOME-PORTFOLIO-LAYOUYT-GHOST.jpg`
+- `docs/PORTFOLIO-PAGE-LAYOUYT.jpg`
+- Animações: `docs/HEADER/*` e `docs/REFERENCIA_HERO-GHOST/*`
 
- Ajuste o projeto utilizando as etapas essenciais para execução:
-1. Analise o escopo detalhado fornecido.
-2. Monte um plano de execução com base nesse escopo.
-3. Implemente os ajustes necessários no código.
-4. Utilize as imagens anexas como **referência visual absoluta** — o layout e comportamento final devem refletir exatamente o que está nelas.
-5. Ao concluir, revise e valide se:
-   - Todas as alterações foram aplicadas corretamente.
-   - O sistema está funcionando como esperado.
-   - O visual está 100% fiel às referências.
-REFRENCIAS VISUAIS:
-1. /docs/HERO-PORTFOLIO-GHOST.jpg
-2. /docs/HOME-PORTFOLIO-LAYOUYT-GHOST.jpg
-3. /docs/PORTFOLIO-PAGE-LAYOUYT.jpg
+> ⚠️ Nota de auditoria (limitação do ambiente): aqui eu consigo validar **estrutura do repositório** e **assets de docs**, mas não consigo ler o conteúdo completo dos arquivos TSX via API com consistência.  
+> Por isso, os prompts abaixo são **cirúrgicos e executáveis**: instruem o Agente a abrir arquivos, comparar pixel-a-pixel com as imagens em `docs/*` e ajustar o código real sem “inventar layout”.
 
-REFRENCIAS ANIMAÇÃO:
-1. /docs/HEADER
-2. /docs/REFERENCIA_HERO-GHOST
+---
 
+# FASE 1 — Diagnóstico técnico + visual (Home + Portfolio)
 
+## 1️⃣ Visão Geral (estado atual vs referência)
 
+Pelo screenshot fornecido, a Home está **muito próxima** do layout final esperado:
+
+- Header em formato “pill” com logo à esquerda e nav à direita.
+- Hero dark com ghost glow à esquerda, título grande (“Design, não é só estética.”), CTA em **pill button** azul e thumb do manifesto no canto inferior direito (desktop).
+- Portfolio showcase com:
+  - título “portfólio showcase” e linhas “Brand & Campaigns”, “Videos & Motions”, “Web Campaigns, Websites & Tech”
+  - alternância de alinhamento por linha (direita / centro / esquerda)
+  - dot azul como identificador no final da linha.
+- Featured projects em grid bento.
+- Faixa azul de brands.
+- Contact 2 colunas.
+- Footer azul (fixo no desktop, no fluxo no mobile).
+
+**O risco crítico agora é**: garantir que essa proximidade visual se mantenha em:
+- **mobile/tablet**
+- **reduced motion**
+- **performance (Canvas / DPR / postprocessing)**
+- e que não existam “saltos” de grid entre seções (edge rhythm).
+
+---
+
+## 2️⃣ Diagnóstico por Dimensão
+
+### Estrutura
+- Estrutura do repo está bem “domain-based”:
+  - Header: `src/components/header/*`
+  - Hero: `src/components/home/*` + `src/components/home/webgl/*`
+  - Portfolio route: `src/app/portfolio/*` + `src/components/portfolio/*`
+
+**Risco:** wrappers diferentes por seção → edge rhythm quebra.
+
+**Severidade:** 🔴 alta
+
+### UI / Fidelidade visual
+Pontos que precisam ser pixel-match (baseado no screenshot + refs):
+- Nav com labels **minúsculos**: `home`, `sobre`, `portfolio showcase`, `contato`.
+- Estado ativo do nav: `home` destacado (azul/underline) no header.
+- CTA do hero é **button pill** (não apenas link inline).
+- Thumb manifesto possui **ícone/indicador** (seta) fora/ao lado (não overlay intrusivo no vídeo).
+
+**Severidade:** 🔴 alta
+
+### UX (Mobile-first)
+Regras do spec (não-negociáveis):
+- Header mobile/tablet: **sem WebGL pesado**, usar overlay fullscreen com stagger.
+- Menu mobile precisa: scroll lock, ESC, click outside e foco.
+
+**Severidade:** 🔴 alta
+
+### Alinhamento “duas laterais” (edge rhythm)
+- As seções claras (Portfolio/Featured/Contact/Footer) precisam alinhar com o mesmo gutter do hero/header.
+- O header pill não pode “flutuar” com padding diferente do container geral (senão a moldura quebra).
+
+**Severidade:** 🔴 alta
+
+### Motion/Animações
+- Motion deve ser editorial, sutil e premium (inspirado em Lo&Behold).
+- Evitar “animação gratuita”: thumb e ghost não competem.
+
+**Severidade:** 🔴 alta
+
+### WebGL / 3D (Ghost)
+- Follow mouse apenas desktop.
+- `prefers-reduced-motion`: reduzir/zerar follow + reduzir bloom/grain/jitter.
+- Canvas não pode causar CLS e nem capturar pointer events do DOM.
+
+**Severidade:** 🔴 alta
+
+### Performance
+- DPR clamp no Canvas (`[1,2]`).
+- Desligar antialias.
+- Postprocessing condicional (desktop only / reduced motion off).
+- Evitar re-render do Canvas por state do menu/scroll.
+
+**Severidade:** 🔴 alta
+
+### Acessibilidade
+- Menu mobile: `aria-expanded`, `aria-controls`, foco visível, ESC.
+- Vídeos sempre `muted` e `playsInline`.
+- Links com labels claros.
+
+**Severidade:** 🟡 média (vira 🔴 se menu não for navegável)
+
+---
+
+# 3️⃣ Diagnóstico por Seção (Obrigatório)
+
+## 🎯 Seção: Header (SiteHeader)
+
+- 📌 Fidelidade visual (referência): ✗ — `docs/HERO-PORTFOLIO-GHOST.jpg` + `docs/HEADER/*`
+- 📐 Grid e margens laterais: ✗
+- ↔️ Alinhamento duas laterais: ✗
+- 📱 Mobile (sm/md): ✗
+- 🎞️ Motion/Animações: ✗
+- 🧩 Componentes envolvidos:  
+  `src/components/layout/Header.tsx` → `src/components/header/SiteHeader.tsx` → (`DesktopFluidHeader.tsx` | `MobileStaggeredMenu.tsx`) → `src/components/header/webgl/FluidGlass.tsx`
+- 🔗 Integrações: `Layout → Header wrapper → SiteHeader → Desktop/Mobile`
+
+### ❌ Problema (objetivo, mensurável)
+1) Header pode estar com **nav labels/case** diferente do screenshot (precisa ser minúsculo e com spacing “portfolio showcase”).  
+2) Header pode não ter estado ativo (underline/azul no item `home` na Home).  
+3) Header mobile pode estar iniciando WebGL indevidamente (contra regra).  
+4) Header pode não respeitar `z-40` acima do hero.
+
+### 🔧 Correção Técnica (ação exata)
+- Forçar:
+  - labels e tracking idênticos ao screenshot (`home`, `sobre`, `portfolio showcase`, `contato`)
+  - estilo de active state do item atual (ex.: underline azul e/ou `text-[#0057FF]`)
+- Mobile/tablet:
+  - não renderizar `FluidGlass`/Canvas
+  - implementar overlay fullscreen stagger
+- `z-index`:
+  - wrapper do header deve ser sempre `z-40` acima da hero
+
+### ✅ Resultado esperado (comparável)
+- Header idêntico a `docs/HEADER/HEADER.mp4` e `docs/HERO-PORTFOLIO-GHOST.jpg`.
+
+---
 
 ## 🎯 Seção: Hero (HomeHero)
 
