@@ -167,9 +167,12 @@ function Effects(): ReactElement {
       luminanceSmoothing={0.85}
       mipmapBlur={!isMobile} // Disable mipmap blur on mobile for perf if needed, or keep for aesthetics
     />,
-    <AnalogDecayPass key="analog" enabled={!reducedMotion} />,
     <Vignette key="vignette" offset={0.12} darkness={0.78} />,
   ];
+
+  if (!reducedMotion) {
+    effects.splice(1, 0, <AnalogDecayPass key="analog-decay" />);
+  }
 
   return <EffectComposer enableNormalPass={false}>{effects}</EffectComposer>;
 }

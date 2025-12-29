@@ -29,32 +29,40 @@ const FeaturedProjects: React.FC = () => {
           Row 2: Card ultra-wide (full width)
           Row 3: Card horizontal | CTA Card
         */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-6">
           {/* Card 1 - Vertical Portrait (Esquerda) */}
           {projects[0] && (
-            <div className="md:col-span-5 h-[380px] md:h-[480px]">
-              <ProjectCard project={projects[0]} index={0} className="h-full" />
+            <div className="md:col-span-5">
+              <div className="h-[360px] w-full md:h-[520px]">
+                <ProjectCard project={projects[0]} index={0} className="h-full" />
+              </div>
             </div>
           )}
 
           {/* Card 2 - Horizontal (Direita) */}
           {projects[1] && (
-            <div className="md:col-span-7 h-[280px] md:h-[480px]">
-              <ProjectCard project={projects[1]} index={1} className="h-full" />
+            <div className="md:col-span-7">
+              <div className="h-[320px] w-full md:h-[520px]">
+                <ProjectCard project={projects[1]} index={1} className="h-full" />
+              </div>
             </div>
           )}
 
           {/* Card 3 - Full Width Cinematic */}
           {projects[2] && (
-            <div className="md:col-span-12 h-[240px] md:h-[360px]">
-              <ProjectCard project={projects[2]} index={2} className="h-full" />
+            <div className="md:col-span-12">
+              <div className="h-[300px] w-full md:h-[420px]">
+                <ProjectCard project={projects[2]} index={2} className="h-full" />
+              </div>
             </div>
           )}
 
           {/* Card 4 - Horizontal */}
           {projects[3] && (
-            <div className="md:col-span-7 h-[280px] md:h-[340px]">
-              <ProjectCard project={projects[3]} index={3} className="h-full" />
+            <div className="md:col-span-8">
+              <div className="h-[280px] w-full md:h-[420px]">
+                <ProjectCard project={projects[3]} index={3} className="h-full" />
+              </div>
             </div>
           )}
 
@@ -64,29 +72,31 @@ const FeaturedProjects: React.FC = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.6, delay: 0.35 }}
-            className="md:col-span-5 h-[280px] md:h-[340px] group relative flex flex-col justify-center items-center p-8 md:p-10 rounded-3xl bg-section-bg hover:bg-section-bg-hover transition-colors duration-500"
+            className="md:col-span-4"
           >
-            {/* Background Pattern (opcional) */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none overflow-hidden rounded-3xl">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,var(--color-primary)_0%,transparent_50%)]" />
-            </div>
+            <div className="group relative flex h-[260px] w-full flex-col items-center justify-center rounded-3xl bg-section-bg p-8 transition-colors duration-500 hover:bg-section-bg-hover md:h-[420px] md:p-10">
+              {/* Background Pattern (opcional) */}
+              <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl opacity-[0.03]">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,var(--color-primary)_0%,transparent_50%)]" />
+              </div>
 
-            <div className="relative z-10 flex flex-col gap-6 items-center text-center">
-              <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold font-sans tracking-tight text-text-dark leading-[0.95]">
-                Like what
-                <br />
-                you see?
-              </h3>
+              <div className="relative z-10 flex flex-col items-center gap-6 text-center">
+                <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold font-sans tracking-tight text-text-dark leading-[0.95]">
+                  Like what
+                  <br />
+                  you see?
+                </h3>
 
-              <Link
-                href="/portfolio"
-                className="inline-flex items-center gap-3 w-fit rounded-full bg-primary px-7 py-3.5 text-white shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:-translate-y-1 transition-all duration-300"
-              >
-                <span className="text-sm font-bold tracking-wide uppercase">
-                  view projects
-                </span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+                <Link
+                  href="/portfolio"
+                  className="inline-flex w-fit items-center gap-3 rounded-full bg-primary px-7 py-3.5 text-white shadow-lg shadow-primary/25 transition-all duration-300 hover:-translate-y-1 hover:shadow-primary/40"
+                >
+                  <span className="text-sm font-bold uppercase tracking-wide">
+                    view projects
+                  </span>
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
             </div>
           </motion.div>
         </div>
