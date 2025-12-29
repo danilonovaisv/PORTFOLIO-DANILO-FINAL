@@ -97,14 +97,14 @@ export default function PortfolioHero() {
       </div>
 
       <div className="mx-auto w-full px-[clamp(1.5rem,5vw,6rem)] max-w-[1680px] flex flex-col items-center justify-between gap-6 pb-10 pt-6 text-center sm:flex-row sm:items-center sm:gap-8 sm:text-left">
-        <h1 className="text-3xl font-bold lowercase tracking-tight text-[#111111]">
-          <span className="text-[#0057FF]">portfólio</span>{' '}
-          <span className="text-[#111111]">showcase</span>
+        <h1 className="text-3xl font-bold lowercase tracking-tight text-text-dark">
+          <span className="text-focus-ring">portfólio</span>{' '}
+          <span className="text-text-dark">showcase</span>
         </h1>
 
         <a
           href="#contact"
-          className="group inline-flex w-full max-w-xs items-center justify-center gap-3 rounded-full bg-[#0057FF] px-8 py-4 text-lg font-semibold tracking-wide text-white shadow-[0_18px_30px_-15px_rgba(0,87,255,0.8)] transition duration-200 hover:bg-[#0046CC] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#0057FF]/50 sm:w-auto sm:max-w-none"
+          className="group inline-flex w-full max-w-xs items-center justify-center gap-3 rounded-full bg-focus-ring px-8 py-4 text-lg font-semibold tracking-wide text-white shadow-[0_18px_30px_-15px_rgba(0,87,255,0.8)] transition duration-200 hover:bg-[#0046CC] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-focus-ring/50 sm:w-auto sm:max-w-none"
         >
           vamos trabalhar juntos
           <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 text-white transition duration-200 group-hover:bg-white/30">
