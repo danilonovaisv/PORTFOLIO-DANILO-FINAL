@@ -145,6 +145,7 @@ function GhostScene() {
         <Particles
           count={reducedMotion ? 40 : isMobile ? 60 : 250}
           speedRef={ghostSpeedRef}
+          ghostPosRef={ghostPosRef}
         />
       </group>
     </>

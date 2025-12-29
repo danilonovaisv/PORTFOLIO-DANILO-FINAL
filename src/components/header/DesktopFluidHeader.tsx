@@ -50,7 +50,7 @@ const DesktopFluidHeader: React.FC<DesktopFluidHeaderProps> = ({
 
   const magnetizedNavItems = useMemo<NavItem[]>(() => navItems, [navItems]);
   const headerClassName =
-    `fixed left-0 top-0 z-40 w-full overflow-hidden ${className ?? ''}`.trim();
+    `fixed left-0 top-0 z-50 w-full overflow-hidden ${className ?? ''}`.trim();
 
   useEffect(() => {
     const handleScroll = () => {
