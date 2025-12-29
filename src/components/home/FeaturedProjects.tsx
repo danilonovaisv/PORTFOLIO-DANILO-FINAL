@@ -21,7 +21,7 @@ const FeaturedProjects: React.FC = () => {
       aria-label="Featured Projects"
       className="relative py-8 md:py-12 bg-section-bg overflow-hidden"
     >
-      <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-[95%] xl:max-w-[1800px] relative z-10">
+      <div className="mx-auto w-full px-[clamp(1.5rem,5vw,6rem)] max-w-[1680px] relative z-10">
         {/* Grid Layout - Bento Style como na referência */}
         {/* 
           Layout da referência:

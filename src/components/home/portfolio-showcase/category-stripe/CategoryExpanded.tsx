@@ -54,7 +54,7 @@ const CategoryExpanded: FC<CategoryExpandedProps> = ({ category }) => {
         <div>
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-8 font-light">
             Explorando os limites da criatividade em{' '}
-            <span className="text-[#0057FF] font-medium tracking-tight">
+            <span className="text-primary font-medium tracking-tight">
               {category.label.replace(',', '').toLowerCase()}
             </span>
             . Nossos projetos combinam estratégia e design para criar
@@ -75,9 +75,9 @@ const CategoryExpanded: FC<CategoryExpandedProps> = ({ category }) => {
                   duration: 0.5,
                   ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
                 }}
-                className="flex items-center gap-4 text-base md:text-lg font-medium text-[#111111] group/item cursor-pointer py-1"
+                className="flex items-center gap-4 text-base md:text-lg font-medium text-text-dark group/item cursor-pointer py-1"
               >
-                <div className="w-2 h-2 rounded-full bg-[#0057FF] group-hover/item:scale-150 transition-transform duration-500" />
+                <div className="w-2 h-2 rounded-full bg-primary group-hover/item:scale-150 transition-transform duration-500" />
                 <div className="group-hover/item:translate-x-1.5 transition-transform duration-500">
                   Projeto Exemplo {i}
                 </div>

@@ -11,7 +11,7 @@ const Clients: React.FC = () => {
       id="clients"
       className="bg-[#0057FF] py-24 md:py-32 border-t border-white/10"
     >
-      <div className="mx-auto max-w-7xl px-6 md:px-10">
+      <div className="mx-auto w-full px-[clamp(1.5rem,5vw,6rem)] max-w-[1680px]">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}

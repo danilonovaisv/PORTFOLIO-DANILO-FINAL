@@ -119,10 +119,10 @@ const ContactForm: React.FC = () => {
               />
             </svg>
           </div>
-          <h3 className="text-2xl font-bold text-[#111111] mb-2">
+          <h3 className="text-2xl font-bold text-text-dark mb-2">
             Mensagem Enviada!
           </h3>
-          <p className="text-[#666666]">
+          <p className="text-text-muted">
             Obrigado por entrar em contato. Em breve retornarei sua mensagem.
           </p>
         </div>
