@@ -67,7 +67,7 @@ export default function HomeHero() {
     <section
       id="hero"
       ref={ref}
-      className="relative h-[250vh] overflow-hidden bg-[#06071f]"
+      className="relative h-[250vh] overflow-hidden bg-ghost-void"
       aria-label="Hero Section"
     >
       {/* STICKY CONTAINER - Keeps content visible during scroll */}

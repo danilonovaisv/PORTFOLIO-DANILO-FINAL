@@ -1,61 +1,20 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { AnimatePresence, motion, type Variants } from 'framer-motion';
+import { gsap } from 'gsap';
 import { Menu, X } from 'lucide-react';
 import { BRAND } from '@/config/brand';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
-import { headerTokens } from '@/components/header/headerTokens.ts';
 import type { MobileStaggeredMenuProps } from './types';
 
-const overlayVariants: Variants = {
-  hidden: { x: '100%', opacity: 0 },
-  visible: { x: 0, opacity: 1 },
-  exit: { x: '100%', opacity: 0 },
-};
-
-const panelVariants: Variants = {
-  hidden: { x: '100%' },
-  visible: { x: 0 },
-  exit: { x: '100%' },
-};
-
-const preLayerVariants: Variants = {
-  hidden: { x: '100%' },
-  visible: (index: number) => ({
-    x: 0,
-    transition: { delay: index * 0.06, duration: 0.45, ease: [0.22, 1, 0.36, 1] },
-  }),
-  exit: (index: number) => ({
-    x: '100%',
-    transition: { delay: index * 0.04, duration: 0.3, ease: [0.22, 1, 0.36, 1] },
-  }),
-};
-
-const listVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: headerTokens.motion.mobile.staggerDelay,
-      delayChildren: headerTokens.motion.mobile.staggerDelay,
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 16 }, // Spec says 16px
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: headerTokens.motion.mobile.itemDuration,
-      ease: [0.22, 1, 0.36, 1] as const
-    },
-  },
-};
+const PRELAYER_STAGGER = 0.07;
+const PRELAYER_DURATION = 0.5;
+const PANEL_DURATION = 0.65;
+const ITEM_DURATION = 1;
+const ITEM_STAGGER = 0.1;
+const NUMBER_DURATION = 0.6;
 
 const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
   navItems,
@@ -69,8 +28,22 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
   className,
 }) => {
   const [internalOpen, setInternalOpen] = useState(false);
-  const prefersReducedMotion = usePrefersReducedMotion();
   const resolvedIsOpen = typeof isOpen === 'boolean' ? isOpen : internalOpen;
+  const [isRendered, setIsRendered] = useState(resolvedIsOpen);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  const overlayRef = useRef<HTMLDivElement | null>(null);
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  const preLayerRefs = useRef<HTMLDivElement[]>([]);
+  const itemRefs = useRef<HTMLAnchorElement[]>([]);
+  const numberRefs = useRef<HTMLSpanElement[]>([]);
+  const openTimelineRef = useRef<gsap.core.Timeline | null>(null);
+  const closeTimelineRef = useRef<gsap.core.Timeline | null>(null);
+
+  preLayerRefs.current = [];
+  itemRefs.current = [];
+  numberRefs.current = [];
+
   const setOpen = (next: boolean) => {
     if (typeof isOpen !== 'boolean') {
       setInternalOpen(next);
@@ -81,6 +54,12 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
       onClose?.();
     }
   };
+
+  useEffect(() => {
+    if (resolvedIsOpen) {
+      setIsRendered(true);
+    }
+  }, [resolvedIsOpen]);
 
   useEffect(() => {
     if (!resolvedIsOpen) return undefined;
@@ -102,37 +81,6 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [resolvedIsOpen]);
 
-  const resolvedOverlayVariants = useMemo(() => {
-    if (prefersReducedMotion) {
-      return {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1 },
-        exit: { opacity: 0 },
-      };
-    }
-    return overlayVariants;
-  }, [prefersReducedMotion]);
-
-  const resolvedListVariants = useMemo(() => {
-    if (prefersReducedMotion) {
-      return {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { duration: 0.1 } },
-      };
-    }
-    return listVariants;
-  }, [prefersReducedMotion]);
-
-  const resolvedItemVariants = useMemo(() => {
-    if (prefersReducedMotion) {
-      return {
-        hidden: { opacity: 0 },
-        visible: { opacity: 1, transition: { duration: 0.1 } },
-      };
-    }
-    return itemVariants;
-  }, [prefersReducedMotion]);
-
   const resolvedGradient = useMemo(
     () => gradient ?? ['#0d0d10', '#1a1a20'],
     [gradient]
@@ -150,130 +98,239 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
     setOpen(false);
   };
 
+  useLayoutEffect(() => {
+    if (!isRendered) return;
+    const ctx = gsap.context(() => {
+      const preLayers = preLayerRefs.current.filter(Boolean);
+      const items = itemRefs.current.filter(Boolean);
+      const numbers = numberRefs.current.filter(Boolean);
+      const panel = panelRef.current;
+      const overlay = overlayRef.current;
+      const offscreen = 100;
+
+      if (panel) {
+        gsap.set([panel, ...preLayers], { xPercent: offscreen });
+      }
+      if (overlay) {
+        gsap.set(overlay, { opacity: 0 });
+      }
+      if (items.length) {
+        gsap.set(items, { yPercent: 140, rotate: 10, opacity: 0 });
+      }
+      if (numbers.length) {
+        gsap.set(numbers, { opacity: 0 });
+      }
+    }, menuRef);
+    return () => ctx.revert();
+  }, [isRendered]);
+
+  useLayoutEffect(() => {
+    if (!isRendered) return;
+    const preLayers = preLayerRefs.current.filter(Boolean);
+    const items = itemRefs.current.filter(Boolean);
+    const numbers = numberRefs.current.filter(Boolean);
+    const panel = panelRef.current;
+    const overlay = overlayRef.current;
+    const offscreen = 100;
+
+    if (!panel || !overlay) return;
+
+    openTimelineRef.current?.kill();
+    closeTimelineRef.current?.kill();
+
+    if (prefersReducedMotion) {
+      if (resolvedIsOpen) {
+        gsap.set(overlay, { opacity: 1 });
+        gsap.set([panel, ...preLayers], { xPercent: 0 });
+        gsap.set(items, { yPercent: 0, rotate: 0, opacity: 1 });
+        gsap.set(numbers, { opacity: 1 });
+      } else {
+        gsap.set(overlay, { opacity: 0 });
+        gsap.set([panel, ...preLayers], { xPercent: offscreen });
+        setIsRendered(false);
+      }
+      return;
+    }
+
+    if (resolvedIsOpen) {
+      const tl = gsap.timeline();
+      tl.to(overlay, { opacity: 1, duration: 0.2, ease: 'power2.out' }, 0);
+      preLayers.forEach((layer, index) => {
+        tl.to(
+          layer,
+          { xPercent: 0, duration: PRELAYER_DURATION, ease: 'power4.out' },
+          index * PRELAYER_STAGGER
+        );
+      });
+
+      const lastTime = preLayers.length
+        ? (preLayers.length - 1) * PRELAYER_STAGGER
+        : 0;
+      const panelInsertTime = lastTime + (preLayers.length ? 0.08 : 0);
+      tl.to(
+        panel,
+        { xPercent: 0, duration: PANEL_DURATION, ease: 'power4.out' },
+        panelInsertTime
+      );
+
+      if (items.length) {
+        const itemsStart = panelInsertTime + PANEL_DURATION * 0.15;
+        tl.to(
+          items,
+          {
+            yPercent: 0,
+            rotate: 0,
+            opacity: 1,
+            duration: ITEM_DURATION,
+            ease: 'power4.out',
+            stagger: { each: ITEM_STAGGER, from: 'start' },
+          },
+          itemsStart
+        );
+        if (numbers.length) {
+          tl.to(
+            numbers,
+            {
+              opacity: 1,
+              duration: NUMBER_DURATION,
+              ease: 'power2.out',
+              stagger: { each: 0.08, from: 'start' },
+            },
+            itemsStart + 0.1
+          );
+        }
+      }
+      openTimelineRef.current = tl;
+    } else {
+      const tl = gsap.timeline({
+        onComplete: () => setIsRendered(false),
+      });
+      tl.to(overlay, { opacity: 0, duration: 0.2, ease: 'power2.in' }, 0);
+      if (items.length) {
+        tl.to(
+          [...items].reverse(),
+          {
+            yPercent: 140,
+            rotate: -6,
+            opacity: 0,
+            duration: 0.3,
+            ease: 'power2.in',
+            stagger: 0.04,
+          },
+          0
+        );
+      }
+      if (numbers.length) {
+        tl.to(numbers, { opacity: 0, duration: 0.2 }, 0);
+      }
+      tl.to(
+        panel,
+        { xPercent: offscreen, duration: 0.4, ease: 'power3.in' },
+        0
+      );
+      [...preLayers].reverse().forEach((layer, index) => {
+        tl.to(
+          layer,
+          { xPercent: offscreen, duration: 0.3, ease: 'power3.in' },
+          index * 0.04
+        );
+      });
+      closeTimelineRef.current = tl;
+    }
+  }, [isRendered, prefersReducedMotion, resolvedIsOpen]);
+
   return (
     <>
-      <AnimatePresence>
-        {resolvedIsOpen && (
-          <motion.aside
-            className="fixed inset-0 z-50 flex justify-end lg:hidden"
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            variants={resolvedOverlayVariants}
-            transition={
-              prefersReducedMotion
-                ? { duration: 0.1 }
-                : { duration: headerTokens.motion.mobile.panelDuration, ease: [0.22, 1, 0.36, 1] }
-            }
-            role="dialog"
-            aria-modal="true"
-            onClick={closeMenu}
+      {isRendered && (
+        <div
+          ref={menuRef}
+          className="fixed inset-0 z-50 flex justify-end lg:hidden"
+          role="dialog"
+          aria-modal="true"
+          onClick={closeMenu}
+        >
+          <div
+            ref={overlayRef}
+            className="absolute inset-0 bg-black/20"
+            aria-hidden="true"
+          />
+          <div
+            className="relative h-full w-full"
+            onClick={(event) => event.stopPropagation()}
             style={
               {
                 '--menu-accent': accentColor,
               } as React.CSSProperties
             }
           >
-            <div className="relative h-full w-full" onClick={(event) => event.stopPropagation()}>
-              <div className="absolute inset-0 bg-black/10" />
-              <div className="absolute inset-0 flex justify-end">
-                <div className="relative h-full w-full max-w-[420px]">
-                  <div className="absolute inset-0">
-                    {prelayerColors.map((color, index) => (
-                      <motion.div
-                        key={color}
-                        className="absolute inset-0"
-                        style={{
-                          background: color,
-                          opacity: 0.35 - index * 0.08,
-                        }}
-                        custom={index}
-                        variants={preLayerVariants}
-                      />
-                    ))}
-                  </div>
-                  <motion.div
-                    className="absolute inset-0 bg-[linear-gradient(135deg,var(--menu-gradient-start),var(--menu-gradient-end))]"
-                    style={{
-                      '--menu-gradient-start': resolvedGradient[0],
-                      '--menu-gradient-end': resolvedGradient[1],
-                    } as React.CSSProperties}
-                    variants={panelVariants}
-                    transition={
-                      prefersReducedMotion
-                        ? { duration: 0.1 }
-                        : { duration: headerTokens.motion.mobile.panelDuration, ease: [0.22, 1, 0.36, 1] }
-                    }
-                  />
-                </div>
-              </div>
-              <motion.div
-                className="absolute -top-24 -left-16 h-64 w-64 rounded-full bg-white/15 blur-3xl"
-                animate={
-                  prefersReducedMotion
-                    ? undefined
-                    : { y: [0, 20, 0], x: [0, 10, 0] }
-                }
-                transition={{
-                  duration: 12,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              />
-              <motion.div
-                className="absolute bottom-10 -right-20 h-56 w-56 rounded-full bg-black/10 blur-3xl"
-                animate={
-                  prefersReducedMotion
-                    ? undefined
-                    : { y: [0, -20, 0], x: [0, -12, 0] }
-                }
-                transition={{
-                  duration: 10,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-              />
-
-              <div className="relative ml-auto flex h-full w-full max-w-[420px] flex-col justify-between px-8 pb-12 pt-24 text-white">
-                <motion.nav
-                  variants={resolvedListVariants}
-                  initial="hidden"
-                  animate="visible"
-                >
-                  {navItems.map((link, index) => (
-                    <motion.div
-                      key={link.href}
-                      variants={resolvedItemVariants}
-                      className="flex items-center gap-4 py-3"
-                    >
-                      <span
-                        className="text-xs font-medium tracking-[0.3em] text-white/50"
-                        style={{ color: accentColor }}
-                      >
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                      <Link
-                        href={link.href}
-                        onClick={closeMenu}
-                        className="text-3xl font-medium uppercase tracking-tight text-white transition-colors hover:text-[var(--menu-accent)]"
-                        aria-label={link.ariaLabel}
-                        target={link.external ? '_blank' : undefined}
-                        rel={link.external ? 'noreferrer' : undefined}
-                      >
-                        {link.label}
-                      </Link>
-                    </motion.div>
+            <div className="absolute inset-0 flex justify-end">
+              <div className="relative h-full w-full max-w-[420px]">
+                <div className="absolute inset-0">
+                  {prelayerColors.map((color, index) => (
+                    <div
+                      key={color}
+                      ref={(node) => {
+                        if (node) preLayerRefs.current[index] = node;
+                      }}
+                      className="absolute inset-0"
+                      style={{
+                        background: color,
+                        opacity: 0.35 - index * 0.08,
+                      }}
+                    />
                   ))}
-                </motion.nav>
-
-                <div className="text-xs uppercase tracking-[0.3em] text-white/60">
-                  {BRAND.name}
                 </div>
+                <div
+                  ref={panelRef}
+                  className="absolute inset-0 bg-[linear-gradient(135deg,var(--menu-gradient-start),var(--menu-gradient-end))]"
+                  style={{
+                    '--menu-gradient-start': resolvedGradient[0],
+                    '--menu-gradient-end': resolvedGradient[1],
+                  } as React.CSSProperties}
+                />
               </div>
             </div>
-          </motion.aside>
-        )}
-      </AnimatePresence>
+
+            <div className="relative ml-auto flex h-full w-full max-w-[420px] flex-col justify-between px-8 pb-12 pt-24 text-white">
+              <nav>
+                {navItems.map((link, index) => (
+                  <div
+                    key={link.href}
+                    className="flex items-center gap-4 py-3"
+                  >
+                    <span
+                      ref={(node) => {
+                        if (node) numberRefs.current[index] = node;
+                      }}
+                      className="text-xs font-medium tracking-[0.3em] text-white/50"
+                      style={{ color: accentColor }}
+                    >
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <Link
+                      href={link.href}
+                      onClick={closeMenu}
+                      className="text-3xl font-medium uppercase tracking-tight text-white transition-colors hover:text-[var(--menu-accent)]"
+                      aria-label={link.ariaLabel}
+                      target={link.external ? '_blank' : undefined}
+                      rel={link.external ? 'noreferrer' : undefined}
+                      ref={(node) => {
+                        if (node) itemRefs.current[index] = node;
+                      }}
+                    >
+                      {link.label}
+                    </Link>
+                  </div>
+                ))}
+              </nav>
+
+              <div className="text-xs uppercase tracking-[0.3em] text-white/60">
+                {BRAND.name}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <header
         className={`${isFixed ? 'fixed' : 'relative'} inset-x-0 top-0 z-40 lg:hidden ${className ?? ''}`}
@@ -308,52 +365,20 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
               resolvedIsOpen
                 ? undefined
                 : ({
-                  color: accentColor,
-                  borderColor: `${accentColor}40`,
-                } as React.CSSProperties)
+                    color: accentColor,
+                    borderColor: `${accentColor}40`,
+                  } as React.CSSProperties)
             }
           >
             <span className="relative h-4 overflow-hidden">
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.span
-                  key={resolvedIsOpen ? 'close-label' : 'menu-label'}
-                  initial={{ y: 12, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ y: -12, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="block"
-                >
-                  {resolvedIsOpen ? 'Close' : 'Menu'}
-                </motion.span>
-              </AnimatePresence>
+              <span className="block">{resolvedIsOpen ? 'Close' : 'Menu'}</span>
             </span>
-            <AnimatePresence mode="wait" initial={false}>
-              {resolvedIsOpen ? (
-                <motion.span
-                  key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="text-black"
-                >
-                  <X className="h-5 w-5" />
-                </motion.span>
-              ) : (
-                <motion.span
-                  key="menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Menu className="h-5 w-5" />
-                </motion.span>
-              )}
-            </AnimatePresence>
+            <span className={resolvedIsOpen ? 'text-black' : undefined}>
+              {resolvedIsOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </span>
           </button>
         </div>
-      </header >
+      </header>
     </>
   );
 };
