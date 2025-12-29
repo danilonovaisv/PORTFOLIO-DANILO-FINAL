@@ -3,9 +3,10 @@
 import Image from 'next/image';
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
+import { HOME_CONTENT } from '@/config/content';
 
-const logos = Array.from({ length: 12 }).map((_, i) => ({
-  src: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client${i + 1}.svg`,
+const logos = HOME_CONTENT.clients.logos.map((src, i) => ({
+  src,
   alt: `Logo cliente ${i + 1}`,
 }));
 
@@ -22,7 +23,7 @@ export default function ClientsBrandsSection() {
           transition={{ duration: reducedMotion ? 0.2 : 0.55 }}
           className="text-white text-xl md:text-2xl font-bold text-center mb-8"
         >
-          marcas com as quais já trabalhei
+          {HOME_CONTENT.clients.title}
         </motion.h2>
 
         <motion.div

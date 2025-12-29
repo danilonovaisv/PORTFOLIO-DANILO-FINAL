@@ -2,19 +2,16 @@
 
 // Canonical Header Component
 import SiteHeader from '@/components/header/SiteHeader';
+import { BRAND } from '@/config/brand';
+import { HEADER_LINKS_DESKTOP } from '@/config/navigation';
 
 export default function Header() {
   return (
     <SiteHeader
-      navItems={[
-        { label: 'home', href: '/' },
-        { label: 'sobre', href: '/sobre' },
-        { label: 'portfolio showcase', href: '/#portfolio-showcase' },
-        { label: 'contato', href: '/#contact' },
-      ]}
-      logoUrl="https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg"
+      navItems={HEADER_LINKS_DESKTOP}
+      logoUrl={BRAND.logos.light}
       gradient={['rgba(0,87,255,0.55)', 'rgba(82,39,255,0.45)']}
-      accentColor="#0057FF"
+      accentColor={BRAND.colors.primary}
     />
   );
 }

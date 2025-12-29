@@ -2,6 +2,8 @@
 
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
+import { SOCIALS, CONTACT_FORM } from '@/config/navigation';
+import { HOME_CONTENT } from '@/config/content';
 
 export default function ContactSection() {
   const reducedMotion = useReducedMotion();
@@ -19,9 +21,11 @@ export default function ContactSection() {
           }}
           className="text-center mb-10"
         >
-          <h2 className="text-2xl font-bold text-[#0057FF]">contato</h2>
+          <h2 className="text-2xl font-bold text-[#0057FF]">
+            {HOME_CONTENT.contact.title}
+          </h2>
           <p className="text-text-dark/80 mt-2">
-            Tem uma pergunta ou quer trabalhar junto?
+            {HOME_CONTENT.contact.subtitle}
           </p>
         </motion.div>
 
@@ -29,24 +33,24 @@ export default function ContactSection() {
           <div className="space-y-4 text-text-dark">
             <a
               className="block hover:underline underline-offset-4"
-              href="tel:+5511983966838"
+              href={`tel:${SOCIALS.phone}`}
             >
-              +55 11 98396 6838
+              {SOCIALS.phone}
             </a>
 
             {/* Email primário primeiro (spec) */}
             <a
               className="block hover:underline underline-offset-4"
-              href="mailto:danilo@portfoliodanilo.com"
+              href={`mailto:${SOCIALS.emailSecondary}`}
             >
-              danilo@portfoliodanilo.com
+              {SOCIALS.emailSecondary}
             </a>
 
             <a
               className="block hover:underline underline-offset-4"
-              href="mailto:dannovaisv@gmail.com"
+              href={`mailto:${SOCIALS.emailPrimary}`}
             >
-              dannovaisv@gmail.com
+              {SOCIALS.emailPrimary}
             </a>
 
             <a
@@ -60,7 +64,7 @@ export default function ContactSection() {
 
             <div className="pt-4 flex flex-wrap gap-4">
               <a
-                href="https://instagram.com/danilo_novais"
+                href={SOCIALS.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-text-dark/70 hover:text-text-dark"
@@ -68,7 +72,7 @@ export default function ContactSection() {
                 Instagram
               </a>
               <a
-                href="https://facebook.com/danilonovaisvilela"
+                href={SOCIALS.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-text-dark/70 hover:text-text-dark"
@@ -76,7 +80,7 @@ export default function ContactSection() {
                 Facebook
               </a>
               <a
-                href="https://linkedin.com/in/danilonovais"
+                href={SOCIALS.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-text-dark/70 hover:text-text-dark"
@@ -84,7 +88,7 @@ export default function ContactSection() {
                 LinkedIn
               </a>
               <a
-                href="https://twitter.com/danilo_novais"
+                href={SOCIALS.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-text-dark/70 hover:text-text-dark"
@@ -95,7 +99,7 @@ export default function ContactSection() {
           </div>
 
           <motion.form
-            action="https://formsubmit.co/danilo@portfoliodanilo.com"
+            action={CONTACT_FORM.action}
             method="POST"
             initial="hidden"
             whileInView="show"

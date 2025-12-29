@@ -18,20 +18,82 @@ type ManifestoThumbProps = {
 export const ManifestoThumb = forwardRef<HTMLVideoElement, ManifestoThumbProps>(
   ({ muted = true }, ref) => {
     const reducedMotion = useReducedMotion();
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [isInView, setIsInView] = useState(false);
+
+    useEffect(() => {
+      const element = containerRef.current;
+      if (!element) return;
+
+      // Intersection Observer for performance
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setIsInView(true);
+            // Once animated, we can disconnect
+            observer.disconnect();
+          }
+        },
+        {
+          threshold: 0.1,
+          rootMargin: '50px',
+        }
+      );
+
+      observer.observe(element);
+
+      return () => observer.disconnect();
+    }, []);
 
     return (
-      <motion.video
-        ref={ref}
-        src={BRAND.video.manifesto}
-        autoPlay
-        muted={muted}
-        loop
-        playsInline
-        className="h-full w-full cursor-pointer object-cover"
-        aria-label="Manifesto video presentation"
-        whileHover={reducedMotion ? undefined : { scale: 1.05 }}
-        transition={{ duration: 0.5, ease: 'easeInOut' }}
-      />
+      <div
+        ref={containerRef}
+        className="relative w-full overflow-hidden"
+        style={{ aspectRatio: '16/9' }}
+      >
+        <motion.div
+          className="relative h-full w-full"
+          initial={{
+            opacity: 0,
+            scale: 1.1,
+            filter: 'blur(4px)',
+          }}
+          animate={
+            isInView
+              ? {
+                opacity: 1,
+                scale: 1,
+                filter: 'blur(0px)',
+              }
+              : undefined
+          }
+          transition={{
+            duration: reducedMotion ? 0.3 : 1.2,
+            ease: [0.25, 0.1, 0.25, 1], // cubic-bezier(0.25, 0.1, 0.25, 1)
+          }}
+        >
+          <motion.video
+            ref={ref}
+            src={BRAND.video.manifesto}
+            autoPlay
+            muted={muted}
+            loop
+            playsInline
+            className="h-full w-full cursor-pointer object-cover"
+            aria-label="Manifesto video presentation"
+            whileHover={reducedMotion ? undefined : { scale: 1.02 }}
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
+            style={{
+              // Hardware acceleration
+              transform: 'translate3d(0, 0, 0)',
+              willChange: 'transform',
+            }}
+          />
+
+          {/* Subtle gradient overlay for text readability */}
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+        </motion.div>
+      </div>
     );
   }
 );
@@ -58,6 +120,8 @@ const THUMB_STATES: ThumbState[] = [
 
 // Faixas de scroll que disparam cada estado (0 -> 0.2 do hero)
 const BREAKPOINTS = [0, 0.05, 0.1, 0.15, 0.2];
+const FULL_ON_THRESHOLD = 0.82;
+const FULL_OFF_THRESHOLD = 0.78;
 
 export default function HeroVideoThumb({
   scrollProgress,
@@ -66,6 +130,8 @@ export default function HeroVideoThumb({
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [metadataReady, setMetadataReady] = useState(false);
+  const [isFull, setIsFull] = useState(false);
+  const fullTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const clampIndex = (value: number) =>
     Math.max(0, Math.min(THUMB_STATES.length - 1, value));
@@ -89,6 +155,16 @@ export default function HeroVideoThumb({
   useMotionValueEvent(frameIndex, 'change', (latest) => {
     const nextIndex = clampIndex(Math.round(latest));
     setActiveIndex((prev) => (prev === nextIndex ? prev : nextIndex));
+  });
+
+  // Estado full-screen quando o scroll se aproxima do fim do hero (histerese para evitar prender full)
+  useMotionValueEvent(scrollProgress, 'change', (latest) => {
+    setIsFull((prev) => {
+      if (prev) {
+        return latest >= FULL_OFF_THRESHOLD;
+      }
+      return latest >= FULL_ON_THRESHOLD;
+    });
   });
 
   const activeState = useMemo(
@@ -126,7 +202,33 @@ export default function HeroVideoThumb({
     return () => video.removeEventListener('loadedmetadata', handleLoaded);
   }, [activeState.time, metadataReady]);
 
+  // Delay de 2s antes de avançar para portfolio-showcase quando full
+  useEffect(() => {
+    if (isFull) {
+      if (fullTimerRef.current) clearTimeout(fullTimerRef.current);
+      fullTimerRef.current = setTimeout(() => {
+        const target = document.getElementById('portfolio-showcase');
+        if (target) {
+          target.scrollIntoView({
+            behavior: reducedMotion ? 'auto' : 'smooth',
+          });
+        }
+      }, 2000);
+    } else if (fullTimerRef.current) {
+      clearTimeout(fullTimerRef.current);
+      fullTimerRef.current = null;
+    }
+
+    return () => {
+      if (fullTimerRef.current) {
+        clearTimeout(fullTimerRef.current);
+        fullTimerRef.current = null;
+      }
+    };
+  }, [isFull, reducedMotion]);
+
   const handleClick = () => {
+    if (isFull) return;
     const target = document.getElementById('manifesto');
     if (target) {
       target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth' });
@@ -135,10 +237,22 @@ export default function HeroVideoThumb({
 
   return (
     <motion.div
-      className="fixed bottom-5 right-5 md:bottom-8 md:right-8 z-[1000] cursor-pointer"
+      className={`fixed z-[1000] cursor-pointer ${isFull ? 'inset-0' : 'bottom-5 right-5 md:bottom-8 md:right-8'
+        }`}
       initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1 }}
-      style={{ scale: thumbScale, y: thumbY }}
+      animate={{
+        opacity: 1,
+        width: isFull ? '100vw' : '240px',
+        height: isFull ? '100vh' : '135px',
+        borderRadius: isFull ? '0px' : '12px',
+        boxShadow: isFull
+          ? '0 0 0 rgba(0,0,0,0)'
+          : '0 10px 40px rgba(0,0,0,0.35)',
+      }}
+      style={{
+        scale: isFull ? 1 : thumbScale,
+        y: isFull ? 0 : thumbY,
+      }}
       transition={{
         duration: reducedMotion ? 0.15 : 0.45,
         ease: [0.22, 1, 0.36, 1],
@@ -147,14 +261,14 @@ export default function HeroVideoThumb({
         reducedMotion
           ? undefined
           : {
-              scale: 1.05,
-              boxShadow: '0 8px 30px rgba(0,0,0,0.25)',
-            }
+            scale: isFull ? 1 : 1.05,
+            boxShadow: '0 8px 30px rgba(0,0,0,0.25)',
+          }
       }
       onClick={handleClick}
       aria-label="Pré-visualização do vídeo manifesto"
     >
-      <div className="relative h-[140px] w-[200px] md:h-[170px] md:w-[240px] overflow-hidden rounded-xl border border-white/10 bg-black shadow-[0_10px_40px_rgba(0,0,0,0.35)] transition-transform duration-300">
+      <div className="relative h-full w-full overflow-hidden rounded-xl border border-white/10 bg-black shadow-[0_10px_40px_rgba(0,0,0,0.35)] transition-transform duration-300 aspect-video">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeState.id}
@@ -198,9 +312,8 @@ export default function HeroVideoThumb({
             return (
               <span
                 key={state.id}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  isActive ? 'w-6 bg-white' : 'w-2 bg-white/35'
-                }`}
+                className={`h-1.5 rounded-full transition-all duration-300 ${isActive ? 'w-6 bg-white' : 'w-2 bg-white/35'
+                  }`}
               />
             );
           })}

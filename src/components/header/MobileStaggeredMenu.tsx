@@ -6,6 +6,7 @@ import React, { useEffect } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import type { NavItem } from './types';
 import { HEADER_TOKENS } from './headerTokens';
+import { SOCIALS } from '@/config/navigation';
 
 export interface MobileStaggeredMenuProps {
   navItems: NavItem[];
@@ -203,13 +204,13 @@ export default function MobileStaggeredMenu({
                 <div className="flex flex-wrap gap-3">
                   <a
                     className="underline underline-offset-4 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] rounded"
-                    href="mailto:danilo@portfoliodanilo.com"
+                    href={`mailto:${SOCIALS.emailSecondary}`}
                   >
                     Email
                   </a>
                   <a
                     className="underline underline-offset-4 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] rounded"
-                    href="https://instagram.com/danilo_novais"
+                    href={SOCIALS.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -217,7 +218,7 @@ export default function MobileStaggeredMenu({
                   </a>
                   <a
                     className="underline underline-offset-4 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] rounded"
-                    href="https://linkedin.com/in/danilonovais"
+                    href={SOCIALS.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

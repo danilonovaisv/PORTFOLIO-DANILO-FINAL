@@ -2,19 +2,15 @@
 
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
+import { FOOTER, SOCIALS } from '@/config/navigation';
 
-const footerLinks = [
-  { label: 'home', href: '#hero' },
-  { label: 'portfólio showcase', href: '#portfolio-showcase' },
-  { label: 'sobre', href: '/sobre' },
-  { label: 'contato', href: '#contact' },
-];
+const footerLinks = FOOTER.links;
 
 const social = [
-  { label: 'Instagram', href: 'https://instagram.com/danilo_novais' },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/danilonovais' },
-  { label: 'Facebook', href: 'https://facebook.com/danilonovaisvilela' },
-  { label: 'Twitter', href: 'https://twitter.com/danilo_novais' },
+  { label: 'Instagram', href: SOCIALS.instagram },
+  { label: 'LinkedIn', href: SOCIALS.linkedin },
+  { label: 'Facebook', href: SOCIALS.facebook },
+  { label: 'Twitter', href: SOCIALS.twitter },
 ];
 
 function isHashHref(href: string) {
@@ -42,7 +38,7 @@ export default function SiteFooter() {
         aria-label="Footer"
       >
         <div className="max-w-[1680px] mx-auto px-6 py-4 flex items-center justify-between text-white text-sm">
-          <p>© 2025 Danilo Novais Vilela — todos os direitos reservados.</p>
+          <p>{FOOTER.copyright}</p>
 
           <nav aria-label="Links do footer" className="flex items-center gap-5">
             {footerLinks.map((l) => (
@@ -82,9 +78,7 @@ export default function SiteFooter() {
         aria-label="Footer"
       >
         <div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)] space-y-6">
-          <p className="text-sm">
-            © 2025 Danilo Novais Vilela — todos os direitos reservados.
-          </p>
+          <p className="text-sm">{FOOTER.copyright}</p>
 
           <nav aria-label="Links do footer">
             <ul className="space-y-3">
