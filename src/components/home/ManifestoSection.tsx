@@ -2,6 +2,7 @@
 
 import React, { useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
+import { BRAND } from '@/config/brand';
 
 export default function ManifestoSection() {
   const reducedMotion = useReducedMotion();
@@ -22,7 +23,7 @@ export default function ManifestoSection() {
       aria-label="Manifesto (vídeo)"
     >
       <video
-        src="/assets/thumb-hero.mp4"
+        src={BRAND.video.manifesto}
         autoPlay
         loop
         muted

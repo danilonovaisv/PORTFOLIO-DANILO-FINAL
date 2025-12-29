@@ -317,6 +317,35 @@ body {
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+.video-wrapper {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.7s ease-out,
+    transform 0.7s ease-out;
+}
+
+.video-wrapper.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.video-text,
+.toggle-sound {
+  transform: translateY(16px);
+  opacity: 0;
+  transition:
+    transform 0.7s ease,
+    opacity 0.7s ease;
+}
+
+.video-text.show,
+.toggle-sound.show {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

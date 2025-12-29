@@ -1,24 +1,35 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { forwardRef } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 
-export default function ManifestoThumb({ muted = true }: { muted?: boolean }) {
-  const reducedMotion = useReducedMotion();
+import { BRAND } from '@/config/brand';
 
-  const src = useMemo(() => '/assets/thumb-hero.mp4', []);
+type ManifestoThumbProps = {
+  muted?: boolean;
+};
 
-  return (
-    <motion.video
-      src={src}
-      autoPlay
-      muted={muted}
-      loop
-      playsInline
-      className="w-full h-full object-cover cursor-pointer"
-      aria-label="Manifesto video presentation"
-      whileHover={reducedMotion ? undefined : { scale: 1.05 }}
-      transition={{ duration: 0.5, ease: 'easeInOut' }}
-    />
-  );
-}
+const ManifestoThumb = forwardRef<HTMLVideoElement, ManifestoThumbProps>(
+  ({ muted = true }, ref) => {
+    const reducedMotion = useReducedMotion();
+
+    return (
+      <motion.video
+        ref={ref}
+        src={BRAND.video.manifesto}
+        autoPlay
+        muted={muted}
+        loop
+        playsInline
+        className="h-full w-full cursor-pointer object-cover"
+        aria-label="Manifesto video presentation"
+        whileHover={reducedMotion ? undefined : { scale: 1.05 }}
+        transition={{ duration: 0.5, ease: 'easeInOut' }}
+      />
+    );
+  }
+);
+
+ManifestoThumb.displayName = 'ManifestoThumb';
+
+export default ManifestoThumb;
