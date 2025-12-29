@@ -510,7 +510,14 @@ export function FluidGlass({
   };
 
   return (
-    <div className={className}>
+    <div
+      className={className}
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: headerTokens.layout.height,
+      }}
+    >
       <Canvas
         shadows
         dpr={[1, 2]}
@@ -520,6 +527,7 @@ export function FluidGlass({
           powerPreference: 'high-performance',
         }}
         frameloop={reducedMotion ? 'demand' : 'always'}
+        className="absolute inset-0 z-40"
       >
         <OrthographicCamera makeDefault position={[0, 0, 10]} zoom={90} />
         <Suspense fallback={null}>

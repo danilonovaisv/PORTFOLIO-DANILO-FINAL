@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { BRAND } from '@/config/brand';
 import { headerTokens } from '@/components/header/headerTokens.ts';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import { useWebGLSupport } from '@/hooks/useWebGLSupport';
 import FluidGlass from './webgl/FluidGlass';
 import type { DesktopFluidHeaderProps, NavItem } from './types';
 
@@ -14,19 +15,6 @@ const cursorUrl =
   'url(\'data:image/svg+xml,%3Csvg width=\"44\" height=\"44\" viewBox=\"0 0 44 44\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Ccircle cx=\"22\" cy=\"22\" r=\"14\" fill=\"%23ffffff\" fill-opacity=\"0.12\"/%3E%3Ccircle cx=\"22\" cy=\"22\" r=\"6\" fill=\"%236da8ff\" fill-opacity=\"0.62\"/%3E%3C/svg%3E\') 22 22, pointer';
 
 const clamp01 = (value: number): number => Math.min(1, Math.max(0, value));
-
-const checkWebGLSupport = (): boolean => {
-  if (typeof window === 'undefined') return false;
-  try {
-    const canvas = document.createElement('canvas');
-    const hasContext =
-      !!window.WebGLRenderingContext &&
-      (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));
-    return Boolean(hasContext);
-  } catch {
-    return false;
-  }
-};
 
 /**
  * DesktopFluidHeader
@@ -36,7 +24,7 @@ const checkWebGLSupport = (): boolean => {
  * - HomeHero Video (z-30)
  * - Header (z-40) ← ESTE COMPONENTE
  *
- * O efeito FluidGlass está em -z-10 relativo ao header, ficando atrás do conteúdo.
+ * O efeito FluidGlass fica abaixo do conteúdo, mas dentro do header (stacking local).
  */
 const DesktopFluidHeader: React.FC<DesktopFluidHeaderProps> = ({
   navItems,
@@ -44,9 +32,11 @@ const DesktopFluidHeader: React.FC<DesktopFluidHeaderProps> = ({
   glass,
   height = headerTokens.layout.height,
   onNavigate,
+  supportsWebGL: supportsWebGLOverride,
   className,
 }) => {
-  const [supportsWebGL, setSupportsWebGL] = useState<boolean>(true);
+  const hookSupportsWebGL = useWebGLSupport();
+  const supportsWebGL = supportsWebGLOverride ?? hookSupportsWebGL;
   const [pointer, setPointer] = useState<{ x: number; y: number }>({
     x: 0.5,
     y: 0.5,
@@ -57,21 +47,28 @@ const DesktopFluidHeader: React.FC<DesktopFluidHeaderProps> = ({
   const navItemRefs = useRef<Array<HTMLAnchorElement | undefined>>([]);
 
   const magnetizedNavItems = useMemo<NavItem[]>(() => navItems, [navItems]);
-  const headerClassName = `fixed left-0 top-6 z-40 hidden w-full lg:block ${className ?? ''} h-16`;
-
-  useEffect(() => {
-    setSupportsWebGL(checkWebGLSupport());
-  }, []);
+  const headerClassName = `fixed left-0 top-6 z-40 w-full ${className ?? ''} h-16 overflow-hidden`;
 
   useEffect(() => {
     const handleScroll = () => {
-      const value = clamp01(window.scrollY / 1600);
-      setParallax(value);
+      setParallax(window.scrollY / 300);
     };
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    const handleMove = (event: MouseEvent) => {
+      setPointer({
+        x: clamp01(event.clientX / window.innerWidth),
+        y: clamp01(1 - event.clientY / window.innerHeight),
+      });
+    };
+    window.addEventListener('mousemove', handleMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleMove);
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
     if (typeof document === 'undefined') return;
@@ -90,11 +87,6 @@ const DesktopFluidHeader: React.FC<DesktopFluidHeaderProps> = ({
     event
   ) => {
     if (prefersReducedMotion) return;
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = clamp01((event.clientX - rect.left) / rect.width);
-    const y = clamp01((event.clientY - rect.top) / rect.height);
-    setPointer({ x, y });
-
     navItemRefs.current.forEach((link) => {
       if (!link) return;
       const box = link.getBoundingClientRect();
@@ -125,29 +117,31 @@ const DesktopFluidHeader: React.FC<DesktopFluidHeaderProps> = ({
         onPointerMove={handlePointerMove}
         onPointerLeave={handlePointerLeave}
       >
-        <div className="absolute inset-0 rounded-full border border-white/10 bg-white/4 shadow-[0_24px_72px_rgba(0,0,0,0.28)] backdrop-blur-2xl" />
+        <div className="absolute inset-0 z-0 rounded-full border border-white/10 bg-white/4 shadow-[0_24px_72px_rgba(0,0,0,0.28)] backdrop-blur-2xl" />
 
         {supportsWebGL ? (
-          <FluidGlass
-            mode="bar"
-            pointer={prefersReducedMotion ? { x: 0.5, y: 0.5 } : pointer}
-            parallax={parallax}
-            reducedMotion={prefersReducedMotion}
-            className="pointer-events-none absolute inset-0 -z-10 overflow-hidden rounded-full"
-            barProps={{
-              scale: [1.2, 0.25, 0.2],
-              ior: glass.ior,
-              thickness: glass.thickness,
-              chromaticAberration: glass.chromaticAberration,
-              anisotropy: glass.anisotropy,
-              smoothness: glass.smoothness,
-            }}
-          />
+          <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden rounded-full">
+            <FluidGlass
+              mode="bar"
+              pointer={prefersReducedMotion ? { x: 0.5, y: 0.5 } : pointer}
+              parallax={parallax}
+              reducedMotion={prefersReducedMotion}
+              className="h-full w-full"
+              barProps={{
+                scale: [1.2, 0.25, 0.2],
+                ior: glass.ior,
+                thickness: glass.thickness,
+                chromaticAberration: glass.chromaticAberration,
+                anisotropy: glass.anisotropy,
+                smoothness: glass.smoothness,
+              }}
+            />
+          </div>
         ) : (
-          <div className="absolute inset-0 -z-10 rounded-full bg-linear-to-r from-white/60 via-white/35 to-white/18 backdrop-blur-xl" />
+          <div className="absolute inset-0 z-10 rounded-full bg-linear-to-r from-white/60 via-white/35 to-white/18 backdrop-blur-xl" />
         )}
 
-        <div className="relative z-10 flex w-full items-center justify-between">
+        <div className="relative z-50 flex w-full items-center justify-between">
           <Link
             href="/"
             aria-label="Ir para a home"

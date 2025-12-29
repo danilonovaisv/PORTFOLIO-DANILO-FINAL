@@ -113,8 +113,8 @@ const PortfolioShowcase: FC = () => {
         >
           <div className="w-full flex justify-center mb-6 md:mb-8">
             <h2 className="text-center font-display text-[clamp(3.5rem,8vw,6rem)] font-bold tracking-tighter leading-[0.9]">
-              <span className="text-[#0057FF]">portfólio</span>{' '}
-              <span className="text-[#111111]">showcase</span>
+              <span className="text-focus-ring">portfólio</span>{' '}
+              <span className="text-text-dark">showcase</span>
             </h2>
           </div>
         </motion.div>
@@ -140,13 +140,13 @@ const PortfolioShowcase: FC = () => {
             <Button
               href="/portfolio"
               size="xl"
-              className="group rounded-full shadow-xl hover:shadow-[#0057FF]/40 gap-4"
+              className="group rounded-full shadow-xl hover:shadow-focus-ring/40 gap-4"
             >
               <span className="text-lg md:text-xl font-semibold tracking-wide uppercase">
                 veja mais
               </span>
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 group-hover:bg-white text-[#0057FF] transition-colors duration-300">
-                <ArrowUpRight className="w-5 h-5 text-white group-hover:text-[#0057FF]" />
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 group-hover:bg-white text-focus-ring transition-colors duration-300">
+                <ArrowUpRight className="w-5 h-5 text-white group-hover:text-focus-ring" />
               </span>
             </Button>
           </motion.div>
@@ -163,7 +163,7 @@ const PortfolioShowcase: FC = () => {
               onClick={() => setExpandedId(null)}
               variant="ghost"
               size="sm"
-              className="text-[#666666] hover:text-[#0057FF] hover:bg-transparent tracking-widest uppercase font-bold gap-3 group pl-0"
+              className="text-text-muted hover:text-focus-ring hover:bg-transparent tracking-widest uppercase font-bold gap-3 group pl-0"
             >
               <span className="group-hover:-translate-x-1 transition-transform">
                 ←

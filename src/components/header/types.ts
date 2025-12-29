@@ -21,6 +21,7 @@ export interface DesktopFluidHeaderProps {
   logoUrl?: string;
   height?: number;
   onNavigate: (_href: string) => void;
+  supportsWebGL?: boolean;
   glass: {
     ior: number;
     thickness: number;

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { gsap } from 'gsap';
@@ -9,12 +9,20 @@ import { BRAND } from '@/config/brand';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import type { MobileStaggeredMenuProps } from './types';
 
+/**
+ * Animation timing constants (in seconds)
+ * Total open duration: ~320ms (PRELAYER + PANEL overlap)
+ * Total close duration: ~280ms
+ */
 const PRELAYER_STAGGER = 0.07;
 const PRELAYER_DURATION = 0.5;
 const PANEL_DURATION = 0.65;
 const ITEM_DURATION = 1;
 const ITEM_STAGGER = 0.1;
 const NUMBER_DURATION = 0.6;
+
+/** Unique ID for ARIA controls relationship */
+const MENU_ID = 'mobile-nav-menu';
 
 const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
   navItems,
@@ -39,6 +47,7 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
   const numberRefs = useRef<HTMLSpanElement[]>([]);
   const openTimelineRef = useRef<gsap.core.Timeline | null>(null);
   const closeTimelineRef = useRef<gsap.core.Timeline | null>(null);
+  const menuButtonRef = useRef<HTMLButtonElement | null>(null);
 
   preLayerRefs.current = [];
   itemRefs.current = [];
@@ -70,16 +79,59 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
     };
   }, [resolvedIsOpen]);
 
+  // ESC key handler & Focus management
   useEffect(() => {
     if (!resolvedIsOpen) return undefined;
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         setOpen(false);
+        // Return focus to menu button after closing
+        menuButtonRef.current?.focus();
       }
     };
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [resolvedIsOpen]);
+
+  // Focus trap: move focus to first nav item when menu opens
+  useEffect(() => {
+    if (resolvedIsOpen && itemRefs.current[0]) {
+      // Small delay to ensure animation has started
+      const timer = setTimeout(() => {
+        itemRefs.current[0]?.focus();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [resolvedIsOpen]);
+
+  // Trap focus within menu when open
+  const handleKeyDownTrap = useCallback((event: React.KeyboardEvent) => {
+    if (event.key !== 'Tab') return;
+
+    const focusableElements = menuRef.current?.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusableElements || focusableElements.length === 0) return;
+
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    if (event.shiftKey) {
+      // Shift+Tab: if on first element, go to last
+      if (document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      }
+    } else {
+      // Tab: if on last element, go to first
+      if (document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    }
+  }, []);
 
   const resolvedGradient = useMemo(
     () => gradient ?? ['#0d0d10', '#1a1a20'],
@@ -244,18 +296,24 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
       {isRendered && (
         <div
           ref={menuRef}
+          id={MENU_ID}
           className="fixed inset-0 z-50 flex justify-end lg:hidden"
           role="dialog"
           aria-modal="true"
+          aria-label="Menu de navegação"
           onClick={closeMenu}
+          onKeyDown={handleKeyDownTrap}
         >
+          {/* Overlay escuro - clicável para fechar */}
           <div
             ref={overlayRef}
             className="absolute inset-0 bg-black/20"
             aria-hidden="true"
           />
+
+          {/* Container do painel - apenas este bloqueia propagação */}
           <div
-            className="relative h-full w-full"
+            className="absolute right-0 top-0 h-full w-full max-w-[420px]"
             onClick={(event) => event.stopPropagation()}
             style={
               {
@@ -263,35 +321,35 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
               } as React.CSSProperties
             }
           >
-            <div className="absolute inset-0 flex justify-end">
-              <div className="relative h-full w-full max-w-[420px]">
-                <div className="absolute inset-0">
-                  {prelayerColors.map((color, index) => (
-                    <div
-                      key={color}
-                      ref={(node) => {
-                        if (node) preLayerRefs.current[index] = node;
-                      }}
-                      className="absolute inset-0"
-                      style={{
-                        background: color,
-                        opacity: 0.35 - index * 0.08,
-                      }}
-                    />
-                  ))}
-                </div>
+            {/* Pre-layers animadas */}
+            <div className="absolute inset-0">
+              {prelayerColors.map((color, index) => (
                 <div
-                  ref={panelRef}
-                  className="absolute inset-0 bg-[linear-gradient(135deg,var(--menu-gradient-start),var(--menu-gradient-end))]"
+                  key={color}
+                  ref={(node) => {
+                    if (node) preLayerRefs.current[index] = node;
+                  }}
+                  className="absolute inset-0"
                   style={{
-                    '--menu-gradient-start': resolvedGradient[0],
-                    '--menu-gradient-end': resolvedGradient[1],
-                  } as React.CSSProperties}
+                    background: color,
+                    opacity: 0.35 - index * 0.08,
+                  }}
                 />
-              </div>
+              ))}
             </div>
 
-            <div className="relative ml-auto flex h-full w-full max-w-[420px] flex-col justify-between px-8 pb-12 pt-24 text-white">
+            {/* Painel do gradiente principal */}
+            <div
+              ref={panelRef}
+              className="absolute inset-0 bg-[linear-gradient(135deg,var(--menu-gradient-start),var(--menu-gradient-end))]"
+              style={{
+                '--menu-gradient-start': resolvedGradient[0],
+                '--menu-gradient-end': resolvedGradient[1],
+              } as React.CSSProperties}
+            />
+
+            {/* Conteúdo do menu */}
+            <div className="relative flex h-full flex-col justify-between px-8 pb-12 pt-24 text-white">
               <nav>
                 {navItems.map((link, index) => (
                   <div
@@ -310,7 +368,7 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
                     <Link
                       href={link.href}
                       onClick={closeMenu}
-                      className="text-3xl font-medium uppercase tracking-tight text-white transition-colors hover:text-[var(--menu-accent)]"
+                      className="text-3xl font-medium uppercase tracking-tight text-white transition-colors hover:text-[var(--menu-accent)] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-sm"
                       aria-label={link.ariaLabel}
                       target={link.external ? '_blank' : undefined}
                       rel={link.external ? 'noreferrer' : undefined}
@@ -353,11 +411,14 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
           </Link>
 
           <button
+            ref={menuButtonRef}
             type="button"
             onClick={toggleMenu}
             aria-label={resolvedIsOpen ? 'Fechar menu' : 'Abrir menu'}
             aria-expanded={resolvedIsOpen ? 'true' : 'false'}
-            className={`flex h-12 items-center gap-2 rounded-full border px-5 text-xs font-semibold uppercase tracking-[0.3em] transition-colors ${resolvedIsOpen
+            aria-controls={MENU_ID}
+            aria-haspopup="dialog"
+            className={`flex h-12 items-center gap-2 rounded-full border px-5 text-xs font-semibold uppercase tracking-[0.3em] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent ${resolvedIsOpen
               ? 'border-white/50 bg-white/85 text-black'
               : 'bg-white/10'
               }`}
@@ -365,9 +426,9 @@ const MobileStaggeredMenu: React.FC<MobileStaggeredMenuProps> = ({
               resolvedIsOpen
                 ? undefined
                 : ({
-                    color: accentColor,
-                    borderColor: `${accentColor}40`,
-                  } as React.CSSProperties)
+                  color: accentColor,
+                  borderColor: `${accentColor}40`,
+                } as React.CSSProperties)
             }
           >
             <span className="relative h-4 overflow-hidden">
