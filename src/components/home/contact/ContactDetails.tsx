@@ -8,12 +8,12 @@ const ContactDetails: FC = () => {
   const contactInfo = [
     {
       label: SOCIALS.emailSecondary.replace('mailto:', ''),
-      href: SOCIALS.emailSecondary,
+      href: `mailto:${SOCIALS.emailSecondary.replace('mailto:', '')}`,
       icon: <Mail className="w-5 h-5" />,
     },
     {
       label: SOCIALS.phone.replace('tel:', ''),
-      href: SOCIALS.phone,
+      href: `tel:${SOCIALS.phone.replace('tel:', '')}`,
       icon: <Phone className="w-5 h-5" />,
     },
     {

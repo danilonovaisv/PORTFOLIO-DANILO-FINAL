@@ -22,7 +22,7 @@ export interface DesktopFluidHeaderProps {
     smoothness: number;
   };
   height?: number;
-  onNavigate: (href: string) => void;
+  onNavigate: (_href: string) => void;
   className?: string;
 }
 

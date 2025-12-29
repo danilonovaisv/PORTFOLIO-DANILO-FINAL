@@ -6,6 +6,7 @@ import {
   useSpring,
 } from 'framer-motion';
 import { useAntigravityStore } from '@/store/antigravity.store';
+import { TIMELINE } from '@/config/timeline';
 
 interface ScrollNarrativeConfig {
   offset?: any; // Framer motion offset array
@@ -46,11 +47,17 @@ export const useScrollNarrative = (config: ScrollNarrativeConfig = {}) => {
       return;
     }
 
-    if (latest < 0.05) {
+    if (latest < TIMELINE.MANIFESTO.ENTRY_START) {
       setNarrativeState('HERO_EDITORIAL');
-    } else if (latest >= 0.05 && latest < 0.45) {
+    } else if (
+      latest >= TIMELINE.MANIFESTO.ENTRY_START &&
+      latest < TIMELINE.MANIFESTO.FULL_FOCUS_START
+    ) {
       setNarrativeState('MANIFESTO_TRANSITION');
-    } else if (latest >= 0.45 && latest < 0.8) {
+    } else if (
+      latest >= TIMELINE.MANIFESTO.FULL_FOCUS_START &&
+      latest < TIMELINE.MANIFESTO.EXIT_START
+    ) {
       setNarrativeState('MANIFESTO_FULLSCREEN');
     } else {
       setNarrativeState('EXPLORATION');
@@ -59,9 +66,21 @@ export const useScrollNarrative = (config: ScrollNarrativeConfig = {}) => {
 
   // Motion Values for Consumers
   // Pre-calculated transforms to ensure consistency across components
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-  const manifestoScale = useTransform(scrollYProgress, [0.1, 0.5], [0.8, 1]);
-  const manifestoRadius = useTransform(scrollYProgress, [0.1, 0.5], [32, 0]);
+  const heroOpacity = useTransform(
+    scrollYProgress,
+    [TIMELINE.HERO.FADE_OUT_START, TIMELINE.HERO.FADE_OUT_END],
+    [1, 0]
+  );
+  const manifestoScale = useTransform(
+    scrollYProgress,
+    [TIMELINE.MANIFESTO.SCALE_START, TIMELINE.MANIFESTO.SCALE_END],
+    [0.8, 1]
+  );
+  const manifestoRadius = useTransform(
+    scrollYProgress,
+    [TIMELINE.MANIFESTO.SCALE_START, TIMELINE.MANIFESTO.SCALE_END],
+    [32, 0]
+  );
 
   return {
     containerRef,

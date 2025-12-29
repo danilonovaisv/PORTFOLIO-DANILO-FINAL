@@ -96,3 +96,13 @@ export const HEADER_LINKS_MOBILE = [
   { label: 'Portfólio', href: '/portfolio', ariaLabel: 'Ir para portfólio' },
   { label: 'Contato', href: '#contact', ariaLabel: 'Ir para contato' },
 ];
+
+export const NAVIGATION = {
+  header: [
+    { label: "Home", href: "#hero" },
+    { label: "Sobre", href: "/sobre" },
+    { label: "Portfólio", href: "/portfolio" },
+    { label: "Contato", href: "#contact" },
+  ],
+  footer: FOOTER
+};

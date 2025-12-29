@@ -8,12 +8,12 @@ import HeroCopy from './HeroCopy';
 import ManifestoThumb from './ManifestoThumb';
 import GhostStage from './GhostStage';
 
-import { useExperienceStore } from '@/store/experience.store';
-import { resolveScrollState } from '@/lib/scroll-utils';
+import { useAntigravityStore } from '@/store/antigravity.store';
+import { TIMELINE } from '@/config/timeline';
 
 export default function HomeHero() {
   const ref = useRef<HTMLDivElement>(null);
-  const { flags } = useExperienceStore();
+  const { flags, narrativeState } = useAntigravityStore();
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -21,12 +21,13 @@ export default function HomeHero() {
   });
 
   // 🎞️ TRANSFORMS DO VÍDEO (APENAS DESKTOP)
-  const scaleVideo = useTransform(scrollYProgress, [0, 1], [0.3, 1]);
-  const posYVideo = useTransform(scrollYProgress, [0, 1], ['50%', '0%']);
-  const borderRadius = useTransform(scrollYProgress, [0, 1], ['16px', '0px']);
-  const opacityText = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const scaleVideo = useTransform(scrollYProgress, [TIMELINE.MANIFESTO.SCALE_START, TIMELINE.MANIFESTO.SCALE_END], [0.3, 1]);
+  const posYVideo = useTransform(scrollYProgress, [TIMELINE.MANIFESTO.SCALE_START, TIMELINE.MANIFESTO.SCALE_END], ['50%', '0%']);
+  const borderRadius = useTransform(scrollYProgress, [TIMELINE.MANIFESTO.SCALE_START, TIMELINE.MANIFESTO.SCALE_END], ['16px', '0px']);
+  const opacityText = useTransform(scrollYProgress, [TIMELINE.HERO.FADE_OUT_START, TIMELINE.HERO.FADE_OUT_END], [1, 0]);
 
-  const narrativeState = resolveScrollState(scrollYProgress.get());
+  // Using store state instead of recalculating locally if needed, but passing narrativeState to thumb is good.
+  // const narrativeState = resolveScrollState(scrollYProgress.get()); // DEPRECATED: Using Store State
 
   return (
     <section

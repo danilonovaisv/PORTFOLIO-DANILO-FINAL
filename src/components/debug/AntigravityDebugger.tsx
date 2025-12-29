@@ -9,11 +9,6 @@ export const AntigravityDebugger: React.FC = () => {
 
     useEffect(() => {
         setMounted(true);
-        // Listen to resize to update viewport in store
-        const handleResize = () => store.setViewport(window.innerWidth, window.innerHeight);
-        window.addEventListener('resize', handleResize);
-        handleResize(); // Init
-        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     if (!mounted || process.env.NODE_ENV !== 'development' || !store.flags.debugMode) {

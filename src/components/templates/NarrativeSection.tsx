@@ -16,7 +16,7 @@ export const NarrativeSection: React.FC<NarrativeSectionProps> = ({
     id,
     className,
     children,
-    allowWebGL = false
+    allowWebGL: _allowWebGL = false
 }) => {
     // Hook into the narrative system
     const { containerRef, transforms } = useScrollNarrative();

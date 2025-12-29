@@ -3,14 +3,14 @@
 import { ReactNode, useEffect } from 'react';
 import Lenis from 'lenis';
 
-import { useExperienceStore } from '@/store/experience.store';
+import { useAntigravityStore } from '@/store/antigravity.store';
 
 interface SmoothScrollProps {
   children: ReactNode;
 }
 
 export default function SmoothScroll({ children }: SmoothScrollProps) {
-  const { flags } = useExperienceStore();
+  const { flags } = useAntigravityStore();
 
   useEffect(() => {
     // ♿ SE REDUCED MOTION → SEM LENIS
