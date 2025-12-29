@@ -6,7 +6,8 @@ export interface NavItem {
 
 export interface SiteHeaderProps {
   navItems: NavItem[];
-  logoUrl: string;
+  logoUrl: string; // Logo para desktop
+  logoUrlMobile?: string; // Logo opcional para mobile (se não fornecido, usa logoUrl)
   gradient: [string, string]; // mobile overlay gradient
   accentColor: string;
   disableWebGL?: boolean;

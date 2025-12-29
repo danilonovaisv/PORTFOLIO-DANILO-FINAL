@@ -29,6 +29,7 @@ function isExternalHref(href: string) {
 export default function SiteHeader({
   navItems,
   logoUrl,
+  logoUrlMobile,
   gradient,
   accentColor,
   disableWebGL,
@@ -81,7 +82,7 @@ export default function SiteHeader({
 
       <MobileStaggeredMenu
         navItems={normalizedNavItems}
-        logoUrl={logoUrl}
+        logoUrl={logoUrlMobile || logoUrl}
         gradient={gradient}
         accentColor={accentColor}
         isOpen={isOpen}

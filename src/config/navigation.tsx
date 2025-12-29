@@ -87,7 +87,7 @@ export const HEADER_LINKS_DESKTOP = [
   { label: 'home', href: '/', ariaLabel: 'Ir para a home' },
   { label: 'sobre', href: '/sobre', ariaLabel: 'Ir para sobre' },
   {
-    label: 'portfolio showcase',
+    label: 'portfolio',
     href: '/portfolio',
     ariaLabel: 'Ir para portfólio',
   },
@@ -98,7 +98,7 @@ export const HEADER_LINKS_MOBILE = [
   { label: 'home', href: '/', ariaLabel: 'Ir para a home' },
   { label: 'sobre', href: '/sobre', ariaLabel: 'Ir para sobre' },
   {
-    label: 'portfolio showcase',
+    label: 'portfolio',
     href: '/portfolio',
     ariaLabel: 'Ir para portfólio',
   },
