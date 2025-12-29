@@ -12,7 +12,8 @@ export default function HeroCopy() {
 
       <h1 className="font-bold text-5xl md:text-6xl leading-tight mb-6">
         {HOME_CONTENT.hero.title[0]}
-        <br />{HOME_CONTENT.hero.title[1]}
+        <br />
+        {HOME_CONTENT.hero.title[1]}
       </h1>
 
       <p className="text-lg mb-8">{HOME_CONTENT.hero.subtitle}</p>

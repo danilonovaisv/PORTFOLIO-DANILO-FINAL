@@ -54,10 +54,10 @@ const ManifestoThumb = forwardRef<HTMLVideoElement, ManifestoThumbProps>(
           animate={
             isInView
               ? {
-                opacity: 1,
-                scale: 1,
-                filter: 'blur(0px)',
-              }
+                  opacity: 1,
+                  scale: 1,
+                  filter: 'blur(0px)',
+                }
               : undefined
           }
           transition={{

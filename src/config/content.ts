@@ -79,7 +79,7 @@ export const HOME_CONTENT = {
 
   contact: {
     title: 'contato',
-    subtitle: 'Tem uma pergunta ou quer trabalhar junto?',
+    subtitle: 'Vamos construir algo grande juntos?',
   },
 };
 
