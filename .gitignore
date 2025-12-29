@@ -1,16 +1,20 @@
+```
 # Dependencies
 node_modules/
 
-# Build artifacts
-tsconfig.tsbuildinfo
+# Build outputs
+dist/
+build/
 .next/
 out/
 
-# Firebase
-.firebase/
+# Logs
+*.log
 
-# System files
-.DS_Store
+# Environment variables
+.env
+.env.local
+.env.*
 
 # Editor/IDE
 .vscode/
@@ -19,18 +23,9 @@ out/
 *.swo
 *.tmp
 
-# Logs
-*.log
-
-# Environment
-.env
-.env.local
-*.env.*
-
-# Coverage
-coverage/
-htmlcov/
-.coverage
+# OS generated files
+.DS_Store
+Thumbs.db
 
 # Python
 __pycache__/
@@ -38,29 +33,22 @@ __pycache__/
 *.pyo
 *.pyd
 .Python
-*.so
-*.egg-info/
-.eggs/
-dist/
-build/
-*.egg
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
 .pytest_cache/
 .mypy_cache/
-.tox/
 .coverage
-.nyc_output/
-.hypothesis/
+htmlcov/
 
 # Node.js
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 node_modules/
-dist/
-build/
-.nyc_output/
-coverage/
-*.log
+jspm_packages/
 
 # Compiled and build artifacts
 *.o
@@ -70,6 +58,10 @@ coverage/
 *.so
 *.a
 *.out
+
+# Coverage
+coverage/
+htmlcov/
 
 # Compressed files
 *.zip
@@ -94,9 +86,4 @@ coverage/
 *.tar.bz2
 *.tar.xz
 *.tar.zst
-
-# Documentation Assets
-docs/*.mp4
-docs/*.zip
-docs/*.mov
-docs/*.pdf
+```
