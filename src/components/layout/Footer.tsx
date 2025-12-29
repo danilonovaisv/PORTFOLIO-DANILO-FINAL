@@ -46,7 +46,7 @@ const Footer: React.FC = () => {
     >
       <div
         className="
-          w-full max-w-[1680px] mx-auto
+          w-full max-w-[1680px] mx-auto 
           px-[clamp(24px,5vw,96px)]
           flex flex-col lg:flex-row 
           justify-between items-center 
