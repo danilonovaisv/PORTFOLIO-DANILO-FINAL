@@ -1,7 +1,7 @@
 // src/components/home/webgl/GhostCanvas.tsx
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, type ReactElement } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Bloom, EffectComposer, Vignette } from '@react-three/postprocessing';
 import * as THREE from 'three';
@@ -148,7 +148,7 @@ function GhostScene() {
   );
 }
 
-function Effects() {
+function Effects(): ReactElement {
   const reducedMotion = usePrefersReducedMotion();
   const [isMobile, setIsMobile] = useState(false);
 
@@ -159,21 +159,19 @@ function Effects() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  return (
-    <EffectComposer disableNormalPass>
-      <Bloom
-        intensity={reducedMotion ? 1.0 : isMobile ? 2.0 : 3.2}
-        luminanceThreshold={0.08}
-        luminanceSmoothing={0.85}
-        mipmapBlur={!isMobile} // Disable mipmap blur on mobile for perf if needed, or keep for aesthetics
-      />
+  const effects: ReactElement[] = [
+    <Bloom
+      key="bloom"
+      intensity={reducedMotion ? 1.0 : isMobile ? 2.0 : 3.2}
+      luminanceThreshold={0.08}
+      luminanceSmoothing={0.85}
+      mipmapBlur={!isMobile} // Disable mipmap blur on mobile for perf if needed, or keep for aesthetics
+    />,
+    <AnalogDecayPass key="analog" enabled={!reducedMotion} />,
+    <Vignette key="vignette" offset={0.12} darkness={0.78} />,
+  ];
 
-      {/* Disable noise on reduced motion to reduce visual busyness */}
-      {!reducedMotion ? <AnalogDecayPass /> : null}
-
-      <Vignette offset={0.12} darkness={0.78} />
-    </EffectComposer>
-  );
+  return <EffectComposer enableNormalPass={false}>{effects}</EffectComposer>;
 }
 
 interface GhostCanvasProps {
@@ -209,7 +207,7 @@ export default function GhostCanvas({ eventSource }: GhostCanvasProps) {
         premultipliedAlpha: false,
         powerPreference: 'high-performance',
       }}
-      eventSource={eventSource}
+      eventSource={eventSource?.current ?? undefined}
       className="absolute inset-0 pointer-events-none"
       style={{ background: 'transparent' }}
     >

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 
 interface CategoryThumbnailProps {
@@ -15,42 +15,62 @@ const CategoryThumbnail: FC<CategoryThumbnailProps> = ({
   isExpanded,
   index,
 }) => {
+  const shouldReduceMotion = useReducedMotion();
+
+  const transition = {
+    duration: 0.7,
+    ease: [0.33, 1, 0.68, 1],
+  } as const;
+
+  const initialMotion = shouldReduceMotion
+    ? { opacity: 1, x: 0, y: 0, scale: 1 }
+    : {
+        opacity: 0,
+        x: index >= 2 ? -16 : 16,
+        y: 12,
+        scale: 0.98,
+      };
+
+  const animateMotion = {
+    opacity: 1,
+    x: 0,
+    y: 0,
+    scale: 1,
+    transition,
+  };
+
+  const exitMotion = shouldReduceMotion
+    ? { opacity: 0 }
+    : {
+        opacity: 0,
+        x: index >= 2 ? -10 : 10,
+        y: 8,
+        scale: 0.98,
+        transition,
+      };
+
   return (
     <AnimatePresence>
       {isHovered && !isExpanded && (
         <motion.div
           key="thumbnail"
-          initial={{ width: 0, opacity: 0 }}
-          animate={{ width: 320, opacity: 1 }}
-          exit={{ width: 0, opacity: 0 }}
-          transition={{
-            duration: 0.5,
-            ease: [0.25, 1, 0.5, 1],
-          }}
-          className={`hidden md:block absolute top-1/2 -translate-y-1/2 h-[180px] overflow-hidden rounded-lg z-[-1] pointer-events-none shadow-lg
+          initial={initialMotion}
+          animate={animateMotion}
+          exit={exitMotion}
+          className={`hidden md:block absolute top-1/2 -translate-y-1/2 h-[180px] w-[320px] overflow-hidden rounded-xl z-[-1] pointer-events-none shadow-lg will-change-transform
             ${
               index >= 2
                 ? 'left-full ml-8 origin-left'
                 : 'right-full mr-8 origin-right'
             }
           `}
-        >
-          <motion.div
-            className="w-[320px] h-full relative"
-            initial={{
-              x: index >= 2 ? -20 : 20,
-              scale: 1.1,
-            }}
-            animate={{ x: 0, scale: 1 }}
-            exit={{
-              x: index >= 2 ? -20 : 20,
-              opacity: 0,
-            }}
-            transition={{
-              duration: 0.5,
-              ease: [0.25, 1, 0.5, 1],
-            }}
           >
+            <motion.div
+              className="w-full h-full relative"
+              initial={shouldReduceMotion ? { scale: 1 } : { scale: 1.02 }}
+              animate={{ scale: 1, transition }}
+              exit={shouldReduceMotion ? { scale: 1 } : { scale: 1.02, transition }}
+            >
             <div className="w-full h-full relative">
               {thumb.match(/\.(mp4|webm|ogg)$/i) ? (
                 <video
