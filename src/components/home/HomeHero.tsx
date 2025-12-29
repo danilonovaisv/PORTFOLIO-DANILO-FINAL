@@ -26,8 +26,16 @@ export default function HomeHero() {
   const scaleVideo = useTransform(scrollYProgress, [0, 1], [0.32, 1]);
   const xVideo = useTransform(scrollYProgress, [0, 1], ['0%', '-50%']);
   const yVideo = useTransform(scrollYProgress, [0, 1], ['0%', '-50%']);
-  const rightVideo = useTransform(scrollYProgress, [0, 1], ['40px', '50%']);
-  const bottomVideo = useTransform(scrollYProgress, [0, 1], ['40px', '50%']);
+  const rightVideo = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ['calc(0% + 5vw)', 'calc(50% + 0vw)']
+  );
+  const bottomVideo = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ['calc(0% + 5vw)', 'calc(50% + 0vw)']
+  );
   const borderRadius = useTransform(scrollYProgress, [0, 1], ['16px', '0px']);
 
   return (
@@ -59,9 +67,9 @@ export default function HomeHero() {
             style={{
               width: 'min(520px, 34vw)',
               aspectRatio: '16/9',
-              right: reducedMotion ? '40px' : (rightVideo as unknown as string),
+              right: reducedMotion ? '5vw' : (rightVideo as unknown as string),
               bottom: reducedMotion
-                ? '40px'
+                ? '5vw'
                 : (bottomVideo as unknown as string),
               x: reducedMotion ? '0%' : (xVideo as unknown as string),
               y: reducedMotion ? '0%' : (yVideo as unknown as string),

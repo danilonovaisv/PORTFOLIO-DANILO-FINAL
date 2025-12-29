@@ -20,13 +20,13 @@ export default function ContactSection() {
           className="text-center mb-10"
         >
           <h2 className="text-2xl font-bold text-[#0057FF]">contato</h2>
-          <p className="text-[#111111]/80 mt-2">
+          <p className="text-text-dark/80 mt-2">
             Tem uma pergunta ou quer trabalhar junto?
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-start">
-          <div className="space-y-4 text-[#111111]">
+          <div className="space-y-4 text-text-dark">
             <a
               className="block hover:underline underline-offset-4"
               href="tel:+5511983966838"
@@ -63,7 +63,7 @@ export default function ContactSection() {
                 href="https://instagram.com/danilo_novais"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#111111]/70 hover:text-[#111111]"
+                className="text-text-dark/70 hover:text-text-dark"
               >
                 Instagram
               </a>
@@ -71,7 +71,7 @@ export default function ContactSection() {
                 href="https://facebook.com/danilonovaisvilela"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#111111]/70 hover:text-[#111111]"
+                className="text-text-dark/70 hover:text-text-dark"
               >
                 Facebook
               </a>
@@ -79,7 +79,7 @@ export default function ContactSection() {
                 href="https://linkedin.com/in/danilonovais"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#111111]/70 hover:text-[#111111]"
+                className="text-text-dark/70 hover:text-text-dark"
               >
                 LinkedIn
               </a>
@@ -87,7 +87,7 @@ export default function ContactSection() {
                 href="https://twitter.com/danilo_novais"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#111111]/70 hover:text-[#111111]"
+                className="text-text-dark/70 hover:text-text-dark"
               >
                 Twitter
               </a>
@@ -128,7 +128,7 @@ export default function ContactSection() {
                 }}
                 className="block mb-4"
               >
-                <span className="block text-sm text-[#111111]/70 mb-1">
+                <span className="block text-sm text-text-dark/70 mb-1">
                   {f.label}
                 </span>
                 <input

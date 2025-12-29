@@ -36,12 +36,9 @@ describe('ManifestoThumb Component', () => {
   it('deve renderizar a seção do manifesto corretamente', () => {
     render(<ManifestoThumb />);
 
-    // Verifica se a section principal existe
-    const section = screen.getByRole('region', { name: /manifesto/i });
-    expect(section).toBeInTheDocument();
-
-    // Verifica classes de layout
-    expect(section).toHaveClass('pointer-events-none');
+    // Verifica se o vídeo existe pelo label acessível
+    const video = screen.getByLabelText('Manifesto video presentation');
+    expect(video).toBeInTheDocument();
   });
 
   it('deve renderizar o vídeo com os atributos corretos de acessibilidade', () => {

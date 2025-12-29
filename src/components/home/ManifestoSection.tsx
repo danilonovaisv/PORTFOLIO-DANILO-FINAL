@@ -22,7 +22,7 @@ export default function ManifestoSection() {
       aria-label="Manifesto (vídeo)"
     >
       <video
-        src="https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4"
+        src="/assets/thumb-hero.mp4"
         autoPlay
         loop
         muted
