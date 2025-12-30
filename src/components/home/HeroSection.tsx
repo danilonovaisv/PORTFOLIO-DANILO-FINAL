@@ -1,18 +1,26 @@
-// src/components/HeroSection.tsx
+// src/components/home/HeroSection.tsx
+
+'use client';
+
 import { motion } from 'framer-motion';
 import SpectralGhost from './SpectralGhost';
-import { useSpectralGhost } from '../hooks/useSpectralGhost';
+import { useSpectralGhost } from '@/hooks/useSpectralGhost'; // Caminho para o hook
 
-const HeroSection: React.FC = () => {
+const HeroSection = () => {
   const isGhostLoaded = useSpectralGhost();
 
   return (
     <section className="hero-section">
       <div className="hero-content-wrapper">
+        {/* O SpectralGhost será o fundo interativo */}
         <SpectralGhost onLoaded={() => console.log('Ghost loaded')} />
+
+        {/* Os textos e botão serão sobrepostos ao canvas 3D */}
         {isGhostLoaded && (
           <div className="hero-text-overlay">
-            <h1 className="hero-title">Design, não é só estética.</h1>
+            <h1 className="hero-title">
+              Design, não é só estética.
+            </h1>
             <p className="hero-subtitle">
               [É intenção, é estratégia, é experiência.]
             </p>
