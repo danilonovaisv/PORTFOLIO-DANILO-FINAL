@@ -23,7 +23,7 @@ export interface Project {
   client: string;
   category: string;
   displayCategory?: string;
-  img: string;
+  image: string;
   isHero?: boolean;
   year: number;
 }

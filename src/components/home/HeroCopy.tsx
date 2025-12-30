@@ -4,12 +4,7 @@ import { motion } from 'framer-motion';
 
 export function HeroCopy() {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
-      className="mx-auto max-w-4xl text-ghost-text"
-    >
+    <div className="mx-auto max-w-4xl text-ghost-text">
       <p className="mb-4 font-mono text-[11px] uppercase tracking-[0.3em] opacity-60">
         [BRAND AWARENESS]
       </p>
@@ -29,7 +24,7 @@ export function HeroCopy() {
       >
         get to know me better <span className="text-primary">→</span>
       </motion.a>
-    </motion.div>
+    </div>
   );
 }
 

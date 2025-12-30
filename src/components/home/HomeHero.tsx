@@ -43,8 +43,8 @@ export default function HomeHero() {
       className="relative h-[220vh] overflow-hidden bg-ghost-void"
       aria-label="Hero institucional de Danilo Novais"
     >
-      {/* Fundo radial base */}
-      <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,var(--color-ghost-abyss)_0,var(--color-ghost-void)_60%)]" />
+      {/* Fundo radial base [Z-0] */}
+      <div className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(circle,var(--color-ghost-abyss)_0%,var(--color-ghost-void)_70%)]" />
 
       {/* Preloader Ghost Loader (z-50) */}
       <HeroPreloader />
@@ -52,19 +52,19 @@ export default function HomeHero() {
       {/* Stage sticky: Ghost Atmosphere + Texto Editorial + Manifesto Thumb */}
       <div className="sticky top-0 h-screen">
         <div className="relative h-full w-full overflow-hidden">
-          {/* Ghost Atmosphere (WebGL) */}
+          {/* [Z-20] Ghost Stage (Atmosphere) */}
           <div className="absolute inset-0 z-20">
             <GhostStage />
           </div>
 
-          {/* Texto Editorial (Acima do Ghost para garantir leitura) */}
-          <div className="absolute inset-0 z-30 flex items-center justify-center px-4 text-center">
+          {/* [Z-10] Texto Editorial (Editorial/Fixo) */}
+          <div className="absolute inset-0 z-10 flex items-center justify-center px-4 text-center">
             <HeroCopy />
           </div>
 
-          {/* Manifesto Thumb – Desktop (scroll morphing) */}
+          {/* [Z-30] Manifesto Thumb (Floating Layer - covers text on scroll) */}
           <motion.div
-            className="absolute inset-0 z-40 hidden md:block"
+            className="absolute inset-0 z-30 hidden md:block"
             style={{
               opacity: videoOpacity,
               scale: prefersReducedMotion ? 1 : videoScaleMotion,

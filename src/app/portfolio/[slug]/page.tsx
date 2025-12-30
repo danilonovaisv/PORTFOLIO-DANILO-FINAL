@@ -31,8 +31,8 @@ export default async function ProjectPage({ params }: Props) {
     <main className="min-h-screen bg-[#050505] text-[#F0F0F0] selection:bg-[#0057FF] selection:text-white">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 md:px-12 md:py-8 mix-blend-difference">
-        <Link 
-          href="/portfolio" 
+        <Link
+          href="/portfolio"
           className="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest hover:text-[#0057FF] transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
@@ -44,7 +44,7 @@ export default async function ProjectPage({ params }: Props) {
       <section className="relative pt-32 pb-16 px-6 md:px-12 max-w-[1800px] mx-auto">
         <div className="flex flex-col gap-6 mb-12 md:mb-20">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold font-display tracking-tight leading-[0.9]">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold font-display tracking-tight leading-[0.9]">
               {project.title}
             </h1>
             <div className="flex flex-col gap-1 text-right md:text-right">
@@ -52,7 +52,7 @@ export default async function ProjectPage({ params }: Props) {
               <span className="text-lg md:text-xl font-medium">{project.client}</span>
             </div>
           </div>
-          
+
           <div className="flex gap-4 md:gap-8 border-t border-white/10 pt-6 mt-6">
             <div>
               <span className="block text-xs font-bold tracking-widest uppercase text-[#666666] mb-1">Category</span>
@@ -68,7 +68,7 @@ export default async function ProjectPage({ params }: Props) {
         {/* Main Image */}
         <div className="relative w-full aspect-video md:aspect-[2.4/1] rounded-2xl md:rounded-[2rem] overflow-hidden bg-[#111] shadow-2xl">
           <Image
-            src={project.img}
+            src={project.image}
             alt={project.title}
             fill
             className="object-cover"
@@ -83,7 +83,7 @@ export default async function ProjectPage({ params }: Props) {
         <div className="prose prose-invert prose-lg md:prose-xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold mb-6">About the Project</h2>
           <p className="text-[#888888] leading-relaxed">
-            This is a showcase page for <strong>{project.title}</strong>. 
+            This is a showcase page for <strong>{project.title}</strong>.
             Detailed case study content, process documentation, and final deliverables would typically appear here.
           </p>
           <p className="text-[#888888] leading-relaxed mt-4">

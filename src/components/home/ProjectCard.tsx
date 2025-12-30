@@ -45,7 +45,7 @@ const ProjectCard: FC<ProjectCardProps> = ({
         <div className="relative h-full w-full overflow-hidden rounded-3xl transition-[transform,opacity] duration-650">
           {/* Imagem com fill */}
           <Image
-            src={project.img}
+            src={project.image}
             alt={project.title}
             fill
             className={`object-cover transition-transform duration-650 ${easeClass} will-change-transform ${mediaHoverClass}`}
