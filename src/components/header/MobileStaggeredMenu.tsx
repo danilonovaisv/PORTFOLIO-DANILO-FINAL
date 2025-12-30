@@ -109,25 +109,21 @@ export default function MobileStaggeredMenu({
           type="button"
           onClick={isOpen ? onClose : onOpen}
           aria-label={isOpen ? 'Fechar menu' : 'Abrir menu'}
-          aria-expanded={isOpen}
-          aria-controls={isOpen ? 'mobile-menu-panel' : undefined}
+          aria-expanded={isOpen ? 'true' : 'false'}
           className="h-10 w-10 grid place-items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-ghost-void"
         >
           <div className="relative h-5 w-6">
             <span
-              className={`absolute left-0 top-1 h-[2px] w-full bg-white transition-transform duration-200 ${
-                isOpen ? 'translate-y-[6px] rotate-45' : ''
-              }`}
+              className={`absolute left-0 top-1 h-[2px] w-full bg-white transition-transform duration-200 ${isOpen ? 'translate-y-[6px] rotate-45' : ''
+                }`}
             />
             <span
-              className={`absolute left-0 top-1/2 -translate-y-1/2 h-[2px] w-full bg-white transition-opacity duration-200 ${
-                isOpen ? 'opacity-0' : 'opacity-100'
-              }`}
+              className={`absolute left-0 top-1/2 -translate-y-1/2 h-[2px] w-full bg-white transition-opacity duration-200 ${isOpen ? 'opacity-0' : 'opacity-100'
+                }`}
             />
             <span
-              className={`absolute left-0 bottom-1 h-[2px] w-full bg-white transition-transform duration-200 ${
-                isOpen ? '-translate-y-[6px] -rotate-45' : ''
-              }`}
+              className={`absolute left-0 bottom-1 h-[2px] w-full bg-white transition-transform duration-200 ${isOpen ? '-translate-y-[6px] -rotate-45' : ''
+                }`}
             />
           </div>
         </button>
@@ -153,7 +149,6 @@ export default function MobileStaggeredMenu({
             />
 
             <motion.aside
-              id="mobile-menu-panel"
               className="absolute top-0 right-0 h-full w-[min(420px,92vw)] px-6 pt-20 pb-10"
               variants={panelVariants}
               style={{

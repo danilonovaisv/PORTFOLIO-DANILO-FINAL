@@ -7,7 +7,6 @@ import React, { useCallback, useMemo, useRef } from 'react';
 import { motion, useReducedMotion, useSpring } from 'framer-motion';
 import type { NavItem } from './types';
 import { HEADER_TOKENS } from './headerTokens';
-import styles from './DesktopFluidHeader.module.css';
 
 const HeaderGlassCanvas = dynamic(
   () => import('@/components/webgl/header/HeaderGlassCanvas'),
@@ -76,26 +75,45 @@ export default function DesktopFluidHeader({
   const nav = useMemo(() => navItems, [navItems]);
 
   return (
-    <header className="hidden lg:block fixed top-6 left-0 right-0 z-40 pointer-events-none">
+    <header className="hidden lg:block fixed top-6 left-0 right-0 z-[40] pointer-events-none">
       <motion.div
         ref={wrapRef}
         onPointerMove={onPointerMove}
         onPointerLeave={onPointerLeave}
         style={{ x, scaleX, scaleY }}
-        className={styles.wrap}
+        className="pointer-events-auto mx-auto w-[min(1100px,calc(100vw-48px))]"
       >
-        <div className={styles.inner}>
+        <div
+          className="relative overflow-hidden rounded-full"
+          style={{
+            height: HEADER_TOKENS.desktop.height,
+            boxShadow: '0 18px 55px rgba(0,0,0,0.35)',
+          }}
+        >
           {/* glass background */}
           <div className="absolute inset-0">
             {!disableWebGL && !reducedMotion ? (
               <HeaderGlassCanvas accentColor={accentColor} />
             ) : (
-              <div className={styles.fallbackBg} />
+              <div
+                className="h-full w-full"
+                style={{
+                  background:
+                    'linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06))',
+                  backdropFilter: 'blur(14px)',
+                  WebkitBackdropFilter: 'blur(14px)',
+                }}
+              />
             )}
           </div>
 
           {/* subtle border */}
-          <div className={styles.subtleBorder} />
+          <div
+            className="absolute inset-0 rounded-full"
+            style={{
+              border: '1px solid rgba(255,255,255,0.14)',
+            }}
+          />
 
           {/* content */}
           <div className="relative z-10 h-full px-6 flex items-center justify-between gap-6">
@@ -123,9 +141,7 @@ export default function DesktopFluidHeader({
 
                 const common =
                   'transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-md';
-                const textColor = isActive
-                  ? 'text-[#0057FF]'
-                  : 'text-white/80 hover:text-white';
+                const textColor = isActive ? 'text-[#0057FF]' : 'text-white/80 hover:text-white';
                 const underline = isActive
                   ? 'after:w-full'
                   : 'after:w-0 group-hover:after:w-full';

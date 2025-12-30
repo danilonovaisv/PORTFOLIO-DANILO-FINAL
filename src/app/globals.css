@@ -1,5 +1,3 @@
-/* src/app/globals.css */
-
 @import 'tailwindcss';
 
 @custom-variant dark (&:is(.dark *));
@@ -64,7 +62,7 @@
 
 @font-face {
   font-family: 'PPSupplyMono';
-  src: url('https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2  ')
+  src: url('https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2')
     format('woff2');
   font-weight: 100 900;
   font-style: normal;

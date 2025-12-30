@@ -265,6 +265,18 @@ Footer
 
 ---
 
+## **LINKS DE DIRECIONAMENTO:**
+- Logo - lado esquerdo
+ - **Favicon Light:** - Desktop: ["https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg"]
+ - **Logo Dark:**  - Mobile ["https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg"]
+- Navigation links:
+  - Home → `/` ou `#hero` - sempre retorna para homepage ["portfoliodanilo.com"]
+  - Sobre → `/sobre` - ["portfoliodanilo.com/sobre"]
+  - Portfolio → `/portfolio` - ["portfoliodanilo.com/portifolio"]
+  - Contato → `#contact` - sempre é direcionado para sessão contato de cada uma das paginas
+  
+  
+
 ## 💠 LAYOUT
 
 ### Desktop (≥1024px) — Fluid Glass Header
@@ -1008,6 +1020,48 @@ components/home/
 - `FloatingLabel` (microcopy com blend mode)
 - CTAs aspiracionais
 
+
+## **PRIMARY MESSAGE / HEADLINE**
+- `portfólio (preto) showcase (#5227FF)`
+
+---
+
+### Typography
+- **TT Norms Pro**, self-host *(ou fallback: `ui-sans-serif`, `system-ui`)*  
+
+---
+
+## **SECONDARY MESSAGE / SUPPORT TEXT**
+- `[what we love working on]`
+
+---
+
+## **KEY CONTENT ELEMENTS**
+- Headline central da seção.
+- Microtexto lateral `[what we love working on]`.
+- 3 stripes de categorias interativas.
+- CTA aspiracional inferior.
+
+---
+
+## **CALL TO ACTION (if any)**
+- `Ver todos os projetos →` → `/portfolio?category={id}`
+- `let’s build something great →` → `/#contact`
+
+---
+
+## **LINKS GLOBAIS**
+- Integração com `/portfolio` (com filtro por categoria).
+- Integração com `/#contact`.
+
+---
+
+## **LAYOUT TYPE**
+- Seção editorial baseada em **stripes expansíveis**.
+
+---
+
+
 ### 🎨 PALETA DE CORES
 ```js
 {
@@ -1017,54 +1071,50 @@ components/home/
   textSecondary: 'neutros suaves'
 }
 ```
+## 💻 Layout Responsivo
 
-## 💻 LAYOUT RESPONSIVO
+### 🖥️ Desktop (≥1024px)
 
-### 🖥️ DESKTOP (≥1024px)
-```
-┌───────────────────────────────────────────────────────┐
-│                    [portfólio showcase]               │
-│                                                       │
-│  [what we love working on] ← floating label abs      │
-│                                                       │
-│  ┌─────────────────────────────────────────────────┐ │
-│  │                                      [●] [→]    │ ← Row 1 (justify-end)
-│  └─────────────────────────────────────────────────┘ │
-│                                                       │
-│  ┌─────────────────────────────────────────────────┐ │
-│  │                 [Brand & Campaigns] [●] [→]    │ ← Row 2 (justify-center)
-│  └─────────────────────────────────────────────────┘ │
-│                                                       │
-│  ┌─────────────────────────────────────────────────┐ │
-│  │ [Videos & Motion] [●] [→]                       │ ← Row 3 (justify-start)
-│  └─────────────────────────────────────────────────┘ │
-│                                                       │
-│                  [Ver todos os projetos →]            │
-│                  [let's build something great →]      │
-└───────────────────────────────────────────────────────┘
-```
+A seção do portfólio é exibida em uma única coluna centralizada com os seguintes elementos empilhados verticalmente:
 
-### 📱 MOBILE (≤768px)
-```
-┌───────────────────────────────┐
-│   [portfólio showcase]        │
-│                               │
-│  ┌─────────────────────────┐  │
-│  │ Brand & Campaigns [→]   │  │ ← Row 1 (100% width)
-│  └─────────────────────────┘  │
-│                               │
-│  ┌─────────────────────────┐  │
-│  │ Videos & Motion [→]     │  │ ← Row 2 (100% width)
-│  └─────────────────────────┘  │
-│                               │
-│  ┌─────────────────────────┐  │
-│  │ Websites & Tech [→]     │  │ ← Row 3 (100% width)
-│  └─────────────────────────┘  │
-│                               │
-│    [Ver todos os projetos]    │
-│ [let's build something great] │
-└───────────────────────────────┘
-```
+- **Título principal**: “portfólio showcase” (centralizado na parte superior)
+- **Floating label interativa**: “[what we love working on]”, posicionada de forma absoluta junto a primeiro intem, “Brand & Campaigns", posicionado ao lado esquerdo.
+
+- **Três cards de categoria**, cada um com largura máxima limitada (não 100%) e alinhamento horizontal variável:
+  - **Primeiro card**: “Brand & Campaigns [●] [→]” — alinhado à **direita** (`justify-end`)
+  - **Segundo card**: “Videos & Motion [●] [→]” — **centralizado** (`justify-center`)
+  - **Terceiro card**: “Web Campaigns, Websites & Tech [●] [→]” — alinhado à **esquerda** (`justify-start`) quebrar sempre em duas linhas - linha1 ["Web Campaigns,"] e linha2 ["Websites & Tech"]
+
+- **call-to-actions**, centralizado abaixo dos cards:
+  - “let's build something great →”
+  
+  ## **ALIGNMENT**
+
+### Desktop (≥1024px)
+- Headline centralizada.
+- Microtexto alinhado à esquerda do primeiro stripe.
+- Stripes com alinhamento alternado:
+  1. Direita
+  2. Centro
+  3. Esquerda
+
+
+Os cards possuem espaçamento vertical consistente e mantêm margens laterais simétricas na tela grande.
+
+### 📱 Mobile (≤768px)
+
+A mesma seção é reorganizada para uma experiência vertical e fluida:
+
+- **Título principal**: “portfólio showcase” (centralizado no topo)
+- **Três cards de categoria**, agora com **largura total do container** (100%):
+  - “Brand & Campaigns [→]”
+  - “Videos & Motion [→]”
+  - “Websites & Tech [→]”
+- Cada card é exibido um abaixo do outro, com padding horizontal e bordas visuais consistentes
+- **call-to-actions**, centralizado abaixo dos cards:
+  - “let's build something great →”
+
+Não há floating label visível em mobile (pode ser oculto ou integrado de forma alternativa). O layout prioriza toque, legibilidade e carregamento rápido.
 
 ## ⚡ INTERAÇÕES PRINCIPAIS
 
@@ -1096,6 +1146,7 @@ onHover(Stripe) => {
   - `opacity: 0 → 1`
   - `translateY: 24px → 0px`
   - `duration: 0.8s ease-out`
+  
 
 ## 💻 IMPLEMENTAÇÃO TÉCNICA
 
@@ -1619,6 +1670,8 @@ export const CTAProjectCard = () => (
 
 # **SECTION NAME: Clients/Brands**
 
+# **SECTION NAME: Clients/Brands**
+
 ## **SECTION PURPOSE**
 - Mostrar marcas com as quais o designer já trabalhou  
 - Construir confiança e credibilidade  
@@ -1630,7 +1683,7 @@ export const CTAProjectCard = () => (
 - N/A
 
 ## **KEY CONTENT ELEMENTS**
-- Logos das marcas  
+- Logos das marcas  - brancas
 - Faixa azul de fundo  
 
 ## **CALL TO ACTION**
@@ -1655,7 +1708,7 @@ export const CTAProjectCard = () => (
 - Logos: Branco (`filter brightness-0 invert`)  
 
 ## **TYPOGRAPHY**
-- Fonte: Sans-serif neo-grotesca (Inter ou similar)  
+- Fonte: TT Norman
 - Peso: **Bold**  
 - Tamanho: `text-xl md:text-2xl`  
 
@@ -1727,7 +1780,7 @@ export const CTAProjectCard = () => (
 - **Erro:** Mostrar mensagem de erro  
 
 ## **NOTES / INSPIRATION**
-- Layout inspirado em `HOME-PORTFOLIO-LAYOUYT_ESPERADO.jpg`  
+- Layout inspirado em `HOME PORTFOLIO LAYOUYT-GHOST.jpg`  
 
 ## **NON-NEGOTIABLES**
 - Faixa azul de fundo  
@@ -1750,7 +1803,7 @@ export const CTAProjectCard = () => (
 - "contato"  
 
 ## **SECONDARY MESSAGE / SUPPORT TEXT**
-- "Tem uma pergunta ou quer trabalhar junto?"  
+- "Vamos construir algo grande juntos?"  
 
 ## **KEY CONTENT ELEMENTS**
 - Informações de contato (telefone, email, site)  
@@ -1845,6 +1898,73 @@ export const CTAProjectCard = () => (
 - Portfolio: `https://portfoliodanilo.com`  
 - Twitter: `https://twitter.com/danilo_novais`  
 
+ 
+ ### **Protótipo Interativo: Seção de Contato – Informações de Contato e Redes Sociais**
+
+#### **Objetivo**  
+Permitir que o usuário visualize e acesse rapidamente os canais de contato (telefone e e-mails) e redes sociais, com clareza visual e feedback imediato ao interagir.
+
+---
+
+#### **Estrutura Visual**
+
+A seção contém dois grupos distintos de itens de contato, organizados verticalmente (em coluna única em mobile, ou alinhados à esquerda em desktop):
+
+1. **Canais de contato direto**  
+   - Cada item exibe:  
+     - **Um ícone** (telefone ou envelope)  
+     - **Texto descritivo legível** (ex: “+55 (11) 98396-6838”, “danilo@portfoliodanilo.com”)  
+     - Todo o elemento (ícone + texto) é **clicável** e funciona como um link ativo.  
+   - Comportamento visual:  
+     - Cor de texto: `#111111`  
+     - Ícones na mesma cor do texto  
+     - Ao passar o mouse (ou foco por teclado): leve sublinhado ou mudança de cor (`#0057FF`) no texto + ícone  
+
+2. **Redes sociais e portfólio**  
+   - Cada item exibe apenas:  
+     - **Um ícone representativo da plataforma** (Instagram, LinkedIn, etc.)  
+     - **Sem texto descritivo**  
+   - Comportamento visual:  
+     - Ícones em cor `#111111`  
+     - Ao passar o mouse (ou foco): ícone muda para `#0057FF` e aplica leve escala (`transform: scale(1.1)`)  
+     - Cada ícone é **clicável** e abre o link em nova aba
+
+---
+
+#### **Interações Esperadas**
+
+- **Clique em telefone**:  
+  - Dispara a ação nativa do dispositivo (`tel:+5511983966838`) — abre o app de discagem (mobile) ou prompt de chamada (desktop com suporte).
+
+- **Clique em e-mail**:  
+  - Abre o cliente de e-mail padrão com o destinatário pré-preenchido (`mailto:...`).
+
+- **Clique em ícone de rede social ou portfólio**:  
+  - Redireciona para a URL da plataforma **em nova aba** (`target="_blank"` com `rel="noopener noreferrer"`).
+
+- **Navegação por teclado**:  
+  - Todos os links são focáveis (com `:focus-visible`)  
+  - Borda de foco visível (`ring-2 ring-blue-500`) para acessibilidade
+
+- **Respeito a `prefers-reduced-motion`**:  
+  - Animações de hover (como escala ou transição de cor) são desativadas se o usuário tiver essa preferência ativada
+
+---
+
+#### **Feedback Visual**
+
+- **Hover / Focus**: mudança de cor e/ou leve transformação de escala  
+- **Clique ativo (tap)**: leve compressão visual (`scale(0.98)`) para confirmação tátil  
+- **Ícones**: semanticamente identificáveis e consistentes com o estilo do site (mono, linha fina, estilo moderno)
+
+---
+
+#### **Acessibilidade**
+
+- Todos os ícones interativos possuem rótulos invisíveis ou `aria-label` descritivo (ex: “Instagram de Danilo Novais”)  
+- Links de e-mail e telefone incluem texto legível (não apenas ícones), garantindo compreensão mesmo sem contexto visual  
+- Contraste mínimo de cor conforme WCAG AA (`#111111` sobre fundo branco)
+
 ## **DATA HOOKS / TRACKING**
 - Eventos de envio do formulário para analytics  
 
@@ -1868,6 +1988,11 @@ export const CTAProjectCard = () => (
 - Formulário de contato  
 - Informações de contato  
 - Redes sociais  
+
+--------
+
+
+
 
 
 

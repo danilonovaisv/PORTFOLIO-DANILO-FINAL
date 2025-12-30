@@ -200,7 +200,7 @@ const GhostCanvas = memo(function GhostCanvas({
         />
         <Noise opacity={0.12} />
         <Scanline density={1.25} opacity={0.18} />
-        <Vignette eskil={true} offset={0.25} darkness={0.55} />
+        <Vignette eskil={false} offset={0.25} darkness={0.55} />
       </EffectComposer>
     </Canvas>
   );

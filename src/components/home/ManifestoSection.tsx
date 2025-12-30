@@ -1,53 +1,37 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { ASSETS } from '../../lib/constants';
-import { AlertCircle } from 'lucide-react';
+import { BRAND } from '@/config/brand';
 
-const Manifesto: React.FC = () => {
-  const [hasError, setHasError] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  return (
-    <section id="manifesto" className="w-full bg-[#F4F5F7]">
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.0, ease: 'easeOut' }}
-        className="relative w-full aspect-video md:aspect-[21/9] overflow-hidden bg-gray-100 shadow-sm"
-      >
-        {!hasError ? (
-          <video
-            ref={videoRef}
-            src={ASSETS.videoManifesto}
-            className="w-full h-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-            controls
-            onError={() => setHasError(true)}
-            aria-label="Vídeo Manifesto do Portfólio"
-          />
-        ) : (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 text-gray-500 p-6 text-center">
-            <AlertCircle className="w-10 h-10 mb-3 opacity-50" />
-            <p className="font-medium">Não foi possível carregar o vídeo.</p>
-            <a
-              href={ASSETS.videoManifesto}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 text-primary text-sm hover:underline underline-offset-4"
+export default function ManifestoSection() {
+    return (
+        <section className="relative w-full aspect-video md:hidden overflow-hidden bg-black">
+            <motion.div
+                initial={{ opacity: 0, scale: 1.1 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+                className="w-full h-full"
             >
-              Assistir diretamente
-            </a>
-          </div>
-        )}
-      </motion.div>
-    </section>
-  );
-};
+                <video
+                    src={BRAND.video.manifesto}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover"
+                />
+            </motion.div>
 
-export default Manifesto;
+            {/* Overlay mobile to match aesthetics */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+
+            <div className="absolute bottom-6 left-6 z-10">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/80 bg-black/40 px-3 py-1 rounded-full backdrop-blur-sm">
+                    Manifesto
+                </span>
+            </div>
+        </section>
+    );
+}

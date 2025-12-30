@@ -15,7 +15,7 @@ const ManifestoThumb = forwardRef<HTMLVideoElement, ManifestoThumbProps>(
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
-        className="fixed bottom-8 right-8 z-30 w-[280px] md:w-[320px] aspect-video rounded-xl overflow-hidden shadow-[0_20px_80px_rgba(0,0,0,0.55)] cursor-pointer group"
+        className="w-full h-full"
       >
         <motion.video
           ref={ref}

@@ -51,7 +51,7 @@ export default function AtmosphereVeil({ ghostPosRef }: AtmosphereVeilProps) {
   const uniforms = useMemo(
     () => ({
       ghostPosition: { value: new THREE.Vector3(0, 0, 0) },
-      revealRadius: { value: 15 },
+      revealRadius: { value: 37 },
       fadeStrength: { value: 1.7 },
       baseOpacity: { value: 0.9 },
       revealOpacity: { value: 0.05 },
