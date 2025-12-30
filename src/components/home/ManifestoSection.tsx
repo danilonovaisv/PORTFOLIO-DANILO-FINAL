@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
@@ -15,7 +15,7 @@ const Manifesto: React.FC = () => {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 1.0, ease: "easeOut" }}
+        transition={{ duration: 1.0, ease: 'easeOut' }}
         className="relative w-full aspect-video md:aspect-[21/9] overflow-hidden bg-gray-100 shadow-sm"
       >
         {!hasError ? (

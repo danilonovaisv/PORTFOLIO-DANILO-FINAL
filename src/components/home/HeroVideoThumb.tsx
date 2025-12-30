@@ -60,10 +60,10 @@ export const ManifestoThumb = forwardRef<HTMLVideoElement, ManifestoThumbProps>(
           animate={
             isInView
               ? {
-                opacity: 1,
-                scale: 1,
-                filter: 'blur(0px)',
-              }
+                  opacity: 1,
+                  scale: 1,
+                  filter: 'blur(0px)',
+                }
               : undefined
           }
           transition={{
@@ -236,8 +236,9 @@ export default function HeroVideoThumb({
 
   return (
     <motion.div
-      className={`fixed z-1000 cursor-pointer ${isFull ? 'inset-0' : 'bottom-5 right-5 md:bottom-8 md:right-8'
-        }`}
+      className={`fixed z-1000 cursor-pointer ${
+        isFull ? 'inset-0' : 'bottom-5 right-5 md:bottom-8 md:right-8'
+      }`}
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{
         opacity: 1,
@@ -260,9 +261,9 @@ export default function HeroVideoThumb({
         reducedMotion
           ? undefined
           : {
-            scale: isFull ? 1 : 1.05,
-            boxShadow: '0 8px 30px rgba(0,0,0,0.25)',
-          }
+              scale: isFull ? 1 : 1.05,
+              boxShadow: '0 8px 30px rgba(0,0,0,0.25)',
+            }
       }
       onClick={handleClick}
       aria-label="Pré-visualização do vídeo manifesto"
@@ -311,8 +312,9 @@ export default function HeroVideoThumb({
             return (
               <span
                 key={state.id}
-                className={`h-1.5 rounded-full transition-all duration-300 ${isActive ? 'w-6 bg-white' : 'w-2 bg-white/35'
-                  }`}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  isActive ? 'w-6 bg-white' : 'w-2 bg-white/35'
+                }`}
               />
             );
           })}

@@ -129,7 +129,9 @@ export default function PortfolioShowcaseSection() {
             href="/portfolio"
             className="group relative inline-flex items-center gap-3 bg-[#0057FF] text-white py-5 px-8 rounded-full hover:-translate-y-px transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#0057FF]"
           >
-            <span className="font-medium lowercase">let's build something great</span>
+            <span className="font-medium lowercase">
+              let's build something great
+            </span>
             <ArrowIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
           </Link>
         </div>
