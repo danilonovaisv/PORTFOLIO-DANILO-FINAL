@@ -74,6 +74,9 @@ importers:
       three-stdlib:
         specifier: ^2.36.1
         version: 2.36.1(three@0.182.0)
+      tweakpane:
+        specifier: ^4.0.5
+        version: 4.0.5
       zod:
         specifier: ^4.2.1
         version: 4.2.1
@@ -10342,6 +10345,12 @@ packages:
         integrity: sha512-lR5VHmkPhzdhrM092lI2nACsLO4QubF0/yoOhzX7c+wIpbN1GjHNzCc91QlpxBi+cnx8vVJ+Ur6vL5cEoQPFpQ==,
       }
 
+  tweakpane@4.0.5:
+    resolution:
+      {
+        integrity: sha512-rxEXdSI+ArlG1RyO6FghC4ZUX8JkEfz8F3v1JuteXSV0pEtHJzyo07fcDG+NsJfN5L39kSbCYbB9cBGHyuI/tQ==,
+      }
+
   type-check@0.4.0:
     resolution:
       {
@@ -18180,6 +18189,8 @@ snapshots:
       - '@types/react'
       - immer
       - react
+
+  tweakpane@4.0.5: {}
 
   type-check@0.4.0:
     dependencies:

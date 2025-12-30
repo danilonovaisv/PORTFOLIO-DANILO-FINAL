@@ -19,10 +19,11 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
       aria-label={`Ver projeto: ${project.title}`}
     >
       <div
-        className={`relative overflow-hidden rounded-md ${project.layout.h} w-full bg-white shadow-[0_12px_48px_-28px_rgba(0,87,255,0.35)] transition-shadow duration-500 ${reducedMotion
-          ? ''
-          : 'group-hover:shadow-[0_22px_54px_-26px_rgba(0,87,255,0.26)]'
-          }`}
+        className={`relative overflow-hidden rounded-md ${project.layout.h} w-full bg-white shadow-[0_12px_48px_-28px_rgba(0,87,255,0.35)] transition-shadow duration-500 ${
+          reducedMotion
+            ? ''
+            : 'group-hover:shadow-[0_22px_54px_-26px_rgba(0,87,255,0.26)]'
+        }`}
       >
         <div className="absolute top-4 right-4 z-20 flex gap-1.5 flex-wrap justify-end">
           {project.tags.map((tag) => (
@@ -40,10 +41,11 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
           alt={project.title}
           fill
           sizes={project.layout.sizes}
-          className={`object-cover transition-transform duration-500 ${reducedMotion
-            ? ''
-            : 'group-hover:scale-[1.03] group-hover:-translate-y-1'
-            }`}
+          className={`object-cover transition-transform duration-500 ${
+            reducedMotion
+              ? ''
+              : 'group-hover:scale-[1.03] group-hover:-translate-y-1'
+          }`}
         />
       </div>
 
@@ -66,8 +68,9 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
         </div>
 
         <div
-          className={`bg-primary w-11 h-11 rounded-full flex items-center justify-center text-white shrink-0 transition-transform duration-700 ${reducedMotion ? '' : 'group-hover:translate-x-5'
-            }`}
+          className={`bg-primary w-11 h-11 rounded-full flex items-center justify-center text-white shrink-0 transition-transform duration-700 ${
+            reducedMotion ? '' : 'group-hover:translate-x-5'
+          }`}
         >
           <ArrowIcon className="w-4 h-4" />
         </div>
@@ -108,11 +111,11 @@ export default function FeaturedProjectsSection() {
     show: reducedMotion
       ? { opacity: 1 }
       : {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
-      },
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+        },
   };
 
   return (

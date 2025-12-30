@@ -68,13 +68,13 @@ export default function ContactSection() {
   const formFieldVariants = reducedMotion
     ? { hidden: { opacity: 1, y: 0 }, show: { opacity: 1, y: 0 } }
     : {
-      hidden: { opacity: 0, y: 14 },
-      show: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.35 },
-      },
-    };
+        hidden: { opacity: 0, y: 14 },
+        show: {
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.35 },
+        },
+      };
 
   return (
     <section id="contact" aria-label="Contato" className="bg-white py-12">

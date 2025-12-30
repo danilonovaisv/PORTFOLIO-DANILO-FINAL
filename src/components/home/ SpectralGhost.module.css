@@ -29,15 +29,24 @@
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.1); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.8; }
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
 }
 
 .progress-bar {
   width: 0%;
   height: 4px;
-  background: linear-gradient(90deg, #00FFFF, #0080FF);
+  background: linear-gradient(90deg, #00ffff, #0080ff);
   margin-top: 20px;
   border-radius: 2px;
   transition: width 0.3s ease;

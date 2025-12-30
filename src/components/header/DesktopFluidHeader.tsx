@@ -84,24 +84,18 @@ export default function DesktopFluidHeader({
           style={{ x, scaleX, scaleY }}
           className="pointer-events-auto mx-auto w-full max-w-[1100px]"
         >
-          <div
-            className="relative overflow-hidden rounded-full shadow-[0_18px_55px_rgba(0,0,0,0.35)] h-16"
-          >
+          <div className="relative overflow-hidden rounded-full shadow-[0_18px_55px_rgba(0,0,0,0.35)] h-16">
             {/* glass background */}
             <div className="absolute inset-0">
               {!disableWebGL && !reducedMotion ? (
                 <HeaderGlassCanvas accentColor={accentColor} />
               ) : (
-                <div
-                  className="h-full w-full bg-white/12 backdrop-blur-[14px] bg-linear-to-b from-white/12 to-white/6"
-                />
+                <div className="h-full w-full bg-white/12 backdrop-blur-[14px] bg-linear-to-b from-white/12 to-white/6" />
               )}
             </div>
 
             {/* subtle border */}
-            <div
-              className="absolute inset-0 rounded-full border border-white/14"
-            />
+            <div className="absolute inset-0 rounded-full border border-white/14" />
 
             {/* content */}
             <div className="relative z-10 h-full px-6 flex items-center justify-between gap-6">

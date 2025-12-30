@@ -57,6 +57,7 @@
     "tailwind-merge": "^3.4.0",
     "three": "^0.182.0",
     "three-stdlib": "^2.36.1",
+    "tweakpane": "^4.0.5",
     "zod": "^4.2.1"
   },
   "devDependencies": {

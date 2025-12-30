@@ -53,7 +53,12 @@ export default function PortfolioShowcaseSection() {
 
           {showcase.categories.map((item, index) => {
             const isThirdItem = index === 2;
-            const alignment = index === 0 ? 'justify-end' : index === 1 ? 'justify-center' : 'justify-start';
+            const alignment =
+              index === 0
+                ? 'justify-end'
+                : index === 1
+                  ? 'justify-center'
+                  : 'justify-start';
 
             return (
               <Link
