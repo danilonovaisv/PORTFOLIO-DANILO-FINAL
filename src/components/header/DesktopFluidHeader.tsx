@@ -120,7 +120,7 @@ export default function DesktopFluidHeader({
             <Link
               href="/"
               aria-label="Ir para Home"
-              className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-full"
+              className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-full"
             >
               <Image
                 src={logoUrl}
@@ -140,9 +140,9 @@ export default function DesktopFluidHeader({
                 const isActive = activeHref === item.href;
 
                 const common =
-                  'transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-md';
+                  'transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-md';
                 const textColor = isActive
-                  ? 'text-[#0057FF]'
+                  ? 'text-primary'
                   : 'text-white/80 hover:text-white';
                 const underline = isActive
                   ? 'after:w-full'
@@ -161,7 +161,7 @@ export default function DesktopFluidHeader({
                         {item.label}
                       </span>
                       <span
-                        className={`absolute -bottom-1 left-0 h-[2px] bg-[#0057FF] transition-all duration-200 ${underline}`}
+                        className={`absolute -bottom-1 left-0 h-[2px] bg-primary transition-all duration-200 ${underline}`}
                       />
                     </a>
                   );
@@ -178,7 +178,7 @@ export default function DesktopFluidHeader({
                       {item.label}
                     </span>
                     <span
-                      className={`absolute -bottom-1 left-0 h-[2px] bg-[#0057FF] transition-all duration-200 ${underline}`}
+                      className={`absolute -bottom-1 left-0 h-[2px] bg-primary transition-all duration-200 ${underline}`}
                     />
                   </button>
                 );

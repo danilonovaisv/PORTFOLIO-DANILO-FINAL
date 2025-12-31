@@ -1,4 +1,4 @@
-// src/components/home/webgl/GhostCanvas.tsx
+// src/components/canvas/home/GhostCanvas.tsx
 'use client';
 
 import { Canvas } from '@react-three/fiber';
@@ -8,7 +8,7 @@ import Ghost from './Ghost';
 import Particles from './Particles';
 import Fireflies from './Fireflies';
 import AtmosphereVeil from './AtmosphereVeil';
-import RevealingText from './RevealingText'; // Importe o novo componente
+import RevealingText from './RevealingText'; // Importe o componente novo
 
 import {
   EffectComposer,
@@ -26,7 +26,7 @@ export default function GhostCanvas() {
       ? [1, 1.5]
       : [1, Math.min(2, window.devicePixelRatio || 1)];
 
-  // 1. Criamos a ref que vai guardar a posição do fantasma
+  // Esta ref vai armazenar a posição do fantasma
   const ghostRef = useRef<THREE.Group>(null);
 
   return (
@@ -40,25 +40,26 @@ export default function GhostCanvas() {
       }}
       camera={{ position: [0, 0, 6], fov: 35 }}
     >
-      {/* Background removido para permitir visibilidade do HeroCopy (Z-10) e gradiente radial (Z-0) */}
+      <color attach="background" args={['#050511']} />
 
       <Suspense fallback={null}>
         <AtmosphereVeil />
 
-        {/* 2. Passamos a ref para o Ghost preencher */}
+        {/* O Fantasma escreve sua posição na ref */}
         <Ghost ref={ghostRef} scale={0.2} position={[0, -0.2, 0]} />
 
-        {/* 3. Passamos a mesma ref para o Texto ler */}
+        {/* O Texto lê a ref para saber onde acender */}
         <RevealingText ghostRef={ghostRef} />
 
         <Particles />
         <Fireflies />
 
-        <EffectComposer enableNormalPass={false}>
+        {/* Efeitos visuais */}
+        <EffectComposer disableNormalPass>
           <Bloom
             luminanceThreshold={1}
             mipmapBlur
-            intensity={1.8}
+            intensity={1.5}
             radius={0.6}
           />
           <ChromaticAberration
@@ -66,7 +67,7 @@ export default function GhostCanvas() {
             radialModulation={false}
             modulationOffset={0}
           />
-          <Scanline density={1.5} opacity={0.3} />
+          <Scanline density={1.5} opacity={0.25} />
           <Noise
             opacity={0.15}
             premultiply

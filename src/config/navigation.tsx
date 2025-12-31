@@ -85,24 +85,24 @@ export const NAV_LINKS = [
 
 export const HEADER_LINKS_DESKTOP = [
   { label: 'home', href: '/', ariaLabel: 'Ir para a home' },
-  { label: 'sobre', href: '/sobre', ariaLabel: 'Ir para sobre' },
+  { label: 'work', href: '/portfolio', ariaLabel: 'Ir para trabalhos' },
   {
-    label: 'portfolio',
-    href: '/portfolio',
-    ariaLabel: 'Ir para portfólio',
+    label: 'portfolio showcase',
+    href: '/#portfolio-showcase',
+    ariaLabel: 'Ir para showcase',
   },
-  { label: 'contato', href: '#contact', ariaLabel: 'Ir para contato' },
+  { label: 'contact', href: '#contact', ariaLabel: 'Ir para contato' },
 ];
 
 export const HEADER_LINKS_MOBILE = [
   { label: 'home', href: '/', ariaLabel: 'Ir para a home' },
-  { label: 'sobre', href: '/sobre', ariaLabel: 'Ir para sobre' },
+  { label: 'work', href: '/portfolio', ariaLabel: 'Ir para trabalhos' },
   {
-    label: 'portfolio',
-    href: '/portfolio',
-    ariaLabel: 'Ir para portfólio',
+    label: 'portfolio showcase',
+    href: '/#portfolio-showcase',
+    ariaLabel: 'Ir para showcase',
   },
-  { label: 'contato', href: '#contact', ariaLabel: 'Ir para contato' },
+  { label: 'contact', href: '#contact', ariaLabel: 'Ir para contato' },
 ];
 
 export const NAVIGATION = {

@@ -16,21 +16,21 @@ export default function ClientsBrandsSection() {
 
   const logoVariants = reducedMotion
     ? {
-        hidden: { opacity: 1, y: 0, scale: 1 },
-        show: { opacity: 1, y: 0, scale: 1 },
-      }
+      hidden: { opacity: 1, y: 0, scale: 1 },
+      show: { opacity: 1, y: 0, scale: 1 },
+    }
     : {
-        hidden: { opacity: 0, y: 12, scale: 0.9 },
-        show: {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          transition: { duration: 0.35 },
-        },
-      };
+      hidden: { opacity: 0, y: 12, scale: 0.9 },
+      show: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: { duration: 0.35 },
+      },
+    };
 
   return (
-    <section id="clients" className="bg-[#0057FF] py-12" aria-label="Marcas">
+    <section id="clients" className="bg-primary py-12" aria-label="Marcas">
       <div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)]">
         <motion.h2
           initial={reducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}

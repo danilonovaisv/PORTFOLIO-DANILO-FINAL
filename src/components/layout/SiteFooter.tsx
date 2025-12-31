@@ -31,92 +31,96 @@ export default function SiteFooter() {
     <>
       <motion.footer
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: reducedMotion ? 0.2 : 0.4 }}
-        className="hidden lg:block fixed bottom-0 left-0 right-0 z-30"
-        style={{ background: '#0057FF' }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: reducedMotion ? 0.2 : 0.6 }}
+        className="hidden lg:block w-full bg-primary py-10"
         aria-label="Footer"
       >
-        <div className="max-w-[1680px] mx-auto px-6 py-4 flex items-center justify-between text-white text-sm">
-          <p>{FOOTER.copyright}</p>
+        <div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)] flex items-center justify-between text-white text-sm">
+          <p className="opacity-80">{FOOTER.copyright}</p>
 
-          <nav aria-label="Links do footer" className="flex items-center gap-5">
-            {footerLinks.map((l) => (
-              <button
-                key={l.href}
-                type="button"
-                onClick={() => {
-                  if (isHashHref(l.href)) scrollToHash(l.href);
-                  else window.location.href = l.href;
-                }}
-                className="hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded"
-              >
-                {l.label}
-              </button>
-            ))}
+          <nav aria-label="Links do footer" className="flex items-center gap-8">
+            <div className="flex gap-6 pr-6 border-r border-white/20">
+              {footerLinks.map((l) => (
+                <button
+                  key={l.href}
+                  type="button"
+                  onClick={() => {
+                    if (isHashHref(l.href)) scrollToHash(l.href);
+                    else window.location.href = l.href;
+                  }}
+                  className="hover:opacity-70 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded uppercase tracking-widest text-[10px] font-bold"
+                >
+                  {l.label}
+                </button>
+              ))}
+            </div>
 
-            <div className="w-px h-4 bg-white/30 mx-1" />
-
-            {social.map((s) => (
-              <a
-                key={s.href}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded"
-                aria-label={`Abrir ${s.label}`}
-              >
-                {s.label}
-              </a>
-            ))}
+            <div className="flex items-center gap-5">
+              {social.map((s) => (
+                <a
+                  key={s.href}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:opacity-70 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded text-xs font-medium"
+                  aria-label={`Abrir ${s.label}`}
+                >
+                  {s.label}
+                </a>
+              ))}
+            </div>
           </nav>
         </div>
       </motion.footer>
 
       <footer
-        className="lg:hidden bg-[#0057FF] text-white py-10"
+        className="lg:hidden bg-primary text-white py-12"
         aria-label="Footer"
       >
-        <div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)] space-y-6">
-          <p className="text-sm">{FOOTER.copyright}</p>
-
-          <nav aria-label="Links do footer">
-            <ul className="space-y-3">
-              {footerLinks.map((l) => (
-                <li key={l.href}>
-                  {isHashHref(l.href) ? (
+        <div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)] flex flex-col gap-10">
+          <div className="flex flex-col gap-4">
+            <p className="text-xs opacity-60 uppercase tracking-widest">Navigation</p>
+            <nav aria-label="Links do footer">
+              <ul className="flex flex-wrap gap-x-6 gap-y-3">
+                {footerLinks.map((l) => (
+                  <li key={l.href}>
                     <button
                       type="button"
-                      onClick={() => scrollToHash(l.href)}
-                      className="hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded"
+                      onClick={() => {
+                        if (isHashHref(l.href)) scrollToHash(l.href);
+                        else window.location.href = l.href;
+                      }}
+                      className="text-sm font-medium hover:opacity-70"
                     >
                       {l.label}
                     </button>
-                  ) : (
-                    <a
-                      href={l.href}
-                      className="hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded"
-                    >
-                      {l.label}
-                    </a>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </nav>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
 
-          <div className="flex flex-wrap gap-4">
-            {social.map((s) => (
-              <a
-                key={s.href}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 rounded"
-              >
-                {s.label}
-              </a>
-            ))}
+          <div className="flex flex-col gap-4">
+            <p className="text-xs opacity-60 uppercase tracking-widest">Social</p>
+            <div className="flex flex-wrap gap-6">
+              {social.map((s) => (
+                <a
+                  key={s.href}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium hover:opacity-70"
+                >
+                  {s.label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div className="pt-8 border-t border-white/10">
+            <p className="text-[10px] opacity-40 uppercase tracking-widest">{FOOTER.copyright}</p>
           </div>
         </div>
       </footer>

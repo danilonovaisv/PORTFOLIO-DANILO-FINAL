@@ -46,7 +46,7 @@ export default function AccordionRow({
         >
             <Link
                 href={`/portfolio?category=${category.id}`}
-                className={`group flex w-full items-center border-t border-[#0057FF] py-10 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F5F7] md:py-16 ${alignmentClasses[alignment]}`}
+                className={`group flex w-full items-center border-t border-primary/30 py-10 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[#F4F5F7] md:py-16 ${alignmentClasses[alignment]}`}
                 aria-label={`Ver projetos de ${category.titleDesktop.replace(/\n/g, ' ')}`}
             >
                 <div className="flex items-center gap-7 transition-all duration-300 group-hover:gap-12 md:gap-14">
@@ -65,7 +65,7 @@ export default function AccordionRow({
 
                     {/* Category Title & Indicators */}
                     <div className="flex items-center gap-6 md:gap-10">
-                        <h3 className="text-3xl font-medium leading-[1.1] tracking-tighter text-black transition-colors duration-500 group-hover:text-[#0057FF] md:text-[clamp(2.5rem,5vw,6rem)]">
+                        <h3 className="text-3xl font-medium leading-[1.1] tracking-tighter text-black transition-colors duration-500 group-hover:text-primary md:text-[clamp(2.5rem,5vw,6rem)]">
                             <span className="hidden whitespace-pre md:inline">
                                 {category.titleDesktop}
                             </span>
@@ -75,10 +75,10 @@ export default function AccordionRow({
                         {/* Dot & Arrow Indicator */}
                         <div className="flex items-center gap-2 md:gap-4">
                             {/* Dot Icon [●] */}
-                            <div className="h-2 w-2 rounded-full bg-black transition-colors duration-500 group-hover:bg-[#0057FF] md:h-3 md:w-3" />
+                            <div className="h-2 w-2 rounded-full bg-black transition-colors duration-500 group-hover:bg-primary md:h-3 md:w-3" />
 
                             {/* Arrow Icon [→] */}
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0057FF] text-white transition-all duration-500 group-hover:scale-110 md:h-16 md:w-16">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-white transition-all duration-500 group-hover:scale-110 md:h-16 md:w-16">
                                 <ArrowIcon className="-rotate-45 h-5 w-5 transition-transform duration-500 group-hover:rotate-0 md:h-8 md:w-8" />
                             </div>
                         </div>

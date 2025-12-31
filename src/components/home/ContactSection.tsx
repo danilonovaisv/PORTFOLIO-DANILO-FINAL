@@ -68,16 +68,16 @@ export default function ContactSection() {
   const formFieldVariants = reducedMotion
     ? { hidden: { opacity: 1, y: 0 }, show: { opacity: 1, y: 0 } }
     : {
-        hidden: { opacity: 0, y: 14 },
-        show: {
-          opacity: 1,
-          y: 0,
-          transition: { duration: 0.35 },
-        },
-      };
+      hidden: { opacity: 0, y: 14 },
+      show: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.35 },
+      },
+    };
 
   return (
-    <section id="contact" aria-label="Contato" className="bg-white py-12">
+    <section id="contact" aria-label="Contato" className="bg-section-bg py-12 md:py-24">
       <div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)]">
         <motion.div
           initial={reducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
@@ -89,7 +89,7 @@ export default function ContactSection() {
           }}
           className="text-center mb-10"
         >
-          <h2 className="text-2xl font-bold text-[#0057FF]">
+          <h2 className="text-2xl font-bold text-primary md:text-4xl">
             {HOME_CONTENT.contact.title}
           </h2>
           <p className="text-text-dark/80 mt-2">
@@ -120,7 +120,7 @@ export default function ContactSection() {
                   whileHover={reducedMotion ? undefined : { x: 4, scale: 1.01 }}
                   whileTap={reducedMotion ? undefined : { scale: 0.99 }}
                 >
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0057FF]/10 text-[#0057FF]">
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
                     {link.icon}
                   </span>
                   <span className="text-lg font-medium">{link.label}</span>
@@ -140,7 +140,7 @@ export default function ContactSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white text-text-dark transition-colors duration-200 hover:text-[#0057FF] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white text-text-dark transition-colors duration-200 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                     whileHover={
                       reducedMotion ? undefined : { scale: 1.1, y: -1 }
                     }
@@ -169,7 +169,7 @@ export default function ContactSection() {
                 transition: { staggerChildren: reducedMotion ? 0 : 0.08 },
               },
             }}
-            className="bg-[#f5f5f7] rounded-xl p-6 md:p-8 border border-black/5"
+            className="bg-white rounded-xl p-6 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-black/5"
           >
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_template" value="table" />
@@ -194,7 +194,7 @@ export default function ContactSection() {
                   title={f.label}
                   placeholder={f.label}
                   maxLength={100}
-                  className="w-full rounded-lg px-4 py-3 bg-white border border-black/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f5f5f7]"
+                  className="w-full rounded-lg px-4 py-3 bg-section-bg/50 border border-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                 />
               </motion.label>
             ))}
@@ -210,7 +210,7 @@ export default function ContactSection() {
                 title="Sua mensagem"
                 placeholder="Escreva sua mensagem aqui..."
                 maxLength={500}
-                className="w-full rounded-lg px-4 py-3 bg-white border border-black/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f5f5f7]"
+                className="w-full rounded-lg px-4 py-3 bg-section-bg/50 border border-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               />
             </motion.label>
 
@@ -218,7 +218,7 @@ export default function ContactSection() {
               type="submit"
               whileHover={reducedMotion ? undefined : { scale: 1.02, y: -1 }}
               whileTap={reducedMotion ? undefined : { scale: 0.98 }}
-              className="w-full rounded-lg bg-[#0057FF] text-white py-3 font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f5f5f7]"
+              className="w-full rounded-lg bg-primary text-white py-3 font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             >
               Enviar Mensagem →
             </motion.button>

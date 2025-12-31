@@ -20,7 +20,7 @@ export const HOME_CONTENT = {
       },
       {
         id: 'videos-motion',
-        label: 'Videos & Motion',
+        label: 'Videos & Motions',
         align: 'center',
         thumb:
           'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
