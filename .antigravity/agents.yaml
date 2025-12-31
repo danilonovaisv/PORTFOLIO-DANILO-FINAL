@@ -16,7 +16,7 @@ agents:
     role: 'WebGL & Creative Developer'
     description: 'Especialista em R3F e Shaders. Responsável pelo conceito "Ghost Blue Atmosphere", "Fluid Glass Header" e micro-interações refinadas (Framer Motion).'
     knowledge_base:
-      - '.agent/rules/05-r3f-glass-system.md'
+      - '.agent/rules/05-r3f-ghost-system.md'
       - '.agent/rules/02-ux-motion-principles.md'
       - '.agent/rules/04-accessibility-performance.md'
       - '.agent/rules/responsivity-mobile.md'

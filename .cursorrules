@@ -33,5 +33,5 @@
 - **Design:** No placeholders. Use `generate_image` for realistic visual demonstrations.
 
 ## 4. Workflows
-- Refer to `.agents/workflows/` for step-by-step implementation guides on specific features (Hero, Portfolio, Contact).
+- Refer to .agent/workflows/ for step-by-step implementation guides on specific features (Hero, Portfolio, Contact).
 - Always sync implementations with `AGENT.md` (Project Source of Truth).
