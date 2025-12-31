@@ -322,14 +322,16 @@ Ethereal, organic 3D atmosphere inspired by the "Ghost Blue" aesthetic. Main ele
 
 **Content:**
 - Tag: `[BRAND AWARENESS]` (12px, uppercase, mono)
-- H1: "Você não vê o design." (4–6rem, bold, tracking-tight)
-- H2: "Mas ele vê você." (4–6rem, bold, tracking-tight)
+- H1: "Você não vê o design." (5–8rem, Black, tracking-tight)
+- H2: "Mas ele vê você." (5–8rem, Black, tracking-tight)
 - CTA: "step inside →" (link to `/sobre`, hover effect: color change + arrow translation)
+- Same CTA button at bottom
 
 **Behavior:**
 - 100% static (no scroll-triggered animations or fades)
 - Centered vertically and horizontally
 - Color: `#d9dade` on `#06071f` background
+Here’s your updated and clarified description with all the new desktop behaviors (full-page for 2s, scroll hold, fixed position on the side, and sound logic) integrated and cleaned up 👇
 
 #### Manifesto Video Thumbnail (Desktop)
 
@@ -337,64 +339,121 @@ Ethereal, organic 3D atmosphere inspired by the "Ghost Blue" aesthetic. Main ele
 - Position: `bottom-right`, with gutter spacing
 - Size: ~30vw width, 16:9 aspect ratio
 - Style: Rounded corners (`border-radius: 12–16px`), subtle shadow
-- Video: Autoplay, muted, loop, playsInline
+- Video: Autoplay, **muted**, loop, `playsInline`
 - URL: (Manifesto video from assets)
 
-**Scroll Animation:**
+**Scroll Behavior & Positioning (Desktop):**
+- While the Hero section is in view and the video is transitioning from thumbnail → fullscreen:
+  - The video stays **fixed** to the viewport (anchored to `bottom-right`) and does **not** scroll with the page content.
+  - As the user scrolls, the video:
+    - Scales up toward fullscreen
+    - Moves from `bottom-right` toward the center
+    - Gradually loses its rounded corners
+  - Only after the animation completes and the video reaches the **fullscreen state** does it stop being a small “floating” thumbnail.
+
+**Scroll Animation (Desktop):**
 The video grows and centers as the user scrolls:
-```javascript
-// Pseudo-code
-scaleVideo: [0.3, 1] // from 30% to 100% viewport
-posYVideo: ["50%", "0%"] // from offset to centered
-borderRadius: ["16px", "0px"] // from rounded to square
-opacityText: [1, 0] // editorial text fades out
-```
 
-**Trigger:** Scroll progress through Hero section (`scrollYProgress: [0, 1]`)
+javascript
+// Pseudo-code (Framer Motion / GSAP style idea)
+scaleVideo: [0.3, 1]              // from 30% to 100% viewport
+posXVideo: ["100%", "50%"]        // from bottom-right → center (example)
+posYVideo: ["100%", "50%"]        // from bottom-right → center (example)
+borderRadius: ["16px", "0px"]     // from rounded to square
+opacityText: [1, 0]               // editorial text fades out
+position: ["fixed", "fixed"]      // stays pinned to viewport during scroll
 
-**Entrance Animation (on page load):**
-```javascript
-initial: { opacity: 0, scale: 0.92, translateY: 60, filter: "blur(10px)" }
+Trigger:
+    •    Driven by scroll progress through the Hero section:
+scrollYProgress: [0, 1]
+
+⸻
+
+Fullscreen Hold & Sound Logic (Desktop)
+When the video reaches its fullscreen state (covers the entire viewport, scaleVideo = 1, borderRadius = 0):
+    1.    Fullscreen Hold (2 seconds):
+    •    The video remains in full-page fullscreen for 2 seconds.
+    •    During these 2 seconds:
+    •    The scroll is effectively held/locked on the Hero section (the page does not immediately move to the next section).
+    •    The video stays centered and covers the full viewport.
+    2.    Sound Behavior (Desktop):
+    •    Before fullscreen:
+    •    Video plays muted (thumbnail and transition states are always muted).
+    •    When fullscreen state is reached:
+    •    After reaching fullscreen, the video unmutes and audio plays while in this full-page state.
+    •    After leaving fullscreen / going to the next section:
+    •    When the user scrolls beyond the Hero section into the next section, the video is muted again.
+    •    If the user scrolls back up into the Hero and hits fullscreen again, the same logic repeats:
+    •    Muted during transition, unmute only in fullscreen, mute again when exiting.
+
+Implementation Hint (State Machine):
+    •    state = "thumbnail" | "transition" | "fullscreenHold" | "released"
+    •    On scrollYProgress reaching 1.0:
+    •    Enter fullscreenHold:
+    •    Unmute video
+    •    Start a 2-second timer before allowing scroll to continue normally.
+    •    On scroll beyond Hero (next section in view):
+    •    Mute video again and move to released.
+
+⸻
+
+Entrance Animation (on page load):
+
+initial: { 
+  opacity: 0, 
+  scale: 0.92, 
+  translateY: 60, 
+  filter: "blur(10px)" 
+}
 animate: { 
   opacity: 1, 
-  scale: 1.02 → 1 (settle with overshoot), 
+  scale: [1.02, 1],         // settle with a slight overshoot
   translateY: 0,
   filter: "blur(0px)"
 }
 duration: 1.2s
 easing: cubic-bezier(0.25, 0.46, 0.45, 0.94)
-```
 
-**Hover (Desktop):**
-- Scale: `1 → 1.05`
-- Duration: 500ms
+Hover (Desktop):
+    •    Scale: 1 → 1.05
+    •    Duration: 500ms
 
-**Click (Desktop):**
-- Jumps directly to fullscreen state (skips scroll animation)
+Click (Desktop):
+    •    Clicking the thumbnail:
+    •    Jumps directly to the fullscreen state (skips the gradual scroll animation).
+    •    Triggers the same 2-second fullscreen hold and sound logic:
+    •    Video unmutes while fullscreen,
+    •    Video mutes again once the user scrolls to the next section.
 
-**Click (Mobile):**
-- Toggles sound (mute/unmute)
+Click (Mobile):
+    •    Toggles sound (mute/unmute) on the mobile fullscreen video section (see below).
 
-#### Manifesto Section (Mobile)
+⸻
 
-On mobile, the manifesto video appears as a **separate fullscreen section** immediately below the Hero (no floating thumbnail).
+Manifesto Section (Mobile)
+On mobile, the manifesto video appears as a separate fullscreen section immediately below the Hero (no floating thumbnail).
 
-**Layout:**
-- Full viewport width, `aspect-video` height
-- Background: `#06071f` (matches Hero for visual continuity)
-- Video: Autoplay, loop, muted, playsInline
+Layout:
+    •    Full viewport width, aspect-video height
+    •    Background: #06071f (matches Hero for visual continuity)
+    •    Video:
+    •    Autoplay, loop, muted by default, playsInline
+    •    Sound can be enabled by user interaction (tap)
+    •    When the user scrolls away from this section, the video should revert to muted state
 
-**Animation (scroll reveal):**
-```javascript
+Animation (scroll reveal):
+
 initial: { opacity: 0, scale: 0.95, y: 20 }
 animate (when in view): { opacity: 1, scale: 1, y: 0 }
 duration: 0.6s
 easing: cubic-bezier(0.22, 1, 0.36, 1)
-```
 
-**Accessibility:**
-- Video has no audio by default
-- Focus indicator if tappable for sound toggle
+Accessibility:
+    •    Video has no audio by default (muted until user explicitly enables sound).
+    •    Provide a clear control (icon/button) to toggle sound on/off.
+    •    Show a visible focus indicator if the video or sound toggle is focusable/tappable.
+
+
 
 ---
 
