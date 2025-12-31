@@ -91,7 +91,7 @@ export default function LayoutPlayground() {
               priority
             />
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* Helper Legend */}

@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { HOME_CONTENT } from '@/config/content';
-import { CompoundPillCTA } from '@/components/ui/CompoundPillCTA';
+import { CTAButton } from '@/components/ui/CTAButton';
 import AccordionRow from './AccordionRow';
 
 export type CategoryConfig = {
@@ -75,10 +75,11 @@ export default function PortfolioShowcaseSection() {
         </div>
 
         {/* CTA Centralizado - Estilo Compound Pill Standard */}
-        <CompoundPillCTA 
-          href="/portfolio" 
-          label="let's build something great" 
-        />
+        <div className="flex justify-center">
+          <CTAButton href="/portfolio">
+            let's build something great
+          </CTAButton>
+        </div>
       </div>
     </section>
   );

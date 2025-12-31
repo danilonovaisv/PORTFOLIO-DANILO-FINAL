@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { CompoundPillCTA } from '@/components/ui/CompoundPillCTA';
+import { CTAButton } from '@/components/ui/CTAButton';
 
 export default function CTAProjectCard() {
   return (
@@ -10,7 +10,7 @@ export default function CTAProjectCard() {
         like what <br /> you see?
       </h3>
 
-      <CompoundPillCTA href="/portfolio" label="view projects" />
+      <CTAButton href="/portfolio">view projects</CTAButton>
     </div>
   );
 }

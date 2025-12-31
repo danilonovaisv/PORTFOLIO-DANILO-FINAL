@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { CTAButton } from '@/components/ui/CTAButton';
 
 export function HeroCopy() {
   return (
@@ -46,15 +47,13 @@ export function HeroCopy() {
         Mas ele vê você.
       </motion.p>
 
-      <motion.a
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.2, duration: 1 }}
-        href="/portfolio"
-        className="pointer-events-auto inline-flex items-center justify-center rounded-full bg-[#0057FF] px-10 py-4 text-sm font-semibold uppercase tracking-[0.2em] text-[#fcffff] transition-all hover:bg-primary-hover hover:scale-105 shadow-[0_0_30px_rgba(0,87,255,0.3)]"
       >
-        step inside →
-      </motion.a>
+        <CTAButton href="/portfolio">step inside</CTAButton>
+      </motion.div>
     </div>
   );
 }

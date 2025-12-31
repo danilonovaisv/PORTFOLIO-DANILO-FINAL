@@ -1,12 +1,12 @@
 {
   "projectIntelligence": {
     "contextSource": "local",
-    "contextPath": ".agents",
+    "contextPath": ".cursor",
     "autonomyLevel": "hybrid",
     "liveContext": {
       "watchMode": true,
       "watchPatterns": [
-        ".agents/**/*.md",
+        ".cursor/**/*.md",
         "docs/**/*.md",
         "PROTOTIPO INTERATIVO - PORT DAN GHOST.md",
         "src/**/*.{ts,tsx,css}",

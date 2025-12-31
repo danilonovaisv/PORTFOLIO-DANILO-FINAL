@@ -3,12 +3,12 @@ agents:
     role: 'Architect & Stability Guardian'
     description: 'Responsável pela estrutura Next.js 14+, Tailwind, integrações Supabase e layouts complexos (Bento Grid, Accordion Rows).'
     knowledge_base:
-      - '.agents/rules/00-project-context.md'
-      - '.agents/rules/01-tech-stack.md'
-      - '.agents/rules/03-non-negotiables.md'
-      - '.agents/rules/web-application-development.md'
-      - '.agents/rules/asset-integrity.md'
-      - '.agents/rules/responsivity-mobile.md'
+      - '.cursor/rules/00-project-context.md'
+      - '.cursor/rules/01-tech-stack.md'
+      - '.cursor/rules/03-non-negotiables.md'
+      - '.cursor/rules/web-application-development.md'
+      - '.cursor/rules/asset-integrity.md'
+      - '.cursor/rules/responsivity-mobile.md'
       - 'docs/PROTOTIPO INTERATIVO - PORT DAN GHOST.md'
     temperature: 0.2 # Preciso para lógica e estrutura de dados
 
@@ -16,11 +16,11 @@ agents:
     role: 'WebGL & Creative Developer'
     description: 'Especialista em R3F e Shaders. Responsável pelo conceito "Ghost Blue Atmosphere", "Fluid Glass Header" e micro-interações refinadas (Framer Motion).'
     knowledge_base:
-      - '.agents/rules/05-r3f-ghost-system.md'
-      - '.agents/rules/02-ux-motion-principles.md'
-      - '.agents/rules/04-accessibility-performance.md'
-      - '.agents/rules/responsivity-mobile.md'
-      - '.agents/rules/asset-integrity.md'
+      - '.cursor/rules/05-r3f-ghost-system.md'
+      - '.cursor/rules/02-ux-motion-principles.md'
+      - '.cursor/rules/04-accessibility-performance.md'
+      - '.cursor/rules/responsivity-mobile.md'
+      - '.cursor/rules/asset-integrity.md'
       - 'docs/PROTOTIPO INTERATIVO - PORT DAN GHOST.md'
     temperature: 0.7 # Criativo para shaders e animações atmosféricas
 
@@ -28,10 +28,10 @@ agents:
     role: 'QA & Performance'
     description: 'Guardião de Web Vitals e Acessibilidade (A11y). Garante contraste, navegação por teclado e suporte a "prefers-reduced-motion".'
     knowledge_base:
-      - '.agents/rules/04-accessibility-performance.md'
-      - '.agents/rules/00-project-context.md'
-      - '.agents/rules/asset-integrity.md'
-      - '.agents/rules/responsivity-mobile.md'
+      - '.cursor/rules/04-accessibility-performance.md'
+      - '.cursor/rules/00-project-context.md'
+      - '.cursor/rules/asset-integrity.md'
+      - '.cursor/rules/responsivity-mobile.md'
       - 'docs/AUDITORIA.md'
       - 'docs/PROTOTIPO INTERATIVO - PORT DAN GHOST.md'
     temperature: 0.2
