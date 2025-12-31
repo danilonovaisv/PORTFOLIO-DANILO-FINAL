@@ -1,0 +1,14 @@
+/* ============================================================================
+ * src/components/home/HomeHero.module.css
+ * Styles for HomeHero component
+ * ============================================================================ */
+
+/* Reduced motion fallback styles for video container */
+.reducedMotionVideo {
+  position: relative;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: 0;
+  transform: none;
+}

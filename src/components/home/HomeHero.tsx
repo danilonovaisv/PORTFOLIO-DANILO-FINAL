@@ -22,6 +22,7 @@ import { HeroPreloader } from './HeroPreloader';
 import { HeroCopy } from './HeroCopy';
 import { ManifestoThumb } from './ManifestoThumb';
 import { GhostStage } from './GhostStage';
+import styles from './HomeHero.module.css';
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -238,18 +239,6 @@ export function HomeHero() {
     };
   }, [isClient, prefersReducedMotion]);
 
-  // Reduced motion fallback styles
-  const reducedMotionVideoStyle: React.CSSProperties = prefersReducedMotion
-    ? {
-        position: 'relative' as const,
-        width: '100%',
-        height: 'auto',
-        aspectRatio: '16/9',
-        borderRadius: 0,
-        transform: 'none',
-      }
-    : {};
-
   return (
     <section
       id="hero"
@@ -287,9 +276,8 @@ export function HomeHero() {
             flex items-center justify-center
             overflow-hidden
             will-change-transform
-            ${prefersReducedMotion ? '' : 'hidden md:flex'}
+            ${prefersReducedMotion ? styles.reducedMotionVideo : 'hidden md:flex'}
           `}
-          style={reducedMotionVideoStyle}
         >
           <div className="w-full h-full" onClick={handleSkipToFullscreen}>
             <ManifestoThumb onClickDesktop={handleSkipToFullscreen} />

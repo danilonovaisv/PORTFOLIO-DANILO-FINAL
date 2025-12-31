@@ -20,7 +20,7 @@ export function HeroPreloader() {
       initial={{ opacity: 1 }}
       animate={{ opacity: 0 }}
       transition={baseTransition}
-      className="pointer-events-none fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-[#050509] to-[#111827]"
+      className="pointer-events-none fixed inset-0 z-50 flex flex-col items-center justify-center bg-linear-to-br from-[#050509] to-[#111827]"
     >
       <motion.svg
         className="mb-4"
@@ -48,7 +48,7 @@ export function HeroPreloader() {
 
       <div className="w-24 h-0.5 bg-[#06071f] rounded-full overflow-hidden">
         <motion.div
-          className="h-full bg-gradient-to-r from-[#0057FF] to-[#5227FF]"
+          className="h-full bg-linear-to-r from-[#0057FF] to-[#5227FF]"
           initial={{ width: 0 }}
           animate={{ width: '100%' }}
           transition={{ duration: prefersReducedMotion ? 0.6 : 2 }}

@@ -212,7 +212,7 @@ export function ManifestoThumb({
 
       {/* Subtle gradient overlay for depth */}
       <div
-        className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-60"
+        className="absolute inset-0 pointer-events-none bg-linear-to-t from-black/30 via-transparent to-transparent opacity-60"
         aria-hidden="true"
       />
     </motion.div>
