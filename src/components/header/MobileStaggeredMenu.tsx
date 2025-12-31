@@ -50,13 +50,10 @@ export default function MobileStaggeredMenu({
   const plusVRef = useRef<HTMLSpanElement | null>(null);
   const iconRef = useRef<HTMLSpanElement | null>(null);
 
-  const textInnerRef = useRef<HTMLSpanElement | null>(null);
-  const [textLines, setTextLines] = useState<string[]>(['Menu', 'Close']);
 
   const openTlRef = useRef<gsap.core.Timeline | null>(null);
   const closeTweenRef = useRef<gsap.core.Tween | null>(null);
   const spinTweenRef = useRef<gsap.core.Timeline | null>(null);
-  const textCycleAnimRef = useRef<gsap.core.Tween | null>(null);
   const colorTweenRef = useRef<gsap.core.Tween | null>(null);
 
   const toggleBtnRef = useRef<HTMLButtonElement | null>(null);
@@ -72,9 +69,8 @@ export default function MobileStaggeredMenu({
       const plusH = plusHRef.current;
       const plusV = plusVRef.current;
       const icon = iconRef.current;
-      const textInner = textInnerRef.current;
 
-      if (!panel || !plusH || !plusV || !icon || !textInner) return;
+      if (!panel || !plusH || !plusV || !icon) return;
 
       const preLayers = Array.from(preContainer?.querySelectorAll('.sm-prelayer') || []) as HTMLElement[];
       preLayerElsRef.current = preLayers;
@@ -86,7 +82,6 @@ export default function MobileStaggeredMenu({
       gsap.set(plusV, { transformOrigin: '50% 50%', rotate: 90 });
       gsap.set(icon, { rotate: 0, transformOrigin: '50% 50%' });
 
-      gsap.set(textInner, { yPercent: 0 });
       gsap.set(toggleBtnRef.current, { color: '#ffffff' });
     });
     return () => ctx.revert();
@@ -238,36 +233,6 @@ export default function MobileStaggeredMenu({
     }
   }, []);
 
-  const animateText = useCallback((opening: boolean) => {
-    const inner = textInnerRef.current;
-    if (!inner) return;
-
-    textCycleAnimRef.current?.kill();
-
-    const currentLabel = opening ? 'Menu' : 'Close';
-    const targetLabel = opening ? 'Close' : 'Menu';
-    const cycles = 3;
-
-    const seq: string[] = [currentLabel];
-    let last = currentLabel;
-    for (let i = 0; i < cycles; i++) {
-      last = last === 'Menu' ? 'Close' : 'Menu';
-      seq.push(last);
-    }
-    if (last !== targetLabel) seq.push(targetLabel);
-    seq.push(targetLabel);
-
-    setTextLines(seq);
-    gsap.set(inner, { yPercent: 0 });
-
-    const finalShift = ((seq.length - 1) / seq.length) * 100;
-
-    textCycleAnimRef.current = gsap.to(inner, {
-      yPercent: -finalShift,
-      duration: 0.5 + seq.length * 0.07,
-      ease: 'power4.out',
-    });
-  }, []);
 
   const animateColor = useCallback(
     (opening: boolean) => {
@@ -299,9 +264,8 @@ export default function MobileStaggeredMenu({
 
       animateIcon(target);
       animateColor(target);
-      animateText(target);
     },
-    [playOpen, playClose, animateIcon, animateColor, animateText]
+    [playOpen, playClose, animateIcon, animateColor]
   );
 
   const handleToggleClick = () => {
@@ -328,20 +292,11 @@ export default function MobileStaggeredMenu({
         <button
           ref={toggleBtnRef}
           onClick={handleToggleClick}
-          className="pointer-events-auto flex items-center gap-2 bg-transparent border-0 cursor-pointer font-medium text-white mix-blend-difference"
-          aria-expanded={internalOpen}
+          className="pointer-events-auto flex items-center justify-center w-12 h-12 bg-transparent border-0 cursor-pointer text-white mix-blend-difference"
+          aria-expanded={internalOpen ? 'true' : 'false'}
+          aria-label={internalOpen ? 'Fechar menu' : 'Abrir menu'}
         >
-          <span className="relative inline-block h-[1em] overflow-hidden whitespace-nowrap min-w-[50px] text-right mr-1">
-            <span ref={textInnerRef} className="flex flex-col leading-none">
-              {textLines.map((l, i) => (
-                <span key={i} className="h-[1em] leading-none">
-                  {l}
-                </span>
-              ))}
-            </span>
-          </span>
-
-          <span ref={iconRef} className="relative w-4 h-4 flex items-center justify-center">
+          <span ref={iconRef} className="relative w-5 h-5 flex items-center justify-center">
             <span
               ref={plusHRef}
               className="absolute w-full h-[2px] bg-current rounded-full"
@@ -355,11 +310,10 @@ export default function MobileStaggeredMenu({
       </header>
 
       <div ref={preLayersRef} className="fixed inset-0 pointer-events-none z-45">
-        {[gradient[0], gradient[1], '#ffffff'].map((c, i) => (
+        {[gradient[0], gradient[1], '#ffffff'].map((it, i) => (
           <div
             key={i}
-            className="sm-prelayer absolute inset-0 w-full h-full"
-            style={{ backgroundColor: c } as React.CSSProperties}
+            className={`sm-prelayer sm-prelayer-${i} absolute inset-0 w-full h-full`}
           />
         ))}
       </div>
@@ -367,7 +321,7 @@ export default function MobileStaggeredMenu({
       <aside
         ref={panelRef}
         className="fixed inset-0 h-full w-full bg-white flex flex-col p-24 pb-12 overflow-y-auto z-50"
-        aria-hidden={!internalOpen}
+        aria-hidden={!internalOpen ? 'true' : 'false'}
       >
         <nav className="flex-1 flex flex-col justify-center">
           <ul className="list-none m-0 p-0 flex flex-col gap-8">
@@ -417,6 +371,9 @@ export default function MobileStaggeredMenu({
           /* Prevents layout shift during animation */
           backface-visibility: hidden;
         }
+        .sm-prelayer-0 { background-color: ${gradient[0]}; }
+        .sm-prelayer-1 { background-color: ${gradient[1]}; }
+        .sm-prelayer-2 { background-color: #ffffff; }
       `}</style>
     </div>
   );

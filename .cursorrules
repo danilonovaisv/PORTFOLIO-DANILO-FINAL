@@ -1,18 +1,37 @@
-# Danilo Novais - Portfolio Agent Rules
+# Danilo Novais - Senior Agentic Rules (Ghost Era)
 
-## Technology Stack (Sync with Project Reality)
-- **Framework:** Next.js 14+ (App Router).
-- **Styling:** Tailwind CSS **v4**. 
-  - ALWAYS use v4 syntax for gradients: `bg-linear-to-r` instead of `bg-gradient-to-r`.
-  - Use project tokens: `bg-ghost-void`, `text-text-muted`, `bg-primary`.
-- **3D/Motion:** React Three Fiber + Framer Motion.
+## 1. Core Principles: "Ghost Blue" Atmosphere
+- **Concept:** Ethereal, non-solid, energy-based design. Avoid physical "glass" metaphors (refraction, physical frosting) unless it's the "ghost" itself.
+- **Palette:** 
+  - `ghost-void`: #050505 (Background Main)
+  - `ghost-abyss`: #06071f (Depth/Blue Gradient)
+  - `primary`: #0057FF (Electric Blue Interaction)
+  - `text-muted`: #d9dade (Standard Text)
+- **Hierarchy:** 
+  - Z-Index 0-5: Deep Backgrounds / Gradients.
+  - Z-Index 20-30: WebGL "Ghost" Layers.
+  - Z-Index 40+: UI, Navigation, and Interactive Overlays.
 
-## Design Principles
-- **Atmosphere:** "Ghost Blue" etéreo. Use `#0057FF` for primary glows and `#06071f` for deep backgrounds.
-- **A11y:** Respect `prefers-reduced-motion`. Disable WebGL and complex parallax when active.
-- **Micro-interactions:** Keep them premium but subtle. Follow CSS module patterns for complex header animations.
+## 2. Technology Stack (Enforced)
+- **Framework:** Next.js 16 (App Router). Always prefer Server Components.
+- **Styling:** Tailwind CSS **v4**.
+  - **BREAKING:** Use `@theme` tokens. Use `bg-linear-to-r` instead of `bg-gradient-to-r`.
+  - Use modern CSS variables for colors where applicable.
+- **Motion:** 
+  - **GSAP:** For complex, multi-step timeline animations (e.g. Hero, Scroll Reveals).
+  - **Framer Motion:** For micro-interactions, layout transitions (`layoutId`), and simple scroll transforms.
+  - **Lenis:** Always active for smooth scrolling.
+- **3D:** React Three Fiber + @react-three/postprocessing (Bloom/Noise/Vignette).
 
-## Code Standards
-- **Imports:** Remove unused imports. Use `@/` alias for src.
-- **TS:** Strict types. Avoid `any`.
-- **CSS:** Prefer Tailwind utility classes. Use CSS Modules for complex logic-heavy animations (e.g., Header).
+## 3. Implementation Rules
+- **WebGL:** Components should use `next/dynamic` with `ssr: false`. Use `Suspense` for loading.
+- **Imports:** Remove unused imports immediately. Use absolute paths with `@/` alias.
+- **Accessibility:** 
+  - Ensure all interactive elements have labels (`aria-label`).
+  - Respect `prefers-reduced-motion` using Framer's `useReducedMotion`.
+  - Fix any lint warnings regarding ARIA attributes (must be strings like "true"/"false").
+- **Design:** No placeholders. Use `generate_image` for realistic visual demonstrations.
+
+## 4. Workflows
+- Refer to `.agents/workflows/` for step-by-step implementation guides on specific features (Hero, Portfolio, Contact).
+- Always sync implementations with `AGENT.md` (Project Source of Truth).

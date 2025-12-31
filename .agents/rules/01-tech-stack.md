@@ -6,9 +6,9 @@ trigger: always_on
 
 ## Core
 
-- **Framework:** Next.js 14+ (App Router obrigatório).
+- **Framework:** Next.js 16+ (App Router).
 - **Linguagem:** TypeScript (Strict Mode).
-- **Estilização:** Tailwind CSS (com `tailwind-merge` e `clsx`).
+- **Estilização:** Tailwind CSS v4 (native CSS variables support).
 
 ## Gráficos & Animação
 
