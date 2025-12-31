@@ -65,9 +65,10 @@ export default function FluidGlass({ mode = 'lens', lensProps = {}, barProps = {
 
   const {
     navItems = [
-      { label: 'Home', link: '' },
-      { label: 'About', link: '' },
-      { label: 'Contact', link: '' }
+      { label: 'home', link: '' },
+      { label: 'sobre', link: '' },
+      { label: 'portfolio', link: '' }
+      { label: 'contato', link: '' }
     ],
     ...modeProps
   } = rawOverrides;

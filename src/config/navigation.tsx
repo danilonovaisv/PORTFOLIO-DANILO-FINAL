@@ -70,7 +70,7 @@ export const FOOTER = {
   links: [
     { label: 'home', href: '/' },
     { label: 'sobre', href: '/sobre' },
-    { label: 'portfolio showcase', href: '/portfolio' },
+    { label: 'portfolio', href: '/portfolio' },
     { label: 'contato', href: '#contact' },
   ],
 };
@@ -78,38 +78,30 @@ export const FOOTER = {
 // Header navigation links
 export const NAV_LINKS = [
   { label: 'home', href: '/' },
-  { label: 'portfolio showcase', href: '/portfolio' },
   { label: 'sobre', href: '/sobre' },
+  { label: 'portfolio', href: '/portfolio' },
   { label: 'contato', href: '#contact' },
 ];
 
 export const HEADER_LINKS_DESKTOP = [
   { label: 'home', href: '/', ariaLabel: 'Ir para a home' },
-  { label: 'work', href: '/portfolio', ariaLabel: 'Ir para trabalhos' },
-  {
-    label: 'portfolio showcase',
-    href: '/#portfolio-showcase',
-    ariaLabel: 'Ir para showcase',
-  },
-  { label: 'contact', href: '#contact', ariaLabel: 'Ir para contato' },
+  { label: 'sobre', href: '/sobre', ariaLabel: 'Saiba mais sobre mim' },
+  { label: 'portfolio', href: '/portfolio', ariaLabel: 'Ver meu portfólio' },
+  { label: 'contato', href: '#contact', ariaLabel: 'Ir para contato' },
 ];
 
 export const HEADER_LINKS_MOBILE = [
   { label: 'home', href: '/', ariaLabel: 'Ir para a home' },
-  { label: 'work', href: '/portfolio', ariaLabel: 'Ir para trabalhos' },
-  {
-    label: 'portfolio showcase',
-    href: '/#portfolio-showcase',
-    ariaLabel: 'Ir para showcase',
-  },
-  { label: 'contact', href: '#contact', ariaLabel: 'Ir para contato' },
+  { label: 'sobre', href: '/sobre', ariaLabel: 'Saiba mais sobre mim' },
+  { label: 'portfolio', href: '/portfolio', ariaLabel: 'Ver meu portfólio' },
+  { label: 'contato', href: '#contact', ariaLabel: 'Ir para contato' },
 ];
 
 export const NAVIGATION = {
   header: [
     { label: 'home', href: '/' },
     { label: 'sobre', href: '/sobre' },
-    { label: 'portfolio showcase', href: '/portfolio' },
+    { label: 'portfolio', href: '/portfolio' },
     { label: 'contato', href: '#contact' },
   ],
   footer: FOOTER,

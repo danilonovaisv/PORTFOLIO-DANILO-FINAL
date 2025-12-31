@@ -55,7 +55,7 @@ export default function GhostCanvas() {
         <Fireflies />
 
         {/* Efeitos visuais */}
-        <EffectComposer disableNormalPass>
+        <EffectComposer enableNormalPass={false}>
           <Bloom
             luminanceThreshold={1}
             mipmapBlur
