@@ -75,7 +75,7 @@ export default function PortfolioShowcaseSection() {
         </div>
 
         {/* CTA Centralizado - Estilo Compound Pill Standard */}
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-16 md:mt-20">
           <CTAButton href="/portfolio">
             let's build something great
           </CTAButton>

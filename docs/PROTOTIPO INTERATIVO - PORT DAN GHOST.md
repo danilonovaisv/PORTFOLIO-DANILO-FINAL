@@ -582,14 +582,14 @@ duration: 0.7s ease-out
 #### CTA Card
 
 **Content:**
-- Headline: "Like what you see?"
+- Headline: "Like what you see?"  - font normal - (on hover, text becomes `#0057FF`)
 - Button: "view projects →" with arrow icon
-- Background: `#0057FF` (switches to `#E6F0FF` on hover, text becomes `#0057FF`)
+- Background: `#0d003b` (on hover, text becomes `#0057FF`)
 
 **Interaction:**
 ```javascript
 // Hover
-background: { #0057FF → #E6F0FF }
+background: { #0d003b }
 text: { white → #0057FF }
 arrow: { translateX: 4px }
 duration: 300ms

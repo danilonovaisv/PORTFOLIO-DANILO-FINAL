@@ -3,7 +3,7 @@
 import React from 'react';
 import SmoothScroll from '@/components/layout/SmoothScroll';
 import Header from '@/components/layout/Header';
-import Footer from '@/src/components/layout/SiteFooter';
+import Footer from '@/components/layout/SiteFooter';
 
 import { useExperience } from '@/hooks/useExperience';
 

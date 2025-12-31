@@ -1,20 +1,49 @@
+// ============================================================================
+// src/components/header/headerTokens.ts
+// Tokens de layout, cor e motion específicos do Header
+// ============================================================================
+
+export const headerColors = {
+  primary: '#0048ff',
+  background: '#0d003b',
+  text: '#fcffff',
+  textInverse: '#0e0e0e',
+  accent: '#4fe6ff',
+};
+
+export const headerZ = {
+  heroContent: 20,
+  header: 40,
+};
+
+export const glassMotionTokens = {
+  maxTranslateX: 48,
+  scaleX: [1, 1.05] as [number, number],
+  scaleY: [1, 1.02] as [number, number],
+  followDamping: 0.12,
+};
+
+export const mobileMenuMotionTokens = {
+  overlayDuration: 0.22,
+  panelDuration: 0.28,
+  itemDuration: 0.22,
+  itemInitialY: 16,
+  staggerDelay: 0.08,
+};
+
+// Backwards compatibility
 export const HEADER_TOKENS = {
-  zIndex: 40,
+  zIndex: headerZ.header,
   desktop: {
     height: 64,
-    maxTranslateX: 56,
-    maxScaleX: 1.05,
-    maxScaleY: 1.02,
+    maxTranslateX: glassMotionTokens.maxTranslateX,
+    maxScaleX: glassMotionTokens.scaleX[1],
+    maxScaleY: glassMotionTokens.scaleY[1],
     followDamping: 18,
   },
   mobile: {
     height: 56,
-    staggerDelay: 0.08,
+    staggerDelay: mobileMenuMotionTokens.staggerDelay,
   },
-  colors: {
-    primary: '#0057FF',
-    bgDark: '#06071f',
-    text: '#0b0b0e',
-    textInverse: '#ffffff',
-  },
+  colors: headerColors,
 } as const;
