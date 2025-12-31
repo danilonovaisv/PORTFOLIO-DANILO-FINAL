@@ -5,7 +5,7 @@
 // Hero Orchestrator — Editorial text (static) + Manifesto video morph
 //
 // DESKTOP BEHAVIOR:
-// - Thumb starts FIXED at bottom-right corner (30vw, rounded)
+// - Thumb starts FIXED at bottom-right corner of VIEWPORT
 // - As user scrolls, thumb grows to FULLSCREEN
 // - When fullscreen: 2-second HOLD + sound unmute
 // - After hold: fade out, continue scroll
@@ -87,6 +87,7 @@ export function HomeHero() {
   const [videoState, setVideoState] = useState<VideoState>('thumbnail');
   const [isMuted, setIsMuted] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
+  const [showVideo, setShowVideo] = useState(true);
 
   // Scroll tracking
   const { scrollYProgress } = useScroll({
@@ -96,7 +97,7 @@ export function HomeHero() {
 
   // ============================================================================
   // TRANSFORM VALUES
-  // Thumb starts at bottom-right, grows to fullscreen center
+  // Fixed position at bottom-right, grows to fullscreen
   // ============================================================================
   const { morphStart, morphEnd } = CONFIG.timing;
 
@@ -107,14 +108,13 @@ export function HomeHero() {
     ['30vw', '100vw']
   );
 
-  // Height: auto (16:9) → 100vh
+  // Height: 16:9 aspect → 100vh
   const height = useTransform(
     scrollYProgress,
     [morphStart, morphEnd],
     ['calc(30vw * 9 / 16)', '100vh']
   );
 
-  // Position: bottom-right → center (0,0)
   // Right offset: 24px → 0
   const right = useTransform(
     scrollYProgress,
@@ -129,7 +129,7 @@ export function HomeHero() {
     [CONFIG.thumb.bottom, 0]
   );
 
-  // Border radius: 16px → 0px
+  // Border radius: 16px → 0
   const borderRadius = useTransform(
     scrollYProgress,
     [morphStart, morphEnd * 0.8],
@@ -147,26 +147,28 @@ export function HomeHero() {
   );
 
   // ============================================================================
-  // STATE MACHINE - Handle scroll progress changes
+  // STATE MACHINE
   // ============================================================================
   useMotionValueEvent(scrollYProgress, 'change', (progress) => {
     if (prefersReducedMotion) return;
 
     const { fullscreenThreshold } = CONFIG.timing;
 
+    // Show video while in Hero section
+    if (progress <= 1) {
+      setShowVideo(true);
+    }
+
     if (progress < morphEnd * 0.5) {
-      // Still in thumbnail/early transition
       if (videoState !== 'thumbnail' && videoState !== 'transition') {
         setVideoState('thumbnail');
         muteVideo();
       }
     } else if (progress >= morphEnd * 0.5 && progress < fullscreenThreshold) {
-      // Transitioning
       if (videoState === 'thumbnail') {
         setVideoState('transition');
       }
     } else if (progress >= fullscreenThreshold) {
-      // Reached fullscreen
       if (videoState === 'transition') {
         enterFullscreenHold();
       }
@@ -175,11 +177,12 @@ export function HomeHero() {
     // Scrolling back up
     if (progress < morphEnd * 0.3 && videoState === 'released') {
       setVideoState('thumbnail');
+      setShowVideo(true);
     }
   });
 
   // ============================================================================
-  // FULLSCREEN HOLD (2 seconds + unmute)
+  // FULLSCREEN HOLD
   // ============================================================================
   const enterFullscreenHold = useCallback(() => {
     setVideoState('fullscreenHold');
@@ -192,6 +195,8 @@ export function HomeHero() {
     holdTimeoutRef.current = setTimeout(() => {
       setVideoState('released');
       muteVideo();
+      // Hide video after release
+      setTimeout(() => setShowVideo(false), 500);
     }, CONFIG.holdDuration);
   }, []);
 
@@ -265,104 +270,112 @@ export function HomeHero() {
   // MAIN RENDER
   // ============================================================================
   return (
-    <section
-      id="hero"
-      ref={sectionRef}
-      className="relative h-[200vh] bg-[#06071f] overflow-hidden"
-      aria-label="Hero section with animated video manifesto"
-    >
-      {/* Preloader (z-50) */}
-      <HeroPreloader />
+    <>
+      <section
+        id="hero"
+        ref={sectionRef}
+        className="relative h-[200vh] bg-[#06071f] overflow-hidden"
+        aria-label="Hero section with animated video manifesto"
+      >
+        {/* Preloader (z-50) */}
+        <HeroPreloader />
 
-      {/* Sticky container - pins content during scroll */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {/* Layer 1: Ghost Atmosphere (z-20) */}
-        <div
-          className="absolute inset-0 z-20 pointer-events-none"
-          aria-hidden="true"
-        >
-          <GhostStage reducedMotion={false} />
-        </div>
+        {/* Sticky container - pins content during scroll */}
+        <div className="sticky top-0 h-screen w-full overflow-hidden">
+          {/* Layer 1: Ghost Atmosphere (z-20) */}
+          <div
+            className="absolute inset-0 z-20 pointer-events-none"
+            aria-hidden="true"
+          >
+            <GhostStage reducedMotion={false} />
+          </div>
 
-        {/* Layer 2: Editorial Text - 100% STATIC (z-30) */}
-        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center pointer-events-none">
-          <div className="pointer-events-auto">
-            <HeroCopy />
+          {/* Layer 2: Editorial Text - 100% STATIC (z-30) */}
+          <div className="absolute inset-0 z-30 flex flex-col items-center justify-center pointer-events-none">
+            <div className="pointer-events-auto">
+              <HeroCopy />
+            </div>
           </div>
         </div>
+      </section>
 
-        {/* Layer 3: Video Manifesto (z-40) - DESKTOP ONLY */}
-        {/* Starts as fixed thumb at bottom-right, morphs to fullscreen */}
-        <motion.div
-          className="absolute z-40 overflow-hidden will-change-transform hidden md:block"
-          style={{
-            width,
-            height,
-            right,
-            bottom,
-            borderRadius,
-            boxShadow,
-          }}
-          initial={CONFIG.entrance.initial}
-          animate={{
-            opacity: videoState === 'released' ? 0 : 1,
-            scale: CONFIG.entrance.animate.scale,
-            y: CONFIG.entrance.animate.y,
-          }}
-          transition={CONFIG.entrance.transition}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          onClick={handleThumbClick}
-        >
+      {/* 
+        FIXED VIDEO OVERLAY - OUTSIDE the section!
+        Uses position: fixed to stay anchored to viewport
+        Only visible on desktop (md:block)
+      */}
+      <AnimatePresence>
+        {showVideo && (
           <motion.div
-            className="w-full h-full cursor-pointer relative"
-            animate={{
-              scale: isHovered && videoState === 'thumbnail' ? 1.05 : 1,
+            className="fixed z-[100] overflow-hidden will-change-transform hidden md:block pointer-events-auto"
+            style={{
+              width,
+              height,
+              right,
+              bottom,
+              borderRadius,
+              boxShadow,
             }}
-            transition={{ duration: 0.5 }}
+            initial={CONFIG.entrance.initial}
+            animate={{
+              opacity: videoState === 'released' ? 0 : 1,
+              scale: CONFIG.entrance.animate.scale,
+              y: CONFIG.entrance.animate.y,
+            }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={CONFIG.entrance.transition}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            onClick={handleThumbClick}
           >
-            <video
-              ref={videoRef}
-              src={CONFIG.videoSrc}
-              autoPlay
-              muted={isMuted}
-              loop
-              playsInline
-              className="w-full h-full object-cover"
-              aria-label="Portfolio showreel video"
-            />
-
-            {/* Sound indicator (fullscreen hold only) */}
-            <AnimatePresence>
-              {videoState === 'fullscreenHold' && !isMuted && (
-                <motion.div
-                  className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 
-                             bg-black/60 backdrop-blur-sm rounded-full px-4 py-2"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
-                >
-                  <span className="w-2 h-2 bg-[#4fe6ff] rounded-full animate-pulse" />
-                  <span className="text-white text-sm font-mono uppercase tracking-wider">
-                    Sound On
-                  </span>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Gradient overlay (thumbnail state only) */}
             <motion.div
-              className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent pointer-events-none"
-              animate={{ opacity: videoState === 'thumbnail' ? 0.7 : 0 }}
-              transition={{ duration: 0.3 }}
-              aria-hidden="true"
-            />
-          </motion.div>
-        </motion.div>
+              className="w-full h-full cursor-pointer relative"
+              animate={{
+                scale: isHovered && videoState === 'thumbnail' ? 1.05 : 1,
+              }}
+              transition={{ duration: 0.5 }}
+            >
+              <video
+                ref={videoRef}
+                src={CONFIG.videoSrc}
+                autoPlay
+                muted={isMuted}
+                loop
+                playsInline
+                className="w-full h-full object-cover"
+                aria-label="Portfolio showreel video"
+              />
 
-        {/* MOBILE: No thumb here - ManifestoSection handles it below */}
-      </div>
-    </section>
+              {/* Sound indicator (fullscreen hold only) */}
+              <AnimatePresence>
+                {videoState === 'fullscreenHold' && !isMuted && (
+                  <motion.div
+                    className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 
+                               bg-black/60 backdrop-blur-sm rounded-full px-4 py-2"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                  >
+                    <span className="w-2 h-2 bg-[#4fe6ff] rounded-full animate-pulse" />
+                    <span className="text-white text-sm font-mono uppercase tracking-wider">
+                      Sound On
+                    </span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Gradient overlay (thumbnail state only) */}
+              <motion.div
+                className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent pointer-events-none"
+                animate={{ opacity: videoState === 'thumbnail' ? 0.7 : 0 }}
+                transition={{ duration: 0.3 }}
+                aria-hidden="true"
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
