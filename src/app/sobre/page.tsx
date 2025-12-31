@@ -12,7 +12,7 @@ import ContactSection from '@/components/home/ContactSection';
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-[#0d003b] text-white">
+    <main className="min-h-screen bg-[#000022] text-white">
       <AboutHero />
       <AboutOrigin />
       <AboutServices />

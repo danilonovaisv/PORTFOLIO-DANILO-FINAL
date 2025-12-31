@@ -37,7 +37,7 @@ export const CompoundPillCTA = ({ href, label }: CompoundPillCTAProps) => {
       >
         {/* Pill Label */}
         <div className="relative z-10 flex h-[58px] items-center justify-center rounded-full bg-[#0057FF] px-10 transition-all duration-200 ease-out group-hover:bg-ghost-green shadow-[0_15px_45px_rgba(0,87,255,0.2)]">
-          <span className="text-base font-bold lowercase tracking-tight text-white transition-colors duration-200 ease-out group-hover:text-[#0d003b]">
+          <span className="text-base font-bold lowercase tracking-tight text-white transition-colors duration-200 ease-out group-hover:text-[#000022]">
             {label}
           </span>
         </div>
@@ -45,7 +45,7 @@ export const CompoundPillCTA = ({ href, label }: CompoundPillCTAProps) => {
         {/* Arrow Circle */}
         <motion.div
           style={{ x: orbitX, y: orbitY }}
-          className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-[#0057FF] text-white transition-all duration-200 ease-out group-hover:bg-ghost-green group-hover:text-[#0d003b] group-hover:scale-105 shadow-[0_10px_30px_rgba(0,0,0,0.1)]"
+          className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-[#0057FF] text-white transition-all duration-200 ease-out group-hover:bg-ghost-green group-hover:text-[#000022] group-hover:scale-105 shadow-[0_10px_30px_rgba(0,0,0,0.1)]"
         >
           <ArrowIcon className="h-6 w-6" />
         </motion.div>
