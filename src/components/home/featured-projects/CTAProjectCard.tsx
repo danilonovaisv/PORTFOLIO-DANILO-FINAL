@@ -19,7 +19,7 @@ export default function CTAProjectCard() {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <div className="group flex flex-col items-center justify-center h-full min-h-[300px] md:min-h-[400px] rounded-xl bg-[#000022] p-8 md:p-12 relative overflow-hidden">
+    <div className="group flex flex-col items-center justify-center h-full min-h-[300px] md:min-h-[400px] bg-transparent p-8 md:p-12 relative overflow-hidden">
       {/* Headline - font normal, hover changes to blue */}
       <h3 className="text-4xl md:text-6xl lg:text-7xl font-normal text-center mb-10 md:mb-16 tracking-tight leading-[1.1] text-white transition-colors duration-300 group-hover:text-[#0057FF]">
         Like what

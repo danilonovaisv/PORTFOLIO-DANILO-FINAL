@@ -62,16 +62,11 @@ export default function supabaseLoader({
       }
     }
 
-    // If Supabase 'object' URL, transform to 'render'
+    // If Supabase 'object' URL, do NOT transform to 'render' because it is returning 403.
+    // Return original URL with width param for Next.js compatibility (though it might be ignored by Supabase storage)
     if (src.includes('/storage/v1/object/public/')) {
-      const transformed = src.replace(
-        '/storage/v1/object/public/',
-        '/storage/v1/render/image/public/'
-      );
-      const separator = transformed.includes('?') ? '&' : '?';
-      return (
-        transformed + `${separator}width=${width}&quality=${quality || 75}`
-      );
+      const separator = src.includes('?') ? '&' : '?';
+      return `${src}${separator}width=${width}&quality=${quality || 75}`;
     }
 
     return src;
@@ -85,6 +80,7 @@ export default function supabaseLoader({
     return `${baseUrl}?width=${width}`;
   }
 
-  // Transform to render URL for relative paths
-  return `${supabaseUrl}/storage/v1/render/image/public/${key}?width=${width}&quality=${quality || 75}`;
+  // Return object URL for relative paths as well (avoid render 403)
+  const separator = baseUrl.includes('?') ? '&' : '?';
+  return `${baseUrl}${separator}width=${width}&quality=${quality || 75}`;
 }
