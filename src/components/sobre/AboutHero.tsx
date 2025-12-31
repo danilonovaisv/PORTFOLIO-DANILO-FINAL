@@ -1,17 +1,24 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useReducedMotion,
+} from 'framer-motion';
 import { useRef } from 'react';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { ghostIn } from '@/lib/motionTokens';
 
 const VIDEO_DESKTOP =
-  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO%20HERO%20-%20SOBRE-DESKTOP.mp4';
+  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO%20HERO%20-%20SOBRE_02.mp4';
 const VIDEO_MOBILE =
-  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO%20HERO%20-%20SOBRE%20MOBILE.mp4';
+  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO%20HERO%20-%20SOBRE_02.mp4';
 
 export default function AboutHero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const isDesktop = useMediaQuery('(min-width: 768px)');
+  const shouldReduceMotion = useReducedMotion();
 
   // Parallax effect for video
   const { scrollYProgress } = useScroll({
@@ -35,7 +42,7 @@ export default function AboutHero() {
   return (
     <section
       ref={containerRef}
-      className="relative h-screen w-full overflow-hidden flex items-center justify-center"
+      className="relative min-h-screen w-full overflow-hidden flex items-center justify-center pt-24"
     >
       {/* Video Background */}
       <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
@@ -59,16 +66,13 @@ export default function AboutHero() {
           return (
             <motion.div
               key={i}
-              initial={{ opacity: 0, filter: 'blur(10px)' }}
-              animate={{ opacity: 1, filter: 'blur(0px)' }}
-              transition={{
-                duration: 1.4,
-                delay: 0.2 + i * 0.2,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+              variants={ghostIn}
+              initial={shouldReduceMotion ? 'visible' : 'hidden'}
+              animate="visible"
+              custom={0.2 + i * 0.2}
             >
               <h1
-                className={`${i === 0 ? 'text-4xl md:text-6xl font-bold mb-8 text-white' : 'text-xl md:text-3xl font-light text-white/90 leading-relaxed'}`}
+                className={`${i === 0 ? 'text-5xl md:text-7xl font-bold mb-6 text-white tracking-tight' : 'text-xl md:text-3xl font-light text-white/90 leading-relaxed'}`}
               >
                 {line}
               </h1>

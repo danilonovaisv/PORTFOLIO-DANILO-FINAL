@@ -23,7 +23,7 @@ export const HOME_CONTENT = {
         label: 'Videos & Motions',
         align: 'center',
         thumb:
-          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
+          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/y2mate.com%20-%20promoao_ta_podendo_nestle_ta_de_volta__wanzLKTQOE_1080p.mp4',
       },
       {
         id: 'websites-tech',
@@ -46,7 +46,7 @@ export const HOME_CONTENT = {
       year: 2023,
       tags: ['Branding', 'Strategy', 'Campaign'],
       image:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp',
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/converted-(10).webp',
       layout: {
         h: 'h-[500px]',
         cols: 'md:col-span-5',
@@ -62,7 +62,7 @@ export const HOME_CONTENT = {
       year: 2022,
       tags: ['Branding', 'Identity'],
       image:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/converted-(4).webp',
       layout: {
         h: 'h-[500px]',
         cols: 'md:col-span-7',
@@ -78,7 +78,7 @@ export const HOME_CONTENT = {
       year: 2021,
       tags: ['Campaign', 'Print', 'Art Direction'],
       image:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp',
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/converted-(5).webp',
       layout: {
         h: 'h-[600px]',
         cols: 'md:col-span-12',
@@ -94,7 +94,7 @@ export const HOME_CONTENT = {
       year: 2023,
       tags: ['Web', 'Motion', 'UX'],
       image:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEOMANIFESTOGLAD_2.mp4',
       layout: {
         h: 'h-[400px]',
         cols: 'md:col-span-8',
@@ -127,7 +127,7 @@ export const PORTFOLIO_MOSAIC_DATA = [
       {
         id: 'magic-brand',
         imageSrc:
-          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp',
+          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/converted.webp',
         gradient: 'linear-gradient(to bottom right, #0057FF, #001f5c)',
         title: 'Magic Radio',
         subtitle: 'Branding & Identity',
@@ -136,7 +136,7 @@ export const PORTFOLIO_MOSAIC_DATA = [
       {
         id: 'nestle-promo',
         imageSrc:
-          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp',
+          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/converted-(9).webp',
         gradient: 'linear-gradient(to bottom right, #FF3366, #5c001f)',
         title: 'Nestlé Promo',
         subtitle: 'Key Visual & Campaign',
@@ -151,7 +151,7 @@ export const PORTFOLIO_MOSAIC_DATA = [
       {
         id: 'tech-web',
         imageSrc:
-          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
+          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/converted-(4).webp',
         gradient: 'linear-gradient(to right, #1a1a1a, #333333)',
         title: 'Web Experience Motion',
         subtitle: 'Interactive Design & Development',
@@ -166,7 +166,7 @@ export const PORTFOLIO_MOSAIC_DATA = [
       {
         id: 'branding-confidential',
         imageSrc:
-          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
+          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/converted.webp',
         gradient: 'linear-gradient(to top right, #333, #000)',
         title: 'Confidential Client',
         subtitle: 'Corporate Branding',
@@ -175,7 +175,7 @@ export const PORTFOLIO_MOSAIC_DATA = [
       {
         id: 'campaign-visuals',
         imageSrc:
-          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp',
+          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/converted-(10).webp',
         gradient: 'linear-gradient(to bottom left, #0057FF, #000)',
         title: 'Campaign Visuals',
         subtitle: 'Art Direction',

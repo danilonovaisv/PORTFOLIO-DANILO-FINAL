@@ -1,16 +1,10 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
+import { fadeGhost } from '@/lib/motionTokens';
 
 export default function AboutBeliefs() {
-  const fadeVariant = {
-    hidden: { opacity: 0, filter: 'blur(10px)' },
-    visible: {
-      opacity: 1,
-      filter: 'blur(0px)',
-      transition: { duration: 1.5, ease: [0.22, 1, 0.36, 1] as const },
-    },
-  };
+  const prefersReducedMotion = useReducedMotion();
 
   return (
     <section
@@ -19,10 +13,11 @@ export default function AboutBeliefs() {
     >
       <div className="w-full max-w-4xl px-6 text-center space-y-24 md:space-y-32">
         <motion.div
-          initial="hidden"
+          initial={prefersReducedMotion ? 'visible' : 'hidden'}
           whileInView="visible"
           viewport={{ once: true, margin: '-10%' }}
-          variants={fadeVariant}
+          variants={fadeGhost}
+          custom={0}
         >
           <p className="text-2xl md:text-4xl font-light leading-relaxed text-white">
             Acredito no design que muda o dia de alguém.
@@ -35,11 +30,11 @@ export default function AboutBeliefs() {
         </motion.div>
 
         <motion.div
-          initial="hidden"
+          initial={prefersReducedMotion ? 'visible' : 'hidden'}
           whileInView="visible"
           viewport={{ once: true, margin: '-10%' }}
-          transition={{ delay: 0.5 }}
-          variants={fadeVariant}
+          variants={fadeGhost}
+          custom={1.4}
         >
           <p className="text-xl md:text-3xl font-light leading-relaxed text-white/80">
             Um vídeo que respira.
@@ -51,11 +46,11 @@ export default function AboutBeliefs() {
         </motion.div>
 
         <motion.div
-          initial="hidden"
+          initial={prefersReducedMotion ? 'visible' : 'hidden'}
           whileInView="visible"
           viewport={{ once: true, margin: '-10%' }}
-          transition={{ delay: 1.0 }}
-          variants={fadeVariant}
+          variants={fadeGhost}
+          custom={2.8}
         >
           <p className="text-2xl md:text-4xl font-light leading-relaxed text-white">
             Crio para gerar presença.

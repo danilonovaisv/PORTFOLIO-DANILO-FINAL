@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
+import { riseSoft, staggerGhost } from '@/lib/motionTokens';
 
 const services = [
   'Direção criativa que organiza o caos',
@@ -17,38 +18,37 @@ export default function AboutServices() {
 
   return (
     <section
-      className="relative min-h-screen py-24 flex items-center justify-center bg-[#000022]"
+      className="relative min-h-[80vh] py-24 flex items-center justify-center bg-[#000022]"
       aria-label="O Que Eu Faço"
     >
-      <div className="w-full max-w-[600px] px-6">
+      <div className="w-full max-w-[560px] px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-10%' }}
+          viewport={{ margin: '-10%' }}
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-20 text-center"
+          className="mb-16 text-center"
         >
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-none text-white">
-            Do insight ao impacto.
+            <span className="text-white">Do insight ao impacto.</span>
             <br />
-            <span className="text-[#0057FF]">
+            <span className="text-[#0057FF] block mt-2">
               Mesmo quando você não percebe.
             </span>
           </h2>
         </motion.div>
 
-        <ul className="flex flex-col gap-10 md:gap-12">
+        <motion.ul
+          initial={prefersReducedMotion ? 'visible' : 'hidden'}
+          whileInView="visible"
+          viewport={{ margin: '-10%' }}
+          variants={staggerGhost(0.12)}
+          className="flex flex-col gap-8 md:gap-10"
+        >
           {services.map((service, i) => (
             <motion.li
               key={i}
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-5%' }}
-              transition={{
-                duration: 0.9,
-                ease: [0.22, 1, 0.36, 1],
-                delay: prefersReducedMotion ? 0 : i * 0.18,
-              }}
+              variants={riseSoft}
               whileHover={prefersReducedMotion ? {} : { opacity: 1, x: 0 }}
               className="text-center group"
             >
@@ -57,7 +57,7 @@ export default function AboutServices() {
               </span>
             </motion.li>
           ))}
-        </ul>
+        </motion.ul>
       </div>
     </section>
   );

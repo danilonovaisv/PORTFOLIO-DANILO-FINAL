@@ -1,6 +1,15 @@
 'use client';
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useReducedMotion,
+} from 'framer-motion';
+import { useRef } from 'react';
+import { fadeGhost } from '@/lib/motionTokens';
 
-import { motion } from 'framer-motion';
+const VIDEO_BG =
+  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO%20HERO%20-%20SOBRE%20-%20FRASE.mp4';
 
 const processList = [
   'Briefings bem construídos para decisões claras',
@@ -12,34 +21,48 @@ const processList = [
 ];
 
 export default function AboutMethod() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], ['-5%', '5%']);
+
   return (
     <section
-      className="relative min-h-[120vh] py-32 flex flex-col justify-center overflow-hidden"
+      ref={containerRef}
+      className="relative min-h-[120vh] py-32 flex flex-col justify-center overflow-hidden bg-black"
       aria-label="Como Eu Trabalho"
     >
-      {/* Background - Simulating "Active" background with gradient */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-br from-[#000022] via-[#06071f] to-[#000] opacity-90" />
-
-      {/* Simple animated abstract blob / glow */}
+      {/* Background - Full bleed video with parallax */}
       <motion.div
-        animate={{
-          scale: [1, 1.1, 1],
-          opacity: [0.3, 0.5, 0.3],
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-[#0057FF] rounded-full blur-[120px] opacity-30 z-0 pointer-events-none"
-      />
+        style={{ y: prefersReducedMotion ? 0 : y }}
+        className="absolute inset-0 z-0 h-[120%] -top-[10%]"
+      >
+        <video
+          src={VIDEO_BG}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover opacity-40 mix-blend-screen grayscale" // Adjusted opacity/grayscale for 'tech/lab' feel
+        />
+        <div className="absolute inset-0 bg-black/80" />
+      </motion.div>
 
       <div className="relative z-10 w-full max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)]">
         <div className="max-w-4xl">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-24"
+            variants={fadeGhost}
+            initial={prefersReducedMotion ? 'visible' : 'hidden'}
+            whileInView="visible"
+            viewport={{ amount: 0.4 }}
+            className="mb-16"
           >
-            <h2 className="text-5xl md:text-7xl font-bold text-white tracking-tighter leading-[0.9] mb-8">
+            <h2 className="text-5xl md:text-8xl font-bold text-white tracking-tighter leading-[0.9] mb-8">
               Criatividade com método.
               <br />
               <span className="text-white/40">Impacto sem ruído.</span>
@@ -55,17 +78,14 @@ export default function AboutMethod() {
             {processList.map((item, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{
-                  duration: 0.8,
-                  delay: i * 0.1,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="flex items-start gap-4 border-t border-white/10 pt-6"
+                variants={fadeGhost}
+                initial={prefersReducedMotion ? 'visible' : 'hidden'}
+                whileInView="visible"
+                viewport={{ amount: 0.2 }}
+                custom={i * 0.1}
+                className="flex items-start gap-4 border-t border-white/20 pt-6"
               >
-                <span className="font-mono text-[#0057FF] text-sm">
+                <span className="font-mono text-[#0057FF] text-base font-bold">
                   0{i + 1}
                 </span>
                 <p className="text-lg md:text-xl text-white/90 font-light">
