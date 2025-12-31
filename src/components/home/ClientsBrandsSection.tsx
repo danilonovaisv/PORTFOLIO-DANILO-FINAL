@@ -30,7 +30,11 @@ export default function ClientsBrandsSection() {
       };
 
   return (
-    <section id="clients" className="bg-primary py-12" aria-label="Marcas">
+    <section
+      id="clients"
+      className="bg-[#0057FF] py-12 relative z-10"
+      aria-label="Marcas"
+    >
       <div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)]">
         <motion.h2
           initial={reducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}

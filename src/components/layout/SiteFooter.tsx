@@ -2,14 +2,27 @@
 
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
+import { Instagram, Linkedin, Twitter } from 'lucide-react';
 import { FOOTER, SOCIALS } from '@/config/navigation';
 
 const footerLinks = FOOTER.links;
 
 const social = [
-  { label: 'Instagram', href: SOCIALS.instagram },
-  { label: 'LinkedIn', href: SOCIALS.linkedin },
-  { label: 'Twitter', href: SOCIALS.twitter },
+  {
+    label: 'Instagram',
+    href: SOCIALS.instagram,
+    icon: <Instagram className="w-5 h-5" />,
+  },
+  {
+    label: 'LinkedIn',
+    href: SOCIALS.linkedin,
+    icon: <Linkedin className="w-5 h-5" />,
+  },
+  {
+    label: 'Twitter',
+    href: SOCIALS.twitter,
+    icon: <Twitter className="w-5 h-5" />,
+  },
 ];
 
 function isHashHref(href: string) {
@@ -34,7 +47,7 @@ export default function SiteFooter() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: reducedMotion ? 0.2 : 0.6 }}
-        className="hidden lg:block w-full bg-[#050505] py-12 border-t border-white/5 relative z-10"
+        className="hidden lg:block w-full bg-[#0048ff] py-12 border-t border-white/5 relative z-10"
         aria-label="Footer"
       >
         <div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)] flex items-center justify-between text-white text-sm">
@@ -72,7 +85,7 @@ export default function SiteFooter() {
                   className="hover:text-[#0057FF] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded text-xs font-medium uppercase tracking-tighter"
                   aria-label={`Abrir ${s.label}`}
                 >
-                  {s.label}
+                  {s.icon}
                 </a>
               ))}
             </div>
@@ -82,7 +95,7 @@ export default function SiteFooter() {
 
       {/* Mobile Footer */}
       <footer
-        className="lg:hidden bg-[#050505] text-white py-12 border-t border-white/5 relative z-10"
+        className="lg:hidden bg-[#0048ff] text-white py-12 border-t border-white/5 relative z-10"
         aria-label="Footer"
       >
         <div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)] flex flex-col gap-10">
@@ -123,7 +136,7 @@ export default function SiteFooter() {
                   rel="noopener noreferrer"
                   className="text-sm font-medium hover:opacity-70 active:text-[#0057FF]"
                 >
-                  {s.label}
+                  {s.icon}
                 </a>
               ))}
             </div>

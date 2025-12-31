@@ -302,7 +302,7 @@ export function HomeHero() {
       <section
         id="hero"
         ref={sectionRef}
-        className="relative h-[200vh] bg-[#06071f] overflow-hidden"
+        className="relative min-h-screen md:h-[200vh] bg-[#06071f] overflow-hidden"
         aria-label="Hero section with animated video manifesto"
       >
         {/* Preloader (z-50) */}

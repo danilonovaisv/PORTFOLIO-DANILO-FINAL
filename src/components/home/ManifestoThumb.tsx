@@ -114,6 +114,8 @@ export function ManifestoThumb({
   return (
     <motion.div
       className="relative w-full h-full overflow-hidden cursor-pointer group"
+      aria-label="Assistir manifesto em fullscreen"
+      role="button"
       initial={ANIMATION_CONFIG.entry.initial}
       animate={ANIMATION_CONFIG.entry.animate}
       transition={ANIMATION_CONFIG.entry.transition}

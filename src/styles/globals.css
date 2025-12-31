@@ -8,3 +8,10 @@
 .header-custom-height[style*='--header-height'] {
   height: var(--header-height);
 }
+
+@layer base {
+  body {
+    background-color: #0d003b;
+    color: white;
+  }
+}

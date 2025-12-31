@@ -81,7 +81,7 @@ export default function ContactSection() {
     <section
       id="contact"
       aria-label="Contato"
-      className="bg-white py-12 md:py-24"
+      className="bg-white py-12 md:py-24 relative z-10"
     >
       <div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)]">
         <motion.div
@@ -134,9 +134,6 @@ export default function ContactSection() {
             </div>
 
             <div className="flex items-center gap-3 pt-1">
-              <span className="text-sm uppercase tracking-wide text-text-dark/60">
-                redes & portfólio
-              </span>
               <div className="flex gap-2">
                 {socialLinks.map((social) => (
                   <motion.a

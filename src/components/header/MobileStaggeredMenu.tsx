@@ -29,7 +29,7 @@ const menuVariants = {
     x: '100%',
     transition: {
       duration: 0.4,
-      ease: [0.22, 1, 0.36, 1], // easeOutExpo
+      ease: [0.22, 1, 0.36, 1] as const, // easeOutExpo
       when: 'afterChildren',
     },
   },
@@ -38,7 +38,7 @@ const menuVariants = {
     x: 0,
     transition: {
       duration: 0.5,
-      ease: [0.22, 1, 0.36, 1],
+      ease: [0.22, 1, 0.36, 1] as const,
       when: 'beforeChildren',
       staggerChildren: 0.08,
     },
@@ -87,7 +87,7 @@ export default function MobileStaggeredMenu({
   return (
     <div className="lg:hidden">
       {/* Header bar fixed */}
-      <header className="fixed top-0 left-0 right-0 z-[60] flex items-center justify-between px-6 py-6 pointer-events-none">
+      <header className="fixed top-0 left-0 right-0 z-60 flex items-center justify-between px-6 py-6 pointer-events-none">
         <Link href="/" onClick={onClose} className="pointer-events-auto">
           <Image
             src={logoUrl}
@@ -102,8 +102,8 @@ export default function MobileStaggeredMenu({
         <button
           onClick={isOpen ? onClose : onOpen}
           aria-label={isOpen ? 'Fechar menu' : 'Abrir menu'}
-          aria-expanded={isOpen}
-          className="pointer-events-auto w-12 h-12 flex items-center justify-center text-white focus:outline-none z-[60]"
+          aria-expanded={isOpen ? 'true' : 'false'}
+          className="pointer-events-auto w-12 h-12 flex items-center justify-center text-white focus:outline-none z-60"
         >
           <div className="relative w-6 h-6 flex flex-col justify-center items-center gap-[6px]">
             <motion.span
@@ -130,7 +130,7 @@ export default function MobileStaggeredMenu({
             animate="open"
             exit="closed"
             variants={menuVariants}
-            className="fixed inset-0 z-50 bg-gradient-to-b from-[#06071f] to-[#050505] flex flex-col justify-center px-8"
+            className="fixed inset-0 z-50 bg-linear-to-b from-[#06071f] to-[#050505] flex flex-col justify-center px-8"
           >
             <ul className="flex flex-col gap-6">
               {navItems.map((item, i) => (
