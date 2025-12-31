@@ -23,5 +23,10 @@
       ]
     }
   },
-  "Lingma.aI Chat.mcpToolsInAgentMode": true
+  "Lingma.aI Chat.mcpToolsInAgentMode": true,
+  "window.closeWhenEmpty": true,
+  "files.autoSave": "afterDelay",
+  "editor.wordWrap": "on",
+  "clangd.checkUpdates": true,
+  "clangd.onConfigChanged.forceEnable": true
 }
