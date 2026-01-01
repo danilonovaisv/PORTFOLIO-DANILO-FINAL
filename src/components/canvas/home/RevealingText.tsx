@@ -1,113 +1,147 @@
-// src/components/canvas/home/postprocessing/RevealingText.tsx
 'use client';
 
 import { Text } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
-import React, { useRef, useMemo } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
+import { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 
-// Shader personalizado para o efeito de "Reveal"
-const revealFragmentShader = `
-  varying vec2 vUv;
-  varying vec3 vWorldPosition; // Recebe a posição mundial do vértice
-  
-  uniform vec3 uGhostPosition; // Posição do fantasma
-  uniform float uRevealRadius; // Raio da "lanterna"
-  uniform vec3 uColor;
+// --- SHADER DA CORTINA PRETA ---
+const darknessFragmentShader = `
+  varying vec3 vWorldPosition;
+  uniform vec3 uGhostPosition;
+  uniform float uRevealRadius;
 
   void main() {
-    // Calcula a distância entre este pixel do texto e o fantasma
     float dist = distance(vWorldPosition.xy, uGhostPosition.xy);
     
-    // Cria uma máscara suave (1.0 perto do fantasma, 0.0 longe)
-    // smoothstep(edge0, edge1, x): inverte para que fique visível PERTO (1.0) e invisível LONGE (0.0)
-    float alpha = 1.0 - smoothstep(0.0, uRevealRadius, dist);
+    // Calcula a opacidade da escuridão:
+    // Perto do fantasma (dist 0) -> Alpha 0.0 (Transparente/Revela)
+    // Longe do fantasma -> Alpha 0.98 (Quase preto total/Esconde)
+    float darknessAlpha = smoothstep(uRevealRadius * 0.1, uRevealRadius, dist);
     
-    // Aplica a cor e a opacidade calculada
-    gl_FragColor = vec4(uColor, alpha);
+    // Garante que o fundo não fique 100% preto para dar profundidade (max 0.98)
+    darknessAlpha = clamp(darknessAlpha, 0.0, 0.98);
+    
+    gl_FragColor = vec4(0.0, 0.0, 0.0, darknessAlpha);
   }
 `;
 
-const revealVertexShader = `
-  varying vec2 vUv;
+const darknessVertexShader = `
   varying vec3 vWorldPosition;
-
   void main() {
-    vUv = uv;
-    // Calcula a posição real do vértice no mundo 3D
     vec4 worldPosition = modelMatrix * vec4(position, 1.0);
     vWorldPosition = worldPosition.xyz;
-    
     gl_Position = projectionMatrix * viewMatrix * worldPosition;
   }
 `;
 
 interface RevealingTextProps {
-  ghostRef: React.RefObject<THREE.Group | null>; // Referência ao objeto do fantasma
+  ghostRef: React.RefObject<THREE.Group>;
 }
 
 export default function RevealingText({ ghostRef }: RevealingTextProps) {
-  const materialRef = useRef<THREE.ShaderMaterial>(null);
+  const maskMaterialRef = useRef<THREE.ShaderMaterial>(null);
+  const { viewport } = useThree();
+  const isMobile = viewport.width < 5;
 
-  // Criamos o material apenas uma vez
-  const shaderMaterial = useMemo(() => {
+  // Material da Cortina Preta
+  const darknessMaterial = useMemo(() => {
     return new THREE.ShaderMaterial({
       uniforms: {
         uGhostPosition: { value: new THREE.Vector3(0, 0, 0) },
-        uRevealRadius: { value: 3.5 }, // Aumente/diminua para mudar o tamanho da luz
-        uColor: { value: new THREE.Color('#ffffff') },
+        uRevealRadius: { value: isMobile ? 3.5 : 5.0 },
       },
-      vertexShader: revealVertexShader,
-      fragmentShader: revealFragmentShader,
+      vertexShader: darknessVertexShader,
+      fragmentShader: darknessFragmentShader,
       transparent: true,
-      depthWrite: false, // Importante para não bugar a transparência com outros objetos
+      depthWrite: false, // Importante: não bloquear a profundidade
     });
-  }, []);
+  }, [isMobile]);
 
   useFrame(() => {
-    // Atualiza a posição do fantasma no shader a cada frame
-    if (ghostRef.current && materialRef.current) {
-      // Lerp suave para a luz não "tremer" demais se o fantasma se mover rápido
-      materialRef.current.uniforms.uGhostPosition.value.lerp(
+    if (ghostRef.current && maskMaterialRef.current) {
+      // A máscara segue o fantasma
+      maskMaterialRef.current.uniforms.uGhostPosition.value.lerp(
         ghostRef.current.position,
         0.1
       );
     }
   });
 
+  const fontUrl =
+    'https://fonts.gstatic.com/s/bebasneue/v14/JTUSjIg69CK48gW7PXoo9WlhyyTh89Y.woff2';
+
   return (
-    <group position={[0, -1, -2]}>
-      {' '}
-      {/* Z = -2 coloca o texto ATRÁS do fantasma */}
-      <Text
-        font="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff"
-        fontSize={0.8}
-        maxWidth={8}
-        lineHeight={1}
-        letterSpacing={-0.05}
-        textAlign="center"
-        anchorX="center"
-        anchorY="middle"
-      >
+    <group>
+      {/* 1. TEXTO BRANCO (Renderizado no fundo, Z = -1) */}
+      <group position={[0, 0.2, -1]}>
+        <Text
+          font={fontUrl}
+          fontSize={isMobile ? 0.1 : 0.11}
+          position={[0, isMobile ? 1.4 : 1.6, 0]}
+          letterSpacing={0.15}
+          textAlign="center"
+          anchorX="center"
+          anchorY="middle"
+          color="white" // Texto sempre branco
+        >
+          [ BRAND AWARENESS ]
+        </Text>
+
+        <group position={[0, 0.3, 0]}>
+          <Text
+            font={fontUrl}
+            fontSize={isMobile ? 0.6 : 0.85}
+            lineHeight={0.9}
+            letterSpacing={0.02}
+            textAlign="center"
+            anchorX="center"
+            anchorY="bottom"
+            position={[0, 0.05, 0]}
+            color="white"
+          >
+            VOCÊ NÃO VÊ
+          </Text>
+          <Text
+            font={fontUrl}
+            fontSize={isMobile ? 0.6 : 0.85}
+            lineHeight={0.9}
+            letterSpacing={0.02}
+            textAlign="center"
+            anchorX="center"
+            anchorY="top"
+            position={[0, -0.05, 0]}
+            color="white"
+          >
+            O DESIGN.
+          </Text>
+        </group>
+
+        <Text
+          font={fontUrl}
+          fontSize={isMobile ? 0.3 : 0.45}
+          position={[0, isMobile ? -1.1 : -1.2, 0]}
+          letterSpacing={0.05}
+          textAlign="center"
+          anchorX="center"
+          anchorY="middle"
+          color="white"
+        >
+          MAS ELE VÊ VOCÊ.
+        </Text>
+      </group>
+
+      {/* 2. A CORTINA PRETA (Z = -0.5) */}
+      {/* Fica entre o Fantasma (Z=0) e o Texto (Z=-1).
+          Cobre a tela inteira e esconde o texto, exceto onde o fantasma está. */}
+      <mesh position={[0, 0, -0.5]}>
+        <planeGeometry args={[viewport.width * 2, viewport.height * 2]} />
         <primitive
-          object={shaderMaterial}
-          ref={materialRef}
+          object={darknessMaterial}
+          ref={maskMaterialRef}
           attach="material"
         />
-        DESIGN, NÃO É{'\n'}SÓ ESTÉTICA.
-      </Text>
-      <Text
-        font="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff"
-        fontSize={0.25}
-        maxWidth={6}
-        position={[0, -1.2, 0]} // Subtexto um pouco mais abaixo
-        textAlign="center"
-        anchorX="center"
-        anchorY="middle"
-      >
-        <primitive object={shaderMaterial} attach="material" />[ É INTENÇÃO, É
-        ESTRATÉGIA, É EXPERIÊNCIA ]
-      </Text>
+      </mesh>
     </group>
   );
 }

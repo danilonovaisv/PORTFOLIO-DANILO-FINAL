@@ -107,9 +107,9 @@ export default function DesktopFluidHeader({
                 <Image
                   src={logoUrl}
                   alt="Danilo"
-                  width={24}
-                  height={24}
-                  className="h-6 w-auto"
+                  width={32}
+                  height={32}
+                  className="h-8 w-auto"
                   unoptimized
                 />
               </Link>

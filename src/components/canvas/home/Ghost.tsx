@@ -1,4 +1,3 @@
-// src/components/home/webgl/Ghost.tsx
 'use client';
 
 import React, { useRef, useMemo, useImperativeHandle, forwardRef } from 'react';
@@ -7,15 +6,14 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { Group, Mesh, MeshStandardMaterial, Vector3 } from 'three';
 
 const GHOST_CONFIG = {
-  bodyColor: '#0048ff',
-  glowColor: '#4fe6ff',
-  eyeColor: '#f501d3',
-  emissiveIntensity: 8.0,
-  floatSpeed: 2.6,
-  followSpeed: 0.07,
+  bodyColor: '#e0f7fa',
+  glowColor: '#00ffff',
+  eyeColor: '#ffffff',
+  emissiveIntensity: 3.5,
+  floatSpeed: 1.8,
+  followSpeed: 0.08,
 };
 
-// Adicionamos forwardRef para permitir que o pai acesse o "group.current"
 const Ghost = forwardRef<Group, any>((props, ref) => {
   const group = useRef<Group>(null);
   const bodyMesh = useRef<Mesh>(null);
@@ -23,10 +21,10 @@ const Ghost = forwardRef<Group, any>((props, ref) => {
   const leftEyeMat = useRef<any>(null);
   const rightEyeMat = useRef<any>(null);
 
-  // Expõe a ref interna para o pai
+  // Expõe a ref corretamente para o RevealText funcionar
   useImperativeHandle(ref, () => group.current as Group);
 
-  const { viewport } = useThree();
+  const { viewport, size } = useThree();
   const prevPosition = useRef(new Vector3(0, 0, 0));
   const targetPosition = useRef(new Vector3(0, 0, 0));
 
@@ -39,7 +37,6 @@ const Ghost = forwardRef<Group, any>((props, ref) => {
       const x = positions[i];
       const y = positions[i + 1];
       const z = positions[i + 2];
-
       if (y < -0.2) {
         const noise1 = Math.sin(x * 5) * 0.35;
         const noise2 = Math.cos(z * 4) * 0.25;
@@ -58,20 +55,30 @@ const Ghost = forwardRef<Group, any>((props, ref) => {
     const t = state.clock.getElapsedTime();
     const pointer = state.pointer;
 
-    // Seguir o mouse
-    const xTarget = pointer.x * (viewport.width / 4);
-    const yTarget = pointer.y * (viewport.height / 4);
-    targetPosition.current.set(xTarget, yTarget, 0);
+    // Detecção Mobile simples
+    const isMobile = size.width < 768;
 
+    let xTarget, yTarget;
+
+    if (isMobile) {
+      // Movimento automático Mobile (Loop amplo)
+      xTarget = Math.sin(t * 0.6) * (viewport.width * 0.35);
+      yTarget = Math.cos(t * 0.9) * 0.6;
+    } else {
+      // Movimento Desktop (Mouse)
+      xTarget = pointer.x * (viewport.width / 3.5);
+      yTarget = pointer.y * (viewport.height / 3.5);
+    }
+
+    targetPosition.current.set(xTarget, yTarget, 0);
     group.current.position.lerp(
       targetPosition.current,
       GHOST_CONFIG.followSpeed
     );
 
-    // Física dos olhos
     const currentDist = group.current.position.distanceTo(prevPosition.current);
     prevPosition.current.copy(group.current.position);
-    const isMoving = currentDist > 0.005;
+    const isMoving = currentDist > (isMobile ? 0.0 : 0.005);
     const targetEyeOpacity = isMoving ? 1 : 0.3;
 
     if (leftEyeMat.current && rightEyeMat.current) {
@@ -81,32 +88,23 @@ const Ghost = forwardRef<Group, any>((props, ref) => {
     }
 
     if (bodyMaterial.current) {
-      const pulse = Math.sin(t * 2) * 0.5;
+      const pulse = Math.sin(t * 2.5) * 0.3;
       bodyMaterial.current.emissiveIntensity =
         GHOST_CONFIG.emissiveIntensity + pulse;
     }
 
-    // Flutuação
-    bodyMesh.current.position.y = Math.sin(t * GHOST_CONFIG.floatSpeed) * 0.2;
+    const floatY = Math.sin(t * GHOST_CONFIG.floatSpeed) * 0.2;
+    bodyMesh.current.position.y = floatY;
 
-    // Inclinação (Tilt)
     const moveX = targetPosition.current.x - group.current.position.x;
-    bodyMesh.current.rotation.z = -moveX * 0.2;
+    bodyMesh.current.rotation.z = -moveX * 0.15;
     bodyMesh.current.rotation.y = Math.sin(t * 0.5) * 0.1;
   });
 
   return (
     <group ref={group} {...props}>
-      <directionalLight
-        position={[-8, 6, -4]}
-        intensity={2.5}
-        color="#4fe6ff"
-      />
-      <directionalLight
-        position={[8, -4, -6]}
-        intensity={1.5}
-        color="#0057ff"
-      />
+      <directionalLight position={[-8, 6, -4]} intensity={3} color="#00ffff" />
+      <directionalLight position={[8, -4, -6]} intensity={3} color="#d400ff" />
 
       <mesh ref={bodyMesh} geometry={ghostGeometry}>
         <meshStandardMaterial
@@ -115,14 +113,13 @@ const Ghost = forwardRef<Group, any>((props, ref) => {
           emissive={GHOST_CONFIG.glowColor}
           emissiveIntensity={GHOST_CONFIG.emissiveIntensity}
           transparent
-          opacity={0.9}
-          roughness={0.1}
-          metalness={0.2}
+          opacity={0.92}
+          roughness={0.0}
+          metalness={0.1}
           side={THREE.DoubleSide}
           toneMapped={false}
         />
         <group position={[0, 0, 0]}>
-          {/* Olhos... */}
           <group position={[-0.7, 0.6, 1.8]} rotation={[0, -0.2, 0]}>
             <mesh position={[0, 0, -0.1]}>
               <sphereGeometry args={[0.45, 16, 16]} />
@@ -134,7 +131,7 @@ const Ghost = forwardRef<Group, any>((props, ref) => {
                 ref={leftEyeMat}
                 color={GHOST_CONFIG.eyeColor}
                 transparent
-                opacity={0.9}
+                opacity={0.3}
                 toneMapped={false}
               />
             </mesh>

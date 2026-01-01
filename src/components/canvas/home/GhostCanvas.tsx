@@ -1,4 +1,3 @@
-// src/components/canvas/home/GhostCanvas.tsx
 'use client';
 
 import { Canvas } from '@react-three/fiber';
@@ -8,7 +7,7 @@ import Ghost from './Ghost';
 import Particles from './Particles';
 import Fireflies from './Fireflies';
 import AtmosphereVeil from './AtmosphereVeil';
-import RevealingText from './RevealingText'; // Importe o componente novo
+import RevealingText from './RevealingText';
 
 import {
   EffectComposer,
@@ -26,7 +25,7 @@ export default function GhostCanvas() {
       ? [1, 1.5]
       : [1, Math.min(2, window.devicePixelRatio || 1)];
 
-  // Esta ref vai armazenar a posição do fantasma
+  // Ref do Fantasma (para passar posição ao texto)
   const ghostRef = useRef<THREE.Group>(null);
 
   return (
@@ -40,22 +39,22 @@ export default function GhostCanvas() {
       }}
       camera={{ position: [0, 0, 6], fov: 35 }}
     >
-      <color attach="background" args={['#000022']} />
+      <color attach="background" args={['#050511']} />
 
       <Suspense fallback={null}>
         <AtmosphereVeil />
 
-        {/* O Fantasma escreve sua posição na ref */}
-        <Ghost ref={ghostRef} scale={0.2} position={[0, -0.2, 0]} />
+        {/* Fantasma */}
+        <Ghost ref={ghostRef} scale={0.22} position={[0, -0.2, 0]} />
 
-        {/* O Texto lê a ref para saber onde acender */}
+        {/* Texto + Máscara de Luz */}
         <RevealingText ghostRef={ghostRef} />
 
         <Particles />
         <Fireflies />
 
-        {/* Efeitos visuais */}
-        <EffectComposer enableNormalPass={false}>
+        {/* Efeitos VHS/Cyberpunk */}
+        <EffectComposer disableNormalPass multisampling={0}>
           <Bloom
             luminanceThreshold={1}
             mipmapBlur
@@ -67,7 +66,7 @@ export default function GhostCanvas() {
             radialModulation={false}
             modulationOffset={0}
           />
-          <Scanline density={1.5} opacity={0.25} />
+          <Scanline density={1.5} opacity={0.15} />
           <Noise
             opacity={0.15}
             premultiply
