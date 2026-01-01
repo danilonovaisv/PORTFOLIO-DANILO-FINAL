@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 import { siteMetadata, siteViewport } from '@/config/metadata';
 import ClientLayout from '@/components/layout/ClientLayout';
+import JsonLd from '@/components/ui/JsonLd';
 import './globals.css';
 
 const ttNorms = localFont({
@@ -29,6 +30,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className={ttNorms.variable}>
+      <head>
+        <JsonLd />
+      </head>
       <body className="antialiased bg-ghost-void text-white">
         <ClientLayout>{children}</ClientLayout>
       </body>

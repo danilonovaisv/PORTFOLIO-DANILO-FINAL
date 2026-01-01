@@ -4,9 +4,31 @@ import { HOME_CONTENT } from '@/config/content'; // Adjust path if needed
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
+import { siteMetadata } from '@/config/metadata';
+import type { Metadata } from 'next';
+
 // Helper to find project
 function getProject(slug: string) {
   return HOME_CONTENT.featuredProjects.find((p) => p.slug === slug);
+}
+
+export async function generateMetadata({
+  params,
+}: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const project = getProject(slug);
+
+  if (!project) return siteMetadata;
+
+  return {
+    title: project.title,
+    description: `Case study: ${project.title} for ${project.client}. Category: ${project.category}.`,
+    openGraph: {
+      title: project.title,
+      description: project.description,
+      images: [project.image],
+    },
+  };
 }
 
 export async function generateStaticParams() {
