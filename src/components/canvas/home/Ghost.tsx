@@ -20,7 +20,7 @@ const GHOST_CONFIG = {
 // ============================================================================
 // Ghost Component (forwardRef para expor posição ao RevealingText)
 // ============================================================================
-const Ghost = forwardRef<Group, React.ComponentProps<typeof Group>>(
+const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
   (props, ref) => {
     const group = useRef<Group>(null);
     const bodyMesh = useRef<Mesh>(null);

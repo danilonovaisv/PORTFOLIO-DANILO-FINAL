@@ -76,6 +76,7 @@
   --radius: 0.625rem;
   --background: #0d003b;
   --foreground: #fcffff;
+  --ghost-flare: #4fe6ff;
   --card: #0d003b;
   --card-foreground: #fcffff;
   --popover: #0d003b;
@@ -148,6 +149,21 @@ body {
 
   .text-text-main {
     color: var(--color-text-main);
+  }
+}
+
+/* Ghost Accent - Destaques de palavras-chave */
+.ghost-accent {
+  font-weight: 600;
+  color: var(--ghost-flare, #4fe6ff);
+  transition: color 0.4s ease;
+}
+.ghost-accent:hover {
+  color: var(--primary, #0057ff);
+}
+@media (pointer: coarse) {
+  .ghost-accent:active {
+    color: var(--primary, #0057ff);
   }
 }
 

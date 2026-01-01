@@ -118,8 +118,7 @@ export default function HomeHero() {
     <section
       id="hero"
       ref={sectionRef}
-      className="relative min-h-screen md:h-[200vh] overflow-hidden"
-      style={{ backgroundColor: CONFIG.bgColor }}
+      className="relative min-h-screen md:h-[200vh] overflow-hidden bg-[#050511]"
       aria-label="Hero section"
     >
       {/* Preloader */}

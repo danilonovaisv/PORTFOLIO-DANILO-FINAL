@@ -56,7 +56,7 @@ export function Preloader({
       {show && (
         <motion.div
           className={
-            'fixed inset-0 z-[1000] grid place-items-center bg-[radial-gradient(ellipse_at_center,_#0a0a0a,_#1a1a1a_50%,_#0a0a0a_100%)] ' +
+            'fixed inset-0 z-1000 grid place-items-center bg-[radial-gradient(ellipse_at_center,#0a0a0a,#1a1a1a_50%,#0a0a0a_100%)] ' +
             (className ?? '')
           }
           initial={{ opacity: 1 }}

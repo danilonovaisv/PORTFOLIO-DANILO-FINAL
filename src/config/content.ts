@@ -202,4 +202,56 @@ export const ABOUT_CONTENT = {
     { label: 'Projetos', value: '40+' },
     { label: 'Prêmios', value: '12' },
   ],
+  origin: {
+    sectionLabel: 'Origem',
+    // Estrutura intercalada: Frase → Imagem → Frase → Imagem
+    // highlight: palavra-chave para destaque ghost-accent (1-2 por frase)
+    content: [
+      {
+        type: 'text' as const,
+        text: 'Desde cedo, sempre prestei atenção no que ficava — não só no que aparecia.',
+        highlight: 'ficava',
+      },
+      {
+        type: 'image' as const,
+        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/photo.mp4',
+        alt: 'Memória visual - foto pessoal',
+        aspectRatio: 'aspect-[3/4]',
+      },
+      {
+        type: 'text' as const,
+        text: 'Rabiscos viraram ideias. Ideias viraram projetos. E os projetos começaram a deixar rastros.',
+        highlight: 'rastros',
+      },
+      {
+        type: 'image' as const,
+        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/desenho.webp',
+        alt: 'Desenho e rabiscos iniciais',
+        aspectRatio: 'aspect-video',
+      },
+      {
+        type: 'text' as const,
+        text: 'Foi ali que entendi: design não é enfeite. É ferramenta invisível de transformação.',
+        highlight: 'transformação',
+      },
+      {
+        type: 'image' as const,
+        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/ze.webp',
+        alt: 'Momento criativo',
+        aspectRatio: 'aspect-square',
+      },
+      {
+        type: 'text' as const,
+        text: 'Estudei Comunicação, mergulhei no design, no branding e hoje uso inteligência artificial para expandir o alcance sem perder a essência humana da criação.',
+        highlight: 'essência humana',
+        isClosing: true,
+      },
+      {
+        type: 'image' as const,
+        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/ai.mp4',
+        alt: 'Inteligência Artificial e criação',
+        aspectRatio: 'aspect-[4/5]',
+      },
+    ],
+  },
 };
