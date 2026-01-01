@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
-import { ErrorBoundary } from '@/components/common/ErrorBoundary';
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 
 interface GhostStageProps {
   reducedMotion?: boolean;

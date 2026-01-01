@@ -4,8 +4,8 @@
 :root {
   --ghost-bg: #050505;
   --ghost-bg-accent: #06071f;
-  --ghost-primary: #0057FF;
-  --ghost-text: #FFFFFF;
+  --ghost-primary: #0057ff;
+  --ghost-text: #ffffff;
   --ghost-text-secondary: #d9dade;
   --ghost-blue-soft: rgba(0, 87, 255, 0.6);
   --max-manifesto: 800px;
@@ -23,6 +23,7 @@
   body {
     background-color: var(--ghost-bg);
     color: var(--ghost-text);
+    font-family: var(--font-tt-norms), ui-sans-serif, system-ui;
   }
 }
 

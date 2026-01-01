@@ -26,7 +26,7 @@ export default function FeaturedProjectsSection() {
     <section
       id="featured-projects"
       aria-label="Projetos em Destaque"
-      className="relative z-50 bg-background py-16 md:py-24"
+      className="relative z-10 bg-background py-16 md:py-24"
     >
       <div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)]">
         <motion.div

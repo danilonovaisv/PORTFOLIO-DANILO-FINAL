@@ -241,7 +241,7 @@ export const ABOUT_CONTENT = {
       },
       {
         type: 'image' as const,
-        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/desenho.webp',
+        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/squetch.webp',
         alt: 'Desenho e rabiscos iniciais',
         aspectRatio: 'aspect-video',
       },
@@ -252,7 +252,7 @@ export const ABOUT_CONTENT = {
       },
       {
         type: 'image' as const,
-        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/ze.webp',
+        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/design.webp',
         alt: 'Momento criativo',
         aspectRatio: 'aspect-square',
       },
@@ -264,7 +264,7 @@ export const ABOUT_CONTENT = {
       },
       {
         type: 'image' as const,
-        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/ai.mp4',
+        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/AI.mp4',
         alt: 'Inteligência Artificial e criação',
         aspectRatio: 'aspect-[4/5]',
       },

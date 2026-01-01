@@ -1,0 +1,26 @@
+.headerContainer {
+  position: relative;
+  overflow: hidden;
+  border-radius: 9999px;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.35);
+}
+
+.fallbackBackground {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.12),
+    rgba(255, 255, 255, 0.06)
+  );
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.subtleBorder {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  pointer-events: none;
+}

@@ -7,10 +7,12 @@ import {
   motion,
   useScroll,
   useTransform,
+  useMotionValueEvent,
 } from 'framer-motion';
-import { Preloader } from '@/components/Preloader';
+import { Preloader } from '@/components/ui/Preloader';
 import { HeroCopy } from './HeroCopy';
 import { GhostStage } from './GhostStage';
+import { ManifestoThumb, type ManifestoThumbHandle } from './ManifestoThumb';
 
 const CONFIG = {
   preloadMs: 2000,
@@ -92,7 +94,7 @@ export default function HomeHero() {
   const borderRadius = useTransform(morphProgress, [0, 0.7], [16, 0]);
 
   // Audio & Hold Logic
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+  useMotionValueEvent(scrollYProgress, 'change', (latest: number) => {
     // Entra no hold ao atingir o final da seção
     if (latest >= 0.99 && !isFullscreenHold && !hasReachedEnd) {
       setIsFullscreenHold(true);
@@ -154,22 +156,22 @@ export default function HomeHero() {
           )}
         </AnimatePresence>
 
-        {/* WebGL Stage */}
-        <div className="absolute inset-0 z-10">
+        {/* WebGL Stage - Base Layer */}
+        <div className="absolute inset-0 z-0">
           <GhostStage reducedMotion={prefersReducedMotion} />
         </div>
 
-        {/* Editorial Text Block (HeroCopy) */}
-        <div className="absolute inset-0 z-20 flex items-center justify-center px-6 pointer-events-none">
+        {/* Editorial Text Block (HeroCopy) - Middle Layer */}
+        <div className="absolute inset-0 z-10 flex items-center justify-center px-6 pointer-events-none">
           <div className="pointer-events-auto">
             <HeroCopy />
           </div>
         </div>
 
-        {/* Video Manifesto (Desktop Only) */}
+        {/* Video Manifesto (Desktop Only) - Higher Layer than Copy */}
         {!prefersReducedMotion && (
           <motion.div
-            className="fixed bottom-6 right-6 md:right-10 z-30 pointer-events-auto hidden md:block"
+            className="fixed bottom-6 right-6 md:right-10 z-20 pointer-events-auto hidden md:block"
             style={{
               scale: videoScale,
               borderRadius,
@@ -195,6 +197,32 @@ export default function HomeHero() {
             />
           </motion.div>
         )}
+        {/* Scroll Hint / Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isLoading ? 0 : 0.6 }}
+          transition={{ delay: 1.5, duration: 1 }}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-40 hidden md:flex flex-col items-center gap-2"
+        >
+          <button
+            onClick={() =>
+              window.scrollTo({
+                top: window.innerHeight * 2,
+                behavior: 'smooth',
+              })
+            }
+            className="group flex flex-col items-center gap-3 transition-opacity hover:opacity-100"
+          >
+            <span className="text-[10px] uppercase tracking-[0.4em] text-white/50 group-hover:text-cyan-400 transition-colors">
+              scroll down
+            </span>
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+              className="w-px h-12 bg-linear-to-b from-cyan-400 to-transparent"
+            />
+          </button>
+        </motion.div>
       </div>
 
       {/* Placeholder para ocupar o scroll de 200vh */}

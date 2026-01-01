@@ -6,7 +6,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { ContactShadows, useFBO, useGLTF } from '@react-three/drei';
 import { RoundedBoxGeometry } from 'three-stdlib';
 import { easing } from 'maath';
-import { HEADER_TOKENS } from '@/components/header/headerTokens';
+import { HEADER_TOKENS } from '@/components/layout/header/headerTokens';
 import { FluidMaterial, type FluidMaterialType } from './FluidMaterial';
 
 export type FluidGlassMaterialProps = {
