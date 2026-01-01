@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/Button';
-import { ArrowRight } from 'lucide-react';
+import { CTAButton } from '@/components/ui/CTAButton';
 import { InputField, TextAreaField } from './FormFields';
 import { CONTACT_FORM } from '@/config/navigation';
 
@@ -203,19 +202,15 @@ const ContactForm: React.FC = () => {
             <p className="text-sm text-red-500">{errors.submit}</p>
           )}
 
-          <Button
+          <CTAButton
             type="submit"
             variant="primary"
-            size="lg"
             disabled={isSubmitting}
-            className="w-full gap-2 rounded-xl py-4 font-bold"
+            className="w-full"
             aria-label="Send message"
           >
             {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
-            {!isSubmitting && (
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            )}
-          </Button>
+          </CTAButton>
         </form>
       )}
     </motion.div>

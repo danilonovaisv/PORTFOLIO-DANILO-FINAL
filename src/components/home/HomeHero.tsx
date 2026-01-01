@@ -78,36 +78,36 @@ export default function HomeHero() {
 
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  // Scroll progress para morph do vídeo
+  // Scroll progress para morph do vídeo (Desktop Only)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start start', 'end end'],
   });
 
-  // Morph transforms (Thumb 30vw -> Fullscreen approx 100vw)
-  // progress 0 a 0.9: morphing
-  const morphProgress = useTransform(scrollYProgress, [0, 0.9], [0, 1]);
+  // Morph values
+  const morphProgress = useTransform(scrollYProgress, [0, 0.8], [0, 1]);
+  const videoScale = useTransform(morphProgress, [0, 1], [1, 3.6]);
+  const videoX = useTransform(morphProgress, [0, 1], [0, 0]); // Keep origin fixed for now
+  const borderRadius = useTransform(morphProgress, [0, 0.9], [16, 0]);
+  const copyOpacity = useTransform(scrollYProgress, [0.4, 0.8], [1, 0]);
 
-  // Para cobrir a tela vindo de 30vw (bottom-right), precisamos de scale ~3.4
-  // e origin na ponta inferior direita.
-  const videoScale = useTransform(morphProgress, [0, 1], [1, 3.4]);
-  const borderRadius = useTransform(morphProgress, [0, 0.7], [16, 0]);
-
-  // Audio & Hold Logic
+  // Handle intersection/hold logic
   useMotionValueEvent(scrollYProgress, 'change', (latest: number) => {
-    // Entra no hold ao atingir o final da seção
-    if (latest >= 0.99 && !isFullscreenHold && !hasReachedEnd) {
+    if (prefersReducedMotion) return;
+
+    // Trigger hold at the end
+    if (latest >= 0.98 && !isFullscreenHold && !hasReachedEnd) {
       setIsFullscreenHold(true);
     }
 
-    // Mute se o usuário subir o scroll significativamente
-    if (latest < 0.9) {
+    // Mute if scrolling back
+    if (latest < 0.85) {
       manifestoRef.current?.setMuted(true);
       setHasReachedEnd(false);
     }
 
-    // Auto-mute ao sair da seção
-    if (latest < 0.01 || latest > 1.05) {
+    // Auto-mute boundaries
+    if (latest < 0.05 || latest > 1.1) {
       manifestoRef.current?.setMuted(true);
     }
   });
@@ -117,13 +117,14 @@ export default function HomeHero() {
       const prevOverflow = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
 
-      // Unmute no hold
+      // Activate sound on hold
       manifestoRef.current?.setMuted(false);
 
       const timer = setTimeout(() => {
         document.body.style.overflow = prevOverflow;
         setIsFullscreenHold(false);
         setHasReachedEnd(true);
+        // Release scroll and mute
         manifestoRef.current?.setMuted(true);
       }, 2000);
 
@@ -136,16 +137,27 @@ export default function HomeHero() {
 
   const handlePreloaderDone = useCallback(() => setIsLoading(false), []);
 
+  const handleThumbClick = useCallback(() => {
+    // Jump straight to hold state
+    const sectionTop = sectionRef.current?.offsetTop || 0;
+    const sectionHeight = sectionRef.current?.offsetHeight || 0;
+    window.scrollTo({
+      top: sectionTop + sectionHeight,
+      behavior: 'auto',
+    });
+    setIsFullscreenHold(true);
+  }, []);
+
   return (
     <section
       id="hero"
       ref={sectionRef}
-      className="relative h-[200vh] bg-[#06071f] overflow-hidden"
-      aria-label="Hero section"
+      className="relative h-[250vh] bg-[#050511] overflow-hidden"
+      aria-label="Home hero section"
     >
-      {/* Sticky Wrapper - Mantém Ghost, Texto e Vídeo na viewport */}
+      {/* Sticky Context */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
-        {/* Preloader */}
+        {/* Preloader Ghost */}
         <AnimatePresence>
           {isLoading && (
             <Preloader
@@ -156,76 +168,67 @@ export default function HomeHero() {
           )}
         </AnimatePresence>
 
-        {/* WebGL Stage - Base Layer */}
+        {/* WebGL Atmosphere */}
         <div className="absolute inset-0 z-0">
           <GhostStage reducedMotion={prefersReducedMotion} />
         </div>
 
-        {/* Editorial Text Block (HeroCopy) - Middle Layer */}
-        <div className="absolute inset-0 z-10 flex items-center justify-center px-6 pointer-events-none">
+        {/* Hero Copy (Editorial) */}
+        <motion.div
+          style={{ opacity: copyOpacity }}
+          className="absolute inset-0 z-10 flex items-center justify-center px-6 pointer-events-none"
+        >
           <div className="pointer-events-auto">
             <HeroCopy />
           </div>
-        </div>
+        </motion.div>
 
-        {/* Video Manifesto (Desktop Only) - Higher Layer than Copy */}
+        {/* Manifesto Interaction (Desktop) */}
         {!prefersReducedMotion && (
           <motion.div
-            className="fixed bottom-6 right-6 md:right-10 z-20 pointer-events-auto hidden md:block"
+            className="fixed bottom-8 right-8 md:right-12 z-20 pointer-events-auto hidden md:block"
             style={{
               scale: videoScale,
+              x: videoX,
               borderRadius,
               width: '30vw',
+              minWidth: '400px',
               aspectRatio: '16/9',
               originX: 1,
               originY: 1,
               overflow: 'hidden',
+              boxShadow: isFullscreenHold
+                ? 'none'
+                : '0 20px 50px rgba(0,0,0,0.5)',
             }}
             initial={CONFIG.entrance.initial}
             animate={CONFIG.entrance.animate}
             transition={CONFIG.entrance.transition}
           >
-            <ManifestoThumb
-              ref={manifestoRef}
-              onClick={() => {
-                // Clique na thumb scrolla para o final para trigger do hold
-                window.scrollTo({
-                  top: window.innerHeight * 2,
-                  behavior: 'smooth',
-                });
-              }}
-            />
+            <ManifestoThumb ref={manifestoRef} onClick={handleThumbClick} />
           </motion.div>
         )}
-        {/* Scroll Hint / Bottom CTA */}
+
+        {/* Scroll Helper */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: isLoading ? 0 : 0.6 }}
-          transition={{ delay: 1.5, duration: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-40 hidden md:flex flex-col items-center gap-2"
+          className="absolute bottom-10 left-10 z-40 hidden md:flex flex-col items-start gap-4"
         >
-          <button
-            onClick={() =>
-              window.scrollTo({
-                top: window.innerHeight * 2,
-                behavior: 'smooth',
-              })
-            }
-            className="group flex flex-col items-center gap-3 transition-opacity hover:opacity-100"
-          >
-            <span className="text-[10px] uppercase tracking-[0.4em] text-white/50 group-hover:text-cyan-400 transition-colors">
-              scroll down
+          <div className="flex flex-col gap-2">
+            <span className="text-[10px] uppercase tracking-[0.4em] text-cyan-400 font-mono">
+              Scroll to step inside
             </span>
             <motion.div
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-              className="w-px h-12 bg-linear-to-b from-cyan-400 to-transparent"
+              animate={{ scaleX: [0, 1, 0] }}
+              transition={{ duration: 3, repeat: Infinity }}
+              className="h-px w-24 bg-linear-to-r from-cyan-400 to-transparent origin-left"
             />
-          </button>
+          </div>
         </motion.div>
       </div>
 
-      {/* Placeholder para ocupar o scroll de 200vh */}
+      {/* Scroll Space */}
       <div className="h-screen w-full pointer-events-none" />
     </section>
   );

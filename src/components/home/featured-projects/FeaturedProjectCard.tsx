@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { useReducedMotion } from 'framer-motion';
 import { ArrowIcon } from '@/components/ui/ArrowIcon';
 
 export type FeaturedProject = {
@@ -34,17 +34,20 @@ export default function FeaturedProjectCard({
       aria-label={`Ver projeto: ${project.title}`}
     >
       <div
-        className={`relative overflow-hidden rounded-md ${project.layout.h} w-full bg-[#06071f] border border-white/5 shadow-[0_12px_48px_-28px_rgba(0,0,0,0.5)] transition-all duration-500 ${
+        className={`relative overflow-hidden rounded-md ${project.layout.h} w-full bg-[#050511] border border-white/5 shadow-[0_12px_48px_-28px_rgba(0,0,0,0.5)] transition-all duration-500 ${
           reducedMotion
             ? ''
-            : 'group-hover:shadow-[0_22px_54px_-26px_rgba(0,87,255,0.15)] group-hover:border-white/10'
+            : 'group-hover:shadow-[0_22px_54px_-26px_rgba(0,87,255,0.2)] group-hover:border-white/10'
         }`}
       >
+        {/* Subtle Noise Overlay */}
+        <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+
         <div className="absolute top-4 right-4 z-20 flex gap-1.5 flex-wrap justify-end">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="bg-black/40 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full text-xs md:text-sm font-medium uppercase tracking-wide text-white/90"
+              className="bg-black/60 backdrop-blur-md border border-white/5 px-3 py-1.5 rounded-full text-[10px] md:text-[11px] font-mono uppercase tracking-widest text-[#4fe6ff]"
             >
               {tag}
             </span>
@@ -56,43 +59,38 @@ export default function FeaturedProjectCard({
           alt={project.title}
           fill
           sizes={project.layout.sizes}
-          className={`object-cover transition-transform duration-700 ${
-            reducedMotion ? '' : 'group-hover:scale-[1.03]'
+          className={`object-cover transition-transform duration-700 opacity-90 group-hover:opacity-100 ${
+            reducedMotion ? '' : 'group-hover:scale-[1.02]'
           }`}
         />
       </div>
 
-      <div className="mt-4 flex justify-between items-start gap-4">
-        <div>
-          <div className="flex items-center gap-2 text-[#fcffff]/60 text-sm md:text-base leading-tight">
-            <span className="uppercase tracking-wide text-xs md:text-sm">
+      <div className="mt-6 flex justify-between items-start gap-6 px-1">
+        <div className="flex-1">
+          <div className="flex items-center gap-2 text-white/40 text-xs md:text-sm leading-tight mb-2">
+            <span className="uppercase tracking-widest font-mono text-[9px] md:text-[10px]">
               {project.category}
             </span>
-            <span aria-hidden className="text-xs md:text-sm">
+            <span aria-hidden className="opacity-30">
               •
             </span>
-            <span className="text-sm md:text-base">
-              {project.client} • {project.year}
+            <span className="font-light">
+              {project.client} / {project.year}
             </span>
           </div>
-          <h3 className="text-lg md:text-xl font-medium leading-tight text-[#fcffff] mt-1.5">
+          <h3 className="text-xl md:text-2xl lg:text-3xl font-medium tracking-tight text-white leading-[1.2] transition-colors duration-500 group-hover:text-[#0057FF]">
             {project.title}
           </h3>
         </div>
 
         <div
-          className={`bg-[#0057FF] w-12 h-12 rounded-full flex items-center justify-center text-white shrink-0 transition-all duration-500 ${
+          className={`bg-white/5 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-white shrink-0 border border-white/10 transition-all duration-500 ${
             reducedMotion
               ? ''
-              : 'group-hover:scale-110 group-hover:bg-[#4fe6ff] group-hover:text-[#000022]'
+              : 'group-hover:scale-110 group-hover:bg-[#0057FF] group-hover:border-[#0057FF] group-hover:shadow-[0_0_20px_rgba(0,87,255,0.4)]'
           }`}
         >
-          <motion.div
-            animate={reducedMotion ? {} : { x: [0, 3, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          >
-            <ArrowIcon className="w-5 h-5" />
-          </motion.div>
+          <ArrowIcon className="w-5 h-5 md:w-6 md:h-6 -rotate-45 transition-transform duration-500 group-hover:rotate-0" />
         </div>
       </div>
     </Link>

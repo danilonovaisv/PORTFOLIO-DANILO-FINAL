@@ -46,20 +46,25 @@ export default function SiteFooter() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: reducedMotion ? 0.2 : 0.6 }}
-        className="hidden lg:block w-full bg-[#0048ff] py-12 border-t border-white/5 relative z-10"
+        transition={{ duration: reducedMotion ? 0.2 : 0.8 }}
+        className="hidden lg:block w-full bg-[#050505] py-16 border-t border-white/5 relative z-10"
         aria-label="Footer"
       >
         <div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)] flex items-center justify-between text-white text-sm">
-          <p className="opacity-40 uppercase tracking-widest text-[10px]">
-            {FOOTER.copyright}
-          </p>
+          <div className="flex flex-col gap-2">
+            <span className="text-[14px] font-bold tracking-tighter uppercase mb-2">
+              Danilo Novais
+            </span>
+            <p className="opacity-30 uppercase tracking-[0.2em] text-[9px] font-mono">
+              {FOOTER.copyright}
+            </p>
+          </div>
 
           <nav
             aria-label="Links do footer"
-            className="flex items-center gap-12"
+            className="flex items-center gap-16"
           >
-            <div className="flex gap-8">
+            <div className="flex gap-10">
               {footerLinks.map((l) => (
                 <button
                   key={l.href}
@@ -68,21 +73,21 @@ export default function SiteFooter() {
                     if (isHashHref(l.href)) scrollToHash(l.href);
                     else window.location.href = l.href;
                   }}
-                  className="hover:text-[#0057FF] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded uppercase tracking-widest text-[10px] font-bold"
+                  className="text-white/40 hover:text-[#0057FF] transition-all duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0057FF] rounded uppercase tracking-[0.2em] text-[10px] font-bold"
                 >
                   {l.label}
                 </button>
               ))}
             </div>
 
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-6 border-l border-white/10 pl-16">
               {social.map((s) => (
                 <a
                   key={s.href}
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[#0057FF] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded text-xs font-medium uppercase tracking-tighter"
+                  className="text-white/40 hover:text-white transition-all duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0057FF] rounded"
                   aria-label={`Abrir ${s.label}`}
                 >
                   {s.icon}
@@ -95,16 +100,16 @@ export default function SiteFooter() {
 
       {/* Mobile Footer */}
       <footer
-        className="lg:hidden bg-[#0048ff] text-white py-12 border-t border-white/5 relative z-10"
+        className="lg:hidden bg-[#050505] text-white py-16 border-t border-white/5 relative z-10"
         aria-label="Footer"
       >
-        <div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)] flex flex-col gap-10">
-          <div className="flex flex-col gap-4">
-            <p className="text-xs opacity-60 uppercase tracking-widest">
-              Navigation
-            </p>
+        <div className="max-w-[1680px] mx-auto px-8 flex flex-col gap-14">
+          <div className="flex flex-col gap-6">
+            <span className="text-xl font-bold tracking-tighter uppercase">
+              Danilo Novais
+            </span>
             <nav aria-label="Links do footer">
-              <ul className="flex flex-wrap gap-x-6 gap-y-3">
+              <ul className="flex flex-col gap-4">
                 {footerLinks.map((l) => (
                   <li key={l.href}>
                     <button
@@ -113,7 +118,7 @@ export default function SiteFooter() {
                         if (isHashHref(l.href)) scrollToHash(l.href);
                         else window.location.href = l.href;
                       }}
-                      className="text-sm font-medium hover:opacity-70 active:text-[#0057FF]"
+                      className="text-lg font-medium text-white/60 active:text-[#0057FF] uppercase tracking-widest text-[11px]"
                     >
                       {l.label}
                     </button>
@@ -123,18 +128,18 @@ export default function SiteFooter() {
             </nav>
           </div>
 
-          <div className="flex flex-col gap-4">
-            <p className="text-xs opacity-60 uppercase tracking-widest">
-              Social
+          <div className="flex flex-col gap-6">
+            <p className="text-[10px] opacity-30 uppercase tracking-[0.2em] font-mono">
+              Social Channels
             </p>
-            <div className="flex flex-wrap gap-6">
+            <div className="flex gap-8">
               {social.map((s) => (
                 <a
                   key={s.href}
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm font-medium hover:opacity-70 active:text-[#0057FF]"
+                  className="text-white/40 active:text-white"
                 >
                   {s.icon}
                 </a>
@@ -142,8 +147,8 @@ export default function SiteFooter() {
             </div>
           </div>
 
-          <div className="pt-8 border-t border-white/10">
-            <p className="text-[10px] opacity-40 uppercase tracking-widest">
+          <div className="pt-10 border-t border-white/5">
+            <p className="text-[9px] opacity-20 uppercase tracking-[0.2em] font-mono leading-relaxed">
               {FOOTER.copyright}
             </p>
           </div>

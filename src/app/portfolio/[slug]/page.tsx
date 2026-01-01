@@ -25,7 +25,7 @@ export async function generateMetadata({
     description: `Case study: ${project.title} for ${project.client}. Category: ${project.category}.`,
     openGraph: {
       title: project.title,
-      description: project.description,
+      description: `Case study: ${project.title} for ${project.client}. Category: ${project.category}.`,
       images: [project.image],
     },
   };

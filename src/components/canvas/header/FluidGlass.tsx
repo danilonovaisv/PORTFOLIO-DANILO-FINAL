@@ -47,10 +47,8 @@ export function FluidGlass({
 
   return (
     <div
-      className={className}
+      className={`relative w-full ${className}`}
       style={{
-        position: 'relative',
-        width: '100%',
         height: HEADER_TOKENS.desktop.height,
       }}
     >

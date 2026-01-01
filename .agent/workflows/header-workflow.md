@@ -37,3 +37,30 @@ Este workflow define o comportamento e o estilo do header global flutuante.
 - **Transparência Inteligente**: O header deve ser legível tanto em fundos claros quanto escuros (idealmente usando o tema Dark como alvo principal).
 - **Z-Index**: Deve estar acima de tudo (z-40+), exceto loaders de página (z-50+).
 - **Acessibilidade**: `aria-label` descritivos e estados de `:focus-visible` com anéis arredondados.
+
+---
+
+## ⚠️ Versão Estável (Locked)
+
+**Data de Lock:** 2026-01-01
+
+A implementação atual do Header foi auditada e está estável. **NÃO modificar os seguintes arquivos** sem aprovação explícita do usuário:
+
+- `src/components/layout/Header.tsx`
+- `src/components/layout/header/SiteHeader.tsx`
+- `src/components/layout/header/DesktopFluidHeader.tsx`
+- `src/components/layout/header/MobileStaggeredMenu.tsx`
+- `src/components/layout/header/types.ts`
+
+### Razão do Lock
+
+O header atual atende aos requisitos de:
+
+1. ✅ Fluid Floating Pill com física de mola (useSpring)
+2. ✅ Glassmorphism com backdrop-blur
+3. ✅ Mouse tracking com efeito squash & stretch
+4. ✅ Mobile Staggered Menu com animações coreografadas
+5. ✅ Reduced Motion support
+6. ✅ Acessibilidade (focus-visible, aria-labels, keyboard navigation)
+
+Qualquer refatoração futura deve ser feita em uma branch separada com testes visuais antes de merge.

@@ -24,10 +24,7 @@ import { BlendFunction } from 'postprocessing';
 const BACKGROUND_COLOR = '#06071f';
 
 export default function GhostCanvas() {
-  const dpr: [number, number] =
-    typeof window === 'undefined'
-      ? [1, 1.5]
-      : [1, Math.min(2, window.devicePixelRatio || 1)];
+  const dpr: [number, number] = [1, 2];
 
   const ghostRef = useRef<THREE.Group>(null);
 
@@ -38,7 +35,8 @@ export default function GhostCanvas() {
         antialias: false,
         alpha: true,
         powerPreference: 'high-performance',
-        toneMapping: THREE.NoToneMapping,
+        stencil: false,
+        depth: true,
       }}
       camera={{ position: [0, 0, 6], fov: 35 }}
     >
@@ -54,26 +52,27 @@ export default function GhostCanvas() {
         <Particles />
         <Fireflies />
 
-        {/* Post-processing */}
-        <EffectComposer multisampling={0}>
+        {/* Post-processing (Ghost Atmosphere Spine) */}
+        <EffectComposer multisampling={0} enableNormalPass={false}>
           <Bloom
-            luminanceThreshold={0.9}
+            luminanceThreshold={0.15}
             mipmapBlur
-            intensity={1.8}
-            radius={0.5}
+            intensity={2.8}
+            radius={0.4}
           />
           <ChromaticAberration
             offset={[0.0015, 0.0015]}
-            radialModulation={false}
-            modulationOffset={0}
+            radialModulation={true}
+            modulationOffset={0.5}
+            blendFunction={BlendFunction.SCREEN}
           />
-          <Scanline density={1.2} opacity={0.12} />
+          <Scanline density={1.4} opacity={0.1} />
           <Noise
-            opacity={0.12}
+            opacity={0.08}
             premultiply
             blendFunction={BlendFunction.OVERLAY}
           />
-          <Vignette eskil={false} offset={0.15} darkness={0.9} />
+          <Vignette eskil={false} offset={0.2} darkness={0.8} />
         </EffectComposer>
       </Suspense>
     </Canvas>
