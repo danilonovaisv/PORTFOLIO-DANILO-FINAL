@@ -1,13 +1,15 @@
 'use client';
 
-import * as THREE from 'three';
 import React, { useMemo, useRef } from 'react';
+import * as THREE from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
 import { ContactShadows, useFBO, useGLTF } from '@react-three/drei';
 import { RoundedBoxGeometry } from 'three-stdlib';
 import { easing } from 'maath';
+
 import { HEADER_TOKENS } from '@/components/layout/header/headerTokens';
 import { FluidMaterial, type FluidMaterialType } from './FluidMaterial';
+import { createGlassBackgroundScene } from './GlassBackgroundHelper';
 
 export type FluidGlassMaterialProps = {
   scale?: [number, number, number] | number;
@@ -21,6 +23,10 @@ export type FluidGlassMaterialProps = {
 };
 
 const BAR_GLB_PATH = '/assets/3d/bar.glb';
+
+interface GLTFResult {
+  nodes: Record<string, THREE.Mesh>;
+}
 
 export default function GlassBar({
   materialProps,
@@ -38,19 +44,21 @@ export default function GlassBar({
   const materialRef = useRef<FluidMaterialType | null>(null);
   const { size, viewport } = useThree();
   const fbo = useFBO({ samples: 4 });
-  const { nodes } = useGLTF(BAR_GLB_PATH) as unknown as {
-    nodes: Record<string, THREE.Mesh>;
-  };
+
+  const { nodes } = useGLTF(BAR_GLB_PATH) as unknown as GLTFResult;
+
   const geometry = useMemo(
     () => new RoundedBoxGeometry(6.5, 1.6, 0.65, 12, 0.38),
     []
   );
+
   const glbGeometry = useMemo(() => {
     const mesh = Object.values(nodes ?? {}).find(
       (node) => node instanceof THREE.Mesh
     );
     return mesh?.geometry ?? geometry;
   }, [nodes, geometry]);
+
   const resolvedScale = useMemo(() => {
     if (!materialProps.scale) {
       return [1.2, 0.25, 0.2] as [number, number, number];
@@ -63,6 +71,7 @@ export default function GlassBar({
           number,
         ]);
   }, [materialProps.scale]);
+
   const material = useMemo(() => {
     const mat = new FluidMaterial();
     mat.transparent = true;
@@ -70,70 +79,14 @@ export default function GlassBar({
     mat.uOpacity = 0.9;
     return mat;
   }, []);
+
   materialRef.current = material;
+
   const {
     scene: renderScene,
     gradientMaterial,
     gradientPlane,
-  } = useMemo(() => {
-    const scene = new THREE.Scene();
-    const gradient = new THREE.ShaderMaterial({
-      uniforms: {
-        uTime: { value: 0 },
-        uParallax: { value: 0 },
-      },
-      transparent: true,
-      fragmentShader: /* glsl */ `
-        varying vec2 vUv;
-        uniform float uTime;
-        uniform float uParallax;
-
-        float hash(vec2 p) {
-          return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
-        }
-
-        float noise(vec2 p) {
-          vec2 i = floor(p);
-          vec2 f = fract(p);
-          float a = hash(i);
-          float b = hash(i + vec2(1.0, 0.0));
-          float c = hash(i + vec2(0.0, 1.0));
-          float d = hash(i + vec2(1.0, 1.0));
-          vec2 u = f * f * (3.0 - 2.0 * f);
-          return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
-        }
-
-        void main() {
-          vec2 uv = vUv;
-          uv.y += uParallax * 0.2;
-          float n = noise(uv * 5.0 + uTime * 0.15);
-          vec3 c1 = vec3(0.05, 0.08, 0.14);
-          vec3 c2 = vec3(0.24, 0.38, 0.68);
-          vec3 c3 = vec3(0.1, 0.18, 0.32);
-          float grad = smoothstep(0.0, 1.0, uv.y + n * 0.12);
-          vec3 color = mix(c1, c2, grad);
-          color = mix(color, c3, 0.25 + n * 0.1);
-          gl_FragColor = vec4(color, 1.0);
-        }
-      `,
-      vertexShader: /* glsl */ `
-        varying vec2 vUv;
-        void main() {
-          vUv = uv;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
-    });
-
-    const plane = new THREE.Mesh(
-      new THREE.PlaneGeometry(10, 6, 1, 1),
-      gradient
-    );
-    plane.position.set(0, 0, -2);
-    scene.add(plane);
-
-    return { scene, gradientMaterial: gradient, gradientPlane: plane };
-  }, []);
+  } = useMemo(() => createGlassBackgroundScene(), []);
 
   useFrame((state, delta) => {
     if (!meshRef.current || !materialRef.current) return;
@@ -234,7 +187,7 @@ export default function GlassBar({
         }
       >
         <meshBasicMaterial
-          color="#6ab2ff"
+          color="#0057ff"
           blending={THREE.AdditiveBlending}
           transparent
           opacity={0.15}

@@ -33,19 +33,19 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
 
   const variants = {
     primary: {
-      bg: 'bg-[#0048ff] shadow-[0_0_30px_-5px_rgba(0,72,255,0.6)]',
+      bg: 'bg-ghost-blue shadow-[0_0_30px_-5px_rgba(0,87,255,0.6)]',
       text: 'text-white',
-      iconBg: 'bg-[#0048ff] shadow-[0_0_30px_-5px_rgba(0,72,255,0.6)]',
+      iconBg: 'bg-ghost-blue shadow-[0_0_30px_-5px_rgba(0,87,255,0.6)]',
     },
     secondary: {
-      bg: 'bg-transparent border-2 border-[#0048ff] shadow-[0_0_20px_-5px_rgba(0,72,255,0.2)]',
-      text: 'text-[#0048ff]',
-      iconBg: 'bg-[#0048ff] shadow-[0_0_20px_-5px_rgba(0,72,255,0.2)]',
+      bg: 'bg-transparent border-2 border-ghost-blue shadow-[0_0_20px_-5px_rgba(0,87,255,0.2)]',
+      text: 'text-ghost-blue',
+      iconBg: 'bg-ghost-blue shadow-[0_0_20px_-5px_rgba(0,87,255,0.2)]',
     },
     accent: {
-      bg: 'bg-[#4fe6ff] shadow-[0_0_30px_-5px_rgba(79,230,255,0.5)]',
-      text: 'text-[#0e0e0e]',
-      iconBg: 'bg-[#0048ff]',
+      bg: 'bg-ghost-green shadow-[0_0_30px_-5px_rgba(79,230,255,0.5)]',
+      text: 'text-secondary',
+      iconBg: 'bg-ghost-blue',
     },
   };
 
@@ -81,7 +81,7 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
   const baseClasses = `
     inline-flex items-center group
     ${prefersReducedMotion ? '' : 'hover:-translate-y-px transition ease-out duration-200'}
-    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff] focus-visible:ring-offset-4 focus-visible:ring-offset-transparent
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ghost-green focus-visible:ring-offset-4 focus-visible:ring-offset-transparent
     ${className}
   `;
 
