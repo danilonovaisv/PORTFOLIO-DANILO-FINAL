@@ -2,21 +2,27 @@
 
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Instagram, Linkedin, Twitter } from 'lucide-react';
+import { Instagram, Linkedin, Twitter, Facebook } from 'lucide-react';
 import { FOOTER, SOCIALS } from '@/config/navigation';
+import Link from 'next/link';
 
 const footerLinks = FOOTER.links;
 
 const social = [
+  {
+    label: 'LinkedIn',
+    href: SOCIALS.linkedin,
+    icon: <Linkedin className="w-5 h-5" />,
+  },
   {
     label: 'Instagram',
     href: SOCIALS.instagram,
     icon: <Instagram className="w-5 h-5" />,
   },
   {
-    label: 'LinkedIn',
-    href: SOCIALS.linkedin,
-    icon: <Linkedin className="w-5 h-5" />,
+    label: 'Facebook',
+    href: SOCIALS.facebook,
+    icon: <Facebook className="w-5 h-5" />,
   },
   {
     label: 'Twitter',
@@ -47,25 +53,33 @@ export default function SiteFooter() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: reducedMotion ? 0.2 : 0.8 }}
-        className="hidden lg:block w-full bg-[#050505] py-16 border-t border-white/5 relative z-10"
+        className="hidden lg:block w-full bg-primary py-6 relative z-10"
         aria-label="Footer"
       >
-        <div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)] flex items-center justify-between text-white text-sm">
-          <div className="flex flex-col gap-2">
-            <span className="text-[14px] font-bold tracking-tighter uppercase mb-2">
-              Danilo Novais
-            </span>
-            <p className="opacity-30 uppercase tracking-[0.2em] text-[9px] font-mono">
-              {FOOTER.copyright}
-            </p>
-          </div>
+        <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex items-center justify-between text-white">
+          {/* Copyright */}
+          <p className="text-sm opacity-90">{FOOTER.copyright}</p>
 
-          <nav
-            aria-label="Links do footer"
-            className="flex items-center gap-16"
-          >
-            <div className="flex gap-10">
-              {footerLinks.map((l) => (
+          {/* Navigation Links */}
+          <nav aria-label="Links do footer" className="flex items-center gap-8">
+            {footerLinks.map((l, index) => {
+              const isActive = index === 0; // "home" is underlined in reference
+
+              if (l.href.startsWith('/')) {
+                return (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    className={`text-white text-sm transition-all duration-200 hover:opacity-80 ${
+                      isActive ? 'underline underline-offset-4' : ''
+                    }`}
+                  >
+                    {l.label}
+                  </Link>
+                );
+              }
+
+              return (
                 <button
                   key={l.href}
                   type="button"
@@ -73,85 +87,92 @@ export default function SiteFooter() {
                     if (isHashHref(l.href)) scrollToHash(l.href);
                     else window.location.href = l.href;
                   }}
-                  className="text-white/40 hover:text-[#0057FF] transition-all duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0057FF] rounded uppercase tracking-[0.2em] text-[10px] font-bold"
+                  className={`text-white text-sm transition-all duration-200 hover:opacity-80 ${
+                    isActive ? 'underline underline-offset-4' : ''
+                  }`}
                 >
                   {l.label}
                 </button>
-              ))}
-            </div>
-
-            <div className="flex items-center gap-6 border-l border-white/10 pl-16">
-              {social.map((s) => (
-                <a
-                  key={s.href}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white/40 hover:text-white transition-all duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0057FF] rounded"
-                  aria-label={`Abrir ${s.label}`}
-                >
-                  {s.icon}
-                </a>
-              ))}
-            </div>
+              );
+            })}
           </nav>
+
+          {/* Social Icons */}
+          <div className="flex items-center gap-4">
+            {social.map((s) => (
+              <a
+                key={s.href}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white transition-all duration-200 hover:opacity-70"
+                aria-label={`Abrir ${s.label}`}
+              >
+                {s.icon}
+              </a>
+            ))}
+          </div>
         </div>
       </motion.footer>
 
       {/* Mobile Footer */}
       <footer
-        className="lg:hidden bg-[#050505] text-white py-16 border-t border-white/5 relative z-10"
+        className="lg:hidden bg-primary text-white py-8 relative z-10"
         aria-label="Footer"
       >
-        <div className="max-w-[1680px] mx-auto px-8 flex flex-col gap-14">
-          <div className="flex flex-col gap-6">
-            <span className="text-xl font-bold tracking-tighter uppercase">
-              Danilo Novais
-            </span>
-            <nav aria-label="Links do footer">
-              <ul className="flex flex-col gap-4">
-                {footerLinks.map((l) => (
-                  <li key={l.href}>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (isHashHref(l.href)) scrollToHash(l.href);
-                        else window.location.href = l.href;
-                      }}
-                      className="text-lg font-medium text-white/60 active:text-[#0057FF] uppercase tracking-widest text-[11px]"
-                    >
-                      {l.label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
+        <div className="max-w-[1200px] mx-auto px-6 flex flex-col gap-8">
+          {/* Navigation Links */}
+          <nav
+            aria-label="Links do footer"
+            className="flex flex-wrap justify-center gap-6"
+          >
+            {footerLinks.map((l) => {
+              if (l.href.startsWith('/')) {
+                return (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    className="text-white text-sm hover:opacity-80 transition-opacity"
+                  >
+                    {l.label}
+                  </Link>
+                );
+              }
 
-          <div className="flex flex-col gap-6">
-            <p className="text-[10px] opacity-30 uppercase tracking-[0.2em] font-mono">
-              Social Channels
-            </p>
-            <div className="flex gap-8">
-              {social.map((s) => (
-                <a
-                  key={s.href}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-white/40 active:text-white"
+              return (
+                <button
+                  key={l.href}
+                  type="button"
+                  onClick={() => {
+                    if (isHashHref(l.href)) scrollToHash(l.href);
+                    else window.location.href = l.href;
+                  }}
+                  className="text-white text-sm hover:opacity-80 transition-opacity"
                 >
-                  {s.icon}
-                </a>
-              ))}
-            </div>
+                  {l.label}
+                </button>
+              );
+            })}
+          </nav>
+
+          {/* Social Icons */}
+          <div className="flex justify-center gap-6">
+            {social.map((s) => (
+              <a
+                key={s.href}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white hover:opacity-70 transition-opacity"
+                aria-label={`Abrir ${s.label}`}
+              >
+                {s.icon}
+              </a>
+            ))}
           </div>
 
-          <div className="pt-10 border-t border-white/5">
-            <p className="text-[9px] opacity-20 uppercase tracking-[0.2em] font-mono leading-relaxed">
-              {FOOTER.copyright}
-            </p>
-          </div>
+          {/* Copyright */}
+          <p className="text-center text-xs opacity-80">{FOOTER.copyright}</p>
         </div>
       </footer>
     </>

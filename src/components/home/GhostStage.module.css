@@ -3,19 +3,35 @@
 }
 
 .fallbackBase {
-  background: radial-gradient(ellipse 80% 60% at 50% 45%, #0b0d3a 0%, #050511 70%);
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 45%,
+    #0b0d3a 0%,
+    #050511 70%
+  );
 }
 
 .fallbackGlow {
-  background: radial-gradient(circle 35vw at 50% 48%, rgba(0, 87, 255, 0.15) 0%, transparent 70%);
+  background: radial-gradient(
+    circle 35vw at 50% 48%,
+    rgba(0, 87, 255, 0.15) 0%,
+    transparent 70%
+  );
 }
 
 .fallbackFlare {
-  background: radial-gradient(circle 20vw at 52% 46%, rgba(79, 230, 255, 0.08) 0%, transparent 60%);
+  background: radial-gradient(
+    circle 20vw at 52% 46%,
+    rgba(79, 230, 255, 0.08) 0%,
+    transparent 60%
+  );
 }
 
 .fallbackVignette {
-  background: radial-gradient(ellipse 100% 100% at 50% 50%, transparent 40%, rgba(5, 5, 17, 0.8) 100%);
+  background: radial-gradient(
+    ellipse 100% 100% at 50% 50%,
+    transparent 40%,
+    rgba(5, 5, 17, 0.8) 100%
+  );
 }
 
 /* Legacy gradient (mantido para compatibilidade) */
