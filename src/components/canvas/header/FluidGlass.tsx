@@ -4,7 +4,7 @@ import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrthographicCamera } from '@react-three/drei';
 import * as THREE from 'three';
-import { HEADER_TOKENS } from '@/components/header/headerTokens';
+import { HEADER_TOKENS } from '@/components/layout/header/headerTokens';
 import FluidGlassScene from './FluidGlassScene';
 import { type FluidGlassMaterialProps } from './GlassBar';
 
@@ -47,10 +47,8 @@ export function FluidGlass({
 
   return (
     <div
-      className={className}
+      className={`relative w-full ${className}`}
       style={{
-        position: 'relative',
-        width: '100%',
         height: HEADER_TOKENS.desktop.height,
       }}
     >

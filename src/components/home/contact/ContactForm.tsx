@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/Button';
-import { ArrowRight } from 'lucide-react';
 import { InputField, TextAreaField } from './FormFields';
 import { CONTACT_FORM } from '@/config/navigation';
 
@@ -203,19 +201,28 @@ const ContactForm: React.FC = () => {
             <p className="text-sm text-red-500">{errors.submit}</p>
           )}
 
-          <Button
+          <button
             type="submit"
-            variant="primary"
-            size="lg"
             disabled={isSubmitting}
-            className="w-full gap-2 rounded-xl py-4 font-bold"
-            aria-label="Send message"
+            className="w-full flex items-center justify-center gap-2 bg-primary text-white font-semibold py-4 px-8 rounded-full transition-all duration-200 hover:bg-primary-hover hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
           >
             {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
-            {!isSubmitting && (
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            )}
-          </Button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 8l4 4m0 0l-4 4m4-4H3"
+              />
+            </svg>
+          </button>
         </form>
       )}
     </motion.div>

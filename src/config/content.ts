@@ -48,7 +48,7 @@ export const HOME_CONTENT = {
       image:
         'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/converted-(10).webp',
       layout: {
-        h: 'h-[500px]',
+        h: 'h-[340px] md:h-[500px]',
         cols: 'md:col-span-5',
         sizes: '(max-width: 768px) 100vw, (max-width: 1280px) 44vw, 36vw',
       },
@@ -64,7 +64,7 @@ export const HOME_CONTENT = {
       image:
         'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/converted-(4).webp',
       layout: {
-        h: 'h-[500px]',
+        h: 'h-[340px] md:h-[500px]',
         cols: 'md:col-span-7',
         sizes: '(max-width: 768px) 100vw, (max-width: 1280px) 56vw, 58vw',
       },
@@ -80,7 +80,7 @@ export const HOME_CONTENT = {
       image:
         'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/converted-(5).webp',
       layout: {
-        h: 'h-[600px]',
+        h: 'h-[340px] md:h-[600px]',
         cols: 'md:col-span-12',
         sizes: '(max-width: 768px) 100vw, (max-width: 1280px) 94vw, 100vw',
       },
@@ -96,7 +96,7 @@ export const HOME_CONTENT = {
       image:
         'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEOMANIFESTOGLAD_2.mp4',
       layout: {
-        h: 'h-[400px]',
+        h: 'h-[280px] md:h-[400px]',
         cols: 'md:col-span-8',
         sizes: '(max-width: 768px) 100vw, (max-width: 1280px) 68vw, 64vw',
       },
@@ -187,10 +187,43 @@ export const PORTFOLIO_MOSAIC_DATA = [
 
 export const ABOUT_CONTENT = {
   hero: {
-    title: 'More than pixels, logic_.',
-    subtitle: 'Danilo Novais — Creative Developer',
-    description:
-      'Combinando excelência técnica com visão artística para criar experiências digitais que se parecem vivas.',
+    videos: {
+      desktop:
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/HeroSobre.mp4',
+      mobile:
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/HeroSobreMobile.mp4',
+    },
+    title: {
+      line1: 'Sou Danilo Novais.',
+      line2: 'Você não vê tudo o que eu faço.',
+      line3: 'Mas sente quando funciona.',
+    },
+    description: [
+      'Crio design que observa, entende',
+      'e guia experiências com intenção,',
+      'estratégia e tecnologia — na medida certa.',
+    ],
+  },
+  method: {
+    video:
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/VideoAboutMethod.mp4',
+    title: {
+      text: 'Criatividade com método.',
+      highlight: 'método.',
+    },
+    intro: [
+      'Antes da estética, existe intenção.',
+      'Antes do layout, existe lógica.',
+      'Antes do impacto, existe silêncio.',
+    ],
+    steps: [
+      'Briefings bem construídos para decisões claras',
+      'Estratégia como base de qualquer criação',
+      'Design com propósito, não só beleza',
+      'Revisões inteligentes, sem ruído desnecessário',
+      'IA e automações para escalar com qualidade',
+      'Métricas criativas: engajamento, retenção e resultado',
+    ],
   },
   bio: [
     'Sou um Creative Developer brasileiro, obcecado pela intersecção entre Design e Tecnologia.',
@@ -202,4 +235,56 @@ export const ABOUT_CONTENT = {
     { label: 'Projetos', value: '40+' },
     { label: 'Prêmios', value: '12' },
   ],
+  origin: {
+    sectionLabel: 'Origem',
+    // Estrutura intercalada: Frase → Imagem → Frase → Imagem
+    // highlight: palavra-chave para destaque ghost-accent (1-2 por frase)
+    content: [
+      {
+        type: 'text' as const,
+        text: 'Desde cedo, sempre prestei atenção no que ficava — não só no que aparecia.',
+        highlight: 'ficava',
+      },
+      {
+        type: 'image' as const,
+        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/photo.mp4',
+        alt: 'Memória visual - foto pessoal',
+        aspectRatio: 'aspect-[3/4]',
+      },
+      {
+        type: 'text' as const,
+        text: 'Rabiscos viraram ideias. Ideias viraram projetos. E os projetos começaram a deixar rastros.',
+        highlight: 'rastros',
+      },
+      {
+        type: 'image' as const,
+        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/squetch.webp',
+        alt: 'Desenho e rabiscos iniciais',
+        aspectRatio: 'aspect-video',
+      },
+      {
+        type: 'text' as const,
+        text: 'Foi ali que entendi: design não é enfeite. É ferramenta invisível de transformação.',
+        highlight: 'transformação',
+      },
+      {
+        type: 'image' as const,
+        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/design.webp',
+        alt: 'Momento criativo',
+        aspectRatio: 'aspect-square',
+      },
+      {
+        type: 'text' as const,
+        text: 'Estudei Comunicação, mergulhei no design, no branding e hoje uso inteligência artificial para expandir o alcance sem perder a essência humana da criação.',
+        highlight: 'essência humana',
+        isClosing: true,
+      },
+      {
+        type: 'image' as const,
+        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/AI.mp4',
+        alt: 'Inteligência Artificial e criação',
+        aspectRatio: 'aspect-[4/5]',
+      },
+    ],
+  },
 };

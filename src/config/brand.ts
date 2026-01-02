@@ -2,13 +2,15 @@ export const BRAND = {
   name: 'Danilo Novais',
   domain: 'portfoliodanilo.com',
 
-  // Design Tokens
+  // Design Tokens (Ghost Era)
   colors: {
     primary: '#0057ff', // Ghost Blue — destaque e interação
-    bg: '#000022', // Fundo padrão (Surface Main)
+    bg: '#050511', // Fundo padrão (Deep Void Surface)
+    bgAbyss: '#06071f', // Atmospheric Blue Abyss (gradientes)
     text: '#fcffff', // Texto padrão (Text Main)
     textInverse: '#0e0e0e',
-    ghostVoid: '#000022', // Profundidade Ghost
+    ghostVoid: '#050511', // Profundidade Ghost (Canvas/Hero)
+    ghostAbyss: '#06071f', // Atmosfera Ghost (gradientes)
     neutralLight: '#F5F5F5', // Fundo secundário suave
   },
 

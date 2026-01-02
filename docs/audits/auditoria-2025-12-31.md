@@ -48,9 +48,9 @@
 - Botão border style com hover accent color
 - Cores: `#4fe6ff`, `#d9dade`, `#9ca3af`
 
-### 5. HeroPreloader.tsx — Ghost Loader
+### 5. Preloader.tsx — Ghost Loader
 **Status:** ✅ Sucesso
-**Arquivo:** `src/components/home/HeroPreloader.tsx`
+**Arquivo:** `src/components/home/Preloader.tsx`
 **Ação:** Preloader simplificado:
 - SVG Ghost flutuante
 - Progress bar gradiente
@@ -114,7 +114,7 @@
 ## 📊 Estrutura de Layers (Z-Index)
 
 ```
-z-50  → HeroPreloader
+z-50  → Preloader
 z-40  → Header (SiteHeader)
 z-30  → ManifestoThumb (video desktop)
 z-20  → GhostStage (WebGL)

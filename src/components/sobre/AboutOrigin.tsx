@@ -1,135 +1,276 @@
 'use client';
 
-import {
-  useScroll,
-  useTransform,
-  motion,
-  useReducedMotion,
-} from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useRef } from 'react';
 import Image from 'next/image';
-import { PORTFOLIO_MOSAIC_DATA } from '@/config/content';
-import { floatMemory } from '@/lib/motionTokens';
+import { ABOUT_CONTENT } from '@/config/content';
+import { kw } from './keywords';
+import { useEditorialMotion } from '@/hooks/useEditorialMotion';
 
-export default function AboutOrigin() {
-  const containerRef = useRef<HTMLDivElement>(null);
+const { origin } = ABOUT_CONTENT;
+
+// Helper: Parallax specific wrapper for images
+function ParallaxWrapper({
+  children,
+  offset = 40,
+  className = '',
+}: {
+  children: React.ReactNode;
+  offset?: number;
+  className?: string;
+}) {
+  const ref = useRef(null);
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: ref,
     offset: ['start end', 'end start'],
   });
 
-  const prefersReducedMotion = useReducedMotion();
+  // Create parallax motion value
+  const yLink = useTransform(scrollYProgress, [0, 1], [0, -offset]); // Move slightly up as we scroll down
+  const y = useSpring(yLink, { stiffness: 40, damping: 15 });
 
-  // Floating images configuration (using existing project images as placeholders)
-  // We pick a few images from the config to "float"
-  const floatingImages = [
-    {
-      src: PORTFOLIO_MOSAIC_DATA[0].items[0].imageSrc,
-      className:
-        'absolute top-[10%] right-[10%] w-48 md:w-64 aspect-[3/4] object-cover rounded-lg',
-      yRange: [100, -100],
-    },
-    {
-      src: PORTFOLIO_MOSAIC_DATA[1].items[0].imageSrc,
-      className:
-        'absolute top-[40%] right-[25%] w-64 md:w-80 aspect-video object-cover rounded-lg z-0',
-      yRange: [200, -200],
-    },
-    {
-      src: PORTFOLIO_MOSAIC_DATA[2].items[0].imageSrc,
-      className:
-        'absolute bottom-[10%] right-[5%] w-56 md:w-72 aspect-square object-cover rounded-lg',
-      yRange: [150, -150],
-    },
-    {
-      src: PORTFOLIO_MOSAIC_DATA[0].items[1].imageSrc,
-      className:
-        'absolute top-[60%] left-[5%] w-40 md:w-56 aspect-[4/5] object-cover rounded-lg -z-10',
-      yRange: [50, -50],
-    },
-  ];
+  return (
+    <div ref={ref} className={className}>
+      <motion.div style={{ y }}>{children}</motion.div>
+    </div>
+  );
+}
 
-  const fadeUpVariant = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 1, ease: [0.22, 1, 0.36, 1] as const },
-    },
-  };
+// ... existing HighlightedText and MediaItem helpers logic ...
+function HighlightedText({
+  text,
+  highlight,
+}: {
+  text: string;
+  highlight?: string;
+}) {
+  if (!highlight) return <>{text}</>;
+  const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
+  return (
+    <>
+      {parts.map((part, i) =>
+        part.toLowerCase() === highlight.toLowerCase() ? (
+          <span key={i}>{kw(part)}</span>
+        ) : (
+          part
+        )
+      )}
+    </>
+  );
+}
+
+function MediaItem({
+  src,
+  alt,
+  aspectRatio,
+}: {
+  src: string;
+  alt: string;
+  aspectRatio: string;
+}) {
+  const isVideo = src.endsWith('.mp4') || src.endsWith('.webm');
+  if (isVideo) {
+    return (
+      <video
+        src={src}
+        autoPlay
+        muted
+        loop
+        playsInline
+        className={`w-full ${aspectRatio} object-cover rounded-lg shadow-2xl relative z-10`}
+        aria-label={alt}
+      />
+    );
+  }
+  return (
+    <div
+      className={`relative w-full ${aspectRatio} rounded-lg overflow-hidden shadow-2xl`}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="object-cover"
+        sizes="(max-width: 768px) 100vw, 50vw"
+      />
+    </div>
+  );
+}
+
+// Asymmetric line separator
+function AsymmetricSeparator({ align = 'left' }: { align?: 'left' | 'right' }) {
+  return (
+    <div
+      className={`col-span-12 flex ${align === 'right' ? 'justify-end' : 'justify-start'} py-10 md:py-16`}
+    >
+      <div className="w-[30%] h-px bg-white/10" />
+    </div>
+  );
+}
+
+export default function AboutOrigin() {
+  const { prefersReducedMotion, variants } = useEditorialMotion();
 
   return (
     <section
-      ref={containerRef}
-      className="relative min-h-[140vh] py-24 md:py-40 overflow-hidden flex items-center"
+      className="relative py-20 md:py-32 bg-(--ghost-bg) overflow-hidden"
       aria-label="Origem Criativa"
     >
-      {/* Floating Images Background */}
-      <div className="absolute inset-0 pointer-events-none select-none">
-        {floatingImages.map((img, i) => {
-          const y = useTransform(scrollYProgress, [0, 1], img.yRange);
-          return (
-            <motion.div
-              key={i}
-              style={{ y: prefersReducedMotion ? 0 : y }}
-              variants={floatMemory}
-              initial={prefersReducedMotion ? 'visible' : 'hidden'}
-              whileInView="visible"
-              viewport={{ once: true, margin: '-10%' }}
-              custom={i * 0.2}
-              className={img.className}
-            >
-              <Image
-                src={img.src}
-                alt=""
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 50vw, 33vw"
-              />
-            </motion.div>
-          );
-        })}
-      </div>
+      <div className="w-full max-w-[1400px] mx-auto px-6 md:px-16">
+        {/* Section Label */}
+        <motion.h2
+          variants={variants.fadeGhost}
+          custom={0}
+          initial={prefersReducedMotion ? 'visible' : 'hidden'}
+          whileInView="visible"
+          viewport={{ once: true, margin: '-10%' }}
+          className="text-sm font-mono uppercase tracking-[0.2em] text-(--ghost-flare) mb-16 md:mb-24 font-bold"
+        >
+          {origin.sectionLabel}
+        </motion.h2>
 
-      <div className="relative z-10 w-full max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)]">
-        <div className="max-w-2xl">
+        {/* Editorial Layout: Increased gaps, Parallax, Max-Width text */}
+        <div className="grid grid-cols-12 gap-y-16 md:gap-y-28 md:gap-x-12 lg:gap-x-16 items-start">
+          {/* Pair 1: Row 1 - Text 7 / Image 5 */}
           <motion.div
+            variants={variants.fadeGhost}
+            custom={0.12}
             initial="hidden"
             whileInView="visible"
-            viewport={{ margin: '-20%' }}
-            variants={{
-              visible: { transition: { staggerChildren: 0.15 } },
-            }}
+            viewport={{ once: true }}
+            className="col-span-12 md:col-span-7 order-1 pb-8 md:pb-0"
           >
-            <motion.h2
-              variants={fadeUpVariant}
-              className="text-sm font-mono uppercase tracking-[0.2em] text-[#4fe6ff] mb-8 font-bold"
-            >
-              Origem
-            </motion.h2>
+            <p className="text-2xl md:text-3xl font-light leading-relaxed text-(--ghost-text) max-w-[46ch]">
+              <HighlightedText
+                text={origin.content[0].text || ''}
+                highlight={origin.content[0].highlight}
+              />
+            </p>
+          </motion.div>
 
-            <motion.div
-              variants={fadeUpVariant}
-              className="space-y-6 md:space-y-8 text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed text-white/90"
-            >
-              <p>
-                Desde cedo, sempre prestei atenção no que ficava — não só no que
-                aparecia.
-              </p>
-              <p>
-                Rabiscos viraram ideias. Ideias viraram projetos. E os projetos
-                começaram a deixar rastros.
-              </p>
-              <p>
-                Foi ali que entendi: design não é enfeite. É ferramenta
-                invisível de transformação.
-              </p>
-              <p className="text-white/70">
-                Estudei Comunicação, mergulhei no design, no branding e hoje uso
-                inteligência artificial para expandir o alcance sem perder a
-                essência humana da criação.
-              </p>
-            </motion.div>
+          <div className="col-span-12 md:col-span-5 order-2">
+            <ParallaxWrapper offset={60}>
+              <motion.div
+                variants={variants.imageFloat}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                <MediaItem
+                  src={origin.content[1].src || ''}
+                  alt={origin.content[1].alt || ''}
+                  aspectRatio={origin.content[1].aspectRatio || 'aspect-square'}
+                />
+              </motion.div>
+            </ParallaxWrapper>
+          </div>
+
+          <AsymmetricSeparator align="right" />
+
+          {/* Pair 2: Row 2 - Image 5 (left) / Text 7 (right) */}
+          <div className="col-span-12 md:col-span-5 order-4 md:order-3">
+            <ParallaxWrapper offset={48}>
+              <motion.div
+                variants={variants.imageFloat}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                <MediaItem
+                  src={origin.content[3].src || ''}
+                  alt={origin.content[3].alt || ''}
+                  aspectRatio={origin.content[3].aspectRatio || 'aspect-square'}
+                />
+              </motion.div>
+            </ParallaxWrapper>
+          </div>
+
+          <motion.div
+            variants={variants.fadeGhost}
+            custom={0.24}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="col-span-12 md:col-span-7 md:pl-10 lg:pl-16 order-3 md:order-4"
+          >
+            <p className="text-2xl md:text-3xl font-light leading-relaxed text-(--ghost-text) max-w-[46ch]">
+              <HighlightedText
+                text={origin.content[2].text || ''}
+                highlight={origin.content[2].highlight}
+              />
+            </p>
+          </motion.div>
+
+          <AsymmetricSeparator align="left" />
+
+          {/* Pair 3: Row 3 */}
+          <motion.div
+            variants={variants.fadeGhost}
+            custom={0.36}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="col-span-12 md:col-span-7 order-5 pb-8 md:pb-0"
+          >
+            <p className="text-2xl md:text-3xl font-light leading-relaxed text-(--ghost-text) max-w-[46ch]">
+              <HighlightedText
+                text={origin.content[4].text || ''}
+                highlight={origin.content[4].highlight}
+              />
+            </p>
+          </motion.div>
+
+          <div className="col-span-12 md:col-span-5 order-6">
+            <ParallaxWrapper offset={36}>
+              <motion.div
+                variants={variants.imageFloat}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                <MediaItem
+                  src={origin.content[5].src || ''}
+                  alt={origin.content[5].alt || ''}
+                  aspectRatio={origin.content[5].aspectRatio || 'aspect-square'}
+                />
+              </motion.div>
+            </ParallaxWrapper>
+          </div>
+
+          <AsymmetricSeparator align="right" />
+
+          {/* Pair 4: Row 4 */}
+          <div className="col-span-12 md:col-span-6 md:col-start-1 order-8 md:order-7">
+            <ParallaxWrapper offset={28}>
+              <motion.div
+                variants={variants.imageFloat}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                <MediaItem
+                  src={origin.content[7].src || ''}
+                  alt={origin.content[7].alt || ''}
+                  aspectRatio={origin.content[7].aspectRatio || 'aspect-square'}
+                />
+              </motion.div>
+            </ParallaxWrapper>
+          </div>
+
+          <motion.div
+            variants={variants.fadeGhost}
+            custom={0.48}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="col-span-12 md:col-span-6 md:col-start-7 order-7 md:order-8 md:text-right flex flex-col items-end"
+          >
+            <p className="text-2xl md:text-3xl font-light leading-relaxed text-(--ghost-text-secondary) max-w-[46ch]">
+              <HighlightedText
+                text={origin.content[6].text || ''}
+                highlight={origin.content[6].highlight}
+              />
+            </p>
           </motion.div>
         </div>
       </div>

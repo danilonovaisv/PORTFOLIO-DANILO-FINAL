@@ -56,7 +56,7 @@
 
 components/home/
 ├─ HomeHero.tsx            ← Orquestrador (todas as layers)
-├─ HeroPreloader.tsx       ← Animação inicial “ghost-loader”
+├─ Preloader.tsx       ← Animação inicial “ghost-loader”
 ├─ HeroCopy.tsx            ← Texto editorial fixo
 ├─ ManifestoThumb.tsx      ← Vídeo manifesto flutuante (desktop)
 ├─ GhostStage.tsx          ← Wrapper dinâmico (Canvas 3D)
@@ -80,7 +80,7 @@ components/home/
 ```tsx
 'use client';
 
-import HeroPreloader from './HeroPreloader';
+import Preloader from './Preloader';
 import HeroCopy from './HeroCopy';
 import ManifestoThumb from './ManifestoThumb';
 import GhostStage from './GhostStage';
@@ -98,7 +98,7 @@ export default function HomeHero() {
 
   return (
     <section ref={ref} className="relative h-[200vh] bg-[#06071f] overflow-hidden">
-      <HeroPreloader />
+      <Preloader />
 
       {/* Camada WebGL */}
       <div className="absolute inset-0 z-20">
@@ -132,7 +132,7 @@ export default function HomeHero() {
 ## **HERO PRELOADER**
 import { motion } from 'framer-motion';
 
-export default function HeroPreloader() {
+export default function Preloader() {
   return (
     <motion.div 
       initial={{ opacity: 1 }}
@@ -409,7 +409,7 @@ mobile-only    ManifestoSection    Fullscreen abaixo da Hero
 
 🧩 LAYERS (HERO STACK OVERVIEW)
 
-[Z-50]  HeroPreloader  → SVG Ghost Loader
+[Z-50]  Preloader  → SVG Ghost Loader
 [Z-30]  ManifestoThumb → Vídeo interativo flutuante
 [Z-20]  GhostStage     → Canvas WebGL Ghost + Partículas
 [Z-10]  HeroCopy       → Texto editorial fixo
@@ -444,7 +444,7 @@ mobile-only    ManifestoSection    Fullscreen abaixo da Hero
 
 components/home/
 ├─ HomeHero.tsx
-├─ HeroPreloader.tsx
+├─ Preloader.tsx
 ├─ HeroCopy.tsx
 ├─ ManifestoThumb.tsx
 ├─ GhostStage.tsx

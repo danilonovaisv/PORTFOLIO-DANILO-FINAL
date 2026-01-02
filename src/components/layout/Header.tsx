@@ -1,7 +1,7 @@
 'use client';
 
 // Canonical Header Component
-import SiteHeader from '@/components/header/SiteHeader';
+import SiteHeader from '@/components/layout/header/SiteHeader';
 import { BRAND } from '@/config/brand';
 import { HEADER_LINKS_DESKTOP } from '@/config/navigation';
 

@@ -32,7 +32,7 @@ export default function Particles() {
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
       <pointsMaterial
-        color="#f501d3F"
+        color="#f501d3"
         size={0.02}
         sizeAttenuation
         transparent

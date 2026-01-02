@@ -62,35 +62,43 @@ export const riseSoft: Variants = {
   }),
 };
 
-// floatMemory: Pequeno deslocamento lateral/vertical + leve blur permanente
+// floatMemory: Pequeno deslocamento lateral/vertical
 // Uso: Imagens flutuantes na seção Origem
 export const floatMemory: Variants = {
   hidden: {
     opacity: 0,
-    filter: 'blur(12px)',
-    x: 10, // Leve offset na entrada
+    y: 20,
+    x: 10,
   },
   visible: (customDelay = 0) => ({
-    opacity: 0.85, // Nunca 100% opaco
-    filter: 'blur(4px)', // Blur permanente leve
+    opacity: 0.65, // Opacity 0.6-0.7 conforme spec
+    y: 0,
     x: 0,
     transition: {
       opacity: { duration: 1.2, delay: customDelay, ease: GHOST_EASE },
-      filter: { duration: 1.2, delay: customDelay, ease: GHOST_EASE },
+      y: { duration: 1.2, delay: customDelay, ease: GHOST_EASE },
       x: { duration: 1.2, delay: customDelay, ease: GHOST_EASE },
     },
   }),
-  // Variante extra para animação contínua (loop) se desejado depois
-  float: {
-    y: [0, -10, 0],
-    x: [0, 5, 0],
-    transition: {
-      duration: 8,
-      repeat: Infinity,
-      repeatType: 'reverse',
-      ease: 'easeInOut',
-    },
+};
+
+// imageFloat: Entrada suave para imagens intercaladas
+// Uso: Imagens da seção Origem (sem blur, opacity controlada)
+// NOTA: Sem scale/bounce/rotate conforme Ghost Design System
+export const imageFloat: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 30,
   },
+  visible: (customDelay = 0) => ({
+    opacity: 0.65, // Opacity 0.6-0.7 conforme spec
+    y: 0,
+    transition: {
+      duration: 1,
+      delay: customDelay,
+      ease: GHOST_EASE,
+    },
+  }),
 };
 
 // staggerGhost: Helper para container de listas

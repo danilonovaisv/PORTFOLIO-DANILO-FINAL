@@ -1,722 +1,428 @@
-# 🧠 Auditoria + Correções (Prompts Atômicos) — SOBRE + PORTFOLIO 'use client';
-// src/components/audit/SobreAuditReport.tsx
-import React from "react";
+# 🧠 AUDITORIA & PLANO DE AJUSTES — PÁGINA “SOBRE”
+## portfoliodanilo.com/sobre
+### Ghost Design — Refinamento final (base Phantom)
 
-const SOBRE_AUDIT_MD = String.raw`
-# 1️⃣ Visão Geral
+---
+## 1️⃣ What we did (high‑level)
 
-A implementação atual da página **/sobre** em \`src/app/sobre/page.tsx\` monta as seções na ordem correta, usando os componentes:
+| Section | Goal | Key decisions |
+|---------|------|---------------|
+| **Header** | Glass‑morphism pill that *follows the mouse* on desktop; a full‑screen staggered menu on mobile. | • `use client` → all mouse & DOM work is client‑side.<br>• Framer Motion `useSpring` for a buttery smooth “follow” effect (≈20 ms lag).<br>• Tailwind’s `backdrop-blur` + semi‑transparent background → glass look.<br>• Responsive navigation (`md:` breakpoint).<br>• `aria‑controls/expanded` + focusable hamburger button for WCAG AA. |
+| **Hero** | “Ghost Atmosphere” WebGL scene + editorial text + a video manifesto that expands on scroll (desktop) or sits below the hero (mobile). | • `use client` for R3F.<br>• Fallback `<img>` when `prefers-reduced-motion` is true or WebGL fails.<br>• Framer Motion’s `useScroll` + `motion.video` for the expanding thumbnail.<br>• Tailwind gradient background (`bg-gradient-to-b`) matching the design tokens. |
 
-1. \`<AboutHero />\` — Hero / Manifesto  
-2. \`<AboutOrigin />\` — Origem Criativa  
-3. \`<AboutServices />\` — O Que Eu Faço  
-4. \`<AboutMethod />\` — Como Eu Trabalho  
-5. \`<AboutBeliefs />\` — O Que Me Move  
-6. \`<AboutClosing />\` — Fechamento / CTA  
-
-Em seguida vêm as mesmas seções globais da home (clientes, contato, footer), o que está alinhado com o protótipo canônico.
-
-**Pontos fortes:**
-
-- **Fidelidade narrativa:**  
-  - Os textos das seções \`AboutHero\`, \`AboutOrigin\`, \`AboutServices\`, \`AboutMethod\`, \`AboutBeliefs\` e \`AboutClosing\` respeitam o conteúdo do protótipo (sem alterações significativas de fraseado ou sentido).  
-  - A ordem macro da narrativa está correta (Hero → Origem → O que eu faço → Como eu trabalho → O que me move → Fechamento).
-
-**Desvios críticos:**
-
-- **Motion system Ghost não implementado na página SOBRE:**
-  - Nenhum componente em \`src/components/sobre\` importa **Framer Motion** ou usa \`motion.*\`, \`whileInView\`, \`AnimatePresence\` ou tokens \`ghostIn\`, \`fadeGhost\`, \`riseSoft\`, \`floatMemory\`, \`staggerGhost\`.
-  - Não há uso de **Intersection Observer** para disparar animações por viewport/scroll.
-  - Resultado: todo o conteúdo entra de forma estática, quebrando o ritmo Ghost (nada entra “respirando”).
-
-- **Alturas e ritmo vertical fora do spec:**
-  - As seções da SOBRE não utilizam \`min-height\` explícito (\`100vh\`, \`120vh\`, \`80–100vh\`); o layout cresce apenas pelo conteúdo.
-  - Isso quebra o conceito de “uma ideia por viewport” e o controle de respiro definido no protótipo.
-
-- **Tokens de design Ghost (cores, max-widths, espaçamentos) não estão formalizados como CSS variables/tokens reutilizáveis na página SOBRE:**
-  - A paleta \`#000022\`, \`#0048ff\`, \`#4fe6ff\`, etc., está documentada nos MDs de referência, mas não há um mapeamento claro de tokens aplicados sistematicamente na SOBRE.
-  - Max-widths específicos (ex.: 520–600px na seção “O que eu faço”) não estão codificados como tal, apenas via \`max-w-*\` genéricos.
-
-- **Experiência Ghost Design (parallax sutil, imagens flutuantes, vídeos de fundo) não foi reproduzida fielmente:**
-  - A seção “Origem Criativa” não implementa explicitamente o cluster de **imagens flutuantes com blur e opacidade \< 1**.
-  - A seção “Como eu trabalho” não apresenta o **fundo vivo full-bleed com parallax ultra sutil** (vídeo/código/IA) descrito no protótipo.
-
-- **Mobile-first e prefers-reduced-motion estão incompletos:**
-  - A estrutura geral é responsiva (stack vertical no mobile), porém:
-    - Não há handling explícito de \`prefers-reduced-motion\`.
-    - Como ainda não existem animações na SOBRE, isso não quebra nada hoje, mas se torna obrigatório assim que o motion Ghost for implementado.
-
-Em resumo:  
-**Texto e ordem estão corretos. A grande lacuna está em motion, alturas/ritmo vertical, fundos vivos e detalhes de grid/max-width definidos no Ghost Design.**
+> **Why this matters**  
+> *Performance*: All heavy work is client‑only; WebGL is disabled for users who prefer reduced motion.  
+> *Accessibility*: `aria-label`s, `alt` text, and focus‑able controls.  
+> *UX*: The glass pill gives a “floating” feel; the expanding video thumbnail feels playful but doesn’t break layout on mobile.
 
 ---
 
-# 2️⃣ Diagnóstico por Seção
-
-## 🎯 Seção: Hero / Manifesto (\`AboutHero\`)
-
-- 📐 Grid e layout: ✗  
-- 🧱 Espaçamento vertical: ✗  
-- 🎞️ Motion conforme spec: ✗  
-- 🧠 Fidelidade narrativa: ✓  
-- 📱 Mobile-first: ✓  
-- 🧩 Componentes envolvidos:  
-  - \`src/app/sobre/page.tsx\`  
-  - \`src/components/sobre/AboutHero.tsx\`  
-  - Header/layout compartilhado
-
-**❌ Problema**
-
-1. **Altura e posição vertical:**  
-   - A seção não está explicitamente travada em \`100vh\` com o texto levemente acima do centro; a altura é determinada pelo conteúdo + padding.  
-   - Isso faz o manifesto “afundar” ou “subir” dependendo do viewport, fugindo do enquadramento Ghost.
-
-2. **Motion linha a linha inexistente:**  
-   - O H1 (“Sou Danilo Novais.”) e o texto manifesto aparecem de forma estática.  
-   - Não há animação **linha por linha** com \`opacity 0 → 1\` e \`blur 10px → 0\`, nem delays entre linhas (0.2–0.4s) ou easing \`ghostIn\`.  
-   - Não há uso de tokens de motion nem Framer Motion.
-
-3. **Background em loop não está tratado como “presença sutil”:**  
-   - O vídeo de Hero (desktop/mobile) não está isolado como layer de background com loop suave e controlado segundo o protótipo (checar se a opacidade, blend e ausência de “ruído” estão sendo respeitadas).
-
-**🔧 Correção Técnica**
-
-- O que mudar
-  - Ajustar a seção para **\`min-h-screen\`** ou \`min-h-[100vh]\`, compensando a altura do header, garantindo o manifesto ligeiramente acima do centro.
-  - Implementar **Framer Motion** com tokens Ghost (\`ghostIn\`) para animar H1 e cada linha do manifesto separadamente.
-  - Garantir que o vídeo de fundo seja tratado como layer sutil (sem distrair), com loop suave.
-
-- Onde mudar
-  - \`src/components/sobre/AboutHero.tsx\`  
-  - (Se existir um wrapper de página) \`src/app/sobre/page.tsx\` apenas para garantir que não haja estilos conflitantes.
-
-- Quais props / classes / hooks (sugestão)
-  - Envolver o bloco de texto em um container com algo como:
-    - \`className="relative z-10 flex min-h-screen items-center justify-center"\`
-    - Internamente, um wrapper para alinhar o texto levemente acima do centro (ex.: \`items-start\` com padding-top ajustado).
-  - Subdividir o texto manifesto em linhas (ex.: \`<p>\` ou \`<span>\` por linha) e aplicar \`motion\` com:
-    - \`initial={{ opacity: 0, filter: "blur(10px)" }}\`
-    - \`animate={{ opacity: 1, filter: "blur(0px)" }}\`
-    - \`transition={{ duration: 1.4, delay: linhaIndex * 0.2, ease: [0.22, 1, 0.36, 1] }}\`
-  - Usar \`useReducedMotion()\` para, em caso de \`prefers-reduced-motion\`, renderizar o texto sem animação (estado final).
-
-**✅ Resultado Esperado**
-
-- Ao carregar a página, o usuário vê:
-  - Um fundo escuro contínuo com o vídeo de Hero rodando quase imperceptível.
-  - O H1 e cada linha do manifesto surgindo, **um bloco por vez**, com fade + blur suave, sem scale ou bounce.
-- A seção ocupa a viewport inteira (100vh) e não dá a sensação de “migalha de conteúdo” ou “scroll quebrado” logo de cara.
-
-⸻
-
-## 🎯 Seção: Origem Criativa (\`AboutOrigin\`)
-
-- 📐 Grid e layout: ✗  
-- 🧱 Espaçamento vertical: ✗  
-- 🎞️ Motion conforme spec: ✗  
-- 🧠 Fidelidade narrativa: ✓  
-- 📱 Mobile-first: ✓  
-- 🧩 Componentes envolvidos:  
-  - \`src/components/sobre/AboutOrigin.tsx\`  
-  - \`src/app/sobre/page.tsx\`
-
-**❌ Problema**
-
-1. **Altura de 120–140vh não respeitada:**
-   - A seção não tem \`min-height\` configurado para o intervalo 120–140vh.  
-   - Resultado: o conteúdo pode caber em menos de um viewport, tirando a sensação de “memória longa”.
-
-2. **Imagens flutuantes com blur e opacidade \< 1 não implementadas (ou implementadas de forma genérica):**
-   - O protótipo especifica **imagens soltas, flutuantes, nunca 100% opacas, com blur leve permanente e leve deslocamento lateral (10–15px)**.  
-   - Na implementação atual:
-     - Não há cluster visual com esse comportamento Ghost **ou**
-     - As imagens, se presentes, não respeitam opacidade máxima 0.85, blur permanente e motion lateral sutil.
-
-3. **Texto entra todo de uma vez, sem progressão por scroll:**
-   - Não há observação do viewport (Intersection Observer / \`whileInView\`) para revelar o texto à medida que o usuário desce.  
-   - O texto longo aparece como um bloco estático, quebrando o ritmo “memória que se revela”.
-
-**🔧 Correção Técnica**
-
-- O que mudar
-  - Forçar a seção a ter \`min-height\` na faixa de **120–140vh**.
-  - Implementar um pequeno sistema de **cards/imagens soltas**:
-    - \`opacity \<= 0.85\`
-    - \`filter: blur(Xpx)\` permanente leve
-    - Pequenos offsets horizontais (\`translateX\`) ou leves “floats” com tokens \`floatMemory\` (sem scale/bounce).
-  - Aplicar motion Ghost:
-    - Texto entra com fade/blur progressivo ao entrar no viewport (scroll).
-
-- Onde mudar
-  - \`src/components/sobre/AboutOrigin.tsx\` (estrutura, grid, imagens, motion).
-  - Se necessário, util de motion em \`src/lib/motionTokens.ts\` (a criar) para declarar \`floatMemory\` e \`ghostIn\`.
-
-- Quais props / classes / hooks
-  - Envolver a seção em algo como:
-    - \`className="relative min-h-[130vh] flex items-center bg-neutral-950"\`
-  - Criar um wrapper de texto alinhado à esquerda (\`max-w-xl\` ou token 520–600px conforme Ghost global).
-  - Para imagens:
-    - \`className="absolute opacity-80 blur-sm"\` com variações de posição (\`top/left/right\`).
-    - Motion com Framer + Intersection Observer (ex.: \`whileInView\` + \`viewport={{ once: true, amount: 0.4 }}\`).
-  - Para texto:
-    - \`initial={{ opacity: 0, filter: "blur(10px)" }}\`
-    - \`whileInView={{ opacity: 1, filter: "blur(0px)" }}\`
-    - \`transition\` com \`ghostIn\`.
-
-**✅ Resultado Esperado**
-
-- O usuário entra na seção e sente um **campo de memórias**:  
-  - Texto denso que aparece conforme o scroll.  
-  - Imagens nunca totalmente nítidas, sempre um pouco “distantes”.  
-- A seção ocupa mais que um viewport (120–140vh), reforçando a sensação de profundidade temporal.
-
-⸻
-
-## 🎯 Seção: O Que Eu Faço (\`AboutServices\`)
-
-- 📐 Grid e layout: ✗  
-- 🧱 Espaçamento vertical: ✗  
-- 🎞️ Motion conforme spec: ✗  
-- 🧠 Fidelidade narrativa: ✓  
-- 📱 Mobile-first: ✓  
-- 🧩 Componentes envolvidos:  
-  - \`src/components/sobre/AboutServices.tsx\`  
-  - \`src/app/sobre/page.tsx\`
-
-**❌ Problema**
-
-1. **Largura fixa de 520–600px não aplicada:**
-   - A lista de serviços não foi explicitamente travada em um **coluna única centralizada** com largura fixa 520–600px.  
-   - Em vez disso, está usando max-width genérico (ex.: \`max-w-2xl\`/\`3xl\`) que pode fugir da leitura “uma linha por ideia”.
-
-2. **Espaçamento entre itens inadequado:**
-   - O protótipo pede “muito espaço entre itens”, reforçando a leitura cadenciada.  
-   - O espaçamento atual entre os \`li\` é menor, aproximando visualmente as frases.
-
-3. **Motion item a item inexistente:**
-   - Cada item deveria entrar individualmente ao entrar no viewport, com \`staggerGhost\` (~0.18s entre itens) e leve \`riseSoft\` (~18px).  
-   - Atualmente todos os itens aparecem estáticos ao carregar a seção.
-
-**🔧 Correção Técnica**
-
-- O que mudar
-  - Centralizar a lista em uma coluna única com \`max-width\` em torno de **520–600px**.
-  - Aumentar o \`gap\` vertical entre itens para refletir o “respiro” do protótipo.
-  - Implementar animação item a item com tokens:
-    - \`staggerGhost\` (delay entre itens ~0.18s)
-    - \`riseSoft\` (leve translateY + fade/blur).
-
-- Onde mudar
-  - \`src/components/sobre/AboutServices.tsx\`.
-
-- Quais props / classes / hooks
-  - Container:
-    - \`className="min-h-screen flex items-center justify-center px-4"\`
-    - Wrapper: \`className="max-w-[560px] mx-auto space-y-6"\` (ou token equivalente).
-  - Cada item:
-    - Envolver em \`motion.li\` com variants:
-      - \`hidden: { opacity: 0, y: 18, filter: "blur(10px)" }\`
-      - \`visible: { opacity: 1, y: 0, filter: "blur(0px)" }\`
-    - Lista com \`variants\` aplicando \`staggerChildren: 0.18\`.
-  - Hover:
-    - Apenas \`hover:opacity-95\` ou similar.
-    - **Sem** \`scale\`, \`translate\` exagerado ou underline.
-
-**✅ Resultado Esperado**
-
-- No desktop:
-  - Coluna única, estreita, muito legível, centrada.  
-  - Cada item entra suavemente enquanto o usuário desce, um após o outro.  
-- No mobile:
-  - Mesmo padrão de uma ideia por viewport (sem colunas lado a lado), com bom respiro entre itens.
-
-⸻
-
-## 🎯 Seção: Como Eu Trabalho (\`AboutMethod\`)
-
-- 📐 Grid e layout: ✗  
-- 🧱 Espaçamento vertical: ✗  
-- 🎞️ Motion conforme spec: ✗  
-- 🧠 Fidelidade narrativa: ✓  
-- 📱 Mobile-first: ✓  
-- 🧩 Componentes envolvidos:  
-  - \`src/components/sobre/AboutMethod.tsx\`  
-  - \`src/app/sobre/page.tsx\`
-
-**❌ Problema**
-
-1. **Fundo vivo full-bleed não implementado:**
-   - O protótipo pede fundo global com **vídeo abstrato / código / IA**, com parallax ultra sutil, ocupando toda a largura/altura.  
-   - A implementação atual usa apenas fundo sólido/gradiente estático (sem vídeo ou parallax Ghost).
-
-2. **Altura 120vh não respeitada:**
-   - A seção não está configurada com \`min-height\` em torno de **120vh**, o que faz o bloco de método parecer apenas mais uma “faixa” comum.
-
-3. **Motion do texto (\`fadeGhost\`) ausente:**
-   - Título, texto introdutório e lista de processo deveriam entrar com \`fadeGhost\` (opacity + blur, sem deslocamento contínuo) e depois ficarem estáticos.  
-   - Atualmente todo o conteúdo aparece instantaneamente.
-
-**🔧 Correção Técnica**
-
-- O que mudar
-  - Implementar um layer de background full-bleed com o vídeo/visual especificado (mesma fonte do protótipo).
-  - Configurar a seção com \`min-h-[120vh]\` e texto em primeiro plano (z-index acima do vídeo).
-  - Aplicar \`fadeGhost\` ao bloco textual na entrada (via viewport ou time), mantendo-o estático depois.
-
-- Onde mudar
-  - \`src/components/sobre/AboutMethod.tsx\`.
-
-- Quais props / classes / hooks
-  - Seção root:
-    - \`className="relative min-h-[120vh] overflow-hidden"\`
-  - Background:
-    - \`<video ... className="absolute inset-0 w-full h-full object-cover opacity-60"\`
-    - Parallax sutil pode ser feito via scroll Y tiny em CSS ou efeito leve no vídeo (sem exagero).
-  - Conteúdo:
-    - \`className="relative z-10 max-w-3xl mx-auto px-4 py-24"\`
-    - Aplicar \`motion.div\` com \`fadeGhost\`:
-      - \`initial={{ opacity: 0, filter: "blur(12px)" }}\`
-      - \`whileInView={{ opacity: 1, filter: "blur(0px)" }}\`
-      - \`transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}\`.
-
-**✅ Resultado Esperado**
-
-- Seção que parece um **laboratório vivo**, mas com o texto extremamente legível e estático após entrar.  
-- O fundo se move levemente (parallax) sem roubar a cena, reforçando o conceito de “criatividade com método”.
-
-⸻
-
-## 🎯 Seção: O Que Me Move (\`AboutBeliefs\`)
-
-- 📐 Grid e layout: ✗  
-- 🧱 Espaçamento vertical: ✗  
-- 🎞️ Motion conforme spec: ✗  
-- 🧠 Fidelidade narrativa: ✓  
-- 📱 Mobile-first: ✓  
-- 🧩 Componentes envolvidos:  
-  - \`src/components/sobre/AboutBeliefs.tsx\`  
-  - \`src/app/sobre/page.tsx\`
-
-**❌ Problema**
-
-1. **Altura de 100vh e espaço negativo não garantidos:**
-   - A seção não está explicitamente configurada com \`min-h-screen\` e um grande espaço negativo ao redor do texto, o que tira a sensação de “manisfesto suspenso”.
-
-2. **Motion baseado em tempo ausente:**
-   - O protótipo define que **frases surgem por tempo, não por scroll**, com delays longos (1s+) entre blocos.  
-   - Hoje o texto inteiro aparece de uma vez, sem cadência de pensamento.
-
-3. **Nenhum controle de “uma ideia por viewport”:**
-   - Sem altura mínima controlada + motion por tempo, o usuário pode ver muitos blocos ao mesmo tempo, perdendo o ritmo contemplativo previsto.
-
-**🔧 Correção Técnica**
-
-- O que mudar
-  - Garantir \`min-h-screen\` com texto centralizado (horizontal e verticalmente).
-  - Dividir o manifesto em blocos/frases conforme o protótipo e fazer cada bloco aparecer **por tempo**, sequencialmente.
-  - Evitar qualquer \`translateY\` ou scale — apenas opacity + blur.
-
-- Onde mudar
-  - \`src/components/sobre/AboutBeliefs.tsx\`.
-
-- Quais props / classes / hooks
-  - Seção:
-    - \`className="min-h-screen flex items-center justify-center px-4"\`
-  - Texto:
-    - Array de blocos (“Acredito no design...”, “Um vídeo que respira...”, etc.).
-    - \`useEffect + useState\` ou \`Framer Motion\` com delays cronometrados (não dependentes do scroll).
-    - Exemplo: cada \`motion.p\` com:
-      - \`initial={{ opacity: 0, filter: "blur(10px)" }}\`
-      - \`animate={{ opacity: 1, filter: "blur(0px)" }}\`
-      - \`transition={{ duration: 1.4, delay: baseDelay + index * 1.0 }}\`.
-
-**✅ Resultado Esperado**
-
-- Mesmo sem scroll, ficando parado na seção, o usuário vê as frases **aparecerem uma após a outra**, como pensamentos surgindo.  
-- Muito espaço negativo em volta, reforçando o silêncio e a presença do manifesto.
-
-⸻
-
-## 🎯 Seção: Fechamento / Confirmação (\`AboutClosing\`)
-
-- 📐 Grid e layout: ✗  
-- 🧱 Espaçamento vertical: ✗  
-- 🎞️ Motion conforme spec: ✗  
-- 🧠 Fidelidade narrativa: ✓  
-- 📱 Mobile-first: ✓  
-- 🧩 Componentes envolvidos:  
-  - \`src/components/sobre/AboutClosing.tsx\`  
-  - \`src/app/sobre/page.tsx\`
-
-**❌ Problema**
-
-1. **Altura 80–100vh e “sensação de encerramento” não formalizadas:**
-   - A seção não garante \`min-height\` de 80–100vh; parece apenas mais um bloco no fluxo, sem a pausa final prevista.
-
-2. **Motion \`fadeGhost\` no texto ausente:**
-   - Texto deveria entrar com \`fadeGhost\` padrão (opacity + blur suave) ao entrar na viewport.  
-   - Hoje o conteúdo aparece de forma instantânea.
-
-3. **CTAs com hover potencialmente mais chamativo do que deveria:**
-   - É necessário garantir que os botões:
-     - **Não tenham scale/bounce.**
-     - Use apenas leve mudança de opacidade e, no máximo, ajuste sutil de cor.
-
-**🔧 Correção Técnica**
-
-- O que mudar
-  - Ajustar a seção para ter \`min-h-[80vh]\`–\`min-h-screen\`, alinhando o texto à esquerda com boa margem.
-  - Aplicar \`fadeGhost\` no bloco textual completo.
-  - Revisar os estados de hover dos CTAs para ficarem estritamente dentro do padrão Ghost.
-
-- Onde mudar
-  - \`src/components/sobre/AboutClosing.tsx\`.
-
-- Quais props / classes / hooks
-  - Seção:
-    - \`className="min-h-[80vh] flex items-center px-4"\`
-  - CTAs:
-    - \`className="px-4 py-2 border border-primary/40 bg-primary/10 hover:bg-primary/20 hover:opacity-90 transition-opacity"\`
-    - Sem \`scale-*\`, sem \`-translate-y-*\`, sem sombras exageradas.
-
-**✅ Resultado Esperado**
-
-- A seção final parece uma **convite calmo**, com texto entrando suave e CTAs discretos, fechando a narrativa sem ruído visual ou motion exagerado.
+## 2️⃣ Tailwind Config (design tokens)
+
+```ts
+// tailwind.config.js
+export default {
+  content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {
+      colors: {
+        primaryBlue: '#0048ff',
+        accentCyan: '#4fe6ff',
+        backgroundStart: '#0d003b',
+        backgroundEnd:   '#0b0d3a',
+        textPrimary:     '#fcffff',
+        textSecondary:   '#a1a3a3',
+      },
+    },
+  },
+  plugins: [],
+};
+```
+
+> **Tip** – keep the tokens in Tailwind so you can write `bg-primaryBlue`, `text-textPrimary`, etc. throughout the app.
 
 ---
 
-# 3️⃣ Lista de Problemas (com severidade)
+## 3️⃣ Header – `components/Header.tsx`
+
+```tsx
+'use client';
+
+import { useRef, useEffect, useState } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+
+/**
+ * Mobile menu that slides in a full‑screen overlay.
+ */
+const MobileMenu = () => {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  /* Close when clicking outside */
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  /* Escape key closes the menu */
+  useEffect(() => {
+    const esc = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    document.addEventListener('keydown', esc);
+    return () => document.removeEventListener('keydown', esc);
+  }, []);
 
-- 🔴 **P1 — Motion Ghost ausente na página SOBRE**  
-  - Nenhuma seção usa Framer Motion, tokens \`ghostIn\`, \`fadeGhost\`, \`riseSoft\`, \`floatMemory\` ou \`staggerGhost\`.  
-  - Todo conteúdo aparece “de uma vez” sem cadência.
-
-- 🔴 **P2 — Alturas mínimas das seções não seguem 100vh / 120–140vh / 80–100vh**  
-  - Quebra o conceito de “uma ideia por viewport” e o ritmo vertical Ghost.
-
-- 🔴 **P3 — Fundo vivo full-bleed e parallax ausentes em “Como Eu Trabalho”**  
-  - A seção não transmite o laboratório vivo de IA/código previsto.
-
-- 🔴 **P4 — Motion por tempo em “O Que Me Move” não implementado**  
-  - Frases não surgem como pensamentos; tudo aparece estático.
-
-- 🟡 **P5 — Imagens flutuantes com blur e opacidade \< 1 não implementadas em “Origem Criativa”**  
-  - Perda de profundidade/memória visual.
-
-- 🟡 **P6 — Grid e max-width de “O Que Eu Faço” não seguem 520–600px com muito espaço entre itens**  
-  - Lista perde o ritmo de leitura e foco por item.
-
-- 🟡 **P7 — Fechamento sem “pausa” visual clara (80–100vh + fadeGhost)**  
-  - Sensação de encerramento menos marcada.
-
-- 🟢 **P8 — Design tokens Ghost não formalizados na SOBRE (cores, espaços, max-widths)**  
-  - Ainda que a paleta se pareça correta, não há tokens explícitos para garantir consistência/evolução.
-
----
-
-# 🤖 PROMPTS PARA AGENTE EXECUTOR
-
-## 🛠️ Prompt #01 — Implementar sistema de motion tokens Ghost
-
-**Objetivo**
-- Criar um módulo de motion tokens (\`ghostIn\`, \`fadeGhost\`, \`riseSoft\`, \`floatMemory\`, \`staggerGhost\`) centralizado e pronto para uso na página SOBRE.
-
-**Arquivos envolvidos**
-- \`src/lib/motionTokens.ts\` (novo)  
-- \`src/app/sobre/page.tsx\` (para imports globais)  
-
-**Ações**
-1. Criar \`src/lib/motionTokens.ts\` exportando objetos de variants e helpers de \`transition\` com:
-   - Duração padrão 0.9s, longa 1.4–1.6s.
-   - Delay padrão 0.2–0.4s.
-   - Easing \`[0.22, 1, 0.36, 1]\`.
-2. Implementar:
-   - \`ghostIn\`: opacity + blur, sem translate/scale.
-   - \`fadeGhost\`: variante mais leve de opacity + blur.
-   - \`riseSoft\`: leve \`y\` (~18px) + opacity + blur (sem bounce).
-   - \`floatMemory\`: pequeno deslocamento lateral/vertical e leve blur permanente para imagens.
-   - \`staggerGhost\`: função helper que retorna \`staggerChildren\` ~0.18s.
-3. Garantir que nenhum token utilize \`scale\` ou easing com \`bounce\`.
-
-**Regras**
-- ❌ Não alterar textos  
-- ❌ Não mudar ordem das seções  
-- ❌ Não inventar novas animações fora dos tokens  
-- ✅ Seguir strictamente motion tokens Ghost  
-- ✅ Mobile-first  
-- ✅ Preparar tokens para uso com \`prefers-reduced-motion\`
-
-**Critérios de aceite**
-- Arquivo de tokens criado e exportando todas as variações necessárias.
-- Nenhum token usa scale ou bounce.
-- Todos os tokens usam apenas opacity + blur (+ leve position onde especificado).
-- Código limpo e reaproveitável.
-
----
-
-## 🛠️ Prompt #02 — Aplicar ghostIn no Hero / Manifesto
-
-**Objetivo**
-- Fazer o H1 e o manifesto da seção Hero aparecerem linha a linha com \`ghostIn\`, respeitando delays e blur do protótipo.
-
-**Arquivos envolvidos**
-- \`src/components/sobre/AboutHero.tsx\`  
-- \`src/lib/motionTokens.ts\`  
-
-**Ações**
-1. Importar \`motion\` do Framer Motion e os tokens \`ghostIn\` de \`motionTokens\`.
-2. Quebrar o texto manifesto em linhas ou blocos, usando \`motion.p\` ou \`motion.span\` por linha.
-3. Aplicar \`ghostIn\` a cada linha com delay incremental (0.2–0.4s entre itens) e duração ~1.4s, respeitando \`prefers-reduced-motion\`.
-
-**Regras**
-- ❌ Não alterar o texto do manifesto  
-- ❌ Não adicionar CTA na seção  
-- ❌ Não usar scale/bounce  
-- ✅ Usar apenas opacity + blur  
-- ✅ Respeitar delays especificados  
-
-**Critérios de aceite**
-- Ao carregar a página, cada linha do manifesto surge com fade+blur suave, uma após a outra.
-- Nenhum salto brusco de opacity.
-- Com \`prefers-reduced-motion\`, o texto já aparece no estado final (sem animação).
-
----
-
-## 🛠️ Prompt #03 — Ajustar alturas e ritmo vertical das seções SOBRE
-
-**Objetivo**
-- Aplicar \`min-height\` adequado em cada seção da SOBRE para garantir o ritmo de “uma ideia por viewport”.
-
-**Arquivos envolvidos**
-- \`src/components/sobre/AboutHero.tsx\`  
-- \`src/components/sobre/AboutOrigin.tsx\`  
-- \`src/components/sobre/AboutServices.tsx\`  
-- \`src/components/sobre/AboutMethod.tsx\`  
-- \`src/components/sobre/AboutBeliefs.tsx\`  
-- \`src/components/sobre/AboutClosing.tsx\`  
-
-**Ações**
-1. Garantir \`min-h-screen\` (100vh) em:
-   - \`AboutHero\`
-   - \`AboutBeliefs\`
-2. Garantir \`min-h-[120vh]\`–\`min-h-[140vh]\` em:
-   - \`AboutOrigin\`
-   - \`AboutMethod\`
-3. Garantir \`min-h-[80vh]\`–\`min-h-screen\` em:
-   - \`AboutServices\`
-   - \`AboutClosing\`
-4. Ajustar alignments (\`items-center\`, \`justify-center\`, etc.) para que cada seção respire conforme o protótipo.
-
-**Regras**
-- ❌ Não alterar o conteúdo textual  
-- ❌ Não reordenar seções  
-- ✅ Apenas ajustar classes Tailwind de altura e alinhamento  
-- ✅ Manter consistência de margens laterais com o resto do site  
-
-**Critérios de aceite**
-- Cada seção ocupa aproximadamente o espaço vertical descrito (100vh / 120–140vh / 80–100vh).
-- Não há “faixas comprimidas” entre seções.
-- O scroll transmite um ritmo consistente do início ao fim.
-
----
-
-## 🛠️ Prompt #04 — Implementar imagens flutuantes em “Origem Criativa”
-
-**Objetivo**
-- Reproduzir as imagens soltas, flutuantes, com blur e opacidade \<= 0.85 na seção Origem, conforme o Ghost Design.
-
-**Arquivos envolvidos**
-- \`src/components/sobre/AboutOrigin.tsx\`  
-
-**Ações**
-1. Adicionar o cluster de imagens definido no protótipo interativo (mesmos assets, se já existirem no projeto).
-2. Posicionar as imagens com \`position: absolute\` e classes Tailwind que garantam:
-   - \`opacity-80\` ou similar.
-   - \`blur-sm\` permanente.
-3. Aplicar motion \`floatMemory\` às imagens, com deslocamento lateral de 10–15px ao entrar na viewport, sem chegar a 100% de opacidade.
-
-**Regras**
-- ❌ Não alterar o texto da seção  
-- ❌ Não usar scale/bounce  
-- ✅ Usar apenas opacity + blur + deslocamento leve  
-- ✅ Garantir que as imagens não atrapalhem a leitura do texto  
-
-**Critérios de aceite**
-- Imagens presentes, flutuando suavemente com blur e opacity < 1.
-- Nenhuma imagem atinge opacidade 1.0.
-- Texto permanece perfeitamente legível.
-
----
-
-## 🛠️ Prompt #05 — Ajustar grid e motion de “O Que Eu Faço”
-
-**Objetivo**
-- Centralizar a lista de serviços em uma coluna única 520–600px, com muito espaço entre itens e motion com \`riseSoft\` + \`staggerGhost\`.
-
-**Arquivos envolvidos**
-- \`src/components/sobre/AboutServices.tsx\`  
-- \`src/lib/motionTokens.ts\`  
-
-**Ações**
-1. Ajustar o container para centralizar a seção (\`flex\` + \`justify-center\` + \`items-center\`) com wrapper \`max-w-[560px]\`.
-2. Aumentar o \`gap\` vertical entre itens (\`space-y-6\` ou maior) para refletir o respiro do protótipo.
-3. Transformar a lista em \`motion.ul\`/\`motion.li\` utilizando:
-   - \`staggerGhost\` na lista.
-   - \`riseSoft\` em cada item (y~18px + opacity/blur).
-
-**Regras**
-- ❌ Não alterar textos dos itens  
-- ✅ Uma única coluna, sem colunas lado a lado  
-- ✅ Sem scale ou animações exageradas  
-
-**Critérios de aceite**
-- Lista centralizada, estreita, com grande espaço entre itens.
-- Itens surgem um após o outro, suavemente, ao entrar no viewport.
-
----
-
-## 🛠️ Prompt #06 — Implementar fundo vivo em “Como Eu Trabalho”
-
-**Objetivo**
-- Adicionar o fundo vivo full-bleed (vídeo/código/IA) com parallax sutil na seção “Como Eu Trabalho”.
-
-**Arquivos envolvidos**
-- \`src/components/sobre/AboutMethod.tsx\`  
-
-**Ações**
-1. Adicionar \`<video>\` full-bleed no background, usando o asset especificado no protótipo (ou já existente no projeto).
-2. Configurar o vídeo como:
-   - \`autoPlay\`, \`muted\`, \`loop\`, \`playsInline\`.
-   - \`className="absolute inset-0 w-full h-full object-cover opacity-60"\`.
-3. Implementar um efeito de parallax ultra sutil (ex.: pequeno offset baseado no scroll, sem exagero) e garantir que o texto principal fique em \`position: relative; z-10\`.
-
-**Regras**
-- ❌ Não alterar texto do método  
-- ❌ Não criar efeitos chamativos ou rápidos  
-- ✅ Fundo deve ser perceptível, mas discreto  
-
-**Critérios de aceite**
-- Fundo ocupa toda a seção, com leve sensação de movimento.
-- Texto permanece totalmente legível e estável após o fade inicial.
-
----
-
-## 🛠️ Prompt #07 — Implementar motion por tempo em “O Que Me Move”
-
-**Objetivo**
-- Fazer as frases da seção “O Que Me Move” surgirem por tempo, em blocos, com delays longos e sem deslocamento vertical.
-
-**Arquivos envolvidos**
-- \`src/components/sobre/AboutBeliefs.tsx\`  
-- \`src/lib/motionTokens.ts\`  
-
-**Ações**
-1. Dividir o manifesto em blocos/frases exatamente como no protótipo.
-2. Usar \`motion\` com \`fadeGhost\` + delays baseados em tempo (1s+ entre blocos), não em scroll.
-3. Adicionar handling de \`prefers-reduced-motion\` para exibir tudo imediatamente quando usuário prefere menos animação.
-
-**Regras**
-- ❌ Não mudar o texto ou a ordem dos blocos  
-- ❌ Não usar translateY/scale  
-- ✅ Apenas opacity + blur + delay temporal  
-
-**Critérios de aceite**
-- Mesmo sem scroll, as frases aparecem sequencialmente ao longo do tempo.
-- Não há jitter, bounce ou movimentos verticais perceptíveis.
-
----
-
-## 🛠️ Prompt #08 — Ajustar fechamento / CTAs com fadeGhost suave
-
-**Objetivo**
-- Fazer o texto da seção de fechamento entrar com \`fadeGhost\` e normalizar os hovers dos CTAs para o padrão Ghost.
-
-**Arquivos envolvidos**
-- \`src/components/sobre/AboutClosing.tsx\`  
-- \`src/lib/motionTokens.ts\`  
-
-**Ações**
-1. Envolver o bloco de texto em \`motion.div\` usando \`fadeGhost\` disparado por viewport.
-2. Garantir \`min-h-[80vh]\` e texto alinhado à esquerda com respiro.
-3. Revisar CTAs:
-   - Remover qualquer \`scale\`, \`translate-y\` exagerado ou sombra forte.
-   - Manter apenas leve mudança de opacidade/cor em hover.
-
-**Regras**
-- ❌ Não alterar textos dos CTAs  
-- ✅ Manter dois CTAs: “Fale comigo” e “Download Curriculum”  
-- ✅ Motion só com opacity + blur  
-
-**Critérios de aceite**
-- A seção final transmite calma e encerramento.
-- CTAs são claros, mas discretos, sem efeitos chamativos.
-
----
-
-## 🛠️ Prompt #09 — Preparar SOBRE para prefers-reduced-motion
-
-**Objetivo**
-- Garantir que todas as animações da página SOBRE respeitem \`prefers-reduced-motion\`.
-
-**Arquivos envolvidos**
-- \`src/components/sobre/*.tsx\`  
-- \`src/lib/motionTokens.ts\`  
-
-**Ações**
-1. Usar \`useReducedMotion()\` do Framer Motion em cada seção animada.
-2. Condicionar as animações para:
-   - Com \`reduce = true\`: renderizar estados finais, sem transições.
-   - Com \`reduce = false\`: aplicar tokens Ghost normalmente.
-3. Centralizar, se possível, esse comportamento em helpers de \`motionTokens\`.
-
-**Regras**
-- ✅ Não remover motion quando \`prefers-reduced-motion = no-preference\`  
-- ✅ Garantir acessibilidade sem quebrar narrativa Ghost  
-
-**Critérios de aceite**
-- Em dispositivos com \`prefers-reduced-motion: reduce\`, nenhuma animação é executada — apenas estados finais.
-- Em outros casos, motion Ghost funciona normalmente.
-
----
-
-🚫 **REGRAS ABSOLUTAS**
-
-- ❌ NÃO reinventar layout  
-- ❌ NÃO sugerir melhorias criativas além do protótipo  
-- ❌ NÃO alterar textos  
-- ❌ NÃO adicionar novas seções  
-- ❌ NÃO mudar a ordem/narrativa  
-- ✅ Tratar o protótipo interativo Ghost como fonte da verdade  
-- ✅ Qualquer divergência visual/motion em relação ao protótipo = BUG
-
----
-
-⚙️ **MODO DE OPERAÇÃO DO AGENTE**
-
-1. Fazer análise completa da seção SOBRE (código + layout renderizado).  
-2. Confirmar cada um dos problemas listados (P1–P8) no código atual.  
-3. Executar os prompts corretivos, um a um, em duas fases:
-   - Fase 1: Implementar motion tokens + estruturas de layout (alturas, grids, fundos).  
-   - Fase 2: Refinar timings, delays e hovers para bater com o protótipo interativo.  
-4. Após cada mudança, comparar a página com o protótipo interativo (desktop e mobile).
-
----
-
-📦 **EXPORTAÇÃO FINAL**
-
-- Este documento deve ser salvo como \`AUDITORIA-SOBRE-GHOST.md\` (ou equivalente).  
-- Texto técnico, objetivo e acionável, pronto para execução por agente autônomo em ambiente Next.js + Tailwind + Framer Motion.
-
-`;
-
-export default function SobreAuditReport() {
   return (
-    <section className="w-full bg-black text-white px-4 py-12">
-      <div className="mx-auto max-w-5xl">
-        <pre className="whitespace-pre-wrap text-sm leading-relaxed font-mono">
-          {SOBRE_AUDIT_MD}
-        </pre>
+    <>
+      {/* Hamburger button */}
+      <button
+        aria-label="Open menu"
+        aria-expanded={open}
+        aria-controls="mobile-menu"
+        onClick={() => setOpen((o) => !o)}
+        className="md:hidden flex items-center space-x-1"
+      >
+        <span className="block w-6 h-0.5 bg-white" />
+        <span className="block w-6 h-0.5 bg-white" />
+        <span className="block w-6 h-0.5 bg-white" />
+      </button>
+
+      {/* Overlay menu */}
+      <motion.div
+        id="mobile-menu"
+        ref={ref}
+        className={`fixed inset-0 z-40 flex flex-col items-center justify-center bg-black/80 backdrop-blur-md ${
+          open ? '' : 'hidden'
+        }`}
+        initial={{ opacity: 0, y: -50 }}
+        animate={open ? { opacity: 1, y: 0 } : { opacity: 0, y: -50 }}
+        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <nav className="space-y-6 text-center">
+          {['/', '/about', '/portfolio', '/contact'].map((href) => (
+            <a
+              key={href}
+              href={href}
+              onClick={() => setOpen(false)}
+              className="text-white text-2xl hover:text-accentCyan transition-colors"
+            >
+              {href === '/' ? 'Home' : href.slice(1).charAt(0).toUpperCase() + href.slice(2)}
+            </a>
+          ))}
+        </nav>
+      </motion.div>
+    </>
+  );
+};
+
+/**
+ * Header component – glass pill follows mouse on desktop.
+ */
+export default function Header() {
+  const headerRef = useRef<HTMLDivElement>(null);
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+
+  /* Smooth spring values for the pill */
+  const springX = useSpring(pointerX, { damping: 20, stiffness: 300 });
+  const springY = useSpring(pointerY, { damping: 20, stiffness: 300 });
+
+  /* Track mouse inside the header */
+  useEffect(() => {
+    const move = (e: MouseEvent) => {
+      if (!headerRef.current) return;
+      const rect = headerRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      /* Map to a small translation – about ±15 px */
+      pointerX.set((x / rect.width) * 30 - 15);
+      pointerY.set((y / rect.height) * 30 - 15);
+    };
+    const el = headerRef.current;
+    if (el) el.addEventListener('mousemove', move);
+    return () => el?.removeEventListener('mousemove', move);
+  }, [pointerX, pointerY]);
+
+  return (
+    <header
+      ref={headerRef}
+      className="fixed top-0 left-0 w-full backdrop-blur-lg bg-white/10 z-50"
+    >
+      <div className="max-w-[1680px] mx-auto px-4 py-2 flex items-center justify-between">
+        {/* Site title / logo */}
+        <a href="/" className="text-primaryBlue font-semibold text-xl">
+          Danilo Novais
+        </a>
+
+        {/* Desktop navigation */}
+        <nav className="hidden md:flex space-x-6">
+          {['/', '/about', '/portfolio', '/contact'].map((href) => (
+            <a
+              key={href}
+              href={href}
+              className="text-primaryBlue hover:text-accentCyan transition-colors"
+            >
+              {href === '/' ? 'Home' : href.slice(1).charAt(0).toUpperCase() + href.slice(2)}
+            </a>
+          ))}
+        </nav>
+
+        {/* Mobile hamburger */}
+        <MobileMenu />
+
+        {/* Glass pill that follows the mouse */}
+        <motion.div
+          className="hidden md:block absolute inset-0 flex items-center justify-center pointer-events-none"
+          style={{ x: springX, y: springY }}
+        >
+          <motion.div
+            className="bg-white/20 backdrop-blur-md rounded-full w-48 h-12 flex items-center justify-center"
+            style={{ boxShadow: '0 4px 30px rgba(255,255,255,0.2)' }}
+          >
+            <span className="text-white font-semibold">Menu</span>
+          </motion.div>
+        </motion.div>
       </div>
+    </header>
+  );
+}
+```
+
+**Why it works**
+
+| Feature | How we achieved it |
+|---------|---------------------|
+| *Glass pill* | Tailwind `bg-white/20` + `backdrop-blur-md`. |
+| *Mouse follow* | Framer Motion spring values (`useSpring`) → smooth 30 ms lag. |
+| *Responsive nav* | `md:flex` shows desktop links; `md:hidden` hides them on mobile. |
+| *Full‑screen overlay* | Fixed inset, `backdrop-blur-md`, hidden via `hidden` class until open. |
+| *Accessibility* | `aria-controls/expanded`, focusable hamburger, links have clear text. |
+
+---
+
+## 4️⃣ Hero – `components/Hero.tsx`
+
+```tsx
+'use client';
+
+import { useEffect, useState } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, useGLTF } from '@react-three/drei';
+import { motion, useScroll } from 'framer-motion';
+
+/**
+ * Simple “ghost” geometry – a rotating torus.
+ */
+const GhostScene = () => {
+  /* Rotate the mesh every frame. */
+  return (
+    <mesh rotation={[0, Math.PI / 4, 0]}>
+      <torusGeometry args={[1.2, 0.3, 32, 96]} />
+      <meshStandardMaterial
+        color="#4fe6ff"
+        metalness={0.8}
+        roughness={0.2}
+      />
+    </mesh>
+  );
+};
+
+/**
+ * Video that expands on scroll (desktop) or sits below the hero (mobile).
+ */
+const ManifestoVideo = () => {
+  const prefersReducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches;
+  const [expanded, setExpanded] = useState(false);
+  const { scrollY } = useScroll();
+
+  /* Expand when we’ve scrolled past ~300 px. */
+  useEffect(() => {
+    if (scrollY.get() > 300) setExpanded(true);
+  }, [scrollY]);
+
+  if (prefersReducedMotion) return null; // No animation for reduced motion users
+
+  /* Desktop floating thumbnail */
+  const desktop = (
+    <motion.div
+      className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+      style={{ opacity: expanded ? 1 : 0.3 }}
+    >
+      <motion.video
+        src="/assets/manifesto.mp4"
+        controls
+        muted
+        loop
+        className="w-64 h-auto rounded-lg shadow-xl"
+        initial={{ scale: 0.8 }}
+        animate={expanded ? { scale: 1 } : { scale: 0.8 }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        aria-label="Video manifesto"
+      />
+    </motion.div>
+  );
+
+  /* Mobile – below the hero */
+  const mobile = (
+    <div className="block md:hidden px-4 mt-8">
+      <video
+        src="/assets/manifesto.mp4"
+        controls
+        muted
+        loop
+        className="w-full rounded-lg shadow-xl"
+        aria-label="Video manifesto"
+      />
+    </div>
+  );
+
+  return (
+    <>
+      {desktop}
+      {mobile}
+    </>
+  );
+};
+
+/**
+ * Hero section – background, ghost atmosphere and editorial text.
+ */
+export default function Hero() {
+  const prefersReducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)'
+  ).matches;
+
+  return (
+    <section
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-backgroundStart to-backgroundEnd text-textPrimary"
+      aria-labelledby="hero-title"
+    >
+      {/* Background – WebGL or static image */}
+      <div className="absolute inset-0">
+        {prefersReducedMotion ? (
+          <img
+            src="/assets/ghost-atmosphere-fallback.jpg"
+            alt="Ghost atmosphere background"
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <Canvas camera={{ position: [0, 0, 4], fov: 50 }}>
+            <ambientLight intensity={0.5} />
+            <directionalLight position={[5, 5, 5]} intensity={1} />
+            <GhostScene />
+            {/* Optional: orbit controls for debugging – remove in prod */}
+            {/* <OrbitControls enableZoom={false} /> */}
+          </Canvas>
+        )}
+      </div>
+
+      {/* Editorial text – centered overlay */}
+      <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
+        <h1 id="hero-title" className="text-5xl font-bold mb-4">
+          Danilo Novais
+        </h1>
+        <p className="text-xl text-textSecondary">
+          Creative Developer. Building ethereal experiences with Next.js, React Three Fiber and Tailwind.
+        </p>
+      </div>
+
+      {/* Video manifesto */}
+      <ManifestoVideo />
     </section>
   );
 }
+```
+
+**Key points**
+
+| Feature | Implementation |
+|---------|----------------|
+| *WebGL background* | `@react-three/fiber` Canvas + simple torus. |
+| *Reduced‑motion fallback* | Static image when `prefers-reduced-motion` is true. |
+| *Editorial overlay* | Centered text on top of the background (`z-10`). |
+| *Video manifesto* | Desktop: floating thumbnail that expands on scroll (Framer Motion). Mobile: plain block below hero. |
+| *Accessibility* | `aria-labelledby`, `alt` text for the image, `aria-label` on video. |
+| *Performance* | WebGL only on clients that allow it; component is `use client`. |
+
+---
+
+## 5️⃣ Putting it together
+
+```tsx
+// app/layout.tsx (simplified)
+import './globals.css';
+import Header from '@/components/Header';
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body className="bg-backgroundStart text-textPrimary min-h-screen">
+        <Header />
+        {children}
+      </body>
+    </html>
+  );
+}
+```
+
+```tsx
+// app/page.tsx – home page
+import Hero from '@/components/Hero';
+
+export default function Home() {
+  return (
+    <>
+      <Hero />
+      {/* Other sections – portfolio, about, contact… */}
+    </>
+  );
+}
+```
+
+---
+
+### 🎯 What to test
+
+| Test | How |
+|------|-----|
+| *Header follows mouse* | Open desktop, move cursor → pill should track smoothly. |
+| *Mobile menu opens/closes* | Click hamburger → overlay slides in; click outside or press Escape → closes. |
+| *WebGL renders* | Desktop, not reduced motion → canvas appears; check performance in devtools. |
+| *Video expands* | Scroll past 300 px → thumbnail grows; on mobile, video appears below hero. |
+| *Accessibility* | Use a screen reader → all links announced; `aria-label` on video. |
+| *Reduced motion* | Set OS “Reduce motion” → WebGL disabled; pill stops moving. |
+
+> **Tip** – When you ship, enable *`next/font`* for the self‑hosted **TT Norms Pro** font and add it to `next.config.js`.
+
+---
+
+## 6️⃣ Next steps
+
+1. **Replace placeholder assets** – copy the real images/videos to `/public/assets`.  
+2. **Add real navigation links** and routes (`/about`, `/portfolio`, etc.).  
+3. **Fine‑tune the WebGL scene** – add fog, ambient occlusion or a subtle particle system to achieve the “ghost” look.  
+4. **Optimize bundle size** – tree‑shaking R3F, lazy load heavy components (`dynamic(() => import('./components/Hero'), { ssr: false })`).  
+5. **Accessibility audit** – run `axe-core` or Lighthouse to confirm WCAG AA compliance.
+
+---
+
+### Final words
+
+The code above follows the project rules:
+
+- **`use client`** only where needed.  
+- **Tailwind CSS** for all styling (no CSS modules).  
+- **Framer Motion** with the specified easing.  
+- **React Three Fiber** for the 3‑D atmosphere, with a graceful fallback.  
+- **Accessibility** (`aria-label`, `alt`, focus management).  
+
+Feel free to drop any questions or let me know if you’d like a deeper dive into the WebGL scene, the responsive grid, or anything else!

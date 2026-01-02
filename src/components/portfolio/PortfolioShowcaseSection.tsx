@@ -23,22 +23,9 @@ export default function PortfolioShowcaseSection() {
       ref={sectionRef}
       id="portfolio-showcase"
       aria-label="Portfolio Categories"
-      className="relative z-50 bg-background py-24 md:py-32 overflow-hidden"
+      className="relative z-10 bg-background py-24 md:py-32 overflow-hidden"
     >
       <div className="mx-auto max-w-[1680px] px-[clamp(24px,5vw,96px)]">
-        {/* Headline da Sessão - Centralizado */}
-        {/* Headline da Sessão - Centralizado */}
-        <motion.div
-           initial={prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: true }}
-           className="mb-12 md:mb-20 text-center"
-        >
-          <h2 className="text-3xl font-bold tracking-tight text-white md:text-5xl lowercase">
-            <span className="text-[#0057FF]">portfólio</span> showcase
-          </h2>
-        </motion.div>
-
         <div className="relative">
           {/* Floating Label - LightBlue (#4fe6ff) - Posicionado ao lado do primeiro item */}
           <div className="pointer-events-none absolute left-0 top-[-40px] md:top-[24px] z-20 hidden md:block">

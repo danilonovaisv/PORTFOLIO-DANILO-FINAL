@@ -1,12 +1,11 @@
+// src/app/layout.tsx
 import type { Metadata, Viewport } from 'next';
 import localFont from 'next/font/local';
 import { siteMetadata, siteViewport } from '@/config/metadata';
 import ClientLayout from '@/components/layout/ClientLayout';
+import JsonLd from '@/components/ui/JsonLd';
 import './globals.css';
 
-/**
- * TT Norms Pro Font Configuration
- */
 const ttNorms = localFont({
   src: [
     { path: '../fonts/TT Norms Pro Thin.woff2', weight: '100' },
@@ -17,22 +16,13 @@ const ttNorms = localFont({
   ],
   variable: '--font-tt-norms',
   display: 'swap',
+  preload: true,
+  fallback: ['system-ui', '-apple-system', 'sans-serif'],
 });
 
-/**
- * SEO Metadata Export (Server Component)
- * This fixes the metadataBase warning in builds
- */
 export const metadata: Metadata = siteMetadata;
 export const viewport: Viewport = siteViewport;
 
-/**
- * Root Layout (Server Component)
- * Wraps the entire application with:
- * - HTML lang attribute
- * - Font variable injection
- * - Client-side layout wrapper
- */
 export default function RootLayout({
   children,
 }: {
@@ -40,6 +30,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-BR" className={ttNorms.variable}>
+      <head>
+        <JsonLd />
+      </head>
       <body className="antialiased bg-ghost-void text-white">
         <ClientLayout>{children}</ClientLayout>
       </body>

@@ -1,74 +1,68 @@
 'use client';
 
+import { useId } from 'react';
 import { useReducedMotion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 interface CTAButtonProps {
-  href: string;
+  href?: string;
+  onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
   children: React.ReactNode;
   variant?: 'primary' | 'secondary' | 'accent';
   className?: string;
+  id?: string;
 }
 
-/**
- * CTAButton Component - Compound Pill Standard
- *
- * Structure:
- * - Text Container: Full pill shape (rounded-full)
- * - Icon Container: Circular badge overlapping on right side
- *
- * Animation:
- * - Hover: translateY(-1px), ease-out, 200ms
- * - Arrow: rotates from -45deg to 0deg on hover
- * - Respects prefers-reduced-motion
- */
 export const CTAButton: React.FC<CTAButtonProps> = ({
   href,
+  onClick,
+  type = 'button',
+  disabled = false,
   children,
   variant = 'primary',
   className = '',
+  id,
 }) => {
   const prefersReducedMotion = useReducedMotion();
+  const generatedId = useId();
+  const uniqueId = id || `cta-btn-${generatedId.replace(/:/g, '')}`;
 
   const variants = {
     primary: {
-      bg: 'bg-[#0048ff] shadow-[0_0_30px_-5px_rgba(0,72,255,0.6)]',
+      bg: 'bg-ghost-blue shadow-[0_0_30px_-5px_rgba(0,87,255,0.6)]',
       text: 'text-white',
-      iconBg: 'bg-[#0048ff] shadow-[0_0_30px_-5px_rgba(0,72,255,0.6)]',
+      iconBg: 'bg-ghost-blue shadow-[0_0_30px_-5px_rgba(0,87,255,0.6)]',
     },
     secondary: {
-      bg: 'bg-transparent border-2 border-[#0048ff] shadow-[0_0_20px_-5px_rgba(0,72,255,0.2)]',
-      text: 'text-[#0048ff]',
-      iconBg: 'bg-[#0048ff] shadow-[0_0_20px_-5px_rgba(0,72,255,0.2)]',
+      bg: 'bg-transparent border-2 border-ghost-blue shadow-[0_0_20px_-5px_rgba(0,87,255,0.2)]',
+      text: 'text-ghost-blue',
+      iconBg: 'bg-ghost-blue shadow-[0_0_20px_-5px_rgba(0,87,255,0.2)]',
     },
     accent: {
-      bg: 'bg-[#4fe6ff] shadow-[0_0_30px_-5px_rgba(79,230,255,0.5)]',
-      text: 'text-[#0e0e0e]',
-      iconBg: 'bg-[#0048ff]',
+      bg: 'bg-ghost-green shadow-[0_0_30px_-5px_rgba(79,230,255,0.5)]',
+      text: 'text-secondary',
+      iconBg: 'bg-ghost-blue',
     },
   };
 
   const v = variants[variant];
 
-  // Check if it's an internal link (starts with / or #)
-  const isInternalLink = href.startsWith('/') || href.startsWith('#');
-
   const buttonContent = (
     <>
-      {/* Text Container - Full Pill Shape */}
       <span
-        className={`inline-flex items-center px-10 py-4 ${v.bg} ${v.text} font-medium uppercase tracking-wide text-base rounded-full`}
+        className={`inline-flex items-center px-8 md:px-10 py-3 md:py-4 ${v.bg} ${v.text} font-medium uppercase tracking-wide text-sm md:text-base rounded-full whitespace-nowrap`}
       >
         {children}
       </span>
 
-      {/* Icon Container - Circular Badge Overlapping Right */}
       <span
-        className={`flex items-center justify-center w-14 h-14 ${v.iconBg} text-white rounded-full -ml-5 z-10`}
+        className={`flex items-center justify-center w-12 h-12 md:w-14 md:h-14 ${v.iconBg} text-white rounded-full -ml-4 md:-ml-5 z-10`}
       >
         <ArrowRight
-          className={`w-5 h-5 -rotate-45 ${
+          className={`w-4 h-4 md:w-5 md:h-5 -rotate-45 ${
             prefersReducedMotion
               ? ''
               : 'transition-transform duration-300 group-hover:rotate-0'
@@ -81,27 +75,43 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
   const baseClasses = `
     inline-flex items-center group
     ${prefersReducedMotion ? '' : 'hover:-translate-y-px transition ease-out duration-200'}
-    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff] focus-visible:ring-offset-4 focus-visible:ring-offset-transparent
+    ${disabled ? 'opacity-50 pointer-events-none' : ''}
+    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ghost-green focus-visible:ring-offset-4 focus-visible:ring-offset-transparent
     ${className}
   `;
 
-  if (isInternalLink) {
+  if (href) {
+    const isInternalLink = href.startsWith('/') || href.startsWith('#');
+    if (isInternalLink) {
+      return (
+        <Link href={href} className={baseClasses} id={uniqueId}>
+          {buttonContent}
+        </Link>
+      );
+    }
     return (
-      <Link href={href} className={baseClasses}>
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={baseClasses}
+        id={uniqueId}
+      >
         {buttonContent}
-      </Link>
+      </a>
     );
   }
 
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
+    <button
+      id={uniqueId}
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
       className={baseClasses}
     >
       {buttonContent}
-    </a>
+    </button>
   );
 };
 

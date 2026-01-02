@@ -1,4 +1,3 @@
-// src/components/canvas/home/GhostCanvas.tsx
 'use client';
 
 import { Canvas } from '@react-three/fiber';
@@ -8,7 +7,6 @@ import Ghost from './Ghost';
 import Particles from './Particles';
 import Fireflies from './Fireflies';
 import AtmosphereVeil from './AtmosphereVeil';
-import RevealingText from './RevealingText'; // Importe o componente novo
 
 import {
   EffectComposer,
@@ -20,13 +18,14 @@ import {
 } from '@react-three/postprocessing';
 import { BlendFunction } from 'postprocessing';
 
-export default function GhostCanvas() {
-  const dpr: [number, number] =
-    typeof window === 'undefined'
-      ? [1, 1.5]
-      : [1, Math.min(2, window.devicePixelRatio || 1)];
+// ============================================================================
+// CONFIGURAÇÃO CRÍTICA: A COR DO FUNDO DEVE SER IDÊNTICA À COR DA MÁSCARA
+// ============================================================================
+const BACKGROUND_COLOR = '#06071f';
 
-  // Esta ref vai armazenar a posição do fantasma
+export default function GhostCanvas() {
+  const dpr: [number, number] = [1, 2];
+
   const ghostRef = useRef<THREE.Group>(null);
 
   return (
@@ -36,44 +35,44 @@ export default function GhostCanvas() {
         antialias: false,
         alpha: true,
         powerPreference: 'high-performance',
-        toneMapping: THREE.NoToneMapping,
+        stencil: false,
+        depth: true,
       }}
       camera={{ position: [0, 0, 6], fov: 35 }}
     >
-      <color attach="background" args={['#000022']} />
+      <color attach="background" args={[BACKGROUND_COLOR]} />
 
       <Suspense fallback={null}>
         <AtmosphereVeil />
 
-        {/* O Fantasma escreve sua posição na ref */}
-        <Ghost ref={ghostRef} scale={0.2} position={[0, -0.2, 0]} />
+        {/* Ghost (Z ~ 0) */}
+        <Ghost ref={ghostRef} scale={0.22} position={[0, -0.2, 0]} />
 
-        {/* O Texto lê a ref para saber onde acender */}
-        <RevealingText ghostRef={ghostRef} />
-
+        {/* Partículas decorativas */}
         <Particles />
         <Fireflies />
 
-        {/* Efeitos visuais */}
-        <EffectComposer enableNormalPass={false}>
+        {/* Post-processing (Ghost Atmosphere Spine) */}
+        <EffectComposer multisampling={0} enableNormalPass={false}>
           <Bloom
-            luminanceThreshold={1}
+            luminanceThreshold={0.15}
             mipmapBlur
-            intensity={1.5}
-            radius={0.6}
+            intensity={2.8}
+            radius={0.4}
           />
           <ChromaticAberration
-            offset={[0.002, 0.002]}
-            radialModulation={false}
-            modulationOffset={0}
+            offset={[0.0015, 0.0015]}
+            radialModulation={true}
+            modulationOffset={0.5}
+            blendFunction={BlendFunction.SCREEN}
           />
-          <Scanline density={1.5} opacity={0.25} />
+          <Scanline density={1.4} opacity={0.1} />
           <Noise
-            opacity={0.15}
+            opacity={0.08}
             premultiply
             blendFunction={BlendFunction.OVERLAY}
           />
-          <Vignette eskil={false} offset={0.1} darkness={1.0} />
+          <Vignette eskil={false} offset={0.2} darkness={0.8} />
         </EffectComposer>
       </Suspense>
     </Canvas>

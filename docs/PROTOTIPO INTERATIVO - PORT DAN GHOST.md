@@ -323,9 +323,10 @@ Ethereal, organic 3D atmosphere inspired by the "Ghost Blue" aesthetic. Main ele
 **Content:**
 - Tag: `[BRAND AWARENESS]` (12px, uppercase, mono)
 - H1: "Você não vê o design." (5–8rem, Black, tracking-tight)
-- H2: "Mas ele vê você." (5–8rem, Black, tracking-tight)
+- H2: "Mas ele vê você." (4–6rem, Black, tracking-tight)
 - CTA: "step inside →" (link to `/sobre`, hover effect: color change + arrow translation)
 - Same CTA button at bottom
+**Primary Font:** TT Norms Pro (self-hosted, fallback: `ui-sans-serif, system-ui`)
 
 **Behavior:**
 - 100% static (no scroll-triggered animations or fades)

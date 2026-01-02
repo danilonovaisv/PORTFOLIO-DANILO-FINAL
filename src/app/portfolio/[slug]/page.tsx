@@ -4,9 +4,31 @@ import { HOME_CONTENT } from '@/config/content'; // Adjust path if needed
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
+import { siteMetadata } from '@/config/metadata';
+import type { Metadata } from 'next';
+
 // Helper to find project
 function getProject(slug: string) {
   return HOME_CONTENT.featuredProjects.find((p) => p.slug === slug);
+}
+
+export async function generateMetadata({
+  params,
+}: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const project = getProject(slug);
+
+  if (!project) return siteMetadata;
+
+  return {
+    title: project.title,
+    description: `Case study: ${project.title} for ${project.client}. Category: ${project.category}.`,
+    openGraph: {
+      title: project.title,
+      description: `Case study: ${project.title} for ${project.client}. Category: ${project.category}.`,
+      images: [project.image],
+    },
+  };
 }
 
 export async function generateStaticParams() {
@@ -28,12 +50,12 @@ export default async function ProjectPage({ params }: Props) {
   }
 
   return (
-    <main className="min-h-screen bg-[#050505] text-[#F0F0F0] selection:bg-[#0057FF] selection:text-white">
+    <main className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 md:px-12 md:py-8 mix-blend-difference">
         <Link
           href="/portfolio"
-          className="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest hover:text-[#0057FF] transition-colors"
+          className="inline-flex items-center gap-2 text-sm font-medium uppercase tracking-widest hover:text-primary transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Portfolio
@@ -66,7 +88,7 @@ export default async function ProjectPage({ params }: Props) {
         </div>
 
         {/* Main Image */}
-        <div className="relative w-full aspect-video md:aspect-[2.4/1] rounded-2xl md:rounded-[2rem] overflow-hidden bg-[#111] shadow-2xl">
+        <div className="relative w-full aspect-video md:aspect-[2.4/1] rounded-2xl md:rounded-[2rem] overflow-hidden bg-muted shadow-2xl">
           <Image
             src={project.image}
             alt={project.title}
@@ -82,11 +104,11 @@ export default async function ProjectPage({ params }: Props) {
       <section className="px-6 md:px-12 pb-32 max-w-4xl mx-auto">
         <div className="prose prose-invert prose-lg md:prose-xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold mb-6">About the Project</h2>
-          <p className="text-[#888888] leading-relaxed">
+          <p className="text-muted-foreground leading-relaxed">
             This is a showcase page for <strong>{project.title}</strong>.
             Detailed case study content, process documentation, and final deliverables would typically appear here.
           </p>
-          <p className="text-[#888888] leading-relaxed mt-4">
+          <p className="text-muted-foreground leading-relaxed mt-4">
             The project focuses on {project.category} solutions for {project.client}, delivered in {project.year}.
           </p>
         </div>

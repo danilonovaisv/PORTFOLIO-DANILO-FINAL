@@ -901,14 +901,14 @@ export default function GhostStage() {
 
 
 /* ======================================================================
-File: src/components/home/HeroPreloader.tsx
+File: src/components/home/Preloader.tsx
 ====================================================================== */
 "use client";
 
 import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
-export default function HeroPreloader() {
+export default function Preloader() {
   const reducedMotion = useReducedMotion();
 
   return (
@@ -1049,7 +1049,7 @@ File: src/components/home/HomeHero.tsx
 
 import React, { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import HeroPreloader from "./HeroPreloader";
+import Preloader from "./Preloader";
 import HeroCopy from "./HeroCopy";
 import ManifestoThumb from "./ManifestoThumb";
 import GhostStage from "./GhostStage";
@@ -1083,7 +1083,7 @@ export default function HomeHero() {
         }}
         aria-label="Hero"
       >
-        <HeroPreloader />
+        <Preloader />
 
         {/* sticky stage */}
         <div className="sticky top-0 h-screen">

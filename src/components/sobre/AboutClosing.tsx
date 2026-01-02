@@ -1,70 +1,43 @@
 'use client';
 
 import { motion, useReducedMotion } from 'framer-motion';
-import { Download } from 'lucide-react';
-import { CTAButton } from '@/components/ui/CTAButton';
-import { fadeGhost } from '@/lib/motionTokens';
+import { motionTokens } from './motion';
+import { kw } from './keywords';
+import { CONTACT_CONFIG } from '@/lib/constants';
 
-export default function AboutClosing() {
+export function AboutClosing() {
   const prefersReducedMotion = useReducedMotion();
 
   return (
-    <section
-      className="relative min-h-[80vh] py-24 flex flex-col justify-center"
-      aria-label="Fechamento"
-    >
-      <div className="w-full max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)]">
-        <div className="max-w-3xl">
-          <motion.div
-            variants={fadeGhost}
-            initial={prefersReducedMotion ? 'visible' : 'hidden'}
-            whileInView="visible"
-            viewport={{ margin: '-10%' }}
-            className="text-3xl md:text-6xl lg:text-7xl font-light leading-tight text-white mb-12"
-          >
-            <p className="mb-6">
-              Hoje sou{' '}
-              <span className="text-[#0057FF] font-medium">
-                Diretor de Criação
-              </span>
-              ,<br />
-              com mais de 10 anos de estrada.
-            </p>
-            <p className="mb-6 text-white/90">
-              Já liderei marcas, agências, eventos
-              <br />e criei experiências para todos os canais.
-            </p>
-            <p>
-              Agora, quero criar algo que permaneça —<br />
-              <span className="italic">com você.</span>
-            </p>
-          </motion.div>
+    <section className="bg-(--ghost-bg) py-24 md:py-32">
+      <motion.div
+        variants={motionTokens.fadeGhost}
+        custom={0.2}
+        initial={prefersReducedMotion ? 'visible' : 'hidden'}
+        whileInView="visible"
+        viewport={{ once: true, margin: '-10%' }}
+        className="max-w-[720px] mx-auto px-6 md:px-10 lg:px-0 text-(--ghost-text) bg-black/25 border border-white/10 rounded-2xl shadow-[0_18px_80px_rgba(0,0,0,0.35)] p-8 md:p-12"
+      >
+        <p className="text-lg md:text-xl leading-relaxed text-(--ghost-text-secondary) mb-10">
+          Hoje sou Diretor de Criação, com mais de 10 anos de estrada. Quero
+          criar algo que {kw('permaneça')} — com você.
+        </p>
 
-          <motion.div
-            variants={fadeGhost}
-            initial={prefersReducedMotion ? 'visible' : 'hidden'}
-            whileInView="visible"
-            viewport={{ margin: '-10%' }}
-            custom={0.4}
-            className="flex flex-wrap gap-6 items-center"
+        <div className="flex flex-wrap gap-4 md:gap-6">
+          <a
+            className="cta inline-flex items-center justify-center px-5 md:px-6 py-3 rounded-full bg-[#0057FF] text-sm font-semibold tracking-tight shadow-[0_10px_40px_rgba(0,87,255,0.45)] hover:bg-[#0a5dff] transition-colors"
+            href={`mailto:${CONTACT_CONFIG.emails.secondary}`}
           >
-            <CTAButton href="mailto:dannovaisv@gmail.com">
-              Fale comigo
-            </CTAButton>
-
-            <a
-              href="/curriculum.pdf"
-              target="_blank"
-              className="group flex items-center gap-3 px-8 py-4 rounded-full border border-white/20 hover:border-[#0057FF] hover:bg-[#0057FF]/10 text-white transition-all duration-300"
-            >
-              <Download className="w-5 h-5" />
-              <span className="font-medium tracking-wide">
-                Download Curriculum
-              </span>
-            </a>
-          </motion.div>
+            Fale comigo
+          </a>
+          <a
+            className="cta inline-flex items-center justify-center px-5 md:px-6 py-3 rounded-full border border-white/20 text-sm font-semibold tracking-tight text-(--ghost-text) hover:border-[#0057FF]/60 transition-colors"
+            href={`mailto:${CONTACT_CONFIG.emails.secondary}?subject=Solicitar%20CV`}
+          >
+            Download CV
+          </a>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

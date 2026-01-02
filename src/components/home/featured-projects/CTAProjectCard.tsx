@@ -1,9 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useReducedMotion } from 'framer-motion';
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { CTAButton } from '@/components/ui/CTAButton';
 
 /**
  * CTAProjectCard - Featured Projects Section CTA
@@ -16,8 +14,6 @@ import { ArrowRight } from 'lucide-react';
  * - Animation: translateY(-1px) on hover, ease-out, 200ms
  */
 export default function CTAProjectCard() {
-  const prefersReducedMotion = useReducedMotion();
-
   return (
     <div className="group flex flex-col items-center justify-center h-full min-h-[300px] md:min-h-[400px] bg-transparent p-8 md:p-12 relative overflow-hidden">
       {/* Headline - font normal, hover changes to blue */}
@@ -27,28 +23,11 @@ export default function CTAProjectCard() {
         you see?
       </h3>
 
-      {/* CTA Button - Compound Pill Style */}
+      {/* CTA Button */}
       <div className="button-wrapper">
-        <Link
-          href="/portfolio"
-          className={`
-            inline-flex items-center group/btn
-            ${prefersReducedMotion ? '' : 'hover:-translate-y-px transition ease-out duration-200'}
-            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff] focus-visible:ring-offset-4 focus-visible:ring-offset-[#0d003b]
-          `}
-        >
-          {/* Text Container - Full Pill Shape */}
-          <span className="inline-flex items-center px-8 py-3 bg-[#0057FF] text-white font-medium uppercase tracking-wide text-sm rounded-full">
-            view projects
-          </span>
-
-          {/* Icon Container - Circular Badge Overlapping Right */}
-          <span className="flex items-center justify-center w-12 h-12 bg-[#0057FF] text-white rounded-full -ml-4">
-            <ArrowRight
-              className={`w-5 h-5 -rotate-45 ${prefersReducedMotion ? '' : 'transition-transform duration-300 group-hover/btn:rotate-0'}`}
-            />
-          </span>
-        </Link>
+        <CTAButton href="/portfolio" variant="primary">
+          view projects
+        </CTAButton>
       </div>
     </div>
   );

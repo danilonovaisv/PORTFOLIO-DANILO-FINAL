@@ -1,257 +1,293 @@
-# 🧠 PROTÓTIPO INTERATIVO — PÁGINA “SOBRE”
+# 🧠 PROTÓTIPO INTERATIVO — PÁGINA "SOBRE" (VERSÃO TÉCNICA COMPLETA)
 ## portifoliodanilo.com
-### Conceito: Ghost Design — presença que guia sem aparecer
+### Ghost Design — presença que guia sem aparecer
 
 ---
-### 2.1 Color Palette
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| `primary` | `#0048ff` | Primary brand color, interactive elements, CTAs |
-| `accent` | `#4fe6ff` | Secondary highlights, Ghost atmosphere glow |
-| `background` | `#000022` | Main dark background |
-| `backgroundLight` | `#f0f0f0` | Light sections (forms, alternating backgrounds) |
-| `text` | `#fcffff` | Primary text on dark backgrounds |
-| `textInverse` | `#0e0e0e` | Text on light backgrounds |
-| `textSecondary` | `#a1a3a3` | Secondary information, metadata |
-| `neutral` | `#0b0d3a` | Gradient transitions, subtle backgrounds |
-| `neutralLight` | `#F5F5F5` | Secondary section backgrounds |
+## 🧩 1. TOKENS GLOBAIS (CSS VARIABLES)
 
+```css
+:root {
+  --ghost-bg: #000022;
+  --ghost-text: #fcffff;
+  --ghost-text-secondary: #a1a3a3;
 
-## **HEADER O MESMO DA HOME
+  --ghost-blue: #0048ff;
+  --ghost-blue-soft: rgba(0, 72, 255, 0.6);
+
+  --max-text: 560px;
+  --max-manifesto: 680px;
+
+  --ease-ghost-in: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-linear-soft: cubic-bezier(0.4, 0, 0.6, 1);
+}
+```
+
+---
+
+## 🎬 2. MOTION TOKENS (FRAMER MOTION)
+
+```ts
+export const motionTokens = {
+  fadeGhost: {
+    hidden: { opacity: 0, filter: "blur(10px)" },
+    visible: {
+      opacity: 1,
+      filter: "blur(0px)",
+      transition: { duration: 0.9, ease: [0.22,1,0.36,1] }
+    }
+  },
+  riseSoft: {
+    hidden: { opacity: 0, y: 18, filter: "blur(6px)" },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: { duration: 0.9, ease: [0.22,1,0.36,1] }
+    }
+  },
+  imageFloat: {
+    hidden: { opacity: 0, x: 12 },
+    visible: {
+      opacity: 0.65,
+      x: 0,
+      transition: { duration: 1.2, ease: [0.22,1,0.36,1] }
+    }
+  }
+};
+```
+
+❌ Proibido: scale, rotate, bounce  
+✅ Permitido: opacity, blur leve, translate ≤ 18px  
+
+---
 
 ## 🟣 SEÇÃO 01 — HERO / MANIFESTO
-**Função:** Primeiro contato. Estabelecer presença sem exposição.
 
 ### Layout
-- Viewport: 100vh
-- Fundo: escuro contínuo
-- Elemento visual sutil vídeo
-- Video hero sobre Desktop: https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO%20HERO%20-%20SOBRE-DESKTOP.mp4
-- Video hero sobre Mobile: https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO%20HERO%20-%20SOBRE%20MOBILE.mp4
-- Texto centralizado verticalmente (ligeiramente acima do centro)
+- `h-screen`
+- Texto centralizado verticalmente a direita (ligeiramente acima do centro)
+- Vídeo hero (desktop e mobile)
 - Sem CTA
 
-### Conteúdo
-**H1**
-> Sou Danilo Novais.
-
-**Texto manifesto**
-> Você não vê tudo o que eu faço.  
-> Mas sente quando funciona.  
->  
-> Crio design que observa, entende  
-> e guia experiências com intenção,  
-> estratégia e tecnologia — na medida certa.
-
-### Interação & Motion
-- Texto surge linha por linha
-- Opacity: 0 → 1  
-- Blur: 10px → 0  
-- Delay entre linhas: 0.2s–0.4s  
-- Duração média: 1.4s  
-- Easing: ghostIn  
-- Background com loop lento (imperceptível)
+### Motion (frame-by-frame)
+| Frame | Estado |
+|------|-------|
+| 0% | opacity 0 / blur 10px |
+| 30% | linha 1 |
+| 60% | linha 2 |
+| 100% | texto completo |
 
 ---
 
-## 🟣 SEÇÃO 02 — ORIGEM CRIATIVA
-**Função:** Construir profundidade, tempo e memória.
+## 🟣 SEÇÃO 02 — ORIGEM CRIATIVA (DESKTOP FLUIDO)
 
-### Layout
-- Altura: 120–140vh
-- Texto alinhado à esquerda
-- Imagens soltas, flutuantes (sem grid rígido)
-- Imagens nunca chegam a 100% de opacidade
+### Direção crítica (DESKTOP)
+- **NÃO blocar o layout**
+- Texto e imagens **revezam lados**
+- Proporções variáveis (60/40, 50/50, 40/60)
+- Texto nunca sobrepõe imagens
+- Pode "respirar" mais em alguns trechos
+- Sensação editorial / memória viva
 
-### Conteúdo
-**Título (H2 discreto)**
-> Origem
+### Estrutura conceitual
+```
+Texto (esq) → Imagem (dir)
+Imagem (esq) → Texto (dir)
+Texto (esq) → Imagem (dir)
+Imagem (esq) → Texto (dir)
+```
 
-**Texto**
-> Desde cedo, sempre prestei atenção no que ficava —  
-> não só no que aparecia.  
->  
-> Rabiscos viraram ideias.  
-> Ideias viraram projetos.  
-> E os projetos começaram a deixar rastros.  
->  
-> Foi ali que entendi:  
-> design não é enfeite.  
-> É ferramenta invisível de transformação.  
->  
-> Estudei Comunicação, mergulhei no design, no branding  
-> e hoje uso inteligência artificial para expandir o alcance  
-> sem perder a essência humana da criação.
+### Tailwind base
+```tsx
+<section className="relative min-h-[180vh]">
+  <div className="grid grid-cols-12 gap-y-32 items-center">
+```
 
-### Interação & Motion
-- Texto aparece progressivamente conforme scroll
-- Imagens entram com deslocamento lateral de 10–15px
-- Opacity máxima das imagens: 0.85
-- Blur leve permanente nas imagens
-- Easing: ghostIn
-- Nada aparece de uma vez
+### Destaques tipográficos
+```css
+.ghost-accent {
+  font-weight: 600;
+  color: var(--ghost-blue-soft);
+  transition: color 0.4s ease;
+}
+.ghost-accent:hover {
+  color: var(--ghost-blue);
+}
+```
+
+- Máx. 1–2 palavras por parágrafo
+- Sem underline
+- Sem glow
+
+### Motion (frame-by-frame)
+| Ordem | Elemento | Animação |
+|------|--------|---------|
+| 1 | Texto | fadeGhost |
+| 2 | Imagem | imageFloat |
+| 3 | Texto | fadeGhost |
+| 4 | Imagem | imageFloat |
+
+### Mobile
+- Sempre: texto → imagem
+- Full-width
+- Mesmo ritmo, sem alternância lateral
 
 ---
 
 ## 🟣 SEÇÃO 03 — O QUE EU FAÇO
-**Função:** Mostrar valor sem autopromoção.
 
 ### Layout
-- Altura: 100vh
-- Lista vertical centralizada
-- Largura fixa: 520–600px
-- Muito espaço entre itens
+- Coluna única
+- Max-width 520px
+- Espaçamento grande
 
-### Conteúdo
-**Título**
-> Do insight ao impacto.  
-> Mesmo quando você não percebe.
-
-**Lista**
-- Direção criativa que organiza o caos  
-- Design estratégico que guia decisões  
-- Identidades que permanecem na memória  
-- Campanhas multicanais com lógica e emoção  
-- Branding que não grita — mas marca  
-- Inteligência artificial aplicada à criação e automação  
-- Liderança criativa com visão e método  
-
-### Interação & Motion
-- Cada item entra individualmente ao entrar no viewport
-- Stagger: 0.18s entre itens
-- Entrada: opacity + leve rise (18px)
-- Hover:
-  - Opacity +5%
-  - Nenhuma escala
-  - Nenhum underline
+### Motion
+- Stagger 0.18s
+- riseSoft
+- Hover apenas opacity +5%
 
 ---
 
 ## 🟣 SEÇÃO 04 — COMO EU TRABALHO
-**Função:** Gerar confiança racional através do método.
 
 ### Layout
-- Altura: 120vh
 - Texto em primeiro plano
-- Fundo vivo (vídeo abstrato / código / IA em segundo plano)
-- Fundo full-bleed
+- Background full-bleed (vídeo / abstrato)
 
-### Conteúdo
-**Título**
-> Criatividade com método.  
-> Impacto sem ruído.
+### Motion
+| Frame | Estado |
+|------|-------|
+| 0% | invisível |
+| 100% | visível e estático
 
-**Texto introdutório**
-> Antes da estética, existe intenção.  
-> Antes do layout, existe lógica.  
-> Antes do impacto, existe silêncio.
-
-**Lista de processo**
-- Briefings bem construídos para decisões claras  
-- Estratégia como base de qualquer criação  
-- Design com propósito, não só beleza  
-- Revisões inteligentes, sem ruído desnecessário  
-- IA e automações para escalar com qualidade  
-- Métricas criativas: engajamento, retenção e resultado  
-
-### Interação & Motion
-- Background com parallax ultra sutil
-- Texto entra com fadeGhost
-- Texto permanece estático após aparecer
-- Nenhuma animação contínua no conteúdo principal
+Sem animação contínua no texto.
 
 ---
 
 ## 🟣 SEÇÃO 05 — O QUE ME MOVE
-**Função:** Criar vínculo emocional e manifesto.
 
-### Layout
-- Altura: 100vh
-- Texto centralizado
-- Sem imagens óbvias
+### Direção
+- Texto central
+- Manifesto emocional
 - Muito espaço negativo
 
-### Conteúdo
-> Acredito no design que muda o dia de alguém.  
-> Não pelo choque —  
-> mas pela conexão.  
->  
-> Um vídeo que respira.  
-> Uma marca que se reconhece.  
-> Um detalhe que fica.  
->  
-> Crio para gerar presença.  
-> Mesmo quando não estou ali.  
-> Mesmo quando ninguém percebe o esforço.  
->  
-> Isso é ghost design.
-
-### Interação & Motion
-- Frases surgem por tempo, não por scroll
-- Delay longo entre blocos (1s+)
-- Entrada apenas com opacity e blur
-- Nenhum deslocamento vertical
-- Sensação: pensamentos aparecendo
+### Motion por tempo
+| Bloco | Delay |
+|------|------|
+| 1 | 0s |
+| 2 | 1.2s |
+| 3 | 2.4s |
 
 ---
 
 ## 🟣 SEÇÃO 06 — FECHAMENTO / CONFIRMAÇÃO
-**Função:** Convite claro e humano.
 
 ### Layout
-- Altura: 80–100vh
-- Texto alinhado à esquerda
-- CTAs visíveis e simples
+- Texto à esquerda
+- CTAs simples
 
-### Conteúdo
-> Hoje sou Diretor de Criação,  
-> com mais de 10 anos de estrada.  
->  
-> Já liderei marcas, agências, eventos  
-> e criei experiências para todos os canais.  
->  
-> Agora, quero criar algo que permaneça —  
-> com você.
-
-### CTAs
-- [ Fale comigo ]
-- [ Download Curriculum ]
-
-### Interação & Motion
-- Texto entra com fadeGhost padrão
-- CTAs com hover mínimo:
-  - leve mudança de opacidade
-  - nenhuma animação chamativa
-- Sensação de encerramento calmo
+### CTA Hover
+```css
+.cta {
+  transition: opacity 0.4s ease;
+}
+.cta:hover {
+  opacity: 0.85;
+}
+```
 
 ---
 
-## 🎬 MOTION TOKENS (RESUMO)
+## 📱 BREAKPOINTS
 
-- Duração padrão: 0.9s
-- Duração longa: 1.4–1.6s
-- Delay padrão: 0.2–0.4s
-- Easing principal: cubic-bezier(0.22, 1, 0.36, 1)
-- Escala: proibida
-- Bounce: proibido
-- Opacity nunca é brusca
-- Imagens nunca chegam a 100%
+| Breakpoint | Regra |
+|-----------|------|
+| sm | fonte maior |
+| md | sem colunas duplas |
+| lg | layout completo |
+| xl | mais respiro |
 
 ---
-## **APÓS IMPLEMENTAR AS MESMAS SESSÕES DA HOME:**
- - CLIENTES, CONTATO E FOTTER
- 
- 
- 
+
+## 🚫 REGRAS ABSOLUTAS
+
+- ❌ Texto sobre imagem
+- ❌ Blur excessivo
+- ❌ Scale / bounce
+- ✅ Alternância fluida desktop
+- ✅ Ritmo frase ↔ imagem
+- ✅ Mobile-first
+
+---
+
 ## 🧩 EXPERIÊNCIA FINAL
 
-O usuário não percebe a técnica.  
-Não vê o esforço.  
-Não sente ruído.
+O usuário não percebe técnica.  
+Mas sente ritmo, memória e presença.
 
-Mas sente presença.  
-Sente fluidez.  
-Sente confiança.
+Isso é **Ghost Design**.
 
-Isso é o protótipo interativo da página SOBRE.
+---
+
+# 🤖 PROMPT DE AUDITORIA AUTOMÁTICA — PÁGINA SOBRE (GHOST DESIGN)
+
+Você é um **Agent Auditor Sênior Frontend/UI**, responsável por validar PRs
+que alterem a página **/sobre** do site.
+
+## Fonte da verdade
+- `docs/PROTOTIPO_INTERATIVO_SOBRE_GHOST_COMPLETO.md`
+
+---
+
+## OBJETIVO
+Garantir fidelidade TOTAL ao protótipo Ghost Design.
+Qualquer divergência = BUG.
+
+---
+
+## CHECKLIST AUTOMÁTICO (OBRIGATÓRIO)
+
+### Estrutura
+- [ ] Seções 01 → 06 presentes e na ordem correta
+- [ ] Componentes isolados por seção
+- [ ] Nenhuma seção extra
+
+### Layout
+- [ ] Hero com texto alinhado à direita
+- [ ] Origem com alternância fluida texto ↔ imagem
+- [ ] Texto nunca sobre imagem
+- [ ] Mobile sempre texto antes da imagem
+
+### Motion
+- [ ] Apenas opacity / blur / translate
+- [ ] Sem scale / bounce / rotate
+- [ ] Motion dispara apenas quando visível
+- [ ] Manifesto é time-based (não scroll)
+
+### Tipografia
+- [ ] Keywords com `.ghost-accent`
+- [ ] Hover apenas muda cor
+- [ ] Máx. 1–2 keywords por parágrafo
+
+### Performance
+- [ ] Nenhuma animação fora do viewport
+- [ ] prefers-reduced-motion respeitado
+- [ ] Sem re-render excessivo
+
+---
+
+## SE ENCONTRAR PROBLEMAS
+1. Liste o arquivo exato
+2. Descreva o desvio objetivamente
+3. Proponha correção mínima
+4. Não altere conteúdo textual
+5. Não "melhore" o design
+
+---
+
+## RESULTADO ESPERADO
+- Fidelidade visual
+- Ritmo ghost preservado
+- UX silenciosa
+- PR aprovado apenas se todos os itens passarem

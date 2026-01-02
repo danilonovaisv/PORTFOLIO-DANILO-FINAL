@@ -17,24 +17,21 @@ export const InputField: React.FC<InputFieldProps> = ({
   <div>
     <label
       htmlFor={id}
-      className="sr-only" // Visualmente oculto para bater com referência, mas acessível
+      className="block text-sm font-medium text-text-dark mb-1.5"
     >
       {label}
     </label>
     <input
       id={id}
-      aria-invalid={error ? 'true' : 'false'}
+      aria-invalid={!!error}
       aria-describedby={error ? `${id}-error` : undefined}
-      className={`w-full rounded-xl border-none bg-[#F5F5F7] px-6 py-4 text-text-dark placeholder:text-text-muted/60 transition-all outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-white ${
-        error ? 'ring-2 ring-red-500' : ''
+      className={`w-full rounded-lg border border-gray-200 bg-section-bg px-4 py-3 text-text-dark placeholder:text-text-muted/60 transition-all outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 ${
+        error ? 'border-red-500 ring-2 ring-red-500/20' : ''
       } ${className}`}
       {...props}
     />
     {error && (
-      <p
-        id={`${id}-error`}
-        className="mt-2 text-sm text-red-500 font-medium pl-2"
-      >
+      <p id={`${id}-error`} className="mt-1.5 text-sm text-red-500 font-medium">
         {error}
       </p>
     )}
@@ -54,23 +51,23 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
   ...props
 }) => (
   <div>
-    <label htmlFor={id} className="sr-only">
+    <label
+      htmlFor={id}
+      className="block text-sm font-medium text-text-dark mb-1.5"
+    >
       {label}
     </label>
     <textarea
       id={id}
-      aria-invalid={error ? 'true' : 'false'}
+      aria-invalid={!!error}
       aria-describedby={error ? `${id}-error` : undefined}
-      className={`w-full resize-none rounded-xl border-none bg-[#F5F5F7] px-6 py-4 text-text-dark placeholder:text-text-muted/60 transition-all outline-none focus-visible:ring-2 focus-visible:ring-focus-ring focus-visible:ring-offset-2 focus-visible:ring-offset-white ${
-        error ? 'ring-2 ring-red-500' : ''
+      className={`w-full resize-none rounded-lg border border-gray-200 bg-section-bg px-4 py-3 text-text-dark placeholder:text-text-muted/60 transition-all outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 ${
+        error ? 'border-red-500 ring-2 ring-red-500/20' : ''
       } ${className}`}
       {...props}
     />
     {error && (
-      <p
-        id={`${id}-error`}
-        className="mt-2 text-sm text-red-500 font-medium pl-2"
-      >
+      <p id={`${id}-error`} className="mt-1.5 text-sm text-red-500 font-medium">
         {error}
       </p>
     )}
