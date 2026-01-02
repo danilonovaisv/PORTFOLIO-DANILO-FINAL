@@ -18,25 +18,29 @@ export function AboutWhatIDo() {
   const { prefersReducedMotion, variants } = useEditorialMotion();
 
   return (
-    <section className="min-h-screen flex items-center justify-center bg-(--ghost-bg) py-24">
-      <motion.ul
-        variants={variants.staggerContainer} // Use standardized stagger
-        initial={prefersReducedMotion ? 'visible' : 'hidden'}
-        whileInView="visible"
-        viewport={{ once: true, margin: '-10%' }}
-        className="max-w-[520px] space-y-10 px-6"
-      >
+    <section className="min-h-screen flex items-start justify-center bg-(--ghost-bg) py-24 md:py-32">
+      <div className="w-full max-w-[560px] px-6 space-y-12 md:space-y-16">
         {items.map((item, i) => (
-          <motion.li
+          <motion.div
             key={i}
             variants={variants.riseSoft}
-            whileHover={prefersReducedMotion ? undefined : { opacity: 1, x: 5 }} // Added subtle hover move
-            className="text-lg text-(--ghost-text-secondary) opacity-95 transition-opacity duration-300"
+            initial={prefersReducedMotion ? 'visible' : 'hidden'}
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.65 }}
+            transition={{ delay: 0.08 * i }}
+            className="min-h-[90vh] md:min-h-0 md:py-8 flex items-center"
           >
-            {item}
-          </motion.li>
+            <motion.p
+              whileHover={
+                prefersReducedMotion ? undefined : { opacity: 1, x: 6 }
+              }
+              className="text-lg md:text-xl text-(--ghost-text-secondary) opacity-95 transition-all duration-300 max-w-[40ch]"
+            >
+              {item}
+            </motion.p>
+          </motion.div>
         ))}
-      </motion.ul>
+      </div>
     </section>
   );
 }

@@ -47,7 +47,13 @@ export default function AboutMethod() {
         {/* Asymmetric Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-y-20 md:gap-x-12">
           {/* Left Column: Title & Label */}
-          <div className="md:col-span-5 relative">
+          <motion.div
+            variants={variants.floatMemory}
+            initial={prefersReducedMotion ? 'visible' : 'hidden'}
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="md:col-span-5 relative"
+          >
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -65,7 +71,7 @@ export default function AboutMethod() {
                 {title.highlight}
               </span>
             </h2>
-          </div>
+          </motion.div>
 
           {/* Right Column: Editorial Text & Steps */}
           <div className="md:col-span-6 md:col-start-7 flex flex-col justify-center">

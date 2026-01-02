@@ -4,13 +4,21 @@
 const GHOST_EASE: [number, number, number, number] = [0.25, 1, 0.5, 1];
 
 export const motionTokens = {
-  fadeGhost: {
-    hidden: { opacity: 0, filter: 'blur(10px)' },
+  ghostIn: {
+    hidden: { opacity: 0, filter: 'blur(8px)' },
     visible: {
       opacity: 1,
       filter: 'blur(0px)',
-      transition: { duration: 1.2, ease: GHOST_EASE },
+      transition: { duration: 0.9, delay: 0.15, ease: GHOST_EASE },
     },
+  },
+  fadeGhost: {
+    hidden: { opacity: 0, filter: 'blur(10px)' },
+    visible: (customDelay = 0) => ({
+      opacity: 1,
+      filter: 'blur(0px)',
+      transition: { duration: 1.2, ease: GHOST_EASE, delay: customDelay },
+    }),
   },
   riseSoft: {
     hidden: { opacity: 0, y: 30, filter: 'blur(8px)' },
@@ -43,6 +51,14 @@ export const motionTokens = {
         delayChildren: customDelay,
       },
     }),
+  },
+  floatMemory: {
+    hidden: { opacity: 1, y: 0 },
+    visible: {
+      opacity: 1,
+      y: [0, -4, 0, 4, 0],
+      transition: { duration: 8, repeat: Infinity, ease: 'easeInOut' },
+    },
   },
   imageFloat: {
     hidden: { opacity: 0, scale: 0.96 },

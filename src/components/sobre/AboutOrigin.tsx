@@ -113,13 +113,14 @@ export default function AboutOrigin() {
 
   return (
     <section
-      className="relative min-h-[180vh] py-24 md:py-40 bg-(--ghost-bg) overflow-hidden"
+      className="relative min-h-[180vh] py-20 md:py-32 bg-(--ghost-bg) overflow-hidden"
       aria-label="Origem Criativa"
     >
       <div className="w-full max-w-[1680px] mx-auto px-6 md:px-24">
         {/* Section Label */}
         <motion.h2
           variants={variants.fadeGhost}
+          custom={0}
           initial={prefersReducedMotion ? 'visible' : 'hidden'}
           whileInView="visible"
           viewport={{ once: true, margin: '-10%' }}
@@ -129,14 +130,15 @@ export default function AboutOrigin() {
         </motion.h2>
 
         {/* Editorial Layout: Increased gaps, Parallax, Max-Width text */}
-        <div className="grid grid-cols-12 gap-y-32 md:gap-y-64 items-center">
+        <div className="grid grid-cols-12 gap-y-24 md:gap-y-48 items-center">
           {/* Pair 1: Row 1 - Text 7 / Image 5 */}
           <motion.div
             variants={variants.fadeGhost}
+            custom={0.12}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="col-span-12 md:col-span-7 order-1"
+            className="col-span-12 md:col-span-7 order-1 pb-8 md:pb-0"
           >
             <p className="text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed text-(--ghost-text) max-w-[40ch]">
               <HighlightedText
@@ -185,10 +187,11 @@ export default function AboutOrigin() {
 
           <motion.div
             variants={variants.fadeGhost}
+            custom={0.24}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="col-span-12 md:col-span-7 md:pl-20 order-3 md:order-4"
+            className="col-span-12 md:col-span-7 md:pl-20 order-3 md:order-4 pb-8 md:pb-0"
           >
             <p className="text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed text-(--ghost-text) max-w-[40ch]">
               <HighlightedText
@@ -203,10 +206,11 @@ export default function AboutOrigin() {
           {/* Pair 3: Row 3 */}
           <motion.div
             variants={variants.fadeGhost}
+            custom={0.36}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="col-span-12 md:col-span-7 order-5"
+            className="col-span-12 md:col-span-7 order-5 pb-8 md:pb-0"
           >
             <p className="text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed text-(--ghost-text) max-w-[40ch]">
               <HighlightedText
@@ -255,6 +259,7 @@ export default function AboutOrigin() {
 
           <motion.div
             variants={variants.fadeGhost}
+            custom={0.48}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}

@@ -14,7 +14,7 @@ export function AboutHero() {
   const baseDelayIndex = 38;
 
   return (
-    <section className="relative h-screen flex items-center bg-(--ghost-bg) overflow-hidden">
+    <section className="relative min-h-screen flex items-center bg-(--ghost-bg) overflow-hidden pb-16 md:pb-20">
       {/* Background Videos - Atmosphere, not protagonist */}
       <video
         src={ABOUT_CONTENT.hero.videos.desktop}
@@ -41,7 +41,7 @@ export function AboutHero() {
       {/* Content wrapper with invisible grid (ml-auto + padding) */}
       <div className="relative z-10 w-full pr-[8vw] px-6">
         {/* Layout Constraint: lg:max-w-[45vw] */}
-        <div className="ml-auto w-full max-w-[680px] lg:max-w-[45vw] text-right flex flex-col items-end">
+        <div className="ml-auto w-full max-w-[42ch] md:max-w-[56ch] text-right flex flex-col items-end">
           {/* Phantom Label - Starts after 1.2s */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -63,23 +63,23 @@ export function AboutHero() {
             className="space-y-12 w-full"
           >
             {/* Headline Group - Tracking -0.03em */}
-            <div className="space-y-4">
+            <div className="space-y-4 w-full">
               <motion.h1
-                variants={variants.fadeGhost}
+                variants={variants.ghostIn}
                 className="text-[clamp(44px,4.5vw,64px)] text-(--ghost-text) font-medium tracking-[-0.03em] leading-[1.05]"
               >
                 Sou {kw('Danilo Novais.')}
               </motion.h1>
 
               <motion.p
-                variants={variants.fadeGhost}
+                variants={variants.ghostIn}
                 className="text-[clamp(32px,3.5vw,48px)] text-(--ghost-text) font-medium tracking-[-0.03em] leading-[1.05]"
               >
                 {kw('Você não vê')} tudo o que eu faço.
               </motion.p>
 
               <motion.p
-                variants={variants.fadeGhost}
+                variants={variants.ghostIn}
                 className="text-[clamp(32px,3.5vw,48px)] text-(--ghost-text) font-medium tracking-[-0.03em] leading-[1.05]"
               >
                 Mas sente quando {kw('funciona.')}
@@ -88,7 +88,7 @@ export function AboutHero() {
 
             {/* Paragraph Group - Editorial Animation */}
             {/* We manually delay editorial text to start AFTER the headlines (1.2s + stagger) */}
-            <div className="space-y-4 ml-auto max-w-[520px] flex flex-col items-end pt-4">
+            <div className="space-y-4 ml-auto w-full flex flex-col items-end pt-4 mt-16 md:mt-10">
               {ABOUT_CONTENT.hero.description.map((line, idx) => (
                 <EditorialText
                   key={idx}

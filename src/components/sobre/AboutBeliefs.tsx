@@ -12,7 +12,7 @@ export function AboutBeliefs() {
       opacity: 1,
       filter: 'blur(0px)',
       transition: {
-        delay: prefersReducedMotion ? 0 : custom,
+        delay: prefersReducedMotion ? 0 : custom + 0.2,
         duration: prefersReducedMotion ? 0 : 0.9,
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       },
@@ -20,8 +20,8 @@ export function AboutBeliefs() {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center text-center bg-(--ghost-bg) py-24">
-      <div className="max-w-(--max-manifesto) space-y-10 px-6">
+    <section className="min-h-screen flex items-center justify-center text-center bg-(--ghost-bg) py-24 mt-24 md:mt-28">
+      <div className="max-w-[40ch] space-y-10 px-6">
         <motion.p
           custom={0}
           initial={prefersReducedMotion ? 'visible' : 'hidden'}
