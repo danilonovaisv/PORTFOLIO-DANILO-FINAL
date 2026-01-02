@@ -12,6 +12,7 @@ export function AboutClosing() {
     <section className="bg-(--ghost-bg) py-24 md:py-32">
       <motion.div
         variants={motionTokens.fadeGhost}
+        custom={0.2}
         initial={prefersReducedMotion ? 'visible' : 'hidden'}
         whileInView="visible"
         viewport={{ once: true, margin: '-10%' }}

@@ -4,6 +4,10 @@ import { useReducedMotion } from 'framer-motion';
 import { motionTokens } from '@/components/sobre/motion';
 
 const reducedTokens = {
+  ghostIn: {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.5 } },
+  },
   fadeGhost: {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.5 } },
@@ -23,6 +27,10 @@ const reducedTokens = {
   imageFloat: {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.5 } },
+  },
+  floatMemory: {
+    hidden: { opacity: 1, y: 0 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   },
 };
 

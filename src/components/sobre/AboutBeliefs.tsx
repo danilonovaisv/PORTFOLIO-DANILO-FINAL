@@ -12,7 +12,7 @@ export function AboutBeliefs() {
       opacity: 1,
       filter: 'blur(0px)',
       transition: {
-        delay: prefersReducedMotion ? 0 : custom,
+        delay: prefersReducedMotion ? 0 : custom + 0.2,
         duration: prefersReducedMotion ? 0 : 0.9,
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       },
