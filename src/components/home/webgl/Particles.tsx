@@ -25,6 +25,7 @@ export default function Particles({ count = 80 }) {
 
   useFrame((state) => {
     if (!mesh.current) return;
+    const currentMesh = mesh.current;
 
     const time = state.clock.getElapsedTime();
 
@@ -62,10 +63,10 @@ export default function Particles({ count = 80 }) {
       dummy.updateMatrix();
 
       // Aplica ao InstancedMesh
-      mesh.current.setMatrixAt(i, dummy.matrix);
+      currentMesh.setMatrixAt(i, dummy.matrix);
     });
 
-    mesh.current.instanceMatrix.needsUpdate = true;
+    currentMesh.instanceMatrix.needsUpdate = true;
   });
 
   return (

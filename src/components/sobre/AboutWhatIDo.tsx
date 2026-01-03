@@ -19,12 +19,11 @@ export function AboutWhatIDo() {
   // Split title lines and highlight keywords
   const renderTitle = () => {
     return (
-      <div className="text-center pt-8 md:pt-16 mb-12 md:mb-20 space-y-2 max-w-[900px] mx-auto z-10 relative">
-        <h2 className="text-[32px] md:text-[48px] lg:text-[56px] font-bold tracking-tight leading-[1.1] text-white">
+      <div className="text-center pt-6 md:pt-12 mb-8 md:mb-12 space-y-2 max-w-[820px] mx-auto z-10 relative">
+        <h2 className="text-[28px] md:text-[34px] lg:text-[40px] xl:text-[44px] font-semibold tracking-tight leading-[1.15] text-white">
           Do <span className="text-primary">insight</span> ao{' '}
           <span className="text-primary">impacto</span>.
-          <br className="hidden md:block" />
-          <span className="text-white font-medium block md:inline mt-2">
+          <span className="text-white font-medium block mt-2">
             Mesmo quando você não percebe.
           </span>
         </h2>
@@ -34,12 +33,9 @@ export function AboutWhatIDo() {
 
   return (
     <section
-      className="min-h-screen bg-ghost-surface-deep py-20 relative overflow-hidden flex flex-col justify-center"
+      className="min-h-screen bg-ghost-surface-deep py-20 relative overflow-hidden"
       aria-label="O que eu faço"
     >
-      {/* Background Ambience / Glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
-
       <div className="container mx-auto px-6 max-w-[1200px] relative z-10">
         {/* Title */}
         <motion.div
@@ -52,11 +48,8 @@ export function AboutWhatIDo() {
         </motion.div>
 
         {/* 7 Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 auto-rows-fr">
+        <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-7 gap-3 md:gap-4 auto-rows-fr">
           {CAPABILITIES.map((item, index) => {
-            // Logic for the 7th item (index 6) to be centered
-            const isLastItem = index === 6;
-
             return (
               <motion.div
                 key={index}
@@ -71,25 +64,22 @@ export function AboutWhatIDo() {
                   ease: 'easeOut',
                 }}
                 className={`
-                  group relative 
-                  bg-[#1A1A2E]/90
-                  border-t-2 border-t-primary
+                  group relative
+                  bg-[#1a0f2d]/90
+                  border border-white/5
                   rounded-xl
-                  p-6 md:p-8
-                  transition-all duration-300
-                  hover:-translate-y-1 hover:bg-[#1f1f35] hover:border-t-[3px]
-                  flex flex-col items-start gap-3
-                  ${isLastItem ? 'md:col-span-2 md:w-1/2 md:mx-auto xl:col-span-1 xl:col-start-2 xl:w-full xl:mx-0' : ''}
+                  px-4 py-3 md:px-5 md:py-4
+                  flex items-start gap-3
+                  min-h-[72px] md:min-h-[88px]
                 `}
               >
-                {/* Title */}
-                <h3 className="text-lg md:text-[20px] font-semibold text-primary flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-primary block" />
-                  {item.title}
-                </h3>
-
-                {/* Description */}
-                <p className="text-[15px] md:text-[16px] font-normal text-white/90 leading-relaxed pl-4">
+                <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-[11px] font-semibold text-white">
+                  ↗
+                </span>
+                <p className="text-[15px] md:text-[14px] lg:text-[13px] xl:text-[13px] font-normal text-white/90 leading-snug">
+                  <span className="text-primary font-semibold">
+                    {item.title}
+                  </span>{' '}
                   {item.desc}
                 </p>
               </motion.div>

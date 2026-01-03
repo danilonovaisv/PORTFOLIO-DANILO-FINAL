@@ -11,7 +11,7 @@ export const siteMetadata: Metadata = {
   metadataBase: new URL(`https://${BRAND.domain}`),
 
   title: {
-    default: `${BRAND.name} | Creative Developer & Designer`,
+    default: `${BRAND.name} | Creative Developer`,
     template: `%s | ${BRAND.name}`,
   },
 
@@ -20,9 +20,11 @@ export const siteMetadata: Metadata = {
 
   keywords: [
     'Creative Developer',
+    'Creative Development',
     'Creative technologist',
     'Design System',
     'User Experience',
+    'WebGL',
     'WebGL Developer',
     'Three.js',
     'React Three Fiber',

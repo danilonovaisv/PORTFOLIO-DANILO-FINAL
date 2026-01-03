@@ -35,6 +35,7 @@ declare module '@react-three/fiber' {
       typeof AnalogDecayShaderMaterial
     >;
     shaderPass: Object3DNode<ShaderPass, typeof ShaderPass>;
+    revealShaderMaterial: Object3DNode<ShaderMaterial, typeof ShaderMaterial>;
   }
 }
 

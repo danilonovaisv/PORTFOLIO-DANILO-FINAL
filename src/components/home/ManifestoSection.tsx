@@ -98,7 +98,7 @@ export function ManifestoSection() {
                    transition-all duration-300 
                    hover:bg-black/70 hover:scale-105
                    focus-visible:outline-none focus-visible:ring-2 
-                   focus-visible:ring-[#4fe6ff] focus-visible:ring-offset-2
+                   focus-visible:ring-ghost-flare focus-visible:ring-offset-2
                    focus-visible:ring-offset-black/50"
         aria-label={isMuted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'}
         aria-pressed={!isMuted}
@@ -119,7 +119,7 @@ export function ManifestoSection() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -10 }}
         >
-          <span className="w-2 h-2 bg-[#4fe6ff] rounded-full animate-pulse" />
+          <span className="w-2 h-2 bg-ghost-flare rounded-full animate-pulse" />
           <span className="text-white text-xs font-mono uppercase tracking-wider">
             Sound On
           </span>

@@ -20,7 +20,7 @@ export function AboutClosing() {
 
   return (
     <section
-      className="min-h-[70vh] flex items-center justify-center px-6 md:px-12 lg:px-20 bg-ghost-surface-deep py-20 md:py-28"
+      className="min-h-[70vh] flex items-center justify-center px-6 md:px-12 lg:px-20 bg-ghost-surface-deep py-20 md:py-24"
       aria-label="Fechamento"
     >
       <motion.div
@@ -28,54 +28,61 @@ export function AboutClosing() {
         initial={prefersReducedMotion ? 'visible' : 'hidden'}
         whileInView="visible"
         viewport={{ once: true, margin: '-10%' }}
-        className="w-full max-w-[1100px] flex flex-col items-center text-center"
+        className="w-full max-w-[1100px]"
       >
-        {/* Título Principal */}
-        <h2 className="text-[32px] md:text-[40px] lg:text-[48px] font-bold leading-tight mb-8 md:mb-10 text-white max-w-[800px]">
-          Hoje sou <span className="text-primary">Diretor de Criação</span>,
-          <br />
-          com mais de <span className="text-primary">10 anos de estrada</span>.
-        </h2>
-
-        {/* Parágrafos de Contexto */}
-        <div className="space-y-6 md:space-y-8 mb-12 md:mb-14 max-w-[700px]">
-          <p className="text-lg md:text-xl lg:text-[22px] font-light leading-relaxed text-[#fcffff] opacity-90">
-            Já liderei marcas, agências, eventos
-            <br className="hidden md:block" />e{' '}
-            <span className="text-primary font-medium">criei experiências</span>{' '}
-            para todos os canais.
-          </p>
-          <p className="text-lg md:text-xl lg:text-[22px] font-light leading-relaxed text-[#fcffff] opacity-90">
-            Agora, quero criar algo que permaneça —<br />
-            <span className="text-primary font-medium">com você</span>.
-          </p>
+        {/* Título Principal + Linhas */}
+        <div className="flex flex-col items-center text-center">
+          <div className="h-px w-full bg-[#4fe6ff]/60 mb-8 md:mb-10" />
+          <h2 className="text-[30px] md:text-[36px] lg:text-[42px] font-bold leading-tight text-white max-w-[900px]">
+            Hoje sou <span className="text-primary">Diretor de Criação</span>,
+            <br />
+            com mais de{' '}
+            <span className="text-primary">10 anos de estrada</span>.
+          </h2>
+          <div className="h-px w-full bg-[#4fe6ff]/60 mt-8 md:mt-10" />
         </div>
 
-        {/* CTAs */}
-        <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6 w-full md:w-auto">
-          {/* Primary: Fale Comigo */}
-          <Link
-            href="/contato"
-            className="group relative bg-primary text-white rounded-full px-8 py-4 text-base md:text-lg font-semibold shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-0.5 transition-all duration-300 w-full md:w-auto min-w-[200px] flex items-center justify-center gap-2"
-          >
-            Fale comigo
-            <span className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
-              ↗
-            </span>
-          </Link>
+        <div className="mt-10 md:mt-12 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 lg:gap-12 items-start">
+          {/* Parágrafos de Contexto */}
+          <div className="space-y-6 md:space-y-7 max-w-[560px] mx-auto lg:mx-0 text-center lg:text-left">
+            <p className="text-[17px] md:text-[19px] lg:text-[20px] font-light leading-relaxed text-[#fcffff] opacity-90">
+              Já liderei marcas, agências, eventos
+              <br className="hidden md:block" />e{' '}
+              <span className="text-primary font-medium">
+                criei experiências
+              </span>{' '}
+              para todos os canais.
+            </p>
+            <p className="text-[17px] md:text-[19px] lg:text-[20px] font-light leading-relaxed text-[#fcffff] opacity-90">
+              Agora, quero criar algo que permaneça —<br />
+              <span className="text-primary font-medium">com você</span>.
+            </p>
+          </div>
 
-          {/* Secondary: Download CV */}
-          <a
-            href="/cv.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative bg-transparent border-2 border-primary text-primary rounded-full px-8 py-4 text-base md:text-lg font-semibold hover:bg-primary/10 hover:-translate-y-0.5 transition-all duration-300 w-full md:w-auto min-w-[200px] flex items-center justify-center gap-2"
-          >
-            Baixar curriculum
-            <span className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
-              ↗
-            </span>
-          </a>
+          {/* CTAs */}
+          <div className="flex flex-row lg:flex-col items-center justify-center lg:justify-start lg:items-end gap-4 md:gap-5 lg:justify-self-end">
+            <Link
+              href="/contato"
+              className="group inline-flex items-center gap-2 rounded-full bg-primary text-white pl-4 pr-2 py-2 md:pl-6 md:pr-3 md:py-3 text-[13px] md:text-sm font-medium shadow-lg shadow-primary/20 transition-transform duration-300 lowercase"
+            >
+              Fale comigo
+              <span className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full bg-[#0b1a6b] text-white text-sm transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+                ↗
+              </span>
+            </Link>
+
+            <a
+              href="/cv.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 rounded-full bg-primary text-white pl-4 pr-2 py-2 md:pl-6 md:pr-3 md:py-3 text-[13px] md:text-sm font-medium shadow-lg shadow-primary/20 transition-transform duration-300 lowercase"
+            >
+              Baixar curriculum
+              <span className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full bg-[#0b1a6b] text-white text-sm transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+                ↗
+              </span>
+            </a>
+          </div>
         </div>
       </motion.div>
     </section>

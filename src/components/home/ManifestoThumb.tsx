@@ -1,10 +1,4 @@
-import {
-  useState,
-  useRef,
-  useCallback,
-  forwardRef,
-  useImperativeHandle,
-} from 'react';
+import { useState, useRef, forwardRef, useImperativeHandle } from 'react';
 
 import { HOME_CONTENT } from '@/config/content';
 
