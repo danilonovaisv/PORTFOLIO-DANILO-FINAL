@@ -36,39 +36,26 @@ export default function AboutMethod() {
       className="relative bg-ghost-surface-deep overflow-hidden"
       aria-label="Como Eu Trabalho"
     >
-      {/* Background Video - Desktop Full Bleed */}
-      <div className="hidden lg:block absolute inset-0 z-0">
+      {/* Background Video */}
+      <div className="absolute inset-0 z-0">
         <video
           src={ABOUT_CONTENT.method.video}
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-right lg:object-center"
           aria-hidden="true"
         />
-        {/* Overlay: Darker on Left for text readability, Lighter on Right for visual */}
-        <div className="absolute inset-0 bg-linear-to-r from-[#0b0d26]/95 via-[#0b0d26]/80 to-[#0b0d26]/40" />
+        {/* Overlay: Darker on Left for text readability, lighter on right */}
+        <div className="hidden lg:block absolute inset-0 bg-linear-to-r from-[#0b0d26]/95 via-[#0b0d26]/80 to-[#0b0d26]/40" />
+        <div className="lg:hidden absolute inset-0 bg-linear-to-b from-black/80 via-black/70 to-ghost-surface-deep/95" />
       </div>
 
-      {/* Mobile Video Top (40vh) */}
-      <div className="relative h-[40vh] w-full lg:hidden z-0">
-        <video
-          src={ABOUT_CONTENT.method.video}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover"
-          aria-hidden="true"
-        />
-        <div className="absolute inset-0 bg-linear-to-b from-transparent to-ghost-surface-deep pointer-events-none" />
-      </div>
-
-      <div className="relative z-10 w-full max-w-[1400px] mx-auto">
+      <div className="relative z-10 w-full max-w-[1200px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 lg:gap-8 items-start">
           {/* Content (Left) - Desktop: Col 2-7 */}
-          <div className="lg:col-start-2 lg:col-span-6 px-6 md:px-12 py-16 md:py-24 lg:py-32">
+          <div className="lg:col-start-2 lg:col-span-6 px-6 md:px-10 py-16 md:py-20 lg:py-28">
             <div className="max-w-[720px]">
               {/* Títulos */}
               <motion.div
@@ -76,9 +63,9 @@ export default function AboutMethod() {
                 initial={prefersReducedMotion ? 'visible' : 'hidden'}
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.4 }}
-                className="mb-8 md:mb-10"
+                className="mb-6 md:mb-8 text-center lg:text-left"
               >
-                <h2 className="text-3xl md:text-4xl lg:text-[52px] font-bold text-[#fcffff] tracking-tight leading-[1.15] mb-3">
+                <h2 className="text-[32px] md:text-[40px] lg:text-[48px] font-bold text-[#fcffff] tracking-tight leading-[1.15] mb-3">
                   <span className="text-primary">Criatividade</span> com{' '}
                   <span className="text-primary">método</span>.
                   <br />
@@ -93,7 +80,7 @@ export default function AboutMethod() {
                 initial={prefersReducedMotion ? 'visible' : 'hidden'}
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.4 }}
-                className="text-lg md:text-xl text-ghost-text-secondary font-light leading-relaxed space-y-3 mb-10 md:mb-14 max-w-[520px]"
+                className="text-base md:text-lg text-ghost-text-secondary font-light leading-relaxed space-y-1 mb-8 md:mb-10 max-w-[520px] mx-auto lg:mx-0 text-center lg:text-left"
               >
                 {ABOUT_CONTENT.method.intro.map((line, i) => (
                   <p key={i}>{line}</p>
@@ -101,7 +88,7 @@ export default function AboutMethod() {
               </motion.div>
 
               {/* Steps List */}
-              <div className="space-y-4">
+              <div className="max-w-[560px] mx-auto lg:mx-0 border-t border-[#4fe6ff]/40">
                 {ABOUT_CONTENT.method.steps.map((step, i) => (
                   <motion.div
                     key={i}
@@ -110,12 +97,12 @@ export default function AboutMethod() {
                     whileInView="visible"
                     viewport={{ once: true, amount: 0.2 }}
                     transition={{ delay: i * 0.08 }}
-                    className="group flex items-start gap-4 bg-[#1a1a2e]/70 backdrop-blur-sm border-l-3 border-l-primary p-5 md:p-6 rounded-lg hover:translate-x-1 transition-all duration-300"
+                    className="flex items-center gap-4 py-3 border-b border-[#4fe6ff]/40"
                   >
-                    <span className="font-mono text-primary text-base font-bold tracking-tight shrink-0 mt-0.5">
+                    <span className="text-primary text-sm md:text-base font-semibold tracking-tight shrink-0">
                       0{i + 1}
                     </span>
-                    <p className="text-base md:text-lg text-white font-light transition-colors duration-300">
+                    <p className="text-sm md:text-base text-white/90 font-normal">
                       {step}
                     </p>
                   </motion.div>

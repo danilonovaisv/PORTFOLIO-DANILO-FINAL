@@ -55,9 +55,10 @@ export default function RevealingText({
   const { viewport } = useThree();
 
   // Lógica responsiva
+  // Lógica responsiva (Valores reduzidos para caber na tela com FOV 35)
   const isMobile = viewport.width < 5;
-  const titleSize = isMobile ? 0.5 : 0.85;
-  const subtitleSize = titleSize * 0.8; // 20% menor conforme solicitado (4.8vw vs 6vw ratio)
+  const titleSize = isMobile ? 0.25 : 0.45; // Reduzido de 0.85 para 0.45
+  const subtitleSize = titleSize * 0.6;
 
   useFrame(() => {
     // Sincroniza a posição do fantasma com o shader do texto
@@ -71,16 +72,14 @@ export default function RevealingText({
 
   return (
     <group position={[0, 0, -1.0]}>
-      {' '}
-      {/* Posicionado atrás do fantasma (Z < -0.2) */}
       {/* Título */}
       <Text
         fontSize={titleSize}
-        lineHeight={1.1}
+        lineHeight={1.0}
         letterSpacing={-0.05}
         textAlign="center"
-        position={[0, 0.6, 0]}
-        maxWidth={viewport.width * 0.9}
+        position={[0, 0.35, 0]} // Mais próximo do centro (era 0.8)
+        maxWidth={viewport.width * 0.8} // Margem de segurança maior
         anchorY="bottom"
       >
         VOCÊ NÃO VÊ{'\n'}O DESIGN.
@@ -88,16 +87,18 @@ export default function RevealingText({
           ref={titleMat}
           transparent
           uColor="#ffffff"
-          uRevealRadius={isMobile ? 3.0 : 4.5}
+          uRevealRadius={isMobile ? 3.5 : 5.0}
         />
       </Text>
+
       {/* Subtítulo */}
       <Text
         fontSize={subtitleSize}
-        letterSpacing={0.02}
+        lineHeight={1.0}
+        letterSpacing={0.2} // Tracking maior para o subtítulo
         textAlign="center"
-        position={[0, 0.4, 0]} // Ajuste fino da posição
-        maxWidth={viewport.width * 0.9}
+        position={[0, -0.4, 0]} // Mais próximo do centro (era -1.0)
+        maxWidth={viewport.width * 0.8}
         anchorY="top"
       >
         MAS ELE VÊ VOCÊ.
@@ -105,7 +106,7 @@ export default function RevealingText({
           ref={subMat}
           transparent
           uColor="#cccccc"
-          uRevealRadius={isMobile ? 3.0 : 4.5}
+          uRevealRadius={isMobile ? 3.5 : 5.0} // Wider radius
         />
       </Text>
     </group>

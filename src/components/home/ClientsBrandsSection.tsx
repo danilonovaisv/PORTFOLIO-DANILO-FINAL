@@ -31,17 +31,17 @@ export default function ClientsBrandsSection() {
   return (
     <section
       id="clients"
-      className="bg-section-clients py-16 md:py-24 relative z-10"
+      className="bg-section-clients py-12 md:py-16 relative z-10"
       aria-label="Clientes e Parcerias"
     >
-      <div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)]">
+      <div className="max-w-[1200px] mx-auto px-[clamp(24px,5vw,72px)]">
         <motion.div
           initial={reducedMotion ? { opacity: 1 } : { opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="mb-14 md:mb-16"
+          className="mb-10 md:mb-12"
         >
-          <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-semibold text-center tracking-tight">
+          <h2 className="text-white text-lg md:text-xl lg:text-2xl font-semibold text-center tracking-tight">
             {HOME_CONTENT.clients.title}.
           </h2>
         </motion.div>
@@ -57,14 +57,14 @@ export default function ClientsBrandsSection() {
                 transition: { staggerChildren: reducedMotion ? 0 : 0.05 },
               },
             }}
-            className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12 md:gap-x-20 md:gap-y-20 items-center justify-items-center"
+            className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10 md:gap-x-14 md:gap-y-14 items-center justify-items-center"
           >
             {logos.map((l) => (
               <motion.div
                 key={l.src}
                 variants={logoVariants}
                 whileHover={reducedMotion ? undefined : { scale: 1.05 }}
-                className="group relative w-full h-8 md:h-12 flex items-center justify-center outline-none"
+                className="group relative w-full h-9 md:h-12 flex items-center justify-center outline-none"
                 tabIndex={0}
                 aria-label={l.alt}
               >
