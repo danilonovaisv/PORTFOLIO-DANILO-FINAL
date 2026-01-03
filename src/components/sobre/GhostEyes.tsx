@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import styles from './GhostEyes.module.css';
 
 const GhostEyes: React.FC<{ interactive?: boolean }> = ({
@@ -16,16 +17,12 @@ const GhostEyes: React.FC<{ interactive?: boolean }> = ({
       const { innerWidth, innerHeight } = window;
       const { clientX, clientY } = event;
 
-      // Lógica para replicar a grade 3x3 do original
-      // Divide a tela em três terços verticais e horizontais
       let x = 0;
       let y = 0;
 
-      // Define X (-1: esquerda, 0: centro, 1: direita)
       if (clientX < innerWidth / 3) x = -1;
       else if (clientX > (innerWidth * 2) / 3) x = 1;
 
-      // Define Y (-1: cima, 0: centro, 1: baixo)
       if (clientY < innerHeight / 3) y = -1;
       else if (clientY > (innerHeight * 2) / 3) y = 1;
 
@@ -33,25 +30,11 @@ const GhostEyes: React.FC<{ interactive?: boolean }> = ({
     };
 
     window.addEventListener('mousemove', handleMouseMove);
-
-    // Limpeza do evento quando o componente desmontar
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [interactive]);
 
   return (
-    // Inline style necessário para CSS custom properties dinâmicas (--target-x, --target-y)
-    <div
-      className={styles.ghostContainer}
-      style={
-        {
-          '--target-x': lookDir.x,
-          '--target-y': lookDir.y,
-        } as React.CSSProperties
-      }
-      aria-hidden="true"
-    >
+    <div className={styles.ghostContainer} aria-hidden="true">
       <svg viewBox="0 0 14 14" className={styles.svgIcon}>
         <defs>
           <rect
@@ -91,7 +74,18 @@ const GhostEyes: React.FC<{ interactive?: boolean }> = ({
         />
 
         {/* GRUPO DOS OLHOS: Controlado pela classe .eyeGroup e variáveis CSS */}
-        <g className={styles.eyeGroup}>
+        <motion.g
+          className={styles.eyeGroup}
+          animate={{
+            x: lookDir.x * 0.8,
+            y: lookDir.y * 0.8,
+          }}
+          transition={{
+            type: 'spring',
+            damping: 15,
+            stiffness: 120,
+          }}
+        >
           {/* Olho Esquerdo */}
           <g transform="translate(2 3)">
             {/* Fundo do olho (Azul Escuro/Dark) */}
@@ -127,7 +121,7 @@ const GhostEyes: React.FC<{ interactive?: boolean }> = ({
               <use transform="translate(2 2)" href="#pixel-dot-rect" />
             </g>
           </g>
-        </g>
+        </motion.g>
       </svg>
     </div>
   );

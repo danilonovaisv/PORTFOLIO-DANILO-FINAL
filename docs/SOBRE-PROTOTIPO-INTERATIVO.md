@@ -285,167 +285,409 @@ Mostra trajetória sem cronologia rígida, mas com ritmo.
 
 ---
 
-## 🟣 SEÇÃO 03 — O QUE EU FAÇO
+# 🟣 SEÇÃO 03 — O QUE EU FAÇO
 
 **Função:** Mostrar valor sem autopromoção.  
 Transformar capabilities em lista silenciosa de entregas.
 
-### Layout — Desktop
+---
 
-- Altura de referência: **≈100vh**, mas permite scroll se necessário.
-- Fundo: `backgroundDark`.
-- Container centralizado (`max-width` ≈ 1120px).
-- Título:
-  - Centralizado, em duas linhas, max-width ≈ 680px.
-  - Muito espaço acima e abaixo (40–56px).
-- Lista:
-  - Implementada como **grid de cards GhostList**:
-    - 7 itens fixos.
-    - Em `lg`: **2 colunas**.
-    - Em `xl`: **3 colunas**.
-  - Cada card:
-    - Fundo `neutral`, leve borda ou linha superior em `primary`.
-    - Padding interno generoso (20–24px).
-    - Texto alinhado à esquerda, sem ícones chamativos.
-    - Opacity base ≈ 0.9 (não 1.0).
+## Layout — Desktop
 
-### Layout — Mobile
+- **Altura de referência:** ≈100vh, mas permite scroll se necessário.
+- **Fundo:** `backgroundDark` (#0A0A14 ou similar).
+- **Container centralizado:** max-width ≈ 1120px com padding lateral 24–32px.
 
-- Título centralizado com margem superior generosa.
-- Lista de 7 cards em **1 coluna**:
-  - Largura 100% do container.
-  - Espaçamento vertical 12–16px entre cards.
-  - Padding 16–20px por card.
-- Sem side-by-side; tudo em scroll vertical.
+### Título
+- Centralizado, em duas linhas, max-width ≈ 800px.
+- Espaçamento: **64–80px acima**, **48–64px abaixo**.
+- Primeira linha: "Do **insight** ao **impacto**." (insight e impacto em `primary`)
+- Segunda linha: "Mesmo quando você não percebe." (em branco)
+- Tipografia: font-size 40–48px, line-height 1.2, font-weight 600–700.
 
-### Responsividade
+### Lista de Cards
+- **Grid de 7 cards** (quantidade fixa conforme imagens).
+- **Layout responsivo:**
+  - `lg` (1024px+): **2 colunas** balanceadas
+  - `xl` (1280px+): **3 colunas** (linha 1: 3 cards | linha 2: 3 cards | linha 3: 1 card centralizado)
+- **Gap:** 20–24px entre cards.
 
-- `sm` e `md`:
-  - 1 coluna para cards.
-  - Tipografia um pouco maior para leitura em lista.
-- `lg`:
-  - 2 colunas, mantendo altura dos cards consistente.
-- `xl`:
-  - 3 colunas com mais respiro horizontal.
+### Estrutura de cada Card
+- **Fundo:** `neutral` (#1A1A2E ou rgba(255,255,255,0.04))
+- **Borda superior:** 2px sólida em `primary` (#5B5FFF)
+- **Padding interno:** 24–28px
+- **Alinhamento:** texto à esquerda
+- **Opacity base:** 0.92
+- **Border-radius:** 8–12px
 
-### Conteúdo
-
-**Título**
-
-> Do insight ao impacto.  
-> Mesmo quando você não percebe.
-
-**Lista**
-
-- Direção criativa que organiza o caos  
-- Design estratégico que guia decisões  
-- Identidades que permanecem na memória  
-- Campanhas multicanais com lógica e emoção  
-- Branding que não grita — mas marca  
-- Inteligência artificial aplicada à criação e automação  
-- Liderança criativa com visão e método  
-
-### Interação & Motion
-
-- Cada **card** entra individualmente ao entrar no viewport.
-- Stagger: **0.18s** entre itens.
-- Entrada:
-  - `opacity: 0 → 1`
-  - `translateY: 18px → 0`
-  - Sem scale.
-- Hover (desktop):
-  - **+5% de opacity** ou pequeno ajuste de cor do texto.
-  - Sem escala.
-  - Nenhum underline de links internos.
-- Respeitar `prefers-reduced-motion`: sem animação, apenas fade-in instantâneo.
+**Conteúdo do card:**
+- **Ícone:** círculo pequeno (8–10px) preenchido em `primary`, alinhado com a primeira linha do título
+- **Título:** em `primary`, font-weight 600, font-size 18–20px
+- **Descrição:** em branco, font-weight 400, font-size 14–16px, line-height 1.5, spacing entre título e descrição: 8px
 
 ---
 
-## 🟣 SEÇÃO 04 — COMO EU TRABALHO
+## Layout — Mobile
+
+- **Título:** 
+  - Centralizado, max-width 90%.
+  - Margem superior: **40–48px**.
+  - Margem inferior: **32–40px**.
+  - Font-size: 28–32px, line-height 1.2.
+
+### Lista de Cards
+- **1 coluna**, largura 100% do container (padding 16–20px lateral).
+- **7 cards empilhados verticalmente**.
+- **Espaçamento vertical:** 16–20px entre cards.
+- **Padding por card:** 20–24px.
+
+**Estrutura do card (mobile):**
+- Mantém borda superior em `primary`.
+- Ícone e texto alinhados verticalmente.
+- Font-size título: 16–18px.
+- Font-size descrição: 14–15px.
+
+---
+
+## Responsividade Detalhada
+
+### Small (`sm`: 640px–767px)
+- 1 coluna de cards
+- Título: 28–30px
+- Padding container: 16px
+
+### Medium (`md`: 768px–1023px)
+- 1 coluna de cards (transição para 2 colunas próximo a `lg`)
+- Título: 32–36px
+- Padding container: 20–24px
+
+### Large (`lg`: 1024px–1279px)
+- **2 colunas de cards**
+- Grid: `grid-template-columns: repeat(2, 1fr)`
+- Última linha com 1 card centralizado usando `grid-column: span 1` ou flexbox
+- Título: 38–42px
+
+### Extra Large (`xl`: 1280px+)
+- **3 colunas de cards**
+- Grid: `grid-template-columns: repeat(3, 1fr)`
+- Última linha com 1 card centralizado usando `grid-column: 2 / 3`
+- Título: 44–48px
+- Max-width container: 1120–1200px
+
+---
+
+## Conteúdo dos 7 Cards
+
+1. **Direção criativa** | que organiza o caos
+2. **Design estratégico** | que guia decisões
+3. **Identidades** | que permanecem na memória
+4. **Campanhas** | multicanais com lógica e emoção
+5. **Branding** | que não grita — mas marca
+6. **Inteligência artificial** | aplicada à criação e automação
+7. **Liderança criativa** | com visão e método
+
+---
+
+## Interação & Motion
+
+### Animação de Entrada (Scroll)
+- Cada card entra individualmente ao entrar no viewport.
+- **Stagger:** 0.15–0.18s entre cada card.
+- **Efeito:**
+  - `opacity: 0 → 1`
+  - `translateY: 24px → 0`
+  - `duration: 0.5s`
+  - `easing: cubic-bezier(0.4, 0, 0.2, 1)`
+
+### Hover (Desktop)
+- **Opacity:** 0.92 → 1.0
+- **Borda superior:** aumenta de 2px → 3px
+- **Transform:** `translateY: 0 → -4px)` (elevação sutil)
+- **Transition:** 0.3s ease
+- Sem scale, sem underline.
+
+### Estados
+- **Default:** opacity 0.92
+- **Hover:** opacity 1.0 + elevação
+- **Focus:** outline em `primary` para acessibilidade
+
+### Acessibilidade
+- Respeitar `prefers-reduced-motion`:
+  - Sem translateY
+  - Apenas fade-in instantâneo (0.2s)
+  - Sem stagger perceptível
+
+---
+
+## Notas de Implementação
+
+- Usar **Intersection Observer** para trigger de animações no scroll.
+- Cards devem ter altura mínima consistente para evitar quebras visuais no grid.
+- Considerar usar `grid-auto-rows: 1fr` para igualar altura de cards em cada linha.
+- Textura ou noise sutil no fundo para profundidade (opcional, seguindo direção de arte).
+- Garantir contraste mínimo AA/AAA para texto em `primary` sobre fundo escuro.
+
+
+
+# 🟣 SEÇÃO 04 — COMO EU TRABALHO
 
 **Função:** Gerar confiança racional através do método.  
 Mostra que a criatividade é suportada por processo.
 
-### Layout — Desktop
+---
 
-- Altura alvo: **≈120vh**.
-- Fundo:
-  - Vídeo abstrato/IA full-bleed:  
-    `VideoAboutMethod.mp4`
-  - `object-fit: cover`, ocupando 100% de largura e altura da seção.
-  - Overlay escuro com gradiente (mais opaco na área de texto).
-- Grid:
-  - Container 12 colunas.
-  - **Texto em primeiro plano** ocupando colunas 2–7.
-  - À direita (col. 8–12): área onde o vídeo/ghost aparece com mais clareza (sem texto sobreposto).
-- Conteúdo:
-  - Título em duas linhas, alinhado à esquerda.
-  - Parágrafo introdutório.
-  - Lista de processo em **blocos horizontais**:
-    - Cada item com índice (01–06) + texto.
-    - Cards com fundo `neutral` translucido (overlay sobre o vídeo).
+## Layout — Desktop
 
-### Layout — Mobile
+### Estrutura Geral
+- **Altura alvo:** ≈120vh (permite scroll se necessário).
+- **Fundo:**
+  - Vídeo abstrato/IA full-bleed: `VideoAboutMethod.mp4`
+  - `object-fit: cover`, ocupando 100% de largura e altura da seção
+  - **Overlay escuro:** gradiente radial ou linear
+    - Mais opaco na área de texto (esquerda): `rgba(10, 10, 20, 0.85)`
+    - Mais transparente na área visual (direita): `rgba(10, 10, 20, 0.4)`
+  - Vídeo em loop contínuo, sem controles
 
-- Fundo:
-  - Mesmo vídeo `VideoAboutMethod.mp4`, recortado priorizando o **lado direito** (ghost/IA).
-  - Overlay ainda mais forte para contraste.
-- Conteúdo:
-  - Tudo em **1 coluna**.
-  - Título, texto e lista ficam **sobre uma faixa escura sólida** (pode ser um pseudo-card sobre o vídeo).
-  - Ghost/IA aparece como recorte de fundo ou miniatura ao final da seção, nunca competindo com o texto.
-- Altura:
-  - Flexível (>100vh se necessário).
+### Grid & Composição
+- Container de 12 colunas, max-width ≈ 1200px
+- **Coluna de conteúdo (esquerda):** colunas 2–7
+  - Padding vertical: 80–100px
+  - Padding lateral: 32–40px
+- **Área visual (direita):** colunas 8–12
+  - Vídeo/ghost aparece com mais clareza
+  - Sem texto sobreposto
 
-### Responsividade
+### Título
+- Alinhado à esquerda
+- Duas linhas:
+  - "**Criatividade** com **método**." (criatividade e método em `primary`)
+  - "**Impacto** sem **ruído**." (impacto em branco, ruído levemente dimmed)
+- Font-size: 44–52px
+- Line-height: 1.15
+- Font-weight: 700
+- Margin-bottom: 32–40px
 
-- `sm` e `md`:
-  - 1 coluna.
-  - Lista ocupa toda a largura do container.
-  - Espaçamento vertical 20–24px entre itens.
-- `lg+`:
-  - 2 blocos visuais: texto à esquerda, vídeo mais visível à direita.
-  - Cards da lista limitados em largura (≈75% do texto) para manter legibilidade.
+### Texto Introdutório
+- Três frases em parágrafos separados ou quebras de linha
+- Font-size: 18–20px
+- Line-height: 1.6
+- Font-weight: 400
+- Opacity: 0.9
+- Max-width: 520px
+- Margin-bottom: 48–56px
 
-### Conteúdo
+### Lista de Processo
+- **6 itens** em blocos horizontais/verticais
+- Cada item estruturado como card:
+  - **Fundo:** `rgba(26, 26, 46, 0.7)` ou `rgba(255, 255, 255, 0.05)` com backdrop-filter blur
+  - **Borda esquerda:** 3px sólida em `primary`
+  - **Padding:** 20–24px
+  - **Margin-bottom:** 16–20px
+  - **Border-radius:** 6–8px
 
-**Título**
-
-> Criatividade com método.  
-> Impacto sem ruído.
-
-**Texto introdutório**
-
-> Antes da estética, existe intenção.  
-> Antes do layout, existe lógica.  
-> Antes do impacto, existe silêncio.
-
-**Lista de processo**
-
-- Briefings bem construídos para decisões claras  
-- Estratégia como base de qualquer criação  
-- Design com propósito, não só beleza  
-- Revisões inteligentes, sem ruído desnecessário  
-- IA e automações para escalar com qualidade  
-- Métricas criativas: engajamento, retenção e resultado  
-
-### Interação & Motion
-
-- Background com **parallax ultra sutil** (opcional e respeitando `prefers-reduced-motion`).
-- Texto principal:
-  - Entra com **fadeGhost** (opacity + blur leve).
-  - Após aparecer, permanece estático (sem loop).
-- Motion geral:
-
-| Frame | Estado                |
-|-------|-----------------------|
-| 0%    | invisível             |
-| 100%  | visível e estático    |
-
-- Nenhuma animação contínua no texto ou nos cards de processo.
-- Vídeo faz o “movimento de fundo” da seção.
+**Estrutura de cada item:**
+- **Índice:** `01`–`06` em `primary`, font-size 16–18px, font-weight 700, display inline ou como prefix
+- **Texto:** em branco, font-size 16–18px, font-weight 400, line-height 1.5
+- Spacing entre índice e texto: 12–16px
 
 ---
+
+## Layout — Mobile
+
+### Fundo
+- Mesmo vídeo `VideoAboutMethod.mp4`
+- **Position:** `object-position: right center` (prioriza ghost/IA no lado direito)
+- **Overlay:** mais forte para garantir contraste
+  - `rgba(10, 10, 20, 0.88)` uniforme ou gradiente vertical (mais escuro no topo)
+
+### Estrutura
+- **1 coluna**, largura 100%
+- Padding lateral: 20–24px
+- Padding vertical: 60–80px
+
+### Conteúdo
+- **Título:**
+  - Centralizado ou alinhado à esquerda
+  - Font-size: 32–36px
+  - Margin-bottom: 24–32px
+  
+- **Texto introdutório:**
+  - Centralizado
+  - Font-size: 16–17px
+  - Max-width: 100%
+  - Margin-bottom: 40–48px
+  - Frases podem estar em linha contínua ou separadas com `<br/>`
+
+- **Lista:**
+  - 6 itens empilhados verticalmente
+  - Cada card com:
+    - Fundo mais sólido: `rgba(26, 26, 46, 0.85)`
+    - Padding: 16–20px
+    - Margin-bottom: 14–16px
+    - Borda esquerda mantida
+
+### Ghost/IA Visual
+- Pode aparecer como:
+  - **Opção 1:** recorte de fundo fixo com parallax desabilitado
+  - **Opção 2:** miniatura ou fade-in ao final da seção (abaixo da lista)
+  - **Opção 3:** apenas sugestão visual no overlay do vídeo de fundo
+- **Nunca competindo** com legibilidade do texto
+
+### Altura
+- Flexível, >100vh se necessário
+- Min-height: 100vh para evitar corte visual
+
+---
+
+## Responsividade Detalhada
+
+### Small (`sm`: 640px–767px)
+- 1 coluna
+- Título: 30–32px
+- Texto intro: 15–16px
+- Lista ocupa 100% da largura
+- Spacing vertical entre cards: 14–16px
+
+### Medium (`md`: 768px–1023px)
+- 1 coluna
+- Título: 36–40px
+- Texto intro: 17–18px
+- Cards com max-width: 90%
+- Padding container: 24–28px
+
+### Large (`lg`: 1024px–1279px)
+- **2 blocos visuais:**
+  - Texto: colunas 1–7
+  - Vídeo visível: colunas 8–12
+- Título: 42–46px
+- Lista com max-width: 75% da área de texto
+- Cards com largura limitada para manter legibilidade
+
+### Extra Large (`xl`: 1280px+)
+- Grid: colunas 2–7 para texto, 8–12 para vídeo
+- Título: 48–52px
+- Texto intro: 19–20px
+- Cards: max-width ≈ 560px
+- Mais respiro horizontal e vertical
+
+---
+
+## Conteúdo dos 6 Itens
+
+1. **01** | Briefings bem construídos para decisões claras
+2. **02** | Estratégia como base de qualquer criação
+3. **03** | Design com propósito, não só beleza
+4. **04** | Revisões inteligentes, sem ruído desnecessário
+5. **05** | IA e automações para escalar com qualidade
+6. **06** | Métricas criativas: engajamento, retenção e resultado
+
+---
+
+## Interação & Motion
+
+### Background Video
+- **Parallax ultra sutil** (opcional):
+  - `translateY` de -20px a 20px no scroll
+  - Apenas se `prefers-reduced-motion: no-preference`
+- Vídeo em loop contínuo
+- Sem controles, muted, autoplay
+
+### Animação de Entrada (Scroll)
+
+**Título:**
+- `opacity: 0 → 1`
+- `filter: blur(8px) → blur(0)`
+- `translateY: 30px → 0`
+- Duration: 0.8s
+- Easing: `cubic-bezier(0.25, 0.46, 0.45, 0.94)`
+
+**Texto introdutório:**
+- Mesma animação do título
+- Delay: 0.2s após título
+
+**Lista de processo:**
+- Cada card entra individualmente
+- **Stagger:** 0.12s entre itens
+- Animação:
+  - `opacity: 0 → 1`
+  - `translateX: -20px → 0`
+  - Duration: 0.5s
+  - Easing: `ease-out`
+- Delay inicial: 0.4s após texto introdutório
+
+### Estados de Hover (Desktop)
+
+**Cards da lista:**
+- **Default:** opacity 0.9
+- **Hover:**
+  - Opacity: 1.0
+  - Borda esquerda: 3px → 4px
+  - `translateX: 0 → 4px` (deslocamento sutil para direita)
+  - Backdrop blur aumenta levemente
+- Transition: 0.3s ease
+
+### Acessibilidade
+- **prefers-reduced-motion:**
+  - Sem parallax
+  - Sem translateY/translateX
+  - Apenas fade-in instantâneo (0.2s)
+  - Sem stagger perceptível
+
+---
+
+## Notas de Implementação
+
+### Vídeo
+- Formato: MP4, WebM como fallback
+- Compressão otimizada para web
+- Resolução: 1920x1080 mínimo
+- Duração: 10–20s em loop
+- Considerar poster frame para carregamento inicial
+
+### Performance
+- Lazy load do vídeo se fora do viewport inicial
+- Usar Intersection Observer para animações
+- Considerar `will-change: transform, opacity` nos elementos animados
+
+### Overlay
+- Usar `::before` ou `::after` no container da seção
+- Position: absolute, z-index entre vídeo e conteúdo
+- Background: `linear-gradient(90deg, rgba(10,10,20,0.85) 0%, rgba(10,10,20,0.4) 100%)`
+
+### Contraste
+- Garantir WCAG AA mínimo em todo texto
+- Testar legibilidade em diferentes dispositivos
+- Ajustar overlay se necessário
+
+### Z-index Stack
+1. Vídeo: `z-index: 1`
+2. Overlay: `z-index: 2`
+3. Conteúdo: `z-index: 3`
+
+---
+
+## Variações de Implementação
+
+### Opção 1: Vídeo Full-bleed (Recomendada)
+- Vídeo ocupa toda seção
+- Conteúdo em primeiro plano com overlay
+- Melhor impacto visual
+
+### Opção 2: Split Screen
+- Desktop: 50/50 texto/vídeo
+- Mobile: vídeo como background fixo
+- Mais tradicional, menos imersivo
+
+### Opção 3: Vídeo como Card
+- Vídeo contido em card à direita
+- Mais controle, menos dramático
+- Útil se performance for crítica
+
+**Escolha baseada em:** performance do dispositivo, largura de banda esperada, e direção de arte geral do site.
+
+
+
+
 
 ## 🟣 SEÇÃO 05 — O QUE ME MOVE
 
@@ -493,8 +735,7 @@ Momento mais íntimo, quase carta aberta.
 ### Conteúdo
 
 > Acredito no design que muda o dia de alguém.  
-> Não pelo choque —  
-> mas pela conexão.  
+> Não pelo choque, mas pela conexão.  
 >
 > Um vídeo que respira.  
 > Uma marca que se reconhece.  

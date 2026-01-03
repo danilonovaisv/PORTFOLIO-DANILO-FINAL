@@ -47,10 +47,7 @@ export function FluidGlass({
 
   return (
     // Inline style é necessário para altura dinâmica baseada em HEADER_TOKENS
-    <div
-      className={`relative w-full ${className}`}
-      style={{ height: HEADER_TOKENS.desktop.height }}
-    >
+    <div className={`relative w-full h-16 ${className}`}>
       <Canvas
         shadows
         dpr={[1, 2]}

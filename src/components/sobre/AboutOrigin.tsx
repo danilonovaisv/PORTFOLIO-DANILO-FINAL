@@ -106,7 +106,7 @@ export default function AboutOrigin() {
 
   return (
     <section
-      className="relative min-h-[130vh] py-20 md:py-28 lg:py-36 bg-[#040013] overflow-hidden"
+      className="relative min-h-[130vh] py-20 md:py-28 lg:py-36 bg-ghost-surface-deep overflow-hidden"
       aria-label="Origem Criativa"
     >
       <div className="w-full max-w-[1200px] mx-auto px-6 md:px-10 lg:px-16">

@@ -20,7 +20,7 @@ export function AboutHero() {
 
   return (
     <section
-      className="relative h-screen flex items-center bg-[#040013] overflow-hidden"
+      className="relative h-screen flex items-center bg-ghost-surface-deep overflow-hidden"
       aria-label="Hero - Manifesto"
     >
       {/* Background Video - Desktop */}
@@ -49,7 +49,7 @@ export function AboutHero() {
 
       {/* Dark Gradient Overlay for Legibility */}
       <div
-        className="absolute inset-0 bg-linear-to-b from-black/70 via-black/60 to-[#040013] pointer-events-none z-1"
+        className="absolute inset-0 bg-linear-to-b from-black/70 via-black/60 to-ghost-surface-deep pointer-events-none z-1"
         aria-hidden="true"
       />
 
@@ -99,14 +99,14 @@ export function AboutHero() {
               transition={{ delay: 0.4 }}
               className="max-w-[520px] mx-auto md:ml-auto md:mr-0 space-y-1 md:space-y-2"
             >
-              <p className="text-sm md:text-base lg:text-lg text-[#a1a3a3] font-light leading-[1.7] tracking-tight">
+              <p className="text-sm md:text-base lg:text-lg text-ghost-text-secondary font-light leading-[1.7] tracking-tight">
                 <span className="ghost-accent">Crio design</span> que observa,
                 entende
               </p>
-              <p className="text-sm md:text-base lg:text-lg text-[#a1a3a3] font-light leading-[1.7] tracking-tight">
+              <p className="text-sm md:text-base lg:text-lg text-ghost-text-secondary font-light leading-[1.7] tracking-tight">
                 e guia experiências com intenção,
               </p>
-              <p className="text-sm md:text-base lg:text-lg text-[#a1a3a3] font-light leading-[1.7] tracking-tight">
+              <p className="text-sm md:text-base lg:text-lg text-ghost-text-secondary font-light leading-[1.7] tracking-tight">
                 <span className="ghost-accent">estratégia e tecnologia</span> —
                 na medida certa.
               </p>

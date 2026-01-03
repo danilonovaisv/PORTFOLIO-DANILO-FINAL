@@ -74,7 +74,7 @@ export function ManifestoSection() {
       initial={prefersReducedMotion ? {} : ANIMATION.initial}
       animate={isInView && !prefersReducedMotion ? ANIMATION.animate : {}}
       transition={ANIMATION.transition}
-      className="lg:hidden w-full bg-[#050511] aspect-video relative overflow-hidden"
+      className="lg:hidden w-full bg-section-manifesto aspect-video relative overflow-hidden"
     >
       {/* Video */}
       <video
@@ -100,7 +100,7 @@ export function ManifestoSection() {
                    focus-visible:ring-[#4fe6ff] focus-visible:ring-offset-2
                    focus-visible:ring-offset-black/50"
         aria-label={isMuted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'}
-        aria-pressed={!isMuted}
+        aria-pressed={isMuted ? 'false' : 'true'}
       >
         {isMuted ? (
           <VolumeX className="w-5 h-5" aria-hidden="true" />
@@ -127,7 +127,7 @@ export function ManifestoSection() {
 
       {/* Subtle gradient overlay */}
       <div
-        className="absolute inset-0 bg-linear-to-t from-[#06071f]/40 via-transparent to-transparent pointer-events-none"
+        className="absolute inset-0 bg-linear-to-t from-ghost-surface-gradient-start/40 via-transparent to-transparent pointer-events-none"
         aria-hidden="true"
       />
     </motion.section>

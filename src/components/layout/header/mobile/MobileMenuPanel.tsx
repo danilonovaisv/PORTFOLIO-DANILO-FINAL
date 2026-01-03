@@ -1,6 +1,7 @@
 'use client';
 
 import React, { forwardRef, RefObject } from 'react';
+import { motion } from 'framer-motion';
 import { Instagram, Linkedin, Mail } from 'lucide-react';
 import { SOCIALS } from '@/config/navigation';
 
@@ -25,8 +26,8 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
       <nav
         ref={ref}
         id="mobile-menu-panel"
-        className="fixed top-0 right-0 w-full h-full bg-linear-to-b from-(--color-ghost-surface-gradient-start) to-(--color-ghost-surface-gradient-end) flex flex-col justify-center px-8 overflow-y-auto z-50 pointer-events-auto"
-        aria-hidden={!open}
+        className="fixed top-0 right-0 w-full h-full bg-linear-to-b from-ghost-surface-gradient-start to-ghost-surface-gradient-end flex flex-col justify-center px-8 overflow-y-auto z-50 pointer-events-auto"
+        aria-hidden={open ? 'false' : 'true'}
       >
         {/* Menu items */}
         <ul className="flex flex-col gap-4" role="list">
@@ -37,8 +38,7 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
                   if (el && itemsRef.current) itemsRef.current[idx] = el;
                 }}
                 onClick={() => onNavigate(item.href)}
-                className="sm-panel-item text-4xl xs:text-5xl font-bold tracking-tight text-white hover:text-primary transition-colors text-left leading-none uppercase will-change-transform origin-bottom-center"
-                style={{ transformOrigin: '50% 100%' }}
+                className="sm-panel-item text-4xl xs:text-5xl font-bold tracking-tight text-white hover:text-primary transition-colors text-left leading-none uppercase will-change-transform origin-bottom"
               >
                 {item.label}
               </button>
@@ -51,12 +51,13 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
           ref={socialsRef}
           className="mt-12 pt-8 border-t border-white/10 flex flex-col gap-4"
         >
-          <h3
+          <motion.h3
             className="sm-social-title text-sm font-medium uppercase tracking-wider"
-            style={{ color: accentColor }}
+            initial={false}
+            animate={{ color: accentColor }}
           >
             Connect
-          </h3>
+          </motion.h3>
           <div className="flex gap-4">
             {[
               {

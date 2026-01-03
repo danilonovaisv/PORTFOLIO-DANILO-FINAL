@@ -46,7 +46,7 @@ export default function AboutMethod() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[90vh] py-20 md:py-28 lg:py-32 overflow-hidden bg-[#040013]"
+      className="relative min-h-[90vh] py-20 md:py-28 lg:py-32 overflow-hidden bg-ghost-surface-deep"
       aria-label="Como Eu Trabalho"
     >
       {/* Background Video full-bleed */}
@@ -64,8 +64,8 @@ export default function AboutMethod() {
           className="w-full h-full object-cover object-center opacity-75"
           aria-hidden="true"
         />
-        <div className="absolute inset-0 bg-linear-to-r from-[#040013] via-[#040013]/60 to-transparent" />
-        <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/10 to-[#040013]" />
+        <div className="absolute inset-0 bg-linear-to-r from-ghost-surface-deep via-ghost-surface-deep/60 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-b from-transparent via-black/10 to-ghost-surface-deep" />
       </motion.div>
 
       <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
@@ -96,7 +96,7 @@ export default function AboutMethod() {
               initial={prefersReducedMotion ? 'visible' : 'hidden'}
               whileInView="visible"
               viewport={{ once: true, amount: 0.4 }}
-              className="text-base md:text-lg lg:text-xl text-[#a1a3a3] font-light leading-relaxed space-y-3 mb-10 md:mb-12"
+              className="text-base md:text-lg lg:text-xl text-ghost-text-secondary font-light leading-relaxed space-y-3 mb-10 md:mb-12"
             >
               {ABOUT_CONTENT.method.intro.map((line, i) => (
                 <p key={i}>{line}</p>

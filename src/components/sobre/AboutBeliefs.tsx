@@ -62,7 +62,7 @@ export function AboutBeliefs() {
 
   return (
     <section
-      className="min-h-[100vh] flex flex-col items-center justify-center bg-[#040013] py-20 md:py-28 lg:py-32"
+      className="min-h-screen flex flex-col items-center justify-center bg-ghost-surface-deep py-20 md:py-28 lg:py-32"
       aria-label="O que me move"
     >
       <div className="w-full max-w-[1200px] px-6 md:px-12 lg:px-20 grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
