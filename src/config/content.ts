@@ -5,6 +5,8 @@ export const HOME_CONTENT = {
     subtitle: 'Mas ele vê você.',
     cta: 'step inside →',
     scrollHint: '#manifesto',
+    video:
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
   },
 
   showcase: {
@@ -189,9 +191,9 @@ export const ABOUT_CONTENT = {
   hero: {
     videos: {
       desktop:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/HeroSobre.mp4',
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO%20HERO%20-%20SOBRE-DESKTOP.mp4',
       mobile:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/HeroSobreMobile.mp4',
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO%20HERO%20-%20SOBRE%20MOBILE.mp4',
     },
     title: {
       line1: 'Sou Danilo Novais.',
@@ -223,6 +225,32 @@ export const ABOUT_CONTENT = {
       'Revisões inteligentes, sem ruído desnecessário',
       'IA e automações para escalar com qualidade',
       'Métricas criativas: engajamento, retenção e resultado',
+    ],
+  },
+  beliefs: [
+    {
+      text: 'Acredito no design que muda o dia de alguém. Não pelo choque — mas pela conexão.',
+      highlight: 'conexão',
+    },
+    {
+      text: 'Um vídeo que respira. Uma marca que se reconhece. Um detalhe que fica.',
+      highlight: 'respira',
+    },
+    {
+      text: 'Crio para gerar presença. Mesmo quando não estou ali. Mesmo quando ninguém percebe o esforço.',
+      highlight: 'presença',
+    },
+    { text: 'Isso é ghost design.', highlight: 'ghost design' },
+  ],
+  closing: {
+    text: [
+      'Hoje sou Diretor de Criação, com mais de 10 anos de estrada.',
+      'Já liderei marcas, agências, eventos e criei experiências para todos os canais.',
+      'Agora, quero criar algo que permaneça — com você.',
+    ],
+    ctas: [
+      { label: 'Fale comigo', href: '/contato' },
+      { label: 'Download Curriculum', href: '/cv.pdf', external: true },
     ],
   },
   bio: [
@@ -284,6 +312,23 @@ export const ABOUT_CONTENT = {
         src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/AI.mp4',
         alt: 'Inteligência Artificial e criação',
         aspectRatio: 'aspect-[4/5]',
+      },
+    ],
+  },
+  whatIDo: {
+    title: 'Do insight ao impacto.',
+    subtitle: 'Mesmo quando você não percebe.',
+    items: [
+      { text: 'Direção criativa que organiza o', highlight: 'caos' },
+      { text: 'Design estratégico que guia', highlight: 'decisões' },
+      { text: 'Identidades que permanecem na', highlight: 'memória' },
+      { text: 'Campanhas multicanais com lógica e', highlight: 'emoção' },
+      { text: 'Branding que não grita — mas', highlight: 'marca' },
+      { text: 'IA aplicada à', highlight: 'criação', suffix: 'e automação' },
+      {
+        text: 'Liderança criativa com',
+        highlight: 'visão',
+        suffix: 'e método',
       },
     ],
   },

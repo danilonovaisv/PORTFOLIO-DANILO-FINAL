@@ -23,7 +23,7 @@ import { BlendFunction } from 'postprocessing';
 // ============================================================================
 const BACKGROUND_COLOR = '#06071f';
 
-export default function GhostCanvas() {
+export default function GhostCanvas({ active = true }: { active?: boolean }) {
   const dpr: [number, number] = [1, 2];
 
   const ghostRef = useRef<THREE.Group>(null);
@@ -46,7 +46,12 @@ export default function GhostCanvas() {
         <AtmosphereVeil />
 
         {/* Ghost (Z ~ 0) */}
-        <Ghost ref={ghostRef} scale={0.22} position={[0, -0.2, 0]} />
+        <Ghost
+          ref={ghostRef}
+          scale={0.22}
+          position={[0, -0.2, 0]}
+          active={active}
+        />
 
         {/* Partículas decorativas */}
         <Particles />

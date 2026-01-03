@@ -29,11 +29,9 @@ export default function ClientLayout({
   return (
     <SmoothScroll>
       <Header />
-      <main className="lg:pb-20">
-        {children}
-        <ClientsBrandsSection />
-        <ContactSection />
-      </main>
+      {children}
+      <ClientsBrandsSection />
+      <ContactSection />
       <Footer />
       <AntigravityDebugger />
     </SmoothScroll>

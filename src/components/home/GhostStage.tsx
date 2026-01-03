@@ -8,6 +8,7 @@ import styles from './GhostStage.module.css';
 
 interface GhostStageProps {
   reducedMotion?: boolean;
+  active?: boolean;
 }
 
 // Import dinâmico evita SSR do canvas
@@ -42,7 +43,7 @@ function StaticGhostFallback() {
   );
 }
 
-export function GhostStage({ reducedMotion }: GhostStageProps) {
+export function GhostStage({ reducedMotion, active = true }: GhostStageProps) {
   if (reducedMotion) {
     return <StaticGhostFallback />;
   }
@@ -50,7 +51,7 @@ export function GhostStage({ reducedMotion }: GhostStageProps) {
   return (
     <ErrorBoundary fallback={<StaticGhostFallback />}>
       <Suspense fallback={<StaticGhostFallback />}>
-        <GhostCanvas />
+        <GhostCanvas active={active} />
       </Suspense>
     </ErrorBoundary>
   );

@@ -1,71 +1,99 @@
-// src/components/about/motion.ts
-// src/components/about/motion.ts
-// Physics: Slower, heavier inertia (Phantom Land style)
-const GHOST_EASE: [number, number, number, number] = [0.25, 1, 0.5, 1];
+// src/components/sobre/motion.ts
+// Ghost Design Motion Tokens - Fonte da verdade para animações
 
+/**
+ * Ghost Easing - A curva de animação principal do sistema
+ * Suave, etérea, sem bounce ou elastic
+ */
+const GHOST_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+/**
+ * Tokens de Motion para a página Sobre
+ * REGRAS ABSOLUTAS:
+ * - ❌ Scale proibido
+ * - ❌ Bounce proibido
+ * - ❌ Rotate proibido
+ * - ✅ Opacity + Blur permitidos
+ * - ✅ TranslateY máx 18px permitido
+ */
 export const motionTokens = {
-  ghostIn: {
-    hidden: { opacity: 0, filter: 'blur(8px)' },
-    visible: {
-      opacity: 1,
-      filter: 'blur(0px)',
-      transition: { duration: 0.9, delay: 0.15, ease: GHOST_EASE },
-    },
-  },
+  /**
+   * FadeGhost - Entrada padrão com blur
+   * Uso: Textos, títulos, seções
+   */
   fadeGhost: {
     hidden: { opacity: 0, filter: 'blur(10px)' },
-    visible: (customDelay = 0) => ({
+    visible: {
       opacity: 1,
       filter: 'blur(0px)',
-      transition: { duration: 1.2, ease: GHOST_EASE, delay: customDelay },
-    }),
+      transition: { duration: 0.9, ease: GHOST_EASE },
+    },
   },
+
+  /**
+   * RiseSoft - Entrada com leve rise (18px máx)
+   * Uso: Cards, itens de lista
+   */
   riseSoft: {
-    hidden: { opacity: 0, y: 30, filter: 'blur(8px)' },
+    hidden: { opacity: 0, y: 18, filter: 'blur(6px)' },
     visible: {
       opacity: 1,
       y: 0,
       filter: 'blur(0px)',
-      transition: { duration: 1.0, ease: GHOST_EASE },
+      transition: { duration: 0.9, ease: GHOST_EASE },
     },
   },
-  clipReveal: {
-    hidden: {
-      clipPath: 'inset(100% 0 0 0)',
-      y: 20,
-      opacity: 0,
-    },
-    visible: {
-      clipPath: 'inset(0% 0 0 0)',
-      y: 0,
-      opacity: 1,
-      transition: { duration: 1.4, ease: GHOST_EASE },
-    },
-  },
-  staggerContainer: {
-    hidden: { opacity: 0 },
-    visible: (customDelay = 0) => ({
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: customDelay,
-      },
-    }),
-  },
-  floatMemory: {
-    hidden: { opacity: 1, y: 0 },
-    visible: {
-      opacity: 1,
-      y: [0, -4, 0, 4, 0],
-      transition: { duration: 8, repeat: Infinity, ease: 'easeInOut' as const },
-    },
-  },
+
+  /**
+   * ImageFloat - Entrada lateral para imagens
+   * Nota: Imagens NUNCA chegam a 100% opacity (máx 0.85)
+   */
   imageFloat: {
-    hidden: { opacity: 0, scale: 0.96 },
+    hidden: { opacity: 0, x: 12 },
     visible: {
-      opacity: 0.65,
-      scale: 1,
+      opacity: 0.85,
+      x: 0,
+      transition: { duration: 1.2, ease: GHOST_EASE },
+    },
+  },
+
+  /**
+   * TimeBased - Para textos que aparecem por tempo, não scroll
+   * Uso: Seção Beliefs/Manifesto
+   */
+  timeBased: {
+    hidden: { opacity: 0, filter: 'blur(10px)' },
+    visible: {
+      opacity: 1,
+      filter: 'blur(0px)',
       transition: { duration: 1.4, ease: GHOST_EASE },
+    },
+    exit: {
+      opacity: 0,
+      filter: 'blur(6px)',
+      transition: { duration: 0.6, ease: GHOST_EASE },
     },
   },
 };
+
+/**
+ * Delays padrão do sistema
+ */
+export const motionDelays = {
+  none: 0,
+  short: 0.2,
+  base: 0.4,
+  long: 1.0,
+  stagger: 0.18,
+};
+
+/**
+ * Durações padrão do sistema
+ */
+export const motionDurations = {
+  fast: 0.6,
+  base: 0.9,
+  slow: 1.4,
+};
+
+export { GHOST_EASE };

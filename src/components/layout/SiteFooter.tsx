@@ -53,7 +53,7 @@ export default function SiteFooter() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: reducedMotion ? 0.2 : 0.8 }}
-        className="hidden lg:block fixed bottom-0 left-0 right-0 w-full bg-primary py-6 z-50"
+        className="hidden lg:block w-full bg-primary py-6 relative z-10"
         aria-label="Footer"
       >
         <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex items-center justify-between text-white">

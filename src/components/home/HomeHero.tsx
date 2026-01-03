@@ -1,7 +1,7 @@
 'use client';
 
-import * as React from 'react';
 import { useRef, useEffect, useState, useCallback } from 'react';
+import { HOME_CONTENT } from '@/config/content';
 import {
   AnimatePresence,
   motion,
@@ -16,8 +16,7 @@ import { ManifestoThumb, type ManifestoThumbHandle } from './ManifestoThumb';
 
 const CONFIG = {
   preloadMs: 2000,
-  videoSrc:
-    'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
+  videoSrc: HOME_CONTENT.hero.video,
   bgColor: '#050511',
 
   // Thumb entrance animation (Ghost-style: slow, ethereal, floaty)
@@ -168,10 +167,18 @@ export default function HomeHero() {
           )}
         </AnimatePresence>
 
-        {/* WebGL Atmosphere */}
-        <div className="absolute inset-0 z-0">
-          <GhostStage reducedMotion={prefersReducedMotion} />
-        </div>
+        {/* WebGL Atmosphere with Blur Focus Effect */}
+        <motion.div
+          className="absolute inset-0 z-0"
+          initial={{ filter: 'blur(20px)' }}
+          animate={{ filter: isLoading ? 'blur(20px)' : 'blur(0px)' }}
+          transition={{ duration: 4.2, ease: 'linear' }}
+        >
+          <GhostStage
+            reducedMotion={prefersReducedMotion}
+            active={!isLoading}
+          />
+        </motion.div>
 
         {/* Hero Copy (Editorial) */}
         <motion.div
@@ -179,14 +186,14 @@ export default function HomeHero() {
           className="absolute inset-0 z-10 flex items-center justify-center px-6 pointer-events-none"
         >
           <div className="pointer-events-auto">
-            <HeroCopy />
+            <HeroCopy startEntrance={!isLoading} />
           </div>
         </motion.div>
 
         {/* Manifesto Interaction (Desktop) */}
         {!prefersReducedMotion && (
           <motion.div
-            className="fixed bottom-8 right-8 md:right-12 z-20 pointer-events-auto hidden lg:block"
+            className="fixed bottom-8 right-8 md:right-12 z-20 pointer-events-auto hidden md:block"
             style={{
               scale: videoScale,
               x: videoX,
