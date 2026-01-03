@@ -80,40 +80,10 @@ const Ghost = forwardRef<
     let currentScale = 0.98;
     let currentEmissive = 0;
 
-    if (t < 0.8) {
-      currentOpacity = 0;
-    } else if (t < 2.0) {
-      const progress = (t - 0.8) / 1.2;
-      currentOpacity = THREE.MathUtils.lerp(0, 0.35, progress);
-      currentScale = THREE.MathUtils.lerp(0.98, 1.0, progress);
-      currentEmissive = THREE.MathUtils.lerp(
-        0,
-        GHOST_CONFIG.emissiveIntensity * 0.4,
-        progress
-      );
-    } else if (t < 3.4) {
-      const progress = (t - 2.0) / 1.4;
-      currentOpacity = THREE.MathUtils.lerp(
-        0.35,
-        GHOST_CONFIG.ghostOpacity * 0.85,
-        progress
-      );
-      currentScale = 1.0;
-      currentEmissive = THREE.MathUtils.lerp(
-        GHOST_CONFIG.emissiveIntensity * 0.4,
-        GHOST_CONFIG.emissiveIntensity * 0.7,
-        progress
-      );
-    } else {
-      // Estado final estável
-      currentOpacity = GHOST_CONFIG.ghostOpacity;
-      currentScale = 1.0;
-
-      // Pulso de respiração (Breathe)
-      const pulse = Math.sin(t * 1.6) * 0.6;
-      const breathe = Math.sin(t * 0.6) * 0.12;
-      currentEmissive = GHOST_CONFIG.emissiveIntensity + pulse + breathe;
-    }
+    // DEBUG: Force visible
+    currentOpacity = 1.0;
+    currentScale = 1.0;
+    currentEmissive = GHOST_CONFIG.emissiveIntensity; // 5.8
 
     if (bodyMaterial.current) {
       bodyMaterial.current.opacity = currentOpacity;
@@ -157,12 +127,12 @@ const Ghost = forwardRef<
       <directionalLight
         position={[-8, 6, -4]}
         intensity={1.8}
-        color="#4a90e2"
+        color="#4d8dff"
       />
       <directionalLight
         position={[8, -4, -6]}
         intensity={1.26}
-        color="#50e3c2"
+        color="#6e00ff"
       />
 
       <mesh ref={bodyMesh} geometry={ghostGeometry}>
@@ -174,9 +144,10 @@ const Ghost = forwardRef<
           side={THREE.DoubleSide}
           toneMapped={false}
         />
-        {/* Render children inside mesh to follow rotation */}
-        {children}
       </mesh>
+
+      {/* Eyes and other children follow the group position but not the body wobble */}
+      {children}
     </group>
   );
 });

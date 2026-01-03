@@ -4,6 +4,7 @@ import { Canvas } from '@react-three/fiber';
 import { Suspense, useRef } from 'react';
 import * as THREE from 'three';
 import Ghost from './Ghost';
+import GhostEyes from './GhostEyes';
 import Particles from './Particles';
 import Fireflies from './Fireflies';
 import AtmosphereVeil from './AtmosphereVeil';
@@ -46,9 +47,10 @@ export default function GhostCanvas({ active = true }: { active?: boolean }) {
       style={{ pointerEvents: 'none' }}
     >
       <color attach="background" args={[BACKGROUND_COLOR]} />
+      <ambientLight intensity={0.5} color="#0a0a2e" />
 
       <Suspense fallback={null}>
-        <AtmosphereVeil />
+        {/* <AtmosphereVeil ghostRef={ghostRef} /> */}
 
         <RevealingText ghostRef={ghostRef} />
 
@@ -57,13 +59,15 @@ export default function GhostCanvas({ active = true }: { active?: boolean }) {
           scale={0.22}
           position={[0, -0.2, 0]}
           active={active}
-        />
+        >
+          <GhostEyes />
+        </Ghost>
 
-        <Particles count={40} />
+        <Particles count={50} />
         <Fireflies />
 
-        <EffectComposer multisampling={0} enableNormalPass={false}>
-          <AnalogDecayPass />
+        {/* <EffectComposer multisampling={0} enableNormalPass={false}>
+          {/* <AnalogDecayPass /> 
           <Bloom
             luminanceThreshold={0.15}
             mipmapBlur
@@ -83,7 +87,7 @@ export default function GhostCanvas({ active = true }: { active?: boolean }) {
             blendFunction={BlendFunction.OVERLAY}
           />
           <Vignette eskil={false} offset={0.2} darkness={0.8} />
-        </EffectComposer>
+        </EffectComposer> */}
       </Suspense>
     </Canvas>
   );
