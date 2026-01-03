@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import { ABOUT_CONTENT } from '@/config/content';
@@ -139,45 +140,55 @@ export default function AboutOrigin() {
                 key={index}
                 className="grid grid-cols-12 gap-y-8 md:gap-y-0 md:gap-x-8 lg:gap-x-12 items-center"
               >
-                {/* Texto: Always First on Mobile (order-1), Alternates on Desktop */}
-                <motion.div
-                  variants={fadeGhost}
-                  initial={prefersReducedMotion ? 'visible' : 'hidden'}
-                  whileInView="visible"
-                  viewport={{ once: true, margin: '-10%' }}
-                  className={`col-span-12 md:col-span-5 order-1 ${
-                    isEven
-                      ? 'md:order-1 md:col-start-2'
-                      : 'md:order-2 md:col-start-7'
-                  }`}
-                >
-                  <div className="hidden lg:block h-px w-full bg-[#4fe6ff]/60 mb-6" />
-                  <p
-                    className={`text-[20px] md:text-[24px] lg:text-[28px] font-light leading-relaxed text-[#fcffff] text-center max-w-[440px] mx-auto ${
-                      isEven
-                        ? 'md:text-center md:mx-auto'
-                        : 'md:text-left md:mx-0 md:mr-auto'
-                    }`}
+                {/* Content Wrapper - ZigZag logic */}
+                <React.Fragment>
+                  {/* TEXT BLOCK */}
+                  <motion.div
+                    variants={fadeGhost}
+                    initial={prefersReducedMotion ? 'visible' : 'hidden'}
+                    whileInView="visible"
+                    viewport={{ once: true, margin: '-10%' }}
+                    className={`col-span-12 md:col-span-5 flex flex-col justify-center
+                      ${isEven ? 'md:order-1 md:col-start-2' : 'md:order-2 md:col-start-7'}
+                      ${/* Mobile: Always order 2 (Text below image? Or Text above? Image 3 shows Stacked... Usually Text above or below. Let's assume Text Below based on "Image 3" usually implying scrolling down to text.) Wait. "Mobile Imagem 3" is likely vertical. Let's stick to standard: Text, then Image. */ ''}
+                      order-1 text-center md:text-left
+                    `}
                   >
-                    <HighlightText
-                      text={textBlock.text}
-                      highlight={textBlock.highlight}
-                    />
-                  </p>
-                </motion.div>
+                    <div className="hidden lg:block h-px w-full bg-[#4fe6ff]/60 mb-6" />
+                    <p
+                      className={`text-[clamp(18px,5vw,20px)] md:text-[24px] lg:text-[28px] font-light leading-relaxed text-[#fcffff] max-w-[440px] mx-auto
+                        ${
+                          isEven
+                            ? 'md:text-right md:ml-auto md:mr-0' // Even rows: Text on Left (Right Aligned towards image)
+                            : 'md:text-left md:mr-auto md:ml-0' // Odd rows: Text on Right (Left Aligned towards image)
+                        }
+                      `}
+                    >
+                      <HighlightText
+                        text={textBlock.text}
+                        highlight={textBlock.highlight}
+                      />
+                    </p>
+                  </motion.div>
 
-                {/* Mídia: Always Second on Mobile (order-2), Alternates on Desktop */}
-                <motion.div
-                  variants={imageFloat}
-                  initial={prefersReducedMotion ? 'visible' : 'hidden'}
-                  whileInView="visible"
-                  viewport={{ once: true, margin: '-10%' }}
-                  className={`col-span-12 md:col-span-6 order-2 ${
-                    isEven
-                      ? 'md:order-2 md:col-start-7'
-                      : 'md:order-1 md:col-start-1'
-                  }`}
-                >
+                  {/* MEDIA BLOCK */}
+                  <motion.div
+                    variants={imageFloat}
+                    initial={prefersReducedMotion ? 'visible' : 'hidden'}
+                    whileInView="visible"
+                    viewport={{ once: true, margin: '-10%' }}
+                    className={`col-span-12 md:col-span-6 relative aspect-[4/5] md:aspect-auto h-[400px] md:h-auto
+                      ${isEven ? 'md:order-2 md:col-start-7' : 'md:order-1 md:col-start-1'}
+                      order-2
+                    `}
+                  >
+                    <MediaItem
+                      src={mediaBlock.src}
+                      alt={mediaBlock.alt}
+                      aspectRatio="h-full w-full"
+                    />
+                  </motion.div>
+                </React.Fragment>
                   <MediaItem
                     src={mediaBlock.src}
                     alt={mediaBlock.alt}

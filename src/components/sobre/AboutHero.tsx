@@ -76,25 +76,29 @@ export function AboutHero() {
             className="space-y-8 md:space-y-10"
           >
             {/* H1 - Título principal */}
+            {/* H1 - Título principal */}
             <motion.h1
               variants={fadeGhost}
-              className="text-[clamp(28px,7vw,64px)] md:text-[clamp(36px,5vw,64px)] text-[#fcffff] font-semibold tracking-[-0.02em] leading-[1.08]"
+              className="text-[32px] md:text-[64px] text-[#fcffff] font-bold tracking-tight leading-[1.1]"
             >
               Sou <span className="text-primary">Danilo Novais.</span>
             </motion.h1>
 
             {/* Manifesto Text Block */}
-            <motion.div variants={fadeGhost} className="space-y-1 md:space-y-2">
-              <p className="text-[clamp(24px,6.2vw,44px)] md:text-[clamp(28px,3.5vw,44px)] text-[#fcffff] font-medium tracking-[-0.02em] leading-[1.2] md:leading-[1.15]">
+            <motion.div
+              variants={fadeGhost}
+              className="space-y-0.5 md:space-y-2"
+            >
+              <p className="text-[32px] md:text-[44px] text-[#fcffff] font-bold tracking-tight leading-[1.1]">
                 <span className="text-primary">Você não vê</span> tudo
               </p>
-              <p className="text-[clamp(24px,6.2vw,44px)] md:text-[clamp(28px,3.5vw,44px)] text-[#fcffff] font-medium tracking-[-0.02em] leading-[1.2] md:leading-[1.15]">
-                o que eu faço. Mas
+              <p className="text-[32px] md:text-[44px] text-[#fcffff] font-bold tracking-tight leading-[1.1]">
+                o que eu faço.
               </p>
-              <p className="text-[clamp(24px,6.2vw,44px)] md:text-[clamp(28px,3.5vw,44px)] text-[#fcffff] font-medium tracking-[-0.02em] leading-[1.2] md:leading-[1.15]">
-                sente quando
+              <p className="text-[32px] md:text-[44px] text-[#fcffff] font-bold tracking-tight leading-[1.1]">
+                Mas sente quando
               </p>
-              <p className="text-[clamp(24px,6.2vw,44px)] md:text-[clamp(28px,3.5vw,44px)] text-[#fcffff] font-medium tracking-[-0.02em] leading-[1.2] md:leading-[1.15]">
+              <p className="text-[32px] md:text-[44px] text-[#fcffff] font-bold tracking-tight leading-[1.1]">
                 <span className="text-primary">funciona.</span>
               </p>
             </motion.div>
