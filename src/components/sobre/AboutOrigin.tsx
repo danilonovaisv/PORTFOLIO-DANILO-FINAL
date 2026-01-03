@@ -189,12 +189,6 @@ export default function AboutOrigin() {
                     />
                   </motion.div>
                 </React.Fragment>
-                  <MediaItem
-                    src={mediaBlock.src}
-                    alt={mediaBlock.alt}
-                    aspectRatio={mediaBlock.aspectRatio}
-                  />
-                </motion.div>
               </div>
             );
           })}
