@@ -71,7 +71,7 @@ Create a premium institutional portfolio that demonstrates design excellence not
 |-------|-------|-------|
 | `primary` | `#0048ff` | Primary brand color, interactive elements, CTAs |
 | `accent` | `#4fe6ff` | Secondary highlights, Ghost atmosphere glow |
-| `background` | `#000022` | Main dark background |
+| `background` | `#040013` | Main dark background |
 | `backgroundLight` | `#f0f0f0` | Light sections (forms, alternating backgrounds) |
 | `text` | `#fcffff` | Primary text on dark backgrounds |
 | `textInverse` | `#0e0e0e` | Text on light backgrounds |
@@ -276,7 +276,7 @@ The header responds to cursor movement along the X-axis:
 2. **Z-30:** Manifesto Video Thumbnail (floating, bottom-right)
 3. **Z-20:** Ghost Atmosphere (WebGL Canvas)
 4. **Z-10:** Editorial Text Block (static, centered)
-5. **Z-0:** Gradient Background (`#000022` to `#0b0d3a`)
+5. **Z-0:** Gradient Background (`#040013` to `#0b0d3a`)
 
 #### Preloader
 
@@ -313,7 +313,7 @@ Ethereal, organic 3D atmosphere inspired by the "Ghost Blue" aesthetic. Main ele
 - Disabled entirely on `prefers-reduced-motion`
 
 **Fallback:**
-- Static radial gradient background (`#000022` to `#06071f`)
+- Static radial gradient background (`#040013` to `#06071f`)
 - No 3D elements
 
 **Reference:** Inspired by https://codepen.io/danilonovaisv/pen/azZbdQo
@@ -436,7 +436,7 @@ On mobile, the manifesto video appears as a separate fullscreen section immediat
 
 Layout:
     •    Full viewport width, aspect-video height
-    •    Background: #000022 (matches Hero for visual continuity)
+    •    Background: #040013 (matches Hero for visual continuity)
     •    Video:
     •    Autoplay, loop, muted by default, playsInline
     •    Sound can be enabled by user interaction (tap)
@@ -644,12 +644,12 @@ duration: 0.7s ease-out
 **Content:**
 - Headline: "Like what you see?"  - font normal - (on hover, text becomes `#0057FF`)
 - Button: "view projects →" with arrow icon
-- Background: `#000022` (on hover, text becomes `#0057FF`)
+- Background: `#040013` (on hover, text becomes `#0057FF`)
 
 **Interaction:**
 ```javascript
 // Hover
-background: { #000022 }
+background: { #040013 }
 text: { white → #0057FF }
 arrow: { translateX: 4px }
 duration: 300ms
@@ -1198,7 +1198,7 @@ export const CTAButton = ({ href, children, variant = 'primary' }) => {
 .cta-button {
   display: inline-flex;
   align-items: stretch;
-  background-color: #000022;
+  background-color: #040013;
   border-radius: 9999px;
   color: white;
   text-decoration: none;
@@ -1318,7 +1318,7 @@ if (document.startViewTransition) {
 ## Variants
 
 ### Primary CTA (Default)
-- **Background:** `#000022`
+- **Background:** `#040013`
 - **Text:** White
 - **Usage:** Main conversion actions (e.g., "view projects", "let's build something great")
 
@@ -1326,7 +1326,7 @@ if (document.startViewTransition) {
 - **Background:** Transparent
 - **Border:** 2px solid `#0048ff`
 - **Text:** `#0048ff`
-- **Hover:** Background fills with `#000022`, text becomes white
+- **Hover:** Background fills with `#040013`, text becomes white
 - **Usage:** Secondary actions, alternative choices
 
 ### Accent CTA (High Emphasis)
