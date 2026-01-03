@@ -29,10 +29,12 @@ export default function ClientLayout({
   return (
     <SmoothScroll>
       <Header />
-      {children}
-      <ClientsBrandsSection />
-      <ContactSection />
-      <Footer />
+      <main id="main-content" className="relative flex-grow">
+        {children}
+        <ClientsBrandsSection />
+        <ContactSection />
+        <Footer />
+      </main>
       <AntigravityDebugger />
     </SmoothScroll>
   );

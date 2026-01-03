@@ -53,9 +53,9 @@ export function AboutHero() {
         aria-hidden="true"
       />
 
-      {/* Content Container - Centralizado mobile, direita desktop */}
+      {/* Content Container - Centralizado mobile, esquerda desktop dentro do bloco na direita */}
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8vw]">
-        <div className="mx-auto md:ml-auto md:mr-0 max-w-[680px] text-center md:text-right md:-translate-y-6 lg:-translate-y-8">
+        <div className="mx-auto md:ml-auto md:mr-0 max-w-[680px] text-center md:text-left md:-translate-y-6 lg:-translate-y-8">
           <motion.div
             initial={prefersReducedMotion ? 'visible' : 'hidden'}
             animate="visible"

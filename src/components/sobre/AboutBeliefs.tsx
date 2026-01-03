@@ -62,25 +62,27 @@ export function AboutBeliefs() {
 
   return (
     <section
-      className="min-h-[100vh] flex flex-col items-center justify-center text-center bg-[#040013] py-20 md:py-28 lg:py-32"
+      className="min-h-[100vh] flex flex-col items-center justify-center bg-[#040013] py-20 md:py-28 lg:py-32"
       aria-label="O que me move"
     >
-      <div className="w-full max-w-[900px] px-6 md:px-10 flex flex-col items-center gap-16">
-        <div className="space-y-16 min-h-[320px] flex flex-col justify-center">
+      <div className="w-full max-w-[1200px] px-6 md:px-12 lg:px-20 grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+        <div className="flex flex-col justify-center min-h-[320px] text-center lg:text-left">
           <AnimatePresence mode="wait">
             {prefersReducedMotion ? (
-              BELIEFS_CONTENT.map((block, idx) => (
-                <div key={idx} className="space-y-2">
-                  {block.map((line) => (
-                    <p
-                      key={line}
-                      className="text-lg md:text-xl lg:text-2xl text-white leading-relaxed font-light"
-                    >
-                      {line}
-                    </p>
-                  ))}
-                </div>
-              ))
+              <div className="space-y-12">
+                {BELIEFS_CONTENT.map((block, idx) => (
+                  <div key={idx} className="space-y-2">
+                    {block.map((line) => (
+                      <p
+                        key={line}
+                        className="text-lg md:text-xl lg:text-2xl text-white leading-relaxed font-light"
+                      >
+                        {line}
+                      </p>
+                    ))}
+                  </div>
+                ))}
+              </div>
             ) : (
               <motion.div
                 key={currentBlockIndex}
@@ -105,7 +107,7 @@ export function AboutBeliefs() {
           </AnimatePresence>
         </div>
 
-        {/* Ghost Eyes - Subtle accent, not dominant poster */}
+        {/* Ghost Eyes - 2nd Column on desktop */}
         <motion.div
           variants={timeBasedFade}
           initial={prefersReducedMotion ? 'visible' : 'hidden'}
@@ -113,10 +115,10 @@ export function AboutBeliefs() {
           viewport={{ once: true, amount: 0.4 }}
           className="flex flex-col items-center gap-6 opacity-80"
         >
-          <div className="flex items-center justify-center w-24 h-24 md:w-32 md:h-32">
-            <GhostEyes interactive={false} />
+          <div className="flex items-center justify-center w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48">
+            <GhostEyes interactive={true} />
           </div>
-          <div className="space-y-1">
+          <div className="space-y-1 text-center">
             <p className="text-xl md:text-2xl font-semibold tracking-tight text-white/90">
               ISSO É
             </p>

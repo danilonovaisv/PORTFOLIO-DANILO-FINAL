@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
+import { ABOUT_CONTENT } from '@/config/content';
 
 // Ghost Motion Tokens
 const GHOST_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -22,53 +23,6 @@ const imageFloat = {
     x: 0,
     transition: { duration: 1.2, ease: GHOST_EASE },
   },
-};
-
-// Conteúdo oficial do protótipo interativo
-const ORIGIN_CONTENT = {
-  sectionLabel: 'Origem',
-  blocks: [
-    {
-      type: 'text-media',
-      text: 'Desde cedo, sempre prestei atenção no que ficava — não só no que aparecia.',
-      highlight: 'ficava',
-      media: {
-        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/photo.mp4',
-        alt: 'Foto pessoal - memória visual',
-        aspectRatio: 'aspect-[3/4]',
-      },
-    },
-    {
-      type: 'text-media',
-      text: 'Rabiscos viraram ideias. Ideias viraram projetos. E os projetos começaram a deixar rastros.',
-      highlight: 'rastros',
-      media: {
-        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/squetch.webp',
-        alt: 'Desenho e rabiscos iniciais',
-        aspectRatio: 'aspect-video',
-      },
-    },
-    {
-      type: 'text-media',
-      text: 'Foi ali que entendi: design não é enfeite. É ferramenta invisível de transformação.',
-      highlight: 'transformação',
-      media: {
-        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/design.webp',
-        alt: 'Momento criativo no design',
-        aspectRatio: 'aspect-square',
-      },
-    },
-    {
-      type: 'text-media',
-      text: 'Estudei Comunicação, mergulhei no design, no branding e hoje uso inteligência artificial para expandir o alcance sem perder a essência humana da criação.',
-      highlight: 'essência humana',
-      media: {
-        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/AI.mp4',
-        alt: 'Inteligência Artificial e criação',
-        aspectRatio: 'aspect-[4/5]',
-      },
-    },
-  ],
 };
 
 // Componente para renderizar keyword com ghost-accent
@@ -141,6 +95,15 @@ function MediaItem({
 export default function AboutOrigin() {
   const prefersReducedMotion = useReducedMotion();
 
+  // Agrupar o conteúdo flat do config em pares (texto + mídia) para o layout de grid
+  const contentPairs = [];
+  for (let i = 0; i < ABOUT_CONTENT.origin.content.length; i += 2) {
+    contentPairs.push({
+      textBlock: ABOUT_CONTENT.origin.content[i],
+      mediaBlock: ABOUT_CONTENT.origin.content[i + 1],
+    });
+  }
+
   return (
     <section
       className="relative min-h-[130vh] py-20 md:py-28 lg:py-36 bg-[#040013] overflow-hidden"
@@ -156,14 +119,15 @@ export default function AboutOrigin() {
           viewport={{ once: true, margin: '-10%' }}
           className="text-xs md:text-sm font-mono uppercase tracking-[0.2em] text-[#4fe6ff] mb-12 md:mb-16 font-bold"
         >
-          {ORIGIN_CONTENT.sectionLabel}
+          {ABOUT_CONTENT.origin.sectionLabel}
         </motion.h2>
 
         {/* Editorial Layout: Alternating Text <-> Media */}
         <div className="space-y-12 md:space-y-20 lg:space-y-28">
-          {ORIGIN_CONTENT.blocks.map((block, index) => {
-            // Alternância: par = texto esquerda, ímpar = texto direita
+          {contentPairs.map((pair, index) => {
             const isEven = index % 2 === 0;
+            const textBlock = pair.textBlock as any;
+            const mediaBlock = pair.mediaBlock as any;
 
             return (
               <div
@@ -177,13 +141,13 @@ export default function AboutOrigin() {
                   whileInView="visible"
                   viewport={{ once: true, margin: '-10%' }}
                   className={`col-span-12 md:col-span-7 order-1 ${
-                    isEven ? 'md:order-1' : 'md:order-2 md:text-right'
+                    isEven ? 'md:order-1' : 'md:order-2'
                   }`}
                 >
                   <p className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-light leading-relaxed text-[#fcffff]">
                     <HighlightText
-                      text={block.text}
-                      highlight={block.highlight}
+                      text={textBlock.text}
+                      highlight={textBlock.highlight}
                     />
                   </p>
                 </motion.div>
@@ -199,9 +163,9 @@ export default function AboutOrigin() {
                   }`}
                 >
                   <MediaItem
-                    src={block.media.src}
-                    alt={block.media.alt}
-                    aspectRatio={block.media.aspectRatio}
+                    src={mediaBlock.src}
+                    alt={mediaBlock.alt}
+                    aspectRatio={mediaBlock.aspectRatio}
                   />
                 </motion.div>
               </div>

@@ -7,6 +7,7 @@ import {
   useReducedMotion,
 } from 'framer-motion';
 import { useRef } from 'react';
+import { ABOUT_CONTENT } from '@/config/content';
 
 // Ghost Motion Tokens
 const GHOST_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -28,28 +29,6 @@ const cardRise = {
     filter: 'blur(0px)',
     transition: { duration: 0.9, ease: GHOST_EASE },
   },
-};
-
-// Conteúdo oficial do protótipo interativo
-const METHOD_CONTENT = {
-  video:
-    'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/VideoAboutMethod.mp4',
-  title: 'Criatividade com método.',
-  titleHighlight: 'método.',
-  subtitle: 'Impacto sem ruído.',
-  intro: [
-    'Antes da estética, existe intenção.',
-    'Antes do layout, existe lógica.',
-    'Antes do impacto, existe silêncio.',
-  ],
-  steps: [
-    'Briefings bem construídos para decisões claras',
-    'Estratégia como base de qualquer criação',
-    'Design com propósito, não só beleza',
-    'Revisões inteligentes, sem ruído desnecessário',
-    'IA e automações para escalar com qualidade',
-    'Métricas criativas: engajamento, retenção e resultado',
-  ],
 };
 
 export default function AboutMethod() {
@@ -76,7 +55,7 @@ export default function AboutMethod() {
         className="absolute inset-0 z-0"
       >
         <video
-          src={METHOD_CONTENT.video}
+          src={ABOUT_CONTENT.method.video}
           autoPlay
           loop
           muted
@@ -101,11 +80,14 @@ export default function AboutMethod() {
               className="mb-8 md:mb-10"
             >
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#fcffff] tracking-tight leading-tight mb-3">
-                Criatividade com <span className="ghost-accent">método.</span>
+                Criatividade com{' '}
+                <span className="ghost-accent">
+                  {ABOUT_CONTENT.method.title.highlight}
+                </span>
               </h2>
-              <p className="text-2xl md:text-[28px] lg:text-3xl font-semibold text-[#fcffff] tracking-tight leading-tight">
-                {METHOD_CONTENT.subtitle}
-              </p>
+              <h3 className="text-2xl md:text-[28px] lg:text-3xl font-semibold text-[#fcffff]/85 tracking-tight leading-tight">
+                {ABOUT_CONTENT.method.subtitle}
+              </h3>
             </motion.div>
 
             {/* Texto introdutório */}
@@ -116,14 +98,14 @@ export default function AboutMethod() {
               viewport={{ once: true, amount: 0.4 }}
               className="text-base md:text-lg lg:text-xl text-[#a1a3a3] font-light leading-relaxed space-y-3 mb-10 md:mb-12"
             >
-              {METHOD_CONTENT.intro.map((line, i) => (
+              {ABOUT_CONTENT.method.intro.map((line, i) => (
                 <p key={i}>{line}</p>
               ))}
             </motion.div>
 
-            {/* Steps List */}
-            <div className="space-y-5">
-              {METHOD_CONTENT.steps.map((step, i) => (
+            {/* Steps List - Using neutral background as per prototype */}
+            <div className="space-y-4">
+              {ABOUT_CONTENT.method.steps.map((step, i) => (
                 <motion.div
                   key={i}
                   variants={cardRise}
@@ -131,12 +113,12 @@ export default function AboutMethod() {
                   whileInView="visible"
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ delay: i * 0.08 }}
-                  className="flex items-start gap-4 border-t border-white/10 pt-4"
+                  className="group flex items-start gap-4 bg-[#0b0d3a]/30 backdrop-blur-xs border-t border-white/5 p-5 md:p-6 transition-colors duration-300 hover:bg-[#0b0d3a]/50"
                 >
-                  <span className="font-mono text-[#4fe6ff] text-sm font-bold tracking-[0.08em] shrink-0">
+                  <span className="font-mono text-primary text-sm font-bold tracking-[0.08em] shrink-0 mt-1">
                     0{i + 1}
                   </span>
-                  <p className="text-base md:text-lg text-[#d5d7e4] font-light">
+                  <p className="text-base md:text-lg text-[#d5d7e4] font-light group-hover:text-white transition-colors duration-300">
                     {step}
                   </p>
                 </motion.div>
