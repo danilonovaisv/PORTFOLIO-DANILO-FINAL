@@ -1,42 +1,55 @@
 @import 'tailwindcss';
 
-@layer theme {
-  :root {
-    /* Cores Base (Ghost Theme) */
-    --color-background: #050511;
-    --color-foreground: #fcffff;
-    --color-primary: #0057ff;
-    --color-section-manifesto: #050511;
+/* --- CSS VARIABLES (Consolidated) --- */
+:root {
+  /* Ghost Theme Colors */
+  --ghost-bg: #040013;
+  --ghost-bg-accent: #06071f;
+  --ghost-bg-Light: #f4f4f4;
+  --ghost-primary: #0048ff;
+  --ghost-text: #fcffff;
+  --ghost-text-Inverse: #4fe6ff;
+  --ghost-text-secondary: #0048ff; 
+  --ghost-accent: #8705f2; 
+  --ghost-blue-soft: rgba(0, 72, 255, 0.6);
 
-    /* Variáveis de Animação e Layout */
-    --header-height: 72px;
-    --gx: 50vw; /* Posição fallback do fantasma */
-    --gy: 35vh;
+  /* Layout & Animation */
+  --header-height: 72px;
+  --gx: 50vw;
+  --gy: 35vh;
 
-     /* Variáveis para Dark Mode (Obrigatório para Shadcn/Tailwind) */
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-  }
+  /* Max width for constrained layouts */
+  --max-manifesto: 800px;
+
+  /* Font family (used in base styles) */
+  --font-tt-norms: 'TT Norms Pro', ui-sans-serif, system-ui, sans-serif;
 }
 
-/* --- 1. FONTES NA NUVEM (Supabase) --- */
+/* --- Dark Mode (shadcn/tailwind compatible) --- */
+.dark {
+  /* HSL values for Tailwind-compatible dark theme */
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 210 40% 98%;
+  --primary-foreground: 222.2 47.4% 11.2%;
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 212.7 26.8% 83.9%;
+}
+
+/* --- FONT FACES (Fixed URLs: removed trailing spaces!) --- */
 @font-face {
   font-family: 'TT Norms Pro';
   src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Thin.woff2') format('woff2');
@@ -72,6 +85,7 @@
   font-style: normal;
   font-display: swap;
 }
+/* Fallback for 900 using Bold (since Black isn't available) */
 @font-face {
   font-family: 'TT Norms Pro';
   src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2') format('woff2');
@@ -79,6 +93,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
   font-family: 'PPSupplyMono';
   src: url('https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2') format('woff2');
@@ -87,36 +102,51 @@
   font-display: swap;
 }
 
-/* --- 3. ESTILOS GLOBAIS --- */
+/* --- BASE STYLES --- */
 @layer base {
   * {
-    border-color: rgba(255, 255, 255, 0.1);
+    @apply border-white/10;
   }
-  
+
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    background-color: #050511;
-    color: #fcffff;
-    -webkit-font-smoothing: antialiased;
-    font-family: 'TT Norms Pro', system-ui, sans-serif;
+    @apply bg-[#050511] text-[#fcffff] antialiased;
+    font-family: var(--font-tt-norms);
     overflow-x: hidden;
   }
 }
 
-/* --- 4. UTILITÁRIOS CUSTOMIZADOS --- */
+/* --- CUSTOM UTILITIES --- */
 .ghost-accent {
   font-weight: 600;
-  color: #4fe6ff;
+  color: var(--ghost-blue-soft);
   transition: color 0.4s ease;
 }
 .ghost-accent:hover {
-  color: #0048ff;
+  color: var(--ghost-primary);
 }
 
-/* Utilitário para esconder texto visualmente mas manter SEO */
+.cta {
+  display: inline-flex;
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ghost-text);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  border-bottom: 1px solid var(--ghost-primary);
+  cursor: pointer;
+}
+.cta:hover {
+  opacity: 1;
+}
+
+/* Screen reader only (accessibility) */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -127,4 +157,12 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+/* Header height utility (keep if used dynamically) */
+.header-custom-height {
+  --header-height: 100px;
+}
+.header-custom-height[style*='--header-height'] {
+  height: var(--header-height);
 }

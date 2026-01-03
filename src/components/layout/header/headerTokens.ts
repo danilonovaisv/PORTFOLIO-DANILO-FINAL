@@ -1,14 +1,15 @@
+import { BRAND } from '@/config/brand';
 // ============================================================================
 // src/components/header/headerTokens.ts
 // Tokens de layout, cor e motion específicos do Header
 // ============================================================================
 
 export const headerColors = {
-  primary: '#0057ff',
-  background: '#050511', // Ghost Void
-  text: '#fcffff',
-  textInverse: '#0e0e0e',
-  accent: '#4fe6ff',
+  primary: BRAND.colors.primary,
+  background: BRAND.colors.background,
+  text: BRAND.colors.text,
+  textInverse: BRAND.colors.textInverse,
+  accent: BRAND.colors.accent,
 };
 
 export const headerZ = {

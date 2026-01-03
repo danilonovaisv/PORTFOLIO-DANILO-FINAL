@@ -1,12 +1,10 @@
 export const HOME_CONTENT = {
   hero: {
     tag: '[BRAND AWARENESS]',
-    title: ['Você não vê o', 'design.'],
-    subtitle: 'Mas ele vê você.',
-    cta: 'step inside →',
+    title: ['Design, não é', 'só estética.'],
+    subtitle: '[É intenção, é estratégia, é experiência.]',
+    cta: 'get to know me better →',
     scrollHint: '#manifesto',
-    video:
-      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
   },
 
   showcase: {
@@ -21,15 +19,15 @@ export const HOME_CONTENT = {
           'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
       },
       {
-        id: 'videos-motion',
+        id: 'videos-motions',
         label: 'Videos & Motions',
         align: 'center',
         thumb:
-          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/y2mate.com%20-%20promoao_ta_podendo_nestle_ta_de_volta__wanzLKTQOE_1080p.mp4',
+          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
       },
       {
-        id: 'websites-tech',
-        label: 'Web Campaigns,\nWebsites & Tech',
+        id: 'websites-webcampaigns-tech',
+        label: 'Web Campaigns, Websites & Tech',
         labelMobile: 'Websites & Tech',
         align: 'start',
         thumb:
@@ -47,11 +45,10 @@ export const HOME_CONTENT = {
       client: 'Magic',
       year: 2023,
       tags: ['Branding', 'Strategy', 'Campaign'],
-      image:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/converted-(10).webp',
+      img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp',
       layout: {
-        h: 'h-[340px] md:h-[500px]',
         cols: 'md:col-span-5',
+        h: 'h-[340px] md:h-[500px]',
         sizes: '(max-width: 768px) 100vw, (max-width: 1280px) 44vw, 36vw',
       },
     },
@@ -63,11 +60,10 @@ export const HOME_CONTENT = {
       client: 'Cliente confidencial',
       year: 2022,
       tags: ['Branding', 'Identity'],
-      image:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/converted-(4).webp',
+      img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
       layout: {
-        h: 'h-[340px] md:h-[500px]',
         cols: 'md:col-span-7',
+        h: 'h-[340px] md:h-[500px]',
         sizes: '(max-width: 768px) 100vw, (max-width: 1280px) 56vw, 58vw',
       },
     },
@@ -79,11 +75,10 @@ export const HOME_CONTENT = {
       client: 'Cliente confidencial',
       year: 2021,
       tags: ['Campaign', 'Print', 'Art Direction'],
-      image:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/converted-(5).webp',
+      img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp',
       layout: {
-        h: 'h-[340px] md:h-[600px]',
         cols: 'md:col-span-12',
+        h: 'h-[340px] md:h-[600px]',
         sizes: '(max-width: 768px) 100vw, (max-width: 1280px) 94vw, 100vw',
       },
     },
@@ -95,11 +90,10 @@ export const HOME_CONTENT = {
       client: 'Cliente confidencial',
       year: 2023,
       tags: ['Web', 'Motion', 'UX'],
-      image:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEOMANIFESTOGLAD_2.mp4',
+      img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
       layout: {
-        h: 'h-[280px] md:h-[400px]',
         cols: 'md:col-span-8',
+        h: 'h-[280px] md:h-[400px]',
         sizes: '(max-width: 768px) 100vw, (max-width: 1280px) 68vw, 64vw',
       },
     },

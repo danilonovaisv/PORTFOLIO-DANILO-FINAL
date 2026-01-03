@@ -2,7 +2,6 @@ import { BRAND } from '@/config/brand';
 
 export default function JsonLd() {
   const schema = {
-    '@context': 'https://schema.org',
     '@type': 'Person',
     name: BRAND.name,
     url: `https://${BRAND.domain}`,
@@ -18,7 +17,6 @@ export default function JsonLd() {
   };
 
   const websiteSchema = {
-    '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: `${BRAND.name} | Portfolio`,
     url: `https://${BRAND.domain}`,
@@ -29,7 +27,10 @@ export default function JsonLd() {
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify([schema, websiteSchema]),
+        __html: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@graph': [schema, websiteSchema],
+        }),
       }}
     />
   );

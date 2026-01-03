@@ -1,11 +1,11 @@
 import { useState, useRef, forwardRef, useImperativeHandle } from 'react';
 
-import { HOME_CONTENT } from '@/config/content';
+import { BRAND } from '@/config/brand';
 
 // Video sources - prioritize remote (Single Source of Truth) from content.ts
 // We removed local fallback to ensure consistency with the design system.
 const VIDEO_SOURCES = {
-  remote: HOME_CONTENT.hero.video,
+  remote: BRAND.video.manifesto,
 } as const;
 
 export interface ManifestoThumbHandle {

@@ -187,7 +187,7 @@ export default function GlassBar({
         }
       >
         <meshBasicMaterial
-          color="#0057ff"
+          color={HEADER_TOKENS.colors.primary}
           blending={THREE.AdditiveBlending}
           transparent
           opacity={0.15}

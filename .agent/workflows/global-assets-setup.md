@@ -113,10 +113,10 @@ Estruture os dados que alimentam as seções da Home Page.
 export const HOME_CONTENT = {
   hero: {
     tag: '[BRAND AWARENESS]',
-    title: ['Design, não é', 'só estética.'],
-    subtitle: '[É intenção, é estratégia, é experiência.]',
-    cta: 'get to know me better →',
-    scrollHint: '#manifesto',
+    title: ['Você não vê o design.'],
+    subtitle: '[Mas ele vê você.]',
+    cta: 'step inside →',
+    scrollHint: '#sobre',
   },
 
   showcase: {

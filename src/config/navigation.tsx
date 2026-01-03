@@ -14,10 +14,35 @@ export const SOCIALS = {
   facebook: 'https://facebook.com/danilonovaisvilela',
   linkedin: 'https://linkedin.com/in/danilonovais',
   twitter: 'https://twitter.com/danilo_novais',
-  emailPrimary: 'dannovaisv@gmail.com',
-  emailSecondary: 'danilo@portfoliodanilo.com',
-  phone: '+5511983966838',
+  emailPrimary: 'mailto:danilo@portfoliodanilo.com',
+  emailSecondary: 'mailto:dannovaisv@gmail.com',
+  phone: 'tel:+5511983966838',
 };
+
+export const CONTACT_FORM = {
+  action: 'https://formsubmit.co/danilo@portfoliodanilo.com',
+  buttonLabel: 'Enviar Mensagem',
+};
+
+export const NAVIGATION = {
+  header: [
+    { label: 'Home', href: '/#hero' },
+    { label: 'Sobre', href: '/sobre' },
+    { label: 'Portfólio', href: '/portfolio' },
+    { label: 'Contato', href: '#contact' },
+  ],
+  footer: {
+    copyright: '© 2025 Danilo Novais Vilela — todos os direitos reservados.',
+    links: [
+      { label: 'home', href: '#hero' },
+      { label: 'portfólio showcase', href: '#portfolio-showcase' },
+      { label: 'sobre', href: '/sobre' },
+      { label: 'contato', href: '#contact' },
+    ],
+  },
+};
+
+// --- Helpers for Components (Deprecated: prefer using NAVIGATION directly) ---
 
 // Array version with icons for components
 export const SOCIAL_LIST = [
@@ -45,13 +70,13 @@ export const SOCIAL_LIST = [
 
 export const CONTACT_INFO = [
   {
-    label: SOCIALS.emailSecondary,
-    href: `mailto:${SOCIALS.emailSecondary}`,
+    label: SOCIALS.emailPrimary.replace('mailto:', ''),
+    href: SOCIALS.emailPrimary,
     icon: <Mail className="w-5 h-5" />,
   },
   {
-    label: SOCIALS.phone,
-    href: `tel:${SOCIALS.phone}`,
+    label: SOCIALS.phone.replace('tel:', ''),
+    href: SOCIALS.phone,
     icon: <Phone className="w-5 h-5" />,
   },
   {
@@ -61,48 +86,9 @@ export const CONTACT_INFO = [
   },
 ];
 
-export const CONTACT_FORM = {
-  action: 'https://formsubmit.co/danilo@portfoliodanilo.com',
-};
+export const FOOTER = NAVIGATION.footer;
 
-export const FOOTER = {
-  copyright: '© 2025 Danilo Novais Vilela — todos os direitos reservados.',
-  links: [
-    { label: 'Home', href: '/' },
-    { label: 'Sobre', href: '/sobre' },
-    { label: 'Portfolio', href: '/portfolio' },
-    { label: 'Contato', href: '#contact' },
-  ],
-};
-
-// Header navigation links
-export const NAV_LINKS = [
-  { label: 'Home', href: '/' },
-  { label: 'Sobre', href: '/sobre' },
-  { label: 'Portfolio', href: '/portfolio' },
-  { label: 'Contato', href: '#contact' },
-];
-
-export const HEADER_LINKS_DESKTOP = [
-  { label: 'Home', href: '/', ariaLabel: 'Ir para a home' },
-  { label: 'Sobre', href: '/sobre', ariaLabel: 'Saiba mais sobre mim' },
-  { label: 'Portfolio', href: '/portfolio', ariaLabel: 'Ver meu portfólio' },
-  { label: 'Contato', href: '#contact', ariaLabel: 'Ir para contato' },
-];
-
-export const HEADER_LINKS_MOBILE = [
-  { label: 'Home', href: '/', ariaLabel: 'Ir para a home' },
-  { label: 'Sobre', href: '/sobre', ariaLabel: 'Saiba mais sobre mim' },
-  { label: 'Portfolio', href: '/portfolio', ariaLabel: 'Ver meu portfólio' },
-  { label: 'Contato', href: '#contact', ariaLabel: 'Ir para contato' },
-];
-
-export const NAVIGATION = {
-  header: [
-    { label: 'Home', href: '/' },
-    { label: 'Sobre', href: '/sobre' },
-    { label: 'Portfolio', href: '/portfolio' },
-    { label: 'Contato', href: '#contact' },
-  ],
-  footer: FOOTER,
-};
+// Legacy exports to avoid breaking imports
+export const NAV_LINKS = NAVIGATION.header;
+export const HEADER_LINKS_DESKTOP = NAVIGATION.header;
+export const HEADER_LINKS_MOBILE = NAVIGATION.header;

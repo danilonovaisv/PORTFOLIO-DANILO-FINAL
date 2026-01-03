@@ -47,15 +47,18 @@ export default function FeaturedProjectsSection() {
           }}
           className="grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-y-16 gap-x-6"
         >
-          {featuredProjects.map((project) => (
-            <motion.div
-              key={project.id}
-              variants={cardVariants}
-              className={project.layout.cols}
-            >
-              <FeaturedProjectCard project={project} />
-            </motion.div>
-          ))}
+          {featuredProjects.map((project) => {
+            if (!project?.layout) return null;
+            return (
+              <motion.div
+                key={project.id}
+                variants={cardVariants}
+                className={project.layout.cols}
+              >
+                <FeaturedProjectCard project={project} />
+              </motion.div>
+            );
+          })}
 
           <motion.div variants={cardVariants} className="md:col-span-4">
             <CTAProjectCard />

@@ -26,7 +26,7 @@ export async function generateMetadata({
     openGraph: {
       title: project.title,
       description: `Case study: ${project.title} for ${project.client}. Category: ${project.category}.`,
-      images: [project.image],
+      images: [project.img],
     },
   };
 }
@@ -88,9 +88,9 @@ export default async function ProjectPage({ params }: Props) {
         </div>
 
         {/* Main Image */}
-        <div className="relative w-full aspect-video md:aspect-[2.4/1] rounded-2xl md:rounded-[2rem] overflow-hidden bg-muted shadow-2xl">
+        <div className="relative w-full aspect-video md:aspect-[2.4/1] rounded-2xl md:rounded-4xl overflow-hidden bg-muted shadow-2xl">
           <Image
-            src={project.image}
+            src={project.img}
             alt={project.title}
             fill
             className="object-cover"

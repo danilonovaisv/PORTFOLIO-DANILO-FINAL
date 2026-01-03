@@ -104,7 +104,7 @@ export const siteViewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#050511' },
-    { media: '(prefers-color-scheme: dark)', color: '#050511' },
+    { media: '(prefers-color-scheme: light)', color: BRAND.colors.background },
+    { media: '(prefers-color-scheme: dark)', color: BRAND.colors.background },
   ],
 };

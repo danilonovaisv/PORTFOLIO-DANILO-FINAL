@@ -14,7 +14,7 @@ export type FeaturedProject = {
   client: string;
   year: number;
   tags: string[];
-  image: string;
+  img: string;
   layout: { h: string; cols: string; sizes: string };
 };
 
@@ -55,7 +55,7 @@ export default function FeaturedProjectCard({
         </div>
 
         <Image
-          src={project.image}
+          src={project.img}
           alt={project.title}
           fill
           sizes={project.layout.sizes}

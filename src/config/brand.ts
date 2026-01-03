@@ -2,16 +2,17 @@ export const BRAND = {
   name: 'Danilo Novais',
   domain: 'portfoliodanilo.com',
 
-  // Design Tokens (Ghost Era)
+  // Design Tokens (Tailwind v4 mapped)
   colors: {
-    primary: '#0057ff', // Ghost Blue — destaque e interação
-    bg: '#050511', // Fundo padrão (Deep Void Surface)
-    bgAbyss: '#06071f', // Atmospheric Blue Abyss (gradientes)
-    text: '#fcffff', // Texto padrão (Text Main)
-    textInverse: '#0e0e0e',
-    ghostVoid: '#050511', // Profundidade Ghost (Canvas/Hero)
-    ghostAbyss: '#06071f', // Atmosfera Ghost (gradientes)
-    neutralLight: '#F5F5F5', // Fundo secundário suave
+    primary: '#0048ff', // Primary brand color, interactive elements, CTAs
+    accent: '#4fe6ff', // Secondary highlights, Ghost atmosphere glow
+    background: '#040013', // Main dark background
+    backgroundLight: '#f0f0f0', // Light sections (forms, alternating backgrounds)
+    text: '#fcffff', // Primary text on dark backgrounds
+    textInverse: '#0e0e0e', // Text on light backgrounds
+    textSecondary: '#a1a3a3', // Secondary information, metadata
+    neutral: '#0b0d3a', // Gradient transitions, subtle backgrounds
+    neutralLight: '#F5F5F5', // Secondary section backgrounds
   },
 
   typography: {
@@ -28,7 +29,7 @@ export const BRAND = {
     dark: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg',
 
     favicon:
-      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg',
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/Favicon.svg',
     faviconLight:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg',
   },
