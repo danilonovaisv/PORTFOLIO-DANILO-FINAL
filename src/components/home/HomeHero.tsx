@@ -186,7 +186,7 @@ export default function HomeHero() {
         {/* Manifesto Interaction (Desktop) */}
         {!prefersReducedMotion && (
           <motion.div
-            className="fixed bottom-8 right-8 md:right-12 z-20 pointer-events-auto hidden md:block"
+            className="fixed bottom-8 right-8 md:right-12 z-20 pointer-events-auto hidden lg:block"
             style={{
               scale: videoScale,
               x: videoX,

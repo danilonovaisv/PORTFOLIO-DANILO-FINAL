@@ -136,7 +136,7 @@ export default function MobileStaggeredMenu({
         <button
           onClick={isOpen ? onClose : onOpen}
           aria-label={isOpen ? 'Fechar menu' : 'Abrir menu'}
-          aria-expanded={isOpen}
+          aria-expanded={isOpen ? 'true' : 'false'}
           className="pointer-events-auto w-12 h-12 flex items-center justify-center text-white focus:outline-none z-110"
         >
           <div className="relative w-6 h-6 flex flex-col justify-center items-center gap-[6px]">

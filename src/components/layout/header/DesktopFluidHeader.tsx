@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Image from 'next/image';
 import React, { useCallback, useMemo, useRef } from 'react';
-import { motion, useReducedMotion, useSpring } from 'framer-motion';
+import { useReducedMotion } from 'framer-motion';
 import type { NavItem } from './types';
 import { HEADER_TOKENS } from './headerTokens';
 import styles from './DesktopFluidHeader.module.css';
@@ -44,51 +44,13 @@ export default function DesktopFluidHeader({
   const reducedMotion = useReducedMotion();
   const wrapRef = useRef<HTMLDivElement>(null);
 
-  const x = useSpring(0, { stiffness: 180, damping: 22, mass: 0.6 });
-  const y = useSpring(0, { stiffness: 200, damping: 24, mass: 0.5 }); // Novo: movimento Y
-  const scaleX = useSpring(1, { stiffness: 140, damping: 20, mass: 0.6 });
-  const scaleY = useSpring(1, { stiffness: 140, damping: 20, mass: 0.6 });
-
-  const maxTranslateX = HEADER_TOKENS.desktop.maxTranslateX;
-  const maxTranslateY = 6; // Movimento vertical sutil (6px max)
-
-  const onPointerMove = useCallback(
-    (e: React.PointerEvent) => {
-      if (reducedMotion) return;
-      const el = wrapRef.current;
-      if (!el) return;
-
-      const rect = el.getBoundingClientRect();
-      const px = (e.clientX - rect.left) / rect.width; // 0..1
-      const py = (e.clientY - rect.top) / rect.height; // 0..1
-      const centeredX = (px - 0.5) * 2; // -1..1
-      const centeredY = (py - 0.5) * 2; // -1..1
-
-      x.set(centeredX * maxTranslateX);
-      y.set(centeredY * maxTranslateY);
-      scaleX.set(HEADER_TOKENS.desktop.maxScaleX);
-      scaleY.set(HEADER_TOKENS.desktop.maxScaleY);
-    },
-    [maxTranslateX, maxTranslateY, reducedMotion, scaleX, scaleY, x, y]
-  );
-
-  const onPointerLeave = useCallback(() => {
-    x.set(0);
-    y.set(0);
-    scaleX.set(1);
-    scaleY.set(1);
-  }, [scaleX, scaleY, x, y]);
-
   const nav = useMemo(() => navItems, [navItems]);
 
   return (
     <header className="hidden lg:block fixed top-0 left-0 right-0 z-100 w-full pointer-events-none">
       <div className="w-full max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)] pt-4 flex justify-center">
-        <motion.div
+        <div
           ref={wrapRef}
-          onPointerMove={onPointerMove}
-          onPointerLeave={onPointerLeave}
-          style={{ x, y, scaleX, scaleY }}
           className="pointer-events-auto w-full max-w-[1100px] relative"
         >
           <div
@@ -166,7 +128,7 @@ export default function DesktopFluidHeader({
               </nav>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </header>
   );

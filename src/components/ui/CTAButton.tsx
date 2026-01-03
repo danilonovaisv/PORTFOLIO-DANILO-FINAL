@@ -1,6 +1,5 @@
 'use client';
 
-import { useId } from 'react';
 import { useReducedMotion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
@@ -27,8 +26,6 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
   id,
 }) => {
   const prefersReducedMotion = useReducedMotion();
-  const generatedId = useId();
-  const uniqueId = id || `cta-btn-${generatedId.replace(/:/g, '')}`;
 
   const variants = {
     primary: {
@@ -84,7 +81,7 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
     const isInternalLink = href.startsWith('/') || href.startsWith('#');
     if (isInternalLink) {
       return (
-        <Link href={href} className={baseClasses} id={uniqueId}>
+        <Link href={href} className={baseClasses} id={id}>
           {buttonContent}
         </Link>
       );
@@ -95,7 +92,7 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
         target="_blank"
         rel="noopener noreferrer"
         className={baseClasses}
-        id={uniqueId}
+        id={id}
       >
         {buttonContent}
       </a>
@@ -104,7 +101,7 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
 
   return (
     <button
-      id={uniqueId}
+      id={id}
       type={type}
       onClick={onClick}
       disabled={disabled}

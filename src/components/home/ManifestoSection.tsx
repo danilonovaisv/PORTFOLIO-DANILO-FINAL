@@ -100,7 +100,7 @@ export function ManifestoSection() {
                    focus-visible:ring-[#4fe6ff] focus-visible:ring-offset-2
                    focus-visible:ring-offset-black/50"
         aria-label={isMuted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'}
-        aria-pressed={!isMuted ? 'true' : 'false'}
+        aria-pressed={!isMuted}
       >
         {isMuted ? (
           <VolumeX className="w-5 h-5" aria-hidden="true" />

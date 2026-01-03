@@ -57,7 +57,7 @@ export const motionTokens = {
     visible: {
       opacity: 1,
       y: [0, -4, 0, 4, 0],
-      transition: { duration: 8, repeat: Infinity, ease: 'easeInOut' },
+      transition: { duration: 8, repeat: Infinity, ease: 'easeInOut' as const },
     },
   },
   imageFloat: {

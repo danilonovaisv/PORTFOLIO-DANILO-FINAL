@@ -20,24 +20,14 @@ export function AboutBeliefs() {
   };
 
   return (
-    <section className="bg-(--ghost-bg) py-24 md:py-32">
-      <div className="max-w-[900px] mx-auto px-6 text-center space-y-6 md:space-y-10">
-        <motion.span
-          custom={0}
-          initial={prefersReducedMotion ? 'visible' : 'hidden'}
-          animate="visible"
-          variants={manifestoVariants}
-          className="inline-flex px-3 py-1 border border-white/15 rounded-full text-[11px] md:text-xs font-mono uppercase tracking-[0.18em] text-(--ghost-flare)"
-        >
-          Manifesto
-        </motion.span>
-
+    <section className="min-h-screen flex items-center justify-center text-center bg-(--ghost-bg) py-24 mt-24 md:mt-28">
+      <div className="max-w-[40ch] space-y-10 px-6">
         <motion.p
           custom={0}
           initial={prefersReducedMotion ? 'visible' : 'hidden'}
           animate="visible"
           variants={manifestoVariants}
-          className="text-xl md:text-3xl lg:text-[34px] text-(--ghost-text) leading-relaxed"
+          className="text-xl md:text-3xl lg:text-4xl text-(--ghost-text) leading-relaxed"
         >
           Acredito no design que muda o dia de alguém. Não pelo {kw('choque')} —
           mas pela conexão.
@@ -48,7 +38,7 @@ export function AboutBeliefs() {
           initial={prefersReducedMotion ? 'visible' : 'hidden'}
           animate="visible"
           variants={manifestoVariants}
-          className="text-xl md:text-3xl lg:text-[34px] text-(--ghost-text) leading-relaxed"
+          className="text-xl md:text-3xl lg:text-4xl text-(--ghost-text) leading-relaxed"
         >
           Um vídeo que {kw('respira')}. Uma marca que se reconhece.
         </motion.p>
@@ -58,7 +48,7 @@ export function AboutBeliefs() {
           initial={prefersReducedMotion ? 'visible' : 'hidden'}
           animate="visible"
           variants={manifestoVariants}
-          className="text-xl md:text-3xl lg:text-[34px] text-(--ghost-text) leading-relaxed"
+          className="text-xl md:text-3xl lg:text-4xl text-(--ghost-text) leading-relaxed"
         >
           Isso é {kw('ghost design')}.
         </motion.p>

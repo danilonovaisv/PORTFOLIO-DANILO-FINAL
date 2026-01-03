@@ -1,20 +1,22 @@
-// src/app/page.tsx
-import HomeHero from '@/components/home/HomeHero';
-import PortfolioShowcaseSection from '@/components/portfolio/PortfolioShowcaseSection';
-import FeaturedProjectsSection from '@/components/home/FeaturedProjectsSection';
-import ManifestoSection from '@/components/home/ManifestoSection';
-export default function Page() {
+// src/app/sobre/page.tsx
+import SobreHero from '@/components/sobre/SobreHero';
+import OrigemSection from '@/components/sobre/OrigemSection';
+import InsightToImpactSection from '@/components/sobre/InsightToImpactSection';
+import MetodoGhostSection from '@/components/sobre/MetodoGhostSection';
+import CrencasGhostDesignSection from '@/components/sobre/CrencasGhostDesignSection';
+import ClientsBrandsSection from '@/components/home/ClientsBrandsSection';
+import ContactSection from '@/components/home/ContactSection';
+
+export default function SobrePage() {
   return (
-    <main className="bg-neutral-950 text-white">
-      {/* Hero + Ghost + Thumb (scroll-driven) */}
-      <HomeHero />
-
-      {/* Manifesto (mobile-first/full) */}
-      <ManifestoSection />
-
-      {/* Portfolio / Destaques */}
-      <PortfolioShowcaseSection />
-      <FeaturedProjectsSection />
+    <main className="bg-[#050511] text-white">
+      <SobreHero videoSrc="https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4" />
+      <OrigemSection />
+      <InsightToImpactSection />
+      <MetodoGhostSection />
+      <CrencasGhostDesignSection />
+      <ClientsBrandsSection />
+      <ContactSection />
     </main>
   );
 }
