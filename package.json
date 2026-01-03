@@ -36,7 +36,6 @@
     "deploy": "pnpm run build && firebase deploy --only hosting --project portfolio-danilo-novais"
   },
   "dependencies": {
-    "@dataconnect/admin-generated": "link:src/dataconnect-admin-generated",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@react-three/postprocessing": "^3.0.4",
@@ -54,13 +53,10 @@
     "postprocessing": "^6.38.2",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "react-responsive": "^10.0.1",
-    "resize-observer-polyfill": "^1.5.1",
     "tailwind-merge": "^3.4.0",
     "three": "^0.182.0",
     "three-stdlib": "^2.36.1",
-    "tweakpane": "^4.0.5",
-    "zod": "^4.3.2"
+    "zod": "^4.3.4"
   },
   "devDependencies": {
     "@jest/globals": "^30.2.0",
@@ -88,7 +84,6 @@
     "prettier": "^3.7.4",
     "rimraf": "^6.1.2",
     "serve": "^14.2.5",
-    "shadcn": "^3.6.2",
     "tailwindcss": "^4.1.18",
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",

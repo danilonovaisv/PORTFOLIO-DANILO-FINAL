@@ -184,7 +184,7 @@ Mostra trajetória sem cronologia rígida, mas com ritmo.
 ### Layout — Desktop
 
 - Altura média: **120–140vh** (scroll leve).
-- Fundo: `backgroundDark`.
+- Fundo: `backgroundDark`. (#040013)
 - Topo da seção:
   - Linha horizontal discreta em `primary`.
   - Label **“ORIGEM”** centralizado, em `textSecondary` ou `primary` suave.
@@ -295,7 +295,7 @@ Transformar capabilities em lista silenciosa de entregas.
 ## Layout — Desktop
 
 - **Altura de referência:** ≈100vh, mas permite scroll se necessário.
-- **Fundo:** `backgroundDark` (#0A0A14 ou similar).
+- **Fundo:** `backgroundDark` (#040013).
 - **Container centralizado:** max-width ≈ 1120px com padding lateral 24–32px.
 
 ### Título
@@ -688,294 +688,637 @@ Mostra que a criatividade é suportada por processo.
 
 
 
-
-## 🟣 SEÇÃO 05 — O QUE ME MOVE
+# 🟣 SEÇÃO 05 — O QUE ME MOVE
 
 **Função:** Criar vínculo emocional e manifesto.  
-Momento mais íntimo, quase carta aberta.
+Momento mais íntimo, quase carta aberta com narrativa sequencial.
 
-### Layout — Desktop
+---
 
-- Altura alvo: **100vh**.
-- Fundo: `backgroundDark`.
-- Grid:
-  - Container com 12 colunas.
-  - Texto principal ocupa colunas **2–7**.
-  - À direita (col. 8–11/12): **ícone Ghost animado** + selo “ISSO É GHOST DESIGN”.
-- Texto:
-  - Blocos de frases com quebras intencionais, reforçando ritmo de pensamento.
-  - Muito espaço negativo acima e abaixo.
-- Ghost:
-  - Tamanho visível, mas não exagerado (máx ≈ 300px de largura).
-  - Olhos seguem direção do cursor de forma leve.
+## Layout — Desktop
 
-### Layout — Mobile
+### Estrutura Geral
+- **Altura alvo:** ≈140vh (permite scroll para acomodar a sequência animada).
+- **Fundo:** `backgroundDark` (#040013).
+- **Grid:**
+  - Container de 12 colunas, max-width ≈ 1200px
+  - Área de conteúdo: colunas 2–12
 
-- Seção em **1 coluna**.
-- Texto:
-  - Largura total do container, com padding 16–20px.
-  - Alinhamento **centralizado**.
-  - Quebras de linha mantidas para ritmo poético.
-- Ghost:
-  - Posicionado **após o texto**, centralizado.
-  - Tamanho reduzido (max-width ≈ 180–220px).
-  - “ISSO É GHOST DESIGN” logo abaixo, também centralizado.
+### Composição Visual
 
-### Responsividade
+**Seção dividida em 3 momentos:**
 
-- `sm`:
-  - Texto mais espaçado verticalmente.
-  - Ghost menor e com maior margem superior.
-- `md`:
-  - Ainda 1 coluna, mas pode aproximar ghost do texto.
-- `lg+`:
-  - 2 colunas (texto ↔ ghost).
-  - Ghost sempre alinhado ao centro vertical da altura de texto.
+#### 1. Título Fixo (Sempre visível no topo)
+- Posicionamento: colunas 2–10, centralizado horizontalmente
+- Permanece fixo durante toda a sequência
+- Margin-top: 10–12vh
+- Margin-bottom: 8–10vh
+
+**Texto:**
+> Acredito no **design que muda o dia** de alguém.  
+> Não pelo choque, **mas pela conexão.**
+
+**Estilo:**
+- Font-size: 44–52px
+- Line-height: 1.2
+- Font-weight: 700
+- Palavras em `primary`: "design que muda o dia" e "mas pela conexão"
+- Max-width: 900px
+- Text-align: center
+
+#### 2. Área de Frases Rotativas (Centro da tela)
+- Posicionamento: colunas 3–11
+- Min-height: 40vh (espaço para frases transitarem)
+- Display: flex, justify-content: center, align-items: center
+
+**Frases que alternam (uma por vez):**
+1. "Um vídeo que **respira**."
+2. "Uma marca que se **reconhece**."
+3. "Um detalhe que **fica**."
+4. "**Crio** para gerar presença."
+5. "**Mesmo** quando não estou ali."
+6. "**Mesmo** quando ninguém percebe o esforço."
+
+**Estilo de cada frase:**
+- Font-size: 32–38px
+- Line-height: 1.4
+- Font-weight: 500
+- Palavras em `primary` destacadas em negrito
+- Text-align: center
+- Max-width: 700px
+- Opacity transition entre frases
+
+#### 3. Reveal Final — Ghost + Manifesto
+- Aparece após todas as frases rotativas
+- Posicionamento: colunas 2–12
+- Layout: Grid 2 colunas (desktop)
+  - Coluna esquerda (6 cols): Ghost animado
+  - Coluna direita (6 cols): Texto "ISSO É GHOST DESIGN"
+
+**Ghost:**
+- Max-width: 320–380px
+- Centralizado verticalmente com o texto
+- Implementa animação de olhos seguindo cursor (código existente)
+
+**Texto "ISSO É GHOST DESIGN":**
+- Alinhamento: à esquerda ou centralizado com o Ghost
+- Font-size: 56–64px
+- Line-height: 1.1
+- Font-weight: 700
+- "GHOST DESIGN" em `primary`
+- "ISSO É" em branco
+
+---
+
+## Layout — Mobile
+
+### Estrutura
+- **1 coluna**, padding lateral: 20–24px
+- **Altura:** Flexível, >120vh
+
+### Título Fixo
+- Centralizado, margin-top: 8vh
+- Font-size: 28–34px
+- Max-width: 100%
+- Margin-bottom: 6–8vh
+- Quebras de linha ajustadas para mobile:
+  - "Acredito no **design que muda o dia** de alguém."
+  - "Não pelo choque, **mas pela conexão.**"
+
+### Área de Frases Rotativas
+- Min-height: 35vh
+- Font-size: 22–26px
+- Max-width: 100%
+- Padding: 0 16px
+- Frases permanecem centralizadas
+
+### Reveal Final
+- **Layout em coluna** (não mais grid)
+- **Ghost primeiro:**
+  - Centralizado
+  - Max-width: 200–240px
+  - Margin-bottom: 32–40px
+- **Texto "ISSO É GHOST DESIGN":**
+  - Centralizado
+  - Font-size: 36–42px
+  - Line-height: 1.15
+  - Quebra de linha opcional:
+    - "ISSO É"
+    - "GHOST DESIGN."
+
+---
+
+## Responsividade Detalhada
+
+### Small (`sm`: 640px–767px)
+- Título fixo: 28–30px
+- Frases rotativas: 20–22px
+- Ghost: 180–200px
+- Texto final: 32–36px
+
+### Medium (`md`: 768px–1023px)
+- Título fixo: 34–38px
+- Frases rotativas: 24–28px
+- Ghost: 220–260px
+- Texto final: 40–46px
+- Considerar layout em coluna ainda
+
+### Large (`lg`: 1024px–1279px)
+- **Transição para grid 2 colunas no reveal final**
+- Título fixo: 40–44px
+- Frases rotativas: 30–34px
+- Ghost: 280–320px
+- Texto final: 48–54px
+
+### Extra Large (`xl`: 1280px+)
+- Título fixo: 48–52px
+- Frases rotativas: 36–38px
+- Ghost: 320–380px
+- Texto final: 60–64px
+- Max respiro entre elementos
+
+---
+
+## Animação & Sequência Temporal
+
+### Timing da Sequência
+
+**Fase 1: Título Fixo (0s)**
+- Fade-in ao carregar a seção
+- Permanece visível durante toda a experiência
+- Animação inicial:
+  - `opacity: 0 → 1`
+  - `filter: blur(10px) → blur(0)`
+  - Duration: 1.2s
+  - Easing: `cubic-bezier(0.25, 0.46, 0.45, 0.94)`
+
+**Fase 2: Frases Rotativas (Início após 1.5s)**
+
+Cada frase tem um ciclo de:
+- **Entrada:** 0.8s
+- **Permanência:** 2.5s
+- **Saída:** 0.6s
+- **Pausa entre frases:** 0.3s
+
+**Total por frase:** ≈4.2s  
+**Total de 6 frases:** ≈25s
+
+**Animação de cada frase:**
+
+```
+Entrada:
+- opacity: 0 → 1
+- translateY: 30px → 0
+- filter: blur(8px) → blur(0)
+- duration: 0.8s
+- easing: ease-out
+
+Permanência:
+- Estado estático por 2.5s
+
+Saída:
+- opacity: 1 → 0
+- translateY: 0 → -20px
+- filter: blur(0) → blur(6px)
+- duration: 0.6s
+- easing: ease-in
+```
+
+**Fase 3: Reveal Final (Após ≈26.5s do início)**
+
+**Ghost entra:**
+- `opacity: 0 → 1`
+- `scale: 0.8 → 1`
+- `filter: blur(12px) → blur(0)`
+- Duration: 1.2s
+- Easing: `cubic-bezier(0.34, 1.56, 0.64, 1)` (bounce suave)
+
+**Texto "ISSO É GHOST DESIGN" entra (delay 0.4s após Ghost):**
+- `opacity: 0 → 1`
+- `translateX: -30px → 0` (desktop) ou `translateY: 20px → 0` (mobile)
+- `filter: blur(8px) → blur(0)`
+- Duration: 1s
+- Easing: ease-out
+
+**Após reveal:** tudo permanece fixo (sem loops)
+
+---
+
+## Interação & Comportamento
+
+### Ghost — Olhos Seguem Cursor
+- Apenas ativo após o reveal final
+- Sistema 3x3 grid (código já implementado)
+- Transição suave: 0.2s `cubic-bezier(0.34, 1.56, 0.64, 1)`
+
+### Scroll Behavior
+- Seção pode ter scroll interno ou ser parte do scroll geral da página
+- Recomendado: usar **Intersection Observer** para:
+  - Trigger do início da sequência quando 30% da seção entra no viewport
+  - Pausar animações se usuário scrollar para fora
+
+### States & Controles
+
+**Estados da seção:**
+1. `initial`: título invisível
+2. `title-visible`: título aparece
+3. `phrases-cycling`: frases em rotação
+4. `final-reveal`: Ghost + manifesto aparecem
+5. `static`: tudo visível e estático
+
+**Considerar adicionar:**
+- Botão "pular animação" (acessibilidade) → vai direto para `final-reveal`
+- Progress indicator sutil (opcional)
+
+---
+
+## Acessibilidade
+
+### prefers-reduced-motion
+- **Se ativado:**
+  - Título aparece instantaneamente
+  - Frases aparecem todas de uma vez (sem rotação)
+  - Reveal final instantâneo
+  - Apenas fade-in rápido (0.3s) sem blur ou translateY
+
+### Navegação por Teclado
+- Ghost e texto final devem ser acessíveis via tab
+- ARIA labels apropriados
+
+### Screen Readers
+- Adicionar `aria-live="polite"` na área de frases rotativas
+- Garantir que o conteúdo completo seja lido mesmo com animações
+
+---
+
+## Notas de Implementação
+
+### Tecnologias Sugeridas
+- **React:** useState para controle de fase atual
+- **Framer Motion** ou **GSAP:** para animações complexas
+- **Intersection Observer:** para trigger inicial
+- **CSS Custom Properties:** para timings configuráveis
+
+### Estrutura de Dados
+
+```typescript
+const phrases = [
+  { text: "Um vídeo que <strong>respira</strong>.", duration: 4200 },
+  { text: "Uma marca que se <strong>reconhece</strong>.", duration: 4200 },
+  { text: "Um detalhe que <strong>fica</strong>.", duration: 4200 },
+  { text: "<strong>Crio</strong> para gerar presença.", duration: 4200 },
+  { text: "<strong>Mesmo</strong> quando não estou ali.", duration: 4200 },
+  { text: "<strong>Mesmo</strong> quando ninguém percebe o esforço.", duration: 4200 }
+];
+```
+
+### Performance
+- Preload do SVG do Ghost
+- Otimizar blur filters (can be expensive)
+- Considerar `will-change: transform, opacity` durante animações
+- Limpar listeners de mousemove quando Ghost não está visível
+
+---
+
+# 🟣 SEÇÃO 06 — FECHAMENTO / CONFIRMAÇÃO
+
+**Função:** Convite claro e humano.  
+Conectar narrativa com ação, sem agressividade.
+
+---
+
+## Layout — Desktop
+
+### Estrutura Geral
+- **Altura alvo:** 80–100vh
+- **Fundo:** `backgroundDark` (#040013)
+- **Container:** 12 colunas, max-width ≈ 1120px
+- **Padding vertical:** 80–100px
+- **Padding lateral:** 32–40px
+
+### Composição
+
+#### Área de Conteúdo (Centralizada)
+- Colunas 3–11
+- Display: flex, flex-direction: column, align-items: center
+- Text-align: center
+
+#### Título Principal
+- Primeira linha com destaque em `primary`
+- Margin-bottom: 32–40px
+
+**Texto:**
+> Hoje sou **Diretor de Criação**,  
+> com mais de **10 anos de estrada**.
+
+**Estilo:**
+- Font-size: 40–48px
+- Line-height: 1.25
+- Font-weight: 700
+- "Diretor de Criação" e "10 anos de estrada" em `primary`
+- Max-width: 800px
+
+#### Parágrafos de Contexto
+- Dois blocos de texto
+- Spacing entre blocos: 24–32px
+- Margin-bottom total: 48–56px
+
+**Bloco 1:**
+> Já liderei marcas, agências, eventos  
+> e **criei experiências** para todos os canais.
+
+**Bloco 2:**
+> Agora, quero criar algo que permaneça —  
+> **com você**.
+
+**Estilo:**
+- Font-size: 20–24px
+- Line-height: 1.5
+- Font-weight: 400
+- Opacity: 0.92
+- "criei experiências" e "com você" em `primary`
+- Max-width: 700px
+
+#### CTAs (Call-to-Actions)
+- Layout: flex row, gap 20–24px
+- Alinhamento: center
+- Margin-top: 56–64px
+
+**Botão 1: "fale comigo"**
+- Primary button style
+- Background: `primary` (#5B5FFF)
+- Color: white
+- Padding: 16–20px 36–44px
+- Border-radius: 50px (pill shape)
+- Font-size: 16–18px
+- Font-weight: 600
+- Ícone: seta diagonal (arrow-up-right) à direita do texto
+
+**Botão 2: "baixar curriculum"**
+- Secondary/Ghost button style
+- Background: transparent
+- Border: 2px solid `primary`
+- Color: `primary`
+- Padding: 16–20px 36–44px
+- Border-radius: 50px
+- Font-size: 16–18px
+- Font-weight: 600
+- Ícone: seta diagonal (arrow-up-right) à direita do texto
+
+---
+
+## Layout — Mobile
+
+### Estrutura
+- **1 coluna**, largura 100%
+- **Padding lateral:** 20–24px
+- **Padding vertical:** 60–80px
+- **Altura:** Flexível
 
 ### Conteúdo
 
-> Acredito no design que muda o dia de alguém.  
-> Não pelo choque, mas pela conexão.  
->
-> Um vídeo que respira.  
-> Uma marca que se reconhece.  
-> Um detalhe que fica.  
->
-> Crio para gerar presença.  
-> Mesmo quando não estou ali.  
-> Mesmo quando ninguém percebe o esforço.  
->
-> Isso é ghost design.
+#### Título Principal
+- Centralizado
+- Font-size: 28–34px
+- Line-height: 1.3
+- Margin-bottom: 24–28px
+- Quebras de linha ajustadas:
+  - "Hoje sou **Diretor de Criação**,"
+  - "com mais de **10 anos de estrada**."
 
-### Animação Ghost
+#### Parágrafos
+- Font-size: 17–19px
+- Line-height: 1.6
+- Spacing entre blocos: 20–24px
+- Margin-bottom: 40–48px
+- Max-width: 100%
 
-Implementação base (já existente) — **olhos seguem cursor em grade 3x3**:
+#### CTAs
+- **Layout:** flex column (empilhados verticalmente)
+- **Gap:** 16px
+- **Largura:** 100% cada botão (max-width: 320px opcional)
+- **Order:**
+  1. "fale comigo" (primary)
+  2. "baixar curriculum" (secondary)
 
-**Ghost.module.css**
-
-css
-/* Ghost.module.css */
-/* Cores definidas como variáveis locais para fácil ajuste */
-.ghostContainer {
-  --ghost-blue: #0048ff;
-  --ghost-purple: #8705f2;
-  --ghost-dark: #040013;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-  background-color: var(--ghost-dark);
-  overflow: hidden;
-}
-
-.svgIcon {
-  width: 100%;
-  max-width: 300px; /* Tamanho máximo do fantasma */
-  height: auto;
-}
-
-/* A animação suave dos olhos */
-.eyeGroup {
-  transition-property: transform;
-  transition-duration: 0.2s;
-  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
-  transform: translate(
-    calc(var(--target-x, 0) * 1px),
-    calc(var(--target-y, 0) * 1px)
-  );
-}
-
-
-Ghost.tsx
-import React, { useEffect, useState } from 'react';
-import styles from './Ghost.module.css';
-
-const Ghost: React.FC = () => {
-  // Estado para armazenar a direção do olhar (-1, 0, ou 1)
-  const [lookDir, setLookDir] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      const { innerWidth, innerHeight } = window;
-      const { clientX, clientY } = event;
-
-      // Divide a tela em três terços verticais e horizontais
-      let x = 0;
-      let y = 0;
-
-      // Define X (-1: esquerda, 0: centro, 1: direita)
-      if (clientX < innerWidth / 3) x = -1;
-      else if (clientX > (innerWidth * 2) / 3) x = 1;
-
-      // Define Y (-1: cima, 0: centro, 1: baixo)
-      if (clientY < innerHeight / 3) y = -1;
-      else if (clientY > (innerHeight * 2) / 3) y = 1;
-
-      setLookDir({ x, y });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-
-    // Limpeza do evento quando o componente desmontar
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
-
-  return (
-    <div
-      className={styles.ghostContainer}
-      style={
-        {
-          '--target-x': lookDir.x,
-          '--target-y': lookDir.y,
-        } as React.CSSProperties
-      }
-    >
-      <svg viewBox="0 0 14 14" className={styles.svgIcon}>
-        <defs>
-          <rect
-            id="pixel-dot-rect"
-            x="0.175"
-            y="0.175"
-            width="0.7"
-            height="0.7"
-            rx="0.2"
-          />
-          <pattern
-            id="pixel-dot-pattern"
-            viewBox="0 0 1 1"
-            width="1"
-            height="1"
-            patternUnits="userSpaceOnUse"
-          >
-            {/* CORPO: Azul Elétrico */}
-            <use fill="#0048ff" href="#pixel-dot-rect" />
-          </pattern>
-          <mask id="pixel-dot-mask">
-            <rect fill="white" width="14" height="14" />
-            <path
-              transform="translate(0 0.5)"
-              fill="none"
-              stroke="black"
-              d="M 0 0 h5M 9 0h5 M 0 1h3 M 11 1h3 M 0 2h2 M 12 2h2M 0 3h1 M 
-13 3h1M 0 4h1 M 13 4h1 M 0 5h1 M 13 5h1 M 4 12h1 M 9 12h1 M 
-0 13h1 M 3 13h3 M8 13h3 M 13 13h1"
-            />
-          </mask>
-        </defs>
-
-        <rect
-          mask="url(#pixel-dot-mask)"
-          fill="url(#pixel-dot-pattern)"
-          width="14"
-          height="14"
-        />
-
-        {/* GRUPO DOS OLHOS */}
-        <g className={styles.eyeGroup}>
-          {/* Olho Esquerdo */}
-          <g transform="translate(2 3)">
-            {/* Fundo do olho */}
-            <path
-              transform="translate(0 0.5)"
-              fill="none"
-              stroke="#040013"
-              d="M 1 0 h2 M 0 1h4 M 0 2h4 M 0 3h4 M 1 4h2"
-            />
-            {/* Pupila */}
-            <g fill="#8705f2">
-              <use transform="translate(1 1)" href="#pixel-dot-rect" />
-              <use transform="translate(2 1)" href="#pixel-dot-rect" />
-              <use transform="translate(1 2)" href="#pixel-dot-rect" />
-              <use transform="translate(2 2)" href="#pixel-dot-rect" />
-            </g>
-          </g>
-
-          {/* Olho Direito */}
-          <g transform="translate(8 3)">
-            <path
-              transform="translate(0 0.5)"
-              fill="none"
-              stroke="#040013"
-              d="M 1 0 h2 M 0 1h4 M 0 2h4 M 0 3h4 M 1 4h2"
-            />
-            <g fill="#8705f2">
-              <use transform="translate(1 1)" href="#pixel-dot-rect" />
-              <use transform="translate(2 1)" href="#pixel-dot-rect" />
-              <use transform="translate(1 2)" href="#pixel-dot-rect" />
-              <use transform="translate(2 2)" href="#pixel-dot-rect" />
-            </g>
-          </g>
-        </g>
-      </svg>
-    </div>
-  );
-};
-
-export default Ghost;
-
-
-## 🟣 **SEÇÃO 06 — FECHAMENTO / CONFIRMAÇÃO**
-Função: Convite claro e humano.  
-Conectar narrativa com ação, sem agressividade.
-
-**Layout — Desktop**  
-Altura alvo: 80–100vh.  
-Fundo: `backgroundDark`.  
-Container 12 colunas, max-width ≈ 1120px.  
-
-**Estrutura:**  
-- Título principal centralizado.  
-- Parágrafos de contexto logo abaixo.  
-- CTAs alinhados à direita ou ao centro, em mesma linha.  
-
-Abaixo desta seção entram, na mesma ordem da home:  
-- Marcas / clientes  
-- Contato (formulário em fundo claro)  
-- Footer  
-
-**Layout — Mobile**  
-- Seção em 1 coluna.  
-- Título e texto centralizados.  
-- CTAs empilhados verticalmente, ocupando toda a largura do container.  
-- Espaço vertical generoso acima dos clientes e do formulário.
+**Estilo dos botões (mobile):**
+- Padding: 14–16px 28–32px
+- Font-size: 15–16px
+- Mantém pill shape
 
 ---
 
-**Conteúdo**  
-Hoje sou Diretor de Criação,  
-com mais de 10 anos de estrada.  
+## Responsividade Detalhada
 
-Já liderei marcas, agências, eventos  
-e criei experiências para todos os canais.  
+### Small (`sm`: 640px–767px)
+- Título: 28–30px
+- Texto: 16–17px
+- CTAs empilhados, largura 100%
+- Gap entre CTAs: 14px
 
-Agora, quero criar algo que permaneça —  
-com você.
+### Medium (`md`: 768px–1023px)
+- Título: 32–36px
+- Texto: 18–20px
+- CTAs ainda empilhados ou começam a ficar lado a lado
+- Max-width dos botões: 280px cada
 
-**CTAs**  
-[ Fale comigo ]  
-[ Download Curriculum ]
+### Large (`lg`: 1024px–1279px)
+- **CTAs lado a lado** (flex row)
+- Título: 38–42px
+- Texto: 20–22px
+- Gap entre CTAs: 20px
 
-**Comportamento dos botões:**  
-- **Hover:**  
-  Leve mudança de opacidade ou cor do texto.  
-  Sem scale, sem animações chamativas.  
-- **Foco acessível:**  
-  Outline visível e coerente com o sistema de cor.
-
-**Interação & Motion**  
-- Texto entra com `fadeGhost` padrão (opacity + blur leve).  
-- CTAs surgem logo após o texto (delay 0.2–0.3s).  
-- Sensação de "respirar" antes do contato:  
-  - Sem loops.  
-  - Sem animações exageradas.
+### Extra Large (`xl`: 1280px+)
+- Título: 44–48px
+- Texto: 22–24px
+- Gap entre CTAs: 24px
+- Máximo respiro e espaçamento
 
 ---
 
-✨ **APÓS A SEÇÃO 06**  
+## Comportamento dos Botões
+
+### Estados
+
+**Default:**
+- Primary: background `primary`, color white
+- Secondary: border `primary`, color `primary`, background transparent
+
+**Hover (Desktop):**
+- **Primary:**
+  - Background: lighten `primary` em 8–10%
+  - Transform: `translateY(-2px)`
+  - Box-shadow: `0 8px 20px rgba(91, 95, 255, 0.3)`
+- **Secondary:**
+  - Background: `rgba(91, 95, 255, 0.1)`
+  - Border-color: lighten `primary` em 10%
+  - Transform: `translateY(-2px)`
+- **Transition:** 0.3s ease
+- **Cursor:** pointer
+
+**Active:**
+- Transform: `translateY(0)`
+- Transition mais rápida: 0.15s
+
+**Focus (Acessibilidade):**
+- Outline: 3px solid `primary` com offset 3px
+- Sem remoção do outline padrão
+
+**Disabled (se aplicável):**
+- Opacity: 0.5
+- Cursor: not-allowed
+- Sem hover effects
+
+### Ícones
+- **Biblioteca:** Lucide React ou similar
+- **Nome:** `ArrowUpRight`
+- **Size:** 18–20px
+- **Position:** à direita do texto com margin-left: 8–10px
+- **Animação no hover:** 
+  - Ícone: `translate(2px, -2px)` (movimento diagonal)
+  - Duration: 0.3s
+
+---
+
+## Interação & Motion
+
+### Animação de Entrada (Scroll)
+
+**Título:**
+- Trigger: 20% da seção no viewport
+- `opacity: 0 → 1`
+- `translateY: 30px → 0`
+- `filter: blur(8px) → blur(0)`
+- Duration: 0.8s
+- Easing: `cubic-bezier(0.25, 0.46, 0.45, 0.94)`
+
+**Parágrafos:**
+- Delay: 0.2s após título
+- Mesma animação do título
+- Duration: 0.7s
+
+**CTAs:**
+- Delay: 0.3s após parágrafos
+- `opacity: 0 → 1`
+- `translateY: 20px → 0`
+- Stagger: 0.1s entre botões
+- Duration: 0.6s
+- Easing: ease-out
+
+### Sensação de "Respirar"
+- **Sem loops ou animações contínuas**
+- Uma vez que entra, permanece estático
+- Apenas hover effects nos botões
+- Movimento só retorna ao scroll
+
+### prefers-reduced-motion
+- Todas as animações reduzidas para fade-in simples
+- Duration: 0.3s
+- Sem translateY ou blur
+- Sem stagger
+
+---
+
+## Hierarquia Visual & Fluxo
+
+### Sequência de Leitura
+1. **Título** → estabelece credibilidade ("Diretor de Criação, 10 anos")
+2. **Experiência** → valida através de histórico
+3. **Proposta** → convite pessoal ("com você")
+4. **Ação** → CTAs claros e acessíveis
+
+### Linha Horizontal (Opcional)
+- Entre título e parágrafos
+- Ou acima/abaixo da seção
+- Width: 100% do container ou 60%
+- Height: 1px
+- Color: `rgba(255, 255, 255, 0.1)`
+- Margin: 40–48px vertical
+
+---
+
+## Conteúdo dos CTAs
+
+### Botão 1: "fale comigo"
+- **Ação:** Scroll suave até seção de contato (formulário)
+- **Comportamento:** 
+  - `document.querySelector('#contato').scrollIntoView({ behavior: 'smooth' })`
+  - Ou abre modal de contato
+  - Ou link mailto (menos recomendado)
+
+### Botão 2: "baixar curriculum"
+- **Ação:** Download direto do CV em PDF
+- **Comportamento:**
+  - `<a href="/path/curriculum.pdf" download="GhostDesign_Curriculum.pdf">`
+  - Ou abre em nova aba: `target="_blank" rel="noopener noreferrer"`
+- **Analytics:** Track download event
+
+---
+
+## Seções Subsequentes
+
+Após esta seção, na ordem:
+
+1. **Marcas / Clientes** (fundo escuro mantido ou transição gradual)
+2. **Contato** (formulário em fundo claro — contraste forte)
+3. **Footer** (retorna ao fundo escuro)
+
+### Transição para Seção de Marcas
+- Padding-top generoso: 80–120px
+- Pode ter linha divisória sutil
+- Mantém fundo escuro ou inicia transição gradual
+
+---
+
+## Notas de Implementação
+
+### Acessibilidade
+- Heading hierarchy: `<h2>` para título principal
+- Botões com `aria-label` descritivos se necessário
+- Focus visible em todos os elementos interativos
+- Contraste mínimo AA/AAA
+
+### Performance
+- Lazy load de assets se fora do viewport inicial
+- Intersection Observer para animações
+- `will-change` apenas durante animações
+
+### Analytics
+- Track impressions da seção
+- Track clicks em cada CTA
+- Track downloads do curriculum
+- Eventos: `section_view`, `cta_click`, `cv_download`
+
+### SEO
+- Conteúdo semântico bem estruturado
+- Texto alternativo em ícones (se relevante)
+- Schema.org markup para pessoa/profissional (opcional)
+
+---
+
+## Variações Opcionais
+
+### Versão com Linha do Tempo
+- Adicionar mini timeline visual de carreira
+- Apenas se não interferir na simplicidade
+
+### Versão com Depoimento
+- Quote curto de cliente/parceiro
+- Posicionado entre parágrafos e CTAs
+- Estilo ghost/sutil
+
+### Versão com Social Proof
+- Logos pequenos de 3-5 marcas principais
+- Acima ou abaixo dos CTAs
+- Escala de cinza, opacity 0.6
+
+**Recomendação:** manter versão minimal e direta conforme especificado inicialmente.
+
+
+
+------
+
+##✨ **APÓS A SEÇÃO 06**  
 Na página `/sobre`, após a seção de fechamento, entram as mesmas seções reutilizadas da home:  
 - Marcas / Clientes  
 - Contato (fundo claro, formulário, informações de contato)  

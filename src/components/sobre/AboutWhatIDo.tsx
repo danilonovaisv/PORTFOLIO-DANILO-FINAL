@@ -117,14 +117,7 @@ export function AboutWhatIDo() {
                     Na ref Desktop (img 0), o ícone é inline com o texto.
                     Na ref Mobile (img 1), o ícone é destacado a esquerda.
                 */}
-                <div
-                  className="
-                  shrink-0 
-                  flex items-center justify-center 
-                  rounded-full bg-ghost-blue text-white
-                  w-10 h-10 md:w-5 md:h-5 md:mt-1.5
-                "
-                >
+                <div className="shrink-0 flex items-center justify-center rounded-full bg-ghost-blue text-white w-10 h-10 md:w-5 md:h-5 md:mt-1.5">
                   <ArrowUpRight className="w-5 h-5 md:w-3 md:h-3" />
                 </div>
 

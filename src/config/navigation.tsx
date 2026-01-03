@@ -68,41 +68,41 @@ export const CONTACT_FORM = {
 export const FOOTER = {
   copyright: '© 2025 Danilo Novais Vilela — todos os direitos reservados.',
   links: [
-    { label: 'home', href: '/' },
-    { label: 'sobre', href: '/sobre' },
-    { label: 'portfolio', href: '/portfolio' },
-    { label: 'contato', href: '#contact' },
+    { label: 'Home', href: '/' },
+    { label: 'Sobre', href: '/sobre' },
+    { label: 'Portfolio', href: '/portfolio' },
+    { label: 'Contato', href: '#contact' },
   ],
 };
 
 // Header navigation links
 export const NAV_LINKS = [
-  { label: 'home', href: '/' },
-  { label: 'sobre', href: '/sobre' },
-  { label: 'portfolio', href: '/portfolio' },
-  { label: 'contato', href: '#contact' },
+  { label: 'Home', href: '/' },
+  { label: 'Sobre', href: '/sobre' },
+  { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Contato', href: '#contact' },
 ];
 
 export const HEADER_LINKS_DESKTOP = [
-  { label: 'home', href: '/', ariaLabel: 'Ir para a home' },
-  { label: 'sobre', href: '/sobre', ariaLabel: 'Saiba mais sobre mim' },
-  { label: 'portfolio', href: '/portfolio', ariaLabel: 'Ver meu portfólio' },
-  { label: 'contato', href: '#contact', ariaLabel: 'Ir para contato' },
+  { label: 'Home', href: '/', ariaLabel: 'Ir para a home' },
+  { label: 'Sobre', href: '/sobre', ariaLabel: 'Saiba mais sobre mim' },
+  { label: 'Portfolio', href: '/portfolio', ariaLabel: 'Ver meu portfólio' },
+  { label: 'Contato', href: '#contact', ariaLabel: 'Ir para contato' },
 ];
 
 export const HEADER_LINKS_MOBILE = [
-  { label: 'home', href: '/', ariaLabel: 'Ir para a home' },
-  { label: 'sobre', href: '/sobre', ariaLabel: 'Saiba mais sobre mim' },
-  { label: 'portfolio', href: '/portfolio', ariaLabel: 'Ver meu portfólio' },
-  { label: 'contato', href: '#contact', ariaLabel: 'Ir para contato' },
+  { label: 'Home', href: '/', ariaLabel: 'Ir para a home' },
+  { label: 'Sobre', href: '/sobre', ariaLabel: 'Saiba mais sobre mim' },
+  { label: 'Portfolio', href: '/portfolio', ariaLabel: 'Ver meu portfólio' },
+  { label: 'Contato', href: '#contact', ariaLabel: 'Ir para contato' },
 ];
 
 export const NAVIGATION = {
   header: [
-    { label: 'home', href: '/' },
-    { label: 'sobre', href: '/sobre' },
-    { label: 'portfolio', href: '/portfolio' },
-    { label: 'contato', href: '#contact' },
+    { label: 'Home', href: '/' },
+    { label: 'Sobre', href: '/sobre' },
+    { label: 'Portfolio', href: '/portfolio' },
+    { label: 'Contato', href: '#contact' },
   ],
   footer: FOOTER,
 };

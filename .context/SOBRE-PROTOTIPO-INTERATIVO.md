@@ -1,5 +1,7 @@
 # 🧠 SOBRE — PROTÓTIPO INTERATIVO + DESIGN SYSTEM
+
 ## portifoliodanilo.com
+
 ### Conceito-mãe: Ghost Design — presença que guia sem aparecer
 
 ---
@@ -69,18 +71,18 @@ O design age no subconsciente.
 
 ## 🎨 SISTEMA VISUAL — COLOR PALETTE
 
-| Token           | Valor     | Uso                               |
-|----------------|-----------|------------------------------------|
-| primary        | #0048ff   | Marca, destaques, CTAs            |
-| accent         | #4fe6ff   | Glow, atmosferas Ghost            |
-| ghostPurple    | #8705f2   | Detalhes, ghost, pupilas          |
-| background     | #000022   | Fundo geral                       |
-| backgroundDark | #040013   | Fundo principal das seções        |
-| backgroundLight| #f0f0f0   | Formulários e respiros            |
-| text           | #fcffff   | Texto principal                   |
-| textSecondary  | #a1a3a3   | Metadados                         |
-| neutral        | #0b0d3a   | Gradientes, cards, listas         |
-| neutralLight   | #F5F5F5   | Seções claras (contato/footer)    |
+| Token           | Valor   | Uso                            |
+| --------------- | ------- | ------------------------------ |
+| primary         | #0048ff | Marca, destaques, CTAs         |
+| accent          | #4fe6ff | Glow, atmosferas Ghost         |
+| ghostPurple     | #8705f2 | Detalhes, ghost, pupilas       |
+| background      | #000022 | Fundo geral                    |
+| backgroundDark  | #040013 | Fundo principal das seções     |
+| backgroundLight | #f0f0f0 | Formulários e respiros         |
+| text            | #fcffff | Texto principal                |
+| textSecondary   | #a1a3a3 | Metadados                      |
+| neutral         | #0b0d3a | Gradientes, cards, listas      |
+| neutralLight    | #F5F5F5 | Seções claras (contato/footer) |
 
 ---
 
@@ -142,12 +144,12 @@ O usuário entra direto em um estado de observação.
 
 ### Motion (frame-by-frame)
 
-| Frame | Estado                      |
-|-------|-----------------------------|
-| 0%    | opacity 0 / blur 10px       |
-| 30%   | aparece linha 1             |
-| 60%   | aparece linha 2             |
-| 100%  | texto completo visível      |
+| Frame | Estado                 |
+| ----- | ---------------------- |
+| 0%    | opacity 0 / blur 10px  |
+| 30%   | aparece linha 1        |
+| 60%   | aparece linha 2        |
+| 100%  | texto completo visível |
 
 - Entrada **linha a linha**.
 - Delay entre linhas: **0.2s – 0.4s**.
@@ -166,7 +168,7 @@ O usuário entra direto em um estado de observação.
 > Você não vê tudo  
 > o que eu faço. Mas  
 > sente quando  
-> funciona.  
+> funciona.
 >
 > Crio design que observa, entende  
 > e guia experiências com intenção,  
@@ -184,7 +186,7 @@ Mostra trajetória sem cronologia rígida, mas com ritmo.
 ### Layout — Desktop
 
 - Altura média: **120–140vh** (scroll leve).
-- Fundo: `backgroundDark`.
+- Fundo: `backgroundDark`. (#040013)
 - Topo da seção:
   - Linha horizontal discreta em `primary`.
   - Label **“ORIGEM”** centralizado, em `textSecondary` ou `primary` suave.
@@ -244,32 +246,28 @@ Mostra trajetória sem cronologia rígida, mas com ritmo.
 
 **Blocos textuais e mídias**
 
-1.  
-   > Desde cedo, sempre prestei atenção no que ficava —  
-   > não só no que aparecia.  
-   >
-   > *(mídia: vídeo `photo.mp4`)*
+1.  > Desde cedo, sempre prestei atenção no que ficava —  
+    > não só no que aparecia.
+    >
+    > _(mídia: vídeo `photo.mp4`)_
 
-2.  
-   > Rabiscos viraram ideias.  
-   > Ideias viraram projetos.  
-   > E os projetos começaram a deixar rastros.  
-   >
-   > *(mídia: imagem `squetch.webp`)*
+2.  > Rabiscos viraram ideias.  
+    > Ideias viraram projetos.  
+    > E os projetos começaram a deixar rastros.
+    >
+    > _(mídia: imagem `squetch.webp`)_
 
-3.  
-   > Foi ali que entendi:  
-   > design não é enfeite.  
-   > É ferramenta invisível de transformação.  
-   >
-   > *(mídia: imagem `design.webp`)*
+3.  > Foi ali que entendi:  
+    > design não é enfeite.  
+    > É ferramenta invisível de transformação.
+    >
+    > _(mídia: imagem `design.webp`)_
 
-4.  
-   > Estudei Comunicação, mergulhei no design, no branding  
-   > e hoje uso inteligência artificial para expandir o alcance  
-   > sem perder a essência humana da criação.  
-   >
-   > *(mídia: vídeo `AI.mp4`)*
+4.  > Estudei Comunicação, mergulhei no design, no branding  
+    > e hoje uso inteligência artificial para expandir o alcance  
+    > sem perder a essência humana da criação.
+    >
+    > _(mídia: vídeo `AI.mp4`)_
 
 ### Interação & Motion
 
@@ -285,501 +283,1201 @@ Mostra trajetória sem cronologia rígida, mas com ritmo.
 
 ---
 
-## 🟣 SEÇÃO 03 — O QUE EU FAÇO
+# 🟣 SEÇÃO 03 — O QUE EU FAÇO
 
 **Função:** Mostrar valor sem autopromoção.  
 Transformar capabilities em lista silenciosa de entregas.
 
-### Layout — Desktop
+---
 
-- Altura de referência: **≈100vh**, mas permite scroll se necessário.
-- Fundo: `backgroundDark`.
-- Container centralizado (`max-width` ≈ 1120px).
-- Título:
-  - Centralizado, em duas linhas, max-width ≈ 680px.
-  - Muito espaço acima e abaixo (40–56px).
-- Lista:
-  - Implementada como **grid de cards GhostList**:
-    - 7 itens fixos.
-    - Em `lg`: **2 colunas**.
-    - Em `xl`: **3 colunas**.
-  - Cada card:
-    - Fundo `neutral`, leve borda ou linha superior em `primary`.
-    - Padding interno generoso (20–24px).
-    - Texto alinhado à esquerda, sem ícones chamativos.
-    - Opacity base ≈ 0.9 (não 1.0).
+## Layout — Desktop
 
-### Layout — Mobile
+- **Altura de referência:** ≈100vh, mas permite scroll se necessário.
+- **Fundo:** `backgroundDark` (#040013).
+- **Container centralizado:** max-width ≈ 1120px com padding lateral 24–32px.
 
-- Título centralizado com margem superior generosa.
-- Lista de 7 cards em **1 coluna**:
-  - Largura 100% do container.
-  - Espaçamento vertical 12–16px entre cards.
-  - Padding 16–20px por card.
-- Sem side-by-side; tudo em scroll vertical.
+### Título
 
-### Responsividade
+- Centralizado, em duas linhas, max-width ≈ 800px.
+- Espaçamento: **64–80px acima**, **48–64px abaixo**.
+- Primeira linha: "Do **insight** ao **impacto**." (insight e impacto em `primary`)
+- Segunda linha: "Mesmo quando você não percebe." (em branco)
+- Tipografia: font-size 40–48px, line-height 1.2, font-weight 600–700.
 
-- `sm` e `md`:
-  - 1 coluna para cards.
-  - Tipografia um pouco maior para leitura em lista.
-- `lg`:
-  - 2 colunas, mantendo altura dos cards consistente.
-- `xl`:
-  - 3 colunas com mais respiro horizontal.
+### Lista de Cards
 
-### Conteúdo
+- **Grid de 7 cards** (quantidade fixa conforme imagens).
+- **Layout responsivo:**
+  - `lg` (1024px+): **2 colunas** balanceadas
+  - `xl` (1280px+): **3 colunas** (linha 1: 3 cards | linha 2: 3 cards | linha 3: 1 card centralizado)
+- **Gap:** 20–24px entre cards.
 
-**Título**
+### Estrutura de cada Card
 
-> Do insight ao impacto.  
-> Mesmo quando você não percebe.
+- **Fundo:** `neutral` (#1A1A2E ou rgba(255,255,255,0.04))
+- **Borda superior:** 2px sólida em `primary` (#5B5FFF)
+- **Padding interno:** 24–28px
+- **Alinhamento:** texto à esquerda
+- **Opacity base:** 0.92
+- **Border-radius:** 8–12px
 
-**Lista**
+**Conteúdo do card:**
 
-- Direção criativa que organiza o caos  
-- Design estratégico que guia decisões  
-- Identidades que permanecem na memória  
-- Campanhas multicanais com lógica e emoção  
-- Branding que não grita — mas marca  
-- Inteligência artificial aplicada à criação e automação  
-- Liderança criativa com visão e método  
-
-### Interação & Motion
-
-- Cada **card** entra individualmente ao entrar no viewport.
-- Stagger: **0.18s** entre itens.
-- Entrada:
-  - `opacity: 0 → 1`
-  - `translateY: 18px → 0`
-  - Sem scale.
-- Hover (desktop):
-  - **+5% de opacity** ou pequeno ajuste de cor do texto.
-  - Sem escala.
-  - Nenhum underline de links internos.
-- Respeitar `prefers-reduced-motion`: sem animação, apenas fade-in instantâneo.
+- **Ícone:** círculo pequeno (8–10px) preenchido em `primary`, alinhado com a primeira linha do título
+- **Título:** em `primary`, font-weight 600, font-size 18–20px
+- **Descrição:** em branco, font-weight 400, font-size 14–16px, line-height 1.5, spacing entre título e descrição: 8px
 
 ---
 
-## 🟣 SEÇÃO 04 — COMO EU TRABALHO
+## Layout — Mobile
+
+- **Título:**
+  - Centralizado, max-width 90%.
+  - Margem superior: **40–48px**.
+  - Margem inferior: **32–40px**.
+  - Font-size: 28–32px, line-height 1.2.
+
+### Lista de Cards
+
+- **1 coluna**, largura 100% do container (padding 16–20px lateral).
+- **7 cards empilhados verticalmente**.
+- **Espaçamento vertical:** 16–20px entre cards.
+- **Padding por card:** 20–24px.
+
+**Estrutura do card (mobile):**
+
+- Mantém borda superior em `primary`.
+- Ícone e texto alinhados verticalmente.
+- Font-size título: 16–18px.
+- Font-size descrição: 14–15px.
+
+---
+
+## Responsividade Detalhada
+
+### Small (`sm`: 640px–767px)
+
+- 1 coluna de cards
+- Título: 28–30px
+- Padding container: 16px
+
+### Medium (`md`: 768px–1023px)
+
+- 1 coluna de cards (transição para 2 colunas próximo a `lg`)
+- Título: 32–36px
+- Padding container: 20–24px
+
+### Large (`lg`: 1024px–1279px)
+
+- **2 colunas de cards**
+- Grid: `grid-template-columns: repeat(2, 1fr)`
+- Última linha com 1 card centralizado usando `grid-column: span 1` ou flexbox
+- Título: 38–42px
+
+### Extra Large (`xl`: 1280px+)
+
+- **3 colunas de cards**
+- Grid: `grid-template-columns: repeat(3, 1fr)`
+- Última linha com 1 card centralizado usando `grid-column: 2 / 3`
+- Título: 44–48px
+- Max-width container: 1120–1200px
+
+---
+
+## Conteúdo dos 7 Cards
+
+1. **Direção criativa** | que organiza o caos
+2. **Design estratégico** | que guia decisões
+3. **Identidades** | que permanecem na memória
+4. **Campanhas** | multicanais com lógica e emoção
+5. **Branding** | que não grita — mas marca
+6. **Inteligência artificial** | aplicada à criação e automação
+7. **Liderança criativa** | com visão e método
+
+---
+
+## Interação & Motion
+
+### Animação de Entrada (Scroll)
+
+- Cada card entra individualmente ao entrar no viewport.
+- **Stagger:** 0.15–0.18s entre cada card.
+- **Efeito:**
+  - `opacity: 0 → 1`
+  - `translateY: 24px → 0`
+  - `duration: 0.5s`
+  - `easing: cubic-bezier(0.4, 0, 0.2, 1)`
+
+### Hover (Desktop)
+
+- **Opacity:** 0.92 → 1.0
+- **Borda superior:** aumenta de 2px → 3px
+- **Transform:** `translateY: 0 → -4px)` (elevação sutil)
+- **Transition:** 0.3s ease
+- Sem scale, sem underline.
+
+### Estados
+
+- **Default:** opacity 0.92
+- **Hover:** opacity 1.0 + elevação
+- **Focus:** outline em `primary` para acessibilidade
+
+### Acessibilidade
+
+- Respeitar `prefers-reduced-motion`:
+  - Sem translateY
+  - Apenas fade-in instantâneo (0.2s)
+  - Sem stagger perceptível
+
+---
+
+## Notas de Implementação
+
+- Usar **Intersection Observer** para trigger de animações no scroll.
+- Cards devem ter altura mínima consistente para evitar quebras visuais no grid.
+- Considerar usar `grid-auto-rows: 1fr` para igualar altura de cards em cada linha.
+- Textura ou noise sutil no fundo para profundidade (opcional, seguindo direção de arte).
+- Garantir contraste mínimo AA/AAA para texto em `primary` sobre fundo escuro.
+
+# 🟣 SEÇÃO 04 — COMO EU TRABALHO
 
 **Função:** Gerar confiança racional através do método.  
 Mostra que a criatividade é suportada por processo.
 
-### Layout — Desktop
+---
 
-- Altura alvo: **≈120vh**.
-- Fundo:
-  - Vídeo abstrato/IA full-bleed:  
-    `VideoAboutMethod.mp4`
-  - `object-fit: cover`, ocupando 100% de largura e altura da seção.
-  - Overlay escuro com gradiente (mais opaco na área de texto).
-- Grid:
-  - Container 12 colunas.
-  - **Texto em primeiro plano** ocupando colunas 2–7.
-  - À direita (col. 8–12): área onde o vídeo/ghost aparece com mais clareza (sem texto sobreposto).
-- Conteúdo:
-  - Título em duas linhas, alinhado à esquerda.
-  - Parágrafo introdutório.
-  - Lista de processo em **blocos horizontais**:
-    - Cada item com índice (01–06) + texto.
-    - Cards com fundo `neutral` translucido (overlay sobre o vídeo).
+## Layout — Desktop
 
-### Layout — Mobile
+### Estrutura Geral
 
-- Fundo:
-  - Mesmo vídeo `VideoAboutMethod.mp4`, recortado priorizando o **lado direito** (ghost/IA).
-  - Overlay ainda mais forte para contraste.
-- Conteúdo:
-  - Tudo em **1 coluna**.
-  - Título, texto e lista ficam **sobre uma faixa escura sólida** (pode ser um pseudo-card sobre o vídeo).
-  - Ghost/IA aparece como recorte de fundo ou miniatura ao final da seção, nunca competindo com o texto.
-- Altura:
-  - Flexível (>100vh se necessário).
+- **Altura alvo:** ≈120vh (permite scroll se necessário).
+- **Fundo:**
+  - Vídeo abstrato/IA full-bleed: `VideoAboutMethod.mp4`
+  - `object-fit: cover`, ocupando 100% de largura e altura da seção
+  - **Overlay escuro:** gradiente radial ou linear
+    - Mais opaco na área de texto (esquerda): `rgba(10, 10, 20, 0.85)`
+    - Mais transparente na área visual (direita): `rgba(10, 10, 20, 0.4)`
+  - Vídeo em loop contínuo, sem controles
 
-### Responsividade
+### Grid & Composição
 
-- `sm` e `md`:
-  - 1 coluna.
-  - Lista ocupa toda a largura do container.
-  - Espaçamento vertical 20–24px entre itens.
-- `lg+`:
-  - 2 blocos visuais: texto à esquerda, vídeo mais visível à direita.
-  - Cards da lista limitados em largura (≈75% do texto) para manter legibilidade.
+- Container de 12 colunas, max-width ≈ 1200px
+- **Coluna de conteúdo (esquerda):** colunas 2–7
+  - Padding vertical: 80–100px
+  - Padding lateral: 32–40px
+- **Área visual (direita):** colunas 8–12
+  - Vídeo/ghost aparece com mais clareza
+  - Sem texto sobreposto
 
-### Conteúdo
+### Título
 
-**Título**
+- Alinhado à esquerda
+- Duas linhas:
+  - "**Criatividade** com **método**." (criatividade e método em `primary`)
+  - "**Impacto** sem **ruído**." (impacto em branco, ruído levemente dimmed)
+- Font-size: 44–52px
+- Line-height: 1.15
+- Font-weight: 700
+- Margin-bottom: 32–40px
 
-> Criatividade com método.  
-> Impacto sem ruído.
+### Texto Introdutório
 
-**Texto introdutório**
+- Três frases em parágrafos separados ou quebras de linha
+- Font-size: 18–20px
+- Line-height: 1.6
+- Font-weight: 400
+- Opacity: 0.9
+- Max-width: 520px
+- Margin-bottom: 48–56px
 
-> Antes da estética, existe intenção.  
-> Antes do layout, existe lógica.  
-> Antes do impacto, existe silêncio.
+### Lista de Processo
 
-**Lista de processo**
+- **6 itens** em blocos horizontais/verticais
+- Cada item estruturado como card:
+  - **Fundo:** `rgba(26, 26, 46, 0.7)` ou `rgba(255, 255, 255, 0.05)` com backdrop-filter blur
+  - **Borda esquerda:** 3px sólida em `primary`
+  - **Padding:** 20–24px
+  - **Margin-bottom:** 16–20px
+  - **Border-radius:** 6–8px
 
-- Briefings bem construídos para decisões claras  
-- Estratégia como base de qualquer criação  
-- Design com propósito, não só beleza  
-- Revisões inteligentes, sem ruído desnecessário  
-- IA e automações para escalar com qualidade  
-- Métricas criativas: engajamento, retenção e resultado  
+**Estrutura de cada item:**
 
-### Interação & Motion
-
-- Background com **parallax ultra sutil** (opcional e respeitando `prefers-reduced-motion`).
-- Texto principal:
-  - Entra com **fadeGhost** (opacity + blur leve).
-  - Após aparecer, permanece estático (sem loop).
-- Motion geral:
-
-| Frame | Estado                |
-|-------|-----------------------|
-| 0%    | invisível             |
-| 100%  | visível e estático    |
-
-- Nenhuma animação contínua no texto ou nos cards de processo.
-- Vídeo faz o “movimento de fundo” da seção.
+- **Índice:** `01`–`06` em `primary`, font-size 16–18px, font-weight 700, display inline ou como prefix
+- **Texto:** em branco, font-size 16–18px, font-weight 400, line-height 1.5
+- Spacing entre índice e texto: 12–16px
 
 ---
 
-## 🟣 SEÇÃO 05 — O QUE ME MOVE
+## Layout — Mobile
+
+### Fundo
+
+- Mesmo vídeo `VideoAboutMethod.mp4`
+- **Position:** `object-position: right center` (prioriza ghost/IA no lado direito)
+- **Overlay:** mais forte para garantir contraste
+  - `rgba(10, 10, 20, 0.88)` uniforme ou gradiente vertical (mais escuro no topo)
+
+### Estrutura
+
+- **1 coluna**, largura 100%
+- Padding lateral: 20–24px
+- Padding vertical: 60–80px
+
+### Conteúdo
+
+- **Título:**
+  - Centralizado ou alinhado à esquerda
+  - Font-size: 32–36px
+  - Margin-bottom: 24–32px
+- **Texto introdutório:**
+  - Centralizado
+  - Font-size: 16–17px
+  - Max-width: 100%
+  - Margin-bottom: 40–48px
+  - Frases podem estar em linha contínua ou separadas com `<br/>`
+
+- **Lista:**
+  - 6 itens empilhados verticalmente
+  - Cada card com:
+    - Fundo mais sólido: `rgba(26, 26, 46, 0.85)`
+    - Padding: 16–20px
+    - Margin-bottom: 14–16px
+    - Borda esquerda mantida
+
+### Ghost/IA Visual
+
+- Pode aparecer como:
+  - **Opção 1:** recorte de fundo fixo com parallax desabilitado
+  - **Opção 2:** miniatura ou fade-in ao final da seção (abaixo da lista)
+  - **Opção 3:** apenas sugestão visual no overlay do vídeo de fundo
+- **Nunca competindo** com legibilidade do texto
+
+### Altura
+
+- Flexível, >100vh se necessário
+- Min-height: 100vh para evitar corte visual
+
+---
+
+## Responsividade Detalhada
+
+### Small (`sm`: 640px–767px)
+
+- 1 coluna
+- Título: 30–32px
+- Texto intro: 15–16px
+- Lista ocupa 100% da largura
+- Spacing vertical entre cards: 14–16px
+
+### Medium (`md`: 768px–1023px)
+
+- 1 coluna
+- Título: 36–40px
+- Texto intro: 17–18px
+- Cards com max-width: 90%
+- Padding container: 24–28px
+
+### Large (`lg`: 1024px–1279px)
+
+- **2 blocos visuais:**
+  - Texto: colunas 1–7
+  - Vídeo visível: colunas 8–12
+- Título: 42–46px
+- Lista com max-width: 75% da área de texto
+- Cards com largura limitada para manter legibilidade
+
+### Extra Large (`xl`: 1280px+)
+
+- Grid: colunas 2–7 para texto, 8–12 para vídeo
+- Título: 48–52px
+- Texto intro: 19–20px
+- Cards: max-width ≈ 560px
+- Mais respiro horizontal e vertical
+
+---
+
+## Conteúdo dos 6 Itens
+
+1. **01** | Briefings bem construídos para decisões claras
+2. **02** | Estratégia como base de qualquer criação
+3. **03** | Design com propósito, não só beleza
+4. **04** | Revisões inteligentes, sem ruído desnecessário
+5. **05** | IA e automações para escalar com qualidade
+6. **06** | Métricas criativas: engajamento, retenção e resultado
+
+---
+
+## Interação & Motion
+
+### Background Video
+
+- **Parallax ultra sutil** (opcional):
+  - `translateY` de -20px a 20px no scroll
+  - Apenas se `prefers-reduced-motion: no-preference`
+- Vídeo em loop contínuo
+- Sem controles, muted, autoplay
+
+### Animação de Entrada (Scroll)
+
+**Título:**
+
+- `opacity: 0 → 1`
+- `filter: blur(8px) → blur(0)`
+- `translateY: 30px → 0`
+- Duration: 0.8s
+- Easing: `cubic-bezier(0.25, 0.46, 0.45, 0.94)`
+
+**Texto introdutório:**
+
+- Mesma animação do título
+- Delay: 0.2s após título
+
+**Lista de processo:**
+
+- Cada card entra individualmente
+- **Stagger:** 0.12s entre itens
+- Animação:
+  - `opacity: 0 → 1`
+  - `translateX: -20px → 0`
+  - Duration: 0.5s
+  - Easing: `ease-out`
+- Delay inicial: 0.4s após texto introdutório
+
+### Estados de Hover (Desktop)
+
+**Cards da lista:**
+
+- **Default:** opacity 0.9
+- **Hover:**
+  - Opacity: 1.0
+  - Borda esquerda: 3px → 4px
+  - `translateX: 0 → 4px` (deslocamento sutil para direita)
+  - Backdrop blur aumenta levemente
+- Transition: 0.3s ease
+
+### Acessibilidade
+
+- **prefers-reduced-motion:**
+  - Sem parallax
+  - Sem translateY/translateX
+  - Apenas fade-in instantâneo (0.2s)
+  - Sem stagger perceptível
+
+---
+
+## Notas de Implementação
+
+### Vídeo
+
+- Formato: MP4, WebM como fallback
+- Compressão otimizada para web
+- Resolução: 1920x1080 mínimo
+- Duração: 10–20s em loop
+- Considerar poster frame para carregamento inicial
+
+### Performance
+
+- Lazy load do vídeo se fora do viewport inicial
+- Usar Intersection Observer para animações
+- Considerar `will-change: transform, opacity` nos elementos animados
+
+### Overlay
+
+- Usar `::before` ou `::after` no container da seção
+- Position: absolute, z-index entre vídeo e conteúdo
+- Background: `linear-gradient(90deg, rgba(10,10,20,0.85) 0%, rgba(10,10,20,0.4) 100%)`
+
+### Contraste
+
+- Garantir WCAG AA mínimo em todo texto
+- Testar legibilidade em diferentes dispositivos
+- Ajustar overlay se necessário
+
+### Z-index Stack
+
+1. Vídeo: `z-index: 1`
+2. Overlay: `z-index: 2`
+3. Conteúdo: `z-index: 3`
+
+---
+
+## Variações de Implementação
+
+### Opção 1: Vídeo Full-bleed (Recomendada)
+
+- Vídeo ocupa toda seção
+- Conteúdo em primeiro plano com overlay
+- Melhor impacto visual
+
+### Opção 2: Split Screen
+
+- Desktop: 50/50 texto/vídeo
+- Mobile: vídeo como background fixo
+- Mais tradicional, menos imersivo
+
+### Opção 3: Vídeo como Card
+
+- Vídeo contido em card à direita
+- Mais controle, menos dramático
+- Útil se performance for crítica
+
+**Escolha baseada em:** performance do dispositivo, largura de banda esperada, e direção de arte geral do site.
+
+# 🟣 SEÇÃO 05 — O QUE ME MOVE
 
 **Função:** Criar vínculo emocional e manifesto.  
-Momento mais íntimo, quase carta aberta.
+Momento mais íntimo, quase carta aberta com narrativa sequencial.
 
-### Layout — Desktop
+---
 
-- Altura alvo: **100vh**.
-- Fundo: `backgroundDark`.
-- Grid:
-  - Container com 12 colunas.
-  - Texto principal ocupa colunas **2–7**.
-  - À direita (col. 8–11/12): **ícone Ghost animado** + selo “ISSO É GHOST DESIGN”.
-- Texto:
-  - Blocos de frases com quebras intencionais, reforçando ritmo de pensamento.
-  - Muito espaço negativo acima e abaixo.
-- Ghost:
-  - Tamanho visível, mas não exagerado (máx ≈ 300px de largura).
-  - Olhos seguem direção do cursor de forma leve.
+## Layout — Desktop
 
-### Layout — Mobile
+### Estrutura Geral
 
-- Seção em **1 coluna**.
-- Texto:
-  - Largura total do container, com padding 16–20px.
-  - Alinhamento **centralizado**.
-  - Quebras de linha mantidas para ritmo poético.
-- Ghost:
-  - Posicionado **após o texto**, centralizado.
-  - Tamanho reduzido (max-width ≈ 180–220px).
-  - “ISSO É GHOST DESIGN” logo abaixo, também centralizado.
+- **Altura alvo:** ≈140vh (permite scroll para acomodar a sequência animada).
+- **Fundo:** `backgroundDark` (#040013).
+- **Grid:**
+  - Container de 12 colunas, max-width ≈ 1200px
+  - Área de conteúdo: colunas 2–12
 
-### Responsividade
+### Composição Visual
 
-- `sm`:
-  - Texto mais espaçado verticalmente.
-  - Ghost menor e com maior margem superior.
-- `md`:
-  - Ainda 1 coluna, mas pode aproximar ghost do texto.
-- `lg+`:
-  - 2 colunas (texto ↔ ghost).
-  - Ghost sempre alinhado ao centro vertical da altura de texto.
+**Seção dividida em 3 momentos:**
+
+#### 1. Título Fixo (Sempre visível no topo)
+
+- Posicionamento: colunas 2–10, centralizado horizontalmente
+- Permanece fixo durante toda a sequência
+- Margin-top: 10–12vh
+- Margin-bottom: 8–10vh
+
+**Texto:**
+
+> Acredito no **design que muda o dia** de alguém.  
+> Não pelo choque, **mas pela conexão.**
+
+**Estilo:**
+
+- Font-size: 44–52px
+- Line-height: 1.2
+- Font-weight: 700
+- Palavras em `primary`: "design que muda o dia" e "mas pela conexão"
+- Max-width: 900px
+- Text-align: center
+
+#### 2. Área de Frases Rotativas (Centro da tela)
+
+- Posicionamento: colunas 3–11
+- Min-height: 40vh (espaço para frases transitarem)
+- Display: flex, justify-content: center, align-items: center
+
+**Frases que alternam (uma por vez):**
+
+1. "Um vídeo que **respira**."
+2. "Uma marca que se **reconhece**."
+3. "Um detalhe que **fica**."
+4. "**Crio** para gerar presença."
+5. "**Mesmo** quando não estou ali."
+6. "**Mesmo** quando ninguém percebe o esforço."
+
+**Estilo de cada frase:**
+
+- Font-size: 32–38px
+- Line-height: 1.4
+- Font-weight: 500
+- Palavras em `primary` destacadas em negrito
+- Text-align: center
+- Max-width: 700px
+- Opacity transition entre frases
+
+#### 3. Reveal Final — Ghost + Manifesto
+
+- Aparece após todas as frases rotativas
+- Posicionamento: colunas 2–12
+- Layout: Grid 2 colunas (desktop)
+  - Coluna esquerda (6 cols): Ghost animado
+  - Coluna direita (6 cols): Texto "ISSO É GHOST DESIGN"
+
+**Ghost:**
+
+- Max-width: 320–380px
+- Centralizado verticalmente com o texto
+- Implementa animação de olhos seguindo cursor (código existente)
+
+**Texto "ISSO É GHOST DESIGN":**
+
+- Alinhamento: à esquerda ou centralizado com o Ghost
+- Font-size: 56–64px
+- Line-height: 1.1
+- Font-weight: 700
+- "GHOST DESIGN" em `primary`
+- "ISSO É" em branco
+
+---
+
+## Layout — Mobile
+
+### Estrutura
+
+- **1 coluna**, padding lateral: 20–24px
+- **Altura:** Flexível, >120vh
+
+### Título Fixo
+
+- Centralizado, margin-top: 8vh
+- Font-size: 28–34px
+- Max-width: 100%
+- Margin-bottom: 6–8vh
+- Quebras de linha ajustadas para mobile:
+  - "Acredito no **design que muda o dia** de alguém."
+  - "Não pelo choque, **mas pela conexão.**"
+
+### Área de Frases Rotativas
+
+- Min-height: 35vh
+- Font-size: 22–26px
+- Max-width: 100%
+- Padding: 0 16px
+- Frases permanecem centralizadas
+
+### Reveal Final
+
+- **Layout em coluna** (não mais grid)
+- **Ghost primeiro:**
+  - Centralizado
+  - Max-width: 200–240px
+  - Margin-bottom: 32–40px
+- **Texto "ISSO É GHOST DESIGN":**
+  - Centralizado
+  - Font-size: 36–42px
+  - Line-height: 1.15
+  - Quebra de linha opcional:
+    - "ISSO É"
+    - "GHOST DESIGN."
+
+---
+
+## Responsividade Detalhada
+
+### Small (`sm`: 640px–767px)
+
+- Título fixo: 28–30px
+- Frases rotativas: 20–22px
+- Ghost: 180–200px
+- Texto final: 32–36px
+
+### Medium (`md`: 768px–1023px)
+
+- Título fixo: 34–38px
+- Frases rotativas: 24–28px
+- Ghost: 220–260px
+- Texto final: 40–46px
+- Considerar layout em coluna ainda
+
+### Large (`lg`: 1024px–1279px)
+
+- **Transição para grid 2 colunas no reveal final**
+- Título fixo: 40–44px
+- Frases rotativas: 30–34px
+- Ghost: 280–320px
+- Texto final: 48–54px
+
+### Extra Large (`xl`: 1280px+)
+
+- Título fixo: 48–52px
+- Frases rotativas: 36–38px
+- Ghost: 320–380px
+- Texto final: 60–64px
+- Max respiro entre elementos
+
+---
+
+## Animação & Sequência Temporal
+
+### Timing da Sequência
+
+**Fase 1: Título Fixo (0s)**
+
+- Fade-in ao carregar a seção
+- Permanece visível durante toda a experiência
+- Animação inicial:
+  - `opacity: 0 → 1`
+  - `filter: blur(10px) → blur(0)`
+  - Duration: 1.2s
+  - Easing: `cubic-bezier(0.25, 0.46, 0.45, 0.94)`
+
+**Fase 2: Frases Rotativas (Início após 1.5s)**
+
+Cada frase tem um ciclo de:
+
+- **Entrada:** 0.8s
+- **Permanência:** 2.5s
+- **Saída:** 0.6s
+- **Pausa entre frases:** 0.3s
+
+**Total por frase:** ≈4.2s  
+**Total de 6 frases:** ≈25s
+
+**Animação de cada frase:**
+
+```
+Entrada:
+- opacity: 0 → 1
+- translateY: 30px → 0
+- filter: blur(8px) → blur(0)
+- duration: 0.8s
+- easing: ease-out
+
+Permanência:
+- Estado estático por 2.5s
+
+Saída:
+- opacity: 1 → 0
+- translateY: 0 → -20px
+- filter: blur(0) → blur(6px)
+- duration: 0.6s
+- easing: ease-in
+```
+
+**Fase 3: Reveal Final (Após ≈26.5s do início)**
+
+**Ghost entra:**
+
+- `opacity: 0 → 1`
+- `scale: 0.8 → 1`
+- `filter: blur(12px) → blur(0)`
+- Duration: 1.2s
+- Easing: `cubic-bezier(0.34, 1.56, 0.64, 1)` (bounce suave)
+
+**Texto "ISSO É GHOST DESIGN" entra (delay 0.4s após Ghost):**
+
+- `opacity: 0 → 1`
+- `translateX: -30px → 0` (desktop) ou `translateY: 20px → 0` (mobile)
+- `filter: blur(8px) → blur(0)`
+- Duration: 1s
+- Easing: ease-out
+
+**Após reveal:** tudo permanece fixo (sem loops)
+
+---
+
+## Interação & Comportamento
+
+### Ghost — Olhos Seguem Cursor
+
+- Apenas ativo após o reveal final
+- Sistema 3x3 grid (código já implementado)
+- Transição suave: 0.2s `cubic-bezier(0.34, 1.56, 0.64, 1)`
+
+### Scroll Behavior
+
+- Seção pode ter scroll interno ou ser parte do scroll geral da página
+- Recomendado: usar **Intersection Observer** para:
+  - Trigger do início da sequência quando 30% da seção entra no viewport
+  - Pausar animações se usuário scrollar para fora
+
+### States & Controles
+
+**Estados da seção:**
+
+1. `initial`: título invisível
+2. `title-visible`: título aparece
+3. `phrases-cycling`: frases em rotação
+4. `final-reveal`: Ghost + manifesto aparecem
+5. `static`: tudo visível e estático
+
+**Considerar adicionar:**
+
+- Botão "pular animação" (acessibilidade) → vai direto para `final-reveal`
+- Progress indicator sutil (opcional)
+
+---
+
+## Acessibilidade
+
+### prefers-reduced-motion
+
+- **Se ativado:**
+  - Título aparece instantaneamente
+  - Frases aparecem todas de uma vez (sem rotação)
+  - Reveal final instantâneo
+  - Apenas fade-in rápido (0.3s) sem blur ou translateY
+
+### Navegação por Teclado
+
+- Ghost e texto final devem ser acessíveis via tab
+- ARIA labels apropriados
+
+### Screen Readers
+
+- Adicionar `aria-live="polite"` na área de frases rotativas
+- Garantir que o conteúdo completo seja lido mesmo com animações
+
+---
+
+## Notas de Implementação
+
+### Tecnologias Sugeridas
+
+- **React:** useState para controle de fase atual
+- **Framer Motion** ou **GSAP:** para animações complexas
+- **Intersection Observer:** para trigger inicial
+- **CSS Custom Properties:** para timings configuráveis
+
+### Estrutura de Dados
+
+```typescript
+const phrases = [
+  { text: 'Um vídeo que <strong>respira</strong>.', duration: 4200 },
+  { text: 'Uma marca que se <strong>reconhece</strong>.', duration: 4200 },
+  { text: 'Um detalhe que <strong>fica</strong>.', duration: 4200 },
+  { text: '<strong>Crio</strong> para gerar presença.', duration: 4200 },
+  { text: '<strong>Mesmo</strong> quando não estou ali.', duration: 4200 },
+  {
+    text: '<strong>Mesmo</strong> quando ninguém percebe o esforço.',
+    duration: 4200,
+  },
+];
+```
+
+### Performance
+
+- Preload do SVG do Ghost
+- Otimizar blur filters (can be expensive)
+- Considerar `will-change: transform, opacity` durante animações
+- Limpar listeners de mousemove quando Ghost não está visível
+
+---
+
+# 🟣 SEÇÃO 06 — FECHAMENTO / CONFIRMAÇÃO
+
+**Função:** Convite claro e humano.  
+Conectar narrativa com ação, sem agressividade.
+
+---
+
+## Layout — Desktop
+
+### Estrutura Geral
+
+- **Altura alvo:** 80–100vh
+- **Fundo:** `backgroundDark` (#040013)
+- **Container:** 12 colunas, max-width ≈ 1120px
+- **Padding vertical:** 80–100px
+- **Padding lateral:** 32–40px
+
+### Composição
+
+#### Área de Conteúdo (Centralizada)
+
+- Colunas 3–11
+- Display: flex, flex-direction: column, align-items: center
+- Text-align: center
+
+#### Título Principal
+
+- Primeira linha com destaque em `primary`
+- Margin-bottom: 32–40px
+
+**Texto:**
+
+> Hoje sou **Diretor de Criação**,  
+> com mais de **10 anos de estrada**.
+
+**Estilo:**
+
+- Font-size: 40–48px
+- Line-height: 1.25
+- Font-weight: 700
+- "Diretor de Criação" e "10 anos de estrada" em `primary`
+- Max-width: 800px
+
+#### Parágrafos de Contexto
+
+- Dois blocos de texto
+- Spacing entre blocos: 24–32px
+- Margin-bottom total: 48–56px
+
+**Bloco 1:**
+
+> Já liderei marcas, agências, eventos  
+> e **criei experiências** para todos os canais.
+
+**Bloco 2:**
+
+> Agora, quero criar algo que permaneça —  
+> **com você**.
+
+**Estilo:**
+
+- Font-size: 20–24px
+- Line-height: 1.5
+- Font-weight: 400
+- Opacity: 0.92
+- "criei experiências" e "com você" em `primary`
+- Max-width: 700px
+
+#### CTAs (Call-to-Actions)
+
+- Layout: flex row, gap 20–24px
+- Alinhamento: center
+- Margin-top: 56–64px
+
+**Botão 1: "fale comigo"**
+
+- Primary button style
+- Background: `primary` (#5B5FFF)
+- Color: white
+- Padding: 16–20px 36–44px
+- Border-radius: 50px (pill shape)
+- Font-size: 16–18px
+- Font-weight: 600
+- Ícone: seta diagonal (arrow-up-right) à direita do texto
+
+**Botão 2: "baixar curriculum"**
+
+- Secondary/Ghost button style
+- Background: transparent
+- Border: 2px solid `primary`
+- Color: `primary`
+- Padding: 16–20px 36–44px
+- Border-radius: 50px
+- Font-size: 16–18px
+- Font-weight: 600
+- Ícone: seta diagonal (arrow-up-right) à direita do texto
+
+---
+
+## Layout — Mobile
+
+### Estrutura
+
+- **1 coluna**, largura 100%
+- **Padding lateral:** 20–24px
+- **Padding vertical:** 60–80px
+- **Altura:** Flexível
 
 ### Conteúdo
 
-> Acredito no design que muda o dia de alguém.  
-> Não pelo choque —  
-> mas pela conexão.  
->
-> Um vídeo que respira.  
-> Uma marca que se reconhece.  
-> Um detalhe que fica.  
->
-> Crio para gerar presença.  
-> Mesmo quando não estou ali.  
-> Mesmo quando ninguém percebe o esforço.  
->
-> Isso é ghost design.
+#### Título Principal
 
-### Animação Ghost
+- Centralizado
+- Font-size: 28–34px
+- Line-height: 1.3
+- Margin-bottom: 24–28px
+- Quebras de linha ajustadas:
+  - "Hoje sou **Diretor de Criação**,"
+  - "com mais de **10 anos de estrada**."
 
-Implementação base (já existente) — **olhos seguem cursor em grade 3x3**:
+#### Parágrafos
 
-**Ghost.module.css**
+- Font-size: 17–19px
+- Line-height: 1.6
+- Spacing entre blocos: 20–24px
+- Margin-bottom: 40–48px
+- Max-width: 100%
 
-css
-/* Ghost.module.css */
-/* Cores definidas como variáveis locais para fácil ajuste */
-.ghostContainer {
-  --ghost-blue: #0048ff;
-  --ghost-purple: #8705f2;
-  --ghost-dark: #040013;
+#### CTAs
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-  background-color: var(--ghost-dark);
-  overflow: hidden;
-}
+- **Layout:** flex column (empilhados verticalmente)
+- **Gap:** 16px
+- **Largura:** 100% cada botão (max-width: 320px opcional)
+- **Order:**
+  1. "fale comigo" (primary)
+  2. "baixar curriculum" (secondary)
 
-.svgIcon {
-  width: 100%;
-  max-width: 300px; /* Tamanho máximo do fantasma */
-  height: auto;
-}
+**Estilo dos botões (mobile):**
 
-/* A animação suave dos olhos */
-.eyeGroup {
-  transition-property: transform;
-  transition-duration: 0.2s;
-  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
-  transform: translate(
-    calc(var(--target-x, 0) * 1px),
-    calc(var(--target-y, 0) * 1px)
-  );
-}
-
-
-Ghost.tsx
-import React, { useEffect, useState } from 'react';
-import styles from './Ghost.module.css';
-
-const Ghost: React.FC = () => {
-  // Estado para armazenar a direção do olhar (-1, 0, ou 1)
-  const [lookDir, setLookDir] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      const { innerWidth, innerHeight } = window;
-      const { clientX, clientY } = event;
-
-      // Divide a tela em três terços verticais e horizontais
-      let x = 0;
-      let y = 0;
-
-      // Define X (-1: esquerda, 0: centro, 1: direita)
-      if (clientX < innerWidth / 3) x = -1;
-      else if (clientX > (innerWidth * 2) / 3) x = 1;
-
-      // Define Y (-1: cima, 0: centro, 1: baixo)
-      if (clientY < innerHeight / 3) y = -1;
-      else if (clientY > (innerHeight * 2) / 3) y = 1;
-
-      setLookDir({ x, y });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-
-    // Limpeza do evento quando o componente desmontar
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
-
-  return (
-    <div
-      className={styles.ghostContainer}
-      style={
-        {
-          '--target-x': lookDir.x,
-          '--target-y': lookDir.y,
-        } as React.CSSProperties
-      }
-    >
-      <svg viewBox="0 0 14 14" className={styles.svgIcon}>
-        <defs>
-          <rect
-            id="pixel-dot-rect"
-            x="0.175"
-            y="0.175"
-            width="0.7"
-            height="0.7"
-            rx="0.2"
-          />
-          <pattern
-            id="pixel-dot-pattern"
-            viewBox="0 0 1 1"
-            width="1"
-            height="1"
-            patternUnits="userSpaceOnUse"
-          >
-            {/* CORPO: Azul Elétrico */}
-            <use fill="#0048ff" href="#pixel-dot-rect" />
-          </pattern>
-          <mask id="pixel-dot-mask">
-            <rect fill="white" width="14" height="14" />
-            <path
-              transform="translate(0 0.5)"
-              fill="none"
-              stroke="black"
-              d="M 0 0 h5M 9 0h5 M 0 1h3 M 11 1h3 M 0 2h2 M 12 2h2M 0 3h1 M 
-13 3h1M 0 4h1 M 13 4h1 M 0 5h1 M 13 5h1 M 4 12h1 M 9 12h1 M 
-0 13h1 M 3 13h3 M8 13h3 M 13 13h1"
-            />
-          </mask>
-        </defs>
-
-        <rect
-          mask="url(#pixel-dot-mask)"
-          fill="url(#pixel-dot-pattern)"
-          width="14"
-          height="14"
-        />
-
-        {/* GRUPO DOS OLHOS */}
-        <g className={styles.eyeGroup}>
-          {/* Olho Esquerdo */}
-          <g transform="translate(2 3)">
-            {/* Fundo do olho */}
-            <path
-              transform="translate(0 0.5)"
-              fill="none"
-              stroke="#040013"
-              d="M 1 0 h2 M 0 1h4 M 0 2h4 M 0 3h4 M 1 4h2"
-            />
-            {/* Pupila */}
-            <g fill="#8705f2">
-              <use transform="translate(1 1)" href="#pixel-dot-rect" />
-              <use transform="translate(2 1)" href="#pixel-dot-rect" />
-              <use transform="translate(1 2)" href="#pixel-dot-rect" />
-              <use transform="translate(2 2)" href="#pixel-dot-rect" />
-            </g>
-          </g>
-
-          {/* Olho Direito */}
-          <g transform="translate(8 3)">
-            <path
-              transform="translate(0 0.5)"
-              fill="none"
-              stroke="#040013"
-              d="M 1 0 h2 M 0 1h4 M 0 2h4 M 0 3h4 M 1 4h2"
-            />
-            <g fill="#8705f2">
-              <use transform="translate(1 1)" href="#pixel-dot-rect" />
-              <use transform="translate(2 1)" href="#pixel-dot-rect" />
-              <use transform="translate(1 2)" href="#pixel-dot-rect" />
-              <use transform="translate(2 2)" href="#pixel-dot-rect" />
-            </g>
-          </g>
-        </g>
-      </svg>
-    </div>
-  );
-};
-
-export default Ghost;
-
-
-## 🟣 **SEÇÃO 06 — FECHAMENTO / CONFIRMAÇÃO**
-Função: Convite claro e humano.  
-Conectar narrativa com ação, sem agressividade.
-
-**Layout — Desktop**  
-Altura alvo: 80–100vh.  
-Fundo: `backgroundDark`.  
-Container 12 colunas, max-width ≈ 1120px.  
-
-**Estrutura:**  
-- Título principal centralizado.  
-- Parágrafos de contexto logo abaixo.  
-- CTAs alinhados à direita ou ao centro, em mesma linha.  
-
-Abaixo desta seção entram, na mesma ordem da home:  
-- Marcas / clientes  
-- Contato (formulário em fundo claro)  
-- Footer  
-
-**Layout — Mobile**  
-- Seção em 1 coluna.  
-- Título e texto centralizados.  
-- CTAs empilhados verticalmente, ocupando toda a largura do container.  
-- Espaço vertical generoso acima dos clientes e do formulário.
+- Padding: 14–16px 28–32px
+- Font-size: 15–16px
+- Mantém pill shape
 
 ---
 
-**Conteúdo**  
-Hoje sou Diretor de Criação,  
-com mais de 10 anos de estrada.  
+## Responsividade Detalhada
 
-Já liderei marcas, agências, eventos  
-e criei experiências para todos os canais.  
+### Small (`sm`: 640px–767px)
 
-Agora, quero criar algo que permaneça —  
-com você.
+- Título: 28–30px
+- Texto: 16–17px
+- CTAs empilhados, largura 100%
+- Gap entre CTAs: 14px
 
-**CTAs**  
-[ Fale comigo ]  
-[ Download Curriculum ]
+### Medium (`md`: 768px–1023px)
 
-**Comportamento dos botões:**  
-- **Hover:**  
-  Leve mudança de opacidade ou cor do texto.  
-  Sem scale, sem animações chamativas.  
-- **Foco acessível:**  
-  Outline visível e coerente com o sistema de cor.
+- Título: 32–36px
+- Texto: 18–20px
+- CTAs ainda empilhados ou começam a ficar lado a lado
+- Max-width dos botões: 280px cada
 
-**Interação & Motion**  
-- Texto entra com `fadeGhost` padrão (opacity + blur leve).  
-- CTAs surgem logo após o texto (delay 0.2–0.3s).  
-- Sensação de "respirar" antes do contato:  
-  - Sem loops.  
-  - Sem animações exageradas.
+### Large (`lg`: 1024px–1279px)
+
+- **CTAs lado a lado** (flex row)
+- Título: 38–42px
+- Texto: 20–22px
+- Gap entre CTAs: 20px
+
+### Extra Large (`xl`: 1280px+)
+
+- Título: 44–48px
+- Texto: 22–24px
+- Gap entre CTAs: 24px
+- Máximo respiro e espaçamento
 
 ---
 
-✨ **APÓS A SEÇÃO 06**  
-Na página `/sobre`, após a seção de fechamento, entram as mesmas seções reutilizadas da home:  
-- Marcas / Clientes  
-- Contato (fundo claro, formulário, informações de contato)  
-- Footer  
+## Comportamento dos Botões
+
+### Estados
+
+**Default:**
+
+- Primary: background `primary`, color white
+- Secondary: border `primary`, color `primary`, background transparent
+
+**Hover (Desktop):**
+
+- **Primary:**
+  - Background: lighten `primary` em 8–10%
+  - Transform: `translateY(-2px)`
+  - Box-shadow: `0 8px 20px rgba(91, 95, 255, 0.3)`
+- **Secondary:**
+  - Background: `rgba(91, 95, 255, 0.1)`
+  - Border-color: lighten `primary` em 10%
+  - Transform: `translateY(-2px)`
+- **Transition:** 0.3s ease
+- **Cursor:** pointer
+
+**Active:**
+
+- Transform: `translateY(0)`
+- Transition mais rápida: 0.15s
+
+**Focus (Acessibilidade):**
+
+- Outline: 3px solid `primary` com offset 3px
+- Sem remoção do outline padrão
+
+**Disabled (se aplicável):**
+
+- Opacity: 0.5
+- Cursor: not-allowed
+- Sem hover effects
+
+### Ícones
+
+- **Biblioteca:** Lucide React ou similar
+- **Nome:** `ArrowUpRight`
+- **Size:** 18–20px
+- **Position:** à direita do texto com margin-left: 8–10px
+- **Animação no hover:**
+  - Ícone: `translate(2px, -2px)` (movimento diagonal)
+  - Duration: 0.3s
+
+---
+
+## Interação & Motion
+
+### Animação de Entrada (Scroll)
+
+**Título:**
+
+- Trigger: 20% da seção no viewport
+- `opacity: 0 → 1`
+- `translateY: 30px → 0`
+- `filter: blur(8px) → blur(0)`
+- Duration: 0.8s
+- Easing: `cubic-bezier(0.25, 0.46, 0.45, 0.94)`
+
+**Parágrafos:**
+
+- Delay: 0.2s após título
+- Mesma animação do título
+- Duration: 0.7s
+
+**CTAs:**
+
+- Delay: 0.3s após parágrafos
+- `opacity: 0 → 1`
+- `translateY: 20px → 0`
+- Stagger: 0.1s entre botões
+- Duration: 0.6s
+- Easing: ease-out
+
+### Sensação de "Respirar"
+
+- **Sem loops ou animações contínuas**
+- Uma vez que entra, permanece estático
+- Apenas hover effects nos botões
+- Movimento só retorna ao scroll
+
+### prefers-reduced-motion
+
+- Todas as animações reduzidas para fade-in simples
+- Duration: 0.3s
+- Sem translateY ou blur
+- Sem stagger
+
+---
+
+## Hierarquia Visual & Fluxo
+
+### Sequência de Leitura
+
+1. **Título** → estabelece credibilidade ("Diretor de Criação, 10 anos")
+2. **Experiência** → valida através de histórico
+3. **Proposta** → convite pessoal ("com você")
+4. **Ação** → CTAs claros e acessíveis
+
+### Linha Horizontal (Opcional)
+
+- Entre título e parágrafos
+- Ou acima/abaixo da seção
+- Width: 100% do container ou 60%
+- Height: 1px
+- Color: `rgba(255, 255, 255, 0.1)`
+- Margin: 40–48px vertical
+
+---
+
+## Conteúdo dos CTAs
+
+### Botão 1: "fale comigo"
+
+- **Ação:** Scroll suave até seção de contato (formulário)
+- **Comportamento:**
+  - `document.querySelector('#contato').scrollIntoView({ behavior: 'smooth' })`
+  - Ou abre modal de contato
+  - Ou link mailto (menos recomendado)
+
+### Botão 2: "baixar curriculum"
+
+- **Ação:** Download direto do CV em PDF
+- **Comportamento:**
+  - `<a href="/path/curriculum.pdf" download="GhostDesign_Curriculum.pdf">`
+  - Ou abre em nova aba: `target="_blank" rel="noopener noreferrer"`
+- **Analytics:** Track download event
+
+---
+
+## Seções Subsequentes
+
+Após esta seção, na ordem:
+
+1. **Marcas / Clientes** (fundo escuro mantido ou transição gradual)
+2. **Contato** (formulário em fundo claro — contraste forte)
+3. **Footer** (retorna ao fundo escuro)
+
+### Transição para Seção de Marcas
+
+- Padding-top generoso: 80–120px
+- Pode ter linha divisória sutil
+- Mantém fundo escuro ou inicia transição gradual
+
+---
+
+## Notas de Implementação
+
+### Acessibilidade
+
+- Heading hierarchy: `<h2>` para título principal
+- Botões com `aria-label` descritivos se necessário
+- Focus visible em todos os elementos interativos
+- Contraste mínimo AA/AAA
+
+### Performance
+
+- Lazy load de assets se fora do viewport inicial
+- Intersection Observer para animações
+- `will-change` apenas durante animações
+
+### Analytics
+
+- Track impressions da seção
+- Track clicks em cada CTA
+- Track downloads do curriculum
+- Eventos: `section_view`, `cta_click`, `cv_download`
+
+### SEO
+
+- Conteúdo semântico bem estruturado
+- Texto alternativo em ícones (se relevante)
+- Schema.org markup para pessoa/profissional (opcional)
+
+---
+
+## Variações Opcionais
+
+### Versão com Linha do Tempo
+
+- Adicionar mini timeline visual de carreira
+- Apenas se não interferir na simplicidade
+
+### Versão com Depoimento
+
+- Quote curto de cliente/parceiro
+- Posicionado entre parágrafos e CTAs
+- Estilo ghost/sutil
+
+### Versão com Social Proof
+
+- Logos pequenos de 3-5 marcas principais
+- Acima ou abaixo dos CTAs
+- Escala de cinza, opacity 0.6
+
+**Recomendação:** manter versão minimal e direta conforme especificado inicialmente.
+
+---
+
+##✨ **APÓS A SEÇÃO 06**  
+Na página `/sobre`, após a seção de fechamento, entram as mesmas seções reutilizadas da home:
+
+- Marcas / Clientes
+- Contato (fundo claro, formulário, informações de contato)
+- Footer
 
 O comportamento visual e responsivo dessas seções é definido na documentação da home e não deve ser alterado aqui, apenas reutilizado.
 
 ---
 
-🎬 **MOTION TOKENS (RESUMO)**  
-- Duração padrão: `0.9s`  
-- Duração longa: `1.4–1.6s`  
-- Delay padrão: `0.2–0.4s`  
-- Easing principal: `cubic-bezier(0.22, 1, 0.36, 1)` (`ghostIn`)  
-- Escala: **proibida**  
-- Bounce: **proibido**  
-- Rotate: **proibido**  
-- Opacity nunca é brusca.  
+🎬 **MOTION TOKENS (RESUMO)**
+
+- Duração padrão: `0.9s`
+- Duração longa: `1.4–1.6s`
+- Delay padrão: `0.2–0.4s`
+- Easing principal: `cubic-bezier(0.22, 1, 0.36, 1)` (`ghostIn`)
+- Escala: **proibida**
+- Bounce: **proibido**
+- Rotate: **proibido**
+- Opacity nunca é brusca.
 - Imagens nunca chegam a 100% — usar máx `0.85–0.9`.
 
 ---
 
-📱 **BREAKPOINTS (COMPORTAMENTO NA /SOBRE)**  
+📱 **BREAKPOINTS (COMPORTAMENTO NA /SOBRE)**
 
-| Breakpoint | Min width | Regra principal                                             |
-|------------|-----------|-------------------------------------------------------------|
-| sm         | 640px     | Fonte maior, 1 coluna em todas as seções                   |
-| md         | 768px     | Ainda 1 coluna; ajustes de respiro e hierarquia            |
-| lg         | 1024px    | Layout completo com colunas duplas onde previsto           |
-| xl         | 1280px    | Mais respiro lateral e grids de 3 colunas (listas)         |
+| Breakpoint | Min width | Regra principal                                    |
+| ---------- | --------- | -------------------------------------------------- |
+| sm         | 640px     | Fonte maior, 1 coluna em todas as seções           |
+| md         | 768px     | Ainda 1 coluna; ajustes de respiro e hierarquia    |
+| lg         | 1024px    | Layout completo com colunas duplas onde previsto   |
+| xl         | 1280px    | Mais respiro lateral e grids de 3 colunas (listas) |
 
-*Mapeamento técnico: ver tokens breakpoints na Parte 2.*
+_Mapeamento técnico: ver tokens breakpoints na Parte 2._
 
 ---
 
 🚫 **REGRAS ABSOLUTAS — PÁGINA /SOBRE**  
 ❌ Texto diretamente sobre imagem/vídeo sem overlay escuro 80%+  
 ❌ Blur excessivo que prejudique leitura  
-❌ Scale / bounce / rotate em conteúdo  
+❌ Scale / bounce / rotate em conteúdo
 
-✅ **Exceções controladas:**  
-- Hero (texto sobre vídeo com overlay sólido).  
-- Seção 04 (texto em card escuro sobre vídeo).  
-- Alternância fluida desktop texto ↔ mídia  
-- Mobile-first (texto sempre antes da imagem)  
+✅ **Exceções controladas:**
+
+- Hero (texto sobre vídeo com overlay sólido).
+- Seção 04 (texto em card escuro sobre vídeo).
+- Alternância fluida desktop texto ↔ mídia
+- Mobile-first (texto sempre antes da imagem)
 - Ritmo frase ↔ imagem, sem colagens visuais.
 
 ---
@@ -787,11 +1485,11 @@ O comportamento visual e responsivo dessas seções é definido na documentaçã
 🧩 **EXPERIÊNCIA FINAL (NARRATIVA)**  
 O usuário não percebe a técnica.  
 Não vê o esforço.  
-Não sente ruído.  
+Não sente ruído.
 
 Mas sente presença.  
 Sente fluidez.  
-Sente confiança.  
+Sente confiança.
 
 Isso é o protótipo interativo da página SOBRE.
 
@@ -803,19 +1501,23 @@ Isso é o protótipo interativo da página SOBRE.
 
 🧠 **GHOST DESIGN SYSTEM — TÉCNICO**  
 _Tokens + Componentes_  
-portifoliodanilo.com  
+portifoliodanilo.com
 
-### 1. VISÃO GERAL  
+### 1. VISÃO GERAL
+
 Ghost Design é um sistema silencioso de interface.  
-Ele prioriza:  
-- Presença sem ruído  
-- Movimento como respiração  
-- Design como guia invisível  
+Ele prioriza:
+
+- Presença sem ruído
+- Movimento como respiração
+- Design como guia invisível
 
 Este documento é a fonte técnica oficial para design, frontend e motion.
 
-### 2. DESIGN TOKENS  
-#### 2.1 Color Tokens  
+### 2. DESIGN TOKENS
+
+#### 2.1 Color Tokens
+
 ```ts
 export const colors = {
   primary: '#0048ff',
@@ -832,7 +1534,8 @@ export const colors = {
 };
 ```
 
-#### 2.2 Typography Tokens  
+#### 2.2 Typography Tokens
+
 ```ts
 export const typography = {
   fontFamily: {
@@ -860,7 +1563,8 @@ export const typography = {
 };
 ```
 
-#### 2.3 Spacing Tokens  
+#### 2.3 Spacing Tokens
+
 ```ts
 export const spacing = {
   xs: '4px',
@@ -873,7 +1577,8 @@ export const spacing = {
 };
 ```
 
-#### 2.4 Motion Tokens (CRÍTICO)  
+#### 2.4 Motion Tokens (CRÍTICO)
+
 ```ts
 export const motion = {
   duration: {
@@ -893,51 +1598,61 @@ export const motion = {
 };
 ```
 
-**🚫 Proibido:**  
-- scale  
-- bounce  
-- rotate  
+**🚫 Proibido:**
 
-**Permitido:**  
-- opacity  
-- blur  
-- translateY (máx 18px)  
+- scale
+- bounce
+- rotate
 
-### 3. COMPONENTES BASE  
-#### 3.1 `<GhostText />`  
-_Uso: Manifestos, frases-chave_  
+**Permitido:**
+
+- opacity
+- blur
+- translateY (máx 18px)
+
+### 3. COMPONENTES BASE
+
+#### 3.1 `<GhostText />`
+
+_Uso: Manifestos, frases-chave_
+
 ```tsx
 <GhostText as="p" delay={0.4}>
   Você não vê tudo o que eu faço.
 </GhostText>
-```  
-**Comportamento**  
-- Fade + blur.  
-- Entrada por tempo ou viewport.  
-- Nunca reanima depois de visível.  
+```
 
-#### 3.2 `<GhostHeading />`  
+**Comportamento**
+
+- Fade + blur.
+- Entrada por tempo ou viewport.
+- Nunca reanima depois de visível.
+
+#### 3.2 `<GhostHeading />`
+
 ```tsx
-<GhostHeading level="h1">
-  Sou Danilo Novais.
-</GhostHeading>
-```  
-- Alinhamento fluido.  
-- Peso médio.  
-- Tracking negativo leve.  
+<GhostHeading level="h1">Sou Danilo Novais.</GhostHeading>
+```
 
-#### 3.3 `<GhostSection />`  
-_Wrapper padrão de seção._  
+- Alinhamento fluido.
+- Peso médio.
+- Tracking negativo leve.
+
+#### 3.3 `<GhostSection />`
+
+_Wrapper padrão de seção._
+
 ```tsx
-<GhostSection height="100vh">
-  {children}
-</GhostSection>
-```  
-**Regras**  
-- Uma seção = uma intenção.  
-- Nunca empilhar múltiplas animações diferentes na mesma área.  
+<GhostSection height="100vh">{children}</GhostSection>
+```
 
-#### 3.4 `<GhostList />`  
+**Regras**
+
+- Uma seção = uma intenção.
+- Nunca empilhar múltiplas animações diferentes na mesma área.
+
+#### 3.4 `<GhostList />`
+
 ```tsx
 <GhostList
   items={[
@@ -945,74 +1660,84 @@ _Wrapper padrão de seção._
     'Design estratégico que guia decisões',
   ]}
 />
-```  
-- Entrada item a item.  
-- Stagger fixo: 0.18s.  
-- Hover só altera opacity/cor do texto.  
+```
 
-#### 3.5 `<GhostMedia />`  
+- Entrada item a item.
+- Stagger fixo: 0.18s.
+- Hover só altera opacity/cor do texto.
+
+#### 3.5 `<GhostMedia />`
+
 ```tsx
 <GhostMedia type="video" src="/sobre/AI.mp4" />
-```  
-**Regras**  
-- Opacity máx 0.85.  
-- Blur permanente sutil.  
-- Nunca texto diretamente sobre a mídia; se houver, usar overlay sólido.  
+```
 
-#### 3.6 `<GhostCTA />`  
+**Regras**
+
+- Opacity máx 0.85.
+- Blur permanente sutil.
+- Nunca texto diretamente sobre a mídia; se houver, usar overlay sólido.
+
+#### 3.6 `<GhostCTA />`
+
 ```tsx
-<GhostCTA href="/contato">
-  Fale comigo
-</GhostCTA>
-```  
-- Sem glow exagerado.  
-- Hover silencioso (opacity/cor).  
-- Sempre com tom humano, nunca agressivo.  
+<GhostCTA href="/contato">Fale comigo</GhostCTA>
+```
 
-### 4. LAYOUT SYSTEM  
-#### 4.1 Grid Invisível  
-**Desktop (lg+)**  
-- 12 colunas virtuais.  
-- Texto tipicamente em colunas 2–7.  
-- Mídia em colunas 8–12.  
+- Sem glow exagerado.
+- Hover silencioso (opacity/cor).
+- Sempre com tom humano, nunca agressivo.
 
-**Mobile (sm / md)**  
-- 1 coluna.  
-- Texto sempre antes da imagem/vídeo.  
+### 4. LAYOUT SYSTEM
 
-*Objetivo: o usuário não percebe o grid, apenas o ritmo.*
+#### 4.1 Grid Invisível
 
-#### 4.2 Section Heights  
+**Desktop (lg+)**
 
-| Tipo        | Altura alvo |
-|-------------|-------------|
-| Hero        | 100vh       |
-| Conteúdo    | 120–140vh   |
-| Fechamento  | 80–100vh    |
+- 12 colunas virtuais.
+- Texto tipicamente em colunas 2–7.
+- Mídia em colunas 8–12.
 
-*Valores são referências, não travas rígidas. A prioridade é fluxo narrativo.*
+**Mobile (sm / md)**
 
-#### 4.3 Layout Responsivo por Seção  
-- **Seção 01**  
-  - Mobile: 1 coluna, texto centralizado.  
-  - Desktop: texto à direita sobre vídeo com overlay.  
-- **Seção 02 (Origem)**  
-  - Mobile: blocos texto → mídia empilhados.  
-  - Desktop: alternância texto ↔ mídia em 2 colunas.  
-- **Seção 03 (O que eu faço)**  
-  - Mobile: lista em 1 coluna.  
-  - Desktop: grid de 2–3 colunas de cards.  
-- **Seção 04 (Como eu trabalho)**  
-  - Mobile: texto em faixa escura sobre vídeo recortado (lado direito).  
-  - Desktop: texto à esquerda, vídeo/ghost em evidência à direita.  
-- **Seção 05 (O que me move)**  
-  - Mobile: texto centralizado + ghost abaixo.  
-  - Desktop: texto à esquerda, ghost à direita.  
-- **Seção 06 (Fechamento)**  
-  - Mobile: CTAs empilhados.  
-  - Desktop: CTAs lado a lado, com texto central.  
+- 1 coluna.
+- Texto sempre antes da imagem/vídeo.
 
-### 5. BREAKPOINTS (TÉCNICO)  
+_Objetivo: o usuário não percebe o grid, apenas o ritmo._
+
+#### 4.2 Section Heights
+
+| Tipo       | Altura alvo |
+| ---------- | ----------- |
+| Hero       | 100vh       |
+| Conteúdo   | 120–140vh   |
+| Fechamento | 80–100vh    |
+
+_Valores são referências, não travas rígidas. A prioridade é fluxo narrativo._
+
+#### 4.3 Layout Responsivo por Seção
+
+- **Seção 01**
+  - Mobile: 1 coluna, texto centralizado.
+  - Desktop: texto à direita sobre vídeo com overlay.
+- **Seção 02 (Origem)**
+  - Mobile: blocos texto → mídia empilhados.
+  - Desktop: alternância texto ↔ mídia em 2 colunas.
+- **Seção 03 (O que eu faço)**
+  - Mobile: lista em 1 coluna.
+  - Desktop: grid de 2–3 colunas de cards.
+- **Seção 04 (Como eu trabalho)**
+  - Mobile: texto em faixa escura sobre vídeo recortado (lado direito).
+  - Desktop: texto à esquerda, vídeo/ghost em evidência à direita.
+- **Seção 05 (O que me move)**
+  - Mobile: texto centralizado + ghost abaixo.
+  - Desktop: texto à esquerda, ghost à direita.
+- **Seção 06 (Fechamento)**
+  - Mobile: CTAs empilhados.
+  - Desktop: CTAs lado a lado, com texto central.
+
+### 5. BREAKPOINTS (TÉCNICO)
+
 ```ts
 export const breakpoints = {
   sm: '640px',
@@ -1022,44 +1747,52 @@ export const breakpoints = {
 };
 ```
 
-### 6. ACESSIBILIDADE & PERFORMANCE  
-- Respeitar `prefers-reduced-motion` em todas as animações.  
-- Nenhuma animação rodando fora do viewport.  
-- **Vídeos:**  
-  - `loading="lazy"` (quando possível).  
-  - `muted`, `autoplay`, `loop`.  
-- Sem re-render em scroll contínuo:  
-  - Usar observers (`IntersectionObserver`) em vez de listeners de scroll diretos.  
-- Contraste sempre AA+:  
-  - Especialmente em hero e seção 04 (texto sobre vídeo com overlay).  
+### 6. ACESSIBILIDADE & PERFORMANCE
 
-### 7. REGRAS ABSOLUTAS DO SISTEMA  
+- Respeitar `prefers-reduced-motion` em todas as animações.
+- Nenhuma animação rodando fora do viewport.
+- **Vídeos:**
+  - `loading="lazy"` (quando possível).
+  - `muted`, `autoplay`, `loop`.
+- Sem re-render em scroll contínuo:
+  - Usar observers (`IntersectionObserver`) em vez de listeners de scroll diretos.
+- Contraste sempre AA+:
+  - Especialmente em hero e seção 04 (texto sobre vídeo com overlay).
+
+### 7. REGRAS ABSOLUTAS DO SISTEMA
+
 ❌ Texto direto sobre imagem/vídeo sem overlay  
 ❌ Animações chamativas (glow, bounce, scale)  
-❌ Motion decorativo desconectado da narrativa  
+❌ Motion decorativo desconectado da narrativa
 
 ✅ Ritmo  
 ✅ Silêncio  
-✅ Presença  
+✅ Presença
 
-### 8. MANIFESTO TÉCNICO  
-O melhor design:  
-- não explica  
-- não chama atenção  
-- não se impõe  
+### 8. MANIFESTO TÉCNICO
 
-Ele permanece.  
+O melhor design:
+
+- não explica
+- não chama atenção
+- não se impõe
+
+Ele permanece.
 
 Isso é Ghost Design System.
 
 🧩 **REGRA FINAL**  
-Se algo:  
-- não está aqui  
-- não respeita este documento  
-- ou altera o ritmo Ghost  
+Se algo:
 
-➡ É BUG.  
+- não está aqui
+- não respeita este documento
+- ou altera o ritmo Ghost
+
+➡ É BUG.
 
 Ghost Design não é estilo.  
 É comportamento.
+
+```
+
 ```

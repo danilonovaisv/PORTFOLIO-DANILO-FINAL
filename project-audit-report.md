@@ -1,6 +1,6 @@
 # 🧩 Auditoria do Projeto Danilo Novais Portfolio
 
-Gerado em: 12/31/2025, 3:18:44 AM
+Gerado em: 1/3/2026, 10:58:57 AM
 
 ---
 
@@ -8,6 +8,7 @@ Gerado em: 12/31/2025, 3:18:44 AM
 
 - @dataconnect/admin-generated
 - react-responsive
+- resize-observer-polyfill
 - tweakpane
 
 ## 🧱 Dependências de desenvolvimento não utilizadas
@@ -27,7 +28,7 @@ Gerado em: 12/31/2025, 3:18:44 AM
 - - main
 - remotes/origin/HEAD -> origin/main
 - remotes/origin/main
-- remotes/origin/dependabot/npm_and_yarn/npm_and_yarn-cb2c474ead
+- dependabot/npm_and_yarn/npm_and_yarn-cb2c474ead
 - codex/adjust-hero-section-animation-to-reference
 - visual-alignment-sprint-01-9779188724417258277
 - remotes/origin/visual-alignment-sprint-01-9779188724417258277
@@ -35,5 +36,4 @@ Gerado em: 12/31/2025, 3:18:44 AM
 
 ## 🪓 Branches potencialmente obsoletas
 
-- remotes/origin/dependabot/npm_and_yarn/npm_and_yarn-cb2c474ead
 - remotes/origin/visual-alignment-sprint-01-9779188724417258277

@@ -85,9 +85,6 @@ export default function AboutMethod() {
                   {ABOUT_CONTENT.method.title.highlight}
                 </span>
               </h2>
-              <h3 className="text-2xl md:text-[28px] lg:text-3xl font-semibold text-[#fcffff]/85 tracking-tight leading-tight">
-                {ABOUT_CONTENT.method.subtitle}
-              </h3>
             </motion.div>
 
             {/* Texto introdutório */}
