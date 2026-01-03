@@ -30,7 +30,7 @@ export default function PortfolioShowcaseSection() {
           {/* Floating Label - LightBlue (#4fe6ff) - Posicionado ao lado do primeiro item */}
           <div className="pointer-events-none absolute left-0 top-[-40px] md:top-[24px] z-20 hidden md:block">
             <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-[#4fe6ff]">
-              [what we love working on]
+              [{HOME_CONTENT.showcase.title}]
             </span>
           </div>
 
@@ -62,8 +62,8 @@ export default function PortfolioShowcaseSection() {
 
         {/* CTA Centralizado - Estilo Compound Pill Standard */}
         <div className="flex justify-center mt-16 md:mt-20">
-          <CTAButton href="/portfolio">
-            let's build something great
+          <CTAButton href={HOME_CONTENT.showcase.cta.href}>
+            {HOME_CONTENT.showcase.cta.label}
           </CTAButton>
         </div>
       </div>
