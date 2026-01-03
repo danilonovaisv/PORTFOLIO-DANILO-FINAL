@@ -1,7 +1,7 @@
 'use client';
 
 import { Canvas } from '@react-three/fiber';
-import { Suspense, useRef } from 'react';
+import { Suspense, useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import Ghost from './Ghost';
 import GhostEyes from './GhostEyes';
@@ -9,8 +9,7 @@ import Particles from './Particles';
 import Fireflies from './Fireflies';
 import AtmosphereVeil from './AtmosphereVeil';
 import AnalogDecayPass from './postprocessing/AnalogDecayPass';
-
-import RevealingText from './RevealingText';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import {
   EffectComposer,
   Bloom,
@@ -27,6 +26,24 @@ export default function GhostCanvas({ active = true }: { active?: boolean }) {
   const dpr: [number, number] = [1, 2];
   const ghostRef = useRef<THREE.Group>(null);
 
+  // Strict Mobile & Reduced Motion Check
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
+
+  // Hydration fix
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  // STRICT RULE: No WebGL on Mobile to save battery/performance
+  if (isMobile) return null;
+
+  // STRICT RULE: No WebGL if reduced motion is preferred
+  if (prefersReducedMotion) return null;
+
   return (
     <Canvas
       dpr={dpr}
@@ -38,14 +55,14 @@ export default function GhostCanvas({ active = true }: { active?: boolean }) {
         depth: true,
       }}
       camera={{ position: [0, 0, 6], fov: 35 }}
+      style={{ pointerEvents: 'none' }} // Ensure it doesn't block interactions (Z-20 rule)
     >
       <color attach="background" args={[BACKGROUND_COLOR]} />
 
       <Suspense fallback={null}>
         <AtmosphereVeil />
 
-        {/* Texto que revela (atrás do fantasma) */}
-        <RevealingText ghostRef={ghostRef} />
+        {/* Removed RevealingText to adhere to Z-10 DOM Text Rule */}
 
         {/* Ghost (Z ~ -0.2) */}
         <Ghost
@@ -61,7 +78,7 @@ export default function GhostCanvas({ active = true }: { active?: boolean }) {
         <Fireflies />
 
         <EffectComposer multisampling={0} enableNormalPass={false}>
-          {/* Efeito Analog Decay (VHS/Glitch sutil) */}
+          {/* Analog Decay (VHS/Glitch) */}
           <AnalogDecayPass />
 
           <Bloom

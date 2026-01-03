@@ -8,39 +8,67 @@ interface HeroCopyProps {
 }
 
 export function HeroCopy({ startEntrance = false }: HeroCopyProps) {
+  // Configuração de animação para consistência
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.5
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20, filter: 'blur(10px)' },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center text-center space-y-8">
+    <div className="flex flex-col items-center text-center space-y-8 max-w-4xl mx-auto">
       {/* Tag */}
       <motion.span
         initial={{ opacity: 0, y: 10 }}
         animate={startEntrance ? { opacity: 0.8, y: 0 } : { opacity: 0, y: 10 }}
-        transition={{ delay: 3.0, duration: 1.0, ease: 'easeOut' }}
+        transition={{ delay: 1.0, duration: 1.0, ease: 'easeOut' }}
         className="font-mono text-[12px] uppercase tracking-[0.4em] text-cyan-400"
       >
         [BRAND AWARENESS]
       </motion.span>
 
-      {/* Main Headlines */}
-      {/* Main Headlines - Escondidos visualmente pois agora estão no WebGL (GhostCanvas) */}
-      {/* Mantemos no DOM para SEO e acessibilidade */}
+      {/* Main Headlines - DOM Text for crispness and accessibility */}
       <motion.div
-        className="flex flex-col items-center leading-none sr-only"
-        initial={{ opacity: 0 }}
+        className="flex flex-col items-center leading-none z-10"
+        initial="hidden"
+        animate={startEntrance ? "visible" : "hidden"}
+        variants={containerVariants}
       >
-        <h1 className="text-[clamp(5rem,12vw,8rem)] font-black tracking-tight text-white">
+        <motion.h1
+          variants={itemVariants}
+          className="text-[clamp(3.5rem,8vw,6rem)] font-black tracking-tight text-[#d9dade]"
+        >
           Você não vê <br /> o design.
-        </h1>
-        <h2 className="text-[clamp(4rem,10vw,6rem)] font-black tracking-tight text-white mt-4">
+        </motion.h1>
+        <motion.h2
+          variants={itemVariants}
+          className="text-[clamp(2.5rem,6vw,4.5rem)] font-black tracking-tight text-[#d9dade] mt-4 opacity-90"
+        >
           Mas ele vê você.
-        </h2>
+        </motion.h2>
       </motion.div>
 
       {/* CTA Button */}
       <motion.div
-        className="pt-12"
-        initial={{ opacity: 0 }}
-        animate={startEntrance ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ delay: 4.4, duration: 0.8 }}
+        className="pt-8"
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={startEntrance ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
+        transition={{ delay: 1.8, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
         <CTAButton href="/sobre" variant="primary">
           step inside

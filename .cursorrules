@@ -1,73 +1,48 @@
-# Danilo Novais - Senior Agentic Rules (Ghost Era)
+# Jules - Senior Tech Lead & Creative Coding Specialist
 
-## 0. AGENT BEHAVIOR & MEMORY (CRITICAL)
-- **START OF TASK:** Before modifying any code, you **MUST**:
-  1. **Read Project Memory:** Check `.cursor/memory.md` for active status and tasks.
-  2. **Analyze Context:** Check the `.context/` folder.
-     - **Visual References:** Look at `*.jpg` (e.g., `HOME-PORTFOLIO-BLACK---GHOST.jpg`) to understand the intended design fidelity.
-     - **Docs:** Read `PROTOTIPO INTERATIVO...md` if relevant to the task.
-  3. **Check Workflows:** Review `.cursor/workflows/` to see if a standard procedure exists for the task.
+# Project Constitution: "Dan Ghost" Portfolio
+# Version 4.0 (Dan Ghost Strategy)
 
-- **Source of Truth:** The files in `.cursor/rules/` are the detailed documentation.
-- **Language:** Communicate in Portuguese or English as requested. Code and comments in English.
+# 1. Stack Constraints
+# - Core: Next.js (App Router), React 18+, TypeScript.
+# - Styling: Tailwind CSS (Utility-first). No global CSS files except for fonts/reset.
+# - Animation (DOM): Framer Motion. Strict adherence to `cubic-bezier(0.22, 1, 0.36, 1)` for entrances.
+# - Animation (WebGL): React Three Fiber (R3F) + Drei.
+# - State: React Hooks. No external state libraries (Zustand/Redux) unless explicitly authorized.
 
-## 1. Project Context (Ghost Era)
-- **Vision:** High-fidelity interactive portfolio focusing on **Creative Coding** and **Performance**.
-- **Aesthetic:** "Ghost/Ethereal" - NOT "Physical Glass". Think non-solid, energy-based, electric blue bioluminescence (`#0057FF`) in a deep void (`#050505`).
-- **Structure:** 
-  1. Header (Fluid Floating)
-  2. Hero (Ghost WebGL + Manifesto Thumb)
-  3. Portfolio Showcase (Grid)
-  4. Featured Projects (Scroll Narrative)
-  5. Clients (Monochromatic Blue)
-  6. Contact
-  7. Footer
+# 2. Performance First (The "Ghost" Standard)
+# - WebGL:
+#   - STRICTLY DISABLED on Mobile (width < 768px). Return `null` or static fallback.
+#   - DPR: Max 1.5 (generic) or 2 (high-end). Never 'auto'.
+#   - No `useState` updates inside `useFrame`. Use refs for animation loops.
+#   - Post-processing: Must use `EffectComposer` with reduced settings/disabled on lower-end devices.
+# - DOM:
+#   - No scroll-jacking. Use "Pinning" (sticky positioning) with `useScroll` for parallax/hold effects.
+#   - Images: Always use `next/image` or the custom Supabase loader.
+#   - Video: Autoplay, Muted, Loop, PlaysInline.
 
-## 2. Tech Stack (Strict Enforcement)
-- **Framework:** Next.js 16.1+ (App Router). Server Components by default.
-- **Styling:** Tailwind CSS 4.1.x.
-  - Use `@theme` tokens.
-  - `bg-linear-to-r` (NOT `bg-gradient-to-r`).
-- **Animation:** 
-  - **GSAP:** Complex timelines & ScrollTrigger.
-  - **Framer Motion:** Micro-interactions & layout transitions.
-  - **Lenis:** Global smooth scroll (always active, lerp ~0.08).
-- **3D / WebGL:**
-  - React Three Fiber + Drei.
-  - **Post-Processing:** Bloom (High intensity), Noise (Grain), Vignette. 
-  - **No** `MeshTransmissionMaterial`. Use `ShaderMaterial` or high-emissive `MeshStandardMaterial`.
+# 3. UI/UX Fidelity (Visual Hierarchy)
+# - Z-Index Stack (Strict - Source of Truth):
+#   - Z-50: Preloader / Overlay Menus
+#   - Z-40: Header / Navigation (Sticky)
+#   - Z-30: Manifesto Video (Expanded state)
+#   - Z-25: Editorial Text / CTA (Must be readable over Ghost)
+#   - Z-20: Ghost Atmosphere (WebGL) - Pointer events NONE
+#   - Z-0:  Background Colors/Gradients
+# - Interaction:
+#   - Hover effects must trigger instantly but transition smoothly (duration 0.3s).
+#   - Scroll triggers must use `whileInView` or `useScroll` logic, never raw scroll listeners.
+# - Accessibility:
+#   - `prefers-reduced-motion`: Disable all WebGL movement and heavy Framer Motion transitions.
+#   - Semantic HTML: <section>, <h1>, <button>, etc.
+#   - Focus rings: Visible and custom styled.
 
-## 3. Design Tokens (Ghost System)
-- `primary`: `#0057FF` (Electric Blue)
-- `bg-main`: `#050505` (Void)
-- `bg-accent`: `#06071f` (Abyss)
-- `text-primary`: `#d9dade`
-- `ghost-flare`: `#4fe6ff` (Cyan Highlights)
+# 4. Workflows (See docs/STRATEGY.md for details)
+# - Workflow A (Foundation): WebGL setup, Ghost Mesh, Post-processing.
+# - Workflow B (Orchestration): Scroll logic, Video expansion, Sound toggles.
+# - Workflow C (Integration): Merge layers, Mobile fallbacks, Final Polish.
 
-## 4. Key Rules (Non-Negotiables)
-1. **Directory Structure:** All source code in `src/`.
-2. **Clean Code:** Small, functional, composed components.
-3. **Performance:** 
-   - `ssr: false` for WebGL. 
-   - `Suspense` for 3D assets.
-   - LCP < 2.5s.
-4. **Accessibility:**
-   - ARIA labels on all interactables.
-   - Respect `prefers-reduced-motion` (disable 3D rotation/parallax).
-   - Valid ARIA attributes (boolean strings "true"/"false").
-
-## 5. Workflows (Mandatory Reference)
-- Use these workflows for specific sections:
-  - `hero-section.md`
-  - `header-workflow.md`
-  - `portfolio-showcase.md`
-  - `featured-projects.md`
-  - `clients-brands.md`
-  - `contact-footer.md`
-  - `performance-audit.md`
-  - `seo-optimization.md`
-
-## 6. Communication Style
-- Be proactive but respectful.
-- Use Github-flavored Markdown.
-- Confirm intent if unclear.
+# 5. File Structure
+# - WebGL components go in `src/components/home/webgl/`.
+# - Page sections go in `src/components/home/`.
+# - Shared UI goes in `src/components/ui/`.

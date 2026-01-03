@@ -6,31 +6,29 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { Group, Mesh, MeshStandardMaterial, Vector3 } from 'three';
 
 // ============================================================================
-// CONFIGURAÇÃO DO GHOST (Atualizada conforme referência)
+// CONFIGURAÇÃO DO GHOST
 // ============================================================================
 const GHOST_CONFIG = {
   bodyColor: '#0f2027', // Dark body
-  glowColor: '#1a5aff', // Electric Blue slightly brighter
-  eyeGlowColor: '#a155ff', // Violet eyes
-  emissiveIntensity: 4.5, // Balanced intensity
-  ghostOpacity: 0.9,
-  floatSpeed: 1.1, // Slower float
-  followSpeed: 0.04, // Very laggy follow for weight
-  wobbleAmount: 0.25, // Less wobble, more stability
-  eyeGlowIntensity: 5.0,
+  glowColor: '#0080ff', // Blue glow
+  emissiveIntensity: 5.8, // High intensity
+  ghostOpacity: 0.88,
+  floatSpeed: 1.6,
+  followSpeed: 0.05,
+  wobbleAmount: 0.35,
 };
 
 const Ghost = forwardRef<
   Group,
   React.JSX.IntrinsicElements['group'] & { active?: boolean }
->(({ active = true, ...props }, ref) => {
+>(({ active = true, children, ...props }, ref) => {
   const group = useRef<Group>(null);
   const bodyMesh = useRef<Mesh>(null);
   const bodyMaterial = useRef<MeshStandardMaterial>(null);
 
   useImperativeHandle(ref, () => group.current as Group);
 
-  const { viewport, size } = useThree();
+  const { viewport } = useThree();
   const targetPosition = useRef(new Vector3(0, 0, 0));
   const startTime = useRef<number | null>(null);
 
@@ -44,6 +42,7 @@ const Ghost = forwardRef<
       const x = positions[i];
       const y = positions[i + 1];
       const z = positions[i + 2];
+      // Deformar a "cauda" do fantasma
       if (y < -0.2) {
         const noise1 = Math.sin(x * 5) * 0.35;
         const noise2 = Math.cos(z * 4) * 0.25;
@@ -59,6 +58,7 @@ const Ghost = forwardRef<
   useFrame((state) => {
     if (!group.current || !bodyMesh.current) return;
 
+    // Se inativo, esconde/reseta
     if (!active) {
       if (bodyMaterial.current) {
         bodyMaterial.current.opacity = 0;
@@ -75,7 +75,7 @@ const Ghost = forwardRef<
 
     const t = state.clock.getElapsedTime() - startTime.current;
 
-    // Timeline de Animação
+    // Timeline de Animação (Entrance)
     let currentOpacity = 0;
     let currentScale = 0.98;
     let currentEmissive = 0;
@@ -110,7 +110,7 @@ const Ghost = forwardRef<
       currentScale = 1.0;
 
       // Pulso de respiração (Breathe)
-      const pulse = Math.sin(t * 1.6) * 0.6; // Pulse intensity 0.6
+      const pulse = Math.sin(t * 1.6) * 0.6;
       const breathe = Math.sin(t * 0.6) * 0.12;
       currentEmissive = GHOST_CONFIG.emissiveIntensity + pulse + breathe;
     }
@@ -124,23 +124,13 @@ const Ghost = forwardRef<
 
     bodyMesh.current.scale.setScalar(currentScale);
 
-    // Movimento do rato (ou automático no mobile)
+    // Movimento
     const movementInfluence = THREE.MathUtils.clamp((t - 2.0) / 2.0, 0, 1);
     const pointer = state.pointer;
-    const isMobile = size.width < 768;
 
-    let xTarget: number;
-    let yTarget: number;
-
-    if (isMobile) {
-      // Automático no mobile para "revelar" o texto (sinusoidal sweep)
-      xTarget = Math.sin(t * 0.8) * (viewport.width * 0.25);
-      yTarget = Math.cos(t * 0.5) * (viewport.height * 0.1);
-    } else {
-      // Interativo no desktop
-      xTarget = pointer.x * (viewport.width / 3);
-      yTarget = pointer.y * (viewport.height / 3);
-    }
+    // Interativo no desktop
+    const xTarget = pointer.x * (viewport.width / 3);
+    const yTarget = pointer.y * (viewport.height / 3);
 
     targetPosition.current.set(xTarget, yTarget, 0);
     group.current.position.lerp(
@@ -159,21 +149,11 @@ const Ghost = forwardRef<
     bodyMesh.current.rotation.z = -moveX * tiltStrength * movementInfluence;
     bodyMesh.current.rotation.y =
       Math.sin(t * 1.4) * 0.05 * GHOST_CONFIG.wobbleAmount * movementInfluence;
-
-    // Olhos
-    // if (leftEyeMat.current && rightEyeMat.current) {
-    //   // Glow dos olhos aumenta quando se move
-    //   const eyeBaseOpacity = movementInfluence * 0.9;
-    //   leftEyeMat.current.opacity = eyeBaseOpacity;
-    //   rightEyeMat.current.opacity = eyeBaseOpacity;
-    //   leftEyeMat.current.color.set(GHOST_CONFIG.eyeGlowColor);
-    //   rightEyeMat.current.color.set(GHOST_CONFIG.eyeGlowColor);
-    // }
   });
 
   return (
     <group ref={group} {...props}>
-      {/* Rim Lights atualizadas */}
+      {/* Rim Lights */}
       <directionalLight
         position={[-8, 6, -4]}
         intensity={1.8}
@@ -194,40 +174,8 @@ const Ghost = forwardRef<
           side={THREE.DoubleSide}
           toneMapped={false}
         />
-
-        {/* 
-          <group position={[0, 0, 0]}>
-            <group position={[-0.7, 0.6, 1.9]} scale={[1.1, 1.0, 0.6]}>
-              <mesh position={[0, 0, -0.1]}>
-                <sphereGeometry args={[0.45, 16, 16]} />
-                <meshBasicMaterial color="black" />
-              </mesh>
-              <mesh position={[0, 0, 0.1]}>
-                <sphereGeometry args={[0.3, 12, 12]} />
-                <meshBasicMaterial
-                  ref={leftEyeMat}
-                  transparent
-                  toneMapped={false}
-                />
-              </mesh>
-            </group>
-
-            <group position={[0.7, 0.6, 1.9]} scale={[1.1, 1.0, 0.6]}>
-              <mesh position={[0, 0, -0.1]}>
-                <sphereGeometry args={[0.45, 16, 16]} />
-                <meshBasicMaterial color="black" />
-              </mesh>
-              <mesh position={[0, 0, 0.1]}>
-                <sphereGeometry args={[0.3, 12, 12]} />
-                <meshBasicMaterial
-                  ref={rightEyeMat}
-                  transparent
-                  toneMapped={false}
-                />
-              </mesh>
-            </group>
-          </group> 
-          */}
+        {/* Render children inside mesh to follow rotation */}
+        {children}
       </mesh>
     </group>
   );
