@@ -101,7 +101,7 @@ function MediaItem({
 function AsymmetricSeparator({ align = 'left' }: { align?: 'left' | 'right' }) {
   return (
     <div
-      className={`col-span-12 flex ${align === 'right' ? 'justify-end' : 'justify-start'} py-10 md:py-16`}
+      className={`col-span-12 flex ${align === 'right' ? 'justify-end' : 'justify-start'} py-12 md:py-24`}
     >
       <div className="w-[30%] h-px bg-white/10" />
     </div>
@@ -113,10 +113,10 @@ export default function AboutOrigin() {
 
   return (
     <section
-      className="relative py-20 md:py-32 bg-(--ghost-bg) overflow-hidden"
+      className="relative min-h-[180vh] py-20 md:py-32 bg-(--ghost-bg) overflow-hidden"
       aria-label="Origem Criativa"
     >
-      <div className="w-full max-w-[1400px] mx-auto px-6 md:px-16">
+      <div className="w-full max-w-[1680px] mx-auto px-6 md:px-24">
         {/* Section Label */}
         <motion.h2
           variants={variants.fadeGhost}
@@ -124,13 +124,13 @@ export default function AboutOrigin() {
           initial={prefersReducedMotion ? 'visible' : 'hidden'}
           whileInView="visible"
           viewport={{ once: true, margin: '-10%' }}
-          className="text-sm font-mono uppercase tracking-[0.2em] text-(--ghost-flare) mb-16 md:mb-24 font-bold"
+          className="text-sm font-mono uppercase tracking-[0.2em] text-(--ghost-flare) mb-24 md:mb-32 font-bold"
         >
           {origin.sectionLabel}
         </motion.h2>
 
         {/* Editorial Layout: Increased gaps, Parallax, Max-Width text */}
-        <div className="grid grid-cols-12 gap-y-16 md:gap-y-28 md:gap-x-12 lg:gap-x-16 items-start">
+        <div className="grid grid-cols-12 gap-y-24 md:gap-y-48 items-center">
           {/* Pair 1: Row 1 - Text 7 / Image 5 */}
           <motion.div
             variants={variants.fadeGhost}
@@ -140,7 +140,7 @@ export default function AboutOrigin() {
             viewport={{ once: true }}
             className="col-span-12 md:col-span-7 order-1 pb-8 md:pb-0"
           >
-            <p className="text-2xl md:text-3xl font-light leading-relaxed text-(--ghost-text) max-w-[46ch]">
+            <p className="text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed text-(--ghost-text) max-w-[40ch]">
               <HighlightedText
                 text={origin.content[0].text || ''}
                 highlight={origin.content[0].highlight}
@@ -169,7 +169,7 @@ export default function AboutOrigin() {
 
           {/* Pair 2: Row 2 - Image 5 (left) / Text 7 (right) */}
           <div className="col-span-12 md:col-span-5 order-4 md:order-3">
-            <ParallaxWrapper offset={48}>
+            <ParallaxWrapper offset={80}>
               <motion.div
                 variants={variants.imageFloat}
                 initial="hidden"
@@ -191,9 +191,9 @@ export default function AboutOrigin() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            className="col-span-12 md:col-span-7 md:pl-10 lg:pl-16 order-3 md:order-4"
+            className="col-span-12 md:col-span-7 md:pl-20 order-3 md:order-4 pb-8 md:pb-0"
           >
-            <p className="text-2xl md:text-3xl font-light leading-relaxed text-(--ghost-text) max-w-[46ch]">
+            <p className="text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed text-(--ghost-text) max-w-[40ch]">
               <HighlightedText
                 text={origin.content[2].text || ''}
                 highlight={origin.content[2].highlight}
@@ -212,7 +212,7 @@ export default function AboutOrigin() {
             viewport={{ once: true }}
             className="col-span-12 md:col-span-7 order-5 pb-8 md:pb-0"
           >
-            <p className="text-2xl md:text-3xl font-light leading-relaxed text-(--ghost-text) max-w-[46ch]">
+            <p className="text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed text-(--ghost-text) max-w-[40ch]">
               <HighlightedText
                 text={origin.content[4].text || ''}
                 highlight={origin.content[4].highlight}
@@ -221,7 +221,7 @@ export default function AboutOrigin() {
           </motion.div>
 
           <div className="col-span-12 md:col-span-5 order-6">
-            <ParallaxWrapper offset={36}>
+            <ParallaxWrapper offset={50}>
               <motion.div
                 variants={variants.imageFloat}
                 initial="hidden"
@@ -241,7 +241,7 @@ export default function AboutOrigin() {
 
           {/* Pair 4: Row 4 */}
           <div className="col-span-12 md:col-span-6 md:col-start-1 order-8 md:order-7">
-            <ParallaxWrapper offset={28}>
+            <ParallaxWrapper offset={40}>
               <motion.div
                 variants={variants.imageFloat}
                 initial="hidden"
@@ -265,7 +265,7 @@ export default function AboutOrigin() {
             viewport={{ once: true }}
             className="col-span-12 md:col-span-6 md:col-start-7 order-7 md:order-8 md:text-right flex flex-col items-end"
           >
-            <p className="text-2xl md:text-3xl font-light leading-relaxed text-(--ghost-text-secondary) max-w-[46ch]">
+            <p className="text-2xl md:text-3xl lg:text-4xl font-light leading-relaxed text-(--ghost-text-secondary) max-w-[40ch]">
               <HighlightedText
                 text={origin.content[6].text || ''}
                 highlight={origin.content[6].highlight}
