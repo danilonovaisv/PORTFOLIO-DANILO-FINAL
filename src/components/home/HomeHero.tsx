@@ -40,8 +40,7 @@ export default function HomeHero() {
     setMounted(true);
   }, []);
 
-  // Lógica Central: Só ativamos o 3D se não for mobile e não houver redução de movimento
-  // E apenas após a montagem no cliente para evitar erros de hidratação
+  // LÓGICA DE ATIVAÇÃO DO 3D
   const enable3D = useMemo(() => {
     if (!mounted) return false;
     return !isMobile && !prefersReducedMotion;
@@ -92,7 +91,7 @@ export default function HomeHero() {
           )}
         </AnimatePresence>
 
-        {/* WEBGL LAYER (Só renderiza se enable3D for true) */}
+        {/* CAMADA WEBGL - Fundo */}
         <motion.div
           className="absolute inset-0 z-0"
           initial={{ filter: 'blur(20px)', opacity: 0 }}
@@ -103,17 +102,18 @@ export default function HomeHero() {
           transition={{ duration: 2.0, ease: 'linear' }}
         >
           <GhostStage
-            reducedMotion={!enable3D} // Se 3D desativado, usa fallback
+            reducedMotion={!enable3D}
             active={!isLoading && enable3D}
           />
         </motion.div>
 
-        {/* HERO COPY (Passamos enable3D para ele saber se esconde ou mostra o texto) */}
+        {/* CAMADA DE TEXTO - Frente */}
         <motion.div
           style={{ opacity: copyOpacity }}
           className="absolute inset-0 z-10 pointer-events-none"
         >
           <div className="w-full h-full pointer-events-auto">
+            {/* Passamos o enable3D para controlar a visibilidade do texto HTML */}
             <HeroCopy startEntrance={!isLoading} enable3D={enable3D} />
           </div>
         </motion.div>

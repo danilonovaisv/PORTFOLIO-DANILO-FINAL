@@ -2,7 +2,12 @@
 
 import React, { useRef } from 'react';
 import type { Variants } from 'framer-motion';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'framer-motion';
 import Image from 'next/image';
 import { ABOUT_CONTENT } from '@/config/content';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -19,40 +24,46 @@ type OriginMedia = {
   src: string;
   alt: string;
   aspectRatio?: string;
+  preserveRatio?: boolean;
 };
 
 const textReveal: Variants = {
-  hidden: { opacity: 0, filter: 'blur(10px)' },
+  hidden: { opacity: 0, y: 12, filter: 'blur(8px)' },
   visible: (delay = 0) => ({
     opacity: 1,
+    y: 0,
     filter: 'blur(0px)',
-    transition: { duration: 1, ease: GHOST_EASE, delay },
+    transition: { duration: 0.9, ease: GHOST_EASE, delay },
   }),
 };
 
 const mediaReveal = (direction: 'left' | 'right'): Variants => ({
   hidden: {
     opacity: 0,
-    x: direction === 'left' ? -14 : 14,
+    y: 18,
+    x: direction === 'left' ? -10 : 10,
     filter: 'blur(12px)',
   },
   visible: (delay = 0) => ({
-    opacity: 0.85, // Imagens/vídeos nunca chegam a 100%
+    opacity: 0.9, // Imagens/vídeos nunca chegam a 100%
+    y: 0,
     x: 0,
-    filter: 'blur(1.5px)',
-    transition: { duration: 1.1, ease: GHOST_EASE, delay: 0.08 + delay },
+    filter: 'blur(0.6px)',
+    transition: { duration: 1.1, ease: GHOST_EASE, delay: 0.12 + delay },
   }),
 });
 
-const parallaxPresets: Array<{ text: [number, number]; media: [number, number] }> =
-  [
-    { text: [-18, 18], media: [16, -14] },
-    { text: [-14, 16], media: [20, -18] },
-    { text: [-20, 14], media: [12, -16] },
-    { text: [-12, 20], media: [18, -12] },
-  ];
+const parallaxPresets: Array<{
+  text: [number, number];
+  media: [number, number];
+}> = [
+  { text: [-18, 18], media: [26, -22] },
+  { text: [16, -22], media: [-28, 24] },
+  { text: [-22, 16], media: [24, -28] },
+  { text: [18, -20], media: [-26, 22] },
+];
 
-const verticalNudges = [0, 14, -12, 10];
+const verticalNudges = [0, 10, -8, 12];
 
 // Componente para renderizar keyword com ghost-accent
 function HighlightText({
@@ -81,11 +92,27 @@ function HighlightText({
 }
 
 // Componente para mídia (vídeo ou imagem)
-function MediaItem({ src, alt, aspectRatio }: OriginMedia) {
+function MediaItem({ src, alt, aspectRatio, preserveRatio }: OriginMedia) {
   const isVideo = src.endsWith('.mp4') || src.endsWith('.webm');
-  const ratioClass = aspectRatio || 'aspect-[4/5]';
+  const ratioClass = aspectRatio || 'aspect-[0.8]';
 
   if (isVideo) {
+    if (preserveRatio) {
+      return (
+        <div className="w-full overflow-hidden rounded-xl">
+          <video
+            src={src}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="block w-full h-auto"
+            aria-label={alt}
+          />
+        </div>
+      );
+    }
+
     return (
       <div
         className={`relative w-full ${ratioClass} overflow-hidden rounded-xl`}
@@ -96,7 +123,7 @@ function MediaItem({ src, alt, aspectRatio }: OriginMedia) {
           muted
           loop
           playsInline
-          className="absolute inset-0 h-full w-full object-cover opacity-85 blur-[1.5px]"
+          className="absolute inset-0 h-full w-full object-cover"
           aria-label={alt}
         />
       </div>
@@ -104,14 +131,12 @@ function MediaItem({ src, alt, aspectRatio }: OriginMedia) {
   }
 
   return (
-    <div
-      className={`relative w-full ${ratioClass} rounded-xl overflow-hidden`}
-    >
+    <div className={`relative w-full ${ratioClass} rounded-xl overflow-hidden`}>
       <Image
         src={src}
         alt={alt}
         fill
-        className="object-cover opacity-85 blur-[1.5px]"
+        className="object-cover"
         sizes="(max-width: 1024px) 100vw, 50vw"
       />
     </div>
@@ -143,7 +168,7 @@ function OriginPair({
 
   const preset = parallaxPresets[index % parallaxPresets.length];
   const baseNudge = isDesktop ? verticalNudges[index] || 0 : 0;
-  const blockDelay = Math.min(0.12 + index * 0.06, 0.24);
+  const blockDelay = Math.min(0.1 + index * 0.08, 0.3);
   const textY = useTransform(
     scrollYProgress,
     [0, 1],
@@ -154,60 +179,70 @@ function OriginPair({
     [0, 1],
     prefersReducedMotion || !isDesktop
       ? [baseNudge, baseNudge]
-      : [
-          (preset.media[0] ?? 0) + baseNudge,
-          (preset.media[1] ?? 0) + baseNudge,
-        ]
+      : [(preset.media[0] ?? 0) + baseNudge, (preset.media[1] ?? 0) + baseNudge]
   );
 
   return (
     <div
       ref={blockRef}
-      className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-x-12 items-center"
+      className="grid grid-cols-1 lg:grid-cols-12 gap-y-8 sm:gap-y-10 lg:gap-y-0 gap-x-10 lg:gap-x-16 items-start"
     >
       {/* TEXT BLOCK */}
       <motion.div
         style={{ y: textY }}
-        variants={textReveal}
-        custom={blockDelay}
-        initial={prefersReducedMotion ? 'visible' : 'hidden'}
-        whileInView="visible"
-        viewport={{ once: true, margin: '-15%' }}
-        className={`col-span-1 lg:col-span-5 flex flex-col gap-4
-          ${isEven ? 'lg:col-start-2 lg:order-1 lg:text-right' : 'lg:col-start-7 lg:order-2 lg:text-left'}
-          text-left
+        className={`col-span-1 lg:col-span-5
+          ${isEven ? 'lg:col-start-2 lg:order-1' : 'lg:col-start-7 lg:order-2'}
         `}
       >
-        <div className="hidden lg:block h-px w-full bg-[#4fe6ff]/60" />
-        <p className="text-[17px] sm:text-[19px] md:text-[20px] lg:text-[24px] xl:text-[26px] font-light leading-[1.55] text-[#fcffff] max-w-[640px] lg:max-w-[460px] mx-auto lg:mx-0 px-5 sm:px-6 md:px-0">
-          <HighlightText text={textBlock.text} highlight={textBlock.highlight} />
-        </p>
+        <motion.div
+          variants={textReveal}
+          custom={blockDelay}
+          initial={prefersReducedMotion ? 'visible' : 'hidden'}
+          whileInView="visible"
+          viewport={{ once: true, margin: '-15%' }}
+          className={`flex flex-col gap-3 sm:gap-4 text-center items-center max-w-[360px] sm:max-w-[420px] md:max-w-[520px] mx-auto lg:mx-0 lg:max-w-[420px]
+            ${
+              isEven
+                ? 'lg:text-right lg:items-end lg:ml-auto'
+                : 'lg:text-left lg:items-start lg:mr-auto'
+            }
+          `}
+        >
+          <div className="h-px w-[65%] sm:w-[60%] lg:w-full bg-[#4fe6ff]/60" />
+          <p className="text-[15px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] font-light leading-[1.55] text-[#fcffff] tracking-[-0.01em]">
+            <HighlightText
+              text={textBlock.text}
+              highlight={textBlock.highlight}
+            />
+          </p>
+        </motion.div>
       </motion.div>
 
       {/* MEDIA BLOCK */}
       <motion.div
         style={{ y: mediaY }}
-        variants={mediaReveal(isEven ? 'right' : 'left')}
-        custom={blockDelay}
-        initial={prefersReducedMotion ? 'visible' : 'hidden'}
-        whileInView="visible"
-        viewport={{ once: true, margin: '-15%' }}
-        className="col-span-1 lg:col-span-6 lg:col-start-auto relative"
+        className={`col-span-1 lg:col-span-6 lg:col-start-auto relative ${
+          isEven ? 'lg:order-2' : 'lg:order-1'
+        }`}
       >
-        <div
-          className={`relative ${mediaBlock.aspectRatio || 'aspect-[4/5]'} w-full lg:max-w-none md:max-w-[80%] md:mx-auto`}
-          style={{
-            marginLeft: isEven && isDesktop ? 'auto' : undefined,
-            marginRight: !isEven && isDesktop ? 'auto' : undefined,
-          }}
+        <motion.div
+          variants={mediaReveal(isEven ? 'right' : 'left')}
+          custom={blockDelay}
+          initial={prefersReducedMotion ? 'visible' : 'hidden'}
+          whileInView="visible"
+          viewport={{ once: true, margin: '-15%' }}
+          className={`w-full max-w-[360px] sm:max-w-[420px] md:max-w-[520px] lg:max-w-[560px] mx-auto lg:mx-0 overflow-hidden rounded-xl ${
+            isEven ? 'lg:ml-auto' : 'lg:mr-auto'
+          }`}
         >
           <MediaItem
             src={mediaBlock.src}
             alt={mediaBlock.alt}
             aspectRatio={mediaBlock.aspectRatio}
+            preserveRatio={mediaBlock.preserveRatio}
             type={mediaBlock.type}
           />
-        </div>
+        </motion.div>
       </motion.div>
     </div>
   );
@@ -234,7 +269,7 @@ export default function AboutOrigin() {
       aria-label="Origem Criativa"
     >
       <div className="w-full max-w-[1180px] mx-auto px-5 sm:px-6 md:px-10 lg:px-12">
-        {/* Section Label + divider */}
+        {/* Section Label */}
         <div className="flex flex-col items-center gap-3 sm:gap-4 mb-12 md:mb-16">
           <motion.h2
             variants={textReveal}
@@ -245,14 +280,10 @@ export default function AboutOrigin() {
           >
             {ABOUT_CONTENT.origin.sectionLabel}
           </motion.h2>
-          <div
-            className="h-px w-[70%] max-w-[560px] bg-[#4fe6ff]/60"
-            aria-hidden
-          />
         </div>
 
         {/* Editorial Layout: Alternating Text <-> Media */}
-        <div className="space-y-12 sm:space-y-16 md:space-y-20 lg:space-y-24">
+        <div className="space-y-10 sm:space-y-14 md:space-y-16 lg:space-y-24">
           {contentPairs.map((pair, index) => (
             <OriginPair
               key={index}

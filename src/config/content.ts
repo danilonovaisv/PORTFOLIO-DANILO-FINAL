@@ -277,7 +277,7 @@ export const ABOUT_CONTENT = {
         type: 'image' as const,
         src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/photo.mp4',
         alt: 'Memória visual - foto pessoal',
-        aspectRatio: 'aspect-[3/4]',
+        preserveRatio: true,
       },
       {
         type: 'text' as const,

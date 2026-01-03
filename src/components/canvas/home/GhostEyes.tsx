@@ -39,7 +39,7 @@ export default function GhostEyes() {
     return () => clearTimeout(timer);
   }, []);
 
-  useFrame((state) => {
+  useFrame((_state) => {
     if (!leftEye.current || !rightEye.current) return;
 
     // 1. Calcular velocidade do mouse para o brilho (Glow Response)

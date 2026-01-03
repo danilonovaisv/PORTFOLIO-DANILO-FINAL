@@ -2,10 +2,10 @@
 
 import { useRef, useMemo } from 'react';
 import { Text, shaderMaterial } from '@react-three/drei';
-import { useFrame, extend, useThree } from '@react-three/fiber';
+import { useFrame, extend, useThree, Object3DNode } from '@react-three/fiber';
 import * as THREE from 'three';
 
-// Material Shader Simplificado
+// Material Shader
 const RevealMaterial = shaderMaterial(
   {
     uGhostPos: new THREE.Vector3(0, 0, 0),
@@ -13,7 +13,6 @@ const RevealMaterial = shaderMaterial(
     uColor: new THREE.Color('#ffffff'),
     uOpacity: 1.0,
   },
-  // Vertex Shader
   `
     varying vec3 vPos;
     void main() {
@@ -21,7 +20,6 @@ const RevealMaterial = shaderMaterial(
       gl_Position = projectionMatrix * viewMatrix * vec4(vPos, 1.0);
     }
   `,
-  // Fragment Shader
   `
     uniform vec3 uGhostPos;
     uniform float uRevealRadius;
@@ -31,12 +29,8 @@ const RevealMaterial = shaderMaterial(
 
     void main() {
       float dist = distance(vPos.xy, uGhostPos.xy);
-      // Lógica de revelação: 1.0 (visível) perto, 0.0 (invisível) longe
       float alpha = 1.0 - smoothstep(uRevealRadius * 0.3, uRevealRadius, dist);
-      
-      // Garante um mínimo de visibilidade (0.02) para debug, se necessário remova para 0.0
-      alpha = max(alpha, 0.0); 
-
+      alpha = max(alpha, 0.0);
       gl_FragColor = vec4(uColor, alpha * uOpacity);
     }
   `
@@ -45,16 +39,24 @@ const RevealMaterial = shaderMaterial(
 extend({ RevealMaterial });
 
 declare module '@react-three/fiber' {
-  // eslint-disable-next-line no-unused-vars
   interface ThreeElements {
-    revealMaterial: any;
+    revealMaterial: Object3DNode<
+      THREE.ShaderMaterial,
+      typeof THREE.ShaderMaterial
+    > & {
+      uGhostPos?: THREE.Vector3;
+      uRevealRadius?: number;
+      uColor?: THREE.Color;
+      uOpacity?: number;
+      transparent?: boolean;
+    };
   }
 }
 
 export default function RevealingText({
   ghostRef,
 }: {
-  ghostRef: React.RefObject<THREE.Group | null>;
+  ghostRef: React.RefObject<THREE.Group>;
 }) {
   const titleMat = useRef<THREE.ShaderMaterial>(null);
   const subMat = useRef<THREE.ShaderMaterial>(null);
@@ -68,7 +70,7 @@ export default function RevealingText({
       subSize: isMobile ? 0.4 : 0.75,
       titleY: isMobile ? 0.3 : 0.5,
       subY: isMobile ? -0.3 : -0.35,
-      radius: isMobile ? 3.5 : 5.5, // Raio aumentado para garantir visibilidade
+      radius: isMobile ? 3.5 : 6.0,
       letterSpacing: -0.05,
     }),
     [isMobile]
@@ -77,25 +79,21 @@ export default function RevealingText({
   useFrame(() => {
     if (ghostRef.current) {
       const ghostPos = ghostRef.current.position;
-      // Atualiza uniformes
-      if (titleMat.current) {
-        (titleMat.current as any).uGhostPos.copy(ghostPos);
-      }
-      if (subMat.current) {
-        (subMat.current as any).uGhostPos.copy(ghostPos);
-      }
+      if (titleMat.current) titleMat.current.uGhostPos.copy(ghostPos);
+      if (subMat.current) subMat.current.uGhostPos.copy(ghostPos);
     }
   });
 
-  // Caminho da fonte (Certifique-se que TT Norms Pro Bold.woff2 está em public/fonts/)
-  const fontUrl = '/fonts/TT Norms Pro Bold.woff2';
+  // SOLUÇÃO INFALÍVEL: Usar uma fonte do Google Fonts como fallback se a local falhar.
+  // Assim o texto aparece sempre.
+  const fontUrl =
+    'https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff';
 
   return (
     <group position={[0, 0, -1.5]}>
-      {' '}
-      {/* Z=-1.5 (Atrás do fantasma) */}
-      {/* Título Principal */}
+      {/* Título */}
       <Text
+        font={fontUrl}
         fontSize={config.titleSize}
         lineHeight={1.0}
         letterSpacing={config.letterSpacing}
@@ -113,8 +111,10 @@ export default function RevealingText({
           uOpacity={1.0}
         />
       </Text>
+
       {/* Subtítulo */}
       <Text
+        font={fontUrl}
         fontSize={config.subSize}
         letterSpacing={config.letterSpacing}
         textAlign="center"

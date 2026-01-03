@@ -4,7 +4,6 @@ import { Canvas } from '@react-three/fiber';
 import { Suspense, useRef } from 'react';
 import * as THREE from 'three';
 import Ghost from './Ghost';
-import GhostEyes from './GhostEyes';
 import Particles from './Particles';
 import Fireflies from './Fireflies';
 import AtmosphereVeil from './AtmosphereVeil';
@@ -25,9 +24,6 @@ const BACKGROUND_COLOR = '#020204';
 export default function GhostCanvas({ active = true }: { active?: boolean }) {
   const ghostRef = useRef<THREE.Group>(null);
 
-  // AVISO: A lógica de "não renderizar em mobile" foi movida para HomeHero.tsx
-  // Isso evita que o componente retorne null internamente e cause falha no layout.
-
   const dpr: [number, number] =
     typeof window !== 'undefined' && window.devicePixelRatio > 2
       ? [1, 1.5]
@@ -46,10 +42,10 @@ export default function GhostCanvas({ active = true }: { active?: boolean }) {
       camera={{ position: [0, 0, 7], fov: 35 }}
       style={{ pointerEvents: 'none' }}
     >
-      <ambientLight intensity={0.5} color="#0a0a2e" />
+      <color attach="background" args={[BACKGROUND_COLOR]} />
 
       <Suspense fallback={null}>
-        <AtmosphereVeil ghostRef={ghostRef} />
+        <AtmosphereVeil />
 
         <RevealingText ghostRef={ghostRef} />
 
@@ -58,15 +54,13 @@ export default function GhostCanvas({ active = true }: { active?: boolean }) {
           scale={0.22}
           position={[0, -0.2, 0]}
           active={active}
-        >
-          <GhostEyes />
-        </Ghost>
+        />
 
-        <Particles count={50} />
+        <Particles count={40} />
         <Fireflies />
 
         <EffectComposer multisampling={0} enableNormalPass={false}>
-          {/* <AnalogDecayPass /> */}
+          <AnalogDecayPass />
           <Bloom
             luminanceThreshold={0.15}
             mipmapBlur
