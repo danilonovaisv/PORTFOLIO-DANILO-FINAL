@@ -17,13 +17,13 @@ export default function AboutMethod() {
     offset: ['start end', 'end start'],
   });
 
-  const yRaw = useTransform(scrollYProgress, [0, 1], ['-3%', '3%']);
+  const yRaw = useTransform(scrollYProgress, [0, 1], ['-5%', '5%']);
   const y = useSpring(yRaw, { stiffness: 40, damping: 20 });
 
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[80vh] py-28 md:py-40 flex flex-col justify-center overflow-hidden bg-(--ghost-bg)"
+      className="relative min-h-screen py-32 md:py-48 flex flex-col justify-center overflow-hidden bg-(--ghost-bg)"
       aria-label="Como Eu Trabalho"
     >
       {/* Background - Full bleed video with parallax */}
@@ -43,9 +43,9 @@ export default function AboutMethod() {
         <div className="absolute inset-0 bg-(--ghost-bg)/60" />
       </motion.div>
 
-      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-16">
+      <div className="relative z-10 w-full max-w-[1680px] mx-auto px-6 md:px-24">
         {/* Asymmetric Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-y-16 md:gap-y-20 md:gap-x-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-y-20 md:gap-x-12">
           {/* Left Column: Title & Label */}
           <motion.div
             variants={variants.floatMemory}
@@ -74,9 +74,9 @@ export default function AboutMethod() {
           </motion.div>
 
           {/* Right Column: Editorial Text & Steps */}
-          <div className="md:col-span-6 md:col-start-7 flex flex-col justify-center bg-black/20 border border-white/10 rounded-2xl backdrop-blur-[2px] p-6 md:p-10 shadow-[0_20px_80px_rgba(0,0,0,0.35)]">
+          <div className="md:col-span-6 md:col-start-7 flex flex-col justify-center">
             {/* Editorial Intro - Staggered Reveal */}
-            <div className="mb-12 md:mb-16 space-y-6">
+            <div className="mb-20 md:mb-32 space-y-6">
               {intro.map((line, i) => (
                 <EditorialText
                   key={i}
