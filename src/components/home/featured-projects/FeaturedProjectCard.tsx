@@ -37,13 +37,14 @@ export default function FeaturedProjectCard({
         className={`relative overflow-hidden rounded-md ${project.layout.h} w-full bg-section-manifesto border border-white/5 shadow-[0_12px_48px_-28px_rgba(0,0,0,0.5)] transition-all duration-500 ${
           reducedMotion
             ? ''
-            : 'group-hover:shadow-[0_22px_54px_-26px_rgba(0,87,255,0.2)] group-hover:border-white/10'
+            : 'group-hover:shadow-[0_22px_54px_-26px_rgba(0,87,255,0.2)] group-hover:border-white/10 active:scale-[0.98]'
         }`}
       >
         {/* Subtle Noise Overlay */}
         <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
-        <div className="absolute top-4 right-4 z-20 flex gap-1.5 flex-wrap justify-end">
+        {/* Tags - Always visible on top */}
+        <div className="absolute top-4 left-4 right-4 z-20 flex gap-1.5 flex-wrap justify-start md:justify-end">
           {project.tags.map((tag) => (
             <span
               key={tag}
@@ -65,9 +66,11 @@ export default function FeaturedProjectCard({
         />
       </div>
 
-      <div className="mt-6 flex justify-between items-start gap-6 px-1">
+      {/* Metadata - Center-aligned on mobile, left-aligned on desktop */}
+      <div className="mt-6 flex flex-col md:flex-row justify-between items-center md:items-start gap-4 md:gap-6 px-1 text-center md:text-left">
         <div className="flex-1">
-          <div className="flex items-center gap-2 text-white/40 text-xs md:text-sm leading-tight mb-2">
+          {/* Category / Client / Year */}
+          <div className="flex items-center justify-center md:justify-start gap-2 text-white/40 text-xs md:text-sm leading-tight mb-2">
             <span className="uppercase tracking-widest font-mono text-[9px] md:text-[10px]">
               {project.category}
             </span>
@@ -78,16 +81,18 @@ export default function FeaturedProjectCard({
               {project.client} / {project.year}
             </span>
           </div>
+          {/* Title */}
           <h3 className="text-xl md:text-2xl lg:text-3xl font-medium tracking-tight text-white leading-[1.2] transition-colors duration-500 group-hover:text-[#0057FF]">
             {project.title}
           </h3>
         </div>
 
+        {/* Arrow Icon Circle */}
         <div
           className={`bg-white/5 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-white shrink-0 border border-white/10 transition-all duration-500 ${
             reducedMotion
               ? ''
-              : 'group-hover:translate-x-5 group-hover:bg-[#0057FF] group-hover:border-[#0057FF] group-hover:shadow-[0_0_20px_rgba(0,87,255,0.4)]'
+              : 'group-hover:translate-x-0 md:group-hover:translate-x-5 group-hover:bg-[#0057FF] group-hover:border-[#0057FF] group-hover:shadow-[0_0_20px_rgba(0,87,255,0.4)]'
           }`}
         >
           <ArrowIcon className="w-5 h-5 md:w-6 md:h-6 -rotate-45 transition-transform duration-500 group-hover:rotate-0" />

@@ -27,15 +27,19 @@ type OriginMedia = {
   preserveRatio?: boolean;
 };
 
-const textReveal: Variants = {
-  hidden: { opacity: 0, y: 12, filter: 'blur(8px)' },
+const textReveal = (direction: 'left' | 'right' = 'left'): Variants => ({
+  hidden: {
+    opacity: 0,
+    x: direction === 'left' ? -40 : 40,
+    filter: 'blur(8px)',
+  },
   visible: (delay = 0) => ({
     opacity: 1,
-    y: 0,
+    x: 0,
     filter: 'blur(0px)',
     transition: { duration: 0.9, ease: GHOST_EASE, delay },
   }),
-};
+});
 
 const mediaReveal = (direction: 'left' | 'right'): Variants => ({
   hidden: {
@@ -57,10 +61,10 @@ const parallaxPresets: Array<{
   text: [number, number];
   media: [number, number];
 }> = [
-  { text: [-18, 18], media: [26, -22] },
-  { text: [16, -22], media: [-28, 24] },
-  { text: [-22, 16], media: [24, -28] },
-  { text: [18, -20], media: [-26, 22] },
+  { text: [-8, 8], media: [60, -60] },
+  { text: [6, -8], media: [-65, 55] },
+  { text: [-8, 6], media: [55, -65] },
+  { text: [8, -6], media: [-60, 60] },
 ];
 
 const verticalNudges = [0, 10, -8, 12];
@@ -198,7 +202,7 @@ function OriginPair({
         `}
       >
         <motion.div
-          variants={textReveal}
+          variants={textReveal(isEven ? 'left' : 'right')}
           custom={blockDelay}
           initial={prefersReducedMotion ? 'visible' : 'hidden'}
           whileInView="visible"
@@ -280,7 +284,7 @@ export default function AboutOrigin() {
             <div className="h-px w-full max-w-[420px] ml-auto bg-[#4fe6ff]/60" />
           </div>
           <motion.h2
-            variants={textReveal}
+            variants={textReveal('right')}
             initial={prefersReducedMotion ? 'visible' : 'hidden'}
             whileInView="visible"
             viewport={{ once: true, margin: '-10%' }}
@@ -291,7 +295,7 @@ export default function AboutOrigin() {
         </div>
         <div className="flex flex-col items-center gap-3 sm:gap-4 mb-10 md:mb-12 lg:hidden">
           <motion.h2
-            variants={textReveal}
+            variants={textReveal('left')}
             initial={prefersReducedMotion ? 'visible' : 'hidden'}
             whileInView="visible"
             viewport={{ once: true, margin: '-10%' }}

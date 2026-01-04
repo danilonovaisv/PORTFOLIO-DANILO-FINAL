@@ -55,17 +55,17 @@ export function HeroCopy({
           </h1>
 
           {/* H2: Subtítulo */}
-          <h2 className="text-display-sub text-white/90 relative hero-text">
+          <h2 className="text-display-sub text-white/90 relative hero-text mb-8 md:mb-0">
             Mas ele vê você.
           </h2>
         </div>
 
-        {/* Espaçador para o botão quando o texto é 3D */}
-        {enable3D && <div className="h-[10vh] md:h-[15vh] w-full" />}
+        {/* Espaçador para o botão quando o texto é 3D (Desktop only) */}
+        {enable3D && <div className="hidden md:block h-[15vh] w-full" />}
 
-        {/* CTA Button Principal */}
+        {/* CTA Button Principal - Único */}
         <motion.div
-          className={`pointer-events-auto ${enable3D ? 'mt-8 md:mt-12' : 'mt-12'}`}
+          className="pointer-events-auto mt-8 md:mt-12"
           initial={{ opacity: 0, y: 20 }}
           animate={startEntrance ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ delay: 4.2, duration: 0.8 }}
@@ -75,18 +75,6 @@ export function HeroCopy({
           </CTAButton>
         </motion.div>
       </div>
-
-      {/* FUNDO: BOTÃO SECUNDÁRIO */}
-      <motion.div
-        className="pointer-events-auto mt-auto"
-        initial={{ opacity: 0 }}
-        animate={startEntrance ? { opacity: 0.6 } : { opacity: 0 }}
-        transition={{ delay: 4.8, duration: 1.0 }}
-      >
-        <CTAButton href="/sobre" variant="ghost">
-          step inside
-        </CTAButton>
-      </motion.div>
     </div>
   );
 }

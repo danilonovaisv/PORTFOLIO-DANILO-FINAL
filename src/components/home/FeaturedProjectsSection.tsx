@@ -45,7 +45,8 @@ export default function FeaturedProjectsSection() {
               },
             },
           }}
-          className="grid grid-cols-1 md:grid-cols-12 gap-y-12 md:gap-y-16 gap-x-6"
+          // Mobile: single column stack | Desktop: 12-col grid
+          className="flex flex-col gap-8 md:grid md:grid-cols-12 md:gap-y-16 md:gap-x-6"
         >
           {featuredProjects.map((project) => {
             if (!project?.layout) return null;
@@ -53,14 +54,16 @@ export default function FeaturedProjectsSection() {
               <motion.div
                 key={project.id}
                 variants={cardVariants}
-                className={project.layout.cols}
+                // Mobile: full-width | Desktop: bento-style spans
+                className={`w-full ${project.layout.cols}`}
               >
                 <FeaturedProjectCard project={project} />
               </motion.div>
             );
           })}
 
-          <motion.div variants={cardVariants} className="md:col-span-4">
+          {/* CTA Card - Mobile: full-width button | Desktop: col-span-4 */}
+          <motion.div variants={cardVariants} className="w-full md:col-span-4">
             <CTAProjectCard />
           </motion.div>
         </motion.div>

@@ -47,8 +47,8 @@ export function AboutWhatIDo() {
           {renderTitle()}
         </motion.div>
 
-        {/* 7 Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-3 md:gap-4 auto-rows-fr">
+        {/* 7 Cards Grid - Mobile: 1 coluna | Desktop: 7 colunas */}
+        <div className="grid grid-cols-1 lg:grid-cols-7 gap-3 md:gap-4 auto-rows-fr">
           {CAPABILITIES.map((item, index) => {
             return (
               <motion.div
