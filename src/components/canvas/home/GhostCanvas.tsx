@@ -7,7 +7,6 @@ import Ghost from './Ghost';
 import Particles from './Particles';
 import Fireflies from './Fireflies';
 import AtmosphereVeil from './AtmosphereVeil';
-import RevealingText from './RevealingText';
 import AnalogDecayPass from './postprocessing/AnalogDecayPass';
 import {
   EffectComposer,
@@ -24,13 +23,15 @@ const BACKGROUND_COLOR = '#020204';
 export default function GhostCanvas({
   active = true,
   onCreated,
-  onTextReady,
+  ghostRef: externalGhostRef,
 }: {
   active?: boolean;
   onCreated?: () => void;
-  onTextReady?: () => void;
+  ghostRef?: React.RefObject<THREE.Group | null>;
 }) {
-  const ghostRef = useRef<THREE.Group>(null);
+  // Use external ref if provided, otherwise create internal ref
+  const internalGhostRef = useRef<THREE.Group>(null);
+  const ghostRef = externalGhostRef || internalGhostRef;
 
   const dpr: [number, number] =
     typeof window !== 'undefined' && window.devicePixelRatio > 2
@@ -56,8 +57,7 @@ export default function GhostCanvas({
       <Suspense fallback={null}>
         <AtmosphereVeil />
 
-        <RevealingText ghostRef={ghostRef} onReady={onTextReady} />
-
+        {/* Ghost principal - sua posição será sincronizada com o overlay 2D */}
         <Ghost
           ref={ghostRef}
           scale={0.22}

@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
+import * as THREE from 'three';
 import styles from './GhostStage.module.css';
 
 // Carregamento dinâmico do Canvas para evitar erros de SSR (window is not defined)
@@ -17,14 +18,14 @@ interface GhostStageProps {
   reducedMotion?: boolean;
   active?: boolean;
   onCanvasCreated?: () => void;
-  onTextReady?: () => void;
+  ghostRef?: React.RefObject<THREE.Group | null>;
 }
 
 export function GhostStage({
   reducedMotion = false,
   active = true,
   onCanvasCreated,
-  onTextReady,
+  ghostRef,
 }: GhostStageProps) {
   if (reducedMotion) {
     return <div className={styles.fallbackBackground} />;
@@ -42,7 +43,7 @@ export function GhostStage({
         <GhostCanvas
           active={active}
           onCreated={onCanvasCreated}
-          onTextReady={onTextReady}
+          ghostRef={ghostRef}
         />
       </motion.div>
 

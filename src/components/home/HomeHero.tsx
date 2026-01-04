@@ -9,6 +9,7 @@ import {
   useMotionValueEvent,
   cubicBezier,
 } from 'framer-motion';
+import * as THREE from 'three';
 import { Preloader } from '@/components/ui/Preloader';
 import { HeroCopy } from './HeroCopy';
 import { GhostStage } from './GhostStage';
@@ -34,7 +35,6 @@ export default function HomeHero() {
   const manifestoRef = useRef<ManifestoThumbHandle | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [mounted, setMounted] = useState(false);
-  const [webGLReady, setWebGLReady] = useState(false);
 
   // NOTE: isMobile logic is also used for enable3D
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -51,14 +51,6 @@ export default function HomeHero() {
     if (!mounted) return false;
     return !isMobile && !prefersReducedMotion;
   }, [mounted, isMobile, prefersReducedMotion]);
-
-  // Callback quando o texto 3D é sincronizado com a fonte
-  const handleTextReady = useCallback(() => {
-    setWebGLReady(true);
-  }, []);
-
-  // Só escondemos o HTML se o 3D estiver de fato pronto
-  const hideHTMLText = shouldRender3D && webGLReady;
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -78,6 +70,7 @@ export default function HomeHero() {
   });
 
   const handlePreloaderDone = useCallback(() => setIsLoading(false), []);
+  const ghostRef = useRef<THREE.Group | null>(null);
 
   const handleThumbClick = useCallback(() => {
     if (sectionRef.current) {
@@ -118,7 +111,7 @@ export default function HomeHero() {
           <GhostStage
             reducedMotion={!shouldRender3D}
             active={!isLoading && shouldRender3D}
-            onTextReady={handleTextReady}
+            ghostRef={ghostRef}
           />
         </motion.div>
 
@@ -128,8 +121,12 @@ export default function HomeHero() {
           className="absolute inset-0 z-10 pointer-events-none"
         >
           <div className="w-full h-full pointer-events-auto">
-            {/* Passamos o hideHTMLText para controlar a visibilidade do texto HTML */}
-            <HeroCopy startEntrance={!isLoading} enable3D={hideHTMLText} />
+            {/* Passamos o ghostRef para sincronizar o efeito de revelação 2D */}
+            <HeroCopy
+              startEntrance={!isLoading}
+              enable3D={shouldRender3D}
+              ghostRef={ghostRef}
+            />
           </div>
         </motion.div>
 

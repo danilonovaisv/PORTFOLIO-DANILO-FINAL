@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import GhostEyes from './GhostEyes';
 
 // Ghost Motion Tokens
@@ -18,22 +19,38 @@ const fadeGhost = {
 
 export function AboutBeliefs() {
   const prefersReducedMotion = useReducedMotion();
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+  const textY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    prefersReducedMotion ? [0, 0] : [12, -12]
+  );
+  const ghostY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    prefersReducedMotion ? [0, 0] : [40, -40]
+  );
 
   return (
     <section
-      className="min-h-screen bg-ghost-surface-deep relative overflow-hidden flex flex-col items-center justify-center py-20"
+      ref={sectionRef}
+      className="bg-ghost-surface-deep relative overflow-hidden py-20 md:py-24"
       aria-label="O que me move"
     >
-      <div className="w-full max-w-[1200px] px-6 relative z-10">
+      <div className="w-full max-w-[1200px] px-6 relative z-10 mx-auto">
         {/* Title */}
         <motion.div
-          className="text-center mb-14 md:mb-20"
+          className="text-center mb-12 md:mb-16"
           variants={fadeGhost}
           initial={prefersReducedMotion ? 'visible' : 'hidden'}
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
         >
-          <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">
+          <h2 className="text-[26px] sm:text-[30px] md:text-[36px] lg:text-[42px] font-semibold text-white leading-[1.2]">
             Acredito no{' '}
             <span className="text-primary">design que muda o dia</span> de
             alguém.
@@ -43,16 +60,17 @@ export function AboutBeliefs() {
           </h2>
         </motion.div>
 
-        <motion.div
-          variants={fadeGhost}
-          initial={prefersReducedMotion ? 'visible' : 'hidden'}
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 items-center"
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-10 md:gap-12 items-center">
           {/* Phrases */}
-          <div className="text-center lg:text-left max-w-[420px] mx-auto lg:mx-0">
-            <div className="space-y-1 text-base md:text-lg text-white/90 leading-relaxed">
+          <motion.div
+            style={{ y: textY }}
+            variants={fadeGhost}
+            initial={prefersReducedMotion ? 'visible' : 'hidden'}
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="text-center lg:text-left max-w-[420px] mx-auto lg:mx-0"
+          >
+            <div className="space-y-1 text-[15px] md:text-[16px] text-white/90 leading-relaxed">
               <p>
                 Um vídeo que <span className="text-primary">respira</span>.
               </p>
@@ -64,7 +82,7 @@ export function AboutBeliefs() {
                 Um detalhe que <span className="text-primary">fica</span>.
               </p>
             </div>
-            <div className="mt-6 space-y-1 text-base md:text-lg text-white/90 leading-relaxed">
+            <div className="mt-6 space-y-1 text-[15px] md:text-[16px] text-white/90 leading-relaxed">
               <p>
                 <span className="text-primary">Crio</span> para gerar presença.
               </p>
@@ -77,24 +95,31 @@ export function AboutBeliefs() {
                 percebe o esforço.
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Ghost + Manifesto */}
-          <div className="flex items-center justify-center lg:justify-end">
+          <motion.div
+            style={{ y: ghostY }}
+            variants={fadeGhost}
+            initial={prefersReducedMotion ? 'visible' : 'hidden'}
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="flex items-center justify-center lg:justify-end"
+          >
             <div className="flex items-center gap-6">
               <div className="w-24 h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 relative">
-                <GhostEyes interactive={true} />
+                <GhostEyes interactive={!prefersReducedMotion} />
               </div>
               <div className="text-left">
-                <p className="text-3xl md:text-4xl lg:text-5xl font-bold leading-none tracking-tight">
+                <p className="text-[28px] md:text-[36px] lg:text-[44px] font-semibold leading-[1.05] tracking-tight">
                   <span className="text-white block">ISSO É</span>
                   <span className="text-primary block">GHOST</span>
                   <span className="text-white block">DESIGN.</span>
                 </p>
               </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

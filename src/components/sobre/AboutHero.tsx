@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { ABOUT_CONTENT } from '@/config/content';
 
 // Motion tokens conforme protótipo Ghost Design
@@ -17,51 +18,72 @@ const fadeGhost = {
 
 export function AboutHero() {
   const prefersReducedMotion = useReducedMotion();
+  const containerRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start'],
+  });
+  const mediaY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    prefersReducedMotion ? [0, 0] : [48, -48]
+  );
+  const textY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    prefersReducedMotion ? [0, 0] : [12, -12]
+  );
 
   return (
     <section
+      ref={containerRef}
       className="relative min-h-screen lg:h-screen flex flex-col lg:block bg-ghost-surface-deep overflow-hidden"
       aria-label="Hero - Manifesto"
     >
       {/* Background Video - Desktop */}
-      <video
+      <motion.video
         src={ABOUT_CONTENT.hero.videos.desktop}
         autoPlay
         muted
         loop
         playsInline
         preload="metadata"
-        className="hidden lg:block absolute inset-0 w-full h-full object-cover object-top opacity-[0.55]"
+        className="hidden lg:block absolute inset-0 w-full h-full object-cover object-top opacity-[0.68]"
+        style={{ y: mediaY }}
         aria-hidden="true"
       />
 
       {/* Background Video - Mobile */}
-      <video
+      <motion.video
         src={ABOUT_CONTENT.hero.videos.mobile}
         autoPlay
         muted
         loop
         playsInline
         preload="metadata"
-        className="lg:hidden absolute inset-0 w-full h-full object-cover object-top opacity-[0.8]"
+        className="lg:hidden absolute inset-0 w-full h-full object-cover object-top opacity-[0.78]"
+        style={{ y: mediaY }}
         aria-hidden="true"
       />
 
       {/* Dark Gradient Overlay for Legibility - Desktop Only */}
       <div
-        className="hidden lg:block absolute inset-0 bg-linear-to-b from-black/70 via-black/60 to-ghost-surface-deep pointer-events-none z-1"
+        className="hidden lg:block absolute inset-0 bg-linear-to-b from-black/60 via-black/45 to-ghost-surface-deep/85 pointer-events-none z-1"
         aria-hidden="true"
       />
 
       {/* Dark Gradient Overlay for Legibility - Mobile */}
       <div
-        className="lg:hidden absolute inset-0 bg-linear-to-b from-black/50 via-black/65 to-ghost-surface-deep/90 pointer-events-none z-1"
+        className="lg:hidden absolute inset-0 bg-linear-to-b from-black/55 via-black/70 to-ghost-surface-deep/95 pointer-events-none z-1"
         aria-hidden="true"
       />
 
       {/* Content Container */}
       <div className="relative z-10 w-full px-6 md:px-12 lg:px-[8vw] pt-24 md:pt-28 pb-24 lg:py-0 lg:h-full lg:flex lg:items-center">
-        <div className="mx-auto md:ml-auto md:mr-0 max-w-[680px] text-center md:text-right lg:-translate-y-8">
+        <motion.div
+          style={{ y: textY }}
+          className="mx-auto md:ml-auto md:mr-0 max-w-[660px] text-center md:text-right lg:-translate-y-6"
+        >
           <motion.div
             initial={prefersReducedMotion ? 'visible' : 'hidden'}
             animate="visible"
@@ -73,13 +95,12 @@ export function AboutHero() {
                 },
               },
             }}
-            className="space-y-8 md:space-y-10"
+            className="space-y-6 md:space-y-7"
           >
-            {/* H1 - Título principal */}
             {/* H1 - Título principal */}
             <motion.h1
               variants={fadeGhost}
-              className="text-display-about text-text-light"
+              className="text-[24px] sm:text-[28px] md:text-[32px] lg:text-[36px] xl:text-[40px] font-semibold tracking-tight text-text-light"
             >
               Sou <span className="text-primary">Danilo Novais.</span>
             </motion.h1>
@@ -87,18 +108,18 @@ export function AboutHero() {
             {/* Manifesto Text Block */}
             <motion.div
               variants={fadeGhost}
-              className="space-y-0.5 md:space-y-2"
+              className="space-y-1 md:space-y-1.5"
             >
-              <p className="text-[32px] md:text-[44px] text-text-light font-bold tracking-tight leading-[1.1]">
-                <span className="text-primary">Você não vê</span> tudo
+              <p className="text-[30px] sm:text-[34px] md:text-[38px] lg:text-[42px] xl:text-[48px] text-text-light font-semibold tracking-tight leading-[1.05]">
+                <span className="text-primary">Você</span> não vê tudo
               </p>
-              <p className="text-[32px] md:text-[44px] text-text-light font-bold tracking-tight leading-[1.1]">
-                o que eu faço.
+              <p className="text-[30px] sm:text-[34px] md:text-[38px] lg:text-[42px] xl:text-[48px] text-text-light font-semibold tracking-tight leading-[1.05]">
+                o que eu faço. Mas
               </p>
-              <p className="text-[32px] md:text-[44px] text-text-light font-bold tracking-tight leading-[1.1]">
-                Mas sente quando
+              <p className="text-[30px] sm:text-[34px] md:text-[38px] lg:text-[42px] xl:text-[48px] text-text-light font-semibold tracking-tight leading-[1.05]">
+                sente quando
               </p>
-              <p className="text-[32px] md:text-[44px] text-text-light font-bold tracking-tight leading-[1.1]">
+              <p className="text-[30px] sm:text-[34px] md:text-[38px] lg:text-[42px] xl:text-[48px] text-text-light font-semibold tracking-tight leading-[1.05]">
                 <span className="text-primary">funciona.</span>
               </p>
             </motion.div>
@@ -107,9 +128,9 @@ export function AboutHero() {
             <motion.div
               variants={fadeGhost}
               transition={{ delay: 0.4 }}
-              className="max-w-[520px] mx-auto md:ml-auto md:mr-0"
+              className="max-w-[420px] mx-auto md:ml-auto md:mr-0"
             >
-              <p className="text-base md:text-lg text-white/85 font-light leading-[1.6] tracking-tight">
+              <p className="text-[14px] sm:text-[15px] md:text-[16px] lg:text-[17px] text-white/85 font-normal leading-[1.6] tracking-tight">
                 Crio design que observa, entende
                 <br className="hidden md:block" />e guia experiências com
                 intenção,
@@ -118,7 +139,7 @@ export function AboutHero() {
               </p>
             </motion.div>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,28 +1,30 @@
 'use client';
 
+import { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import * as THREE from 'three';
 import { CTAButton } from '@/components/ui/CTAButton';
+import { useGhostReveal } from '@/hooks/useGhostReveal';
 
 interface HeroCopyProps {
   startEntrance?: boolean;
   enable3D?: boolean;
+  ghostRef?: React.RefObject<THREE.Group | null>;
 }
 
 export function HeroCopy({
   startEntrance = false,
   enable3D = true,
+  ghostRef,
 }: HeroCopyProps) {
-  // Lógica de visibilidade:
-  // Se 3D ativo (Desktop) -> Esconde texto (sr-only)
-  // Se 3D inativo (Mobile) -> Mostra texto
-  const textContainerClass = enable3D
-    ? 'sr-only'
-    : 'flex flex-col items-center justify-center text-center relative z-20 px-4';
+  const revealRef = useRef<HTMLDivElement>(null);
+
+  // Hook para sincronizar o efeito de revelação com a posição do ghost 3D
+  useGhostReveal(ghostRef, revealRef, enable3D);
 
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-between z-10 py-[12vh] md:py-[10vh] pointer-events-none">
       {/* TOPO: TAG [BRAND AWARENESS] */}
-      {/* Spec: 12px, uppercase, TT Norms Pro (sans) */}
       <motion.span
         initial={{ opacity: 0, y: -20 }}
         animate={
@@ -36,20 +38,30 @@ export function HeroCopy({
 
       {/* MEIO: TEXTO + BOTÃO */}
       <div className="flex flex-col items-center justify-center flex-1 w-full relative">
-        <div className={textContainerClass}>
-          {/* H1: 5-8rem, Bold (Black), tracking-tight */}
-          {/* H1: 5-8rem (clampped) */}
-          <h1 className="text-display-hero text-white mb-6">
+        {/* Container do texto com efeito de revelação */}
+        <div className="relative flex flex-col items-center justify-center text-center px-4 z-20">
+          {/* Overlay de revelação */}
+          {enable3D && (
+            <div
+              ref={revealRef}
+              className="ghost-reveal-overlay"
+              aria-hidden="true"
+            />
+          )}
+
+          {/* H1: Texto principal com gradiente de revelação */}
+          <h1 className="text-display-hero text-white mb-6 relative hero-text">
             Você não vê <br className="hidden md:block" /> o design.
           </h1>
 
-          {/* H2: 4-6rem, Bold (Black), tracking-tight */}
-          {/* H2: 4-6rem (clampped) */}
-          <h2 className="text-display-sub text-white/90">Mas ele vê você.</h2>
+          {/* H2: Subtítulo */}
+          <h2 className="text-display-sub text-white/90 relative hero-text">
+            Mas ele vê você.
+          </h2>
         </div>
 
         {/* Espaçador para o botão quando o texto é 3D */}
-        {enable3D && <div className="h-[25vh] md:h-[35vh] w-full" />}
+        {enable3D && <div className="h-[10vh] md:h-[15vh] w-full" />}
 
         {/* CTA Button Principal */}
         <motion.div

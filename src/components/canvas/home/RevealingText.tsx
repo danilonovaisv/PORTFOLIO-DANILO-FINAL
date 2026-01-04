@@ -122,11 +122,11 @@ export default function RevealingText({
       <Text
         font={fontUrl}
         fontSize={config.titleSize}
-        lineHeight={0.9}
+        lineHeight={0.5}
         letterSpacing={config.letterSpacing}
         textAlign="center"
         position={[0, config.titleY, 0]}
-        maxWidth={viewport.width * 0.9}
+        maxWidth={viewport.width * 0.5}
         anchorY="bottom"
         onSync={handleTitleSync}
       >

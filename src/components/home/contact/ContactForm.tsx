@@ -97,134 +97,136 @@ const ContactForm: React.FC = () => {
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-      className="w-full max-w-2xl mx-auto md:mx-0"
+      className="w-full max-w-[520px] mx-auto lg:ml-auto"
     >
-      {submitSuccess ? (
-        <div className="text-center py-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 text-green-600 mb-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-          </div>
-          <h3 className="text-2xl font-bold text-text-dark mb-2">
-            Mensagem Enviada!
-          </h3>
-          <p className="text-text-muted">
-            Obrigado por entrar em contato. Em breve retornarei sua mensagem.
-          </p>
-        </div>
-      ) : (
-        <form
-          onSubmit={handleSubmit}
-          action={CONTACT_FORM.action}
-          method="POST"
-          className="space-y-6"
-        >
-          <noscript>
-            <p className="p-4 mb-4 text-sm text-amber-800 bg-amber-50 rounded-lg">
-              JavaScript está desativado. O formulário será enviado via
-              redirecionamento padrão.
+      <div className="rounded-2xl bg-white shadow-[0_20px_50px_rgba(15,23,42,0.12)] p-6 md:p-8">
+        {submitSuccess ? (
+          <div className="text-center py-8">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 text-green-600 mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-8 w-8"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            </div>
+            <h3 className="text-2xl font-bold text-text-dark mb-2">
+              Mensagem Enviada!
+            </h3>
+            <p className="text-text-muted">
+              Obrigado por entrar em contato. Em breve retornarei sua mensagem.
             </p>
-          </noscript>
-          <input
-            type="text"
-            name="_honey"
-            className="hidden"
-            aria-hidden="true"
-            tabIndex={-1}
-            title="Ignore this field"
-            autoComplete="off"
-          />
-          <input type="hidden" name="_captcha" value="false" />
-
-          <InputField
-            label="Seu nome"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            error={errors.name}
-            required
-            autoComplete="name"
-            placeholder="João da Silva"
-          />
-
-          <InputField
-            label="Seu email"
-            id="email"
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            error={errors.email}
-            required
-            autoComplete="email"
-            placeholder="joao@empresa.com"
-          />
-
-          <InputField
-            label="Telefone"
-            id="phone"
-            name="phone"
-            type="tel"
-            value={formData.phone}
-            onChange={handleChange}
-            error={errors.phone}
-            autoComplete="tel"
-            placeholder="(11) 99999-9999"
-          />
-
-          <TextAreaField
-            label="Sua mensagem"
-            id="message"
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            error={errors.message}
-            required
-            rows={4}
-            placeholder="Conte-me sobre seu projeto..."
-          />
-
-          {errors.submit && (
-            <p className="text-sm text-red-500">{errors.submit}</p>
-          )}
-
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full flex items-center justify-center gap-2 bg-primary text-white font-semibold py-4 px-8 rounded-full transition-all duration-300 hover:bg-primary-hover hover:scale-[1.02] hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          </div>
+        ) : (
+          <form
+            onSubmit={handleSubmit}
+            action={CONTACT_FORM.action}
+            method="POST"
+            className="space-y-6"
           >
-            {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+            <noscript>
+              <p className="p-4 mb-4 text-sm text-amber-800 bg-amber-50 rounded-lg">
+                JavaScript está desativado. O formulário será enviado via
+                redirecionamento padrão.
+              </p>
+            </noscript>
+            <input
+              type="text"
+              name="_honey"
+              className="hidden"
               aria-hidden="true"
+              tabIndex={-1}
+              title="Ignore this field"
+              autoComplete="off"
+            />
+            <input type="hidden" name="_captcha" value="false" />
+
+            <InputField
+              label="Seu nome"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              error={errors.name}
+              required
+              autoComplete="name"
+              placeholder="João da Silva"
+            />
+
+            <InputField
+              label="Seu email"
+              id="email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              error={errors.email}
+              required
+              autoComplete="email"
+              placeholder="joao@empresa.com"
+            />
+
+            <InputField
+              label="Telefone"
+              id="phone"
+              name="phone"
+              type="tel"
+              value={formData.phone}
+              onChange={handleChange}
+              error={errors.phone}
+              autoComplete="tel"
+              placeholder="(11) 99999-9999"
+            />
+
+            <TextAreaField
+              label="Sua mensagem"
+              id="message"
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              error={errors.message}
+              required
+              rows={4}
+              placeholder="Conte-me sobre seu projeto..."
+            />
+
+            {errors.submit && (
+              <p className="text-sm text-red-500">{errors.submit}</p>
+            )}
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full flex items-center justify-center gap-2 bg-primary text-white font-semibold py-3.5 px-8 rounded-full transition-all duration-300 hover:bg-primary-hover hover:scale-[1.02] hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
-          </button>
-        </form>
-      )}
+              {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </button>
+          </form>
+        )}
+      </div>
     </motion.div>
   );
 };

@@ -19,11 +19,11 @@ export function AboutWhatIDo() {
   // Split title lines and highlight keywords
   const renderTitle = () => {
     return (
-      <div className="text-center pt-6 md:pt-12 mb-8 md:mb-12 space-y-2 max-w-[820px] mx-auto z-10 relative">
-        <h2 className="text-[28px] md:text-[34px] lg:text-[40px] xl:text-[44px] font-semibold tracking-tight leading-[1.15] text-white">
+      <div className="text-center pt-4 md:pt-8 mb-7 md:mb-10 space-y-2 max-w-[860px] mx-auto z-10 relative">
+        <h2 className="text-[22px] sm:text-[24px] md:text-[26px] lg:text-[28px] font-semibold tracking-tight leading-[1.2] text-white">
           Do <span className="text-primary">insight</span> ao{' '}
           <span className="text-primary">impacto</span>.
-          <span className="text-white font-medium block mt-2">
+          <span className="text-white font-semibold block mt-2">
             Mesmo quando você não percebe.
           </span>
         </h2>
@@ -33,10 +33,10 @@ export function AboutWhatIDo() {
 
   return (
     <section
-      className="min-h-screen bg-ghost-surface-deep py-20 relative overflow-hidden"
+      className="bg-ghost-surface-deep py-14 sm:py-16 md:py-20 relative overflow-hidden"
       aria-label="O que eu faço"
     >
-      <div className="container mx-auto px-6 max-w-[1200px] relative z-10">
+      <div className="container mx-auto px-6 max-w-[1400px] relative z-10">
         {/* Title */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -48,7 +48,7 @@ export function AboutWhatIDo() {
         </motion.div>
 
         {/* 7 Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-7 gap-3 md:gap-4 auto-rows-fr">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-7 gap-3 md:gap-4 auto-rows-fr">
           {CAPABILITIES.map((item, index) => {
             return (
               <motion.div
@@ -59,24 +59,25 @@ export function AboutWhatIDo() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{
-                  duration: 0.5,
+                  duration: 0.6,
                   delay: index * 0.1,
-                  ease: 'easeOut',
+                  ease: [0.22, 1, 0.36, 1],
                 }}
                 className={`
                   group relative
-                  bg-[#1a0f2d]/90
-                  border border-white/5
-                  rounded-xl
-                  px-4 py-3 md:px-5 md:py-4
+                  bg-[#1a0c2c]/90
+                  border border-white/10
+                  shadow-[0_14px_28px_rgba(3,0,20,0.35)]
+                  rounded-[16px]
+                  px-4 py-3 md:px-5 md:py-4 lg:px-4 lg:py-5
                   flex items-start gap-3
-                  min-h-[72px] md:min-h-[88px]
+                  min-h-[76px] md:min-h-[88px] lg:min-h-[96px]
                 `}
               >
-                <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-[11px] font-semibold text-white">
+                <span className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-[11px] font-semibold text-white shadow-[0_6px_12px_rgba(0,87,255,0.35)]">
                   ↗
                 </span>
-                <p className="text-[15px] md:text-[14px] lg:text-[13px] xl:text-[13px] font-normal text-white/90 leading-snug">
+                <p className="text-[14px] md:text-[13px] lg:text-[12.5px] xl:text-[13px] font-normal text-white/90 leading-snug">
                   <span className="text-primary font-semibold">
                     {item.title}
                   </span>{' '}

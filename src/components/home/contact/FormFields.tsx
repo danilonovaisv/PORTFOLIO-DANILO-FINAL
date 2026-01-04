@@ -17,7 +17,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   <div>
     <label
       htmlFor={id}
-      className="block text-sm font-medium text-text-dark mb-1.5"
+      className="block text-[12px] font-semibold text-text-dark/80 mb-1.5"
     >
       {label}
     </label>
@@ -25,7 +25,7 @@ export const InputField: React.FC<InputFieldProps> = ({
       id={id}
       aria-invalid={!!error}
       aria-describedby={error ? `${id}-error` : undefined}
-      className={`w-full rounded-lg border border-gray-200 bg-section-bg px-4 py-3 text-text-dark placeholder:text-text-muted/60 transition-all outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 ${
+      className={`w-full rounded-xl border border-gray-200 bg-section-bg px-4 py-3 text-text-dark placeholder:text-text-muted/60 transition-all outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 ${
         error ? 'border-red-500 ring-2 ring-red-500/20' : ''
       } ${className}`}
       {...props}
@@ -53,7 +53,7 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
   <div>
     <label
       htmlFor={id}
-      className="block text-sm font-medium text-text-dark mb-1.5"
+      className="block text-[12px] font-semibold text-text-dark/80 mb-1.5"
     >
       {label}
     </label>
@@ -61,7 +61,7 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
       id={id}
       aria-invalid={!!error}
       aria-describedby={error ? `${id}-error` : undefined}
-      className={`w-full resize-none rounded-lg border border-gray-200 bg-section-bg px-4 py-3 text-text-dark placeholder:text-text-muted/60 transition-all outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 ${
+      className={`w-full resize-none rounded-xl border border-gray-200 bg-section-bg px-4 py-3 text-text-dark placeholder:text-text-muted/60 transition-all outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 ${
         error ? 'border-red-500 ring-2 ring-red-500/20' : ''
       } ${className}`}
       {...props}

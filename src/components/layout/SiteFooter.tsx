@@ -53,7 +53,7 @@ export default function SiteFooter() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: reducedMotion ? 0.2 : 0.8 }}
-        className="hidden lg:block w-full bg-section-footer py-6 fixed bottom-0 left-0 z-50 shadow-[0_-1px_3px_rgba(0,0,0,0.1)]"
+        className="hidden lg:block w-full bg-section-footer py-6 relative z-10"
         aria-label="Footer"
       >
         <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex items-center justify-between text-white">
@@ -105,7 +105,7 @@ export default function SiteFooter() {
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white transition-all duration-200 hover:opacity-70"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-section-footer shadow-sm transition-all duration-200 hover:opacity-80"
                 aria-label={`Abrir ${s.label}`}
               >
                 {s.icon}
@@ -166,7 +166,7 @@ export default function SiteFooter() {
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white hover:opacity-70 transition-opacity"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-section-footer shadow-sm hover:opacity-80 transition-opacity"
                 aria-label={`Abrir ${s.label}`}
               >
                 {s.icon}
