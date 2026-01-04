@@ -3,10 +3,18 @@
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { HOME_CONTENT } from '@/config/content';
-import FeaturedProjectCard from './featured-projects/FeaturedProjectCard';
+import FeaturedProjectCard, {
+  type FeaturedProject,
+} from './featured-projects/FeaturedProjectCard';
 import CTAProjectCard from './featured-projects/CTAProjectCard';
 
-export default function FeaturedProjectsSection() {
+type FeaturedProjectsSectionProps = {
+  onProjectOpen?: (project: FeaturedProject) => void;
+};
+
+export default function FeaturedProjectsSection({
+  onProjectOpen,
+}: FeaturedProjectsSectionProps) {
   const reducedMotion = useReducedMotion();
   const featuredProjects = HOME_CONTENT.featuredProjects;
 
@@ -57,7 +65,10 @@ export default function FeaturedProjectsSection() {
                 // Mobile: full-width | Desktop: bento-style spans
                 className={`w-full ${project.layout.cols}`}
               >
-                <FeaturedProjectCard project={project} />
+                <FeaturedProjectCard
+                  project={project}
+                  onOpen={onProjectOpen}
+                />
               </motion.div>
             );
           })}

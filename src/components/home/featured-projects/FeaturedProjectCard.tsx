@@ -1,10 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 import { useReducedMotion } from 'framer-motion';
 import { ArrowIcon } from '@/components/ui/ArrowIcon';
+import Link from 'next/link';
 
 export type FeaturedProject = {
   id: number;
@@ -20,18 +20,38 @@ export type FeaturedProject = {
 
 interface FeaturedProjectCardProps {
   project: FeaturedProject;
+  onOpen?: (_project: FeaturedProject) => void;
 }
 
 export default function FeaturedProjectCard({
   project,
+  onOpen,
 }: FeaturedProjectCardProps) {
   const reducedMotion = useReducedMotion();
+  const isModalMode = typeof onOpen === 'function';
+
+  const handleClick = () => {
+    if (onOpen) {
+      onOpen(project);
+    }
+  };
+
+  const Wrapper = isModalMode ? 'button' : Link;
+  const wrapperProps = isModalMode
+    ? {
+        type: 'button' as const,
+        onClick: handleClick,
+        'aria-label': `Ver detalhes do projeto ${project.title}`,
+      }
+    : {
+        href: `/portfolio/${project.slug}`,
+        'aria-label': `Ver projeto: ${project.title}`,
+      };
 
   return (
-    <Link
-      href={`/portfolio/${project.slug}`}
-      className="group block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md"
-      aria-label={`Ver projeto: ${project.title}`}
+    <Wrapper
+      {...wrapperProps}
+      className="group block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md text-left"
     >
       <div
         className={`relative overflow-hidden rounded-md ${project.layout.h} w-full bg-section-manifesto border border-white/5 shadow-[0_12px_48px_-28px_rgba(0,0,0,0.5)] transition-all duration-500 ${
@@ -98,6 +118,6 @@ export default function FeaturedProjectCard({
           <ArrowIcon className="w-5 h-5 md:w-6 md:h-6 -rotate-45 transition-transform duration-500 group-hover:rotate-0" />
         </div>
       </div>
-    </Link>
+    </Wrapper>
   );
 }

@@ -23,33 +23,24 @@ export default function PortfolioShowcaseSection() {
       ref={sectionRef}
       id="portfolio-showcase"
       aria-label="Portfolio Categories"
-      className="relative z-10 bg-ghost-bg py-24 md:py-32 overflow-hidden"
+      className="relative z-10 bg-[#050511] py-24 md:py-32 overflow-hidden"
     >
       <div className="mx-auto max-w-[1680px] px-[clamp(24px,5vw,96px)]">
         <div className="relative">
-          {/* Centered Headline - Mixed Color - Desktop Only (Mobile uses simple text in AccordionRow generally, but here the section needs a title too?) 
-            Wait, the prompt says 'Centred headline' for both Desktop and Mobile. 
-            On Desktop: "portfólio showcase" (mixed). 
-            On Mobile: "The 'portfólio showcase' headline is centered with reduced spacing from the CTA" -> WAIT. 
-            Actually, commonly this title is above the rows. 
-            Let's add it. 
-          */}
-          <div className="flex justify-center mb-16 md:mb-24">
-             <h2 className="text-4xl md:text-6xl font-medium tracking-tighter text-white text-center">
-                portfólio <span className="text-[#0057FF]">showcase</span>
-             </h2>
+          <div className="flex justify-center mb-12 md:mb-16">
+            <h2 className="text-4xl md:text-6xl font-semibold tracking-tight text-white text-center">
+              portfólio <span className="text-[#4fe6ff]">showcase</span>
+            </h2>
           </div>
 
-          {/* Floating Label - LightBlue (#4fe6ff) - Posicionado ao lado do primeiro item */}
-          <div className="pointer-events-none absolute left-0 top-[20%] lg:top-[80px] z-20 hidden lg:block">
-            <span className="font-mono text-[14px] uppercase tracking-[0.4em] text-[#4fe6ff]">
+          <div className="pointer-events-none absolute left-0 top-[18%] lg:top-[64px] z-20 hidden lg:block">
+            <span className="font-mono text-[13px] uppercase tracking-[0.35em] text-[#4fe6ff]">
               {HOME_CONTENT.showcase.floatingLabel}
             </span>
           </div>
 
-          {/* Accordion Rows */}
           <motion.div
-            className="flex flex-col border-b border-[#0057FF]/30"
+            className="flex flex-col border-t border-b border-white/10 divide-y divide-white/10"
             initial={prefersReducedMotion ? {} : { opacity: 0, y: 30 }}
             animate={isInView && !prefersReducedMotion ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
@@ -73,9 +64,8 @@ export default function PortfolioShowcaseSection() {
           </motion.div>
         </div>
 
-        {/* CTA Centralizado - Estilo Compound Pill Standard */}
-        <div className="flex justify-center mt-16 md:mt-20">
-          <CTAButton href={HOME_CONTENT.showcase.cta.href}>
+        <div className="flex justify-center mt-14 md:mt-20">
+          <CTAButton href={HOME_CONTENT.showcase.cta.href} variant="primary">
             {HOME_CONTENT.showcase.cta.label}
           </CTAButton>
         </div>

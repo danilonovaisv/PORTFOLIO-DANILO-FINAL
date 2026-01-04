@@ -46,13 +46,13 @@ export default function AccordionRow({
         >
             <Link
                 href={`/portfolio?category=${category.id}`}
-                className={`group flex w-full items-center border-t border-[#0057FF]/30 py-8 md:py-16 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background justify-center ${alignmentClasses[alignment]}`}
+                className={`group flex w-full items-center py-8 md:py-16 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background justify-center ${alignmentClasses[alignment]}`}
                 aria-label={`Ver projetos de ${category.titleDesktop.replace(/\n/g, ' ')}`}
             >
                     {/* Content Container */}
                     <div className="flex w-full flex-col md:flex-row items-center justify-center gap-4 transition-all duration-300 group-hover:gap-6 md:gap-14 max-w-full md:max-w-[90%] text-center md:text-left">
                         {/* Thumbnail - Mobile Only */}
-                        <div className="relative block w-full aspect-video overflow-hidden rounded-md mb-4 md:hidden">
+                        <div className="relative block w-full aspect-video overflow-hidden rounded-md mb-4 md:hidden border border-white/10">
                             {thumb && (
                                 <Image
                                     src={thumb}
@@ -80,7 +80,7 @@ export default function AccordionRow({
                     {/* Content Container */}
                     <div className="flex items-center gap-4 md:gap-6">
                         {/* Category Title */}
-                        <h3 className="text-3xl font-medium leading-none tracking-tighter text-white transition-colors duration-500 group-hover:text-[#0057FF] md:text-[clamp(2.5rem,5.5vw,6rem)] text-center md:text-left">
+                        <h3 className="text-3xl font-medium leading-none tracking-tighter text-white transition-colors duration-500 group-hover:text-[#4fe6ff] md:text-[clamp(2.5rem,5.5vw,6rem)] text-center md:text-left">
                             <span className="hidden whitespace-pre md:inline">
                                 {category.titleDesktop}
                             </span>
@@ -92,6 +92,10 @@ export default function AccordionRow({
                             <ArrowIcon className="-rotate-45 h-5 w-5 transition-transform duration-500 group-hover:rotate-0 md:h-8 md:w-8" />
                         </div>
                     </div>
+                    <div
+                      aria-hidden
+                      className="hidden md:flex h-3 w-3 shrink-0 rounded-full bg-[#0057FF] transition-transform duration-500 group-hover:scale-110"
+                    />
                 </div>
             </Link>
         </motion.div>
