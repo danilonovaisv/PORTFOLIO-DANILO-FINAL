@@ -41,7 +41,7 @@ export default function ClientsBrandsSection() {
           viewport={{ once: true }}
           className="mb-10 md:mb-12"
         >
-          <h2 className="text-white text-[18px] md:text-[20px] lg:text-[22px] font-semibold text-center tracking-tight">
+          <h2 className="text-white text-[20px] md:text-[22px] lg:text-[22px] font-semibold text-center tracking-tight">
             {HOME_CONTENT.clients.title}.
           </h2>
         </motion.div>

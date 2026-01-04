@@ -20,7 +20,7 @@ export function AboutWhatIDo() {
   const renderTitle = () => {
     return (
       <div className="text-center pt-4 md:pt-8 mb-7 md:mb-10 space-y-2 max-w-[860px] mx-auto z-10 relative">
-        <h2 className="text-[22px] sm:text-[24px] md:text-[26px] lg:text-[28px] font-semibold tracking-tight leading-[1.2] text-white">
+        <h2 className="text-[26px] sm:text-[28px] md:text-[26px] lg:text-[28px] font-semibold tracking-tight leading-[1.2] text-white">
           Do <span className="text-primary">insight</span> ao{' '}
           <span className="text-primary">impacto</span>.
           <span className="text-white font-semibold block mt-2">

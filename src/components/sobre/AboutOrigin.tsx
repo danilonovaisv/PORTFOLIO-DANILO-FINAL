@@ -218,7 +218,7 @@ function OriginPair({
           {showInlineRule && (
             <div className="h-px w-[65%] sm:w-[60%] lg:w-full bg-[#4fe6ff]/60" />
           )}
-          <p className="text-[15px] sm:text-[16px] md:text-[18px] lg:text-[20px] xl:text-[22px] font-light leading-[1.55] text-[#fcffff] tracking-[-0.01em]">
+          <p className="text-[18px] sm:text-[20px] md:text-[18px] lg:text-[20px] xl:text-[22px] font-light leading-[1.55] text-[#fcffff] tracking-[-0.01em]">
             <HighlightText
               text={textBlock.text}
               highlight={textBlock.highlight}

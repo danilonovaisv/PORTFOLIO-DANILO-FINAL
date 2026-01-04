@@ -84,10 +84,8 @@ export default function AboutMethod() {
                 viewport={{ once: true, amount: 0.4 }}
                 className="mb-6 md:mb-8 text-center lg:text-left"
               >
-                <h2 className="text-[30px] sm:text-[34px] md:text-[40px] lg:text-[48px] xl:text-[52px] font-semibold text-[#fcffff] tracking-tight leading-[1.08] mb-4">
-                  <span className="text-primary">
-                    Criatividade com método.
-                  </span>
+                <h2 className="text-[34px] sm:text-[40px] md:text-[40px] lg:text-[48px] xl:text-[52px] font-semibold text-[#fcffff] tracking-tight leading-[1.08] mb-4">
+                  <span className="text-primary">Criatividade com método.</span>
                   <br />
                   <span className="text-white">Impacto sem ruído.</span>
                 </h2>
@@ -99,7 +97,7 @@ export default function AboutMethod() {
                 initial={prefersReducedMotion ? 'visible' : 'hidden'}
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.4 }}
-                className="text-[14px] md:text-[16px] text-white/80 font-normal leading-relaxed space-y-1.5 mb-8 md:mb-10 max-w-[520px] mx-auto lg:mx-0 text-center lg:text-left"
+                className="text-[16px] md:text-[16px] text-white/80 font-normal leading-relaxed space-y-1.5 mb-8 md:mb-10 max-w-[520px] mx-auto lg:mx-0 text-center lg:text-left"
               >
                 {ABOUT_CONTENT.method.intro.map((line, i) => (
                   <p key={i}>{line}</p>
@@ -121,7 +119,7 @@ export default function AboutMethod() {
                     <span className="text-primary text-sm md:text-base font-semibold tracking-tight shrink-0">
                       0{i + 1}
                     </span>
-                    <p className="text-[13px] md:text-[14px] text-white/90 font-normal">
+                    <p className="text-[14px] md:text-[14px] text-white/90 font-normal">
                       {step}
                     </p>
                   </motion.div>

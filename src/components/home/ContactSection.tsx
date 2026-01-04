@@ -87,10 +87,10 @@ export default function ContactSection() {
           }}
           className="text-center mb-12"
         >
-          <h2 className="text-[24px] md:text-[28px] font-semibold text-primary">
+          <h2 className="text-[28px] md:text-[28px] font-semibold text-primary">
             {HOME_CONTENT.contact.title}
           </h2>
-          <p className="text-text-dark/70 mt-2 text-[15px] md:text-[17px]">
+          <p className="text-text-dark/70 mt-2 text-[17px] md:text-[17px]">
             {HOME_CONTENT.contact.subtitle}
           </p>
         </motion.div>
@@ -126,7 +126,7 @@ export default function ContactSection() {
                 <span className="flex h-12 w-12 items-center justify-center rounded-full border border-gray-200 bg-white text-primary shadow-sm transition-colors group-hover:bg-primary group-hover:text-white">
                   {link.icon}
                 </span>
-                <span className="text-[16px] md:text-[18px] font-semibold text-text-dark group-hover:text-primary transition-colors">
+                <span className="text-[18px] md:text-[18px] font-semibold text-text-dark group-hover:text-primary transition-colors">
                   {link.label}
                 </span>
               </motion.a>

@@ -325,6 +325,14 @@ Transformar capabilities em lista silenciosa de entregas.
 - **Título:** em `primary`, font-weight 600, font-size 18–20px
 - **Descrição:** em branco, font-weight 400, font-size 14–16px, line-height 1.5, spacing entre título e descrição: 8px
 
+
+### **Conteúdo do card:**
+ - Animação Framer Motion: Scroll velocity com duas faixas de texto movimentando no sentido oposto uma da outra com as keywords dos cards no rodape da sessão
+ - key words linha 01: Direção criativa  
+ - key words linha 02: Inteligência artificial
+ - background: o mesmo da sessão;
+ - cor texto: Branca
+
 ---
 
 ## Layout — Mobile

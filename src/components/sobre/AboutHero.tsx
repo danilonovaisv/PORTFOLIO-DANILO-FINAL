@@ -104,7 +104,7 @@ export function AboutHero() {
           >
             {/* MOBILE: Título + Manifesto consolidado em 2 linhas */}
             <motion.div variants={fadeGhost} className="lg:hidden space-y-0">
-              <h1 className="text-[24px] sm:text-[28px] font-semibold tracking-tight text-text-light leading-[1.2]">
+              <h1 className="text-[32px] sm:text-[36px] md:text-[38px] font-semibold tracking-tight text-text-light leading-[1.15]">
                 Sou <span className="text-primary">Danilo Novais.</span>{' '}
                 <span className="text-primary">Você</span> não vê tudo o
                 <br />
@@ -147,7 +147,7 @@ export function AboutHero() {
               className="max-w-[420px] mx-auto lg:ml-auto lg:mr-0"
             >
               {/* MOBILE: 2 linhas conforme especificado */}
-              <p className="lg:hidden text-[14px] sm:text-[15px] text-white/85 font-normal leading-[1.6] tracking-tight">
+              <p className="lg:hidden text-[16px] sm:text-[17px] text-white/85 font-normal leading-[1.6] tracking-tight">
                 Crio design que observa, entende e guia experiências com
                 <br />
                 intenção, estratégia e tecnologia — na medida certa.

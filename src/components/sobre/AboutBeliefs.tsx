@@ -1,7 +1,12 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from 'framer-motion';
 import GhostEyes from './GhostEyes';
 
 // Ghost Motion Tokens
@@ -50,7 +55,7 @@ export function AboutBeliefs() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
         >
-          <h2 className="text-[26px] sm:text-[30px] md:text-[36px] lg:text-[42px] font-semibold text-white leading-[1.2]">
+          <h2 className="text-[30px] sm:text-[36px] md:text-[36px] lg:text-[42px] font-semibold text-white leading-[1.2]">
             Acredito no{' '}
             <span className="text-primary">design que muda o dia</span> de
             alguém.
@@ -70,7 +75,7 @@ export function AboutBeliefs() {
             viewport={{ once: true, amount: 0.3 }}
             className="text-center lg:text-left max-w-[420px] mx-auto lg:mx-0"
           >
-            <div className="space-y-1 text-[15px] md:text-[16px] text-white/90 leading-relaxed">
+            <div className="space-y-1 text-[16px] md:text-[16px] text-white/90 leading-relaxed">
               <p>
                 Um vídeo que <span className="text-primary">respira</span>.
               </p>
@@ -82,7 +87,7 @@ export function AboutBeliefs() {
                 Um detalhe que <span className="text-primary">fica</span>.
               </p>
             </div>
-            <div className="mt-6 space-y-1 text-[15px] md:text-[16px] text-white/90 leading-relaxed">
+            <div className="mt-6 space-y-1 text-[16px] md:text-[16px] text-white/90 leading-relaxed">
               <p>
                 <span className="text-primary">Crio</span> para gerar presença.
               </p>
