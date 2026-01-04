@@ -2,7 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import Section03Marquee from './Section03Marquee';
-import { motionTokens, GHOST_EASE } from './motion';
+import { motionTokens } from './motion';
 
 const CAPABILITIES = [
   { title: 'Direção criativa', desc: 'que organiza o caos' },
