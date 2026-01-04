@@ -62,15 +62,17 @@ export const motionTokens = {
    * Uso: Seção Beliefs/Manifesto
    */
   timeBased: {
-    hidden: { opacity: 0, filter: 'blur(10px)' },
+    hidden: { opacity: 0, filter: 'blur(8px)', y: 18 },
     visible: {
       opacity: 1,
       filter: 'blur(0px)',
-      transition: { duration: 1.4, ease: GHOST_EASE },
+      y: 0,
+      transition: { duration: 0.8, ease: GHOST_EASE },
     },
     exit: {
       opacity: 0,
-      filter: 'blur(6px)',
+      filter: 'blur(8px)',
+      y: -18,
       transition: { duration: 0.6, ease: GHOST_EASE },
     },
   },

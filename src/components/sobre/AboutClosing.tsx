@@ -2,18 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
-
-// Ghost Motion Tokens
-const GHOST_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
-const fadeGhost = {
-  hidden: { opacity: 0, filter: 'blur(10px)' },
-  visible: {
-    opacity: 1,
-    filter: 'blur(0px)',
-    transition: { duration: 0.9, ease: GHOST_EASE },
-  },
-};
+import { motionTokens } from './motion';
 
 export function AboutClosing() {
   const prefersReducedMotion = useReducedMotion();
@@ -24,10 +13,10 @@ export function AboutClosing() {
       aria-label="Fechamento"
     >
       <motion.div
-        variants={fadeGhost}
+        variants={motionTokens.fadeGhost}
         initial={prefersReducedMotion ? 'visible' : 'hidden'}
         whileInView="visible"
-        viewport={{ once: true, margin: '-10%' }}
+        viewport={{ once: true, margin: '-80px' }}
         className="w-full max-w-[1200px]"
       >
         {/* Título Principal + Linhas */}

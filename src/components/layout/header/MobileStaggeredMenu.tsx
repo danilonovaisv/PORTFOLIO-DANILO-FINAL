@@ -42,8 +42,7 @@ export default function MobileStaggeredMenu({
     refs: {
       panelRef,
       preLayersRef,
-      panelRef,
-      preLayersRef,
+
       socialsRef,
       toggleBtnRef,
       plusHRef,

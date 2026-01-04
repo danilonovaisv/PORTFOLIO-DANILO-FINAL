@@ -27,10 +27,23 @@ export default function PortfolioShowcaseSection() {
     >
       <div className="mx-auto max-w-[1680px] px-[clamp(24px,5vw,96px)]">
         <div className="relative">
+          {/* Centered Headline - Mixed Color - Desktop Only (Mobile uses simple text in AccordionRow generally, but here the section needs a title too?) 
+            Wait, the prompt says 'Centred headline' for both Desktop and Mobile. 
+            On Desktop: "portfólio showcase" (mixed). 
+            On Mobile: "The 'portfólio showcase' headline is centered with reduced spacing from the CTA" -> WAIT. 
+            Actually, commonly this title is above the rows. 
+            Let's add it. 
+          */}
+          <div className="flex justify-center mb-16 md:mb-24">
+             <h2 className="text-4xl md:text-6xl font-medium tracking-tighter text-white text-center">
+                portfólio <span className="text-[#0057FF]">showcase</span>
+             </h2>
+          </div>
+
           {/* Floating Label - LightBlue (#4fe6ff) - Posicionado ao lado do primeiro item */}
-          <div className="pointer-events-none absolute left-0 lg:top-[-24px] z-20 hidden lg:block">
+          <div className="pointer-events-none absolute left-0 top-[20%] lg:top-[80px] z-20 hidden lg:block">
             <span className="font-mono text-[14px] uppercase tracking-[0.4em] text-[#4fe6ff]">
-              [{HOME_CONTENT.showcase.title}]
+              {HOME_CONTENT.showcase.floatingLabel}
             </span>
           </div>
 

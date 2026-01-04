@@ -8,28 +8,7 @@ import {
   useTransform,
 } from 'framer-motion';
 import { ABOUT_CONTENT } from '@/config/content';
-
-// Ghost Motion Tokens
-const GHOST_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
-const fadeGhost = {
-  hidden: { opacity: 0, filter: 'blur(10px)' },
-  visible: {
-    opacity: 1,
-    filter: 'blur(0px)',
-    transition: { duration: 0.9, ease: GHOST_EASE },
-  },
-};
-
-const cardRise = {
-  hidden: { opacity: 0, y: 18, filter: 'blur(6px)' },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: { duration: 0.9, ease: GHOST_EASE },
-  },
-};
+import { motionTokens } from './motion';
 
 export default function AboutMethod() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -78,10 +57,10 @@ export default function AboutMethod() {
             <motion.div style={{ y: textY }} className="max-w-[720px]">
               {/* Títulos */}
               <motion.div
-                variants={fadeGhost}
+                variants={motionTokens.fadeGhost}
                 initial={prefersReducedMotion ? 'visible' : 'hidden'}
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.4 }}
+                viewport={{ once: true, margin: '-80px' }}
                 className="mb-6 md:mb-8 text-center lg:text-left"
               >
                 <h2 className="text-[34px] sm:text-[40px] md:text-[40px] lg:text-[48px] xl:text-[52px] font-semibold text-text-light tracking-tight leading-[1.08] mb-4">
@@ -93,10 +72,10 @@ export default function AboutMethod() {
 
               {/* Texto introdutório */}
               <motion.div
-                variants={fadeGhost}
+                variants={motionTokens.fadeGhost}
                 initial={prefersReducedMotion ? 'visible' : 'hidden'}
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.4 }}
+                viewport={{ once: true, margin: '-80px' }}
                 className="text-[16px] md:text-[16px] text-white/80 font-normal leading-relaxed space-y-1.5 mb-8 md:mb-10 max-w-[520px] mx-auto lg:mx-0 text-center lg:text-left"
               >
                 {ABOUT_CONTENT.method.intro.map((line, i) => (
@@ -109,10 +88,10 @@ export default function AboutMethod() {
                 {ABOUT_CONTENT.method.steps.map((step, i) => (
                   <motion.div
                     key={i}
-                    variants={cardRise}
+                    variants={motionTokens.riseSoft}
                     initial={prefersReducedMotion ? 'visible' : 'hidden'}
                     whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
+                    viewport={{ once: true, margin: '-40px' }}
                     transition={{ delay: i * 0.08 }}
                     className="flex items-center gap-4 py-3 border-b border-[#4fe6ff]/60"
                   >

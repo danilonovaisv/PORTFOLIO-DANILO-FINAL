@@ -8,18 +8,7 @@ import {
   useTransform,
 } from 'framer-motion';
 import { ABOUT_CONTENT } from '@/config/content';
-
-// Motion tokens conforme protótipo Ghost Design
-const GHOST_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
-
-const fadeGhost = {
-  hidden: { opacity: 0, filter: 'blur(10px)' },
-  visible: {
-    opacity: 1,
-    filter: 'blur(0px)',
-    transition: { duration: 0.9, ease: GHOST_EASE },
-  },
-};
+import { motionTokens } from './motion';
 
 export function AboutHero() {
   const prefersReducedMotion = useReducedMotion();
@@ -103,7 +92,7 @@ export function AboutHero() {
             className="space-y-6 md:space-y-7"
           >
             {/* MOBILE: Título + Manifesto consolidado em 2 linhas */}
-            <motion.div variants={fadeGhost} className="lg:hidden space-y-0">
+            <motion.div variants={motionTokens.fadeGhost} className="lg:hidden space-y-0">
               <h1 className="text-[32px] sm:text-[36px] md:text-[38px] font-semibold tracking-tight text-text-light leading-[1.15]">
                 Sou <span className="text-primary">Danilo Novais.</span>{' '}
                 <span className="text-primary">Você</span> não vê tudo o
@@ -115,7 +104,7 @@ export function AboutHero() {
 
             {/* DESKTOP: H1 separado */}
             <motion.h1
-              variants={fadeGhost}
+              variants={motionTokens.fadeGhost}
               className="hidden lg:block text-[32px] lg:text-[36px] xl:text-[40px] font-semibold tracking-tight text-text-light leading-tight"
             >
               Sou <span className="text-primary">Danilo Novais.</span>
@@ -123,7 +112,7 @@ export function AboutHero() {
 
             {/* DESKTOP: Manifesto em múltiplas linhas */}
             <motion.div
-              variants={fadeGhost}
+              variants={motionTokens.fadeGhost}
               className="hidden lg:block space-y-1.5"
             >
               <p className="text-[38px] lg:text-[42px] xl:text-[48px] text-text-light font-semibold tracking-tight leading-[1.05]">
@@ -142,8 +131,7 @@ export function AboutHero() {
 
             {/* Description Paragraph */}
             <motion.div
-              variants={fadeGhost}
-              transition={{ delay: 0.4 }}
+              variants={motionTokens.fadeGhost}
               className="max-w-[420px] mx-auto lg:ml-auto lg:mr-0"
             >
               {/* MOBILE: 2 linhas conforme especificado */}

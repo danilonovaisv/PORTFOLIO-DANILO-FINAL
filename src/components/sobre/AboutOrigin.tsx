@@ -11,7 +11,7 @@ import {
 import Image from 'next/image';
 import { ABOUT_CONTENT } from '@/config/content';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { GHOST_EASE } from '@/lib/motionTokens';
+import { GHOST_EASE } from './motion';
 
 type OriginText = {
   type: 'text';
@@ -211,7 +211,7 @@ function OriginPair({
           custom={blockDelay}
           initial={prefersReducedMotion ? 'visible' : 'hidden'}
           whileInView="visible"
-          viewport={{ once: true, margin: '-15%' }}
+          viewport={{ once: true, margin: '-60px' }}
           className={`flex flex-col gap-3 sm:gap-4 text-center items-center max-w-[360px] sm:max-w-[420px] md:max-w-[520px] mx-auto lg:max-w-[420px]
             ${
               isEven
@@ -255,7 +255,7 @@ function OriginPair({
           custom={blockDelay}
           initial={prefersReducedMotion ? 'visible' : 'hidden'}
           whileInView="visible"
-          viewport={{ once: true, margin: '-15%' }}
+          viewport={{ once: true, margin: '-60px' }}
           className={`w-full max-w-[360px] sm:max-w-[420px] md:max-w-[520px] lg:max-w-[560px] mx-auto lg:mx-0 overflow-hidden rounded-xl ${
             isEven ? 'lg:ml-auto' : 'lg:mr-auto'
           }`}
@@ -303,7 +303,7 @@ export default function AboutOrigin() {
             variants={textReveal('right')}
             initial={prefersReducedMotion ? 'visible' : 'hidden'}
             whileInView="visible"
-            viewport={{ once: true, margin: '-10%' }}
+            viewport={{ once: true, margin: '-80px' }}
             className="col-span-6 col-start-7 text-left text-[12px] sm:text-xs md:text-sm font-mono uppercase tracking-[0.2em] text-[#4fe6ff] font-bold"
           >
             {ABOUT_CONTENT.origin.sectionLabel}
@@ -314,7 +314,7 @@ export default function AboutOrigin() {
             variants={textReveal('left')}
             initial={prefersReducedMotion ? 'visible' : 'hidden'}
             whileInView="visible"
-            viewport={{ once: true, margin: '-10%' }}
+            viewport={{ once: true, margin: '-80px' }}
             className="text-[12px] sm:text-xs md:text-sm font-mono uppercase tracking-[0.2em] text-[#4fe6ff] font-bold text-center"
           >
             {ABOUT_CONTENT.origin.sectionLabel}

@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import Section03Marquee from './Section03Marquee';
+import { motionTokens, GHOST_EASE } from './motion';
 
 const CAPABILITIES = [
   { title: 'Direção criativa', desc: 'que organiza o caos' },
@@ -41,10 +42,10 @@ export function AboutWhatIDo() {
       */}
       <div className="container mx-auto px-6 max-w-[1400px] relative z-30 pb-32 md:pb-64">
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          variants={motionTokens.riseSoft}
+          initial={prefersReducedMotion ? 'visible' : 'hidden'}
+          whileInView="visible"
+          viewport={{ once: true, margin: '-80px' }}
         >
           {renderTitle()}
         </motion.div>
@@ -54,15 +55,12 @@ export function AboutWhatIDo() {
             return (
               <motion.div
                 key={index}
-                initial={
-                  prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 18 }
-                }
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-50px' }}
+                variants={motionTokens.riseSoft}
+                initial={prefersReducedMotion ? 'visible' : 'hidden'}
+                whileInView="visible"
+                viewport={{ once: true, margin: '-40px' }}
                 transition={{
-                  duration: 0.6,
-                  delay: index * 0.1,
-                  ease: [0.22, 1, 0.36, 1],
+                  delay: index * 0.08,
                 }}
                 className={`
                   group relative

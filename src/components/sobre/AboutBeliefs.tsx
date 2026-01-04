@@ -8,9 +8,7 @@ import {
   useInView,
 } from 'framer-motion';
 import GhostEyes from './GhostEyes';
-
-// Ghost Motion Tokens
-const GHOST_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+import { motionTokens, GHOST_EASE } from './motion';
 
 export function AboutBeliefs() {
   const prefersReducedMotion = useReducedMotion();
@@ -56,10 +54,9 @@ export function AboutBeliefs() {
         {/* Title - Static */}
         <motion.div
           className="text-center mb-12 md:mb-16"
-          // Ensure title is visible immediately when in view
-          initial={{ opacity: 0, y: 18 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: GHOST_EASE }}
+          variants={motionTokens.riseSoft}
+          initial={prefersReducedMotion || !isInView ? 'visible' : 'hidden'}
+          animate={isInView ? 'visible' : 'hidden'}
         >
           <h2 className="text-[30px] sm:text-[36px] md:text-[36px] lg:text-[42px] font-semibold text-white leading-[1.2]">
             Acredito no{' '}
@@ -99,10 +96,10 @@ export function AboutBeliefs() {
             {step === 1 && (
               <motion.div
                 key="phrase-2"
-                initial={{ opacity: 0, filter: 'blur(8px)', y: 18 }}
-                animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                exit={{ opacity: 0, filter: 'blur(8px)', y: -18 }}
-                transition={{ duration: 0.8, ease: GHOST_EASE }}
+                variants={motionTokens.timeBased}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
                 className="absolute text-center max-w-[480px]"
               >
                 <p className="text-[20px] md:text-[24px] text-white/90 leading-relaxed font-light">
@@ -118,9 +115,10 @@ export function AboutBeliefs() {
             {step >= 2 && (
               <motion.div
                 key="ghost-reveal"
-                initial={{ opacity: 0, filter: 'blur(10px)', y: 12 }}
-                animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                transition={{ duration: 1.2, ease: GHOST_EASE }}
+                variants={motionTokens.fadeGhost}
+                initial="hidden"
+                animate="visible"
+                transition={{ duration: 1.2 }}
                 className="flex flex-col md:flex-row items-center justify-center gap-6"
               >
                 <div className="w-24 h-24 md:w-32 md:h-32 relative">
