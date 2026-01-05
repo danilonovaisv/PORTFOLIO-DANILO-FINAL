@@ -50,18 +50,24 @@ export function AboutWhatIDo() {
           {renderTitle()}
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-7 gap-4 sm:gap-5 md:gap-6 auto-rows-fr">
+        <motion.div
+          variants={{
+            visible: {
+              transition: {
+                staggerChildren: 0.08,
+              },
+            },
+          }}
+          initial={prefersReducedMotion ? 'visible' : 'hidden'}
+          whileInView="visible"
+          viewport={{ once: true, margin: '-40px' }}
+          className="grid grid-cols-1 lg:grid-cols-7 gap-4 sm:gap-5 md:gap-6 auto-rows-fr"
+        >
           {CAPABILITIES.map((item, index) => {
             return (
               <motion.div
                 key={index}
                 variants={motionTokens.riseSoft}
-                initial={prefersReducedMotion ? 'visible' : 'hidden'}
-                whileInView="visible"
-                viewport={{ once: true, margin: '-40px' }}
-                transition={{
-                  delay: index * 0.08,
-                }}
                 className={`
                   group relative
                   bg-[#1a0c2c]/90
@@ -85,7 +91,7 @@ export function AboutWhatIDo() {
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
 
       {/* O Marquee continua aqui, no fundo, z-20 */}

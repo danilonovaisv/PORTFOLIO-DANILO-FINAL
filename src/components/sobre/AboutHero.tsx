@@ -5,10 +5,11 @@ import {
   motion,
   useReducedMotion,
   useScroll,
+  useSpring,
   useTransform,
 } from 'framer-motion';
 import { ABOUT_CONTENT } from '@/config/content';
-import { motionTokens } from './motion';
+import { motionTokens, motionSprings } from './motion';
 
 export function AboutHero() {
   const prefersReducedMotion = useReducedMotion();
@@ -17,13 +18,16 @@ export function AboutHero() {
     target: containerRef,
     offset: ['start end', 'end start'],
   });
+
+  const smoothProgress = useSpring(scrollYProgress, motionSprings.ghost);
+
   const mediaY = useTransform(
-    scrollYProgress,
+    smoothProgress,
     [0, 1],
     prefersReducedMotion ? [0, 0] : [48, -48]
   );
   const textY = useTransform(
-    scrollYProgress,
+    smoothProgress,
     [0, 1],
     prefersReducedMotion ? [0, 0] : [12, -12]
   );

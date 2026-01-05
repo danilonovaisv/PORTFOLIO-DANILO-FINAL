@@ -180,7 +180,7 @@ Client Logos:
 4.  About What I Do
 5.  About Method
 6. About Beliefs
-7. AboutClosing
+7. About Closing
 8. Clients / Brands
 9. Contact
 10. Footer

@@ -1,11 +1,12 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { OriginText, OriginMedia } from './types';
 import { HighlightText } from './HighlightText';
 import { MediaItem } from './MediaItem';
 import { textReveal, mediaReveal } from './animations';
+import { motionSprings } from '../motion';
 
 const parallaxPresets: Array<{
   text: [number, number];
@@ -43,18 +44,20 @@ export function OriginPair({
     offset: ['start end', 'end start'],
   });
 
+  const smoothProgress = useSpring(scrollYProgress, motionSprings.ghost);
+
   const preset = parallaxPresets[index % parallaxPresets.length];
   const baseNudge = isDesktop ? verticalNudges[index] || 0 : 0;
   const mediaLift = isDesktop ? mediaLifts[index] || 0 : 0;
   const showInlineRule = !(isDesktop && index === 0);
   const blockDelay = Math.min(0.1 + index * 0.08, 0.3);
   const textY = useTransform(
-    scrollYProgress,
+    smoothProgress,
     [0, 1],
     prefersReducedMotion || !isDesktop ? [0, 0] : preset.text
   );
   const mediaY = useTransform(
-    scrollYProgress,
+    smoothProgress,
     [0, 1],
     prefersReducedMotion || !isDesktop
       ? [baseNudge, baseNudge]

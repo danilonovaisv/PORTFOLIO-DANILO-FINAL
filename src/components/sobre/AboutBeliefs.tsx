@@ -1,64 +1,30 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
-import {
-  motion,
-  useReducedMotion,
-  AnimatePresence,
-  useInView,
-} from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useReducedMotion, useInView } from 'framer-motion';
 import GhostEyes from './GhostEyes';
 import { motionTokens } from './motion';
 
 export function AboutBeliefs() {
   const prefersReducedMotion = useReducedMotion();
   const sectionRef = useRef<HTMLDivElement>(null);
-
-  // Rotating logic
-  const [step, setStep] = useState(0);
   const isInView = useInView(sectionRef, { amount: 0.3, once: true });
-
-  useEffect(() => {
-    if (!isInView || prefersReducedMotion) return;
-
-    // Total steps: 0 (Phrase 1), 1 (Phrase 2), 2 (Ghost Reveal)
-    const totalSteps = 2;
-
-    const interval = setInterval(() => {
-      setStep((prev) => {
-        if (prev >= totalSteps) {
-          clearInterval(interval);
-          return prev;
-        }
-        return prev + 1;
-      });
-    }, 4200);
-
-    return () => clearInterval(interval);
-  }, [isInView, prefersReducedMotion]);
-
-  // If reduced motion, show final state immediately
-  useEffect(() => {
-    if (prefersReducedMotion && isInView) {
-      setStep(2);
-    }
-  }, [prefersReducedMotion, isInView]);
 
   return (
     <section
       ref={sectionRef}
-      className="bg-ghost-surface-deep relative overflow-hidden py-20 md:py-24"
+      className="bg-ghost-surface-deep relative overflow-hidden py-20 md:py-32"
       aria-label="O que me move"
     >
-      <div className="w-full max-w-[1200px] px-6 relative z-10 mx-auto min-h-[50vh] flex flex-col justify-center">
+      <div className="w-full max-w-[1400px] px-6 relative z-10 mx-auto min-h-[50vh] flex flex-col justify-center">
         {/* Title - Static */}
         <motion.div
-          className="text-center mb-12 md:mb-16"
+          className="text-center mb-16 md:mb-24"
           variants={motionTokens.riseSoft}
           initial={prefersReducedMotion || !isInView ? 'visible' : 'hidden'}
           animate={isInView ? 'visible' : 'hidden'}
         >
-          <h2 className="text-[30px] sm:text-[36px] md:text-[36px] lg:text-[42px] font-semibold text-white leading-[1.2]">
+          <h2 className="text-[30px] sm:text-[36px] md:text-[42px] lg:text-[56px] font-semibold text-white leading-[1.1] tracking-tight">
             Acredito no{' '}
             <span className="text-primary">design que muda o dia</span> de
             alguém.
@@ -68,74 +34,71 @@ export function AboutBeliefs() {
           </h2>
         </motion.div>
 
-        {/* Rotating Content */}
-        <div className="relative h-[200px] flex items-center justify-center">
-          <AnimatePresence mode="wait">
-            {step === 0 && (
-              <motion.div
-                key="phrase-1"
-                variants={motionTokens.timeBased}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="absolute text-center max-w-[480px]"
-              >
-                <p className="text-[20px] md:text-[24px] text-white/90 leading-relaxed font-light">
-                  Um vídeo que{' '}
-                  <span className="text-primary font-semibold">respira</span>.
-                  <br />
-                  Uma marca que se{' '}
-                  <span className="text-primary font-semibold">reconhece</span>.
-                  <br />
-                  Um detalhe que{' '}
-                  <span className="text-primary font-semibold">fica</span>.
-                </p>
-              </motion.div>
-            )}
+        {/* Static Content Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+          {/* Left Column: Manifesto Texts */}
+          <motion.div
+            variants={motionTokens.fadeGhost}
+            initial="hidden"
+            animate={isInView ? 'visible' : 'hidden'}
+            className="flex flex-col gap-8 md:gap-10 text-center lg:text-right items-center lg:items-end order-1 lg:order-1"
+          >
+            <div className="max-w-[480px]">
+              <p className="text-[20px] md:text-[24px] text-white/90 leading-relaxed font-light">
+                Um vídeo que{' '}
+                <span className="text-primary font-semibold">respira</span>.
+                <br />
+                Uma marca que se{' '}
+                <span className="text-primary font-semibold">reconhece</span>.
+                <br />
+                Um detalhe que{' '}
+                <span className="text-primary font-semibold">fica</span>.
+              </p>
+            </div>
 
-            {step === 1 && (
-              <motion.div
-                key="phrase-2"
-                variants={motionTokens.timeBased}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="absolute text-center max-w-[480px]"
-              >
-                <p className="text-[20px] md:text-[24px] text-white/90 leading-relaxed font-light">
-                  <span className="text-primary font-semibold">Crio</span> para
-                  gerar presença.
-                  <br />
-                  <span className="text-primary font-semibold">Mesmo</span>{' '}
-                  quando não estou ali.
-                </p>
-              </motion.div>
-            )}
+            <div className="max-w-[480px]">
+              <p className="text-[20px] md:text-[24px] text-white/90 leading-relaxed font-light">
+                <span className="text-primary font-semibold">Crio</span> para
+                gerar presença.
+                <br />
+                <span className="text-primary font-semibold">Mesmo</span> quando
+                não estou ali.
+                <br />
+                <span className="text-white/60 text-[0.9em]">
+                  Mesmo quando ninguém percebe o esforço.
+                </span>
+              </p>
+            </div>
+          </motion.div>
 
-            {step >= 2 && (
-              <motion.div
-                key="ghost-reveal"
-                variants={motionTokens.fadeGhost}
-                initial="hidden"
-                animate="visible"
-                transition={{ duration: 1.2 }}
-                className="flex flex-col md:flex-row items-center justify-center gap-6"
-              >
-                <div className="w-24 h-24 md:w-32 md:h-32 relative">
-                  <GhostEyes interactive={!prefersReducedMotion} />
-                </div>
-                <div className="text-center md:text-left">
-                  <p className="text-[28px] md:text-[40px] font-semibold leading-none tracking-tight">
-                    <span className="text-white block opacity-60 text-lg md:text-xl tracking-[0.2em] mb-2 font-mono">
-                      ISSO É
-                    </span>
-                    <span className="text-primary block glow-text">GHOST</span>
-                    <span className="text-white block">DESIGN.</span>
-                  </p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {/* Right Column: Ghost Identity */}
+          <motion.div
+            variants={motionTokens.fadeGhost}
+            initial="hidden"
+            animate={isInView ? 'visible' : 'hidden'}
+            transition={{ delay: 0.2 }}
+            className="flex flex-row items-center justify-center lg:justify-start gap-6 md:gap-8 order-2 lg:order-2"
+          >
+            {/* Ghost Icon */}
+            <div className="w-28 h-28 md:w-40 md:h-40 xl:w-48 xl:h-48 relative shrink-0">
+              <GhostEyes interactive={!prefersReducedMotion} />
+            </div>
+
+            {/* Typography */}
+            <div className="text-left">
+              <p className="font-black leading-[0.85] tracking-tighter">
+                <span className="text-white block opacity-60 text-xs md:text-sm tracking-[0.35em] mb-2 md:mb-3 font-mono font-bold pl-1">
+                  ISSO É
+                </span>
+                <span className="text-primary block glow-text text-[48px] md:text-[64px] xl:text-[80px]">
+                  GHOST
+                </span>
+                <span className="text-white block text-[48px] md:text-[64px] xl:text-[80px]">
+                  DESIGN.
+                </span>
+              </p>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

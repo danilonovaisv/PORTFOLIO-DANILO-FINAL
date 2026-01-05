@@ -5,10 +5,11 @@ import {
   motion,
   useReducedMotion,
   useScroll,
+  useSpring,
   useTransform,
 } from 'framer-motion';
 import { ABOUT_CONTENT } from '@/config/content';
-import { motionTokens } from './motion';
+import { motionTokens, motionSprings } from './motion';
 
 export default function AboutMethod() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -17,13 +18,16 @@ export default function AboutMethod() {
     target: containerRef,
     offset: ['start end', 'end start'],
   });
+
+  const smoothProgress = useSpring(scrollYProgress, motionSprings.ghost);
+
   const mediaY = useTransform(
-    scrollYProgress,
+    smoothProgress,
     [0, 1],
     prefersReducedMotion ? [0, 0] : [56, -56]
   );
   const textY = useTransform(
-    scrollYProgress,
+    smoothProgress,
     [0, 1],
     prefersReducedMotion ? [0, 0] : [16, -16]
   );
@@ -84,15 +88,23 @@ export default function AboutMethod() {
               </motion.div>
 
               {/* Steps List */}
-              <div className="max-w-[560px] mx-auto lg:mx-0 border-t border-accent/60">
+              <motion.div
+                variants={{
+                  visible: {
+                    transition: {
+                      staggerChildren: 0.08,
+                    },
+                  },
+                }}
+                initial={prefersReducedMotion ? 'visible' : 'hidden'}
+                whileInView="visible"
+                viewport={{ once: true, margin: '-40px' }}
+                className="max-w-[560px] mx-auto lg:mx-0 border-t border-accent/60"
+              >
                 {ABOUT_CONTENT.method.steps.map((step, i) => (
                   <motion.div
                     key={i}
                     variants={motionTokens.riseSoft}
-                    initial={prefersReducedMotion ? 'visible' : 'hidden'}
-                    whileInView="visible"
-                    viewport={{ once: true, margin: '-40px' }}
-                    transition={{ delay: i * 0.08 }}
                     className="flex items-center gap-4 py-3 border-b border-accent/60"
                   >
                     <span className="text-primary text-sm md:text-base font-semibold tracking-tight shrink-0">
@@ -103,7 +115,7 @@ export default function AboutMethod() {
                     </p>
                   </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </motion.div>
           </div>
 

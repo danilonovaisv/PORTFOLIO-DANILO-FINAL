@@ -98,4 +98,15 @@ export const motionDurations = {
   slow: 1.4,
 };
 
+/**
+ * Configurações de Spring (Física)
+ */
+export const motionSprings = {
+  ghost: {
+    stiffness: 50,
+    damping: 20,
+    restDelta: 0.001,
+  },
+};
+
 export { GHOST_EASE };

@@ -6,7 +6,7 @@ import { Instagram, Linkedin, Twitter, Facebook } from 'lucide-react';
 import { NAVIGATION, SOCIALS } from '@/config/navigation';
 import Link from 'next/link';
 
-const footerLinks = NAVIGATION.footer.links;
+const footerLinks = NAVIGATION.header;
 const footerCopyright = NAVIGATION.footer.copyright;
 
 const social = [
@@ -39,8 +39,11 @@ function isHashHref(href: string) {
 function scrollToHash(hashHref: string) {
   const id = hashHref.replace('#', '');
   const el = document.getElementById(id);
-  if (!el) return;
-  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    window.location.href = `/${hashHref}`;
+  }
 }
 
 export default function SiteFooter() {

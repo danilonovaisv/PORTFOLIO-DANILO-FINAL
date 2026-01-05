@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { CategoryConfig } from './PortfolioShowcaseSection';
@@ -78,7 +80,7 @@ export default function AccordionRow({
                                     animate={{ height: 'auto', opacity: 1 }}
                                     exit={{ height: 0, opacity: 0 }}
                                     transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                                    className="relative block w-full overflow-hidden rounded-md md:hidden border border-white/10 order-2 md:order-none"
+                                    className="relative block w-full overflow-hidden rounded-md md:hidden border border-white/10 order-2 md:order-0"
                                 >
                                     <div className="aspect-video relative w-full">
                                         <Image
@@ -107,7 +109,7 @@ export default function AccordionRow({
                         </div>
 
                     {/* Inner Content (Title + Arrow) */}
-                    <div className="flex w-full md:w-auto items-center justify-between md:justify-start gap-4 md:gap-6 order-1 md:order-none">
+                    <div className="flex w-full md:w-auto items-center justify-between md:justify-start gap-4 md:gap-6 order-1 md:order-0">
                         {/* Category Title */}
                         <h3 className="text-3xl font-medium leading-none tracking-tighter text-white transition-colors duration-500 md:group-hover:text-[#4fe6ff] md:text-[clamp(2.5rem,5.5vw,6rem)] text-left">
                             <span className="hidden md:inline">
