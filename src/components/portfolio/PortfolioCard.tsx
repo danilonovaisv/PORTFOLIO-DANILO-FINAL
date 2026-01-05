@@ -9,6 +9,7 @@ import { FC, useRef, useState } from 'react';
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
+import { useParallaxElement } from '@/hooks/useParallax';
 import type { PortfolioProject } from '@/types/project';
 
 interface PortfolioCardProps {
@@ -30,9 +31,15 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
+  // Parallax interno da imagem (só desktop)
+  const { style: parallaxStyle } = useParallaxElement({
+    speed: 0.15,
+    direction: 'up',
+    enabled: !prefersReducedMotion,
+  });
+
   // Hover animations condicionais
-  const hoverScale = prefersReducedMotion ? 1 : isHovered ? 1.02 : 1;
-  const imageScale = prefersReducedMotion ? 1 : isHovered ? 1.08 : 1;
+  const overlayOpacity = isHovered ? 1 : 0;
 
   const handleClick = () => {
     if (onOpen) {
@@ -51,7 +58,7 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
         ease: easing,
         delay: index * 0.06,
       }}
-      className={`group relative cursor-pointer ${project.layout.cols} ${project.layout.height} ${className}`}
+      className={`group relative overflow-hidden rounded-2xl md:rounded-3xl cursor-pointer bg-white/5 ${project.layout.cols} ${project.layout.height} ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={handleClick}
@@ -60,17 +67,13 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
       onKeyDown={(e) => e.key === 'Enter' && handleClick()}
       aria-label={`Ver projeto: ${project.title}`}
     >
-      <motion.div
-        className="relative h-full w-full overflow-hidden rounded-2xl md:rounded-3xl bg-white/5"
-        animate={{ scale: hoverScale }}
-        transition={{ duration: 0.5, ease: easing }}
-        style={{ willChange: 'transform' }}
-      >
-        {/* Imagem de fundo */}
+      {/* Container de Imagem com Parallax */}
+      <div className="relative h-full w-full overflow-hidden">
         <motion.div
-          className="absolute inset-0"
-          animate={{ scale: imageScale }}
-          transition={{ duration: 0.7, ease: easing }}
+           className="absolute inset-0 -top-[17.5%] h-[135%] w-full"
+           style={prefersReducedMotion ? {} : parallaxStyle}
+           animate={{ scale: isHovered ? 1.05 : 1 }}
+           transition={{ duration: 0.7, ease: easing }}
         >
           <Image
             src={project.image}
@@ -81,99 +84,79 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
             loading={index < 4 ? 'eager' : 'lazy'}
           />
         </motion.div>
+      </div>
 
-        {/* Video preview on hover (se disponível) */}
-        {project.videoPreview && (
-          <motion.div
-            className="absolute inset-0 z-10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Image
-              src={project.videoPreview}
-              alt=""
-              fill
-              className="object-cover"
-              unoptimized
-            />
-          </motion.div>
-        )}
-
-        {/* Gradient overlay base */}
-        <div className="absolute inset-0 z-20 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
-
-        {/* Category tag */}
-        <div className="absolute top-4 right-4 z-30">
-          <motion.span
-            className="inline-flex items-center rounded-full bg-white/90 backdrop-blur-sm px-3 py-1.5 text-[10px] md:text-xs font-semibold uppercase tracking-wide text-gray-900 shadow-sm"
-            animate={{ 
-              y: isHovered ? 0 : -4,
-              opacity: isHovered ? 1 : 0.9
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            {project.displayCategory}
-          </motion.span>
-        </div>
-
-        {/* Footer content */}
-        <div className="absolute bottom-0 left-0 right-0 z-30 p-5 md:p-6">
-          <div className="flex items-end justify-between gap-4">
-            {/* Text info */}
-            <div className="flex flex-col gap-1">
-              <motion.h3
-                className="text-lg md:text-xl lg:text-2xl font-bold text-white leading-tight"
-                animate={{ y: isHovered ? -2 : 0 }}
-                transition={{ duration: 0.4, ease: easing }}
-              >
-                {project.title}
-              </motion.h3>
-              
-              <motion.span
-                className="text-sm text-white/70 font-medium"
-                initial={{ opacity: 0.7 }}
-                animate={{ 
-                  opacity: isHovered ? 1 : 0.7,
-                  y: isHovered ? -2 : 0
-                }}
-                transition={{ duration: 0.4, ease: easing, delay: 0.05 }}
-              >
-                {project.subtitle || project.client}
-              </motion.span>
-            </div>
-
-            {/* CTA Button */}
-            <motion.div
-              className="flex h-11 w-11 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-full bg-focus-ring text-white shadow-lg shadow-blue-500/25"
-              animate={{
-                scale: isHovered ? 1.1 : 1,
-                x: isHovered ? 4 : 0,
-                y: isHovered ? -4 : 0,
-              }}
-              transition={{ duration: 0.4, ease: easing }}
-            >
-              <ArrowUpRight className="w-5 h-5" />
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Accent color glow on hover */}
-        {project.accentColor && (
-          <motion.div
-            className="absolute inset-0 z-10 pointer-events-none"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isHovered ? 0.15 : 0 }}
-            transition={{ duration: 0.5 }}
-            style={{
-              background: `radial-gradient(ellipse at center bottom, ${project.accentColor}, transparent 70%)`,
-            }}
+      {/* Video preview on hover */}
+      {project.videoPreview && (
+        <motion.div
+          className="absolute inset-0 z-10 pointer-events-none"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Image
+            src={project.videoPreview}
+            alt=""
+            fill
+            className="object-cover"
+            unoptimized
           />
-        )}
+        </motion.div>
+      )}
 
-        {/* Focus ring para acessibilidade */}
-        <div className="absolute inset-0 z-40 rounded-2xl md:rounded-3xl ring-2 ring-ghost-accent ring-offset-2 ring-offset-ghost-bg opacity-0 group-focus-visible:opacity-100 transition-opacity pointer-events-none" />
-      </motion.div>
+      {/* Gradient overlay base */}
+      <div className="absolute inset-0 z-20 bg-linear-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-500 opacity-60 group-hover:opacity-80" />
+
+      {/* Hover Overlay mais escuro */}
+      <motion.div 
+        className="absolute inset-0 z-20 bg-black/40 backdrop-blur-[2px]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: overlayOpacity }}
+        transition={{ duration: 0.3 }}
+      />
+
+      {/* Category tag */}
+      <div className="absolute top-4 right-4 z-30">
+        <motion.span
+          className="inline-flex items-center rounded-full bg-white/10 backdrop-blur-md border border-white/10 px-3 py-1.5 text-[10px] md:text-xs font-medium uppercase tracking-wide text-white"
+          animate={{ 
+            y: isHovered ? 0 : -4,
+            opacity: 1
+          }}
+          transition={{ duration: 0.3 }}
+        >
+          {project.displayCategory}
+        </motion.span>
+      </div>
+
+      {/* Footer content */}
+      <div className="absolute bottom-0 left-0 right-0 z-30 p-6 md:p-8 transform transition-transform duration-500 group-hover:-translate-y-2">
+        <div className="flex items-end justify-between gap-4">
+          <div className="flex flex-col gap-1.5 local-reset">
+             <motion.h3
+               className="text-xl md:text-2xl lg:text-3xl font-bold text-white leading-[1.1] tracking-tight"
+             >
+               {project.title}
+             </motion.h3>
+             
+             <span className="text-sm text-white/60 font-medium tracking-wide uppercase">
+               {project.client} ・ {project.year}
+             </span>
+          </div>
+
+          <motion.div
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-black"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: isHovered ? 1 : 0, opacity: isHovered ? 1 : 0 }}
+            transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 20 }}
+          >
+            <ArrowUpRight className="w-5 h-5" />
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Focus ring */}
+      <div className="absolute inset-0 z-40 rounded-2xl md:rounded-3xl ring-2 ring-primary ring-offset-2 ring-offset-background opacity-0 group-focus-visible:opacity-100 transition-opacity pointer-events-none" />
     </motion.article>
   );
 };
