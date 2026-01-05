@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","HmacPKCS12PBE_SHA224",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "HmacPKCS12PBE_SHA224",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","ApertureValue",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "ApertureValue",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

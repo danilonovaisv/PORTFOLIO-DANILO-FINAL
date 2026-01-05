@@ -1,1 +1,11 @@
-["^ ","~:members",["^ ","exception",["~#set",[["^ ","~:flags",["^2",["~:field"]]]]],"InvalidTargetObjectTypeException",["^2",[["^ ","^3",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "exception",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:field"]]]]],
+    "InvalidTargetObjectTypeException",
+    ["^2", [["^ ", "^3", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

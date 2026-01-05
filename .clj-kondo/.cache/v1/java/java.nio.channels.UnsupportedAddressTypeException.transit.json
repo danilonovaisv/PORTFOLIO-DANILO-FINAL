@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","UnsupportedAddressTypeException",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "UnsupportedAddressTypeException",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

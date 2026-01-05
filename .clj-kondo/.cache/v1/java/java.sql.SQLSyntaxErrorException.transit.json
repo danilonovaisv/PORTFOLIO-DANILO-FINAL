@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","SQLSyntaxErrorException",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "SQLSyntaxErrorException",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

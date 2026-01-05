@@ -1,1 +1,12 @@
-["^ ","~:members",["^ ","resolveEntity",["~#set",[["^ ","~:flags",["^2",["~:method","~:public","~:abstract"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "resolveEntity",
+    [
+      "~#set",
+      [["^ ", "~:flags", ["^2", ["~:method", "~:public", "~:abstract"]]]]
+    ]
+  ]
+]

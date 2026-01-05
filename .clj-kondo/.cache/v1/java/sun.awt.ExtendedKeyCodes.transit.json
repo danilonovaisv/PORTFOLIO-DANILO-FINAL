@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","getExtendedKeyCodeForChar",["~#set",[["^ ","~:flags",["^2",["~:method","~:public","~:static"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "getExtendedKeyCodeForChar",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public", "~:static"]]]]]
+  ]
+]

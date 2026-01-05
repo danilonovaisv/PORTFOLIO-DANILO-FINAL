@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","SliderUI",["~#set",[["^ ","~:flags",["^2",["~:method","~:protected"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "SliderUI",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:protected"]]]]]
+  ]
+]

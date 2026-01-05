@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","lookupColor",["~#set",[["^ ","~:flags",["^2",["~:method","~:static"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "lookupColor",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:static"]]]]]
+  ]
+]

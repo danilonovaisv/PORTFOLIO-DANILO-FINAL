@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","UnboundMonitorInstruction",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "UnboundMonitorInstruction",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

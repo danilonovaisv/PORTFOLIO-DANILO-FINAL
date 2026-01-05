@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","BoundDeprecatedAttribute",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "BoundDeprecatedAttribute",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","DesktopIconUI",["~#set",[["^ ","~:flags",["^2",["~:method","~:protected"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "DesktopIconUI",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:protected"]]]]]
+  ]
+]

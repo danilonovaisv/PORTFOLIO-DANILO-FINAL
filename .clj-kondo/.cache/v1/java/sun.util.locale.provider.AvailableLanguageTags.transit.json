@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","getAvailableLanguageTags",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "getAvailableLanguageTags",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

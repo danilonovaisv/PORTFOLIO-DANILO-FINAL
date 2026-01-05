@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","LabelUI",["~#set",[["^ ","~:flags",["^2",["~:method","~:protected"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "LabelUI",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:protected"]]]]]
+  ]
+]

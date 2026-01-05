@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","requireByteSizeValid",["~#set",[["^ ","~:flags",["^2",["~:method","~:public","~:static"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "requireByteSizeValid",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public", "~:static"]]]]]
+  ]
+]

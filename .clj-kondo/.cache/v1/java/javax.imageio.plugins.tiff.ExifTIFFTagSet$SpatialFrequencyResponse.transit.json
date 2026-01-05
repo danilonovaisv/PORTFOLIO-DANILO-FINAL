@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","SpatialFrequencyResponse",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "SpatialFrequencyResponse",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

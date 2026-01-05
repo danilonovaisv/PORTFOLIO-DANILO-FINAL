@@ -1,1 +1,11 @@
-["^ ","~:members",["^ ","StyleContextChangeHandler",["~#set",[["^ ","~:flags",["^2",["~:method"]]]]],"fireStateChanged",["^2",[["^ ","^3",["^2",["^4"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "StyleContextChangeHandler",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method"]]]]],
+    "fireStateChanged",
+    ["^2", [["^ ", "^3", ["^2", ["^4"]]]]]
+  ]
+]

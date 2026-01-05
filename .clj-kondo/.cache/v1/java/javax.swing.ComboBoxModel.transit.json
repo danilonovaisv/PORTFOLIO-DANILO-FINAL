@@ -1,1 +1,11 @@
-["^ ","~:members",["^ ","setSelectedItem",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]],"getSelectedItem",["^2",[["^ ","^3",["^2",["^4","^5"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "setSelectedItem",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]],
+    "getSelectedItem",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "^5"]]]]]
+  ]
+]

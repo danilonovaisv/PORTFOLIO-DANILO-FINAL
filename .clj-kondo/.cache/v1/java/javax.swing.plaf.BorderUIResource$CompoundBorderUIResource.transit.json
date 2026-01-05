@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","CompoundBorderUIResource",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "CompoundBorderUIResource",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

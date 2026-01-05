@@ -1,1 +1,11 @@
-["^ ","~:members",["^ ","DOMErrorHandlerImpl",["~#set",[["^ ","~:flags",["^2",["~:method"]]]]],"handleError",["^2",[["^ ","^3",["^2",["^4","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "DOMErrorHandlerImpl",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method"]]]]],
+    "handleError",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "~:public"]]]]]
+  ]
+]

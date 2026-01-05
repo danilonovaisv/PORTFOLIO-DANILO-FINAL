@@ -1,1 +1,11 @@
-["^ ","~:members",["^ ","MTLSwToSurfaceTransform",["~#set",[["^ ","~:flags",["^2",["~:method"]]]]],"Transform",["^2",[["^ ","^3",["^2",["^4","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "MTLSwToSurfaceTransform",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method"]]]]],
+    "Transform",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "~:public"]]]]]
+  ]
+]

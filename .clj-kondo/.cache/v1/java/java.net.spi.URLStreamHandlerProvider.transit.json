@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","URLStreamHandlerProvider",["~#set",[["^ ","~:flags",["^2",["~:method","~:protected"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "URLStreamHandlerProvider",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:protected"]]]]]
+  ]
+]

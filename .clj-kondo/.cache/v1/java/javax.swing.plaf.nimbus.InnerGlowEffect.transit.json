@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","InnerGlowEffect",["~#set",[["^ ","~:flags",["^2",["~:method"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "InnerGlowEffect",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method"]]]]]
+  ]
+]

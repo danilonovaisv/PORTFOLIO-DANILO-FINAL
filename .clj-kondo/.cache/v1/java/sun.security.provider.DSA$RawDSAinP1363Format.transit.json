@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","RawDSAinP1363Format",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "RawDSAinP1363Format",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

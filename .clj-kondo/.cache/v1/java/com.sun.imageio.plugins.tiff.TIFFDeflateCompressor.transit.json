@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","TIFFDeflateCompressor",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "TIFFDeflateCompressor",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

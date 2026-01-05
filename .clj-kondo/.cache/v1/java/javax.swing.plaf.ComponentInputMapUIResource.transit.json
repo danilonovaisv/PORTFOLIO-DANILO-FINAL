@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","ComponentInputMapUIResource",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "ComponentInputMapUIResource",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

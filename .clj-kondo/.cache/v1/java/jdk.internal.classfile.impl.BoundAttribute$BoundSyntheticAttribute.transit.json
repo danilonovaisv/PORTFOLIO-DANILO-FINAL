@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","BoundSyntheticAttribute",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "BoundSyntheticAttribute",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

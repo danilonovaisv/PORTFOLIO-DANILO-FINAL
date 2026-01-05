@@ -1,1 +1,12 @@
-["^ ","~:members",["^ ","createPooledConnection",["~#set",[["^ ","~:flags",["^2",["~:method","~:public","~:abstract"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "createPooledConnection",
+    [
+      "~#set",
+      [["^ ", "~:flags", ["^2", ["~:method", "~:public", "~:abstract"]]]]
+    ]
+  ]
+]

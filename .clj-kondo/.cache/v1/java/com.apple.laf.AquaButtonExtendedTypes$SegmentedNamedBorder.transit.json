@@ -1,1 +1,11 @@
-["^ ","~:members",["^ ","SegmentedNamedBorder",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]],"isSelectionPressing",["^2",[["^ ","^3",["^2",["^4","~:protected"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "SegmentedNamedBorder",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]],
+    "isSelectionPressing",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "~:protected"]]]]]
+  ]
+]

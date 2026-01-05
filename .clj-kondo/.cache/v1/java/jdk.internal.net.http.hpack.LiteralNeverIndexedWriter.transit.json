@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","LiteralNeverIndexedWriter",["~#set",[["^ ","~:flags",["^2",["~:method"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "LiteralNeverIndexedWriter",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method"]]]]]
+  ]
+]

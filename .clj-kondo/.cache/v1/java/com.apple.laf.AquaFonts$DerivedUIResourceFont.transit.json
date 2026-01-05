@@ -1,1 +1,11 @@
-["^ ","~:members",["^ ","DerivedUIResourceFont",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]],"deriveFont",["^2",[["^ ","^3",["^2",["^4","^5"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "DerivedUIResourceFont",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]],
+    "deriveFont",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "^5"]]]]]
+  ]
+]

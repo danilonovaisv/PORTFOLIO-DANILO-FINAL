@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","NoSuchAlgorithmException",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "NoSuchAlgorithmException",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

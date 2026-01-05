@@ -1,1 +1,11 @@
-["^ ","~:members",["^ ","builtinResolver",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]],"lookupLocalHostName",["^2",[["^ ","^3",["^2",["^4","^5"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "builtinResolver",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]],
+    "lookupLocalHostName",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "^5"]]]]]
+  ]
+]

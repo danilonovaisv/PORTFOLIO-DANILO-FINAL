@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","GPSDestDistanceRef",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "GPSDestDistanceRef",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

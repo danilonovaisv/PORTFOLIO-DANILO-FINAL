@@ -1,1 +1,11 @@
-["^ ","~:members",["^ ","getUnsupportedAttributes",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]],"getUnsupportedValues",["^2",[["^ ","^3",["^2",["^4","^5"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "getUnsupportedAttributes",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]],
+    "getUnsupportedValues",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "^5"]]]]]
+  ]
+]

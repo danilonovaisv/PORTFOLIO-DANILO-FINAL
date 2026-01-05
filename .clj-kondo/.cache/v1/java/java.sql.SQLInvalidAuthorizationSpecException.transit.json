@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","SQLInvalidAuthorizationSpecException",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "SQLInvalidAuthorizationSpecException",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

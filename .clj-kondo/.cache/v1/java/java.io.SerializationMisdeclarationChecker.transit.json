@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","checkMisdeclarations",["~#set",[["^ ","~:flags",["^2",["~:method","~:static"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "checkMisdeclarations",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:static"]]]]]
+  ]
+]

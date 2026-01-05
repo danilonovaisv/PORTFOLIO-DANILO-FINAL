@@ -1,1 +1,11 @@
-["^ ","~:members",["^ ","MTLTextureToSurfaceScale",["~#set",[["^ ","~:flags",["^2",["~:method"]]]]],"Scale",["^2",[["^ ","^3",["^2",["^4","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "MTLTextureToSurfaceScale",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method"]]]]],
+    "Scale",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "~:public"]]]]]
+  ]
+]

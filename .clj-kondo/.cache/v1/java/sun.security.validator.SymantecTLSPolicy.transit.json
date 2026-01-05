@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","checkDistrust",["~#set",[["^ ","~:flags",["^2",["~:method","~:static"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "checkDistrust",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:static"]]]]]
+  ]
+]

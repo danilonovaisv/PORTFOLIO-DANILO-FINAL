@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","SHA256withDSAinP1363Format",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "SHA256withDSAinP1363Format",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

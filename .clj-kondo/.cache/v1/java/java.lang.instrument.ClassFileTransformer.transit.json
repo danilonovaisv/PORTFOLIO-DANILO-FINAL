@@ -1,1 +1,12 @@
-["^ ","~:members",["^ ","transform",["~#set",[["^ ","~:flags",["^2",["~:method","~:default","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "transform",
+    [
+      "~#set",
+      [["^ ", "~:flags", ["^2", ["~:method", "~:default", "~:public"]]]]
+    ]
+  ]
+]

@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","deserializationCtr",["~#set",[["^ ","~:flags",["^2",["~:method","~:static"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "deserializationCtr",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:static"]]]]]
+  ]
+]

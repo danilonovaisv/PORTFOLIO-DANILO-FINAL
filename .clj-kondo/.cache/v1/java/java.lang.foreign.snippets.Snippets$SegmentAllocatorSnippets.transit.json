@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","prefixAllocator",["~#set",[["^ ","~:flags",["^2",["~:method"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "prefixAllocator",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method"]]]]]
+  ]
+]

@@ -1,1 +1,11 @@
-["^ ","~:members",["^ ","propertyChange",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]],"applyComponentSize",["^2",[["^ ","^3",["^2",["^4","~:static","~:protected"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "propertyChange",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]],
+    "applyComponentSize",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "~:static", "~:protected"]]]]]
+  ]
+]

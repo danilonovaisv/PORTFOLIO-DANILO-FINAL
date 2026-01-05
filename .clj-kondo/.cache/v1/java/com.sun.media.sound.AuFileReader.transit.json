@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","getAudioFileFormatImpl",["~#set",[["^ ","~:flags",["^2",["~:method"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "getAudioFileFormatImpl",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method"]]]]]
+  ]
+]

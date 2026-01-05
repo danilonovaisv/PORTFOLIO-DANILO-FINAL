@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","PlainTextInputStream",["~#set",[["^ ","~:flags",["^2",["~:method"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "PlainTextInputStream",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method"]]]]]
+  ]
+]

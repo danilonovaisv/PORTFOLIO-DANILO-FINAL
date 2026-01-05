@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","SimpleAnnotationValueVisitor9",["~#set",[["^ ","~:flags",["^2",["~:method","~:protected"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "SimpleAnnotationValueVisitor9",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:protected"]]]]]
+  ]
+]

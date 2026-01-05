@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","appendUnprocessedReferrals",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "appendUnprocessedReferrals",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

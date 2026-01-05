@@ -1,1 +1,11 @@
-["^ ","~:members",["^ ","writeExternal",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]],"readExternal",["^2",[["^ ","^3",["^2",["^4","^5"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "writeExternal",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]],
+    "readExternal",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "^5"]]]]]
+  ]
+]

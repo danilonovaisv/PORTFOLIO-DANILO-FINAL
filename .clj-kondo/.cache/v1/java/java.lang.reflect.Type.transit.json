@@ -1,1 +1,12 @@
-["^ ","~:members",["^ ","getTypeName",["~#set",[["^ ","~:flags",["^2",["~:method","~:default","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "getTypeName",
+    [
+      "~#set",
+      [["^ ", "~:flags", ["^2", ["~:method", "~:default", "~:public"]]]]
+    ]
+  ]
+]

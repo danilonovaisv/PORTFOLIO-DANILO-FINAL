@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","InstanceAlreadyExistsException",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "InstanceAlreadyExistsException",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

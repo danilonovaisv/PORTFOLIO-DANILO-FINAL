@@ -1,1 +1,11 @@
-["^ ","~:members",["^ ","childrenAdded",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]],"childrenRemoved",["^2",[["^ ","^3",["^2",["^4","^5"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "childrenAdded",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]],
+    "childrenRemoved",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "^5"]]]]]
+  ]
+]

@@ -1,1 +1,13 @@
-["^ ","~:members",["^ ","bindings",["~#set",[["^ ","~:flags",["^2",["~:field","~:final"]]]]],"SimpleBinding",["^2",[["^ ","^3",["^2",["~:method","~:public"]]]]],"getBindings",["^2",[["^ ","^3",["^2",["^7","^8"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "bindings",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:field", "~:final"]]]]],
+    "SimpleBinding",
+    ["^2", [["^ ", "^3", ["^2", ["~:method", "~:public"]]]]],
+    "getBindings",
+    ["^2", [["^ ", "^3", ["^2", ["^7", "^8"]]]]]
+  ]
+]

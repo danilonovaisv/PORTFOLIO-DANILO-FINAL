@@ -1,1 +1,11 @@
-["^ ","~:members",["^ ","BadAttributeValueExpException",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]],"toString",["^2",[["^ ","^3",["^2",["^4","^5"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "BadAttributeValueExpException",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]],
+    "toString",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "^5"]]]]]
+  ]
+]

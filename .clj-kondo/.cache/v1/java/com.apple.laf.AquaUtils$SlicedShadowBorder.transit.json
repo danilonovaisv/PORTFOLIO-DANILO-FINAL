@@ -1,1 +1,11 @@
-["^ ","~:members",["^ ","SlicedShadowBorder",["~#set",[["^ ","~:flags",["^2",["~:method"]]]]],"paintBorder",["^2",[["^ ","^3",["^2",["^4","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "SlicedShadowBorder",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method"]]]]],
+    "paintBorder",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "~:public"]]]]]
+  ]
+]

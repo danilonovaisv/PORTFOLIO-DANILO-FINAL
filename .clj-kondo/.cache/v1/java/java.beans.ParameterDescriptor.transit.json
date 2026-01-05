@@ -1,1 +1,15 @@
-["^ ","~:members",["^ ","ParameterDescriptor",["~#set",[["^ ","~:flags",["^2",["~:method"]]],["^ ","^3",["^2",["^4","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "ParameterDescriptor",
+    [
+      "~#set",
+      [
+        ["^ ", "~:flags", ["^2", ["~:method"]]],
+        ["^ ", "^3", ["^2", ["^4", "~:public"]]]
+      ]
+    ]
+  ]
+]

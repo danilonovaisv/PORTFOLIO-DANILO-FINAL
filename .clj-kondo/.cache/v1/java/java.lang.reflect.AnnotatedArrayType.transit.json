@@ -1,1 +1,11 @@
-["^ ","~:members",["^ ","getAnnotatedGenericComponentType",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]],"getAnnotatedOwnerType",["^2",[["^ ","^3",["^2",["^4","^5"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "getAnnotatedGenericComponentType",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]],
+    "getAnnotatedOwnerType",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "^5"]]]]]
+  ]
+]

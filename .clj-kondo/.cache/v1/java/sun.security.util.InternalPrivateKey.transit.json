@@ -1,1 +1,12 @@
-["^ ","~:members",["^ ","calculatePublicKey",["~#set",[["^ ","~:flags",["^2",["~:method","~:default","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "calculatePublicKey",
+    [
+      "~#set",
+      [["^ ", "~:flags", ["^2", ["~:method", "~:default", "~:public"]]]]
+    ]
+  ]
+]

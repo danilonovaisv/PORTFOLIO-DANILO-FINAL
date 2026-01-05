@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","getKeyboardFocusManagerPeer",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "getKeyboardFocusManagerPeer",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

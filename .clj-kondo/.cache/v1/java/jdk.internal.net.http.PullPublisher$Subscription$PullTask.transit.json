@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","run",["~#set",[["^ ","~:flags",["^1",["~:method","~:protected"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "run",
+    ["~#set", [["^ ", "~:flags", ["^1", ["~:method", "~:protected"]]]]]
+  ]
+]

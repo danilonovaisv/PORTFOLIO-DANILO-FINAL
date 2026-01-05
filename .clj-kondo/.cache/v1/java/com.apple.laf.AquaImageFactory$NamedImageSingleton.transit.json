@@ -1,1 +1,13 @@
-["^ ","~:members",["^ ","namedImage",["~#set",[["^ ","~:flags",["^2",["~:field","~:final"]]]]],"NamedImageSingleton",["^2",[["^ ","^3",["^2",["~:method"]]]]],"getInstance",["^2",[["^ ","^3",["^2",["^7","~:protected"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "namedImage",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:field", "~:final"]]]]],
+    "NamedImageSingleton",
+    ["^2", [["^ ", "^3", ["^2", ["~:method"]]]]],
+    "getInstance",
+    ["^2", [["^ ", "^3", ["^2", ["^7", "~:protected"]]]]]
+  ]
+]

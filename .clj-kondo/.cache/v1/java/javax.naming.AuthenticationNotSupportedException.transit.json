@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","AuthenticationNotSupportedException",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "AuthenticationNotSupportedException",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

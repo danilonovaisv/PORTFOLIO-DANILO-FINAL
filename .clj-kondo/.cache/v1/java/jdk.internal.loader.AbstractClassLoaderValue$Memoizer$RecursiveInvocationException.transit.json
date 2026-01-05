@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","RecursiveInvocationException",["~#set",[["^ ","~:flags",["^2",["~:method"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "RecursiveInvocationException",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method"]]]]]
+  ]
+]

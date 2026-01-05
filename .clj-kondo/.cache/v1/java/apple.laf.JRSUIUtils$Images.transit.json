@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","shouldUseLegacySecurityUIPath",["~#set",[["^ ","~:flags",["^2",["~:method","~:public","~:static"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "shouldUseLegacySecurityUIPath",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public", "~:static"]]]]]
+  ]
+]

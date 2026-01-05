@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","sort",["~#set",[["^ ","~:flags",["^2",["~:method","~:static"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "sort",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:static"]]]]]
+  ]
+]

@@ -1,1 +1,11 @@
-["^ ","~:members",["^ ","getObjectInstance",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]],"getUsingURLIgnoreRootDN",["^2",[["^ ","^3",["^2",["^4","~:static"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "getObjectInstance",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]],
+    "getUsingURLIgnoreRootDN",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "~:static"]]]]]
+  ]
+]

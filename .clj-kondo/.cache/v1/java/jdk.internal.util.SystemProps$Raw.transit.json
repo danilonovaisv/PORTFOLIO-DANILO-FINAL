@@ -1,1 +1,5 @@
-["^ ","~:members",["^ ","propDefault",["~#set",[["^ ","~:flags",["^2",["~:method"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  ["^ ", "propDefault", ["~#set", [["^ ", "~:flags", ["^2", ["~:method"]]]]]]
+]

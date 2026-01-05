@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","UnsupportedAudioFileException",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "UnsupportedAudioFileException",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","JPEGLosslessPredictors",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "JPEGLosslessPredictors",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

@@ -1,1 +1,13 @@
-["^ ","~:members",["^ ","accumulatedDelta",["~#set",[["^ ","~:flags",["^2",["~:field"]]]]],"accumulate",["^2",[["^ ","^3",["^2",["^4"]]]]],"getRoundedDelta",["^2",[["^ ","^3",["^2",["~:method"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "accumulatedDelta",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:field"]]]]],
+    "accumulate",
+    ["^2", [["^ ", "^3", ["^2", ["^4"]]]]],
+    "getRoundedDelta",
+    ["^2", [["^ ", "^3", ["^2", ["~:method"]]]]]
+  ]
+]

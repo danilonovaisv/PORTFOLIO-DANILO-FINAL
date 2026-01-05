@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","ColorTransferHandler",["~#set",[["^ ","~:flags",["^2",["~:method"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "ColorTransferHandler",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method"]]]]]
+  ]
+]

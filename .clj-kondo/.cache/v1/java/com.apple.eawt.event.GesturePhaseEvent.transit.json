@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","GesturePhaseEvent",["~#set",[["^ ","~:flags",["^2",["~:method"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "GesturePhaseEvent",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method"]]]]]
+  ]
+]

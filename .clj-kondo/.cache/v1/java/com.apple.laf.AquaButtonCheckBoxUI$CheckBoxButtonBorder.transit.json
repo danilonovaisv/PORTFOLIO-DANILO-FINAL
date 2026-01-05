@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","CheckBoxButtonBorder",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "CheckBoxButtonBorder",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

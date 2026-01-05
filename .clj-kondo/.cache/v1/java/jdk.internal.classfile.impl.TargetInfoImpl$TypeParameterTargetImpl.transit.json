@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","TypeParameterTargetImpl",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "TypeParameterTargetImpl",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

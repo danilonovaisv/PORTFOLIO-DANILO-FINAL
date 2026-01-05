@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","PBEWithMD5AndTripleDES",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "PBEWithMD5AndTripleDES",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

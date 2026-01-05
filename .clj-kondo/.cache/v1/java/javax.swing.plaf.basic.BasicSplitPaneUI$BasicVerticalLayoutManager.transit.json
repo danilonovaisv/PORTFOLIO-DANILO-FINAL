@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","BasicVerticalLayoutManager",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "BasicVerticalLayoutManager",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

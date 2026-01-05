@@ -1,1 +1,12 @@
-["^ ","~:members",["^ ","getIterator",["~#set",[["^ ","~:flags",["^2",["~:method","~:public","~:abstract"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "getIterator",
+    [
+      "~#set",
+      [["^ ", "~:flags", ["^2", ["~:method", "~:public", "~:abstract"]]]]
+    ]
+  ]
+]

@@ -1,1 +1,13 @@
-["^ ","~:members",["^ ","asElement",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]],"getEnclosingType",["^2",[["^ ","^3",["^2",["^4","^5"]]]]],"getTypeArguments",["^2",[["^ ","^3",["^2",["^4","^5"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "asElement",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]],
+    "getEnclosingType",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "^5"]]]]],
+    "getTypeArguments",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "^5"]]]]]
+  ]
+]

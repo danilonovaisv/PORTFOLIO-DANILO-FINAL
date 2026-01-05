@@ -1,1 +1,11 @@
-["^ ","~:members",["^ ","OGLTextureToSurfaceBlit",["~#set",[["^ ","~:flags",["^2",["~:method"]]]]],"Blit",["^2",[["^ ","^3",["^2",["^4","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "OGLTextureToSurfaceBlit",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method"]]]]],
+    "Blit",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "~:public"]]]]]
+  ]
+]

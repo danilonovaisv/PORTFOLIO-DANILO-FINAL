@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","UnsupportedClassVersionError",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "UnsupportedClassVersionError",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

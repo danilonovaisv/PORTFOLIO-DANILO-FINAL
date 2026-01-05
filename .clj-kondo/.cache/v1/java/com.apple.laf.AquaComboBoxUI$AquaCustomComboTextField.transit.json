@@ -1,1 +1,13 @@
-["^ ","~:members",["^ ","AquaCustomComboTextField",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]],"actionPerformed",["^2",[["^ ","^3",["^2",["^4","^5"]]]]],"setText",["^2",[["^ ","^3",["^2",["^4","^5"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "AquaCustomComboTextField",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]],
+    "actionPerformed",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "^5"]]]]],
+    "setText",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "^5"]]]]]
+  ]
+]

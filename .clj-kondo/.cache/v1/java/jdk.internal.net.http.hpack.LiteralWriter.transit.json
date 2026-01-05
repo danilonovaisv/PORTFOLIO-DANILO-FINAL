@@ -1,1 +1,5 @@
-["^ ","~:members",["^ ","LiteralWriter",["~#set",[["^ ","~:flags",["^2",["~:method"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  ["^ ", "LiteralWriter", ["~#set", [["^ ", "~:flags", ["^2", ["~:method"]]]]]]
+]

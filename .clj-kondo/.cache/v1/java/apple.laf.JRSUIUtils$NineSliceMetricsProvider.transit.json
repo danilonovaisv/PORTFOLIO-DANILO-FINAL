@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","getNineSliceMetricsForState",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "getNineSliceMetricsForState",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

@@ -1,1 +1,13 @@
-["^ ","~:members",["^ ","setExtendedState",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]],"getExtendedState",["^2",[["^ ","^3",["^2",["^4","^5"]]]]],"getMaximizedBounds",["^2",[["^ ","^3",["^2",["^4","^5"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "setExtendedState",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]],
+    "getExtendedState",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "^5"]]]]],
+    "getMaximizedBounds",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "^5"]]]]]
+  ]
+]

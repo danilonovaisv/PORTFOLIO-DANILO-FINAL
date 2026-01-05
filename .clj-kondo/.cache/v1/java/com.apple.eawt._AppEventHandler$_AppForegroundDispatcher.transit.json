@@ -1,1 +1,13 @@
-["^ ","~:members",["^ ","createEvent",["~#set",[["^ ","~:flags",["^2",["~:method"]]]]],"performFalseEventOn",["^2",[["^ ","^3",["^2",["^4"]]]]],"performTrueEventOn",["^2",[["^ ","^3",["^2",["^4"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "createEvent",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method"]]]]],
+    "performFalseEventOn",
+    ["^2", [["^ ", "^3", ["^2", ["^4"]]]]],
+    "performTrueEventOn",
+    ["^2", [["^ ", "^3", ["^2", ["^4"]]]]]
+  ]
+]

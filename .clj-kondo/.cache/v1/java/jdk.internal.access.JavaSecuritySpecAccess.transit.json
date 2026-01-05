@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","clearEncodedKeySpec",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "clearEncodedKeySpec",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

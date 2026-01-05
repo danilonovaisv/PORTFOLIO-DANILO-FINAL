@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","isDataVersionAcceptable",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "isDataVersionAcceptable",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

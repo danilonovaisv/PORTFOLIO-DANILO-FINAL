@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","ArrayIndexOutOfBoundsException",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "ArrayIndexOutOfBoundsException",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

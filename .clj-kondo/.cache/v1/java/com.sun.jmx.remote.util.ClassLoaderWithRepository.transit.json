@@ -1,1 +1,11 @@
-["^ ","~:members",["^ ","ClassLoaderWithRepository",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]],"findClass",["^2",[["^ ","^3",["^2",["^4","~:protected"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "ClassLoaderWithRepository",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]],
+    "findClass",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "~:protected"]]]]]
+  ]
+]

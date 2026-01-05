@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","DefaultMultipleNodeCounter",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "DefaultMultipleNodeCounter",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

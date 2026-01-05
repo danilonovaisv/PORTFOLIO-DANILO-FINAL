@@ -1,1 +1,15 @@
-["^ ","~:members",["^ ","CColorPaintUIResource",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]],"getInstance",["^2",[["^ ","^3",["^2",["^4","~:protected"]]]]],"getWindowBackgroundColorUIResource",["^2",[["^ ","^3",["^2",["^4","^5","~:static"]]]]],"getRadioButtonSizerImage",["^2",[["^ ","^3",["^2",["^4","^9"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "CColorPaintUIResource",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]],
+    "getInstance",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "~:protected"]]]]],
+    "getWindowBackgroundColorUIResource",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "^5", "~:static"]]]]],
+    "getRadioButtonSizerImage",
+    ["^2", [["^ ", "^3", ["^2", ["^4", "^9"]]]]]
+  ]
+]

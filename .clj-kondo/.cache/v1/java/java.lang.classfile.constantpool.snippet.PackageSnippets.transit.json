@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","isStaticWorkMethod",["~#set",[["^ ","~:flags",["^2",["~:method"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "isStaticWorkMethod",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method"]]]]]
+  ]
+]

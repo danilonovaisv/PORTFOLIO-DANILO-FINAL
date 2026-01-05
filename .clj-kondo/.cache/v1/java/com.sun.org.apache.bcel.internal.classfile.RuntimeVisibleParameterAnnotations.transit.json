@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","RuntimeVisibleParameterAnnotations",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "RuntimeVisibleParameterAnnotations",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","HashPrintServiceAttributeSet",["~#set",[["^ ","~:flags",["^2",["~:method","~:public"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "HashPrintServiceAttributeSet",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public"]]]]]
+  ]
+]

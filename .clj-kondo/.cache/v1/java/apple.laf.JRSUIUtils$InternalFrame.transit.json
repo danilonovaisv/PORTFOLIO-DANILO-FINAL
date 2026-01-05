@@ -1,1 +1,9 @@
-["^ ","~:members",["^ ","shouldUseLegacyBorderMetrics",["~#set",[["^ ","~:flags",["^2",["~:method","~:public","~:static"]]]]]]]
+[
+  "^ ",
+  "~:members",
+  [
+    "^ ",
+    "shouldUseLegacyBorderMetrics",
+    ["~#set", [["^ ", "~:flags", ["^2", ["~:method", "~:public", "~:static"]]]]]
+  ]
+]
