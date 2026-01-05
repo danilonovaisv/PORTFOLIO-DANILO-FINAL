@@ -2,7 +2,7 @@
 ## Projeto: PORTFÓLIO — Ghost System
 ## Escopo: Página interna de projeto em modal (Zoom Viewer + Página de Projeto)
 ## Página base: Portfolio Showcase
-## Documento revisado conforme: PROTOTIPO INTERATIVO - PORT DAN GHOST.md
+## Documento revisado conforme: HOME - PROTOTIPO INTERATIVO.md
 
 ---
 

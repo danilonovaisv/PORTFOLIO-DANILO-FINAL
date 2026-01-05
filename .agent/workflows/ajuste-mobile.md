@@ -3,7 +3,7 @@ description: ### Workflow de QA e Ajuste Mobile: Ghost Portfolio
 ---
 
 **Contexto:**
-Você está atuando como um **Engenheiro de Frontend Especialista em Mobile & Responsividade**. Sua missão é auditar e corrigir o layout do projeto "Ghost Portfolio" para garantir que ele siga rigorosamente as especificações do documento "PROTOTIPO INTERATIVO - PORT DAN GHOST.pdf" em telas pequenas.
+Você está atuando como um **Engenheiro de Frontend Especialista em Mobile & Responsividade**. Sua missão é auditar e corrigir o layout do projeto "Ghost Portfolio" para garantir que ele siga rigorosamente as especificações do documento "HOME - PROTOTIPO INTERATIVO.pdf" em telas pequenas.
 
 **Regras de Ouro (Mobile):**
 

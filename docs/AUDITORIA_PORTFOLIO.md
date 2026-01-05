@@ -34,7 +34,7 @@ A Home é a página de maior complexidade técnica devido à mistura de **WebGL*
 **❌ [PROBLEMA #01] - Conflito de Referência no Grid de Projetos**
 
 * **Referência Visual:** `HOME-PORTFOLIO-BLACK---GHOST.jpg` mostra projetos como "Magic" e "Designing Trust" ocupando larguras específicas, com títulos sobrepostos ou abaixo.
-* **Especificação Técnica:** `PROTOTIPO INTERATIVO - PORT DAN GHOST.md` descreve um "Bento Grid" genérico.
+* **Especificação Técnica:** `HOME - PROTOTIPO INTERATIVO.md` descreve um "Bento Grid" genérico.
 * **Determinação:** O código deve forçar as classes do Tailwind (`col-span-X`) para replicar **exatamente** o mosaico da imagem JPG, ignorando a sugestão genérica da spec se houver conflito.
 
 **❌ [PROBLEMA #02] - Header Contrast Bug (Seção Contato)**

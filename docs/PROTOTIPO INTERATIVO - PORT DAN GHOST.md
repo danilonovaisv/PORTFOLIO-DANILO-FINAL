@@ -54,9 +54,9 @@ Accessibility: WCAG AA compliance, keyboard navigation coverage
 - Mobile-first responsive design (majority of traffic expected from mobile)
 - Performance budget: <2MB initial page weight, <5s time to interactive
 
-## 2. DESIGN SYSTEM
 
-## 2. DESIGN SYSTEM
+
+# **2. DESIGN SYSTEM**
 
 ### 2.1 Color Palette
 

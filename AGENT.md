@@ -29,7 +29,7 @@ Este agente é responsável por **analisar, criar e corrigir código** no projet
 ## 2. Objetivos do Agente
 
 1. **Análise de Código e Arquitetura**
-   - Garantir adesão estrita ao arquivo `.cursorrules`.
+   - Garantir adesão estrita ao arquivo `.agentrules`.
    - Verificar Z-Index layers em cada alteração visual.
 
 2. **Criação e Edição de Código**

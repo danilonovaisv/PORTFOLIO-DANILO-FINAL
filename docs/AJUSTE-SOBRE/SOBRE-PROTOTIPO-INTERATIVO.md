@@ -4,6 +4,188 @@
 
 ---
 
+# **2. DESIGN SYSTEM**
+
+### 2.1 Color Palette
+
+| Token          | Value     | Uso                                                      |
+| -------------- | --------- | -------------------------------------------------------- |
+| bluePrimary    | `#0048ff` | Cor primária da marca, CTAs, links, elementos interativos |
+| blueAccent     | `#4fe6ff` | Destaques secundários, brilhos “ghost”/atmosfera        |
+| purpleDetails  | `#8705f2` | Pequenos detalhes e highlights                           |
+| pinkDetails    | `#f501d3` | Pequenos detalhes, ênfases pontuais                      |
+| background     | `#040013` | Fundo escuro principal                                   |
+| backgroundLight| `#f0f0f0` | Seções claras (forms, blocos alternados)                 |
+| text           | `#fcffff` | Texto principal em fundo escuro                          |
+| textInverse    | `#0e0e0e` | Texto em fundos claros                                   |
+| textEmphasis   | `#2E85F2` | Palavras destacadas no meio do texto                     |
+| textHighlight  | `#4fe6ff` | Destaques curtos, intros breves                          |
+| textSecondary  | `#a1a3a3` | Infos secundárias, metadata                              |
+| neutral        | `#0b0d3a` | Gradientes, fundos sutis                                 |
+| neutralLight   | `#F5F5F5` | Fundos de seções secundárias                             |
+
+> Obs: `textEmphasis` estava com `##2E85F2` e `textHilght` com typo — normalizei para `textHighlight`.
+
+---
+
+### 2.2 Typography
+
+**Fonte primária:** TT Norms Pro (self-hosted, fallback: `ui-sans-serif, system-ui`)
+
+Tokens de texto **responsivos** (usando `clamp`) para manter coerência em todos os breakpoints:
+
+| Token     | Mobile (~<640px) | Desktop (~≥1024px) | Peso   | Uso                                                                 |
+| --------- | ---------------- | ------------------ | ------ | ------------------------------------------------------------------- |
+| display   | 2.5rem (40px)    | 4.5rem (72px)      | Black   | Frases grandes no meio da página, não-semânticas (Big Phrase)      |
+| h1        | 2rem (32px)      | 3.5rem (56px)      | Bold   | Hero headlines, títulos principais                                  |
+| h2        | 1.5rem (24px)    | 2.5rem (40px)      | Bold   | Títulos de seção                                                    |
+| h3        | 1.25rem (20px)   | 1.75rem (28px)     | Medium | Títulos de cards, subtítulos                                       |
+| body      | 1rem (16px)      | 1.125rem (18px)    | Regular| Texto corrido                                                       |
+| small     | 0.875rem (14px)  | 0.875rem (14px)    | Reg/Med| Labels, legendas                                                   |
+| micro     | 0.75rem (12px)   | 0.75rem (12px)     | Mono   | Tags, infos de sistema                                              |
+
+#### Tokens em CSS com `clamp()`
+
+["css
+:root {
+  --font-display: clamp(2.5rem, 5vw, 4.5rem);
+  --font-h1:      clamp(2rem, 4vw, 3.5rem);
+  --font-h2:      clamp(1.5rem, 3vw, 2.5rem);
+  --font-h3:      clamp(1.25rem, 2vw, 1.75rem);
+  --font-body:    clamp(1rem, 1.2vw, 1.125rem);
+  --font-small:   0.875rem;
+  --font-micro:   0.75rem;
+}
+
+body {
+  font-family: "TT Norms Pro", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+.display-text {
+  font-size: var(--font-display);
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.h1 {
+  font-size: var(--font-h1);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.h2 {
+  font-size: var(--font-h2);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.h3 {
+  font-size: var(--font-h3);
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.body {
+  font-size: var(--font-body);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.small {
+  font-size: var(--font-small);
+}
+
+.micro {
+  font-size: var(--font-micro);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
+}"]
+
+### 2.5 Global Assets
+Logos:
+- Favicon: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/Favicon.svg`
+- Favicon Light: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg`
+- Logo Light (full): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg`
+- Logo Dark (full): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
+
+### 2.6 Fonts:
+ -  font-family: 'TT Norms Pro';
+  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Thin.woff2') format('woff2');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+
+- font-face {
+  font-family: 'TT Norms Pro';
+  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+
+- font-face {
+  font-family: 'TT Norms Pro';
+  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+
+- font-face {
+  font-family: 'TT Norms Pro';
+  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+
+- font-face {
+  font-family: 'TT Norms Pro';
+  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+
+
+- font-face {
+  font-family: 'TT Norms Pro';
+  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Fonte Mono para Tags */
+@font-face {
+  font-family: 'PPSupplyMono';
+  src: url('https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+Videos:
+- Manifesto Video: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
+
+Client Logos:
+- 12 monochromatic SVG logos: `client1.svg` through `client12.svg`
+- Base URL: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/`
+
+
+
+
+
+## **Ordem das Seções (Sobre):**
+1.  Header
+2.  About Hero (Video Loop)
+3.  About Origin
+4.  About What I Do
+5.  About Method
+6. About Beliefs
+7. AboutClosing
+8. Clients / Brands
+9. Contact
+10. Footer
+
+
 ## 📌 ESTE DOCUMENTO É A FONTE ÚNICA DA VERDADE
 
 Este arquivo consolida **TODO** o conteúdo da página **/sobre**:

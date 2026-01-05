@@ -29,11 +29,21 @@ Sua missão é escanear o ambiente, identificar a stack tecnológica, a arquitet
     - **Assets/Public:** Onde estão imagens e modelos 3D.
 3.  Confirme o padrão de estilização (Tailwind classes vs CSS Modules vs Styled Components).
 
-## ETAPA 3: Verificação de Documentação e Auditoria
+## ETAPA 3: Verificação de Documentação e Contexto das Páginas
 
-1.  Verifique a existência do arquivo alvo: **`/docs/AUDITORIA_PORTFOLIO.md`**.
-2.  Leia superficialmente esse arquivo para entender a estrutura (se é uma lista de prompts, checklists, etc.).
-3.  Verifique se a pasta `/docs` contém imagens de referência citadas (ex: `.jpg`, `.png`).
+1.  Verifique a existência da pasta **`.context/`** na raiz do projeto.
+2.  **Leia TODOS os arquivos `.md` dentro de `.context/`**, pois eles contêm o detalhamento completo de cada página do projeto:
+    - `HOME - PROTOTIPO INTERATIVO.md` → Estrutura, seções e comportamento da página Home.
+    - `PORTFOLIO - PROTÓTIPO INTERATIVO.md` → Especificações da página de Portfolio.
+    - `SOBRE-PROTOTIPO-INTERATIVO.md` → Definições da página Sobre (About).
+    - `HYBRID-GHOST-REVEAL-IMPLEMENTATION.md` → Detalhes técnicos do efeito Ghost Reveal.
+    - `MOBILE-LAYOUT-FIXES.md` → Ajustes de layout específicos para mobile.
+3.  Extraia de cada documento:
+    - Estrutura de seções e componentes.
+    - Estilos, cores e tipografia esperados.
+    - Comportamentos interativos e animações.
+    - Referências visuais (imagens `.jpg`, `.png` na mesma pasta).
+4.  Verifique se a pasta `.context/` contém as imagens de referência citadas nos docs.
 
 ---
 

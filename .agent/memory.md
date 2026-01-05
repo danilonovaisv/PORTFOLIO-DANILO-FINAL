@@ -7,7 +7,7 @@
 
 ## Active Tasks
 
-- [x] Restore/Sync `.cursorrules` with `.cursor/rules/*.md` and Workflows.
+- [x] Restore/Sync `.agentrules` with `.agent/rules/*.md` and Workflows.
 - [x] Enforce Context & Memory Analysis rule.
 - [x] Verify workflow visibility.
 - [x] Execute Audit Prompts #01 to #11 (Header, Hero, Menu, Preloader, Manifesto, Ghost, Footer, Portfolio, Featured, Clients, Contact).
@@ -17,7 +17,7 @@
 
 - **Design:** Shift from "Physical Glass" to "Ethereal/Energy" (Ghost Blue `#0057FF` with high Bloom).
 - **Tech:** Next.js 16, Tailwind v4 (Tokens), Lenis Scroll, GSAP for timelines.
-- **Workflow:** Use `.agent/workflows` (or `.cursor/workflows`) for complex features.
+- **Workflow:** Use `.agent/workflows` (or `.agent/workflows`) for complex features.
 - **Audit Execution:** Completed `auditoria-home.md` workflow.
 
 ## Known Issues / Blockers

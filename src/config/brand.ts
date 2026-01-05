@@ -13,8 +13,10 @@ export const BRAND = {
     textSecondary: '#a1a3a3', // Secondary information, metadata
     neutral: '#0b0d3a', // Gradient transitions, subtle backgrounds
     neutralLight: '#F5F5F5', // Secondary section backgrounds
-    pupleDetails: '#8705f2', // para pequenos detalhes
+    purpleDetails: '#8705f2', // para pequenos detalhes
     pinkDetails: '#f501d3', // para pequenos detalhes
+    textEmphasis: '#2E85F2', // Palavras destacadas no meio do texto
+    textHighlight: '#4fe6ff', // Destaques curtos, intros breves
   },
 
   typography: {

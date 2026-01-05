@@ -15,7 +15,6 @@ export { default as TypeAContent } from './content/TypeAContent';
 export { default as TypeBContent } from './content/TypeBContent';
 
 // Legacy (para compatibilidade)
-export { default as PortfolioHero } from './PortfolioHero';
 export { default as PortfolioShowcaseSection } from './PortfolioShowcaseSection';
 export { default as ProjectModal } from './ProjectModal';
 export { default as AccordionRow } from './AccordionRow';
