@@ -50,7 +50,7 @@ export default async function ProjectPage({ params }: Props) {
   }
 
   return (
-    <main className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 md:px-12 md:py-8 mix-blend-difference">
         <Link
@@ -113,6 +113,6 @@ export default async function ProjectPage({ params }: Props) {
           </p>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

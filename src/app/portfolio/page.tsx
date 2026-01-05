@@ -29,7 +29,7 @@ export default function PortfolioPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-ghost-bg text-text-light">
+    <div className="min-h-screen bg-ghost-bg text-text-light">
       {/* Hero com video */}
       <PortfolioHeroNew />
 
@@ -42,6 +42,6 @@ export default function PortfolioPage() {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
       />
-    </main>
+    </div>
   );
 }

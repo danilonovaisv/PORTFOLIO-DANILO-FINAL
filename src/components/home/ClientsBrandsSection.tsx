@@ -31,7 +31,7 @@ export default function ClientsBrandsSection() {
   return (
     <section
       id="clients"
-      className="bg-section-clients py-14 md:py-16 relative z-10"
+      className="bg-section-clients py-16 md:py-24 relative z-10"
       aria-label="Clientes e Parcerias"
     >
       <div className="max-w-[1300px] mx-auto px-[clamp(24px,5vw,72px)]">

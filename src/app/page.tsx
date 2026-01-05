@@ -5,11 +5,11 @@ import FeaturedProjectsSection from '@/components/home/FeaturedProjectsSection';
 
 export default function HomePage() {
   return (
-    <main>
+    <>
       <HomeHero />
       <ManifestoSection />
       <PortfolioShowcaseSection />
       <FeaturedProjectsSection />
-    </main>
+    </>
   );
 }
