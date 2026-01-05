@@ -75,7 +75,7 @@ export function ManifestoSection() {
       initial={prefersReducedMotion ? {} : ANIMATION.initial}
       animate={isInView && !prefersReducedMotion ? ANIMATION.animate : {}}
       transition={ANIMATION.transition}
-      className="lg:hidden w-full bg-[#020204] aspect-video relative overflow-hidden mt-[-1px]"
+      className="lg:hidden w-full bg-[#020204] aspect-video relative overflow-hidden -mt-px"
     >
       {/* Video */}
       <video
@@ -101,7 +101,7 @@ export function ManifestoSection() {
                    focus-visible:ring-ghost-flare focus-visible:ring-offset-2
                    focus-visible:ring-offset-black/50"
         aria-label={isMuted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'}
-        aria-pressed={!isMuted ? 'true' : 'false'}
+        aria-pressed={!isMuted}
       >
         {isMuted ? (
           <VolumeX className="w-5 h-5" aria-hidden="true" />

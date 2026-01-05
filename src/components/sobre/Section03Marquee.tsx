@@ -50,7 +50,7 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
   return (
     // leading-[0.8] aperta muito as linhas (estilo poster)
     // py-3 dá uma margem segura para as letras não cortarem
-    <div className="overflow-hidden m-0 whitespace-nowrap flex flex-nowrap leading-[0.8] py-0.5 bg-[#0048ff]">
+    <div className="overflow-hidden m-0 whitespace-nowrap flex flex-nowrap leading-[0.5] py-1 bg-[#0048ff]">
       <motion.div className="flex whitespace-nowrap flex-nowrap" style={{ x }}>
         {[...Array(3)].map((_, i) => (
           <span
@@ -79,12 +79,12 @@ export default function Section03Marquee() {
     >
       {/* gap-0 colado */}
       <div className="flex flex-col gap-0 w-full">
-        <ParallaxText baseVelocity={-2}>
+        <ParallaxText baseVelocity={-1}>
           Direção Criativa・Design
           Estratégico・Identidades・Campanhas・Branding・Inteligência
           Artificial・Liderança Criativa・
         </ParallaxText>
-        <ParallaxText baseVelocity={2}>
+        <ParallaxText baseVelocity={1}>
           Branding・Inteligência Artificial・Liderança Criativa・Direção
           Criativa・Design Estratégico・Identidades・Campanhas・
         </ParallaxText>

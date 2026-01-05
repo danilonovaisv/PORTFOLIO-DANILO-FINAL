@@ -35,7 +35,9 @@ PortfolioShowcase
 │   ├── Gallery Track (animated)
 │   └── ProjectCard[] (clicáveis + parallax)
 │       └── Card Image Wrapper (parallax interno)
-├── Footer Brands
+├── Clients Brands
+├── Contact
+├── Footer
 └── PortfolioModal (quando ativo)
     ├── Backdrop
     ├── ModalContainer
@@ -1065,3 +1067,681 @@ useEffect(() => {
   right: 1rem;
   width: 2.5rem;
   height: 2.5rem;
+<function_calls>
+<invoke name="artifacts">
+<parameter name="command">update</parameter>
+<parameter name="id">prototipo_completo_final</parameter>
+<parameter name="old_str">  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;</parameter>
+<parameter name="new_str">  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.close-button:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+```
+
+---
+
+## 📱 RESPONSIVO — BREAKPOINTS
+
+### Desktop (≥1024px)
+```css
+.gallery-track {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.25rem;
+  padding: 0.25rem;
+}
+
+.modal-container {
+  max-width: 1200px;
+  padding: 3rem;
+}
+
+.card {
+  height: 400px;
+}
+```
+
+### Tablet (768px - 1023px)
+```css
+.gallery-track {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.modal-container {
+  max-width: 90vw;
+  padding: 2rem;
+}
+
+.card {
+  height: 350px;
+}
+```
+
+### Mobile (<768px)
+```css
+.gallery-track {
+  grid-template-columns: repeat(1, 1fr);
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.modal-container {
+  width: 95vw;
+  padding: 1.5rem;
+  border-radius: 1rem;
+}
+
+.card {
+  height: 300px;
+}
+
+.hero-section h1 {
+  font-size: 2rem;
+}
+
+.hero-section button {
+  font-size: 0.875rem;
+  padding: 0.625rem 1.5rem;
+}
+```
+
+---
+
+## 🚫 PROIBIÇÕES ABSOLUTAS
+
+### Na Página Grid
+- ❌ Animações agressivas
+- ❌ Autoplay de áudio
+- ❌ Carrosséis automáticos não controláveis
+- ❌ Parallax exagerado (>150% de movimento)
+- ❌ Scroll hijacking
+
+### No Hero
+- ❌ Vídeo com som (mesmo muted=false)
+- ❌ Autoplay sem controles
+- ❌ Vídeo muito pesado (>10MB)
+- ❌ Ausência de fallback para imagem
+
+### No Modal/Página Interna
+- ❌ Animação por scroll interno
+- ❌ Parallax dentro do modal
+- ❌ Blur decorativo excessivo
+- ❌ Spring / bounce
+- ❌ Entrada simultânea de tudo
+- ❌ Linguagem de landing page
+- ❌ CTAs promocionais
+- ❌ Popups dentro de popups
+
+---
+
+## ♿ ACESSIBILIDADE
+
+### Modal
+```tsx
+<div
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="project-title"
+  aria-describedby="project-description"
+>
+  <h2 id="project-title">{project.title}</h2>
+  <p id="project-description">{project.description}</p>
+</div>
+```
+
+### Foco
+```tsx
+useEffect(() => {
+  if (selectedProject) {
+    const closeButton = document.querySelector('.close-button');
+    closeButton?.focus();
+    
+    // Salva elemento focado anterior
+    const previousFocus = document.activeElement;
+    
+    return () => {
+      // Restaura foco ao fechar
+      previousFocus?.focus();
+    };
+  }
+}, [selectedProject]);
+```
+
+### Teclado
+- `ESC` fecha modal
+- `Tab` navega elementos internos
+- `Shift + Tab` navegação reversa
+- `Enter` ou `Space` ativa botões
+
+### Screen Readers
+```tsx
+<button
+  aria-label="Fechar visualização do projeto"
+  onClick={onClose}
+>
+  <X aria-hidden="true" />
+</button>
+
+<img
+  src={project.image}
+  alt={`Projeto ${project.title} - ${project.client}`}
+  loading="lazy"
+/>
+```
+
+### Reduced Motion
+```tsx
+const prefersReducedMotion = window.matchMedia(
+  '(prefers-reduced-motion: reduce)'
+).matches;
+
+const transition = prefersReducedMotion
+  ? { duration: 0 }
+  : { duration: 0.26, ease: [0.22, 1, 0.36, 1] };
+```
+
+---
+
+## ⚡ PERFORMANCE
+
+### Otimizações Críticas
+
+#### 1. Lazy Loading de Imagens
+```tsx
+<img
+  src={project.image}
+  alt={project.title}
+  loading="lazy"
+  decoding="async"
+/>
+```
+
+#### 2. will-change
+```css
+.gallery-track {
+  will-change: transform;
+}
+
+.card-image-wrapper {
+  will-change: transform;
+}
+
+/* Remover will-change após animação */
+.modal-container.animation-complete {
+  will-change: auto;
+}
+```
+
+#### 3. requestAnimationFrame
+```javascript
+// Cancela RAF quando não necessário
+if (Math.abs(startYRef.current - window.scrollY) < 0.1) {
+  cancelAnimationFrame(rafRef.current);
+}
+```
+
+#### 4. Debounce em Resize
+```javascript
+let resizeTimeout;
+const handleResize = () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    updateScroll();
+  }, 100);
+};
+```
+
+#### 5. Portal para Modal
+```tsx
+import { createPortal } from 'react-dom';
+
+// Renderiza no final do body, evitando reflows
+createPortal(<Modal />, document.body)
+```
+
+#### 6. Overscroll Contain
+```css
+.modal-container {
+  overscroll-behavior: contain;
+}
+```
+
+#### 7. Image Optimization
+- WebP com fallback para JPEG
+- Srcset para diferentes resoluções
+- Tamanho adequado (não usar imagens gigantes)
+
+```tsx
+<img
+  srcSet={`
+    ${project.image}?w=400 400w,
+    ${project.image}?w=800 800w,
+    ${project.image}?w=1200 1200w
+  `}
+  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+  src={project.image}
+  alt={project.title}
+  loading="lazy"
+/>
+```
+
+---
+
+## 📊 MÉTRICAS DE PERFORMANCE
+
+### Targets
+- **FCP (First Contentful Paint)**: <1.5s
+- **LCP (Largest Contentful Paint)**: <2.5s
+- **TTI (Time to Interactive)**: <3.5s
+- **CLS (Cumulative Layout Shift)**: <0.1
+- **FPS durante scroll**: 60fps
+- **Parallax lag**: <16ms
+
+### Como Medir
+```javascript
+// FPS Monitor
+let lastTime = performance.now();
+let frames = 0;
+
+function measureFPS() {
+  const now = performance.now();
+  frames++;
+  
+  if (now >= lastTime + 1000) {
+    const fps = Math.round((frames * 1000) / (now - lastTime));
+    console.log(`FPS: ${fps}`);
+    frames = 0;
+    lastTime = now;
+  }
+  
+  requestAnimationFrame(measureFPS);
+}
+
+measureFPS();
+```
+
+---
+
+## 🧪 TESTES RECOMENDADOS
+
+### Funcionalidade
+1. ✅ Abrir/fechar modal múltiplas vezes
+2. ✅ Testar todos os gatilhos de fechamento (ESC, backdrop, botão)
+3. ✅ Scroll interno em conteúdos longos
+4. ✅ Navegação por teclado completa
+5. ✅ Parallax funciona em todos os cards
+6. ✅ Hover states em todos os cards
+7. ✅ Click em cards diferentes
+
+### Performance
+1. ✅ Verificar FPS durante scroll (deve ser 60fps)
+2. ✅ Testar em dispositivos mais lentos
+3. ✅ Medir tempo de carregamento de imagens
+4. ✅ Validar sem memory leaks (abrir/fechar modal 50x)
+5. ✅ Testar com 50+ cards na galeria
+6. ✅ Verificar uso de CPU durante parallax
+
+### Acessibilidade
+1. ✅ Testar com screen reader (NVDA/JAWS)
+2. ✅ Navegar apenas com teclado
+3. ✅ Testar com prefers-reduced-motion
+4. ✅ Validar contraste de cores (WCAG AA)
+5. ✅ Testar com zoom 200%
+6. ✅ Validar foco visível em todos elementos
+
+### Responsivo
+1. ✅ Testar em mobile (320px - 768px)
+2. ✅ Testar em tablet (768px - 1024px)
+3. ✅ Testar em desktop (1024px+)
+4. ✅ Testar rotação de tela
+5. ✅ Testar em diferentes navegadores
+6. ✅ Testar touch vs mouse interactions
+
+---
+
+## ✅ CHECKLIST DE VALIDAÇÃO COMPLETO
+
+### Hero Section
+- [ ] Vídeo carrega e faz loop corretamente
+- [ ] Overlay garante legibilidade do texto
+- [ ] CTA tem hover state claro
+- [ ] Responsivo em todos os tamanhos
+- [ ] Performance ok (vídeo <10MB)
+
+### Grid de Projetos
+- [ ] Cards respondem a hover suavemente
+- [ ] Parallax lerp funciona em todos os cards
+- [ ] Imagens carregam progressivamente
+- [ ] Layout responsivo funciona
+- [ ] Performance fluida em 60fps
+- [ ] Scroll é natural (não hijacked)
+
+### Modal/Página Interna
+- [ ] Abertura silenciosa e orientada
+- [ ] Pausa perceptível após container (380-520ms)
+- [ ] Mídia aparece antes do texto
+- [ ] Título antes dos detalhes
+- [ ] Conteúdo secundário não compete
+- [ ] Fechamento rápido e discreto
+- [ ] Scroll interno funciona
+- [ ] Não parece landing page
+
+### Interação
+- [ ] Click no card abre modal correto
+- [ ] ESC fecha modal
+- [ ] Click no backdrop fecha modal
+- [ ] Click no botão [X] fecha modal
+- [ ] Foco retorna ao card original
+- [ ] Scroll da página bloqueado durante modal
+- [ ] Parallax pausado durante modal
+- [ ] Parallax retoma após fechar modal
+
+### Acessibilidade
+- [ ] `role="dialog"` presente
+- [ ] `aria-modal="true"` presente
+- [ ] `aria-label` em botões
+- [ ] Foco gerenciado corretamente
+- [ ] Screen reader compatível
+- [ ] Navegação por teclado completa
+- [ ] prefers-reduced-motion respeitado
+
+### Ghost System
+- [ ] Não parece landing page
+- [ ] Mantém contexto do portfólio
+- [ ] Leitura confortável
+- [ ] Animação serve à leitura
+- [ ] Coerente com página SOBRE
+- [ ] Silencioso e editorial
+- [ ] Foco no conteúdo, não no efeito
+
+---
+
+## 🎯 RESULTADO ESPERADO
+
+O usuário deve:
+1. ✅ Ver hero impactante mas não invasivo
+2. ✅ Rolar a página com parallax suave e natural
+3. ✅ Ver grid de projetos organizado e convidativo
+4. ✅ Sentir curiosidade ao hover nos cards
+5. ✅ Clicar naturalmente para explorar
+6. ✅ Experimentar abertura calma e orientada
+7. ✅ Ler conteúdo sem distrações
+8. ✅ Fechar modal e voltar exatamente onde estava
+9. ✅ Continuar explorando outros projetos
+10. ✅ Sentir continuidade, não ruptura
+
+**O modal não é um destino — é uma extensão natural da página.**
+**O parallax não é um show — é um guia visual sutil.**
+
+---
+
+## 🧠 PRINCÍPIOS FINAIS
+
+> **"A tecnologia serve à experiência, não o contrário."**
+
+Cada elemento deste protótipo foi pensado para:
+- **Guiar** sem distrair
+- **Revelar** sem chocar
+- **Animar** sem exagerar
+- **Impressionar** pela clareza, não pelo excesso
+
+### Ghost System em Ação
+1. **Presença sem peso** — Hero forte mas não opressivo
+2. **Movimento com propósito** — Parallax guia o olhar
+3. **Revelação gradual** — Modal respeita o tempo de leitura
+4. **Retorno natural** — Nada se perde ao fechar
+
+---
+
+## 📋 DADOS DE EXEMPLO
+
+### Estrutura de Projeto
+```typescript
+interface Project {
+  id: number;
+  title: string;
+  client: string;
+  year: string;
+  tags: string[];
+  image: string;
+  type: 'A' | 'B';
+  description?: string;
+  gallery?: string[];
+  deliverables?: string[];
+  links?: {
+    label: string;
+    url: string;
+  }[];
+}
+```
+
+### Exemplo de Projeto Tipo A
+```typescript
+{
+  id: 1,
+  title: 'Visual Identity',
+  client: 'Tech Corp',
+  year: '2024',
+  tags: ['Branding', 'Design'],
+  image: 'https://example.com/image.jpg',
+  type: 'A',
+  description: 'Complete visual identity redesign for a tech startup.'
+}
+```
+
+### Exemplo de Projeto Tipo B
+```typescript
+{
+  id: 2,
+  title: 'Garoto - Nestlé',
+  client: 'Nestlé',
+  year: '2023',
+  tags: ['Packaging', 'Campaign'],
+  image: 'https://example.com/hero.jpg',
+  type: 'B',
+  description: 'Embalagens especiais GAROTO para páscoa com identidade renovada.',
+  gallery: [
+    'https://example.com/gallery-1.jpg',
+    'https://example.com/gallery-2.jpg',
+    'https://example.com/gallery-3.jpg'
+  ],
+  deliverables: [
+    'Redesign de embalagens',
+    'Campanha digital',
+    'Materiais PDV',
+    'Guidelines de marca'
+  ],
+  links: [
+    { label: 'Ver campanha completa', url: 'https://example.com' }
+  ]
+}
+```
+
+---
+
+## 🤖 PROMPT EXECUTOR — AGENT COPILOT
+
+```md
+Você deve implementar a Página Portfolio Showcase completa conforme este protótipo canônico.
+
+Arquivos a criar/modificar:
+- PortfolioShowcase.tsx (página principal)
+- ProjectCard.tsx (card do grid)
+- PortfolioModal.tsx (modal/página interna)
+- ProjectContent.tsx (conteúdo interno: Tipo A e B)
+- useParallax.ts (hook customizado para parallax)
+
+Objetivo:
+Sistema completo de portfólio com hero em vídeo, grid de projetos com parallax lerp, e visualização modal seguindo Ghost System.
+
+Ações obrigatórias:
+
+1. HERO SECTION:
+   - Video background em loop (autoPlay, muted, playsInline)
+   - Overlay gradient (from-black/60 via-black/40 to-black/60)
+   - Título "portfólio showcase" (portfólio em azul)
+   - CTA "vamos trabalhar juntos" com hover
+
+2. GALLERY COM PARALLAX LERP:
+   - Grid responsivo: 3 cols (desktop) → 2 (tablet) → 1 (mobile)
+   - Sistema de scroll suave com lerp (easing: 0.05)
+   - Track fixo com translateY animado
+   - Cards com parallax interno independente
+   - Hover states nos cards
+   - requestAnimationFrame para 60fps
+
+3. MODAL/PÁGINA INTERNA:
+   - Tipos A (Zoom Viewer) e B (Página Interna)
+   - Timeline de animação canônico:
+     * Backdrop: 0→180ms (linear)
+     * Container: 120→380ms (ease-out custom)
+     * Pausa: 380→520ms
+     * Mídia: 520→760ms
+     * Título: 760→960ms
+     * Meta: 960→1120ms
+     * Secundário: 1120→1500ms (stagger 80ms)
+
+4. INTERAÇÕES:
+   - Click no card abre modal
+   - ESC / backdrop / botão fecha modal
+   - Body overflow bloqueado durante modal
+   - Foco gerenciado (vai para fechar, retorna ao card)
+   - Parallax pausado durante modal
+
+5. PERFORMANCE:
+   - Lazy load de imagens
+   - will-change apenas no necessário
+   - Portal para modal
+   - overscroll-contain no modal
+   - Cancelar RAF quando não necessário
+
+6. ACESSIBILIDADE:
+   - role="dialog" e aria-modal="true"
+   - aria-label em botões
+   - Navegação por teclado
+   - prefers-reduced-motion
+
+Regras de implementação:
+- ✅ Usar Framer Motion + AnimatePresence
+- ✅ Usar refs para gallery, track e cards
+- ✅ Implementar lerp corretamente
+- ✅ Parallax baseado em getBoundingClientRect
+- ✅ Criar Portal para modal (document.body)
+- ✅ Gerenciar foco com useEffect
+- ✅ Respeitar prefers-reduced-motion
+- ✅ Lazy load de imagens
+- ❌ Não adicionar efeitos além do especificado
+- ❌ Não usar animações por scroll interno no modal
+- ❌ Não criar linguagem de landing page
+- ❌ Não usar spring/bounce
+
+Estrutura de pastas sugerida:
+```
+src/
+  components/
+    portfolio/
+      PortfolioShowcase.tsx
+      HeroSection.tsx
+      ProjectCard.tsx
+      ProjectsGallery.tsx
+      PortfolioModal.tsx
+      ProjectContentTypeA.tsx
+      ProjectContentTypeB.tsx
+  hooks/
+    useParallax.ts
+    useBodyLock.ts
+  types/
+    project.ts
+  data/
+    projects.ts
+```
+
+Critérios de aceite:
+- Hero com vídeo loop funciona corretamente
+- Grid responsivo e performático
+- Parallax lerp suave em 60fps
+- Modal abre/fecha conforme timeline
+- Foco retorna ao card original
+- Acessibilidade completa
+- Coerente com Ghost System
+- Leitura confortável e sem distrações
+- Performance validada (60fps durante scroll)
+```
+
+---
+
+## 📚 REFERÊNCIAS TÉCNICAS
+
+### Parallax Lerp Original
+- CodePen: https://codepen.io/danilonovaisv/pen/VYjejyb
+- Técnica: Vertical Scrolling Parallax com Lerp
+- Autor: danilonovaisv
+
+### Ghost Design System
+- Filosofia: Presença sem peso
+- Motion: Editorial e silencioso
+- Foco: Conteúdo sobre efeito
+
+### Framer Motion
+- Docs: https://www.framer.com/motion/
+- AnimatePresence para mount/unmount
+- Variants para animações complexas
+
+### Performance
+- Web Vitals: https://web.dev/vitals/
+- requestAnimationFrame: https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+
+---
+
+## 🔄 VERSIONAMENTO
+
+**v2.0** — Dezembro 2024
+- ✅ Hero Section com vídeo loop
+- ✅ Parallax Lerp implementado
+- ✅ Timeline de modal atualizado
+- ✅ Performance otimizada
+- ✅ Acessibilidade completa
+
+**v1.0** — Novembro 2024
+- Grid básico de projetos
+- Modal simples
+- Sem parallax
+
+---
+
+## 🎓 GLOSSÁRIO
+
+**Lerp**: Linear Interpolation — técnica de suavização que interpola entre valor atual e valor alvo
+
+**Easing**: Taxa de suavização do lerp (0.05 = muito suave, 0.5 = quase instantâneo)
+
+**RAF**: requestAnimationFrame — API do navegador para animações em 60fps
+
+**Parallax**: Efeito visual onde elementos se movem em velocidades diferentes criando profundidade
+
+**Modal**: Janela sobreposta que requer interação antes de retornar ao conteúdo principal
+
+**Portal**: Técnica React para renderizar componentes fora da hierarquia DOM do pai
+
+**Ghost System**: Sistema de design focado em presença sutil e conteúdo prioritário
+
+---
+
+**FIM DO PROTÓTIPO INTERATIVO COMPLETO**</parameter>

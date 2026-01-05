@@ -137,6 +137,46 @@ body {
     letter-spacing: -0.025em;
     font-weight: 700;
   }
+
+  /* Portfolio Gallery Performance Optimizations */
+  .gallery-track {
+    will-change: transform;
+    contain: layout style;
+  }
+
+  .project-card-optimized {
+    will-change: transform, opacity;
+    contain: layout paint style;
+    backface-visibility: hidden;
+  }
+
+  /* Modal optimizations */
+  .modal-backdrop {
+    will-change: opacity;
+  }
+
+  .modal-container {
+    will-change: transform, opacity;
+    contain: layout paint;
+  }
+
+  /* Smooth parallax */
+  .parallax-track {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  /* Accessibility: Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .gallery-track,
+    .project-card-optimized,
+    .modal-container,
+    .parallax-track {
+      will-change: auto;
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
 }
 
 .sr-only {

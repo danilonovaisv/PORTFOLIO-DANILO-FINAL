@@ -50,7 +50,7 @@ export function AboutWhatIDo() {
           {renderTitle()}
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-5 md:gap-6 auto-rows-fr">
+        <div className="grid grid-cols-1 lg:grid-cols-7 gap-4 sm:gap-5 md:gap-6 auto-rows-fr">
           {CAPABILITIES.map((item, index) => {
             return (
               <motion.div
@@ -76,7 +76,7 @@ export function AboutWhatIDo() {
                 <span className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-[11px] font-semibold text-white shadow-[0_6px_12px_rgba(0,87,255,0.35)]">
                   ↗
                 </span>
-                <p className="text-[15px] sm:text-[15px] md:text-[15px] lg:text-[14px] xl:text-[15px] font-normal text-white/90 leading-snug">
+                <p className="text-[15px] font-normal text-white/90 leading-snug">
                   <span className="text-primary font-semibold">
                     {item.title}
                   </span>{' '}
