@@ -7,9 +7,10 @@ import React, { useMemo, useRef } from 'react';
 import { useReducedMotion } from 'framer-motion';
 import type { NavItem } from './types';
 import styles from './DesktopFluidHeader.module.css';
+import { BRAND } from '@/config/brand';
 
 const HeaderFluidGlass = dynamic(
-  () => import('@/components/canvas/header/HeaderGlassCanvas'),
+  () => import('@/components/canvas/header/HeaderFluidGlass'),
   {
     ssr: false,
   }
@@ -53,7 +54,7 @@ export default function DesktopFluidHeader({
         isLight ? 'header--light' : ''
       }`}
     >
-      <div className="container mx-auto pt-6 flex justify-center">
+      <div className={BRAND.layout.container + ' pt-6 flex justify-center'}>
         <div
           ref={wrapRef}
           className="pointer-events-auto w-fit relative mx-auto"
@@ -64,7 +65,7 @@ export default function DesktopFluidHeader({
             {/* glass background */}
             <div className="absolute inset-0 rounded-full overflow-hidden">
               {!disableWebGL && !reducedMotion ? (
-                <HeaderFluidGlass accentColor={accentColor} />
+                <HeaderFluidGlass navItems={nav} accentColor={accentColor} />
               ) : (
                 <div className={styles.fallbackBackground} />
               )}

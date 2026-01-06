@@ -1,10 +1,9 @@
-// HomeHero.tsx
 'use client';
-
+// HomeHero.tsx
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import GhostCanvas from '../canvas/home/ghost/GhostCanvas';
-import HeroPreloader from '../canvas/home/ghost/HeroPreloader';
+import GhostCanvas from '@/components/canvas/home/ghost/GhostCanvas';
+import HeroPreloader from '@/components/canvas/home/ghost/HeroPreloader';
 
 const HomeHero = () => {
   const [isLoaded, setIsLoaded] = useState(false);

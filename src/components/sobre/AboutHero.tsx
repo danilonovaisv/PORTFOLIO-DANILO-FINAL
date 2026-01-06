@@ -10,6 +10,7 @@ import {
 } from 'framer-motion';
 import { ABOUT_CONTENT } from '@/config/content';
 import { motionTokens, motionSprings } from './motion';
+import { BRAND } from '@/config/brand';
 
 export function AboutHero() {
   const prefersReducedMotion = useReducedMotion();
@@ -89,7 +90,7 @@ export function AboutHero() {
 
       {/* Content Container - Fixed to bottom on mobile */}
       <div
-        className={`relative z-10 min-h-screen lg:h-full flex flex-col justify-end lg:justify-center pb-16 md:pb-24 lg:py-0 container mx-auto px-6`}
+        className={`relative z-10 min-h-screen lg:h-full flex flex-col justify-end lg:justify-center pb-16 md:pb-24 lg:py-0 ${BRAND.layout.container}`}
       >
         <motion.div
           style={{ y: textY }}

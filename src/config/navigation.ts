@@ -15,17 +15,17 @@ export const CONTACT_FORM = {
 
 export const NAVIGATION = {
   header: [
-    { label: 'home', href: '/#hero' },
-    { label: 'sobre', href: '/sobre' },
-    { label: 'portfólio showcase', href: '/portfolio' }, // ou /portfolio para página dedicada
-    { label: 'contato', href: '#contact' },
+    { label: 'HOME', href: '/#hero' },
+    { label: 'Sobre', href: '/sobre' },
+    { label: 'Portfólio', href: '/portfolio' },
+    { label: 'Contato', href: '#contact' },
   ],
   footer: {
     copyright: '© 2025 Danilo Novais Vilela — todos os direitos reservados.',
     links: [
       { label: 'home', href: '/#hero' },
-      { label: 'portfólio showcase', href: '/portfolio' },
       { label: 'sobre', href: '/sobre' },
+      { label: 'portfolio showcase', href: '/portfolio' },
       { label: 'contato', href: '#contact' },
     ],
   },

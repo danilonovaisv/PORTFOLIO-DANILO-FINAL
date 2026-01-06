@@ -31,7 +31,7 @@ const ANIMATION = {
   },
 } as const;
 
-export function ManifestoSection() {
+export default function ManifestoSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
@@ -100,7 +100,7 @@ export function ManifestoSection() {
                    focus-visible:ring-[#4fe6ff] focus-visible:ring-offset-2
                    focus-visible:ring-offset-black/50"
         aria-label={isMuted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'}
-        aria-pressed={!isMuted ? true : undefined}
+        aria-pressed={!isMuted ? 'true' : 'false'}
       >
         {isMuted ? (
           <VolumeX className="w-5 h-5" aria-hidden="true" />
@@ -133,5 +133,3 @@ export function ManifestoSection() {
     </motion.section>
   );
 }
-
-export default ManifestoSection;

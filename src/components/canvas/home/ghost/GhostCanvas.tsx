@@ -12,7 +12,7 @@ import {
   useTexture,
 } from '@react-three/drei';
 import * as THREE from 'three';
-import { motion } from 'framer-motion';
+import { useScroll, useTransform, motion } from 'framer-motion-3d';
 import { extend } from '@react-three/fiber';
 import { EffectComposer } from 'postprocessing';
 import { UnrealBloomPass } from 'postprocessing';
@@ -20,7 +20,7 @@ import { RenderPass } from 'postprocessing';
 import { OutputPass } from 'postprocessing';
 
 import { GHOST_CONFIG } from '@/config/ghostConfig';
-import { AnalogDecay } from './AnalogDecayPass';
+import AnalogDecay from './AnalogDecayPass';
 import Fireflies from './Fireflies';
 import AtmosphereVeil from '../AtmosphereVeil';
 import GhostEyes from './GhostEyes';
