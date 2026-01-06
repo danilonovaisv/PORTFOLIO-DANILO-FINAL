@@ -1,88 +1,124 @@
 'use client';
-// HomeHero.tsx
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import GhostCanvas from '@/components/canvas/home/ghost/GhostCanvas';
-import HeroPreloader from '@/components/canvas/home/ghost/HeroPreloader';
 
-const HomeHero = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
+import * as React from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Preloader } from '@/components/ui/Preloader';
 
-  // Simula o carregamento para o preloader
+import { GhostStage } from './hero/GhostStage';
+import HeroCopy from './hero/HeroCopy';
+import { useHeroAnimation } from './hero/useHeroAnimation';
+import ManifestoThumb from './hero/ManifestoThumb';
+
+const CONFIG = {
+  preloadMs: 2000,
+  bgColor: '#050511',
+} as const;
+
+function usePrefersReducedMotion() {
+  const [pref, setPref] = useState(false);
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 3000); // Tempo do preloader
-
-    return () => clearTimeout(timer);
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const apply = () => setPref(!!mq.matches);
+      apply();
+      try {
+        mq.addEventListener('change', apply);
+        return () => mq.removeEventListener('change', apply);
+      } catch {
+        mq.addListener?.(apply);
+        return () => mq.removeListener?.(apply);
+      }
+    }
   }, []);
+  return pref;
+}
 
-  // Variantes de Animação para Texto
-  const titleVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' },
-    },
-  };
+export default function HomeHero() {
+  const sectionRef = useRef<HTMLElement | null>(null);
 
-  const subtitleVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { delay: 0.2, duration: 0.8 } },
-  };
+  const [isLoading, setIsLoading] = useState(true);
+
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  // Hook de animação do Hero (Controla o ManifestoThumb)
+  const { videoWidth, videoHeight, videoRadius, copyOpacity } =
+    useHeroAnimation(sectionRef);
+
+  const handlePreloaderDone = useCallback(() => setIsLoading(false), []);
 
   return (
-    <section className="relative w-full h-screen overflow-hidden bg-[#0a0a0a]">
-      {/* CANVAS 3D DO GHOST */}
-      <GhostCanvas />
+    <section
+      id="hero"
+      ref={sectionRef}
+      className="relative h-[120vh] md:h-[250vh] bg-[#050511] overflow-hidden"
+      aria-label="Home hero section"
+    >
+      {/* Sticky Context */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        {/* Background Gradient */}
+        <div
+          className="absolute inset-0 z-0 bg-[linear-gradient(180deg,#040013_0%,#0b0d3a_100%)]"
+          aria-hidden
+        />
 
-      {/* PRELOADER */}
-      {!isLoaded && <HeroPreloader />}
+        {/* Preloader Ghost */}
+        <AnimatePresence>
+          {isLoading && (
+            <Preloader
+              durationMs={CONFIG.preloadMs}
+              onComplete={handlePreloaderDone}
+              label="Summoning spirits"
+            />
+          )}
+        </AnimatePresence>
 
-      {/* CONTEÚDO DA HERO - Agora está sobreposto ao Canvas */}
-      <div
-        className={`relative z-10 flex flex-col items-center justify-center h-full w-full px-4 sm:px-6 lg:px-8 text-center ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-      >
+        {/* WebGL Atmosphere */}
+        <div className="absolute inset-0 z-20 pointer-events-none">
+          <GhostStage reducedMotion={prefersReducedMotion} />
+        </div>
+
+        {/* Hero Copy (Editorial) */}
         <motion.div
-          initial="hidden"
-          animate={isLoaded ? 'visible' : 'hidden'}
-          variants={titleVariants}
-          className="max-w-4xl mx-auto"
+          className="absolute inset-0 z-10 pointer-events-none"
+          style={{ opacity: copyOpacity }}
         >
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-            <span className="block">Design, não é</span>
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
-              só estética.
+          <HeroCopy />
+        </motion.div>
+
+        {/* Manifesto Thumb (Desktop Transition) */}
+        {/* Renderiza apenas se não estiver carregando, para evitar glitches visuais */}
+        {!isLoading && (
+          <ManifestoThumb
+            style={{
+              width: videoWidth,
+              height: videoHeight,
+              borderRadius: videoRadius,
+            }}
+          />
+        )}
+
+        {/* Scroll Helper */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isLoading ? 0 : 0.6 }}
+          className="absolute bottom-10 left-10 z-40 hidden md:flex flex-col items-start gap-4"
+        >
+          <div className="flex flex-col gap-2">
+            <span className="text-[10px] uppercase tracking-[0.4em] text-cyan-400 font-mono">
+              Scroll to step inside
             </span>
-          </h1>
-        </motion.div>
-
-        <motion.div
-          initial="hidden"
-          animate={isLoaded ? 'visible' : 'hidden'}
-          variants={subtitleVariants}
-          className="max-w-2xl mx-auto mt-4"
-        >
-          <p className="text-lg sm:text-xl text-gray-300 font-light">
-            É intenção, é estratégia, é experiência.
-          </p>
-        </motion.div>
-
-        {/* Botão */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isLoaded ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          className="mt-12"
-        >
-          <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-full shadow-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105">
-            Saiba Mais
-          </button>
+            <motion.div
+              animate={{ scaleX: [0, 1, 0] }}
+              transition={{ duration: 3, repeat: Infinity }}
+              className="h-px w-24 bg-linear-to-r from-cyan-400 to-transparent origin-left"
+            />
+          </div>
         </motion.div>
       </div>
+
+      {/* Scroll Space */}
+      <div className="h-screen w-full pointer-events-none" />
     </section>
   );
-};
-
-export default HomeHero;
+}

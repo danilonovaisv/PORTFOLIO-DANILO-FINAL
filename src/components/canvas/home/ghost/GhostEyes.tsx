@@ -1,5 +1,5 @@
-// GhostEyes.tsx
 'use client';
+
 import React, { useRef, useState, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
@@ -39,6 +39,7 @@ export default function GhostEyes({ color = '#ffffff' }: { color?: string }) {
       0.1 + targetY,
       0.1
     );
+
     rightEye.current.position.x = THREE.MathUtils.lerp(
       rightEye.current.position.x,
       0.3 + targetX,
@@ -63,6 +64,7 @@ export default function GhostEyes({ color = '#ffffff' }: { color?: string }) {
     );
   });
 
+  // Material básico para reagir fortemente ao Bloom
   return (
     <group position={[0, 0, 0.8]}>
       <mesh ref={leftEye} position={[-0.3, 0.1, 0]}>

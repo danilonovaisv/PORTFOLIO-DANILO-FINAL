@@ -13,21 +13,21 @@ const config: Config = {
       colors: {
         ...BRAND.colors,
         // Map primary/accent to brand for utility convenience if not already covered
-        primary: BRAND.colors.bluePrimary,
-        accent: BRAND.colors.blueAccent,
+        primary: BRAND.colors.primary,
+        accent: BRAND.colors.accent,
       },
       fontFamily: {
-        sans: [
-          BRAND.typography.fontFamily.primary,
-          ...BRAND.typography.fontFamily.fallbacks,
+        sans: [BRAND.typography.primary, ...BRAND.typography.fallbacks],
+        mono: [
+          'ui-monospace',
+          'SFMono-Regular',
+          'Menlo',
+          'Monaco',
+          'Consolas',
+          'monospace',
         ],
-        mono: [BRAND.typography.fontFamily.mono, 'monospace'],
-        display: [
-          BRAND.typography.fontFamily.primary,
-          ...BRAND.typography.fontFamily.fallbacks,
-        ], // Often helpful
+        display: [BRAND.typography.primary, ...BRAND.typography.fallbacks], // Often helpful
       },
-      fontWeight: BRAND.typography.weights,
     },
   },
   plugins: [],
