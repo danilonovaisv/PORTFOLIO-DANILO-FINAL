@@ -173,8 +173,15 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
           <h3 className="text-lg font-semibold text-white mb-4">Galeria</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {project.detail.gallery.map((img, i) => (
-              <div
+              <motion.div
                 key={i}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ 
+                  delay: 1.12 + i * 0.08, 
+                  duration: 0.2,
+                  ease: easing,
+                }}
                 className="relative aspect-square rounded-xl overflow-hidden bg-white/5"
               >
                 <Image
@@ -184,7 +191,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
                   className="object-cover hover:scale-105 transition-transform duration-500"
                   sizes="(max-width: 768px) 50vw, 33vw"
                 />
-              </div>
+              </motion.div>
             ))}
           </div>
         </motion.div>

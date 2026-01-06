@@ -21,6 +21,12 @@
   --color-ghost-green: #4fe6ff;
   --color-ghost-surface-deep: #040013;
 
+  /* Opacity Variants for Atmospherics */
+  --color-primary-faint: rgba(0, 72, 255, 0.13);
+  --color-accent-faint: rgba(79, 230, 255, 0.09);
+  --color-ghost-vignette: rgba(4, 0, 19, 0.4);
+  --color-text-60: rgba(252, 255, 255, 0.6);
+
   /* Section Backgrounds */
   --color-section-contact: #f0f0f0;
   --color-section-footer: #0048ff;
@@ -167,6 +173,7 @@ body {
 
   /* Accessibility: Respect reduced motion */
   @media (prefers-reduced-motion: reduce) {
+
     .gallery-track,
     .project-card-optimized,
     .modal-container,
@@ -190,6 +197,35 @@ body {
   border-width: 0;
 }
 
+/* --- Portfolio Hero Atmospheric Gradients --- */
+.portfolio-hero-glow-primary {
+  background: radial-gradient(ellipse 60% 50% at 15% 15%,
+      var(--color-primary-faint),
+      transparent 50%);
+}
+
+.portfolio-hero-glow-accent {
+  background: radial-gradient(ellipse 50% 40% at 85% 10%,
+      var(--color-accent-faint),
+      transparent 45%);
+}
+
+.portfolio-hero-glow-purple {
+  background: radial-gradient(circle at 5% 50%,
+      rgba(135, 5, 242, 0.06),
+      transparent 30%);
+}
+
+.portfolio-hero-vignette {
+  background: radial-gradient(ellipse 80% 80% at 50% 50%,
+      transparent 30%,
+      var(--color-ghost-vignette) 100%);
+}
+
+.portfolio-hero-scroll-line {
+  background: linear-gradient(to bottom, var(--color-text-60), transparent);
+}
+
 /* Ghost Reveal Overlay - Hybrid 2D/3D Effect */
 .ghost-reveal-overlay {
   position: fixed;
@@ -203,13 +239,11 @@ body {
   will-change: transform;
 
   /* Radial gradient com cyan elétrico */
-  background: radial-gradient(
-    circle at center,
-    rgba(0, 255, 255, 0.8) 0%,
-    rgba(0, 255, 255, 0.4) 30%,
-    rgba(0, 255, 255, 0.1) 60%,
-    transparent 100%
-  );
+  background: radial-gradient(circle at center,
+      rgba(0, 255, 255, 0.8) 0%,
+      rgba(0, 255, 255, 0.4) 30%,
+      rgba(0, 255, 255, 0.1) 60%,
+      transparent 100%);
 
   /* Blur para efeito atmosférico */
   filter: blur(40px);
@@ -222,6 +256,7 @@ body {
 }
 
 @keyframes ghost-pulse {
+
   0%,
   100% {
     opacity: 0.6;
@@ -243,7 +278,7 @@ body {
 }
 
 /* Quando o ghost passa, o texto fica visível */
-.ghost-reveal-overlay:hover ~ .hero-text,
+.ghost-reveal-overlay:hover~.hero-text,
 .hero-text:hover {
   color: rgba(255, 255, 255, 1);
   text-shadow:
@@ -314,11 +349,9 @@ body {
   left: 50%;
   width: 200px;
   height: 200px;
-  background: radial-gradient(
-    circle,
-    rgba(0, 255, 255, 0.8) 0%,
-    rgba(0, 255, 255, 0) 70%
-  );
+  background: radial-gradient(circle,
+      rgba(0, 255, 255, 0.8) 0%,
+      rgba(0, 255, 255, 0) 70%);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;

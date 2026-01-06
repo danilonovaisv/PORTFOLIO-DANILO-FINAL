@@ -11,7 +11,6 @@ import type { PortfolioProject } from '@/types/project';
 import PortfolioHeroNew from '@/components/portfolio/PortfolioHeroNew';
 import ProjectsGallery from '@/components/portfolio/ProjectsGallery';
 import PortfolioModalNew from '@/components/portfolio/PortfolioModalNew';
-import SiteFooter from '@/components/layout/SiteFooter';
 
 export default function PortfolioPage() {
   const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
@@ -37,9 +36,6 @@ export default function PortfolioPage() {
 
       {/* Galeria de projetos com filtros */}
       <ProjectsGallery onProjectOpen={handleOpenProject} />
-
-      {/* Footer */}
-      <SiteFooter />
 
       {/* Modal de projeto */}
       <PortfolioModalNew

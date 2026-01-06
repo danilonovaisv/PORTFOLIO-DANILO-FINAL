@@ -11,6 +11,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { useParallaxElement } from '@/hooks/useParallax';
 import type { PortfolioProject } from '@/types/project';
+import { MOTION_TOKENS, ghostTransition } from '@/config/motion';
 
 interface PortfolioCardProps {
   project: PortfolioProject;
@@ -19,7 +20,7 @@ interface PortfolioCardProps {
   className?: string;
 }
 
-const easing = [0.22, 1, 0.36, 1] as const;
+const { duration, spring, stagger } = MOTION_TOKENS;
 
 const PortfolioCard: FC<PortfolioCardProps> = ({
   project,
@@ -50,15 +51,11 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
   return (
     <motion.article
       ref={cardRef}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 24, filter: 'blur(4px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       viewport={{ once: true, margin: '-50px' }}
-      transition={{
-        duration: 0.8,
-        ease: easing,
-        delay: index * 0.06,
-      }}
-      className={`group relative overflow-hidden rounded-2xl md:rounded-3xl cursor-pointer bg-white/5 ${project.layout.cols} ${project.layout.height} ${className}`}
+      transition={ghostTransition(index * stagger.tight, duration.normal)}
+      className={`group relative overflow-hidden rounded-2xl md:rounded-3xl cursor-pointer bg-white/5 will-change-transform ${project.layout.cols} ${project.layout.height} ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={handleClick}
@@ -70,10 +67,10 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
       {/* Container de Imagem com Parallax */}
       <div className="relative h-full w-full overflow-hidden">
         <motion.div
-           className="absolute inset-0 -top-[17.5%] h-[135%] w-full"
+           className="absolute inset-0 -top-[17.5%] h-[135%] w-full will-change-transform"
            style={prefersReducedMotion ? {} : parallaxStyle}
-           animate={{ scale: isHovered ? 1.05 : 1 }}
-           transition={{ duration: 0.7, ease: easing }}
+           animate={{ y: isHovered ? -8 : 0 }}
+           transition={ghostTransition(0, duration.normal)}
         >
           <Image
             src={project.image}
@@ -146,9 +143,9 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
 
           <motion.div
             className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-black"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: isHovered ? 1 : 0, opacity: isHovered ? 1 : 0 }}
-            transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 20 }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 10 }}
+            transition={{ type: 'spring', ...spring.snappy }}
           >
             <ArrowUpRight className="w-5 h-5" />
           </motion.div>

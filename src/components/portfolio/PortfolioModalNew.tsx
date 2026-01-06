@@ -11,6 +11,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { X } from 'lucide-react';
 import type { PortfolioProject } from '@/types/project';
 import { useBodyLock } from '@/hooks/useBodyLock';
+import { MOTION_TOKENS, ghostTransition, modalVariants } from '@/config/motion';
 import TypeAContent from './content/TypeAContent';
 import TypeBContent from './content/TypeBContent';
 
@@ -20,14 +21,7 @@ interface PortfolioModalNewProps {
   onClose: () => void;
 }
 
-// Timings rígidos conforme especificação do workflow
-const TIMING = {
-  backdrop: { duration: 0.18 },
-  container: { delay: 0.12, duration: 0.26 },
-  content: { delay: 0.52 },
-};
-
-const easing: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const { duration, offset } = MOTION_TOKENS;
 
 export default function PortfolioModalNew({
   project,
@@ -104,13 +98,10 @@ export default function PortfolioModalNew({
           {/* Backdrop */}
           <motion.div
             key="backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ 
-              duration: prefersReducedMotion ? 0 : TIMING.backdrop.duration,
-              ease: 'easeOut'
-            }}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={modalVariants.backdrop}
             onClick={handleBackdropClick}
             className="fixed inset-0 z-100 bg-black/85 backdrop-blur-md"
             aria-hidden="true"
@@ -123,27 +114,18 @@ export default function PortfolioModalNew({
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
-            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 60, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 40, scale: 0.98 }}
-            transition={{
-              delay: prefersReducedMotion ? 0 : TIMING.container.delay,
-              duration: prefersReducedMotion ? 0.15 : TIMING.container.duration,
-              ease: easing,
-            }}
+            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: offset.large }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: offset.standard }}
+            transition={ghostTransition(prefersReducedMotion ? 0 : 0.1, prefersReducedMotion ? 0.15 : duration.modal)}
             className="fixed inset-0 z-101 overflow-y-auto"
           >
             <div className="min-h-full flex items-start justify-center p-4 md:p-8 lg:p-12">
-              {/* Content Panel */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{
-                  delay: prefersReducedMotion ? 0 : TIMING.content.delay,
-                  duration: 0.4,
-                  ease: easing,
-                }}
-                className="relative w-full max-w-5xl bg-ghost-bg/95 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl shadow-black/50 overflow-hidden"
+                transition={ghostTransition(prefersReducedMotion ? 0 : 0.3, duration.fast)}
+                className="relative w-full max-w-5xl bg-ghost-bg/95 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl shadow-black/50 overflow-hidden will-change-transform"
               >
                 {/* Close button - Fixed */}
                 <button

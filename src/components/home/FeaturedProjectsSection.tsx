@@ -3,10 +3,17 @@
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { HOME_CONTENT } from '@/config/content';
+import {
+  MOTION_TOKENS,
+  ghostTransition,
+  staggerContainer,
+} from '@/config/motion';
 import FeaturedProjectCard, {
   type FeaturedProject,
 } from './featured-projects/FeaturedProjectCard';
 import CTAProjectCard from './featured-projects/CTAProjectCard';
+
+const { duration, stagger, offset } = MOTION_TOKENS;
 
 type FeaturedProjectsSectionProps = {
   onProjectOpen?: (_project: FeaturedProject) => void;
@@ -18,15 +25,18 @@ export default function FeaturedProjectsSection({
   const reducedMotion = useReducedMotion();
   const featuredProjects = HOME_CONTENT.featuredProjects;
 
+  // Card variants sem scale (Ghost Design System proíbe scale em elementos principais)
   const cardVariants = {
-    hidden: reducedMotion ? {} : { opacity: 0, y: 40, scale: 0.96 },
+    hidden: reducedMotion
+      ? {}
+      : { opacity: 0, y: offset.large, filter: 'blur(4px)' },
     show: reducedMotion
       ? { opacity: 1 }
       : {
           opacity: 1,
           y: 0,
-          scale: 1,
-          transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const },
+          filter: 'blur(0px)',
+          transition: ghostTransition(0, duration.normal),
         },
   };
 
@@ -41,18 +51,7 @@ export default function FeaturedProjectsSection({
           initial={reducedMotion ? 'show' : 'hidden'}
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
-          variants={{
-            hidden: reducedMotion ? {} : { opacity: 0, y: 40 },
-            show: {
-              opacity: 1,
-              y: 0,
-              transition: {
-                staggerChildren: reducedMotion ? 0 : 0.12,
-                ease: [0.22, 1, 0.36, 1],
-                duration: reducedMotion ? 0 : 0.7,
-              },
-            },
-          }}
+          variants={staggerContainer(stagger.normal)}
           // Mobile: single column stack | Desktop: 12-col grid
           className="flex flex-col gap-8 md:grid md:grid-cols-12 md:gap-y-16 md:gap-x-6"
         >
