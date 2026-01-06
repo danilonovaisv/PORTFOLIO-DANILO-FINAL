@@ -117,7 +117,7 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
         <motion.span
           className="inline-flex items-center rounded-full bg-white/10 backdrop-blur-md border border-white/10 px-3 py-1.5 text-[10px] md:text-xs font-medium uppercase tracking-wide text-white"
           animate={{ 
-            y: isHovered ? 0 : -4,
+            y: (isHovered || !isHovered) ? 0 : -4, // Always 0 on mobile, hover effect on desktop if needed
             opacity: 1
           }}
           transition={{ duration: 0.3 }}
@@ -127,7 +127,7 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
       </div>
 
       {/* Footer content */}
-      <div className="absolute bottom-0 left-0 right-0 z-30 p-6 md:p-8 transform transition-transform duration-500 group-hover:-translate-y-2">
+      <div className="absolute bottom-0 left-0 right-0 z-30 p-5 md:p-8 transform transition-transform duration-500 group-hover:md:-translate-y-2">
         <div className="flex items-end justify-between gap-4">
           <div className="flex flex-col gap-1.5 local-reset">
              <motion.h3
@@ -142,9 +142,12 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
           </div>
 
           <motion.div
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-black"
+            className="flex h-11 w-11 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-full bg-white text-black"
             initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 10 }}
+            animate={{ 
+              opacity: (isHovered || !isHovered) ? 1 : 0, // Visible on mobile
+              y: (isHovered || !isHovered) ? 0 : 10 
+            }}
             transition={{ type: 'spring', ...spring.snappy }}
           >
             <ArrowUpRight className="w-5 h-5" />

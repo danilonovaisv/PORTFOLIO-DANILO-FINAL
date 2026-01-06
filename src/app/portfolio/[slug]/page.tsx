@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { HOME_CONTENT } from '@/config/content'; // Adjust path if needed
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { SiteClosure } from '@/components/layout/SiteClosure';
 
 import { siteMetadata } from '@/config/metadata';
 import type { Metadata } from 'next';
@@ -113,6 +114,8 @@ export default async function ProjectPage({ params }: Props) {
           </p>
         </div>
       </section>
+
+      <SiteClosure />
     </div>
   );
 }

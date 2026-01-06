@@ -103,7 +103,7 @@ export function AboutHero() {
               variants={motionTokens.fadeGhost}
               className="lg:hidden space-y-0"
             >
-              <h1 className="text-[32px] sm:text-[36px] md:text-[38px] font-semibold tracking-tight text-text-light leading-[1.15]">
+              <h1 className="text-[clamp(1.75rem,8vw,2.5rem)] font-semibold tracking-tight text-text-light leading-[1.18]">
                 Sou <span className="text-primary">Danilo Novais.</span>{' '}
                 <span className="text-primary">Você</span> não vê tudo o
                 <br />

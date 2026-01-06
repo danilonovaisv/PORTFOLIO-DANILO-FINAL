@@ -67,7 +67,7 @@ export default function ClientsBrandsSection() {
                 },
               },
             }}
-            className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12 md:gap-x-12 md:gap-y-16 items-center justify-items-center"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-12 md:gap-x-12 md:gap-y-16 items-center justify-items-center"
           >
             {logos.map((l) => (
               <motion.div

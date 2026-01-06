@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { Instagram, Linkedin, Twitter, Facebook } from 'lucide-react';
+import { Instagram, Linkedin, Twitter } from 'lucide-react';
 import { NAVIGATION, SOCIALS } from '@/config/navigation';
-import Link from 'next/link';
+import { useRouter, usePathname } from 'next/navigation';
 
 const footerLinks = NAVIGATION.footer.links;
 const footerCopyright = NAVIGATION.footer.copyright;
@@ -21,11 +21,6 @@ const social = [
     icon: <Instagram className="w-5 h-5" />,
   },
   {
-    label: 'Facebook',
-    href: SOCIALS.facebook,
-    icon: <Facebook className="w-5 h-5" />,
-  },
-  {
     label: 'Twitter',
     href: SOCIALS.twitter,
     icon: <Twitter className="w-5 h-5" />,
@@ -33,21 +28,32 @@ const social = [
 ];
 
 function isHashHref(href: string) {
-  return href.startsWith('#');
-}
-
-function scrollToHash(hashHref: string) {
-  const id = hashHref.replace('#', '');
-  const el = document.getElementById(id);
-  if (el) {
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } else {
-    window.location.href = `/${hashHref}`;
-  }
+  return href.startsWith('#') || href.startsWith('/#');
 }
 
 export default function SiteFooter() {
+  const router = useRouter();
+  const pathname = usePathname();
   const reducedMotion = useReducedMotion();
+
+  const scrollToHash = (hashHref: string) => {
+    const hash = hashHref.replace(/^\/?#/, '');
+    const el = document.getElementById(hash);
+
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      router.push(`/#${hash}`);
+    }
+  };
+
+  const handleNavigate = (href: string) => {
+    if (isHashHref(href)) {
+      scrollToHash(href);
+    } else {
+      router.push(href);
+    }
+  };
 
   return (
     <>
@@ -57,42 +63,29 @@ export default function SiteFooter() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: reducedMotion ? 0.2 : 0.8 }}
-        className="hidden lg:block w-full bg-section-footer py-6 fixed bottom-0 left-0 right-0 z-10"
+        className="hidden lg:block w-full bg-section-footer py-6 fixed bottom-0 left-0 right-0 z-50"
         aria-label="Footer"
       >
         <div className="max-w-[1200px] mx-auto px-6 md:px-12 flex items-center justify-between text-white">
           {/* Copyright */}
-          <p className="text-sm opacity-90">{footerCopyright}</p>
+          <p className="text-sm opacity-90 font-medium">{footerCopyright}</p>
 
           {/* Navigation Links */}
           <nav aria-label="Links do footer" className="flex items-center gap-8">
-            {footerLinks.map((l, index) => {
-              const isActive = index === 0;
-
-              if (l.href.startsWith('/')) {
-                return (
-                  <Link
-                    key={l.href}
-                    href={l.href}
-                    className={`text-white text-sm transition-all duration-200 hover:opacity-80 ${
-                      isActive ? 'underline underline-offset-4' : ''
-                    }`}
-                  >
-                    {l.label}
-                  </Link>
-                );
-              }
+            {footerLinks.map((l) => {
+              const isLinkActive =
+                l.href === pathname ||
+                (l.href === '/#hero' && pathname === '/');
 
               return (
                 <button
                   key={l.href}
                   type="button"
-                  onClick={() => {
-                    if (isHashHref(l.href)) scrollToHash(l.href);
-                    else window.location.href = l.href;
-                  }}
-                  className={`text-white text-sm transition-all duration-200 hover:opacity-80 ${
-                    isActive ? 'underline underline-offset-4' : ''
+                  onClick={() => handleNavigate(l.href)}
+                  className={`text-white text-sm transition-all duration-200 hover:opacity-100 font-medium cursor-pointer ${
+                    isLinkActive
+                      ? 'opacity-100 border-b-2 border-white'
+                      : 'opacity-70'
                   }`}
                 >
                   {l.label}
@@ -131,31 +124,22 @@ export default function SiteFooter() {
             className="flex flex-wrap justify-center items-center gap-x-6 gap-y-4"
           >
             {footerLinks.map((l) => {
-              const isSobre = l.label.toLowerCase() === 'sobre';
+              const isLinkActive =
+                l.href === pathname ||
+                (l.href === '/#hero' && pathname === '/');
               const content = (
                 <span
-                  className={`text-[15px] font-medium tracking-tight transition-opacity hover:opacity-70 ${isSobre ? 'underline underline-offset-4 decoration-2' : ''}`}
+                  className={`text-[15px] font-medium tracking-tight transition-opacity hover:opacity-70 ${isLinkActive ? 'underline underline-offset-4 decoration-2' : ''}`}
                 >
                   {l.label}
                 </span>
               );
 
-              if (l.href.startsWith('/')) {
-                return (
-                  <Link key={l.href} href={l.href}>
-                    {content}
-                  </Link>
-                );
-              }
-
               return (
                 <button
                   key={l.href}
                   type="button"
-                  onClick={() => {
-                    if (isHashHref(l.href)) scrollToHash(l.href);
-                    else window.location.href = l.href;
-                  }}
+                  onClick={() => handleNavigate(l.href)}
                 >
                   {content}
                 </button>
