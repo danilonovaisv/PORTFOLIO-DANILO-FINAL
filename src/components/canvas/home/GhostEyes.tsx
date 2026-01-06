@@ -1,132 +1,97 @@
-// src/components/canvas/home/GhostEyes.tsx
 'use client';
 
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
-import { useFrame } from '@react-three/fiber';
 
 export default function GhostEyes() {
-  const groupRef = useRef<THREE.Group>(null);
-  const leftEyeRef = useRef<THREE.Mesh>(null);
-  const rightEyeRef = useRef<THREE.Mesh>(null);
-  const leftGlowRef = useRef<THREE.Mesh>(null);
-  const rightGlowRef = useRef<THREE.Mesh>(null);
+  const leftEye = useRef<THREE.Mesh>(null);
+  const rightEye = useRef<THREE.Mesh>(null);
+  const { mouse } = useThree();
 
-  // Track movement for glow intensity
-  const currentMovement = useRef(0);
-  const lastPos = useRef(new THREE.Vector3());
+  // Estado para piscar
+  const [blink, setBlink] = useState(false);
 
-  // Materials & Geometries from reference
-  const {
-    eyesMaterial,
-    glowMaterial,
-    socketMaterial,
-    eyeGeo,
-    socketGeo,
-    glowGeo,
-  } = useMemo(() => {
-    // Eye Glow Color (Violet from reference)
-    const glowColor = new THREE.Color(0x8a2be2);
+  // Lógica de piscar aleatório
+  useEffect(() => {
+    const timeout = () => {
+      setBlink(true);
+      setTimeout(() => setBlink(false), 150); // Olhos fechados por 150ms
 
-    const socketMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
-
-    // Core Eye (White/Violet mix)
-    const eyeMat = new THREE.MeshBasicMaterial({
-      color: glowColor,
-      transparent: true,
-      opacity: 0, // Starts invisible
-    });
-
-    // Outer Glow
-    const glowMat = new THREE.MeshBasicMaterial({
-      color: glowColor,
-      transparent: true,
-      opacity: 0,
-      side: THREE.BackSide,
-    });
-
-    // Geometries (Scaled up 50% from original reference calculations)
-    // Original ref: Eye 0.2 -> 0.3, Socket 0.45, Glow 0.525
-    return {
-      socketMaterial: socketMat,
-      eyesMaterial: eyeMat,
-      glowMaterial: glowMat,
-      socketGeo: new THREE.SphereGeometry(0.45, 16, 16),
-      eyeGeo: new THREE.SphereGeometry(0.3, 12, 12),
-      glowGeo: new THREE.SphereGeometry(0.525, 12, 12),
+      // Próximo piscar entre 2s e 6s
+      const nextBlink = Math.random() * 4000 + 2000;
+      setTimeout(timeout, nextBlink);
     };
+
+    const timer = setTimeout(timeout, 3000);
+    return () => clearTimeout(timer);
   }, []);
 
-  useFrame((_state) => {
-    if (!groupRef.current) return;
+  useFrame((_) => {
+    if (!leftEye.current || !rightEye.current) return;
 
-    // 1. Calculate movement speed for glow intensity
-    // We need world position of the parent ghost group to know real speed
-    const worldPos = new THREE.Vector3();
-    groupRef.current.getWorldPosition(worldPos);
+    // Calcular posição alvo baseada no mouse (com limite de rotação)
+    // O fantasma está em 0,0,0. Os olhos devem olhar para o mouse.
+    // Mouse x/y vai de -1 a 1.
 
-    const dist = worldPos.distanceTo(lastPos.current);
-    lastPos.current.copy(worldPos);
+    const eyeMovementRange = 0.08; // O quanto os olhos se movem dentro da "orbita"
+    const targetX = mouse.x * eyeMovementRange;
+    const targetY = mouse.y * eyeMovementRange;
 
-    // Smooth movement value
-    currentMovement.current = currentMovement.current * 0.95 + dist * 0.05;
+    // Interpolação suave (Lerp)
+    leftEye.current.position.x = THREE.MathUtils.lerp(
+      leftEye.current.position.x,
+      -0.3 + targetX,
+      0.1
+    );
+    leftEye.current.position.y = THREE.MathUtils.lerp(
+      leftEye.current.position.y,
+      0.1 + targetY,
+      0.1
+    );
 
-    // Threshold for glow
-    const isMoving = currentMovement.current > 0.005; // ADJUSTED SENSITIVITY
-    const targetOpacity = isMoving ? 1.0 : 0.0;
+    rightEye.current.position.x = THREE.MathUtils.lerp(
+      rightEye.current.position.x,
+      0.3 + targetX,
+      0.1
+    );
+    rightEye.current.position.y = THREE.MathUtils.lerp(
+      rightEye.current.position.y,
+      0.1 + targetY,
+      0.1
+    );
 
-    // Smooth transition for opacity
-    if (leftEyeRef.current) {
-      // Lerp opacity
-      const currentOp = (leftEyeRef.current.material as THREE.Material).opacity;
-      const newOp = THREE.MathUtils.lerp(currentOp, targetOpacity, 0.1);
-
-      (leftEyeRef.current.material as THREE.Material).opacity = newOp;
-      if (rightEyeRef.current)
-        (rightEyeRef.current.material as THREE.Material).opacity = newOp;
-
-      // Outer glow is softer (30% of core)
-      if (leftGlowRef.current)
-        (leftGlowRef.current.material as THREE.Material).opacity = newOp * 0.3;
-      if (rightGlowRef.current)
-        (rightGlowRef.current.material as THREE.Material).opacity = newOp * 0.3;
-    }
+    // Escala para piscar (scale Y vai a 0.1)
+    const targetScaleY = blink ? 0.1 : 1;
+    leftEye.current.scale.y = THREE.MathUtils.lerp(
+      leftEye.current.scale.y,
+      targetScaleY,
+      0.4
+    );
+    rightEye.current.scale.y = THREE.MathUtils.lerp(
+      rightEye.current.scale.y,
+      targetScaleY,
+      0.4
+    );
   });
 
-  return (
-    <group ref={groupRef} position={[0, 0, 0]}>
-      {/* Left Eye Setup */}
-      <group position={[-0.7, 0.6, 1.9]} scale={[1.1, 1.0, 0.6]}>
-        <mesh geometry={socketGeo} material={socketMaterial} />
-      </group>
-      <mesh
-        ref={leftEyeRef}
-        geometry={eyeGeo}
-        material={eyesMaterial}
-        position={[-0.7, 0.6, 2.0]}
-      />
-      <mesh
-        ref={leftGlowRef}
-        geometry={glowGeo}
-        material={glowMaterial}
-        position={[-0.7, 0.6, 1.95]}
-      />
+  // Olhos como recortes escuros para lembrar o ícone de referência
+  const eyeMaterial = new THREE.MeshBasicMaterial({ color: '#0b1c30' });
 
-      {/* Right Eye Setup */}
-      <group position={[0.7, 0.6, 1.9]} scale={[1.1, 1.0, 0.6]}>
-        <mesh geometry={socketGeo} material={socketMaterial} />
-      </group>
+  return (
+    <group position={[0.05, 0.05, 1.05]}>
+      {/* Posicionado na frente do fantasma */}
       <mesh
-        ref={rightEyeRef}
-        geometry={eyeGeo}
-        material={eyesMaterial}
-        position={[0.7, 0.6, 2.0]}
+        ref={leftEye}
+        position={[-0.55, 0.15, 0]}
+        geometry={new THREE.SphereGeometry(0.32, 20, 20)}
+        material={eyeMaterial}
       />
       <mesh
-        ref={rightGlowRef}
-        geometry={glowGeo}
-        material={glowMaterial}
-        position={[0.7, 0.6, 1.95]}
+        ref={rightEye}
+        position={[0.55, 0.15, 0]}
+        geometry={new THREE.SphereGeometry(0.32, 20, 20)}
+        material={eyeMaterial}
       />
     </group>
   );

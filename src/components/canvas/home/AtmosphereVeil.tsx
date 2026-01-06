@@ -29,16 +29,19 @@ const fragmentShader = `
   
   void main() {
     float dist = distance(vWorldPosition.xy, ghostPosition.xy);
-    float dynamicRadius = revealRadius * 0.3 + sin(time * 2.0) * 1.0;
-    float reveal = smoothstep(dynamicRadius * 0.4, dynamicRadius, dist);
-    reveal = pow(reveal, fadeStrength * 2.5);
-    float opacity = mix(revealOpacity * 0.5, baseOpacity * 0.3, reveal);
-    gl_FragColor = vec4(0.0, 0.2, 1.0, opacity * 0.8);
+    float dynamicRadius = revealRadius * 0.32 + sin(time * 1.4) * 1.2;
+    float core = 1.0 - smoothstep(dynamicRadius * 0.25, dynamicRadius, dist);
+    float halo = 1.0 - smoothstep(dynamicRadius, dynamicRadius * 1.85, dist);
+    float opacity = mix(revealOpacity, baseOpacity, core) + halo * 0.25;
+    vec3 innerColor = vec3(0.18, 0.42, 1.0);
+    vec3 outerColor = vec3(0.02, 0.08, 0.24);
+    vec3 color = mix(outerColor, innerColor, pow(core, fadeStrength));
+    gl_FragColor = vec4(color, clamp(opacity * 0.9, 0.0, 1.0));
   }
 `;
 
 interface AtmosphereProps {
-  ghostRef: React.RefObject<THREE.Group>; // Precisa saber onde o fantasma está
+  ghostRef: React.RefObject<THREE.Group | null>; // Precisa saber onde o fantasma está
 }
 
 export default function AtmosphereVeil({ ghostRef }: AtmosphereProps) {
@@ -47,10 +50,10 @@ export default function AtmosphereVeil({ ghostRef }: AtmosphereProps) {
   const uniforms = useMemo(
     () => ({
       ghostPosition: { value: new THREE.Vector3(0, 0, 0) },
-      revealRadius: { value: 15.0 },
-      fadeStrength: { value: 2.5 },
-      baseOpacity: { value: 0.3 },
-      revealOpacity: { value: 0.01 },
+      revealRadius: { value: 22.0 },
+      fadeStrength: { value: 2.2 },
+      baseOpacity: { value: 0.62 },
+      revealOpacity: { value: 0.08 },
       time: { value: 0 },
     }),
     []

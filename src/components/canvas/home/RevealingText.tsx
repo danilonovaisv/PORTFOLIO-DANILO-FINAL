@@ -52,11 +52,9 @@ type RevealMaterialType = THREE.ShaderMaterial & {
 };
 
 declare module '@react-three/fiber' {
-  /* eslint-disable no-unused-vars */
   interface ThreeElements {
     revealMaterial: any;
   }
-  /* eslint-enable no-unused-vars */
 }
 
 export default function RevealingText({

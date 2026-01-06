@@ -2,92 +2,123 @@
 description: (O Fantasma, Luzes e Atmosfera).
 ---
 
-### 🚀 Workflow Antigravity: Protocolo de Execução
+### 🚀 Workflow Antigravity: Protocolo de Execução (Atualizado)
 
 #### 📦 Pré-requisitos (Configuração Inicial)
 
 - **Status:** _A executar._
-- **Ação:** Garantir dependências essenciais.
-- **Comando:** `npm install three @types/three @react-three/fiber @react-three/drei @react-three/postprocessing simplex-noise framer-motion`
+- **Ação:** Garantir dependências essenciais e ferramentas de controle.
+- **Comando:** `npm install three @types/three @react-three/fiber @react-three/drei @react-three/postprocessing simplex-noise framer-motion leva`
+
+#### Structure (Desktop)
+
+**Z-Index Stack:**
+
+1. **Z-50:** Preloader (Ghost Loader SVG animation)
+2. **Z-30:** Manifesto Video Thumbnail (floating, bottom-right)
+3. **Z-20:** Ghost Atmosphere (WebGL Canvas)
+4. **Z-10:** Editorial Text Block (static, centered)
+5. **Z-0:** Gradient Background (`#040013` to `#0b0d3a`)
+
+---
+
+### 🧠 Diretrizes Técnicas e Arquitetura (R3F)
+
+_Estas diretrizes sobrepõem-se a implementações genéricas. O objetivo é performance máxima._
+
+#### 1. Estrutura do Componente Ghost (Geometria)
+
+Em vez de manipular vértices na CPU a cada frame (o que é lento), utilizaremos:
+
+- **Abordagem:** `useMemo` para calcular a deformação inicial ou `onBeforeCompile` para injetar um _Vertex Shader_ personalizado no material padrão.
+- **Normalização:** `geo.computeVertexNormals()` é obrigatório após qualquer deformação para que a iluminação reaja corretamente às "ondas" do fantasma.
+
+#### 2. Sistema de Partículas (InstancedMesh)
+
+Proibido usar arrays de Meshes simples.
+
+- **Abordagem:** Utilizar `InstancedMesh` (ou o helper `<Instances>` do `@react-three/drei`).
+- **Lógica:** Toda a animação de milhares de partículas ocorre em um único `useFrame`, atualizando a matriz diretamente na memória de vídeo (GPU). Isso reduz as _draw calls_ de 1000 para 1.
+
+#### 3. Efeito Customizado: AnalogDecay
+
+Não depender apenas de presets. Criaremos um shader de pós-processamento dedicado.
+
+- **Shader:** GLSL customizado portado da referência, controlando distorção de cores e ruído analógico.
+- **Wrapper:** Encapsular o efeito usando `useMemo` e a biblioteca `postprocessing` para integração limpa no R3F.
+
+#### 4. Orquestração e Estado (Leva)
+
+- **Ferramenta:** Utilizar `leva` para substituir o Tweakpane.
+- **Uso:** Variáveis como _Glow Intensity_, _Grain Amount_ e _Scanline Intensity_ devem ser ajustáveis em tempo real via GUI durante o desenvolvimento.
+
+---
+
+### 📊 Tabela de Comparação: Referência vs. Antigravity
+
+| Característica        | Referência (Imperativo)       | Antigravity (R3F Declarativo)      | Benefício Antigravity                                              |
+| --------------------- | ----------------------------- | ---------------------------------- | ------------------------------------------------------------------ |
+| **Geometria**         | Modificação direta de array   | `useMemo` + `BufferAttribute`      | Imutabilidade e performance de recálculo zero.                     |
+| **Partículas**        | Array de Meshes (Objeto Pool) | `InstancedMesh` (`<Instances>`)    | Redução drástica de _draw calls_ e uso de CPU.                     |
+| **Pós-processamento** | ShaderPass manual             | `<EffectComposer>` + Custom Effect | Melhor gestão de dependências e fusão de shaders.                  |
+| **Render Loop**       | requestAnimationFrame único   | Múltiplos `useFrame`               | Desacoplamento lógico; componentes gerenciam sua própria animação. |
+| **Transparência**     | Problemática (fundo preto)    | Controlada (`gl={{alpha: true}}`)  | Correção de artefatos de alpha blending no Bloom.                  |
 
 ---
 
 ### Fase 1: O Núcleo Visual (WebGL & 3D)
 
-**Objetivo:** Recriar a fidelidade visual do CodePen (O Fantasma, Luzes e Atmosfera).
+**Objetivo:** Recriar a fidelidade visual com a arquitetura otimizada acima.
 
-1. **Componente `Ghost.tsx**` (Já iniciado):
+1. **Componente `Ghost.tsx**`:
 
-- _Tarefa:_ Geometria Icosaedro + `simplex-noise` para deformação de vértices.
-- _Ajuste Fino:_ Garantir que o material seja `MeshStandardMaterial` com `emissive` azul profundo para reagir ao Bloom.
+- _Tarefa:_ Geometria Icosaedro deformada via `useMemo`. Material `MeshStandardMaterial` com `emissive` azul profundo.
 
-2. **Componente `GhostEyes.tsx**` (Falta criar):
+2. **Componente `GhostEyes.tsx**`:
 
-- _Tarefa:_ Criar dois vetores (olhos) que calculam o ângulo entre a posição do fantasma e o mouse (`Math.atan2`).
-- _Comportamento:_ Devem piscar ocasionalmente e aumentar a intensidade do brilho quando o mouse se move rápido.
+- _Tarefa:_ Vetores que calculam `Math.atan2` para seguir o mouse.
+- _Performance:_ Componente isolado para não re-renderizar o fantasma inteiro.
 
-3. **Componente `Particles.tsx` & `Fireflies.tsx**` (Falta criar):
+3. **Componente `Particles.tsx**`:
 
-- _Tarefa:_ Sistema de partículas flutuantes usando `PointsMaterial` customizado para criar a "poeira espectral" e luzes piscantes ao redor.
+- _Tarefa:_ Sistema `InstancedMesh` para "poeira espectral". Lógica matemática de órbita no `useFrame`.
 
-4. **Componente `GhostCanvas.tsx**` (Cena Principal):
+4. **Componente `Effects.tsx` (Antigo GhostCanvas)**:
 
-- _Tarefa:_ Orquestrar a cena. Configurar `EffectComposer` com `Bloom` (intensidade 1.5+), `Noise` (film grain) e `Vignette`.
-- _Fidelidade:_ Ajustar as cores das luzes (`pointLight`) para `#4d8dff` (principal) e `#6e00ff` (fill) conforme a referência.
+- _Tarefa:_ Orquestrar `EffectComposer`.
+- _Custom:_ Implementar o `AnalogDecay` (VHS effect) e integrar com `Bloom` (intensidade 1.5+) e `Noise`.
 
 ### Fase 2: A Estrutura Hero (Layout & Z-Index)
 
-**Objetivo:** Montar o palco HTML/CSS onde o 3D vive, respeitando a hierarquia visual.
-
 1. **Componente `HeroCopy.tsx` (Editorial):**
 
-- _Tarefa:_ Implementar textos estáticos ("Você não vê o design...") com fontes TT Norms Pro.
-- _Posição:_ Z-Index 10. Centralizado absoluto. Pointer-events-none (exceto CTA).
+- _Posição:_ Z-Index 10. Centralizado. Fontes TT Norms Pro.
 
 2. **Componente `Preloader.tsx`:**
 
-- _Tarefa:_ SVG do fantasma + barra de progresso.
-- _Lógica:_ Desaparecer após 2s ou quando o `GhostCanvas` carregar (Suspense).
+- _Lógica:_ SVG + Barra de progresso. Desaparece via `Suspense` do R3F.
 
-### Fase 3: A Lógica do Manifesto (Vídeo Complexo)
-
-**Objetivo:** Implementar a transição Thumbnail → Fullscreen → Hold.
+### Fase 3: A Lógica do Manifesto
 
 1. **Componente `ManifestoVideo.tsx`:**
 
-- _Estado Inicial:_ Fixo `bottom-right`, `border-radius: 16px`, mudo.
-- _Scroll Trigger:_ Usar `framer-motion` (`useScroll`) para interpolar posição e escala baseada no scroll do Hero.
-- _Lógica de Hold:_ Quando `scale === 1` (fullscreen), disparar um "Lock" no scroll do body por 2 segundos.
-- _Áudio:_ Mudo por padrão. Unmute apenas durante o estado "Hold" (Fullscreen).
+- _Scroll Trigger:_ `framer-motion` interpola de thumbnail (bottom-right) para fullscreen.
+- _Estado:_ Mudo -> Unmute no Fullscreen.
 
-### Fase 4: Integração (HomeHero)
+### Fase 4 & 5: Integração e Refinamento
 
-**Objetivo:** Unir WebGL, Texto e Vídeo.
-
-1. **Montagem em `HomeHero.tsx`:**
-
-- Empilhar camadas: Background < Canvas (Ghost) < Texto < Vídeo < Preloader.
-- Gerenciar responsividade (Mobile vs Desktop). No mobile, o vídeo sai do Hero e vira uma seção abaixo.
-
-### Fase 5: Teste de Fidelidade & Refinamento
-
-**Objetivo:** Comparação lado a lado com a referência.
-
-1. **Ajuste de Post-Processing:** Regular o `threshold` do Bloom para que apenas os olhos e as bordas do fantasma brilhem intensamente.
-2. **Ajuste de Velocidade:** Sincronizar a velocidade do `noise` do fantasma com a referência (nem muito rápido, nem muito lento).
-3. **Performance:** Verificar FPS. Se < 30fps, reduzir qualidade das sombras ou contagem de partículas.
+- Montagem no `HomeHero.tsx`.
+- Ajuste fino via `Leva` (exportar configurações finais para constantes).
 
 ---
 
-### 🛠️ EXECUÇÃO IMEDIATA: Completando a Fase 1 (Os Detalhes 3D)
+### 🛠️ EXECUÇÃO IMEDIATA: Implementando os Componentes Chave
 
-Para que eu possa avançar para a integração do vídeo (Fase 3), preciso terminar a cena 3D. Aqui estão os códigos para os **Olhos** e as **Partículas** que faltavam no passo anterior.
-
-Copia e cola estes ficheiros para completar a "Atmosfera":
+Copia e cola estes códigos atualizados que respeitam a nova arquitetura (Instancing e Otimização).
 
 #### 1. `src/components/canvas/home/GhostEyes.tsx`
 
-_Responsável pelo olhar que segue o mouse e pisca._
+_(Lógica de vetores mantida, otimizada para R3F)_
 
 ```tsx
 'use client';
@@ -100,37 +131,27 @@ export default function GhostEyes() {
   const leftEye = useRef<THREE.Mesh>(null);
   const rightEye = useRef<THREE.Mesh>(null);
   const { mouse } = useThree();
-
-  // Estado para piscar
   const [blink, setBlink] = useState(false);
 
-  // Lógica de piscar aleatório
   useEffect(() => {
     const timeout = () => {
       setBlink(true);
-      setTimeout(() => setBlink(false), 150); // Olhos fechados por 150ms
-
-      // Próximo piscar entre 2s e 6s
+      setTimeout(() => setBlink(false), 150);
       const nextBlink = Math.random() * 4000 + 2000;
       setTimeout(timeout, nextBlink);
     };
-
     const timer = setTimeout(timeout, 3000);
     return () => clearTimeout(timer);
   }, []);
 
-  useFrame((state) => {
+  useFrame(() => {
     if (!leftEye.current || !rightEye.current) return;
 
-    // Calcular posição alvo baseada no mouse (com limite de rotação)
-    // O fantasma está em 0,0,0. Os olhos devem olhar para o mouse.
-    // Mouse x/y vai de -1 a 1.
-
-    const eyeMovementRange = 0.15; // O quanto os olhos se movem dentro da "orbita"
+    const eyeMovementRange = 0.15;
     const targetX = mouse.x * eyeMovementRange;
     const targetY = mouse.y * eyeMovementRange;
 
-    // Interpolação suave (Lerp)
+    // Lerp para suavidade
     leftEye.current.position.x = THREE.MathUtils.lerp(
       leftEye.current.position.x,
       -0.3 + targetX,
@@ -153,7 +174,6 @@ export default function GhostEyes() {
       0.1
     );
 
-    // Escala para piscar (scale Y vai a 0.1)
     const targetScaleY = blink ? 0.1 : 1;
     leftEye.current.scale.y = THREE.MathUtils.lerp(
       leftEye.current.scale.y,
@@ -167,25 +187,17 @@ export default function GhostEyes() {
     );
   });
 
-  // Material muito brilhante para o Bloom pegar bem
-  const eyeMaterial = new THREE.MeshBasicMaterial({ color: '#ffffff' });
-
+  // Material básico para reagir fortemente ao Bloom
   return (
     <group position={[0, 0, 0.8]}>
-      {' '}
-      {/* Posicionado na frente do fantasma */}
-      <mesh
-        ref={leftEye}
-        position={[-0.3, 0.1, 0]}
-        geometry={new THREE.SphereGeometry(0.06, 16, 16)}
-        material={eyeMaterial}
-      />
-      <mesh
-        ref={rightEye}
-        position={[0.3, 0.1, 0]}
-        geometry={new THREE.SphereGeometry(0.06, 16, 16)}
-        material={eyeMaterial}
-      />
+      <mesh ref={leftEye} position={[-0.3, 0.1, 0]}>
+        <sphereGeometry args={[0.06, 16, 16]} />
+        <meshBasicMaterial color="#ffffff" />
+      </mesh>
+      <mesh ref={rightEye} position={[0.3, 0.1, 0]}>
+        <sphereGeometry args={[0.06, 16, 16]} />
+        <meshBasicMaterial color="#ffffff" />
+      </mesh>
     </group>
   );
 }
@@ -193,7 +205,7 @@ export default function GhostEyes() {
 
 #### 2. `src/components/canvas/home/Particles.tsx`
 
-_Responsável pela poeira espectral flutuante._
+_(Lógica Refatorada: Usa `InstancedMesh` estrito para performance, conforme diretriz 4.2)_
 
 ```tsx
 'use client';
@@ -202,63 +214,57 @@ import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
-export default function Particles({ count = 80 }) {
+export default function Particles({ count = 60 }) {
   const mesh = useRef<THREE.InstancedMesh>(null);
   const dummy = useMemo(() => new THREE.Object3D(), []);
 
-  // Gerar posições e velocidades aleatórias
+  // Dados iniciais das partículas (não são recriados a cada render)
   const particles = useMemo(() => {
     const temp = [];
     for (let i = 0; i < count; i++) {
-      const t = Math.random() * 100;
-      const factor = 20 + Math.random() * 100;
-      const speed = 0.01 + Math.random() / 200;
-      const xFactor = -5 + Math.random() * 10;
-      const yFactor = -5 + Math.random() * 10;
-      const zFactor = -5 + Math.random() * 10;
-      temp.push({ t, factor, speed, xFactor, yFactor, zFactor, mx: 0, my: 0 });
+      temp.push({
+        t: Math.random() * 100,
+        factor: 20 + Math.random() * 100,
+        speed: 0.01 + Math.random() / 200,
+        xFactor: -5 + Math.random() * 10,
+        yFactor: -5 + Math.random() * 10,
+        zFactor: -5 + Math.random() * 10,
+        mx: 0,
+        my: 0,
+      });
     }
     return temp;
   }, [count]);
 
   useFrame((state) => {
     if (!mesh.current) return;
-
     const time = state.clock.getElapsedTime();
 
     particles.forEach((particle, i) => {
-      let { t, factor, speed, xFactor, yFactor, zFactor } = particle;
+      // Atualiza o tempo individual da partícula
+      particle.t += particle.speed / 2;
+      const { t, factor, xFactor, yFactor, zFactor } = particle;
 
-      // Movimento orbital orgânico
-      t = particle.t += speed / 2;
+      // Matemática de movimento orgânico (Lissajous figures / Noise simplificado)
       const a = Math.cos(t) + Math.sin(t * 1) / 10;
       const b = Math.sin(t) + Math.cos(t * 2) / 10;
       const s = Math.cos(t);
 
-      // Atualiza posição do dummy object
+      // Define posição no dummy
       dummy.position.set(
-        (particle.mx / 10) * a +
-          xFactor +
-          Math.cos((t / 10) * factor) +
-          (Math.sin(t * 1) * factor) / 10,
-        (particle.my / 10) * b +
-          yFactor +
-          Math.sin((t / 10) * factor) +
-          (Math.cos(t * 2) * factor) / 10,
-        (particle.my / 10) * b +
-          zFactor +
-          Math.cos((t / 10) * factor) +
-          (Math.sin(t * 3) * factor) / 10
+        xFactor + Math.cos((t / 10) * factor) + (Math.sin(t * 1) * factor) / 10,
+        yFactor + Math.sin((t / 10) * factor) + (Math.cos(t * 2) * factor) / 10,
+        zFactor + Math.cos((t / 10) * factor) + (Math.sin(t * 3) * factor) / 10
       );
 
-      // Escala pulsa levemente
-      const scale = (Math.sin(time + xFactor) + 2) * 0.02; // Partículas pequenas
+      // Escala pulsante para simular brilho variando
+      const scale = (Math.sin(time + xFactor) + 2) * 0.02;
       dummy.scale.set(scale, scale, scale);
-
       dummy.rotation.set(s * 5, s * 5, s * 5);
+
       dummy.updateMatrix();
 
-      // Aplica ao InstancedMesh
+      // Atualiza a matriz na instância específica
       mesh.current.setMatrixAt(i, dummy.matrix);
     });
 
@@ -268,6 +274,7 @@ export default function Particles({ count = 80 }) {
   return (
     <instancedMesh ref={mesh} args={[undefined, undefined, count]}>
       <dodecahedronGeometry args={[0.2, 0]} />
+      {/* Blending Additive é crucial para o efeito "luz sobre luz" */}
       <meshBasicMaterial
         color="#4d8dff"
         transparent
@@ -279,22 +286,8 @@ export default function Particles({ count = 80 }) {
 }
 ```
 
-#### 3. Atualização do `GhostCanvas.tsx`
+---
 
-Agora, atualiza o arquivo `src/components/canvas/home/GhostCanvas.tsx` (que eu enviei na resposta anterior) para incluir estes novos componentes. Basta descomentar as linhas:
+### Próximo Passo Sugerido
 
-```tsx
-// ... imports
-import GhostEyes from './GhostEyes'; // Importar
-import Particles from './Particles'; // Importar
-
-// ... dentro do Canvas
-<Ghost>
-   <GhostEyes /> {/* Olhos dentro ou junto do grupo do fantasma */}
-</Ghost>
-<Particles count={50} />
-// ...
-
-```
-
-_(Nota: Podes colocar o `GhostEyes` dentro do componente `Ghost` ou como irmão, mas como ele segue a posição base, é melhor ser irmão dentro de um Group pai se o fantasma se mover muito, ou ajustamos a posição.)_
+Para cumprir a diretriz **4.3 (Efeito AnalogDecay)** e **4.4 (Orquestração)**, o próximo passo lógico é criar o shader personalizado e configurá-lo no Canvas.

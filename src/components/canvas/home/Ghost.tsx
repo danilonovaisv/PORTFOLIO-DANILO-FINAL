@@ -1,7 +1,13 @@
 // src/components/canvas/home/Ghost.tsx
 'use client';
 
-import React, { useRef, useMemo, forwardRef, useImperativeHandle } from 'react';
+import React, {
+  useRef,
+  useMemo,
+  forwardRef,
+  useImperativeHandle,
+  useEffect,
+} from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 
@@ -15,13 +21,18 @@ const Ghost = forwardRef<THREE.Group, GhostProps>((props, ref) => {
   const materialRef = useRef<THREE.MeshStandardMaterial>(null);
 
   useImperativeHandle(ref, () => localRef.current!);
+  useEffect(() => {
+    if (localRef.current) {
+      localRef.current.position.set(-2.5, 0, 0);
+    }
+  }, []);
 
   // Parameters from reference
   const params = {
-    followSpeed: 0.05,
-    wobbleAmount: 0.35,
-    floatSpeed: 0.06,
-    rotationDamping: 0.05,
+    followSpeed: 0.06,
+    wobbleAmount: 0.32,
+    floatSpeed: 0.065,
+    rotationDamping: 0.08,
   };
 
   // Geometry Procedural (Exact Match from CodePen)
@@ -52,9 +63,9 @@ const Ghost = forwardRef<THREE.Group, GhostProps>((props, ref) => {
     const time = state.clock.getElapsedTime();
     const { pointer } = state;
 
-    // 1. Mouse Tracking (Reference constants: 11 and 7)
-    const targetX = pointer.x * 11;
-    const targetY = pointer.y * 7;
+    // 1. Mouse Tracking (softened range + slight left bias to mirror layout)
+    const targetX = pointer.x * 6 - 2.5;
+    const targetY = pointer.y * 4;
 
     // 2. Movement Layout
     localRef.current.position.x +=
@@ -92,8 +103,8 @@ const Ghost = forwardRef<THREE.Group, GhostProps>((props, ref) => {
       Math.sin(time * 1.4) * 0.05 * params.wobbleAmount;
 
     // 5. Pulsing & Breathing
-    const pulse1 = Math.sin(time * 0.6) * 0.6; // Speed 1.6, intensity 0.6
-    const breathe = Math.sin(time * 0.6) * 0.12;
+    const pulse1 = Math.sin(time * 0.8) * 0.7;
+    const breathe = Math.sin(time * 0.5) * 0.18;
 
     // Scale Variations (Breathing)
     // Scale varies with wobble and pulse
@@ -106,7 +117,7 @@ const Ghost = forwardRef<THREE.Group, GhostProps>((props, ref) => {
 
     // Update Material Pulse
     if (materialRef.current) {
-      materialRef.current.emissiveIntensity = 8.5 + pulse1 + breathe;
+      materialRef.current.emissiveIntensity = 12 + pulse1 * 1.1 + breathe * 0.8;
     }
   });
 

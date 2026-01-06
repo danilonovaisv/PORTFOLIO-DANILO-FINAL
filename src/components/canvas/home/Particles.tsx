@@ -13,7 +13,7 @@ export default function Particles({ count = 80 }) {
     const temp = [];
     for (let i = 0; i < count; i++) {
       const t = Math.random() * 100;
-      const factor = 30 + Math.random() * 100;
+      const factor = 20 + Math.random() * 100;
       const speed = 0.01 + Math.random() / 200;
       const xFactor = -5 + Math.random() * 10;
       const yFactor = -5 + Math.random() * 10;
@@ -24,14 +24,14 @@ export default function Particles({ count = 80 }) {
   }, [count]);
 
   useFrame((state) => {
-    if (!mesh.current) return;
-    const currentMesh = mesh.current;
+    const meshInstance = mesh.current;
+    if (!meshInstance) return;
 
     const time = state.clock.getElapsedTime();
 
     particles.forEach((particle, i) => {
-      let { t } = particle;
       const { factor, speed, xFactor, yFactor, zFactor } = particle;
+      let { t } = particle;
 
       // Movimento orbital orgânico
       t = particle.t += speed / 2;
@@ -63,19 +63,19 @@ export default function Particles({ count = 80 }) {
       dummy.updateMatrix();
 
       // Aplica ao InstancedMesh
-      currentMesh.setMatrixAt(i, dummy.matrix);
+      meshInstance.setMatrixAt(i, dummy.matrix);
     });
 
-    currentMesh.instanceMatrix.needsUpdate = true;
+    meshInstance.instanceMatrix.needsUpdate = true;
   });
 
   return (
     <instancedMesh ref={mesh} args={[undefined, undefined, count]}>
       <dodecahedronGeometry args={[0.2, 0]} />
       <meshBasicMaterial
-        color="#4fe6ff" // Blue Accent (Ghost Atmosphere)
+        color="#4d8dff"
         transparent
-        opacity={0.65}
+        opacity={0.45}
         blending={THREE.AdditiveBlending}
       />
     </instancedMesh>

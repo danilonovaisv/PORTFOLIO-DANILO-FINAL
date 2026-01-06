@@ -1,6 +1,6 @@
 'use client';
 
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import React, { Suspense, useRef } from 'react';
 import {
   EffectComposer,
@@ -8,10 +8,12 @@ import {
   Noise,
   Vignette,
 } from '@react-three/postprocessing';
+import { PerformanceMonitor } from '@react-three/drei';
 import * as THREE from 'three';
 
 import Ghost from './Ghost';
 import GhostEyes from './GhostEyes';
+import Particles from './Particles';
 import AtmosphereVeil from './AtmosphereVeil';
 import AnalogDecay from './postprocessing/AnalogDecayPass';
 
@@ -21,26 +23,49 @@ interface GhostCanvasProps {
   ghostRef?: React.RefObject<THREE.Group | null>;
 }
 
+function GhostLightFollower({
+  ghostRef,
+  lightRef,
+}: {
+  ghostRef: React.RefObject<THREE.Group | null>;
+  lightRef: React.RefObject<THREE.PointLight | null>;
+}) {
+  useFrame(() => {
+    if (!lightRef.current || !ghostRef.current) return;
+    const target = ghostRef.current.position
+      .clone()
+      .add(new THREE.Vector3(0, 0, 2.5));
+    lightRef.current.position.lerp(target, 0.08);
+  });
+
+  return null;
+}
+
 export default function GhostCanvas({
   ghostRef: propGhostRef,
 }: GhostCanvasProps) {
   const localRef = useRef<THREE.Group>(null);
-  // Use the passed ref if available, otherwise use local
-  const ghostRef = (propGhostRef as React.RefObject<THREE.Group>) || localRef;
+  const glowLightRef = useRef<THREE.PointLight>(null);
+  const ghostRef =
+    (propGhostRef as React.RefObject<THREE.Group | null>) || localRef;
+  const [dpr, setDpr] = React.useState(1.5);
 
   return (
     <Canvas
-      dpr={[1, 1.5]} // Performance
-      camera={{ position: [0, 0, 20], fov: 40 }} // Câmera mais longe para ver mais área
+      dpr={dpr}
+      camera={{ position: [0, 0, 20], fov: 40 }}
       gl={{
         alpha: true,
         antialias: false,
         powerPreference: 'high-performance',
         toneMapping: THREE.ACESFilmicToneMapping,
       }}
-      className="absolute top-0 left-0 w-full h-full" // Removed pointer-events-none to allow mouse interaction
-      style={{ zIndex: 10 }} // O Canvas fica NA FRENTE do texto
+      className="absolute top-0 left-0 w-full h-full"
+      style={{ zIndex: 10 }}
     >
+      <PerformanceMonitor
+        onChange={({ factor }) => setDpr(0.5 + 1.5 * factor)}
+      />
       <Suspense fallback={null}>
         <ambientLight intensity={0.1} color="#0a0a2e" />
         <directionalLight
@@ -53,22 +78,30 @@ export default function GhostCanvas({
           intensity={1.5}
           color="#50e3c2"
         />
+        <pointLight
+          ref={glowLightRef}
+          position={[-2, 0, 6]}
+          intensity={55}
+          distance={140}
+          decay={2}
+          color="#5fb5ff"
+        />
+        <GhostLightFollower ghostRef={ghostRef} lightRef={glowLightRef} />
 
-        {/* Componente que escurece o fundo e revela com base na posição do ghostRef */}
         <AtmosphereVeil ghostRef={ghostRef} />
 
-        {/* Grupo do Fantasma */}
         <Ghost ref={ghostRef}>
-          <GhostEyes /> {/* Olhos dentro do fantasma para moverem junto */}
+          <GhostEyes />
         </Ghost>
 
-        {/* Efeitos */}
-        <EffectComposer>
+        <Particles count={35} />
+
+        <EffectComposer enableNormalPass={false}>
           <Bloom
-            luminanceThreshold={1.5}
+            luminanceThreshold={0.3}
             mipmapBlur
-            intensity={1.8}
-            radius={0.8}
+            intensity={1.25}
+            radius={0.0}
           />
           <Noise opacity={0.15} />
           <Vignette eskil={false} offset={0.1} darkness={1.1} />
