@@ -48,7 +48,7 @@ export default function Fireflies() {
   return (
     <instancedMesh ref={meshRef} args={[undefined, undefined, FIREFLY_COUNT]}>
       <sphereGeometry args={[1, 3, 6]} />
-      <meshBasicMaterial color="#c74fff" transparent opacity={0.65} />
+      <meshBasicMaterial color="#4fe6ff" transparent opacity={0.65} />
     </instancedMesh>
   );
 }

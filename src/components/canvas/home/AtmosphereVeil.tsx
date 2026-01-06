@@ -4,10 +4,11 @@ import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import { useMemo, useRef } from 'react';
 
-// Shader copiado e adaptado da referência (CodePen)
+// Shader copiado e adaptado da referência (CodePen) - Updated
 const vertexShader = `
   varying vec2 vUv;
   varying vec3 vWorldPosition;
+  
   void main() {
     vUv = uv;
     vec4 worldPos = modelMatrix * vec4(position, 1.0);
@@ -28,19 +29,11 @@ const fragmentShader = `
   
   void main() {
     float dist = distance(vWorldPosition.xy, ghostPosition.xy);
-    
-    // Raio pulsante
-    float dynamicRadius = revealRadius + sin(time * 2.0) * 5.0;
-    
-    // Gradiente suave de revelação
-    float reveal = smoothstep(dynamicRadius * 0.2, dynamicRadius, dist);
-    reveal = pow(reveal, fadeStrength);
-    
-    // Mistura entre a opacidade revelada e a opacidade base (escura)
-    float opacity = mix(revealOpacity, baseOpacity, reveal);
-    
-    // Cor escura (quase preta) para esconder o fundo
-    gl_FragColor = vec4(0.001, 0.001, 0.002, opacity);
+    float dynamicRadius = revealRadius * 0.3 + sin(time * 2.0) * 1.0;
+    float reveal = smoothstep(dynamicRadius * 0.4, dynamicRadius, dist);
+    reveal = pow(reveal, fadeStrength * 2.5);
+    float opacity = mix(revealOpacity * 0.5, baseOpacity * 0.3, reveal);
+    gl_FragColor = vec4(0.0, 0.2, 1.0, opacity * 0.8);
   }
 `;
 
@@ -54,10 +47,10 @@ export default function AtmosphereVeil({ ghostRef }: AtmosphereProps) {
   const uniforms = useMemo(
     () => ({
       ghostPosition: { value: new THREE.Vector3(0, 0, 0) },
-      revealRadius: { value: 35.0 }, // Aumente/diminua para mudar o tamanho da luz
-      fadeStrength: { value: 1.7 },
-      baseOpacity: { value: 0.95 }, // Quão escuro é o fundo longe do fantasma (0 a 1)
-      revealOpacity: { value: 0.05 }, // Quão claro fica perto do fantasma
+      revealRadius: { value: 15.0 },
+      fadeStrength: { value: 2.5 },
+      baseOpacity: { value: 0.3 },
+      revealOpacity: { value: 0.01 },
       time: { value: 0 },
     }),
     []

@@ -98,11 +98,11 @@ class AnalogDecayEffect extends Effect {
     super('AnalogDecayEffect', fragmentShader, {
       uniforms: new Map([
         ['uTime', new THREE.Uniform(1)],
-        ['uAnalogGrain', new THREE.Uniform(props.grain ?? 1.4)],
+        ['uAnalogGrain', new THREE.Uniform(props.grain ?? 3.4)],
         ['uAnalogBleeding', new THREE.Uniform(props.bleeding ?? 3.0)],
         ['uAnalogVSync', new THREE.Uniform(props.vsync ?? 3.0)],
         ['uAnalogScanlines', new THREE.Uniform(props.scanlines ?? 1.0)],
-        ['uAnalogVignette', new THREE.Uniform(props.vignette ?? 2.0)],
+        ['uAnalogVignette', new THREE.Uniform(props.vignette ?? 3.0)],
         ['uAnalogJitter', new THREE.Uniform(props.jitter ?? 0.4)],
         ['uAnalogIntensity', new THREE.Uniform(props.intensity ?? 0.6)],
         ['uLimboMode', new THREE.Uniform(0.0)],

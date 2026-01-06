@@ -73,9 +73,9 @@ export default function Particles({ count = 80 }) {
     <instancedMesh ref={mesh} args={[undefined, undefined, count]}>
       <dodecahedronGeometry args={[0.2, 0]} />
       <meshBasicMaterial
-        color="#f94dff"
+        color="#4fe6ff" // Blue Accent (Ghost Atmosphere)
         transparent
-        opacity={0.6}
+        opacity={0.65}
         blending={THREE.AdditiveBlending}
       />
     </instancedMesh>

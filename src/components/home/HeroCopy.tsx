@@ -57,12 +57,12 @@ export function HeroCopy({
             )}
 
             {/* H1: Texto principal com gradiente de revelação */}
-            <h1 className="text-display-hero text-white mb-6 relative hero-text text-center wrap-break-word hyphens-auto">
+            <h1 className="text-display-hero text-neutral-800 mix-blend-screen mb-6 relative hero-text text-center wrap-break-word hyphens-auto font-black tracking-tighter">
               Você não vê <br className="hidden md:block" /> o design.
             </h1>
 
             {/* H2: Subtítulo */}
-            <h2 className="text-display-sub text-white/90 relative hero-text mb-8 md:mb-0 text-center wrap-break-word hyphens-auto">
+            <h2 className="text-display-sub text-neutral-800 mix-blend-screen relative hero-text mb-8 md:mb-0 text-center wrap-break-word hyphens-auto font-black tracking-tighter">
               Mas ele vê você.
             </h2>
           </div>
@@ -80,7 +80,7 @@ export function HeroCopy({
             transition={{ delay: 4.2, duration: 0.8 }}
           >
             <CTAButton href="/sobre" variant="primary">
-              step inside
+              step inside &rarr;
             </CTAButton>
           </motion.div>
         </div>
