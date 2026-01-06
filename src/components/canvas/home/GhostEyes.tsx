@@ -4,8 +4,18 @@ import React, { useRef, useState, useEffect, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
-// Define a prop de cor
-export default function GhostEyes({ color = '#0b1c30' }: { color?: string }) {
+// Define a prop de cor e parâmetros de glow
+export default function GhostEyes({
+  color = '#ffffff', // Definindo branco como padrão pois é melhor para glow
+  eyeGlowIntensity = 4.5,
+  eyeGlowDecay = 0.95,
+  eyeGlowResponse = 0.31,
+}: {
+  color?: string;
+  eyeGlowIntensity?: number;
+  eyeGlowDecay?: number;
+  eyeGlowResponse?: number;
+}) {
   const leftEye = useRef<THREE.Mesh>(null);
   const rightEye = useRef<THREE.Mesh>(null);
   const glowLeft = useRef<THREE.Mesh>(null);
@@ -53,20 +63,25 @@ export default function GhostEyes({ color = '#0b1c30' }: { color?: string }) {
       const dx = x - prevX;
       const dy = y - prevY;
       const delta = Math.sqrt(dx * dx + dy * dy);
+
+      // Use eyeGlowResponse for interpolation speed (inverse or direct map)
       speedRef.current = THREE.MathUtils.lerp(
         speedRef.current,
-        delta * 14,
-        0.25
+        delta * 30, // Multiplier for sensitivity
+        eyeGlowResponse
       );
 
       pointerRef.current.set(x, y);
     };
     window.addEventListener('mousemove', handlePointer);
     return () => window.removeEventListener('mousemove', handlePointer);
-  }, []);
+  }, [eyeGlowResponse]);
 
   useFrame(() => {
     if (!leftEye.current || !rightEye.current) return;
+
+    // Decay speed
+    speedRef.current *= eyeGlowDecay;
 
     const eyeMovementRange = 0.08;
     const targetX = pointerRef.current.x * eyeMovementRange;
@@ -109,9 +124,10 @@ export default function GhostEyes({ color = '#0b1c30' }: { color?: string }) {
     );
 
     // Glow reativo
+    // Usa eyeGlowIntensity como multiplicador máximo
     const glowStrength = THREE.MathUtils.clamp(speedRef.current, 0, 1);
     const scale = 1 + glowStrength * 0.6;
-    const opacity = 0.15 + glowStrength * 0.35;
+    const opacity = 0.15 + glowStrength * (eyeGlowIntensity * 0.1);
 
     if (glowLeft.current && glowRight.current) {
       glowLeft.current.scale.set(scale, scale, scale);

@@ -29,7 +29,7 @@ interface GhostStageProps {
 
 export function GhostStage({
   reducedMotion = false,
-  active = true,
+  active: _active = true,
   onCanvasCreated,
   ghostRef,
 }: GhostStageProps) {
@@ -54,11 +54,7 @@ export function GhostStage({
         className="absolute inset-0 w-full h-full"
       >
         <Suspense fallback={<GhostFallback />}>
-          <GhostCanvas
-            active={active}
-            onCreated={onCanvasCreated}
-            ghostRef={ghostRef}
-          />
+          <GhostCanvas onCreated={onCanvasCreated} ghostRef={ghostRef} />
         </Suspense>
       </motion.div>
 

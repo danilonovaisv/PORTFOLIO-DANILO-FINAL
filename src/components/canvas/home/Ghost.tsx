@@ -13,7 +13,10 @@ export type GhostProps = {
   followSpeed?: number; // Velocidade de perseguição ao mouse
   wobbleSpeed?: number; // Velocidade da ondulação da "saia"
   wobbleAmount?: number; // Intensidade da ondulação
-  breathSpeed?: number; // Velocidade da respiração/pulsação
+  breathSpeed?: number; // Velocidade da respiração/pulsação (pulseSpeed)
+  ghostOpacity?: number;
+  ghostScale?: number;
+  pulseIntensity?: number;
 };
 
 const Ghost = forwardRef<THREE.Group, GhostProps>(
@@ -28,6 +31,9 @@ const Ghost = forwardRef<THREE.Group, GhostProps>(
       wobbleSpeed = 2.0,
       wobbleAmount = 0.2,
       breathSpeed = 1.5,
+      ghostOpacity = 0.9,
+      ghostScale = 1.0,
+      pulseIntensity = 0.5,
     },
     ref
   ) => {
@@ -41,7 +47,7 @@ const Ghost = forwardRef<THREE.Group, GhostProps>(
     // 2. Geometria Procedural (Memoizada para performance)
     // Cria a forma de "lençol" deformando a metade inferior de uma esfera
     const geometry = useMemo(() => {
-      const geo = new THREE.SphereGeometry(1.3, 64, 64); // Alta contagem de polígonos para suavidade
+      const geo = new THREE.SphereGeometry(1, 64, 64); // Alta contagem de polígonos para suavidade
       const posAttribute = geo.getAttribute('position');
       const vertex = new THREE.Vector3();
 
@@ -49,10 +55,10 @@ const Ghost = forwardRef<THREE.Group, GhostProps>(
         vertex.fromBufferAttribute(posAttribute, i);
 
         // Aplica deformação apenas na parte de baixo (a "saia")
-        if (vertex.y < -0.2) {
+        if (vertex.y < -0.3) {
           // Combinação de ondas senoidais para um look orgânico
-          const wave1 = Math.sin(vertex.x * 5) * 0.35;
-          const wave2 = Math.cos(vertex.z * 4) * 0.25;
+          const wave1 = Math.sin(vertex.x * 9) * 0.35;
+          const wave2 = Math.cos(vertex.z * 9) * 0.25;
           const wave3 = Math.sin((vertex.x + vertex.z) * 3) * 0.15;
 
           // Aplica a onda na altura (Y)
@@ -142,7 +148,12 @@ const Ghost = forwardRef<THREE.Group, GhostProps>(
       // Pulsação de luz (respiração energética)
       // Usa a 'emissiveIntensity' base e adiciona uma oscilação forte para o Bloom
       materialRef.current.emissiveIntensity =
-        emissiveIntensity + (breath * 0.5 + 0.5) * 4;
+        emissiveIntensity + (breath * 0.5 + 0.5) * (pulseIntensity * 10);
+
+      materialRef.current.opacity = ghostOpacity;
+
+      // Scale dynamic
+      groupRef.current.scale.set(ghostScale, ghostScale, ghostScale);
     });
 
     return (
@@ -157,7 +168,7 @@ const Ghost = forwardRef<THREE.Group, GhostProps>(
             roughness={0.1}
             metalness={0.1}
             transparent
-            opacity={0.9}
+            opacity={ghostOpacity}
             side={THREE.DoubleSide} // Renderiza o interior da "saia"
           />
           {/* Renderiza os olhos como filhos, para que se movam junto com o corpo */}

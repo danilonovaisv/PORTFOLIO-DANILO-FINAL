@@ -45,7 +45,8 @@ declare module '@react-three/fiber' {
     > & {
       uGhostPos?: THREE.Vector3;
       uRevealRadius?: number;
-      uColor?: THREE.Color;
+      uBaseColor?: THREE.Color;
+      uRevealColor?: THREE.Color;
       uOpacity?: number;
       transparent?: boolean;
     };

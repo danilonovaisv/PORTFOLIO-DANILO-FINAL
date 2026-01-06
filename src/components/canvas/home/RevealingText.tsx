@@ -51,12 +51,6 @@ type RevealMaterialType = THREE.ShaderMaterial & {
   uOpacity: number;
 };
 
-declare module '@react-three/fiber' {
-  interface ThreeElements {
-    revealMaterial: any;
-  }
-}
-
 export default function RevealingText({
   ghostRef,
   onReady,

@@ -4,7 +4,20 @@ import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 
-export default function Particles({ count = 60 }) {
+// Define props
+export default function Particles({
+  count = 250,
+  decayRate = 0.005,
+  color = '#7ec5ff',
+  creationRate = 5,
+  createParticlesOnlyWhenMoving: _createParticlesOnlyWhenMoving = true,
+}: {
+  count?: number;
+  decayRate?: number;
+  color?: string;
+  creationRate?: number;
+  createParticlesOnlyWhenMoving?: boolean;
+}) {
   const mesh = useRef<THREE.InstancedMesh>(null);
   const materialRef = useRef<THREE.MeshBasicMaterial>(null);
   const dummy = useMemo(() => new THREE.Object3D(), []);
@@ -16,7 +29,7 @@ export default function Particles({ count = 60 }) {
       temp.push({
         t: Math.random() * 100,
         factor: 20 + Math.random() * 100,
-        speed: 0.01 + Math.random() / 200,
+        speed: (0.01 + Math.random() / 200) * (creationRate / 5), // Adjust speed by creationRate
         xFactor: -5 + Math.random() * 10,
         yFactor: -5 + Math.random() * 10,
         zFactor: -5 + Math.random() * 10,
@@ -25,7 +38,7 @@ export default function Particles({ count = 60 }) {
       });
     }
     return temp;
-  }, [count]);
+  }, [count, creationRate]);
 
   useFrame((state) => {
     const currentMesh = mesh.current;
@@ -61,8 +74,11 @@ export default function Particles({ count = 60 }) {
     currentMesh.instanceMatrix.needsUpdate = true;
 
     if (materialRef.current) {
+      // Use decayRate to influence opacity logic
       materialRef.current.opacity =
-        0.35 + Math.sin(time * 0.9) * 0.08 + Math.sin(time * 1.4) * 0.05;
+        0.35 +
+        (Math.sin(time * 0.9) * 0.08 + Math.sin(time * 1.4) * 0.05) *
+          (1 - decayRate * 10);
     }
   });
 
@@ -72,7 +88,7 @@ export default function Particles({ count = 60 }) {
       {/* Blending Additive é crucial para o efeito "luz sobre luz" */}
       <meshBasicMaterial
         ref={materialRef}
-        color="#7ec5ff"
+        color={color}
         transparent
         opacity={0.35}
         blending={THREE.AdditiveBlending}
