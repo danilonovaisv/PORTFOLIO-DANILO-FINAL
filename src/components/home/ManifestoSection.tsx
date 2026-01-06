@@ -104,12 +104,12 @@ export function ManifestoSection() {
         type="button"
         onClick={toggleSound}
         className="absolute bottom-4 right-4 z-10 flex items-center justify-center 
-                   w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm text-white 
-                   transition-all duration-300 
-                   hover:bg-black/70 hover:-translate-y-0.5
-                   focus-visible:outline-none focus-visible:ring-2 
-                   focus-visible:ring-[#4fe6ff] focus-visible:ring-offset-2
-                   focus-visible:ring-offset-black/50"
+                 w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm text-white 
+                 transition-all duration-300 
+                 hover:bg-black/70 hover:-translate-y-0.5
+                 focus-visible:outline-none focus-visible:ring-2 
+                 focus-visible:ring-[#4fe6ff] focus-visible:ring-offset-2
+                 focus-visible:ring-offset-black/50"
         aria-label={isMuted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'}
         aria-pressed={!isMuted ? 'true' : 'false'}
       >

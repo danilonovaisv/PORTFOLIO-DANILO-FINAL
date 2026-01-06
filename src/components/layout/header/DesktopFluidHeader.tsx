@@ -9,8 +9,8 @@ import type { NavItem } from './types';
 import styles from './DesktopFluidHeader.module.css';
 import { BRAND } from '@/config/brand';
 
-const HeaderGlassCanvas = dynamic(
-  () => import('@/components/canvas/header/HeaderGlassCanvas'),
+const HeaderFluidGlass = dynamic(
+  () => import('@/components/canvas/header/HeaderFluidGlass'),
   {
     ssr: false,
   }
@@ -63,13 +63,16 @@ export default function DesktopFluidHeader({
             className={`${styles.headerContainer} h-16 min-w-[700px] rounded-full backdrop-blur-md border border-white/5 bg-linear-to-b from-white/5 to-transparent`}
           >
             {/* glass background */}
-            <div className="absolute inset-0 rounded-full overflow-hidden">
-              {!disableWebGL && !reducedMotion ? (
-                <HeaderGlassCanvas accentColor={accentColor} />
-              ) : (
-                <div className={styles.fallbackBackground} />
-              )}
-            </div>
+              <div className="absolute inset-0 rounded-full overflow-hidden">
+                {!disableWebGL && !reducedMotion ? (
+                  <HeaderFluidGlass
+                    navItems={nav}
+                    accentColor={accentColor}
+                  />
+                ) : (
+                  <div className={styles.fallbackBackground} />
+                )}
+              </div>
 
             {/* content */}
             <div className="relative z-10 h-full px-8 flex items-center justify-between gap-6">
