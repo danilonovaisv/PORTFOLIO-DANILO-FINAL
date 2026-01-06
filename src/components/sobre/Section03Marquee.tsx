@@ -4,20 +4,26 @@ import { useRef } from 'react';
 import {
   motion,
   useScroll,
+  useVelocity,
   useSpring,
   useTransform,
-  useMotionValue,
-  useVelocity,
   useAnimationFrame,
+  useMotionValue,
+  useReducedMotion,
 } from 'framer-motion';
-import { wrap } from '@motionone/utils';
 
-interface ParallaxProps {
-  children: string;
+// Utilitário de wrap para o loop infinito
+const wrap = (min: number, max: number, v: number) => {
+  const range = max - min;
+  return ((((v - min) % range) + range) % range) + min;
+};
+
+interface MarqueeLineProps {
+  text: string;
   baseVelocity: number;
 }
 
-function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
+function MarqueeLine({ text, baseVelocity }: MarqueeLineProps) {
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -30,13 +36,18 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
     clamp: false,
   });
 
+  // Usamos o MotionValue baseX diretamente para o useTransform ser reativo
   const x = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
 
   const directionFactor = useRef<number>(1);
+  const prefersReducedMotion = useReducedMotion();
 
   useAnimationFrame((t, delta) => {
+    if (prefersReducedMotion) return;
+
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
 
+    // Inverte direção baseado no scroll
     if (velocityFactor.get() < 0) {
       directionFactor.current = -1;
     } else if (velocityFactor.get() > 0) {
@@ -48,21 +59,14 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
   });
 
   return (
-    // leading-[0.8] aperta muito as linhas (estilo poster)
-    // py-3 dá uma margem segura para as letras não cortarem
-    <div className="overflow-hidden m-0 whitespace-nowrap flex flex-nowrap leading-[0.5] py-1 bg-primary">
-      <motion.div className="flex whitespace-nowrap flex-nowrap" style={{ x }}>
-        {[...Array(3)].map((_, i) => (
+    <div className="overflow-hidden flex whitespace-nowrap">
+      <motion.div className="flex gap-2 text-nowrap" style={{ x }}>
+        {Array.from({ length: 5 }).map((_, i) => (
           <span
             key={i}
-            // TEXTO GIGANTE E APERTADO:
-            // text-5xl a text-7xl para impacto visual
-            // tracking-tighter para juntar as letras horizontalmente
-            className={
-              'block mr-6 text-purple-details text-4xl md:text-7xl font-bold uppercase tracking-tighter'
-            }
+            className="text-purple-details text-xl md:text-4xl font-black tracking-tight uppercase"
           >
-            {children}
+            {text}
           </span>
         ))}
       </motion.div>
@@ -72,22 +76,16 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
 
 export default function Section03Marquee() {
   return (
-    <div
-      // absolute bottom-0: Cola no fundo da secção pai
-      // z-20: Garante que fica visível
-      className="absolute bottom-0 left-0 w-full z-20"
-    >
-      {/* gap-0 colado */}
-      <div className="flex flex-col gap-0 w-full">
-        <ParallaxText baseVelocity={-1}>
-          Direção Criativa・Design
-          Estratégico・Identidades・Campanhas・Branding・Inteligência
-          Artificial・Liderança Criativa・
-        </ParallaxText>
-        <ParallaxText baseVelocity={1}>
-          Branding・Inteligência Artificial・Liderança Criativa・Direção
-          Criativa・Design Estratégico・Identidades・Campanhas・
-        </ParallaxText>
+    <div className="mt-16 md:mt-24 w-full select-none pointer-events-none bg-primary py-1 md:py-0.5">
+      <div className="flex flex-col gap-1 md:gap-1">
+        <MarqueeLine
+          text="DIREÇÃO CRIATIVA ・ DESIGN ESTRATÉGICO ・ IDENTIDADES ・ CAMPANHAS ・ BRANDING ・ INTELIGÊNCIA ARTIFICIAL ・ LIDERANÇA CRIATIVA ・ "
+          baseVelocity={-1}
+        />
+        <MarqueeLine
+          text="BRANDING ・ INTELIGÊNCIA ARTIFICIAL ・ LIDERANÇA CRIATIVA ・ DIREÇÃO CRIATIVA ・ DESIGN ESTRATÉGICO ・ IDENTIDADES ・ CAMPANHAS ・ "
+          baseVelocity={1}
+        />
       </div>
     </div>
   );

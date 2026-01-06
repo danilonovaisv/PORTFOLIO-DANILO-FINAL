@@ -58,7 +58,7 @@ export default function SiteHeader({
 
   const activeHref = useMemo(() => {
     if (pathname === '/') return activeSection;
-    return pathname;
+    return pathname ?? undefined;
   }, [pathname, activeSection]);
 
   const onNavigate = useCallback(

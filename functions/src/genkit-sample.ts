@@ -27,7 +27,7 @@ const ai = genkit({
     // passing in a config object; if you don't, the provider uses the value
     // from the GOOGLE_GENAI_API_KEY environment variable, which is the
     // recommended practice.
-    googleAI({ 
+    googleAI({
       apiKey: process.env.GOOGLE_GENAI_API_KEY,
       project: 'portfolio-danilo-novais-fdc', // Replace with your actual Google Cloud project ID
     }),
@@ -38,7 +38,10 @@ const ai = genkit({
 const portfolioSuggestionFlow = ai.defineFlow(
   {
     name: 'portfolioSuggestionFlow',
-    inputSchema: z.string().describe('A portfolio project theme').default('creative web development'),
+    inputSchema: z
+      .string()
+      .describe('A portfolio project theme')
+      .default('creative web development'),
     outputSchema: z.string(),
     streamSchema: z.string(),
   },

@@ -13,10 +13,10 @@ export function AboutBeliefs() {
   return (
     <section
       ref={sectionRef}
-      className="bg-ghost-surface-deep relative overflow-hidden py-20 md:py-32"
+      className="bg-[#040013] relative overflow-hidden py-20 md:py-32"
       aria-label="O que me move"
     >
-      <div className="w-full max-w-[1400px] px-6 relative z-10 mx-auto min-h-[50vh] flex flex-col justify-center">
+      <div className="w-full max-w-[1440px] px-6 md:px-8 relative z-10 mx-auto min-h-[50vh] flex flex-col justify-center">
         {/* Title - Static */}
         <motion.div
           className="text-center mb-16 md:mb-24"
@@ -24,7 +24,7 @@ export function AboutBeliefs() {
           initial={prefersReducedMotion || !isInView ? 'visible' : 'hidden'}
           animate={isInView ? 'visible' : 'hidden'}
         >
-          <h2 className="text-[30px] sm:text-[36px] md:text-[42px] lg:text-[56px] font-semibold text-white leading-[1.1] tracking-tight">
+          <h2 className="text-[32px] sm:text-[40px] md:text-[48px] lg:text-[64px] font-bold text-white leading-[1.1] tracking-tight max-w-4xl mx-auto">
             Acredito no{' '}
             <span className="text-primary">design que muda o dia</span> de
             alguém.
@@ -34,18 +34,18 @@ export function AboutBeliefs() {
           </h2>
         </motion.div>
 
-        {/* Static Content Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+        {/* Content Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Column: Manifesto Texts */}
-          <div className="flex flex-col gap-8 md:gap-10 text-center lg:text-right items-center lg:items-end order-1 lg:order-1">
+          <div className="flex flex-col gap-8 md:gap-12 text-center lg:text-right items-center lg:items-end order-1 lg:order-1">
             <motion.div
               variants={motionTokens.fadeGhost}
               initial="hidden"
               animate={isInView ? 'visible' : 'hidden'}
               transition={{ delay: 0.8 }}
-              className="max-w-[480px]"
+              className="max-w-[520px]"
             >
-              <p className="text-[20px] md:text-[24px] text-white/90 leading-relaxed font-light">
+              <p className="text-[20px] md:text-[24px] lg:text-[28px] text-white/90 leading-relaxed font-light">
                 Um vídeo que{' '}
                 <span className="text-primary font-semibold">respira</span>.
                 <br />
@@ -62,16 +62,16 @@ export function AboutBeliefs() {
               initial="hidden"
               animate={isInView ? 'visible' : 'hidden'}
               transition={{ delay: 1.6 }}
-              className="max-w-[480px]"
+              className="max-w-[520px]"
             >
-              <p className="text-[20px] md:text-[24px] text-white/90 leading-relaxed font-light">
+              <p className="text-[20px] md:text-[24px] lg:text-[28px] text-white/90 leading-relaxed font-light">
                 <span className="text-primary font-semibold">Crio</span> para
                 gerar presença.
                 <br />
                 <span className="text-primary font-semibold">Mesmo</span> quando
                 não estou ali.
                 <br />
-                <span className="text-white/60 text-[0.9em]">
+                <span className="text-white/50 text-[0.8em] mt-2 block font-medium">
                   Mesmo quando ninguém percebe o esforço.
                 </span>
               </p>
@@ -84,23 +84,23 @@ export function AboutBeliefs() {
             initial="hidden"
             animate={isInView ? 'visible' : 'hidden'}
             transition={{ delay: 2.4 }}
-            className="flex flex-row items-center justify-center lg:justify-start gap-6 md:gap-8 order-2 lg:order-2"
+            className="flex flex-row items-center justify-center lg:justify-start gap-6 md:gap-10 order-2 lg:order-2"
           >
             {/* Ghost Icon */}
-            <div className="w-28 h-28 md:w-40 md:h-40 xl:w-48 xl:h-48 relative shrink-0">
+            <div className="w-24 h-24 md:w-40 md:h-40 lg:w-48 lg:h-48 relative shrink-0">
               <GhostEyes interactive={!prefersReducedMotion} />
             </div>
 
             {/* Typography */}
             <div className="text-left">
               <p className="font-black leading-[0.85] tracking-tighter">
-                <span className="text-white block opacity-60 text-xs md:text-sm tracking-[0.35em] mb-2 md:mb-3 font-mono font-bold pl-1">
+                <span className="text-white block opacity-60 text-xs md:text-sm tracking-[0.35em] mb-2 md:mb-4 font-mono font-bold pl-1">
                   ISSO É
                 </span>
-                <span className="text-primary block glow-text text-[48px] md:text-[64px] xl:text-[80px]">
+                <span className="text-primary block glow-text text-[42px] md:text-[64px] lg:text-[80px]">
                   GHOST
                 </span>
-                <span className="text-white block text-[48px] md:text-[64px] xl:text-[80px]">
+                <span className="text-white block text-[42px] md:text-[64px] lg:text-[80px]">
                   DESIGN.
                 </span>
               </p>

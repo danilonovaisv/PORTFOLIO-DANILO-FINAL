@@ -30,12 +30,20 @@ const DEFAULT_NAV_ITEMS: HeaderNavItem[] = [
   { label: 'Contato', href: '#contact' },
 ];
 
-const DEMO_IMAGES: { url: string; position: [number, number, number]; scale: [number, number, number] }[] = [
+const DEMO_IMAGES: {
+  url: string;
+  position: [number, number, number];
+  scale: [number, number, number];
+}[] = [
   { url: '/assets/demo/cs1.webp', position: [-2, 0, 0], scale: [3, 1.2, 1] },
   { url: '/assets/demo/cs2.webp', position: [2, 0, 3], scale: [3, 3, 1] },
   { url: '/assets/demo/cs3.webp', position: [-2.05, -1, 6], scale: [1, 3, 1] },
   { url: '/assets/demo/cs4.webp', position: [-0.6, -1, 9], scale: [1, 2, 1] },
-  { url: '/assets/demo/cs5.webp', position: [0.75, -1, 10.5], scale: [1.5, 1.5, 1] },
+  {
+    url: '/assets/demo/cs5.webp',
+    position: [0.75, -1, 10.5],
+    scale: [1.5, 1.5, 1],
+  },
 ];
 
 useGLTF.preload('/assets/3d/bar.glb');
@@ -57,6 +65,8 @@ type ModeWrapperProps = ThreeElements['mesh'] & {
   clearColor: THREE.Color;
 };
 
+type BarProps = Omit<ModeWrapperProps, 'glb' | 'geometryKey'>;
+
 interface ZoomMaterial extends THREE.Material {
   zoom: number;
 }
@@ -65,7 +75,10 @@ interface ZoomMesh extends THREE.Mesh<THREE.BufferGeometry, ZoomMaterial> {}
 
 type ZoomGroup = THREE.Group & { children: ZoomMesh[] };
 
-function HeaderFluidGlass({ navItems, accentColor = '#5227FF' }: HeaderFluidGlassProps) {
+function HeaderFluidGlass({
+  navItems,
+  accentColor = '#5227FF',
+}: HeaderFluidGlassProps) {
   const items = navItems?.length ? navItems : DEFAULT_NAV_ITEMS;
   const clearColor = useMemo(() => new THREE.Color(accentColor), [accentColor]);
   const modeProps = useMemo(
@@ -111,18 +124,23 @@ const ModeWrapper = memo(function ModeWrapper({
   ...props
 }: ModeWrapperProps) {
   const ref = useRef<THREE.Mesh<THREE.BufferGeometry, THREE.Material>>(null!);
-  const { nodes } = useGLTF(glb) as unknown as { nodes: Record<string, THREE.Mesh<THREE.BufferGeometry>> };
+  const { nodes } = useGLTF(glb) as unknown as {
+    nodes: Record<string, THREE.Mesh<THREE.BufferGeometry>>;
+  };
   const buffer = useFBO();
   const { viewport: vp } = useThree();
   const [scene] = useState(() => new THREE.Scene());
   const geoWidthRef = useRef(1);
 
   useEffect(() => {
-    const geo = (nodes[geometryKey] as THREE.Mesh<THREE.BufferGeometry>)?.geometry;
+    const geo = (nodes[geometryKey] as THREE.Mesh<THREE.BufferGeometry>)
+      ?.geometry;
     if (geo) {
       geo.computeBoundingBox();
-      const width = geo.boundingBox?.max.x - geo.boundingBox?.min.x;
-      geoWidthRef.current = width || 1;
+      if (geo.boundingBox) {
+        const width = geo.boundingBox.max.x - geo.boundingBox.min.x;
+        geoWidthRef.current = width || 1;
+      }
     }
   }, [nodes, geometryKey]);
 
@@ -134,8 +152,8 @@ const ModeWrapper = memo(function ModeWrapper({
     const destY = lockToBottom
       ? -v.height / 2 + 0.2
       : followPointer
-      ? (pointer.y * v.height) / 2
-      : 0;
+        ? (pointer.y * v.height) / 2
+        : 0;
 
     easing.damp3(ref.current.position, [destX, destY, 15], 0.15, delta);
 
@@ -172,13 +190,19 @@ const ModeWrapper = memo(function ModeWrapper({
       {createPortal(children, scene)}
       <mesh scale={[vp.width, vp.height, 1]}>
         <planeGeometry />
-        <meshBasicMaterial map={buffer.texture} transparent depthWrite={false} />
+        <meshBasicMaterial
+          map={buffer.texture}
+          transparent
+          depthWrite={false}
+        />
       </mesh>
       <mesh
         ref={ref}
         scale={scale ?? 0.15}
         rotation-x={Math.PI / 2}
-        geometry={(nodes[geometryKey] as THREE.Mesh<THREE.BufferGeometry>)?.geometry}
+        geometry={
+          (nodes[geometryKey] as THREE.Mesh<THREE.BufferGeometry>)?.geometry
+        }
         {...props}
       >
         <MeshTransmissionMaterial
@@ -187,14 +211,16 @@ const ModeWrapper = memo(function ModeWrapper({
           thickness={thickness ?? 5}
           anisotropy={anisotropy ?? 0.01}
           chromaticAberration={chromaticAberration ?? 0.1}
-          {...(typeof extraMat === 'object' && extraMat !== null ? extraMat : {})}
+          {...(typeof extraMat === 'object' && extraMat !== null
+            ? extraMat
+            : {})}
         />
       </mesh>
     </>
   );
 });
 
-function Bar({ modeProps = {}, clearColor, children, ...props }: ModeWrapperProps) {
+function Bar({ modeProps = {}, clearColor, children, ...props }: BarProps) {
   const defaultMat = {
     transmission: 1,
     roughness: 0,
@@ -301,10 +327,13 @@ function Images() {
 
   useFrame(() => {
     if (!group.current) return;
-    group.current.children.forEach((child, index) => {
-      child.material.zoom = 1 + data.range(0, 1 / 3) / 3;
-      if (index > 1) {
-        child.material.zoom = 1 + data.range(1.15 / 3, 1 / 3) / 2;
+    group.current.children.forEach((obj, index) => {
+      const child = obj as unknown as ZoomMesh;
+      if (child.material) {
+        child.material.zoom = 1 + data.range(0, 1 / 3) / 3;
+        if (index > 1) {
+          child.material.zoom = 1 + data.range(1.15 / 3, 1 / 3) / 2;
+        }
       }
     });
   });
@@ -315,11 +344,12 @@ function Images() {
         <Image
           key={`${image.url}-${index}`}
           position={image.position as [number, number, number]}
-          scale={[
-            image.scale[0],
-            (image.scale[1] * height) / 1.1,
-            image.scale[2],
-          ] as [number, number, number]}
+          scale={
+            [image.scale[0], (image.scale[1] * height) / 1.1] as [
+              number,
+              number,
+            ]
+          }
           url={image.url}
         />
       ))}

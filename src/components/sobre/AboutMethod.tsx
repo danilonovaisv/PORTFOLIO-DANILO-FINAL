@@ -35,42 +35,47 @@ export default function AboutMethod() {
   return (
     <section
       ref={containerRef}
-      className="relative bg-ghost-surface-deep overflow-hidden"
+      className="relative bg-[#040013] overflow-hidden"
       aria-label="Como Eu Trabalho"
     >
-      {/* Background Video */}
-      <motion.div style={{ y: mediaY }} className="absolute inset-0 z-0">
+      {/* Background Video (Desktop Right / Mobile Full with Overlay) */}
+      <motion.div
+        style={{ y: mediaY }}
+        className="absolute inset-0 z-0 opacity-40 mix-blend-screen pointer-events-none"
+      >
+        <motion.div className="absolute inset-0 bg-[#040013]/60 z-10" />
         <motion.video
           src={ABOUT_CONTENT.method.video}
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover object-right lg:object-center"
+          className="w-full h-full object-cover"
           aria-hidden="true"
         />
-        {/* Overlay: Darker on Left for text readability, lighter on right */}
-        <div className="hidden lg:block absolute inset-0 bg-linear-to-r from-[#0a0b1f]/90 via-[#0a0b1f]/65 to-transparent" />
-        <div className="lg:hidden absolute inset-0 bg-linear-to-b from-[#050511]/75 via-[#050511]/80 to-[#050511]/95" />
+        {/* Cinematic Gradient Overlays */}
+        <div className="absolute inset-0 bg-linear-to-r from-[#040013] via-[#040013]/90 to-transparent z-20" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-[#040013] to-transparent z-20" />
       </motion.div>
 
-      <div className="relative z-10 w-full max-w-[1200px] mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 lg:gap-8 items-start">
-          {/* Content (Left) - Desktop: Col 2-7 */}
-          <div className="lg:col-start-2 lg:col-span-6 px-6 md:px-10 py-16 md:py-20 lg:py-28">
-            <motion.div style={{ y: textY }} className="max-w-[720px]">
+      <div className="relative z-30 w-full max-w-[1440px] mx-auto px-6 md:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-0 items-center py-20 md:py-32">
+          {/* Content Left */}
+          <div className="lg:col-span-6 flex flex-col justify-center">
+            <motion.div style={{ y: textY }} className="max-w-[640px]">
               {/* Títulos */}
               <motion.div
                 variants={motionTokens.fadeGhost}
                 initial={prefersReducedMotion ? 'visible' : 'hidden'}
                 whileInView="visible"
-                viewport={{ once: true, margin: '-80px' }}
-                className="mb-6 md:mb-8 text-center lg:text-left"
+                viewport={{ once: true, margin: '-20%' }}
+                className="mb-8 md:mb-10 text-center lg:text-left"
               >
-                <h2 className="text-[34px] sm:text-[40px] md:text-[40px] lg:text-[48px] xl:text-[52px] font-semibold text-text-light tracking-tight leading-[1.08] mb-4">
-                  <span className="text-primary">Criatividade com método.</span>
-                  <br />
-                  <span className="text-white">Impacto sem ruído.</span>
+                <h2 className="text-[32px] sm:text-[40px] lg:text-[56px] font-bold text-white leading-[1.1] tracking-tight">
+                  <span className="text-primary block mb-1">
+                    Criatividade com método.
+                  </span>
+                  <span className="text-white/40">Impacto sem ruído.</span>
                 </h2>
               </motion.div>
 
@@ -79,8 +84,8 @@ export default function AboutMethod() {
                 variants={motionTokens.fadeGhost}
                 initial={prefersReducedMotion ? 'visible' : 'hidden'}
                 whileInView="visible"
-                viewport={{ once: true, margin: '-80px' }}
-                className="text-[16px] md:text-[16px] text-white/80 font-normal leading-relaxed space-y-1.5 mb-8 md:mb-10 max-w-[520px] mx-auto lg:mx-0 text-center lg:text-left"
+                viewport={{ once: true, margin: '-20%' }}
+                className="text-[16px] md:text-[18px] text-white/70 font-normal leading-relaxed space-y-4 mb-12 text-center lg:text-left"
               >
                 {ABOUT_CONTENT.method.intro.map((line, i) => (
                   <p key={i}>{line}</p>
@@ -92,25 +97,37 @@ export default function AboutMethod() {
                 variants={{
                   visible: {
                     transition: {
-                      staggerChildren: 0.08,
+                      staggerChildren: 0.1,
                     },
                   },
                 }}
                 initial={prefersReducedMotion ? 'visible' : 'hidden'}
                 whileInView="visible"
-                viewport={{ once: true, margin: '-40px' }}
-                className="max-w-[560px] mx-auto lg:mx-0 border-t border-accent/60"
+                viewport={{ once: true, margin: '-10%' }}
+                className="flex flex-col gap-4"
               >
                 {ABOUT_CONTENT.method.steps.map((step, i) => (
                   <motion.div
                     key={i}
                     variants={motionTokens.riseSoft}
-                    className="flex items-center gap-4 py-3 pl-4 border-b border-accent/60 border-l-[3px] border-l-primary bg-white/3 hover:bg-white/6 transition-colors duration-300"
+                    className="
+                      group flex items-center gap-6 
+                      p-4 pr-6 rounded-xl
+                      bg-white/5 border border-white/5 backdrop-blur-sm
+                      hover:bg-primary/10 hover:border-primary/30 hover:translate-x-2 
+                      transition-all duration-300
+                    "
                   >
-                    <span className="text-primary text-sm md:text-base font-semibold tracking-tight shrink-0">
+                    <span
+                      className="
+                      flex h-10 w-10 shrink-0 items-center justify-center 
+                      rounded-full bg-primary/20 text-primary font-bold text-sm
+                      group-hover:bg-primary group-hover:text-white transition-colors duration-300
+                    "
+                    >
                       0{i + 1}
                     </span>
-                    <p className="text-[15px] sm:text-[15px] md:text-[15px] lg:text-[14px] text-white/90 font-normal">
+                    <p className="text-[15px] sm:text-[16px] text-white/80 group-hover:text-white transition-colors font-medium">
                       {step}
                     </p>
                   </motion.div>
@@ -119,8 +136,8 @@ export default function AboutMethod() {
             </motion.div>
           </div>
 
-          {/* Right Visual Area (Desktop only - Empty col to show video) */}
-          <div className="hidden lg:block lg:col-span-5 h-full min-h-[50vh]" />
+          {/* Right Visual Area (Optional placeholder for Ghost/Abstract visual if video is background) */}
+          <div className="hidden lg:block lg:col-span-6 h-full min-h-[600px]" />
         </div>
       </div>
     </section>

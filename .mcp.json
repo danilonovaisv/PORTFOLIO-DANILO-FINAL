@@ -2,10 +2,7 @@
   "mcpServers": {
     "github": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-github"
-      ],
+      "args": ["-y", "@modelcontextprotocol/server-github"],
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "<SEU_TOKEN_AQUI>"
       }
@@ -26,10 +23,7 @@
   "servers": {
     "shadcn": {
       "command": "npx",
-      "args": [
-        "shadcn@latest",
-        "mcp"
-      ],
+      "args": ["shadcn@latest", "mcp"],
       "type": "stdio"
     },
     "reactbits-mcp": {

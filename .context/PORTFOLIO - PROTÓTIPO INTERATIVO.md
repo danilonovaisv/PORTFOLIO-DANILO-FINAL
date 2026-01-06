@@ -1,7 +1,11 @@
 # 🎬 PROTÓTIPO INTERATIVO COMPLETO — PÁGINA PORTFOLIO SHOWCASE
+
 ## Site: portfoliodanilo.com
+
 ## Sistema: Ghost Design System
+
 ## Documento Canônico — Estrutura + Motion + Interação + Parallax Lerp
+
 ## Versão: 2.0 — COM ANIMAÇÕES PARALLAX
 
 ---
@@ -50,29 +54,27 @@ PortfolioShowcase
     └── AnimatePresence
 ```
 
-----
-
-
+---
 
 # **2. DESIGN SYSTEM**
 
 ### 2.1 Color Palette
 
-| Token          | Value     | Uso                                                      |
-| -------------- | --------- | -------------------------------------------------------- |
-| bluePrimary    | `#0048ff` | Cor primária da marca, CTAs, links, elementos interativos |
-| blueAccent     | `#4fe6ff` | Destaques secundários, brilhos “ghost”/atmosfera        |
-| purpleDetails  | `#8705f2` | Pequenos detalhes e highlights                           |
-| pinkDetails    | `#f501d3` | Pequenos detalhes, ênfases pontuais                      |
-| background     | `#040013` | Fundo escuro principal                                   |
-| backgroundLight| `#f0f0f0` | Seções claras (forms, blocos alternados)                 |
-| text           | `#fcffff` | Texto principal em fundo escuro                          |
-| textInverse    | `#0e0e0e` | Texto em fundos claros                                   |
-| textEmphasis   | `#2E85F2` | Palavras destacadas no meio do texto                     |
-| textHighlight  | `#4fe6ff` | Destaques curtos, intros breves                          |
-| textSecondary  | `#a1a3a3` | Infos secundárias, metadata                              |
-| neutral        | `#0b0d3a` | Gradientes, fundos sutis                                 |
-| neutralLight   | `#F5F5F5` | Fundos de seções secundárias                             |
+| Token           | Value     | Uso                                                       |
+| --------------- | --------- | --------------------------------------------------------- |
+| bluePrimary     | `#0048ff` | Cor primária da marca, CTAs, links, elementos interativos |
+| blueAccent      | `#4fe6ff` | Destaques secundários, brilhos “ghost”/atmosfera          |
+| purpleDetails   | `#8705f2` | Pequenos detalhes e highlights                            |
+| pinkDetails     | `#f501d3` | Pequenos detalhes, ênfases pontuais                       |
+| background      | `#040013` | Fundo escuro principal                                    |
+| backgroundLight | `#f0f0f0` | Seções claras (forms, blocos alternados)                  |
+| text            | `#fcffff` | Texto principal em fundo escuro                           |
+| textInverse     | `#0e0e0e` | Texto em fundos claros                                    |
+| textEmphasis    | `#2E85F2` | Palavras destacadas no meio do texto                      |
+| textHighlight   | `#4fe6ff` | Destaques curtos, intros breves                           |
+| textSecondary   | `#a1a3a3` | Infos secundárias, metadata                               |
+| neutral         | `#0b0d3a` | Gradientes, fundos sutis                                  |
+| neutralLight    | `#F5F5F5` | Fundos de seções secundárias                              |
 
 > Obs: `textEmphasis` estava com `##2E85F2` e `textHilght` com typo — normalizei para `textHighlight`.
 
@@ -84,153 +86,150 @@ PortfolioShowcase
 
 Tokens de texto **responsivos** (usando `clamp`) para manter coerência em todos os breakpoints:
 
-| Token     | Mobile (~<640px) | Desktop (~≥1024px) | Peso   | Uso                                                                 |
-| --------- | ---------------- | ------------------ | ------ | ------------------------------------------------------------------- |
-| display   | 2.5rem (40px)    | 4.5rem (72px)      | Black  | Frases grandes no meio da página, não-semânticas (Big Phrase)      |
-| h1        | 2rem (32px)      | 3.5rem (56px)      | Bold   | Hero headlines, títulos principais                                  |
-| h2        | 1.5rem (24px)    | 2.5rem (40px)      | Bold   | Títulos de seção                                                    |
-| h3        | 1.25rem (20px)   | 1.75rem (28px)     | Medium | Títulos de cards, subtítulos                                       |
-| body      | 1rem (16px)      | 1.125rem (18px)    | Regular| Texto corrido                                                       |
-| small     | 0.875rem (14px)  | 0.875rem (14px)    | Reg/Med| Labels, legendas                                                   |
-| micro     | 0.75rem (12px)   | 0.75rem (12px)     | Mono   | Tags, infos de sistema                                              |
+| Token   | Mobile (~<640px) | Desktop (~≥1024px) | Peso    | Uso                                                           |
+| ------- | ---------------- | ------------------ | ------- | ------------------------------------------------------------- |
+| display | 2.5rem (40px)    | 4.5rem (72px)      | Black   | Frases grandes no meio da página, não-semânticas (Big Phrase) |
+| h1      | 2rem (32px)      | 3.5rem (56px)      | Bold    | Hero headlines, títulos principais                            |
+| h2      | 1.5rem (24px)    | 2.5rem (40px)      | Bold    | Títulos de seção                                              |
+| h3      | 1.25rem (20px)   | 1.75rem (28px)     | Medium  | Títulos de cards, subtítulos                                  |
+| body    | 1rem (16px)      | 1.125rem (18px)    | Regular | Texto corrido                                                 |
+| small   | 0.875rem (14px)  | 0.875rem (14px)    | Reg/Med | Labels, legendas                                              |
+| micro   | 0.75rem (12px)   | 0.75rem (12px)     | Mono    | Tags, infos de sistema                                        |
 
 #### Tokens em CSS com `clamp()`
 
 ['css
 :root {
-  --font-display: clamp(2.5rem, 5vw, 4.5rem);
-  --font-h1:      clamp(2rem, 4vw, 3.5rem);
-  --font-h2:      clamp(1.5rem, 3vw, 2.5rem);
-  --font-h3:      clamp(1.25rem, 2vw, 1.75rem);
-  --font-body:    clamp(1rem, 1.2vw, 1.125rem);
-  --font-small:   0.875rem;
-  --font-micro:   0.75rem;
+--font-display: clamp(2.5rem, 5vw, 4.5rem);
+--font-h1: clamp(2rem, 4vw, 3.5rem);
+--font-h2: clamp(1.5rem, 3vw, 2.5rem);
+--font-h3: clamp(1.25rem, 2vw, 1.75rem);
+--font-body: clamp(1rem, 1.2vw, 1.125rem);
+--font-small: 0.875rem;
+--font-micro: 0.75rem;
 }
 
 body {
-  font-family: "TT Norms Pro", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
+font-family: "TT Norms Pro", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+"Segoe UI", sans-serif;
 }
 
 .display-text {
-  font-size: var(--font-display);
-  font-weight: 700;
-  line-height: 1.1;
+font-size: var(--font-display);
+font-weight: 700;
+line-height: 1.1;
 }
 
 .h1 {
-  font-size: var(--font-h1);
-  font-weight: 700;
-  line-height: 1.1;
+font-size: var(--font-h1);
+font-weight: 700;
+line-height: 1.1;
 }
 
 .h2 {
-  font-size: var(--font-h2);
-  font-weight: 700;
-  line-height: 1.15;
+font-size: var(--font-h2);
+font-weight: 700;
+line-height: 1.15;
 }
 
 .h3 {
-  font-size: var(--font-h3);
-  font-weight: 500;
-  line-height: 1.2;
+font-size: var(--font-h3);
+font-weight: 500;
+line-height: 1.2;
 }
 
 .body {
-  font-size: var(--font-body);
-  font-weight: 400;
-  line-height: 1.5;
+font-size: var(--font-body);
+font-weight: 400;
+line-height: 1.5;
 }
 
 .small {
-  font-size: var(--font-small);
+font-size: var(--font-small);
 }
 
 .micro {
-  font-size: var(--font-micro);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
-    monospace;
+font-size: var(--font-micro);
+font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+monospace;
 }
 
 Versão conceitual em Tailwind
 
 // tailwind.config.js
 module.exports = {
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['"TT Norms Pro"', "ui-sans-serif", "system-ui"],
-      },
-      fontSize: {
-        display: [
-          "clamp(2.5rem, 5vw, 4.5rem)",
-          { lineHeight: "1.1", fontWeight: "700" },
-        ],
-        h1: [
-          "clamp(2rem, 4vw, 3.5rem)",
-          { lineHeight: "1.1", fontWeight: "700" },
-        ],
-        h2: [
-          "clamp(1.5rem, 3vw, 2.5rem)",
-          { lineHeight: "1.15", fontWeight: "700" },
-        ],
-        h3: [
-          "clamp(1.25rem, 2vw, 1.75rem)",
-          { lineHeight: "1.2", fontWeight: "500" },
-        ],
-        body: [
-          "clamp(1rem, 1.2vw, 1.125rem)",
-          { lineHeight: "1.5", fontWeight: "400" },
-        ],
-        small: ["0.875rem", { lineHeight: "1.4" }],
-        micro: ["0.75rem", { lineHeight: "1.4" }],
-      },
-    },
-  },
+theme: {
+extend: {
+fontFamily: {
+sans: ['"TT Norms Pro"', "ui-sans-serif", "system-ui"],
+},
+fontSize: {
+display: [
+"clamp(2.5rem, 5vw, 4.5rem)",
+{ lineHeight: "1.1", fontWeight: "700" },
+],
+h1: [
+"clamp(2rem, 4vw, 3.5rem)",
+{ lineHeight: "1.1", fontWeight: "700" },
+],
+h2: [
+"clamp(1.5rem, 3vw, 2.5rem)",
+{ lineHeight: "1.15", fontWeight: "700" },
+],
+h3: [
+"clamp(1.25rem, 2vw, 1.75rem)",
+{ lineHeight: "1.2", fontWeight: "500" },
+],
+body: [
+"clamp(1rem, 1.2vw, 1.125rem)",
+{ lineHeight: "1.5", fontWeight: "400" },
+],
+small: ["0.875rem", { lineHeight: "1.4" }],
+micro: ["0.75rem", { lineHeight: "1.4" }],
+},
+},
+},
 };']
-
-
 
 ## 2.3 Spacing & Grid
 
 Container
-    •    max-width: 1680px
-    •    Padding horizontal: clamp(24px, 5vw, 96px)
+• max-width: 1680px
+• Padding horizontal: clamp(24px, 5vw, 96px)
 
 Ritmo Vertical
-    •    Seções: py-16 md:py-24
-    •    Componentes: gap-8 md:gap-12
-    •    Elementos internos: gap-4 md:gap-6
+• Seções: py-16 md:py-24
+• Componentes: gap-8 md:gap-12
+• Elementos internos: gap-4 md:gap-6
 
 Grid (Tailwind)
-    •    Mobile (até md):
-    •    Layout: 1 coluna (grid-cols-1 ou flex flex-col)
-    •    w-full
-    •    Alinhamento:
-    •    text-center para todos os textos
-    •    items-center e justify-center para stacks verticais (flex-col)
-    •    Tablet (md:):
-    •    Cards em md:grid-cols-2
-    •    Hero / destaques podem continuar 1 coluna
-    •    Textos podem voltar a text-left se fizer sentido
-    •    Desktop (lg:+):
-    •    Distribuição customizada por seção
-    •    Textos geralmente alinhados à esquerda para leitura longa
+• Mobile (até md):
+• Layout: 1 coluna (grid-cols-1 ou flex flex-col)
+• w-full
+• Alinhamento:
+• text-center para todos os textos
+• items-center e justify-center para stacks verticais (flex-col)
+• Tablet (md:):
+• Cards em md:grid-cols-2
+• Hero / destaques podem continuar 1 coluna
+• Textos podem voltar a text-left se fizer sentido
+• Desktop (lg:+):
+• Distribuição customizada por seção
+• Textos geralmente alinhados à esquerda para leitura longa
 
 Regra de alinhamento para mobile (base do sistema):
 
 Breakpoint padrão: < 768px
 Regra:
-    •    Todos os títulos (display, h1, h2, h3), parágrafos e CTAs usam text-align: center.
-    •    Componentes em coluna usam align-items: center.
-    •    Imagens e ícones principais centralizados (margin-inline: auto).
+• Todos os títulos (display, h1, h2, h3), parágrafos e CTAs usam text-align: center.
+• Componentes em coluna usam align-items: center.
+• Imagens e ícones principais centralizados (margin-inline: auto).
 
 Exemplo padrão de seção:
 
 <section className="flex flex-col items-center text-center md:items-start md:text-left">
   {/* conteúdo */}
 </section>
-
 
 ⸻
 
@@ -241,34 +240,34 @@ Filosofia: animações orgânicas e intencionais, nunca gratuitas.
 Core Library: Framer Motion
 
 Diretrizes:
-    •    Animar apenas transform e opacity (performance)
-    •    Easing: cubic-bezier(0.22, 1, 0.36, 1) (easeOutExpo)
-    •    Duração: 300–700ms na maioria das transições
-    •    Stagger: 60–120ms entre elementos sequenciais
-    •    Respeitar prefers-reduced-motion: desabilitar animações não essenciais
+• Animar apenas transform e opacity (performance)
+• Easing: cubic-bezier(0.22, 1, 0.36, 1) (easeOutExpo)
+• Duração: 300–700ms na maioria das transições
+• Stagger: 60–120ms entre elementos sequenciais
+• Respeitar prefers-reduced-motion: desabilitar animações não essenciais
 
 Padrões comuns:
 
 // Scroll reveal
 <motion.div
-  initial={{ opacity: 0, y: 24 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+initial={{ opacity: 0, y: 24 }}
+whileInView={{ opacity: 1, y: 0 }}
+transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
 />
 
 // Hover (botões, cards)
 <motion.button
-  whileHover={{ scale: 1.02, y: -2 }}
-  transition={{ duration: 0.3 }}
+whileHover={{ scale: 1.02, y: -2 }}
+transition={{ duration: 0.3 }}
 />
 
 // Staggered children
 const variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08 },
-  },
+hidden: { opacity: 0 },
+visible: {
+opacity: 1,
+transition: { staggerChildren: 0.08 },
+},
 };
 
 Em mobile, como tudo é centralizado e o fluxo é vertical, as entradas preferenciais vêm de baixo (y: 24 → 0) acompanhando o scroll.
@@ -282,17 +281,16 @@ Frases grandes no meio da página, com grande destaque visual, mas sem função 
 Token: display
 
 Diretrizes de uso:
-    •    Quando usar:
-    •    Frases de impacto, statements da marca, quotes, promessas fortes de seção.
-    •    Semântica:
-    •    Usar como <p> ou <span> com classe específica:
-    •    className="display-text" ou className="text-display"
-    •    Exemplo:
+• Quando usar:
+• Frases de impacto, statements da marca, quotes, promessas fortes de seção.
+• Semântica:
+• Usar como <p> ou <span> com classe específica:
+• className="display-text" ou className="text-display"
+• Exemplo:
 
 <p className="text-display">
   Construímos experiências digitais que parecem magia, mas são guiadas por dados.
 </p>
-
 
     •    Alinhamento:
     •    Mobile: sempre centralizado, com largura limitada:
@@ -315,17 +313,18 @@ Exemplo em JSX/Tailwind:
   </p>
 </section>
 
-
-
 ## 2.6 Global Assets
+
 Logos:
+
 - Favicon: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/Favicon.svg`
 - Favicon Light: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg`
 - Logo Light (full): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg`
 - Logo Dark (full): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
 
 ## 2.7 Fonts:
- -  font-family: 'TT Norms Pro';
+
+- font-family: 'TT Norms Pro';
   src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Thin.woff2') format('woff2');
   font-weight: 100;
   font-style: normal;
@@ -359,37 +358,38 @@ Logos:
   font-style: normal;
   font-display: swap;
 
-
 - font-face {
   font-family: 'TT Norms Pro';
   src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2') format('woff2');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
-}
+  }
 
-/* Fonte Mono para Tags */
+/_ Fonte Mono para Tags _/
 @font-face {
-  font-family: 'PPSupplyMono';
-  src: url('https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
+font-family: 'PPSupplyMono';
+src: url('https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2') format('woff2');
+font-weight: 100 900;
+font-style: normal;
+font-display: swap;
 }
 
 Videos:
+
 - Manifesto Video: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
 
 Client Logos:
+
 - 12 monochromatic SVG logos: `client1.svg` through `client12.svg`
 - Base URL: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/o
 
+---
 
-----
-
-# **🎥 HERO SECTION — VÍDEO LOOPING
+# \*\*🎥 HERO SECTION — VÍDEO LOOPING
 
 ### Estrutura HTML/JSX
+
 ```tsx
 <section className="hero-section relative h-screen overflow-hidden">
   <video
@@ -401,9 +401,9 @@ Client Logos:
   >
     <source src="[URL_DO_VIDEO]" type="video/mp4" />
   </video>
-  
+
   <div className="overlay absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
-  
+
   <div className="content relative h-full flex flex-col items-center justify-center text-white px-4">
     <h1 className="text-4xl md:text-6xl font-bold mb-6 text-center">
       <span className="text-blue-400">portfólio</span> showcase
@@ -418,6 +418,7 @@ Client Logos:
 ### Especificações Técnicas
 
 **Vídeo:**
+
 - `autoPlay`: inicia automaticamente
 - `loop`: repete infinitamente
 - `muted`: sem som (necessário para autoplay)
@@ -425,15 +426,18 @@ Client Logos:
 - `object-fit: cover`: cobre toda a área
 
 **Overlay:**
+
 - Gradient vertical: `from-black/60 via-black/40 to-black/60`
 - Garante legibilidade do texto sobre qualquer vídeo
 
 **Título:**
+
 - "portfólio" em azul (`text-blue-400`)
 - "showcase" em branco
 - Centralizado vertical e horizontalmente
 
 **CTA:**
+
 - Cor: `bg-blue-500`
 - Hover: `hover:bg-blue-600`
 - Border radius: `rounded-full`
@@ -447,6 +451,7 @@ Client Logos:
 ### 🧠 Conceito do Parallax Lerp
 
 O sistema usa **Linear Interpolation (Lerp)** para criar:
+
 - Scroll suave e fluido
 - Movimento parallax independente em cada imagem
 - Performance otimizada com `requestAnimationFrame`
@@ -454,11 +459,11 @@ O sistema usa **Linear Interpolation (Lerp)** para criar:
 ### 📐 Estrutura HTML/CSS
 
 ```html
-<section class="gallery" ref={galleryRef}>
-  <div class="gallery-track" ref={trackRef}>
-    <div class="card" ref={cardRef}>
+<section class="gallery" ref="{galleryRef}">
+  <div class="gallery-track" ref="{trackRef}">
+    <div class="card" ref="{cardRef}">
       <div class="card-image-wrapper">
-        <img src="[URL]" alt="Project">
+        <img src="[URL]" alt="Project" />
       </div>
       <div class="card-overlay">
         <!-- Conteúdo -->
@@ -547,22 +552,22 @@ const parallax = (cardElement) => {
 
   // Diferença entre altura do card e altura da imagem
   const diff = cardElement.offsetHeight - wrapper.offsetHeight;
-  
+
   // Posição do card na viewport
   const { top } = cardElement.getBoundingClientRect();
-  
+
   // Progresso (0 = topo da tela, 1 = fundo da tela)
   const progress = top / window.innerHeight;
-  
+
   // Posição Y do parallax
   const yPos = diff * progress;
-  
+
   wrapper.style.transform = `translateY(${yPos}px)`;
 };
 
 // Ativa parallax em todos os cards
 const activateParallax = () => {
-  cardsRef.current.forEach(card => {
+  cardsRef.current.forEach((card) => {
     if (card) parallax(card);
   });
 };
@@ -573,19 +578,19 @@ const updateScroll = () => {
 
   // Lerp entre posição atual e posição alvo
   startYRef.current = lerp(startYRef.current, endYRef.current, easing);
-  
+
   // Atualiza altura da galeria (para criar espaço de scroll)
   galleryRef.current.style.height = `${trackRef.current.clientHeight}px`;
-  
+
   // Move o track
   trackRef.current.style.transform = `translateY(-${startYRef.current}px)`;
-  
+
   // Ativa parallax em cada card
   activateParallax();
-  
+
   // Continua o loop
   rafRef.current = requestAnimationFrame(updateScroll);
-  
+
   // Para o loop quando chegar muito perto do target
   if (Math.abs(startYRef.current - window.scrollY) < 0.1) {
     cancelAnimationFrame(rafRef.current);
@@ -606,7 +611,7 @@ useEffect(() => {
 
   // Inicializa
   updateScroll();
-  
+
   window.addEventListener('scroll', handleScroll);
   window.addEventListener('resize', handleResize);
 
@@ -644,12 +649,13 @@ useEffect(() => {
 ## 🃏 PROJECT CARD — ANATOMIA COMPLETA
 
 ### Estrutura Visual
+
 ```tsx
 <div className="card" onClick={onClick}>
   <div className="card-image-wrapper">
     <img src={project.image} alt={project.title} />
   </div>
-  
+
   <div className="card-overlay">
     <h3>{project.title}</h3>
     <div className="card-meta">
@@ -658,7 +664,7 @@ useEffect(() => {
       <span>{project.year}</span>
     </div>
     <div className="card-tags">
-      {project.tags.map(tag => (
+      {project.tags.map((tag) => (
         <span key={tag}>{tag}</span>
       ))}
     </div>
@@ -669,6 +675,7 @@ useEffect(() => {
 ### Estados do Card
 
 #### Default
+
 ```css
 .card {
   transform: none;
@@ -680,6 +687,7 @@ useEffect(() => {
 ```
 
 #### Hover
+
 ```css
 .card:hover {
   transform: translateY(-4px);
@@ -688,15 +696,17 @@ useEffect(() => {
 
 .card-overlay {
   opacity: 1;
-  background: linear-gradient(to top, 
-    rgba(0, 0, 0, 0.9) 0%, 
-    rgba(0, 0, 0, 0.5) 50%, 
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
     transparent 100%
   );
 }
 ```
 
 #### Active (clique)
+
 - Trigger modal/página interna
 - Card permanece visível no fundo
 - Backdrop escurece a página
@@ -708,11 +718,13 @@ useEffect(() => {
 ### 🅐 TIPO A — ZOOM VIEWER
 
 **Quando usar:**
+
 - Projeto visual simples
 - Uma peça principal forte
 - Foco em observação
 
 **Layout:**
+
 ```
 ┌────────────────────────────────────┐
 │  [X]                               │
@@ -730,23 +742,24 @@ useEffect(() => {
 ```
 
 **Código:**
+
 ```tsx
 <div className="modal-type-a">
   <div className="media-container">
     <img src={project.image} alt={project.title} />
   </div>
-  
+
   <div className="info-container">
     <h2>{project.title}</h2>
-    
+
     <div className="meta">
       <span>{project.client}</span>
       <span>•</span>
       <span>{project.year}</span>
     </div>
-    
+
     <div className="tags">
-      {project.tags.map(tag => (
+      {project.tags.map((tag) => (
         <span key={tag}>{tag}</span>
       ))}
     </div>
@@ -759,11 +772,13 @@ useEffect(() => {
 ### 🅑 TIPO B — PÁGINA INTERNA DE PROJETO
 
 **Quando usar:**
+
 - Projeto complexo
 - Múltiplas entregas
 - Contexto necessário
 
 **Layout:**
+
 ```
 ┌────────────────────────────────────┐
 │  [X]                               │
@@ -784,34 +799,33 @@ useEffect(() => {
 ```
 
 **Código:**
+
 ```tsx
 <div className="modal-type-b">
   <div className="hero-section">
     <div className="hero-media">
       <img src={project.image} alt={project.title} />
     </div>
-    
+
     <div className="hero-info">
       <h2>{project.title}</h2>
-      
+
       <div className="meta">
         <span>{project.client}</span>
         <span>•</span>
         <span>{project.year}</span>
       </div>
-      
+
       <div className="tags">
-        {project.tags.map(tag => (
+        {project.tags.map((tag) => (
           <span key={tag}>{tag}</span>
         ))}
       </div>
-      
-      <p className="description">
-        {project.description}
-      </p>
+
+      <p className="description">{project.description}</p>
     </div>
   </div>
-  
+
   {project.gallery && (
     <div className="gallery-section">
       {project.gallery.map((img, idx) => (
@@ -829,6 +843,7 @@ useEffect(() => {
 ### 📍 ABERTURA DO MODAL
 
 #### T = 0ms — Estado Inicial
+
 ```ts
 // Backdrop
 opacity: 0
@@ -846,6 +861,7 @@ opacity: 0
 ---
 
 #### T = 0 → 180ms — Backdrop Aparece
+
 ```ts
 backdrop {
   opacity: 0 → 1
@@ -854,6 +870,7 @@ backdrop {
 ```
 
 **CSS/Framer Motion:**
+
 ```tsx
 <motion.div
   className="backdrop"
@@ -867,6 +884,7 @@ backdrop {
 ---
 
 #### T = 120 → 380ms — Container Aparece
+
 ```ts
 modalContainer {
   opacity: 0 → 1
@@ -878,6 +896,7 @@ modalContainer {
 ```
 
 **CSS/Framer Motion:**
+
 ```tsx
 <motion.div
   className="modal-container"
@@ -887,7 +906,7 @@ modalContainer {
   transition={{
     opacity: { duration: 0.26 },
     scale: { duration: 0.26, ease: [0.22, 1, 0.36, 1] },
-    y: { duration: 0.26, ease: [0.22, 1, 0.36, 1] }
+    y: { duration: 0.26, ease: [0.22, 1, 0.36, 1] },
   }}
 />
 ```
@@ -895,6 +914,7 @@ modalContainer {
 ---
 
 #### T = 380 → 520ms — Pausa Consciente
+
 - **Nenhuma animação**
 - Usuário reconhece contexto
 - Estabilização visual
@@ -903,6 +923,7 @@ modalContainer {
 ---
 
 #### T = 520 → 760ms — Mídia Principal
+
 ```ts
 mainMedia {
   opacity: 0 → 1
@@ -915,6 +936,7 @@ mainMedia {
 ```
 
 **Implementação:**
+
 ```tsx
 <motion.div
   className="main-media"
@@ -923,7 +945,7 @@ mainMedia {
   transition={{
     delay: 0.52,
     duration: 0.24,
-    ease: 'easeOut'
+    ease: 'easeOut',
   }}
 >
   <img src={project.image} alt={project.title} />
@@ -933,6 +955,7 @@ mainMedia {
 ---
 
 #### T = 760 → 960ms — Título
+
 ```ts
 projectTitle {
   opacity: 0 → 1
@@ -943,13 +966,14 @@ projectTitle {
 ```
 
 **Implementação:**
+
 ```tsx
 <motion.h2
   initial={{ opacity: 0, y: 6 }}
   animate={{ opacity: 1, y: 0 }}
   transition={{
     delay: 0.76,
-    duration: 0.2
+    duration: 0.2,
   }}
 >
   {project.title}
@@ -959,6 +983,7 @@ projectTitle {
 ---
 
 #### T = 960 → 1120ms — Meta Informações
+
 ```ts
 projectMeta {
   opacity: 0 → 1
@@ -969,6 +994,7 @@ projectMeta {
 ```
 
 **Implementação:**
+
 ```tsx
 <motion.div
   className="meta"
@@ -976,7 +1002,7 @@ projectMeta {
   animate={{ opacity: 1, y: 0 }}
   transition={{
     delay: 0.96,
-    duration: 0.16
+    duration: 0.16,
   }}
 >
   <span>{project.client}</span>
@@ -988,6 +1014,7 @@ projectMeta {
 ---
 
 #### T = 1120 → 1500ms — Conteúdo Secundário
+
 ```ts
 // Galeria, texto, bullets
 secondaryContent {
@@ -1000,19 +1027,22 @@ secondaryContent {
 ```
 
 **Implementação com Stagger:**
+
 ```tsx
-{project.gallery?.map((img, idx) => (
-  <motion.img
-    key={idx}
-    src={img}
-    initial={{ opacity: 0, y: 8 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{
-      delay: 1.12 + (idx * 0.08),
-      duration: 0.2
-    }}
-  />
-))}
+{
+  project.gallery?.map((img, idx) => (
+    <motion.img
+      key={idx}
+      src={img}
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        delay: 1.12 + idx * 0.08,
+        duration: 0.2,
+      }}
+    />
+  ));
+}
 ```
 
 ---
@@ -1020,6 +1050,7 @@ secondaryContent {
 ### 📍 ESTADO IDLE (T > 1500ms)
 
 **Após entrada completa:**
+
 - ✅ Nenhuma animação contínua
 - ✅ Nada flutua
 - ✅ Nada pulsa
@@ -1032,6 +1063,7 @@ secondaryContent {
 ### 📍 FECHAMENTO DO MODAL
 
 #### T = 0 → 180ms — Container Sai
+
 ```ts
 modalContainer {
   opacity: 1 → 0
@@ -1042,6 +1074,7 @@ modalContainer {
 ```
 
 #### T = 0 → 150ms — Backdrop Sai
+
 ```ts
 backdrop {
   opacity: 1 → 0
@@ -1050,6 +1083,7 @@ backdrop {
 ```
 
 **Implementação:**
+
 ```tsx
 <AnimatePresence>
   {selectedProject && (
@@ -1066,11 +1100,13 @@ backdrop {
 ## 🖱️ INTERAÇÃO — FLUXO COMPLETO
 
 ### 1️⃣ Usuário rola a página
+
 - Parallax lerp ativo
 - Cards se movem suavemente
 - Imagens internas fazem parallax independente
 
 ### 2️⃣ Usuário passa mouse sobre card
+
 ```ts
 onMouseEnter={() => setIsHovered(true)}
 
@@ -1082,6 +1118,7 @@ onMouseEnter={() => setIsHovered(true)}
 ```
 
 ### 3️⃣ Usuário clica em um card
+
 ```ts
 onClick={() => setSelectedProject(project)}
 
@@ -1093,6 +1130,7 @@ onClick={() => setSelectedProject(project)}
 ```
 
 ### 4️⃣ Modal/Página Interna abre
+
 - Backdrop aparece (0→180ms)
 - Container aparece (120→380ms)
 - Pausa (380→520ms)
@@ -1100,6 +1138,7 @@ onClick={() => setSelectedProject(project)}
 - Scroll interno disponível após 1500ms
 
 ### 5️⃣ Usuário lê/explora o projeto
+
 - Scroll interno disponível
 - Botão fechar sempre visível (fixed position)
 - ESC funciona
@@ -1108,11 +1147,13 @@ onClick={() => setSelectedProject(project)}
 ### 6️⃣ Usuário fecha modal
 
 **Gatilhos:**
+
 - Click no backdrop
 - Click no botão [X]
 - Tecla ESC
 
 **Código:**
+
 ```tsx
 const handleClose = () => {
   setSelectedProject(null);
@@ -1129,12 +1170,15 @@ useEffect(() => {
 }, []);
 
 // Backdrop click
-<div onClick={(e) => {
-  if (e.target === e.currentTarget) handleClose();
-}} />
+<div
+  onClick={(e) => {
+    if (e.target === e.currentTarget) handleClose();
+  }}
+/>;
 ```
 
 **Resultado:**
+
 - Modal fecha com animação reversa
 - Foco retorna ao card original
 - Scroll da página é restaurado
@@ -1145,11 +1189,13 @@ useEffect(() => {
 ## ⚛️ IMPLEMENTAÇÃO REACT COMPLETA
 
 ### Estado Global
+
 ```tsx
 const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 ```
 
 ### Hero Section
+
 ```tsx
 <section className="relative h-screen overflow-hidden">
   <video
@@ -1161,9 +1207,9 @@ const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   >
     <source src="video.mp4" type="video/mp4" />
   </video>
-  
+
   <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
-  
+
   <div className="relative h-full flex flex-col items-center justify-center text-white px-4">
     <h1 className="text-4xl md:text-6xl font-bold mb-6 text-center">
       <span className="text-blue-400">portfólio</span> showcase
@@ -1177,6 +1223,7 @@ const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 ```
 
 ### Gallery com Parallax
+
 ```tsx
 <section ref={galleryRef} className="gallery">
   <div
@@ -1196,19 +1243,24 @@ const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 ```
 
 ### Modal com Portal
+
 ```tsx
 import { createPortal } from 'react-dom';
 
-{selectedProject && createPortal(
-  <PortfolioModal
-    project={selectedProject}
-    onClose={() => setSelectedProject(null)}
-  />,
-  document.body
-)}
+{
+  selectedProject &&
+    createPortal(
+      <PortfolioModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />,
+      document.body
+    );
+}
 ```
 
 ### useEffect — Parallax Setup
+
 ```tsx
 useEffect(() => {
   const handleScroll = () => startScroll();
@@ -1227,6 +1279,7 @@ useEffect(() => {
 ```
 
 ### useEffect — Modal Body Lock
+
 ```tsx
 useEffect(() => {
   if (selectedProject) {
@@ -1243,6 +1296,7 @@ useEffect(() => {
 ## 🎨 ESTILO — CSS/TAILWIND COMPLETO
 
 ### Hero Section
+
 ```css
 .hero-section {
   position: relative;
@@ -1282,6 +1336,7 @@ useEffect(() => {
 ```
 
 ### Gallery & Track
+
 ```css
 .gallery {
   /* Height dinâmica via JS */
@@ -1313,6 +1368,7 @@ useEffect(() => {
 ```
 
 ### Card
+
 ```css
 .card {
   position: relative;
@@ -1321,7 +1377,9 @@ useEffect(() => {
   background: #f3f4f6;
   border-radius: 0.5rem;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .card:hover {
@@ -1365,6 +1423,7 @@ useEffect(() => {
 ```
 
 ### Modal
+
 ```css
 .modal-backdrop {
   position: fixed;
@@ -1436,6 +1495,7 @@ useEffect(() => {
 ## 📱 RESPONSIVO — BREAKPOINTS
 
 ### Desktop (≥1024px)
+
 ```css
 .gallery-track {
   grid-template-columns: repeat(3, 1fr);
@@ -1454,6 +1514,7 @@ useEffect(() => {
 ```
 
 ### Tablet (768px - 1023px)
+
 ```css
 .gallery-track {
   grid-template-columns: repeat(2, 1fr);
@@ -1470,6 +1531,7 @@ useEffect(() => {
 ```
 
 ### Mobile (<768px)
+
 ```css
 .gallery-track {
   grid-template-columns: repeat(1, 1fr);
@@ -1502,6 +1564,7 @@ useEffect(() => {
 ## 🚫 PROIBIÇÕES ABSOLUTAS
 
 ### Na Página Grid
+
 - ❌ Animações agressivas
 - ❌ Autoplay de áudio
 - ❌ Carrosséis automáticos não controláveis
@@ -1509,12 +1572,14 @@ useEffect(() => {
 - ❌ Scroll hijacking
 
 ### No Hero
+
 - ❌ Vídeo com som (mesmo muted=false)
 - ❌ Autoplay sem controles
 - ❌ Vídeo muito pesado (>10MB)
 - ❌ Ausência de fallback para imagem
 
 ### No Modal/Página Interna
+
 - ❌ Animação por scroll interno
 - ❌ Parallax dentro do modal
 - ❌ Blur decorativo excessivo
@@ -1529,6 +1594,7 @@ useEffect(() => {
 ## ♿ ACESSIBILIDADE
 
 ### Modal
+
 ```tsx
 <div
   role="dialog"
@@ -1542,15 +1608,16 @@ useEffect(() => {
 ```
 
 ### Foco
+
 ```tsx
 useEffect(() => {
   if (selectedProject) {
     const closeButton = document.querySelector('.close-button');
     closeButton?.focus();
-    
+
     // Salva elemento focado anterior
     const previousFocus = document.activeElement;
-    
+
     return () => {
       // Restaura foco ao fechar
       previousFocus?.focus();
@@ -1560,12 +1627,14 @@ useEffect(() => {
 ```
 
 ### Teclado
+
 - `ESC` fecha modal
 - `Tab` navega elementos internos
 - `Shift + Tab` navegação reversa
 - `Enter` ou `Space` ativa botões
 
 ### Screen Readers
+
 ```tsx
 <button
   aria-label="Fechar visualização do projeto"
@@ -1582,6 +1651,7 @@ useEffect(() => {
 ```
 
 ### Reduced Motion
+
 ```tsx
 const prefersReducedMotion = window.matchMedia(
   '(prefers-reduced-motion: reduce)'
@@ -1599,16 +1669,13 @@ const transition = prefersReducedMotion
 ### Otimizações Críticas
 
 #### 1. Lazy Loading de Imagens
+
 ```tsx
-<img
-  src={project.image}
-  alt={project.title}
-  loading="lazy"
-  decoding="async"
-/>
+<img src={project.image} alt={project.title} loading="lazy" decoding="async" />
 ```
 
 #### 2. will-change
+
 ```css
 .gallery-track {
   will-change: transform;
@@ -1625,6 +1692,7 @@ const transition = prefersReducedMotion
 ```
 
 #### 3. requestAnimationFrame
+
 ```javascript
 // Cancela RAF quando não necessário
 if (Math.abs(startYRef.current - window.scrollY) < 0.1) {
@@ -1633,6 +1701,7 @@ if (Math.abs(startYRef.current - window.scrollY) < 0.1) {
 ```
 
 #### 4. Debounce em Resize
+
 ```javascript
 let resizeTimeout;
 const handleResize = () => {
@@ -1644,14 +1713,16 @@ const handleResize = () => {
 ```
 
 #### 5. Portal para Modal
+
 ```tsx
 import { createPortal } from 'react-dom';
 
 // Renderiza no final do body, evitando reflows
-createPortal(<Modal />, document.body)
+createPortal(<Modal />, document.body);
 ```
 
 #### 6. Overscroll Contain
+
 ```css
 .modal-container {
   overscroll-behavior: contain;
@@ -1659,6 +1730,7 @@ createPortal(<Modal />, document.body)
 ```
 
 #### 7. Image Optimization
+
 - WebP com fallback para JPEG
 - Srcset para diferentes resoluções
 - Tamanho adequado (não usar imagens gigantes)
@@ -1682,6 +1754,7 @@ createPortal(<Modal />, document.body)
 ## 📊 MÉTRICAS DE PERFORMANCE
 
 ### Targets
+
 - **FCP (First Contentful Paint)**: <1.5s
 - **LCP (Largest Contentful Paint)**: <2.5s
 - **TTI (Time to Interactive)**: <3.5s
@@ -1690,6 +1763,7 @@ createPortal(<Modal />, document.body)
 - **Parallax lag**: <16ms
 
 ### Como Medir
+
 ```javascript
 // FPS Monitor
 let lastTime = performance.now();
@@ -1698,14 +1772,14 @@ let frames = 0;
 function measureFPS() {
   const now = performance.now();
   frames++;
-  
+
   if (now >= lastTime + 1000) {
     const fps = Math.round((frames * 1000) / (now - lastTime));
     console.log(`FPS: ${fps}`);
     frames = 0;
     lastTime = now;
   }
-  
+
   requestAnimationFrame(measureFPS);
 }
 
@@ -1717,6 +1791,7 @@ measureFPS();
 ## 🧪 TESTES RECOMENDADOS
 
 ### Funcionalidade
+
 1. ✅ Abrir/fechar modal múltiplas vezes
 2. ✅ Testar todos os gatilhos de fechamento (ESC, backdrop, botão)
 3. ✅ Scroll interno em conteúdos longos
@@ -1726,6 +1801,7 @@ measureFPS();
 7. ✅ Click em cards diferentes
 
 ### Performance
+
 1. ✅ Verificar FPS durante scroll (deve ser 60fps)
 2. ✅ Testar em dispositivos mais lentos
 3. ✅ Medir tempo de carregamento de imagens
@@ -1734,6 +1810,7 @@ measureFPS();
 6. ✅ Verificar uso de CPU durante parallax
 
 ### Acessibilidade
+
 1. ✅ Testar com screen reader (NVDA/JAWS)
 2. ✅ Navegar apenas com teclado
 3. ✅ Testar com prefers-reduced-motion
@@ -1742,6 +1819,7 @@ measureFPS();
 6. ✅ Validar foco visível em todos elementos
 
 ### Responsivo
+
 1. ✅ Testar em mobile (320px - 768px)
 2. ✅ Testar em tablet (768px - 1024px)
 3. ✅ Testar em desktop (1024px+)
@@ -1754,6 +1832,7 @@ measureFPS();
 ## ✅ CHECKLIST DE VALIDAÇÃO COMPLETO
 
 ### Hero Section
+
 - [ ] Vídeo carrega e faz loop corretamente
 - [ ] Overlay garante legibilidade do texto
 - [ ] CTA tem hover state claro
@@ -1761,6 +1840,7 @@ measureFPS();
 - [ ] Performance ok (vídeo <10MB)
 
 ### Grid de Projetos
+
 - [ ] Cards respondem a hover suavemente
 - [ ] Parallax lerp funciona em todos os cards
 - [ ] Imagens carregam progressivamente
@@ -1769,6 +1849,7 @@ measureFPS();
 - [ ] Scroll é natural (não hijacked)
 
 ### Modal/Página Interna
+
 - [ ] Abertura silenciosa e orientada
 - [ ] Pausa perceptível após container (380-520ms)
 - [ ] Mídia aparece antes do texto
@@ -1779,6 +1860,7 @@ measureFPS();
 - [ ] Não parece landing page
 
 ### Interação
+
 - [ ] Click no card abre modal correto
 - [ ] ESC fecha modal
 - [ ] Click no backdrop fecha modal
@@ -1789,6 +1871,7 @@ measureFPS();
 - [ ] Parallax retoma após fechar modal
 
 ### Acessibilidade
+
 - [ ] `role="dialog"` presente
 - [ ] `aria-modal="true"` presente
 - [ ] `aria-label` em botões
@@ -1798,6 +1881,7 @@ measureFPS();
 - [ ] prefers-reduced-motion respeitado
 
 ### Ghost System
+
 - [ ] Não parece landing page
 - [ ] Mantém contexto do portfólio
 - [ ] Leitura confortável
@@ -1811,6 +1895,7 @@ measureFPS();
 ## 🎯 RESULTADO ESPERADO
 
 O usuário deve:
+
 1. ✅ Ver hero impactante mas não invasivo
 2. ✅ Rolar a página com parallax suave e natural
 3. ✅ Ver grid de projetos organizado e convidativo
@@ -1832,12 +1917,14 @@ O usuário deve:
 > **"A tecnologia serve à experiência, não o contrário."**
 
 Cada elemento deste protótipo foi pensado para:
+
 - **Guiar** sem distrair
 - **Revelar** sem chocar
 - **Animar** sem exagerar
 - **Impressionar** pela clareza, não pelo excesso
 
 ### Ghost System em Ação
+
 1. **Presença sem peso** — Hero forte mas não opressivo
 2. **Movimento com propósito** — Parallax guia o olhar
 3. **Revelação gradual** — Modal respeita o tempo de leitura
@@ -1848,6 +1935,7 @@ Cada elemento deste protótipo foi pensado para:
 ## 📋 DADOS DE EXEMPLO
 
 ### Estrutura de Projeto
+
 ```typescript
 interface Project {
   id: number;
@@ -1868,6 +1956,7 @@ interface Project {
 ```
 
 ### Exemplo de Projeto Tipo A
+
 ```typescript
 {
   id: 1,
@@ -1882,6 +1971,7 @@ interface Project {
 ```
 
 ### Exemplo de Projeto Tipo B
+
 ```typescript
 {
   id: 2,
@@ -1917,6 +2007,7 @@ interface Project {
 Você deve implementar a Página Portfolio Showcase completa conforme este protótipo canônico.
 
 Arquivos a criar/modificar:
+
 - PortfolioShowcase.tsx (página principal)
 - ProjectCard.tsx (card do grid)
 - PortfolioModal.tsx (modal/página interna)
@@ -1945,13 +2036,13 @@ Ações obrigatórias:
 3. MODAL/PÁGINA INTERNA:
    - Tipos A (Zoom Viewer) e B (Página Interna)
    - Timeline de animação canônico:
-     * Backdrop: 0→180ms (linear)
-     * Container: 120→380ms (ease-out custom)
-     * Pausa: 380→520ms
-     * Mídia: 520→760ms
-     * Título: 760→960ms
-     * Meta: 960→1120ms
-     * Secundário: 1120→1500ms (stagger 80ms)
+     - Backdrop: 0→180ms (linear)
+     - Container: 120→380ms (ease-out custom)
+     - Pausa: 380→520ms
+     - Mídia: 520→760ms
+     - Título: 760→960ms
+     - Meta: 960→1120ms
+     - Secundário: 1120→1500ms (stagger 80ms)
 
 4. INTERAÇÕES:
    - Click no card abre modal
@@ -1974,6 +2065,7 @@ Ações obrigatórias:
    - prefers-reduced-motion
 
 Regras de implementação:
+
 - ✅ Usar Framer Motion + AnimatePresence
 - ✅ Usar refs para gallery, track e cards
 - ✅ Implementar lerp corretamente
@@ -1989,23 +2081,25 @@ Regras de implementação:
 
 Estrutura de pastas sugerida:
 ```
+
 src/
-  components/
-    portfolio/
-      PortfolioShowcase.tsx
-      HeroSection.tsx
-      ProjectCard.tsx
-      ProjectsGallery.tsx
-      PortfolioModal.tsx
-      ProjectContentTypeA.tsx
-      ProjectContentTypeB.tsx
-  hooks/
-    useParallax.ts
-    useBodyLock.ts
-  types/
-    project.ts
-  data/
-    projects.ts
+components/
+portfolio/
+PortfolioShowcase.tsx
+HeroSection.tsx
+ProjectCard.tsx
+ProjectsGallery.tsx
+PortfolioModal.tsx
+ProjectContentTypeA.tsx
+ProjectContentTypeB.tsx
+hooks/
+useParallax.ts
+useBodyLock.ts
+types/
+project.ts
+data/
+projects.ts
+
 ```
 
 Critérios de aceite:
@@ -2025,21 +2119,25 @@ Critérios de aceite:
 ## 📚 REFERÊNCIAS TÉCNICAS
 
 ### Parallax Lerp Original
+
 - CodePen: https://codepen.io/danilonovaisv/pen/VYjejyb
 - Técnica: Vertical Scrolling Parallax com Lerp
 - Autor: danilonovaisv
 
 ### Ghost Design System
+
 - Filosofia: Presença sem peso
 - Motion: Editorial e silencioso
 - Foco: Conteúdo sobre efeito
 
 ### Framer Motion
+
 - Docs: https://www.framer.com/motion/
 - AnimatePresence para mount/unmount
 - Variants para animações complexas
 
 ### Performance
+
 - Web Vitals: https://web.dev/vitals/
 - requestAnimationFrame: https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
 
@@ -2048,6 +2146,7 @@ Critérios de aceite:
 ## 🔄 VERSIONAMENTO
 
 **v2.0** — Dezembro 2024
+
 - ✅ Hero Section com vídeo loop
 - ✅ Parallax Lerp implementado
 - ✅ Timeline de modal atualizado
@@ -2055,6 +2154,7 @@ Critérios de aceite:
 - ✅ Acessibilidade completa
 
 **v1.0** — Novembro 2024
+
 - Grid básico de projetos
 - Modal simples
 - Sem parallax
