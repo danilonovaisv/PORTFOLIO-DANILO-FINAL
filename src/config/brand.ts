@@ -2,26 +2,41 @@ export const BRAND = {
   name: 'Danilo Novais',
   domain: 'portfoliodanilo.com',
 
-  // Design Tokens
+  // Design Tokens (Palette 2.1)
   colors: {
-    primary: '#0048ff', // Primary brand color, interactive elements, CTAs
-    accent: '#4fe6ff', // Secondary highlights, Ghost atmosphere glow
-    background: '#040013', // Main dark background
-    backgroundLight: '#f0f0f0', // Light sections (forms, alternating backgrounds)
-    text: '#fcffff', // Primary text on dark backgrounds
-    textInverse: '#0e0e0e', // Text on light backgrounds
-    textSecondary: '#a1a3a3', // Secondary information, metadata
-    neutral: '#0b0d3a', // Gradient transitions, subtle backgrounds
-    neutralLight: '#F5F5F5', // Secondary section backgrounds
-    purpleDetails: '#8705f2', // para pequenos detalhes
-    pinkDetails: '#f501d3', // para pequenos detalhes
-    textEmphasis: '#2E85F2', // Palavras destacadas no meio do texto
-    textHighlight: '#4fe6ff', // Destaques curtos, intros breves
+    bluePrimary: '#0048ff', // Cor primária, CTAs, links
+    blueAccent: '#4fe6ff', // Destaques secundários, brilhos Ghost
+    purpleDetails: '#8705f2', // Pequenos detalhes
+    pinkDetails: '#f501d3', // Ênfases pontuais
+
+    background: '#040013', // Fundo escuro principal
+    backgroundLight: '#f0f0f0', // Seções claras (forms)
+
+    text: '#fcffff', // Texto principal (Dark Mode)
+    textInverse: '#0e0e0e', // Texto em fundos claros
+    textEmphasis: '#2E85F2', // Palavras destacadas
+    textHighlight: '#4fe6ff', // Destaques curtos
+    textSecondary: '#a1a3a3', // Metadata
+
+    neutral: '#0b0d3a', // Gradientes, fundos sutis
+    neutralLight: '#F5F5F5', // Fundos secundários claros
   },
 
   typography: {
-    primary: 'TT Norms Pro',
-    fallbacks: ['ui-sans-serif', 'system-ui'],
+    fontFamily: {
+      primary: 'TT Norms Pro',
+      mono: 'PPSupplyMono',
+      fallbacks: ['ui-sans-serif', 'system-ui', 'sans-serif'],
+    },
+    // Definições de peso para uso no Tailwind
+    weights: {
+      thin: 100,
+      light: 300,
+      regular: 400,
+      medium: 500,
+      bold: 700,
+      black: 900,
+    },
   },
 
   // Assets Globais
@@ -42,8 +57,5 @@ export const BRAND = {
     // Usado na Hero e Manifesto (mesma URL para cache)
     manifesto:
       'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
-  },
-  layout: {
-    container: 'w-full max-w-[1920px] mx-auto px-5 md:px-10 lg:px-16',
   },
 };

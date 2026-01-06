@@ -566,9 +566,9 @@ Ethereal, organic 3D atmosphere inspired by the "Ghost Blue" aesthetic. Main ele
 #### Editorial Text Block
 
 **Content:**
-- Tag: `[BRAND AWARENESS]` (12px, uppercase, mono) TT Norms Pro Normal
-- H1: "Você não vê o design." (5–8rem, TT Norms Pro Black, tracking-tight)
-- H2: "Mas ele vê você." (4–6rem, TT Norms Pro Black, tracking-tight)
+- Tag: `[BRAND AWARENESS]` (14px, uppercase, mono) TT Norms Pro Normal
+- H1: "Você não vê (-> linha 01) o design.(-> linha 02)" (6–10rem, TT Norms Pro Black, tracking-tight)
+- H2: "Mas ele vê você." (5–8rem, TT Norms Pro Black, tracking-tight)
 - CTA: "step inside →" (link to `/sobre`, hover effect: color change + arrow translation)
 - Same CTA button at bottom
 **Primary Font:** TT Norms Pro (self-hosted, fallback: `ui-sans-serif, system-ui`)

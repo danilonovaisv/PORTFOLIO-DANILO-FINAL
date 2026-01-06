@@ -2,49 +2,51 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 
 export default function HeroCopy() {
   return (
-    <div className="absolute inset-0 z-10 flex flex-col justify-center items-center pointer-events-none pb-[5vh]">
-      <div className="w-[90%] max-w-[min(90%,1100px)] max-h-[80vh] overflow-hidden pointer-events-auto text-center flex flex-col items-center gap-4">
+    <div className="absolute inset-0 z-10 flex flex-col justify-center items-center pointer-events-none px-4 md:px-0">
+      <div className="w-full max-w-[1200px] flex flex-col items-center text-center">
         {/* Tag */}
-        <div className="font-mono text-[11px] uppercase tracking-[0.16em] text-[#9cb3ff] opacity-80 mb-[0.5vh]">
+        <div className="font-mono text-[14px] uppercase tracking-widest text-blue-300/80 mb-6 md:mb-8 pointer-events-auto">
           [BRAND AWARENESS]
         </div>
 
-        {/* Main Quote */}
-        <h1 className="font-sans font-black tracking-[-0.025em] leading-[1.05] mb-[1vh] text-[#d9ddec] mix-blend-screen text-[clamp(2rem,5vw,5rem)] max-w-[90%] break-words drop-shadow-[0_0_24px_rgba(71,128,255,0.35)]">
-          Você não vê o design.
+        {/* Main Quote - H1 */}
+        <h1
+          className="font-sans font-black tracking-tighter leading-[0.9] text-white mix-blend-screen drop-shadow-[0_0_30px_rgba(71,128,255,0.4)]
+          text-[3.5rem]      /* Mobile Base */
+          md:text-[6rem]     /* Tablet */
+          lg:text-[9rem]     /* Desktop */
+          xl:text-[10rem]    /* Large Desktop */
+          flex flex-col items-center
+        "
+        >
+          <span className="block">Você não vê</span>
+          <span className="block text-white/90">o design.</span>
         </h1>
 
-        {/* Sub Quote */}
-        <h2 className="font-sans font-black tracking-[-0.02em] leading-[1.05] mb-[4vh] text-[#9ca5c3] mix-blend-screen text-[clamp(1.5rem,3.5vw,3.5rem)] max-w-[90%] break-words drop-shadow-[0_0_18px_rgba(71,128,255,0.25)]">
+        {/* Sub Quote - H2 */}
+        <h2
+          className="font-sans font-black tracking-tighter leading-[0.9] mt-2 md:mt-4 text-[#9ca5c3] mix-blend-screen drop-shadow-[0_0_20px_rgba(71,128,255,0.3)]
+          text-[2.5rem]      /* Mobile Base */
+          md:text-[5rem]     /* Tablet */
+          lg:text-[7rem]     /* Desktop */
+          xl:text-[8rem]     /* Large Desktop */
+        "
+        >
           Mas ele vê você.
         </h2>
 
         {/* CTA Button */}
         <Link
           href="/sobre"
-          className="group inline-flex items-center gap-4 mt-2 bg-[#0c5bff] text-white no-underline font-semibold lowercase transition-all duration-300 shadow-[0_0_40px_rgba(12,91,255,0.55)] ring-1 ring-white/12 hover:bg-[#0a46d4] hover:shadow-[0_0_55px_rgba(12,91,255,0.75)] text-[clamp(14px,3vw,17px)] p-[clamp(12px,3vw,16px)_clamp(20px,5vw,32px)] rounded-[clamp(20px,5vw,32px)]"
+          className="group pointer-events-auto mt-12 md:mt-16 flex items-center gap-3 text-white text-[15px] font-medium tracking-wide uppercase transition-all duration-300 hover:text-blue-400"
         >
           <span>step inside</span>
-          <span className="flex items-center justify-center w-9 h-9 bg-white/15 rounded-full border border-white/15 shadow-[0_0_30px_rgba(12,91,255,0.45)] transition-transform duration-300 group-hover:rotate-45">
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 12 12"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="fill-current"
-            >
-              <path
-                d="M2 10L10 2M10 2H4M10 2V8"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+          <span className="flex items-center justify-center w-8 h-8 rounded-full border border-white/20 group-hover:border-blue-400/50 group-hover:bg-blue-600/10 transition-all duration-300">
+            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </span>
         </Link>
       </div>

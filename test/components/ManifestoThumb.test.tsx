@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import ManifestoThumb from '@/components/home/ManifestoThumb';
+import ManifestoThumb from '@/components/home/hero/ManifestoThumb';
 
 // Mock do IntersectionObserver
 beforeAll(() => {

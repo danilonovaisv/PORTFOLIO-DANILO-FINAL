@@ -1,9 +1,14 @@
-@import '../styles/fonts.css';
+/* =========================================
+   1. IMPORTS & TAILWIND SETUP
+   ========================================= */
 @import 'tailwindcss';
+@import '../styles/fonts.css';
 
-/* stylelint-disable-next-line at-rule-no-unknown */
-@theme {
-  /* Colors */
+/* =========================================
+   2. VARIABLES (THEME CONFIGURATION)
+   ========================================= */
+:root {
+  /* --- Colors: Ghost Theme Identity --- */
   --color-ghost-bg: #040013;
   --color-ghost-bg-accent: #06071f;
 
@@ -16,12 +21,12 @@
   --color-pink-details: #f501d3;
   --text-purple: #8705f2;
 
-  /* Component Aliases (Restoring compatibility) */
+  /* Legacy Aliases */
   --color-ghost-blue: #0048ff;
   --color-ghost-green: #4fe6ff;
   --color-ghost-surface-deep: #040013;
 
-  /* Opacity Variants for Atmospherics */
+  /* Opacity Variants (Atmospherics) */
   --color-primary-faint: rgba(0, 72, 255, 0.13);
   --color-accent-faint: rgba(79, 230, 255, 0.09);
   --color-ghost-vignette: rgba(4, 0, 19, 0.4);
@@ -41,50 +46,61 @@
   --color-text-emphasis: #2e85f2;
   --color-text-highlight: #4fe6ff;
 
-  /* Font Family */
+  /* --- Fonts --- */
   --font-tt-norms: 'TT Norms Pro', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'PPSupplyMono', monospace;
-}
 
-/* --- FLUID TYPOGRAPHY VARIABLES --- */
-:root {
-  /* Tipografia Fluida (Mobile → Desktop) */
+  /* --- Fluid Typography (Mobile -> Desktop) --- */
   --font-display: clamp(2.5rem, 5vw, 4.5rem);
-  /* 40px → 72px */
+  /* 40px -> 72px */
   --font-h1: clamp(2rem, 4vw, 3.5rem);
-  /* 32px → 56px */
+  /* 32px -> 56px */
   --font-h2: clamp(1.5rem, 3vw, 2.5rem);
-  /* 24px → 40px */
+  /* 24px -> 40px */
   --font-h3: clamp(1.25rem, 2vw, 1.75rem);
-  /* 20px → 28px */
+  /* 20px -> 28px */
   --font-body: clamp(1rem, 1.2vw, 1.125rem);
-  /* 16px → 18px */
+  /* 16px -> 18px */
   --font-small: 0.875rem;
   /* 14px */
   --font-micro: 0.75rem;
   /* 12px */
 }
 
-/* --- BASE STYLES --- */
+/* =========================================
+   3. BASE STYLES & RESETS
+   ========================================= */
 html {
   scroll-behavior: smooth;
+  width: 100%;
+  height: 100%;
 }
 
 body {
+  /* Priorizando o tema Ghost */
   background-color: var(--color-ghost-bg);
-  color: #fcffff;
+  color: var(--color-text-light);
   font-family: var(--font-tt-norms);
+
+  /* Utilities globais */
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  letter-spacing: -0.03em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
 }
 
 * {
   border-color: rgba(255, 255, 255, 0.1);
 }
 
-/* --- UTILITIES --- */
+/* =========================================
+   4. UTILITY LAYERS (TYPOGRAPHY & PERFORMANCE)
+   ========================================= */
 @layer utilities {
+  /* Typography Classes */
   .text-display-hero {
     font-size: clamp(5rem, 12vw, 8rem);
     line-height: 0.9;
@@ -101,13 +117,12 @@ body {
 
   .text-display-about {
     font-size: clamp(2rem, 5vw, 4rem);
-    /* 32px to 64px */
     line-height: 1.1;
     letter-spacing: -0.025em;
     font-weight: 700;
   }
 
-  /* Fluid Typography Utility Classes */
+  /* Fluid Mapping */
   .type-display {
     font-size: var(--font-display);
     font-weight: 900;
@@ -139,11 +154,11 @@ body {
   }
 
   .type-micro {
-    font-family: 'PPSupplyMono', monospace;
+    font-family: var(--font-mono);
     font-size: var(--font-micro);
   }
 
-  /* Portfolio Gallery Performance Optimizations */
+  /* Performance & Animations */
   .gallery-track {
     will-change: transform;
     contain: layout style;
@@ -155,7 +170,6 @@ body {
     backface-visibility: hidden;
   }
 
-  /* Modal optimizations */
   .modal-backdrop {
     will-change: opacity;
   }
@@ -165,13 +179,12 @@ body {
     contain: layout paint;
   }
 
-  /* Smooth parallax */
   .parallax-track {
     will-change: transform;
     transform: translateZ(0);
   }
 
-  /* Accessibility: Respect reduced motion */
+  /* Accessibility */
   @media (prefers-reduced-motion: reduce) {
     .gallery-track,
     .project-card-optimized,
@@ -196,7 +209,157 @@ body {
   border-width: 0;
 }
 
-/* --- Portfolio Hero Atmospheric Gradients --- */
+/* =========================================
+   5. PRELOADER STYLES (From File 2)
+   ========================================= */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Ajustado para usar as cores do tema Ghost */
+  background: radial-gradient(
+    circle at center,
+    var(--color-ghost-bg-accent),
+    var(--color-ghost-bg)
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  opacity: 1;
+  transition: opacity 1s ease-out;
+}
+
+.preloader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.preloader-content {
+  text-align: center;
+  color: var(--color-text-light);
+}
+
+.ghost-loader {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ghost-svg {
+  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+  animation: ghostFloat 3s ease-in-out infinite;
+}
+
+.ghost-body {
+  fill: white;
+  opacity: 0.9;
+}
+
+.ghost-eye {
+  fill: black;
+  animation: eyePulse 2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.left-eye {
+  animation-delay: 0s;
+}
+
+.right-eye {
+  animation-delay: 0.1s;
+}
+
+@keyframes ghostFloat {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes eyePulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.3);
+  }
+}
+
+.loading-text {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  opacity: 1;
+  margin-bottom: 12px;
+  animation: textPulse 2s ease-in-out infinite;
+}
+
+@keyframes textPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.1;
+  }
+}
+
+.loading-progress {
+  width: 96px;
+  height: 1px;
+  margin: 0 auto;
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-primary));
+  opacity: 0.8;
+  width: 0%;
+  transition: width 0.8s ease;
+}
+
+/* =========================================
+   6. HERO & CONTENT STYLES
+   ========================================= */
+
+/* Transições de entrada para o conteúdo principal */
+.content {
+  /* Mantendo a lógica de fade-in do File 2 */
+  opacity: 0;
+  transition: opacity 1.5s ease-in;
+
+  /* Layout Base */
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.content.fade-in {
+  opacity: 1;
+}
+
+/* Hero Atmospherics */
 .portfolio-hero-glow-primary {
   background: radial-gradient(
     ellipse 60% 50% at 15% 15%,
@@ -233,7 +396,7 @@ body {
   background: linear-gradient(to bottom, var(--color-text-60), transparent);
 }
 
-/* Ghost Reveal Overlay - Hybrid 2D/3D Effect */
+/* Ghost Reveal Overlay */
 .ghost-reveal-overlay {
   position: fixed;
   top: 50%;
@@ -244,8 +407,6 @@ body {
   z-index: 15;
   transform: translate(-50%, -50%);
   will-change: transform;
-
-  /* Radial gradient com cyan elétrico */
   background: radial-gradient(
     circle at center,
     rgba(0, 255, 255, 0.8) 0%,
@@ -253,14 +414,8 @@ body {
     rgba(0, 255, 255, 0.1) 60%,
     transparent 100%
   );
-
-  /* Blur para efeito atmosférico */
   filter: blur(40px);
-
-  /* Blend mode para revelação */
   mix-blend-mode: screen;
-
-  /* Animação de pulsação sutil */
   animation: ghost-pulse 4s ease-in-out infinite;
 }
 
@@ -277,15 +432,13 @@ body {
   }
 }
 
-/* Hero Text - Base escondida, revelada pelo overlay */
+/* Hero Text Interactive Effects */
 .hero-text {
-  /* Texto começa com baixa opacidade */
   color: rgba(255, 255, 255, 0.15);
   text-shadow: none;
   transition: color 0.3s ease;
 }
 
-/* Quando o ghost passa, o texto fica visível */
 .ghost-reveal-overlay:hover ~ .hero-text,
 .hero-text:hover {
   color: rgba(255, 255, 255, 1);
@@ -304,27 +457,14 @@ body {
   z-index: 100;
 }
 
-.hero-section .content {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  text-align: center;
-  color: #e0e0e0;
-  opacity: 1;
-}
-
 .hero-section .quote-container {
   max-width: 90%;
   overflow: hidden;
+  margin: 0 auto;
 }
 
 .hero-section .brand-awareness {
-  font-family: 'PPSupplyMono', monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   text-transform: uppercase;
   opacity: 0.7;
@@ -333,6 +473,7 @@ body {
 
 .hero-section .quote {
   font-family: 'Boldonse', system-ui;
+  /* Certifica-te que esta fonte está carregada */
   font-size: 6vw;
   line-height: 1.3;
   font-weight: 400;
@@ -343,8 +484,9 @@ body {
   text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
 }
 
-.hero-section .quote-subtext {
-  font-family: 'PPSupplyMono', monospace;
+.hero-section .quote-subtext,
+.author {
+  font-family: var(--font-mono);
   font-size: 12px;
   text-transform: uppercase;
   opacity: 0.7;
@@ -367,4 +509,14 @@ body {
   pointer-events: none;
   z-index: 10;
   transition: transform 0.1s ease-out;
+}
+
+/* Canvas Animation */
+canvas {
+  opacity: 0 !important;
+  transition: opacity 2s ease-in;
+}
+
+canvas.fade-in {
+  opacity: 1 !important;
 }

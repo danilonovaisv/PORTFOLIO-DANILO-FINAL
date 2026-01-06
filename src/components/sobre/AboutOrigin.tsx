@@ -7,7 +7,6 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { OriginPair } from './origin/OriginPair';
 import { OriginText, OriginMedia } from './origin/types';
 import { textReveal } from './origin/animations';
-import { BRAND } from '@/config/brand';
 
 export default function AboutOrigin() {
   const prefersReducedMotion = useReducedMotion();
@@ -29,7 +28,7 @@ export default function AboutOrigin() {
       className="relative min-h-[130vh] py-16 sm:py-20 md:py-24 lg:py-32 bg-ghost-surface-deep overflow-hidden"
       aria-label="Origem Criativa"
     >
-      <div className={BRAND.layout.container}>
+      <div className="container mx-auto px-6">
         {/* Section Label */}
         <div className="hidden lg:grid grid-cols-12 items-center mb-8 md:mb-10">
           <div className="col-span-5 col-start-2">

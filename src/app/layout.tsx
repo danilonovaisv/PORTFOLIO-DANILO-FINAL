@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { siteMetadata, siteViewport } from '@/config/metadata';
 import ClientLayout from '@/components/layout/ClientLayout';
 import JsonLd from '@/components/ui/JsonLd';
-import './globals.css'; // Fonts and styles are loaded here
+import '@/styles/globals.css'; // Fonts and centralized styles
 
 export const metadata: Metadata = siteMetadata;
 export const viewport: Viewport = siteViewport;

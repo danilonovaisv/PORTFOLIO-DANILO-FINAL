@@ -48,6 +48,7 @@
     "clsx": "^2.1.1",
     "firebase": "^12.7.0",
     "framer-motion": "^12.24.0",
+    "framer-motion-3d": "^12.4.13",
     "gsap": "^3.14.2",
     "lenis": "^1.3.17",
     "leva": "^0.10.1",
