@@ -1,9 +1,15 @@
+'use client';
+
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { InputField, TextAreaField } from './FormFields';
 import { CONTACT_FORM } from '@/config/navigation';
+import { MOTION_TOKENS, ghostTransition } from '@/config/motion';
+
+const { duration } = MOTION_TOKENS;
 
 const ContactForm: React.FC = () => {
+  const prefersReducedMotion = useReducedMotion();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -93,10 +99,10 @@ const ContactForm: React.FC = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 20 }}
+      initial={prefersReducedMotion ? {} : { opacity: 0, x: 20 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+      transition={ghostTransition(0.1, duration.normal)}
       className="w-full max-w-[520px] mx-auto lg:ml-auto"
     >
       <div className="rounded-2xl bg-white shadow-[0_20px_50px_rgba(15,23,42,0.12)] p-6 md:p-8">
@@ -205,7 +211,7 @@ const ContactForm: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full flex items-center justify-center gap-2 bg-primary text-white font-semibold py-3.5 px-8 rounded-full transition-all duration-300 hover:bg-primary-hover hover:scale-[1.02] hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="w-full flex items-center justify-center gap-2 bg-primary text-white font-semibold py-3.5 px-8 rounded-full transition-all duration-300 hover:bg-primary-hover hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             >
               {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
               <svg

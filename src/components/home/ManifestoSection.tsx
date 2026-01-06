@@ -16,19 +16,19 @@
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
+import { BRAND } from '@/config/brand';
+import { MOTION_TOKENS, ghostTransition } from '@/config/motion';
 
-// Video source (Supabase)
+// Video source from BRAND config
 const VIDEO_SRC =
+  BRAND.video?.manifesto ??
   'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4';
 
-// Animation config
+// Animation config - Ghost Era (sem scale)
 const ANIMATION = {
-  initial: { opacity: 0, scale: 0.98, y: 10 },
-  animate: { opacity: 1, scale: 1, y: 0 },
-  transition: {
-    duration: 0.4,
-    ease: 'easeOut',
-  },
+  initial: { opacity: 0, y: 12, filter: 'blur(6px)' },
+  animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
+  transition: ghostTransition(0, MOTION_TOKENS.duration.fast),
 } as const;
 
 export function ManifestoSection() {
@@ -74,7 +74,7 @@ export function ManifestoSection() {
       initial={prefersReducedMotion ? {} : ANIMATION.initial}
       animate={isInView && !prefersReducedMotion ? ANIMATION.animate : {}}
       transition={ANIMATION.transition}
-      className="lg:hidden w-full bg-[#050511] relative mt-8 md:mt-0"
+      className="lg:hidden w-full bg-ghost-bg relative mt-8 md:mt-0"
     >
       {/* Video */}
       <video
@@ -95,12 +95,12 @@ export function ManifestoSection() {
         className="absolute bottom-4 right-4 z-10 flex items-center justify-center 
                    w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm text-white 
                    transition-all duration-300 
-                   hover:bg-black/70 hover:scale-105
+                   hover:bg-black/70 hover:-translate-y-0.5
                    focus-visible:outline-none focus-visible:ring-2 
                    focus-visible:ring-[#4fe6ff] focus-visible:ring-offset-2
                    focus-visible:ring-offset-black/50"
         aria-label={isMuted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'}
-        aria-pressed={!isMuted}
+        aria-pressed={isMuted ? 'false' : 'true'}
       >
         {isMuted ? (
           <VolumeX className="w-5 h-5" aria-hidden="true" />

@@ -88,7 +88,7 @@ export const ManifestoThumb = forwardRef<
       </div>
 
       {/* Container do Vídeo com Overflow Hidden para Bordas */}
-      <div className="relative w-full h-full overflow-hidden transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]">
+      <div className="relative w-full h-full overflow-hidden transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1">
         <video
           ref={videoRef}
           src={videoSrc}

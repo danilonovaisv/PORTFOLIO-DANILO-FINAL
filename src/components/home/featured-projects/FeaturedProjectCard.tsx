@@ -42,7 +42,7 @@ export default function FeaturedProjectCard({
         className={`relative overflow-hidden rounded-md ${project.layout.h} w-full bg-section-manifesto border border-white/5 shadow-[0_12px_48px_-28px_rgba(0,0,0,0.5)] transition-all duration-500 ${
           reducedMotion
             ? ''
-            : 'group-hover:shadow-[0_22px_54px_-26px_rgba(0,87,255,0.2)] group-hover:border-white/10 active:scale-[0.98]'
+            : 'group-hover:shadow-[0_22px_54px_-26px_rgba(0,87,255,0.2)] group-hover:border-white/10 group-hover:-translate-y-1 active:translate-y-0'
         }`}
       >
         {/* Subtle Noise Overlay */}
@@ -66,7 +66,7 @@ export default function FeaturedProjectCard({
           fill
           sizes={project.layout.sizes}
           className={`object-cover transition-transform duration-700 opacity-90 group-hover:opacity-100 ${
-            reducedMotion ? '' : 'group-hover:scale-[1.05]'
+            reducedMotion ? '' : 'group-hover:-translate-y-2'
           }`}
         />
       </div>
