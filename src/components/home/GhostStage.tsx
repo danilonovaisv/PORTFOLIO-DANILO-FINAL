@@ -1,65 +1,59 @@
 'use client';
 
+import * as React from 'react';
 import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
-import { motion } from 'framer-motion';
-import * as THREE from 'three';
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import styles from './GhostStage.module.css';
-
-// Componente de fallback para evitar flashes
-const GhostFallback = () => (
-  <div className="absolute inset-0 z-0 bg-[#050505] opacity-100 pointer-events-none transition-opacity duration-700 animate-pulse" />
-);
-
-// Carregamento dinâmico do Canvas para evitar erros de SSR (window is not defined)
-const GhostCanvas = dynamic(
-  () => import('@/components/canvas/home/GhostCanvas'),
-  {
-    ssr: false,
-    loading: () => <GhostFallback />,
-  }
-);
 
 interface GhostStageProps {
   reducedMotion?: boolean;
-  active?: boolean;
-  onCanvasCreated?: () => void;
-  ghostRef?: React.RefObject<THREE.Group | null>;
 }
 
-export function GhostStage({
-  reducedMotion = false,
-  active: _active = true,
-  onCanvasCreated,
-  ghostRef,
-}: GhostStageProps) {
-  if (reducedMotion) {
-    return (
-      <div className={`${styles.stageContainer} ${styles.fallbackContainer}`}>
-        <div className={`absolute inset-0 ${styles.fallbackBase}`} />
-        <div className={`absolute inset-0 ${styles.fallbackGlow}`} />
-        <div className={`absolute inset-0 ${styles.fallbackFlare}`} />
-        <div className={`absolute inset-0 ${styles.fallbackVignette}`} />
-      </div>
-    );
-  }
+// Import dinâmico evita SSR do canvas
+const GhostCanvas = dynamic(
+  () => import('@/components/canvas/home/GhostCanvas').then((m) => m.default),
+  { ssr: false }
+);
 
+/**
+ * Static fallback para reduced-motion ou erro WebGL
+ * Simula atmosfera Ghost com gradientes CSS
+ */
+function StaticGhostFallback() {
   return (
-    <div className={styles.stageContainer}>
-      {/* O Canvas deve preencher tudo */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
-        className="absolute inset-0 w-full h-full"
-      >
-        <Suspense fallback={<GhostFallback />}>
-          <GhostCanvas onCreated={onCanvasCreated} ghostRef={ghostRef} />
-        </Suspense>
-      </motion.div>
+    <div
+      className={`h-full w-full relative overflow-hidden ${styles.fallbackContainer}`}
+      role="img"
+      aria-label="Atmospheric ghost background"
+    >
+      {/* Base radial gradient */}
+      <div className={`absolute inset-0 ${styles.fallbackBase}`} />
 
-      {/* Gradiente de vinheta para ajudar na leitura do texto */}
-      <div className="absolute inset-0 pointer-events-none bg-linear-to-t from-[#020204] via-transparent to-[#020204]/50" />
+      {/* Central glow (simula o Ghost) */}
+      <div className={`absolute inset-0 ${styles.fallbackGlow}`} />
+
+      {/* Accent flare */}
+      <div className={`absolute inset-0 ${styles.fallbackFlare}`} />
+
+      {/* Vignette */}
+      <div className={`absolute inset-0 ${styles.fallbackVignette}`} />
     </div>
   );
 }
+
+export function GhostStage({ reducedMotion }: GhostStageProps) {
+  if (reducedMotion) {
+    return <StaticGhostFallback />;
+  }
+
+  return (
+    <ErrorBoundary fallback={<StaticGhostFallback />}>
+      <Suspense fallback={<StaticGhostFallback />}>
+        <GhostCanvas />
+      </Suspense>
+    </ErrorBoundary>
+  );
+}
+
+export default GhostStage;

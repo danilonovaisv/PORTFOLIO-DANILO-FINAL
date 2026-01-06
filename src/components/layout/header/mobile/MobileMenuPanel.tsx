@@ -39,7 +39,7 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
         ref={ref}
         id="mobile-menu-panel"
         className="fixed inset-0 bg-[#040013]/98 backdrop-blur-xl flex flex-col justify-center px-8 z-50 pointer-events-auto"
-        aria-hidden={!open ? 'true' : 'false'}
+        aria-hidden={!open}
         onClick={(e) => {
           if (e.target === e.currentTarget) {
             onClose();
@@ -58,8 +58,10 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
               <li key={item.href} className="overflow-hidden leading-none">
                 <button
                   onClick={() => onNavigate(item.href)}
-                  className={`sm-panel-item text-4xl xs:text-5xl font-bold tracking-tight transition-colors text-left leading-none uppercase will-change-transform origin-bottom ${
-                    isActive ? 'text-primary' : 'text-white hover:text-primary'
+                  className={`sm-panel-item text-4xl font-light tracking-wide transition-colors text-left leading-none uppercase will-change-transform origin-bottom ${
+                    isActive
+                      ? 'text-primary font-medium'
+                      : 'text-white/80 hover:text-white'
                   }`}
                 >
                   {item.label}

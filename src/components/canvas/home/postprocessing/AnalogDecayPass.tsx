@@ -1,84 +1,116 @@
+// src/components/canvas/home/postprocessing/AnalogDecayPass.tsx
 'use client';
 
-import React, { forwardRef, useMemo } from 'react';
-import { Uniform, WebGLRenderer, WebGLRenderTarget } from 'three';
+import * as THREE from 'three';
+import { Uniform } from 'three';
 import { Effect } from 'postprocessing';
+import { wrapEffect } from '@react-three/postprocessing';
 
 const fragmentShader = `
-  uniform float uTime;
-  uniform float uIntensity;
-  uniform float uSpeed;
-  uniform float uGrain;
-  uniform float uScanlines;
-  uniform float uVignette;
-  uniform float uJitter;
+uniform float uTime;
+uniform float uAnalogGrain;
+uniform float uAnalogBleeding;
+uniform float uAnalogVSync;
+uniform float uAnalogScanlines;
+uniform float uAnalogVignette;
+uniform float uAnalogJitter;
+uniform float uAnalogIntensity;
+uniform float uLimboMode;
 
-  // Noise function
-  float noise(vec2 p) {
-    return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453);
+float random(vec2 st) {
+  return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123);
+}
+float random(float x) {
+  return fract(sin(x) * 43758.5453123);
+}
+float gaussian(float z, float u, float o) {
+  return (1.0 / (o * sqrt(2.0 * 3.1415))) * exp(-(((z - u) * (z - u)) / (2.0 * (o * o))));
+}
+vec3 grain(vec2 uv, float time, float intensity) {
+  float seed = dot(uv, vec2(12.9898, 78.233));
+  float noise = fract(sin(seed) * 43758.5453 + time * 2.0);
+  noise = gaussian(noise, 0.0, 0.5 * 0.5);
+  return vec3(noise) * intensity;
+}
+
+void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
+  float time = uTime * 1.8;
+  vec2 jitteredUV = uv;
+
+  // Jitter
+  if (uAnalogJitter > 0.01) {
+    float jitterAmount = (random(vec2(floor(time * 60.0))) - 0.5) * 0.003 * uAnalogJitter * uAnalogIntensity;
+    jitteredUV.x += jitterAmount;
+    jitteredUV.y += (random(vec2(floor(time * 30.0) + 1.0)) - 0.5) * 0.001 * uAnalogJitter * uAnalogIntensity;
   }
 
-  void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
-    vec2 distortedUV = uv;
-    
-    // Jitter (Horizontal displacement)
-    float jitterTime = uTime * uSpeed;
-    float n = noise(vec2(uv.y * 100.0, jitterTime));
-    if (n > (1.0 - uJitter * 0.1)) { // Only jitter occasionally based on intensity
-       distortedUV.x += (n - 0.5) * uIntensity * 0.02;
-    }
-
-    // RGB Split / Bleeding based on intensity
-    float offset = 0.002 * uIntensity;
-    float r = texture2D(inputBuffer, distortedUV + vec2(offset, 0.0)).r;
-    float g = texture2D(inputBuffer, distortedUV).g;
-    float b = texture2D(inputBuffer, distortedUV - vec2(offset, 0.0)).b;
-
-    // Scanlines
-    float scanline = sin(uv.y * 800.0 * 1.0) * 0.04 * uScanlines;
-    vec3 color = vec3(r, g, b) - scanline;
-
-    // Grain
-    float grainVal = noise(uv * 1000.0 + uTime * 10.0);
-    color += (grainVal - 0.5) * uGrain * 0.1;
-
-    // Vignette (Analog style)
-    if (uVignette > 0.0) {
-        vec2 center = vec2(0.5, 0.5);
-        float dist = distance(uv, center);
-        float vignette = smoothstep(0.4, 0.9, dist * uVignette); 
-        color *= (1.0 - vignette * 0.5); 
-    }
-
-    outputColor = vec4(color, inputColor.a);
+  // VSync
+  if (uAnalogVSync > 0.01) {
+    float vsyncRoll = sin(time * 2.0 + uv.y * 100.0) * 0.02 * uAnalogVSync * uAnalogIntensity;
+    float vsyncChance = step(0.95, random(vec2(floor(time * 4.0))));
+    jitteredUV.y += vsyncRoll * vsyncChance;
   }
+
+  vec4 color = texture2D(inputBuffer, jitteredUV);
+
+  // Bleeding
+  if (uAnalogBleeding > 0.01) {
+    float bleedAmount = 0.012 * uAnalogBleeding * uAnalogIntensity;
+    float offsetPhase = time * 1.5 + uv.y * 20.0;
+    vec2 redOffset = vec2(sin(offsetPhase) * bleedAmount, 0.0);
+    vec2 blueOffset = vec2(-sin(offsetPhase * 1.1) * bleedAmount * 0.8, 0.0);
+    float r = texture2D(inputBuffer, jitteredUV + redOffset).r;
+    float g = texture2D(inputBuffer, jitteredUV).g;
+    float b = texture2D(inputBuffer, jitteredUV + blueOffset).b;
+    color = vec4(r, g, b, color.a);
+  }
+
+  // Grain
+  if (uAnalogGrain > 0.01) {
+    vec3 grainEffect = grain(uv, time, 0.075 * uAnalogGrain * uAnalogIntensity);
+    grainEffect *= (1.0 - color.rgb);
+    color.rgb += grainEffect;
+  }
+
+  // Scanlines
+  if (uAnalogScanlines > 0.01) {
+    float scanlineFreq = 600.0 + uAnalogScanlines * 400.0;
+    float scanlinePattern = sin(uv.y * scanlineFreq) * 0.5 + 0.5;
+    float scanlineIntensity = 0.1 * uAnalogScanlines * uAnalogIntensity;
+    color.rgb *= (1.0 - scanlinePattern * scanlineIntensity);
+  }
+
+  // Vignette
+  if (uAnalogVignette > 0.6) {
+    vec2 vignetteUV = (uv - 0.5) * 2.0;
+    float vignette = 1.0 - dot(vignetteUV, vignetteUV) * 0.3 * uAnalogVignette * uAnalogIntensity;
+    color.rgb *= vignette;
+  }
+
+  outputColor = color;
+}
 `;
 
-class AnalogDecayEffect extends Effect {
-  constructor({
-    intensity = 0.5,
-    speed = 1.0,
-    grain = 0.4,
-    scanlines = 1.0,
-    vignette = 1.0,
-    jitter = 0.5,
-  }) {
+class AnalogDecayEffectImpl extends Effect {
+  constructor() {
     super('AnalogDecayEffect', fragmentShader, {
       uniforms: new Map([
-        ['uTime', new Uniform(0)],
-        ['uIntensity', new Uniform(intensity)],
-        ['uSpeed', new Uniform(speed)],
-        ['uGrain', new Uniform(grain)],
-        ['uScanlines', new Uniform(scanlines)],
-        ['uVignette', new Uniform(vignette)],
-        ['uJitter', new Uniform(jitter)],
+        ['uTime', new Uniform(0.2)],
+        ['uAnalogGrain', new Uniform(1.4)],
+        ['uAnalogBleeding', new Uniform(3.9)],
+        ['uAnalogVSync', new Uniform(2.2)],
+        ['uAnalogScanlines', new Uniform(0.6)],
+        ['uAnalogVignette', new Uniform(4.8)],
+        ['uAnalogJitter', new Uniform(0.2)],
+        ['uAnalogIntensity', new Uniform(3.0)],
+        ['uLimboMode', new Uniform(0.0)],
       ]),
     });
   }
 
   update(
-    renderer: WebGLRenderer,
-    inputBuffer: WebGLRenderTarget,
+    renderer: THREE.WebGLRenderer,
+    inputBuffer: THREE.WebGLRenderTarget,
     deltaTime: number
   ) {
     const uTime = this.uniforms.get('uTime');
@@ -86,59 +118,7 @@ class AnalogDecayEffect extends Effect {
   }
 }
 
-export const AnalogDecay = forwardRef<
-  any,
-  {
-    intensity?: number;
-    speed?: number;
-    grain?: number;
-    scanlines?: number;
-    vignette?: number;
-    jitter?: number;
-  }
->(
-  (
-    {
-      intensity = 0.5,
-      speed = 1.0,
-      grain = 0.4,
-      scanlines = 1.0,
-      vignette = 1.0,
-      jitter = 0.5,
-    },
-    ref
-  ) => {
-    const effect = useMemo(
-      () =>
-        new AnalogDecayEffect({
-          intensity,
-          speed,
-          grain,
-          scanlines,
-          vignette,
-          jitter,
-        }),
-      [intensity, speed, grain, scanlines, vignette, jitter]
-    );
+// wrapEffect cria o componente React automaticamente
+const AnalogDecayPass = wrapEffect(AnalogDecayEffectImpl);
 
-    useMemo(() => {
-      const uIntensity = effect.uniforms.get('uIntensity');
-      const uSpeed = effect.uniforms.get('uSpeed');
-      const uGrain = effect.uniforms.get('uGrain');
-      const uScanlines = effect.uniforms.get('uScanlines');
-      const uVignette = effect.uniforms.get('uVignette');
-      const uJitter = effect.uniforms.get('uJitter');
-
-      if (uIntensity) uIntensity.value = intensity;
-      if (uSpeed) uSpeed.value = speed;
-      if (uGrain) uGrain.value = grain;
-      if (uScanlines) uScanlines.value = scanlines;
-      if (uVignette) uVignette.value = vignette;
-      if (uJitter) uJitter.value = jitter;
-    }, [intensity, speed, grain, scanlines, vignette, jitter, effect]);
-
-    return <primitive ref={ref} object={effect} dispose={null} />;
-  }
-);
-
-AnalogDecay.displayName = 'AnalogDecay';
+export default AnalogDecayPass;

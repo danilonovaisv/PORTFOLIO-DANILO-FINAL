@@ -16,19 +16,19 @@
 import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
-import { BRAND } from '@/config/brand';
-import { MOTION_TOKENS, ghostTransition } from '@/config/motion';
 
-// Video source from BRAND config
+// Video source (Supabase)
 const VIDEO_SRC =
-  BRAND.video?.manifesto ??
   'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4';
 
-// Animation config - Ghost Era (sem scale)
+// Animation config
 const ANIMATION = {
-  initial: { opacity: 0, y: 12, filter: 'blur(6px)' },
-  animate: { opacity: 1, y: 0, filter: 'blur(0px)' },
-  transition: ghostTransition(0, MOTION_TOKENS.duration.fast),
+  initial: { opacity: 0, scale: 0.95, y: 20 },
+  animate: { opacity: 1, scale: 1, y: 0 },
+  transition: {
+    duration: 0.6,
+    ease: [0.22, 1, 0.36, 1], // easeOutExpo
+  },
 } as const;
 
 export function ManifestoSection() {
@@ -74,44 +74,33 @@ export function ManifestoSection() {
       initial={prefersReducedMotion ? {} : ANIMATION.initial}
       animate={isInView && !prefersReducedMotion ? ANIMATION.animate : {}}
       transition={ANIMATION.transition}
-      className="lg:hidden w-full bg-ghost-bg relative mt-8 md:mt-0"
+      className="lg:hidden w-full bg-[#050511] aspect-video relative overflow-hidden"
     >
       {/* Video */}
-      <div className="relative group cursor-pointer" onClick={toggleSound}>
-        <video
-          ref={videoRef}
-          src={VIDEO_SRC}
-          autoPlay
-          loop
-          muted={isMuted}
-          playsInline
-          className="w-full h-auto block"
-          aria-label="Portfolio showreel video"
-        />
-
-        {/* Mobile Tap Overlay */}
-        {isMuted && (
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <span className="bg-black/40 backdrop-blur-md px-4 py-2 rounded-full text-white text-[10px] uppercase tracking-[0.3em] opacity-0 group-active:opacity-100 transition-opacity">
-              Tap for sound
-            </span>
-          </div>
-        )}
-      </div>
+      <video
+        ref={videoRef}
+        src={VIDEO_SRC}
+        autoPlay
+        loop
+        muted={isMuted}
+        playsInline
+        className="w-full h-full object-cover"
+        aria-label="Portfolio showreel video"
+      />
 
       {/* Sound Toggle Button */}
       <button
         type="button"
         onClick={toggleSound}
         className="absolute bottom-4 right-4 z-10 flex items-center justify-center 
-                 w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm text-white 
-                 transition-all duration-300 
-                 hover:bg-black/70 hover:-translate-y-0.5
-                 focus-visible:outline-none focus-visible:ring-2 
-                 focus-visible:ring-[#4fe6ff] focus-visible:ring-offset-2
-                 focus-visible:ring-offset-black/50"
+                   w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm text-white 
+                   transition-all duration-300 
+                   hover:bg-black/70 hover:scale-105
+                   focus-visible:outline-none focus-visible:ring-2 
+                   focus-visible:ring-[#4fe6ff] focus-visible:ring-offset-2
+                   focus-visible:ring-offset-black/50"
         aria-label={isMuted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'}
-        aria-pressed={!isMuted ? 'true' : 'false'}
+        aria-pressed={!isMuted ? true : undefined}
       >
         {isMuted ? (
           <VolumeX className="w-5 h-5" aria-hidden="true" />
@@ -138,7 +127,7 @@ export function ManifestoSection() {
 
       {/* Subtle gradient overlay */}
       <div
-        className="absolute inset-0 bg-linear-to-t from-ghost-bg-accent/40 via-transparent to-transparent pointer-events-none"
+        className="absolute inset-0 bg-linear-to-t from-[#06071f]/40 via-transparent to-transparent pointer-events-none"
         aria-hidden="true"
       />
     </motion.section>

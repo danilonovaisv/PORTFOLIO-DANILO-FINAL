@@ -1,31 +1,19 @@
-.stageContainer {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.placeholder {
-  width: 100%;
-  height: 100%;
-  background-color: #040013;
-}
-
 .fallbackContainer {
-  background-color: #040013;
+  background-color: #050511;
 }
 
 .fallbackBase {
   background: radial-gradient(
     ellipse 80% 60% at 50% 45%,
     #0b0d3a 0%,
-    #040013 70%
+    #050511 70%
   );
 }
 
 .fallbackGlow {
   background: radial-gradient(
     circle 35vw at 50% 48%,
-    rgba(0, 72, 255, 0.15) 0%,
+    rgba(0, 87, 255, 0.15) 0%,
     transparent 70%
   );
 }
@@ -42,7 +30,7 @@
   background: radial-gradient(
     ellipse 100% 100% at 50% 50%,
     transparent 40%,
-    rgba(4, 0, 19, 0.8) 100%
+    rgba(5, 5, 17, 0.8) 100%
   );
 }
 

@@ -62,5 +62,8 @@ declare global {
     '--gx'?: string;
     '--gy'?: string;
     '--ghost-energy'?: string;
+    '--ghost-x'?: string;
+    '--ghost-y'?: string;
+    '--ghost-radius'?: string;
   }
 }

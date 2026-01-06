@@ -1,104 +1,51 @@
-'use client';
-
-import { useState, useEffect, useRef } from 'react';
-import { useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
-import { useLenis } from '@/hooks/useLenis';
-import type { ManifestoThumbHandle } from '../ManifestoThumb';
+import { useScroll, useTransform, useSpring, MotionValue } from 'framer-motion';
+import { useRef } from 'react';
 
 export function useHeroAnimation(
-  sectionRef: React.RefObject<HTMLElement | null>,
-  manifestoRef: React.RefObject<ManifestoThumbHandle | null>,
-  isMobile: boolean,
-  prefersReducedMotion: boolean
+  containerRef: React.RefObject<HTMLElement | null>
 ) {
-  const lenis = useLenis();
-  const hasHeldRef = useRef(false);
-  const [mounted, setMounted] = useState(false);
-  const [dimensions, setDimensions] = useState({ w: 0, h: 0 });
-
-  useEffect(() => {
-    setMounted(true);
-    const updateDimensions = () => {
-      setDimensions({
-        w: window.innerWidth,
-        h: window.innerHeight,
-      });
-    };
-    updateDimensions();
-    window.addEventListener('resize', updateDimensions);
-    return () => window.removeEventListener('resize', updateDimensions);
-  }, []);
-
+  // Monitora o scroll APENAS dentro da seção Hero (que tem 250vh de altura para dar tempo do scroll acontecer)
   const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end end'],
+    target: containerRef,
+    offset: ['start start', 'end end'], // Começa no topo, termina quando a seção acaba
   });
 
-  // Animation Constants
-  const T_START = 0.0;
-  const T_END = 0.35;
-  const THUMB_WIDTH_VW = 0.28;
-  const MARGIN_PX = 40;
-
-  const startWidth = dimensions.w * THUMB_WIDTH_VW;
-  const startHeight = startWidth * (9 / 16);
-  const startTop = dimensions.h - startHeight - MARGIN_PX;
-  const startLeft = dimensions.w - startWidth - MARGIN_PX;
-
-  const width = useTransform(
-    scrollYProgress,
-    [T_START, T_END],
-    [startWidth, dimensions.w]
-  );
-  const height = useTransform(
-    scrollYProgress,
-    [T_START, T_END],
-    [startHeight, dimensions.h]
-  );
-  const top = useTransform(scrollYProgress, [T_START, T_END], [startTop, 0]);
-  const left = useTransform(scrollYProgress, [T_START, T_END], [startLeft, 0]);
-  const borderRadius = useTransform(scrollYProgress, [T_START, T_END], [16, 0]);
-  const copyOpacity = useTransform(scrollYProgress, [0.0, 0.3], [1, 0]);
-
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    if (prefersReducedMotion || isMobile) return;
-
-    const triggerPoint = T_END + 0.05;
-
-    if (latest > triggerPoint && latest < triggerPoint + 0.1) {
-      if (!hasHeldRef.current && lenis) {
-        hasHeldRef.current = true;
-        lenis.stop();
-        manifestoRef.current?.setMuted(false);
-        setTimeout(() => {
-          lenis.start();
-        }, 2000);
-      }
-    }
-
-    if (latest < 0.5) {
-      hasHeldRef.current = false;
-      manifestoRef.current?.setMuted(true);
-    }
-
-    if (latest > 0.99) {
-      manifestoRef.current?.setMuted(true);
-    }
-
-    if (latest < 0.2 && !hasHeldRef.current) {
-      manifestoRef.current?.setMuted(true);
-    }
+  // Suaviza o scroll para não ficar "duro"
+  const smoothScroll = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 20,
+    restDelta: 0.001,
   });
+
+  // Mapeamento dos valores baseados no scroll (0% -> 100%)
+
+  // 1. Largura: Começa pequena (300px) e vai para 100% da tela
+  // Nota: Usamos strings com '%' e 'px' para flexibilidade
+  const videoWidth = useTransform(smoothScroll, [0, 0.7], ['280px', '100%']);
+
+  // 2. Altura: Começa pequena (160px) e vai para 100% da altura da tela
+  const videoHeight = useTransform(smoothScroll, [0, 0.7], ['160px', '100%']);
+
+  // 3. Posição X: Começa na direita (calc(100% - 320px)) e vai para 0
+  // Assumindo container relativo, vamos posicionar via 'right' e 'bottom' ou translação.
+  // Vamos usar 'right' e 'bottom' fixos no CSS e animar width/height é mais performático se usarmos layoutId,
+  // mas aqui vamos transformar a escala e posição.
+
+  // Abordagem Otimizada: O vídeo começa "Fixed" no canto e escala.
+  const videoScale = useTransform(smoothScroll, [0, 0.6], [0.25, 1]); // Escala de 25% para 100%
+
+  // Transparência do Texto Editorial (some rápido ao scrollar)
+  const copyOpacity = useTransform(smoothScroll, [0, 0.2], [1, 0]);
+
+  // Arredondamento das bordas: Redondo -> Quadrado
+  const videoRadius = useTransform(smoothScroll, [0, 0.6], [12, 0]);
 
   return {
-    mounted,
-    dimensions,
-    width,
-    height,
-    top,
-    left,
-    borderRadius,
+    scrollYProgress,
+    videoWidth,
+    videoHeight,
+    videoScale,
     copyOpacity,
-    lenis,
+    videoRadius,
   };
 }

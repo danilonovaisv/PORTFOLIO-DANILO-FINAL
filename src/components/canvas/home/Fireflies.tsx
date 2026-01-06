@@ -5,7 +5,7 @@ import type { InstancedMesh, Object3D } from 'three';
 import { Object3D as ThreeObject3D } from 'three';
 import { useFrame } from '@react-three/fiber';
 
-const FIREFLY_COUNT = 536;
+const FIREFLY_COUNT = 46;
 
 export default function Fireflies() {
   const meshRef = useRef<InstancedMesh | null>(null);
@@ -14,10 +14,10 @@ export default function Fireflies() {
   const seeds = useMemo(
     () =>
       Array.from({ length: FIREFLY_COUNT }, () => ({
-        radius: 1.5 + Math.random() * 2.5,
-        speed: 0.3 + Math.random() * 0.8,
-        offset: Math.random() * Math.PI * 12,
-        height: -0.4 + Math.random() * 10.5,
+        radius: 1.5 + Math.random() * 1.5,
+        speed: 0.2 + Math.random() * 0.3,
+        offset: Math.random() * Math.PI * 2,
+        height: -0.4 + Math.random() * 0.5,
       })),
     []
   );
@@ -31,11 +31,11 @@ export default function Fireflies() {
 
       dummy.position.set(
         Math.cos(angle) * seed.radius,
-        seed.height + Math.sin(angle * -1.0) * -0.2,
+        seed.height + Math.sin(angle * 5.0) * 0.2,
         Math.sin(angle) * seed.radius
       );
 
-      const scale = 0.003 + 0.009 * Math.sin(angle * 15.0);
+      const scale = 0.01 + 0.01 * Math.sin(angle * 5.0);
       dummy.scale.setScalar(scale);
 
       dummy.updateMatrix();
@@ -48,7 +48,7 @@ export default function Fireflies() {
   return (
     <instancedMesh ref={meshRef} args={[undefined, undefined, FIREFLY_COUNT]}>
       <sphereGeometry args={[1, 3, 6]} />
-      <meshBasicMaterial color="#4fe6ff" transparent opacity={0.65} />
+      <meshBasicMaterial color="#8705f2" transparent opacity={0.8} />
     </instancedMesh>
   );
 }

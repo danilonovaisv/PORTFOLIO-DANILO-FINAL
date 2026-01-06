@@ -1,73 +1,235 @@
-// src/components/home/HomeHero.tsx
 'use client';
 
-import dynamic from 'next/dynamic';
+import * as React from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValueEvent,
+} from 'framer-motion';
+import { Preloader } from '@/components/ui/Preloader';
+import { HeroCopy } from './HeroCopy';
+import { GhostStage } from './GhostStage';
+import { ManifestoThumb, type ManifestoThumbHandle } from './ManifestoThumb';
 
-import HeroCopy from './hero/HeroCopy';
+const CONFIG = {
+  preloadMs: 2000,
+  videoSrc:
+    'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
+  bgColor: '#050511',
 
-// Dynamic import for the GhostHero component
-const GhostHero = dynamic(() => import('./GhostHero'), {
-  ssr: false,
-  loading: () => <div className="w-full h-screen bg-black" />,
-});
+  // Thumb entrance animation (Ghost-style: slow, ethereal, floaty)
+  entrance: {
+    initial: {
+      opacity: 0,
+      scale: 0.92,
+      y: 60,
+    },
+    animate: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+    },
+    transition: {
+      duration: 1.2,
+      ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number],
+      delay: 0.5, // Wait for preloader fade
+    },
+  },
 
-// Video URL from ManifestoSection reference (Supabase)
-const MANIFESTO_VIDEO_URL =
-  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4';
+  // Hover effect on thumbnail
+  hover: {
+    scale: 1.05,
+    transition: {
+      duration: 0.5,
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+    },
+  },
+} as const;
+
+function usePrefersReducedMotion() {
+  const [pref, setPref] = useState(false);
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.matchMedia) {
+      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const apply = () => setPref(!!mq.matches);
+      apply();
+      try {
+        mq.addEventListener('change', apply);
+        return () => mq.removeEventListener('change', apply);
+      } catch {
+        mq.addListener?.(apply);
+        return () => mq.removeListener?.(apply);
+      }
+    }
+  }, []);
+  return pref;
+}
 
 export default function HomeHero() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const manifestoRef = useRef<ManifestoThumbHandle | null>(null);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [isFullscreenHold, setIsFullscreenHold] = useState(false);
+  const [hasReachedEnd, setHasReachedEnd] = useState(false);
+
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  // Scroll progress para morph do vídeo (Desktop Only)
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end end'],
+  });
+
+  // Morph values
+  const morphProgress = useTransform(scrollYProgress, [0, 0.8], [0, 1]);
+  const videoScale = useTransform(morphProgress, [0, 1], [1, 3.6]);
+  const videoX = useTransform(morphProgress, [0, 1], [0, 0]); // Keep origin fixed for now
+  const borderRadius = useTransform(morphProgress, [0, 0.9], [16, 0]);
+  const copyOpacity = useTransform(scrollYProgress, [0.4, 0.8], [1, 0]);
+
+  // Handle intersection/hold logic
+  useMotionValueEvent(scrollYProgress, 'change', (latest: number) => {
+    if (prefersReducedMotion) return;
+
+    // Trigger hold at the end
+    if (latest >= 0.98 && !isFullscreenHold && !hasReachedEnd) {
+      setIsFullscreenHold(true);
+    }
+
+    // Mute if scrolling back
+    if (latest < 0.85) {
+      manifestoRef.current?.setMuted(true);
+      setHasReachedEnd(false);
+    }
+
+    // Auto-mute boundaries
+    if (latest < 0.05 || latest > 1.1) {
+      manifestoRef.current?.setMuted(true);
+    }
+  });
+
+  useEffect(() => {
+    if (isFullscreenHold) {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+
+      // Activate sound on hold
+      manifestoRef.current?.setMuted(false);
+
+      const timer = setTimeout(() => {
+        document.body.style.overflow = prevOverflow;
+        setIsFullscreenHold(false);
+        setHasReachedEnd(true);
+        // Release scroll and mute
+        manifestoRef.current?.setMuted(true);
+      }, 2000);
+
+      return () => {
+        document.body.style.overflow = prevOverflow;
+        clearTimeout(timer);
+      };
+    }
+  }, [isFullscreenHold]);
+
+  const handlePreloaderDone = useCallback(() => setIsLoading(false), []);
+
+  const handleThumbClick = useCallback(() => {
+    // Jump straight to hold state
+    const sectionTop = sectionRef.current?.offsetTop || 0;
+    const sectionHeight = sectionRef.current?.offsetHeight || 0;
+    window.scrollTo({
+      top: sectionTop + sectionHeight,
+      behavior: 'auto',
+    });
+    setIsFullscreenHold(true);
+  }, []);
+
   return (
     <section
-      className="relative w-full h-screen overflow-hidden bg-[linear-gradient(180deg,#040013_0%,#0b0d3a_100%)]"
-      data-section="home"
+      id="hero"
+      ref={sectionRef}
+      className="relative h-[250vh] bg-[#050511] overflow-hidden"
+      aria-label="Home hero section"
     >
-      {/* Base gradient overlays */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_20%_50%,rgba(0,87,255,0.18),transparent_30%),radial-gradient(circle_at_60%_60%,rgba(34,61,140,0.22),transparent_36%)]" />
-
-      <GhostHero />
-
-      {/* Editorial Text (z-10) */}
-      <div className="absolute inset-0 z-10 flex items-center justify-center">
-        <HeroCopy />
-      </div>
-
-      {/* Video Thumbnail (z-30) */}
-      <div className="hidden lg:flex absolute bottom-12 right-12 z-30 aspect-video w-[26vw] max-w-[420px] overflow-hidden shadow-[0_0_50px_rgba(14,68,255,0.35)] border border-white/10 bg-black/35 backdrop-blur pointer-events-auto">
-        <div className="absolute -top-6 right-4 text-white opacity-80">
-          <svg
-            width="46"
-            height="46"
-            viewBox="0 0 46 46"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7 31c6-1 15-6 19-12m0 0C29 13 34 8 39 7m-13 12L38 20"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+      {/* Sticky Context */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        {/* Preloader Ghost */}
+        <AnimatePresence>
+          {isLoading && (
+            <Preloader
+              durationMs={CONFIG.preloadMs}
+              onComplete={handlePreloaderDone}
+              label="Summoning spirits"
             />
-            <path
-              d="M32.5 9.5L38.5 7l-2.5 6"
-              stroke="white"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          )}
+        </AnimatePresence>
+
+        {/* WebGL Atmosphere */}
+        <div className="absolute inset-0 z-20">
+          <GhostStage reducedMotion={prefersReducedMotion} />
         </div>
 
-        <video
-          src={MANIFESTO_VIDEO_URL}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-linear-to-tr from-black/40 via-black/10 to-transparent" />
+        {/* Hero Copy (Editorial) */}
+        <motion.div
+          style={{ opacity: copyOpacity }}
+          className="absolute inset-0 z-10 flex items-center justify-center px-6 pointer-events-none"
+        >
+          <div className="pointer-events-auto">
+            <HeroCopy />
+          </div>
+        </motion.div>
+
+        {/* Manifesto Interaction (Desktop) */}
+        {!prefersReducedMotion && (
+          <motion.div
+            className="fixed bottom-8 right-8 md:right-12 z-30 pointer-events-auto hidden md:block"
+            style={{
+              scale: videoScale,
+              x: videoX,
+              borderRadius,
+              width: '30vw',
+              minWidth: '400px',
+              aspectRatio: '16/9',
+              originX: 1,
+              originY: 1,
+              overflow: 'hidden',
+              boxShadow: isFullscreenHold
+                ? 'none'
+                : '0 20px 50px rgba(0,0,0,0.5)',
+            }}
+            initial={CONFIG.entrance.initial}
+            animate={CONFIG.entrance.animate}
+            transition={CONFIG.entrance.transition}
+          >
+            <ManifestoThumb ref={manifestoRef} onClick={handleThumbClick} />
+          </motion.div>
+        )}
+
+        {/* Scroll Helper */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isLoading ? 0 : 0.6 }}
+          className="absolute bottom-10 left-10 z-40 hidden md:flex flex-col items-start gap-4"
+        >
+          <div className="flex flex-col gap-2">
+            <span className="text-[10px] uppercase tracking-[0.4em] text-cyan-400 font-mono">
+              Scroll to step inside
+            </span>
+            <motion.div
+              animate={{ scaleX: [0, 1, 0] }}
+              transition={{ duration: 3, repeat: Infinity }}
+              className="h-px w-24 bg-linear-to-r from-cyan-400 to-transparent origin-left"
+            />
+          </div>
+        </motion.div>
       </div>
+
+      {/* Scroll Space */}
+      <div className="h-screen w-full pointer-events-none" />
     </section>
   );
 }

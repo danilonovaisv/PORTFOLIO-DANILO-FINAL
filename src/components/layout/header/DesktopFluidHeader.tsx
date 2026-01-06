@@ -99,7 +99,7 @@ export default function DesktopFluidHeader({
                   const isActive = activeHref === hash;
 
                   const common =
-                    'transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-md';
+                    'transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-md text-xs uppercase tracking-[0.2em]';
                   const baseText = isLight ? 'text-[#0048ff]' : 'text-white/70';
                   const hoverText = isLight
                     ? 'hover:text-[#0048ff]'
@@ -108,11 +108,11 @@ export default function DesktopFluidHeader({
                     ? 'text-[#0048ff]'
                     : 'text-primary';
                   const textColor = isActive
-                    ? `${activeText} font-medium`
+                    ? `${activeText} font-semibold`
                     : `${baseText} ${hoverText} font-medium`;
                   const underline = isActive
-                    ? 'after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[2px] after:bg-primary'
-                    : 'after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[2px] after:bg-primary group-hover:after:w-full after:transition-all after:duration-300';
+                    ? 'after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[1px] after:bg-current'
+                    : 'after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-current group-hover:after:w-full after:transition-all after:duration-300';
 
                   if (isExternalHref(item.href) || item.external) {
                     return (

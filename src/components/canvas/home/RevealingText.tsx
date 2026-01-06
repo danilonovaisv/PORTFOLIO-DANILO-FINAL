@@ -1,159 +1,185 @@
 'use client';
 
-import { useRef, useMemo, useCallback } from 'react';
-import { Text, shaderMaterial } from '@react-three/drei';
-import { useFrame, extend, useThree } from '@react-three/fiber';
+import { Text } from '@react-three/drei';
+import { useFrame, useThree } from '@react-three/fiber';
+import React, { useRef, useMemo } from 'react';
 import * as THREE from 'three';
 
-// Shader de Revelação Corrigido - agora com distância 3D e suavização melhorada
-const RevealMaterial = shaderMaterial(
-  {
-    uGhostPos: new THREE.Vector3(0, 0, 0),
-    uRevealRadius: 4.0,
-    uBaseColor: new THREE.Color('#ffffff'),
-    uRevealColor: new THREE.Color('#00ffff'), // Azul ciano
-    uOpacity: 1.0,
-  },
-  `
-    varying vec3 vWorldPosition;
-    void main() {
-      vWorldPosition = (modelMatrix * vec4(position, 1.0)).xyz;
-      gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(position, 1.0);
-    }
-  `,
-  `
-    uniform vec3 uGhostPos;
-    uniform float uRevealRadius;
-    uniform vec3 uBaseColor;
-    uniform vec3 uRevealColor;
-    uniform float uOpacity;
-    varying vec3 vWorldPosition;
+// ============================================================================
+// Shader da "Darkness Layer" (Cortina de Escuridão)
+// CONCEITO: Renderizamos um Plane opaco na cor do fundo. Onde o Ghost
+// estiver, o Alpha cai para 0 (transparente), revelando o texto.
+// ============================================================================
 
-    void main() {
-      float dist = distance(vWorldPosition, uGhostPos);
-      float alpha = 1.0 - smoothstep(uRevealRadius * 0.3, uRevealRadius, dist);
-      alpha = max(alpha, 0.0);
+const MASK_VERTEX_SHADER = `
+  varying vec2 vUv;
+  varying vec3 vWorldPosition;
+  
+  void main() {
+    vUv = uv;
+    vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+    vWorldPosition = worldPosition.xyz;
+    gl_Position = projectionMatrix * viewMatrix * worldPosition;
+  }
+`;
 
-      // Mistura suave entre base e revelação
-      vec3 finalColor = mix(uBaseColor, uRevealColor, alpha);
-      gl_FragColor = vec4(finalColor, alpha * uOpacity);
-    }
-  `
-);
+const MASK_FRAGMENT_SHADER = `
+  uniform vec3 uGhostPosition;
+  uniform float uRevealRadius;
+  uniform vec3 uBackgroundColor;
+  uniform float uTime;
+  
+  varying vec2 vUv;
+  varying vec3 vWorldPosition;
+  
+  void main() {
+    // Distância 2D entre o pixel atual e a posição do Ghost
+    float dist = distance(vWorldPosition.xy, uGhostPosition.xy);
+    
+    // Pulso sutil no raio de revelação
+    float dynamicRadius = uRevealRadius + sin(uTime * 2.0) * 0.2;
+    
+    // smoothstep: 
+    //   - Se dist < dynamicRadius * 0.3 → alpha = 0.0 (buraco, transparente)
+    //   - Se dist > dynamicRadius → alpha = 1.0 (opaco, cor do fundo)
+    //   - Entre os dois: gradiente suave
+    float alpha = smoothstep(dynamicRadius * 0.25, dynamicRadius, dist);
+    
+    // Adiciona leve fade nas bordas para suavizar
+    alpha = pow(alpha, 0.9);
+    
+    // Pintar com a cor do fundo e aplicar a transparência
+    gl_FragColor = vec4(uBackgroundColor, alpha);
+  }
+`;
 
-extend({ RevealMaterial });
+// ============================================================================
+// CONFIGURAÇÕES
+// ============================================================================
+const BACKGROUND_COLOR = '#050511'; // DEVE SER IDÊNTICO AO CANVAS BACKGROUND
 
-type RevealMaterialType = THREE.ShaderMaterial & {
-  uGhostPos: THREE.Vector3;
-  uRevealRadius: number;
-  uBaseColor: THREE.Color;
-  uRevealColor: THREE.Color;
-  uOpacity: number;
-};
+// Fonte TTF local disponível no projeto
+const FONT_ROBOTO_BLACK = '/fonts/RobotoBlack.ttf';
+const FONT_ROBOTO_VARIABLE = '/fonts/Roboto-VariableFont_wdth,wght.ttf';
 
-export default function RevealingText({
-  ghostRef,
-  onReady,
-}: {
+interface RevealingTextProps {
   ghostRef: React.RefObject<THREE.Group | null>;
-  onReady?: () => void;
-}) {
-  const titleMat = useRef<RevealMaterialType>(null);
-  const subMat = useRef<RevealMaterialType>(null);
-  const titleReady = useRef(false);
-  const subReady = useRef(false);
-  const readyNotified = useRef(false);
-  const { viewport } = useThree();
+}
 
-  const isMobile = viewport.width < 5.5;
+export default function RevealingText({ ghostRef }: RevealingTextProps) {
+  const maskMaterialRef = useRef<THREE.ShaderMaterial>(null);
+  const { viewport, size } = useThree();
+  const isMobile = size.width < 768;
 
-  const config = useMemo(
-    () => ({
-      titleSize: isMobile ? 0.55 : 1.2,
-      subSize: isMobile ? 0.35 : 0.85,
-      titleY: isMobile ? 0.35 : 0.5,
-      subY: isMobile ? -0.35 : -0.4,
-      radius: isMobile ? 3.5 : 6.0,
-      letterSpacing: -0.05,
-    }),
-    [isMobile]
-  );
+  // Criar o material da máscara uma vez
+  const darknessMaterial = useMemo(() => {
+    return new THREE.ShaderMaterial({
+      uniforms: {
+        uGhostPosition: { value: new THREE.Vector3(0, 0, 0) },
+        uRevealRadius: { value: isMobile ? 2.0 : 3.2 },
+        uBackgroundColor: { value: new THREE.Color(BACKGROUND_COLOR) },
+        uTime: { value: 0 },
+      },
+      vertexShader: MASK_VERTEX_SHADER,
+      fragmentShader: MASK_FRAGMENT_SHADER,
+      transparent: true,
+      depthWrite: false, // CRÍTICO: não bloqueia depth
+      depthTest: true,
+      side: THREE.DoubleSide,
+    });
+  }, [isMobile]);
 
-  useFrame(() => {
-    if (ghostRef.current) {
-      const ghostPos = ghostRef.current.position;
-      if (titleMat.current) titleMat.current.uGhostPos.copy(ghostPos);
-      if (subMat.current) subMat.current.uGhostPos.copy(ghostPos);
+  useFrame((state) => {
+    // Atualizar posição do Ghost no shader
+    if (ghostRef.current && maskMaterialRef.current) {
+      maskMaterialRef.current.uniforms.uGhostPosition.value.lerp(
+        ghostRef.current.position,
+        0.12
+      );
+      maskMaterialRef.current.uniforms.uTime.value = state.clock.elapsedTime;
     }
   });
 
-  const notifyReady = useCallback(() => {
-    if (readyNotified.current || !titleReady.current || !subReady.current)
-      return;
-    readyNotified.current = true;
-    onReady?.();
-  }, [onReady]);
-
-  const handleTitleSync = useCallback(() => {
-    titleReady.current = true;
-    notifyReady();
-  }, [notifyReady]);
-
-  const handleSubSync = useCallback(() => {
-    subReady.current = true;
-    notifyReady();
-  }, [notifyReady]);
-
-  // 🔧 CORRIGIDO: URL sem espaço no final
-  const fontUrl =
-    'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/fonts/TTNormsPro/TTNormsPro-Bold.otf';
+  // ============================================================================
+  // HIERARQUIA DE Z:
+  //   - Texto: Z = -0.5 (mais distante da câmera)
+  //   - Máscara: Z = -0.1 (na frente do texto, mas atrás do Ghost)
+  //   - Ghost: Z ~ 0 (mais próximo da câmera)
+  // ============================================================================
 
   return (
-    <group position={[0, 0, -1.5]}>
-      {/* Título: "VOCÊ NÃO VÊ O DESIGN." */}
-      <Text
-        font={fontUrl}
-        fontSize={config.titleSize}
-        lineHeight={0.5}
-        letterSpacing={config.letterSpacing}
-        textAlign="center"
-        position={[0, config.titleY, 0]}
-        maxWidth={viewport.width * 0.5}
-        anchorY="bottom"
-        onSync={handleTitleSync}
-      >
-        VOCÊ NÃO VÊ{'\n'}O DESIGN.
-        <revealMaterial
-          ref={titleMat}
-          transparent
-          uBaseColor={new THREE.Color('#ffffff')}
-          uRevealColor={new THREE.Color('#00ffff')} // Azul ciano
-          uRevealRadius={config.radius}
-          uOpacity={0.8} // Mais suave, como na imagem
-        />
-      </Text>
+    <group>
+      {/* ====================================================================
+          1. GRUPO DO TEXTO (Z = -0.5)
+          O texto é branco simples, usando fonte TTF local.
+          ==================================================================== */}
+      <group position={[0, 0, -0.5]}>
+        {/* TAG - [ BRAND AWARENESS ] */}
+        <Text
+          fontSize={isMobile ? 0.08 : 0.09}
+          position={[0, isMobile ? 1.1 : 1.35, 0]}
+          letterSpacing={0.25}
+          textAlign="center"
+          anchorX="center"
+          anchorY="middle"
+          color="#ffffff"
+          font={FONT_ROBOTO_VARIABLE}
+        >
+          [ BRAND AWARENESS ]
+        </Text>
 
-      {/* Subtítulo: "MAS ELE VÊ VOCÊ." */}
-      <Text
-        font={fontUrl}
-        fontSize={config.subSize}
-        letterSpacing={config.letterSpacing}
-        textAlign="center"
-        position={[0, config.subY, 0]}
-        maxWidth={viewport.width * 0.9}
-        anchorY="top"
-        onSync={handleSubSync}
-      >
-        MAS ELE VÊ VOCÊ.
-        <revealMaterial
-          ref={subMat}
-          transparent
-          uBaseColor={new THREE.Color('#cccccc')}
-          uRevealColor={new THREE.Color('#00ffff')} // Azul ciano
-          uRevealRadius={config.radius}
-          uOpacity={0.6} // Mais translúcido
+        {/* H1 - TÍTULO PRINCIPAL (Bold - usando Roboto Black) */}
+        <Text
+          fontSize={isMobile ? 0.38 : 0.62}
+          lineHeight={1}
+          textAlign="center"
+          anchorX="center"
+          anchorY="bottom"
+          position={[0, 0.1, 0]}
+          color="#ffffff"
+          font={FONT_ROBOTO_BLACK}
+        >
+          você não vê
+        </Text>
+        <Text
+          fontSize={isMobile ? 0.38 : 0.62}
+          lineHeight={1}
+          textAlign="center"
+          anchorX="center"
+          anchorY="top"
+          position={[0, -0.05, 0]}
+          color="#ffffff"
+          font={FONT_ROBOTO_BLACK}
+        >
+          o design.
+        </Text>
+
+        {/* H2 - SUBTÍTULO (Regular) */}
+        <Text
+          fontSize={isMobile ? 0.22 : 0.32}
+          position={[0, isMobile ? -0.85 : -1.0, 0]}
+          textAlign="center"
+          anchorX="center"
+          anchorY="middle"
+          color="#cccccc"
+          font={FONT_ROBOTO_VARIABLE}
+        >
+          mas ele vê você.
+        </Text>
+      </group>
+
+      {/* ====================================================================
+          2. MÁSCARA DE ESCURIDÃO (Z = -0.1)
+          Um Plane que cobre tudo com a cor do fundo, exceto onde o Ghost está.
+          ==================================================================== */}
+      <mesh position={[0, 0, -0.1]} renderOrder={10}>
+        <planeGeometry args={[viewport.width * 2.5, viewport.height * 2.5]} />
+        <primitive
+          object={darknessMaterial}
+          ref={maskMaterialRef}
+          attach="material"
         />
-      </Text>
+      </mesh>
     </group>
   );
 }

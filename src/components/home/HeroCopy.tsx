@@ -1,89 +1,74 @@
-'use client';
-
-import { useRef } from 'react';
-import { motion } from 'framer-motion';
-import * as THREE from 'three';
 import { CTAButton } from '@/components/ui/CTAButton';
-import { useGhostReveal } from '@/hooks/useGhostReveal';
-import { BRAND } from '@/config/brand';
+import styles from './HeroCopy.module.css';
 
-interface HeroCopyProps {
-  startEntrance?: boolean;
-  enable3D?: boolean;
-  ghostRef?: React.RefObject<THREE.Group | null>;
-}
+type CopyVariant = 'base' | 'highlight';
 
-export function HeroCopy({
-  startEntrance = false,
-  enable3D = true,
-  ghostRef,
-}: HeroCopyProps) {
-  const revealRef = useRef<HTMLDivElement>(null);
-
-  // Hook para sincronizar o efeito de revelação com a posição do ghost 3D
-  useGhostReveal(ghostRef, revealRef, enable3D);
+function CopyContent({
+  variant,
+  showCta,
+}: {
+  variant: CopyVariant;
+  showCta: boolean;
+}) {
+  const isBase = variant === 'base';
 
   return (
-    <div className="absolute inset-0 z-10 py-[12vh] md:py-[10vh] pointer-events-none">
-      <div
-        className={
-          BRAND.layout.container +
-          ' h-full flex flex-col items-center justify-between'
-        }
+    <div className="flex flex-col items-center text-center space-y-12">
+      {/* Tag */}
+      <span
+        className={`font-mono text-[12px] uppercase tracking-[0.4em] ${
+          isBase ? styles.tag : 'text-white'
+        }`}
       >
-        {/* TOPO: TAG [BRAND AWARENESS] */}
-        <motion.span
-          initial={{ opacity: 0, y: -20 }}
-          animate={
-            startEntrance ? { opacity: 0.8, y: 0 } : { opacity: 0, y: -20 }
-          }
-          transition={{ delay: 3.0, duration: 1.0, ease: 'easeOut' }}
-          className="font-sans text-[12px] uppercase tracking-[0.2em] text-cyan-400 font-normal"
+        [BRAND AWARENESS]
+      </span>
+
+      {/* Main Headlines */}
+      <div className="flex flex-col items-center leading-none">
+        <h1
+          className={`text-[clamp(5rem,12vw,8rem)] font-black tracking-tight ${
+            isBase ? styles.baseText : styles.maskText
+          }`}
         >
-          [BRAND AWARENESS]
-        </motion.span>
+          Você não vê <br /> o design.
+        </h1>
+        <h2
+          className={`text-[clamp(4rem,10vw,6rem)] font-black tracking-tight mt-4 ${
+            isBase ? styles.subText : styles.maskText
+          }`}
+        >
+          Mas ele vê você.
+        </h2>
+      </div>
 
-        {/* MEIO: TEXTO + BOTÃO */}
-        <div className="flex flex-col items-center justify-center flex-1 w-full relative">
-          {/* Container do texto com efeito de revelação */}
-          <div className="relative flex flex-col items-center justify-center text-center z-20">
-            {/* Overlay de revelação */}
-            {enable3D && (
-              <div
-                ref={revealRef}
-                className="ghost-reveal-overlay"
-                aria-hidden="true"
-              />
-            )}
-
-            {/* H1: Texto principal com gradiente de revelação */}
-            <h1 className="text-display-hero text-neutral-800 mix-blend-screen mb-6 relative hero-text text-center wrap-break-word hyphens-auto font-black tracking-tighter">
-              Você não vê <br className="hidden md:block" /> o design.
-            </h1>
-
-            {/* H2: Subtítulo */}
-            <h2 className="text-display-sub text-neutral-800 mix-blend-screen relative hero-text mb-8 md:mb-0 text-center wrap-break-word hyphens-auto font-black tracking-tighter">
-              Mas ele vê você.
-            </h2>
-          </div>
-
-          {/* Espaçador para o botão quando o texto é 3D (Desktop only) */}
-          {enable3D && <div className="hidden md:block h-[15vh] w-full" />}
-
-          {/* CTA Button Principal - Único */}
-          <motion.div
-            className="pointer-events-auto mt-8 md:mt-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={
-              startEntrance ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
-            }
-            transition={{ delay: 4.2, duration: 0.8 }}
-          >
-            <CTAButton href="/sobre" variant="primary">
-              step inside &rarr;
-            </CTAButton>
-          </motion.div>
+      {/* CTA Button */}
+      {showCta ? (
+        <div className="pt-8">
+          <CTAButton href="/sobre" variant="primary">
+            step inside
+          </CTAButton>
         </div>
+      ) : (
+        <div className={styles.ctaSpacer} aria-hidden />
+      )}
+    </div>
+  );
+}
+
+export function HeroCopy() {
+  const maskStyle = {
+    clipPath:
+      'circle(var(--ghost-radius, 240px) at var(--ghost-x, 50vw) var(--ghost-y, 50vh))',
+    WebkitClipPath:
+      'circle(var(--ghost-radius, 240px) at var(--ghost-x, 50vw) var(--ghost-y, 50vh))',
+  } as const;
+
+  return (
+    <div className={styles.root}>
+      <CopyContent variant="base" showCta />
+
+      <div className={styles.maskLayer} style={maskStyle} aria-hidden>
+        <CopyContent variant="highlight" showCta={false} />
       </div>
     </div>
   );

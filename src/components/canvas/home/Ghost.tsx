@@ -1,178 +1,198 @@
 'use client';
 
-import React, { useRef, useMemo, forwardRef, useImperativeHandle } from 'react';
+import React, { useRef, useMemo, useImperativeHandle, forwardRef } from 'react';
 import * as THREE from 'three';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
+import { Group, Mesh, MeshStandardMaterial, Vector3 } from 'three';
 
-// 1. Definição das Props que o componente aceita (vindas do GhostCanvas/Leva)
-export type GhostProps = {
-  children?: React.ReactNode; // Para os olhos
-  color?: string; // Cor base do corpo
-  emissive?: string; // Cor do brilho
-  emissiveIntensity?: number; // Força do brilho (afeta o Bloom)
-  followSpeed?: number; // Velocidade de perseguição ao mouse
-  wobbleSpeed?: number; // Velocidade da ondulação da "saia"
-  wobbleAmount?: number; // Intensidade da ondulação
-  breathSpeed?: number; // Velocidade da respiração/pulsação (pulseSpeed)
-  ghostOpacity?: number;
-  ghostScale?: number;
-  pulseIntensity?: number;
+// ============================================================================
+// CONFIGURAÇÃO DO GHOST
+// ============================================================================
+const GHOST_CONFIG = {
+  bodyColor: '#e0f7fa',
+  glowColor: '#00ffff',
+  eyeColor: '#ffffff',
+  emissiveIntensity: 3.5,
+  floatSpeed: 1.8,
+  followSpeed: 0.08,
 };
 
-const Ghost = forwardRef<THREE.Group, GhostProps>(
-  (
-    {
-      children,
-      // Valores padrão (caso não sejam passados pelo pai)
-      color = '#e9f0ff',
-      emissive = '#0057ff',
-      emissiveIntensity = 12,
-      followSpeed = 2.5,
-      wobbleSpeed = 2.0,
-      wobbleAmount = 0.2,
-      breathSpeed = 1.5,
-      ghostOpacity = 0.9,
-      ghostScale = 1.0,
-      pulseIntensity = 0.5,
-    },
-    ref
-  ) => {
-    const groupRef = useRef<THREE.Group>(null);
-    const bodyMeshRef = useRef<THREE.Mesh>(null);
-    const materialRef = useRef<THREE.MeshStandardMaterial>(null);
+// ============================================================================
+// Ghost Component (forwardRef para expor posição ao RevealingText)
+// ============================================================================
+const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
+  (props, ref) => {
+    const group = useRef<Group>(null);
+    const bodyMesh = useRef<Mesh>(null);
+    const bodyMaterial = useRef<MeshStandardMaterial>(null);
+    const leftEyeMat = useRef<THREE.MeshBasicMaterial>(null);
+    const rightEyeMat = useRef<THREE.MeshBasicMaterial>(null);
 
-    // Permite que o componente pai acesse o grupo do fantasma
-    useImperativeHandle(ref, () => groupRef.current!);
+    // Expor o group.current via ref
+    useImperativeHandle(ref, () => group.current as Group);
 
-    // 2. Geometria Procedural (Memoizada para performance)
-    // Cria a forma de "lençol" deformando a metade inferior de uma esfera
-    const geometry = useMemo(() => {
-      const geo = new THREE.SphereGeometry(1, 64, 64); // Alta contagem de polígonos para suavidade
-      const posAttribute = geo.getAttribute('position');
-      const vertex = new THREE.Vector3();
+    const { viewport, size } = useThree();
+    const prevPosition = useRef(new Vector3(0, 0, 0));
+    const targetPosition = useRef(new Vector3(0, 0, 0));
 
-      for (let i = 1; i < posAttribute.count; i++) {
-        vertex.fromBufferAttribute(posAttribute, i);
+    // Geometria do Ghost (modificada para ficar orgânica na base)
+    const ghostGeometry = useMemo(() => {
+      const geometry = new THREE.SphereGeometry(2, 64, 64);
+      const positionAttribute = geometry.getAttribute('position');
+      const positions = positionAttribute.array;
 
-        // Aplica deformação apenas na parte de baixo (a "saia")
-        if (vertex.y < -0.3) {
-          // Combinação de ondas senoidais para um look orgânico
-          const wave1 = Math.sin(vertex.x * 9) * 0.35;
-          const wave2 = Math.cos(vertex.z * 9) * 0.25;
-          const wave3 = Math.sin((vertex.x + vertex.z) * 3) * 0.15;
-
-          // Aplica a onda na altura (Y)
-          vertex.y += (wave1 + wave2 + wave3) * 0.5;
-
-          posAttribute.setXYZ(i, vertex.x, vertex.y, vertex.z);
+      for (let i = 0; i < positions.length; i += 3) {
+        const x = positions[i];
+        const y = positions[i + 1];
+        const z = positions[i + 2];
+        if (y < -0.2) {
+          const noise1 = Math.sin(x * 5) * 0.35;
+          const noise2 = Math.cos(z * 4) * 0.25;
+          const noise3 = Math.sin((x + z) * 3) * 0.15;
+          const combinedNoise = noise1 + noise2 + noise3;
+          positions[i + 1] = -2.0 + combinedNoise;
         }
       }
-      // Crucial: Recalcular normais para a iluminação funcionar nas novas curvas
-      geo.computeVertexNormals();
-      return geo;
+      geometry.computeVertexNormals();
+      return geometry;
     }, []);
 
-    // 3. Loop de Animação Principal
-    useFrame((state, delta) => {
-      if (!groupRef.current || !bodyMeshRef.current || !materialRef.current)
-        return;
+    useFrame((state) => {
+      if (!group.current || !bodyMesh.current) return;
 
-      const time = state.clock.getElapsedTime();
+      const t = state.clock.getElapsedTime();
+      const pointer = state.pointer;
+      const isMobile = size.width < 768;
 
-      // --- A. Input do Mouse & Posição Alvo ---
-      // state.pointer dá coordenadas normalizadas (-1 a 1)
-      const mouseX = state.pointer.x;
-      const mouseY = state.pointer.y;
+      let xTarget: number;
+      let yTarget: number;
 
-      // Define o alvo com um offset para posicionar o fantasma mais à esquerda na tela
-      const targetX = mouseX * 5 - 1.5;
-      const targetY = mouseY * 3;
+      if (isMobile) {
+        // ============================================================
+        // MOVIMENTO MOBILE AUTOMÁTICO
+        // O Ghost faz um movimento que passa por toda a área do texto
+        // para garantir que o usuário veja a revelação.
+        // ============================================================
+        const amplitude = viewport.width * 0.4; // 40% da largura do viewport
+        const verticalAmplitude = 1.0; // Amplitude vertical maior
 
-      // --- B. Movimento Suave (Lerp com Delta Time) ---
-      // Fator de suavização independente da taxa de quadros (FPS)
-      // Ajuste o '0.05' se quiser mais ou menos inércia
-      const smoothFactor = 1 - Math.pow(0.05, delta);
-      const currentFollowSpeed = smoothFactor * followSpeed;
+        // Movimento em "8" deitado para cobrir mais área
+        xTarget = Math.sin(t * 0.5) * amplitude;
+        yTarget = Math.sin(t * 0.8) * verticalAmplitude;
+      } else {
+        // Desktop: segue o mouse
+        xTarget = pointer.x * (viewport.width / 3.5);
+        yTarget = pointer.y * (viewport.height / 3.5);
+      }
 
-      groupRef.current.position.x = THREE.MathUtils.lerp(
-        groupRef.current.position.x,
-        targetX,
-        currentFollowSpeed
-      );
-      groupRef.current.position.y = THREE.MathUtils.lerp(
-        groupRef.current.position.y,
-        targetY,
-        currentFollowSpeed
-      );
-
-      // Adiciona uma flutuação vertical constante (hover)
-      const hoverY = Math.sin(time * 1.5) * 0.1 + Math.cos(time * 0.8) * 0.05;
-      groupRef.current.position.y += hoverY * 0.1;
-
-      // --- C. Física de Inclinação (Tilt) ---
-      // Calcula a diferença entre onde ele está e onde quer ir
-      const diffX = targetX - groupRef.current.position.x;
-      const diffY = targetY - groupRef.current.position.y;
-      const tiltStrength = 0.5;
-
-      // Inclina o corpo na direção do movimento usando amortecimento (damp)
-      bodyMeshRef.current.rotation.z = THREE.MathUtils.damp(
-        bodyMeshRef.current.rotation.z,
-        -diffX * tiltStrength,
-        4,
-        delta
-      );
-      bodyMeshRef.current.rotation.x = THREE.MathUtils.damp(
-        bodyMeshRef.current.rotation.x,
-        diffY * tiltStrength,
-        4,
-        delta
+      targetPosition.current.set(xTarget, yTarget, 0);
+      group.current.position.lerp(
+        targetPosition.current,
+        GHOST_CONFIG.followSpeed
       );
 
-      // --- D. Animações Dinâmicas (Wobble & Respiração) ---
-      // Usa as props dinâmicas para controlar a velocidade e intensidade
-      bodyMeshRef.current.rotation.y =
-        Math.sin(time * wobbleSpeed) * wobbleAmount;
+      // Detecção de movimento para efeito dos olhos
+      const currentDist = group.current.position.distanceTo(
+        prevPosition.current
+      );
+      prevPosition.current.copy(group.current.position);
+      const isMoving = currentDist > (isMobile ? 0.0 : 0.005);
+      const targetEyeOpacity = isMoving ? 1 : 0.3;
 
-      const breath = Math.sin(time * breathSpeed);
+      if (leftEyeMat.current && rightEyeMat.current) {
+        leftEyeMat.current.opacity +=
+          (targetEyeOpacity - leftEyeMat.current.opacity) * 0.1;
+        rightEyeMat.current.opacity = leftEyeMat.current.opacity;
+      }
 
-      // Pulsação de escala (respiração física)
-      const scalePulse = 1 + breath * 0.02;
-      bodyMeshRef.current.scale.set(scalePulse, scalePulse, scalePulse);
+      // Pulsação do corpo
+      if (bodyMaterial.current) {
+        const pulse = Math.sin(t * 2.5) * 0.3;
+        bodyMaterial.current.emissiveIntensity =
+          GHOST_CONFIG.emissiveIntensity + pulse;
+      }
 
-      // --- E. Atualização do Material em Tempo Real ---
-      // Atualiza cores baseadas nas props do Leva
-      materialRef.current.color.set(color);
-      materialRef.current.emissive.set(emissive);
+      // Flutuação vertical
+      const floatY = Math.sin(t * GHOST_CONFIG.floatSpeed) * 0.2;
+      bodyMesh.current.position.y = floatY;
 
-      // Pulsação de luz (respiração energética)
-      // Usa a 'emissiveIntensity' base e adiciona uma oscilação forte para o Bloom
-      materialRef.current.emissiveIntensity =
-        emissiveIntensity + (breath * 0.5 + 0.5) * (pulseIntensity * 10);
-
-      materialRef.current.opacity = ghostOpacity;
-
-      // Scale dynamic
-      groupRef.current.scale.set(ghostScale, ghostScale, ghostScale);
+      // Inclinação baseada no movimento
+      const moveX = targetPosition.current.x - group.current.position.x;
+      bodyMesh.current.rotation.z = -moveX * 0.15;
+      bodyMesh.current.rotation.y = Math.sin(t * 0.5) * 0.1;
     });
 
     return (
-      <group ref={groupRef} position={[-2.5, 0, 0]}>
-        <mesh ref={bodyMeshRef} geometry={geometry}>
+      <group ref={group} {...props}>
+        {/* Iluminação direcional que acompanha o Ghost */}
+        <directionalLight
+          position={[-8, 6, -4]}
+          intensity={3}
+          color="#00ffff"
+        />
+        <directionalLight
+          position={[8, -4, -6]}
+          intensity={3}
+          color="#d400ff"
+        />
+
+        {/* Corpo do Ghost */}
+        <mesh ref={bodyMesh} geometry={ghostGeometry}>
           <meshStandardMaterial
-            ref={materialRef}
-            // As cores iniciais são definidas aqui, mas o useFrame as atualiza
-            color={color}
-            emissive={emissive}
-            emissiveIntensity={emissiveIntensity}
-            roughness={0.1}
-            metalness={0.1}
+            ref={bodyMaterial}
+            color={GHOST_CONFIG.bodyColor}
+            emissive={GHOST_CONFIG.glowColor}
+            emissiveIntensity={GHOST_CONFIG.emissiveIntensity}
             transparent
-            opacity={ghostOpacity}
-            side={THREE.DoubleSide} // Renderiza o interior da "saia"
+            opacity={0.92}
+            roughness={0.0}
+            metalness={0.1}
+            side={THREE.DoubleSide}
+            toneMapped={false}
           />
-          {/* Renderiza os olhos como filhos, para que se movam junto com o corpo */}
-          {children}
+
+          {/* Olhos do Ghost */}
+          <group position={[0, 0, 0]}>
+            {/* Olho esquerdo */}
+            <group position={[-0.7, 0.6, 1.8]} rotation={[0, -0.2, 0]}>
+              {/* Socket (fundo preto) */}
+              <mesh position={[0, 0, -0.1]}>
+                <sphereGeometry args={[0.45, 16, 16]} />
+                <meshBasicMaterial color="black" />
+              </mesh>
+              {/* Brilho do olho */}
+              <mesh position={[0, 0, 0.1]}>
+                <sphereGeometry args={[0.2, 16, 16]} />
+                <meshBasicMaterial
+                  ref={leftEyeMat}
+                  color={GHOST_CONFIG.eyeColor}
+                  transparent
+                  opacity={0.3}
+                  toneMapped={false}
+                />
+              </mesh>
+            </group>
+
+            {/* Olho direito */}
+            <group position={[0.7, 0.6, 1.8]} rotation={[0, 0.2, 0]}>
+              {/* Socket (fundo preto) */}
+              <mesh position={[0, 0, -0.1]}>
+                <sphereGeometry args={[0.45, 16, 16]} />
+                <meshBasicMaterial color="black" />
+              </mesh>
+              {/* Brilho do olho */}
+              <mesh position={[0, 0, 0.1]}>
+                <sphereGeometry args={[0.2, 16, 16]} />
+                <meshBasicMaterial
+                  ref={rightEyeMat}
+                  color={GHOST_CONFIG.eyeColor}
+                  transparent
+                  opacity={0.3}
+                  toneMapped={false}
+                />
+              </mesh>
+            </group>
+          </group>
         </mesh>
       </group>
     );
