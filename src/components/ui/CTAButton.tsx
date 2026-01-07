@@ -88,22 +88,39 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
     ${className}
   `;
 
-  const Component = href
-    ? href.startsWith('/') || href.startsWith('#')
-      ? Link
-      : 'a'
-    : 'button';
+  if (href) {
+    const isInternal = href.startsWith('/') || href.startsWith('#');
+    const linkProps = {
+      id: uniqueId,
+      className: baseClasses,
+      href,
+      ...(isInternal ? {} : { target: '_blank', rel: 'noopener noreferrer' }),
+    };
 
-  const commonProps = {
+    if (isInternal) {
+      return (
+        <Link {...linkProps} role="button">
+          {buttonContent}
+        </Link>
+      );
+    }
+
+    return (
+      <a {...linkProps} role="button">
+        {buttonContent}
+      </a>
+    );
+  }
+
+  const buttonProps: React.ButtonHTMLAttributes<HTMLButtonElement> = {
     id: uniqueId,
     className: baseClasses,
-    ...(href ? { href } : { type, onClick, disabled }),
-    ...(href && !href.startsWith('/') && !href.startsWith('#')
-      ? { target: '_blank', rel: 'noopener noreferrer' }
-      : {}),
+    type,
+    onClick,
+    disabled,
   };
 
-  return <Component {...(commonProps as any)}>{buttonContent}</Component>;
+  return <button {...buttonProps}>{buttonContent}</button>;
 };
 
 export default CTAButton;

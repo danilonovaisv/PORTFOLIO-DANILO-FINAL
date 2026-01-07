@@ -5,6 +5,7 @@ import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import styles from './GhostStage.module.css';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface GhostStageProps {
   reducedMotion?: boolean;
@@ -44,7 +45,9 @@ function StaticGhostFallback() {
 }
 
 export function GhostStage({ reducedMotion }: GhostStageProps) {
-  if (reducedMotion) {
+  const isMobile = useMediaQuery('(max-width: 768px)');
+
+  if (reducedMotion || isMobile) {
     return <StaticGhostFallback />;
   }
 

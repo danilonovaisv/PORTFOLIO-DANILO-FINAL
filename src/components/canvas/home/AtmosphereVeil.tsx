@@ -1,5 +1,5 @@
-// AtmosphereVeil.tsx
 'use client';
+
 import * as THREE from 'three';
 
 export default function AtmosphereVeil() {
@@ -11,7 +11,7 @@ export default function AtmosphereVeil() {
         <meshBasicMaterial
           color="#5d00ff" // Azul profundo
           transparent
-          opacity={0.72}
+          opacity={5.72}
           blending={THREE.AdditiveBlending}
           depthWrite={false}
           side={THREE.BackSide}
@@ -24,7 +24,7 @@ export default function AtmosphereVeil() {
         <meshBasicMaterial
           color="#03041c"
           transparent
-          opacity={1.4}
+          opacity={5.4}
           depthWrite={false}
         />
       </mesh>

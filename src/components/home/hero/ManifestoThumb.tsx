@@ -1,33 +1,47 @@
 'use client';
+import { useEffect, useRef } from 'react';
 
-import { motion, MotionStyle } from 'framer-motion';
+export default function ManifestoThumb() {
+  const thumbRef = useRef<HTMLDivElement>(null);
 
-interface ManifestoThumbProps {
-  style?: MotionStyle;
-}
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!thumbRef.current) return;
 
-export default function ManifestoThumb({ style }: ManifestoThumbProps) {
-  return (
-    <motion.div
-      style={style}
-      className="hidden lg:block absolute bottom-12 right-12 z-30 aspect-video overflow-hidden shadow-2xl origin-bottom-right cursor-pointer group"
-      role="button"
-      aria-label="Assistir manifesto em fullscreen"
-      initial={{ opacity: 0, scale: 0.9, y: 100 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94], delay: 1.5 }}
-      whileHover={{ scale: 1.05 }}
-      onClick={() => {
-        // Lógica de Click: Scrollar para o ponto onde ele fica Fullscreen
-        // Como agora é controlado pelo scroll do Hero, podemos scrollar para o fim da seção Hero
-        const heroSection = document.getElementById('hero');
-        if (heroSection) {
-          const bottom =
-            heroSection.getBoundingClientRect().bottom +
-            window.scrollY -
-            window.innerHeight;
-          window.scrollTo({ top: bottom, behavior: 'smooth' });
+      const scrollY = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const progress = Math.min(1, scrollY / viewportHeight);
+
+      // Calculo do Scale para cobrir a tela (estimado) ou fixo
+      // Base: 280px width. Target: window.innerWidth.
+      // Mas para manter simples seguindo o workflow:
+      const scale = 1 + progress * 10; // Aumentei para garantir cobertura maior (280 * 11 = ~3000px)
+      const radius = Math.max(0, 16 - progress * 16);
+
+      // Ajuste de translation para centralizar se necessário,
+      // mas mantendo origin-bottom-right ele cresce para a esquerda/cima.
+
+      requestAnimationFrame(() => {
+        if (thumbRef.current) {
+          thumbRef.current.style.transform = `scale(${scale})`;
+          thumbRef.current.style.borderRadius = `${radius}px`;
         }
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <div
+      ref={thumbRef}
+      className="hidden lg:block absolute bottom-8 right-8 z-30 w-[280px] aspect-video overflow-hidden shadow-2xl origin-bottom-right cursor-pointer transition-shadow duration-300 bg-black"
+      role="button"
+      aria-label="Expandir vídeo manifesto"
+      onClick={() => {
+        // Scrollar para o ponto de fullscreen (100vh)
+        window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
       }}
     >
       <video
@@ -36,23 +50,14 @@ export default function ManifestoThumb({ style }: ManifestoThumbProps) {
         muted
         loop
         playsInline
-        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        className="w-full h-full object-cover"
       />
-
-      {/* Icone de seta ou indicador visual opcional */}
-      <div className="absolute bottom-3 right-3 text-white/50 bg-black/20 p-1 rounded-full backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          className="transform -rotate-45 group-hover:rotate-0 transition-transform duration-300"
-        >
-          <path d="M5 12h14M12 5l7 7-7 7" />
-        </svg>
+      {/* Overlay Icon */}
+      <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 hover:opacity-100 transition-opacity duration-300">
+        <span className="text-white text-xs font-mono uppercase tracking-widest bg-black/50 px-3 py-1 rounded-full backdrop-blur-md border border-white/10">
+          Expand
+        </span>
       </div>
-    </motion.div>
+    </div>
   );
 }

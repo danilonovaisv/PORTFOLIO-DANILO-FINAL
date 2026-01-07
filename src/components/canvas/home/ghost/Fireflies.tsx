@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 import { GHOST_CONFIG } from '@/config/ghostConfig';
 
-const FIREFLY_COUNT = 20; // Reduzido para evitar poluição visual
+const FIREFLY_COUNT = 200; // Reduzido para evitar poluição visual
 
 export default function Fireflies() {
   const meshRef = useRef<THREE.InstancedMesh>(null);

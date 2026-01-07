@@ -19,15 +19,15 @@ export default function MobileHeaderBar({
 }: MobileHeaderBarProps) {
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-100 pointer-events-none ${
+      className={`fixed top-0 left-0 right-0 z-[100] pointer-events-none ${
         isLight ? 'header--light' : ''
       }`}
     >
       <div
         className={`w-full h-[60px] pointer-events-auto ${
           isLight
-            ? 'bg-white/95 border-b border-section-clients/15 backdrop-blur-sm'
-            : 'bg-section-manifesto/90 border-b border-white/5 backdrop-blur-sm'
+            ? 'bg-white border-b border-section-clients/15'
+            : 'bg-section-manifesto border-b border-white/5'
         }`}
       >
         <div className="flex items-center justify-between h-full px-4">

@@ -41,9 +41,8 @@ export default function HomeHero() {
 
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  // Hook de animação do Hero (Controla o ManifestoThumb)
-  const { videoWidth, videoHeight, videoRadius, copyOpacity } =
-    useHeroAnimation(sectionRef);
+  // Hook de animação do Hero (Controla Copy Opacity agora)
+  const { copyOpacity } = useHeroAnimation(sectionRef);
 
   const handlePreloaderDone = useCallback(() => setIsLoading(false), []);
 
@@ -87,16 +86,8 @@ export default function HomeHero() {
         </motion.div>
 
         {/* Manifesto Thumb (Desktop Transition) */}
-        {/* Renderiza apenas se não estiver carregando, para evitar glitches visuais */}
-        {!isLoading && (
-          <ManifestoThumb
-            style={{
-              width: videoWidth,
-              height: videoHeight,
-              borderRadius: videoRadius,
-            }}
-          />
-        )}
+        {/* Agora independente com scroll listener próprio */}
+        <ManifestoThumb />
 
         {/* Scroll Helper */}
         <motion.div

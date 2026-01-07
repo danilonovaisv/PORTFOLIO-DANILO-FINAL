@@ -10,16 +10,16 @@ import {
 import { Suspense } from 'react';
 import type { RefObject } from 'react';
 import { GHOST_CONFIG } from '@/config/ghostConfig';
-import * as THREE from 'three';
+import type { Group } from 'three';
 
 import Ghost from '../Ghost';
 import { AnalogDecay } from './AnalogDecayPass';
 import GhostEyes from './GhostEyes';
 import Particles from './Particles';
 
-interface GhostCanvasProps {
-  ghostRef?: RefObject<THREE.Group | null>;
-}
+type GhostCanvasProps = {
+  ghostRef?: RefObject<Group>;
+};
 
 export default function GhostCanvas({ ghostRef }: GhostCanvasProps) {
   const cfg = GHOST_CONFIG;
@@ -43,7 +43,7 @@ export default function GhostCanvas({ ghostRef }: GhostCanvasProps) {
           <pointLight
             position={[2, 3, 4]}
             intensity={2}
-            color={cfg.colors.main}
+            color={cfg.glowColor}
             distance={0.9}
           />
 
@@ -51,11 +51,11 @@ export default function GhostCanvas({ ghostRef }: GhostCanvasProps) {
 
           <group position={[0, -0.2, 0]}>
             <Ghost ref={ghostRef}>
-              <GhostEyes color={cfg.colors.eyes} />
+              <GhostEyes color={cfg.eyeGlowColor} />
             </Ghost>
           </group>
 
-          <Particles count={90} color={cfg.colors.main} />
+          <Particles count={90} color={cfg.glowColor} />
 
           <EffectComposer enableNormalPass={false}>
             <Bloom

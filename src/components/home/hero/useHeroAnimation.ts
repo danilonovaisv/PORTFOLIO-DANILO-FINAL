@@ -16,34 +16,11 @@ export function useHeroAnimation(
     restDelta: 0.001,
   });
 
-  // Mapeamento dos valores baseados no scroll (0% -> 100%)
-
-  // 1. Largura: Começa pequena (~15vw, conforme spec) e vai para 100% da tela
-  const videoWidth = useTransform(smoothScroll, [0, 0.7], ['15vw', '100%']);
-
-  // 2. Altura: Mantém proporção 16:9 inicial
-  const videoHeight = useTransform(
-    smoothScroll,
-    [0, 0.7],
-    ['calc(15vw * 9/16)', '100%']
-  );
-
-  // 3. Posição X: Começa na direita (calc(100% - 320px)) e vai para 0
-  // Assumindo container relativo, vamos posicionar via 'right' e 'bottom' ou translação.
-  // Vamos usar 'right' e 'bottom' fixos no CSS e animar width/height é mais performático se usarmos layoutId,
-  // mas aqui vamos transformar a escala e posição.
-
   // Transparência do Texto Editorial (some rápido ao scrollar)
   const copyOpacity = useTransform(smoothScroll, [0, 0.2], [1, 0]);
 
-  // Arredondamento das bordas: Redondo -> Quadrado
-  const videoRadius = useTransform(smoothScroll, [0, 0.6], [12, 0]);
-
   return {
     scrollYProgress,
-    videoWidth,
-    videoHeight,
     copyOpacity,
-    videoRadius,
   };
 }

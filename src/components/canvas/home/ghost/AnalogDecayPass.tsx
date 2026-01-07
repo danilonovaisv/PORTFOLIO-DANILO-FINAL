@@ -1,5 +1,5 @@
-// AnalogDecayPass.tsx
 'use client';
+
 import React, { forwardRef, useMemo } from 'react';
 import { Effect } from 'postprocessing';
 import { Uniform, WebGLRenderer, WebGLRenderTarget } from 'three';
@@ -85,12 +85,12 @@ void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor)
 
 class AnalogDecayEffectImpl extends Effect {
   constructor({
-    grain = 0.5,
+    grain = 0.9,
     bleeding = 0.5,
-    scanlines = 0.5,
-    vignette = 1.2,
-    intensity = 1.0,
-    jitter = 0.0,
+    scanlines = 1.5,
+    vignette = 3.2,
+    intensity = 3.0,
+    jitter = 0.5,
     vsync = 0.0,
   }) {
     super('AnalogDecayEffect', fragmentShader, {
@@ -153,7 +153,7 @@ export const AnalogDecay = forwardRef<AnalogDecayEffectImpl, AnalogDecayProps>(
         }),
       [grain, bleeding, scanlines, vignette, intensity, jitter, vsync]
     );
-    return <primitive ref={ref} object={effect} dispose={null} />;
+    return <primitive ref={ref} object={effect} />;
   }
 );
 

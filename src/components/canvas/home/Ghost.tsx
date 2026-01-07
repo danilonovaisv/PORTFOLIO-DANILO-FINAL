@@ -4,20 +4,7 @@ import React, { useRef, useMemo, useImperativeHandle, forwardRef } from 'react';
 import * as THREE from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Group, Mesh, MeshStandardMaterial, Vector3 } from 'three';
-
-// ============================================================================
-// CONFIGURAÇÃO DO GHOST
-// ============================================================================
-const GHOST_CONFIG = {
-  bodyColor: '#192c55',
-  glowColor: '#0059ff',
-  eyeColor: '#610ab8',
-  emissiveIntensity: 5.5,
-  floatSpeed: 1.8,
-  followSpeed: 0.08,
-  ghostOpacity: 0.88,
-  ghostScale: 1.4,
-};
+import { GHOST_CONFIG } from '@/config/ghostConfig';
 
 // ============================================================================
 // Ghost Component (forwardRef para expor posição ao RevealingText)
@@ -59,14 +46,12 @@ const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
       return geometry;
     }, []);
 
-    const isMobile = size.width < 768; // Definição no escopo do componente
-
     useFrame((state) => {
       if (!group.current || !bodyMesh.current) return;
 
       const t = state.clock.getElapsedTime();
       const pointer = state.pointer;
-      // const isMobile ja está definido fora
+      const isMobile = size.width < 768;
 
       let xTarget: number;
       let yTarget: number;
@@ -90,10 +75,7 @@ const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
       }
 
       targetPosition.current.set(xTarget, yTarget, 0);
-      group.current.position.lerp(
-        targetPosition.current,
-        GHOST_CONFIG.followSpeed
-      );
+      group.current.position.lerp(targetPosition.current, GHOST_CONFIG.followSpeed);
 
       // Detecção de movimento para efeito dos olhos
       const currentDist = group.current.position.distanceTo(
@@ -111,7 +93,7 @@ const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
 
       // Pulsação do corpo
       if (bodyMaterial.current) {
-        const pulse = Math.sin(t * 2.5) * 0.3;
+        const pulse = Math.sin(t * GHOST_CONFIG.pulseSpeed) * GHOST_CONFIG.pulseIntensity;
         bodyMaterial.current.emissiveIntensity =
           GHOST_CONFIG.emissiveIntensity + pulse;
       }
@@ -127,32 +109,32 @@ const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
     });
 
     return (
-      <group ref={group} {...props}>
+      <group
+        ref={group}
+        scale={GHOST_CONFIG.ghostScale}
+        {...props}
+      >
         {/* Iluminação direcional que acompanha o Ghost */}
         <directionalLight
           position={[-8, 6, -4]}
-          intensity={3}
-          color="#00ffff"
+          intensity={GHOST_CONFIG.rimLightIntensity}
+          color={GHOST_CONFIG.glowColor}
         />
         <directionalLight
           position={[8, -4, -6]}
-          intensity={3}
-          color="#d400ff"
+          intensity={GHOST_CONFIG.rimLightIntensity}
+          color={GHOST_CONFIG.eyeGlowColor}
         />
 
         {/* Corpo do Ghost */}
-        <mesh
-          ref={bodyMesh}
-          geometry={ghostGeometry}
-          scale={isMobile ? 0.25 : 0.32}
-        >
+        <mesh ref={bodyMesh} geometry={ghostGeometry}>
           <meshStandardMaterial
             ref={bodyMaterial}
             color={GHOST_CONFIG.bodyColor}
             emissive={GHOST_CONFIG.glowColor}
             emissiveIntensity={GHOST_CONFIG.emissiveIntensity}
             transparent
-            opacity={0.88}
+            opacity={GHOST_CONFIG.ghostOpacity}
             roughness={0.0}
             metalness={0.1}
             side={THREE.DoubleSide}
@@ -173,7 +155,7 @@ const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
                 <sphereGeometry args={[0.2, 16, 16]} />
                 <meshBasicMaterial
                   ref={leftEyeMat}
-                  color={GHOST_CONFIG.eyeColor}
+                  color={GHOST_CONFIG.eyeGlowColor}
                   transparent
                   opacity={0.3}
                   toneMapped={false}
@@ -193,7 +175,7 @@ const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
                 <sphereGeometry args={[0.2, 16, 16]} />
                 <meshBasicMaterial
                   ref={rightEyeMat}
-                  color={GHOST_CONFIG.eyeColor}
+                  color={GHOST_CONFIG.eyeGlowColor}
                   transparent
                   opacity={0.3}
                   toneMapped={false}

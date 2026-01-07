@@ -140,6 +140,7 @@ export default function SiteFooter() {
                   key={l.href}
                   type="button"
                   onClick={() => handleNavigate(l.href)}
+                  className="min-h-[48px] px-4 flex items-center justify-center"
                 >
                   {content}
                 </button>

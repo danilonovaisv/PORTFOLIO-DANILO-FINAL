@@ -2,22 +2,25 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import * as THREE from 'three';
+import { MathUtils, type Mesh } from 'three';
 
 export default function GhostEyes({ color = '#ffffff' }: { color?: string }) {
-  const leftEye = useRef<THREE.Mesh>(null);
-  const rightEye = useRef<THREE.Mesh>(null);
+  const leftEye = useRef<Mesh>(null);
+  const rightEye = useRef<Mesh>(null);
   const { mouse } = useThree();
   const [blink, setBlink] = useState(false);
 
   useEffect(() => {
+    let timer: NodeJS.Timeout;
+
     const timeout = () => {
       setBlink(true);
       setTimeout(() => setBlink(false), 150);
       const nextBlink = Math.random() * 4000 + 2000;
-      setTimeout(timeout, nextBlink);
+      timer = setTimeout(timeout, nextBlink);
     };
-    const timer = setTimeout(timeout, 3000);
+
+    timer = setTimeout(timeout, 3000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -29,35 +32,35 @@ export default function GhostEyes({ color = '#ffffff' }: { color?: string }) {
     const targetY = mouse.y * eyeMovementRange;
 
     // Lerp para suavidade
-    leftEye.current.position.x = THREE.MathUtils.lerp(
+    leftEye.current.position.x = MathUtils.lerp(
       leftEye.current.position.x,
       -0.3 + targetX,
       0.1
     );
-    leftEye.current.position.y = THREE.MathUtils.lerp(
+    leftEye.current.position.y = MathUtils.lerp(
       leftEye.current.position.y,
       0.1 + targetY,
       0.1
     );
 
-    rightEye.current.position.x = THREE.MathUtils.lerp(
+    rightEye.current.position.x = MathUtils.lerp(
       rightEye.current.position.x,
       0.3 + targetX,
       0.1
     );
-    rightEye.current.position.y = THREE.MathUtils.lerp(
+    rightEye.current.position.y = MathUtils.lerp(
       rightEye.current.position.y,
       0.1 + targetY,
       0.1
     );
 
     const targetScaleY = blink ? 0.1 : 1;
-    leftEye.current.scale.y = THREE.MathUtils.lerp(
+    leftEye.current.scale.y = MathUtils.lerp(
       leftEye.current.scale.y,
       targetScaleY,
       0.4
     );
-    rightEye.current.scale.y = THREE.MathUtils.lerp(
+    rightEye.current.scale.y = MathUtils.lerp(
       rightEye.current.scale.y,
       targetScaleY,
       0.4
