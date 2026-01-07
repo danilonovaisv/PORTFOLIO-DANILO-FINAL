@@ -6,6 +6,13 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Preloader } from '@/components/ui/Preloader';
 
 import { GhostStage } from './GhostStage';
+import HeroCopy from './hero/HeroCopy';
+import { useHeroAnimation } from './hero/useHeroAnimation';
+import ManifestoThumb from './ManifestoThumb';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+import ManifestoSection from './ManifestoSection';
+import type { Group } from 'three';
+
 const CONFIG = {
   preloadMs: 2000,
   bgColor: '#050511',
@@ -32,10 +39,14 @@ function usePrefersReducedMotion() {
 
 export default function HomeHero() {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const ghostRef = useRef<Group | null>(null);
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const [isLoading, setIsLoading] = useState(true);
 
   const prefersReducedMotion = usePrefersReducedMotion();
+
+  const { videoScale, videoRadius, copyOpacity } = useHeroAnimation(sectionRef);
 
   const handlePreloaderDone = useCallback(() => setIsLoading(false), []);
 
@@ -67,10 +78,31 @@ export default function HomeHero() {
 
         {/* WebGL Atmosphere */}
         <div className="absolute inset-0 z-20">
-          <GhostStage reducedMotion={prefersReducedMotion} />
+          <GhostStage reducedMotion={prefersReducedMotion} ghostRef={ghostRef} />
         </div>
 
         {/* Hero Copy (Editorial) */}
+        <motion.div
+          className="absolute inset-0 z-10 flex items-center justify-center text-center px-6"
+          style={{ opacity: copyOpacity }}
+        >
+          <HeroCopy />
+        </motion.div>
+
+        {/* Manifesto Thumb — segue referência CodePen: shrinked corner video that expands on scroll */}
+        {!isMobile && (
+          <motion.div
+            className="absolute bottom-10 right-6 md:right-10 lg:right-14 z-30 w-[32vw] max-w-[560px] aspect-video overflow-hidden border border-white/5 shadow-[0_30px_60px_rgba(0,0,0,0.45)]"
+            style={{
+              scale: videoScale,
+              borderRadius: videoRadius,
+              transformOrigin: 'center',
+            }}
+            transition={{ type: 'spring', stiffness: 120, damping: 20 }}
+          >
+            <ManifestoThumb selfAnimate={false} />
+          </motion.div>
+        )}
 
         {/* Scroll Helper */}
         <motion.div
@@ -93,6 +125,9 @@ export default function HomeHero() {
 
       {/* Scroll Space */}
       <div className="h-screen w-full pointer-events-none" />
+
+      {/* Mobile: Manifesto em seção dedicada (fullscreen) logo após a Hero */}
+      {isMobile && <ManifestoSection />}
     </section>
   );
 }

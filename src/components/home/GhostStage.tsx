@@ -2,12 +2,15 @@
 
 import * as React from 'react';
 import { Suspense } from 'react';
+import type { RefObject } from 'react';
+import type { Group } from 'three';
 import dynamic from 'next/dynamic';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import styles from './GhostStage.module.css';
 
 interface GhostStageProps {
   reducedMotion?: boolean;
+  ghostRef?: RefObject<Group | null>;
 }
 
 // Import dinâmico evita SSR do canvas
@@ -43,7 +46,7 @@ function StaticGhostFallback() {
   );
 }
 
-export function GhostStage({ reducedMotion }: GhostStageProps) {
+export function GhostStage({ reducedMotion, ghostRef }: GhostStageProps) {
   if (reducedMotion) {
     return <StaticGhostFallback />;
   }
@@ -51,7 +54,7 @@ export function GhostStage({ reducedMotion }: GhostStageProps) {
   return (
     <ErrorBoundary fallback={<StaticGhostFallback />}>
       <Suspense fallback={<StaticGhostFallback />}>
-        <GhostCanvas />
+        <GhostCanvas ghostRef={ghostRef} />
       </Suspense>
     </ErrorBoundary>
   );

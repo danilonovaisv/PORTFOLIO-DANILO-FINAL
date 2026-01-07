@@ -1,10 +1,22 @@
 'use client';
 import { useEffect, useRef } from 'react';
 
-export default function ManifestoThumb() {
+type ManifestoThumbProps = {
+  /**
+   * Ativa/desativa o comportamento de auto-scale/rounding baseado em scroll.
+   * No novo fluxo, o container pai (Framer Motion) controla a escala para replicar a
+   * transição "thumb -> fullscreen" do CodePen, então mantemos a lógica aqui opcional
+   * para evitar animações duplas.
+   */
+  selfAnimate?: boolean;
+};
+
+export default function ManifestoThumb({ selfAnimate = true }: ManifestoThumbProps) {
   const thumbRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!selfAnimate) return;
+
     let maxScale = 5; // Default fallback
 
     const updateDimensions = () => {
@@ -38,12 +50,16 @@ export default function ManifestoThumb() {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', updateDimensions);
     };
-  }, []);
+  }, [selfAnimate]);
 
   return (
     <div
       ref={thumbRef}
-      className="hidden lg:block fixed bottom-8 right-8 z-30 w-[280px] aspect-video overflow-hidden shadow-2xl origin-bottom-right cursor-pointer transition-shadow duration-300 hover:scale-105 hover:shadow-cyan-500/20"
+      className={
+        selfAnimate
+          ? 'hidden lg:block fixed bottom-8 right-8 z-30 w-[280px] aspect-video overflow-hidden shadow-2xl origin-bottom-right cursor-pointer transition-shadow duration-300 hover:scale-105 hover:shadow-cyan-500/20'
+          : 'block h-full w-full overflow-hidden cursor-pointer'
+      }
       role="button"
       aria-label="Assistir manifesto em fullscreen"
       onClick={() => {
