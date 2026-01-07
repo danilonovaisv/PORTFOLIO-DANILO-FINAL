@@ -201,7 +201,10 @@ function GhostHero() {
       composerRef.current = composer;
       bloomPassRef.current = bloomPass;
     } catch (error) {
-      console.warn('Post-processing disabled; falling back to raw render.', error);
+      console.warn(
+        'Post-processing disabled; falling back to raw render.',
+        error
+      );
       composerRef.current = null;
       bloomPassRef.current = null;
     }
@@ -304,8 +307,10 @@ function GhostHero() {
     eyesRef.current = eyes;
     materials.add(eyes.eyeMaterial);
     materials.add(eyes.glowMaterial);
-    if (eyes.leftEye.geometry) geometries.add(eyes.leftEye.geometry as THREE.BufferGeometry);
-    if (eyes.leftGlow.geometry) geometries.add(eyes.leftGlow.geometry as THREE.BufferGeometry);
+    if (eyes.leftEye.geometry)
+      geometries.add(eyes.leftEye.geometry as THREE.BufferGeometry);
+    if (eyes.leftGlow.geometry)
+      geometries.add(eyes.leftGlow.geometry as THREE.BufferGeometry);
 
     lastGhostPosRef.current.copy(ghostGroup.position);
 
@@ -328,7 +333,9 @@ function GhostHero() {
       cameraRef.current.aspect = width / height;
       cameraRef.current.updateProjectionMatrix();
       rendererRef.current.setSize(width, height);
-      rendererRef.current.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      rendererRef.current.setPixelRatio(
+        Math.min(window.devicePixelRatio || 1, 2)
+      );
       if (composerRef.current) composerRef.current.setSize(width, height);
       if (bloomPassRef.current) bloomPassRef.current.setSize(width, height);
     };
@@ -364,18 +371,24 @@ function GhostHero() {
       const targetX = mouseRef.current.x * 8;
       const targetY = mouseRef.current.y * 5;
 
-      ghostGroup.position.x += (targetX - ghostGroup.position.x) * params.followSpeed;
-      ghostGroup.position.y += (targetY - ghostGroup.position.y) * params.followSpeed;
+      ghostGroup.position.x +=
+        (targetX - ghostGroup.position.x) * params.followSpeed;
+      ghostGroup.position.y +=
+        (targetY - ghostGroup.position.y) * params.followSpeed;
 
       const float1 = Math.sin(timeRef.current * params.floatSpeed * 1.5) * 0.03;
-      const float2 = Math.cos(timeRef.current * params.floatSpeed * 0.7) * 0.018;
-      const float3 = Math.sin(timeRef.current * params.floatSpeed * 2.3) * 0.008;
+      const float2 =
+        Math.cos(timeRef.current * params.floatSpeed * 0.7) * 0.018;
+      const float3 =
+        Math.sin(timeRef.current * params.floatSpeed * 2.3) * 0.008;
       ghostGroup.position.y += float1 + float2 + float3;
 
       atmosphereMaterial.uniforms.time.value = timeRef.current;
       atmosphereMaterial.uniforms.ghostPosition.value.copy(ghostGroup.position);
 
-      const movementAmount = lastGhostPosRef.current.distanceTo(ghostGroup.position);
+      const movementAmount = lastGhostPosRef.current.distanceTo(
+        ghostGroup.position
+      );
       movementRef.current =
         movementRef.current * params.eyeGlowDecay +
         movementAmount * (1 - params.eyeGlowDecay);
@@ -404,7 +417,8 @@ function GhostHero() {
       ghostBody.rotation.x =
         ghostBody.rotation.x * tiltDecay +
         mouseDirection.y * tiltStrength * (1 - tiltDecay);
-      ghostBody.rotation.y = Math.sin(timeRef.current * 1.4) * 0.05 * params.wobbleAmount;
+      ghostBody.rotation.y =
+        Math.sin(timeRef.current * 1.4) * 0.05 * params.wobbleAmount;
 
       const scaleVariation =
         1 +
@@ -414,7 +428,8 @@ function GhostHero() {
       ghostBody.scale.setScalar(scaleVariation * scaleBreath);
 
       if (eyesRef.current) {
-        const targetGlow = movementRef.current > params.movementThreshold ? 1 : 0;
+        const targetGlow =
+          movementRef.current > params.movementThreshold ? 1 : 0;
         const glowChangeSpeed = targetGlow
           ? params.eyeGlowResponse * 2
           : params.eyeGlowResponse;
@@ -473,200 +488,18 @@ function GhostHero() {
         document.body.style.transform = previousBodyStylesRef.current.transform;
         document.body.style.backfaceVisibility =
           previousBodyStylesRef.current.backfaceVisibility;
-        document.body.style.perspective = previousBodyStylesRef.current.perspective;
+        document.body.style.perspective =
+          previousBodyStylesRef.current.perspective;
       }
     };
   }, [params]);
 
   return (
-    <div className="ghost-hero-container">
-      <div className="content" id="main-content">
-        <div className="quote-container">
-          <div className="tag">[BRAND AWARENESS]</div>
-          <h1 className="quote-main">Você não vê o design.</h1>
-          <h2 className="quote-sub">Mas ele vê você.</h2>
-          <a href="/sobre" className="cta-button">
-            step inside →
-          </a>
-        </div>
-        <div className="bottom-cta">
-          <a href="/sobre" className="cta-button">
-            step inside →
-          </a>
-        </div>
-      </div>
-      <div ref={mountRef} className="canvas-container" />
-
-      <style jsx>{`
-        @font-face {
-          font-family: 'TT Norms Pro';
-          src: url('/fonts/tt-norms-pro-regular.woff2') format('woff2'),
-            url('/fonts/tt-norms-pro-regular.woff') format('woff');
-          font-weight: 400;
-          font-style: normal;
-          font-display: swap;
-        }
-
-        @font-face {
-          font-family: 'TT Norms Pro';
-          src: url('/fonts/tt-norms-pro-black.woff2') format('woff2'),
-            url('/fonts/tt-norms-pro-black.woff') format('woff');
-          font-weight: 900;
-          font-style: normal;
-          font-display: swap;
-        }
-
-        .ghost-hero-container {
-          position: relative;
-          width: 100%;
-          height: 100vh;
-          overflow: hidden;
-          background-color: #000;
-        }
-
-        .canvas-container {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: 5;
-        }
-
-        .content {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          padding: 20px;
-          text-align: center;
-          color: #e0e0e0;
-          opacity: 1;
-          transition: opacity 1.5s ease-in;
-          z-index: 10;
-          letter-spacing: -0.03em;
-          font-family: 'TT Norms Pro', ui-sans-serif, system-ui;
-        }
-
-        .quote-container {
-          max-width: 90%;
-          overflow: hidden;
-        }
-
-        .tag {
-          font-family: 'TT Norms Pro', monospace;
-          font-size: 12px;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          opacity: 0.7;
-          margin-bottom: 1.5vh;
-          color: #e0e0e0;
-        }
-
-        .quote-main {
-          font-family: 'TT Norms Pro', system-ui;
-          font-size: 6vw;
-          line-height: 1.3;
-          font-weight: 900;
-          letter-spacing: -0.02em;
-          margin-bottom: 2vh;
-          color: #444444;
-          mix-blend-mode: screen;
-          text-shadow: 0 0 20px rgba(0, 100, 255, 0);
-        }
-
-        .quote-sub {
-          font-family: 'TT Norms Pro', system-ui;
-          font-size: 4.5vw;
-          line-height: 1.3;
-          font-weight: 900;
-          letter-spacing: -0.02em;
-          margin-bottom: 5vh;
-          color: #444444;
-          mix-blend-mode: screen;
-          text-shadow: 0 0 20px rgba(0, 100, 255, 0);
-        }
-
-        .cta-button {
-          display: inline-block;
-          color: #e0e0e0;
-          text-decoration: none;
-          font-size: 1rem;
-          font-family: 'TT Norms Pro', system-ui;
-          text-transform: lowercase;
-          transition: all 0.3s ease;
-          position: relative;
-          letter-spacing: 0;
-          padding: 10px 15px;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 4px;
-          margin-top: 20px;
-        }
-
-        .cta-button:hover {
-          color: #00ffff;
-          border-color: #00ffff;
-        }
-
-        .cta-button:hover::after {
-          content: '→';
-          position: absolute;
-          left: 100%;
-          margin-left: 8px;
-          opacity: 0;
-          transform: translateX(-5px);
-          transition: all 0.3s ease;
-        }
-
-        .cta-button:hover::after {
-          opacity: 1;
-          transform: translateX(0);
-        }
-
-        .bottom-cta {
-          position: fixed;
-          bottom: 40px;
-          width: 100%;
-          text-align: center;
-        }
-
-        @media (max-width: 768px) {
-          .quote-main {
-            font-size: 8vh;
-            max-height: 3rem;
-          }
-
-          .quote-sub {
-            font-size: 6vh;
-            max-height: 2.5rem;
-          }
-
-          .cta-button {
-            padding: 8px 12px;
-            font-size: 0.9rem;
-          }
-        }
-
-        @media (max-width: 480px) {
-          .quote-main {
-            font-size: 6vh;
-          }
-
-          .quote-sub {
-            font-size: 4.5vh;
-          }
-
-          .tag {
-            font-size: 10px;
-          }
-        }
-      `}</style>
-    </div>
+    <div
+      ref={mountRef}
+      className="absolute inset-0 w-full h-full"
+      style={{ zIndex: 0 }} // Ensure interaction doesn't block if not intended, though HomeHero controls z-index of the container
+    />
   );
 }
 

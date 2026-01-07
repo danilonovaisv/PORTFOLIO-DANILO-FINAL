@@ -1,7 +1,14 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { motionValue } from 'framer-motion';
 import ManifestoThumb from '@/components/home/hero/ManifestoThumb';
+
+jest.mock('framer-motion', () => ({
+  ...jest.requireActual('framer-motion'),
+  useTransform: jest.fn(() => 1), // Returns constant for scale/borderRadius
+  useMotionValueEvent: jest.fn(),
+}));
 
 // Mock do IntersectionObserver
 beforeAll(() => {
@@ -33,8 +40,10 @@ beforeAll(() => {
 });
 
 describe('ManifestoThumb Component', () => {
+  const mockScrollProgress = motionValue(0);
+
   it('deve renderizar a seção do manifesto corretamente', () => {
-    render(<ManifestoThumb />);
+    render(<ManifestoThumb scrollProgress={mockScrollProgress} />);
 
     // Verifica se o container principal existe pelo label acessível
     const container = screen.getByLabelText('Assistir manifesto em fullscreen');
@@ -42,7 +51,9 @@ describe('ManifestoThumb Component', () => {
   });
 
   it('deve renderizar o vídeo com os atributos corretos', () => {
-    const { container } = render(<ManifestoThumb />);
+    const { container } = render(
+      <ManifestoThumb scrollProgress={mockScrollProgress} />
+    );
 
     // Procura o vídeo dentro do componente
     const video = container.querySelector('video');
@@ -56,7 +67,9 @@ describe('ManifestoThumb Component', () => {
   });
 
   it('não deve exibir controles', () => {
-    const { container } = render(<ManifestoThumb />);
+    const { container } = render(
+      <ManifestoThumb scrollProgress={mockScrollProgress} />
+    );
     const video = container.querySelector('video');
     expect(video).not.toHaveAttribute('controls');
   });

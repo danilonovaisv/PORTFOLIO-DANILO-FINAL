@@ -1,5 +1,9 @@
 'use client';
 
+import { GHOST_CONFIG } from '@/config/ghostConfig';
+
+// ... (existing code)
+
 import React, { forwardRef, useMemo } from 'react';
 import { Effect } from 'postprocessing';
 import { Uniform, WebGLRenderer, WebGLRenderTarget } from 'three';
@@ -131,14 +135,14 @@ interface AnalogDecayProps {
 export const AnalogDecay = forwardRef<AnalogDecayEffectImpl, AnalogDecayProps>(
   (
     {
-      grain = 1.5,
-      bleeding = 0.5,
-      scanlines = 0.5,
-      vignette = 3.2,
-      intensity = 1.0,
-      jitter = 0.0,
-      vsync = 0.0,
-      limboMode: _limboMode = false,
+      grain = GHOST_CONFIG.analogGrain,
+      bleeding = GHOST_CONFIG.analogBleeding,
+      scanlines = GHOST_CONFIG.analogScanlines,
+      vignette = GHOST_CONFIG.analogVignette,
+      intensity = GHOST_CONFIG.analogIntensity,
+      jitter = GHOST_CONFIG.analogJitter,
+      vsync = GHOST_CONFIG.analogVSync,
+      limboMode: _limboMode = GHOST_CONFIG.limboMode,
     },
     ref
   ) => {

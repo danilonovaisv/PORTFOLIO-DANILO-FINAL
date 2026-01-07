@@ -85,6 +85,7 @@ export default function ManifestoThumb({
         y,
       }}
       className="hidden lg:block absolute inset-0 z-30 overflow-hidden shadow-2xl bg-black origin-center cursor-pointer pointer-events-auto"
+      aria-label="Assistir manifesto em fullscreen"
       onClick={() => {
         // Jump to fullscreen point
         // 0.65 of 250vh = ?

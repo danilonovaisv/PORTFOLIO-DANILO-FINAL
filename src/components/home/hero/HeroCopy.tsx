@@ -43,7 +43,7 @@ export default function HeroCopy() {
         <motion.h2
           variants={fadeGhost}
           custom={0.4}
-          className="font-sans font-black tracking-tighter mt-6 mb-12 text-[#9ca5c3] mix-blend-screen max-w-[800px] drop-shadow-[0_0_18px_rgba(71,128,255,0.25)] leading-[1.1] text-[clamp(2.5rem,6vw,8rem)] pointer-events-auto"
+          className="font-sans font-black tracking-tighter mt-6 mb-12 text-[#9ca5c3] mix-blend-screen max-w-[800px] drop-shadow-[0_0_18px_rgba(71,128,255,0.25)] leading-[1.1] text-[clamp(1.5rem,4vw,3.5rem)] pointer-events-auto"
         >
           {hero.subtitle}
         </motion.h2>

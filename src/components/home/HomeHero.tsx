@@ -72,12 +72,12 @@ export default function HomeHero() {
           )}
         </AnimatePresence>
 
-        {/* WebGL Atmosphere */}
+        {/* WebGL Atmosphere (Agora por cima do texto para dar imersão "Ghost") */}
         <div className="absolute inset-0 z-20 pointer-events-none">
           <GhostStage reducedMotion={prefersReducedMotion} />
         </div>
 
-        {/* Hero Copy (Editorial) */}
+        {/* Hero Copy (Editorial - Fica "atrás/dentro" da fumaça) */}
         <motion.div
           className="absolute inset-0 z-10 pointer-events-none"
           style={{ opacity: copyOpacity }}

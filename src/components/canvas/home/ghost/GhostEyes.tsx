@@ -4,7 +4,13 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { MathUtils, type Mesh } from 'three';
 
-export default function GhostEyes({ color = '#ffffff' }: { color?: string }) {
+import { GHOST_CONFIG } from '@/config/ghostConfig';
+
+export default function GhostEyes({
+  color = GHOST_CONFIG.eyeGlowColor,
+}: {
+  color?: string;
+}) {
   const leftEye = useRef<Mesh>(null);
   const rightEye = useRef<Mesh>(null);
   const { mouse } = useThree();

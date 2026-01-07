@@ -15,63 +15,27 @@ export const FLUORESCENT_COLORS = {
   violet: '#8a2be2',
 };
 
-// Mapeamento de nomes de cores para valores numéricos para Three.js
-const THREE_COLOR_MAP: Record<string, number> = {
-  cyan: 0x00ffff,
-  lime: 0x00ff00,
-  magenta: 0xff00ff,
-  yellow: 0xffff00,
-  orange: 0xff4500,
-  pink: 0xff1493,
-  purple: 0x9400d3,
-  blue: 0x0080ff,
-  green: 0x00ff80,
-  red: 0xff0040,
-  teal: 0x00ffaa,
-  violet: 0x8a2be2,
-};
-
-// Função auxiliar para resolver a cor
-const resolveColor = (
-  colorName: string,
-  defaultHex: string = '#ffffff'
-): string => {
-  return (
-    FLUORESCENT_COLORS[colorName as keyof typeof FLUORESCENT_COLORS] ||
-    defaultHex
-  );
-};
-
-const resolveThreeColorNumber = (
-  colorName: string,
-  defaultNum: number = 0xffffff
-): number => {
-  return (
-    THREE_COLOR_MAP[colorName as keyof typeof THREE_COLOR_MAP] || defaultNum
-  );
-};
-
 // Configuração centralizada do Ghost
 export const GHOST_CONFIG = {
   // Ghost appearance
-  bodyColor: resolveColor('cyan'), // Usa a função para pegar o valor hex
-  glowColor: resolveColor('blue'),
-  eyeGlowColor: resolveColor('violet'),
+  bodyColor: 'Cyan',
+  glowColor: 'blue', // Azul ciano para maior brilho
+  eyeGlowColor: FLUORESCENT_COLORS.violet,
   ghostOpacity: 0.78,
-  ghostScale: 0.2,
+  ghostScale: 0.3,
 
   // Glow effects
   emissiveIntensity: 3.8, // Intensidade alta para criar o brilho de lanterna
-  pulseSpeed: 1.6,
-  pulseIntensity: 1.6,
+  pulseSpeed:1.7,
+  pulseIntensity: 0.7,
 
   // Eyes
-  eyeGlowIntensity: 9.5,
+  eyeGlowIntensity: 1.5,
   eyeGlowDecay: 0.95,
   eyeGlowResponse: 0.31,
 
-  // Enhanced lighting (usado em Three.js numbers)
-  rimLightIntensity: 6.8,
+  // Enhanced lighting
+  rimLightIntensity: 3.8,
 
   // Behavior
   followSpeed: 0.05,
@@ -82,19 +46,39 @@ export const GHOST_CONFIG = {
   // Particles
   particleCount: 550,
   particleDecayRate: 0.015,
-  particleColor: resolveThreeColorNumber('pink'), // Usa o número para Three.js
+  particleColor: FLUORESCENT_COLORS.pink,
   createParticlesOnlyWhenMoving: true,
   particleCreationRate: 45,
 
-  // Background reveal (valores ajustados para simular a "lanterna")
+  // Background reveal
   revealRadius: 37,
   fadeStrength: 12.7,
-  baseOpacity: 1.9, // Ajuste cuidadoso, pode ser >= 1 para escurecer mais o fundo
+  baseOpacity: 1.9,
   revealOpacity: 0.05,
 
   // Fireflies
   fireflyGlowIntensity: 4.3,
   fireflySpeed: 0.09,
+  fireflyCount: 200,
+  fireflyColor: 'cyan',
+  fireflyScaleMin: 0.03,
+  fireflyScaleMax: 0.07,
+
+  // Atmosphere veil
+  atmosphereGlowColor: '#5d00ff',
+  atmosphereGlowOpacity: 5.72,
+  atmosphereGlowScale: [1, 1, 1] as [number, number, number],
+  atmosphereBackgroundColor: '#03041c',
+  atmosphereBackgroundOpacity: 5.4,
+  atmosphereBackgroundScale: [15, 10] as [number, number],
+
+  // Canvas and camera
+  canvasBackground: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)',
+  cameraPosition: [0, 0, 20] as [number, number, number],
+  cameraFov: 75,
+
+  // Mouse influence
+  mouseInfluence: { x: 11, y: 7 },
 
   // Analog Decay settings
   analogIntensity: 0.9,

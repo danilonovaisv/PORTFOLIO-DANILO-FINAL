@@ -1,17 +1,27 @@
 'use client';
 
 import * as THREE from 'three';
+import { GHOST_CONFIG } from '@/config/ghostConfig';
 
 export default function AtmosphereVeil() {
+  const {
+    atmosphereGlowColor,
+    atmosphereGlowOpacity,
+    atmosphereGlowScale,
+    atmosphereBackgroundColor,
+    atmosphereBackgroundOpacity,
+    atmosphereBackgroundScale,
+  } = GHOST_CONFIG;
+
   return (
     <group>
       {/* Glow Volumétrico atrás do fantasma */}
-      <mesh position={[1, 1, -3]} scale={[1, 1, 1]}>
+      <mesh position={[1, 1, -3]} scale={atmosphereGlowScale}>
         <sphereGeometry args={[5.5, 32, 32]} />
         <meshBasicMaterial
-          color="#5d00ff" // Azul profundo
+          color={atmosphereGlowColor}
           transparent
-          opacity={5.72}
+          opacity={atmosphereGlowOpacity}
           blending={THREE.AdditiveBlending}
           depthWrite={false}
           side={THREE.BackSide}
@@ -20,11 +30,11 @@ export default function AtmosphereVeil() {
 
       {/* Véu de fundo para integrar com o CSS */}
       <mesh position={[0, -2, -4]}>
-        <planeGeometry args={[15, 10]} />
+        <planeGeometry args={atmosphereBackgroundScale} />
         <meshBasicMaterial
-          color="#03041c"
+          color={atmosphereBackgroundColor}
           transparent
-          opacity={5.4}
+          opacity={atmosphereBackgroundOpacity}
           depthWrite={false}
         />
       </mesh>

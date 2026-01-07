@@ -75,7 +75,10 @@ const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
       }
 
       targetPosition.current.set(xTarget, yTarget, 0);
-      group.current.position.lerp(targetPosition.current, GHOST_CONFIG.followSpeed);
+      group.current.position.lerp(
+        targetPosition.current,
+        GHOST_CONFIG.followSpeed
+      );
 
       // Detecção de movimento para efeito dos olhos
       const currentDist = group.current.position.distanceTo(
@@ -93,7 +96,8 @@ const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
 
       // Pulsação do corpo
       if (bodyMaterial.current) {
-        const pulse = Math.sin(t * GHOST_CONFIG.pulseSpeed) * GHOST_CONFIG.pulseIntensity;
+        const pulse =
+          Math.sin(t * GHOST_CONFIG.pulseSpeed) * GHOST_CONFIG.pulseIntensity;
         bodyMaterial.current.emissiveIntensity =
           GHOST_CONFIG.emissiveIntensity + pulse;
       }
@@ -109,11 +113,7 @@ const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
     });
 
     return (
-      <group
-        ref={group}
-        scale={GHOST_CONFIG.ghostScale}
-        {...props}
-      >
+      <group ref={group} scale={GHOST_CONFIG.ghostScale} {...props}>
         {/* Iluminação direcional que acompanha o Ghost */}
         <directionalLight
           position={[-8, 6, -4]}
