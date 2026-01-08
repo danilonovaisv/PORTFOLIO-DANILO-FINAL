@@ -9,7 +9,8 @@ const speedFactor = 0.015;
 const particleRadius = 4;
 
 const harmonicNoise = (seed: number, frequency = 1) =>
-  Math.sin(seed * 0.47 + frequency * 1.3) * Math.cos(seed * 0.71 + frequency * 2.1);
+  Math.sin(seed * 0.47 + frequency * 1.3) *
+  Math.cos(seed * 0.71 + frequency * 2.1);
 
 export default function Particles({
   count = GHOST_CONFIG.particleCount,

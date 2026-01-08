@@ -1,6 +1,6 @@
 // src/config/ghostConfig.ts
 // Paleta de cores fluorescentes
-export const FLUORESCENT_COLORS = {
+export const FLUORESCENT_COLORS: Record<string, string> = {
   cyan: '#00ffff',
   lime: '#00ff00',
   magenta: '#ff00ff',

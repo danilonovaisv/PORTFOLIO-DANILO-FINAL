@@ -7,15 +7,6 @@ import { GHOST_CONFIG, FLUORESCENT_COLORS } from '@/config/ghostConfig';
 
 const FIREFLY_COUNT = GHOST_CONFIG.fireflyCount ?? 200;
 
-interface FireflyData {
-  basePhase: number;
-  radius: number;
-  xFactor: number;
-  yFactor: number;
-  zFactor: number;
-  scaleBase: number;
-}
-
 export default function Fireflies() {
   const spritesRef = useRef<(THREE.Sprite | null)[]>([]);
   const resolvedColor =
@@ -61,8 +52,12 @@ export default function Fireflies() {
       const wobble = Math.sin(orbitTime * 1.3) * 0.2;
 
       sprite.position.set(
-        firefly.xFactor + Math.cos(orbitTime * 0.8) * firefly.radius + floatSpeed,
-        firefly.yFactor + Math.sin(orbitTime * 0.6) * firefly.radius * 0.4 + wobble,
+        firefly.xFactor +
+          Math.cos(orbitTime * 0.8) * firefly.radius +
+          floatSpeed,
+        firefly.yFactor +
+          Math.sin(orbitTime * 0.6) * firefly.radius * 0.4 +
+          wobble,
         firefly.zFactor + Math.cos(orbitTime * 0.4) * firefly.radius * 0.6
       );
 

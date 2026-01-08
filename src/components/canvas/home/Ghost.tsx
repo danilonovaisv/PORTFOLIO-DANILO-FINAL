@@ -6,6 +6,8 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { Group, Mesh, MeshStandardMaterial, Vector3 } from 'three';
 import { GHOST_CONFIG, FLUORESCENT_COLORS } from '@/config/ghostConfig';
 
+const resolveColor = (color: string) => FLUORESCENT_COLORS[color] ?? color;
+
 // ============================================================================
 // Ghost Component (forwardRef para expor posição ao RevealingText)
 // ============================================================================
@@ -49,35 +51,33 @@ const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
     useFrame((state) => {
       if (!group.current || !bodyMesh.current) return;
 
-      const t = state.clock.getElapsedTime();
-      const pointer = state.pointer;
+      const { clock, pointer } = state;
+      const t = clock.getElapsedTime();
       const isMobile = size.width < 768;
 
-      let xTarget: number;
-      let yTarget: number;
+      // ============================================================
+      // MOVIMENTO MOBILE AUTOMÁTICO (Lissajous Pattern)
+      // O Ghost faz um movimento orgânico que explora toda a Hero,
+      // criando uma experiência imersiva mesmo sem interação.
+      // Frequências diferentes criam um padrão fluido e não repetitivo.
+      // ============================================================
+      const mobileTargets = {
+        x:
+          Math.sin(t * 0.4) * (viewport.width * 0.35) +
+          Math.sin(t * 0.15) * (viewport.width * 0.35 * 0.3),
+        y:
+          Math.cos(t * 0.3) * (viewport.height * 0.25) +
+          Math.sin(t * 0.2) * (viewport.height * 0.25 * 0.4),
+      };
 
-      if (isMobile) {
-        // ============================================================
-        // MOVIMENTO MOBILE AUTOMÁTICO (Lissajous Pattern)
-        // O Ghost faz um movimento orgânico que explora toda a Hero,
-        // criando uma experiência imersiva mesmo sem interação.
-        // ============================================================
-        const xAmplitude = viewport.width * 0.35; // 35% da largura
-        const yAmplitude = viewport.height * 0.25; // 25% da altura
+      const desktopTargets = {
+        x: pointer.x * (viewport.width / 3.5),
+        y: pointer.y * (viewport.height / 3.5),
+      };
 
-        // Padrão Lissajous para movimento orgânico e fluido
-        // Frequências diferentes criam padrão não-repetitivo
-        xTarget =
-          Math.sin(t * 0.4) * xAmplitude +
-          Math.sin(t * 0.15) * (xAmplitude * 0.3);
-        yTarget =
-          Math.cos(t * 0.3) * yAmplitude +
-          Math.sin(t * 0.2) * (yAmplitude * 0.4);
-      } else {
-        // Desktop: segue o mouse
-        xTarget = pointer.x * (viewport.width / 3.5);
-        yTarget = pointer.y * (viewport.height / 3.5);
-      }
+      const { x: xTarget, y: yTarget } = isMobile
+        ? mobileTargets
+        : desktopTargets;
 
       targetPosition.current.set(xTarget, yTarget, 0);
       group.current.position.lerp(
@@ -118,18 +118,9 @@ const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
     });
 
     // Resolve color names to actual hex values
-    const resolvedBodyColor =
-      FLUORESCENT_COLORS[
-        GHOST_CONFIG.bodyColor as keyof typeof FLUORESCENT_COLORS
-      ] || GHOST_CONFIG.bodyColor;
-    const resolvedGlowColor =
-      FLUORESCENT_COLORS[
-        GHOST_CONFIG.glowColor as keyof typeof FLUORESCENT_COLORS
-      ] || GHOST_CONFIG.glowColor;
-    const resolvedEyeGlowColor =
-      FLUORESCENT_COLORS[
-        GHOST_CONFIG.eyeGlowColor as keyof typeof FLUORESCENT_COLORS
-      ] || GHOST_CONFIG.eyeGlowColor;
+    const resolvedBodyColor = resolveColor(GHOST_CONFIG.bodyColor);
+    const resolvedGlowColor = resolveColor(GHOST_CONFIG.glowColor);
+    const resolvedEyeGlowColor = resolveColor(GHOST_CONFIG.eyeGlowColor);
 
     return (
       <group ref={group} scale={GHOST_CONFIG.ghostScale} {...props}>

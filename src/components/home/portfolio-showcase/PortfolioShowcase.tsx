@@ -27,7 +27,7 @@ export default function PortfolioShowcase() {
           duration: 2.1,
           repeat: Infinity,
           repeatType: 'reverse' as const,
-          ease: 'easeInOut',
+          ease: [0.42, 0, 0.58, 1] as const,
         },
       };
 
@@ -39,52 +39,44 @@ export default function PortfolioShowcase() {
       className="relative z-10 overflow-hidden bg-background py-20 md:py-32"
     >
       <div className="mx-auto max-w-[1680px] px-[clamp(24px,5vw,96px)]">
-        <div className="relative mb-12 md:mb-16">
+        <div className="relative mb-12 md:mb-20">
           {/* Headline */}
           <div className="flex flex-col items-center text-center">
-            <h2 className="type-display text-white uppercase tracking-tighter leading-none">
-              <span className="block">portfólio</span>
-              <span className="block text-primary">{'showcase'}</span>
+            <h2 className="type-display uppercase tracking-tighter leading-none">
+              <span className="inline text-white">portfólio</span>{' '}
+              <span className="inline text-primary">showcase</span>
             </h2>
-          </div>
-
-          {/* Floating Label - Contextual */}
-          <div className="pointer-events-none absolute left-0 top-0 hidden lg:flex">
-            <span className="font-mono text-[11px] uppercase tracking-[0.4em] text-accent opacity-80">
-              {HOME_CONTENT.showcase.floatingLabel}
-            </span>
           </div>
         </div>
 
         <div className="relative">
-          <div className="border-t border-white/10">
+          <div className="border-t border-primary/30">
             {categories.map((category, index) => (
               <CategoryStripe
                 key={category.id}
                 category={category}
                 index={index}
                 parentInView={isInView}
+                showFloatingLabel={index === 0}
               />
             ))}
           </div>
         </div>
 
         {/* CTA */}
-        <div className="flex justify-center mt-16 md:mt-24">
+        <div className="flex justify-center mt-12 md:mt-20">
           <Link
             href={HOME_CONTENT.showcase.cta.href}
-            className="group inline-flex items-center gap-4 rounded-full border border-white/20 px-10 py-4 text-[0.75rem] font-semibold uppercase tracking-[0.35em] text-white transition-all duration-300 hover:bg-accent hover:text-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-transparent"
+            className="group relative flex items-center overflow-hidden rounded-full bg-primary pl-10 pr-4 py-3 text-[0.8rem] font-bold uppercase tracking-[0.2em] text-white transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_4px_20px_rgba(0,72,255,0.3)] hover:shadow-[0_8px_30px_rgba(0,72,255,0.45)]"
           >
-            <span className="whitespace-nowrap">
-              {HOME_CONTENT.showcase.cta.label}
+            <span className="z-10">
+              {HOME_CONTENT.showcase.cta.label.replace(' →', '')}
             </span>
-            <motion.span
-              {...arrowLoopProps}
-              whileHover={prefersReducedMotion ? undefined : { x: 4 }}
-              className="text-xl font-light"
-            >
-              →
-            </motion.span>
+            <div className="ml-5 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition-transform duration-500 group-hover:bg-white/20">
+              <motion.span {...arrowLoopProps} className="text-xl font-light">
+                →
+              </motion.span>
+            </div>
           </Link>
         </div>
       </div>

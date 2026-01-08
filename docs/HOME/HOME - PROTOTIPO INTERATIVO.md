@@ -720,9 +720,9 @@ Apresentar as principais categorias de trabalho com **sofisticação editorial**
   - “showcase” em `#0048ff`
 - Label flutuante contextual:
   - Texto: **[what we love working on]**
-  - Cor: `#4fe6ff`
-  - Posicionamento: absoluto, alinhado à esquerda, levemente acima da primeira faixa
-- Três faixas interativas horizontais (*accordion-style stripes*), com alinhamento alternado:
+  - Cor: `#0048ff`
+  - Posicionamento: absoluto, alinhado à esquerda, alinhado a esquerda e ao intem 'Brand & Campaigns' dentro da faixa 
+- Três faixas interativas horizontais ['#8705f2'] (*accordion-style stripes*), com alinhamento alternado:
   1. **Brand & Campaigns** — alinhada à direita
   2. **Videos & Motions** — centralizada
   3. **Web Campaigns, Websites & Tech** — alinhada à esquerda  
@@ -833,8 +833,11 @@ duration: 500ms
 #### CTA Button
 
 **Text:** "let's build something great →"  
-**Destination:** `/#contact`  
-**Hover:** Background changes to `#4fe6ff`, arrow translates right (`translateX: 4px`)  
+**Destination:** `/#contact` 
+**Estado**,Propriedade,Valor / Classe Tailwind,Duração,Easing
+**Idle**,Translação Y,translate-y-0,-,-
+**Hover**,Translação Y,-translate-y-px (Levitação sutil),200ms,ease-out
+**Hover**,Background,bg-light-blue `#0048ff` (Iluminação),300ms,default (`translateX: 4px`)  
 **Optional:** Subtle looping animation on arrow in idle state (`translateX: 0 → 4px → 0`)
 
 
