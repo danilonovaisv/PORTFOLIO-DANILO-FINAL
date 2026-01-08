@@ -16,25 +16,25 @@ export const HOME_CONTENT = {
     cta: { label: "let's build something great →", href: '/#contact' },
     categories: [
       {
-        id: 'branding-campaigns',
-        label: 'Brand Identity & Campaigns',
-        labelMobile: 'Branding',
+        id: 'brand-campaigns',
+        label: 'Brand & Campaigns',
+        labelMobile: 'Brand & Campaigns',
         align: 'end',
         thumb:
           'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
       },
       {
-        id: 'motion-design-film',
-        label: 'Motion Design & Film',
-        labelMobile: 'Motion',
+        id: 'videos-motions',
+        label: 'Videos & Motions',
+        labelMobile: 'Videos & Motions',
         align: 'center',
         thumb:
           'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
       },
       {
-        id: 'web-design-technology',
-        label: 'Web Design & Technology',
-        labelMobile: 'Web & Tech',
+        id: 'websites-webcampaigns-tech',
+        label: 'Web Campaigns,\nWebsites & Tech',
+        labelMobile: 'Web Campaigns, Websites & Tech',
         align: 'start',
         thumb:
           'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp',

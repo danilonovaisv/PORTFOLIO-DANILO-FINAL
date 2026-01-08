@@ -9,6 +9,7 @@ import {
 } from '@react-three/postprocessing';
 import { Suspense } from 'react';
 import type { RefObject } from 'react';
+import { motion } from 'framer-motion';
 import { GHOST_CONFIG } from '@/config/ghostConfig';
 import type { Group } from 'three';
 
@@ -26,7 +27,15 @@ export default function GhostCanvas({ ghostRef }: GhostCanvasProps) {
   const cfg = GHOST_CONFIG;
 
   return (
-    <div className="absolute inset-0 z-0 h-full w-full">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        duration: 1.2,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      }}
+      className="absolute inset-0 z-0 h-full w-full"
+    >
       <Canvas
         eventSource={document.body}
         eventPrefix="client"
@@ -36,7 +45,6 @@ export default function GhostCanvas({ ghostRef }: GhostCanvasProps) {
           alpha: true,
           powerPreference: 'high-performance',
         }}
-        // CAMERA AJUSTADA: Z=7 afasta, FOV=45 dá estilo de cinema sem exagerar no zoom
         camera={{ position: [0, 0, 7], fov: 35 }}
       >
         <Suspense fallback={null}>
@@ -102,6 +110,6 @@ export default function GhostCanvas({ ghostRef }: GhostCanvasProps) {
           </EffectComposer>
         </Suspense>
       </Canvas>
-    </div>
+    </motion.div>
   );
 }

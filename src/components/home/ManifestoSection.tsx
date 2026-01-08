@@ -100,7 +100,7 @@ export default function ManifestoSection() {
                    focus-visible:ring-[#4fe6ff] focus-visible:ring-offset-2
                    focus-visible:ring-offset-black/50"
         aria-label={isMuted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'}
-        aria-pressed={!isMuted ? 'true' : 'false'}
+        aria-pressed={!isMuted}
       >
         {isMuted ? (
           <VolumeX className="w-5 h-5" aria-hidden="true" />
@@ -127,7 +127,7 @@ export default function ManifestoSection() {
 
       {/* Subtle gradient overlay */}
       <div
-        className="absolute inset-0 bg-linear-to-t from-[#06071f]/40 via-transparent to-transparent pointer-events-none"
+        className="absolute inset-0 bg-linear-to-t from-ghost-bg-accent/40 via-transparent to-transparent pointer-events-none"
         aria-hidden="true"
       />
     </motion.section>

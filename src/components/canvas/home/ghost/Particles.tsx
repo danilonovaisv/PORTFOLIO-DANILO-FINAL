@@ -5,6 +5,12 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { GHOST_CONFIG, FLUORESCENT_COLORS } from '@/config/ghostConfig';
 
+const speedFactor = 0.015;
+const particleRadius = 4;
+
+const harmonicNoise = (seed: number, frequency = 1) =>
+  Math.sin(seed * 0.47 + frequency * 1.3) * Math.cos(seed * 0.71 + frequency * 2.1);
+
 export default function Particles({
   count = GHOST_CONFIG.particleCount,
   color = GHOST_CONFIG.particleColor,
@@ -15,23 +21,20 @@ export default function Particles({
   const mesh = useRef<THREE.InstancedMesh>(null);
   const dummy = useMemo(() => new THREE.Object3D(), []);
 
-  // Resolve color name to actual hex value if needed
   const resolvedColor =
     FLUORESCENT_COLORS[color as keyof typeof FLUORESCENT_COLORS] || color;
 
-  // Dados iniciais das partículas (não são recriados a cada render)
   const particles = useMemo(() => {
     const temp = [];
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < count; i += 1) {
+      const seed = i + 1;
       temp.push({
-        t: Math.random() * 100,
-        factor: 20 + Math.random() * 100,
-        speed: 0.01 + Math.random() / 200,
-        xFactor: -5 + Math.random() * 10,
-        yFactor: -5 + Math.random() * 10,
-        zFactor: -5 + Math.random() * 10,
-        mx: 0,
-        my: 0,
+        t: seed * 0.4,
+        factor: 14 + Math.abs(harmonicNoise(seed, 0.5)) * 18,
+        speed: 0.003 + Math.abs(harmonicNoise(seed, 1.3)) * speedFactor,
+        xFactor: Math.sin(seed * 0.45) * particleRadius,
+        yFactor: Math.sin(seed * 0.77) * (particleRadius * 0.8),
+        zFactor: Math.cos(seed * 0.33) * particleRadius,
       });
     }
     return temp;
@@ -43,28 +46,21 @@ export default function Particles({
     const time = state.clock.getElapsedTime();
 
     particles.forEach((particle, i) => {
-      // Atualiza o tempo individual da partícula
-      particle.t += particle.speed / 2;
+      particle.t += particle.speed;
       const { t, factor, xFactor, yFactor, zFactor } = particle;
 
-      // Matemática de movimento orgânico (Lissajous figures / Noise simplificado)
-      const s = Math.cos(t);
-
-      // Define posição no dummy
+      const wave = Math.cos(t * 0.6) * 0.3;
       dummy.position.set(
-        xFactor + Math.cos((t / 10) * factor) + (Math.sin(t * 1) * factor) / 10,
-        yFactor + Math.sin((t / 10) * factor) + (Math.cos(t * 2) * factor) / 10,
-        zFactor + Math.cos((t / 10) * factor) + (Math.sin(t * 3) * factor) / 10
+        xFactor + Math.cos(t / 2) * factor * 0.003 + wave,
+        yFactor + Math.sin(t / 2 + 1) * factor * 0.002 + wave,
+        zFactor + Math.cos(t / 2 + 2) * factor * 0.001 + wave
       );
 
-      // Escala pulsante para simular brilho variando
-      const scale = (Math.sin(time + xFactor) + 2) * 0.02;
-      dummy.scale.set(scale, scale, scale);
-      dummy.rotation.set(s * 5, s * 5, s * 5);
-
+      const glowScale = (Math.sin(time * 0.2 + xFactor) + 1.4) * 0.028;
+      dummy.scale.set(glowScale, glowScale, glowScale);
+      dummy.rotation.set(glowScale * 5, glowScale * 2, glowScale * 3);
       dummy.updateMatrix();
 
-      // Atualiza a matriz na instância específica
       instancedMesh.setMatrixAt(i, dummy.matrix);
     });
 
@@ -74,12 +70,12 @@ export default function Particles({
   return (
     <instancedMesh ref={mesh} args={[undefined, undefined, count]}>
       <dodecahedronGeometry args={[0.2, 0]} />
-      {/* Blending Additive é crucial para o efeito "luz sobre luz" */}
       <meshBasicMaterial
         color={resolvedColor}
         transparent
         opacity={0.6}
         blending={THREE.AdditiveBlending}
+        depthWrite={false}
       />
     </instancedMesh>
   );

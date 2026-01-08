@@ -62,7 +62,7 @@ export default function HeroCopy() {
             WebkitMaskRepeat: 'no-repeat',
             WebkitMaskPosition: maskPosition,
           }}
-          className="font-sans font-black tracking-tight text-[#d9dade] max-w-[1200px] drop-shadow-[0_0_24px_rgba(71,128,255,0.25)] flex flex-col items-center leading-[0.9] text-[clamp(6rem,16vw,9rem)] sm:text-[clamp(6rem,14vw,9rem)] md:text-[clamp(6rem,9vw,9rem)] lg:text-[clamp(7rem,8vw,9rem)]"
+          className="font-sans font-black tracking-tight text-[#d9dade] max-w-[1200px] drop-shadow-[0_0_24px_rgba(71,128,255,0.25)] flex flex-col items-center leading-none py-4 text-[clamp(6rem,16vw,9rem)] sm:text-[clamp(6rem,14vw,9rem)] md:text-[clamp(6rem,9vw,9rem)] lg:text-[clamp(7rem,8vw,9rem)]"
         >
           {/* Mobile Version: 3 linhas - Visível apenas abaixo de md */}
           <span className="md:hidden flex flex-col items-center">
