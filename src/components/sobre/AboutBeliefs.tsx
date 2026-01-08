@@ -13,7 +13,7 @@ export function AboutBeliefs() {
   return (
     <section
       ref={sectionRef}
-      className="bg-[#040013] relative overflow-hidden py-20 md:py-32"
+      className="bg-background relative overflow-hidden py-20 md:py-32"
       aria-label="O que me move"
     >
       <div className="w-full max-w-[1440px] px-6 md:px-8 relative z-10 mx-auto min-h-[50vh] flex flex-col justify-center">

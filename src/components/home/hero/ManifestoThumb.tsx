@@ -1,113 +1,89 @@
 'use client';
-import { useRef } from 'react';
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useMotionValueEvent,
-  cubicBezier,
-} from 'framer-motion';
+
+import { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
+
+const VIDEO_SOURCES = [
+  {
+    type: 'video/mp4',
+    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
+  },
+];
 
 const POSTER_IMAGE =
-  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4';
-const VIDEO_SRC =
-  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4';
+  'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80';
 
-// Configuração da Timeline
-// A (0-0.12): Thumb Idle
-// B (0.12-0.46): Expansão
-// C (0.46-0.78): Fullscreen (Audio ON)
-// D (0.78-1.0): Exit (Audio OFF)
+export default function ManifestoThumb() {
+  const [posterVisible, setPosterVisible] = useState(true);
+  const hasFadedRef = useRef(false);
 
-export default function ManifestoThumb({
-  sectionRef,
-}: {
-  sectionRef: React.RefObject<HTMLElement | null>;
-}) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Hook de Scroll ligado à section da Hero
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end start'],
-  });
-
-  // Transformações (Desktop 100vh Ref)
-  // Scale: Deixa de ser thumb (1x) para ocupar quase a tela toda (~2.5x a 3x dependendo do aspect)
-  const scale = useTransform(scrollYProgress, [0.12, 0.46], [1, 3.5], {
-    ease: cubicBezier(0.22, 1, 0.36, 1),
-    clamp: true,
-  });
-
-  // Position X/Y: Adjust to center the video in full screen
-  // Starting at right: 4vw, bottom: 5vh (defined in className)
-  // We need to move it to cover the screen.
-  // Using percentages for fluidity.
-  const x = useTransform(scrollYProgress, [0.12, 0.46], ['0%', '-10%'], {
-    ease: cubicBezier(0.22, 1, 0.36, 1),
-  });
-
-  const y = useTransform(scrollYProgress, [0.12, 0.46], ['0%', '-20%'], {
-    ease: cubicBezier(0.22, 1, 0.36, 1),
-  });
-
-  // Border Radius: 24px -> 20px -> 0px
-  const borderRadius = useTransform(
-    scrollYProgress,
-    [0.12, 0.25, 0.46],
-    [24, 20, 0]
-  );
-
-  // Opacity for EXIT phase
-  const opacity = useTransform(scrollYProgress, [0.78, 1], [1, 0]);
-
-  // Lógica de Áudio (Reativa ao Scroll)
-  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
-    if (!videoRef.current) return;
-
-    // Zona C: Fullscreen Active (0.46 a 0.78)
-    const shouldBeUnmuted = latest >= 0.46 && latest < 0.78;
-
-    if (shouldBeUnmuted) {
-      if (videoRef.current.muted) {
-        videoRef.current.muted = false;
-        videoRef.current.volume = 1;
+  useEffect(() => {
+    if (!posterVisible) return undefined;
+    const timeout = setTimeout(() => {
+      if (!hasFadedRef.current) {
+        setPosterVisible(false);
+        hasFadedRef.current = true;
       }
-    } else {
-      if (!videoRef.current.muted) {
-        videoRef.current.muted = true;
-      }
+    }, 700);
+
+    return () => clearTimeout(timeout);
+  }, [posterVisible]);
+
+  const handleVideoReady = () => {
+    if (!hasFadedRef.current) {
+      setPosterVisible(false);
+      hasFadedRef.current = true;
     }
-  });
+  };
 
   return (
     <motion.div
-      ref={containerRef}
-      style={{
-        scale,
-        borderRadius,
-        x,
-        y,
-        opacity,
-        transformOrigin: 'bottom right',
-      }}
-      className="hidden lg:block fixed bottom-[5vh] right-[4vw] z-30 w-[30vw] aspect-[16/9] shadow-2xl bg-black pointer-events-none"
+      initial={{ opacity: 0, translateY: 18, scale: 0.96 }}
+      animate={{ opacity: 1, translateY: 0, scale: 1 }}
+      transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+      className="fixed bottom-[5vh] right-[5vw] z-40 w-[min(280px,calc(35vw))] max-w-[320px] shadow-[0_25px_55px_rgba(3,7,17,0.45)] rounded-[18px] overflow-hidden bg-black/80 pointer-events-auto hover:scale-[1.02] transition-transform duration-300 ease-out"
+      aria-label="Preview em vídeo"
     >
-      <video
-        ref={videoRef}
-        src={VIDEO_SRC}
-        poster={POSTER_IMAGE}
-        autoPlay
-        loop
-        muted // Default state
-        playsInline
-        preload="metadata"
-        className="w-full h-full object-cover"
-      />
-      {/* 
-        NO UI ALLOWED 
-      */}
+      <div className="relative w-full h-full">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster={POSTER_IMAGE}
+          onCanPlay={handleVideoReady}
+          onLoadedData={handleVideoReady}
+          className="w-full h-full object-cover"
+        >
+          {VIDEO_SOURCES.map((source) => (
+            <source key={source.src} src={source.src} type={source.type} />
+          ))}
+        </video>
+
+        <div
+          aria-hidden
+          className={`absolute inset-0 bg-black transition-opacity duration-300 ease-out bg-cover bg-center ${
+            posterVisible ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{
+            backgroundImage: `linear-gradient(180deg,rgba(4,12,28,0.98) 0,rgba(2,4,12,0.2) 70%),url(${POSTER_IMAGE})`,
+          }}
+        />
+
+        <div className="pointer-events-none absolute -top-3 -right-4 flex items-center gap-1 text-[0.65rem] tracking-[0.3em] uppercase text-white/70">
+          <span className="font-mono leading-none">preview</span>
+          <svg
+            viewBox="0 0 24 24"
+            width={18}
+            height={18}
+            className="fill-none"
+            stroke="currentColor"
+            strokeWidth="1.2"
+          >
+            <path d="M4 12h14m-6-6 6 6-6 6" />
+          </svg>
+        </div>
+      </div>
     </motion.div>
   );
 }

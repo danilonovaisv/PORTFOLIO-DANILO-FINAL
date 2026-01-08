@@ -45,7 +45,7 @@ export function AboutHero() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen lg:h-screen bg-ghost-surface-deep overflow-hidden"
+      className="relative min-h-screen lg:h-screen bg-background overflow-hidden"
       aria-label="Hero - Manifesto"
     >
       {/* Background Video - Desktop */}
@@ -78,13 +78,13 @@ export function AboutHero() {
 
       {/* Dark Gradient Overlay for Legibility - Desktop Only */}
       <div
-        className="hidden lg:block absolute inset-0 bg-linear-to-b from-black/60 via-black/45 to-ghost-surface-deep/85 pointer-events-none z-1"
+        className="hidden lg:block absolute inset-0 bg-linear-to-b from-black/60 via-black/45 to-background/85 pointer-events-none z-1"
         aria-hidden="true"
       />
 
       {/* Dark Gradient Overlay for Legibility - Mobile */}
       <div
-        className="lg:hidden absolute inset-0 bg-linear-to-b from-black/55 via-black/70 to-ghost-surface-deep/95 pointer-events-none z-1"
+        className="lg:hidden absolute inset-0 bg-linear-to-b from-black/55 via-black/70 to-background/95 pointer-events-none z-1"
         aria-hidden="true"
       />
 

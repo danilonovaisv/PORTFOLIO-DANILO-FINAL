@@ -35,7 +35,7 @@ export default function AboutMethod() {
   return (
     <section
       ref={containerRef}
-      className="relative bg-[#040013] overflow-hidden"
+      className="relative bg-background overflow-hidden"
       aria-label="Como Eu Trabalho"
     >
       {/* Background Video (Desktop Right / Mobile Full with Overlay) */}
@@ -43,7 +43,7 @@ export default function AboutMethod() {
         style={{ y: mediaY }}
         className="absolute inset-0 z-0 opacity-40 mix-blend-screen pointer-events-none"
       >
-        <motion.div className="absolute inset-0 bg-[#040013]/60 z-10" />
+        <motion.div className="absolute inset-0 bg-background/60 z-10" />
         <motion.video
           src={ABOUT_CONTENT.method.video}
           autoPlay
@@ -54,8 +54,8 @@ export default function AboutMethod() {
           aria-hidden="true"
         />
         {/* Cinematic Gradient Overlays */}
-        <div className="absolute inset-0 bg-linear-to-r from-[#040013] via-[#040013]/90 to-transparent z-20" />
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-[#040013] to-transparent z-20" />
+        <div className="absolute inset-0 bg-linear-to-r from-background via-background/90 to-transparent z-20" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-background to-transparent z-20" />
       </motion.div>
 
       <div className="relative z-30 w-full max-w-[1440px] mx-auto px-6 md:px-8">

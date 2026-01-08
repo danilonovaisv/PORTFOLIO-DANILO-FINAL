@@ -1,0 +1,46 @@
+import React from 'react';
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import HeroCopy from '@/components/home/hero/HeroCopy';
+
+// Mock Framer Motion to render children immediately
+jest.mock('framer-motion', () => ({
+  motion: {
+    div: ({ children, className }: any) => (
+      <div className={className}>{children}</div>
+    ),
+    h1: ({ children, className }: any) => (
+      <h1 className={className}>{children}</h1>
+    ),
+    h2: ({ children, className }: any) => (
+      <h2 className={className}>{children}</h2>
+    ),
+  },
+  useMotionValue: jest.fn(),
+  useTransform: jest.fn(),
+  animate: jest.fn(() => ({ stop: jest.fn() })),
+}));
+
+describe('HeroCopy Component Responsiveness', () => {
+  it('should render both Desktop and Mobile text blocks with correct visibility classes', () => {
+    const { container } = render(<HeroCopy />);
+
+    // Find the main H1
+    const h1 = container.querySelector('h1');
+    expect(h1).toBeInTheDocument();
+
+    // Check for Mobile Wrapper (md:hidden)
+    const mobileWrapper = h1?.querySelector('.md\\:hidden');
+    expect(mobileWrapper).toBeInTheDocument();
+    expect(mobileWrapper).toHaveTextContent('Você não');
+    expect(mobileWrapper).toHaveTextContent('vê o');
+    expect(mobileWrapper).toHaveTextContent('design.');
+
+    // Check for Desktop Wrapper (hidden md:flex)
+    const desktopWrapper = h1?.querySelector('.md\\:flex');
+    expect(desktopWrapper).toBeInTheDocument();
+    expect(desktopWrapper).toHaveClass('hidden');
+    expect(desktopWrapper).toHaveTextContent('Você não vê');
+    expect(desktopWrapper).toHaveTextContent('o design.');
+  });
+});

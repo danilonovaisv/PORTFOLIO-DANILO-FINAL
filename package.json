@@ -52,6 +52,7 @@
     "lucide-react": "^0.562.0",
     "maath": "^0.10.8",
     "motion": "^12.24.11",
+    "motion-studio-mcp": "https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest",
     "next": "^16.1.1",
     "postprocessing": "^6.38.2",
     "react": "^19.2.3",

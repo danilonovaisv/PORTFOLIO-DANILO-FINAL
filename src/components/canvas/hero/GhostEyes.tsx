@@ -5,11 +5,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { MathUtils, type Mesh } from 'three';
 import { GHOST_CONFIG, FLUORESCENT_COLORS } from '@/config/ghostConfig';
 
-export default function GhostEyes({ color }: { color?: string }) {
-  const cfg = GHOST_CONFIG;
-  const resolvedColor =
-    color || (FLUORESCENT_COLORS as any)[cfg.eyeGlowColor] || cfg.eyeGlowColor;
-
+export default function GhostEyes({ color = '#fb00ffff' }: { color?: string }) {
   const leftEye = useRef<Mesh>(null);
   const rightEye = useRef<Mesh>(null);
   const { mouse } = useThree();
@@ -77,11 +73,11 @@ export default function GhostEyes({ color }: { color?: string }) {
     <group position={[0, 0, 0.8]}>
       <mesh ref={leftEye} position={[-0.3, 0.1, 0]}>
         <sphereGeometry args={[0.06, 16, 16]} />
-        <meshBasicMaterial color={resolvedColor} />
+        <meshBasicMaterial color={color} />
       </mesh>
       <mesh ref={rightEye} position={[0.3, 0.1, 0]}>
         <sphereGeometry args={[0.06, 16, 16]} />
-        <meshBasicMaterial color={resolvedColor} />
+        <meshBasicMaterial color={color} />
       </mesh>
     </group>
   );

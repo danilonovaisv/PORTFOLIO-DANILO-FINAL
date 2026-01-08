@@ -27,22 +27,16 @@
   justify-content: center;
   pointer-events: none;
   z-index: 12;
-  mask-image: radial-gradient(
-    circle var(--ghost-radius, 240px) at var(--ghost-x, 50vw)
-      var(--ghost-y, 50vh),
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.5) 60%,
-    rgba(0, 0, 0, 0) 85%
-  );
-  -webkit-mask-image: radial-gradient(
-    circle var(--ghost-radius, 240px) at var(--ghost-x, 50vw)
-      var(--ghost-y, 50vh),
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.5) 60%,
-    rgba(0, 0, 0, 0) 85%
-  );
-  mask-repeat: no-repeat;
+  -webkit-mask-image: radial-gradient(circle var(--ghost-radius, 240px) at var(--ghost-x, 50vw) var(--ghost-y, 50vh),
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.5) 60%,
+      rgba(0, 0, 0, 0) 85%);
+  mask-image: radial-gradient(circle var(--ghost-radius, 240px) at var(--ghost-x, 50vw) var(--ghost-y, 50vh),
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.5) 60%,
+      rgba(0, 0, 0, 0) 85%);
   -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
   will-change: mask-position, mask-size;
 }
 

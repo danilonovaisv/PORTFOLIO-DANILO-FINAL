@@ -18,8 +18,8 @@ export default function HeroCopy() {
   // Motion value for mask animation (0 = hidden, 1 = fully revealed)
   const maskProgress = useMotionValue(0);
 
-  // Transform mask progress to mask position
-  const maskPosition = useTransform(maskProgress, [0, 1], ['200% 0', '0% 0']);
+  // Transform mask progress to mask position (starts at 100%->transparent, ends at 0%->black)
+  const maskPosition = useTransform(maskProgress, [0, 1], ['100% 0', '0% 0']);
 
   // Animate mask on mount
   useEffect(() => {
@@ -60,12 +60,12 @@ export default function HeroCopy() {
           }}
           style={{
             WebkitMaskImage:
-              'linear-gradient(to right, transparent 0%, black 40%, black 60%, transparent 100%)',
-            WebkitMaskSize: '300% 100%',
+              'linear-gradient(to right, transparent, black 20%, black 100%)',
+            WebkitMaskSize: '200% 100%',
             WebkitMaskRepeat: 'no-repeat',
             WebkitMaskPosition: maskPosition,
           }}
-          className="font-sans font-black tracking-tighter text-[#d9ddec] mix-blend-screen max-w-[1200px] drop-shadow-[0_0_24px_rgba(71,128,255,0.35)] flex flex-col items-center leading-[0.9] text-[clamp(2.5rem,10vw,9rem)] sm:text-[clamp(3rem,11vw,9rem)] md:text-[clamp(3.5rem,9vw,9rem)]"
+          className="font-sans font-black tracking-tight text-[#d9ddec] mix-blend-screen max-w-[1200px] drop-shadow-[0_0_24px_rgba(71,128,255,0.35)] flex flex-col items-center leading-[0.95] py-4 text-[clamp(3.5rem,13vw,6rem)] md:text-[clamp(6rem,9vw,9rem)]"
         >
           {/* Mobile Version: 3 linhas - Visível apenas abaixo de md */}
           <span className="md:hidden flex flex-col items-center">

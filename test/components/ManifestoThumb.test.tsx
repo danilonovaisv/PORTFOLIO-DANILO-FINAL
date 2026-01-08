@@ -48,11 +48,10 @@ beforeAll(() => {
 
 describe('ManifestoThumb Component', () => {
   it('deve renderizar a seção do manifesto corretamente', () => {
-    const mockRef = { current: document.createElement('section') };
-    const { container } = render(<ManifestoThumb sectionRef={mockRef} />);
+    const { container } = render(<ManifestoThumb />);
 
     // Verifica se o container motion.div existe (sem aria-label conforme spec "zero UI")
-    const motionDiv = container.querySelector('.fixed.z-30');
+    const motionDiv = container.querySelector('.fixed.z-40');
     expect(motionDiv).toBeInTheDocument();
 
     // Verifica se o vídeo está presente
@@ -61,8 +60,7 @@ describe('ManifestoThumb Component', () => {
   });
 
   it('deve renderizar o vídeo com os atributos corretos', () => {
-    const mockRef = { current: document.createElement('section') };
-    const { container } = render(<ManifestoThumb sectionRef={mockRef} />);
+    const { container } = render(<ManifestoThumb />);
 
     // Procura o vídeo dentro do componente
     const video = container.querySelector('video');
@@ -76,8 +74,7 @@ describe('ManifestoThumb Component', () => {
   });
 
   it('não deve exibir controles', () => {
-    const mockRef = { current: document.createElement('section') };
-    const { container } = render(<ManifestoThumb sectionRef={mockRef} />);
+    const { container } = render(<ManifestoThumb />);
     const video = container.querySelector('video');
     expect(video).not.toHaveAttribute('controls');
   });

@@ -44,7 +44,7 @@ const portfolioSuggestionFlow = ai.defineFlow(
     outputSchema: z.string(),
     streamSchema: z.string(),
   },
-  async (subject, { sendChunk }) => {
+  async (subject: string, { sendChunk }: any) => {
     // Construct a request and send it to the model API.
     const prompt = `Suggest an innovative approach for a portfolio project in the area of ${subject}. Include key technologies and creative elements that would make it stand out.`;
     const { response, stream } = ai.generateStream({

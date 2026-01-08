@@ -1,113 +1,96 @@
-// src/components/GhostCanvas.tsx
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Environment } from '@react-three/drei';
-import * as THREE from 'three';
-import { motion } from 'framer-motion';
-import { EffectComposer } from '@react-three/postprocessing';
-
-import Fireflies from './Fireflies';
-import AtmosphereVeil from './AtmosphereVeil'; // Importe o novo componente
-import { AnalogDecay } from './AnalogDecayPass';
+import { Canvas } from '@react-three/fiber';
+import {
+  EffectComposer,
+  Bloom,
+  Noise,
+  Vignette,
+} from '@react-three/postprocessing';
+import { Suspense } from 'react';
+import type { RefObject } from 'react';
 import { GHOST_CONFIG } from '@/config/ghostConfig';
-import Ghost from '../Ghost';
+import type { Group } from 'three';
 
-// --- COMPONENTE DA CENA ---
-const Scene = ({ mousePosition }: { mousePosition: [number, number] }) => {
-  const [time, setTime] = useState(0);
+import Ghost from './Ghost';
+import { AnalogDecay } from './AnalogDecayPass';
+import GhostEyes from './GhostEyes';
+import Particles from './Particles';
 
-  useFrame((state, delta) => {
-    setTime((t) => t + delta);
-  });
-
-  return (
-    <>
-      {/* Luzes diretamente no JSX */}
-      <ambientLight
-        color={GHOST_CONFIG.ambientLightColor}
-        intensity={GHOST_CONFIG.ambientLightIntensity}
-      />
-      <directionalLight
-        position={[-8, 6, -4]}
-        color={0x4a90e2}
-        intensity={GHOST_CONFIG.rimLightIntensity}
-      />
-      <directionalLight
-        position={[8, -4, -6]}
-        color={0x50e3c2}
-        intensity={GHOST_CONFIG.rimLightIntensity * 0.7}
-      />
-
-      <Ghost mousePosition={mousePosition} time={time} />
-      <Environment preset="apartment" />
-      <Fireflies />
-      {/* Adiciona o véu atmosférico (efeito de lanterna) */}
-      <AtmosphereVeil ghostPosition={mousePosition} />
-    </>
-  );
+type GhostCanvasProps = {
+  ghostRef?: RefObject<Group>;
 };
 
-// --- COMPONENTE PRINCIPAL ---
-const GhostCanvas = () => {
-  const [mousePosition, setMousePosition] = useState<[number, number]>([0, 0]);
-
-  // Detecta movimento do mouse para o ghost seguir
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth) * 2 - 1;
-      const y = -(e.clientY / window.innerHeight) * 2 + 1;
-      setMousePosition([x, y]);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+export default function GhostCanvas({ ghostRef }: GhostCanvasProps) {
+  const cfg = GHOST_CONFIG;
 
   return (
-    <motion.div
-      initial={{ opacity: 1 }} // Inicia com opacidade 1, sem preloader
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1.5, ease: 'easeOut' }}
-      className="absolute inset-0 z-0" // Z-index 0 para ficar atrás do conteúdo da Hero
-      style={{
-        background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)',
-      }}
-    >
+    <div className="absolute inset-0 z-0 h-full w-full">
       <Canvas
+        eventSource={document.body}
+        eventPrefix="client"
+        dpr={[1, 1.2]}
         gl={{
-          antialias: true,
-          alpha: true, // Importante para transparência
+          antialias: false,
+          alpha: true,
           powerPreference: 'high-performance',
         }}
-        camera={{
-          position: [0, 0, GHOST_CONFIG.cameraDistance],
-          fov: GHOST_CONFIG.cameraFov,
-        }} // Use valores do config
-        dpr={GHOST_CONFIG.rendererDPR} // Use valores do config
-        onCreated={({ gl }) => {
-          gl.toneMapping = THREE.ACESFilmicToneMapping;
-          gl.toneMappingExposure = 0.9;
-          gl.setClearColor(0x000000, 0); // Fundo transparente
-        }}
+        // CAMERA AJUSTADA: Z=7 afasta, FOV=45 dá estilo de cinema sem exagerar no zoom
+        camera={{ position: [0, 0, 7], fov: 35 }}
       >
-        <Scene mousePosition={mousePosition} />
-        {/* Aplicação do efeito de pós-processamento */}
-        <EffectComposer>
-          <AnalogDecay
-            grain={GHOST_CONFIG.analogGrain}
-            bleeding={GHOST_CONFIG.analogBleeding}
-            vsync={GHOST_CONFIG.analogVSync}
-            scanlines={GHOST_CONFIG.analogScanlines}
-            vignette={GHOST_CONFIG.analogVignette}
-            intensity={GHOST_CONFIG.analogIntensity}
-            jitter={GHOST_CONFIG.analogJitter}
-          />
-        </EffectComposer>
-      </Canvas>
-    </motion.div>
-  );
-};
+        <Suspense fallback={null}>
+          <ambientLight intensity={0.2} />
 
-export default GhostCanvas;
+          {/* Primary Ghost Light - Glow intenso */}
+          <pointLight
+            position={[2, 3, 4]}
+            intensity={2}
+            color={cfg.glowColor}
+            distance={0.9}
+          />
+
+          {/* Extra Glow Light - Cyan atmosférico (inspirado no CodePen) */}
+          <pointLight
+            position={[0, 0, 3]}
+            intensity={8}
+            color="#00f0ff"
+            distance={12}
+            decay={2}
+          />
+
+          {/* Rim Light - Contorno cyan sutil */}
+          <pointLight
+            position={[-3, -2, 2]}
+            intensity={4}
+            color="#4fe6ff"
+            distance={8}
+            decay={2}
+          />
+
+          {/* RevealingText removed in favor of HTML HeroCopy */}
+
+          <group position={[0, -0.2, 0]}>
+            <Ghost ref={ghostRef}>
+              <GhostEyes color={cfg.eyeGlowColor} />
+            </Ghost>
+          </group>
+
+          <Particles count={90} color={cfg.glowColor} />
+
+          <EffectComposer enableNormalPass={false}>
+            {/* Bloom mais intenso para glow fantasmagórico */}
+            <Bloom
+              luminanceThreshold={0.15}
+              mipmapBlur
+              intensity={3.5}
+              radius={0.7}
+            />
+            <AnalogDecay intensity={0.7} scanlines={0.08} grain={0.25} />
+            <Noise opacity={0.015} />
+            <Vignette eskil={false} offset={0.6} darkness={0.7} />
+          </EffectComposer>
+        </Suspense>
+      </Canvas>
+    </div>
+  );
+}

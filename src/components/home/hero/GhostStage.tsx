@@ -8,7 +8,6 @@ import styles from './GhostStage.module.css';
 
 interface GhostStageProps {
   reducedMotion?: boolean;
-  ghostRef?: React.RefObject<any>;
 }
 
 // Import dinâmico evita SSR do canvas
@@ -46,7 +45,7 @@ function StaticGhostFallback() {
   );
 }
 
-export function GhostStage({ reducedMotion, ghostRef }: GhostStageProps) {
+export function GhostStage({ reducedMotion }: GhostStageProps) {
   // Ghost 3D agora aparece no mobile com movimento automático
   // Fallback apenas para prefers-reduced-motion
   if (reducedMotion) {
