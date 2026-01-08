@@ -15,7 +15,7 @@ export default function GhostAura() {
   const auraCommon = 'absolute rounded-full bg-white pointer-events-none';
 
   return (
-    <div className="absolute inset-0 z-10 overflow-hidden" aria-hidden="true">
+    <div className="absolute inset-0 z-[5] overflow-hidden" aria-hidden="true">
       {/* Orb Superior Esquerdo - Movimento lento e sutil */}
       <motion.div
         className={cn(

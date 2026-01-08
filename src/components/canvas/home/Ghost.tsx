@@ -4,7 +4,7 @@ import React, { useRef, useMemo, useImperativeHandle, forwardRef } from 'react';
 import * as THREE from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Group, Mesh, MeshStandardMaterial, Vector3 } from 'three';
-import { GHOST_CONFIG } from '@/config/ghostConfig';
+import { GHOST_CONFIG, FLUORESCENT_COLORS } from '@/config/ghostConfig';
 
 // ============================================================================
 // Ghost Component (forwardRef para expor posição ao RevealingText)
@@ -117,26 +117,40 @@ const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
       bodyMesh.current.rotation.y = Math.sin(t * 0.5) * 0.1;
     });
 
+    // Resolve color names to actual hex values
+    const resolvedBodyColor =
+      FLUORESCENT_COLORS[
+        GHOST_CONFIG.bodyColor as keyof typeof FLUORESCENT_COLORS
+      ] || GHOST_CONFIG.bodyColor;
+    const resolvedGlowColor =
+      FLUORESCENT_COLORS[
+        GHOST_CONFIG.glowColor as keyof typeof FLUORESCENT_COLORS
+      ] || GHOST_CONFIG.glowColor;
+    const resolvedEyeGlowColor =
+      FLUORESCENT_COLORS[
+        GHOST_CONFIG.eyeGlowColor as keyof typeof FLUORESCENT_COLORS
+      ] || GHOST_CONFIG.eyeGlowColor;
+
     return (
       <group ref={group} scale={GHOST_CONFIG.ghostScale} {...props}>
         {/* Iluminação direcional que acompanha o Ghost */}
         <directionalLight
           position={[-8, 6, -4]}
           intensity={GHOST_CONFIG.rimLightIntensity}
-          color={GHOST_CONFIG.glowColor}
+          color={resolvedGlowColor}
         />
         <directionalLight
           position={[8, -4, -6]}
           intensity={GHOST_CONFIG.rimLightIntensity}
-          color={GHOST_CONFIG.eyeGlowColor}
+          color={resolvedEyeGlowColor}
         />
 
         {/* Corpo do Ghost */}
         <mesh ref={bodyMesh} geometry={ghostGeometry}>
           <meshStandardMaterial
             ref={bodyMaterial}
-            color={GHOST_CONFIG.bodyColor}
-            emissive={GHOST_CONFIG.glowColor}
+            color={resolvedBodyColor}
+            emissive={resolvedGlowColor}
             emissiveIntensity={GHOST_CONFIG.emissiveIntensity}
             transparent
             opacity={GHOST_CONFIG.ghostOpacity}
@@ -160,7 +174,7 @@ const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
                 <sphereGeometry args={[0.2, 16, 16]} />
                 <meshBasicMaterial
                   ref={leftEyeMat}
-                  color={GHOST_CONFIG.eyeGlowColor}
+                  color={resolvedEyeGlowColor}
                   transparent
                   opacity={0.3}
                   toneMapped={false}
@@ -180,7 +194,7 @@ const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
                 <sphereGeometry args={[0.2, 16, 16]} />
                 <meshBasicMaterial
                   ref={rightEyeMat}
-                  color={GHOST_CONFIG.eyeGlowColor}
+                  color={resolvedEyeGlowColor}
                   transparent
                   opacity={0.3}
                   toneMapped={false}

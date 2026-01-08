@@ -3,6 +3,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { MathUtils, type Mesh, MeshBasicMaterial, Vector2 } from 'three';
+import { GHOST_CONFIG, FLUORESCENT_COLORS } from '@/config/ghostConfig';
 
 export default function GhostEyes({ color = '#ffffff' }: { color?: string }) {
   const leftEye = useRef<Mesh>(null);
@@ -14,7 +15,7 @@ export default function GhostEyes({ color = '#ffffff' }: { color?: string }) {
 
   // Track previous mouse position for velocity calculation
   const prevMouse = useRef(new Vector2(0, 0));
-  const glowIntensity = useRef(0.3);
+  const glowIntensity = useRef(GHOST_CONFIG.eyeGlowIntensity * 0.1); // Initial low intensity
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -44,13 +45,19 @@ export default function GhostEyes({ color = '#ffffff' }: { color?: string }) {
     );
     prevMouse.current.set(mouse.x, mouse.y);
 
-    // Glow intensity based on movement (0.3 resting, up to 1.0 when moving fast)
+    // Glow intensity based on movement (using config values)
     const targetGlow =
-      mouseVelocity > 0.001 ? Math.min(0.3 + mouseVelocity * 20, 1.0) : 0.3;
+      mouseVelocity > 0.001
+        ? Math.min(
+            GHOST_CONFIG.eyeGlowIntensity * 0.1 + mouseVelocity * 20,
+            GHOST_CONFIG.eyeGlowIntensity
+          )
+        : GHOST_CONFIG.eyeGlowIntensity * 0.1;
+
     glowIntensity.current = MathUtils.lerp(
       glowIntensity.current,
       targetGlow,
-      0.1
+      GHOST_CONFIG.eyeGlowResponse
     );
 
     // Lerp para suavidade
@@ -88,12 +95,16 @@ export default function GhostEyes({ color = '#ffffff' }: { color?: string }) {
       0.4
     );
 
-    // Update eye glow based on movement
+    // Update eye glow based on movement using config values
     if (leftMat.current && rightMat.current) {
       leftMat.current.opacity = glowIntensity.current;
       rightMat.current.opacity = glowIntensity.current;
     }
   });
+
+  // Resolve color name to actual hex value if needed
+  const resolvedColor =
+    FLUORESCENT_COLORS[color as keyof typeof FLUORESCENT_COLORS] || color;
 
   // Material básico para reagir fortemente ao Bloom
   return (
@@ -102,9 +113,9 @@ export default function GhostEyes({ color = '#ffffff' }: { color?: string }) {
         <sphereGeometry args={[0.06, 16, 16]} />
         <meshBasicMaterial
           ref={leftMat}
-          color={color}
+          color={resolvedColor}
           transparent
-          opacity={0.3}
+          opacity={GHOST_CONFIG.eyeGlowIntensity * 0.1}
           toneMapped={false}
         />
       </mesh>
@@ -112,9 +123,9 @@ export default function GhostEyes({ color = '#ffffff' }: { color?: string }) {
         <sphereGeometry args={[0.06, 16, 16]} />
         <meshBasicMaterial
           ref={rightMat}
-          color={color}
+          color={resolvedColor}
           transparent
-          opacity={0.3}
+          opacity={GHOST_CONFIG.eyeGlowIntensity * 0.1}
           toneMapped={false}
         />
       </mesh>

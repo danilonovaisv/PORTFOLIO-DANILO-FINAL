@@ -1,26 +1,28 @@
 # **HOME - PROTOTIPO INTERATIO**
 
 # Danilo Novais Portfolio Homepage
+
 ## Technical Documentation & Design Specifications
+
 Technical Documentation & Design Specifications
 Version: 3.0
 Last Updated: January 03, 2026
 Status: ✅ Ready for Implementation
 
-
-
-
 ## 1. PROJECT OVERVIEW
 
 ### 1.1 Vision & Goals
+
 Create a premium institutional portfolio that demonstrates design excellence not just through showcased work, but through the site's own execution. The homepage must:
-- Establish immediate credibility through atmospheric visual design and edit   orial sophistication
+
+- Establish immediate credibility through atmospheric visual design and edit orial sophistication
 - Guide visitors intuitively from brand introduction → work showcase → contact
 - Feel distinctive and memorable without sacrificing usability or accessibility
 - Perform flawlessly across all devices and connection speeds
 - Reflect the designer's philosophy: "You don't see design. But it sees you."
 
 Success looks like:
+
 - Visitors spending 2+ minutes exploring the portfolio
 - High engagement with featured projects (50%+ click-through)
 - Contact form conversions from qualified leads
@@ -28,56 +30,60 @@ Success looks like:
 - Lighthouse scores: Performance 90+, Accessibility 100, Best Practices 100
 
 ### 1.2 Target Audience
+
 Primary:
+
 - Brand managers and marketing directors at mid-to-large companies seeking design partners
 - Creative agencies looking for freelance brand designers or collaborators
 - Startups and scale-ups needing brand identity and campaign work
 
 Secondary:
+
 - Design recruiters and HR professionals
 - Fellow designers and creative community (peer recognition)
 - Potential collaborators for interdisciplinary projects
 
 User Needs:
+
 - Quickly understand what Danilo does and his areas of expertise
 - See evidence of high-quality work across branding, campaigns, and digital
 - Assess cultural fit and working style
 - Easily initiate contact
 
 ### 1.3 Key Success Metrics
+
 Engagement: Average session duration, scroll depth, interaction rate
 Conversion: Contact form submissions, portfolio page visits
 Technical: Page load time <3s, Core Web Vitals passing, 0 console errors
 Accessibility: WCAG AA compliance, keyboard navigation coverage
 
 ### 1.4 Technical Constraints
+
 - No localStorage/sessionStorage in artifacts (Claude.ai environment restriction)
 - Self-hosted assets where possible to avoid external dependencies
 - Graceful degradation for WebGL/3D features (fallback to static alternatives)
 - Mobile-first responsive design (majority of traffic expected from mobile)
 - Performance budget: <2MB initial page weight, <5s time to interactive
 
-
-
 # **2. DESIGN SYSTEM**
 
 ### 2.1 Color Palette
 
-| Token          | Value     | Uso                                                      |
-| -------------- | --------- | -------------------------------------------------------- |
-| bluePrimary    | `#0048ff` | Cor primária da marca, CTAs, links, elementos interativos |
-| blueAccent     | `#4fe6ff` | Destaques secundários, brilhos “ghost”/atmosfera        |
-| purpleDetails  | `#8705f2` | Pequenos detalhes e highlights                           |
-| pinkDetails    | `#f501d3` | Pequenos detalhes, ênfases pontuais                      |
-| background     | `#040013` | Fundo escuro principal                                   |
-| backgroundLight| `#f0f0f0` | Seções claras (forms, blocos alternados)                 |
-| text           | `#fcffff` | Texto principal em fundo escuro                          |
-| textInverse    | `#0e0e0e` | Texto em fundos claros                                   |
-| textEmphasis   | `#2E85F2` | Palavras destacadas no meio do texto                     |
-| textHighlight  | `#4fe6ff` | Destaques curtos, intros breves                          |
-| textSecondary  | `#a1a3a3` | Infos secundárias, metadata                              |
-| neutral        | `#0b0d3a` | Gradientes, fundos sutis                                 |
-| neutralLight   | `#F5F5F5` | Fundos de seções secundárias                             |
+| Token           | Value     | Uso                                                       |
+| --------------- | --------- | --------------------------------------------------------- |
+| bluePrimary     | `#0048ff` | Cor primária da marca, CTAs, links, elementos interativos |
+| blueAccent      | `#4fe6ff` | Destaques secundários, brilhos “ghost”/atmosfera          |
+| purpleDetails   | `#8705f2` | Pequenos detalhes e highlights                            |
+| pinkDetails     | `#f501d3` | Pequenos detalhes, ênfases pontuais                       |
+| background      | `#040013` | Fundo escuro principal                                    |
+| backgroundLight | `#f0f0f0` | Seções claras (forms, blocos alternados)                  |
+| text            | `#fcffff` | Texto principal em fundo escuro                           |
+| textInverse     | `#0e0e0e` | Texto em fundos claros                                    |
+| textEmphasis    | `#2E85F2` | Palavras destacadas no meio do texto                      |
+| textHighlight   | `#4fe6ff` | Destaques curtos, intros breves                           |
+| textSecondary   | `#a1a3a3` | Infos secundárias, metadata                               |
+| neutral         | `#0b0d3a` | Gradientes, fundos sutis                                  |
+| neutralLight    | `#F5F5F5` | Fundos de seções secundárias                              |
 
 > Obs: `textEmphasis` estava com `##2E85F2` e `textHilght` com typo — normalizei para `textHighlight`.
 
@@ -89,153 +95,150 @@ Accessibility: WCAG AA compliance, keyboard navigation coverage
 
 Tokens de texto **responsivos** (usando `clamp`) para manter coerência em todos os breakpoints:
 
-| Token     | Mobile (~<640px) | Desktop (~≥1024px) | Peso   | Uso                                                                 |
-| --------- | ---------------- | ------------------ | ------ | ------------------------------------------------------------------- |
-| display   | 2.5rem (40px)    | 4.5rem (72px)      | Black  | Frases grandes no meio da página, não-semânticas (Big Phrase)      |
-| h1        | 2rem (32px)      | 3.5rem (56px)      | Bold   | Hero headlines, títulos principais                                  |
-| h2        | 1.5rem (24px)    | 2.5rem (40px)      | Bold   | Títulos de seção                                                    |
-| h3        | 1.25rem (20px)   | 1.75rem (28px)     | Medium | Títulos de cards, subtítulos                                       |
-| body      | 1rem (16px)      | 1.125rem (18px)    | Regular| Texto corrido                                                       |
-| small     | 0.875rem (14px)  | 0.875rem (14px)    | Reg/Med| Labels, legendas                                                   |
-| micro     | 0.75rem (12px)   | 0.75rem (12px)     | Mono   | Tags, infos de sistema                                              |
+| Token   | Mobile (~<640px) | Desktop (~≥1024px) | Peso    | Uso                                                           |
+| ------- | ---------------- | ------------------ | ------- | ------------------------------------------------------------- |
+| display | 2.5rem (40px)    | 4.5rem (72px)      | Black   | Frases grandes no meio da página, não-semânticas (Big Phrase) |
+| h1      | 2rem (32px)      | 3.5rem (56px)      | Bold    | Hero headlines, títulos principais                            |
+| h2      | 1.5rem (24px)    | 2.5rem (40px)      | Bold    | Títulos de seção                                              |
+| h3      | 1.25rem (20px)   | 1.75rem (28px)     | Medium  | Títulos de cards, subtítulos                                  |
+| body    | 1rem (16px)      | 1.125rem (18px)    | Regular | Texto corrido                                                 |
+| small   | 0.875rem (14px)  | 0.875rem (14px)    | Reg/Med | Labels, legendas                                              |
+| micro   | 0.75rem (12px)   | 0.75rem (12px)     | Mono    | Tags, infos de sistema                                        |
 
 #### Tokens em CSS com `clamp()`
 
 ['css
 :root {
-  --font-display: clamp(2.5rem, 5vw, 4.5rem);
-  --font-h1:      clamp(2rem, 4vw, 3.5rem);
-  --font-h2:      clamp(1.5rem, 3vw, 2.5rem);
-  --font-h3:      clamp(1.25rem, 2vw, 1.75rem);
-  --font-body:    clamp(1rem, 1.2vw, 1.125rem);
-  --font-small:   0.875rem;
-  --font-micro:   0.75rem;
+--font-display: clamp(2.5rem, 5vw, 4.5rem);
+--font-h1: clamp(2rem, 4vw, 3.5rem);
+--font-h2: clamp(1.5rem, 3vw, 2.5rem);
+--font-h3: clamp(1.25rem, 2vw, 1.75rem);
+--font-body: clamp(1rem, 1.2vw, 1.125rem);
+--font-small: 0.875rem;
+--font-micro: 0.75rem;
 }
 
 body {
-  font-family: "TT Norms Pro", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
+font-family: "TT Norms Pro", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+"Segoe UI", sans-serif;
 }
 
 .display-text {
-  font-size: var(--font-display);
-  font-weight: 700;
-  line-height: 1.1;
+font-size: var(--font-display);
+font-weight: 700;
+line-height: 1.1;
 }
 
 .h1 {
-  font-size: var(--font-h1);
-  font-weight: 700;
-  line-height: 1.1;
+font-size: var(--font-h1);
+font-weight: 700;
+line-height: 1.1;
 }
 
 .h2 {
-  font-size: var(--font-h2);
-  font-weight: 700;
-  line-height: 1.15;
+font-size: var(--font-h2);
+font-weight: 700;
+line-height: 1.15;
 }
 
 .h3 {
-  font-size: var(--font-h3);
-  font-weight: 500;
-  line-height: 1.2;
+font-size: var(--font-h3);
+font-weight: 500;
+line-height: 1.2;
 }
 
 .body {
-  font-size: var(--font-body);
-  font-weight: 400;
-  line-height: 1.5;
+font-size: var(--font-body);
+font-weight: 400;
+line-height: 1.5;
 }
 
 .small {
-  font-size: var(--font-small);
+font-size: var(--font-small);
 }
 
 .micro {
-  font-size: var(--font-micro);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
-    monospace;
+font-size: var(--font-micro);
+font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+monospace;
 }
 
 Versão conceitual em Tailwind
 
 // tailwind.config.js
 module.exports = {
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['"TT Norms Pro"', "ui-sans-serif", "system-ui"],
-      },
-      fontSize: {
-        display: [
-          "clamp(2.5rem, 5vw, 4.5rem)",
-          { lineHeight: "1.1", fontWeight: "700" },
-        ],
-        h1: [
-          "clamp(2rem, 4vw, 3.5rem)",
-          { lineHeight: "1.1", fontWeight: "700" },
-        ],
-        h2: [
-          "clamp(1.5rem, 3vw, 2.5rem)",
-          { lineHeight: "1.15", fontWeight: "700" },
-        ],
-        h3: [
-          "clamp(1.25rem, 2vw, 1.75rem)",
-          { lineHeight: "1.2", fontWeight: "500" },
-        ],
-        body: [
-          "clamp(1rem, 1.2vw, 1.125rem)",
-          { lineHeight: "1.5", fontWeight: "400" },
-        ],
-        small: ["0.875rem", { lineHeight: "1.4" }],
-        micro: ["0.75rem", { lineHeight: "1.4" }],
-      },
-    },
-  },
+theme: {
+extend: {
+fontFamily: {
+sans: ['"TT Norms Pro"', "ui-sans-serif", "system-ui"],
+},
+fontSize: {
+display: [
+"clamp(2.5rem, 5vw, 4.5rem)",
+{ lineHeight: "1.1", fontWeight: "700" },
+],
+h1: [
+"clamp(2rem, 4vw, 3.5rem)",
+{ lineHeight: "1.1", fontWeight: "700" },
+],
+h2: [
+"clamp(1.5rem, 3vw, 2.5rem)",
+{ lineHeight: "1.15", fontWeight: "700" },
+],
+h3: [
+"clamp(1.25rem, 2vw, 1.75rem)",
+{ lineHeight: "1.2", fontWeight: "500" },
+],
+body: [
+"clamp(1rem, 1.2vw, 1.125rem)",
+{ lineHeight: "1.5", fontWeight: "400" },
+],
+small: ["0.875rem", { lineHeight: "1.4" }],
+micro: ["0.75rem", { lineHeight: "1.4" }],
+},
+},
+},
 };']
-
-
 
 ## 2.3 Spacing & Grid
 
 Container
-    •    max-width: 1680px
-    •    Padding horizontal: clamp(24px, 5vw, 96px)
+• max-width: 1680px
+• Padding horizontal: clamp(24px, 5vw, 96px)
 
 Ritmo Vertical
-    •    Seções: py-16 md:py-24
-    •    Componentes: gap-8 md:gap-12
-    •    Elementos internos: gap-4 md:gap-6
+• Seções: py-16 md:py-24
+• Componentes: gap-8 md:gap-12
+• Elementos internos: gap-4 md:gap-6
 
 Grid (Tailwind)
-    •    Mobile (até md):
-    •    Layout: 1 coluna (grid-cols-1 ou flex flex-col)
-    •    w-full
-    •    Alinhamento:
-    •    text-center para todos os textos
-    •    items-center e justify-center para stacks verticais (flex-col)
-    •    Tablet (md:):
-    •    Cards em md:grid-cols-2
-    •    Hero / destaques podem continuar 1 coluna
-    •    Textos podem voltar a text-left se fizer sentido
-    •    Desktop (lg:+):
-    •    Distribuição customizada por seção
-    •    Textos geralmente alinhados à esquerda para leitura longa
+• Mobile (até md):
+• Layout: 1 coluna (grid-cols-1 ou flex flex-col)
+• w-full
+• Alinhamento:
+• text-center para todos os textos
+• items-center e justify-center para stacks verticais (flex-col)
+• Tablet (md:):
+• Cards em md:grid-cols-2
+• Hero / destaques podem continuar 1 coluna
+• Textos podem voltar a text-left se fizer sentido
+• Desktop (lg:+):
+• Distribuição customizada por seção
+• Textos geralmente alinhados à esquerda para leitura longa
 
 Regra de alinhamento para mobile (base do sistema):
 
 Breakpoint padrão: < 768px
 Regra:
-    •    Todos os títulos (display, h1, h2, h3), parágrafos e CTAs usam text-align: center.
-    •    Componentes em coluna usam align-items: center.
-    •    Imagens e ícones principais centralizados (margin-inline: auto).
+• Todos os títulos (display, h1, h2, h3), parágrafos e CTAs usam text-align: center.
+• Componentes em coluna usam align-items: center.
+• Imagens e ícones principais centralizados (margin-inline: auto).
 
 Exemplo padrão de seção:
 
 <section className="flex flex-col items-center text-center md:items-start md:text-left">
   {/* conteúdo */}
 </section>
-
 
 ⸻
 
@@ -246,34 +249,34 @@ Filosofia: animações orgânicas e intencionais, nunca gratuitas.
 Core Library: Framer Motion
 
 Diretrizes:
-    •    Animar apenas transform e opacity (performance)
-    •    Easing: cubic-bezier(0.22, 1, 0.36, 1) (easeOutExpo)
-    •    Duração: 300–700ms na maioria das transições
-    •    Stagger: 60–120ms entre elementos sequenciais
-    •    Respeitar prefers-reduced-motion: desabilitar animações não essenciais
+• Animar apenas transform e opacity (performance)
+• Easing: cubic-bezier(0.22, 1, 0.36, 1) (easeOutExpo)
+• Duração: 300–700ms na maioria das transições
+• Stagger: 60–120ms entre elementos sequenciais
+• Respeitar prefers-reduced-motion: desabilitar animações não essenciais
 
 Padrões comuns:
 
 // Scroll reveal
 <motion.div
-  initial={{ opacity: 0, y: 24 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+initial={{ opacity: 0, y: 24 }}
+whileInView={{ opacity: 1, y: 0 }}
+transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
 />
 
 // Hover (botões, cards)
 <motion.button
-  whileHover={{ scale: 1.02, y: -2 }}
-  transition={{ duration: 0.3 }}
+whileHover={{ scale: 1.02, y: -2 }}
+transition={{ duration: 0.3 }}
 />
 
 // Staggered children
 const variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08 },
-  },
+hidden: { opacity: 0 },
+visible: {
+opacity: 1,
+transition: { staggerChildren: 0.08 },
+},
 };
 
 Em mobile, como tudo é centralizado e o fluxo é vertical, as entradas preferenciais vêm de baixo (y: 24 → 0) acompanhando o scroll.
@@ -287,17 +290,16 @@ Frases grandes no meio da página, com grande destaque visual, mas sem função 
 Token: display
 
 Diretrizes de uso:
-    •    Quando usar:
-    •    Frases de impacto, statements da marca, quotes, promessas fortes de seção.
-    •    Semântica:
-    •    Usar como <p> ou <span> com classe específica:
-    •    className="display-text" ou className="text-display"
-    •    Exemplo:
+• Quando usar:
+• Frases de impacto, statements da marca, quotes, promessas fortes de seção.
+• Semântica:
+• Usar como <p> ou <span> com classe específica:
+• className="display-text" ou className="text-display"
+• Exemplo:
 
 <p className="text-display">
   Construímos experiências digitais que parecem magia, mas são guiadas por dados.
 </p>
-
 
     •    Alinhamento:
     •    Mobile: sempre centralizado, com largura limitada:
@@ -320,17 +322,18 @@ Exemplo em JSX/Tailwind:
   </p>
 </section>
 
-
-
 ## 2.6 Global Assets
+
 Logos:
+
 - Favicon: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/Favicon.svg`
 - Favicon Light: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg`
 - Logo Light (full): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg`
 - Logo Dark (full): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
 
 ## 2.7 Fonts:
- -  font-family: 'TT Norms Pro';
+
+- font-family: 'TT Norms Pro';
   src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Thin.woff2') format('woff2');
   font-weight: 100;
   font-style: normal;
@@ -364,34 +367,36 @@ Logos:
   font-style: normal;
   font-display: swap;
 
-
 - font-face {
   font-family: 'TT Norms Pro';
   src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2') format('woff2');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
-}
+  }
 
-/* Fonte Mono para Tags */
+/_ Fonte Mono para Tags _/
 @font-face {
-  font-family: 'PPSupplyMono';
-  src: url('https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
+font-family: 'PPSupplyMono';
+src: url('https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2') format('woff2');
+font-weight: 100 900;
+font-style: normal;
+font-display: swap;
 }
 
 Videos:
+
 - Manifesto Video: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
 
 Client Logos:
+
 - 12 monochromatic SVG logos: `client1.svg` through `client12.svg`
 - Base URL: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/`
 
 ## 3. SITE ARCHITECTURE
 
 ### 3.1 Information Architecture
+
 Homepage
 ├── Header (persistent navigation)
 ├── Hero + Manifesto Video
@@ -407,18 +412,23 @@ Other Pages (linked from homepage)
 └── /portfolio/[slug] (Individual project pages)
 
 ### 3.2 Navigation Structure
+
 Primary Navigation (Header):
+
 - Home → `/` or `#hero`
 - Sobre (About) → `/sobre`
 - Portfólio → `/portfolio`
 - Contato (Contact) → `#contact` (always anchors to contact section)
 
 Secondary Navigation (Footer):
+
 - Same as primary navigation
 - Additional: Social media links
 
 ### 3.3 Section Flow
+
 The homepage follows a narrative arc:
+
 1. Header: Establishes brand identity and provides navigation
 2. Hero: Creates emotional impact and communicates positioning
 3. Manifesto Video: Deepens understanding through motion storytelling
@@ -430,10 +440,7 @@ The homepage follows a narrative arc:
 
 ---
 
-# **4. COMPONENT SPECIFICATIONS
-
-
-
+# \*\*4. COMPONENT SPECIFICATIONS
 
 # **4.1 Header**
 
@@ -442,6 +449,7 @@ The homepage follows a narrative arc:
 #### Desktop (≥1024px): Static Glass Header
 
 **Layout:**
+
 - Position: `position: sticky`, `top: 24px` (or `top: 0` with padding), `z-index: 40`
 - Width: Partial container (centered), or Full-width (based on preference, images suggest clean alignment)
 - Height: `64px`
@@ -449,20 +457,23 @@ The homepage follows a narrative arc:
 - **Behavior:** COMPLETELY STATIC. No movement tracking, no physics.
 
 **Content:**
+
 - Left: Logo (SVG) - https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg
 - Right: Navigation Links (Home, Sobre, Portfólio, Contato)
 
 **Interaction - Contrast Adaptation (Scroll):**
-*Essential for visibility on the white 'Contato' section shown in designs.*
+_Essential for visibility on the white 'Contato' section shown in designs._
+
 - **Trigger:** When the header overlaps a light-colored background (e.g., the white Contact section).
 - **Action:**
-    - Text/Icon color switches to **Blue** (Primary Brand Color).
-    - Background may increase opacity for readability.
+  - Text/Icon color switches to **Blue** (Primary Brand Color).
+  - Background may increase opacity for readability.
 - **Transition:** `transition: all 0.3s ease`.
 
 ---
 
 **Desktop (≥1024px): Fluid Glass Header**
+
 - Layout:
   - Position: `position: sticky`, `top: 0`, `z-index: 40`
   - Width: Partial container (not full-width), horizontally centered
@@ -483,6 +494,7 @@ The homepage follows a narrative arc:
   - No cursor-following behavior
 
 **Mobile & Tablet (≤1023px): Staggered Menu Header**
+
 - Layout:
   - Position: Fixed bar at top, full-width
   - Height: `48–64px`
@@ -511,15 +523,16 @@ The homepage follows a narrative arc:
   - The hamburger menu icon is positioned flush right with 16px padding
   - When open, the menu covers the entire viewport
 
-----
+---
 
-# **4.2 Hero + Manifesto
+# \*\*4.2 Hero + Manifesto
 
 **Purpose:** Create immediate visual and emotional impact, communicate brand positioning, introduce the manifesto video as a sensory layer.
 
 #### Structure (Desktop)
 
 **Z-Index Stack:**
+
 1. **Z-50:** Preloader (Ghost Loader SVG animation)
 2. **Z-30:** Manifesto Video Thumbnail (floating, bottom-right)
 3. **Z-20:** Ghost Atmosphere (WebGL Canvas)
@@ -529,12 +542,14 @@ The homepage follows a narrative arc:
 #### Preloader
 
 **Visual:**
+
 - SVG ghost icon (white, floating animation)
 - Text: "Summoning spirits" (uppercase, mono font, tracking-wide)
 - Progress bar: Gradient fill (`#0057FF` to `#5227FF`), 2s duration
 - Background: Dark gradient (`#0a0a0a` to `#1a1a1a`)
 
 **Behavior:**
+
 - Displays immediately on page load
 - Fades out after 1.5–2s (`opacity: 1 → 0`, 1s duration)
 
@@ -542,25 +557,30 @@ The homepage follows a narrative arc:
 
 **Visual Description:**
 Ethereal, organic 3D atmosphere inspired by the "Ghost Blue" aesthetic. Main elements:
+
 - **Ghost Mesh:** Emissive spherical form (`#0057FF`), harmonic pulsing, floating vertically
 - **Reactive Eyes:** Glow intensity increases with mouse movement
 - **Particles:** Organic floating particles orbiting the ghost
 - **Fireflies:** Small light points adding depth
 
 **Post-Processing:**
+
 - **Bloom Pass:** HDR glow effect (intensity: 2.8)
 - **Analog Decay Pass:** Film grain, scanlines, subtle jitter, vignette
 
 **Interaction:**
+
 - Ghost follows cursor slowly (`lerp: 0.05`)
 - Sinusoidal organic movement (`sin(time * 0.8)` vertical, `sin(time * 0.3)` horizontal)
 
 **Performance:**
+
 - DPR: Max 2
 - Antialias: False
 - Disabled entirely on `prefers-reduced-motion`
 
 **Fallback:**
+
 - Static radial gradient background (`#040013` to `#06071f`)
 - No 3D elements
 
@@ -569,31 +589,32 @@ Ethereal, organic 3D atmosphere inspired by the "Ghost Blue" aesthetic. Main ele
 #### Editorial Text Block
 
 **Content:**
+
 - Tag: `[BRAND AWARENESS]` (14px, uppercase, mono) TT Norms Pro Normal
 - H1: "Você não vê (-> linha 01) o design.(-> linha 02)" (6–9rem, TT Norms Pro Black, tracking-tight)
 - H2: "Mas ele vê você." (5–8rem, TT Norms Pro Black, tracking-tight)
 - CTA: "step inside →" (link to `/sobre`, hover effect: color change + arrow translation)
 - Same CTA button at bottom
-**Primary Font:** TT Norms Pro (self-hosted, fallback: `ui-sans-serif, system-ui`)
+  **Primary Font:** TT Norms Pro (self-hosted, fallback: `ui-sans-serif, system-ui`)
 
 ## **Comportamento Responsivo**
+
 Viewport :
-Desktop     - H1: "Você não vê (-> linha 01) o design.(-> linha 02)" (6–9rem, TT Norms Pro Black, tracking-tight)
-Tablet    - H1: "Você não vê (-> linha 01) o design.(-> linha 02)" (6–9rem, TT Norms Pro Black, tracking-tight)
-Mobile    - H1: "Você não (-> linha 01)  vê o (-> linha 02) design.(-> linha 03)” (6–9rem, TT Norms Pro Black, tracking-tight)
+Desktop - H1: "Você não vê (-> linha 01) o design.(-> linha 02)" (6–9rem, TT Norms Pro Black, tracking-tight)
+Tablet - H1: "Você não vê (-> linha 01) o design.(-> linha 02)" (6–9rem, TT Norms Pro Black, tracking-tight)
+Mobile - H1: "Você não (-> linha 01) vê o (-> linha 02) design.(-> linha 03)” (6–9rem, TT Norms Pro Black, tracking-tight)
 
 **Behavior:**
+
 - 100% static (no scroll-triggered animations or fades)
 - Centered vertically and horizontally
 - Color: `#d9dade` on `#06071f` background
-Here’s your updated and clarified description with all the new desktop behaviors (full-page for 2s, scroll hold, fixed position on the side, and sound logic) integrated and cleaned up 👇
-
-
-
+  Here’s your updated and clarified description with all the new desktop behaviors (full-page for 2s, scroll hold, fixed position on the side, and sound logic) integrated and cleaned up 👇
 
 #### Manifesto Video Thumbnail (Desktop)
 
 **Initial State:**
+
 - Position: `bottom-right`, with gutter spacing
 - Size: ~30vw width, 16:9 aspect ratio
 - Style: Rounded corners (`border-radius: 12–16px`), subtle shadow
@@ -601,6 +622,7 @@ Here’s your updated and clarified description with all the new desktop behavio
 - URL: (Manifesto video from assets)
 
 **Scroll Behavior & Positioning (Desktop):**
+
 - While the Hero section is in view and the video is transitioning from thumbnail → fullscreen:
   - The video stays **fixed** to the viewport (anchored to `bottom-right`) and does **not** scroll with the page content.
   - As the user scrolls, the video:
@@ -614,77 +636,75 @@ The video grows and centers as the user scrolls:
 
 javascript
 // Pseudo-code (Framer Motion / GSAP style idea)
-scaleVideo: [0.3, 1]              // from 30% to 100% viewport
-posXVideo: ["100%", "50%"]        // from bottom-right → center (example)
-posYVideo: ["100%", "50%"]        // from bottom-right → center (example)
-borderRadius: ["16px", "0px"]     // from rounded to square
-opacityText: [1, 0]               // editorial text fades out
-position: ["fixed", "fixed"]      // stays pinned to viewport during scroll
+scaleVideo: [0.3, 1] // from 30% to 100% viewport
+posXVideo: ["100%", "50%"] // from bottom-right → center (example)
+posYVideo: ["100%", "50%"] // from bottom-right → center (example)
+borderRadius: ["16px", "0px"] // from rounded to square
+opacityText: [1, 0] // editorial text fades out
+position: ["fixed", "fixed"] // stays pinned to viewport during scroll
 
 Trigger:
-    •    Driven by scroll progress through the Hero section:
+• Driven by scroll progress through the Hero section:
 scrollYProgress: [0, 1]
 
 ⸻
 
 Fullscreen Hold & Sound Logic (Desktop)
-When the video reaches its fullscreen state (covers the entire viewport, scaleVideo = 1, borderRadius = 0):
-    1.    Fullscreen Hold (2 seconds):
-    •    The video remains in full-page fullscreen for 2 seconds.
-    •    During these 2 seconds:
-    •    The scroll is effectively held/locked on the Hero section (the page does not immediately move to the next section).
-    •    The video stays centered and covers the full viewport.
-    2.    Sound Behavior (Desktop):
-    •    Before fullscreen:
-    •    Video plays muted (thumbnail and transition states are always muted).
-    •    When fullscreen state is reached:
-    •    After reaching fullscreen, the video unmutes and audio plays while in this full-page state.
-    •    After leaving fullscreen / going to the next section:
-    •    When the user scrolls beyond the Hero section into the next section, the video is muted again.
-    •    If the user scrolls back up into the Hero and hits fullscreen again, the same logic repeats:
-    •    Muted during transition, unmute only in fullscreen, mute again when exiting.
+When the video reaches its fullscreen state (covers the entire viewport, scaleVideo = 1, borderRadius = 0): 1. Fullscreen Hold (2 seconds):
+• The video remains in full-page fullscreen for 2 seconds.
+• During these 2 seconds:
+• The scroll is effectively held/locked on the Hero section (the page does not immediately move to the next section).
+• The video stays centered and covers the full viewport. 2. Sound Behavior (Desktop):
+• Before fullscreen:
+• Video plays muted (thumbnail and transition states are always muted).
+• When fullscreen state is reached:
+• After reaching fullscreen, the video unmutes and audio plays while in this full-page state.
+• After leaving fullscreen / going to the next section:
+• When the user scrolls beyond the Hero section into the next section, the video is muted again.
+• If the user scrolls back up into the Hero and hits fullscreen again, the same logic repeats:
+• Muted during transition, unmute only in fullscreen, mute again when exiting.
 
 Implementation Hint (State Machine):
-    •    state = "thumbnail" | "transition" | "fullscreenHold" | "released"
-    •    On scrollYProgress reaching 1.0:
-    •    Enter fullscreenHold:
-    •    Unmute video
-    •    Start a 2-second timer before allowing scroll to continue normally.
-    •    On scroll beyond Hero (next section in view):
-    •    Mute video again and move to released.
+• state = "thumbnail" | "transition" | "fullscreenHold" | "released"
+• On scrollYProgress reaching 1.0:
+• Enter fullscreenHold:
+• Unmute video
+• Start a 2-second timer before allowing scroll to continue normally.
+• On scroll beyond Hero (next section in view):
+• Mute video again and move to released.
 
 ⸻
 
 Entrance Animation (on page load):
 
-initial: { 
-  opacity: 0, 
-  scale: 0.92, 
-  translateY: 60, 
-  filter: "blur(10px)" 
+initial: {
+opacity: 0,
+scale: 0.92,
+translateY: 60,
+filter: "blur(10px)"
 }
-animate: { 
-  opacity: 1, 
-  scale: [1.02, 1],         // settle with a slight overshoot
-  translateY: 0,
-  filter: "blur(0px)"
+animate: {
+opacity: 1,
+scale: [1.02, 1], // settle with a slight overshoot
+translateY: 0,
+filter: "blur(0px)"
 }
 duration: 1.2s
 easing: cubic-bezier(0.25, 0.46, 0.45, 0.94)
 
 Hover (Desktop):
-    •    Scale: 1 → 1.05
-    •    Duration: 500ms
+• Scale: 1 → 1.05
+• Duration: 500ms
 
 Click (Desktop):
-    •    Clicking the thumbnail:
-    •    Jumps directly to the fullscreen state (skips the gradual scroll animation).
-    •    Triggers the same 2-second fullscreen hold and sound logic:
-    •    Video unmutes while fullscreen,
-    •    Video mutes again once the user scrolls to the next section.
+• Clicking the thumbnail:
+• Jumps directly to the fullscreen state (skips the gradual scroll animation).
+• Triggers the same 2-second fullscreen hold and sound logic:
+• Video unmutes while fullscreen,
+• Video mutes again once the user scrolls to the next section.
 
 Click (Mobile):
-    •    Toggles sound (mute/unmute) on the mobile fullscreen video section (see below).
+• Toggles sound (mute/unmute) on the mobile fullscreen video section (see below).
 
 ⸻
 
@@ -692,12 +712,12 @@ Manifesto Section (Mobile)
 On mobile, the manifesto video appears as a separate fullscreen section immediately below the Hero (no floating thumbnail).
 
 Layout:
-    •    Full viewport width, aspect-video height
-    •    Background: #040013 (matches Hero for visual continuity)
-    •    Video:
-    •    Autoplay, loop, muted by default, playsInline
-    •    Sound can be enabled by user interaction (tap)
-    •    When the user scrolls away from this section, the video should revert to muted state
+• Full viewport width, aspect-video height
+• Background: #040013 (matches Hero for visual continuity)
+• Video:
+• Autoplay, loop, muted by default, playsInline
+• Sound can be enabled by user interaction (tap)
+• When the user scrolls away from this section, the video should revert to muted state
 
 Animation (scroll reveal):
 
@@ -707,12 +727,12 @@ duration: 0.6s
 easing: cubic-bezier(0.22, 1, 0.36, 1)
 
 Accessibility:
-    •    Video has no audio by default (muted until user explicitly enables sound).
-    •    Provide a clear control (icon/button) to toggle sound on/off.
-    •    Show a visible focus indicator if the video or sound toggle is focusable/tappable.
-
+• Video has no audio by default (muted until user explicitly enables sound).
+• Provide a clear control (icon/button) to toggle sound on/off.
+• Show a visible focus indicator if the video or sound toggle is focusable/tappable.
 
 **Desktop (≥1024px)**
+
 - Z-Index Stack:
   - Z-50: Preloader (Ghost Loader SVG animation)
   - Z-30: Manifesto Video Thumbnail (floating, bottom-right)
@@ -745,17 +765,18 @@ Accessibility:
   - Click: Jumps directly to fullscreen state
 
 **Mobile & Tablet (≤1023px)**
+
 - Manifesto Section:
   - Layout: Full viewport width, aspect-video height
   - Background: `#040013` (matches Hero)
   - Video: Autoplay, loop, muted by default, playsInline
-  - Behavior: 
+  - Behavior:
     - The manifesto video appears as a separate fullscreen section immediately below the Hero
     - No floating thumbnail behavior
     - Video starts playing automatically when section comes into view
     - Sound can be enabled by user interaction (tap)
     - Video reverts to muted state when scrolled away
-  - Animation: 
+  - Animation:
     - Scroll reveal: `initial: { opacity: 0, scale: 0.95, y: 20 }`, `animate: { opacity: 1, scale: 1, y: 0 }`
     - Duration: 0.6s, easing: cubic-bezier(0.22, 1, 0.36, 1)
   - Accessibility:
@@ -770,14 +791,10 @@ Accessibility:
 
 ---
 
-
-
-
-
-
 # 4.3 Portfolio Showcase — Protótipo Interativo
 
 ## Purpose
+
 Apresentar as principais categorias de trabalho com **sofisticação editorial**, usando movimento, hierarquia tipográfica e interação progressiva para **guiar o usuário naturalmente** até áreas específicas do portfólio — replicando o ritmo, layout e comportamento da sessão equivalente na home do site de referência.
 
 ---
@@ -787,18 +804,19 @@ Apresentar as principais categorias de trabalho com **sofisticação editorial**
 ### Desktop (≥1024px)
 
 #### Estrutura Geral
+
 - Headline centralizada:  
   **“portfólio showcase”**
-  - “portfólio” em branco  
+  - “portfólio” em branco
   - “showcase” em `#0048ff`
 - Label flutuante contextual:
   - Texto: **[what we love working on]**
   - Cor: `#4fe6ff`
   - Posicionamento: absoluto, alinhado à esquerda, levemente acima da primeira faixa
-- Três faixas interativas horizontais (*accordion-style stripes*), com alinhamento alternado:
+- Três faixas interativas horizontais (_accordion-style stripes_), com alinhamento alternado:
   1. **Brand & Campaigns** — alinhada à direita
   2. **Videos & Motions** — centralizada
-  3. **Web Campaigns, Websites & Tech** — alinhada à esquerda  
+  3. **Web Campaigns, Websites & Tech** — alinhada à esquerda
      - Quebra de linha após a vírgula
 - CTA centralizado abaixo das faixas:
   - **“let’s build something great →”**
@@ -806,7 +824,9 @@ Apresentar as principais categorias de trabalho com **sofisticação editorial**
 ---
 
 #### Estrutura de Cada Stripe
+
 Cada faixa contém:
+
 - **Thumbnail de vídeo/imagem**
   - Largura: `288px`
   - Aspect ratio: ~16:9
@@ -825,8 +845,10 @@ Cada faixa contém:
 ## Interações & Animações
 
 ### Scroll Reveal (Desktop)
+
 - Trigger: quando 30% da seção entra na viewport
 - Animação:
+
 ```js
 opacity: 0 → 1
 translateY: 24px → 0
@@ -842,6 +864,7 @@ stagger: 120ms entre faixas
 ### Hover sobre a Stripe (Desktop)
 
 #### 1. Revelação da Thumbnail
+
 ```js
 width: 0 → 288px
 opacity: 0 → 1
@@ -850,12 +873,14 @@ easing: cubic-bezier(0.22, 1, 0.36, 1)
 ```
 
 #### 2. Ajuste de Espaçamento Interno
+
 ```js
 gap: gap-7 → gap-10
 duration: 300ms
 ```
 
 #### 3. Ícone de Seta
+
 ```js
 rotation: -45deg → 0deg
 duration: 500ms
@@ -866,6 +891,7 @@ duration: 500ms
 ---
 
 ### Click
+
 - Navegação para `/portfolio`
 - Categoria correspondente aplicada via filtro (slug).
 
@@ -876,6 +902,7 @@ duration: 500ms
 ### Mobile & Tablet (≤1023px)
 
 #### Layout
+
 - Cards verticais full-width
 - Conteúdo texto alinhado a esquerda da página
 - Ícone de Seta alinhado a direita da página
@@ -883,6 +910,7 @@ duration: 500ms
 - CTA centralizado
 
 #### Comportamento
+
 - Sem hover
 - Thumbnails ocultas ou estáticas
 - Ícones de seta à direita
@@ -910,20 +938,17 @@ duration: 500ms
 **Hover:** Background changes to `#4fe6ff`, arrow translates right (`translateX: 4px`)  
 **Optional:** Subtle looping animation on arrow in idle state (`translateX: 0 → 4px → 0`)
 
-
 ---
 
 ## Resultado Esperado
+
 - Experiência editorial fluida
 - Movimento como reforço de significado
 - Consistência total entre desktop e mobile
 
+---
 
------
-
-
-
-# **4.4 Featured Projects
+# \*\*4.4 Featured Projects
 
 **Purpose:** Showcase curated, high-quality work examples in an editorial, magazine-style layout (Bento Grid).
 
@@ -949,6 +974,7 @@ Irregular grid resembling a magazine spread:
 ```
 
 **Grid Implementation (Tailwind):**
+
 ```javascript
 // Row 1
 <div className="md:col-span-5"><ProjectCard /></div>
@@ -965,6 +991,7 @@ Irregular grid resembling a magazine spread:
 #### Project Cards
 
 **Structure:**
+
 - **Image/Video:** Covers card, object-fit cover
 - **Pills (tags):** Positioned absolute, top-right, semi-transparent background (`#E6EFEF` at 70% opacity), small text
 - **Info Block (below image):**
@@ -973,6 +1000,7 @@ Irregular grid resembling a magazine spread:
   - Arrow icon in blue circle (translates right on hover)
 
 **Interaction (Desktop):**
+
 ```javascript
 // Hover on card
 image: { scale: 1.03, translateY: -1 }
@@ -985,6 +1013,7 @@ shadow: { shadow-xl shadow-blue-500/10 }
 ```
 
 **Scroll Reveal:**
+
 ```javascript
 container: { opacity: 0 → 1, y: 40px → 0 }
 cards: { scale: 0.96 → 1, staggerChildren: 0.12 }
@@ -1024,11 +1053,13 @@ duration: 0.7s ease-out
 #### CTA Card
 
 **Content:**
-- Headline: "Like what you see?"  - font normal - (on hover, text becomes `#0057FF`)
+
+- Headline: "Like what you see?" - font normal - (on hover, text becomes `#0057FF`)
 - Button: "view projects →" with arrow icon
 - Background: `#040013` (on hover, text becomes `#0057FF`)
 
 **Interaction:**
+
 ```javascript
 // Hover
 background: { #040013 }
@@ -1045,14 +1076,14 @@ duration: 300ms
 - Full-width, heights adapted to content/aspect ratio
 - CTA card appears as last item
 
-
-
 **Desktop (≥1024px)**
+
 - Layout:
   - Irregular grid resembling a magazine spread (Bento Grid)
   - 4 project cards with varying sizes and positions
   - CTA card in bottom-right position
 - Grid Implementation (Tailwind):
+
   ```jsx
   // Row 1
   <div className="md:col-span-5"> <ProjectCard /> </div>
@@ -1065,12 +1096,14 @@ duration: 300ms
   <div className="md:col-span-8"> <ProjectCard /> </div>
   <div className="md:col-span-4"> <CTAProjectCard /> </div>
   ```
+
 - Project Cards:
   - Structure: Image/Video, Pills (tags), Info Block
   - Interaction: Hover effects on image, arrow, and shadow
   - Scroll Reveal: Container and cards with staggered animation
 
 **Mobile & Tablet (≤1023px)**
+
 - Layout:
   - All cards stacked vertically
   - Full-width, heights adapted to content/aspect ratio
@@ -1091,16 +1124,14 @@ duration: 300ms
 
 ---
 
-
-
-
-# **4.5 Clients/Brands
+# \*\*4.5 Clients/Brands
 
 **Purpose:** Build credibility by displaying recognizable brands previously worked with.
 
 #### Layout
 
 **Desktop & Mobile:**
+
 - Full-width blue bar: `bg-[#0048ff]`
 - Centered headline: "marcas com as quais já trabalhei" (white, bold, 2xl)
 - Grid of logos: Responsive grid (3–4 columns on mobile, 6+ on desktop)
@@ -1109,15 +1140,17 @@ duration: 300ms
 #### Interaction
 
 **Hover (Desktop):**
+
 ```javascript
 logo: { scale: 1.04, brightness: 1.1 }
 duration: 300ms
 ```
 
 **Scroll Reveal:**
+
 ```javascript
 title: { opacity: 0 → 1, y: 16 → 0 }
-logos: { 
+logos: {
   staggerChildren: 0.03,
   each: { opacity: 0 → 1, y: 12 → 0, scale: 0.9 → 1 }
 }
@@ -1134,9 +1167,8 @@ logos: {
 - Keyboard navigable (if logos link anywhere)
 - Respect `prefers-reduced-motion` (disable entrance stagger)
 
-
-
 **Desktop & Mobile**
+
 - Layout:
   - Full-width blue bar: `bg-[#0048ff]`
   - Centered headline: "marcas com as quais já trabalhei"
@@ -1152,24 +1184,24 @@ logos: {
   - The headline is smaller (1.5rem vs 2rem on desktop)
   - Logo grid has 16px padding on all sides on mobile
   - The blue background extends full width with no horizontal container constraints
+
 ---
 
-
-
-
-# **4.6 Contact
+# \*\*4.6 Contact
 
 **Purpose:** Provide clear contact information and enable message submission.
 
 #### Layout (Desktop)
 
 Two-column layout:
+
 - **Left column:** Contact info + social media links
 - **Right column:** Contact form
 
 #### Layout (Mobile)
 
 Single column, vertically stacked:
+
 1. Headline + subheadline
 2. Contact info
 3. Contact form
@@ -1183,6 +1215,7 @@ Single column, vertically stacked:
 #### Contact Information
 
 **Direct Channels:**
+
 - **Phone:** `+55 (11) 98396-6838`
   - Icon: Phone
   - Link: `tel:+5511983966838`
@@ -1194,17 +1227,20 @@ Single column, vertically stacked:
   - Link: `mailto:dannovaisv@gmail.com`
 
 **Interaction:**
+
 - Text color: `#111111`
 - Hover: Underline + color change to `#0057FF`
 - Icons match text color
 
 **Social Media & Portfolio:**
+
 - Icons only (no text labels)
 - Platforms: Instagram, Facebook, LinkedIn, Portfolio site, Twitter
 - Color: `#111111`, hover: `#0057FF` + `scale(1.1)`
 - All open in new tab (`target="_blank"`, `rel="noopener noreferrer"`)
 
 **Links:**
+
 - Instagram: `https://instagram.com/danilo_novais`
 - Facebook: `https://facebook.com/danilonovaisvilela`
 - LinkedIn: `https://linkedin.com/in/danilonovais`
@@ -1214,11 +1250,13 @@ Single column, vertically stacked:
 #### Contact Form
 
 **Fields:**
+
 - Name (text input, required)
 - Email (email input, required)
 - Message (textarea, required)
 
 **Submit Button:**
+
 - Label: "Enviar Mensagem"
 - Background: `#0048ff`
 - Text: White
@@ -1226,10 +1264,12 @@ Single column, vertically stacked:
 - Tap: `scale(0.98)`
 
 **Form Action:**
+
 - Method: POST
 - Endpoint: `https://formsubmit.co/danilo@portfoliodanilo.com`
 
 **States:**
+
 - **Focus on input:** Border color `#0057FF`, shadow `ring-2 ring-blue-500`
 - **Error:** Show validation message below field
 - **Success:** Show success message, clear form
@@ -1238,6 +1278,7 @@ Single column, vertically stacked:
 #### Interactions & Animations
 
 **Scroll Reveal:**
+
 ```javascript
 section: { opacity: 0 → 1, y: 24 → 0 }
 form fields: { staggerChildren: 60ms }
@@ -1245,6 +1286,7 @@ duration: 0.6s
 ```
 
 **Form Interactions:**
+
 ```javascript
 // Input focus
 ring-2 ring-blue-500 ring-offset-2
@@ -1257,6 +1299,7 @@ ring-2 ring-blue-500 ring-offset-2
 ```
 
 **Desktop (≥1024px)**
+
 - Layout:
   - Two-column layout: Left column (contact info), Right column (contact form)
 - Content:
@@ -1266,6 +1309,7 @@ ring-2 ring-blue-500 ring-offset-2
   - Contact Form: Name, Email, Message fields, Submit button
 
 **Mobile & Tablet (≤1023px)**
+
 - Layout:
   - Single column, vertically stacked:
     - Headline + subheadline
@@ -1285,7 +1329,7 @@ ring-2 ring-blue-500 ring-offset-2
   - Social media icons are reduced to just the icons (no text)
   - Form fields have increased padding for touch interaction
   - The "Enviar Mensagem" button has a minimum width of 100% on mobile
-  
+
 #### Accessibility
 
 - All inputs have associated `<label>` elements
@@ -1296,34 +1340,35 @@ ring-2 ring-blue-500 ring-offset-2
 
 ---
 
-
-
-
-# **4.7 Footer
+# \*\*4.7 Footer
 
 **Purpose:** Provide legal information, supplementary navigation, and social links while respecting the overall editorial aesthetic.
 
 #### Desktop (≥1024px)
 
 **Layout:**
+
 - Fixed bar at bottom of viewport
 - Persistent (always visible)
 - Horizontal layout: Copyright (left) | Navigation + Social (right)
 - Height: `48–64px`
 
 **Behavior:**
+
 - `position: fixed`, `bottom: 0`, `z-index: 10`
 - Does not scroll away
 
 #### Mobile & Tablet (≤1023px)
 
 **Layout:**
+
 - Static section in document flow (last element on page)
 - Vertical stack: Copyright → Navigation → Social
 - **Never fixed**
 - **Never overlaps content**
 
 **Spacing:**
+
 - Generous vertical padding: `py-10`
 - Spacing between blocks: `space-y-6`
 - Minimum touch target: 48×48px
@@ -1331,17 +1376,20 @@ ring-2 ring-blue-500 ring-offset-2
 #### Content
 
 **Copyright:**
+
 - "© 2025 Danilo Novais Vilela — todos os direitos reservados"
 - Color: White
 - Small text
 
 **Navigation Links:**
+
 - Home → `#hero`
 - Portfólio Showcase → `#portfolio-showcase`
 - Sobre → `/sobre`
 - Contato → `#contact`
 
 **Social Media:**
+
 - Same icons and links as Contact section
 - White icons, hover: slight opacity reduction (desktop) or focus indicator (mobile)
 
@@ -1353,6 +1401,7 @@ ring-2 ring-blue-500 ring-offset-2
 #### Interactions
 
 **Desktop:**
+
 ```javascript
 // Hover on links
 opacity: 1 → 0.8
@@ -1365,11 +1414,12 @@ duration: 200ms
 ```
 
 **Mobile:**
+
 - No hover dependencies
 - Feedback only on `:active` / `:focus-visible`
 
-
 **Desktop (≥1024px)**
+
 - Layout:
   - Fixed bar at bottom of viewport
   - Persistent (always visible)
@@ -1380,6 +1430,7 @@ duration: 200ms
   - Does not scroll away
 
 **Mobile & Tablet (≤1023px)**
+
 - Layout:
   - Static section in document flow (last element on page)
   - Vertical stack: Copyright → Navigation → Social
@@ -1397,6 +1448,7 @@ duration: 200ms
   - The horizontal layout is converted to a vertical stack
   - The navigation and social links are consolidated into fewer rows
   - The height is variable based on content rather than fixed
+
 ---
 
 #### Accessibility
@@ -1414,26 +1466,26 @@ duration: 200ms
 - No competition with Hero, Manifesto, or CTAs
 - Clean, unobtrusive design
 
-----
+---
 
-
-
-# **5. TECHNICAL IMPLEMENTATION
-
+# \*\*5. TECHNICAL IMPLEMENTATION
 
 ## 1. Visão Geral da Tecnologia (Tech Stack)
 
 ### Frontend Core
+
 - **Framework:** React 18+ (com Hooks)
 - **Meta-framework:** Next.js 13+ (App Router)
 - **Linguagem:** TypeScript (implícito pela stack moderna)
 
 ### Estilização e UI
+
 - **CSS:** Tailwind CSS (apenas classes utilitárias core)
 - **Animações de Interface:** Framer Motion
 - **3D / WebGL:** React Three Fiber + Three.js
 
 ### Infraestrutura e Assets
+
 - **Formulários:** FormSubmit.co
 - **Assets:** Fontes self-hosted; Assets externos via Supabase Storage
 - **Build/Deploy:** Vercel, Netlify ou Cloudflare Pages
@@ -1443,20 +1495,23 @@ duration: 200ms
 ## 2. Requisitos de Performance e Acessibilidade
 
 ### 2.1 Orçamento de Performance (Performance Budget)
+
 - **Peso Inicial da Página:** < 2MB
 - **Time to Interactive (TTI):** < 5s (em 3G)
 - **First Contentful Paint (FCP):** < 2s
 - **Cumulative Layout Shift (CLS):** < 0.1
 
 ### 2.2 Estratégias de Otimização
+
 - **Imagens:** Formato WebP, lazy loading, `srcset` responsivo.
 - **Vídeos:** Comprimidos, autoplay mudo, lazy load (abaixo da dobra).
-- **Fontes:** Self-hosted, preloaded, *subsetting* se possível.
+- **Fontes:** Self-hosted, preloaded, _subsetting_ se possível.
 - **JavaScript:** Code splitting, imports dinâmicos para WebGL.
 - **CSS:** Purge de classes Tailwind não utilizadas em produção.
 - **WebGL:** Max DPR de 2, antialias desativado.
 
 ### 2.3 Padrões de Acessibilidade (WCAG 2.1 Level AA)
+
 - **Contraste:** Mínimo 4.5:1 para texto normal.
 - **Navegação:** Totalmente operável via teclado (Focus Indicators visíveis).
 - **Semântica:** Uso correto de HTML semântico e atributos ARIA.
@@ -1470,18 +1525,21 @@ duration: 200ms
 ### 3.1 Botão CTA (Primary Call-to-Action)
 
 **Design Visual:**
+
 - **Formato:** Compósito (Pílula à esquerda + Círculo à direita).
 - **Cor:** Azul Primário (`#0048ff`). Texto Branco.
 - **Texto:** Uppercase, tracking médio, padding `px-6 py-3`.
 - **Ícone:** Seta (→) centralizada no círculo.
 
 **Interações e Animações:**
+
 1.  **Hover (Desktop):** O botão inteiro sobe 1px (`translateY(-1px)`).
 2.  **Seta (Opcional):** Desliza 4px para a direita no hover.
 3.  **Click (Mobile):** Efeito de compressão (`scale(0.98)`).
 4.  **Foco (Teclado):** Outline de 2px sólido cor `#4fe6ff` com offset de 4px.
 
 **Exemplo de Implementação (Framer Motion):**
+
 ```tsx
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
@@ -1495,8 +1553,10 @@ export const CTAButton = ({ href, children, variant = 'primary' }) => {
       whileTap={{ scale: 0.98 }}
       transition={{ duration: 0.2, ease: 'easeOut' }}
     >
-      <span className="px-6 py-3 font-medium uppercase tracking-wide">{children}</span>
-      <motion.span 
+      <span className="px-6 py-3 font-medium uppercase tracking-wide">
+        {children}
+      </span>
+      <motion.span
         className="flex items-center justify-center w-12 h-12 rounded-full"
         whileHover={{ x: 4 }}
       >
@@ -1505,7 +1565,6 @@ export const CTAButton = ({ href, children, variant = 'primary' }) => {
     </motion.a>
   );
 };
-
 ```
 
 ### 3.2 Atmosfera "Ghost" (WebGL)
@@ -1513,9 +1572,9 @@ export const CTAButton = ({ href, children, variant = 'primary' }) => {
 **Propósito:** Camada visual atmosférica na seção Hero (decorativo).
 **Regras Críticas:**
 
-* Carregamento via **Dynamic Import** (apenas client-side).
-* Fallback para gradiente estático se falhar ou se `prefers-reduced-motion` estiver ativo.
-* Não deve controlar layout ou bloquear texto.
+- Carregamento via **Dynamic Import** (apenas client-side).
+- Fallback para gradiente estático se falhar ou se `prefers-reduced-motion` estiver ativo.
+- Não deve controlar layout ou bloquear texto.
 
 **Arquitetura de Pastas Sugerida:**
 
@@ -1545,16 +1604,13 @@ components/
 
 ### 4.2 Comportamento Responsivo
 
-* **Header:**
-* Desktop: Efeito "Glass" fluido.
-* Mobile: Menu "Hambúrguer" com animação escalonada (staggered).
+- **Header:**
+- Desktop: Efeito "Glass" fluido.
+- Mobile: Menu "Hambúrguer" com animação escalonada (staggered).
 
-
-* **Footer:**
-* Desktop: Fixo na base (se o design pedir reveal) ou estático.
-* Mobile: Sempre estático no fluxo do documento (nunca fixo).
-
-
+- **Footer:**
+- Desktop: Fixo na base (se o design pedir reveal) ou estático.
+- Mobile: Sempre estático no fluxo do documento (nunca fixo).
 
 ---
 
@@ -1573,12 +1629,12 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon_key>
 
 **Checklist Pré-Deployment:**
 
-* [ ] Auditoria Lighthouse (Score > 90).
-* [ ] Teste em dispositivos móveis reais (iOS/Android).
-* [ ] Validação de envio de formulários.
-* [ ] Verificação de links externos (abrir em nova aba).
-* [ ] Teste de vídeos (autoplay mudo).
-* [ ] Teste de `prefers-reduced-motion`.
+- [ ] Auditoria Lighthouse (Score > 90).
+- [ ] Teste em dispositivos móveis reais (iOS/Android).
+- [ ] Validação de envio de formulários.
+- [ ] Verificação de links externos (abrir em nova aba).
+- [ ] Teste de vídeos (autoplay mudo).
+- [ ] Teste de `prefers-reduced-motion`.
 
 ---
 
@@ -1586,26 +1642,27 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon_key>
 
 ### Visual
 
-* [ ] **Hero:** Texto legível sobre o WebGL.
-* [ ] **Manifesto:** Vídeo inicia pequeno e expande no scroll.
-* [ ] **Projetos:** Grid Bento proporcional no desktop, pilha vertical no mobile.
-* [ ] **Logos:** Grid adapta colunas (2-3 no mobile).
+- [ ] **Hero:** Texto legível sobre o WebGL.
+- [ ] **Manifesto:** Vídeo inicia pequeno e expande no scroll.
+- [ ] **Projetos:** Grid Bento proporcional no desktop, pilha vertical no mobile.
+- [ ] **Logos:** Grid adapta colunas (2-3 no mobile).
 
 ### Funcionalidade
 
-* [ ] Links de navegação (âncoras e rotas) funcionais.
-* [ ] Formulário envia dados corretamente.
-* [ ] Ícones sociais abrem em novas abas.
-* [ ] Sem erros no console do navegador.
-* [ ] Sem scroll horizontal indesejado no mobile.
+- [ ] Links de navegação (âncoras e rotas) funcionais.
+- [ ] Formulário envia dados corretamente.
+- [ ] Ícones sociais abrem em novas abas.
+- [ ] Sem erros no console do navegador.
+- [ ] Sem scroll horizontal indesejado no mobile.
 
 ### Performance & Acessibilidade
 
-* [ ] Carregamento < 3s em 3G.
-* [ ] Navegação completa via Tab (Teclado).
-* [ ] Screen Readers leem o conteúdo corretamente.
-* [ ] CLS < 0.1 (Layout estável).
+- [ ] Carregamento < 3s em 3G.
+- [ ] Navegação completa via Tab (Teclado).
+- [ ] Screen Readers leem o conteúdo corretamente.
+- [ ] CLS < 0.1 (Layout estável).
 
 ```
 
 ---
+```

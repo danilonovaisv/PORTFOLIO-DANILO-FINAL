@@ -3,13 +3,20 @@
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
-import { GHOST_CONFIG } from '@/config/ghostConfig';
+import { GHOST_CONFIG, FLUORESCENT_COLORS } from '@/config/ghostConfig';
 
 const FIREFLY_COUNT = 200; // Reduzido para evitar poluição visual
 
 export default function Fireflies() {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const dummy = useMemo(() => new THREE.Object3D(), []);
+
+  // Resolve the color from the config
+  const resolvedColor =
+    FLUORESCENT_COLORS[
+      GHOST_CONFIG.particleColor as keyof typeof FLUORESCENT_COLORS
+    ] || GHOST_CONFIG.particleColor;
+
   const particles = useMemo(() => {
     return Array.from({ length: FIREFLY_COUNT }, () => ({
       t: Math.random() * 1000,
@@ -58,9 +65,9 @@ export default function Fireflies() {
     <instancedMesh ref={meshRef} args={[undefined, undefined, FIREFLY_COUNT]}>
       <sphereGeometry args={[1, 8, 8]} />
       <meshBasicMaterial
-        color="#00ffff" // Ciano Neon
+        color={resolvedColor}
         transparent
-        opacity={0.8}
+        opacity={GHOST_CONFIG.fireflyGlowIntensity * 0.1}
         blending={THREE.AdditiveBlending}
         depthWrite={false}
         toneMapped={false}

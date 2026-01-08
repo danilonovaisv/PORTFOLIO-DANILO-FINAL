@@ -30,7 +30,7 @@ export default function GhostCanvas({ ghostRef }: GhostCanvasProps) {
       <Canvas
         eventSource={document.body}
         eventPrefix="client"
-        dpr={[1, 1.2]}
+        dpr={[1, 2]}
         gl={{
           antialias: false,
           alpha: true,
@@ -69,14 +69,13 @@ export default function GhostCanvas({ ghostRef }: GhostCanvasProps) {
           />
 
           {/* RevealingText removed in favor of HTML HeroCopy */}
-
           <group position={[0, -0.2, 0]}>
             <Ghost ref={ghostRef}>
               <GhostEyes color={cfg.eyeGlowColor} />
             </Ghost>
           </group>
 
-          <Particles count={90} color={cfg.glowColor} />
+          <Particles count={cfg.particleCount} color={cfg.particleColor} />
 
           {/* Fireflies - Orbiting particles for atmospheric depth */}
           <Fireflies />
@@ -89,7 +88,15 @@ export default function GhostCanvas({ ghostRef }: GhostCanvasProps) {
               intensity={2.8}
               radius={0.7}
             />
-            <AnalogDecay intensity={0.7} scanlines={0.08} grain={0.25} />
+            <AnalogDecay
+              intensity={cfg.analogIntensity}
+              scanlines={cfg.analogScanlines}
+              grain={cfg.analogGrain}
+              bleeding={cfg.analogBleeding}
+              vignette={cfg.analogVignette}
+              jitter={cfg.analogJitter}
+              vsync={cfg.analogVSync}
+            />
             <Noise opacity={0.015} />
             <Vignette eskil={false} offset={0.6} darkness={0.7} />
           </EffectComposer>

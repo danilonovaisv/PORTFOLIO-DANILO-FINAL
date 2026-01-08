@@ -3,16 +3,21 @@
 import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { GHOST_CONFIG, FLUORESCENT_COLORS } from '@/config/ghostConfig';
 
 export default function Particles({
-  count = 60,
-  color = '#4d8dff',
+  count = GHOST_CONFIG.particleCount,
+  color = GHOST_CONFIG.particleColor,
 }: {
   count?: number;
   color?: string;
 }) {
   const mesh = useRef<THREE.InstancedMesh>(null);
   const dummy = useMemo(() => new THREE.Object3D(), []);
+
+  // Resolve color name to actual hex value if needed
+  const resolvedColor =
+    FLUORESCENT_COLORS[color as keyof typeof FLUORESCENT_COLORS] || color;
 
   // Dados iniciais das partículas (não são recriados a cada render)
   const particles = useMemo(() => {
@@ -71,7 +76,7 @@ export default function Particles({
       <dodecahedronGeometry args={[0.2, 0]} />
       {/* Blending Additive é crucial para o efeito "luz sobre luz" */}
       <meshBasicMaterial
-        color={color}
+        color={resolvedColor}
         transparent
         opacity={0.6}
         blending={THREE.AdditiveBlending}

@@ -40,7 +40,7 @@ export default function HeroCopy() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 0.8, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="font-mono text-[11px] sm:text-[12px] md:text-[14px] uppercase tracking-[0.2em] text-[#9cb3ff] mb-4 sm:mb-6 md:mb-10 font-normal"
+          className="font-mono text-[14px] uppercase tracking-[0.25em] text-[#d9dade] mb-4 sm:mb-6 md:mb-10 font-normal"
         >
           {hero.tag}
         </motion.div>
@@ -48,15 +48,12 @@ export default function HeroCopy() {
         {/* Main Quote (H1) - Responsive Line Breaks */}
         {/* Desktop/Tablet: 2 linhas | Mobile: 3 linhas */}
         <motion.h1
-          initial={{ opacity: 0 }}
-          animate={{
-            opacity: [0.85, 1, 0.92, 1, 0.88, 1], // Glitch/flicker effect
-          }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{
-            duration: 4,
-            ease: 'easeInOut',
-            repeat: Infinity,
-            repeatDelay: 2,
+            duration: 1.1,
+            ease: [0.22, 1, 0.36, 1],
+            delay: 0.35,
           }}
           style={{
             WebkitMaskImage:
@@ -65,7 +62,7 @@ export default function HeroCopy() {
             WebkitMaskRepeat: 'no-repeat',
             WebkitMaskPosition: maskPosition,
           }}
-          className="font-sans font-black tracking-tighter text-[#d9ddec] mix-blend-screen max-w-[1200px] drop-shadow-[0_0_24px_rgba(71,128,255,0.35)] flex flex-col items-center leading-[0.9] text-[clamp(2.5rem,10vw,9rem)] sm:text-[clamp(3rem,11vw,9rem)] md:text-[clamp(3.5rem,9vw,9rem)]"
+          className="font-sans font-black tracking-tight text-[#d9dade] max-w-[1200px] drop-shadow-[0_0_24px_rgba(71,128,255,0.25)] flex flex-col items-center leading-[0.9] text-[clamp(6rem,16vw,9rem)] sm:text-[clamp(6rem,14vw,9rem)] md:text-[clamp(6rem,9vw,9rem)] lg:text-[clamp(7rem,8vw,9rem)]"
         >
           {/* Mobile Version: 3 linhas - Visível apenas abaixo de md */}
           <span className="md:hidden flex flex-col items-center">
@@ -88,18 +85,14 @@ export default function HeroCopy() {
 
         {/* Sub Quote (H2) - with subtle flicker */}
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{
-            opacity: [1, 0.9, 1], // Subtle presence flicker
-            y: 0,
-          }}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{
-            duration: 3,
-            ease: 'easeInOut',
-            repeat: Infinity,
-            repeatDelay: 1,
+            duration: 0.9,
+            ease: [0.22, 1, 0.36, 1],
+            delay: 0.5,
           }}
-          className="font-sans font-bold tracking-tight mt-4 sm:mt-6 mb-8 sm:mb-12 text-[#9ca5c3] mix-blend-screen max-w-[800px] drop-shadow-[0_0_18px_rgba(71,128,255,0.25)] leading-[1.1] text-[clamp(1rem,4vw,2.5rem)] sm:text-[clamp(1.2rem,4vw,2.5rem)]"
+          className="font-sans font-semibold tracking-tight mt-4 sm:mt-6 mb-8 sm:mb-12 text-[#ffffff] max-w-[800px] drop-shadow-[0_0_16px_rgba(79,230,255,0.25)] leading-[1.1] text-[clamp(1.2rem,4vw,2.2rem)]"
         >
           {hero.subtitle}
         </motion.h2>
@@ -128,25 +121,14 @@ function CtaButton({ href, label }: { href: string; label: string }) {
   return (
     <Link
       href={href}
-      className="group flex items-center justify-center gap-3 bg-[#0c5bff] text-white no-underline font-semibold lowercase transition-all duration-300 shadow-[0_0_40px_rgba(12,91,255,0.55)] ring-1 ring-white/12 hover:bg-[#0a46d4] hover:shadow-[0_0_55px_rgba(12,91,255,0.75)] text-[14px] sm:text-[15px] px-6 sm:px-8 py-3 rounded-full w-full max-w-xs sm:w-auto sm:max-w-none mx-auto"
+      className="group inline-flex items-center justify-center gap-3 text-[#d9dade] uppercase tracking-[0.25em] text-[0.9rem] font-medium transition-all duration-300 hover:text-white"
     >
-      <span>{cleanLabel}</span>
-      <span className="flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 14 14"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M1 7H13M13 7L7 1M13 7L7 13"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+      <span className="relative">
+        {cleanLabel}
+        <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-current transition-transform duration-300 group-hover:scale-x-100" />
+      </span>
+      <span className="flex items-center justify-center transition-transform duration-300 group-hover:translate-x-2">
+        →
       </span>
     </Link>
   );

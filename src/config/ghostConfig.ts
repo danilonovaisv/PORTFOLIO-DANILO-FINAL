@@ -35,7 +35,7 @@ export const GHOST_CONFIG = {
   eyeGlowResponse: 0.31,
 
   // Enhanced lighting
-  rimLightIntensity: 6.8,
+  rimLightIntensity: 9.8,
 
   // Behavior
   followSpeed: 0.05,

@@ -56,13 +56,13 @@ export function Preloader({
       {show && (
         <motion.div
           className={
-            'fixed inset-0 z-[50] grid place-items-center bg-[linear-gradient(180deg,#0a0a0a_0%,#1a1a1a_100%)] ' +
+            'fixed inset-0 z-[50] grid place-items-center bg-[linear-gradient(180deg,#040013_0%,#0b0d3a_100%)] ' +
             (className ?? '')
           }
           initial={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
           exit={{ opacity: 0, filter: 'blur(20px)', scale: 1.05 }}
           transition={{
-            duration: reduced ? 0.3 : 1.2,
+            duration: reduced ? 0.3 : 1,
             ease: [0.22, 1, 0.36, 1],
           }}
           role="status"
@@ -96,7 +96,7 @@ export function Preloader({
 
             {/* Texto Pulsante */}
             <motion.p
-              className="text-[12px] font-mono font-medium uppercase tracking-[0.4em] text-[#0057FF] mb-8"
+              className="text-[14px] font-mono font-medium uppercase tracking-[0.35em] text-[#d9dade] mb-8"
               animate={reduced ? {} : { opacity: [0.7, 1, 0.7] }}
               transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
             >

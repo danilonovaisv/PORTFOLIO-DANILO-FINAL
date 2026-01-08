@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Preloader } from '@/components/ui/Preloader';
 
 import { GhostStage } from './hero/GhostStage';
 import HeroCopy from './hero/HeroCopy';
@@ -12,7 +11,7 @@ import ManifestoThumb from './hero/ManifestoThumb';
 import GhostAura from './hero/GhostAura';
 
 const CONFIG = {
-  preloadMs: 2000,
+  preloadMs: 1800,
   bgColor: '#050511',
 } as const;
 
@@ -26,7 +25,7 @@ const ENTRY_ANIMATION = {
   },
   animate: {
     opacity: 1,
-    scale: 1,
+    scale: [1.02, 1],
     y: 0,
     filter: 'blur(0px)',
   },
@@ -59,7 +58,7 @@ function usePrefersReducedMotion() {
 export default function HomeHero() {
   const sectionRef = useRef<HTMLElement | null>(null);
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const prefersReducedMotion = usePrefersReducedMotion();
 
@@ -72,7 +71,7 @@ export default function HomeHero() {
     <section
       id="hero"
       ref={sectionRef}
-      className="relative min-h-screen h-[120vh] md:h-[250vh] bg-[#050511] overflow-hidden"
+      className="relative min-h-screen h-[120vh] md:h-[250vh] bg-[#040013] overflow-hidden"
       aria-label="Home hero section"
     >
       {/* Preloader Ghost - Z-50 (Highest layer) */}
@@ -90,9 +89,7 @@ export default function HomeHero() {
       <motion.div
         className="sticky top-0 h-screen w-full overflow-hidden"
         initial={prefersReducedMotion ? {} : ENTRY_ANIMATION.initial}
-        animate={
-          !isLoading && !prefersReducedMotion ? ENTRY_ANIMATION.animate : {}
-        }
+        animate={!prefersReducedMotion ? ENTRY_ANIMATION.animate : {}}
         transition={ENTRY_ANIMATION.transition}
       >
         {/* Z-0: Background Gradient */}
@@ -109,17 +106,23 @@ export default function HomeHero() {
           <GhostStage reducedMotion={prefersReducedMotion} />
         </div>
 
-        {/* Z-30: Hero Copy (Editorial Text Block) - Above Ghost */}
+        {/* Z-10: Hero Copy (Editorial Text Block) - Above Ghost */}
         <motion.div
-          className="absolute inset-0 z-30 pointer-events-none"
+          className="absolute inset-0 z-10 pointer-events-none"
           style={{ opacity: copyOpacity }}
         >
           <HeroCopy />
         </motion.div>
 
-        {/* Z-40: Manifesto Thumb (Desktop - Floating Video) */}
-        <ManifestoThumb />
+        {/* Z-30: Manifesto Thumb (Desktop - Floating Video) */}
+        <ManifestoThumb sectionRef={sectionRef} />
       </motion.div>
+
+      {/* Anchor for Manifesto Scroll - Trigger point for fullscreen */}
+      <div
+        id="manifesto-trigger"
+        className="absolute top-[70%] w-px h-px pointer-events-none"
+      />
 
       {/* Scroll Space */}
       <div className="h-screen w-full pointer-events-none" />

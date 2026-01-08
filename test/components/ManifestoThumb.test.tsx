@@ -1,11 +1,18 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { motionValue } from 'framer-motion';
 import ManifestoThumb from '@/components/home/hero/ManifestoThumb';
 
 jest.mock('framer-motion', () => ({
   ...jest.requireActual('framer-motion'),
+  useScroll: jest.fn(() => ({
+    scrollYProgress: {
+      get: () => 0,
+      onChange: jest.fn(),
+      destroy: jest.fn(),
+      on: jest.fn(),
+    },
+  })),
   useTransform: jest.fn(() => 1), // Returns constant for scale/borderRadius
   useMotionValueEvent: jest.fn(),
 }));
@@ -40,10 +47,9 @@ beforeAll(() => {
 });
 
 describe('ManifestoThumb Component', () => {
-  const mockScrollProgress = motionValue(0);
-
   it('deve renderizar a seção do manifesto corretamente', () => {
-    render(<ManifestoThumb scrollProgress={mockScrollProgress} />);
+    const mockRef = { current: document.createElement('section') };
+    render(<ManifestoThumb sectionRef={mockRef} />);
 
     // Verifica se o container principal existe pelo label acessível
     const container = screen.getByLabelText('Preview em vídeo');
@@ -51,9 +57,8 @@ describe('ManifestoThumb Component', () => {
   });
 
   it('deve renderizar o vídeo com os atributos corretos', () => {
-    const { container } = render(
-      <ManifestoThumb scrollProgress={mockScrollProgress} />
-    );
+    const mockRef = { current: document.createElement('section') };
+    const { container } = render(<ManifestoThumb sectionRef={mockRef} />);
 
     // Procura o vídeo dentro do componente
     const video = container.querySelector('video');
@@ -67,9 +72,8 @@ describe('ManifestoThumb Component', () => {
   });
 
   it('não deve exibir controles', () => {
-    const { container } = render(
-      <ManifestoThumb scrollProgress={mockScrollProgress} />
-    );
+    const mockRef = { current: document.createElement('section') };
+    const { container } = render(<ManifestoThumb sectionRef={mockRef} />);
     const video = container.querySelector('video');
     expect(video).not.toHaveAttribute('controls');
   });

@@ -3,6 +3,7 @@
 import React, { forwardRef, useMemo } from 'react';
 import { Effect } from 'postprocessing';
 import { Uniform, WebGLRenderer, WebGLRenderTarget } from 'three';
+import { GHOST_CONFIG } from '@/config/ghostConfig';
 
 const fragmentShader = `
 uniform float uTime;
@@ -85,13 +86,13 @@ void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor)
 
 class AnalogDecayEffectImpl extends Effect {
   constructor({
-    grain = 0.9,
-    bleeding = 0.5,
-    scanlines = 1.5,
-    vignette = 3.2,
-    intensity = 3.0,
-    jitter = 0.5,
-    vsync = 0.0,
+    grain = GHOST_CONFIG.analogGrain,
+    bleeding = GHOST_CONFIG.analogBleeding,
+    scanlines = GHOST_CONFIG.analogScanlines,
+    vignette = GHOST_CONFIG.analogVignette,
+    intensity = GHOST_CONFIG.analogIntensity,
+    jitter = GHOST_CONFIG.analogJitter,
+    vsync = GHOST_CONFIG.analogVSync,
   }) {
     super('AnalogDecayEffect', fragmentShader, {
       uniforms: new Map([
@@ -130,13 +131,13 @@ interface AnalogDecayProps {
 export const AnalogDecay = forwardRef<AnalogDecayEffectImpl, AnalogDecayProps>(
   (
     {
-      grain = 1.5,
-      bleeding = 0.5,
-      scanlines = 0.5,
-      vignette = 3.2,
-      intensity = 1.0,
-      jitter = 0.0,
-      vsync = 0.0,
+      grain = GHOST_CONFIG.analogGrain,
+      bleeding = GHOST_CONFIG.analogBleeding,
+      scanlines = GHOST_CONFIG.analogScanlines,
+      vignette = GHOST_CONFIG.analogVignette,
+      intensity = GHOST_CONFIG.analogIntensity,
+      jitter = GHOST_CONFIG.analogJitter,
+      vsync = GHOST_CONFIG.analogVSync,
     },
     ref
   ) => {
