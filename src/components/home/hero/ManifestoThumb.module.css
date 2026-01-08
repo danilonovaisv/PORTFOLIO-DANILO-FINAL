@@ -3,6 +3,7 @@
   inset: 0;
   background-color: black;
   transition: opacity 300ms ease;
+  background-image: var(--poster-gradient);
   background-size: cover;
   background-position: center;
 }

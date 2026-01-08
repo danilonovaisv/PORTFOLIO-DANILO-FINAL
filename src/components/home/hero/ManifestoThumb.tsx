@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import styles from './ManifestoThumb.module.css';
 
 const POSTER_IMAGE =
-  'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80';
+  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4';
 
 export default function ManifestoThumb({
   sectionRef,
@@ -60,10 +60,12 @@ export default function ManifestoThumb({
         <div
           aria-hidden
           className={styles.videoOverlay}
-          style={{
-            opacity: posterVisible ? 1 : 0,
-            backgroundImage: `linear-gradient(180deg,rgba(4,12,28,0.98) 0,rgba(2,4,12,0.2) 70%),url(${POSTER_IMAGE})`,
-          }}
+          style={
+            {
+              opacity: posterVisible ? 1 : 0,
+              '--poster-gradient': `linear-gradient(180deg,rgba(4,12,28,0.98) 0,rgba(2,4,12,0.2) 70%),url(${POSTER_IMAGE})`,
+            } as React.CSSProperties
+          }
         />
 
         <div className="pointer-events-none absolute -top-3 -right-4 flex items-center gap-1 text-[0.65rem] tracking-[0.3em] uppercase text-white/70">

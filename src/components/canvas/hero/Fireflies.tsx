@@ -1,4 +1,3 @@
-// Fireflies.tsx
 'use client';
 import { useMemo, useRef } from 'react';
 import * as THREE from 'three';
@@ -57,7 +56,7 @@ export default function Fireflies() {
       <meshBasicMaterial
         color="#ffff44" // Cor base do CodePen
         transparent
-        opacity={GHOST_CONFIG.fireflyGlowIntensity * 0.9} // Use o valor do config
+        opacity={GHOST_CONFIG.fireflyOpacity * 0.9} // Use o valor do config
         blending={THREE.AdditiveBlending}
         depthWrite={false}
         toneMapped={false}
