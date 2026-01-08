@@ -641,6 +641,28 @@ transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
 
 ---
 
+
+## 📱📐 Comportamento Responsivo
+
+**Viewport:**
+
+- **Desktop**:  
+  H1: "Você não vê" (linha 01)  
+       "o design." (linha 02)  
+  _Fonte: TT Norms Pro Black, 6–9rem, tracking-tight_
+
+- **Tablet**:  
+  H1: "Você não vê" (linha 01)  
+       "o design." (linha 02)  
+  _Fonte: TT Norms Pro Black, 6–9rem, tracking-tight_
+
+- **Mobile**:  
+  H1: "Você não" (linha 01)  
+       "vê o" (linha 02)  
+       "design." (linha 03)  
+  _Fonte: TT Norms Pro Black, 6–9rem, tracking-tight_
+
+
 ## 🎬 Entrada (Page Load)
 
 ```js
@@ -677,13 +699,6 @@ easing: [0.25, 0.46, 0.45, 0.94]
 - Texto editorial centralizado com quebra de linha adaptativa
 - Manifesto em vídeo com transição scroll e lógica de som
 - Acessível e performático
-
----
-
----
-
-
-
 
 
 

@@ -16,6 +16,7 @@ import Ghost from '../Ghost';
 import { AnalogDecay } from './AnalogDecayPass';
 import GhostEyes from './GhostEyes';
 import Particles from './Particles';
+import Fireflies from './Fireflies';
 
 type GhostCanvasProps = {
   ghostRef?: RefObject<Group>;
@@ -77,12 +78,15 @@ export default function GhostCanvas({ ghostRef }: GhostCanvasProps) {
 
           <Particles count={90} color={cfg.glowColor} />
 
+          {/* Fireflies - Orbiting particles for atmospheric depth */}
+          <Fireflies />
+
           <EffectComposer enableNormalPass={false}>
-            {/* Bloom mais intenso para glow fantasmagórico */}
+            {/* Bloom ajustado para glow fantasmagórico (spec: 2.8) */}
             <Bloom
               luminanceThreshold={0.15}
               mipmapBlur
-              intensity={3.5}
+              intensity={2.8}
               radius={0.7}
             />
             <AnalogDecay intensity={0.7} scanlines={0.08} grain={0.25} />

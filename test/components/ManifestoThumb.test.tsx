@@ -46,7 +46,7 @@ describe('ManifestoThumb Component', () => {
     render(<ManifestoThumb scrollProgress={mockScrollProgress} />);
 
     // Verifica se o container principal existe pelo label acessível
-    const container = screen.getByLabelText('Assistir manifesto em fullscreen');
+    const container = screen.getByLabelText('Preview em vídeo');
     expect(container).toBeInTheDocument();
   });
 

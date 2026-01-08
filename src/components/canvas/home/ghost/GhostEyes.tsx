@@ -2,13 +2,19 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { MathUtils, type Mesh } from 'three';
+import { MathUtils, type Mesh, MeshBasicMaterial, Vector2 } from 'three';
 
 export default function GhostEyes({ color = '#ffffff' }: { color?: string }) {
   const leftEye = useRef<Mesh>(null);
   const rightEye = useRef<Mesh>(null);
+  const leftMat = useRef<MeshBasicMaterial>(null);
+  const rightMat = useRef<MeshBasicMaterial>(null);
   const { mouse } = useThree();
   const [blink, setBlink] = useState(false);
+
+  // Track previous mouse position for velocity calculation
+  const prevMouse = useRef(new Vector2(0, 0));
+  const glowIntensity = useRef(0.3);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -30,6 +36,22 @@ export default function GhostEyes({ color = '#ffffff' }: { color?: string }) {
     const eyeMovementRange = 0.15;
     const targetX = mouse.x * eyeMovementRange;
     const targetY = mouse.y * eyeMovementRange;
+
+    // Calculate mouse velocity for glow intensity
+    const mouseVelocity = Math.sqrt(
+      Math.pow(mouse.x - prevMouse.current.x, 2) +
+        Math.pow(mouse.y - prevMouse.current.y, 2)
+    );
+    prevMouse.current.set(mouse.x, mouse.y);
+
+    // Glow intensity based on movement (0.3 resting, up to 1.0 when moving fast)
+    const targetGlow =
+      mouseVelocity > 0.001 ? Math.min(0.3 + mouseVelocity * 20, 1.0) : 0.3;
+    glowIntensity.current = MathUtils.lerp(
+      glowIntensity.current,
+      targetGlow,
+      0.1
+    );
 
     // Lerp para suavidade
     leftEye.current.position.x = MathUtils.lerp(
@@ -65,6 +87,12 @@ export default function GhostEyes({ color = '#ffffff' }: { color?: string }) {
       targetScaleY,
       0.4
     );
+
+    // Update eye glow based on movement
+    if (leftMat.current && rightMat.current) {
+      leftMat.current.opacity = glowIntensity.current;
+      rightMat.current.opacity = glowIntensity.current;
+    }
   });
 
   // Material básico para reagir fortemente ao Bloom
@@ -72,11 +100,23 @@ export default function GhostEyes({ color = '#ffffff' }: { color?: string }) {
     <group position={[0, 0, 0.8]}>
       <mesh ref={leftEye} position={[-0.3, 0.1, 0]}>
         <sphereGeometry args={[0.06, 16, 16]} />
-        <meshBasicMaterial color={color} />
+        <meshBasicMaterial
+          ref={leftMat}
+          color={color}
+          transparent
+          opacity={0.3}
+          toneMapped={false}
+        />
       </mesh>
       <mesh ref={rightEye} position={[0.3, 0.1, 0]}>
         <sphereGeometry args={[0.06, 16, 16]} />
-        <meshBasicMaterial color={color} />
+        <meshBasicMaterial
+          ref={rightMat}
+          color={color}
+          transparent
+          opacity={0.3}
+          toneMapped={false}
+        />
       </mesh>
     </group>
   );
