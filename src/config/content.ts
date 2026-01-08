@@ -1,7 +1,10 @@
 export const HOME_CONTENT = {
   hero: {
     tag: '[BRAND AWARENESS]',
+    // Desktop/Tablet: 2 linhas
     title: ['Você não vê', 'o design.'],
+    // Mobile: 3 linhas
+    titleMobile: ['Você não', 'vê o', 'design.'],
     subtitle: 'Mas ele vê você.',
     cta: 'step inside →',
     scrollHint: '#sobre',

@@ -58,16 +58,21 @@ const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
 
       if (isMobile) {
         // ============================================================
-        // MOVIMENTO MOBILE AUTOMÁTICO
-        // O Ghost faz um movimento que passa por toda a área do texto
-        // para garantir que o usuário veja a revelação.
+        // MOVIMENTO MOBILE AUTOMÁTICO (Lissajous Pattern)
+        // O Ghost faz um movimento orgânico que explora toda a Hero,
+        // criando uma experiência imersiva mesmo sem interação.
         // ============================================================
-        const amplitude = viewport.width * 0.4; // 40% da largura do viewport
-        const verticalAmplitude = 1.0; // Amplitude vertical maior
+        const xAmplitude = viewport.width * 0.35; // 35% da largura
+        const yAmplitude = viewport.height * 0.25; // 25% da altura
 
-        // Movimento em "8" deitado para cobrir mais área
-        xTarget = Math.sin(t * 0.5) * amplitude;
-        yTarget = Math.sin(t * 0.8) * verticalAmplitude;
+        // Padrão Lissajous para movimento orgânico e fluido
+        // Frequências diferentes criam padrão não-repetitivo
+        xTarget =
+          Math.sin(t * 0.4) * xAmplitude +
+          Math.sin(t * 0.15) * (xAmplitude * 0.3);
+        yTarget =
+          Math.cos(t * 0.3) * yAmplitude +
+          Math.sin(t * 0.2) * (yAmplitude * 0.4);
       } else {
         // Desktop: segue o mouse
         xTarget = pointer.x * (viewport.width / 3.5);
@@ -75,7 +80,10 @@ const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
       }
 
       targetPosition.current.set(xTarget, yTarget, 0);
-      group.current.position.lerp(targetPosition.current, GHOST_CONFIG.followSpeed);
+      group.current.position.lerp(
+        targetPosition.current,
+        GHOST_CONFIG.followSpeed
+      );
 
       // Detecção de movimento para efeito dos olhos
       const currentDist = group.current.position.distanceTo(
@@ -93,7 +101,8 @@ const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
 
       // Pulsação do corpo
       if (bodyMaterial.current) {
-        const pulse = Math.sin(t * GHOST_CONFIG.pulseSpeed) * GHOST_CONFIG.pulseIntensity;
+        const pulse =
+          Math.sin(t * GHOST_CONFIG.pulseSpeed) * GHOST_CONFIG.pulseIntensity;
         bodyMaterial.current.emissiveIntensity =
           GHOST_CONFIG.emissiveIntensity + pulse;
       }
@@ -109,11 +118,7 @@ const Ghost = forwardRef<Group, React.JSX.IntrinsicElements['group']>(
     });
 
     return (
-      <group
-        ref={group}
-        scale={GHOST_CONFIG.ghostScale}
-        {...props}
-      >
+      <group ref={group} scale={GHOST_CONFIG.ghostScale} {...props}>
         {/* Iluminação direcional que acompanha o Ghost */}
         <directionalLight
           position={[-8, 6, -4]}

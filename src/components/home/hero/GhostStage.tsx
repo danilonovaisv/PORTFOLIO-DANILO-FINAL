@@ -5,7 +5,6 @@ import { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import styles from './GhostStage.module.css';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 interface GhostStageProps {
   reducedMotion?: boolean;
@@ -20,7 +19,7 @@ const GhostCanvas = dynamic(
 
 /**
  * Static fallback para reduced-motion ou erro WebGL
- * Simula atmosfera Ghost com gradientes CSS
+ * Simula atmosfera Ghost com gradientes CSS e silhueta animada
  */
 function StaticGhostFallback() {
   return (
@@ -35,6 +34,9 @@ function StaticGhostFallback() {
       {/* Central glow (simula o Ghost) */}
       <div className={`absolute inset-0 ${styles.fallbackGlow}`} />
 
+      {/* Ghost silhouette for mobile */}
+      <div className={styles.fallbackGhost} />
+
       {/* Accent flare */}
       <div className={`absolute inset-0 ${styles.fallbackFlare}`} />
 
@@ -45,9 +47,9 @@ function StaticGhostFallback() {
 }
 
 export function GhostStage({ reducedMotion }: GhostStageProps) {
-  const isMobile = useMediaQuery('(max-width: 768px)');
-
-  if (reducedMotion || isMobile) {
+  // Ghost 3D agora aparece no mobile com movimento automático
+  // Fallback apenas para prefers-reduced-motion
+  if (reducedMotion) {
     return <StaticGhostFallback />;
   }
 

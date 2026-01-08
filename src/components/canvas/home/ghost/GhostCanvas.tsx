@@ -40,11 +40,31 @@ export default function GhostCanvas({ ghostRef }: GhostCanvasProps) {
       >
         <Suspense fallback={null}>
           <ambientLight intensity={0.2} />
+
+          {/* Primary Ghost Light - Glow intenso */}
           <pointLight
             position={[2, 3, 4]}
             intensity={2}
             color={cfg.glowColor}
             distance={0.9}
+          />
+
+          {/* Extra Glow Light - Cyan atmosférico (inspirado no CodePen) */}
+          <pointLight
+            position={[0, 0, 3]}
+            intensity={8}
+            color="#00f0ff"
+            distance={12}
+            decay={2}
+          />
+
+          {/* Rim Light - Contorno cyan sutil */}
+          <pointLight
+            position={[-3, -2, 2]}
+            intensity={4}
+            color="#4fe6ff"
+            distance={8}
+            decay={2}
           />
 
           {/* RevealingText removed in favor of HTML HeroCopy */}
@@ -58,15 +78,16 @@ export default function GhostCanvas({ ghostRef }: GhostCanvasProps) {
           <Particles count={90} color={cfg.glowColor} />
 
           <EffectComposer enableNormalPass={false}>
+            {/* Bloom mais intenso para glow fantasmagórico */}
             <Bloom
-              luminanceThreshold={0.2}
+              luminanceThreshold={0.15}
               mipmapBlur
-              intensity={2.5}
-              radius={0.5}
+              intensity={3.5}
+              radius={0.7}
             />
-            <AnalogDecay intensity={0.8} scanlines={0.1} grain={0.3} />
-            <Noise opacity={0.01} />
-            <Vignette eskil={false} offset={0.8} darkness={0.8} />
+            <AnalogDecay intensity={0.7} scanlines={0.08} grain={0.25} />
+            <Noise opacity={0.015} />
+            <Vignette eskil={false} offset={0.6} darkness={0.7} />
           </EffectComposer>
         </Suspense>
       </Canvas>

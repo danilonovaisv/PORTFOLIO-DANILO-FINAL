@@ -14,7 +14,7 @@ Status: ✅ Ready for Implementation
 
 ### 1.1 Vision & Goals
 Create a premium institutional portfolio that demonstrates design excellence not just through showcased work, but through the site's own execution. The homepage must:
-- Establish immediate credibility through atmospheric visual design and editorial sophistication
+- Establish immediate credibility through atmospheric visual design and edit   orial sophistication
 - Guide visitors intuitively from brand introduction → work showcase → contact
 - Feel distinctive and memorable without sacrificing usability or accessibility
 - Perform flawlessly across all devices and connection speeds
@@ -567,17 +567,26 @@ Ethereal, organic 3D atmosphere inspired by the "Ghost Blue" aesthetic. Main ele
 
 **Content:**
 - Tag: `[BRAND AWARENESS]` (14px, uppercase, mono) TT Norms Pro Normal
-- H1: "Você não vê (-> linha 01) o design.(-> linha 02)" (6–10rem, TT Norms Pro Black, tracking-tight)
+- H1: "Você não vê (-> linha 01) o design.(-> linha 02)" (6–9rem, TT Norms Pro Black, tracking-tight)
 - H2: "Mas ele vê você." (5–8rem, TT Norms Pro Black, tracking-tight)
 - CTA: "step inside →" (link to `/sobre`, hover effect: color change + arrow translation)
 - Same CTA button at bottom
 **Primary Font:** TT Norms Pro (self-hosted, fallback: `ui-sans-serif, system-ui`)
+
+## **Comportamento Responsivo**
+Viewport :
+Desktop     - H1: "Você não vê (-> linha 01) o design.(-> linha 02)" (6–9rem, TT Norms Pro Black, tracking-tight)
+Tablet    - H1: "Você não vê (-> linha 01) o design.(-> linha 02)" (6–9rem, TT Norms Pro Black, tracking-tight)
+Mobile    - H1: "Você não (-> linha 01)  vê o (-> linha 02) design.(-> linha 03)” (6–9rem, TT Norms Pro Black, tracking-tight)
 
 **Behavior:**
 - 100% static (no scroll-triggered animations or fades)
 - Centered vertically and horizontally
 - Color: `#d9dade` on `#06071f` background
 Here’s your updated and clarified description with all the new desktop behaviors (full-page for 2s, scroll hold, fixed position on the side, and sound logic) integrated and cleaned up 👇
+
+
+
 
 #### Manifesto Video Thumbnail (Desktop)
 
@@ -758,126 +767,154 @@ Accessibility:
 
 ---
 
-# **4.3 Portfolio Showcase
+Perfeito — abaixo está o conteúdo final em formato Markdown (.md), pronto para você copiar e salvar como portfolio-showcase.md ou integrar direto na sua documentação.
 
-**Purpose:** Clearly present work categories with editorial sophistication, guiding users toward specific areas of interest.
+⸻
 
-#### Layout (Desktop)
 
-**Structure:**
-- Centered headline: "portfólio showcase" (mixed color: "portfólio" in white, "showcase" in `#0048ff`)
-- Floating label: "[what we love working on]" (`#4fe6ff`, positioned absolute, left-aligned near first stripe)
-- Three interactive stripes (accordion-style rows), each with alternating alignment:
-  1. **Brand & Campaigns** — aligned right
-  2. **Videos & Motions** — centered
-  3. **Web Campaigns, Websites & Tech** — aligned left (text breaks after "," into two lines)
-  - font-family: 'TT Norms Pro Normal';
-- CTA button below: "let's build something great →" (center-aligned)
 
-**Stripe Structure:**
-Each stripe contains:
-- **Thumbnail** (hidden by default, reveals on hover): 288px width, aspect ratio ~16:9, rounded corners
-- **Category Title**: Large text (2xl–5xl), medium weight
-- **Icon**: Blue circular badge with arrow icon (rotates from -45° to 0° on hover)
 
-#### Interactions (Desktop)
 
-**Hover on Stripe:**
-```javascript
-// Thumbnail reveal
-imageWrapper: { width: "0 → 288px", opacity: "0 → 1" }
+# 4.3 Portfolio Showcase — Protótipo Interativo
+
+## Purpose
+Apresentar as principais categorias de trabalho com **sofisticação editorial**, usando movimento, hierarquia tipográfica e interação progressiva para **guiar o usuário naturalmente** até áreas específicas do portfólio — replicando o ritmo, layout e comportamento da sessão equivalente na home do site de referência.
+
+---
+
+## Layout & Estrutura
+
+### Desktop (≥1024px)
+
+#### Estrutura Geral
+- Headline centralizada:  
+  **“portfólio showcase”**
+  - “portfólio” em branco  
+  - “showcase” em `#0048ff`
+- Label flutuante contextual:
+  - Texto: **[what we love working on]**
+  - Cor: `#4fe6ff`
+  - Posicionamento: absoluto, alinhado à esquerda, levemente acima da primeira faixa
+- Três faixas interativas horizontais (*accordion-style stripes*), com alinhamento alternado:
+  1. **Brand & Campaigns** — alinhada à direita
+  2. **Videos & Motions** — centralizada
+  3. **Web Campaigns, Websites & Tech** — alinhada à esquerda  
+     - Quebra de linha após a vírgula
+- CTA centralizado abaixo das faixas:
+  - **“let’s build something great →”**
+
+---
+
+#### Estrutura de Cada Stripe
+Cada faixa contém:
+- **Thumbnail de vídeo/imagem**
+  - Largura: `288px`
+  - Aspect ratio: ~16:9
+  - Bordas levemente arredondadas
+  - Oculta por padrão
+- **Título da categoria**
+  - Tipografia grande (2xl–5xl)
+  - Peso médio
+  - Font-family: `TT Norms Pro Normal`
+- **Ícone de ação**
+  - Badge circular azul
+  - Ícone de seta interna
+
+---
+
+## Interações & Animações
+
+### Scroll Reveal (Desktop)
+- Trigger: quando 30% da seção entra na viewport
+- Animação:
+```js
+opacity: 0 → 1
+translateY: 24px → 0
+duration: 0.8s
+easing: ease-out
+stagger: 120ms entre faixas
+```
+
+- Durante a entrada, os títulos transitam para `#0057FF`, reforçando hierarquia visual.
+
+---
+
+### Hover sobre a Stripe (Desktop)
+
+#### 1. Revelação da Thumbnail
+```js
+width: 0 → 288px
+opacity: 0 → 1
 duration: 700ms
 easing: cubic-bezier(0.22, 1, 0.36, 1)
+```
 
-// Content gap adjustment
-contentGap: { gap: "gap-7 → gap-10" }
+#### 2. Ajuste de Espaçamento Interno
+```js
+gap: gap-7 → gap-10
 duration: 300ms
+```
 
-// Arrow rotation
-arrowIcon: { rotation: "-45deg → 0deg" }
+#### 3. Ícone de Seta
+```js
+rotation: -45deg → 0deg
 duration: 500ms
 ```
 
-**Scroll Reveal:**
-- Trigger: 30% intersection with viewport
-- Animation: Staggered fade-up, category titles turn blue (`#0057FF`)
-  ```javascript
-  opacity: 0 → 1
-  translateY: 24px → 0px
-  duration: 0.8s ease-out
-  stagger: 120ms between stripes
-  ```
-
-**Click:**
-- Navigates to `/portfolio` with category filter applied
-
-#### Layout (Mobile)
-
-- Full-width cards stacked vertically
-- No floating label
-- No thumbnail reveal (thumbnails remain hidden or shown static)
-- All cards center-aligned
-- Same CTA button at bottom
-
-#### Categories & Assets
-
-1. **Brand & Campaigns**
-   - Slug: `brand-campaigns`
-   - Thumbnail: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp`
-
-2. **Videos & Motions**
-   - Slug: `videos-motions`
-   - Thumbnail: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif`
-
-3. **Web Campaigns, Websites & Tech**
-   - Slug: `websites-webcampaigns-tech`
-   - Thumbnail: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp`
-
-#### CTA Button
-
-**Text:** "let's build something great →"  
-**Destination:** `/#contact`  
-**Hover:** Background changes to `#4fe6ff`, arrow translates right (`translateX: 4px`)  
-**Optional:** Subtle looping animation on arrow in idle state (`translateX: 0 → 4px → 0`)
-
-
-**Desktop (≥1024px)**
-- Layout:
-  - Centered headline: "portfólio showcase" (mixed color)
-  - Floating label: "[what we love working on]" (absolute positioned)
-  - Three interactive stripes (accordion-style rows) with alternating alignment:
-    - Brand & Campaigns — aligned right
-    - Videos & Motions — centered
-    - Web Campaigns, Websites & Tech — aligned left
-  - CTA button below: "let's build something great →" (center-aligned)
-- Stripe Structure:
-  - Each stripe contains: thumbnail (hidden by default), category title, icon
-- Interactions:
-  - Hover on Stripe: Thumbnail reveal, content gap adjustment, arrow rotation
-  - Scroll Reveal: Staggered fade-up, category titles turn blue
-  - Click: Navigates to `/portfolio` with category filter
-
-**Mobile & Tablet (≤1023px)**
-- Layout:
-  - Full-width cards stacked vertically
-  - No floating label
-  - No thumbnail reveal (thumbnails remain hidden or shown static)
-  - All cards center-aligned
-  - Same CTA button at bottom
-- Specific Implementation Details:
-  - The three category stripes are displayed as full-width blocks with equal spacing
-  - The category titles are center-aligned on mobile
-  - The arrow icons are positioned on the right side of each stripe
-  - The CTA button is centered with appropriate vertical spacing (48px above)
-  - The "portfólio showcase" headline is centered with reduced spacing from the CTA
-- Content Adaptation:
-  - The "what we love working on" label is removed on mobile
-  - Category titles wrap to multiple lines if necessary
-  - The right-aligned, center-aligned, and left-aligned pattern from desktop is replaced with a consistent center-aligned pattern on mobile
-
-
+> A interação é **progressiva e silenciosa**, sem sobreposição agressiva ou quebra de layout.
 
 ---
+
+### Click
+- Navegação para `/portfolio`
+- Categoria correspondente aplicada via filtro (slug).
+
+---
+
+## Responsividade & Adaptação de Conteúdo
+
+### Mobile & Tablet (≤1023px)
+
+#### Layout
+- Cards verticais full-width
+- Conteúdo texto alinhado a esquerda da página
+- Ícone de Seta alinhado a direita da página
+- Label flutuante removida
+- CTA centralizado
+
+#### Comportamento
+- Sem hover
+- Thumbnails ocultas ou estáticas
+- Ícones de seta à direita
+
+---
+
+## Categorias & Assets
+
+| Categoria | Slug | Thumbnail |
+|---------|------|-----------|
+| Brand & Campaigns | brand-campaigns | Branding-Project.webp |
+| Videos & Motions | videos-motions | webdesigner-2.gif |
+| Web Campaigns, Websites & Tech | websites-webcampaigns-tech | WelcomeAd_800x500px.webp |
+
+---
+
+## CTA Final
+- Texto: “let’s build something great →”
+- Destino: `/#contact`
+- Hover: background `#4fe6ff`, seta move 4px
+
+---
+
+## Resultado Esperado
+- Experiência editorial fluida
+- Movimento como reforço de significado
+- Consistência total entre desktop e mobile
+
+
+-----
+
+
 
 # **4.4 Featured Projects
 

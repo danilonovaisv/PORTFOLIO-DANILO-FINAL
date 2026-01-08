@@ -79,9 +79,9 @@ export default function CategoryStripe({
               <span className="md:hidden">{category.titleMobile}</span>
             </h3>
 
-            {/* Arrow Icon in Circle */}
-            <div className="flex h-12 w-12 md:h-16 md:w-16 shrink-0 items-center justify-center rounded-full border border-white/20 text-white transition-all duration-500 group-hover:bg-primary group-hover:border-primary group-hover:text-white group-hover:shadow-[0_0_20px_rgba(0,72,255,0.4)]">
-              <ArrowIcon className="h-5 w-5 md:h-8 md:w-8 -rotate-45 transition-transform duration-500 group-hover:rotate-0" />
+            {/* Arrow Icon in Circle - Ghost Design: glow sutil no mobile */}
+            <div className="flex h-10 w-10 md:h-16 md:w-16 shrink-0 items-center justify-center rounded-full border border-white/20 text-white transition-all duration-500 shadow-[0_0_12px_rgba(0,72,255,0.15)] md:shadow-none group-hover:bg-primary group-hover:border-primary group-hover:text-white group-hover:shadow-[0_0_24px_rgba(0,72,255,0.5)]">
+              <ArrowIcon className="h-4 w-4 md:h-8 md:w-8 -rotate-45 transition-transform duration-500 group-hover:rotate-0" />
             </div>
           </div>
         </div>

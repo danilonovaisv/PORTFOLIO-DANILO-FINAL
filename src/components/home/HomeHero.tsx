@@ -51,7 +51,7 @@ export default function HomeHero() {
     <section
       id="hero"
       ref={sectionRef}
-      className="relative h-[120vh] md:h-[250vh] bg-[#050511] overflow-hidden"
+      className="relative min-h-screen h-[120vh] md:h-[250vh] bg-[#050511] overflow-hidden"
       aria-label="Home hero section"
     >
       {/* Sticky Context */}
