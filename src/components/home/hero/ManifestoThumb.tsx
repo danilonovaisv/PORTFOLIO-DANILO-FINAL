@@ -8,6 +8,8 @@ interface ManifestoThumbProps {
   src?: string;
 }
 
+const VIDEO_DESCRIPTION_ID = 'manifesto-thumb-video-description';
+
 export default function ManifestoThumb({
   heroRef,
   src = 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
@@ -30,7 +32,7 @@ export default function ManifestoThumb({
 
   // Lazy load com IntersectionObserver
   useEffect(() => {
-    if (!wrapperRef.current) return;
+    if (!wrapperRef.current || !isDesktop) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -44,7 +46,7 @@ export default function ManifestoThumb({
 
     observer.observe(wrapperRef.current);
     return () => observer.disconnect();
-  }, []);
+  }, [isDesktop]);
 
   // Detectar qualidade de conexão
   useEffect(() => {
@@ -68,9 +70,7 @@ export default function ManifestoThumb({
     }
   }, []);
 
-  // Scroll progress (desktop only)
-  // Scroll progress (desktop only)
-  // Use 'end end' to allow full scroll range for the animation
+  // Scroll progress (desktop only) — expand to reveal final state earlier
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end end'],
@@ -85,20 +85,22 @@ export default function ManifestoThumb({
 
   // Loandbehold replication:
   // Starts Small. Expands mid-scroll.
-  const width = useTransform(smoothProgress, [0, 0.6], ['219px', '100%']);
-  const height = useTransform(smoothProgress, [0, 0.6], ['131px', '100%']);
-  const right = useTransform(smoothProgress, [0, 0.6], ['32px', '0px']);
-  const bottom = useTransform(smoothProgress, [0, 0.6], ['32px', '0px']);
-  const borderRadius = useTransform(smoothProgress, [0, 0.6], ['12px', '0px']);
-  const overlayOpacity = useTransform(smoothProgress, [0.5, 0.6], [1, 0]);
+  // Extended to 0.75 to match Blueprint "Show" state sync
+  const width = useTransform(smoothProgress, [0, 0.75], ['219px', '100%']);
+  const height = useTransform(smoothProgress, [0, 0.75], ['131px', '100%']);
+  const right = useTransform(smoothProgress, [0, 0.75], ['32px', '0px']);
+  const bottom = useTransform(smoothProgress, [0, 0.75], ['32px', '0px']);
+  const borderRadius = useTransform(smoothProgress, [0, 0.75], ['12px', '0px']);
+  // Overlay appears EXACTLY when expansion finishes
+  const overlayOpacity = useTransform(smoothProgress, [0.74, 0.75], [0, 1]);
 
   // Controlar mute por threshold (desktop)
   useEffect(() => {
     if (!isDesktop) return;
 
     const unsubscribe = smoothProgress.on('change', (latest) => {
-      // Unmute earlier (0.5) to prepare for full reveal
-      if (latest >= 0.5) {
+      // Unmute at 0.75 (Blueprint spec)
+      if (latest >= 0.75) {
         setMuted(false);
       } else {
         setMuted(true);
@@ -119,21 +121,21 @@ export default function ManifestoThumb({
     if (!heroRef.current) return;
 
     if (isDesktop) {
-      // Automatic scroll to reveal point (0.6 of height)
       const rect = heroRef.current.getBoundingClientRect();
-      const scrollHeight = heroRef.current.offsetHeight;
-
-      // Calculate position where progress is ~0.6
-      // Progress = (WindowScroll - UnstickStart) / (UnstickEnd - UnstickStart)
-      // Simpler: Just scroll down a screenful
-      const scrollTarget = window.scrollY + window.innerHeight * 0.8;
+      const scrollTarget =
+        window.scrollY +
+        rect.top +
+        heroRef.current.offsetHeight -
+        window.innerHeight +
+        1;
 
       window.scrollTo({
         top: scrollTarget,
         behavior: 'smooth',
       });
     } else {
-      // Mobile: toggle mute
+      // Mobile: scroll to manifesto section instead of just toggle mute?
+      // Blueprint says "click/tap alternando mute". Sticking to that.
       setMuted((m) => !m);
     }
   };
@@ -142,17 +144,15 @@ export default function ManifestoThumb({
   const videoSrc =
     videoQuality === 'hd' ? src : src.replace('.mp4', '-720p.mp4');
 
-  const posterSrc = src.replace('.mp4', '-poster.jpg');
-
-  // Prevent duplicate video on mobile (Mobile has its own video in ManifestoSection)
-  if (!isDesktop) return null;
+  // Prevent duplicate video check removed - Component handles responsive styles
+  // if (!isDesktop) return null;
 
   return (
     <motion.div
       ref={wrapperRef}
       // Force initial styles via CSS as baseline, Motion overrides on hydration
-      // Using fixed positioning for stability during scroll
-      className="video-wrapper group cursor-pointer overflow-hidden fixed z-50 right-8 bottom-8 w-[219px] h-[131px]"
+      // Mobile: relative, aspect vertical. Desktop: fixed/absolute bottom-right.
+      className="video-wrapper group cursor-pointer overflow-hidden relative z-30 w-full aspect-9/14 md:aspect-auto md:fixed md:right-8 md:bottom-8 md:w-[219px] md:h-[131px]"
       style={
         isDesktop
           ? {
@@ -189,13 +189,19 @@ export default function ManifestoThumb({
             ref={videoRef}
             className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
             src={videoSrc}
-            poster={posterSrc}
             autoPlay
             loop
             muted={muted}
             playsInline
             preload="metadata"
+            aria-label="Vídeo showreel demonstrando projetos de design gráfico"
+            aria-describedby={VIDEO_DESCRIPTION_ID}
           />
+
+          <p id={VIDEO_DESCRIPTION_ID} className="sr-only">
+            Vídeo de apresentação dos trabalhos em estratégia, branding e motion
+            design.
+          </p>
 
           {/* Overlay gradiente */}
           <motion.div

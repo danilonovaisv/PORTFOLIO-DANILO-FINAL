@@ -61,7 +61,7 @@ export default function Fireflies({ count = 40 }: FirefliesProps) {
     <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
       <sphereGeometry args={[1, 8, 8]} />
       <meshBasicMaterial
-        color="#00ffff" // Ciano Neon
+        color="cyan" // Ciano Neon
         transparent
         opacity={0.8}
         blending={THREE.AdditiveBlending}

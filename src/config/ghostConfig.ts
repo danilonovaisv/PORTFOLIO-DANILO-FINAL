@@ -19,24 +19,24 @@ export const FLUORESCENT_COLORS = {
 // Valores calibrados para corresponder à referência HERO.png
 export const GHOST_CONFIG = {
   // Ghost appearance - Cores hex para garantir consistência
-  bodyColor: '#1a3050', // Corpo azul mais claro para visibilidade
-  glowColor: '#00aaff', // Blue glow mais brilhante
-  eyeGlowColor: '#101025', // Olhos escuros/roxo profundo
-  ghostOpacity: 0.95,
-  ghostScale: 1.5, // AUMENTADO: Ghost maior e mais visível
+  bodyColor: '#00ffff', // Corpo azul mais claro para visibilidade
+  glowColor: '#0048ff', // Blue glow mais brilhante
+  eyeGlowColor: '#8a2be2', // Olhos escuros/roxo profundo
+  ghostOpacity: 0.85,
+  ghostScale: 1.1, // AUMENTADO: Ghost maior e mais visível
 
   // Glow effects - Intensificado para efeito lanterna
-  emissiveIntensity: 9.0, // AUMENTADO para maior visibilidade
+  emissiveIntensity: 2.0, // AUMENTADO para maior visibilidade
   pulseSpeed: 1.4,
-  pulseIntensity: 2.0,
+  pulseIntensity: 1.0,
 
   // Eyes - Valores ajustados
-  eyeGlowIntensity: 5.0,
-  eyeGlowDecay: 2.0,
+  eyeGlowIntensity: 6.0,
+  eyeGlowDecay: 1.2,
   eyeGlowResponse: 1.2,
 
   // Enhanced lighting - Mais intenso
-  rimLightIntensity: 5.0,
+  rimLightIntensity: 6.0,
 
   // Behavior - Movimento suave
   followSpeed: 0.035,
@@ -45,28 +45,28 @@ export const GHOST_CONFIG = {
   movementThreshold: 0.8,
 
   // Particles - Reduzido para performance
-  particleCount: 120,
+  particleCount: 1205,
   particleDecayRate: 0.02,
-  particleColor: '#4fe6ff',
+  particleColor: 'purple',
   createParticlesOnlyWhenMoving: true,
   particleCreationRate: 0.8,
 
   // Background reveal
-  revealRadius: 35,
+  revealRadius: 15,
   fadeStrength: 1.5,
   baseOpacity: 0.95,
   revealOpacity: 0.1,
 
   // Fireflies
-  fireflyGlowIntensity: 1500,
+  fireflyGlowIntensity: 500,
   fireflySpeed: 0.012,
 
   // Analog Decay settings - Sutilizado
-  analogIntensity: 0.8,
-  analogGrain: 0.2,
+  analogIntensity: 1.8,
+  analogGrain: 0.5,
   analogBleeding: 0.4,
   analogVSync: 0.1,
-  analogScanlines: 0.6,
+  analogScanlines: 1.6,
   analogVignette: 1.2,
   analogJitter: 0.2,
   limboMode: false,

@@ -4,6 +4,7 @@ import { useRef, useEffect, useMemo } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { usePerformanceAdaptive } from '@/hooks/usePerformanceAdaptive';
+import { GHOST_CONFIG } from '@/config/ghostConfig';
 
 export function Ghost() {
   const groupRef = useRef<THREE.Group>(null!);
@@ -52,39 +53,47 @@ export function Ghost() {
 
     const t = clock.getElapsedTime();
 
-    // Flutuação constante
-    const floatY = Math.sin(t * 1.5) * 0.05 + Math.cos(t * 0.7) * 0.03;
+    // Flutuação suave baseada na config
+    const floatY =
+      Math.sin(t * GHOST_CONFIG.floatSpeed) * 0.05 +
+      Math.cos(t * (GHOST_CONFIG.floatSpeed * 0.6)) * 0.03;
 
-    // Seguir mouse suavemente
-    const targetX = (mouse.x ?? 0) * viewport.width * 0.5;
-    const targetY = (mouse.y ?? 0) * viewport.height * 0.3 + floatY;
+    const wobbleMultiplier = GHOST_CONFIG.wobbleAmount ?? 1;
+
+    const targetX =
+      (mouse.x ?? 0) * viewport.width * 0.4 * wobbleMultiplier * 0.5;
+    const targetY =
+      (mouse.y ?? 0) * viewport.height * 0.35 * wobbleMultiplier * 0.6 + floatY;
 
     groupRef.current.position.x +=
-      (targetX - groupRef.current.position.x) * 0.05;
+      (targetX - groupRef.current.position.x) * GHOST_CONFIG.followSpeed;
     groupRef.current.position.y +=
-      (targetY - groupRef.current.position.y) * 0.05;
+      (targetY - groupRef.current.position.y) * GHOST_CONFIG.followSpeed;
 
     // Pulsar emissive
-    const pulse = Math.sin(t * 1.6) * 0.6 + Math.sin(t * 0.6) * 0.12;
+    const pulse =
+      Math.sin(t * GHOST_CONFIG.pulseSpeed) * GHOST_CONFIG.pulseIntensity +
+      Math.sin(t * 0.6) * 0.12;
 
     if (bodyRef.current.material instanceof THREE.MeshStandardMaterial) {
-      bodyRef.current.material.emissiveIntensity = 5.8 + pulse;
+      bodyRef.current.material.emissiveIntensity =
+        GHOST_CONFIG.emissiveIntensity + pulse;
     }
   });
 
   return (
-    <group ref={groupRef} scale={2.4}>
+    <group ref={groupRef} name="ghost" scale={GHOST_CONFIG.ghostScale}>
       {/* Corpo principal */}
       <mesh ref={bodyRef}>
         <sphereGeometry args={[2, segments, segments]} />
         <meshStandardMaterial
-          color="#0f2027"
+          color={GHOST_CONFIG.bodyColor}
           roughness={0.02}
           metalness={0}
           transparent
-          opacity={0.88}
-          emissive="#0080ff"
-          emissiveIntensity={5.8}
+          opacity={GHOST_CONFIG.ghostOpacity}
+          emissive={GHOST_CONFIG.glowColor}
+          emissiveIntensity={GHOST_CONFIG.emissiveIntensity}
         />
       </mesh>
 
@@ -92,11 +101,19 @@ export function Ghost() {
       <group>
         <mesh position={[-0.7, 0.6, 2.0]}>
           <sphereGeometry args={[0.3, 12, 12]} />
-          <meshBasicMaterial color="#8a2be2" transparent opacity={0.6} />
+          <meshBasicMaterial
+            color={GHOST_CONFIG.eyeGlowColor}
+            transparent
+            opacity={0.77}
+          />
         </mesh>
         <mesh position={[0.7, 0.6, 2.0]}>
           <sphereGeometry args={[0.3, 12, 12]} />
-          <meshBasicMaterial color="#8a2be2" transparent opacity={0.6} />
+          <meshBasicMaterial
+            color={GHOST_CONFIG.eyeGlowColor}
+            transparent
+            opacity={0.77}
+          />
         </mesh>
       </group>
     </group>

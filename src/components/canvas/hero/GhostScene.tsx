@@ -30,7 +30,7 @@ export default function GhostScene() {
   if (prefersReducedMotion) {
     return (
       <div className="absolute inset-0 bg-linear-to-br from-neutral-950 to-neutral-900">
-        <div className="absolute inset-0 flex items-center justify-center opacity-20">
+        <div className="absolute inset-0 flex items-center justify-center opacity-30">
           <GhostSVGStatic />
         </div>
         <span className="sr-only">Decoração: Fantasma estático no fundo</span>
@@ -55,17 +55,17 @@ export default function GhostScene() {
         aria-hidden="true"
       >
         {/* Luzes ambiente */}
-        <ambientLight color="#0a0a2e" intensity={0.08} />
+        <ambientLight color="blue" intensity={3.08} />
 
         {/* Rim lights direcionais */}
         <directionalLight
           position={[-8, 6, -4]}
-          color="#4a90e2"
-          intensity={1.8}
+          color="blue"
+          intensity={5.8}
         />
         <directionalLight
           position={[8, -4, -6]}
-          color="#50e3c2"
+          color="cyan"
           intensity={1.26}
         />
 

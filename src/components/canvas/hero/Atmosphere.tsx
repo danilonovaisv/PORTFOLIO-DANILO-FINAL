@@ -1,14 +1,15 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { GHOST_CONFIG } from '@/config/ghostConfig';
 
 const atmosphereShader = {
   uniforms: {
     ghostPosition: { value: new THREE.Vector3() },
-    revealRadius: { value: 20 },
-    fadeStrength: { value: 1.7 },
-    baseOpacity: { value: 0.3 },
-    revealOpacity: { value: 0.05 },
+    revealRadius: { value: GHOST_CONFIG.revealRadius },
+    fadeStrength: { value: GHOST_CONFIG.fadeStrength },
+    baseOpacity: { value: GHOST_CONFIG.baseOpacity },
+    revealOpacity: { value: GHOST_CONFIG.revealOpacity },
     time: { value: 0 },
   },
   vertexShader: `

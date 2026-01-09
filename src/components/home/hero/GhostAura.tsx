@@ -116,7 +116,7 @@ export default function GhostAura() {
           duration: 4,
           repeat: Infinity,
           ease: 'easeInOut',
-          delay: 0.5,
+          delay: 0.05,
         }}
       />
     </div>

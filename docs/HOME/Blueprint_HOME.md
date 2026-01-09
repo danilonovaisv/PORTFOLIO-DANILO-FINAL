@@ -520,7 +520,15 @@ The homepage follows a narrative arc:
 - A ação principal na sessão é CTA que leva para sessão SOBRE e/ou entrar em contato.
 
 
+### 🧱 FINAL Z-INDEX STACK (HERO + MANIFESTO)
 
+z-index    Elemento    Descrição
+z-50    Preloader    Ghost Loader
+z-30    ManifestoThumb (desktop)    Vídeo flutuante interativo
+z-20    GhostCanvas    Ghost + partículas + atmosfera
+z-10    HeroCopy    Texto editorial central
+z-0    Fundo radial    radial-gradient(circle, #0b0d3a, #06071f)
+mobile-only    ManifestoSection    Fullscreen abaixo da Hero
 
 ## 🧑‍🎨 2. Identidade Visual
 - Color Palette:

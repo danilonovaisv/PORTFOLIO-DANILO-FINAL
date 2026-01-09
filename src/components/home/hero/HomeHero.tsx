@@ -65,9 +65,9 @@ export default function HomeHero() {
           <GhostScene />
         </div>
 
-        {/* Hero Copy (Editorial) - z-10 (Behind Ghost/Atmosphere) */}
+        {/* Hero Copy (Editorial) - z-25 (Above Ghost for readability, per Blueprint) */}
         <motion.div
-          className="absolute inset-0 z-10 pointer-events-none"
+          className="absolute inset-0 z-25 pointer-events-none"
           style={{ opacity: copyOpacity }}
         >
           <HeroCopy />

@@ -38,7 +38,9 @@ export default function MobileHeaderBar({
               width={32}
               height={32}
               className="h-8 w-8 object-contain"
+              style={{ width: 'auto' }}
               unoptimized
+              loading="eager"
             />
           </Link>
 
