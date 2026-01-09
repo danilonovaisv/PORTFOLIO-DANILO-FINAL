@@ -12,7 +12,7 @@ import type { RefObject } from 'react';
 import { GHOST_CONFIG } from '@/config/ghostConfig';
 import type { Group } from 'three';
 
-import Ghost from './Ghost';
+import Ghost from '../../Ghost';
 import { AnalogDecay } from './AnalogDecayPass';
 import GhostEyes from './GhostEyes';
 import Particles from './Particles';

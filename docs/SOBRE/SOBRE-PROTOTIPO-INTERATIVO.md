@@ -562,7 +562,7 @@ Mostra trajetória sem cronologia rígida, mas com ritmo.
 
 **Título (H2 discreto)**
 
-> Origem
+ 'Origem'
 
 **Blocos textuais e mídias**
 
@@ -570,28 +570,28 @@ Mostra trajetória sem cronologia rígida, mas com ritmo.
    > Desde cedo, sempre prestei atenção no que ficava —  
    > não só no que aparecia.  
    >
-   > *(mídia: vídeo `photo.mp4`)*
+   > *(mídia: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-1.webp' )*
 
 2.  
    > Rabiscos viraram ideias.  
    > Ideias viraram projetos.  
    > E os projetos começaram a deixar rastros.  
    >
-   > *(mídia: imagem `squetch.webp`)*
+   > *(mídia: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-2.webp' )*
 
 3.  
    > Foi ali que entendi:  
    > design não é enfeite.  
    > É ferramenta invisível de transformação.  
    >
-   > *(mídia: imagem `design.webp`)*
+   > *(mídia: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-3.webp' )*
 
 4.  
    > Estudei Comunicação, mergulhei no design, no branding  
    > e hoje uso inteligência artificial para expandir o alcance  
    > sem perder a essência humana da criação.  
    >
-   > *(mídia: vídeo `AI.mp4`)*
+   > *(mídia: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-4.webp' )*
 
 ### Interação & Motion
 

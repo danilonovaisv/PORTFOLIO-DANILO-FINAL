@@ -19,28 +19,28 @@ export const FLUORESCENT_COLORS = {
 export const GHOST_CONFIG = {
   // Ghost appearance
   bodyColor: 'blue',
-  glowColor: 'cyan', // Azul ciano para maior brilho
-  eyeGlowColor: 'violet',
+  glowColor: 'blue', // Blue glow (reference: 'blue')
+  eyeGlowColor: 'violet', // Violet (reference: 'violet')
   ghostOpacity: 0.78,
-  ghostScale: 0.2,
+  ghostScale: 1.5, // Reference value
 
-  // Glow effects
-  emissiveIntensity: 2.05, // Intensidade alta para criar o brilho de lanterna
-  pulseSpeed: 1.2,
-  pulseIntensity: 1.2,
+  // Glow effects - Reference values for lantern effect
+  emissiveIntensity: 3.3,
+  pulseSpeed: 1.55,
+  pulseIntensity: 1.55,
 
-  // Eyes
+  // Eyes - Reference values
   eyeGlowIntensity: 3.5,
-  eyeGlowDecay: 0.95,
-  eyeGlowResponse: 0.31,
+  eyeGlowDecay: 1.95,
+  eyeGlowResponse: 0.61,
 
   // Enhanced lighting
-  rimLightIntensity: 0.8,
+  rimLightIntensity: 1.8,
 
   // Behavior
-  followSpeed: 0.05,
+  followSpeed: 0.025,
   wobbleAmount: 0.35,
-  floatSpeed: 1.6,
+  floatSpeed: 0.09,
   movementThreshold: 0.07,
 
   // Particles
@@ -48,25 +48,25 @@ export const GHOST_CONFIG = {
   particleDecayRate: 0.015,
   particleColor: 'pink',
   createParticlesOnlyWhenMoving: true,
-  particleCreationRate: 0.5,
+  particleCreationRate: 0.005,
 
   // Background reveal
-  revealRadius: 37,
-  fadeStrength: 1.7,
-  baseOpacity: 0.9,
-  revealOpacity: 0.05,
+  revealRadius: 42,
+  fadeStrength: 1.2,
+  baseOpacity: 1.2,
+  revealOpacity: 0.19,
 
   // Fireflies
-  fireflyGlowIntensity: 4.3,
-  fireflySpeed: 0.09,
+  fireflyGlowIntensity: 2223.3,
+  fireflySpeed: 0.009,
 
   // Analog Decay settings
-  analogIntensity: 0.9,
+  analogIntensity: 0.6,
   analogGrain: 0.4,
   analogBleeding: 0.9,
-  analogVSync: 1.7,
-  analogScanlines: 1.0,
-  analogVignette: 2.4,
+  analogVSync: 0.2,
+  analogScanlines: 1.2,
+  analogVignette: 1.9,
   analogJitter: 0.5,
   limboMode: false,
 };

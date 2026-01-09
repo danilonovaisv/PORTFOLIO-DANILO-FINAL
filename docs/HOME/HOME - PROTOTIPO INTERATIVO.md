@@ -572,14 +572,14 @@ Criar uma experiência hero imersiva e responsiva, com atmosfera 3D, manifesto e
 **Fontes**: TT Norms Pro, fallback: `ui-sans-serif`
 
 **Conteúdo**:
-- Tag: `[BRAND AWARENESS]` (mono, 14px)
-- H1: “Você não vê / o design.” (2 linhas)
+- Tag: `[BRAND AWARENESS]` (mono, 19px)
+- H1: “Você não vê / o design.” (2 e 3 linhas)
 - H2: “Mas ele vê você.” (destacado)
 - CTA: “step inside →” (link: `/sobre`, hover animado)
 
 **Estilo**:
 - Centralizado verticalmente
-- Cor: `#d9dade` sobre `#06071f`
+- Cor: `#d9dade` 
 
 **Responsivo**:
 - Mobile: Quebra o H1 em 3 linhas

@@ -1,6 +1,12 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
+
+// Mock CSS module
+jest.mock('@/components/home/hero/ManifestoThumb.module.css', () => ({
+  videoOverlay: 'videoOverlay',
+}));
+
 import ManifestoThumb from '@/components/home/hero/ManifestoThumb';
 
 jest.mock('framer-motion', () => ({

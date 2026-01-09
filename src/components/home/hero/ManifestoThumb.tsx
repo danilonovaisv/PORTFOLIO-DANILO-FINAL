@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import styles from './ManifestoThumb.module.css';
 
 const VIDEO_SOURCES = [
   {
@@ -62,12 +63,12 @@ export default function ManifestoThumb() {
 
         <div
           aria-hidden
-          className={`absolute inset-0 bg-black transition-opacity duration-300 ease-out bg-cover bg-center ${
-            posterVisible ? 'opacity-100' : 'opacity-0'
-          }`}
-          style={{
-            backgroundImage: `linear-gradient(180deg,rgba(4,12,28,0.98) 0,rgba(2,4,12,0.2) 70%),url(${POSTER_IMAGE})`,
-          }}
+          className={`${styles.videoOverlay} ${posterVisible ? 'opacity-100' : 'opacity-0'}`}
+          style={
+            {
+              '--poster-gradient': `linear-gradient(180deg,rgba(4,12,28,0.98) 0,rgba(2,4,12,0.2) 70%),url(${POSTER_IMAGE})`,
+            } as React.CSSProperties
+          }
         />
 
         <div className="pointer-events-none absolute -top-3 -right-4 flex items-center gap-1 text-[0.65rem] tracking-[0.3em] uppercase text-white/70">
