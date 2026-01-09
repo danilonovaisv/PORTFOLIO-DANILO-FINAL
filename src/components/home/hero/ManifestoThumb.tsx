@@ -1,87 +1,281 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import styles from './ManifestoThumb.module.css';
+import { useEffect, useRef, useState } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
-const VIDEO_SOURCES = [
-  {
-    type: 'video/mp4',
-    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
-  },
-];
+interface ManifestoThumbProps {
+  heroRef: React.RefObject<HTMLElement | null>;
+  src?: string;
+}
 
-const POSTER_IMAGE =
-  'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80';
+export default function ManifestoThumb({
+  heroRef,
+  src = 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
+}: ManifestoThumbProps) {
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [muted, setMuted] = useState(true);
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const [videoQuality, setVideoQuality] = useState<'hd' | 'sd'>('hd');
 
-export default function ManifestoThumb() {
-  const [posterVisible, setPosterVisible] = useState(true);
-  const hasFadedRef = useRef(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Media query
   useEffect(() => {
-    if (!posterVisible) return undefined;
-    const timeout = setTimeout(() => {
-      if (!hasFadedRef.current) {
-        setPosterVisible(false);
-        hasFadedRef.current = true;
+    const checkDesktop = () => setIsDesktop(window.innerWidth >= 768);
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+    return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
+
+  // Lazy load com IntersectionObserver
+  useEffect(() => {
+    if (!wrapperRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' } // Pre-load 200px antes
+    );
+
+    observer.observe(wrapperRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // Detectar qualidade de conexão
+  useEffect(() => {
+    if (typeof navigator !== 'undefined' && 'connection' in navigator) {
+      const conn = (navigator as any).connection;
+
+      if (conn?.effectiveType === '4g' || conn?.effectiveType === '5g') {
+        setVideoQuality('hd');
+      } else {
+        setVideoQuality('sd');
       }
-    }, 700);
 
-    return () => clearTimeout(timeout);
-  }, [posterVisible]);
+      const handleChange = () => {
+        if (conn.effectiveType === '4g' || conn.effectiveType === '5g') {
+          setVideoQuality('hd');
+        }
+      };
 
-  const handleVideoReady = () => {
-    if (!hasFadedRef.current) {
-      setPosterVisible(false);
-      hasFadedRef.current = true;
+      conn.addEventListener('change', handleChange);
+      return () => conn.removeEventListener('change', handleChange);
+    }
+  }, []);
+
+  // Scroll progress (desktop only)
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+
+  // Smooth spring
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  // Transformações
+  const width = useTransform(smoothProgress, [0, 1], ['219px', '100%']);
+  const height = useTransform(smoothProgress, [0, 1], ['131px', '100%']);
+  const right = useTransform(smoothProgress, [0, 1], ['32px', '0px']);
+  const bottom = useTransform(smoothProgress, [0, 1], ['32px', '0px']);
+  const borderRadius = useTransform(smoothProgress, [0, 1], ['5px', '0px']);
+  const overlayOpacity = useTransform(smoothProgress, [0.74, 0.75], [0, 1]);
+
+  // Controlar mute por threshold (desktop)
+  useEffect(() => {
+    if (!isDesktop) return;
+
+    const unsubscribe = smoothProgress.on('change', (latest) => {
+      if (latest >= 0.75) {
+        setMuted(false);
+      } else {
+        setMuted(true);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [isDesktop, smoothProgress]);
+
+  // Aplicar mute ao vídeo
+  useEffect(() => {
+    if (!videoRef.current) return;
+    videoRef.current.muted = muted;
+  }, [muted]);
+
+  // Handler de click
+  const handleClick = () => {
+    if (!heroRef.current) return;
+
+    if (isDesktop) {
+      // Desktop: scroll para revelar
+      const rect = heroRef.current.getBoundingClientRect();
+      const scrollTarget =
+        window.scrollY +
+        rect.top +
+        heroRef.current.offsetHeight -
+        window.innerHeight +
+        1;
+
+      window.scrollTo({
+        top: scrollTarget,
+        behavior: 'smooth',
+      });
+    } else {
+      // Mobile: toggle mute
+      setMuted((m) => !m);
     }
   };
 
+  // Determinar src baseado na qualidade
+  const videoSrc =
+    videoQuality === 'hd' ? src : src.replace('.mp4', '-720p.mp4');
+
+  const posterSrc = src.replace('.mp4', '-poster.jpg');
+
   return (
     <motion.div
-      initial={{ opacity: 0, translateY: 18, scale: 0.96 }}
-      animate={{ opacity: 1, translateY: 0, scale: 1 }}
-      transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-      className="hidden lg:block fixed bottom-[5vh] right-[5vw] z-30 w-[min(280px,calc(30vw))] max-w-[300px] shadow-[0_25px_55px_rgba(3,7,17,0.55)] rounded-[12px] overflow-hidden bg-black/70 pointer-events-auto hover:scale-[1.03] transition-transform duration-300 ease-out group cursor-pointer"
-      aria-label="Preview em vídeo - clique para expandir"
+      ref={wrapperRef}
+      className="video-wrapper group cursor-pointer overflow-hidden relative w-full aspect-9/14 z-10 md:absolute md:z-30 md:aspect-auto md:w-[219px] md:h-[131px] md:right-8 md:bottom-8"
+      style={
+        isDesktop
+          ? {
+              width,
+              height,
+              right,
+              bottom,
+              borderRadius,
+            }
+          : {
+              borderRadius: '5px',
+            }
+      }
+      onClick={handleClick}
       role="button"
+      aria-label={
+        isDesktop
+          ? 'Revelar vídeo completo (scroll)'
+          : muted
+            ? 'Ativar som do vídeo'
+            : 'Desativar som do vídeo'
+      }
       tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleClick();
+        }
+      }}
     >
-      <div className="relative w-full h-full">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster={POSTER_IMAGE}
-          onCanPlay={handleVideoReady}
-          onLoadedData={handleVideoReady}
-          className="w-full h-full object-cover"
-        >
-          {VIDEO_SOURCES.map((source) => (
-            <source key={source.src} src={source.src} type={source.type} />
-          ))}
-        </video>
+      {shouldLoad ? (
+        <>
+          <motion.video
+            ref={videoRef}
+            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+            src={videoSrc}
+            poster={posterSrc}
+            autoPlay
+            loop
+            muted={muted}
+            playsInline
+            preload="metadata"
+          />
 
-        <div
-          aria-hidden
-          className={`${styles.videoOverlay} ${posterVisible ? 'opacity-100' : 'opacity-0'}`}
-        />
+          {/* Overlay gradiente */}
+          <motion.div
+            className="absolute inset-0 pointer-events-none bg-linear-to-t from-black/70 via-black/20 to-transparent"
+            style={{ opacity: isDesktop ? overlayOpacity : 1 }}
+          />
 
-        <div className="pointer-events-none absolute -top-3 -right-4 flex items-center gap-1 text-[0.65rem] tracking-[0.3em] uppercase text-white/70">
-          <span className="font-mono leading-none">preview</span>
-          <svg
-            viewBox="0 0 24 24"
-            width={18}
-            height={18}
-            className="fill-none"
-            stroke="currentColor"
-            strokeWidth="1.2"
+          {/* Texto/metadados */}
+          <motion.div
+            className="absolute bottom-0 left-0 w-full p-6 pointer-events-none"
+            style={{ opacity: isDesktop ? overlayOpacity : 1 }}
           >
-            <path d="M4 12h14m-6-6 6 6-6 6" />
-          </svg>
-        </div>
-      </div>
+            <p className="text-white/70 text-sm mb-1">Showreel 2025</p>
+            <p className="text-white text-lg font-medium">
+              Strategy • Branding • Motion
+            </p>
+          </motion.div>
+
+          {/* Toggle som (desktop) */}
+          {isDesktop && (
+            <motion.button
+              type="button"
+              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/70 transition-colors"
+              style={{ opacity: overlayOpacity }}
+              onClick={(e) => {
+                e.stopPropagation();
+                setMuted((m) => !m);
+              }}
+              aria-label={muted ? 'Ativar som' : 'Desativar som'}
+              aria-pressed={!muted ? 'true' : 'false'}
+            >
+              {muted ? (
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+                  />
+                </svg>
+              )}
+            </motion.button>
+          )}
+
+          {/* Toggle som (mobile) */}
+          {!isDesktop && (
+            <button
+              type="button"
+              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center"
+              onClick={(e) => {
+                e.stopPropagation();
+                setMuted((m) => !m);
+              }}
+              aria-label={muted ? 'Ativar som' : 'Desativar som'}
+              aria-pressed={!muted ? 'true' : 'false'}
+            >
+              {muted ? '🔇' : '🔊'}
+            </button>
+          )}
+        </>
+      ) : (
+        // Placeholder
+        <div className="w-full h-full bg-linear-to-br from-neutral-900 to-neutral-800 animate-pulse" />
+      )}
     </motion.div>
   );
 }

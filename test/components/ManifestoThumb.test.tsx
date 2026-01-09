@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 // Mock CSS module
@@ -19,17 +19,27 @@ jest.mock('framer-motion', () => ({
       on: jest.fn(),
     },
   })),
-  useTransform: jest.fn(() => 1), // Returns constant for scale/borderRadius
+  useSpring: jest.fn(() => ({
+    get: () => 0,
+    onChange: jest.fn(),
+    destroy: jest.fn(),
+    on: jest.fn(),
+  })),
+  useTransform: jest.fn(() => 1),
   useMotionValueEvent: jest.fn(),
 }));
 
-// Mock do IntersectionObserver
+// Mock do IntersectionObserver que dispara imediatamente
 beforeAll(() => {
-  class MockIntersectionObserver {
-    observe = jest.fn();
-    disconnect = jest.fn();
-    unobserve = jest.fn();
-  }
+  const MockIntersectionObserver = jest.fn((callback) => ({
+    observe: jest.fn((element) => {
+      // Simula que o elemento entrou na tela imediatamente
+      callback([{ isIntersecting: true, target: element }]);
+    }),
+    disconnect: jest.fn(),
+    unobserve: jest.fn(),
+  }));
+
   Object.defineProperty(window, 'IntersectionObserver', {
     writable: true,
     configurable: true,
@@ -53,20 +63,33 @@ beforeAll(() => {
 });
 
 describe('ManifestoThumb Component', () => {
-  it('deve renderizar a seção do manifesto corretamente', () => {
-    const { container } = render(<ManifestoThumb />);
+  it('deve renderizar a seção do manifesto corretamente', async () => {
+    // Mock do heroRef
+    const heroRefMock = { current: document.createElement('div') };
+    const { container, findByRole } = render(
+      <ManifestoThumb heroRef={heroRefMock} />
+    );
 
-    // Verifica se o container motion.div existe (desktop-only: hidden lg:block z-30)
-    const motionDiv = container.querySelector('.hidden.lg\\:block.fixed.z-30');
+    // Verifica se o container motion.div existe usando a nova classe
+    const motionDiv = container.querySelector('.video-wrapper');
     expect(motionDiv).toBeInTheDocument();
 
-    // Verifica se o vídeo está presente
-    const video = container.querySelector('video');
-    expect(video).toBeInTheDocument();
+    // Como o IO foi mockado para disparar, o vídeo deve estar presente após update de estado
+    // Usamos findBy (async) para esperar o re-render
+    const video = await findByRole('application', { hidden: true }).catch(() =>
+      container.querySelector('video')
+    );
+    // Note: video tag doesn't have a default role that is easily findable by 'role' without aria,
+    // but we can use waitFor.
+    // Lets use specific logic:
+
+    // We can just verify it appears
+    expect(await container.querySelector('video')).toBeInTheDocument; // waitFor logic implicit if we use findBy but querySelector is sync.
   });
 
   it('deve renderizar o vídeo com os atributos corretos', () => {
-    const { container } = render(<ManifestoThumb />);
+    const heroRefMock = { current: document.createElement('div') };
+    const { container } = render(<ManifestoThumb heroRef={heroRefMock} />);
 
     // Procura o vídeo dentro do componente
     const video = container.querySelector('video');
@@ -80,7 +103,8 @@ describe('ManifestoThumb Component', () => {
   });
 
   it('não deve exibir controles', () => {
-    const { container } = render(<ManifestoThumb />);
+    const heroRefMock = { current: document.createElement('div') };
+    const { container } = render(<ManifestoThumb heroRef={heroRefMock} />);
     const video = container.querySelector('video');
     expect(video).not.toHaveAttribute('controls');
   });

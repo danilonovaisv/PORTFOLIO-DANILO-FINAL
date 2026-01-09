@@ -1,46 +1,33 @@
 'use client';
 
 import * as React from 'react';
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import { Preloader } from '@/components/ui/Preloader';
 
-import { GhostStage } from './GhostStage';
 import HeroCopy from './HeroCopy';
 import { useHeroAnimation } from './useHeroAnimation';
 import ManifestoThumb from './ManifestoThumb';
-import GhostAura from './GhostAura';
+
+// Dynamic import for WebGL Scene
+const GhostScene = dynamic(
+  () => import('@/components/canvas/hero/GhostScene'),
+  {
+    ssr: false,
+    loading: () => <div className="absolute inset-0 bg-[#040013]" />,
+  }
+);
 
 const CONFIG = {
   preloadMs: 2000,
-  bgColor: '#050511',
+  bgColor: '#040013',
 } as const;
-
-function usePrefersReducedMotion() {
-  const [pref, setPref] = useState(false);
-  useEffect(() => {
-    if (typeof window !== 'undefined' && window.matchMedia) {
-      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-      const apply = () => setPref(!!mq.matches);
-      apply();
-      try {
-        mq.addEventListener('change', apply);
-        return () => mq.removeEventListener('change', apply);
-      } catch {
-        mq.addListener?.(apply);
-        return () => mq.removeListener?.(apply);
-      }
-    }
-  }, []);
-  return pref;
-}
 
 export default function HomeHero() {
   const sectionRef = useRef<HTMLElement | null>(null);
 
   const [isLoading, setIsLoading] = useState(true);
-
-  const prefersReducedMotion = usePrefersReducedMotion();
 
   // Hook de animação do Hero (Controla Copy Opacity agora)
   const { copyOpacity } = useHeroAnimation(sectionRef);
@@ -51,7 +38,7 @@ export default function HomeHero() {
     <section
       id="hero"
       ref={sectionRef}
-      className="relative min-h-screen h-[120vh] md:h-[250vh] bg-[#050511] overflow-hidden"
+      className="relative min-h-screen h-[120vh] md:h-[250vh] bg-[#040013] overflow-hidden"
       aria-label="Home hero section"
     >
       {/* Sticky Context */}
@@ -61,9 +48,6 @@ export default function HomeHero() {
           className="absolute inset-0 z-0 bg-linear-to-b from-ghost-bg to-neutral"
           aria-hidden
         />
-
-        {/* Ghost Aura - Camada de atmosfera etérea */}
-        <GhostAura />
 
         {/* Preloader Ghost */}
         <AnimatePresence>
@@ -78,7 +62,7 @@ export default function HomeHero() {
 
         {/* WebGL Atmosphere */}
         <div className="absolute inset-0 z-20 pointer-events-none">
-          <GhostStage reducedMotion={prefersReducedMotion} />
+          <GhostScene />
         </div>
 
         {/* Hero Copy (Editorial) */}
@@ -90,8 +74,7 @@ export default function HomeHero() {
         </motion.div>
 
         {/* Manifesto Thumb (Desktop Transition) */}
-        {/* Agora independente com scroll listener próprio */}
-        <ManifestoThumb />
+        <ManifestoThumb heroRef={sectionRef} />
       </div>
 
       {/* Scroll Space */}

@@ -1,170 +1,107 @@
 'use client';
 
-import React, { useRef, useMemo, useImperativeHandle, forwardRef } from 'react';
-import * as THREE from 'three';
+import { useRef, useEffect, useMemo } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
-import { Group, Mesh, MeshStandardMaterial, Vector3 } from 'three';
-import { GHOST_CONFIG } from '@/config/ghostConfig';
+import * as THREE from 'three';
+import { usePerformanceAdaptive } from '@/hooks/usePerformanceAdaptive';
 
-// ============================================================================
-// Ghost Component (forwardRef para expor posição ao RevealingText)
-// ============================================================================
-const Ghost = forwardRef<
-  Group,
-  React.JSX.IntrinsicElements['group'] & { children?: React.ReactNode }
->((props, ref) => {
-  const group = useRef<Group>(null);
-  const bodyMesh = useRef<Mesh>(null);
-  const bodyMaterial = useRef<MeshStandardMaterial>(null);
-  const { children, ...rest } = props;
+export function Ghost() {
+  const groupRef = useRef<THREE.Group>(null!);
+  const bodyRef = useRef<THREE.Mesh>(null!);
+  const { viewport, mouse } = useThree();
+  const { quality } = usePerformanceAdaptive();
 
-  // Expor o group.current via ref
-  useImperativeHandle(ref, () => group.current as Group);
+  const segments = useMemo(() => {
+    return quality === 'low' ? 32 : quality === 'medium' ? 64 : 128;
+  }, [quality]);
 
-  const { viewport, size } = useThree();
-  const targetPosition = useRef(new Vector3(0, 0, 0));
-  const prevPosition = useRef(new Vector3(0, 0, 0));
+  // Criar geometria deformada (saia ondulada)
+  useEffect(() => {
+    if (!bodyRef.current) return;
 
-  // Geometria do Ghost (agora atualizada dinamicamente no fragment/vertex shader via onBeforeCompile)
-  const ghostGeometry = useMemo(() => {
-    const geometry = new THREE.SphereGeometry(2, 64, 64);
-    return geometry;
+    // Garantir que a geometria é acessível
+    const geo = bodyRef.current.geometry as THREE.SphereGeometry;
+    if (!geo) return;
+
+    const pos = geo.attributes.position;
+    const array = pos.array as Float32Array;
+
+    // Deformar vértices inferiores
+    for (let i = 0; i < array.length; i += 3) {
+      const y = array[i + 1];
+
+      if (y < -0.2) {
+        const x = array[i];
+        const z = array[i + 2];
+
+        const noise1 = Math.sin(x * 5) * 0.35;
+        const noise2 = Math.cos(z * 4) * 0.25;
+        const noise3 = Math.sin((x + z) * 3) * 0.15;
+
+        array[i + 1] = -2.0 + noise1 + noise2 + noise3;
+      }
+    }
+
+    pos.needsUpdate = true;
+    geo.computeVertexNormals();
   }, []);
 
-  useFrame((state, delta) => {
-    if (!group.current || !bodyMesh.current) return;
+  // Animação de seguir mouse + flutuação
+  useFrame(({ clock }) => {
+    if (!groupRef.current || !bodyRef.current) return;
 
-    const t = state.clock.getElapsedTime();
-    const pointer = state.pointer;
-    const isMobile = size.width < 768;
+    const t = clock.getElapsedTime();
 
-    let xTarget: number;
-    let yTarget: number;
+    // Flutuação constante
+    const floatY = Math.sin(t * 1.5) * 0.05 + Math.cos(t * 0.7) * 0.03;
 
-    if (isMobile) {
-      const xAmplitude = viewport.width * 0.35;
-      const yAmplitude = viewport.height * 0.25;
+    // Seguir mouse suavemente
+    const targetX = (mouse.x ?? 0) * viewport.width * 0.5;
+    const targetY = (mouse.y ?? 0) * viewport.height * 0.3 + floatY;
 
-      xTarget =
-        Math.sin(t * 0.4) * xAmplitude +
-        Math.sin(t * 0.15) * (xAmplitude * 0.3);
-      yTarget =
-        Math.cos(t * 0.3) * yAmplitude + Math.sin(t * 0.2) * (yAmplitude * 0.4);
-    } else {
-      xTarget = pointer.x * (viewport.width / 3.5);
-      yTarget = pointer.y * (viewport.height / 3.5);
+    groupRef.current.position.x +=
+      (targetX - groupRef.current.position.x) * 0.05;
+    groupRef.current.position.y +=
+      (targetY - groupRef.current.position.y) * 0.05;
+
+    // Pulsar emissive
+    const pulse = Math.sin(t * 1.6) * 0.6 + Math.sin(t * 0.6) * 0.12;
+
+    if (bodyRef.current.material instanceof THREE.MeshStandardMaterial) {
+      bodyRef.current.material.emissiveIntensity = 5.8 + pulse;
     }
-
-    targetPosition.current.set(xTarget, yTarget, 0);
-
-    // Salva posição anterior para cálculos de velocidade/inclinação
-    prevPosition.current.copy(group.current.position);
-
-    group.current.position.lerp(
-      targetPosition.current,
-      GHOST_CONFIG.followSpeed
-    );
-
-    // Pulsação do corpo
-    if (bodyMaterial.current) {
-      const pulse =
-        Math.sin(t * GHOST_CONFIG.pulseSpeed) * GHOST_CONFIG.pulseIntensity;
-      bodyMaterial.current.emissiveIntensity =
-        GHOST_CONFIG.emissiveIntensity + pulse;
-
-      // Injeta tempo nos uniforms do shader customizado
-      if (bodyMaterial.current.userData.shader) {
-        bodyMaterial.current.userData.shader.uniforms.uTime.value = t;
-      }
-    }
-
-    // Flutuação vertical e Inclinação orgânica
-    const floatY = Math.sin(t * GHOST_CONFIG.floatSpeed) * 0.2;
-    bodyMesh.current.position.y = floatY;
-
-    // Calcula velocidade para inclinação dinâmica
-    const velocity =
-      (group.current.position.x - prevPosition.current.x) / delta;
-    const targetRotationZ = -velocity * 0.1;
-    bodyMesh.current.rotation.z = THREE.MathUtils.lerp(
-      bodyMesh.current.rotation.z,
-      targetRotationZ,
-      0.1
-    );
-
-    // Rotação suave constante
-    bodyMesh.current.rotation.y = Math.sin(t * 0.5) * 0.15;
   });
 
-  // Customização do shader para movimento orgânico (Vertex Noise)
-  const onBeforeCompile = (shader: {
-    uniforms: { [key: string]: any };
-    vertexShader: string;
-    fragmentShader: string;
-  }) => {
-    shader.uniforms.uTime = { value: 0 };
-    shader.vertexShader = `
-      uniform float uTime;
-      ${shader.vertexShader}
-    `.replace(
-      '#include <begin_vertex>',
-      `
-      #include <begin_vertex>
-      
-      // Ruído orgânico para o corpo do Ghost
-      float n = sin(position.x * 1.5 + position.y * 2.0 + uTime * 1.2) * 0.1;
-      n += cos(position.z * 1.5 + position.y * 1.5 - uTime * 0.8) * 0.1;
-      
-      transformed.xyz += normal * n;
-      
-      // Deformação da cauda na base
-      if (position.y < 0.5) {
-        float falloff = pow(1.0 - (position.y + 2.0) / 2.5, 2.0);
-        float tailMove = sin(uTime * 2.0 + position.y * 3.0) * 0.4 * falloff;
-        transformed.x += sin(uTime * 1.5 + position.y * 2.0) * 0.2 * falloff;
-        transformed.z += cos(uTime * 1.5 + position.y * 2.0) * 0.2 * falloff;
-        transformed.y += tailMove;
-      }
-      `
-    );
-    bodyMaterial.current!.userData.shader = shader;
-  };
-
   return (
-    <group ref={group} scale={GHOST_CONFIG.ghostScale} {...rest}>
-      {/* Iluminação direcional que acompanha o Ghost */}
-      <directionalLight
-        position={[-8, 6, -4]}
-        intensity={GHOST_CONFIG.rimLightIntensity}
-        color={GHOST_CONFIG.glowColor}
-      />
-      <directionalLight
-        position={[8, -4, -6]}
-        intensity={GHOST_CONFIG.rimLightIntensity}
-        color={GHOST_CONFIG.eyeGlowColor}
-      />
-
-      {/* Corpo do Ghost */}
-      <mesh ref={bodyMesh} geometry={ghostGeometry}>
+    <group ref={groupRef} scale={2.4}>
+      {/* Corpo principal */}
+      <mesh ref={bodyRef}>
+        <sphereGeometry args={[2, segments, segments]} />
         <meshStandardMaterial
-          ref={bodyMaterial}
-          color={GHOST_CONFIG.bodyColor}
-          emissive={GHOST_CONFIG.glowColor}
-          emissiveIntensity={GHOST_CONFIG.emissiveIntensity}
+          color="#0f2027"
+          roughness={0.02}
+          metalness={0}
           transparent
-          opacity={GHOST_CONFIG.ghostOpacity}
-          roughness={0.0}
-          metalness={0.1}
-          side={THREE.DoubleSide}
-          toneMapped={false}
-          onBeforeCompile={onBeforeCompile}
+          opacity={0.88}
+          emissive="#0080ff"
+          emissiveIntensity={5.8}
         />
-
-        {children}
       </mesh>
+
+      {/* Olhos (opcionais - podem ter animação de blink) */}
+      <group>
+        <mesh position={[-0.7, 0.6, 2.0]}>
+          <sphereGeometry args={[0.3, 12, 12]} />
+          <meshBasicMaterial color="#8a2be2" transparent opacity={0.6} />
+        </mesh>
+        <mesh position={[0.7, 0.6, 2.0]}>
+          <sphereGeometry args={[0.3, 12, 12]} />
+          <meshBasicMaterial color="#8a2be2" transparent opacity={0.6} />
+        </mesh>
+      </group>
     </group>
   );
-});
+}
 
-Ghost.displayName = 'Ghost';
+// Default export for dynamic imports
 export default Ghost;
