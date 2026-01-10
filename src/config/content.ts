@@ -8,12 +8,85 @@ export const HOME_CONTENT = {
   showcase: {
     title: 'portfólio showcase',
     cta: { label: 'vamos trabalhar juntos', href: '/portfolio' },
+    floatingLabel: 'select project',
     categories: [
-      { id: 'brand-campaigns', label: 'Brand & Campaigns' },
-      { id: 'videos-motions', label: 'Videos & Motions' },
-      { id: 'websites-tech', label: 'Web Campaigns, Websites & Tech' },
+      {
+        id: 'brand-campaigns',
+        titleDesktop: 'Brand &\nCampaigns',
+        titleMobile: 'Brand & Campaigns',
+        align: 'start',
+        thumb:
+          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
+      },
+      {
+        id: 'videos-motions',
+        titleDesktop: 'Videos &\nMotions',
+        titleMobile: 'Videos & Motions',
+        align: 'center',
+        thumb:
+          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
+      },
+      {
+        id: 'websites-tech',
+        titleDesktop: 'Websites &\nTech',
+        titleMobile: 'Websites & Tech',
+        align: 'end',
+        thumb:
+          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp',
+      },
     ],
   },
+
+  featuredProjects: [
+    {
+      id: 1,
+      slug: 'brand-campaign-alpha',
+      title: 'Alpha Campaign',
+      client: 'Alpha Industries',
+      category: 'Brand & Campaigns',
+      year: 2024,
+      img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
+      tags: ['Strategy', 'Art Direction'],
+      description: 'Uma campanha completa de reposicionamento de marca.',
+      layout: {
+        cols: 'md:col-span-6',
+        h: 'min-h-[420px] md:min-h-[560px]',
+        sizes: '(max-width: 768px) 100vw, 50vw',
+      },
+    },
+    {
+      id: 2,
+      slug: 'motion-reel-2024',
+      title: 'Motion Reel',
+      client: 'Various Clients',
+      category: 'Videos & Motions',
+      year: 2024,
+      img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
+      tags: ['Motion Design', '3D'],
+      description: 'Compilado de animações e motion graphics.',
+      layout: {
+        cols: 'md:col-span-6',
+        h: 'min-h-[420px] md:min-h-[560px]',
+        sizes: '(max-width: 768px) 100vw, 50vw',
+      },
+    },
+    {
+      id: 3,
+      slug: 'tech-platform-beta',
+      title: 'Beta Platform',
+      client: 'Beta Tech',
+      category: 'Websites & Tech',
+      year: 2023,
+      img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp',
+      tags: ['UX/UI', 'Development'],
+      description: 'Plataforma digital imersiva para tech startup.',
+      layout: {
+        cols: 'md:col-span-12',
+        h: 'min-h-[420px] md:min-h-[640px]',
+        sizes: '100vw',
+      },
+    },
+  ],
 
   clients: {
     title: 'marcas com as quais já trabalhei',
@@ -43,40 +116,62 @@ export const ABOUT_CONTENT = {
     subtitle:
       'Crio design que observa, entende e guia experiências com intenção, estratégia e tecnologia — na medida certa.',
     keywords: ['Danilo Novais', 'não vê tudo', 'funciona'],
+    videos: {
+      desktop:
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
+      mobile:
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
+    },
   },
   origin: {
     title: 'Origem',
     blocks: [
       {
+        type: 'block',
         id: 'A',
         title: 'O QUE PERMANECE',
-        text: 'Desde cedo, sempre prestei atenção no que ficava — não só no que aparecia. Enquanto muitos olhavam para o brilho imediato, eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo. A essência das coisas sempre falou mais alto do que a superfície.',
-        image:
-          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-1.webp',
+        text: 'A essência das coisas sempre falou mais alto do que a superfície.',
+        description:
+          'Desde cedo, sempre prestei atenção no que ficava — não só no que aparecia. Enquanto muitos olhavam para o brilho imediato, eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo.',
+        highlight: 'essência',
+        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-1.webp',
+        alt: 'Detalhe arquitetônico minimalista',
         align: 'right',
       },
       {
+        type: 'block',
         id: 'B',
         title: 'DO TRAÇO À INTENÇÃO',
-        text: 'Rabiscos viraram ideias. Ideias viraram projetos. E os projetos começaram a deixar rastros. Meu processo criativo nasceu do improviso, do lápis na margem do caderno. Aos poucos, aquilo que era instinto virou direção. Com cada tentativa, aprendi a dar forma ao invisível — até que os conceitos começaram a falar por si.',
-        image:
-          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-2.webp',
+        text: 'Aos poucos, aquilo que era instinto virou direção.',
+        description:
+          'Rabiscos viraram ideias. Ideias viraram projetos. E os projetos começaram a deixar rastros. Meu processo criativo nasceu do improviso, do lápis na margem do caderno. Com cada tentativa, aprendi a dar forma ao invisível.',
+        highlight: 'instinto',
+        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-2.webp',
+        alt: 'Processo criativo com skecthes',
         align: 'left',
       },
       {
+        type: 'block',
         id: 'C',
         title: 'A DESCOBERTA DO INVISÍVEL',
-        text: 'Foi ali que entendi: design não é enfeite. É ferramenta invisível de transformação. Por trás de cada escolha visual, existe intenção. Descobri que o design verdadeiro não grita — ele conduz. Ele está presente nos detalhes que ninguém percebe, mas que todos sentem. Transformar sem que se perceba a transformação: isso é potência.',
-        image:
-          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-3.webp',
+        text: 'Design não é enfeite. É ferramenta invisível de transformação.',
+        description:
+          'Por trás de cada escolha visual, existe intenção. Descobri que o design verdadeiro não grita — ele conduz. Ele está presente nos detalhes que ninguém percebe, mas que todos sentem.',
+        highlight: 'ferramenta invisível',
+        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-3.webp',
+        alt: 'Design minimalista e tipografia',
         align: 'right',
       },
       {
+        type: 'block',
         id: 'D',
         title: 'EXPANSÃO COM PROPÓSITO',
-        text: 'Estudei Comunicação, mergulhei no design, no branding e hoje uso inteligência artificial para expandir o alcance sem perder a essência humana da criação. Minha trajetória uniu intuição com método, arte com estratégia. O futuro pede novas ferramentas — e eu as abracei. Mas nunca deixei que a tecnologia apagasse o que me move: a sensibilidade, o olhar atento, a busca pelo significado.',
-        image:
-          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-4.webp',
+        text: 'O futuro pede novas ferramentas — e eu as abracei.',
+        description:
+          'Estudei Comunicação, mergulhei no design, no branding e hoje uso inteligência artificial para expandir o alcance sem perder a essência humana da criação. Minha trajetória uniu intuição com método, arte com estratégia.',
+        highlight: 'novas ferramentas',
+        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-4.webp',
+        alt: 'Tecnologia e arte digital',
         align: 'left',
       },
     ],
@@ -138,18 +233,21 @@ export const ABOUT_CONTENT = {
       line1: 'Criatividade com método.',
       line2: 'Impacto sem ruído.',
     },
-    description:
-      'Meu processo combina estrutura e fluidez. Para cada projeto, um caminho claro que transforma problemas complexos em soluções visuais elegantes e funcionais.',
+    intro: [
+      'Meu processo combina estrutura e fluidez.',
+      'Para cada projeto, um caminho claro que transforma',
+      'problemas complexos em soluções visuais elegantes e funcionais.',
+    ],
+    description: 'Meu processo combina estrutura e fluidez.',
+    video:
+      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4', // Ref placeholder
     steps: [
-      { id: '01', text: 'Briefings bem construídos para decisões claras' },
-      { id: '02', text: 'Estratégia como base de qualquer criação' },
-      { id: '03', text: 'Design com propósito, não só beleza' },
-      { id: '04', text: 'Revisões inteligentes, sem ruído desnecessário' },
-      { id: '05', text: 'IA e automações para escalar com qualidade' },
-      {
-        id: '06',
-        text: 'Métricas criativas: engajamento, retenção e resultado',
-      },
+      'Briefings bem construídos para decisões claras',
+      'Estratégia como base de qualquer criação',
+      'Design com propósito, não só beleza',
+      'Revisões inteligentes, sem ruído desnecessário',
+      'IA e automações para escalar com qualidade',
+      'Métricas criativas: engajamento, retenção e resultado',
     ],
   },
   beliefs: [
@@ -160,4 +258,21 @@ export const ABOUT_CONTENT = {
     { text: 'Mesmo quando não estou ali.', highlight: 'Mesmo' },
     { text: 'Mesmo quando ninguém percebe o esforço.', highlight: 'Mesmo' },
   ],
+  closing: {
+    ctas: [
+      { href: '#contact', label: 'Fale comigo' },
+      { href: '/cv.pdf', label: 'Download CV', external: true },
+    ],
+  },
+};
+
+export const PORTFOLIO_CONTENT = {
+  hero: {
+    video: {
+      desktop:
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
+      mobile:
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
+    },
+  },
 };

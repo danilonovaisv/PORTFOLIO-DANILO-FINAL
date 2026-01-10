@@ -1,11 +1,13 @@
 export type OriginBlock = {
   type: 'block';
+  id: string;
   title: string;
   text: string;
   description: string;
   highlight?: string;
   src: string;
   alt: string;
+  align: string;
   aspectRatio?: string;
   preserveRatio?: boolean;
 };

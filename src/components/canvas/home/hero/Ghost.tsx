@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useFrame, useThree, extend } from '@react-three/fiber';
 import * as THREE from 'three';
 import {
@@ -38,7 +38,7 @@ export function Ghost({
   const currentMovementRef = useRef(0);
 
   // Shader customization for "Skirt" deformation
-  const onBeforeCompile = (shader: THREE.Shader) => {
+  const onBeforeCompile = (shader: any) => {
     shader.vertexShader = shader.vertexShader.replace(
       '#include <begin_vertex>',
       `
@@ -64,7 +64,11 @@ export function Ghost({
   useEffect(() => {
     if (!gl || !scene || !camera) return;
 
+    // Garantir que o renderer suporte transparência
+    gl.setClearColor(0x000000, 0);
+
     // Configurar Bloom e Composer
+    // Nota: Usando construtor padrão, mas garantindo que o WebGLRenderer tenha alpha: true (passado via GhostScene)
     const composer = new EffectComposer(gl);
     composer.setSize(size.width, size.height);
 
@@ -73,25 +77,15 @@ export function Ghost({
 
     const bloomPass = new UnrealBloomPass(
       new THREE.Vector2(size.width, size.height),
-      1.5, // strength (default, will be overridden)
+      1.25, // strength
       0.4, // radius
-      0.85 // threshold
+      0.0 // threshold
     );
-    // Apply CodePen/Config values
-    // Note: CodePen uses bloom params: strength 0.3, radius 1.25, threshold 0.0
-    // But we should stick to GHOST_CONFIG if available or reference.
-    // Reference says "Bloom agressivo".
-    bloomPass.strength = 1.25;
-    bloomPass.radius = 0.4;
-    bloomPass.threshold = 0.0;
-
     composer.addPass(bloomPass);
     bloomPassRef.current = bloomPass;
 
     const analogPass = new ShaderPass(AnalogDecayShader);
     analogPass.uniforms.uResolution.value.set(size.width, size.height);
-    // Initial config values are set in the shader definition import,
-    // but we can ensure they are up to date here.
     composer.addPass(analogPass);
     analogPassRef.current = analogPass;
 

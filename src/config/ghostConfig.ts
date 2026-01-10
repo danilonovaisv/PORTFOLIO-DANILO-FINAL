@@ -187,7 +187,7 @@ export const GHOST_CONFIG: GhostConfig = {
   movementThreshold: 0.7,
 
   // Iluminação
-  rimLightIntensity: 5.0,
+  rimLightIntensity: 1.0,
   ambientLightColor: 'blue',
   ambientLightIntensity: 0.6,
 
@@ -247,10 +247,10 @@ export const GHOST_CONFIG: GhostConfig = {
   limboMode: false,
 
   // Parâmetros do Véu Atmosférico (Matched to CodePen)
-  revealRadius: 37,
+  revealRadius: 17,
   fadeStrength: 1.3,
-  baseOpacity: 0.9,
-  revealOpacity: 0.05,
+  baseOpacity: 0.98,
+  revealOpacity: 0.0,
 };
 
 // Helper para converter cor do config para formato numérico (Three.js)

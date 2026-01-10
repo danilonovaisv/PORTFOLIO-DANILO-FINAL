@@ -71,7 +71,7 @@ export default function HeroCopy() {
       {/* Headline principal - Display: 6-9rem, Black weight */}
       <motion.h1
         variants={itemAnimation}
-        className="font-black tracking-tight leading-[0.95] mb-6 text-text-light opacity-10"
+        className="font-black tracking-tight leading-[0.95] mb-6 text-text-light"
         style={{
           fontSize: 'clamp(3.5rem, 10vw + 1rem, 9rem)',
         }}

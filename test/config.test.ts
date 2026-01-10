@@ -8,7 +8,7 @@ describe('global site links', () => {
     expect(NAVIGATION.header).toHaveLength(4);
 
     const hrefs = NAVIGATION.header.map((l: { href: string }) => l.href);
-    expect(hrefs).toContain('/#hero');
+    expect(hrefs).toContain('/');
     expect(hrefs).toContain('/sobre');
     expect(hrefs).toContain('/portfolio');
     expect(hrefs).toContain('#contact');
@@ -19,7 +19,7 @@ describe('global site links', () => {
     const footerHrefs = NAVIGATION.footer.links.map(
       (l: { href: string }) => l.href
     );
-    expect(footerHrefs).toContain('/#hero');
+    expect(footerHrefs).toContain('/');
     expect(footerHrefs).toContain('/sobre');
     expect(footerHrefs).toContain('/portfolio');
     expect(footerHrefs).toContain('#contact');

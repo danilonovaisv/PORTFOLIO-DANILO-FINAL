@@ -120,7 +120,6 @@ html {
 
   /* Accessibility: Respect reduced motion */
   @media (prefers-reduced-motion: reduce) {
-
     .gallery-track,
     .project-card-optimized,
     .modal-container,
@@ -222,27 +221,35 @@ canvas {
 
 /* --- Portfolio Hero Atmospheric Gradients --- */
 .portfolio-hero-glow-primary {
-  background: radial-gradient(ellipse 60% 50% at 15% 15%,
-      var(--color-primary-faint),
-      transparent 50%);
+  background: radial-gradient(
+    ellipse 60% 50% at 15% 15%,
+    var(--color-primary-faint),
+    transparent 50%
+  );
 }
 
 .portfolio-hero-glow-accent {
-  background: radial-gradient(ellipse 50% 40% at 85% 10%,
-      var(--color-accent-faint),
-      transparent 45%);
+  background: radial-gradient(
+    ellipse 50% 40% at 85% 10%,
+    var(--color-accent-faint),
+    transparent 45%
+  );
 }
 
 .portfolio-hero-glow-purple {
-  background: radial-gradient(circle at 5% 50%,
-      rgba(135, 5, 242, 0.06),
-      transparent 30%);
+  background: radial-gradient(
+    circle at 5% 50%,
+    rgba(135, 5, 242, 0.06),
+    transparent 30%
+  );
 }
 
 .portfolio-hero-vignette {
-  background: radial-gradient(ellipse 80% 80% at 50% 50%,
-      transparent 30%,
-      var(--color-ghost-vignette) 100%);
+  background: radial-gradient(
+    ellipse 80% 80% at 50% 50%,
+    transparent 30%,
+    var(--color-ghost-vignette) 100%
+  );
 }
 
 .portfolio-hero-scroll-line {
@@ -252,10 +259,12 @@ canvas {
 /* --- Video Manifesto --- */
 /* Overlay de vídeo */
 .video-overlay {
-  background: radial-gradient(120% 120% at 70% 30%,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 0.55) 70%,
-      rgba(0, 0, 0, 0.75) 100%);
+  background: radial-gradient(
+    120% 120% at 70% 30%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.55) 70%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
 }
 
 /* Remover espaçamento padrão */

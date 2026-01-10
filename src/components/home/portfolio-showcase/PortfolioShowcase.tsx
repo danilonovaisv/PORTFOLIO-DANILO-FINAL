@@ -12,8 +12,8 @@ export default function PortfolioShowcase() {
 
   const categories = HOME_CONTENT.showcase.categories.map((c) => ({
     id: c.id,
-    titleDesktop: c.label,
-    titleMobile: c.labelMobile || c.label,
+    titleDesktop: c.titleDesktop,
+    titleMobile: c.titleMobile,
     align: c.align as 'start' | 'center' | 'end',
     thumb: c.thumb,
   })) satisfies CategoryStripeConfig[];

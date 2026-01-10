@@ -66,6 +66,9 @@ export const BRAND = {
   get video() {
     return this.assets.video;
   },
+  get typography() {
+    return this.assets.fonts;
+  },
 };
 
 // Colors aliases need to be part of colors object or we update usages.

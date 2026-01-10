@@ -41,7 +41,7 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
         ref={ref}
         id="mobile-menu-panel"
         className="fixed inset-0 bg-[#040013]/98 backdrop-blur-xl flex flex-col justify-center px-8 z-50 pointer-events-auto"
-        aria-hidden={!open}
+        aria-hidden={!open ? 'true' : 'false'}
         onClick={(e) => {
           if (e.target === e.currentTarget) {
             onClose();
@@ -103,7 +103,7 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
               },
               {
                 label: 'Email',
-                href: `mailto:${SOCIALS.emailSecondary}`,
+                href: SOCIALS.emailPrimary,
                 icon: <Mail className="w-5 h-5" />,
               },
             ].map((s) => (

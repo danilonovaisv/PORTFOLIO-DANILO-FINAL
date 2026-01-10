@@ -47,6 +47,12 @@ export default function GhostScene() {
           alpha: true,
         }}
         camera={{ position: [0, 0, 15], fov: 75 }}
+        eventSource={
+          typeof document !== 'undefined'
+            ? (document.body as HTMLElement)
+            : undefined
+        }
+        eventPrefix="client"
         role="presentation"
       >
         <ambientLight intensity={1} />
