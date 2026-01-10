@@ -73,7 +73,9 @@ const renderPhrase = (segments: PhraseSegment[]) =>
   segments.map((segment, index) => (
     <span
       key={`${segment.text}-${index}`}
-      className={segment.accent ? 'text-primary font-semibold' : 'text-white font-light'}
+      className={
+        segment.accent ? 'text-primary font-semibold' : 'text-white font-light'
+      }
     >
       {segment.text}
     </span>
@@ -141,9 +143,12 @@ export function AboutBeliefs() {
           className="max-w-[900px]"
         >
           <p className="text-[32px] sm:text-[36px] md:text-[44px] font-bold leading-[1.15] tracking-tight">
-            Acredito no <span className="text-primary">design que muda o dia</span> de alguém.
+            Acredito no{' '}
+            <span className="text-primary">design que muda o dia</span> de
+            alguém.
             <br />
-            Não pelo choque, <span className="text-primary">mas pela conexão.</span>
+            Não pelo choque,{' '}
+            <span className="text-primary">mas pela conexão.</span>
           </p>
         </motion.div>
 

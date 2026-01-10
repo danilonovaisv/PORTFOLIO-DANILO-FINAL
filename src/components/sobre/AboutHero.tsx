@@ -157,10 +157,7 @@ export function AboutHero() {
             }}
             className="space-y-6"
           >
-            <motion.div
-              variants={motionTokens.fadeGhost}
-              className="space-y-0"
-            >
+            <motion.div variants={motionTokens.fadeGhost} className="space-y-0">
               <h1 className="text-[clamp(1.75rem,8vw,2.5rem)] font-semibold tracking-tight text-text-light leading-[1.18]">
                 Sou <span className="text-primary">Danilo Novais.</span>{' '}
                 <span className="text-primary">Você</span> não vê tudo o
