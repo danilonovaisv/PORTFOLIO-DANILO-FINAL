@@ -15,6 +15,9 @@ jest.mock('framer-motion', () => ({
     h2: ({ children, className }: any) => (
       <h2 className={className}>{children}</h2>
     ),
+    svg: ({ children, className }: any) => (
+      <svg className={className}>{children}</svg>
+    ),
   },
   useMotionValue: jest.fn(),
   useTransform: jest.fn(),

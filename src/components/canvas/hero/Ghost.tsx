@@ -10,6 +10,9 @@ export function Ghost() {
   const groupRef = useRef<THREE.Group>(null!);
   const bodyRef = useRef<THREE.Mesh>(null!);
   const materialRef = useRef<THREE.MeshStandardMaterial>(null!);
+  const leftEyeGroupRef = useRef<THREE.Group>(null!);
+  const rightEyeGroupRef = useRef<THREE.Group>(null!);
+
   const { viewport, mouse } = useThree();
   const { quality } = usePerformanceAdaptive();
 
@@ -93,6 +96,21 @@ export function Ghost() {
       materialRef.current.emissiveIntensity =
         GHOST_CONFIG.emissiveIntensity + pulse;
     }
+
+    // Eye Pulse Animation (Reference: Keyframes scale 1 -> 1.3)
+    // Using a sin wave normalized to [1, 1.3] range
+    // Frequency matches CSS "2s ease-in-out infinite" -> freq approx 3.14
+    const eyePulse = 1 + (Math.sin(t * 3.14) * 0.5 + 0.5) * 0.3;
+
+    if (leftEyeGroupRef.current) {
+      leftEyeGroupRef.current.scale.setScalar(eyePulse);
+    }
+    if (rightEyeGroupRef.current) {
+      // Right eye has 0.1s delay in reference.
+      // t * 3.14 is phase. 0.1s delay roughly -0.3 phase shift
+      const rightEyePulse = 1 + (Math.sin(t * 3.14 - 0.3) * 0.5 + 0.5) * 0.3;
+      rightEyeGroupRef.current.scale.setScalar(rightEyePulse);
+    }
   });
 
   return (
@@ -103,8 +121,8 @@ export function Ghost() {
         <meshStandardMaterial
           ref={materialRef}
           color={GHOST_CONFIG.bodyColor}
-          roughness={0.02} // Adjusted to match reference (0.02)
-          metalness={0}
+          roughness={0.4}
+          metalness={0.85}
           transparent
           opacity={GHOST_CONFIG.ghostOpacity}
           emissive={GHOST_CONFIG.glowColor}
@@ -116,7 +134,7 @@ export function Ghost() {
       {/* Olhos (Core + Glow) */}
       <group>
         {/* Olho Esquerdo */}
-        <group position={[-0.7, 0.6, 2.0]}>
+        <group ref={leftEyeGroupRef} position={[-0.7, 0.6, 2.0]}>
           <mesh>
             <sphereGeometry args={[0.3, 12, 12]} />
             <meshBasicMaterial
@@ -139,7 +157,7 @@ export function Ghost() {
         </group>
 
         {/* Olho Direito */}
-        <group position={[0.7, 0.6, 2.0]}>
+        <group ref={rightEyeGroupRef} position={[0.7, 0.6, 2.0]}>
           <mesh>
             <sphereGeometry args={[0.3, 12, 12]} />
             <meshBasicMaterial

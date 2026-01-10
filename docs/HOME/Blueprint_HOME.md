@@ -521,13 +521,12 @@ The homepage follows a narrative arc:
 
 
 ### 🧱 FINAL Z-INDEX STACK (HERO + MANIFESTO)
-
 z-index    Elemento    Descrição
-z-50    Preloader    Ghost Loader
-z-30    ManifestoThumb (desktop)    Vídeo flutuante interativo
-z-20    GhostCanvas    Ghost + partículas + atmosfera
-z-10    HeroCopy    Texto editorial central
-z-0    Fundo radial    radial-gradient(circle, #0b0d3a, #06071f)
+z-index 50    Preloader    Ghost Loader
+z-index 30    ManifestoThumb (desktop)    Vídeo flutuante interativo
+z-index 20    GhostCanvas    Ghost + partículas + atmosfera
+z-index 10    HeroCopy    Texto editorial central
+z-index 0    Fundo radial    radial-gradient(circle, #0b0d3a, #06071f)
 mobile-only    ManifestoSection    Fullscreen abaixo da Hero
 
 ## 🧑‍🎨 2. Identidade Visual
@@ -604,9 +603,6 @@ easing: [0.25, 0.46, 0.45, 0.94]
 4.  **Foco (Teclado):** Outline de 2px sólido cor `#4fe6ff` com offset de 4px.
 
 
-- [ ] Qual tipo de animação deseja usar? (Framer Motion: fade-in, slide, spring?; Three.js para fundo animado?)
-- [ ] Efeitos ao scroll ou load?
-- [ ] Interação no hover dos CTAs?
 
 
 

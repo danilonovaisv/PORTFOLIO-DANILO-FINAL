@@ -38,13 +38,13 @@ export default function HomeHero() {
     <section
       id="hero"
       ref={sectionRef}
-      className="relative min-h-screen h-[120vh] md:h-[250vh] bg-[#040013] overflow-hidden"
+      className="relative min-h-screen h-[120vh] md:h-[250vh] bg-[radial-gradient(circle,#0b0d3a,#06071f)] overflow-hidden"
       aria-label="Home hero section"
     >
       {/* Sticky Context */}
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Background - Dark Void (Fixed) */}
-        <div className="absolute inset-0 z-0 bg-[#040013]" aria-hidden />
+        <div className="absolute inset-0 z-0 bg-transparent" aria-hidden />
 
         {/* Preloader Ghost */}
         <AnimatePresence>
@@ -57,20 +57,20 @@ export default function HomeHero() {
           )}
         </AnimatePresence>
 
-        {/* Hero Copy (Editorial) - z-20 (Behind Ghost for reveal effect) */}
+        {/* Hero Copy (Editorial) - z-10 (Middle Layer) */}
         <motion.div
-          className="absolute inset-0 z-20 pointer-events-none"
+          className="absolute inset-0 z-10 pointer-events-none"
           style={{ opacity: copyOpacity }}
         >
           <HeroCopy />
         </motion.div>
 
-        {/* WebGL Atmosphere/Ghost - z-25 (Above text to act as flashlight/reveal) */}
-        <div className="absolute inset-0 z-25 pointer-events-none mix-blend-screen">
+        {/* WebGL Atmosphere/Ghost - z-20 (Ghost Layer - Above Text) */}
+        <div className="absolute inset-0 z-20 pointer-events-none mix-blend-screen">
           <GhostScene />
         </div>
 
-        {/* Manifesto Thumb - z-30 (Top Interactive Layer) */}
+        {/* Manifesto Thumb - z-30 (Interactive Layer, expands to 50) */}
         <ManifestoThumb heroRef={sectionRef} />
       </div>
 

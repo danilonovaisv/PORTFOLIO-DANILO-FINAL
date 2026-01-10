@@ -19,14 +19,14 @@ export const FLUORESCENT_COLORS = {
 // Valores calibrados via Audit Report (Reference: code-ref.tsx)
 export const GHOST_CONFIG = {
   // Ghost appearance
-  bodyColor: '#0f2027', // Reference: Dark Cyan/Blue
-  glowColor: '#0080ff', // Reference: Electric Blue
-  eyeGlowColor: '#0080ff', // Reference: Blue
-  ghostOpacity: 0.88, // Reference: 0.88
+  bodyColor: '#000510', // Darker, spectral
+  glowColor: '#0048ff', // Ghost Brand Blue
+  eyeGlowColor: '#4fe6ff', // Cyan Accent
+  ghostOpacity: 0.35, // Spectral glass
   ghostScale: 2.4, // Reference: 2.4
 
   // Glow effects
-  emissiveIntensity: 5.5, // Aumentado (Reference sugere 8.5, ajustando p/ R3F bloom)
+  emissiveIntensity: 1.2, // Reduced for dark atmosphere
   pulseSpeed: 1.6,
   pulseIntensity: 0.6,
 
@@ -52,22 +52,22 @@ export const GHOST_CONFIG = {
   particleCreationRate: 0.8,
 
   // Background reveal
-  revealRadius: 15,
-  fadeStrength: 1.5,
-  baseOpacity: 0.95,
-  revealOpacity: 0.1,
+  revealRadius: 37,
+  fadeStrength: 1.7,
+  baseOpacity: 0.9,
+  revealOpacity: 0.05,
 
   // Fireflies
   fireflyGlowIntensity: 500,
   fireflySpeed: 0.012,
 
   // Analog Decay settings - Sutilizado
-  analogIntensity: 1.8,
-  analogGrain: 0.5,
-  analogBleeding: 0.4,
-  analogVSync: 0.1,
-  analogScanlines: 1.6,
-  analogVignette: 1.2,
-  analogJitter: 0.2,
+  analogIntensity: 0.9,
+  analogGrain: 0.4,
+  analogBleeding: 0.9,
+  analogVSync: 1.7,
+  analogScanlines: 1.0,
+  analogVignette: 2.4,
+  analogJitter: 0.5,
   limboMode: false,
 };

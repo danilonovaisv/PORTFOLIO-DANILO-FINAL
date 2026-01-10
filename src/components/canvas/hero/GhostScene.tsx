@@ -64,15 +64,26 @@ export default function GhostScene() {
         role="presentation"
         aria-hidden="true"
       >
-        {/* Luzes ambiente */}
-        <ambientLight color="blue" intensity={3.08} />
+        {/* Luzes ambiente REDUZIDA */}
+        <ambientLight color="#001020" intensity={0.5} />
 
-        {/* Rim lights direcionais */}
-        <directionalLight position={[-8, 6, -4]} color="blue" intensity={5.8} />
-        <directionalLight
-          position={[8, -4, -6]}
-          color="cyan"
-          intensity={2.26}
+        {/* Rim lights direcionais FOCADAS */}
+        {/* Main Blue Rim */}
+        <spotLight
+          position={[-10, 8, -5]}
+          color="#0048ff"
+          intensity={8.0}
+          angle={0.5}
+          penumbra={1}
+        />
+
+        {/* Secondary Cyan Rim (Counter-light) */}
+        <spotLight
+          position={[10, -5, -5]}
+          color="#4fe6ff"
+          intensity={4.0}
+          angle={0.6}
+          penumbra={1}
         />
 
         <Suspense fallback={null}>

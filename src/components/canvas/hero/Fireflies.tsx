@@ -61,12 +61,12 @@ export default function Fireflies({ count = 2000 }: FirefliesProps) {
     <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
       <sphereGeometry args={[1, 3, 9]} />
       <meshBasicMaterial
-        color="purple" // Ciano Neon
+        color={GHOST_CONFIG.eyeGlowColor} // Use config color
         transparent
-        opacity={0.8}
+        opacity={0.6}
         blending={THREE.AdditiveBlending}
-        depthWrite={true}
-        toneMapped={true}
+        depthWrite={false}
+        toneMapped={false}
       />
     </instancedMesh>
   );

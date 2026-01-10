@@ -2,7 +2,7 @@
 
 import { motion, Variants } from 'framer-motion';
 import Link from 'next/link';
-import { HOME_CONTENT } from '@/config/content';
+
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 const textAnimation: Variants = {
@@ -25,7 +25,6 @@ const textAnimation: Variants = {
 };
 
 export default function HeroCopy() {
-  const { hero } = HOME_CONTENT;
   const prefersReducedMotion = useReducedMotion();
 
   const motionProps = prefersReducedMotion
@@ -39,39 +38,43 @@ export default function HeroCopy() {
   return (
     <motion.div
       {...motionProps}
-      className="absolute inset-0 z-10 flex flex-col justify-center items-center pointer-events-none px-4 pt-16 pb-12 sm:pt-20 sm:pb-16 md:pt-0 md:pb-[5vh]"
+      className="absolute inset-0 z-10 flex flex-col justify-center pointer-events-none"
     >
-      <div className="w-[70vw] sm:w-[75vw] md:w-[80vw] lg:w-[55vw] max-w-[1400px] pointer-events-auto text-center flex flex-col items-center gap-4">
-        <span className="font-mono text-[11px] sm:text-[12px] md:text-[14px] uppercase tracking-[0.2em] text-[#9cb3ff] mb-4 sm:mb-6 md:mb-10 font-normal opacity-80">
-          {hero.tag}
+      <div className="std-grid pointer-events-auto text-center flex flex-col items-center gap-4">
+        {/* TAG */}
+        <span className="font-mono text-[19px] uppercase tracking-normal text-[#9cb3ff] mb-4 sm:mb-6 md:mb-10 font-normal opacity-80">
+          [BRAND AWARENESS]
         </span>
 
-        <h1 className="font-sans font-black tracking-tight text-[#d9ddec] drop-shadow-[0_0_24px_rgba(71,128,255,0.35)] leading-[0.95] text-[clamp(3.5rem,13vw,6rem)] md:text-[clamp(6rem,9vw,9rem)] flex flex-col items-center">
+        {/* H1 DISPLAY */}
+        <h1 className="font-sans font-black tracking-tight text-[#d9dade] drop-shadow-[0_0_24px_rgba(71,128,255,0.35)] leading-[0.95] text-[clamp(3.5rem,13vw,6rem)] md:text-[clamp(6rem,9vw,9rem)] flex flex-col items-center">
+          {/* MOBILE: 3 Lines */}
           <span className="md:hidden flex flex-col items-center">
-            {hero.titleMobile.map((line, index) => (
-              <span key={`mobile-${index}`} className="block">
-                {line}
-              </span>
-            ))}
+            <span className="block">Você não</span>
+            <span className="block">vê o</span>
+            <span className="block">design.</span>
           </span>
+
+          {/* DESKTOP/TABLET: 2 Lines */}
           <span className="hidden md:flex flex-col items-center">
-            {hero.title.map((line, index) => (
-              <span key={`desktop-${index}`} className="block">
-                {line}
-              </span>
-            ))}
+            <span className="block">Você não vê</span>
+            <span className="block">o design.</span>
           </span>
         </h1>
 
+        {/* H2 SUBHEADLINE */}
         <h2 className="font-sans font-bold tracking-tight text-[#9ca5c3] drop-shadow-[0_0_18px_rgba(71,128,255,0.25)] leading-[1.1] text-[clamp(1rem,4vw,2.5rem)] sm:text-[clamp(1.2rem,4vw,2.5rem)] max-w-[800px]">
-          {hero.subtitle}
+          Mas ele vê você.
         </h2>
 
-        <HeroCTA
-          href={hero.scrollHint ?? '/sobre'}
-          label={hero.cta}
-          reducedMotion={prefersReducedMotion}
-        />
+        {/* CTA */}
+        <div className="mt-8">
+          <HeroCTA
+            href="/sobre"
+            label="step inside"
+            reducedMotion={prefersReducedMotion}
+          />
+        </div>
       </div>
     </motion.div>
   );
@@ -87,63 +90,71 @@ function HeroCTA({
   reducedMotion?: boolean;
 }) {
   const cleanLabel = label.replace('→', '').trim();
-  const motionProps = reducedMotion
-    ? {}
-    : {
-        whileHover: { y: -1 },
-        whileTap: { scale: 0.98 },
-        transition: { duration: 0.2 },
-      };
+
+  // Physics: Animation & States
+  // Using pure Tailwind classes for interaction states as per workflow
+  // but keeping motion wrapper for entrance if needed
 
   return (
-    <motion.div className="inline-flex items-center gap-0" {...motionProps}>
-      <Link
-        href={href}
-        className="group relative inline-flex items-center"
-        aria-label="Ir para seção sobre"
+    <Link
+      href={href}
+      className="
+        group
+        relative
+        flex flex-row items-center justify-center
+        h-[64px]
+        cursor-pointer
+        transition-transform duration-200 ease-out
+        hover:-translate-y-px
+      "
+      aria-label="Step Inside"
+    >
+      {/* NÓ 1: CÁPSULA DE TEXTO (Esquerda) */}
+      <div
+        className="
+          flex items-center justify-center
+          h-full
+          pl-8 pr-4
+          bg-[rgb(0,87,255)]
+          group-hover:bg-[rgb(50,120,255)]
+          text-white
+          rounded-l-full
+          transition-colors duration-300
+        "
       >
-        <span
-          className="
-            px-6 py-3
-            bg-[#0048ff] text-white
-            text-sm uppercase tracking-wide font-medium
-            rounded-l-full
-            transition-colors duration-300
-            group-hover:bg-[#0042d4]
-            focus-visible:outline-2
-            focus-visible:outline-[#4fe6ff]
-            focus-visible:outline-offset-4
-          "
-        >
+        <span className="text-sm uppercase tracking-wider font-medium whitespace-nowrap">
           {cleanLabel}
         </span>
+      </div>
 
-        <span
-          className="
-            w-12 h-12
-            bg-[#0048ff] text-white
-            rounded-r-full
-            flex items-center justify-center
-            transition-all duration-300
-            group-hover:bg-[#0042d4]
-            group-hover:translate-x-1
-          "
+      {/* NÓ 2: ESFERA DO ÍCONE (Direita) */}
+      <div
+        className="
+          flex items-center justify-center
+          h-full aspect-square
+          bg-[rgb(0,87,255)]
+          group-hover:bg-[rgb(50,120,255)]
+          text-white
+          rounded-r-full
+          transition-colors duration-300
+        "
+      >
+        <motion.svg
+          className="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          animate={reducedMotion ? {} : undefined}
         >
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M17 8l4 4m0 0l-4 4m4-4H3"
-            />
-          </svg>
-        </span>
-      </Link>
-    </motion.div>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M14 5l7 7m0 0l-7 7m7-7H3"
+            className="transition-transform duration-300 group-hover:translate-x-1"
+          />
+        </motion.svg>
+      </div>
+    </Link>
   );
 }

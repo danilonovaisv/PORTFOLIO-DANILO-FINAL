@@ -1,28 +1,29 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type RefObject } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
-interface ManifestoThumbProps {
-  heroRef: React.RefObject<HTMLElement | null>;
+export interface ManifestoThumbProps {
+  heroRef: RefObject<HTMLElement | null>;
   src?: string;
 }
 
 const VIDEO_DESCRIPTION_ID = 'manifesto-thumb-video-description';
 
-export default function ManifestoThumb({
+const ManifestoThumb: React.FC<ManifestoThumbProps> = ({
   heroRef,
   src = 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
-}: ManifestoThumbProps) {
+}) => {
   const [isDesktop, setIsDesktop] = useState(false);
-  const [muted, setMuted] = useState(true);
   const [shouldLoad, setShouldLoad] = useState(false);
-  const [videoQuality, setVideoQuality] = useState<'hd' | 'sd'>('hd');
+  const [audioOn, setAudioOn] = useState(false);
+
+  // Z-Index control state
+  const [zIndexState, setZIndexState] = useState(30);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Media query
   useEffect(() => {
     const checkDesktop = () => setIsDesktop(window.innerWidth >= 768);
     checkDesktop();
@@ -30,9 +31,14 @@ export default function ManifestoThumb({
     return () => window.removeEventListener('resize', checkDesktop);
   }, []);
 
-  // Lazy load com IntersectionObserver
   useEffect(() => {
-    if (!wrapperRef.current || !isDesktop) return;
+    // Always load on mobile, check visibility on desktop
+    if (!isDesktop) {
+      setShouldLoad(true);
+      return;
+    }
+
+    if (!wrapperRef.current) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -41,153 +47,146 @@ export default function ManifestoThumb({
           observer.disconnect();
         }
       },
-      { rootMargin: '200px' } // Pre-load 200px antes
+      { rootMargin: '200px' }
     );
 
     observer.observe(wrapperRef.current);
     return () => observer.disconnect();
   }, [isDesktop]);
 
-  // Detectar qualidade de conexão
-  useEffect(() => {
-    if (typeof navigator !== 'undefined' && 'connection' in navigator) {
-      const conn = (navigator as any).connection;
-
-      if (conn?.effectiveType === '4g' || conn?.effectiveType === '5g') {
-        setVideoQuality('hd');
-      } else {
-        setVideoQuality('sd');
-      }
-
-      const handleChange = () => {
-        if (conn.effectiveType === '4g' || conn.effectiveType === '5g') {
-          setVideoQuality('hd');
-        }
-      };
-
-      conn.addEventListener('change', handleChange);
-      return () => conn.removeEventListener('change', handleChange);
-    }
-  }, []);
-
-  // Scroll progress (desktop only) — expand to reveal final state earlier
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start'],
   });
 
-  // Smooth spring
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
+    stiffness: 80,
+    damping: 25,
     restDelta: 0.001,
   });
 
-  // Loandbehold replication:
-  // Starts Small. Expands mid-scroll.
-  // Extended to 0.75 to match Blueprint "Show" state sync
+  // --- DESKTOP TRANSFORMS ---
   const width = useTransform(
     smoothProgress,
     [0, 0.12, 0.46, 0.78],
-    ['30vw', '30vw', '100vw', '100vw']
+    ['300px', '300px', '100vw', '100vw']
   );
+  // Initial height aspect ratio roughly 16:9 or similar
   const height = useTransform(
     smoothProgress,
     [0, 0.12, 0.46, 0.78],
-    ['16.875vw', '16.875vw', '100vh', '100vh']
+    ['170px', '170px', '100vh', '100vh']
   );
   const right = useTransform(
     smoothProgress,
     [0, 0.12, 0.46],
-    ['4vw', '4vw', '0%']
+    ['24px', '24px', '0px'] // 1.5rem = 24px (bottom-6 right-6)
   );
   const bottom = useTransform(
     smoothProgress,
     [0, 0.12, 0.46],
-    ['5vh', '5vh', '0%']
+    ['24px', '24px', '0px']
   );
   const borderRadius = useTransform(
     smoothProgress,
     [0, 0.12, 0.46],
-    ['24px', '20px', '0px']
+    ['12px', '12px', '0px']
   );
-  const translate = useTransform(
-    smoothProgress,
-    [0, 0.46, 0.78],
-    [
-      'translate(0%, 0%)',
-      'translate(0%, 0%)',
-      'translate(-50%, -50%)',
-    ]
-  );
-  const opacity = useTransform(smoothProgress, [0.78, 1], [1, 0]);
 
-  // Controlar mute por threshold (desktop)
+  const fadeOut = useTransform(smoothProgress, [0.78, 1], [1, 0]);
+
+  // Handle Logic Updates
   useEffect(() => {
-    if (!isDesktop) return;
-
     const unsubscribe = smoothProgress.on('change', (latest) => {
+      // Audio Logic
       if (latest >= 0.78) {
-        setMuted(true);
+        setAudioOn(false);
       } else if (latest >= 0.46) {
-        setMuted(false);
+        setAudioOn(true);
+        setZIndexState(50); // Expanded
       } else {
-        setMuted(true);
+        setAudioOn(false);
+        setZIndexState(30); // Initial
       }
     });
 
     return () => unsubscribe();
-  }, [isDesktop, smoothProgress]);
+  }, [smoothProgress]);
 
-  // Aplicar mute ao vídeo
   useEffect(() => {
     if (!videoRef.current) return;
-    videoRef.current.muted = muted;
-    videoRef.current.volume = muted ? 0 : 1;
-  }, [muted]);
-  // Handler removed (Zero UI)
+    if (audioOn) {
+      videoRef.current.muted = false;
+      videoRef.current.volume = 1;
+    } else {
+      videoRef.current.muted = true;
+      videoRef.current.volume = 0;
+    }
+  }, [audioOn]);
 
-  // Determinar src baseado na qualidade
-  const videoSrc =
-    videoQuality === 'hd' ? src : src.replace('.mp4', '-720p.mp4');
-
-  // Prevent duplicate video check removed - Component handles responsive styles
-  // if (!isDesktop) return null;
+  const handleExpand = () => {
+    // Programmatic scroll to trigger expansion
+    const heroHeight = window.innerHeight * 2.5; // 250vh
+    // We want to reach roughly 0.5 progress to ensure full expansion (0.46 threshold)
+    // Offset is 'start start' to 'end start' => full section height
+    const targetScroll = heroHeight * 0.5;
+    window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+  };
 
   if (!isDesktop) {
-    return null;
+    // --- MOBILE RENDER ---
+    // Positioned absolute at bottom, mimicking "below copy" visually
+    return (
+      <div
+        className="absolute bottom-24 left-6 right-6 z-20 aspect-9/14 rounded-xl overflow-hidden shadow-2xl border border-white/10"
+        aria-label="Manifesto Video Mobile"
+      >
+        {shouldLoad && (
+          <video
+            className="w-full h-full object-cover"
+            src={src}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+          />
+        )}
+      </div>
+    );
   }
 
+  // --- DESKTOP RENDER ---
   return (
     <motion.div
       ref={wrapperRef}
-      className="video-wrapper fixed z-30 pointer-events-none"
+      onClick={handleExpand}
+      className="video-wrapper absolute cursor-pointer pointer-events-auto overflow-hidden bg-black shadow-2xl border border-white/10"
       style={{
         width,
         height,
         right,
         bottom,
         borderRadius,
-        opacity,
-        transform: translate,
-        willChange: 'transform, width, height, opacity',
+        opacity: fadeOut,
+        zIndex: zIndexState,
+        willChange: 'width, height, right, bottom',
       }}
     >
       {shouldLoad ? (
         <>
-          <motion.video
+          <video
             ref={videoRef}
             className="w-full h-full object-cover"
-            src={videoSrc}
+            src={src}
             autoPlay
             loop
-            muted={muted}
+            muted
             playsInline
             preload="metadata"
             aria-label="Vídeo showreel demonstrando projetos de design gráfico"
             aria-describedby={VIDEO_DESCRIPTION_ID}
           />
-
           <p id={VIDEO_DESCRIPTION_ID} className="sr-only">
             Vídeo de apresentação dos trabalhos em estratégia, branding e motion
             design.
@@ -198,4 +197,6 @@ export default function ManifestoThumb({
       )}
     </motion.div>
   );
-}
+};
+
+export default ManifestoThumb;

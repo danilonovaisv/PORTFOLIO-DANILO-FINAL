@@ -74,7 +74,8 @@ export default function ManifestoSection() {
       initial={prefersReducedMotion ? {} : ANIMATION.initial}
       animate={isInView && !prefersReducedMotion ? ANIMATION.animate : {}}
       transition={ANIMATION.transition}
-      className="lg:hidden w-full bg-[#050511] aspect-video relative overflow-hidden"
+      className="lg:hidden w-full bg-[#050511] aspect-video relative overflow-hidden cursor-pointer"
+      onClick={toggleSound}
     >
       {/* Video */}
       <video
@@ -91,7 +92,10 @@ export default function ManifestoSection() {
       {/* Sound Toggle Button */}
       <button
         type="button"
-        onClick={toggleSound}
+        onClick={(e) => {
+          e.stopPropagation();
+          toggleSound();
+        }}
         className="absolute bottom-4 right-4 z-10 flex items-center justify-center 
                    w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm text-white 
                    transition-all duration-300 
