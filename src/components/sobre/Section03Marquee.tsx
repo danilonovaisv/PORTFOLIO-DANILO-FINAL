@@ -62,10 +62,7 @@ function MarqueeLine({ text, baseVelocity }: MarqueeLineProps) {
     <div className="overflow-hidden flex whitespace-nowrap">
       <motion.div className="flex gap-2 text-nowrap" style={{ x }}>
         {Array.from({ length: 5 }).map((_, i) => (
-          <span
-            key={i}
-            className="text-purple-details text-xl md:text-4xl font-black tracking-tight uppercase"
-          >
+          <span key={i} className="text-purple-details text-marquee font-black">
             {text}
           </span>
         ))}

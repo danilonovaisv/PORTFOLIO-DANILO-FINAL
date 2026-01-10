@@ -82,7 +82,7 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
       ref={galleryRef as React.RefObject<HTMLElement>}
       id="projects-gallery"
       aria-label="Galeria de Projetos"
-      className={`relative z-10 bg-ghost-bg transition-[height] duration-300 ease-out h-[var(--gallery-height)] ${className}`}
+      className={`relative z-10 bg-background transition-[height] duration-300 ease-out h-[var(--gallery-height)] ${className}`}
       style={{
         // @ts-ignore - Dynamic variable specifically for this section
         '--gallery-height': galleryHeight 
@@ -97,8 +97,8 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
       >
         {/* Background glow effects */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-focus-ring/5 rounded-full blur-[120px]" />
-          <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-ghost-accent/5 rounded-full blur-[100px]" />
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-bluePrimary/5 rounded-full blur-[120px]" />
+          <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-blueAccent/5 rounded-full blur-[100px]" />
         </div>
 
         <div className="relative std-grid">
@@ -114,7 +114,7 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
               <div className="flex flex-col gap-2">
                 <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-white">
                   portfólio{' '}
-                  <span className="text-ghost-accent">showcase</span>
+                  <span className="text-blueAccent">showcase</span>
                 </h2>
                 <span className="text-sm uppercase tracking-[0.3em] text-white/40">
                   [{filteredProjects.length} projetos]

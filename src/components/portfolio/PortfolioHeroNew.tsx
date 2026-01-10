@@ -58,7 +58,7 @@ export default function PortfolioHeroNew() {
 
       {/* Main Gradient Overlay - Intenso nas bordas para legibilidade */}
       <div 
-        className="absolute inset-0 z-10 bg-linear-to-b from-(--color-ghost-bg)/60 via-transparent to-(--color-ghost-bg)/90" 
+        className="absolute inset-0 z-10 bg-linear-to-b from-background/60 via-transparent to-background/90" 
       />
 
       {/* Ghost Atmospheric Radial Gradients - Enhanced */}

@@ -5,77 +5,38 @@ import { AnimatePresence, motion, useInView } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import GhostEyes from './GhostEyes';
 import { motionTokens } from './motion';
-
-type PhraseSegment = {
-  text: string;
-  accent?: boolean;
-};
+import { ABOUT_CONTENT } from '@/config/content';
 
 const PHRASE_DURATION = 4200;
 const PHRASE_EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const PHRASES: Array<{ id: number; segments: PhraseSegment[] }> = [
-  {
-    id: 1,
-    segments: [
-      { text: 'Um vídeo que ' },
-      { text: 'respira', accent: true },
-      { text: '.' },
-    ],
-  },
-  {
-    id: 2,
-    segments: [
-      { text: 'Uma marca que se ' },
-      { text: 'reconhece', accent: true },
-      { text: '.' },
-    ],
-  },
-  {
-    id: 3,
-    segments: [
-      { text: 'Um detalhe que ' },
-      { text: 'fica', accent: true },
-      { text: '.' },
-    ],
-  },
-  {
-    id: 4,
-    segments: [
-      { text: '' },
-      { text: 'Crio', accent: true },
-      { text: ' para gerar presença.' },
-    ],
-  },
-  {
-    id: 5,
-    segments: [
-      { text: '' },
-      { text: 'Mesmo', accent: true },
-      { text: ' quando não estou ali.' },
-    ],
-  },
-  {
-    id: 6,
-    segments: [
-      { text: '' },
-      { text: 'Mesmo', accent: true },
-      { text: ' quando ninguém percebe o esforço.' },
-    ],
-  },
-];
+const PHRASES = ABOUT_CONTENT.beliefs.map((belief, index) => ({
+  id: index + 1,
+  segments: [
+    {
+      text: belief.text,
+      highlight: belief.highlight,
+    },
+  ],
+}));
 
-const renderPhrase = (segments: PhraseSegment[]) =>
-  segments.map((segment, index) => (
-    <span
-      key={`${segment.text}-${index}`}
-      className={
-        segment.accent ? 'text-primary font-semibold' : 'text-white font-light'
-      }
-    >
-      {segment.text}
-    </span>
-  ));
+const renderPhrase = (text: string, highlight: string) => {
+  if (!highlight) return <span className="text-white font-light">{text}</span>;
+
+  const parts = text.split(highlight);
+  return (
+    <>
+      {parts.map((part, i) => (
+        <span key={i}>
+          <span className="text-white font-light">{part}</span>
+          {i < parts.length - 1 && (
+            <span className="text-primary font-semibold">{highlight}</span>
+          )}
+        </span>
+      ))}
+    </>
+  );
+};
 
 export function AboutBeliefs() {
   const prefersReducedMotion = useReducedMotion();
@@ -138,7 +99,7 @@ export function AboutBeliefs() {
           animate={isInView ? 'visible' : 'hidden'}
           className="max-w-[900px]"
         >
-          <p className="text-[32px] sm:text-[36px] md:text-[44px] font-bold leading-[1.15] tracking-tight">
+          <p className="type-h1 leading-[1.15] tracking-tight">
             Acredito no{' '}
             <span className="text-primary">design que muda o dia</span> de
             alguém.
@@ -153,13 +114,16 @@ export function AboutBeliefs() {
             <AnimatePresence mode="wait" initial={false}>
               <motion.p
                 key={currentPhrase.id}
-                className="text-[26px] sm:text-[30px] md:text-[36px] lg:text-[44px] font-semibold leading-[1.25] max-w-[700px]"
+                className="type-h2 font-semibold leading-tight max-w-[700px]"
                 initial={phraseMotionProps.initial}
                 animate={phraseMotionProps.animate}
                 exit={phraseMotionProps.exit}
                 transition={phraseMotionProps.transition}
               >
-                {renderPhrase(currentPhrase.segments)}
+                {renderPhrase(
+                  currentPhrase.segments[0].text,
+                  currentPhrase.segments[0].highlight
+                )}
               </motion.p>
             </AnimatePresence>
           </div>
@@ -181,10 +145,8 @@ export function AboutBeliefs() {
             </div>
 
             <div className="flex flex-col items-center gap-3 lg:items-start">
-              <span className="text-[11px] uppercase tracking-[0.4em] text-white/60">
-                ISSO É
-              </span>
-              <p className="text-[40px] sm:text-[48px] lg:text-[56px] font-black leading-[1.05] text-primary">
+              <span className="type-caption text-white/60">ISSO É</span>
+              <p className="type-display font-black leading-[1.05] text-primary">
                 GHOST
                 <br />
                 DESIGN.

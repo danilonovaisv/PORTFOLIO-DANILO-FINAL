@@ -19,28 +19,49 @@ export default function AboutMethod() {
     ? scrollYProgress
     : smoothProgress;
 
-  const mediaY = useTransform(
-    effectiveProgress,
-    [0, 1],
-    prefersReducedMotion ? [0, 0] : [56, -56]
-  );
   const textY = useTransform(
     effectiveProgress,
     [0, 1],
     prefersReducedMotion ? [0, 0] : [16, -16]
   );
 
+  const videoParallaxY = useTransform(
+    effectiveProgress,
+    [0, 1],
+    prefersReducedMotion ? ['0%', '0%'] : ['-10%', '10%']
+  );
+
   return (
     <section
       ref={containerRef}
-      className="relative bg-background overflow-hidden"
+      className="relative min-h-screen bg-background overflow-hidden flex items-center"
       aria-label="Como Eu Trabalho"
     >
-      <div className="relative z-30 std-grid">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center py-20 md:py-32">
-          {/* Content Left */}
-          <div className="flex flex-col justify-center order-1 md:order-1">
-            <motion.div style={{ y: textY }} className="max-w-[640px]">
+      {/* Full Bleed Background Video */}
+      <div className="absolute inset-0 z-0">
+        <motion.div style={{ y: videoParallaxY }} className="h-[120%] w-full">
+          <motion.video
+            src={ABOUT_CONTENT.method.video}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover opacity-60"
+            aria-hidden="true"
+          />
+        </motion.div>
+        {/* Overlay Gradient Left -> Right */}
+        <div
+          className="absolute inset-0 bg-linear-to-r from-[rgba(10,10,20,0.85)] via-[rgba(10,10,20,0.85)] to-[rgba(10,10,20,0.4)] z-1"
+          aria-hidden="true"
+        />
+      </div>
+
+      <div className="relative z-10 std-grid py-20 md:py-32">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+          {/* Content Left - 6 cols */}
+          <div className="md:col-span-6 lg:col-span-5 flex flex-col justify-center">
+            <motion.div style={{ y: textY }} className="w-full">
               {/* Títulos */}
               <motion.div
                 variants={motionTokens.fadeGhost}
@@ -49,7 +70,7 @@ export default function AboutMethod() {
                 viewport={{ once: true, margin: '-20%' }}
                 className="mb-8 md:mb-10 text-left"
               >
-                <h2 className="text-[32px] sm:text-[40px] lg:text-[56px] font-bold text-white leading-[1.1] tracking-tight">
+                <h2 className="type-display text-white leading-[1.1] tracking-tight">
                   <span className="text-primary block mb-1">
                     Criatividade com método.
                   </span>
@@ -63,7 +84,7 @@ export default function AboutMethod() {
                 initial={prefersReducedMotion ? 'visible' : 'hidden'}
                 whileInView="visible"
                 viewport={{ once: true, margin: '-20%' }}
-                className="text-[16px] md:text-[18px] text-white/70 font-normal leading-relaxed space-y-4 mb-12 text-left"
+                className="type-body text-white/70 leading-relaxed space-y-4 mb-12 text-left"
               >
                 {ABOUT_CONTENT.method.intro.map((line, i) => (
                   <p key={i}>{line}</p>
@@ -75,7 +96,7 @@ export default function AboutMethod() {
                 variants={{
                   visible: {
                     transition: {
-                      staggerChildren: 0.1,
+                      staggerChildren: 0.12,
                     },
                   },
                 }}
@@ -90,9 +111,12 @@ export default function AboutMethod() {
                     variants={motionTokens.riseSoft}
                     className="
                       group flex items-center gap-6 
-                      p-4 pr-6 rounded-xl
-                      bg-white/5 border border-white/5 backdrop-blur-sm
-                      hover:bg-primary/10 hover:border-primary/30 hover:translate-x-2 
+                      p-4 pr-6 rounded-r-xl rounded-l-none
+                      bg-transparent
+                      border-l-[3px] border-primary
+                      hover:border-l-4
+                      hover:bg-white/5 
+                      hover:translate-x-2 
                       transition-all duration-300
                     "
                   >
@@ -105,31 +129,12 @@ export default function AboutMethod() {
                     >
                       0{i + 1}
                     </span>
-                    <p className="text-[15px] sm:text-[16px] text-white/80 group-hover:text-white transition-colors font-medium">
+                    <p className="type-body text-white/80 group-hover:text-white transition-colors font-medium">
                       {step}
                     </p>
                   </motion.div>
                 ))}
               </motion.div>
-            </motion.div>
-          </div>
-
-          {/* Right Visual Area (Video) */}
-          <div className="h-full min-h-[400px] md:min-h-[600px] relative rounded-2xl overflow-hidden order-2 md:order-2">
-            <motion.div
-              style={{ y: mediaY }}
-              className="absolute inset-0 z-0 h-[120%] -top-[10%]"
-            >
-              <div className="absolute inset-0 bg-black/20 z-10" />
-              <motion.video
-                src={ABOUT_CONTENT.method.video}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover"
-                aria-hidden="true"
-              />
             </motion.div>
           </div>
         </div>

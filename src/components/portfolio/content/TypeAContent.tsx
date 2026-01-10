@@ -85,7 +85,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
           {project.subtitle && (
             <motion.p
               variants={fadeInUp}
-              className="text-xl text-ghost-accent font-medium"
+              className="text-xl text-blueAccent font-medium"
             >
               {project.subtitle}
             </motion.p>
@@ -109,7 +109,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
                   className="flex items-center gap-3 text-sm text-white/80"
                   variants={fadeInUp}
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-ghost-accent" aria-hidden="true" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-blueAccent" aria-hidden="true" />
                   {highlight}
                 </motion.li>
               ))}
@@ -122,7 +122,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
           {/* Meta cards */}
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
-              <Building2 className="w-5 h-5 text-ghost-accent" />
+              <Building2 className="w-5 h-5 text-blueAccent" />
               <div>
                 <span className="block text-xs uppercase tracking-wider text-white/50">Cliente</span>
                 <span className="text-sm font-medium text-white">{project.client}</span>
@@ -130,7 +130,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
             </div>
 
             <div className="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
-              <Calendar className="w-5 h-5 text-ghost-accent" />
+              <Calendar className="w-5 h-5 text-blueAccent" />
               <div>
                 <span className="block text-xs uppercase tracking-wider text-white/50">Ano</span>
                 <span className="text-sm font-medium text-white">{project.year}</span>
@@ -158,7 +158,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
               href={project.detail.externalUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-focus-ring text-white font-semibold text-sm hover:bg-focus-ring/90 transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-bluePrimary text-white font-semibold text-sm hover:bg-bluePrimary/90 transition-colors"
             >
               Ver projeto completo
               <ArrowUpRight className="w-4 h-4" />

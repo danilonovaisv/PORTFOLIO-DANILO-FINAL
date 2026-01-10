@@ -148,6 +148,19 @@ body {
     line-height: 1.5;
   }
 
+  .type-caption {
+    font-size: clamp(0.75rem, 1vw, 0.9rem);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  .text-marquee {
+    font-size: clamp(1rem, 3vw, 2rem);
+    letter-spacing: 0.32em;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
   /* Global Grid System */
   .std-grid {
     @apply w-full max-w-[1920px] mx-auto px-6 md:px-12 lg:px-24;

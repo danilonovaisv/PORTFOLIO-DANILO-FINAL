@@ -71,7 +71,7 @@ export function AboutHero() {
       <div className="relative z-10 hidden lg:flex min-h-screen items-center std-grid">
         <motion.div
           style={{ y: textY }}
-          className="w-full max-w-[680px] lg:ml-auto text-left lg:-translate-y-6"
+          className="w-full max-w-[800px] lg:ml-auto text-right lg:-translate-y-6"
         >
           <motion.div
             initial={prefersReducedMotion ? 'visible' : 'hidden'}
@@ -84,46 +84,83 @@ export function AboutHero() {
                 },
               },
             }}
-            className="space-y-6 md:space-y-7"
+            className="space-y-6 md:space-y-7 flex flex-col items-end"
           >
+            {/* Intro H1 */}
             <motion.h1
-              variants={motionTokens.fadeGhost}
-              className="text-[32px] lg:text-[36px] xl:text-[40px] font-semibold tracking-tight text-text-light leading-tight"
+              variants={{
+                hidden: { opacity: 0, filter: 'blur(10px)' },
+                visible: {
+                  opacity: 1,
+                  filter: 'blur(0px)',
+                  transition: {
+                    duration: 1.4,
+                    ease: [0.22, 1, 0.36, 1],
+                  },
+                },
+              }}
+              className="type-h1 text-text-light tracking-tight leading-[1.1]"
             >
-              Sou <span className="text-primary">Danilo Novais.</span>
+              Sou <span className="text-[#0048ff]">Danilo Novais.</span>
             </motion.h1>
 
+            {/* Manifesto Display Text (treated as H1 visual) */}
             <motion.div
-              variants={motionTokens.fadeGhost}
-              className="space-y-1.5"
+              variants={{
+                hidden: { opacity: 0, filter: 'blur(10px)' },
+                visible: {
+                  opacity: 1,
+                  filter: 'blur(0px)',
+                  transition: {
+                    duration: 1.4,
+                    ease: [0.22, 1, 0.36, 1],
+                  },
+                },
+              }}
+              className="space-y-1.5 flex flex-col items-end"
             >
-              <p className="text-[38px] lg:text-[42px] xl:text-[48px] text-text-light font-semibold tracking-tight leading-[1.05]">
-                <span className="text-primary">Você</span> não vê tudo
+              <p className="type-h1 text-text-light font-bold tracking-tight leading-[1.05]">
+                Você <span className="text-[#0048ff]">não vê tudo</span>
               </p>
-              <p className="text-[38px] lg:text-[42px] xl:text-[48px] text-text-light font-semibold tracking-tight leading-[1.05]">
+              <p className="type-h1 text-text-light font-bold tracking-tight leading-[1.05]">
                 o que eu faço. Mas
               </p>
-              <p className="text-[38px] lg:text-[42px] xl:text-[48px] text-text-light font-semibold tracking-tight leading-[1.05]">
+              <p className="type-h1 text-text-light font-bold tracking-tight leading-[1.05]">
                 sente quando
               </p>
-              <p className="text-[38px] lg:text-[42px] xl:text-[48px] text-text-light font-semibold tracking-tight leading-[1.05]">
-                <span className="text-primary">funciona.</span>
+              <p className="type-h1 text-text-light font-bold tracking-tight leading-[1.05]">
+                <span className="text-[#0048ff]">funciona.</span>
               </p>
             </motion.div>
 
+            {/* Description H3 */}
             <motion.div
-              variants={motionTokens.fadeGhost}
-              className="text-[16px] lg:text-[17px] text-white/85 font-normal leading-[1.6] tracking-tight max-w-[420px]"
+              variants={{
+                hidden: { opacity: 0, filter: 'blur(10px)' },
+                visible: {
+                  opacity: 1,
+                  filter: 'blur(0px)',
+                  transition: {
+                    duration: 1.4,
+                    ease: [0.22, 1, 0.36, 1],
+                  },
+                },
+              }}
+              className="type-h3 text-white/60 font-medium leading-[1.3] tracking-tight max-w-[620px]"
             >
-              Crio design que observa, entende
-              <br />
-              e guia experiências com intenção,
-              <br />
-              estratégia e tecnologia — na medida certa.
+              <span className="block">Crio design que observa, entende</span>
+              <span className="block">e guia experiências com intenção,</span>
+              <span className="block">
+                estratégia e tecnologia — na medida certa.
+              </span>
             </motion.div>
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Gradient Bottom Decay */}
+      {/* Gradient Bottom Decay - Suaviza transição para próxima sessão */}
+      <div className="absolute bottom-0 left-0 w-full h-[30vh] md:h-[40vh] bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none z-20" />
 
       {/* Mobile Hero Video */}
       <div className="lg:hidden">
@@ -144,7 +181,6 @@ export function AboutHero() {
         </div>
         <div className="relative z-10 px-6 pt-10 pb-12 text-center">
           <motion.div
-            style={{ y: textY }}
             initial={prefersReducedMotion ? 'visible' : 'hidden'}
             animate="visible"
             variants={{
@@ -157,21 +193,31 @@ export function AboutHero() {
             }}
             className="space-y-6"
           >
-            <motion.div variants={motionTokens.fadeGhost} className="space-y-4">
-              <span className="font-mono text-xs md:text-sm text-primary uppercase tracking-wider">
-                [brand awareness]
-              </span>
-              <h1 className="text-[clamp(2rem,6vw,3rem)] font-bold tracking-tight text-text-light leading-[1.1]">
-                Sou <span className="text-primary">Danilo Novais.</span>{' '}
-                <span className="text-primary">Você</span> não vê tudo o
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, filter: 'blur(10px)' },
+                visible: {
+                  opacity: 1,
+                  filter: 'blur(0px)',
+                  transition: {
+                    duration: 1.4,
+                    ease: [0.22, 1, 0.36, 1],
+                  },
+                },
+              }}
+              className="space-y-4"
+            >
+              <h1 className="type-display text-text-light leading-[1.1]">
+                Sou <span className="text-bluePrimary">Danilo Novais.</span>{' '}
+                Você <span className="text-bluePrimary">não vê tudo</span> o
                 <br />
                 que eu faço. Mas sente quando{' '}
-                <span className="text-primary">funciona.</span>
+                <span className="text-bluePrimary">funciona.</span>
               </h1>
             </motion.div>
             <motion.div
               variants={motionTokens.fadeGhost}
-              className="text-[16px] sm:text-[17px] text-white/85 font-normal leading-[1.6] tracking-tight"
+              className="type-body text-white/85 leading-[1.6] tracking-tight"
             >
               Crio design que observa, entende e guia experiências com
               <br />

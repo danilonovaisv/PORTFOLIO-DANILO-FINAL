@@ -442,7 +442,7 @@ O usuário entra direto em um estado de observação.
     - Colunas **1–6**: espaço negativo + vídeo.
     - Colunas **7–12**: bloco de texto.
 - Texto:
-  - Bloco de texto **alinhado à direita da página (texto e bloco)**  dentro do bloco.
+  - Bloco de texto **alinhado à direita da página**  dentro do bloco.
   - Verticamente posicionado **ligeiramente acima do centro** (≈ -10%).
   - Sem CTA aqui.
 - Regra de contraste:
@@ -462,8 +462,6 @@ O usuário entra direto em um estado de observação.
   - Texto **centralizado** (alinhamento visual mais próximo da composição do layout atual).
 - Altura:
   - `min-height: 100vh`, permitindo scroll se o texto for mais longo.
-  
-  **DREGRADE DA COR DO BG NO FINAL DA SESSÃO PARA SUAVISAR A MUDANÇA DE SESSÃO**
 
 ### Motion (frame-by-frame)
 
@@ -493,13 +491,12 @@ O usuário entra direto em um estado de observação.
 > o que eu faço. Mas  
 > sente quando  
 > funciona.  
-
 >**H2**
 > Crio design que observa, entende  
 > e guia experiências com intenção,  
 > estratégia e tecnologia — na medida certa.
 
-Palavras-chave como **Danilo Novais**, **“não vê tudo”** e **“funciona”** alterar cor para (bluePrimary).
+Palavras-chave como **“não vê tudo”** e **“funciona”** podem usar a classe `.ghost-accent` (azul).
 
 ---
 
@@ -519,10 +516,10 @@ Palavras-chave como **Danilo Novais**, **“não vê tudo”** e **“funciona�
 
 - **Título Principal:** `"Origem"` (label centralizada no topo)
 - **Blocos (4):** Alternância de texto e mídia, com layout adaptativo
-  - Bloco A: Texto (esquerda), imagem (direita)
+  - Bloco A: Texto (esquerda), vídeo retrato (direita)
   - Bloco B: Imagem (esquerda), texto (direita)
   - Bloco C: Texto (esquerda), imagem (direita)
-  - Bloco D: imagem (esquerda), texto (direita)
+  - Bloco D: Vídeo (esquerda), texto (direita)
 - **Layout Desktop:**
   - Grid 12 colunas
   - Mídia com blur e opacidade máx. 0.85
@@ -535,14 +532,13 @@ Palavras-chave como **Danilo Novais**, **“não vê tudo”** e **“funciona�
 
 **Título (H1)**
 
- **texto:** 'Origem'
- 
+ 'Origem'
 
 **Blocos textuais e mídias**
 **Títulos (H1) e conteúdo (H3)**
 
-  - Bloco A: **Título(H1):** O QUE PERMANECE  (bluePrimary)
-**conteúdo (H3)**
+  - Bloco A: O QUE PERMANECE
+
 Desde cedo, sempre prestei atenção no que ficava —
 não só no que aparecia.
 
@@ -551,12 +547,11 @@ eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo.
 A essência das coisas sempre falou mais alto do que a superfície.
 
 (mídia: ‘https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-1.webp’)
-  - texto **alinhado à direita do bloco**  dentro do bloco. (`#fcffff`)
-  - Verticamente posicionado **ligeiramente acima do centro** (≈ -10%).
+
 ⸻
 
-  - Bloco B: **Título(H1):** DO TRAÇO À INTENÇÃO  (bluePrimary)
-**conteúdo (H3)**
+  - Bloco B: DO TRAÇO À INTENÇÃO
+
 Rabiscos viraram ideias.
 Ideias viraram projetos.
 E os projetos começaram a deixar rastros.
@@ -567,12 +562,11 @@ Com cada tentativa, aprendi a dar forma ao invisível —
 até que os conceitos começaram a falar por si.
 
 (mídia: ‘https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-2.webp’)
-  - texto **alinhado à esquerda do bloco**  dentro do bloco. (`#fcffff`)
-  - Verticamente posicionado **ligeiramente acima do centro** (≈ -10%).
+
 ⸻
 
-  - Bloco C: **Título(H1):** A DESCOBERTA DO INVISÍVEL  (bluePrimary)
- **conteúdo (H3)**
+  - Bloco C: A DESCOBERTA DO INVISÍVEL
+
 Foi ali que entendi:
 design não é enfeite.
 É ferramenta invisível de transformação.
@@ -585,12 +579,10 @@ Transformar sem que se perceba a transformação: isso é potência.
 
 (mídia: ‘https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-3.webp’)
 
-  - texto **alinhado à direita do bloco**  dentro do bloco. (`#fcffff`)
-  - Verticamente posicionado **ligeiramente acima do centro** (≈ -10%).
 ⸻
 
-  - Bloco D: **Título(H1):** EXPANSÃO COM PROPÓSITO  (bluePrimary)
-**conteúdo (H3)**
+  - Bloco D: EXPANSÃO COM PROPÓSITO
+
 Estudei Comunicação, mergulhei no design, no branding
 e hoje uso inteligência artificial para expandir o alcance
 sem perder a essência humana da criação.
@@ -602,13 +594,11 @@ a sensibilidade, o olhar atento, a busca pelo significado.
 
 (mídia: ‘https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-4.webp’)
 
-  - texto **alinhado à esquerda do bloco**  dentro do bloco. (`#fcffff`)
-  - Verticamente posicionado **ligeiramente acima do centro** (≈ -10%).
 ⸻
 
 ---
 
-## 3. 🎨 Identidade Visual da sessão:
+## 3. 🎨 Identidade Visual
 
 - **Cores principais:**
   - Fundo: `#040013`
@@ -618,6 +608,7 @@ a sensibilidade, o olhar atento, a busca pelo significado.
   - Títulos: bold, tamanho responsivo
   - Corpo: serif ou humanista, legível, espaçamento generoso
 - **Elementos Visuais:**
+  - Imagens com bordas suaves, vídeos em loop com blur
   - Motion Titles (`#00X`) animados em parallax
 
 ---

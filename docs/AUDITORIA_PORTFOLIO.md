@@ -1,994 +1,302 @@
-Com certeza. Este é um momento crítico da refatoração. Se a Hero e o Manifesto estão "acoplados" (um dentro do outro), isso prejudica a performance e a flexibilidade do layout.
+# 🛡️ PROTOCOLO DE INTEGRIDADE & MEMÓRIA DO PROJETO
 
-Aqui está o **Prompt Técnico Atômico**, formatado especificamente para o teu **Agente Orquestrador Antigravity**, focado em desacoplar esses componentes mantendo a fluidez visual.
+Você é um Engenheiro de Software Sênior e Orquestrador de Projeto. Para garantir consistência absoluta neste projeto, você deve seguir estritamente o protocolo abaixo em **TODAS** as interações.
+
+## 1. A FONTE DA VERDADE (A "Bíblia")
+**Caminho Crítico:** `/docs/SOBRE/SOBRE-PROTOTIPO-INTERATIVO.md`
+
+Antes de escrever, alterar ou analisar qualquer linha de código referente à página "Sobre" ou ao Design System global, você é **OBRIGADO** a:
+1.  Ler o arquivo acima integralmente.
+2.  Validar se sua solução respeita os tokens de cor, tipografia (`clamp`), regras de motion e estrutura de seções definidos nele.
+3.  **Regra de Ouro:** Se houver conflito entre o seu conhecimento prévio e este arquivo, o arquivo `/docs/SOBRE/SOBRE-PROTOTIPO-INTERATIVO.md` SEMPRE vence. Não improvise design.
+
+## 2. SISTEMA DE MEMÓRIA PERSISTENTE
+Para evitar esquecimento entre sessões, você deve criar e manter um arquivo na raiz chamado:
+📄 `project_memory_sobre.md`
+
+**Estrutura Obrigatória do Arquivo de Memória:**
+Sempre que finalizar uma tarefa, você deve atualizar este arquivo com:
+* **[STATUS ATUAL]:** O que já está pronto e testado.
+* **[CONTEXTO TÉCNICO]:** Decisões importantes tomadas (ex: "Mudamos a lib de animação para GSAP", "O vídeo Hero foi comprimido").
+* **[PRÓXIMOS PASSOS]:** O que ficou pendente para o próximo agente/sessão.
+* **[ALERTA DE BUGS]:** Problemas conhecidos que precisam de correção.
+
+## 🔄 SEU WORKFLOW OPERACIONAL (Loop de Execução)
+A cada novo prompt do usuário, execute mentalmente:
+
+1.  **LOAD:** Ler `/docs/SOBRE/SOBRE-PROTOTIPO-INTERATIVO.md` para carregar as regras.
+2.  **RECALL:** Ler `project_memory.md` para saber onde paramos e não repetir trabalho.
+3.  **EXECUTE:** Criar/Refatorar o código seguindo as regras carregadas.
+4.  **SAVE:** Ao final da resposta, escreva ou atualize o `project_memory.md` com o progresso feito agora.
+
+---
+**COMANDO DE INICIALIZAÇÃO:**
+Se o arquivo `project_memory_sobre.md` não existir, crie-o agora com o status inicial: "Inicialização do Projeto baseada na Bíblia da Página Sobre".
+
+
+
+### 📋 Instruções de Orquestração
+
+1. **Ordem:** Execute os prompts sequencialmente (1 a 5).
+2. **Contexto Global:** Assuma que o projeto é em **Next.js (App Router), TypeScript, Tailwind CSS e Framer Motion**.
+3. **Assets:** Todos os links do Supabase fornecidos no documento devem ser mantidos como constantes no código.
 
 ---
 
-### 🛠️ PROMPT: REFATORAÇÃO ARQUITETURAL — SPLIT HERO & MANIFESTO
-
-**CONTEXTO**
-Atualmente, a lógica do "Manifesto" (Vídeo/Thumb) pode estar aninhada dentro de `HomeHero.tsx` ou dependente do layout absoluto da Hero.
-O objetivo é **desacoplar** totalmente: transformar em duas secções irmãs (siblings) na `page.tsx`.
-
-1. **Hero Section:** Apenas Ghost, Título, Subtítulo e Scroll Indicator.
-2. **Manifesto Section:** O bloco de vídeo/texto que aparece logo a seguir ao scroll.
-
-**ARQUIVOS ALVO**
-
-* `src/app/page.tsx` (Orquestrador da página)
-* `src/components/home/hero/HomeHero.tsx` (Componente a limpar)
-* `src/components/home/hero/ManifestoSection.tsx` (Componente a isolar)
-
-**PASSO A PASSO DA EXECUÇÃO**
-
-1. **Análise de Dependência:**
-* Abra `src/components/home/hero/HomeHero.tsx`.
-* Verifique se `<ManifestoSection />` ou `<ManifestoThumb />` está a ser renderizado lá dentro.
-* **Ação:** Remova a renderização do Manifesto de dentro da Hero. A Hero deve terminar no seu limite lógico (conteúdo textual + ghost).
-
-
-2. **Ajuste de Layout da Hero (`HomeHero.tsx`):**
-* Garanta que a `HomeHero` tem `min-h-screen` (ou altura definida) e `position: relative`.
-* Certifique-se de que não sobra nenhum "buraco" ou margem excessiva na parte inferior onde o vídeo costumava estar.
-
-
-3. **Promoção do Manifesto (`ManifestoSection.tsx`):**
-* Abra `src/components/home/hero/ManifestoSection.tsx`.
-* Garanta que este componente é um wrapper de secção completo (`<section className="...">`).
-* Adicione padding vertical (ex: `py-20` ou `py-24`) e background correto (ex: `bg-black` ou transparente dependendo do design) para que ele funcione sozinho.
-* Verifique se ele precisa de `z-index` específico para ficar "por cima" ou "por baixo" do Ghost ao fazer scroll (normalmente `z-10` e `relative`).
-
-
-4. **Remontagem na Página (`src/app/page.tsx`):**
-* Importe `ManifestoSection` diretamente no `page.tsx`.
-* Posicione-o imediatamente abaixo de `<HomeHero />`.
-* Estrutura esperada:
-```tsx
-<main>
-  <HomeHero />      {/* 100vh / Ghost / Intro */}
-  <ManifestoSection /> {/* Scroll flow content */}
-  <PortfolioShowcase />
-  {/* ... */}
-</main>
-
-```
-
-
-
-
-
-**REGRAS DE VISUALIZAÇÃO (CRITÉRIOS DE ACEITE)**
-
-* [ ] **Sem "Jumps":** O scroll da Hero para o Manifesto deve ser suave.
-* [ ] **Ghost Persistence:** O Ghost (WebGL) da Hero deve continuar visível ou fazer fade-out suave enquanto o Manifesto sobe (verificar `z-index`).
-* [ ] **Responsividade:** No Mobile, o Manifesto não pode "encavalar" no texto da Hero. Respeitar o fluxo de documento normal.
-* [ ] **Full Width:** O Manifesto deve ocupar a largura correta do container, alinhado ao grid global.
-
-**COMANDO DE ROLLBACK**
-Se o layout quebrar (ex: buraco branco gigante entre seções), reverta as mudanças no `page.tsx` e `HomeHero.tsx` e reporte "FALHA DE DESACOPLAMENTO".
-
-
-# **4.2 Hero
-
-### **1.1 Objetivo**
-Criar uma experiência hero imersiva e responsiva que gera impacto na primeira impressão, com:
-- Animação 3D interativa (fantasma espectral seguindo o cursor)
-- Atmosfera escura com shader customizado
-- Animações de entrada impactantes
-- CTA que direciona para seção SOBRE
-
-**Inspiração:** [CodePen Ghost Animation](https://codepen.io/danilonovaisv/pen/YPWyrdW)
-
----
-
-### **1.2 Identidade Visual**
-
-#### **Color Palette**
-| Token | Value | Uso |
-|-------|-------|-----|
-| `bluePrimary` | `#0048ff` | CTAs, links, elementos interativos |
-| `background` | `#040013` | Fundo escuro principal |
-| `text` | `#fcffff` | Texto principal |
-| `textMuted` | `#d9dade` | Texto secundário |
-
-#### **Typography System**
-
-**Fonte primária:** TT Norms Pro (self-hosted)
-
-```typescript
-// Arquivos de fonte (Supabase Storage)
-const fonts = {
-  black: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2',
-  bold: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2',
-  medium: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2',
-  regular: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2',
-};
-```
-
-**Tokens Responsivos (usando clamp):**
-
-| Token | Mobile | Desktop | Peso | Uso |
-|-------|--------|---------|------|-----|
-| `display` | 2.5rem (40px) | 4.5rem (72px) | Black | Big phrases não-semânticas |
-| `h1` | 2rem (32px) | 3.5rem (56px) | Bold | Hero headlines |
-| `h2` | 1.5rem (24px) | 2.5rem (40px) | Bold | Subtítulos |
-| `h3` | 1.25rem (20px) | 1.75rem (28px) | Medium | Títulos de cards |
-| `body` | 1rem (16px) | 1.125rem (18px) | Regular | Texto corrido |
-
----
-
-### **1.3 Conteúdo**
-
-```tsx
-// Estrutura de conteúdo
-<section className="hero">
-  {/* Tag decorativa */}
-  <span className="tag">[BRAND AWARENESS]</span>
-  
-  {/* Headline - Desktop/Tablet (2 linhas) */}
-  <h1 className="hidden md:block">
-    Você não vê
-    <br />
-    o design.
-  </h1>
-  
-  {/* Headline - Mobile (3 linhas) */}
-  <h1 className="md:hidden">
-    Você não
-    <br />
-    vê o
-    <br />
-    design.
-  </h1>
-  
-  {/* Subheading */}
-  <h2>Mas ele vê você.</h2>
-  
-  {/* CTA */}
-  <CTAButton href="/sobre">step inside →</CTAButton>
-</section>
-```
-
-#### **CTA — Design Visual**
-- **Formato:** Compósito (Pílula à esquerda + Círculo à direita)
-- **Cor:** Azul Primário (`#0048ff`), texto branco
-- **Texto:** Uppercase, tracking médio, padding `px-6 py-3`
-- **Ícone:** Seta (→) centralizada no círculo
-
----
-
-### **1.4 Animações**
-
-#### **Entrada de Textos (Page Load)**
-
-```javascript
-// Framer Motion config
-initial: {
-  opacity: 0,
-  scale: 0.92,
-  translateY: 60,
-  filter: "blur(10px)"
-}
-
-animate: {
-  opacity: 1,
-  scale: [1.02, 1],
-  translateY: 0,
-  filter: "blur(0px)"
-}
-
-transition: {
-  duration: 1.2,
-  easing: [0.25, 0.46, 0.45, 0.94]
-}
-```
-
-#### **CTA — Interações**
-
-| Estado | Dispositivo | Comportamento |
-|--------|-------------|---------------|
-| **Hover** | Desktop | `translateY(-1px)` |
-| **Hover Seta** | Desktop | `translateX(4px)` (opcional) |
-| **Click** | Mobile | `scale(0.98)` |
-| **Focus** | Teclado | Outline 2px `#4fe6ff`, offset 4px |
-
----
-
-### **1.5 Elementos Visuais — Animação Ghost**
-
-#### **Background / Atmosfera**
-
-| Aspecto | Implementação |
-|---------|---------------|
-| **Cores** | Gradiente escuro `#0a0a0a` → `#1a1a1a` |
-| **Shader** | Plano 300×300 com material customizado (_atmosphere_) |
-| **Halo Circular** | Usa `revealRadius`, `fadeStrength`, `baseOpacity`, `revealOpacity` |
-| **Pós-processamento** | Opcional: grain, bleeding, scanlines, vignette (shader analógico) |
-
-#### **Personagem Ghost**
-
-| Elemento | Implementação |
-|----------|---------------|
-| **Geometria** | `THREE.SphereGeometry(2, 40, 40)` com vértices inferiores deformados |
-| **Material** | `MeshStandardMaterial` com alta `emissiveIntensity` |
-| **Cor** | Controlada via `bodyColor`, rim lights azulados |
-| **Olhos** | `Group` com esferas menores + glows transparentes |
-| **Fireflies** | 20 vagalumes (esferas amarelas + `PointLight`) |
-| **Partículas** | Pool de formas pequenas (esfera/tetraedro/octaedro) que nascem no movimento |
-
-#### **Interação com Mouse**
-
-```javascript
-// Conversão screen → world
-x = (event.clientX / window.innerWidth) * 2 - 1
-y = (event.clientY / window.innerHeight) * 2 - 1
-
-// Seguimento suave
-targetX = mouseX * viewport.width * 0.5
-targetY = mouseY * viewport.height * 0.3
-position.x += (targetX - position.x) * followSpeed
-
-// Oscilações constantes (sin/cos)
-floatY = sin(time * 1.5) * 0.05 + cos(time * 0.7) * 0.03
-```
-
-#### **Layout**
-
-```css
-/* Centralização com Flexbox */
-.hero-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-```
-
----
-
-### **1.6 Responsividade**
-
-#### **Textos**
-
-**Desktop/Tablet (≥768px):**
-```
-H1: "Você não vê" (linha 1)
-    "o design." (linha 2)
-Fonte: TT Norms Pro Black, 6–9rem
-```
-
-**Mobile (<768px):**
-```
-H1: "Você não" (linha 1)
-    "vê o" (linha 2)
-    "design." (linha 3)
-Fonte: TT Norms Pro Black, 6–9rem
-```
-
-#### **Performance Adaptativa**
-
-```javascript
-// Ajustes por dispositivo
-const config = {
-  desktop: {
-    fireflies: 20,
-    particles: 50,
-    postProcessing: true,
-    pixelRatio: 2
-  },
-  tablet: {
-    fireflies: 10,
-    particles: 25,
-    postProcessing: false,
-    pixelRatio: 1
-  },
-  mobile: {
-    fireflies: 5,
-    particles: 10,
-    postProcessing: false,
-    pixelRatio: 1
-  }
-};
-```
-
-#### **Fallback Touch**
-
-- Em dispositivos touch onde `mousemove` não ocorre: manter fantasma centralizado
-- Rodar apenas animação de flutuação
-- Detectar `pointer: coarse` e reduzir efeitos
-
----
-
-### **1.7 Acessibilidade**
-
-#### **Semântica HTML**
-
-```tsx
-<section className="hero" aria-label="Seção principal de apresentação">
-  <h1>Você não vê o design.</h1>
-  <h2>Mas ele vê você.</h2>
-  
-  {/* Canvas decorativo */}
-  <div role="presentation" aria-hidden="true">
-    <Canvas />
-  </div>
-  
-  {/* Descrição alternativa */}
-  <p className="sr-only">
-    Animação decorativa de um fantasma flutuante com partículas luminosas
-  </p>
-</section>
-```
-
-#### **Contraste**
-
-- `#fcffff` em `#040013`: **19.5:1** ✅ WCAG AAA
-- `#d9dade` em `#040013`: **15.8:1** ✅ WCAG AAA
-
-#### **Prefers-Reduced-Motion**
-
-```tsx
-const prefersReducedMotion = useReducedMotion();
-
-if (prefersReducedMotion) {
-  return <StaticGhostFallback />;
-}
-
-return <AnimatedGhostCanvas />;
-```
-
----
-
-### **1.8 Estrutura de Arquivos**
-
-```
-app/
-├── components/
-│   ├── Hero.tsx              # Container principal
-│   ├── HeroText.tsx          # Conteúdo semântico
-│   ├── GhostScene.tsx        # Canvas WebGL (dynamic import)
-│   ├── Ghost.tsx             # Personagem 3D
-│   ├── Atmosphere.tsx        # Shader de fundo
-│   ├── Fireflies.tsx         # Vagalumes
-│   ├── Preloader.tsx         # Loading inicial
-│   └── CTAButton.tsx         # Call-to-action
-├── lib/
-│   ├── hooks/
-│   │   ├── usePerformanceAdaptive.ts
-│   │   ├── useReducedMotion.ts
-│   │   └── useMouse.ts
-│   └── utils/
-│       └── cn.ts
-└── styles/
-    └── globals.css
-```
-
----
-
-### **1.9 Z-Index Stack**
-
-```typescript
-const zIndex = {
-  preloader: 50,      // Tela de carregamento
-  ghostCanvas: 20,    // Canvas WebGL (sempre acima do texto)
-  heroContent: 10,    // Textos e CTA
-  background: 0,      // Gradiente de fundo
-};
-```
-
----
-
-### **1.10 Implementação — Componentes Principais**
-
-#### **Hero.tsx**
-
-```tsx
-import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
-import HeroText from './HeroText';
-import Preloader from './Preloader';
-
-const GhostScene = dynamic(() => import('./GhostScene'), { ssr: false });
-
-export default function Hero() {
-  return (
-    <section className="relative h-screen w-full bg-[#040013] text-[#fcffff] overflow-hidden">
-      <Preloader />
-      <HeroText />
-      <Suspense fallback={null}>
-        <GhostScene />
-      </Suspense>
-    </section>
-  );
-}
-```
-
-#### **HeroText.tsx**
-
-```tsx
-import { motion } from 'framer-motion';
-
-const textAnimation = {
-  initial: {
-    opacity: 0,
-    scale: 0.92,
-    y: 60,
-    filter: 'blur(10px)',
-  },
-  animate: {
-    opacity: 1,
-    scale: [1.02, 1],
-    y: 0,
-    filter: 'blur(0px)',
-  },
-  transition: {
-    duration: 1.2,
-    ease: [0.25, 0.46, 0.45, 0.94],
-  },
-};
-
-export default function HeroText() {
-  return (
-    <motion.div
-      className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center pointer-events-none px-5"
-      {...textAnimation}
-    >
-      <span className="text-xs uppercase tracking-widest mb-2 opacity-60">
-        [BRAND AWARENESS]
-      </span>
-      
-      {/* Desktop/Tablet */}
-      <h1 className="hidden md:block text-[clamp(2.5rem,5vw+1rem,4.5rem)] font-black tracking-tight leading-tight">
-        Você não vê
-        <br />
-        o design.
-      </h1>
-      
-      {/* Mobile */}
-      <h1 className="md:hidden text-[clamp(2.5rem,5vw+1rem,4.5rem)] font-black tracking-tight leading-tight">
-        Você não
-        <br />
-        vê o
-        <br />
-        design.
-      </h1>
-      
-      <h2 className="text-[clamp(1.5rem,3vw+0.5rem,2.5rem)] font-bold text-[#d9dade] mt-4">
-        Mas ele vê você.
-      </h2>
-      
-      <div className="mt-8 pointer-events-auto">
-        <CTAButton href="/sobre">step inside →</CTAButton>
-      </div>
-    </motion.div>
-  );
-}
-```
-
-#### **GhostScene.tsx**
-
-```tsx
-'use client';
-
-import { Canvas } from '@react-three/fiber';
-import { Suspense } from 'react';
-import { Ghost } from './Ghost';
-import { Atmosphere } from './Atmosphere';
-import { Fireflies } from './Fireflies';
-
-export default function GhostScene() {
-  return (
-    <Canvas
-      className="absolute inset-0 z-20"
-      gl={{ antialias: true, alpha: true }}
-      camera={{ position: [0, 0, 20], fov: 75 }}
-      role="presentation"
-      aria-hidden="true"
-    >
-      <ambientLight color="#0a0a2e" intensity={0.08} />
-      <directionalLight position={[-8, 6, -4]} color="#4a90e2" intensity={1.8} />
-      <directionalLight position={[8, -4, -6]} color="#50e3c2" intensity={1.26} />
-      
-      <Suspense fallback={null}>
-        <Atmosphere />
-        <Ghost />
-        <Fireflies count={20} />
-      </Suspense>
-    </Canvas>
-  );
-}
-```
-
----
-
-## 🎬 4.3 - VÍDEO MANIFESTO
-
-### **2.1 Objetivo**
-Apresentar um vídeo manifesto fullscreen com resumo poético do trabalho, posicionado logo após a Hero, sem animações de scroll-morphing.
-
-**Características:**
-- Seção independente e fullscreen
-- Colado às paredes da página
-- Aspect ratio 16:9 (`aspect-video`)
-- Autoplay, loop, muted
-- Controle de áudio visível
-
----
-
-### **2.2 Layout**
-
-#### **Estrutura**
-
-```tsx
-<section className="video-manifesto">
-  <div className="video-wrapper">
-    <video />
-    <div className="video-overlay" />
-    <div className="video-text" />
-    <button className="toggle-sound" />
-  </div>
-</section>
-```
-
-#### **Posicionamento**
-
-**Desktop e Mobile:**
-- Seção fullscreen logo após Hero
-- `width: 100vw`
-- `aspect-ratio: 16/9`
-- Sem padding lateral (colado às paredes)
-
-```css
-.video-manifesto {
-  width: 100vw;
-  margin: 0;
-  padding: 0;
-}
-
-.video-wrapper {
-  width: 100%;
-  aspect-ratio: 16/9;
-  position: relative;
-}
-```
-
----
-
-### **2.3 Comportamento do Vídeo**
-
-#### **Propriedades Base**
-
-```tsx
-<video
-  autoPlay
-  loop
-  muted
-  playsInline
-  preload="metadata"
-  src={videoSrc}
-  poster={posterSrc}
-/>
-```
-
-#### **Controle de Áudio**
-
-**Desktop e Mobile:**
-- Botão de som sempre visível
-- Tap/click = toggle mute
-- Ao sair da seção → mutar automaticamente
-
-```tsx
-const [muted, setMuted] = useState(true);
-
-// Observer para detectar saída da seção
-useEffect(() => {
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (!entry.isIntersecting) {
-        setMuted(true);
-      }
-    },
-    { threshold: 0.1 }
-  );
-  
-  if (sectionRef.current) {
-    observer.observe(sectionRef.current);
-  }
-  
-  return () => observer.disconnect();
-}, []);
-```
-
----
-
-### **2.4 Animação de Entrada**
-
-**Simples fade-in (sem scroll-triggered morphing):**
-
-```javascript
-// Framer Motion
-initial: { 
-  opacity: 0, 
-  scale: 0.95, 
-  y: 20 
-}
-
-animate: { 
-  opacity: 1, 
-  scale: 1, 
-  y: 0 
-}
-
-transition: { 
-  duration: 0.6, 
-  ease: [0.22, 1, 0.36, 1] 
-}
-```
-
----
-
-### **2.5 Overlay e Metadados**
-
-#### **Overlay Gradiente**
-
-```css
-.video-overlay {
-  background: radial-gradient(
-    120% 120% at 70% 30%,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.55) 70%,
-    rgba(0, 0, 0, 0.75) 100%
-  );
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-```
-
-#### **Texto Sobreposto**
-
-```tsx
-<div className="video-text absolute bottom-0 left-0 w-full p-6">
-  <p className="text-white/70 text-sm mb-1">Showreel 2025</p>
-  <p className="text-white text-lg font-medium">
-    Strategy • Branding • Motion
-  </p>
-</div>
-```
-
----
-
-### **2.6 Controle de Som — Design**
-
-```tsx
-<button
-  type="button"
-  className="toggle-sound absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/70 transition-colors"
-  onClick={() => setMuted(m => !m)}
-  aria-label={muted ? 'Ativar som' : 'Desativar som'}
-  aria-pressed={!muted}
->
-  {muted ? (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
-    </svg>
-  ) : (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-    </svg>
-  )}
-</button>
-```
-
----
-
-### **2.7 Responsividade**
-
-#### **Desktop e Mobile (Comportamento Unificado)**
-
-```css
-/* Ambos os dispositivos */
-.video-manifesto {
-  width: 100vw;
-  padding: 0;
-  margin: 0;
-}
-
-.video-wrapper {
-  aspect-ratio: 16/9;
-  width: 100%;
-}
-
-/* Ajustes de texto em mobile */
-@media (max-width: 767px) {
-  .video-text {
-    padding: 1rem;
-  }
-  
-  .video-text p:first-child {
-    font-size: 0.75rem;
-  }
-  
-  .video-text p:last-child {
-    font-size: 0.875rem;
-  }
-}
-```
-
----
-
-### **2.8 Otimização de Carregamento**
-
-#### **Lazy Loading**
-
-```tsx
-const [shouldLoad, setShouldLoad] = useState(false);
-const wrapperRef = useRef<HTMLDivElement>(null);
-
-useEffect(() => {
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (entry.isIntersecting) {
-        setShouldLoad(true);
-        observer.disconnect();
-      }
-    },
-    { rootMargin: '200px' }
-  );
-  
-  if (wrapperRef.current) {
-    observer.observe(wrapperRef.current);
-  }
-  
-  return () => observer.disconnect();
-}, []);
-```
-
-#### **Qualidade Adaptativa**
-
-```tsx
-const [videoQuality, setVideoQuality] = useState<'hd' | 'sd'>('hd');
-
-useEffect(() => {
-  if ('connection' in navigator) {
-    const conn = (navigator as any).connection;
+### 🤖 AGENTE 1: Arquiteto de Design System & Setup Global
+
+**Objetivo:** Configurar a base do projeto, tokens, tipografia, cores e layout wrapper.
+
+
+# PROMPT PARA AGENTE 1: SETUP & DESIGN SYSTEM
+
+Você é um Arquiteto de Frontend Sênior. Sua tarefa é configurar a base do projeto "Ghost Design Portfolio" (Página Sobre).
+
+**STACK:** Next.js (App Router), Tailwind CSS, TypeScript, Framer Motion.
+
+**TAREFAS:**
+
+1.  **Tailwind Config (`tailwind.config.ts`):**
+    Implemente exatamente estes tokens de cor e fontes:
+    - Colors:
+      - bluePrimary: '#0048ff'
+      - blueAccent: '#4fe6ff'
+      - purpleDetails: '#8705f2'
+      - background: '#040013'
+      - backgroundLight: '#f0f0f0'
+      - text: '#fcffff' (Texto principal)
+      - textSecondary: '#a1a3a3'
+      - neutral: '#0b0d3a'
+    - Fonts:
+      - Sans: 'TT Norms Pro', 'ui-sans-serif'
+      - Mono: 'PPSupplyMono', 'monospace'
+
+2.  **CSS Global & Tipografia (`globals.css`):**
+    Configure os `@font-face` usando as URLs do Supabase fornecidas abaixo.
+    Implemente as variáveis CSS para tipografia fluida usando `clamp()` conforme especificação:
+    - --font-display: clamp(2.5rem, 5vw, 4.5rem) (Weight: 900 Black)
+    - --font-h1: clamp(2rem, 4vw, 3.5rem) (Weight: 700 Bold)
+    - --font-h2: clamp(1.5rem, 3vw, 2.5rem) (Weight: 700 Bold)
+    - --font-body: clamp(1rem, 1.2vw, 1.125rem) (Weight: 400 Regular)
     
-    if (conn?.effectiveType === '4g' || conn?.effectiveType === '5g') {
-      setVideoQuality('hd');
-    } else {
-      setVideoQuality('sd');
-    }
-  }
-}, []);
+    *URLs das Fontes:*
+    - Thin: https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Thin.woff2
+    - Light: .../Light.woff2
+    - Regular: .../Regular.woff2
+    - Medium: .../Medium.woff2
+    - Bold: .../Bold.woff2
+    - Black: .../Black.woff2
+    - Mono: https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2
 
-const videoSrc = videoQuality === 'hd' 
-  ? src 
-  : src.replace('.mp4', '-720p.mp4');
+3.  **Componente Wrapper/Container:**
+    Crie um componente de layout padrão que respeite:
+    - max-width: 1680px
+    - Padding-x: clamp(24px, 5vw, 96px)
+    - Background color: #040013 (Body)
+    - Text color: #fcffff
+
+4.  **Header Component:**
+    Recrie o Header (transparente sobre Hero, fixo no scroll, link ativo em `/sobre`).
+    - Desktop: Logo esq, Nav dir (Link ativo: text-bluePrimary).
+    - Mobile: Hambúrguer menu full-screen overlay.
+    - Assets Logo:
+      - Light: https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg
+
+**SAÍDA ESPERADA:** Arquivos de configuração (tailwind, css) e componentes base (Container, Header).
+
 ```
 
 ---
 
-### **2.9 Acessibilidade**
+### 🤖 AGENTE 2: Desenvolvedor Frontend - Hero & Manifesto
 
-#### **Checklist**
+**Objetivo:** Implementar a Seção 01 (Hero) com vídeo background e animação de texto sincronizada.
 
-- ✅ Envolver vídeo com elemento semântico (`<section>`)
-- ✅ Botão de som com `aria-label` e `aria-pressed`
-- ✅ `playsInline` para evitar fullscreen indesejado
-- ✅ Respeitar `prefers-reduced-motion`
-- ✅ Contraste adequado no overlay (gradiente)
-- ✅ Descrição alternativa via `aria-label` no vídeo
+```markdown
+# PROMPT PARA AGENTE 2: SEÇÃO HERO (MANIFESTO)
 
-```tsx
-<video
-  aria-label="Vídeo showreel demonstrando projetos de design gráfico"
-  aria-describedby="video-description"
-/>
+Você é um Especialista em Motion UI. Implemente a **Seção 01 - Hero/Manifesto**.
 
-<p id="video-description" className="sr-only">
-  Vídeo de apresentação dos trabalhos em estratégia, branding e motion design
-</p>
+**CONTEXTO:**
+- Background Dark (#040013).
+- Fullscreen (100vh).
+
+**REQUISITOS VISUAIS & TÉCNICOS:**
+
+1.  **Background Vídeo:**
+    - Desktop URL: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/HeroSobre.mp4`
+    - Mobile URL: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/HeroSobreMobile.mp4`
+    - Comportamento: Loop, Muted, Object-cover.
+    - Overlay: Gradiente sutil da cor #040013 para garantir leitura.
+
+2.  **Grid & Layout:**
+    - **Desktop:** Grid 12 colunas. Vídeo/Espaço negativo nas colunas 1-6. Texto alinhado à DIREITA (colunas 7-12).
+    - **Mobile:** Vídeo no topo (45-55vh), Texto abaixo (fundo sólido escuro).
+
+3.  **Conteúdo (Texto):**
+    - H1 Pequeno/Label: "Sou Danilo Novais."
+    - Texto Manifesto (Quebras de linha importantes):
+      "Você não vê tudo / o que eu faço. Mas / sente quando / funciona."
+    - Subtexto (H2 style):
+      "Crio design que observa, entende e guia experiências com intenção, estratégia e tecnologia — na medida certa."
+    - *Destaque:* As palavras "não vê tudo" e "funciona" devem ter a cor `blueAccent` (#4fe6ff) ou `bluePrimary`.
+
+4.  **Animação (Framer Motion):**
+    - Entrada linha por linha.
+    - Estado Inicial: opacity 0, blur 10px.
+    - Estado Final: opacity 1, blur 0.
+    - Stagger: 0.2s entre linhas.
+    - Easing: `cubic-bezier(0.22, 1, 0.36, 1)`.
+    - Duração: 1.4s.
+
+**SAÍDA ESPERADA:** Componente `HeroSection.tsx` totalmente responsivo e animado.
+
 ```
 
 ---
 
-### **2.10 Implementação Completa**
+### 🤖 AGENTE 3: Desenvolvedor Frontend - Narrativa & Origem
 
-```tsx
-'use client';
+**Objetivo:** Implementar a Seção 02 (Origem) com layout alternado e parallax.
 
-import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+```markdown
+# PROMPT PARA AGENTE 3: SEÇÃO ORIGEM
 
-interface VideoManifestoProps {
-  src: string;
-}
+Implemente a **Seção 02 - Origem Criativa**. O objetivo é profundidade narrativa.
 
-export function VideoManifesto({ src }: VideoManifestoProps) {
-  const [muted, setMuted] = useState(true);
-  const [shouldLoad, setShouldLoad] = useState(false);
-  const [videoQuality, setVideoQuality] = useState<'hd' | 'sd'>('hd');
-  
-  const sectionRef = useRef<HTMLElement>(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  
-  // Lazy loading
-  useEffect(() => {
-    if (!wrapperRef.current) return;
-    
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldLoad(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '200px' }
-    );
-    
-    observer.observe(wrapperRef.current);
-    return () => observer.disconnect();
-  }, []);
-  
-  // Mutar ao sair da seção
-  useEffect(() => {
-    if (!sectionRef.current) return;
-    
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) {
-          setMuted(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-    
-    observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-  
-  // Detectar qualidade de conexão
-  useEffect(() => {
-    if ('connection' in navigator) {
-      const conn = (navigator as any).connection;
-      if (conn?.effectiveType === '4g' || conn?.effectiveType === '5g') {
-        setVideoQuality('hd');
-      } else {
-        setVideoQuality('sd');
-      }
-    }
-  }, []);
-  
-  // Aplicar mute
-  useEffect(() => {
-    if (!videoRef.current) return;
-    videoRef.current.muted = muted;
-  }, [muted]);
-  
-  const videoSrc = videoQuality === 'hd' 
-    ? src 
-    : src.replace('.mp4', '-720p.mp4');
-  
-  const posterSrc = src.replace('.mp4', '-poster.jpg');
-  
-  return (
-    <motion.section
-      ref={sectionRef}
-      className="video-manifesto w-full"
-      initial={{ opacity: 0, scale: 0.95, y: 20 }}
-      whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      viewport={{ once: true, amount: 0.3 }}
-    >
-      <div ref={wrapperRef} className="video-wrapper relative w-full aspect-video">
-        {shouldLoad ? (
-          <>
-            <motion.video
-              ref={videoRef}
-              className="w-full h-full object-cover"
-              src={videoSrc}
-              poster={posterSrc}
-              autoPlay
-              loop
-              muted={muted}
-              playsInline
-              preload="metadata"
-              aria-label="Vídeo showreel demonstrando projetos de design gráfico"
-            />
-            
-            {/* Overlay */}
-            <div className="video-overlay absolute inset-0 pointer-events-none" />
-            
-            {/* Metadados */}
-            <div className="video-text absolute bottom-0 left-0 w-full p-4 md:p-6">
-              <p className="text-white/70 text-xs md:text-sm mb-1">Showreel 2025</p>
-              <p className="text-white text-sm md:text-lg font-medium">
-                Strategy • Branding • Motion
-              </p>
-            </div>
-            
-            {/* Toggle som */}
-            <button
-              type="button"
-              className="toggle-sound absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/70 transition-colors focus-visible:outline-2 focus-visible:outline-[#4fe6ff] focus-visible:outline-offset-2"
-              onClick={() => setMuted(m => !m)}
-              aria-label={muted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'}
-              aria-pressed={!muted}
-            >
-              {muted ? '🔇' : '🔊'}
-            </button>
-          </>
-        ) : (
-          // Placeholder
-          <div className="w-full h-full bg-gradient-to-br from-neutral-900 to-neutral-800 animate-pulse" />
-        )}
-      </div>
-    </motion.section>
-  );
-}
+**ESTRUTURA:**
+1.  **Título Geral:** "Origem" (Label centralizada no topo).
+2.  **Layout (Zig-Zag):**
+    - Desktop: Grid 12 colunas. Alternar Texto (Esq) + Mídia (Dir) e vice-versa.
+    - Mobile: 1 Coluna. Texto SEMPRE acima da mídia.
+    - Mídias: Opacidade 0.85, Blur leve nas bordas.
+
+**CONTEÚDO (4 BLOCOS):**
+
+* **Bloco A:** "O QUE PERMANECE"
+    - Texto: "Desde cedo, sempre prestei atenção no que ficava..." (ver doc completo).
+    - Imagem: `.../sobre-1.webp`
+* **Bloco B:** "DO TRAÇO À INTENÇÃO"
+    - Texto: "Rabiscos viraram ideias..."
+    - Imagem: `.../sobre-2.webp`
+* **Bloco C:** "A DESCOBERTA DO INVISÍVEL"
+    - Texto: "Foi ali que entendi: design não é enfeite..."
+    - Imagem: `.../sobre-3.webp`
+* **Bloco D:** "EXPANSÃO COM PROPÓSITO"
+    - Texto: "Estudei Comunicação, mergulhei no design..."
+    - Imagem: `.../sobre-4.webp`
+
+**ASSETS:**
+Base URL imagens: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/`
+
+**INTERATIVIDADE (Parallax):**
+Implemente um efeito de Parallax suave nas imagens usando `useScroll` e `useTransform` do Framer Motion.
+- A imagem deve se mover levemente no eixo Y contra o scroll.
+- Adicione um Motion Title (ex: `#001`, `#002`) que acompanha o scroll ao lado da imagem.
+
+**SAÍDA ESPERADA:** Componente `OriginSection.tsx` com 4 blocos modulares e lógica de parallax isolada.
+
 ```
 
 ---
 
-### **2.11 Integração na Página**
+### 🤖 AGENTE 4: Desenvolvedor Frontend - Serviços & Método
 
-```tsx
-// app/page.tsx
-import Hero from './_components/Hero';
-import { VideoManifesto } from './_components/VideoManifesto';
+**Objetivo:** Implementar Seção 03 (O que faço) e Seção 04 (Como trabalho).
 
-export default function HomePage() {
-  return (
-    <main>
-      {/* Hero Section */}
-      <Hero />
-      
-      {/* Vídeo Manifesto */}
-      <VideoManifesto
-        src="https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4"
-      />
-      
-      {/* Outras seções */}
-    </main>
-  );
-}
+
+# PROMPT PARA AGENTE 4: SEÇÃO SERVIÇOS & MÉTODO
+
+Implemente duas seções técnicas e visuais: **"O Que Eu Faço"** e **"Como Eu Trabalho"**.
+
+---
+-
+
+**PARTE A: SEÇÃO 03 (O QUE EU FAÇO)**
+
+1.  **Layout:**
+    - Desktop: Faixa horizontal única (flex-row) com 7 Cards.
+    - Mobile: Coluna vertical (flex-col).
+2.  **Cards:**
+    - Estilo: "Pílula retangular", fundo Roxo Escuro translúcido (opacity 0.92), Ícone circular azul com seta (↗).
+    - Conteúdo (7 itens):
+      1. Direção criativa...
+      2. Design estratégico...
+      3. Identidades... (etc, ver doc original).
+    - Hover Desktop: `translateY(-2px)` e brilho no fundo.
+3.  **Footer Animado (Marquee):**
+    - Duas faixas de texto infinito rodando em direções opostas.
+    - Linha 1: "DIREÇÃO CRIATIVA・DESIGN ESTRATÉGICO..." (Esq -> Dir).
+    - Linha 2: (Dir -> Esq).
+    - Cor: Roxo (#8705f2) ou Branco com opacidade.
+
+---
+**PARTE B: SEÇÃO 04 (COMO EU TRABALHO - MÉTODO)**
+
+1.  **Background:**
+    - Vídeo: `VideoAboutMethod.mp4` (Full bleed).
+    - Overlay: Gradiente `rgba(10, 10, 20, 0.85)` (Esq) -> `rgba(10, 10, 20, 0.4)` (Dir).
+2.  **Lista de Processo (6 Steps):**
+    - Layout: Lista vertical à esquerda (Desktop) ou empilhada (Mobile).
+    - Design do Item: Card transparente com borda esquerda Azul Primário (3px).
+    - Itens:
+      01 | Briefings bem construídos...
+      02 | Estratégia como base...
+      (até 06).
+3.  **Animação:**
+    - Stagger na entrada dos itens da lista (0.12s entre cada).
+    - Hover no item: Borda fica mais grossa (4px) e leve `translateX`.
+
+**SAÍDA ESPERADA:** Componentes `ServicesSection.tsx` (com Marquee) e `MethodSection.tsx`.
+
 ```
 
 ---
 
-### **2.12 CSS Global**
+### 🤖 AGENTE 5: Creative Developer - Crenças & Reveal Final
 
-```css
-/* globals.css */
+**Objetivo:** Implementar a Seção 05 (O que me move), a parte mais complexa de animação temporal.
 
-/* Overlay de vídeo */
-.video-overlay {
-  background: radial-gradient(
-    120% 120% at 70% 30%,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.55) 70%,
-    rgba(0, 0, 0, 0.75) 100%
-  );
-}
+```markdown
+# PROMPT PARA AGENTE 5: SEÇÃO CRENÇAS (COMPLEX MOTION)
 
-/* Remover espaçamento padrão */
-.video-manifesto {
-  margin: 0;
-  padding: 0;
-}
+Você é responsável pela "Seção 05 - O Que Me Move". Esta é uma experiência narrativa sequencial controlada por tempo/scroll.
 
-/* Garantir que vídeo ocupe toda a largura */
-.video-wrapper video {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
+**ESTRUTURA VISUAL (3 FASES):**
+
+1.  **Título Fixo (Topo):**
+    - Texto: "Acredito no **design que muda o dia** de alguém. Não pelo choque, **mas pela conexão.**"
+    - Permanece visível durante toda a animação das frases abaixo.
+
+2.  **Frases Rotativas (Centro):**
+    - Área central que alterna 6 frases (uma por vez).
+    - Frases:
+      1. "Um vídeo que **respira**."
+      2. "Uma marca que se **reconhece**."
+      3. "Um detalhe que **fica**."
+      4. "**Crio** para gerar presença."
+      5. "**Mesmo** quando não estou ali."
+      6. "**Mesmo** quando ninguém percebe o esforço."
+    - **Timing:** Cada frase dura ~4.2s (Entrada 0.8s, Permanência 2.5s, Saída 0.6s). Loop total ~25s.
+    - Motion: Fade in/out suave.
+
+3.  **Reveal Final (Ghost):**
+    - Após a última frase, revela-se o rodapé final da narrativa.
+    - Layout Desktop (2 colunas):
+      - Esq: Ghost 3D/Animado (use uma imagem estática placeholder ou componente Ghost existente se houver). Implemente "Olhos seguindo o mouse".
+      - Dir: Texto gigante "ISSO É GHOST DESIGN".
+    - Layout Mobile: Coluna única (Ghost acima, Texto abaixo).
+
+**ASSETS:**
+- Cor destaque: `#0048ff` (palavras em negrito).
+
+**REQUISITOS TÉCNICOS:**
+- Use `AnimatePresence` do Framer Motion para a rotação de frases.
+- Assegure que a altura da seção seja suficiente (`140vh`) para acomodar a experiência sem corte abrupto no scroll.
+
+**SAÍDA ESPERADA:** Componente `BeliefsSection.tsx` com a lógica de orquestração de tempo complexa.
+
 ```
-
----
 
 ### **2.13 Checklist de Validação**
 

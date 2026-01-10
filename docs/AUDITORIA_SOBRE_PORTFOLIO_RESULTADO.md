@@ -1,59 +1,32 @@
-# 🏁 Relatório de Execução: Auditoria Sobre + Portfolio
+# Relatório de Auditoria - Página Sobre
 
-**Data:** 31/12/2025
-**Status Global:** ✅ Sucesso Total
-**Build Check:** ✅ Passou
+Data: 2026-01-10
 
----
+## Resumo da Execução
 
-## 📋 Registro por Prompt
+A auditoria foi realizada com base no documento `/docs/AUDITORIA_SOBRE_PORTFOLIO.md`. Todos os 5 prompts foram analisados e executados.
 
-### 🛠️ Prompt #01 — Implementar sistema de motion tokens Ghost
-- **Status:** ✅ Sucesso
-- **Arquivos:** `src/lib/motionTokens.ts`
-- **Obs:** Tokens criados: `ghostIn`, `fadeGhost`, `riseSoft`, `floatMemory`, `staggerGhost`. Corrigido erro de tipagem no `GHOST_EASE`.
+| Prompt ID | Título | Arquivos Alterados | Status | Observações |
+| :--- | :--- | :--- | :--- | :--- |
+| #01 | AGENTE 1: SETUP & DESIGN SYSTEM | `src/components/layout/Header.tsx` | ✅ Sucesso | Logo atualizado para `BRAND.logos.light`. Tokens e CSS verificados (já estavam corretos). |
+| #02 | AGENTE 2: SEÇÃO HERO (MANIFESTO) | `src/components/sobre/AboutHero.tsx` | ✅ Sucesso | Layout desktop ajustado para direita, tipografia H1/H2 aplicada, destaques em `#0048ff`. Gradiente inferior corrigido (`h-[40vh]`). |
+| #03 | AGENTE 3: SEÇÃO ORIGEM | `src/components/sobre/origin/OriginPair.tsx` | ✅ Sucesso | Adicionado Motion Title (índice 01, 02...) ao lado das imagens com parallax. |
+| #04 | AGENTE 4: SEÇÃO SERVIÇOS & MÉTODO | `src/components/sobre/AboutMethod.tsx` | ✅ Sucesso | Opacidade do gradiente ajustada de 0.95 para 0.85 conforme spec. Layout validado. |
+| #05 | AGENTE 5: SEÇÃO CRENÇAS (COMPLEX MOTION) | `src/config/content.ts`, `src/components/sobre/AboutBeliefs.tsx` | ✅ Sucesso | Conteúdo das crenças atualizado para as 6 frases especificadas. Build corrigido (`OriginMedia` type export). |
 
-### 🛠️ Prompt #02 — Aplicar ghostIn no Hero / Manifesto
-- **Status:** ✅ Sucesso
-- **Arquivos:** `src/components/sobre/AboutHero.tsx`
-- **Obs:** Animação linha a linha implementada. Suporte a `prefers-reduced-motion` adicionado.
+## Status Final da Build
 
-### 🛠️ Prompt #03 — Ajustar alturas e ritmo vertical
-- **Status:** ✅ Sucesso
-- **Arquivos:** Todos em `src/components/sobre/`
-- **Obs:** `AboutHero` (min-h-screen), `AboutServices` (min-h-[80vh]), `AboutMethod` (min-h-[120vh]). Ritmo visual ajustado.
+✅ **Build Successful** (Next.js 16.1.1)
 
-### 🛠️ Prompt #04 — Implementar imagens flutuantes em Origem
-- **Status:** ✅ Sucesso
-- **Arquivos:** `src/components/sobre/AboutOrigin.tsx`
-- **Obs:** Imagens usam `floatMemory` com blur permanente e movimento lateral sutil. Opacidade controlada (<= 0.85).
+## Notas Adicionais
 
-### 🛠️ Prompt #05 — Ajustar grid e motion de Serviços
-- **Status:** ✅ Sucesso
-- **Arquivos:** `src/components/sobre/AboutServices.tsx`
-- **Obs:** Lista centralizada (max-w-[560px]). Motion item a item com `staggerGhost`.
-
-### 🛠️ Prompt #06 — Implementar fundo vivo em Método
-- **Status:** ✅ Sucesso
-- **Arquivos:** `src/components/sobre/AboutMethod.tsx`
-- **Obs:** Vídeo de fundo implementado com parallax sutil. Texto entra com `fadeGhost`.
-
-### 🛠️ Prompt #07 — Implementar motion por tempo em Crenças
-- **Status:** ✅ Sucesso
-- **Arquivos:** `src/components/sobre/AboutBeliefs.tsx`
-- **Obs:** Frases surgem sequencialmente com delays longos (0s, 1.4s, 2.8s) via props customizadas do `fadeGhost`.
-
-### 🛠️ Prompt #08 — Ajustar fechamento / CTAs
-- **Status:** ✅ Sucesso
-- **Arquivos:** `src/components/sobre/AboutClosing.tsx`
-- **Obs:** Texto com `fadeGhost`. CTA "Download" simplificado (sem transform/translate).
-
-### 🛠️ Prompt #09 — Preparar para prefers-reduced-motion
-- **Status:** ✅ Sucesso
-- **Obs:** `useReducedMotion` implementado em todas as seções, desativando animações quando necessário.
+- O sistema de animação "Ghost" foi preservado com suas curvas de easing específicas (`GHOST_EASE`).
+- A responsividade foi mantida seguindo a regra Mobile-First.
+- Todos os conflitos de tipo TypeScript foram resolvidos.
 
 ---
+**Conclusão**: A página Sobre está alinhada técnica e visualmente com a especificação "Ghost Design Portfolio".
 
-## 📝 Conclusão
-
-A página `/sobre` foi totalmente refatorada para aderir aos princípios do **Ghost Design System**. O ritmo vertical foi corrigido, as animações agora são etéreas e não-intrusivas, e a acessibilidade (reduced motion) foi garantida. O build do projeto continua saudável.
+**Atualização Pós-Auditoria (Cores):**
+- Realizado ajuste fino de cores na seção **Origem** para garantir fidelidade ao Design System.
+- Título da Seção e Palavras-Chave dos blocos agora forçam a cor `bluePrimary` (`#0048ff`), utilizando escaping de Regex robusto para garantir a aplicação correta em frases complexas.

@@ -266,18 +266,29 @@ export const ABOUT_CONTENT = {
   },
   beliefs: [
     {
-      text: 'Acredito no design que muda o dia de alguém. Não pelo choque — mas pela conexão.',
-      highlight: 'conexão',
-    },
-    {
-      text: 'Um vídeo que respira. Uma marca que se reconhece. Um detalhe que fica.',
+      text: 'Um vídeo que respira.',
       highlight: 'respira',
     },
     {
-      text: 'Crio para gerar presença. Mesmo quando não estou ali. Mesmo quando ninguém percebe o esforço.',
-      highlight: 'presença',
+      text: 'Uma marca que se reconhece.',
+      highlight: 'reconhece',
     },
-    { text: 'Isso é ghost design.', highlight: 'ghost design' },
+    {
+      text: 'Um detalhe que fica.',
+      highlight: 'fica',
+    },
+    {
+      text: 'Crio para gerar presença.',
+      highlight: 'Crio',
+    },
+    {
+      text: 'Mesmo quando não estou ali.',
+      highlight: 'Mesmo',
+    },
+    {
+      text: 'Mesmo quando ninguém percebe o esforço.',
+      highlight: 'Mesmo',
+    },
   ],
   closing: {
     text: [
@@ -306,46 +317,45 @@ export const ABOUT_CONTENT = {
     // highlight: palavra-chave para destaque ghost-accent (1-2 por frase)
     content: [
       {
-        type: 'text' as const,
+        type: 'block' as const,
+        title: 'O QUE PERMANECE',
         text: 'Desde cedo, sempre prestei atenção no que ficava —\nnão só no que aparecia.',
-        highlight: 'ficava',
-      },
-      {
-        type: 'image' as const,
+        description:
+          'Enquanto muitos olhavam para o brilho imediato, eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo. A essência das coisas sempre falou mais alto do que a superfície.',
+        highlight: 'não só no que aparecia.',
         src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-1.webp',
         alt: 'Memória visual - Danilo Novais',
         aspectRatio: 'aspect-square',
       },
       {
-        type: 'text' as const,
+        type: 'block' as const,
+        title: 'DO TRAÇO À INTENÇÃO',
         text: 'Rabiscos viraram ideias.\nIdeias viraram projetos.\nE os projetos começaram a deixar rastros.',
-        highlight: 'rastros',
-      },
-      {
-        type: 'image' as const,
+        description:
+          'Meu processo criativo nasceu do improviso, do lápis na margem do caderno. Aos poucos, aquilo que era instinto virou direção. Com cada tentativa, aprendi a dar forma ao invisível — até que os conceitos começaram a falar por si.',
+        highlight: 'começaram a deixar rastros.',
         src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-2.webp',
         alt: 'Processo criativo e rabiscos',
         aspectRatio: 'aspect-square',
       },
       {
-        type: 'text' as const,
+        type: 'block' as const,
+        title: 'A DESCOBERTA DO INVISÍVEL',
         text: 'Foi ali que entendi:\ndesign não é enfeite.\nÉ ferramenta invisível de transformação.',
-        highlight: 'transformação',
-      },
-      {
-        type: 'image' as const,
+        description:
+          'Por trás de cada escolha visual, existe intenção. Descobri que o design verdadeiro não grita — ele conduz. Ele está presente nos detalhes que ninguém percebe, mas que todos sentem. Transformar sem que se perceba a transformação: isso é potência.',
+        highlight: 'É ferramenta invisível de transformação.',
         src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-3.webp',
         alt: 'Design como ferramenta',
         aspectRatio: 'aspect-square',
       },
       {
-        type: 'text' as const,
+        type: 'block' as const,
+        title: 'EXPANSÃO COM PROPÓSITO',
         text: 'Estudei Comunicação, mergulhei no design, no branding\ne hoje uso inteligência artificial para expandir o alcance\nsem perder a essência humana da criação.',
-        highlight: 'essência humana',
-        isClosing: true,
-      },
-      {
-        type: 'image' as const,
+        description:
+          'Minha trajetória uniu intuição com método, arte com estratégia. O futuro pede novas ferramentas — e eu as abracei. Mas nunca deixei que a tecnologia apagasse o que me move: a sensibilidade, o olhar atento, a busca pelo significado.',
+        highlight: 'inteligência artificial',
         src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-4.webp',
         alt: 'IA e essência humana',
         aspectRatio: 'aspect-square',

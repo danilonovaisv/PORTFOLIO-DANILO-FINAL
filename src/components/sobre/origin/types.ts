@@ -1,13 +1,19 @@
-export type OriginText = {
-  type: 'text';
+export type OriginBlock = {
+  type: 'block';
+  title: string;
   text: string;
+  description: string;
   highlight?: string;
-};
-
-export type OriginMedia = {
-  type: 'image' | 'video';
   src: string;
   alt: string;
   aspectRatio?: string;
   preserveRatio?: boolean;
+};
+
+export type OriginMedia = {
+  src: string;
+  alt: string;
+  aspectRatio?: string;
+  preserveRatio?: boolean;
+  type?: 'image' | 'video';
 };

@@ -1,36 +1,32 @@
 import type { Config } from 'tailwindcss';
-import { BRAND } from './src/config/brand.ts';
 
 const config: Config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/ui/**/*.{js,ts,jsx,tsx,mdx}', // Added ui incase unique folder
+    './src/ui/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       colors: {
-        ...BRAND.colors,
-        // Map primary/accent to brand for utility convenience
-        primary: BRAND.colors.primary,
-        accent: BRAND.colors.accent,
-        // Semantic aliases from Design System 2.1
-        bluePrimary: BRAND.colors.bluePrimary,
-        blueAccent: BRAND.colors.blueAccent,
+        bluePrimary: '#0048ff',
+        blueAccent: '#4fe6ff',
+        purpleDetails: '#8705f2',
+        background: '#040013',
+        backgroundLight: '#f0f0f0',
+        text: '#fcffff',
+        textSecondary: '#a1a3a3',
+        neutral: '#0b0d3a',
+
+        // Aliases kept for compatibility if needed, but the above are the source of truth
+        primary: '#0048ff',
+        accent: '#4fe6ff',
       },
       fontFamily: {
-        sans: [BRAND.typography.primary, ...BRAND.typography.fallbacks],
-        mono: [
-          BRAND.typography.mono,
-          'ui-monospace',
-          'SFMono-Regular',
-          'Menlo',
-          'Monaco',
-          'Consolas',
-          'monospace',
-        ],
-        display: [BRAND.typography.primary, ...BRAND.typography.fallbacks],
+        sans: ['TT Norms Pro', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        mono: ['PPSupplyMono', 'monospace'],
+        display: ['TT Norms Pro', 'ui-sans-serif'],
       },
     },
   },

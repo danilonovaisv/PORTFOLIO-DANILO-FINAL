@@ -90,7 +90,7 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
         <div className="flex flex-col gap-2">
           <motion.span
             variants={fadeInUp}
-            className="text-xs uppercase tracking-[0.3em] text-ghost-accent"
+            className="text-xs uppercase tracking-[0.3em] text-blueAccent"
           >
             [{project.category}]
           </motion.span>
@@ -156,7 +156,7 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
                   key={i}
                   className="flex items-start gap-3 text-sm text-white/70"
                 >
-                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-ghost-accent shrink-0" />
+                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blueAccent shrink-0" />
                   {highlight}
                 </li>
               ))}
