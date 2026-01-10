@@ -34,7 +34,8 @@ function GhostSVGStatic() {
 
 export default function GhostScene() {
   const prefersReducedMotion = useReducedMotion();
-  const { quality, fireflyCount, pixelRatio } = usePerformanceAdaptive();
+  const { quality, fireflyCount, pixelRatio, enablePostProcessing } =
+    usePerformanceAdaptive();
 
   // Fallback estático para prefers-reduced-motion
   if (prefersReducedMotion) {
@@ -97,25 +98,27 @@ export default function GhostScene() {
           <Fireflies count={fireflyCount} />
 
           {/* Post-Processing Pipeline (Agent 5) */}
-          <EffectComposer>
-            <Bloom
-              luminanceThreshold={0}
-              mipmapBlur
-              intensity={1.25}
-              radius={0.4}
-            />
-            <ChromaticAberration
-              offset={new THREE.Vector2(0.002, 0.002)}
-              radialModulation={true}
-              modulationOffset={0}
-            />
-            <Scanline
-              density={1.25}
-              opacity={0.05} // Subtle scanlines (Ghost Monitor)
-            />
-            <Noise opacity={0.15} blendFunction={BlendFunction.OVERLAY} />
-            <Vignette eskil={false} offset={0.1} darkness={0.9} />
-          </EffectComposer>
+          {enablePostProcessing && (
+            <EffectComposer>
+              <Bloom
+                luminanceThreshold={0}
+                mipmapBlur
+                intensity={1.25}
+                radius={0.4}
+              />
+              <ChromaticAberration
+                offset={new THREE.Vector2(0.002, 0.002)}
+                radialModulation={true}
+                modulationOffset={0}
+              />
+              <Scanline
+                density={1.25}
+                opacity={0.05} // Subtle scanlines (Ghost Monitor)
+              />
+              <Noise opacity={0.15} blendFunction={BlendFunction.OVERLAY} />
+              <Vignette eskil={false} offset={0.1} darkness={0.9} />
+            </EffectComposer>
+          )}
         </Suspense>
       </Canvas>
 

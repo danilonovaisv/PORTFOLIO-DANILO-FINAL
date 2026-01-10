@@ -1,46 +1,21 @@
 import React from 'react';
-import { render, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-
-// Mock CSS module
-jest.mock('@/components/home/hero/ManifestoThumb.module.css', () => ({
-  videoOverlay: 'videoOverlay',
-}));
-
 import ManifestoThumb from '@/components/home/hero/ManifestoThumb';
 
 jest.mock('framer-motion', () => ({
   ...jest.requireActual('framer-motion'),
-  useScroll: jest.fn(() => ({
-    scrollYProgress: {
-      get: () => 0,
-      onChange: jest.fn(),
-      destroy: jest.fn(),
-      on: jest.fn(() => jest.fn()),
-    },
-  })),
-  useSpring: jest.fn(() => ({
-    get: () => 0,
-    onChange: jest.fn(),
-    destroy: jest.fn(),
-    on: jest.fn(() => jest.fn()),
-    set: jest.fn(),
-  })),
-  useTransform: jest.fn(() => 1),
+  useTransform: jest.fn(() => 1), // Returns constant for scale/borderRadius
   useMotionValueEvent: jest.fn(),
 }));
 
-// Mock do IntersectionObserver que dispara imediatamente
+// Mock do IntersectionObserver
 beforeAll(() => {
-  const MockIntersectionObserver = jest.fn((callback) => ({
-    observe: jest.fn((element) => {
-      // Simula que o elemento entrou na tela imediatamente
-      callback([{ isIntersecting: true, target: element }]);
-    }),
-    disconnect: jest.fn(),
-    unobserve: jest.fn(),
-  }));
-
+  class MockIntersectionObserver {
+    observe = jest.fn();
+    disconnect = jest.fn();
+    unobserve = jest.fn();
+  }
   Object.defineProperty(window, 'IntersectionObserver', {
     writable: true,
     configurable: true,
@@ -64,46 +39,32 @@ beforeAll(() => {
 });
 
 describe('ManifestoThumb Component', () => {
-  it('deve renderizar a seção do manifesto corretamente', async () => {
-    // Mock do heroRef
-    const heroRefMock = { current: document.createElement('div') };
-    const { container } = render(<ManifestoThumb heroRef={heroRefMock} />);
+  it('deve renderizar a seção do manifesto corretamente', () => {
+    render(<ManifestoThumb />);
 
-    // Verifica se o container existe usando a nova classe
-    const wrapper = container.querySelector('.video-wrapper');
-    expect(wrapper).toBeInTheDocument();
-
-    // Como o IO foi mockado para disparar, o vídeo deve estar presente após update de estado
-    await waitFor(() => {
-      const video = container.querySelector('video');
-      expect(video).toBeInTheDocument();
-    });
+    // Verifica se o container principal existe pelo label acessível
+    // Note: The aria-label in the component is "Preview em vídeo"
+    const container = screen.getByLabelText('Preview em vídeo');
+    expect(container).toBeInTheDocument();
   });
 
-  it('deve renderizar o vídeo com os atributos corretos', async () => {
-    const heroRefMock = { current: document.createElement('div') };
-    const { container } = render(<ManifestoThumb heroRef={heroRefMock} />);
+  it('deve renderizar o vídeo com os atributos corretos', () => {
+    const { container } = render(<ManifestoThumb />);
 
-    await waitFor(() => {
-      const video = container.querySelector('video');
-      expect(video).toBeInTheDocument();
+    // Procura o vídeo dentro do componente
+    const video = container.querySelector('video');
+    expect(video).toBeInTheDocument();
 
-      // Verifica atributos essenciais de vídeo
-      expect(video).toHaveAttribute('playsInline');
-      expect(video).toHaveAttribute('loop');
-      // Not checking exact property values because JSDOM video implementation might vary or mocks might interfere
-      // simple existence checks for attributes are often safer with raw DOM elements
-    });
+    // Verifica atributos essenciais de vídeo
+    expect(video).toHaveAttribute('playsInline');
+    expect(video).toHaveAttribute('loop');
+    expect((video as HTMLVideoElement).muted).toBe(true);
+    expect((video as HTMLVideoElement).autoplay).toBe(true);
   });
 
-  it('não deve exibir controles', async () => {
-    const heroRefMock = { current: document.createElement('div') };
-    const { container } = render(<ManifestoThumb heroRef={heroRefMock} />);
-
-    await waitFor(() => {
-      const video = container.querySelector('video');
-      expect(video).toBeInTheDocument();
-      expect(video).not.toHaveAttribute('controls');
-    });
+  it('não deve exibir controles', () => {
+    const { container } = render(<ManifestoThumb />);
+    const video = container.querySelector('video');
+    expect(video).not.toHaveAttribute('controls');
   });
 });
