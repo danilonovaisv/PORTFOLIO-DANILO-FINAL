@@ -28,7 +28,7 @@ Gerado em: 1/3/2026, 10:58:57 AM
 - - main
 - remotes/origin/HEAD -> origin/main
 - remotes/origin/main
-- dependabot/npm_and_yarn/npm_and_yarn-cb2c474ead
+- dependabot/pnpm_and_yarn/pnpm_and_yarn-cb2c474ead
 - codex/adjust-hero-section-animation-to-reference
 - visual-alignment-sprint-01-9779188724417258277
 - remotes/origin/visual-alignment-sprint-01-9779188724417258277

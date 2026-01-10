@@ -23,7 +23,7 @@ export interface FluidGlassMaterialProps {
   anisotropy?: number;
   roughness?: number;
   smoothness?: number;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 type ModeWrapperProps = ThreeElements['mesh'] & {

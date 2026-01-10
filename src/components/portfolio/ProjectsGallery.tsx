@@ -54,7 +54,7 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
           <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-ghost-accent/5 rounded-full blur-[100px]" />
         </div>
 
-        <div className="relative mx-auto max-w-[1680px] px-4 md:px-[clamp(24px,5vw,96px)]">
+        <div className="relative std-grid">
           {/* Header com título e filtros */}
           {showFilter && (
             <motion.div

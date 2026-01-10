@@ -1,6 +1,8 @@
 const tsJestConfig = {
   useESM: true,
-  tsconfig: 'tsconfig.json',
+  tsconfig: {
+    ignoreDeprecations: '5.0',
+  },
 };
 
 const baseConfig = {

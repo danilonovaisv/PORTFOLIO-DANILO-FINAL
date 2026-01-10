@@ -93,7 +93,7 @@ export function OriginPair({
           {showInlineRule && (
             <div className="h-px w-[65%] sm:w-[60%] lg:w-full bg-accent/60" />
           )}
-          <p className="text-[18px] sm:text-[19px] md:text-[20px] lg:text-[20px] xl:text-[22px] font-light leading-[1.55] text-text-light tracking-[-0.01em]">
+          <p className="text-[18px] sm:text-[19px] md:text-[20px] lg:text-[20px] xl:text-[22px] font-light leading-[1.55] text-text-light tracking-[-0.01em] whitespace-pre-line">
             <HighlightText
               text={textBlock.text}
               highlight={textBlock.highlight}

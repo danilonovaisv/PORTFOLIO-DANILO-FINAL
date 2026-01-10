@@ -20,7 +20,7 @@ const capabilities = [
 
 export function AboutWhatIDo() {
   return (
-    <section className="relative w-full bg-[#040013] py-20 md:py-32 overflow-hidden">
+    <section className="relative w-full bg-background py-20 md:py-32 overflow-hidden">
       {/* Container Central */}
       <div className="max-w-[1440px] mx-auto px-6 md:px-8 relative z-10">
         {/* Título da Seção */}
@@ -49,7 +49,7 @@ export function AboutWhatIDo() {
                 group relative flex flex-col justify-between gap-4
                 w-full h-[120px] md:h-[220px] p-5 sm:p-6 rounded-2xl bg-[#0C061D] border border-white/5
                 hover:bg-[#160D33] hover:-translate-y-2 transition-all duration-300
-                focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-[#040013]
+                focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-background
               `}
               aria-label={`Capacidade de ${item.highlight}`}
               role="listitem"

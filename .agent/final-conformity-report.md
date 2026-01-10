@@ -40,6 +40,6 @@ O código está 100% alinhado com a especificação de arquitetura e design "Gho
 
 **Próximos Passos (User):**
 
-1.  Executar `npm run dev` se não estiver rodando.
+1.  Executar `pnpm run dev` se não estiver rodando.
 2.  Testar navegação completa (Home e Sobre).
 3.  Rodar auditoria Lighthouse para validar performance.

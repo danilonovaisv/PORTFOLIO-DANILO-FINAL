@@ -35,33 +35,13 @@ export default function AboutMethod() {
   return (
     <section
       ref={containerRef}
-      className="relative bg-[#040013] overflow-hidden"
+      className="relative bg-background overflow-hidden"
       aria-label="Como Eu Trabalho"
     >
-      {/* Background Video (Desktop Right / Mobile Full with Overlay) */}
-      <motion.div
-        style={{ y: mediaY }}
-        className="absolute inset-0 z-0 opacity-40 mix-blend-screen pointer-events-none"
-      >
-        <motion.div className="absolute inset-0 bg-[#040013]/60 z-10" />
-        <motion.video
-          src={ABOUT_CONTENT.method.video}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover"
-          aria-hidden="true"
-        />
-        {/* Cinematic Gradient Overlays */}
-        <div className="absolute inset-0 bg-linear-to-r from-[#040013] via-[#040013]/90 to-transparent z-20" />
-        <div className="absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-[#040013] to-transparent z-20" />
-      </motion.div>
-
-      <div className="relative z-30 w-full max-w-[1440px] mx-auto px-6 md:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-0 items-center py-20 md:py-32">
+      <div className="relative z-30 std-grid">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center py-20 md:py-32">
           {/* Content Left */}
-          <div className="lg:col-span-6 flex flex-col justify-center">
+          <div className="flex flex-col justify-center order-1 md:order-1">
             <motion.div style={{ y: textY }} className="max-w-[640px]">
               {/* Títulos */}
               <motion.div
@@ -69,7 +49,7 @@ export default function AboutMethod() {
                 initial={prefersReducedMotion ? 'visible' : 'hidden'}
                 whileInView="visible"
                 viewport={{ once: true, margin: '-20%' }}
-                className="mb-8 md:mb-10 text-center lg:text-left"
+                className="mb-8 md:mb-10 text-left"
               >
                 <h2 className="text-[32px] sm:text-[40px] lg:text-[56px] font-bold text-white leading-[1.1] tracking-tight">
                   <span className="text-primary block mb-1">
@@ -85,7 +65,7 @@ export default function AboutMethod() {
                 initial={prefersReducedMotion ? 'visible' : 'hidden'}
                 whileInView="visible"
                 viewport={{ once: true, margin: '-20%' }}
-                className="text-[16px] md:text-[18px] text-white/70 font-normal leading-relaxed space-y-4 mb-12 text-center lg:text-left"
+                className="text-[16px] md:text-[18px] text-white/70 font-normal leading-relaxed space-y-4 mb-12 text-left"
               >
                 {ABOUT_CONTENT.method.intro.map((line, i) => (
                   <p key={i}>{line}</p>
@@ -136,8 +116,24 @@ export default function AboutMethod() {
             </motion.div>
           </div>
 
-          {/* Right Visual Area (Optional placeholder for Ghost/Abstract visual if video is background) */}
-          <div className="hidden lg:block lg:col-span-6 h-full min-h-[600px]" />
+          {/* Right Visual Area (Video) */}
+          <div className="h-full min-h-[400px] md:min-h-[600px] relative rounded-2xl overflow-hidden order-2 md:order-2">
+            <motion.div
+              style={{ y: mediaY }}
+              className="absolute inset-0 z-0 h-[120%] -top-[10%]"
+            >
+              <div className="absolute inset-0 bg-black/20 z-10" />
+              <motion.video
+                src={ABOUT_CONTENT.method.video}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover"
+                aria-hidden="true"
+              />
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

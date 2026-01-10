@@ -8,7 +8,7 @@ description: Hero ghost
 
 - **Status:** _A executar._
 - **Ação:** Garantir dependências essenciais.
-- **Comando:** `npm install three @types/three @react-three/fiber @react-three/drei @react-three/postprocessing simplex-noise framer-motion`
+- **Comando:** `pnpm install three @types/three @react-three/fiber @react-three/drei @react-three/postprocessing simplex-noise framer-motion`
 
 ---
 

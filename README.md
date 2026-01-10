@@ -167,13 +167,13 @@ components/
 ### Instalar dependências
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### Ambiente de desenvolvimento
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 Acesse: [http://localhost:3000](http://localhost:3000)
@@ -181,13 +181,13 @@ Acesse: [http://localhost:3000](http://localhost:3000)
 ### Build de produção
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 ### Preview da build
 
 ```bash
-npm start
+pnpm start
 ```
 
 ---

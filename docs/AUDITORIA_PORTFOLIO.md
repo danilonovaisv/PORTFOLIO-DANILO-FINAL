@@ -1,4 +1,627 @@
- Ajuste o projeto utilizando as etapas essenciais para execução:
+## Análise HOME · Header + Hero Ghost
+
+## 1️⃣ Visão Geral
+
+Com base nas referências enviadas:
+
+- **Layout (fonte da verdade)**
+  - Hero com ghost brilhante à esquerda, texto “[BRAND AWARENESS] / Você não vê o design. / Mas ele vê você.” alinhado à direita do ghost.
+  - CTA “step inside” centralizado sob o texto principal.
+  - Thumb/manifesto de vídeo no canto inferior direito do Hero.
+  - Header em “pill” de glass fluido, full‑width, alinhado ao grid da página, com navegação “home / sobre / portfólio showcase / contato”.
+  - Versões desktop e mobile bem definidas (hierarquia e ritmo mantidos).
+
+- **Motion / Ghost (fonte da verdade técnica)**
+  - CodePen “Ghost Hero” com:
+    - Preloader em fullscreen com ghost SVG flutuando, olhos pulsando, texto “Summoning spirits” + progress bar.
+    - Cena Three.js com ghost 3D seguindo o cursor, partículas, fireflies e shader de analog decay (grain, scanlines, jitter, vSync, vignette).
+    - Transição preloader → conteúdo → canvas via classes `.fade-out` / `.fade-in` com `transition: opacity ...`.
+
+- **Estado atual disponível para análise**
+  - Você forneceu:
+    - Referência de motion completa (HTML, CSS e TypeScript do CodePen Ghost Hero).
+    - Referências visuais (crops do Hero, layout desktop completo e mobile).
+  - **Não** há, neste contexto, o código renderizado da HOME em Next.js (App Router) com `HomeHero.tsx`, `Header.tsx` etc; só conhecemos os nomes dos arquivos via GitHub (`src/components/home/hero/HomeHero.tsx`, `src/components/layout/header/DesktopFluidHeader.tsx`, etc.), mas não o conteúdo.
+
+Por isso:
+
+- A análise de **layout + animações abaixo é feita cruzando**:
+  - Referência visual (imagens da HOME).
+  - Referência de motion (CodePen Ghost Hero).
+- E **não consegue confirmar** se a implementação atual em Next.js já está alinhada 1:1, porque o JSX/CSS/Framer dos componentes reais não está acessível aqui.
+
+Ainda assim, dá para:
+
+1. Extrair **critérios objetivos** de layout e motion a partir das referências.
+2. Identificar **riscos de desvio** claros observando o CodePen (ghost/canvas, preloader, analog shader).
+3. Gerar **prompts atômicos** para o agente executor alinhar `Header` + `HomeHero` ao layout e motion de referência.
+
+---
+
+## 2️⃣ Diagnóstico por Seção
+
+### 🎯 Seção: HEADER
+
+**Contexto:**  
+O CodePen Ghost Hero não implementa o header. O header visto nas imagens (desktop/mobile) parece vir de outro código (provavelmente `src/components/layout/header/*.tsx`), que não está visível aqui.
+
+Por isso, os pontos abaixo são avaliados frente **ao que está implementado no snippet (Header ausente)** vs **o que a referência exige**.
+
+- 📌 Fidelidade ao layout (HOME-PORTFOLIO-LAYOUYT-GHOST.jpg): **✗ (Não – Header não existe no snippet Ghost Hero)**  
+- 🎞️ Qualidade da animação (glass/fluid): **✗ (Não – não há animação de glass no snippet analisado)**  
+- ↔️ Integração com Hero: **✗ (Não – no snippet, o Hero ocupa fullscreen sem header)**  
+- 📱 Mobile: **✗ (Não avaliável – não há variação de header mobile no snippet)**  
+
+#### ❌ Problema
+
+1. **Header inexistente no snippet de referência de motion**
+   - O CodePen trabalha apenas com preloader + Hero central, sem qualquer estrutura de header (logo, navegação, glass fluido).
+   - Isso impede verificar se o header real (em `DesktopFluidHeader.tsx`, `MobileHeaderBar.tsx`, etc.) está:
+     - Alinhado ao grid/margens da HOME.
+     - Proporcional em altura ao Hero.
+     - Integrado ao glass/fluid 3D corretamente.
+
+2. **Integração Header ↔ Hero não está prototipada no CodePen**
+   - No snippet, tanto o `preloader` quanto `.content` estão com `position: fixed` e tomam 100% da viewport.
+   - Em produção, o header precisa viver **acima** do Hero, com glass/fluid independente, sem competir com o ghost.
+
+#### 🔧 Correção Técnica (especificação)
+
+> Não é possível validar o código atual, então aqui estão **critérios corretivos** que o Header deve atender quando você alinhar `Header.tsx` / `DesktopFluidHeader.tsx` / `MobileHeaderBar.tsx` à referência.
+
+- **Layout desktop**
+  1. Header em forma de “pill” horizontal:
+     - Ocupa aproximadamente **80–90% da largura** visual, alinhado ao centro, com margens laterais iguais às do Hero.
+     - Altura visualmente proporcional (ligeiramente mais baixa que o Hero, não chamando mais atenção que o ghost).
+  2. Logo à esquerda, navegação “home / sobre / portfólio showcase / contato” distribuída na metade direita.
+  3. Fundo glass com blur + leve glow, mas **sem exceder** a intensidade luminosa do ghost.
+
+- **Layout mobile**
+  1. Header compacto, full‑width, com logo à esquerda + ícone de menu/hamburger à direita.
+  2. Mantém a mesma lógica de margens laterais do Hero mobile (safe area consistente).
+
+- **Motion (glass header)**
+  1. Animação de entrada: fade/slide sutil (≤ 400 ms), com ease tipo `easeOut` ou `easeInOut`, **antes ou em sincronia** com a aparição do Hero – nunca depois.
+  2. Qualquer deformação do glass/fluid 3D deve permanecer:
+     - De baixa amplitude.
+     - Sem variações bruscas de escala/posição que disputem atenção com o ghost no Hero.
+  3. Respeitar `prefers-reduced-motion`:
+     - Em modo “reduce”, desabilitar ondulações contínuas e manter apenas um fade-in estático do header.
+
+#### ✅ Resultado Esperado
+
+Quando o header real for alinhado:
+
+- Visualmente, ele se comporta como a “tampa” da HOME:  
+  um elemento glass/fluid fino, discreto e **perfeitamente alinhado** ao grid do Hero.
+- No desktop:
+  - Proporção Header ↔ Hero é a mesma da imagem de referência (header ~20–25% da altura visual do primeiro viewport).
+  - Navegação e logo não saltam mais que o ghost + texto do Hero.
+- No mobile:
+  - Header compacto, com hierarquia clara (logo → menu), sem roubar espaço vertical excessivo do Hero.
+- Em movimento:
+  - A transição de entrada do header é editorial, suave, sem overshoot exagerado.
+  - Em `prefers-reduced-motion`, o header é praticamente estático após o fade-in.
+
+---
+
+### 🎯 Seção: HERO (Ghost + Texto + CTA + Manifesto)
+
+Aqui conseguimos ser mais específicos, pois temos:
+
+- Layout visual do Hero (imagens desktop + mobile).
+- CodePen com:
+  - `preloader` (ghost SVG, texto “Summoning spirits”, progress bar).
+  - `.content` com `[BRAND AWARENESS]` + `Você não vê / o design.` + `Mas ele vê você.`.
+  - Cena Three.js com ghost 3D/analog decay ocupando fullscreen (canvas posicionado `absolute` em todo o body).
+
+**Checklist em relação ao layout/motion de referência:**
+
+- 📌 Grid corresponde à imagem? **✗ (Não – snippet é 1 coluna centralizada, referência é composição assimétrica com ghost à esquerda, texto à direita e thumb no canto)**  
+- 📌 Margens laterais iguais? **✗ (Não – snippet usa padding genérico de `20px`, referência usa margens mais amplas alinhadas ao header e ao restante da página)**  
+- 📌 Alinhamento das duas colunas consistente? **✗ (Não – no snippet não há segunda coluna para a thumb/manifesto)**  
+- 📌 Proporção Header ↔ Hero correta? **✗ (Não avaliável no snippet – hero ocupa 100% da viewport sem header)**  
+- 📌 Animações existem apenas onde a referência sugere? **✗ (Não – snippet adiciona fireflies, partículas “extras” e jitter forte que não aparecem na referência estática)**  
+- 📌 Timing/Easing compatível com motion premium? **⚠️ Tendencialmente Não – intensidade de `analogVSync`, `analogJitter` e partículas pode estar acima do que a hierarquia de texto permite**  
+- 📌 Mobile mantém hierarquia e ritmo? **✗ (Não – `.content` é `fixed` fullscreen e `body` tem `overflow: hidden`; isso não reflete a HOME mobile da referência, que é scrollável com múltiplas seções)**  
+
+#### ❌ Problemas (Hero)
+
+1. **Layout do Hero centralizado x Composição da referência**
+
+   - Snippet:
+     - `.content` é um flex container **centralizado** (`justify-content: center; align-items: center; text-align: center;`) ocupando a viewport inteira.
+     - Não há CTA “step inside” nem botão algum no HTML fornecido.
+     - Não há thumb/manifesto de vídeo no canto direito.
+   - Referência:
+     - Ghost luminoso ocupa **lado esquerdo** da composição (sobrepondo-se parcialmente à área de texto).
+     - Texto está alinhado à direita do ghost, com alinhamento **à esquerda** (não centralizado).
+     - CTA “step inside” está logo abaixo do texto, centralizado na coluna de texto.
+     - Thumb/manifesto de vídeo está **ancorada na parte inferior direita** do Hero.
+
+   ➜ Isso significa que **qualquer implementação em React/Next baseada diretamente no layout do CodePen estará divergente** do layout final.
+
+2. **Canvas do ghost ocupando fullscreen com `pointer-events: auto`**
+
+   - No snippet, o `renderer.domElement` (canvas) é posicionado como:
+
+     ```ts
+     renderer.domElement.style.position = "absolute";
+     renderer.domElement.style.top = "0";
+     renderer.domElement.style.left = "0";
+     renderer.domElement.style.zIndex = "2";
+     renderer.domElement.style.pointerEvents = "auto";
+     renderer.domElement.style.background = "transparent";
+     ```
+
+   - Como ele cobre a viewport inteira e aceita eventos de ponteiro, existe o risco de:
+     - Bloquear cliques no CTA “step inside”.
+     - Bloquear interações na thumb/manifesto e em outros elementos do Hero.
+
+   - Nas referências visuais, o ghost **não compete com o texto nem com a interação**; ele é pano de fundo/halo.
+
+3. **Preloader + `.content` em `position: fixed` + `overflow: hidden` no body**
+
+   - CSS atual:
+
+     ```css
+     html, body {
+       width: 100%;
+       height: 100%;
+       overflow: hidden;
+       background-color: #111;
+     }
+
+     .preloader {
+       position: fixed;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       ...
+     }
+
+     .content {
+       position: fixed;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       display: flex;
+       ...
+     }
+     ```
+
+   - Isso é aceitável como protótipo isolado, mas **não é compatível** com a HOME real:
+     - Na HOME desktop/mobile de referência, o Hero é apenas a **primeira dobra**, com showcase, brands, contato etc. abaixo (scroll regular).
+     - Com `overflow: hidden` em `body` e `.content`/`preloader` fixos, você impede o scroll da página e prende toda a experiência nessa tela.
+
+4. **Animação e intensidade do efeito “Analog Decay” podem comprometer legibilidade**
+
+   - Parâmetros iniciais no snippet:
+
+     ```ts
+     const params = {
+       analogIntensity: 0.9,
+       analogGrain: 0.4,
+       analogBleeding: 0.9,
+       analogVSync: 1.7,
+       analogScanlines: 1.0,
+       analogVignette: 2.4,
+       analogJitter: 0.5,
+       ...
+     };
+     ```
+
+   - O shader aplica:
+     - Grain procedural relativamente forte.
+     - VSync roll, jitter horizontal/vertical e scanlines.
+     - Vignette agressiva (`uAnalogVignette` alto).
+   - Referência visual mostra um **ruído editorial sutil**, mas o texto “Você não vê o design” é claramente legível.
+
+   ➜ Com esses valores, é provável que:
+   - O texto fique mais “danificado” do que na referência estática.
+   - A hierarquia (texto > ghost > ruído) se inverta em alguns momentos.
+
+5. **Fireflies e partículas podem introduzir movimentos não sugeridos pela referência**
+
+   - O snippet cria:
+     - ~20 fireflies com movimento contínuo ao redor da cena.
+     - Um sistema de partículas com movimento swirl, rotações e variações de opacidade.
+   - As imagens de referência não sugerem esses elementos; o foco está em:
+     - Ghost.
+     - Glow em torno do texto.
+     - Ruído analógico suave.
+
+   ➜ Em uma implementação final, esses elementos podem ser percebidos como **decoração extra**, não como parte do conceito principal.
+
+6. **Ausência de suporte a `prefers-reduced-motion`**
+
+   - Não há checagem de `window.matchMedia("(prefers-reduced-motion: reduce)")`.
+   - Tanto:
+     - O preloader (ghost SVG flutuando, olhos pulsando).
+     - Quanto a cena 3D (wobble, follow cursor, analog jitter, fireflies, partículas).
+   - Continuam animando da mesma forma para todos os usuários.
+
+   ➜ Isso viola o requisito de **“Respeitar prefers-reduced-motion”** e pode gerar desconforto.
+
+7. **Hero mobile não reflete a composição mobile da HOME**
+
+   - No snippet:
+     - `.content` continua fullscreen fixo em qualquer viewport.
+     - Tipografia baseada em `6vw` pode ficar excessivamente grande em alguns tamanhos de tela.
+   - Na referência mobile:
+     - Hero ocupa o topo, seguido do grid de vídeos, seções de portfólio, marcas, contato etc.
+     - Tipografia é controlada e escalonada para leitura confortável em tela estreita.
+
+#### 🔧 Correção Técnica (especificação)
+
+Novamente: sem acesso ao JSX de `HomeHero.tsx`, aqui estão os **ajustes que a implementação precisa cumprir** para ficar 1:1 com as referências:
+
+1. **Grid e composição do Hero**
+   - Transformar o Hero em um layout de **duas zonas**:
+     - Zona principal: ghost + texto + CTA (ocupando ~60–70% centrais).
+     - Zona secundária: thumb/manifesto ancorada na borda direita/inferior da área do Hero.
+   - Alinhamentos:
+     - Ghost orb/3D posicionado **à esquerda** da coluna de texto (pode ficar parcialmente “por trás” do texto).
+     - Texto alinhado à esquerda.
+     - CTA “step inside” direto abaixo do texto, centralizado nessa coluna.
+     - Thumb/manifesto com largura proporcional (~25–30% da largura do Hero), alinhada à direita.
+
+2. **Canvas do ghost integrado ao layout**
+   - O canvas deve:
+     - Respeitar o container do Hero (não cobrir a página inteira por padrão).
+     - Ser posicionado **como background/overlay** atrás do texto e CTA, com:
+       - `pointer-events: none;`
+       - `z-index` inferior ao texto/CTA, superior ao fundo.
+   - O ghost continua seguindo o cursor, mas com limites/clamping para não atravessar CTA/manifesto de forma agressiva.
+
+3. **Remoção de `position: fixed` para o conteúdo principal**
+   - O Hero, na HOME final, deve ser um **section** normativa (`position: relative`, `height` controlada, inserida no flow da página).
+   - `html, body` não podem ter `overflow: hidden`; o scroll da página deve funcionar normalmente.
+
+4. **Refino do Analog Decay**
+   - Manter o shader, mas com ajustes:
+     - `analogIntensity` reduzido.
+     - `analogJitter` e `analogVSync` suavizados.
+     - `analogVignette` menos agressivo.
+   - Objetivo:
+     - Texto sempre legível.
+     - Ruído percebido como “camada editorial”, não protagonista.
+
+5. **Revisão de fireflies/partículas**
+   - Se mantidos:
+     - Ficam restritos à região próxima do ghost.
+     - Opacidade e tamanho bem mais baixos, para não virar ruído visual.
+   - Alternativamente:
+     - Desabilitar totalmente no estado “produção” da HOME, usando-os apenas nos estudos do CodePen.
+
+6. **Suporte a `prefers-reduced-motion`**
+   - Para usuários com `reduce`:
+     - Preloader sem animação de flutuação/olhos pulsando; apenas fade estático.
+     - Ghost 3D fixo (sem follow cursor/wobble).
+     - Analog shader com jitter/vSync desativados, apenas leve grain/vignette.
+
+7. **Hero mobile alinhado à referência**
+   - Stack vertical:
+     - Header.
+     - Hero (ghost + texto + CTA).
+     - Thumb/manifesto logo abaixo (full‑width ou largura controlada).
+   - Tipografia:
+     - Títulos e subtítulos reescalonados para manter leitura confortável.
+   - Animações:
+     - Menos intensas, sem jitter forte, respeitando o menor espaço de tela.
+
+#### ✅ Resultado Esperado
+
+Com esses ajustes aplicados ao `HomeHero` (e ao canvas do ghost):
+
+- **Desktop**
+  - Hero reproduz a mesma composição da imagem:
+    - Ghost “vazando” pelo lado esquerdo do texto.
+    - CTA forte no centro da coluna de texto.
+    - Thumb/manifesto ancorada no canto inferior direito.
+  - O ghost e o noise criam atmosfera, mas **não prejudicam a legibilidade** do título e CTA.
+  - Canvas não bloqueia cliques; CTA e manifesto são totalmente clicáveis.
+
+- **Mobile**
+  - Ordem visual: Header → Hero → thumb/manifesto → demais seções.
+  - Escala tipográfica e espaçamentos seguem a lógica da referência mobile.
+  - Motion está simplificado e respeita `prefers-reduced-motion`.
+
+---
+
+## 3️⃣ Lista de Problemas (com severidade)
+
+> Observação: severidade aqui é em relação à **fidelidade às referências** e à hierarquia visual/motion.
+
+### 🔴 Alta
+
+1. **Hero centralizado em 1 coluna no snippet vs composição assimétrica da referência**  
+   → Quebra de grid, alinhamento e hierarquia texto/ghost/manifesto.
+
+2. **Canvas do ghost fullscreen com `pointer-events: auto`**  
+   → Risco alto de bloquear interações (CTA “step inside”, manifesto, etc.).
+
+3. **Uso de `position: fixed` + `overflow: hidden` no body**  
+   → Impede o fluxo normal da HOME (portfólio, marcas, contato) como visto nas referências.
+
+4. **Ausência de suporte a `prefers-reduced-motion`**  
+   → Não atende o requisito de acessibilidade/motion editorial.
+
+### 🟡 Média
+
+5. **Intensidade do Analog Decay (grain, jitter, vSync, vignette) potencialmente acima da referência**  
+   → Pode comprometer legibilidade/hierarquia, mas é ajustável via parâmetros.
+
+6. **Fireflies e partículas extras não sugeridos explicitamente na referência**  
+   → Podem ser percebidos como efeitos decorativos se muito evidentes.
+
+7. **Hero mobile não respeitando a estrutura de página scrollável da referência**  
+   → Hierarquia e ritmo mobile podem se perder.
+
+### 🟢 Baixa
+
+8. **Falta de implementação clara da thumb/manifesto no snippet de referência**  
+   → Ainda que seja esperado ser adicionada na etapa de migração para Next/React, precisa ser especificada com proporção e ancoragem corretas.
+
+9. **Integração visual Header ↔ Hero não prototipada no CodePen**  
+   → Cabe garantir que os componentes `DesktopFluidHeader` e `HomeHero` compartilhem o mesmo grid/margens.
+
+---
+
+## 4️⃣ Prompts Técnicos para Agente Executor
+
+Abaixo, prompts atômicos para serem executados em sequência. Ajuste os caminhos de arquivo conforme o seu projeto, mas mantendo a lógica.
+
+---
+
+### 🛠️ Prompt #01 — Alinhar Grid do Hero ao Layout 2 Colunas
+
+**Objetivo**  
+Ajustar o layout do Hero para refletir exatamente a composição da referência: ghost à esquerda, texto + CTA à direita e thumb/manifesto no canto inferior direito.
+
+**Arquivos envolvidos**
+- `src/components/home/hero/HomeHero.tsx`
+- `src/components/home/hero/HomeHero.module.css` (ou equivalente)
+
+**Ações**
+1. Refatorar o container principal do Hero para usar um grid/flex de **duas zonas**:
+   - Zona A: ghost + texto + CTA.
+   - Zona B: thumb/manifesto ancorada à direita/inferior da área do Hero.
+2. Garantir que o texto esteja alinhado à esquerda, com quebras de linha e espaçamentos idênticos ao layout (“Você não vê / o design.” + “Mas ele vê você.”).
+3. Adicionar o CTA “step inside” na posição correta (logo abaixo do texto, centralizado na coluna).
+4. Posicionar a thumb/manifesto no canto inferior direito do Hero, com proporção similar à referência.
+
+**Regras**
+- ❌ Não alterar conteúdo.
+- ❌ Não criar novas animações.
+- ✅ Usar o sistema de layout atual (CSS Modules/Tailwind).
+- ✅ Comparar com HOME-PORTFOLIO-LAYOUYT-GHOST.jpg.
+
+**Critérios de Aceite**
+- [ ] Layout idêntico à referência.
+- [ ] CTA e manifesto posicionados exatamente como no layout.
+- [ ] Ghost alinhado à esquerda da coluna de texto.
+- [ ] Mobile mantém a mesma lógica espacial (stack com hero + manifesto).
+
+---
+
+### 🛠️ Prompt #02 — Integrar Canvas do Ghost sem Bloquear Interações
+
+**Objetivo**  
+Garantir que o canvas do ghost atue como camada visual/ambiental, sem bloquear cliques em CTA ou manifesto.
+
+**Arquivos envolvidos**
+- `src/components/home/hero/HomeHero.tsx`
+- `src/components/home/hero/GhostCanvas.tsx`
+- `src/components/home/hero/HomeHero.module.css`
+
+**Ações**
+1. Confinar o `<canvas>` ao container do Hero (não mais fullscreen no `body`).
+2. Aplicar:
+   - `position: absolute; inset: 0;`
+   - `pointer-events: none;`
+   - `z-index` abaixo do texto/CTA/manifesto.
+3. Garantir que o ghost ainda possa se aproximar da área de texto, mas sem obscurecer o conteúdo.
+
+**Regras**
+- ❌ Não alterar a lógica de movimento do ghost além do necessário para respeitar os limites do Hero.
+- ❌ Não criar novos efeitos.
+- ✅ Usar Framer Motion/R3F apenas para ajustes finos.
+- ✅ Comparar com HOME-PORTFOLIO-LAYOUYT-GHOST.jpg.
+
+**Critérios de Aceite**
+- [ ] CTA e thumb/manifesto são clicáveis em toda a área.
+- [ ] Canvas não captura eventos do mouse.
+- [ ] Ghost permanece visível e alinhado à composição.
+
+---
+
+### 🛠️ Prompt #03 — Remover `position: fixed` e `overflow: hidden` da HOME
+
+**Objetivo**  
+Transformar o Hero em uma seção normal da HOME, permitindo scroll para showcase, marcas e contato.
+
+**Arquivos envolvidos**
+- `src/app/page.tsx`
+- `src/components/home/hero/HomeHero.tsx`
+- `src/styles/globals.css` (ou equivalente)
+
+**Ações**
+1. Remover `position: fixed` de `.content` e containers equivalentes no React.
+2. Garantir que `html, body` **não** tenham `overflow: hidden` na HOME.
+3. Ajustar o Hero para `position: relative`, altura definida (ex.: `min-height: 100vh` na primeira dobra) e integração no fluxo da página.
+
+**Regras**
+- ❌ Não alterar a ordem das seções da HOME.
+- ❌ Não introduzir wrappers que quebrem o App Router.
+- ✅ Preservar a proporção visual do Hero em relação ao Header.
+- ✅ Validar desktop e mobile.
+
+**Critérios de Aceite**
+- [ ] Página rola do Hero até contato como na referência.
+- [ ] Hero permanece visualmente idêntico ao primeiro frame da HOME.
+- [ ] Nenhum elemento de scroll é bloqueado.
+
+---
+
+### 🛠️ Prompt #04 — Ajustar Intensidade do Analog Decay ao Nível Editorial
+
+**Objetivo**  
+Refinar a intensidade do shader de analog decay para que o ruído seja sutil e compatível com a referência, sem comprometer legibilidade.
+
+**Arquivos envolvidos**
+- `src/components/home/hero/GhostCanvas.tsx`
+- Config de pós-processamento (onde `analogDecayPass` é configurado)
+
+**Ações**
+1. Reduzir valores iniciais de:
+   - `analogIntensity`
+   - `analogJitter`
+   - `analogVSync`
+   - `analogVignette`
+2. Testar a leitura do texto “Você não vê o design. / Mas ele vê você.” durante a animação completa.
+3. Ajustar até que o ruído seja perceptível, mas nunca domine a hierarquia.
+
+**Regras**
+- ❌ Não remover o efeito analog.
+- ❌ Não adicionar novos passes de pós-processamento.
+- ✅ Ajustar apenas parâmetros existentes.
+- ✅ Comparar com HOME-PORTFOLIO-LAYOUYT-GHOST.jpg.
+
+**Critérios de Aceite**
+- [ ] Texto legível em qualquer momento.
+- [ ] Ruído percebido como textura, não como elemento principal.
+- [ ] Motion continua editorial e premium.
+
+---
+
+### 🛠️ Prompt #05 — Reduzir Fireflies/Partículas para Não Quebrarem Hierarquia
+
+**Objetivo**  
+Garantir que fireflies e partículas não ultrapassem o que a referência sugere em termos de motion.
+
+**Arquivos envolvidos**
+- `src/components/home/hero/GhostCanvas.tsx`
+
+**Ações**
+1. Localizar criação de fireflies e partículas (equivalente a `createFireflies` / `createParticle`).
+2. Reduzir:
+   - Quantidade total.
+   - Escala.
+   - Opacidade.
+3. Limitar a zona de atuação à proximidade do ghost, sem atravessar o texto.
+
+**Regras**
+- ❌ Não adicionar novas partículas.
+- ❌ Não mudar cores.
+- ✅ Priorizar texto + CTA como foco.
+- ✅ Comparar com HOME-PORTFOLIO-LAYOUYT-GHOST.jpg.
+
+**Critérios de Aceite**
+- [ ] Primeiro olhar do usuário vai para texto e CTA.
+- [ ] Partículas não “competem” em brilho/movimento com o ghost.
+- [ ] Motion segue a intenção editorial.
+
+---
+
+### 🛠️ Prompt #06 — Implementar `prefers-reduced-motion` no Preloader e no Ghost
+
+**Objetivo**  
+Respeitar `prefers-reduced-motion`, reduzindo animações contínuas no Hero.
+
+**Arquivos envolvidos**
+- `src/components/home/hero/HomeHero.tsx`
+- `src/components/home/hero/GhostCanvas.tsx`
+
+**Ações**
+1. Criar hook/util para ler `prefers-reduced-motion`.
+2. Se `reduce` estiver ativo:
+   - Preloader: remover `ghostFloat` e `eyePulse`; manter ghost estático + fade-in/fade-out.
+   - Ghost 3D: desabilitar follow do cursor e wobble contínuo.
+   - Analog shader: zerar `analogJitter` e `analogVSync`, mantendo apenas leve grain/vignette.
+3. Garantir que as transições de entrada permaneçam suaves e discretas.
+
+**Regras**
+- ❌ Não desligar completamente o Hero.
+- ❌ Não criar versões alternativas de layout.
+- ✅ Usar flags internas condicionadas ao media query.
+- ✅ Comparar a experiência reduzida com a referência, mantendo hierarquia.
+
+**Critérios de Aceite**
+- [ ] Com `prefers-reduced-motion: reduce`, não há loops intensos de animação.
+- [ ] Preloader, ghost e noise só fazem transições pontuais.
+- [ ] Conteúdo continua visualmente fiel.
+
+---
+
+### 🛠️ Prompt #07 — Ajustar Hero Mobile para Manter Hierarquia e Ritmo
+
+**Objetivo**  
+Alinhar a versão mobile do Hero à lógica espacial da referência.
+
+**Arquivos envolvidos**
+- `src/components/layout/header/mobile/MobileHeaderBar.tsx`
+- `src/components/home/hero/HomeHero.tsx`
+- `src/components/home/hero/HomeHero.module.css`
+- `src/app/page.tsx`
+
+**Ações**
+1. Em mobile, garantir ordem:
+   - Header compacto com logo + menu.
+   - Hero com ghost + texto + CTA.
+   - Thumb/manifesto imediatamente abaixo.
+2. Ajustar tipografia do Hero (font-size e line-height) para proximidade visual da referência mobile.
+3. Reduzir jitter/ruído em telas pequenas, priorizando leitura.
+
+**Regras**
+- ❌ Não trocar ordem das seções em relação à referência.
+- ❌ Não alterar textos.
+- ✅ Reutilizar tokens de tipografia já existentes.
+- ✅ Comparar visualmente com o layout mobile fornecido.
+
+**Critérios de Aceite**
+- [ ] Mobile mostra Header → Hero → manifesto na ordem correta.
+- [ ] Texto legível sem zoom.
+- [ ] Motion sutil, sem distrair do conteúdo.
+
+---
+
+### 🛠️ Prompt #08 — Sincronizar Entrada do Header e do Hero
+
+**Objetivo**  
+Garantir que Header e Hero entrem em cena como um sistema único, sem competição visual.
+
+**Arquivos envolvidos**
+- `src/components/layout/header/DesktopFluidHeader.tsx`
+- `src/components/home/hero/HomeHero.tsx`
+- Eventual layout de página (transições Framer Motion, se existir)
+
+**Ações**
+1. Definir sequência:
+   - Header: fade/slide-in leve logo após o load.
+   - Hero: entrada 80–150 ms depois, com texto/CTA e ghost em sync.
+2. Ajustar delays e easing (`easeOut`/`easeInOut`) para que a atenção vá naturalmente para o Hero.
+3. Garantir que o glass/fluid do header não tenha picos de animação simultâneos ao pico do analog/ghost.
+
+**Regras**
+- ❌ Não criar novas animações além da já planejada.
+- ❌ Não alterar textos.
+- ✅ Usar Framer Motion para controlar timing e stagger.
+- ✅ Comparar com HOME-PORTFOLIO-LAYOUYT-GHOST.jpg.
+
+**Critérios de Aceite**
+- [ ] Header surge de forma sutil, sem roubar o foco do Hero.
+- [ ] Entrada do Hero reforça a hierarquia do texto + CTA + ghost.
+- [ ] Transição fluida em desktop e mobile.
+
+---
+
+Esses prompts formam a **Fase 2 (correção atômica)** a partir do diagnóstico acima.  
+Quando o código de `HomeHero.tsx`, `Header.tsx` e cenas 3D estiver disponível no contexto, é possível descer ao nível de linha para ajustar cada ponto diretamente.
+
+Ajuste o projeto utilizando as etapas essenciais para execução:
 1. Analise o escopo detalhado fornecido.
 2. Monte um plano de execução com base nesse escopo.
 3. Implemente os ajustes necessários no código.
@@ -11,1022 +634,3 @@
 ✅ Nenhum ponto deve ser ignorado.
 
 
-# **Arquitetura Técnica e Protocolo de Implementação: Workflow do Agente Antigravity para Replicação do "Ghost Hero"**
-
-## **1\. Introdução e Decomposição da Referência Estrutural**
-
-O presente relatório técnico estabelece o protocolo definitivo de execução para o Agente Antigravity, com o objetivo de replicar, refatorar e otimizar a experiência WebGL "Ghost Hero" identificada na referência fornecida.1 A análise abrange não apenas a tradução sintática do código imperativo "Vanilla" Three.js para o ecossistema declarativo React Three Fiber (R3F), mas também a engenharia reversa dos efeitos de pós-processamento, a manipulação de geometria em nível de vértice e a resolução de limitações inerentes ao pipeline de renderização, especificamente no que tange à transparência em passes de Bloom.
-
-A referência "Ghost Hero" apresenta uma cena composta por uma entidade espectral central, iluminada por técnicas de *rim lighting* (iluminação de borda), envolta em uma atmosfera de partículas flutuantes e submetida a um pipeline de pós-processamento agressivo que simula a degradação de sinal analógico (VHS/CRT). A execução deste projeto exige uma compreensão profunda da matemática de shaders GLSL, do ciclo de vida de componentes React e da gestão de memória na GPU. Este documento serve como o manual de operações para o Agente Antigravity, detalhando cada etapa da transmutação do código legado para uma arquitetura moderna, performática e escalável.
-
-### **1.1 Análise da Geometria Espectral e Manipulação de Vértices**
-
-O elemento visual primário, o "Fantasma", é construído na referência original a partir de uma SphereGeometry primitiva, com raio de 2 unidades e segmentação de 40x40.1 No entanto, a análise do código fonte revela que a geometria não permanece estática. O script executa uma manipulação direta no array de atributos de posição (positionAttribute), iterando sobre os vértices para criar uma deformação orgânica na base da esfera, simulando o "tecido" ectoplasmático do fantasma.
-
-A lógica matemática identificada no artefato de referência 1 aplica uma deformação condicional apenas aos vértices cuja coordenada Y é inferior a \-0.2. A função de deslocamento é uma composição de ondas senoidais e cossenos em múltiplos eixos:
-
-$$Y\_{novo} \= \-2.0 \+ (\\sin(x \\times 5\) \\times 0.35 \+ \\cos(z \\times 4\) \\times 0.25 \+ \\sin((x+z) \\times 3\) \\times 0.15)$$  
-Esta operação, realizada na CPU durante a inicialização no código de referência, cria a silhueta ondulada característica. Em uma arquitetura reativa como o R3F, a replicação literal desta lógica — especialmente se animada frame a frame — imporia uma penalidade severa à thread principal do JavaScript, bloqueando a reconciliação do React. Portanto, o protocolo do Agente Antigravity deve priorizar a migração desta lógica para um *Vertex Shader*, permitindo que a GPU execute as transformações matemáticas em paralelo para cada vértice, liberando a CPU para a lógica de aplicação e estado.2
-
-### **1.2 Física do Material e Propriedades Emissivas**
-
-A materialidade do espectro é definida por um MeshStandardMaterial. A configuração extraída da referência é crítica para o funcionamento subsequente do pipeline de iluminação global simulada (Bloom). Os parâmetros identificados são:
-
-* **Cor Base (bodyColor):** 0x0f2027 (Um tom profundo de azul-petróleo escuro), que serve como base para a absorção de luz.  
-* **Emissividade:** A propriedade emissive é mapeada dinamicamente através de uma paleta fluorescentColors, onde "blue" corresponde a 0x0080ff.1  
-* **Intensidade Emissiva:** Este é o fator determinante. A referência modula a intensidade emissiva dentro do loop de renderização (animate), oscilando entre valores elevados (base de 5.8) somados a funções de onda (sin(time \* 1.6)).  
-* **Rugosidade (Roughness):** 0.02, criando uma superfície quase perfeitamente lisa para maximizar os reflexos especulares das luzes de borda.  
-* **Metalidade (Metalness):** 0.0, mantendo a aparência dielétrica não-metálica.
-
-A análise indica que a intensidade emissiva excessiva (\> 1.0) não é um erro, mas uma técnica deliberada para forçar o *tone mapping* e saturar o buffer de brilho utilizado pelo UnrealBloomPass. Sem esses valores hdr (High Dynamic Range), o efeito de brilho etéreo falharia em se manifestar com a magnitude observada no vídeo de referência.4
-
-## **2\. Engenharia do Pipeline de Pós-Processamento: O Efeito "Analog Decay"**
-
-A identidade visual do projeto reside no shader personalizado denominado "Analog Decay". Diferente de filtros padrão de vinheta ou ruído, este shader compõe múltiplas camadas de distorção de sinal para emular uma transmissão analógica falha. A engenharia reversa do shader fornecido no snippet 1 revela cinco componentes principais que o Agente Antigravity deve reimplementar utilizando a biblioteca postprocessing.
-
-### **2.1 Decomposição dos Componentes do Shader**
-
-A tabela abaixo detalha as funções matemáticas extraídas do fragment shader da referência e sua tradução para o contexto de um efeito personalizado em R3F.
-
-| Componente | Lógica Matemática (GLSL) | Função Visual | Adaptação no Protocolo |
-| :---- | :---- | :---- | :---- |
-| **Chromatic Aberration** | vec2 redOffset \= vec2(sin(time \* 1.5 \+ uv.y \* 20.0) \* 0.012, 0.0); | Separação dos canais RGB baseada em tempo e coordenada Y. | Implementar como distorção de coordenadas UV antes da amostragem de textura. |
-| **Scanlines** | sin(uv.y \* 600.0) \* 0.5 \+ 0.5 | Linhas horizontais de alta frequência simulando CRT. | Multiplicação da cor final por um padrão senoidal. |
-| **Analog Jitter** | (random(vec2(floor(time \* 60.0))) \- 0.5) \* 0.003 | Deslocamento horizontal aleatório a 60Hz. | Injeção de ruído "quantizado" no tempo para simular perda de sincronia horizontal. |
-| **Procedural Grain** | gaussian(noise, 0.0, 0.5) | Ruído de distribuição normal aplicado à luminância. | Adição de ruído na etapa final de composição. |
-| **Vignette** | 1.0 \- dot(uv-0.5, uv-0.5) | Escurecimento radial das bordas. | Máscara multiplicativa baseada na distância do centro UV. |
-
-### **2.2 Portabilidade para React Postprocessing**
-
-A referência utiliza a classe ShaderPass do diretório de exemplos do Three.js (three/examples/jsm/postprocessing/ShaderPass.js).5 No entanto, a arquitetura moderna do R3F favorece a biblioteca pmndrs/postprocessing devido ao seu desempenho superior em fusão de passes e gestão de buffers. O Agente Antigravity não deve utilizar ShaderPass diretamente dentro do componente \<EffectComposer\> do R3F, pois isso quebraria a cadeia de efeitos otimizada.6
-
-Protocolo de Implementação do Efeito:  
-O Agente deve encapsular o código GLSL extraído em uma classe que estenda Effect da biblioteca postprocessing. A função main do shader original, que opera com varying vec2 vUv, deve ser reescrita para a assinatura void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor), conforme exigido pela biblioteca moderna.7  
-A gestão das *uniforms* (uTime, uAnalogGrain, etc.) exige atenção especial. Enquanto a referência atualiza essas variáveis imperativamente dentro de animate(), no R3F essas atualizações devem ocorrer via referências (ref.current.uniforms.get('uTime').value) dentro de um hook useFrame, garantindo que o shader receba o tempo decorrido sem provocar re-renderizações do componente React.9
-
-## **3\. O Paradoxo da Transparência: Bloom vs. Canal Alpha**
-
-Uma exigência crítica inferida do vídeo de resultado esperado é a integração suave da cena 3D sobre um fundo web complexo (o gradiente radial CSS). A referência inicializa o renderizador com alpha: true e setClearColor(0x000000, 0).1 Contudo, a pesquisa indica uma falha arquitetural conhecida no UnrealBloomPass padrão do Three.js: durante os passes de desfoque (blur) e composição, o shader frequentemente sobrescreve o canal alpha do buffer de destino para 1.0 (opaco) ou resulta em uma mistura aditiva incorreta que escurece o fundo transparente, resultando em artefatos pretos indesejados.12
-
-### **3.1 Diagnóstico da Falha de Renderização**
-
-O problema reside na função de *blend* do shader de convolução do Bloom. Quando o renderizador limpa o fundo para transparente (0.0), o Bloom tenta adicionar luminosidade. Se o shader de Bloom não multiplicar a cor resultante pelo alpha do fragmento original, ele assume que o pixel "brilhante" deve ser opaco. Isso cria uma caixa preta ou cinza ao redor do objeto brilhante quando sobreposto a um elemento HTML.13
-
-### **3.2 Protocolo de Solução do Agente**
-
-Para contornar esta limitação e atingir o resultado visual esperado, o Agente Antigravity deve adotar uma das seguintes estratégias de mitigação, hierarquizadas por eficácia e desempenho:
-
-1. **Selective Bloom com Buffer de Máscara:** Utilizar o efeito Bloom do pacote @react-three/postprocessing (que é baseado na biblioteca postprocessing e não no UnrealBloomPass legado). Este efeito gerencia o canal alpha de forma mais robusta. O Agente deve configurar luminanceThreshold e intensity cuidadosamente e, se necessário, utilizar a propriedade blendFunction configurada para BlendFunction.SCREEN ou BlendFunction.ADD para garantir que o brilho se some ao fundo transparente sem ocluí-lo.4  
-2. **Shader Patching (Solução de Fallback):** Caso o problema persista, o Agente deve injetar um *patch* no fragment shader do Bloom, forçando a preservação do alpha. A técnica envolve modificar a saída gl\_FragColor para vec4(color.rgb, color.a \* intensity), garantindo que áreas sem geometria permaneçam com alpha zero.11  
-3. **Kernel Size Adjustment:** Ajustar o kernelSize do Bloom para valores menores pode reduzir o sangramento do brilho para áreas transparentes vazias, minimizando artefatos visuais nas bordas do canvas.4
-
-## **4\. Arquitetura de Migração: De Imperativo para Declarativo**
-
-A transformação do código de referência 1 para R3F exige uma reestruturação completa do fluxo de controle. O código original é monolítico, com um loop animate() que gerencia renderização, atualização de partículas, animação de câmera e lógica de interação. O novo workflow deve descentralizar essas responsabilidades.
-
-### **4.1 Decomposição Estrutural**
-
-A tabela a seguir delineia o mapeamento dos componentes legados para a nova arquitetura modular do Agente Antigravity.
-
-| Componente Legado (Imperativo) | Componente Antigravity (Declarativo R3F) | Responsabilidade |
-| :---- | :---- | :---- |
-| new THREE.Scene() | \<Canvas\> | Gerenciamento do contexto WebGL, Loop de Renderização e Resize Observer. |
-| animate() loop | useFrame((state, delta) \=\>...) | Lógica de atualização por quadro, distribuída em componentes individuais. |
-| obj.position.x \+=... | const ref \= useRef(); ref.current.position.x \+=... | Manipulação direta do grafo de cena sem re-renderização do React. |
-| new EffectComposer() | \<EffectComposer\> | Orquestração da cadeia de pós-processamento e fusão de passes. |
-| particlesPool & particles | \<Instances\> & \<Instance\> | Otimização de *draw calls* para milhares de partículas via InstancedMesh. |
-| window.addEventListener | useThree(({ pointer, viewport }) \=\>...) | Captura normalizada de eventos de mouse e coordenadas de tela. |
-
-### **4.2 Gestão de Estado e Reatividade**
-
-A referência utiliza um objeto global params manipulado pela biblioteca Tweakpane.1 No R3F, o Agente deve substituir isso pelo hook useControls da biblioteca leva. Isso permite ajustes em tempo real durante o desenvolvimento ("executar as configurações e testes" conforme solicitado).
-
-**Insight de Segunda Ordem:** A atualização direta de *props* do React (como \<Ghost color={color} /\>) a cada frame causaria gargalos de desempenho devido à reconciliação do Virtual DOM. O protocolo exige que atualizações de alta frequência (como a posição do mouse afetando a rotação do fantasma) sejam feitas imperativamente via *refs* dentro do useFrame, enquanto configurações de baixa frequência (como a cor base do fantasma) podem permanecer no ciclo de estado reativo do React.15
-
-## **5\. Implementação de Sistemas de Partículas Otimizados**
-
-O código de referência cria e destrói objetos THREE.Mesh dinamicamente para as partículas ("fireflies" e rastro), mantendo um particlePool. Esta abordagem gera pressão desnecessária no *Garbage Collector* do navegador, causando micro-travamentos (stutters) perceptíveis.
-
-### **5.1 Otimização via InstancedMesh**
-
-O Agente Antigravity deve implementar o sistema de partículas utilizando \<Instances\> e \<Instance\> da biblioteca drei. Esta abstração sobre THREE.InstancedMesh permite desenhar milhares de partículas com uma única chamada de desenho (*draw call*), em oposição a centenas de chamadas individuais na referência original.16
-
-Lógica de Movimento:  
-Em vez de atualizar particle.position.x, o Agente manipulará uma matriz dummy (THREE.Object3D) e atualizará a matriz da instância específica:
-
-JavaScript
-
-dummy.position.set(x, y, z);  
-dummy.updateMatrix();  
-meshRef.current.setMatrixAt(index, dummy.matrix);
-
-Esta operação deve ocorrer dentro de um useFrame, garantindo fluidez de 60/120 FPS. Além disso, a lógica de "ressurreição" de partículas (quando saem da tela ou expiram) deve ser portada para simplesmente reposicionar a matriz da instância, evitando qualquer alocação de memória durante a execução.17
-
-## **6\. Procedimentos de Interação e Animação**
-
-A referência implementa uma lógica onde o fantasma "segue" o mouse com um atraso (lerp) e os olhos pulsam.
-
-### **6.1 Rastreamento de Mouse e Coordenadas**
-
-A referência calcula a posição do mouse manualmente a partir de clientX. O R3F fornece state.pointer, que já oferece coordenadas normalizadas (NDC) de \-1 a \+1. O Agente deve converter essas coordenadas para o espaço do mundo (World Space) projetando-as no plano Z onde o fantasma reside (Z=0).
-
-Fórmula de Conversão:
-
-$$\\vec{P}\_{world} \= \\vec{P}\_{ndc} \\times \\text{viewport.width/2}, \\vec{P}\_{ndc} \\times \\text{viewport.height/2}, 0$$
-
-Esta abordagem garante que o movimento do fantasma seja responsivo em qualquer dimensão de tela, diferentemente do cálculo fixo da referência que multiplicava por escalares mágicos (mouse.x \* 11).1
-
-### **6.2 Animação Espectral**
-
-Para a animação de flutuação e o "wobble" (bamboleio), o Agente deve utilizar a biblioteca maath para *dampening* (amortecimento) suave ou Math.sin(clock.elapsedTime) para movimentos oscilatórios contínuos. A rotação do corpo do fantasma deve ser calculada baseada no vetor de velocidade do mouse, inclinando o modelo na direção do movimento para adicionar peso e realismo físico à entidade.18
-
-## **7\. Workflow Antigravity: Protocolo de Execução**
-
-Com base na análise, o seguinte protocolo passo-a-passo é definido para a implementação.
-
-### **Fase 1: Inicialização do Núcleo**
-
-1. Configurar projeto R3F com drei e postprocessing.  
-2. Configurar \<Canvas\> com dpr={} para suporte a telas de alta densidade e gl={{ antialias: false, alpha: true }} para performance e transparência correta.  
-3. Implementar PerformanceMonitor para degradar a qualidade (desligar Bloom ou reduzir partículas) se o FPS cair abaixo de 60\.19
-
-### **Fase 2: Construção da Entidade Espectral**
-
-1. Portar a lógica de geometria do fantasma. Criar um componente Ghost.  
-2. Utilizar useMemo para gerar a geometria deformada apenas uma vez na montagem.  
-3. Aplicar MeshStandardMaterial com referências para manipulação de emissiveIntensity.
-
-### **Fase 3: Engenharia do Shader Analog Decay**
-
-1. Criar arquivo AnalogDecayEffect.js.  
-2. Estender a classe Effect.  
-3. Inserir o código GLSL adaptado (trocando main() por mainImage()).  
-4. Expor *uniforms* para controle externo via leva.
-
-### **Fase 4: Integração do Pipeline Gráfico**
-
-1. Instanciar \<EffectComposer disableNormalPass\>.  
-2. Adicionar \<Bloom\> com configurações de *threshold* alto para capturar apenas a emissividade do fantasma.  
-3. Adicionar o componente \<AnalogDecay\> encapsulado como uma primitiva do R3F (\<primitive object={effect} /\>).
-
-### **Fase 5: Refinamento e Testes**
-
-1. Ajustar a intensidade da luz de borda (DirectionalLight) para garantir que o contorno do fantasma seja visível mesmo com o shader analógico ativo.  
-2. Testar a transparência do canvas sobre um fundo CSS complexo para validar a correção do alpha no Bloom.  
-3. Executar perfil de performance (r3f-perf) para garantir que o número de *draw calls* permaneça baixo (\< 50\) graças ao uso de InstancedMesh para as partículas.
-
-## **8\. Conclusão e Considerações Finais**
-
-A replicação do efeito "Ghost Hero" via R3F não é apenas uma tradução de código, mas uma elevação da arquitetura de software. A abordagem original, embora visualmente impactante, sofre de acoplamento rígido e uso ineficiente de recursos da CPU para animação de partículas e vértices.
-
-O protocolo do Agente Antigravity, ao empregar shaders personalizados encapsulados em efeitos do react-postprocessing, instanciamento de malhas (InstancedMesh) e gestão de estado reativa descentralizada, produzirá uma aplicação que mantém a fidelidade estética do original — incluindo a granulação analógica, o brilho espectral e o movimento orgânico — enquanto oferece uma performance robusta e modularidade para expansão futura. A chave para o sucesso desta implementação reside na gestão precisa do canal alpha durante o pós-processamento e na migração das animações baseadas em CPU para a GPU sempre que possível.
-
-# ---
-
-**Relatório Detalhado: Implementação e Análise Técnica**
-
-## **1\. Introdução**
-
-Este documento apresenta uma análise técnica aprofundada e um plano de implementação para replicar e aprimorar a demonstração "Ghost Hero" utilizando React Three Fiber (R3F). O objetivo é transformar um código legado e imperativo em um fluxo de trabalho moderno, performático e modular, denominado "Workflow Antigravity". A análise baseia-se na decomposição do código de referência 1, cruzada com práticas recomendadas de engenharia gráfica WebGL modernas extraídas dos snippets de pesquisa.
-
-## **2\. Análise da Referência "Ghost Hero"**
-
-A referência 1 é uma demonstração técnica que combina modelagem procedimental, shaders personalizados e pós-processamento para criar uma estética de "horror sci-fi".
-
-### **2.1 O Modelo Espectral (Ghost)**
-
-O fantasma não é um modelo estático importado (GLB/GLTF), mas sim uma SphereGeometry manipulada matematicamente.
-
-* **Mecanismo de Deformação:** O código original itera sobre os vértices da esfera. Se a posição Y de um vértice for menor que \-0.2 (a "saia" do fantasma), ela é deslocada usando uma combinação de ondas senoidais baseadas nas coordenadas X e Z.  
-  * *Código Original:* positions\[i \+ 1\] \= \-2.0 \+ Math.sin(x \* 5\) \* 0.35 \+...  
-  * *Implicação:* Isso cria a borda ondulada característica. No código original, isso é feito uma vez na CPU. Se fosse animado frame-a-frame na CPU, seria desastroso para a performance.
-
-### **2.2 O Shader "Analog Decay"**
-
-Este é o coração da estética. Ele simula artefatos de vídeo analógico. A análise do código GLSL 1 revela:
-
-* **Color Bleeding (Sangramento de Cor):** Desloca os canais R, G e B independentemente usando offsets senoidais baseados no tempo. Isso cria a franja de cor nas bordas (aberração cromática dinâmica).  
-* **Scanlines e Ruído:** Aplica linhas horizontais escuras e granulação gaussiana para simular a textura de uma tela CRT antiga.  
-* **Jitter (Instabilidade):** Desloca a coordenada UV inteira aleatoriamente em intervalos rápidos, simulando a perda de sincronia vertical (VSync) de uma fita VHS danificada.
-
-### **2.3 Iluminação e Atmosfera**
-
-A cena depende crucialmente de "Rim Lighting" (luz de recorte). Duas luzes direcionais de cores opostas (ciano e azul) são posicionadas atrás e ao lado do objeto. Isso, combinado com a baixa rugosidade do material, cria contornos brilhantes que definem a silhueta do fantasma contra o fundo escuro, essenciais para o efeito de Bloom subsequente.
-
-## **3\. Desafios de Migração para React Three Fiber**
-
-A migração para R3F apresenta desafios específicos que o Agente Antigravity deve resolver.
-
-### **3.1 O Problema da Transparência no Bloom**
-
-A referência usa UnrealBloomPass. Em implementações padrão no Three.js e R3F, este passe tende a ignorar o canal alpha transparente do canvas, resultando em um fundo preto sólido onde deveria haver transparência.11
-
-* **Causa:** O shader de blur interno do UnrealBloomPass muitas vezes não pondera o alpha corretamente na mistura aditiva.  
-* **Solução do Protocolo:** Utilizar SelectiveBloom ou configurar o EffectComposer para não limpar o buffer de alpha incorretamente, ou ainda, aplicar um patch no shader se necessário, garantindo que gl\_FragColor.a seja preservado.
-
-### **3.2 Implementação de Shaders Personalizados (Effect vs ShaderPass)**
-
-No ecossistema R3F, a biblioteca @react-three/postprocessing é o padrão. Ela não aceita objetos ShaderPass brutos do Three.js da mesma forma que a referência imperativa.
-
-* **Adaptação:** O código do shader "Analog Decay" deve ser encapsulado em uma classe que estenda Effect da biblioteca postprocessing. A assinatura da função principal do shader deve mudar de void main() para void mainImage(...).7
-
-## **4\. Estratégia de Implementação (O Workflow Antigravity)**
-
-A seguir, o detalhamento técnico de como o Agente deve estruturar o código.
-
-### **4.1 Estrutura do Componente Ghost**
-
-Em vez de manipular vértices na CPU, o Agente deve considerar o uso de um *Vertex Shader* personalizado injetado no material padrão (onBeforeCompile) ou, para manter a fidelidade exata da referência estática, usar useMemo para calcular a deformação apenas na inicialização.
-
-JavaScript
-
-// Exemplo conceitual da deformação no R3F  
-const geometry \= useMemo(() \=\> {  
-  const geo \= new THREE.SphereGeometry(2, 64, 64);  
-  const pos \= geo.attributes.position;  
-  //... lógica de deformação senoidal da referência...  
-  geo.computeVertexNormals(); // Essencial para a iluminação correta  
-  return geo;  
-},);
-
-### **4.2 Sistema de Partículas com InstancedMesh**
-
-A referência usa um *pool* de objetos Mesh, adicionando e removendo da cena. Isso é ineficiente. O Workflow Antigravity exige o uso de InstancedMesh.
-
-* **Vantagem:** Renderiza milhares de partículas (vaga-lumes, poeira) em apenas 1 *draw call*.  
-* **Implementação:** Utilizar o componente \<Instances\> do drei. A animação de cada partícula (flutuação, decaimento de vida) é calculada dentro de um único useFrame que itera sobre as matrizes das instâncias e atualiza o buffer de posição diretamente na GPU/memória de vídeo.16
-
-### **4.3 O Componente de Efeito AnalogDecay**
-
-Este é o passo mais complexo. O Agente deve criar um arquivo dedicado para o efeito.
-
-JavaScript
-
-import { Effect } from 'postprocessing';  
-import { Uniform } from 'three';
-
-const fragmentShader \= \`  
-  uniform float uTime;  
-  //... código GLSL da referência adaptado...  
-  void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {  
-    // Lógica de distorção usando 'uv' e 'inputColor'  
-    //...  
-    outputColor \= colorFinal;  
-  }  
-\`;
-
-// Wrapper React para o efeito  
-export const AnalogDecay \= forwardRef(({ param \= 0.1 }, ref) \=\> {  
-  const effect \= useMemo(() \=\> new AnalogDecayEffect(param), \[param\]);  
-  return \<primitive ref\={ref} object\={effect} dispose\={null} /\>;  
-});
-
-### **4.4 Orquestração e Estado**
-
-O Agente deve utilizar leva para criar um painel de controle (GUI) que substitui o Tweakpane da referência. Variáveis como "Glow Intensity", "Grain Amount" e "Scanline Intensity" devem ser vinculadas às *uniforms* do shader em tempo real.
-
-## **5\. Tabela de Comparação: Referência vs. Antigravity**
-
-| Característica | Referência (Imperativo) | Antigravity (R3F Declarativo) | Benefício Antigravity |
-| :---- | :---- | :---- | :---- |
-| **Geometria** | Modificação direta de array | useMemo \+ BufferAttribute | Imutabilidade e performance de recálculo zero. |
-| **Partículas** | Array de Meshes (Objeto Pool) | InstancedMesh (\<Instances\>) | Redução drástica de *draw calls* e uso de CPU. |
-| **Pós-processamento** | ShaderPass manual | \<EffectComposer\> \+ Custom Effect | Melhor gestão de dependências e fusão de shaders. |
-| **Render Loop** | requestAnimationFrame único | Múltiplos useFrame | Desacoplamento lógico; componentes gerenciam sua própria animação. |
-| **Transparência** | Problemática (fundo preto) | Controlada (gl={{alpha: true}}) | Correção de artefatos de alpha blending no Bloom. |
-
-## **6\. Conclusão**
-
-A execução deste protocolo pelo Agente Antigravity resultará em uma aplicação que não apenas replica visualmente o "Ghost Hero", mas o faz com uma arquitetura superior. O uso de R3F permite que a complexidade dos shaders e da física das partículas seja encapsulada em componentes reutilizáveis, enquanto as otimizações de *instancing* e gestão de *uniforms* garantem que a experiência rode suavemente mesmo em dispositivos com hardware gráfico limitado. A fidelidade à estética "VHS/Analógico" é garantida pela portabilidade precisa do código GLSL para o pipeline de efeitos moderno.
-
-
-
-
-
-
-## CÓDIGO REFERENCIA:
-```tsx
-// GhostHero.tsx
-import React, { useRef, useEffect, useState } from 'react';
-import * as THREE from 'three';
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
-import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
-
-// Interfaces para tipagem
-interface GhostParams {
-  bodyColor: number;
-  glowColor: string;
-  eyeGlowColor: string;
-  ghostOpacity: number;
-  ghostScale: number;
-  emissiveIntensity: number;
-  pulseSpeed: number;
-  pulseIntensity: number;
-  eyeGlowIntensity: number;
-  eyeGlowDecay: number;
-  eyeGlowResponse: number;
-  rimLightIntensity: number;
-  followSpeed: number;
-  wobbleAmount: number;
-  floatSpeed: number;
-  movementThreshold: number;
-  revealRadius: number;
-  fadeStrength: number;
-  baseOpacity: number;
-  revealOpacity: number;
-}
-
-interface MousePosition {
-  x: number;
-  y: number;
-}
-
-interface Eyes {
-  leftEye: THREE.Mesh;
-  rightEye: THREE.Mesh;
-  leftGlow: THREE.Mesh;
-  rightGlow: THREE.Mesh;
-  leftEyeMaterial: THREE.MeshBasicMaterial;
-  rightEyeMaterial: THREE.MeshBasicMaterial;
-  leftGlowMaterial: THREE.MeshBasicMaterial;
-  rightGlowMaterial: THREE.MeshBasicMaterial;
-}
-
-const GhostHero: React.FC = () => {
-  // Refs para elementos DOM e Three.js
-  const mountRef = useRef<HTMLDivElement>(null);
-  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  const composerRef = useRef<EffectComposer | null>(null);
-  const sceneRef = useRef<THREE.Scene | null>(null);
-  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
-  const ghostGroupRef = useRef<THREE.Group | null>(null);
-  const atmosphereRef = useRef<THREE.Mesh | null>(null);
-  const animationFrameRef = useRef<number>(0);
-  const eyesRef = useRef<Eyes | null>(null);
-  
-  // Estado para mouse e animação
-  const [mouse, setMouse] = useState<MousePosition>({ x: 0, y: 0 });
-  const [prevMouse, setPrevMouse] = useState<MousePosition>({ x: 0, y: 0 });
-  const [isMouseMoving, setIsMouseMoving] = useState(false);
-  const [time, setTime] = useState(0);
-  const [currentMovement, setCurrentMovement] = useState(0);
-
-  // Parâmetros do fantasma
-  const params: GhostParams = {
-    bodyColor: 0x0f2027,
-    glowColor: "blue",
-    eyeGlowColor: "blue",
-    ghostOpacity: 0.88,
-    ghostScale: 2.4,
-    emissiveIntensity: 8.5,
-    pulseSpeed: 1.6,
-    pulseIntensity: 0.6,
-    eyeGlowIntensity: 6.5,
-    eyeGlowDecay: 0.95,
-    eyeGlowResponse: 0.31,
-    rimLightIntensity: 1.8,
-    followSpeed: 0.03,
-    wobbleAmount: 0.25,
-    floatSpeed: 0.8,
-    movementThreshold: 0.07,
-    revealRadius: 15,
-    fadeStrength: 2.5,
-    baseOpacity: 0.3,
-    revealOpacity: 0.01
-  };
-
-  // Criar os olhos do fantasma
-  const createEyes = (group: THREE.Group): Eyes => {
-    const eyeGroup = new THREE.Group();
-    group.add(eyeGroup);
-    
-    // Geometria dos olhos
-    const eyeGeometry = new THREE.SphereGeometry(0.3, 12, 12);
-    
-    // Material dos olhos
-    const eyeMaterial = new THREE.MeshBasicMaterial({
-      color: 0x0080ff,
-      transparent: true,
-      opacity: 0
-    });
-    
-    // Olho esquerdo
-    const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
-    leftEye.position.set(-0.7, 0.6, 2.0);
-    eyeGroup.add(leftEye);
-    
-    // Olho direito
-    const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
-    rightEye.position.set(0.7, 0.6, 2.0);
-    eyeGroup.add(rightEye);
-    
-    // Efeito de brilho externo
-    const glowGeometry = new THREE.SphereGeometry(0.525, 12, 12);
-    const glowMaterial = new THREE.MeshBasicMaterial({
-      color: 0x0080ff,
-      transparent: true,
-      opacity: 0,
-      side: THREE.BackSide
-    });
-    
-    const leftGlow = new THREE.Mesh(glowGeometry, glowMaterial);
-    leftGlow.position.set(-0.7, 0.6, 1.95);
-    eyeGroup.add(leftGlow);
-    
-    const rightGlow = new THREE.Mesh(glowGeometry, glowMaterial);
-    rightGlow.position.set(0.7, 0.6, 1.95);
-    eyeGroup.add(rightGlow);
-    
-    return {
-      leftEye,
-      rightEye,
-      leftGlow,
-      rightGlow,
-      leftEyeMaterial: eyeMaterial,
-      rightEyeMaterial: eyeMaterial,
-      leftGlowMaterial: glowMaterial,
-      rightGlowMaterial: glowMaterial
-    };
-  };
-
-  // Inicializar Three.js
-  useEffect(() => {
-    if (!mountRef.current) return;
-
-    // Forçar aceleração por GPU
-    document.body.style.transform = "translateZ(0)";
-    document.body.style.backfaceVisibility = "hidden";
-    document.body.style.perspective = "1000px";
-
-    // Criar cena
-    const scene = new THREE.Scene();
-    scene.background = null;
-    sceneRef.current = scene;
-    
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    );
-    camera.position.z = 20;
-    cameraRef.current = camera;
-
-    // Renderer com transparência
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      powerPreference: "high-performance",
-      alpha: true,
-      premultipliedAlpha: false,
-      stencil: false,
-      depth: true,
-      preserveDrawingBuffer: false
-    });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 0.9;
-    renderer.setClearColor(0x000000, 0);
-    rendererRef.current = renderer;
-    
-    mountRef.current.appendChild(renderer.domElement);
-
-    // Configurar pós-processamento
-    const composer = new EffectComposer(renderer);
-    const renderPass = new RenderPass(scene, camera);
-    composer.addPass(renderPass);
-
-    const bloomPass = new UnrealBloomPass(
-      new THREE.Vector2(window.innerWidth, window.innerHeight),
-      0.3,
-      1.25,
-      0.0
-    );
-    composer.addPass(bloomPass);
-    composerRef.current = composer;
-
-    // Shader para efeito de revelação do texto
-    const atmosphereShader = {
-      uniforms: {
-        ghostPosition: { value: new THREE.Vector3(0, 0, 0) },
-        revealRadius: { value: params.revealRadius },
-        fadeStrength: { value: params.fadeStrength },
-        baseOpacity: { value: params.baseOpacity },
-        revealOpacity: { value: params.revealOpacity },
-        time: { value: 0 }
-      },
-      vertexShader: `
-        varying vec2 vUv;
-        varying vec3 vWorldPosition;
-        
-        void main() {
-          vUv = uv;
-          vec4 worldPos = modelMatrix * vec4(position, 1.0);
-          vWorldPosition = worldPos.xyz;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
-      fragmentShader: `
-        uniform vec3 ghostPosition;
-        uniform float revealRadius;
-        uniform float fadeStrength;
-        uniform float baseOpacity;
-        uniform float revealOpacity;
-        uniform float time;
-        varying vec2 vUv;
-        varying vec3 vWorldPosition;
-        
-        void main() {
-          float dist = distance(vWorldPosition.xy, ghostPosition.xy);
-          float dynamicRadius = revealRadius * 0.3 + sin(time * 2.0) * 1.0;
-          float reveal = smoothstep(dynamicRadius * 0.4, dynamicRadius, dist);
-          reveal = pow(reveal, fadeStrength * 2.5);
-          float opacity = mix(revealOpacity * 0.5, baseOpacity * 0.3, reveal);
-          gl_FragColor = vec4(0.0, 0.2, 1.0, opacity * 0.8);
-        }
-      `,
-      transparent: true,
-      depthWrite: false
-    };
-
-    // Criar atmosfera
-    const atmosphereGeometry = new THREE.PlaneGeometry(300, 300);
-    const atmosphereMaterial = new THREE.ShaderMaterial(atmosphereShader);
-    const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
-    atmosphere.position.z = -50;
-    atmosphere.renderOrder = -100;
-    scene.add(atmosphere);
-    atmosphereRef.current = atmosphere;
-
-    // Grupo do fantasma
-    const ghostGroup = new THREE.Group();
-    scene.add(ghostGroup);
-    ghostGroupRef.current = ghostGroup;
-
-    // Geometria do fantasma
-    const ghostGeometry = new THREE.SphereGeometry(2, 40, 40);
-    const positionAttribute = ghostGeometry.getAttribute("position");
-    const positions = positionAttribute.array;
-    
-    for (let i = 0; i < positions.length; i += 3) {
-      if (positions[i + 1] < -0.2) {
-        const x = positions[i];
-        const z = positions[i + 2];
-        const noise1 = Math.sin(x * 5) * 0.35;
-        const noise2 = Math.cos(z * 4) * 0.25;
-        const noise3 = Math.sin((x + z) * 3) * 0.15;
-        const combinedNoise = noise1 + noise2 + noise3;
-        positions[i + 1] = -2.0 + combinedNoise;
-      }
-    }
-    ghostGeometry.computeVertexNormals();
-
-    // Material do fantasma
-    const ghostMaterial = new THREE.MeshStandardMaterial({
-      color: params.bodyColor,
-      transparent: true,
-      opacity: params.ghostOpacity,
-      emissive: 0x0080ff,
-      emissiveIntensity: params.emissiveIntensity,
-      roughness: 0.02,
-      metalness: 0.0,
-      side: THREE.DoubleSide,
-      alphaTest: 0.1
-    });
-
-    const ghostBody = new THREE.Mesh(ghostGeometry, ghostMaterial);
-    ghostGroup.add(ghostBody);
-
-    // Criar olhos
-    eyesRef.current = createEyes(ghostGroup);
-
-    // Event listener para mouse
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = renderer.domElement.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      const y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-      
-      setPrevMouse({ ...mouse });
-      setMouse({ x, y });
-      
-      // Detectar movimento
-      const speed = Math.sqrt(
-        Math.pow(x - mouse.x, 2) + 
-        Math.pow(y - mouse.y, 2)
-      );
-      
-      if (speed > 0.01) {
-        setIsMouseMoving(true);
-        setTimeout(() => setIsMouseMoving(false), 80);
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-
-    // Fake mouse event para inicialização
-    const fakeEvent = new MouseEvent('mousemove', {
-      clientX: window.innerWidth / 2,
-      clientY: window.innerHeight / 2
-    });
-    window.dispatchEvent(fakeEvent);
-
-    // Limpeza
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      cancelAnimationFrame(animationFrameRef.current);
-      
-      if (rendererRef.current) {
-        rendererRef.current.dispose();
-      }
-      
-      if (composerRef.current) {
-        composerRef.current.dispose();
-      }
-      
-      if (mountRef.current && rendererRef.current?.domElement) {
-        mountRef.current.removeChild(rendererRef.current.domElement);
-      }
-    };
-  }, []);
-
-  // Hook para redimensionamento
-  useEffect(() => {
-    const handleResize = () => {
-      if (!cameraRef.current || !rendererRef.current || !composerRef.current) return;
-      
-      cameraRef.current.aspect = window.innerWidth / window.innerHeight;
-      cameraRef.current.updateProjectionMatrix();
-      rendererRef.current.setSize(window.innerWidth, window.innerHeight);
-      composerRef.current.setSize(window.innerWidth, window.innerHeight);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  // Loop de animação
-  useEffect(() => {
-    let lastTime = 0;
-    let animationId: number;
-
-    const animate = (timestamp: number) => {
-      if (!sceneRef.current || !cameraRef.current || !composerRef.current || 
-          !ghostGroupRef.current || !atmosphereRef.current || !eyesRef.current) {
-        animationFrameRef.current = requestAnimationFrame(animate);
-        return;
-      }
-
-      // Calcular delta time
-      const deltaTime = timestamp - lastTime;
-      lastTime = timestamp;
-      
-      if (deltaTime > 100) {
-        animationFrameRef.current = requestAnimationFrame(animate);
-        return;
-      }
-
-      // Atualizar tempo
-      setTime(prev => prev + (deltaTime / 16.67) * 0.01);
-      
-      // Atualizar shader
-      const atmosphereMaterial = atmosphereRef.current.material as THREE.ShaderMaterial;
-      atmosphereMaterial.uniforms.time.value = time;
-      
-      // Movimento do fantasma
-      const targetX = mouse.x * 8;
-      const targetY = mouse.y * 5;
-      
-      ghostGroupRef.current.position.x += (targetX - ghostGroupRef.current.position.x) * params.followSpeed;
-      ghostGroupRef.current.position.y += (targetY - ghostGroupRef.current.position.y) * params.followSpeed;
-      
-      // Atualizar posição de revelação
-      atmosphereMaterial.uniforms.ghostPosition.value.copy(ghostGroupRef.current.position);
-      
-      const prevGhostPosition = ghostGroupRef.current.position.clone();
-      const movementAmount = prevGhostPosition.distanceTo(ghostGroupRef.current.position);
-      
-      setCurrentMovement(prev => 
-        prev * params.eyeGlowDecay + movementAmount * (1 - params.eyeGlowDecay)
-      );
-      
-      // Animação de flutuação
-      const float1 = Math.sin(time * params.floatSpeed * 1.5) * 0.03;
-      const float2 = Math.cos(time * params.floatSpeed * 0.7) * 0.018;
-      const float3 = Math.sin(time * params.floatSpeed * 2.3) * 0.008;
-      ghostGroupRef.current.position.y += float1 + float2 + float3;
-      
-      // Pulsos
-      const pulse1 = Math.sin(time * params.pulseSpeed * 0.8) * params.pulseIntensity * 0.7;
-      
-      // Atualizar materiais
-      const ghostBody = ghostGroupRef.current.children[0] as THREE.Mesh;
-      const ghostMaterial = ghostBody.material as THREE.MeshStandardMaterial;
-      ghostMaterial.emissiveIntensity = params.emissiveIntensity + pulse1;
-      
-      // Animação do corpo
-      const mouseDirection = new THREE.Vector2(
-        targetX - ghostGroupRef.current.position.x,
-        targetY - ghostGroupRef.current.position.y
-      ).normalize();
-      
-      const tiltStrength = 0.1 * params.wobbleAmount;
-      const tiltDecay = 0.95;
-      
-      ghostBody.rotation.z = ghostBody.rotation.z * tiltDecay + 
-                           -mouseDirection.x * tiltStrength * (1 - tiltDecay);
-      ghostBody.rotation.x = ghostBody.rotation.x * tiltDecay + 
-                           mouseDirection.y * tiltStrength * (1 - tiltDecay);
-      ghostBody.rotation.y = Math.sin(time * 1.4) * 0.05 * params.wobbleAmount;
-      
-      // Variações de escala
-      const scaleVariation = 1 + Math.sin(time * 2.1) * 0.025 * params.wobbleAmount + pulse1 * 0.015;
-      const scaleBreath = 1 + Math.sin(time * 0.8) * 0.012;
-      const finalScale = scaleVariation * scaleBreath;
-      ghostBody.scale.set(finalScale, finalScale, finalScale);
-      
-      // Animação dos olhos
-      const normalizedMouseSpeed = Math.sqrt(
-        Math.pow(mouse.x - prevMouse.x, 2) + 
-        Math.pow(mouse.y - prevMouse.y, 2)
-      ) * 8;
-      
-      const isMoving = currentMovement > params.movementThreshold;
-      const targetGlow = isMoving ? 1.0 : 0.0;
-      
-      const glowChangeSpeed = isMoving ? params.eyeGlowResponse * 2 : params.eyeGlowResponse;
-      const newOpacity = eyesRef.current.leftEyeMaterial.opacity + 
-                        (targetGlow - eyesRef.current.leftEyeMaterial.opacity) * glowChangeSpeed;
-      
-      eyesRef.current.leftEyeMaterial.opacity = newOpacity;
-      eyesRef.current.rightEyeMaterial.opacity = newOpacity;
-      eyesRef.current.leftGlowMaterial.opacity = newOpacity * 0.3;
-      eyesRef.current.rightGlowMaterial.opacity = newOpacity * 0.3;
-      
-      // Renderizar
-      composerRef.current.render();
-      
-      animationFrameRef.current = requestAnimationFrame(animate);
-    };
-
-    animationId = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animationId);
-  }, [mouse, prevMouse, time, currentMovement, params, isMouseMoving]);
-
-  return (
-    <div className="ghost-hero-container">
-      <div className="content" id="main-content">
-        <div className="quote-container">
-          <div className="tag">[BRAND AWARENESS]</div>
-          <h1 className="quote-main">Você não vê o design.</h1>
-          <h2 className="quote-sub">Mas ele vê você.</h2>
-          <a href="/sobre" className="cta-button">step inside →</a>
-        </div>
-        <div className="bottom-cta">
-          <a href="/sobre" className="cta-button">step inside →</a>
-        </div>
-      </div>
-      <div ref={mountRef} className="canvas-container"></div>
-      
-      <style jsx>{`
-        @font-face {
-          font-family: 'TT Norms Pro';
-          src: url('/fonts/tt-norms-pro-regular.woff2') format('woff2'),
-               url('/fonts/tt-norms-pro-regular.woff') format('woff');
-          font-weight: 400;
-          font-style: normal;
-          font-display: swap;
-        }
-        
-        @font-face {
-          font-family: 'TT Norms Pro';
-          src: url('/fonts/tt-norms-pro-black.woff2') format('woff2'),
-               url('/fonts/tt-norms-pro-black.woff') format('woff');
-          font-weight: 900;
-          font-style: normal;
-          font-display: swap;
-        }
-        
-        .ghost-hero-container {
-          position: relative;
-          width: 100%;
-          height: 100vh;
-          overflow: hidden;
-          background-color: #000;
-        }
-        
-        .canvas-container {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: 5;
-        }
-        
-        .content {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          padding: 20px;
-          text-align: center;
-          color: #e0e0e0;
-          opacity: 1;
-          transition: opacity 1.5s ease-in;
-          z-index: 10;
-          letter-spacing: -0.03em;
-          font-family: 'TT Norms Pro', ui-sans-serif, system-ui;
-        }
-        
-        .quote-container {
-          max-width: 90%;
-          overflow: hidden;
-        }
-        
-        .tag {
-          font-family: 'TT Norms Pro', monospace;
-          font-size: 12px;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          opacity: 0.7;
-          margin-bottom: 1.5vh;
-          color: #e0e0e0;
-        }
-        
-        .quote-main {
-          font-family: 'TT Norms Pro', system-ui;
-          font-size: 6vw;
-          line-height: 1.3;
-          font-weight: 900;
-          letter-spacing: -0.02em;
-          margin-bottom: 2vh;
-          color: #444444;
-          mix-blend-mode: screen;
-          text-shadow: 0 0 20px rgba(0, 100, 255, 0);
-        }
-        
-        .quote-sub {
-          font-family: 'TT Norms Pro', system-ui;
-          font-size: 4.5vw;
-          line-height: 1.3;
-          font-weight: 900;
-          letter-spacing: -0.02em;
-          margin-bottom: 5vh;
-          color: #444444;
-          mix-blend-mode: screen;
-          text-shadow: 0 0 20px rgba(0, 100, 255, 0);
-        }
-        
-        .cta-button {
-          display: inline-block;
-          color: #e0e0e0;
-          text-decoration: none;
-          font-size: 1rem;
-          font-family: 'TT Norms Pro', system-ui;
-          text-transform: lowercase;
-          transition: all 0.3s ease;
-          position: relative;
-          letter-spacing: 0;
-          padding: 10px 15px;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 4px;
-          margin-top: 20px;
-        }
-        
-        .cta-button:hover {
-          color: #00ffff;
-          border-color: #00ffff;
-        }
-        
-        .cta-button:hover::after {
-          content: "→";
-          position: absolute;
-          left: 100%;
-          margin-left: 8px;
-          opacity: 0;
-          transform: translateX(-5px);
-          transition: all 0.3s ease;
-        }
-        
-        .cta-button:hover::after {
-          opacity: 1;
-          transform: translateX(0);
-        }
-        
-        .bottom-cta {
-          position: fixed;
-          bottom: 40px;
-          width: 100%;
-          text-align: center;
-        }
-        
-        /* Responsividade */
-        @media (max-width: 768px) {
-          .quote-main {
-            font-size: 8vh;
-            max-height: 3rem;
-          }
-          
-          .quote-sub {
-            font-size: 6vh;
-            max-height: 2.5rem;
-          }
-          
-          .cta-button {
-            padding: 8px 12px;
-            font-size: 0.9rem;
-          }
-        }
-        
-        @media (max-width: 480px) {
-          .quote-main {
-            font-size: 6vh;
-          }
-          
-          .quote-sub {
-            font-size: 4.5vh;
-          }
-          
-          .tag {
-            font-size: 10px;
-          }
-        }
-      `}</style>
-    </div>
-  );
-};
-
-export default GhostHero;
-```
-
-## Instruções de Uso
-
-1. **Instalação das dependências:**
-```bash
-npm install three @types/three
-# ou
-yarn add three @types/three
-```
-
-2. **Estrutura de pastas:**
-```
-src/
-├── components/
-│   └── GhostHero.tsx
-├── fonts/
-│   ├── tt-norms-pro-regular.woff2
-│   ├── tt-norms-pro-regular.woff
-│   ├── tt-norms-pro-black.woff2
-│   └── tt-norms-pro-black.woff
-└── pages/
-    └── index.tsx
-```
-
-3. **Importação no seu componente principal:**
-```tsx
-// pages/index.tsx
-import GhostHero from '../components/GhostHero';
-
-export default function Home() {
-  return (
-    <div>
-      <GhostHero />
-    </div>
-  );
-}
-```
-
-## Características Técnicas
-
-- **TypeScript completo:** Todos os objetos Three.js e estados tipados
-- **Hooks otimizados:** useEffect para inicialização, animação e limpeza
-- **Responsividade:** Adapta-se a diferentes tamanhos de tela
-- **Performance:** Limpeza adequada de recursos e otimizações de renderização
-- **Efeitos visuais:**
-  - Fantasma azul com glow que segue o cursor
-  - Texto que é iluminado conforme o fantasma passa
-  - Efeitos de brilho e pós-processamento com UnrealBloomPass
-  - Animação suave dos olhos respondendo ao movimento
-- **Tipografia correta:** TT Norms Pro com fallbacks adequados
-- **CTAs interativos:** Efeitos de hover com animação da seta
-
-## Notas Importantes
-
-1. **Fontes:** Substitua os URLs das fontes pelos caminhos reais onde suas fontes TT Norms Pro estão hospedadas
-2. **Performance:** Este componente é otimizado para WebGPU e funciona melhor em navegadores modernos
-3. **SSR:** Pode ser necessário usar dynamic import com ssr: false se estiver usando Next.js:
-```tsx
-import dynamic from 'next/dynamic';
-
-const GhostHero = dynamic(() => import('../components/GhostHero'), {
-  ssr: false
-});
-```
-
-Este componente está pronto para produção e reproduzirá exatamente o efeito mostrado no vídeo de referência com todos os textos e animações corretos.

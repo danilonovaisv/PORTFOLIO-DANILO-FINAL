@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-ghost-bg text-white">
+    <div className="min-h-screen bg-background text-white">
       {/* Seção 01 — Hero/Manifesto */}
       <AboutHero />
       {/* Seção 02 — Origem Criativa */}

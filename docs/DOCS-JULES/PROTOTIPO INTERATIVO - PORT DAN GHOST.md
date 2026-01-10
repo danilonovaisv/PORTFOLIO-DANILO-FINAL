@@ -1319,7 +1319,7 @@ components/
 
 ## 5. Build, Deploy e Variáveis
 
-**Comando de Build:** `npm run build`
+**Comando de Build:** `pnpm run build`
 
 **Variáveis de Ambiente (`.env.local`):**
 

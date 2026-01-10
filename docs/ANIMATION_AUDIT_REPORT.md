@@ -130,8 +130,8 @@ Estes podem ser refatorados no futuro para usar `src/config/motion.ts`, mas não
 ## ✅ Verificação Final
 
 ```bash
-npm run build  # ✅ Passed
-npm run lint   # ✅ Passed (0 errors)
+pnpm run build  # ✅ Passed
+pnpm run lint   # ✅ Passed (0 errors)
 ```
 
 ---

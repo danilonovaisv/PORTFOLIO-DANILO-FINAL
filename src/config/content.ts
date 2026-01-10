@@ -1,8 +1,11 @@
 export const HOME_CONTENT = {
   hero: {
     tag: '[BRAND AWARENESS]',
-    title: ['Você não vê o design.'],
-    subtitle: '[Mas ele vê você.]',
+    // Desktop/Tablet: 2 linhas
+    title: ['Você não vê', 'o design.'],
+    // Mobile: 3 linhas
+    titleMobile: ['Você não', 'vê o', 'design.'],
+    subtitle: 'Mas ele vê você.',
     cta: 'step inside →',
     scrollHint: '#sobre',
   },
@@ -13,25 +16,25 @@ export const HOME_CONTENT = {
     cta: { label: "let's build something great →", href: '/#contact' },
     categories: [
       {
-        id: 'branding-campaigns',
-        label: 'Brand Identity & Campaigns',
-        labelMobile: 'Branding',
+        id: 'brand-campaigns',
+        label: 'Brand & Campaigns',
+        labelMobile: 'Brand & Campaigns',
         align: 'end',
         thumb:
           'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
       },
       {
-        id: 'motion-design-film',
-        label: 'Motion Design & Film',
-        labelMobile: 'Motion',
+        id: 'videos-motions',
+        label: 'Videos & Motions',
+        labelMobile: 'Videos & Motions',
         align: 'center',
         thumb:
           'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
       },
       {
-        id: 'web-design-technology',
-        label: 'Web Design & Technology',
-        labelMobile: 'Web & Tech',
+        id: 'websites-webcampaigns-tech',
+        label: 'Web Campaigns,\nWebsites & Tech',
+        labelMobile: 'Web Campaigns, Websites & Tech',
         align: 'start',
         thumb:
           'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp',
@@ -304,48 +307,48 @@ export const ABOUT_CONTENT = {
     content: [
       {
         type: 'text' as const,
-        text: 'Desde cedo, sempre prestei atenção no que ficava — não só no que aparecia.',
+        text: 'Desde cedo, sempre prestei atenção no que ficava —\nnão só no que aparecia.',
         highlight: 'ficava',
       },
       {
         type: 'image' as const,
-        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/photo.mp4',
-        alt: 'Memória visual - foto pessoal',
-        preserveRatio: true,
-      },
-      {
-        type: 'text' as const,
-        text: 'Rabiscos viraram ideias. Ideias viraram projetos. E os projetos começaram a deixar rastros.',
-        highlight: 'rastros',
-      },
-      {
-        type: 'image' as const,
-        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/squetch.webp',
-        alt: 'Desenho e rabiscos iniciais',
-        aspectRatio: 'aspect-video',
-      },
-      {
-        type: 'text' as const,
-        text: 'Foi ali que entendi: design não é enfeite. É ferramenta invisível de transformação.',
-        highlight: 'transformação',
-      },
-      {
-        type: 'image' as const,
-        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/design.webp',
-        alt: 'Momento criativo',
+        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-1.webp',
+        alt: 'Memória visual - Danilo Novais',
         aspectRatio: 'aspect-square',
       },
       {
         type: 'text' as const,
-        text: 'Estudei Comunicação, mergulhei no design, no branding e hoje uso inteligência artificial para expandir o alcance sem perder a essência humana da criação.',
+        text: 'Rabiscos viraram ideias.\nIdeias viraram projetos.\nE os projetos começaram a deixar rastros.',
+        highlight: 'rastros',
+      },
+      {
+        type: 'image' as const,
+        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-2.webp',
+        alt: 'Processo criativo e rabiscos',
+        aspectRatio: 'aspect-square',
+      },
+      {
+        type: 'text' as const,
+        text: 'Foi ali que entendi:\ndesign não é enfeite.\nÉ ferramenta invisível de transformação.',
+        highlight: 'transformação',
+      },
+      {
+        type: 'image' as const,
+        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-3.webp',
+        alt: 'Design como ferramenta',
+        aspectRatio: 'aspect-square',
+      },
+      {
+        type: 'text' as const,
+        text: 'Estudei Comunicação, mergulhei no design, no branding\ne hoje uso inteligência artificial para expandir o alcance\nsem perder a essência humana da criação.',
         highlight: 'essência humana',
         isClosing: true,
       },
       {
         type: 'image' as const,
-        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/AI.mp4',
-        alt: 'Inteligência Artificial e criação',
-        aspectRatio: 'aspect-[4/5]',
+        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-4.webp',
+        alt: 'IA e essência humana',
+        aspectRatio: 'aspect-square',
       },
     ],
   },

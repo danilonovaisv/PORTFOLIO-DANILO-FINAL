@@ -26,8 +26,8 @@ export default function MobileHeaderBar({
       <div
         className={`w-full h-[60px] pointer-events-auto ${
           isLight
-            ? 'bg-white/95 border-b border-section-clients/15 backdrop-blur-sm'
-            : 'bg-section-manifesto/90 border-b border-white/5 backdrop-blur-sm'
+            ? 'bg-white border-b border-section-clients/15'
+            : 'bg-section-manifesto border-b border-white/5'
         }`}
       >
         <div className="flex items-center justify-between h-full px-4">
@@ -37,8 +37,10 @@ export default function MobileHeaderBar({
               alt="Danilo"
               width={32}
               height={32}
-              className="h-8 w-auto object-contain"
+              className="h-8 w-8 object-contain"
+              style={{ width: 'auto' }}
               unoptimized
+              loading="eager"
             />
           </Link>
 
