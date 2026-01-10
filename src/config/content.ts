@@ -118,9 +118,9 @@ export const ABOUT_CONTENT = {
     keywords: ['Danilo Novais', 'não vê tudo', 'funciona'],
     videos: {
       desktop:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/HeroSobre.mp4',
       mobile:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/HeroSobreMobile.mp4',
     },
   },
   origin: {
@@ -270,9 +270,9 @@ export const PORTFOLIO_CONTENT = {
   hero: {
     video: {
       desktop:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/video-heroPort.mp4',
       mobile:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/video-heroPort-mobile.mp4',
     },
   },
 };

@@ -377,8 +377,6 @@ Logos:
   font-display: swap;
 }
 
-Videos:
-- Manifesto Video: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
 
 Client Logos:
 - 12 monochromatic SVG logos: `client1.svg` through `client12.svg`
@@ -388,6 +386,9 @@ Client Logos:
 ----
 
 # **🎥 HERO SECTION — VÍDEO LOOPING
+
+**video hero desktop:** https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/video-heroPort.mp4
+**video hero mobile:** https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/video-heroPort-mobile.mp4
 
 ### Estrutura HTML/JSX
 ```tsx

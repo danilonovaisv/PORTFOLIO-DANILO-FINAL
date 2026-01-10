@@ -198,7 +198,7 @@ export const GHOST_CONFIG: GhostConfig = {
   veilOpacity: 0.6,
   veilPulseAmount: 0.6,
   veilBackgroundColor: 'midnightBlue',
-  veilBackgroundOpacity: 1.95,
+  veilBackgroundOpacity: 0.95,
 
   // Fireflies (Matched to CodePen)
   fireflyCount: 20, // CodePen creates 20 fireflies in createFireflies loop
@@ -247,9 +247,9 @@ export const GHOST_CONFIG: GhostConfig = {
   limboMode: false,
 
   // Parâmetros do Véu Atmosférico (Matched to CodePen)
-  revealRadius: 17,
+  revealRadius: 27,
   fadeStrength: 1.3,
-  baseOpacity: 0.98,
+  baseOpacity: 0.38,
   revealOpacity: 0.0,
 };
 
