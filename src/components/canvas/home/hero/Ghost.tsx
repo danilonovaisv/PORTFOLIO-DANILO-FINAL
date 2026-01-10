@@ -68,7 +68,6 @@ export function Ghost({
     gl.setClearColor(0x000000, 0);
 
     // Configurar Bloom e Composer
-    // Nota: Usando construtor padrão, mas garantindo que o WebGLRenderer tenha alpha: true (passado via GhostScene)
     const composer = new EffectComposer(gl);
     composer.setSize(size.width, size.height);
 
@@ -197,15 +196,25 @@ export function Ghost({
     const eyeGeo = new THREE.SphereGeometry(0.12, 12, 12);
     const outerGeo = new THREE.SphereGeometry(0.22, 12, 12);
 
-    const eyeMat = new THREE.MeshBasicMaterial({
+    // Use MeshPhysicalMaterial para melhor controle de brilho e transparência
+    const eyeMat = new THREE.MeshPhysicalMaterial({
       color: eyeColorHex,
       transparent: true,
-      opacity: 0.2,
+      opacity: 0.8, // Ajuste para garantir visibilidade
+      emissive: eyeColorHex,
+      emissiveIntensity: 2,
+      roughness: 0,
+      metalness: 0.5,
     });
-    const outerMat = new THREE.MeshBasicMaterial({
+
+    const outerMat = new THREE.MeshPhysicalMaterial({
       color: eyeColorHex,
       transparent: true,
-      opacity: 0.1,
+      opacity: 0.3,
+      emissive: eyeColorHex,
+      emissiveIntensity: 1,
+      roughness: 0,
+      metalness: 0.5,
     });
 
     const leftEye = new THREE.Mesh(eyeGeo, eyeMat.clone());
@@ -221,11 +230,16 @@ export function Ghost({
     eyesRef.current.add(leftEye, rightEye, leftOuter, rightOuter);
 
     eyesRef.current.userData = {
-      leftEyeMaterial: leftEye.material,
-      rightEyeMaterial: rightEye.material,
-      leftOuterMaterial: leftOuter.material,
-      rightOuterMaterial: rightOuter.material,
+      leftEyeMaterial: leftEye.material as THREE.MeshPhysicalMaterial,
+      rightEyeMaterial: rightEye.material as THREE.MeshPhysicalMaterial,
+      leftOuterMaterial: leftOuter.material as THREE.MeshPhysicalMaterial,
+      rightOuterMaterial: rightOuter.material as THREE.MeshPhysicalMaterial,
     };
+
+    // Garantir que os olhos estejam no grupo principal
+    if (groupRef.current) {
+      groupRef.current.add(eyesRef.current);
+    }
   }, []);
 
   return (
@@ -246,13 +260,15 @@ export function Ghost({
             roughness={0.02}
             metalness={0.0}
             transparent
-            opacity={GHOST_CONFIG.ghostOpacity}
+            opacity={0.1} // 👈 Agora é semi-transparente!
+            blending={THREE.AdditiveBlending} // 👈 Adiciona luz ao fundo
+            depthWrite={false} // 👈 Não bloqueia objetos atrás
             side={THREE.DoubleSide}
             onBeforeCompile={onBeforeCompile}
           />
         </mesh>
 
-        <group ref={eyesRef} />
+        {/* Olhos já estão no grupo via useEffect */}
       </group>
     </>
   );

@@ -49,10 +49,6 @@ const MARQUEE_TEXT = [
 ];
 
 const MOBILE_BREAKPOINT = 768;
-const CARD_STAGGER = 0.06;
-const CARD_ANIMATION_DURATION = 0.45;
-const DESKTOP_OFFSET_X = 120;
-const DESKTOP_MAX_BLUR = 6;
 
 const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);
@@ -114,18 +110,35 @@ const ServiceCard = ({
   const firstWord = words[0];
   const restOfText = words.slice(1).join(' ');
 
+  // Calculate entry direction based on position relative to center (index 3)
+  // "Sair das bases das laterais": Bottom-Left for first half, Bottom-Right for second half
+  const isLeft = index < 3;
+  const isRight = index > 3;
+
+  // X Offset: Move in from sides
+  const xOffsetVal = isLeft ? -150 : isRight ? 150 : 0;
+
+  // Y Offset: Move in from bottom
+  const yOffsetVal = 120;
+
   const cardProgress = useTransform(scrollProgress, (value) => {
-    const start = index * CARD_STAGGER;
-    const end = start + CARD_ANIMATION_DURATION;
+    // Timing configuration to ensure all cards enter before section leaves
+    // Range [0, 0.75] ensures completion while section is still 25% valid
+    const totalRange = 0.75;
+    const cardDuration = 0.35;
+    const staggerDelay = (totalRange - cardDuration) / 6; // Distributed across 7 items (indices 0-6)
+
+    const start = index * staggerDelay;
+    const end = start + cardDuration;
+
+    // Smooth stepping
     return clamp((value - start) / (end - start), 0, 1);
   });
-  const translateX = useTransform(cardProgress, [0, 1], [DESKTOP_OFFSET_X, 0]);
+
+  const translateX = useTransform(cardProgress, [0, 1], [xOffsetVal, 0]);
+  const translateY = useTransform(cardProgress, [0, 1], [yOffsetVal, 0]);
   const opacity = useTransform(cardProgress, [0, 1], [0, 1]);
-  const blur = useTransform(
-    cardProgress,
-    [0, 1],
-    [`blur(${DESKTOP_MAX_BLUR}px)`, 'blur(0px)']
-  );
+  const blur = useTransform(cardProgress, [0, 1], ['blur(10px)', 'blur(0px)']);
 
   const mobileMotionProps = {
     initial: { opacity: 0, x: 80, filter: 'blur(6px)' },
@@ -148,7 +161,11 @@ const ServiceCard = ({
         'hover:bg-white/10 hover:border-l-4 hover:border-l-bluePrimary transition-all duration-300'
       )}
       {...(!isDesktop ? mobileMotionProps : {})}
-      style={isDesktop ? { x: translateX, opacity, filter: blur } : undefined}
+      style={
+        isDesktop
+          ? { x: translateX, y: translateY, opacity, filter: blur }
+          : undefined
+      }
     >
       {/* Circle Icon */}
       <div className="shrink-0 w-8 h-8 md:w-9 md:h-9 rounded-full bg-bluePrimary/20 flex items-center justify-center">

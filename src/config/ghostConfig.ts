@@ -171,7 +171,7 @@ export const GHOST_CONFIG: GhostConfig = {
   rendererDPR: [1, 2],
 
   // Aparência do Ghost (Matched to CodePen)
-  ghostScale: 1.5,
+  ghostScale: 0.6,
   bodyColor: 'deepSpace', // 0x0f2027
   glowColor: 'blue', // "blue"
   eyeGlowColor: 'blue',
@@ -247,7 +247,7 @@ export const GHOST_CONFIG: GhostConfig = {
   limboMode: false,
 
   // Parâmetros do Véu Atmosférico (Matched to CodePen)
-  revealRadius: 27,
+  revealRadius: 37,
   fadeStrength: 1.3,
   baseOpacity: 0.38,
   revealOpacity: 0.0,

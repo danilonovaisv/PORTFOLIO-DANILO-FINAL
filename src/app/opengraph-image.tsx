@@ -58,7 +58,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: BRAND.colors.background,
-    fontFamily: BRAND.typography.primary,
+    fontFamily: BRAND.assets.fonts.primary,
   },
   logoContainer: {
     display: 'flex',

@@ -7,7 +7,6 @@ import React, { useMemo, useRef } from 'react';
 import { useReducedMotion } from 'framer-motion';
 import type { NavItem } from './types';
 import styles from './DesktopFluidHeader.module.css';
-import { BRAND } from '@/config/brand';
 
 const HeaderFluidGlass = dynamic(
   () => import('@/components/canvas/header/HeaderFluidGlass'),
@@ -57,7 +56,7 @@ export default function DesktopFluidHeader({
         isLight ? 'header--light' : ''
       }`}
     >
-      <div className={BRAND.layout.container + ' pt-6 flex justify-center'}>
+      <div className={'std-grid pt-6 flex justify-center'}>
         <div
           ref={wrapRef}
           className="pointer-events-auto w-fit relative mx-auto"

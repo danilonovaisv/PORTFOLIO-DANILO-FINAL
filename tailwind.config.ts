@@ -10,11 +10,21 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: BRAND.colors,
+      colors: {
+        ...BRAND.colors,
+        // Aliases for backward compatibility
+        primary: BRAND.colors.bluePrimary,
+        accent: BRAND.colors.blueAccent,
+      },
       fontFamily: {
-        sans: ['TT Norms Pro', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        mono: ['PPSupplyMono', 'monospace'],
-        display: ['TT Norms Pro', 'ui-sans-serif'],
+        sans: [
+          BRAND.assets.fonts.primary,
+          'ui-sans-serif',
+          'system-ui',
+          'sans-serif',
+        ],
+        mono: [BRAND.assets.fonts.mono, 'monospace'],
+        display: [BRAND.assets.fonts.primary, 'ui-sans-serif'],
       },
     },
   },

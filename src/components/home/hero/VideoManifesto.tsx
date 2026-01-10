@@ -106,14 +106,6 @@ export function VideoManifesto({ src }: VideoManifestoProps) {
             <div className="video-overlay absolute inset-0 pointer-events-none" />
 
             {/* Metadados */}
-            <div className="video-text absolute bottom-0 left-0 w-full p-4 md:p-6">
-              <p className="text-white/70 text-xs md:text-sm mb-1">
-                Showreel 2025
-              </p>
-              <p className="text-white text-sm md:text-lg font-medium">
-                Strategy • Branding • Motion
-              </p>
-            </div>
 
             {/* Toggle som */}
             <button
