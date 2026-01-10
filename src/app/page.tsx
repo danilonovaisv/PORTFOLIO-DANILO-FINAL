@@ -1,9 +1,13 @@
 import type { Metadata } from 'next';
 import HomeHero from '@/components/home/hero/HomeHero';
-import ManifestoSection from '@/components/home/hero/ManifestoSection';
+// ManifestoSection import removed
+
 import PortfolioShowcase from '@/components/home/portfolio-showcase/PortfolioShowcase';
 import FeaturedProjectsSection from '@/components/home/featured-projects/FeaturedProjectsSection';
+
 import { SiteClosure } from '@/components/layout/SiteClosure';
+import { VideoManifesto } from '@/components/home/hero/VideoManifesto';
+import { BRAND } from '@/config/brand';
 
 export const metadata: Metadata = {
   title: 'Danilo Novais | Creative Developer',
@@ -27,7 +31,7 @@ export default function HomePage() {
   return (
     <>
       <HomeHero />
-      <ManifestoSection />
+      <VideoManifesto src={BRAND.assets.video.manifesto} />
       <PortfolioShowcase />
       <FeaturedProjectsSection />
       <SiteClosure />

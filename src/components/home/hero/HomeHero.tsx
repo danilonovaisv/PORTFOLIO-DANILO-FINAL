@@ -7,9 +7,10 @@ import dynamic from 'next/dynamic';
 import { BRAND } from '@/config/brand';
 import { Preloader } from '@/components/ui/Preloader';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 
 import HeroCopy from './HeroCopy';
-import ManifestoThumb from './ManifestoThumb';
+// ManifestoThumb removed
 
 // Dynamic import for WebGL Scene
 const GhostScene = dynamic(
@@ -29,6 +30,7 @@ const heroGradient = `radial-gradient(circle at center, ${BRAND.colors.neutral},
 export default function HomeHero() {
   const heroRef = useRef<HTMLElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), CONFIG.preloadMs);
@@ -45,7 +47,7 @@ export default function HomeHero() {
       <section
         id="hero"
         ref={heroRef}
-        className="relative w-full min-h-dvh md:min-h-[200vh]"
+        className="relative w-full min-h-screen"
         style={{ backgroundImage: heroGradient }}
         aria-label="Portfolio Hero Section"
       >
@@ -62,7 +64,7 @@ export default function HomeHero() {
 
         {/* Background WebGL Layer (z-20) - Desktop Only */}
         <div className="sticky top-0 h-screen w-full z-20 overflow-hidden pointer-events-none">
-          {!isMobile && <GhostScene />}
+          {!isMobile && !prefersReducedMotion && <GhostScene />}
         </div>
 
         {/* Hero Content Layer (z-10) */}
@@ -71,9 +73,6 @@ export default function HomeHero() {
             <HeroCopy />
           </div>
         </div>
-
-        {/* Manifesto Thumb (Desktop) - Floating interactive component (z-30) */}
-        <ManifestoThumb heroRef={heroRef} src={BRAND.assets.video.manifesto} />
 
         <div className="sr-only">
           Decorative animation of a floating spectral ghost with glowing

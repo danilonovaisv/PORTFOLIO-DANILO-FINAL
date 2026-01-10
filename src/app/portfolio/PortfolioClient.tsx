@@ -30,7 +30,10 @@ export default function PortfolioClient() {
       <PortfolioHeroNew />
 
       {/* Galeria de projetos com filtros */}
-      <ProjectsGallery onProjectOpen={handleOpenProject} />
+      <ProjectsGallery 
+        onProjectOpen={handleOpenProject} 
+        isPaused={isModalOpen}
+      />
 
       {/* Modal de projeto */}
       <PortfolioModalNew

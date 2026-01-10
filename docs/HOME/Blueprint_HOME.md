@@ -119,7 +119,7 @@ body {
 
 .display-text {
   font-size: var(--font-display);
-  font-weight: 700;
+  font-weight: 900;
   line-height: 1.1;
 }
 
@@ -394,7 +394,8 @@ Client Logos:
 ### 3.1 Information Architecture
 Homepage
 ├── Header (persistent navigation)
-├── Hero + Manifesto Video
+├── Hero
+├── Manifesto Video
 ├── Portfolio Showcase (3 categories)
 ├── Featured Projects (4 highlighted works)
 ├── Clients/Brands (logo grid)
@@ -513,7 +514,7 @@ The homepage follows a narrative arc:
 
 ----
 
-# **4.2 Hero + Manifesto
+# **4.2 Hero
 
 ## ✨ Objetivo
 - Quero trazer um impacto na primeira impressão para quem entra na minha pagina, gerar curiosidade. Criar uma experiência hero imersiva e responsiva, com atmosfera 3D, manifesto em vídeo e animação de entrada impactante. A sessão além da animçao 3D (Inspirado em: CodePen: https://codepen.io/danilonovaisv/pen/YPWyrdW) com a frase de impacto contará um video manifesto com resumo poetico do meu trabalho (Animação scroll do video baseada na referencia do site ('https://loandbehold.studio/').

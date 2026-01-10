@@ -60,6 +60,7 @@ jest.mock('framer-motion', () => ({
   useMotionValue: jest.fn(),
   useTransform: jest.fn(),
   animate: jest.fn(() => ({ stop: jest.fn() })),
+  useReducedMotion: jest.fn(() => false),
 }));
 
 describe('HeroCopy Component Responsiveness', () => {

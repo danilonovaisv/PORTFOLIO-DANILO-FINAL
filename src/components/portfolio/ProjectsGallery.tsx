@@ -6,18 +6,20 @@
 
 'use client';
 
-import { FC, useMemo, useState } from 'react';
+import { FC, useMemo, useState, useEffect } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import type { ProjectCategory, PortfolioProject } from '@/types/project';
 import { PORTFOLIO_PROJECTS, filterProjectsByCategory } from '@/data/projects';
 import CategoryFilter from './CategoryFilter';
 import PortfolioCard from './PortfolioCard';
+import useParallax from '@/hooks/useParallax';
 
 interface ProjectsGalleryProps {
   onProjectOpen?: (_project: PortfolioProject) => void;
   showFilter?: boolean;
   maxProjects?: number;
   className?: string;
+  isPaused?: boolean;
 }
 
 const easing = [0.22, 1, 0.36, 1] as const;
@@ -27,9 +29,19 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
   showFilter = true,
   maxProjects,
   className = '',
+  isPaused = false,
 }) => {
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>('all');
   const prefersReducedMotion = useReducedMotion();
+  
+  // Parallax Setup
+  const { galleryRef, trackRef, isScrolling } = useParallax({
+    smoothness: 0.08, // Levemente mais suave que o padrão
+    enabled: !prefersReducedMotion && !isPaused,
+  });
+
+  // Estado para altura do container (Sync Track -> Scroll)
+  const [galleryHeight, setGalleryHeight] = useState('auto');
 
   // Filtra projetos baseado na categoria ativa
   const filteredProjects = useMemo(() => {
@@ -40,14 +52,46 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
     return projects;
   }, [activeCategory, maxProjects]);
 
+  // Sync Height Effect: Mede o track e define a altura do container de scroll
+  useEffect(() => {
+    if (!trackRef.current || prefersReducedMotion) {
+      setGalleryHeight('auto');
+      return;
+    }
+
+    const updateHeight = () => {
+      if (trackRef.current) {
+        const height = trackRef.current.offsetHeight;
+        // Adiciona um pequeno buffer para garantir que o scroll chegue ao fim
+        setGalleryHeight(`${height}px`);
+      }
+    };
+
+    // Observer para mudanças de tamanho no conteúdo (ex: filtro)
+    const resizeObserver = new ResizeObserver(updateHeight);
+    resizeObserver.observe(trackRef.current);
+    
+    // Executa imediatamente também
+    updateHeight();
+
+    return () => resizeObserver.disconnect();
+  }, [filteredProjects, prefersReducedMotion, activeCategory, trackRef]);
+
   return (
     <section
+      ref={galleryRef as React.RefObject<HTMLElement>}
       id="projects-gallery"
       aria-label="Galeria de Projetos"
-      className={`relative z-10 min-h-screen bg-ghost-bg ${className}`}
+      className={`relative z-10 bg-ghost-bg transition-[height] duration-300 ease-out h-[var(--gallery-height)] ${className}`}
+      style={{ '--gallery-height': galleryHeight } as React.CSSProperties}
     >
-      {/* Gallery Track */}
-      <div className="relative w-full py-16 md:py-24 overflow-hidden">
+      {/* Gallery Track (Fixed or Static) */}
+      <div 
+        ref={trackRef}
+        className={`w-full py-16 md:py-24 overflow-hidden ${
+          !prefersReducedMotion && 'md:fixed md:top-0 md:left-0 md:w-full will-change-transform'
+        }`}
+      >
         {/* Background glow effects */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-focus-ring/5 rounded-full blur-[120px]" />
@@ -84,10 +128,13 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
           {/* Grid de projetos - Masonry com 12 colunas */}
           <motion.div
             layout={!prefersReducedMotion}
-            className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5"
+            className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8"
             role="tabpanel"
             id={`projects-${activeCategory}`}
             aria-label={`Projetos de ${activeCategory}`}
+            /* Removemos o layout prop se estivermos usando custom parallax scroll para evitar conflitos? 
+               Não, framer motion layout deve funcionar para reordenação interna. 
+            */
           >
             <AnimatePresence mode="popLayout">
               {filteredProjects.map((project, index) => (
@@ -96,6 +143,8 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
                   project={project}
                   index={index}
                   onOpen={onProjectOpen}
+                  /* Se estiver scrollando rápido, podemos otimizar renderização */
+                  className={isScrolling ? 'pointer-events-none' : ''}
                 />
               ))}
             </AnimatePresence>

@@ -1,12 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import {
-  AnimatePresence,
-  motion,
-  useInView,
-  useReducedMotion,
-} from 'framer-motion';
+import { AnimatePresence, motion, useInView } from 'framer-motion';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import GhostEyes from './GhostEyes';
 import { motionTokens } from './motion';
 

@@ -114,7 +114,7 @@ body {
 
 .display-text {
   font-size: var(--font-display);
-  font-weight: 700;
+  font-weight: 900;
   line-height: 1.1;
 }
 
@@ -126,7 +126,7 @@ body {
 
 .h2 {
   font-size: var(--font-h2);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.15;
 }
 

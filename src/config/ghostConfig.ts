@@ -166,24 +166,24 @@ export const GHOST_CONFIG: GhostConfig = {
   rendererDPR: [1, 2],
 
   // Aparência do Ghost (alinhado com CodePen)
-  ghostScale: 1.7,
-  bodyColor: 'cyan', // #0f2027
-  glowColor: 'blue', // #0080ff (Ghost Blue)
-  eyeGlowColor: 'violet', // #8a2be2
-  ghostOpacity: 0.88,
-  emissiveIntensity: 4.8,
-  pulseSpeed: 1.6,
-  pulseIntensity: 0.6,
-  floatSpeed: 1.6,
+  ghostScale: 1.65,
+  bodyColor: 'cyan',
+  glowColor: 'cyan', // Electric Cyan center
+  eyeGlowColor: 'magenta', // Deep contrast
+  ghostOpacity: 0.95,
+  emissiveIntensity: 3.5, // Balanced for Bloom
+  pulseSpeed: 3.5, // Much faster heartbeat
+  pulseIntensity: 0.5,
+  floatSpeed: 2.8, // Faster floating
 
   // Comportamento do Ghost
-  followSpeed: 0.05,
-  movementThreshold: 0.7,
+  followSpeed: 0.15, // Much snappier (was 0.05)
+  movementThreshold: 0.5,
 
   // Iluminação
-  rimLightIntensity: 1.8,
-  ambientLightColor: 'blue', // #040013
-  ambientLightIntensity: 0.8,
+  rimLightIntensity: 2.5, // Brighter Rims
+  ambientLightColor: 'midnightBlue',
+  ambientLightIntensity: 1.2,
 
   // Véu Atmosférico (Revelação)
   veilColor: 'electricBlue', // #0080ff
@@ -191,8 +191,8 @@ export const GHOST_CONFIG: GhostConfig = {
   veilEmissiveIntensity: 3.6,
   veilOpacity: 0.7,
   veilPulseAmount: 0.6,
-  veilBackgroundColor: 'voidSky', // #020112
-  veilBackgroundOpacity: 0.88,
+  veilBackgroundColor: 'midnightBlue', // Matches background #040013
+  veilBackgroundOpacity: 0.95,
 
   // Fireflies (alinhado com CodePen)
   fireflyCount: 290,
@@ -240,10 +240,11 @@ export const GHOST_CONFIG: GhostConfig = {
   limboMode: false,
 
   // Parâmetros do Véu Atmosférico (alinhado com CodePen)
-  revealRadius: 37,
-  fadeStrength: 1.7,
-  baseOpacity: 0.9,
-  revealOpacity: 0.05,
+  // Parâmetros do Véu Atmosférico
+  revealRadius: 18, // Wider flashlight
+  fadeStrength: 2.0,
+  baseOpacity: 0.96,
+  revealOpacity: 0.0,
 };
 
 // Helper para converter cor do config para formato numérico (Three.js)

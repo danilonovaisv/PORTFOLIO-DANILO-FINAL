@@ -58,6 +58,12 @@ export function Ghost() {
     setTimeout(() => {
       setIsLoaded(true);
     }, 500);
+
+    return () => {
+      if (composer) {
+        composer.dispose();
+      }
+    };
   }, [gl, scene, camera]);
 
   // Deformação da geometria do corpo
@@ -179,6 +185,11 @@ export function Ghost() {
         fadeStrength: { value: GHOST_CONFIG.fadeStrength },
         baseOpacity: { value: GHOST_CONFIG.baseOpacity },
         revealOpacity: { value: GHOST_CONFIG.revealOpacity },
+        veilColor: {
+          value: new THREE.Color(
+            getConfigColorHex(GHOST_CONFIG.veilBackgroundColor)
+          ),
+        },
         time: { value: 0 },
       },
       vertexShader: `
@@ -197,6 +208,7 @@ export function Ghost() {
         uniform float fadeStrength;
         uniform float baseOpacity;
         uniform float revealOpacity;
+        uniform vec3 veilColor;
         uniform float time;
         varying vec2 vUv;
         varying vec3 vWorldPosition;
@@ -207,7 +219,7 @@ export function Ghost() {
           float reveal = smoothstep(dynamicRadius * 0.2, dynamicRadius, dist);
           reveal = pow(reveal, fadeStrength);
           float opacity = mix(revealOpacity, baseOpacity, reveal);
-          gl_FragColor = vec4(0.001, 0.001, 0.002, opacity);
+          gl_FragColor = vec4(veilColor, opacity);
         }
       `,
       transparent: true,
@@ -253,6 +265,21 @@ export function Ghost() {
       (targetX - groupRef.current.position.x) * GHOST_CONFIG.followSpeed;
     groupRef.current.position.y +=
       (targetY - groupRef.current.position.y) * GHOST_CONFIG.followSpeed;
+
+    // Tilt based on velocity (Organic Lag)
+    const velocityX = targetX - groupRef.current.position.x;
+    const velocityY = targetY - groupRef.current.position.y;
+
+    groupRef.current.rotation.z = THREE.MathUtils.lerp(
+      groupRef.current.rotation.z,
+      -velocityX * 0.1,
+      0.1
+    );
+    groupRef.current.rotation.x = THREE.MathUtils.lerp(
+      groupRef.current.rotation.x,
+      velocityY * 0.1,
+      0.1
+    );
 
     // Animação flutuante
     const float1 = Math.sin(t * GHOST_CONFIG.floatSpeed * 1.5) * 0.03;

@@ -5,13 +5,14 @@ Gerado em: 1/10/2026, 3:34:16 AM
 ---
 
 ## 📦 Dependências não utilizadas
+
 - @dataconnect/admin-generated
 - @react-three/postprocessing
 - motion-studio-mcp
 - postprocessing
 
-
 ## 🧱 Dependências de desenvolvimento não utilizadas
+
 - @next/bundle-analyzer
 - @tailwindcss/postcss
 - @tailwindcss/typography
@@ -24,9 +25,9 @@ Gerado em: 1/10/2026, 3:34:16 AM
 - shadcn
 - vitest
 
-
 ## 🌿 Branches no repositório
-- * main
+
+- - main
 - remotes/origin/HEAD -> origin/main
 - remotes/origin/main
 - bolt-optimize-ghost-scene-13440400994002727002
@@ -43,8 +44,8 @@ Gerado em: 1/10/2026, 3:34:16 AM
 - remotes/origin/visual-alignment-sprint-01-9779188724417258277
 - codex/update-thumbnail-reveal-for-desktop
 
-
 ## 🪓 Branches potencialmente obsoletas
+
 - remotes/origin/bolt-optimize-ghost-scene-13440400994002727002
 - remotes/origin/bolt-optimize-ghost-canvas-11599468683465732858
 - remotes/origin/codex/adjust-hero-section-ghost-animation

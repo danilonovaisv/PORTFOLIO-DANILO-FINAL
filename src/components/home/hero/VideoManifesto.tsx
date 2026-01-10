@@ -1,0 +1,172 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+
+interface VideoManifestoProps {
+  src: string;
+}
+
+export function VideoManifesto({ src }: VideoManifestoProps) {
+  const [muted, setMuted] = useState(true);
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const [videoQuality, setVideoQuality] = useState<'hd' | 'sd'>('hd');
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Lazy loading
+  useEffect(() => {
+    if (!wrapperRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+
+    observer.observe(wrapperRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // Mutar ao sair da seção
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          setMuted(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // Detectar qualidade de conexão
+  useEffect(() => {
+    if ('connection' in navigator) {
+      const conn = (navigator as any).connection;
+      if (conn?.effectiveType === '4g' || conn?.effectiveType === '5g') {
+        setVideoQuality('hd');
+      } else {
+        setVideoQuality('sd');
+      }
+    }
+  }, []);
+
+  // Aplicar mute
+  useEffect(() => {
+    if (!videoRef.current) return;
+    videoRef.current.muted = muted;
+  }, [muted]);
+
+  const videoSrc =
+    videoQuality === 'hd' ? src : src.replace('.mp4', '-720p.mp4');
+
+  const posterSrc = src.replace('.mp4', '-poster.jpg');
+
+  return (
+    <motion.section
+      ref={sectionRef}
+      className="video-manifesto w-full"
+      initial={{ opacity: 0, scale: 0.95, y: 20 }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, amount: 0.3 }}
+    >
+      <div
+        ref={wrapperRef}
+        className="video-wrapper relative w-full aspect-video"
+      >
+        {shouldLoad ? (
+          <>
+            <motion.video
+              ref={videoRef}
+              className="w-full h-full object-cover"
+              src={videoSrc}
+              poster={posterSrc}
+              autoPlay
+              loop
+              muted={muted}
+              playsInline
+              preload="metadata"
+              aria-label="Vídeo showreel demonstrando projetos de design gráfico"
+            />
+
+            {/* Overlay */}
+            <div className="video-overlay absolute inset-0 pointer-events-none" />
+
+            {/* Metadados */}
+            <div className="video-text absolute bottom-0 left-0 w-full p-4 md:p-6">
+              <p className="text-white/70 text-xs md:text-sm mb-1">
+                Showreel 2025
+              </p>
+              <p className="text-white text-sm md:text-lg font-medium">
+                Strategy • Branding • Motion
+              </p>
+            </div>
+
+            {/* Toggle som */}
+            <button
+              type="button"
+              className="toggle-sound absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/70 transition-colors focus-visible:outline-2 focus-visible:outline-[#4fe6ff] focus-visible:outline-offset-2"
+              onClick={() => setMuted((m) => !m)}
+              aria-label={
+                muted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'
+              }
+              aria-pressed={!muted ? 'true' : 'false'}
+            >
+              {muted ? (
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+                  />
+                </svg>
+              )}
+            </button>
+          </>
+        ) : (
+          // Placeholder
+          <div className="w-full h-full bg-linear-to-br from-neutral-900 to-neutral-800 animate-pulse" />
+        )}
+      </div>
+    </motion.section>
+  );
+}

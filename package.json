@@ -12,7 +12,7 @@
   "engines": {
     "node": ">=22"
   },
-  "packageManager": "pnpm@10.27.0",
+  "packageManager": "pnpm@10.28.0",
   "scripts": {
     "dev": "next dev",
     "cleandev": "rm -rf .next && pnpm dev",
@@ -39,6 +39,8 @@
   },
   "dependencies": {
     "@dataconnect/admin-generated": "link:src/dataconnect-admin-generated",
+    "@genkit-ai/google-genai": "^1.27.0",
+    "@google/adk": "^0.2.2",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@react-three/postprocessing": "^3.0.4",
@@ -73,7 +75,7 @@
     "@testing-library/react": "^16.3.1",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
-    "@types/node": "^25.0.3",
+    "@types/node": "^25.0.5",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@types/three": "^0.182.0",

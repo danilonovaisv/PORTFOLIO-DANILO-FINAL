@@ -1,625 +1,1023 @@
-## Análise HOME · Header + Hero Ghost
+Com certeza. Este é um momento crítico da refatoração. Se a Hero e o Manifesto estão "acoplados" (um dentro do outro), isso prejudica a performance e a flexibilidade do layout.
 
-## 1️⃣ Visão Geral
-
-Com base nas referências enviadas:
-
-- **Layout (fonte da verdade)**
-  - Hero com ghost brilhante à esquerda, texto “[BRAND AWARENESS] / Você não vê o design. / Mas ele vê você.” alinhado à direita do ghost.
-  - CTA “step inside” centralizado sob o texto principal.
-  - Thumb/manifesto de vídeo no canto inferior direito do Hero.
-  - Header em “pill” de glass fluido, full‑width, alinhado ao grid da página, com navegação “home / sobre / portfólio showcase / contato”.
-  - Versões desktop e mobile bem definidas (hierarquia e ritmo mantidos).
-
-- **Motion / Ghost (fonte da verdade técnica)**
-  - CodePen “Ghost Hero” com:
-    - Preloader em fullscreen com ghost SVG flutuando, olhos pulsando, texto “Summoning spirits” + progress bar.
-    - Cena Three.js com ghost 3D seguindo o cursor, partículas, fireflies e shader de analog decay (grain, scanlines, jitter, vSync, vignette).
-    - Transição preloader → conteúdo → canvas via classes `.fade-out` / `.fade-in` com `transition: opacity ...`.
-
-- **Estado atual disponível para análise**
-  - Você forneceu:
-    - Referência de motion completa (HTML, CSS e TypeScript do CodePen Ghost Hero).
-    - Referências visuais (crops do Hero, layout desktop completo e mobile).
-  - **Não** há, neste contexto, o código renderizado da HOME em Next.js (App Router) com `HomeHero.tsx`, `Header.tsx` etc; só conhecemos os nomes dos arquivos via GitHub (`src/components/home/hero/HomeHero.tsx`, `src/components/layout/header/DesktopFluidHeader.tsx`, etc.), mas não o conteúdo.
-
-Por isso:
-
-- A análise de **layout + animações abaixo é feita cruzando**:
-  - Referência visual (imagens da HOME).
-  - Referência de motion (CodePen Ghost Hero).
-- E **não consegue confirmar** se a implementação atual em Next.js já está alinhada 1:1, porque o JSX/CSS/Framer dos componentes reais não está acessível aqui.
-
-Ainda assim, dá para:
-
-1. Extrair **critérios objetivos** de layout e motion a partir das referências.
-2. Identificar **riscos de desvio** claros observando o CodePen (ghost/canvas, preloader, analog shader).
-3. Gerar **prompts atômicos** para o agente executor alinhar `Header` + `HomeHero` ao layout e motion de referência.
+Aqui está o **Prompt Técnico Atômico**, formatado especificamente para o teu **Agente Orquestrador Antigravity**, focado em desacoplar esses componentes mantendo a fluidez visual.
 
 ---
 
-## 2️⃣ Diagnóstico por Seção
+### 🛠️ PROMPT: REFATORAÇÃO ARQUITETURAL — SPLIT HERO & MANIFESTO
 
-### 🎯 Seção: HEADER
+**CONTEXTO**
+Atualmente, a lógica do "Manifesto" (Vídeo/Thumb) pode estar aninhada dentro de `HomeHero.tsx` ou dependente do layout absoluto da Hero.
+O objetivo é **desacoplar** totalmente: transformar em duas secções irmãs (siblings) na `page.tsx`.
 
-**Contexto:**  
-O CodePen Ghost Hero não implementa o header. O header visto nas imagens (desktop/mobile) parece vir de outro código (provavelmente `src/components/layout/header/*.tsx`), que não está visível aqui.
+1. **Hero Section:** Apenas Ghost, Título, Subtítulo e Scroll Indicator.
+2. **Manifesto Section:** O bloco de vídeo/texto que aparece logo a seguir ao scroll.
 
-Por isso, os pontos abaixo são avaliados frente **ao que está implementado no snippet (Header ausente)** vs **o que a referência exige**.
+**ARQUIVOS ALVO**
 
-- 📌 Fidelidade ao layout (HOME-PORTFOLIO-LAYOUYT-GHOST.jpg): **✗ (Não – Header não existe no snippet Ghost Hero)**  
-- 🎞️ Qualidade da animação (glass/fluid): **✗ (Não – não há animação de glass no snippet analisado)**  
-- ↔️ Integração com Hero: **✗ (Não – no snippet, o Hero ocupa fullscreen sem header)**  
-- 📱 Mobile: **✗ (Não avaliável – não há variação de header mobile no snippet)**  
+* `src/app/page.tsx` (Orquestrador da página)
+* `src/components/home/hero/HomeHero.tsx` (Componente a limpar)
+* `src/components/home/hero/ManifestoSection.tsx` (Componente a isolar)
 
-#### ❌ Problema
+**PASSO A PASSO DA EXECUÇÃO**
 
-1. **Header inexistente no snippet de referência de motion**
-   - O CodePen trabalha apenas com preloader + Hero central, sem qualquer estrutura de header (logo, navegação, glass fluido).
-   - Isso impede verificar se o header real (em `DesktopFluidHeader.tsx`, `MobileHeaderBar.tsx`, etc.) está:
-     - Alinhado ao grid/margens da HOME.
-     - Proporcional em altura ao Hero.
-     - Integrado ao glass/fluid 3D corretamente.
+1. **Análise de Dependência:**
+* Abra `src/components/home/hero/HomeHero.tsx`.
+* Verifique se `<ManifestoSection />` ou `<ManifestoThumb />` está a ser renderizado lá dentro.
+* **Ação:** Remova a renderização do Manifesto de dentro da Hero. A Hero deve terminar no seu limite lógico (conteúdo textual + ghost).
 
-2. **Integração Header ↔ Hero não está prototipada no CodePen**
-   - No snippet, tanto o `preloader` quanto `.content` estão com `position: fixed` e tomam 100% da viewport.
-   - Em produção, o header precisa viver **acima** do Hero, com glass/fluid independente, sem competir com o ghost.
 
-#### 🔧 Correção Técnica (especificação)
+2. **Ajuste de Layout da Hero (`HomeHero.tsx`):**
+* Garanta que a `HomeHero` tem `min-h-screen` (ou altura definida) e `position: relative`.
+* Certifique-se de que não sobra nenhum "buraco" ou margem excessiva na parte inferior onde o vídeo costumava estar.
 
-> Não é possível validar o código atual, então aqui estão **critérios corretivos** que o Header deve atender quando você alinhar `Header.tsx` / `DesktopFluidHeader.tsx` / `MobileHeaderBar.tsx` à referência.
 
-- **Layout desktop**
-  1. Header em forma de “pill” horizontal:
-     - Ocupa aproximadamente **80–90% da largura** visual, alinhado ao centro, com margens laterais iguais às do Hero.
-     - Altura visualmente proporcional (ligeiramente mais baixa que o Hero, não chamando mais atenção que o ghost).
-  2. Logo à esquerda, navegação “home / sobre / portfólio showcase / contato” distribuída na metade direita.
-  3. Fundo glass com blur + leve glow, mas **sem exceder** a intensidade luminosa do ghost.
+3. **Promoção do Manifesto (`ManifestoSection.tsx`):**
+* Abra `src/components/home/hero/ManifestoSection.tsx`.
+* Garanta que este componente é um wrapper de secção completo (`<section className="...">`).
+* Adicione padding vertical (ex: `py-20` ou `py-24`) e background correto (ex: `bg-black` ou transparente dependendo do design) para que ele funcione sozinho.
+* Verifique se ele precisa de `z-index` específico para ficar "por cima" ou "por baixo" do Ghost ao fazer scroll (normalmente `z-10` e `relative`).
 
-- **Layout mobile**
-  1. Header compacto, full‑width, com logo à esquerda + ícone de menu/hamburger à direita.
-  2. Mantém a mesma lógica de margens laterais do Hero mobile (safe area consistente).
 
-- **Motion (glass header)**
-  1. Animação de entrada: fade/slide sutil (≤ 400 ms), com ease tipo `easeOut` ou `easeInOut`, **antes ou em sincronia** com a aparição do Hero – nunca depois.
-  2. Qualquer deformação do glass/fluid 3D deve permanecer:
-     - De baixa amplitude.
-     - Sem variações bruscas de escala/posição que disputem atenção com o ghost no Hero.
-  3. Respeitar `prefers-reduced-motion`:
-     - Em modo “reduce”, desabilitar ondulações contínuas e manter apenas um fade-in estático do header.
+4. **Remontagem na Página (`src/app/page.tsx`):**
+* Importe `ManifestoSection` diretamente no `page.tsx`.
+* Posicione-o imediatamente abaixo de `<HomeHero />`.
+* Estrutura esperada:
+```tsx
+<main>
+  <HomeHero />      {/* 100vh / Ghost / Intro */}
+  <ManifestoSection /> {/* Scroll flow content */}
+  <PortfolioShowcase />
+  {/* ... */}
+</main>
 
-#### ✅ Resultado Esperado
+```
 
-Quando o header real for alinhado:
 
-- Visualmente, ele se comporta como a “tampa” da HOME:  
-  um elemento glass/fluid fino, discreto e **perfeitamente alinhado** ao grid do Hero.
-- No desktop:
-  - Proporção Header ↔ Hero é a mesma da imagem de referência (header ~20–25% da altura visual do primeiro viewport).
-  - Navegação e logo não saltam mais que o ghost + texto do Hero.
-- No mobile:
-  - Header compacto, com hierarquia clara (logo → menu), sem roubar espaço vertical excessivo do Hero.
-- Em movimento:
-  - A transição de entrada do header é editorial, suave, sem overshoot exagerado.
-  - Em `prefers-reduced-motion`, o header é praticamente estático após o fade-in.
 
----
 
-### 🎯 Seção: HERO (Ghost + Texto + CTA + Manifesto)
 
-Aqui conseguimos ser mais específicos, pois temos:
+**REGRAS DE VISUALIZAÇÃO (CRITÉRIOS DE ACEITE)**
 
-- Layout visual do Hero (imagens desktop + mobile).
-- CodePen com:
-  - `preloader` (ghost SVG, texto “Summoning spirits”, progress bar).
-  - `.content` com `[BRAND AWARENESS]` + `Você não vê / o design.` + `Mas ele vê você.`.
-  - Cena Three.js com ghost 3D/analog decay ocupando fullscreen (canvas posicionado `absolute` em todo o body).
+* [ ] **Sem "Jumps":** O scroll da Hero para o Manifesto deve ser suave.
+* [ ] **Ghost Persistence:** O Ghost (WebGL) da Hero deve continuar visível ou fazer fade-out suave enquanto o Manifesto sobe (verificar `z-index`).
+* [ ] **Responsividade:** No Mobile, o Manifesto não pode "encavalar" no texto da Hero. Respeitar o fluxo de documento normal.
+* [ ] **Full Width:** O Manifesto deve ocupar a largura correta do container, alinhado ao grid global.
 
-**Checklist em relação ao layout/motion de referência:**
+**COMANDO DE ROLLBACK**
+Se o layout quebrar (ex: buraco branco gigante entre seções), reverta as mudanças no `page.tsx` e `HomeHero.tsx` e reporte "FALHA DE DESACOPLAMENTO".
 
-- 📌 Grid corresponde à imagem? **✗ (Não – snippet é 1 coluna centralizada, referência é composição assimétrica com ghost à esquerda, texto à direita e thumb no canto)**  
-- 📌 Margens laterais iguais? **✗ (Não – snippet usa padding genérico de `20px`, referência usa margens mais amplas alinhadas ao header e ao restante da página)**  
-- 📌 Alinhamento das duas colunas consistente? **✗ (Não – no snippet não há segunda coluna para a thumb/manifesto)**  
-- 📌 Proporção Header ↔ Hero correta? **✗ (Não avaliável no snippet – hero ocupa 100% da viewport sem header)**  
-- 📌 Animações existem apenas onde a referência sugere? **✗ (Não – snippet adiciona fireflies, partículas “extras” e jitter forte que não aparecem na referência estática)**  
-- 📌 Timing/Easing compatível com motion premium? **⚠️ Tendencialmente Não – intensidade de `analogVSync`, `analogJitter` e partículas pode estar acima do que a hierarquia de texto permite**  
-- 📌 Mobile mantém hierarquia e ritmo? **✗ (Não – `.content` é `fixed` fullscreen e `body` tem `overflow: hidden`; isso não reflete a HOME mobile da referência, que é scrollável com múltiplas seções)**  
 
-#### ❌ Problemas (Hero)
+# **4.2 Hero
 
-1. **Layout do Hero centralizado x Composição da referência**
+### **1.1 Objetivo**
+Criar uma experiência hero imersiva e responsiva que gera impacto na primeira impressão, com:
+- Animação 3D interativa (fantasma espectral seguindo o cursor)
+- Atmosfera escura com shader customizado
+- Animações de entrada impactantes
+- CTA que direciona para seção SOBRE
 
-   - Snippet:
-     - `.content` é um flex container **centralizado** (`justify-content: center; align-items: center; text-align: center;`) ocupando a viewport inteira.
-     - Não há CTA “step inside” nem botão algum no HTML fornecido.
-     - Não há thumb/manifesto de vídeo no canto direito.
-   - Referência:
-     - Ghost luminoso ocupa **lado esquerdo** da composição (sobrepondo-se parcialmente à área de texto).
-     - Texto está alinhado à direita do ghost, com alinhamento **à esquerda** (não centralizado).
-     - CTA “step inside” está logo abaixo do texto, centralizado na coluna de texto.
-     - Thumb/manifesto de vídeo está **ancorada na parte inferior direita** do Hero.
-
-   ➜ Isso significa que **qualquer implementação em React/Next baseada diretamente no layout do CodePen estará divergente** do layout final.
-
-2. **Canvas do ghost ocupando fullscreen com `pointer-events: auto`**
-
-   - No snippet, o `renderer.domElement` (canvas) é posicionado como:
-
-     ```ts
-     renderer.domElement.style.position = "absolute";
-     renderer.domElement.style.top = "0";
-     renderer.domElement.style.left = "0";
-     renderer.domElement.style.zIndex = "2";
-     renderer.domElement.style.pointerEvents = "auto";
-     renderer.domElement.style.background = "transparent";
-     ```
-
-   - Como ele cobre a viewport inteira e aceita eventos de ponteiro, existe o risco de:
-     - Bloquear cliques no CTA “step inside”.
-     - Bloquear interações na thumb/manifesto e em outros elementos do Hero.
-
-   - Nas referências visuais, o ghost **não compete com o texto nem com a interação**; ele é pano de fundo/halo.
-
-3. **Preloader + `.content` em `position: fixed` + `overflow: hidden` no body**
-
-   - CSS atual:
-
-     ```css
-     html, body {
-       width: 100%;
-       height: 100%;
-       overflow: hidden;
-       background-color: #111;
-     }
-
-     .preloader {
-       position: fixed;
-       top: 0;
-       left: 0;
-       width: 100%;
-       height: 100%;
-       ...
-     }
-
-     .content {
-       position: fixed;
-       top: 0;
-       left: 0;
-       width: 100%;
-       height: 100%;
-       display: flex;
-       ...
-     }
-     ```
-
-   - Isso é aceitável como protótipo isolado, mas **não é compatível** com a HOME real:
-     - Na HOME desktop/mobile de referência, o Hero é apenas a **primeira dobra**, com showcase, brands, contato etc. abaixo (scroll regular).
-     - Com `overflow: hidden` em `body` e `.content`/`preloader` fixos, você impede o scroll da página e prende toda a experiência nessa tela.
-
-4. **Animação e intensidade do efeito “Analog Decay” podem comprometer legibilidade**
-
-   - Parâmetros iniciais no snippet:
-
-     ```ts
-     const params = {
-       analogIntensity: 0.9,
-       analogGrain: 0.4,
-       analogBleeding: 0.9,
-       analogVSync: 1.7,
-       analogScanlines: 1.0,
-       analogVignette: 2.4,
-       analogJitter: 0.5,
-       ...
-     };
-     ```
-
-   - O shader aplica:
-     - Grain procedural relativamente forte.
-     - VSync roll, jitter horizontal/vertical e scanlines.
-     - Vignette agressiva (`uAnalogVignette` alto).
-   - Referência visual mostra um **ruído editorial sutil**, mas o texto “Você não vê o design” é claramente legível.
-
-   ➜ Com esses valores, é provável que:
-   - O texto fique mais “danificado” do que na referência estática.
-   - A hierarquia (texto > ghost > ruído) se inverta em alguns momentos.
-
-5. **Fireflies e partículas podem introduzir movimentos não sugeridos pela referência**
-
-   - O snippet cria:
-     - ~20 fireflies com movimento contínuo ao redor da cena.
-     - Um sistema de partículas com movimento swirl, rotações e variações de opacidade.
-   - As imagens de referência não sugerem esses elementos; o foco está em:
-     - Ghost.
-     - Glow em torno do texto.
-     - Ruído analógico suave.
-
-   ➜ Em uma implementação final, esses elementos podem ser percebidos como **decoração extra**, não como parte do conceito principal.
-
-6. **Ausência de suporte a `prefers-reduced-motion`**
-
-   - Não há checagem de `window.matchMedia("(prefers-reduced-motion: reduce)")`.
-   - Tanto:
-     - O preloader (ghost SVG flutuando, olhos pulsando).
-     - Quanto a cena 3D (wobble, follow cursor, analog jitter, fireflies, partículas).
-   - Continuam animando da mesma forma para todos os usuários.
-
-   ➜ Isso viola o requisito de **“Respeitar prefers-reduced-motion”** e pode gerar desconforto.
-
-7. **Hero mobile não reflete a composição mobile da HOME**
-
-   - No snippet:
-     - `.content` continua fullscreen fixo em qualquer viewport.
-     - Tipografia baseada em `6vw` pode ficar excessivamente grande em alguns tamanhos de tela.
-   - Na referência mobile:
-     - Hero ocupa o topo, seguido do grid de vídeos, seções de portfólio, marcas, contato etc.
-     - Tipografia é controlada e escalonada para leitura confortável em tela estreita.
-
-#### 🔧 Correção Técnica (especificação)
-
-Novamente: sem acesso ao JSX de `HomeHero.tsx`, aqui estão os **ajustes que a implementação precisa cumprir** para ficar 1:1 com as referências:
-
-1. **Grid e composição do Hero**
-   - Transformar o Hero em um layout de **duas zonas**:
-     - Zona principal: ghost + texto + CTA (ocupando ~60–70% centrais).
-     - Zona secundária: thumb/manifesto ancorada na borda direita/inferior da área do Hero.
-   - Alinhamentos:
-     - Ghost orb/3D posicionado **à esquerda** da coluna de texto (pode ficar parcialmente “por trás” do texto).
-     - Texto alinhado à esquerda.
-     - CTA “step inside” direto abaixo do texto, centralizado nessa coluna.
-     - Thumb/manifesto com largura proporcional (~25–30% da largura do Hero), alinhada à direita.
-
-2. **Canvas do ghost integrado ao layout**
-   - O canvas deve:
-     - Respeitar o container do Hero (não cobrir a página inteira por padrão).
-     - Ser posicionado **como background/overlay** atrás do texto e CTA, com:
-       - `pointer-events: none;`
-       - `z-index` inferior ao texto/CTA, superior ao fundo.
-   - O ghost continua seguindo o cursor, mas com limites/clamping para não atravessar CTA/manifesto de forma agressiva.
-
-3. **Remoção de `position: fixed` para o conteúdo principal**
-   - O Hero, na HOME final, deve ser um **section** normativa (`position: relative`, `height` controlada, inserida no flow da página).
-   - `html, body` não podem ter `overflow: hidden`; o scroll da página deve funcionar normalmente.
-
-4. **Refino do Analog Decay**
-   - Manter o shader, mas com ajustes:
-     - `analogIntensity` reduzido.
-     - `analogJitter` e `analogVSync` suavizados.
-     - `analogVignette` menos agressivo.
-   - Objetivo:
-     - Texto sempre legível.
-     - Ruído percebido como “camada editorial”, não protagonista.
-
-5. **Revisão de fireflies/partículas**
-   - Se mantidos:
-     - Ficam restritos à região próxima do ghost.
-     - Opacidade e tamanho bem mais baixos, para não virar ruído visual.
-   - Alternativamente:
-     - Desabilitar totalmente no estado “produção” da HOME, usando-os apenas nos estudos do CodePen.
-
-6. **Suporte a `prefers-reduced-motion`**
-   - Para usuários com `reduce`:
-     - Preloader sem animação de flutuação/olhos pulsando; apenas fade estático.
-     - Ghost 3D fixo (sem follow cursor/wobble).
-     - Analog shader com jitter/vSync desativados, apenas leve grain/vignette.
-
-7. **Hero mobile alinhado à referência**
-   - Stack vertical:
-     - Header.
-     - Hero (ghost + texto + CTA).
-     - Thumb/manifesto logo abaixo (full‑width ou largura controlada).
-   - Tipografia:
-     - Títulos e subtítulos reescalonados para manter leitura confortável.
-   - Animações:
-     - Menos intensas, sem jitter forte, respeitando o menor espaço de tela.
-
-#### ✅ Resultado Esperado
-
-Com esses ajustes aplicados ao `HomeHero` (e ao canvas do ghost):
-
-- **Desktop**
-  - Hero reproduz a mesma composição da imagem:
-    - Ghost “vazando” pelo lado esquerdo do texto.
-    - CTA forte no centro da coluna de texto.
-    - Thumb/manifesto ancorada no canto inferior direito.
-  - O ghost e o noise criam atmosfera, mas **não prejudicam a legibilidade** do título e CTA.
-  - Canvas não bloqueia cliques; CTA e manifesto são totalmente clicáveis.
-
-- **Mobile**
-  - Ordem visual: Header → Hero → thumb/manifesto → demais seções.
-  - Escala tipográfica e espaçamentos seguem a lógica da referência mobile.
-  - Motion está simplificado e respeita `prefers-reduced-motion`.
+**Inspiração:** [CodePen Ghost Animation](https://codepen.io/danilonovaisv/pen/YPWyrdW)
 
 ---
 
-## 3️⃣ Lista de Problemas (com severidade)
+### **1.2 Identidade Visual**
 
-> Observação: severidade aqui é em relação à **fidelidade às referências** e à hierarquia visual/motion.
+#### **Color Palette**
+| Token | Value | Uso |
+|-------|-------|-----|
+| `bluePrimary` | `#0048ff` | CTAs, links, elementos interativos |
+| `background` | `#040013` | Fundo escuro principal |
+| `text` | `#fcffff` | Texto principal |
+| `textMuted` | `#d9dade` | Texto secundário |
 
-### 🔴 Alta
+#### **Typography System**
 
-1. **Hero centralizado em 1 coluna no snippet vs composição assimétrica da referência**  
-   → Quebra de grid, alinhamento e hierarquia texto/ghost/manifesto.
+**Fonte primária:** TT Norms Pro (self-hosted)
 
-2. **Canvas do ghost fullscreen com `pointer-events: auto`**  
-   → Risco alto de bloquear interações (CTA “step inside”, manifesto, etc.).
+```typescript
+// Arquivos de fonte (Supabase Storage)
+const fonts = {
+  black: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2',
+  bold: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2',
+  medium: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2',
+  regular: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2',
+};
+```
 
-3. **Uso de `position: fixed` + `overflow: hidden` no body**  
-   → Impede o fluxo normal da HOME (portfólio, marcas, contato) como visto nas referências.
+**Tokens Responsivos (usando clamp):**
 
-4. **Ausência de suporte a `prefers-reduced-motion`**  
-   → Não atende o requisito de acessibilidade/motion editorial.
-
-### 🟡 Média
-
-5. **Intensidade do Analog Decay (grain, jitter, vSync, vignette) potencialmente acima da referência**  
-   → Pode comprometer legibilidade/hierarquia, mas é ajustável via parâmetros.
-
-6. **Fireflies e partículas extras não sugeridos explicitamente na referência**  
-   → Podem ser percebidos como efeitos decorativos se muito evidentes.
-
-7. **Hero mobile não respeitando a estrutura de página scrollável da referência**  
-   → Hierarquia e ritmo mobile podem se perder.
-
-### 🟢 Baixa
-
-8. **Falta de implementação clara da thumb/manifesto no snippet de referência**  
-   → Ainda que seja esperado ser adicionada na etapa de migração para Next/React, precisa ser especificada com proporção e ancoragem corretas.
-
-9. **Integração visual Header ↔ Hero não prototipada no CodePen**  
-   → Cabe garantir que os componentes `DesktopFluidHeader` e `HomeHero` compartilhem o mesmo grid/margens.
+| Token | Mobile | Desktop | Peso | Uso |
+|-------|--------|---------|------|-----|
+| `display` | 2.5rem (40px) | 4.5rem (72px) | Black | Big phrases não-semânticas |
+| `h1` | 2rem (32px) | 3.5rem (56px) | Bold | Hero headlines |
+| `h2` | 1.5rem (24px) | 2.5rem (40px) | Bold | Subtítulos |
+| `h3` | 1.25rem (20px) | 1.75rem (28px) | Medium | Títulos de cards |
+| `body` | 1rem (16px) | 1.125rem (18px) | Regular | Texto corrido |
 
 ---
 
-## 4️⃣ Prompts Técnicos para Agente Executor
+### **1.3 Conteúdo**
 
-Abaixo, prompts atômicos para serem executados em sequência. Ajuste os caminhos de arquivo conforme o seu projeto, mas mantendo a lógica.
+```tsx
+// Estrutura de conteúdo
+<section className="hero">
+  {/* Tag decorativa */}
+  <span className="tag">[BRAND AWARENESS]</span>
+  
+  {/* Headline - Desktop/Tablet (2 linhas) */}
+  <h1 className="hidden md:block">
+    Você não vê
+    <br />
+    o design.
+  </h1>
+  
+  {/* Headline - Mobile (3 linhas) */}
+  <h1 className="md:hidden">
+    Você não
+    <br />
+    vê o
+    <br />
+    design.
+  </h1>
+  
+  {/* Subheading */}
+  <h2>Mas ele vê você.</h2>
+  
+  {/* CTA */}
+  <CTAButton href="/sobre">step inside →</CTAButton>
+</section>
+```
 
----
-
-### 🛠️ Prompt #01 — Alinhar Grid do Hero ao Layout 2 Colunas
-
-**Objetivo**  
-Ajustar o layout do Hero para refletir exatamente a composição da referência: ghost à esquerda, texto + CTA à direita e thumb/manifesto no canto inferior direito.
-
-**Arquivos envolvidos**
-- `src/components/home/hero/HomeHero.tsx`
-- `src/components/home/hero/HomeHero.module.css` (ou equivalente)
-
-**Ações**
-1. Refatorar o container principal do Hero para usar um grid/flex de **duas zonas**:
-   - Zona A: ghost + texto + CTA.
-   - Zona B: thumb/manifesto ancorada à direita/inferior da área do Hero.
-2. Garantir que o texto esteja alinhado à esquerda, com quebras de linha e espaçamentos idênticos ao layout (“Você não vê / o design.” + “Mas ele vê você.”).
-3. Adicionar o CTA “step inside” na posição correta (logo abaixo do texto, centralizado na coluna).
-4. Posicionar a thumb/manifesto no canto inferior direito do Hero, com proporção similar à referência.
-
-**Regras**
-- ❌ Não alterar conteúdo.
-- ❌ Não criar novas animações.
-- ✅ Usar o sistema de layout atual (CSS Modules/Tailwind).
-- ✅ Comparar com HOME-PORTFOLIO-LAYOUYT-GHOST.jpg.
-
-**Critérios de Aceite**
-- [ ] Layout idêntico à referência.
-- [ ] CTA e manifesto posicionados exatamente como no layout.
-- [ ] Ghost alinhado à esquerda da coluna de texto.
-- [ ] Mobile mantém a mesma lógica espacial (stack com hero + manifesto).
-
----
-
-### 🛠️ Prompt #02 — Integrar Canvas do Ghost sem Bloquear Interações
-
-**Objetivo**  
-Garantir que o canvas do ghost atue como camada visual/ambiental, sem bloquear cliques em CTA ou manifesto.
-
-**Arquivos envolvidos**
-- `src/components/home/hero/HomeHero.tsx`
-- `src/components/home/hero/GhostCanvas.tsx`
-- `src/components/home/hero/HomeHero.module.css`
-
-**Ações**
-1. Confinar o `<canvas>` ao container do Hero (não mais fullscreen no `body`).
-2. Aplicar:
-   - `position: absolute; inset: 0;`
-   - `pointer-events: none;`
-   - `z-index` abaixo do texto/CTA/manifesto.
-3. Garantir que o ghost ainda possa se aproximar da área de texto, mas sem obscurecer o conteúdo.
-
-**Regras**
-- ❌ Não alterar a lógica de movimento do ghost além do necessário para respeitar os limites do Hero.
-- ❌ Não criar novos efeitos.
-- ✅ Usar Framer Motion/R3F apenas para ajustes finos.
-- ✅ Comparar com HOME-PORTFOLIO-LAYOUYT-GHOST.jpg.
-
-**Critérios de Aceite**
-- [ ] CTA e thumb/manifesto são clicáveis em toda a área.
-- [ ] Canvas não captura eventos do mouse.
-- [ ] Ghost permanece visível e alinhado à composição.
+#### **CTA — Design Visual**
+- **Formato:** Compósito (Pílula à esquerda + Círculo à direita)
+- **Cor:** Azul Primário (`#0048ff`), texto branco
+- **Texto:** Uppercase, tracking médio, padding `px-6 py-3`
+- **Ícone:** Seta (→) centralizada no círculo
 
 ---
 
-### 🛠️ Prompt #03 — Remover `position: fixed` e `overflow: hidden` da HOME
+### **1.4 Animações**
 
-**Objetivo**  
-Transformar o Hero em uma seção normal da HOME, permitindo scroll para showcase, marcas e contato.
+#### **Entrada de Textos (Page Load)**
 
-**Arquivos envolvidos**
-- `src/app/page.tsx`
-- `src/components/home/hero/HomeHero.tsx`
-- `src/styles/globals.css` (ou equivalente)
+```javascript
+// Framer Motion config
+initial: {
+  opacity: 0,
+  scale: 0.92,
+  translateY: 60,
+  filter: "blur(10px)"
+}
 
-**Ações**
-1. Remover `position: fixed` de `.content` e containers equivalentes no React.
-2. Garantir que `html, body` **não** tenham `overflow: hidden` na HOME.
-3. Ajustar o Hero para `position: relative`, altura definida (ex.: `min-height: 100vh` na primeira dobra) e integração no fluxo da página.
+animate: {
+  opacity: 1,
+  scale: [1.02, 1],
+  translateY: 0,
+  filter: "blur(0px)"
+}
 
-**Regras**
-- ❌ Não alterar a ordem das seções da HOME.
-- ❌ Não introduzir wrappers que quebrem o App Router.
-- ✅ Preservar a proporção visual do Hero em relação ao Header.
-- ✅ Validar desktop e mobile.
+transition: {
+  duration: 1.2,
+  easing: [0.25, 0.46, 0.45, 0.94]
+}
+```
 
-**Critérios de Aceite**
-- [ ] Página rola do Hero até contato como na referência.
-- [ ] Hero permanece visualmente idêntico ao primeiro frame da HOME.
-- [ ] Nenhum elemento de scroll é bloqueado.
+#### **CTA — Interações**
 
----
-
-### 🛠️ Prompt #04 — Ajustar Intensidade do Analog Decay ao Nível Editorial
-
-**Objetivo**  
-Refinar a intensidade do shader de analog decay para que o ruído seja sutil e compatível com a referência, sem comprometer legibilidade.
-
-**Arquivos envolvidos**
-- `src/components/home/hero/GhostCanvas.tsx`
-- Config de pós-processamento (onde `analogDecayPass` é configurado)
-
-**Ações**
-1. Reduzir valores iniciais de:
-   - `analogIntensity`
-   - `analogJitter`
-   - `analogVSync`
-   - `analogVignette`
-2. Testar a leitura do texto “Você não vê o design. / Mas ele vê você.” durante a animação completa.
-3. Ajustar até que o ruído seja perceptível, mas nunca domine a hierarquia.
-
-**Regras**
-- ❌ Não remover o efeito analog.
-- ❌ Não adicionar novos passes de pós-processamento.
-- ✅ Ajustar apenas parâmetros existentes.
-- ✅ Comparar com HOME-PORTFOLIO-LAYOUYT-GHOST.jpg.
-
-**Critérios de Aceite**
-- [ ] Texto legível em qualquer momento.
-- [ ] Ruído percebido como textura, não como elemento principal.
-- [ ] Motion continua editorial e premium.
+| Estado | Dispositivo | Comportamento |
+|--------|-------------|---------------|
+| **Hover** | Desktop | `translateY(-1px)` |
+| **Hover Seta** | Desktop | `translateX(4px)` (opcional) |
+| **Click** | Mobile | `scale(0.98)` |
+| **Focus** | Teclado | Outline 2px `#4fe6ff`, offset 4px |
 
 ---
 
-### 🛠️ Prompt #05 — Reduzir Fireflies/Partículas para Não Quebrarem Hierarquia
+### **1.5 Elementos Visuais — Animação Ghost**
 
-**Objetivo**  
-Garantir que fireflies e partículas não ultrapassem o que a referência sugere em termos de motion.
+#### **Background / Atmosfera**
 
-**Arquivos envolvidos**
-- `src/components/home/hero/GhostCanvas.tsx`
+| Aspecto | Implementação |
+|---------|---------------|
+| **Cores** | Gradiente escuro `#0a0a0a` → `#1a1a1a` |
+| **Shader** | Plano 300×300 com material customizado (_atmosphere_) |
+| **Halo Circular** | Usa `revealRadius`, `fadeStrength`, `baseOpacity`, `revealOpacity` |
+| **Pós-processamento** | Opcional: grain, bleeding, scanlines, vignette (shader analógico) |
 
-**Ações**
-1. Localizar criação de fireflies e partículas (equivalente a `createFireflies` / `createParticle`).
-2. Reduzir:
-   - Quantidade total.
-   - Escala.
-   - Opacidade.
-3. Limitar a zona de atuação à proximidade do ghost, sem atravessar o texto.
+#### **Personagem Ghost**
 
-**Regras**
-- ❌ Não adicionar novas partículas.
-- ❌ Não mudar cores.
-- ✅ Priorizar texto + CTA como foco.
-- ✅ Comparar com HOME-PORTFOLIO-LAYOUYT-GHOST.jpg.
+| Elemento | Implementação |
+|----------|---------------|
+| **Geometria** | `THREE.SphereGeometry(2, 40, 40)` com vértices inferiores deformados |
+| **Material** | `MeshStandardMaterial` com alta `emissiveIntensity` |
+| **Cor** | Controlada via `bodyColor`, rim lights azulados |
+| **Olhos** | `Group` com esferas menores + glows transparentes |
+| **Fireflies** | 20 vagalumes (esferas amarelas + `PointLight`) |
+| **Partículas** | Pool de formas pequenas (esfera/tetraedro/octaedro) que nascem no movimento |
 
-**Critérios de Aceite**
-- [ ] Primeiro olhar do usuário vai para texto e CTA.
-- [ ] Partículas não “competem” em brilho/movimento com o ghost.
-- [ ] Motion segue a intenção editorial.
+#### **Interação com Mouse**
 
----
+```javascript
+// Conversão screen → world
+x = (event.clientX / window.innerWidth) * 2 - 1
+y = (event.clientY / window.innerHeight) * 2 - 1
 
-### 🛠️ Prompt #06 — Implementar `prefers-reduced-motion` no Preloader e no Ghost
+// Seguimento suave
+targetX = mouseX * viewport.width * 0.5
+targetY = mouseY * viewport.height * 0.3
+position.x += (targetX - position.x) * followSpeed
 
-**Objetivo**  
-Respeitar `prefers-reduced-motion`, reduzindo animações contínuas no Hero.
+// Oscilações constantes (sin/cos)
+floatY = sin(time * 1.5) * 0.05 + cos(time * 0.7) * 0.03
+```
 
-**Arquivos envolvidos**
-- `src/components/home/hero/HomeHero.tsx`
-- `src/components/home/hero/GhostCanvas.tsx`
+#### **Layout**
 
-**Ações**
-1. Criar hook/util para ler `prefers-reduced-motion`.
-2. Se `reduce` estiver ativo:
-   - Preloader: remover `ghostFloat` e `eyePulse`; manter ghost estático + fade-in/fade-out.
-   - Ghost 3D: desabilitar follow do cursor e wobble contínuo.
-   - Analog shader: zerar `analogJitter` e `analogVSync`, mantendo apenas leve grain/vignette.
-3. Garantir que as transições de entrada permaneçam suaves e discretas.
-
-**Regras**
-- ❌ Não desligar completamente o Hero.
-- ❌ Não criar versões alternativas de layout.
-- ✅ Usar flags internas condicionadas ao media query.
-- ✅ Comparar a experiência reduzida com a referência, mantendo hierarquia.
-
-**Critérios de Aceite**
-- [ ] Com `prefers-reduced-motion: reduce`, não há loops intensos de animação.
-- [ ] Preloader, ghost e noise só fazem transições pontuais.
-- [ ] Conteúdo continua visualmente fiel.
+```css
+/* Centralização com Flexbox */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+```
 
 ---
 
-### 🛠️ Prompt #07 — Ajustar Hero Mobile para Manter Hierarquia e Ritmo
+### **1.6 Responsividade**
 
-**Objetivo**  
-Alinhar a versão mobile do Hero à lógica espacial da referência.
+#### **Textos**
 
-**Arquivos envolvidos**
-- `src/components/layout/header/mobile/MobileHeaderBar.tsx`
-- `src/components/home/hero/HomeHero.tsx`
-- `src/components/home/hero/HomeHero.module.css`
-- `src/app/page.tsx`
+**Desktop/Tablet (≥768px):**
+```
+H1: "Você não vê" (linha 1)
+    "o design." (linha 2)
+Fonte: TT Norms Pro Black, 6–9rem
+```
 
-**Ações**
-1. Em mobile, garantir ordem:
-   - Header compacto com logo + menu.
-   - Hero com ghost + texto + CTA.
-   - Thumb/manifesto imediatamente abaixo.
-2. Ajustar tipografia do Hero (font-size e line-height) para proximidade visual da referência mobile.
-3. Reduzir jitter/ruído em telas pequenas, priorizando leitura.
+**Mobile (<768px):**
+```
+H1: "Você não" (linha 1)
+    "vê o" (linha 2)
+    "design." (linha 3)
+Fonte: TT Norms Pro Black, 6–9rem
+```
 
-**Regras**
-- ❌ Não trocar ordem das seções em relação à referência.
-- ❌ Não alterar textos.
-- ✅ Reutilizar tokens de tipografia já existentes.
-- ✅ Comparar visualmente com o layout mobile fornecido.
+#### **Performance Adaptativa**
 
-**Critérios de Aceite**
-- [ ] Mobile mostra Header → Hero → manifesto na ordem correta.
-- [ ] Texto legível sem zoom.
-- [ ] Motion sutil, sem distrair do conteúdo.
+```javascript
+// Ajustes por dispositivo
+const config = {
+  desktop: {
+    fireflies: 20,
+    particles: 50,
+    postProcessing: true,
+    pixelRatio: 2
+  },
+  tablet: {
+    fireflies: 10,
+    particles: 25,
+    postProcessing: false,
+    pixelRatio: 1
+  },
+  mobile: {
+    fireflies: 5,
+    particles: 10,
+    postProcessing: false,
+    pixelRatio: 1
+  }
+};
+```
 
----
+#### **Fallback Touch**
 
-### 🛠️ Prompt #08 — Sincronizar Entrada do Header e do Hero
-
-**Objetivo**  
-Garantir que Header e Hero entrem em cena como um sistema único, sem competição visual.
-
-**Arquivos envolvidos**
-- `src/components/layout/header/DesktopFluidHeader.tsx`
-- `src/components/home/hero/HomeHero.tsx`
-- Eventual layout de página (transições Framer Motion, se existir)
-
-**Ações**
-1. Definir sequência:
-   - Header: fade/slide-in leve logo após o load.
-   - Hero: entrada 80–150 ms depois, com texto/CTA e ghost em sync.
-2. Ajustar delays e easing (`easeOut`/`easeInOut`) para que a atenção vá naturalmente para o Hero.
-3. Garantir que o glass/fluid do header não tenha picos de animação simultâneos ao pico do analog/ghost.
-
-**Regras**
-- ❌ Não criar novas animações além da já planejada.
-- ❌ Não alterar textos.
-- ✅ Usar Framer Motion para controlar timing e stagger.
-- ✅ Comparar com HOME-PORTFOLIO-LAYOUYT-GHOST.jpg.
-
-**Critérios de Aceite**
-- [ ] Header surge de forma sutil, sem roubar o foco do Hero.
-- [ ] Entrada do Hero reforça a hierarquia do texto + CTA + ghost.
-- [ ] Transição fluida em desktop e mobile.
+- Em dispositivos touch onde `mousemove` não ocorre: manter fantasma centralizado
+- Rodar apenas animação de flutuação
+- Detectar `pointer: coarse` e reduzir efeitos
 
 ---
 
-Esses prompts formam a **Fase 2 (correção atômica)** a partir do diagnóstico acima.  
-Quando o código de `HomeHero.tsx`, `Header.tsx` e cenas 3D estiver disponível no contexto, é possível descer ao nível de linha para ajustar cada ponto diretamente.
+### **1.7 Acessibilidade**
+
+#### **Semântica HTML**
+
+```tsx
+<section className="hero" aria-label="Seção principal de apresentação">
+  <h1>Você não vê o design.</h1>
+  <h2>Mas ele vê você.</h2>
+  
+  {/* Canvas decorativo */}
+  <div role="presentation" aria-hidden="true">
+    <Canvas />
+  </div>
+  
+  {/* Descrição alternativa */}
+  <p className="sr-only">
+    Animação decorativa de um fantasma flutuante com partículas luminosas
+  </p>
+</section>
+```
+
+#### **Contraste**
+
+- `#fcffff` em `#040013`: **19.5:1** ✅ WCAG AAA
+- `#d9dade` em `#040013`: **15.8:1** ✅ WCAG AAA
+
+#### **Prefers-Reduced-Motion**
+
+```tsx
+const prefersReducedMotion = useReducedMotion();
+
+if (prefersReducedMotion) {
+  return <StaticGhostFallback />;
+}
+
+return <AnimatedGhostCanvas />;
+```
+
+---
+
+### **1.8 Estrutura de Arquivos**
+
+```
+app/
+├── components/
+│   ├── Hero.tsx              # Container principal
+│   ├── HeroText.tsx          # Conteúdo semântico
+│   ├── GhostScene.tsx        # Canvas WebGL (dynamic import)
+│   ├── Ghost.tsx             # Personagem 3D
+│   ├── Atmosphere.tsx        # Shader de fundo
+│   ├── Fireflies.tsx         # Vagalumes
+│   ├── Preloader.tsx         # Loading inicial
+│   └── CTAButton.tsx         # Call-to-action
+├── lib/
+│   ├── hooks/
+│   │   ├── usePerformanceAdaptive.ts
+│   │   ├── useReducedMotion.ts
+│   │   └── useMouse.ts
+│   └── utils/
+│       └── cn.ts
+└── styles/
+    └── globals.css
+```
+
+---
+
+### **1.9 Z-Index Stack**
+
+```typescript
+const zIndex = {
+  preloader: 50,      // Tela de carregamento
+  ghostCanvas: 20,    // Canvas WebGL (sempre acima do texto)
+  heroContent: 10,    // Textos e CTA
+  background: 0,      // Gradiente de fundo
+};
+```
+
+---
+
+### **1.10 Implementação — Componentes Principais**
+
+#### **Hero.tsx**
+
+```tsx
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
+import HeroText from './HeroText';
+import Preloader from './Preloader';
+
+const GhostScene = dynamic(() => import('./GhostScene'), { ssr: false });
+
+export default function Hero() {
+  return (
+    <section className="relative h-screen w-full bg-[#040013] text-[#fcffff] overflow-hidden">
+      <Preloader />
+      <HeroText />
+      <Suspense fallback={null}>
+        <GhostScene />
+      </Suspense>
+    </section>
+  );
+}
+```
+
+#### **HeroText.tsx**
+
+```tsx
+import { motion } from 'framer-motion';
+
+const textAnimation = {
+  initial: {
+    opacity: 0,
+    scale: 0.92,
+    y: 60,
+    filter: 'blur(10px)',
+  },
+  animate: {
+    opacity: 1,
+    scale: [1.02, 1],
+    y: 0,
+    filter: 'blur(0px)',
+  },
+  transition: {
+    duration: 1.2,
+    ease: [0.25, 0.46, 0.45, 0.94],
+  },
+};
+
+export default function HeroText() {
+  return (
+    <motion.div
+      className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center pointer-events-none px-5"
+      {...textAnimation}
+    >
+      <span className="text-xs uppercase tracking-widest mb-2 opacity-60">
+        [BRAND AWARENESS]
+      </span>
+      
+      {/* Desktop/Tablet */}
+      <h1 className="hidden md:block text-[clamp(2.5rem,5vw+1rem,4.5rem)] font-black tracking-tight leading-tight">
+        Você não vê
+        <br />
+        o design.
+      </h1>
+      
+      {/* Mobile */}
+      <h1 className="md:hidden text-[clamp(2.5rem,5vw+1rem,4.5rem)] font-black tracking-tight leading-tight">
+        Você não
+        <br />
+        vê o
+        <br />
+        design.
+      </h1>
+      
+      <h2 className="text-[clamp(1.5rem,3vw+0.5rem,2.5rem)] font-bold text-[#d9dade] mt-4">
+        Mas ele vê você.
+      </h2>
+      
+      <div className="mt-8 pointer-events-auto">
+        <CTAButton href="/sobre">step inside →</CTAButton>
+      </div>
+    </motion.div>
+  );
+}
+```
+
+#### **GhostScene.tsx**
+
+```tsx
+'use client';
+
+import { Canvas } from '@react-three/fiber';
+import { Suspense } from 'react';
+import { Ghost } from './Ghost';
+import { Atmosphere } from './Atmosphere';
+import { Fireflies } from './Fireflies';
+
+export default function GhostScene() {
+  return (
+    <Canvas
+      className="absolute inset-0 z-20"
+      gl={{ antialias: true, alpha: true }}
+      camera={{ position: [0, 0, 20], fov: 75 }}
+      role="presentation"
+      aria-hidden="true"
+    >
+      <ambientLight color="#0a0a2e" intensity={0.08} />
+      <directionalLight position={[-8, 6, -4]} color="#4a90e2" intensity={1.8} />
+      <directionalLight position={[8, -4, -6]} color="#50e3c2" intensity={1.26} />
+      
+      <Suspense fallback={null}>
+        <Atmosphere />
+        <Ghost />
+        <Fireflies count={20} />
+      </Suspense>
+    </Canvas>
+  );
+}
+```
+
+---
+
+## 🎬 4.3 - VÍDEO MANIFESTO
+
+### **2.1 Objetivo**
+Apresentar um vídeo manifesto fullscreen com resumo poético do trabalho, posicionado logo após a Hero, sem animações de scroll-morphing.
+
+**Características:**
+- Seção independente e fullscreen
+- Colado às paredes da página
+- Aspect ratio 16:9 (`aspect-video`)
+- Autoplay, loop, muted
+- Controle de áudio visível
+
+---
+
+### **2.2 Layout**
+
+#### **Estrutura**
+
+```tsx
+<section className="video-manifesto">
+  <div className="video-wrapper">
+    <video />
+    <div className="video-overlay" />
+    <div className="video-text" />
+    <button className="toggle-sound" />
+  </div>
+</section>
+```
+
+#### **Posicionamento**
+
+**Desktop e Mobile:**
+- Seção fullscreen logo após Hero
+- `width: 100vw`
+- `aspect-ratio: 16/9`
+- Sem padding lateral (colado às paredes)
+
+```css
+.video-manifesto {
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+.video-wrapper {
+  width: 100%;
+  aspect-ratio: 16/9;
+  position: relative;
+}
+```
+
+---
+
+### **2.3 Comportamento do Vídeo**
+
+#### **Propriedades Base**
+
+```tsx
+<video
+  autoPlay
+  loop
+  muted
+  playsInline
+  preload="metadata"
+  src={videoSrc}
+  poster={posterSrc}
+/>
+```
+
+#### **Controle de Áudio**
+
+**Desktop e Mobile:**
+- Botão de som sempre visível
+- Tap/click = toggle mute
+- Ao sair da seção → mutar automaticamente
+
+```tsx
+const [muted, setMuted] = useState(true);
+
+// Observer para detectar saída da seção
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (!entry.isIntersecting) {
+        setMuted(true);
+      }
+    },
+    { threshold: 0.1 }
+  );
+  
+  if (sectionRef.current) {
+    observer.observe(sectionRef.current);
+  }
+  
+  return () => observer.disconnect();
+}, []);
+```
+
+---
+
+### **2.4 Animação de Entrada**
+
+**Simples fade-in (sem scroll-triggered morphing):**
+
+```javascript
+// Framer Motion
+initial: { 
+  opacity: 0, 
+  scale: 0.95, 
+  y: 20 
+}
+
+animate: { 
+  opacity: 1, 
+  scale: 1, 
+  y: 0 
+}
+
+transition: { 
+  duration: 0.6, 
+  ease: [0.22, 1, 0.36, 1] 
+}
+```
+
+---
+
+### **2.5 Overlay e Metadados**
+
+#### **Overlay Gradiente**
+
+```css
+.video-overlay {
+  background: radial-gradient(
+    120% 120% at 70% 30%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.55) 70%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+```
+
+#### **Texto Sobreposto**
+
+```tsx
+<div className="video-text absolute bottom-0 left-0 w-full p-6">
+  <p className="text-white/70 text-sm mb-1">Showreel 2025</p>
+  <p className="text-white text-lg font-medium">
+    Strategy • Branding • Motion
+  </p>
+</div>
+```
+
+---
+
+### **2.6 Controle de Som — Design**
+
+```tsx
+<button
+  type="button"
+  className="toggle-sound absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/70 transition-colors"
+  onClick={() => setMuted(m => !m)}
+  aria-label={muted ? 'Ativar som' : 'Desativar som'}
+  aria-pressed={!muted}
+>
+  {muted ? (
+    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+    </svg>
+  ) : (
+    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+    </svg>
+  )}
+</button>
+```
+
+---
+
+### **2.7 Responsividade**
+
+#### **Desktop e Mobile (Comportamento Unificado)**
+
+```css
+/* Ambos os dispositivos */
+.video-manifesto {
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+}
+
+.video-wrapper {
+  aspect-ratio: 16/9;
+  width: 100%;
+}
+
+/* Ajustes de texto em mobile */
+@media (max-width: 767px) {
+  .video-text {
+    padding: 1rem;
+  }
+  
+  .video-text p:first-child {
+    font-size: 0.75rem;
+  }
+  
+  .video-text p:last-child {
+    font-size: 0.875rem;
+  }
+}
+```
+
+---
+
+### **2.8 Otimização de Carregamento**
+
+#### **Lazy Loading**
+
+```tsx
+const [shouldLoad, setShouldLoad] = useState(false);
+const wrapperRef = useRef<HTMLDivElement>(null);
+
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        setShouldLoad(true);
+        observer.disconnect();
+      }
+    },
+    { rootMargin: '200px' }
+  );
+  
+  if (wrapperRef.current) {
+    observer.observe(wrapperRef.current);
+  }
+  
+  return () => observer.disconnect();
+}, []);
+```
+
+#### **Qualidade Adaptativa**
+
+```tsx
+const [videoQuality, setVideoQuality] = useState<'hd' | 'sd'>('hd');
+
+useEffect(() => {
+  if ('connection' in navigator) {
+    const conn = (navigator as any).connection;
+    
+    if (conn?.effectiveType === '4g' || conn?.effectiveType === '5g') {
+      setVideoQuality('hd');
+    } else {
+      setVideoQuality('sd');
+    }
+  }
+}, []);
+
+const videoSrc = videoQuality === 'hd' 
+  ? src 
+  : src.replace('.mp4', '-720p.mp4');
+```
+
+---
+
+### **2.9 Acessibilidade**
+
+#### **Checklist**
+
+- ✅ Envolver vídeo com elemento semântico (`<section>`)
+- ✅ Botão de som com `aria-label` e `aria-pressed`
+- ✅ `playsInline` para evitar fullscreen indesejado
+- ✅ Respeitar `prefers-reduced-motion`
+- ✅ Contraste adequado no overlay (gradiente)
+- ✅ Descrição alternativa via `aria-label` no vídeo
+
+```tsx
+<video
+  aria-label="Vídeo showreel demonstrando projetos de design gráfico"
+  aria-describedby="video-description"
+/>
+
+<p id="video-description" className="sr-only">
+  Vídeo de apresentação dos trabalhos em estratégia, branding e motion design
+</p>
+```
+
+---
+
+### **2.10 Implementação Completa**
+
+```tsx
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+
+interface VideoManifestoProps {
+  src: string;
+}
+
+export function VideoManifesto({ src }: VideoManifestoProps) {
+  const [muted, setMuted] = useState(true);
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const [videoQuality, setVideoQuality] = useState<'hd' | 'sd'>('hd');
+  
+  const sectionRef = useRef<HTMLElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  
+  // Lazy loading
+  useEffect(() => {
+    if (!wrapperRef.current) return;
+    
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    
+    observer.observe(wrapperRef.current);
+    return () => observer.disconnect();
+  }, []);
+  
+  // Mutar ao sair da seção
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          setMuted(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+  
+  // Detectar qualidade de conexão
+  useEffect(() => {
+    if ('connection' in navigator) {
+      const conn = (navigator as any).connection;
+      if (conn?.effectiveType === '4g' || conn?.effectiveType === '5g') {
+        setVideoQuality('hd');
+      } else {
+        setVideoQuality('sd');
+      }
+    }
+  }, []);
+  
+  // Aplicar mute
+  useEffect(() => {
+    if (!videoRef.current) return;
+    videoRef.current.muted = muted;
+  }, [muted]);
+  
+  const videoSrc = videoQuality === 'hd' 
+    ? src 
+    : src.replace('.mp4', '-720p.mp4');
+  
+  const posterSrc = src.replace('.mp4', '-poster.jpg');
+  
+  return (
+    <motion.section
+      ref={sectionRef}
+      className="video-manifesto w-full"
+      initial={{ opacity: 0, scale: 0.95, y: 20 }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, amount: 0.3 }}
+    >
+      <div ref={wrapperRef} className="video-wrapper relative w-full aspect-video">
+        {shouldLoad ? (
+          <>
+            <motion.video
+              ref={videoRef}
+              className="w-full h-full object-cover"
+              src={videoSrc}
+              poster={posterSrc}
+              autoPlay
+              loop
+              muted={muted}
+              playsInline
+              preload="metadata"
+              aria-label="Vídeo showreel demonstrando projetos de design gráfico"
+            />
+            
+            {/* Overlay */}
+            <div className="video-overlay absolute inset-0 pointer-events-none" />
+            
+            {/* Metadados */}
+            <div className="video-text absolute bottom-0 left-0 w-full p-4 md:p-6">
+              <p className="text-white/70 text-xs md:text-sm mb-1">Showreel 2025</p>
+              <p className="text-white text-sm md:text-lg font-medium">
+                Strategy • Branding • Motion
+              </p>
+            </div>
+            
+            {/* Toggle som */}
+            <button
+              type="button"
+              className="toggle-sound absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/70 transition-colors focus-visible:outline-2 focus-visible:outline-[#4fe6ff] focus-visible:outline-offset-2"
+              onClick={() => setMuted(m => !m)}
+              aria-label={muted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'}
+              aria-pressed={!muted}
+            >
+              {muted ? '🔇' : '🔊'}
+            </button>
+          </>
+        ) : (
+          // Placeholder
+          <div className="w-full h-full bg-gradient-to-br from-neutral-900 to-neutral-800 animate-pulse" />
+        )}
+      </div>
+    </motion.section>
+  );
+}
+```
+
+---
+
+### **2.11 Integração na Página**
+
+```tsx
+// app/page.tsx
+import Hero from './_components/Hero';
+import { VideoManifesto } from './_components/VideoManifesto';
+
+export default function HomePage() {
+  return (
+    <main>
+      {/* Hero Section */}
+      <Hero />
+      
+      {/* Vídeo Manifesto */}
+      <VideoManifesto
+        src="https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4"
+      />
+      
+      {/* Outras seções */}
+    </main>
+  );
+}
+```
+
+---
+
+### **2.12 CSS Global**
+
+```css
+/* globals.css */
+
+/* Overlay de vídeo */
+.video-overlay {
+  background: radial-gradient(
+    120% 120% at 70% 30%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.55) 70%,
+    rgba(0, 0, 0, 0.75) 100%
+  );
+}
+
+/* Remover espaçamento padrão */
+.video-manifesto {
+  margin: 0;
+  padding: 0;
+}
+
+/* Garantir que vídeo ocupe toda a largura */
+.video-wrapper video {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+```
+
+---
+
+### **2.13 Checklist de Validação**
+
+**Funcional:**
+- [ ] Vídeo fullscreen logo após Hero
+- [ ] Aspect ratio 16:9 mantido em todas as telas
+- [ ] Autoplay funciona (muted)
+- [ ] Botão de som visível e funcional
+- [ ] Vídeo muta ao sair da seção
+- [ ] Lazy loading implementado
+- [ ] Qualidade adaptativa baseada em conexão
+
+**Acessibilidade:**
+- [ ] Botão com `aria-label` e `aria-pressed`
+- [ ] `playsInline` no mobile
+- [ ] Descrição alternativa no vídeo
+- [ ] Contraste adequado no overlay
+- [ ] Foco visível no botão de som
+
+**Performance:**
+- [ ] `preload="metadata"`
+- [ ] Poster estático carregado
+- [ ] IntersectionObserver para lazy load
+- [ ] Versões HD/SD disponíveis
+
+---
+
+
+
 
 Ajuste o projeto utilizando as etapas essenciais para execução:
 1. Analise o escopo detalhado fornecido.

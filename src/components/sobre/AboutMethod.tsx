@@ -1,13 +1,8 @@
 'use client';
 
 import { useRef } from 'react';
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-} from 'framer-motion';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { ABOUT_CONTENT } from '@/config/content';
 import { motionTokens, motionSprings } from './motion';
 
@@ -20,14 +15,17 @@ export default function AboutMethod() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, motionSprings.ghost);
+  const effectiveProgress = prefersReducedMotion
+    ? scrollYProgress
+    : smoothProgress;
 
   const mediaY = useTransform(
-    smoothProgress,
+    effectiveProgress,
     [0, 1],
     prefersReducedMotion ? [0, 0] : [56, -56]
   );
   const textY = useTransform(
-    smoothProgress,
+    effectiveProgress,
     [0, 1],
     prefersReducedMotion ? [0, 0] : [16, -16]
   );

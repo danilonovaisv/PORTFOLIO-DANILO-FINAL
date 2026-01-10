@@ -1,7 +1,7 @@
 'use client';
 
 import { useReducedMotion } from 'framer-motion';
-import { motionTokens } from '@/components/sobre/motion';
+import { motionTokens } from '@/config/about-motion';
 
 const reducedTokens = {
   ghostIn: {

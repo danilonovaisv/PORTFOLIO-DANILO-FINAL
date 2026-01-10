@@ -32,9 +32,9 @@ export default function PortfolioShowcase() {
         <div className="relative mb-12 md:mb-20">
           {/* Headline */}
           <div className="flex flex-col items-center text-center">
-            <h2 className="type-display uppercase tracking-tighter leading-none">
+            <h2 className="type-h2 font-bold uppercase tracking-tighter leading-none">
               <span className="inline text-white">portfólio</span>{' '}
-              <span className="inline text-primary">showcase</span>
+              <span className="inline text-bluePrimary">showcase</span>
             </h2>
           </div>
         </div>
