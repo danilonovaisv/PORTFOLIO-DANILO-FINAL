@@ -1,95 +1,202 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useState, type RefObject } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
-const VIDEO_SOURCES = [
-  {
-    type: 'video/webm',
-    src: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm',
-  },
-  {
-    type: 'video/mp4',
-    src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
-  },
-];
+export interface ManifestoThumbProps {
+  heroRef: RefObject<HTMLElement | null>;
+  src?: string;
+}
 
-const POSTER_IMAGE =
-  'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80';
+const VIDEO_DESCRIPTION_ID = 'manifesto-thumb-video-description';
 
-export default function ManifestoThumb() {
-  const [posterVisible, setPosterVisible] = useState(true);
-  const hasFadedRef = useRef(false);
+const ManifestoThumb: React.FC<ManifestoThumbProps> = ({
+  heroRef,
+  src = 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
+}) => {
+  const [isDesktop, setIsDesktop] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const [audioOn, setAudioOn] = useState(false);
+
+  // Z-Index control state
+  const [zIndexState, setZIndexState] = useState(30);
+
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    if (!posterVisible) return undefined;
-    const timeout = setTimeout(() => {
-      if (!hasFadedRef.current) {
-        setPosterVisible(false);
-        hasFadedRef.current = true;
-      }
-    }, 700);
+    const checkDesktop = () => setIsDesktop(window.innerWidth >= 768);
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+    return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
 
-    return () => clearTimeout(timeout);
-  }, [posterVisible]);
-
-  const handleVideoReady = () => {
-    if (!hasFadedRef.current) {
-      setPosterVisible(false);
-      hasFadedRef.current = true;
+  useEffect(() => {
+    // Always load on mobile, check visibility on desktop
+    if (!isDesktop) {
+      setShouldLoad(true);
+      return;
     }
+
+    if (!wrapperRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+
+    observer.observe(wrapperRef.current);
+    return () => observer.disconnect();
+  }, [isDesktop]);
+
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 80,
+    damping: 25,
+    restDelta: 0.001,
+  });
+
+  // --- DESKTOP TRANSFORMS ---
+  const width = useTransform(
+    smoothProgress,
+    [0, 0.12, 0.46, 0.78],
+    ['300px', '300px', '100vw', '100vw']
+  );
+  // Initial height aspect ratio roughly 16:9 or similar
+  const height = useTransform(
+    smoothProgress,
+    [0, 0.12, 0.46, 0.78],
+    ['170px', '170px', '100vh', '100vh']
+  );
+  const right = useTransform(
+    smoothProgress,
+    [0, 0.12, 0.46],
+    ['24px', '24px', '0px'] // 1.5rem = 24px (bottom-6 right-6)
+  );
+  const bottom = useTransform(
+    smoothProgress,
+    [0, 0.12, 0.46],
+    ['24px', '24px', '0px']
+  );
+  const borderRadius = useTransform(
+    smoothProgress,
+    [0, 0.12, 0.46],
+    ['12px', '12px', '0px']
+  );
+
+  const fadeOut = useTransform(smoothProgress, [0.78, 1], [1, 0]);
+
+  // Handle Logic Updates
+  useEffect(() => {
+    const unsubscribe = smoothProgress.on('change', (latest) => {
+      // Audio Logic
+      if (latest >= 0.78) {
+        setAudioOn(false);
+      } else if (latest >= 0.46) {
+        setAudioOn(true);
+        setZIndexState(50); // Expanded
+      } else {
+        setAudioOn(false);
+        setZIndexState(30); // Initial
+      }
+    });
+
+    return () => unsubscribe();
+  }, [smoothProgress]);
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+    if (audioOn) {
+      videoRef.current.muted = false;
+      videoRef.current.volume = 1;
+    } else {
+      videoRef.current.muted = true;
+      videoRef.current.volume = 0;
+    }
+  }, [audioOn]);
+
+  const handleExpand = () => {
+    // Programmatic scroll to trigger expansion
+    const heroHeight = window.innerHeight * 2.5; // 250vh
+    // We want to reach roughly 0.5 progress to ensure full expansion (0.46 threshold)
+    // Offset is 'start start' to 'end start' => full section height
+    const targetScroll = heroHeight * 0.5;
+    window.scrollTo({ top: targetScroll, behavior: 'smooth' });
   };
 
+  if (!isDesktop) {
+    // --- MOBILE RENDER ---
+    // Positioned absolute at bottom, mimicking "below copy" visually
+    return (
+      <div
+        className="absolute bottom-24 left-6 right-6 z-20 aspect-9/14 rounded-xl overflow-hidden shadow-2xl border border-white/10"
+        aria-label="Manifesto Video Mobile"
+      >
+        {shouldLoad && (
+          <video
+            className="w-full h-full object-cover"
+            src={src}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+          />
+        )}
+      </div>
+    );
+  }
+
+  // --- DESKTOP RENDER ---
   return (
     <motion.div
-      initial={{ opacity: 0, translateY: 18, scale: 0.96 }}
-      animate={{ opacity: 1, translateY: 0, scale: 1 }}
-      transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-      className="fixed bottom-[5vh] right-[5vw] z-40 w-[min(280px,calc(35vw))] max-w-[320px] shadow-[0_25px_55px_rgba(3,7,17,0.45)] rounded-[18px] overflow-hidden bg-black/80 pointer-events-auto hover:scale-[1.02] transition-transform duration-300 ease-out"
-      aria-label="Preview em vídeo"
+      ref={wrapperRef}
+      onClick={handleExpand}
+      className="video-wrapper absolute cursor-pointer pointer-events-auto overflow-hidden bg-black shadow-2xl border border-white/10"
+      style={{
+        width,
+        height,
+        right,
+        bottom,
+        borderRadius,
+        opacity: fadeOut,
+        zIndex: zIndexState,
+        willChange: 'width, height, right, bottom',
+      }}
     >
-      <div className="relative w-full h-full">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster={POSTER_IMAGE}
-          onCanPlay={handleVideoReady}
-          onLoadedData={handleVideoReady}
-          className="w-full h-full object-cover"
-        >
-          {VIDEO_SOURCES.map((source) => (
-            <source key={source.src} src={source.src} type={source.type} />
-          ))}
-        </video>
-
-        <div
-          aria-hidden
-          className="absolute inset-0 bg-black"
-          style={{
-            transition: 'opacity 300ms ease',
-            opacity: posterVisible ? 1 : 0,
-            backgroundImage: `linear-gradient(180deg,rgba(4,12,28,0.98) 0,rgba(2,4,12,0.2) 70%),url(${POSTER_IMAGE})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
-
-        <div className="pointer-events-none absolute -top-3 -right-4 flex items-center gap-1 text-[0.65rem] tracking-[0.3em] uppercase text-white/70">
-          <span className="font-mono leading-none">preview</span>
-          <svg
-            viewBox="0 0 24 24"
-            width={18}
-            height={18}
-            className="fill-none"
-            stroke="currentColor"
-            strokeWidth="1.2"
-          >
-            <path d="M4 12h14m-6-6 6 6-6 6" />
-          </svg>
-        </div>
-      </div>
+      {shouldLoad ? (
+        <>
+          <video
+            ref={videoRef}
+            className="w-full h-full object-cover"
+            src={src}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            aria-label="Vídeo showreel demonstrando projetos de design gráfico"
+            aria-describedby={VIDEO_DESCRIPTION_ID}
+          />
+          <p id={VIDEO_DESCRIPTION_ID} className="sr-only">
+            Vídeo de apresentação dos trabalhos em estratégia, branding e motion
+            design.
+          </p>
+        </>
+      ) : (
+        <div className="w-full h-full bg-neutral-900 animate-pulse" />
+      )}
     </motion.div>
   );
-}
+};
+
+export default ManifestoThumb;

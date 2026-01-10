@@ -15,9 +15,9 @@ import { CTAButton } from '@/components/ui/CTAButton';
  */
 export default function CTAProjectCard() {
   return (
-    <div className="group relative flex flex-col items-center justify-center h-full min-h-[280px] md:min-h-[400px] bg-gradient-to-br from-[#0d003b]/80 to-[#040013] p-8 md:p-12 overflow-hidden rounded-md border border-white/5 transition-all duration-500 hover:border-primary/20 hover:shadow-[0_0_40px_rgba(0,72,255,0.1)]">
+    <div className="group relative flex flex-col items-center justify-center h-full min-h-[280px] md:min-h-[400px] bg-linear-to-br from-neutral/80 to-ghost-bg p-8 md:p-12 overflow-hidden rounded-md border border-white/5 transition-all duration-500 hover:border-primary/20 hover:shadow-[0_0_40px_rgba(var(--color-primary),0.1)]">
       {/* Ghost Atmosphere Glow */}
-      <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_50%,rgba(0,72,255,0.15),transparent_70%)]" />
+      <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_50%,var(--color-primary-faint),transparent_70%)]" />
 
       {/* Headline - font normal, hover changes to blue */}
       <h3 className="relative z-10 text-3xl md:text-5xl lg:text-6xl font-normal text-center mb-8 md:mb-12 tracking-tight leading-[1.1] text-white transition-colors duration-300 group-hover:text-primary">

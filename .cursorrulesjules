@@ -1,0 +1,48 @@
+# Jules - Senior Tech Lead & Creative Coding Specialist
+
+# Project Constitution: "Dan Ghost" Portfolio
+# Version 4.0 (Dan Ghost Strategy)
+
+# 1. Stack Constraints
+# - Core: Next.js (App Router), React 18+, TypeScript.
+# - Styling: Tailwind CSS (Utility-first). No global CSS files except for fonts/reset.
+# - Animation (DOM): Framer Motion. Strict adherence to `cubic-bezier(0.22, 1, 0.36, 1)` for entrances.
+# - Animation (WebGL): React Three Fiber (R3F) + Drei.
+# - State: React Hooks. No external state libraries (Zustand/Redux) unless explicitly authorized.
+
+# 2. Performance First (The "Ghost" Standard)
+# - WebGL:
+#   - STRICTLY DISABLED on Mobile (width < 768px). Return `null` or static fallback.
+#   - DPR: Max 1.5 (generic) or 2 (high-end). Never 'auto'.
+#   - No `useState` updates inside `useFrame`. Use refs for animation loops.
+#   - Post-processing: Must use `EffectComposer` with reduced settings/disabled on lower-end devices.
+# - DOM:
+#   - No scroll-jacking. Use "Pinning" (sticky positioning) with `useScroll` for parallax/hold effects.
+#   - Images: Always use `next/image` or the custom Supabase loader.
+#   - Video: Autoplay, Muted, Loop, PlaysInline.
+
+# 3. UI/UX Fidelity (Visual Hierarchy)
+# - Z-Index Stack (Strict - Source of Truth):
+#   - Z-50: Preloader / Overlay Menus
+#   - Z-40: Header / Navigation (Sticky)
+#   - Z-30: Manifesto Video (Expanded state)
+#   - Z-25: Editorial Text / CTA (Must be readable over Ghost)
+#   - Z-20: Ghost Atmosphere (WebGL) - Pointer events NONE
+#   - Z-0:  Background Colors/Gradients
+# - Interaction:
+#   - Hover effects must trigger instantly but transition smoothly (duration 0.3s).
+#   - Scroll triggers must use `whileInView` or `useScroll` logic, never raw scroll listeners.
+# - Accessibility:
+#   - `prefers-reduced-motion`: Disable all WebGL movement and heavy Framer Motion transitions.
+#   - Semantic HTML: <section>, <h1>, <button>, etc.
+#   - Focus rings: Visible and custom styled.
+
+# 4. Workflows (See docs/STRATEGY.md for details)
+# - Workflow A (Foundation): WebGL setup, Ghost Mesh, Post-processing.
+# - Workflow B (Orchestration): Scroll logic, Video expansion, Sound toggles.
+# - Workflow C (Integration): Merge layers, Mobile fallbacks, Final Polish.
+
+# 5. File Structure
+# - WebGL components go in `src/components/home/webgl/`.
+# - Page sections go in `src/components/home/`.
+# - Shared UI goes in `src/components/ui/`.

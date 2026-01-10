@@ -10,8 +10,8 @@ import {
 } from '@/config/motion';
 import FeaturedProjectCard, {
   type FeaturedProject,
-} from './featured-projects/FeaturedProjectCard';
-import CTAProjectCard from './featured-projects/CTAProjectCard';
+} from './FeaturedProjectCard';
+import CTAProjectCard from './CTAProjectCard';
 
 const { duration, offset } = MOTION_TOKENS;
 

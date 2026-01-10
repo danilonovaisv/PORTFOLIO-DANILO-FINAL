@@ -27,10 +27,10 @@ This SDK provides [React](https://react.dev/) hooks generated specific to your a
 ## Installing TanStack Query Firebase and TanStack React Query Packages
 In order to use the React generated SDK, you must install the `TanStack React Query` and `TanStack Query Firebase` packages.
 ```bash
-npm i --save @tanstack/react-query @tanstack-query-firebase/react
+pnpm i --save @tanstack/react-query @tanstack-query-firebase/react
 ```
 ```bash
-npm i --save firebase@latest # Note: React has a peer dependency on ^11.3.0
+pnpm i --save firebase@latest # Note: React has a peer dependency on ^11.3.0
 ```
 
 You can also follow the installation instructions from the [Data Connect documentation](https://firebase.google.com/docs/data-connect/web-sdk#tanstack-install), or the [TanStack Query Firebase documentation](https://react-query-firebase.invertase.dev/react) and [TanStack React Query documentation](https://tanstack.com/query/v5/docs/framework/react/installation).

@@ -28,7 +28,7 @@ Gerado em: 1/6/2026, 10:38:00 AM
 - remotes/origin/main
 - feat/dan-ghost-strategy-refactor-7089967314241857737
 - remotes/origin/feat/dan-ghost-strategy-refactor-7089967314241857737
-- dependabot/npm_and_yarn/npm_and_yarn-cb2c474ead
+- dependabot/pnpm_and_yarn/pnpm_and_yarn-cb2c474ead
 - codex/adjust-hero-section-animation-to-reference
 - visual-alignment-sprint-01-9779188724417258277
 - remotes/origin/visual-alignment-sprint-01-9779188724417258277

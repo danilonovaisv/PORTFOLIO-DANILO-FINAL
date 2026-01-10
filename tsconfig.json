@@ -23,6 +23,7 @@
     "incremental": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "ignoreDeprecations": "5.0",
     "plugins": [
       {
         "name": "next"
@@ -45,6 +46,5 @@
     "docs",
     "REFERENCIA_HERO-GHOST",
     "functions"
-  ],
-  "ignoreDeprecations": "6.0"
+  ]
 }

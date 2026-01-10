@@ -1,153 +1,160 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import { motion, Variants } from 'framer-motion';
 import Link from 'next/link';
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import { HOME_CONTENT } from '@/config/content';
 
-/**
- * HeroCopy - Editorial text block for Hero section
- * Features:
- * - Mask reveal animation on title
- * - Glitch/flicker effect simulating "ghost presence"
- * - Full mobile responsiveness with centered layout
- */
+import { useReducedMotion } from '@/hooks/useReducedMotion';
+
+const textAnimation: Variants = {
+  initial: {
+    opacity: 0,
+    scale: 0.92,
+    y: 60,
+    filter: 'blur(10px)',
+  },
+  animate: {
+    opacity: 1,
+    scale: [0.92, 1.02, 1],
+    y: 0,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 1.2,
+      ease: [0.25, 0.46, 0.45, 0.94],
+    },
+  },
+};
+
 export default function HeroCopy() {
-  const { hero } = HOME_CONTENT;
+  const prefersReducedMotion = useReducedMotion();
 
-  // Motion value for mask animation (0 = hidden, 1 = fully revealed)
-  const maskProgress = useMotionValue(0);
-
-  // Transform mask progress to mask position
-  const maskPosition = useTransform(maskProgress, [0, 1], ['200% 0', '0% 0']);
-
-  // Animate mask on mount
-  useEffect(() => {
-    const controls = animate(maskProgress, 1, {
-      duration: 1.5,
-      ease: [0.22, 1, 0.36, 1], // Ghost easeOutExpo
-      delay: 0.4,
-    });
-    return () => controls.stop();
-  }, [maskProgress]);
+  const motionProps = prefersReducedMotion
+    ? {}
+    : {
+        initial: 'initial' as const,
+        animate: 'animate' as const,
+        variants: textAnimation,
+      };
 
   return (
-    <div className="absolute inset-0 z-10 flex flex-col justify-center items-center pointer-events-none px-4 pt-16 pb-12 sm:pt-20 sm:pb-16 md:pt-0 md:pb-[5vh]">
-      {/* Container de texto: 70% no mobile, 80% tablet, 55% desktop */}
-      <div className="w-[70vw] sm:w-[75vw] md:w-[80vw] lg:w-[55vw] max-w-[1400px] pointer-events-auto text-center flex flex-col items-center transition-all duration-500">
-        {/* Tag */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 0.8, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="font-mono text-[11px] sm:text-[12px] md:text-[14px] uppercase tracking-[0.2em] text-[#9cb3ff] mb-4 sm:mb-6 md:mb-10 font-normal"
-        >
-          {hero.tag}
-        </motion.div>
+    <motion.div
+      {...motionProps}
+      className="absolute inset-0 z-10 flex flex-col justify-center pointer-events-none"
+    >
+      <div className="std-grid pointer-events-auto text-center flex flex-col items-center gap-4">
+        {/* TAG */}
+        <span className="font-mono text-[19px] uppercase tracking-normal text-[#9cb3ff] mb-4 sm:mb-6 md:mb-10 font-normal opacity-80">
+          [BRAND AWARENESS]
+        </span>
 
-        {/* Main Quote (H1) - Responsive Line Breaks */}
-        {/* Desktop/Tablet: 2 linhas | Mobile: 3 linhas */}
-        <motion.h1
-          initial={{ opacity: 0 }}
-          animate={{
-            opacity: [0.85, 1, 0.92, 1, 0.88, 1], // Glitch/flicker effect
-          }}
-          transition={{
-            duration: 4,
-            ease: 'easeInOut',
-            repeat: Infinity,
-            repeatDelay: 2,
-          }}
-          style={{
-            WebkitMaskImage:
-              'linear-gradient(to right, transparent 0%, black 40%, black 60%, transparent 100%)',
-            WebkitMaskSize: '300% 100%',
-            WebkitMaskRepeat: 'no-repeat',
-            WebkitMaskPosition: maskPosition,
-          }}
-          className="font-sans font-black tracking-tighter text-[#d9ddec] mix-blend-screen max-w-[1200px] drop-shadow-[0_0_24px_rgba(71,128,255,0.35)] flex flex-col items-center leading-[0.9] text-[clamp(2.5rem,10vw,9rem)] sm:text-[clamp(3rem,11vw,9rem)] md:text-[clamp(3.5rem,9vw,9rem)]"
-        >
-          {/* Mobile Version: 3 linhas - Visível apenas abaixo de md */}
+        {/* H1 DISPLAY */}
+        <h1 className="font-sans font-black tracking-tight text-[#d9dade] drop-shadow-[0_0_24px_rgba(71,128,255,0.35)] leading-[0.95] text-[clamp(3.5rem,13vw,6rem)] md:text-[clamp(6rem,9vw,9rem)] flex flex-col items-center">
+          {/* MOBILE: 3 Lines */}
           <span className="md:hidden flex flex-col items-center">
-            {hero.titleMobile.map((line, index) => (
-              <span key={`mobile-${index}`} className="block">
-                {line}
-              </span>
-            ))}
+            <span className="block">Você não</span>
+            <span className="block">vê o</span>
+            <span className="block">design.</span>
           </span>
 
-          {/* Desktop/Tablet Version: 2 linhas - Visível apenas em md+ */}
+          {/* DESKTOP/TABLET: 2 Lines */}
           <span className="hidden md:flex flex-col items-center">
-            {hero.title.map((line, index) => (
-              <span key={`desktop-${index}`} className="block">
-                {line}
-              </span>
-            ))}
+            <span className="block">Você não vê</span>
+            <span className="block">o design.</span>
           </span>
-        </motion.h1>
+        </h1>
 
-        {/* Sub Quote (H2) - with subtle flicker */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{
-            opacity: [1, 0.9, 1], // Subtle presence flicker
-            y: 0,
-          }}
-          transition={{
-            duration: 3,
-            ease: 'easeInOut',
-            repeat: Infinity,
-            repeatDelay: 1,
-          }}
-          className="font-sans font-bold tracking-tight mt-4 sm:mt-6 mb-8 sm:mb-12 text-[#9ca5c3] mix-blend-screen max-w-[800px] drop-shadow-[0_0_18px_rgba(71,128,255,0.25)] leading-[1.1] text-[clamp(1rem,4vw,2.5rem)] sm:text-[clamp(1.2rem,4vw,2.5rem)]"
-        >
-          {hero.subtitle}
-        </motion.h2>
+        {/* H2 SUBHEADLINE */}
+        <h2 className="font-sans font-bold tracking-tight text-[#9ca5c3] drop-shadow-[0_0_18px_rgba(71,128,255,0.25)] leading-[1.1] text-[clamp(1rem,4vw,2.5rem)] sm:text-[clamp(1.2rem,4vw,2.5rem)] max-w-[800px]">
+          Mas ele vê você.
+        </h2>
 
-        {/* CTA Button (Center) - Full width on mobile */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.8,
-            ease: [0.22, 1, 0.36, 1],
-            delay: 1.2,
-          }}
-          className="w-full sm:w-auto"
-        >
-          <CtaButton href="/sobre" label={hero.cta} />
-        </motion.div>
+        {/* CTA */}
+        <div className="mt-8">
+          <HeroCTA
+            href="/sobre"
+            label="step inside"
+            reducedMotion={prefersReducedMotion}
+          />
+        </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
-function CtaButton({ href, label }: { href: string; label: string }) {
+function HeroCTA({
+  href,
+  label,
+  reducedMotion,
+}: {
+  href: string;
+  label: string;
+  reducedMotion?: boolean;
+}) {
   const cleanLabel = label.replace('→', '').trim();
+
+  // Physics: Animation & States
+  // Using pure Tailwind classes for interaction states as per workflow
+  // but keeping motion wrapper for entrance if needed
 
   return (
     <Link
       href={href}
-      className="group flex items-center justify-center gap-3 bg-[#0c5bff] text-white no-underline font-semibold lowercase transition-all duration-300 shadow-[0_0_40px_rgba(12,91,255,0.55)] ring-1 ring-white/12 hover:bg-[#0a46d4] hover:shadow-[0_0_55px_rgba(12,91,255,0.75)] text-[14px] sm:text-[15px] px-6 sm:px-8 py-3 rounded-full w-full max-w-xs sm:w-auto sm:max-w-none mx-auto"
+      className="
+        group
+        relative
+        flex flex-row items-center justify-center
+        h-[64px]
+        cursor-pointer
+        transition-transform duration-200 ease-out
+        hover:-translate-y-px
+      "
+      aria-label="Step Inside"
     >
-      <span>{cleanLabel}</span>
-      <span className="flex items-center justify-center transition-transform duration-300 group-hover:translate-x-1">
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 14 14"
+      {/* NÓ 1: CÁPSULA DE TEXTO (Esquerda) */}
+      <div
+        className="
+          flex items-center justify-center
+          h-full
+          pl-8 pr-4
+          bg-[rgb(0,87,255)]
+          group-hover:bg-[rgb(50,120,255)]
+          text-white
+          rounded-l-full
+          transition-colors duration-300
+        "
+      >
+        <span className="text-sm uppercase tracking-wider font-medium whitespace-nowrap">
+          {cleanLabel}
+        </span>
+      </div>
+
+      {/* NÓ 2: ESFERA DO ÍCONE (Direita) */}
+      <div
+        className="
+          flex items-center justify-center
+          h-full aspect-square
+          bg-[rgb(0,87,255)]
+          group-hover:bg-[rgb(50,120,255)]
+          text-white
+          rounded-r-full
+          transition-colors duration-300
+        "
+      >
+        <motion.svg
+          className="w-5 h-5"
           fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          animate={reducedMotion ? {} : undefined}
         >
           <path
-            d="M1 7H13M13 7L7 1M13 7L7 13"
-            stroke="currentColor"
-            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
+            strokeWidth={2}
+            d="M14 5l7 7m0 0l-7 7m7-7H3"
+            className="transition-transform duration-300 group-hover:translate-x-1"
           />
-        </svg>
-      </span>
+        </motion.svg>
+      </div>
     </Link>
   );
 }

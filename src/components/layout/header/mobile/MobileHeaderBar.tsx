@@ -19,7 +19,7 @@ export default function MobileHeaderBar({
 }: MobileHeaderBarProps) {
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-[100] pointer-events-none ${
+      className={`fixed top-0 left-0 right-0 z-100 pointer-events-none ${
         isLight ? 'header--light' : ''
       }`}
     >
@@ -37,8 +37,10 @@ export default function MobileHeaderBar({
               alt="Danilo"
               width={32}
               height={32}
-              className="h-8 w-auto object-contain"
+              className="h-8 w-8 object-contain"
+              style={{ width: 'auto' }}
               unoptimized
+              loading="eager"
             />
           </Link>
 

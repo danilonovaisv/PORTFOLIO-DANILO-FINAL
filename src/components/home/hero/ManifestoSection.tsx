@@ -74,7 +74,8 @@ export default function ManifestoSection() {
       initial={prefersReducedMotion ? {} : ANIMATION.initial}
       animate={isInView && !prefersReducedMotion ? ANIMATION.animate : {}}
       transition={ANIMATION.transition}
-      className="lg:hidden w-full bg-[#050511] aspect-video relative overflow-hidden"
+      className="lg:hidden w-full bg-[#050511] aspect-video relative overflow-hidden cursor-pointer"
+      onClick={toggleSound}
     >
       {/* Video */}
       <video
@@ -91,16 +92,19 @@ export default function ManifestoSection() {
       {/* Sound Toggle Button */}
       <button
         type="button"
-        onClick={toggleSound}
+        onClick={(e) => {
+          e.stopPropagation();
+          toggleSound();
+        }}
         className="absolute bottom-4 right-4 z-10 flex items-center justify-center 
                    w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm text-white 
                    transition-all duration-300 
                    hover:bg-black/70 hover:scale-105
                    focus-visible:outline-none focus-visible:ring-2 
-                   focus-visible:ring-[#4fe6ff] focus-visible:ring-offset-2
+                   focus-visible:ring-accent focus-visible:ring-offset-2
                    focus-visible:ring-offset-black/50"
         aria-label={isMuted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'}
-        aria-pressed={!isMuted ? 'true' : 'false'}
+        aria-pressed={!isMuted}
       >
         {isMuted ? (
           <VolumeX className="w-5 h-5" aria-hidden="true" />
@@ -118,7 +122,7 @@ export default function ManifestoSection() {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -10 }}
         >
-          <span className="w-2 h-2 bg-[#4fe6ff] rounded-full animate-pulse" />
+          <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
           <span className="text-white text-xs font-mono uppercase tracking-wider">
             Sound On
           </span>
@@ -127,7 +131,7 @@ export default function ManifestoSection() {
 
       {/* Subtle gradient overlay */}
       <div
-        className="absolute inset-0 bg-linear-to-t from-[#06071f]/40 via-transparent to-transparent pointer-events-none"
+        className="absolute inset-0 bg-linear-to-t from-ghost-bg-accent/40 via-transparent to-transparent pointer-events-none"
         aria-hidden="true"
       />
     </motion.section>

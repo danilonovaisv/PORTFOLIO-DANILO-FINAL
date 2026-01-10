@@ -84,7 +84,9 @@ export default function DesktopFluidHeader({
                   width={32}
                   height={32}
                   className="h-8 w-auto transition-colors"
+                  style={{ width: 'auto' }}
                   unoptimized
+                  loading="eager"
                 />
               </Link>
 

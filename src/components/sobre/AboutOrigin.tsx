@@ -26,7 +26,7 @@ export default function AboutOrigin() {
 
   return (
     <section
-      className="relative min-h-[130vh] py-16 sm:py-20 md:py-24 lg:py-32 bg-ghost-surface-deep overflow-hidden"
+      className="relative min-h-[130vh] py-16 sm:py-20 md:py-24 lg:py-32 bg-background overflow-hidden"
       aria-label="Origem Criativa"
     >
       <div className={BRAND.layout.container}>

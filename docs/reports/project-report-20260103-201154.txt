@@ -9,8 +9,8 @@
 $ node -v
 v24.12.0
 
-$ npm -v
-npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm.
+$ pnpm -v
+pnpm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of pnpm.
 11.6.2
 
 Sistema operacional:
@@ -34,20 +34,20 @@ $ git status -sb
 ?? project-tools.sh
 
 -------------------------------------------
-### Lint (npm run lint)
+### Lint (pnpm run lint)
 
-$ npm run lint
-npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm.
+$ pnpm run lint
+pnpm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of pnpm.
 
 > danilo-novais-portfolio@0.0.0 lint
 > eslint .
 
 
 -------------------------------------------
-### Testes (npm run test)
+### Testes (pnpm run test)
 
-$ npm run test
-npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm.
+$ pnpm run test
+pnpm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of pnpm.
 
 > danilo-novais-portfolio@0.0.0 test
 > pnpm run eslint:ci && pnpm run typecheck && pnpm run prettier && pnpm run jest
@@ -80,7 +80,7 @@ $ pnpm outdated
 ### Depcheck (dependências não usadas / faltando)
 
 $ npx depcheck
-npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm.
+pnpm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of pnpm.
 Unused dependencies
 * simplex-noise
 Unused devDependencies

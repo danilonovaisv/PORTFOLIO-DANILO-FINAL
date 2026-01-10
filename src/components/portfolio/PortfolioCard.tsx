@@ -113,7 +113,10 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
       />
 
       {/* Category tag */}
-      <div className="absolute top-4 right-4 z-30">
+      <div
+        className="absolute top-4 right-4 z-30 hidden md:flex"
+        aria-hidden="true"
+      >
         <motion.span
           className="inline-flex items-center rounded-full bg-white/10 backdrop-blur-md border border-white/10 px-3 py-1.5 text-[10px] md:text-xs font-medium uppercase tracking-wide text-white"
           animate={{ opacity: 1, y: 0 }}
@@ -127,22 +130,23 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
       <div className="absolute bottom-0 left-0 right-0 z-30 p-5 md:p-8 transform transition-transform duration-500 group-hover:md:-translate-y-2">
         <div className="flex items-end justify-between gap-4">
           <div className="flex flex-col gap-1.5 local-reset">
-             <motion.h3
-               className="text-xl md:text-2xl lg:text-3xl font-bold text-white leading-[1.1] tracking-tight wrap-break-word hyphens-auto"
-             >
-               {project.title}
-             </motion.h3>
-             
-             <span className="text-sm text-white/60 font-medium tracking-wide uppercase">
-               {project.client} ・ {project.year}
-             </span>
+            <motion.h3
+              className="text-xl md:text-2xl lg:text-3xl font-bold text-white leading-[1.1] tracking-tight wrap-break-word hyphens-auto"
+            >
+              {project.title}
+            </motion.h3>
+
+            <span className="text-sm text-white/60 font-medium tracking-wide uppercase">
+              {project.client} ・ {project.year}
+            </span>
           </div>
 
           <motion.div
-            className="flex h-11 w-11 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-full bg-white text-black"
+            className="flex h-11 w-11 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-full bg-white text-black shadow-[0_0_16px_rgba(0,72,255,0.25)] transition-all duration-300"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: 'spring', ...spring.snappy }}
+            whileHover={!prefersReducedMotion ? { x: 4 } : undefined}
           >
             <ArrowUpRight className="w-5 h-5" />
           </motion.div>

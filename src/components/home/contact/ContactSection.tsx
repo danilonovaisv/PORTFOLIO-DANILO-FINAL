@@ -11,11 +11,11 @@ import {
   Facebook,
   Globe,
 } from 'lucide-react';
-import { SOCIALS } from '@/config/navigation';
-import { HOME_CONTENT } from '@/config/content';
-import ContactForm from './contact/ContactForm';
 
 import { BRAND } from '@/config/brand';
+import { HOME_CONTENT } from '@/config/content';
+import { SOCIALS } from '@/config/navigation';
+import ContactForm from './ContactForm';
 
 export default function ContactSection() {
   const reducedMotion = useReducedMotion();

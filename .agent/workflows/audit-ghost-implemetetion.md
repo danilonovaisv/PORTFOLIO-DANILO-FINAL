@@ -33,7 +33,7 @@ Inputs obrigatórios
 • Workflow Refinamento 3D ￼
 • Código atual (/docs/HOME/REFERENCIA_HERO-GHOST/code-ref.tsx)
 • Assets da referência (/docs/HOME/REFERENCIA_HERO-GHOST/)
-• Documento com detalhemento da pagina (/docs/HOME/HOME - PROTOTIPO INTERATIVO.md)
+• Documento com detalhemento da pagina (docs/blueprints_project/Blueprint_Hero_Section.md) e ('/docs/HOME/REFERENCIA_HERO-GHOST/ANALISE-GHOST.md'0
 
 Outputs
 • Checklist técnico de paridade

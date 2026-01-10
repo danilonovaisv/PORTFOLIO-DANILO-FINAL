@@ -21,7 +21,7 @@
   → v22.16.0 *
   system *
 ✅ nvm: available
-✅ npm: 11.4.2
+✅ pnpm: 11.4.2
 ✅ yarn: 1.22.22
 ✅ pnpm: 10.12.1
 ✅ eslint: v9.29.0

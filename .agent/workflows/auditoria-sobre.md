@@ -69,9 +69,9 @@ Para **cada prompt**, em ordem:
 Após aplicar o prompt:
 
 1. Se existirem scripts, execute na raiz do projeto:
-   - `npm run lint` (ou equivalente)
-   - `npm run build` (ou equivalente)
-   - `npm run test` / `npm run test:e2e` (se definido)
+   - `pnpm run lint` (ou equivalente)
+   - `pnpm run build` (ou equivalente)
+   - `pnpm run test` / `pnpm run test:e2e` (se definido)
 2. Se algum comando falhar, registre o erro e tente corrigir **apenas se estiver alinhado ao prompt atual**.
 
 ---
@@ -80,7 +80,7 @@ Após aplicar o prompt:
 
 Para cada prompt aplicado, faça um teste visual focado nos arquivos/rotas mencionados:
 
-1. Suba o projeto em modo dev (ex.: `npm run dev`) e acesse:
+1. Suba o projeto em modo dev (ex.: `pnpm run dev`) e acesse:
    - `/` (Home) ou a rota correspondente.
 2. Valide o layout em pelo menos 3 larguras:
    - **Mobile:** 375px (aprox. iPhone)

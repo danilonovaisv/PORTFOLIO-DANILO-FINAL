@@ -6,13 +6,17 @@ import { useAntigravityStore } from '@/store/antigravity.store';
 jest.mock('framer-motion', () => ({
   useScroll: () => ({ scrollYProgress: { get: () => 0, onChange: jest.fn() } }),
   useTransform: () => 0,
-  useMotionValueEvent: (_val: any, event: string, _callback: any) => {
+  useMotionValueEvent: (
+    _val: unknown,
+    event: string,
+    _callback: (_v: unknown) => void
+  ) => {
     // Manually trigger callback for testing state changes
     if (event === 'change') {
       // Mock simulation of scroll events
     }
   },
-  useSpring: (val: any) => val,
+  useSpring: (val: unknown) => val,
 }));
 
 describe('Antigravity System Regression Tests', () => {

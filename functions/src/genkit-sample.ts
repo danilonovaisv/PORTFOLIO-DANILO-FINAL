@@ -1,4 +1,4 @@
-import { genkit, z } from 'genkit';
+import { genkit, z, type FlowSideChannel } from 'genkit';
 import { googleAI } from '@genkit-ai/google-genai';
 
 // Cloud Functions for Firebase supports Genkit natively. The onCallGenkit function creates a callable
@@ -29,7 +29,6 @@ const ai = genkit({
     // recommended practice.
     googleAI({
       apiKey: process.env.GOOGLE_GENAI_API_KEY,
-      project: 'portfolio-danilo-novais-fdc', // Replace with your actual Google Cloud project ID
     }),
   ],
 });
@@ -45,7 +44,7 @@ const portfolioSuggestionFlow = ai.defineFlow(
     outputSchema: z.string(),
     streamSchema: z.string(),
   },
-  async (subject, { sendChunk }) => {
+  async (subject: string, { sendChunk }: FlowSideChannel<string>) => {
     // Construct a request and send it to the model API.
     const prompt = `Suggest an innovative approach for a portfolio project in the area of ${subject}. Include key technologies and creative elements that would make it stand out.`;
     const { response, stream } = ai.generateStream({

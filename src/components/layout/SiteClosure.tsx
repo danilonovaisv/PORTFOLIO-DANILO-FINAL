@@ -1,7 +1,7 @@
 'use client';
 
-import ClientsBrandsSection from '@/components/home/ClientsBrandsSection';
-import ContactSection from '@/components/home/ContactSection';
+import ClientsBrandsSection from '@/components/home/clients/ClientsBrandsSection';
+import ContactSection from '@/components/home/contact/ContactSection';
 import SiteFooter from '@/components/layout/SiteFooter';
 
 /**

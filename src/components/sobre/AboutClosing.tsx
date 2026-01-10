@@ -9,7 +9,7 @@ export function AboutClosing() {
 
   return (
     <section
-      className="flex items-center justify-center px-6 md:px-12 lg:px-20 bg-ghost-surface-deep py-20 md:py-24"
+      className="flex items-center justify-center px-6 md:px-12 lg:px-20 bg-background py-20 md:py-24"
       aria-label="Fechamento"
     >
       <motion.div
@@ -53,7 +53,7 @@ export function AboutClosing() {
           <div className="flex flex-row lg:flex-col items-center justify-center gap-4 md:gap-5 justify-self-center">
             <Link
               href="/contato"
-              className="group inline-flex items-center gap-2 rounded-full bg-primary text-white pl-4 pr-2 py-2 md:pl-5 md:pr-3 md:py-2.5 text-[15px] md:text-sm font-medium shadow-[0_12px_24px_rgba(0,87,255,0.25)] transition-all duration-300 lowercase hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-ghost-surface-deep"
+              className="group inline-flex items-center gap-2 rounded-full bg-primary text-white pl-4 pr-2 py-2 md:pl-5 md:pr-3 md:py-2.5 text-[15px] md:text-sm font-medium shadow-[0_12px_24px_rgba(0,87,255,0.25)] transition-all duration-300 lowercase hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               Fale comigo
               <span className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full bg-primary-hover text-white text-sm transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
@@ -65,7 +65,7 @@ export function AboutClosing() {
               href="/cv.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 rounded-full bg-transparent border-2 border-primary text-primary pl-4 pr-2 py-2 md:pl-5 md:pr-3 md:py-2.5 text-[15px] md:text-sm font-medium transition-all duration-300 lowercase hover:bg-primary/10 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-ghost-surface-deep"
+              className="group inline-flex items-center gap-2 rounded-full bg-transparent border-2 border-primary text-primary pl-4 pr-2 py-2 md:pl-5 md:pr-3 md:py-2.5 text-[15px] md:text-sm font-medium transition-all duration-300 lowercase hover:bg-primary/10 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               Baixar curriculum
               <span className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full border border-primary text-primary text-sm transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">

@@ -53,7 +53,7 @@ const GhostEyes: React.FC<{ interactive?: boolean }> = ({
             patternUnits="userSpaceOnUse"
           >
             {/* CORPO: Azul Elétrico */}
-            <use fill="#0048ff" href="#pixel-dot-rect" />
+            <use fill="var(--color-primary)" href="#pixel-dot-rect" />
           </pattern>
           <mask id="pixel-dot-mask">
             <rect fill="white" width="14" height="14" />
@@ -92,11 +92,11 @@ const GhostEyes: React.FC<{ interactive?: boolean }> = ({
             <path
               transform="translate(0 0.5)"
               fill="none"
-              stroke="#040013"
+              stroke="var(--color-ghost-bg)"
               d="M 1 0 h2 M 0 1h4 M 0 2h4 M 0 3h4 M 1 4h2"
             />
             {/* Pupila (Roxo) */}
-            <g fill="#8705f2" className="dot">
+            <g fill="var(--color-purple-details)" className="dot">
               <use transform="translate(1 1)" href="#pixel-dot-rect" />
               <use transform="translate(2 1)" href="#pixel-dot-rect" />
               <use transform="translate(1 2)" href="#pixel-dot-rect" />
@@ -110,11 +110,11 @@ const GhostEyes: React.FC<{ interactive?: boolean }> = ({
             <path
               transform="translate(0 0.5)"
               fill="none"
-              stroke="#040013"
+              stroke="var(--color-ghost-bg)"
               d="M 1 0 h2 M 0 1h4 M 0 2h4 M 0 3h4 M 1 4h2"
             />
             {/* Pupila (Roxo) */}
-            <g fill="#8705f2" className="dot">
+            <g fill="var(--color-purple-details)" className="dot">
               <use transform="translate(1 1)" href="#pixel-dot-rect" />
               <use transform="translate(2 1)" href="#pixel-dot-rect" />
               <use transform="translate(1 2)" href="#pixel-dot-rect" />

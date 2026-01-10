@@ -65,7 +65,7 @@ export default function GhostAura() {
           'w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] md:w-[500px] md:h-[500px]',
           'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
           'blur-[60px] sm:blur-[80px] md:blur-[100px]',
-          'bg-[#0048ff]/10'
+          'bg-primary/10'
         )}
         animate={{
           scale: [1, 1.15, 1],
@@ -85,7 +85,7 @@ export default function GhostAura() {
           'w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64',
           'top-[25%] right-[15%] sm:top-[30%] sm:right-[20%]',
           'blur-2xl sm:blur-[60px] md:blur-[80px]',
-          'bg-[#4fe6ff]/10'
+          'bg-accent/10'
         )}
         animate={{
           y: [0, -20, 0],
@@ -116,7 +116,7 @@ export default function GhostAura() {
           duration: 4,
           repeat: Infinity,
           ease: 'easeInOut',
-          delay: 0.5,
+          delay: 0.05,
         }}
       />
     </div>

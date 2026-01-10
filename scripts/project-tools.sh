@@ -7,10 +7,10 @@ set -e
 # CONFIG BÁSICA
 # --------------------------
 
-PACKAGE_MANAGER="npm"   # mude para "yarn" ou "pnpm" se quiser
-LOCKFILE_NPM="package-lock.json"
+PACKAGE_MANAGER="pnpm"   # mude para "yarn" ou "pnpm" se quiser
+LOCKFILE_pnpm="package-lock.json"
 LOCKFILE_YARN="yarn.lock"
-LOCKFILE_PNPM="pnpm-lock.yaml"
+LOCKFILE_pnpm="pnpm-lock.yaml"
 
 # --------------------------
 # FUNÇÕES UTILITÁRIAS
@@ -38,7 +38,7 @@ detect_package_manager() {
   elif [ -f "pnpm-lock.yaml" ]; then
     PACKAGE_MANAGER="pnpm"
   else
-    PACKAGE_MANAGER="npm"
+    PACKAGE_MANAGER="pnpm"
   fi
   info "Usando package manager: $PACKAGE_MANAGER"
 }
@@ -50,7 +50,7 @@ detect_package_manager() {
 check_env() {
   info "Checando versões de Node e gerenciadores..."
   node -v || warn "Node não encontrado"
-  npm -v || warn "npm não encontrado"
+  pnpm -v || warn "pnpm não encontrado"
   yarn -v || warn "yarn não encontrado"
   pnpm -v || warn "pnpm não encontrado"
 }
@@ -60,8 +60,8 @@ install_deps() {
   info "Instalando dependências..."
 
   case "$PACKAGE_MANAGER" in
-    npm)
-      npm install
+    pnpm)
+      pnpm install
       ;;
     yarn)
       yarn install
@@ -79,8 +79,8 @@ check_outdated() {
   info "Verificando pacotes desatualizados..."
 
   case "$PACKAGE_MANAGER" in
-    npm)
-      npm outdated || true
+    pnpm)
+      pnpm outdated || true
       ;;
     yarn)
       yarn outdated || true
@@ -96,8 +96,8 @@ update_safe() {
   info "Atualizando dependências (modo seguro, respeitando package.json)..."
 
   case "$PACKAGE_MANAGER" in
-    npm)
-      npm update
+    pnpm)
+      pnpm update
       ;;
     yarn)
       yarn upgrade
@@ -112,17 +112,17 @@ update_safe() {
 
 update_aggressive() {
   detect_package_manager
-  info "Atualização agressiva com npm-check-updates..."
+  info "Atualização agressiva com pnpm-check-updates..."
 
   # npx funciona mesmo se não tiver ncu instalado globalmente
-  npx npm-check-updates || true
-  npx npm-check-updates -u
+  npx pnpm-check-updates || true
+  npx pnpm-check-updates -u
 
   info "Reinstalando dependências após atualizar package.json..."
 
   case "$PACKAGE_MANAGER" in
-    npm)
-      npm install
+    pnpm)
+      pnpm install
       ;;
     yarn)
       yarn install
@@ -142,16 +142,16 @@ deep_clean() {
   rm -rf node_modules
 
   case "$PACKAGE_MANAGER" in
-    npm)
-      rm -f "$LOCKFILE_NPM"
-      npm install
+    pnpm)
+      rm -f "$LOCKFILE_pnpm"
+      pnpm install
       ;;
     yarn)
       rm -f "$LOCKFILE_YARN"
       yarn install
       ;;
     pnpm)
-      rm -f "$LOCKFILE_PNPM"
+      rm -f "$LOCKFILE_pnpm"
       pnpm install
       ;;
   esac
@@ -171,8 +171,8 @@ set_default_branch_main() {
 }
 
 run_tests() {
-  info "Rodando testes (npm test)..."
-  if npm run test; then
+  info "Rodando testes (pnpm test)..."
+  if pnpm run test; then
     success "Testes concluídos."
   else
     warn "Testes falharam. Verifique antes de continuar."
@@ -180,8 +180,8 @@ run_tests() {
 }
 
 run_lint() {
-  info "Rodando lint (npm run lint)..."
-  if npm run lint; then
+  info "Rodando lint (pnpm run lint)..."
+  if pnpm run lint; then
     success "Lint concluído."
   else
     warn "Lint falhou. Ajuste o código."
@@ -222,8 +222,8 @@ generate_report() {
   node -v >> "$REPORT_FILE" 2>&1
   echo "" >> "$REPORT_FILE"
 
-  echo "\$ npm -v" >> "$REPORT_FILE"
-  npm -v >> "$REPORT_FILE" 2>&1
+  echo "\$ pnpm -v" >> "$REPORT_FILE"
+  pnpm -v >> "$REPORT_FILE" 2>&1
   echo "" >> "$REPORT_FILE"
 
   echo "Sistema operacional:" >> "$REPORT_FILE"
@@ -238,17 +238,17 @@ generate_report() {
   echo "" >> "$REPORT_FILE"
 
   echo "-------------------------------------------" >> "$REPORT_FILE"
-  echo "### Lint (npm run lint)" >> "$REPORT_FILE"
+  echo "### Lint (pnpm run lint)" >> "$REPORT_FILE"
   echo "" >> "$REPORT_FILE"
-  echo "\$ npm run lint" >> "$REPORT_FILE"
-  npm run lint >> "$REPORT_FILE" 2>&1
+  echo "\$ pnpm run lint" >> "$REPORT_FILE"
+  pnpm run lint >> "$REPORT_FILE" 2>&1
   echo "" >> "$REPORT_FILE"
 
   echo "-------------------------------------------" >> "$REPORT_FILE"
-  echo "### Testes (npm run test)" >> "$REPORT_FILE"
+  echo "### Testes (pnpm run test)" >> "$REPORT_FILE"
   echo "" >> "$REPORT_FILE"
-  echo "\$ npm run test" >> "$REPORT_FILE"
-  npm run test >> "$REPORT_FILE" 2>&1
+  echo "\$ pnpm run test" >> "$REPORT_FILE"
+  pnpm run test >> "$REPORT_FILE" 2>&1
   echo "" >> "$REPORT_FILE"
 
   echo "-------------------------------------------" >> "$REPORT_FILE"
@@ -256,8 +256,8 @@ generate_report() {
   echo "" >> "$REPORT_FILE"
   echo "\$ $PACKAGE_MANAGER outdated" >> "$REPORT_FILE"
   case "$PACKAGE_MANAGER" in
-    npm)
-      npm outdated >> "$REPORT_FILE" 2>&1
+    pnpm)
+      pnpm outdated >> "$REPORT_FILE" 2>&1
       ;;
     yarn)
       yarn outdated >> "$REPORT_FILE" 2>&1
@@ -296,16 +296,16 @@ Uso: ./project-tools.sh [comando]
 
 Comandos disponíveis:
 
-  check-env          -> Checa Node, npm, yarn, pnpm
-  install            -> Instala dependências (npm/yarn/pnpm)
+  check-env          -> Checa Node, pnpm, yarn, pnpm
+  install            -> Instala dependências (pnpm/yarn/pnpm)
   outdated           -> Mostra pacotes desatualizados
   update-safe        -> Atualiza respeitando o package.json
-  update-aggressive  -> Atualiza para últimas versões com npm-check-updates
+  update-aggressive  -> Atualiza para últimas versões com pnpm-check-updates
   deep-clean         -> Remove node_modules + lockfile e reinstala
   depcheck           -> Verifica dependências não utilizadas
   git-default-branch -> Força git init.defaultBranch=main para evitar erros em scripts
-  lint               -> Executa "npm run lint"
-  test               -> Executa "npm run test"
+  lint               -> Executa "pnpm run lint"
+  test               -> Executa "pnpm run test"
   full               -> Rotina completa (check-env, lint, test, outdated, depcheck)
   report             -> Gera relatório completo em arquivo .txt para enviar à IA
   help               -> Mostra esta ajuda
