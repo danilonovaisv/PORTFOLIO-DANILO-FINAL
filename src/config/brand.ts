@@ -20,6 +20,7 @@ export const BRAND = {
 
     neutral: '#0b0d3a', // Gradientes sutis
     neutralLight: '#F5F5F5', // Fundos secundários
+    contactForeground: '#fcffff', // Texto e ícones da seção Contato
   },
 
   // Assets Globais (2.6 Global Assets)

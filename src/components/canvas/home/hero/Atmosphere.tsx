@@ -33,14 +33,15 @@ const atmosphereShader = {
     
     void main() {
       float dist = distance(vWorldPosition.xy, ghostPosition.xy);
-      float dynamicRadius = revealRadius + sin(time * 2.0) * 5.0;
-      float reveal = smoothstep(dynamicRadius * 0.2, dynamicRadius, dist); // Updated 0.3 -> 0.2 to match CodePen
-      reveal = pow(reveal, fadeStrength);
+      // FIXED: Match CodePen dynamics exactly
+      float dynamicRadius = revealRadius * 0.3 + sin(time * 2.0) * 1.0;
+      float reveal = smoothstep(dynamicRadius * 0.4, dynamicRadius, dist);
+      reveal = pow(reveal, fadeStrength * 2.5);
       
-      float finalOpacity = mix(revealOpacity, baseOpacity, reveal);
+      float finalOpacity = mix(revealOpacity * 0.5, baseOpacity * 0.3, reveal);
       
-      // EXTREMELY low RGB values to avoid bloom (Matched to CodePen)
-      gl_FragColor = vec4(0.001, 0.001, 0.002, finalOpacity);
+      // FIXED: Blue-tinted atmosphere like CodePen (was near-black)
+      gl_FragColor = vec4(0.0, 0.2, 1.0, finalOpacity * 0.8);
     }
   `,
   transparent: true,

@@ -116,8 +116,7 @@ export default function HeroCopy({
       {/* Brilho Global (Aura do Ghost) */}
       <div
         ref={revealRef}
-        className="fixed top-0 left-0 w-[500px] h-[500px] rounded-full bg-[#0048ff]/20 blur-[120px] pointer-events-none mix-blend-screen z-10"
-        style={{ opacity: isLoaded ? 1 : 0 }}
+        className={`${styles.ghostAura} ${isLoaded ? styles.isLoaded : ''}`}
       />
     </motion.div>
   );

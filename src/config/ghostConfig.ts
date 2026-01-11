@@ -171,20 +171,20 @@ export const GHOST_CONFIG: GhostConfig = {
   cameraFov: 75,
   rendererDPR: [1, 2],
 
-  // Aparência do Ghost (Matched to CodePen)
-  ghostScale: 1.2,
+  // Aparência do Ghost (MATCHED to CodePen Reference)
+  ghostScale: 2.4, // FIXED: was 1.2
   bodyColor: 'deepSpace', // 0x0f2027
   glowColor: 'blue', // "blue"
-  eyeGlowColor: 'violet', // Corrigido para 'violet' como no CodePen
+  eyeGlowColor: 'blue', // FIXED: CodePen uses 'blue' (0x0080ff)
 
   ghostOpacity: 0.88,
-  emissiveIntensity: 5.8,
+  emissiveIntensity: 8.5, // FIXED: was 5.8
   pulseSpeed: 1.6,
   pulseIntensity: 0.6,
-  floatSpeed: 1.6,
+  floatSpeed: 0.8, // FIXED: was 1.6
 
   // Comportamento do Ghost
-  followSpeed: 0.05,
+  followSpeed: 0.03, // FIXED: was 0.05
   movementThreshold: 0.07,
 
   // Iluminação
@@ -246,11 +246,11 @@ export const GHOST_CONFIG: GhostConfig = {
   analogVSync: 1.7,
   limboMode: false,
 
-  // Parâmetros do Véu Atmosférico (Matched to CodePen)
-  revealRadius: 37,
-  fadeStrength: 1.7,
-  baseOpacity: 0.9,
-  revealOpacity: 0.05,
+  // Parâmetros do Véu Atmosférico (MATCHED to CodePen Reference)
+  revealRadius: 15, // FIXED: was 37
+  fadeStrength: 2.5, // FIXED: was 1.7
+  baseOpacity: 0.3, // FIXED: was 0.9 (was blocking text!)
+  revealOpacity: 0.01, // FIXED: was 0.05
 };
 
 // Helper para converter cor do config para formato numérico (Three.js)

@@ -6,9 +6,6 @@ import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { Project } from '@/lib/types';
-import { MOTION_TOKENS, ghostTransition } from '@/config/motion';
-
-const { duration, stagger } = MOTION_TOKENS;
 
 interface ProjectCardProps {
   project: Project;
@@ -23,10 +20,9 @@ const ProjectCard: FC<ProjectCardProps> = ({
 }) => {
   const prefersReducedMotion = useReducedMotion();
 
-  // Ghost Era: sem scale, apenas translate
   const mediaHoverClass = prefersReducedMotion
     ? ''
-    : 'md:group-hover:-translate-y-1';
+    : 'md:group-hover:scale-[1.03] md:group-hover:-translate-y-px';
   const arrowHoverClass = prefersReducedMotion
     ? ''
     : 'md:group-hover:translate-x-5 md:group-hover:-translate-y-px';
@@ -34,10 +30,14 @@ const ProjectCard: FC<ProjectCardProps> = ({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24, filter: 'blur(4px)' }}
-      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
-      transition={ghostTransition(index * stagger.tight, duration.normal)}
+      transition={{
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1],
+        delay: index * 0.08,
+      }}
       className={`group relative flex h-full w-full flex-col ${className}`}
     >
       <Link href={`/portfolio/${project.slug}`} className="block w-full h-full">

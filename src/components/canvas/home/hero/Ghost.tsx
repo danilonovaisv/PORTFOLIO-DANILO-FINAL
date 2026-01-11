@@ -74,10 +74,12 @@ export function Ghost({
     const renderPass = new RenderPass(scene, camera);
     composer.addPass(renderPass);
 
+    // FIXED: strength and radius were INVERTED!
+    // CodePen reference: strength=0.3, radius=1.25, threshold=0.0
     const bloomPass = new UnrealBloomPass(
       new THREE.Vector2(size.width, size.height),
-      1.25, // strength
-      0.4, // radius
+      0.3, // strength (was 1.25 - FIXED)
+      1.25, // radius (was 0.4 - FIXED)
       0.0 // threshold
     );
     composer.addPass(bloomPass);

@@ -35,6 +35,19 @@ export default function GhostScene() {
         role="presentation"
       >
         <ambientLight intensity={0.08} color={0x0a0a2e} />
+
+        {/* RIM LIGHTS - CRITICAL for Ghost blue/teal contour glow (CodePen reference) */}
+        <directionalLight
+          position={[-8, 6, -4]}
+          color="#4a90e2"
+          intensity={1.8}
+        />
+        <directionalLight
+          position={[8, -4, -6]}
+          color="#50e3c2"
+          intensity={1.26}
+        />
+
         <Suspense fallback={null}>
           <AtmosphereVeil />
           <Ghost particleCount={particleCount} />

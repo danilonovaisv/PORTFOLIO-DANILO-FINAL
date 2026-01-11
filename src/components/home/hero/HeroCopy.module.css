@@ -65,3 +65,23 @@
 .mobileH1 {
   font-size: clamp(3.5rem, 15vw, 9rem);
 }
+
+.ghostAura {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background-color: rgba(0, 72, 255, 0.2);
+  filter: blur(120px);
+  pointer-events: none;
+  mix-blend-mode: screen;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.isLoaded {
+  opacity: 1;
+}

@@ -300,6 +300,4 @@ Para cada item da lista indexada na FASE 1, execute:
 ✔ **Next.js production-ready**  
 ✔ **Smooth 60fps** scroll experience
 
-### 🧠 **Componente Principal:**
-
 ---

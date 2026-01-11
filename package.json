@@ -41,6 +41,7 @@
     "@dataconnect/admin-generated": "link:src/dataconnect-admin-generated",
     "@genkit-ai/google-genai": "^1.27.0",
     "@google/adk": "^0.2.2",
+    "@gsap/react": "^2.1.2",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@react-three/postprocessing": "^3.0.4",

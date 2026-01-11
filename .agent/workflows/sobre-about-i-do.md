@@ -26,8 +26,6 @@ com **animação horizontal guiada pelo scroll**.
    - `Ação`: O que mudar (ex: "Aumentar padding", "Corrigir Z-Index").
    - `Validação`: Critério de sucesso (ex: "Compilar sem erros", "Igual à imagem X").
 
-
-
 ###REFERECIAS BIBLE DE NA PASTA:
 
 - '/docs/SOBRE/SOBRE-PROTOTIPO-INTERATIVO.md'
@@ -35,8 +33,6 @@ com **animação horizontal guiada pelo scroll**.
 - '/docs/SOBRE/`SOBRE-PORTFOLIO-BLACK---GHOST.jpg`<br>
 
 **Visual Mobile:** '/docs/SOBRE/`SOBRE-MOBILE-BLACK---GHOST.jpg`<br>
-
-
 
 ### FASE 2: Protocolo de Análise Profunda
 
