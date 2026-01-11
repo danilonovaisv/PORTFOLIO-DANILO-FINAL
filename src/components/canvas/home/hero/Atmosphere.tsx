@@ -8,7 +8,7 @@ import { GHOST_CONFIG } from '@/config/ghostConfig';
 const atmosphereShader = {
   uniforms: {
     ghostPosition: { value: new THREE.Vector3() },
-    time: { value: 1 },
+    time: { value: 0 },
     revealRadius: { value: GHOST_CONFIG.revealRadius },
     fadeStrength: { value: GHOST_CONFIG.fadeStrength },
     baseOpacity: { value: GHOST_CONFIG.baseOpacity },

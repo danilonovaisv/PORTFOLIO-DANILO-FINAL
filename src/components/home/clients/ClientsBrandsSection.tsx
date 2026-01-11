@@ -43,7 +43,10 @@ export default function ClientsBrandsSection() {
           initial={reducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{
+            duration: 0.6,
+            ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+          }}
           className="mb-10 md:mb-16 lg:mb-20"
         >
           {/* Título: white, bold, 1.5rem mobile / 2rem desktop (spec) */}

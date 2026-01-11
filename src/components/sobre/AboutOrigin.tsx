@@ -26,7 +26,7 @@ export default function AboutOrigin() {
             initial={prefersReducedMotion ? 'visible' : 'hidden'}
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
-            className="col-span-12 text-center font-mono type-caption text-[#0048ff]"
+            className="col-span-12 text-center font-mono type-caption text-bluePrimary"
           >
             {ABOUT_CONTENT.origin.title}
           </motion.h2>
@@ -37,7 +37,7 @@ export default function AboutOrigin() {
             initial={prefersReducedMotion ? 'visible' : 'hidden'}
             whileInView="visible"
             viewport={{ once: true, margin: '-80px' }}
-            className="text-center font-mono type-caption text-[#0048ff]"
+            className="text-center font-mono type-caption text-bluePrimary"
           >
             {ABOUT_CONTENT.origin.title}
           </motion.h2>

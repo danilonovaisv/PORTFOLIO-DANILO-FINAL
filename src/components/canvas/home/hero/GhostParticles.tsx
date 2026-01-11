@@ -24,7 +24,7 @@ export function GhostParticles({
   count,
 }: GhostParticlesProps) {
   const groupRef = useRef<THREE.Group>(null!);
-  const lastSpawnTime = useRef(0);
+  const lastSpawnTime = useRef(2);
 
   // Initialize particles strictly with geometry and material
   // We use userData to store simulation state
@@ -55,7 +55,7 @@ export function GhostParticles({
       ? moveAmt > 0.005
       : moveAmt > 0.005;
 
-    if (shouldSpawn && now - lastSpawnTime.current > 100) {
+    if (shouldSpawn && now - lastSpawnTime.current > 200) {
       // Find inactive particles to spawn
       // CodePen rate: Math.min(params.particleCreationRate, Math.max(1, speedRate))
       // Simpler rate here:

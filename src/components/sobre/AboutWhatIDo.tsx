@@ -1,45 +1,142 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  useMotionValue,
-  useVelocity,
   useAnimationFrame,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+  useVelocity,
+  useMotionValue,
   wrap,
   MotionValue,
 } from 'framer-motion';
 import { cn } from '@/lib/utils';
+import { ABOUT_CONTENT } from '@/config/content';
 
-// --- Types ---
+const MOBILE_BREAKPOINT = 768;
+const DESKTOP_BREAKPOINT = 1024;
+
+const MARQUEE_LINE_A = ABOUT_CONTENT.whatIDo.marquee;
+const MARQUEE_LINE_B = [...ABOUT_CONTENT.whatIDo.marquee].reverse();
+
 interface ServiceCardProps {
   index: number;
   text: string;
   scrollProgress: MotionValue<number>;
   isDesktop: boolean;
+  prefersReducedMotion: boolean;
 }
+
+const ServiceCard = ({
+  index,
+  text,
+  scrollProgress,
+  isDesktop,
+  prefersReducedMotion,
+}: ServiceCardProps) => {
+  const [firstWord, ...restWords] = text.split(' ');
+  const restOfText = restWords.join(' ');
+
+  // Desktop Animation: Scroll Driven
+  // The cards enter from the right (+120vw) and move to their original position (0)
+  // We stagger them by index so they arrive one after another as we scroll.
+  const staggerOffset = index * 0.08;
+  const start = 0.15 + staggerOffset;
+  const end = 0.5 + staggerOffset;
+
+  const cardProgress = useTransform(scrollProgress, [start, end], [0, 1], {
+    clamp: true,
+  });
+
+  const translateX = useTransform(cardProgress, [0, 1], ['120vw', '0vw']);
+  const opacity = useTransform(cardProgress, [0, 0.4], [0, 1]);
+
+  // Mobile Animation: Viewport Driven
+  const mobileAnimationProps = prefersReducedMotion
+    ? {
+        initial: { opacity: 1, x: 0 },
+      }
+    : {
+        initial: { opacity: 0, x: 80 },
+        whileInView: { opacity: 1, x: 0 },
+        viewport: { once: true, margin: '-50px' },
+        transition: {
+          duration: 0.5,
+          delay: index * 0.1,
+          ease: [0.22, 1, 0.36, 1],
+        },
+      };
+
+  const formattedNumber = `${index + 1}`.padStart(2, '0');
+
+  return (
+    <motion.article
+      tabIndex={0}
+      aria-label={text}
+      className={cn(
+        'group flex w-full flex-row items-center gap-4 rounded-[12px] bg-bluePrimary px-[18px] py-[20px] text-white outline-none transition-all duration-300 ease-out will-change-transform',
+        'focus-visible:ring-2 focus-visible:ring-blueAccent focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+        'hover:brightness-110 hover:-translate-y-1',
+        'md:min-h-[140px] md:w-[400px] md:shrink-0 md:rounded-[16px] md:px-8 md:py-6 md:gap-5'
+      )}
+      {...(isDesktop && !prefersReducedMotion
+        ? { style: { x: translateX, opacity } }
+        : !isDesktop
+          ? mobileAnimationProps
+          : {})}
+    >
+      <div className="text-3xl font-extrabold leading-none text-purpleDetails transition-colors duration-300 group-hover:text-white md:text-5xl">
+        {formattedNumber}
+      </div>
+      <p className="text-base font-bold leading-tight md:text-[1.25rem]">
+        <span className="text-blueAccent transition-colors duration-300 group-hover:text-white">
+          {firstWord}
+        </span>
+        {restOfText ? <span className="text-white"> {restOfText}</span> : null}
+      </p>
+    </motion.article>
+  );
+};
 
 interface MarqueeProps {
-  children: React.ReactNode;
-  baseVelocity: number;
+  items: string[];
+  direction?: 1 | -1;
+  baseVelocity?: number;
+  reducedMotion?: boolean;
+  className?: string;
 }
 
-import { ABOUT_CONTENT } from '@/config/content';
+function Marquee({
+  items,
+  direction = 1,
+  baseVelocity = 10,
+  reducedMotion = false,
+  className,
+}: MarqueeProps) {
+  if (reducedMotion) {
+    return (
+      <div
+        aria-hidden="true"
+        className={cn(
+          'flex flex-wrap items-center justify-center gap-6 px-4 py-5 text-[0.85rem] font-black uppercase tracking-[0.2em] text-purpleDetails',
+          className
+        )}
+      >
+        {items.map((item, index) => (
+          <span key={`${item}-${index}`} className="flex items-center gap-2">
+            <span>{item}</span>
+            {index < items.length - 1 && <span className="opacity-60">・</span>}
+          </span>
+        ))}
+      </div>
+    );
+  }
 
-const MOBILE_BREAKPOINT = 768;
-
-const clamp = (value: number, min: number, max: number) =>
-  Math.min(Math.max(value, min), max);
-
-// --- Sub-components ---
-
-// 1. Marquee Component
-function Marquee({ children, baseVelocity = 100 }: MarqueeProps) {
-  const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
+  const baseX = useMotionValue(0);
   const scrollVelocity = useVelocity(scrollY);
   const smoothVelocity = useSpring(scrollVelocity, {
     damping: 50,
@@ -49,182 +146,86 @@ function Marquee({ children, baseVelocity = 100 }: MarqueeProps) {
     clamp: false,
   });
 
+  // Multiplier for seamless scroll depending on item length
   const x = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
 
-  const directionFactor = useRef<number>(1);
-
+  const directionRef = useRef<number>(direction);
   useAnimationFrame((t, delta) => {
-    let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
+    let moveBy = directionRef.current * baseVelocity * (delta / 1000);
 
-    if (velocityFactor.get() < 0) {
-      directionFactor.current = -1;
-    } else if (velocityFactor.get() > 0) {
-      directionFactor.current = 1;
+    if (velocityFactor.get() !== 0) {
+      moveBy += directionRef.current * moveBy * velocityFactor.get();
     }
-
-    moveBy += directionFactor.current * moveBy * velocityFactor.get();
 
     baseX.set(baseX.get() + moveBy);
   });
 
+  const repeatedItems = [...items, ...items, ...items, ...items];
+
   return (
-    <div className="overflow-hidden whitespace-nowrap flex flex-nowrap">
-      <motion.div className="flex flex-nowrap gap-8" style={{ x }}>
-        {children}
-        {children}
-        {children}
-        {children}
+    <div className="overflow-hidden whitespace-nowrap">
+      <motion.div
+        className={cn(
+          'text-marquee flex items-center gap-10 text-purpleDetails',
+          className
+        )}
+        style={{ x }}
+      >
+        {repeatedItems.map((item, idx) => (
+          <div key={`${item}-${idx}`} className="flex items-center gap-10">
+            <span>{item}</span>
+            <span className="opacity-40">・</span>
+          </div>
+        ))}
       </motion.div>
     </div>
   );
 }
 
-// 2. Service Card Component
-const ServiceCard = ({
-  index,
-  text,
-  scrollProgress,
-  isDesktop,
-}: ServiceCardProps) => {
-  // Split text into first keyword (blue) and rest (white)
-  const words = text.split(' ');
-  const firstWord = words[0];
-  const restOfText = words.slice(1).join(' ');
-
-  // Calculate entry direction based on position relative to center (index 3)
-  // "Sair das bases das laterais": Bottom-Left for first half, Bottom-Right for second half
-  const isLeft = index < 3;
-  const isRight = index > 3;
-
-  // X Offset: Move in from sides
-  const xOffsetVal = isLeft ? -150 : isRight ? 150 : 0;
-
-  // Y Offset: Move in from bottom
-  const yOffsetVal = 120;
-
-  const cardProgress = useTransform(scrollProgress, (value) => {
-    // Timing configuration to ensure all cards enter before section leaves
-    // Range [0, 0.75] ensures completion while section is still 25% valid
-    const totalRange = 0.75;
-    const cardDuration = 0.35;
-    const staggerDelay = (totalRange - cardDuration) / 6; // Distributed across 7 items (indices 0-6)
-
-    const start = index * staggerDelay;
-    const end = start + cardDuration;
-
-    // Smooth stepping
-    return clamp((value - start) / (end - start), 0, 1);
-  });
-
-  const translateX = useTransform(cardProgress, [0, 1], [xOffsetVal, 0]);
-  const translateY = useTransform(cardProgress, [0, 1], [yOffsetVal, 0]);
-  const opacity = useTransform(cardProgress, [0, 1], [0, 1]);
-  const blur = useTransform(cardProgress, [0, 1], ['blur(10px)', 'blur(0px)']);
-
-  const mobileMotionProps = {
-    initial: { opacity: 0, x: 80, filter: 'blur(6px)' },
-    whileInView: { opacity: 1, x: 0, filter: 'blur(0px)' },
-    viewport: { once: true, margin: '-80px 0px -80px 0px' },
-    transition: {
-      duration: 0.4,
-      delay: index * 0.08,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  };
-
-  return (
-    <motion.div
-      className={cn(
-        'group flex items-center gap-4',
-        'bg-white/5 border border-white/5 backdrop-blur-sm',
-        'rounded-2xl p-5 md:p-6',
-        'w-full md:w-auto md:min-w-[320px]', // Desktop constraints
-        'hover:bg-white/10 hover:border-l-4 hover:border-l-bluePrimary transition-all duration-300'
-      )}
-      {...(!isDesktop ? mobileMotionProps : {})}
-      style={
-        isDesktop
-          ? { x: translateX, y: translateY, opacity, filter: blur }
-          : undefined
-      }
-    >
-      {/* Circle Icon */}
-      <div className="shrink-0 w-8 h-8 md:w-9 md:h-9 rounded-full bg-bluePrimary/20 flex items-center justify-center">
-        <div className="w-2.5 h-2.5 rounded-full bg-bluePrimary shadow-[0_0_10px_rgba(0,72,255,0.6)]" />
-      </div>
-
-      {/* Text */}
-      <p className="text-base md:text-lg font-medium leading-tight">
-        <span className="text-bluePrimary font-bold">{firstWord}</span>{' '}
-        <span className="text-text">{restOfText}</span>
-      </p>
-    </motion.div>
-  );
-};
-
-// --- Main Component ---
 export function AboutWhatIDo() {
-  const cardsSectionRef = useRef<HTMLDivElement>(null);
-  const [isMobileViewport, setIsMobileViewport] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    return window.innerWidth <= MOBILE_BREAKPOINT;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [viewportWidth, setViewportWidth] = useState(0);
+  const prefersReducedMotion = !!useReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end start'],
   });
 
   useEffect(() => {
-    if (typeof window === 'undefined') return undefined;
-    const handleResize = () => {
-      setIsMobileViewport(window.innerWidth <= MOBILE_BREAKPOINT);
-    };
-    handleResize();
+    setViewportWidth(window.innerWidth);
+    const handleResize = () => setViewportWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const { scrollYProgress } = useScroll({
-    target: cardsSectionRef,
-    offset: ['start end', 'end start'],
-  });
-
-  const isDesktop = !isMobileViewport;
+  const isDesktop = viewportWidth >= DESKTOP_BREAKPOINT;
+  const isMobile = viewportWidth <= MOBILE_BREAKPOINT;
 
   return (
-    <section className="relative w-full bg-background overflow-hidden py-16 md:py-24">
-      {/* Container */}
-      <div className="w-full max-w-[1200px] mx-auto px-6 md:px-8 space-y-16 md:space-y-24">
-        {/* 1. Display Title */}
-        <header className="flex justify-center text-center">
-          <motion.h2
-            className="text-3xl md:text-5xl lg:text-[3.5rem] font-black leading-[1.1] md:leading-[1.2] tracking-tight max-w-4xl"
-            initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
-            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          >
+    <section
+      ref={containerRef}
+      className="relative w-full overflow-hidden bg-background py-20 text-text md:py-32"
+    >
+      <div className="mx-auto max-w-[1200px] px-6 md:px-8">
+        <header className="mb-16 text-center md:mb-32 md:text-left">
+          <h2 className="text-display-about max-w-[15ch] text-white">
             Do <span className="text-bluePrimary">insight</span> ao{' '}
             <span className="text-bluePrimary">impacto</span>.
-            <br className="hidden md:block" />
-            <span className="text-white block mt-2 md:mt-0">
-              Mesmo quando você não percebe.
-            </span>
-          </motion.h2>
+          </h2>
+          <p className="mt-4 text-[1.25rem] font-medium text-textSecondary md:mt-6 md:text-[2.25rem] md:leading-tight">
+            Mesmo quando você não percebe.
+          </p>
         </header>
 
-        {/* 2. Services List */}
-        <div className="w-full" ref={cardsSectionRef}>
-          {/* Desktop: Horizontal Layout (wrapping if needed, but per blueprint 'sem wrap' on large... lets adapt to usable responsive grid/flex) */}
-          {/* Blueprint says: "Faixa horizontal única com 7 cards... Sem wrap". This implies a horizontal scroll or huge width. 
-              However, for usability, a flex-wrap or grid is often better unless it's a specific horizontal scroll section.
-              Blueprint: "Centralizada em telas >= 1440px".
-              Let's use a wrapping flex container for desktop to ensure all are visible without horizontal scrolling the page, 
-              unless strictly requested as horizontal scroll. "Todos os cards se movem no eixo X" suggests entry animation.
-              "Lista de Cards - Desktop: Faixa horizontal única... Sem wrap". Okay, strict compliance.
-              If "Sem wrap", it must overflow. "Centralizada em telas >= 1440px".
-              Let's create a scrolling container for desktop if it overflows, or wrap if it fits. 
-              Actually, 7 cards in one row is very wide. 
-              Let's try a responsive Grid that looks like a list on mobile and organized chaos on desktop. 
-              WAIT: Blueprint says "Faixa horizontal única ... Sem wrap". I will implement horizontal scroll for this specific 'strip' feel if it overflows.
-          */}
-          <div className="flex flex-col md:flex-row md:flex-wrap lg:flex-nowrap gap-4 md:gap-5 justify-center lg:justify-start lg:overflow-x-auto lg:pb-8 lg:px-4 no-scrollbar">
+        {/* Cards Container */}
+        <div className="relative">
+          <div
+            className={cn(
+              'flex flex-col gap-3',
+              'md:flex-row md:flex-nowrap md:gap-5'
+            )}
+          >
             {ABOUT_CONTENT.whatIDo.cards.map((service, index) => (
               <ServiceCard
                 key={service.id}
@@ -232,59 +233,30 @@ export function AboutWhatIDo() {
                 text={service.text}
                 scrollProgress={scrollYProgress}
                 isDesktop={isDesktop}
+                prefersReducedMotion={prefersReducedMotion}
               />
             ))}
           </div>
         </div>
       </div>
 
-      {/* 3. Marquee Footer */}
-      <div className="w-full mt-24 md:mt-32 space-y-4 md:space-y-8 select-none pointer-events-none">
-        {/* Line 1 */}
-        <div className="relative bg-bluePrimary py-3 md:py-4 -rotate-1 transform scale-105 origin-left">
-          <Marquee baseVelocity={1}>
-            <span className="flex items-center gap-8 px-4">
-              {ABOUT_CONTENT.whatIDo.marquee.map((item, i) => (
-                <React.Fragment key={i}>
-                  <span className="text-purpleDetails font-black text-2xl md:text-4xl tracking-wider">
-                    {item}
-                  </span>
-                  <span className="text-white/30 text-xl md:text-2xl">•</span>
-                </React.Fragment>
-              ))}
-            </span>
-          </Marquee>
-        </div>
-
-        {/* Line 2 (Reverse) */}
-        <div className="relative bg-transparent border-t border-b border-bluePrimary/30 py-3 md:py-4 rotate-1 transform scale-105 origin-right">
-          <Marquee baseVelocity={-1}>
-            <span className="flex items-center gap-8 px-4">
-              {[...ABOUT_CONTENT.whatIDo.marquee].reverse().map((item, i) => (
-                <React.Fragment key={i}>
-                  <span className="text-white/80 font-black text-2xl md:text-4xl tracking-wider opacity-60">
-                    {item}
-                  </span>
-                  <span className="text-bluePrimary/50 text-xl md:text-2xl">
-                    •
-                  </span>
-                </React.Fragment>
-              ))}
-            </span>
-          </Marquee>
+      {/* Rodapé Animado — Marquee */}
+      <div className="mt-24 w-full bg-bluePrimary py-6 md:mt-40 md:py-10">
+        <div className="flex flex-col gap-6 md:gap-10">
+          <Marquee
+            items={MARQUEE_LINE_A}
+            direction={1}
+            baseVelocity={isMobile ? 8 : 12}
+            reducedMotion={prefersReducedMotion}
+          />
+          <Marquee
+            items={MARQUEE_LINE_B}
+            direction={-1}
+            baseVelocity={isMobile ? 8 : 12}
+            reducedMotion={prefersReducedMotion}
+          />
         </div>
       </div>
-
-      {/* Styles for hiding scrollbar but allowing scroll */}
-      <style jsx global>{`
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </section>
   );
 }

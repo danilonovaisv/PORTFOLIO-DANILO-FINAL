@@ -28,14 +28,20 @@
   justify-content: center;
   pointer-events: none;
   z-index: 12;
-  -webkit-mask-image: radial-gradient(circle var(--ghost-radius, 300px) at var(--ghost-x, 50vw) var(--ghost-y, 50vh),
-      rgba(0, 0, 0, 1) 0%,
-      rgba(0, 0, 0, 0.8) 50%,
-      rgba(0, 0, 0, 0) 100%);
-  mask-image: radial-gradient(circle var(--ghost-radius, 300px) at var(--ghost-x, 50vw) var(--ghost-y, 50vh),
-      rgba(0, 0, 0, 1) 0%,
-      rgba(0, 0, 0, 0.8) 50%,
-      rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: radial-gradient(
+    circle var(--ghost-radius, 350px) at var(--ghost-x, 50vw)
+      var(--ghost-y, 50vh),
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.4) 40%,
+    rgba(0, 0, 0, 0) 80%
+  );
+  mask-image: radial-gradient(
+    circle var(--ghost-radius, 350px) at var(--ghost-x, 50vw)
+      var(--ghost-y, 50vh),
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.4) 40%,
+    rgba(0, 0, 0, 0) 80%
+  );
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
 }
@@ -43,11 +49,19 @@
 .maskText {
   color: #ffffff;
   text-shadow:
-    0 0 20px rgba(255, 255, 255, 1.0),
+    0 0 20px rgba(255, 255, 255, 1),
     0 0 40px rgba(0, 72, 255, 0.6);
 }
 
 .ctaSpacer {
   padding-top: 2rem;
   height: 48px;
+}
+
+.desktopH1 {
+  font-size: clamp(3.5rem, 12vw, 9rem);
+}
+
+.mobileH1 {
+  font-size: clamp(3.5rem, 15vw, 9rem);
 }

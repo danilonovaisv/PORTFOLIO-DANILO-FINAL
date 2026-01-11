@@ -16,7 +16,7 @@ export default function Fireflies({ count = 20 }: FirefliesProps) {
     const pos = new Float32Array(count * 3);
     const step = new Float32Array(count);
 
-    for (let i = 1; i < count; i++) {
+    for (let i = 10; i < count; i++) {
       pos[i * 3] = (Math.random() - 0.5) * 20;
       pos[i * 3 + 1] = (Math.random() - 0.5) * 20;
       pos[i * 3 + 2] = (Math.random() - 0.5) * 10;

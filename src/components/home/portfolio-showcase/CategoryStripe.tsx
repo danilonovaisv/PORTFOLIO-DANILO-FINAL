@@ -4,7 +4,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowIcon } from '@/components/ui/ArrowIcon';
-import { HOME_CONTENT } from '@/config/content';
 
 type Alignment = 'start' | 'center' | 'end';
 
@@ -20,7 +19,6 @@ interface CategoryStripeProps {
   category: CategoryStripeConfig;
   index: number;
   parentInView: boolean;
-  showFloatingLabel?: boolean;
 }
 
 const stripeAlignment: Record<Alignment, string> = {
@@ -39,7 +37,6 @@ export default function CategoryStripe({
   category,
   index,
   parentInView,
-  showFloatingLabel = false,
 }: CategoryStripeProps) {
   const prefersReducedMotion = useReducedMotion();
   const delay = index * 0.12;
@@ -50,26 +47,17 @@ export default function CategoryStripe({
       animate={parentInView ? { opacity: 1, y: 0 } : {}}
       transition={{
         duration: 0.8,
-        ease: [0.22, 1, 0.36, 1],
+        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
         delay,
       }}
-      className="w-full border-b border-purpleDetails/40"
+      className="w-full bg-transparent"
     >
       <Link
         href={`/portfolio?category=${category.id}`}
-        className={`group relative flex w-full flex-col py-12 md:py-24 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${stripeAlignment[category.align]} overflow-hidden md:overflow-visible`}
+        className={`group relative flex w-full flex-col py-12 md:py-24 px-6 md:px-12 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${stripeAlignment[category.align]} overflow-hidden md:overflow-visible bg-[#030012]`}
         role="button"
         aria-label={`Ver projetos de ${category.titleDesktop.replace(/\n/g, ' ')}`}
       >
-        {/* Floating Label - Only for the first item, desktop only */}
-        {showFloatingLabel && (
-          <div className="pointer-events-none absolute left-0 top-1/2 -translate-y-1/2 hidden lg:flex">
-            <span className="font-mono text-[11px] uppercase tracking-[0.4em] text-primary">
-              {HOME_CONTENT.showcase.floatingLabel}
-            </span>
-          </div>
-        )}
-
         <div
           className={`relative z-10 flex flex-col items-start w-full md:w-auto md:flex-row md:items-center gap-6 md:gap-7 transition-all duration-300 group-hover:md:gap-10 ${contentAlignmentClasses[category.align]}`}
         >
@@ -90,14 +78,20 @@ export default function CategoryStripe({
           {/* Content Block: Title + Arrow */}
           <div className="flex w-full md:w-auto items-center justify-between md:justify-start gap-5 md:gap-8">
             <motion.h3
-              initial={prefersReducedMotion ? {} : { opacity: 0, y: 24 }}
-              animate={parentInView ? { opacity: 1, y: 0 } : {}}
+              initial={
+                prefersReducedMotion
+                  ? {}
+                  : { opacity: 0, y: 24, color: '#ffffff' }
+              }
+              animate={
+                parentInView ? { opacity: 1, y: 0, color: '#0057FF' } : {}
+              }
               transition={{
                 duration: 0.8,
-                ease: [0.22, 1, 0.36, 1],
+                ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
                 delay,
               }}
-              className="text-white text-3xl md:text-[clamp(2.5rem,5.5vw,5.2rem)] font-medium leading-[1.05] tracking-tight whitespace-pre-line group-hover:text-primary transition-all duration-500 text-left"
+              className="text-white text-3xl md:text-[clamp(2.5rem,5.5vw,5.2rem)] font-medium leading-[1.05] tracking-tight whitespace-pre-line transition-all duration-500 text-left"
             >
               <span className="hidden md:inline">{category.titleDesktop}</span>
               <span className="md:hidden">{category.titleMobile}</span>

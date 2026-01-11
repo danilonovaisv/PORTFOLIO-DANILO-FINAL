@@ -67,22 +67,18 @@ describe('HeroCopy Component Responsiveness', () => {
   it('should render both Desktop and Mobile text blocks with correct visibility classes', () => {
     const { container } = render(<HeroCopy />);
 
-    // Find the main H1
-    const h1 = container.querySelector('h1');
-    expect(h1).toBeInTheDocument();
+    // Find the Desktop H1 (hidden md:block)
+    const desktopH1 = container.querySelector('h1.md\\:block');
+    expect(desktopH1).toBeInTheDocument();
+    expect(desktopH1).toHaveClass('hidden');
+    expect(desktopH1).toHaveTextContent('Você não vê');
+    expect(desktopH1).toHaveTextContent('o design.');
 
-    // Check for Mobile Wrapper (md:hidden)
-    const mobileWrapper = h1?.querySelector('.md\\:hidden');
-    expect(mobileWrapper).toBeInTheDocument();
-    expect(mobileWrapper).toHaveTextContent('Você não');
-    expect(mobileWrapper).toHaveTextContent('vê o');
-    expect(mobileWrapper).toHaveTextContent('design.');
-
-    // Check for Desktop Wrapper (hidden md:block)
-    const desktopWrapper = h1?.querySelector('.md\\:block');
-    expect(desktopWrapper).toBeInTheDocument();
-    expect(desktopWrapper).toHaveClass('hidden');
-    expect(desktopWrapper).toHaveTextContent('Você não vê');
-    expect(desktopWrapper).toHaveTextContent('o design.');
+    // Find the Mobile H1 (md:hidden)
+    const mobileH1 = container.querySelector('h1.md\\:hidden');
+    expect(mobileH1).toBeInTheDocument();
+    expect(mobileH1).toHaveTextContent('Você não');
+    expect(mobileH1).toHaveTextContent('vê o');
+    expect(mobileH1).toHaveTextContent('design.');
   });
 });

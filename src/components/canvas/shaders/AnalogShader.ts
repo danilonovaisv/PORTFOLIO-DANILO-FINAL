@@ -1,21 +1,19 @@
+// src/components/canvas/shaders/AnalogShader.ts
 import * as THREE from 'three';
-import { GHOST_CONFIG } from '@/config/ghostConfig';
 
 export const AnalogDecayShader = {
   uniforms: {
     tDiffuse: { value: null },
-    uTime: { value: 1.0 },
-    uResolution: {
-      value: new THREE.Vector2(0.1, 0.1), // Will be set on init/resize
-    },
-    uAnalogGrain: { value: GHOST_CONFIG.analogGrain },
-    uAnalogBleeding: { value: GHOST_CONFIG.analogBleeding },
-    uAnalogVSync: { value: GHOST_CONFIG.analogVSync },
-    uAnalogScanlines: { value: GHOST_CONFIG.analogScanlines },
-    uAnalogVignette: { value: GHOST_CONFIG.analogVignette },
-    uAnalogJitter: { value: GHOST_CONFIG.analogJitter },
-    uAnalogIntensity: { value: GHOST_CONFIG.analogIntensity },
-    uLimboMode: { value: GHOST_CONFIG.limboMode ? 0.05 : 0.05 },
+    uTime: { value: 0.0 },
+    uResolution: { value: new THREE.Vector2(1, 1) },
+    uAnalogGrain: { value: 0.4 },
+    uAnalogBleeding: { value: 1.0 },
+    uAnalogVSync: { value: 1.0 },
+    uAnalogScanlines: { value: 1.0 },
+    uAnalogVignette: { value: 1.0 },
+    uAnalogJitter: { value: 0.4 },
+    uAnalogIntensity: { value: 0.6 },
+    uLimboMode: { value: 0.0 },
   },
   vertexShader: `
     varying vec2 vUv;
@@ -36,7 +34,6 @@ export const AnalogDecayShader = {
     uniform float uAnalogJitter;
     uniform float uAnalogIntensity;
     uniform float uLimboMode;
-
     varying vec2 vUv;
 
     float random(vec2 st) {
@@ -80,14 +77,11 @@ export const AnalogDecayShader = {
       if (uAnalogBleeding > 0.01) {
         float bleedAmount = 0.012 * uAnalogBleeding * uAnalogIntensity;
         float offsetPhase = time * 1.5 + uv.y * 20.0;
-
         vec2 redOffset = vec2(sin(offsetPhase) * bleedAmount, 0.0);
         vec2 blueOffset = vec2(-sin(offsetPhase * 1.1) * bleedAmount * 0.8, 0.0);
-
         float r = texture2D(tDiffuse, jitteredUV + redOffset).r;
         float g = texture2D(tDiffuse, jitteredUV).g;
         float b = texture2D(tDiffuse, jitteredUV + blueOffset).b;
-
         color = vec4(r, g, b, color.a);
       }
 
@@ -102,7 +96,6 @@ export const AnalogDecayShader = {
         float scanlinePattern = sin(uv.y * scanlineFreq) * 0.5 + 0.5;
         float scanlineIntensity = 0.1 * uAnalogScanlines * uAnalogIntensity;
         color.rgb *= (1.0 - scanlinePattern * scanlineIntensity);
-
         float horizontalLines = sin(uv.y * scanlineFreq * 0.1) * 0.02 * uAnalogScanlines * uAnalogIntensity;
         color.rgb *= (1.0 - horizontalLines);
       }

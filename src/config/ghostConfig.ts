@@ -1,4 +1,5 @@
 // src/config/ghostConfig.ts
+
 // Paleta de cores fluorescentes
 export const FLUORESCENT_COLORS = {
   cyan: '#00ffff',
@@ -162,95 +163,94 @@ export const GHOST_CONFIG: GhostConfig = {
   // Fundo e névoa
   backgroundColor: '#01010f',
   fogColor: '#051f51',
-  fogNear: 6,
-  fogFar: 8,
+  fogNear: 1.6,
+  fogFar: 4.8,
 
   // Câmera e renderização
-  cameraDistance: 20,
+  cameraDistance: 15,
   cameraFov: 75,
   rendererDPR: [1, 2],
 
   // Aparência do Ghost (Matched to CodePen)
   ghostScale: 1.2,
-  bodyColor: 'ghostBlue', // 0x0f2027
+  bodyColor: 'deepSpace', // 0x0f2027
   glowColor: 'blue', // "blue"
-  eyeGlowColor: 'cyan',
+  eyeGlowColor: 'violet', // Corrigido para 'violet' como no CodePen
 
-  ghostOpacity: 0.8,
-  emissiveIntensity: 9.0,
-  pulseSpeed: 0.05,
-  pulseIntensity: 0.08,
-  floatSpeed: 0.6,
+  ghostOpacity: 0.88,
+  emissiveIntensity: 5.8,
+  pulseSpeed: 1.6,
+  pulseIntensity: 0.6,
+  floatSpeed: 1.6,
 
   // Comportamento do Ghost
   followSpeed: 0.05,
   movementThreshold: 0.07,
 
   // Iluminação
-  rimLightIntensity: 235.0,
-  ambientLightColor: 'voidSky',
-  ambientLightIntensity: 1.6,
+  rimLightIntensity: 1.8,
+  ambientLightColor: 'blue',
+  ambientLightIntensity: 0.08,
 
   // Véu Atmosférico (Revelação)
-  veilColor: 'deepSpace',
+  veilColor: 'cyan',
   veilEmissive: 'deepSpace',
   veilEmissiveIntensity: 3.6,
-  veilOpacity: 0.9,
-  veilPulseAmount: 0.6,
-  veilBackgroundColor: 'voidSky',
-  veilBackgroundOpacity: 1.95,
+  veilOpacity: 3.9,
+  veilPulseAmount: 1.6,
+  veilBackgroundColor: 'blue',
+  veilBackgroundOpacity: 0.95,
 
   // Fireflies (Matched to CodePen)
-  fireflyCount: 20, // CodePen creates 20 fireflies in createFireflies loop
+  fireflyCount: 20, // CodePen cria 20 fireflies em createFireflies loop
   fireflySpeed: 0.09,
-  fireflyBaseRadius: 0.005,
-  fireflyRadiusVariance: 0.05,
-  fireflyScaleBase: 0.01,
-  fireflyScaleVariance: 0.02,
-  fireflyFloatFrequency: 0.5,
-  fireflyFloatAmplitude: 0.005,
-  fireflyWobbleFrequency: 0.05,
+  fireflyBaseRadius: 0.02,
+  fireflyRadiusVariance: 0.06,
+  fireflyScaleBase: 1,
+  fireflyScaleVariance: 0.5,
+  fireflyFloatFrequency: 1,
+  fireflyFloatAmplitude: 0.05,
+  fireflyWobbleFrequency: 0.5,
   fireflyWobbleIntensity: 0.09,
-  fireflyPulseBase: 0.06,
-  fireflyPulseVariance: 0.0305,
-  fireflyPulseFrequency: 0.02,
-  fireflyOpacity: 0.08,
-  fireflyGlowIntensity: 2.3,
+  fireflyPulseBase: 0.9,
+  fireflyPulseVariance: 0.4,
+  fireflyPulseFrequency: 2,
+  fireflyOpacity: 0.9,
+  fireflyGlowIntensity: 4.3,
 
   // Partículas (Matched to CodePen)
   particleCount: 250,
-  particleColor: 'pink',
-
-  particleSpeedFactor: 0.015,
-  particleRadius: 0.5,
-  particleGlowOffset: 0.04,
-  particleGlowSpeed: 0.002,
-  particleGlowStrength: 0.028,
-  particleOpacity: 0.007,
+  particleColor: 'violet',
+  particleSpeedFactor: 0.012,
+  particleRadius: 3.5,
+  particleGlowOffset: 0.6,
+  particleGlowSpeed: 0.003,
+  particleGlowStrength: 0.9,
+  particleOpacity: 0.9,
   particleDecayRate: 0.005,
   createParticlesOnlyWhenMoving: true,
-  particleCreationRate: 0.05,
+  particleCreationRate: 5,
 
   // Olhos (Matched to CodePen)
-  eyeGlowIntensity: 1.5,
+  eyeGlowIntensity: 4.5,
   eyeGlowResponse: 0.31,
-  eyeGlowDecay: 0.5,
+  eyeGlowDecay: 0.95,
 
   // Efeitos de Pós-Processamento (Matched to CodePen)
   analogGrain: 0.4,
-  analogBleeding: 1.0,
+  analogBleeding: 0.9,
   analogScanlines: 1.0,
-  analogVignette: 1.0,
-  analogIntensity: 1.5,
-  analogJitter: 0.4,
-  analogVSync: 0.7,
+  analogVignette: 2.4,
+  analogIntensity: 0.9,
+  analogJitter: 0.5,
+  analogVSync: 1.7,
   limboMode: false,
 
   // Parâmetros do Véu Atmosférico (Matched to CodePen)
   revealRadius: 37,
-  fadeStrength: 0.3,
-  baseOpacity: 0.38,
-  revealOpacity: 2,
+  fadeStrength: 1.7,
+  baseOpacity: 0.9,
+  revealOpacity: 0.05,
 };
 
 // Helper para converter cor do config para formato numérico (Three.js)

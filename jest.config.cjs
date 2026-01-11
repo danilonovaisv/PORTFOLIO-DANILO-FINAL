@@ -14,6 +14,7 @@ const baseConfig = {
   },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    '\\.(css|less|scss|sass)$': '<rootDir>/test/__mocks__/styleMock.js',
   },
   transformIgnorePatterns: ['node_modules/(?!(framer-motion)/)'],
   modulePathIgnorePatterns: ['<rootDir>/functions/'],

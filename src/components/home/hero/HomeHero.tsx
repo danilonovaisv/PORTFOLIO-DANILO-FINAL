@@ -7,10 +7,9 @@ import dynamic from 'next/dynamic';
 import { Preloader } from '@/components/ui/Preloader';
 // import { useMediaQuery } from '@/hooks/useMediaQuery';
 // import { useReducedMotion } from '@/hooks/useReducedMotion';
-import type { Group } from 'three';
 
 import HeroCopy from './HeroCopy';
-// ManifestoThumb removed
+import HeroCTA from './HeroCTA';
 
 // Dynamic import for WebGL Scene
 const GhostScene = dynamic(
@@ -29,7 +28,6 @@ const CONFIG = {
 
 export default function HomeHero() {
   const heroRef = useRef<HTMLElement>(null);
-  const ghostRef = useRef<Group>(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -61,16 +59,25 @@ export default function HomeHero() {
           )}
         </AnimatePresence>
 
-        {/* Camada: Texto Editorial (Z-20 conforme Battle Plan) */}
-        <div className="absolute inset-0 z-20">
-          <div className="sticky top-0 h-screen w-full flex items-center justify-center px-6 md:px-12">
-            <HeroCopy ghostRef={ghostRef} isLoaded={isLoaded} />
+        {/* Camada: Texto Editorial (Z-20) */}
+        <div className="absolute inset-0 z-20 pointer-events-none">
+          <div className="sticky top-0 h-screen w-full flex items-center justify-center p-4">
+            <HeroCopy isLoaded={isLoaded} />
           </div>
         </div>
 
-        {/* Camada: Ghost WebGL (Z-30 conforme Battle Plan) */}
-        <div className="sticky top-0 h-screen w-full z-30 overflow-hidden pointer-events-none">
-          <GhostScene ghostRef={ghostRef} />
+        {/* Camada: Ghost WebGL (Z-30) */}
+        <div className="absolute inset-0 z-30 pointer-events-none overflow-hidden">
+          <div className="sticky top-0 h-screen w-full">
+            <GhostScene />
+          </div>
+        </div>
+
+        {/* Camada: CTA (Z-35) */}
+        <div className="absolute inset-0 z-35 pointer-events-none">
+          <div className="sticky top-0 h-screen w-full flex items-end justify-center pb-12 md:pb-20">
+            <HeroCTA isLoaded={isLoaded} />
+          </div>
         </div>
 
         <div className="sr-only">

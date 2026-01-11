@@ -66,26 +66,29 @@ export default function HeroCopy({
   // Estrutura de conteúdo idêntica para ambas as camadas para garantir alinhamento perfeito
   const renderTextContent = (isMask: boolean) => (
     <div className={isMask ? styles.maskText : styles.baseText}>
-      <span className={`block font-body mb-4 ${isMask ? '' : styles.tag}`}>
+      {/* Tag decorativa */}
+      <span className={`block font-body mb-6 ${isMask ? '' : styles.tag}`}>
         [BRAND AWARENESS]
       </span>
+
+      {/* Headline - Desktop/Tablet (2 linhas) */}
       <h1
-        className="font-display mb-1 md:mb-6 leading-[0.9] md:leading-tight uppercase"
-        style={{ fontSize: 'clamp(3rem, 6vw + 2rem, 8rem)' }}
+        className={`hidden md:block font-black mb-1 md:mb-6 leading-[0.9] uppercase tracking-tighter ${styles.desktopH1}`}
       >
-        A MODERN CREATIVE AGENCY <br className="hidden md:block" />
-        FOCUSED ON{' '}
-        <span className={isMask ? 'text-white' : 'text-blue-primary'}>
-          Ghost
-        </span>{' '}
-        EXPERIENCE.
+        Você não vê <br /> o design.
       </h1>
-      <p
-        className={`font-body max-w-2xl mx-auto leading-relaxed md:leading-normal ${isMask ? '' : styles.subText}`}
+
+      {/* Headline - Mobile (3 linhas) */}
+      <h1
+        className={`md:hidden font-black mb-1 md:mb-4 leading-[0.85] uppercase tracking-tighter ${styles.mobileH1}`}
       >
-        Acompanhamos sua marca na era digital através de interfaces etéreas,
-        design invisível e tecnologia de ponta.
-      </p>
+        Você não <br /> vê o <br /> design.
+      </h1>
+
+      {/* Subheading */}
+      <h2 className={`font-h2 md:bottom-10 ${isMask ? '' : styles.subText}`}>
+        Mas ele vê você.
+      </h2>
     </div>
   );
 
@@ -102,7 +105,7 @@ export default function HeroCopy({
       {/* Camada 2: Texto Revelado (Masked / Bright / Glow) */}
       {!prefersReducedMotion && (
         <div className={styles.maskLayer} aria-hidden="true">
-          <div className="max-w-5xl px-4 w-full">
+          <div className="max-w-[1200px] px-4 w-full">
             <motion.div variants={itemAnimation}>
               {renderTextContent(true)}
             </motion.div>
@@ -113,36 +116,9 @@ export default function HeroCopy({
       {/* Brilho Global (Aura do Ghost) */}
       <div
         ref={revealRef}
-        className="fixed top-0 left-0 w-80 h-80 rounded-full bg-radial from-[#0048ff]/40 to-transparent blur-3xl pointer-events-none mix-blend-screen z-10"
+        className="fixed top-0 left-0 w-[500px] h-[500px] rounded-full bg-[#0048ff]/20 blur-[120px] pointer-events-none mix-blend-screen z-10"
         style={{ opacity: isLoaded ? 1 : 0 }}
       />
-
-      {/* CTA Button Layer */}
-      <motion.div
-        variants={itemAnimation}
-        className="mt-8 md:mt-12 relative z-50"
-      >
-        <a href="#contact" className="cta-button group">
-          Começar Projeto
-          <div className="icon-circle group-hover:bg-blue-primary/20 transition-colors">
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 14 14"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M1 13L13 1M13 1H4M13 1V10"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
-        </a>
-      </motion.div>
     </motion.div>
   );
 }

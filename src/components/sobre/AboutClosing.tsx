@@ -23,9 +23,9 @@ export function AboutClosing() {
         {/* Título Principal + Linhas */}
         <div className="flex flex-col items-center text-center">
           <div className="h-px w-full max-w-[980px] bg-blueAccent/60 mb-8 md:mb-10" />
-          <h2 className="type-h2 font-semibold leading-tight text-white max-w-[900px]">
-            Hoje sou{' '}
-            <span className="text-bluePrimary">Diretor de Criação</span>,
+          <h2 className="type-h2 font-semibold leading-tight text-white max-w-[900px] lowercase">
+            hoje sou{' '}
+            <span className="text-bluePrimary">diretor de criação</span>,
             <br />
             com mais de{' '}
             <span className="text-bluePrimary">10 anos de estrada</span>.

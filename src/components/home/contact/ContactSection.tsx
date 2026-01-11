@@ -74,7 +74,7 @@ export default function ContactSection() {
       id="contact"
       aria-label="Contato"
       // Spec: bg-white (or neutralLight in themed)
-      className="bg-[#fbfcff] py-16 md:py-24 lg:py-32 relative z-10"
+      className="bg-backgroundLight py-16 md:py-24 lg:py-32 relative z-10"
     >
       <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-24">
         {/* 2 & 3. Info & Form Grid */}
@@ -91,10 +91,10 @@ export default function ContactSection() {
           >
             {/* Header moved inside grid for alignment */}
             <div className="text-left mb-6 lg:mb-10">
-              <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-[#0048ff] uppercase tracking-tighter mb-4 leading-[0.9]">
+              <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-bluePrimary uppercase tracking-tighter mb-4 leading-[0.9]">
                 {HOME_CONTENT.contact.title}
               </h2>
-              <p className="text-[#111111]/70 text-lg md:text-xl font-medium max-w-md">
+              <p className="text-textInverse/70 text-lg md:text-xl font-medium max-w-md">
                 {HOME_CONTENT.contact.subtitle}
               </p>
             </div>
@@ -114,10 +114,10 @@ export default function ContactSection() {
                   aria-label={link.ariaLabel}
                   className="flex items-center gap-4 group w-fit"
                 >
-                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-transparent text-[#0048ff] border border-[#0048ff]/20 transition-all group-hover:bg-[#0048ff] group-hover:text-white group-hover:border-[#0048ff] scale-100 group-hover:scale-110">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-transparent text-bluePrimary border border-bluePrimary/20 transition-all group-hover:bg-bluePrimary group-hover:text-white group-hover:border-bluePrimary scale-100 group-hover:scale-110">
                     {link.icon}
                   </span>
-                  <span className="text-lg md:text-xl font-semibold text-[#111111] group-hover:text-[#0048ff] group-hover:underline decoration-2 underline-offset-4 transition-all duration-300">
+                  <span className="text-lg md:text-xl font-semibold text-textInverse group-hover:text-bluePrimary group-hover:underline decoration-2 underline-offset-4 transition-all duration-300">
                     {link.label}
                   </span>
                 </a>
@@ -133,7 +133,7 @@ export default function ContactSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="flex h-14 w-14 items-center justify-center rounded-full border border-[#111111]/20 bg-transparent text-[#111111] transition-all hover:border-[#0048ff] hover:text-[#0048ff] hover:scale-110"
+                  className="flex h-14 w-14 items-center justify-center rounded-full border border-textInverse/20 bg-transparent text-textInverse transition-all hover:border-bluePrimary hover:text-bluePrimary hover:scale-110"
                 >
                   {social.icon}
                 </a>
@@ -155,7 +155,7 @@ export default function ContactSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="flex h-12 w-12 items-center justify-center rounded-full border border-[#111111]/20 bg-white text-[#111111] shadow-sm active:scale-95 active:border-[#0048ff] active:text-[#0048ff]"
+                className="flex h-12 w-12 items-center justify-center rounded-full border border-textInverse/20 bg-white text-textInverse shadow-sm active:scale-95 active:border-bluePrimary active:text-bluePrimary"
               >
                 {social.icon}
               </a>

@@ -118,6 +118,20 @@ html {
     transform: translateZ(0);
   }
 
+  @keyframes showcaseArrowIdle {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(4px);
+    }
+  }
+
+  .animate-showcase-arrow-idle {
+    animation: showcaseArrowIdle 3s ease-in-out infinite;
+  }
+
   /* Accessibility: Respect reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .gallery-track,
@@ -127,6 +141,9 @@ html {
       will-change: auto;
       transition-duration: 0.01ms !important;
       animation-duration: 0.01ms !important;
+    }
+    .animate-showcase-arrow-idle {
+      animation: none;
     }
   }
 }

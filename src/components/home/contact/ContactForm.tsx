@@ -100,7 +100,7 @@ const ContactForm: React.FC = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="w-full max-w-[640px] mx-auto lg:ml-auto bg-white p-8 md:p-12 rounded-[24px] shadow-sm border border-[#111111]/5"
+      className="w-full max-w-[640px] mx-auto lg:ml-auto bg-white p-8 md:p-12 rounded-[24px] shadow-sm border border-textInverse/5"
     >
       <div className="p-0">
         {submitSuccess ? (
@@ -121,10 +121,10 @@ const ContactForm: React.FC = () => {
                 />
               </svg>
             </div>
-            <h3 className="text-3xl font-bold text-[#111111] mb-4">
+            <h3 className="text-3xl font-bold text-textInverse mb-4">
               Mensagem Enviada!
             </h3>
-            <p className="text-[#111111]/60 text-lg">
+            <p className="text-textInverse/60 text-lg">
               Obrigado pelo contato. Responderei o mais breve possível.
             </p>
           </div>
@@ -213,7 +213,7 @@ const ContactForm: React.FC = () => {
               disabled={isSubmitting}
               whileHover={{ y: -1, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="w-full h-[60px] md:h-[64px] flex items-center justify-center gap-3 bg-[#0048ff] text-white font-bold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0057FF] focus-visible:ring-offset-2 tracking-tight text-lg shadow-[0_10px_30px_-10px_rgba(0,72,255,0.3)]"
+              className="w-full h-[60px] md:h-[64px] flex items-center justify-center gap-3 bg-bluePrimary text-white font-bold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary focus-visible:ring-offset-2 tracking-tight text-lg shadow-[0_10px_30px_-10px_rgba(0,72,255,0.3)]"
             >
               {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
               {!isSubmitting && (

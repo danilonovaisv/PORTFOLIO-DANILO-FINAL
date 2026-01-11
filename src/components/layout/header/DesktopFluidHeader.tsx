@@ -52,7 +52,7 @@ export default function DesktopFluidHeader({
 
   return (
     <header
-      className={`hidden lg:block absolute top-6 left-0 right-0 z-50 w-full pointer-events-none ${
+      className={`hidden lg:block absolute top-6 left-0 right-0 z-40 w-full pointer-events-none ${
         isLight ? 'header--light' : ''
       }`}
     >

@@ -69,7 +69,7 @@ export function GhostFireflies() {
       }
       if (glow) {
         (glow.material as THREE.MeshBasicMaterial).opacity =
-          GHOST_CONFIG.fireflyGlowIntensity * 0.4 * pulse;
+          GHOST_CONFIG.fireflyGlowIntensity * 0.5 * pulse;
       }
     });
   });
@@ -78,12 +78,12 @@ export function GhostFireflies() {
     <group ref={groupRef}>
       {fireflies.map((data, i) => (
         <mesh key={i} position={data.position}>
-          <sphereGeometry args={[0.02, 2, 2]} />
+          <sphereGeometry args={[0.05, 2, 2]} />
           <meshBasicMaterial color={0xffff44} transparent opacity={0.9} />
 
           {/* Glow Sphere */}
           <mesh>
-            <sphereGeometry args={[0.08, 8, 8]} />
+            <sphereGeometry args={[0.09, 8, 8]} />
             <meshBasicMaterial
               color={0xffff88}
               transparent
@@ -92,7 +92,7 @@ export function GhostFireflies() {
             />
           </mesh>
 
-          <pointLight color={0xffff44} intensity={0.8} distance={3} decay={2} />
+          <pointLight color={0xffff44} intensity={0.5} distance={4} decay={3} />
         </mesh>
       ))}
     </group>

@@ -524,6 +524,10 @@ Primary Navigation (Header):
 
 ----
 
+
+
+
+
 # **4.2 Hero
 
 ### **1.1 Objetivo**
@@ -823,15 +827,13 @@ app/
 ---
 
 ### **1.9 Z-Index Stack**
-
-```typescript
-const zIndex = {
-  preloader: 50,      // Tela de carregamento
-  ghostCanvas: 20,    // Canvas WebGL (sempre acima do texto)
-  heroContent: 10,    // Textos e CTA
-  background: 0,      // Gradiente de fundo
-};
-```
+ - **Hierarquia Z-Index (Estrita):**
+1. - `z-50`: Preloader
+2. - `z-40`: Header
+3. - `z-35`: CTA
+4. - `z-30`: Ghost WebGL
+5. - `z-20`: Editorial Text (Hero Copy)
+6. - `z-0`: Background
 
 ---
 
@@ -955,6 +957,10 @@ export default function GhostScene() {
   );
 }
 ```
+
+
+
+
 
 ---
 
@@ -1476,7 +1482,7 @@ export default function HomePage() {
 
 
 
-# 4.4 Portfolio Showcase — Protótipo Interativo
+# **4.4 Portfolio Showcase — Protótipo Interativo**
 
 ## Purpose
 Apresentar as principais categorias de trabalho com **sofisticação editorial**, usando movimento, hierarquia tipográfica e interação progressiva para **guiar o usuário naturalmente** até áreas específicas do portfólio — replicando o ritmo, layout e comportamento da sessão equivalente na home do site de referência.
@@ -1488,15 +1494,15 @@ Apresentar as principais categorias de trabalho com **sofisticação editorial**
 ### Desktop (≥1024px)
 
 #### Estrutura Geral
-- Headline centralizada:  
+- Headline centralizada - **(font-H1)**:  
   **“portfólio showcase”**
   - “portfólio” em branco  
   - “showcase” em `#0048ff`
-- Label flutuante contextual:
+- Label flutuante contextual - **(font-small)**: 
   - Texto: **[what we love working on]**
   - Cor: `#0048ff`
   - Posicionamento: absoluto, alinhado à esquerda, alinhado a esquerda e ao intem 'Brand & Campaigns' dentro da faixa 
-- Três faixas interativas horizontais ['#8705f2'] (*accordion-style stripes*), com alinhamento alternado:
+- Três faixas interativas horizontais ['#8705f2'] (*accordion-style stripes*), com alinhamento alternado - **(font-family: "TT Norms Pro" - Normal - 24px a 40px)**: 
   1. **Brand & Campaigns** — alinhada à direita
   2. **Videos & Motions** — centralizada
   3. **Web Campaigns, Websites & Tech** — alinhada à esquerda  

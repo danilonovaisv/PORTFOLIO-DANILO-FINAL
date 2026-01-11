@@ -47,6 +47,8 @@ interface AntigravityCTAProps {
   disabled?: boolean;
   /** Hide the arrow icon */
   hideArrow?: boolean;
+  /** Enable showcase-specific idle arrow animation */
+  animateArrowIdle?: boolean;
 }
 
 // Style configurations per variant
@@ -117,6 +119,7 @@ export function AntigravityCTA({
   type = 'button',
   disabled = false,
   hideArrow = false,
+  animateArrowIdle = false,
 }: AntigravityCTAProps) {
   const prefersReducedMotion = useReducedMotion();
 
@@ -127,6 +130,10 @@ export function AntigravityCTA({
   const motionClasses = prefersReducedMotion
     ? ''
     : 'transition-transform duration-200 ease-out hover:-translate-y-px active:translate-y-0';
+  const arrowAnimationClasses =
+    animateArrowIdle && !prefersReducedMotion
+      ? 'animate-showcase-arrow-idle group-hover:animate-none'
+      : '';
 
   // Shared content for both link and button
   const content = (
@@ -163,7 +170,7 @@ export function AntigravityCTA({
           `}
         >
           <ArrowUpRight
-            className={`${sizes.arrow} transition-transform duration-300 group-hover:rotate-45 group-hover:translate-x-1 group-hover:-translate-y-1`}
+            className={`${sizes.arrow} transition-transform duration-300 group-hover:rotate-45 group-hover:translate-x-1 group-hover:-translate-y-1 ${arrowAnimationClasses}`}
             strokeWidth={2}
           />
         </div>

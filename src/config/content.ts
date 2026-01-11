@@ -10,7 +10,7 @@ export const HOME_CONTENT = {
     floatingLabel: '[what we love working on]',
     cta: {
       label: 'let’s build something great →',
-      href: '/portfolio',
+      href: '/#contact',
     },
     ctas: [
       { label: 'Fale Comigo', href: '#contact', variant: 'primary' },
@@ -28,7 +28,7 @@ export const HOME_CONTENT = {
         label: 'Brand & Campaigns',
         titleDesktop: 'Brand & Campaigns',
         titleMobile: 'Brand & Campaigns',
-        align: 'start',
+        align: 'end',
         thumb:
           'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
       },
@@ -42,11 +42,11 @@ export const HOME_CONTENT = {
           'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
       },
       {
-        id: 'websites-tech',
+        id: 'websites-webcampaigns-tech',
         label: 'Web Campaigns, Websites & Tech',
-        titleDesktop: 'Web Campaigns, Websites & Tech',
-        titleMobile: 'Websites & Tech',
-        align: 'end',
+        titleDesktop: 'Web Campaigns,\nWebsites & Tech',
+        titleMobile: 'Web Campaigns, Websites & Tech',
+        align: 'start',
         thumb:
           'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp',
       },
@@ -218,9 +218,9 @@ export const ABOUT_CONTENT = {
       { id: '5', text: 'Branding que não grita — mas marca' },
       {
         id: '6',
-        text: 'Inteligência artificial aplicada à criação e automação',
+        text: 'Inteligência Artificial aplicada à criação',
       },
-      { id: '7', text: 'Liderança criativa com visão e método' },
+      { id: '7', text: 'Liderança Criativa com visão e método' },
     ],
     marquee: [
       'DIREÇÃO CRIATIVA',
