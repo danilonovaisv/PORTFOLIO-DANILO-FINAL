@@ -19,12 +19,15 @@ extend({ EffectComposer, RenderPass, UnrealBloomPass, ShaderPass });
 
 export function Ghost({
   particleCount: _particleCount = 100,
+  ghostRef,
 }: {
   particleCount?: number;
+  ghostRef?: React.RefObject<THREE.Group | null>;
 }) {
-  const groupRef = useRef<THREE.Group>(null!);
+  const internalRef = useRef<THREE.Group>(null!);
+  const groupRef = ghostRef || internalRef;
+  const eyesRef = useRef<THREE.Group>(new THREE.Group());
   const bodyRef = useRef<THREE.Mesh>(null!);
-  const eyesRef = useRef<THREE.Group>(null!);
 
   const composerRef = useRef<EffectComposer | null>(null);
   const bloomPassRef = useRef<UnrealBloomPass | null>(null);
@@ -74,13 +77,11 @@ export function Ghost({
     const renderPass = new RenderPass(scene, camera);
     composer.addPass(renderPass);
 
-    // FIXED: strength and radius were INVERTED!
-    // CodePen reference: strength=0.3, radius=1.25, threshold=0.0
     const bloomPass = new UnrealBloomPass(
       new THREE.Vector2(size.width, size.height),
-      0.3, // strength (was 1.25 - FIXED)
-      1.25, // radius (was 0.4 - FIXED)
-      0.0 // threshold
+      0.3, // strength - Audit ID #04
+      1.15, // radius - Audit ID #04
+      0.5 // threshold
     );
     composer.addPass(bloomPass);
     bloomPassRef.current = bloomPass;
@@ -107,23 +108,6 @@ export function Ghost({
     // Atualizar passos de analog decay
     if (analogPassRef.current && analogPassRef.current.uniforms) {
       analogPassRef.current.uniforms.uTime.value = t;
-      analogPassRef.current.uniforms.uAnalogGrain.value =
-        GHOST_CONFIG.analogGrain;
-      analogPassRef.current.uniforms.uAnalogBleeding.value =
-        GHOST_CONFIG.analogBleeding;
-      analogPassRef.current.uniforms.uAnalogVSync.value =
-        GHOST_CONFIG.analogVSync;
-      analogPassRef.current.uniforms.uAnalogScanlines.value =
-        GHOST_CONFIG.analogScanlines;
-      analogPassRef.current.uniforms.uAnalogVignette.value =
-        GHOST_CONFIG.analogVignette;
-      analogPassRef.current.uniforms.uAnalogJitter.value =
-        GHOST_CONFIG.analogJitter;
-      analogPassRef.current.uniforms.uAnalogIntensity.value =
-        GHOST_CONFIG.analogIntensity;
-      analogPassRef.current.uniforms.uLimboMode.value = GHOST_CONFIG.limboMode
-        ? 1.0
-        : 0.0;
     }
 
     // 1. Follow Mouse (Smooth)
@@ -137,7 +121,7 @@ export function Ghost({
 
     // 2. Float Animation (Idle)
     const floatY =
-      Math.sin(t * GHOST_CONFIG.floatSpeed * 1.5) * 0.03 +
+      Math.sin(t * GHOST_CONFIG.floatSpeed * 0.5) * 0.03 +
       Math.cos(t * GHOST_CONFIG.floatSpeed * 0.7) * 0.018;
     groupRef.current.position.y += floatY;
 
@@ -161,8 +145,8 @@ export function Ghost({
     );
     groupRef.current.rotation.x = THREE.MathUtils.lerp(
       groupRef.current.rotation.x,
-      velocityY * 0.05,
-      0.05
+      velocityY * 0.02,
+      0.02
     );
 
     // 5. Eye Glow Logic
@@ -172,7 +156,7 @@ export function Ghost({
 
       currentMovementRef.current =
         currentMovementRef.current * GHOST_CONFIG.eyeGlowDecay +
-        movement * (4 - GHOST_CONFIG.eyeGlowDecay);
+        movement * (5 - GHOST_CONFIG.eyeGlowDecay);
 
       prevPos.copy(groupRef.current.position);
 
@@ -180,8 +164,8 @@ export function Ghost({
         currentMovementRef.current > GHOST_CONFIG.movementThreshold;
       const targetOpacity = isMoving ? 1.0 : 0.0;
       const lerpFactor = isMoving
-        ? GHOST_CONFIG.eyeGlowResponse * 2
-        : GHOST_CONFIG.eyeGlowResponse;
+        ? GHOST_CONFIG.eyeGlowResponse
+        : GHOST_CONFIG.eyeGlowResponse * 0.5;
 
       const {
         leftEyeMaterial,
@@ -196,47 +180,49 @@ export function Ghost({
         lerpFactor
       );
       rightEyeMaterial.opacity = leftEyeMaterial.opacity;
-      leftOuterMaterial.opacity = leftEyeMaterial.opacity * 0.3;
-      rightOuterMaterial.opacity = leftEyeMaterial.opacity * 0.3;
+      leftOuterMaterial.opacity = leftEyeMaterial.opacity * 0.63;
+      rightOuterMaterial.opacity = leftEyeMaterial.opacity * 0.63;
     }
 
     // Renderizar com efeitos (SEMPRE, se composer existir)
     if (composerRef.current && isLoaded) {
       composerRef.current.render();
     }
-  }, 1);
+  }, 0.5);
 
   // Setup Eyes (Static Geometry)
   useEffect(() => {
-    // Esconder o grupo de olhos até ser adicionado
-    const eyesGroup = new THREE.Group();
-    eyesRef.current = eyesGroup;
+    if (!eyesRef.current) return;
 
     const eyeColorHex = getConfigColorHex(GHOST_CONFIG.eyeGlowColor);
 
-    // Esfera maior para os olhos (50% maior)
-    const eyeGeo = new THREE.SphereGeometry(0.3, 12, 12);
-    const outerGeo = new THREE.SphereGeometry(0.525, 12, 12); // 50% maior
+    // 1. Soquetes (Sockets) pretos para dar profundidade - Conforme Referência
+    const socketGeo = new THREE.SphereGeometry(0.45, 16, 16);
+    const socketMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
 
-    // Use MeshPhysicalMaterial para melhor controle de brilho e transparência
-    const eyeMat = new THREE.MeshPhysicalMaterial({
+    const leftSocket = new THREE.Mesh(socketGeo, socketMat);
+    leftSocket.position.set(-0.7, 0.6, 1.9);
+    leftSocket.scale.set(1.1, 1.0, 0.6);
+
+    const rightSocket = new THREE.Mesh(socketGeo, socketMat);
+    rightSocket.position.set(0.7, 0.6, 1.9);
+    rightSocket.scale.set(1.1, 1.0, 0.6);
+
+    // 2. Olhos (Glow) - Conforme Referência
+    const eyeGeo = new THREE.SphereGeometry(0.3, 12, 12);
+    const outerGeo = new THREE.SphereGeometry(0.525, 12, 12);
+
+    const eyeMat = new THREE.MeshBasicMaterial({
       color: eyeColorHex,
       transparent: true,
-      opacity: 0, // Começa invisível
-      emissive: eyeColorHex,
-      emissiveIntensity: 4.5, // Brilho dos olhos
-      roughness: 0,
-      metalness: 0.5,
+      opacity: 0.0,
     });
 
-    const outerMat = new THREE.MeshPhysicalMaterial({
+    const outerMat = new THREE.MeshBasicMaterial({
       color: eyeColorHex,
       transparent: true,
-      opacity: 0, // Começa invisível
-      emissive: eyeColorHex,
-      emissiveIntensity: 2.0, // Brilho do anel externo
-      roughness: 0,
-      metalness: 0.5,
+      opacity: 0.0,
+      side: THREE.BackSide,
     });
 
     const leftEye = new THREE.Mesh(eyeGeo, eyeMat.clone());
@@ -244,25 +230,35 @@ export function Ghost({
     const leftOuter = new THREE.Mesh(outerGeo, outerMat.clone());
     const rightOuter = new THREE.Mesh(outerGeo, outerMat.clone());
 
+    // Posições alinhadas com a referência
     leftEye.position.set(-0.7, 0.6, 2.0);
     rightEye.position.set(0.7, 0.6, 2.0);
     leftOuter.position.set(-0.7, 0.6, 1.95);
     rightOuter.position.set(0.7, 0.6, 1.95);
 
-    eyesGroup.add(leftEye, rightEye, leftOuter, rightOuter);
+    // Limpar olhos anteriores para evitar duplicatas
+    eyesRef.current.clear();
+    eyesRef.current.add(
+      leftSocket,
+      rightSocket,
+      leftEye,
+      rightEye,
+      leftOuter,
+      rightOuter
+    );
 
-    eyesGroup.userData = {
-      leftEyeMaterial: leftEye.material as THREE.MeshPhysicalMaterial,
-      rightEyeMaterial: rightEye.material as THREE.MeshPhysicalMaterial,
-      leftOuterMaterial: leftOuter.material as THREE.MeshPhysicalMaterial,
-      rightOuterMaterial: rightOuter.material as THREE.MeshPhysicalMaterial,
+    eyesRef.current.userData = {
+      leftEyeMaterial: leftEye.material as THREE.MeshBasicMaterial,
+      rightEyeMaterial: rightEye.material as THREE.MeshBasicMaterial,
+      leftOuterMaterial: leftOuter.material as THREE.MeshBasicMaterial,
+      rightOuterMaterial: rightOuter.material as THREE.MeshBasicMaterial,
     };
 
-    // Garantir que os olhos estejam no grupo principal
+    // Adicionar ao grupo principal
     if (groupRef.current) {
-      groupRef.current.add(eyesGroup);
+      groupRef.current.add(eyesRef.current);
     }
-  }, []);
+  }, [groupRef]);
 
   return (
     <>
@@ -282,11 +278,15 @@ export function Ghost({
             roughness={0.02}
             metalness={0.0}
             transparent
-            opacity={GHOST_CONFIG.ghostOpacity}
+            opacity={0.5} // 👈 More spectral
+            blending={THREE.AdditiveBlending}
+            depthWrite={false}
             side={THREE.DoubleSide}
             onBeforeCompile={onBeforeCompile}
           />
         </mesh>
+
+        {/* Olhos já estão no grupo via useEffect */}
       </group>
     </>
   );

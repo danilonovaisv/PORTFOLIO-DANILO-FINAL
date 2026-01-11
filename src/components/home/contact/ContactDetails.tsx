@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { motion } from 'framer-motion';
 import { SOCIALS } from '@/config/navigation';
-import { Button } from '@/components/ui/Button';
+import { Button } from '@/components/ui/button';
 import {
   Mail,
   MapPin,
@@ -65,14 +65,16 @@ const ContactDetails: FC = () => {
         {contactInfo.map((item, idx) => (
           <Button
             key={idx}
-            href={item.href}
             variant="ghost"
+            asChild
             className="justify-start text-lg font-medium text-text-dark hover:text-primary hover:bg-black/5 gap-4 h-auto py-3 px-4"
           >
-            <span className="rounded-full bg-blue-50 p-2 text-primary shadow-sm group-hover:scale-110 transition-transform">
-              {item.icon}
-            </span>
-            {item.label}
+            <a href={item.href}>
+              <span className="rounded-full bg-blue-50 p-2 text-primary shadow-sm group-hover:scale-110 transition-transform">
+                {item.icon}
+              </span>
+              {item.label}
+            </a>
           </Button>
         ))}
       </div>
@@ -81,15 +83,19 @@ const ContactDetails: FC = () => {
         {socialList.map((social) => (
           <Button
             key={social.platform}
-            asExternal
-            href={social.url}
-            target="_blank"
             variant="secondary"
             size="icon"
+            asChild
             className="rounded-full bg-gray-100 text-text-dark shadow-sm hover:text-primary hover:bg-gray-200 h-12 w-12 border border-black/5"
-            aria-label={social.platform}
           >
-            {social.icon}
+            <a
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={social.platform}
+            >
+              {social.icon}
+            </a>
           </Button>
         ))}
       </div>

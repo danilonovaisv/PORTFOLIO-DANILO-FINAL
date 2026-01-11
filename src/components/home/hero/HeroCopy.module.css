@@ -7,19 +7,24 @@
   position: relative;
 }
 
+/* Texto base - Visível por padrão com opacidade moderada */
 .baseText {
-  color: rgba(255, 255, 255, 0.08);
-  /* Mais escuro para contraste */
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .subText {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .tag {
-  color: rgba(79, 230, 255, 0.2);
+  color: rgba(79, 230, 255, 0.75);
+  font-size: clamp(0.85rem, 1.5vw, 1.1rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
+/* Camada de máscara - Efeito de revelação do Ghost */
 .maskLayer {
   position: fixed;
   inset: 0;
@@ -28,29 +33,30 @@
   justify-content: center;
   pointer-events: none;
   z-index: 12;
-  -webkit-mask-image: radial-gradient(
-    circle var(--ghost-radius, 350px) at var(--ghost-x, 50vw)
-      var(--ghost-y, 50vh),
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.4) 40%,
-    rgba(0, 0, 0, 0) 80%
-  );
-  mask-image: radial-gradient(
-    circle var(--ghost-radius, 350px) at var(--ghost-x, 50vw)
-      var(--ghost-y, 50vh),
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.4) 40%,
-    rgba(0, 0, 0, 0) 80%
-  );
+  -webkit-mask-image: radial-gradient(circle var(--ghost-radius, 420px) at var(--ghost-x, 50vw) var(--ghost-y, 50vh),
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.85) 25%,
+      rgba(0, 0, 0, 0.5) 50%,
+      rgba(0, 0, 0, 0.15) 75%,
+      rgba(0, 0, 0, 0) 100%);
+  mask-image: radial-gradient(circle var(--ghost-radius, 420px) at var(--ghost-x, 50vw) var(--ghost-y, 50vh),
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.85) 25%,
+      rgba(0, 0, 0, 0.5) 50%,
+      rgba(0, 0, 0, 0.15) 75%,
+      rgba(0, 0, 0, 0) 100%);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
 }
 
+/* Texto revelado (mais brilhante com glow) */
 .maskText {
   color: #ffffff;
   text-shadow:
-    0 0 20px rgba(255, 255, 255, 1),
-    0 0 40px rgba(0, 72, 255, 0.6);
+    0 0 8px rgba(255, 255, 255, 0.9),
+    0 0 20px rgba(255, 255, 255, 0.7),
+    0 0 40px rgba(79, 230, 255, 0.5),
+    0 0 80px rgba(0, 72, 255, 0.4);
 }
 
 .ctaSpacer {
@@ -58,14 +64,17 @@
   height: 48px;
 }
 
+/* Desktop Headlines */
 .desktopH1 {
   font-size: clamp(3.5rem, 12vw, 9rem);
 }
 
+/* Mobile Headlines */
 .mobileH1 {
   font-size: clamp(3.5rem, 15vw, 9rem);
 }
 
+/* Aura do Ghost - Brilho global */
 .ghostAura {
   position: fixed;
   top: 0;

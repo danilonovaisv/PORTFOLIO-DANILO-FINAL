@@ -86,7 +86,9 @@ export default function HeroCopy({
       </h1>
 
       {/* Subheading */}
-      <h2 className={`font-h2 md:bottom-10 ${isMask ? '' : styles.subText}`}>
+      <h2
+        className={`text-xl md:text-2xl lg:text-3xl font-light tracking-wide mt-4 md:mt-6 ${isMask ? '' : styles.subText}`}
+      >
         Mas ele vê você.
       </h2>
     </div>

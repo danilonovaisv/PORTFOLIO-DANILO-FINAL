@@ -8,8 +8,8 @@ import { BRAND } from '@/config/brand';
  * SiteFooter Component (Ghost Era Spec 4.7)
  *
  * Spec:
- * - Desktop: Fixed bar at bottom, 48-64px height, bg-[#0057FF]
- * - Mobile: Static stack, py-10, bg-[#0057FF]
+ * - Desktop: Static bar at bottom, 60px height, bg-[#0048ff]
+ * - Mobile: Static stack, py-10, bg-[#0048ff]
  * - Content: Copyright (left) | Navigation + Social (right)
  */
 export default function SiteFooter() {
@@ -43,9 +43,7 @@ export default function SiteFooter() {
 
   return (
     <footer
-      className="w-full bg-[#0048ff] text-white z-50
-                 md:fixed md:bottom-0 md:left-0 md:right-0 md:h-[60px]
-                 relative py-10 md:py-0"
+      className="w-full bg-[#0048ff] text-white z-50 relative py-10 md:py-0 md:h-[60px]"
       aria-label="Rodapé do site"
     >
       <div className="max-w-[1680px] mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between h-full space-y-8 md:space-y-0 text-center md:text-left">
@@ -69,7 +67,7 @@ export default function SiteFooter() {
             ))}
           </nav>
 
-          {/* Social Links (Icons only as per spec 4.7) */}
+          {/* Social Links */}
           <div className="flex items-center gap-6 border-t border-white/20 pt-8 md:border-t-0 md:pt-0 md:border-l md:pl-10">
             {socialLinks.map((social) => (
               <a

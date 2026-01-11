@@ -33,29 +33,43 @@ const DesktopCard = ({
   text,
   scrollProgress,
   prefersReducedMotion,
-  totalCards,
 }: {
   index: number;
   text: string;
   scrollProgress: MotionValue<number>;
   prefersReducedMotion: boolean;
-  totalCards: number;
 }) => {
-  // Distribui os cards uniformemente ao longo do scroll
-  // Cada card ocupa uma "fatia" do progresso total
-  const sliceSize = 1 / totalCards;
-  const cardOffset = index * sliceSize * 0.3; // 30% de overlap para entrada suave
+  // Entrada suave e compacta: todos os cards entram juntos com leve stagger
+  // Range mais apertado para animação editorial e silenciosa
+  const staggerDelay = index * 0.02; // Stagger sutil de 2% por card
 
-  // Movimento horizontal: fora direita → centro → fora esquerda
-  // Usando 120vw para garantir que saia completamente da tela
+  // Entrada suave da direita → posição final (sem sair da tela depois)
+  // Movimento reduzido para sensação mais "premium"
   const translateX = useTransform(
     scrollProgress,
-    [cardOffset, cardOffset + 0.3, cardOffset + 0.7],
-    ['120vw', '0vw', '-120vw']
+    [0.05 + staggerDelay, 0.25 + staggerDelay, 0.8],
+    ['60vw', '0vw', '0vw'] // Entra da direita, para no centro, fica parado
   );
 
-  // Opacidade: SEM FADE - sempre 100% visível enquanto está na tela
-  // Só desaparece quando está completamente fora da viewport
+  // Opacidade suave na entrada
+  const opacity = useTransform(
+    scrollProgress,
+    [0.05 + staggerDelay, 0.2 + staggerDelay],
+    [0, 1]
+  );
+
+  // Spring individual para cada card (suavização extra)
+  const smoothX = useSpring(translateX, {
+    stiffness: 60,
+    damping: 25,
+    restDelta: 0.001,
+  });
+
+  const smoothOpacity = useSpring(opacity, {
+    stiffness: 80,
+    damping: 30,
+    restDelta: 0.001,
+  });
 
   const formattedNumber = `${index + 1}`.padStart(2, '0');
 
@@ -69,7 +83,7 @@ const DesktopCard = ({
         <div className="text-[2.5rem] font-black leading-none text-[#8705f2]">
           {formattedNumber}
         </div>
-        <p className="text-[0.95rem] font-bold leading-[1.25]">
+        <p className="text-[0.95rem] font-bold leading-tight">
           <span className="text-white">{text}</span>
         </p>
       </article>
@@ -82,13 +96,14 @@ const DesktopCard = ({
       aria-label={text}
       className="group relative flex flex-row items-center text-white outline-none will-change-transform bg-[#0048ff] min-h-[140px] w-[260px] shrink-0 rounded-[16px] px-5 py-5 gap-4 hover:brightness-110 focus-visible:ring-2 focus-visible:ring-[#4fe6ff]"
       style={{
-        x: translateX,
+        x: smoothX,
+        opacity: smoothOpacity,
       }}
     >
       <div className="text-[2.5rem] font-black leading-none text-[#8705f2] transition-colors duration-200 group-hover:text-white">
         {formattedNumber}
       </div>
-      <p className="text-[0.95rem] font-bold leading-[1.25]">
+      <p className="text-[0.95rem] font-bold leading-tight">
         <span className="text-white">{text}</span>
       </p>
     </motion.article>
@@ -236,9 +251,10 @@ export function AboutWhatIDo() {
     offset: ['start end', 'end start'],
   });
 
+  // Spring global mais suave: animação editorial e silenciosa
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 60,
-    damping: 15,
+    stiffness: 40,
+    damping: 20,
     restDelta: 0.001,
   });
 
@@ -298,7 +314,6 @@ export function AboutWhatIDo() {
                 text={service.text}
                 scrollProgress={smoothProgress}
                 prefersReducedMotion={prefersReducedMotion}
-                totalCards={cards.length}
               />
             ))}
           </div>

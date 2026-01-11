@@ -114,6 +114,7 @@ export default AntigravityCTA;
 
 2. **Sincronia de Cores (`group-hover`):** Ambos os filhos usam `group-hover:bg-...`. Isso garante que, mesmo passando o mouse apenas na ponta do ícone, o texto também muda de cor instantaneamente, mantendo a ilusão de ser uma peça única.
 3. **Área de Clique:** O `<button>` pai envolve ambos, garantindo que o clique funcione em qualquer pixel da estrutura composta.
+4. Adicionar um glow no CTA.
 
 ### 4. 🧪 Auditoria de Qualidade
 

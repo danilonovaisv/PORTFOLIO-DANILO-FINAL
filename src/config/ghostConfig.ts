@@ -164,7 +164,7 @@ export const GHOST_CONFIG: GhostConfig = {
   backgroundColor: '#01010f',
   fogColor: '#051f51',
   fogNear: 1.6,
-  fogFar: 4.8,
+  fogFar: 2.8,
 
   // Câmera e renderização
   cameraDistance: 15,
@@ -172,30 +172,30 @@ export const GHOST_CONFIG: GhostConfig = {
   rendererDPR: [1, 2],
 
   // Aparência do Ghost (MATCHED to CodePen Reference)
-  ghostScale: 2.4, // FIXED: was 1.2
+  ghostScale: 1.4, // FIXED: was 1.2
   bodyColor: 'deepSpace', // 0x0f2027
   glowColor: 'blue', // "blue"
   eyeGlowColor: 'blue', // FIXED: CodePen uses 'blue' (0x0080ff)
 
-  ghostOpacity: 0.88,
-  emissiveIntensity: 8.5, // FIXED: was 5.8
+  ghostOpacity: 0.48,
+  emissiveIntensity: 5.5, // FIXED: was 5.8
   pulseSpeed: 1.6,
   pulseIntensity: 0.6,
   floatSpeed: 0.8, // FIXED: was 1.6
 
   // Comportamento do Ghost
-  followSpeed: 0.03, // FIXED: was 0.05
+  followSpeed: 0.05, // FIXED: was 0.05
   movementThreshold: 0.07,
 
   // Iluminação
-  rimLightIntensity: 1.8,
+  rimLightIntensity: 2.8,
   ambientLightColor: 'blue',
   ambientLightIntensity: 0.08,
 
   // Véu Atmosférico (Revelação)
   veilColor: 'cyan',
-  veilEmissive: 'deepSpace',
-  veilEmissiveIntensity: 3.6,
+  veilEmissive: 'blue',
+  veilEmissiveIntensity: 5.6,
   veilOpacity: 3.9,
   veilPulseAmount: 1.6,
   veilBackgroundColor: 'blue',
@@ -238,19 +238,19 @@ export const GHOST_CONFIG: GhostConfig = {
 
   // Efeitos de Pós-Processamento (Matched to CodePen)
   analogGrain: 0.4,
-  analogBleeding: 0.9,
-  analogScanlines: 1.0,
-  analogVignette: 2.4,
+  analogBleeding: 0.5,
+  analogScanlines: 0.7,
+  analogVignette: 1.4,
   analogIntensity: 0.9,
   analogJitter: 0.5,
-  analogVSync: 1.7,
+  analogVSync: 0.7,
   limboMode: false,
 
   // Parâmetros do Véu Atmosférico (MATCHED to CodePen Reference)
-  revealRadius: 15, // FIXED: was 37
-  fadeStrength: 2.5, // FIXED: was 1.7
-  baseOpacity: 0.3, // FIXED: was 0.9 (was blocking text!)
-  revealOpacity: 0.01, // FIXED: was 0.05
+  revealRadius: 50, // Increased for better text readability
+  fadeStrength: 1.7,
+  baseOpacity: 0.98, // Darker background to create reveal contrast
+  revealOpacity: 0.0, // Fully transparent reveal
 };
 
 // Helper para converter cor do config para formato numérico (Three.js)
