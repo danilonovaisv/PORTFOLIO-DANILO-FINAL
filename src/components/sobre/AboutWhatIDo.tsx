@@ -40,19 +40,18 @@ const ServiceCard = ({
   const [firstWord, ...restWords] = text.split(' ');
   const restOfText = restWords.join(' ');
 
-  // Desktop Animation: Scroll Driven
-  // The cards enter from the right (+120vw) and move to their original position (0)
-  // We stagger them by index so they arrive one after another as we scroll.
-  const staggerOffset = index * 0.08;
-  const start = 0.15 + staggerOffset;
+  // Desktop Animation: Full horizontal cross (Right to Left)
+  // Tightened stagger and range for cards to follow each other closely
+  const staggerOffset = index * 0.06;
+  const start = 0.1 + staggerOffset;
   const end = 0.5 + staggerOffset;
 
   const cardProgress = useTransform(scrollProgress, [start, end], [0, 1], {
     clamp: true,
   });
 
-  const translateX = useTransform(cardProgress, [0, 1], ['120vw', '0vw']);
-  const opacity = useTransform(cardProgress, [0, 0.4], [0, 1]);
+  const translateX = useTransform(cardProgress, [0, 1], ['100vw', '-120vw']);
+  const opacity = useTransform(cardProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
 
   // Mobile Animation: Viewport Driven
   const mobileAnimationProps = prefersReducedMotion
@@ -60,11 +59,11 @@ const ServiceCard = ({
         initial: { opacity: 1, x: 0 },
       }
     : {
-        initial: { opacity: 0, x: 80 },
+        initial: { opacity: 0, x: 60 },
         whileInView: { opacity: 1, x: 0 },
-        viewport: { once: true, margin: '-50px' },
+        viewport: { once: true, margin: '-20px' },
         transition: {
-          duration: 0.5,
+          duration: 0.6,
           delay: index * 0.1,
           ease: [0.22, 1, 0.36, 1],
         },
@@ -77,22 +76,23 @@ const ServiceCard = ({
       tabIndex={0}
       aria-label={text}
       className={cn(
-        'group flex w-full flex-row items-center gap-4 rounded-[12px] bg-bluePrimary px-[18px] py-[20px] text-white outline-none transition-all duration-300 ease-out will-change-transform',
-        'focus-visible:ring-2 focus-visible:ring-blueAccent focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+        'group flex w-full flex-row items-center gap-4 rounded-[12px] bg-[#0048ff] px-[24px] py-[28px] text-white outline-none transition-all duration-300 ease-out will-change-transform',
+        'focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[#040013]',
         'hover:brightness-110 hover:-translate-y-1',
-        'md:min-h-[140px] md:w-[400px] md:shrink-0 md:rounded-[16px] md:px-8 md:py-6 md:gap-5'
+        'md:min-h-[160px] md:w-[450px] md:shrink-0 md:rounded-[20px] md:px-10 md:py-10 md:gap-8'
       )}
-      {...(isDesktop && !prefersReducedMotion
-        ? { style: { x: translateX, opacity } }
-        : !isDesktop
-          ? mobileAnimationProps
-          : {})}
+      style={{
+        ...(isDesktop && !prefersReducedMotion
+          ? { x: translateX, opacity }
+          : {}),
+      }}
+      {...(!isDesktop ? mobileAnimationProps : {})}
     >
-      <div className="text-3xl font-extrabold leading-none text-purpleDetails transition-colors duration-300 group-hover:text-white md:text-5xl">
+      <div className="text-4xl font-extrabold leading-none text-[#8705f2] transition-colors duration-300 group-hover:text-white md:text-6xl">
         {formattedNumber}
       </div>
-      <p className="text-base font-bold leading-tight md:text-[1.25rem]">
-        <span className="text-blueAccent transition-colors duration-300 group-hover:text-white">
+      <p className="text-lg font-black leading-[1.2] md:text-[1.5rem]">
+        <span className="text-[#4fe6ff] transition-colors duration-300 group-hover:text-white">
           {firstWord}
         </span>
         {restOfText ? <span className="text-white"> {restOfText}</span> : null}
@@ -121,7 +121,7 @@ function Marquee({
       <div
         aria-hidden="true"
         className={cn(
-          'flex flex-wrap items-center justify-center gap-6 px-4 py-5 text-[0.85rem] font-black uppercase tracking-[0.2em] text-purpleDetails',
+          'flex flex-wrap items-center justify-center gap-6 px-4 py-5 font-black uppercase tracking-[0.2em] text-[#8705f2]',
           className
         )}
       >
@@ -146,7 +146,6 @@ function Marquee({
     clamp: false,
   });
 
-  // Multiplier for seamless scroll depending on item length
   const x = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
 
   const directionRef = useRef<number>(direction);
@@ -166,7 +165,7 @@ function Marquee({
     <div className="overflow-hidden whitespace-nowrap">
       <motion.div
         className={cn(
-          'text-marquee flex items-center gap-10 text-purpleDetails',
+          'flex items-center gap-10 font-black uppercase tracking-[0.3em] text-[#8705f2] md:text-[1.25rem]',
           className
         )}
         style={{ x }}
@@ -205,15 +204,15 @@ export function AboutWhatIDo() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full overflow-hidden bg-background py-20 text-text md:py-32"
+      className="relative w-full overflow-hidden bg-[#040013] py-24 text-white md:py-48"
     >
-      <div className="mx-auto max-w-[1200px] px-6 md:px-8">
-        <header className="mb-16 text-center md:mb-32 md:text-left">
-          <h2 className="text-display-about max-w-[15ch] text-white">
-            Do <span className="text-bluePrimary">insight</span> ao{' '}
-            <span className="text-bluePrimary">impacto</span>.
+      <div className="mx-auto max-w-[1600px] px-6 md:px-12">
+        <header className="mb-24 text-center md:mb-40">
+          <h2 className="font-display text-[2.5rem] font-black leading-[1.05] tracking-tight text-white md:text-[5.5rem]">
+            Do <span className="text-[#0048ff]">insight</span> ao{' '}
+            <span className="text-[#0048ff]">impacto</span>.
           </h2>
-          <p className="mt-4 text-[1.25rem] font-medium text-textSecondary md:mt-6 md:text-[2.25rem] md:leading-tight">
+          <p className="mt-6 text-[1.25rem] font-bold text-[#a1a3a3] md:mt-10 md:text-[2.25rem] md:leading-tight">
             Mesmo quando você não percebe.
           </p>
         </header>
@@ -222,8 +221,8 @@ export function AboutWhatIDo() {
         <div className="relative">
           <div
             className={cn(
-              'flex flex-col gap-3',
-              'md:flex-row md:flex-nowrap md:gap-5'
+              'flex flex-col gap-5',
+              'md:flex-row md:flex-nowrap md:gap-8'
             )}
           >
             {ABOUT_CONTENT.whatIDo.cards.map((service, index) => (
@@ -240,19 +239,19 @@ export function AboutWhatIDo() {
         </div>
       </div>
 
-      {/* Rodapé Animado — Marquee */}
-      <div className="mt-24 w-full bg-bluePrimary py-6 md:mt-40 md:py-10">
-        <div className="flex flex-col gap-6 md:gap-10">
+      {/* Marquee Footer */}
+      <div className="mt-32 w-full bg-[#0048ff] py-10 md:mt-64 md:py-14">
+        <div className="flex flex-col gap-10 md:gap-14">
           <Marquee
             items={MARQUEE_LINE_A}
             direction={1}
-            baseVelocity={isMobile ? 8 : 12}
+            baseVelocity={isMobile ? 12 : 18}
             reducedMotion={prefersReducedMotion}
           />
           <Marquee
             items={MARQUEE_LINE_B}
             direction={-1}
-            baseVelocity={isMobile ? 8 : 12}
+            baseVelocity={isMobile ? 12 : 18}
             reducedMotion={prefersReducedMotion}
           />
         </div>

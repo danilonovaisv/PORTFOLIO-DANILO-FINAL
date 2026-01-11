@@ -1,5 +1,5 @@
 ---
-description:
+description: # Workflow: criação e Ajuste da sessão AboutWhatIDo
 ---
 
 # Workflow: criação e Ajuste da sessão AboutWhatIDo da pagina 'SOBRE` — Desktop & Mobile Scroll Animation
@@ -26,17 +26,17 @@ com **animação horizontal guiada pelo scroll**.
    - `Ação`: O que mudar (ex: "Aumentar padding", "Corrigir Z-Index").
    - `Validação`: Critério de sucesso (ex: "Compilar sem erros", "Igual à imagem X").
 
-| **SOBRE** | **Visual Desktop:** `SOBRE-PORTFOLIO-BLACK---GHOST.jpg`<br>
 
-<br>**Visual Mobile:** `SOBRE-MOBILE-BLACK---GHOST.jpg`<br>
-
-<br>**Specs:** `SOBRE-PROTOTIPO-INTERATIVO.md` | `src/app/sobre/page.tsx`<br>
 
 ###REFERECIAS BIBLE DE NA PASTA:
 
-- /docs/SOBRE/
+- '/docs/SOBRE/SOBRE-PROTOTIPO-INTERATIVO.md'
 
----
+- '/docs/SOBRE/`SOBRE-PORTFOLIO-BLACK---GHOST.jpg`<br>
+
+**Visual Mobile:** '/docs/SOBRE/`SOBRE-MOBILE-BLACK---GHOST.jpg`<br>
+
+
 
 ### FASE 2: Protocolo de Análise Profunda
 
