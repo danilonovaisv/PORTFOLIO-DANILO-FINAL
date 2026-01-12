@@ -62,7 +62,10 @@ function MarqueeLine({ text, baseVelocity }: MarqueeLineProps) {
     <div className="overflow-hidden flex whitespace-nowrap">
       <motion.div className="flex gap-2 text-nowrap" style={{ x }}>
         {Array.from({ length: 5 }).map((_, i) => (
-          <span key={i} className="text-purple-details text-marquee font-black">
+          <span
+            key={i}
+            className="text-purple-details text-xl md:text-4xl font-black tracking-tight uppercase"
+          >
             {text}
           </span>
         ))}
@@ -73,7 +76,7 @@ function MarqueeLine({ text, baseVelocity }: MarqueeLineProps) {
 
 export default function Section03Marquee() {
   return (
-    <div className="mt-16 md:mt-24 w-full select-none pointer-events-none bg-primary py-1 md:py-0.5">
+    <div className="mt-32 md:mt-24 w-full select-none pointer-events-none bg-primary py-20 md:py-0.5">
       <div className="flex flex-col gap-1 md:gap-1">
         <MarqueeLine
           text="DIREÇÃO CRIATIVA ・ DESIGN ESTRATÉGICO ・ IDENTIDADES ・ CAMPANHAS ・ BRANDING ・ INTELIGÊNCIA ARTIFICIAL ・ LIDERANÇA CRIATIVA ・ "

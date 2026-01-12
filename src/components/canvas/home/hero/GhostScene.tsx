@@ -6,13 +6,15 @@ import * as THREE from 'three';
 // Importações de pós-processamento do diretório de exemplos do Three.js
 // Importações de pós-processamento via three-stdlib
 // @ts-ignore
-import {
-  EffectComposer,
-  RenderPass,
-  UnrealBloomPass,
-  ShaderPass,
-  OutputPass,
-} from 'three-stdlib';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
+// @ts-ignore
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
+// @ts-ignore
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
+// @ts-ignore
+import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass';
+// @ts-ignore
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 
 export default function GhostScene() {
   const mountRef = useRef<HTMLDivElement>(null);
