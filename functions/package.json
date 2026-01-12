@@ -27,12 +27,10 @@
     "test:watch": "firebase functions:test --watch",
     "test:coverage": "firebase functions:test --coverage",
     "clean": "rm -rf node_modules lib dist .genkit",
-    "clean:install": "pnpm run clean && pnpm install",
-    "prepare": "husky",
-    "pre-commit": "lint-staged"
+    "clean:install": "pnpm run clean && pnpm install"
   },
   "engines": {
-    "node": ">=22"
+    "node": "22"
   },
   "main": "lib/index.js",
   "dependencies": {

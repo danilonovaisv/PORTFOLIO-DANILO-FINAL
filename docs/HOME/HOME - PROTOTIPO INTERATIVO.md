@@ -449,10 +449,11 @@ Primary Navigation (Header):
 - Contato (Contact) → `#contact` (always anchors to contact section)
 
 #### Desktop (≥1024px): Static Glass Header
-
 **Layout:**
 - Position: `position: sticky`, `top: 24px` (or `top: 0` with padding), `z-index: 40`
 - Width: Partial container (centered), or Full-width (based on preference, images suggest clean alignment)
+- Aligned the horizontal format with the text alignment, adjusting the page responsiveness.
+- Fixed header;
 - Height: `64px`
 - Style: Pill-shaped or Bar, translucent glass effect (`backdrop-filter: blur(12px)`), subtle border.
 - **Behavior:** COMPLETELY STATIC. No movement tracking, no physics.

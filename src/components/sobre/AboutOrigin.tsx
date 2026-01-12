@@ -169,7 +169,7 @@ export default function OrigemCriativa() {
   return (
     <section className="origem-criativa relative w-full" ref={containerRef}>
       <div className="container mx-auto px-4 md:px-8 py-10 md:py-20 max-w-[1440px]">
-        <h1 className="text-center text-5xl md:text-[64px] font-extrabold pb-16 md:pb-24 text-foreground tracking-tighter">
+        <h1 className="text-center text-5xl md:text-[64px] font-extrabold pb-16 md:pb-24 text-text tracking-tighter">
           Origem
         </h1>
 
@@ -204,7 +204,7 @@ export default function OrigemCriativa() {
                   <h2 className="text-primary font-extrabold text-[32px] md:text-[42px] leading-[1.1] mb-6 tracking-tight uppercase">
                     {block.title}
                   </h2>
-                  <h3 className="text-foreground font-normal text-[18px] md:text-[20px] leading-[1.6] whitespace-pre-line opacity-90">
+                  <h3 className="text-text font-normal text-[18px] md:text-[20px] leading-[1.6] whitespace-pre-line opacity-90">
                     {block.text}
                   </h3>
                 </div>

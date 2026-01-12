@@ -73,8 +73,8 @@ export default function HomeHero() {
           </div>
         </div>
 
-        {/* Camada: CTA (Z-35) */}
-        <div className="absolute inset-0 z-35 pointer-events-none">
+        {/* Camada: CTA (Z-50) */}
+        <div className="absolute inset-0 z-50 pointer-events-none">
           <div className="sticky top-0 h-screen w-full flex items-end justify-center pb-12 md:pb-20">
             <HeroCTA isLoaded={isLoaded} />
           </div>

@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
-import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { useReducedMotion } from 'framer-motion';
 
 /**
  * AntigravityCTA - Compound Fusion Button
