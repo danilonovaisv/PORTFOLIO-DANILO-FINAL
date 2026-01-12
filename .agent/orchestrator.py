@@ -284,15 +284,15 @@ if __name__ == "__main__":
     print(final_output)
 # --- INSTRUÇÕES PARA EXECUTAR O WORKFLOW ---
 
-# 1. Carrega o conteúdo dos teus arquivos MD (copia o texto dos arquivos que me enviaste)
+# 1. Carrega o conteúdo dos teus arquivos MD (vias de exemplo)
 portfolio_spec = """
-/docs/PORTFOLIO/PORTFOLIO - PROTÓTIPO INTERATIVO.md'
+Contente do arquivo /docs/PORTFOLIO/PORTFOLIO - PROTÓTIPO INTERATIVO.md
 """
 home_spec = """
-'/docs/HOME/HOME - PROTOTIPO INTERATIVO.md'
+Contente do arquivo /docs/HOME/HOME - PROTOTIPO INTERATIVO.md
 """
 about_spec = """
-‘/docs/SOBRE/SOBRE-PROTOTIPO-INTERATIVO.md’
+Contente do arquivo /docs/SOBRE/SOBRE-PROTOTIPO-INTERATIVO.md
 """
 
 # Concatena tudo num "Contexto Mestre"

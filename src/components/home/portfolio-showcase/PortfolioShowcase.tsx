@@ -7,6 +7,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { AntigravityCTA } from '@/components/ui/AntigravityCTA';
+import { Container } from '@/components/layout/Container';
 
 // Ghost easing
 const GHOST_EASE = [0.22, 1, 0.36, 1] as const;
@@ -199,7 +200,7 @@ export default function PortfolioShowcase() {
       className="relative w-full bg-[#040013] py-20 lg:py-32"
       aria-labelledby="portfolio-showcase-heading"
     >
-      <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
+      <Container>
         {/* Headline - "portfólio" italic, "showcase" normal */}
         <motion.header
           initial={
@@ -254,7 +255,7 @@ export default function PortfolioShowcase() {
             animateArrowIdle={false}
           />
         </motion.div>
-      </div>
+      </Container>
     </section>
   );
 }

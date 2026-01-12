@@ -8,21 +8,29 @@ import { cn } from '@/lib/utils';
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: '', dark: '.dark' } as const;
 
-export type ChartConfig = {
-  [_k in string]: {
-    label?: React.ReactNode;
-    icon?: React.ComponentType;
-  } & (
-    | { color?: string; theme?: never }
-    | { color?: never; theme: Record<keyof typeof THEMES, string> }
-  );
-};
+export type ChartConfigEntry = {
+  label?: React.ReactNode;
+  icon?: React.ComponentType;
+} & (
+  | { color?: string; theme?: never }
+  | { color?: never; theme: Record<keyof typeof THEMES, string> }
+);
+
+export type ChartConfig = Record<string, ChartConfigEntry>;
 
 type ChartContextProps = {
   config: ChartConfig;
 };
 
 const ChartContext = React.createContext<ChartContextProps | null>(null);
+
+const sanitizeConfigKey = (key: string) => {
+  const sanitized = key.replace(/[^a-zA-Z0-9_-]/g, '-');
+  return sanitized || 'default';
+};
+
+const getConfigClassName = (key: string, prefix: string) =>
+  `${prefix}-${sanitizeConfigKey(key)}`;
 
 function useChart() {
   const context = React.useContext(ChartContext);
@@ -76,25 +84,59 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
     return null;
   }
 
+  const themeStyles = Object.entries(THEMES)
+    .map(([theme, prefix]) => {
+      const declarations = colorConfig
+        .map(([key, itemConfig]) => {
+          const safeKey = sanitizeConfigKey(key);
+          const color =
+            itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
+            itemConfig.color;
+
+          return color ? `  --color-${safeKey}: ${color};` : null;
+        })
+        .filter(Boolean)
+        .join('\n');
+
+      if (!declarations) {
+        return null;
+      }
+
+      return `
+${prefix} [data-chart=${id}] {
+${declarations}
+}
+
+`;
+    })
+    .filter(Boolean)
+    .join('');
+
+  const indicatorStyles = colorConfig
+    .map(([key]) => {
+      const safeKey = sanitizeConfigKey(key);
+      return `
+[data-chart=${id}] .chart-tooltip-indicator-${safeKey} {
+  background-color: var(--color-${safeKey});
+  border-color: var(--color-${safeKey});
+}
+
+[data-chart=${id}] .chart-legend-color-${safeKey} {
+  background-color: var(--color-${safeKey});
+}
+
+`;
+    })
+    .join('');
+
+  const styleContent = [themeStyles, indicatorStyles]
+    .filter(Boolean)
+    .join('\n');
+
   return (
     <style
       dangerouslySetInnerHTML={{
-        __html: Object.entries(THEMES)
-          .map(
-            ([theme, prefix]) => `
-${prefix} [data-chart=${id}] {
-${colorConfig
-  .map(([key, itemConfig]) => {
-    const color =
-      itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
-      itemConfig.color;
-    return color ? `  --color-${key}: ${color};` : null;
-  })
-  .join('\n')}
-}
-`
-          )
-          .join('\n'),
+        __html: styleContent,
       }}
     />
   );
@@ -115,7 +157,6 @@ const ChartTooltipContent = React.forwardRef<HTMLDivElement, any>(
       labelFormatter,
       labelClassName,
       formatter,
-      color,
       nameKey,
       labelKey,
     },
@@ -130,11 +171,15 @@ const ChartTooltipContent = React.forwardRef<HTMLDivElement, any>(
 
       const [item] = payload;
       const key = `${labelKey || item.dataKey || item.name || 'value'}`;
-      const itemConfig = getPayloadConfigFromPayload(config, item, key);
+      const { config: payloadConfigEntry } = getPayloadConfigFromPayload(
+        config,
+        item,
+        key
+      );
       const value =
         !labelKey && typeof label === 'string'
           ? config[label as keyof typeof config]?.label || label
-          : itemConfig?.label;
+          : payloadConfigEntry?.label;
 
       if (labelFormatter) {
         return (
@@ -169,7 +214,7 @@ const ChartTooltipContent = React.forwardRef<HTMLDivElement, any>(
       <div
         ref={ref}
         className={cn(
-          'grid min-w-[8rem] items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl',
+          'grid min-w-32 items-start gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl',
           className
         )}
       >
@@ -177,8 +222,12 @@ const ChartTooltipContent = React.forwardRef<HTMLDivElement, any>(
         <div className="grid gap-1.5">
           {payload.map((item: any, index: number) => {
             const key = `${nameKey || item.name || item.dataKey || 'value'}`;
-            const itemConfig = getPayloadConfigFromPayload(config, item, key);
-            const indicatorColor = color || item.payload.fill || item.color;
+            const { config: payloadConfigEntry, key: payloadConfigKey } =
+              getPayloadConfigFromPayload(config, item, key);
+            const indicatorClassKey = payloadConfigKey || key;
+            const hasPayloadColor = Boolean(
+              payloadConfigEntry?.color || payloadConfigEntry?.theme
+            );
 
             return (
               <div
@@ -192,27 +241,24 @@ const ChartTooltipContent = React.forwardRef<HTMLDivElement, any>(
                   formatter(item.value, item.name, item, index, item.payload)
                 ) : (
                   <>
-                    {itemConfig?.icon ? (
-                      <itemConfig.icon />
+                    {payloadConfigEntry?.icon ? (
+                      <payloadConfigEntry.icon />
                     ) : (
                       !hideIndicator && (
                         <div
                           className={cn(
-                            'shrink-0 rounded-[2px] border-[--color-border] bg-[--color-bg]',
-                            {
-                              'h-2.5 w-2.5': indicator === 'dot',
-                              'w-1': indicator === 'line',
-                              'w-0 border-[1.5px] border-dashed bg-transparent':
-                                indicator === 'dashed',
-                              'my-0.5': nestLabel && indicator === 'dashed',
-                            }
+                            'shrink-0 rounded-[2px] border',
+                            indicator === 'dot' && 'h-2.5 w-2.5',
+                            indicator === 'line' && 'h-2.5 w-1',
+                            indicator === 'dashed' &&
+                              'w-0 border-[1.5px] border-dashed bg-transparent',
+                            nestLabel && indicator === 'dashed' && 'my-0.5',
+                            hasPayloadColor &&
+                              getConfigClassName(
+                                indicatorClassKey,
+                                'chart-tooltip-indicator'
+                              )
                           )}
-                          style={
-                            {
-                              '--color-bg': indicatorColor,
-                              '--color-border': indicatorColor,
-                            } as React.CSSProperties
-                          }
                         />
                       )
                     )}
@@ -225,7 +271,7 @@ const ChartTooltipContent = React.forwardRef<HTMLDivElement, any>(
                       <div className="grid gap-1.5">
                         {nestLabel ? tooltipLabel : null}
                         <span className="text-muted-foreground">
-                          {itemConfig?.label || item.name}
+                          {payloadConfigEntry?.label || item.name}
                         </span>
                       </div>
                       {item.value && (
@@ -270,7 +316,12 @@ const ChartLegendContent = React.forwardRef<HTMLDivElement, any>(
       >
         {payload.map((item: any) => {
           const key = `${nameKey || item.dataKey || 'value'}`;
-          const itemConfig = getPayloadConfigFromPayload(config, item, key);
+          const { config: payloadConfigEntry, key: payloadConfigKey } =
+            getPayloadConfigFromPayload(config, item, key);
+          const legendClassKey = payloadConfigKey || key;
+          const hasPayloadColor = Boolean(
+            payloadConfigEntry?.color || payloadConfigEntry?.theme
+          );
 
           return (
             <div
@@ -279,17 +330,19 @@ const ChartLegendContent = React.forwardRef<HTMLDivElement, any>(
                 'flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3 [&>svg]:text-muted-foreground'
               )}
             >
-              {itemConfig?.icon && !hideIcon ? (
-                <itemConfig.icon />
+              {payloadConfigEntry?.icon && !hideIcon ? (
+                <payloadConfigEntry.icon />
               ) : (
                 <div
-                  className="h-2 w-2 shrink-0 rounded-[2px]"
-                  style={{
-                    backgroundColor: item.color,
-                  }}
+                  className={cn(
+                    'h-2 w-2 shrink-0 rounded-[2px]',
+                    hasPayloadColor
+                      ? getConfigClassName(legendClassKey, 'chart-legend-color')
+                      : 'bg-muted-foreground/50'
+                  )}
                 />
               )}
-              {itemConfig?.label}
+              {payloadConfigEntry?.label}
             </div>
           );
         })}
@@ -299,14 +352,19 @@ const ChartLegendContent = React.forwardRef<HTMLDivElement, any>(
 );
 ChartLegendContent.displayName = 'ChartLegend';
 
+type PayloadConfigResult = {
+  config?: ChartConfigEntry;
+  key: string;
+};
+
 // Helper to extract item config from a payload.
 function getPayloadConfigFromPayload(
   config: ChartConfig,
   payload: unknown,
   key: string
-) {
+): PayloadConfigResult {
   if (typeof payload !== 'object' || payload === null) {
-    return undefined;
+    return { config: undefined, key };
   }
 
   const payloadPayload =
@@ -333,9 +391,12 @@ function getPayloadConfigFromPayload(
     ] as string;
   }
 
-  return configLabelKey in config
-    ? config[configLabelKey]
-    : config[key as keyof typeof config];
+  const configEntry =
+    configLabelKey in config
+      ? config[configLabelKey]
+      : config[key as keyof typeof config];
+
+  return { config: configEntry, key: configLabelKey };
 }
 
 export {

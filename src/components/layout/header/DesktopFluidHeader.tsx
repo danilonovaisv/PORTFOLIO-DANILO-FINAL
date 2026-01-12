@@ -50,7 +50,11 @@ export default function DesktopFluidHeader({
         isLight ? 'header--light' : ''
       }`}
     >
-      <div className={'std-grid flex justify-center max-w-[1680px] mx-auto'}>
+      <div
+        className={
+          'flex justify-center w-full max-w-[1400px] mx-auto px-6 md:px-12 xl:px-24'
+        }
+      >
         <div ref={wrapRef} className="pointer-events-auto w-fit relative">
           <div
             className={`${styles.headerContainer} ${

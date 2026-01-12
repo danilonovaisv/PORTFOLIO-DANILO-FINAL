@@ -77,11 +77,11 @@ export function VideoManifesto({ src }: VideoManifestoProps) {
   return (
     <motion.section
       ref={sectionRef}
-      className="video-manifesto w-full"
-      initial={{ opacity: 0, scale: 0.95, y: 20 }}
-      whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      viewport={{ once: true, amount: 0.3 }}
+      className="video-manifesto w-full overflow-hidden rounded-[2px]"
+      initial={{ opacity: 0, scale: 1.1, rotate: -1, y: 40 }}
+      whileInView={{ opacity: 1, scale: 1, rotate: 0, y: 0 }}
+      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, amount: 0.2 }}
     >
       <div
         ref={wrapperRef}
@@ -115,7 +115,7 @@ export function VideoManifesto({ src }: VideoManifestoProps) {
               aria-label={
                 muted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'
               }
-              aria-pressed={!muted ? 'true' : 'false'}
+              aria-pressed={!muted}
             >
               {muted ? (
                 <svg

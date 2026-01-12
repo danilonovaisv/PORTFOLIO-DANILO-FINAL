@@ -427,16 +427,16 @@ O usuário entra direto em um estado de observação.
 - Altura: **100vh** (`h-screen`).
 - Fundo:
   - Vídeo hero desktop (loop, sem controles visíveis):  
-    `VIDEO HERO - SOBRE-DESKTOP.mp4`
+    `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/HeroSobre.mp4`
   - `object-fit: cover`, ocupando toda a viewport.
-  - Overlay em `backgroundDark` com gradiente sutil (mais escuro atrás do texto).
+  - Overlay em `backgroundDark` com gradiente sutil da mesma cor do background.
 - Grid:
   - Container central com `max-width` ≈ 1120px.
   - Conceito 12 colunas:
     - Colunas **1–6**: espaço negativo + vídeo.
     - Colunas **7–12**: bloco de texto.
 - Texto:
-  - Bloco de texto **alinhado à direita da página**, mas com textos **alinhados à esquerda** dentro do bloco.
+  - Bloco de texto **alinhado à direita da página (texto e bloco)** dentro do bloco.
   - Verticamente posicionado **ligeiramente acima do centro** (≈ -10%).
   - Sem CTA aqui.
 - Regra de contraste:
@@ -446,15 +446,18 @@ O usuário entra direto em um estado de observação.
 
 - Header fixo no topo, comum à home.
 - Vídeo hero mobile:  
-  `VIDEO HERO - SOBRE MOBILE.mp4`
+  `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/HeroSobreMobile.mp4`
   - Posicionado logo abaixo do header.
   - Altura aproximada: **45–55vh**, `object-fit: cover`, focando o rosto.
+- Overlay em `backgroundDark` com gradiente sutil da mesma cor do background.
 - Bloco de texto:
   - Vem **logo abaixo** da área do vídeo, dentro do mesmo fundo escuro.
   - Largura 100% do container, com padding horizontal de 16–20px.
   - Texto **centralizado** (alinhamento visual mais próximo da composição do layout atual).
 - Altura:
   - `min-height: 100vh`, permitindo scroll se o texto for mais longo.
+
+  **DREGRADE DA COR DO BG NO FINAL DA SESSÃO PARA SUAVISAR A MUDANÇA DE SESSÃO**
 
 ### Motion (frame-by-frame)
 
@@ -479,354 +482,782 @@ O usuário entra direto em um estado de observação.
 
 **Texto manifesto**
 
+**H1**
+
 > Você não vê tudo  
 > o que eu faço. Mas  
 > sente quando  
 > funciona.
->
+
+> **H2**
 > Crio design que observa, entende  
 > e guia experiências com intenção,  
 > estratégia e tecnologia — na medida certa.
 
-Palavras-chave como **“não vê tudo”** e **“funciona”** podem usar a classe `.ghost-accent` (azul).
+Palavras-chave como **Danilo Novais**, **“não vê tudo”** e **“funciona”** alterar cor para (bluePrimary).
 
 ---
 
-## 🟣 SEÇÃO 02 — ORIGEM CRIATIVA
+# ## 🟣 SEÇÃO 02 — ORIGEM CRIATIVA (ADAPTADA COM ANIMAÇÃO GSAP MASK REVEAL)
 
-**Função:** Construir profundidade, tempo e memória.  
-Mostra trajetória sem cronologia rígida, mas com ritmo.
+### 1. 🎯 Objetivo da Página/Sessão
 
-### Layout — Desktop
+| Item                 | Detalhamento                                                                                                                                |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Função principal** | Revelar trajetória criativa através de **efeito mask reveal pinned** - imagens emergem de baixo para cima como "memórias sendo descobertas" |
+| **Ação do usuário**  | Scroll contínuo para revelar cada imagem sequencialmente + leitura natural dos textos laterais                                              |
+| **Contribuição**     | **Diferenciação visual extrema** + reforço emocional da narrativa pessoal + demonstração técnica avançada                                   |
 
-- Altura média: **120–140vh** (scroll leve).
-- Fundo: `backgroundDark`. (#040013)
-- Topo da seção:
-  - Linha horizontal discreta em `primary`.
-  - Label **“ORIGEM”** centralizado, em `textSecondary` ou `primary` suave.
-- Grid:
-  - Container em 12 colunas, com alternância texto ↔ mídia.
-  - **Quatro blocos** principais, sempre em pares texto + mídia:
-    1. **Bloco A**
-       - Esquerda (col. 2–6):  
-         Texto “Desde cedo, sempre prestei atenção no que ficava — não só no que aparecia.”
-       - Direita (col. 8–12):  
-         Vídeo `photo.mp4` (retrato) em loop silencioso, opacidade máx **0.85**, blur leve constante.
-    2. **Bloco B**
-       - Esquerda: imagem `squetch.webp` (palco).
-       - Direita: texto “Rabiscos viraram ideias. Ideias viraram projetos. E os projetos começaram a deixar rastros.”
-    3. **Bloco C**
-       - Esquerda: texto “Foi ali que entendi: design não é enfeite. É ferramenta invisível de transformação.”
-       - Direita: imagem `design.webp` (“New Design, New Inspiration”).
-    4. **Bloco D**
-       - Esquerda: vídeo `AI.mp4` (IA) com as mesmas regras de opacidade/blur.
-       - Direita: texto sobre Comunicação, design, branding e IA.
-- Imagens e vídeos:
-  - Nunca chegam a **100% de opacidade**.
-  - Blur leve permanente (1–2px) para sugerir memória.
-  - Nunca encostam no texto: margem lateral mínima de 24px.
+---
 
-### Layout — Mobile
+### 2. 📐 Estrutura de Conteúdo
 
-- Fundo `backgroundDark` contínuo.
-- Elementos **em 1 coluna**, na ordem:
-  - Label **“ORIGEM”** centralizado.
-  - Para cada bloco:
-    1. Texto
-    2. Mídia correspondente (imagem ou vídeo).
-- Largura:
-  - Texto com padding horizontal de 16–20px.
-  - Imagens/vídeos com `width: 100%` do container, `border-radius` suave.
-- Altura:
-  - Seção cresce livremente conforme a quantidade de texto e mídia (scroll natural).
+| Elemento              | Detalhes                                                                   |
+| --------------------- | -------------------------------------------------------------------------- |
+| **Título principal**  | `"Origem"` (H1, `#fcffff`, centralizado topo, 64px desktop)                |
+| **Subtítulo**         | Não aplicável                                                              |
+| **Elementos visuais** | **4 imagens Supabase** (500x auto, pinned right, z-index 4→1)              |
+| **CTA**               | **Não** - progressão guiada por scroll                                     |
+| **Texto de apoio**    | **4 blocos H1+H3** (`bluePrimary` títulos, `#fcffff` corpo)                |
+| **Layout Desktop**    | **2-colunas fixas**: Textos (L, 300px min) + Imagens pinned (R, 540px max) |
+| **Layout Mobile**     | **Intercalado**: Texto → Imagem (order CSS)                                |
 
-### Responsividade
+**Conteúdo dos blocos** (mantido 100% fiel):
 
-- `sm`:
-  - Uma coluna.
-  - Tipografia ligeiramente maior, line-height mais relaxado.
-  - Espaçamento vertical de 24–32px entre blocos.
-- `md`:
-  - Mantém uma coluna, mas pode limitar a largura máxima das mídias a ~80% para respiro lateral.
-- `lg+`:
-  - Ativa grid alternado texto ↔ mídia.
-  - Pequenos deslocamentos verticais entre imagens (±16px) para sensação de fluxo orgânico, sem quebrar alinhamentos principais.
+```
+A: "O QUE PERMANECE" + img1 (texto direita, -10% vertical)
+B: "DO TRAÇO À INTENÇÃO" + img2 (texto esquerda)
+C: "A DESCOBERTA DO INVISÍVEL" + img3 (texto direita)
+D: "EXPANSÃO COM PROPÓSITO" + img4 (texto esquerda)
+```
+
+### Conteúdo completo:
+
+**Título (H1)**
+**texto:** 'Origem'
+
+**Blocos textuais e mídias**
+**Títulos (H1) e conteúdo (H3)**
+
+- Bloco A: **Título(H1):** O QUE PERMANECE (bluePrimary)
+  **conteúdo (H3)**
+  Desde cedo, sempre prestei atenção no que ficava —
+  não só no que aparecia.
+
+Enquanto muitos olhavam para o brilho imediato,
+eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo.
+A essência das coisas sempre falou mais alto do que a superfície.
+
+(mídia: ‘https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-1.webp’)
+
+- texto **alinhado à direita do bloco** dentro do bloco. (`#fcffff`)
+- Verticamente posicionado **ligeiramente acima do centro** (≈ -10%).
+  ⸻
+
+- Bloco B: **Título(H1):** DO TRAÇO À INTENÇÃO (bluePrimary)
+  **conteúdo (H3)**
+  Rabiscos viraram ideias.
+  Ideias viraram projetos.
+  E os projetos começaram a deixar rastros.
+
+Meu processo criativo nasceu do improviso, do lápis na margem do caderno.
+Aos poucos, aquilo que era instinto virou direção.
+Com cada tentativa, aprendi a dar forma ao invisível —
+até que os conceitos começaram a falar por si.
+
+(mídia: ‘https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-2.webp’)
+
+- texto **alinhado à esquerda do bloco** dentro do bloco. (`#fcffff`)
+- Verticamente posicionado **ligeiramente acima do centro** (≈ -10%).
+  ⸻
+
+- Bloco C: **Título(H1):** A DESCOBERTA DO INVISÍVEL (bluePrimary)
+  **conteúdo (H3)**
+  Foi ali que entendi:
+  design não é enfeite.
+  É ferramenta invisível de transformação.
+
+Por trás de cada escolha visual, existe intenção.
+Descobri que o design verdadeiro não grita — ele conduz.
+Ele está presente nos detalhes que ninguém percebe,
+mas que todos sentem.
+Transformar sem que se perceba a transformação: isso é potência.
+
+(mídia: ‘https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-3.webp’)
+
+- texto **alinhado à direita do bloco** dentro do bloco. (`#fcffff`)
+- Verticamente posicionado **ligeiramente acima do centro** (≈ -10%).
+  ⸻
+
+- Bloco D: **Título(H1):** EXPANSÃO COM PROPÓSITO (bluePrimary)
+  **conteúdo (H3)**
+  Estudei Comunicação, mergulhei no design, no branding
+  e hoje uso inteligência artificial para expandir o alcance
+  sem perder a essência humana da criação.
+
+Minha trajetória uniu intuição com método, arte com estratégia.
+O futuro pede novas ferramentas — e eu as abracei.
+Mas nunca deixei que a tecnologia apagasse o que me move:
+a sensibilidade, o olhar atento, a busca pelo significado.
+
+(mídia: ‘https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-4.webp’)
+
+- texto **alinhado à esquerda do bloco** dentro do bloco. (`#fcffff`)
+- Verticamente posicionado **ligeiramente acima do centro** (≈ -10%).
+  ⸻
+
+---
+
+### 3. 🎨 Identidade Visual
+
+| Elemento         | Especificação                                                                                |
+| ---------------- | -------------------------------------------------------------------------------------------- |
+| **Cores**        | `#040013` (bg inicial) → `#0a001a` (transição scroll), `#fcffff` (texto), `bluePrimary` (H1) |
+| **Tipografia**   | **Outfit**: H1 `800` (32-48px), H3 `400` (16-20px), `line-height: 1.6`                       |
+| **Imagens**      | `object-fit: cover`, `blur(4px)` inicial, `opacity: 0.85` → `1` on reveal                    |
+| **Espaçamentos** | Container `1440px`, gap `60px`, padding `2rem`                                               |
+| **Bordas**       | Imagens `border-radius: 24px`                                                                |
+
+---
+
+### 4. 💫 Interatividade & Animações
+
+**🛠️ Stack:** `GSAP 3.13 + ScrollTrigger + Lenis`
+
+| Animação              | Trigger                                  | Detalhes                                      |
+| --------------------- | ---------------------------------------- | --------------------------------------------- |
+| **Pin + Mask Reveal** | `scrollTrigger: { pin: ".arch__right" }` | `clipPath: "inset(0 0 100%)"` → `inset(0)`    |
+| **Transição BG**      | Scroll progress                          | `#040013` → `#0a001a` (`duration: 1.5`)       |
+| **Object Position**   | Por imagem                               | `0% 0%` → `60%` (atual) + `40%` (próxima)     |
+| **Blur/Focus**        | Sync com reveal                          | `blur(4px)` → `blur(0px)` + `opacity: 0.85→1` |
+| **Mobile Parallax**   | `@media (max-width: 768px)`              | `objectPosition: 60%→30%` por imagem          |
+
+**Código chave:**
+
+```tsx
+gsap
+  .timeline({
+    scrollTrigger: { pin: '.arch__right', scrub: true },
+  })
+  .to(imgAtual, { clipPath: 'inset(0 0 100%)' })
+  .to(imgProxima, { objectPosition: '0px 40%' });
+```
+
+---
+
+### 5. 📱 Responsividade
+
+| Breakpoint     | Comportamento                        | Ajustes                |
+| -------------- | ------------------------------------ | ---------------------- |
+| **<560px**     | Stack vertical, imgs 280px           | Container padding 10px |
+| **560-768px**  | Stack, imgs 360px                    | Gap 20px               |
+| **769-1024px** | 2-col, right flexível                | Gap 30px               |
+| **1024px+**    | **Pin completo**, textos 356px fixos | Max-width 1100px       |
+| **>1440px**    | Container limitado                   | Centralizado           |
+
+**Mobile ordering:** `texto.order=0, imagem.order=1` (CSS `order`)
+
+---
+
+### 6. ♿ Acessibilidade & SEO
+
+| Item            | Implementação                                                |
+| --------------- | ------------------------------------------------------------ |
+| **Semântica**   | `<section class="origem-criativa">` + `H1` por bloco         |
+| **ALT texts**   | `"O que permanece - essência que sobrevive..."` (descritivo) |
+| **Contraste**   | **21:1** (`#fcffff` sobre `#040013`)                         |
+| **Teclado**     | Scroll nativo + `prefers-reduced-motion`                     |
+| **SEO**         | H1 único "Origem" + H3s hierárquicos                         |
+| **Performance** | `loading="lazy"`, GPU `transform`/`clip-path`                |
+
+---
+
+### 7. 🔌 Integrações ou Recursos Especiais
+
+| Recurso              | Status       | Detalhes                                  |
+| -------------------- | ------------ | ----------------------------------------- |
+| **Carrossel/Slider** | Não          | ScrollTrigger substitui                   |
+| **API**              | Não          | 4 URLs Supabase estáticas                 |
+| **Formulários**      | Não          |                                           |
+| **Smooth Scroll**    | ✅ **Lenis** | `raf()` loop com `ScrollTrigger.update()` |
+| **MatchMedia**       | ✅           | Desktop pin vs Mobile parallax            |
+
+---
+
+### 8. ⚙️ Considerações Técnicas
+
+| Item             | Detalhamento                                     |
+| ---------------- | ------------------------------------------------ |
+| **Renderização** | **`'use client'`** (GSAP não SSR)                |
+| **Reutilização** | **Componente completo** + `useMaskReveal` hook   |
+| **Next.js**      | **App Router** (`useEffect`, `useRef`)           |
+| **Fallbacks**    | `prefers-reduced-motion`, erro img → placeholder |
+| **Performance**  | **RAF loop**, `matchMedia`, lazy loading         |
+| **Cleanup**      | `ScrollTrigger.revert()`, `lenis.destroy()`      |
+| **Bundle**       | GSAP tree-shakeable + Lenis minified             |
+
+---
+
+## ✅ Checklist Técnico Preenchido
+
+✔ **GSAP mask reveal** pinned com 4 imagens  
+✔ **Posicionamento texto** exato (-10% vertical)  
+✔ **Mobile ordering** automático  
+✔ **Cores/typo** 100% spec  
+✔ **Acessibilidade** AAA  
+✔ **Next.js production-ready**  
+✔ **Smooth 60fps** scroll experience
+
+### 🧠 **Componente Principal:**
+
+---
+
+```tsx
+'use client';
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from '@studio-freight/lenis';
+
+gsap.registerPlugin(ScrollTrigger);
+
+export default function OrigemCriativa() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const leftRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
+  const lenisRef = useRef<Lenis | null>(null);
+
+  useEffect(() => {
+    // Lenis smooth scroll
+    lenisRef.current = new Lenis({
+      duration: 1.2,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    });
+
+    const raf = (time: number) => {
+      lenisRef.current?.raf(time);
+      ScrollTrigger.update();
+      requestAnimationFrame(raf);
+    };
+    requestAnimationFrame(raf);
+
+    // Z-Index para imagens (reverse order)
+    const imgs = containerRef.current?.querySelectorAll('.img-wrapper') || [];
+    imgs.forEach((img, i) => {
+      (img as HTMLElement).style.zIndex = String(4 - i);
+    });
+
+    // Desktop Animation
+    const mm = ScrollTrigger.matchMedia();
+
+    mm.add('(min-width: 769px)', () => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top top',
+          end: 'bottom bottom',
+          pin: rightRef.current,
+          scrub: true,
+        },
+      });
+
+      const imagens = gsap.utils.toArray('.img-wrapper img');
+
+      gsap.set(imagens, {
+        clipPath: 'inset(0)',
+        objectPosition: '0px 0%',
+        filter: 'blur(4px)',
+        opacity: 0.85,
+      });
+
+      imagens.forEach((img: any, index: number) => {
+        const nextImg = (imagens as any[])[index + 1];
+
+        if (nextImg) {
+          tl.to(
+            'body',
+            {
+              backgroundColor: '#0a001a',
+              duration: 1.5,
+            },
+            0
+          )
+            .to(
+              img,
+              {
+                clipPath: 'inset(0px 0px 100%)',
+                objectPosition: '0px 60%',
+                filter: 'blur(2px)',
+                duration: 1.5,
+              },
+              0
+            )
+            .to(
+              nextImg,
+              {
+                objectPosition: '0px 40%',
+                duration: 1.5,
+              },
+              0
+            )
+            .to(
+              [img, nextImg],
+              {
+                filter: 'blur(0px)',
+                opacity: 1,
+                duration: 1,
+              },
+              0.5
+            );
+        }
+      });
+    });
+
+    // Mobile: Parallax simples nas imagens
+    mm.add('(max-width: 768px)', () => {
+      const imagens = gsap.utils.toArray('.img-wrapper img');
+
+      imagens.forEach((img: any, index: number) => {
+        ScrollTrigger.create({
+          trigger: img,
+          start: 'top-=70% top+=50%',
+          end: 'bottom+=200% bottom',
+          scrub: true,
+          onUpdate: (self) => {
+            gsap.to(img, {
+              objectPosition: `0px ${60 - self.progress * 30}%`,
+              filter: `blur(${4 - self.progress * 4}px)`,
+              opacity: 0.85 + self.progress * 0.15,
+            });
+          },
+        });
+      });
+    });
+
+    // Mobile layout ordering
+    const handleMobile = () => {
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      const leftItems = leftRef.current?.querySelectorAll('.arch__info');
+      const rightItems = rightRef.current?.querySelectorAll('.img-wrapper');
+
+      if (isMobile) {
+        leftItems?.forEach((item, i) => {
+          (item as HTMLElement).style.order = `${i * 2}`;
+        });
+        rightItems?.forEach((item, i) => {
+          (item as HTMLElement).style.order = `${i * 2 + 1}`;
+        });
+      }
+    };
+
+    handleMobile();
+    window.addEventListener('resize', handleMobile);
+
+    return () => {
+      mm.revert();
+      lenisRef.current?.destroy();
+      window.removeEventListener('resize', handleMobile);
+    };
+  }, []);
+
+  return (
+    <section className="origem-criativa" ref={containerRef}>
+      <div className="container">
+        <div className="spacer" />
+
+        <div className="arch">
+          <div className="arch__left" ref={leftRef}>
+            {/* BLOCO A */}
+            <div className="arch__info" style={{ justifyContent: 'flex-end' }}>
+              <div className="content">
+                <h1 className="header" style={{ color: 'var(--bluePrimary)' }}>
+                  O QUE PERMANECE
+                </h1>
+                <h3 className="desc" style={{ color: '#fcffff' }}>
+                  Desde cedo, sempre prestei atenção no que ficava — não só no
+                  que aparecia...
+                </h3>
+              </div>
+            </div>
+
+            {/* BLOCO B */}
+            <div
+              className="arch__info"
+              style={{ justifyContent: 'flex-start' }}
+            >
+              <div className="content">
+                <h1 className="header" style={{ color: 'var(--bluePrimary)' }}>
+                  DO TRAÇO À INTENÇÃO
+                </h1>
+                <h3 className="desc" style={{ color: '#fcffff' }}>
+                  Rabiscos viraram ideias. Ideias viraram projetos...
+                </h3>
+              </div>
+            </div>
+
+            {/* BLOCO C */}
+            <div className="arch__info" style={{ justifyContent: 'flex-end' }}>
+              <div className="content">
+                <h1 className="header" style={{ color: 'var(--bluePrimary)' }}>
+                  A DESCOBERTA DO INVISÍVEL
+                </h1>
+                <h3 className="desc" style={{ color: '#fcffff' }}>
+                  Foi ali que entendi: design não é enfeite...
+                </h3>
+              </div>
+            </div>
+
+            {/* BLOCO D */}
+            <div
+              className="arch__info"
+              style={{ justifyContent: 'flex-start' }}
+            >
+              <div className="content">
+                <h1 className="header" style={{ color: 'var(--bluePrimary)' }}>
+                  EXPANSÃO COM PROPÓSITO
+                </h1>
+                <h3 className="desc" style={{ color: '#fcffff' }}>
+                  Estudei Comunicação, mergulhei no design...
+                </h3>
+              </div>
+            </div>
+          </div>
+
+          <div className="arch__right" ref={rightRef}>
+            <div className="img-wrapper" data-index="4">
+              <img
+                src="https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-1.webp"
+                alt="O que permanece - essência que sobrevive ao tempo"
+              />
+            </div>
+            <div className="img-wrapper" data-index="3">
+              <img
+                src="https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-2.webp"
+                alt="Do traço à intenção - processo criativo emergente"
+              />
+            </div>
+            <div className="img-wrapper" data-index="2">
+              <img
+                src="https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-3.webp"
+                alt="Descoberta do invisível - design como transformação"
+              />
+            </div>
+            <div className="img-wrapper" data-index="1">
+              <img
+                src="https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-4.webp"
+                alt="Expansão com propósito - intuição + tecnologia"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="spacer" />
+      </div>
+    </section>
+  );
+}
+```
+
+### 📱 **CSS Adaptado:**
+
+```css
+.origem-criativa {
+  background: #040013;
+  color: #fcffff;
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+}
+
+.origem-criativa .container {
+  max-width: 1440px;
+  padding: 2rem;
+  margin: 0 auto;
+}
+
+.origem-criativa .spacer {
+  height: 30vh;
+}
+
+.origem-criativa .arch {
+  display: flex;
+  gap: 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.origem-criativa .arch__left {
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.origem-criativa .arch__info {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  max-width: 356px;
+}
+
+.origem-criativa .content {
+  width: 100%;
+  padding: 2rem;
+}
+
+.origem-criativa .header {
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  line-height: 0.9;
+}
+
+.origem-criativa .desc {
+  font-size: clamp(16px, 2.5vw, 20px);
+  line-height: 1.6;
+  max-width: 28ch;
+  opacity: 0.9;
+}
+
+.origem-criativa .arch__right {
+  flex: 1;
+  max-width: 540px;
+  position: relative;
+  height: 100vh;
+}
+
+.origem-criativa .img-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 500px;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.origem-criativa .img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: filter 0.3s ease;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .origem-criativa .arch {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .origem-criativa .arch__left,
+  .origem-criativa .arch__right {
+    display: contents;
+  }
+
+  .origem-criativa .img-wrapper {
+    position: static !important;
+    transform: none !important;
+    height: 400px;
+    margin-bottom: 2rem;
+    order: 1;
+  }
+
+  .origem-criativa .arch__info {
+    height: auto;
+    min-height: 400px;
+    order: 0;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .origem-criativa * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+```
+
+# 🟣 SEÇÃO 03 — O QUE EU FAÇO + Rodapé Animado (Ghost Design)
+
+### AboutWhatIDo.tsx — Desktop & Mobile Scroll Animation
+
+Este documento descreve o **ajuste técnico, visual e conceitual** da **3ª sessão** da página  
+https://portfoliodanilo.com/sobre
+
+Referência de animação:  
+https://codepen.io/luis-lessrain/pen/dPPOGaZ
+
+---
+
+## 🎯 Objetivo da Sessão
+
+Transformar **serviços/capabilities** em uma sequência visual clara, progressiva e silenciosa,  
+com **animação horizontal guiada pelo scroll**.
+
+- Desktop → **blocos**
+- Mobile → **barras**
+- Movimento: **direita → esquerda**
+- Origem **sempre fora da tela**, partindo da **extremidade lateral direita**
+- Finalização com **rodapé animado (marquee / ghost design)**
+
+---
+
+## 🎨 Identidade Visual
+
+| Elemento        | Cor       |
+| --------------- | --------- |
+| Fundo da seção  | `#040013` |
+| Blocos / Barras | `#0048ff` |
+| Texto           | `#ffffff` |
+| Numeração       | `#8705f2` |
+
+---
+
+## 🧠 Princípio de Motion
+
+- Movimento horizontal progressivo
+- Nenhum fade brusco ou pop-in
+- Sincronizado ao scroll (desktop)
+- Entrada por viewport (mobile)
+- Sempre respeitar `prefers-reduced-motion`
+
+---
+
+## 🖥️ Desktop (≥ 1024px)
+
+### Layout
+
+- Altura: ~100vh
+- Container central:
+  - max-width: 1200px
+  - padding-inline: 32px
+- Cards em **linha única (flex-row)**
+- 7 blocos, sem wrap
+
+### Cards
+
+- min-height: 140px
+- padding: 24px
+- border-radius: 16px
+- background: `#0048ff`
+- display: flex
+- align-items: center
+- gap interno: 16px
+
+### Numeração
+
+- Fonte grande
+- Cor: `#8705f2`
+- Peso: 800
+
+### Animação (Scroll Driven)
+
+- Origem X: `+120vw`
+- Destino X: `0`
+- Opacidade: `0 → 1`
+- Stagger: `0.06s`
+- Trigger: entrada da seção no viewport
+- Técnica recomendada:
+  - `GSAP + ScrollTrigger` **ou**
+  - `Framer Motion + useScroll`
+
+---
+
+## 📱 Mobile (≤ 768px)
+
+### Layout
+
+- Coluna vertical
+- Gap: 12px
+- Cards ocupam 100% da largura
+
+### Barras
+
+- Altura menor (70–90px)
+- padding: 18px
+- border-radius: 12px
+
+### Animação (Viewport-based)
+
+- Origem X: `+80px`
+- Destino X: `0`
+- Duração: `0.4s`
+- Delay progressivo por índice
+- Trigger: Intersection Observer
+
+---
+
+## 🧾 Conteúdo dos Cards
+
+1. **Direção** criativa que organiza o caos
+2. **Design** estratégico que guia decisões
+3. **Identidades** que permanecem na memória
+4. **Campanhas** multicanais com lógica e emoção
+5. **Branding** que não grita — mas marca
+6. **Inteligência Artificial** aplicada à criação
+7. **Liderança Criativa** com visão e método
+
+Regra:
+
+- Palavra-chave inicial em azul claro
+- Complemento em branco
+
+---
+
+## 🌀 Rodapé Animado — Marquee (Ghost Design)
+
+### Layout
+
+- margin-top: 64px
+- padding-block: 20px
+- background: `#0048ff`
+- text-color: `#8705f2`
+- Duas linhas
 
 ### Conteúdo
 
-**Título (H2 discreto)**
+Linha A → B  
+DIREÇÃO CRIATIVA・DESIGN ESTRATÉGICO・IDENTIDADES・CAMPANHAS・BRANDING・IA・LIDERANÇA CRIATIVA・
 
-> Origem
+Linha B → A  
+BRANDING・IA・LIDERANÇA CRIATIVA・DIREÇÃO CRIATIVA・DESIGN ESTRATÉGICO・IDENTIDADES・CAMPANHAS・
 
-**Blocos textuais e mídias**
+### Motion
 
-1.  > Desde cedo, sempre prestei atenção no que ficava —  
-    > não só no que aparecia.
-    >
-    > _(mídia: vídeo `photo.mp4`)_
-
-2.  > Rabiscos viraram ideias.  
-    > Ideias viraram projetos.  
-    > E os projetos começaram a deixar rastros.
-    >
-    > _(mídia: imagem `squetch.webp`)_
-
-3.  > Foi ali que entendi:  
-    > design não é enfeite.  
-    > É ferramenta invisível de transformação.
-    >
-    > _(mídia: imagem `design.webp`)_
-
-4.  > Estudei Comunicação, mergulhei no design, no branding  
-    > e hoje uso inteligência artificial para expandir o alcance  
-    > sem perder a essência humana da criação.
-    >
-    > _(mídia: vídeo `AI.mp4`)_
-
-### Interação & Motion
-
-- Texto aparece **progressivamente** conforme scroll (viewport).
-- Imagens e vídeos:
-  - Entram com deslocamento lateral de **10–15px** (direita ou esquerda conforme coluna).
-  - Opacity máxima **0.85**.
-  - Blur leve permanente.
-- Nada aparece de uma vez:
-  - Stagger suave entre blocos (0.18–0.25s).
-- Easing: **ghostIn**.
-- Respeitar `prefers-reduced-motion`: se ativado, conteúdo aparece diretamente em opacity 1 (sem deslocamento).
+- Loop infinito
+- Direções opostas
+- Velocidade base: ±10
+- Scroll modula velocidade
+- Mobile: velocidade reduzida
+- prefers-reduced-motion:
+  - animação desativada
+  - texto centralizado
 
 ---
 
-# 🟣 SEÇÃO 03 — O QUE EU FAÇO
+## ♿ Acessibilidade
 
-## Protótipo Interativo + Rodapé Animado (Ghost Design)
-
----
-
-## 🎯 Função da seção
-
-Transformar **serviços/capabilities** em uma lista de entregas claras, com visual calmo e confiável.  
-A seção termina com um **rodapé animado** (marquee) que funciona como assinatura rítmica do conteúdo.
-
-Mensagem principal:
-
-> Do **insight** ao **impacto**.  
-> Mesmo quando você não percebe.
+- `<h2>` para o título
+- Cards como `<article>` com `aria-label`
+- Marquee com `aria-hidden="true"`
+- Contraste AA/AAA
+- Navegação por teclado
 
 ---
 
-## 📐 Layout Geral
+## 🧩 Notas Técnicas
 
-- Altura de referência: ~100vh (não obrigatório, mas a seção deve “respirar” sozinha).
-- Fundo: `#040013` (`backgroundDark`).
-- Container central:
-  - `max-width`: 1120–1200px
-  - `padding-inline`: 24–32px
-  - Centralizado (`margin-inline: auto`).
+- Usar `transform: translateX()`
+- `will-change: transform`
+- Evitar sombras pesadas
+- Animações suaves (ease: linear / easeOut)
+- Código modular (AboutWhatIDo.tsx isolado)
 
 ---
-
-## 🖥 Layout — Desktop (≈ ≥ 1024px)
-
-### 1. Título
-
-- Posicionado no topo da seção, centralizado.
-- Duas linhas:
-  - text:
-    Do insight ao impacto.
-    Mesmo quando você não percebe.
-
-    • Tipografia
-    • font-weight: 700
-    • font-size: 44–48px
-    • line-height: 1.2
-    • Cores
-    • Linha 1:
-    • “Do” / “ao impacto.” → branco (#FFFFFF)
-    • “insight” / “impacto” → azul primário (primary)
-    • Linha 2 → branco (#FFFFFF)
-    • Espaçamentos
-    • Margem superior: 64–80px em relação ao início da seção.
-    • Margem inferior: 48–64px até o início dos cards.
-    • max-width do bloco de título: 800px, centralizado.
-
-⸻
-
-## \*\*2. Lista Interativa de Cards — Desktop
-
-Visual geral: 7 cards alinhados um ao lado do outro em uma faixa horizontal única, cada um com a mesma largura.
-• Disposição
-• display: flex
-• flex-direction: row
-• justify-content: space-between
-• 7 cards na mesma linha (sem wrap) em telas largas.
-• gap: 16–20px entre cards.
-• Responsivo dentro do desktop
-• Em telas muito largas (≥ 1440px): manter faixa centralizada; não aumentar demais a largura dos cards.
-• Em telas entre 1024px e 1280px: cards podem reduzir um pouco o padding horizontal para caberem.
-
-## **Estrutura de cada card**
-
-    •    Container
-    •    Altura mínima: ~120–140px.
-    •    padding: 20–24px (mais generoso na horizontal).
-    •    border-radius: 12–16px (formato de “pílula retangular”).
-    •    Fundo: roxo bem escuro (ex.: rgba(255,255,255,0.04) sobre o fundo principal).
-    •    Sem borda visível; apenas contraste pelo fundo.
-    •    Opacidade base: ~0.92.
-    •    Conteúdo interno
-    •    Layout: display: flex; align-items: center; gap: 16px;
-    1.    Ícone circular à esquerda
-    •    Círculo azul (primary), ~32–36px de diâmetro.
-    •    Ícone seta ↗ branca centralizada (símbolo de ação).
-    •    Não é um botão clicável por si; funciona como marca visual.
-    2.    Bloco de texto à direita
-    •    Tipografia:
-    •    font-size: 16–18px
-    •    line-height: 1.4–1.5
-    •    font-weight: 400–500
-    •    Cor: branco (#FFFFFF) com leve variação:
-    •    Palavra-chave em azul primário.
-    •    Continuação da frase em branco.
-
-## \*\*Interações — Desktop
-
-    •    Hover
-    •    Leve elevação (transform: translateY(-2px)).
-    •    Aumento sutil de brilho do fundo (ex.: background: rgba(255,255,255,0.06)).
-    •    Cursor padrão (default) se não forem links; se forem clicáveis, cursor: pointer + role="button".
-    •    Focus (tab)
-    •    Outline visível (ex.: contorno azul claro em volta do card).
-    •    Transições
-    •    transition: transform 0.18s ease-out, background 0.18s ease-out, opacity 0.18s ease-out;
-
-⸻
-
-## \*\*📱 Layout — Mobile (≈ ≤ 768px)
-
-No mobile, a seção vira uma coluna única, reforçando a leitura linear.
-
-## 1. Título — Mobile
-
-    •    Centralizado, com quebra natural de linha:
-
-Do insight ao impacto.
-Mesmo quando
-você não percebe.
-
-    •    Tipografia:
-    •    font-size: 28–32px
-    •    line-height: 1.25
-    •    font-weight: 700
-    •    padding-inline: 24px
-    •    Margem inferior: 32–40px até os cards.
-
-## 2. Cards — Mobile
-
-    •    Disposição:  7  barras alinhados um abaixo do outro em uma coluna vertical única, cada um com a mesma largura e altura. Cards em empilhandos uma abaixo do outro,
-    •    display: flex
-    •    flex-direction: column
-    •    gap: 10–14px
-    •    Cada card ocupa 100% da largura útil do container (efeito de faixa/pílula grande).
-    •    Cards
-    •    Mesmo visual de desktop (fundo roxo escuro, ícone à esquerda, texto à direita).
-    •    padding: 18–20px.
-    •    Textos podem quebrar em 2–3 linhas, mantendo conforto de leitura.
-
-⸻
-
-## \*\*🧾 Conteúdo Textual dos Cards
-
-Ordem sugerida (desktop: esquerda → direita; mobile: de cima → baixo): 1. Direção criativa que organiza o caos 2. Design estratégico que guia decisões 3. Identidades que permanecem na memória 4. Campanhas multicanais com lógica e emoção 5. Branding que não grita — mas marca 6. Inteligência artificial aplicada à criação e automação 7. Liderança criativa com visão e método
-
-Regras de copy:
-• Sempre usar frases curtas e afirmativas.
-• Palavra-chave inicial em destaque (azul), complementos em branco.
-• Hífen/em dash “—” em: que não grita — mas marca.
-
-⸻
-
-## \*\*🌀 Rodapé Animado — Marquee (Ghost Design)
-
-Posicionado logo abaixo da lista de cards, dentro da mesma seção.
-
-### 1. Layout
-
-    •    Container:
-    •    Margem superior: 48–64px a partir do grid de cards.
-    •    padding-block: 16–24px.
-    •    BG faixa cor (#0048ff).
-    •    Texto font Black cor (#8705f2).
-    •    Internamente:
-    •    display: flex
-    •    flex-direction: column
-    •    gap: 16px
-
-### 2. Conteúdo das linhas
-
-Duas faixas horizontais com textos contínuos:
-• Linha 1 (sentido A → B)
-DIREÇÃO CRIATIVA・DESIGN ESTRATÉGICO・IDENTIDADES・CAMPANHAS・BRANDING・INTELIGÊNCIA ARTIFICIAL・LIDERANÇA CRIATIVA・
-• Linha 2 (sentido B → A)
-BRANDING・INTELIGÊNCIA ARTIFICIAL・LIDERANÇA CRIATIVA・DIREÇÃO CRIATIVA・DESIGN ESTRATÉGICO・IDENTIDADES・CAMPANHAS・
-• Tipografia:
-• font-size: 18–20px (16–18px no mobile).
-• font-weight: 500.
-• letter-spacing: levemente aumentado.
-• Cor: branco com opacity: 0.75.
-• Container de cada linha:
-• overflow: hidden
-• white-space: nowrap
-
-## \*\*3. Motion (Framer Motion)
-
-    •    Duas instâncias de marquee com direções opostas.
-    •    Velocidade base configurável via baseVelocity (ex.: -10 e 10).
-    •    Velocidade modulada pela velocidade de scroll (scroll up/down acelera ou desacelera).
-    •    Loop infinito.
-    •    Movimento linear, sem bounce, sem scale.
-
-Preferências de movimento:
-• Respeitar prefers-reduced-motion:
-• Se ativado, a animação é pausada e os textos ficam centralizados, estáticos.
-• Em mobile:
-• Velocidade ligeiramente reduzida para evitar distração excessiva.
-
-⸻
-
-## \*\* ♿ Acessibilidade
-
-    •    Título com role="heading" e nível coerente com a hierarquia (ex.: h2 para a seção).
-    •    Cards:
-    •    Se forem meramente informativos → article ou div com aria-label descritivo.
-    •    Se forem clicáveis → usar <button> ou <a> semanticamente corretos, com aria-label claro.
-    •    Marquee:
-    •    aria-hidden="true" nas linhas animadas (texto repetitivo, puramente decorativo).
-    •    Contraste:
-    •    Texto branco/azul sobre roxo bem escuro mantido dentro de AA/AAA.
-    •    Teclado:
-    •    Foco visível em todos elementos interativos.
-    •    Nenhuma animação depende exclusivamente de hover (tudo deve funcionar via tab/focus).
-
-⸻
-
-## \*\* 🧩 Notas de Implementação
-
-    •    Grid de cards
-    •    Desktop: display: flex horizontal com 7 itens; mobile: flex-col.
-    •    Garantir altura mínima consistente das caixas (visualmente alinhadas).
-    •    Noise/texture
-    •    Opcional, via pseudo-elemento no container da seção, com opacidade baixa.
-    •    Intersection Observer
-    •    Pode ser usado para iniciar animações (entrada suave dos cards + marquee) apenas quando a seção entra em viewport.
-    •    Performance
-    •    Evitar sombras pesadas; priorizar contrastes de cor para dar profundidade.
-    •    Usar o marquee baseado em transform: translateX com will-change: transform.
-
-⸻
-
-Ghost Design não explica.
-Ele permanece.
 
 # 🟣 SEÇÃO 04 — COMO EU TRABALHO
 
@@ -1308,880 +1739,3 @@ Cada frase tem um ciclo de:
 **Total de 6 frases:** ≈25s
 
 **Animação de cada frase:**
-
-```
-Entrada:
-- opacity: 0 → 1
-- translateY: 30px → 0
-- filter: blur(8px) → blur(0)
-- duration: 0.8s
-- easing: ease-out
-
-Permanência:
-- Estado estático por 2.5s
-
-Saída:
-- opacity: 1 → 0
-- translateY: 0 → -20px
-- filter: blur(0) → blur(6px)
-- duration: 0.6s
-- easing: ease-in
-```
-
-**Fase 3: Reveal Final (Após ≈26.5s do início)**
-
-**Ghost entra:**
-
-- `opacity: 0 → 1`
-- `scale: 0.8 → 1`
-- `filter: blur(12px) → blur(0)`
-- Duration: 1.2s
-- Easing: `cubic-bezier(0.34, 1.56, 0.64, 1)` (bounce suave)
-
-**Texto "ISSO É GHOST DESIGN" entra (delay 0.4s após Ghost):**
-
-- `opacity: 0 → 1`
-- `translateX: -30px → 0` (desktop) ou `translateY: 20px → 0` (mobile)
-- `filter: blur(8px) → blur(0)`
-- Duration: 1s
-- Easing: ease-out
-
-**Após reveal:** tudo permanece fixo (sem loops)
-
----
-
-## Interação & Comportamento
-
-### Ghost — Olhos Seguem Cursor
-
-- Apenas ativo após o reveal final
-- Sistema 3x3 grid (código já implementado)
-- Transição suave: 0.2s `cubic-bezier(0.34, 1.56, 0.64, 1)`
-
-### Scroll Behavior
-
-- Seção pode ter scroll interno ou ser parte do scroll geral da página
-- Recomendado: usar **Intersection Observer** para:
-  - Trigger do início da sequência quando 30% da seção entra no viewport
-  - Pausar animações se usuário scrollar para fora
-
-### States & Controles
-
-**Estados da seção:**
-
-1. `initial`: título invisível
-2. `title-visible`: título aparece
-3. `phrases-cycling`: frases em rotação
-4. `final-reveal`: Ghost + manifesto aparecem
-5. `static`: tudo visível e estático
-
-**Considerar adicionar:**
-
-- Botão "pular animação" (acessibilidade) → vai direto para `final-reveal`
-- Progress indicator sutil (opcional)
-
----
-
-## Acessibilidade
-
-### prefers-reduced-motion
-
-- **Se ativado:**
-  - Título aparece instantaneamente
-  - Frases aparecem todas de uma vez (sem rotação)
-  - Reveal final instantâneo
-  - Apenas fade-in rápido (0.3s) sem blur ou translateY
-
-### Navegação por Teclado
-
-- Ghost e texto final devem ser acessíveis via tab
-- ARIA labels apropriados
-
-### Screen Readers
-
-- Adicionar `aria-live="polite"` na área de frases rotativas
-- Garantir que o conteúdo completo seja lido mesmo com animações
-
----
-
-## Notas de Implementação
-
-### Tecnologias Sugeridas
-
-- **React:** useState para controle de fase atual
-- **Framer Motion** ou **GSAP:** para animações complexas
-- **Intersection Observer:** para trigger inicial
-- **CSS Custom Properties:** para timings configuráveis
-
-### Estrutura de Dados
-
-```typescript
-const phrases = [
-  { text: 'Um vídeo que <strong>respira</strong>.', duration: 4200 },
-  { text: 'Uma marca que se <strong>reconhece</strong>.', duration: 4200 },
-  { text: 'Um detalhe que <strong>fica</strong>.', duration: 4200 },
-  { text: '<strong>Crio</strong> para gerar presença.', duration: 4200 },
-  { text: '<strong>Mesmo</strong> quando não estou ali.', duration: 4200 },
-  {
-    text: '<strong>Mesmo</strong> quando ninguém percebe o esforço.',
-    duration: 4200,
-  },
-];
-```
-
-### Performance
-
-- Preload do SVG do Ghost
-- Otimizar blur filters (can be expensive)
-- Considerar `will-change: transform, opacity` durante animações
-- Limpar listeners de mousemove quando Ghost não está visível
-
----
-
-# 🟣 SEÇÃO 06 — FECHAMENTO / CONFIRMAÇÃO
-
-**Função:** Convite claro e humano.  
-Conectar narrativa com ação, sem agressividade.
-
----
-
-## Layout — Desktop
-
-### Estrutura Geral
-
-- **Altura alvo:** 80–100vh
-- **Fundo:** `backgroundDark` (#040013)
-- **Container:** 12 colunas, max-width ≈ 1120px
-- **Padding vertical:** 80–100px
-- **Padding lateral:** 32–40px
-
-### Composição
-
-#### Área de Conteúdo (Centralizada)
-
-- Colunas 3–11
-- Display: flex, flex-direction: column, align-items: center
-- Text-align: center
-
-#### Título Principal
-
-- Primeira linha com destaque em `primary`
-- Margin-bottom: 32–40px
-
-**Texto:**
-
-> Hoje sou **Diretor de Criação**,  
-> com mais de **10 anos de estrada**.
-
-**Estilo:**
-
-- Font-size: 40–48px
-- Line-height: 1.25
-- Font-weight: 700
-- "Diretor de Criação" e "10 anos de estrada" em `primary`
-- Max-width: 800px
-
-#### Parágrafos de Contexto
-
-- Dois blocos de texto
-- Spacing entre blocos: 24–32px
-- Margin-bottom total: 48–56px
-
-**Bloco 1:**
-
-> Já liderei marcas, agências, eventos  
-> e **criei experiências** para todos os canais.
-
-**Bloco 2:**
-
-> Agora, quero criar algo que permaneça —  
-> **com você**.
-
-**Estilo:**
-
-- Font-size: 20–24px
-- Line-height: 1.5
-- Font-weight: 400
-- Opacity: 0.92
-- "criei experiências" e "com você" em `primary`
-- Max-width: 700px
-
-#### CTAs (Call-to-Actions)
-
-- Layout: flex row, gap 20–24px
-- Alinhamento: center
-- Margin-top: 56–64px
-
-**Botão 1: "fale comigo"**
-
-- Primary button style
-- Background: `primary` (#5B5FFF)
-- Color: white
-- Padding: 16–20px 36–44px
-- Border-radius: 50px (pill shape)
-- Font-size: 16–18px
-- Font-weight: 600
-- Ícone: seta diagonal (arrow-up-right) à direita do texto
-
-**Botão 2: "baixar curriculum"**
-
-- Secondary/Ghost button style
-- Background: transparent
-- Border: 2px solid `primary`
-- Color: `primary`
-- Padding: 16–20px 36–44px
-- Border-radius: 50px
-- Font-size: 16–18px
-- Font-weight: 600
-- Ícone: seta diagonal (arrow-up-right) à direita do texto
-
----
-
-## Layout — Mobile
-
-### Estrutura
-
-- **1 coluna**, largura 100%
-- **Padding lateral:** 20–24px
-- **Padding vertical:** 60–80px
-- **Altura:** Flexível
-
-### Conteúdo
-
-#### Título Principal
-
-- Centralizado
-- Font-size: 28–34px
-- Line-height: 1.3
-- Margin-bottom: 24–28px
-- Quebras de linha ajustadas:
-  - "Hoje sou **Diretor de Criação**,"
-  - "com mais de **10 anos de estrada**."
-
-#### Parágrafos
-
-- Font-size: 17–19px
-- Line-height: 1.6
-- Spacing entre blocos: 20–24px
-- Margin-bottom: 40–48px
-- Max-width: 100%
-
-#### CTAs
-
-- **Layout:** flex column (empilhados verticalmente)
-- **Gap:** 16px
-- **Largura:** 100% cada botão (max-width: 320px opcional)
-- **Order:**
-  1. "fale comigo" (primary)
-  2. "baixar curriculum" (secondary)
-
-**Estilo dos botões (mobile):**
-
-- Padding: 14–16px 28–32px
-- Font-size: 15–16px
-- Mantém pill shape
-
----
-
-## Responsividade Detalhada
-
-### Small (`sm`: 640px–767px)
-
-- Título: 28–30px
-- Texto: 16–17px
-- CTAs empilhados, largura 100%
-- Gap entre CTAs: 14px
-
-### Medium (`md`: 768px–1023px)
-
-- Título: 32–36px
-- Texto: 18–20px
-- CTAs ainda empilhados ou começam a ficar lado a lado
-- Max-width dos botões: 280px cada
-
-### Large (`lg`: 1024px–1279px)
-
-- **CTAs lado a lado** (flex row)
-- Título: 38–42px
-- Texto: 20–22px
-- Gap entre CTAs: 20px
-
-### Extra Large (`xl`: 1280px+)
-
-- Título: 44–48px
-- Texto: 22–24px
-- Gap entre CTAs: 24px
-- Máximo respiro e espaçamento
-
----
-
-## Comportamento dos Botões
-
-### Estados
-
-**Default:**
-
-- Primary: background `primary`, color white
-- Secondary: border `primary`, color `primary`, background transparent
-
-**Hover (Desktop):**
-
-- **Primary:**
-  - Background: lighten `primary` em 8–10%
-  - Transform: `translateY(-2px)`
-  - Box-shadow: `0 8px 20px rgba(91, 95, 255, 0.3)`
-- **Secondary:**
-  - Background: `rgba(91, 95, 255, 0.1)`
-  - Border-color: lighten `primary` em 10%
-  - Transform: `translateY(-2px)`
-- **Transition:** 0.3s ease
-- **Cursor:** pointer
-
-**Active:**
-
-- Transform: `translateY(0)`
-- Transition mais rápida: 0.15s
-
-**Focus (Acessibilidade):**
-
-- Outline: 3px solid `primary` com offset 3px
-- Sem remoção do outline padrão
-
-**Disabled (se aplicável):**
-
-- Opacity: 0.5
-- Cursor: not-allowed
-- Sem hover effects
-
-### Ícones
-
-- **Biblioteca:** Lucide React ou similar
-- **Nome:** `ArrowUpRight`
-- **Size:** 18–20px
-- **Position:** à direita do texto com margin-left: 8–10px
-- **Animação no hover:**
-  - Ícone: `translate(2px, -2px)` (movimento diagonal)
-  - Duration: 0.3s
-
----
-
-## Interação & Motion
-
-### Animação de Entrada (Scroll)
-
-**Título:**
-
-- Trigger: 20% da seção no viewport
-- `opacity: 0 → 1`
-- `translateY: 30px → 0`
-- `filter: blur(8px) → blur(0)`
-- Duration: 0.8s
-- Easing: `cubic-bezier(0.25, 0.46, 0.45, 0.94)`
-
-**Parágrafos:**
-
-- Delay: 0.2s após título
-- Mesma animação do título
-- Duration: 0.7s
-
-**CTAs:**
-
-- Delay: 0.3s após parágrafos
-- `opacity: 0 → 1`
-- `translateY: 20px → 0`
-- Stagger: 0.1s entre botões
-- Duration: 0.6s
-- Easing: ease-out
-
-### Sensação de "Respirar"
-
-- **Sem loops ou animações contínuas**
-- Uma vez que entra, permanece estático
-- Apenas hover effects nos botões
-- Movimento só retorna ao scroll
-
-### prefers-reduced-motion
-
-- Todas as animações reduzidas para fade-in simples
-- Duration: 0.3s
-- Sem translateY ou blur
-- Sem stagger
-
----
-
-## Hierarquia Visual & Fluxo
-
-### Sequência de Leitura
-
-1. **Título** → estabelece credibilidade ("Diretor de Criação, 10 anos")
-2. **Experiência** → valida através de histórico
-3. **Proposta** → convite pessoal ("com você")
-4. **Ação** → CTAs claros e acessíveis
-
-### Linha Horizontal (Opcional)
-
-- Entre título e parágrafos
-- Ou acima/abaixo da seção
-- Width: 100% do container ou 60%
-- Height: 1px
-- Color: `rgba(255, 255, 255, 0.1)`
-- Margin: 40–48px vertical
-
----
-
-## Conteúdo dos CTAs
-
-### Botão 1: "fale comigo"
-
-- **Ação:** Scroll suave até seção de contato (formulário)
-- **Comportamento:**
-  - `document.querySelector('#contato').scrollIntoView({ behavior: 'smooth' })`
-  - Ou abre modal de contato
-  - Ou link mailto (menos recomendado)
-
-### Botão 2: "baixar curriculum"
-
-- **Ação:** Download direto do CV em PDF
-- **Comportamento:**
-  - `<a href="/path/curriculum.pdf" download="GhostDesign_Curriculum.pdf">`
-  - Ou abre em nova aba: `target="_blank" rel="noopener noreferrer"`
-- **Analytics:** Track download event
-
----
-
-## Seções Subsequentes
-
-Após esta seção, na ordem:
-
-1. **Marcas / Clientes** (fundo escuro mantido ou transição gradual)
-2. **Contato** (formulário em fundo claro — contraste forte)
-3. **Footer** (retorna ao fundo escuro)
-
-### Transição para Seção de Marcas
-
-- Padding-top generoso: 80–120px
-- Pode ter linha divisória sutil
-- Mantém fundo escuro ou inicia transição gradual
-
----
-
-## Notas de Implementação
-
-### Acessibilidade
-
-- Heading hierarchy: `<h2>` para título principal
-- Botões com `aria-label` descritivos se necessário
-- Focus visible em todos os elementos interativos
-- Contraste mínimo AA/AAA
-
-### Performance
-
-- Lazy load de assets se fora do viewport inicial
-- Intersection Observer para animações
-- `will-change` apenas durante animações
-
-### Analytics
-
-- Track impressions da seção
-- Track clicks em cada CTA
-- Track downloads do curriculum
-- Eventos: `section_view`, `cta_click`, `cv_download`
-
-### SEO
-
-- Conteúdo semântico bem estruturado
-- Texto alternativo em ícones (se relevante)
-- Schema.org markup para pessoa/profissional (opcional)
-
----
-
-## Variações Opcionais
-
-### Versão com Linha do Tempo
-
-- Adicionar mini timeline visual de carreira
-- Apenas se não interferir na simplicidade
-
-### Versão com Depoimento
-
-- Quote curto de cliente/parceiro
-- Posicionado entre parágrafos e CTAs
-- Estilo ghost/sutil
-
-### Versão com Social Proof
-
-- Logos pequenos de 3-5 marcas principais
-- Acima ou abaixo dos CTAs
-- Escala de cinza, opacity 0.6
-
-**Recomendação:** manter versão minimal e direta conforme especificado inicialmente.
-
----
-
-##✨ **APÓS A SEÇÃO 06**  
-Na página `/sobre`, após a seção de fechamento, entram as mesmas seções reutilizadas da home:
-
-- Marcas / Clientes
-- Contato (fundo claro, formulário, informações de contato)
-- Footer
-
-O comportamento visual e responsivo dessas seções é definido na documentação da home e não deve ser alterado aqui, apenas reutilizado.
-
----
-
-🎬 **MOTION TOKENS (RESUMO)**
-
-- Duração padrão: `0.9s`
-- Duração longa: `1.4–1.6s`
-- Delay padrão: `0.2–0.4s`
-- Easing principal: `cubic-bezier(0.22, 1, 0.36, 1)` (`ghostIn`)
-- Escala: **proibida**
-- Bounce: **proibido**
-- Rotate: **proibido**
-- Opacity nunca é brusca.
-- Imagens nunca chegam a 100% — usar máx `0.85–0.9`.
-
----
-
-📱 **BREAKPOINTS (COMPORTAMENTO NA /SOBRE)**
-
-| Breakpoint | Min width | Regra principal                                    |
-| ---------- | --------- | -------------------------------------------------- |
-| sm         | 640px     | Fonte maior, 1 coluna em todas as seções           |
-| md         | 768px     | Ainda 1 coluna; ajustes de respiro e hierarquia    |
-| lg         | 1024px    | Layout completo com colunas duplas onde previsto   |
-| xl         | 1280px    | Mais respiro lateral e grids de 3 colunas (listas) |
-
-_Mapeamento técnico: ver tokens breakpoints na Parte 2._
-
----
-
-🚫 **REGRAS ABSOLUTAS — PÁGINA /SOBRE**  
-❌ Texto diretamente sobre imagem/vídeo sem overlay escuro 80%+  
-❌ Blur excessivo que prejudique leitura  
-❌ Scale / bounce / rotate em conteúdo
-
-✅ **Exceções controladas:**
-
-- Hero (texto sobre vídeo com overlay sólido).
-- Seção 04 (texto em card escuro sobre vídeo).
-- Alternância fluida desktop texto ↔ mídia
-- Mobile-first (texto sempre antes da imagem)
-- Ritmo frase ↔ imagem, sem colagens visuais.
-
----
-
-🧩 **EXPERIÊNCIA FINAL (NARRATIVA)**  
-O usuário não percebe a técnica.  
-Não vê o esforço.  
-Não sente ruído.
-
-Mas sente presença.  
-Sente fluidez.  
-Sente confiança.
-
-Isso é o protótipo interativo da página SOBRE.
-
----
-
----
-
-## **PARTE 2 — DESIGN SYSTEM TÉCNICO (IMPLEMENTAÇÃO)**
-
-🧠 **GHOST DESIGN SYSTEM — TÉCNICO**  
-_Tokens + Componentes_  
-portifoliodanilo.com
-
-### 1. VISÃO GERAL
-
-Ghost Design é um sistema silencioso de interface.  
-Ele prioriza:
-
-- Presença sem ruído
-- Movimento como respiração
-- Design como guia invisível
-
-Este documento é a fonte técnica oficial para design, frontend e motion.
-
-### 2. DESIGN TOKENS
-
-#### 2.1 Color Tokens
-
-```ts
-export const colors = {
-  primary: '#0048ff',
-  accent: '#4fe6ff',
-  ghostPurple: '#8705f2',
-  background: '#000022',
-  backgroundDark: '#040013',
-  backgroundLight: '#f0f0f0',
-  textPrimary: '#fcffff',
-  textSecondary: '#a1a3a3',
-  textInverse: '#0e0e0e',
-  neutral: '#0b0d3a',
-  neutralLight: '#F5F5F5',
-};
-```
-
-#### 2.2 Typography Tokens
-
-```ts
-export const typography = {
-  fontFamily: {
-    primary: '"Inter", system-ui, sans-serif',
-  },
-  fontSize: {
-    xs: '12px',
-    sm: '14px',
-    md: '16px',
-    lg: '20px',
-    xl: '28px',
-    xxl: '40px',
-    display: '56px',
-  },
-  fontWeight: {
-    regular: 400,
-    medium: 500,
-    semibold: 600,
-  },
-  lineHeight: {
-    tight: 1.2,
-    normal: 1.5,
-    relaxed: 1.7,
-  },
-};
-```
-
-#### 2.3 Spacing Tokens
-
-```ts
-export const spacing = {
-  xs: '4px',
-  sm: '8px',
-  md: '16px',
-  lg: '24px',
-  xl: '40px',
-  xxl: '64px',
-  section: '120px',
-};
-```
-
-#### 2.4 Motion Tokens (CRÍTICO)
-
-```ts
-export const motion = {
-  duration: {
-    fast: '0.6s',
-    base: '0.9s',
-    slow: '1.4s',
-  },
-  delay: {
-    none: '0s',
-    short: '0.2s',
-    base: '0.4s',
-    long: '1s',
-  },
-  easing: {
-    ghost: 'cubic-bezier(0.22, 1, 0.36, 1)',
-  },
-};
-```
-
-**🚫 Proibido:**
-
-- scale
-- bounce
-- rotate
-
-**Permitido:**
-
-- opacity
-- blur
-- translateY (máx 18px)
-
-### 3. COMPONENTES BASE
-
-#### 3.1 `<GhostText />`
-
-_Uso: Manifestos, frases-chave_
-
-```tsx
-<GhostText as="p" delay={0.4}>
-  Você não vê tudo o que eu faço.
-</GhostText>
-```
-
-**Comportamento**
-
-- Fade + blur.
-- Entrada por tempo ou viewport.
-- Nunca reanima depois de visível.
-
-#### 3.2 `<GhostHeading />`
-
-```tsx
-<GhostHeading level="h1">Sou Danilo Novais.</GhostHeading>
-```
-
-- Alinhamento fluido.
-- Peso médio.
-- Tracking negativo leve.
-
-#### 3.3 `<GhostSection />`
-
-_Wrapper padrão de seção._
-
-```tsx
-<GhostSection height="100vh">{children}</GhostSection>
-```
-
-**Regras**
-
-- Uma seção = uma intenção.
-- Nunca empilhar múltiplas animações diferentes na mesma área.
-
-#### 3.4 `<GhostList />`
-
-```tsx
-<GhostList
-  items={[
-    'Direção criativa que organiza o caos',
-    'Design estratégico que guia decisões',
-  ]}
-/>
-```
-
-- Entrada item a item.
-- Stagger fixo: 0.18s.
-- Hover só altera opacity/cor do texto.
-
-#### 3.5 `<GhostMedia />`
-
-```tsx
-<GhostMedia type="video" src="/sobre/AI.mp4" />
-```
-
-**Regras**
-
-- Opacity máx 0.85.
-- Blur permanente sutil.
-- Nunca texto diretamente sobre a mídia; se houver, usar overlay sólido.
-
-#### 3.6 `<GhostCTA />`
-
-```tsx
-<GhostCTA href="/contato">Fale comigo</GhostCTA>
-```
-
-- Sem glow exagerado.
-- Hover silencioso (opacity/cor).
-- Sempre com tom humano, nunca agressivo.
-
-### 4. LAYOUT SYSTEM
-
-#### 4.1 Grid Invisível
-
-**Desktop (lg+)**
-
-- 12 colunas virtuais.
-- Texto tipicamente em colunas 2–7.
-- Mídia em colunas 8–12.
-
-**Mobile (sm / md)**
-
-- 1 coluna.
-- Texto sempre antes da imagem/vídeo.
-
-_Objetivo: o usuário não percebe o grid, apenas o ritmo._
-
-#### 4.2 Section Heights
-
-| Tipo       | Altura alvo |
-| ---------- | ----------- |
-| Hero       | 100vh       |
-| Conteúdo   | 120–140vh   |
-| Fechamento | 80–100vh    |
-
-_Valores são referências, não travas rígidas. A prioridade é fluxo narrativo._
-
-#### 4.3 Layout Responsivo por Seção
-
-- **Seção 01**
-  - Mobile: 1 coluna, texto centralizado.
-  - Desktop: texto à direita sobre vídeo com overlay.
-- **Seção 02 (Origem)**
-  - Mobile: blocos texto → mídia empilhados.
-  - Desktop: alternância texto ↔ mídia em 2 colunas.
-- **Seção 03 (O que eu faço)**
-  - Mobile: lista em 1 coluna.
-  - Desktop: grid de 2–3 colunas de cards.
-- **Seção 04 (Como eu trabalho)**
-  - Mobile: texto em faixa escura sobre vídeo recortado (lado direito).
-  - Desktop: texto à esquerda, vídeo/ghost em evidência à direita.
-- **Seção 05 (O que me move)**
-  - Mobile: texto centralizado + ghost abaixo.
-  - Desktop: texto à esquerda, ghost à direita.
-- **Seção 06 (Fechamento)**
-  - Mobile: CTAs empilhados.
-  - Desktop: CTAs lado a lado, com texto central.
-
-### 5. BREAKPOINTS (TÉCNICO)
-
-```ts
-export const breakpoints = {
-  sm: '640px',
-  md: '768px',
-  lg: '1024px',
-  xl: '1280px',
-};
-```
-
-### 6. ACESSIBILIDADE & PERFORMANCE
-
-- Respeitar `prefers-reduced-motion` em todas as animações.
-- Nenhuma animação rodando fora do viewport.
-- **Vídeos:**
-  - `loading="lazy"` (quando possível).
-  - `muted`, `autoplay`, `loop`.
-- Sem re-render em scroll contínuo:
-  - Usar observers (`IntersectionObserver`) em vez de listeners de scroll diretos.
-- Contraste sempre AA+:
-  - Especialmente em hero e seção 04 (texto sobre vídeo com overlay).
-
-### 7. REGRAS ABSOLUTAS DO SISTEMA
-
-❌ Texto direto sobre imagem/vídeo sem overlay  
-❌ Animações chamativas (glow, bounce, scale)  
-❌ Motion decorativo desconectado da narrativa
-
-✅ Ritmo  
-✅ Silêncio  
-✅ Presença
-
-### 8. MANIFESTO TÉCNICO
-
-O melhor design:
-
-- não explica
-- não chama atenção
-- não se impõe
-
-Ele permanece.
-
-Isso é Ghost Design System.
-
-🧩 **REGRA FINAL**  
-Se algo:
-
-- não está aqui
-- não respeita este documento
-- ou altera o ritmo Ghost
-
-➡ É BUG.
-
-Ghost Design não é estilo.  
-É comportamento.
-
-```
-
-```

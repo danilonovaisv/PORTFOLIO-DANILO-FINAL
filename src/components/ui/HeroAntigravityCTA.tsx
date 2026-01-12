@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion, Variants } from 'framer-motion'; // Motor de física
-import { ArrowUpRight } from 'lucide-react'; // Ícone da referência
+import { ArrowRight } from 'lucide-react'; // Changed from ArrowUpRight to ArrowRight per spec
 
 interface HeroAntigravityCTAProps {
   text?: string;
@@ -25,7 +25,7 @@ const HeroAntigravityCTA: React.FC<HeroAntigravityCTAProps> = ({
   // Variantes para orquestrar animações pai-filho
   const iconVariants: Variants = {
     initial: {
-      rotate: -45,
+      rotate: 0,
       x: 0,
     },
     hover: {
@@ -96,7 +96,7 @@ const HeroAntigravityCTA: React.FC<HeroAntigravityCTAProps> = ({
           // Conecta este elemento ao hover do pai (motion.a)
           variants={iconVariants}
         >
-          <ArrowUpRight size={28} strokeWidth={2.5} />
+          <ArrowRight size={28} strokeWidth={2.5} />
         </motion.div>
       </motion.div>
     </motion.a>

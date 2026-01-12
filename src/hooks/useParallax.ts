@@ -1,29 +1,11 @@
-// =============================================================================
-// useParallax Hook - Ghost Era v2.0
-// Motor de Parallax com Lerp (interpolação linear) suave
-// =============================================================================
-
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-
-/**
- * Interpolação linear: transição suave entre dois valores
- * @param start - Valor inicial
- * @param end - Valor alvo
- * @param t - Fator de interpolação (0-1), menor = mais suave
- */
-function lerp(start: number, end: number, t: number): number {
-  return start + (end - start) * t;
-}
+import { useEffect, useRef, useState } from 'react';
+import { useSpring, useTransform, useScroll } from 'framer-motion';
 
 interface UseParallaxOptions {
-  /** Fator de suavização (0.01-0.2). Menor = mais lento/suave. Padrão: 0.05 */
-  smoothness?: number;
-  /** Offset adicional no início */
-  offset?: number;
-  /** Direção do parallax */
-  direction?: 'vertical' | 'horizontal';
+  /** Configuração do spring para suavidade 'ghost' */
+  springConfig?: { stiffness: number; damping: number; mass?: number };
   /** Ativar/desativar */
   enabled?: boolean;
 }
@@ -33,240 +15,133 @@ interface UseParallaxReturn {
   galleryRef: React.RefObject<HTMLElement | null>;
   /** Ref para a track interna (que se move) */
   trackRef: React.RefObject<HTMLDivElement | null>;
-  /** Posição atual do scroll (suavizada) */
-  scrollPosition: number;
-  /** Progresso do scroll (0-1) */
-  scrollProgress: number;
-  /** Se está em movimento */
+  /** Estilo de transformação para aplicar na track */
+  style: { y: any };
+  /** Se o scroll está ativo (opcional) */
   isScrolling: boolean;
 }
 
 /**
- * Hook de Parallax com Lerp
- * Gerencia animação suave de scroll usando requestAnimationFrame
+ * Hook de Parallax com useSpring (Ghost Era)
+ * Sincroniza o scroll nativo com uma track fixa/parallax.
  */
 export function useParallax(
   options: UseParallaxOptions = {}
 ): UseParallaxReturn {
   const {
-    smoothness = 0.05,
-    offset = 0,
-    direction = 'vertical',
+    springConfig = { stiffness: 45, damping: 25, mass: 1 },
     enabled = true,
   } = options;
 
-  // Mobile Guard: desativa parallax em telas < 1024px para melhor UX
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    // Verifica no client-side
-    const mediaQuery = window.matchMedia('(max-width: 1023px)');
-    setIsMobile(mediaQuery.matches);
-
-    const handleChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mediaQuery.addEventListener('change', handleChange);
-
-    return () => mediaQuery.removeEventListener('change', handleChange);
-  }, []);
-
-  // Desativa se for mobile OU se enabled for false
-  const isActive = enabled && !isMobile;
-
   const galleryRef = useRef<HTMLElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
-  const animationFrameId = useRef<number>(0);
 
-  // Posições de scroll
-  const currentScroll = useRef<number>(0);
-  const targetScroll = useRef<number>(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const [contentHeight, setContentHeight] = useState(0);
+  const [viewportHeight, setViewportHeight] = useState(0);
 
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [isScrolling, setIsScrolling] = useState(false);
-
-  // Timer para detectar fim do scroll
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  /**
-   * Atualiza a posição target baseado no scroll real
-   */
-  const handleScroll = useCallback(() => {
-    if (!galleryRef.current || !isActive) return;
-
-    const gallery = galleryRef.current;
-    const rect = gallery.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-
-    // Calcula a posição relativa da galeria na viewport
-    const scrollTop = -rect.top;
-    const maxScroll = gallery.scrollHeight - windowHeight;
-
-    targetScroll.current = Math.max(0, Math.min(scrollTop, maxScroll)) + offset;
-
-    // Marca como scrollando
-    setIsScrolling(true);
-
-    // Limpa timeout anterior e inicia novo
-    if (scrollTimeoutRef.current) {
-      clearTimeout(scrollTimeoutRef.current);
-    }
-    scrollTimeoutRef.current = setTimeout(() => {
-      setIsScrolling(false);
-    }, 150);
-  }, [isActive, offset]);
-
-  /**
-   * Loop de animação com requestAnimationFrame
-   * Aplica a interpolação linear para suavizar o movimento
-   */
-  const updateScroll = useCallback(() => {
-    if (!isActive) {
-      animationFrameId.current = requestAnimationFrame(updateScroll);
-      return;
-    }
-
-    // Interpola entre a posição atual e o alvo
-    currentScroll.current = lerp(
-      currentScroll.current,
-      targetScroll.current,
-      smoothness
-    );
-
-    // Atualiza o transform do track
-    if (trackRef.current) {
-      const value = currentScroll.current;
-
-      if (direction === 'vertical') {
-        trackRef.current.style.transform = `translateY(${-value}px)`;
-      } else {
-        trackRef.current.style.transform = `translateX(${-value}px)`;
-      }
-    }
-
-    // Atualiza o estado para componentes que precisam
-    setScrollPosition(currentScroll.current);
-
-    // Calcula progresso
-    if (galleryRef.current) {
-      const maxScroll = galleryRef.current.scrollHeight - window.innerHeight;
-      const progress = maxScroll > 0 ? currentScroll.current / maxScroll : 0;
-      setScrollProgress(Math.min(1, Math.max(0, progress)));
-    }
-
-    // Continua o loop
-    animationFrameId.current = requestAnimationFrame(updateScroll);
-  }, [direction, isActive, smoothness]);
-
-  /**
-   * Inicializa os event listeners e o loop de animação
-   */
+  // Detecta mobile para desativar parallax pesado
   useEffect(() => {
-    if (!isActive) return;
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
-    // Inicia o loop de animação
-    animationFrameId.current = requestAnimationFrame(updateScroll);
+  const isActive = enabled && !isMobile;
 
-    // Adiciona listener de scroll
-    window.addEventListener('scroll', handleScroll, { passive: true });
+  // Sincroniza o progresso do scroll do container
+  const { scrollYProgress } = useScroll({
+    target: galleryRef as React.RefObject<HTMLElement>,
+    offset: ['start start', 'end end'],
+  });
 
-    // Dispara uma vez para inicializar
-    handleScroll();
+  // Aplica física de mola ao progresso
+  const smoothProgress = useSpring(scrollYProgress, springConfig);
 
-    return () => {
-      // Limpa o animation frame
-      if (animationFrameId.current) {
-        cancelAnimationFrame(animationFrameId.current);
+  // Monitora dimensões para cálculo de pixels
+  useEffect(() => {
+    if (!trackRef.current || !isActive) return;
+
+    const updateDimensions = () => {
+      if (trackRef.current) {
+        setContentHeight(trackRef.current.offsetHeight);
       }
-
-      // Remove listener
-      window.removeEventListener('scroll', handleScroll);
-
-      // Limpa timeout
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
+      setViewportHeight(window.innerHeight);
     };
-  }, [isActive, handleScroll, updateScroll]);
+
+    const resizeObserver = new ResizeObserver(updateDimensions);
+    resizeObserver.observe(trackRef.current);
+    updateDimensions();
+
+    return () => resizeObserver.disconnect();
+  }, [isActive]);
+
+  // Transforma progresso (0-1) em translação pixel-perfect
+  // Move de 0 até o limite negativo (altura total do conteúdo - altura da janela)
+  const moveY = useTransform(
+    smoothProgress,
+    [0, 1],
+    [0, -(contentHeight - viewportHeight)]
+  );
 
   return {
     galleryRef,
     trackRef,
-    scrollPosition,
-    scrollProgress,
-    isScrolling,
+    style: {
+      y: isActive ? moveY : 0,
+    },
+    isScrolling: false, // Pode ser implementado via Velocity se necessário
   };
 }
 
 // =============================================================================
 // Hook adicional: useParallaxElement
-// Para elementos individuais com parallax (imagens, textos)
+// Para elementos individuais com parallax (imagens dentro de cards)
 // =============================================================================
 
 interface UseParallaxElementOptions {
-  /** Velocidade do parallax (1 = normal, 0.5 = metade, 2 = dobro) */
+  /** Velocidade do parallax (0.1 = sutil, 0.5 = forte) */
   speed?: number;
   /** Direção */
-  direction?: 'up' | 'down' | 'left' | 'right';
+  direction?: 'up' | 'down';
   /** Se deve estar ativo */
   enabled?: boolean;
 }
 
 /**
- * Hook para parallax em elementos individuais
- * Aplica transform baseado na posição do elemento na viewport
+ * Hook para parallax em elementos individuais baseado na posição na tela.
  */
 export function useParallaxElement(options: UseParallaxElementOptions = {}) {
-  const { speed = 0.5, direction = 'up', enabled = true } = options;
+  const { speed = 0.2, direction = 'up', enabled = true } = options;
+  const elementRef = useRef<HTMLElement>(null);
 
-  const elementRef = useRef<HTMLDivElement>(null);
-  const [offset, setOffset] = useState(0);
+  // Usamos useScroll com a própria ref do elemento
+  const { scrollYProgress } = useScroll({
+    target: elementRef as React.RefObject<HTMLElement>,
+    offset: ['start end', 'end start'],
+  });
 
-  useEffect(() => {
-    if (!enabled) return;
+  // Suavização Ghost
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
 
-    const handleScroll = () => {
-      if (!elementRef.current) return;
-
-      const rect = elementRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      // Calcula quanto do elemento está visível
-      const elementMidpoint = rect.top + rect.height / 2;
-      const viewportMidpoint = windowHeight / 2;
-      const distance = viewportMidpoint - elementMidpoint;
-
-      // Aplica o speed multiplier
-      const parallaxOffset = distance * speed * 0.3;
-
-      setOffset(parallaxOffset);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [enabled, speed]);
-
-  const getTransform = useCallback(() => {
-    switch (direction) {
-      case 'up':
-        return `translateY(${offset}px)`;
-      case 'down':
-        return `translateY(${-offset}px)`;
-      case 'left':
-        return `translateX(${offset}px)`;
-      case 'right':
-        return `translateX(${-offset}px)`;
-      default:
-        return 'none';
-    }
-  }, [direction, offset]);
+  // Transforma o progresso em offset
+  // Em 0 (entra na tela), offset é X. Em 1 (sai), offset é -X.
+  const offset = useTransform(
+    smoothProgress,
+    [0, 1],
+    direction === 'up' ? [20 * speed, -20 * speed] : [-20 * speed, 20 * speed],
+    { ease: (v) => v } // Linear
+  );
 
   return {
     ref: elementRef,
     style: {
-      transform: getTransform(),
-      willChange: 'transform' as const,
+      y: enabled ? offset : 0,
     },
   };
 }

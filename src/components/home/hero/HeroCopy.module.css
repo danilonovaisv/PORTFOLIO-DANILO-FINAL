@@ -16,7 +16,6 @@
   color: rgba(255, 255, 255, 0.7);
 }
 
-
 /* Camada de máscara - Efeito de revelação do Ghost */
 .maskLayer {
   position: fixed;
@@ -52,40 +51,41 @@
     0 0 80px rgba(0, 72, 255, 0.4);
 }
 
-
-
 /* Oversized Typography for Hero (Matched to HERO.jpg) */
 .heroTitle {
-  /* Aproximadamente 56px a 80px no desktop padrão */
-  font-size: clamp(2.5rem, 5.5vw, 5rem);
-  font-weight: 700;
-  line-height: 1.05;
+  font-size: clamp(5.5rem, 15vw, 10rem) !important;
+  /* ULTRA MASSIVA: 88px inicial */
+  font-weight: 900;
+  line-height: 0.9;
+  /* Super compactado */
+  letter-spacing: -0.06em;
+  /* Letras fundidas */
+  text-transform: uppercase;
 }
 
 .heroSubtitle {
-  /* 18px a 24px */
-  font-size: clamp(1.125rem, 1.5vw, 1.5rem);
-  font-weight: 400;
-  line-height: 1.4;
-  opacity: 0.8;
+  font-size: clamp(1.75rem, 4vw, 2.5rem) !important;
+  /* Subtítulo grande */
+  font-weight: 500;
+  line-height: 1.1;
+  opacity: 0.9;
+  letter-spacing: -0.02em;
 }
 
-/* Tag style matching image (Blue, spaced) */
+/* Tag style matching spec 4.2 - blueAccent */
 .tag {
   color: #4fe6ff;
-  /* blueAccent */
-  font-size: clamp(0.75rem, 1vw, 0.875rem);
+  font-size: clamp(0.875rem, 1.2vw, 1rem);
   letter-spacing: 0.25em;
   text-transform: uppercase;
   font-weight: 600;
+  opacity: 0.7;
 }
 
 .ctaSpacer {
   padding-top: 2rem;
   height: 48px;
 }
-
-
 
 /* Aura do Ghost - Brilho global */
 .ghostAura {

@@ -16,6 +16,7 @@ import { BRAND } from '@/config/brand';
 import { HOME_CONTENT } from '@/config/content';
 import { SOCIALS } from '@/config/navigation';
 import ContactForm from './ContactForm';
+import { Container } from '@/components/layout/Container';
 
 export default function ContactSection() {
   const reducedMotion = useReducedMotion();
@@ -76,7 +77,7 @@ export default function ContactSection() {
       aria-label="Contato"
       className="bg-[#f0f0f0] py-16 md:py-24 lg:py-32 relative z-10"
     >
-      <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-24">
+      <Container>
         {/* 2 & 3. Info & Form Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
           {/* Left Side: Headline + Contact Info */}
@@ -162,7 +163,7 @@ export default function ContactSection() {
             ))}
           </div>
         </div>
-      </div>
+      </Container>
     </section>
   );
 }

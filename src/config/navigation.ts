@@ -16,11 +16,11 @@ export const NAVIGATION = {
     { label: 'contato', href: '#contact' }, // Always anchor
   ],
   footer: {
-    copyright: '© 2025 Danilo Novais Vilela — todos os direitos reservados.',
+    copyright: '© 2025 Danilo Novais Vilela — todos os direitos reservados',
     links: [
-      { label: 'home', href: '/' },
+      { label: 'home', href: '#hero' },
       { label: 'sobre', href: '/sobre' },
-      { label: 'portfólio', href: '/portfolio' },
+      { label: 'portfólio showcase', href: '#portfolio-showcase' },
       { label: 'contato', href: '#contact' },
     ],
   },

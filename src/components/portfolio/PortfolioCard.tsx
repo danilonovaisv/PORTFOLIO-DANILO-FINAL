@@ -33,7 +33,7 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
   const [isHovered, setIsHovered] = useState(false);
 
   // Parallax interno da imagem (só desktop)
-  const { style: parallaxStyle } = useParallaxElement({
+  const { ref: parallaxRef, style: parallaxStyle } = useParallaxElement({
     speed: 0.15,
     direction: 'up',
     enabled: !prefersReducedMotion,
@@ -50,7 +50,12 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
 
   return (
     <motion.article
-      ref={cardRef}
+      ref={(node) => {
+        // @ts-ignore
+        cardRef.current = node;
+        // @ts-ignore
+        parallaxRef.current = node;
+      }}
       initial={{ opacity: 0, y: 24, filter: 'blur(4px)' }}
       whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       viewport={{ once: true, margin: '-50px' }}

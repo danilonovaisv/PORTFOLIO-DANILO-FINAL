@@ -68,28 +68,24 @@ export default function HeroCopy({
     <div className={isMask ? styles.maskText : styles.baseText}>
       {/* Tag decorativa */}
       <span
-        className={`block mb-4 md:mb-6 tracking-[0.2em] font-medium text-blueAccent ${isMask ? '' : styles.tag}`}
+        className={`block mb-3 lg:mb-4 tracking-[0.25em] uppercase font-bold text-accent text-micro ${isMask ? '' : styles.tag}`}
       >
-        [BRAND AWARENESS]
+        [ CREATIVE DESIGN ERA ]
       </span>
 
-      {/* Headline - Desktop/Tablet (2 linhas) */}
-      <h1
-        className={`hidden md:block mb-2 uppercase tracking-tight font-bold ${styles.heroTitle}`}
-      >
+      {/* Headline - Desktop (2 linhas) */}
+      <h1 className={`hidden lg:block mb-4 font-display ${styles.heroTitle}`}>
         Você não vê <br /> o design.
       </h1>
 
-      {/* Headline - Mobile (3 linhas) */}
-      <h1
-        className={`md:hidden mb-2 uppercase tracking-tight font-bold ${styles.heroTitle}`}
-      >
+      {/* Headline - Mobile & Tablet (3 linhas) */}
+      <h1 className={`lg:hidden mb-10 font-display ${styles.heroTitle}`}>
         Você não <br /> vê o <br /> design.
       </h1>
 
       {/* Subheading */}
       <h2
-        className={`font-normal tracking-wide mt-2 md:mt-4 text-textSecondary ${isMask ? '' : styles.subText} ${styles.heroSubtitle}`}
+        className={`type-h2 mt-6 lg:mt-8 text-textSecondary ${isMask ? '' : styles.subText} ${styles.heroSubtitle}`}
       >
         Mas ele vê você.
       </h2>
@@ -99,10 +95,13 @@ export default function HeroCopy({
   return (
     <motion.div
       {...motionProps}
-      className={`relative flex flex-col items-center justify-center text-center max-w-5xl px-4 pointer-events-auto ${styles.root}`}
+      className={`relative flex flex-col items-center justify-center text-center w-full pointer-events-auto ${styles.root}`}
     >
       {/* Camada 1: Texto Base (Low Opacity) */}
-      <motion.div variants={itemAnimation}>
+      <motion.div
+        variants={itemAnimation}
+        className="max-w-7xl px-4 w-full flex flex-col items-center"
+      >
         {renderTextContent(false)}
         <div className={styles.ctaSpacer}></div>
       </motion.div>
@@ -110,7 +109,7 @@ export default function HeroCopy({
       {/* Camada 2: Texto Revelado (Masked / Bright / Glow) */}
       {!prefersReducedMotion && (
         <div className={styles.maskLayer} aria-hidden="true">
-          <div className="max-w-5xl px-4 w-full flex flex-col items-center text-center">
+          <div className="max-w-7xl px-4 w-full flex flex-col items-center text-center">
             <motion.div variants={itemAnimation}>
               {renderTextContent(true)}
             </motion.div>

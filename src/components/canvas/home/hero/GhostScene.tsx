@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
+import { usePerformanceAdaptive } from '@/hooks/usePerformanceAdaptive';
 
 // Importações de pós-processamento do diretório de exemplos do Three.js
 // Importações de pós-processamento via three-stdlib
@@ -20,6 +21,7 @@ export default function GhostScene() {
   const mountRef = useRef<HTMLDivElement>(null);
   const preloaderRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
+  const performanceConfig = usePerformanceAdaptive();
 
   useEffect(() => {
     const mountElement = mountRef.current;
@@ -245,11 +247,11 @@ export default function GhostScene() {
       wobbleAmount: 0.35,
       floatSpeed: 1.6,
       movementThreshold: 0.07,
-      particleCount: 250,
+      particleCount: performanceConfig.particleCount * 5, // Scaling for the specific scene density
       particleDecayRate: 0.005,
       particleColor: 'violet',
       createParticlesOnlyWhenMoving: true,
-      particleCreationRate: 5,
+      particleCreationRate: performanceConfig.quality === 'low' ? 2 : 5,
       revealRadius: 37,
       fadeStrength: 1.7,
       baseOpacity: 0.9,
@@ -457,7 +459,8 @@ export default function GhostScene() {
     const fireflyGroup = new THREE.Group();
     scene.add(fireflyGroup);
 
-    for (let i = 0; i < 20; i++) {
+    const fireflyCount = performanceConfig.fireflyCount;
+    for (let i = 0; i < fireflyCount; i++) {
       const fireflyGeom = new THREE.SphereGeometry(0.02, 2, 2);
       const fireflyMat = new THREE.MeshBasicMaterial({
         color: 0xffff44,

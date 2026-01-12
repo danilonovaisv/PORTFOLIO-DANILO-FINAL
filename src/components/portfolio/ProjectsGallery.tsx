@@ -13,6 +13,7 @@ import { PORTFOLIO_PROJECTS, filterProjectsByCategory } from '@/data/projects';
 import CategoryFilter from './CategoryFilter';
 import PortfolioCard from './PortfolioCard';
 import useParallax from '@/hooks/useParallax';
+import { Container } from '@/components/layout/Container';
 
 interface ProjectsGalleryProps {
   onProjectOpen?: (_project: PortfolioProject) => void;
@@ -36,7 +37,7 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
   
   // Parallax Setup
   const { galleryRef, trackRef, isScrolling } = useParallax({
-    smoothness: 0.08, // Levemente mais suave que o padrão
+    springConfig: { stiffness: 45, damping: 25 },
     enabled: !prefersReducedMotion && !isPaused,
   });
 
@@ -92,7 +93,7 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
       {/* Gallery Track (Fixed or Static) */}
       <div 
         ref={trackRef}
-        className={`w-full py-16 md:py-24 overflow-hidden ${
+        className={`w-full py-20 md:py-32 overflow-hidden ${
           !prefersReducedMotion && 'md:fixed md:top-0 md:left-0 md:w-full will-change-transform'
         }`}
       >
@@ -102,7 +103,7 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
           <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-blueAccent/5 rounded-full blur-[100px]" />
         </div>
 
-        <div className="relative std-grid">
+        <Container>
           {/* Header com título e filtros */}
           {showFilter && (
             <motion.div
@@ -110,12 +111,12 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: easing }}
-              className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12 md:mb-16"
+              className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-16 md:mb-24"
             >
               <div className="flex flex-col gap-2">
                 <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-white">
                   portfólio{' '}
-                  <span className="text-blueAccent">showcase</span>
+                  <span className="text-blueAccent italic">showcase</span>
                 </h2>
                 <span className="text-sm uppercase tracking-[0.3em] text-white/40">
                   [{filteredProjects.length} projetos]
@@ -132,7 +133,7 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
           {/* Grid de projetos - Masonry com 12 colunas */}
           <motion.div
             layout={!prefersReducedMotion}
-            className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8"
+            className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-x-12 md:gap-y-32"
             role="tabpanel"
             id={`projects-${activeCategory}`}
             aria-label={`Projetos de ${activeCategory}`}
@@ -170,7 +171,7 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
               </p>
             </motion.div>
           )}
-        </div>
+        </Container>
       </div>
     </section>
   );

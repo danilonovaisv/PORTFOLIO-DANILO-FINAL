@@ -8,9 +8,11 @@
 .fallbackBackground {
   height: 100%;
   width: 100%;
-  background: linear-gradient(180deg,
-      rgba(255, 255, 255, 0.08),
-      rgba(255, 255, 255, 0.02));
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.08),
+    rgba(255, 255, 255, 0.02)
+  );
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
 }

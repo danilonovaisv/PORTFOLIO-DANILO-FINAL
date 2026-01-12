@@ -26,6 +26,8 @@ const CONFIG = {
 
 // heroGradient removed
 
+import { Container } from '@/components/layout/Container';
+
 export default function HomeHero() {
   const heroRef = useRef<HTMLElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -59,15 +61,17 @@ export default function HomeHero() {
           )}
         </AnimatePresence>
 
-        {/* Camada: Texto Editorial (Z-20) */}
-        <div className="absolute inset-0 z-20 pointer-events-none">
-          <div className="sticky top-0 h-screen w-full flex items-center justify-center p-4">
-            <HeroCopy isLoaded={isLoaded} />
+        {/* Camada: Texto Editorial (Z-0) - Abaixo do Ghost conforme solicitado */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="sticky top-0 h-screen w-full flex items-center justify-center">
+            <Container className="pointer-events-auto">
+              <HeroCopy isLoaded={isLoaded} />
+            </Container>
           </div>
         </div>
 
-        {/* Camada: Ghost WebGL (Z-30) */}
-        <div className="absolute inset-0 z-30 pointer-events-none overflow-hidden">
+        {/* Camada: Ghost WebGL (Z-10) - Acima do Texto */}
+        <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
           <div className="sticky top-0 h-screen w-full">
             <GhostScene />
           </div>
@@ -75,7 +79,7 @@ export default function HomeHero() {
 
         {/* Camada: CTA (Z-50) */}
         <div className="absolute inset-0 z-50 pointer-events-none">
-          <div className="sticky top-0 h-screen w-full flex items-end justify-center pb-12 md:pb-20">
+          <div className="sticky top-0 h-screen w-full flex items-end justify-center pb-12 lg:pb-20">
             <HeroCTA isLoaded={isLoaded} />
           </div>
         </div>

@@ -324,10 +324,10 @@ Exemplo em JSX/Tailwind:
 
 ## 2.6 Global Assets
 
-Logos:
+### **Logos:**
 
-- Favicon - Usar no browser: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/Favicon.svg`
-- Favicon Light - Usar no browser: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg`
+- Favicon - Aba do navegador (tab): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/Faivcon.svg`
+- Favicon Light - Aba do navegador (tab): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaivconLight.svg`
 - Logo Light (full - Usar no header): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg`
 - Logo Dark (full - Usar no header): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
 
@@ -447,19 +447,30 @@ The homepage follows a narrative arc:
 
 **Purpose:** Provide persistent, accessible navigation using a clean, static interface.
 
+### 4.1.1 Navigation Structure
+
+Primary Navigation (Header):
+
+- Home → `/` or `#hero`
+- Sobre (About) → `/sobre`
+- Portfólio → `/portfolio`
+- Contato (Contact) → `#contact` (always anchors to contact section)
+
 #### Desktop (≥1024px): Static Glass Header
 
 **Layout:**
 
 - Position: `position: sticky`, `top: 24px` (or `top: 0` with padding), `z-index: 40`
 - Width: Partial container (centered), or Full-width (based on preference, images suggest clean alignment)
+- Aligned the horizontal format with the text alignment, adjusting the page responsiveness.
+- Fixed header;
 - Height: `64px`
 - Style: Pill-shaped or Bar, translucent glass effect (`backdrop-filter: blur(12px)`), subtle border.
 - **Behavior:** COMPLETELY STATIC. No movement tracking, no physics.
 
 **Content:**
 
-- Left: Logo (SVG) - https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg
+- Left: Logo (SVG) - - Logo Dark (full - Usar no header): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
 - Right: Navigation Links (Home, Sobre, Portfólio, Contato)
 
 **Interaction - Contrast Adaptation (Scroll):**
@@ -481,7 +492,7 @@ _Essential for visibility on the white 'Contato' section shown in designs._
   - Height: `56–72px`
   - Style: Pill-shaped with rounded corners, translucent glass effect (blur + subtle gradient)
 - Content:
-  - Left: Logo (Favicon Light) https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg
+- Left: - Logo Dark (full - Usar no header): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
   - Right: Horizontal navigation list (Home, Sobre, Portfólio, Contato)
 - Interaction - Fluid Glass Effect:
   - The header responds to cursor movement along the X-axis:
@@ -491,6 +502,7 @@ _Essential for visibility on the white 'Contato' section shown in designs._
     - Visual: Refraction distortion, chromatic aberration on edges, backdrop blur
 - Fallback (no WebGL / reduced motion):
   - Same layout and typography
+  - Muda a cor para azul quando tem interação com mouse e ou esta na pagina
   - Static positioning with standard backdrop-filter blur or solid/gradient background
   - No cursor-following behavior
 
@@ -500,6 +512,7 @@ _Essential for visibility on the white 'Contato' section shown in designs._
   - Position: Fixed bar at top, full-width
   - Height: `48–64px`
   - Content: Logo (left), Hamburger icon (right)
+  - Left: - Logo Dark (full - Usar no header): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
 - Menu Overlay (when open):
   - Fullscreen or near-fullscreen overlay
   - Gradient background (primary to neutral)
@@ -834,14 +847,14 @@ app/
 
 ### **1.9 Z-Index Stack**
 
-```typescript
-const zIndex = {
-  preloader: 50, // Tela de carregamento
-  ghostCanvas: 20, // Canvas WebGL (sempre acima do texto)
-  heroContent: 10, // Textos e CTA
-  background: 0, // Gradiente de fundo
-};
-```
+- **Hierarquia Z-Index (Estrita):**
+
+1. - `z-50`: Preloader
+2. - `z-40`: Header
+3. - `z-35`: CTA
+4. - `z-30`: Ghost WebGL
+5. - `z-20`: Editorial Text (Hero Copy)
+6. - `z-0`: Background
 
 ---
 
@@ -1521,7 +1534,7 @@ export default function HomePage() {
 
 ---
 
-# 4.4 Portfolio Showcase — Protótipo Interativo
+# **4.4 Portfolio Showcase — Protótipo Interativo**
 
 ## Purpose
 
@@ -1535,15 +1548,15 @@ Apresentar as principais categorias de trabalho com **sofisticação editorial**
 
 #### Estrutura Geral
 
-- Headline centralizada:  
+- Headline centralizada - **(font-H1)**:  
   **“portfólio showcase”**
   - “portfólio” em branco
   - “showcase” em `#0048ff`
-- Label flutuante contextual:
+- Label flutuante contextual - **(font-small)**:
   - Texto: **[what we love working on]**
   - Cor: `#0048ff`
   - Posicionamento: absoluto, alinhado à esquerda, alinhado a esquerda e ao intem 'Brand & Campaigns' dentro da faixa
-- Três faixas interativas horizontais ['#8705f2'] (_accordion-style stripes_), com alinhamento alternado:
+- Três faixas interativas horizontais ['#8705f2'] (_accordion-style stripes_), com alinhamento alternado - **(font-family: "TT Norms Pro" - Normal - 24px a 40px)**:
   1. **Brand & Campaigns** — alinhada à direita
   2. **Videos & Motions** — centralizada
   3. **Web Campaigns, Websites & Tech** — alinhada à esquerda

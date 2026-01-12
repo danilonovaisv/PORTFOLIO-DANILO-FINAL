@@ -66,3 +66,16 @@ docs/*.mov
 docs/*.pdf
 docs/*.jpg
 docs/*.png
+
+# Local Tooling & Caches
+.eslintcache
+.cursor/
+.Jules/
+.clj-kondo/
+.context/
+.idea/
+.lingma/
+.lsp/
+.qodo/
+.vscode/
+pentest-workflow.yaml

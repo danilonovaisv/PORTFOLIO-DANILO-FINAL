@@ -10,6 +10,7 @@ import {
 } from 'framer-motion';
 import { ABOUT_CONTENT } from '@/config/content';
 import { motionTokens, motionSprings } from './motion';
+import { Container } from '@/components/layout/Container';
 
 export function AboutHero() {
   const prefersReducedMotion = useReducedMotion();
@@ -68,96 +69,98 @@ export function AboutHero() {
       />
 
       {/* Desktop Content */}
-      <div className="relative z-10 hidden lg:flex min-h-screen items-center std-grid">
-        <motion.div
-          style={{ y: textY }}
-          className="w-full max-w-[800px] lg:ml-auto text-right lg:-translate-y-6"
-        >
+      <div className="relative z-10 hidden lg:flex min-h-screen items-center">
+        <Container>
           <motion.div
-            initial={prefersReducedMotion ? 'visible' : 'hidden'}
-            animate="visible"
-            variants={{
-              visible: {
-                transition: {
-                  staggerChildren: 0.2,
-                  delayChildren: 0.3,
-                },
-              },
-            }}
-            className="space-y-6 md:space-y-7 flex flex-col items-end"
+            style={{ y: textY }}
+            className="w-full max-w-[800px] lg:ml-auto text-right lg:-translate-y-6"
           >
-            {/* Intro H1 */}
-            <motion.h1
-              variants={{
-                hidden: { opacity: 0, filter: 'blur(10px)' },
-                visible: {
-                  opacity: 1,
-                  filter: 'blur(0px)',
-                  transition: {
-                    duration: 1.4,
-                    ease: [0.22, 1, 0.36, 1] as const,
-                  },
-                },
-              }}
-              className="type-h1 text-text-light tracking-tight leading-[1.1]"
-            >
-              {ABOUT_CONTENT.hero.title.text}
-              <span className="text-[#0048ff]">
-                {ABOUT_CONTENT.hero.title.highlight}
-              </span>
-            </motion.h1>
-
-            {/* Manifesto Display Text (treated as H1 visual) */}
             <motion.div
+              initial={prefersReducedMotion ? 'visible' : 'hidden'}
+              animate="visible"
               variants={{
-                hidden: { opacity: 0, filter: 'blur(10px)' },
                 visible: {
-                  opacity: 1,
-                  filter: 'blur(0px)',
                   transition: {
-                    duration: 1.4,
-                    ease: [0.22, 1, 0.36, 1] as const,
+                    staggerChildren: 0.2,
+                    delayChildren: 0.3,
                   },
                 },
               }}
-              className="space-y-1.5 flex flex-col items-end"
+              className="space-y-6 md:space-y-7 flex flex-col items-end"
             >
-              {ABOUT_CONTENT.hero.manifesto.map((item, index) => (
-                <p
-                  key={index}
-                  className="type-h1 text-text-light font-bold tracking-tight leading-[1.05]"
-                >
-                  {item.text}
-                  {item.highlight && (
-                    <span className="text-[#0048ff]">{item.highlight}</span>
-                  )}
-                </p>
-              ))}
-            </motion.div>
-
-            {/* Description H3 */}
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, filter: 'blur(10px)' },
-                visible: {
-                  opacity: 1,
-                  filter: 'blur(0px)',
-                  transition: {
-                    duration: 1.4,
-                    ease: [0.22, 1, 0.36, 1] as const,
+              {/* Intro H1 */}
+              <motion.h1
+                variants={{
+                  hidden: { opacity: 0, filter: 'blur(10px)' },
+                  visible: {
+                    opacity: 1,
+                    filter: 'blur(0px)',
+                    transition: {
+                      duration: 1.4,
+                      ease: [0.22, 1, 0.36, 1] as const,
+                    },
                   },
-                },
-              }}
-              className="type-h3 text-white/60 font-medium leading-[1.3] tracking-tight max-w-[620px]"
-            >
-              {ABOUT_CONTENT.hero.description.map((line, index) => (
-                <span key={index} className="block">
-                  {line}
+                }}
+                className="type-h1 text-text-light tracking-tight leading-[1.1]"
+              >
+                {ABOUT_CONTENT.hero.title.text}
+                <span className="text-[#0048ff]">
+                  {ABOUT_CONTENT.hero.title.highlight}
                 </span>
-              ))}
+              </motion.h1>
+
+              {/* Manifesto Display Text (treated as H1 visual) */}
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, filter: 'blur(10px)' },
+                  visible: {
+                    opacity: 1,
+                    filter: 'blur(0px)',
+                    transition: {
+                      duration: 1.4,
+                      ease: [0.22, 1, 0.36, 1] as const,
+                    },
+                  },
+                }}
+                className="space-y-1.5 flex flex-col items-end"
+              >
+                {ABOUT_CONTENT.hero.manifesto.map((item, index) => (
+                  <p
+                    key={index}
+                    className="type-h1 text-text-light font-bold tracking-tight leading-[1.05]"
+                  >
+                    {item.text}
+                    {item.highlight && (
+                      <span className="text-[#0048ff]">{item.highlight}</span>
+                    )}
+                  </p>
+                ))}
+              </motion.div>
+
+              {/* Description H3 */}
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, filter: 'blur(10px)' },
+                  visible: {
+                    opacity: 1,
+                    filter: 'blur(0px)',
+                    transition: {
+                      duration: 1.4,
+                      ease: [0.22, 1, 0.36, 1] as const,
+                    },
+                  },
+                }}
+                className="type-h3 text-white/60 font-medium leading-[1.3] tracking-tight max-w-[620px]"
+              >
+                {ABOUT_CONTENT.hero.description.map((line, index) => (
+                  <span key={index} className="block">
+                    {line}
+                  </span>
+                ))}
+              </motion.div>
             </motion.div>
           </motion.div>
-        </motion.div>
+        </Container>
       </div>
 
       {/* Gradient Bottom Decay */}

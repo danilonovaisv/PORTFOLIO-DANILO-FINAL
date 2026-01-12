@@ -1,87 +1,76 @@
 import React from 'react';
 import Link from 'next/link';
-import { Instagram, Linkedin, Twitter, Facebook, Globe } from 'lucide-react';
+import { Instagram, Linkedin, Twitter } from 'lucide-react';
 import { NAVIGATION, SOCIALS } from '@/config/navigation';
-import { BRAND } from '@/config/brand';
 
 /**
- * SiteFooter Component (Ghost Era Spec 4.7)
+ * SiteFooter Component (Ghost Era Spec 4.7 & Workflow Footer)
  *
- * Spec:
- * - Desktop: Static bar at bottom, 60px height, bg-[#0048ff]
- * - Mobile: Static stack, py-10, bg-[#0048ff]
- * - Content: Copyright (left) | Navigation + Social (right)
+ * Protocol:
+ * - Desktop (>=1024px): Fixed bar at bottom, 48-64px height, bg-[#0057FF].
+ * - Mobile (<1024px): Static section, vertical stack (Copyright -> Nav -> Social), space-y-6, py-10.
  */
 export default function SiteFooter() {
   const socialLinks = [
     {
       label: 'Instagram',
       href: SOCIALS.instagram,
-      icon: <Instagram className="h-4 w-4" />,
-    },
-    {
-      label: 'Facebook',
-      href: SOCIALS.facebook,
-      icon: <Facebook className="h-4 w-4" />,
+      icon: <Instagram className="w-5 h-5 lg:w-4 lg:h-4" />,
     },
     {
       label: 'LinkedIn',
       href: SOCIALS.linkedin,
-      icon: <Linkedin className="h-4 w-4" />,
+      icon: <Linkedin className="w-5 h-5 lg:w-4 lg:h-4" />,
     },
     {
       label: 'Twitter',
       href: SOCIALS.twitter,
-      icon: <Twitter className="h-4 w-4" />,
-    },
-    {
-      label: 'Portfolio',
-      href: `https://${BRAND.domain}`,
-      icon: <Globe className="h-4 w-4" />,
+      icon: <Twitter className="w-5 h-5 lg:w-4 lg:h-4" />,
     },
   ];
 
   return (
     <footer
-      className="w-full bg-[#0048ff] text-white z-50 relative py-10 md:py-0 md:fixed md:bottom-0 md:left-0 md:h-[60px]"
+      className="w-full bg-[#0057FF] text-white lg:fixed lg:bottom-0 lg:left-0 lg:z-10 relative z-default"
       aria-label="Rodapé do site"
     >
-      <div className="max-w-[1680px] mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between h-full space-y-8 md:space-y-0 text-center md:text-left">
-        {/* Copyright */}
-        <div className="text-[12px] md:text-sm font-medium tracking-tight order-3 md:order-1 opacity-90">
-          © 2025 Danilo Novais Vilela — todos os direitos reservados
+      <div className="max-w-[1680px] mx-auto px-6 md:px-12 xl:px-24 flex flex-col lg:flex-row items-center justify-between py-10 lg:py-0 lg:h-[64px] gap-8 lg:gap-0">
+        {/* 1. Copyright (Static Order on Mobile, Left on Desktop) */}
+        <div className="order-1 lg:order-0">
+          <p className="text-[14px] lg:text-[10px] font-medium tracking-[0.05em] uppercase opacity-90 lg:opacity-100 text-center lg:text-left">
+            {NAVIGATION.footer.copyright}
+          </p>
         </div>
 
-        {/* Global Navigation & Socials */}
-        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 order-1 md:order-2">
-          {/* Nav Links */}
-          <nav className="flex flex-wrap justify-center items-center gap-6">
-            {NAVIGATION.footer.links.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="text-[12px] md:text-sm font-bold uppercase tracking-widest hover:opacity-70 transition-opacity underline-offset-4 hover:underline"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+        {/* 2. Navigation (Single Row on Mobile, Center/Right-ish on Desktop) */}
+        <nav className="flex flex-row flex-wrap justify-center items-center gap-6 lg:gap-8 order-2 lg:order-0">
+          {NAVIGATION.footer.links.map((link) => (
+            <Link
+              key={link.label}
+              href={link.href}
+              className="group relative text-[11px] font-bold uppercase tracking-widest hover:opacity-80 transition-opacity duration-200 py-3 lg:py-0"
+            >
+              {link.label}
+              {/* Hover Underline (Desktop Only) */}
+              <span className="absolute bottom-[-2px] left-0 w-0 h-px bg-white transition-all duration-200 ease-out group-hover:w-full hidden lg:block" />
+            </Link>
+          ))}
+        </nav>
 
-          {/* Social Links */}
-          <div className="flex items-center gap-6 border-t border-white/20 pt-8 md:border-t-0 md:pt-0 md:border-l md:pl-10">
-            {socialLinks.map((social) => (
-              <a
-                key={social.label}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:scale-110 transition-transform opacity-90 hover:opacity-100"
-                aria-label={social.label}
-              >
-                {social.icon}
-              </a>
-            ))}
-          </div>
+        {/* 3. Social Media (Single Row on Mobile, Right on Desktop) */}
+        <div className="flex flex-row items-center justify-center gap-4 order-3 lg:order-0">
+          {socialLinks.map((social) => (
+            <a
+              key={social.label}
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:scale-105 transition-transform duration-200 opacity-100 lg:opacity-90 lg:hover:opacity-100 p-3 lg:p-0 flex items-center justify-center min-w-[48px] min-h-[48px] lg:min-w-0 lg:min-h-0"
+              aria-label={social.label}
+            >
+              {social.icon}
+            </a>
+          ))}
         </div>
       </div>
     </footer>

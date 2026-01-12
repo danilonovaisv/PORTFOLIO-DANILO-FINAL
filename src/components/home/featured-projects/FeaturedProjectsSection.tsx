@@ -19,6 +19,8 @@ type FeaturedProjectsSectionProps = {
   onProjectOpen?: (_project: FeaturedProject) => void;
 };
 
+import { Container } from '@/components/layout/Container';
+
 export default function FeaturedProjectsSection({
   onProjectOpen,
 }: FeaturedProjectsSectionProps) {
@@ -46,7 +48,7 @@ export default function FeaturedProjectsSection({
       aria-label="Projetos em Destaque"
       className="relative z-10 bg-background py-16 md:py-24"
     >
-      <div className="max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)]">
+      <Container>
         <motion.div
           initial={reducedMotion ? 'visible' : 'hidden'}
           whileInView="visible"
@@ -74,7 +76,7 @@ export default function FeaturedProjectsSection({
             <CTAProjectCard />
           </motion.div>
         </motion.div>
-      </div>
+      </Container>
     </section>
   );
 }

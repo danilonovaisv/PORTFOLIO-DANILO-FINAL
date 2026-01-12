@@ -15,13 +15,9 @@ export function Container({
   return (
     <Component
       className={cn(
-        'w-full max-w-[1680px] mx-auto bg-background text-text',
+        'w-full max-w-[1400px] mx-auto px-6 md:px-12 xl:px-24',
         className
       )}
-      style={{
-        paddingLeft: 'clamp(24px, 5vw, 96px)',
-        paddingRight: 'clamp(24px, 5vw, 96px)',
-      }}
       {...props}
     >
       {children}

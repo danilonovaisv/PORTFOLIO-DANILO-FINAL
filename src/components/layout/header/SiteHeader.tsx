@@ -7,6 +7,7 @@ import MobileStaggeredMenu from './MobileStaggeredMenu';
 import { useActiveSection } from './useActiveSection';
 import { useRouter, usePathname } from 'next/navigation';
 import { BRAND } from '@/config/brand';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 function isHashHref(href: string) {
   return href.startsWith('#') || href.startsWith('/#');
@@ -43,6 +44,14 @@ export default function SiteHeader({
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [isOnLightSection, setIsOnLightSection] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
+
+  // Hydration safety
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const sectionIds = useMemo(
     () =>
@@ -67,7 +76,6 @@ export default function SiteHeader({
       const hash = getHashFromHref(href);
 
       if (hash) {
-        // Se já estiver na Home ou se o href for relativo à página atual
         const isHomePage = window.location.pathname === '/';
         const isTargetingCurrentPageHash =
           href.startsWith('#') || (href.startsWith('/#') && isHomePage);
@@ -93,7 +101,6 @@ export default function SiteHeader({
 
   const normalizedNavItems: NavItem[] = useMemo(() => navItems, [navItems]);
 
-  // Detecta quando o header está sobre seções claras (data-light-section)
   useEffect(() => {
     const sections = Array.from(
       document.querySelectorAll<HTMLElement>('[data-light-section]')
@@ -117,30 +124,34 @@ export default function SiteHeader({
     ? BRAND.assets.logos.logoDark
     : logoUrlMobile || logoUrl;
 
+  if (!isMounted) return null;
+
   return (
     <>
-      <DesktopFluidHeader
-        navItems={normalizedNavItems}
-        logoUrl={logoDesktop}
-        isLight={isOnLightSection}
-        isPageActive={isSobrePage}
-        onNavigate={onNavigate}
-        activeHref={activeHref}
-      />
-
-      <MobileStaggeredMenu
-        navItems={normalizedNavItems}
-        logoUrl={logoMobile}
-        isLight={isOnLightSection}
-        gradient={gradient}
-        accentColor={accentColor}
-        isOpen={isOpen}
-        onOpen={() => setIsOpen(true)}
-        onClose={() => setIsOpen(false)}
-        onNavigate={onNavigate}
-        activeHref={activeHref}
-        isPageActive={isSobrePage}
-      />
+      {isDesktop ? (
+        <DesktopFluidHeader
+          navItems={normalizedNavItems}
+          logoUrl={logoDesktop}
+          isLight={isOnLightSection}
+          isPageActive={isSobrePage}
+          onNavigate={onNavigate}
+          activeHref={activeHref}
+        />
+      ) : (
+        <MobileStaggeredMenu
+          navItems={normalizedNavItems}
+          logoUrl={logoMobile}
+          isLight={isOnLightSection}
+          gradient={gradient}
+          accentColor={accentColor}
+          isOpen={isOpen}
+          onOpen={() => setIsOpen(true)}
+          onClose={() => setIsOpen(false)}
+          onNavigate={onNavigate}
+          activeHref={activeHref}
+          isPageActive={isSobrePage}
+        />
+      )}
     </>
   );
 }

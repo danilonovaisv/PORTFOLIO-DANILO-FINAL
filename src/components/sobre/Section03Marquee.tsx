@@ -73,7 +73,7 @@ function MarqueeLine({ text, baseVelocity }: MarqueeLineProps) {
             // text-[#8705f2]: Cor roxa exata do HTML
             // font-black: Peso 800/900
             // uppercase: Letras maiúsculas
-            className="text-[#8705f2] text-h2 font-black uppercase tracking-widest flex items-center gap-8"
+            className="text-[#8705f2] text-2xl lg:text-5xl font-black uppercase tracking-widest flex items-center gap-8"
           >
             {text}
           </span>
@@ -87,7 +87,7 @@ export default function Section03Marquee() {
   return (
     // bg-[#0048ff]: Cor de fundo azul exata do HTML (--card-bg)
     // py-6: Padding vertical similar aos 20px do CSS original
-    <div className="w-full select-none pointer-events-none bg-[#0048ff] py-6 overflow-hidden mt-32 md:mt-24">
+    <div className="w-full select-none pointer-events-none bg-[#0048ff] py-6 overflow-hidden mt-20 lg:mt-24">
       <div className="flex flex-col gap-0">
         <MarqueeLine
           // Adicionei o separador dentro da string para manter consistência

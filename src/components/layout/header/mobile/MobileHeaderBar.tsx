@@ -30,7 +30,7 @@ export default function MobileHeaderBar({
             : 'bg-background border-b border-white/5 shadow-lg shadow-black/20'
         }`}
       >
-        <div className="flex items-center justify-between h-full px-4">
+        <div className="flex items-center justify-between h-full px-6">
           <Link href="/" onClick={onLogoClick}>
             <Image
               src={logoUrl}

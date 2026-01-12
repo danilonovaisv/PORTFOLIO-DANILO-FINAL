@@ -23,7 +23,7 @@ Criar a **página Portfolio Showcase completa** com:
 
 ---
 
-## 📐 ESTRUTURA DA PÁGINA
+## 📐 ESTRUTURA DA PÁGINA PORTFOLIO
 
 ### 🧱 Hierarquia de Componentes
 
@@ -116,7 +116,7 @@ font-family: "TT Norms Pro", ui-sans-serif, system-ui, -apple-system, BlinkMacSy
 
 .display-text {
 font-size: var(--font-display);
-font-weight: 700;
+font-weight: 900;
 line-height: 1.1;
 }
 
@@ -128,7 +128,7 @@ line-height: 1.1;
 
 .h2 {
 font-size: var(--font-h2);
-font-weight: 700;
+font-weight: 600;
 line-height: 1.15;
 }
 
@@ -375,10 +375,6 @@ font-style: normal;
 font-display: swap;
 }
 
-Videos:
-
-- Manifesto Video: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
-
 Client Logos:
 
 - 12 monochromatic SVG logos: `client1.svg` through `client12.svg`
@@ -387,6 +383,9 @@ Client Logos:
 ---
 
 # \*\*🎥 HERO SECTION — VÍDEO LOOPING
+
+**video hero desktop:** https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/video-heroPort.mp4
+**video hero mobile:** https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/video-heroPort-mobile.mp4
 
 ### Estrutura HTML/JSX
 

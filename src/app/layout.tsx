@@ -17,7 +17,7 @@ export default function RootLayout({
       <head>
         <JsonLd />
       </head>
-      <body className="antialiased bg-background text-text md:pb-[60px]">
+      <body className="antialiased bg-background text-text pb-0 lg:pb-[64px]">
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-white focus:text-black focus:px-4 focus:py-2 focus:rounded-md"
