@@ -16,13 +16,6 @@
   color: rgba(255, 255, 255, 0.7);
 }
 
-.tag {
-  color: rgba(79, 230, 255, 0.75);
-  font-size: clamp(0.85rem, 1.5vw, 1.1rem);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-weight: 500;
-}
 
 /* Camada de máscara - Efeito de revelação do Ghost */
 .maskLayer {
@@ -60,17 +53,31 @@
 }
 
 
-/* Oversized Typography for Hero (2x standard) */
+
+/* Oversized Typography for Hero (Matched to HERO.jpg) */
 .heroTitle {
-  font-size: clamp(4rem, 8vw, 7.5rem);
-  font-weight: 900;
-  line-height: 0.9;
+  /* Aproximadamente 56px a 80px no desktop padrão */
+  font-size: clamp(2.5rem, 5.5vw, 5rem);
+  font-weight: 700;
+  line-height: 1.05;
 }
 
 .heroSubtitle {
-  font-size: clamp(2.5rem, 5vw, 5rem);
-  font-weight: 700;
-  line-height: 1.1;
+  /* 18px a 24px */
+  font-size: clamp(1.125rem, 1.5vw, 1.5rem);
+  font-weight: 400;
+  line-height: 1.4;
+  opacity: 0.8;
+}
+
+/* Tag style matching image (Blue, spaced) */
+.tag {
+  color: #4fe6ff;
+  /* blueAccent */
+  font-size: clamp(0.75rem, 1vw, 0.875rem);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 
 .ctaSpacer {

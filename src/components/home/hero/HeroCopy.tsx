@@ -6,7 +6,6 @@ import { useRef } from 'react';
 import { useGhostReveal } from '@/hooks/useGhostReveal';
 import type { Group } from 'three';
 import styles from './HeroCopy.module.css';
-import styles from './HeroCopy.module.css';
 
 /**
  * Animation: Page Load Entry
@@ -68,27 +67,29 @@ export default function HeroCopy({
   const renderTextContent = (isMask: boolean) => (
     <div className={isMask ? styles.maskText : styles.baseText}>
       {/* Tag decorativa */}
-      <span className={`block font-body mb-6 ${isMask ? '' : styles.tag}`}>
+      <span
+        className={`block mb-4 md:mb-6 tracking-[0.2em] font-medium text-blueAccent ${isMask ? '' : styles.tag}`}
+      >
         [BRAND AWARENESS]
       </span>
 
       {/* Headline - Desktop/Tablet (2 linhas) */}
       <h1
-        className={`hidden md:block mb-1 md:mb-6 uppercase tracking-tighter ${styles.heroTitle}`}
+        className={`hidden md:block mb-2 uppercase tracking-tight font-bold ${styles.heroTitle}`}
       >
         Você não vê <br /> o design.
       </h1>
 
       {/* Headline - Mobile (3 linhas) */}
       <h1
-        className={`md:hidden mb-1 md:mb-4 uppercase tracking-tighter ${styles.heroTitle}`}
+        className={`md:hidden mb-2 uppercase tracking-tight font-bold ${styles.heroTitle}`}
       >
         Você não <br /> vê o <br /> design.
       </h1>
 
       {/* Subheading */}
       <h2
-        className={`font-light tracking-wide mt-4 md:mt-6 ${isMask ? '' : styles.subText} ${styles.heroSubtitle}`}
+        className={`font-normal tracking-wide mt-2 md:mt-4 text-textSecondary ${isMask ? '' : styles.subText} ${styles.heroSubtitle}`}
       >
         Mas ele vê você.
       </h2>

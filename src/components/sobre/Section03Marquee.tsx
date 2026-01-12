@@ -12,7 +12,7 @@ import {
   useReducedMotion,
 } from 'framer-motion';
 
-// Utilitário de wrap para o loop infinito
+// Função utilitária para o loop infinito suave
 const wrap = (min: number, max: number, v: number) => {
   const range = max - min;
   return ((((v - min) % range) + range) % range) + min;
@@ -36,7 +36,11 @@ function MarqueeLine({ text, baseVelocity }: MarqueeLineProps) {
     clamp: false,
   });
 
-  // Usamos o MotionValue baseX diretamente para o useTransform ser reativo
+  /**
+   * Ajuste do range de wrap:
+   * Dependendo do comprimento do texto, pode ser necessário ajustar o -20 e -45.
+   * Estes valores definem quando o texto "salta" de volta para criar a ilusão infinita.
+   */
   const x = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
 
   const directionFactor = useRef<number>(1);
@@ -47,7 +51,7 @@ function MarqueeLine({ text, baseVelocity }: MarqueeLineProps) {
 
     let moveBy = directionFactor.current * baseVelocity * (delta / 1000);
 
-    // Inverte direção baseado no scroll
+    // Inverte a direção baseado na velocidade do scroll (efeito parallax)
     if (velocityFactor.get() < 0) {
       directionFactor.current = -1;
     } else if (velocityFactor.get() > 0) {
@@ -60,11 +64,16 @@ function MarqueeLine({ text, baseVelocity }: MarqueeLineProps) {
 
   return (
     <div className="overflow-hidden flex whitespace-nowrap">
-      <motion.div className="flex gap-2 text-nowrap" style={{ x }}>
-        {Array.from({ length: 5 }).map((_, i) => (
+      <motion.div className="flex gap-8 text-nowrap" style={{ x }}>
+        {/* Aumentei para 8 repetições para garantir cobertura em telas largas */}
+        {Array.from({ length: 8 }).map((_, i) => (
           <span
             key={i}
-            className="text-purple-details text-xl md:text-4xl font-black tracking-tight uppercase"
+            // Classes atualizadas conforme o HTML de referência:
+            // text-[#8705f2]: Cor roxa exata do HTML
+            // font-black: Peso 800/900
+            // uppercase: Letras maiúsculas
+            className="text-[#8705f2] text-h2 font-black uppercase tracking-widest flex items-center gap-8"
           >
             {text}
           </span>
@@ -76,15 +85,18 @@ function MarqueeLine({ text, baseVelocity }: MarqueeLineProps) {
 
 export default function Section03Marquee() {
   return (
-    <div className="mt-32 md:mt-24 w-full select-none pointer-events-none bg-primary py-20 md:py-0.5">
-      <div className="flex flex-col gap-1 md:gap-1">
+    // bg-[#0048ff]: Cor de fundo azul exata do HTML (--card-bg)
+    // py-6: Padding vertical similar aos 20px do CSS original
+    <div className="w-full select-none pointer-events-none bg-[#0048ff] py-6 overflow-hidden mt-32 md:mt-24">
+      <div className="flex flex-col gap-0">
         <MarqueeLine
-          text="DIREÇÃO CRIATIVA ・ DESIGN ESTRATÉGICO ・ IDENTIDADES ・ CAMPANHAS ・ BRANDING ・ INTELIGÊNCIA ARTIFICIAL ・ LIDERANÇA CRIATIVA ・ "
-          baseVelocity={-1}
+          // Adicionei o separador dentro da string para manter consistência
+          text="DIREÇÃO CRIATIVA ・ DESIGN ESTRATÉGICO ・ IDENTIDADES ・ CAMPANHAS ・ BRANDING ・ IA ・ LIDERANÇA CRIATIVA ・ "
+          baseVelocity={-2} // Velocidade base ajustada
         />
         <MarqueeLine
-          text="BRANDING ・ INTELIGÊNCIA ARTIFICIAL ・ LIDERANÇA CRIATIVA ・ DIREÇÃO CRIATIVA ・ DESIGN ESTRATÉGICO ・ IDENTIDADES ・ CAMPANHAS ・ "
-          baseVelocity={1}
+          text="BRANDING ・ IA ・ LIDERANÇA CRIATIVA ・ DIREÇÃO CRIATIVA ・ DESIGN ESTRATÉGICO ・ IDENTIDADES ・ CAMPANHAS ・ "
+          baseVelocity={2} // Velocidade positiva para inverter direção
         />
       </div>
     </div>
