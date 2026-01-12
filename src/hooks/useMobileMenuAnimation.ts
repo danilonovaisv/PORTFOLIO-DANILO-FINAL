@@ -54,7 +54,7 @@ export function useMobileMenuAnimation(
 
       gsap.set([panel, ...preLayers], {
         opacity: 0,
-        y: 30,
+        xPercent: 100, // Sweep starting from right
         filter: 'blur(10px)',
         pointerEvents: 'none',
       });
@@ -77,12 +77,12 @@ export function useMobileMenuAnimation(
     if (opening) {
       gsap.set(icon, { rotate: 0, transformOrigin: '50% 50%' });
       spinTweenRef.current = gsap
-        .timeline({ defaults: { ease: 'sine.out' } })
+        .timeline({ defaults: { ease: 'expo.out' } })
         .to(h, { rotate: 45, duration: 0.6 }, 0)
         .to(v, { rotate: -45, duration: 0.6 }, 0);
     } else {
       spinTweenRef.current = gsap
-        .timeline({ defaults: { ease: 'sine.inOut' } })
+        .timeline({ defaults: { ease: 'expo.inOut' } })
         .to(h, { rotate: 0, duration: 0.45 }, 0)
         .to(v, { rotate: 90, duration: 0.45 }, 0)
         .to(icon, { rotate: 0, duration: 0.001 }, 0);
@@ -117,7 +117,7 @@ export function useMobileMenuAnimation(
     textCycleAnimRef.current = gsap.to(inner, {
       yPercent: -finalShift,
       duration: 0.6 + lineCount * 0.08,
-      ease: 'sine.out',
+      ease: 'expo.out',
     });
   }, []);
 
@@ -137,51 +137,51 @@ export function useMobileMenuAnimation(
     const socialTitle = socialsEl?.querySelector('.sm-social-title');
 
     if (itemEls.length)
-      gsap.set(itemEls, { y: 24, opacity: 0, filter: 'blur(8px)' });
+      gsap.set(itemEls, { x: 40, opacity: 0, filter: 'blur(8px)' });
     if (socialTitle) gsap.set(socialTitle, { opacity: 0, filter: 'blur(4px)' });
-    if (socialLinks.length) gsap.set(socialLinks, { y: 15, opacity: 0 });
+    if (socialLinks.length) gsap.set(socialLinks, { x: 20, opacity: 0 });
 
     const tl = gsap.timeline({ paused: true });
 
-    // Ghost Pre-layers: Fade in + Blur out
+    // Ghost Pre-layers: Sweep "membrane" across the screen
     if (layers.length) {
       tl.to(layers, {
-        opacity: 0.8,
-        y: 0,
+        opacity: 0.9,
+        xPercent: 0,
         filter: 'blur(0px)',
-        duration: 0.6,
-        ease: 'sine.out',
-        stagger: 0.05,
+        duration: 0.8,
+        ease: 'expo.out', // Ghost Era Signature behavior
+        stagger: 0.08,
       });
     }
 
-    // Panel Reveal: Ghost Fade + Rise
+    // Panel Reveal: Fade + Glide
     tl.to(
       panel,
       {
         opacity: 1,
-        y: 0,
+        xPercent: 0,
         filter: 'blur(0px)',
         duration: 0.8,
-        ease: 'sine.out',
+        ease: 'expo.out',
         pointerEvents: 'auto',
       },
-      layers.length ? '-=0.4' : 0
+      layers.length ? '-=0.5' : 0
     );
 
-    // Staggered Nav Items
+    // Staggered Nav Items: Glide from right
     if (itemEls.length) {
       tl.to(
         itemEls,
         {
-          y: 0,
+          x: 0,
           opacity: 1,
           filter: 'blur(0px)',
           duration: 1.0,
-          ease: 'sine.out',
-          stagger: 0.08,
+          ease: 'expo.out',
+          stagger: 0.06,
         },
-        '-=0.5'
+        '-=0.4'
       );
     }
 
@@ -199,10 +199,10 @@ export function useMobileMenuAnimation(
         tl.to(
           socialLinks,
           {
-            y: 0,
+            x: 0,
             opacity: 1,
             duration: 0.8,
-            ease: 'sine.out',
+            ease: 'expo.out',
             stagger: 0.06,
           },
           socialsStart + '+=0.1'
@@ -241,16 +241,16 @@ export function useMobileMenuAnimation(
 
     closeTweenRef.current = gsap.to(all, {
       opacity: 0,
-      y: 20,
+      xPercent: 100, // Sweep back to right
       filter: 'blur(10px)',
       duration: 0.5,
-      ease: 'sine.in',
+      ease: 'expo.in', // Aggressive close
       pointerEvents: 'none',
       overwrite: 'auto',
       onComplete: () => {
         const itemEls = panel.querySelectorAll('.sm-panel-item');
         if (itemEls.length)
-          gsap.set(itemEls, { y: 24, opacity: 0, filter: 'blur(8px)' });
+          gsap.set(itemEls, { x: 40, opacity: 0, filter: 'blur(8px)' });
 
         const socialsEl = socialsRef.current;
         if (socialsEl) {
@@ -259,7 +259,7 @@ export function useMobileMenuAnimation(
             socialsEl.querySelectorAll('.sm-social-link')
           );
           if (socialTitle) gsap.set(socialTitle, { opacity: 0 });
-          if (socialLinks.length) gsap.set(socialLinks, { y: 15, opacity: 0 });
+          if (socialLinks.length) gsap.set(socialLinks, { x: 20, opacity: 0 });
         }
 
         busyRef.current = false;

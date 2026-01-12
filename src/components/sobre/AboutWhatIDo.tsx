@@ -30,7 +30,7 @@ export function AboutWhatIDo() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full bg-[#040013] py-16 text-white lg:py-32"
+      className="relative w-full bg-[#040013] py-20 text-white lg:py-32"
     >
       <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
         {/* Header */}

@@ -4,22 +4,53 @@ import React, { ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { motion } from 'framer-motion';
+
 interface MobileHeaderBarProps {
   logoUrl: string;
   onLogoClick: () => void;
   children: ReactNode;
   isLight?: boolean;
 }
-
 export default function MobileHeaderBar({
   logoUrl,
   onLogoClick,
   children,
   isLight = false,
 }: MobileHeaderBarProps) {
+  const containerVariants = {
+    hidden: { y: -64, opacity: 0 },
+    show: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1], // Ghost Era Signature
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: -15, filter: 'blur(8px)' },
+    show: {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      transition: {
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
+
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 pointer-events-none transition-all duration-300 ease-in-out ${
+    <motion.header
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+      className={`fixed top-0 left-0 right-0 z-50 pointer-events-none ${
         isLight ? 'header--light' : ''
       }`}
     >
@@ -31,22 +62,24 @@ export default function MobileHeaderBar({
         }`}
       >
         <div className="flex items-center justify-between h-full px-6">
-          <Link href="/" onClick={onLogoClick}>
-            <Image
-              src={logoUrl}
-              alt="Danilo"
-              width={32}
-              height={32}
-              className="h-8 w-8 object-contain"
-              style={{ width: 'auto' }}
-              unoptimized
-              loading="eager"
-            />
-          </Link>
+          <motion.div variants={itemVariants}>
+            <Link href="/" onClick={onLogoClick}>
+              <Image
+                src={logoUrl}
+                alt="Danilo"
+                width={32}
+                height={32}
+                className="h-8 w-8 object-contain"
+                style={{ width: 'auto' }}
+                unoptimized
+                loading="eager"
+              />
+            </Link>
+          </motion.div>
 
-          {children}
+          <motion.div variants={itemVariants}>{children}</motion.div>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }

@@ -40,11 +40,11 @@ export default function AboutMethod() {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen bg-background overflow-hidden flex items-start md:items-center"
+      className="relative w-full bg-background flex flex-col items-start md:items-center md:py-32"
       aria-label="Como Eu Trabalho"
     >
-      {/* Full Bleed Background Video */}
-      <div className="absolute inset-0 z-0">
+      {/* Background Video Container - Fixed height on Mobile to allow content to "exit" */}
+      <div className="absolute top-0 left-0 w-full h-screen md:h-full z-0 overflow-hidden">
         <motion.div
           style={{ y: isMobile ? 0 : videoParallaxY }}
           className={`${isMobile ? 'h-full' : 'h-[120%]'} w-full`}
@@ -66,21 +66,26 @@ export default function AboutMethod() {
             aria-hidden="true"
           />
         </motion.div>
-        {/* Overlay - Lighter on mobile as the video is already filtered */}
-        <div
-          className={`absolute inset-0 z-1 ${
-            isMobile
-              ? 'bg-black/30' // Lighter overlay for mobile
-              : 'bg-linear-to-r from-[rgba(10,10,20,0.85)] via-[rgba(10,10,20,0.85)] to-[rgba(10,10,20,0.4)]'
-          }`}
-          aria-hidden="true"
-        />
+
+        {/* Mobile Transition Gradient (Bottom) */}
+        {isMobile ? (
+          <div
+            className="absolute bottom-0 left-0 w-full h-[40%] bg-linear-to-t from-background via-background/80 to-transparent z-1"
+            aria-hidden="true"
+          />
+        ) : (
+          /* Desktop Overlay */
+          <div
+            className="absolute inset-0 z-1 bg-linear-to-r from-[rgba(10,10,20,0.85)] via-[rgba(10,10,20,0.85)] to-[rgba(10,10,20,0.4)]"
+            aria-hidden="true"
+          />
+        )}
       </div>
 
       <Container>
-        <div className="relative z-10 py-[60px] md:py-32 px-5 md:px-0">
+        <div className="relative z-10 pt-[50vh] pb-20 md:py-0 px-6 md:px-0">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-            {/* Content - 1 col on Mobile, 6 cols on Desktop */}
+            {/* Content - Starts at 50vh on Mobile */}
             <div className="col-span-1 md:col-span-6 lg:col-span-5 flex flex-col justify-center w-full">
               <motion.div style={{ y: textY }} className="w-full">
                 {/* Títulos */}
@@ -107,7 +112,7 @@ export default function AboutMethod() {
                   initial={prefersReducedMotion ? 'visible' : 'hidden'}
                   whileInView="visible"
                   viewport={{ once: true, margin: '-20%' }}
-                  className="type-body text-white/70 leading-relaxed space-y-4 mb-10 md:mb-12 text-center md:text-left text-[16px] md:text-[17px] max-w-full"
+                  className="type-body text-white/70 leading-relaxed space-y-4 mb-12 md:mb-12 text-center md:text-left text-[16px] md:text-[17px] max-w-full"
                 >
                   {ABOUT_CONTENT.method.intro.map((line, i) => (
                     <p key={i}>{line}</p>
@@ -126,7 +131,7 @@ export default function AboutMethod() {
                   initial={prefersReducedMotion ? 'visible' : 'hidden'}
                   whileInView="visible"
                   viewport={{ once: true, margin: '-10%' }}
-                  className="flex flex-col gap-3.5 md:gap-4"
+                  className="flex flex-col gap-4 md:gap-4"
                 >
                   {ABOUT_CONTENT.method.steps.map((step) => (
                     <motion.div
@@ -134,7 +139,7 @@ export default function AboutMethod() {
                       variants={motionTokens.riseSoft}
                       className="
                         group flex items-center gap-6 
-                        p-4 pr-6 rounded-r-xl rounded-l-none
+                        p-5 pr-6 rounded-r-xl rounded-l-none
                         border-l-[3px] border-primary
                         transition-all duration-300
                         bg-[rgba(26,26,46,0.85)] md:bg-transparent

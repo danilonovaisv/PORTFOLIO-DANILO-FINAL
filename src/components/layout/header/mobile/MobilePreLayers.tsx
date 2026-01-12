@@ -8,12 +8,12 @@ interface MobilePreLayersProps {
 }
 
 const MobilePreLayers = forwardRef<HTMLDivElement, MobilePreLayersProps>(
-  ({ accentColor }, ref) => {
+  (_, ref) => {
     // Ghost theme colors for pre-layers using CSS variables fallback
     const preLayerColors = [
-      '#050505', // Deep Void Surface
-      '#06071f', // Atmospheric Blue Abyss
-      accentColor + '18', // Ghostly accent glow
+      '#4fe6ff', // blueAccent
+      '#8705f2', // purpleDetails
+      '#f501d3', // Pink vibrant
     ];
 
     return (

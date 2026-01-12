@@ -923,16 +923,16 @@ Mostra que a criatividade é suportada por processo.
 
 ### Fundo
 - vídeo `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/aboutmetodo-mob.mp4`
-- **Position:** `object-position: right center` (prioriza ghost/IA no lado direito)
-- **Overlay:** mais forte para garantir contraste
-  - `rgba(10, 10, 20, 0.88)` uniforme ou gradiente vertical (mais escuro no topo)
+- **Position:** `object-position: right center` **sem Overlay:** 
+- gradiente vertical (no fin do video)
+- Vídeo em loop contínuo, sem controles
 
 ### Estrutura
 - **1 coluna**, largura 100%
 - Padding lateral: 20–24px
 - Padding vertical: 60–80px
 
-### Conteúdo
+### Conteúdo iniciando no meio do video para baixo
 - **Título:**
   - Centralizado
   - Font-size: 32–36px

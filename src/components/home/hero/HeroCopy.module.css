@@ -26,18 +26,24 @@
   pointer-events: none;
   z-index: 12;
   overflow: hidden;
-  -webkit-mask-image: radial-gradient(circle var(--ghost-radius, 420px) at var(--ghost-x, 50vw) var(--ghost-y, 50vh),
-      rgb(1, 1, 16) 0%,
-      rgba(0, 0, 0, 0.85) 25%,
-      rgba(0, 0, 0, 0.5) 50%,
-      rgba(0, 0, 0, 0.15) 75%,
-      rgba(0, 0, 0, 0) 100%);
-  mask-image: radial-gradient(circle var(--ghost-radius, 420px) at var(--ghost-x, 50vw) var(--ghost-y, 50vh),
-      rgba(0, 0, 0, 1) 0%,
-      rgba(0, 0, 0, 0.85) 25%,
-      rgba(0, 0, 0, 0.5) 50%,
-      rgba(0, 0, 0, 0.15) 75%,
-      rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: radial-gradient(
+    circle var(--ghost-radius, 420px) at var(--ghost-x, 50vw)
+      var(--ghost-y, 50vh),
+    rgb(1, 1, 16) 0%,
+    rgba(0, 0, 0, 0.85) 25%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0.15) 75%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  mask-image: radial-gradient(
+    circle var(--ghost-radius, 420px) at var(--ghost-x, 50vw)
+      var(--ghost-y, 50vh),
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.85) 25%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0.15) 75%,
+    rgba(0, 0, 0, 0) 100%
+  );
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
 }

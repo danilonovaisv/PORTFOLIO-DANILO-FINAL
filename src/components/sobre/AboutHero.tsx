@@ -186,7 +186,7 @@ export function AboutHero() {
           />
           <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent z-10" />
         </div>
-        <div className="relative z-10 px-6 pt-10 pb-12 text-center">
+        <div className="relative z-10 px-6 pt-10 pb-20 text-center">
           <motion.div
             initial={prefersReducedMotion ? 'visible' : 'hidden'}
             animate="visible"
@@ -230,7 +230,7 @@ export function AboutHero() {
             </motion.div>
             <motion.div
               variants={motionTokens.fadeGhost}
-              className="type-h3 text-white/85 leading-[1.6] tracking-tight max-w-[90%] mx-auto"
+              className="text-[18px] md:type-h3 text-white leading-[1.6] tracking-tight max-w-[92%] mx-auto"
             >
               {ABOUT_CONTENT.hero.description.map((line, index) => (
                 <span key={index} className="block">

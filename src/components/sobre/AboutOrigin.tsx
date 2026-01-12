@@ -244,7 +244,7 @@ const AboutOrigin = () => {
 
   return (
     <section
-      className="origem-criativa std-grid pt-12 md:pt-16 pb-24"
+      className="origem-criativa std-grid py-20 md:py-16 pb-24"
       ref={containerRef}
     >
       <h1 className="text-center text-[40px] md:text-[64px] font-outfit font-extrabold text-[#4fe6ff] mb-4 md:mb-0">
