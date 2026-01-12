@@ -7,6 +7,7 @@ import type { Group } from 'three';
 import { useGhostReveal } from '@/hooks/useGhostReveal';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { HOME_CONTENT } from '@/config/content';
+import { Container } from '@/components/layout/Container';
 
 import styles from './HeroCopy.module.css';
 
@@ -69,34 +70,38 @@ export default function HeroCopy({
 
   // Estrutura de conteúdo idêntica para ambas as camadas para garantir alinhamento perfeito
   const renderTextContent = (isMask: boolean) => (
-    <div className={isMask ? styles.maskText : styles.baseText}>
-      {/* Tag decorativa */}
-      <span
-        className={`block mb-3 lg:mb-4 tracking-[0.25em] uppercase font-bold text-accent text-micro ${isMask ? '' : styles.tag}`}
-      >
-        {HOME_CONTENT.hero.tag}
-      </span>
+    <Container className={isMask ? styles.maskText : styles.baseText}>
+      <div className="flex flex-col items-center">
+        {/* Tag decorativa */}
+        <span
+          className={`block mb-3 lg:mb-4 tracking-[0.25em] uppercase font-bold text-accent text-micro ${isMask ? '' : styles.tag}`}
+        >
+          {HOME_CONTENT.hero.tag}
+        </span>
 
-      {/* Headline - Desktop (2 linhas) */}
-      <h1 className={`hidden lg:block mb-20 font-display ${styles.heroTitle}`}>
-        {HOME_CONTENT.hero.title[0].split(' ').slice(0, 2).join(' ')} <br />
-        {HOME_CONTENT.hero.title[0].split(' ').slice(2).join(' ')}
-      </h1>
+        {/* Headline - Desktop (2 linhas) */}
+        <h1
+          className={`hidden lg:block mb-20 font-display ${styles.heroTitle}`}
+        >
+          {HOME_CONTENT.hero.title[0].split(' ').slice(0, 2).join(' ')} <br />
+          {HOME_CONTENT.hero.title[0].split(' ').slice(2).join(' ')}
+        </h1>
 
-      {/* Headline - Mobile & Tablet (3 linhas) */}
-      <h1 className={`lg:hidden mb-12 font-display ${styles.heroTitle}`}>
-        {HOME_CONTENT.hero.title[0].split(' ').slice(0, 2).join(' ')} <br />
-        {HOME_CONTENT.hero.title[0].split(' ').slice(2, 4).join(' ')} <br />
-        {HOME_CONTENT.hero.title[0].split(' ').slice(4).join(' ')}
-      </h1>
+        {/* Headline - Mobile & Tablet (3 linhas) */}
+        <h1 className={`lg:hidden mb-12 font-display ${styles.heroTitle}`}>
+          {HOME_CONTENT.hero.title[0].split(' ').slice(0, 2).join(' ')} <br />
+          {HOME_CONTENT.hero.title[0].split(' ').slice(2, 4).join(' ')} <br />
+          {HOME_CONTENT.hero.title[0].split(' ').slice(4).join(' ')}
+        </h1>
 
-      {/* Subheading */}
-      <h2
-        className={`font-h2 type-h2 mt-6 lg:mt-9 text-textSecondary ${isMask ? '' : 'opacity-80'} ${styles.heroSubtitle}`}
-      >
-        {HOME_CONTENT.hero.subtitle}
-      </h2>
-    </div>
+        {/* Subheading */}
+        <h2
+          className={`font-h2 type-h2 mt-6 lg:mt-9 text-textSecondary ${isMask ? '' : 'opacity-80'} ${styles.heroSubtitle}`}
+        >
+          {HOME_CONTENT.hero.subtitle}
+        </h2>
+      </div>
+    </Container>
   );
 
   return (
@@ -107,7 +112,7 @@ export default function HeroCopy({
       {/* Camada 1: Texto Base (Low Opacity) */}
       <motion.div
         variants={itemAnimation}
-        className="px-4 w-full flex flex-col items-center"
+        className="w-full flex flex-col items-center"
       >
         {renderTextContent(false)}
         <div className={styles.ctaSpacer}></div>
@@ -116,9 +121,10 @@ export default function HeroCopy({
       {/* Camada 2: Texto Revelado (Masked / Bright / Glow) */}
       {!prefersReducedMotion && (
         <div className={styles.maskLayer} aria-hidden="true">
-          <div className="px-4 w-full flex flex-col items-center text-center">
+          <div className="w-full flex flex-col items-center text-center">
             <motion.div variants={itemAnimation}>
               {renderTextContent(true)}
+              <div className={styles.ctaSpacer}></div>
             </motion.div>
           </div>
         </div>

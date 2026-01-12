@@ -214,27 +214,26 @@ export function AboutHero() {
               }}
               className="space-y-4"
             >
-              <h1 className="type-display text-text-light leading-[1.1]">
-                {ABOUT_CONTENT.hero.title.text}
-                <span className="text-bluePrimary">
-                  {ABOUT_CONTENT.hero.title.highlight}
-                </span>{' '}
-                {ABOUT_CONTENT.hero.manifesto.map((item, i) => (
-                  <span key={i}>
-                    {item.text}
-                    {item.highlight && (
-                      <span className="text-bluePrimary">{item.highlight}</span>
-                    )}
-                  </span>
-                ))}
+              <h1 className="type-h1 text-text-light leading-[1.1] flex flex-col gap-1">
+                <span>
+                  Sou <span className="text-bluePrimary">Danilo Novais.</span>
+                </span>
+                <span>
+                  Você <span className="text-bluePrimary">não vê tudo</span> o
+                  que eu faço.
+                </span>
+                <span>
+                  Mas sente quando{' '}
+                  <span className="text-bluePrimary">funciona.</span>
+                </span>
               </h1>
             </motion.div>
             <motion.div
               variants={motionTokens.fadeGhost}
-              className="texto-h3 type-h3 text-white/85 leading-[1.6] tracking-tight"
+              className="type-h3 text-white/85 leading-[1.6] tracking-tight max-w-[90%] mx-auto"
             >
               {ABOUT_CONTENT.hero.description.map((line, index) => (
-                <span key={index} className="inline mr-1">
+                <span key={index} className="block">
                   {line}
                 </span>
               ))}

@@ -16,14 +16,15 @@ export const MobileCard = ({
   const formattedNumber = `${index + 1}`.padStart(2, '0');
 
   const variants = {
-    hidden: { opacity: 0, y: 24 },
+    hidden: { opacity: 0, y: 20, filter: 'blur(8px)' },
     visible: {
       opacity: 1,
-      x: 0,
+      y: 0,
+      filter: 'blur(0px)',
       transition: {
-        duration: 0.5,
-        delay: index * 0.06,
-        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+        duration: 0.8,
+        delay: index * 0.1,
+        ease: [0.22, 1, 0.36, 1],
       },
     },
   };

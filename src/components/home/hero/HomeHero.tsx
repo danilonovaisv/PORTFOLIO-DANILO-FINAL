@@ -5,7 +5,6 @@ import { useRef, useState, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 import { AnimatePresence } from 'framer-motion';
 
-import { Container } from '@/components/layout/Container';
 import { Preloader } from '@/components/ui/Preloader';
 
 import HeroCTA from './HeroCTA';
@@ -63,11 +62,11 @@ export default function HomeHero() {
         </AnimatePresence>
 
         {/* Camada: Texto Editorial (Z-20) */}
-        <div className="relative z-20 pointer-events-none md:absolute md:inset-0">
-          <div className="flex items-center justify-center w-full min-h-[50vh] md:sticky md:top-0 md:h-screen">
-            <Container className="pointer-events-auto">
+        <div className="absolute inset-0 z-20 pointer-events-none">
+          <div className="flex items-center justify-center w-full h-screen md:sticky md:top-0">
+            <div className="w-full pointer-events-auto">
               <HeroCopy isLoaded={isLoaded} />
-            </Container>
+            </div>
           </div>
         </div>
 
@@ -79,10 +78,12 @@ export default function HomeHero() {
         </div>
 
         {/* Camada: CTA (Z-50) */}
-        {/* Mobile: Relative flow | Desktop: Absolute Sticky */}
-        <div className="relative z-50 pointer-events-none md:absolute md:inset-0">
-          <div className="flex items-end justify-center w-full pb-12 md:sticky md:top-0 md:h-screen lg:pb-20">
-            <HeroCTA isLoaded={isLoaded} />
+        {/* Mobile: Absolute centering matching Copy | Desktop: Absolute Sticky */}
+        <div className="absolute inset-0 z-50 pointer-events-none">
+          <div className="flex items-center md:items-end justify-center w-full h-screen md:sticky md:top-0 lg:pb-20">
+            <div className="translate-y-[24vh] md:translate-y-0 md:pb-12">
+              <HeroCTA isLoaded={isLoaded} />
+            </div>
           </div>
         </div>
 

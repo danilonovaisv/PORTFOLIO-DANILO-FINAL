@@ -7,10 +7,6 @@ import { ABOUT_CONTENT } from '@/config/content';
 
 import { DesktopCard } from './what-i-do/DesktopCard';
 import { MobileCard } from './what-i-do/MobileCard';
-import { Marquee } from './what-i-do/Marquee';
-
-const MARQUEE_LINE_A = ABOUT_CONTENT.whatIDo.marquee;
-const MARQUEE_LINE_B = [...ABOUT_CONTENT.whatIDo.marquee].reverse();
 
 export function AboutWhatIDo() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -25,7 +21,7 @@ export function AboutWhatIDo() {
   // Spring global mais suave: animação editorial e silenciosa
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 40,
-    damping: 20,
+    damping: 30,
     restDelta: 0.001,
   });
 
@@ -102,28 +98,6 @@ export function AboutWhatIDo() {
               prefersReducedMotion={prefersReducedMotion}
             />
           ))}
-        </div>
-      </div>
-
-      {/* Marquee Footer */}
-      <div className="mt-10 w-full bg-[#0048ff] py-6 lg:mt-8 lg:py-10">
-        {' '}
-        {/* Ajustei padding vertical: reduzi lg:py-8 para lg:py-10 ou mantenha py-6 para faixa mais fina */}
-        <div className="flex flex-col gap-1 lg:gap-2">
-          {' '}
-          {/* Reduzi gap entre linhas: de gap-2/gap-4 para gap-1/gap-2 */}
-          <Marquee
-            items={MARQUEE_LINE_A}
-            direction={1}
-            baseVelocity={4}
-            reducedMotion={prefersReducedMotion}
-          />
-          <Marquee
-            items={MARQUEE_LINE_B}
-            direction={-1}
-            baseVelocity={4}
-            reducedMotion={prefersReducedMotion}
-          />
         </div>
       </div>
     </section>

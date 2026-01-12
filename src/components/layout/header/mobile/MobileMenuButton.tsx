@@ -10,21 +10,11 @@ interface MobileMenuButtonProps {
   plusHRef: RefObject<HTMLSpanElement | null>;
   plusVRef: RefObject<HTMLSpanElement | null>;
   onToggle: () => void;
-  isLight?: boolean;
 }
 
 const MobileMenuButton = forwardRef<HTMLButtonElement, MobileMenuButtonProps>(
   (
-    {
-      open,
-      textLines,
-      textInnerRef,
-      iconRef,
-      plusHRef,
-      plusVRef,
-      onToggle,
-      isLight = false,
-    },
+    { open, textLines, textInnerRef, iconRef, plusHRef, plusVRef, onToggle },
     ref
   ) => {
     return (
@@ -34,9 +24,7 @@ const MobileMenuButton = forwardRef<HTMLButtonElement, MobileMenuButtonProps>(
         onClick={onToggle}
         aria-label={open ? 'Fechar menu' : 'Abrir menu'}
         aria-expanded={open ? 'true' : 'false'}
-        className={`relative inline-flex items-center justify-center gap-2 bg-transparent border-0 cursor-pointer font-medium leading-none overflow-visible z-110 min-h-[48px] min-w-[48px] px-3 ${
-          isLight ? 'text-section-clients' : 'text-white'
-        }`}
+        className={`relative inline-flex items-center justify-center gap-2 bg-transparent border-0 cursor-pointer font-medium leading-none overflow-visible z-110 min-h-[48px] min-w-[48px] px-3 text-white`}
       >
         {/* Animated text */}
         <span

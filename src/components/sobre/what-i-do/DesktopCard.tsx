@@ -29,14 +29,26 @@ export const DesktopCard = ({
     [0, 1]
   );
 
+  const blur = useTransform(
+    scrollProgress,
+    [0.05 + staggerDelay, 0.2 + staggerDelay],
+    [8, 0]
+  );
+
   const smoothX = useSpring(translateX, {
-    stiffness: 60,
-    damping: 25,
+    stiffness: 40,
+    damping: 30,
     restDelta: 0.001,
   });
 
   const smoothOpacity = useSpring(opacity, {
-    stiffness: 80,
+    stiffness: 40,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  const smoothBlur = useSpring(blur, {
+    stiffness: 40,
     damping: 30,
     restDelta: 0.001,
   });
@@ -68,6 +80,7 @@ export const DesktopCard = ({
       style={{
         x: smoothX,
         opacity: smoothOpacity,
+        filter: useTransform(smoothBlur, (v) => `blur(${v}px)`),
       }}
     >
       <div className="text-[2.5rem] font-black leading-none text-[#8705f2] transition-colors duration-200 group-hover:text-white">

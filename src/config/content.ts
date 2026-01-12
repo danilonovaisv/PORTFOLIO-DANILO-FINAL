@@ -237,8 +237,12 @@ export const ABOUT_CONTENT = {
   },
   method: {
     title: ['Criatividade com método.', 'Impacto sem ruído.'],
-    video:
-      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/VideoAboutMethod.mp4',
+    videos: {
+      desktop:
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/AboutMethod.mp4',
+      mobile:
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/aboutmetodo-mob.mp4',
+    },
     intro: [
       'O design que funciona não nasce do acaso. Ele é fruto de um processo estruturado que une intuição e técnica.',
       'Por isso, desenvolvi uma metodologia própria que garante consistência em cada entrega.',

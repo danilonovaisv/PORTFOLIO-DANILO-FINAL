@@ -131,7 +131,6 @@ export default function MobileStaggeredMenu({
           plusHRef={plusHRef}
           plusVRef={plusVRef}
           onToggle={toggleMenu}
-          isLight={isLight}
         />
       </MobileHeaderBar>
 

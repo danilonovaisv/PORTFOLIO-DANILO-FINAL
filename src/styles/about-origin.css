@@ -13,6 +13,16 @@
   @apply max-w-[356px] h-screen grid place-items-center;
 }
 
+@media (min-width: 769px) {
+  .arch__left .arch__info:first-child {
+    @apply items-start pt-[10vh];
+  }
+
+  .arch__left .arch__info:first-child .content {
+    @apply top-0;
+  }
+}
+
 .arch__info h2.header {
   @apply font-bold text-[32px] leading-[1.2] tracking-[-0.84px] font-outfit text-[#0048ff];
 }
