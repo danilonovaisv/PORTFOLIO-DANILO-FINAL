@@ -253,7 +253,6 @@ export default function PortfolioShowcase() {
             label="let's build something great"
             variant="primary"
             size="lg"
-            animateArrowIdle={false}
           />
         </motion.div>
       </Container>

@@ -429,7 +429,6 @@ A página **/sobre** é pensada como **mobile-first**, com expansão progressiva
 O usuário entra direto em um estado de observação.
 
 ### Layout — Desktop
-
 - Altura: **100vh** (`h-screen`).
 - Fundo:
   - Vídeo hero desktop (loop, sem controles visíveis):  
@@ -870,7 +869,7 @@ Mostra que a criatividade é suportada por processo.
 - **Fundo:**
   - Vídeo abstrato/IA full-bleed: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/AboutMethod.mp4`
   - `object-fit: cover`, ocupando 100% de largura e altura da seção
-  - **Overlay escuro:** gradiente radial ou linear
+  - **Overlay:** com gradiente linear
     - Mais opaco na área de texto (esquerda): `rgba(10, 10, 20, 0.85)`
     - Mais transparente na área visual (direita): `rgba(10, 10, 20, 0.4)`
   - Vídeo em loop contínuo, sem controles
@@ -924,7 +923,7 @@ Mostra que a criatividade é suportada por processo.
 ### Fundo
 - vídeo `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/aboutmetodo-mob.mp4`
 - **Position:** `object-position: right center` **sem Overlay:** 
-- gradiente vertical (no fin do video)
+- gradiente vertical (no fim do video)
 - Vídeo em loop contínuo, sem controles
 
 ### Estrutura
@@ -954,12 +953,10 @@ Mostra que a criatividade é suportada por processo.
     - Borda esquerda mantida
 
 ### Ghost/IA Visual
-- overlay do vídeo de fundo,com o titulo e subtitulo alinhado ao topo do video e fundo fixo com parallax
+- sem overlay do vídeo de fundo, utilizar formato real do video, com o titulo e subtitulo centralizados alinhado ao centro do video
 - **Nunca competindo** com legibilidade do texto
 
-### Altura
-- Flexível, >100vh se necessário
-- Min-height: 100vh para evitar corte visual
+
 
 ---
 
@@ -1009,7 +1006,7 @@ Mostra que a criatividade é suportada por processo.
 
 ## Interação & Motion
 
-### Background Video
+### Background Video descktop
 - **Parallax ultra sutil** (opcional):
   - `translateY` de -20px a 20px no scroll
   - Apenas se `prefers-reduced-motion: no-preference`

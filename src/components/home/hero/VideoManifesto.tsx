@@ -53,9 +53,19 @@ export function VideoManifesto({ src }: VideoManifestoProps) {
 
   // Detectar qualidade de conexão
   useEffect(() => {
-    if ('connection' in navigator) {
-      const conn = (navigator as any).connection;
-      if (conn?.effectiveType === '4g' || conn?.effectiveType === '5g') {
+    // Definir interface mínima para conexão
+    interface NetworkInformation extends EventTarget {
+      readonly effectiveType: 'slow-2g' | '2g' | '3g' | '4g' | '5g';
+      readonly saveData: boolean;
+    }
+
+    const nav = navigator as Navigator & { connection?: NetworkInformation };
+
+    if (nav.connection) {
+      if (
+        nav.connection.effectiveType === '4g' ||
+        nav.connection.effectiveType === '5g'
+      ) {
         setVideoQuality('hd');
       } else {
         setVideoQuality('sd');
@@ -115,7 +125,7 @@ export function VideoManifesto({ src }: VideoManifestoProps) {
               aria-label={
                 muted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'
               }
-              aria-pressed={!muted}
+              aria-pressed={!muted ? 'true' : 'false'}
             >
               {muted ? (
                 <svg

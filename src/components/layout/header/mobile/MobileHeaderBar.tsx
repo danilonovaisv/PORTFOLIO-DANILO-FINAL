@@ -4,7 +4,7 @@ import React, { ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 
 interface MobileHeaderBarProps {
   logoUrl: string;
@@ -18,7 +18,7 @@ export default function MobileHeaderBar({
   children,
   isLight = false,
 }: MobileHeaderBarProps) {
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { y: -64, opacity: 0 },
     show: {
       y: 0,
@@ -32,7 +32,7 @@ export default function MobileHeaderBar({
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: -15, filter: 'blur(8px)' },
     show: {
       opacity: 1,
@@ -57,8 +57,8 @@ export default function MobileHeaderBar({
       <div
         className={`w-full h-[60px] pointer-events-auto transition-colors duration-300 ${
           isLight
-            ? 'bg-background border-b border-white/10 shadow-xl'
-            : 'bg-background/80 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/20'
+            ? 'bg-background/40 border-b border-white/10 shadow-xl'
+            : 'bg-background/40 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/20'
         }`}
       >
         <div className="flex items-center justify-between h-full px-6">

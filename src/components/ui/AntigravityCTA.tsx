@@ -2,108 +2,93 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { motion, useReducedMotion, Variants } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-import { useReducedMotion } from 'framer-motion';
+import { cn } from '@/lib/utils';
 
 /**
- * AntigravityCTA - Compound Fusion Button
- *
- * Design Spec (Workflow "Compound Fusion"):
- * - Container: flex, h-[64px], gap-[-1px] for seamless fusion
- * - Pill (left): rounded-l-full, bg-[rgb(0,87,255)]
- * - Icon Sphere (right): aspect-square, rounded-r-full
- * - Hover: -translate-y-px, 200ms ease-out
- * - Color transition: 300ms (slower than movement for "trail" effect)
- *
- * Variants:
- * - primary: Blue background, white text
- * - secondary: Transparent with blue border, blue text
- * - ghost: Transparent with subtle border
+ * AntigravityCTA - High Fidelity Physics-Based Button
+ * Updated to match the "Oval Ends" design from the provided images.
  */
 
 type CTAVariant = 'primary' | 'secondary' | 'ghost';
 type CTASize = 'sm' | 'md' | 'lg';
 
 interface AntigravityCTAProps {
-  /** Link destination (internal or external) */
   href?: string;
-  /** Click handler (if no href) */
   onClick?: () => void;
-  /** Button label */
   label: string;
-  /** Visual variant */
   variant?: CTAVariant;
-  /** Size variant */
   size?: CTASize;
-  /** Additional CSS classes */
   className?: string;
-  /** Aria label for accessibility */
   ariaLabel?: string;
-  /** Whether to open in new tab (for external links) */
   external?: boolean;
-  /** Button type (if used as button) */
   type?: 'button' | 'submit' | 'reset';
-  /** Disabled state */
   disabled?: boolean;
-  /** Hide the arrow icon */
   hideArrow?: boolean;
-  /** Enable showcase-specific idle arrow animation */
-  animateArrowIdle?: boolean;
 }
 
-// Style configurations per variant
-const variantStyles: Record<
+const springConfig = { type: 'spring' as const, stiffness: 400, damping: 25 };
+
+const variantConfigs: Record<
   CTAVariant,
-  { pill: string; icon: string; text: string }
+  {
+    pill: string;
+    icon: string;
+    text: string;
+    glow: string;
+  }
 > = {
   primary: {
-    pill: 'bg-[rgb(0,87,255)] group-hover:bg-[rgb(50,120,255)] shadow-[0_0_30px_-5px_rgba(0,87,255,0.5)]',
-    icon: 'bg-[rgb(0,87,255)] group-hover:bg-[rgb(50,120,255)] shadow-[0_0_30px_-5px_rgba(0,87,255,0.5)]',
+    pill: 'bg-[rgb(0,87,255)] border-transparent',
+    icon: 'bg-[rgb(0,87,255)] border-none', // Oval pill doesn't need fusion border
     text: 'text-white',
+    glow: 'bg-blue-500',
   },
   secondary: {
-    pill: 'bg-transparent border-2 border-[rgb(0,87,255)] group-hover:bg-[rgb(0,87,255)]/10 shadow-[0_0_20px_-8px_rgba(0,87,255,0.3)]',
-    icon: 'bg-transparent border-2 border-[rgb(0,87,255)] group-hover:bg-[rgb(0,87,255)]/10',
-    text: 'text-[rgb(0,87,255)] group-hover:text-[rgb(0,87,255)]',
+    pill: 'bg-transparent border border-white/20 group-hover:border-white/40',
+    icon: 'bg-transparent border border-white/20 group-hover:border-white/40',
+    text: 'text-[rgb(0,87,255)] font-bold',
+    glow: 'bg-blue-400/10',
   },
   ghost: {
-    pill: 'bg-transparent border border-white/20 backdrop-blur-sm group-hover:bg-white/5',
-    icon: 'bg-transparent border border-white/20 backdrop-blur-sm group-hover:bg-white/5',
-    text: 'text-white/90 group-hover:text-white',
+    pill: 'bg-transparent border border-white/10 backdrop-blur-sm group-hover:bg-white/5',
+    icon: 'bg-transparent border border-white/10 backdrop-blur-sm group-hover:bg-white/5',
+    text: 'text-white/80 group-hover:text-white',
+    glow: 'bg-white/5',
   },
 };
 
-// Size configurations
-const sizeStyles: Record<
+const sizeConfigs: Record<
   CTASize,
   {
     height: string;
     padding: string;
-    iconSize: string;
     text: string;
-    arrow: string;
+    iconWidth: string;
+    arrowSize: number;
   }
 > = {
   sm: {
     height: 'h-[48px]',
-    padding: 'pl-5 pr-3',
-    iconSize: 'w-[48px]', // aspect-square handled by h-full and aspect-square
+    padding: 'px-6',
     text: 'text-sm',
-    arrow: 'w-4 h-4',
+    iconWidth: 'w-[48px]',
+    arrowSize: 20,
   },
   md: {
     height: 'h-[58px]',
-    padding: 'pl-7 pr-4',
-    iconSize: 'w-[58px]',
+    padding: 'px-8',
     text: 'text-base',
-    arrow: 'w-5 h-5',
+    iconWidth: 'w-[58px]',
+    arrowSize: 24,
   },
   lg: {
     height: 'h-[64px]',
-    padding: 'pl-8 pr-4',
-    iconSize: 'w-[64px]',
+    padding: 'px-10',
     text: 'text-lg',
-    arrow: 'w-6 h-6',
+    iconWidth: 'w-[64px]',
+    arrowSize: 28,
   },
 };
 
@@ -119,125 +104,131 @@ export function AntigravityCTA({
   type = 'button',
   disabled = false,
   hideArrow = false,
-  animateArrowIdle = false,
 }: AntigravityCTAProps) {
   const prefersReducedMotion = useReducedMotion();
+  const styles = variantConfigs[variant];
+  const dimensions = sizeConfigs[size];
 
-  const styles = variantStyles[variant];
-  const sizes = sizeStyles[size];
+  const iconVariants: Variants = {
+    initial: { rotate: -45, x: 0 },
+    hover: {
+      rotate: 0,
+      x: hideArrow ? 0 : 8,
+      transition: springConfig,
+    },
+  };
 
-  // Animation classes
-  const motionClasses = prefersReducedMotion
-    ? ''
-    : 'transition-transform duration-200 ease-out hover:-translate-y-px active:translate-y-0';
-  const arrowAnimationClasses =
-    animateArrowIdle && !prefersReducedMotion
-      ? 'animate-showcase-arrow-idle group-hover:animate-none'
-      : '';
-
-  // Shared content for both link and button
   const content = (
     <>
-      {/* NÓ 1: CÁPSULA DE TEXTO (Esquerda) */}
+      {/* 1. GLOW EFFECT */}
       <div
-        className={`
-          flex items-center justify-center
-          h-full
-          ${sizes.padding}
-          ${styles.pill}
-          ${styles.text}
-          ${hideArrow ? 'rounded-full' : 'rounded-l-full'}
-          transition-colors duration-300
-        `}
+        className={cn(
+          'absolute inset-0 rounded-full opacity-0 group-hover:opacity-40 transition-opacity duration-500 scale-95 group-hover:scale-110 blur-xl pointer-events-none',
+          styles.glow
+        )}
+      />
+
+      {/* 2. PILL (Always Rounded-Full) */}
+      <div
+        className={cn(
+          'relative z-10 flex items-center justify-center h-full transition-all duration-300 rounded-full border',
+          dimensions.padding,
+          styles.pill,
+          styles.text
+        )}
       >
         <span
-          className={`${sizes.text} font-medium tracking-wide whitespace-nowrap lowercase`}
+          className={cn(
+            dimensions.text,
+            'font-medium tracking-wide whitespace-nowrap lowercase'
+          )}
         >
           {label}
         </span>
       </div>
 
-      {/* NÓ 2: ESFERA DO ÍCONE (Direita) */}
+      {/* 3. CORE (Separate Circle Icon) */}
       {!hideArrow && (
-        <div
-          className={`
-            flex items-center justify-center
-            h-full aspect-square
-            ${styles.icon}
-            ${styles.text}
-            rounded-r-full
-            transition-all duration-300
-          `}
+        <motion.div
+          className={cn(
+            'relative z-20 flex items-center justify-center h-full aspect-square -ml-2 transition-all duration-300 rounded-full border',
+            dimensions.iconWidth,
+            styles.icon,
+            styles.text
+          )}
+          variants={iconVariants}
         >
-          <ArrowUpRight
-            className={`${sizes.arrow} transition-transform duration-300 group-hover:rotate-45 group-hover:translate-x-1 group-hover:-translate-y-1 ${arrowAnimationClasses}`}
-            strokeWidth={2}
-          />
-        </div>
+          <ArrowUpRight size={dimensions.arrowSize} strokeWidth={2.5} />
+        </motion.div>
       )}
     </>
   );
 
-  // Base container classes
-  const containerClasses = `
-    group
-    relative
-    inline-flex flex-row items-center justify-center
-    ${sizes.height}
-    cursor-pointer
-    ${motionClasses}
-    ${disabled ? 'opacity-50 pointer-events-none' : ''}
-    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background
-    ${className}
-  `
-    .trim()
-    .replace(/\s+/g, ' ');
+  const sharedProps = {
+    className: cn(
+      'relative group inline-flex items-center cursor-pointer focus:outline-none z-50',
+      dimensions.height,
+      disabled && 'opacity-50 pointer-events-none',
+      className
+    ),
+    initial: 'initial',
+    whileHover: prefersReducedMotion ? 'initial' : 'hover',
+    whileTap: prefersReducedMotion ? 'initial' : 'press',
+    animate: 'initial',
+    'aria-label': ariaLabel || label,
+  };
 
-  // If it's a link
+  const pressEffect = {
+    scale: 0.97,
+    transition: { type: 'spring' as const, stiffness: 500, damping: 15 },
+  };
+
   if (href) {
     const isExternal =
-      external ||
-      href.startsWith('http') ||
-      href.startsWith('mailto:') ||
-      href.startsWith('tel:');
-    const isInternal = href.startsWith('/') || href.startsWith('#');
+      external || href.startsWith('http') || href.startsWith('mailto:');
 
-    if (isInternal && !isExternal) {
+    if (href.startsWith('/') || href.startsWith('#')) {
       return (
-        <Link
-          href={href}
-          className={containerClasses}
-          aria-label={ariaLabel || label}
+        <motion.div
+          {...sharedProps}
+          whileHover={prefersReducedMotion ? {} : { y: -4 }}
+          whileTap={prefersReducedMotion ? {} : pressEffect}
+          transition={springConfig}
         >
-          {content}
-        </Link>
+          <Link href={href} className="flex h-full items-center">
+            {content}
+          </Link>
+        </motion.div>
       );
     }
 
     return (
-      <a
+      <motion.a
         href={href}
-        className={containerClasses}
-        aria-label={ariaLabel || label}
         target={isExternal ? '_blank' : undefined}
         rel={isExternal ? 'noopener noreferrer' : undefined}
+        {...sharedProps}
+        whileHover={prefersReducedMotion ? {} : { y: -4 }}
+        whileTap={prefersReducedMotion ? {} : pressEffect}
+        transition={springConfig}
       >
         {content}
-      </a>
+      </motion.a>
     );
   }
 
-  // If it's a button
   return (
-    <button
+    <motion.button
       type={type}
       onClick={onClick}
-      className={containerClasses}
-      aria-label={ariaLabel || label}
       disabled={disabled}
+      {...sharedProps}
+      whileHover={prefersReducedMotion ? {} : { y: -4 }}
+      whileTap={prefersReducedMotion ? {} : pressEffect}
+      transition={springConfig}
     >
       {content}
-    </button>
+    </motion.button>
   );
 }
 

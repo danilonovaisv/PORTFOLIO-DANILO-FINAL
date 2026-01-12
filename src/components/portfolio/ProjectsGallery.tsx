@@ -114,22 +114,11 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: easing }}
-              className="flex flex-col items-center text-center md:flex-row md:items-end md:justify-between md:text-left gap-8 md:gap-6 mb-16 md:mb-24"
+              className="flex justify-center md:justify-end mb-16 md:mb-24"
             >
-              <div className="flex flex-col gap-2">
-                <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-white">
-                  portfólio{' '}
-                  <span className="text-blueAccent italic">showcase</span>
-                </h2>
-                <span className="text-sm uppercase tracking-[0.3em] text-white/40">
-                  [{filteredProjects.length} projetos]
-                </span>
-              </div>
-
               <CategoryFilter
                 activeCategory={activeCategory}
                 onChange={setActiveCategory}
-                className="justify-center md:justify-end"
               />
             </motion.div>
           )}

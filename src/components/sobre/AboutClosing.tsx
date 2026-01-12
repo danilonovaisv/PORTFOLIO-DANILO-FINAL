@@ -49,14 +49,14 @@ export function AboutClosing() {
           </div>
 
           {/* CTAs - Using AntigravityCTA component */}
-          <div className="flex flex-row lg:flex-col items-center justify-center gap-4 md:gap-5 justify-self-center">
+          <div className="flex flex-col sm:flex-row lg:flex-col items-center justify-center gap-6 md:gap-8 justify-self-center">
             {ABOUT_CONTENT.closing.ctas.map((cta, index) => (
               <AntigravityCTA
                 key={index}
                 href={cta.href}
                 label={cta.label}
                 variant={cta.variant as 'primary' | 'secondary' | 'ghost'}
-                size="sm"
+                size="md"
                 external={cta.external}
                 ariaLabel={cta.label}
               />
