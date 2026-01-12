@@ -1,10 +1,11 @@
 import type { MetadataRoute } from 'next';
 import { HOME_CONTENT } from '@/config/content';
+import { BRAND } from '@/config/brand';
 
 export const dynamic = 'force-static';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://portfoliodanilo.com';
+  const baseUrl = `https://${BRAND.domain}`;
 
   const projectUrls = HOME_CONTENT.featuredProjects.map((project) => ({
     url: `${baseUrl}/portfolio/${project.slug}`,
