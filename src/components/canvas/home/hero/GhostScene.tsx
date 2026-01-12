@@ -582,6 +582,12 @@ export default function GhostScene() {
     // const pane = new Pane({ title: 'Spectral Ghost', expanded: false });
     // ... (rest of the tweakpane code commented out or removed)
 
+    // --- DETECÇÃO DE DISPOSITIVO TOUCH/MOBILE ---
+    const isTouchDevice =
+      'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const isMobileWidth = window.innerWidth <= 768;
+    const isMobile = isTouchDevice || isMobileWidth;
+
     // Event Listeners
     const mouse = new THREE.Vector2();
     const prevMouse = new THREE.Vector2();
@@ -589,8 +595,10 @@ export default function GhostScene() {
     let lastMouseUpdate = 0;
     let isMouseMoving = false;
     let mouseMovementTimer: NodeJS.Timeout;
+    let hasReceivedMouseInput = false;
 
     const onMouseMove = (e: MouseEvent) => {
+      hasReceivedMouseInput = true;
       const now = performance.now();
       if (now - lastMouseUpdate > 16) {
         prevMouse.x = mouse.x;
@@ -607,7 +615,9 @@ export default function GhostScene() {
         lastMouseUpdate = now;
       }
     };
-    window.addEventListener('mousemove', onMouseMove);
+    if (!isMobile) {
+      window.addEventListener('mousemove', onMouseMove);
+    }
 
     const onResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -658,8 +668,29 @@ export default function GhostScene() {
       analogDecayPass.uniforms.uLimboMode.value = params.limboMode ? 1.0 : 0.0;
 
       // Movimento do Fantasma
-      const targetX = mouse.x * 11;
-      const targetY = mouse.y * 7;
+      // Mobile: Movimento automático usando curva de Lissajous (orgânico e fluido)
+      // Desktop: Segue o mouse
+      let targetX: number;
+      let targetY: number;
+
+      if (isMobile || !hasReceivedMouseInput) {
+        // Movimento automático otimizado para Mobile (Mais rápido e dinâmico)
+        const autoSpeed = 0.85; // Velocidade aumentada (era 0.3)
+        const amplitudeX = 9; // Range maior (era 6)
+        const amplitudeY = 6; // Range maior (era 4)
+
+        // Curva de Lissajous complexa para evitar repetição óbvia e dar mais vida
+        targetX =
+          Math.sin(time * autoSpeed) * amplitudeX +
+          Math.cos(time * autoSpeed * 0.5) * 2;
+        targetY =
+          Math.sin(time * autoSpeed * 0.7 + Math.PI / 2) * amplitudeY +
+          Math.sin(time * autoSpeed * 1.3) * 1.5;
+      } else {
+        targetX = mouse.x * 11;
+        targetY = mouse.y * 7;
+      }
+
       const prevPos = ghostGroup.position.clone();
       ghostGroup.position.x +=
         (targetX - ghostGroup.position.x) * params.followSpeed;
@@ -695,9 +726,12 @@ export default function GhostScene() {
       eyes.rightOuterGlowMaterial.opacity = newOpacity * 0.3;
 
       // Atualizar Partículas
-      const shouldCreate = params.createParticlesOnlyWhenMoving
-        ? currentMovement > 0.005 && isMouseMoving
-        : currentMovement > 0.005;
+      // Mobile: Sempre criar partículas (movimento automático está sempre ativo)
+      const shouldCreate = isMobile
+        ? currentMovement > 0.003 // Threshold menor para mobile (movimento automático é mais suave)
+        : params.createParticlesOnlyWhenMoving
+          ? currentMovement > 0.005 && isMouseMoving
+          : currentMovement > 0.005;
       if (shouldCreate && timestamp - lastParticleTime > 100) {
         const count = Math.min(
           params.particleCreationRate,
@@ -741,7 +775,9 @@ export default function GhostScene() {
 
     // --- CLEANUP ---
     return () => {
-      window.removeEventListener('mousemove', onMouseMove);
+      if (!isMobile) {
+        window.removeEventListener('mousemove', onMouseMove);
+      }
       window.removeEventListener('resize', onResize);
       cancelAnimationFrame(animationId);
       // pane.dispose(); // Removed

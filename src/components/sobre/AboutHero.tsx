@@ -171,7 +171,7 @@ export function AboutHero() {
 
       {/* Mobile Hero Video */}
       <div className="lg:hidden">
-        <div className="relative h-[55vh] w-full overflow-hidden">
+        <div className="relative aspect-square w-full overflow-hidden">
           <motion.video
             ref={mobileVideoRef}
             src={ABOUT_CONTENT.hero.videos.mobile}

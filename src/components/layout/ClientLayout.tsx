@@ -3,7 +3,6 @@
 import React from 'react';
 import SmoothScroll from '@/components/layout/SmoothScroll';
 import Header from '@/components/layout/Header';
-import SiteFooter from '@/components/layout/SiteFooter';
 
 import { useExperience } from '@/hooks/useExperience';
 
@@ -30,7 +29,6 @@ export default function ClientLayout({
       <main id="main-content" className="relative grow">
         {children}
       </main>
-      <SiteFooter />
       {process.env.NODE_ENV === 'development' && <AntigravityDebugger />}
     </SmoothScroll>
   );

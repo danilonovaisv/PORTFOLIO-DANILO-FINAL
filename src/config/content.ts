@@ -137,15 +137,11 @@ export const ABOUT_CONTENT = {
   hero: {
     title: { text: 'Sou ', highlight: 'Danilo Novais.' },
     manifesto: [
-      { text: 'Você ', highlight: 'não vê tudo' },
-      { text: 'o que eu faço. Mas' },
-      { text: 'sente quando' },
-      { highlight: 'funciona.' },
+      { text: 'Você ', highlight: 'não vê tudo ' },
+      { text: 'o que eu faço. Mas sente quando ', highlight: 'funciona.' },
     ],
     description: [
-      'Crio design que observa, entende',
-      'e guia experiências com intenção,',
-      'estratégia e tecnologia — na medida certa.',
+      'Crio design que observa, entende e guia experiências com intenção, estratégia e tecnologia, na medida certa.',
     ],
     videos: {
       desktop:

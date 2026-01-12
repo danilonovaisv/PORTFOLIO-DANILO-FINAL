@@ -7,8 +7,6 @@ import { AnimatePresence } from 'framer-motion';
 
 import { Container } from '@/components/layout/Container';
 import { Preloader } from '@/components/ui/Preloader';
-// Import hook for responsiveness
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 import HeroCTA from './HeroCTA';
 import HeroCopy from './HeroCopy';
@@ -35,9 +33,6 @@ export default function HomeHero() {
     const timer = setTimeout(() => setIsLoaded(true), CONFIG.preloadMs);
     return () => clearTimeout(timer);
   }, []);
-
-  // Performance: Desativa WebGL em mobile para garantir LCP < 2.5s (Lei da Performance Mobile)
-  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const handlePreloaderDone = useCallback(() => setIsLoaded(true), []);
 
@@ -74,15 +69,12 @@ export default function HomeHero() {
         </div>
 
         {/* Camada: Ghost WebGL (Z-10) - Acima do Texto */}
-        {/* Mobile: Hidden | Desktop: Visible */}
-        {/* Antigravity Fix: Conditional Rendering based on isMobile */}
-        {!isMobile && (
-          <div className="hidden md:block absolute inset-0 z-10 pointer-events-none overflow-hidden">
-            <div className="sticky top-0 h-screen w-full">
-              <GhostScene />
-            </div>
+        {/* Mobile & Desktop: Visible com movimento automático no mobile */}
+        <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
+          <div className="sticky top-0 h-screen w-full">
+            <GhostScene />
           </div>
-        )}
+        </div>
 
         {/* Camada: CTA (Z-50) */}
         {/* Mobile: Relative flow | Desktop: Absolute Sticky */}

@@ -17,8 +17,7 @@ const SECTIONS = [
     text: `Desde cedo, sempre prestei atenção no que ficava —
 não só no que aparecia.
 
-Enquanto muitos olhavam para o brilho imediato,
-eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo.
+Enquanto muitos olhavam para o brilho imediato,eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo.
 A essência das coisas sempre falou mais alto do que a superfície.`,
     img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-1.webp',
     alt: 'O que permanece - essência que sobrevive ao tempo',
@@ -37,7 +36,7 @@ Com cada tentativa, aprendi a dar forma ao invisível —
 até que os conceitos começaram a falar por si.`,
     img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-2.webp',
     alt: 'Do traço à intenção - processo criativo',
-    textAlign: 'left' as const,
+    textAlign: 'right' as const,
   },
   {
     id: 'invisible',
@@ -68,7 +67,7 @@ Mas nunca deixei que a tecnologia apagasse o que me move:
 a sensibilidade, o olhar atento, a busca pelo significado.`,
     img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-4.webp',
     alt: 'Expansão com propósito - união de intuição e método',
-    textAlign: 'left' as const,
+    textAlign: 'right' as const,
   },
 ];
 
@@ -108,135 +107,136 @@ const AboutOrigin = () => {
       touchMultiplier: 2,
     });
 
-    function raf(time: number) {
+    const raf = (time: number) => {
       lenisRef.current?.raf(time);
       ScrollTrigger.update();
       requestAnimationFrame(raf);
-    }
+    };
     requestAnimationFrame(raf);
 
-    const container = containerRef.current;
-    if (!container) return;
-
-    // Set z-index for images (reverse order for stacking)
-    const imgWrappers = container.querySelectorAll('.img-wrapper');
-    imgWrappers.forEach((element, index) => {
-      (element as HTMLElement).style.zIndex = String(SECTIONS.length - index);
-    });
-
-    // Background colors for transitions
+    const mm = gsap.matchMedia();
     const bgColors = ['#040013', '#0a001a', '#040013', '#0a001a'];
 
-    // GSAP Animation with Media Query
-    ScrollTrigger.matchMedia({
+    mm.add('(min-width: 769px)', () => {
       // Desktop: Pin + Mask Reveal
-      '(min-width: 769px)': function () {
-        const mainTimeline = gsap.timeline({
-          scrollTrigger: {
-            trigger: '.arch',
-            start: 'top top',
-            end: 'bottom bottom',
-            pin: '.arch__right',
-            scrub: 1, // Smooth scrubbing
-          },
-        });
+      const mainTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.arch',
+          start: 'top top',
+          end: 'bottom bottom',
+          pin: '.arch__right',
+          scrub: 1,
+        },
+      });
 
-        const imgs = gsap.utils.toArray<HTMLImageElement>('.img-wrapper img');
+      const imgWrappers = gsap.utils.toArray<HTMLDivElement>('.img-wrapper');
+      imgWrappers.forEach((el, i) => {
+        gsap.set(el, { zIndex: SECTIONS.length - i });
+      });
 
-        // Initial state - exactly like reference
-        gsap.set(imgs, {
-          clipPath: 'inset(0)',
-          objectPosition: '0px 0%',
-        });
+      const imgs = gsap.utils.toArray<HTMLImageElement>('.img-wrapper img');
+      gsap.set(imgs, {
+        clipPath: 'inset(0)',
+        objectPosition: '0px 0%',
+      });
 
-        imgs.forEach((currentImage, index) => {
-          const nextImage = imgs[index + 1];
-
-          if (nextImage) {
-            const sectionTimeline = gsap.timeline();
-
-            sectionTimeline
-              // Background color transition
-              .to(
-                'body',
-                {
-                  backgroundColor: bgColors[index + 1] || bgColors[0],
-                  duration: 1.5,
-                  ease: 'power2.inOut',
-                },
-                0
-              )
-              // Current image mask reveal (slides up)
-              .to(
-                currentImage,
-                {
-                  clipPath: 'inset(0px 0px 100%)',
-                  objectPosition: '0px 60%',
-                  duration: 1.5,
-                  ease: 'none',
-                },
-                0
-              )
-              // Next image parallax
-              .to(
-                nextImage,
-                {
-                  objectPosition: '0px 40%',
-                  duration: 1.5,
-                  ease: 'none',
-                },
-                0
-              );
-
-            mainTimeline.add(sectionTimeline);
-          }
-        });
-      },
-
-      // Mobile: Parallax effect on images
-      '(max-width: 768px)': function () {
-        const imgs = gsap.utils.toArray<HTMLImageElement>('.img-wrapper img');
-
-        gsap.set(imgs, {
-          objectPosition: '0px 60%',
-        });
-
-        imgs.forEach((image, index) => {
-          gsap
-            .timeline({
-              scrollTrigger: {
-                trigger: image,
-                start: 'top-=70% top+=50%',
-                end: 'bottom+=200% bottom',
-                scrub: true,
-              },
-            })
-            .to(image, {
-              objectPosition: '0px 30%',
-              duration: 5,
-              ease: 'none',
-            })
+      imgs.forEach((currentImage, index) => {
+        const nextImage = imgs[index + 1];
+        if (nextImage) {
+          const sectionTimeline = gsap.timeline();
+          sectionTimeline
             .to(
               'body',
               {
-                backgroundColor: bgColors[index] || bgColors[0],
+                backgroundColor: bgColors[index + 1],
                 duration: 1.5,
                 ease: 'power2.inOut',
               },
               0
+            )
+            .to(
+              currentImage,
+              {
+                clipPath: 'inset(0px 0px 100%)',
+                objectPosition: '0px 60%',
+                duration: 1.5,
+                ease: 'none',
+              },
+              0
+            )
+            .to(
+              nextImage,
+              {
+                objectPosition: '0px 40%',
+                duration: 1.5,
+                ease: 'none',
+              },
+              0
             );
-        });
-      },
+          mainTimeline.add(sectionTimeline);
+        }
+      });
     });
 
-    // Handle mobile layout ordering
+    mm.add('(max-width: 768px)', () => {
+      const imgWrappers = gsap.utils.toArray<HTMLDivElement>('.img-wrapper');
+      const infos = gsap.utils.toArray<HTMLDivElement>('.arch__info');
+
+      // Reveal animations for each content block
+      infos.forEach((info) => {
+        gsap.fromTo(
+          info,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: info,
+              start: 'top 85%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        );
+      });
+
+      // Parallax and background transitions for images
+      imgWrappers.forEach((wrapper, index) => {
+        const img = wrapper.querySelector('img');
+        if (img) {
+          gsap.fromTo(
+            img,
+            { objectPosition: '0px 80%' },
+            {
+              objectPosition: '0px 20%',
+              scrollTrigger: {
+                trigger: wrapper,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+              },
+            }
+          );
+        }
+
+        // Background color transition
+        ScrollTrigger.create({
+          trigger: wrapper,
+          start: 'top center',
+          onEnter: () =>
+            gsap.to('body', { backgroundColor: bgColors[index], duration: 1 }),
+          onEnterBack: () =>
+            gsap.to('body', { backgroundColor: bgColors[index], duration: 1 }),
+        });
+      });
+    });
+
     handleMobileLayout();
     window.addEventListener('resize', handleMobileLayout);
 
-    // Cleanup function
     return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      ScrollTrigger.clearMatchMedia();
+      mm.revert();
       lenisRef.current?.destroy();
       window.removeEventListener('resize', handleMobileLayout);
     };
@@ -244,11 +244,9 @@ const AboutOrigin = () => {
 
   return (
     <section className="origem-criativa std-grid py-20" ref={containerRef}>
-      <h1 className="text-center text-[40px] md:text-[64px] font-outfit font-extrabold text-[#fcffff] mb-16 md:mb-20">
+      <h1 className="text-center text-[40px] md:text-[64px] font-outfit font-extrabold text-[#4fe6ff] mb-4 md:mb-6">
         Origem
       </h1>
-
-      <div className="spacer h-[20vh] w-full" />
 
       <div className="arch">
         <div className="arch__left" ref={leftRef}>
@@ -295,7 +293,7 @@ const AboutOrigin = () => {
         </div>
       </div>
 
-      <div className="spacer h-[30vh] w-full" />
+      <div className="spacer h-[10vh] w-full" />
     </section>
   );
 };

@@ -99,11 +99,19 @@
   }
 
   .arch__right .img-wrapper {
-    @apply static transform-none h-[360px] w-full mb-[20px];
+    @apply static transform-none aspect-square w-full mb-[40px] opacity-100 visible;
+    position: relative !important;
+    z-index: 1 !important;
   }
 
   .arch__left .arch__info {
-    @apply h-auto py-[20px];
+    @apply h-auto py-[40px] px-[20px] max-w-full;
+  }
+
+  /* Force center alignment on mobile */
+  .content.text-right,
+  .content.text-left {
+    @apply text-center mx-auto;
   }
 }
 
@@ -117,7 +125,7 @@
   }
 
   .arch__right .img-wrapper {
-    @apply rounded-2xl h-[280px];
+    @apply rounded-2xl;
   }
 
   .arch__info h2.header {
