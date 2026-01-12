@@ -1,11 +1,10 @@
 # 🧩 Auditoria do Projeto Danilo Novais Portfolio
 
-Gerado em: 1/12/2026, 6:27:17 PM
+Gerado em: 1/12/2026, 7:51:19 PM
 
 ---
 
 ## 📦 Dependências não utilizadas
-
 - @dataconnect/admin-generated
 - @genkit-ai/google-genai
 - @google/adk
@@ -14,8 +13,8 @@ Gerado em: 1/12/2026, 6:27:17 PM
 - motion-studio-mcp
 - postprocessing
 
-## 🧱 Dependências de desenvolvimento não utilizadas
 
+## 🧱 Dependências de desenvolvimento não utilizadas
 - @next/bundle-analyzer
 - @tailwindcss/postcss
 - @tailwindcss/typography
@@ -27,9 +26,9 @@ Gerado em: 1/12/2026, 6:27:17 PM
 - rimraf
 - shadcn
 
-## 🌿 Branches no repositório
 
-- - main
+## 🌿 Branches no repositório
+- * main
 - remotes/origin/HEAD -> origin/main
 - remotes/origin/main
 - bolt-optimize-ghost-scene-13440400994002727002
@@ -41,4 +40,6 @@ Gerado em: 1/12/2026, 6:27:17 PM
 - visual-alignment-sprint-01-9779188724417258277
 - codex/update-thumbnail-reveal-for-desktop
 
+
 ## 🪓 Branches potencialmente obsoletas
+

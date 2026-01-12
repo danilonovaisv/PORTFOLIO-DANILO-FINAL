@@ -244,9 +244,9 @@ export const ABOUT_CONTENT = {
         'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/aboutmetodo-mob.mp4',
     },
     intro: [
-      'O design que funciona não nasce do acaso. Ele é fruto de um processo estruturado que une intuição e técnica.',
-      'Por isso, desenvolvi uma metodologia própria que garante consistência em cada entrega.',
-      'Do briefing à entrega final, cada etapa é pensada para maximizar o impacto e minimizar o ruído.',
+      'Antes da estética, existe intenção.',
+      'Antes do layout, existe lógica.',
+      'Antes do impacto, existe silêncio.',
     ],
     steps: [
       { id: '01', text: 'Briefings bem construídos para decisões claras' },

@@ -188,7 +188,7 @@ const AboutOrigin = () => {
       className="origem-criativa std-grid py-20 md:py-16 pb-24"
       ref={containerRef}
     >
-      <h1 className="text-center text-[40px] md:text-[64px] font-outfit font-normal text-white mb-4 md:mb-0">
+      <h1 className="text-center text-[30px] md:text-[54px] font-outfit font-italic text-blueAccent mb-4 md:mb-0">
         Origem
       </h1>
 

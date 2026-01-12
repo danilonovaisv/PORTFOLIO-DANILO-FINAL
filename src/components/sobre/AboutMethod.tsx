@@ -62,35 +62,25 @@ export default function AboutMethod() {
             playsInline
             className={`w-full h-full ${
               isMobile
-                ? 'object-cover object-[right_center] opacity-100'
-                : 'object-cover opacity-100'
+                ? 'object-cover object-center opacity-100'
+                : 'object-cover object-right opacity-100'
             }`}
             aria-hidden="true"
           />
         </motion.div>
 
-        {/* Vertical Gradient Decay (Fim do vídeo no Mobile) */}
-        {isMobile && (
-          <div
-            className="absolute bottom-0 left-0 w-full h-[50%] bg-linear-to-t from-background via-background/80 to-transparent z-1"
-            aria-hidden="true"
-          />
-        )}
-
-        {/* Desktop Editorial Overlay */}
-        {!isMobile && (
-          <div
-            className="absolute inset-0 z-1 bg-linear-to-r from-[rgba(10,10,20,0.85)] via-[rgba(10,10,20,0.85)] to-[rgba(10,10,20,0.4)]"
-            aria-hidden="true"
-          />
-        )}
+        {/* Global Dark Gradient Overlay */}
+        <div
+          className="absolute inset-0 z-1 bg-linear-to-b from-background via-background/40 to-background md:bg-linear-to-r md:from-background md:via-background/60 md:to-transparent"
+          aria-hidden="true"
+        />
       </div>
 
       <Container>
         <div className="relative z-10 w-full h-full">
-          <div className="flex flex-col lg:grid lg:grid-cols-12 w-full h-full">
+          <div className="flex flex-col lg:grid lg:grid-cols-12 w-full h-full pt-[50vh] md:pt-[100px]">
             {/* Content Area */}
-            <div className="w-full lg:col-start-2 lg:col-span-6 flex flex-col justify-center px-5 md:px-6 lg:px-10 pt-[50vh] pb-16 lg:py-[100px]">
+            <div className="w-full lg:col-span-8 flex flex-col justify-center px-0 lg:pr-20 py-20 lg:py-32">
               <motion.div
                 style={{ y: textY }}
                 className="w-full flex flex-col items-center lg:items-start"
@@ -101,18 +91,14 @@ export default function AboutMethod() {
                   initial={prefersReducedMotion ? 'visible' : 'hidden'}
                   whileInView="visible"
                   viewport={{ once: true, margin: '-20%' }}
-                  className="mb-8 lg:mb-10 text-center lg:text-left"
+                  className="mb-6 lg:mb-8 text-center lg:text-left"
                 >
-                  <h2 className="text-white leading-[1.15] tracking-tight text-[32px] md:text-[36px] lg:text-[52px] font-bold">
-                    <div>
-                      <span className="text-primary">Criatividade</span>{' '}
-                      <span className="text-white">com</span>{' '}
-                      <span className="text-primary">método</span>.
+                  <h2 className="leading-[1.1] tracking-tight text-[32px] md:text-[48px] lg:text-[64px] font-bold uppercase">
+                    <div className="text-primary leading-tight">
+                      Criatividade com método.
                     </div>
-                    <div>
-                      <span className="text-white">Impacto</span>{' '}
-                      <span className="text-white">sem</span>{' '}
-                      <span className="text-white/40">ruído</span>.
+                    <div className="text-white leading-tight">
+                      Impacto sem ruído.
                     </div>
                   </h2>
                 </motion.div>
@@ -123,7 +109,7 @@ export default function AboutMethod() {
                   initial={prefersReducedMotion ? 'visible' : 'hidden'}
                   whileInView="visible"
                   viewport={{ once: true, margin: '-20%' }}
-                  className="text-white leading-[1.6] space-y-4 mb-10 lg:mb-14 text-center lg:text-left text-[16px] md:text-[17px] lg:text-[20px] font-normal opacity-90 max-w-full lg:max-w-[520px]"
+                  className="text-white leading-[1.6] space-y-1 mb-12 lg:mb-16 text-center lg:text-left text-[16px] md:text-[19px] lg:text-[22px] font-medium opacity-100 max-w-full lg:max-w-[600px]"
                 >
                   {ABOUT_CONTENT.method.intro.map((line, i) => (
                     <p key={i}>{line}</p>
@@ -135,32 +121,31 @@ export default function AboutMethod() {
                   variants={{
                     visible: {
                       transition: {
-                        staggerChildren: 0.12,
+                        staggerChildren: 0.1,
                       },
                     },
                   }}
                   initial={prefersReducedMotion ? 'visible' : 'hidden'}
                   whileInView="visible"
                   viewport={{ once: true, margin: '-10%' }}
-                  className="flex flex-col gap-3.5 md:gap-4 lg:gap-5 w-full"
+                  className="flex flex-col w-full border-t border-primary/40 px-4 md:px-0"
                 >
                   {ABOUT_CONTENT.method.steps.map((step) => (
                     <motion.div
                       key={step.id}
                       variants={motionTokens.riseSoft}
                       className="
-                        group flex items-start gap-4 lg:gap-5 
-                        p-4 md:p-5 lg:p-6 rounded-lg
-                        border-l-[3px] border-primary
+                        group flex items-center gap-4 lg:gap-6 
+                        py-5 lg:py-6 
+                        border-b border-primary/40
                         transition-all duration-300
-                        bg-[rgba(26,26,46,0.85)] backdrop-blur-md
-                        lg:hover:translate-x-2
+                        hover:bg-primary/5
                       "
                     >
-                      <span className="text-primary font-bold text-lg lg:text-[18px]">
+                      <span className="text-primary font-bold text-[16px] lg:text-[20px] tabular-nums">
                         {step.id}
                       </span>
-                      <p className="text-white/90 group-hover:text-white transition-colors font-normal text-left text-[16px] lg:text-[18px] leading-[1.5]">
+                      <p className="text-white group-hover:text-primary transition-colors font-medium text-left text-[14px] md:text-[16px] lg:text-[20px] leading-[1.4]">
                         {step.text}
                       </p>
                     </motion.div>
@@ -169,8 +154,8 @@ export default function AboutMethod() {
               </motion.div>
             </div>
 
-            {/* Right Visual Area (Desktop Only) */}
-            <div className="hidden lg:block lg:col-start-8 lg:col-span-5 h-full pointer-events-none" />
+            {/* Ghost Visual Area Spacer (Reserved for the character on the right) */}
+            <div className="hidden lg:block lg:col-span-4" />
           </div>
         </div>
       </Container>
