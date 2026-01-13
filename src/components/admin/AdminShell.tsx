@@ -2,7 +2,13 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, FolderOpen, Tag, Images, Settings } from 'lucide-react';
+import {
+  LayoutDashboard,
+  FolderOpen,
+  Tag,
+  Images,
+  Settings,
+} from 'lucide-react';
 import type { ReactNode } from 'react';
 import { signOut } from '@/lib/supabase/auth-actions';
 
@@ -27,14 +33,18 @@ export function AdminShell({ children, userEmail }: Props) {
       <div className="flex">
         <aside className="hidden md:flex w-64 flex-col border-r border-white/10 bg-slate-900/40 backdrop-blur-sm">
           <div className="px-6 py-6 border-b border-white/10">
-            <Link href="/admin" className="text-xl font-semibold tracking-tight">
+            <Link
+              href="/admin"
+              className="text-xl font-semibold tracking-tight"
+            >
               Portfólio Admin
             </Link>
             <p className="text-xs text-slate-400 mt-1">CMS interno</p>
           </div>
           <nav className="flex-1 px-3 py-4 space-y-1">
             {navItems.map((item) => {
-              const active = pathname === item.href || pathname?.startsWith(item.href + '/');
+              const active =
+                pathname === item.href || pathname?.startsWith(item.href + '/');
               const Icon = item.icon;
               return (
                 <Link

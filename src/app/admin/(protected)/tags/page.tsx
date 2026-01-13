@@ -16,7 +16,9 @@ export default async function TagsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between gap-3">
         <div>
-          <p className="text-sm uppercase tracking-[0.25em] text-slate-400">Tags</p>
+          <p className="text-sm uppercase tracking-[0.25em] text-slate-400">
+            Tags
+          </p>
           <h1 className="text-3xl font-semibold">Categorias e filtros</h1>
         </div>
       </div>
@@ -35,15 +37,22 @@ export default async function TagsPage() {
             <tbody>
               {tags?.map((tag) => (
                 <tr key={tag.id} className="border-t border-white/5">
-                  <td className="px-4 py-3 font-medium text-white">{tag.label}</td>
+                  <td className="px-4 py-3 font-medium text-white">
+                    {tag.label}
+                  </td>
                   <td className="px-4 py-3 text-slate-300">{tag.slug}</td>
                   <td className="px-4 py-3 text-slate-300">{tag.kind}</td>
-                  <td className="px-4 py-3 text-slate-300">{tag.sort_order ?? '—'}</td>
+                  <td className="px-4 py-3 text-slate-300">
+                    {tag.sort_order ?? '—'}
+                  </td>
                 </tr>
               ))}
               {!tags?.length && (
                 <tr>
-                  <td className="px-4 py-6 text-center text-slate-400" colSpan={4}>
+                  <td
+                    className="px-4 py-6 text-center text-slate-400"
+                    colSpan={4}
+                  >
                     Nenhuma tag cadastrada.
                   </td>
                 </tr>

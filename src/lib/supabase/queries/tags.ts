@@ -26,6 +26,9 @@ export async function upsertTag(payload: Partial<DbTag>) {
 
 export async function deleteTag(tagId: string) {
   const supabase = await createClient();
-  const { error } = await supabase.from('portfolio_tags').delete().eq('id', tagId);
+  const { error } = await supabase
+    .from('portfolio_tags')
+    .delete()
+    .eq('id', tagId);
   if (error) throw error;
 }

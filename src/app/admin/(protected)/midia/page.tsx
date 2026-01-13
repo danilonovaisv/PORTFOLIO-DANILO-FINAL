@@ -24,7 +24,9 @@ export default async function MidiaPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between gap-3">
         <div>
-          <p className="text-sm uppercase tracking-[0.25em] text-slate-400">Mídia</p>
+          <p className="text-sm uppercase tracking-[0.25em] text-slate-400">
+            Mídia
+          </p>
           <h1 className="text-3xl font-semibold">Assets do site</h1>
         </div>
       </div>
@@ -34,7 +36,9 @@ export default async function MidiaPage() {
           <section key={page} className="space-y-4">
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-semibold capitalize">{page}</h2>
-              <span className="text-xs text-slate-400">{list.length} itens</span>
+              <span className="text-xs text-slate-400">
+                {list.length} itens
+              </span>
             </div>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {list.map((asset) => (
@@ -50,7 +54,9 @@ export default async function MidiaPage() {
           </section>
         ))}
         {!assets?.length && (
-          <div className="text-slate-400 text-sm">Nenhum asset cadastrado ainda.</div>
+          <div className="text-slate-400 text-sm">
+            Nenhum asset cadastrado ainda.
+          </div>
         )}
       </div>
     </div>

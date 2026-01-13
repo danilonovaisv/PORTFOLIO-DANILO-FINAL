@@ -2,7 +2,7 @@ export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 export const fetchCache = 'force-no-store';
 
-'use client';
+('use client');
 
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
@@ -21,7 +21,10 @@ export default function AdminLoginPage() {
 
     startTransition(async () => {
       const supabase = createClient();
-      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
       if (signInError) {
         setError(signInError.message);
         return;
@@ -33,7 +36,9 @@ export default function AdminLoginPage() {
   return (
     <div className="space-y-6">
       <div>
-        <p className="text-sm uppercase tracking-[0.25em] text-slate-400">Admin</p>
+        <p className="text-sm uppercase tracking-[0.25em] text-slate-400">
+          Admin
+        </p>
         <h1 className="text-2xl font-semibold mt-2">Entrar no painel</h1>
         <p className="text-sm text-slate-400 mt-1">
           Use seu email e senha do Supabase Auth.

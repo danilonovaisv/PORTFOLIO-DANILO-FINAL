@@ -71,7 +71,10 @@ export async function upsertProject(
   if (error) throw error;
 
   if (tagIds && data?.id) {
-    await supabase.from('portfolio_project_tags').delete().eq('project_id', data.id);
+    await supabase
+      .from('portfolio_project_tags')
+      .delete()
+      .eq('project_id', data.id);
     if (tagIds.length > 0) {
       const relations = tagIds.map((tagId) => ({
         project_id: data.id,
@@ -101,6 +104,9 @@ export async function togglePublish(formData: FormData) {
 
 export async function deleteProject(projectId: string) {
   const supabase = await createClient();
-  const { error } = await supabase.from('portfolio_projects').delete().eq('id', projectId);
+  const { error } = await supabase
+    .from('portfolio_projects')
+    .delete()
+    .eq('id', projectId);
   if (error) throw error;
 }

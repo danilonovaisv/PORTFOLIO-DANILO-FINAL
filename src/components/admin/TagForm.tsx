@@ -42,13 +42,15 @@ export function TagForm({ tag, onSaved }: Props) {
     startTransition(async () => {
       try {
         const supabase = createClient();
-        const { error: upsertError } = await supabase.from('portfolio_tags').upsert(
-          {
-            id: tag?.id,
-            ...values,
-          },
-          { onConflict: 'id' }
-        );
+        const { error: upsertError } = await supabase
+          .from('portfolio_tags')
+          .upsert(
+            {
+              id: tag?.id,
+              ...values,
+            },
+            { onConflict: 'id' }
+          );
 
         if (upsertError) throw upsertError;
         router.refresh();

@@ -71,7 +71,9 @@ export function ProjectForm({ project, tags, selectedTagIds = [] }: Props) {
         const supabase = createClient();
         let thumbnail_path = project?.thumbnail_path ?? null;
         let hero_image_path = project?.hero_image_path ?? null;
-        const galleryEntries: Array<{ path: string }> = Array.isArray(project?.gallery)
+        const galleryEntries: Array<{ path: string }> = Array.isArray(
+          project?.gallery
+        )
           ? project?.gallery?.map((item: any) => ({ path: item.path ?? item }))
           : [];
 
@@ -123,7 +125,10 @@ export function ProjectForm({ project, tags, selectedTagIds = [] }: Props) {
         if (upsertError) throw upsertError;
 
         if (data?.id) {
-          await supabase.from('portfolio_project_tags').delete().eq('project_id', data.id);
+          await supabase
+            .from('portfolio_project_tags')
+            .delete()
+            .eq('project_id', data.id);
           const tagIds = selectedTags;
           if (tagIds.length > 0) {
             await supabase.from('portfolio_project_tags').insert(
@@ -252,14 +257,22 @@ export function ProjectForm({ project, tags, selectedTagIds = [] }: Props) {
             onChange={(e) => setThumbnail(e.target.files?.[0] ?? null)}
           />
           {project?.thumbnail_path && (
-            <span className="text-xs text-slate-400 break-all">{project.thumbnail_path}</span>
+            <span className="text-xs text-slate-400 break-all">
+              {project.thumbnail_path}
+            </span>
           )}
         </label>
         <label className="flex flex-col gap-2">
           <span className="text-sm text-slate-300">Hero image</span>
-          <input type="file" accept="image/*" onChange={(e) => setHero(e.target.files?.[0] ?? null)} />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setHero(e.target.files?.[0] ?? null)}
+          />
           {project?.hero_image_path && (
-            <span className="text-xs text-slate-400 break-all">{project.hero_image_path}</span>
+            <span className="text-xs text-slate-400 break-all">
+              {project.hero_image_path}
+            </span>
           )}
         </label>
         <label className="flex flex-col gap-2">
@@ -282,7 +295,10 @@ export function ProjectForm({ project, tags, selectedTagIds = [] }: Props) {
         <p className="text-sm text-slate-300 mb-2">Tags</p>
         <div className="flex flex-wrap gap-3">
           {tags.map((tag) => (
-            <label key={tag.id} className="flex items-center gap-2 text-sm text-slate-200">
+            <label
+              key={tag.id}
+              className="flex items-center gap-2 text-sm text-slate-200"
+            >
               <input
                 type="checkbox"
                 value={tag.id}

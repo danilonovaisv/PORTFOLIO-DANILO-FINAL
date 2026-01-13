@@ -38,21 +38,31 @@ export default async function TrabalhosPage({ searchParams = {} }: Props) {
   if (typeFilter) query = query.eq('project_type', typeFilter);
   if (statusFilter === 'published') query = query.eq('is_published', true);
   if (statusFilter === 'draft') query = query.eq('is_published', false);
-  if (search) query = query.or(`title.ilike.%${search}%,client_name.ilike.%${search}%`);
+  if (search)
+    query = query.or(`title.ilike.%${search}%,client_name.ilike.%${search}%`);
 
   const [{ data: projects }, { data: tags }] = await Promise.all([
     query,
-    supabase.from('portfolio_tags').select('id, label, slug').order('sort_order', { ascending: true, nullsFirst: false }),
+    supabase
+      .from('portfolio_tags')
+      .select('id, label, slug')
+      .order('sort_order', { ascending: true, nullsFirst: false }),
   ]);
 
-  const uniqueYears = Array.from(new Set((projects ?? []).map((p) => p.year).filter(Boolean))).sort((a, b) => (b ?? 0) - (a ?? 0));
-  const uniqueTypes = Array.from(new Set((projects ?? []).map((p) => p.project_type).filter(Boolean)));
+  const uniqueYears = Array.from(
+    new Set((projects ?? []).map((p) => p.year).filter(Boolean))
+  ).sort((a, b) => (b ?? 0) - (a ?? 0));
+  const uniqueTypes = Array.from(
+    new Set((projects ?? []).map((p) => p.project_type).filter(Boolean))
+  );
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between gap-3">
         <div>
-          <p className="text-sm uppercase tracking-[0.25em] text-slate-400">Trabalhos</p>
+          <p className="text-sm uppercase tracking-[0.25em] text-slate-400">
+            Trabalhos
+          </p>
           <h1 className="text-3xl font-semibold">Portfólio</h1>
         </div>
         <Link
@@ -67,7 +77,13 @@ export default async function TrabalhosPage({ searchParams = {} }: Props) {
         tags={tags ?? []}
         years={uniqueYears as number[]}
         types={uniqueTypes as string[]}
-        current={{ tag: tagFilter, year: yearFilter, type: typeFilter, status: statusFilter, search }}
+        current={{
+          tag: tagFilter,
+          year: yearFilter,
+          type: typeFilter,
+          status: statusFilter,
+          search,
+        }}
       />
 
       <div className="overflow-x-auto rounded-xl border border-white/10 bg-slate-900/60">
@@ -99,13 +115,22 @@ export default async function TrabalhosPage({ searchParams = {} }: Props) {
                     <span>{project.title}</span>
                   </div>
                 </td>
-                <td className="px-4 py-3 text-slate-300">{project.client_name}</td>
-                <td className="px-4 py-3 text-slate-300">{project.year ?? '—'}</td>
-                <td className="px-4 py-3 text-slate-300">{project.project_type}</td>
+                <td className="px-4 py-3 text-slate-300">
+                  {project.client_name}
+                </td>
+                <td className="px-4 py-3 text-slate-300">
+                  {project.year ?? '—'}
+                </td>
+                <td className="px-4 py-3 text-slate-300">
+                  {project.project_type}
+                </td>
                 <td className="px-4 py-3 text-slate-300">
                   <div className="flex flex-wrap gap-1 text-[11px]">
                     {project.tags?.map((t: any) => (
-                      <span key={t.tag.slug} className="px-2 py-1 rounded bg-white/10">
+                      <span
+                        key={t.tag.slug}
+                        className="px-2 py-1 rounded bg-white/10"
+                      >
                         {t.tag.label}
                       </span>
                     ))}
@@ -113,16 +138,26 @@ export default async function TrabalhosPage({ searchParams = {} }: Props) {
                 </td>
                 <td className="px-4 py-3 text-slate-300">
                   <div className="flex gap-2 text-xs">
-                    {project.featured_on_home && <span className="px-2 py-1 rounded bg-white/10">Home</span>}
+                    {project.featured_on_home && (
+                      <span className="px-2 py-1 rounded bg-white/10">
+                        Home
+                      </span>
+                    )}
                     {project.featured_on_portfolio && (
-                      <span className="px-2 py-1 rounded bg-white/10">Portfólio</span>
+                      <span className="px-2 py-1 rounded bg-white/10">
+                        Portfólio
+                      </span>
                     )}
                   </div>
                 </td>
                 <td className="px-4 py-3 text-slate-300">
                   <form action={togglePublish}>
                     <input type="hidden" name="id" value={project.id} />
-                    <input type="hidden" name="nextStatus" value={project.is_published ? 'false' : 'true'} />
+                    <input
+                      type="hidden"
+                      name="nextStatus"
+                      value={project.is_published ? 'false' : 'true'}
+                    />
                     <button
                       type="submit"
                       className={`rounded px-2 py-1 text-xs font-semibold ${
@@ -147,7 +182,10 @@ export default async function TrabalhosPage({ searchParams = {} }: Props) {
             ))}
             {!projects?.length && (
               <tr>
-                <td className="px-4 py-6 text-center text-slate-400" colSpan={8}>
+                <td
+                  className="px-4 py-6 text-center text-slate-400"
+                  colSpan={8}
+                >
                   Nenhum projeto encontrado.
                 </td>
               </tr>
