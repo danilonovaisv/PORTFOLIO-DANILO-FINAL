@@ -1,7 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;800&display=swap');
-
 @import 'tailwindcss';
 @import '../styles/globals.css';
+
+/* --- 1. DEFINIÇÕES GLOBAIS E VARIÁVEIS (A "Verdade" do Design) --- */
+:root {
+  /* LAYOUT STANDARD - O padrão universal para Agents */
+  --layout-max-width: 1680px;
+
+  /* Margens laterais responsivas (Mobile First) */
+  --layout-padding-mobile: 1.5rem;
+  /* 24px (px-6) */
+  --layout-padding-tablet: 3rem;
+  /* 48px (px-12) */
+  --layout-padding-desktop: 4rem;
+  /* 64px (px-16) - @1024px */
+  --layout-padding-wide: 6rem;
+  /* 96px (px-24) - @1280px/1600px */
+
+  /* Cores e Tokens do Sistema (mantidos do seu padrão implícito) */
+  --color-primary-faint: rgba(12, 91, 255, 0.15);
+  --color-accent-faint: rgba(255, 255, 255, 0.05);
+  --color-ghost-vignette: rgba(0, 0, 0, 0.8);
+  --color-text-60: rgba(255, 255, 255, 0.6);
+}
 
 html {
   scroll-behavior: smooth;
@@ -14,8 +35,46 @@ html {
   border-color: rgba(255, 255, 255, 0.1);
 }
 
-/* --- UTILITIES --- */
+/* --- 2. UTILITIES LAYER (Classes Utilitárias e Layout) --- */
 @layer utilities {
+  /* * [LAYOUT STANDARD]
+   * Esta é a classe MESTRA para alinhamento.
+   * Agents devem usar .std-grid para qualquer container principal.
+   */
+  .std-grid {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--layout-max-width);
+
+    /* Padding Responsivo via Variáveis */
+    padding-left: var(--layout-padding-mobile);
+    padding-right: var(--layout-padding-mobile);
+  }
+
+  /* Media Queries para ajuste do padding da Grid */
+  @media (min-width: 768px) {
+    .std-grid {
+      padding-left: var(--layout-padding-tablet);
+      padding-right: var(--layout-padding-tablet);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .std-grid {
+      padding-left: var(--layout-padding-desktop);
+      padding-right: var(--layout-padding-desktop);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .std-grid {
+      padding-left: var(--layout-padding-wide);
+      padding-right: var(--layout-padding-wide);
+    }
+  }
+
+  /* Tipografia Fluida */
   .text-display-hero {
     font-size: clamp(5rem, 12vw, 8rem);
     line-height: 0.9;
@@ -32,13 +91,12 @@ html {
 
   .text-display-about {
     font-size: clamp(2rem, 5vw, 4rem);
-    /* 32px to 64px */
     line-height: 1.1;
     letter-spacing: -0.025em;
     font-weight: 700;
   }
 
-  /* Fluid Typography Utility Classes */
+  /* Utility wrappers for standard types */
   .type-display {
     font-size: var(--font-display);
     font-weight: 900;
@@ -82,17 +140,13 @@ html {
     text-transform: uppercase;
   }
 
-  /* Global Grid System - Matches Container.tsx */
-  .std-grid {
-    @apply w-full max-w-[1400px] mx-auto px-6 md:px-12 xl:px-24;
-  }
-
   .type-micro {
     font-family: 'PPSupplyMono', monospace;
-    font-size: var(--font-micro);
+    font-size: var(--font-micro, 12px);
+    /* Fallback added */
   }
 
-  /* Portfolio Gallery Performance Optimizations */
+  /* --- Performance Optimizations --- */
   .gallery-track {
     will-change: transform;
     contain: layout style;
@@ -104,7 +158,6 @@ html {
     backface-visibility: hidden;
   }
 
-  /* Modal optimizations */
   .modal-backdrop {
     will-change: opacity;
   }
@@ -114,12 +167,12 @@ html {
     contain: layout paint;
   }
 
-  /* Smooth parallax */
   .parallax-track {
     will-change: transform;
     transform: translateZ(0);
   }
 
+  /* Animations */
   @keyframes showcaseArrowIdle {
     0%,
     100% {
@@ -135,7 +188,6 @@ html {
     animation: showcaseArrowIdle 3s ease-in-out infinite;
   }
 
-  /* Accessibility: Respect reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .gallery-track,
     .project-card-optimized,
@@ -152,6 +204,8 @@ html {
   }
 }
 
+/* --- 3. COMPONENTES E AUXILIARES --- */
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -164,7 +218,6 @@ html {
   border-width: 0;
 }
 
-/* Estilos para o canvas */
 canvas {
   position: absolute;
   top: 0;
@@ -173,11 +226,10 @@ canvas {
   height: 100%;
   z-index: 1;
   pointer-events: none;
-  /* Canvas não bloqueia interações por padrão */
   background: transparent;
 }
 
-/* Estilos para o texto da hero */
+/* Hero & CTA Styles */
 .hero-text {
   font-family: 'Boldonse', system-ui;
   font-size: 6vw;
@@ -185,7 +237,6 @@ canvas {
   font-weight: 400;
   letter-spacing: -0.02em;
   margin-bottom: 5vh;
-  text-transform: none;
   color: #d9ddec;
   mix-blend-mode: screen;
   text-shadow: 0 0 24px rgba(71, 128, 255, 0.35);
@@ -194,13 +245,11 @@ canvas {
 .hero-subtext {
   font-family: 'PPSupplyMono', monospace;
   font-size: 12px;
-  text-transform: none;
   opacity: 0.7;
   margin-top: 2vh;
   color: #9ca5c3;
 }
 
-/* Estilos para o botão CTA */
 .cta-button {
   display: inline-flex;
   align-items: center;
@@ -240,7 +289,7 @@ canvas {
   transform: rotate(45deg);
 }
 
-/* --- Portfolio Hero Atmospheric Gradients --- */
+/* Portfolio Atmospheric Gradients */
 .portfolio-hero-glow-primary {
   background: radial-gradient(
     ellipse 60% 50% at 15% 15%,
@@ -277,8 +326,7 @@ canvas {
   background: linear-gradient(to bottom, var(--color-text-60), transparent);
 }
 
-/* --- Video Manifesto --- */
-/* Overlay de vídeo */
+/* Video Manifesto */
 .video-overlay {
   background: radial-gradient(
     120% 120% at 70% 30%,
@@ -288,13 +336,11 @@ canvas {
   );
 }
 
-/* Remover espaçamento padrão */
 .video-manifesto {
   margin: 0;
   padding: 0;
 }
 
-/* Garantir que vídeo ocupe toda a largura */
 .video-wrapper video {
   display: block;
   width: 100%;

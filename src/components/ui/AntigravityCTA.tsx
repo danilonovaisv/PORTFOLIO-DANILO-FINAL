@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 /**
  * AntigravityCTA - High Fidelity Physics-Based Button
  * Updated to match the "Oval Ends" design from the provided images.
+ * Implements "Ghost Design" Lo&Behold replica physics and visual style.
  */
 
 type CTAVariant = 'primary' | 'secondary' | 'ghost';
@@ -28,34 +29,42 @@ interface AntigravityCTAProps {
   hideArrow?: boolean;
 }
 
-const springConfig = { type: 'spring' as const, stiffness: 400, damping: 25 };
+// Physics tuned for "Antigravity" feel (bouncy but controlled)
+const springConfig = { type: 'spring' as const, stiffness: 450, damping: 22 };
 
 const variantConfigs: Record<
   CTAVariant,
   {
-    pill: string;
-    icon: string;
-    text: string;
-    glow: string;
+    pill: string; // Styles for the text container
+    icon: string; // Styles for the icon container
+    text: string; // Text color/style
+    glow: string; // Background glow effect
+    fusion: boolean; // Whether to apply the negative margin fusion effect
   }
 > = {
   primary: {
-    pill: 'bg-[rgb(0,87,255)] border-transparent',
-    icon: 'bg-[rgb(0,87,255)] border-none', // Oval pill doesn't need fusion border
+    // Lo&Behold Style: Blue filled, fusion effect
+    pill: 'bg-[rgb(0,87,255)]/90 backdrop-blur-sm border-transparent rounded-l-full rounded-r-none z-10',
+    icon: 'bg-[rgb(0,87,255)]/90 backdrop-blur-sm border-none rounded-full border-l-4 border-[rgb(0,87,255)]/90 z-20 shadow-2xl',
     text: 'text-white',
-    glow: 'bg-blue-500',
+    glow: 'bg-gradient-to-r from-blue-500 to-purple-600',
+    fusion: true,
   },
   secondary: {
-    pill: 'bg-transparent border border-white/20 group-hover:border-white/40',
-    icon: 'bg-transparent border border-white/20 group-hover:border-white/40',
+    // Border style, separated elements (no fusion)
+    pill: 'bg-transparent border border-white/20 group-hover:border-white/40 rounded-full',
+    icon: 'bg-transparent border border-white/20 group-hover:border-white/40 rounded-full',
     text: 'text-[rgb(0,87,255)] font-bold',
     glow: 'bg-blue-400/10',
+    fusion: false,
   },
   ghost: {
-    pill: 'bg-transparent border border-white/10 backdrop-blur-sm group-hover:bg-white/5',
-    icon: 'bg-transparent border border-white/10 backdrop-blur-sm group-hover:bg-white/5',
+    // Subtle style
+    pill: 'bg-transparent border border-white/10 backdrop-blur-sm group-hover:bg-white/5 rounded-full',
+    icon: 'bg-transparent border border-white/10 backdrop-blur-sm group-hover:bg-white/5 rounded-full',
     text: 'text-white/80 group-hover:text-white',
     glow: 'bg-white/5',
+    fusion: false,
   },
 };
 
@@ -67,6 +76,7 @@ const sizeConfigs: Record<
     text: string;
     iconWidth: string;
     arrowSize: number;
+    iconMargin: string; // Overlap amount
   }
 > = {
   sm: {
@@ -75,6 +85,7 @@ const sizeConfigs: Record<
     text: 'text-sm',
     iconWidth: 'w-[48px]',
     arrowSize: 20,
+    iconMargin: '-ml-3',
   },
   md: {
     height: 'h-[58px]',
@@ -82,13 +93,15 @@ const sizeConfigs: Record<
     text: 'text-base',
     iconWidth: 'w-[58px]',
     arrowSize: 24,
+    iconMargin: '-ml-3.5',
   },
   lg: {
     height: 'h-[64px]',
-    padding: 'px-10',
+    padding: 'px-10 pr-6', // Adjusted padding for fusion look
     text: 'text-lg',
     iconWidth: 'w-[64px]',
     arrowSize: 28,
+    iconMargin: '-ml-4',
   },
 };
 
@@ -109,32 +122,42 @@ export function AntigravityCTA({
   const styles = variantConfigs[variant];
   const dimensions = sizeConfigs[size];
 
+  // Specific motion variants for the icon
   const iconVariants: Variants = {
-    initial: { rotate: -45, x: 0 },
+    initial: { rotate: -45, x: 0, strokeWidth: 2.5 },
     hover: {
       rotate: 0,
-      x: hideArrow ? 0 : 8,
+      x: hideArrow ? 0 : 8, // Move icon right on hover
+      strokeWidth: 3.5, // Thicker stroke on hover
       transition: springConfig,
     },
   };
 
   const content = (
     <>
-      {/* 1. GLOW EFFECT */}
+      {/* 1. GLOW EFFECT (Atmospheric) */}
       <div
         className={cn(
-          'absolute inset-0 rounded-full opacity-0 group-hover:opacity-40 transition-opacity duration-500 scale-95 group-hover:scale-110 blur-xl pointer-events-none',
+          'absolute inset-0 rounded-full blur-xl pointer-events-none transition-all duration-300',
+          'opacity-0 group-hover:opacity-70',
+          'scale-[0.9] group-hover:scale-[1.12]',
+          variant === 'primary'
+            ? 'drop-shadow-none group-hover:drop-shadow-[0_0_32px_rgba(0,87,255,0.8)]'
+            : '',
           styles.glow
         )}
       />
 
-      {/* 2. PILL (Always Rounded-Full) */}
+      {/* 2. PILL (Text Container) */}
       <div
         className={cn(
-          'relative z-10 flex items-center justify-center h-full transition-all duration-300 rounded-full border',
+          'flex items-center justify-center transition-all duration-300 shadow-lg',
+          dimensions.height,
           dimensions.padding,
           styles.pill,
-          styles.text
+          styles.text,
+          // If not fusion, strict full rounded. If fusion, regulated by variant config (handled there)
+          !styles.fusion && 'rounded-full'
         )}
       >
         <span
@@ -147,18 +170,22 @@ export function AntigravityCTA({
         </span>
       </div>
 
-      {/* 3. CORE (Separate Circle Icon) */}
+      {/* 3. CORE (Icon Container) */}
       {!hideArrow && (
         <motion.div
           className={cn(
-            'relative z-20 flex items-center justify-center h-full aspect-square -ml-2 transition-all duration-300 rounded-full border',
+            'flex items-center justify-center transition-all duration-300',
+            dimensions.height,
             dimensions.iconWidth,
+            styles.fusion ? dimensions.iconMargin : 'ml-2', // Apply negative margin only for fusion
             styles.icon,
-            styles.text
+            styles.text,
+            // If not fusion, strict full rounded
+            !styles.fusion && 'rounded-full border'
           )}
           variants={iconVariants}
         >
-          <ArrowUpRight size={dimensions.arrowSize} strokeWidth={2.5} />
+          <ArrowUpRight size={dimensions.arrowSize} />
         </motion.div>
       )}
     </>
@@ -166,8 +193,7 @@ export function AntigravityCTA({
 
   const sharedProps = {
     className: cn(
-      'relative group inline-flex items-center cursor-pointer focus:outline-none z-50',
-      dimensions.height,
+      'relative group inline-flex items-center justify-center cursor-pointer focus:outline-none z-50', // Added justify-center
       disabled && 'opacity-50 pointer-events-none',
       className
     ),
@@ -176,6 +202,12 @@ export function AntigravityCTA({
     whileTap: prefersReducedMotion ? 'initial' : 'press',
     animate: 'initial',
     'aria-label': ariaLabel || label,
+  };
+
+  const hoverEffect = {
+    y: -6, // Elevation
+    scale: 1.02, // Subtle grow
+    transition: springConfig,
   };
 
   const pressEffect = {
@@ -191,11 +223,10 @@ export function AntigravityCTA({
       return (
         <motion.div
           {...sharedProps}
-          whileHover={prefersReducedMotion ? {} : { y: -4 }}
+          whileHover={prefersReducedMotion ? {} : hoverEffect}
           whileTap={prefersReducedMotion ? {} : pressEffect}
-          transition={springConfig}
         >
-          <Link href={href} className="flex h-full items-center">
+          <Link href={href} className="flex items-center">
             {content}
           </Link>
         </motion.div>
@@ -208,9 +239,8 @@ export function AntigravityCTA({
         target={isExternal ? '_blank' : undefined}
         rel={isExternal ? 'noopener noreferrer' : undefined}
         {...sharedProps}
-        whileHover={prefersReducedMotion ? {} : { y: -4 }}
+        whileHover={prefersReducedMotion ? {} : hoverEffect}
         whileTap={prefersReducedMotion ? {} : pressEffect}
-        transition={springConfig}
       >
         {content}
       </motion.a>
@@ -223,9 +253,8 @@ export function AntigravityCTA({
       onClick={onClick}
       disabled={disabled}
       {...sharedProps}
-      whileHover={prefersReducedMotion ? {} : { y: -4 }}
+      whileHover={prefersReducedMotion ? {} : hoverEffect}
       whileTap={prefersReducedMotion ? {} : pressEffect}
-      transition={springConfig}
     >
       {content}
     </motion.button>

@@ -1,0 +1,962 @@
+import React from "react";
+
+export default function PortfolioHomeDocs() {
+  return (
+    <article className="prose prose-invert max-w-5xl mx-auto px-6 md:px-8 lg:px-12 py-16 text-sm md:text-base leading-relaxed">
+      {/* =========================================================
+          1. VISÃO GERAL DO PROJETO
+      ========================================================== */}
+      <header>
+        <h1 className="text-3xl md:text-4xl font-black">
+          Danilo Novais – Homepage do Portfólio
+        </h1>
+        <p className="mt-2 text-xs uppercase tracking-[0.2em] text-slate-400">
+          Documentação técnica e de conteúdo · Versão 3.0 · Atualizado em 03 jan 2026
+        </p>
+        <p className="mt-4">
+          Esta documentação descreve o comportamento visual, editorial e técnico da{" "}
+          <strong>homepage</strong> do site{" "}
+          <span className="font-mono text-xs align-baseline">portfoliodanilo.com</span>.
+          Ela consolida especificações de layout, animação, conteúdo e acessibilidade em um único
+          documento, pronto para servir como referência oficial de implementação e manutenção.
+        </p>
+      </header>
+
+      <section>
+        <h2>1. Visão Geral</h2>
+
+        <h3>1.1 Propósito da página</h3>
+        <p>
+          A homepage funciona como um <strong>hub editorial premium</strong> que apresenta a
+          visão, o estilo e os principais trabalhos de Danilo Novais. O objetivo não é apenas
+          exibir projetos, mas provar domínio de design por meio da{" "}
+          <strong>própria experiência do site</strong>.
+        </p>
+        <ul>
+          <li>
+            <strong>Atmosfera:</strong> criar uma primeira impressão forte, escura e sofisticada,
+            ancorada na frase-motor: “Você não vê o design. Mas ele vê você.”
+          </li>
+          <li>
+            <strong>Fluxo:</strong> guiar o usuário de forma natural por{" "}
+            <em>Introdução de marca → Demonstração de trabalho → Prova social → Contato</em>.
+          </li>
+          <li>
+            <strong>Performance:</strong> experiência suave, com carregamento rápido e animações
+            fluidas, sem comprometer usabilidade.
+          </li>
+          <li>
+            <strong>Filosofia:</strong> manter elementos fantasmagóricos/analógicos (ghost, ruídos,
+            halos) sempre em função da narrativa, nunca como puro adorno.
+          </li>
+        </ul>
+
+        <h3>1.2 Público-alvo</h3>
+        <ul>
+          <li>
+            <strong>Primário:</strong> gestores de marca, diretores de marketing, heads de criação
+            e líderes de agências que buscam parceiros para projetos de branding, campanha e
+            experiências digitais.
+          </li>
+          <li>
+            <strong>Secundário:</strong> recrutadores, talentos da indústria criativa e comunidade
+            de design interessados em referências e colaboração.
+          </li>
+        </ul>
+        <p>
+          Para todos os perfis, a necessidade central é{" "}
+          <strong>entender rapidamente o nível de qualidade</strong>, enxergar exemplos relevantes
+          e encontrar um caminho direto para contato.
+        </p>
+
+        <h3>1.3 Métricas de sucesso</h3>
+        <ul>
+          <li>
+            <strong>Engajamento:</strong> tempo médio de sessão &gt; 2 minutos na homepage.
+          </li>
+          <li>
+            <strong>Conversão:</strong> pelo menos 50% dos usuários clicando em algum projeto
+            destacado ou em CTA principal.
+          </li>
+          <li>
+            <strong>Técnico:</strong> carregamento inicial &lt; 3s, Lighthouse acima de 90 e
+            ausência de violações de acessibilidade (WCAG 2.1 AA).
+          </li>
+        </ul>
+
+        <h3>1.4 Stack e restrições técnicas</h3>
+        <ul>
+          <li>
+            <strong>Framework:</strong> Next.js 15 (App Router) + React 18.3+, em TypeScript.
+          </li>
+          <li>
+            <strong>Estilos:</strong> Tailwind CSS 3.4+, com tokens de tipografia fluida.
+          </li>
+          <li>
+            <strong>Animação e 3D:</strong> Framer Motion para UI; React Three Fiber / Three.js
+            para a atmosfera Ghost no Hero.
+          </li>
+          <li>
+            <strong>Assets:</strong> Supabase Storage para fontes, logos, vídeos e imagens.
+          </li>
+          <li>
+            <strong>Restrições:</strong> abordagem mobile-first, peso inicial da página abaixo de
+            2MB e ausência de scripts de analytics bloqueando a thread principal.
+          </li>
+        </ul>
+      </section>
+
+      {/* =========================================================
+          2. SISTEMA DE DESIGN
+      ========================================================== */}
+      <section>
+        <h2>2. Sistema de Design</h2>
+
+        <h3>2.1 Paleta de cores</h3>
+        <p>
+          A interface trabalha com um contraste forte entre fundo profundo, brilhos azuis e
+          superfícies claras de leitura.
+        </p>
+        <div className="overflow-x-auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Token</th>
+                <th>Valor</th>
+                <th>Uso principal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>bluePrimary</td>
+                <td>#0048ff</td>
+                <td>Marca, CTAs, links, estados de foco</td>
+              </tr>
+              <tr>
+                <td>blueAccent</td>
+                <td>#4fe6ff</td>
+                <td>Halo Ghost, brilhos, destaques sutis</td>
+              </tr>
+              <tr>
+                <td>background</td>
+                <td>#040013</td>
+                <td>Fundo principal escuro (Hero e seções editoriais)</td>
+              </tr>
+              <tr>
+                <td>surface</td>
+                <td>#0b0d3a</td>
+                <td>Cards, faixas, superfícies elevadas em dark mode</td>
+              </tr>
+              <tr>
+                <td>text</td>
+                <td>#fcffff</td>
+                <td>Texto primário com contraste alto</td>
+              </tr>
+              <tr>
+                <td>textSecondary</td>
+                <td>#a1a3a3</td>
+                <td>Metadados, legendas e microtexto</td>
+              </tr>
+              <tr>
+                <td>textMuted</td>
+                <td>#d9dade</td>
+                <td>Subtítulos claros em fundo escuro, especialmente no Hero</td>
+              </tr>
+              <tr>
+                <td>error</td>
+                <td>#ff3366</td>
+                <td>Mensagens e estados de validação de formulário</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>2.2 Tipografia</h3>
+        <p>
+          A tipografia é a espinha dorsal da linguagem editorial. As estruturas longas são
+          simplificadas em frases diretas, com hierarquia forte entre títulos e corpo.
+        </p>
+        <ul>
+          <li>
+            <strong>Fonte primária:</strong> TT Norms Pro (variações Black, Bold, Medium, Regular)
+            servida via Supabase.
+          </li>
+          <li>
+            <strong>Fonte secundária opcional:</strong> Geist Mono para detalhes técnicos,
+            meta-informações e elementos de interface.
+          </li>
+        </ul>
+        <div className="overflow-x-auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Token</th>
+                <th>Mobile (&lt; 768px)</th>
+                <th>Desktop (&ge; 1024px)</th>
+                <th>Peso</th>
+                <th>Uso</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Display</td>
+                <td>2.5rem (40px)</td>
+                <td>5.5rem (88px)</td>
+                <td>Black</td>
+                <td>Frases de impacto não semânticas</td>
+              </tr>
+              <tr>
+                <td>H1</td>
+                <td>2rem (32px)</td>
+                <td>3.5rem (56px)</td>
+                <td>Bold</td>
+                <td>Headlines de seção</td>
+              </tr>
+              <tr>
+                <td>H2</td>
+                <td>1.5rem (24px)</td>
+                <td>2.5rem (40px)</td>
+                <td>Bold</td>
+                <td>Subtítulos</td>
+              </tr>
+              <tr>
+                <td>H3</td>
+                <td>1.25rem (20px)</td>
+                <td>1.75rem (28px)</td>
+                <td>Medium</td>
+                <td>Títulos de cards e blocos</td>
+              </tr>
+              <tr>
+                <td>Body</td>
+                <td>1rem (16px)</td>
+                <td>1.125rem (18px)</td>
+                <td>Regular</td>
+                <td>Texto corrido e descrições</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-2">
+          Todas as escalas utilizam <em>clamp</em> para tipografia fluida, garantindo leitura
+          confortável em diferentes larguras.
+        </p>
+
+        <h3>2.3 Grid, espaçamento e alinhamento</h3>
+        <p>
+          A página adota um <strong>grid fantasma de 12 colunas</strong> no desktop e variações
+          reduzidas em mobile/tablet, sempre centrado em um container máximo de 1680px.
+        </p>
+        <div className="overflow-x-auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Breakpoint</th>
+                <th>Colunas</th>
+                <th>Gap</th>
+                <th>Margin / Padding horizontal</th>
+                <th>Largura máx. do container</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Mobile (&lt; 768px)</td>
+                <td>4</td>
+                <td>16px</td>
+                <td>24px</td>
+                <td>100%</td>
+              </tr>
+              <tr>
+                <td>Tablet (&ge; 768px)</td>
+                <td>8</td>
+                <td>24px</td>
+                <td>48px</td>
+                <td>100%</td>
+              </tr>
+              <tr>
+                <td>Desktop (&ge; 1024px)</td>
+                <td>12</td>
+                <td>32px</td>
+                <td>64px</td>
+                <td>1440px</td>
+              </tr>
+              <tr>
+                <td>Wide (&ge; 1600px)</td>
+                <td>12</td>
+                <td>40px</td>
+                <td>96px</td>
+                <td>1680px</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-2">
+          Em mobile (&lt; md), títulos e CTAs são centralizados, com colunas se empilhando em{" "}
+          <strong>flex-col</strong> e espaçamentos generosos para toque.
+        </p>
+
+        <h3>2.4 Animações e motion</h3>
+        <p>
+          O movimento é usado para reforçar narrativa, nunca para competir com o conteúdo. Os
+          padrões principais:
+        </p>
+        <ul>
+          <li>
+            <strong>Easing Ghost:</strong>{" "}
+            <span className="font-mono text-xs">[0.22, 1, 0.36, 1]</span> para entrada de elementos
+            com início rápido e desaceleração suave.
+          </li>
+          <li>
+            <strong>Reveal em cascata:</strong> textos, faixas de portfólio e cartões entram com
+            animações de <em>fade up</em> e{" "}
+            <span className="font-mono text-xs">staggerChildren</span> sutis.
+          </li>
+          <li>
+            <strong>Respeito a prefers-reduced-motion:</strong> quando ativo, animações reduzidas a
+            transições discretas de opacidade/posição ou substituídas por versões estáticas.
+          </li>
+        </ul>
+
+        <h3>2.5 Assets globais</h3>
+        <ul>
+          <li>
+            <strong>Fontes:</strong> família TT Norms Pro (Black/Bold/Medium/Regular) hospedada em
+            Supabase, com fallback{" "}
+            <span className="font-mono text-xs">system-ui, -apple-system, sans-serif</span>.
+          </li>
+          <li>
+            <strong>Identidade:</strong> logos em versão escura/clara (SVG) e favicon SVG.
+          </li>
+          <li>
+            <strong>Vídeo manifesto:</strong> arquivo MP4 otimizado para streaming em loop, com
+            variações de qualidade (HD/SD) e pôster estático.
+          </li>
+          <li>
+            <strong>Logotipos de clientes:</strong> 12 SVGs monocromáticos, tratados como ícones
+            brancos via <em>filter invert</em> quando necessário.
+          </li>
+        </ul>
+      </section>
+
+      {/* =========================================================
+          3. ARQUITETURA DA PÁGINA
+      ========================================================== */}
+      <section>
+        <h2>3. Arquitetura da Página</h2>
+
+        <h3>3.1 Estrutura da home</h3>
+        <ol className="list-decimal list-inside">
+          <li>
+            <strong>Hero Ghost:</strong> header glass, atmosfera 3D e frase principal com CTA
+            “step inside”.
+          </li>
+          <li>
+            <strong>Vídeo manifesto:</strong> bloco fullscreen 16:9 com resumo visual do trabalho.
+          </li>
+          <li>
+            <strong>Portfolio showcase:</strong> faixas interativas de categorias.
+          </li>
+          <li>
+            <strong>Featured projects:</strong> grid bento com projetos selecionados.
+          </li>
+          <li>
+            <strong>Clients/brands:</strong> faixa azul com logotipos de marcas parceiras.
+          </li>
+          <li>
+            <strong>Contact:</strong> área clara com dados de contato, formulário e redes sociais.
+          </li>
+          <li>
+            <strong>Footer:</strong> barra azul com copyright e navegação suplementar.
+          </li>
+        </ol>
+
+        <h3>3.2 Navegação</h3>
+        <p>
+          A navegação principal é sempre visível e leva o usuário às principais zonas de decisão.
+        </p>
+        <ul>
+          <li>
+            <strong>Home:</strong> <span className="font-mono text-xs">/</span> ou{" "}
+            <span className="font-mono text-xs">#hero</span>.
+          </li>
+          <li>
+            <strong>Sobre:</strong> página dedicada em{" "}
+            <span className="font-mono text-xs">/sobre</span>.
+          </li>
+          <li>
+            <strong>Portfólio:</strong> listagem completa em{" "}
+            <span className="font-mono text-xs">/portfolio</span>, com filtros por categoria.
+          </li>
+          <li>
+            <strong>Contato:</strong> âncora{" "}
+            <span className="font-mono text-xs">#contact</span> na própria homepage.
+          </li>
+        </ul>
+        <p>
+          Em mobile, essas opções são acessadas por um menu hambúrguer com overlay em tela cheia. Em
+          desktop, permanecem alinhadas à direita em um header de vidro fixo.
+        </p>
+      </section>
+
+      {/* =========================================================
+          4. ESPECIFICAÇÕES POR SEÇÃO
+      ========================================================== */}
+      <section>
+        <h2>4. Seções e componentes da homepage</h2>
+
+        {/* 4.1 HEADER */}
+        <section>
+          <h3>4.1 Header</h3>
+          <p>
+            O header fornece navegação persistente com visual discreto e foco total no conteúdo.
+          </p>
+
+          <h4>4.1.1 Layout – desktop (&ge; 1024px)</h4>
+          <ul>
+            <li>
+              <strong>Posição:</strong> <em>sticky</em> no topo, com{" "}
+              <span className="font-mono text-xs">top</span> entre 0 e 24px conforme a folga
+              desejada e <span className="font-mono text-xs">z-index</span> elevado.
+            </li>
+            <li>
+              <strong>Formato:</strong> barra ou pílula de vidro em container centralizado,
+              cantos arredondados, fundo translúcido com{" "}
+              <span className="font-mono text-xs">backdrop-blur</span> e borda sutil.
+            </li>
+            <li>
+              <strong>Conteúdo:</strong> logo à esquerda, navegação textual à direita (home, sobre,
+              portfólio, contato).
+            </li>
+            <li>
+              <strong>Comportamento:</strong> completamente estático; sem efeitos de scroll
+              tracking ou física.
+            </li>
+          </ul>
+
+          <h4>4.1.2 Layout – mobile e tablet (≤ 1023px)</h4>
+          <ul>
+            <li>
+              <strong>Posição:</strong> barra fixa no topo, largura total, fundo sólido escuro sem
+              glass.
+            </li>
+            <li>
+              <strong>Conteúdo:</strong> logo alinhado à esquerda, ícone de menu (hambúrguer) à
+              direita com padding de 16px.
+            </li>
+            <li>
+              <strong>Menu overlay:</strong> tela cheia com gradiente, itens em coluna com texto
+              grande, redes sociais na base.
+            </li>
+            <li>
+              <strong>Animação:</strong> overlay com <em>fade-in</em>; painel desliza da direita;
+              itens entram com <em>stagger</em> vertical.
+            </li>
+            <li>
+              <strong>Acessibilidade:</strong> foco preso dentro do menu aberto,{" "}
+              <span className="font-mono text-xs">aria-expanded</span> no botão,
+              <span className="font-mono text-xs">ESC</span> fecha o menu.
+            </li>
+          </ul>
+
+          <h4>4.1.3 Adaptação de contraste</h4>
+          <p>
+            Quando o header sobrepõe áreas claras (como a seção de contato), o sistema ajusta:
+          </p>
+          <ul>
+            <li>Texto e ícones recebem cor azul primária ou escura para manter legibilidade.</li>
+            <li>O fundo pode ganhar mais opacidade, mantendo efeito glass discreto.</li>
+            <li>Transições suaves com duração aproximada de 0.3s.</li>
+          </ul>
+        </section>
+
+        {/* 4.2 HERO */}
+        <section>
+          <h3>4.2 Hero Ghost</h3>
+
+          <h4>4.2.1 Objetivo</h4>
+          <p>
+            Criar uma abertura imersiva com atmosfera 3D interativa e frase-manifesto. O Hero deve
+            comunicar imediatamente o posicionamento de design e convidar o usuário a explorar o
+            restante do portfólio.
+          </p>
+
+          <h4>4.2.2 Conteúdo textual</h4>
+          <ul>
+            <li>
+              <strong>Tag editorial:</strong> “[BRAND AWARENESS]” em caixa alta, pequena, acima do
+              título.
+            </li>
+            <li>
+              <strong>Headline desktop/tablet:</strong> duas linhas – “Você não vê / o design.”
+            </li>
+            <li>
+              <strong>Headline mobile:</strong> três linhas – “Você não / vê o / design.”
+            </li>
+            <li>
+              <strong>Subheadline:</strong> “Mas ele vê você.” em peso Bold e cor secundária
+              clara.
+            </li>
+            <li>
+              <strong>CTA principal:</strong> botão “step inside →” que leva à seção Sobre.
+            </li>
+          </ul>
+
+          <h4>4.2.3 CTA principal</h4>
+          <p>
+            O botão “step inside” utiliza formato composto (pílula + círculo com seta), cor azul
+            primária e texto em uppercase. Em hover desktop, o botão sobe levemente; em mobile, há
+            compressão suave no toque. Sempre acompanha estado de foco visível para navegação por
+            teclado.
+          </p>
+
+          <h4>4.2.4 Atmosfera Ghost (WebGL)</h4>
+          <p>
+            O plano de fundo do Hero é uma cena 3D decorativa, sem bloquear interação com o
+            conteúdo textual.
+          </p>
+          <ul>
+            <li>
+              <strong>Elementos:</strong> personagem ghost estilizado, halo de luz azul, partículas
+              e fireflies discretas.
+            </li>
+            <li>
+              <strong>Interação:</strong> o ghost segue suavemente o cursor com leve atraso,
+              combinando com flutuação contínua baseada em ondas senoidais.
+            </li>
+            <li>
+              <strong>Layout:</strong> canvas em camada de fundo (
+              <span className="font-mono text-xs">z-index</span> abaixo dos textos e CTA), com
+              altura total da viewport.
+            </li>
+            <li>
+              <strong>Fallback:</strong> em dispositivos com{" "}
+              <span className="font-mono text-xs">prefers-reduced-motion</span> ou desempenho
+              limitado, exibir apenas um fundo gradiente estático e ghost simplificado ou
+              desativado.
+            </li>
+          </ul>
+
+          <h4>4.2.5 Responsividade e acessibilidade</h4>
+          <ul>
+            <li>
+              Textos sempre sobrepostos ao canvas com contraste máximo (texto quase branco em fundo
+              escuro).
+            </li>
+            <li>
+              Canvas marcado como decorativo com{" "}
+              <span className="font-mono text-xs">aria-hidden</span> e descrição alternativa
+              fornecida apenas para leitores de tela.
+            </li>
+            <li>
+              Em dispositivos touch, o personagem permanece centralizado, usando apenas animações
+              de flutuação.
+            </li>
+          </ul>
+        </section>
+
+        {/* 4.3 VIDEO MANIFESTO */}
+        <section>
+          <h3>4.3 Vídeo manifesto</h3>
+
+          <h4>4.3.1 Objetivo</h4>
+          <p>
+            Apresentar, logo após o Hero, um vídeo manifesto em formato 16:9 que resume o universo
+            visual e o tipo de trabalho desenvolvido, reforçando a percepção de movimento, ritmo e
+            edição.
+          </p>
+
+          <h4>4.3.2 Layout</h4>
+          <ul>
+            <li>Seção imediatamente abaixo do Hero, ocupando 100% da largura da viewport.</li>
+            <li>
+              Wrapper com proporção fixa 16:9; sem margens laterais (vídeo colado às bordas).
+            </li>
+            <li>
+              Overlay gradiente escuro para melhorar a leitura de textos sobrepostos (título
+              “Showreel 2025” e linha “Strategy • Branding • Motion”).
+            </li>
+          </ul>
+
+          <h4>4.3.3 Comportamento do vídeo</h4>
+          <ul>
+            <li>
+              Propriedades padrão: autoplay, loop, muted, playsInline, preload de metadados e
+              pôster estático.
+            </li>
+            <li>
+              Botão de som sempre visível, permitindo alternar entre mudo e com áudio.
+            </li>
+            <li>
+              Ao sair da área visível da seção, o vídeo volta a ficar mudo automaticamente.
+            </li>
+            <li>
+              Carregamento preguiçoso via Intersection Observer; a fonte do vídeo só é definida
+              quando o usuário se aproxima da seção.
+            </li>
+            <li>
+              Qualidade adaptada de acordo com a qualidade de conexão (HD em 4G/5G, SD em redes
+              mais lentas).
+            </li>
+          </ul>
+
+          <h4>4.3.4 Acessibilidade</h4>
+          <ul>
+            <li>Seção marcada semanticamente com título e descrição.</li>
+            <li>
+              Botão de som com <span className="font-mono text-xs">aria-label</span> e{" "}
+              <span className="font-mono text-xs">aria-pressed</span>.
+            </li>
+            <li>
+              Descrição de conteúdo via texto invisível (
+              <span className="font-mono text-xs">sr-only</span>) associada ao vídeo.
+            </li>
+          </ul>
+        </section>
+
+        {/* 4.4 PORTFOLIO SHOWCASE */}
+        <section>
+          <h3>4.4 Portfolio showcase – faixas interativas</h3>
+
+          <h4>4.4.1 Objetivo</h4>
+          <p>
+            Destacar as principais frentes de atuação em um bloco editorial com três faixas
+            horizontais que funcionam como uma navegação incremental para o portfólio completo.
+          </p>
+
+          <h4>4.4.2 Layout desktop</h4>
+          <ul>
+            <li>
+              Headline centralizada “portfólio showcase”, com “portfólio” em branco e “showcase” em
+              azul.
+            </li>
+            <li>
+              Label flutuante “[what we love working on]” posicionada próxima à faixa “Brand &amp;
+              Campaigns”.
+            </li>
+            <li>
+              Três faixas horizontais cliqueáveis, em coluna:
+              <ul className="list-disc list-inside ml-4">
+                <li>Brand &amp; Campaigns (alinhada à direita).</li>
+                <li>Videos &amp; Motions (centralizada).</li>
+                <li>Web Campaigns, Websites &amp; Tech (alinhada à esquerda).</li>
+              </ul>
+            </li>
+            <li>
+              Cada faixa contém título em tipografia grande, ícone circular com seta e thumbnail de
+              vídeo/imagem que é revelada ao hover.
+            </li>
+            <li>
+              CTA “let’s build something great →” centralizado abaixo das faixas, levando à seção de
+              contato.
+            </li>
+          </ul>
+
+          <h4>4.4.3 Interações</h4>
+          <ul>
+            <li>
+              Na entrada da seção, as faixas surgem com <em>fade up</em> e leve{" "}
+              <em>stagger</em>.
+            </li>
+            <li>
+              Em hover, a thumbnail expande de largura 0 para ~288px com transição suave, o
+              espaçamento interno aumenta e a seta gira levemente para frente.
+            </li>
+            <li>
+              Clique em qualquer faixa leva ao portfólio completo com filtro aplicado pela
+              categoria correspondente.
+            </li>
+          </ul>
+
+          <h4>4.4.4 Responsividade</h4>
+          <ul>
+            <li>
+              Em mobile/tablet, as faixas se tornam cartões verticais full-width, sem hover,
+              thumbnails opcionais e foco no título + seta à direita.
+            </li>
+            <li>Label editorial flutuante é removida em telas pequenas.</li>
+            <li>CTA permanece visível e centralizado abaixo da listagem.</li>
+          </ul>
+        </section>
+
+        {/* 4.5 FEATURED PROJECTS */}
+        <section>
+          <h3>4.5 Featured projects – grid editorial</h3>
+
+          <h4>4.5.1 Objetivo</h4>
+          <p>
+            Apresentar uma seleção curada de projetos em layout de revista (bento grid), reforçando a
+            variedade de formatos e a consistência visual.
+          </p>
+
+          <h4>4.5.2 Layout desktop</h4>
+          <p>
+            O grid se organiza em três linhas irregulares, com cartões de tamanhos diferentes,
+            criando uma composição dinâmica mas equilibrada. Um cartão-CTA ocupa o canto inferior
+            direito.
+          </p>
+
+          <h4>4.5.3 Estrutura de cartão</h4>
+          <ul>
+            <li>Thumb em destaque (imagem ou GIF), sempre com object-fit: cover.</li>
+            <li>
+              Pills com tags posicionadas no topo direito da imagem (por exemplo: “branding”,
+              “campaign”).
+            </li>
+            <li>
+              Bloco informativo inferior com título do projeto, cliente, ano e ícone de seta em
+              círculo azul.
+            </li>
+          </ul>
+
+          <h4>4.5.4 Interações</h4>
+          <ul>
+            <li>
+              Em hover, a imagem escala levemente, o cartão sobe 1px e a seta se move para a
+              direita.
+            </li>
+            <li>
+              A seção se revela com animação de entrada em grupo, com os cartões animando em{" "}
+              <em>stagger</em>.
+            </li>
+            <li>
+              O cartão-CTA “Like what you see? / view projects →” muda a cor do texto para azul ao
+              hover, indicando navegação para a página de portfólio completo.
+            </li>
+          </ul>
+
+          <h4>4.5.5 Responsividade</h4>
+          <ul>
+            <li>Em telas menores, todos os cartões são empilhados verticalmente em largura total.</li>
+            <li>
+              O cartão-CTA é o último elemento da lista e se comporta como um botão amplo com texto
+              centralizado.
+            </li>
+          </ul>
+        </section>
+
+        {/* 4.6 CLIENTS */}
+        <section>
+          <h3>4.6 Clients / brands</h3>
+
+          <h4>4.6.1 Objetivo</h4>
+          <p>
+            Reforçar credibilidade por meio da exibição de marcas conhecidas com as quais Danilo já
+            trabalhou.
+          </p>
+
+          <h4>4.6.2 Layout</h4>
+          <ul>
+            <li>
+              Faixa de fundo azul intenso ocupando toda a largura, sem container restritivo.
+            </li>
+            <li>
+              Headline central “marcas com as quais já trabalhei.” em branco, peso Bold.
+            </li>
+            <li>
+              Grid responsivo de 12 logos, com 2–3 colunas em mobile e 6+ colunas em desktop.
+            </li>
+          </ul>
+
+          <h4>4.6.3 Interação e acessibilidade</h4>
+          <ul>
+            <li>
+              Logos podem ser clicáveis ou apenas exibir marca; em ambos os casos, mantêm{" "}
+              <span className="font-mono text-xs">alt</span> descritivo.
+            </li>
+            <li>
+              Em hover (desktop), escala e brilho aumentam levemente; em mobile, apenas feedback de
+              foco/toque.
+            </li>
+            <li>
+              Quando houver links, a navegação por teclado deve percorrer todos os logos com foco
+              visível.
+            </li>
+          </ul>
+        </section>
+
+        {/* 4.7 CONTACT */}
+        <section>
+          <h3>4.7 Contact</h3>
+
+          <h4>4.7.1 Objetivo</h4>
+          <p>
+            Oferecer meios claros de contato direto e um formulário simples, em ambiente
+            visualmente mais claro, que contrasta com o restante da página escura.
+          </p>
+
+          <h4>4.7.2 Layout desktop</h4>
+          <ul>
+            <li>Seção com fundo claro (quase branco) e texto escuro.</li>
+            <li>
+              Duas colunas:
+              <ul className="list-disc list-inside ml-4">
+                <li>Esquerda: título, subtítulo, informações de contato e redes.</li>
+                <li>Direita: formulário de contato.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h4>4.7.3 Layout mobile</h4>
+          <ul>
+            <li>
+              Colunas empilhadas: headline e subtítulo, bloco de contato, formulário, redes sociais.
+            </li>
+            <li>
+              Campos em largura total com altura mínima de 48px para toque confortável.
+            </li>
+          </ul>
+
+          <h4>4.7.4 Conteúdo</h4>
+          <ul>
+            <li>Headline: “contato”.</li>
+            <li>Subheadline: “Tem uma pergunta ou quer trabalhar junto?”.</li>
+            <li>
+              Canais diretos com ícones:
+              <ul className="list-disc list-inside ml-4">
+                <li>Telefone com link tel:+55..</li>
+                <li>E-mails principal e secundário com links mailto.</li>
+                <li>Link para o próprio portfólio (quando usado em outras páginas).</li>
+              </ul>
+            </li>
+            <li>
+              Redes sociais: Instagram, Facebook, LinkedIn, Twitter/X e link para o site, sempre
+              abrindo em nova aba.
+            </li>
+          </ul>
+
+          <h4>4.7.5 Formulário</h4>
+          <ul>
+            <li>Campos de nome, e-mail e mensagem, todos obrigatórios.</li>
+            <li>
+              Envio via POST para FormSubmit.co, com feedback de erro, sucesso e estado de
+              carregamento.
+            </li>
+            <li>
+              Botão “Enviar mensagem” em azul, com microanimações de hover/tap e foco visível.
+            </li>
+          </ul>
+        </section>
+
+        {/* 4.8 FOOTER */}
+        <section>
+          <h3>4.8 Footer</h3>
+
+          <h4>4.8.1 Objetivo</h4>
+          <p>
+            Encerrar a página com informações legais e caminhos adicionais de navegação, sem competir
+            com o conteúdo principal.
+          </p>
+
+          <h4>4.8.2 Comportamento desktop</h4>
+          <ul>
+            <li>
+              Barra fixa na base da viewport, em fundo azul, sempre visível enquanto o usuário rola
+              a página.
+            </li>
+            <li>
+              Layout horizontal: copyright à esquerda; navegação resumida e ícones sociais à
+              direita.
+            </li>
+            <li>
+              Links internos: hero, portfolio showcase, sobre e contato.
+            </li>
+          </ul>
+
+          <h4>4.8.3 Comportamento mobile</h4>
+          <ul>
+            <li>
+              Footer volta a ser seção estática no final do documento, nunca fixo e sem sobrepor
+              conteúdo.
+            </li>
+            <li>Elementos empilhados verticalmente, centralizados, com espaçamento generoso.</li>
+          </ul>
+
+          <h4>4.8.4 Conteúdo e acessibilidade</h4>
+          <ul>
+            <li>Texto de copyright em português, com ano atual.</li>
+            <li>Links e ícones com rótulos acessíveis e contraste adequado.</li>
+            <li>Tab order lógico e sem armadilhas de foco.</li>
+          </ul>
+        </section>
+      </section>
+
+      {/* =========================================================
+          5. IMPLEMENTAÇÃO TÉCNICA E QUALIDADE
+      ========================================================== */}
+      <section>
+        <h2>5. Implementação técnica e qualidade</h2>
+
+        <h3>5.1 Requisitos de performance</h3>
+        <ul>
+          <li>Peso inicial &lt; 2MB, com imagens WebP/AVIF e compressão adequada.</li>
+          <li>FCP &lt; 2s em 3G rápido; TTI &lt; 5s.</li>
+          <li>CLS &lt; 0.1 com uso de dimensões fixas para mídia.</li>
+        </ul>
+
+        <h3>5.2 Estratégias de otimização</h3>
+        <ul>
+          <li>Carregamento adiado de vídeo manifesto e canvas WebGL (imports dinâmicos).</li>
+          <li>Limpeza de classes Tailwind não utilizadas em produção.</li>
+          <li>
+            Limitação de device pixel ratio do canvas a no máximo 2, evitando sobrecarga gráfica.
+          </li>
+          <li>Pré-carregamento de fontes essenciais e subsetting quando possível.</li>
+        </ul>
+
+        <h3>5.3 Acessibilidade</h3>
+        <ul>
+          <li>Hierarquia semântica de headings respeitando ordem de H1 a H3/H4.</li>
+          <li>Todas as interações importantes acessíveis via teclado.</li>
+          <li>
+            Uso de <span className="font-mono text-xs">aria-label</span>,{" "}
+            <span className="font-mono text-xs">aria-controls</span>,{" "}
+            <span className="font-mono text-xs">aria-expanded</span> e{" "}
+            <span className="font-mono text-xs">aria-hidden</span> conforme necessário.
+          </li>
+          <li>
+            Consideração de <span className="font-mono text-xs">prefers-reduced-motion</span> em
+            animações de Hero, vídeo e grids.
+          </li>
+        </ul>
+
+        <h3>5.4 Estrutura de conteúdo e arquivos</h3>
+        <p>
+          A homepage é construída a partir de componentes modulares (Hero, Showcase, Featured,
+          Clients, Contact, Footer), facilitando manutenção e reuso em outras páginas.
+        </p>
+
+        <h3>5.5 Checklist de QA</h3>
+        <ul>
+          <li>Textos legíveis em todos os pontos, sem sobreposição com o WebGL.</li>
+          <li>Hero, vídeo manifesto e CTA principal funcionais em mobile e desktop.</li>
+          <li>Formulário enviando corretamente e exibindo mensagens de estado.</li>
+          <li>Links externos abrindo em novas abas com segurança.</li>
+          <li>Navegação completa apenas com teclado, sem travas de foco.</li>
+        </ul>
+      </section>
+
+      {/* =========================================================
+          6. TOM DE VOZ E CONTEÚDO
+      ========================================================== */}
+      <section>
+        <h2>6. Tom de voz e diretrizes de conteúdo</h2>
+        <ul>
+          <li>
+            <strong>Tom:</strong> profissional, direto e contemporâneo, sem jargão excessivo.
+          </li>
+          <li>
+            <strong>Estrutura:</strong> frases curtas, informações escaneáveis, uso equilibrado de
+            negrito para conceitos-chave.
+          </li>
+          <li>
+            <strong>Foco:</strong> resultado para o cliente, clareza de processo e impacto visual
+            dos projetos.
+          </li>
+          <li>
+            <strong>Consistência:</strong> repetir nomenclaturas de seções e categorias em todo o
+            ecossistema (home, sobre, portfólio).
+          </li>
+        </ul>
+      </section>
+    </article>
+  );
+}

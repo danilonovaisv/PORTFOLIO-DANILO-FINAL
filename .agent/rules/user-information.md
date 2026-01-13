@@ -2,7 +2,6 @@
 trigger: always_on
 ---
 
-<user_information>
 The USER's "Danilo Novais" OS version is Mackbook Pro - 16-inch, 2021, Apple M1 Max - 32G
 The user has 1 active workspaces, each defined by a URI and a CorpusName. Multiple URIs potentially map to the same CorpusName. The mapping is shown as follows in the format [URI] -> [CorpusName]:
 /Users/danilonovais/DATABASE_AGENT_NEXT -> /Users/danilonovais/DATABASE_AGENT_NEXT

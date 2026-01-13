@@ -15,7 +15,7 @@ export function Container({
   return (
     <Component
       className={cn(
-        'w-full max-w-[1400px] mx-auto px-6 md:px-12 xl:px-24',
+        'w-full max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24',
         className
       )}
       {...props}

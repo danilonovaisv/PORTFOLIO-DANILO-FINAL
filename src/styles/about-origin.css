@@ -2,35 +2,19 @@
 @config "../../tailwind.config.ts";
 
 .arch {
-  @apply flex gap-[60px] justify-between max-w-[1100px] mx-auto;
+  @apply flex gap-10 justify-between items-start w-full;
 }
 
 .arch__left {
-  @apply flex flex-col min-w-[300px];
+  @apply flex flex-col items-center justify-center w-full max-w-120 min-w-70;
 }
 
 .arch__info {
-  @apply max-w-[356px] h-screen grid place-items-center;
-}
-
-@media (min-width: 769px) {
-  .arch__left .arch__info:first-child {
-    @apply items-start pt-[10vh];
-  }
-
-  .arch__left .arch__info:first-child .content {
-    @apply top-0;
-  }
+  @apply w-full max-w-120 min-h-[72vh] grid place-items-center px-4;
 }
 
 .arch__info h2.header {
   @apply font-bold text-[32px] leading-[1.2] tracking-[-0.84px] font-outfit text-[#0048ff];
-}
-
-@media (min-width: 768px) {
-  .arch__info h2.header {
-    @apply text-[48px];
-  }
 }
 
 .arch__info p.desc {
@@ -38,28 +22,35 @@
 }
 
 @media (min-width: 768px) {
+  .arch__info h2.header {
+    @apply text-[48px];
+  }
+
   .arch__info p.desc {
     @apply text-[20px];
   }
 }
 
-.content.text-right {
-  @apply text-right;
+/* Utilities for responsive text */
+.text-responsive-h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 1.1;
 }
 
-.content.text-left {
-  @apply text-left;
+.text-responsive-p {
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  line-height: 1.6;
 }
 
 .arch__info a.link {
-  @apply no-underline p-[16px] pl-[18px] rounded-full inline-flex gap-[4px] items-center;
+  @apply no-underline p-4 pl-4.5 rounded-full inline-flex gap-1 items-center;
 }
 
 .arch__right {
-  flex-shrink: 1;
-  height: 100vh;
-  width: 100%;
-  max-width: 540px;
+  flex-shrink: 0;
+  width: min(72vw, 780px);
+  max-width: min(780px, 90vw);
+  height: min(92vh, 880px);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -70,10 +61,11 @@
   top: 50%;
   left: 0;
   transform: translateY(-50%);
-  height: 500px;
   width: 100%;
-  border-radius: 16px;
+  height: 100%;
+  border-radius: clamp(1.5rem, 2vw, 2.75rem);
   overflow: hidden;
+  will-change: transform, opacity, clip-path;
 }
 
 .arch__right .img-wrapper img {
@@ -83,20 +75,20 @@
   object-position: center;
 }
 
-/* Adjust content vertical position to slightly above center (-10%) */
+/* Adjust content vertical position to slightly above center */
 .content {
-  @apply relative top-[-10%];
+  @apply relative top-[-10%] w-full max-w-115 mx-auto;
 }
 
 @media (max-width: 900px) {
   .arch {
-    @apply gap-[30px];
+    @apply gap-8;
   }
 }
 
 @media (max-width: 768px) {
   .arch {
-    @apply flex-col gap-[20px];
+    @apply flex-col gap-5;
   }
 
   .arch__left,
@@ -109,7 +101,7 @@
   }
 
   .arch__right .img-wrapper {
-    @apply static transform-none opacity-100 visible;
+    @apply static transform-none opacity-100 visible rounded-[20px];
     display: block !important;
     width: 100% !important;
     height: auto !important;
@@ -128,7 +120,7 @@
   }
 
   .arch__left .arch__info {
-    @apply h-auto py-[40px] px-[20px] max-w-full;
+    @apply h-auto py-10 px-5 max-w-full;
   }
 
   /* Force center alignment on mobile */
@@ -140,11 +132,11 @@
 
 @media (max-width: 560px) {
   .arch {
-    @apply gap-[12px];
+    @apply gap-3;
   }
 
   .container {
-    @apply p-[10px];
+    @apply p-2.5;
   }
 
   .arch__right .img-wrapper {

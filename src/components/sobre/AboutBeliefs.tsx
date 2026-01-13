@@ -92,7 +92,7 @@ export function AboutBeliefs() {
       className="bg-background relative overflow-hidden py-20 md:py-28 lg:py-32"
       aria-label="O que me move"
     >
-      <div className="w-full max-w-[1200px] px-6 md:px-8 mx-auto flex flex-col items-center text-center gap-10">
+      <div className="std-grid flex flex-col items-center text-center gap-10">
         <motion.div
           variants={motionTokens.fadeGhost}
           initial={prefersReducedMotion ? 'visible' : 'hidden'}
@@ -136,7 +136,7 @@ export function AboutBeliefs() {
           variants={motionTokens.fadeGhost}
           initial={prefersReducedMotion ? 'visible' : 'hidden'}
           animate="visible"
-          className="mt-16 w-full max-w-[1200px] px-6 md:px-8 mx-auto"
+          className="mt-16 std-grid w-full"
         >
           <div className="grid gap-10 items-center lg:grid-cols-2">
             <div className="flex justify-center lg:justify-start">

@@ -52,14 +52,14 @@ export default function DesktopFluidHeader({
     >
       <div
         className={
-          'flex justify-center w-full max-w-[1400px] mx-auto px-6 md:px-12 xl:px-24'
+          'flex justify-center w-full max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24'
         }
       >
-        <div ref={wrapRef} className="pointer-events-auto w-fit relative">
+        <div ref={wrapRef} className="pointer-events-auto w-full relative">
           <div
             className={`${styles.headerContainer} ${
               isLight ? styles.headerLight : styles.headerDark
-            } h-16 min-w-[700px] rounded-full backdrop-blur-md border border-white/10 bg-black/20 transition-all duration-300`}
+            } h-16 w-[calc(100%+5rem)] -ml-10 rounded-4xl backdrop-blur-md border border-white/10 bg-black/20 transition-all duration-300`}
           >
             {/* glass background - Static only */}
             {/* <div className="absolute inset-0 rounded-full overflow-hidden">
@@ -68,7 +68,7 @@ export default function DesktopFluidHeader({
             </div> */}
 
             {/* content */}
-            <div className="relative z-10 h-full px-8 flex items-center justify-between gap-6">
+            <div className="relative z-10 h-full px-10 flex items-center justify-between gap-6">
               <Link
                 href="/"
                 aria-label="Ir para Home"

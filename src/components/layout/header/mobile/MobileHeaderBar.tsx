@@ -61,7 +61,7 @@ export default function MobileHeaderBar({
             : 'bg-background/40 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/20'
         }`}
       >
-        <div className="flex items-center justify-between h-full px-6">
+        <div className="flex items-center justify-between h-full w-full max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24">
           <motion.div variants={itemVariants}>
             <Link href="/" onClick={onLogoClick}>
               <Image

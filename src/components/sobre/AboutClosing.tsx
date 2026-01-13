@@ -12,7 +12,7 @@ export function AboutClosing() {
 
   return (
     <section
-      className="flex items-center justify-center px-6 md:px-12 lg:px-20 bg-background py-20 md:py-24"
+      className="std-grid flex items-center justify-center bg-background py-20 md:py-24"
       aria-label="Fechamento"
     >
       <motion.div

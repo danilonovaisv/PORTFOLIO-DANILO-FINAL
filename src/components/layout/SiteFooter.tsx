@@ -34,7 +34,7 @@ export default function SiteFooter() {
       className="w-full bg-[#0057FF] text-white lg:fixed lg:bottom-0 lg:left-0 lg:z-10 relative z-0"
       aria-label="Rodapé do site"
     >
-      <div className="max-w-[1680px] mx-auto px-6 md:px-12 xl:px-24 flex flex-col lg:flex-row items-center justify-between py-10 lg:py-0 lg:h-[64px] gap-8 lg:gap-0">
+      <div className="w-full max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24 flex flex-col lg:flex-row items-center justify-between py-10 lg:py-0 lg:h-[64px] gap-8 lg:gap-0">
         {/* 1. Copyright (Order 1 on Mobile, Left on Desktop) */}
         <div className="order-1 lg:order-0">
           <p className="text-[0.875rem] lg:text-[10px] font-medium tracking-[0.05em] uppercase opacity-90 lg:opacity-100 text-center lg:text-left">

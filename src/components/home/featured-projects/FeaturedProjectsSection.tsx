@@ -55,7 +55,7 @@ export default function FeaturedProjectsSection({
           viewport={{ once: true, amount: 0.2 }}
           variants={staggerContainer(0.12)}
           // Mobile: single column stack | Desktop: 12-col grid
-          className="flex flex-col gap-6 md:grid md:grid-cols-12 md:gap-y-12 md:gap-x-6"
+          className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-x-4 md:gap-x-6 lg:gap-x-8 gap-y-6 md:gap-y-12"
         >
           {featuredProjects.map((project) => {
             if (!project?.layout) return null;
@@ -64,7 +64,7 @@ export default function FeaturedProjectsSection({
                 key={project.id}
                 variants={cardVariants}
                 // Mobile: full-width | Desktop: bento-style spans
-                className={`w-full ${project.layout.cols}`}
+                className={`w-full col-span-4 ${project.layout.cols}`}
               >
                 <FeaturedProjectCard project={project} onOpen={onProjectOpen} />
               </motion.div>
@@ -72,7 +72,10 @@ export default function FeaturedProjectsSection({
           })}
 
           {/* CTA Card - Mobile: full-width button | Desktop: col-span-4 */}
-          <motion.div variants={cardVariants} className="w-full md:col-span-4">
+          <motion.div
+            variants={cardVariants}
+            className="w-full col-span-4 md:col-span-3 lg:col-span-4"
+          >
             <CTAProjectCard />
           </motion.div>
         </motion.div>

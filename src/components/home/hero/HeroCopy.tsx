@@ -71,7 +71,7 @@ export default function HeroCopy({
   // Estrutura de conteúdo idêntica para ambas as camadas para garantir alinhamento perfeito
   const renderTextContent = (isMask: boolean) => (
     <Container className={isMask ? styles.maskText : styles.baseText}>
-      <div className="flex flex-col items-center lg:items-center text-center lg:text-center">
+      <div className="flex flex-col items-center">
         {/* Tag decorativa */}
         <span
           className={`block mb-3 lg:mb-4 tracking-[0.25em] uppercase font-bold text-accent text-micro ${isMask ? '' : styles.tag}`}
@@ -81,13 +81,13 @@ export default function HeroCopy({
 
         {/* Headline - Desktop (2 linhas) */}
         <h1
-          className={`hidden lg:block mb-8 lg:mb-12 font-display ${styles.heroTitle}`}
+          className={`hidden lg:block mb-20 font-display ${styles.heroTitle}`}
         >
           {HOME_CONTENT.hero.title[0].split(' ').slice(0, 2).join(' ')} <br />
           {HOME_CONTENT.hero.title[0].split(' ').slice(2).join(' ')}
         </h1>
 
-        {/* Headline - Mobile & Tablet (3 linhas) - Centered */}
+        {/* Headline - Mobile & Tablet (3 linhas) */}
         <h1 className={`lg:hidden mb-12 font-display ${styles.heroTitle}`}>
           {HOME_CONTENT.hero.title[0].split(' ').slice(0, 2).join(' ')} <br />
           {HOME_CONTENT.hero.title[0].split(' ').slice(2, 4).join(' ')} <br />
@@ -96,7 +96,7 @@ export default function HeroCopy({
 
         {/* Subheading */}
         <h2
-          className={`font-h2 type-h2 mt-4 lg:mt-6 text-textSecondary ${isMask ? '' : 'opacity-80'} ${styles.heroSubtitle} max-w-[500px]`}
+          className={`font-h2 type-h2 mt-6 lg:mt-9 text-textSecondary ${isMask ? '' : 'opacity-80'} ${styles.heroSubtitle}`}
         >
           {HOME_CONTENT.hero.subtitle}
         </h2>
@@ -107,12 +107,12 @@ export default function HeroCopy({
   return (
     <motion.div
       {...motionProps}
-      className={`relative flex flex-col items-center lg:items-center justify-center w-full pointer-events-auto ${styles.root}`}
+      className={`relative flex flex-col items-center justify-center text-center w-full pointer-events-auto ${styles.root}`}
     >
       {/* Camada 1: Texto Base (Low Opacity) */}
       <motion.div
         variants={itemAnimation}
-        className="w-full flex flex-col items-center lg:items-center"
+        className="w-full flex flex-col items-center"
       >
         {renderTextContent(false)}
         <div className={styles.ctaSpacer}></div>
@@ -121,7 +121,7 @@ export default function HeroCopy({
       {/* Camada 2: Texto Revelado (Masked / Bright / Glow) */}
       {!prefersReducedMotion && (
         <div className={styles.maskLayer} aria-hidden="true">
-          <div className="w-full flex flex-col items-center lg:items-center">
+          <div className="w-full flex flex-col items-center text-center">
             <motion.div variants={itemAnimation}>
               {renderTextContent(true)}
               <div className={styles.ctaSpacer}></div>

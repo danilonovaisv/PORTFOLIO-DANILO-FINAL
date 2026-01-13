@@ -19,35 +19,46 @@ description: ### ⚡ Workflow CALL TO ACTION BUTTON
    - `Ação`: O que mudar (ex: "Aumentar padding", "Corrigir Z-Index").
    - `Validação`: Critério de sucesso (ex: "Compilar sem erros", "Igual à imagem X").
 
-7. **Arquitetura (Camadas):**
+## 📂 FASE 2: Extração de Contexto & Fonte da Verdade
 
-- O CTA não deve estar dentro do Canvas do Three.js (para manter a acessibilidade e nitidez do texto).
-- Ele será um **Overlay HTML** absoluto sobre o Canvas `z-50`, permitindo que a cena 3D (R3F) rode no fundo enquanto o botão flutua por cima.
+**Agente Responsável:** 🕵️‍♂️ _The Analyst (O Analista)_
+
+**Objetivo:** Ler todos os arquivos da pasta `.context` (`HOME.md`, `SOBRE.md`, `PORTFOLIO.md`) e consolidar as regras vitais em um arquivo JSON.
+
+### 📜 Ação 0.1: Criação do `project_truth.json`
+
+### FASE 3: Protocolo de Análise Profunda
+
+1. **Arquitetura (Camadas):**
+
+- CTA como **Overlay HTML absoluto z-50** sobre canvas/hero images (acessibilidade + nitidez texto).
+- Layout pill-fusion: Texto pill esquerda (h-64px pl-8 pr-6 rounded-l-full) + esfera ícone direita (h/w-64px -ml-4 rounded-full border-l para seam), unificado em motion.a flex.
 
 2. **Motor de Animação (Physics):**
 
-- Substituir `transition-all` do CSS por `layout` e `spring` do Framer Motion.
-- **Sensação:** Quando o mouse sai, o botão não "volta" de forma linear; ele "salta" de volta para o lugar (efeito elástico).
+- Framer Motion `spring` (stiffness:400-500, damping:20-25) replace CSS transitions.
+- **Sensação elástica:** Mouseout salta bouncy de volta; hover: y:-6px elevação, icon rotate -45→0 + x:8px stretch.
 
 3. **Efeitos Visuais (VFX):**
 
-- **Compound Fusion:** Manter a margem negativa para unir a pílula e a esfera.
-- **Glow Atmosférico:** Usar `drop-shadow` intenso no hover para simular energia (como um sabre de luz ou neon).
+- **Fusion Compound:** -ml-4 + border-l same-color para junção seamless pílula-esfera.
+- **Glow Neon:** Div blur-xl bg-gradient-blue opacity-0→70% scale-90→110%; drop-shadow-[0_0_20px_rgba(0,87,255,0.8)] hover:intenso.
+- **Extra do site:** Subtil mouse parallax/tilt no container; ícone stroke anima (width 2→3).
 
----
+O código atual já replica ~90% fielmente (mesmo texto "let's build something great"!, spring/glow/fusion). Sugestões menores pra 100% match:
 
-### 🛠️ Código do Componente (Copy & Paste)
+- Adicione `scale: 1.02` no `whileHover`.
+- Glow: `filter: drop-shadow(0 0 16px rgb(0 87 255 / 0.5)) group-hover:drop-shadow(0 0 32px rgb(0 87 255 / 0.8))`.
+- Icon: `strokeWidth: 2→3.5` no hover variant.
 
-Cria o ficheiro `components/AntigravityCTA.tsx`.
-
-**Nota:** O uso de `'use client'` é obrigatório aqui porque o Framer Motion usa hooks de estado e efeitos do React.
+### 🛠️ Código Atualizado `components/AntigravityCTA.tsx` (Lo&Behold Replica)
 
 ```tsx
 'use client';
 
 import React from 'react';
-import { motion, Variants } from 'framer-motion'; // Motor de física
-import { ArrowUpRight } from 'lucide-react'; // Ícone da referência
+import { motion, Variants } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 
 interface AntigravityCTAProps {
   text?: string;
@@ -56,24 +67,18 @@ interface AntigravityCTAProps {
 }
 
 const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
-  text = "let's build something great",
+  text = "let's build something great", // Match exato do site
   href = '#',
   onClick,
 }) => {
-  // Configuração da Física (Spring)
-  // stiffness: rigidez da mola (quanto maior, mais rápido)
-  // damping: amortecimento (quanto menor, mais "bouncy" fica)
-  const springConfig = { type: 'spring', stiffness: 400, damping: 25 };
+  const springConfig = { type: 'spring', stiffness: 450, damping: 22 }; // Tuned bouncy como site
 
-  // Variantes para orquestrar animações pai-filho
   const iconVariants: Variants = {
-    initial: {
-      rotate: -45,
-      x: 0,
-    },
+    initial: { rotate: -45, x: 0, strokeWidth: 2.5 },
     hover: {
       rotate: 0,
-      x: 6, // Move 6px para a direita (efeito esticar)
+      x: 8,
+      strokeWidth: 3.5, // Expande stroke como neons
       transition: springConfig,
     },
   };
@@ -82,37 +87,31 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
     <motion.a
       href={href}
       onClick={onClick}
-      className="
-        relative group flex items-center cursor-pointer
-        focus:outline-none z-50
-      "
-      // Animação de elevação e Glow no Container Pai
-      whileHover={{ y: -4 }} // Levita 4px
-      transition={springConfig}
+      className="relative group flex items-center cursor-pointer focus:outline-none z-50"
+      whileHover={{
+        y: -6, // Match elevação site
+        scale: 1.02, // Subtil grow
+        transition: springConfig,
+      }}
+      // Parallax tilt opcional (add useMotionValue para mouseX/Y se quiser full replica)
     >
-      {/* --- GLOW EFFECT (Camada de Brilho) --- 
-          Usamos um div absoluto atrás para controlar o blur/glow 
-          sem afetar a nitidez do texto.
-      */}
+      {/* Glow Atmosférico (Neon Lo&Behold style) */}
       <div
         className="
         absolute inset-0 rounded-full 
-        bg-blue-500 blur-xl opacity-0 
-        group-hover:opacity-60 transition-opacity duration-500
-        scale-90 group-hover:scale-110
+        bg-gradient-to-r from-blue-500 to-purple-600 blur-xl opacity-0 
+        group-hover:opacity-70 transition-all duration-300
+        scale-[0.9] group-hover:scale-[1.12] 
+        drop-shadow-none group-hover:drop-shadow-[0_0_32px_rgba(0,87,255,0.8)]
       "
       />
 
-      {/* --- 1. PÍLULA DE TEXTO (Esquerda) --- */}
+      {/* Pílula Texto */}
       <div
         className="
-        relative z-10
-        flex items-center justify-center
-        h-[64px] pl-8 pr-6
-        bg-[#0057ff] text-white
-        rounded-l-full
-        /* Hack visual para fusão perfeita na direita */
-        rounded-r-none 
+        relative z-10 flex items-center justify-center
+        h-[64px] pl-8 pr-6 bg-[#0057ff]/90 backdrop-blur-sm text-white
+        rounded-l-full rounded-r-none shadow-lg
       "
       >
         <span className="text-lg font-medium tracking-wide whitespace-nowrap">
@@ -120,23 +119,19 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
         </span>
       </div>
 
-      {/* --- 2. NÚCLEO DO ÍCONE (Direita) --- */}
+      {/* Núcleo Ícone Esfera */}
       <motion.div
         className="
-          relative z-20
-          flex items-center justify-center
-          h-[64px] w-[64px]
-          /* MARGEM NEGATIVA: Cria a fusão visual */
-          -ml-4
-          bg-[#0057ff] text-white
-          rounded-full
-          /* Borda sutil para definir o corte se desejar, ou remova para fusão total */
-          border-l-4 border-[#0057ff] 
+          relative z-20 flex items-center justify-center
+          h-[64px] w-[64px] -ml-4
+          bg-[#0057ff]/90 backdrop-blur-sm text-white
+          rounded-full border-l-4 border-[#0057ff]/90 shadow-2xl
         "
-        // Conecta este elemento ao hover do pai (motion.a)
         variants={iconVariants}
+        initial="initial"
+        whileHover="hover"
       >
-        <ArrowUpRight size={28} strokeWidth={2.5} />
+        <ArrowUpRight size={28} />
       </motion.div>
     </motion.a>
   );

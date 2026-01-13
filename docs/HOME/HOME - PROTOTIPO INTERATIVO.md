@@ -1,1666 +1,572 @@
-# **HOME - PROTOTIPO INTERATIO**
+*Versão:** 4.0  
+**Última Atualização:** Janeiro 2026  
+**Status:** ✅ Pronto para Implementação
 
-# Danilo Novais Portfolio Homepage
-## Technical Documentation & Design Specifications
-Technical Documentation & Design Specifications
-Version: 3.0
-Last Updated: January 03, 2026 
-Status: ✅ Ready for Implementation
+---
 
+## 1. Visão Geral do Projeto
 
+### 1.1 Propósito
+
+Este portfólio digital foi concebido como uma **experiência editorial premium**, onde o design não apenas mostra trabalhos, mas demonstra excelência através de sua própria execução. A filosofia central — *"Você não vê o design. Mas ele vê você."* — permeia cada decisão de interface, animação e conteúdo.
 
 
 ## 1. PROJECT OVERVIEW
 
-### 1.1 Vision & Goals 
+### 1.1 Vision & Goals
 Create a premium institutional portfolio that demonstrates design excellence not just through showcased work, but through the site's own execution. The homepage must:
-- Establish immediate credibility through atmospheric visual design and edit   orial sophistication
-- Guide visitors intuitively from brand introduction → work showcase → contact
-- Feel distinctive and memorable without sacrificing usability or accessibility
-- Perform flawlessly across all devices and connection speeds
-- Reflect the designer's philosophy: "You don't see design. But it sees you."
-
-Success looks like:
-- Visitors spending 2+ minutes exploring the portfolio
-- High engagement with featured projects (50%+ click-through)
-- Contact form conversions from qualified leads
-- Zero accessibility violations (WCAG AA minimum)
-- Lighthouse scores: Performance 90+, Accessibility 100, Best Practices 100
+- **Atmosphere:** Establish immediate credibility through visual design and editorial sophistication.
+- **Flow:** Guide visitors intuitively: Brand Intro → Work Showcase → Contact.
+- **Performance:** Feel distinctive without sacrificing usability (Lighthouse 90+).
+- **Philosophy:** Reflect "You don't see design. But it sees you."
 
 ### 1.2 Target Audience
-Primary:
-- Brand managers and marketing directors at mid-to-large companies seeking design partners
-- Creative agencies looking for freelance brand designers or collaborators
-- Startups and scale-ups needing brand identity and campaign work
-
-Secondary:
-- Design recruiters and HR professionals
-- Fellow designers and creative community (peer recognition)
-- Potential collaborators for interdisciplinary projects
-
-User Needs:
-- Quickly understand what Danilo does and his areas of expertise
-- See evidence of high-quality work across branding, campaigns, and digital
-- Assess cultural fit and working style
-- Easily initiate contact
+- **Primary:** Brand Managers, Marketing Directors, Creative Agencies.
+- **Secondary:** Recruiters, Design Community.
+- **User Needs:** Quick understanding of expertise, evidence of high-quality work, ease of contact.
 
 ### 1.3 Key Success Metrics
-Engagement: Average session duration, scroll depth, interaction rate
-Conversion: Contact form submissions, portfolio page visits
-Technical: Page load time <3s, Core Web Vitals passing, 0 console errors
-Accessibility: WCAG AA compliance, keyboard navigation coverage
+- **Engagement:** >2 min session duration.
+- **Conversion:** 50%+ click-through on featured projects.
+- **Technical:** Load time <3s, Zero Accessibility violations (WCAG AA).
 
-### 1.4 Technical Constraints
-- No localStorage/sessionStorage in artifacts (Claude.ai environment restriction)
-- Self-hosted assets where possible to avoid external dependencies
-- Graceful degradation for WebGL/3D features (fallback to static alternatives)
-- Mobile-first responsive design (majority of traffic expected from mobile)
-- Performance budget: <2MB initial page weight, <5s time to interactive
-
+### 1.4 Technical Constraints & Stack
+- **Core:** Next.js 15 (App Router), React 18.3+, TypeScript 5.x.
+- **Style:** Tailwind CSS 3.4+ (Fluid Typography plugin).
+- **Motion/3D:** Framer Motion (UI), React Three Fiber (Ghost Backgrounds).
+- **Storage:** Supabase (Assets/Images).
+- **Constraints:** Mobile-first, <2MB initial page weight, No external analytics scripts blocking thread.
 
 
-# **2. DESIGN SYSTEM**
+---
+
+## 1.5. Arquitetura da Informação
+
+### 1.5.1 Estrutura do Site
+
+```
+Homepage
+├── Hero (Entrada Imersiva)
+├── Vídeo Manifesto
+├── Portfolio Showcase (Categorias)
+├── Featured Projects (Bento Grid)
+├── Clientes/Marcas
+└── Contato + Footer
+```
+
+### 1,5.2 Fluxo de Navegação
+
+```
+Hero → Portfolio Showcase → Projetos → Contato
+  ↓
+Sobre (secundário)
+```
+
+**Princípio:** Guiar intuitivamente do contexto (quem sou) → trabalho (o que faço) → ação (como trabalhar junto).
+
+---
+
+## 2. DESIGN SYSTEM
 
 ### 2.1 Color Palette
 
-| Token          | Value     | Uso                                                      |
-| -------------- | --------- | -------------------------------------------------------- |
-| bluePrimary    | `#0048ff` | Cor primária da marca, CTAs, links, elementos interativos |
-| blueAccent     | `#4fe6ff` | Destaques secundários, brilhos “ghost”/atmosfera        |
-| purpleDetails  | `#8705f2` | Pequenos detalhes e highlights                           |
-| pinkDetails    | `#f501d3` | Pequenos detalhes, ênfases pontuais                      |
-| background     | `#040013` | Fundo escuro principal                                   |
-| backgroundLight| `#f0f0f0` | Seções claras (forms, blocos alternados)                 |
-| text           | `#fcffff` | Texto principal em fundo escuro                          |
-| textInverse    | `#0e0e0e` | Texto em fundos claros                                   |
-| textEmphasis   | `#2E85F2` | Palavras destacadas no meio do texto                     |
-| textHighlight  | `#4fe6ff` | Destaques curtos, intros breves                          |
-| textSecondary  | `#a1a3a3` | Infos secundárias, metadata                              |
-| neutral        | `#0b0d3a` | Gradientes, fundos sutis                                 |
-| neutralLight   | `#F5F5F5` | Fundos de seções secundárias                             |
-
-> Obs: `textEmphasis` estava com `##2E85F2` e `textHilght` com typo — normalizei para `textHighlight`.
+| Token          | Value     | Uso Principal                                      |
+| :------------- | :-------- | :------------------------------------------------- |
+| **bluePrimary**| `#0048ff` | Marca, CTAs, Links, Foco                           |
+| **blueAccent** | `#4fe6ff` | Atmosfera Ghost, Brilhos, Highlights               |
+| **background** | `#040013` | Deep Void (Fundo Principal)                        |
+| **text** | `#fcffff` | Texto Primário (Contraste Alto)                    |
+| **textSecondary**| `#a1a3a3`| Metadados, Legendas                                |
+| **surface** | `#0b0d3a` | Cards sutis, Gradientes de fundo                   |
+| **error** | `#ff3366` | Validação de formulários                           |
 
 ---
 
 ### 2.2 Typography
 
-**Fonte primária:** TT Norms Pro (self-hosted, fallback: `ui-sans-serif, system-ui`)
+**Family:** `TT Norms Pro` (Primary), `Geist Mono` (Code/Tech details).
 
-Tokens de texto **responsivos** (usando `clamp`) para manter coerência em todos os breakpoints:
+#### Fluid Typography Tokens (`clamp`)
 
-| Token     | Mobile (~<640px) | Desktop (~≥1024px) | Peso   | Uso                                                                 |
-| --------- | ---------------- | ------------------ | ------ | ------------------------------------------------------------------- |
-| display   | 2.5rem (40px)    | 4.5rem (72px)      | Black  | Frases grandes no meio da página, não-semânticas (Big Phrase)      |
-| h1        | 2rem (32px)      | 3.5rem (56px)      | Bold   | Hero headlines, títulos principais                                  |
-| h2        | 1.5rem (24px)    | 2.5rem (40px)      | Bold   | Títulos de seção                                                    |
-| h3        | 1.25rem (20px)   | 1.75rem (28px)     | Medium | Títulos de cards, subtítulos                                       |
-| body      | 1rem (16px)      | 1.125rem (18px)    | Regular| Texto corrido                                                       |
-| small     | 0.875rem (14px)  | 0.875rem (14px)    | Reg/Med| Labels, legendas                                                   |
-| micro     | 0.75rem (12px)   | 0.75rem (12px)     | Mono   | Tags, infos de sistema                                              |
+| Token      | Mobile (<768px)  | Desktop (≥1024px) | Weight | Tailwind Class |
+| :--------- | :--------------- | :---------------- | :----- | :------------- |
+| **Display**| 2.5rem (40px)    | 5.5rem (88px)     | Black  | `text-display` |
+| **H1** | 2rem (32px)      | 3.5rem (56px)     | Bold   | `text-h1`      |
+| **H2** | 1.5rem (24px)    | 2.5rem (40px)     | Bold   | `text-h2`      |
+| **H3** | 1.25rem (20px)   | 1.75rem (28px)    | Medium | `text-h3`      |
+| **Body** | 1rem (16px)      | 1.125rem (18px)   | Regular| `text-body`    |
 
-#### Tokens em CSS com `clamp()`
-
-['css
-:root {
-  --font-display: clamp(2.5rem, 5vw, 4.5rem);
-  --font-h1:      clamp(2rem, 4vw, 3.5rem);
-  --font-h2:      clamp(1.5rem, 3vw, 2.5rem);
-  --font-h3:      clamp(1.25rem, 2vw, 1.75rem);
-  --font-body:    clamp(1rem, 1.2vw, 1.125rem);
-  --font-small:   0.875rem;
-  --font-micro:   0.75rem;
+**CSS Implementation:**
+```css
+@layer base {
+  :root {
+    --font-display: clamp(2.5rem, 5vw + 1rem, 5.5rem);
+    --font-h1: clamp(2rem, 4vw + 1rem, 3.5rem);
+    --font-body: clamp(1rem, 0.5vw + 0.8rem, 1.125rem);
+  }
 }
 
-body {
-  font-family: "TT Norms Pro", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
-}
+```
+---
 
-.display-text {
-  font-size: var(--font-display);
-  font-weight: 700;
-  line-height: 1.1;
-}
+### 2.3 Spacing, Grid & Layout (OPTIMIZED)
 
-.h1 {
-  font-size: var(--font-h1);
-  font-weight: 700;
-  line-height: 1.1;
-}
+O sistema de Grid foi otimizado para **12 colunas** no desktop e **4 colunas** no mobile, garantindo alinhamento matemático perfeito.
 
-.h2 {
-  font-size: var(--font-h2);
-  font-weight: 700;
-  line-height: 1.15;
-}
+#### 📐 The Ghost Grid System
 
-.h3 {
-  font-size: var(--font-h3);
-  font-weight: 500;
-  line-height: 1.2;
-}
+| Breakpoint | Columns | Gutter (Gap) | Margin (X-Padding) | Container Max |
+| --- | --- | --- | --- | --- |
+| **Mobile** (<768px) | **4** | `16px` (gap-4) | `24px` (px-6) | 100% |
+| **Tablet** (768px+) | **8** | `24px` (gap-6) | `48px` (px-12) | 100% |
+| **Desktop** (1024px+) | **12** | `32px` (gap-8) | `64px` (px-16) | 1440px |
+| **Wide** (1600px+) | **12** | `40px` (gap-10) | `96px` (px-24) | 1680px |
 
-.body {
-  font-size: var(--font-body);
-  font-weight: 400;
-  line-height: 1.5;
-}
+#### 🧱 Tailwind Composition
 
-.small {
-  font-size: var(--font-small);
-}
+**1. Container Base:**
 
-.micro {
-  font-size: var(--font-micro);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
-    monospace;
-}
+```tsx
+// Wrapper global para centralizar o conteúdo
+<div className="w-full max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24">
+  {children}
+</div>
 
-Versão conceitual em Tailwind
+```
 
-// tailwind.config.js
-module.exports = {
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['"TT Norms Pro"', "ui-sans-serif", "system-ui"],
-      },
-      fontSize: {
-        display: [
-          "clamp(2.5rem, 5vw, 4.5rem)",
-          { lineHeight: "1.1", fontWeight: "700" },
-        ],
-        h1: [
-          "clamp(2rem, 4vw, 3.5rem)",
-          { lineHeight: "1.1", fontWeight: "700" },
-        ],
-        h2: [
-          "clamp(1.5rem, 3vw, 2.5rem)",
-          { lineHeight: "1.15", fontWeight: "700" },
-        ],
-        h3: [
-          "clamp(1.25rem, 2vw, 1.75rem)",
-          { lineHeight: "1.2", fontWeight: "500" },
-        ],
-        body: [
-          "clamp(1rem, 1.2vw, 1.125rem)",
-          { lineHeight: "1.5", fontWeight: "400" },
-        ],
-        small: ["0.875rem", { lineHeight: "1.4" }],
-        micro: ["0.75rem", { lineHeight: "1.4" }],
-      },
-    },
-  },
-};']
+**2. Section Grid (Padrão):**
 
-
-
-## 2.3 Spacing & Grid
-
-Container
-    •    max-width: 1680px
-    •    Padding horizontal: clamp(24px, 5vw, 96px)
-
-Ritmo Vertical
-    •    Seções: py-16 md:py-24
-    •    Componentes: gap-8 md:gap-12
-    •    Elementos internos: gap-4 md:gap-6
-
-Grid (Tailwind)
-    •    Mobile (até md):
-    •    Layout: 1 coluna (grid-cols-1 ou flex flex-col)
-    •    w-full
-    •    Alinhamento:
-    •    text-center para todos os textos
-    •    items-center e justify-center para stacks verticais (flex-col)
-    •    Tablet (md:):
-    •    Cards em md:grid-cols-2
-    •    Hero / destaques podem continuar 1 coluna
-    •    Textos podem voltar a text-left se fizer sentido
-    •    Desktop (lg:+):
-    •    Distribuição customizada por seção
-    •    Textos geralmente alinhados à esquerda para leitura longa
-
-Regra de alinhamento para mobile (base do sistema):
-
-Breakpoint padrão: < 768px
-Regra:
-    •    Todos os títulos (display, h1, h2, h3), parágrafos e CTAs usam text-align: center.
-    •    Componentes em coluna usam align-items: center.
-    •    Imagens e ícones principais centralizados (margin-inline: auto).
-
-Exemplo padrão de seção:
-
-<section className="flex flex-col items-center text-center md:items-start md:text-left">
-  {/* conteúdo */}
+```tsx
+// Grid responsivo automático
+<section className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-8 w-full py-16 md:py-24">
+  {/* Ex: Card ocupando full no mobile e 4 colunas no desktop */}
+  <div className="col-span-4 md:col-span-4 lg:col-span-4">
+    Card Content
+  </div>
 </section>
 
+```
 
-⸻
+**3. Z-Index Layering (Ghost Philosophy):**
+Para garantir que o 3D não bloqueie a interatividade.
 
-## 2.4 Animation Principles
+* `z-0`: **Canvas WebGL** (Background interativo).
+* `z-10`: **Glass Layers** (Paineis com backdrop-blur).
+* `z-20`: **Content** (Textos, Imagens).
+* `z-50`: **Navigation/Header** (Sticky).
+* `z-100`: **Modals/Overlays**.
 
-Filosofia: animações orgânicas e intencionais, nunca gratuitas.
+#### 📱 Mobile Alignment Rules
 
-Core Library: Framer Motion
+No breakpoint `< md` (Mobile First):
 
-Diretrizes:
-    •    Animar apenas transform e opacity (performance)
-    •    Easing: cubic-bezier(0.22, 1, 0.36, 1) (easeOutExpo)
-    •    Duração: 300–700ms na maioria das transições
-    •    Stagger: 60–120ms entre elementos sequenciais
-    •    Respeitar prefers-reduced-motion: desabilitar animações não essenciais
+1. **Text Align:** `text-center` (Títulos e CTAs).
+2. **Flex:** `flex-col items-center`.
+3. **Order:** Visualmente o "Hero Image/Video" pode vir antes ou depois do texto dependendo da narrativa, usar `order-first` ou `order-last`.
 
-Padrões comuns:
+---
 
-// Scroll reveal
+### 2.4 Animation Principles
+
+**Engine:** Framer Motion + Lenis Scroll.
+
+**The "Ghost" Easing:**
+Sensação de peso e elegância. Movimento rápido no início, frenagem suave no final.
+
+* `ease: [0.22, 1, 0.36, 1]`
+
+**Padrões de Código:**
+
+```tsx
+// 1. Reveal Padrão (Fade Up)
 <motion.div
-  initial={{ opacity: 0, y: 24 }}
+  initial={{ opacity: 0, y: 32 }}
   whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-/>
+  viewport={{ once: true, margin: "-10%" }}
+  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+>
 
-// Hover (botões, cards)
-<motion.button
-  whileHover={{ scale: 1.02, y: -2 }}
-  transition={{ duration: 0.3 }}
-/>
-
-// Staggered children
-const variants = {
+// 2. Container Stagger (Cascata)
+const containerVars = {
   hidden: { opacity: 0 },
-  visible: {
+  show: {
     opacity: 1,
-    transition: { staggerChildren: 0.08 },
-  },
-};
-
-Em mobile, como tudo é centralizado e o fluxo é vertical, as entradas preferenciais vêm de baixo (y: 24 → 0) acompanhando o scroll.
-
-⸻
-
-## 2.5 Display Text / Big Phrases (Frases em destaque)
-
-Frases grandes no meio da página, com grande destaque visual, mas sem função de título semântico.
-
-Token: display
-
-Diretrizes de uso:
-    •    Quando usar:
-    •    Frases de impacto, statements da marca, quotes, promessas fortes de seção.
-    •    Semântica:
-    •    Usar como <p> ou <span> com classe específica:
-    •    className="display-text" ou className="text-display"
-    •    Exemplo:
-
-<p className="text-display">
-  Construímos experiências digitais que parecem magia, mas são guiadas por dados.
-</p>
-
-
-    •    Alinhamento:
-    •    Mobile: sempre centralizado, com largura limitada:
-    •    Ex.: className="text-display max-w-2xl mx-auto text-center"
-    •    Desktop: pode ser centralizado ou seguir a grid da seção (recomendado manter centralizado em blocos de destaque).
-    •    Espaçamento:
-    •    Mais respiro que títulos normais:
-    •    Ex.: mt-16 mb-12 (ajustar conforme a seção).
-    •    Cores:
-    •    Base: text (#fcffff)
-    •    Palavras-chave com textEmphasis e textHighlight.
-
-Exemplo em JSX/Tailwind:
-
-<section className="py-16 flex flex-col items-center text-center">
-  <p className="text-display max-w-2xl mx-auto">
-    Criamos produtos que parecem
-    <span className="text-textHighlight"> magia</span>, mas são construídos com
-    <span className="textEmphasis"> engenharia séria</span>.
-  </p>
-</section>
-
-
-
-## 2.6 Global Assets
-### **Logos:**
-- Favicon  - Aba do navegador (tab): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/Faivcon.svg`
-- Favicon Light - Aba do navegador (tab): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaivconLight.svg`
-- Logo Light (full - Usar no header): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg`
-- Logo Dark (full - Usar no header): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
-
-## 2.7 Fonts:
- -  font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Thin.woff2') format('woff2');
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-
-- font-face {
-  font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Light.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-
-- font-face {
-  font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-
-- font-face {
-  font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-
-- font-face {
-  font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-
-
-- font-face {
-  font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2') format('woff2');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
+    transition: { staggerChildren: 0.1 }
+  }
 }
 
-/* Fonte Mono para Tags */
-@font-face {
-  font-family: 'PPSupplyMono';
-  src: url('https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
+```
 
-Videos:
-- Manifesto Video: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
+---
 
-Client Logos:
-- 12 monochromatic SVG logos: `client1.svg` through `client12.svg`
-- Base URL: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/`
+### 2.5 Global Assets (Supabase CDN)
+
+**Fonts:**
+
+* TT Norms Pro (Hosted on Supabase Storage).
+* Fallback: `sans-serif`.
+
+**Logos:**
+
+* Dark/Light versions SVG.
+* Favicon SVG.
+
+**Media:**
+
+* Manifesto Video: `VIDEO-APRESENTACAO-PORTFOLIO.mp4` (Otimizado para streaming/loop).
+* Client Logos: SVGs monocromáticos (fill-current text-white).
+
+---
 
 ## 3. SITE ARCHITECTURE
 
-### 3.1 Information Architecture
-Homepage
-├── Header (persistent navigation)
-├── Hero + Manifesto Video
-├── Manifesto Video
-├── Portfolio Showcase (3 categories)
-├── Featured Projects (4 highlighted works)
-├── Clients/Brands (logo grid)
-├── Contact (form + info)
-└── Footer
+### 3.1 Sitemap & Flow
 
-Other Pages (linked from homepage)
-├── /sobre (About page)
-├── /portfolio (Full portfolio with filters)
-└── /portfolio/[slug] (Individual project pages)
-
-### 3.2 Navigation Structure
-Primary Navigation (Header):
-- Home → `/` or `#hero`
-- Sobre (About) → `/sobre`
-- Portfólio → `/portfolio`
-- Contato (Contact) → `#contact` (always anchors to contact section)
-
-Secondary Navigation (Footer):
-- Same as primary navigation
-- Additional: Social media links
-
-### 3.3 Section Flow
-The homepage follows a narrative arc:
-1. Header: Establishes brand identity and provides navigation
-2. Hero: Creates emotional impact and communicates positioning
-3. Manifesto Video: Deepens understanding through motion storytelling
-4. Portfolio Showcase: Introduces work categories with editorial rhythm
-5. Featured Projects: Demonstrates quality through curated examples
-6. Clients/Brands: Builds credibility through association
-7. Contact: Provides clear conversion path
-8. Footer: Reinforces brand and provides supplementary navigation
-
----
-
-# **4. COMPONENT SPECIFICATIONS
+1. **Home:**
+* *Hero:* WebGL Atmosphere + Headline.
+* *Manifesto:* Vídeo full-width scroll-linked.
+* *Showcase:* Accordion vertical interativo.
 
 
+2. **Sobre:** Narrativa pessoal, timeline "Origem Criativa".
+3. **Portfólio:** Grid completo com filtros (Bento Grid).
 
+### 3.2 Navigation
 
-# **4.1 Header**
+* **Header:** Sticky, Glassmorphism. Links: Home, Sobre, Portfólio, Contato.
+* **Mobile Menu:** Fullscreen overlay com animação staggered.
 
-**Purpose:** Provide persistent, accessible navigation using a clean, static interface.
-
-
-### 4.1.1 Navigation Structure
-Primary Navigation (Header):
-- Home → `/` or `#hero`
-- Sobre (About) → `/sobre`
-- Portfólio → `/portfolio`
-- Contato (Contact) → `#contact` (always anchors to contact section)
-
-#### Desktop (≥1024px): Static Glass Header
-**Layout:**
-- Position: `position: sticky`, `top: 24px` (or `top: 0` with padding), `z-index: 40`
-- Width: Partial container (centered), or Full-width (based on preference, images suggest clean alignment)
-- Aligned the horizontal format with the text alignment, adjusting the page responsiveness.
-- Fixed header;
-- Height: `64px`
-- Style: Pill-shaped or Bar, translucent glass effect (`backdrop-filter: blur(12px)`), subtle border.
-- **Behavior:** COMPLETELY STATIC. No movement tracking, no physics.
-
-**Content:**
-- Left: Logo (SVG) - - Logo Dark (full - Usar no header): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
-- Right: Navigation Links (Home, Sobre, Portfólio, Contato)
-
-**Interaction - Contrast Adaptation (Scroll):**
-*Essential for visibility on the white 'Contato' section shown in designs.*
-- **Trigger:** When the header overlaps a light-colored background (e.g., the white Contact section).
-- **Action:**
-    - Text/Icon color switches to **Blue** (Primary Brand Color).
-    - Background may increase opacity for readability.
-- **Transition:** `transition: all 0.3s ease`.
-
----
-
-**Desktop (≥1024px): Fluid Glass Header**
-- Layout:
-  - Position: `position: sticky`, `top: 0`, `z-index: 40`
-  - Width: Partial container (not full-width), horizontally centered
-  - Height: `56–72px`
-  - Style: Pill-shaped with rounded corners, translucent glass effect (blur + subtle gradient)
-- Content:
-- Left: - Logo Dark (full - Usar no header): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
-  - Right: Horizontal navigation list (Home, Sobre, Portfólio, Contato)
-- Interaction - Fluid Glass Effect:
-  - The header responds to cursor movement along the X-axis:
-    - Follow behavior: Subtle horizontal translation (`maxTranslateX: 40–60px`)
-    - Spring physics: `followDamping: 0.08–0.12s`, gentle overshoot
-    - Scale: Slight horizontal stretch (`maxScaleX: 1.05`) and vertical compression (`maxScaleY: 1.02`)
-    - Visual: Refraction distortion, chromatic aberration on edges, backdrop blur
-- Fallback (no WebGL / reduced motion):
-  - Same layout and typography
-  - Muda a cor para azul quando tem interação com mouse e ou esta na pagina
-  - Static positioning with standard backdrop-filter blur or solid/gradient background
-  - No cursor-following behavior
-
-**Mobile & Tablet (≤1023px): Staggered Menu Header**
-- Layout:
-  - Position: Fixed bar at top, full-width
-  - Height: `48–64px`
-  - Content: Logo (left), Hamburger icon (right)
-  - Left: - Logo Dark (full - Usar no header): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
-- Menu Overlay (when open):
-  - Fullscreen or near-fullscreen overlay
-  - Gradient background (primary to neutral)
-  - Navigation items in vertical column, large text, generous spacing
-  - Social media icons at bottom
-- Animation:
-  - Open: Overlay fades in (`opacity: 0 → 1`, 200–250ms), panel slides in from right (`translateX: 100% → 0`, 260–320ms), hamburger morphs to X
-  - Items appear with stagger: `opacity: 0 → 1`, `translateY: 16px → 0`, `staggerDelay: 100ms`
-  - Close: Reverse sequence, items disappear in reverse order
-- Interactions:
-  - Tap X icon: Close menu
-  - Tap navigation item: Close menu + navigate
-  - Tap overlay background: Close menu
-- Accessibility:
-  - `aria-label` on hamburger/X icon
-  - `aria-expanded` state
-  - Focus trap within open menu
-  - ESC key closes menu
-- Mobile-Specific Implementation Notes:
-  - The header does not have the glass effect on mobile
-  - The logo is positioned flush left with no additional spacing
-  - The hamburger menu icon is positioned flush right with 16px padding
-  - When open, the menu covers the entire viewport
-
-----
-
-
-
-
-
-# **4.2 Hero
-
-### **1.1 Objetivo**
-Criar uma experiência hero imersiva e responsiva que gera impacto na primeira impressão, com:
-- Animação 3D interativa (fantasma espectral seguindo o cursor)
-- Atmosfera escura com shader customizado
-- Animações de entrada impactantes
-- CTA que direciona para seção SOBRE
-
-**Inspiração:** [CodePen Ghost Animation](https://codepen.io/danilonovaisv/pen/YPWyrdW)
-
----
-
-### **1.2 Identidade Visual**
-
-#### **Color Palette**
-| Token | Value | Uso |
-|-------|-------|-----|
-| `bluePrimary` | `#0048ff` | CTAs, links, elementos interativos |
-| `background` | `#040013` | Fundo escuro principal |
-| `text` | `#fcffff` | Texto principal |
-| `textMuted` | `#d9dade` | Texto secundário |
-
-#### **Typography System**
-
-**Fonte primária:** TT Norms Pro (self-hosted)
-
-```typescript
-// Arquivos de fonte (Supabase Storage)
-const fonts = {
-  black: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2',
-  bold: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2',
-  medium: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2',
-  regular: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2',
-};
 ```
 
-**Tokens Responsivos (usando clamp):**
-
-| Token | Mobile | Desktop | Peso | Uso |
-|-------|--------|---------|------|-----|
-| `display` | 2.5rem (40px) | 4.5rem (72px) | Black | Big phrases não-semânticas |
-| `h1` | 2rem (32px) | 3.5rem (56px) | Bold | Hero headlines |
-| `h2` | 1.5rem (24px) | 2.5rem (40px) | Bold | Subtítulos |
-| `h3` | 1.25rem (20px) | 1.75rem (28px) | Medium | Títulos de cards |
-| `body` | 1rem (16px) | 1.125rem (18px) | Regular | Texto corrido |
-
+```
 ---
 
-### **1.3 Conteúdo**
+## 4. Componentes e Seções
 
-```tsx
-// Estrutura de conteúdo
-<section className="hero">
-  {/* Tag decorativa */}
-  <span className="tag">[BRAND AWARENESS]</span>
-  
-  {/* Headline - Desktop/Tablet (2 linhas) */}
-  <h1 className="hidden md:block">
-    Você não vê
-    <br />
-    o design.
-  </h1>
-  
-  {/* Headline - Mobile (3 linhas) */}
-  <h1 className="md:hidden">
-    Você não
-    <br />
-    vê o
-    <br />
-    design.
-  </h1>
-  
-  {/* Subheading */}
-  <h2>Mas ele vê você.</h2>
-  
-  {/* CTA */}
-  <CTAButton href="/sobre">step inside →</CTAButton>
-</section>
+
+
+
+### 4.1 Header (Navegação)
+
+#### Desktop (≥1024px)
+- **Layout:** Sticky horizontal, glassmorphism (`backdrop-blur`)
+- **Altura:** 64px
+- **Comportamento:** Fixo no topo, adapta contraste em fundos claros
+- **Links:** Home, Sobre, Portfólio, Contato
+
+**Adaptação de Contraste:**
+```js
+// Quando sobrepõe seção clara (ex: Contato)
+text-color: #0048ff (azul primário)
+background-opacity: aumentada
+transition: 300ms ease
 ```
 
-#### **CTA — Design Visual**
-- **Formato:** Compósito (Pílula à esquerda + Círculo à direita)
-- **Cor:** Azul Primário (`#0048ff`), texto branco
-- **Texto:** Uppercase, tracking médio, padding `px-6 py-3`
-- **Ícone:** Seta (→) centralizada no círculo
+#### Mobile (<1024px)
+- **Layout:** Barra fixa com logo (esquerda) + hamburguer (direita)
+- **Menu Overlay:** Fullscreen com gradiente, navegação vertical
+- **Animação:** Itens aparecem com stagger (100ms delay)
+- **Interação:** Tap X ou link fecha menu
 
 ---
 
-### **1.4 Animações**
+### 4.2 Hero
 
-#### **Entrada de Textos (Page Load)**
+#### Objetivo
+Criar impacto visual imediato através de:
+- Animação 3D interativa (fantasma espectral)
+- Atmosfera imersiva com shader customizado
+- Tipografia impactante com animação de entrada
+- CTA claro para próxima seção
 
-```javascript
-// Framer Motion config
+#### Conteúdo
+
+**Tag:** `[BRAND AWARENESS]` (mono, 19px, opacity 60%)
+
+**Headline:**
+- Desktop/Tablet: 2 linhas
+  ```
+  Você não vê
+  o design.
+  ```
+- Mobile: 3 linhas
+  ```
+  Você não
+  vê o
+  design.
+  ```
+
+**Subheading:** "Mas ele vê você." (cor: `#d9dade`)
+
+**CTA:** "step inside →"
+- Destino: `#sobre` ou próxima seção
+- Formato: Pílula + círculo com seta
+- Cor: `#0048ff`
+
+#### Animação de Entrada (Textos)
+
+```js
 initial: {
   opacity: 0,
   scale: 0.92,
-  translateY: 60,
+  y: 60,
   filter: "blur(10px)"
 }
-
 animate: {
   opacity: 1,
   scale: [1.02, 1],
-  translateY: 0,
+  y: 0,
   filter: "blur(0px)"
 }
-
 transition: {
   duration: 1.2,
-  easing: [0.25, 0.46, 0.45, 0.94]
+  ease: [0.25, 0.46, 0.45, 0.94]
 }
 ```
 
-#### **CTA — Interações**
+#### Atmosfera Ghost (WebGL)
 
-| Estado | Dispositivo | Comportamento |
-|--------|-------------|---------------|
-| **Hover** | Desktop | `translateY(-1px)` |
-| **Hover Seta** | Desktop | `translateX(4px)` (opcional) |
-| **Click** | Mobile | `scale(0.98)` |
-| **Focus** | Teclado | Outline 2px `#4fe6ff`, offset 4px |
+**Tecnologia:** React Three Fiber + Three.js
 
----
+**Elementos:**
+- **Fantasma 3D:** `SphereGeometry(2,40,40)` com vértices deformados (saia ondulada)
+- **Material:** `MeshStandardMaterial` com alta emissividade (`#0080ff`)
+- **Olhos:** Esferas menores com glow transparente
+- **Fireflies:** 20 vagalumes (esferas amarelas + `PointLight`)
+- **Partículas:** Pool de formas pequenas (esfera/tetraedro) que seguem movimento
 
-### **1.5 Elementos Visuais — Animação Ghost**
+**Performance Adaptativa:**
 
-#### **Background / Atmosfera**
+| Dispositivo | Fireflies | Partículas | Post-Processing | Pixel Ratio |
+|-------------|-----------|------------|-----------------|-------------|
+| Desktop | 20 | 50 | ✅ | 2x |
+| Tablet | 10 | 25 | ❌ | 1x |
+| Mobile | 5 | 10 | ❌ | 1x |
 
-| Aspecto | Implementação |
-|---------|---------------|
-| **Cores** | Gradiente escuro `#0a0a0a` → `#1a1a1a` |
-| **Shader** | Plano 300×300 com material customizado (_atmosphere_) |
-| **Halo Circular** | Usa `revealRadius`, `fadeStrength`, `baseOpacity`, `revealOpacity` |
-| **Pós-processamento** | Opcional: grain, bleeding, scanlines, vignette (shader analógico) |
+**Interação:**
+- Fantasma segue cursor suavemente (desktop)
+- Flutuação constante via sin/cos
+- Em touch devices: apenas flutuação (sem mouse tracking)
 
-#### **Personagem Ghost**
+**Fallback:**
+- Se `prefers-reduced-motion`: gradiente estático CSS
+- Se WebGL falha: imagem SVG estática do fantasma
 
-| Elemento | Implementação |
-|----------|---------------|
-| **Geometria** | `THREE.SphereGeometry(2, 40, 40)` com vértices inferiores deformados |
-| **Material** | `MeshStandardMaterial` com alta `emissiveIntensity` |
-| **Cor** | Controlada via `bodyColor`, rim lights azulados |
-| **Olhos** | `Group` com esferas menores + glows transparentes |
-| **Fireflies** | 20 vagalumes (esferas amarelas + `PointLight`) |
-| **Partículas** | Pool de formas pequenas (esfera/tetraedro/octaedro) que nascem no movimento |
-
-#### **Interação com Mouse**
-
-```javascript
-// Conversão screen → world
-x = (event.clientX / window.innerWidth) * 2 - 1
-y = (event.clientY / window.innerHeight) * 2 - 1
-
-// Seguimento suave
-targetX = mouseX * viewport.width * 0.5
-targetY = mouseY * viewport.height * 0.3
-position.x += (targetX - position.x) * followSpeed
-
-// Oscilações constantes (sin/cos)
-floatY = sin(time * 1.5) * 0.05 + cos(time * 0.7) * 0.03
-```
-
-#### **Layout**
-
-```css
-/* Centralização com Flexbox */
-.hero-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-```
-
----
-
-### **1.6 Responsividade**
-
-#### **Textos**
-
-**Desktop/Tablet (≥768px):**
-```
-H1: "Você não vê" (linha 1)
-    "o design." (linha 2)
-Fonte: TT Norms Pro Black, 6–9rem
-```
-
-**Mobile (<768px):**
-```
-H1: "Você não" (linha 1)
-    "vê o" (linha 2)
-    "design." (linha 3)
-Fonte: TT Norms Pro Black, 6–9rem
-```
-
-#### **Performance Adaptativa**
-
-```javascript
-// Ajustes por dispositivo
-const config = {
-  desktop: {
-    fireflies: 20,
-    particles: 50,
-    postProcessing: true,
-    pixelRatio: 2
-  },
-  tablet: {
-    fireflies: 10,
-    particles: 25,
-    postProcessing: false,
-    pixelRatio: 1
-  },
-  mobile: {
-    fireflies: 5,
-    particles: 10,
-    postProcessing: false,
-    pixelRatio: 1
-  }
-};
-```
-
-#### **Fallback Touch**
-
-- Em dispositivos touch onde `mousemove` não ocorre: manter fantasma centralizado
-- Rodar apenas animação de flutuação
-- Detectar `pointer: coarse` e reduzir efeitos
-
----
-
-### **1.7 Acessibilidade**
-
-#### **Semântica HTML**
-
+**Carregamento:**
 ```tsx
-<section className="hero" aria-label="Seção principal de apresentação">
-  <h1>Você não vê o design.</h1>
-  <h2>Mas ele vê você.</h2>
-  
-  {/* Canvas decorativo */}
-  <div role="presentation" aria-hidden="true">
-    <Canvas />
-  </div>
-  
-  {/* Descrição alternativa */}
-  <p className="sr-only">
-    Animação decorativa de um fantasma flutuante com partículas luminosas
-  </p>
-</section>
+const GhostScene = dynamic(() => import('./GhostScene'), { 
+  ssr: false,
+  loading: () => <div className="bg-[#040013]" />
+});
 ```
 
-#### **Contraste**
+#### Acessibilidade
 
-- `#fcffff` em `#040013`: **19.5:1** ✅ WCAG AAA
-- `#d9dade` em `#040013`: **15.8:1** ✅ WCAG AAA
-
-#### **Prefers-Reduced-Motion**
-
-```tsx
-const prefersReducedMotion = useReducedMotion();
-
-if (prefersReducedMotion) {
-  return <StaticGhostFallback />;
-}
-
-return <AnimatedGhostCanvas />;
-```
+- Canvas com `role="presentation"` e `aria-hidden="true"`
+- Descrição alternativa via `.sr-only`:
+  ```
+  Animação decorativa de um fantasma flutuante 
+  com partículas luminosas que seguem o movimento do cursor
+  ```
+- Contraste texto/fundo: 19.5:1 (WCAG AAA)
 
 ---
 
-### **1.8 Estrutura de Arquivos**
+### 4.3 Vídeo Manifesto
 
-```
-app/
-├── components/
-│   ├── Hero.tsx              # Container principal
-│   ├── HeroText.tsx          # Conteúdo semântico
-│   ├── GhostScene.tsx        # Canvas WebGL (dynamic import)
-│   ├── Ghost.tsx             # Personagem 3D
-│   ├── Atmosphere.tsx        # Shader de fundo
-│   ├── Fireflies.tsx         # Vagalumes
-│   ├── Preloader.tsx         # Loading inicial
-│   └── CTAButton.tsx         # Call-to-action
-├── lib/
-│   ├── hooks/
-│   │   ├── usePerformanceAdaptive.ts
-│   │   ├── useReducedMotion.ts
-│   │   └── useMouse.ts
-│   └── utils/
-│       └── cn.ts
-└── styles/
-    └── globals.css
-```
+#### Objetivo
+Apresentar resumo poético do trabalho através de vídeo fullscreen, posicionado logo após Hero.
 
----
-
-### **1.9 Z-Index Stack**
- - **Hierarquia Z-Index (Estrita):**
-1. - `z-50`: Preloader
-2. - `z-40`: Header
-3. - `z-35`: CTA
-4. - `z-30`: Ghost WebGL
-5. - `z-20`: Editorial Text (Hero Copy)
-6. - `z-0`: Background
-
----
-
-### **1.10 Implementação — Componentes Principais**
-
-#### **Hero.tsx**
-
-```tsx
-import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
-import HeroText from './HeroText';
-import Preloader from './Preloader';
-
-const GhostScene = dynamic(() => import('./GhostScene'), { ssr: false });
-
-export default function Hero() {
-  return (
-    <section className="relative h-screen w-full bg-[#040013] text-[#fcffff] overflow-hidden">
-      <Preloader />
-      <HeroText />
-      <Suspense fallback={null}>
-        <GhostScene />
-      </Suspense>
-    </section>
-  );
-}
-```
-
-#### **HeroText.tsx**
-
-```tsx
-import { motion } from 'framer-motion';
-
-const textAnimation = {
-  initial: {
-    opacity: 0,
-    scale: 0.92,
-    y: 60,
-    filter: 'blur(10px)',
-  },
-  animate: {
-    opacity: 1,
-    scale: [1.02, 1],
-    y: 0,
-    filter: 'blur(0px)',
-  },
-  transition: {
-    duration: 1.2,
-    ease: [0.25, 0.46, 0.45, 0.94],
-  },
-};
-
-export default function HeroText() {
-  return (
-    <motion.div
-      className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center pointer-events-none px-5"
-      {...textAnimation}
-    >
-      <span className="text-xs uppercase tracking-widest mb-2 opacity-60">
-        [BRAND AWARENESS]
-      </span>
-      
-      {/* Desktop/Tablet */}
-      <h1 className="hidden md:block text-[clamp(2.5rem,5vw+1rem,4.5rem)] font-black tracking-tight leading-tight">
-        Você não vê
-        <br />
-        o design.
-      </h1>
-      
-      {/* Mobile */}
-      <h1 className="md:hidden text-[clamp(2.5rem,5vw+1rem,4.5rem)] font-black tracking-tight leading-tight">
-        Você não
-        <br />
-        vê o
-        <br />
-        design.
-      </h1>
-      
-      <h2 className="text-[clamp(1.5rem,3vw+0.5rem,2.5rem)] font-bold text-[#d9dade] mt-4">
-        Mas ele vê você.
-      </h2>
-      
-      <div className="mt-8 pointer-events-auto">
-        <CTAButton href="/sobre">step inside →</CTAButton>
-      </div>
-    </motion.div>
-  );
-}
-```
-
-#### **GhostScene.tsx**
-
-```tsx
-'use client';
-
-import { Canvas } from '@react-three/fiber';
-import { Suspense } from 'react';
-import { Ghost } from './Ghost';
-import { Atmosphere } from './Atmosphere';
-import { Fireflies } from './Fireflies';
-
-export default function GhostScene() {
-  return (
-    <Canvas
-      className="absolute inset-0 z-20"
-      gl={{ antialias: true, alpha: true }}
-      camera={{ position: [0, 0, 20], fov: 75 }}
-      role="presentation"
-      aria-hidden="true"
-    >
-      <ambientLight color="#0a0a2e" intensity={0.08} />
-      <directionalLight position={[-8, 6, -4]} color="#4a90e2" intensity={1.8} />
-      <directionalLight position={[8, -4, -6]} color="#50e3c2" intensity={1.26} />
-      
-      <Suspense fallback={null}>
-        <Atmosphere />
-        <Ghost />
-        <Fireflies count={20} />
-      </Suspense>
-    </Canvas>
-  );
-}
-```
-
-
-
-
-
----
-
-## 🎬 4.3 - VÍDEO MANIFESTO
-
-### **2.1 Objetivo**
-Apresentar um vídeo manifesto fullscreen com resumo poético do trabalho, posicionado logo após a Hero, sem animações de scroll-morphing.
-
-**Características:**
-- Seção independente e fullscreen
-- Colado às paredes da página
-- Aspect ratio 16:9 (`aspect-video`)
-- Autoplay, loop, muted
-- Controle de áudio visível
-
----
-
-### **2.2 Layout**
-
-#### **Estrutura**
-
-```tsx
-<section className="video-manifesto">
-  <div className="video-wrapper">
-    <video />
-    <div className="video-overlay" />
-    <div className="video-text" />
-    <button className="toggle-sound" />
-  </div>
-</section>
-```
-
-#### **Posicionamento**
+#### Layout
 
 **Desktop e Mobile:**
-- Seção fullscreen logo após Hero
+- Seção fullscreen (colada às paredes)
 - `width: 100vw`
 - `aspect-ratio: 16/9`
-- Sem padding lateral (colado às paredes)
+- Sem padding lateral
 
-```css
-.video-manifesto {
-  width: 100vw;
-  margin: 0;
-  padding: 0;
-}
+#### Comportamento do Vídeo
 
-.video-wrapper {
-  width: 100%;
-  aspect-ratio: 16/9;
-  position: relative;
-}
-```
-
----
-
-### **2.3 Comportamento do Vídeo**
-
-#### **Propriedades Base**
-
-```tsx
+**Propriedades:**
+```html
 <video
   autoPlay
   loop
   muted
   playsInline
   preload="metadata"
-  src={videoSrc}
-  poster={posterSrc}
+  src="VIDEO-APRESENTACAO-PORTFOLIO.mp4"
+  poster="poster.jpg"
 />
 ```
 
-#### **Controle de Áudio**
-
-**Desktop e Mobile:**
-- Botão de som sempre visível
+**Controles:**
+- Botão de som sempre visível (desktop e mobile)
 - Tap/click = toggle mute
-- Ao sair da seção → mutar automaticamente
+- Ao sair da seção (IntersectionObserver) → muta automaticamente
 
-```tsx
-const [muted, setMuted] = useState(true);
+#### Overlay e Metadados
 
-// Observer para detectar saída da seção
-useEffect(() => {
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (!entry.isIntersecting) {
-        setMuted(true);
-      }
-    },
-    { threshold: 0.1 }
-  );
-  
-  if (sectionRef.current) {
-    observer.observe(sectionRef.current);
-  }
-  
-  return () => observer.disconnect();
-}, []);
-```
-
----
-
-### **2.4 Animação de Entrada**
-
-**Simples fade-in (sem scroll-triggered morphing):**
-
-```javascript
-// Framer Motion
-initial: { 
-  opacity: 0, 
-  scale: 0.95, 
-  y: 20 
-}
-
-animate: { 
-  opacity: 1, 
-  scale: 1, 
-  y: 0 
-}
-
-transition: { 
-  duration: 0.6, 
-  ease: [0.22, 1, 0.36, 1] 
-}
-```
-
----
-
-### **2.5 Overlay e Metadados**
-
-#### **Overlay Gradiente**
-
+**Gradiente:**
 ```css
-.video-overlay {
-  background: radial-gradient(
-    120% 120% at 70% 30%,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.55) 70%,
-    rgba(0, 0, 0, 0.75) 100%
-  );
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
+background: radial-gradient(
+  120% 120% at 70% 30%,
+  rgba(0,0,0,0) 0%,
+  rgba(0,0,0,0.55) 70%,
+  rgba(0,0,0,0.75) 100%
+);
 ```
 
-#### **Texto Sobreposto**
+**Texto:**
+```
+Showreel 2025
+Strategy • Branding • Motion
+```
+(aparece sobre overlay, bottom-left)
 
-```tsx
-<div className="video-text absolute bottom-0 left-0 w-full p-6">
-  <p className="text-white/70 text-sm mb-1">Showreel 2025</p>
-  <p className="text-white text-lg font-medium">
-    Strategy • Branding • Motion
-  </p>
-</div>
+#### Animação de Entrada
+
+```js
+initial: { opacity: 0, scale: 0.95, y: 20 }
+animate: { opacity: 1, scale: 1, y: 0 }
+transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
 ```
 
----
+#### Otimização
 
-### **2.6 Controle de Som — Design**
+**Lazy Loading:**
+- IntersectionObserver com `rootMargin: "200px"`
+- Carrega apenas quando próximo da viewport
 
-```tsx
-<button
-  type="button"
-  className="toggle-sound absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/70 transition-colors"
-  onClick={() => setMuted(m => !m)}
-  aria-label={muted ? 'Ativar som' : 'Desativar som'}
-  aria-pressed={!muted}
->
-  {muted ? (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
-    </svg>
-  ) : (
-    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-    </svg>
-  )}
-</button>
+**Qualidade Adaptativa:**
+```js
+// Detecta conexão
+if (effectiveType === '4g' || '5g') → HD (1080p)
+else → SD (720p)
 ```
 
----
-
-### **2.7 Responsividade**
-
-#### **Desktop e Mobile (Comportamento Unificado)**
-
-```css
-/* Ambos os dispositivos */
-.video-manifesto {
-  width: 100vw;
-  padding: 0;
-  margin: 0;
-}
-
-.video-wrapper {
-  aspect-ratio: 16/9;
-  width: 100%;
-}
-
-/* Ajustes de texto em mobile */
-@media (max-width: 767px) {
-  .video-text {
-    padding: 1rem;
-  }
-  
-  .video-text p:first-child {
-    font-size: 0.75rem;
-  }
-  
-  .video-text p:last-child {
-    font-size: 0.875rem;
-  }
-}
+**Assets:**
+```
+VIDEO-HD: VIDEO-APRESENTACAO-PORTFOLIO.mp4
+VIDEO-SD: VIDEO-APRESENTACAO-PORTFOLIO-720p.mp4
+POSTER: VIDEO-APRESENTACAO-PORTFOLIO-poster.jpg
 ```
 
----
+#### Responsividade
 
-### **2.8 Otimização de Carregamento**
-
-#### **Lazy Loading**
-
-```tsx
-const [shouldLoad, setShouldLoad] = useState(false);
-const wrapperRef = useRef<HTMLDivElement>(null);
-
-useEffect(() => {
-  const observer = new IntersectionObserver(
-    ([entry]) => {
-      if (entry.isIntersecting) {
-        setShouldLoad(true);
-        observer.disconnect();
-      }
-    },
-    { rootMargin: '200px' }
-  );
-  
-  if (wrapperRef.current) {
-    observer.observe(wrapperRef.current);
-  }
-  
-  return () => observer.disconnect();
-}, []);
-```
-
-#### **Qualidade Adaptativa**
-
-```tsx
-const [videoQuality, setVideoQuality] = useState<'hd' | 'sd'>('hd');
-
-useEffect(() => {
-  if ('connection' in navigator) {
-    const conn = (navigator as any).connection;
-    
-    if (conn?.effectiveType === '4g' || conn?.effectiveType === '5g') {
-      setVideoQuality('hd');
-    } else {
-      setVideoQuality('sd');
-    }
-  }
-}, []);
-
-const videoSrc = videoQuality === 'hd' 
-  ? src 
-  : src.replace('.mp4', '-720p.mp4');
-```
+**Mobile:**
+- Aspect ratio mantido
+- Touch target do botão: mínimo 48×48px
+- Padding interno ajustado: `p-4` (16px)
+- Texto menor: `text-sm` (0.875rem)
 
 ---
 
-### **2.9 Acessibilidade**
+### 4.4 Portfolio Showcase
 
-#### **Checklist**
+#### Objetivo
+Apresentar categorias de trabalho com sofisticação editorial, usando movimento e hierarquia para guiar naturalmente até áreas específicas do portfólio.
 
-- ✅ Envolver vídeo com elemento semântico (`<section>`)
-- ✅ Botão de som com `aria-label` e `aria-pressed`
-- ✅ `playsInline` para evitar fullscreen indesejado
-- ✅ Respeitar `prefers-reduced-motion`
-- ✅ Contraste adequado no overlay (gradiente)
-- ✅ Descrição alternativa via `aria-label` no vídeo
+#### Layout Desktop (≥1024px)
 
-```tsx
-<video
-  aria-label="Vídeo showreel demonstrando projetos de design gráfico"
-  aria-describedby="video-description"
-/>
+**Estrutura:**
+- Headline centralizada: 
+  ```
+  portfólio showcase
+  ("portfólio" branco, "showcase" #0048ff)
+  ```
+- Label flutuante: `[what we love working on]` (azul, alinhado à esquerda, próximo à primeira faixa)
+- 3 faixas horizontais interativas (accordion-style)
+- CTA centralizado abaixo
 
-<p id="video-description" className="sr-only">
-  Vídeo de apresentação dos trabalhos em estratégia, branding e motion design
-</p>
-```
+**Faixas (Stripes):**
 
----
+| Categoria | Alinhamento | Slug |
+|-----------|-------------|------|
+| Brand & Campaigns | Direita | `brand-campaigns` |
+| Videos & Motions | Centro | `videos-motions` |
+| Web Campaigns, Websites & Tech | Esquerda | `websites-webcampaigns-tech` |
 
-### **2.10 Implementação Completa**
+**Estrutura de Cada Stripe:**
+- Thumbnail (288px, 16:9, oculta por padrão)
+- Título (2xl–5xl, TT Norms Pro Normal 24-40px)
+- Ícone de ação (badge circular azul com seta)
 
-```tsx
-'use client';
+#### Interações (Desktop)
 
-import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-
-interface VideoManifestoProps {
-  src: string;
-}
-
-export function VideoManifesto({ src }: VideoManifestoProps) {
-  const [muted, setMuted] = useState(true);
-  const [shouldLoad, setShouldLoad] = useState(false);
-  const [videoQuality, setVideoQuality] = useState<'hd' | 'sd'>('hd');
-  
-  const sectionRef = useRef<HTMLElement>(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  
-  // Lazy loading
-  useEffect(() => {
-    if (!wrapperRef.current) return;
-    
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldLoad(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '200px' }
-    );
-    
-    observer.observe(wrapperRef.current);
-    return () => observer.disconnect();
-  }, []);
-  
-  // Mutar ao sair da seção
-  useEffect(() => {
-    if (!sectionRef.current) return;
-    
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) {
-          setMuted(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-    
-    observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-  
-  // Detectar qualidade de conexão
-  useEffect(() => {
-    if ('connection' in navigator) {
-      const conn = (navigator as any).connection;
-      if (conn?.effectiveType === '4g' || conn?.effectiveType === '5g') {
-        setVideoQuality('hd');
-      } else {
-        setVideoQuality('sd');
-      }
-    }
-  }, []);
-  
-  // Aplicar mute
-  useEffect(() => {
-    if (!videoRef.current) return;
-    videoRef.current.muted = muted;
-  }, [muted]);
-  
-  const videoSrc = videoQuality === 'hd' 
-    ? src 
-    : src.replace('.mp4', '-720p.mp4');
-  
-  const posterSrc = src.replace('.mp4', '-poster.jpg');
-  
-  return (
-    <motion.section
-      ref={sectionRef}
-      className="video-manifesto w-full"
-      initial={{ opacity: 0, scale: 0.95, y: 20 }}
-      whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      viewport={{ once: true, amount: 0.3 }}
-    >
-      <div ref={wrapperRef} className="video-wrapper relative w-full aspect-video">
-        {shouldLoad ? (
-          <>
-            <motion.video
-              ref={videoRef}
-              className="w-full h-full object-cover"
-              src={videoSrc}
-              poster={posterSrc}
-              autoPlay
-              loop
-              muted={muted}
-              playsInline
-              preload="metadata"
-              aria-label="Vídeo showreel demonstrando projetos de design gráfico"
-            />
-            
-            {/* Overlay */}
-            <div className="video-overlay absolute inset-0 pointer-events-none" />
-            
-            {/* Metadados */}
-            <div className="video-text absolute bottom-0 left-0 w-full p-4 md:p-6">
-              <p className="text-white/70 text-xs md:text-sm mb-1">Showreel 2025</p>
-              <p className="text-white text-sm md:text-lg font-medium">
-                Strategy • Branding • Motion
-              </p>
-            </div>
-            
-            {/* Toggle som */}
-            <button
-              type="button"
-              className="toggle-sound absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/70 transition-colors focus-visible:outline-2 focus-visible:outline-[#4fe6ff] focus-visible:outline-offset-2"
-              onClick={() => setMuted(m => !m)}
-              aria-label={muted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'}
-              aria-pressed={!muted}
-            >
-              {muted ? '🔇' : '🔊'}
-            </button>
-          </>
-        ) : (
-          // Placeholder
-          <div className="w-full h-full bg-gradient-to-br from-neutral-900 to-neutral-800 animate-pulse" />
-        )}
-      </div>
-    </motion.section>
-  );
-}
-```
-
----
-
-### **2.11 Integração na Página**
-
-```tsx
-// app/page.tsx
-import Hero from './_components/Hero';
-import { VideoManifesto } from './_components/VideoManifesto';
-
-export default function HomePage() {
-  return (
-    <main>
-      {/* Hero Section */}
-      <Hero />
-      
-      {/* Vídeo Manifesto */}
-      <VideoManifesto
-        src="https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4"
-      />
-      
-      {/* Outras seções */}
-    </main>
-  );
-}
-```
-
----
-
-### **2.12 CSS Global**
-
-```css
-/* globals.css */
-
-/* Overlay de vídeo */
-.video-overlay {
-  background: radial-gradient(
-    120% 120% at 70% 30%,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.55) 70%,
-    rgba(0, 0, 0, 0.75) 100%
-  );
-}
-
-/* Remover espaçamento padrão */
-.video-manifesto {
-  margin: 0;
-  padding: 0;
-}
-
-/* Garantir que vídeo ocupe toda a largura */
-.video-wrapper video {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-```
-
----
-
-### **2.13 Checklist de Validação**
-
-**Funcional:**
-- [ ] Vídeo fullscreen logo após Hero
-- [ ] Aspect ratio 16:9 mantido em todas as telas
-- [ ] Autoplay funciona (muted)
-- [ ] Botão de som visível e funcional
-- [ ] Vídeo muta ao sair da seção
-- [ ] Lazy loading implementado
-- [ ] Qualidade adaptativa baseada em conexão
-
-**Acessibilidade:**
-- [ ] Botão com `aria-label` e `aria-pressed`
-- [ ] `playsInline` no mobile
-- [ ] Descrição alternativa no vídeo
-- [ ] Contraste adequado no overlay
-- [ ] Foco visível no botão de som
-
-**Performance:**
-- [ ] `preload="metadata"`
-- [ ] Poster estático carregado
-- [ ] IntersectionObserver para lazy load
-- [ ] Versões HD/SD disponíveis
-
----
-
-
-
-
-
-# **4.4 Portfolio Showcase — Protótipo Interativo**
-
-## Purpose
-Apresentar as principais categorias de trabalho com **sofisticação editorial**, usando movimento, hierarquia tipográfica e interação progressiva para **guiar o usuário naturalmente** até áreas específicas do portfólio — replicando o ritmo, layout e comportamento da sessão equivalente na home do site de referência.
-
----
-
-## Layout & Estrutura
-
-### Desktop (≥1024px)
-
-#### Estrutura Geral
-- Headline centralizada - **(font-H1)**:  
-  **“portfólio showcase”**
-  - “portfólio” em branco  
-  - “showcase” em `#0048ff`
-- Label flutuante contextual - **(font-small)**: 
-  - Texto: **[what we love working on]**
-  - Cor: `#0048ff`
-  - Posicionamento: absoluto, alinhado à esquerda, alinhado a esquerda e ao intem 'Brand & Campaigns' dentro da faixa 
-- Três faixas interativas horizontais ['#8705f2'] (*accordion-style stripes*), com alinhamento alternado - **(font-family: "TT Norms Pro" - Normal - 24px a 40px)**: 
-  1. **Brand & Campaigns** — alinhada à direita
-  2. **Videos & Motions** — centralizada
-  3. **Web Campaigns, Websites & Tech** — alinhada à esquerda  
-     - Quebra de linha após a vírgula
-- CTA centralizado abaixo das faixas:
-  - **“let’s build something great →”**
-
----
-
-#### Estrutura de Cada Stripe
-Cada faixa contém:
-- **Thumbnail de vídeo/imagem**
-  - Largura: `288px`
-  - Aspect ratio: ~16:9
-  - Bordas levemente arredondadas
-  - Oculta por padrão
-- **Título da categoria**
-  - Tipografia grande (2xl–5xl)
-  - Peso médio
-  - Font-family: `TT Norms Pro Normal`
-- **Ícone de ação**
-  - Badge circular azul
-  - Ícone de seta interna
-
----
-
-## Interações & Animações
-
-### Scroll Reveal (Desktop)
-- Trigger: quando 30% da seção entra na viewport
-- Animação:
+**Scroll Reveal:**
 ```js
 opacity: 0 → 1
 translateY: 24px → 0
 duration: 0.8s
-easing: ease-out
 stagger: 120ms entre faixas
 ```
 
-- Durante a entrada, os títulos transitam para `#0057FF`, reforçando hierarquia visual.
+**Hover:**
+1. Thumbnail:
+   ```js
+   width: 0 → 288px
+   opacity: 0 → 1
+   duration: 700ms
+   easing: cubic-bezier(0.22, 1, 0.36, 1)
+   ```
+2. Espaçamento:
+   ```js
+   gap: gap-7 → gap-10
+   duration: 300ms
+   ```
+3. Ícone:
+   ```js
+   rotation: -45deg → 0deg
+   duration: 500ms
+   ```
 
----
+**Click:** Navega para `/portfolio?filter=[slug]`
 
-### Hover sobre a Stripe (Desktop)
+#### Assets (Supabase Storage)
 
-#### 1. Revelação da Thumbnail
-```js
-width: 0 → 288px
-opacity: 0 → 1
-duration: 700ms
-easing: cubic-bezier(0.22, 1, 0.36, 1)
+```
+1. Branding-Project.webp
+2. webdesigner-2%202.gif
+3. WelcomeAd_800x500px.webp
 ```
 
-#### 2. Ajuste de Espaçamento Interno
-```js
-gap: gap-7 → gap-10
-duration: 300ms
-```
+#### Layout Mobile (<1024px)
 
-#### 3. Ícone de Seta
-```js
-rotation: -45deg → 0deg
-duration: 500ms
-```
-
-> A interação é **progressiva e silenciosa**, sem sobreposição agressiva ou quebra de layout.
-
----
-
-### Click
-- Navegação para `/portfolio`
-- Categoria correspondente aplicada via filtro (slug).
-
----
-
-## Responsividade & Adaptação de Conteúdo
-
-### Mobile & Tablet (≤1023px)
-
-#### Layout
 - Cards verticais full-width
-- Conteúdo texto alinhado a esquerda da página
-- Ícone de Seta alinhado a direita da página
-- Label flutuante removida
+- Conteúdo alinhado à esquerda
+- Ícone de seta à direita
+- Sem hover (thumbnails ocultas)
 - CTA centralizado
 
-#### Comportamento
-- Sem hover
-- Thumbnails ocultas ou estáticas
-- Ícones de seta à direita
-
 ---
 
-#### Categories & Assets
+### 4.5 Featured Projects (Bento Grid)
 
-1. **Brand & Campaigns**
-   - Slug: `brand-campaigns`
-   - Thumbnail: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp`
+#### Objetivo
+Showcase curado de trabalhos de alta qualidade em layout editorial estilo revista.
 
-2. **Videos & Motions**
-   - Slug: `videos-motions`
-   - Thumbnail: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif`
+#### Layout Desktop
 
-3. **Web Campaigns, Websites & Tech**
-   - Slug: `websites-webcampaigns-tech`
-   - Thumbnail: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp`
-
-#### CTA Button
-
-**Text:** "let's build something great →"  
-**Destination:** `/#contact` 
-**Estado**,Propriedade,Valor / Classe Tailwind,Duração,Easing
-**Idle**,Translação Y,translate-y-0,-,-
-**Hover**,Translação Y,-translate-y-px (Levitação sutil),200ms,ease-out
-**Hover**,Background,bg-light-blue `#0048ff` (Iluminação),300ms,default (`translateX: 4px`)  
-**Optional:** Subtle looping animation on arrow in idle state (`translateX: 0 → 4px → 0`)
-
-
----
-
-## Resultado Esperado
-- Experiência editorial fluida
-- Movimento como reforço de significado
-- Consistência total entre desktop e mobile
-
-
------
-
-
-
-# **4.5 Featured Projects
-
-**Purpose:** Showcase curated, high-quality work examples in an editorial, magazine-style layout (Bento Grid).
-
-#### Layout (Desktop)
-
-Irregular grid resembling a magazine spread:
+**Grid Irregular (Magazine-style):**
 
 ```
-┌──────────────┐    ┌───────────────────────────────────┐
-│   Card 1     │    │           Card 2                  │
-│  (336×500)   │    │         (840×500)                 │
-└──────────────┘    └───────────────────────────────────┘
+┌─────────────┐ ┌──────────────────────────────┐
+│   Card 1    │ │         Card 2               │
+│ (336×500)   │ │       (840×500)              │
+└─────────────┘ └──────────────────────────────┘
 
-┌─────────────────────────────────────────────────────────┐
-│                      Card 3                             │
-│                  (1176×600)                             │
-└─────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────┐
+│              Card 3 (1176×600)               │
+└──────────────────────────────────────────────┘
 
-┌─────────────────────────────────────────┐  ┌──────────┐
-│               Card 4                    │  │   CTA    │
-│            (784×400)                    │  │ (392×400)│
-└─────────────────────────────────────────┘  └──────────┘
+┌────────────────────────────┐ ┌─────────────┐
+│        Card 4 (784×400)    │ │ CTA Card    │
+└────────────────────────────┘ └─────────────┘
 ```
 
-**Grid Implementation (Tailwind):**
-```javascript
+**Implementação (Tailwind Grid):**
+```jsx
 // Row 1
 <div className="md:col-span-5"><ProjectCard /></div>
 <div className="md:col-span-7"><ProjectCard /></div>
@@ -1670,163 +576,110 @@ Irregular grid resembling a magazine spread:
 
 // Row 3
 <div className="md:col-span-8"><ProjectCard /></div>
-<div className="md:col-span-4"><CTAProjectCard /></div>
+<div className="md:col-span-4"><CTACard /></div>
 ```
 
-#### Project Cards
+#### Estrutura de Project Card
 
-**Structure:**
-- **Image/Video:** Covers card, object-fit cover
-- **Pills (tags):** Positioned absolute, top-right, semi-transparent background (`#E6EFEF` at 70% opacity), small text
-- **Info Block (below image):**
-  - Title (H3, medium weight)
-  - Meta: Client • Year (`#6B7280`, small text)
-  - Arrow icon in blue circle (translates right on hover)
+- **Imagem/Vídeo:** Cobre card, `object-fit: cover`
+- **Pills (tags):** Absoluto, top-right, bg `#E6EFEF` 70% opacity
+- **Info Block:**
+  - Título (H3, medium weight)
+  - Meta: `Cliente • Ano` (`#6B7280`, small)
+  - Ícone de seta em círculo azul (translada direita no hover)
 
-**Interaction (Desktop):**
-```javascript
-// Hover on card
+#### Interações (Desktop)
+
+**Hover:**
+```js
 image: { scale: 1.03, translateY: -1 }
-duration: 500ms
-
 arrow: { translateX: 20px }
-duration: 700ms ease-out
-
 shadow: { shadow-xl shadow-blue-500/10 }
+duration: 500-700ms
 ```
 
 **Scroll Reveal:**
-```javascript
-container: { opacity: 0 → 1, y: 40px → 0 }
+```js
+container: { opacity: 0 → 1, y: 40 → 0 }
 cards: { scale: 0.96 → 1, staggerChildren: 0.12 }
-duration: 0.7s ease-out
+duration: 0.7s
 ```
 
-#### Featured Projects Content
+#### Projetos Destacados
 
 1. **Magic — devolvendo a magia ao rádio**
-   - Slug: `magic-radio-branding`
-   - Category: branding & campanha
-   - Client: Magic
-   - Year: 2023
-   - Image: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp`
+   - Categoria: `branding & campanha`
+   - Cliente: Magic | 2023
+   - Imagem: `Brand-Identity copy.webp`
 
 2. **Uma marca ousada e consistente**
-   - Slug: `branding-project-01`
-   - Category: branding
-   - Client: Cliente confidencial
-   - Year: 2022
-   - Image: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp`
+   - Categoria: `branding`
+   - Cliente: Confidencial | 2022
+   - Imagem: `Branding-Project.webp`
 
 3. **Key visual para campanha sazonal**
-   - Slug: `key-visual-campaign`
-   - Category: campanha
-   - Client: Cliente confidencial
-   - Year: 2021
-   - Image: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp`
+   - Categoria: `campanha`
+   - Cliente: Confidencial | 2021
+   - Imagem: `Key-Visual.webp`
 
 4. **Experiência web em movimento**
-   - Slug: `webdesigner-motion`
-   - Category: web & motion
-   - Client: Cliente confidencial
-   - Year: 2023
-   - Image: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif`
+   - Categoria: `web & motion`
+   - Cliente: Confidencial | 2023
+   - Imagem: `webdesigner-2%202.gif`
 
 #### CTA Card
 
-**Content:**
-- Headline: "Like what you see?"  - font normal - (on hover, text becomes `#0057FF`)
-- Button: "view projects →" with arrow icon
-- Background:  `#040013` (on hover, text becomes `#0057FF`)
+**Conteúdo:**
+- Headline: "Like what you see?"
+- Button: "view projects →"
+- Background: `#040013`
 
-**Interaction:**
-```javascript
-// Hover
-background: { #040013 }
-text: { white → #0057FF }
-arrow: { translateX: 4px }
+**Hover:**
+```js
+text: white → #0057FF
+arrow: translateX(4px)
 duration: 300ms
 ```
 
-**Destination:** `/portfolio`
+**Destino:** `/portfolio`
 
-#### Layout (Mobile)
+#### Layout Mobile
 
-- All cards stacked vertically
-- Full-width, heights adapted to content/aspect ratio
-- CTA card appears as last item
-
-
-
-**Desktop (≥1024px)**
-- Layout:
-  - Irregular grid resembling a magazine spread (Bento Grid)
-  - 4 project cards with varying sizes and positions
-  - CTA card in bottom-right position
-- Grid Implementation (Tailwind):
-  ```jsx
-  // Row 1
-  <div className="md:col-span-5"> <ProjectCard /> </div>
-  <div className="md:col-span-7"> <ProjectCard /> </div>
-
-  // Row 2
-  <div className="md:col-span-12"> <ProjectCard /> </div>
-
-  // Row 3
-  <div className="md:col-span-8"> <ProjectCard /> </div>
-  <div className="md:col-span-4"> <CTAProjectCard /> </div>
-  ```
-- Project Cards:
-  - Structure: Image/Video, Pills (tags), Info Block
-  - Interaction: Hover effects on image, arrow, and shadow
-  - Scroll Reveal: Container and cards with staggered animation
-
-**Mobile & Tablet (≤1023px)**
-- Layout:
-  - All cards stacked vertically
-  - Full-width, heights adapted to content/aspect ratio
-  - CTA card appears as last item
-- Specific Implementation Details:
-  - Each project card takes 100% of the container width
-  - Cards have consistent vertical spacing (32px)
-  - Project images maintain aspect ratio but scale to fit width
-  - Tags/pills are positioned at the top of the card
-  - The CTA card is simplified to a full-width button with text "view projects →"
-  - The grid layout is replaced with a simple vertical stack
-  - Project titles and metadata are center-aligned
-- Content Adaptation:
-  - The irregular bento grid is replaced with a clean vertical list
-  - Project cards have consistent height on mobile
-  - The CTA card no longer has a separate section but is integrated as a full-width button
-  - The hover effects are replaced with touch-friendly tap effects
+- Cards empilhados verticalmente
+- Full-width, heights adaptados
+- CTA card como último item
+- Espaçamento consistente (32px)
 
 ---
 
 
 
 
-# **4.6 Clients/Brands
+### 4.6 Clientes/Marcas
 
-**Purpose:** Build credibility by displaying recognizable brands previously worked with.
+#### Objetivo
+Construir credibilidade exibindo marcas reconhecíveis com as quais já trabalhou.
 
 #### Layout
 
-**Desktop & Mobile:**
-- Full-width blue bar: `bg-[#0048ff]`
-- Centered headline: "marcas com as quais já trabalhei" (white, bold, 2xl)
-- Grid of logos: Responsive grid (3–4 columns on mobile, 6+ on desktop)
-- Logos: White (apply `filter: brightness(0) invert` to SVGs)
+**Desktop e Mobile:**
+- Barra full-width azul: `bg-[#0048ff]`
+- Headline centralizada: "marcas com as quais já trabalhei" (branco, bold, 2xl)
+- Grid responsivo de logos:
+  - Mobile: 2-3 colunas
+  - Desktop: 6+ colunas
+- Logos: brancos (usar `filter: brightness(0) invert(1)`)
 
-#### Interaction
+#### Interações
 
 **Hover (Desktop):**
-```javascript
+```js
 logo: { scale: 1.04, brightness: 1.1 }
 duration: 300ms
 ```
 
 **Scroll Reveal:**
-```javascript
+```js
 title: { opacity: 0 → 1, y: 16 → 0 }
 logos: { 
   staggerChildren: 0.03,
@@ -1834,489 +687,438 @@ logos: {
 }
 ```
 
-#### Client Logos (12 total)
+#### Assets
 
-- `client1.svg` through `client12.svg`
-- Base URL: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/`
+**Base URL:** `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/`
 
-#### Accessibility
+**Logos:** `client1.svg` até `client12.svg` (12 total)
 
-- Logos have descriptive `alt` text (e.g., "Logo da empresa X")
-- Keyboard navigable (if logos link anywhere)
-- Respect `prefers-reduced-motion` (disable entrance stagger)
+#### Acessibilidade
 
+- Alt text descritivo: "Logo da empresa [nome]"
+- Keyboard navigable (se logos forem links)
+- Respeita `prefers-reduced-motion` (desabilita stagger)
 
+#### Responsividade Mobile
 
-**Desktop & Mobile**
-- Layout:
-  - Full-width blue bar: `bg-[#0048ff]`
-  - Centered headline: "marcas com as quais já trabalhei"
-  - Grid of logos: Responsive grid (3–4 columns on mobile, 6+ on desktop)
-  - Logos: White (apply `filter: brightness(0) invert` to SVGs)
-- Interaction:
-  - Hover (Desktop): logo scale and brightness increase
-  - Scroll Reveal: title and logos with staggered animation
-- Mobile-Specific Details:
-  - Grid changes to 2 columns on small mobile, 3 columns on larger mobile/tablet
-  - Logos are scaled to 70% of their desktop size on mobile
-  - Vertical spacing between logo rows is 24px on mobile
-  - The headline is smaller (1.5rem vs 2rem on desktop)
-  - Logo grid has 16px padding on all sides on mobile
-  - The blue background extends full width with no horizontal container constraints
+- Grid: 2 colunas em mobile pequeno, 3 em mobile/tablet
+- Logos: 70% do tamanho desktop
+- Espaçamento vertical: 24px entre linhas
+- Headline: 1.5rem (vs 2rem desktop)
+- Padding: 16px em todos os lados
+
 ---
 
+### 4.7 Contato
 
+#### Objetivo
+Fornecer informações claras de contato e habilitar envio de mensagem.
 
+#### Layout Desktop (≥1024px)
 
-# **4.7 Contact
+**Estrutura:**
+- Duas colunas:
+  - Esquerda: Info de contato + redes sociais
+  - Direita: Formulário
 
-**Purpose:** Provide clear contact information and enable message submission.
+#### Layout Mobile (<1024px)
 
-#### Layout (Desktop)
-
-Two-column layout:
-- **Left column:** Contact info + social media links
-- **Right column:** Contact form
-
-#### Layout (Mobile)
-
-Single column, vertically stacked:
+**Estrutura vertical:**
 1. Headline + subheadline
-2. Contact info
-3. Contact form
-4. Social media links
+2. Informações de contato
+3. Formulário
+4. Links de redes sociais
 
-#### Content
+#### Conteúdo
 
 **Headline:** "contato"  
 **Subheadline:** "Tem uma pergunta ou quer trabalhar junto?"
 
-#### Contact Information
+**Canais Diretos:**
 
-**Direct Channels:**
-- **Phone:** `+55 (11) 98396-6838`
-  - Icon: Phone
-  - Link: `tel:+5511983966838`
-- **Email (primary):** `danilo@portfoliodanilo.com`
-  - Icon: Envelope
-  - Link: `mailto:danilo@portfoliodanilo.com`
-- **Email (secondary):** `dannovaisv@gmail.com`
-  - Icon: Envelope
-  - Link: `mailto:dannovaisv@gmail.com`
+| Canal | Valor | Link |
+|-------|-------|------|
+| Telefone | `+55 (11) 98396-6838` | `tel:+5511983966838` |
+| Email principal | `danilo@portfoliodanilo.com` | `mailto:danilo@...` |
+| Email secundário | `dannovaisv@gmail.com` | `mailto:dannovaisv@...` |
 
-**Interaction:**
-- Text color: `#111111`
-- Hover: Underline + color change to `#0057FF`
-- Icons match text color
+**Interação:**
+- Cor texto: `#111111`
+- Hover: Underline + `#0057FF`
+- Ícones: mesma cor do texto
 
-**Social Media & Portfolio:**
-- Icons only (no text labels)
-- Platforms: Instagram, Facebook, LinkedIn, Portfolio site, Twitter
-- Color: `#111111`, hover: `#0057FF` + `scale(1.1)`
-- All open in new tab (`target="_blank"`, `rel="noopener noreferrer"`)
+**Redes Sociais:**
+- Ícones apenas (sem labels)
+- Plataformas: Instagram, Facebook, LinkedIn, Portfolio, Twitter
+- Cor: `#111111`, hover: `#0057FF` + `scale(1.1)`
+- Abrem em nova aba (`target="_blank" rel="noopener noreferrer"`)
 
 **Links:**
-- Instagram: `https://instagram.com/danilo_novais`
-- Facebook: `https://facebook.com/danilonovaisvilela`
-- LinkedIn: `https://linkedin.com/in/danilonovais`
-- Portfolio: `https://portfoliodanilo.com`
-- Twitter: `https://twitter.com/danilo_novais`
+```
+Instagram:  https://instagram.com/danilo_novais
+Facebook:   https://facebook.com/danilonovaisvilela
+LinkedIn:   https://linkedin.com/in/danilonovais
+Portfolio:  https://portfoliodanilo.com
+Twitter:    https://twitter.com/danilo_novais
+```
 
-#### Contact Form
+#### Formulário
 
-**Fields:**
-- Name (text input, required)
-- Email (email input, required)
-- Message (textarea, required)
+**Campos:**
+- Nome (text, required)
+- Email (email, required)
+- Mensagem (textarea, required)
 
-**Submit Button:**
+**Botão Submit:**
 - Label: "Enviar Mensagem"
 - Background: `#0048ff`
-- Text: White
-- Hover: Slight elevation (`translateY: -1px`), `scale(1.02)`
+- Hover: `translateY(-1px)` + `scale(1.02)`
 - Tap: `scale(0.98)`
 
-**Form Action:**
-- Method: POST
-- Endpoint: `https://formsubmit.co/danilo@portfoliodanilo.com`
+**Action:**
+```html
+<form method="POST" action="https://formsubmit.co/danilo@portfoliodanilo.com">
+```
 
-**States:**
-- **Focus on input:** Border color `#0057FF`, shadow `ring-2 ring-blue-500`
-- **Error:** Show validation message below field
-- **Success:** Show success message, clear form
-- **Loading:** Disable button, show spinner
+**Estados:**
+- **Focus:** Border `#0057FF` + `ring-2 ring-blue-500`
+- **Error:** Mensagem de validação abaixo do campo
+- **Success:** Mensagem de sucesso + limpar formulário
+- **Loading:** Desabilitar botão + spinner
 
-#### Interactions & Animations
+#### Animações
 
 **Scroll Reveal:**
-```javascript
+```js
 section: { opacity: 0 → 1, y: 24 → 0 }
 form fields: { staggerChildren: 60ms }
 duration: 0.6s
 ```
 
 **Form Interactions:**
-```javascript
-// Input focus
-ring-2 ring-blue-500 ring-offset-2
-
-// Button hover
-{ scale: 1.02, y: -1 }
-
-// Button tap
-{ scale: 0.98 }
+```js
+input_focus: ring-2 ring-blue-500 ring-offset-2
+button_hover: { scale: 1.02, y: -1 }
+button_tap: { scale: 0.98 }
 ```
 
-**Desktop (≥1024px)**
-- Layout:
-  - Two-column layout: Left column (contact info), Right column (contact form)
-- Content:
-  - Headline: "contato"
-  - Subheadline: "Tem uma pergunta ou quer trabalhar junto?"
-  - Contact Information: Direct channels (phone, emails), Social media
-  - Contact Form: Name, Email, Message fields, Submit button
+#### Acessibilidade
 
-**Mobile & Tablet (≤1023px)**
-- Layout:
-  - Single column, vertically stacked:
-    - Headline + subheadline
-    - Contact info
-    - Contact form
-    - Social media links
-- Specific Implementation Details:
-  - All elements are full-width with appropriate spacing
-  - Form fields have larger touch targets (minimum 48×48px)
-  - The contact info section has increased vertical spacing between items
-  - Social media icons are displayed in a single row at the bottom
-  - The form submit button is full-width with increased height
-  - The headline and subheadline are center-aligned
-  - The contact information is simplified to a vertical list
-- Content Adaptation:
-  - The two-column layout collapses to a single column
-  - Social media icons are reduced to just the icons (no text)
-  - Form fields have increased padding for touch interaction
-  - The "Enviar Mensagem" button has a minimum width of 100% on mobile
-  
-#### Accessibility
-
-- All inputs have associated `<label>` elements
+- Todos inputs com `<label>` associado
 - Keyboard navigable
 - Focus indicators (`focus-visible`)
-- Error messages programmatically associated with fields
-- Minimum touch target size: 48×48px (mobile)
+- Mensagens de erro programaticamente associadas
+- Touch target mínimo: 48×48px (mobile)
+
+#### Responsividade Mobile
+
+- Layout single-column
+- Campos full-width com touch targets maiores
+- Info de contato: lista vertical
+- Redes sociais: linha única no bottom
+- Botão submit: full-width, altura aumentada
+- Headlines: center-aligned
+- Espaçamento vertical: 32px entre blocos
 
 ---
 
+### 4.8 Footer
 
-
-
-# **4.8 Footer
-
-**Purpose:** Provide legal information, supplementary navigation, and social links while respecting the overall editorial aesthetic.
+#### Objetivo
+Fornecer informações legais, navegação suplementar e links sociais, respeitando a estética editorial.
 
 #### Desktop (≥1024px)
 
 **Layout:**
-- Fixed bar at bottom of viewport
-- Persistent (always visible)
-- Horizontal layout: Copyright (left) | Navigation + Social (right)
-- Height: `48–64px`
-
-**Behavior:**
-- `position: fixed`, `bottom: 0`, `z-index: 10`
-- Does not scroll away
+- Barra fixa no bottom: `position: fixed`, `bottom: 0`, `z-index: 10`
+- Horizontal: Copyright (esquerda) | Navegação + Social (direita)
+- Altura: 48-64px
+- Persistente (sempre visível)
 
 #### Mobile & Tablet (≤1023px)
 
 **Layout:**
-- Static section in document flow (last element on page)
-- Vertical stack: Copyright → Navigation → Social
-- **Never fixed**
-- **Never overlaps content**
+- Seção estática no fluxo do documento (última na página)
+- Stack vertical: Copyright → Navegação → Social
+- **Nunca fixo**
+- **Nunca sobrepõe conteúdo**
+- Padding vertical generoso: `py-10`
+- Espaçamento entre blocos: `space-y-6`
 
-**Spacing:**
-- Generous vertical padding: `py-10`
-- Spacing between blocks: `space-y-6`
-- Minimum touch target: 48×48px
-
-#### Content
+#### Conteúdo
 
 **Copyright:**
-- "© 2025 Danilo Novais Vilela — todos os direitos reservados"
-- Color: White
-- Small text
+```
+© 2025 Danilo Novais Vilela — todos os direitos reservados
+```
+(branco, small text)
 
-**Navigation Links:**
+**Navegação:**
 - Home → `#hero`
 - Portfólio Showcase → `#portfolio-showcase`
 - Sobre → `/sobre`
 - Contato → `#contact`
 
-**Social Media:**
-- Same icons and links as Contact section
-- White icons, hover: slight opacity reduction (desktop) or focus indicator (mobile)
+**Redes Sociais:**
+- Mesmos ícones e links da seção Contato
+- Ícones brancos
+- Hover (desktop): `opacity: 0.8` + underline
+- Mobile: feedback em `:active` / `:focus-visible`
 
 #### Background
 
-- Solid blue: `bg-[#0057FF]`
-- Text: White
+- Cor sólida: `bg-[#0057FF]`
+- Texto: branco
 
-#### Interactions
+#### Interações
 
 **Desktop:**
-```javascript
-// Hover on links
+```js
+// Hover links
 opacity: 1 → 0.8
 underline animation
 duration: 200ms
 
-// Hover on social icons
+// Hover social
 scale: 1.05
 duration: 200ms
 ```
 
 **Mobile:**
-- No hover dependencies
-- Feedback only on `:active` / `:focus-visible`
+- Sem hover
+- Feedback apenas em `:active` / `:focus-visible`
 
+#### Acessibilidade
 
-**Desktop (≥1024px)**
-- Layout:
-  - Fixed bar at bottom of viewport
-  - Persistent (always visible)
-  - Horizontal layout: Copyright (left) | Navigation + Social (right)
-  - Height: `48–64px`
-- Behavior:
-  - `position: fixed`, `bottom: 0`, `z-index: 10`
-  - Does not scroll away
-
-**Mobile & Tablet (≤1023px)**
-- Layout:
-  - Static section in document flow (last element on page)
-  - Vertical stack: Copyright → Navigation → Social
-  - Never fixed, never overlaps content
-- Specific Implementation Details:
-  - The footer is the last element on the page, not fixed to bottom
-  - Content is center-aligned with generous vertical padding
-  - Navigation links are displayed in a single row
-  - Social media icons are displayed in a single row below navigation
-  - Copyright text is smaller (0.875rem) on mobile
-  - The blue background extends full width with no container constraints
-  - Spacing between elements is increased (32px) for touch accessibility
-- Content Adaptation:
-  - The fixed position behavior is removed on mobile
-  - The horizontal layout is converted to a vertical stack
-  - The navigation and social links are consolidated into fewer rows
-  - The height is variable based on content rather than fixed
----
-
-#### Accessibility
-
-- All links have `aria-label` where needed
+- Todos links com `aria-label` se necessário
 - Keyboard navigable
-- Logical tab order
-- Contrast: White on `#0057FF` meets WCAG AA
-- Touch targets meet minimum 48×48px
+- Ordem lógica de tab
+- Contraste branco em `#0057FF`: WCAG AA ✓
+- Touch targets: mínimo 48×48px
 
-#### Non-Negotiables
+#### Responsividade Mobile Detalhada
 
-- Footer is **fixed only on desktop**
-- Footer is **not fixed on mobile**
-- No competition with Hero, Manifesto, or CTAs
-- Clean, unobtrusive design
+- Footer é **último elemento da página** (não fixo)
+- Conteúdo: center-aligned
+- Navegação: single row (se cabe) ou wrap
+- Social: single row abaixo de navegação
+- Copyright: `0.875rem` (14px)
+- Background: full-width sem constraints
+- Espaçamento entre elementos: 32px
 
-----
+#### Não-Negociáveis
 
+- Footer **fixo apenas em desktop**
+- Footer **não fixo em mobile**
+- Sem competição com Hero, Manifesto ou CTAs
+- Design clean e discreto
 
+---
 
-# **5. TECHNICAL IMPLEMENTATION
+## 5. Stack Técnica
 
+### 5.1 Core
 
-## 1. Visão Geral da Tecnologia (Tech Stack)
+- **Framework:** React 18+ (Hooks)
+- **Meta-framework:** Next.js 14+ (App Router)
+- **Linguagem:** TypeScript 5.x
+- **Estilização:** Tailwind CSS 3.4+
+- **Animações UI:** Framer Motion 11+
+- **3D/WebGL:** React Three Fiber 8+ + Three.js 0.163+
 
-### Frontend Core
-- **Framework:** React 18+ (com Hooks)
-- **Meta-framework:** Next.js 13+ (App Router)
-- **Linguagem:** TypeScript (implícito pela stack moderna)
+### 5.2 Infraestrutura
 
-### Estilização e UI
-- **CSS:** Tailwind CSS (apenas classes utilitárias core)
-- **Animações de Interface:** Framer Motion
-- **3D / WebGL:** React Three Fiber + Three.js
-
-### Infraestrutura e Assets
 - **Formulários:** FormSubmit.co
-- **Assets:** Fontes self-hosted; Assets externos via Supabase Storage
-- **Build/Deploy:** Vercel, Netlify ou Cloudflare Pages
+- **Assets:** Supabase Storage
+- **Fontes:** Self-hosted (TT Norms Pro .woff2)
+- **Deploy:** Vercel / Netlify / Cloudflare Pages
+- **Versionamento:** Git (GitHub)
+
+### 5.3 Performance Budget
+
+| Métrica | Target | Tolerância |
+|---------|--------|------------|
+| FCP (First Contentful Paint) | < 1.8s | < 2.5s |
+| LCP (Largest Contentful Paint) | < 2.5s | < 3.5s |
+| TBT (Total Blocking Time) | < 200ms | < 350ms |
+| CLS (Cumulative Layout Shift) | < 0.1 | < 0.25 |
+| Peso inicial da página | < 1.5MB | < 2MB |
+| Lighthouse Score | > 90 | > 85 |
+
+### 5.4 Otimizações
+
+- **Imagens:** WebP, lazy loading, `srcset` responsivo
+- **Vídeos:** Comprimidos, autoplay mudo, lazy load
+- **Fontes:** Self-hosted, preloaded, subsetting opcional
+- **JavaScript:** Code splitting, dynamic imports (WebGL)
+- **CSS:** Purge de classes Tailwind não utilizadas
+- **WebGL:** Max DPR 2, antialias condicional
 
 ---
 
-## 2. Requisitos de Performance e Acessibilidade
+## 6. Acessibilidade (WCAG 2.1 AA)
 
-### 2.1 Orçamento de Performance (Performance Budget)
-- **Peso Inicial da Página:** < 2MB
-- **Time to Interactive (TTI):** < 5s (em 3G)
-- **First Contentful Paint (FCP):** < 2s
-- **Cumulative Layout Shift (CLS):** < 0.1
+### 6.1 Princípios
 
-### 2.2 Estratégias de Otimização
-- **Imagens:** Formato WebP, lazy loading, `srcset` responsivo.
-- **Vídeos:** Comprimidos, autoplay mudo, lazy load (abaixo da dobra).
-- **Fontes:** Self-hosted, preloaded, *subsetting* se possível.
-- **JavaScript:** Code splitting, imports dinâmicos para WebGL.
-- **CSS:** Purge de classes Tailwind não utilizadas em produção.
-- **WebGL:** Max DPR de 2, antialias desativado.
+- **Contraste:** Mínimo 4.5:1 para texto normal, 3:1 para texto grande
+- **Navegação:** 100% operável via teclado
+- **Semântica:** HTML semântico correto + ARIA quando necessário
+- **Movimento:** Respeitar `prefers-reduced-motion`
+- **Touch Targets:** Mínimo 48×48px (mobile)
 
-### 2.3 Padrões de Acessibilidade (WCAG 2.1 Level AA)
-- **Contraste:** Mínimo 4.5:1 para texto normal.
-- **Navegação:** Totalmente operável via teclado (Focus Indicators visíveis).
-- **Semântica:** Uso correto de HTML semântico e atributos ARIA.
-- **Movimento:** Respeitar a preferência `prefers-reduced-motion`.
-- **Mobile:** Áreas de toque mínimas de 48×48px.
+### 6.2 Checklist
+
+- [ ] Todos os links e botões focáveis
+- [ ] Focus indicators visíveis (`focus-visible`)
+- [ ] Imagens decorativas com `alt=""` ou `aria-hidden`
+- [ ] Formulários com `<label>` associados
+- [ ] Headings em ordem hierárquica (`h1` → `h2` → `h3`)
+- [ ] Canvas WebGL marcado como `role="presentation"`
+- [ ] Mensagens de erro anunciáveis por screen readers
+- [ ] Navegação por teclado testada (Tab, Shift+Tab, Enter, Esc)
 
 ---
 
-## 3. Especificação de Componentes Críticos
+## 7. Fluxo de Desenvolvimento
 
-### 3.1 Botão CTA (Primary Call-to-Action)
-
-**Design Visual:**
-- **Formato:** Compósito (Pílula à esquerda + Círculo à direita).
-- **Cor:** Azul Primário (`#0048ff`). Texto Branco.
-- **Texto:** Uppercase, tracking médio, padding `px-6 py-3`.
-- **Ícone:** Seta (→) centralizada no círculo.
-
-**Interações e Animações:**
-1.  **Hover (Desktop):** O botão inteiro sobe 1px (`translateY(-1px)`).
-2.  **Seta (Opcional):** Desliza 4px para a direita no hover.
-3.  **Click (Mobile):** Efeito de compressão (`scale(0.98)`).
-4.  **Foco (Teclado):** Outline de 2px sólido cor `#4fe6ff` com offset de 4px.
-
-**Exemplo de Implementação (Framer Motion):**
-```tsx
-import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-
-export const CTAButton = ({ href, children, variant = 'primary' }) => {
-  return (
-    <motion.a
-      href={href}
-      className="inline-flex items-stretch rounded-full bg-[#000022] text-white group focus-visible:outline-2 focus-visible:outline-[#4fe6ff]"
-      whileHover={{ y: -1 }}
-      whileTap={{ scale: 0.98 }}
-      transition={{ duration: 0.2, ease: 'easeOut' }}
-    >
-      <span className="px-6 py-3 font-medium uppercase tracking-wide">{children}</span>
-      <motion.span 
-        className="flex items-center justify-center w-12 h-12 rounded-full"
-        whileHover={{ x: 4 }}
-      >
-        <ArrowRight className="w-5 h-5" />
-      </motion.span>
-    </motion.a>
-  );
-};
+### 7.1 Estrutura de Pastas (Sugerida)
 
 ```
-
-### 3.2 Atmosfera "Ghost" (WebGL)
-
-**Propósito:** Camada visual atmosférica na seção Hero (decorativo).
-**Regras Críticas:**
-
-* Carregamento via **Dynamic Import** (apenas client-side).
-* Fallback para gradiente estático se falhar ou se `prefers-reduced-motion` estiver ativo.
-* Não deve controlar layout ou bloquear texto.
-
-**Arquitetura de Pastas Sugerida:**
-
-```text
-components/
-├── canvas/
-│   ├── GhostCanvas.tsx
-│   ├── Ghost.tsx
-│   ├── Particles.tsx
-│   ├── Fireflies.tsx
-│   └── postprocessing/
-
+app/
+├── layout.tsx                 # Root layout + fonts
+├── page.tsx                   # Homepage
+├── sobre/
+│   └── page.tsx               # Página Sobre
+├── portfolio/
+│   └── page.tsx               # Grid completo com filtros
+│
+├── components/
+│   ├── Header.tsx
+│   ├── Hero.tsx
+│   ├── VideoManifesto.tsx
+│   ├── PortfolioShowcase.tsx
+│   ├── FeaturedProjects.tsx
+│   ├── ClientsSection.tsx
+│   ├── Contact.tsx
+│   ├── Footer.tsx
+│   ├── CTAButton.tsx
+│   └── canvas/
+│       ├── GhostScene.tsx
+│       ├── Ghost.tsx
+│       ├── Atmosphere.tsx
+│       └── Fireflies.tsx
+│
+├── lib/
+│   ├── hooks/
+│   │   ├── usePerformanceAdaptive.ts
+│   │   ├── useReducedMotion.ts
+│   │   └── useMediaQuery.ts
+│   └── utils/
+│       └── cn.ts              # classnames helper
+│
+└── styles/
+    └── globals.css            # Tailwind + custom CSS
 ```
 
----
-
-## 4. Estrutura de Conteúdo e Páginas
-
-### 4.1 Inventário de Conteúdo
-
-1. **Hero:** Manchete editorial, submanchete, CTA principal, Atmosfera WebGL.
-2. **Portfolio Showcase:** Título, lista de categorias, labels flutuantes, CTA.
-3. **Featured Projects:** Grid Bento, metadados dos projetos.
-4. **Clients/Brands:** Grid de logotipos.
-5. **Contact:** Formulário (2 colunas desktop, 1 mobile), info de contato, sociais.
-6. **Footer:** Copyright 2025, navegação.
-
-### 4.2 Comportamento Responsivo
-
-* **Header:**
-* Desktop: Efeito "Glass" fluido.
-* Mobile: Menu "Hambúrguer" com animação escalonada (staggered).
-
-
-* **Footer:**
-* Desktop: Fixo na base (se o design pedir reveal) ou estático.
-* Mobile: Sempre estático no fluxo do documento (nunca fixo).
-
-
-
----
-
-## 5. Build, Deploy e Variáveis
-
-**Comando de Build:** `pnpm run build`
-
-**Variáveis de Ambiente (`.env.local`):**
+### 7.2 Variáveis de Ambiente
 
 ```bash
-NEXT_PUBLIC_GA_ID=UA-XXXXXXXXX-X
-NEXT_PUBLIC_SUPABASE_URL=[https://aymuvxysygrwoicsjgxj.supabase.co](https://aymuvxysygrwoicsjgxj.supabase.co)
+# .env.local
+NEXT_PUBLIC_SUPABASE_URL=https://aymuvxysygrwoicsjgxj.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon_key>
-
+NEXT_PUBLIC_GA_ID=UA-XXXXXXXXX-X (opcional)
 ```
 
-**Checklist Pré-Deployment:**
+### 7.3 Comandos
 
-* [ ] Auditoria Lighthouse (Score > 90).
-* [ ] Teste em dispositivos móveis reais (iOS/Android).
-* [ ] Validação de envio de formulários.
-* [ ] Verificação de links externos (abrir em nova aba).
-* [ ] Teste de vídeos (autoplay mudo).
-* [ ] Teste de `prefers-reduced-motion`.
+```bash
+# Desenvolvimento
+pnpm dev
+
+# Build
+pnpm build
+
+# Preview local
+pnpm start
+
+# Lint
+pnpm lint
+```
 
 ---
 
-## 6. Checklist de Garantia de Qualidade (QA)
+## 8. Checklist de Deploy
 
-### Visual
+### 8.1 Pré-Deploy
 
-* [ ] **Hero:** Texto legível sobre o WebGL.
-* [ ] **Manifesto:** Vídeo inicia pequeno e expande no scroll.
-* [ ] **Projetos:** Grid Bento proporcional no desktop, pilha vertical no mobile.
-* [ ] **Logos:** Grid adapta colunas (2-3 no mobile).
+- [ ] Auditoria Lighthouse (Score > 90)
+- [ ] Teste em dispositivos reais (iOS/Android)
+- [ ] Validação de formulário funcionando
+- [ ] Links externos com `target="_blank" rel="noopener"`
+- [ ] Vídeos com autoplay mudo testados
+- [ ] Fallback `prefers-reduced-motion` testado
+- [ ] Fontes carregando corretamente
+- [ ] Assets de Supabase acessíveis
+- [ ] Sem erros no console
+- [ ] Sem scroll horizontal (mobile)
 
-### Funcionalidade
+### 8.2 Pós-Deploy
 
-* [ ] Links de navegação (âncoras e rotas) funcionais.
-* [ ] Formulário envia dados corretamente.
-* [ ] Ícones sociais abrem em novas abas.
-* [ ] Sem erros no console do navegador.
-* [ ] Sem scroll horizontal indesejado no mobile.
+- [ ] Verificar tempo de carregamento em 3G
+- [ ] Testar navegação por teclado (Tab)
+- [ ] Testar com screen reader (NVDA/VoiceOver)
+- [ ] Validar meta tags (Open Graph, Twitter Cards)
+- [ ] Submeter sitemap ao Google Search Console
+- [ ] Configurar analytics (se aplicável)
+- [ ] Monitorar Core Web Vitals
 
-### Performance & Acessibilidade
+---
 
-* [ ] Carregamento < 3s em 3G.
-* [ ] Navegação completa via Tab (Teclado).
-* [ ] Screen Readers leem o conteúdo corretamente.
-* [ ] CLS < 0.1 (Layout estável).
+## 9. Critérios de Sucesso
 
-```
+### 9.1 Quantitativos
+
+- **Engajamento:** >2 min de sessão média
+- **Conversão:** 50%+ de cliques em projetos destacados
+- **Performance:** Load time <3s (3G)
+- **Acessibilidade:** Zero violações WCAG AA
+- **Lighthouse:** Scores >90 em todas as categorias
+
+### 9.2 Qualitativos
+
+- Primeira impressão: profissional, sofisticado, único
+- Navegação: intuitiva, sem fricção
+- Conteúdo: claro, escaneável, convincente
+- Experiência: fluida, sem quebras ou bugs
+- Design: consistente, editorial, premium
+
+---
+
+## 10. Observações Finais
+
+### 10.1 Filosofia do Projeto
+
+Este portfólio não é apenas uma vitrine de trabalhos — é uma **declaração de capacidade**. Cada decisão de design, animação e conteúdo foi tomada para demonstrar:
+
+1. **Domínio técnico** (WebGL, animações performáticas, responsividade impecável)
+2. **Refinamento estético** (tipografia fluida, hierarquia visual clara, paleta coesa)
+3. **Atenção ao usuário** (acessibilidade, performance, clareza de informação)
+
+### 10.2 Princípios de Manutenção
+
+- **Modularidade:** Componentes reutilizáveis e bem documentados
+- **Performance:** Monitorar Web Vitals regularmente
+- **Acessibilidade:** Testar com usuários reais e ferramentas automatizadas
+- **Conteúdo:** Manter projetos atualizados (máximo 6 meses)
+- **Design System:** Respeitar tokens sempre (cores, tipografia, espaçamentos)
+
+### 10.3 Roadmap Futuro (Opcional)
+
+- [ ] Página individual por projeto (case studies)
+- [ ] Filtros avançados no grid de portfólio
+- [ ] Modo dark/light (se aplicável)
+- [ ] Internacionalização (EN/PT)
+- [ ] Blog/artigos sobre design
+- [ ] Integração com CMS (Sanity/Contentful)
 
 ---

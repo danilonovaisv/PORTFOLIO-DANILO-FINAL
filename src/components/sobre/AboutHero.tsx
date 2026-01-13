@@ -9,7 +9,6 @@ import {
   useTransform,
 } from 'framer-motion';
 
-import { Container } from '@/components/layout/Container';
 import { ABOUT_CONTENT } from '@/config/content';
 
 import { motionTokens, motionSprings } from './motion';
@@ -65,8 +64,8 @@ export function AboutHero() {
       />
 
       {/* Desktop Content - 12 Column Grid Concept */}
-      <div className="relative z-10 hidden lg:flex h-screen items-center overflow-hidden">
-        <Container className="max-w-[1120px]">
+      <div className="relative z-10 hidden lg:flex h-screen items-center overflow-hidden w-full">
+        <div className="std-grid w-full">
           <div className="grid grid-cols-12 w-full gap-8">
             {/* Columns 1-6: Empty Space / Negative Space for Video Presence */}
             <div className="col-span-6" aria-hidden="true" />
@@ -147,7 +146,7 @@ export function AboutHero() {
               </div>
             </motion.div>
           </div>
-        </Container>
+        </div>
       </div>
 
       {/* Gradient Bottom Decay */}
