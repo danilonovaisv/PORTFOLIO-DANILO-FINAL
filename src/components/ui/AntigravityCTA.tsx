@@ -76,22 +76,38 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
       tabIndex={0}
       aria-label={`${text} - Clique para acessar`}
     >
+      {/* Ghost Glow - Apenas no hover, muito sutil */}
+      <motion.div
+        className="absolute inset-0 rounded-full blur-2xl opacity-0 pointer-events-none"
+        style={{ backgroundColor: '#8705f2' }}
+        animate={{
+          opacity: isHovered ? 0.2 : 0,
+          scale: isHovered ? 1.3 : 1,
+        }}
+        transition={springTransition}
+      />
+
       {/* Pílula de Texto */}
-      <div
+      <motion.div
         className="
           relative z-10 
           flex items-center justify-center 
           h-[68px] pl-10 pr-8
-          bg-[#0057ff] text-white 
+          min-w-[240px]
+          text-white 
           shadow-lg
           rounded-full
           select-none
+          transition-colors duration-300
         "
+        style={{
+          backgroundColor: isHovered ? '#8705f2' : '#0048ff',
+        }}
       >
         <span className="text-lg font-medium tracking-wider whitespace-nowrap leading-none font-sans">
           {text}
         </span>
-      </div>
+      </motion.div>
 
       {/* Círculo com Ícone (separado mas conectado na ponta) */}
       <motion.div
@@ -101,10 +117,14 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
           flex items-center justify-center 
           h-[68px] w-[68px]
           -ml-1
-          bg-[#0057ff] text-white 
+          text-white 
           shadow-lg
           rounded-full
+          transition-colors duration-300
         "
+        style={{
+          backgroundColor: isHovered ? '#8705f2' : '#0048ff',
+        }}
         variants={arrowVariants}
         initial="initial"
         animate={isHovered ? 'hover' : 'initial'}

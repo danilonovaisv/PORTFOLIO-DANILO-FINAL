@@ -76,11 +76,11 @@ export default function FeaturedProjectCard({
         />
       </div>
 
-      {/* Metadata - Center-aligned on mobile, left-aligned on desktop */}
-      <div className="mt-6 flex flex-col md:flex-row justify-between items-center md:items-start gap-4 md:gap-6 px-1 text-center md:text-left">
+      {/* Metadata - Mobile: text left, arrow right | Desktop: left-aligned */}
+      <div className="mt-6 flex flex-row justify-between items-start gap-4 md:gap-6 px-1 text-left">
         <div className="flex-1">
           {/* Category / Client / Year */}
-          <div className="flex items-center justify-center md:justify-start gap-2 text-white/40 text-xs md:text-sm leading-tight mb-2">
+          <div className="flex items-center justify-start gap-2 text-white/40 text-xs md:text-sm leading-tight mb-2">
             <span className="uppercase tracking-widest font-mono text-[9px] md:text-[10px]">
               {project.category}
             </span>
@@ -97,13 +97,24 @@ export default function FeaturedProjectCard({
           </h3>
         </div>
 
-        {/* Arrow Icon Circle - Workflow Spec: translateY(-1) shadow-xl blue shadow-blue-500/10 */}
+        {/* Arrow Icon Circle - Blue default, Purple on hover */}
         <div
-          className={`bg-white/5 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-white shrink-0 border border-white/10 transition-all duration-700 ${
+          className={`w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-white shrink-0 border border-white/10 transition-all duration-700 ${
             reducedMotion
               ? ''
-              : 'md:group-hover:translate-x-5 md:group-hover:bg-primary md:group-hover:border-primary md:group-hover:shadow-[0_0_20px_rgba(0,72,255,0.4)]'
+              : 'md:group-hover:translate-x-5 md:group-hover:shadow-[0_0_20px_rgba(135,5,242,0.4)]'
           }`}
+          style={{
+            backgroundColor: '#0048ff',
+          }}
+          onMouseEnter={(e) => {
+            if (!reducedMotion) {
+              e.currentTarget.style.backgroundColor = '#8705f2';
+            }
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = '#0048ff';
+          }}
         >
           <ArrowIcon className="w-5 h-5 md:w-6 md:h-6 -rotate-45 transition-transform duration-500 md:group-hover:rotate-0" />
         </div>

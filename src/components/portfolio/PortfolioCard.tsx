@@ -147,7 +147,10 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
           </div>
 
           <motion.div
-            className="flex h-11 w-11 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-full bg-white text-black shadow-[0_0_16px_rgba(0,72,255,0.25)] transition-all duration-300"
+            className="flex h-11 w-11 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-full text-white shadow-[0_0_16px_rgba(0,72,255,0.25)] transition-all duration-300"
+            style={{
+              backgroundColor: isHovered ? '#8705f2' : '#0048ff',
+            }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: 'spring', ...spring.snappy }}

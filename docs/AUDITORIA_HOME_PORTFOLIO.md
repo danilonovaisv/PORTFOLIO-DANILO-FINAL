@@ -10,1336 +10,726 @@
 
 ✅ Nenhum ponto deve ser ignorado.
 
+// código completo revisado aqui, e completo com os arquivos corrigidos e os arquivos que não precisou de correção. Todo material completo
+// (arquivo ou arquivos prontos para colar no projeto)
 
-// AuditReport.tsx
-// Auditoria completa das páginas Home, Sobre e Portfolio + prompts para agente executor
-// Ghost Design System v3.0 — portfoliodanilo.com
+// ============================================================================
+// file: docs/copilot-playbook-portfoliodanilo.md
+// ============================================================================
 
-import React from "react";
+/*
+# 🧠 Playbook de Prompts Corretivos — portfoliodanilo.com
 
-/**
- * Relatório em Markdown seguindo o formato solicitado pelo usuário.
- * Use este conteúdo como fonte única de verdade para ajustes de layout/motion/WebGL.
- */
-export const auditMarkdown = `
-# 🔍 Auditoria HOME, SOBRE e PORTFOLIO  
-Ghost Design System v3.0 — portfoliodanilo.com
-
----
-
-## 1️⃣ Visão Geral
-
-### Estado atual (produção + repositório)
-
-- **Home (/)**  
-  - Estrutura geral já segue a narrativa: Header → Hero Ghost → “portfólio showcase” → projetos em destaque → marcas → contato → footer.
-  - **Header/Glass** e **Hero Ghost** já existem com WebGL/R3F e CTA "step inside", mas ainda não reproduzem com exatidão:
-    - posição/escala do ghost em relação à headline
-    - contraste e glow em relação à referência HERO-PORTFOLIO-GHOST
-    - integração de z-index entre Header, Ghost e CTA.
-  - **Portfolio Showcase (faixas)** e **Featured Projects** existem, porém:
-    - grid/margens laterais variam entre seções
-    - tipografia e espaçamentos não seguem exatamente os tokens/clamp do sistema
-    - comportamentos de hover/motion ainda não refletem o motion “editorial silencioso” descrito.
-  - **Clients/Brands, Contato e Footer** estão implementados, mas com:
-    - variação de alinhamento lateral
-    - diferenças entre mobile/desktop em relação às referências
-    - footer fixo/comportamento diferente do especificado.
-
-- **Sobre (/sobre)**  
-  - A narrativa e o conteúdo estão presentes: Hero manifesto → blocos de origem → método → crenças/“ghost design” → fechamento → marcas → contato.
-  - Porém:
-    - Hero ainda não segue o novo **vídeo loop + texto alinhado à direita** com overlay controlado.
-    - Sessão **Origem Criativa** é estática; não existe o **GSAP mask reveal pinned** com imagens à direita.
-    - Sessões **O que eu faço**, **Como eu trabalho** e **O que me move** usam estrutura próxima, mas:
-      - não têm o motion sequencial descrito (scroll-driven horizontal, parallax leve, frases rotativas, reveal final Ghost).
-      - não respeitam 100% as regras mobile-first (títulos centralizados no mobile, ordering texto → mídia, etc.).
-    - Ghost/IA em Sobre ainda não conversa visualmente com o Ghost da Home (coerência de linguagem).
-
-- **Portfolio (/portfolio)**  
-  - Página atual ainda é uma derivação da home, com:
-    - hero estático com cards da Nestlé e ghost decorativo
-    - grid de projetos em forma de mosaico/slider
-  - O **Protótipo Interativo Portfolio Showcase v2.0 (video hero + parallax lerp + modal de projetos)** **não está implementado**:
-    - sem Hero full-screen em vídeo loop
-    - sem gallery com **Gallery Track fixo + Parallax Lerp**
-    - sem PortfolioModal tipo A/B com timeline de animação
-    - sem pausa do parallax durante o modal.
+**Stack alvo:** Next.js App Router (TS) + React + Tailwind + Framer Motion + React Three Fiber + Lenis  
+**Escopo:** Páginas `Home`, `Sobre`, `Portfolio Showcase` + componentes compartilhados  
+**Objetivo:** Fornecer prompts *atômicos* e encadeados para agentes Copilot/autônomos corrigirem e alinharem o código ao Ghost Design System e aos protótipos canônicos (HOME, SOBRE, PORTFOLIO).
 
 ---
 
-## 2️⃣ Diagnóstico por Dimensão
+## 0. Convenções Gerais
 
-### Estrutura & Arquitetura
+- **Formato de cada prompt:**
+  - **ID**: identificador único, ex: `P-GLOBAL-01`
+  - **Objetivo:** o que esse passo deve alcançar
+  - **Contexto mínimo:** arquivos e docs de referência
+  - **Prompt para o agente:** texto pronto para colar no Copilot/autônomo
 
-- App Router está configurado (\`src/app/page.tsx\`, \`src/app/sobre\`, \`src/app/portfolio\`, \`src/app/layout.tsx\`).
-- Componentização existe (Header, HeroGhost, sections de home, contato, footer etc.), porém:
-  - Ainda há **duplicação conceitual** entre home/portfolio/sobre (mesmos blocos reimplementados) em vez de componentes reutilizáveis com variações de layout.
-  - Tokens de tipografia/spacing estão parcialmente no Tailwind, parcialmente hardcoded nos componentes.
-  - WebGL Ghost está isolado em \`src/components/canvas/home/hero/Ghost.tsx\`, mas a orquestração com texto e CTA ainda não segue o “stack de z-index” e heurísticas da documentação Ghost.
-
-### UI (tipografia, grid, cores)
-
-- Tokens de cor estão coerentes (azul primário, fundo escuro, branco, textos secundários).
-- Divergências mais claras:
-  - **Tipografia**:
-    - Nem todos os títulos usam \`clamp()\`/tokens (\`display\`, \`h1\`, \`h2\`, \`h3\`).
-    - Escalas relativas entre h1/h2/body variam entre seções.
-  - **Grid / margens laterais**:
-    - Containers de cada seção usam larguras/paddings ligeiramente diferentes (ex.: Featured Projects vs Clients vs Contato), quebrando o “alinhamento duas laterais”.
-  - **Ritmo vertical**:
-    - Alguns blocos têm \`py\` muito maior/menor que os tokens (\`py-16 md:py-24\`) causando saltos visuais.
-
-### UX
-
-- Fluxo macro (Home → Portfolio Showcase → Featured → Sobre → Contato) está presente.
-- Problemas:
-  - Ghost Hero pode competir visualmente com texto/CTA em alguns breakpoints (glow muito intenso e centralizado).
-  - Portfolio atual não oferece experiência de exploração contínua com parallax + modal (experiência esperada de “galeria editorial”).
-  - Sobre ainda se comporta mais como landing do que como leitura editorial silenciosa (excesso de blocos similares, pouco contraste de ritmo entre seções).
-
-### Fidelidade Visual (referências)
-
-- **Home**: próxima, mas ainda não idêntica aos arquivos:
-  - \`HOME-PORTFOLIO-BLACK---GHOST.jpg\`
-  - \`HOME-PORTFOLIO-LAYOUYT-MOBILE---GHOST.jpg\`
-- **Sobre**: conteúdo ok, motion/layout ainda divergentes de:
-  - \`SOBRE-PORTFOLIO-BLACK---GHOST.jpg\`
-  - \`SOBRE-MOBILE-BLACK---GHOST.jpg\`
-- **Portfolio Showcase**: v2.0 parallax hero + modal **não implementado**.
-
-### Responsividade mobile (mobile-first)
-
-- Mobile tem suporte completo, mas com desvios:
-  - Títulos nem sempre centralizados.
-  - Alguns blocos mantêm grid pensado para desktop comprimido (ex.: cards de serviços na Sobre).
-  - Canvas/WebGL Ghost ainda não reduz complexidade/DPR de forma agressiva em mobile (risco de performance).
-
-### Alinhamento “duas laterais”
-
-- Não está 100% consistente:
-  - Cabeçalho/hero/portfólio showcase/featured/contato apresentam pequenas diferenças de margem lateral e largura de coluna, perceptíveis em scroll.
-  - Em algumas transições de seção há um “salto” de coluna visível.
-
-### Animações & Motion
-
-- Framer Motion já é usado em alguns pontos (hero/home, CTA, seções).
-- Ausentes:
-  - Sequência canônica do **PortfolioModal** (backdrop → container → mídia → título → meta → secundário).
-  - **Parallax Lerp** da galeria de portfolio.
-  - **GSAP mask reveal** na Origem Criativa.
-  - **Frases rotativas/manifesto final** em “O que me move”.
-- Prefers-reduced-motion ainda não parece aplicado a todas as animações (principalmente GSAP/futuras).
-
-### WebGL / 3D (Ghost)
-
-- Ghost em Home atende parcialmente:
-  - Canvas isolado, ghost segue cursor, glow presente.
-- Pendências:
-  - Ajuste milimétrico de posição/escala para coincidir com HERO-PORTFOLIO-GHOST.
-  - Controle exato de camadas: texto sempre legível, CTA sempre no topo (\`z-35\`, ghost \`z-30\`).
-  - Desligar follow mouse em touch + reduzir partículas / pós-processamento em mobile.
-  - Fallback estático e respeito a \`prefers-reduced-motion\`.
-
-### Performance
-
-- Next.js + Tailwind + R3F bem usados, mas:
-  - Ghost Canvas provavelmente ainda com DPR > 2 em alguns devices.
-  - Manifesto vídeo e vídeos da página Sobre/Portfolio ainda sem lazy load + qualidade adaptativa em todos contextos.
-  - Falta garantir orquestração do parallax lerp com \`requestAnimationFrame\` pausando quando não necessário.
-
-### Acessibilidade
-
-- Estrutura semântica geral é razoável (headings, seções).
-- Pendências marcantes:
-  - Modais de portfolio (quando existirem) precisam de foco gerenciado, \`role="dialog"\`, \`aria-modal\`.
-  - Header mobile precisa de focus trap no menu aberto.
-  - \`prefers-reduced-motion\` ainda não aplicado globalmente a animações de scroll/parallax.
+- **Regras globais para todos os prompts:**
+  - Nunca remover funcionalidades existentes sem motivo explícito.
+  - Sempre manter tipagem TypeScript estrita (`strict`).
+  - Seguir padrões do Ghost Design System: cores, tipografia fluida, grid 4/8/12, motion editorial silenciosa.
+  - Respeitar `prefers-reduced-motion` em qualquer animação.
+  - Manter acessibilidade (WCAG 2.1 AA) como requisito não-negociável.
 
 ---
 
-## 3️⃣ Diagnóstico por Seção
+## 1. Diagnóstico & Contexto Global
 
-Abaixo, cada seção auditada com o checklist obrigatório.
+### P-GLOBAL-01 — Leitura de Documentação Canônica
 
----
+**Objetivo:** Garantir que o agente entenda a visão geral e os protótipos.
 
-## 🎯 Seção: Header Global (Home / Sobre / Portfolio)
+**Prompt para o agente:**
 
-- 📌 Fidelidade visual (referência): ✗ — headers nas imagens desktop/mobile de todas as páginas
-- 📐 Grid e margens laterais: ✗
-- ↔️ Alinhamento duas laterais: ✗
-- 📱 Mobile (sm/md): ✗
-- 🎞️ Motion/Animações: ✗
-- 🧩 Componentes envolvidos: \`src/app/layout.tsx\`, \`src/components/layout/header/SiteHeader.tsx\`, \`src/components/layout/header/types.ts\`
-- 🔗 Integrações: \`layout.tsx → SiteHeader → (GhostCanvas em HomeHero)\`
+Você é um agente Copilot responsável por alinhar o projeto `portfoliodanilo.com` ao Ghost Design System.
 
-### ❌ Problema
-
-1. **Desktop**  
-   - Header em formato pill existe, mas:
-     - largura, raio de borda e paddings não batem exatamente com a referência.
-     - posição vertical (distância do topo) varia entre páginas e não respeita \`top: 24px\` + container centralizado.
-   - Efeito “fluid glass” ainda não implementado ou não restrito ao desktop (cursor-follow, leve stretch).
-
-2. **Mobile/Tablet**  
-   - Header fixo em topo existe, mas:
-     - menu hambúrguer/staggered overlay não reproduz o layout e animação descritos (full screen, itens grandes, stagger).
-     - em alguns breakpoints tablet o header ainda tenta manter pill desktop comprimido.
-
-3. **Integração com Hero**  
-   - Z-index entre ghost/hero/header não segue a pilha explícita:
-     - header precisa ficar em \`z-40\`, ghost em \`z-30\`, texto hero em \`z-20\`, CTA em \`z-35\`.
-   - Em sobre/portfolio, o header não adapta contraste quando sobre seções claras (contato/rodapé).
-
-### 🔧 Correção Técnica
-
-- **O que mudar**
-  - Centralizar a implementação do header em \`SiteHeader.tsx\` com dois modos:
-    - \`DesktopFluidHeader\` (≥1024px) com fluid glass.
-    - \`MobileStaggeredMenu\` (≤1023px) com overlay.
-  - Ajustar paddings, border-radius, largura e comportamento sticky conforme especificações.
-
-- **Onde mudar (arquivos)**
-  - \`src/components/layout/header/SiteHeader.tsx\`
-  - \`src/components/layout/header/types.ts\`
-  - \`src/app/layout.tsx\` (incluir header sempre no topo do \`body\`)
-
-- **Quais classes/props**
-  - Usar Tailwind para pill desktop:
-    - \`fixed\`, \`top-6\`, \`inset-x-0\`, \`mx-auto\`, \`max-w-[min(1680px,100%-3rem)]\`, \`rounded-full\`,
-    - \`backdrop-blur-xl\`, \`bg-white/5\`, \`border border-white/10\`.
-  - Mobile:
-    - \`fixed top-0 inset-x-0 h-14 flex items-center justify-between px-4 z-40 bg-[#040013]/90\`.
-  - Implementar variant prop \`mode="desktop" | "mobile"\` com \`useMediaQuery\` ou \`useEffect + window.matchMedia\`.
-
-- **Critério de aceite**
-  - Em screenshots comparativos (desktop e mobile), header deve encaixar pixel a pixel com as referências.
-  - Efeito glass só ativo em desktop; no mobile, menu overlay fullscreen com staggered items.
-
-### ✅ Resultado esperado
-
-Header idêntico às imagens fornecidas, com pill estático em desktop, overlay staggered em mobile, alinhando sempre com as margens/colunas das seções de conteúdo abaixo.
+1. Localize e leia cuidadosamente os seguintes documentos de especificação (no próprio repositório ou anexos externos):
+   - **HOME** — `HOME_-_PROTOTIPO_INTERATIVO.pdf`
+   - **SOBRE** — `SOBRE-PROTOTIPO-INTERATIVO.pdf`
+   - **PORTFOLIO** — `PORTFOLIO_-_PROTOTIPO_INTERATIVO.pdf`
+2. Extraia, em um comentário próprio, um resumo em bullet points contendo:
+   - Seções principais de cada página.
+   - Regras de grid (4/8/12), tipografia fluid, cores, animação e acessibilidade.
+3. Não faça modificações de código neste passo. Apenas crie ou atualize um arquivo de notas internas:
+   - `docs/IMPLEMENTATION_NOTES.md` (ou similar existente).
+   - Se o arquivo não existir, crie-o com esse resumo.
 
 ---
 
-## 🎯 Seção: Home — Hero Ghost + CTA
+### P-GLOBAL-02 — Mapa de Arquivos Reais vs Protótipos
 
-- 📌 Fidelidade visual (referência): ✗ — imagem HERO-PORTFOLIO-GHOST
-- 📐 Grid e margens laterais: ✗
-- ↔️ Alinhamento duas laterais: ✗
-- 📱 Mobile (sm/md): ✗
-- 🎞️ Motion/Animações: ✗
-- 🧩 Componentes envolvidos: \`src/components/home/hero/HomeHero.tsx\`, \`src/components/home/hero/HeroCTA.tsx\`, \`src/components/canvas/home/hero/Ghost.tsx\`, \`src/hooks/useReducedMotion.ts\`
-- 🔗 Integrações: \`page.tsx → HomeHero → GhostCanvas + HeroCTA\`
+**Objetivo:** Mapear onde cada seção está implementada no código.
 
-### ❌ Problema
+**Prompt para o agente:**
 
-1. **Headline & Subheadline**
-   - Textos existem, porém:
-     - tokens tipográficos exatos (\`display\`, \`h1\`, \`h2\`) ainda não aplicados.
-     - versão mobile não quebra exatamente em 3 linhas (“Você não” / “vê o” / “design.”) com fonte e tracking previstos.
+Você deve mapear o código atual para as seções descritas nos protótipos.
 
-2. **Ghost WebGL**
-   - Posição/escala do ghost e do halo não coincidem com o lugar onde o glow encobre “Você não vê o design” na referência.
-   - Movimento de seguir o mouse possivelmente ativo em mobile, gerando trabalho desnecessário e ruído.
-   - DPR e quantidade de partículas/fireflies não adaptados agressivamente por device.
+1. Escaneie as rotas do App Router em `src/app`:
+   - `src/app/page.tsx` (Home)
+   - `src/app/sobre/page.tsx`
+   - `src/app/portfolio/page.tsx`
+2. Para cada página, identifique quais componentes são usados:
+   - Home: componentes em `src/components/home/**`.
+   - Sobre: componentes em `src/components/sobre/**`.
+   - Portfolio: componentes em `src/components/portfolio/**`.
+3. Atualize `docs/IMPLEMENTATION_NOTES.md` com uma tabela:
 
-3. **Integração Z-Index / CTA**
-   - CTA “step inside →” existe, mas:
-     - não está garantido que esteja sempre acima do glow (\`z-35\`).
-     - animação de entrada do bloco de texto (blur + scale + y) não segue a timeline única com easing \`[0.25, 0.46, 0.45, 0.94]\`.
+   - Colunas: **Página**, **Seção protótipo**, **Componente(s)**, **Arquivo**.
+   - Exemplo de linha:
+     - `Home | Hero (Ghost + CTA "step inside") | <HomeHero /> | src/components/home/hero/HomeHero.tsx`
 
-### 🔧 Correção Técnica
-
-- **O que mudar**
-  - Refatorar \`HomeHero.tsx\` para:
-    - usar os tokens de fonte via Tailwind (\`text-display\`, \`text-h1\`, \`text-h2\`),
-    - separar versões Desktop vs Mobile das linhas.
-  - Ajustar \`Ghost.tsx\` para:
-    - posicionar ghost num eixo fixo (ex.: \`[x=-1,y=-0.2,z=0]\`) alinhado às referências,
-    - limitar follow mouse a desktop (pointer fine),
-    - reduzir DPR/partículas conforme config device.
-  - Aplicar animação de entrada em \`HeroText\` com Framer Motion conforme snippet do documento.
-
-- **Onde mudar**
-  - \`src/components/home/hero/HomeHero.tsx\`
-  - \`src/components/canvas/home/hero/Ghost.tsx\`
-  - \`src/hooks/useReducedMotion.ts\`
-
-- **Quais classes/props**
-  - Mobile hero wrapper:
-    - \`flex flex-col items-center text-center md:items-start md:text-left h-screen relative overflow-hidden\`.
-  - Títulos:
-    - Desktop: \`hidden md:block text-display font-black leading-[1.05]\`.
-    - Mobile: \`md:hidden text-display font-black leading-[1.05]\`.
-  - CTA:
-    - base: \`mt-8\` + componente \`HeroCTA\` usando padrão do CTA global.
-
-- **Critério de aceite**
-  - Screenshot side-by-side mostra ghost, glow e texto sobrepostos exatamente como na imagem HERO-PORTFOLIO-GHOST.
-  - Em mobile, ghost centralizado, follow desativado, animação apenas de flutuação.
-  - FPS estável (scroll + idle) em devices medianos.
-
-### ✅ Resultado esperado
-
-Hero se torna a assinatura visual da home, com ghost posicionado milimetricamente, CTA legível e motion editorial controlado, sem ruídos em mobile.
+4. Não altere nenhum layout ainda; apenas documente o mapeamento real.
 
 ---
 
-## 🎯 Seção: Home — Vídeo Manifesto
+### P-GLOBAL-03 — Checklist de Stack & Dependências
 
-- 📌 Fidelidade visual (referência): ✗ — especificação “VÍDEO MANIFESTO”
-- 📐 Grid e margens laterais: ✗ (não ocupa 100vw/16:9 conforme descrito)
-- ↔️ Alinhamento duas laterais: ✗
-- 📱 Mobile (sm/md): ✗
-- 🎞️ Motion/Animações: ✗
-- 🧩 Componentes envolvidos: \`src/components/home/VideoManifesto.tsx\` (ou equivalente), \`src/app/page.tsx\`
-- 🔗 Integrações: \`HomeHero → VideoManifesto → próximas seções\`
+**Objetivo:** Confirmar que as dependências necessárias estão instaladas e atualizadas.
 
-### ❌ Problema
+**Prompt para o agente:**
 
-- A sessão logo após o Hero atualmente é um mosaico/cards de vídeo, não um bloco **fullscreen 16:9 colado às bordas**.
-- Não há:
-  - fade-in único do vídeo/overlay,
-  - botão de som persistente no canto,
-  - lazy load + qualidade adaptativa (HD/SD) com \`navigator.connection\`,
-  - auto-mute on leave section via IntersectionObserver.
+Valide se o projeto tem todas as dependências necessárias e compatíveis com o Ghost Design System.
 
-### 🔧 Correção Técnica
-
-- **O que mudar**
-  - Criar/alinhar \`VideoManifesto.tsx\` exatamente como especificado no documento (já há código canônico pronto).
-  - Substituir a sessão atual de “grade de vídeos” logo após Hero por este componente único.
-
-- **Onde**
-  - \`src/components/home/VideoManifesto.tsx\`
-  - \`src/app/page.tsx\` (import e posicionamento)
-
-- **Classes/props**
-  - Wrapper: \`w-screen max-w-none mx-[calc(50%-50vw)]\` + \`aspect-video\`.
-  - Animação Framer Motion:
-    - \`initial={{ opacity: 0, scale: 0.95, y: 20 }}\`
-    - \`whileInView={{ opacity: 1, scale: 1, y: 0 }}\`
-    - \`transition={{ duration: 0.6, ease: [0.22,1,0.36,1] }}\`.
-
-- **Critério de aceite**
-  - Seção imediatamente abaixo do Hero é um único vídeo 16:9 colado às laterais, sem padding lateral de container.
-  - Botão de som visível, mutando ao sair da seção.
-  - Lazy loading e poster estático ok.
-
-### ✅ Resultado esperado
-
-Um único bloco de vídeo manifesto poderoso, limpo, sem competir com o ghost e alinhado ao grid global.
+1. Abra `package.json` e verifique:
+   - `next` (>= 14, preferencialmente 15).
+   - `react` (>= 18.3).
+   - `typescript` (>= 5.x).
+   - `tailwindcss` (>= 3.4).
+   - `framer-motion`.
+   - `@react-three/fiber`, `@react-three/drei`.
+   - `@studio-freight/lenis` (ou similar para smooth scroll).
+2. Se alguma versão estiver muito desatualizada em relação às especificações, apenas registre isso em `docs/IMPLEMENTATION_NOTES.md` sob a seção “TODO: upgrade de stack”.
+3. Não faça upgrades automáticos neste passo.
 
 ---
 
-## 🎯 Seção: Home — Portfolio Showcase (3 faixas)
+## 2. Design System Global (Cores, Tipografia, Grid)
 
-- 📌 Fidelidade visual (referência): ✗ — home desktop/mobile com \`portfólio showcase\`
-- 📐 Grid e margens laterais: ✗
-- ↔️ Alinhamento duas laterais: ✗
-- 📱 Mobile (sm/md): ✗
-- 🎞️ Motion/Animações: ✗
-- 🧩 Componentes envolvidos: \`src/components/home/PortfolioShowcaseStripes.tsx\` (nome ilustrativo), \`src/app/page.tsx\`
-- 🔗 Integrações: \`Home → Portfolio Showcase → Featured Projects\`
+### P-DS-01 — Cores & Tokens no Tailwind
 
-### ❌ Problema
+**Objetivo:** Garantir que a paleta Ghost esteja declarada como tokens Tailwind.
 
-- A seção atual de “portfólio showcase” existe, mas:
-  - Headline, label flutuante [what we love working on] e três faixas não obedecem 100%:
-    - alinhamento alternado (1 direita, 2 centro, 3 esquerda),
-    - revelação da thumbnail apenas em hover desktop,
-    - ícone de seta com rotação \`-45deg → 0deg\`.
-  - Em mobile:
-    - não há a redução para “cards verticais full-width” com ícone de seta à direita e texto à esquerda,
-    - label contextual é escondida, mas os paddings/margens laterais não seguem grid mobile.
+**Prompt para o agente:**
 
-### 🔧 Correção Técnica
+Implemente a paleta de cores Ghost Design no `tailwind.config.ts` e garanta que seja usada globalmente.
 
-- **O que mudar**
-  - Reconstruir a seção como componente isolado seguindo o documento de Portfolio Showcase Home.
-  - Desktop com 3 stripes interativas horizontais + hover reveal.
-  - Mobile com cards verticais simples (sem hover) e CTA centralizada.
+1. Abra `tailwind.config.ts`.
+2. Na seção `theme.extend.colors`, adicione (ou alinhe) os tokens abaixo, usando os valores dos protótipos:
 
-- **Onde**
-  - \`src/components/home/portfolio/PortfolioShowcaseStripes.tsx\`
-  - \`src/app/page.tsx\`
+   - `bluePrimary: "#0048ff"`
+   - `blueAccent: "#4fe6ff"`
+   - `purpleDetails: "#8705f2"`
+   - `pinkDetails: "#f501d3"`
+   - `background: "#040013"`
+   - `backgroundLight: "#f0f0f0"`
+   - `text: "#fcffff"`
+   - `textInverse: "#0e0e0e"`
+   - `textEmphasis: "#2E85F2"`
+   - `textHighlight: "#4fe6ff"`
+   - `textSecondary: "#a1a3a3"`
+   - `surface: "#0b0d3a"`
+   - `neutral: "#0b0d3a"`
+   - `neutralLight: "#F5F5F5"`
 
-- **Classes básicas**
-  - Container desktop: \`max-w-[1680px] mx-auto px-[clamp(24px,5vw,96px)] py-16 md:py-24\`.
-  - Headline: \`text-h2 font-bold text-center md:text-left\` com "portfólio" branco, "showcase" \`text-[#0048ff]\`.
-  - Stripes: \`flex items-center justify-between border-y border-neutral/40 py-6 md:py-8 hover:bg-white/3 transition-colors\`.
-
-- **Critério de aceite**
-  - Comparação lado a lado mostra:
-    - mesma posição de label flutuante,
-    - títulos nas mesmas colunas,
-    - ícones/bolhas de thumbnail idênticos.
-  - Em mobile, fluxo exclusivamente vertical e touch-friendly.
-
-### ✅ Resultado esperado
-
-Seção editorial de categorias visualmente idêntica ao layout fundacional, servindo de ponte clara para o /portfolio completo.
+3. Substitua usos “hard-coded” de hex em componentes principais (Home, Sobre, Portfolio, Header, Footer, Contact, Clients) por classes correspondentes a esses tokens.
+4. Não altere a semântica visual além das cores; o objetivo é apenas tokens consistentes.
 
 ---
 
-## 🎯 Seção: Home — Featured Projects (Bento Grid)
+### P-DS-02 — Tipografia Fluida com Tokens
 
-- 📌 Fidelidade visual (referência): ✗ — bento grid descrito no protótipo
-- 📐 Grid e margens laterais: ✗
-- ↔️ Alinhamento duas laterais: ✗
-- 📱 Mobile (sm/md): ✓ (os cards já empilham, mas com ajustes finos necessários)
-- 🎞️ Motion/Animações: ✗
-- 🧩 Componentes envolvidos: \`src/components/home/featured/FeaturedProjects.tsx\`
-- 🔗 Integrações: \`Home → Portfolio Showcase → Featured Projects → Clients\`
+**Objetivo:** Configurar tipografia fluida alinhada à documentação.
 
-### ❌ Problema
+**Prompt para o agente:**
 
-- Grid de projetos em destaque existe, porém:
-  - proporções dos cards (col-span, row-span) não seguem exato \`5/7/12/8/4\` de colunas.
-  - CTA card final não está posicionado em \`md:col-span-4\` na última linha com contraste adequado.
-- Animações de hover:
-  - imagens não aplicam \`scale:1.03; translateY:-1\` com \`duration:500ms\`,
-  - ícone seta não desliza 20px na horizontal em hover,
-  - não há scroll reveal container + stagger nos cards.
+Garanta que a tipografia fluida do Ghost System esteja definida e utilizada.
 
-### 🔧 Correção Técnica
+1. Abra `src/app/globals.css` e:
+   - Adicione as variáveis CSS:
 
-- **O que mudar**
-  - Ajustar bento grid para obedecer mapping exato do documento.
-  - Implementar animações de hover e scroll reveal usando Framer Motion.
+     - `--font-display`, `--font-h1`, `--font-h2`, `--font-h3`, `--font-body`, `--font-small`, `--font-micro` conforme especificado.
+2. Em `tailwind.config.ts`, mapeie `fontSize` customizado:
 
-- **Onde**
-  - \`src/components/home/featured/FeaturedProjects.tsx\`
-
-- **Classes/props**
-  - Grid wrapper: \`grid md:grid-cols-12 gap-6\`.
-  - Row 1:
-    - card1: \`md:col-span-5\`,
-    - card2: \`md:col-span-7\`.
-  - Row 2:
-    - card3: \`md:col-span-12\`.
-  - Row 3:
-    - card4: \`md:col-span-8\`,
-    - CTA: \`md:col-span-4\`.
-
-- **Critério de aceite**
-  - Layout dos 4 cards + CTA reproduz bento exato (tamanhos proporcionais, posicionamento).
-  - Animações suaves confirmadas, respeitando \`prefers-reduced-motion\`.
-
-### ✅ Resultado esperado
-
-Grid editorial premium que reforça a curadoria, sem parecer um carrossel comum.
+   - `display`, `h1`, `h2`, `h3`, `body`, `small`, `micro` usando `clamp` conforme os protótipos.
+3. Verifique nos componentes de Home, Sobre e Portfolio se títulos e textos estão utilizando classes (`text-display`, `text-h1`, `text-h2`, `text-body`, etc.).
+   - Quando encontrar tamanhos fixos (ex: `text-4xl`, `text-6xl`) em seções principais, substitua por tokens sem quebrar layout.
+4. Centralize qualquer utilitário repetido de tipografia em uma camada global (`@layer base`) se ainda não existir.
 
 ---
 
-## 🎯 Seção: Clients / Brands (Home, Sobre, Portfolio)
+### P-DS-03 — Ghost Grid 4/8/12
 
-- 📌 Fidelidade visual (referência): ✗ — barra azul + logos
-- 📐 Grid e margens laterais: ✗
-- ↔️ Alinhamento duas laterais: ✗
-- 📱 Mobile (sm/md): ✗
-- 🎞️ Motion/Animações: ✗
-- 🧩 Componentes envolvidos: \`src/components/common/ClientsBrands.tsx\` (ou similar)
-- 🔗 Integrações: usado em Home, Sobre, Portfolio
+**Objetivo:** Alinhar containers e seções ao grid Ghost.
 
-### ❌ Problema
+**Prompt para o agente:**
 
-- A barra azul e grid de logos existem, porém:
-  - colunas em mobile/desktop não correspondem aos tamanhos e espaçamentos definidos (2–3 colunas mobile, 6+ desktop).
-  - logos não estão todos normalizados via \`filter: brightness(0) invert(1)\` (alguns podem vir coloridos).
-  - não há scroll reveal com stagger controlado.
+Implemente o Ghost Grid (4/8/12 colunas) como padrão nas três páginas principais.
 
-### 🔧 Correção Técnica
-
-- **O que mudar**
-  - Centralizar componente de logos seguindo especificação única.
-  - Garantir responsividade das colunas e normalização de cor.
-
-- **Onde**
-  - \`src/components/sections/ClientsBrands.tsx\` (nome sugerido)
-  - Pontos de uso: \`src/app/page.tsx\`, \`src/app/sobre/page.tsx\`, \`src/app/portfolio/page.tsx\`.
-
-- **Critério de aceite**
-  - Em qualquer página, a seção de marcas é idêntica visualmente.
-  - Grid se adapta em 2–3 colunas mobile, 6+ em desktop conforme especificação.
+1. Crie um componente de **Container** reutilizável, se ainda não existir, em:
+   - `src/components/layout/Container.tsx`
+2. O componente deve renderizar um `div` com:
+   - `className="w-full max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24"`
+   - Aceitar `className` adicional via props e combinar com `cn`.
+3. Atualize as seções principais da Home, Sobre e Portfolio para usar:
+   - `<Container>` + `grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-8` nas seções de conteúdo principais.
+4. Em cada seção, ajuste `col-span` dos blocos para respeitar o layout indicado nos protótipos (por ex., hero texto 6 colunas, mídia 6 colunas em desktop).
 
 ---
 
-## 🎯 Seção: Contato (Home, Sobre, Portfolio)
+## 3. Home — Hero, Manifesto, Portfolio Showcase, Featured Projects
 
-- 📌 Fidelidade visual (referência): ✗ — bloco claro + formulário
-- 📐 Grid e margens laterais: ✗
-- ↔️ Alinhamento duas laterais: ✗
-- 📱 Mobile (sm/md): ✗
-- 🎞️ Motion/Animações: ✗
-- 🧩 Componentes envolvidos: \`src/components/sections/ContactSection.tsx\`, \`src/validations/contact\`
-- 🔗 Integrações: usada como âncora \`#contact\` em todas as páginas
+### P-HOME-HERO-01 — Hero Layout & CTA “step inside”
 
-### ❌ Problema
+**Objetivo:** Garantir que o hero da Home siga o layout Ghost + CTA.
 
-- Estrutura geral ok (informações + form + redes), mas:
-  - no mobile, título/subtítulo nem sempre centralizados.
-  - form não usa animação de entrada leve via Framer Motion (stagger inputs).
-  - focus states e mensagens de erro/sucesso não estão 100% no padrão (pode não haver \`aria-describedby\`/mensagem atrelada).
+**Prompt para o agente:**
 
-### 🔧 Correção Técnica
+Alinhe o hero da Home ao protótipo canônico.
 
-- **O que mudar**
-  - Unificar um único componente de contato compartilhado.
-  - Ajustar alinhamento mobile (tudo centralizado).
-  - Implementar scroll reveal leve e estados de foco/erro.
-
-- **Critério de aceite**
-  - Contato é idêntico visualmente em todas as páginas.
-  - Fluxo de envio de formulário respeita FormSubmit.co e mostra feedback claro.
+1. Abra `src/components/home/hero/HomeHero.tsx` (ou componente equivalente usado em `src/app/page.tsx`).
+2. Compare com o protótipo HOME:
+   - Fundo escuro (`background`), fantasma/halo WebGL ou vídeo ao fundo.
+   - Headline em duas linhas (desktop) / três linhas (mobile):  
+     - “Você não vê o design.”  
+     - Sub: “Mas ele vê você.”
+   - Tag `[BRAND AWARENESS]`.
+   - CTA em pílula: **“step inside →”** com pill azul + círculo com seta.
+3. Ajuste o layout usando o Ghost Grid:
+   - Mobile: tudo centralizado (`flex-col items-center text-center`).
+   - Desktop: texto e canvas lado a lado (`lg:grid-cols-12`, texto ocupando 5–6 colunas).
+4. Garanta que o CTA seja um `<button>` ou `<a>` semanticamente correto, com:
+   - Classe base para pill azul (usando `bluePrimary`).
+   - Animação hover com Framer Motion: leve `scale` e `y:-1`.
 
 ---
 
-## 🎯 Seção: Footer
+### P-HOME-HERO-02 — Animação de Entrada do Hero (Framer Motion)
 
-- 📌 Fidelidade visual (referência): ✗ — barra azul fixa em desktop, estática em mobile
-- 📐 Grid e margens laterais: ✗
-- ↔️ Alinhamento duas laterais: ✗
-- 📱 Mobile (sm/md): ✗
-- 🎞️ Motion/Animações: ✓ (não há motion complexo exigido)
-- 🧩 Componentes envolvidos: \`src/components/layout/SiteFooter.tsx\`
-- 🔗 Integrações: \`layout.tsx → SiteFooter\`
+**Objetivo:** Aplicar motion editorial de entrada para o bloco de texto.
 
-### ❌ Problema
+**Prompt para o agente:**
 
-- Desktop:
-  - footer nem sempre está fixo ao bottom com altura estável 48–64px.
-  - pode competir visualmente com Contato quando ambas as áreas são azuis/brancas.
-- Mobile:
-  - em alguns breakpoints, footer ainda se comporta como fixo ou muito compacto; deveria ser bloco final estático, com \`py-10\`, links e sociais empilhados.
+Implemente animação de entrada suave no texto do hero.
 
-### 🔧 Correção Técnica
+1. No componente de hero da Home, envolva o bloco de texto principal (`tag + headline + sub + CTA`) em um `<motion.div>`.
+2. Use o padrão:
 
-- **O que mudar**
-  - Condicional de fixo apenas para \`lg+\`.
-  - Mobile: remover \`fixed\`, usar fluxo normal.
+   - `initial={{ opacity: 0, scale: 0.92, y: 60, filter: "blur(10px)" }}`
+   - `animate={{ opacity: 1, scale: [1.02, 1], y: 0, filter: "blur(0px)" }}`
+   - `transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}`
 
-- **Critério de aceite**
-  - Desktop: footer sempre visível no fundo, sem sobrepor conteúdo.
-  - Mobile: footer empilhado, sem comportamento fixo.
+3. Respeite `useReducedMotion` (hook já existente ou crie com `framer-motion`):
+   - Se `shouldReduceMotion` for verdadeiro, reduza a animação para um simples fade (`opacity` 0 → 1) sem `y`/`scale`.
+4. Garanta que não existam animações infinitas no texto do hero após a entrada.
 
 ---
 
-## 🎯 Seção: Sobre — Hero / Manifesto
+### P-HOME-MANIFESTO-01 — Seção de Vídeo Manifesto
 
-- 📌 Fidelidade visual (referência): ✗ — HeroSobre.mp4 (desktop) / HeroSobreMobile.mp4 (mobile)
-- 📐 Grid e margens laterais: ✗
-- ↔️ Alinhamento duas laterais: ✗
-- 📱 Mobile (sm/md): ✗
-- 🎞️ Motion/Animações: ✗
-- 🧩 Componentes envolvidos: \`src/app/sobre/page.tsx\`, \`src/components/sobre/HeroSobre.tsx\`
-- 🔗 Integrações: \`layout.tsx → SiteHeader\`, \`SobreHero → próxima sessão\`
+**Objetivo:** Implementar/alinhar a seção de vídeo manifesto logo abaixo do hero.
 
-### ❌ Problema
+**Prompt para o agente:**
 
-- Hero atual ainda usa imagem/combinação estática, não o vídeo loop oficial.
-- Texto manifesto não está:
-  - alinhado à direita acima do centro em desktop (colunas 7–12),
-  - centralizado abaixo do vídeo em mobile, com overlay gradiente sutil.
-- Não há motion linha a linha conforme timeline (0%/30%/60%/100%).
+Alinhe a seção de vídeo manifesto da Home.
 
-### 🔧 Correção Técnica
-
-- **O que mudar**
-  - Implementar componente HeroSobre com vídeo de fundo (desktop/mobile URLs distintos) e overlay.
-  - Implementar animação do texto manifesto com Framer Motion (linha a linha, com delays).
-
-- **Critério de aceite**
-  - Hero em desktop: vídeo full-bleed, texto alinhado à direita, sem CTA.
-  - Hero em mobile: vídeo 45–55vh, texto abaixo, centralizado, min 100vh total.
+1. Localize o componente de manifesto em `src/components/home/**` (ex: `VideoManifesto.tsx`).
+   - Se não existir, crie um novo componente e importe em `src/app/page.tsx` após o Hero.
+2. Estruture a seção conforme o protótipo:
+   - Full-width (`w-screen`), `aspect-[16/9]` em desktop.
+   - `video` com `autoPlay`, `loop`, `muted`, `playsInline`, `preload="metadata"`.
+   - Overlay radial para garantir leitura de texto (`radial-gradient` especificado).
+3. Adicione texto sobreposto no canto inferior esquerdo:
+   - “Showreel 2025”
+   - “Strategy • Branding • Motion”
+4. Adicione um pequeno botão para togglar som (mute/unmute), com:
+   - Ícone textual/visual, `aria-pressed` e `aria-label` apropriados.
+5. Use `IntersectionObserver` (ou hook custom) para pausar/mutar o vídeo quando a seção sair da viewport.
 
 ---
 
-## 🎯 Seção: Sobre — Origem Criativa (Mask Reveal)
+### P-HOME-PORTFOLIO-01 — Seção “portfólio showcase” (Stripes)
 
-- 📌 Fidelidade visual (referência): ✗ — documento “Origem Criativa GSAP Mask Reveal”
-- 📐 Grid e margens laterais: ✗
-- ↔️ Alinhamento duas laterais: ✗
-- 📱 Mobile (sm/md): ✗
-- 🎞️ Motion/Animações: ✗
-- 🧩 Componentes envolvidos: \`src/components/sobre/OrigemCriativa.tsx\`
-- 🔗 Integrações: \`SobreHero → OrigemCriativa → AboutWhatIDo\`
+**Objetivo:** Reproduzir as três faixas de categorias com look & feel editorial.
 
-### ❌ Problema
+**Prompt para o agente:**
 
-- Seção estática (4 blocos texto+imagem empilhados).
-- Não há pin da coluna direita com imagens, nem mask reveal por scroll.
+Atualize a seção “portfólio showcase” da Home.
 
-### 🔧 Correção Técnica
+1. Abra o componente em `src/components/home/portfolio-showcase/**`.
+2. Garanta a estrutura:
 
-- **O que mudar**
-  - Implementar GSAP + ScrollTrigger + Lenis para:
-    - pin da coluna de imagens à direita em desktop,
-    - animação de \`clip-path: inset(0 0 100%) → inset(0)\` em cada imagem, em sequência, conforme scroll.
-  - Mobile: layout intercalado texto → imagem, sem pin, com leve parallax de object-position.
+   - Headline central: “portfólio showcase” (`portfólio` branco, `showcase` `bluePrimary`).
+   - Label `[what we love working on]` à esquerda.
+   - Três stripes/categorias:
+     - `Brand & Campaigns`
+     - `Videos & Motions`
+     - `Web Campaigns, Websites & Tech`
 
-- **Critério de aceite**
-  - Em desktop, ao rolar, as imagens “sobem” dentro da máscara enquanto o texto à esquerda avança bloco a bloco.
-  - Em mobile, cada bloco texto/imagem é lido em sequência vertical sem comportamento pegajoso.
-
----
-
-## 🎯 Seção: Sobre — O que eu faço (AboutWhatIDo)
-
-- 📌 Fidelidade visual (referência): ✗
-- 📐 Grid e margens laterais: ✗
-- ↔️ Alinhamento duas laterais: ✗
-- 📱 Mobile (sm/md): ✗
-- 🎞️ Motion/Animações: ✗
-- 🧩 Componentes envolvidos: \`src/components/sobre/AboutWhatIDo.tsx\`
-- 🔗 Integrações: \`OrigemCriativa → AboutWhatIDo → AboutMethod\`
-
-### ❌ Problema
-
-- Cards/barras de capabilities não seguem o motion horizontal guiado por scroll (referência CodePen).
-- Layout desktop não usa uma única linha horizontal de 7 blocos entrando da direita.
-- Mobile não tem barras simples com animação de entrada leve.
-
-### 🔧 Correção Técnica
-
-- **O que mudar**
-  - Implementar AboutWhatIDo com:
-    - Desktop: \`flex-row\` sem wrap, 7 blocos azuis, animados via Framer Motion/GSAP \`translateX: 120vw → 0\`.
-    - Mobile: pilha vertical dos 7 itens, com animação viewport-based \`x:80px→0\`, staggered.
-
-- **Critério de aceite**
-  - Em desktop, scroll da sessão faz os blocos entrarem da direita para a esquerda de forma progressiva e silenciosa.
-  - Em mobile, cada barra aparece ao entrar na viewport.
+3. Desktop:
+   - Cada stripe com título grande alinhado conforme protótipo (esq/centro/dir).
+   - Thumbnail expandindo em hover (largura animada de 0 → ~288px) com Framer Motion.
+   - Clique no stripe deve navegar para `/portfolio?filter=[slug]` (slugs conforme protótipo).
+4. Mobile:
+   - Transformar stripes em cards empilhados, sem hover thumbnail, com ícone de seta à direita.
+5. Adicione animação de scroll reveal com Framer Motion:
+   - Container com `staggerChildren`.
+   - Cada stripe com `initial={{ opacity: 0, y: 24 }}` e `whileInView={{ opacity: 1, y: 0 }}`.
 
 ---
 
-## 🎯 Seção: Sobre — Como eu trabalho (About Method)
+### P-HOME-FEATURED-01 — Grid Bento de Projetos em Destaque
 
-- 📌 Fidelidade visual (referência): ✗ — vídeos AboutMethod / aboutmetodo-mob
-- 📐 Grid e margens laterais: ✗
-- ↔️ Alinhamento duas laterais: ✗
-- 📱 Mobile (sm/md): ✗
-- 🎞️ Motion/Animações: ✗
-- 🧩 Componentes envolvidos: \`src/components/sobre/AboutMethod.tsx\`
-- 🔗 Integrações: \`AboutWhatIDo → AboutMethod → OQueMeMove\`
+**Objetivo:** Ajustar o layout e motion dos projetos destacados na Home.
 
-### ❌ Problema
+**Prompt para o agente:**
 
-- Seção atual não utiliza vídeo abstrato de IA full-bleed como background.
-- Cards de processo existem, mas sem overlay/gradiente ajustado e animações de entrada definidas.
+Alinhe a seção de Featured Projects à especificação do Bento Grid.
 
-### 🔧 Correção Técnica
+1. Localize o componente equivalente a Featured Projects em `src/components/home/featured-projects/**`.
+2. Reestruture o grid para usar 12 colunas com o padrão:
 
-- **O que mudar**
-  - Desktop:
-    - Vídeo \`AboutMethod.mp4\` como background com overlay \`linear-gradient(90deg, rgba(10,10,20,0.85), rgba(10,10,20,0.4))\`.
-    - Conteúdo texto em colunas 2–7, cards com borda esquerda \`border-l-4 border-bluePrimary\`.
-  - Mobile:
-    - Vídeo \`aboutmetodo-mob.mp4\` sem overlay global; overlay apenas abaixo via gradiente no fim.
-    - Conteúdo centralizado sobre fundo escuro.
+   - Linha 1: card 1 (`md:col-span-5`), card 2 (`md:col-span-7`).
+   - Linha 2: card 3 (`md:col-span-12`).
+   - Linha 3: card 4 (`md:col-span-8`), CTA card (`md:col-span-4`).
 
-- **Critério de aceite**
-  - Em desktop, título “Criatividade com método.” e lista 01–06 aparecem sobre área escurecida à esquerda, vídeo respirando à direita.
-  - Em mobile, vídeo ocupa topo da seção e o texto começa no meio para baixo.
+3. Em cada `ProjectCard`:
+   - Certifique-se que a imagem/vídeo use `object-cover` e ocupe o card inteiro.
+   - Adicione overlay com título, meta (cliente • ano) e tags.
+   - Aplique hover suave: `scale` leve na imagem, `translateX` na seta.
+4. Implemente animação de entrada (scroll reveal) com `staggerChildren` no container da seção.
 
 ---
 
-## 🎯 Seção: Sobre — O que me move (Ghost Design)
+### P-HOME-FEATURED-02 — CTA “Like what you see?”
 
-- 📌 Fidelidade visual (referência): ✗
-- 📐 Grid e margens laterais: ✗
-- ↔️ Alinhamento duas laterais: ✗
-- 📱 Mobile (sm/md): ✗
-- 🎞️ Motion/Animações: ✗
-- 🧩 Componentes envolvidos: \`src/components/sobre/OQueMeMove.tsx\`
-- 🔗 Integrações: \`AboutMethod → OQueMeMove → Closing → Clients\`
+**Objetivo:** Implementar o card CTA no Bento Grid.
 
-### ❌ Problema
+**Prompt para o agente:**
 
-- Título manifesto, frases rotativas e reveal final “ISSO É GHOST DESIGN” com ghost não seguem a timeline temporal (~25s total).
-- Atual implementação provavelmente mostra tudo de uma vez (sem fases).
+Crie/alinhe o CTA card “Like what you see?”.
 
-### 🔧 Correção Técnica
-
-- **O que mudar**
-  - Implementar máquina de estados/timeline (Framer Motion + \`useState\`/\`useEffect\` ou GSAP) para:
-    - Fase 1: título fixo entra (fade + blur).
-    - Fase 2: frases rotativas 1–6 com entrada/saída controladas (\`opacity/y\`).
-    - Fase 3: reveal final com ghost + texto “ISSO É GHOST DESIGN”.
-
-- **Critério de aceite**
-  - Ao rolar até a seção e permanecer nela, o usuário vê a sequência completa sem loops infinitos.
-  - Em \`prefers-reduced-motion: reduce\`, frases aparecem sem transições complexas (apenas fade curto).
+1. Dentro de `FeaturedProjects`, identifique ou crie um `CTACard`.
+2. Conteúdo:
+   - Headline: **“Like what you see?”**
+   - Botão: “view projects →” apontando para `/portfolio`.
+3. Visual:
+   - Fundo `background` escuro, bordas suaves.
+   - Texto branco, em hover o texto muda para `#0057FF`, seta move levemente para a direita.
+4. Animação:
+   - Hover via Framer Motion em `whileHover={{ x: 4 }}` no botão/ícone.
+   - Scroll reveal idêntico aos demais cards.
 
 ---
 
-## 🎯 Seção: Portfolio Showcase Page (/portfolio)
+## 4. Seções Compartilhadas (Clientes, Contato, Footer)
 
-- 📌 Fidelidade visual (referência): ✗ — Protótipo Interativo v2.0
-- 📐 Grid e margens laterais: ✗
-- ↔️ Alinhamento duas laterais: ✗
-- 📱 Mobile (sm/md): ✗
-- 🎞️ Motion/Animações: ✗
-- 🧩 Componentes envolvidos:  
-  - \`src/app/portfolio/page.tsx\`  
-  - \`src/components/portfolio/PortfolioShowcase.tsx\`  
-  - \`src/components/portfolio/HeroVideo.tsx\`  
-  - \`src/components/portfolio/ProjectsGallery.tsx\`  
-  - \`src/components/portfolio/ProjectCard.tsx\`  
-  - \`src/components/portfolio/PortfolioModal.tsx\`  
-  - \`src/hooks/useParallax.ts\`, \`src/hooks/useBodyLock.ts\`
+### P-SHARED-CLIENTS-01 — Seção “marcas com as quais já trabalhei”
 
-- 🔗 Integrações: \`layout.tsx → SiteHeader → PortfolioShowcase → Clients → Contact → Footer\`
+**Objetivo:** Alinhar grid de logos de clientes ao protótipo.
 
-### ❌ Problema
+**Prompt para o agente:**
 
-- Página atual não implementa:
-  - Hero de vídeo looping com texto “portfólio showcase” sobreposto.
-  - Gallery Parallax Lerp com track fixo + cards com parallax interno.
-  - Modal de projeto tipos A/B com timeline canônica.
+Ajuste a seção de clientes para o padrão Ghost.
 
-### 🔧 Correção Técnica
-
-- **O que mudar**
-  - Implementar exatamente o protótipo v2.0:
-    - HeroSection com vídeos desktop/mobile.
-    - ProjectsGallery com track fixo, altura dinâmica, parallax lerp.
-    - PortfolioModal com backdrops, animação de entrada/saída e bloqueio de scroll.
-
-- **Critério de aceite**
-  - Página \`/portfolio\` se comporta como galeria editorial com scroll suave e modal de projeto, não mais como home estendida.
-  - 60fps durante scroll em máquinas medianas, sem scroll hijacking.
+1. Localize o componente de clientes, provavelmente em `src/components/home/clients/**` e reutilizado em Sobre/Portfolio.
+2. Garanta:
+   - Fundo `bluePrimary`.
+   - Headline centralizada: “marcas com as quais já trabalhei.” em texto branco.
+   - Grid responsiva de 2–3 colunas em mobile; 6+ colunas em desktop.
+3. Todos os logos devem:
+   - Usar imagens SVG monocromáticas (via Supabase).
+   - Ter `alt="Logo da empresa [nome]"`.
+   - Aplicar `filter: brightness(0) invert(1)` se o arquivo não for nativamente branco.
+4. Adicione hover discreto em desktop (leve `scale` + `brightness` maior), mas desabilite ou reduza em `prefers-reduced-motion`.
 
 ---
 
-## 4️⃣ Lista de Problemas (com severidade)
+### P-SHARED-CONTACT-01 — Padronização da Seção de Contato
 
-### 🔴 Alta
+**Objetivo:** Garantir que a seção de contato siga a especificação única.
 
-1. **Página /portfolio não segue o Protótipo Interativo v2.0** (hero vídeo, parallax lerp, modal A/B inexistentes).
-2. **Sobre — Origem Criativa sem GSAP Mask Reveal** (perde diferencial editorial + demonstração técnica).
-3. **Sobre — O que me move sem timeline de frases + reveal final Ghost**.
-4. **Ghost Hero Home sem aderência milimétrica ao HERO-PORTFOLIO-GHOST** (posição/escala/glow e z-index).
-5. **Header global inconsistentemente alinhado e sem fluid glass desktop + staggered menu mobile**.
-6. **About Method sem vídeo de fundo/overlay correto**.
+**Prompt para o agente:**
 
-### 🟡 Média
+Padronize a seção de contato nas páginas que a utilizam.
 
-7. **Portfolio Showcase (Home) com stripes e label não exatamente como especificado**.
-8. **Featured Projects Bento Grid desproporcional e sem motion completo.**
-9. **Clients/Brands sem grid responsivo e normalização visual idêntica.**
-10. **Contato sem alinhamento central mobile e microinterações de foco/erro.**
-11. **Footer com comportamento fixo incorreto em mobile/tablet.**
-
-### 🟢 Baixa
-
-12. **Inconsistência de tokens tipográficos (clamp) e spacing entre seções.**
-13. **Prefers-reduced-motion não aplicado de forma global.**
-14. **DPR/partículas no Ghost possivelmente acima do necessário em mobile.**
+1. Localize o componente de contato (ex.: `src/components/home/contact/**`).
+2. Compare com a especificação:
+   - Título: “contato”.
+   - Subheadline: “Tem uma pergunta ou quer trabalhar junto?”
+   - Lista de contatos (tel, e-mails, portfólio) com links `tel:` e `mailto:`.
+   - Ícones de redes (Instagram, Facebook, LinkedIn, Portfolio, Twitter) com `target="_blank"` + `rel="noopener noreferrer"`.
+   - Formulário com campos Nome, Email, Telefone, Mensagem.
+3. Extraia esse componente para algo compartilhado (`src/components/shared/ContactSection.tsx`) e reutilize em Home, Sobre, Portfolio, evitando duplicação.
+4. Garanta validações mínimas:
+   - `required` nos campos obrigatórios.
+   - Mensagens de erro exibidas com alta legibilidade.
+5. Estilize de forma que a transição do fundo escuro para a área clara seja suave, sem parecer “template genérico”; considere um topo com borda suave ou gradiente.
 
 ---
 
-## 5️⃣ Recomendações Prioritárias (ordem de execução)
+### P-SHARED-FOOTER-01 — Footer Fixo Desktop / Fluido Mobile
 
-1. **Infraestrutura de layout & tokens** (baixa fricção, alto impacto global)  
-   - Consolidar tipografia \`clamp()\` e espaçamentos globais em \`tailwind.config.ts\` + utilities.
+**Objetivo:** Ajustar comportamento do footer conforme especificação.
 
-2. **Header + Hero Ghost (Home)**  
-   - Corrigir header global e alinhamento Ghost/CTA primeiro, pois são a “assinatura visual” do site.
+**Prompt para o agente:**
 
-3. **Página Portfolio (/portfolio)**  
-   - Implementar Hero vídeo + Parallax Lerp + Modal, pois é o principal destino de trabalho do usuário.
+Ajuste o footer para ser fixo apenas em desktop e fluido em mobile.
 
-4. **Sobre — Hero + Origem Criativa + Method + O que me move**  
-   - Reimplementar motion e vídeo; fortalece o argumento editorial e a narrativa da marca.
-
-5. **Shared sections (Clients/Brands, Contato, Footer)**  
-   - Unificar componentes e alinhar com grid/tokens, garantindo consistência cross-page.
-
-6. **Refino Ghost WebGL e prefers-reduced-motion**  
-   - Ajustar performance e acessibilidade depois dos blocos estruturais.
+1. Localize o footer em `src/components/layout/Footer.tsx` (ou equivalente).
+2. Atualize o comportamento:
+   - Desktop (`lg:`+): usar `fixed bottom-0 left-0 right-0 z-50`.
+   - Mobile/tablet: footer deve ser parte normal do fluxo (sem `fixed`), garantindo margem inferior suficiente.
+3. Conteúdo:
+   - Navegação suplementar (home, portfólio showcase, sobre, contato).
+   - Ícones sociais iguais aos da seção contato.
+   - Texto de copyright: `© 2025 Danilo Novais Vilela — todos os direitos reservados`.
+4. Aplique foco visível em todos os links (`focus-visible:ring` ou `outline` custom) e teste com teclado.
 
 ---
 
-## 🤖 PROMPTS TÉCNICOS PARA AGENTE EXECUTOR
+## 5. Página /sobre — Hero, Origem, Método, Manifesto
 
-Abaixo, prompts atômicos (um problema por prompt), formatados para execução direta.
+### P-SOBRE-HERO-01 — Hero com Vídeo + Manifesto
 
----
+**Objetivo:** Reproduzir o hero da página Sobre conforme protótipo.
 
-### 🛠️ Prompt #01 — Normalizar Header Global (Desktop + Mobile)
+**Prompt para o agente:**
 
-**Objetivo**
+Alinhe o hero da página `/sobre`.
 
-- Tornar o header visualmente idêntico às referências desktop/mobile e consistente em todas as páginas.
-
-**Arquivos/Rotas envolvidas**
-
-- \`src/app/layout.tsx\`
-- \`src/components/layout/header/SiteHeader.tsx\`
-- \`src/components/layout/header/types.ts\`
-
-**Ações**
-
-1. Implementar dois modos no \`SiteHeader\`: \`DesktopFluidHeader\` (≥1024px) e \`MobileStaggeredMenu\` (≤1023px).
-2. Ajustar layout desktop para um pill centralizado com \`top-6\`, \`max-w-[min(1680px,100%-3rem)]\`, \`rounded-full\`, \`backdrop-blur-xl\`, \`bg-white/5\`, \`border border-white/10\`.
-3. Implementar menu mobile fixo \`top-0 inset-x-0 h-14 flex items-center justify-between px-4 bg-[#040013]/90 z-40\` com overlay full-screen e animação staggered nos links.
-4. Garantir que o header use o mesmo componente em \`layout.tsx\` para Home, Sobre e Portfolio.
-5. Ajustar estados de link ativo (\`home\`, \`sobre\`, \`portfólio showcase\`, \`contato\`) para refletir a rota atual com cor \`bluePrimary\`.
-
-**Regras**
-
-- ❌ Não alterar textos.
-- ❌ Não inventar novo layout.
-- ✅ Tailwind + App Router.
-- ✅ Mobile-first.
-- ✅ Comparar com: referências de header nos arquivos HOME/SOBRE/PORTFOLIO.
-
-**Critérios de aceite (Checklist)**
-
-- [ ] Pill desktop com dimensões/posição idênticas às imagens.
-- [ ] Menu mobile full-screen com overlay e staggered items.
-- [ ] Mesmo header em todas as páginas.
-- [ ] Links ativos com cor correta.
-- [ ] Nenhum regression em z-index vs hero/ghost.
+1. Abra `src/app/sobre/page.tsx` e os componentes em `src/components/sobre/**`.
+2. Garanta a estrutura:
+   - Vídeo background (`HeroSobre.mp4` / `HeroSobreMobile.mp4`) com `object-cover`.
+   - Overlay gradiente (`from-background/90 to-background/40` em desktop, vertical em mobile).
+   - Texto manifesto à direita (desktop) / abaixo (mobile):
+     - H1: “Sou Danilo Novais.”
+     - Manifesto H1 multiline: “Você não vê tudo o que eu faço. Mas sente quando funciona.”
+     - Subheading com descrição de design que observa, entende e guia experiências.
+3. Aplique layout:
+   - Desktop: grid 12 colunas, com texto ocupando colunas 7–12.
+   - Mobile: vídeo em ~50vh e texto em `px-6 py-12` abaixo.
+4. Adicione animação de entrada linha-a-linha no manifesto, conforme especificação (stagger entre linhas).
 
 ---
 
-### 🛠️ Prompt #02 — Ajustar Hero Ghost (Home) à Referência
+### P-SOBRE-ORIGEM-01 — Seção “Origem Criativa” (Desktop Pin + Mobile Stack)
 
-**Objetivo**
+**Objetivo:** Implementar a seção Origem com transições visuais coerentes.
 
-- Alinhar completamente posição, escala e glow do Ghost + headline + CTA ao layout HERO-PORTFOLIO-GHOST.
+**Prompt para o agente:**
 
-**Arquivos/Rotas envolvidas**
+Ajuste a seção “Origem” na página Sobre.
 
-- \`src/components/home/hero/HomeHero.tsx\`
-- \`src/components/canvas/home/hero/Ghost.tsx\`
-- \`src/hooks/useReducedMotion.ts\`
-
-**Ações**
-
-1. Aplicar tokens de tipografia via Tailwind: \`text-display\` para o h1, \`text-h2\` para o subtítulo.
-2. Separar variantes desktop/mobile das linhas do h1 conforme especificação (\`Você não vê\` / \`o design.\` e 3 linhas em mobile).
-3. Ajustar posição base do Ghost (ex.: position \`[-1, -0.2, 0]\`) e tamanho do halo, alinhando na tela para cobrir o centro do texto exatamente como a referência.
-4. Mover Canvas do Ghost para z-index \`z-30\`, CTA em \`z-35\`, texto em \`z-20\`, header em \`z-40\`.
-5. Adicionar detecção de \`pointer: coarse\` e \`prefers-reduced-motion\` em \`Ghost.tsx\` para:
-   - desativar follow mouse em touch,
-   - reduzir partículas/fireflies e pós-processamento em mobile,
-   - opcionalmente renderizar fallback estático em reduced motion.
-
-**Regras**
-
-- ❌ Não alterar textos.
-- ❌ Não inventar novo layout de texto.
-- ✅ Tailwind + App Router + R3F/Drei.
-- ✅ Mobile-first.
-- ✅ Comparar com: imagem HERO-PORTFOLIO-GHOST.
-
-**Critérios de aceite (Checklist)**
-
-- [ ] Ghost e glow cobrem o texto no mesmo lugar da referência.
-- [ ] CTA nunca é encoberto pelo glow.
-- [ ] Follow mouse apenas em desktop.
-- [ ] Ghost respeita prefers-reduced-motion.
-- [ ] FPS aceitável em mobile.
+1. Localize o componente em `src/components/sobre/**` relacionado à narrativa de origem.
+2. Desktop:
+   - Use `grid-cols-12`: textos em 6 colunas à esquerda, imagens pinned em 6 colunas à direita.
+   - Utilize `position: sticky; top: 6rem` para a coluna de imagens.
+   - Cada bloco de texto com título em `bluePrimary` (ex: “O QUE PERMANECE”) e parágrafo alinhado conforme protótipo.
+3. Mobile:
+   - Stack vertical: bloco de texto seguido da imagem correspondente.
+   - Imagens com `w-full rounded-2xl` e `loading="lazy"`.
+4. Se GSAP já estiver integrado, mantenha apenas animações leves de `clip-path`/`opacity` conforme documentação.
+   - Se não houver GSAP configurado, foque em scroll reveal simples com Framer Motion (evitar introduzir nova dependência só para isso).
 
 ---
 
-### 🛠️ Prompt #03 — Implementar Vídeo Manifesto Fullscreen na Home
+### P-SOBRE-WHATIDO-01 — Seção “O Que Eu Faço” (Cards Horizontais)
 
-**Objetivo**
+**Objetivo:** Implementar as barras de serviços numerados.
 
-- Substituir a seção de cards múltiplos por um único vídeo manifesto fullscreen 16:9 colado às laterais.
+**Prompt para o agente:**
 
-**Arquivos/Rotas envolvidas**
+Ajuste/implemente a seção “O Que Eu Faço”.
 
-- \`src/components/home/VideoManifesto.tsx\`
-- \`src/app/page.tsx\`
-- \`src/app/globals.css\` (classes \`.video-manifesto\`, \`.video-overlay\`)
-
-**Ações**
-
-1. Criar \`VideoManifesto\` seguindo o código canônico fornecido (com lazy load, mute automático, qualidade adaptativa).
-2. Posicionar \`<VideoManifesto />\` logo após \`<HomeHero />\` em \`page.tsx\`.
-3. Garantir \`w-screen\` e \`aspect-video\` com remoção de padding lateral (usar \`mx-[calc(50%-50vw)]\` se necessário).
-4. Implementar botão de som fixo no canto superior direito do vídeo, que:
-   - toggla \`muted\`,
-   - muta ao sair da seção (IntersectionObserver).
-5. Adicionar classes globais para overlay gradient e reset de margin/padding da seção.
-
-**Regras**
-
-- ❌ Não alterar os textos de metadados sobrepostos.
-- ❌ Não alterar a ordem das seções.
-- ✅ Tailwind + Framer Motion.
-- ✅ Mobile-first.
-- ✅ Comparar com: especificação da seção “VÍDEO MANIFESTO”.
-
-**Critérios de aceite (Checklist)**
-
-- [ ] Seção de vídeo ocupa 100% da largura da viewport, 16:9.
-- [ ] Não existe scroll horizontal.
-- [ ] Botão de som visível e funcional.
-- [ ] Lazy loading e poster em uso.
-- [ ] Performance não piorou (FCP/LCP estáveis).
+1. Identifique o componente correspondente em `src/components/sobre/**` (ex: `AboutWhatIDo.tsx`).
+2. Desktop:
+   - Crie um container horizontal (`flex-row`) de cards com `min-w-[320px]`, `min-h-[140px]`, `bg-bluePrimary`.
+   - Cada card com número grande em `purpleDetails` e texto com palavra-chave em `blueAccent`.
+3. Mobile:
+   - Empilhe os cards verticalmente, largura 100%.
+   - Animação de entrada com Framer Motion (`x: 80 → 0`, `opacity: 0 → 1`).
+4. Certifique-se de que o conteúdo textual dos 7 itens corresponde ao documento canônico (Direção criativa, Design estratégico, Identidades, etc.).
 
 ---
 
-### 🛠️ Prompt #04 — Reconstruir Portfolio Showcase (3 Faixas) na Home
+### P-SOBRE-METHOD-01 — Seção “Como Eu Trabalho” (Vídeo + Lista)
 
-**Objetivo**
+**Objetivo:** Reproduzir a seção de método com vídeo background.
 
-- Fazer a seção “portfólio showcase” da Home ficar idêntica ao layout com 3 stripes interativas.
+**Prompt para o agente:**
 
-**Arquivos/Rotas envolvidas**
+Implemente corretamente a seção “Criatividade com método. Impacto sem ruído”.
 
-- \`src/components/home/portfolio/PortfolioShowcaseStripes.tsx\`
-- \`src/app/page.tsx\`
-
-**Ações**
-
-1. Criar componente \`PortfolioShowcaseStripes\` com:
-   - título \`portfólio showcase\` (com “showcase” em azul),
-   - label flutuante \`[what we love working on]\` alinhada à esquerda.
-2. Implementar 3 faixas:
-   - “Brand & Campaigns” alinhada à direita,
-   - “Videos & Motions” centralizada,
-   - “Web Campaigns, Websites & Tech” alinhada à esquerda com quebra de linha após vírgula.
-3. Em desktop:
-   - faixas com thumbnail 288px que se revela no hover (width de 0 → 288px, opacity 0 → 1, easing \`[0.22,1,0.36,1]\`).
-   - ícone seta em badge circular azul com rotação suave -45deg → 0deg.
-4. Em mobile:
-   - simplificar para cards verticais full-width, sem hover, ícone de seta à direita.
-
-**Regras**
-
-- ❌ Não alterar textos das categorias.
-- ❌ Não mudar a ordem das faixas.
-- ✅ Tailwind + Framer Motion.
-- ✅ Mobile-first.
-- ✅ Comparar com: layout textual do Portfolio Showcase descrito no documento da Home.
-
-**Critérios de aceite (Checklist)**
-
-- [ ] Grid e margens idênticos na Home desktop.
-- [ ] Labels/CTAs coincidem com a referência.
-- [ ] Mobile stack sem overflow horizontal.
-- [ ] Motion sutil, sem exageros.
+1. Localize o componente em `src/components/sobre/**` (ex: `AboutMethod.tsx`).
+2. Estrutura:
+   - Seção `relative` com vídeo background em `absolute inset-0`.
+   - Overlay gradiente `bg-gradient-to-r` com opacidades especificadas.
+   - Grid 12 colunas com conteúdo textual em 7 colunas à esquerda.
+3. Conteúdo:
+   - Título com destaques em `bluePrimary`.
+   - Parágrafos introdutórios.
+   - Lista numerada de 6 pontos, cada um em um card semitransparente com `backdrop-blur`.
+4. Aplique animações:
+   - Título e parágrafos com `whileInView` fade-up.
+   - Cards com `staggerChildren`.
+   - Respeite `prefers-reduced-motion`.
 
 ---
 
-### 🛠️ Prompt #05 — Ajustar Featured Projects Bento Grid
+### P-SOBRE-BELIEFS-01 — Seção “O Que Me Move” + Ghost Interativo
 
-**Objetivo**
+**Objetivo:** Implementar o manifesto final com frases rotativas e ghost.
 
-- Corrigir o grid de projetos em destaque para o bento de 4 cards + CTA com col-spans corretos e motion.
+**Prompt para o agente:**
 
-**Arquivos/Rotas envolvidas**
+Finalize a página Sobre com a seção “O Que Me Move”.
 
-- \`src/components/home/featured/FeaturedProjects.tsx\`
-
-**Ações**
-
-1. Atualizar grid para \`md:grid-cols-12 gap-6\`.
-2. Distribuir os 4 projetos e CTA conforme spans definidos (5/7/12/8/4).
-3. Implementar hover:
-   - imagem: \`scale-105\`, \`translateY(-1px)\`, \`duration:0.5\`,
-   - seta: \`translateX(20px)\`, \`duration:0.7\`.
-4. Adicionar scroll reveal container + stagger children conforme padrões de motion do documento.
-
-**Regras**
-
-- ❌ Não trocar a ordem dos projetos.
-- ❌ Não alterar textos/metadados.
-- ✅ Tailwind + Framer Motion.
-- ✅ Comparar com: especificação de Featured Projects.
-
-**Critérios de aceite (Checklist)**
-
-- [ ] Layout bento idêntico.
-- [ ] Sem overflow em mobile.
-- [ ] Motion suave e editorial.
+1. Identifique/crie o componente (ex: `AboutBeliefs.tsx`).
+2. Estrutura:
+   - Título central fixo (“Acredito no design que muda o dia de alguém...”).
+   - Bloco de frases rotativas (6 frases com palavras em `bluePrimary`).
+   - Bloco final com Ghost interativo à esquerda e texto “ISSO É GHOST DESIGN.” à direita (ou coluna em mobile).
+3. Frases rotativas:
+   - Use `useState` + `useEffect` para trocar a frase a cada ~4.2s.
+   - Envolva com `AnimatePresence` e animação de entrada/saída vertical suave.
+4. Ghost:
+   - Implementar leve animação de flutuação e movimento de olhos seguindo o cursor (desktop).
+   - Desativar tracking de cursor em `prefers-reduced-motion` ou em devices touch, mantendo apenas flutuação sutil.
 
 ---
 
-### 🛠️ Prompt #06 — Unificar Clients/Brands Section
+## 6. Página /portfolio — Hero Vídeo + Parallax Lerp + Modal
 
-**Objetivo**
+### P-PORT-HERO-01 — Hero Vídeo da Página Portfolio
 
-- Ter uma única implementação de Clients/Brands usada em todas as páginas com grid e cores normalizados.
+**Objetivo:** Implementar hero com vídeo loop conforme protótipo.
 
-**Arquivos/Rotas envolvidas**
+**Prompt para o agente:**
 
-- \`src/components/sections/ClientsBrands.tsx\`
-- \`src/app/page.tsx\`, \`src/app/sobre/page.tsx\`, \`src/app/portfolio/page.tsx\`
+Alinhe o hero da página `/portfolio`.
 
-**Ações**
-
-1. Criar componente \`ClientsBrands\` com:
-   - fundo \`bg-[#0048ff]\`,
-   - título centralizado,
-   - grid de 12 logos carregados de Supabase.
-2. Aplicar \`filter: brightness(0) invert(1)\` em todos os \`<img>\`.
-3. Responsividade:
-   - mobile: 2–3 colunas com gap vertical 6,
-   - desktop: 6+ colunas com logos em tamanho reduzido.
-4. Adicionar animação de scroll reveal com stagger nos logos, desativada em \`prefers-reduced-motion\`.
-
-**Regras**
-
-- ❌ Não alterar textos.
-- ✅ Tailwind + Framer Motion.
-- ✅ Mobile-first.
-- ✅ Comparar com: especificação da seção Clients/Brands.
-
-**Critérios de aceite (Checklist)**
-
-- [ ] Mesma aparência em Home, Sobre e Portfolio.
-- [ ] Logos sempre brancos sobre azul.
-- [ ] Sem overflow horizontal em nenhum breakpoint.
+1. Abra `src/app/portfolio/page.tsx` e componentes relacionados em `src/components/portfolio/**`.
+2. Garanta:
+   - `section` com `relative h-screen overflow-hidden`.
+   - `video` fullscreen com `autoPlay`, `loop`, `muted`, `playsInline`.
+   - Overlay `bg-gradient-to-b from-black/60 via-black/40 to-black/60`.
+   - Headline central: `portfólio` (em `bluePrimary`) + `showcase` (branco).
+   - CTA “vamos trabalhar juntos” chamando seção de contato ou `/sobre#contact`.
+3. Ajuste responsividade para mobile (título menor, CTA reduzido) preservando o impacto.
 
 ---
 
-### 🛠️ Prompt #07 — Normalizar Contato (Seção + Formulário)
+### P-PORT-GALLERY-01 — Hook de Parallax Lerp
 
-**Objetivo**
+**Objetivo:** Implementar hook `useParallax` para controlar o gallery track.
 
-- Tornar a seção de contato idêntica ao layout + comportamento especificado, compartilhada entre páginas.
+**Prompt para o agente:**
 
-**Arquivos/Rotas envolvidas**
+Implemente o parallax lerp da galeria de projetos.
 
-- \`src/components/sections/ContactSection.tsx\`
-- \`src/validations/contact.ts\`
-- \`src/app/page.tsx\`, \`src/app/sobre/page.tsx\`, \`src/app/portfolio/page.tsx\`
-
-**Ações**
-
-1. Criar componente \`ContactSection\` com:
-   - título “contato” e subtítulo centralizados em mobile.
-   - duas colunas em desktop: info à esquerda, form à direita.
-2. Implementar form com campos Name, Email, Message, integrados ao FormSubmit.co.
-3. Adicionar validação básica + mensagens de erro/sucesso específicas, ligadas via \`aria-describedby\`.
-4. Adicionar scroll reveal da seção + stagger dos campos utilizando Framer Motion.
-5. Garantir tamanho mínimo de hit-area 48x48 em mobile para botões e links.
-
-**Regras**
-
-- ❌ Não alterar textos.
-- ❌ Não mudar o endpoint do FormSubmit.
-- ✅ Tailwind + Framer Motion.
-- ✅ Comparar com: especificações de Contact.
-
-**Critérios de aceite (Checklist)**
-
-- [ ] Mesmo componente usado nas três páginas.
-- [ ] Layout responsivo sem quebra.
-- [ ] Acessibilidade básica (labels, aria, foco).
+1. Crie o hook `useParallax.ts` em `src/hooks/useParallax.ts`.
+2. Baseie-se no pseudocódigo fornecido no documento canônico:
+   - `galleryRef`, `trackRef`, `cardsRef`, `rafRef`, `startYRef`, `endYRef`, `lerp`, `updateScroll`, `startScroll`.
+3. Exponha do hook:
+   - `galleryRef`, `trackRef`, `cardsRef`, e uma função `registerCardRef(index)` para associar refs de cada card.
+4. No componente de galeria (`src/components/portfolio/ProjectsGallery.tsx`), conecte o hook:
+   - Envolva a `<section>` com `ref={galleryRef}`.
+   - Use `ref={trackRef}` no container fixo.
+   - Passe `ref={registerCardRef(index)}` para cada `ProjectCard`.
+5. Garanta que o `requestAnimationFrame` seja corretamente limpo no `useEffect` de cleanup.
 
 ---
 
-### 🛠️ Prompt #08 — Corrigir Footer (Desktop Fixo, Mobile Estático)
+### P-PORT-GALLERY-02 — Layout da Gallery Track & Responsividade
 
-**Objetivo**
+**Objetivo:** Alinhar o layout do grid da galeria.
 
-- Ajustar o comportamento do footer para ser fixo apenas em desktop e estático em mobile/tablet.
+**Prompt para o agente:**
 
-**Arquivos/Rotas envolvidas**
+Atualize o layout da gallery track no Portfolio.
 
-- \`src/components/layout/SiteFooter.tsx\`
-- \`src/app/layout.tsx\`
+1. Configure o container track como:
 
-**Ações**
+   - `className="gallery-track fixed top-0 left-0 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[0.25rem] p-[0.25rem]"`.
 
-1. Adicionar condicional de breakpoint (via CSS ou hook) para:
-   - desktop: \`fixed bottom-0 inset-x-0 h-12 bg-[#0057FF]\`,
-   - mobile/tablet: \`relative w-full bg-[#0057FF] py-10\`.
-2. Organizar conteúdo do footer: copyright, navegação, redes.
-3. Garantir que o conteúdo principal tenha padding-bottom suficiente em desktop para o footer não cobrir nada.
-
-**Regras**
-
-- ❌ Não alterar textos.
-- ✅ Tailwind.
-- ✅ Mobile-first.
-- ✅ Comparar com: especificação do Footer.
-
-**Critérios de aceite (Checklist)**
-
-- [ ] Em desktop, footer sempre visível no bottom.
-- [ ] Em mobile, footer aparece como última seção normal.
-- [ ] Sem conteúdo encoberto.
+2. Em mobile (`<768px`), mantenha 1 coluna; tablet 2 colunas; desktop 3 colunas.
+3. Garanta que a altura da `<section ref={galleryRef}>` seja dinamicamente ajustada para o `clientHeight` da track, evitando cortes de scroll.
+4. Teste com 10+ cards para garantir que o scroll está fluido e sem “pulos”.
 
 ---
 
-### 🛠️ Prompt #09 — Implementar Hero Vídeo Loop em /portfolio
+### P-PORT-CARD-01 — Componente `ProjectCard` com Parallax Interno
 
-**Objetivo**
+**Objetivo:** Implementar card visual com parallax interno da imagem.
 
-- Substituir o hero atual estático da página /portfolio por um hero de vídeo loop com título e CTA corretos.
+**Prompt para o agente:**
 
-**Arquivos/Rotas envolvidas**
+Ajuste/implemente o componente `ProjectCard`.
 
-- \`src/app/portfolio/page.tsx\`
-- \`src/components/portfolio/HeroSection.tsx\`
-
-**Ações**
-
-1. Criar \`HeroSection\` da página de portfolio com:
-   - \`<video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover">\`,
-   - overlay gradiente escuro,
-   - título \`<span className="text-bluePrimary">portfólio</span> showcase\` centralizado.
-2. Adicionar CTA “vamos trabalhar juntos →” na base do hero, usando o mesmo padrão visual de CTA global.
-3. Garantir variações de vídeo mobile/desktop conforme URLs do documento.
-
-**Regras**
-
-- ❌ Não alterar o texto do título e CTA.
-- ✅ Tailwind.
-- ✅ Comparar com: seção “HERO SECTION — VÍDEO LOOPING” do protótipo Portfolio.
-
-**Critérios de aceite (Checklist)**
-
-- [ ] Hero ocupa 100vh na página /portfolio.
-- [ ] Título e CTA centralizados e legíveis.
-- [ ] Vídeo loop funciona em mobile+desktop (muted).
+1. Crie/edite `src/components/portfolio/ProjectCard.tsx` para aceitar `project` (interface `Project` fornecida no doc).
+2. Estrutura:
+   - `div.card` relativo, altura ~`h-[400px]` desktop / ajustada em mobile.
+   - `div.card-image-wrapper` absoluto, `h-[135%]`, com `overflow-hidden`.
+   - `<img>` ou `<Image>` com `object-cover`, `loading="lazy"`.
+   - Overlay com título, meta (cliente • ano) e tags na base.
+3. Exponha uma `ref` para o wrapper do card, usada pelo parallax hook para aplicar `translateY` na imagem interna baseada na posição na viewport.
+4. Aplique hover suave (desktop):
+   - Leve `translateY(-4px)` e `box-shadow` sutil.
+   - Overlay `opacity` de 0 → 1.
 
 ---
 
-### 🛠️ Prompt #10 — Criar Gallery Parallax Lerp em /portfolio
+### P-PORT-MODAL-01 — Modal de Projeto (Tipos A e B) com Timeline de Motion
 
-**Objetivo**
+**Objetivo:** Implementar modal acessível seguindo timeline de animação.
 
-- Implementar a galeria de projetos com track fixo e parallax lerp suave na página /portfolio.
+**Prompt para o agente:**
 
-**Arquivos/Rotas envolvidas**
+Implemente o modal de projeto com AnimatePresence.
 
-- \`src/components/portfolio/ProjectsGallery.tsx\`
-- \`src/components/portfolio/ProjectCard.tsx\`
-- \`src/hooks/useParallax.ts\`
-
-**Ações**
-
-1. Criar hook \`useParallax\` conforme especificação (lerp entre \`startY\` e \`endY\` com \`easing=0.05\`, \`requestAnimationFrame\`).
-2. Implementar \`ProjectsGallery\` com:
-   - seção \`<section ref={galleryRef} className="gallery">\`,
-   - \`gallery-track\` posicionado como \`fixed top-0 left-0 w-full grid md:grid-cols-2 lg:grid-cols-3 gap-1 p-1\`.
-3. Implementar \`ProjectCard\` com \`card-image-wrapper\` 135% height e parallax interno baseado em \`getBoundingClientRect\`.
-4. Pausar RAF e parallax quando \`Math.abs(startY - window.scrollY) < 0.1\`.
-5. Garantir mobile fallback com grid 1 coluna, sem track fixo exagerado, respeitando performance.
-
-**Regras**
-
-- ❌ Não mudar o conteúdo textual dos cards.
-- ✅ Tailwind + React + requestAnimationFrame.
-- ✅ Mobile-first.
-- ✅ Comparar com: seção “GALLERY COM PARALLAX LERP” do protótipo Portfolio.
-
-**Critérios de aceite (Checklist)**
-
-- [ ] Gallery track fica fixo enquanto a seção de portfolio está em scroll.
-- [ ] Cards têm parallax vertical interno suave.
-- [ ] Sem scroll hijacking, apenas suavização.
-- [ ] FPS estável (~60fps) em desktop.
+1. Crie/edite `src/components/portfolio/PortfolioModal.tsx` com:
+   - `role="dialog"`, `aria-modal="true"`.
+   - Recebendo `project` (`Project`) e `onClose`.
+   - Uso de `AnimatePresence` para entrada/saída.
+2. Siga a timeline:
+   - Backdrop: `opacity 0 → 1` em ~180ms.
+   - Container: escala/translate + fade de 120ms a 380ms.
+   - Pausa lógica (nenhuma animação) até ~520ms.
+   - Mídia principal fade-in (520–760ms).
+   - Título (760–960ms).
+   - Meta (960–1120ms).
+   - Conteúdo secundário com `stagger` (1120–1500ms).
+3. Implemente dois tipos de layout interno:
+   - Tipo A (Zoom viewer): foco em uma única peça visual.
+   - Tipo B (Case): hero + coluna de informações + galeria.
+4. Bloqueie scroll do body enquanto o modal estiver aberto e restaure ao fechar.
+5. Adicione handlers para:
+   - Fechar com ESC.
+   - Fechar clicando no backdrop (apenas se `e.target === e.currentTarget`).
+   - Gerenciar foco: ao abrir, foco no botão de fechar; ao fechar, foco volta ao card original.
 
 ---
 
-### 🛠️ Prompt #11 — Implementar PortfolioModal Tipo A/B com Timeline Canônica
+## 7. Acessibilidade, Motion & Performance
 
-**Objetivo**
+### P-A11Y-01 — Focus Visible & Navegação por Teclado
 
-- Criar modal de projeto com dois layouts (zoom viewer e página interna) e animação em etapas.
+**Objetivo:** Garantir foco visível e operabilidade via teclado.
 
-**Arquivos/Rotas envolvidas**
+**Prompt para o agente:**
 
-- \`src/components/portfolio/PortfolioModal.tsx\`
-- \`src/components/portfolio/ProjectContentTypeA.tsx\`
-- \`src/components/portfolio/ProjectContentTypeB.tsx\`
+Implemente foco visível e navegação por teclado consistente.
 
-**Ações**
+1. Verifique todos os componentes interativos (links, botões, cards clicáveis, ícones sociais, CTA pills).
+2. Garanta:
+   - `tabIndex={0}` em cards clicáveis e `role="button"` quando necessário.
+   - Handlers de `onKeyDown` para Enter/Espaço imitarem `onClick` quando apropriado.
+3. Aplique estilos globais em `globals.css`:
 
-1. Criar \`PortfolioModal\` usando \`AnimatePresence\` + \`Framer Motion\` com:
-   - backdrop fade-in 0→180ms,
-   - container scale+translate 120→380ms,
-   - mídia principal, título, meta e conteúdo secundário em sequência conforme tempos do documento.
-2. Implementar tipos A e B conforme estruturas fornecidas (zoom viewer e página interna).
-3. Bloquear scroll do \`body\` enquanto o modal estiver aberto, liberando ao fechar.
-4. Implementar fechamento por ESC, clique em X e clique no backdrop (\`target === currentTarget\`).
-5. Gerenciar foco inicial no botão de fechar e retorno ao card original.
+   - `*:focus-visible` com outline ou `ring` bem perceptível, em `bluePrimary`/`blueAccent`.
 
-**Regras**
-
-- ❌ Não mudar os textos dos projetos.
-- ✅ Tailwind + Framer Motion.
-- ✅ Comparar com: “ANIMAÇÃO — TIMELINE CANÔNICO DO MODAL”.
-
-**Critérios de aceite (Checklist)**
-
-- [ ] Modal abre e fecha com a sequência temporal correta.
-- [ ] Scroll da página é bloqueado durante modal.
-- [ ] Foco acessível e restauração funcionando.
-- [ ] Parallax da gallery pausa enquanto modal está aberto.
+4. Teste manualmente com Tab/Shift+Tab na Home, Sobre e Portfolio.
 
 ---
 
-### 🛠️ Prompt #12 — Implementar Hero Sobre com Vídeo Loop
+### P-A11Y-02 — `prefers-reduced-motion` Global
 
-**Objetivo**
+**Objetivo:** Garantir respeito a pessoas que preferem menos movimento.
 
-- Alinhar o Hero da página /sobre ao vídeo loop + manifesto descritos.
+**Prompt para o agente:**
 
-**Arquivos/Rotas envolvidas**
+Aplique suporte a `prefers-reduced-motion` em animações-chave.
 
-- \`src/app/sobre/page.tsx\`
-- \`src/components/sobre/HeroSobre.tsx\`
+1. Em `globals.css`, adicione um bloco:
 
-**Ações**
+   - `@media (prefers-reduced-motion: reduce) { ... }` desativando animações complexas.
 
-1. Criar \`HeroSobre\` com:
-   - vídeo full-bleed (\`HeroSobre.mp4\` desktop), \`HeroSobreMobile.mp4\` em mobile,
-   - overlay com gradiente escuro \`backgroundDark\`.
-2. Posicionar bloco de texto manifesto:
-   - Desktop: colunas 7–12, alinhado à direita, levemente acima do centro.
-   - Mobile: abaixo do vídeo, centralizado.
-3. Implementar animação linha a linha com Framer Motion (\`opacity/blur/translateY\` conforme tabela do documento).
-
-**Regras**
-
-- ❌ Não alterar o manifesto textual.
-- ✅ Tailwind + Framer Motion.
-- ✅ Comparar com: especificação da Seção 01 — HERO / MANIFESTO.
-
-**Critérios de aceite (Checklist)**
-
-- [ ] Hero da página /sobre coincide com as referências desktop/mobile.
-- [ ] Sem overflow horizontal.
-- [ ] Vídeo performático (muted, playsInline, preload="metadata").
+2. Nos componentes que utilizam Framer Motion (Hero, stripes, cards, modal, ghost etc.):
+   - Use `useReducedMotion` e ajuste a animação:
+     - Remova `y`, `scale`, `rotate` quando `shouldReduceMotion` for `true`.
+     - Mantenha apenas transições de opacidade rápidas.
+3. Evite qualquer parallax ou movimento contínuo quando `prefers-reduced-motion` for ativo.
 
 ---
 
-### 🛠️ Prompt #13 — Implementar GSAP Mask Reveal na Origem Criativa
+### P-PERF-01 — Lazy Loading de Imagens e Vídeos
 
-**Objetivo**
+**Objetivo:** Otimizar carregamento inicial.
 
-- Criar o efeito mask reveal pinned com 4 blocos de texto/imagem na seção Origem Criativa.
+**Prompt para o agente:**
 
-**Arquivos/Rotas envolvidas**
+Otimize o carregamento de mídias em todo o site.
 
-- \`src/components/sobre/OrigemCriativa.tsx\`
-
-**Ações**
-
-1. Adicionar GSAP + ScrollTrigger + Lenis apenas client-side (\`'use client'\`).
-2. Estruturar layout desktop em 2 colunas: texto à esquerda, imagens pinned à direita.
-3. Criar timeline que:
-   - fixa a coluna de imagens (\`pin: ".arch__right"\`),
-   - aplica \`clipPath: inset(0 0 100%) → inset(0)\` para cada imagem,
-   - sincroniza blur/opacity e objectPosition.
-4. Implementar fallback para mobile sem pin; apenas parallax leve em \`object-position\`.
-
-**Regras**
-
-- ❌ Não alterar textos dos blocos A–D.
-- ✅ GSAP 3.13 + ScrollTrigger + Lenis.
-- ✅ Comparar com: seção “Origem Criativa (ADAPTADA COM ANIMAÇÃO GSAP MASK REVEAL)”.
-
-**Critérios de aceite (Checklist)**
-
-- [ ] Em desktop, as imagens são reveladas verticalmente enquanto o texto avança.
-- [ ] Mobile não sofre com pinning; apenas scroll normal.
-- [ ] Sem jitter, 60fps em scroll suave.
+1. Substitua `<img>` por `next/image` onde apropriado (`import Image from "next/image"`), configurando `sizes` e `srcSet` de acordo com o tamanho esperado.
+2. Garanta que:
+   - Imagens fora do viewport inicial usem `loading="lazy"` ou `priority={false}`.
+   - O vídeo manifesto e o hero de portfolio sejam carregados via IntersectionObserver quando próximos da viewport (não imediatamente no FCP).
+3. Em elementos WebGL/Three mais pesados:
+   - Use `dynamic(import(...), { ssr: false, loading: (...) => <div className="bg-background" /> })`.
+   - Limite o pixel ratio e desabilite pós-processamento em mobile.
 
 ---
 
-### 🛠️ Prompt #14 — Implementar AboutWhatIDo (Blocos Horizontais de Serviços)
+## 8. QA & Finalização
 
-**Objetivo**
+### P-QA-01 — Checklist de Regressão Visual
 
-- Converter a seção de serviços em sequência horizontal guiada por scroll (desktop) e barras verticais (mobile).
+**Objetivo:** Garantir que as alterações não quebrem layout.
 
-**Arquivos/Rotas envolvidas**
+**Prompt para o agente:**
 
-- \`src/components/sobre/AboutWhatIDo.tsx\`
+Rode um checklist visual após aplicar as correções.
 
-**Ações**
-
-1. Desktop:
-   - Criar linha única \`flex-row\` com 7 cards \`min-h-[140px] rounded-2xl bg-[#0048ff]\`.
-   - Animar via Framer Motion ou GSAP \`x:120vw → 0\`, \`opacity:0→1\` com stagger.
-2. Mobile:
-   - Empilhar os 7 cards verticalmente; cada um com \`x:80px→0\` ao entrar em viewport.
-3. Incluir numeração roxa (\`#8705f2\`) e textos exatamente como especificados.
-
-**Regras**
-
-- ❌ Não alterar textos dos 7 itens.
-- ✅ Tailwind + Motion.
-- ✅ Comparar com: seção “O QUE EU FAÇO - AboutWhatIDo”.
-
-**Critérios de aceite (Checklist)**
-
-- [ ] Desktop mostra linha contínua de 7 blocos animando da direita.
-- [ ] Mobile mostra barras verticais com animação leve.
-- [ ] Sem overflow horizontal indesejado.
+1. Execute o projeto em desenvolvimento (`pnpm dev` ou equivalente).
+2. Teste manualmente nos breakpoints:
+   - 375px (mobile), 768px (tablet), 1440px (desktop), 1600px+ (wide).
+3. Verifique:
+   - Hero da Home, Sobre e Portfolio alinhados ao protótipo.
+   - “portfólio showcase” e Featured Projects mantendo o ritmo editorial.
+   - Seções de contato e footer coerentes com Ghost System.
+4. Documente qualquer discrepância residual em `docs/IMPLEMENTATION_NOTES.md` com prioridade (Alta/Média/Baixa).
 
 ---
 
-### 🛠️ Prompt #15 — Implementar “O que me move” com Frases Rotativas + Ghost Final
+### P-QA-02 — Lighthouse & A11y Quick Pass
 
-**Objetivo**
+**Objetivo:** Medir rapidamente performance e acessibilidade.
 
-- Criar a sequência temporal de frases rotativas e reveal final “ISSO É GHOST DESIGN” na página /sobre.
+**Prompt para o agente:**
 
-**Arquivos/Rotas envolvidas**
+Rode uma auditoria rápida com Lighthouse (no Chrome devtools) para a Home, Sobre e Portfolio.
 
-- \`src/components/sobre/OQueMeMove.tsx\`
-- \`src/components/canvas/sobre/Ghost.tsx\` (ou reutilização do ghost da home)
-
-**Ações**
-
-1. Implementar título fixo superior com animação de entrada (fade + blur).
-2. Criar array de 6 frases e máquina de estado temporal (\`setTimeout\` ou Framer Motion \`AnimatePresence\`) que:
-   - anima cada frase com entrada/saída (~4.2s por frase),
-   - total ~25s antes de avançar ao reveal final.
-3. Após última frase, mostrar layout final:
-   - ghost à esquerda (ou topo em mobile),
-   - texto “ISSO É GHOST DESIGN” com “GHOST DESIGN” em azul.
-4. Em \`prefers-reduced-motion: reduce\`, mostrar todas as frases em sequência estática (sem animação) e o ghost final sem efeito extra.
-
-**Regras**
-
-- ❌ Não alterar os textos das frases.
-- ✅ Tailwind + Framer Motion.
-- ✅ Comparar com: seção “O QUE ME MOVE” do documento Sobre.
-
-**Critérios de aceite (Checklist)**
-
-- [ ] Sequência de frases ocorre apenas uma vez ao entrar na seção.
-- [ ] Reveal final destaca Ghost e texto conforme layout.
-- [ ] Respeito a prefers-reduced-motion.
+1. Para cada página:
+   - Gere relatórios de Performance, Acessibilidade, Best Practices e SEO.
+   - Capture os scores e copie para uma seção “Lighthouse Snapshot” em `docs/IMPLEMENTATION_NOTES.md`.
+2. Se houver violações de acessibilidade óbvias (contraste, labels, foco), abra TODOs em comentários no código relevante e priorize correções nos próximos ciclos.
 
 ---
 
-Esse conjunto de prompts cobre os principais gaps entre o estado atual e os protótipos canônicos da Home, Sobre e Portfolio, priorizando:
+## 9. Como Usar Este Playbook
 
-1. Consistência de grid/margens e tipografia (tokens).
-2. Integração Header + Hero + Ghost.
-3. Implementação fiel do Portfolio Showcase v2.0.
-4. Motion editorial silencioso em Sobre.
-5. Reutilização e consistência das seções compartilhadas.
+1. **Passo 1:** Rodar `P-GLOBAL-01`, `P-GLOBAL-02`, `P-GLOBAL-03` para alinhar contexto.
+2. **Passo 2:** Aplicar `P-DS-*` (Design System) para garantir base sólida.
+3. **Passo 3:** Corrigir Home com `P-HOME-*`.
+4. **Passo 4:** Corrigir Sobre com `P-SOBRE-*`.
+5. **Passo 5:** Implementar Portfolio Showcase completo com `P-PORT-*`.
+6. **Passo 6:** Unificar seções compartilhadas com `P-SHARED-*`.
+7. **Passo 7:** Consolidar A11y e Performance com `P-A11Y-*` e `P-PERF-*`.
+8. **Passo 8:** Finalizar com QA (`P-QA-*`).
 
-`;
+Cada prompt é atômico o suficiente para ser colado diretamente em um agente Copilot/autônomo, que deverá seguir as instruções e aplicar as correções no repositório.
 
-export default function AuditReport() {
-  return (
-    <article className="prose max-w-none whitespace-pre-wrap text-sm leading-relaxed">
-      {auditMarkdown}
-    </article>
-  );
-}
-
+*/
 ---
 
 Pronto! Agora seu ghost está configurado para:
