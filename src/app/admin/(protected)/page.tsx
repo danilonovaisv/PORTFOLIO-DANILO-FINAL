@@ -1,3 +1,7 @@
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+export const fetchCache = 'force-no-store';
+
 import { createClient } from '@/lib/supabase/server';
 
 export default async function AdminDashboard() {

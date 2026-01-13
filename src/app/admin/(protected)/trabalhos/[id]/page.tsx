@@ -1,3 +1,7 @@
+export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
+export const fetchCache = 'force-no-store';
+
 import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { ProjectForm } from '@/components/admin/ProjectForm';
