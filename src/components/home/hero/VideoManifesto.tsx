@@ -88,9 +88,9 @@ export function VideoManifesto({ src }: VideoManifestoProps) {
     <motion.section
       ref={sectionRef}
       className="video-manifesto w-full overflow-hidden rounded-[2px]"
-      initial={{ opacity: 0, scale: 1.1, rotate: -1, y: 40 }}
-      whileInView={{ opacity: 1, scale: 1, rotate: 0, y: 0 }}
-      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, y: 20, scale: 0.98 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
       viewport={{ once: true, amount: 0.2 }}
     >
       <div
