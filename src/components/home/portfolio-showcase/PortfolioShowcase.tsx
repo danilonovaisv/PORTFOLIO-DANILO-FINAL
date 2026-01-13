@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { AntigravityCTA } from '@/components/ui/AntigravityCTA';
+import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { Container } from '@/components/layout/Container';
 import { CategoryStripe } from './CategoryStripe';
 
@@ -107,9 +107,8 @@ export default function PortfolioShowcase() {
         >
           <AntigravityCTA
             href="/#contact"
-            label="let's build something great"
-            variant="primary"
-            size="lg"
+            text="let's build something great"
+            className="relative"
           />
         </motion.div>
       </Container>

@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { AntigravityCTA } from '@/components/ui/AntigravityCTA';
+import AntigravityCTA from '@/components/ui/AntigravityCTA';
 
 /**
  * CTAProjectCard - Featured Projects Section CTA
@@ -30,11 +30,8 @@ export default function CTAProjectCard() {
       <div className="relative z-10 w-full md:w-auto">
         <AntigravityCTA
           href="/portfolio"
-          label="view projects"
-          variant="primary"
-          size="lg"
-          ariaLabel="Ver todos os projetos"
-          className="w-full md:w-auto"
+          text="view projects"
+          className="relative w-full md:w-auto"
         />
       </div>
     </div>

@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Calendar, Building2, Tag } from 'lucide-react';
 import type { PortfolioProject } from '@/types/project';
-import { AntigravityCTA } from '@/components/ui/AntigravityCTA';
+import AntigravityCTA from '@/components/ui/AntigravityCTA';
 
 interface TypeBContentProps {
   project: PortfolioProject;
@@ -70,9 +70,10 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
         {/* Accent color overlay on bottom */}
         {project.accentColor && (
           <div 
-            className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-(--accent-color,transparent) to-transparent"
-
-            style={{ '--accent-color': `${project.accentColor}40` } as React.CSSProperties}
+            className="absolute inset-x-0 bottom-0 h-1/3"
+            style={{ 
+              background: `linear-gradient(to top, ${project.accentColor}40, transparent)` 
+            }}
           />
         )}
 
@@ -183,11 +184,8 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
           {project.detail?.externalUrl && (
             <AntigravityCTA
               href={project.detail.externalUrl}
-              label="ver projeto"
-              variant="primary"
-              size="sm"
-              external
-              ariaLabel={`Ver projeto ${project.title}`}
+              text="ver projeto"
+              className="relative"
             />
           )}
         </motion.div>

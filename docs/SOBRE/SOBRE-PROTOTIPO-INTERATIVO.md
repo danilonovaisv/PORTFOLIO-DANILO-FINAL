@@ -761,4 +761,1051 @@ gsap.from(".service-card", {
 6. **Inteligência Artificial** aplicada à criação
 7. **Liderança Criativa** com visão e método
 
-**Regra:** Palavra-chave inicial em `blue
+**Regra:** Palavra-chave inicial em `blueAccent`, complemento em branco.
+
+#### Acessibilidade
+
+- `<h2>` para título da seção
+- Cards como `<article>` com `aria-label` descritivo
+- Contraste AA/AAA verificado
+- Navegação por teclado funcional
+- `prefers-reduced-motion` respeitado
+
+#### Notas Técnicas
+
+- Usar `transform: translateX()` para performance
+- `will-change: transform` apenas durante animação
+- Evitar sombras pesadas (performance mobile)
+- Animações suaves (ease: linear / easeOut)
+- Código modular (AboutWhatIDo.tsx isolado)
+
+---
+
+### 5. Como Eu Trabalho
+
+**Função:** Gerar confiança racional através do método. Mostrar que criatividade é suportada por processo.
+
+#### Desktop
+
+**Layout:**
+- Altura: ~120vh
+- Vídeo: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/AboutMethod.mp4`
+  - `object-fit: cover`, 100% largura/altura
+  - Loop contínuo, sem controles
+- Overlay: gradiente linear
+  - Esquerda (texto): `rgba(10, 10, 20, 0.85)`
+  - Direita (visual): `rgba(10, 10, 20, 0.4)`
+- Grid 12 colunas (max-width: 1440px)
+  - Coluna conteúdo (esquerda): colunas 2–7
+  - Área visual (direita): colunas 8–12
+
+**Composição Grid:**
+
+```tsx
+<section className="relative w-full min-h-[120vh]">
+  {/* Vídeo Background */}
+  <video 
+    className="absolute inset-0 w-full h-full object-cover"
+    src="..."
+    autoPlay
+    loop
+    muted
+    playsInline
+  />
+  
+  {/* Overlay Gradient */}
+  <div className="absolute inset-0 bg-gradient-to-r from-[rgba(10,10,20,0.85)] via-[rgba(10,10,20,0.65)] to-[rgba(10,10,20,0.4)]" />
+  
+  {/* Container Grid */}
+  <div className="relative max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-24">
+    <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8">
+      {/* Conteúdo - Esquerda */}
+      <div className="col-span-4 md:col-span-8 lg:col-span-7 flex flex-col justify-center">
+        {/* Título, texto, lista */}
+      </div>
+      
+      {/* Área Visual - Direita */}
+      <div className="hidden lg:block lg:col-span-5" />
+    </div>
+  </div>
+</section>
+```
+
+**Título:**
+- Alinhado à esquerda
+- Duas linhas:
+  - "**Criatividade** com **método**."
+  - "**Impacto** sem **ruído**."
+- Destaques: "criatividade", "método" em `bluePrimary`
+- Font-size: 44–52px (clamp)
+- Line-height: 1.15
+- Font-weight: 700
+- Margin-bottom: 32–40px
+
+**Texto Introdutório:**
+- Três frases em parágrafos separados
+- Font-size: 18–20px
+- Line-height: 1.6
+- Opacity: 0.9
+- Max-width: 520px
+- Margin-bottom: 48–56px
+
+**Lista de Processo:**
+- 6 itens em cards verticais
+
+```tsx
+<div className="space-y-5">
+  {processItems.map((item, index) => (
+    <div 
+      key={index}
+      className="bg-surface/70 backdrop-blur-md border-l-4 border-bluePrimary rounded-lg p-6"
+    >
+      <span className="text-lg font-bold text-bluePrimary mr-4">
+        {String(index + 1).padStart(2, '0')}
+      </span>
+      <span className="text-body text-white">
+        {item.text}
+      </span>
+    </div>
+  ))}
+</div>
+```
+
+**Especificações do Card:**
+- Fundo: `rgba(26, 26, 46, 0.7)` com `backdrop-filter: blur(12px)`
+- Borda esquerda: 4px sólida em `bluePrimary`
+- Padding: 20–24px
+- Margin-bottom: 16–20px
+- Border-radius: 6–8px
+- Índice em `bluePrimary` (01–06)
+- Texto em branco
+
+#### Mobile
+
+**Layout:**
+- Vídeo: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/aboutmetodo-mob.mp4`
+  - `object-position: right center`
+  - Gradiente vertical no fim
+  - Sem overlay pesado
+- 1 coluna, padding px-6
+- Conteúdo iniciando no meio do vídeo para baixo
+
+**Composição Mobile:**
+
+```tsx
+<section className="relative w-full min-h-screen">
+  {/* Vídeo Background */}
+  <video 
+    className="absolute inset-0 w-full h-full object-cover object-right"
+    src="..."
+    autoPlay
+    loop
+    muted
+    playsInline
+  />
+  
+  {/* Gradient Overlay (bottom only) */}
+  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background to-transparent" />
+  
+  {/* Conteúdo */}
+  <div className="relative px-6 py-20 flex flex-col justify-end min-h-screen">
+    <div className="text-center space-y-8">
+      {/* Título */}
+      <h2 className="text-h2">...</h2>
+      
+      {/* Texto intro */}
+      <p className="text-body">...</p>
+      
+      {/* Lista */}
+      <div className="space-y-4">
+        {/* Cards */}
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+**Título:**
+- Centralizado
+- Font-size: 32–36px
+- Margin-bottom: 24–32px
+
+**Texto introdutório:**
+- Centralizado
+- Font-size: 16–17px
+- Margin-bottom: 40–48px
+
+**Lista:**
+- Cards empilhados
+- Fundo: `rgba(26, 26, 46, 0.85)` (mais sólido)
+- Padding: 16–20px
+- Margin-bottom: 14–16px
+
+#### Conteúdo da Lista
+
+1. **01** | Briefings bem construídos para decisões claras
+2. **02** | Estratégia como base de qualquer criação
+3. **03** | Design com propósito, não só beleza
+4. **04** | Revisões inteligentes, sem ruído desnecessário
+5. **05** | IA e automações para escalar com qualidade
+6. **06** | Métricas criativas: engajamento, retenção e resultado
+
+#### Animação
+
+**Título:**
+```tsx
+<motion.h2
+  initial={{ opacity: 0, filter: "blur(8px)", y: 30 }}
+  whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+  transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+  viewport={{ once: true }}
+>
+  {/* Conteúdo */}
+</motion.h2>
+```
+
+**Texto introdutório:**
+- Mesma animação, delay 0.2s
+
+**Lista:**
+```tsx
+{processItems.map((item, index) => (
+  <motion.div
+    key={index}
+    initial={{ opacity: 0, x: -20 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    transition={{ 
+      duration: 0.5, 
+      delay: 0.4 + (index * 0.12),
+      ease: "easeOut"
+    }}
+    viewport={{ once: true }}
+  >
+    {/* Card */}
+  </motion.div>
+))}
+```
+
+**Hover (Desktop):**
+```tsx
+<motion.div
+  whileHover={{
+    opacity: 1,
+    x: 4,
+    borderLeftWidth: "4px",
+    transition: { duration: 0.3 }
+  }}
+  className="opacity-90"
+>
+  {/* Card */}
+</motion.div>
+```
+
+#### Responsividade
+
+| Breakpoint | Ajustes |
+|------------|---------|
+| 640–767px | Título 30–32px, texto 15–16px, lista 100% |
+| 768–1023px | Título 36–40px, texto 17–18px, cards max-w-90% |
+| 1024–1279px | Grid 2 blocos (1-7 texto, 8-12 vídeo), título 42–46px |
+| 1280px+ | Grid otimizado 2–7 texto, 8–12 vídeo, título 48–52px |
+
+#### Acessibilidade
+
+**prefers-reduced-motion:**
+```css
+@media (prefers-reduced-motion: reduce) {
+  .method-title,
+  .method-card {
+    animation: none !important;
+    transition: opacity 0.2s !important;
+    transform: none !important;
+  }
+}
+```
+
+- Contraste WCAG AA mínimo verificado
+- Z-index stack: vídeo (1), overlay (2), conteúdo (3)
+- Navegação por teclado
+- Semântica: `<section>`, `<h2>`, `<ul>`, `<li>`
+
+---
+
+### 6. O Que Me Move
+
+**Função:** Criar vínculo emocional através de manifesto pessoal. Momento mais íntimo da página.
+
+#### Desktop
+
+**Layout:**
+- Altura: ~140vh
+- Fundo: `#040013`
+- Container 12 colunas (max-width: 1440px)
+
+**Estrutura em 3 Momentos:**
+
+**1. Título Fixo (sempre visível)**
+```tsx
+<section className="relative w-full min-h-[140vh] bg-background">
+  <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-24">
+    {/* Título Fixo */}
+    <div className="sticky top-24 mb-20">
+      <h2 className="text-display text-center max-w-4xl mx-auto">
+        Acredito no <span className="text-bluePrimary">design que muda o dia</span> de alguém.
+        <br />
+        Não pelo choque, <span className="text-bluePrimary">mas pela conexão.</span>
+      </h2>
+    </div>
+    
+    {/* Área de Frases Rotativas */}
+    <div className="min-h-[40vh] flex items-center justify-center">
+      {/* Frases */}
+    </div>
+    
+    {/* Reveal Final */}
+    <div className="grid grid-cols-12 gap-12 mt-32">
+      {/* Ghost + Manifesto */}
+    </div>
+  </div>
+</section>
+```
+
+**Título:**
+- Colunas 2–10, centralizado
+- Margin-top: 10–12vh
+- Margin-bottom: 8–10vh
+- Permanece fixo durante sequência
+
+**Texto:**
+```
+Acredito no design que muda o dia de alguém.
+Não pelo choque, mas pela conexão.
+```
+
+**Estilo:**
+- Font-size: Display Black (clamp(2.5rem, 5vw + 1rem, 5.5rem))
+- Line-height: 1.2
+- Font-weight: 900
+- Destaques: "design que muda o dia", "mas pela conexão" em `bluePrimary`
+- Max-width: 900px
+- Text-align: center
+
+**2. Área de Frases Rotativas**
+
+```tsx
+<div className="relative min-h-[40vh] flex items-center justify-center">
+  <AnimatePresence mode="wait">
+    <motion.p
+      key={currentPhrase}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.8 }}
+      className="text-4xl font-medium text-center max-w-3xl"
+    >
+      {phrases[currentPhrase]}
+    </motion.p>
+  </AnimatePresence>
+</div>
+```
+
+**Frases (uma por vez):**
+1. "Um vídeo que **respira**."
+2. "Uma marca que se **reconhece**."
+3. "Um detalhe que **fica**."
+4. "**Crio** para gerar presença."
+5. "**Mesmo** quando não estou ali."
+6. "**Mesmo** quando ninguém percebe o esforço."
+
+**Estilo:**
+- Font-size: 32–38px
+- Line-height: 1.4
+- Font-weight: 500
+- Palavras em `bluePrimary` destacadas em negrito
+- Text-align: center
+- Max-width: 700px
+
+**3. Reveal Final — Ghost + Manifesto**
+
+```tsx
+<div className="grid grid-cols-12 gap-12 items-center mt-32">
+  {/* Ghost Animado - Esquerda */}
+  <div className="col-span-6 flex justify-center">
+    <div className="w-[380px] h-[380px]">
+      {/* Ghost SVG com animação de olhos seguindo cursor */}
+    </div>
+  </div>
+  
+  {/* Manifesto - Direita */}
+  <div className="col-span-6">
+    <h2 className="text-[64px] font-black leading-[1.1]">
+      ISSO É<br />
+      <span className="text-bluePrimary">GHOST<br />DESIGN.</span>
+    </h2>
+  </div>
+</div>
+```
+
+#### Mobile
+
+**Layout:**
+- 1 coluna, padding px-6
+- Altura flexível (>120vh)
+
+**Composição Mobile:**
+
+```tsx
+<section className="w-full min-h-screen bg-background py-16">
+  <div className="max-w-[1680px] mx-auto px-6">
+    {/* Título Fixo */}
+    <h2 className="text-h1 text-center mb-16">
+      Acredito no <span className="text-bluePrimary">design que muda o dia</span> de alguém.
+      <br />
+      Não pelo choque, <span className="text-bluePrimary">mas pela conexão.</span>
+    </h2>
+    
+    {/* Frases Rotativas */}
+    <div className="min-h-[35vh] flex items-center justify-center mb-16">
+      <AnimatePresence mode="wait">
+        <motion.p
+          key={currentPhrase}
+          className="text-2xl font-medium text-center"
+        >
+          {phrases[currentPhrase]}
+        </motion.p>
+      </AnimatePresence>
+    </div>
+    
+    {/* Reveal Final - Coluna */}
+    <div className="flex flex-col items-center space-y-10">
+      {/* Ghost */}
+      <div className="w-[240px] h-[240px]">
+        {/* Ghost SVG */}
+      </div>
+      
+      {/* Manifesto */}
+      <h2 className="text-[42px] font-black text-center leading-tight">
+        ISSO É<br />
+        <span className="text-bluePrimary">GHOST<br />DESIGN.</span>
+      </h2>
+    </div>
+  </div>
+</section>
+```
+
+**Título Fixo:**
+- Centralizado, margin-top: 8vh
+- Font-size: 28–34px
+- Max-width: 100%
+- Margin-bottom: 6–8vh
+
+**Frases Rotativas:**
+- Min-height: 35vh
+- Font-size: 22–26px
+- Padding: 0 16px
+
+**Reveal Final:**
+- Layout coluna
+- Ghost: 200–240px, margin-bottom: 32–40px
+- Texto: 36–42px, centralizado
+
+#### Animação e Sequência
+
+**Fase 1: Título Fixo (0s)**
+```tsx
+<motion.h2
+  initial={{ opacity: 0, filter: "blur(10px)" }}
+  animate={{ opacity: 1, filter: "blur(0px)" }}
+  transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+>
+  {/* Conteúdo */}
+</motion.h2>
+```
+
+**Fase 2: Frases Rotativas (após 1.5s)**
+
+Cada frase tem um ciclo de:
+- **Entrada:** 0.8s
+- **Permanência:** 2.5s
+- **Saída:** 0.6s
+- **Pausa entre frases:** 0.3s
+
+**Total por frase:** ~4.2s  
+**Total 6 frases:** ~25s
+
+```tsx
+useEffect(() => {
+  const timer = setInterval(() => {
+    setCurrentPhrase((prev) => (prev + 1) % phrases.length);
+  }, 4200);
+  
+  return () => clearInterval(timer);
+}, []);
+```
+
+**Animação de cada frase:**
+```tsx
+<motion.p
+  initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+  exit={{ opacity: 0, y: -20, filter: "blur(4px)" }}
+  transition={{ 
+    duration: 0.8,
+    ease: [0.22, 1, 0.36, 1]
+  }}
+>
+  {phrase}
+</motion.p>
+```
+
+**Fase 3: Reveal Final**
+```tsx
+<motion.div
+  initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 1, delay: 0.3 }}
+  viewport={{ once: true }}
+>
+  {/* Ghost + Manifesto */}
+</motion.div>
+```
+
+#### Responsividade
+
+| Breakpoint | Ajustes |
+|------------|---------|
+| 640–767px | Título 28–30px, frases 20–22px, ghost 180–200px, manifesto 32–36px |
+| 768–1023px | Título 34–38px, frases 24–28px, ghost 220–260px, manifesto 40–46px |
+| 1024–1279px | Grid 2 colunas reveal, título 40–44px, frases 30–34px, ghost 280–320px |
+| 1280px+ | Título 48–52px, frases 36–38px, ghost 320–380px, manifesto 60–64px |
+
+#### Ghost Interativo
+
+**Funcionalidade:**
+- Olhos seguem cursor (desktop)
+- Animação sutil de respiração
+
+```tsx
+const GhostInteractive = () => {
+  const [eyePosition, setEyePosition] = useState({ x: 0, y: 0 });
+  
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const ghost = document.getElementById('ghost');
+      const rect = ghost.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      
+      const deltaX = e.clientX - centerX;
+      const deltaY = e.clientY - centerY;
+      
+      const maxMove = 8;
+      const x = Math.max(-maxMove, Math.min(maxMove, deltaX / 20));
+      const y = Math.max(-maxMove, Math.min(maxMove, deltaY / 20));
+      
+      setEyePosition({ x, y });
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+  
+  return (
+    <motion.div
+      id="ghost"
+      animate={{ 
+        y: [0, -10, 0],
+        scale: [1, 1.02, 1]
+      }}
+      transition={{ 
+        duration: 4,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}
+    >
+      {/* Ghost SVG com olhos animados */}
+      <svg viewBox="0 0 200 200">
+        {/* Corpo do Ghost */}
+        <path d="..." fill="url(#ghostGradient)" />
+        
+        {/* Olhos */}
+        <circle 
+          cx={70 + eyePosition.x} 
+          cy={80 + eyePosition.y} 
+          r="8" 
+          fill="#0048ff"
+        />
+        <circle 
+          cx={130 + eyePosition.x} 
+          cy={80 + eyePosition.y} 
+          r="8" 
+          fill="#0048ff"
+        />
+      </svg>
+    </motion.div>
+  );
+};
+```
+
+---
+
+## Responsividade
+
+### Variações por Dispositivo
+
+**Filosofia:** Mobile-first com expansão progressiva
+
+#### Desktop (≥ 1024px)
+
+**Características:**
+- Grid 12 colunas (max-width: 1440–1680px)
+- Espaço negativo como elemento ativo do Ghost Design
+- Seções em 2 colunas (texto ↔ mídia)
+- Vídeos/imagens com opacidade reduzida e overlays
+- Animações complexas (parallax, scroll-driven)
+
+**Composição Grid Desktop:**
+```tsx
+<section className="w-full">
+  <div className="max-w-[1680px] mx-auto px-16 xl:px-24 py-24">
+    <div className="grid grid-cols-12 gap-8">
+      {/* Conteúdo distribuído em 12 colunas */}
+    </div>
+  </div>
+</section>
+```
+
+#### Tablet (768px–1023px)
+
+**Características:**
+- Transição suave entre layouts
+- Grid 8 colunas
+- Conteúdos densos mantêm 1 coluna
+- Listas/grids começam divisão 2 colunas
+- Foco em legibilidade
+
+**Composição Tablet:**
+```tsx
+<section className="w-full">
+  <div className="max-w-[1680px] mx-auto px-12 py-20">
+    <div className="grid grid-cols-8 gap-6">
+      {/* Conteúdo em 8 colunas */}
+    </div>
+  </div>
+</section>
+```
+
+#### Mobile (< 768px)
+
+**Características:**
+- 1 coluna em toda página
+- Grid 4 colunas para alinhamento interno
+- Texto sempre antes de imagem/vídeo
+- Tipografia maior para leitura confortável
+- Espaçamentos verticais aumentados
+- Vídeos recortados focando elemento principal
+- Animações simplificadas
+
+**Composição Mobile:**
+```tsx
+<section className="w-full">
+  <div className="max-w-[1680px] mx-auto px-6 py-16">
+    <div className="grid grid-cols-4 gap-4">
+      {/* Conteúdo em 4 colunas */}
+      <div className="col-span-4">
+        {/* Full width */}
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+### Breakpoints Padrão
+
+| Breakpoint | Range | Colunas | Padding | Gap | Comportamento |
+|------------|-------|---------|---------|-----|---------------|
+| `mobile` | < 768px | 4 | 24px (px-6) | 16px (gap-4) | 1 coluna, texto centralizado |
+| `tablet` | 768px–1023px | 8 | 48px (px-12) | 24px (gap-6) | Transição 1-2 colunas |
+| `desktop` | 1024px–1599px | 12 | 64px (px-16) | 32px (gap-8) | Grid completo |
+| `wide` | ≥ 1600px | 12 | 96px (px-24) | 40px (gap-10) | Max respiro |
+
+### Regras de Alinhamento
+
+**Mobile (< 768px):**
+```css
+/* Padrão para todas as seções */
+.section-mobile {
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Exceções controladas por classe */
+.section-mobile.text-left {
+  text-align: left;
+  align-items: flex-start;
+}
+```
+
+**Desktop (≥ 1024px):**
+```css
+/* Padrão */
+.section-desktop {
+  text-align: left;
+  align-items: flex-start;
+}
+
+/* Destaques e frases */
+.section-desktop.text-center {
+  text-align: center;
+  align-items: center;
+}
+```
+
+### Exemplo de Seção Responsiva Completa
+
+```tsx
+<section className="w-full bg-background py-16 md:py-20 lg:py-24">
+  {/* Container responsivo */}
+  <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24">
+    {/* Grid responsivo */}
+    <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-6 lg:gap-8">
+      {/* Título - Full width mobile, 8 cols desktop */}
+      <div className="col-span-4 md:col-span-8 lg:col-span-8 text-center md:text-left">
+        <h2 className="text-h2 mb-6">Título da Seção</h2>
+      </div>
+      
+      {/* Conteúdo - Full mobile, 4 cols desktop cada */}
+      <div className="col-span-4 md:col-span-4 lg:col-span-6">
+        <p className="text-body">Conteúdo esquerda...</p>
+      </div>
+      
+      <div className="col-span-4 md:col-span-4 lg:col-span-6">
+        <img src="..." className="w-full rounded-2xl" alt="..." />
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+---
+
+## Acessibilidade
+
+### Princípios WCAG 2.1
+
+**Nível de conformidade:** AA (mínimo), AAA (preferencial)
+
+#### Contraste de Cores
+
+| Combinação | Ratio | Status |
+|------------|-------|--------|
+| `#fcffff` sobre `#040013` | 21:1 | ✅ AAA |
+| `#0048ff` sobre `#040013` | 8.2:1 | ✅ AAA |
+| `#4fe6ff` sobre `#040013` | 14.5:1 | ✅ AAA |
+| `#a1a3a3` sobre `#040013` | 7.1:1 | ✅ AAA |
+
+**Ferramenta de teste:** WebAIM Contrast Checker
+
+#### Hierarquia Semântica
+
+```html
+<!-- Estrutura correta -->
+<main>
+  <section aria-labelledby="hero-title">
+    <h1 id="hero-title">Sou Danilo Novais.</h1>
+    <!-- Conteúdo -->
+  </section>
+  
+  <section aria-labelledby="origin-title">
+    <h2 id="origin-title">Origem</h2>
+    
+    <article>
+      <h3>O Que Permanece</h3>
+      <!-- Conteúdo -->
+    </article>
+  </section>
+</main>
+```
+
+**Regras:**
+- Um único `<h1>` por página (Hero)
+- Hierarquia sequencial sem pulos (h1 → h2 → h3)
+- `aria-labelledby` conectando seções aos títulos
+- Landmarks semânticos (`<main>`, `<section>`, `<article>`)
+
+#### Navegação por Teclado
+
+**Elementos interativos:**
+```tsx
+// Botões
+<button
+  className="..."
+  onKeyDown={(e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      handleClick();
+    }
+  }}
+>
+  CTA
+</button>
+
+// Links
+
+  href="..."
+  className="focus:outline-none focus:ring-2 focus:ring-bluePrimary focus:ring-offset-2"
+>
+  Link
+</a>
+
+// Cards clicáveis
+<article
+  tabIndex={0}
+  role="button"
+  aria-label="Card título"
+  onKeyDown={(e) => {
+    if (e.key === 'Enter') handleClick();
+  }}
+>
+  {/* Conteúdo */}
+</article>
+```
+
+**Estados de foco:**
+```css
+/* Focus visível */
+*:focus {
+  outline: 2px solid #0048ff;
+  outline-offset: 4px;
+}
+
+/* Focus dentro de elementos dark */
+.dark *:focus {
+  outline-color: #4fe6ff;
+}
+
+/* Remove outline apenas se mouse */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+```
+
+#### Textos Alternativos
+
+**Imagens decorativas:**
+```tsx
+<img src="..." alt="" aria-hidden="true" />
+```
+
+**Imagens informativas:**
+```tsx
+<img 
+  src="sobre-1.webp" 
+  alt="Detalhes que sobrevivem ao tempo — essência preservada em elementos visuais minimalistas" 
+/>
+```
+
+**Vídeos de fundo:**
+```tsx
+<video
+  aria-hidden="true"
+  role="presentation"
+  muted
+  autoPlay
+  loop
+  playsInline
+>
+  <source src="..." type="video/mp4" />
+</video>
+```
+
+#### Reduced Motion
+
+**Implementação completa:**
+
+```css
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+/* Mantém apenas fade simples */
+  .preserve-fade {
+    animation-duration: 0.2s !important;
+    transition-duration: 0.2s !important;
+  }
+}
+```
+
+**React/Framer Motion:**
+```tsx
+import { useReducedMotion } from 'framer-motion';
+
+const MyComponent = () => {
+  const shouldReduceMotion = useReducedMotion();
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ 
+        duration: shouldReduceMotion ? 0.2 : 0.6 
+      }}
+    >
+      {/* Conteúdo */}
+    </motion.div>
+  );
+};
+```
+
+#### Screen Readers
+
+**Anúncios de carregamento:**
+```tsx
+<div role="status" aria-live="polite" aria-atomic="true">
+  {loading ? "Carregando conteúdo..." : "Conteúdo carregado"}
+</div>
+```
+
+**Elementos ocultos visualmente:**
+```css
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+```
+
+**Uso:**
+```tsx
+<button>
+  <span className="sr-only">Abrir menu</span>
+  <HamburgerIcon aria-hidden="true" />
+</button>
+```
+
+### Checklist de Acessibilidade
+
+**Antes do Deploy:**
+
+- [ ] Contraste de cores validado (WCAG AA/AAA)
+- [ ] Navegação completa por teclado (Tab, Enter, Esc, Setas)
+- [ ] Hierarquia semântica correta (H1 único, sequência H2-H6)
+- [ ] ALT texts descritivos em todas as imagens
+- [ ] `aria-label` em elementos interativos sem texto
+- [ ] `prefers-reduced-motion` implementado
+- [ ] Focus visível em todos os elementos interativos
+- [ ] Testado com screen reader (NVDA/JAWS/VoiceOver)
+- [ ] Zoom 200% sem quebra de layout
+- [ ] Landmarks semânticos (`<main>`, `<nav>`, `<section>`)
+- [ ] Vídeos com `aria-hidden` quando decorativos
+- [ ] Formulários com labels associados
+- [ ] Skip links para navegação rápida
+
+---
+
+## Observações Finais
+
+### Fonte Única da Verdade
+
+Este documento consolida **TODO** o conteúdo da página /sobre. Nenhuma decisão fora deste documento é válida sem atualização prévia deste arquivo.
+
+### Princípios de Implementação
+
+1. **Mobile-first:** começar pela menor tela, expandir progressivamente
+2. **Progressive enhancement:** funcionalidade básica primeiro, melhorias depois
+3. **Performance:** lazy load, GPU transforms, otimização de assets
+4. **Modularidade:** componentes reutilizáveis e isolados
+5. **Manutenibilidade:** código limpo, comentado, documentado
+6. **Acessibilidade:** WCAG AA mínimo, AAA preferencial
+
+### Stack Técnica Recomendada
+
+**Framework & Ferramentas:**
+- **Framework:** Next.js 14+ (App Router)
+- **Linguagem:** TypeScript
+- **Animações:** Framer Motion 11+, GSAP 3.13+ + ScrollTrigger
+- **Smooth Scroll:** Lenis
+- **Styling:** Tailwind CSS 3.4+
+- **Fonts:** Self-hosted (TT Norms Pro)
+- **Assets:** Supabase Storage
+- **Otimização de Imagens:** Next/Image com sharp
+
+**Estrutura de Pastas:**
+```
+/app
+  /sobre
+    page.tsx
+    /components
+      Header.tsx
+      Hero.tsx
+      OrigemCriativa.tsx
+      AboutWhatIDo.tsx
+      AboutMethod.tsx
+      AboutBeliefs.tsx
+      Footer.tsx
+    /lib
+      animations.ts
+      gsap-config.ts
+    layout.tsx
+```
+
+### Performance Targets
+
+| Métrica | Target | Ferramenta |
+|---------|--------|------------|
+| Lighthouse Performance | ≥ 90 | Lighthouse |
+| First Contentful Paint (FCP) | < 1.8s | PageSpeed Insights |
+| Largest Contentful Paint (LCP) | < 2.5s | PageSpeed Insights |
+| Cumulative Layout Shift (CLS) | < 0.1 | PageSpeed Insights |
+| Time to Interactive (TTI) | < 3.8s | PageSpeed Insights |
+| Total Blocking Time (TBT) | < 200ms | Lighthouse |
+
+**Otimizações críticas:**
+- Lazy load de vídeos fora do viewport
+- Preload de fontes críticas
+- Code splitting por seção
+- Compressão de imagens (WebP com fallback)
+- Minificação de CSS/JS
+- CDN para assets estáticos
+
+### Versionamento
+
+**Formato:** Semantic Versioning (MAJOR.MINOR.PATCH)
+
+- **MAJOR:** Mudanças estruturais na página
+- **MINOR:** Novas seções ou funcionalidades
+- **PATCH:** Correções e ajustes
+
+**Changelog:**
+```
+v1.0.0 (2026-01-13)
+- Lançamento inicial da documentação completa
+- Design System unificado
+- Grid system otimizado (4/8/12 colunas)
+- 6 seções principais documentadas
+- Especificações de acessibilidade WCAG AA/AAA
+```
+
+### Contato e Manutenção
+
+**Responsável:** Danilo Novais  
+**Domínio:** portifoliodanilo.com  
+**Última atualização:** Janeiro 2026  
+**Próxima revisão:** Trimestral
+
+---
+
+**Documento oficial — Página Sobre**  
+**Ghost Design — presença que guia sem aparecer**

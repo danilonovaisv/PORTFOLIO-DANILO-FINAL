@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, Variants } from 'framer-motion';
-import { AntigravityCTA } from '@/components/ui/AntigravityCTA';
+import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { HOME_CONTENT } from '@/config/content';
 
 const itemAnimation: Variants = {
@@ -29,9 +29,8 @@ export default function HeroCTA({ isLoaded = true }: { isLoaded?: boolean }) {
     >
       <AntigravityCTA
         href="/sobre"
-        label={HOME_CONTENT.hero.cta}
-        variant="primary"
-        size="lg"
+        text={HOME_CONTENT.hero.cta}
+        className="relative"
       />
     </motion.div>
   );

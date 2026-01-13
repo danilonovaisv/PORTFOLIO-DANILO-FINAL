@@ -14,7 +14,7 @@ import {
   ghostTransition
 } from '@/config/motion';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { AntigravityCTA } from '@/components/ui/AntigravityCTA';
+import AntigravityCTA from '@/components/ui/AntigravityCTA';
 
 // Motion config - Ghost Era ethereal timing
 const { duration, offset } = MOTION_TOKENS;
@@ -95,10 +95,8 @@ export default function PortfolioHeroNew() {
         >
           <AntigravityCTA
             onClick={handleCTAClick}
-            label="vamos trabalhar juntos"
-            variant="primary"
-            size="md"
-            ariaLabel="Ir para seção de contato"
+            text="vamos trabalhar juntos"
+            className="relative"
           />
         </motion.div>
       </div>
