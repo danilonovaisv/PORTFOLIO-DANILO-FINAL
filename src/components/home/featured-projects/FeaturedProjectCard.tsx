@@ -99,22 +99,11 @@ export default function FeaturedProjectCard({
 
         {/* Arrow Icon Circle - Blue default, Purple on hover */}
         <div
-          className={`w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-white shrink-0 border border-white/10 transition-all duration-700 ${
+          className={`w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-white shrink-0 border border-white/10 transition-all duration-700 bg-[#0048ff] ${
             reducedMotion
               ? ''
-              : 'md:group-hover:translate-x-5 md:group-hover:shadow-[0_0_20px_rgba(135,5,242,0.4)]'
+              : 'md:group-hover:translate-x-5 md:group-hover:bg-[#8705f2] md:group-hover:shadow-[0_0_20px_rgba(135,5,242,0.4)]'
           }`}
-          style={{
-            backgroundColor: '#0048ff',
-          }}
-          onMouseEnter={(e) => {
-            if (!reducedMotion) {
-              e.currentTarget.style.backgroundColor = '#8705f2';
-            }
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.backgroundColor = '#0048ff';
-          }}
         >
           <ArrowIcon className="w-5 h-5 md:w-6 md:h-6 -rotate-45 transition-transform duration-500 md:group-hover:rotate-0" />
         </div>

@@ -1,86 +1,86 @@
-/**
- * Supabase Image Loader
- *
- * Logic:
- * 1. Return local/static paths as is.
- * 2. Return non-optimizable formats (SVG, GIF, ICO) as public objects.
- * 3. Return non-Supabase absolute URLs as is.
- * 4. Transform Supabase 'object' URLs to 'render' URLs for optimization.
- * 5. Handle environment variables robustly.
- */
+interface SupabaseLoaderProps {
+  src: string;
+  width: number;
+  quality?: number;
+}
 
 export default function supabaseLoader({
   src,
   width,
   quality,
-}: {
-  src: string;
-  width: number;
-  quality?: number;
-}): string {
-  // 1. Local/Internal Paths
+}: SupabaseLoaderProps): string {
+  // If the image is already a full URL, we need to extract the path or modify it.
+
+  // 1. Handle local images (starting with /). Return as-is to avoid breaking them.
+  // Next.js default loader would handle these if we weren't using a custom loader globally.
+  // Since we are, returning src essentially serves the original asset.
   if (src.startsWith('/')) {
     return src;
   }
 
-  // 2. Base Configuration (Cleaned)
-  const supabaseUrl = (
-    process.env.NEXT_PUBLIC_SUPABASE_URL ||
-    'https://aymuvxysygrwoicsjgxj.supabase.co'
-  )
-    .trim()
-    .replace(/\/$/, ''); // Remove trailing slash if any
-
-  // 3. Skip optimization for vector/animated formats
-  const notOptimizable = ['.svg', '.gif', '.ico'];
-  const isNotOptimizable = notOptimizable.some((ext) =>
-    src.toLowerCase().split('?')[0].endsWith(ext)
-  );
-
-  // 4. Handle Absolute URLs
-  if (src.startsWith('http')) {
-    const isSupabase = src.startsWith(supabaseUrl);
-
-    // If not Supabase, return as is
-    if (!isSupabase) return src;
-
-    // If Supabase but not optimizable, return with width as query param to satisfy Next.js warning
-    if (isNotOptimizable) {
-      const sep = src.includes('?') ? '&' : '?';
-      return `${src}${sep}width=${width}`;
-    }
-
-    // If Supabase and already a 'render' URL, just update params
-    if (src.includes('/storage/v1/render/image/public/')) {
-      try {
-        const url = new URL(src);
-        url.searchParams.set('width', width.toString());
-        url.searchParams.set('quality', (quality || 75).toString());
-        return url.toString();
-      } catch {
-        return src;
-      }
-    }
-
-    // If Supabase 'object' URL, do NOT transform to 'render' because it is returning 403.
-    // Return original URL with width param for Next.js compatibility (though it might be ignored by Supabase storage)
-    if (src.includes('/storage/v1/object/public/')) {
-      const separator = src.includes('?') ? '&' : '?';
-      return `${src}${separator}width=${width}&quality=${quality || 75}`;
-    }
-
+  // SVGs should not be transformed by Supabase Image API (often leads to errors or isn't needed)
+  if (src.endsWith('.svg')) {
     return src;
   }
 
-  // 5. Handle Relative/Project Storage Keys
-  const key = src.startsWith('/') ? src.slice(1) : src;
-  const baseUrl = `${supabaseUrl}/storage/v1/object/public/${key}`;
-
-  if (isNotOptimizable) {
-    return `${baseUrl}?width=${width}`;
+  let projectId = '';
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (supabaseUrl) {
+    try {
+      const url = new URL(supabaseUrl);
+      const parts = url.hostname.split('.');
+      if (parts.length > 0) {
+        projectId = parts[0];
+      }
+    } catch (e) {
+      console.error('Invalid NEXT_PUBLIC_SUPABASE_URL', e);
+    }
   }
 
-  // Return object URL for relative paths as well (avoid render 403)
-  const separator = baseUrl.includes('?') ? '&' : '?';
-  return `${baseUrl}${separator}width=${width}&quality=${quality || 75}`;
+  // Fallback if env var is missing or we want to parse from src
+  if (!projectId && src.includes('supabase.co')) {
+    try {
+      const url = new URL(src);
+      const parts = url.hostname.split('.');
+      if (parts.length > 0) {
+        projectId = parts[0];
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  // Helper to append params safely
+  const appendParams = (url: string, w: number, q: number) => {
+    const separator = url.includes('?') ? '&' : '?';
+    return `${url}${separator}width=${w}&quality=${q || 75}`;
+  };
+
+  // Logic to transform the URL
+  // Current pattern: .../storage/v1/object/public/bucket/path/to/image.ext
+  // Target pattern: .../storage/v1/render/image/public/bucket/path/to/image.ext?width=...
+
+  if (src.includes('/storage/v1/object/public/')) {
+    // Replace /object/ with /render/image/
+    const newSrc = src.replace(
+      '/storage/v1/object/public/',
+      '/storage/v1/render/image/public/'
+    );
+    return appendParams(newSrc, width, quality || 75);
+  }
+
+  // If it matches the render/image pattern already, just append params
+  if (src.includes('/storage/v1/render/image/public/')) {
+    return appendParams(src, width, quality || 75);
+  }
+
+  // For relative paths (if any) that are NOT local paths (already handled),
+  // construct the full Supabase URL.
+  // This path is hit if `src` is something like 'my-bucket/image.png' (not starting with /)
+  if (!src.startsWith('http') && projectId) {
+    return `https://${projectId}.supabase.co/storage/v1/render/image/public/${src}?width=${width}&quality=${quality || 75}`;
+  }
+
+  // Fallback for non-Supabase images (return original)
+  return src;
 }
