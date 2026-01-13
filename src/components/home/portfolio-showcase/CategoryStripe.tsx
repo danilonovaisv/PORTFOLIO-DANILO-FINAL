@@ -126,12 +126,10 @@ export function CategoryStripe({
 
             <motion.div
               className="w-8 h-8 lg:w-10 lg:h-10 rounded-full flex items-center justify-center shrink-0 transition-colors duration-300"
-              style={{
-                backgroundColor: isHovered ? '#8705f2' : '#0048ff',
-              }}
               initial={false}
               animate={{
                 rotate: isHovered ? 0 : -45,
+                backgroundColor: isHovered ? '#8705f2' : '#0048ff',
               }}
               transition={{
                 duration: 0.5,
@@ -155,10 +153,7 @@ export function CategoryStripe({
               </span>
             ))}
           </div>
-          <div
-            className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
-            style={{ backgroundColor: '#0048ff' }}
-          >
+          <div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 bg-[#0048ff]">
             <ArrowUpRight className="w-4 h-4 text-white" />
           </div>
         </div>

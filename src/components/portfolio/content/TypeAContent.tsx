@@ -158,10 +158,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
               href={project.detail.externalUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-white font-semibold text-sm transition-colors"
-              style={{ backgroundColor: '#0048ff' }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#8705f2')}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#0048ff')}
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-white font-semibold text-sm transition-colors bg-[#0048ff] hover:bg-[#8705f2]"
             >
               Ver projeto completo
               <ArrowUpRight className="w-4 h-4" />
