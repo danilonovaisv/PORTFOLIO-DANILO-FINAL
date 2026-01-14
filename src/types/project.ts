@@ -35,6 +35,8 @@ export interface ProjectGridLayout {
   aspectRatio?: string;
   /** Ordem no grid */
   order?: number;
+  /** Sizes used by Next/Image */
+  sizes?: string;
 }
 
 /**
@@ -91,6 +93,8 @@ export interface PortfolioProject {
   accentColor?: string;
   /** Projeto em destaque? */
   isFeatured?: boolean;
+  featuredOnHome?: boolean;
+  featuredOnPortfolio?: boolean;
 }
 
 /**

@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import { X } from 'lucide-react';
 import { createPortal } from 'react-dom';
-import type { FeaturedProject } from '@/components/home/featured-projects/FeaturedProjectCard';
+import type { PortfolioProject } from '@/types/project';
 import {
   getBackdropVariants,
   getContainerVariants,
@@ -16,7 +16,7 @@ import {
 } from './modal/variants';
 
 type ProjectModalProps = {
-  project: FeaturedProject | null;
+  project: PortfolioProject | null;
   open: boolean;
   onClose: () => void;
 };
@@ -92,9 +92,9 @@ export default function ProjectModal({
                   variants={mediaVariants}
                   className="relative aspect-video w-full overflow-hidden rounded-2xl bg-linear-to-br from-white/5 to-white/0 border border-white/10"
                 >
-                  <Image
-                    src={project.img}
-                    alt={project.title}
+                    <Image
+                      src={project.image}
+                      alt={project.title}
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 60vw"
@@ -165,7 +165,7 @@ export default function ProjectModal({
                   variants={contentVariants}
                   className="flex flex-wrap gap-2 pt-2"
                 >
-                  {project.tags.map((tag) => (
+                  {(project.tags ?? []).map((tag: string) => (
                     <span
                       key={tag}
                       className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.2em] text-accent"

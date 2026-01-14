@@ -1,31 +1,24 @@
-'use client';
-
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { HOME_CONTENT } from '@/config/content';
-import {
-  MOTION_TOKENS,
-  ghostTransition,
-  staggerContainer,
-} from '@/config/motion';
-import FeaturedProjectCard, {
-  type FeaturedProject,
-} from './FeaturedProjectCard';
+import { MOTION_TOKENS, ghostTransition, staggerContainer } from '@/config/motion';
+import FeaturedProjectCard from './FeaturedProjectCard';
 import CTAProjectCard from './CTAProjectCard';
+import type { PortfolioProject } from '@/types/project';
+import { Container } from '@/components/layout/Container';
 
 const { duration, offset } = MOTION_TOKENS;
 
 type FeaturedProjectsSectionProps = {
-  onProjectOpen?: (_project: FeaturedProject) => void;
+  projects: PortfolioProject[];
+  onProjectOpen?: (_project: PortfolioProject) => void;
 };
 
-import { Container } from '@/components/layout/Container';
-
 export default function FeaturedProjectsSection({
+  projects,
   onProjectOpen,
 }: FeaturedProjectsSectionProps) {
   const reducedMotion = useReducedMotion();
-  const featuredProjects = HOME_CONTENT.featuredProjects;
+  const featuredProjects = projects.filter((project) => project.isFeatured);
 
   // Card variants sem scale (Ghost Design System proíbe scale em elementos principais)
   const cardVariants = {

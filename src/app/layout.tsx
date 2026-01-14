@@ -7,6 +7,7 @@ import { getSiteAssets, type SiteAsset } from '@/lib/supabase/site-assets';
 import { SiteAssetsProvider } from '@/contexts/site-assets';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
 import type { CSSProperties } from 'react';
+import { BRAND } from '@/config/brand';
 
 export const metadata: Metadata = siteMetadata;
 export const viewport: Viewport = siteViewport;
@@ -51,6 +52,10 @@ export default async function RootLayout({
     if (value) cssVars[name] = value;
   };
 
+  const supabaseBaseUrl =
+    process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, '') ?? '';
+  setVar('--supabase-url', supabaseBaseUrl);
+
   setVar('--logo-light-url', assetMap[SITE_ASSET_KEYS.logos.headerLight]);
   setVar('--logo-dark-url', assetMap[SITE_ASSET_KEYS.logos.headerDark]);
   setVar('--favicon-light-url', assetMap[SITE_ASSET_KEYS.logos.faviconLight]);
@@ -63,11 +68,14 @@ export default async function RootLayout({
   setVar('--font-light-url', assetMap[SITE_ASSET_KEYS.fonts.light]);
 
   const inlineStyle = cssVars as CSSProperties;
+  const jsonLdLogoUrl =
+    assetMap[SITE_ASSET_KEYS.logos.headerLight] ??
+    BRAND.assets.logos.logoLight;
 
   return (
     <html lang="pt-BR" data-scroll-behavior="smooth">
       <head>
-        <JsonLd />
+        <JsonLd logoUrl={jsonLdLogoUrl} />
       </head>
       <body
         className="antialiased bg-background text-text pb-0 lg:pb-[64px] overflow-x-hidden"

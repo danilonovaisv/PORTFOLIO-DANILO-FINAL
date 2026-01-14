@@ -8,14 +8,15 @@
 
 import { FC, useMemo, useState, useEffect } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import type { ProjectCategory, PortfolioProject } from '@/types/project';
-import { PORTFOLIO_PROJECTS, filterProjectsByCategory } from '@/data/projects';
+import type { PortfolioProject, ProjectCategory } from '@/types/project';
+import { filterProjectsByCategory } from '@/data/projects';
 import CategoryFilter from './CategoryFilter';
 import PortfolioCard from './PortfolioCard';
 import useParallax from '@/hooks/useParallax';
 import { Container } from '@/components/layout/Container';
 
 interface ProjectsGalleryProps {
+  projects: PortfolioProject[];
   onProjectOpen?: (_project: PortfolioProject) => void;
   showFilter?: boolean;
   maxProjects?: number;
@@ -26,6 +27,7 @@ interface ProjectsGalleryProps {
 const easing = [0.22, 1, 0.36, 1] as const;
 
 const ProjectsGallery: FC<ProjectsGalleryProps> = ({
+  projects,
   onProjectOpen,
   showFilter = true,
   maxProjects,
@@ -46,12 +48,12 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
 
   // Filtra projetos baseado na categoria ativa
   const filteredProjects = useMemo(() => {
-    let projects = filterProjectsByCategory(PORTFOLIO_PROJECTS, activeCategory);
+    let filtered = filterProjectsByCategory(projects, activeCategory);
     if (maxProjects) {
-      projects = projects.slice(0, maxProjects);
+      filtered = filtered.slice(0, maxProjects);
     }
-    return projects;
-  }, [activeCategory, maxProjects]);
+    return filtered;
+  }, [activeCategory, maxProjects, projects]);
 
   // Sync Height Effect: Mede o track e define a altura do container de scroll
   useEffect(() => {

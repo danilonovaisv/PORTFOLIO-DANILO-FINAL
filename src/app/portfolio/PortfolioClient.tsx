@@ -7,7 +7,11 @@ import ProjectsGallery from '@/components/portfolio/ProjectsGallery';
 import PortfolioModalNew from '@/components/portfolio/PortfolioModalNew';
 import { SiteClosure } from '@/components/layout/SiteClosure';
 
-export default function PortfolioClient() {
+type PortfolioClientProps = {
+  projects: PortfolioProject[];
+};
+
+export default function PortfolioClient({ projects }: PortfolioClientProps) {
   const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -31,6 +35,7 @@ export default function PortfolioClient() {
 
       {/* Galeria de projetos com filtros */}
       <ProjectsGallery 
+        projects={projects}
         onProjectOpen={handleOpenProject} 
         isPaused={isModalOpen}
       />

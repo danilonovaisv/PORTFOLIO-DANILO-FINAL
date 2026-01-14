@@ -1,11 +1,15 @@
 import { BRAND } from '@/config/brand';
 
-export default function JsonLd() {
+type JsonLdProps = {
+  logoUrl?: string;
+};
+
+export default function JsonLd({ logoUrl }: JsonLdProps) {
   const personSchema = {
     '@type': 'Person',
     name: BRAND.name,
     url: `https://${BRAND.domain}`,
-    image: BRAND.assets.logos.logoLight,
+    image: logoUrl ?? BRAND.assets.logos.logoLight,
     jobTitle: 'Creative Developer & Designer',
     sameAs: [
       'https://github.com/danilonovaisv',

@@ -9,7 +9,7 @@ const nextConfig = {
   /**
    * Build com server runtime (necessário para /admin e Supabase Auth)
    */
-  output: 'standalone',
+  // output: 'standalone', // Removido pois estamos fazendo deploy no Firebase Hosting
 
   /**
    * Mantém exatamente como você já tinha
@@ -20,7 +20,7 @@ const nextConfig = {
     // any needed experimental flags
   },
 
-  allowedDevOrigins: ['http://192.168.0.14:3000', 'http://192.168.0.34:3000'],
+  allowedDevOrigins: ['http://192.168.0.14:3000', 'http://192.168.0.34:3000', 'http://192.168.0.57:3000'],
 
   /**
    * Configuração de imagens (Supabase)
@@ -30,7 +30,7 @@ const nextConfig = {
     // Firebase Hosting/App Hosting não está servindo a rota /_next/image;
     // Utilizamos um loader customizado para usar as transformações de imagem do Supabase.
     loader: 'custom',
-    loaderFile: path.join(__dirname, 'src/lib/supabase/image-loader.ts'),
+    loaderFile: './src/lib/supabase/image-loader.ts',
 
     remotePatterns: [
       {

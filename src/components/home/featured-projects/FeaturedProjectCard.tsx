@@ -5,22 +5,11 @@ import React from 'react';
 import { useReducedMotion } from 'framer-motion';
 import { ArrowIcon } from '@/components/ui/ArrowIcon';
 import Link from 'next/link';
-
-export type FeaturedProject = {
-  id: number;
-  slug: string;
-  title: string;
-  category: string;
-  client: string;
-  year: number;
-  tags: string[];
-  img: string;
-  layout: { h: string; cols: string; sizes: string };
-};
+import type { PortfolioProject } from '@/types/project';
 
 interface FeaturedProjectCardProps {
-  project: FeaturedProject;
-  onOpen?: (_project: FeaturedProject) => void;
+  project: PortfolioProject;
+  onOpen?: (_project: PortfolioProject) => void;
 }
 
 export default function FeaturedProjectCard({
@@ -39,18 +28,18 @@ export default function FeaturedProjectCard({
   const CardContent = () => (
     <>
       <div
-        className={`relative overflow-hidden rounded-md h-[400px] md:${project.layout.h} w-full bg-white/5 transition-all duration-500 ${
-          reducedMotion
-            ? ''
-            : 'md:group-hover:shadow-[0_22px_54px_-12px_rgba(0,72,255,0.15)] md:group-hover:-translate-y-1 active:scale-[0.98]'
-        }`}
+          className={`relative overflow-hidden rounded-md ${project.layout.height} ${project.layout.cols} w-full bg-white/5 transition-all duration-500 ${
+            reducedMotion
+              ? ''
+              : 'md:group-hover:shadow-[0_22px_54px_-12px_rgba(0,72,255,0.15)] md:group-hover:-translate-y-1 active:scale-[0.98]'
+          }`}
       >
         {/* Subtle Noise Overlay */}
         <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
         {/* Tags - Mobile: Top Left | Desktop: Top Right */}
         <div className="absolute top-4 left-4 md:left-auto md:right-4 z-20 flex gap-1.5 flex-wrap justify-start md:justify-end">
-          {project.tags.map((tag) => (
+          {(project.tags ?? []).map((tag) => (
             <span
               key={tag}
               className="bg-[#E6EFEF]/70 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-full text-[10px] md:text-[11px] font-mono font-medium uppercase tracking-widest text-text-dark"
@@ -61,10 +50,10 @@ export default function FeaturedProjectCard({
         </div>
 
         <Image
-          src={project.img}
+          src={project.image}
           alt={`Logo da marca ${project.client} para ${project.category} - ${project.title}`}
           fill
-          sizes={project.layout.sizes}
+          sizes={project.layout.sizes ?? '100vw'}
           className={`object-cover transition-transform duration-700 opacity-90 md:group-hover:opacity-100 ${
             reducedMotion ? '' : 'md:group-hover:scale-103'
           }`}

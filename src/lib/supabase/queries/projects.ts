@@ -1,11 +1,17 @@
 import { createClient } from '@/lib/supabase/server';
-import type { DbProject } from '@/types/admin';
+import type { DbProject, DbTag } from '@/types/admin';
 
 type ProjectFilters = {
   tagSlug?: string;
   year?: number;
   search?: string;
   includeUnpublished?: boolean;
+  featuredOnHome?: boolean;
+  featuredOnPortfolio?: boolean;
+};
+
+export type DbProjectWithTags = DbProject & {
+  tags?: Array<{ tag: DbTag } | null> | null;
 };
 
 export async function listProjects(filters: ProjectFilters = {}) {
@@ -36,7 +42,15 @@ export async function listProjects(filters: ProjectFilters = {}) {
     );
   }
 
-  const { data, error } = await query.returns<DbProject[]>();
+  if (filters.featuredOnHome) {
+    query = query.eq('featured_on_home', true);
+  }
+
+  if (filters.featuredOnPortfolio) {
+    query = query.eq('featured_on_portfolio', true);
+  }
+
+  const { data, error } = await query.returns<DbProjectWithTags[]>();
   if (error) throw error;
   return data;
 }

@@ -6,6 +6,8 @@ import HomeHero from '@/components/home/hero/HomeHero';
 import PortfolioShowcase from '@/components/home/portfolio-showcase/PortfolioShowcase';
 import { VideoManifesto } from '@/components/home/hero/VideoManifesto';
 import { BRAND } from '@/config/brand';
+import { listProjects } from '@/lib/supabase/queries/projects';
+import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
 
 export const metadata: Metadata = {
   title: 'Danilo Novais | Creative Developer',
@@ -25,13 +27,18 @@ export const metadata: Metadata = {
   ],
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const dbProjects = await listProjects({ featuredOnHome: true });
+  const featuredProjects = dbProjects.map((project, index) =>
+    mapDbProjectToPortfolioProject(project, index)
+  );
+
   return (
     <>
       <HomeHero />
       <VideoManifesto src={BRAND.assets.video.manifesto} />
       <PortfolioShowcase />
-      <FeaturedProjectsSection />
+      <FeaturedProjectsSection projects={featuredProjects} />
       <SiteClosure />
     </>
   );
