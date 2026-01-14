@@ -7,11 +7,6 @@ const __dirname = path.dirname(__filename);
 
 const nextConfig = {
   /**
-   * O Firebase App Hosting / Cloud Run exige build standalone para o App Router.
-   */
-  output: 'standalone',
-
-  /**
    * Mantém exatamente como você já tinha
    */
   reactStrictMode: true,
