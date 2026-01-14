@@ -39,6 +39,18 @@ export function AssetCard({ asset, onUpdated }: Props) {
     });
   };
 
+  const toggleActive = () => {
+    startTransition(async () => {
+      const supabase = createClient();
+      const { error: updateError } = await supabase
+        .from('site_assets')
+        .update({ is_active: !asset.is_active })
+        .eq('id', asset.id);
+      if (updateError) setError(updateError.message);
+      onUpdated?.();
+    });
+  };
+
   return (
     <div className="rounded-lg border border-white/10 bg-slate-900/60 p-4 flex gap-4">
       <div className="w-24 h-24 rounded-md bg-slate-800 overflow-hidden relative">
@@ -72,6 +84,14 @@ export function AssetCard({ asset, onUpdated }: Props) {
           />
           {isPending ? 'Enviando...' : 'Substituir arquivo'}
         </label>
+        <div className="mt-2 text-xs text-slate-400">Status: {asset.is_active ? 'Ativo' : 'Inativo'}</div>
+        <button
+          type="button"
+          onClick={toggleActive}
+          className="mt-1 inline-flex items-center rounded-md border border-white/10 px-2 py-1 text-[11px] text-white hover:bg-white/10"
+        >
+          {asset.is_active ? 'Desativar' : 'Ativar'}
+        </button>
       </div>
     </div>
   );

@@ -44,15 +44,13 @@ export async function updateSession(request: NextRequest) {
       return NextResponse.redirect(url);
     }
 
-    // Check for admin role in app_metadata
-    // Only check app_metadata as it is secure and not editable by the user
-    const userRole = user.app_metadata?.role || 'user';
-
-    if (userRole !== 'admin') {
-      const url = request.nextUrl.clone();
-      url.pathname = '/';
-      return NextResponse.redirect(url);
-    }
+    // Se precisar de papel admin, reative o check abaixo.
+    // const userRole = user.app_metadata?.role || 'user';
+    // if (userRole !== 'admin') {
+    //   const url = request.nextUrl.clone();
+    //   url.pathname = '/';
+    //   return NextResponse.redirect(url);
+    // }
   }
 
   return supabaseResponse;

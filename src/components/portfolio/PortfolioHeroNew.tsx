@@ -74,18 +74,26 @@ export default function PortfolioHeroNew() {
         <div className="absolute inset-0 portfolio-hero-vignette" />
       </div>
 
-      {/* Content - Posicionado no rodapé da seção */}
-      <div className="relative z-20 h-full flex flex-col justify-end px-6 md:px-12 lg:px-16 pb-16 md:pb-24 items-center md:items-start text-center md:text-left">
+      {/* Content - Centralizado */}
+      <div className="relative z-20 h-full flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 px-6 md:px-12 text-center md:text-left">
         {/* Título principal - "portfólio" em azul primário, "showcase" em branco */}
         <motion.h1
           initial={prefersReducedMotion ? false : { opacity: 0, y: offset.large, filter: 'blur(8px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={ghostTransition(0.2, duration.slow)}
-          className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-tight leading-[1.05] mb-6 md:mb-8 will-change-transform"
+          className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-tight leading-[1.05] will-change-transform"
         >
           <span className="text-primary italic font-light">portfólio</span>{' '}
           <span className="text-white font-bold">showcase</span>
         </motion.h1>
+
+        {/* Separador vertical apenas no desktop */}
+        <motion.div 
+          initial={{ opacity: 0, scaleY: 0 }}
+          animate={{ opacity: 1, scaleY: 1 }}
+          transition={ghostTransition(0.4, duration.normal)}
+          className="hidden md:block w-px h-12 bg-white/20 self-center"
+        />
 
         {/* CTA Button - Using AntigravityCTA component */}
         <motion.div
@@ -100,33 +108,6 @@ export default function PortfolioHeroNew() {
           />
         </motion.div>
       </div>
-
-      {/* Scroll indicator - Ethereal animation */}
-      {!isMobile && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={ghostTransition(1.2, duration.slow)}
-          className="absolute bottom-10 right-6 md:right-12 lg:right-16 z-20 flex flex-col items-center gap-3"
-          aria-hidden="true"
-        >
-          <span className="text-[10px] uppercase tracking-[0.35em] font-medium text-text-light/60">
-            scroll
-          </span>
-          <motion.div
-            animate={prefersReducedMotion ? {} : { 
-              y: [0, 12, 0],
-              opacity: [0.4, 0.7, 0.4],
-            }}
-            transition={{ 
-              repeat: Infinity, 
-              duration: 2.8, 
-              ease: GHOST_EASE,
-            }}
-            className="w-px h-10 portfolio-hero-scroll-line will-change-transform"
-          />
-        </motion.div>
-      )}
     </section>
   );
 }
