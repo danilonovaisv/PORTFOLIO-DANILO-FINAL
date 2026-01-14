@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import Image from 'next/image';
 import { uploadToBucket } from '@/lib/supabase/storage';
@@ -8,10 +9,10 @@ import type { DbAsset } from '@/types/admin';
 
 type Props = {
   asset: DbAsset;
-  onUpdated?: () => void;
 };
 
-export function AssetCard({ asset, onUpdated }: Props) {
+export function AssetCard({ asset }: Props) {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
 
@@ -32,7 +33,7 @@ export function AssetCard({ asset, onUpdated }: Props) {
           .update({ file_path: newPath })
           .eq('id', asset.id);
         if (updateError) throw updateError;
-        onUpdated?.();
+        router.refresh();
       } catch (err: any) {
         setError(err.message);
       }
@@ -46,16 +47,18 @@ export function AssetCard({ asset, onUpdated }: Props) {
         .from('site_assets')
         .update({ is_active: !asset.is_active })
         .eq('id', asset.id);
-      if (updateError) setError(updateError.message);
-      onUpdated?.();
+      if (updateError) {
+        setError(updateError.message);
+        return;
+      }
+      router.refresh();
     });
   };
 
   return (
     <div className="rounded-lg border border-white/10 bg-slate-900/60 p-4 flex gap-4">
       <div className="w-24 h-24 rounded-md bg-slate-800 overflow-hidden relative">
-        {asset.asset_type === 'image' &&
-        process.env.NEXT_PUBLIC_SUPABASE_URL ? (
+        {asset.asset_type === 'image' && process.env.NEXT_PUBLIC_SUPABASE_URL ? (
           <Image
             src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${asset.bucket}/${asset.file_path}`}
             alt={asset.key}

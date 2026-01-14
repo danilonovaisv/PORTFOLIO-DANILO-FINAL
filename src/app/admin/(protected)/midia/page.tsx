@@ -76,9 +76,6 @@ export default async function MidiaPage() {
                 <AssetCard
                   key={asset.id}
                   asset={asset}
-                  onUpdated={() => {
-                    // client component handles refresh via router.refresh
-                  }}
                 />
               ))}
             </div>

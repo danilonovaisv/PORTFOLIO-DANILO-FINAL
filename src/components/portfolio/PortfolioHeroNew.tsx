@@ -10,7 +10,6 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { PORTFOLIO_CONTENT } from '@/config/content';
 import { 
   MOTION_TOKENS, 
-  GHOST_EASE, 
   ghostTransition
 } from '@/config/motion';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
