@@ -239,9 +239,9 @@ export const ABOUT_CONTENT = {
     title: ['Criatividade com método.', 'Impacto sem ruído.'],
     videos: {
       desktop:
-        'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/AboutMethod.mp4',
+        'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/method/about.method.desktop_video.mp4',
       mobile:
-        'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/aboutmetodo-mob.mp4',
+        'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/method/about.method.mobile_video.mp4',
     },
     intro: [
       'Antes da estética, existe intenção.',
