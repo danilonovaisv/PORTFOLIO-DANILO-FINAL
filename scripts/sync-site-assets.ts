@@ -4,8 +4,13 @@ import path from 'node:path';
 import { createClient } from '@supabase/supabase-js';
 import { siteAssetRoleMap } from '../src/lib/supabase/asset-roles';
 
-const { NEXT_PUBLIC_SUPABASE_URL, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, SUPABASE_SERVICE_KEY, SUPABASE_ANON_KEY } =
-  loadEnvOverrides();
+const {
+  NEXT_PUBLIC_SUPABASE_URL,
+  SUPABASE_URL,
+  SUPABASE_SERVICE_ROLE_KEY,
+  SUPABASE_SERVICE_KEY,
+  SUPABASE_ANON_KEY,
+} = loadEnvOverrides();
 const supabaseUrl = NEXT_PUBLIC_SUPABASE_URL ?? SUPABASE_URL;
 const serviceRoleKey =
   SUPABASE_SERVICE_ROLE_KEY ?? SUPABASE_SERVICE_KEY ?? SUPABASE_ANON_KEY;
@@ -39,18 +44,20 @@ function parseEnvFile(filePath: string) {
 
 function loadEnvOverrides() {
   const envFile =
-    process.env.NODE_ENV === 'production'
-      ? '.env.production'
-      : '.env.local';
+    process.env.NODE_ENV === 'production' ? '.env.production' : '.env.local';
   const overrides = parseEnvFile(envFile);
   return {
-    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL ?? overrides.NEXT_PUBLIC_SUPABASE_URL,
+    NEXT_PUBLIC_SUPABASE_URL:
+      process.env.NEXT_PUBLIC_SUPABASE_URL ??
+      overrides.NEXT_PUBLIC_SUPABASE_URL,
     SUPABASE_URL: process.env.SUPABASE_URL ?? overrides.SUPABASE_URL,
     SUPABASE_SERVICE_ROLE_KEY:
-      process.env.SUPABASE_SERVICE_ROLE_KEY ?? overrides.SUPABASE_SERVICE_ROLE_KEY,
+      process.env.SUPABASE_SERVICE_ROLE_KEY ??
+      overrides.SUPABASE_SERVICE_ROLE_KEY,
     SUPABASE_SERVICE_KEY:
       process.env.SUPABASE_SERVICE_KEY ?? overrides.SUPABASE_SERVICE_KEY,
-    SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY ?? overrides.SUPABASE_ANON_KEY,
+    SUPABASE_ANON_KEY:
+      process.env.SUPABASE_ANON_KEY ?? overrides.SUPABASE_ANON_KEY,
   };
 }
 
@@ -131,7 +138,10 @@ async function run() {
       const record = buildRecordEntry(rawPath);
       unique.set(record.key, record);
     } catch (error) {
-      console.warn(`Ignorando entrada inválida "${rawPath}":`, (error as Error).message);
+      console.warn(
+        `Ignorando entrada inválida "${rawPath}":`,
+        (error as Error).message
+      );
     }
   });
   const payload = Array.from(unique.values());

@@ -34,14 +34,18 @@ async function run() {
     try {
       await ensureFileExists(resolved);
     } catch {
-      console.warn(`Arquivo ${resolved} não encontrado — pulando sincronização.`);
+      console.warn(
+        `Arquivo ${resolved} não encontrado — pulando sincronização.`
+      );
       continue;
     }
     console.log(`Sincronizando assets a partir de "${resolved}"...`);
     await runCommand('npx', ['tsx', 'scripts/sync-site-assets.ts', resolved]);
   }
 
-  console.log('Assets sincronizados. Lembre-se de revalidar as rotas públicas se necessário:');
+  console.log(
+    'Assets sincronizados. Lembre-se de revalidar as rotas públicas se necessário:'
+  );
   console.log(' - "/"');
   console.log(' - "/about"');
   console.log(' - "/portfolio"');
