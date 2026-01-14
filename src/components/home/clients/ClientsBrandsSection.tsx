@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, useReducedMotion, Variants } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { HOME_CONTENT } from '@/config/content';
 import { useSiteAssetsByPrefix } from '@/contexts/site-assets';
 
@@ -21,24 +21,6 @@ export default function ClientsBrandsSection() {
       : HOME_CONTENT.clients.logos;
 
   const hasLogos = logos.length > 0;
-
-  const logoVariants: Variants = reducedMotion
-    ? {
-        hidden: { opacity: 1, y: 0, scale: 1 },
-        show: { opacity: 1, y: 0, scale: 1 },
-      }
-    : {
-        hidden: { opacity: 0, y: 12, scale: 0.9 },
-        show: {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          transition: {
-            duration: 0.6,
-            ease: [0.22, 1, 0.36, 1],
-          },
-        },
-      };
 
   return (
     <section
@@ -66,32 +48,42 @@ export default function ClientsBrandsSection() {
           <motion.div
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, amount: 0.1 }}
+            viewport={{ once: true, margin: '-10%' }}
             variants={{
               hidden: {},
               show: {
                 transition: {
-                  staggerChildren: reducedMotion ? 0 : 0.03,
+                  staggerChildren: 0.08,
+                  delayChildren: 0.1,
                 },
               },
             }}
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-y-6 gap-x-6 sm:gap-8 md:gap-x-12 md:gap-y-16 lg:gap-x-16 lg:gap-y-20 items-center justify-items-center"
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8 md:gap-12 items-center justify-items-center w-full"
           >
             {logos.map((logo) => (
               <motion.div
                 key={logo.id}
-                variants={logoVariants}
-                className="group relative w-full h-10 sm:h-12 lg:h-16 flex items-center justify-center outline-none"
-                tabIndex={0}
+                variants={{
+                  hidden: { opacity: 0, y: 20, filter: 'blur(4px)' },
+                  show: {
+                    opacity: 1,
+                    y: 0,
+                    filter: 'blur(0px)',
+                    transition: {
+                      duration: 0.8,
+                      ease: [0.22, 1, 0.36, 1],
+                    },
+                  },
+                }}
+                className="group relative w-32 h-16 md:w-40 md:h-20 flex items-center justify-center"
                 aria-label={logo.alt}
               >
-                <div className="relative w-full h-full max-w-[98px] md:max-w-[140px] flex items-center justify-center">
-                  <img
-                    src={logo.src}
-                    alt={logo.alt}
-                    className="w-auto h-auto max-w-full max-h-full object-contain filter brightness-0 invert opacity-90 transition-all duration-300 group-hover:opacity-100 group-hover:scale-[1.04]"
-                  />
-                </div>
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  className="w-full h-full object-contain filter brightness-0 invert opacity-60 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110 will-change-transform"
+                  loading="lazy"
+                />
               </motion.div>
             ))}
           </motion.div>

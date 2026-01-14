@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/client';
+import { createClientComponentClient } from '@/lib/supabase/client';
 import { buildAssetFilePath } from '@/lib/supabase/asset-paths';
 
 type UploadBucket = 'portfolio-media' | 'site-assets';
@@ -15,7 +15,7 @@ export async function uploadToBucket(
   identifier: string,
   file: File
 ) {
-  const supabase = createClient();
+  const supabase = createClientComponentClient();
   const ext = file.name.split('.').pop();
   const name = ext ? `${identifier}.${ext}` : identifier;
   const path = buildPath(basePath, name);
@@ -40,7 +40,7 @@ export async function uploadSiteAsset({
   subPath?: string;
   bucket?: UploadBucket;
 }) {
-  const supabase = createClient();
+  const supabase = createClientComponentClient();
   const extension = file.name.split('.').pop() ?? 'bin';
   const path = buildAssetFilePath({
     page,

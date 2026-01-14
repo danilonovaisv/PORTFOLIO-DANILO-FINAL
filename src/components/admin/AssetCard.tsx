@@ -13,7 +13,7 @@ import {
   removeAsset,
 } from '@/app/admin/(protected)/midia/actions';
 import type { DbAsset } from '@/types/admin';
-import { createClient } from '@/lib/supabase/client';
+import { createClientComponentClient } from '@/lib/supabase/client';
 import { AssetRoleMenu } from '@/components/admin/AssetRoleMenu';
 
 type Props = {
@@ -39,7 +39,7 @@ export function AssetCard({ asset }: Props) {
           subPath: currentRole?.subPath,
           bucket: asset.bucket as 'site-assets',
         });
-        const supabase = createClient();
+        const supabase = createClientComponentClient();
         const { error: updateError } = await supabase
           .from('site_assets')
           .update({ file_path: newPath })
@@ -66,7 +66,7 @@ export function AssetCard({ asset }: Props) {
 
   const toggleActive = () => {
     startTransition(async () => {
-      const supabase = createClient();
+      const supabase = createClientComponentClient();
       const { error: updateError } = await supabase
         .from('site_assets')
         .update({ is_active: !asset.is_active })

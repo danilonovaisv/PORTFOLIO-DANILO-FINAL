@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useForm, type Resolver, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { createClient } from '@/lib/supabase/client';
+import { createClientComponentClient } from '@/lib/supabase/client';
 import type { DbTag } from '@/types/admin';
 
 const tagSchema = z.object({
@@ -43,7 +43,7 @@ export function TagForm({ tag, onSaved }: Props) {
     setError(null);
     startTransition(async () => {
       try {
-        const supabase = createClient();
+        const supabase = createClientComponentClient();
         const { error: upsertError } = await supabase
           .from('portfolio_tags')
           .upsert(

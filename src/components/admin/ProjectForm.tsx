@@ -5,7 +5,7 @@ import { useForm, type Resolver, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/lib/supabase/client';
+import { createClientComponentClient } from '@/lib/supabase/client';
 import { uploadToBucket } from '@/lib/supabase/storage';
 import type { DbProject, DbTag } from '@/types/admin';
 
@@ -68,7 +68,7 @@ export function ProjectForm({ project, tags, selectedTagIds = [] }: Props) {
     setError(null);
     startTransition(async () => {
       try {
-        const supabase = createClient();
+        const supabase = createClientComponentClient();
         let thumbnail_path = project?.thumbnail_path ?? null;
         let hero_image_path = project?.hero_image_path ?? null;
         const galleryEntries: Array<{ path: string }> = Array.isArray(
@@ -161,10 +161,31 @@ export function ProjectForm({ project, tags, selectedTagIds = [] }: Props) {
         </label>
         <label className="flex flex-col gap-2">
           <span className="text-sm text-slate-300">Slug</span>
-          <input
-            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
-            {...form.register('slug')}
-          />
+          <div className="flex flex-col gap-2">
+            {tags.length > 0 && (
+              <select
+                className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-slate-200"
+                defaultValue=""
+                onChange={(event) => {
+                  const selectedSlug = event.target.value;
+                  if (selectedSlug) {
+                    form.setValue('slug', selectedSlug);
+                  }
+                }}
+              >
+                <option value="">Usar slug das tags existentes</option>
+                {tags.map((tag) => (
+                  <option key={tag.id} value={tag.slug}>
+                    {tag.label} — {tag.slug}
+                  </option>
+                ))}
+              </select>
+            )}
+            <input
+              className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+              {...form.register('slug')}
+            />
+          </div>
         </label>
         <label className="flex flex-col gap-2">
           <span className="text-sm text-slate-300">Cliente</span>

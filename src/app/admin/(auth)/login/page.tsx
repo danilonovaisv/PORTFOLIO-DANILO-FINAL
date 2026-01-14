@@ -7,7 +7,7 @@ export const fetchCache = 'force-no-store';
 
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/lib/supabase/client';
+import { createClientComponentClient } from '@/lib/supabase/client';
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('');
@@ -21,7 +21,7 @@ export default function AdminLoginPage() {
     setError(null);
 
     startTransition(async () => {
-      const supabase = createClient();
+      const supabase = createClientComponentClient();
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,

@@ -1,86 +1,44 @@
 import type { Metadata, Viewport } from 'next';
 import { siteMetadata, siteViewport } from '@/config/metadata';
-import ClientLayout from '@/components/layout/ClientLayout';
 import JsonLd from '@/components/ui/JsonLd';
 import './globals.css'; // Fonts and styles are loaded here
-import { getSiteAssets, type SiteAsset } from '@/lib/supabase/site-assets';
-import { SiteAssetsProvider } from '@/contexts/site-assets';
-import { SITE_ASSET_KEYS } from '@/config/site-assets';
 import type { CSSProperties } from 'react';
 import { BRAND } from '@/config/brand';
+import AssetLoaderWrapper from '@/components/layout/AssetLoaderWrapper';
 
 export const metadata: Metadata = siteMetadata;
 export const viewport: Viewport = siteViewport;
 
-export default async function RootLayout({
+// Define a function to safely get environment variables
+function getSupabaseBaseUrl(): string {
+  return process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, '') ?? '';
+}
+
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  let assets: SiteAsset[] = [];
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    process.env.SITE_URL ??
-    'http://localhost:3000';
-
-  try {
-    assets = await getSiteAssets();
-  } catch (error) {
-    // Log a more descriptive error message with the actual error details
-    console.error(
-      'Falha ao carregar site_assets:',
-      error instanceof Error ? error.message : error
-    );
-    try {
-      const response = await fetch(`${baseUrl}/api/site-assets`, {
-        cache: 'no-store',
-      });
-      if (response.ok) {
-        assets = await response.json();
-      } else {
-        console.error(
-          'Erro ao buscar site_assets via API:',
-          response.status,
-          response.statusText
-        );
-      }
-    } catch (fallbackError) {
-      console.error(
-        'Erro fallback de site_assets:',
-        fallbackError instanceof Error ? fallbackError.message : fallbackError
-      );
-    }
-  }
-  const assetMap = assets.reduce<Record<string, string>>((acc, asset) => {
-    if (asset.key && asset.publicUrl) {
-      acc[asset.key] = asset.publicUrl;
-    }
-    return acc;
-  }, {});
+  // For static generation, we'll use default values from BRAND config
+  // Actual assets will be loaded client-side by the SiteAssetsProvider
+  const assets = []; // Empty initially, will be populated client-side
 
   const cssVars: Record<string, string> = {};
   const setVar = (name: string, value?: string) => {
     if (value) cssVars[name] = value;
   };
 
-  const supabaseBaseUrl =
-    process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, '') ?? '';
+  const supabaseBaseUrl = getSupabaseBaseUrl();
   setVar('--supabase-url', supabaseBaseUrl);
 
-  setVar('--logo-light-url', assetMap[SITE_ASSET_KEYS.logos.headerLight]);
-  setVar('--logo-dark-url', assetMap[SITE_ASSET_KEYS.logos.headerDark]);
-  setVar('--favicon-light-url', assetMap[SITE_ASSET_KEYS.logos.faviconLight]);
-  setVar('--favicon-dark-url', assetMap[SITE_ASSET_KEYS.logos.faviconDark]);
-  setVar('--font-display-url', assetMap[SITE_ASSET_KEYS.fonts.display]);
-  setVar('--font-h1-url', assetMap[SITE_ASSET_KEYS.fonts.h1]);
-  setVar('--font-h2-url', assetMap[SITE_ASSET_KEYS.fonts.h2]);
-  setVar('--font-h3-url', assetMap[SITE_ASSET_KEYS.fonts.h3]);
-  setVar('--font-body-url', assetMap[SITE_ASSET_KEYS.fonts.body]);
-  setVar('--font-light-url', assetMap[SITE_ASSET_KEYS.fonts.light]);
+  // Use default values from BRAND config for initial render
+  setVar('--logo-light-url', BRAND.assets.logos.logoLight);
+  setVar('--logo-dark-url', BRAND.assets.logos.logoDark);
+  setVar('--favicon-light-url', BRAND.assets.logos.favicon);
+  setVar('--favicon-dark-url', BRAND.assets.logos.favicon);
 
   const inlineStyle = cssVars as CSSProperties;
-  const jsonLdLogoUrl =
-    assetMap[SITE_ASSET_KEYS.logos.headerLight] ?? BRAND.assets.logos.logoLight;
+  const jsonLdLogoUrl = BRAND.assets.logos.logoLight;
 
   return (
     <html lang="pt-BR" data-scroll-behavior="smooth">
@@ -97,9 +55,7 @@ export default async function RootLayout({
         >
           Pular para o conteúdo
         </a>
-        <SiteAssetsProvider assets={assets}>
-          <ClientLayout>{children}</ClientLayout>
-        </SiteAssetsProvider>
+        <AssetLoaderWrapper>{children}</AssetLoaderWrapper>
       </body>
     </html>
   );
