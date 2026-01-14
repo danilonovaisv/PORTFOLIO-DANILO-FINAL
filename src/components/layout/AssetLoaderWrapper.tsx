@@ -9,7 +9,9 @@ interface AssetLoaderWrapperProps {
   children: React.ReactNode;
 }
 
-export default function AssetLoaderWrapper({ children }: AssetLoaderWrapperProps) {
+export default function AssetLoaderWrapper({
+  children,
+}: AssetLoaderWrapperProps) {
   const [assets, setAssets] = useState<any[]>([]);
   const [assetsLoaded, setAssetsLoaded] = useState(false);
 
@@ -23,7 +25,7 @@ export default function AssetLoaderWrapper({ children }: AssetLoaderWrapperProps
           'Falha ao carregar site_assets:',
           error instanceof Error ? error.message : error
         );
-        
+
         // Try fallback API call
         try {
           const response = await fetch('/api/site-assets');
@@ -40,7 +42,9 @@ export default function AssetLoaderWrapper({ children }: AssetLoaderWrapperProps
         } catch (fallbackError) {
           console.error(
             'Erro fallback de site_assets:',
-            fallbackError instanceof Error ? fallbackError.message : fallbackError
+            fallbackError instanceof Error
+              ? fallbackError.message
+              : fallbackError
           );
         }
       } finally {
@@ -54,9 +58,7 @@ export default function AssetLoaderWrapper({ children }: AssetLoaderWrapperProps
   // If assets haven't loaded yet, render the children without the provider
   // This allows the page to render while assets are being fetched
   if (!assetsLoaded) {
-    return (
-      <ClientLayout>{children}</ClientLayout>
-    );
+    return <ClientLayout>{children}</ClientLayout>;
   }
 
   return (
