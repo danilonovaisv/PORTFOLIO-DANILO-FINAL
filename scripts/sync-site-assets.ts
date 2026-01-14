@@ -1,25 +1,58 @@
 #!/usr/bin/env node
-import { promises as fs } from 'node:fs';
+import { promises as fs, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { createClient } from '@supabase/supabase-js';
 import { siteAssetRoleMap } from '../src/lib/supabase/asset-roles';
 
-const supabaseUrl =
-  process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL;
+const { NEXT_PUBLIC_SUPABASE_URL, SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, SUPABASE_SERVICE_KEY, SUPABASE_ANON_KEY } =
+  loadEnvOverrides();
+const supabaseUrl = NEXT_PUBLIC_SUPABASE_URL ?? SUPABASE_URL;
 const serviceRoleKey =
-  process.env.SUPABASE_SERVICE_ROLE_KEY ??
-  process.env.SUPABASE_SERVICE_KEY ??
-  process.env.SUPABASE_ANON_KEY;
+  SUPABASE_SERVICE_ROLE_KEY ?? SUPABASE_SERVICE_KEY ?? SUPABASE_ANON_KEY;
 
 if (!supabaseUrl || !serviceRoleKey) {
   throw new Error(
-    'Configure NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (or SUPABASE_SERVICE_KEY).'
+    'Configure NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (or SUPABASE_SERVICE_KEY or SUPABASE_ANON_KEY).'
   );
 }
 
 const supabase = createClient(supabaseUrl, serviceRoleKey);
 
 const DEFAULT_FILE = 'assets.json';
+
+function parseEnvFile(filePath: string) {
+  const env: Record<string, string> = {};
+  try {
+    const content = readFileSync(filePath, 'utf8');
+    for (const line of content.split(/\r?\n/)) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      const [key, ...rest] = trimmed.split('=');
+      if (!key) continue;
+      env[key.trim()] = rest.join('=').trim().replace(/^"|"$/g, '');
+    }
+  } catch {
+    // ignore missing file
+  }
+  return env;
+}
+
+function loadEnvOverrides() {
+  const envFile =
+    process.env.NODE_ENV === 'production'
+      ? '.env.production'
+      : '.env.local';
+  const overrides = parseEnvFile(envFile);
+  return {
+    NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL ?? overrides.NEXT_PUBLIC_SUPABASE_URL,
+    SUPABASE_URL: process.env.SUPABASE_URL ?? overrides.SUPABASE_URL,
+    SUPABASE_SERVICE_ROLE_KEY:
+      process.env.SUPABASE_SERVICE_ROLE_KEY ?? overrides.SUPABASE_SERVICE_ROLE_KEY,
+    SUPABASE_SERVICE_KEY:
+      process.env.SUPABASE_SERVICE_KEY ?? overrides.SUPABASE_SERVICE_KEY,
+    SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY ?? overrides.SUPABASE_ANON_KEY,
+  };
+}
 
 function detectAssetType(extension: string) {
   const ext = extension.toLowerCase();
