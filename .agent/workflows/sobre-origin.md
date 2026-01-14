@@ -77,7 +77,7 @@ Enquanto muitos olhavam para o brilho imediato,
 eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo.
 A essência das coisas sempre falou mais alto do que a superfície.
 
-(mídia: ‘https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-1.webp’)
+(mídia: ‘https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-1.webp’)
 
 - texto **alinhado à direita do bloco** dentro do bloco. (`#fcffff`)
 - Verticamente posicionado **ligeiramente acima do centro** (≈ -10%).
@@ -94,7 +94,7 @@ Aos poucos, aquilo que era instinto virou direção.
 Com cada tentativa, aprendi a dar forma ao invisível —
 até que os conceitos começaram a falar por si.
 
-(mídia: ‘https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-2.webp’)
+(mídia: ‘https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-2.webp’)
 
 - texto **alinhado à esquerda do bloco** dentro do bloco. (`#fcffff`)
 - Verticamente posicionado **ligeiramente acima do centro** (≈ -10%).
@@ -112,7 +112,7 @@ Ele está presente nos detalhes que ninguém percebe,
 mas que todos sentem.
 Transformar sem que se perceba a transformação: isso é potência.
 
-(mídia: ‘https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-3.webp’)
+(mídia: ‘https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-3.webp’)
 
 - texto **alinhado à direita do bloco** dentro do bloco. (`#fcffff`)
 - Verticamente posicionado **ligeiramente acima do centro** (≈ -10%).
@@ -129,7 +129,7 @@ O futuro pede novas ferramentas — e eu as abracei.
 Mas nunca deixei que a tecnologia apagasse o que me move:
 a sensibilidade, o olhar atento, a busca pelo significado.
 
-(mídia: ‘https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-4.webp’)
+(mídia: ‘https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-4.webp’)
 
 - texto **alinhado à esquerda do bloco** dentro do bloco. (`#fcffff`)
 - Verticamente posicionado **ligeiramente acima do centro** (≈ -10%).

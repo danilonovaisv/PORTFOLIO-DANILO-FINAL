@@ -432,7 +432,7 @@ export default function HeroClient() {
 
 ### **THUMB VIDEO MANIFESTO - Onde o arquivo de vídeo entra (Supabase Storage)
 
-- Manifesto Video: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
+- Manifesto Video: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
 - Usar URL pública no `src`.
 
 Exemplo (pseudo):

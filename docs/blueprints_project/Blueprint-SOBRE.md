@@ -277,42 +277,42 @@ Exemplo em JSX/Tailwind:
 
 ## 2.6 Global Assets
 Logos:
-- Favicon: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/Favicon.svg`
-- Favicon Light: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg`
-- Logo Light (full): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg`
-- Logo Dark (full): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
+- Favicon: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/Favicon.svg`
+- Favicon Light: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg`
+- Logo Light (full): `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg`
+- Logo Dark (full): `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
 
 ## 2.7 Fonts:
  -  font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Thin.woff2') format('woff2');
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Thin.woff2') format('woff2');
   font-weight: 100;
   font-style: normal;
   font-display: swap;
 
 - font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Light.woff2') format('woff2');
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 
 - font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2') format('woff2');
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 
 - font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2') format('woff2');
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 
 - font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2') format('woff2');
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -320,7 +320,7 @@ Logos:
 
 - font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2') format('woff2');
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2') format('woff2');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -336,11 +336,11 @@ Logos:
 }
 
 Videos:
-- Manifesto Video: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
+- Manifesto Video: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
 
 Client Logos:
 - 12 monochromatic SVG logos: `client1.svg` through `client12.svg`
-- Base URL: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/`
+- Base URL: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/client-logos/`
 
 
 ## **Ordem das Seções (Sobre):**
@@ -433,7 +433,7 @@ O usuário entra direto em um estado de observação.
 - Altura: **100vh** (`h-screen`).
 - Fundo:
   - Vídeo hero desktop (loop, sem controles visíveis):  
-    `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/HeroSobre.mp4`
+    `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/HeroSobre.mp4`
   - `object-fit: cover`, ocupando toda a viewport.
   - Overlay em `backgroundDark` com gradiente sutil da mesma cor do background.
 - Grid:
@@ -452,7 +452,7 @@ O usuário entra direto em um estado de observação.
 
 - Header fixo no topo, comum à home.
 - Vídeo hero mobile:  
-  `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/HeroSobreMobile.mp4`
+  `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/HeroSobreMobile.mp4`
   - Posicionado logo abaixo do header.
   - Altura aproximada: **45–55vh**, `object-fit: cover`, focando o rosto.
 - Overlay em `backgroundDark` com gradiente sutil da mesma cor do background.
@@ -550,7 +550,7 @@ Enquanto muitos olhavam para o brilho imediato,
 eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo.
 A essência das coisas sempre falou mais alto do que a superfície.
 
-(mídia: ‘https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-1.webp’)
+(mídia: ‘https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-1.webp’)
   - texto **alinhado à direita do bloco**  dentro do bloco. (`#fcffff`)
   - Verticamente posicionado **ligeiramente acima do centro** (≈ -10%).
 ⸻
@@ -566,7 +566,7 @@ Aos poucos, aquilo que era instinto virou direção.
 Com cada tentativa, aprendi a dar forma ao invisível —
 até que os conceitos começaram a falar por si.
 
-(mídia: ‘https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-2.webp’)
+(mídia: ‘https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-2.webp’)
   - texto **alinhado à esquerda do bloco**  dentro do bloco. (`#fcffff`)
   - Verticamente posicionado **ligeiramente acima do centro** (≈ -10%).
 ⸻
@@ -583,7 +583,7 @@ Ele está presente nos detalhes que ninguém percebe,
 mas que todos sentem.
 Transformar sem que se perceba a transformação: isso é potência.
 
-(mídia: ‘https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-3.webp’)
+(mídia: ‘https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-3.webp’)
 
   - texto **alinhado à direita do bloco**  dentro do bloco. (`#fcffff`)
   - Verticamente posicionado **ligeiramente acima do centro** (≈ -10%).
@@ -600,7 +600,7 @@ O futuro pede novas ferramentas — e eu as abracei.
 Mas nunca deixei que a tecnologia apagasse o que me move:
 a sensibilidade, o olhar atento, a busca pelo significado.
 
-(mídia: ‘https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-4.webp’)
+(mídia: ‘https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-4.webp’)
 
   - texto **alinhado à esquerda do bloco**  dentro do bloco. (`#fcffff`)
   - Verticamente posicionado **ligeiramente acima do centro** (≈ -10%).

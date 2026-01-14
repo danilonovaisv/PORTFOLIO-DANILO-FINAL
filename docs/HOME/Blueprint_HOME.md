@@ -324,42 +324,42 @@ Exemplo em JSX/Tailwind:
 
 ## 2.6 Global Assets
 Logos:
-- Favicon  - Usar no browser: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/Favicon.svg`
-- Favicon Light - Usar no browser: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg`
-- Logo Light (full - Usar no header): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg`
-- Logo Dark (full - Usar no header): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
+- Favicon  - Usar no browser: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/Favicon.svg`
+- Favicon Light - Usar no browser: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg`
+- Logo Light (full - Usar no header): `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg`
+- Logo Dark (full - Usar no header): `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
 
 ## 2.7 Fonts:
  -  font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Thin.woff2') format('woff2');
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Thin.woff2') format('woff2');
   font-weight: 100;
   font-style: normal;
   font-display: swap;
 
 - font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Light.woff2') format('woff2');
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 
 - font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2') format('woff2');
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 
 - font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2') format('woff2');
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 
 - font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2') format('woff2');
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -367,7 +367,7 @@ Logos:
 
 - font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2') format('woff2');
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2') format('woff2');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -383,11 +383,11 @@ Logos:
 }
 
 Videos:
-- Manifesto Video: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
+- Manifesto Video: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
 
 Client Logos:
 - 12 monochromatic SVG logos: `client1.svg` through `client12.svg`
-- Base URL: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/`
+- Base URL: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/client-logos/`
 
 ## 3. SITE ARCHITECTURE
 
@@ -450,7 +450,7 @@ The homepage follows a narrative arc:
 - **Behavior:** COMPLETELY STATIC. No movement tracking, no physics.
 
 **Content:**
-- Left: Logo (SVG) - https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg
+- Left: Logo (SVG) - https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg
 - Right: Navigation Links (Home, Sobre, Portfólio, Contato)
 
 **Interaction - Contrast Adaptation (Scroll):**
@@ -470,7 +470,7 @@ The homepage follows a narrative arc:
   - Height: `56–72px`
   - Style: Pill-shaped with rounded corners, translucent glass effect (blur + subtle gradient)
 - Content:
-  - Left: Logo (Favicon Light) https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg
+  - Left: Logo (Favicon Light) https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg
   - Right: Horizontal navigation list (Home, Sobre, Portfólio, Contato)
 - Interaction - Fluid Glass Effect:
   - The header responds to cursor movement along the X-axis:
@@ -544,15 +544,15 @@ Tokens de texto **responsivos** (usando `clamp`) para manter coerência em todos
 
 | Token     | Mobile (~<640px) | Desktop (~≥1024px) | Peso   | Uso                                                              
 | display   | 2.5rem (40px)    | 4.5rem (72px)      | Black  | Frases grandes no meio da página, não-semânticas (Big Phrase) 
-- src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2') format('woff2'); 
+- src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2') format('woff2'); 
 | h1        | 2rem (32px)      | 3.5rem (56px)      | Bold   | Hero headlines, títulos principais 
-- src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2') format('woff2'); 
+- src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2') format('woff2'); 
 | h2        | 1.5rem (24px)    | 2.5rem (40px)      | Bold   | Títulos de seção
-- src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2') format('woff2'); 
+- src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2') format('woff2'); 
 | h3        | 1.25rem (20px)   | 1.75rem (28px)     | Medium | Títulos de cards, subtítulos
-- src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2') format('woff2')
+- src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2') format('woff2')
 | body      | 1rem (16px)      | 1.125rem (18px)    | Regular| Texto corrido 
-- src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2') format('woff2');
+- src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2') format('woff2');
 
 
 
@@ -1522,7 +1522,7 @@ export default function HeroClient() {
 
 ### **THUMB VIDEO MANIFESTO - Onde o arquivo de vídeo entra (Supabase Storage)
 
-- Manifesto Video: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
+- Manifesto Video: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
 - Usar URL pública no `src`.
 
 Exemplo (pseudo):
@@ -1651,15 +1651,15 @@ duration: 500ms
 
 1. **Brand & Campaigns**
    - Slug: `brand-campaigns`
-   - Thumbnail: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp`
+   - Thumbnail: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp`
 
 2. **Videos & Motions**
    - Slug: `videos-motions`
-   - Thumbnail: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif`
+   - Thumbnail: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif`
 
 3. **Web Campaigns, Websites & Tech**
    - Slug: `websites-webcampaigns-tech`
-   - Thumbnail: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp`
+   - Thumbnail: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp`
 
 #### CTA Button
 
@@ -1759,28 +1759,28 @@ duration: 0.7s ease-out
    - Category: branding & campanha
    - Client: Magic
    - Year: 2023
-   - Image: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp`
+   - Image: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp`
 
 2. **Uma marca ousada e consistente**
    - Slug: `branding-project-01`
    - Category: branding
    - Client: Cliente confidencial
    - Year: 2022
-   - Image: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp`
+   - Image: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp`
 
 3. **Key visual para campanha sazonal**
    - Slug: `key-visual-campaign`
    - Category: campanha
    - Client: Cliente confidencial
    - Year: 2021
-   - Image: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp`
+   - Image: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp`
 
 4. **Experiência web em movimento**
    - Slug: `webdesigner-motion`
    - Category: web & motion
    - Client: Cliente confidencial
    - Year: 2023
-   - Image: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif`
+   - Image: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif`
 
 #### CTA Card
 
@@ -1887,7 +1887,7 @@ logos: {
 #### Client Logos (12 total)
 
 - `client1.svg` through `client12.svg`
-- Base URL: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/`
+- Base URL: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/client-logos/`
 
 #### Accessibility
 
@@ -2327,7 +2327,7 @@ components/
 
 ```bash
 NEXT_PUBLIC_GA_ID=UA-XXXXXXXXX-X
-NEXT_PUBLIC_SUPABASE_URL=[https://aymuvxysygrwoicsjgxj.supabase.co](https://aymuvxysygrwoicsjgxj.supabase.co)
+NEXT_PUBLIC_SUPABASE_URL=[https://umkmwbkwvulxtdodzmzf.supabase.co](https://umkmwbkwvulxtdodzmzf.supabase.co)
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon_key>
 
 ```

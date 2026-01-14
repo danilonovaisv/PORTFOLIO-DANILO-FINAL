@@ -18,7 +18,11 @@
   ],
   "hosting": {
     "public": "public",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
   },
   "emulators": {
     "functions": {
@@ -48,6 +52,17 @@
     "rules": "database.rules.json"
   },
   "apphosting": [
+    {
+      "backendId": "portfoliodanilo",
+      "rootDir": "/",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "functions"
+      ]
+    },
     {
       "backendId": "portfoliodanilo",
       "rootDir": "/",

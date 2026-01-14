@@ -1370,7 +1370,7 @@ export default function HeroClient() {
         {/* Vídeo manifesto */}
         <ShowreelThumb
           heroRef={heroRef}
-          src="https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4"
+          src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4"
         />
       </section>
     </>

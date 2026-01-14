@@ -7,7 +7,7 @@ não só no que aparecia.
 
 Enquanto muitos olhavam para o brilho imediato,eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo.
 A essência das coisas sempre falou mais alto do que a superfície.`,
-    img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-1.webp',
+    img: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-1.webp',
     alt: 'O que permanece - essência que sobrevive ao tempo',
     textAlign: 'right' as const,
   },
@@ -22,7 +22,7 @@ Meu processo criativo nasceu do improviso, do lápis na margem do caderno.
 Aos poucos, aquilo que era instinto virou direção.
 Com cada tentativa, aprendi a dar forma ao invisível —
 até que os conceitos começaram a falar por si.`,
-    img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-2.webp',
+    img: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-2.webp',
     alt: 'Do traço à intenção - processo criativo',
     textAlign: 'right' as const,
   },
@@ -38,7 +38,7 @@ Descobri que o design verdadeiro não grita — ele conduz.
 Ele está presente nos detalhes que ninguém percebe,
 mas que todos sentem.
 Transformar sem que se perceba a transformação: isso é potência.`,
-    img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-3.webp',
+    img: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-3.webp',
     alt: 'A descoberta do invisível - design como ferramenta de transformação',
     textAlign: 'right' as const,
   },
@@ -53,7 +53,7 @@ Minha trajetória uniu intuição com método, arte com estratégia.
 O futuro pede novas ferramentas — e eu as abracei.
 Mas nunca deixei que a tecnologia apagasse o que me move:
 a sensibilidade, o olhar atento, a busca pelo significado.`,
-    img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-4.webp',
+    img: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-4.webp',
     alt: 'Expansão com propósito - união de intuição e método',
     textAlign: 'right' as const,
   },

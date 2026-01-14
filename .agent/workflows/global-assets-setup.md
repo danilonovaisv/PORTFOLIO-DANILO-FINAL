@@ -50,14 +50,14 @@ export const BRAND = {
   // Assets Globais (2.6 Global Assets)
   assets: {
     logos: {
-   Favicon  - Aba do navegador (tab): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/Faivcon.svg`
-Favicon Light - Aba do navegador (tab): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaivconLight.svg`
-Logo Light (full - Usar no header): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg`
-Logo Dark (full - Usar no header): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
+   Favicon  - Aba do navegador (tab): `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/Faivcon.svg`
+Favicon Light - Aba do navegador (tab): `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/FaivconLight.svg`
+Logo Light (full - Usar no header): `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg`
+Logo Dark (full - Usar no header): `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
     },
     video: {
       manifesto:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
+        'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4',
     },
     fonts: {
       primary: 'TT Norms Pro',
@@ -77,7 +77,7 @@ URLs atualizadas conforme documentação 2.7.
 /* TT Norms Pro - Primary Font */
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Thin.woff2')
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Thin.woff2')
     format('woff2');
   font-weight: 100;
   font-style: normal;
@@ -85,7 +85,7 @@ URLs atualizadas conforme documentação 2.7.
 }
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Light.woff2')
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Light.woff2')
     format('woff2');
   font-weight: 300;
   font-style: normal;
@@ -93,7 +93,7 @@ URLs atualizadas conforme documentação 2.7.
 }
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2')
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2')
     format('woff2');
   font-weight: 400;
   font-style: normal;
@@ -101,7 +101,7 @@ URLs atualizadas conforme documentação 2.7.
 }
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2')
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2')
     format('woff2');
   font-weight: 500;
   font-style: normal;
@@ -109,7 +109,7 @@ URLs atualizadas conforme documentação 2.7.
 }
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2')
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2')
     format('woff2');
   font-weight: 700;
   font-style: normal;
@@ -117,7 +117,7 @@ URLs atualizadas conforme documentação 2.7.
 }
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2')
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2')
     format('woff2');
   font-weight: 900;
   font-style: normal;
@@ -263,7 +263,7 @@ export const HOME_CONTENT = {
     // Gerador de URLs para os 12 SVGs monocromáticos
     logos: Array.from({ length: 12 }, (_, i) => ({
       id: i + 1,
-      src: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client${i + 1}.svg`,
+      src: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/client-logos/client${i + 1}.svg`,
       alt: `Client Logo ${i + 1}`,
     })),
   },

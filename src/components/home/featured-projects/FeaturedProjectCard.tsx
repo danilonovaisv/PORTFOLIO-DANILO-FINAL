@@ -71,7 +71,7 @@ export default function FeaturedProjectCard({
           onError={(e) => {
             const target = e.target as HTMLImageElement;
             target.src =
-              'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/placeholder.webp';
+              'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/placeholder.webp';
           }}
         />
       </div>

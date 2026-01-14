@@ -14,7 +14,7 @@ Esta regra garante que o agente nunca "quebre" links ou invente dados.
 
 ## Repositório de Assets (Fonte da Verdade)
 
-**Base URL:** `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public`
+**Base URL:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public`
 
 ### 1. Globais (`/logo_site/`)
 

@@ -33,7 +33,7 @@ export const HOME_CONTENT = {
         titleMobile: 'Brand &\nCampaigns',
         align: 'end',
         thumb:
-          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
+          'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
       },
       {
         id: 'videos-motions',
@@ -42,7 +42,7 @@ export const HOME_CONTENT = {
         titleMobile: 'Videos &\nMotion',
         align: 'center',
         thumb:
-          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
+          'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
       },
       {
         id: 'websites-webcampaigns-tech',
@@ -53,7 +53,7 @@ export const HOME_CONTENT = {
         titleMobile: 'Web Campaigns,\nWebsites & Tech',
         align: 'start',
         thumb:
-          'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp',
+          'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp',
       },
     ],
   },
@@ -67,7 +67,7 @@ export const HOME_CONTENT = {
       client: 'Magic',
       year: 2023,
       tags: ['Branding', 'Campaign'],
-      img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/converted-(1).webp',
+      img: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/converted-(1).webp',
       layout: {
         // Otimizado: 'min-h' previne overflow de texto, 'aspect' mantém proporção visual
         h: 'min-h-[400px] md:h-[500px] aspect-[4/5] md:aspect-auto',
@@ -83,7 +83,7 @@ export const HOME_CONTENT = {
       client: 'Cliente confidencial',
       year: 2022,
       tags: ['Strategy', 'Identity'],
-      img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
+      img: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
       layout: {
         h: 'min-h-[400px] md:h-[500px] aspect-[4/5] md:aspect-auto',
         cols: 'md:col-span-7',
@@ -98,7 +98,7 @@ export const HOME_CONTENT = {
       client: 'Cliente confidencial',
       year: 2021,
       tags: ['Art Direction'],
-      img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/converted-(5).webp',
+      img: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/converted-(5).webp',
       layout: {
         // Otimizado: Altura maior para destaque full-width
         h: 'min-h-[400px] md:h-[600px]',
@@ -114,7 +114,7 @@ export const HOME_CONTENT = {
       client: 'Cliente confidencial',
       year: 2023,
       tags: ['UX/UI', 'Animation'],
-      img: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
+      img: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
       layout: {
         h: 'min-h-[400px] md:h-[400px] aspect-video md:aspect-auto',
         cols: 'md:col-span-8',
@@ -127,7 +127,7 @@ export const HOME_CONTENT = {
     title: 'marcas com as quais já trabalhei',
     logos: Array.from({ length: 12 }, (_, i) => ({
       id: i + 1,
-      src: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/client${i + 1}.svg`,
+      src: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/client-logos/client${i + 1}.svg`,
       alt: `Logo do cliente ${i + 1}`, // Otimizado: Português para consistência
     })),
   },
@@ -150,9 +150,9 @@ export const ABOUT_CONTENT = {
     ],
     videos: {
       desktop:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/HeroSobre.mp4',
+        'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/HeroSobre.mp4',
       mobile:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/HeroSobreMobile.mp4',
+        'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/HeroSobreMobile.mp4',
     },
   },
   beliefsIntro: [
@@ -175,7 +175,7 @@ export const ABOUT_CONTENT = {
         title: 'O QUE PERMANECE',
         text: 'Desde cedo, sempre prestei atenção no que ficava — não só no que aparecia. Enquanto muitos olhavam para o brilho imediato, eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo. A essência das coisas sempre falou mais alto do que a superfície.',
         description: '',
-        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-1.webp',
+        src: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-1.webp',
         alt: 'Observando os detalhes',
         align: 'right',
       },
@@ -185,7 +185,7 @@ export const ABOUT_CONTENT = {
         title: 'DO TRAÇO À INTENÇÃO',
         text: 'Rabiscos viraram ideias. Ideias viraram projetos. E os projetos começaram a deixar rastros. Meu processo criativo nasceu do improviso, do lápis na margem do caderno. Aos poucos, aquilo que era instinto virou direção. Com cada tentativa, aprendi a dar forma ao invisível — até que os conceitos começaram a falar por si.',
         description: '',
-        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-2.webp',
+        src: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-2.webp',
         alt: 'Processo criativo',
         align: 'left',
       },
@@ -195,7 +195,7 @@ export const ABOUT_CONTENT = {
         title: 'A DESCOBERTA DO INVISÍVEL',
         text: 'Foi ali que entendi: design não é enfeite. É ferramenta invisível de transformação. Por trás de cada escolha visual, existe intenção. Descobri que o design verdadeiro não grita — ele conduz. Ele está presente nos detalhes que ninguém percebe, mas que todos sentem. Transformar sem que se perceba a transformação: isso é potência.',
         description: '',
-        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-3.webp',
+        src: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-3.webp',
         alt: 'Design invisível',
         align: 'right',
       },
@@ -205,7 +205,7 @@ export const ABOUT_CONTENT = {
         title: 'EXPANSÃO COM PROPÓSITO',
         text: 'Estudei Comunicação, mergulhei no design, no branding e hoje uso inteligência artificial para expandir o alcance sem perder a essência humana da criação. Minha trajetória uniu intuição com método, arte com estratégia. O futuro pede novas ferramentas — e eu as abracei. Mas nunca deixei que a tecnologia apagasse o que me move: a sensibilidade, o olhar atento, a busca pelo significado.',
         description: '',
-        src: 'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-4.webp',
+        src: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-4.webp',
         alt: 'Expansão e tecnologia',
         align: 'left',
       },
@@ -239,9 +239,9 @@ export const ABOUT_CONTENT = {
     title: ['Criatividade com método.', 'Impacto sem ruído.'],
     videos: {
       desktop:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/AboutMethod.mp4',
+        'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/AboutMethod.mp4',
       mobile:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/aboutmetodo-mob.mp4',
+        'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/aboutmetodo-mob.mp4',
     },
     intro: [
       'Antes da estética, existe intenção.',
@@ -295,9 +295,9 @@ export const PORTFOLIO_CONTENT = {
   hero: {
     video: {
       desktop:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/video-heroPort.mp4',
+        'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort.mp4',
       mobile:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/video-heroPort-mobile.mp4',
+        'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort-mobile.mp4',
     },
   },
 };

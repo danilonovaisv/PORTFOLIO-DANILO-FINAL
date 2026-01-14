@@ -215,7 +215,7 @@ Design, não
 **Comportamento (Desktop)**  
 - Vídeo miniatura flutuante (`bottom-right`, `z-30`).  
 - Vídeo:  
-  `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`  
+  `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`  
 - Autoplay, muted, loop, playsInline.  
 - Fade-in suave após preloader.  
 
@@ -226,7 +226,7 @@ import { motion } from 'framer-motion';
 export default function ManifestoThumb() {
   return (
     <motion.video
-      src="https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4"
+      src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4"
       autoPlay
       muted
       loop
@@ -280,7 +280,7 @@ export default function ManifestoSection() {
       className="block md:hidden w-full bg-[#06071f] aspect-video flex items-center justify-center"
     >
       <video
-        src="https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4"
+        src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4"
         autoPlay
         loop
         muted

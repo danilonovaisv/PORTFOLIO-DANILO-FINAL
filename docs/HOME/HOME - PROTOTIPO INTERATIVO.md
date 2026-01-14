@@ -689,7 +689,7 @@ logos: {
 
 #### Assets
 
-**Base URL:** `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/`
+**Base URL:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/client-logos/`
 
 **Logos:** `client1.svg` até `client12.svg` (12 total)
 
@@ -1024,7 +1024,7 @@ app/
 
 ```bash
 # .env.local
-NEXT_PUBLIC_SUPABASE_URL=https://aymuvxysygrwoicsjgxj.supabase.co
+NEXT_PUBLIC_SUPABASE_URL=https://umkmwbkwvulxtdodzmzf.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<anon_key>
 NEXT_PUBLIC_GA_ID=UA-XXXXXXXXX-X (opcional)
 ```

@@ -19,25 +19,25 @@ Exibição de projetos selecionados num grid responsivo (Bento Grid) para direci
     - Categoria: `branding & campanha`
     - Cliente: `Magic`
     - Ano: `2023`
-    - Imagem: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp`
+    - Imagem: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/Brand-Identity%20copy.webp`
 2.  **Uma marca ousada e consistente**
     - Slug: `branding-project-01`
     - Categoria: `branding`
     - Cliente: `Cliente confidencial`
     - Ano: `2022`
-    - Imagem: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp`
+    - Imagem: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp`
 3.  **Key visual para campanha sazonal**
     - Slug: `key-visual-campaign`
     - Categoria: `campanha`
     - Cliente: `Cliente confidencial`
     - Ano: `2021`
-    - Imagem: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp`
+    - Imagem: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/Key-Visual.webp`
 4.  **Experiência web em movimento**
     - Slug: `webdesigner-motion`
     - Categoria: `web & motion`
     - Cliente: `Cliente confidencial`
     - Ano: `2023`
-    - Imagem: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif`
+    - Imagem: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif`
 
 > **Nota:** Os slugs e URLs das imagens são obrigatórios e devem ser usados exatamente como especificado no documento.
 

@@ -9,7 +9,7 @@ import type { PortfolioProject, ProjectCategory } from '@/types/project';
  * Base URL para assets do Supabase
  */
 const SUPABASE_CDN =
-  'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public';
+  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public';
 
 /**
  * Helper para construir URLs de imagem

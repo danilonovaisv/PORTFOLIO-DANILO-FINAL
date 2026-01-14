@@ -156,15 +156,15 @@ duration: 500ms
 
 1. **Brand & Campaigns**
    - Slug: `brand-campaigns`
-   - Thumbnail: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp`
+   - Thumbnail: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp`
 
 2. **Videos & Motions**
    - Slug: `videos-motions`
-   - Thumbnail: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif`
+   - Thumbnail: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif`
 
 3. **Web Campaigns, Websites & Tech**
    - Slug: `websites-webcampaigns-tech`
-   - Thumbnail: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp`
+   - Thumbnail: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp`
 
 #### CTA Button
 

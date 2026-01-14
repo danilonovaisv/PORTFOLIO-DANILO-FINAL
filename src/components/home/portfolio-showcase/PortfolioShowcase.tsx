@@ -16,7 +16,7 @@ const CATEGORIES = [
     title: 'Brand & Campaigns',
     slug: 'branding',
     thumbnail:
-      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
+      'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
     alignment: 'right' as const,
     showLabel: true, // Show floating label on this stripe
   },
@@ -25,7 +25,7 @@ const CATEGORIES = [
     title: 'Videos & Motions',
     slug: 'motion',
     thumbnail:
-      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
+      'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
     alignment: 'center' as const,
     showLabel: false,
   },
@@ -34,7 +34,7 @@ const CATEGORIES = [
     title: ['Web Campaigns,', 'Websites & Tech'],
     slug: 'web',
     thumbnail:
-      'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp',
+      'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp',
     alignment: 'left' as const,
     showLabel: false,
   },

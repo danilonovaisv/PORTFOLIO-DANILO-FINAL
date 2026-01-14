@@ -287,8 +287,8 @@ const containerVars = {
 
 # **🎥 HERO SECTION — VÍDEO LOOPING
 
-**video hero desktop:** https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/video-heroPort.mp4
-**video hero mobile:** https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/video-heroPort-mobile.mp4
+**video hero desktop:** https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort.mp4
+**video hero mobile:** https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort-mobile.mp4
 
 ### Estrutura HTML/JSX
 ```tsx

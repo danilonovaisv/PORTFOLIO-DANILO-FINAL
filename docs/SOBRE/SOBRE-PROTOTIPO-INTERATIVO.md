@@ -166,17 +166,17 @@ const variants = {
 
 #### Logos
 
-- **Favicon:** `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/Favicon.svg`
-- **Favicon Light:** `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg`
-- **Logo Light:** `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg`
-- **Logo Dark:** `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
+- **Favicon:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/Favicon.svg`
+- **Favicon Light:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg`
+- **Logo Light:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg`
+- **Logo Dark:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
 
 #### Fontes
 
 ```css
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Thin.woff2') format('woff2');
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Thin.woff2') format('woff2');
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -184,7 +184,7 @@ const variants = {
 
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Light.woff2') format('woff2');
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -192,7 +192,7 @@ const variants = {
 
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2') format('woff2');
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -200,7 +200,7 @@ const variants = {
 
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2') format('woff2');
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -208,7 +208,7 @@ const variants = {
 
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2') format('woff2');
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -216,7 +216,7 @@ const variants = {
 
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2') format('woff2');
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2') format('woff2');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -233,12 +233,12 @@ const variants = {
 
 #### Vídeos
 
-- **Manifesto Video:** `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
+- **Manifesto Video:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4`
 
 #### Client Logos
 
 - 12 monochromatic SVG logos: `client1.svg` through `client12.svg`
-- Base URL: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/client-logos/`
+- Base URL: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/client-logos/`
 
 ---
 
@@ -293,7 +293,7 @@ const variants = {
 
 **Layout:**
 - Altura: `100vh`
-- Vídeo: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/HeroSobre.mp4`
+- Vídeo: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/HeroSobre.mp4`
   - `object-fit: cover`
   - Loop contínuo, sem controles
 - Overlay: gradiente `background` (#040013) com opacidade variável
@@ -334,7 +334,7 @@ const variants = {
 #### Mobile
 
 **Layout:**
-- Vídeo: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/HeroSobreMobile.mp4`
+- Vídeo: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/HeroSobreMobile.mp4`
   - Altura: 45–55vh
   - `object-fit: cover`, foco no rosto
   - Logo abaixo do header fixo
@@ -501,7 +501,7 @@ Enquanto muitos olhavam para o brilho imediato,
 eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo.
 A essência das coisas sempre falou mais alto do que a superfície.
 ```
-- **Imagem:** `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-1.webp`
+- **Imagem:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-1.webp`
 - Texto: alinhado à direita, -10% vertical
 
 **2. DO TRAÇO À INTENÇÃO** (H1, `bluePrimary`)
@@ -515,7 +515,7 @@ Aos poucos, aquilo que era instinto virou direção.
 Com cada tentativa, aprendi a dar forma ao invisível —
 até que os conceitos começaram a falar por si.
 ```
-- **Imagem:** `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-2.webp`
+- **Imagem:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-2.webp`
 - Texto: alinhado à esquerda, -10% vertical
 
 **3. A DESCOBERTA DO INVISÍVEL** (H1, `bluePrimary`)
@@ -530,7 +530,7 @@ Ele está presente nos detalhes que ninguém percebe,
 mas que todos sentem.
 Transformar sem que se perceba a transformação: isso é potência.
 ```
-- **Imagem:** `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-3.webp`
+- **Imagem:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-3.webp`
 - Texto: alinhado à direita, -10% vertical
 
 **4. EXPANSÃO COM PROPÓSITO** (H1, `bluePrimary`)
@@ -544,7 +544,7 @@ O futuro pede novas ferramentas — e eu as abracei.
 Mas nunca deixei que a tecnologia apagasse o que me move:
 a sensibilidade, o olhar atento, a busca pelo significado.
 ```
-- **Imagem:** `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/sobre-4.webp`
+- **Imagem:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/sobre-4.webp`
 - Texto: alinhado à esquerda, -10% vertical
 
 #### Animação GSAP
@@ -789,7 +789,7 @@ gsap.from(".service-card", {
 
 **Layout:**
 - Altura: ~120vh
-- Vídeo: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/AboutMethod.mp4`
+- Vídeo: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/AboutMethod.mp4`
   - `object-fit: cover`, 100% largura/altura
   - Loop contínuo, sem controles
 - Overlay: gradiente linear
@@ -883,7 +883,7 @@ gsap.from(".service-card", {
 #### Mobile
 
 **Layout:**
-- Vídeo: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/sobre_page/aboutmetodo-mob.mp4`
+- Vídeo: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/aboutmetodo-mob.mp4`
   - `object-position: right center`
   - Gradiente vertical no fim
   - Sem overlay pesado
