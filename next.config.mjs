@@ -7,9 +7,9 @@ const __dirname = path.dirname(__filename);
 
 const nextConfig = {
   /**
-   * Build com server runtime (necessário para /admin e Supabase Auth)
+   * O Firebase App Hosting / Cloud Run exige build standalone para o App Router.
    */
-  // output: 'standalone', // Removido pois estamos fazendo deploy no Firebase Hosting
+  output: 'standalone',
 
   /**
    * Mantém exatamente como você já tinha
