@@ -10,6 +10,7 @@ type AssetFormProps = {
     key: string;
     page: string;
     asset_type: string;
+    subPath?: string;
     description?: string;
   };
 };
@@ -20,6 +21,7 @@ export function AssetForm({ preset }: AssetFormProps) {
   const [page, setPage] = useState(preset?.page ?? 'global');
   const [assetType, setAssetType] = useState(preset?.asset_type ?? 'image');
   const [description, setDescription] = useState(preset?.description ?? '');
+  const [subPath, setSubPath] = useState(preset?.subPath ?? '');
   const [sortOrder, setSortOrder] = useState<number | undefined>();
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -33,12 +35,8 @@ export function AssetForm({ preset }: AssetFormProps) {
         let file_path: string | null = null;
         if (file) {
           const normalizedKey = key.replace(/\./g, '-');
-          file_path = await uploadToBucket(
-            'site-assets',
-            page || 'global',
-            normalizedKey,
-            file
-          );
+          const folderPath = [page, subPath].filter(Boolean).join('/') || page;
+          file_path = await uploadToBucket('site-assets', folderPath, normalizedKey, file);
         }
 
         await upsertAsset({
@@ -101,6 +99,16 @@ export function AssetForm({ preset }: AssetFormProps) {
             <option value="file">Arquivo</option>
             <option value="font">Fonte</option>
           </select>
+        </label>
+        <label className="flex flex-col gap-1">
+          <span className="text-sm text-slate-300">Subpasta (opcional)</span>
+          <input
+            name="asset-subpath"
+            value={subPath}
+            onChange={(e) => setSubPath(e.target.value)}
+            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            placeholder="logos, fonts, hero"
+          />
         </label>
         <label className="flex flex-col gap-1">
           <span className="text-sm text-slate-300">Ordem</span>

@@ -137,14 +137,14 @@ export default function PortfolioModalNew({
                 transition={{ duration: 0.26, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
                 className="relative w-full max-w-5xl bg-background/95 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl shadow-black/50 overflow-hidden will-change-transform"
               >
-                {/* Close button - Fixed */}
+                {/* Close button - Always Visible */}
                 <button
                   ref={closeButtonRef}
                   onClick={onClose}
-                  className="absolute top-4 right-4 md:top-6 md:right-6 z-50 flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 text-white transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  className="fixed top-6 right-6 md:top-10 md:right-10 z-[110] flex items-center justify-center w-10 h-10 md:w-14 md:h-14 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white transition-all duration-300 hover:rotate-90"
                   aria-label="Fechar modal"
                 >
-                  <X className="w-5 h-5 md:w-6 md:h-6" />
+                  <X className="w-5 h-5 md:w-7 md:h-7" />
                 </button>
 
                 {/* Header glow */}

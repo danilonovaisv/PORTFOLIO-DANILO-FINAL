@@ -15,22 +15,19 @@ interface TypeAContentProps {
   project: PortfolioProject;
 }
 
-const easing = [0.22, 1, 0.36, 1] as const;
-
-const staggerChildren = {
-  animate: {
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.52,
-    },
-  },
-};
-
 const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 16 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: -10 },
   transition: { duration: 0.5, ease: easing },
+};
+
+// Canon Timeline Delays (Ghost Era)
+const TIMELINE = {
+  MEDIA: 0.52,
+  TITLE: 0.76,
+  META: 0.96,
+  SECONDARY: 1.12,
 };
 
 /**
@@ -39,16 +36,12 @@ const fadeInUp = {
  */
 const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
   return (
-    <motion.div
-      variants={staggerChildren}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      className="flex flex-col gap-8"
-    >
+    <div className="flex flex-col gap-8">
       {/* Hero Image */}
       <motion.div
-        variants={fadeInUp}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: TIMELINE.MEDIA, duration: 0.24, ease: 'easeOut' }}
         className="relative w-full aspect-video md:aspect-21/9 rounded-2xl overflow-hidden bg-white/5"
       >
         <Image
@@ -76,7 +69,9 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
         {/* Left: Title & Description */}
         <div className="flex flex-col gap-6">
           <motion.h2
-            variants={fadeInUp}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: TIMELINE.TITLE, duration: 0.2, ease: easing }}
             className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight"
           >
             {project.title}
@@ -118,7 +113,12 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
         </div>
 
         {/* Right: Metadata */}
-        <motion.div variants={fadeInUp} className="flex flex-col gap-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: TIMELINE.META, duration: 0.16, ease: easing }}
+          className="flex flex-col gap-6"
+        >
           {/* Meta cards */}
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
@@ -178,8 +178,8 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ 
-                  delay: 1.12 + i * 0.08, 
-                  duration: 0.2,
+                  delay: TIMELINE.SECONDARY + i * 0.08, 
+                  duration: 0.20,
                   ease: easing,
                 }}
                 className="relative aspect-square rounded-xl overflow-hidden bg-white/5"
@@ -196,7 +196,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
           </div>
         </motion.div>
       )}
-    </motion.div>
+    </div>
   );
 };
 

@@ -40,7 +40,7 @@ export default function PortfolioHeroNew() {
       id="portfolio-hero"
       aria-label="Portfolio Hero"
       // Mobile: h-[70vh] to allow scroll. Desktop: h-screen
-      className="relative h-[70vh] md:h-screen min-h-[500px] w-full overflow-hidden"
+      className="relative h-screen w-full overflow-hidden"
     >
       {/* Video Background - Responsivo Desktop/Mobile */}
       <div className="absolute inset-0 z-0">
@@ -58,7 +58,7 @@ export default function PortfolioHeroNew() {
 
       {/* Main Gradient Overlay - Intenso nas bordas para legibilidade */}
       <div 
-        className="absolute inset-0 z-10 bg-linear-to-b from-background/60 via-transparent to-background/90" 
+        className="absolute inset-0 z-10 bg-linear-to-b from-black/60 via-black/40 to-black/60" 
       />
 
       {/* Ghost Atmospheric Radial Gradients - Enhanced */}
@@ -74,15 +74,15 @@ export default function PortfolioHeroNew() {
       </div>
 
       {/* Content - Centralizado */}
-      <div className="relative z-20 h-full flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12 px-6 md:px-12 text-center md:text-left">
-        {/* Título principal - "portfólio" em azul primário, "showcase" em branco */}
+      <div className="relative z-20 h-full flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 px-6 md:px-12">
+        {/* Título principal - "portfólio" em azul acento, "showcase" em branco */}
         <motion.h1
           initial={prefersReducedMotion ? false : { opacity: 0, y: offset.large, filter: 'blur(8px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={ghostTransition(0.2, duration.slow)}
-          className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-tight leading-[1.05] will-change-transform"
+          className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-tight leading-[1.05] will-change-transform text-center md:text-left"
         >
-          <span className="text-primary italic font-light">portfólio</span>{' '}
+          <span className="text-blueAccent font-bold">portfólio</span>{' '}
           <span className="text-white font-bold">showcase</span>
         </motion.h1>
 
@@ -91,7 +91,7 @@ export default function PortfolioHeroNew() {
           initial={{ opacity: 0, scaleY: 0 }}
           animate={{ opacity: 1, scaleY: 1 }}
           transition={ghostTransition(0.4, duration.normal)}
-          className="hidden md:block w-px h-12 bg-white/20 self-center"
+          className="hidden md:block w-px h-16 bg-white/20 self-center"
         />
 
         {/* CTA Button - Using AntigravityCTA component */}
@@ -99,6 +99,7 @@ export default function PortfolioHeroNew() {
           initial={prefersReducedMotion ? false : { opacity: 0, y: offset.standard }}
           animate={{ opacity: 1, y: 0 }}
           transition={ghostTransition(0.4, duration.normal)}
+          className="flex justify-center"
         >
           <AntigravityCTA
             onClick={handleCTAClick}

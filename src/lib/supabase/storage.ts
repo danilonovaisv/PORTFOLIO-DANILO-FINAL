@@ -2,9 +2,11 @@ import { createClient } from '@/lib/supabase/client';
 
 type UploadBucket = 'portfolio-media' | 'site-assets';
 
-function buildPath(base: string, slug: string, file: File) {
-  const ext = file.name.split('.').pop() || 'dat';
-  return `${base}/${slug}-${Date.now()}.${ext}`;
+function buildPath(base: string, slug: string) {
+  const ext = slug.split('.').pop() || '';
+  const sanitizedBase = base.replace(/\/+$/g, '').replace(/^\/+/g, '');
+  const basePath = sanitizedBase ? `${sanitizedBase}` : '';
+  return basePath ? `${basePath}/${slug}` : slug;
 }
 
 export async function uploadToBucket(
@@ -14,7 +16,9 @@ export async function uploadToBucket(
   file: File
 ) {
   const supabase = createClient();
-  const path = buildPath(basePath, identifier, file);
+  const ext = file.name.split('.').pop();
+  const name = ext ? `${identifier}.${ext}` : identifier;
+  const path = buildPath(basePath, name);
   const { data, error } = await supabase.storage
     .from(bucket)
     .upload(path, file, { cacheControl: '3600', upsert: true });

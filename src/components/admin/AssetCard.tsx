@@ -5,6 +5,7 @@ import { useState, useTransition } from 'react';
 import Image from 'next/image';
 import { uploadToBucket } from '@/lib/supabase/storage';
 import { createClient } from '@/lib/supabase/client';
+import { removeAsset } from '@/app/admin/(protected)/midia/actions';
 import type { DbAsset } from '@/types/admin';
 
 type Props = {
@@ -55,6 +56,23 @@ export function AssetCard({ asset }: Props) {
     });
   };
 
+  const handleDelete = () => {
+    if (!confirm('Excluir este asset e o arquivo associado?')) return;
+    setError(null);
+    startTransition(async () => {
+      try {
+        await removeAsset({
+          id: asset.id,
+          bucket: asset.bucket,
+          file_path: asset.file_path,
+        });
+        router.refresh();
+      } catch (err: any) {
+        setError(err.message);
+      }
+    });
+  };
+
   return (
     <div className="rounded-lg border border-white/10 bg-slate-900/60 p-4 flex gap-4">
       <div className="w-24 h-24 rounded-md bg-slate-800 overflow-hidden relative">
@@ -94,6 +112,13 @@ export function AssetCard({ asset }: Props) {
           className="mt-1 inline-flex items-center rounded-md border border-white/10 px-2 py-1 text-[11px] text-white hover:bg-white/10"
         >
           {asset.is_active ? 'Desativar' : 'Ativar'}
+        </button>
+        <button
+          type="button"
+          onClick={handleDelete}
+          className="ml-2 mt-1 inline-flex items-center rounded-md border border-red-500/60 px-2 py-1 text-[11px] text-red-200 hover:bg-red-500/10"
+        >
+          Excluir
         </button>
       </div>
     </div>

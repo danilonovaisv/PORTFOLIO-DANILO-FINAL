@@ -16,17 +16,6 @@ interface TypeBContentProps {
   project: PortfolioProject;
 }
 
-const easing = [0.22, 1, 0.36, 1] as const;
-
-const staggerChildren = {
-  animate: {
-    transition: {
-      staggerChildren: 0.06,
-      delayChildren: 0.52,
-    },
-  },
-};
-
 const fadeInUp = {
   initial: { opacity: 0, y: 16 },
   animate: { opacity: 1, y: 0 },
@@ -34,11 +23,14 @@ const fadeInUp = {
   transition: { duration: 0.4, ease: easing },
 };
 
-const fadeInLeft = {
-  initial: { opacity: 0, x: -20 },
-  animate: { opacity: 1, x: 0 },
-  transition: { duration: 0.5, ease: easing },
+// Canon Timeline Delays (Ghost Era)
+const TIMELINE = {
+  MEDIA: 0.52,
+  TITLE: 0.76,
+  META: 0.96,
+  SECONDARY: 1.12,
 };
+
 
 /**
  * Layout B: Imagem à esquerda, conteúdo à direita
@@ -46,16 +38,12 @@ const fadeInLeft = {
  */
 const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
   return (
-    <motion.div
-      variants={staggerChildren}
-      initial="initial"
-      animate="animate"
-      exit="exit"
-      className="grid md:grid-cols-2 gap-8 md:gap-12"
-    >
+    <div className="grid md:grid-cols-2 gap-8 md:gap-12">
       {/* Left: Image */}
       <motion.div
-        variants={fadeInLeft}
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: TIMELINE.MEDIA, duration: 0.5, ease: easing }}
         className="relative aspect-square md:aspect-4/5 rounded-2xl overflow-hidden bg-white/5"
       >
         <Image
@@ -97,7 +85,9 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
           </motion.span>
           
           <motion.h2
-            variants={fadeInUp}
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: TIMELINE.TITLE, duration: 0.2, ease: easing }}
             className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight"
           >
             {project.title}
@@ -125,7 +115,9 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
 
         {/* Meta inline */}
         <motion.div
-          variants={fadeInUp}
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: TIMELINE.META, duration: 0.16, ease: easing }}
           className="flex flex-wrap items-center gap-4 text-sm text-white/50"
         >
           <span className="flex items-center gap-2">
@@ -167,7 +159,12 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
 
         {/* Tags cloud */}
         {project.tags && (
-          <motion.div variants={fadeInUp} className="flex flex-wrap gap-2">
+          <motion.div 
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: TIMELINE.SECONDARY, duration: 0.2, ease: easing }}
+            className="flex flex-wrap gap-2"
+          >
             {project.tags.map((tag) => (
               <span
                 key={tag}
@@ -190,7 +187,7 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
           )}
         </motion.div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

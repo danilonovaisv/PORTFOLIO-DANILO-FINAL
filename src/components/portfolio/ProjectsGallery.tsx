@@ -94,8 +94,9 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
       className={`relative z-10 bg-background transition-[height] duration-300 ease-out h-(--gallery-height) ${className}`}
     >
       {/* Gallery Track (Fixed or Static) */}
-      <div 
+      <motion.div 
         ref={trackRef}
+        style={style}
         className={`w-full py-20 md:py-32 overflow-hidden ${
           !prefersReducedMotion && 'md:fixed md:top-0 md:left-0 md:w-full will-change-transform'
         }`}
@@ -126,7 +127,7 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
           {/* Grid de projetos - Masonry com 12 colunas */}
           <motion.div
             layout={!prefersReducedMotion}
-            className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-x-12 md:gap-y-32"
+            className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-x-8 md:gap-y-24"
             role="tabpanel"
             id={`projects-${activeCategory}`}
             aria-label={`Projetos de ${activeCategory}`}
@@ -165,7 +166,7 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
             </motion.div>
           )}
         </Container>
-      </div>
+      </motion.div>
     </section>
   );
 };

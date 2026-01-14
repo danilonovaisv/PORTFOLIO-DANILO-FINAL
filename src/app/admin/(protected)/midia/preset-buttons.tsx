@@ -1,17 +1,77 @@
 'use client';
 
-type Preset = { key: string; page: string; asset_type: string; description?: string };
+type Preset = {
+  key: string;
+  page: string;
+  asset_type: string;
+  description?: string;
+  subPath?: string;
+};
 
 const presetList: Preset[] = [
-  { key: 'global.logo_header', page: 'global', asset_type: 'image', description: 'Logo principal do header' },
-  { key: 'global.favicon', page: 'global', asset_type: 'image', description: 'Favicon' },
-  { key: 'global.font_primary', page: 'global', asset_type: 'font', description: 'Fonte principal' },
-  { key: 'clients.strip', page: 'clients', asset_type: 'image', description: 'Faixa de logos de clientes' },
-  { key: 'about.hero_video', page: 'about', asset_type: 'video', description: 'Vídeo da hero (sobre)' },
-  { key: 'about.origin_image', page: 'about', asset_type: 'image', description: 'Imagem da seção Origem' },
-  { key: 'about.method_video', page: 'about', asset_type: 'video', description: 'Vídeo do método' },
-  { key: 'about.curriculum_pdf', page: 'about', asset_type: 'file', description: 'Currículo para download' },
-  { key: 'portfolio.hero_video', page: 'portfolio', asset_type: 'video', description: 'Vídeo da hero do portfólio' },
+  {
+    key: 'global.logo_header',
+    page: 'global',
+    asset_type: 'image',
+    subPath: 'logos',
+    description: 'Logo principal do header',
+  },
+  {
+    key: 'global.favicon',
+    page: 'global',
+    asset_type: 'image',
+    subPath: 'logos',
+    description: 'Favicon',
+  },
+  {
+    key: 'global.font_display',
+    page: 'global',
+    asset_type: 'font',
+    subPath: 'fonts',
+    description: 'Fonte principal do display',
+  },
+  {
+    key: 'clients.strip',
+    page: 'clients',
+    asset_type: 'image',
+    subPath: 'logos',
+    description: 'Faixa de logos de clientes',
+  },
+  {
+    key: 'about.hero_video',
+    page: 'about',
+    asset_type: 'video',
+    subPath: 'hero',
+    description: 'Vídeo da hero (sobre)',
+  },
+  {
+    key: 'about.origin_image',
+    page: 'about',
+    asset_type: 'image',
+    subPath: 'origin',
+    description: 'Imagem da seção Origem',
+  },
+  {
+    key: 'about.method_video',
+    page: 'about',
+    asset_type: 'video',
+    subPath: 'method',
+    description: 'Vídeo do método',
+  },
+  {
+    key: 'about.curriculum_pdf',
+    page: 'about',
+    asset_type: 'file',
+    subPath: 'curriculum',
+    description: 'Currículo para download',
+  },
+  {
+    key: 'portfolio.hero_video',
+    page: 'portfolio',
+    asset_type: 'video',
+    subPath: 'hero',
+    description: 'Vídeo da hero do portfólio',
+  },
 ];
 
 export function PresetButtons() {
@@ -36,13 +96,16 @@ function PresetButton({ preset }: { preset: Preset }) {
     const keyInput = document.querySelector<HTMLInputElement>('form input[name="asset-key"]');
     const pageSelect = document.querySelector<HTMLSelectElement>('form select[name="asset-page"]');
     const typeSelect = document.querySelector<HTMLSelectElement>('form select[name="asset-type"]');
+    const subPathInput = document.querySelector<HTMLInputElement>('form input[name="asset-subpath"]');
     if (keyInput) keyInput.value = preset.key;
     if (pageSelect) pageSelect.value = preset.page;
     if (typeSelect) typeSelect.value = preset.asset_type;
+    if (subPathInput) subPathInput.value = preset.subPath ?? '';
     // Disparar input events para RHF
     keyInput?.dispatchEvent(new Event('input', { bubbles: true }));
     pageSelect?.dispatchEvent(new Event('change', { bubbles: true }));
     typeSelect?.dispatchEvent(new Event('change', { bubbles: true }));
+    subPathInput?.dispatchEvent(new Event('input', { bubbles: true }));
   };
 
   return (

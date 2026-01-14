@@ -27,9 +27,9 @@ export const BRAND = {
   assets: {
     logos: {
       favicon:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/Faivcon.svg',
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/Favicon.svg',
       faviconLight:
-        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaivconLight.svg',
+        'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg',
       logoLight:
         'https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg',
       logoDark:

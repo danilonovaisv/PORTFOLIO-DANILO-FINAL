@@ -191,196 +191,96 @@ module.exports = {
 
 
 
-## 2.3 Spacing & Grid
+### 2.3 Spacing, Grid & Layout (OPTIMIZED)
 
-Container
-    •    max-width: 1680px
-    •    Padding horizontal: clamp(24px, 5vw, 96px)
+O sistema de Grid foi otimizado para **12 colunas** no desktop e **4 colunas** no mobile, garantindo alinhamento matemático perfeito.
 
-Ritmo Vertical
-    •    Seções: py-16 md:py-24
-    •    Componentes: gap-8 md:gap-12
-    •    Elementos internos: gap-4 md:gap-6
+#### 📐 The Ghost Grid System
 
-Grid (Tailwind)
-    •    Mobile (até md):
-    •    Layout: 1 coluna (grid-cols-1 ou flex flex-col)
-    •    w-full
-    •    Alinhamento:
-    •    text-center para todos os textos
-    •    items-center e justify-center para stacks verticais (flex-col)
-    •    Tablet (md:):
-    •    Cards em md:grid-cols-2
-    •    Hero / destaques podem continuar 1 coluna
-    •    Textos podem voltar a text-left se fizer sentido
-    •    Desktop (lg:+):
-    •    Distribuição customizada por seção
-    •    Textos geralmente alinhados à esquerda para leitura longa
+| Breakpoint | Columns | Gutter (Gap) | Margin (X-Padding) | Container Max |
+| --- | --- | --- | --- | --- |
+| **Mobile** (<768px) | **4** | `16px` (gap-4) | `24px` (px-6) | 100% |
+| **Tablet** (768px+) | **8** | `24px` (gap-6) | `48px` (px-12) | 100% |
+| **Desktop** (1024px+) | **12** | `32px` (gap-8) | `64px` (px-16) | 1440px |
+| **Wide** (1600px+) | **12** | `40px` (gap-10) | `96px` (px-24) | 1680px |
 
-Regra de alinhamento para mobile (base do sistema):
+#### 🧱 Tailwind Composition
 
-Breakpoint padrão: < 768px
-Regra:
-    •    Todos os títulos (display, h1, h2, h3), parágrafos e CTAs usam text-align: center.
-    •    Componentes em coluna usam align-items: center.
-    •    Imagens e ícones principais centralizados (margin-inline: auto).
+**1. Container Base:**
 
-Exemplo padrão de seção:
+```tsx
+// Wrapper global para centralizar o conteúdo
+<div className="w-full max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24">
+  {children}
+</div>
 
-<section className="flex flex-col items-center text-center md:items-start md:text-left">
-  {/* conteúdo */}
+```
+
+**2. Section Grid (Padrão):**
+
+```tsx
+// Grid responsivo automático
+<section className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-8 w-full py-16 md:py-24">
+  {/* Ex: Card ocupando full no mobile e 4 colunas no desktop */}
+  <div className="col-span-4 md:col-span-4 lg:col-span-4">
+    Card Content
+  </div>
 </section>
 
+```
 
-⸻
+**3. Z-Index Layering (Ghost Philosophy):**
+Para garantir que o 3D não bloqueie a interatividade.
 
-## 2.4 Animation Principles
+* `z-0`: **Canvas WebGL** (Background interativo).
+* `z-10`: **Glass Layers** (Paineis com backdrop-blur).
+* `z-20`: **Content** (Textos, Imagens).
+* `z-50`: **Navigation/Header** (Sticky).
+* `z-100`: **Modals/Overlays**.
 
-Filosofia: animações orgânicas e intencionais, nunca gratuitas.
+#### 📱 Mobile Alignment Rules
 
-Core Library: Framer Motion
+No breakpoint `< md` (Mobile First):
 
-Diretrizes:
-    •    Animar apenas transform e opacity (performance)
-    •    Easing: cubic-bezier(0.22, 1, 0.36, 1) (easeOutExpo)
-    •    Duração: 300–700ms na maioria das transições
-    •    Stagger: 60–120ms entre elementos sequenciais
-    •    Respeitar prefers-reduced-motion: desabilitar animações não essenciais
+1. **Text Align:** `text-center` (Títulos e CTAs).
+2. **Flex:** `flex-col items-center`.
+3. **Order:** Visualmente o "Hero Image/Video" pode vir antes ou depois do texto dependendo da narrativa, usar `order-first` ou `order-last`.
 
-Padrões comuns:
+---
 
-// Scroll reveal
+### 2.4 Animation Principles
+
+**Engine:** Framer Motion + Lenis Scroll.
+
+**The "Ghost" Easing:**
+Sensação de peso e elegância. Movimento rápido no início, frenagem suave no final.
+
+* `ease: [0.22, 1, 0.36, 1]`
+
+**Padrões de Código:**
+
+```tsx
+// 1. Reveal Padrão (Fade Up)
 <motion.div
-  initial={{ opacity: 0, y: 24 }}
+  initial={{ opacity: 0, y: 32 }}
   whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-/>
+  viewport={{ once: true, margin: "-10%" }}
+  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+>
 
-// Hover (botões, cards)
-<motion.button
-  whileHover={{ scale: 1.02, y: -2 }}
-  transition={{ duration: 0.3 }}
-/>
-
-// Staggered children
-const variants = {
+// 2. Container Stagger (Cascata)
+const containerVars = {
   hidden: { opacity: 0 },
-  visible: {
+  show: {
     opacity: 1,
-    transition: { staggerChildren: 0.08 },
-  },
-};
-
-Em mobile, como tudo é centralizado e o fluxo é vertical, as entradas preferenciais vêm de baixo (y: 24 → 0) acompanhando o scroll.
-
-⸻
-
-## 2.5 Display Text / Big Phrases (Frases em destaque)
-
-Frases grandes no meio da página, com grande destaque visual, mas sem função de título semântico.
-
-Token: display
-
-Diretrizes de uso:
-    •    Quando usar:
-    •    Frases de impacto, statements da marca, quotes, promessas fortes de seção.
-    •    Semântica:
-    •    Usar como <p> ou <span> com classe específica:
-    •    className="display-text" ou className="text-display"
-    •    Exemplo:
-
-<p className="text-display">
-  Construímos experiências digitais que parecem magia, mas são guiadas por dados.
-</p>
-
-
-    •    Alinhamento:
-    •    Mobile: sempre centralizado, com largura limitada:
-    •    Ex.: className="text-display max-w-2xl mx-auto text-center"
-    •    Desktop: pode ser centralizado ou seguir a grid da seção (recomendado manter centralizado em blocos de destaque).
-    •    Espaçamento:
-    •    Mais respiro que títulos normais:
-    •    Ex.: mt-16 mb-12 (ajustar conforme a seção).
-    •    Cores:
-    •    Base: text (#fcffff)
-    •    Palavras-chave com textEmphasis e textHighlight.
-
-Exemplo em JSX/Tailwind:
-
-<section className="py-16 flex flex-col items-center text-center">
-  <p className="text-display max-w-2xl mx-auto">
-    Criamos produtos que parecem
-    <span className="text-textHighlight"> magia</span>, mas são construídos com
-    <span className="textEmphasis"> engenharia séria</span>.
-  </p>
-</section>
-
-
-
-## 2.6 Global Assets
-Logos:
-- Favicon: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/Favicon.svg`
-- Favicon Light: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/FaviconLight.svg`
-- Logo Light (full): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoLight.svg`
-- Logo Dark (full): `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/logo_site/LogoDark.svg`
-
-## 2.7 Fonts:
- -  font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Thin.woff2') format('woff2');
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-
-- font-face {
-  font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Light.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-
-- font-face {
-  font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-
-- font-face {
-  font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-
-- font-face {
-  font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-
-
-- font-face {
-  font-family: 'TT Norms Pro';
-  src: url('https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2') format('woff2');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
+    transition: { staggerChildren: 0.1 }
+  }
 }
 
-/* Fonte Mono para Tags */
-@font-face {
-  font-family: 'PPSupplyMono';
-  src: url('https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
+```
 
+---
 
-Client Logos:
-- 12 monochromatic SVG logos: `client1.svg` through `client12.svg`
-- Base URL: `https://aymuvxysygrwoicsjgxj.supabase.co/storage/v1/o
 
 
 ----
