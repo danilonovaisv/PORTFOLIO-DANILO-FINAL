@@ -2,7 +2,7 @@
   "version": "2",
   "projectNumber": "350817205989",
   "projectId": "portfolio-danilo-novais",
-  "appId": "1:350817205989:web:a7a18d12481299a881de0c",
+  "appId": "1:350817205989:web:f7ae32f12d353ef081de0c",
   "realtimeDatabaseInstanceUri": "https://portfolio-danilo-novais-default-rtdb.firebaseio.com",
   "realtimeDatabaseUrl": "",
   "storageBucket": "portfolio-danilo-novais.firebasestorage.app",
@@ -10,5 +10,5 @@
   "apiKey": "AIzaSyBe7uThxjKtP0A9QgK9KMu59bAUB4GXj4g",
   "authDomain": "portfolio-danilo-novais.firebaseapp.com",
   "messagingSenderId": "350817205989",
-  "measurementId": "G-E98703T9Z2"
+  "measurementId": "G-PM34VYPZZW"
 }

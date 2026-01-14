@@ -35,7 +35,8 @@
     "test": "pnpm run eslint:ci && pnpm run typecheck && pnpm run prettier && pnpm run jest",
     "jest": "jest",
     "format": "prettier --write .",
-    "deploy": "pnpm run build && firebase deploy --only hosting --project portfolio-danilo-novais"
+    "deploy": "pnpm run build && firebase deploy --only hosting --project portfolio-danilo-novais",
+    "manage-keys": "tsx scripts/manage-service-account-keys.ts"
   },
   "dependencies": {
     "@dataconnect/admin-generated": "link:src/dataconnect-admin-generated",
@@ -68,7 +69,6 @@
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@react-three/postprocessing": "^3.0.4",
-    "@studio-freight/lenis": "^1.0.42",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.90.1",
     "class-variance-authority": "^0.7.1",
@@ -112,6 +112,7 @@
     "@typescript-eslint/eslint-plugin": "^8.53.0",
     "@typescript-eslint/parser": "^8.53.0",
     "autoprefixer": "^10.4.23",
+    "commander": "^12.1.0",
     "depcheck": "^1.4.7",
     "eslint": "^9.39.2",
     "eslint-config-next": "^16.1.1",
@@ -130,6 +131,7 @@
     "tailwindcss": "^4.1.18",
     "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
     "typescript": "^5.9.3"
   },
   "overrides": {
