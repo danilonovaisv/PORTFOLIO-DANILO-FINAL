@@ -4,13 +4,13 @@ import { useEffect, useRef, useCallback } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
-import Image from 'next/image';
 import '@/styles/about-origin.css';
+
+import { ABOUT_ORIGIN_SECTIONS as SECTIONS } from '@/config/about';
+import { useSiteAssetUrl } from '@/contexts/site-assets';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
-
-import { ABOUT_ORIGIN_SECTIONS as SECTIONS } from '@/config/about';
 
 const AboutOrigin = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -41,7 +41,6 @@ const AboutOrigin = () => {
   }, []);
 
   useEffect(() => {
-    // Initialize Lenis smooth scroll
     lenisRef.current = new Lenis({
       duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -59,7 +58,6 @@ const AboutOrigin = () => {
     const bgColors = ['#040013', '#0a001a', '#040013', '#0a001a'];
 
     mm.add('(min-width: 769px)', () => {
-      // Desktop: Pin + Mask Reveal
       const mainTimeline = gsap.timeline({
         scrollTrigger: {
           trigger: '.arch',
@@ -149,7 +147,6 @@ const AboutOrigin = () => {
       const imgWrappers = gsap.utils.toArray<HTMLDivElement>('.img-wrapper');
       const infos = gsap.utils.toArray<HTMLDivElement>('.arch__info');
 
-      // Reveal animations for each content block
       infos.forEach((info) => {
         gsap.fromTo(
           info,
@@ -168,7 +165,6 @@ const AboutOrigin = () => {
         );
       });
 
-      // Parallax and background transitions for images
       imgWrappers.forEach((wrapper, index) => {
         const img = wrapper.querySelector('img');
         if (img) {
@@ -187,7 +183,6 @@ const AboutOrigin = () => {
           );
         }
 
-        // Background color transition
         ScrollTrigger.create({
           trigger: wrapper,
           start: 'top center',
@@ -203,60 +198,58 @@ const AboutOrigin = () => {
     window.addEventListener('resize', handleMobileLayout);
 
     return () => {
-      mm.revert();
       lenisRef.current?.destroy();
       window.removeEventListener('resize', handleMobileLayout);
+      mm.revert();
     };
   }, [handleMobileLayout]);
 
+  const originImages = SECTIONS.map((section, index) =>
+    useSiteAssetUrl(`about.origin_image.${index + 1}`, section.img)
+  );
+
   return (
     <section
-      className="origem-criativa std-grid pt-10 md:pt-8 pb-24"
       ref={containerRef}
+      className="arch relative min-h-screen bg-background overflow-hidden"
+      aria-label="About origin timeline"
     >
-      <h1 className="text-center text-[30px] md:text-[54px] font-outfit font-italic text-blueAccent mb-4 md:mb-0">
-        Origem
-      </h1>
-
-      <div className="arch">
-        <div className="arch__left" ref={leftRef}>
-          {SECTIONS.map((section) => (
-            <div
-              key={section.id}
-              className="arch__info"
-              id={`${section.id}-arch`}
-            >
-              <div
-                className={`content ${section.textAlign === 'right' ? 'text-right' : 'text-left'}`}
-              >
-                <h2 className="header">{section.title}</h2>
-                <p className="desc whitespace-normal">{section.text}</p>
+      <div className="arch__content std-grid">
+        <div className="grid md:grid-cols-[2fr,1fr] gap-8">
+          <div ref={leftRef} className="space-y-10">
+            {SECTIONS.map((section) => (
+              <div key={section.id} className="arch__info">
+                <div className="content space-y-4">
+                  <h3 className="type-h3 uppercase tracking-[0.3em] text-white/60">
+                    {section.title}
+                  </h3>
+                  <p className="text-base leading-relaxed text-white/80">
+                    {section.text}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="arch__right" ref={rightRef}>
-          {SECTIONS.map((section, index) => (
-            <div
-              key={section.id}
-              className="img-wrapper"
-              data-index={SECTIONS.length - index}
-            >
-              <Image
-                src={section.img}
-                alt={section.alt}
-                fill
-                className="object-cover object-center"
-                priority={index === 0}
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 70vw, 760px"
-              />
-            </div>
-          ))}
+            ))}
+          </div>
+        <div ref={rightRef} className="space-y-6 arch__right">
+          {SECTIONS.map((section, index) => {
+            const dynamicImg = originImages[index];
+            return (
+              <div
+                className="img-wrapper rounded-3xl overflow-hidden bg-white/5"
+                key={`img-${section.id}`}
+                data-index={SECTIONS.length - index}
+              >
+                <img
+                  src={dynamicImg}
+                  alt={section.alt}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            );
+          })}
+          </div>
         </div>
       </div>
-
-      <div className="spacer h-[10vh] w-full" />
     </section>
   );
 };

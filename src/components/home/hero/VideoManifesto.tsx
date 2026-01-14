@@ -2,12 +2,14 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useSiteAssetUrl } from '@/contexts/site-assets';
 
 interface VideoManifestoProps {
   src: string;
 }
 
 export function VideoManifesto({ src }: VideoManifestoProps) {
+  const manifestoSrc = useSiteAssetUrl('home.manifesto_video', src) ?? src;
   const [muted, setMuted] = useState(true);
   const [shouldLoad, setShouldLoad] = useState(false);
   const [videoQuality, setVideoQuality] = useState<'hd' | 'sd'>('hd');
@@ -80,9 +82,11 @@ export function VideoManifesto({ src }: VideoManifestoProps) {
   }, [muted]);
 
   const videoSrc =
-    videoQuality === 'hd' ? src : src.replace('.mp4', '-720p.mp4');
+    videoQuality === 'hd'
+      ? manifestoSrc
+      : manifestoSrc.replace('.mp4', '-720p.mp4');
 
-  const posterSrc = src.replace('.mp4', '-poster.jpg');
+  const posterSrc = manifestoSrc.replace('.mp4', '-poster.jpg');
 
   return (
     <motion.section

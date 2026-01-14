@@ -10,8 +10,8 @@ import {
 } from 'framer-motion';
 
 import { ABOUT_CONTENT } from '@/config/content';
-
 import { motionTokens, motionSprings } from './motion';
+import { useSiteAssetUrl } from '@/contexts/site-assets';
 
 export function AboutHero() {
   const prefersReducedMotion = useReducedMotion();
@@ -38,6 +38,15 @@ export function AboutHero() {
     prefersReducedMotion ? [0, 0] : [48, -48]
   );
 
+  const desktopVideo = useSiteAssetUrl(
+    'about.hero.desktop_video',
+    ABOUT_CONTENT.hero.videos.desktop
+  );
+  const mobileVideo = useSiteAssetUrl(
+    'about.hero.mobile_video',
+    ABOUT_CONTENT.hero.videos.mobile
+  );
+
   return (
     <section
       ref={containerRef}
@@ -47,7 +56,7 @@ export function AboutHero() {
       {/* Background Video - Desktop */}
       <motion.video
         ref={videoRef}
-        src={ABOUT_CONTENT.hero.videos.desktop}
+        src={desktopVideo}
         autoPlay
         muted
         loop
@@ -158,7 +167,7 @@ export function AboutHero() {
         <div className="relative aspect-square w-full overflow-hidden">
           <motion.video
             ref={mobileVideoRef}
-            src={ABOUT_CONTENT.hero.videos.mobile}
+            src={mobileVideo}
             autoPlay
             muted
             loop

@@ -8,12 +8,13 @@
 
 import { motion, useReducedMotion } from 'framer-motion';
 import { PORTFOLIO_CONTENT } from '@/config/content';
-import { 
-  MOTION_TOKENS, 
+import {
+  MOTION_TOKENS,
   ghostTransition
 } from '@/config/motion';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
+import { useSiteAssetUrl } from '@/contexts/site-assets';
 
 // Motion config - Ghost Era ethereal timing
 const { duration, offset } = MOTION_TOKENS;
@@ -21,11 +22,17 @@ const { duration, offset } = MOTION_TOKENS;
 export default function PortfolioHeroNew() {
   const prefersReducedMotion = useReducedMotion();
   const isMobile = useMediaQuery('(max-width: 768px)');
-  
+  const desktopVideo = useSiteAssetUrl(
+    'portfolio.hero_desktop_video',
+    PORTFOLIO_CONTENT.hero.video.desktop
+  );
+  const mobileVideo = useSiteAssetUrl(
+    'portfolio.hero_mobile_video',
+    PORTFOLIO_CONTENT.hero.video.mobile
+  );
+
   // Seleciona o vídeo correto baseado no dispositivo
-  const videoSrc = isMobile
-    ? PORTFOLIO_CONTENT.hero.video.mobile
-    : PORTFOLIO_CONTENT.hero.video.desktop;
+  const videoSrc = isMobile ? mobileVideo : desktopVideo;
 
   const handleCTAClick = () => {
     // Scroll suave para a seção de contato
