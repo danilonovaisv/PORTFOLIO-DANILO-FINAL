@@ -30,7 +30,10 @@ function validateEnv() {
   try {
     env = parseEnv(filePath);
   } catch (error) {
-    console.error(`Não foi possível ler ${ENV_FILE}:`, (error as Error).message);
+    console.error(
+      `Não foi possível ler ${ENV_FILE}:`,
+      (error as Error).message
+    );
     process.exit(1);
   }
 
@@ -46,7 +49,9 @@ function validateEnv() {
     process.exit(1);
   }
 
-  console.log(`${ENV_FILE} validado com sucesso (${REQUIRED_KEYS.length} chaves).`);
+  console.log(
+    `${ENV_FILE} validado com sucesso (${REQUIRED_KEYS.length} chaves).`
+  );
 }
 
 validateEnv();

@@ -20,7 +20,11 @@ const nextConfig = {
     // any needed experimental flags
   },
 
-  allowedDevOrigins: ['http://192.168.0.14:3000', 'http://192.168.0.34:3000', 'http://192.168.0.57:3000'],
+  allowedDevOrigins: [
+    'http://192.168.0.14:3000',
+    'http://192.168.0.34:3000',
+    'http://192.168.0.57:3000',
+  ],
 
   /**
    * Configuração de imagens (Supabase)

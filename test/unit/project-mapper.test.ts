@@ -11,7 +11,10 @@ describe('buildSupabaseStorageUrl', () => {
   });
 
   it('builds a public object URL', () => {
-    const url = buildSupabaseStorageUrl('portfolio-media', 'projects/thumb.png');
+    const url = buildSupabaseStorageUrl(
+      'portfolio-media',
+      'projects/thumb.png'
+    );
     expect(url).toBe(
       'https://test.supabase.co/storage/v1/object/public/portfolio-media/projects/thumb.png'
     );
@@ -44,13 +47,12 @@ describe('mapDbProjectToPortfolioProject', () => {
       updated_at: null,
     };
 
-    const mapped = mapDbProjectToPortfolioProject(
-      dbProject as any,
-      0
-    );
+    const mapped = mapDbProjectToPortfolioProject(dbProject as any, 0);
 
     expect(mapped.id).toBe(dbProject.id);
-    expect(mapped.image).toContain('/storage/v1/object/public/portfolio-media/projects/test/thumb.jpg');
+    expect(mapped.image).toContain(
+      '/storage/v1/object/public/portfolio-media/projects/test/thumb.jpg'
+    );
     expect(mapped.category).toBe('motion');
     expect(mapped.tags).toEqual([]);
     expect(mapped.detail?.gallery?.[0]).toContain(

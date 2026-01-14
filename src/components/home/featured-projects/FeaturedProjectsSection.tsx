@@ -1,6 +1,12 @@
+'use client';
+
 import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
-import { MOTION_TOKENS, ghostTransition, staggerContainer } from '@/config/motion';
+import {
+  MOTION_TOKENS,
+  ghostTransition,
+  staggerContainer,
+} from '@/config/motion';
 import FeaturedProjectCard from './FeaturedProjectCard';
 import CTAProjectCard from './CTAProjectCard';
 import type { PortfolioProject } from '@/types/project';

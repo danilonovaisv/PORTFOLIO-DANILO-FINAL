@@ -27,7 +27,10 @@ export default async function RootLayout({
     assets = await getSiteAssets();
   } catch (error) {
     // Log a more descriptive error message with the actual error details
-    console.error('Falha ao carregar site_assets:', error instanceof Error ? error.message : error);
+    console.error(
+      'Falha ao carregar site_assets:',
+      error instanceof Error ? error.message : error
+    );
     try {
       const response = await fetch(`${baseUrl}/api/site-assets`, {
         cache: 'no-store',
@@ -35,10 +38,17 @@ export default async function RootLayout({
       if (response.ok) {
         assets = await response.json();
       } else {
-        console.error('Erro ao buscar site_assets via API:', response.status, response.statusText);
+        console.error(
+          'Erro ao buscar site_assets via API:',
+          response.status,
+          response.statusText
+        );
       }
     } catch (fallbackError) {
-      console.error('Erro fallback de site_assets:', fallbackError instanceof Error ? fallbackError.message : fallbackError);
+      console.error(
+        'Erro fallback de site_assets:',
+        fallbackError instanceof Error ? fallbackError.message : fallbackError
+      );
     }
   }
   const assetMap = assets.reduce<Record<string, string>>((acc, asset) => {
@@ -70,8 +80,7 @@ export default async function RootLayout({
 
   const inlineStyle = cssVars as CSSProperties;
   const jsonLdLogoUrl =
-    assetMap[SITE_ASSET_KEYS.logos.headerLight] ??
-    BRAND.assets.logos.logoLight;
+    assetMap[SITE_ASSET_KEYS.logos.headerLight] ?? BRAND.assets.logos.logoLight;
 
   return (
     <html lang="pt-BR" data-scroll-behavior="smooth">
