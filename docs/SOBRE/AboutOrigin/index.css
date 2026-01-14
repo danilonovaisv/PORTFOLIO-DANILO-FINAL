@@ -1,0 +1,52 @@
+
+@font-face {
+    font-family: 'CustomLight';
+    src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_light.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --bluePrimary: #3b82f6;
+    --cyanHighlight: #4fe6ff;
+}
+
+html {
+  height: auto;
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #040013;
+    color: #fcffff;
+    font-family: 'Outfit', sans-serif;
+    overflow-x: hidden; 
+}
+
+html.lenis {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Esconder scrollbar mantendo funcionalidade */
+::-webkit-scrollbar {
+    display: none;
+}
+body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.img-wrapper {
+    clip-path: inset(0% 0% 0% 0%);
+    will-change: clip-path;
+}
