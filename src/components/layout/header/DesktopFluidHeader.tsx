@@ -68,21 +68,21 @@ export default function DesktopFluidHeader({
 
             {/* content */}
             <div className="relative z-10 h-full px-10 flex items-center justify-between gap-6">
-                <Link
-                  href="/"
-                  aria-label="Ir para Home"
-                  className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-full"
-                >
-                  <img
-                    src={logoUrl}
-                    alt="Danilo"
-                    width={32}
-                    height={32}
-                    className="h-8 w-auto transition-colors duration-300"
-                    style={{ width: 'auto' }}
-                    loading="eager"
-                  />
-                </Link>
+              <Link
+                href="/"
+                aria-label="Ir para Home"
+                className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-full"
+              >
+                <img
+                  src={logoUrl}
+                  alt="Danilo"
+                  width={32}
+                  height={32}
+                  className="h-8 w-auto transition-colors duration-300"
+                  style={{ width: 'auto' }}
+                  loading="eager"
+                />
+              </Link>
 
               <nav
                 aria-label="Navegação principal"
