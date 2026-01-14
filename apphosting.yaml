@@ -3,7 +3,7 @@
 runConfig:
   minInstances: 0
   maxInstances: 10
-  memoryMiB: 512
+  memoryMiB: 1024
 
 # Environment variables and secrets.
 # See https://firebase.google.com/docs/app-hosting/configure#user-defined-environment
