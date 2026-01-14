@@ -2,6 +2,7 @@ const tsJestConfig = {
   useESM: true,
   tsconfig: {
     ignoreDeprecations: '5.0',
+    jsx: 'react-jsx',
   },
 };
 
