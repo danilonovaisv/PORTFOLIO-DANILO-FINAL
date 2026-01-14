@@ -51,17 +51,7 @@
     {
       "backendId": "portfoliodanilo",
       "rootDir": "/",
-      "ignore": [
-        "node_modules",
-        ".git",
-        "firebase-debug.log",
-        "firebase-debug.*.log",
-        "functions"
-      ]
-    },
-    {
-      "backendId": "portfoliodanilo",
-      "rootDir": "/",
+      "config": "apphosting.yaml",
       "ignore": [
         "node_modules",
         ".git",

@@ -1,0 +1,54 @@
+name: 🛡️ AI Self-Healing Agent
+
+on:
+  workflow_run:
+    workflows:
+      - Deploy to Firebase App Hosting
+    types:
+      - completed
+
+jobs:
+  analyze-and-fix:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: 📥 Checkout do Código
+        uses: actions/checkout@v4
+
+      - name: 🔍 Obter Logs de Erro
+        id: get_logs
+        run: |
+          gh run view ${{ github.event.workflow_run.id }} --log-failed > error_logs.txt
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: 🤖 Análise Gemini AI
+        id: gemini_analysis
+        uses: google-github-actions/run-gemini-cli@v1
+        with:
+          api-key: ${{ secrets.GEMINI_API_KEY }}
+          prompt: |
+            Analisa estes logs de erro de um projeto Next.js com Three.js e Firebase App Hosting:
+            $(cat error_logs.txt)
+
+            O erro ocorreu durante o deploy do workflow "Deploy to Firebase App Hosting".
+            Verifica o ficheiro next.config.mjs e firebase.json.
+            Explica o que falhou e fornece o código corrigido.
+          files: |
+            error_logs.txt
+            next.config.mjs
+            firebase.json
+
+      - name: 🛠️ Criar Issue de Correção Automática
+        if: always()
+        run: |
+          gh issue create \
+            --title "🤖 Sugestão de Correção: Falha no Deploy" \
+            --body "A IA analisou os logs e sugere as seguintes alterações: \n\n ${{ steps.gemini_analysis.outputs.response }}"
+        env:
+          GH_TOKEN: ${{ github.token }}
