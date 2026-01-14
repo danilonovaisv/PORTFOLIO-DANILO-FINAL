@@ -6,19 +6,22 @@ const assetGuide = [
   {
     key: 'global.logo_header',
     description: 'Logo principal do header',
-    change: 'Atualize o arquivo e certifique-se de que o header usa useSiteAssetUrl nesta key.',
+    change:
+      'Atualize o arquivo e certifique-se de que o header usa useSiteAssetUrl nesta key.',
     page: 'global',
   },
   {
     key: 'global.favicon',
     description: 'Favicon usado em <head>',
-    change: 'Faça upload de um SVG/ICO e mantenha o mesmo nome no metadata/JsonLd.',
+    change:
+      'Faça upload de um SVG/ICO e mantenha o mesmo nome no metadata/JsonLd.',
     page: 'global',
   },
   {
     key: 'global.font_display',
     description: 'Fonte display principal (Tailwind e h1)',
-    change: 'Altere o registro para a nova fonte e garanta que tailwind e typography usem esse nome.',
+    change:
+      'Altere o registro para a nova fonte e garanta que tailwind e typography usem esse nome.',
     page: 'global',
   },
   {
@@ -30,13 +33,15 @@ const assetGuide = [
   {
     key: 'global.font_body',
     description: 'Fonte secundária do corpo (p/ todo o texto)',
-    change: 'Atualize o asset e use a nova fonte em BRAN.config/tailwind se necessário.',
+    change:
+      'Atualize o asset e use a nova fonte em BRAN.config/tailwind se necessário.',
     page: 'global',
   },
   {
     key: 'clients.strip',
     description: 'Strip de logos da sessão de clients',
-    change: 'Adicione novos arquivos com nomes como clients-strip-1 e os use via useSiteAssetsByPrefix.',
+    change:
+      'Adicione novos arquivos com nomes como clients-strip-1 e os use via useSiteAssetsByPrefix.',
     page: 'clients',
   },
   {
@@ -88,11 +93,15 @@ export function AssetGuide() {
     <div className="rounded-xl border border-white/10 bg-slate-900/40 p-4 space-y-3">
       <h2 className="text-lg font-semibold text-white">Guia de keys</h2>
       <p className="text-xs text-slate-400">
-        Use essas keys no Admin para garantir que a sessão pública leia o asset correto. Ajuste o campo “Subpasta” para manter o storage organizado.
+        Use essas keys no Admin para garantir que a sessão pública leia o asset
+        correto. Ajuste o campo “Subpasta” para manter o storage organizado.
       </p>
       <div className="grid gap-2 text-xs">
         {assetGuide.map((item) => (
-          <div key={item.key} className="rounded-lg border border-white/10 bg-slate-900/80 p-3">
+          <div
+            key={item.key}
+            className="rounded-lg border border-white/10 bg-slate-900/80 p-3"
+          >
             <div className="text-[11px] text-slate-300">{item.page}</div>
             <div className="text-sm font-semibold text-white">{item.key}</div>
             <p className="text-[11px] text-slate-400">{item.description}</p>

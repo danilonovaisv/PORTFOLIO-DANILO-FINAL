@@ -230,23 +230,23 @@ const AboutOrigin = () => {
               </div>
             ))}
           </div>
-        <div ref={rightRef} className="space-y-6 arch__right">
-          {SECTIONS.map((section, index) => {
-            const dynamicImg = originImages[index];
-            return (
-              <div
-                className="img-wrapper rounded-3xl overflow-hidden bg-white/5"
-                key={`img-${section.id}`}
-                data-index={SECTIONS.length - index}
-              >
-                <img
-                  src={dynamicImg}
-                  alt={section.alt}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            );
-          })}
+          <div ref={rightRef} className="space-y-6 arch__right">
+            {SECTIONS.map((section, index) => {
+              const dynamicImg = originImages[index];
+              return (
+                <div
+                  className="img-wrapper rounded-3xl overflow-hidden bg-white/5"
+                  key={`img-${section.id}`}
+                  data-index={SECTIONS.length - index}
+                >
+                  <img
+                    src={dynamicImg}
+                    alt={section.alt}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
