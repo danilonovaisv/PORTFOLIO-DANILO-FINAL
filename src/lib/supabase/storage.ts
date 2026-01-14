@@ -3,7 +3,6 @@ import { createClient } from '@/lib/supabase/client';
 type UploadBucket = 'portfolio-media' | 'site-assets';
 
 function buildPath(base: string, slug: string) {
-  const ext = slug.split('.').pop() || '';
   const sanitizedBase = base.replace(/\/+$/g, '').replace(/^\/+/g, '');
   const basePath = sanitizedBase ? `${sanitizedBase}` : '';
   return basePath ? `${basePath}/${slug}` : slug;

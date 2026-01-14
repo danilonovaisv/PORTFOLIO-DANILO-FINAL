@@ -4,8 +4,8 @@ import React, { createContext, useContext, useMemo, type ReactNode } from 'react
 import type { SiteAsset } from '@/lib/supabase/site-assets';
 
 type SiteAssetsContextValue = {
-  getUrl: (key: string) => string | undefined;
-  getAssetsByPrefix: (prefix: string) => SiteAsset[];
+  getUrl: (_key: string) => string | undefined;
+  getAssetsByPrefix: (_prefix: string) => SiteAsset[];
 };
 
 const SiteAssetsContext = createContext<SiteAssetsContextValue | null>(null);
