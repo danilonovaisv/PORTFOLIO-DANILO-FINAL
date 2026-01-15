@@ -2,20 +2,17 @@
 
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { usePerformanceAdaptive } from '@/hooks/usePerformanceAdaptive';
+import {
+  EffectComposer,
+  RenderPass,
+  UnrealBloomPass,
+  ShaderPass,
+} from 'three-stdlib';
 
-// Importações de pós-processamento do diretório de exemplos do Three.js
-// Importações de pós-processamento via three-stdlib
-// @ts-ignore
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
-// @ts-ignore
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
-// @ts-ignore
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
-// @ts-ignore
-import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass';
-// @ts-ignore
-import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
+import { usePerformanceAdaptive } from '@/hooks/usePerformanceAdaptive';
+import { AnalogDecayShader } from '@/components/canvas/shaders/AnalogShader';
+import { AtmosphereShader } from './AtmosphereShader';
+import { GHOST_CONFIG, getConfigColorHex } from '@/config/ghostConfig';
 
 export default function GhostScene() {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -122,206 +119,30 @@ export default function GhostScene() {
 
     preloaderManager.updateProgress(3);
 
-    // Shader de Decaimento Analógico (Analog Decay)
-    const analogDecayShader = {
-      uniforms: {
-        tDiffuse: { value: null },
-        uTime: { value: 0.0 },
-        uResolution: {
-          value: new THREE.Vector2(window.innerWidth, window.innerHeight),
-        },
-        uAnalogGrain: { value: 0.4 },
-        uAnalogBleeding: { value: 1.0 },
-        uAnalogVSync: { value: 1.0 },
-        uAnalogScanlines: { value: 1.0 },
-        uAnalogVignette: { value: 1.0 },
-        uAnalogJitter: { value: 0.4 },
-        uAnalogIntensity: { value: 0.6 },
-        uLimboMode: { value: 0.0 },
-      },
-      vertexShader: `
-        varying vec2 vUv;
-        void main() {
-          vUv = uv;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
-      fragmentShader: `
-        uniform sampler2D tDiffuse;
-        uniform float uTime;
-        uniform vec2 uResolution;
-        uniform float uAnalogGrain;
-        uniform float uAnalogBleeding;
-        uniform float uAnalogVSync;
-        uniform float uAnalogScanlines;
-        uniform float uAnalogVignette;
-        uniform float uAnalogJitter;
-        uniform float uAnalogIntensity;
-        uniform float uLimboMode;
-        varying vec2 vUv;
-        
-        float random(vec2 st) { return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123); }
-        float random(float x) { return fract(sin(x) * 43758.5453123); }
-        float gaussian(float z, float u, float o) { return (1.0 / (o * sqrt(2.0 * 3.1415))) * exp(-(((z - u) * (z - u)) / (2.0 * (o * o)))); }
-        
-        vec3 grain(vec2 uv, float time, float intensity) {
-          float seed = dot(uv, vec2(12.9898, 78.233));
-          float noise = fract(sin(seed) * 43758.5453 + time * 2.0);
-          noise = gaussian(noise, 0.0, 0.5 * 0.5);
-          return vec3(noise) * intensity;
-        }
-        
-        void main() {
-          vec2 uv = vUv;
-          float time = uTime * 1.8;
-          vec2 jitteredUV = uv;
-          if (uAnalogJitter > 0.01) {
-            float jitterAmount = (random(vec2(floor(time * 60.0))) - 0.5) * 0.003 * uAnalogJitter * uAnalogIntensity;
-            jitteredUV.x += jitterAmount;
-            jitteredUV.y += (random(vec2(floor(time * 30.0) + 1.0)) - 0.5) * 0.001 * uAnalogJitter * uAnalogIntensity;
-          }
-          if (uAnalogVSync > 0.01) {
-            float vsyncRoll = sin(time * 2.0 + uv.y * 100.0) * 0.02 * uAnalogVSync * uAnalogIntensity;
-            float vsyncChance = step(0.95, random(vec2(floor(time * 4.0))));
-            jitteredUV.y += vsyncRoll * vsyncChance;
-          }
-          vec4 color = texture2D(tDiffuse, jitteredUV);
-          if (uAnalogBleeding > 0.01) {
-            float bleedAmount = 0.012 * uAnalogBleeding * uAnalogIntensity;
-            float offsetPhase = time * 1.5 + uv.y * 20.0;
-            vec2 redOffset = vec2(sin(offsetPhase) * bleedAmount, 0.0);
-            vec2 blueOffset = vec2(-sin(offsetPhase * 1.1) * bleedAmount * 0.8, 0.0);
-            float r = texture2D(tDiffuse, jitteredUV + redOffset).r;
-            float g = texture2D(tDiffuse, jitteredUV).g;
-            float b = texture2D(tDiffuse, jitteredUV + blueOffset).b;
-            color = vec4(r, g, b, color.a);
-          }
-          if (uAnalogGrain > 0.01) {
-            vec3 grainEffect = grain(uv, time, 0.075 * uAnalogGrain * uAnalogIntensity);
-            grainEffect *= (1.0 - color.rgb);
-            color.rgb += grainEffect;
-          }
-          if (uAnalogScanlines > 0.01) {
-            float scanlineFreq = 600.0 + uAnalogScanlines * 400.0;
-            float scanlinePattern = sin(uv.y * scanlineFreq) * 0.5 + 0.5;
-            float scanlineIntensity = 0.1 * uAnalogScanlines * uAnalogIntensity;
-            color.rgb *= (1.0 - scanlinePattern * scanlineIntensity);
-            float horizontalLines = sin(uv.y * scanlineFreq * 0.1) * 0.02 * uAnalogScanlines * uAnalogIntensity;
-            color.rgb *= (1.0 - horizontalLines);
-          }
-          if (uAnalogVignette > 0.01) {
-            vec2 vignetteUV = (uv - 0.5) * 2.0;
-            float vignette = 1.0 - dot(vignetteUV, vignetteUV) * 0.3 * uAnalogVignette * uAnalogIntensity;
-            color.rgb *= vignette;
-          }
-          if (uLimboMode > 0.5) {
-            float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
-            color.rgb = vec3(gray);
-          }
-          gl_FragColor = color;
-        }
-      `,
-    };
-
-    const analogDecayPass = new ShaderPass(analogDecayShader);
+    const analogDecayPass = new ShaderPass(AnalogDecayShader);
+    analogDecayPass.uniforms.uResolution.value.set(
+      window.innerWidth,
+      window.innerHeight
+    );
     composer.addPass(analogDecayPass);
-    const outputPass = new OutputPass();
-    composer.addPass(outputPass);
+
+    // Removido OutputPass pois não está disponível na versão atual do three-stdlib
 
     // --- PARÂMETROS E OBJETOS ---
-
-    const params = {
-      bodyColor: 0x0f2027,
-      glowColor: 'blue',
-      eyeGlowColor: 'violet',
-      ghostOpacity: 0.88,
-      ghostScale: 2.4,
-      emissiveIntensity: 5.8,
-      pulseSpeed: 1.6,
-      pulseIntensity: 0.6,
-      eyeGlowIntensity: 4.5,
-      eyeGlowDecay: 0.95,
-      eyeGlowResponse: 0.31,
-      rimLightIntensity: 1.8,
-      followSpeed: 0.05,
-      wobbleAmount: 0.35,
-      floatSpeed: 1.6,
-      movementThreshold: 0.07,
-      particleCount: performanceConfig.particleCount * 5, // Scaling for the specific scene density
-      particleDecayRate: 0.005,
-      particleColor: 'violet',
-      createParticlesOnlyWhenMoving: true,
-      particleCreationRate: performanceConfig.quality === 'low' ? 2 : 5,
-      revealRadius: 37,
-      fadeStrength: 1.7,
-      baseOpacity: 0.9,
-      revealOpacity: 0.05,
-      fireflyGlowIntensity: 4.3,
-      fireflySpeed: 0.09,
-      analogIntensity: 0.9,
-      analogGrain: 0.4,
-      analogBleeding: 0.9,
-      analogVSync: 1.7,
-      analogScanlines: 1.0,
-      analogVignette: 2.4,
-      analogJitter: 0.5,
-      limboMode: false,
-    };
-
-    const fluorescentColors: { [key: string]: number } = {
-      cyan: 0x00ffff,
-      lime: 0x00ff00,
-      magenta: 0xff00ff,
-      yellow: 0xffff00,
-      orange: 0xff4500,
-      pink: 0xff1493,
-      purple: 0x9400d3,
-      blue: 0x0080ff,
-      green: 0x00ff80,
-      red: 0xff0040,
-      teal: 0x00ffaa,
-      violet: 0x8a2be2,
-    };
 
     // Atmosfera (Fundo)
     const atmosphereGeometry = new THREE.PlaneGeometry(300, 300);
     const atmosphereMaterial = new THREE.ShaderMaterial({
+      ...AtmosphereShader,
       uniforms: {
+        ...THREE.UniformsUtils.clone(AtmosphereShader.uniforms),
         ghostPosition: { value: new THREE.Vector3(0, 0, 0) },
-        revealRadius: { value: params.revealRadius },
-        fadeStrength: { value: params.fadeStrength },
-        baseOpacity: { value: params.baseOpacity },
-        revealOpacity: { value: params.revealOpacity },
+        revealRadius: { value: GHOST_CONFIG.revealRadius },
+        fadeStrength: { value: GHOST_CONFIG.fadeStrength },
+        baseOpacity: { value: GHOST_CONFIG.baseOpacity },
+        revealOpacity: { value: GHOST_CONFIG.revealOpacity },
         time: { value: 0 },
       },
-      vertexShader: `
-        varying vec2 vUv;
-        varying vec3 vWorldPosition;
-        void main() {
-          vUv = uv;
-          vec4 worldPos = modelMatrix * vec4(position, 1.0);
-          vWorldPosition = worldPos.xyz;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
-      fragmentShader: `
-        uniform vec3 ghostPosition;
-        uniform float revealRadius;
-        uniform float fadeStrength;
-        uniform float baseOpacity;
-        uniform float revealOpacity;
-        uniform float time;
-        varying vec2 vUv;
-        varying vec3 vWorldPosition;
-        void main() {
-          float dist = distance(vWorldPosition.xy, ghostPosition.xy);
-          float dynamicRadius = revealRadius + sin(time * 2.0) * 5.0;
-          float reveal = smoothstep(dynamicRadius * 0.2, dynamicRadius, dist);
-          reveal = pow(reveal, fadeStrength);
-          float opacity = mix(revealOpacity, baseOpacity, reveal);
-          gl_FragColor = vec4(0.001, 0.001, 0.002, opacity);
-        }
-      `,
       transparent: true,
       depthWrite: false,
     });
@@ -354,11 +175,11 @@ export default function GhostScene() {
     ghostGeometry.computeVertexNormals();
 
     const ghostMaterial = new THREE.MeshStandardMaterial({
-      color: params.bodyColor,
+      color: getConfigColorHex(GHOST_CONFIG.bodyColor),
       transparent: true,
-      opacity: params.ghostOpacity,
-      emissive: fluorescentColors[params.glowColor],
-      emissiveIntensity: params.emissiveIntensity,
+      opacity: GHOST_CONFIG.ghostOpacity,
+      emissive: getConfigColorHex(GHOST_CONFIG.glowColor),
+      emissiveIntensity: GHOST_CONFIG.emissiveIntensity,
       roughness: 0.02,
       metalness: 0.0,
       side: THREE.DoubleSide,
@@ -369,13 +190,13 @@ export default function GhostScene() {
 
     const rimLight1 = new THREE.DirectionalLight(
       0x4a90e2,
-      params.rimLightIntensity
+      GHOST_CONFIG.rimLightIntensity
     );
     rimLight1.position.set(-8, 6, -4);
     scene.add(rimLight1);
     const rimLight2 = new THREE.DirectionalLight(
       0x50e3c2,
-      params.rimLightIntensity * 0.7
+      GHOST_CONFIG.rimLightIntensity * 0.7
     );
     rimLight2.position.set(8, -4, -6);
     scene.add(rimLight2);
@@ -401,7 +222,7 @@ export default function GhostScene() {
 
       const eyeGeometry = new THREE.SphereGeometry(0.3, 12, 12);
       const leftEyeMaterial = new THREE.MeshBasicMaterial({
-        color: fluorescentColors[params.eyeGlowColor],
+        color: getConfigColorHex(GHOST_CONFIG.eyeGlowColor as string),
         transparent: true,
         opacity: 0,
       });
@@ -410,7 +231,7 @@ export default function GhostScene() {
       eyeGroup.add(leftEye);
 
       const rightEyeMaterial = new THREE.MeshBasicMaterial({
-        color: fluorescentColors[params.eyeGlowColor],
+        color: getConfigColorHex(GHOST_CONFIG.eyeGlowColor as string),
         transparent: true,
         opacity: 0,
       });
@@ -420,7 +241,7 @@ export default function GhostScene() {
 
       const outerGlowGeometry = new THREE.SphereGeometry(0.525, 12, 12);
       const leftOuterGlowMaterial = new THREE.MeshBasicMaterial({
-        color: fluorescentColors[params.eyeGlowColor],
+        color: getConfigColorHex(GHOST_CONFIG.eyeGlowColor as string),
         transparent: true,
         opacity: 0,
         side: THREE.BackSide,
@@ -433,7 +254,7 @@ export default function GhostScene() {
       eyeGroup.add(leftOuterGlow);
 
       const rightOuterGlowMaterial = new THREE.MeshBasicMaterial({
-        color: fluorescentColors[params.eyeGlowColor],
+        color: getConfigColorHex(GHOST_CONFIG.eyeGlowColor as string),
         transparent: true,
         opacity: 0,
         side: THREE.BackSide,
@@ -488,9 +309,9 @@ export default function GhostScene() {
 
       firefly.userData = {
         velocity: new THREE.Vector3(
-          (Math.random() - 0.5) * params.fireflySpeed,
-          (Math.random() - 0.5) * params.fireflySpeed,
-          (Math.random() - 0.5) * params.fireflySpeed
+          (Math.random() - 0.5) * GHOST_CONFIG.fireflySpeed,
+          (Math.random() - 0.5) * GHOST_CONFIG.fireflySpeed,
+          (Math.random() - 0.5) * GHOST_CONFIG.fireflySpeed
         ),
         phase: Math.random() * Math.PI * 2,
         pulseSpeed: 2 + Math.random() * 3,
@@ -513,7 +334,7 @@ export default function GhostScene() {
       new THREE.OctahedronGeometry(0.045, 0),
     ];
     const particleBaseMaterial = new THREE.MeshBasicMaterial({
-      color: fluorescentColors[params.particleColor],
+      color: getConfigColorHex(GHOST_CONFIG.particleColor),
       transparent: true,
       opacity: 0,
       alphaTest: 0.1,
@@ -538,7 +359,7 @@ export default function GhostScene() {
       if (particlePool.length > 0) {
         p = particlePool.pop();
         if (p) p.visible = true;
-      } else if (particles.length < params.particleCount) {
+      } else if (particles.length < GHOST_CONFIG.particleCount) {
         const geom =
           particleGeometries[
             Math.floor(Math.random() * particleGeometries.length)
@@ -549,7 +370,9 @@ export default function GhostScene() {
 
       if (!p) return null;
 
-      const pColor = new THREE.Color(fluorescentColors[params.particleColor]);
+      const pColor = new THREE.Color(
+        getConfigColorHex(GHOST_CONFIG.particleColor)
+      );
       pColor.offsetHSL(Math.random() * 0.1 - 0.05, 0, 0);
       const pMaterial = p.material as THREE.MeshBasicMaterial;
       pMaterial.color = pColor;
@@ -563,7 +386,7 @@ export default function GhostScene() {
       p.rotation.set(Math.random() * 6, Math.random() * 6, Math.random() * 6);
 
       p.userData.life = 1.0;
-      p.userData.decay = Math.random() * 0.003 + params.particleDecayRate;
+      p.userData.decay = Math.random() * 0.003 + GHOST_CONFIG.particleDecayRate;
       p.userData.rotationSpeed = {
         x: (Math.random() - 0.5) * 0.015,
         y: (Math.random() - 0.5) * 0.015,
@@ -670,7 +493,9 @@ export default function GhostScene() {
       // Atualizações de Uniforms
       atmosphereMaterial.uniforms.time.value = time;
       analogDecayPass.uniforms.uTime.value = time;
-      analogDecayPass.uniforms.uLimboMode.value = params.limboMode ? 1.0 : 0.0;
+      analogDecayPass.uniforms.uLimboMode.value = GHOST_CONFIG.limboMode
+        ? 1.0
+        : 0.0;
 
       // Movimento do Fantasma
       // Mobile: Movimento automático usando curva de Lissajous (orgânico e fluido)
@@ -704,29 +529,31 @@ export default function GhostScene() {
 
       const prevPos = ghostGroup.position.clone();
       ghostGroup.position.x +=
-        (targetX - ghostGroup.position.x) * params.followSpeed;
+        (targetX - ghostGroup.position.x) * GHOST_CONFIG.followSpeed;
       ghostGroup.position.y +=
-        (targetY - ghostGroup.position.y) * params.followSpeed;
+        (targetY - ghostGroup.position.y) * GHOST_CONFIG.followSpeed;
       atmosphereMaterial.uniforms.ghostPosition.value.copy(ghostGroup.position);
 
       const moveAmt = prevPos.distanceTo(ghostGroup.position);
       currentMovement =
-        currentMovement * params.eyeGlowDecay +
-        moveAmt * (1 - params.eyeGlowDecay);
+        currentMovement * GHOST_CONFIG.eyeGlowDecay +
+        moveAmt * (1 - GHOST_CONFIG.eyeGlowDecay);
 
       // Flutuação
-      ghostGroup.position.y += Math.sin(time * params.floatSpeed * 1.5) * 0.03;
+      ghostGroup.position.y +=
+        Math.sin(time * GHOST_CONFIG.floatSpeed * 1.5) * 0.03;
 
       // Pulso
-      const pulse1 = Math.sin(time * params.pulseSpeed) * params.pulseIntensity;
-      ghostMaterial.emissiveIntensity = params.emissiveIntensity + pulse1;
+      const pulse1 =
+        Math.sin(time * GHOST_CONFIG.pulseSpeed) * GHOST_CONFIG.pulseIntensity;
+      ghostMaterial.emissiveIntensity = GHOST_CONFIG.emissiveIntensity + pulse1;
 
       // Atualizar Olhos
-      const isMoving = currentMovement > params.movementThreshold;
+      const isMoving = currentMovement > GHOST_CONFIG.movementThreshold;
       const targetGlow = isMoving ? 1.0 : 0.0;
       const glowChangeSpeed = isMoving
-        ? params.eyeGlowResponse * 2
-        : params.eyeGlowResponse;
+        ? GHOST_CONFIG.eyeGlowResponse * 2
+        : GHOST_CONFIG.eyeGlowResponse;
       const newOpacity =
         eyes.leftEyeMaterial.opacity +
         (targetGlow - eyes.leftEyeMaterial.opacity) * glowChangeSpeed;
@@ -740,12 +567,12 @@ export default function GhostScene() {
       // Mobile: Sempre criar partículas (movimento automático está sempre ativo)
       const shouldCreate = isMobile
         ? currentMovement > 0.003 // Threshold menor para mobile (movimento automático é mais suave)
-        : params.createParticlesOnlyWhenMoving
+        : GHOST_CONFIG.createParticlesOnlyWhenMoving
           ? currentMovement > 0.005 && hasReceivedMouseInput
           : currentMovement > 0.005;
       if (shouldCreate && timestamp - lastParticleTime > 100) {
         const count = Math.min(
-          params.particleCreationRate,
+          GHOST_CONFIG.particleCreationRate,
           Math.max(1, Math.floor(moveAmt * 100))
         );
         Array.from({ length: count }).forEach(() => createParticle());

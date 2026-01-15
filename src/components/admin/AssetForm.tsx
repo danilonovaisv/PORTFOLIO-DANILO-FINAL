@@ -2,9 +2,10 @@
 
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { uploadSiteAsset } from '@/lib/supabase/storage';
-import { getSiteAssetRoleByKey } from '@/lib/supabase/asset-roles';
+
 import { upsertAsset } from '@/app/admin/(protected)/midia/actions';
+import { getSiteAssetRoleByKey } from '@/lib/supabase/asset-roles';
+import { uploadSiteAsset } from '@/lib/supabase/storage';
 
 type AssetFormProps = {
   preset?: {
@@ -57,8 +58,8 @@ export function AssetForm({ preset }: AssetFormProps) {
         router.refresh();
         // reset only file
         setFile(null);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Falha ao salvar');
       }
     });
   };

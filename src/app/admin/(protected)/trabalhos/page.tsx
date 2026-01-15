@@ -19,6 +19,7 @@ type Props = {
 
 export default async function TrabalhosPage(props: Props) {
   const searchParams = await props.searchParams;
+
   const supabase = await createClient();
 
   const resolvedSearchParams = searchParams || {};
@@ -134,14 +135,18 @@ export default async function TrabalhosPage(props: Props) {
                 </td>
                 <td className="px-4 py-3 text-slate-300">
                   <div className="flex flex-wrap gap-1 text-[11px]">
-                    {project.tags?.map((t: any) => (
-                      <span
-                        key={t.tag.slug}
-                        className="px-2 py-1 rounded bg-white/10"
-                      >
-                        {t.tag.label}
-                      </span>
-                    ))}
+                    {project.tags?.map((t: any) => {
+                      const tag = Array.isArray(t.tag) ? t.tag[0] : t.tag;
+                      if (!tag) return null;
+                      return (
+                        <span
+                          key={tag.slug}
+                          className="px-2 py-1 rounded bg-white/10"
+                        >
+                          {tag.label}
+                        </span>
+                      );
+                    })}
                   </div>
                 </td>
                 <td className="px-4 py-3 text-slate-300">

@@ -1,0 +1,1006 @@
+[
+  {
+    "files_json": [
+      {
+        "id": "8240537f-6f90-4a93-8939-eee391feb6ce",
+        "path": "projects/.keep",
+        "metadata": {"placeholder": true},
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/.keep",
+        "bucket_public": true
+      },
+      {
+        "id": "a441bfa8-79a0-4978-9c21-7c0f759e7402",
+        "path": "projects/advertising_video/gallery/VIDEOMANIFESTOGLAD_2_compressed_compressed-mp4.mp4",
+        "metadata": {
+          "eTag": "\"8f599c72114f6415a360312e9fd51799-4\"",
+          "size": 19900886,
+          "mimetype": "video/mp4",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T14:37:03.000Z",
+          "contentLength": 19900886,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/advertising_video/gallery/VIDEOMANIFESTOGLAD_2_compressed_compressed-mp4.mp4",
+        "bucket_public": true
+      },
+      {
+        "id": "37392130-3254-4602-8c48-d500f4b3221c",
+        "path": "projects/advertising_video/hero.png",
+        "metadata": {
+          "eTag": "\"ae12badefb9c572aed063f5b73b272bd\"",
+          "size": 1369874,
+          "mimetype": "image/png",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T14:36:59.000Z",
+          "contentLength": 1369874,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/advertising_video/hero.png",
+        "bucket_public": true
+      },
+      {
+        "id": "ccdd1a38-9b7c-41d1-bd15-269a9e22ff9c",
+        "path": "projects/advertising_video/thumb.png",
+        "metadata": {
+          "eTag": "\"ae12badefb9c572aed063f5b73b272bd\"",
+          "size": 1369874,
+          "mimetype": "image/png",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T14:36:58.000Z",
+          "contentLength": 1369874,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/advertising_video/thumb.png",
+        "bucket_public": true
+      },
+      {
+        "id": "b4986a81-2b6c-4da6-86ff-0dc96351fd69",
+        "path": "projects/campaign/gallery/converted-9-webp.webp",
+        "metadata": {
+          "eTag": "\"bd63a610153b871ef32f1ba35116fe79\"",
+          "size": 103128,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-15T10:00:42.000Z",
+          "contentLength": 103128,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/campaign/gallery/converted-9-webp.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "153c206b-5cee-4c26-af32-2fb1012d0889",
+        "path": "projects/campaign/hero.webp",
+        "metadata": {
+          "eTag": "\"bd63a610153b871ef32f1ba35116fe79\"",
+          "size": 103128,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-15T10:00:42.000Z",
+          "contentLength": 103128,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/campaign/hero.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "7794e58d-32bf-4039-8493-60f0c90eae2f",
+        "path": "projects/campaign/thumb.webp",
+        "metadata": {
+          "eTag": "\"bd63a610153b871ef32f1ba35116fe79\"",
+          "size": 103128,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-15T10:00:41.000Z",
+          "contentLength": 103128,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/campaign/thumb.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "bcc26e4d-969e-4530-a9d5-6fa900863096",
+        "path": "projects/creative-direction/gallery/converted-webp.webp",
+        "metadata": {
+          "eTag": "\"bca3868d87963dae052c41dd64750a12\"",
+          "size": 55842,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-15T10:03:55.000Z",
+          "contentLength": 55842,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/creative-direction/gallery/converted-webp.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "e856a2aa-3848-48de-bb69-cc82bd2eca8c",
+        "path": "projects/creative-direction/hero.webp",
+        "metadata": {
+          "eTag": "\"bca3868d87963dae052c41dd64750a12\"",
+          "size": 55842,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-15T10:03:55.000Z",
+          "contentLength": 55842,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/creative-direction/hero.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "85edc6e3-7d48-47d7-aebe-d0ae8f483d46",
+        "path": "projects/creative-direction/thumb.webp",
+        "metadata": {
+          "eTag": "\"bca3868d87963dae052c41dd64750a12\"",
+          "size": 55842,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-15T10:03:54.000Z",
+          "contentLength": 55842,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/creative-direction/thumb.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "2fbbc69a-b7eb-4e96-9c7a-f77b71029f6a",
+        "path": "projects/example-slug/.keep",
+        "metadata": {"placeholder": true},
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/example-slug/.keep",
+        "bucket_public": true
+      },
+      {
+        "id": "33815bf1-f3ca-4576-89c6-553956d2e9cc",
+        "path": "projects/example-slug/gallery/.keep",
+        "metadata": {"placeholder": true},
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/example-slug/gallery/.keep",
+        "bucket_public": true
+      },
+      {
+        "id": "5c76d5a4-8014-42a1-acf4-6767c6212c6a",
+        "path": "projects/key_vision/gallery/nescau-webp.webp",
+        "metadata": {
+          "eTag": "\"e41e6da548054d3ef6bf9be76073d84c\"",
+          "size": 42086,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T18:59:40.000Z",
+          "contentLength": 42086,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/key_vision/gallery/nescau-webp.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "b9138a46-110d-45a2-9a8b-24d106c53a28",
+        "path": "projects/key_vision/hero.webp",
+        "metadata": {
+          "eTag": "\"e41e6da548054d3ef6bf9be76073d84c\"",
+          "size": 42086,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T18:59:39.000Z",
+          "contentLength": 42086,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/key_vision/hero.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "7fd65ba9-30f7-422f-8c0e-10142a18d678",
+        "path": "projects/key_vision/thumb.webp",
+        "metadata": {
+          "eTag": "\"e41e6da548054d3ef6bf9be76073d84c\"",
+          "size": 42086,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T18:59:38.000Z",
+          "contentLength": 42086,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/key_vision/thumb.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "28117ea8-6fb5-4ab1-bd05-801d545f7863",
+        "path": "projects/key-vision/gallery/converted-5-webp.webp",
+        "metadata": {
+          "eTag": "\"38ecac1e62ed87db41b8486bed196ec3\"",
+          "size": 32230,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T19:56:36.000Z",
+          "contentLength": 32230,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/key-vision/gallery/converted-5-webp.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "38b721b1-ba72-4e50-bdfd-3c4a9abea37d",
+        "path": "projects/key-vision/hero.webp",
+        "metadata": {
+          "eTag": "\"38ecac1e62ed87db41b8486bed196ec3\"",
+          "size": 32230,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T19:56:36.000Z",
+          "contentLength": 32230,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/key-vision/hero.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "7d33f834-64ac-4b63-b5d0-611818e4230f",
+        "path": "projects/key-vision/thumb.webp",
+        "metadata": {
+          "eTag": "\"38ecac1e62ed87db41b8486bed196ec3\"",
+          "size": 32230,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T19:56:35.000Z",
+          "contentLength": 32230,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/key-vision/thumb.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "01015ac5-bf06-4983-ba2f-031ee815be08",
+        "path": "projects/key-visual/gallery/converted-10-webp.webp",
+        "metadata": {
+          "eTag": "\"91651a260d03ae59f2eaacaf0c25eedd\"",
+          "size": 59956,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-15T09:58:23.000Z",
+          "contentLength": 59956,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/key-visual/gallery/converted-10-webp.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "8d590989-f1cb-4361-8a95-801d94adcc89",
+        "path": "projects/key-visual/hero.webp",
+        "metadata": {
+          "eTag": "\"91651a260d03ae59f2eaacaf0c25eedd\"",
+          "size": 59956,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-15T09:58:03.000Z",
+          "contentLength": 59956,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/key-visual/hero.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "c3a6a4c3-9e82-43f0-b780-bbf21bea4e4f",
+        "path": "projects/key-visual/thumb.webp",
+        "metadata": {
+          "eTag": "\"91651a260d03ae59f2eaacaf0c25eedd\"",
+          "size": 59956,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-15T09:58:22.000Z",
+          "contentLength": 59956,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/key-visual/thumb.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "ad14c605-7eb8-4ee6-986f-909bbc3f17c7",
+        "path": "projects/video_manifesto/gallery/VIDEOMANIFESTOGLAD_2_compressed_compressed-mp4.mp4",
+        "metadata": {
+          "eTag": "\"8f599c72114f6415a360312e9fd51799-4\"",
+          "size": 19900886,
+          "mimetype": "video/mp4",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T14:08:58.000Z",
+          "contentLength": 19900886,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/video_manifesto/gallery/VIDEOMANIFESTOGLAD_2_compressed_compressed-mp4.mp4",
+        "bucket_public": true
+      },
+      {
+        "id": "534014ad-69b9-4f02-a8f7-07abd5a717e8",
+        "path": "projects/video_manifesto/hero.png",
+        "metadata": {
+          "eTag": "\"ae12badefb9c572aed063f5b73b272bd\"",
+          "size": 1369874,
+          "mimetype": "image/png",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T14:08:55.000Z",
+          "contentLength": 1369874,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/video_manifesto/hero.png",
+        "bucket_public": true
+      },
+      {
+        "id": "89ed2074-4eab-4965-8dac-ad1997592ef1",
+        "path": "projects/video_manifesto/thumb.png",
+        "metadata": {
+          "eTag": "\"ae12badefb9c572aed063f5b73b272bd\"",
+          "size": 1369874,
+          "mimetype": "image/png",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T14:08:54.000Z",
+          "contentLength": 1369874,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "portfolio-media",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/portfolio-media/projects/video_manifesto/thumb.png",
+        "bucket_public": true
+      },
+      {
+        "id": "c57f3b0e-ad69-4217-83e8-d7ed337f64dc",
+        "path": "about/hero/about.hero.desktop_video.mp4",
+        "metadata": {
+          "eTag": "\"c6a07aa69a9860b76ee6423d08608191-1\"",
+          "size": 2226364,
+          "mimetype": "video/mp4",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T20:50:15.000Z",
+          "contentLength": 2226364,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/about/hero/about.hero.desktop_video.mp4",
+        "bucket_public": true
+      },
+      {
+        "id": "883f4195-0180-4fb3-9a5c-f2a0cb0cc631",
+        "path": "about/hero/about.hero.mobile_video.mp4",
+        "metadata": {
+          "eTag": "\"4226cb40531758fc39b9660a44500392-1\"",
+          "size": 1231095,
+          "mimetype": "video/mp4",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T20:50:16.000Z",
+          "contentLength": 1231095,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/about/hero/about.hero.mobile_video.mp4",
+        "bucket_public": true
+      },
+      {
+        "id": "d42e8282-a3e6-4042-9f9f-93b830d36b2d",
+        "path": "about/method/about.method.desktop_video.mp4",
+        "metadata": {
+          "eTag": "\"6a1f389c77822530e76453c5c63838d5-1\"",
+          "size": 2767681,
+          "mimetype": "video/mp4",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T20:54:00.000Z",
+          "contentLength": 2767681,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/about/method/about.method.desktop_video.mp4",
+        "bucket_public": true
+      },
+      {
+        "id": "40781240-4a17-4e93-a4e9-3099ad9adbe1",
+        "path": "about/method/about.method.mobile_video.mp4",
+        "metadata": {
+          "eTag": "\"31e23424a66a3e7e889f36160b658e5b-1\"",
+          "size": 371927,
+          "mimetype": "video/mp4",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T20:53:59.000Z",
+          "contentLength": 371927,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/about/method/about.method.mobile_video.mp4",
+        "bucket_public": true
+      },
+      {
+        "id": "39f798aa-2e6b-4d5b-96a8-bd55e8f601a7",
+        "path": "about/origin/about.origin_image.1.webp",
+        "metadata": {
+          "eTag": "\"324e7b500dbb4afab15917499dfe2268\"",
+          "size": 21368,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T11:58:18.000Z",
+          "contentLength": 21368,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.1.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "c6c469ae-9e9a-4550-8e10-c9b679ce6d43",
+        "path": "about/origin/about.origin_image.2.webp",
+        "metadata": {
+          "eTag": "\"c7869b01cd427f594eb7708779b591f8-1\"",
+          "size": 77614,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T09:49:56.000Z",
+          "contentLength": 77614,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.2.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "9b72d642-9a25-4d9a-a6f4-674a70e62e81",
+        "path": "about/origin/about.origin_image.3.webp",
+        "metadata": {
+          "eTag": "\"b73c3d6861998adae4afbc8fc4bddd81-1\"",
+          "size": 40298,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T09:49:56.000Z",
+          "contentLength": 40298,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.3.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "adad3914-b0da-4acf-9364-b79a0710e3f5",
+        "path": "about/origin/about.origin_image.4.webp",
+        "metadata": {
+          "eTag": "\"664c1f927bb526070b65747fabcb7860-1\"",
+          "size": 58006,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T09:49:56.000Z",
+          "contentLength": 58006,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.4.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "763caf9e-4871-4aa2-9e03-a98eb16172f6",
+        "path": "clients/clients.strip.1.svg",
+        "metadata": {
+          "eTag": "\"3e996a0c9060947a1ca7131eb21aca02-1\"",
+          "size": 4196,
+          "mimetype": "image/svg+xml",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:42:00.000Z",
+          "contentLength": 4196,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.1.svg",
+        "bucket_public": true
+      },
+      {
+        "id": "5deef549-0b86-4fa5-b34e-476386cf1a68",
+        "path": "clients/clients.strip.10.svg",
+        "metadata": {
+          "eTag": "\"06d4debed53477cd4ec7b8e1b5ebdaca-1\"",
+          "size": 1190,
+          "mimetype": "image/svg+xml",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:42:00.000Z",
+          "contentLength": 1190,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.10.svg",
+        "bucket_public": true
+      },
+      {
+        "id": "7ef5c2f9-6689-4fb9-a113-7d028cf53a45",
+        "path": "clients/clients.strip.11.svg",
+        "metadata": {
+          "eTag": "\"328015e057179dc8e66919590562621f-1\"",
+          "size": 7867,
+          "mimetype": "image/svg+xml",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:42:00.000Z",
+          "contentLength": 7867,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.11.svg",
+        "bucket_public": true
+      },
+      {
+        "id": "b7139f1e-5ed0-4b5d-a934-660abfa34bba",
+        "path": "clients/clients.strip.12.svg",
+        "metadata": {
+          "eTag": "\"82d84d2d3291fcaa5ea8a8d4e2cf5988-1\"",
+          "size": 5719,
+          "mimetype": "image/svg+xml",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:42:01.000Z",
+          "contentLength": 5719,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.12.svg",
+        "bucket_public": true
+      },
+      {
+        "id": "d3ab1110-2091-408c-afb9-6a13b9d55c85",
+        "path": "clients/clients.strip.2.svg",
+        "metadata": {
+          "eTag": "\"8d4fc7f9d92bdcb832cb30e1ebf0ff91-1\"",
+          "size": 5973,
+          "mimetype": "image/svg+xml",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:42:00.000Z",
+          "contentLength": 5973,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.2.svg",
+        "bucket_public": true
+      },
+      {
+        "id": "97b91f15-29ad-4f07-9c60-605404efdb7e",
+        "path": "clients/clients.strip.3.svg",
+        "metadata": {
+          "eTag": "\"35d5653918107c88bb77f535b3461dd3-1\"",
+          "size": 3085,
+          "mimetype": "image/svg+xml",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:42:00.000Z",
+          "contentLength": 3085,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.3.svg",
+        "bucket_public": true
+      },
+      {
+        "id": "79e83fa7-a7df-4757-ba7b-81fc55571d9a",
+        "path": "clients/clients.strip.4.svg",
+        "metadata": {
+          "eTag": "\"78213440fab7477e37fcc4e26ea8a4ca-1\"",
+          "size": 28580,
+          "mimetype": "image/svg+xml",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:42:00.000Z",
+          "contentLength": 28580,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.4.svg",
+        "bucket_public": true
+      },
+      {
+        "id": "c647a67a-6c46-4c8b-bbae-0b1dcd23edd2",
+        "path": "clients/clients.strip.5.svg",
+        "metadata": {
+          "eTag": "\"14a4b223df4090bd659c66030e1e5202-1\"",
+          "size": 15327,
+          "mimetype": "image/svg+xml",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:42:00.000Z",
+          "contentLength": 15327,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.5.svg",
+        "bucket_public": true
+      },
+      {
+        "id": "b2a13b12-172b-46f6-b1e3-cd0375b1092f",
+        "path": "clients/clients.strip.6.svg",
+        "metadata": {
+          "eTag": "\"5e7e4d9e8a062a4ac01dc9a5bcba5551-1\"",
+          "size": 1972,
+          "mimetype": "image/svg+xml",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:42:01.000Z",
+          "contentLength": 1972,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.6.svg",
+        "bucket_public": true
+      },
+      {
+        "id": "913afa1e-8432-410f-8a01-83307f3c00f2",
+        "path": "clients/clients.strip.7.svg",
+        "metadata": {
+          "eTag": "\"1db1c386a466279aa313d6480dca5f31-1\"",
+          "size": 8077,
+          "mimetype": "image/svg+xml",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:42:00.000Z",
+          "contentLength": 8077,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.7.svg",
+        "bucket_public": true
+      },
+      {
+        "id": "6298bb00-6038-4ed7-85bd-346720c7c5cd",
+        "path": "clients/clients.strip.8.svg",
+        "metadata": {
+          "eTag": "\"bf81c12bbcc5e2f815c6c7bb7974fcb9-1\"",
+          "size": 3466,
+          "mimetype": "image/svg+xml",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:42:00.000Z",
+          "contentLength": 3466,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.8.svg",
+        "bucket_public": true
+      },
+      {
+        "id": "4c94aaea-0027-4630-8ffe-e0ee26a56075",
+        "path": "clients/clients.strip.9.svg",
+        "metadata": {
+          "eTag": "\"fd73be691a0a64680ea9580420c1634c-1\"",
+          "size": 39404,
+          "mimetype": "image/svg+xml",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:42:00.000Z",
+          "contentLength": 39404,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.9.svg",
+        "bucket_public": true
+      },
+      {
+        "id": "90970c00-636a-4064-81c8-d8dcd348cd30",
+        "path": "clients/clients/clients.strip.10.svg",
+        "metadata": {
+          "eTag": "\"b84b6cdb74b8ec53bb12eb982d347180\"",
+          "size": 884,
+          "mimetype": "image/svg+xml",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-15T09:33:44.000Z",
+          "contentLength": 884,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/clients/clients/clients.strip.10.svg",
+        "bucket_public": true
+      },
+      {
+        "id": "81ba93a1-5915-4445-8fd5-9270a208c24f",
+        "path": "clients/clients/clients.strip.11.svg",
+        "metadata": {
+          "eTag": "\"f601563462fc6ad894ad266d6a1b3b25\"",
+          "size": 6780,
+          "mimetype": "image/svg+xml",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-15T09:33:35.000Z",
+          "contentLength": 6780,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/clients/clients/clients.strip.11.svg",
+        "bucket_public": true
+      },
+      {
+        "id": "ccd459d3-34a6-43db-adad-0c2bded0e709",
+        "path": "global/fonts/global.font_body.woff2",
+        "metadata": {
+          "eTag": "\"edb5ae1ad0fd57f8f610e26405b07ff3\"",
+          "size": 76620,
+          "mimetype": "application/octet-stream",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:24:12.000Z",
+          "contentLength": 76620,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_body.woff2",
+        "bucket_public": true
+      },
+      {
+        "id": "5962a95d-3085-4a9f-8a3e-71e276a1a4f1",
+        "path": "global/fonts/global.font_display.woff2",
+        "metadata": {
+          "eTag": "\"38fb7710a19d02c69d2a9fdae090cd73\"",
+          "size": 49476,
+          "mimetype": "application/octet-stream",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:23:24.000Z",
+          "contentLength": 49476,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_display.woff2",
+        "bucket_public": true
+      },
+      {
+        "id": "b74ae71d-9a13-4029-a545-fcc0e22e689c",
+        "path": "global/fonts/global.font_h1.woff2",
+        "metadata": {
+          "eTag": "\"813ba2def05c4920d7c5de5f111fe5a1\"",
+          "size": 77712,
+          "mimetype": "application/octet-stream",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:24:41.000Z",
+          "contentLength": 77712,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_h1.woff2",
+        "bucket_public": true
+      },
+      {
+        "id": "b3e6801c-9d59-4308-b606-f16c6ec09223",
+        "path": "global/fonts/global.font_h2.woff2",
+        "metadata": {
+          "eTag": "\"813ba2def05c4920d7c5de5f111fe5a1\"",
+          "size": 77712,
+          "mimetype": "font/woff2",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T09:51:33.000Z",
+          "contentLength": 77712,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_h2.woff2",
+        "bucket_public": true
+      },
+      {
+        "id": "c88641d7-e611-4616-96c6-b4511c9f2d51",
+        "path": "global/fonts/global.font_h3.woff2",
+        "metadata": {
+          "eTag": "\"dab1b120bf8fffcdaebba3d47b8edca1\"",
+          "size": 76708,
+          "mimetype": "application/octet-stream",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:26:18.000Z",
+          "contentLength": 76708,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_h3.woff2",
+        "bucket_public": true
+      },
+      {
+        "id": "a22d359c-7453-467c-9eb6-a04f7abef7b2",
+        "path": "global/fonts/global.font_light.woff2",
+        "metadata": {
+          "eTag": "\"4430808a85777a696e2b5661e868294a\"",
+          "size": 76472,
+          "mimetype": "application/octet-stream",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:26:50.000Z",
+          "contentLength": 76472,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_light.woff2",
+        "bucket_public": true
+      },
+      {
+        "id": "12784b02-4e6c-453a-8697-a7db99a0d680",
+        "path": "global/logos/.emptyFolderPlaceholder",
+        "metadata": {
+          "eTag": "\"d41d8cd98f00b204e9800998ecf8427e\"",
+          "size": 0,
+          "mimetype": "application/octet-stream",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:11:32.895Z",
+          "contentLength": 0,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/global/logos/.emptyFolderPlaceholder",
+        "bucket_public": true
+      },
+      {
+        "id": "2586a581-8c4c-426d-ab69-6b3b27d3949e",
+        "path": "global/logos/global.favicon_dark.svg",
+        "metadata": {
+          "eTag": "\"ca3c0d25dbae39ff00d78c9689f5bceb\"",
+          "size": 2948,
+          "mimetype": "image/svg+xml",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:17:48.000Z",
+          "contentLength": 2948,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/global/logos/global.favicon_dark.svg",
+        "bucket_public": true
+      },
+      {
+        "id": "00c2c459-2bc4-483a-8c6f-61a5ea2d5c99",
+        "path": "global/logos/global.favicon_light.svg",
+        "metadata": {
+          "eTag": "\"c03c9845d26d9a357363835e6f990aad\"",
+          "size": 2424,
+          "mimetype": "image/svg+xml",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:16:54.000Z",
+          "contentLength": 2424,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/global/logos/global.favicon_light.svg",
+        "bucket_public": true
+      },
+      {
+        "id": "dfeaed1e-6bf9-46e8-af0b-9f10310fd4bd",
+        "path": "global/logos/global.logo_header_dark.svg",
+        "metadata": {
+          "eTag": "\"28642a7fc04902a7d9cce22a50e37c33\"",
+          "size": 4222,
+          "mimetype": "image/svg+xml",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:12:56.000Z",
+          "contentLength": 4222,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/global/logos/global.logo_header_dark.svg",
+        "bucket_public": true
+      },
+      {
+        "id": "851586f5-b059-4851-a749-f6d44a77d8bf",
+        "path": "global/logos/global.logo_header_light.svg",
+        "metadata": {
+          "eTag": "\"83865d04f8c08a75c6ebc19b439a762c\"",
+          "size": 61371,
+          "mimetype": "image/svg+xml",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T08:15:28.000Z",
+          "contentLength": 61371,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/global/logos/global.logo_header_light.svg",
+        "bucket_public": true
+      },
+      {
+        "id": "8d4e559c-18a6-49f4-92b1-af92241af43c",
+        "path": "home/home.manifesto_video.mp4",
+        "metadata": {
+          "eTag": "\"3e2da52ed096c186cfeddde21f19c40e-2\"",
+          "size": 7092860,
+          "mimetype": "video/mp4",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T11:41:53.000Z",
+          "contentLength": 7092860,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/home/home.manifesto_video.mp4",
+        "bucket_public": true
+      },
+      {
+        "id": "02aa764f-d0e2-45f9-bb3b-049339c99e2f",
+        "path": "home/showcase/Branding-Project.webp",
+        "metadata": {
+          "eTag": "\"ca8db1e626057fb2fd6bc005ea88468f-1\"",
+          "size": 135522,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T20:07:57.000Z",
+          "contentLength": 135522,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/home/showcase/Branding-Project.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "a86499a0-f68f-41f0-a8d1-942c57a70e78",
+        "path": "home/showcase/Key-Visual.webp",
+        "metadata": {
+          "eTag": "\"89f1981de17dc3d47a5aa4bbf390f404-1\"",
+          "size": 182534,
+          "mimetype": "image/webp",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T20:07:57.000Z",
+          "contentLength": 182534,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/home/showcase/Key-Visual.webp",
+        "bucket_public": true
+      },
+      {
+        "id": "eba2e40c-0105-44c1-aae8-42d48883e6a0",
+        "path": "home/showcase/show.video.mp4",
+        "metadata": {
+          "eTag": "\"77eeab64941ab8d5cbf7d445498f35f2\"",
+          "size": 1901766,
+          "mimetype": "video/mp4",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T20:05:57.000Z",
+          "contentLength": 1901766,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/home/showcase/show.video.mp4",
+        "bucket_public": true
+      },
+      {
+        "id": "f0774555-65f9-4222-91c3-8d5f215a5313",
+        "path": "home/showcase/webdesigner-2.gif",
+        "metadata": {
+          "eTag": "\"6bad9fe3a837815669b2e901d0d234e8-1\"",
+          "size": 2688960,
+          "mimetype": "image/gif",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T20:07:57.000Z",
+          "contentLength": 2688960,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/home/showcase/webdesigner-2.gif",
+        "bucket_public": true
+      },
+      {
+        "id": "1bd8708d-e779-4bbd-9110-02b0fc7f1dbb",
+        "path": "portfolio/portfolio.hero_desktop_video.mp4",
+        "metadata": {
+          "eTag": "\"3831364585fba047d2dcbdb67010ae1f-1\"",
+          "size": 4035858,
+          "mimetype": "video/mp4",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T09:51:53.000Z",
+          "contentLength": 4035858,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/portfolio/portfolio.hero_desktop_video.mp4",
+        "bucket_public": true
+      },
+      {
+        "id": "d501b0ec-2c3c-49d8-be0c-dae2144bc597",
+        "path": "portfolio/portfolio.hero_mobile_video.mp4",
+        "metadata": {
+          "eTag": "\"9df41367ccc0cdcdbd1d1c883a8ee06b-1\"",
+          "size": 4472593,
+          "mimetype": "video/mp4",
+          "cacheControl": "max-age=3600",
+          "lastModified": "2026-01-14T09:51:53.000Z",
+          "contentLength": 4472593,
+          "httpStatusCode": 200
+        },
+        "bucket_id": "site-assets",
+        "public_url": "https://your-project-ref.supabase.co/storage/v1/object/public/site-assets/portfolio/portfolio.hero_mobile_video.mp4",
+        "bucket_public": true
+      }
+    ]
+  }
+]

@@ -1,10 +1,11 @@
 'use client';
 
-import { useTransition, useState } from 'react';
+import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
-import { useForm, type Resolver, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, type Resolver, type SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
+
 import { createClientComponentClient } from '@/lib/supabase/client';
 import type { DbTag } from '@/types/admin';
 
@@ -57,8 +58,10 @@ export function TagForm({ tag, onSaved }: Props) {
         if (upsertError) throw upsertError;
         router.refresh();
         onSaved?.();
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : 'Ocorreu um erro desconhecido'
+        );
       }
     });
   };

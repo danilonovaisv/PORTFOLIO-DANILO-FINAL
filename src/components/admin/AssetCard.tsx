@@ -1,20 +1,21 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import Image from 'next/image';
-import { uploadSiteAsset } from '@/lib/supabase/storage';
-import {
-  siteAssetRoleMap,
-  type SiteAssetRole,
-} from '@/lib/supabase/asset-roles';
+import { useRouter } from 'next/navigation';
+
 import {
   assignAssetRole,
   removeAsset,
 } from '@/app/admin/(protected)/midia/actions';
-import type { DbAsset } from '@/types/admin';
-import { createClientComponentClient } from '@/lib/supabase/client';
 import { AssetRoleMenu } from '@/components/admin/AssetRoleMenu';
+import {
+  siteAssetRoleMap,
+  type SiteAssetRole,
+} from '@/lib/supabase/asset-roles';
+import { createClientComponentClient } from '@/lib/supabase/client';
+import { uploadSiteAsset } from '@/lib/supabase/storage';
+import type { DbAsset } from '@/types/admin';
 
 type Props = {
   asset: DbAsset;
@@ -46,8 +47,8 @@ export function AssetCard({ asset }: Props) {
           .eq('id', asset.id);
         if (updateError) throw updateError;
         router.refresh();
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Falha no upload');
       }
     });
   };
@@ -58,8 +59,10 @@ export function AssetCard({ asset }: Props) {
       try {
         await assignAssetRole({ assetId: asset.id, role });
         router.refresh();
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : 'Falha na alteração do papel'
+        );
       }
     });
   };
@@ -90,8 +93,8 @@ export function AssetCard({ asset }: Props) {
           file_path: asset.file_path,
         });
         router.refresh();
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Falha na exclusão');
       }
     });
   };

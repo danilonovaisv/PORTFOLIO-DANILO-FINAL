@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useTransition } from 'react';
-import { useForm, type Resolver, type SubmitHandler } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { useRouter } from 'next/navigation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, type Resolver, type SubmitHandler } from 'react-hook-form';
+import { z } from 'zod';
+
 import { createClientComponentClient } from '@/lib/supabase/client';
 import { uploadToBucket } from '@/lib/supabase/storage';
 import type { DbProject, DbTag } from '@/types/admin';
@@ -74,7 +75,7 @@ export function ProjectForm({ project, tags, selectedTagIds = [] }: Props) {
         const galleryEntries: Array<{ path: string }> = Array.isArray(
           project?.gallery
         )
-          ? project?.gallery?.map((item: any) => ({ path: item.path ?? item }))
+          ? project?.gallery?.map((item) => ({ path: item.path }))
           : [];
 
         if (thumbnail) {
@@ -143,8 +144,10 @@ export function ProjectForm({ project, tags, selectedTagIds = [] }: Props) {
 
         router.push('/admin/trabalhos');
         router.refresh();
-      } catch (err: any) {
-        setError(err.message);
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : 'Ocorreu um erro desconhecido'
+        );
       }
     });
   };

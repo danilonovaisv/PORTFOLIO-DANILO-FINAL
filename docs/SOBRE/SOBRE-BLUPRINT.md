@@ -1185,7 +1185,9 @@ Font-weight:  700
 "GHOST  DESIGN"  em  `primary`
 "ISSO É" em branco
 
----
+"ISSO É 
+GHOST 
+DESIGN"
 
 ## Layout — Mobile
 ### Estrutura
