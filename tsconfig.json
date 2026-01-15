@@ -4,7 +4,11 @@
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
     "module": "ESNext",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "baseUrl": ".",
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
@@ -12,9 +16,11 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "allowJs": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     },
     "allowImportingTsExtensions": true,
     "declaration": true,
@@ -29,7 +35,10 @@
         "name": "next"
       }
     ],
-    "types": ["node", "jest"]
+    "types": [
+      "node",
+      "jest"
+    ]
   },
   "include": [
     "next-env.d.ts",

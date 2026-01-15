@@ -6,7 +6,7 @@ import {
   useReducedMotion,
   useScroll,
 } from "framer-motion";
-import "./styles.css";
+import "./AboutBeliefs.css";
 
 const phrases = [
   "Um vídeo que respira.",
@@ -42,7 +42,7 @@ const phraseVariants = {
     y: 0,
   },
   exit: (reduceMotion) => ({
-    opacity: 0,
+    opacity: reduceMotion ? 0 : 0,
     filter: reduceMotion ? "none" : "blur(12px)",
     y: reduceMotion ? 0 : -28,
   }),
