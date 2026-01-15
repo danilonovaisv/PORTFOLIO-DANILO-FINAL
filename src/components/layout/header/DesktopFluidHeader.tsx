@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useMemo, useRef } from 'react';
+import Image from 'next/image';
+import { useMemo, useRef } from 'react';
 import type { NavItem } from './types';
 import styles from './DesktopFluidHeader.module.css';
 
@@ -73,14 +74,12 @@ export default function DesktopFluidHeader({
                 aria-label="Ir para Home"
                 className="flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-full"
               >
-                <img
+                <Image
                   src={logoUrl}
                   alt="Danilo"
                   width={32}
                   height={32}
                   className="h-8 w-auto transition-colors duration-300"
-                  style={{ width: 'auto' }}
-                  loading="eager"
                 />
               </Link>
 

@@ -184,16 +184,16 @@ export type Database = {
       };
     };
     Views: {
-      [key in never]: never;
+      [_ in never]: never;
     };
     Functions: {
-      [key in never]: never;
+      [_ in never]: never;
     };
     Enums: {
-      [key in never]: never;
+      [_ in never]: never;
     };
     CompositeTypes: {
-      [key in never]: never;
+      [_ in never]: never;
     };
   };
 };

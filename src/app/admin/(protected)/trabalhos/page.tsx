@@ -3,6 +3,7 @@ export const runtime = 'nodejs';
 export const fetchCache = 'force-no-store';
 
 import Link from 'next/link';
+import Image from 'next/image'; // Added import for next/image
 import { createClient } from '@/lib/supabase/server';
 import { togglePublish } from '@/lib/supabase/queries/projects';
 
@@ -111,9 +112,11 @@ export default async function TrabalhosPage(props: Props) {
                 <td className="px-4 py-3 font-medium text-white">
                   <div className="flex items-center gap-3">
                     {project.thumbnail_path && (
-                      <img
+                      <Image
                         src={`${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/portfolio-media/${project.thumbnail_path}`}
                         alt={project.title}
+                        width={64} // Assuming width of 16 * 4 = 64px at 1x scale
+                        height={40} // Assuming height of 10 * 4 = 40px at 1x scale
                         className="h-10 w-16 rounded object-cover border border-white/10"
                       />
                     )}

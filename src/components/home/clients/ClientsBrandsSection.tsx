@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
+import Image from 'next/image';
 import { HOME_CONTENT } from '@/config/content';
 import { useSiteAssetsByPrefix } from '@/contexts/site-assets';
 
@@ -78,10 +78,12 @@ export default function ClientsBrandsSection() {
                 className="group relative w-32 h-16 md:w-40 md:h-20 flex items-center justify-center"
                 aria-label={logo.alt}
               >
-                <img
+                <Image
                   src={logo.src}
                   alt={logo.alt}
+                  fill
                   className="w-full h-full object-contain filter brightness-0 invert opacity-60 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110 will-change-transform"
+                  sizes="(max-width: 768px) 128px, (max-width: 1200px) 160px, 160px"
                   loading="lazy"
                 />
               </motion.div>

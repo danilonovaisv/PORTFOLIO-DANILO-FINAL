@@ -1,10 +1,9 @@
 'use client';
 
-import { useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react'; // ✅ useState incluído
 import {
   AnimatePresence,
   motion,
-  useInView,
   useMotionValueEvent,
   useReducedMotion,
   useScroll,
@@ -64,19 +63,26 @@ export function AboutBeliefs() {
     setStepIndex(clamp(idx, 0, steps - 1));
   });
 
+  // ✅ Cria um array fixo de refs e hooks
+  const phraseRefs = useRef<(HTMLElement | null)[]>([]);
+  const isInViewArray = useRef<boolean[]>([]);
+
+  // Inicializa os refs e estados de view se ainda não existirem
+  if (phraseRefs.current.length !== PHRASES.length) {
+    phraseRefs.current = Array(PHRASES.length).fill(null);
+    isInViewArray.current = Array(PHRASES.length).fill(false);
+  }
+
+  // Atualiza manualmente o estado de visibilidade (sem usar useInView dentro do render)
+  // Alternativa mais segura: use um único observer ou dependa apenas do scrollYProgress
+
+  // 👉 Vamos simplificar: vamos usar APENAS scrollYProgress para sincronizar
+  // Isso evita o bug de ref e é mais performático
+
   const isFinal = stepIndex === steps - 1;
   const phraseIndex = clamp(stepIndex, 0, PHRASES.length - 1);
 
-  // Cada frase tem seu próprio ref para useInView
-  const phraseRefs = useRef<HTMLElement[]>([]);
-
-  // Define quando cada frase entra (50% visível)
-  const isInViewArray = PHRASES.map((_, i) => {
-    const ref = phraseRefs.current[i];
-    return useInView(ref, { amount: 0.5, once: true });
-  });
-
-  // Renderiza overlays empilhados para fundo sem fade
+  // Renderiza overlays de fundo (sem fade)
   const backgroundOverlays = BACKGROUNDS.map((color, i) => (
     <motion.div
       key={i}
@@ -96,12 +102,10 @@ export function AboutBeliefs() {
 
   return (
     <section ref={sectionRef} className="moveSection relative overflow-hidden">
-      {/* Overlays de fundo */}
       {backgroundOverlays}
 
       <div className="moveSticky">
         <div className="grid">
-          {/* Título fixo */}
           <div className="titleArea" ref={titleRef}>
             <motion.div
               initial={{ opacity: 0, filter: 'blur(10px)' }}
@@ -124,23 +128,22 @@ export function AboutBeliefs() {
             </motion.div>
           </div>
 
-          {/* Frase central */}
           <div className="phraseArea" aria-live="polite">
             <AnimatePresence mode="wait">
               {!isFinal ? (
                 <motion.div
                   key={`phrase-${phraseIndex}`}
                   className="font-h2 phrase"
-                  ref={(el) => (phraseRefs.current[phraseIndex] = el)}
+                  // Removemos o ref dinâmico problemático
                   initial={
                     prefersReduced
                       ? { opacity: 1 }
                       : { opacity: 0, x: -100, filter: 'blur(8px)' }
                   }
                   animate={
-                    prefersReduced || isInViewArray[phraseIndex]
+                    prefersReduced
                       ? { opacity: 1, x: 0, filter: 'blur(0px)' }
-                      : undefined
+                      : { opacity: 1, x: 0, filter: 'blur(0px)' }
                   }
                   exit={
                     prefersReduced

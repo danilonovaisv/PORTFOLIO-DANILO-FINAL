@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
@@ -295,10 +296,12 @@ const AboutOrigin: React.FC = () => {
 
                   {/* Mobile Image (1:1 Aspect Ratio) */}
                   <div className="lg:hidden mt-8 w-full aspect-square rounded-[24px] overflow-hidden bg-[#060018] shadow-2xl">
-                    <img
+                    <Image
                       src={block.img}
                       alt={block.alt}
+                      fill
                       className="mobile-img w-full h-full object-cover"
+                      sizes="(max-width: 1024px) 100vw, 560px"
                     />
                   </div>
                 </div>
@@ -317,10 +320,12 @@ const AboutOrigin: React.FC = () => {
                   key={`desktop-img-${block.id}`}
                   className="img-wrapper absolute inset-0 rounded-[24px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,1)] bg-[#040013]"
                 >
-                  <img
+                  <Image
                     src={block.img}
                     alt={block.alt}
+                    fill
                     className="w-full h-full object-cover will-change-transform"
+                    sizes="(min-width: 1024px) 560px, 100vw"
                   />
                 </div>
               ))}

@@ -1,46 +1,45 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+import Link from 'next/link';
 
-type GlobalErrorProps = {
+export default function GlobalError({
+  error,
+  reset,
+}: {
   error: Error & { digest?: string };
   reset: () => void;
-};
-
-// Custom global error boundary to avoid Next.js preview instability when prerendering the default fallback.
-export default function GlobalError({ error, reset }: GlobalErrorProps) {
+}) {
   useEffect(() => {
-    console.error('Global error boundary caught an error:', error);
+    console.error('Global error:', error);
   }, [error]);
 
   return (
     <html>
-      <body className="bg-black text-white min-h-screen flex items-center justify-center px-6">
-        <div className="max-w-xl text-center space-y-4">
-          <p className="text-sm uppercase tracking-wide text-white/70">
-            Algo deu errado
+      <body className="bg-background text-foreground">
+        <div className="flex min-h-screen flex-col items-center justify-center p-4">
+          <h2 className="mb-4 text-2xl font-bold text-destructive">
+            Ops! Algo deu errado.
+          </h2>
+          <p className="mb-4 text-muted-foreground">
+            {error.message || 'Ocorreu um erro na aplicação.'}
           </p>
-          <h1 className="text-3xl font-semibold">
-            Não foi possível carregar a página.
-          </h1>
-          {error?.digest && (
-            <p className="text-xs text-white/60 break-all">
-              Código: {error.digest}
-            </p>
-          )}
-          <div className="flex gap-3 justify-center">
+
+          <div className="flex gap-4">
             <button
               onClick={() => reset()}
-              className="px-4 py-2 rounded-lg bg-white text-black font-semibold hover:bg-white/90 transition"
+              className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
             >
               Tentar novamente
             </button>
-            <a
+
+            {/* Use Link instead of <a> tag */}
+            <Link
               href="/"
-              className="px-4 py-2 rounded-lg border border-white/30 text-white hover:border-white transition"
+              className="rounded bg-secondary px-4 py-2 text-white hover:bg-secondary/80"
             >
-              Voltar ao início
-            </a>
+              Voltar para Home
+            </Link>
           </div>
         </div>
       </body>
