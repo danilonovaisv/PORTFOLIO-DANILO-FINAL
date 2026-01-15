@@ -13,5 +13,15 @@
     "content": "#3 ✓ [Build] Verify Production Build",
     "status": "completed",
     "activeForm": "Success"
+  },
+  {
+    "content": "#4 ✓ [Debug] Analyze firebase-debug.log",
+    "status": "completed",
+    "activeForm": "Log analyzed (JSON parser error)"
+  },
+  {
+    "content": "#5 ○ [Fix] Remove .npmrc and generate package-lock.json",
+    "status": "in_progress",
+    "activeForm": "Sanitizing env"
   }
 ]

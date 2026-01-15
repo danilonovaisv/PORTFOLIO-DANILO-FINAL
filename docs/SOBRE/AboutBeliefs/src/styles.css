@@ -1,0 +1,63 @@
+@font-face {
+  font-family: "TT Norms Pro";
+  font-style: bold;
+  font-weight: 900;
+  font-display: swap;
+  src: url(https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_h1.woff2)
+    format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  min-height: 90vh;
+}
+
+section {
+  box-sizing: border-box;
+  width: 100%;
+  height: 101vh;
+  display: flex;
+  justify-content: flex-start;
+  overflow: hidden;
+  padding: 50px;
+  background: #0048ff;
+}
+
+section:nth-child(2) {
+  background: #8705f2;
+}
+
+section:nth-child(3) {
+  background: #f501d3;
+}
+
+section:nth-child(4) {
+  background: #0048ff;
+}
+section:nth-child(5) {
+  background: #8705f2;
+}
+
+section:nth-child(6) {
+  background: #f501d3;
+}
+
+section span {
+  display: block;
+  transform: translateX(-100px);
+  opacity: 0;
+}
+
+* {
+  font-weight: 700;
+  font-family: "TT-Norms-Pro-black", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #4fe6ff;
+  font-size: 64px;
+  letter-spacing: -1px;
+}
