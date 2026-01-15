@@ -9,4 +9,4 @@ export PATH="$(pwd)/scripts:$PATH"
 
 pnpm run build:prod
 
-firebase deploy --only hosting --project portfolio-danilo-novais
+firebase deploy --only hosting --project portfolio-danilo-novais --debug

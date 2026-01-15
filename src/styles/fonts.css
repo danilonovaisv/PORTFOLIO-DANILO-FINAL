@@ -1,11 +1,7 @@
 /* TT Norms Pro - Primary Font */
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url(var(
-        --supabase-url,
-        'https://umkmwbkwvulxtdodzmzf.supabase.co'
-      )/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Thin.woff2)
-    format('woff2');
+  src: url('/fonts/TT%20Norms%20Pro%20Thin.woff2') format('woff2');
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -13,11 +9,7 @@
 
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url(var(
-        --supabase-url,
-        'https://umkmwbkwvulxtdodzmzf.supabase.co'
-      )/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Light.woff2)
-    format('woff2');
+  src: url('/fonts/TT%20Norms%20Pro%20Light.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -25,11 +17,7 @@
 
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url(var(
-        --supabase-url,
-        'https://umkmwbkwvulxtdodzmzf.supabase.co'
-      )/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Regular.woff2)
-    format('woff2');
+  src: url('/fonts/TT%20Norms%20Pro%20Regular.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -37,11 +25,7 @@
 
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url(var(
-        --supabase-url,
-        'https://umkmwbkwvulxtdodzmzf.supabase.co'
-      )/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Medium.woff2)
-    format('woff2');
+  src: url('/fonts/TT%20Norms%20Pro%20Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -49,11 +33,7 @@
 
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url(var(
-        --supabase-url,
-        'https://umkmwbkwvulxtdodzmzf.supabase.co'
-      )/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Bold.woff2)
-    format('woff2');
+  src: url('/fonts/TT%20Norms%20Pro%20Bold.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -61,11 +41,7 @@
 
 @font-face {
   font-family: 'TT Norms Pro';
-  src: url(var(
-        --supabase-url,
-        'https://umkmwbkwvulxtdodzmzf.supabase.co'
-      )/storage/v1/object/public/assets/fonts/TT%20Norms%20Pro%20Black.woff2)
-    format('woff2');
+  src: url('/fonts/TT%20Norms%20Pro%20Black.woff2') format('woff2');
   font-weight: 900;
   font-style: normal;
   font-display: swap;

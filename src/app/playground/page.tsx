@@ -84,7 +84,7 @@ export default function LayoutPlayground() {
         >
           <div className="relative w-full h-full max-w-[1680px] mx-auto">
             <Image
-              src="/reference-layout.jpg"
+              src="/referencia/HOME-PORTFOLIO-BLACK---GHOST.jpg"
               alt="Layout Reference"
               fill
               className="object-top object-contain"

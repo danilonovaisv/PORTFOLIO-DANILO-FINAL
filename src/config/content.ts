@@ -1,3 +1,11 @@
+import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
+
+const siteAsset = (path: string) =>
+  buildSupabaseStorageUrl('site-assets', path);
+
+const projectMedia = (path: string) =>
+  buildSupabaseStorageUrl('portfolio-media', path);
+
 export const HOME_CONTENT = {
   hero: {
     tag: '[BRAND AWARENESS]',
@@ -32,8 +40,7 @@ export const HOME_CONTENT = {
         // Otimizado: Quebra forçada para evitar viúva em mobile pequeno
         titleMobile: 'Brand &\nCampaigns',
         align: 'end',
-        thumb:
-          'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
+        thumb: siteAsset('home/showcase/Branding-Project.webp'),
       },
       {
         id: 'videos-motions',
@@ -41,8 +48,7 @@ export const HOME_CONTENT = {
         titleDesktop: 'Videos & Motion',
         titleMobile: 'Videos &\nMotion',
         align: 'center',
-        thumb:
-          'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
+        thumb: siteAsset('home/showcase/Key-Visual.webp'),
       },
       {
         id: 'websites-webcampaigns-tech',
@@ -52,8 +58,7 @@ export const HOME_CONTENT = {
         // Otimizado: Quebra estratégica para mobile (3 linhas equilibradas)
         titleMobile: 'Web Campaigns,\nWebsites & Tech',
         align: 'start',
-        thumb:
-          'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/WelcomeAd_800x500px.webp',
+        thumb: siteAsset('home/showcase/webdesigner-2.gif'),
       },
     ],
   },
@@ -67,7 +72,7 @@ export const HOME_CONTENT = {
       client: 'Magic',
       year: 2023,
       tags: ['Branding', 'Campaign'],
-      img: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/converted-(1).webp',
+      img: projectMedia('projects/creative-direction/hero.webp'),
       layout: {
         // Otimizado: 'min-h' previne overflow de texto, 'aspect' mantém proporção visual
         h: 'min-h-[400px] md:h-[500px] aspect-[4/5] md:aspect-auto',
@@ -83,7 +88,7 @@ export const HOME_CONTENT = {
       client: 'Cliente confidencial',
       year: 2022,
       tags: ['Strategy', 'Identity'],
-      img: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/Branding-Project.webp',
+      img: projectMedia('projects/campaign/hero.webp'),
       layout: {
         h: 'min-h-[400px] md:h-[500px] aspect-[4/5] md:aspect-auto',
         cols: 'md:col-span-7',
@@ -98,7 +103,7 @@ export const HOME_CONTENT = {
       client: 'Cliente confidencial',
       year: 2021,
       tags: ['Art Direction'],
-      img: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/converted-(5).webp',
+      img: projectMedia('projects/key-vision/gallery/converted-5-webp.webp'),
       layout: {
         // Otimizado: Altura maior para destaque full-width
         h: 'min-h-[400px] md:h-[600px]',
@@ -114,7 +119,7 @@ export const HOME_CONTENT = {
       client: 'Cliente confidencial',
       year: 2023,
       tags: ['UX/UI', 'Animation'],
-      img: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-images/webdesigner-2%202.gif',
+      img: projectMedia('projects/key_vision/hero.webp'),
       layout: {
         h: 'min-h-[400px] md:h-[400px] aspect-video md:aspect-auto',
         cols: 'md:col-span-8',
@@ -127,7 +132,7 @@ export const HOME_CONTENT = {
     title: 'marcas com as quais já trabalhei',
     logos: Array.from({ length: 12 }, (_, i) => ({
       id: i + 1,
-      src: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/client-logos/client${i + 1}.svg`,
+      src: siteAsset(`clients/clients.strip.${i + 1}.svg`),
       alt: `Logo do cliente ${i + 1}`, // Otimizado: Português para consistência
     })),
   },
@@ -181,9 +186,9 @@ export const ABOUT_CONTENT = {
     ],
     videos: {
       desktop:
-        'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/hero/about.hero.desktop_video.mp4',
+        siteAsset('about/hero/about.hero.desktop_video.mp4'),
       mobile:
-        'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/hero/about.hero.mobile_video.mp4',
+        siteAsset('about/hero/about.hero.mobile_video.mp4'),
     },
   },
   beliefsIntro: [
@@ -206,7 +211,7 @@ export const ABOUT_CONTENT = {
         title: 'O QUE PERMANECE',
         text: 'Desde cedo, sempre prestei atenção no que ficava — não só no que aparecia. Enquanto muitos olhavam para o brilho imediato, eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo. A essência das coisas sempre falou mais alto do que a superfície.',
         description: '',
-        src: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.1.webp',
+        src: siteAsset('about/origin/about.origin_image.1.webp'),
         alt: 'Observando os detalhes',
         align: 'right',
       },
@@ -216,7 +221,7 @@ export const ABOUT_CONTENT = {
         title: 'DO TRAÇO À INTENÇÃO',
         text: 'Rabiscos viraram ideias. Ideias viraram projetos. E os projetos começaram a deixar rastros. Meu processo criativo nasceu do improviso, do lápis na margem do caderno. Aos poucos, aquilo que era instinto virou direção. Com cada tentativa, aprendi a dar forma ao invisível — até que os conceitos começaram a falar por si.',
         description: '',
-        src: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.2.webp',
+        src: siteAsset('about/origin/about.origin_image.2.webp'),
         alt: 'Processo criativo',
         align: 'left',
       },
@@ -226,7 +231,7 @@ export const ABOUT_CONTENT = {
         title: 'A DESCOBERTA DO INVISÍVEL',
         text: 'Foi ali que entendi: design não é enfeite. É ferramenta invisível de transformação. Por trás de cada escolha visual, existe intenção. Descobri que o design verdadeiro não grita — ele conduz. Ele está presente nos detalhes que ninguém percebe, mas que todos sentem. Transformar sem que se perceba a transformação: isso é potência.',
         description: '',
-        src: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.3.webp',
+        src: siteAsset('about/origin/about.origin_image.3.webp'),
         alt: 'Design invisível',
         align: 'right',
       },
@@ -236,7 +241,7 @@ export const ABOUT_CONTENT = {
         title: 'EXPANSÃO COM PROPÓSITO',
         text: 'Estudei Comunicação, mergulhei no design, no branding e hoje uso inteligência artificial para expandir o alcance sem perder a essência humana da criação. Minha trajetória uniu intuição com método, arte com estratégia. O futuro pede novas ferramentas — e eu as abracei. Mas nunca deixei que a tecnologia apagasse o que me move: a sensibilidade, o olhar atento, a busca pelo significado.',
         description: '',
-        src: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.4.webp',
+        src: siteAsset('about/origin/about.origin_image.4.webp'),
         alt: 'Expansão e tecnologia',
         align: 'left',
       },
@@ -270,9 +275,9 @@ export const ABOUT_CONTENT = {
     title: ['Criatividade com método.', 'Impacto sem ruído.'],
     videos: {
       desktop:
-        'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/method/about.method.desktop_video.mp4',
+        siteAsset('about/method/about.method.desktop_video.mp4'),
       mobile:
-        'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/method/about.method.mobile_video.mp4',
+        siteAsset('about/method/about.method.mobile_video.mp4'),
     },
     intro: [
       'Antes da estética, existe intenção.',
@@ -326,9 +331,9 @@ export const PORTFOLIO_CONTENT = {
   hero: {
     video: {
       desktop:
-        'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort.mp4',
+        siteAsset('portfolio/portfolio.hero_desktop_video.mp4'),
       mobile:
-        'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort-mobile.mp4',
+        siteAsset('portfolio/portfolio.hero_mobile_video.mp4'),
     },
   },
 };
