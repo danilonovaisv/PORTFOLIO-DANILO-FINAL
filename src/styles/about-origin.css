@@ -3,7 +3,8 @@
 
 @font-face {
   font-family: 'CustomLight';
-  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_light.woff2') format('woff2');
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_light.woff2')
+    format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -29,8 +30,6 @@ html.lenis {
 .lenis.lenis-stopped {
   overflow: hidden;
 }
-
-
 
 .img-wrapper {
   clip-path: inset(0% 0% 0% 0%);
