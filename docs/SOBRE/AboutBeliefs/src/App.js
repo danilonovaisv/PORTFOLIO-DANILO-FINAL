@@ -95,10 +95,10 @@ export default function App() {
             }}
             transition={{ duration: 1.2, ease: easing }}
           >
-            <span className="belief-title-line">
+            <span className="belief-title-line belief-title-line--display">
               Acredito no design que muda o dia de alguém.
             </span>
-            <span className="belief-title-line">
+            <span className="belief-title-line belief-title-line--h2">
               Não pelo choque, mas pela conexão.
             </span>
           </motion.div>

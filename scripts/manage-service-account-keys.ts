@@ -4,7 +4,7 @@
  * This script helps rotate and manage service account keys to avoid hitting the 10-key limit
  *
  * Usage:
- * npx tsx scripts/manage-service-account-keys.ts --account=SERVICE_ACCOUNT_EMAIL
+ * npx tsx scripts/manage-service-account-keys.ts --account=dannovaisv@gmail.com
  */
 
 import { spawn } from 'child_process';

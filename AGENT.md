@@ -37,6 +37,7 @@ Este agente é responsável por **analisar, criar e corrigir código** no projet
    - Gerenciar transições de scroll complexas (Hero -> Manifesto) usando Framer Motion.
 
 ---
+
 ---
 
 # The Orchestrator
@@ -94,8 +95,8 @@ Then stop. The orchestrator will take it from here.
 
 **Before decomposing any task, read the relevant domain reference:**
 
-| Task Type              | Reference                                                                                |
-| ---------------------- | ---------------------------------------------------------------------------------------- |
+| Task Type              | Reference                                                                                                                                                  |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Feature, bug, refactor | [./danilonovais/.gemini/antigravity/global_workflows/orchestration/references/domains/software-development.md](references/domains/software-development.md) |
 | PR review, security    | [./danilonovais/.gemini/antigravity/global_workflows/orchestration/references/domains/code-review.md](references/domains/code-review.md)                   |
 | Codebase exploration   | [./danilonovais/.gemini/antigravity/global_workflows/orchestration/references/domains/research.md](references/domains/research.md)                         |
@@ -107,8 +108,8 @@ Then stop. The orchestrator will take it from here.
 
 **Additional References:**
 
-| Need                   | Reference                                        |
-| ---------------------- | ------------------------------------------------ |
+| Need                   | Reference                                                                                                          |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | Orchestration patterns | [./danilonovais/.gemini/antigravity/global_workflows/orchestration/references/patterns.md](references/patterns.md) |
 | Tool details           | [./danilonovais/.gemini/antigravity/global_workflows/orchestration/references/tools.md](references/tools.md)       |
 | Workflow examples      | [./danilonovais/.gemini/antigravity/global_workflows/orchestration/references/examples.md](references/examples.md) |
@@ -222,6 +223,7 @@ Before anything, sense the vibe:
 ```
 
 **Why two layers?**
+
 - cc-mirror tasks: Dependencies, persistence, cross-session tracking
 - TodoWrite: Live feedback, user visibility, session-scoped progress
 
@@ -305,6 +307,7 @@ TodoWrite(todos)
 ```
 
 **When a blocker resolves:**
+
 - The `blocked` field auto-updates to `false` when all `openBlockers` resolve
 - Re-fetch with `--json` to get the new state
 - Update TodoWrite icons: `●` → `○` for newly unblocked tasks
@@ -422,12 +425,13 @@ npx cc-mirror tasks graph --json       # Dependency structure
       "id": "1",
       "subject": "Task subject",
       "status": "open",
-      "blocked": true,                    // Computed: has open blockers?
-      "blockedBy": [                       // Each blocker with status
-        {"id": "2", "status": "resolved"},
-        {"id": "3", "status": "open"}
+      "blocked": true, // Computed: has open blockers?
+      "blockedBy": [
+        // Each blocker with status
+        { "id": "2", "status": "resolved" },
+        { "id": "3", "status": "open" }
       ],
-      "openBlockers": ["3"],              // IDs of OPEN blockers only
+      "openBlockers": ["3"], // IDs of OPEN blockers only
       "blocks": ["4"]
     }
   ],
@@ -435,7 +439,7 @@ npx cc-mirror tasks graph --json       # Dependency structure
     "total": 5,
     "open": 3,
     "resolved": 2,
-    "ready": 1,                           // Open + not blocked
+    "ready": 1, // Open + not blocked
     "blocked": 2
   }
 }
@@ -443,12 +447,12 @@ npx cc-mirror tasks graph --json       # Dependency structure
 
 ### Key Computed Fields
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `blocked` | boolean | `true` if any blocker is still open |
-| `blockedBy[].status` | string | Each blocker's current status |
-| `openBlockers` | string[] | IDs of blockers that are still open |
-| `summary.ready` | number | Count of tasks ready to work on |
+| Field                | Type     | Description                         |
+| -------------------- | -------- | ----------------------------------- |
+| `blocked`            | boolean  | `true` if any blocker is still open |
+| `blockedBy[].status` | string   | Each blocker's current status       |
+| `openBlockers`       | string[] | IDs of blockers that are still open |
+| `summary.ready`      | number   | Count of tasks ready to work on     |
 
 ### Scoping Behavior
 
