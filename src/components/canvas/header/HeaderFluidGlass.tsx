@@ -45,12 +45,11 @@ function Images() {
 
   useFrame(() => {
     if (!group.current) return;
-    group.current.children.forEach((obj, index) => {
-      const child = obj as unknown as ZoomMesh;
-      if (child.material) {
-        child.material.zoom = 1 + data.range(0, 1 / 3) / 3;
+    group.current.children.forEach((obj: ZoomMesh, index: number) => {
+      if (obj.material) {
+        obj.material.zoom = 1 + data.range(0, 1 / 3) / 3;
         if (index > 1) {
-          child.material.zoom = 1 + data.range(1.15 / 3, 1 / 3) / 2;
+          obj.material.zoom = 1 + data.range(1.15 / 3, 1 / 3) / 2;
         }
       }
     });
@@ -92,7 +91,9 @@ function Typography() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  const { fontSize } = DEVICE[device];
+  type DeviceKey = keyof typeof DEVICE;
+  
+  const { fontSize } = DEVICE[device as DeviceKey];
 
   return (
     <Text

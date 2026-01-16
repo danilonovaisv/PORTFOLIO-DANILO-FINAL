@@ -4,6 +4,8 @@ import { listProjects } from '@/lib/supabase/queries/projects';
 import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
 import { createStaticClient } from '@/lib/supabase/static';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Portfólio',
   description:
@@ -12,7 +14,14 @@ export const metadata: Metadata = {
 
 export default async function PortfolioPage() {
   const supabase = createStaticClient();
-  const dbProjects = await listProjects({}, supabase);
+  let dbProjects: Awaited<ReturnType<typeof listProjects>> = [];
+
+  try {
+    dbProjects = await listProjects({}, supabase);
+  } catch (error) {
+    console.error('Error fetching projects:', error);
+  }
+
   const projects = dbProjects.map((project, index) =>
     mapDbProjectToPortfolioProject(project, index)
   );
