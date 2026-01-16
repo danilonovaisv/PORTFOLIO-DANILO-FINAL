@@ -20,7 +20,7 @@ export const NAVIGATION = {
     links: [
       { label: 'home', href: '#hero' },
       { label: 'sobre', href: '/sobre' },
-      { label: 'portfólio showcase', href: '#portfolio-showcase' },
+      { label: 'portfólio', href: '/portfolio' },
       { label: 'contato', href: '#contact' },
     ],
   },

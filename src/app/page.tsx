@@ -28,10 +28,16 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const dbProjects = await listProjects({ featuredOnHome: true });
-  const featuredProjects = dbProjects.map((project, index) =>
-    mapDbProjectToPortfolioProject(project, index)
-  );
+  let featuredProjects: any[] = [];
+  try {
+    const dbProjects = await listProjects({ featuredOnHome: true });
+    featuredProjects = dbProjects.map((project, index) =>
+      mapDbProjectToPortfolioProject(project, index)
+    );
+  } catch (error) {
+    console.error('Error fetching projects:', error);
+    // Fallback ou array vazio para evitar crash
+  }
 
   return (
     <>
