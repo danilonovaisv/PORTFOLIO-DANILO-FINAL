@@ -26,6 +26,15 @@ export function normalizeStoragePath(
 
   // Remove full Supabase URL prefix if present (object or render endpoints)
   let normalized = filePath.trim();
+
+  // Clean common malformed prefixes/suffixes from backups (e.g. "file_path: ...," or quoted values)
+  normalized = normalized.replace(/^file_path:\s*/i, '');
+  normalized = normalized.replace(/^key:\s*/i, '');
+  normalized = normalized.replace(/^"+|"+$/g, '');
+  normalized = normalized.replace(/^'+|'+$/g, '');
+  normalized = normalized.replace(/,+$/g, '');
+  normalized = normalized.replace(/\s+$/g, '');
+
   normalized = normalized.replace(
     /^https?:\/\/[^/]+\/storage\/v1\/(?:render\/image|object)\/public\//,
     ''

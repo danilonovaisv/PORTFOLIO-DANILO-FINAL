@@ -6,12 +6,14 @@ const supabaseKey =
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY ??
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-export const createClient = (cookieStore?: ReturnType<typeof cookies>) => {
+type CookieStore = Awaited<ReturnType<typeof cookies>>;
+
+export const createClient = async (cookieStore?: CookieStore) => {
   if (!supabaseUrl || !supabaseKey) {
     throw new Error('Missing Supabase server credentials');
   }
 
-  const store = cookieStore ?? cookies();
+  const store = cookieStore ?? (await cookies());
 
   return createServerClient(supabaseUrl, supabaseKey, {
     cookies: {

@@ -1,10 +1,11 @@
 import globals from 'globals';
 import pluginJs from '@eslint/js';
 import tseslint from 'typescript-eslint';
+import nextPlugin from '@next/eslint-plugin-next';
 
 export default [
   {
-    files: ['**/*.{js,mjs,cjs,ts}'],
+    files: ['**/*.{js,jsx,mjs,cjs,ts,tsx}'],
     languageOptions: {
       globals: globals.node,
       parserOptions: {
@@ -12,11 +13,15 @@ export default [
         sourceType: 'module',
       },
     },
+    plugins: {
+      '@next/next': nextPlugin,
+    },
   },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   {
     rules: {
+      ...nextPlugin.configs.recommended.rules,
       '@typescript-eslint/no-unused-vars': [
         'warn',
         {
