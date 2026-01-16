@@ -25,9 +25,10 @@ export default function supabaseLoader({
     return src;
   }
 
-  // SVGs should not be transformed by Supabase Image API (often leads to errors or isn't needed)
-  if (src.endsWith('.svg')) {
-    return appendParams(src, width, quality || 75);
+  // SVGs and videos should not be transformed by Supabase Image API
+  if (src.endsWith('.svg') || src.endsWith('.mp4') || src.endsWith('.webm') || src.endsWith('.mov')) {
+    // Return original URL for videos and SVGs without transformation
+    return src;
   }
 
   let projectId = '';
