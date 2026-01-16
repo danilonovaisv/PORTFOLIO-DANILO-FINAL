@@ -120,7 +120,7 @@
     "autoprefixer": "^10.4.23",
     "commander": "^14.0.2",
     "depcheck": "^1.4.7",
-    "esbuild": "0.19.12",
+    "esbuild": "0.25.0",
     "eslint": "^9.39.2",
     "eslint-config-next": "15.1.6",
     "eslint-config-prettier": "^10.1.8",
