@@ -22,10 +22,22 @@ export default function GhostScene() {
   const preloaderRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
   const performanceConfig = usePerformanceAdaptive();
+  const configRef = useRef(performanceConfig);
+
+  // Keep configRef in sync with latest render prop
+  useEffect(() => {
+    configRef.current = performanceConfig;
+  }, [performanceConfig]);
 
   useEffect(() => {
     const mountElement = mountRef.current;
     if (!mountElement) return;
+
+    // --- DETECÇÃO DE DISPOSITIVO TOUCH/MOBILE ---
+    const isTouchDevice =
+      'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const isMobileWidth = window.innerWidth <= 768;
+    const isMobile = isTouchDevice || isMobileWidth;
 
     // --- CONFIGURAÇÃO INICIAL E VARIÁVEIS ---
 
@@ -102,51 +114,60 @@ export default function GhostScene() {
     preloaderManager.updateProgress(2);
 
     // --- PÓS-PROCESSAMENTO ---
+    // Only initialize heavyweight post-processing if NOT on mobile/tablet
+    // This saves significant VRAM and initialization time on constrained devices.
 
     const originalBloomSettings = {
       strength: 0.3,
       radius: 1.25,
       threshold: 0.0,
     };
-    const composer = new EffectComposer(renderer);
-    const renderPass = new RenderPass(scene, camera);
-    composer.addPass(renderPass);
 
-    const bloomPass = new UnrealBloomPass(
-      new THREE.Vector2(window.innerWidth, window.innerHeight),
-      originalBloomSettings.strength,
-      originalBloomSettings.radius,
-      originalBloomSettings.threshold
-    );
-    composer.addPass(bloomPass);
+    let composer: EffectComposer | null = null;
+    let bloomPass: UnrealBloomPass | null = null;
+    let analogDecayPass: ShaderPass | null = null;
 
-    preloaderManager.updateProgress(3);
+    // Use initial config state as a hint, but prioritize isMobile check for safety
+    const shouldEnablePostProcessing = !isMobile;
 
-    // Shader de Decaimento Analógico (Analog Decay)
-    const analogDecayShader = {
-      uniforms: {
-        tDiffuse: { value: null },
-        uTime: { value: 0.0 },
-        uResolution: {
-          value: new THREE.Vector2(window.innerWidth, window.innerHeight),
+    if (shouldEnablePostProcessing) {
+      composer = new EffectComposer(renderer);
+      const renderPass = new RenderPass(scene, camera);
+      composer.addPass(renderPass);
+
+      bloomPass = new UnrealBloomPass(
+        new THREE.Vector2(window.innerWidth, window.innerHeight),
+        originalBloomSettings.strength,
+        originalBloomSettings.radius,
+        originalBloomSettings.threshold
+      );
+      composer.addPass(bloomPass);
+
+      // Shader de Decaimento Analógico (Analog Decay)
+      const analogDecayShader = {
+        uniforms: {
+          tDiffuse: { value: null },
+          uTime: { value: 0.0 },
+          uResolution: {
+            value: new THREE.Vector2(window.innerWidth, window.innerHeight),
+          },
+          uAnalogGrain: { value: 0.4 },
+          uAnalogBleeding: { value: 1.0 },
+          uAnalogVSync: { value: 1.0 },
+          uAnalogScanlines: { value: 1.0 },
+          uAnalogVignette: { value: 1.0 },
+          uAnalogJitter: { value: 0.4 },
+          uAnalogIntensity: { value: 0.6 },
+          uLimboMode: { value: 0.0 },
         },
-        uAnalogGrain: { value: 0.4 },
-        uAnalogBleeding: { value: 1.0 },
-        uAnalogVSync: { value: 1.0 },
-        uAnalogScanlines: { value: 1.0 },
-        uAnalogVignette: { value: 1.0 },
-        uAnalogJitter: { value: 0.4 },
-        uAnalogIntensity: { value: 0.6 },
-        uLimboMode: { value: 0.0 },
-      },
-      vertexShader: `
+        vertexShader: `
         varying vec2 vUv;
         void main() {
           vUv = uv;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
         }
       `,
-      fragmentShader: `
+        fragmentShader: `
         uniform sampler2D tDiffuse;
         uniform float uTime;
         uniform vec2 uResolution;
@@ -221,12 +242,15 @@ export default function GhostScene() {
           gl_FragColor = color;
         }
       `,
-    };
+      };
 
-    const analogDecayPass = new ShaderPass(analogDecayShader);
-    composer.addPass(analogDecayPass);
-    const outputPass = new OutputPass();
-    composer.addPass(outputPass);
+      analogDecayPass = new ShaderPass(analogDecayShader);
+      composer.addPass(analogDecayPass);
+      const outputPass = new OutputPass();
+      composer.addPass(outputPass);
+    }
+
+    preloaderManager.updateProgress(3);
 
     // --- PARÂMETROS E OBJETOS ---
 
@@ -247,11 +271,13 @@ export default function GhostScene() {
       wobbleAmount: 0.35,
       floatSpeed: 1.6,
       movementThreshold: 0.07,
-      particleCount: performanceConfig.particleCount * 5, // Scaling for the specific scene density
+      // particleCount is dynamic now, but used as initial cap here if needed
+      particleCount: configRef.current.particleCount * 5,
       particleDecayRate: 0.005,
       particleColor: 'violet',
       createParticlesOnlyWhenMoving: true,
-      particleCreationRate: performanceConfig.quality === 'low' ? 2 : 5,
+      // particleCreationRate is dynamic
+      particleCreationRate: 5,
       revealRadius: 37,
       fadeStrength: 1.7,
       baseOpacity: 0.9,
@@ -459,7 +485,7 @@ export default function GhostScene() {
     const fireflyGroup = new THREE.Group();
     scene.add(fireflyGroup);
 
-    const fireflyCount = performanceConfig.fireflyCount;
+    const fireflyCount = configRef.current.fireflyCount;
     for (let i = 0; i < fireflyCount; i++) {
       const fireflyGeom = new THREE.SphereGeometry(0.02, 2, 2);
       const fireflyMat = new THREE.MeshBasicMaterial({
@@ -533,12 +559,12 @@ export default function GhostScene() {
     }
     initParticlePool(100);
 
-    function createParticle() {
+    function createParticle(currentParticleCount: number) {
       let p;
       if (particlePool.length > 0) {
         p = particlePool.pop();
         if (p) p.visible = true;
-      } else if (particles.length < params.particleCount) {
+      } else if (particles.length < currentParticleCount) {
         const geom =
           particleGeometries[
             Math.floor(Math.random() * particleGeometries.length)
@@ -564,29 +590,26 @@ export default function GhostScene() {
 
       p.userData.life = 1.0;
       p.userData.decay = Math.random() * 0.003 + params.particleDecayRate;
-      p.userData.rotationSpeed = {
-        x: (Math.random() - 0.5) * 0.015,
-        y: (Math.random() - 0.5) * 0.015,
-        z: (Math.random() - 0.5) * 0.015,
-      };
-      p.userData.velocity = {
-        x: (Math.random() - 0.5) * 0.012,
-        y: (Math.random() - 0.5) * 0.012 - 0.002,
-        z: (Math.random() - 0.5) * 0.012 - 0.006,
-      };
+
+      if (!p.userData.rotationSpeed) {
+        p.userData.rotationSpeed = { x: 0, y: 0, z: 0 };
+      }
+      p.userData.rotationSpeed.x = (Math.random() - 0.5) * 0.015;
+      p.userData.rotationSpeed.y = (Math.random() - 0.5) * 0.015;
+      p.userData.rotationSpeed.z = (Math.random() - 0.5) * 0.015;
+
+      if (!p.userData.velocity) {
+          p.userData.velocity = new THREE.Vector3();
+      }
+      p.userData.velocity.set(
+        (Math.random() - 0.5) * 0.012,
+        (Math.random() - 0.5) * 0.012 - 0.002,
+        (Math.random() - 0.5) * 0.012 - 0.006
+      );
+
       pMaterial.opacity = Math.random() * 0.9;
       particles.push(p);
     }
-
-    // Tweakpane removed for production
-    // const pane = new Pane({ title: 'Spectral Ghost', expanded: false });
-    // ... (rest of the tweakpane code commented out or removed)
-
-    // --- DETECÇÃO DE DISPOSITIVO TOUCH/MOBILE ---
-    const isTouchDevice =
-      'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    const isMobileWidth = window.innerWidth <= 768;
-    const isMobile = isTouchDevice || isMobileWidth;
 
     // Event Listeners
     let scrollY = 0;
@@ -628,12 +651,18 @@ export default function GhostScene() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
-      composer.setSize(window.innerWidth, window.innerHeight);
-      bloomPass.setSize(window.innerWidth, window.innerHeight);
-      analogDecayPass.uniforms.uResolution.value.set(
-        window.innerWidth,
-        window.innerHeight
-      );
+      if (composer) {
+        composer.setSize(window.innerWidth, window.innerHeight);
+      }
+      if (bloomPass) {
+        bloomPass.setSize(window.innerWidth, window.innerHeight);
+      }
+      if (analogDecayPass) {
+        analogDecayPass.uniforms.uResolution.value.set(
+            window.innerWidth,
+            window.innerHeight
+        );
+      }
     };
     window.addEventListener('resize', onResize);
 
@@ -644,11 +673,26 @@ export default function GhostScene() {
     let isInitialized = false;
     let animationId: number;
     let lastParticleTime = 0;
+    const tempVec = new THREE.Vector3();
 
     const forceInitialRender = () => {
-      for (let i = 0; i < 3; i++) composer.render();
-      for (let i = 0; i < 10; i++) createParticle();
-      composer.render();
+      // Use dynamic particle count for initialization
+      const initialParticleCount = configRef.current.particleCount * 5;
+
+      if (composer) {
+        for (let i = 0; i < 3; i++) composer.render();
+      } else {
+        renderer.render(scene, camera);
+      }
+
+      for (let i = 0; i < 10; i++) createParticle(initialParticleCount);
+
+      if (composer) {
+        composer.render();
+      } else {
+        renderer.render(scene, camera);
+      }
+
       isInitialized = true;
       preloaderManager.complete(renderer.domElement);
     };
@@ -667,10 +711,15 @@ export default function GhostScene() {
       const timeIncrement = (deltaTime / 16.67) * 0.01;
       time += timeIncrement;
 
+      // Access latest config via ref
+      const currentConfig = configRef.current;
+
       // Atualizações de Uniforms
       atmosphereMaterial.uniforms.time.value = time;
-      analogDecayPass.uniforms.uTime.value = time;
-      analogDecayPass.uniforms.uLimboMode.value = params.limboMode ? 1.0 : 0.0;
+      if (analogDecayPass) {
+        analogDecayPass.uniforms.uTime.value = time;
+        analogDecayPass.uniforms.uLimboMode.value = params.limboMode ? 1.0 : 0.0;
+      }
 
       // Movimento do Fantasma
       // Mobile: Movimento automático usando curva de Lissajous (orgânico e fluido)
@@ -702,14 +751,16 @@ export default function GhostScene() {
           mouse.y * 8 + autoY * 0.1 + (scrollY / window.innerHeight) * -15;
       }
 
-      const prevPos = ghostGroup.position.clone();
+      // Reuse vector for prevPos to avoid allocation
+      tempVec.copy(ghostGroup.position);
+
       ghostGroup.position.x +=
         (targetX - ghostGroup.position.x) * params.followSpeed;
       ghostGroup.position.y +=
         (targetY - ghostGroup.position.y) * params.followSpeed;
       atmosphereMaterial.uniforms.ghostPosition.value.copy(ghostGroup.position);
 
-      const moveAmt = prevPos.distanceTo(ghostGroup.position);
+      const moveAmt = tempVec.distanceTo(ghostGroup.position);
       currentMovement =
         currentMovement * params.eyeGlowDecay +
         moveAmt * (1 - params.eyeGlowDecay);
@@ -743,12 +794,18 @@ export default function GhostScene() {
         : params.createParticlesOnlyWhenMoving
           ? currentMovement > 0.005 && hasReceivedMouseInput
           : currentMovement > 0.005;
+
       if (shouldCreate && timestamp - lastParticleTime > 100) {
+        // Use dynamic creation rate
+        const particleCreationRate = currentConfig.quality === 'low' ? 2 : 5;
+
         const count = Math.min(
-          params.particleCreationRate,
+          particleCreationRate,
           Math.max(1, Math.floor(moveAmt * 100))
         );
-        Array.from({ length: count }).forEach(() => createParticle());
+
+        const currentParticleCount = currentConfig.particleCount * 5;
+        Array.from({ length: count }).forEach(() => createParticle(currentParticleCount));
         lastParticleTime = timestamp;
       }
 
@@ -774,12 +831,15 @@ export default function GhostScene() {
         }
       });
 
-      // Limpeza de array (simplificada)
+      // Limpeza de array O(1) - Swap and Pop
       for (let i = particles.length - 1; i >= 0; i--) {
-        if (!particles[i].visible) particles.splice(i, 1);
+        if (!particles[i].visible) {
+            particles[i] = particles[particles.length - 1];
+            particles.pop();
+        }
       }
 
-      if (performanceConfig.enablePostProcessing) {
+      if (composer && currentConfig.enablePostProcessing) {
         composer.render();
       } else {
         renderer.render(scene, camera);
@@ -803,7 +863,7 @@ export default function GhostScene() {
       }
       // Opcional: Dispose de geometrias e materiais para limpeza completa
     };
-  }, []);
+  }, []); // Only run once on mount, using ref for config updates
 
   return (
     <>
