@@ -295,7 +295,7 @@ const AboutOrigin: React.FC = () => {
                   </div>
 
                   {/* Mobile Image (1:1 Aspect Ratio) */}
-                  <div className="lg:hidden mt-8 w-full aspect-square rounded-[24px] overflow-hidden bg-[#060018] shadow-2xl">
+                  <div className="lg:hidden relative mt-8 w-full aspect-square min-h-[240px] rounded-[24px] overflow-hidden bg-[#060018] shadow-2xl">
                     <Image
                       src={block.img}
                       alt={block.alt}
