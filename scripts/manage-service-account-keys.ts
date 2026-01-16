@@ -14,10 +14,7 @@ const program = new Command();
 
 program
   .description('Manage service account keys')
-  .option(
-    '-a, --account danilo_novais@yahoo.com.br',
-    'Service account email address'
-  )
+  .option('-a, --account <email>', 'Service account email address')
   .option('-l, --list', 'List all keys for the service account')
   .option('-c, --cleanup', 'Remove old keys that are older than 30 days')
   .parse(process.argv);
