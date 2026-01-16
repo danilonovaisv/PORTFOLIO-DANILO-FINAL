@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useSiteAssetUrl } from '@/contexts/site-assets';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
+import { ASSET_PLACEHOLDER } from '@/utils/utils';
 
 interface VideoManifestoProps {
   src: string;
@@ -88,7 +89,9 @@ export function VideoManifesto({ src }: VideoManifestoProps) {
       ? manifestoSrc
       : manifestoSrc.replace('.mp4', '-720p.mp4');
 
-  const posterSrc = manifestoSrc.replace('.mp4', '-poster.jpg');
+  const posterSrc = manifestoSrc.endsWith('.mp4')
+    ? ASSET_PLACEHOLDER
+    : manifestoSrc;
 
   return (
     <motion.section

@@ -45,7 +45,7 @@ export const BRAND = {
       logoDark: asset('site-assets/global/logos/global.logo_header_dark.svg'),
     },
     video: {
-      manifesto: asset('project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4'),
+      manifesto: asset('site-assets/home/home.manifesto_video.mp4'),
     },
     fonts: {
       primary: 'TT Norms Pro',
@@ -53,7 +53,7 @@ export const BRAND = {
     },
   },
   video: {
-    manifesto: asset('project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4'),
+    manifesto: asset('site-assets/home/home.manifesto_video.mp4'),
   },
 
   // Leis de Layout (Absolute Laws)

@@ -30,7 +30,7 @@
     "analyze": "npm run lint && npm run typecheck",
     "analyze:deps": "depcheck",
     "analyze:bundle": "ANALYZE=true next build",
-    "deploy": "bash scripts/run-deploy.sh",
+    "deploy": "bash scripts/deploy-with-env.sh",
     "update": "npx npm-check-updates -u && npm install",
     "manage-keys": "tsx scripts/manage-service-account-keys.ts --account=firebase-adminsdk-fbsvc@portfolio-danilo-novais.iam.gserviceaccount.com",
     "assets:sync": "tsx scripts/sync-site-assets.ts assets.json",
@@ -144,6 +144,14 @@
     "which": "4.0.0"
   },
   "overrides": {
-    "test-exclude": "7.0.1"
+    "test-exclude": "7.0.1",
+    "@react-three/drei": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    },
+    "@react-three/postprocessing": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    }
   }
 }

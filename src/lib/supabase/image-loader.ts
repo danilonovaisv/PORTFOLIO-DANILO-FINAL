@@ -5,12 +5,23 @@ interface SupabaseLoaderProps {
 }
 
 const DEFAULT_SUPABASE_URL = 'https://umkmwbkwvulxtdodzmzf.supabase.co';
+const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.webp', '.avif'];
+const NON_TRANSFORM_EXTENSIONS = [
+  '.svg',
+  '.mp4',
+  '.webm',
+  '.mov',
+  '.m4v',
+  '.gif',
+];
 
 export default function supabaseLoader({
   src,
   width,
   quality,
 }: SupabaseLoaderProps): string {
+  const normalizedSrc = src.split('?')[0].toLowerCase();
+
   const appendParams = (url: string, w: number, q: number) => {
     const separator = url.includes('?') ? '&' : '?';
     return `${url}${separator}width=${w}&quality=${q || 75}`;
@@ -25,9 +36,10 @@ export default function supabaseLoader({
     return src;
   }
 
-  // SVGs and videos should not be transformed by Supabase Image API
-  if (src.endsWith('.svg') || src.endsWith('.mp4') || src.endsWith('.webm') || src.endsWith('.mov')) {
-    // Return original URL for videos and SVGs without transformation
+  // Skip transformation for non-image formats (videos, SVGs, GIFs)
+  if (
+    NON_TRANSFORM_EXTENSIONS.some((ext) => normalizedSrc.endsWith(ext))
+  ) {
     return src;
   }
 
@@ -58,20 +70,26 @@ export default function supabaseLoader({
     }
   }
 
-  // Logic to transform the URL
-  // Current pattern: .../storage/v1/object/public/bucket/path/to/image.ext
-  // Target pattern: .../storage/v1/render/image/public/bucket/path/to/image.ext?width=...
-
   if (src.includes('/storage/v1/object/public/')) {
     const base = src.startsWith('http')
       ? src
       : `${DEFAULT_SUPABASE_URL}${src.startsWith('/') ? '' : '/'}${src}`;
-    // Replace /object/ with /render/image/
-    const newSrc = base.replace(
-      '/storage/v1/object/public/',
-      '/storage/v1/render/image/public/'
+
+    const isImage = IMAGE_EXTENSIONS.some((ext) =>
+      normalizedSrc.endsWith(ext)
     );
-    return appendParams(newSrc, width, quality || 75);
+
+    // Only apply Supabase image renderer for supported image extensions
+    if (isImage) {
+      const newSrc = base.replace(
+        '/storage/v1/object/public/',
+        '/storage/v1/render/image/public/'
+      );
+      return appendParams(newSrc, width, quality || 75);
+    }
+
+    // For other file types (e.g., video), serve the object URL untouched
+    return base;
   }
 
   // If it matches the render/image pattern already, just append params
@@ -83,7 +101,14 @@ export default function supabaseLoader({
   // construct the full Supabase URL.
   // This path is hit if `src` is something like 'my-bucket/image.png' (not starting with /)
   if (!src.startsWith('http') && projectId) {
-    return `https://${projectId}.supabase.co/storage/v1/render/image/public/${src}?width=${width}&quality=${quality || 75}`;
+    const isImage = IMAGE_EXTENSIONS.some((ext) =>
+      normalizedSrc.endsWith(ext)
+    );
+    const prefix = isImage
+      ? '/storage/v1/render/image/public/'
+      : '/storage/v1/object/public/';
+    const full = `https://${projectId}.supabase.co${prefix}${src}`;
+    return isImage ? appendParams(full, width, quality || 75) : full;
   }
 
   // Fallback for non-Supabase images (return original)

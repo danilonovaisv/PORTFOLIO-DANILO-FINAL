@@ -11,7 +11,9 @@ const nextConfig = {
    */
   reactStrictMode: true,
 
-  // output: 'standalone',
+  // Removendo a opção output: 'export' para permitir Server Actions
+  // output: 'export',
+
   experimental: {
     // any needed experimental flags
   },
@@ -21,10 +23,8 @@ const nextConfig = {
    * Mantida INTACTA
    */
   images: {
-    // Firebase Hosting/App Hosting não está servindo a rota /_next/image;
-    // Utilizamos um loader customizado para usar as transformações de imagem do Supabase.
-    loader: 'custom',
-    loaderFile: './supabase-image-loader.js',
+    // Quando usando output: 'export', precisamos de um loader diferente
+    unoptimized: true, // Isso permite usar as imagens diretamente sem otimização do Next
 
     remotePatterns: [
       {

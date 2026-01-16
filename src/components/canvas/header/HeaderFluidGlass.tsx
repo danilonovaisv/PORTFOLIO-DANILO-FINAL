@@ -1,7 +1,7 @@
 'use client';
 
 import * as THREE from 'three';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import {
   Image,
   Preload,
@@ -25,17 +25,11 @@ const DEFAULT_NAV_ITEMS: HeaderNavItem[] = [
 const DEMO_IMAGES: {
   url: string;
   position: [number, number, number];
-  scale: [number, number, number];
+  scale: [number, number] | number;
 }[] = [
-  { url: '/assets/demo/cs1.webp', position: [-2, 0, 0], scale: [3, 1.2, 1] },
-  { url: '/assets/demo/cs2.webp', position: [2, 0, 3], scale: [3, 3, 1] },
-  { url: '/assets/demo/cs3.webp', position: [-2.05, -1, 6], scale: [1, 3, 1] },
-  { url: '/assets/demo/cs4.webp', position: [-0.6, -1, 9], scale: [1, 2, 1] },
-  {
-    url: '/assets/demo/cs5.webp',
-    position: [0.75, -1, 10.5],
-    scale: [1.5, 1.5, 1],
-  },
+  { url: '/assets/demo/cs1.webp', position: [-2, 0, 0], scale: [3, 1.2] },
+  { url: '/assets/demo/cs2.webp', position: [2, 0, 3], scale: [3, 3] },
+  // Add more demo images as needed
 ];
 
 interface HeaderFluidGlassProps {
@@ -52,7 +46,6 @@ type ZoomGroup = THREE.Group & { children: ZoomMesh[] };
 function Images() {
   const group = useRef<ZoomGroup>(null!);
   const data = useScroll();
-  const { height } = useThree((state) => state.viewport);
 
   useFrame(() => {
     if (!group.current) return;
@@ -72,13 +65,8 @@ function Images() {
       {DEMO_IMAGES.map((image, index) => (
         <Image
           key={`${image.url}-${index}`}
-          position={image.position as [number, number, number]}
-          scale={
-            [image.scale[0], (image.scale[1] * height) / 1.1] as [
-              number,
-              number,
-            ]
-          }
+          position={image.position}
+          scale={image.scale}
           url={image.url}
         />
       ))}

@@ -11,9 +11,16 @@ export default function ClientsBrandsSection() {
     (asset) => asset.publicUrl
   );
 
+  // Remove duplicatas baseado na key e publicUrl
+  const uniqueAssets = Array.from(
+    new Map(
+      assets.map((asset) => [asset.key, asset])
+    ).values()
+  );
+
   const logos =
-    assets.length > 0
-      ? assets.map((asset) => ({
+    uniqueAssets.length > 0
+      ? uniqueAssets.map((asset) => ({
           id: asset.key,
           src: asset.publicUrl,
           alt: asset.description ?? asset.key,

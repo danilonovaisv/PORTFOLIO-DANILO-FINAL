@@ -3,6 +3,9 @@ import { NextResponse } from 'next/server';
 import { normalizeAssetRecord } from '@/lib/supabase/site-asset-utils';
 import type { DbAsset } from '@/types/admin';
 
+export const dynamic = 'force-static';
+export const revalidate = 3600; // Revalidate every hour
+
 export async function GET() {
   const supabaseUrl =
     process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL;

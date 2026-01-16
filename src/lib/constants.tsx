@@ -21,9 +21,7 @@ export type ProjectCategory = {
 
 // --- 1. ASSETS GLOBAIS ---
 export const ASSETS = {
-  videoManifesto: getAssetUrl(
-    'project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4'
-  ),
+  videoManifesto: getAssetUrl('site-assets/home/home.manifesto_video.mp4'),
   favicon: getAssetUrl('logo_site/logo.svg'),
   logoLight: getAssetUrl('logo_site/faivcon-02.svg'),
   logoDark: getAssetUrl('logo_site/faivcon.svg'),
