@@ -5,9 +5,7 @@ export async function GET() {
   const supabaseUrl =
     process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL;
   const supabaseKey =
-    process.env.SUPABASE_SERVICE_ROLE_KEY ??
-    process.env.SUPABASE_SERVICE_KEY ??
-    process.env.SUPABASE_SERVICE_ROLE_KEY;
+    process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SUPABASE_SERVICE_KEY;
 
   if (!supabaseUrl || !supabaseKey) {
     return NextResponse.json(
@@ -27,19 +25,27 @@ export async function GET() {
     .order('sort_order', { ascending: true, nullsFirst: false });
 
   if (error) {
+    console.error('Supabase error:', error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, '') ?? supabaseUrl;
+  const assets = (data ?? []).map((asset) => {
+    let publicUrl = asset.file_path;
 
-  const assets = (data ?? []).map((asset) => ({
-    ...asset,
-    publicUrl:
-      asset.file_path && baseUrl
-        ? `${baseUrl}/storage/v1/object/public/${asset.bucket}/${asset.file_path}`
-        : asset.file_path,
-  }));
+    if (asset.bucket && asset.file_path) {
+      const url = supabase.storage
+        .from(asset.bucket)
+        .getPublicUrl(asset.file_path);
+      if (url.data?.publicUrl) {
+        publicUrl = url.data.publicUrl;
+      }
+    }
+
+    return {
+      ...asset,
+      publicUrl,
+    };
+  });
 
   return NextResponse.json(assets, { status: 200 });
 }
