@@ -15,10 +15,10 @@ jobs:
           fetch-depth: 0 # necessário para acessar todas as branches
 
       - name: ⚙️ Instalar dependências
-        run: pnpm ci
+        run: npm ci
 
       - name: 🔍 Rodar auditoria
-        run: pnpm run audit:project
+        run: npm run audit:project
 
       - name: 💾 Commit do relatório
         run: |

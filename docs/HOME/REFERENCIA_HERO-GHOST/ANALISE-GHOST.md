@@ -74,7 +74,7 @@ app/
 
 ### 2. Tailwind e configuração
 
-* **Instalação**: o projeto Next.js deverá estar com Tailwind já instalado (`pnpm add tailwindcss @types/tailwindcss`).
+* **Instalação**: o projeto Next.js deverá estar com Tailwind já instalado (`npm add tailwindcss @types/tailwindcss`).
 * **Extensões de tema**: configure fontes e cores fluorescentes para reutilização:
 
 ```ts

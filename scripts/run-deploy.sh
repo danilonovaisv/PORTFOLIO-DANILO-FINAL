@@ -21,6 +21,6 @@ REAL_NPM_PATH="$(command -v npm)"
 export REAL_NPM_PATH
 export PATH="$(pwd)/scripts:$PATH"
 
-pnpm run build:prod
+npm run build:prod
 
 firebase deploy --only hosting --project portfolio-danilo-novais

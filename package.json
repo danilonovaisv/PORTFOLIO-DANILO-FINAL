@@ -10,34 +10,35 @@
     "react-three-fiber"
   ],
   "engines": {
-    "node": "22"
+    "node": "18"
   },
-  "packageManager": "pnpm@10.28.0",
+  "packageManager": "npm@10.28.0",
   "scripts": {
     "dev": "next dev --turbo",
+    "dev:inspect": "next dev --inspect",
     "build": "next build",
-    "build:prod": "pnpm run prebuild && next build",
+    "build:prod": "npm run prebuild && next build",
     "start": "next start",
-    "clean": "rimraf .next out .eslintcache",
+    "clean": "rimraf .next out .eslintcache .firebase",
     "prebuild": "node scripts/generate-build-info.cjs",
     "lint": "eslint --cache --cache-location .eslintcache scripts src test tailwind.config.ts",
     "lint:fix": "eslint --cache --cache-location .eslintcache scripts src test tailwind.config.ts --fix && prettier --write .",
     "typecheck": "tsc --noEmit --strict --jsx react-jsx",
-    "test": "pnpm run lint && pnpm run typecheck && jest",
+    "test": "npm run lint && npm run typecheck && jest",
     "test:watch": "jest --watch",
     "format": "prettier --write .",
-    "analyze": "pnpm run lint && pnpm run typecheck",
+    "analyze": "npm run lint && npm run typecheck",
     "analyze:deps": "depcheck",
     "analyze:bundle": "ANALYZE=true next build",
     "deploy": "bash scripts/run-deploy.sh",
-    "update": "npx npm-check-updates -u && pnpm install",
+    "update": "npx npm-check-updates -u && npm install",
     "manage-keys": "tsx scripts/manage-service-account-keys.ts --account=firebase-adminsdk-fbsvc@portfolio-danilo-novais.iam.gserviceaccount.com",
     "assets:sync": "tsx scripts/sync-site-assets.ts assets.json",
     "assets:repair": "tsx scripts/repair-site-assets-paths.ts",
     "assets:sync:about": "tsx scripts/sync-site-assets.ts assets-about.json",
     "prepare-deploy": "tsx scripts/prep-deploy.ts",
     "validate-env": "tsx scripts/validate-env.ts",
-    "postinstall": "pnpm run prebuild"
+    "postinstall": "npm run prebuild"
   },
   "dependencies": {
     "@dataconnect/admin-generated": "file:src/dataconnect-admin-generated",
@@ -92,7 +93,6 @@
     "react-day-picker": "^9.13.0",
     "react-dom": "19.0.0",
     "react-hook-form": "^7.71.1",
-    "reactfire": "^4.2.3",
     "recharts": "^3.6.0",
     "tailwind-merge": "^3.4.0",
     "three": "^0.182.0",

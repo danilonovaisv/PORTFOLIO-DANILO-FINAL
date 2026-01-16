@@ -7,7 +7,7 @@ description: audit
 Ao receber um Pull Request ou finalizar uma feature:
 
 1. **Verificação Estática:**
-   - Rodar `pnpm run lint`.
+   - Rodar `npm run lint`.
    - Verificar se há erros de tipo no TypeScript.
 
 2. **Runtime Check:**
@@ -16,5 +16,5 @@ Ao receber um Pull Request ou finalizar uma feature:
    - Verificar Draw Calls (devem ser < 50 para esta cena simples).
 
 3. **Build Check:**
-   - Rodar `pnpm run build`.
+   - Rodar `npm run build`.
    - Verificar tamanho do bundle. Se `three.js` estiver muito grande, checar tree-shaking.

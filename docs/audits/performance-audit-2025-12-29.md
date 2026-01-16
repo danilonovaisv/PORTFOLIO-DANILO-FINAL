@@ -177,7 +177,7 @@ The following checks require browser DevTools:
 
 5. **Implement `@next/bundle-analyzer`**
    ```bash
-   pnpm add -D @next/bundle-analyzer
+   npm add -D @next/bundle-analyzer
    ```
 
 6. **Add Lenis scroll cleanup**

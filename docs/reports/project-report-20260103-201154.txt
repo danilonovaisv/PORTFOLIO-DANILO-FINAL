@@ -1,7 +1,7 @@
 ===========================================
  Projeto: _danilonov_portfolio
  Data: Sat Jan  3 20:11:54 -03 2026
- Package manager detectado: pnpm
+ Package manager detectado: npm
 ===========================================
 
 ### Ambiente
@@ -9,8 +9,8 @@
 $ node -v
 v24.12.0
 
-$ pnpm -v
-pnpm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of pnpm.
+$ npm -v
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm.
 11.6.2
 
 Sistema operacional:
@@ -24,7 +24,7 @@ $ git status -sb
  M docs/AUDITORIA_PORTFOLIO.md
  D docs/ajuste-23-12.md
  D docs/project-audit-report.md
- M pnpm-lock.yaml
+ M npm-lock.yaml
  M public/build-info.json
  D public/index.html
  M src/components/canvas/home/GhostCanvas.tsx
@@ -34,23 +34,23 @@ $ git status -sb
 ?? project-tools.sh
 
 -------------------------------------------
-### Lint (pnpm run lint)
+### Lint (npm run lint)
 
-$ pnpm run lint
-pnpm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of pnpm.
+$ npm run lint
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm.
 
 > danilo-novais-portfolio@0.0.0 lint
 > eslint .
 
 
 -------------------------------------------
-### Testes (pnpm run test)
+### Testes (npm run test)
 
-$ pnpm run test
-pnpm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of pnpm.
+$ npm run test
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm.
 
 > danilo-novais-portfolio@0.0.0 test
-> pnpm run eslint:ci && pnpm run typecheck && pnpm run prettier && pnpm run jest
+> npm run eslint:ci && npm run typecheck && npm run prettier && npm run jest
 
 
 > danilo-novais-portfolio@0.0.0 eslint:ci /Users/danilonovais/_danilonov_portfolio
@@ -66,7 +66,7 @@ pnpm warn Unknown project config "shamefully-hoist". This will stop working in t
 
 Checking formatting...
 [warn] next-env.d.ts
-[warn] pnpm-lock.yaml
+[warn] npm-lock.yaml
 [warn] src/app/globals.css
 [warn] Code style issues found in 3 files. Run Prettier with --write to fix.
  ELIFECYCLE  Command failed with exit code 1.
@@ -74,13 +74,13 @@ Checking formatting...
 -------------------------------------------
 ### Dependências desatualizadas
 
-$ pnpm outdated
+$ npm outdated
 
 -------------------------------------------
 ### Depcheck (dependências não usadas / faltando)
 
 $ npx depcheck
-pnpm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of pnpm.
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm.
 Unused dependencies
 * simplex-noise
 Unused devDependencies

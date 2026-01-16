@@ -33,19 +33,19 @@ done
 print_header "INSTALLING OFFICIAL TECH STACK"
 
 print_info "Installing Core Dependencies (Next.js, React, TypeScript)..."
-pnpm install next@latest react@latest react-dom@latest
-pnpm install -D typescript @types/node @types/react @types/react-dom
+npm install next@latest react@latest react-dom@latest
+npm install -D typescript @types/node @types/react @types/react-dom
 
 print_info "Installing Styling Stack (Tailwind, PostCSS, Utils)..."
-pnpm install -D tailwindcss postcss autoprefixer
-pnpm install clsx tailwind-merge
+npm install -D tailwindcss postcss autoprefixer
+npm install clsx tailwind-merge
 
 print_info "Installing Graphics & Animation (R3F, Motion, GSAP, Lenis)..."
-pnpm install three @react-three/fiber @react-three/drei @react-three/postprocessing
-pnpm install framer-motion gsap lenis
+npm install three @react-three/fiber @react-three/drei @react-three/postprocessing
+npm install framer-motion gsap lenis
 
 print_info "Installing State Management (Zustand)..."
-pnpm install zustand
+npm install zustand
 
 # 3. Configuration Files Initialization
 print_header "CHECKING CONFIGURATION FILES"
@@ -73,4 +73,4 @@ else
 fi
 
 print_header "SETUP COMPLETE"
-echo -e "Ready to start development. Run: ${GREEN}pnpm run dev${NC}"
+echo -e "Ready to start development. Run: ${GREEN}npm run dev${NC}"

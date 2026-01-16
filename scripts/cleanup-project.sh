@@ -32,7 +32,7 @@ echo "🌿 Branches remotas sugeridas para remoção (stale):"
 echo "   - origin/codex/execute-ajustes-de-acessibilidade-e-seo (Dec 10)"
 echo "   - origin/jules-header-hero-fix-2473089999087250364 (Dec 16)"
 echo "   - origin/qwen-code-b09c1b79-a88d-4c9a-96f0-9df98d44ccfe (Dec 16)"
-echo "   - origin/dependabot/pnpm_and_yarn/functions/pnpm_and_yarn-c7292c5e9d (Dec 16)"
+echo "   - origin/dependabot/npm_and_yarn/functions/npm_and_yarn-c7292c5e9d (Dec 16)"
 echo "   (Execute 'git push origin --delete <branch_name>' para remover)"
 
 echo ""

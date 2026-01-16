@@ -21,9 +21,9 @@
   → v22.16.0 *
   system *
 ✅ nvm: available
-✅ pnpm: 11.4.2
+✅ npm: 11.4.2
 ✅ yarn: 1.22.22
-✅ pnpm: 10.12.1
+✅ npm: 10.12.1
 ✅ eslint: v9.29.0
 ✅ prettier: 3.5.3
 ✅ chromedriver: ChromeDriver 137.0.7151.70

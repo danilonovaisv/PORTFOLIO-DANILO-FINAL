@@ -29,7 +29,7 @@ fi
 
 # Etapa 3: Execução de testes
 echo -e "\n--- Resultados dos Testes ---" >> $RELATORIO
-if pnpm test > test_output.txt 2>&1; then
+if npm test > test_output.txt 2>&1; then
   echo "Todos os testes passaram com sucesso." >> $RELATORIO
 else
   cat test_output.txt >> $RELATORIO

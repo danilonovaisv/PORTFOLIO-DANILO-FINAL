@@ -6,7 +6,7 @@ This is a Headless CMS Admin Panel built with Next.js App Router, Supabase, and 
 
 1. **Environment Variables**: Ensure `.env.local` contains your Supabase credentials.
 2. **Database Schema**: Run the SQL commands in `supabase/schema.sql` in your Supabase SQL Editor to create the `posts` table and `images` bucket with appropriate RLS policies.
-3. **Install Dependencies**: `pnpm install` (already done).
+3. **Install Dependencies**: `npm install` (already done).
 
 ## Features
 

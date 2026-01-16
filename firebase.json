@@ -10,8 +10,8 @@
         "*.local"
       ],
       "predeploy": [
-        "pnpm --prefix \"$RESOURCE_DIR\" run lint",
-        "pnpm --prefix \"$RESOURCE_DIR\" run build"
+        "npm --prefix \"$RESOURCE_DIR\" run lint",
+        "npm --prefix \"$RESOURCE_DIR\" run build"
       ],
       "source": "functions"
     },
@@ -34,9 +34,13 @@
   ],
   "hosting": {
     "source": ".",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
     "frameworksBackend": {
-      "region": "us-west1"
+      "region": "us-east1"
     }
   },
   "emulators": {

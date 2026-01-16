@@ -94,8 +94,8 @@
 ## 🔍 Verificação Final
 
 ```bash
-pnpm run build  ✅ PASSED
-pnpm run lint   ✅ PASSED (0 errors)
+npm run build  ✅ PASSED
+npm run lint   ✅ PASSED (0 errors)
 ```
 
 ---

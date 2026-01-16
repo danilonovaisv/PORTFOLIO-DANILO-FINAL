@@ -690,7 +690,7 @@ Otimize o carregamento de mídias em todo o site.
 
 Rode um checklist visual após aplicar as correções.
 
-1. Execute o projeto em desenvolvimento (`pnpm dev` ou equivalente).
+1. Execute o projeto em desenvolvimento (`npm dev` ou equivalente).
 2. Teste manualmente nos breakpoints:
    - 375px (mobile), 768px (tablet), 1440px (desktop), 1600px+ (wide).
 3. Verifique:

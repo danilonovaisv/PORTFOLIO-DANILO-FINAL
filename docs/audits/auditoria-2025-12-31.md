@@ -150,8 +150,8 @@ z-0   → Background gradient
 
 | Teste | Resultado |
 |-------|-----------|
-| **pnpm run build** | ✅ Compiled successfully |
-| **pnpm run lint** | ✅ 0 errors, 0 warnings |
+| **npm run build** | ✅ Compiled successfully |
+| **npm run lint** | ✅ 0 errors, 0 warnings |
 | **TypeScript** | ✅ Sem erros |
 | **Prefers-reduced-motion** | ✅ Fallbacks implementados |
 | **Accessibility** | ✅ ARIA labels, focus rings |

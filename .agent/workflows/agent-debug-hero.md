@@ -59,7 +59,7 @@ Este arquivo dita O QUE fazer. O código atual dita ONDE fazer.
 
 #### 4. Verificação Técnica (Self-Correction)
 
-- Após a edição, simule/rode: `pnpm run lint` ou verifique a sintaxe.
+- Após a edição, simule/rode: `npm run lint` ou verifique a sintaxe.
 - **Se houver erro:** Tente corrigir o erro **uma vez** baseado na mensagem de log.
 - **Se persistir:** Desfaça a alteração e marque como "FALHA TÉCNICA".
 

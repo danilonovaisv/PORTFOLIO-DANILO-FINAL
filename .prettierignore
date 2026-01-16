@@ -3,7 +3,7 @@
 /functions/src/dataconnect-admin-generated
 /src/dataconnect-admin-generated
 functions/lib/
-pnpm-lock.yaml
+npm-lock.yaml
 .firebase
 dist
 src/dataconnect-generated

@@ -7,8 +7,8 @@ const isListCommand =
   args[0] === 'ls' && args.some((option) => option.startsWith('--json'));
 
 if (isListCommand) {
-  const pnpmProcess = spawn(
-    'pnpm',
+  const npmProcess = spawn(
+    'npm',
     ['list', '--prod', '--depth', 'Infinity', '--json'],
     {
       stdio: ['ignore', 'pipe', 'pipe'],
@@ -16,15 +16,15 @@ if (isListCommand) {
   );
   let stdout = '';
 
-  pnpmProcess.stdout.on('data', (chunk) => {
+  npmProcess.stdout.on('data', (chunk) => {
     stdout += chunk.toString();
   });
 
-  pnpmProcess.stderr.on('data', (chunk) => {
+  npmProcess.stderr.on('data', (chunk) => {
     process.stderr.write(chunk);
   });
 
-  pnpmProcess.on('close', (code) => {
+  npmProcess.on('close', (code) => {
     if (code !== 0) {
       process.exit(code);
     }
@@ -35,7 +35,7 @@ if (isListCommand) {
       process.stdout.write(JSON.stringify({ dependencies }));
       process.exit(0);
     } catch (error) {
-      console.error('Unable to parse pnpm list output:', error);
+      console.error('Unable to parse npm list output:', error);
       process.exit(1);
     }
   });

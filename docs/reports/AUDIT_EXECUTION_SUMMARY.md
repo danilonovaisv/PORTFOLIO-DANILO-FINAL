@@ -20,9 +20,9 @@ Este relatório documenta a execução (parcial) do workflow de Auditoria focada
   - **Status:** Implementado em `GhostCanvas.tsx` e `Ghost.tsx`.
 
 ### 3. Validação Técnica ✅
-- **Type Check:** `pnpm run typecheck` - Sucesso (após correção de nome do script).
-- **Build:** `pnpm run build` - Sucesso.
-- **Lint:** `pnpm run lint` - Sucesso.
+- **Type Check:** `npm run typecheck` - Sucesso (após correção de nome do script).
+- **Build:** `npm run build` - Sucesso.
+- **Lint:** `npm run lint` - Sucesso.
 
 ## Próximos Passos Sugeridos
 - Validar visualmente em navegador se o efeito de "Lanterna" (Ghost revelando o texto) está perceptível. Se o texto parecer "sempre visível" demais, pode ser necessário ajustar a `baseOpacity` do `AtmosphereVeil` (atualmente 0.9) ou a cor do fundo.

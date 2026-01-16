@@ -1,4 +1,4 @@
- WARN  Unsupported engine: wanted: {"node":"22"} (current: {"node":"v24.12.0","pnpm":"10.28.0"})
+ WARN  Unsupported engine: wanted: {"node":"22"} (current: {"node":"v24.12.0","npm":"10.28.0"})
 
 > danilo-novais-portfolio@1.0.1 prebuild /Users/danilonovais/_danilonov_portfolio
 > node scripts/generate-build-info.cjs

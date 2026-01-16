@@ -8,7 +8,7 @@ description: (O Fantasma, Luzes e Atmosfera).
 
 - **Status:** _A executar._
 - **Ação:** Garantir dependências essenciais e ferramentas de controle.
-- **Comando:** `pnpm install three @types/three @react-three/fiber @react-three/drei @react-three/postprocessing simplex-noise framer-motion leva`
+- **Comando:** `npm install three @types/three @react-three/fiber @react-three/drei @react-three/postprocessing simplex-noise framer-motion leva`
 
 #### Structure (Desktop)
 

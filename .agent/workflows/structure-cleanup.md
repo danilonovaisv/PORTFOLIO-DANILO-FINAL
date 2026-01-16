@@ -91,5 +91,5 @@ Se aprovado pelo usuário, executar sequencialmente:
 
 Após a reorganização:
 
-1. Rodar `pnpm run build` para garantir que a movimentação de arquivos da raiz para `src/` não quebrou caminhos.
+1. Rodar `npm run build` para garantir que a movimentação de arquivos da raiz para `src/` não quebrou caminhos.
 2. Verificar visualmente se a raiz está limpa (apenas configs e `/docs`).

@@ -1033,16 +1033,16 @@ NEXT_PUBLIC_GA_ID=UA-XXXXXXXXX-X (opcional)
 
 ```bash
 # Desenvolvimento
-pnpm dev
+npm dev
 
 # Build
-pnpm build
+npm build
 
 # Preview local
-pnpm start
+npm start
 
 # Lint
-pnpm lint
+npm lint
 ```
 
 ---

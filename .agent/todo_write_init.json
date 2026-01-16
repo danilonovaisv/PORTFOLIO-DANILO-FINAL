@@ -1,6 +1,6 @@
 [
   {
-    "content": "#1 ✓ [Infra] Fix Firebase Deploy configuration (scripts, engines, pnpm)",
+    "content": "#1 ✓ [Infra] Fix Firebase Deploy configuration (scripts, engines, npm)",
     "status": "completed",
     "activeForm": "Done"
   },
