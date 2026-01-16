@@ -63,33 +63,33 @@ export default function ClientsBrandsSection() {
             {logos.map((logo) => {
               const isSvg = logo.src?.toLowerCase().endsWith('.svg');
               return (
-              <motion.div
-                key={logo.id}
-                variants={{
-                  hidden: { opacity: 0, y: 20, filter: 'blur(4px)' },
-                  show: {
-                    opacity: 1,
-                    y: 0,
-                    filter: 'blur(0px)',
-                    transition: {
-                      duration: 0.8,
-                      ease: [0.22, 1, 0.36, 1],
+                <motion.div
+                  key={logo.id}
+                  variants={{
+                    hidden: { opacity: 0, y: 20, filter: 'blur(4px)' },
+                    show: {
+                      opacity: 1,
+                      y: 0,
+                      filter: 'blur(0px)',
+                      transition: {
+                        duration: 0.8,
+                        ease: [0.22, 1, 0.36, 1],
+                      },
                     },
-                  },
-                }}
-                className="group relative w-32 h-16 md:w-40 md:h-20 flex items-center justify-center"
-                aria-label={logo.alt}
-              >
-                <Image
-                  src={logo.src}
-                  alt={logo.alt}
-                  fill
-                  className="w-full h-full object-contain filter brightness-0 invert opacity-60 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110 will-change-transform"
-                  sizes="(max-width: 768px) 128px, (max-width: 1200px) 160px, 160px"
-                  loading="lazy"
-                  unoptimized={isSvg}
-                />
-              </motion.div>
+                  }}
+                  className="group relative w-32 h-16 md:w-40 md:h-20 flex items-center justify-center"
+                  aria-label={logo.alt}
+                >
+                  <Image
+                    src={logo.src}
+                    alt={logo.alt}
+                    fill
+                    className="w-full h-full object-contain filter brightness-0 invert opacity-60 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110 will-change-transform"
+                    sizes="(max-width: 768px) 128px, (max-width: 1200px) 160px, 160px"
+                    loading="lazy"
+                    unoptimized={isSvg}
+                  />
+                </motion.div>
               );
             })}
           </motion.div>

@@ -21,7 +21,9 @@ export type ProjectCategory = {
 
 // --- 1. ASSETS GLOBAIS ---
 export const ASSETS = {
-  videoManifesto: getAssetUrl('project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4'),
+  videoManifesto: getAssetUrl(
+    'project-videos/VIDEO-APRESENTACAO-PORTFOLIO.mp4'
+  ),
   favicon: getAssetUrl('logo_site/logo.svg'),
   logoLight: getAssetUrl('logo_site/faivcon-02.svg'),
   logoDark: getAssetUrl('logo_site/faivcon.svg'),
@@ -54,8 +56,7 @@ export const FEATURED_PROJECTS = [
     client: 'Magic',
     category: 'branding & campanha',
     displayCategory: 'branding & campanha',
-    imageUrl:
-      getAssetUrl('project-images/Brand-Identity%20copy.webp'),
+    imageUrl: getAssetUrl('project-images/Brand-Identity%20copy.webp'),
     isHero: true,
     year: '2023',
   },
@@ -65,8 +66,7 @@ export const FEATURED_PROJECTS = [
     client: 'Cliente confidencial',
     category: 'branding',
     displayCategory: 'branding',
-    imageUrl:
-      getAssetUrl('project-images/Branding-Project.webp'),
+    imageUrl: getAssetUrl('project-images/Branding-Project.webp'),
     isHero: false,
     year: '2022',
   },
@@ -76,8 +76,7 @@ export const FEATURED_PROJECTS = [
     client: 'Cliente confidencial',
     category: 'campanha',
     displayCategory: 'campanha',
-    imageUrl:
-      getAssetUrl('project-images/Key-Visual.webp'),
+    imageUrl: getAssetUrl('project-images/Key-Visual.webp'),
     isHero: false,
     year: '2021',
   },
@@ -87,8 +86,7 @@ export const FEATURED_PROJECTS = [
     client: 'Cliente confidencial',
     category: 'web & motion',
     displayCategory: 'web & motion',
-    imageUrl:
-      getAssetUrl('project-images/webdesigner-2%202.gif'),
+    imageUrl: getAssetUrl('project-images/webdesigner-2%202.gif'),
     isHero: false,
     year: '2023',
   },
@@ -99,22 +97,19 @@ export const CATEGORIES: ProjectCategory[] = [
   {
     id: 'brand-campaigns',
     label: 'Brand & Campaigns',
-    posterUrl:
-      getAssetUrl('project-images/Branding-Project.webp'),
+    posterUrl: getAssetUrl('project-images/Branding-Project.webp'),
     thumbnailUrl: '',
   },
   {
     id: 'videos-motions',
     label: 'Videos & Motions',
-    posterUrl:
-      getAssetUrl('project-images/webdesigner-2%202.gif'),
+    posterUrl: getAssetUrl('project-images/webdesigner-2%202.gif'),
     thumbnailUrl: '',
   },
   {
     id: 'websites-webcampaigns-tech',
     label: 'Web Campaigns, Websites & Tech',
-    posterUrl:
-      getAssetUrl('project-images/WelcomeAd_800x500px.webp'),
+    posterUrl: getAssetUrl('project-images/WelcomeAd_800x500px.webp'),
     thumbnailUrl: '',
   },
 ];
