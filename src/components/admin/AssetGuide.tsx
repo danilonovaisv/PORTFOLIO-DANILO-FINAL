@@ -20,7 +20,8 @@ const assetGuide = [
   {
     key: SITE_ASSET_KEYS.logos.faviconLight,
     description: 'Favicon claro usado em <head>',
-    change: 'SVG/ICO com fundo transparente; mantenha metadata/JsonLd alinhado.',
+    change:
+      'SVG/ICO com fundo transparente; mantenha metadata/JsonLd alinhado.',
     page: 'global',
   },
   {
@@ -87,8 +88,7 @@ const assetGuide = [
   {
     key: 'clients.strip.*',
     description: 'Strip de logos da sessão de clients',
-    change:
-      'Use clients.strip.N (1-12) e carregue via useSiteAssetsByPrefix.',
+    change: 'Use clients.strip.N (1-12) e carregue via useSiteAssetsByPrefix.',
     page: 'clients',
   },
   {

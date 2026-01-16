@@ -52,7 +52,8 @@ export function buildSupabaseStorageUrl(
 ) {
   if (!filePath) return '';
 
-  const isHttp = filePath.startsWith('http://') || filePath.startsWith('https://');
+  const isHttp =
+    filePath.startsWith('http://') || filePath.startsWith('https://');
   const isSupabaseUrl = filePath.includes('/storage/v1/');
   if (isHttp && !isSupabaseUrl) {
     return filePath;

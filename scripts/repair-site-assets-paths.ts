@@ -15,14 +15,16 @@ type SiteAssetRow = {
 function parseEnvFile(filePath: string) {
   try {
     const content = readFileSync(filePath, 'utf8');
-    return content.split(/\r?\n/).reduce<Record<string, string>>((acc, line) => {
-      const trimmed = line.trim();
-      if (!trimmed || trimmed.startsWith('#')) return acc;
-      const [key, ...rest] = trimmed.split('=');
-      if (!key) return acc;
-      acc[key.trim()] = rest.join('=').trim().replace(/^"|"$/g, '');
-      return acc;
-    }, {});
+    return content
+      .split(/\r?\n/)
+      .reduce<Record<string, string>>((acc, line) => {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith('#')) return acc;
+        const [key, ...rest] = trimmed.split('=');
+        if (!key) return acc;
+        acc[key.trim()] = rest.join('=').trim().replace(/^"|"$/g, '');
+        return acc;
+      }, {});
   } catch {
     return {};
   }
@@ -119,7 +121,9 @@ async function main() {
     throw updateError;
   }
 
-  console.log('Concluído. Execute novamente para validar que não há mais duplicações.');
+  console.log(
+    'Concluído. Execute novamente para validar que não há mais duplicações.'
+  );
 }
 
 main().catch((err) => {
