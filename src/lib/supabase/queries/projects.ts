@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server';
 import type { DbProject, DbTag } from '@/types/admin';
+import type { SupabaseClient } from '@supabase/supabase-js';
 
 type ProjectFilters = {
   tagSlug?: string;
@@ -14,8 +15,11 @@ export type DbProjectWithTags = DbProject & {
   tags?: Array<{ tag: DbTag } | null> | null;
 };
 
-export async function listProjects(filters: ProjectFilters = {}) {
-  const supabase = await createClient();
+export async function listProjects(
+  filters: ProjectFilters = {},
+  supabaseClient?: SupabaseClient
+) {
+  const supabase = supabaseClient ?? (await createClient());
 
   let query = supabase
     .from('portfolio_projects')

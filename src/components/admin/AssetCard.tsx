@@ -111,6 +111,7 @@ export function AssetCard({ asset }: Props) {
             alt={asset.key}
             fill
             className="object-cover"
+            unoptimized={previewUrl.toLowerCase().endsWith('.svg')}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center text-xs text-slate-400">

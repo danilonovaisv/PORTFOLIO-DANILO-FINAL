@@ -8,6 +8,7 @@ import { VideoManifesto } from '@/components/home/hero/VideoManifesto';
 import { BRAND } from '@/config/brand';
 import { listProjects } from '@/lib/supabase/queries/projects';
 import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
+import { createStaticClient } from '@/lib/supabase/static';
 
 export const metadata: Metadata = {
   title: 'Danilo Novais | Creative Developer',
@@ -30,7 +31,8 @@ export const metadata: Metadata = {
 export default async function HomePage() {
   let featuredProjects: any[] = [];
   try {
-    const dbProjects = await listProjects({ featuredOnHome: true });
+    const supabase = createStaticClient();
+    const dbProjects = await listProjects({ featuredOnHome: true }, supabase);
     featuredProjects = dbProjects.map((project, index) =>
       mapDbProjectToPortfolioProject(project, index)
     );

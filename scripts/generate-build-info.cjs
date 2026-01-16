@@ -29,8 +29,8 @@ function main() {
   fs.mkdirSync(publicDir, { recursive: true });
   fs.writeFileSync(outFile, JSON.stringify(buildInfo, null, 2) + '\n', 'utf8');
 
-  process.stdout.write('[build-info] wrote ' + outFile + '\n');
-  process.stdout.write('[build-info] ' + JSON.stringify(buildInfo) + '\n');
+  // process.stdout.write('[build-info] wrote ' + outFile + '\n');
+  // process.stdout.write('[build-info] ' + JSON.stringify(buildInfo) + '\n');
 }
 
 main();

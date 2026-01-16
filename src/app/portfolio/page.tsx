@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import PortfolioClient from './PortfolioClient';
 import { listProjects } from '@/lib/supabase/queries/projects';
 import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
+import { createStaticClient } from '@/lib/supabase/static';
 
 export const metadata: Metadata = {
   title: 'Portfólio',
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
 };
 
 export default async function PortfolioPage() {
-  const dbProjects = await listProjects();
+  const supabase = createStaticClient();
+  const dbProjects = await listProjects({}, supabase);
   const projects = dbProjects.map((project, index) =>
     mapDbProjectToPortfolioProject(project, index)
   );

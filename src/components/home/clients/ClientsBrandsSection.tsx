@@ -60,7 +60,9 @@ export default function ClientsBrandsSection() {
             }}
             className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8 md:gap-12 items-center justify-items-center w-full"
           >
-            {logos.map((logo) => (
+            {logos.map((logo) => {
+              const isSvg = logo.src?.toLowerCase().endsWith('.svg');
+              return (
               <motion.div
                 key={logo.id}
                 variants={{
@@ -85,9 +87,11 @@ export default function ClientsBrandsSection() {
                   className="w-full h-full object-contain filter brightness-0 invert opacity-60 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110 will-change-transform"
                   sizes="(max-width: 768px) 128px, (max-width: 1200px) 160px, 160px"
                   loading="lazy"
+                  unoptimized={isSvg}
                 />
               </motion.div>
-            ))}
+              );
+            })}
           </motion.div>
         ) : (
           <p

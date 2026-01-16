@@ -1,0 +1,72 @@
+ WARN  Unsupported engine: wanted: {"node":"22"} (current: {"node":"v24.12.0","pnpm":"10.28.0"})
+
+> danilo-novais-portfolio@1.0.1 prebuild /Users/danilonovais/_danilonov_portfolio
+> node scripts/generate-build-info.cjs
+
+[build-info] wrote /Users/danilonovais/_danilonov_portfolio/public/build-info.json
+[build-info] {"buildTimeISO":"2026-01-16T10:55:28.708Z","gitSha":"","gitShaShort":"","nodeEnv":""}
+
+> danilo-novais-portfolio@1.0.1 build /Users/danilonovais/_danilonov_portfolio
+> next build
+
+   ▲ Next.js 15.1.11
+   - Environments: .env.local, .env
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully
+   Linting and checking validity of types ...
+
+ ⚠ The Next.js plugin was not detected in your ESLint configuration. See https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config
+
+./src/lib/database.types.ts
+247:8  Warning: '_' is defined but never used.  no-unused-vars
+250:8  Warning: '_' is defined but never used.  no-unused-vars
+253:8  Warning: '_' is defined but never used.  no-unused-vars
+256:8  Warning: '_' is defined but never used.  no-unused-vars
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+   Collecting page data ...
+   Generating static pages (0/17) ...
+   Generating static pages (4/17) 
+   Generating static pages (8/17) 
+   Generating static pages (12/17) 
+ ✓ Generating static pages (17/17)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+┌ ○ /                                    11.4 kB         188 kB
+├ ○ /_not-found                          155 B           106 kB
+├ ƒ /admin                               155 B           106 kB
+├ ƒ /admin/config                        155 B           106 kB
+├ ○ /admin/login                         1.1 kB          161 kB
+├ ƒ /admin/midia                         7.53 kB         172 kB
+├ ƒ /admin/tags                          1.38 kB         199 kB
+├ ƒ /admin/trabalhos                     464 B           115 kB
+├ ƒ /admin/trabalhos/[id]                143 B           202 kB
+├ ƒ /admin/trabalhos/new                 143 B           202 kB
+├ ƒ /api/site-assets                     155 B           106 kB
+├ ○ /floating-cards                      2.65 kB         158 kB
+├ ○ /opengraph-image                     0 B                0 B
+├ ○ /playground                          1.95 kB         152 kB
+├ ○ /portfolio                           10.1 kB         187 kB
+├ ● /portfolio/[slug]                    206 B           173 kB
+├   ├ /portfolio/magic-radio-branding
+├   ├ /portfolio/branding-project-01
+├   ├ /portfolio/key-visual-campaign
+├   └ /portfolio/webdesigner-motion
+├ ○ /robots.txt                          0 B                0 B
+├ ○ /sitemap.xml                         0 B                0 B
+└ ○ /sobre                               8.88 kB         235 kB
++ First Load JS shared by all            105 kB
+  ├ chunks/27a2dd16-4293a751a815597b.js  53 kB
+  ├ chunks/4779-a03961653fd2b003.js      50.4 kB
+  └ other shared chunks (total)          2.07 kB
+
+
+ƒ Middleware                             77.3 kB
+
+○  (Static)   prerendered as static content
+●  (SSG)      prerendered as static HTML (uses generateStaticParams)
+ƒ  (Dynamic)  server-rendered on demand
+
