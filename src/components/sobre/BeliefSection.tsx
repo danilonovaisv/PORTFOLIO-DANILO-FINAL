@@ -41,7 +41,7 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
       ref={containerRef}
       className={`relative w-full h-screen flex items-start justify-start overflow-hidden pt-[25vh] md:pt-[20vh] lg:pt-[15vh] transition-colors duration-500 ease-linear ${bgColor}`}
     >
-      <div className="std-grid max-w-none px-0">
+      <div className="std-grid max-w-none">
         <motion.div
           style={{ x, y, opacity }}
           className="w-full flex justify-start z-10"

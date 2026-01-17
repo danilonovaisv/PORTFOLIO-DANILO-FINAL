@@ -18,7 +18,9 @@ export default async function MidiaPage() {
     .order('sort_order', { ascending: true, nullsFirst: false });
 
   const normalizedAssets = normalizeAssetList(assets ?? []);
-  const activeCount = normalizedAssets.filter((asset) => asset.is_active).length;
+  const activeCount = normalizedAssets.filter(
+    (asset) => asset.is_active
+  ).length;
 
   return (
     <div className="space-y-6">

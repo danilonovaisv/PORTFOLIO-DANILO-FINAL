@@ -174,29 +174,27 @@ export const TAG_CATALOG = [
   },
 ];
 
-exportconst ABOUT_CONTENT = {
+// CORREÇÃO APLICADA: Espaço adicionado entre 'export' e 'const'
+export const ABOUT_CONTENT = {
   hero: {
     title: {
       text: 'Sou ',
-      highlight: 'Danilo Novais. '
+      highlight: 'Danilo Novais. ',
     },
     manifesto: [
       {
         text: 'Você ',
         highlight: 'não vê tudo ',
-        textEnd: 'o que eu faço.'
+        textEnd: 'o que eu faço.',
       },
-      {
-        text: 'Mas sente quando ',
-        highlight: 'funciona.'
-      }
+      { text: 'Mas sente ' },
+      { text: 'quando ', highlight: 'funciona.' },
     ],
     description: [
-      'Crio designs que observam, entendem e guiam experiências com intenção,',
-      'estratégia e tecnologia, na medida exata.'
-    ]
-  }
-};
+      'Crio designs que observam,\n',
+      'entendem e guiam experiências com intenção,\n',
+      'estratégia e tecnologia,\n na medida exata.',
+    ],
     videos: {
       desktop: siteAsset('about/hero/about.hero.desktop_video.mp4'),
       mobile: siteAsset('about/hero/about.hero.mobile_video.mp4'),

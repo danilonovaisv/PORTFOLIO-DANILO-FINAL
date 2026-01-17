@@ -6,6 +6,7 @@ import SmoothScroll from '@/components/layout/SmoothScroll';
 import Header from '@/components/layout/Header';
 
 import { useExperience } from '@/hooks/useExperience';
+import { useEffect } from 'react';
 
 import { AntigravityDebugger } from '@/components/debug/AntigravityDebugger';
 
@@ -29,6 +30,18 @@ export default function ClientLayout({
 
   // 🧠 ORQUESTRAÇÃO GLOBAL DA EXPERIÊNCIA (desativada no /admin para evitar scroll lock)
   useExperience(!isAdmin);
+
+  useEffect(() => {
+    if (isAdmin) {
+      document.body.classList.add('admin-page');
+      document.documentElement.classList.add('admin-page');
+      return () => {
+        document.body.classList.remove('admin-page');
+        document.documentElement.classList.remove('admin-page');
+      };
+    }
+    return;
+  }, [isAdmin]);
 
   if (isAdmin) {
     return (

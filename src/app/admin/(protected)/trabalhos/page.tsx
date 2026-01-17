@@ -36,7 +36,7 @@ export default async function TrabalhosPage(props: Props) {
   let query = supabase
     .from('portfolio_projects')
     .select(
-      'id, title, client_name, year, featured_on_home, featured_on_portfolio, is_published, thumbnail_path, project_type, slug, tags:portfolio_project_tags(tag:portfolio_tags(label, slug))'
+      'id, title, client_name, year, featured_on_home, featured_home_order, featured_on_portfolio, featured_portfolio_order, is_published, thumbnail_path, project_type, slug, tags:portfolio_project_tags(tag:portfolio_tags(label, slug))'
     )
     .order('updated_at', { ascending: false });
 
@@ -103,6 +103,7 @@ export default async function TrabalhosPage(props: Props) {
               <th className="px-4 py-3">Tipo</th>
               <th className="px-4 py-3">Tags</th>
               <th className="px-4 py-3">Flags</th>
+              <th className="px-4 py-3">Destaques</th>
               <th className="px-4 py-3">Status</th>
               <th className="px-4 py-3 text-right">Ações</th>
             </tr>
@@ -164,6 +165,30 @@ export default async function TrabalhosPage(props: Props) {
                   </div>
                 </td>
                 <td className="px-4 py-3 text-slate-300">
+                  <div className="flex flex-col gap-1 text-xs">
+                    <div className="flex items-center gap-2">
+                      <span className="text-slate-400">Home:</span>
+                      {project.featured_on_home ? (
+                        <span className="rounded bg-blue-500/15 px-2 py-1 text-blue-100">
+                          #{project.featured_home_order ?? '—'}
+                        </span>
+                      ) : (
+                        <span className="text-slate-500">—</span>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-slate-400">Portfólio:</span>
+                      {project.featured_on_portfolio ? (
+                        <span className="rounded bg-emerald-500/15 px-2 py-1 text-emerald-100">
+                          #{project.featured_portfolio_order ?? '—'}
+                        </span>
+                      ) : (
+                        <span className="text-slate-500">—</span>
+                      )}
+                    </div>
+                  </div>
+                </td>
+                <td className="px-4 py-3 text-slate-300">
                   <form action={togglePublish}>
                     <input type="hidden" name="id" value={project.id} />
                     <input
@@ -197,7 +222,7 @@ export default async function TrabalhosPage(props: Props) {
               <tr>
                 <td
                   className="px-4 py-6 text-center text-slate-400"
-                  colSpan={8}
+                  colSpan={9}
                 >
                   Nenhum projeto encontrado.
                 </td>

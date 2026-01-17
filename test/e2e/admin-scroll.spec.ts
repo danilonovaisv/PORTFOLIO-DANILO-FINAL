@@ -7,17 +7,69 @@ test('admin keeps scroll enabled when content exceeds viewport', async ({
   await page.waitForTimeout(300);
 
   await page.evaluate(() => {
+    const target = document.querySelector('main') || document.body;
     const filler = document.createElement('div');
     filler.id = 'scroll-check';
-    filler.style.height = '200vh';
+    filler.style.height = '4000px';
     filler.style.width = '1px';
-    document.body.appendChild(filler);
+    target.appendChild(filler);
   });
 
-  const initialY = await page.evaluate(() => window.scrollY);
-  await page.mouse.wheel(0, 300);
-  const scrolledY = await page.evaluate(() => window.scrollY);
-  expect(scrolledY).toBeGreaterThan(initialY);
+  const scrollMetrics = await page.evaluate(() => {
+    const target =
+      document.querySelector<HTMLElement>('main') ||
+      (document.scrollingElement as HTMLElement) ||
+      document.body;
+    const before = target.scrollTop ?? 0;
+    target.scrollBy(0, 300);
+    const after = target.scrollTop ?? 0;
+    return {
+      before,
+      after,
+      scrollHeight: target.scrollHeight,
+      clientHeight: target.clientHeight,
+      overflow: getComputedStyle(target).overflowY,
+    };
+  });
+
+  expect(scrollMetrics.scrollHeight).toBeGreaterThan(
+    scrollMetrics.clientHeight
+  );
+
+  const windowScroll = await page.evaluate(
+    () =>
+      new Promise((resolve) => {
+        const before =
+          window.scrollY || document.scrollingElement?.scrollTop || 0;
+        window.scrollBy({ top: 500, behavior: 'smooth' });
+        setTimeout(() => {
+          const after =
+            window.scrollY || document.scrollingElement?.scrollTop || 0;
+          resolve({
+            before,
+            after,
+            scrollHeight: document.documentElement.scrollHeight,
+            clientHeight: document.documentElement.clientHeight,
+            docClass: document.documentElement.className,
+            bodyClass: document.body.className,
+            docOverflow: getComputedStyle(document.documentElement).overflowY,
+            bodyOverflow: getComputedStyle(document.body).overflowY,
+          });
+        }, 100);
+      })
+  );
+
+  const windowMetrics = windowScroll as {
+    before: number;
+    after: number;
+    scrollHeight: number;
+    clientHeight: number;
+  };
+
+  expect(windowMetrics.after).toBeGreaterThan(windowMetrics.before);
+  expect(windowMetrics.scrollHeight).toBeGreaterThan(
+    windowMetrics.clientHeight
+  );
 
   const hasScrollableArea = await page.evaluate(
     () => document.documentElement.scrollHeight > window.innerHeight

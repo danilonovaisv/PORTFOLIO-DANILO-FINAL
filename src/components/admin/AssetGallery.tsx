@@ -137,9 +137,7 @@ export function AssetGallery({ assets }: AssetGalleryProps) {
           </span>
           <button
             type="button"
-            onClick={() =>
-              setPage((prev) => Math.min(totalPages, prev + 1))
-            }
+            onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
             disabled={safePage >= totalPages}
             className="rounded-md border border-white/10 bg-slate-900/70 px-3 py-1 text-xs text-white transition hover:border-blue-400 hover:bg-blue-500/10 disabled:cursor-not-allowed disabled:opacity-40"
           >

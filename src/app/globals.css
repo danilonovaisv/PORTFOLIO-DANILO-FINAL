@@ -56,6 +56,28 @@ body {
   display: none;
 }
 
+/* Admin pages: force scrollbars visible and unlock overflow */
+.admin-page {
+  overflow-y: auto !important;
+  scrollbar-width: thin;
+  -ms-overflow-style: auto;
+}
+
+.admin-page::-webkit-scrollbar {
+  display: block;
+  width: 10px;
+  height: 10px;
+}
+
+.admin-page::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 9999px;
+}
+
+.admin-page::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
 /* Admin surface should keep scrollbars visible to avoid locking the panel */
 .admin-surface,
 .admin-shell {

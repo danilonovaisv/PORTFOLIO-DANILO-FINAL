@@ -53,26 +53,22 @@ const AboutOrigin: React.FC = () => {
     useSiteAssetUrl(
       SITE_ASSET_KEYS.about.originImages[0],
       buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[0].fallback)
-    ) ??
-    buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[0].fallback);
+    ) ?? buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[0].fallback);
   const originImage2 =
     useSiteAssetUrl(
       SITE_ASSET_KEYS.about.originImages[1],
       buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[1].fallback)
-    ) ??
-    buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[1].fallback);
+    ) ?? buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[1].fallback);
   const originImage3 =
     useSiteAssetUrl(
       SITE_ASSET_KEYS.about.originImages[2],
       buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[2].fallback)
-    ) ??
-    buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[2].fallback);
+    ) ?? buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[2].fallback);
   const originImage4 =
     useSiteAssetUrl(
       SITE_ASSET_KEYS.about.originImages[3],
       buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[3].fallback)
-    ) ??
-    buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[3].fallback);
+    ) ?? buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[3].fallback);
 
   const CONTENT_BLOCKS = [
     { ...FALLBACK_BLOCKS[0], img: originImage1 },

@@ -76,9 +76,7 @@ describe('normalizeAssetList', () => {
       asset({ key: 'missing-path', file_path: '', id: 'no-path' }),
     ]);
 
-    expect(results.find((item) => item.key === 'hero')?.id).toBe(
-      'hero-active'
-    );
+    expect(results.find((item) => item.key === 'hero')?.id).toBe('hero-active');
     expect(results.find((item) => item.key.startsWith('updated_at'))).toBe(
       undefined
     );

@@ -42,7 +42,8 @@ export function normalizeAssetRecord(asset: DbAsset): NormalizedSiteAsset {
       .replace(/,+$/g, '')
       .trim();
     if (!trimmed) return undefined;
-    if (/^updated_at:/i.test(trimmed) || /^key:/i.test(trimmed)) return undefined;
+    if (/^updated_at:/i.test(trimmed) || /^key:/i.test(trimmed))
+      return undefined;
     const delimiter = trimmed.includes('/') ? '/' : '.';
     const base = trimmed.split(delimiter)[0];
     return base?.toLowerCase();
@@ -88,7 +89,8 @@ export function normalizeAssetList(
   options: { onlyActive?: boolean; dropInvalid?: boolean } = {}
 ) {
   const { onlyActive = false, dropInvalid = true } = options;
-  const normalized = new Map<string, NormalizedSiteAsset>();
+  const normalizedByKey = new Map<string, NormalizedSiteAsset>();
+  const normalizedByPath = new Map<string, NormalizedSiteAsset>();
 
   const isInvalidValue = (value?: string | null) => {
     if (!value) return true;
@@ -101,14 +103,28 @@ export function normalizeAssetList(
     );
   };
 
+  const hasDoublePrefix = (value?: string | null) => {
+    if (!value) return false;
+    const compact = value.replace(/[\\/]/g, '.').toLowerCase();
+    return /^(?:key:)?([a-z0-9_-]+)\.([a-z0-9_-]+)\.\1\./.test(compact);
+  };
+
   const scoreRecord = (record: NormalizedSiteAsset) => {
     const activeScore = record.is_active ? 4 : 0;
     const urlScore = record.publicUrl ? 2 : 0;
     const pathScore = record.file_path?.includes('/') ? 1 : 0;
-    return activeScore + urlScore + pathScore;
+    const lengthPenalty = Math.min(record.key?.length ?? 0, 60) * 0.01;
+    return activeScore + urlScore + pathScore - lengthPenalty;
   };
 
   for (const asset of assets) {
+    if (
+      dropInvalid &&
+      (hasDoublePrefix(asset.key) || hasDoublePrefix(asset.file_path))
+    ) {
+      continue;
+    }
+
     const record = normalizeAssetRecord(asset);
     const key = record.key?.trim();
     if (!key) continue;
@@ -124,18 +140,39 @@ export function normalizeAssetList(
     );
     if (dropInvalid && !hasUsableUrl) continue;
 
-    const existing = normalized.get(key);
-    if (!existing) {
-      normalized.set(key, record);
-      continue;
-    }
+    const decide = (
+      current: NormalizedSiteAsset | undefined,
+      next: NormalizedSiteAsset
+    ) => {
+      if (!current) return next;
+      const currentScore = scoreRecord(current);
+      const nextScore = scoreRecord(next);
+      if (nextScore > currentScore) return next;
+      if (nextScore === currentScore) {
+        return next.key.length < current.key.length ? next : current;
+      }
+      return current;
+    };
 
-    if (scoreRecord(record) > scoreRecord(existing)) {
-      normalized.set(key, record);
+    const bestByKey = decide(normalizedByKey.get(key), record);
+    normalizedByKey.set(key, bestByKey);
+
+    const pathKey = record.file_path || '';
+    if (pathKey) {
+      const bestByPath = decide(normalizedByPath.get(pathKey), record);
+      normalizedByPath.set(pathKey, bestByPath);
     }
   }
 
-  return Array.from(normalized.values()).sort((a, b) => {
+  const merged = new Map<string, NormalizedSiteAsset>();
+  for (const item of normalizedByKey.values()) {
+    merged.set(item.id, item);
+  }
+  for (const item of normalizedByPath.values()) {
+    merged.set(item.id, item);
+  }
+
+  return Array.from(merged.values()).sort((a, b) => {
     const pageA = a.page ?? '';
     const pageB = b.page ?? '';
     if (pageA === pageB) {
