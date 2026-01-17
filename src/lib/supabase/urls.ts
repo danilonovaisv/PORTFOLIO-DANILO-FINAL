@@ -64,8 +64,23 @@ export function buildSupabaseStorageUrl(
   const isHttp =
     filePath.startsWith('http://') || filePath.startsWith('https://');
   const isSupabaseUrl = filePath.includes('/storage/v1/');
+  
+  // Verifica se é uma URL externa não-Supabase
   if (isHttp && !isSupabaseUrl) {
-    return filePath;
+    // Validação de segurança para URLs externas
+    try {
+      const url = new URL(filePath);
+      // Permitir apenas protocolos seguros
+      if (url.protocol !== 'https:') {
+        console.warn(`Protocolo inseguro detectado: ${filePath}`);
+        return '';
+      }
+      // Aqui poderíamos adicionar validação de domínio se necessário
+      return filePath;
+    } catch (e) {
+      console.error(`URL inválida: ${filePath}`);
+      return '';
+    }
   }
 
   const cleanBucket = bucket.replace(/^\/+|\/+$/g, '');
@@ -80,4 +95,25 @@ export function buildSupabaseStorageUrl(
   }
 
   return `${baseUrl}/storage/v1/object/public/${cleanBucket}/${normalizedPath}`;
+}
+
+// Função adicional para validar e construir URLs de links externos
+export function validateExternalUrl(url: string): string {
+  try {
+    const parsedUrl = new URL(url);
+    
+    // Permitir apenas HTTPS
+    if (parsedUrl.protocol !== 'https:') {
+      console.warn(`Link externo inseguro bloqueado: ${url}`);
+      return '';
+    }
+    
+    // Bloquear certos domínios se necessário (opcional)
+    // Exemplo: bloquear domínios conhecidos por phishing
+    
+    return parsedUrl.toString();
+  } catch (e) {
+    console.error(`URL externa inválida: ${url}`);
+    return '';
+  }
 }

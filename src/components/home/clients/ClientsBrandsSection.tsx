@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import { HOME_CONTENT } from '@/config/content';
 import { useSiteAssetsByPrefix } from '@/contexts/site-assets';
+import { validateExternalUrl } from '@/lib/supabase/urls';
 
 export default function ClientsBrandsSection() {
   const reducedMotion = useReducedMotion();
@@ -22,6 +23,8 @@ export default function ClientsBrandsSection() {
           id: asset.key,
           src: asset.publicUrl,
           alt: asset.description ?? asset.key,
+          // Adicionando campo opcional para links externos
+          href: asset.href || null,
         }))
       : HOME_CONTENT.clients.logos.slice(0, 8);
 
@@ -67,6 +70,36 @@ export default function ClientsBrandsSection() {
           >
             {logos.map((logo) => {
               const isSvg = logo.src?.toLowerCase().endsWith('.svg');
+              
+              // Renderizar como link se tiver href
+              const LogoElement = ({ children }: { children: React.ReactNode }) => {
+                if (logo.href) {
+                  const validatedHref = validateExternalUrl(logo.href);
+                  if (validatedHref) {
+                    return (
+                      <a
+                        href={validatedHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group relative w-32 h-16 md:w-40 md:h-20 flex items-center justify-center"
+                        aria-label={logo.alt}
+                      >
+                        {children}
+                      </a>
+                    );
+                  }
+                }
+                
+                return (
+                  <div
+                    className="group relative w-32 h-16 md:w-40 md:h-20 flex items-center justify-center"
+                    aria-label={logo.alt}
+                  >
+                    {children}
+                  </div>
+                );
+              };
+
               return (
                 <motion.div
                   key={logo.id}
@@ -82,18 +115,18 @@ export default function ClientsBrandsSection() {
                       },
                     },
                   }}
-                  className="group relative w-32 h-16 md:w-40 md:h-20 flex items-center justify-center"
-                  aria-label={logo.alt}
                 >
-                  <Image
-                    src={logo.src}
-                    alt={logo.alt}
-                    fill
-                    className="w-full h-full object-contain filter brightness-0 invert opacity-60 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110 will-change-transform"
-                    sizes="(max-width: 768px) 128px, (max-width: 1200px) 160px, 160px"
-                    loading="lazy"
-                    unoptimized={isSvg}
-                  />
+                  <LogoElement>
+                    <Image
+                      src={logo.src}
+                      alt={logo.alt}
+                      fill
+                      className="w-full h-full object-contain filter brightness-0 invert opacity-60 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110 will-change-transform"
+                      sizes="(max-width: 768px) 128px, (max-width: 1200px) 160px, 160px"
+                      loading="lazy"
+                      unoptimized={isSvg}
+                    />
+                  </LogoElement>
                 </motion.div>
               );
             })}

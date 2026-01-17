@@ -7,10 +7,10 @@ import { BeliefFixedHeader } from './BeliefFixedHeader';
 
 const PHRASES = [
   'Um vídeo\nque respira.',
-  'Uma marca que\nse reconhece.',
-  'Um detalhe que fica.',
-  'Crio para gerar\npresença.',
-  'Mesmo quando ninguém\npercebe o esforço.',
+  'Uma marca\n que se\n reconhece.',
+  'Um detalhe\n que fica.',
+  'Crio para\n gerar\npresença.',
+  'Mesmo\n quando ninguém\n percebe o\n esforço.',
 ];
 
 const COLORS = [
