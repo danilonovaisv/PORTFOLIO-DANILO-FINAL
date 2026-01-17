@@ -13,7 +13,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: npm ci && npm run build
+      - run: |
+          if [ -f pnpm-lock.yaml ]; then
+            corepack enable pnpm
+            pnpm install
+            pnpm run build
+          else
+            npm ci
+            npm run build
+          fi
+        shell: bash
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
