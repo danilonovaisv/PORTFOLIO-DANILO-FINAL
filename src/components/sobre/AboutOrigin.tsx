@@ -316,7 +316,7 @@ const AboutOrigin: React.FC = () => {
                 <div className="content w-full lg:max-w-[520px] flex flex-col gap-8 lg:transform lg:-translate-y-[15%]">
                   <div className="space-y-6">
                     {/* H2 using CustomLight font and #0048ff color */}
-                    <h2 className="reveal-text text-[32px] md:text-[42px] lg:text-[48px] font-['CustomLight'] font-light leading-[1.1] text-[#0048ff] uppercase tracking-wide">
+                    <h2 className="reveal-text text-[32px] md:text-[42px] lg:text-[48px] font-['CustomLight'] font-bold leading-[1.1] text-[#0048ff] tracking-wide">
                       {block.title}
                     </h2>
                     {/* Responsive body text */}
