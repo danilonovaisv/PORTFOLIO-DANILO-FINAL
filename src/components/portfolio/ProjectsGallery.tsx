@@ -6,14 +6,16 @@
 
 'use client';
 
-import { FC, useMemo, useState, useEffect } from 'react';
+import { FC, useMemo, useState, useEffect, useCallback } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import type { PortfolioProject, ProjectCategory } from '@/types/project';
+import type { MouseEvent } from 'react';
 import { filterProjectsByCategory } from '@/data/projects';
 import CategoryFilter from './CategoryFilter';
 import PortfolioCard from './PortfolioCard';
 import useParallax from '@/hooks/useParallax';
 import { Container } from '@/components/layout/Container';
+import AntigravityCTA from '@/components/ui/AntigravityCTA';
 
 interface ProjectsGalleryProps {
   projects: PortfolioProject[];
@@ -36,6 +38,13 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
 }) => {
   const [activeCategory, setActiveCategory] = useState<ProjectCategory>('all');
   const prefersReducedMotion = useReducedMotion();
+  const handleCTAClick = useCallback((event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    const contactSection = document.querySelector('#contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
   
   // Parallax Setup
   const { galleryRef, trackRef, isScrolling, style: parallaxStyle } = useParallax({
@@ -111,6 +120,33 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
         </div>
 
         <Container>
+          {/* Heading + CTA posicionados abaixo da hero (desktop e mobile) */}
+          <motion.div
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: easing }}
+            className="mb-10 md:mb-14 flex flex-col gap-4 md:flex-row md:items-center md:justify-between"
+          >
+            <div className="flex flex-col gap-2">
+              <p className="text-sm uppercase tracking-[0.08em] text-blueAccent font-semibold">
+                portfólio
+              </p>
+              <h1 className="text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.05] text-white">
+                <span className="text-blueAccent font-bold">portfólio</span>{' '}
+                <span className="font-bold">showcase</span>
+              </h1>
+            </div>
+            <div className="flex md:justify-end">
+              <AntigravityCTA
+                onClick={handleCTAClick}
+                href="#contact"
+                text="vamos trabalhar juntos"
+                className="relative"
+              />
+            </div>
+          </motion.div>
+
           {/* Header com título e filtros */}
           {showFilter && (
             <motion.div

@@ -35,8 +35,9 @@ describe('buildSupabaseStorageUrl', () => {
       'site-assets',
       'https://old-project.supabase.co/storage/v1/object/public/site-assets/global/fonts/font.woff2'
     );
+    // Agora preservamos a origem quando já vem completa de outro projeto Supabase
     expect(url).toBe(
-      'https://test.supabase.co/storage/v1/object/public/site-assets/global/fonts/font.woff2'
+      'https://old-project.supabase.co/storage/v1/object/public/site-assets/global/fonts/font.woff2'
     );
   });
 

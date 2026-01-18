@@ -26,10 +26,25 @@ export function normalizeAssetRecord(asset: DbAsset): NormalizedSiteAsset {
     .trim();
 
   const cleanPath = normalizeStoragePath(asset.file_path, cleanBucket);
+  const fixClientsPath = (path?: string) => {
+    if (!path) return path;
+    // Casos importados com prefixo duplicado "clients.clients.strip.X.svg"
+    if (/^clients\.clients\.strip\./.test(path)) {
+      return path.replace(
+        /^clients\.clients\.strip\./,
+        'clients/clients.strip.'
+      );
+    }
+    if (/^clients\.strip\./.test(path)) {
+      return path.replace(/^clients\.strip\./, 'clients/clients.strip.');
+    }
+    return path;
+  };
+  const resolvedPath = fixClientsPath(cleanPath);
 
   // Corrige bucket para media de portfólio que foram importadas com o bucket errado
   const resolvedBucket =
-    cleanBucket === 'site-assets' && cleanPath.startsWith('projects/')
+    cleanBucket === 'site-assets' && resolvedPath?.startsWith('projects/')
       ? 'portfolio-media'
       : cleanBucket;
 
@@ -51,12 +66,12 @@ export function normalizeAssetRecord(asset: DbAsset): NormalizedSiteAsset {
 
   const resolvedPage =
     inferPageFromValue(asset.page) ||
-    inferPageFromValue(cleanPath) ||
+    inferPageFromValue(resolvedPath) ||
     inferPageFromValue(cleanKey) ||
     'global';
 
   const publicUrl =
-    buildSupabaseStorageUrl(resolvedBucket, cleanPath) ||
+    buildSupabaseStorageUrl(resolvedBucket, resolvedPath) ||
     (asset.file_path?.startsWith('http') ? asset.file_path : '') ||
     '';
 
@@ -115,7 +130,10 @@ export function normalizeAssetList(
     const maxPrefix = Math.min(3, Math.floor(parts.length / 2));
     for (let len = 1; len <= maxPrefix; len++) {
       const first = parts.slice(0, len).join('|').toLowerCase();
-      const second = parts.slice(len, len * 2).join('|').toLowerCase();
+      const second = parts
+        .slice(len, len * 2)
+        .join('|')
+        .toLowerCase();
       if (first === second) {
         const deduped = [...parts.slice(0, len), ...parts.slice(len * 2)];
         return deduped.join(delimiter);
