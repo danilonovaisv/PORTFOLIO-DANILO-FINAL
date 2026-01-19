@@ -2,14 +2,12 @@ export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 export const fetchCache = 'force-no-store';
 
-import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { AssetForm } from '@/components/admin/AssetForm';
 import { AssetGuide } from '@/components/admin/AssetGuide';
 import { PresetButtons } from './preset-buttons';
 import { normalizeAssetList } from '@/lib/supabase/site-asset-utils';
 import { AssetGallery } from '@/components/admin/AssetGallery';
-import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
 
 export default async function MidiaPage() {
   const supabase = await createClient();

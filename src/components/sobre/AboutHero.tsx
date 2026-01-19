@@ -39,13 +39,16 @@ export function AboutHero() {
     prefersReducedMotion ? [0, 0] : [48, -48]
   );
 
+  // Forçar uso dos URLs padrão do HOME_CONTENT caso os assets do Supabase não estejam disponíveis
   const desktopVideo = useSiteAssetUrl(
     SITE_ASSET_KEYS.heroVideos.aboutDesktop,
-    ABOUT_CONTENT.hero.videos.desktop
+    ABOUT_CONTENT.hero.videos.desktop ||
+      '/public/videos/about.hero.desktop_video.mp4'
   );
   const mobileVideo = useSiteAssetUrl(
     SITE_ASSET_KEYS.heroVideos.aboutMobile,
-    ABOUT_CONTENT.hero.videos.mobile
+    ABOUT_CONTENT.hero.videos.mobile ||
+      '/public/videos/about.hero.mobile_video.mp4'
   );
 
   return (
@@ -54,10 +57,10 @@ export function AboutHero() {
       className="relative min-h-screen bg-background overflow-hidden"
       aria-label="Hero - Manifesto"
     >
-      {/* Background Video - Desktop */}
+      {/* Background Video - Desktop - Forçar exibição mesmo se o URL estiver vazio */}
       <motion.video
         ref={videoRef}
-        src={desktopVideo}
+        src={desktopVideo || '/public/videos/about.hero.desktop_video.mp4'}
         autoPlay
         muted
         loop

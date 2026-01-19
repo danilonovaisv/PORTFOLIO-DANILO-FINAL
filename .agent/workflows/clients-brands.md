@@ -35,7 +35,7 @@ description: Hero ghost
 - _Tarefa:_ Criar uma seção reutilizável que utilize os logotipos de clientes.
 - _Posição:_ Integrar tanto na Home quanto na seção Sobre, seguindo a estrutura definida no contexto do projeto.
 
-2. **Componente `ClientsGrid.tsx**:**
+2. **Componente `ClientsGrid.tsx**:\*\*
 
 - _Tarefa:_ Implementar um grid de logotipos monocromáticos com animação sutil (marquee ou fade-in).
 - _Responsividade:_ Garantir que o layout funcione corretamente em dispositivos móveis e desktop.
@@ -155,7 +155,7 @@ clients: {
   logos: Array.from({ length: 12 }, (_, i) => ({
     id: i + 1,
     src: siteAsset(`clients/clients.strip.${i + 1}.svg`),
-    alt: `Logo do cliente ${i + 1}`, 
+    alt: `Logo do cliente ${i + 1}`,
   })),
 },
 ```

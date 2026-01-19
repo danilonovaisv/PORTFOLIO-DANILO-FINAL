@@ -1,5 +1,3 @@
-'use client';
-
 import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import { HOME_CONTENT } from '@/config/content';
@@ -24,6 +22,7 @@ export default function ClientsBrandsSection() {
     href?: string | null;
   };
 
+  // Garantir que sempre teremos pelo menos 8 logos
   const logos: LogoItem[] =
     uniqueAssets.length > 0
       ? uniqueAssets.slice(0, 8).map((asset) => ({
@@ -37,7 +36,8 @@ export default function ClientsBrandsSection() {
           href: null,
         }));
 
-  const hasLogos = logos.length > 0;
+  // Forçar exibição de logos mesmo se não houver assets do Supabase
+  const hasLogos = true;
 
   return (
     <section

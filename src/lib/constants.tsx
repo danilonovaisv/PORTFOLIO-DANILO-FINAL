@@ -8,7 +8,7 @@ import {
   Twitter,
   Facebook, // Adicionado conforme spec
 } from 'lucide-react';
-import { getAssetUrl, getGhostAssetUrl } from '@/utils/utils';
+import { getGhostAssetUrl } from '@/utils/utils';
 
 // Se não tiveres um ficheiro de tipos, podes definir aqui ou importar
 // import { ProjectCategory } from './types';
