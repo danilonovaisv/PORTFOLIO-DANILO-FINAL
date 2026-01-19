@@ -2,301 +2,164 @@
 description: Hero ghost
 ---
 
-### 🚀 Workflow Antigravity: Protocolo de Execução
+### 🚀 Workflow: Integração de Logotipos de Clientes e Marcas
 
 #### 📦 Pré-requisitos (Configuração Inicial)
 
 - **Status:** _A executar._
-- **Ação:** Garantir dependências essenciais.
-- **Comando:** `npm install three @types/three @react-three/fiber @react-three/drei @react-three/postprocessing simplex-noise framer-motion`
+- **Ação:** Garantir dependências essenciais para renderização de logotipos de clientes e marcas.
+- **Comando:** `npm install lucide-react next/image`
 
 ---
 
-### Fase 1: O Núcleo Visual (WebGL & 3D)
+### Fase 1: Estruturação dos Assets de Clientes (Logotipos)
 
-**Objetivo:** Recriar a fidelidade visual do CodePen (O Fantasma, Luzes e Atmosfera).
+**Objetivo:** Organizar e implementar a exibição dos logotipos de clientes com base nos assets do Supabase.
 
-1. **Componente `Ghost.tsx**` (Já iniciado):
+1. **Componente `ClientLogos.tsx**` (Já iniciado):
 
-- _Tarefa:_ Geometria Icosaedro + `simplex-noise` para deformação de vértices.
-- _Ajuste Fino:_ Garantir que o material seja `MeshStandardMaterial` com `emissive` azul profundo para reagir ao Bloom.
+- _Tarefa:_ Renderizar logotipos de clientes a partir de URLs do Supabase Storage.
+- _Validação:_ Garantir que os URLs apontem para os caminhos corretos no bucket `site-assets/clients/`.
 
-2. **Componente `GhostEyes.tsx**` (Falta criar):
+2. **Validação de Assets:**
 
-- _Tarefa:_ Criar dois vetores (olhos) que calculam o ângulo entre a posição do fantasma e o mouse (`Math.atan2`).
-- _Comportamento:_ Devem piscar ocasionalmente e aumentar a intensidade do brilho quando o mouse se move rápido.
+- _Tarefa:_ Verificar que todos os arquivos mencionados no conteúdo estão realmente presentes no Supabase Storage.
+- _Ajuste Fino:_ Confirmar que os caminhos dos arquivos sigam o padrão `/storage/v1/object/public/site-assets/clients/clients.strip.{n}.svg`.
 
-3. **Componente `Particles.tsx` & `Fireflies.tsx**` (Falta criar):
+### Fase 2: Integração com a Seção de Clientes (Layout & Exibição)
 
-- _Tarefa:_ Sistema de partículas flutuantes usando `PointsMaterial` customizado para criar a "poeira espectral" e luzes piscantes ao redor.
+**Objetivo:** Montar a seção de clientes com layout responsivo e exibição adequada dos logotipos.
 
-4. **Componente `GhostCanvas.tsx**` (Cena Principal):
+1. **Componente `ClientsSection.tsx**` (Implementar):
 
-- _Tarefa:_ Orquestrar a cena. Configurar `EffectComposer` com `Bloom` (intensidade 1.5+), `Noise` (film grain) e `Vignette`.
-- _Fidelidade:_ Ajustar as cores das luzes (`pointLight`) para `#4d8dff` (principal) e `#6e00ff` (fill) conforme a referência.
+- _Tarefa:_ Criar uma seção reutilizável que utilize os logotipos de clientes.
+- _Posição:_ Integrar tanto na Home quanto na seção Sobre, seguindo a estrutura definida no contexto do projeto.
 
-### Fase 2: A Estrutura Hero (Layout & Z-Index)
+2. **Componente `ClientsGrid.tsx**:**
 
-**Objetivo:** Montar o palco HTML/CSS onde o 3D vive, respeitando a hierarquia visual.
+- _Tarefa:_ Implementar um grid de logotipos monocromáticos com animação sutil (marquee ou fade-in).
+- _Responsividade:_ Garantir que o layout funcione corretamente em dispositivos móveis e desktop.
 
-1. **Componente `HeroCopy.tsx` (Editorial):**
+### Fase 3: Implementação da Exibição (Carrossel ou Grade)
 
-- _Tarefa:_ Implementar textos estáticos ("Você não vê o design...") com fontes TT Norms Pro.
-- _Posição:_ Z-Index 10. Centralizado absoluto. Pointer-events-none (exceto CTA).
+**Objetivo:** Implementar a exibição eficaz dos logotipos de clientes com foco em performance e estética.
 
-2. **Componente `Preloader.tsx`:**
+1. **Componente `ClientsMarquee.tsx**:`
 
-- _Tarefa:_ SVG do fantasma + barra de progresso.
-- _Lógica:_ Desaparecer após 2s ou quando o `GhostCanvas` carregar (Suspense).
+- _Estado Inicial:_ Implementar carrossel horizontal com logotipos.
+- _Scroll Automático:_ Implementar movimento contínuo com opção de pausa ao passar o mouse.
+- _Performance:_ Utilizar técnicas de virtualização para grande número de logotipos.
 
-### Fase 3: A Lógica do Manifesto (Vídeo Complexo)
+### Fase 4: Integração (Em Páginas)
 
-**Objetivo:** Implementar a transição Thumbnail → Fullscreen → Hold.
+**Objetivo:** Unir a funcionalidade de exibição de logotipos às páginas principais.
 
-1. **Componente `ManifestoVideo.tsx`:**
+1. **Montagem em `HomePage.tsx` e `AboutPage.tsx`:**
 
-- _Estado Inicial:_ Fixo `bottom-right`, `border-radius: 16px`, mudo.
-- _Scroll Trigger:_ Usar `framer-motion` (`useScroll`) para interpolar posição e escala baseada no scroll do Hero.
-- _Lógica de Hold:_ Quando `scale === 1` (fullscreen), disparar um "Lock" no scroll do body por 2 segundos.
-- _Áudio:_ Mudo por padrão. Unmute apenas durante o estado "Hold" (Fullscreen).
+- Empilhar camadas: Conteúdo < ClientLogos.
+- Gerenciar responsividade (Mobile vs Desktop). Ajustar espaçamento e tamanho dos logotipos.
 
-### Fase 4: Integração (HomeHero)
+### Fase 5: Teste de Integridade e Validação
 
-**Objetivo:** Unir WebGL, Texto e Vídeo.
+**Objetivo:** Comparação e validação dos links e aparência final.
 
-1. **Montagem em `HomeHero.tsx`:**
-
-- Empilhar camadas: Background < Canvas (Ghost) < Texto < Vídeo < Preloader.
-- Gerenciar responsividade (Mobile vs Desktop). No mobile, o vídeo sai do Hero e vira uma seção abaixo.
-
-### Fase 5: Teste de Fidelidade & Refinamento
-
-**Objetivo:** Comparação lado a lado com a referência.
-
-1. **Ajuste de Post-Processing:** Regular o `threshold` do Bloom para que apenas os olhos e as bordas do fantasma brilhem intensamente.
-2. **Ajuste de Velocidade:** Sincronizar a velocidade do `noise` do fantasma com a referência (nem muito rápido, nem muito lento).
-3. **Performance:** Verificar FPS. Se < 30fps, reduzir qualidade das sombras ou contagem de partículas.
+1. **Verificação de Links:** Confirmar que todos os URLs dos logotipos estão funcionando corretamente.
+2. **Aparência:** Validar que os logotipos estão sendo exibidos conforme o design system Ghost.
+3. **Performance:** Verificar tempos de carregamento e otimizar se necessário.
 
 ---
 
-### 🛠️ EXECUÇÃO IMEDIATA: Completando a Fase 1 (Os Detalhes 3D)
+### 🛠️ EXECUÇÃO IMEDIATA: Implementando a Exibição de Logotipos
 
-Para que eu possa avançar para a integração do vídeo (Fase 3), preciso terminar a cena 3D. Aqui estão os códigos para os **Olhos** e as **Partículas** que faltavam no passo anterior.
+Para que eu possa avançar na integração da seção de clientes, preciso implementar os componentes que faltam. Aqui estão os códigos para os **Componentes de Logotipos** e **Grade de Clientes**:
 
-Copia e cola estes ficheiros para completar a "Atmosfera":
+#### 1. `src/components/clients/ClientsSection.tsx`
 
-#### 1. `src/components/canvas/home/GhostEyes.tsx`
-
-_Responsável pelo olhar que segue o mouse e pisca._
+_Seção reutilizável para exibição de logotipos de clientes._
 
 ```tsx
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
-import { useFrame, useThree } from '@react-three/fiber';
-import * as THREE from 'three';
+import React from 'react';
+import { HOME_CONTENT } from '@/config/content';
+import ClientsGrid from './ClientsGrid';
 
-export default function GhostEyes() {
-  const leftEye = useRef<THREE.Mesh>(null);
-  const rightEye = useRef<THREE.Mesh>(null);
-  const { mouse } = useThree();
-
-  // Estado para piscar
-  const [blink, setBlink] = useState(false);
-
-  // Lógica de piscar aleatório
-  useEffect(() => {
-    const timeout = () => {
-      setBlink(true);
-      setTimeout(() => setBlink(false), 150); // Olhos fechados por 150ms
-
-      // Próximo piscar entre 2s e 6s
-      const nextBlink = Math.random() * 4000 + 2000;
-      setTimeout(timeout, nextBlink);
-    };
-
-    const timer = setTimeout(timeout, 3000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useFrame((state) => {
-    if (!leftEye.current || !rightEye.current) return;
-
-    // Calcular posição alvo baseada no mouse (com limite de rotação)
-    // O fantasma está em 0,0,0. Os olhos devem olhar para o mouse.
-    // Mouse x/y vai de -1 a 1.
-
-    const eyeMovementRange = 0.15; // O quanto os olhos se movem dentro da "orbita"
-    const targetX = mouse.x * eyeMovementRange;
-    const targetY = mouse.y * eyeMovementRange;
-
-    // Interpolação suave (Lerp)
-    leftEye.current.position.x = THREE.MathUtils.lerp(
-      leftEye.current.position.x,
-      -0.3 + targetX,
-      0.1
-    );
-    leftEye.current.position.y = THREE.MathUtils.lerp(
-      leftEye.current.position.y,
-      0.1 + targetY,
-      0.1
-    );
-
-    rightEye.current.position.x = THREE.MathUtils.lerp(
-      rightEye.current.position.x,
-      0.3 + targetX,
-      0.1
-    );
-    rightEye.current.position.y = THREE.MathUtils.lerp(
-      rightEye.current.position.y,
-      0.1 + targetY,
-      0.1
-    );
-
-    // Escala para piscar (scale Y vai a 0.1)
-    const targetScaleY = blink ? 0.1 : 1;
-    leftEye.current.scale.y = THREE.MathUtils.lerp(
-      leftEye.current.scale.y,
-      targetScaleY,
-      0.4
-    );
-    rightEye.current.scale.y = THREE.MathUtils.lerp(
-      rightEye.current.scale.y,
-      targetScaleY,
-      0.4
-    );
-  });
-
-  // Material muito brilhante para o Bloom pegar bem
-  const eyeMaterial = new THREE.MeshBasicMaterial({ color: '#ffffff' });
+export default function ClientsSection() {
+  const { title, logos } = HOME_CONTENT.clients;
 
   return (
-    <group position={[0, 0, 0.8]}>
-      {' '}
-      {/* Posicionado na frente do fantasma */}
-      <mesh
-        ref={leftEye}
-        position={[-0.3, 0.1, 0]}
-        geometry={new THREE.SphereGeometry(0.06, 16, 16)}
-        material={eyeMaterial}
-      />
-      <mesh
-        ref={rightEye}
-        position={[0.3, 0.1, 0]}
-        geometry={new THREE.SphereGeometry(0.06, 16, 16)}
-        material={eyeMaterial}
-      />
-    </group>
+    <section className="py-16 md:py-24 px-6">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-lg md:text-xl font-bold tracking-widest text-center mb-12 text-text-secondary">
+          {title.toUpperCase()}
+        </h2>
+        <ClientsGrid logos={logos} />
+      </div>
+    </section>
   );
 }
 ```
 
-#### 2. `src/components/canvas/home/Particles.tsx`
+#### 2. `src/components/clients/ClientsGrid.tsx`
 
-_Responsável pela poeira espectral flutuante._
+_Componente para renderizar a grade de logotipos de clientes._
 
 ```tsx
 'use client';
 
-import React, { useRef, useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
+import React from 'react';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
 
-export default function Particles({ count = 80 }) {
-  const mesh = useRef<THREE.InstancedMesh>(null);
-  const dummy = useMemo(() => new THREE.Object3D(), []);
+type Logo = {
+  id: number;
+  src: string;
+  alt: string;
+};
 
-  // Gerar posições e velocidades aleatórias
-  const particles = useMemo(() => {
-    const temp = [];
-    for (let i = 0; i < count; i++) {
-      const t = Math.random() * 100;
-      const factor = 20 + Math.random() * 100;
-      const speed = 0.01 + Math.random() / 200;
-      const xFactor = -5 + Math.random() * 10;
-      const yFactor = -5 + Math.random() * 10;
-      const zFactor = -5 + Math.random() * 10;
-      temp.push({ t, factor, speed, xFactor, yFactor, zFactor, mx: 0, my: 0 });
-    }
-    return temp;
-  }, [count]);
-
-  useFrame((state) => {
-    if (!mesh.current) return;
-
-    const time = state.clock.getElapsedTime();
-
-    particles.forEach((particle, i) => {
-      let { t, factor, speed, xFactor, yFactor, zFactor } = particle;
-
-      // Movimento orbital orgânico
-      t = particle.t += speed / 2;
-      const a = Math.cos(t) + Math.sin(t * 1) / 10;
-      const b = Math.sin(t) + Math.cos(t * 2) / 10;
-      const s = Math.cos(t);
-
-      // Atualiza posição do dummy object
-      dummy.position.set(
-        (particle.mx / 10) * a +
-          xFactor +
-          Math.cos((t / 10) * factor) +
-          (Math.sin(t * 1) * factor) / 10,
-        (particle.my / 10) * b +
-          yFactor +
-          Math.sin((t / 10) * factor) +
-          (Math.cos(t * 2) * factor) / 10,
-        (particle.my / 10) * b +
-          zFactor +
-          Math.cos((t / 10) * factor) +
-          (Math.sin(t * 3) * factor) / 10
-      );
-
-      // Escala pulsa levemente
-      const scale = (Math.sin(time + xFactor) + 2) * 0.02; // Partículas pequenas
-      dummy.scale.set(scale, scale, scale);
-
-      dummy.rotation.set(s * 5, s * 5, s * 5);
-      dummy.updateMatrix();
-
-      // Aplica ao InstancedMesh
-      mesh.current.setMatrixAt(i, dummy.matrix);
-    });
-
-    mesh.current.instanceMatrix.needsUpdate = true;
-  });
-
+export default function ClientsGrid({ logos }: { logos: Logo[] }) {
   return (
-    <instancedMesh ref={mesh} args={[undefined, undefined, count]}>
-      <dodecahedronGeometry args={[0.2, 0]} />
-      <meshBasicMaterial
-        color="#4d8dff"
-        transparent
-        opacity={0.6}
-        blending={THREE.AdditiveBlending}
-      />
-    </instancedMesh>
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8 items-center justify-items-center">
+      {logos.map((logo, index) => (
+        <motion.div
+          key={logo.id}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: index * 0.1 }}
+          className="opacity-60 hover:opacity-100 transition-opacity duration-300"
+        >
+          <div className="aspect-square max-w-[120px] max-h-[120px] flex items-center justify-center">
+            <Image
+              src={logo.src}
+              alt={logo.alt}
+              width={120}
+              height={120}
+              className="object-contain invert dark:invert-0"
+              priority={false}
+            />
+          </div>
+        </motion.div>
+      ))}
+    </div>
   );
 }
 ```
 
-#### 3. Atualização do `GhostCanvas.tsx`
+#### 3. Atualização do conteúdo em `src/config/content.ts`
 
-Agora, atualiza o arquivo `src/components/canvas/home/GhostCanvas.tsx` (que eu enviei na resposta anterior) para incluir estes novos componentes. Basta descomentar as linhas:
+Certifique-se de que os caminhos dos logotipos estejam corretos no objeto HOME_CONTENT.clients:
 
 ```tsx
-// ... imports
-import GhostEyes from './GhostEyes'; // Importar
-import Particles from './Particles'; // Importar
-
-// ... dentro do Canvas
-<Ghost>
-   <GhostEyes /> {/* Olhos dentro ou junto do grupo do fantasma */}
-</Ghost>
-<Particles count={50} />
-// ...
-
+clients: {
+  title: 'marcas com as quais já trabalhei',
+  logos: Array.from({ length: 12 }, (_, i) => ({
+    id: i + 1,
+    src: siteAsset(`clients/clients.strip.${i + 1}.svg`),
+    alt: `Logo do cliente ${i + 1}`, 
+  })),
+},
 ```
 
-_(Nota: Podes colocar o `GhostEyes` dentro do componente `Ghost` ou como irmão, mas como ele segue a posição base, é melhor ser irmão dentro de um Group pai se o fantasma se mover muito, ou ajustamos a posição.)_
+_(Nota: Esses componentes utilizam os assets definidos em HOME_CONTENT e implementam a estética Ghost com foco em performance e estética.)_
 
 ---

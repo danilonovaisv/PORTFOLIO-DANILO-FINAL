@@ -8,6 +8,7 @@ export const fetchCache = 'force-no-store';
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@/lib/supabase/client';
+import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState('');
@@ -30,7 +31,7 @@ export default function AdminLoginPage() {
         setError(signInError.message);
         return;
       }
-      router.push('/admin');
+      router.push(ADMIN_NAVIGATION.dashboard);
     });
   };
 

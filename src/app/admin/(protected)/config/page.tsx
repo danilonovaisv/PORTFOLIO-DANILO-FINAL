@@ -2,6 +2,8 @@ export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 export const fetchCache = 'force-no-store';
 
+import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
+
 export default function ConfigPage() {
   return (
     <div className="space-y-4">

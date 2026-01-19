@@ -8,7 +8,7 @@ import {
   Twitter,
   Facebook, // Adicionado conforme spec
 } from 'lucide-react';
-import { getAssetUrl } from '@/utils/utils';
+import { getAssetUrl, getGhostAssetUrl } from '@/utils/utils';
 
 // Se não tiveres um ficheiro de tipos, podes definir aqui ou importar
 // import { ProjectCategory } from './types';
@@ -21,10 +21,10 @@ export type ProjectCategory = {
 
 // --- 1. ASSETS GLOBAIS ---
 export const ASSETS = {
-  videoManifesto: getAssetUrl('site-assets/home/home.manifesto_video.mp4'),
-  favicon: getAssetUrl('logo_site/logo.svg'),
-  logoLight: getAssetUrl('logo_site/faivcon-02.svg'),
-  logoDark: getAssetUrl('logo_site/faivcon.svg'),
+  videoManifesto: getGhostAssetUrl('site-assets/home/home.manifesto_video.mp4'),
+  favicon: getGhostAssetUrl('logo_site/logo.svg'),
+  logoLight: getGhostAssetUrl('logo_site/faivcon-02.svg'),
+  logoDark: getGhostAssetUrl('logo_site/faivcon.svg'),
 };
 
 // --- 2. CONTEÚDO DA HOME (TEXTOS) ---
@@ -54,7 +54,7 @@ export const FEATURED_PROJECTS = [
     client: 'Magic',
     category: 'branding & campanha',
     displayCategory: 'branding & campanha',
-    imageUrl: getAssetUrl('project-images/Brand-Identity%20copy.webp'),
+    imageUrl: getGhostAssetUrl('project-images/Brand-Identity%20copy.webp'),
     isHero: true,
     year: '2023',
   },
@@ -64,7 +64,7 @@ export const FEATURED_PROJECTS = [
     client: 'Cliente confidencial',
     category: 'branding',
     displayCategory: 'branding',
-    imageUrl: getAssetUrl('project-images/Branding-Project.webp'),
+    imageUrl: getGhostAssetUrl('project-images/Branding-Project.webp'),
     isHero: false,
     year: '2022',
   },
@@ -74,7 +74,7 @@ export const FEATURED_PROJECTS = [
     client: 'Cliente confidencial',
     category: 'campanha',
     displayCategory: 'campanha',
-    imageUrl: getAssetUrl('project-images/Key-Visual.webp'),
+    imageUrl: getGhostAssetUrl('project-images/Key-Visual.webp'),
     isHero: false,
     year: '2021',
   },
@@ -84,7 +84,7 @@ export const FEATURED_PROJECTS = [
     client: 'Cliente confidencial',
     category: 'web & motion',
     displayCategory: 'web & motion',
-    imageUrl: getAssetUrl('project-images/webdesigner-2%202.gif'),
+    imageUrl: getGhostAssetUrl('project-images/webdesigner-2%202.gif'),
     isHero: false,
     year: '2023',
   },
@@ -95,19 +95,19 @@ export const CATEGORIES: ProjectCategory[] = [
   {
     id: 'brand-campaigns',
     label: 'Brand & Campaigns',
-    posterUrl: getAssetUrl('project-images/Branding-Project.webp'),
+    posterUrl: getGhostAssetUrl('project-images/Branding-Project.webp'),
     thumbnailUrl: '',
   },
   {
     id: 'videos-motions',
     label: 'Videos & Motions',
-    posterUrl: getAssetUrl('project-images/webdesigner-2%202.gif'),
+    posterUrl: getGhostAssetUrl('project-images/webdesigner-2%202.gif'),
     thumbnailUrl: '',
   },
   {
     id: 'websites-webcampaigns-tech',
     label: 'Web Campaigns, Websites & Tech',
-    posterUrl: getAssetUrl('project-images/WelcomeAd_800x500px.webp'),
+    posterUrl: getGhostAssetUrl('project-images/WelcomeAd_800x500px.webp'),
     thumbnailUrl: '',
   },
 ];
@@ -116,51 +116,51 @@ export const CATEGORIES: ProjectCategory[] = [
 export const CLIENT_LOGOS = [
   {
     name: 'Client 1',
-    src: getAssetUrl('client-logos/client1.svg'),
+    src: getGhostAssetUrl('client-logos/client1.svg'),
   },
   {
     name: 'Client 2',
-    src: getAssetUrl('client-logos/client2.svg'),
+    src: getGhostAssetUrl('client-logos/client2.svg'),
   },
   {
     name: 'Client 3',
-    src: getAssetUrl('client-logos/client3.svg'),
+    src: getGhostAssetUrl('client-logos/client3.svg'),
   },
   {
     name: 'Client 4',
-    src: getAssetUrl('client-logos/client4.svg'),
+    src: getGhostAssetUrl('client-logos/client4.svg'),
   },
   {
     name: 'Client 5',
-    src: getAssetUrl('client-logos/client5.svg'),
+    src: getGhostAssetUrl('client-logos/client5.svg'),
   },
   {
     name: 'Client 6',
-    src: getAssetUrl('client-logos/client6.svg'),
+    src: getGhostAssetUrl('client-logos/client6.svg'),
   },
   {
     name: 'Client 7',
-    src: getAssetUrl('client-logos/client7.svg'),
+    src: getGhostAssetUrl('client-logos/client7.svg'),
   },
   {
     name: 'Client 8',
-    src: getAssetUrl('client-logos/client8.svg'),
+    src: getGhostAssetUrl('client-logos/client8.svg'),
   },
   {
     name: 'Client 9',
-    src: getAssetUrl('client-logos/client9.svg'),
+    src: getGhostAssetUrl('client-logos/client9.svg'),
   },
   {
     name: 'Client 10',
-    src: getAssetUrl('client-logos/client10.svg'),
+    src: getGhostAssetUrl('client-logos/client10.svg'),
   },
   {
     name: 'Client 11',
-    src: getAssetUrl('client-logos/client11.svg'),
+    src: getGhostAssetUrl('client-logos/client11.svg'),
   },
   {
     name: 'Client 12',
-    src: getAssetUrl('client-logos/client12.svg'),
+    src: getGhostAssetUrl('client-logos/client12.svg'),
   },
 ];
 

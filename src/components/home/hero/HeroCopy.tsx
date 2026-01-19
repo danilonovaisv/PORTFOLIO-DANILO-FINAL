@@ -3,6 +3,7 @@
 import React, { useRef } from 'react';
 import { motion, Variants } from 'framer-motion';
 import type { Group } from 'three';
+import { GHOST_EASE } from '@/config/motion';
 
 import { useGhostReveal } from '@/hooks/useGhostReveal';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
@@ -29,7 +30,7 @@ const textContainerAnimation: Variants = {
     filter: 'blur(0px)',
     transition: {
       duration: 1.2,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: GHOST_EASE,
       staggerChildren: 0.15,
     },
   },
@@ -42,7 +43,7 @@ const itemAnimation: Variants = {
     y: 0,
     transition: {
       duration: 0.8,
-      ease: [0.25, 0.46, 0.45, 0.94],
+      ease: GHOST_EASE,
     },
   },
 };

@@ -31,3 +31,26 @@ export function applyImageFallback(
   target.dataset.fallbackApplied = 'true';
   target.src = ASSET_PLACEHOLDER;
 }
+
+export const getGhostAssetUrl = (path?: string | null): string => {
+  if (!path) return '/assets/placeholder.webp';
+
+  try {
+    // Verifica se é uma URL válida
+    if (path.startsWith('http://') || path.startsWith('https://')) {
+      return path;
+    }
+
+    // Usa a função getAssetUrl existente
+    return getAssetUrl(path);
+  } catch (error) {
+    console.error('Erro ao obter URL do asset:', error);
+    return ASSET_PLACEHOLDER;
+  }
+};
+
+// Função para aplicar lazy loading em imagens
+export const applyLazyLoading = (img: HTMLImageElement) => {
+  img.loading = 'lazy';
+  img.decoding = 'async';
+};

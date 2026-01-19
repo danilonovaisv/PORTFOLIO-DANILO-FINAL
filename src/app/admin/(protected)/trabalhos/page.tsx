@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image'; // Added import for next/image
 import { createClient } from '@/lib/supabase/server';
 import { togglePublish } from '@/lib/supabase/queries/projects';
+import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
 
 type Props = {
   searchParams: Promise<{
@@ -73,7 +74,7 @@ export default async function TrabalhosPage(props: Props) {
           <h1 className="text-3xl font-semibold">Portfólio</h1>
         </div>
         <Link
-          href="/admin/trabalhos/new"
+          href={ADMIN_NAVIGATION.trabalhos.new}
           className="rounded-md bg-blue-500 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-600"
         >
           Novo trabalho
@@ -210,7 +211,7 @@ export default async function TrabalhosPage(props: Props) {
                 </td>
                 <td className="px-4 py-3 text-right">
                   <Link
-                    href={`/admin/trabalhos/${project.id}`}
+                    href={ADMIN_NAVIGATION.trabalhos.detail(project.id)}
                     className="text-blue-300 hover:text-blue-200 text-sm"
                   >
                     Editar
@@ -317,7 +318,7 @@ function Filters({
           Filtrar
         </button>
         <Link
-          href="/admin/trabalhos"
+          href={ADMIN_NAVIGATION.trabalhos.index}
           className="rounded-md border border-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10"
         >
           Limpar

@@ -2,6 +2,7 @@
 'use client';
 import { useEffect, useMemo, useRef } from 'react';
 import { motion } from 'motion/react';
+import { GHOST_EASE } from '@/config/motion';
 
 export function HeroHeader() {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -54,7 +55,7 @@ export function HeroHeader() {
       <motion.h1
         initial={reduced ? false : { opacity: 0, y: 20, filter: 'blur(6px)' }}
         animate={reduced ? {} : { opacity: 1, y: 0, filter: 'blur(0px)' }}
-        transition={{ duration: 0.8, ease: 'easeOut', delay: 0.15 }}
+        transition={{ duration: 0.8, ease: GHOST_EASE, delay: 0.15 }}
         className="hero-title hero-reveal mt-2"
       >
         <span className="hero-title--base">
@@ -70,7 +71,7 @@ export function HeroHeader() {
       <motion.p
         initial={reduced ? false : { opacity: 0, y: 10 }}
         animate={reduced ? {} : { opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: 'easeOut', delay: 0.35 }}
+        transition={{ duration: 0.6, ease: GHOST_EASE, delay: 0.35 }}
         className="mt-3 text-xl text-neutral-300 md:text-2xl"
       >
         [É intenção, é estratégia, é experiência.]
@@ -79,7 +80,7 @@ export function HeroHeader() {
       <motion.div
         initial={reduced ? false : { opacity: 0 }}
         animate={reduced ? {} : { opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
+        transition={{ duration: 0.5, ease: GHOST_EASE, delay: 0.6 }}
         className="mt-8"
       >
         <a

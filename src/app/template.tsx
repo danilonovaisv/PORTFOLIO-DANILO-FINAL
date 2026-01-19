@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
+import { GHOST_EASE } from '@/config/motion';
 
 /**
  * Ghost Era Page Template
@@ -27,8 +28,8 @@ export default function Template({ children }: { children: React.ReactNode }) {
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: 0.95,
-        ease: [0.22, 1, 0.36, 1],
+        duration: 0.95, // Mantido próximo do padrão para transições de página
+        ease: GHOST_EASE,
       }}
       className="w-full flex-col flex grow"
     >

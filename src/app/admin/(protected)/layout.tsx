@@ -20,6 +20,7 @@ import type { ReactNode } from 'react';
 import { redirect } from 'next/navigation';
 import { AdminShell } from '@/components/admin/AdminShell';
 import { createClient } from '@/lib/supabase/server';
+import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
 
 export default async function ProtectedLayout({
   children,
@@ -32,7 +33,7 @@ export default async function ProtectedLayout({
   } = await supabase.auth.getUser();
 
   if (!user) {
-    redirect('/admin/login');
+    redirect(ADMIN_NAVIGATION.dashboard + '/login');
   }
 
   return (

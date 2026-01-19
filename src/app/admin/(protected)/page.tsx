@@ -2,7 +2,9 @@ export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 export const fetchCache = 'force-no-store';
 
+import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
+import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
 
 export default async function AdminDashboard() {
   const supabase = await createClient();
@@ -41,8 +43,16 @@ export default async function AdminDashboard() {
       </div>
 
       <div className="grid gap-4 md:grid-cols-4">
-        <StatCard title="Projetos" value={projectsCount ?? 0} />
-        <StatCard title="Tags" value={tagsCount ?? 0} />
+        <StatCard
+          title="Projetos"
+          value={projectsCount ?? 0}
+          href={ADMIN_NAVIGATION.trabalhos.index}
+        />
+        <StatCard
+          title="Tags"
+          value={tagsCount ?? 0}
+          href={ADMIN_NAVIGATION.tags}
+        />
         <StatCard title="Destaques Home" value={featuredHome?.length ?? 0} />
         <StatCard
           title="Destaques Portfólio"
@@ -53,11 +63,36 @@ export default async function AdminDashboard() {
   );
 }
 
-function StatCard({ title, value }: { title: string; value: number }) {
-  return (
-    <div className="rounded-xl border border-white/10 bg-slate-900/60 p-4">
+function StatCard({
+  title,
+  value,
+  href,
+}: {
+  title: string;
+  value: number;
+  href?: string;
+}) {
+  const CardContent = () => (
+    <>
       <p className="text-sm text-slate-400">{title}</p>
       <p className="text-3xl font-semibold mt-2">{value}</p>
+    </>
+  );
+
+  if (href) {
+    return (
+      <Link
+        href={href}
+        className="rounded-xl border border-white/10 bg-slate-900/60 p-4 hover:bg-slate-800/60 transition-colors"
+      >
+        <CardContent />
+      </Link>
+    );
+  }
+
+  return (
+    <div className="rounded-xl border border-white/10 bg-slate-900/60 p-4">
+      <CardContent />
     </div>
   );
 }

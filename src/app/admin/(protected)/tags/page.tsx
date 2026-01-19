@@ -2,8 +2,10 @@ export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 export const fetchCache = 'force-no-store';
 
+import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { TagForm } from '@/components/admin/TagForm';
+import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
 
 const KIND_LABELS: Record<string, string> = {
   category: 'Categoria',

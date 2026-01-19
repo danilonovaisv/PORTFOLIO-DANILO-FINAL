@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { signOut } from '@/lib/supabase/auth-actions';
+import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
 
 type Props = {
   children: ReactNode;
@@ -18,11 +19,19 @@ type Props = {
 };
 
 const navItems = [
-  { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/admin/trabalhos', label: 'Trabalhos', icon: FolderOpen },
-  { href: '/admin/tags', label: 'Tags', icon: Tag },
-  { href: '/admin/midia', label: 'Mídia & Layout', icon: Images },
-  { href: '/admin/config', label: 'Configurações', icon: Settings },
+  {
+    href: ADMIN_NAVIGATION.dashboard,
+    label: 'Dashboard',
+    icon: LayoutDashboard,
+  },
+  {
+    href: ADMIN_NAVIGATION.trabalhos.index,
+    label: 'Trabalhos',
+    icon: FolderOpen,
+  },
+  { href: ADMIN_NAVIGATION.tags, label: 'Tags', icon: Tag },
+  { href: ADMIN_NAVIGATION.midia, label: 'Mídia & Layout', icon: Images },
+  { href: ADMIN_NAVIGATION.config, label: 'Configurações', icon: Settings },
 ];
 
 export function AdminShell({ children, userEmail }: Props) {
@@ -34,7 +43,7 @@ export function AdminShell({ children, userEmail }: Props) {
         <aside className="hidden md:flex w-64 flex-col border-r border-white/10 bg-slate-900/40 backdrop-blur-sm">
           <div className="px-6 py-6 border-b border-white/10">
             <Link
-              href="/admin"
+              href={ADMIN_NAVIGATION.dashboard}
               className="text-xl font-semibold tracking-tight"
             >
               Portfólio Admin
@@ -77,7 +86,10 @@ export function AdminShell({ children, userEmail }: Props) {
 
         <main className="flex-1">
           <header className="md:hidden sticky top-0 z-20 bg-slate-950/90 backdrop-blur border-b border-white/10 px-4 py-3 flex items-center justify-between">
-            <Link href="/admin" className="text-base font-semibold">
+            <Link
+              href={ADMIN_NAVIGATION.dashboard}
+              className="text-base font-semibold"
+            >
               Admin
             </Link>
             <div className="flex items-center gap-2 text-xs text-slate-400">
