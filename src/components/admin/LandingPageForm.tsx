@@ -283,7 +283,7 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
                 Header Hero Image{' '}
                 <span className="text-blue-500 text-[10px]">(Cover)</span>
               </label>
-              <div className="relative group aspect-[4/3] rounded-xl overflow-hidden bg-slate-950 border border-white/10">
+              <div className="relative group aspect-4/3 rounded-xl overflow-hidden bg-slate-950 border border-white/10">
                 {coverPreview ? (
                   <>
                     <Image
