@@ -3,6 +3,13 @@ export const runtime = 'nodejs';
 export const fetchCache = 'force-no-store';
 
 import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
+import { redirect } from 'next/navigation';
+import { isRedirectError } from 'next/dist/client/components/redirect-error';
+import { AdminShell } from '@/components/admin/AdminShell';
+import { AdminErrorDisplay } from '@/components/admin/AdminErrorDisplay';
+import { createClient } from '@/lib/supabase/server';
+import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
 
 export const metadata: Metadata = {
   robots: {
@@ -15,13 +22,6 @@ export const metadata: Metadata = {
     },
   },
 };
-
-import type { ReactNode } from 'react';
-import { redirect } from 'next/navigation';
-import { AdminShell } from '@/components/admin/AdminShell';
-import { AdminErrorDisplay } from '@/components/admin/AdminErrorDisplay';
-import { createClient } from '@/lib/supabase/server';
-import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
 
 export default async function ProtectedLayout({
   children,
@@ -47,8 +47,7 @@ export default async function ProtectedLayout({
       <AdminShell userEmail={user.email ?? undefined}>{children}</AdminShell>
     );
   } catch (error) {
-    // Importante: Não interceptar o erro de redirecionamento do Next.js
-    if (error instanceof Error && error.message === 'NEXT_REDIRECT') {
+    if (isRedirectError(error)) {
       throw error;
     }
 
