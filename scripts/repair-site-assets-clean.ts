@@ -55,11 +55,29 @@ function loadEnvOverrides() {
 // Helper to detect corrupt data
 function isCorruptData(value: string | null | undefined): boolean {
   if (!value) return false;
-  // Timestamp pattern
-  if (/^\d{4}-\d{2}-\d{2}/.test(value)) return true;
-  // Excessive path repetition
+
+  // Timestamp patterns (both with and without milliseconds)
+  if (/^\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}/.test(value)) return true;
+  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(value)) return true;
+
+  // Metadata prefixes leaked into values
+  if (/^(key|updated_at|file_path|bucket):\s*/.test(value)) return true;
+
+  // Excessive path repetition (malformed duplicates)
   const segments = value.split('/');
   if (segments.length > 10) return true;
+
+  // Check for obvious repeating patterns (e.g., "about/method/about/method")
+  if (segments.length > 3) {
+    const firstHalf = segments
+      .slice(0, Math.floor(segments.length / 2))
+      .join('/');
+    const secondHalf = segments
+      .slice(Math.floor(segments.length / 2))
+      .join('/');
+    if (firstHalf === secondHalf) return true;
+  }
+
   return false;
 }
 
@@ -125,22 +143,40 @@ async function main() {
   }
 
   // Now handle duplicates by key
-  const keyMap = new Map<string, string[]>();
-  rows
-    .filter((r) => !corruptIds.includes(r.id)) // Exclude already-deleted corrupt records
-    .forEach((asset) => {
-      if (!keyMap.has(asset.key)) {
-        keyMap.set(asset.key, []);
-      }
-      keyMap.get(asset.key)!.push(asset.id);
-    });
+  const keyMap = new Map<string, SiteAssetRow[]>();
+  const validRows = rows.filter((r) => !corruptIds.includes(r.id));
 
-  // Find duplicate IDs (keep first, delete rest)
+  validRows.forEach((asset) => {
+    if (!keyMap.has(asset.key)) {
+      keyMap.set(asset.key, []);
+    }
+    keyMap.get(asset.key)!.push(asset);
+  });
+
+  // Find duplicate IDs (keep most recent by updated_at, delete rest)
   const duplicateIds: string[] = [];
-  keyMap.forEach((ids, key) => {
-    if (ids.length > 1) {
-      console.log(`⚠️  Chave duplicada: "${key}" (${ids.length} registros)`);
-      duplicateIds.push(...ids.slice(1)); // Keep first, mark rest for deletion
+  keyMap.forEach((assets, key) => {
+    if (assets.length > 1) {
+      console.log(
+        `\n⚠️  Chave duplicada: "${key}" (${assets.length} registros)`
+      );
+
+      // Sort by updated_at descending (most recent first)
+      assets.sort((a, b) => {
+        const dateA = a.updated_at ? new Date(a.updated_at).getTime() : 0;
+        const dateB = b.updated_at ? new Date(b.updated_at).getTime() : 0;
+        return dateB - dateA;
+      });
+
+      // Keep the most recent (first after sort), delete the rest
+      const [keep, ...remove] = assets;
+      console.log(
+        `   ✅ Mantendo: ${keep.id} (atualizado: ${keep.updated_at})`
+      );
+      remove.forEach((r) => {
+        console.log(`   🗑️  Removendo: ${r.id} (atualizado: ${r.updated_at})`);
+        duplicateIds.push(r.id);
+      });
     }
   });
 
