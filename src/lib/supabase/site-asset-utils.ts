@@ -114,7 +114,9 @@ export function normalizeAssetList(
     return (
       normalizedValue.startsWith('updated_at:') ||
       normalizedValue.startsWith('key:') ||
-      normalizedValue === '.keep'
+      normalizedValue.startsWith('file_path:') ||
+      normalizedValue === '.keep' ||
+      normalizedValue === '.emptyfolderplaceholder'
     );
   };
 

@@ -104,6 +104,40 @@ export function AssetCard({ asset }: Props) {
     asset.publicUrl || buildSupabaseStorageUrl(asset.bucket, asset.file_path);
   const resolvedPage = asset.page ?? asset.resolvedPage ?? 'global';
 
+  // Verificar se a chave ou caminho é inválido
+  const isInvalidAsset = asset.key.startsWith('updated_at:') || asset.key.startsWith('key:');
+  
+  if (isInvalidAsset) {
+    return (
+      <div className="rounded-lg border border-red-500/50 bg-slate-900/60 p-4 flex gap-4">
+        <div className="w-24 h-24 rounded-md bg-red-900/30 flex items-center justify-center">
+          <span className="text-xs text-red-400">Inválido</span>
+        </div>
+        <div className="flex-1">
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="text-sm font-semibold text-red-400">{asset.key}</div>
+            <span className="rounded-full bg-red-500/20 px-2 py-0.5 text-[11px] text-red-200">
+              {resolvedPage}
+            </span>
+          </div>
+          <div className="text-xs text-slate-500 mt-1">
+            {asset.bucket}/{asset.file_path}
+          </div>
+          <div className="text-xs text-red-500 mt-2">
+            Este asset tem formato inválido e deve ser corrigido ou removido
+          </div>
+          <button
+            type="button"
+            onClick={handleDelete}
+            className="mt-2 inline-flex items-center rounded-md border border-red-500/60 px-2 py-1 text-[11px] text-red-200 hover:bg-red-500/10"
+          >
+            Excluir
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="rounded-lg border border-white/10 bg-slate-900/60 p-4 flex gap-4">
       <div className="w-24 h-24 rounded-md bg-slate-800 overflow-hidden relative">

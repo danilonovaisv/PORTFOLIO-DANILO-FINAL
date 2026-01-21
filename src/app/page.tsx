@@ -9,6 +9,7 @@ import { BRAND } from '@/config/brand';
 import { listProjects } from '@/lib/supabase/queries/projects';
 import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
 import { createStaticClient } from '@/lib/supabase/static';
+import type { PortfolioProject } from '@/types/project';
 
 export const metadata: Metadata = {
   title: 'Danilo Novais | Creative Developer',
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  let featuredProjects: any[] = [];
+  let featuredProjects: PortfolioProject[] = [];
   try {
     const supabase = createStaticClient();
     const dbProjects = await listProjects({ featuredOnHome: true }, supabase);

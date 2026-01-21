@@ -87,18 +87,48 @@ async function main() {
 
   const updates = rows
     .map((asset) => {
+      // Primeiro tenta normalizar o caminho
       const bucket = (asset.bucket ?? 'site-assets').replace(/^\/+|\/+$/g, '');
-      const normalizedPath = normalizeStoragePath(asset.file_path, bucket);
-      if (!normalizedPath || normalizedPath === asset.file_path) return null;
+      let normalizedPath = normalizeStoragePath(asset.file_path, bucket);
+      
+      // Verifica se a chave é inválida e precisa de correção
+      let correctedKey = asset.key;
+      if (asset.key && (asset.key.startsWith('updated_at:') || asset.key.startsWith('key:'))) {
+        // Extrai a chave real do valor se possível
+        const cleanedKey = asset.key.replace(/^key:\s*/i, '').replace(/^updated_at:\s*/i, '').trim();
+        if (cleanedKey && !cleanedKey.startsWith('updated_at:') && !cleanedKey.startsWith('key:')) {
+          correctedKey = cleanedKey;
+        }
+      }
+      
+      // Verifica se o caminho também contém informações de chave ou atualização
+      if (asset.file_path && (asset.file_path.startsWith('updated_at:') || asset.file_path.startsWith('key:'))) {
+        // Tenta extrair o caminho real
+        const extractedPath = asset.file_path.replace(/^key:\s*/i, '')
+                                         .replace(/^updated_at:\s*/i, '')
+                                         .replace(/,$/, '')
+                                         .trim();
+        if (extractedPath && !extractedPath.startsWith('updated_at:') && !extractedPath.startsWith('key:')) {
+          normalizedPath = normalizeStoragePath(extractedPath, bucket);
+        }
+      }
+      
+      // Determina se alguma atualização é necessária
+      const needsUpdate = normalizedPath !== asset.file_path || correctedKey !== asset.key;
+      
+      if (!needsUpdate) return null;
+      
       return {
         id: asset.id,
         file_path: normalizedPath,
+        key: correctedKey,
         bucket,
       };
     })
     .filter(Boolean) as Array<{
     id: string;
     file_path: string;
+    key?: string;
     bucket: string;
   }>;
 
@@ -117,12 +147,20 @@ async function main() {
   console.log(`Corrigindo ${updates.length} registros em site_assets...`);
   console.table(preview);
 
-  const { error: updateError } = await supabase
-    .from('site_assets')
-    .upsert(updates, { onConflict: 'id' });
+  // Processar atualizações em lotes menores para evitar problemas com limites
+  const batchSize = 50;
+  for (let i = 0; i < updates.length; i += batchSize) {
+    const batch = updates.slice(i, i + batchSize);
+    const { error: updateError } = await supabase
+      .from('site_assets')
+      .upsert(batch, { onConflict: 'id' });
 
-  if (updateError) {
-    throw updateError;
+    if (updateError) {
+      console.error(`Erro ao atualizar lote ${Math.floor(i/batchSize) + 1}:`, updateError);
+      throw updateError;
+    }
+    
+    console.log(`Lote ${Math.floor(i/batchSize) + 1} de atualizações concluído (${Math.min(batchSize, updates.length - i)} registros)`);
   }
 
   console.log(

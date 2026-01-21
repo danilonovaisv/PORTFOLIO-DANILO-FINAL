@@ -19,17 +19,28 @@ export function AssetGallery({ assets }: AssetGalleryProps) {
 
   const deferredQuery = useDeferredValue(query);
 
+  // Filtrar assets válidos e extrair opções únicas
+  const validAssets = useMemo(() => {
+    return assets.filter(asset => {
+      // Filtrar assets com chaves ou caminhos inválidos
+      if (!asset.key || asset.key.startsWith('updated_at:') || asset.key.startsWith('key:')) {
+        return false;
+      }
+      return true;
+    });
+  }, [assets]);
+
   const pageOptions = useMemo(() => {
     const set = new Set<string>();
-    assets.forEach((asset) => set.add(asset.page ?? asset.resolvedPage ?? ''));
+    validAssets.forEach((asset) => set.add(asset.page ?? asset.resolvedPage ?? ''));
     return Array.from(set).filter(Boolean).sort();
-  }, [assets]);
+  }, [validAssets]);
 
   const typeOptions = useMemo(() => {
     const set = new Set<string>();
-    assets.forEach((asset) => asset.asset_type && set.add(asset.asset_type));
+    validAssets.forEach((asset) => asset.asset_type && set.add(asset.asset_type));
     return Array.from(set).filter(Boolean).sort();
-  }, [assets]);
+  }, [validAssets]);
 
   useEffect(() => {
     setPage(1);
@@ -37,7 +48,7 @@ export function AssetGallery({ assets }: AssetGalleryProps) {
 
   const filtered = useMemo(() => {
     const term = deferredQuery.trim().toLowerCase();
-    return assets.filter((asset) => {
+    return validAssets.filter((asset) => {
       if (!showInactive && !asset.is_active) return false;
       const resolvedPage = asset.page ?? asset.resolvedPage ?? '';
       if (pageFilter !== 'all' && resolvedPage !== pageFilter) return false;
@@ -52,7 +63,7 @@ export function AssetGallery({ assets }: AssetGalleryProps) {
       }
       return true;
     });
-  }, [assets, deferredQuery, pageFilter, typeFilter, showInactive]);
+  }, [validAssets, deferredQuery, pageFilter, typeFilter, showInactive]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
@@ -103,7 +114,7 @@ export function AssetGallery({ assets }: AssetGalleryProps) {
           Mostrar inativos
         </label>
         <div className="ml-auto text-xs text-slate-400">
-          {filtered.length} de {assets.length} assets
+          {filtered.length} de {validAssets.length} assets válidos
         </div>
       </div>
 

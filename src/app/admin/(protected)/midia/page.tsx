@@ -17,8 +17,12 @@ export default async function MidiaPage() {
     .order('page', { ascending: true })
     .order('sort_order', { ascending: true, nullsFirst: false });
 
-  const normalizedAssets = normalizeAssetList(assets ?? []);
-  const activeCount = normalizedAssets.filter(
+  const normalizedAssets = normalizeAssetList(assets ?? [], { onlyActive: false }); // Mostrar todos para permitir edição
+  const validAssets = normalizedAssets.filter(asset => {
+    // Filtrar assets com chaves inválidas
+    return !(asset.key.startsWith('updated_at:') || asset.key.startsWith('key:'));
+  });
+  const activeCount = validAssets.filter(
     (asset) => asset.is_active
   ).length;
 
@@ -49,7 +53,7 @@ export default async function MidiaPage() {
         </div>
       </div>
 
-      <AssetGallery assets={normalizedAssets} />
+      <AssetGallery assets={validAssets} />
     </div>
   );
 }

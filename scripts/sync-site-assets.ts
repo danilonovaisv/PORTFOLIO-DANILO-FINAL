@@ -191,13 +191,33 @@ async function run() {
   const duplicates = payload.filter((entry) =>
     entry.file_path.includes('site-assets/site-assets')
   );
-  if (duplicates.length > 0) {
-    console.warn(
-      'Atenção: os seguintes registros ainda contêm o prefixo duplicado "site-assets/site-assets":'
-    );
-    duplicates.forEach((entry) => {
-      console.warn(`  key=${entry.key} → ${entry.file_path}`);
-    });
+  
+  // Verificar duplicatas de outras formas
+  const invalidEntries = payload.filter((entry) =>
+    entry.key.startsWith('updated_at:') || 
+    entry.key.startsWith('key:') ||
+    entry.file_path.includes('updated_at:') ||
+    entry.file_path.includes('key:')
+  );
+  
+  if (duplicates.length > 0 || invalidEntries.length > 0) {
+    if (duplicates.length > 0) {
+      console.warn(
+        'Atenção: os seguintes registros ainda contêm o prefixo duplicado "site-assets/site-assets":'
+      );
+      duplicates.forEach((entry) => {
+        console.warn(`  key=${entry.key} → ${entry.file_path}`);
+      });
+    }
+    
+    if (invalidEntries.length > 0) {
+      console.warn(
+        'Atenção: os seguintes registros contêm dados inválidos:'
+      );
+      invalidEntries.forEach((entry) => {
+        console.warn(`  key=${entry.key} → ${entry.file_path}`);
+      });
+    }
   }
 
   const { error } = await supabase

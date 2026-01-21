@@ -23,8 +23,8 @@ export const SITE_ASSET_KEYS = {
   },
   heroVideos: {
     homeManifesto: 'home.manifesto_video',
-    aboutDesktop: 'about.hero.desktop_video',
-    aboutMobile: 'about.hero.mobile_video',
+    aboutDesktop: 'about.hero.about.hero.desktop_video.mp4',
+    aboutMobile: 'about.hero.about.hero.mobile_video.mp4',
     portfolioDesktop: 'portfolio.hero_desktop_video',
     portfolioMobile: 'portfolio.hero_mobile_video',
     method: 'about.method_video',

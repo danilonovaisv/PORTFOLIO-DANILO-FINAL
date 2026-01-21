@@ -1,62 +1,14 @@
 import { motion, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import { HOME_CONTENT } from '@/config/content';
-import { useSiteAssetsByPrefix } from '@/contexts/site-assets';
-import { validateExternalUrl } from '@/lib/supabase/urls';
 
 export default function ClientsBrandsSection() {
   const reducedMotion = useReducedMotion();
-  const assets = useSiteAssetsByPrefix('clients.').filter(
-    (asset) => asset.publicUrl
-  );
-
-  // Remove duplicatas baseado na key e publicUrl
-  const uniqueAssets = Array.from(
-    new Map(assets.map((asset) => [asset.key, asset])).values()
-  );
-
-  type LogoItem = {
-    id: string | number;
-    src: string;
-    alt: string;
-    href?: string | null;
-  };
-
-  // Garantir que sempre teremos pelo menos 12 logos
-  const rawLogos: LogoItem[] =
-    uniqueAssets.length > 0
-      ? uniqueAssets.slice(0, 12).map((asset) => ({
-          id: asset.key,
-          src: asset.publicUrl,
-          alt: asset.description ?? asset.key,
-          href: asset.href || null,
-        }))
-      : HOME_CONTENT.clients.logos.slice(0, 12).map((logo) => ({
-          ...logo,
-          href: null,
-        }));
-
-  // Filtrar duplicatas logicamente (presume-se que 1=2, 3=4, etc. baseado no feedback visual e convenção de nomes)
-  // Mantém apenas logos ímpares (1, 3, 5...)
-  const logos = rawLogos.filter((logo) => {
-    let numId = -1;
-    if (typeof logo.id === 'number') {
-      numId = logo.id;
-    } else if (typeof logo.id === 'string') {
-      const match = logo.id.match(/strip\.(\d+)/);
-      if (match) {
-        numId = parseInt(match[1], 10);
-      }
-    }
-    // Se não conseguiu extrair ID, mantém (fallback seguro)
-    if (numId === -1) return true;
-
-    // Retorna true APENAS para números ímpares (1, 3, 5...)
-    return numId % 2 !== 0;
-  });
-
-  // Forçar exibição de logos mesmo se não houver assets do Supabase
-  const hasLogos = true;
+  /*
+   * Bypass assets.json logic as it contains duplicated "strip" assets.
+   * We force HOME_CONTENT which now points to the correct 'client-logos' bucket.
+   */
+  const logos = HOME_CONTENT.clients.logos.slice(0, 12);
 
   return (
     <section
@@ -80,98 +32,58 @@ export default function ClientsBrandsSection() {
           </h2>
         </motion.div>
 
-        {hasLogos ? (
-          <motion.div
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: '-10%' }}
-            variants={{
-              hidden: {},
-              show: {
-                transition: {
-                  staggerChildren: 0.08,
-                  delayChildren: 0.1,
-                },
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-10%' }}
+          variants={{
+            hidden: {},
+            show: {
+              transition: {
+                staggerChildren: 0.08,
+                delayChildren: 0.1,
               },
-            }}
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8 md:gap-12 items-center justify-items-center w-full"
-          >
-            {logos.map((logo) => {
-              const isSvg = logo.src?.toLowerCase().endsWith('.svg');
+            },
+          }}
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8 md:gap-12 items-center justify-items-center w-full"
+        >
+          {logos.map((logo) => {
+            const isSvg = logo.src?.toLowerCase().endsWith('.svg');
 
-              // Renderizar como link se tiver href
-              const LogoElement = ({
-                children,
-              }: {
-                children: React.ReactNode;
-              }) => {
-                if (logo.href) {
-                  const validatedHref = validateExternalUrl(logo.href);
-                  if (validatedHref) {
-                    return (
-                      <a
-                        href={validatedHref}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group relative w-32 h-16 md:w-40 md:h-20 flex items-center justify-center"
-                        aria-label={logo.alt}
-                      >
-                        {children}
-                      </a>
-                    );
-                  }
-                }
-
-                return (
-                  <div
-                    className="group relative w-32 h-16 md:w-40 md:h-20 flex items-center justify-center"
-                    aria-label={logo.alt}
-                  >
-                    {children}
-                  </div>
-                );
-              };
-
-              return (
-                <motion.div
-                  key={logo.id}
-                  variants={{
-                    hidden: { opacity: 0, y: 20, filter: 'blur(4px)' },
-                    show: {
-                      opacity: 1,
-                      y: 0,
-                      filter: 'blur(0px)',
-                      transition: {
-                        duration: 0.8,
-                        ease: [0.22, 1, 0.36, 1],
-                      },
+            return (
+              <motion.div
+                key={logo.id}
+                variants={{
+                  hidden: { opacity: 0, y: 20, filter: 'blur(4px)' },
+                  show: {
+                    opacity: 1,
+                    y: 0,
+                    filter: 'blur(0px)',
+                    transition: {
+                      duration: 0.8,
+                      ease: [0.22, 1, 0.36, 1],
                     },
-                  }}
+                  },
+                }}
+              >
+                <div
+                  className="group relative w-32 h-16 md:w-40 md:h-20 flex items-center justify-center"
+                  aria-label={logo.alt}
                 >
-                  <LogoElement>
-                    <Image
-                      src={logo.src}
-                      alt={logo.alt}
-                      fill
-                      className="w-full h-full object-contain filter brightness-0 invert opacity-60 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110 will-change-transform"
-                      sizes="(max-width: 768px) 128px, (max-width: 1200px) 160px, 160px"
-                      loading="lazy"
-                      unoptimized={isSvg}
-                    />
-                  </LogoElement>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        ) : (
-          <p
-            role="status"
-            className="text-center text-white/40 text-sm font-mono uppercase tracking-widest"
-            aria-live="polite"
-          >
-            Nenhum parceiro cadastrado.
-          </p>
-        )}
+                  <Image
+                    src={logo.src}
+                    alt={logo.alt}
+                    fill
+                    className="w-full h-full object-contain filter brightness-0 invert opacity-60 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110 will-change-transform"
+                    sizes="(max-width: 768px) 128px, (max-width: 1200px) 160px, 160px"
+                    loading="lazy"
+                    unoptimized={isSvg}
+                  />
+                </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </div>
     </section>
   );

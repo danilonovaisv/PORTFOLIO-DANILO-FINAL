@@ -128,16 +128,11 @@ export const HOME_CONTENT = {
     },
   ],
 
-const clientLogo = (path: string) =>
-  buildSupabaseStorageUrl('client-logos', path);
-
-// ... existing code ...
-
   clients: {
     title: 'marcas com as quais já trabalhei',
     logos: Array.from({ length: 12 }, (_, i) => ({
       id: i + 1,
-      src: clientLogo(`client${i + 1}.svg`),
+      src: siteAsset(`clients/clients.strip.${i + 1}.svg`),
       alt: `Logo do cliente ${i + 1}`, // Otimizado: Português para consistência
     })),
   },
