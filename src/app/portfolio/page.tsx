@@ -91,35 +91,23 @@ export default async function PortfolioPage() {
           process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY
       );
 
-    console.log('[Portfolio] hasSupabaseEnv:', hasSupabaseEnv);
-    console.log('[Portfolio] SUPABASE_URL:', process.env.NEXT_PUBLIC_SUPABASE_URL ? 'SET' : 'MISSING');
-    console.log('[Portfolio] ANON_KEY:', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? 'SET' : 'MISSING');
-
     if (hasSupabaseEnv) {
-      console.log('[Portfolio] Creating Supabase client...');
       const supabase = createStaticClient();
       
-      console.log('[Portfolio] Fetching projects from Supabase...');
       const dbProjects = await listProjects({}, supabase);
       
-      console.log('[Portfolio] Fetched', dbProjects.length, 'projects');
       projects = dbProjects.map((project, index) =>
         mapDbProjectToPortfolioProject(project, index)
       );
-      console.log('[Portfolio] Mapped', projects.length, 'portfolio projects');
     } else {
       console.warn('[Portfolio] Supabase env vars missing, using fallback projects.');
       projects = buildFallbackProjects();
-      console.log('[Portfolio] Using', projects.length, 'fallback projects');
     }
   } catch (error) {
     console.error('[Portfolio] Error occurred:', error instanceof Error ? error.message : error);
-    console.error('[Portfolio] Stack:', error instanceof Error ? error.stack : 'N/A');
-    console.log('[Portfolio] Falling back to static projects...');
     projects = buildFallbackProjects();
-    console.log('[Portfolio] Loaded', projects.length, 'fallback projects');
   }
 
-  console.log('[Portfolio] Rendering with', projects.length, 'projects');
+  return <PortfolioClient projects={projects} />;
   return <PortfolioClient projects={projects} />;
 }
