@@ -11,8 +11,8 @@ const nextConfig = {
    */
   reactStrictMode: true,
 
-  // Removendo a opção output: 'export' para permitir Server Actions
-  // output: 'export',
+  // Output standalone para compatibilidade com Firebase Functions (Frameworks Aware)
+  output: 'standalone',
 
   experimental: {
     // any needed experimental flags

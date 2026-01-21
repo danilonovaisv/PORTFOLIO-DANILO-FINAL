@@ -7,5 +7,6 @@ export const ADMIN_NAVIGATION = {
   },
   tags: '/admin/tags',
   midia: '/admin/midia',
+  'landing-pages': '/admin/landing-pages',
   config: '/admin/config',
 } as const;

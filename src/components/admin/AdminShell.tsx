@@ -31,6 +31,11 @@ const navItems = [
   },
   { href: ADMIN_NAVIGATION.tags, label: 'Tags', icon: Tag },
   { href: ADMIN_NAVIGATION.midia, label: 'Mídia & Layout', icon: Images },
+  {
+    href: ADMIN_NAVIGATION['landing-pages'],
+    label: 'Landing Pages',
+    icon: LayoutDashboard,
+  },
   { href: ADMIN_NAVIGATION.config, label: 'Configurações', icon: Settings },
 ];
 

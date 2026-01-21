@@ -15,28 +15,28 @@ gsap.registerPlugin(ScrollTrigger);
 const FALLBACK_BLOCKS = [
   {
     id: '1',
-    title: 'O QUE PERMANECE',
+    title: 'O que permanece',
     desc: 'Desde cedo, sempre prestei atenção no que ficava — não só no que aparecia. Enquanto muitos olhavam para o brilho imediato, eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo. A essência das coisas sempre falou mais alto do que a superfície.',
     fallback: 'about/origin/about.origin_image.1.webp',
     alt: 'O que permanece - essência que sobrevive ao tempo',
   },
   {
     id: '2',
-    title: 'DO TRAÇO À INTENÇÃO',
+    title: 'Do traço à intenção',
     desc: 'Rabiscos viraram ideias. Ideias viraram projetos. E os projetos começaram a deixar rastros. Meu processo criativo nasceu do improviso, do lápis na margem do caderno. Aos poucos, aquilo que era instinto virou direção. Com cada tentativa, aprendi a dar forma ao invisível — até que os conceitos começaram a falar por si.',
     fallback: 'about/origin/about.origin_image.2.webp',
     alt: 'Do traço à intenção - processo criativo emergente',
   },
   {
     id: '3',
-    title: 'A DESCOBERTA DO INVISÍVEL',
+    title: 'A descoberta do invisível',
     desc: 'Foi ali que entendi: design não é enfeite. É ferramenta invisível de transformação. Por trás de cada escolha visual, existe intenção. Descobri que o design verdadeiro não grita — ele conduz. Ele está presente nos detalhes que ninguém percebe, mas que todos sentem. Transformar sem que se perceba a transformação: isso é potência.',
     fallback: 'about/origin/about.origin_image.3.webp',
     alt: 'Descoberta do invisível - design como transformação',
   },
   {
     id: '4',
-    title: 'EXPANSÃO COM PROPÓSITO',
+    title: 'Expansão com propósito',
     desc: 'Estudei Comunicação, mergulhei no design, no branding e hoje uso inteligência artificial para expandir o alcance sem perder a essência humana da criação. Minha trajetória uniu intuição com método, arte com estratégia. O futuro pede novas ferramentas — e eu as abracei. Mas nunca deixei que a tecnologia apagasse o que me move: a sensibilidade, o olhar atento, a busca pelo significado.',
     fallback: 'about/origin/about.origin_image.4.webp',
     alt: 'Expansão com propósito - intuição + tecnologia',
@@ -141,12 +141,12 @@ const AboutOrigin: React.FC = () => {
         ease: 'power2.out',
         scrollTrigger: {
           trigger: archRef.current,
-          start: 'top 75%', // Changed to enter earlier
+          start: 'top 75%',
           toggleActions: 'play none none reverse',
         },
       });
 
-      // Synchronized Image Transitions (Background and Layer Masking)
+      // Synchronized Image Transitions
       CONTENT_BLOCKS.forEach((_, index) => {
         const currentWrapper = wrappers[index];
         const currentImg = images[index];
@@ -201,28 +201,49 @@ const AboutOrigin: React.FC = () => {
         }
       });
 
-      // Uniform Text Entry Animation for all blocks
+      // Improved Desktop Text Entry Animation
       infoBlocks.forEach((block) => {
         const h2 = block.querySelector('h2');
         const p = block.querySelector('p');
 
         gsap.fromTo(
-          [h2, p],
+          h2,
           {
-            y: 120, // Aumentado para garantir o efeito vindo "do rodapé"
+            y: 40,
             opacity: 0,
-            filter: 'blur(6px)',
+            filter: 'blur(12px)',
           },
           {
             y: 0,
             opacity: 1,
             filter: 'blur(0px)',
-            duration: 1.4,
-            stagger: 0.25,
-            ease: 'power3.out',
+            duration: 0.8,
+            ease: 'cubic-bezier(0.22, 1, 0.36, 1)',
             scrollTrigger: {
               trigger: block,
-              start: 'top 85%', // Dispara quando o topo do bloco atinge 85% da tela (perto do rodapé)
+              start: 'top 80%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        );
+
+        gsap.fromTo(
+          p,
+          {
+            y: 30,
+            opacity: 0,
+            filter: 'blur(8px)',
+          },
+          {
+            y: 0,
+            opacity: 1,
+            filter: 'blur(0px)',
+            duration: 0.8,
+            delay: 0.1,
+            ease: 'cubic-bezier(0.22, 1, 0.36, 1)',
+            scrollTrigger: {
+              trigger: block,
+              start: 'top 80%',
               toggleActions: 'play none none reverse',
             },
           }
@@ -231,49 +252,58 @@ const AboutOrigin: React.FC = () => {
     });
 
     mm.add('(max-width: 1023px)', () => {
-      const mobileImages = gsap.utils.toArray<HTMLImageElement>('.mobile-img');
+      const mobileImages = gsap.utils.toArray<HTMLElement>(
+        '.mobile-img-container'
+      );
+      const mobileTexts = gsap.utils.toArray<HTMLElement>(
+        '.mobile-text-container'
+      );
       const bgColors = ['#040013', '#060018', '#08001e', '#0a001a'];
 
-      mobileImages.forEach((img, index) => {
+      // Mobile Parallax: Image and Text moving at different speeds
+      mobileImages.forEach((container, index) => {
+        const img = container.querySelector('img');
+        if (!img) return;
+
         gsap
           .timeline({
             scrollTrigger: {
-              trigger: img,
-              start: 'top 90%',
-              end: 'bottom 10%',
+              trigger: container,
+              start: 'top bottom',
+              end: 'bottom top',
               scrub: true,
             },
           })
-          .to(img, {
-            objectPosition: '0px 30%',
-            ease: 'none',
-          })
+          .fromTo(
+            img,
+            { y: -40, scale: 1.1 },
+            { y: 40, scale: 1, ease: 'none' }
+          )
           .to(
             'body',
             {
               backgroundColor: bgColors[index],
-              duration: 1,
+              duration: 0.5,
               ease: 'power2.inOut',
             },
             0
           );
       });
 
-      const mobileTexts = gsap.utils.toArray<HTMLElement>('.reveal-text');
       mobileTexts.forEach((text) => {
         gsap.fromTo(
           text,
-          { y: 60, opacity: 0, filter: 'blur(4px)' },
+          { y: 80, opacity: 0, filter: 'blur(10px)' },
           {
-            y: 0,
+            y: -40,
             opacity: 1,
             filter: 'blur(0px)',
-            duration: 1.2,
-            ease: 'power3.out',
+            ease: 'none',
             scrollTrigger: {
               trigger: text,
-              start: 'top 90%',
-              toggleActions: 'play none none reverse',
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
             },
           }
         );
@@ -294,10 +324,19 @@ const AboutOrigin: React.FC = () => {
       className="relative w-full overflow-hidden transition-colors duration-1000"
       ref={containerRef}
     >
+      <style jsx>{`
+        .non-uppercase-title {
+          text-transform: none !important;
+        }
+        .non-uppercase-title span {
+          text-transform: none !important;
+        }
+      `}</style>
+
       <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-24">
         {/* Section Title "Origem" - CustomLight, 28px, Cyan */}
         <div className="mb-24 text-center select-none">
-          <h1 className="text-[1.75rem] font-['CustomLight'] font-light leading-none text-[#4fe6ff] uppercase tracking-[0.2em]">
+          <h1 className="text-[1.75rem] font-['CustomLight'] font-light leading-none text-[#4fe6ff] tracking-[0.2em]">
             Origem
           </h1>
         </div>
@@ -314,24 +353,58 @@ const AboutOrigin: React.FC = () => {
                 className="arch__info min-h-screen lg:h-[120vh] flex flex-col justify-center mb-24 lg:mb-0 items-center text-center lg:items-end lg:text-right"
               >
                 <div className="content w-full lg:max-w-[520px] flex flex-col gap-8 lg:transform lg:-translate-y-[15%]">
-                  <div className="space-y-6">
-                    {/* H2 using CustomLight font and #0048ff color */}
-                    <h2 className="reveal-text text-[32px] md:text-[42px] lg:text-[48px] font-['CustomLight'] font-bold leading-[1.1] text-[#0048ff] tracking-wide">
-                      {block.title}
+                  <div className="mobile-text-container space-y-6">
+                    <h2 className="text-h1 font-bold leading-[1.1] text-[#0048ff] normal-case non-uppercase-title">
+                      {block.title.split(' ').map((word, index) => {
+                        let highlightWord = false;
+
+                        if (
+                          block.title.toLowerCase().includes('permanece') &&
+                          word.toLowerCase().includes('permanece')
+                        ) {
+                          highlightWord = true;
+                        } else if (
+                          block.title.toLowerCase().includes('intenção') &&
+                          word.toLowerCase().includes('intenção')
+                        ) {
+                          highlightWord = true;
+                        } else if (
+                          block.title.toLowerCase().includes('descoberta') &&
+                          word.toLowerCase().includes('descoberta')
+                        ) {
+                          highlightWord = true;
+                        } else if (
+                          block.title.toLowerCase().includes('expansão') &&
+                          word.toLowerCase().includes('expansão')
+                        ) {
+                          highlightWord = true;
+                        }
+
+                        return (
+                          <span
+                            key={index}
+                            className={highlightWord ? 'text-[#4fe6ff]' : ''}
+                          >
+                            {word}
+                            {index < block.title.split(' ').length - 1
+                              ? ' '
+                              : ''}
+                          </span>
+                        );
+                      })}
                     </h2>
-                    {/* Responsive body text */}
-                    <p className="reveal-text text-[16px] md:text-[18px] lg:text-[20px] font-normal leading-[1.7] text-[#fcffff] opacity-75">
+                    <p className="text-[16px] md:text-[18px] lg:text-[20px] font-normal leading-[1.7] text-[#fcffff] opacity-75">
                       {block.desc}
                     </p>
                   </div>
 
-                  {/* Mobile Image (1:1 Aspect Ratio) */}
-                  <div className="lg:hidden relative mt-8 w-full aspect-square min-h-[240px] rounded-[24px] overflow-hidden bg-[#060018] shadow-2xl">
+                  {/* Mobile Image Container */}
+                  <div className="mobile-img-container lg:hidden relative mt-8 w-full aspect-square min-h-[240px] rounded-[24px] overflow-hidden bg-[#060018] shadow-2xl">
                     <Image
                       src={block.img}
                       alt={block.alt}
                       fill
-                      className="mobile-img w-full h-full object-cover"
+                      className="w-full h-full object-cover will-change-transform"
                       sizes="(max-width: 1024px) 100vw, 560px"
                     />
                   </div>
