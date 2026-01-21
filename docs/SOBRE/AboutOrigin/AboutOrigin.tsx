@@ -261,7 +261,7 @@ const OrigemCriativa: React.FC = () => {
         {/* Section Title "Origem" - CustomLight, 28px, Cyan */}
         <div className="mb-24 text-center select-none">
           <h1 className="text-[1.75rem] font-['CustomLight'] font-light leading-none text-[#4fe6ff] uppercase tracking-[0.2em]">
-            Origem
+            ORIGEM
           </h1>
         </div>
 

@@ -137,7 +137,6 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
         slug,
         cover: coverPath,
         content: uploadedSections,
-        updated_at: new Date().toISOString(),
       };
 
       if (initialData?.id) {
@@ -155,9 +154,9 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
 
       router.push('/admin/landing-pages');
       router.refresh();
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      alert('Erro ao salvar página.');
+      alert(`Erro ao salvar página: ${err.message || 'Erro desconhecido'}`);
     } finally {
       setLoading(false);
     }
@@ -212,7 +211,7 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
                 placeholder="slug-do-projeto"
                 value={slug}
                 onChange={(e) =>
-                  setSlug(e.target.value.toLowerCase().replace(/ /g, '-'))
+                  setSlug(e.target.value.toLowerCase().replace(/\s+/g, '-'))
                 }
                 className="flex-1 bg-slate-950 border border-white/10 rounded-xl px-4 py-2 font-mono text-sm focus:border-blue-500 outline-none transition-all"
               />

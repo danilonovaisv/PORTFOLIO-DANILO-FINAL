@@ -324,20 +324,11 @@ const AboutOrigin: React.FC = () => {
       className="relative w-full overflow-hidden transition-colors duration-1000"
       ref={containerRef}
     >
-      <style jsx>{`
-        .non-uppercase-title {
-          text-transform: none !important;
-        }
-        .non-uppercase-title span {
-          text-transform: none !important;
-        }
-      `}</style>
-
       <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-24">
         {/* Section Title "Origem" - CustomLight, 28px, Cyan */}
         <div className="mb-24 text-center select-none">
-          <h1 className="text-[1.75rem] font-['CustomLight'] font-light leading-none text-[#4fe6ff] tracking-[0.2em]">
-            Origem
+          <h1 className="text-[1.75rem] font-['CustomLight'] font-light leading-none text-[#4fe6ff] tracking-[0.2em] uppercase">
+            ORIGEM
           </h1>
         </div>
 
@@ -354,44 +345,8 @@ const AboutOrigin: React.FC = () => {
               >
                 <div className="content w-full lg:max-w-[520px] flex flex-col gap-8 lg:transform lg:-translate-y-[15%]">
                   <div className="mobile-text-container space-y-6">
-                    <h2 className="text-h1 font-bold leading-[1.1] text-[#0048ff] normal-case non-uppercase-title">
-                      {block.title.split(' ').map((word, index) => {
-                        let highlightWord = false;
-
-                        if (
-                          block.title.toLowerCase().includes('permanece') &&
-                          word.toLowerCase().includes('permanece')
-                        ) {
-                          highlightWord = true;
-                        } else if (
-                          block.title.toLowerCase().includes('intenção') &&
-                          word.toLowerCase().includes('intenção')
-                        ) {
-                          highlightWord = true;
-                        } else if (
-                          block.title.toLowerCase().includes('descoberta') &&
-                          word.toLowerCase().includes('descoberta')
-                        ) {
-                          highlightWord = true;
-                        } else if (
-                          block.title.toLowerCase().includes('expansão') &&
-                          word.toLowerCase().includes('expansão')
-                        ) {
-                          highlightWord = true;
-                        }
-
-                        return (
-                          <span
-                            key={index}
-                            className={highlightWord ? 'text-[#4fe6ff]' : ''}
-                          >
-                            {word}
-                            {index < block.title.split(' ').length - 1
-                              ? ' '
-                              : ''}
-                          </span>
-                        );
-                      })}
+                    <h2 className="text-h1 font-bold leading-[1.1] text-primary normal-case">
+                      {block.title}
                     </h2>
                     <p className="text-[16px] md:text-[18px] lg:text-[20px] font-normal leading-[1.7] text-[#fcffff] opacity-75">
                       {block.desc}

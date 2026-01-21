@@ -1,10 +1,6 @@
 // Client component for login
 'use client';
 
-export const dynamic = 'force-dynamic';
-export const runtime = 'nodejs';
-export const fetchCache = 'force-no-store';
-
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@/lib/supabase/client';
@@ -22,16 +18,24 @@ export default function AdminLoginPage() {
     setError(null);
 
     startTransition(async () => {
-      const supabase = createClientComponentClient();
-      const { error: signInError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      if (signInError) {
-        setError(signInError.message);
-        return;
+      try {
+        const supabase = createClientComponentClient();
+        const { error: signInError } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+        if (signInError) {
+          setError(signInError.message);
+          return;
+        }
+        // Force refresh to update server-side session state
+        router.refresh();
+        // Use hard navigation to ensure middleware sees the new cookie
+        window.location.href = ADMIN_NAVIGATION.dashboard;
+      } catch (err) {
+        console.error('Login error:', err);
+        setError('Ocorreu um erro inesperado.');
       }
-      router.push(ADMIN_NAVIGATION.dashboard);
     });
   };
 
