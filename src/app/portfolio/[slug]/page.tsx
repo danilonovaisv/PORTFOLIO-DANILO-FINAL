@@ -16,15 +16,21 @@ import type { PortfolioProject } from '@/types/project';
 
 async function getProject(slug: string): Promise<PortfolioProject | undefined> {
   // Try database first
-  const supabase = createStaticClient();
-  const dbProjects = await listProjects({}, supabase);
-  const dbProject = dbProjects.find((p) => p.slug === slug);
+  try {
+    const supabase = createStaticClient();
+    const dbProjects = await listProjects({}, supabase);
+    const dbProject = dbProjects.find((p) => p.slug === slug);
 
-  if (dbProject) {
-    // Find its index for layout mapping
-    const index = dbProjects.findIndex((p) => p.slug === slug);
-    return mapDbProjectToPortfolioProject(dbProject, index);
+    if (dbProject) {
+      // Find its index for layout mapping
+      const index = dbProjects.findIndex((p) => p.slug === slug);
+      return mapDbProjectToPortfolioProject(dbProject, index);
+    }
+  } catch (error) {
+    console.warn(`Error fetching project ${slug} from DB:`, error);
   }
+
+
 
   // Fallback to static content
   const staticProject = HOME_CONTENT.featuredProjects.find(

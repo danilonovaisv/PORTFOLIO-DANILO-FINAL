@@ -30,7 +30,7 @@ async function fixDuplicateAssets() {
   // Buscar todos os assets
   const { data: assets, error } = await supabase
     .from('site_assets')
-    .select('id, key, file_path, bucket')
+    .select('id, key, file_path, bucket, page')
     .order('created_at', { ascending: true }); // Assumindo que existe um campo created_at
 
   if (error) {
@@ -56,7 +56,8 @@ async function fixDuplicateAssets() {
     // Remover prefixos de metadados
     cleaned = cleaned.replace(/^key:\s*/i, '');
     cleaned = cleaned.replace(/^updated_at:\s*/i, '');
-
+    cleaned = cleaned.replace(/^page:\s*/i, '');
+    
     // Remover aspas e vírgulas extras
     cleaned = cleaned.replace(/^"+|"+$/g, '');
     cleaned = cleaned.replace(/^'+|'+$/g, '');
@@ -112,7 +113,7 @@ async function fixDuplicateAssets() {
   const idsToDelete = new Set<string>();
   const updatesToPerform = new Map<
     string,
-    { id: string; key: string; file_path: string }
+    { id: string; key: string; file_path: string; page?: string }
   >();
 
   // Processar grupos por chave
@@ -145,14 +146,17 @@ async function fixDuplicateAssets() {
       // Verificar se precisamos atualizar o keeper
       const originalKey = keeper.key;
       const originalPath = keeper.file_path;
+      const originalPage = keeper.page;
       const newKey = cleanValue(originalKey);
       const newPath = cleanValue(originalPath);
+      const newPage = cleanValue(originalPage);
 
-      if (newKey !== originalKey || newPath !== originalPath) {
+      if (newKey !== originalKey || newPath !== originalPath || newPage !== originalPage) {
         updatesToPerform.set(keeper.id, {
           id: keeper.id,
           key: newKey || originalKey,
           file_path: newPath || originalPath,
+          page: newPage || originalPage,
         });
       }
     } else {
@@ -160,14 +164,17 @@ async function fixDuplicateAssets() {
       const asset = group[0];
       const originalKey = asset.key;
       const originalPath = asset.file_path;
+      const originalPage = asset.page;
       const newKey = cleanValue(originalKey);
       const newPath = cleanValue(originalPath);
+      const newPage = cleanValue(originalPage);
 
-      if (newKey !== originalKey || newPath !== originalPath) {
+      if (newKey !== originalKey || newPath !== originalPath || newPage !== originalPage) {
         updatesToPerform.set(asset.id, {
           id: asset.id,
           key: newKey || originalKey,
           file_path: newPath || originalPath,
+          page: newPage || originalPage,
         });
       }
     }
@@ -208,14 +215,17 @@ async function fixDuplicateAssets() {
 
           const originalKey = keeper.key;
           const originalPath = keeper.file_path;
+          const originalPage = keeper.page;
           const newKey = cleanValue(originalKey);
           const newPath = cleanValue(originalPath);
+          const newPage = cleanValue(originalPage);
 
-          if (newKey !== originalKey || newPath !== originalPath) {
+          if (newKey !== originalKey || newPath !== originalPath || newPage !== originalPage) {
             updatesToPerform.set(keeper.id, {
               id: keeper.id,
               key: newKey || originalKey,
               file_path: newPath || originalPath,
+              page: newPage || originalPage,
             });
           }
         }

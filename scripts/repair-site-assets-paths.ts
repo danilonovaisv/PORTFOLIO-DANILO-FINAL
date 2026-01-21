@@ -85,33 +85,56 @@ async function main() {
   );
   await fs.writeFile(backupPath, JSON.stringify(rows, null, 2), 'utf8');
 
+  // Função auxiliar para limpar valores
+  const cleanValue = (value: string | null | undefined): string | null | undefined => {
+    if (!value) return value;
+
+    let cleaned = value;
+    
+    // Remover prefixos de metadados
+    cleaned = cleaned.replace(/^key:\s*/i, '');
+    cleaned = cleaned.replace(/^updated_at:\s*/i, '');
+    
+    // Remover aspas e vírgulas extras
+    cleaned = cleaned.replace(/^"+|"+$/g, '');
+    cleaned = cleaned.replace(/^'+|'+$/g, '');
+    cleaned = cleaned.replace(/,+$/g, '');
+    cleaned = cleaned.trim();
+    
+    // Remover duplicação de prefixos (ex: clients.clients.strip -> clients.strip)
+    const segments = cleaned.split(/[.\//]/);
+    if (segments.length >= 4) {
+      const maxPrefix = Math.min(3, Math.floor(segments.length / 2));
+      for (let len = 1; len <= maxPrefix; len++) {
+        const first = segments.slice(0, len).join('|').toLowerCase();
+        const second = segments
+          .slice(len, len * 2)
+          .join('|')
+          .toLowerCase();
+        if (first === second) {
+          const deduped = [
+            ...segments.slice(0, len),
+            ...segments.slice(len * 2),
+          ];
+          cleaned = deduped.join(segments[0].includes('.') ? '.' : '/');
+          break;
+        }
+      }
+    }
+    
+    return cleaned || value; // Retorna o valor original se o resultado limpo for vazio
+  };
+
   const updates = rows
     .map((asset) => {
       // Primeiro tenta normalizar o caminho
       const bucket = (asset.bucket ?? 'site-assets').replace(/^\/+|\/+$/g, '');
-      let normalizedPath = normalizeStoragePath(asset.file_path, bucket);
       
-      // Verifica se a chave é inválida e precisa de correção
-      let correctedKey = asset.key;
-      if (asset.key && (asset.key.startsWith('updated_at:') || asset.key.startsWith('key:'))) {
-        // Extrai a chave real do valor se possível
-        const cleanedKey = asset.key.replace(/^key:\s*/i, '').replace(/^updated_at:\s*/i, '').trim();
-        if (cleanedKey && !cleanedKey.startsWith('updated_at:') && !cleanedKey.startsWith('key:')) {
-          correctedKey = cleanedKey;
-        }
-      }
+      // Aplica limpeza tanto à chave quanto ao caminho
+      const correctedKey = cleanValue(asset.key) ?? asset.key;
+      const correctedPath = cleanValue(asset.file_path) ?? asset.file_path;
       
-      // Verifica se o caminho também contém informações de chave ou atualização
-      if (asset.file_path && (asset.file_path.startsWith('updated_at:') || asset.file_path.startsWith('key:'))) {
-        // Tenta extrair o caminho real
-        const extractedPath = asset.file_path.replace(/^key:\s*/i, '')
-                                         .replace(/^updated_at:\s*/i, '')
-                                         .replace(/,$/, '')
-                                         .trim();
-        if (extractedPath && !extractedPath.startsWith('updated_at:') && !extractedPath.startsWith('key:')) {
-          normalizedPath = normalizeStoragePath(extractedPath, bucket);
-        }
-      }
+      const normalizedPath = normalizeStoragePath(correctedPath, bucket);
       
       // Determina se alguma atualização é necessária
       const needsUpdate = normalizedPath !== asset.file_path || correctedKey !== asset.key;
@@ -133,13 +156,14 @@ async function main() {
   }>;
 
   if (updates.length === 0) {
-    console.log('Nenhum registro com prefixo duplicado encontrado.');
+    console.log('Nenhum registro com dados inválidos ou duplicados encontrado.');
     console.log(`Backup salvo em ${backupPath}`);
     return;
   }
 
   const preview = updates.slice(0, 5).map((u) => ({
     id: u.id,
+    key: u.key,
     file_path: u.file_path,
   }));
 
