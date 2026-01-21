@@ -4,7 +4,7 @@
  * Simula o ambiente de produção e verifica possíveis problemas
  */
 
-import { createStaticClient } from '../src/lib/supabase/static.js';
+import { createStaticClient } from '../src/lib/supabase/static';
 
 async function testPortfolioPage() {
   console.log('🧪 Testing Portfolio Page...\n');
