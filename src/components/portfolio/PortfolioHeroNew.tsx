@@ -77,7 +77,7 @@ export default function PortfolioHeroNew() {
           {/* CTA - Right aligned on desktop, Centered on mobile */}
           <div className="col-span-full md:col-span-6 lg:col-span-5 flex justify-center md:justify-end pb-2">
             <AntigravityCTA
-              href="#contact"
+              href="#contact" // Âncora para a seção de contato na mesma página (padrão para páginas internas)
               text="vamos trabalhar juntos"
               className="scale-90 md:scale-100 origin-bottom"
             />
