@@ -21,9 +21,11 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
     offset: ['start end', 'end start'],
   });
 
-  // Intervalo de animação de entrada.
-  const animationRange = isFirst ? [0.35, 0.55] : [0.1, 0.35];
-  const exitRange = [0.8, 0.95];
+  // Intervalo de animação de entrada e saída:
+  // - Para a primeira seção, ajustamos para entrar mais cedo (0.2) e no meio da tela,
+  //   permanecendo visível por muito mais tempo (até 0.9).
+  const animationRange = isFirst ? [0.2, 0.4] : [0.22, 0.45];
+  const exitRange = isFirst ? [0.9, 1.0] : [0.8, 0.95];
 
   // Easing Ghost Padrão: cubic-bezier(0.22, 1, 0.36, 1)
   const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
@@ -43,7 +45,11 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
   return (
     <section
       ref={containerRef}
-      className={`relative w-full h-screen flex items-start justify-start overflow-hidden pt-[20vh] md:pt-[20vh] lg:pt-[15vh] transition-colors duration-500 ease-linear ${bgColor}`}
+      className={`relative w-full h-screen flex justify-start overflow-hidden transition-colors duration-500 ease-linear ${
+        isFirst
+          ? 'items-center pt-0'
+          : 'items-start pt-[20vh] md:pt-[20vh] lg:pt-[15vh]'
+      } ${bgColor}`}
     >
       <div className="std-grid max-w-none">
         <motion.div
@@ -51,27 +57,19 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
           className="w-full flex flex-col justify-start z-10"
         >
           {lines.map((line, i) => {
-            // Cada linha tem seu próprio transform baseado no progresso
-            // para criar o efeito de "levitação" suave
-            const lineY = useTransform(
+            // Cada linha entra da esquerda para a direita (X: -100% -> 0)
+            const lineX = useTransform(
               scrollYProgress,
               [animationRange[0] + i * 0.02, animationRange[1] + i * 0.02],
-              [40, 0],
-              { ease: ghostEase }
-            );
-
-            const lineBlur = useTransform(
-              scrollYProgress,
-              [animationRange[0] + i * 0.02, animationRange[1] + i * 0.02],
-              ['blur(10px)', 'blur(0px)'],
+              ['-100%', '0%'],
               { ease: ghostEase }
             );
 
             return (
-              <div key={i} className="overflow-hidden mb-1 md:mb-2">
+              <div key={i} className="overflow-visible mb-1 md:mb-2 w-full">
                 <motion.span
-                  style={{ y: lineY, filter: lineBlur }}
-                  className="block text-[#4fe6ff] font-h2 text-4xl md:text-6xl lg:text-[5vw] xl:text-[6vw] leading-[0.9] tracking-[-0.04em] text-left whitespace-pre-line select-none font-black italic max-w-[95%] md:max-w-[85%] lg:max-w-[70%]"
+                  style={{ x: lineX }}
+                  className="block text-[#4fe6ff] font-h2 text-4xl md:text-6xl lg:text-[5.5vw] xl:text-[6.5vw] leading-none tracking-[-0.04em] text-left whitespace-pre-line select-none font-black italic max-w-fit pr-[0.15em] py-2"
                 >
                   {line}
                 </motion.span>
