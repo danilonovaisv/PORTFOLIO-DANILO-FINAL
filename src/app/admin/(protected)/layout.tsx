@@ -4,12 +4,10 @@ export const fetchCache = 'force-no-store';
 
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { redirect } from 'next/navigation';
 import { isRedirectError } from 'next/dist/client/components/redirect-error';
 import { AdminShell } from '@/components/admin/AdminShell';
 import { AdminErrorDisplay } from '@/components/admin/AdminErrorDisplay';
 import { createClient } from '@/lib/supabase/server';
-import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
 
 export const metadata: Metadata = {
   robots: {
@@ -40,11 +38,10 @@ export default async function ProtectedLayout({
     }
 
     if (!user) {
-      // Avoid redirecting during build time to prevent "Cannot find module" errors
-      if (process.env.NEXT_PHASE === 'phase-production-build') {
-        return null;
-      }
-      redirect(ADMIN_NAVIGATION.dashboard + '/login');
+      // O middleware já redireciona para /admin/login se não houver usuário.
+      // Se chegarmos aqui sem usuário, apenas retornamos null para evitar renderizar o shell
+      // sem dados, ou deixamos o shell renderizar com 'Usuário' genérico.
+      return null;
     }
 
     return (
