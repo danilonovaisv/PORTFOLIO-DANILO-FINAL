@@ -22,19 +22,38 @@ export default function ClientsBrandsSection() {
     href?: string | null;
   };
 
-  // Garantir que sempre teremos pelo menos 8 logos
-  const logos: LogoItem[] =
+  // Garantir que sempre teremos pelo menos 12 logos
+  const rawLogos: LogoItem[] =
     uniqueAssets.length > 0
-      ? uniqueAssets.slice(0, 8).map((asset) => ({
+      ? uniqueAssets.slice(0, 12).map((asset) => ({
           id: asset.key,
           src: asset.publicUrl,
           alt: asset.description ?? asset.key,
           href: asset.href || null,
         }))
-      : HOME_CONTENT.clients.logos.slice(0, 8).map((logo) => ({
+      : HOME_CONTENT.clients.logos.slice(0, 12).map((logo) => ({
           ...logo,
           href: null,
         }));
+
+  // Filtrar duplicatas logicamente (presume-se que 1=2, 3=4, etc. baseado no feedback visual e convenção de nomes)
+  // Mantém apenas logos ímpares (1, 3, 5...)
+  const logos = rawLogos.filter((logo) => {
+    let numId = -1;
+    if (typeof logo.id === 'number') {
+      numId = logo.id;
+    } else if (typeof logo.id === 'string') {
+      const match = logo.id.match(/strip\.(\d+)/);
+      if (match) {
+        numId = parseInt(match[1], 10);
+      }
+    }
+    // Se não conseguiu extrair ID, mantém (fallback seguro)
+    if (numId === -1) return true;
+
+    // Retorna true APENAS para números ímpares (1, 3, 5...)
+    return numId % 2 !== 0;
+  });
 
   // Forçar exibição de logos mesmo se não houver assets do Supabase
   const hasLogos = true;
