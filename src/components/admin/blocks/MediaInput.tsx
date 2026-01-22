@@ -39,6 +39,14 @@ export function MediaInput({
     }
   }, [value]);
 
+  const getYouTubeId = (url: string) => {
+    const regExp =
+      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return match && match[2].length === 11 ? match[2] : null;
+  };
+
+  const youtubeId = mode === 'url' && value ? getYouTubeId(value) : null;
   const showPreview = !!previewUrl || (!!value && mode === 'url');
 
   // Helper to determine accurate preview source
@@ -68,11 +76,17 @@ export function MediaInput({
 
       {showPreview ? (
         <div className="relative rounded-xl overflow-hidden border border-white/10 group bg-black/20">
-          {type === 'image' ? (
-            // User requested "tamanho que foi enviado" -> object-contain to see full image
-            // But for Admin UI, we might want to contain it within a reasonable box
+          {youtubeId ? (
+            <div className="aspect-video w-full bg-black">
+              <iframe
+                src={`https://www.youtube.com/embed/${youtubeId}?autoplay=0&mute=1&modestbranding=1`}
+                title="YouTube preview"
+                className="w-full h-full border-none"
+                allowFullScreen
+              />
+            </div>
+          ) : type === 'image' ? (
             <div className="relative min-h-[200px] max-h-[400px] w-full flex justify-center bg-black/40">
-              {/* We use standard img for blob urls or external links to avoid Next/Image config issues with arbitrary domains */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={displaySrc}
@@ -135,7 +149,7 @@ export function MediaInput({
             placeholder={
               type === 'image'
                 ? 'https://exemplo.com/imagem.jpg'
-                : 'https://exemplo.com/video.mp4'
+                : 'Pinte aqui o link do YouTube ou .mp4'
             }
             className="bg-transparent border-none outline-none w-full text-sm text-white placeholder-slate-600"
             onChange={(e) => onUrlChange(e.target.value)}

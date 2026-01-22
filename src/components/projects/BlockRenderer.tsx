@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { LandingPageBlock } from '@/types/landing-page';
+import ReactMarkdown from 'react-markdown';
 
 // Eliminamos a interface e usamos tipagem inline para evitar confusão de nomes
 
@@ -37,52 +38,139 @@ export default function BlockRenderer({
     return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/site-assets/${path}`;
   };
 
-  const renderText = (text?: string, className = '') => {
+  const getYouTubeId = (url: string) => {
+    const regExp =
+      /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return match && match[2].length === 11 ? match[2] : null;
+  };
+
+  const renderText = (text?: string, config?: any, className = '') => {
     if (!text) return null;
+
+    const containerStyle: any = {};
+    if (config?.color && config.color.startsWith('#')) {
+      containerStyle['--block-text-color'] = config.color;
+      containerStyle.color = 'var(--block-text-color)';
+    }
+
+    // Combine base classes with config-driven classes
+    const textClasses = [
+      config?.fontSize || 'text-lg md:text-xl',
+      config?.fontWeight || 'font-light',
+      config?.textAlign || '',
+      config?.color && !config.color.startsWith('#') ? config.color : '',
+      'mb-4 leading-relaxed',
+    ].join(' ');
+
     return (
-      <div className={`prose prose-invert max-w-none ${className}`}>
-        {text.split('\n').map((line, i) => (
-          <p
-            key={i}
-            className="mb-4 text-lg md:text-xl text-slate-300 font-light leading-relaxed"
-          >
-            {line}
-          </p>
-        ))}
+      <div
+        className={`prose prose-invert max-w-none ${className}`}
+        style={containerStyle}
+      >
+        <ReactMarkdown
+          components={{
+            p: ({ children }) => <p className={textClasses}>{children}</p>,
+            h1: ({ children }) => (
+              <h1
+                className={`${config?.textAlign || ''} font-bold text-4xl md:text-6xl mb-8`}
+              >
+                {children}
+              </h1>
+            ),
+            h2: ({ children }) => (
+              <h2
+                className={`${config?.textAlign || ''} font-bold text-3xl md:text-5xl mb-6`}
+              >
+                {children}
+              </h2>
+            ),
+            h3: ({ children }) => (
+              <h3
+                className={`${config?.textAlign || ''} font-bold text-2xl md:text-4xl mb-4`}
+              >
+                {children}
+              </h3>
+            ),
+            ul: ({ children }) => (
+              <ul className="list-disc pl-6 mb-4 space-y-2 text-left">
+                {children}
+              </ul>
+            ),
+            ol: ({ children }) => (
+              <ol className="list-decimal pl-6 mb-4 space-y-2 text-left">
+                {children}
+              </ol>
+            ),
+            li: ({ children }) => (
+              <li className={`${textClasses} mb-1`}>{children}</li>
+            ),
+            strong: ({ children }) => (
+              <strong className="font-bold text-white">{children}</strong>
+            ),
+            em: ({ children }) => <em className="italic">{children}</em>,
+          }}
+        >
+          {text}
+        </ReactMarkdown>
       </div>
     );
   };
 
-  const renderImage = (src?: string, alt = 'Project Image') => {
+  const renderMedia = (
+    src?: string,
+    type?: 'image' | 'video' | 'youtube',
+    autoplay = true
+  ) => {
+    if (!src) return null;
+
+    const youtubeId = getYouTubeId(src);
+    const actualType = youtubeId
+      ? 'youtube'
+      : type || (src.match(/\.(mp4|webm|ogg)$/i) ? 'video' : 'image');
+
+    if (actualType === 'youtube' && youtubeId) {
+      return (
+        <div className="w-full relative rounded-2xl overflow-hidden bg-slate-900/50 border border-white/5 aspect-video">
+          <iframe
+            src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=0&loop=1&playlist=${youtubeId}&controls=1&modestbranding=1&rel=0`}
+            title="YouTube video player"
+            className="absolute inset-0 w-full h-full"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+      );
+    }
+
+    if (actualType === 'video') {
+      const url = resolveMedia(src);
+      return (
+        <div className="w-full relative rounded-2xl overflow-hidden bg-slate-900/50 border border-white/5">
+          <video
+            src={url}
+            className="w-full h-auto"
+            autoPlay={autoplay}
+            muted={false} // Autoplay with sound per user request
+            loop={autoplay}
+            controls={true}
+            playsInline
+          />
+        </div>
+      );
+    }
+
+    // Default to image
     const url = resolveMedia(src);
-    if (!url) return null;
     return (
       <div className="w-full relative rounded-2xl overflow-hidden bg-slate-900/50">
         <Image
           src={url}
-          alt={alt}
+          alt="Project Media"
           width={0}
           height={0}
           sizes="(max-width: 768px) 100vw, 80vw"
           className="w-full h-auto object-contain"
-        />
-      </div>
-    );
-  };
-
-  const renderVideo = (src?: string, autoplay = true) => {
-    const url = resolveMedia(src);
-    if (!url) return null;
-    return (
-      <div className="w-full relative rounded-2xl overflow-hidden bg-slate-900/50 border border-white/5">
-        <video
-          src={url}
-          className="w-full h-auto"
-          autoPlay={autoplay}
-          muted={autoplay}
-          loop={autoplay}
-          controls={!autoplay}
-          playsInline
         />
       </div>
     );
@@ -95,7 +183,7 @@ export default function BlockRenderer({
         return (
           <div className="std-grid">
             <div className="max-w-4xl mx-auto text-center">
-              {renderText(content.text)}
+              {renderText(content.text, content.textConfig)}
             </div>
           </div>
         );
@@ -103,21 +191,21 @@ export default function BlockRenderer({
       case 'image':
         return (
           <div className="w-full max-w-[1920px] mx-auto px-4 md:px-0">
-            {renderImage(content.media)}
+            {renderMedia(content.media, 'image')}
           </div>
         );
 
       case 'video':
         return (
           <div className="w-full max-w-[1920px] mx-auto px-4 md:px-0">
-            {renderVideo(content.media, false)}
+            {renderMedia(content.media, 'video', false)}
           </div>
         );
 
       case 'video-autoplay':
         return (
           <div className="w-full max-w-[1920px] mx-auto px-4 md:px-0">
-            {renderVideo(content.media, true)}
+            {renderMedia(content.media, 'video', true)}
           </div>
         );
 
@@ -125,8 +213,8 @@ export default function BlockRenderer({
         return (
           <div className="std-grid">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div>{renderImage(content.media)}</div>
-              <div>{renderText(content.text)}</div>
+              <div>{renderMedia(content.media, 'image')}</div>
+              <div>{renderText(content.text, content.textConfig)}</div>
             </div>
           </div>
         );
@@ -136,10 +224,10 @@ export default function BlockRenderer({
           <div className="std-grid">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div className="order-2 md:order-1">
-                {renderText(content.text)}
+                {renderText(content.text, content.textConfig)}
               </div>
               <div className="order-1 md:order-2">
-                {renderImage(content.media)}
+                {renderMedia(content.media, 'image')}
               </div>
             </div>
           </div>
@@ -149,8 +237,8 @@ export default function BlockRenderer({
         return (
           <div className="std-grid">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {renderImage(content.media, 'Image 1')}
-              {renderImage(content.media2, 'Image 2')}
+              {renderMedia(content.media, 'image')}
+              {renderMedia(content.media2, 'image')}
             </div>
           </div>
         );
@@ -159,8 +247,8 @@ export default function BlockRenderer({
         return (
           <div className="std-grid">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-              {renderImage(content.media)}
-              {renderVideo(content.media2, true)}
+              {renderMedia(content.media, 'image')}
+              {renderMedia(content.media2, 'video', true)}
             </div>
           </div>
         );
@@ -169,8 +257,8 @@ export default function BlockRenderer({
         return (
           <div className="std-grid">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              {renderVideo(content.media, true)}
-              {renderText(content.text)}
+              {renderMedia(content.media, 'video', true)}
+              {renderText(content.text, content.textConfig)}
             </div>
           </div>
         );
