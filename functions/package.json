@@ -1,5 +1,6 @@
 {
   "name": "functions",
+  "type": "module",
   "scripts": {
     "lint": "eslint .",
     "build": "tsc",
@@ -20,9 +21,9 @@
     "firebase-admin": "^13.6.0",
     "firebase-frameworks": "0.11.8",
     "firebase-functions": "^7.0.0",
-    "next": "^15.1.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "next": "^16.1.4",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
   },
   "devDependencies": {
     "@types/tough-cookie": "^4.0.5",

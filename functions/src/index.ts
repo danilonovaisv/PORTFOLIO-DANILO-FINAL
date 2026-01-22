@@ -11,7 +11,12 @@ import { setGlobalOptions } from 'firebase-functions';
 import { onRequest } from 'firebase-functions/v2/https';
 import * as logger from 'firebase-functions/logger';
 import next from 'next';
-import * as path from 'node:path';
+
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'node:path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
@@ -37,10 +42,10 @@ export const helloWorld = onRequest((request, response) => {
   response.send('Hello from Firebase!');
 });
 
-const nextApp = next({
+const nextApp = ((next as any).default || next)({
   dev: false,
   conf: { distDir: '.next' },
-  dir: path.resolve(__dirname, '../'),
+  dir: resolve(__dirname, '../'),
 });
 const handle = nextApp.getRequestHandler();
 

@@ -41,7 +41,14 @@ if (isListCommand) {
   });
 } else {
   const npmPath = process.env.REAL_NPM_PATH || 'npm';
-  const npmProcess = spawn(npmPath, args, { stdio: 'inherit' });
+
+  // Filtrar argumentos para corrigir problemas de compatibilidade com Firebase/Cloud Build
+  const filteredArgs = args.map((arg) => {
+    if (arg === '--no-optional') return '--omit=optional';
+    return arg;
+  });
+
+  const npmProcess = spawn(npmPath, filteredArgs, { stdio: 'inherit' });
   npmProcess.on('exit', (code) => {
     process.exit(code ?? 0);
   });
