@@ -53,7 +53,13 @@ export async function updateSession(request: NextRequest) {
   if (user && isLoginPage) {
     const url = request.nextUrl.clone();
     url.pathname = '/admin';
-    return NextResponse.redirect(url);
+    const redirectResponse = NextResponse.redirect(url);
+    // Copy cookies from supabaseResponse to ensure session persistence
+    const cookiesToSet = supabaseResponse.cookies.getAll();
+    cookiesToSet.forEach(({ name, value, options }) =>
+      redirectResponse.cookies.set(name, value, options)
+    );
+    return redirectResponse;
   }
 
   // Protect /admin routes (except login)
@@ -61,7 +67,13 @@ export async function updateSession(request: NextRequest) {
     if (!user) {
       const url = request.nextUrl.clone();
       url.pathname = '/admin/login';
-      return NextResponse.redirect(url);
+      const redirectResponse = NextResponse.redirect(url);
+      // Copy cookies from supabaseResponse to ensure session persistence
+      const cookiesToSet = supabaseResponse.cookies.getAll();
+      cookiesToSet.forEach(({ name, value, options }) =>
+        redirectResponse.cookies.set(name, value, options)
+      );
+      return redirectResponse;
     }
 
     // Se precisar de papel admin, reative o check abaixo.

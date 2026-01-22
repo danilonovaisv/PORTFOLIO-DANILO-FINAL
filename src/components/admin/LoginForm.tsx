@@ -33,8 +33,9 @@ export default function LoginForm() {
 
       if (user) {
         setIsRedirecting(true);
-        // Use router.push for SPA navigation
-        router.push(ADMIN_NAVIGATION.dashboard);
+        // Ensure server sync before client navigation
+        router.refresh();
+        router.replace(ADMIN_NAVIGATION.dashboard);
       }
     };
     checkSession();
@@ -62,11 +63,7 @@ export default function LoginForm() {
           setIsRedirecting(true);
           // Important: Refresh ensures Next.js Server Components see the new cookies
           router.refresh();
-
-          // Slightly larger timeout to ensure cookies are written on slow browsers
-          setTimeout(() => {
-            window.location.href = ADMIN_NAVIGATION.dashboard;
-          }, 500);
+          router.replace(ADMIN_NAVIGATION.dashboard);
         } else {
           setError('Falha ao estabelecer sessão. Tente novamente.');
         }

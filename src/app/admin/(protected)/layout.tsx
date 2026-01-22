@@ -39,9 +39,10 @@ export default async function ProtectedLayout({
 
     if (!user) {
       // O middleware já redireciona para /admin/login se não houver usuário.
-      // Se chegarmos aqui sem usuário, apenas retornamos null para evitar renderizar o shell
-      // sem dados, ou deixamos o shell renderizar com 'Usuário' genérico.
-      return null;
+      // Se chegarmos aqui sem usuário, significa que houve um delay na sincronização.
+      // Renderizamos o shell com usuário genérico para evitar 'blank page' e permitir que
+      // o cliente ou o próximo request resolva.
+      return <AdminShell userEmail={undefined}>{children}</AdminShell>;
     }
 
     return (
