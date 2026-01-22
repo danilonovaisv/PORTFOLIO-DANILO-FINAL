@@ -12,6 +12,7 @@ import { Calendar, Building2, Tag } from 'lucide-react';
 import type { PortfolioProject } from '@/types/project';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { easing } from '@/components/portfolio/modal/variants';
+import { isVideo } from '@/utils/utils';
 
 interface TypeBContentProps {
   project: PortfolioProject;
@@ -47,14 +48,25 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
         transition={{ delay: TIMELINE.MEDIA, duration: 0.5, ease: easing }}
         className="relative aspect-square md:aspect-4/5 rounded-2xl overflow-hidden bg-white/5"
       >
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, 50vw"
-          priority
-        />
+        {isVideo(project.image) ? (
+          <video
+            src={project.image}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        ) : (
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            priority
+          />
+        )}
         
         {/* Accent color overlay on bottom */}
         {project.accentColor && (

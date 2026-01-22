@@ -54,3 +54,10 @@ export const applyLazyLoading = (img: HTMLImageElement) => {
   img.loading = 'lazy';
   img.decoding = 'async';
 };
+
+// Função para verificar se um caminho de arquivo ou URL é um vídeo
+export const isVideo = (path?: string | null): boolean => {
+  if (!path) return false;
+  const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov', '.m4v'];
+  return videoExtensions.some((ext) => path.toLowerCase().endsWith(ext));
+};

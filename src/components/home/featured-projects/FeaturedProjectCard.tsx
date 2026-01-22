@@ -6,7 +6,7 @@ import { useReducedMotion } from 'framer-motion';
 import { ArrowIcon } from '@/components/ui/ArrowIcon';
 import Link from 'next/link';
 import type { PortfolioProject } from '@/types/project';
-import { applyImageFallback } from '@/utils/utils';
+import { applyImageFallback, isVideo } from '@/utils/utils';
 
 interface FeaturedProjectCardProps {
   project: PortfolioProject;
@@ -50,17 +50,28 @@ export default function FeaturedProjectCard({
           ))}
         </div>
 
-        <Image
-          src={project.image}
-          alt={`Logo da marca ${project.client} para ${project.category} - ${project.title}`}
-          fill
-          sizes={project.layout.sizes ?? '100vw'}
-          className={`object-cover transition-transform duration-700 opacity-90 md:group-hover:opacity-100 ${
-            reducedMotion ? '' : 'md:group-hover:scale-103'
-          }`}
-          loading="lazy"
-          onError={applyImageFallback}
-        />
+        {isVideo(project.image) ? (
+          <video
+            src={project.image}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 opacity-90 md:group-hover:opacity-100"
+          />
+        ) : (
+          <Image
+            src={project.image}
+            alt={`Logo da marca ${project.client} para ${project.category} - ${project.title}`}
+            fill
+            sizes={project.layout.sizes ?? '100vw'}
+            className={`object-cover transition-transform duration-700 opacity-90 md:group-hover:opacity-100 ${
+              reducedMotion ? '' : 'md:group-hover:scale-103'
+            }`}
+            loading="lazy"
+            onError={applyImageFallback}
+          />
+        )}
       </div>
 
       {/* Metadata - Mobile: text left, arrow right | Desktop: left-aligned */}

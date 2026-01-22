@@ -318,7 +318,7 @@ export function ProjectForm({
           <span className="text-sm text-slate-300">Thumbnail</span>
           <input
             type="file"
-            accept="image/*"
+            accept="image/*,video/*"
             onChange={(e) => setThumbnail(e.target.files?.[0] ?? null)}
           />
           {project?.thumbnail_path && (

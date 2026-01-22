@@ -11,6 +11,7 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight, Calendar, Building2 } from 'lucide-react';
 import type { PortfolioProject } from '@/types/project';
 import { easing } from '@/components/portfolio/modal/variants';
+import { isVideo } from '@/utils/utils';
 
 interface TypeAContentProps {
   project: PortfolioProject;
@@ -45,14 +46,25 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
         transition={{ delay: TIMELINE.MEDIA, duration: 0.24, ease: 'easeOut' }}
         className="relative w-full aspect-video md:aspect-21/9 rounded-2xl overflow-hidden bg-white/5"
       >
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          className="object-cover"
-          sizes="(max-width: 1024px) 100vw, 80vw"
-          priority
-        />
+        {isVideo(project.image) ? (
+          <video
+            src={project.image}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        ) : (
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 1024px) 100vw, 80vw"
+            priority
+          />
+        )}
         
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
@@ -185,13 +197,24 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
                 }}
                 className="relative aspect-square rounded-xl overflow-hidden bg-white/5"
               >
-                <Image
-                  src={img}
-                  alt={`${project.title} - Imagem ${i + 1}`}
-                  fill
-                  className="object-cover hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 768px) 50vw, 33vw"
-                />
+                {isVideo(img) ? (
+                  <video
+                    src={img}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                  />
+                ) : (
+                  <Image
+                    src={img}
+                    alt={`${project.title} - Imagem ${i + 1}`}
+                    fill
+                    className="object-cover hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 50vw, 33vw"
+                  />
+                )}
               </motion.div>
             ))}
           </div>

@@ -14,6 +14,7 @@ import {
   getMetaVariants,
   getContentVariants,
 } from './modal/variants';
+import { isVideo } from '@/utils/utils';
 
 type ProjectModalProps = {
   project: PortfolioProject | null;
@@ -92,14 +93,25 @@ export default function ProjectModal({
                   variants={mediaVariants}
                   className="relative aspect-video w-full overflow-hidden rounded-2xl bg-linear-to-br from-white/5 to-white/0 border border-white/10"
                 >
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 60vw"
-                    priority
-                  />
+                    {isVideo(project.image) ? (
+                      <video
+                        src={project.image}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : (
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 60vw"
+                        priority
+                      />
+                    )}
                 </motion.div>
               </div>
 

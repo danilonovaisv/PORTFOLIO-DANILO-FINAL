@@ -13,6 +13,7 @@ import {
   mapStaticProjectToPortfolioProject,
 } from '@/lib/portfolio/project-mappers';
 import type { PortfolioProject } from '@/types/project';
+import { isVideo } from '@/utils/utils';
 
 async function getProject(slug: string): Promise<PortfolioProject | undefined> {
   // Try database first
@@ -152,14 +153,25 @@ export default async function ProjectPage({ params }: Props) {
         </div>
 
         <div className="relative w-full aspect-video md:aspect-[2.4/1] rounded-2xl md:rounded-4xl overflow-hidden bg-muted shadow-2xl">
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover"
-            priority
-            sizes="(max-width: 768px) 100vw, 90vw"
-          />
+          {isVideo(project.image) ? (
+            <video
+              src={project.image}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-cover"
+              priority
+              sizes="(max-width: 768px) 100vw, 90vw"
+            />
+          )}
         </div>
       </section>
 

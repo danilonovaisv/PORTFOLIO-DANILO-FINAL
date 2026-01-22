@@ -12,7 +12,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { useParallaxElement } from '@/hooks/useParallax';
 import type { PortfolioProject } from '@/types/project';
 import { MOTION_TOKENS, ghostTransition } from '@/config/motion';
-import { applyImageFallback } from '@/utils/utils';
+import { applyImageFallback, isVideo } from '@/utils/utils';
 import { useRouter } from 'next/navigation';
 
 interface PortfolioCardProps {
@@ -84,15 +84,26 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
            animate={{ y: isHovered ? -8 : 0 }}
            transition={ghostTransition(0, duration.normal)}
         >
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            loading="lazy"
-            onError={applyImageFallback}
-          />
+          {isVideo(project.image) ? (
+            <video
+              src={project.image}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            <Image
+              src={project.image}
+              alt={project.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              loading="lazy"
+              onError={applyImageFallback}
+            />
+          )}
         </motion.div>
       </div>
 
@@ -104,15 +115,26 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
           animate={{ opacity: isHovered ? 1 : 0 }}
           transition={{ duration: 0.5 }}
         >
-          <Image
-            src={project.videoPreview}
-            alt=""
-            fill
-            className="object-cover"
-            loading="lazy"
-            unoptimized
-            onError={applyImageFallback}
-          />
+          {isVideo(project.videoPreview) ? (
+            <video
+              src={project.videoPreview}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            <Image
+              src={project.videoPreview}
+              alt=""
+              fill
+              className="object-cover"
+              loading="lazy"
+              unoptimized
+              onError={applyImageFallback}
+            />
+          )}
         </motion.div>
       )}
 
