@@ -81,7 +81,7 @@ body {
 /* Admin surface should keep scrollbars visible to avoid locking the panel */
 .admin-surface,
 .admin-shell {
-  overflow-y: auto;
+  /* Removed redundant overflow to allow window scroll */
   scrollbar-width: thin;
   -ms-overflow-style: auto;
 }

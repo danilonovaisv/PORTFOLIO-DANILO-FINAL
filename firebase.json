@@ -66,14 +66,15 @@
     }
   ],
   "hosting": {
-    "public": "deploy-public",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
-    "rewrites": [
-      {
-        "source": "**",
-        "function": "ssr_modern"
-      }
-    ]
+    "source": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "frameworksBackend": {
+      "region": "us-central1"
+    }
   },
   "emulators": {
     "functions": {

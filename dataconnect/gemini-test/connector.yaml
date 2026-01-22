@@ -2,14 +2,20 @@ connectorId: gemini-test
 generate:
   adminNodeSdk:
     - outputDir: ../../src/dataconnect-admin-generated
-      package: '@dataconnect/admin-generated'
+      package: "@dataconnect/admin-generated"
       packageJsonDir: ../..
+    - outputDir: ../../ssr_function/src/dataconnect-admin-generated
+      package: "@dataconnect/admin-generated"
+      packageJsonDir: ../../ssr_function
+    - outputDir: ../../portfoliodan/src/dataconnect-admin-generated
+      package: "@dataconnect/admin-generated"
+      packageJsonDir: ../../portfoliodan
     - outputDir: ../../functions/src/dataconnect-admin-generated
-      package: '@dataconnect/admin-generated'
+      package: "@dataconnect/admin-generated"
       packageJsonDir: ../../functions
   javascriptSdk:
     - outputDir: ../../src/dataconnect-generated
-      package: '@dataconnect/generated'
+      package: "@dataconnect/generated"
       packageJsonDir: ../..
       react: true
       angular: false

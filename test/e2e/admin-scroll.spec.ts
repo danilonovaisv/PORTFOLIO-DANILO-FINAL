@@ -41,7 +41,7 @@ test('admin keeps scroll enabled when content exceeds viewport', async ({
       new Promise((resolve) => {
         const before =
           window.scrollY || document.scrollingElement?.scrollTop || 0;
-        window.scrollBy({ top: 500, behavior: 'smooth' });
+        window.scrollBy({ top: 500, behavior: 'auto' });
         setTimeout(() => {
           const after =
             window.scrollY || document.scrollingElement?.scrollTop || 0;

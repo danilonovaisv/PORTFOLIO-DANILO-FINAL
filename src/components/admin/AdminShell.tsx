@@ -43,7 +43,7 @@ export function AdminShell({ children, userEmail }: Props) {
   const pathname = usePathname();
 
   return (
-    <div className="admin-shell min-h-screen bg-slate-950 text-slate-50 overflow-y-auto">
+    <div className="admin-shell min-h-screen bg-slate-950 text-slate-50">
       <div className="flex">
         <aside className="hidden md:flex w-64 flex-col border-r border-white/10 bg-slate-900/40 backdrop-blur-sm">
           <div className="px-6 py-6 border-b border-white/10">

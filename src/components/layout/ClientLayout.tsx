@@ -47,7 +47,7 @@ export default function ClientLayout({
     return (
       <main
         id="main-content"
-        className="admin-surface relative h-screen overflow-y-auto bg-slate-950 text-slate-50"
+        className="admin-surface relative min-h-screen bg-slate-950 text-slate-50"
       >
         {children}
       </main>
