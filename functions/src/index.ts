@@ -8,8 +8,10 @@
  */
 
 import { setGlobalOptions } from 'firebase-functions';
-import { onRequest } from 'firebase-functions/https';
+import { onRequest } from 'firebase-functions/v2/https';
 import * as logger from 'firebase-functions/logger';
+import next from 'next';
+import * as path from 'node:path';
 
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
@@ -35,14 +37,27 @@ export const helloWorld = onRequest((request, response) => {
   response.send('Hello from Firebase!');
 });
 
-// SSR Next.js Proxy
-export const ssrportfoliodanilonovai = onRequest(async (req, res) => {
-  try {
-    const { handle } =
-      await import('firebase-frameworks/frameworks/nextjs/server');
-    return handle(req, res);
-  } catch (err) {
-    logger.error('SSR Error:', err);
-    res.status(500).send('Internal Server Error - SSR Failed');
-  }
+const nextApp = next({
+  dev: false,
+  conf: { distDir: '.next' },
+  dir: path.resolve(__dirname, '../'),
 });
+const handle = nextApp.getRequestHandler();
+
+// SSR Next.js Proxy
+export const ssr_modern = onRequest(
+  {
+    region: 'us-central1',
+    memory: '1GiB',
+    timeoutSeconds: 60,
+  },
+  async (req, res) => {
+    try {
+      await nextApp.prepare();
+      handle(req, res);
+    } catch (err) {
+      logger.error('SSR Error:', err);
+      res.status(500).send('Internal Server Error - SSR Failed');
+    }
+  }
+);

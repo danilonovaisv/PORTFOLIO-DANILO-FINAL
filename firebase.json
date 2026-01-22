@@ -10,6 +10,8 @@
         "*.local"
       ],
       "predeploy": [
+        "rm -rf functions/.next",
+        "cp -r .next functions/.next",
         "npm --prefix \"$RESOURCE_DIR\" run lint",
         "npm --prefix \"$RESOURCE_DIR\" run build"
       ],
@@ -70,7 +72,7 @@
     "rewrites": [
       {
         "source": "**",
-        "function": "ssrportfoliodanilonovai"
+        "function": "ssr_modern"
       }
     ]
   },
