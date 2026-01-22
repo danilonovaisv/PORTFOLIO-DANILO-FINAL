@@ -1,7 +1,7 @@
 {
   "functions": [
     {
-      "codebase": "default",
+      "codebase": "modern_ssr",
       "ignore": [
         "node_modules",
         ".git",
@@ -67,7 +67,7 @@
     }
   ],
   "hosting": {
-    "source": ".",
+    "public": "deploy-public",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {

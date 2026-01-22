@@ -23,6 +23,13 @@ echo "Versão do Firebase: $(firebase --version)"
 echo "Executando build do projeto..."
 npm run build
 
+# Consolidar arquivos estáticos para deploy manual
+echo "Consolidando arquivos estáticos em deploy-public..."
+rm -rf deploy-public
+mkdir -p deploy-public/_next/static
+cp -r public/* deploy-public/ 2>/dev/null || true
+cp -r .next/static/* deploy-public/_next/static/ 2>/dev/null || true
+
 # Patch para corrigir o erro "it.handle is not a function" no código gerado pelo Firebase
 echo "Aplicando patch no código gerado do Firebase..."
 SERVER_JS=".firebase/portfolio-danilo-novais/functions/server.js"
@@ -36,4 +43,4 @@ fi
 
 # Executa o deploy
 echo "Executando deploy do Firebase..."
-npx firebase deploy --only hosting --project portfolio-danilo-novais
+npx firebase deploy --only hosting,functions --project portfolio-danilo-novais
