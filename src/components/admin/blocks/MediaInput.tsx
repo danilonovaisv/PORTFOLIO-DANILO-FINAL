@@ -74,6 +74,7 @@ export function MediaInput({
             <div className="relative min-h-[200px] max-h-[400px] w-full flex justify-center bg-black/40">
               {/* We use standard img for blob urls or external links to avoid Next/Image config issues with arbitrary domains */}
               <img
+                // eslint-disable-next-line @next/next/no-img-element
                 src={displaySrc}
                 alt="Preview"
                 className="h-full w-auto max-h-[400px] object-contain"
