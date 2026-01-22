@@ -4,6 +4,7 @@
     "dbaeumer.vscode-eslint",
     "EditorConfig.EditorConfig",
     "bradlc.vscode-tailwindcss",
-    "motion.motion-vscode-extension"
+    "motion.motion-vscode-extension",
+    "openai.chatgpt"
   ]
 }

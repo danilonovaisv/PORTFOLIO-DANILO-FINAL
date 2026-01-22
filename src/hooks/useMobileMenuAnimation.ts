@@ -298,8 +298,13 @@ export function useMobileMenuAnimation(
     setOpen(isOpen);
   }, [isOpen, animateText]);
 
+  // Update the toggleMenu function to ensure proper state synchronization
   const toggleMenu = useCallback(() => {
     const target = !openRef.current;
+    
+    // Only proceed if the target state is different from current state
+    if (target === openRef.current) return;
+    
     openRef.current = target;
     setOpen(target);
 

@@ -26,16 +26,19 @@ export default function LoginForm() {
   useEffect(() => {
     const checkSession = async () => {
       const supabase = createClientComponentClient();
+      // Use getUser instead of getSession for better server consistency
       const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      if (session) {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
         setIsRedirecting(true);
-        window.location.href = ADMIN_NAVIGATION.dashboard;
+        // Use router.push for SPA navigation
+        router.push(ADMIN_NAVIGATION.dashboard);
       }
     };
     checkSession();
-  }, []);
+  }, [router]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,12 +60,13 @@ export default function LoginForm() {
 
         if (data.session) {
           setIsRedirecting(true);
-          // Pequeno delay para garantir que os cookies foram sincronizados
-          await new Promise((resolve) => setTimeout(resolve, 100));
-          // Force router refresh to update RSC
+          // Important: Refresh ensures Next.js Server Components see the new cookies
           router.refresh();
-          // Usar hard navigation após garantir a sessão
-          window.location.href = ADMIN_NAVIGATION.dashboard;
+
+          // Slightly larger timeout to ensure cookies are written on slow browsers
+          setTimeout(() => {
+            window.location.href = ADMIN_NAVIGATION.dashboard;
+          }, 500);
         } else {
           setError('Falha ao estabelecer sessão. Tente novamente.');
         }

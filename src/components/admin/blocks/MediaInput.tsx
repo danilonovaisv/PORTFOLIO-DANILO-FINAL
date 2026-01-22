@@ -29,7 +29,7 @@ export function MediaInput({
   // Detect if initial value is an external URL to set mode
   useEffect(() => {
     if (value && (value.startsWith('http') || value.startsWith('www'))) {
-      // If it's a supabase storage URL, we might consider it an "upload" technically,
+      // If it's a Supabase storage URL, we might consider it an "upload" technically,
       // but for editing input purposes, if it's text, it's a URL.
       // However, we usually browse files. Let's keep it simple.
       // If the user pasted a YouTube link, set to URL mode.
@@ -86,18 +86,18 @@ export function MediaInput({
               />
             </div>
           ) : type === 'image' ? (
-            <div className="relative min-h-[200px] max-h-[400px] w-full flex justify-center bg-black/40">
+            <div className="relative min-h-50 max-h-100 w-full flex justify-center bg-black/40">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={displaySrc}
                 alt="Preview"
-                className="h-full w-auto max-h-[400px] object-contain"
+                className="h-full w-auto max-h-100 object-contain"
               />
             </div>
           ) : (
             <video
               src={displaySrc}
-              className="w-full max-h-[400px] object-contain"
+              className="w-full max-h-100 object-contain"
               controls
               muted
               loop
