@@ -30,6 +30,7 @@
     "analyze": "npm run lint && npm run typecheck",
     "analyze:deps": "depcheck",
     "analyze:bundle": "ANALYZE=true next build",
+    "test-and-deploy": "tsx scripts/run-full-test-and-deploy.ts",
     "deploy": "bash scripts/deploy-with-env.sh",
     "deploy:hosting": "npm run build && firebase deploy --only hosting --debug",
     "deploy:enable-web": "firebase experiments:enable webframeworks",
