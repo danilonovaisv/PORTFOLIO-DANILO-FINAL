@@ -17,8 +17,8 @@ test('admin keeps scroll enabled when content exceeds viewport', async ({
 
   const scrollMetrics = await page.evaluate(() => {
     const target =
-      document.querySelector<HTMLElement>('main') ||
       (document.scrollingElement as HTMLElement) ||
+      document.querySelector<HTMLElement>('main') ||
       document.body;
     const before = target.scrollTop ?? 0;
     target.scrollBy(0, 300);

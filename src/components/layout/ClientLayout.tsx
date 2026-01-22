@@ -33,10 +33,8 @@ export default function ClientLayout({
 
   useEffect(() => {
     if (isAdmin) {
-      document.body.classList.add('admin-page');
       document.documentElement.classList.add('admin-page');
       return () => {
-        document.body.classList.remove('admin-page');
         document.documentElement.classList.remove('admin-page');
       };
     }
