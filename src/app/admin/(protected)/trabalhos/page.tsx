@@ -37,7 +37,7 @@ export default async function TrabalhosPage(props: Props) {
   let query = supabase
     .from('portfolio_projects')
     .select(
-      'id, title, client_name, year, featured_on_home, featured_home_order, featured_on_portfolio, featured_portfolio_order, is_published, thumbnail_path, project_type, slug, tags:portfolio_project_tags(tag:portfolio_tags(label, slug))'
+      'id, title, client_name, year, featured_on_home, featured_home_order, featured_on_portfolio, featured_portfolio_order, is_published, thumbnail_path, project_type, slug, tags:portfolio_project_tags(tag:portfolio_tags(label, slug)), landing_page:landing_pages(slug)'
     )
     .order('updated_at', { ascending: false });
 
