@@ -56,8 +56,8 @@ export async function updateSession(request: NextRequest) {
     const redirectResponse = NextResponse.redirect(url);
     // Copy cookies from supabaseResponse to ensure session persistence
     const cookiesToSet = supabaseResponse.cookies.getAll();
-    cookiesToSet.forEach(({ name, value, options }) =>
-      redirectResponse.cookies.set(name, value, options)
+    cookiesToSet.forEach((cookie) =>
+      redirectResponse.cookies.set(cookie.name, cookie.value, cookie)
     );
     return redirectResponse;
   }
@@ -70,8 +70,8 @@ export async function updateSession(request: NextRequest) {
       const redirectResponse = NextResponse.redirect(url);
       // Copy cookies from supabaseResponse to ensure session persistence
       const cookiesToSet = supabaseResponse.cookies.getAll();
-      cookiesToSet.forEach(({ name, value, options }) =>
-        redirectResponse.cookies.set(name, value, options)
+      cookiesToSet.forEach((cookie) =>
+        redirectResponse.cookies.set(cookie.name, cookie.value, cookie)
       );
       return redirectResponse;
     }
