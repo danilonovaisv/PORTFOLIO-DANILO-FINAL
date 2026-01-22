@@ -5,10 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { LandingPageBlock } from '@/types/landing-page';
 
-interface BlockRendererProps {
-  block: LandingPageBlock;
-  index: number;
-}
+// Eliminamos a interface e usamos tipagem inline para evitar confusão de nomes
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -22,8 +19,15 @@ const fadeInUp = {
   },
 };
 
-export default function BlockRenderer({ block }: BlockRendererProps) {
-  const { type, content } = block;
+export default function BlockRenderer({
+  block,
+  index: _index,
+}: {
+  block: LandingPageBlock;
+  index: number;
+}) {
+  const type = block.type;
+  const content = block.content;
 
   // Resolvers for media helper
   // If content.media is a relative path (not starting with http), prepend Supabase URL

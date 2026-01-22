@@ -89,13 +89,15 @@ export default function ProjectRenderer({ project }: ProjectRendererProps) {
       {/* Dynamic Content Sections */}
       <div className="space-y-32 md:space-y-64 pb-32">
         {project.content && Array.isArray(project.content) ? (
-          project.content.map((block, index) => (
-            <BlockRenderer
-              key={block.id || index}
-              block={block}
-              index={index}
-            />
-          ))
+          (project.content as LandingPageBlock[]).map(
+            (block: LandingPageBlock, index: number) => (
+              <BlockRenderer
+                key={block.id || `block-${index}`}
+                block={block}
+                index={index}
+              />
+            )
+          )
         ) : (
           <div className="text-center text-slate-500 py-20">
             Sem conteúdo disponível.

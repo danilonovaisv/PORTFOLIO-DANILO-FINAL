@@ -4,7 +4,7 @@ import { Type } from 'lucide-react';
 
 interface BlockEditorProps {
   block: LandingPageBlock;
-  onChange: (updates: Partial<LandingPageBlock>) => void;
+  onChange: (_updates: Partial<LandingPageBlock>) => void;
 }
 
 export function BlockEditor({ block, onChange }: BlockEditorProps) {

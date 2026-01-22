@@ -1,0 +1,378 @@
+[
+  {
+    "id": "71b49529-357b-4975-835b-131b067e7ac5",
+    "key": "about/method/desktop_video",
+    "bucket": "site-assets",
+    "file_path": "about/aboutmethoddesktop_video.mp4",
+    "updated_at": "2026-01-21T17:16:52.363038+00:00",
+    "asset_type": "video"
+  },
+  {
+    "id": "0c1ed1aa-5c21-405e-b3be-f6eecf804661",
+    "key": "about/hero/desktop_video",
+    "bucket": "site-assets",
+    "file_path": "about/hero/desktop_video/mp4",
+    "updated_at": "2026-01-21T03:22:50.749425+00:00",
+    "asset_type": "video"
+  },
+  {
+    "id": "d7316c35-72a3-49c2-8395-c21fefe13d8e",
+    "key": "about.hero.desktop_video",
+    "bucket": "site-assets",
+    "file_path": "about/hero/desktop_video/mp4",
+    "updated_at": "2026-01-21T03:22:50.749425+00:00",
+    "asset_type": "video"
+  },
+  {
+    "id": "912305c8-83a6-4ee8-a3e2-83c411b84720",
+    "key": "about/hero/mobile_video",
+    "bucket": "site-assets",
+    "file_path": "about/hero/mobile_video/mp4",
+    "updated_at": "2026-01-21T03:22:50.749425+00:00",
+    "asset_type": "video"
+  },
+  {
+    "id": "7ecab3e9-e0ac-4fe3-9d35-b9e00c251f51",
+    "key": "about.hero.mobile_video",
+    "bucket": "site-assets",
+    "file_path": "about/hero/mobile_video/mp4",
+    "updated_at": "2026-01-21T03:22:50.749425+00:00",
+    "asset_type": "video"
+  },
+  {
+    "id": "0c42cefe-0705-4c71-b81b-b7c8003ac113",
+    "key": ".keep",
+    "bucket": "site-assets",
+    "file_path": "portfolio-media/projects/example-slug/gallery/.keep",
+    "updated_at": "2026-01-21T03:25:01.653936+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "8c1b6cda-783e-409e-b23b-21a0f5220afd",
+    "key": "home.home.manifesto_video",
+    "bucket": "site-assets",
+    "file_path": "home/manifesto_video/mp4",
+    "updated_at": "2026-01-21T03:22:50.749425+00:00",
+    "asset_type": "video"
+  },
+  {
+    "id": "9d897e50-75ac-4805-af85-f7f38a23f06d",
+    "key": "home.manifesto_video",
+    "bucket": "site-assets",
+    "file_path": "home/manifesto_video/mp4",
+    "updated_at": "2026-01-21T03:22:50.749425+00:00",
+    "asset_type": "video"
+  },
+  {
+    "id": "4eaed388-719d-43c9-97e0-59f35639ea1a",
+    "key": "about.origin_image.1",
+    "bucket": "site-assets",
+    "file_path": "about/origin/about.origin_image.1.webp",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "12fb59ea-8da6-4003-86ed-328478c59aaa",
+    "key": "about.origin_image.2",
+    "bucket": "site-assets",
+    "file_path": "about/origin/about.origin_image.2.webp",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "9a4ad6cb-803b-4002-a4dd-183fed625126",
+    "key": "about.hero_video.mobile",
+    "bucket": "site-assets",
+    "file_path": "about/hero/about.hero_video.mobile.mp4",
+    "updated_at": "2026-01-14T12:00:30.385925+00:00",
+    "asset_type": "video"
+  },
+  {
+    "id": "4c4dda23-db0d-4f2f-920e-a3b9e39a9420",
+    "key": "about.hero_video.desktop",
+    "bucket": "site-assets",
+    "file_path": "about/hero/about.hero_video.desktop.mp4",
+    "updated_at": "2026-01-14T12:00:57.807115+00:00",
+    "asset_type": "video"
+  },
+  {
+    "id": "94dfd8ac-8cfe-46d3-b481-b39f8988f6fa",
+    "key": "Branding-Project",
+    "bucket": "site-assets",
+    "file_path": "home/showcase/Branding-Project.webp",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "b4764bd8-7d8e-4850-836b-aadb46f15b55",
+    "key": "home.showcase.show.video",
+    "bucket": "site-assets",
+    "file_path": "home.showcase.show.video.mp4",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "video"
+  },
+  {
+    "id": "b74a0ce6-7b3a-4a80-b9f7-9663d9d984c1",
+    "key": "about.origin_image.3",
+    "bucket": "site-assets",
+    "file_path": "about/origin/about.origin_image.3.webp",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "4a27fc53-e121-48fe-9219-d0a770f75741",
+    "key": "about.origin_image.4",
+    "bucket": "site-assets",
+    "file_path": "about/origin/about.origin_image.4.webp",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "a876700a-dd89-4e2a-91b9-af3239501f31",
+    "key": "global.font_display",
+    "bucket": "site-assets",
+    "file_path": "global/fonts/global.font_display.woff2",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "font"
+  },
+  {
+    "id": "a79fa70e-ea7d-4608-b198-964eb3fab4b1",
+    "key": "global.fonts.global.font_h2",
+    "bucket": "site-assets",
+    "file_path": "global.fonts.global.font_h2.woff2",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "font"
+  },
+  {
+    "id": "0a813048-3032-4ebc-9626-20c5bc630185",
+    "key": "global.font_h2",
+    "bucket": "site-assets",
+    "file_path": "global/fonts/global.font_h2.woff2",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "font"
+  },
+  {
+    "id": "248af772-0afc-4f0b-9401-f822231ebbe4",
+    "key": "global.fonts.global.font_h3",
+    "bucket": "site-assets",
+    "file_path": "global.fonts.global.font_h3.woff2",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "font"
+  },
+  {
+    "id": "9c26e240-c711-4b42-a538-0e41765571da",
+    "key": "global.font_h3",
+    "bucket": "site-assets",
+    "file_path": "global/fonts/global.font_h3.woff2",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "font"
+  },
+  {
+    "id": "c3fed8d7-b080-4e7c-b824-2e4f70dc4709",
+    "key": "global.fonts.global.font_light",
+    "bucket": "site-assets",
+    "file_path": "global.fonts.global.font_light.woff2",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "font"
+  },
+  {
+    "id": "5f95de76-5b76-4f5c-83e1-c70a6de02ada",
+    "key": "global.font_light",
+    "bucket": "site-assets",
+    "file_path": "global/fonts/global.font_light.woff2",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "font"
+  },
+  {
+    "id": "3224e051-40af-47a8-9858-0efe821fcf7b",
+    "key": "converted-9-webp",
+    "bucket": "site-assets",
+    "file_path": "projects/campaign/gallery/converted-9-webp.webp",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "0d5df573-e99b-4a36-a1d5-82f897fe6254",
+    "key": ".emptyFolderPlaceholder",
+    "bucket": "site-assets",
+    "file_path": "global/logos/.emptyFolderPlaceholder",
+    "updated_at": "2026-01-21T03:25:01.653936+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "2f6479c3-1141-44a6-991b-decea4751933",
+    "key": "404",
+    "bucket": "site-assets",
+    "file_path": "global/404.webp",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "f940bddf-600d-4ba1-8e5c-d084208adac5",
+    "key": "global.fonts.global.font_body",
+    "bucket": "site-assets",
+    "file_path": "global.fonts.global.font_body.woff2",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "font"
+  },
+  {
+    "id": "f0066579-97cb-4da4-b936-d6e512d254e7",
+    "key": "global.font_body",
+    "bucket": "site-assets",
+    "file_path": "global/fonts/global.font_body.woff2",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "font"
+  },
+  {
+    "id": "0ac5a66e-ba85-4251-930b-311d8440d779",
+    "key": "global.fonts.global.font_display",
+    "bucket": "site-assets",
+    "file_path": "global.fonts.global.font_display.woff2",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "font"
+  },
+  {
+    "id": "a9fcf424-cf67-4a26-a1ec-30473fd365f4",
+    "key": "global.font_h1",
+    "bucket": "site-assets",
+    "file_path": "global/fonts/global.font_h1.woff2",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "font"
+  },
+  {
+    "id": "71a0652d-34b6-4d27-a92f-c7ef40299275",
+    "key": "Key-Visual",
+    "bucket": "site-assets",
+    "file_path": "home/showcase/Key-Visual.webp",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "6730c2fa-252d-4f68-bb17-c242b03689fd",
+    "key": "thumb",
+    "bucket": "site-assets",
+    "file_path": "projects/video_manifesto/thumb.png",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "afb2c3be-1e82-433f-8c78-711886a3cbc8",
+    "key": "global.fonts.global.font_h1",
+    "bucket": "site-assets",
+    "file_path": "global.fonts.global.font_h1.woff2",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "font"
+  },
+  {
+    "id": "91cd3cd7-2e10-4d4d-9588-20b0ea39cae4",
+    "key": "nescau-webp",
+    "bucket": "site-assets",
+    "file_path": "projects/key_vision/gallery/nescau-webp.webp",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "8d8f6f1d-07f8-4d20-b3d0-16866dd64cb4",
+    "key": "converted-5-webp",
+    "bucket": "site-assets",
+    "file_path": "projects/key-vision/gallery/converted-5-webp.webp",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "1293eb3d-73e3-435f-b47d-f49a961e7540",
+    "key": "show.video",
+    "bucket": "site-assets",
+    "file_path": "home/showcase/show.video.mp4",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "video"
+  },
+  {
+    "id": "a25153d1-7e86-471b-844c-27c67558f339",
+    "key": "global.favicon_dark",
+    "bucket": "site-assets",
+    "file_path": "global/logos/global.favicon_dark.svg",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "d45e9e2c-378b-403a-94eb-5de3159e9d62",
+    "key": "global.favicon_light",
+    "bucket": "site-assets",
+    "file_path": "global/logos/global.favicon_light.svg",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "a7646c65-786a-4a99-8ca8-848c09cc5154",
+    "key": "global.logo_header_dark",
+    "bucket": "site-assets",
+    "file_path": "global/logos/global.logo_header_dark.svg",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "48e53987-6f06-4e45-adb7-9dcaa498ae89",
+    "key": "global.logo_header_light",
+    "bucket": "site-assets",
+    "file_path": "global/logos/global.logo_header_light.svg",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "c2dd7d3f-3a1a-47d4-8ff0-9c556413148f",
+    "key": "about/method/mobile_video",
+    "bucket": "site-assets",
+    "file_path": "about/aboutmethodmobile_video.mp4",
+    "updated_at": "2026-01-21T17:18:02.65582+00:00",
+    "asset_type": "video"
+  },
+  {
+    "id": "242d3d46-4b8a-4d76-8f1a-6bc53c378248",
+    "key": "portfolio.hero_mobile_video",
+    "bucket": "site-assets",
+    "file_path": "portfolio/hero/portfolio.hero_mobile_video.mp4",
+    "updated_at": "2026-01-21T18:37:11.833768+00:00",
+    "asset_type": "video"
+  },
+  {
+    "id": "177616fd-ba09-491a-aa46-a7c1dcf23642",
+    "key": "portfolio.hero_desktop_video",
+    "bucket": "site-assets",
+    "file_path": "portfolio/hero/portfolio.hero_desktop_video.mp4",
+    "updated_at": "2026-01-21T18:59:07.148058+00:00",
+    "asset_type": "video"
+  },
+  {
+    "id": "ff52a850-a1b5-4c9d-9245-d8a610010bfe",
+    "key": "webdesigner-2",
+    "bucket": "site-assets",
+    "file_path": "home/showcase/webdesigner-2.gif",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "37b1c74b-4e2b-4408-b636-bd0023fddc95",
+    "key": "hero",
+    "bucket": "site-assets",
+    "file_path": "projects/video_manifesto/hero.png",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "5d43e1d0-15a0-4e14-84ea-c3c1ee91ab3d",
+    "key": "converted-webp",
+    "bucket": "site-assets",
+    "file_path": "projects/creative-direction/gallery/converted-webp.webp",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "image"
+  },
+  {
+    "id": "28c4365b-a7e1-4dac-a643-ca5b50f057dd",
+    "key": "converted-10-webp",
+    "bucket": "site-assets",
+    "file_path": "projects/key-visual/gallery/converted-10-webp.webp",
+    "updated_at": "2026-01-19T05:37:59.074933+00:00",
+    "asset_type": "image"
+  }
+]

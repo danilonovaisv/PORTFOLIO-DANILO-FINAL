@@ -11,8 +11,8 @@ interface MediaInputProps {
   type: 'image' | 'video';
   value?: string; // URL or path
   previewUrl?: string;
-  onFileSelect: (file: File) => void;
-  onUrlChange: (url: string) => void;
+  onFileSelect: (_file: File) => void;
+  onUrlChange: (_url: string) => void;
   onClear: () => void;
 }
 
