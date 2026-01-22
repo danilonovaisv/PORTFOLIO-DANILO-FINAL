@@ -23,6 +23,17 @@ echo "Versão do Firebase: $(firebase --version)"
 echo "Executando build do projeto..."
 npm run build
 
+# Patch para corrigir o erro "it.handle is not a function" no código gerado pelo Firebase
+echo "Aplicando patch no código gerado do Firebase..."
+SERVER_JS=".firebase/portfolio-danilo-novais/functions/server.js"
+if [ -f "$SERVER_JS" ]; then
+  # Tenta corrigir it.handle para it.default.handle ou garantir que funcione com ESM
+  sed -i '' 's/it\.handle/it.default?.handle || it.handle/g' "$SERVER_JS"
+  echo "Patch aplicado em $SERVER_JS"
+else
+  echo "Aviso: $SERVER_JS não encontrado para aplicar patch."
+fi
+
 # Executa o deploy
 echo "Executando deploy do Firebase..."
-firebase deploy --only hosting --project portfolio-danilo-novais
+npx firebase deploy --only hosting --project portfolio-danilo-novais

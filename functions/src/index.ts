@@ -24,9 +24,25 @@ import * as logger from 'firebase-functions/logger';
 // functions should each use functions.runWith({ maxInstances: 10 }) instead.
 // In the v1 API, each function can only serve one request per container, so
 // this will be the maximum concurrent request count.
-setGlobalOptions({ maxInstances: 10 });
+setGlobalOptions({
+  maxInstances: 10,
+  region: 'us-central1',
+  memory: '512MiB',
+});
 
 export const helloWorld = onRequest((request, response) => {
   logger.info('Hello logs!', { structuredData: true });
   response.send('Hello from Firebase!');
+});
+
+// SSR Next.js Proxy
+export const ssrportfoliodanilonovai = onRequest(async (req, res) => {
+  try {
+    const { handle } =
+      await import('firebase-frameworks/frameworks/nextjs/server');
+    return handle(req, res);
+  } catch (err) {
+    logger.error('SSR Error:', err);
+    res.status(500).send('Internal Server Error - SSR Failed');
+  }
 });
