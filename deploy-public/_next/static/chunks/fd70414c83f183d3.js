@@ -149,7 +149,7 @@
         i && '#' !== i[0] && (i = '#' + i),
         c && '?' !== c[0] && (c = '?' + c),
         (o = o.replace(/[?#]/g, encodeURIComponent)),
-        (c = c.replace('#', '%23')),
+        (c = c.replace(/#/g, '%23')),
         `${n}${s}${o}${c}${i}`
       );
     }
