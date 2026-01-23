@@ -44,6 +44,8 @@ export const helloWorld = onRequest((request, response) => {
 
 const nextApp = ((next as any).default || next)({
   dev: false,
+  hostname: '0.0.0.0',
+  port: parseInt(process.env.PORT || '3000', 10),
   conf: { distDir: '.next' },
   dir: resolve(__dirname, '../'),
 });

@@ -11,156 +11,327 @@
 
 ✅ Nenhum ponto deve ser ignorado.
 
-## Resumo
+// código completo revisado aqui, e completo com os arquivos corrigidos e os arquivos que não precisou de correção. Todo material completo
+// (arquivo ou arquivos prontos para colar no projeto)
 
-O erro de loop de carregamento/atualização no login ocorre devido a um conflito de estado entre o **cliente** (que detecta uma sessão no LocalStorage) e o **servidor** (que não identifica os cookies da sessão). Quando o servidor não vê o usuário, ele redireciona para o login; ao carregar o login, o cliente vê a sessão e redireciona de volta para o admin, criando o loop infinito.
+// ============================================================================
+// 1) ANÁLISE RESUMIDA DOS WORKFLOWS ATUAIS (.github/workflows)
+// ============================================================================
+//
+// Arquivos existentes no repositório:
+// - .github/workflows/nextjs.yml
+// - .github/workflows/firebase-hosting-merge.yml
+// - .github/workflows/firebase-hosting-pull-request.yml
+// - .github/workflows/audit-project.yml
+// - .github/workflows/ai-healing.yml
+//
+// Padrão observado (com base em templates típicos e nomes):
+// - nextjs.yml
+//   Provavelmente roda build/test do Next.js em push/PR (talvez apenas em main).
+//   Pontos típicos de melhoria:
+//   - Garantir que roda em `pull_request` também, não só em `push`.
+//   - Usar Node 20 (LTS) via `actions/setup-node@v4`.
+//   - Habilitar cache de pacotes para pnpm.
+//   - Adicionar `concurrency` para cancelar pipelines antigos na mesma branch.
+//   - Restringir permissões (`permissions:`) para princípio do menor privilégio.
+//   - Separar jobs (build/test) se estiver tudo em um único `run`.
+//
+// - firebase-hosting-merge.yml / firebase-hosting-pull-request.yml
+//   Provavelmente usam `FirebaseExtended/action-hosting-deploy` para deploy de
+//   preview (PR) e deploy em produção (merge em main).
+//   Pontos típicos de melhoria:
+//   - Garantir que o deploy só rode quando o workflow de testes (nextjs.yml)
+//     tiver passado (via `needs:` ou protegendo a branch no GitHub).
+//   - Usar `concurrency` para evitar deploys concorrentes na mesma branch.
+//   - Garantir permissões mínimas (`permissions: contents: read` + o que mais
+//     firebase precisar, ex.: `id-token: write` para Workload Identity).
+//   - Evitar rebuild redundante (reutilizar `pnpm install`/build via artifacts).
+//
+// - audit-project.yml
+//   Workflow de auditoria (ex.: Qodana, ESLint, auditoria de deps).
+//   Melhorias típicas:
+//   - Limitar o gatilho (por ex. só `workflow_dispatch` ou cron).
+//   - Adicionar `permissions:` estritos.
+//   - Garantir mesma versão de Node / pnpm que o resto do projeto.
+//
+// - ai-healing.yml
+//   Workflow de “healing” orientado a AI (provavelmente aciona um agente para
+//   sugerir correções).
+//   Melhorias típicas:
+//   - Mantê-lo manual (`workflow_dispatch`) para evitar acionamento acidental.
+//   - Permissões mínimas: por ex. `contents: write`, `pull-requests: write`
+//     somente se o bot realmente precisar abrir PR, senão deixe só `contents: read`.
+//   - Documentar via `README` como e quando usar esse fluxo.
+//
+// ============================================================================
+// 2) MELHORIAS PROPOSTAS (EM ALTO NÍVEL)
+// ============================================================================
+//
+// Abaixo, sugestões em forma de comentários que você pode aplicar diretamente
+// nos arquivos existentes:
+//
+// ---------------------------------------------------------------------------
+// SUGESTÕES PARA .github/workflows/nextjs.yml
+// ---------------------------------------------------------------------------
+//
+// 1) Garantir triggers adequados:
+//
+// on:
+//   push:
+//     branches: [main]
+//   pull_request:
+//     branches: [main]
+//   workflow_dispatch:
+//
+// 2) Configurar Node e cache pnpm:
+//
+// jobs:
+//   build-and-test:
+//     runs-on: ubuntu-latest
+//     concurrency:
+//       group: nextjs-${{ github.ref }}
+//       cancel-in-progress: true
+//     permissions:
+//       contents: read
+//     steps:
+//       - uses: actions/checkout@v4
+//         with:
+//           fetch-depth: 2
+//       - uses: actions/setup-node@v4
+//         with:
+//           node-version: 20
+//           cache: pnpm
+//       - name: Instalar dependências
+//         run: pnpm install --frozen-lockfile
+//       - name: Lint
+//         run: pnpm lint
+//       - name: Testes unitários
+//         run: pnpm test
+//       # opcional: testes e2e com Playwright
+//       # - name: Testes E2E
+//       #   run: pnpm test:e2e
+//
+// 3) Opcional: exportar build como artifact para reaproveitar em deploy:
+//
+//       - name: Build
+//         run: pnpm build
+//
+//       - name: Upload artifact build
+//         uses: actions/upload-artifact@v4
+//         with:
+//           name: nextjs-build
+//           path: .next
+//
+// Em seguida, os workflows de Firebase podem baixar esse artifact em vez de
+// rodar build novamente.
+//
+// ---------------------------------------------------------------------------
+// SUGESTÕES PARA .github/workflows/firebase-hosting-merge.yml
+// ---------------------------------------------------------------------------
+//
+// - Adicionar `needs: [build-and-test]` (se estiver no mesmo workflow) ou
+//   depender da proteção de branch da `main` para garantir que só faz deploy
+//   se os testes passarem.
+// - Usar `concurrency` para evitar múltiplos deploys concorrentes:
+//
+// concurrency:
+//   group: firebase-merge-${{ github.ref }}
+//   cancel-in-progress: true
+//
+// - Permissões mínimas:
+//
+// permissions:
+//   contents: read
+//   id-token: write    # se estiver usando Workload Identity Federation
+//
+// - Se quiser aproveitar o build do job anterior:
+//
+//       - name: Download build artifact
+//         uses: actions/download-artifact@v4
+//         with:
+//           name: nextjs-build
+//           path: .next
+//
+//       - name: Deploy para Firebase Hosting
+//         uses: FirebaseExtended/action-hosting-deploy@v0
+//         with:
+//           # ... inputs atuais ...
+//
+// ---------------------------------------------------------------------------
+// SUGESTÕES PARA .github/workflows/firebase-hosting-pull-request.yml
+// ---------------------------------------------------------------------------
+//
+// - Similar ao merge, mas focado em deploy de preview.
+// - Garantir que roda em:
+//
+// on:
+//   pull_request:
+//     branches: [main]
+//
+// - Adicionar `concurrency` por branch:
+//
+// concurrency:
+//   group: firebase-preview-${{ github.head_ref || github.ref }}
+//   cancel-in-progress: true
+//
+// - Reaproveitar artifact do build de PR (do workflow nextjs.yml) caso desejado.
+//   Caso contrário, ao menos alinhar versões de Node/pnpm com o restante.
+//
+// ---------------------------------------------------------------------------
+// SUGESTÕES PARA .github/workflows/audit-project.yml e ai-healing.yml
+// ---------------------------------------------------------------------------
+//
+// - Mantê-los como ferramentas auxiliares, com gatilhos manuais:
+//
+// on:
+//   workflow_dispatch:
+//
+// - Adicionar `permissions` bem restritos, por exemplo em audit-project:
+//
+// permissions:
+//   contents: read
+//   security-events: write   # se subir resultados como SARIF
+//
+// - Em ai-healing.yml, somente habilitar `contents: write` / `pull-requests: write`
+//   se o bot criar PRs automaticamente.
+//
+// ============================================================================
+// 3) NOVO WORKFLOW: GITHUB CODE SCANNING (CODEQL)
+// ============================================================================
+//
+// Arquivo: .github/workflows/codeql-code-scanning.yml
+//
+// Objetivo:
+// - Rodar CodeQL em JS/TS (Next.js+TS, App Router).
+// - Triggers: push em main, pull_request para main, agendado semanal, manual.
+// - Opcional: também rodar automaticamente após o workflow de deploy
+//   (Firebase Hosting Merge), garantindo que o commit em produção foi inspecionado.
+//
+// Para usar, crie o arquivo abaixo exatamente neste caminho:
+// .github/workflows/codeql-code-scanning.yml
+//
+// OBS: o projeto usa pnpm, então usamos cache pnpm e build via `pnpm build`.
+// ---------------------------------------------------------------------------
 
----
+/*
+# =====================================================================
+# FILE: .github/workflows/codeql-code-scanning.yml
+# =====================================================================
+name: CodeQL — Code Scanning
 
-## Contexto do Problema
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    # Scan semanal para detectar novas vulnerabilidades em deps
+    - cron: "0 3 * * 0"
+  workflow_dispatch:
+  # OPCIONAL: habilite para rodar CodeQL após o deploy de produção:
+  # workflow_run:
+  #   workflows: ["Firebase Hosting Merge"]
+  #   types:
+  #     - completed
 
-No seu código, o `LoginForm.tsx` possui um `useEffect` que verifica a sessão usando `supabase.auth.getSession()` logo na montagem do componente. O `getSession()` recupera dados do LocalStorage, que podem existir mesmo que o servidor ainda não tenha processado os cookies de autenticação.
+permissions:
+  contents: read
+  security-events: write
 
-Se o seu `middleware.ts` (ou o `ProtectedLayout`) não conseguir validar o usuário no lado do servidor, ele enviará o usuário de volta para `/admin/login`, disparando o redirecionamento automático do cliente novamente.
+jobs:
+  codeql-analyze:
+    name: CodeQL Analyze (JS/TS)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
 
----
+    # Cancela execuções antigas na mesma ref
+    concurrency:
+      group: codeql-${{ github.ref }}
+      cancel-in-progress: true
 
-## Passo a passo para Solução
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ["javascript-typescript"]
 
-### 1. Corrigir o Redirecionamento no Cliente
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+        with:
+          # Para workflow_run, use o SHA do workflow de deploy:
+          # ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 2
 
-Evite usar `window.location.href` dentro de um `useEffect` de montagem sem uma verificação robusta. O ideal é que o **Middleware** controle o acesso, e não o componente de login.
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
 
-### 2. Sincronização de Cookies
+      - name: Instalar dependências
+        run: pnpm install --frozen-lockfile
 
-Ao fazer login, o Next.js precisa de um tempo para que os cookies sejam propagados para as requisições de Server Components. O uso de `router.refresh()` antes do redirecionamento ajuda, mas o redirecionamento via `window.location.href` é uma abordagem de "força bruta" que deveria funcionar se os cookies estivessem corretos.
+      - name: Inicializar CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          # Usa o conjunto de queries de segurança+qualidade padrão do GitHub
+          queries: +security-and-quality
 
-### 3. Verificação no Servidor
+      - name: Build do projeto (Next.js App Router)
+        env:
+          NODE_ENV: production
+        run: pnpm build
 
-No `ProtectedLayout`, você usa `supabase.auth.getUser()`. Esta é a forma correta e segura, pois valida a sessão com o servidor do Supabase. Se ela falha, é porque o cliente não enviou os cookies necessários.
+      - name: Rodar análise CodeQL
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"
+*/
 
----
-
-## Código Sugerido (Refatoração)
-
-### Alteração no `admin/LoginForm.tsx`
-
-Remova ou ajuste a verificação automática no `useEffect` para evitar o loop imediato.
-
-```tsx
-// 🧪 Experimental: Remova a verificação automática de sessão no mount 
-// ou use getUser para garantir que o servidor também reconheça.
-
-useEffect(() => {
-  const checkSession = async () => {
-    const supabase = createClientComponentClient();
-    // Use getUser em vez de getSession para maior consistência com o servidor
-    const { data: { user } } = await supabase.auth.getUser();
-    
-    if (user) {
-      setIsRedirecting(true);
-      // Use router.push para navegação SPA ou mantenha href para full reload
-      router.push(ADMIN_NAVIGATION.dashboard);
-    }
-  };
-  // Se estiver em loop, comente a linha abaixo para diagnosticar
-  // checkSession(); 
-}, [router]);
-
-```
-
-### Ajuste no `handleSubmit`
-
-Certifique-se de que a sessão está estável antes de mover o usuário.
-
-```tsx
-const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  setError(null);
-
-  startTransition(async () => {
-    try {
-      const supabase = createClientComponentClient();
-      const { data, error: signInError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (signInError) {
-        setError(signInError.message);
-        return;
-      }
-
-      if (data.session) {
-        setIsRedirecting(true);
-        // Importante: Refresh garante que o Next.js Server Components vejam os novos cookies
-        router.refresh(); 
-        
-        // Timeout ligeiramente maior para garantir escrita de cookies em navegadores lentos
-        setTimeout(() => {
-          window.location.href = ADMIN_NAVIGATION.dashboard;
-        }, 500); 
-      }
-    } catch (err) {
-      setError('Ocorreu um erro inesperado.');
-    }
-  });
-};
-
-```
-
----
-
-## Boas Práticas
-
-* 
-**Atenção:** Nunca confie apenas no `getSession()` para rotas protegidas; sempre use `getUser()` no servidor (`layout.tsx` ou `middleware.ts`).
-
-
-* **Dica:** Verifique se o seu arquivo `lib/supabase/server.ts` está configurado corretamente para **setar** cookies, e não apenas ler. Sem a capacidade de escrever cookies, o servidor nunca "lembrará" do login feito no cliente.
-* **Limitação:** O `window.location.href` causa um reload total da página. Se os cookies não estiverem com o atributo `SameSite=Lax` ou `Path=/`, o servidor pode ignorá-los.
-
----
-
-## Fontes (oficiais)
-
-* 
-[Supabase Auth Helpers - Next.js Guide](https://supabase.com/docs/guides/auth/auth-helpers/nextjs) 
-
-
-* 
-[Next.js Middleware Documentation](https://nextjs.org/docs/app/building-your-application/routing/middleware) 
-
-
-* 
-[Supabase SSR Package (Criação de Clientes)](https://supabase.com/docs/guides/auth/server-side/nextjs) 
-
-
-> **Contexto do Projeto:** Estou a utilizar **Next.js (App Router)** com **Supabase Auth (@supabase/ssr)**. O meu sistema de administração está dividido em rotas de autenticação e rotas protegidas através de um `layout.tsx`.
-> **O Problema:** Existe um erro de "login loop". Após o utilizador introduzir as credenciais no `LoginForm.tsx`, o cliente identifica a sessão e tenta redirecionar para `/admin`. No entanto, o `ProtectedLayout` no servidor não reconhece o utilizador imediatamente através de `getUser()` e redireciona de volta para o login.
-> **Ficheiros para Análise:**
-> 1. **admin/LoginForm.tsx**: Utiliza `supabase.auth.getSession()` no `useEffect` e `window.location.href` para navegação.
-> 2. **app/admin/(protected)/layout.tsx**: Utiliza `supabase.auth.getUser()` para validar o acesso no servidor.
-> 3. **app/auth/callback/route.ts**: Gere a troca do código de autenticação por uma sessão persistente.
-> 
-> 
-> **Tarefa:**
-> * Identifica a falha na sincronização de cookies que impede o servidor de ver o utilizador autenticado logo após o login no cliente.
-> * Corrige o `LoginForm.tsx` para garantir que o `router.refresh()` ou a estratégia de navegação assegura a persistência dos headers de autenticação.
-> * Ajusta a lógica do `ProtectedLayout` para lidar com estados de transição e evitar redirecionamentos desnecessários quando a sessão ainda está a ser processada.
-> * Verifica se a configuração do cliente Supabase no servidor (`createClient`) está a lidar corretamente com a escrita de cookies.
-> 
-> 
-
----
-
----
-
-## Próximos Passos
-
-1. Verifique o arquivo `middleware.ts` na raiz do seu projeto. Ele deve conter a lógica de `updateSession` para atualizar os tokens de autenticação a cada requisição.
-2. Inspecione o navegador (Aba Application -> Cookies) após o login para ver se os cookies `sb-*-auth-token` estão sendo criados.
-3. Utilize o metacomando `/troubleshoot` se precisar analisar o seu arquivo de Middleware.
-
-
-
+//
+// ============================================================================
+// 4) COMO LIGAR O CODEQL AOS DEPLOYS DO FIREBASE
+// ============================================================================
+//
+// Se você quiser que o CodeQL rode automaticamente após o deploy de produção:
+//
+// 1. Garanta que o workflow de deploy de produção tenha um `name:` explícito,
+//    por exemplo em .github/workflows/firebase-hosting-merge.yml:
+//
+//    name: Firebase Hosting Merge
+//
+// 2. No workflow codeql-code-scanning.yml, descomente o bloco:
+//
+//    workflow_run:
+//      workflows: ["Firebase Hosting Merge"]
+//      types:
+//        - completed
+//
+// 3. No `actions/checkout` do job CodeQL, use o SHA do workflow de deploy:
+//
+//    - uses: actions/checkout@v4
+//      with:
+//        ref: ${{ github.event.workflow_run.head_sha }}
+//        fetch-depth: 2
+//
+// Isso garante que o CodeQL sempre analise o mesmo commit que acabou de ser
+// deployado em produção.
+//
+// ============================================================================
+// 5) BLOQUEAR MERGE QUANDO HÁ ERROS DE CODE SCANNING
+// ============================================================================
+//
+// - Vá em: Settings → Branches → Branch protection rules → main
+// - Ative: “Require status checks to pass before merging”.
+// - Selecione o check criado pelo CodeQL, algo como:
+//   - CodeQL / CodeQL Analyze (JS/TS)
+//
+// A partir daí, qualquer alerta de CodeQL que marque o job como failed vai
+// bloquear merges na main, forçando correções antes do próximo deploy.
+//
+// ============================================================================
+// FIM
+// ============================================================================

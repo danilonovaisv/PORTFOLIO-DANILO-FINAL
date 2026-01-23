@@ -6,8 +6,6 @@ import { motion } from 'framer-motion';
 import { LandingPageBlock } from '@/types/landing-page';
 import ReactMarkdown from 'react-markdown';
 
-// Eliminamos a interface e usamos tipagem inline para evitar confusão de nomes
-
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
   visible: {
@@ -20,25 +18,21 @@ const fadeInUp = {
   },
 };
 
-export default function BlockRenderer({
-  block,
-  index: _index,
-}: {
+interface BlockRendererProps {
   block: LandingPageBlock;
   index: number;
-}) {
-  const type = block.type;
-  const content = block.content;
+}
 
-  // Resolvers for media helper
-  // If content.media is a relative path (not starting with http), prepend Supabase URL
-  const resolveMedia = (path?: string) => {
+export default function BlockRenderer({ block, index: _index }: BlockRendererProps) {
+  const { type, content } = block;
+
+  const resolveMedia = (path?: string): string => {
     if (!path) return '';
     if (path.startsWith('http')) return path;
     return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/site-assets/${path}`;
   };
 
-  const getYouTubeId = (url: string) => {
+  const getYouTubeId = (url: string): string | null => {
     const regExp =
       /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
     const match = url.match(regExp);
@@ -48,13 +42,6 @@ export default function BlockRenderer({
   const renderText = (text?: string, config?: any, className = '') => {
     if (!text) return null;
 
-    const containerStyle: any = {};
-    if (config?.color && config.color.startsWith('#')) {
-      containerStyle['--block-text-color'] = config.color;
-      containerStyle.color = 'var(--block-text-color)';
-    }
-
-    // Combine base classes with config-driven classes
     const textClasses = [
       config?.fontSize || 'text-lg md:text-xl',
       config?.fontWeight || 'font-light',
@@ -63,10 +50,15 @@ export default function BlockRenderer({
       'mb-4 leading-relaxed',
     ].join(' ');
 
+    const style: React.CSSProperties = {};
+    if (config?.color && config.color.startsWith('#')) {
+      style.color = config.color;
+    }
+
     return (
       <div
         className={`prose prose-invert max-w-none ${className}`}
-        style={containerStyle}
+        style={style}
       >
         <ReactMarkdown
           components={{
@@ -190,21 +182,21 @@ export default function BlockRenderer({
 
       case 'image':
         return (
-          <div className="w-full max-w-[1920px] mx-auto px-4 md:px-0">
+          <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-0">
             {renderMedia(content.media, 'image')}
           </div>
         );
 
       case 'video':
         return (
-          <div className="w-full max-w-[1920px] mx-auto px-4 md:px-0">
+          <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-0">
             {renderMedia(content.media, 'video', false)}
           </div>
         );
 
       case 'video-autoplay':
         return (
-          <div className="w-full max-w-[1920px] mx-auto px-4 md:px-0">
+          <div className="w-full max-w-screen-2xl mx-auto px-4 md:px-0">
             {renderMedia(content.media, 'video', true)}
           </div>
         );

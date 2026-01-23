@@ -16,7 +16,7 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "build:prod": "npm run prebuild && next build",
-    "start": "next start",
+    "start": "next start -p $PORT -H 0.0.0.0",
     "clean": "rimraf .next out .eslintcache .firebase",
     "prebuild": "node scripts/generate-build-info.cjs",
     "lint": "eslint --cache --cache-location .eslintcache scripts src test tailwind.config.ts",
