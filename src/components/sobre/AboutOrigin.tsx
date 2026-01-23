@@ -53,25 +53,32 @@ const AboutOrigin: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
 
   // Resolver URLs de imagem com fallback seguro
-  const originImage1 = useSiteAssetUrl(
-    SITE_ASSET_KEYS.about.originImages[0],
-    buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[0].fallback)
-  ) || buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[0].fallback);
+  const resolveFallback = (path: string) =>
+    buildSupabaseStorageUrl('site-assets', path) ?? undefined;
 
-  const originImage2 = useSiteAssetUrl(
-    SITE_ASSET_KEYS.about.originImages[1],
-    buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[1].fallback)
-  ) || buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[1].fallback);
+  const originImage1 =
+    useSiteAssetUrl(
+      SITE_ASSET_KEYS.about.originImages[0],
+      resolveFallback(FALLBACK_BLOCKS[0].fallback)
+    ) ?? resolveFallback(FALLBACK_BLOCKS[0].fallback);
 
-  const originImage3 = useSiteAssetUrl(
-    SITE_ASSET_KEYS.about.originImages[2],
-    buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[2].fallback)
-  ) || buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[2].fallback);
+  const originImage2 =
+    useSiteAssetUrl(
+      SITE_ASSET_KEYS.about.originImages[1],
+      resolveFallback(FALLBACK_BLOCKS[1].fallback)
+    ) ?? resolveFallback(FALLBACK_BLOCKS[1].fallback);
 
-  const originImage4 = useSiteAssetUrl(
-    SITE_ASSET_KEYS.about.originImages[3],
-    buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[3].fallback)
-  ) || buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[3].fallback);
+  const originImage3 =
+    useSiteAssetUrl(
+      SITE_ASSET_KEYS.about.originImages[2],
+      resolveFallback(FALLBACK_BLOCKS[2].fallback)
+    ) ?? resolveFallback(FALLBACK_BLOCKS[2].fallback);
+
+  const originImage4 =
+    useSiteAssetUrl(
+      SITE_ASSET_KEYS.about.originImages[3],
+      resolveFallback(FALLBACK_BLOCKS[3].fallback)
+    ) ?? resolveFallback(FALLBACK_BLOCKS[3].fallback);
 
   const CONTENT_BLOCKS = [
     { ...FALLBACK_BLOCKS[0], img: originImage1 },
@@ -82,6 +89,10 @@ const AboutOrigin: React.FC = () => {
 
   useEffect(() => {
     setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
 
     const lenis = new Lenis({
       duration: 1.2,
@@ -154,19 +165,50 @@ const AboutOrigin: React.FC = () => {
           const sectionTimeline = gsap.timeline({ paused: true });
 
           sectionTimeline
-            .to('body', { backgroundColor: bgColors[index + 1], duration: 1.5, ease: 'none' }, 0)
-            .to(currentWrapper, { clipPath: 'inset(0px 0px 100% 0px)', duration: 1.5, ease: 'none' }, 0)
-            .to(currentImg, { objectPosition: '0px 60%', yPercent: 15, duration: 1.5, ease: 'none' }, 0)
-            .to(nextImage, {
-              objectPosition: '0px 0%',
-              yPercent: -15,
-              filter: 'blur(0px)',
-              opacity: 1,
-              duration: 1.5,
-              ease: 'none',
-            }, 0);
+            .to(
+              'body',
+              {
+                backgroundColor: bgColors[index + 1],
+                duration: 1.5,
+                ease: 'none',
+              },
+              0
+            )
+            .to(
+              currentWrapper,
+              {
+                clipPath: 'inset(0px 0px 100% 0px)',
+                duration: 1.5,
+                ease: 'none',
+              },
+              0
+            )
+            .to(
+              currentImg,
+              {
+                objectPosition: '0px 60%',
+                yPercent: 15,
+                duration: 1.5,
+                ease: 'none',
+              },
+              0
+            )
+            .to(
+              nextImage,
+              {
+                objectPosition: '0px 0%',
+                yPercent: -15,
+                filter: 'blur(0px)',
+                opacity: 1,
+                duration: 1.5,
+                ease: 'none',
+              },
+              0
+            );
 
-          mainTimeline.add(() => sectionTimeline.play()); // Correção aqui
+          mainTimeline.add(() => {
+            sectionTimeline.play();
+          });
         }
       });
 
@@ -216,24 +258,41 @@ const AboutOrigin: React.FC = () => {
     });
 
     mm.add('(max-width: 1023px)', () => {
-      const mobileImages = gsap.utils.toArray<HTMLElement>('.mobile-img-container');
-      const mobileTexts = gsap.utils.toArray<HTMLElement>('.mobile-text-container');
+      const mobileImages = gsap.utils.toArray<HTMLElement>(
+        '.mobile-img-container'
+      );
+      const mobileTexts = gsap.utils.toArray<HTMLElement>(
+        '.mobile-text-container'
+      );
       const bgColors = ['#040013', '#060018', '#08001e', '#0a001a'];
 
       mobileImages.forEach((container, index) => {
         const img = container.querySelector('img') as HTMLImageElement;
         if (!img) return;
 
-        gsap.timeline({
-          scrollTrigger: {
-            trigger: container,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-          },
-        })
-        .fromTo(img, { y: -40, scale: 1.1 }, { y: 40, scale: 1, ease: 'none' })
-        .to('body', { backgroundColor: bgColors[index], duration: 0.5, ease: 'power2.inOut' }, 0);
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: container,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: true,
+            },
+          })
+          .fromTo(
+            img,
+            { y: -40, scale: 1.1 },
+            { y: 40, scale: 1, ease: 'none' }
+          )
+          .to(
+            'body',
+            {
+              backgroundColor: bgColors[index],
+              duration: 0.5,
+              ease: 'power2.inOut',
+            },
+            0
+          );
       });
 
       mobileTexts.forEach((text) => {
@@ -265,9 +324,9 @@ const AboutOrigin: React.FC = () => {
       if (rafId.current) cancelAnimationFrame(rafId.current);
       mm.revert();
       lenis.destroy();
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
-  }, []);
+  }, [isClient]);
 
   if (!isClient) {
     return (
@@ -284,13 +343,21 @@ const AboutOrigin: React.FC = () => {
   }
 
   return (
-    <section className="relative w-full overflow-hidden transition-colors duration-1000" ref={containerRef}>
+    <section
+      className="relative w-full overflow-hidden transition-colors duration-1000"
+      ref={containerRef}
+    >
       <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-24">
         <div className="mb-24 text-center select-none">
-          <h1 className="text-[1.75rem] font-['CustomLight'] font-light leading-none text-[#4fe6ff] tracking-[0.2em] uppercase">ORIGEM</h1>
+          <h1 className="text-[1.75rem] font-['CustomLight'] font-light leading-none text-[#4fe6ff] tracking-[0.2em] uppercase">
+            ORIGEM
+          </h1>
         </div>
 
-        <div className="arch relative grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 md:gap-12 max-w-[1440px] mx-auto" ref={archRef}>
+        <div
+          className="arch relative grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 md:gap-12 max-w-[1440px] mx-auto"
+          ref={archRef}
+        >
           <div className="col-span-4 md:col-span-8 lg:col-span-6 flex flex-col">
             {CONTENT_BLOCKS.map((block) => (
               <div
@@ -299,8 +366,12 @@ const AboutOrigin: React.FC = () => {
               >
                 <div className="content w-full lg:max-w-[520px] flex flex-col gap-8 lg:transform lg:-translate-y-[15%]">
                   <div className="mobile-text-container space-y-6">
-                    <h2 className="text-h1 font-bold leading-[1.1] text-primary normal-case">{block.title}</h2>
-                    <p className="text-[16px] md:text-[18px] lg:text-[20px] font-normal leading-[1.7] text-[#fcffff] opacity-75">{block.desc}</p>
+                    <h2 className="text-h1 font-bold leading-[1.1] text-primary normal-case">
+                      {block.title}
+                    </h2>
+                    <p className="text-[16px] md:text-[18px] lg:text-[20px] font-normal leading-[1.7] text-[#fcffff] opacity-75">
+                      {block.desc}
+                    </p>
                   </div>
 
                   <div className="mobile-img-container lg:hidden relative mt-8 w-full aspect-square min-h-[240px] rounded-[24px] overflow-hidden bg-[#060018] shadow-2xl">
@@ -318,7 +389,10 @@ const AboutOrigin: React.FC = () => {
             ))}
           </div>
 
-          <div className="arch__right hidden lg:flex col-span-6 h-screen sticky top-0 items-center justify-center" ref={archRightRef}>
+          <div
+            className="arch__right hidden lg:flex col-span-6 h-screen sticky top-0 items-center justify-center"
+            ref={archRightRef}
+          >
             <div className="relative w-full aspect-square max-w-[560px]">
               {CONTENT_BLOCKS.map((block) => (
                 <div

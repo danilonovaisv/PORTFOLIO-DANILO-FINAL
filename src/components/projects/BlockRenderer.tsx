@@ -53,62 +53,76 @@ export default function BlockRenderer({
       'mb-4 leading-relaxed',
     ].join(' ');
 
-    const style: React.CSSProperties = {};
-    if (config?.color && config.color.startsWith('#')) {
-      style.color = config.color;
-    }
+    const hexColor =
+      config?.color && config.color.startsWith('#') ? config.color : null;
+    const dynamicColorClass = hexColor
+      ? `md-text-${config.color.replace(/[^a-zA-Z0-9]/g, '')}`
+      : '';
 
     return (
-      <div
-        className={`prose prose-invert max-w-none ${className}`}
-        style={style}
-      >
-        <ReactMarkdown
-          components={{
-            p: ({ children }) => <p className={textClasses}>{children}</p>,
-            h1: ({ children }) => (
-              <h1
-                className={`${config?.textAlign || ''} font-bold text-4xl md:text-6xl mb-8`}
-              >
-                {children}
-              </h1>
-            ),
-            h2: ({ children }) => (
-              <h2
-                className={`${config?.textAlign || ''} font-bold text-3xl md:text-5xl mb-6`}
-              >
-                {children}
-              </h2>
-            ),
-            h3: ({ children }) => (
-              <h3
-                className={`${config?.textAlign || ''} font-bold text-2xl md:text-4xl mb-4`}
-              >
-                {children}
-              </h3>
-            ),
-            ul: ({ children }) => (
-              <ul className="list-disc pl-6 mb-4 space-y-2 text-left">
-                {children}
-              </ul>
-            ),
-            ol: ({ children }) => (
-              <ol className="list-decimal pl-6 mb-4 space-y-2 text-left">
-                {children}
-              </ol>
-            ),
-            li: ({ children }) => (
-              <li className={`${textClasses} mb-1`}>{children}</li>
-            ),
-            strong: ({ children }) => (
-              <strong className="font-bold text-white">{children}</strong>
-            ),
-            em: ({ children }) => <em className="italic">{children}</em>,
-          }}
+      <>
+        {hexColor && (
+          <style jsx global>{`
+            .${dynamicColorClass} {
+              color: ${hexColor};
+            }
+            .${dynamicColorClass} a {
+              color: ${hexColor};
+            }
+          `}</style>
+        )}
+
+        <div
+          className={`prose prose-invert max-w-none ${className} ${dynamicColorClass}`}
         >
-          {text}
-        </ReactMarkdown>
-      </div>
+          <ReactMarkdown
+            components={{
+              p: ({ children }) => <p className={textClasses}>{children}</p>,
+              h1: ({ children }) => (
+                <h1
+                  className={`${config?.textAlign || ''} font-bold text-4xl md:text-6xl mb-8`}
+                >
+                  {children}
+                </h1>
+              ),
+              h2: ({ children }) => (
+                <h2
+                  className={`${config?.textAlign || ''} font-bold text-3xl md:text-5xl mb-6`}
+                >
+                  {children}
+                </h2>
+              ),
+              h3: ({ children }) => (
+                <h3
+                  className={`${config?.textAlign || ''} font-bold text-2xl md:text-4xl mb-4`}
+                >
+                  {children}
+                </h3>
+              ),
+              ul: ({ children }) => (
+                <ul
+                  className={`${textClasses} list-disc pl-6 mb-4 space-y-2 text-left`}
+                >
+                  {children}
+                </ul>
+              ),
+              ol: ({ children }) => (
+                <ol
+                  className={`${textClasses} list-decimal pl-6 mb-4 space-y-2 text-left`}
+                >
+                  {children}
+                </ol>
+              ),
+              strong: ({ children }) => (
+                <strong className="font-bold text-white">{children}</strong>
+              ),
+              em: ({ children }) => <em className="italic">{children}</em>,
+            }}
+          >
+            {text}
+          </ReactMarkdown>
+        </div>
+      </>
     );
   };
 
