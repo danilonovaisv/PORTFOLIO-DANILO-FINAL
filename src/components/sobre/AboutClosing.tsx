@@ -1,5 +1,3 @@
-'use client';
-
 import { motion, useReducedMotion } from 'framer-motion';
 
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
@@ -24,15 +22,15 @@ export function AboutClosing() {
       >
         {/* Título Principal + Linhas */}
         <div className="flex flex-col items-center text-center">
-          <div className="h-px w-full max-w-[980px] bg-blueAccent/60 mb-8 md:mb-10" />
+          <div className="h-px w-full max-w-[980px] bg-blueAccent/60 mb-8 md:mb-10" /> 
           <h2 className="type-h2 font-semibold leading-tight text-white max-w-[900px] lowercase">
             hoje sou{' '}
             <span className="text-bluePrimary">diretor de criação</span>,
-            <br />
+            <br /> 
             com mais de{' '}
             <span className="text-bluePrimary">10 anos de estrada</span>.
           </h2>
-          <div className="h-px w-full max-w-[980px] bg-blueAccent/60 mt-8 md:mt-10" />
+          <div className="h-px w-full max-w-[980px] bg-blueAccent/60 mt-8 md:mt-10" /> 
         </div>
 
         <div className="mt-10 md:mt-12 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 lg:gap-12 items-center">
@@ -86,7 +84,7 @@ export function AboutClosing() {
                 href={cta.href}
                 text={cta.label}
                 className="relative"
-              />
+              /> 
             ))}
           </div>
         </div>
