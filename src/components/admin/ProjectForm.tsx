@@ -112,7 +112,9 @@ export function ProjectForm({
               file.name.replace(/\W+/g, '-'),
               file
             );
-            galleryEntries.push({ path });
+            if (path) {
+              galleryEntries.push({ path });
+            }
           }
         }
 

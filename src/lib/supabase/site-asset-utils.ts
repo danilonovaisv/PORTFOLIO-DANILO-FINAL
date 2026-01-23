@@ -26,7 +26,7 @@ export function normalizeAssetRecord(asset: DbAsset): NormalizedSiteAsset {
     .trim();
 
   const cleanPath = normalizeStoragePath(asset.file_path, cleanBucket);
-  const fixClientsPath = (path?: string) => {
+  const fixClientsPath = (path?: string | null) => {
     if (!path) return path;
     // Casos importados com prefixo duplicado "clients.clients.strip.X.svg"
     if (/^clients\.clients\.strip\./.test(path)) {
@@ -80,7 +80,7 @@ export function normalizeAssetRecord(asset: DbAsset): NormalizedSiteAsset {
     ...asset,
     key: cleanKey ?? asset.key,
     bucket: resolvedBucket,
-    file_path: cleanPath,
+    file_path: cleanPath ?? '',
     page: resolvedPage,
     resolvedPage,
     publicUrl,

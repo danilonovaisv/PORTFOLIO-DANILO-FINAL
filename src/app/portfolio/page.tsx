@@ -57,7 +57,7 @@ function buildFallbackProjects(): PortfolioProject[] {
         typeof project.year === 'number'
           ? project.year
           : Number(project.year) || new Date().getFullYear(),
-      image: project.img,
+      image: project.img || '',
       type: index < 4 ? 'A' : 'B',
       layout: {
         cols: layout.cols ?? 'md:col-span-4',

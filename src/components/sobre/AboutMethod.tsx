@@ -52,9 +52,9 @@ export default function AboutMethod() {
           <video
             key={isMobile ? 'mobile' : 'desktop'}
             src={
-              isMobile
+              (isMobile
                 ? ABOUT_CONTENT.method.videos.mobile
-                : ABOUT_CONTENT.method.videos.desktop
+                : ABOUT_CONTENT.method.videos.desktop) || ''
             }
             autoPlay
             loop

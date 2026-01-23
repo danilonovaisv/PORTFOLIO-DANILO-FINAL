@@ -16,11 +16,11 @@ export default function PortfolioHeroNew() {
   const isMobile = useMediaQuery('(max-width: 768px)');
   const desktopVideo = useSiteAssetUrl(
     SITE_ASSET_KEYS.heroVideos.portfolioDesktop,
-    PORTFOLIO_CONTENT.hero.video.desktop
+    PORTFOLIO_CONTENT.hero.video.desktop ?? undefined
   );
   const mobileVideo = useSiteAssetUrl(
     SITE_ASSET_KEYS.heroVideos.portfolioMobile,
-    PORTFOLIO_CONTENT.hero.video.mobile
+    PORTFOLIO_CONTENT.hero.video.mobile ?? undefined
   );
 
   // Seleciona o vídeo correto baseado no dispositivo

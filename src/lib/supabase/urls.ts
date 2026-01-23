@@ -20,7 +20,7 @@ export function getSupabaseBaseUrl(): string | null {
 
 export function normalizeStoragePath(
   filePath?: string | null,
-  bucket?: string,
+  bucket?: string
 ): string | null {
   if (!filePath) return null;
 
@@ -39,13 +39,13 @@ export function normalizeStoragePath(
 
   normalized = normalized.replace(
     /^https?:\/\/[^/]+\/storage\/v1\/(?:render\/image|object)\/public\//,
-    '',
+    ''
   );
 
   // Remove local /storage/v1/object/public prefix if the path was stored like that
   normalized = normalized.replace(
     /^\/?storage\/v1\/(?:render\/image|object)\/public\//,
-    '',
+    ''
   );
 
   normalized = normalized.replace(/^\/+/, '');
@@ -59,7 +59,7 @@ export function normalizeStoragePath(
 
 export function buildSupabaseStorageUrl(
   bucket: string,
-  filePath?: string | null,
+  filePath?: string | null
 ): string | null {
   if (!filePath) return null;
 

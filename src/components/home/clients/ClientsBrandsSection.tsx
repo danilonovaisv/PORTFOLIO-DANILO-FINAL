@@ -71,7 +71,7 @@ export default function ClientsBrandsSection() {
                   aria-label={logo.alt}
                 >
                   <Image
-                    src={logo.src}
+                    src={logo.src || ''}
                     alt={logo.alt}
                     fill
                     className="w-full h-full object-contain filter brightness-0 invert opacity-60 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110 will-change-transform"

@@ -52,22 +52,26 @@ const AboutOrigin: React.FC = () => {
   const originImage1 =
     useSiteAssetUrl(
       SITE_ASSET_KEYS.about.originImages[0],
-      buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[0].fallback)
+      buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[0].fallback) ||
+        undefined
     ) ?? buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[0].fallback);
   const originImage2 =
     useSiteAssetUrl(
       SITE_ASSET_KEYS.about.originImages[1],
-      buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[1].fallback)
+      buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[1].fallback) ||
+        undefined
     ) ?? buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[1].fallback);
   const originImage3 =
     useSiteAssetUrl(
       SITE_ASSET_KEYS.about.originImages[2],
-      buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[2].fallback)
+      buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[2].fallback) ||
+        undefined
     ) ?? buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[2].fallback);
   const originImage4 =
     useSiteAssetUrl(
       SITE_ASSET_KEYS.about.originImages[3],
-      buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[3].fallback)
+      buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[3].fallback) ||
+        undefined
     ) ?? buildSupabaseStorageUrl('site-assets', FALLBACK_BLOCKS[3].fallback);
 
   const CONTENT_BLOCKS = [
@@ -380,7 +384,7 @@ const AboutOrigin: React.FC = () => {
                   className="img-wrapper absolute inset-0 rounded-[24px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,1)] bg-[#040013]"
                 >
                   <Image
-                    src={block.img}
+                    src={block.img || ''}
                     alt={block.alt}
                     fill
                     className="w-full h-full object-cover will-change-transform"

@@ -71,7 +71,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
         
         {/* Category badge */}
         <div className="absolute top-6 left-6">
-          <span className="inline-flex items-center rounded-full bg-white/90 backdrop-blur-sm px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-gray-900">
+          <span className="inline-flex items-center rounded-full bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-[#040013]">
             {project.displayCategory}
           </span>
         </div>
@@ -157,7 +157,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-white/70"
+                  className="px-3 py-1.5 rounded-full bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 text-xs text-[#040013] font-medium"
                 >
                   {tag}
                 </span>

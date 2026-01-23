@@ -137,7 +137,8 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
       // Upload Cover
       let coverPath = initialData?.cover || '';
       if (cover) {
-        coverPath = await handleFileUpload(cover, `cover-${uuidv4()}`);
+        const path = await handleFileUpload(cover, `cover-${uuidv4()}`);
+        if (path) coverPath = path;
       }
 
       // Upload Block Assets
@@ -148,10 +149,11 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
 
           // Process File 1
           if (section.file) {
-            mediaPath = await handleFileUpload(
+            const path = await handleFileUpload(
               section.file,
               `block-${section.id}-media1`
             );
+            if (path) mediaPath = path;
           } else if (mediaPath && mediaPath.includes('/site-assets/')) {
             // Strip full URL to save relative path
             mediaPath = mediaPath.split('/site-assets/').pop() || '';
@@ -159,10 +161,11 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
 
           // Process File 2
           if (section.file2) {
-            media2Path = await handleFileUpload(
+            const path = await handleFileUpload(
               section.file2,
               `block-${section.id}-media2`
             );
+            if (path) media2Path = path;
           } else if (media2Path && media2Path.includes('/site-assets/')) {
             media2Path = media2Path.split('/site-assets/').pop() || '';
           }

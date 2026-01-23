@@ -80,7 +80,7 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
 
         {/* Category pill */}
         <div className="absolute top-4 left-4">
-          <span className="inline-flex items-center rounded-full bg-black/60 backdrop-blur-sm px-3 py-1 text-xs font-medium text-white">
+          <span className="inline-flex items-center rounded-full bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 px-3 py-1 text-xs font-medium text-[#040013]">
             {project.displayCategory}
           </span>
         </div>
@@ -181,7 +181,7 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-white/60"
+                className="px-3 py-1 rounded-full bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 text-xs text-[#040013] font-medium"
               >
                 {tag}
               </span>

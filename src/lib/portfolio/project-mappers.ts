@@ -16,7 +16,7 @@ type StaticProject = {
   client: string;
   year: number;
   tags: string[];
-  img: string;
+  img: string | null | undefined;
   layout: {
     h: string;
     cols: string;
@@ -126,8 +126,8 @@ function createGallery(project: DbProjectWithTags) {
   const entries = project.gallery ?? [];
   return entries
     .map((entry) => entry?.path)
-    .filter(Boolean)
-    .map((path) => buildSupabaseStorageUrl('portfolio-media', path!));
+    .filter((path): path is string => !!path)
+    .map((path) => buildSupabaseStorageUrl('portfolio-media', path));
 }
 
 function toVideoPreview(galleryUrls: string[]) {
@@ -194,7 +194,7 @@ export function mapStaticProjectToPortfolioProject(
   const detail = {
     description: project.title, // fallback
     highlights: tags.slice(0, 3),
-    gallery: [project.img],
+    gallery: project.img ? [project.img] : [],
   };
 
   return {
@@ -207,7 +207,7 @@ export function mapStaticProjectToPortfolioProject(
     displayCategory: project.category,
     tags,
     year: project.year,
-    image: project.img,
+    image: project.img || '',
     type,
     layout,
     detail,

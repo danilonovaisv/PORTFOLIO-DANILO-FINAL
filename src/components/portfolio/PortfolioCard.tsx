@@ -155,7 +155,7 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
         aria-hidden="true"
       >
         <motion.span
-          className="inline-flex items-center rounded-full bg-white/10 backdrop-blur-md border border-white/10 px-3 py-1.5 text-[10px] md:text-xs font-medium uppercase tracking-wide text-white"
+          className="inline-flex items-center rounded-full bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 px-3 py-1.5 text-[10px] md:text-xs font-medium uppercase tracking-wide text-[#040013]"
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
         >

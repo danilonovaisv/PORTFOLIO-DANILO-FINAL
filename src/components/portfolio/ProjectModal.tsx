@@ -145,7 +145,7 @@ export default function ProjectModal({
                   variants={metaVariants}
                   className="flex flex-wrap items-center gap-3 text-sm uppercase tracking-[0.18em] text-white/60"
                 >
-                  <span className="rounded-full bg-white/5 px-3 py-1 border border-white/10">
+                  <span className="bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 px-3 py-1 rounded-full text-[#040013] font-medium">
                     {project.category}
                   </span>
                   <span aria-hidden className="opacity-50">
@@ -180,7 +180,7 @@ export default function ProjectModal({
                   {(project.tags ?? []).map((tag: string) => (
                     <span
                       key={tag}
-                      className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.2em] text-accent"
+                      className="rounded-full border border-white/10 bg-[#E6EFEF]/60 backdrop-blur-md px-3 py-1 text-xs uppercase tracking-[0.2em] text-[#040013] font-medium"
                     >
                       {tag}
                     </span>

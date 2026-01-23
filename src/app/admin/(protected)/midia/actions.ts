@@ -65,7 +65,7 @@ export async function assignAssetRole(payload: AssignAssetRolePayload) {
 
   let file_path = currentPath;
 
-  if (file_path !== targetPath) {
+  if (file_path && file_path !== targetPath) {
     const { error: moveError } = await supabase.storage
       .from(existing.bucket)
       .move(file_path, targetPath);
@@ -100,10 +100,12 @@ export async function removeAsset(payload: {
       payload.file_path,
       payload.bucket
     );
-    const { error: storageError } = await supabase.storage
-      .from(payload.bucket)
-      .remove([normalizedPath]);
-    if (storageError) throw storageError;
+    if (normalizedPath) {
+      const { error: storageError } = await supabase.storage
+        .from(payload.bucket)
+        .remove([normalizedPath]);
+      if (storageError) throw storageError;
+    }
   }
   const { error } = await supabase
     .from('site_assets')
