@@ -25,7 +25,7 @@ export function AboutClosing() {
         {/* Bloco 1: Título Principal e Linhas */}
         <div className="w-full">
           <div className="mb-10 h-px w-full bg-blueAccent/30" />
-          <h2 className="type-h2 font-semibold leading-tight text-white md:leading-[1.2]">
+          <h2 className="type-h1 font-semibold leading-tight text-white md:leading-[1.2]">
             Hoje sou{' '}
             <span className="text-bluePrimary">Diretor de Criação</span>,
             <br />
@@ -44,7 +44,7 @@ export function AboutClosing() {
           </p>
 
           {/* Vídeo em Loop */}
-          <div className="mt-12 w-full max-w-[800px] overflow-hidden rounded-xl border border-white/10 shadow-2xl md:mt-16">
+          <div className="mt-12 w-full max-w-[800px] overflow-hidden rounded-xl shadow-2xl md:mt-11">
             <video
               className="aspect-video w-full object-cover"
               autoPlay
@@ -55,7 +55,7 @@ export function AboutClosing() {
               aria-label="Demonstração visual de experiências"
             >
               <source
-                src="" /* Link será enviado pelo usuário futuramente */
+                src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/VIDEO-SKILLS-FINAL_compressed.mp4" /* Link será enviado pelo usuário futuramente */
                 type="video/mp4"
               />
               Seu navegador não suporta vídeos.

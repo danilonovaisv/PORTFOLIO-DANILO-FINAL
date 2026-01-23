@@ -1,8 +1,43 @@
 'use client';
 
 import { useEffect, useState, use } from 'react';
+import Link from 'next/link';
 import { createClientComponentClient } from '@/lib/supabase/client';
 import LandingPageForm from '@/components/admin/LandingPageForm';
+
+function StatCard({
+  title,
+  value,
+  href,
+}: {
+  title: string;
+  value: number | null; // Make value nullable
+  href?: string;
+}) {
+  const CardContent = () => (
+    <>
+      <p className="text-sm text-slate-400">{title}</p>
+      <p className="text-3xl font-semibold mt-2">{value ?? 0}</p>
+    </>
+  );
+
+  if (href) {
+    return (
+      <Link
+        href={href}
+        className="rounded-xl border border-white/10 bg-slate-900/60 p-4 hover:bg-slate-800/60 transition-colors"
+      >
+        <CardContent />
+      </Link>
+    );
+  }
+
+  return (
+    <div className="rounded-xl border border-white/10 bg-slate-900/60 p-4">
+      <CardContent />
+    </div>
+  );
+}
 
 interface Props {
   params: Promise<{ id: string }>;
