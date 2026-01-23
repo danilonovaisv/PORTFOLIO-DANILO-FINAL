@@ -39,15 +39,17 @@ export const DesktopCard = ({
       whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
       variants={variants}
-      className="group flex h-full flex-col gap-3 rounded-[14px] bg-[#150d2f] px-4 py-5 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.5)] outline-none ring-1 ring-white/5 transition hover:-translate-y-1 hover:bg-[#1a1138] focus-visible:ring-2 focus-visible:ring-[#4fe6ff]"
+      className="group flex h-full min-h-[160px] flex-col gap-4 rounded-[14px] bg-[#150d2f] px-5 py-6 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.5)] outline-none ring-1 ring-white/5 transition hover:-translate-y-1 hover:bg-[#1a1138] focus-visible:ring-2 focus-visible:ring-[#4fe6ff]"
     >
-      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#204fff] text-white">
-        <ArrowUpRight size={18} />
+      <div className="flex items-center gap-3">
+        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#204fff] text-white">
+          <ArrowUpRight size={18} />
+        </span>
+        <p className="text-[1.05rem] font-semibold leading-snug text-white text-left">
+          <span className="text-[#2f57ff]">{firstWord}</span>{' '}
+          {restText}
+        </p>
       </div>
-      <p className="text-[1rem] font-semibold leading-snug text-white">
-        <span className="text-[#2f57ff]">{firstWord}</span>{' '}
-        {restText}
-      </p>
     </motion.article>
   );
 };

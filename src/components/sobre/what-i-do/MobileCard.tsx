@@ -39,7 +39,7 @@ export const MobileCard = ({
       whileInView="visible"
       viewport={{ once: true, amount: 0.25 }}
       variants={variants}
-      className="group flex w-full items-center gap-4 rounded-[12px] bg-[#150d2f] px-4 py-4 text-left shadow-[0_16px_40px_-28px_rgba(0,0,0,0.6)] outline-none ring-1 ring-white/5 transition hover:-translate-y-0.5 hover:bg-[#1a1138] focus-visible:ring-2 focus-visible:ring-[#4fe6ff]"
+      className="group flex w-full items-center gap-4 rounded-[12px] bg-[#150d2f] px-4 py-4 text-left shadow-[0_16px_40px_-28px_rgba(0,0,0,0.6)] outline-none ring-1 ring-white/5 transition hover:-translate-y-0.5 hover:bg-[#1a1138] focus-visible:ring-2 focus-visible:ring-[#4fe6ff] min-h-[76px]"
     >
       <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#204fff] text-white">
         <ArrowUpRight size={16} />
