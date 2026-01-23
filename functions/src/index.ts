@@ -18,6 +18,11 @@ import { dirname, resolve } from 'node:path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// Global variables to store Next.js app and initialization state
+let nextApp: any = null;
+let nextAppInitialized = false;
+let initPromise: Promise<void> | null = null;
+
 // Start writing functions
 // https://firebase.google.com/docs/functions/typescript
 
@@ -42,14 +47,39 @@ export const helloWorld = onRequest((request, response) => {
   response.send('Hello from Firebase!');
 });
 
-const nextApp = ((next as any).default || next)({
-  dev: false,
-  hostname: '0.0.0.0',
-  port: parseInt(process.env.PORT || '3000', 10),
-  conf: { distDir: '.next' },
-  dir: resolve(__dirname, '../'),
-});
-const handle = nextApp.getRequestHandler();
+// Initialize Next.js app with proper error handling
+async function initializeNextApp(): Promise<void> {
+  if (nextAppInitialized) {
+    return;
+  }
+
+  if (initPromise) {
+    // Wait for ongoing initialization to complete
+    await initPromise;
+    return;
+  }
+
+  try {
+    initPromise = (async () => {
+      nextApp = ((next as any).default || next)({
+        dev: false,
+        hostname: '0.0.0.0',
+        port: parseInt(process.env.PORT || '8080', 10),
+        conf: { distDir: '.next' },
+        dir: resolve(__dirname, '../'),
+      });
+
+      await nextApp.prepare();
+      nextAppInitialized = true;
+      logger.info('Next.js app prepared successfully');
+    })();
+    
+    await initPromise;
+  } catch (error) {
+    logger.error('Failed to initialize Next.js app:', error);
+    throw error;
+  }
+}
 
 // SSR Next.js Proxy
 export const ssr_modern = onRequest(
@@ -60,8 +90,14 @@ export const ssr_modern = onRequest(
   },
   async (req, res) => {
     try {
-      await nextApp.prepare();
-      handle(req, res);
+      await initializeNextApp();
+      
+      if (!nextApp) {
+        throw new Error('Next.js app is not initialized');
+      }
+      
+      const handle = nextApp.getRequestHandler();
+      return handle(req, res);
     } catch (err) {
       logger.error('SSR Error:', err);
       res.status(500).send('Internal Server Error - SSR Failed');
