@@ -1,3 +1,5 @@
+'use client';
+
 import { motion, useReducedMotion } from 'framer-motion';
 
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
@@ -10,81 +12,72 @@ export function AboutClosing() {
 
   return (
     <section
-      className="std-grid flex items-center justify-center bg-background py-20 md:py-24"
-      aria-label="Fechamento"
+      className="std-grid bg-background py-20 md:py-32"
+      aria-label="Fechamento do Manifesto"
     >
       <motion.div
         variants={motionTokens.fadeGhost}
         initial={prefersReducedMotion ? 'visible' : 'hidden'}
         whileInView="visible"
         viewport={{ once: true, margin: '-80px' }}
-        className="w-full max-w-[1200px]"
+        className="mx-auto flex w-full max-w-[1000px] flex-col items-center text-center"
       >
-        {/* Título Principal + Linhas */}
-        <div className="flex flex-col items-center text-center">
-          <div className="h-px w-full max-w-[980px] bg-blueAccent/60 mb-8 md:mb-10" /> 
-          <h2 className="type-h2 font-semibold leading-tight text-white max-w-[900px] lowercase">
-            hoje sou{' '}
-            <span className="text-bluePrimary">diretor de criação</span>,
-            <br /> 
+        {/* Bloco 1: Título Principal e Linhas */}
+        <div className="w-full">
+          <div className="mb-10 h-px w-full bg-blueAccent/30" />
+          <h2 className="type-h2 font-semibold leading-tight text-white md:leading-[1.2]">
+            Hoje sou{' '}
+            <span className="text-bluePrimary">Diretor de Criação</span>,
+            <br />
             com mais de{' '}
-            <span className="text-bluePrimary">10 anos de estrada</span>.
+            <span className="text-bluePrimary">10 anos de estrada.</span>
           </h2>
-          <div className="h-px w-full max-w-[980px] bg-blueAccent/60 mt-8 md:mt-10" /> 
+          <div className="mt-10 h-px w-full bg-blueAccent/30" />
         </div>
 
-        <div className="mt-10 md:mt-12 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 lg:gap-12 items-center">
-          {/* Parágrafos de Contexto */}
-          <div className="space-y-5 max-w-[560px] mx-auto text-center">
-            {ABOUT_CONTENT.closing.text.map((paragraph, idx) => (
-              <p
-                key={idx}
-                className="type-body text-text leading-relaxed opacity-90"
-              >
-                {paragraph}
-              </p>
-            ))}
+        {/* Bloco 2: Frase 1 e Vídeo */}
+        <div className="mt-16 md:mt-20 flex flex-col items-center">
+          <p className="type-h2 text-text opacity-90 max-w-[800px] leading-snug">
+            Já liderei marcas, agências, eventos e{' '}
+            <span className="text-bluePrimary">criei experiências</span> para
+            todos os canais.
+          </p>
 
-            {/* Vídeo - Adicionado após a frase sobre liderança */}
-            <div className="mt-6 md:mt-8 flex justify-center">
-              <video
-                className="w-full max-w-[560px] rounded-lg shadow-lg"
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
-                aria-label="Vídeo de apresentação do trabalho"
-                style={{ aspectRatio: '16 / 9' }}
-              >
-                {/* Placeholder para o link do vídeo que será fornecido posteriormente */}
-                <source src="" type="video/mp4" /> 
-                Seu navegador não suporta vídeos.
-              </video>
-            </div>
-            {/* Vídeo após a frase sobre experiências */}
-            <div className="mt-6 md:mt-8 flex justify-center">
-              <video
-                src="/path/to/video.mp4" /* Placeholder - link será substituído posteriormente */
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full max-w-[560px] rounded-lg shadow-xl"
-                aria-label="Demonstração visual da experiência criativa"
-                style={{ aspectRatio: '16 / 9' }}
-              ></video>
-            </div>
+          {/* Vídeo em Loop */}
+          <div className="mt-12 w-full max-w-[800px] overflow-hidden rounded-xl border border-white/10 shadow-2xl md:mt-16">
+            <video
+              className="aspect-video w-full object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              aria-label="Demonstração visual de experiências"
+            >
+              <source
+                src="" /* Link será enviado pelo usuário futuramente */
+                type="video/mp4"
+              />
+              Seu navegador não suporta vídeos.
+            </video>
+          </div>
+        </div>
 
-          {/* CTAs - Using AntigravityCTA component */}
-          <div className="flex flex-col sm:flex-row lg:flex-col items-center justify-center gap-6 md:gap-8 justify-self-center">
+        {/* Bloco 3: Frase 2 e CTAs */}
+        <div className="mt-16 md:mt-20 flex flex-col items-center">
+          <p className="type-h2 text-text opacity-90 leading-snug">
+            Agora, quero criar algo que permaneça —{' '}
+            <span className="text-bluePrimary">com você.</span>
+          </p>
+
+          <div className="mt-12 flex flex-row flex-wrap items-center justify-center gap-6 md:mt-16 md:gap-8">
             {ABOUT_CONTENT.closing.ctas.map((cta, index) => (
               <AntigravityCTA
                 key={index}
                 href={cta.href}
                 text={cta.label}
-                className="relative"
-              /> 
+                className="relative min-w-[200px]"
+              />
             ))}
           </div>
         </div>
