@@ -1,35 +1,49 @@
+# Project Audit Workflow
+# Runs periodic lint, security, and quality audits
+# Triggered manually or via weekly schedule
+
 name: 🔍 Project Audit
 
 on:
   schedule:
-    - cron: '0 3 * * 1' # toda segunda-feira às 3h UTC
-  workflow_dispatch: # execução manual
+    - cron: '0 3 * * 1' # Every Monday at 3 AM UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  security-events: write
 
 jobs:
   audit:
     runs-on: ubuntu-latest
+
     steps:
-      - name: 🛠️ Checkout do repositório
+      - name: 🛠️ Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - name: ⚙️ Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'npm'
+          node-version: '20'
+          cache: 'pnpm'
 
-      - name: ⚙️ Instalar dependências
-        run: npm ci
+      - name: ⚙️ Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      - name: 🔍 Rodar auditoria
-        run: npm run analyze:project
+      - name: 🔍 Run project audit
+        run: pnpm run analyze:project
 
-      - name: 💾 Commit do relatório
+      - name: 💾 Commit audit report
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add project-audit-report.md
-          git commit -m "📊 Atualização automática: auditoria do projeto"
+          git diff --cached --quiet || git commit -m "📊 Auto-update: project audit report"
           git push

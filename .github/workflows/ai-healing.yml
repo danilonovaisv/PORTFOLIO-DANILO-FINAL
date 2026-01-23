@@ -1,57 +1,79 @@
+# AI Self-Healing Agent Workflow
+# Automatically analyzes deployment failures and suggests fixes
+# Triggered when Firebase deploy workflows fail
+#
+# HOW TO USE:
+# - This workflow runs automatically when a deploy fails
+# - You can also trigger it manually via workflow_dispatch
+# - Creates a GitHub issue with AI-generated fix suggestions
+
 name: 🛡️ AI Self-Healing Agent
 
 on:
   workflow_run:
     workflows:
-      - Deploy to Firebase Hosting on merge
-      - Deploy to Firebase Hosting on PR
+      - Firebase Hosting Merge
+      - Firebase Hosting PR Preview
     types:
       - completed
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'Workflow run ID to analyze'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
 
 jobs:
   analyze-and-fix:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    permissions:
-      contents: write
-      pull-requests: write
-      issues: write
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'failure' }}
+
     env:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
     steps:
-      - name: 📥 Checkout do Código
+      - name: 📥 Checkout code
         uses: actions/checkout@v4
 
-      - name: 🔍 Obter Logs de Erro
+      - name: 🔍 Get error logs
         id: get_logs
         run: |
-          gh run view ${{ github.event.workflow_run.id }} --log-failed > error_logs.txt
+          RUN_ID="${{ github.event.inputs.run_id || github.event.workflow_run.id }}"
+          if [ -n "$RUN_ID" ]; then
+            gh run view "$RUN_ID" --log-failed > error_logs.txt || echo "No failed logs found" > error_logs.txt
+          else
+            echo "No workflow run ID available" > error_logs.txt
+          fi
         env:
           GH_TOKEN: ${{ github.token }}
 
-      - name: 🤖 Análise Gemini AI
+      - name: 🤖 Gemini AI Analysis
         id: gemini_analysis
         uses: google-github-actions/run-gemini-cli@v0.1.18
         with:
           api-key: ${{ secrets.GEMINI_API_KEY }}
           prompt: |
-            Analisa estes logs de erro de um projeto Next.js com Three.js e Firebase App Hosting:
+            Analyze these error logs from a Next.js project with Three.js and Firebase Hosting:
             $(cat error_logs.txt)
 
-            O erro ocorreu durante o deploy do workflow "Deploy to Firebase App Hosting".
-            Verifica o ficheiro next.config.mjs e firebase.json.
-            Explica o que falhou e fornece o código corrigido.
+            The error occurred during the deploy workflow.
+            Check the files next.config.mjs and firebase.json.
+            Explain what failed and provide corrected code.
           files: |
             error_logs.txt
             next.config.mjs
             firebase.json
 
-      - name: 🛠️ Criar Issue de Correção Automática
+      - name: 🛠️ Create fix suggestion issue
         if: always()
         run: |
           gh issue create \
-            --title "🤖 Sugestão de Correção: Falha no Deploy" \
-            --body "A IA analisou os logs e sugere as seguintes alterações: \n\n ${{ steps.gemini_analysis.outputs.response }}"
+            --title "🤖 Auto-fix Suggestion: Deploy Failure" \
+            --body "AI analyzed the logs and suggests the following changes: \n\n ${{ steps.gemini_analysis.outputs.response }}"
         env:
           GH_TOKEN: ${{ github.token }}
