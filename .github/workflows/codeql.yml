@@ -1,0 +1,151 @@
+# For most projects, this workflow file will not need changing; you simply need
+# to commit it to your repository.
+#
+# You may wish to alter this file to override the set of languages analyzed,
+# or to provide custom queries or build logic.
+#
+# ******** NOTE ********
+# We have attempted to detect the languages in your repository. Please check
+# the `language` matrix defined below to confirm you have the correct set of
+# supported CodeQL languages.
+#
+name: "CodeQL Advanced"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    # Only trigger on code changes, not documentation or config files
+    paths-ignore:
+      - '**/*.md'
+      - '**/*.txt'
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/PULL_REQUEST_TEMPLATE/**'
+  schedule:
+    - cron: '27 21 * * 2'  # Executa toda terça-feira às 21:27 UTC
+  workflow_dispatch:  # Permite execução manual
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    # Runner size impacts CodeQL analysis time. To learn more, please see:
+    #   - https://gh.io/recommended-hardware-resources-for-running-codeql  
+    #   - https://gh.io/supported-runners-and-hardware-resources  
+    #   - https://gh.io/using-larger-runners   (GitHub.com only)
+    # 
+    # Choose appropriate runner based on repository size:
+    # - small (<100K LOC): ubuntu-latest (default)
+    # - medium (100K-1M LOC): ubuntu-latest-16-cores (if available)
+    # - large (>1M LOC): ubuntu-latest-32-cores (if available)
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    
+    permissions:
+      # Required permissions for code scanning
+      security-events: write  # Needed to upload SARIF results
+      actions: read            # Required for private repositories
+      contents: read           # Required to access repository code
+      packages: read           # Required to fetch CodeQL packs
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - language: actions
+          build-mode: none
+          # GitHub Actions workflows don't require building
+        - language: javascript-typescript
+          build-mode: none
+          # JavaScript/TypeScript typically don't need explicit build for CodeQL
+          # Enable dependency caching for faster analysis
+          enable-dependency-caching: true
+        - language: python
+          build-mode: none
+          # Python analysis benefits from dependency caching
+          enable-dependency-caching: true
+        # CodeQL supports the following values for 'language': 
+        # 'actions', 'c-cpp', 'csharp', 'go', 'java-kotlin', 'javascript-typescript', 'python', 'ruby', 'rust', 'swift'
+        # 
+        # Build modes:
+        # - 'none': No build required (for interpreted languages or Java/C# with default setup)
+        # - 'autobuild': Automatic build detection
+        # - 'manual': Custom build commands
+        #
+        # For compiled languages that require building, uncomment and configure appropriate entries:
+        # - language: c-cpp
+        #   build-mode: autobuild
+        # - language: java-kotlin
+        #   build-mode: autobuild
+        # - language: csharp
+        #   build-mode: autobuild
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        # Fetch more history for better results in detecting changes
+        fetch-depth: 2
+
+    # Setup Node.js only if needed for the repository (uncomment if required)
+    # - name: Setup Node.js environment
+    #   if: ${{ matrix.language == 'javascript-typescript' }}
+    #   uses: actions/setup-node@v6.2.0
+    #   with:
+    #     node-version-file: 'package.json'
+    #     cache: 'npm'  # or 'yarn' or 'pnpm'
+
+    # Setup Python only if needed for the repository (uncomment if required)
+    # - name: Setup Python environment
+    #   if: ${{ matrix.language == 'python' }}
+    #   uses: actions/setup-python@v5
+    #   with:
+    #     python-version-file: '.python-version'
+    #     cache: 'pip'  # or 'poetry'
+
+    # Initializes the CodeQL tools for scanning.
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v4
+      with:
+        languages: ${{ matrix.language }}
+        build-mode: ${{ matrix.build-mode }}
+        # Enable dependency caching for supported languages to improve performance
+        dependency-caching: ${{ matrix.enable-dependency-caching || false }}
+        # For more details on CodeQL's query packs, refer to:
+        # https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
+        # 
+        # Use security-extended for more comprehensive scanning or security-and-quality
+        # for the most comprehensive analysis including quality and maintainability checks
+        queries: security-extended,security-and-quality
+
+    # Build steps for compiled languages using manual build mode
+    - name: Run manual build steps
+      if: ${{ matrix.build-mode == 'manual' }}
+      run: |
+        echo "Manual build steps required for ${{ matrix.language }}"
+        echo "Customize these commands based on your project's build system"
+        echo "Example for C/C++:"
+        echo "  make clean"
+        echo "  make all"
+        echo ""
+        echo "Example for Java:"
+        echo "  mvn clean compile"
+        echo ""
+        echo "Example for C#:"
+        echo "  dotnet build"
+        # Fail the step to prevent accidental execution without customization
+        exit 1
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v4
+      with:
+        category: "/language:${{ matrix.language }}"
+      continue-on-error: true  # Continue even if analysis has errors
+
+    - name: Upload analysis results as artifact
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: codeql-analysis-failure-${{ matrix.language }}
+        path: |
+          ${{ github.workspace }}/**/*.sarif
+          ${{ github.workspace }}/**/*.log
