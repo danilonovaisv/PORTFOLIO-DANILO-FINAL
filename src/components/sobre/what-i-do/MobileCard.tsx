@@ -1,5 +1,6 @@
 'use client';
 
+import { ArrowUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface MobileCardProps {
@@ -13,17 +14,18 @@ export const MobileCard = ({
   text,
   prefersReducedMotion,
 }: MobileCardProps) => {
-  const formattedNumber = `${index + 1}`.padStart(2, '0');
+  const [firstWord, ...restWords] = text.split(' ');
+  const restText = restWords.join(' ');
 
   const variants = {
-    hidden: { opacity: 0, y: 20, filter: 'blur(8px)' },
+    hidden: { opacity: 0, y: 16, filter: 'blur(6px)' },
     visible: {
       opacity: 1,
       y: 0,
       filter: 'blur(0px)',
       transition: {
-        duration: 0.8,
-        delay: index * 0.1,
+        duration: 0.55,
+        delay: index * 0.08,
         ease: [0.22, 1, 0.36, 1] as const,
       },
     },
@@ -35,15 +37,16 @@ export const MobileCard = ({
       aria-label={text}
       initial={prefersReducedMotion ? 'visible' : 'hidden'}
       whileInView="visible"
-      viewport={{ once: true, margin: '-10%' }}
+      viewport={{ once: true, amount: 0.25 }}
       variants={variants}
-      className="card-shell group relative flex flex-col items-center justify-center text-center text-white outline-none bg-[#0048ff] w-full h-auto py-6 rounded-[12px] px-6 gap-2 hover:brightness-110 focus-visible:ring-2 focus-visible:ring-[#4fe6ff]"
+      className="group flex w-full items-center gap-4 rounded-[12px] bg-[#150d2f] px-4 py-4 text-left shadow-[0_16px_40px_-28px_rgba(0,0,0,0.6)] outline-none ring-1 ring-white/5 transition hover:-translate-y-0.5 hover:bg-[#1a1138] focus-visible:ring-2 focus-visible:ring-[#4fe6ff]"
     >
-      <div className="text-[1.75rem] font-black leading-none text-[#8705f2] transition-colors duration-200 group-hover:text-white">
-        {formattedNumber}
-      </div>
-      <p className="text-[1rem] font-bold leading-[1.4] whitespace-normal wrap-break-word">
-        <span className="text-white">{text}</span>
+      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#204fff] text-white">
+        <ArrowUpRight size={16} />
+      </span>
+      <p className="text-base font-semibold leading-snug text-white">
+        <span className="text-[#2f57ff]">{firstWord}</span>{' '}
+        {restText}
       </p>
     </motion.article>
   );

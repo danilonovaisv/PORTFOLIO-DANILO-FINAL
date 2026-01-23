@@ -1,93 +1,52 @@
 'use client';
 
-import { motion, useSpring, useTransform, MotionValue } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface DesktopCardProps {
   index: number;
   text: string;
-  scrollProgress: MotionValue<number>;
   prefersReducedMotion: boolean;
 }
 
 export const DesktopCard = ({
   index,
   text,
-  scrollProgress,
   prefersReducedMotion,
 }: DesktopCardProps) => {
-  const staggerDelay = index * 0.02;
+  const [firstWord, ...restWords] = text.split(' ');
+  const restText = restWords.join(' ');
 
-  const translateX = useTransform(
-    scrollProgress,
-    [0.05 + staggerDelay, 0.25 + staggerDelay, 0.8],
-    ['60vw', '0vw', '0vw']
-  );
-
-  const opacity = useTransform(
-    scrollProgress,
-    [0.05 + staggerDelay, 0.2 + staggerDelay],
-    [0, 1]
-  );
-
-  const blur = useTransform(
-    scrollProgress,
-    [0.05 + staggerDelay, 0.2 + staggerDelay],
-    [8, 0]
-  );
-
-  const smoothX = useSpring(translateX, {
-    stiffness: 40,
-    damping: 30,
-    restDelta: 0.001,
-  });
-
-  const smoothOpacity = useSpring(opacity, {
-    stiffness: 40,
-    damping: 30,
-    restDelta: 0.001,
-  });
-
-  const smoothBlur = useSpring(blur, {
-    stiffness: 40,
-    damping: 30,
-    restDelta: 0.001,
-  });
-
-  const formattedNumber = `${index + 1}`.padStart(2, '0');
-
-  if (prefersReducedMotion) {
-    return (
-      <article
-        tabIndex={0}
-        aria-label={text}
-        className="card-shell group relative flex flex-row items-center text-white outline-none bg-[#0048ff] w-[260px] shrink-0 rounded-[16px] px-5 py-5 gap-4 focus-visible:ring-2 focus-visible:ring-[#4fe6ff]"
-      >
-        <div className="text-[2.5rem] font-black leading-none text-[#8705f2]">
-          {formattedNumber}
-        </div>
-        <p className="text-[0.95rem] font-bold leading-tight">
-          <span className="text-white">{text}</span>
-        </p>
-      </article>
-    );
-  }
+  const variants = {
+    hidden: { opacity: 0, y: 12, filter: 'blur(6px)' },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      transition: {
+        duration: 0.5,
+        delay: index * 0.05,
+        ease: [0.22, 1, 0.36, 1] as const,
+      },
+    },
+  };
 
   return (
     <motion.article
       tabIndex={0}
       aria-label={text}
-      className="card-shell group relative flex flex-row items-center text-white outline-none will-change-transform bg-[#0048ff] w-[260px] shrink-0 rounded-[16px] px-5 py-5 gap-4 hover:brightness-110 focus-visible:ring-2 focus-visible:ring-[#4fe6ff]"
-      style={{
-        x: smoothX,
-        opacity: smoothOpacity,
-        filter: useTransform(smoothBlur, (v) => `blur(${v}px)`),
-      }}
+      initial={prefersReducedMotion ? 'visible' : 'hidden'}
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={variants}
+      className="group flex h-full flex-col gap-3 rounded-[14px] bg-[#150d2f] px-4 py-5 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.5)] outline-none ring-1 ring-white/5 transition hover:-translate-y-1 hover:bg-[#1a1138] focus-visible:ring-2 focus-visible:ring-[#4fe6ff]"
     >
-      <div className="text-[2.5rem] font-black leading-none text-[#8705f2] transition-colors duration-200 group-hover:text-white">
-        {formattedNumber}
+      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#204fff] text-white">
+        <ArrowUpRight size={18} />
       </div>
-      <p className="text-[0.95rem] font-bold leading-tight">
-        <span className="text-white">{text}</span>
+      <p className="text-[1rem] font-semibold leading-snug text-white">
+        <span className="text-[#2f57ff]">{firstWord}</span>{' '}
+        {restText}
       </p>
     </motion.article>
   );

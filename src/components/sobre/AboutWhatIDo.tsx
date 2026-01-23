@@ -1,7 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
-import { motion, useReducedMotion, useScroll, useSpring } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 import { ABOUT_CONTENT } from '@/config/content';
 
@@ -9,87 +8,57 @@ import { DesktopCard } from './what-i-do/DesktopCard';
 import { MobileCard } from './what-i-do/MobileCard';
 
 export function AboutWhatIDo() {
-  const sectionRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = !!useReducedMotion();
-
-  // Scroll progress para toda a seção (Desktop)
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
-
-  // Spring global mais suave: animação editorial e silenciosa
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 40,
-    damping: 30,
-    restDelta: 0.001,
-  });
-
   const cards = ABOUT_CONTENT.whatIDo.cards;
+  const marquee = ABOUT_CONTENT.whatIDo.marquee;
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative w-full bg-[#040013] py-20 text-white lg:py-32"
-    >
-      <div className="mx-auto max-w-[1200px] px-6 lg:px-8">
-        {/* Header */}
-        <header className="mb-12 text-center lg:mb-20">
+    <section className="relative w-full bg-[#040013] py-16 text-white lg:py-24">
+      <div className="mx-auto max-w-[1300px] px-6 lg:px-8">
+        <header className="mb-10 text-center lg:mb-14">
           <motion.h2
             initial={
               prefersReducedMotion
                 ? { opacity: 1, y: 0 }
-                : { opacity: 0, y: 24 }
+                : { opacity: 0, y: 18 }
             }
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as const }}
-            className="font-display text-[2rem] font-black leading-[1.1] tracking-tight text-white lg:text-[4rem]"
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
+            className="font-display text-[2.1rem] font-black leading-tight tracking-tight text-white sm:text-[2.6rem] lg:text-[3.4rem]"
           >
-            Do <span className="text-[#0048ff]">insight</span> ao{' '}
-            <span className="text-[#0048ff]">impacto</span>.
+            Do <span className="text-[#2f57ff]">insight</span> ao{' '}
+            <span className="text-[#2f57ff]">impacto</span>.
           </motion.h2>
           <motion.p
             initial={
               prefersReducedMotion
                 ? { opacity: 1, y: 0 }
-                : { opacity: 0, y: 16 }
+                : { opacity: 0, y: 14 }
             }
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{
-              duration: 0.6,
-              delay: 0.15,
-              ease: [0.22, 1, 0.36, 1] as const,
-            }}
-            className="mt-4 text-base font-medium text-[#a1a3a3] lg:mt-6 lg:text-xl"
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mt-4 text-base font-semibold text-[#cfd0d7] sm:text-lg lg:mt-5 lg:text-xl"
           >
             Mesmo quando você não percebe.
           </motion.p>
         </header>
-      </div>
 
-      {/* DESKTOP: Cards com animação horizontal full-viewport */}
-      {/* DESKTOP: Cards com animação horizontal full-viewport */}
-      <div className="hidden lg:block relative w-full overflow-hidden py-8">
-        {/* Container flex com GAP REDUZIDO */}
-        <div className="flex flex-row flex-nowrap gap-3 items-center justify-center">
+        {/* Desktop / large layout */}
+        <div className="hidden lg:grid lg:grid-cols-7 lg:gap-4">
           {cards.map((service, index) => (
             <DesktopCard
               key={service.id}
               index={index}
               text={service.text}
-              scrollProgress={smoothProgress}
               prefersReducedMotion={prefersReducedMotion}
             />
           ))}
         </div>
-      </div>
 
-      {/* MOBILE: Barras com entrada e depois seguem scroll normal */}
-      {/* MOBILE: Barras com entrada e depois seguem scroll normal */}
-      <div className="lg:hidden mx-auto max-w-[1200px] px-6">
-        <div className="flex flex-col gap-3 w-full">
+        {/* Mobile layout */}
+        <div className="lg:hidden flex flex-col gap-3">
           {cards.map((service, index) => (
             <MobileCard
               key={service.id}
@@ -99,6 +68,30 @@ export function AboutWhatIDo() {
             />
           ))}
         </div>
+      </div>
+
+      {/* Marquee bar */}
+      <div className="relative mt-12 overflow-hidden bg-[#1c2bff] py-3">
+        <div className="marquee flex whitespace-nowrap text-sm font-semibold uppercase tracking-[0.25em] text-white">
+          {[...marquee, ...marquee].map((item, idx) => (
+            <span key={`${item}-${idx}`} className="mx-4">
+              {item} •
+            </span>
+          ))}
+        </div>
+        <style jsx>{`
+          .marquee {
+            animation: marquee 18s linear infinite;
+          }
+          @keyframes marquee {
+            from {
+              transform: translateX(0);
+            }
+            to {
+              transform: translateX(-50%);
+            }
+          }
+        `}</style>
       </div>
     </section>
   );
