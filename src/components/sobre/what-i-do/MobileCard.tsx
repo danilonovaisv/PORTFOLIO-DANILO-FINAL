@@ -45,8 +45,7 @@ export const MobileCard = ({
         <ArrowUpRight size={16} />
       </span>
       <p className="text-base font-semibold leading-snug text-white">
-        <span className="text-[#2f57ff]">{firstWord}</span>{' '}
-        {restText}
+        <span className="text-[#2f57ff]">{firstWord}</span> {restText}
       </p>
     </motion.article>
   );

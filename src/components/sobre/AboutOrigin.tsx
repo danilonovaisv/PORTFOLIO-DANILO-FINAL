@@ -13,6 +13,8 @@ import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 gsap.registerPlugin(ScrollTrigger);
 
 // cspell:ignore webp gsap
+type FallbackImage = `${string}.${'webp' | 'jpg' | 'png'}`;
+
 const FALLBACK_BLOCKS = [
   {
     id: '1',
@@ -42,18 +44,22 @@ const FALLBACK_BLOCKS = [
     fallback: 'about/origin/about.origin_image.4.webp',
     alt: 'Expansão com propósito - intuição + tecnologia',
   },
-];
+] as const satisfies ReadonlyArray<{
+  id: string;
+  title: string;
+  desc: string;
+  fallback: FallbackImage;
+  alt: string;
+}>;
 
-const AboutOrigin: React.FC = () => {
+function AboutOrigin() {
   const containerRef = useRef<HTMLDivElement>(null);
   const archRef = useRef<HTMLDivElement>(null);
   const archRightRef = useRef<HTMLDivElement>(null);
-  const lenisRef = useRef<Lenis | null>(null);
-  const rafId = useRef<number>(0);
   const [isClient, setIsClient] = useState(false);
 
   // Resolver URLs de imagem com fallback seguro
-  const resolveFallback = (path: string) =>
+  const resolveFallback = (path: FallbackImage) =>
     buildSupabaseStorageUrl('site-assets', path) ?? undefined;
 
   const originImage1 =
@@ -94,18 +100,18 @@ const AboutOrigin: React.FC = () => {
   useEffect(() => {
     if (!isClient) return;
 
+    let rafId = 0;
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       touchMultiplier: 2,
     });
-    lenisRef.current = lenis;
 
-    const raf = (time: number) => {
+    const raf = (time: DOMHighResTimeStamp) => {
       lenis.raf(time);
-      rafId.current = requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     };
-    rafId.current = requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     lenis.on('scroll', ScrollTrigger.update);
 
@@ -321,7 +327,7 @@ const AboutOrigin: React.FC = () => {
 
     return () => {
       window.removeEventListener('load', refreshST);
-      if (rafId.current) cancelAnimationFrame(rafId.current);
+      if (rafId) cancelAnimationFrame(rafId);
       mm.revert();
       lenis.destroy();
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
@@ -331,7 +337,7 @@ const AboutOrigin: React.FC = () => {
   if (!isClient) {
     return (
       <section className="relative w-full overflow-hidden transition-colors duration-1000">
-        <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-24">
+        <div className="max-w-420 mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-24">
           <div className="mb-24 text-center select-none">
             <h1 className="text-[1.75rem] font-['CustomLight'] font-light leading-none text-[#4fe6ff] tracking-[0.2em] uppercase">
               LOADING...
@@ -347,7 +353,7 @@ const AboutOrigin: React.FC = () => {
       className="relative w-full overflow-hidden transition-colors duration-1000"
       ref={containerRef}
     >
-      <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-24">
+      <div className="max-w-420 mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-24">
         <div className="mb-24 text-center select-none">
           <h1 className="text-[1.75rem] font-['CustomLight'] font-light leading-none text-[#4fe6ff] tracking-[0.2em] uppercase">
             ORIGEM
@@ -355,7 +361,7 @@ const AboutOrigin: React.FC = () => {
         </div>
 
         <div
-          className="arch relative grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 md:gap-12 max-w-[1440px] mx-auto"
+          className="arch relative grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 md:gap-12 max-w-360 mx-auto"
           ref={archRef}
         >
           <div className="col-span-4 md:col-span-8 lg:col-span-6 flex flex-col">
@@ -364,7 +370,7 @@ const AboutOrigin: React.FC = () => {
                 key={block.id}
                 className="arch__info min-h-screen lg:h-[120vh] flex flex-col justify-center mb-24 lg:mb-0 items-center text-center lg:items-end lg:text-right"
               >
-                <div className="content w-full lg:max-w-[520px] flex flex-col gap-8 lg:transform lg:-translate-y-[15%]">
+                <div className="content w-full lg:max-w-130 flex flex-col gap-8 lg:transform lg:-translate-y-[15%]">
                   <div className="mobile-text-container space-y-6">
                     <h2 className="text-h1 font-bold leading-[1.1] text-primary normal-case">
                       {block.title}
@@ -374,7 +380,7 @@ const AboutOrigin: React.FC = () => {
                     </p>
                   </div>
 
-                  <div className="mobile-img-container lg:hidden relative mt-8 w-full aspect-square min-h-[240px] rounded-[24px] overflow-hidden bg-[#060018] shadow-2xl">
+                  <div className="mobile-img-container lg:hidden relative mt-8 w-full aspect-square min-h-60 rounded-3xl overflow-hidden bg-[#060018] shadow-2xl">
                     <Image
                       src={block.img || '/placeholder-image.jpg'} // Correção do erro de tipo no src
                       alt={block.alt}
@@ -393,11 +399,11 @@ const AboutOrigin: React.FC = () => {
             className="arch__right hidden lg:flex col-span-6 h-screen sticky top-0 items-center justify-center"
             ref={archRightRef}
           >
-            <div className="relative w-full aspect-square max-w-[560px]">
+            <div className="relative w-full aspect-square max-w-140">
               {CONTENT_BLOCKS.map((block) => (
                 <div
                   key={`desktop-img-${block.id}`}
-                  className="img-wrapper absolute inset-0 rounded-[24px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,1)] bg-[#040013]"
+                  className="img-wrapper absolute inset-0 rounded-3xl overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,1)] bg-[#040013]"
                 >
                   <Image
                     src={block.img || '/placeholder-image.jpg'} // Correção do erro de tipo no src
@@ -415,6 +421,6 @@ const AboutOrigin: React.FC = () => {
       </div>
     </section>
   );
-};
+}
 
 export default AboutOrigin;

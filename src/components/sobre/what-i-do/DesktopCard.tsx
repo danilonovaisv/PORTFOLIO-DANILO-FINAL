@@ -46,8 +46,7 @@ export const DesktopCard = ({
           <ArrowUpRight size={18} />
         </span>
         <p className="text-[1.05rem] font-semibold leading-snug text-white text-left">
-          <span className="text-[#2f57ff]">{firstWord}</span>{' '}
-          {restText}
+          <span className="text-[#2f57ff]">{firstWord}</span> {restText}
         </p>
       </div>
     </motion.article>
