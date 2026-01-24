@@ -60,7 +60,7 @@ export default function PortfolioHeroNew() {
 
       {/* Hero Content - Title & CTA Fixed Bottom */}
       <div className="absolute bottom-0 left-0 w-full z-30 pb-8 md:pb-12">
-        <div className="std-grid items-end gap-6 md:gap-0">
+        <div className="std-grid grid grid-cols-1 md:grid-cols-12 items-center gap-6 md:gap-0">
           {/* Title - Left aligned on desktop, Centered/Left on mobile */}
           <div className="col-span-full md:col-span-7 lg:col-span-8 flex flex-col items-center md:items-start text-center md:text-left">
             <h1
@@ -75,7 +75,7 @@ export default function PortfolioHeroNew() {
           </div>
 
           {/* CTA - Right aligned on desktop, Centered on mobile */}
-          <div className="col-span-full md:col-span-6 lg:col-span-5 flex justify-center md:justify-end pb-2">
+          <div className="col-span-full md:col-span-6 lg:col-span-5 flex justify-center md:justify-end">
             <AntigravityCTA
               href="#contact" // Âncora para a seção de contato na mesma página (padrão para páginas internas)
               text="vamos trabalhar juntos"
