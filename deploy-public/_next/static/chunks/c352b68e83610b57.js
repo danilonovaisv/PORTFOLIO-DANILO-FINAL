@@ -1,1 +1,26 @@
-(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,30588,e=>{"use strict";var t=e.i(96148),r=e.i(84833);function i(){let e=(0,r.useRef)(null);return(0,r.useEffect)(()=>{e.current&&(e.current.src="/404.html")},[]),(0,t.jsx)("div",{style:{width:"100%",height:"100vh",overflow:"hidden"},children:(0,t.jsx)("iframe",{ref:e,style:{width:"100%",height:"100%",border:"none"},title:"404 Not Found"})})}e.s(["default",()=>i])}]);
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push([
+  'object' == typeof document ? document.currentScript : void 0,
+  30588,
+  (e) => {
+    'use strict';
+    var t = e.i(96148),
+      r = e.i(84833);
+    function i() {
+      let e = (0, r.useRef)(null);
+      return (
+        (0, r.useEffect)(() => {
+          e.current && (e.current.src = '/404.html');
+        }, []),
+        (0, t.jsx)('div', {
+          style: { width: '100%', height: '100vh', overflow: 'hidden' },
+          children: (0, t.jsx)('iframe', {
+            ref: e,
+            style: { width: '100%', height: '100%', border: 'none' },
+            title: '404 Not Found',
+          }),
+        })
+      );
+    }
+    e.s(['default', () => i]);
+  },
+]);
