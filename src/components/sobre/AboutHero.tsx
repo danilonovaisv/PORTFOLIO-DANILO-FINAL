@@ -66,7 +66,7 @@ export function AboutHero() {
         loop
         playsInline
         preload="metadata"
-        className="hidden lg:block absolute inset-0 w-full h-full object-cover opacity-100"
+        className="hidden lg:block absolute inset-0 w-full h-full object-cover opacity-[0.55]"
         aria-hidden="true"
       />
 
@@ -84,53 +84,43 @@ export function AboutHero() {
             <div className="col-span-6" aria-hidden="true" />
 
             {/* Columns 7-12: Content Block */}
+            {/* Columns 7-12: Content Block */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
-              variants={{
-                visible: {
-                  transition: {
-                    staggerChildren: 0.15,
-                    delayChildren: 0.2,
-                  },
-                },
-              }}
               className="col-span-6 flex flex-col items-end text-right -translate-y-[10%]"
             >
-              <div className="space-y-8 w-full">
+              <div className="w-full flex flex-col items-end pr-[8vw] max-w-[750px] ml-auto">
                 {/* Intro & Manifesto - Unified for natural wrapping */}
                 <motion.div
-                  variants={{
-                    hidden: { opacity: 0, y: 20, filter: 'blur(10px)' },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                      filter: 'blur(0px)',
-                      transition: {
-                        duration: 1,
-                        ease: [0.22, 1, 0.36, 1],
-                      },
-                    },
+                  initial={{ opacity: 0, y: 24, filter: 'blur(10px)' }}
+                  whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  transition={{
+                    duration: 1.2,
+                    ease: [0.22, 1, 0.36, 1],
+                    delay: 0,
                   }}
-                  className="flex flex-col items-end gap-2"
+                  className="mb-12 flex flex-col items-end gap-1"
                 >
-                  <h1 className="type-h1 text-text-light tracking-tight leading-[1.1]">
+                  <h1 className="text-[clamp(44px,4.5vw,64px)] font-medium leading-[1.08] tracking-[-0.02em] text-text-light text-right">
                     {ABOUT_CONTENT.hero.title.text}
-                    <span className="text-bluePrimary">
-                      {ABOUT_CONTENT.hero.title.highlight}
-                    </span>
+                    {ABOUT_CONTENT.hero.title.highlight && (
+                      <span className="text-bluePrimary font-semibold ml-2">
+                        {ABOUT_CONTENT.hero.title.highlight}
+                      </span>
+                    )}
                   </h1>
 
                   <div className="flex flex-col items-end">
                     {ABOUT_CONTENT.hero.manifesto.map((item, index) => (
                       <p
                         key={index}
-                        className="type-h1 text-text-light font-bold tracking-tight leading-[1.05]"
+                        className="text-[clamp(44px,4.5vw,64px)] font-medium leading-[1.08] tracking-[-0.02em] text-text-light text-right"
                       >
                         {item.text}
                         {item.highlight && (
-                          <span className="text-bluePrimary">
+                          <span className="text-bluePrimary font-semibold ml-2">
                             {item.highlight}
                           </span>
                         )}
@@ -141,18 +131,14 @@ export function AboutHero() {
 
                 {/* Description - Responsive line breaks */}
                 <motion.div
-                  variants={{
-                    hidden: { opacity: 0, y: 20 },
-                    visible: {
-                      opacity: 1,
-                      y: 0,
-                      transition: {
-                        duration: 1,
-                        ease: [0.22, 1, 0.36, 1],
-                      },
-                    },
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 1.2,
+                    ease: [0.22, 1, 0.36, 1],
+                    delay: 0.4,
                   }}
-                  className="type-h3 text-text-secondary font-medium leading-relaxed max-w-[580px] ml-auto"
+                  className="text-[16px] leading-[1.8] text-text-secondary max-w-[520px] font-medium"
                 >
                   {ABOUT_CONTENT.hero.description.join(' ')}
                 </motion.div>
