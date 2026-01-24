@@ -161,60 +161,63 @@ function AboutOrigin() {
         },
       });
 
-      // Correção do erro de adição da timeline
+      // Correção: Adicionar tweens diretamente ao mainTimeline para scrub funcionar
       CONTENT_BLOCKS.forEach((_, index) => {
         const currentWrapper = wrappers[index];
         const currentImg = images[index];
         const nextImage = images[index + 1];
 
         if (index < CONTENT_BLOCKS.length - 1) {
-          const sectionTimeline = gsap.timeline({ paused: true });
+          // Calcular posição no timeline baseado no índice
+          const startPosition = index * 1.5;
 
-          sectionTimeline
-            .to(
-              'body',
-              {
-                backgroundColor: bgColors[index + 1],
-                duration: 1.5,
-                ease: 'none',
-              },
-              0
-            )
-            .to(
-              currentWrapper,
-              {
-                clipPath: 'inset(0px 0px 100% 0px)',
-                duration: 1.5,
-                ease: 'none',
-              },
-              0
-            )
-            .to(
-              currentImg,
-              {
-                objectPosition: '0px 60%',
-                yPercent: 15,
-                duration: 1.5,
-                ease: 'none',
-              },
-              0
-            )
-            .to(
-              nextImage,
-              {
-                objectPosition: '0px 0%',
-                yPercent: -15,
-                filter: 'blur(0px)',
-                opacity: 1,
-                duration: 1.5,
-                ease: 'none',
-              },
-              0
-            );
+          // Background color transition
+          mainTimeline.to(
+            'body',
+            {
+              backgroundColor: bgColors[index + 1],
+              duration: 1.5,
+              ease: 'none',
+            },
+            startPosition
+          );
 
-          mainTimeline.add(() => {
-            sectionTimeline.play();
-          });
+          // Current wrapper clip out
+          mainTimeline.to(
+            currentWrapper,
+            {
+              clipPath: 'inset(0px 0px 100% 0px)',
+              duration: 1.5,
+              ease: 'none',
+            },
+            startPosition
+          );
+
+          // Current image parallax out
+          mainTimeline.to(
+            currentImg,
+            {
+              objectPosition: '0px 60%',
+              yPercent: 15,
+              duration: 1.5,
+              ease: 'none',
+            },
+            startPosition
+          );
+
+          // Next image reveal in
+          mainTimeline.to(
+            nextImage,
+            {
+              objectPosition: '0px 0%',
+              yPercent: -15,
+              filter: 'blur(0px)',
+              opacity: 1,
+              duration: 1.5,
+              ease: 'none',
+            },
+            startPosition
+          );
         }
       });
 

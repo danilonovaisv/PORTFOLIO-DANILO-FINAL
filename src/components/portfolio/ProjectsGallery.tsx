@@ -111,11 +111,9 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
           <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-blueAccent/5 rounded-full blur-[100px]" />
         </div>
 
-        <Container>
-
-
-          {/* Header com título e filtros */}
-          {showFilter && (
+        {/* Header com filtros - dentro do Container para padding */}
+        {showFilter && (
+          <Container>
             <motion.div
               initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -128,35 +126,33 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
                 onChange={setActiveCategory}
               />
             </motion.div>
-          )}
+          </Container>
+        )}
 
-          {/* Grid de projetos - Masonry com 12 colunas */}
-          <motion.div
-            layout={!prefersReducedMotion}
-            className="grid grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-0 items-stretch"
-            role="tabpanel"
-            id={`projects-${activeCategory}`}
-            aria-label={`Projetos de ${activeCategory}`}
-            /* Removemos o layout prop se estivermos usando custom parallax scroll para evitar conflitos? 
-               Não, framer motion layout deve funcionar para reordenação interna. 
-            */
-          >
-            <AnimatePresence mode="popLayout">
-              {filteredProjects.map((project, index) => (
-                <PortfolioCard
-                  key={project.id}
-                  project={project}
-                  index={index}
-                  onOpen={onProjectOpen}
-                  /* Se estiver scrollando rápido, podemos otimizar renderização */
-                  className={isScrolling ? 'pointer-events-none' : ''}
-                />
-              ))}
-            </AnimatePresence>
-          </motion.div>
+        {/* Grid de projetos - FORA do Container para edge-to-edge */}
+        <motion.div
+          layout={!prefersReducedMotion}
+          className="grid grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-0 items-stretch w-full"
+          role="tabpanel"
+          id={`projects-${activeCategory}`}
+          aria-label={`Projetos de ${activeCategory}`}
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project, index) => (
+              <PortfolioCard
+                key={project.id}
+                project={project}
+                index={index}
+                onOpen={onProjectOpen}
+                className={isScrolling ? 'pointer-events-none' : ''}
+              />
+            ))}
+          </AnimatePresence>
+        </motion.div>
 
-          {/* Empty state */}
-          {filteredProjects.length === 0 && (
+        {/* Empty state - dentro do Container */}
+        {filteredProjects.length === 0 && (
+          <Container>
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -170,8 +166,8 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
                 Tente selecionar outra categoria.
               </p>
             </motion.div>
-          )}
-        </Container>
+          </Container>
+        )}
       </motion.div>
     </section>
   );

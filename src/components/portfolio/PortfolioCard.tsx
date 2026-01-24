@@ -79,8 +79,8 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
       onKeyDown={(e) => e.key === 'Enter' && handleClick()}
       aria-label={`Ver projeto: ${project.title}`}
     >
-      {/* Container de Imagem com Parallax */}
-      <div className="card-media overflow-hidden">
+      {/* Container de Imagem com Parallax - Centralizado */}
+      <div className="card-media overflow-hidden flex items-center justify-center">
         <motion.div
            className="absolute inset-0 -top-[17.5%] h-[135%] w-full will-change-transform"
            style={prefersReducedMotion ? {} : { y }}
