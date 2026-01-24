@@ -34,7 +34,7 @@ export function GhostModel({
   // Configuração da URL exata fornecida pelo usuário
   const { nodes, materials } = useGLTF(
     'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb'
-  ) as GLTFResult;
+  ) as unknown as GLTFResult;
 
   const groupRef = React.useRef<THREE.Group>(null);
 

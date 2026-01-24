@@ -18,9 +18,15 @@ const baseConfig = {
     '\\.(css|less|scss|sass)$': '<rootDir>/test/__mocks__/styleMock.js',
   },
   transformIgnorePatterns: ['node_modules/(?!(framer-motion)/)'],
-  modulePathIgnorePatterns: ['<rootDir>/functions/', '<rootDir>/.firebase/'],
+  modulePathIgnorePatterns: [
+    '<rootDir>/functions/',
+    '<rootDir>/.firebase/',
+    '<rootDir>/portfoliodan/',
+    '<rootDir>/ssr_function/',
+  ],
   testMatch: ['**/test/**/*.test.{ts,tsx,js}'],
   setupFilesAfterEnv: ['<rootDir>/test/setup.ts'],
+  cacheDirectory: '<rootDir>/.jest_cache',
 };
 
 module.exports = baseConfig;

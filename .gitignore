@@ -81,3 +81,4 @@ docs/*.png
 pentest-workflow.yaml
 project_truth.json
 test-results/
+.deploy_config/

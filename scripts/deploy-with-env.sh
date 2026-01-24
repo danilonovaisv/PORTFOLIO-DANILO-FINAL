@@ -13,6 +13,9 @@ cd "$PROJECT_ROOT"
 # Certifica-se de que o ambiente está configurado corretamente
 export PATH="/opt/homebrew/opt/node@24/bin:$PATH"
 export NODE_PATH="/opt/homebrew/lib/node_modules"
+export NO_UPDATE_NOTIFIER=1
+export XDG_CONFIG_HOME="$PROJECT_ROOT/.deploy_config"
+mkdir -p "$XDG_CONFIG_HOME"
 
 # Mostra informações de diagnóstico
 echo "Versão do Node: $(node --version)"

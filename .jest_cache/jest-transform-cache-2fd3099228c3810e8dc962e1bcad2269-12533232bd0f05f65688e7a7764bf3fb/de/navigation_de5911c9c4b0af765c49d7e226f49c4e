@@ -1,0 +1,34 @@
+4ff04c10c2271fe15e4614913fc0d1b9
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CONTACT_FORM = exports.NAVIGATION = exports.SOCIALS = void 0;
+exports.SOCIALS = {
+    instagram: 'https://instagram.com/danilo_novais',
+    facebook: 'https://facebook.com/danilonovaisvilela',
+    linkedin: 'https://linkedin.com/in/danilonovais',
+    twitter: 'https://twitter.com/danilo_novais',
+    emailPrimary: 'mailto:danilo@portfoliodanilo.com',
+    emailSecondary: 'mailto:dannovaisv@gmail.com',
+    phone: '+55 11 98396-6838',
+};
+exports.NAVIGATION = {
+    header: [
+        { label: 'home', href: '/' }, // ou #hero se estiver na home
+        { label: 'sobre', href: '/sobre' },
+        { label: 'portfólio', href: '/portfolio' },
+        { label: 'contato', href: '#contact' }, // Always anchor
+    ],
+    footer: {
+        copyright: '© 2025 Danilo Novais Vilela — todos os direitos reservados',
+        links: [
+            { label: 'home', href: '#hero' },
+            { label: 'sobre', href: '/sobre' },
+            { label: 'portfólio', href: '/portfolio' },
+            { label: 'contato', href: '#contact' },
+        ],
+    },
+};
+exports.CONTACT_FORM = {
+    action: 'https://formsubmit.co/danilo@portfoliodanilo.com',
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL1VzZXJzL2Rhbmlsb25vdmFpcy9fZGFuaWxvbm92X3BvcnRmb2xpby9zcmMvY29uZmlnL25hdmlnYXRpb24udHMiLCJtYXBwaW5ncyI6Ijs7O0FBQWEsUUFBQSxPQUFPLEdBQUc7SUFDckIsU0FBUyxFQUFFLHFDQUFxQztJQUNoRCxRQUFRLEVBQUUseUNBQXlDO0lBQ25ELFFBQVEsRUFBRSxzQ0FBc0M7SUFDaEQsT0FBTyxFQUFFLG1DQUFtQztJQUM1QyxZQUFZLEVBQUUsbUNBQW1DO0lBQ2pELGNBQWMsRUFBRSw2QkFBNkI7SUFDN0MsS0FBSyxFQUFFLG1CQUFtQjtDQUMzQixDQUFDO0FBRVcsUUFBQSxVQUFVLEdBQUc7SUFDeEIsTUFBTSxFQUFFO1FBQ04sRUFBRSxLQUFLLEVBQUUsTUFBTSxFQUFFLElBQUksRUFBRSxHQUFHLEVBQUUsRUFBRSw4QkFBOEI7UUFDNUQsRUFBRSxLQUFLLEVBQUUsT0FBTyxFQUFFLElBQUksRUFBRSxRQUFRLEVBQUU7UUFDbEMsRUFBRSxLQUFLLEVBQUUsV0FBVyxFQUFFLElBQUksRUFBRSxZQUFZLEVBQUU7UUFDMUMsRUFBRSxLQUFLLEVBQUUsU0FBUyxFQUFFLElBQUksRUFBRSxVQUFVLEVBQUUsRUFBRSxnQkFBZ0I7S0FDekQ7SUFDRCxNQUFNLEVBQUU7UUFDTixTQUFTLEVBQUUsNERBQTREO1FBQ3ZFLEtBQUssRUFBRTtZQUNMLEVBQUUsS0FBSyxFQUFFLE1BQU0sRUFBRSxJQUFJLEVBQUUsT0FBTyxFQUFFO1lBQ2hDLEVBQUUsS0FBSyxFQUFFLE9BQU8sRUFBRSxJQUFJLEVBQUUsUUFBUSxFQUFFO1lBQ2xDLEVBQUUsS0FBSyxFQUFFLFdBQVcsRUFBRSxJQUFJLEVBQUUsWUFBWSxFQUFFO1lBQzFDLEVBQUUsS0FBSyxFQUFFLFNBQVMsRUFBRSxJQUFJLEVBQUUsVUFBVSxFQUFFO1NBQ3ZDO0tBQ0Y7Q0FDRixDQUFDO0FBRVcsUUFBQSxZQUFZLEdBQUc7SUFDMUIsTUFBTSxFQUFFLGtEQUFrRDtDQUMzRCxDQUFDIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi9Vc2Vycy9kYW5pbG9ub3ZhaXMvX2Rhbmlsb25vdl9wb3J0Zm9saW8vc3JjL2NvbmZpZy9uYXZpZ2F0aW9uLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjb25zdCBTT0NJQUxTID0ge1xuICBpbnN0YWdyYW06ICdodHRwczovL2luc3RhZ3JhbS5jb20vZGFuaWxvX25vdmFpcycsXG4gIGZhY2Vib29rOiAnaHR0cHM6Ly9mYWNlYm9vay5jb20vZGFuaWxvbm92YWlzdmlsZWxhJyxcbiAgbGlua2VkaW46ICdodHRwczovL2xpbmtlZGluLmNvbS9pbi9kYW5pbG9ub3ZhaXMnLFxuICB0d2l0dGVyOiAnaHR0cHM6Ly90d2l0dGVyLmNvbS9kYW5pbG9fbm92YWlzJyxcbiAgZW1haWxQcmltYXJ5OiAnbWFpbHRvOmRhbmlsb0Bwb3J0Zm9saW9kYW5pbG8uY29tJyxcbiAgZW1haWxTZWNvbmRhcnk6ICdtYWlsdG86ZGFubm92YWlzdkBnbWFpbC5jb20nLFxuICBwaG9uZTogJys1NSAxMSA5ODM5Ni02ODM4Jyxcbn07XG5cbmV4cG9ydCBjb25zdCBOQVZJR0FUSU9OID0ge1xuICBoZWFkZXI6IFtcbiAgICB7IGxhYmVsOiAnaG9tZScsIGhyZWY6ICcvJyB9LCAvLyBvdSAjaGVybyBzZSBlc3RpdmVyIG5hIGhvbWVcbiAgICB7IGxhYmVsOiAnc29icmUnLCBocmVmOiAnL3NvYnJlJyB9LFxuICAgIHsgbGFiZWw6ICdwb3J0ZsOzbGlvJywgaHJlZjogJy9wb3J0Zm9saW8nIH0sXG4gICAgeyBsYWJlbDogJ2NvbnRhdG8nLCBocmVmOiAnI2NvbnRhY3QnIH0sIC8vIEFsd2F5cyBhbmNob3JcbiAgXSxcbiAgZm9vdGVyOiB7XG4gICAgY29weXJpZ2h0OiAnwqkgMjAyNSBEYW5pbG8gTm92YWlzIFZpbGVsYSDigJQgdG9kb3Mgb3MgZGlyZWl0b3MgcmVzZXJ2YWRvcycsXG4gICAgbGlua3M6IFtcbiAgICAgIHsgbGFiZWw6ICdob21lJywgaHJlZjogJyNoZXJvJyB9LFxuICAgICAgeyBsYWJlbDogJ3NvYnJlJywgaHJlZjogJy9zb2JyZScgfSxcbiAgICAgIHsgbGFiZWw6ICdwb3J0ZsOzbGlvJywgaHJlZjogJy9wb3J0Zm9saW8nIH0sXG4gICAgICB7IGxhYmVsOiAnY29udGF0bycsIGhyZWY6ICcjY29udGFjdCcgfSxcbiAgICBdLFxuICB9LFxufTtcblxuZXhwb3J0IGNvbnN0IENPTlRBQ1RfRk9STSA9IHtcbiAgYWN0aW9uOiAnaHR0cHM6Ly9mb3Jtc3VibWl0LmNvL2Rhbmlsb0Bwb3J0Zm9saW9kYW5pbG8uY29tJyxcbn07XG4iXSwidmVyc2lvbiI6M30=

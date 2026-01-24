@@ -1,0 +1,20 @@
+{
+  "node": {
+    "4042dddf70b5f49121f2d9dcf65fa943f54bdb9189": {
+      "workers": {
+        "app/portfolio/page": {
+          "moduleId": "[project]/_danilonov_portfolio/.next-internal/server/app/portfolio/page/actions.js { ACTIONS_MODULE0 => \"[project]/_danilonov_portfolio/src/lib/supabase/queries/projects.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "_danilonov_portfolio/src/lib/supabase/queries/projects.ts"
+        }
+      },
+      "layer": {
+        "app/portfolio/page": "rsc"
+      },
+      "exportedName": "$$RSC_SERVER_ACTION_0",
+      "filename": "_danilonov_portfolio/src/lib/supabase/queries/projects.ts"
+    }
+  },
+  "edge": {}
+}

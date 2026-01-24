@@ -20,7 +20,7 @@
     "declaration": true,
     "noEmit": true,
     "strict": true,
-    "incremental": true,
+    "incremental": false,
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "ignoreDeprecations": "5.0",

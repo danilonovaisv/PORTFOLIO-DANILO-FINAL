@@ -1,0 +1,65 @@
+{
+  "node": {
+    "00584efdbaaee9e9004cd7387e464b8ba04435c043": {
+      "workers": {
+        "app/admin/(protected)/midia/page": {
+          "moduleId": 63125,
+          "async": false,
+          "exportedName": "signOut",
+          "filename": "_danilonov_portfolio/src/lib/supabase/auth-actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/midia/page": "action-browser"
+      },
+      "exportedName": "signOut",
+      "filename": "_danilonov_portfolio/src/lib/supabase/auth-actions.ts"
+    },
+    "40a12812eb9b5d605bdf497e3c2d19a46a72323b88": {
+      "workers": {
+        "app/admin/(protected)/midia/page": {
+          "moduleId": 63125,
+          "async": false,
+          "exportedName": "upsertAsset",
+          "filename": "_danilonov_portfolio/src/app/admin/(protected)/midia/actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/midia/page": "action-browser"
+      },
+      "exportedName": "upsertAsset",
+      "filename": "_danilonov_portfolio/src/app/admin/(protected)/midia/actions.ts"
+    },
+    "407d97ef684108e0075bb605589d7398c69975f285": {
+      "workers": {
+        "app/admin/(protected)/midia/page": {
+          "moduleId": 63125,
+          "async": false,
+          "exportedName": "assignAssetRole",
+          "filename": "_danilonov_portfolio/src/app/admin/(protected)/midia/actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/midia/page": "action-browser"
+      },
+      "exportedName": "assignAssetRole",
+      "filename": "_danilonov_portfolio/src/app/admin/(protected)/midia/actions.ts"
+    },
+    "4027c3c7da1e840129015393377817601766a780ec": {
+      "workers": {
+        "app/admin/(protected)/midia/page": {
+          "moduleId": 63125,
+          "async": false,
+          "exportedName": "removeAsset",
+          "filename": "_danilonov_portfolio/src/app/admin/(protected)/midia/actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/midia/page": "action-browser"
+      },
+      "exportedName": "removeAsset",
+      "filename": "_danilonov_portfolio/src/app/admin/(protected)/midia/actions.ts"
+    }
+  },
+  "edge": {}
+}

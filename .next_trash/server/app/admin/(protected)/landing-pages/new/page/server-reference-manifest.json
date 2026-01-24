@@ -1,0 +1,20 @@
+{
+  "node": {
+    "00584efdbaaee9e9004cd7387e464b8ba04435c043": {
+      "workers": {
+        "app/admin/(protected)/landing-pages/new/page": {
+          "moduleId": 21610,
+          "async": false,
+          "exportedName": "signOut",
+          "filename": "_danilonov_portfolio/src/lib/supabase/auth-actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/landing-pages/new/page": "action-browser"
+      },
+      "exportedName": "signOut",
+      "filename": "_danilonov_portfolio/src/lib/supabase/auth-actions.ts"
+    }
+  },
+  "edge": {}
+}

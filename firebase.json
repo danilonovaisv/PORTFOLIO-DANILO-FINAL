@@ -7,11 +7,14 @@
         ".git",
         "firebase-debug.log",
         "firebase-debug.*.log",
-        "*.local"
+        "*.local",
+        ".next"
       ],
       "predeploy": [
-        "rm -rf functions/.next || true",
-        "cp -r .next functions/.next || true",
+        "rm -rf functions/next_build || true",
+        "mkdir -p functions/next_build",
+        "rsync -av .next/ functions/next_build/ --exclude cache || true",
+        "npm --prefix \"$RESOURCE_DIR\" run build",
         "npm --prefix \"$RESOURCE_DIR\" run lint || true"
       ],
       "source": "functions"

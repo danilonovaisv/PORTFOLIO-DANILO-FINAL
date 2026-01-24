@@ -1,0 +1,43 @@
+6ea799cd20ed212df962d52c47c68960
+"use strict";
+'use client';
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.useGhostReveal = useGhostReveal;
+const react_1 = require("react");
+/**
+ * Hook para sincronizar o efeito de revelação 2D com a posição do ghost 3D
+ * @param ghostRef - Referência ao grupo do ghost no mundo 3D
+ * @param revealRef - Referência ao elemento HTML do overlay de revelação
+ * @param enabled - Se o efeito está ativado (desktop com WebGL)
+ */
+function useGhostReveal(ghostRef, revealRef, enabled) {
+    (0, react_1.useEffect)(() => {
+        if (!enabled || !ghostRef?.current || !revealRef.current)
+            return;
+        let rafId;
+        const updateRevealPosition = () => {
+            if (!ghostRef.current || !revealRef.current)
+                return;
+            const ghostPos = ghostRef.current.position;
+            const overlay = revealRef.current;
+            // Converte posição 3D world-space para coordenadas 2D viewport
+            // Ghost se move aproximadamente de -10 a +10 em X e -7 a +7 em Y
+            const x = ((ghostPos.x + 10) / 20) * 100; // Normaliza para 0-100%
+            const y = ((ghostPos.y + 7) / 14) * 100; // Normaliza para 0-100%
+            const invertedY = 100 - y;
+            // Atualiza a posição do overlay usando CSS transform
+            overlay.style.transform = `translate(calc(${x}vw - 50%), calc(${invertedY}vh - 50%))`;
+            // Seta variáveis no documento/root para uso em classes CSS (ex: mask-image)
+            document.documentElement.style.setProperty('--ghost-x', `${x}vw`);
+            document.documentElement.style.setProperty('--ghost-y', `${invertedY}vh`);
+            rafId = requestAnimationFrame(updateRevealPosition);
+        };
+        // Inicia o loop de atualização
+        rafId = requestAnimationFrame(updateRevealPosition);
+        return () => {
+            if (rafId)
+                cancelAnimationFrame(rafId);
+        };
+    }, [ghostRef, revealRef, enabled]);
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL1VzZXJzL2Rhbmlsb25vdmFpcy9fZGFuaWxvbm92X3BvcnRmb2xpby9zcmMvaG9va3MvdXNlR2hvc3RSZXZlYWwudHMiLCJtYXBwaW5ncyI6IjtBQUFBLFlBQVksQ0FBQzs7QUFZYix3Q0F1Q0M7QUFqREQsaUNBQWtDO0FBSWxDOzs7OztHQUtHO0FBQ0gsU0FBZ0IsY0FBYyxDQUM1QixRQUF5RCxFQUN6RCxTQUFpRCxFQUNqRCxPQUFnQjtJQUVoQixJQUFBLGlCQUFTLEVBQUMsR0FBRyxFQUFFO1FBQ2IsSUFBSSxDQUFDLE9BQU8sSUFBSSxDQUFDLFFBQVEsRUFBRSxPQUFPLElBQUksQ0FBQyxTQUFTLENBQUMsT0FBTztZQUFFLE9BQU87UUFFakUsSUFBSSxLQUFhLENBQUM7UUFFbEIsTUFBTSxvQkFBb0IsR0FBRyxHQUFHLEVBQUU7WUFDaEMsSUFBSSxDQUFDLFFBQVEsQ0FBQyxPQUFPLElBQUksQ0FBQyxTQUFTLENBQUMsT0FBTztnQkFBRSxPQUFPO1lBRXBELE1BQU0sUUFBUSxHQUFHLFFBQVEsQ0FBQyxPQUFPLENBQUMsUUFBUSxDQUFDO1lBQzNDLE1BQU0sT0FBTyxHQUFHLFNBQVMsQ0FBQyxPQUFPLENBQUM7WUFFbEMsK0RBQStEO1lBQy9ELGlFQUFpRTtZQUNqRSxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsUUFBUSxDQUFDLENBQUMsR0FBRyxFQUFFLENBQUMsR0FBRyxFQUFFLENBQUMsR0FBRyxHQUFHLENBQUMsQ0FBQyx3QkFBd0I7WUFDbEUsTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDLFFBQVEsQ0FBQyxDQUFDLEdBQUcsQ0FBQyxDQUFDLEdBQUcsRUFBRSxDQUFDLEdBQUcsR0FBRyxDQUFDLENBQUMsd0JBQXdCO1lBQ2pFLE1BQU0sU0FBUyxHQUFHLEdBQUcsR0FBRyxDQUFDLENBQUM7WUFFMUIscURBQXFEO1lBQ3JELE9BQU8sQ0FBQyxLQUFLLENBQUMsU0FBUyxHQUFHLGtCQUFrQixDQUFDLG1CQUFtQixTQUFTLFlBQVksQ0FBQztZQUV0Riw0RUFBNEU7WUFDNUUsUUFBUSxDQUFDLGVBQWUsQ0FBQyxLQUFLLENBQUMsV0FBVyxDQUFDLFdBQVcsRUFBRSxHQUFHLENBQUMsSUFBSSxDQUFDLENBQUM7WUFDbEUsUUFBUSxDQUFDLGVBQWUsQ0FBQyxLQUFLLENBQUMsV0FBVyxDQUFDLFdBQVcsRUFBRSxHQUFHLFNBQVMsSUFBSSxDQUFDLENBQUM7WUFFMUUsS0FBSyxHQUFHLHFCQUFxQixDQUFDLG9CQUFvQixDQUFDLENBQUM7UUFDdEQsQ0FBQyxDQUFDO1FBRUYsK0JBQStCO1FBQy9CLEtBQUssR0FBRyxxQkFBcUIsQ0FBQyxvQkFBb0IsQ0FBQyxDQUFDO1FBRXBELE9BQU8sR0FBRyxFQUFFO1lBQ1YsSUFBSSxLQUFLO2dCQUFFLG9CQUFvQixDQUFDLEtBQUssQ0FBQyxDQUFDO1FBQ3pDLENBQUMsQ0FBQztJQUNKLENBQUMsRUFBRSxDQUFDLFFBQVEsRUFBRSxTQUFTLEVBQUUsT0FBTyxDQUFDLENBQUMsQ0FBQztBQUNyQyxDQUFDIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIi9Vc2Vycy9kYW5pbG9ub3ZhaXMvX2Rhbmlsb25vdl9wb3J0Zm9saW8vc3JjL2hvb2tzL3VzZUdob3N0UmV2ZWFsLnRzIl0sInNvdXJjZXNDb250ZW50IjpbIid1c2UgY2xpZW50JztcblxuaW1wb3J0IHsgdXNlRWZmZWN0IH0gZnJvbSAncmVhY3QnO1xuXG5pbXBvcnQgKiBhcyBUSFJFRSBmcm9tICd0aHJlZSc7XG5cbi8qKlxuICogSG9vayBwYXJhIHNpbmNyb25pemFyIG8gZWZlaXRvIGRlIHJldmVsYcOnw6NvIDJEIGNvbSBhIHBvc2nDp8OjbyBkbyBnaG9zdCAzRFxuICogQHBhcmFtIGdob3N0UmVmIC0gUmVmZXLDqm5jaWEgYW8gZ3J1cG8gZG8gZ2hvc3Qgbm8gbXVuZG8gM0RcbiAqIEBwYXJhbSByZXZlYWxSZWYgLSBSZWZlcsOqbmNpYSBhbyBlbGVtZW50byBIVE1MIGRvIG92ZXJsYXkgZGUgcmV2ZWxhw6fDo29cbiAqIEBwYXJhbSBlbmFibGVkIC0gU2UgbyBlZmVpdG8gZXN0w6EgYXRpdmFkbyAoZGVza3RvcCBjb20gV2ViR0wpXG4gKi9cbmV4cG9ydCBmdW5jdGlvbiB1c2VHaG9zdFJldmVhbChcbiAgZ2hvc3RSZWY6IFJlYWN0LlJlZk9iamVjdDxUSFJFRS5Hcm91cCB8IG51bGw+IHwgdW5kZWZpbmVkLFxuICByZXZlYWxSZWY6IFJlYWN0LlJlZk9iamVjdDxIVE1MRGl2RWxlbWVudCB8IG51bGw+LFxuICBlbmFibGVkOiBib29sZWFuXG4pIHtcbiAgdXNlRWZmZWN0KCgpID0+IHtcbiAgICBpZiAoIWVuYWJsZWQgfHwgIWdob3N0UmVmPy5jdXJyZW50IHx8ICFyZXZlYWxSZWYuY3VycmVudCkgcmV0dXJuO1xuXG4gICAgbGV0IHJhZklkOiBudW1iZXI7XG5cbiAgICBjb25zdCB1cGRhdGVSZXZlYWxQb3NpdGlvbiA9ICgpID0+IHtcbiAgICAgIGlmICghZ2hvc3RSZWYuY3VycmVudCB8fCAhcmV2ZWFsUmVmLmN1cnJlbnQpIHJldHVybjtcblxuICAgICAgY29uc3QgZ2hvc3RQb3MgPSBnaG9zdFJlZi5jdXJyZW50LnBvc2l0aW9uO1xuICAgICAgY29uc3Qgb3ZlcmxheSA9IHJldmVhbFJlZi5jdXJyZW50O1xuXG4gICAgICAvLyBDb252ZXJ0ZSBwb3Npw6fDo28gM0Qgd29ybGQtc3BhY2UgcGFyYSBjb29yZGVuYWRhcyAyRCB2aWV3cG9ydFxuICAgICAgLy8gR2hvc3Qgc2UgbW92ZSBhcHJveGltYWRhbWVudGUgZGUgLTEwIGEgKzEwIGVtIFggZSAtNyBhICs3IGVtIFlcbiAgICAgIGNvbnN0IHggPSAoKGdob3N0UG9zLnggKyAxMCkgLyAyMCkgKiAxMDA7IC8vIE5vcm1hbGl6YSBwYXJhIDAtMTAwJVxuICAgICAgY29uc3QgeSA9ICgoZ2hvc3RQb3MueSArIDcpIC8gMTQpICogMTAwOyAvLyBOb3JtYWxpemEgcGFyYSAwLTEwMCVcbiAgICAgIGNvbnN0IGludmVydGVkWSA9IDEwMCAtIHk7XG5cbiAgICAgIC8vIEF0dWFsaXphIGEgcG9zacOnw6NvIGRvIG92ZXJsYXkgdXNhbmRvIENTUyB0cmFuc2Zvcm1cbiAgICAgIG92ZXJsYXkuc3R5bGUudHJhbnNmb3JtID0gYHRyYW5zbGF0ZShjYWxjKCR7eH12dyAtIDUwJSksIGNhbGMoJHtpbnZlcnRlZFl9dmggLSA1MCUpKWA7XG5cbiAgICAgIC8vIFNldGEgdmFyacOhdmVpcyBubyBkb2N1bWVudG8vcm9vdCBwYXJhIHVzbyBlbSBjbGFzc2VzIENTUyAoZXg6IG1hc2staW1hZ2UpXG4gICAgICBkb2N1bWVudC5kb2N1bWVudEVsZW1lbnQuc3R5bGUuc2V0UHJvcGVydHkoJy0tZ2hvc3QteCcsIGAke3h9dndgKTtcbiAgICAgIGRvY3VtZW50LmRvY3VtZW50RWxlbWVudC5zdHlsZS5zZXRQcm9wZXJ0eSgnLS1naG9zdC15JywgYCR7aW52ZXJ0ZWRZfXZoYCk7XG5cbiAgICAgIHJhZklkID0gcmVxdWVzdEFuaW1hdGlvbkZyYW1lKHVwZGF0ZVJldmVhbFBvc2l0aW9uKTtcbiAgICB9O1xuXG4gICAgLy8gSW5pY2lhIG8gbG9vcCBkZSBhdHVhbGl6YcOnw6NvXG4gICAgcmFmSWQgPSByZXF1ZXN0QW5pbWF0aW9uRnJhbWUodXBkYXRlUmV2ZWFsUG9zaXRpb24pO1xuXG4gICAgcmV0dXJuICgpID0+IHtcbiAgICAgIGlmIChyYWZJZCkgY2FuY2VsQW5pbWF0aW9uRnJhbWUocmFmSWQpO1xuICAgIH07XG4gIH0sIFtnaG9zdFJlZiwgcmV2ZWFsUmVmLCBlbmFibGVkXSk7XG59XG4iXSwidmVyc2lvbiI6M30=

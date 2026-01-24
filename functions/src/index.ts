@@ -65,7 +65,7 @@ async function initializeNextApp(): Promise<void> {
         dev: false,
         hostname: '0.0.0.0',
         port: parseInt(process.env.PORT || '8080', 10),
-        conf: { distDir: '.next' },
+        conf: { distDir: 'next_build' },
         dir: resolve(__dirname, '../'),
       });
 

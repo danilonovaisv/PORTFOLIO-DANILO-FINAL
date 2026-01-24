@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "functions": {
+    "/admin": {},
+    "/admin/config": {},
+    "/admin/landing-pages": {},
+    "/admin/landing-pages/[id]": {},
+    "/admin/landing-pages/new": {},
+    "/admin/midia": {},
+    "/admin/tags": {},
+    "/admin/trabalhos": {},
+    "/admin/trabalhos/[id]": {},
+    "/admin/trabalhos/new": {}
+  }
+}
