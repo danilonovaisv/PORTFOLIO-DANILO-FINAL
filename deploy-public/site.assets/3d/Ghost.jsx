@@ -8,39 +8,19 @@ Source: https://sketchfab.com/3d-models/ghost-w-tophat-6b1217e3462440519a2d0e3e7
 Title: Ghost w/ Tophat
 */
 
-import React from 'react';
-import { useGLTF } from '@react-three/drei';
+import React from 'react'
+import { useGLTF } from '@react-three/drei'
 
 export function Model(props) {
-  const { nodes, materials } = useGLTF('/ghost-transformed.glb');
+  const { nodes, materials } = useGLTF('/ghost-transformed.glb')
   return (
     <group {...props} dispose={null}>
-      <mesh
-        geometry={nodes.Body_Ghost_White_0.geometry}
-        material={materials.Ghost_White}
-        position={[0, 1.558, 0]}
-        rotation={[-Math.PI / 2, 0, 0]}
-      />
-      <mesh
-        geometry={nodes.Eyes_Eyes_0.geometry}
-        material={materials.Eyes}
-        position={[0, 1.558, 0]}
-        rotation={[-Math.PI / 2, 0, 0]}
-      />
-      <mesh
-        geometry={nodes.Hat_Hat_Black_0.geometry}
-        material={materials.Hat_Black}
-        position={[0, 2.991, 0]}
-        rotation={[-Math.PI / 2, 0, 0]}
-      />
-      <mesh
-        geometry={nodes.Rim_Rim_Red_0.geometry}
-        material={materials.Rim_Red}
-        position={[0, 2.354, 0]}
-        rotation={[-Math.PI / 2, 0, 0]}
-      />
+      <mesh geometry={nodes.Body_Ghost_White_0.geometry} material={materials.Ghost_White} position={[0, 1.558, 0]} rotation={[-Math.PI / 2, 0, 0]} />
+      <mesh geometry={nodes.Eyes_Eyes_0.geometry} material={materials.Eyes} position={[0, 1.558, 0]} rotation={[-Math.PI / 2, 0, 0]} />
+      <mesh geometry={nodes.Hat_Hat_Black_0.geometry} material={materials.Hat_Black} position={[0, 2.991, 0]} rotation={[-Math.PI / 2, 0, 0]} />
+      <mesh geometry={nodes.Rim_Rim_Red_0.geometry} material={materials.Rim_Red} position={[0, 2.354, 0]} rotation={[-Math.PI / 2, 0, 0]} />
     </group>
-  );
+  )
 }
 
-useGLTF.preload('/ghost-transformed.glb');
+useGLTF.preload('/ghost-transformed.glb')

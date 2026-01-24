@@ -25,7 +25,7 @@ npm run build
 
 # Consolidar arquivos estáticos para deploy manual
 echo "Consolidando arquivos estáticos em deploy-public..."
-rm -rf deploy-public
+rm -rf deploy-public || true
 mkdir -p deploy-public/_next/static
 cp -r public/* deploy-public/ 2>/dev/null || true
 cp -r .next/static/* deploy-public/_next/static/ 2>/dev/null || true

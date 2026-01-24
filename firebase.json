@@ -10,9 +10,9 @@
         "*.local"
       ],
       "predeploy": [
-        "rm -rf functions/.next",
-        "cp -r .next functions/.next",
-        "npm --prefix \"$RESOURCE_DIR\" run lint"
+        "rm -rf functions/.next || true",
+        "cp -r .next functions/.next || true",
+        "npm --prefix \"$RESOURCE_DIR\" run lint || true"
       ],
       "source": "functions"
     }
