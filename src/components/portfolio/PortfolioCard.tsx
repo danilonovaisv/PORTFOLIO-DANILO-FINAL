@@ -70,7 +70,7 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
       whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       viewport={{ once: true, margin: '-50px' }}
       transition={ghostTransition(index * stagger.tight, duration.normal)}
-      className={`card-shell group relative overflow-hidden rounded-none cursor-pointer bg-white/5 will-change-transform h-full ${project.layout.cols} ${className}`}
+      className={`card-shell group relative overflow-hidden rounded-none cursor-pointer bg-white/5 will-change-transform h-full ${project.layout.cols} ${project.layout.height} ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onClick={handleClick}
@@ -149,7 +149,7 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
         className="absolute inset-0 z-20 bg-black/40 backdrop-blur-[2px]"
         initial={{ opacity: 0 }}
         animate={{ opacity: overlayOpacity }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: duration.fast }}
       />
 
       {/* Category tag */}

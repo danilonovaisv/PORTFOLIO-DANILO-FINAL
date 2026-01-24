@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
+import { MOTION_TOKENS, GHOST_EASE } from '@/config/motion';
+
 interface VideoManifestoProps {
   src: string;
 }
@@ -92,9 +94,12 @@ export function VideoManifesto({ src }: VideoManifestoProps) {
     <motion.section
       ref={sectionRef}
       className="video-manifesto w-full overflow-hidden rounded-[2px]"
-      initial={{ opacity: 0, scale: 1.1, rotate: -1, y: 40 }}
-      whileInView={{ opacity: 1, scale: 1, rotate: 0, y: 0 }}
-      transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, scale: 1.05, y: MOTION_TOKENS.offset.dramatic }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{
+        duration: MOTION_TOKENS.duration.slow,
+        ease: GHOST_EASE,
+      }}
       viewport={{ once: true, amount: 0.2 }}
     >
       <div

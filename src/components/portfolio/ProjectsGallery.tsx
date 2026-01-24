@@ -15,6 +15,7 @@ import CategoryFilter from './CategoryFilter';
 import PortfolioCard from './PortfolioCard';
 import useParallax from '@/hooks/useParallax';
 import { Container } from '@/components/layout/Container';
+import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 
 interface ProjectsGalleryProps {
   projects: PortfolioProject[];
@@ -24,8 +25,6 @@ interface ProjectsGalleryProps {
   className?: string;
   isPaused?: boolean;
 }
-
-const easing = [0.22, 1, 0.36, 1] as const;
 
 const ProjectsGallery: FC<ProjectsGalleryProps> = ({
   projects,
@@ -41,7 +40,7 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
   
   // Parallax Setup
   const { galleryRef, trackRef, isScrolling, style: parallaxStyle } = useParallax({
-    springConfig: { stiffness: 45, damping: 25 },
+    springConfig: MOTION_TOKENS.spring.ghost, // Usando token padrão (stiffness: 50, damping: 20)
     enabled: !prefersReducedMotion && !isPaused,
   });
 
@@ -118,7 +117,7 @@ const ProjectsGallery: FC<ProjectsGalleryProps> = ({
               initial={prefersReducedMotion ? false : { opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: easing }}
+              transition={{ duration: 0.7, ease: GHOST_EASE }}
               className="flex justify-center md:justify-end mb-16 md:mb-24"
             >
               <CategoryFilter

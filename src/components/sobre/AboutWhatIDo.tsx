@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
 
 import { ABOUT_CONTENT } from '@/config/content';
+import { staggerContainer, MOTION_TOKENS } from '@/config/motion';
 
 import { DesktopCard } from './what-i-do/DesktopCard';
 import { MobileCard } from './what-i-do/MobileCard';
@@ -46,7 +47,13 @@ export function AboutWhatIDo() {
         </header>
 
         {/* Desktop / large layout */}
-        <div className="hidden lg:grid lg:grid-cols-7 lg:gap-4">
+        <motion.div
+          variants={staggerContainer(MOTION_TOKENS.stagger.fast)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="hidden lg:grid lg:grid-cols-7 lg:gap-4"
+        >
           {cards.map((service, index) => (
             <DesktopCard
               key={service.id}
@@ -55,10 +62,16 @@ export function AboutWhatIDo() {
               prefersReducedMotion={prefersReducedMotion}
             />
           ))}
-        </div>
+        </motion.div>
 
         {/* Mobile layout */}
-        <div className="lg:hidden flex flex-col gap-3">
+        <motion.div
+          variants={staggerContainer(MOTION_TOKENS.stagger.fast)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          className="lg:hidden flex flex-col gap-3"
+        >
           {cards.map((service, index) => (
             <MobileCard
               key={service.id}
@@ -67,7 +80,7 @@ export function AboutWhatIDo() {
               prefersReducedMotion={prefersReducedMotion}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
 
       {/* Marquee bar */}

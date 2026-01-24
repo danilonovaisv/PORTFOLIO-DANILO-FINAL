@@ -2,9 +2,9 @@
 
 /* Cores definidas como variáveis locais para fácil ajuste */
 .ghostContainer {
-  --color-primary: #0048ff;
-  --color-purple-details: #8705f2;
-  --color-ghost-bg: #040013;
+  --color-primary: var(--blue-primary);
+  --color-purple-details: var(--purple-details);
+  --color-ghost-bg: var(--background-dark);
 
   display: flex;
   justify-content: center;
