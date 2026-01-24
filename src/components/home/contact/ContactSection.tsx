@@ -88,7 +88,7 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="lg:col-span-5 flex flex-col space-y-10 order-1"
+            className="lg:col-span-5 flex flex-col space-y-10 order-1 md:order-1"
           >
             {/* Header */}
             <div className="text-center lg:text-left mb-6 lg:mb-10">
@@ -143,12 +143,12 @@ export default function ContactSection() {
           </motion.div>
 
           {/* Right Side: Form */}
-          <div className="lg:col-span-7 w-full order-2">
+          <div className="lg:col-span-7 w-full order-4 md:order-2">
             <ContactForm />
           </div>
 
           {/* Mobile Socials */}
-          <div className="lg:hidden flex flex-wrap justify-center gap-4 py-8 border-t border-[#0e0e0e]/20 w-full order-3">
+          <div className="lg:hidden flex flex-wrap justify-center gap-4 py-8 border-t border-[#0e0e0e]/20 w-full order-3 md:order-3">
             {socialLinks.map((social) => (
               <a
                 key={`mobile-${social.href}`}

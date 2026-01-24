@@ -78,10 +78,10 @@ export default function HomeHero() {
         </div>
 
         {/* Camada: CTA (Z-50) */}
-        {/* Mobile: Absolute centering matching Copy | Desktop: Absolute Sticky */}
+        {/* Mobile: Bottom absolute | Desktop: Sticky bottom */}
         <div className="absolute inset-0 z-50 pointer-events-none">
-          <div className="flex items-center md:items-end justify-center w-full h-screen md:sticky md:top-0 lg:pb-20">
-            <div className="translate-y-[24vh] md:translate-y-0 md:pb-12">
+          <div className="flex items-end justify-center w-full h-screen md:sticky md:top-0">
+            <div className="pb-8 md:pb-12 lg:pb-20">
               <HeroCTA isLoaded={isLoaded} />
             </div>
           </div>

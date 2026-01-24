@@ -16,19 +16,19 @@ import AntigravityCTA from '@/components/ui/AntigravityCTA';
  */
 export default function CTAProjectCard() {
   return (
-    <div className="card-shell group relative flex flex-col md:items-center md:justify-center h-full bg-[#040013] p-6 md:p-12 md:overflow-hidden md:rounded-md border-none shadow-none md:transition-none">
+    <div className="card-shell group relative flex flex-col items-center justify-center h-full bg-[#040013] p-6 md:p-12 md:overflow-hidden md:rounded-md border-none shadow-none md:transition-none">
       {/* Ghost Atmosphere Glow - Desktop Only */}
       <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_50%,var(--color-primary-faint),transparent_70%)] hidden md:block" />
 
-      {/* Headline - Mobile: Left aligned, Desktop: Centered */}
-      <h3 className="relative z-10 text-3xl md:text-5xl lg:text-6xl font-normal text-left md:text-center mb-6 md:mb-12 tracking-tight leading-[1.1] text-white transition-colors duration-300 md:group-hover:text-bluePrimary">
+      {/* Headline - Centered on all breakpoints */}
+      <h3 className="relative z-10 text-3xl md:text-5xl lg:text-6xl font-normal text-center mb-6 md:mb-12 tracking-tight leading-[1.1] text-white transition-colors duration-300 md:group-hover:text-bluePrimary">
         Like what
         <br />
         you see?
       </h3>
 
-      {/* CTA Button - Mobile: Justify between, Desktop: Centered */}
-      <div className="relative z-10 w-full md:w-auto flex justify-end md:justify-center">
+      {/* CTA Button - Centered on all breakpoints */}
+      <div className="relative z-10 w-full flex justify-center">
         <AntigravityCTA
           href="/portfolio"
           text="view projects"

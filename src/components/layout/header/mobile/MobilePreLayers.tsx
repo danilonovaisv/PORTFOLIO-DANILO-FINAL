@@ -19,7 +19,7 @@ const MobilePreLayers = forwardRef<HTMLDivElement, MobilePreLayersProps>(
     return (
       <div
         ref={ref}
-        className="fixed top-0 right-0 bottom-0 w-full pointer-events-none z-40"
+        className="fixed top-0 right-0 bottom-0 w-full pointer-events-none z-49"
         aria-hidden="true"
       >
         {preLayerColors.map((color, i) => (

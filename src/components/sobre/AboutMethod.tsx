@@ -93,7 +93,7 @@ export default function AboutMethod() {
                   viewport={{ once: true, margin: '-20%' }}
                   className="mb-8 lg:mb-12 text-center lg:text-left"
                 >
-                  <h2 className="leading-[1.08] tracking-[-0.02em] text-[clamp(32px,5vw,64px)] font-bold">
+                  <h2 className="font-display leading-[1.08] tracking-[-0.02em] text-[clamp(32px,5vw,64px)] font-bold">
                     <div className="text-primary leading-tight">
                       Criatividade com método.
                     </div>

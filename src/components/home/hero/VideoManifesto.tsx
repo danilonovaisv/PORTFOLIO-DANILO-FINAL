@@ -34,17 +34,21 @@ export function VideoManifesto({ src }: VideoManifestoProps) {
     return () => observer.disconnect();
   }, []);
 
-  // Mutar ao sair da seção
+  // Mutar ao sair da seção E desmutar ao entrar
   useEffect(() => {
     if (!sectionRef.current) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) {
+        if (entry.isIntersecting) {
+          // Entra na viewport: ativa som
+          setMuted(false);
+        } else {
+          // Sai da viewport: muta som
           setMuted(true);
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.5 } // 50% visível para ativar
     );
 
     observer.observe(sectionRef.current);
@@ -125,7 +129,7 @@ export function VideoManifesto({ src }: VideoManifestoProps) {
               aria-label={
                 muted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'
               }
-              aria-pressed={!muted ? 'true' : 'false'}
+              aria-pressed={!muted}
             >
               {muted ? (
                 <svg
