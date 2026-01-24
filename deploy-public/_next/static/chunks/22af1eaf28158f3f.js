@@ -1,4 +1,116 @@
-(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,59178,e=>{"use strict";let t=(0,e.i(16424).default)("tag",[["path",{d:"M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z",key:"vktsd0"}],["circle",{cx:"7.5",cy:"7.5",r:".5",fill:"currentColor",key:"kqv944"}]]);e.s(["Tag",()=>t],59178)},90198,e=>{"use strict";e.i(74920);var t=e.i(96148),i=e.i(84833),a=e.i(11805),l=e.i(82109),s=e.i(98960),r=e.i(4054),n=e.i(877),o=i,c=e.i(84149);function d(e,t){if("function"==typeof e)return e(t);null!=e&&(e.current=t)}class u extends o.Component{getSnapshotBeforeUpdate(e){let t=this.props.childRef.current;if(t&&e.isPresent&&!this.props.isPresent){let e=t.offsetParent,i=(0,n.isHTMLElement)(e)&&e.offsetWidth||0,a=(0,n.isHTMLElement)(e)&&e.offsetHeight||0,l=this.props.sizeRef.current;l.height=t.offsetHeight||0,l.width=t.offsetWidth||0,l.top=t.offsetTop,l.left=t.offsetLeft,l.right=i-l.width-l.left,l.bottom=a-l.height-l.top}return null}componentDidUpdate(){}render(){return this.props.children}}function m({children:e,isPresent:a,anchorX:l,anchorY:s,root:r}){let n=(0,o.useId)(),m=(0,o.useRef)(null),p=(0,o.useRef)({width:0,height:0,top:0,left:0,right:0,bottom:0}),{nonce:x}=(0,o.useContext)(c.MotionConfigContext),h=function(...e){return i.useCallback(function(...e){return t=>{let i=!1,a=e.map(e=>{let a=d(e,t);return i||"function"!=typeof a||(i=!0),a});if(i)return()=>{for(let t=0;t<a.length;t++){let i=a[t];"function"==typeof i?i():d(e[t],null)}}}}(...e),e)}(m,e.props?.ref??e?.ref);return(0,o.useInsertionEffect)(()=>{let{width:e,height:t,top:i,left:o,right:c,bottom:d}=p.current;if(a||!m.current||!e||!t)return;let u="left"===l?`left: ${o}`:`right: ${c}`,h="bottom"===s?`bottom: ${d}`:`top: ${i}`;m.current.dataset.motionPopId=n;let f=document.createElement("style");x&&(f.nonce=x);let g=r??document.head;return g.appendChild(f),f.sheet&&f.sheet.insertRule(`
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push([
+  'object' == typeof document ? document.currentScript : void 0,
+  59178,
+  (e) => {
+    'use strict';
+    let t = (0, e.i(16424).default)('tag', [
+      [
+        'path',
+        {
+          d: 'M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z',
+          key: 'vktsd0',
+        },
+      ],
+      [
+        'circle',
+        { cx: '7.5', cy: '7.5', r: '.5', fill: 'currentColor', key: 'kqv944' },
+      ],
+    ]);
+    e.s(['Tag', () => t], 59178);
+  },
+  90198,
+  (e) => {
+    'use strict';
+    e.i(74920);
+    var t = e.i(96148),
+      i = e.i(84833),
+      a = e.i(11805),
+      l = e.i(82109),
+      s = e.i(98960),
+      r = e.i(4054),
+      n = e.i(877),
+      o = i,
+      c = e.i(84149);
+    function d(e, t) {
+      if ('function' == typeof e) return e(t);
+      null != e && (e.current = t);
+    }
+    class u extends o.Component {
+      getSnapshotBeforeUpdate(e) {
+        let t = this.props.childRef.current;
+        if (t && e.isPresent && !this.props.isPresent) {
+          let e = t.offsetParent,
+            i = ((0, n.isHTMLElement)(e) && e.offsetWidth) || 0,
+            a = ((0, n.isHTMLElement)(e) && e.offsetHeight) || 0,
+            l = this.props.sizeRef.current;
+          ((l.height = t.offsetHeight || 0),
+            (l.width = t.offsetWidth || 0),
+            (l.top = t.offsetTop),
+            (l.left = t.offsetLeft),
+            (l.right = i - l.width - l.left),
+            (l.bottom = a - l.height - l.top));
+        }
+        return null;
+      }
+      componentDidUpdate() {}
+      render() {
+        return this.props.children;
+      }
+    }
+    function m({ children: e, isPresent: a, anchorX: l, anchorY: s, root: r }) {
+      let n = (0, o.useId)(),
+        m = (0, o.useRef)(null),
+        p = (0, o.useRef)({
+          width: 0,
+          height: 0,
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+        }),
+        { nonce: x } = (0, o.useContext)(c.MotionConfigContext),
+        h = (function (...e) {
+          return i.useCallback(
+            (function (...e) {
+              return (t) => {
+                let i = !1,
+                  a = e.map((e) => {
+                    let a = d(e, t);
+                    return (i || 'function' != typeof a || (i = !0), a);
+                  });
+                if (i)
+                  return () => {
+                    for (let t = 0; t < a.length; t++) {
+                      let i = a[t];
+                      'function' == typeof i ? i() : d(e[t], null);
+                    }
+                  };
+              };
+            })(...e),
+            e
+          );
+        })(m, e.props?.ref ?? e?.ref);
+      return (
+        (0, o.useInsertionEffect)(() => {
+          let {
+            width: e,
+            height: t,
+            top: i,
+            left: o,
+            right: c,
+            bottom: d,
+          } = p.current;
+          if (a || !m.current || !e || !t) return;
+          let u = 'left' === l ? `left: ${o}` : `right: ${c}`,
+            h = 'bottom' === s ? `bottom: ${d}` : `top: ${i}`;
+          m.current.dataset.motionPopId = n;
+          let f = document.createElement('style');
+          x && (f.nonce = x);
+          let g = r ?? document.head;
+          return (
+            g.appendChild(f),
+            f.sheet &&
+              f.sheet.insertRule(`
           [data-motion-pop-id="${n}"] {
             position: absolute !important;
             width: ${e}px !important;
@@ -6,8 +118,1373 @@
             ${u}px !important;
             ${h}px !important;
           }
-        `),()=>{g.contains(f)&&g.removeChild(f)}},[a]),(0,t.jsx)(u,{isPresent:a,childRef:m,sizeRef:p,children:o.cloneElement(e,{ref:h})})}let p=({children:e,initial:a,isPresent:s,onExitComplete:n,custom:o,presenceAffectsLayout:c,mode:d,anchorX:u,anchorY:p,root:h})=>{let f=(0,l.useConstant)(x),g=(0,i.useId)(),b=!0,y=(0,i.useMemo)(()=>(b=!1,{id:g,initial:a,isPresent:s,custom:o,onExitComplete:e=>{for(let t of(f.set(e,!0),f.values()))if(!t)return;n&&n()},register:e=>(f.set(e,!1),()=>f.delete(e))}),[s,f,n]);return c&&b&&(y={...y}),(0,i.useMemo)(()=>{f.forEach((e,t)=>f.set(t,!1))},[s]),i.useEffect(()=>{s||f.size||!n||n()},[s]),"popLayout"===d&&(e=(0,t.jsx)(m,{isPresent:s,anchorX:u,anchorY:p,root:h,children:e})),(0,t.jsx)(r.PresenceContext.Provider,{value:y,children:e})};function x(){return new Map}var h=e.i(88676);let f=e=>e.key||"";function g(e){let t=[];return i.Children.forEach(e,e=>{(0,i.isValidElement)(e)&&t.push(e)}),t}let b=({children:e,custom:r,initial:n=!0,onExitComplete:o,presenceAffectsLayout:c=!0,mode:d="sync",propagate:u=!1,anchorX:m="left",anchorY:x="top",root:b})=>{let[y,v]=(0,h.usePresence)(u),j=(0,i.useMemo)(()=>g(e),[e]),w=u&&!y?[]:j.map(f),N=(0,i.useRef)(!0),k=(0,i.useRef)(j),E=(0,l.useConstant)(()=>new Map),A=(0,i.useRef)(new Set),[C,P]=(0,i.useState)(j),[M,T]=(0,i.useState)(j);(0,s.useIsomorphicLayoutEffect)(()=>{N.current=!1,k.current=j;for(let e=0;e<M.length;e++){let t=f(M[e]);w.includes(t)?(E.delete(t),A.current.delete(t)):!0!==E.get(t)&&E.set(t,!1)}},[M,w.length,w.join("-")]);let S=[];if(j!==C){let e=[...j];for(let t=0;t<M.length;t++){let i=M[t],a=f(i);w.includes(a)||(e.splice(t,0,i),S.push(i))}return"wait"===d&&S.length&&(e=S),T(g(e)),P(j),null}let{forceRender:R}=(0,i.useContext)(a.LayoutGroupContext);return(0,t.jsx)(t.Fragment,{children:M.map(e=>{let i=f(e),a=(!u||!!y)&&(j===M||w.includes(i));return(0,t.jsx)(p,{isPresent:a,initial:(!N.current||!!n)&&void 0,custom:r,presenceAffectsLayout:c,mode:d,root:b,onExitComplete:a?void 0:()=>{if(A.current.has(i)||(A.current.add(i),!E.has(i)))return;E.set(i,!0);let e=!0;E.forEach(t=>{t||(e=!1)}),e&&(R?.(),T(k.current),u&&v?.(),o&&o())},anchorX:m,anchorY:x,children:e},i)})})};e.s(["AnimatePresence",()=>b],90198)},57023,e=>{"use strict";var t=e.i(32648);let i="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";function a(e){if(!e)return i;let a=e.trim();if(!a)return i;if(/^https?:\/\//.test(a))return a;let l=a.replace(/^https?:\/\/[^/]+\/storage\/v1\/object\/public\//,"").replace(/^\/?storage\/v1\/object\/public\//,"").replace(/^\/+/,"");return l?`${t.SUPABASE_STORAGE_URL}/${l}`:i}function l(e){let t=e.currentTarget;t.dataset.fallbackApplied||(t.dataset.fallbackApplied="true",t.src=i)}e.s(["applyImageFallback",()=>l,"getAssetUrl",()=>a,"isVideo",0,e=>!!e&&[".mp4",".webm",".ogg",".mov",".m4v"].some(t=>e.toLowerCase().endsWith(t))])},70432,e=>{"use strict";var t=e.i(96148),i=e.i(84833),a=e.i(43683),l=e.i(54768),s=e.i(7766),r=e.i(72928),n=e.i(68164);function o(){let e=(0,l.useMediaQuery)("(max-width: 768px)"),i=(0,s.useSiteAssetUrl)(r.SITE_ASSET_KEYS.heroVideos.portfolioDesktop,a.PORTFOLIO_CONTENT.hero.video.desktop??void 0),o=(0,s.useSiteAssetUrl)(r.SITE_ASSET_KEYS.heroVideos.portfolioMobile,a.PORTFOLIO_CONTENT.hero.video.mobile??void 0),c=e?o:i;return(0,t.jsxs)("section",{id:"portfolio-hero","aria-label":"Portfolio Hero",className:"relative h-[78vh] md:h-screen w-full overflow-hidden",children:[(0,t.jsx)("div",{className:"absolute inset-0 z-0",children:(0,t.jsx)("video",{autoPlay:!0,loop:!0,muted:!0,playsInline:!0,className:"h-full w-full object-cover",children:(0,t.jsx)("source",{src:c,type:"video/mp4"})},c)}),(0,t.jsx)("div",{className:"absolute inset-0 z-10 bg-linear-to-b from-black/70 via-transparent to-black/90"}),(0,t.jsxs)("div",{className:"absolute inset-0 z-10 pointer-events-none","aria-hidden":"true",children:[(0,t.jsx)("div",{className:"absolute inset-0 portfolio-hero-glow-primary opacity-60"}),(0,t.jsx)("div",{className:"absolute inset-0 portfolio-hero-glow-accent opacity-40"}),(0,t.jsx)("div",{className:"absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-background via-background/80 to-transparent"})]}),(0,t.jsx)("div",{className:"absolute bottom-0 left-0 w-full z-30 pb-8 md:pb-12",children:(0,t.jsxs)("div",{className:"std-grid items-end gap-6 md:gap-0",children:[(0,t.jsx)("div",{className:"col-span-full md:col-span-7 lg:col-span-8 flex flex-col items-center md:items-start text-center md:text-left",children:(0,t.jsxs)("h1",{id:"portfolio-hero-heading",className:"text-3xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none",children:[(0,t.jsx)("span",{className:"text-bluePrimary italic font-light mr-2 md:mr-4",children:"portfólio"}),(0,t.jsx)("span",{className:"text-white font-bold",children:"showcase"})]})}),(0,t.jsx)("div",{className:"col-span-full md:col-span-6 lg:col-span-5 flex justify-center md:justify-end pb-2",children:(0,t.jsx)(n.default,{href:"#contact",text:"vamos trabalhar juntos",className:"scale-90 md:scale-100 origin-bottom"})})]})})]})}var c=e.i(90198),d=e.i(73019),u=e.i(86825);let m=[{id:"all",label:"Todos os Projetos",labelMobile:"Todos"},{id:"branding",label:"Branding & Identity",labelMobile:"Branding"},{id:"campanha",label:"Campanhas & Advertising",labelMobile:"Campanha"},{id:"web",label:"Web & Digital",labelMobile:"Web"},{id:"motion",label:"Motion & Video",labelMobile:"Motion"},{id:"institucional",label:"Institucional & Retail",labelMobile:"Institucional"},{id:"packaging",label:"Packaging & Product",labelMobile:"Packaging"}],p=[.22,1,.36,1],x=({activeCategory:e,onChange:i,className:a=""})=>(0,t.jsx)("div",{className:`flex flex-wrap items-center gap-2 md:gap-3 ${a}`,role:"group","aria-label":"Filtrar projetos por categoria",children:m.map((a,l)=>{let s=e===a.id;return(0,t.jsxs)(d.motion.button,{initial:{opacity:0,y:10},animate:{opacity:1,y:0},transition:{duration:.5,ease:p,delay:.05*l},onClick:()=>i(a.id),"aria-pressed":s,className:`
+        `),
+            () => {
+              g.contains(f) && g.removeChild(f);
+            }
+          );
+        }, [a]),
+        (0, t.jsx)(u, {
+          isPresent: a,
+          childRef: m,
+          sizeRef: p,
+          children: o.cloneElement(e, { ref: h }),
+        })
+      );
+    }
+    let p = ({
+      children: e,
+      initial: a,
+      isPresent: s,
+      onExitComplete: n,
+      custom: o,
+      presenceAffectsLayout: c,
+      mode: d,
+      anchorX: u,
+      anchorY: p,
+      root: h,
+    }) => {
+      let f = (0, l.useConstant)(x),
+        g = (0, i.useId)(),
+        b = !0,
+        y = (0, i.useMemo)(
+          () => (
+            (b = !1),
+            {
+              id: g,
+              initial: a,
+              isPresent: s,
+              custom: o,
+              onExitComplete: (e) => {
+                for (let t of (f.set(e, !0), f.values())) if (!t) return;
+                n && n();
+              },
+              register: (e) => (f.set(e, !1), () => f.delete(e)),
+            }
+          ),
+          [s, f, n]
+        );
+      return (
+        c && b && (y = { ...y }),
+        (0, i.useMemo)(() => {
+          f.forEach((e, t) => f.set(t, !1));
+        }, [s]),
+        i.useEffect(() => {
+          s || f.size || !n || n();
+        }, [s]),
+        'popLayout' === d &&
+          (e = (0, t.jsx)(m, {
+            isPresent: s,
+            anchorX: u,
+            anchorY: p,
+            root: h,
+            children: e,
+          })),
+        (0, t.jsx)(r.PresenceContext.Provider, { value: y, children: e })
+      );
+    };
+    function x() {
+      return new Map();
+    }
+    var h = e.i(88676);
+    let f = (e) => e.key || '';
+    function g(e) {
+      let t = [];
+      return (
+        i.Children.forEach(e, (e) => {
+          (0, i.isValidElement)(e) && t.push(e);
+        }),
+        t
+      );
+    }
+    let b = ({
+      children: e,
+      custom: r,
+      initial: n = !0,
+      onExitComplete: o,
+      presenceAffectsLayout: c = !0,
+      mode: d = 'sync',
+      propagate: u = !1,
+      anchorX: m = 'left',
+      anchorY: x = 'top',
+      root: b,
+    }) => {
+      let [y, v] = (0, h.usePresence)(u),
+        j = (0, i.useMemo)(() => g(e), [e]),
+        w = u && !y ? [] : j.map(f),
+        N = (0, i.useRef)(!0),
+        k = (0, i.useRef)(j),
+        E = (0, l.useConstant)(() => new Map()),
+        A = (0, i.useRef)(new Set()),
+        [C, P] = (0, i.useState)(j),
+        [M, T] = (0, i.useState)(j);
+      (0, s.useIsomorphicLayoutEffect)(() => {
+        ((N.current = !1), (k.current = j));
+        for (let e = 0; e < M.length; e++) {
+          let t = f(M[e]);
+          w.includes(t)
+            ? (E.delete(t), A.current.delete(t))
+            : !0 !== E.get(t) && E.set(t, !1);
+        }
+      }, [M, w.length, w.join('-')]);
+      let S = [];
+      if (j !== C) {
+        let e = [...j];
+        for (let t = 0; t < M.length; t++) {
+          let i = M[t],
+            a = f(i);
+          w.includes(a) || (e.splice(t, 0, i), S.push(i));
+        }
+        return ('wait' === d && S.length && (e = S), T(g(e)), P(j), null);
+      }
+      let { forceRender: R } = (0, i.useContext)(a.LayoutGroupContext);
+      return (0, t.jsx)(t.Fragment, {
+        children: M.map((e) => {
+          let i = f(e),
+            a = (!u || !!y) && (j === M || w.includes(i));
+          return (0, t.jsx)(
+            p,
+            {
+              isPresent: a,
+              initial: (!N.current || !!n) && void 0,
+              custom: r,
+              presenceAffectsLayout: c,
+              mode: d,
+              root: b,
+              onExitComplete: a
+                ? void 0
+                : () => {
+                    if (A.current.has(i) || (A.current.add(i), !E.has(i)))
+                      return;
+                    E.set(i, !0);
+                    let e = !0;
+                    (E.forEach((t) => {
+                      t || (e = !1);
+                    }),
+                      e && (R?.(), T(k.current), u && v?.(), o && o()));
+                  },
+              anchorX: m,
+              anchorY: x,
+              children: e,
+            },
+            i
+          );
+        }),
+      });
+    };
+    e.s(['AnimatePresence', () => b], 90198);
+  },
+  57023,
+  (e) => {
+    'use strict';
+    var t = e.i(32648);
+    let i =
+      'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+    function a(e) {
+      if (!e) return i;
+      let a = e.trim();
+      if (!a) return i;
+      if (/^https?:\/\//.test(a)) return a;
+      let l = a
+        .replace(/^https?:\/\/[^/]+\/storage\/v1\/object\/public\//, '')
+        .replace(/^\/?storage\/v1\/object\/public\//, '')
+        .replace(/^\/+/, '');
+      return l ? `${t.SUPABASE_STORAGE_URL}/${l}` : i;
+    }
+    function l(e) {
+      let t = e.currentTarget;
+      t.dataset.fallbackApplied ||
+        ((t.dataset.fallbackApplied = 'true'), (t.src = i));
+    }
+    e.s([
+      'applyImageFallback',
+      () => l,
+      'getAssetUrl',
+      () => a,
+      'isVideo',
+      0,
+      (e) =>
+        !!e &&
+        ['.mp4', '.webm', '.ogg', '.mov', '.m4v'].some((t) =>
+          e.toLowerCase().endsWith(t)
+        ),
+    ]);
+  },
+  70432,
+  (e) => {
+    'use strict';
+    var t = e.i(96148),
+      i = e.i(84833),
+      a = e.i(43683),
+      l = e.i(54768),
+      s = e.i(7766),
+      r = e.i(72928),
+      n = e.i(68164);
+    function o() {
+      let e = (0, l.useMediaQuery)('(max-width: 768px)'),
+        i = (0, s.useSiteAssetUrl)(
+          r.SITE_ASSET_KEYS.heroVideos.portfolioDesktop,
+          a.PORTFOLIO_CONTENT.hero.video.desktop ?? void 0
+        ),
+        o = (0, s.useSiteAssetUrl)(
+          r.SITE_ASSET_KEYS.heroVideos.portfolioMobile,
+          a.PORTFOLIO_CONTENT.hero.video.mobile ?? void 0
+        ),
+        c = e ? o : i;
+      return (0, t.jsxs)('section', {
+        id: 'portfolio-hero',
+        'aria-label': 'Portfolio Hero',
+        className: 'relative h-[78vh] md:h-screen w-full overflow-hidden',
+        children: [
+          (0, t.jsx)('div', {
+            className: 'absolute inset-0 z-0',
+            children: (0, t.jsx)(
+              'video',
+              {
+                autoPlay: !0,
+                loop: !0,
+                muted: !0,
+                playsInline: !0,
+                className: 'h-full w-full object-cover',
+                children: (0, t.jsx)('source', { src: c, type: 'video/mp4' }),
+              },
+              c
+            ),
+          }),
+          (0, t.jsx)('div', {
+            className:
+              'absolute inset-0 z-10 bg-linear-to-b from-black/70 via-transparent to-black/90',
+          }),
+          (0, t.jsxs)('div', {
+            className: 'absolute inset-0 z-10 pointer-events-none',
+            'aria-hidden': 'true',
+            children: [
+              (0, t.jsx)('div', {
+                className:
+                  'absolute inset-0 portfolio-hero-glow-primary opacity-60',
+              }),
+              (0, t.jsx)('div', {
+                className:
+                  'absolute inset-0 portfolio-hero-glow-accent opacity-40',
+              }),
+              (0, t.jsx)('div', {
+                className:
+                  'absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-background via-background/80 to-transparent',
+              }),
+            ],
+          }),
+          (0, t.jsx)('div', {
+            className: 'absolute bottom-0 left-0 w-full z-30 pb-8 md:pb-12',
+            children: (0, t.jsxs)('div', {
+              className: 'std-grid items-end gap-6 md:gap-0',
+              children: [
+                (0, t.jsx)('div', {
+                  className:
+                    'col-span-full md:col-span-7 lg:col-span-8 flex flex-col items-center md:items-start text-center md:text-left',
+                  children: (0, t.jsxs)('h1', {
+                    id: 'portfolio-hero-heading',
+                    className:
+                      'text-3xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none',
+                    children: [
+                      (0, t.jsx)('span', {
+                        className:
+                          'text-bluePrimary italic font-light mr-2 md:mr-4',
+                        children: 'portfólio',
+                      }),
+                      (0, t.jsx)('span', {
+                        className: 'text-white font-bold',
+                        children: 'showcase',
+                      }),
+                    ],
+                  }),
+                }),
+                (0, t.jsx)('div', {
+                  className:
+                    'col-span-full md:col-span-6 lg:col-span-5 flex justify-center md:justify-end pb-2',
+                  children: (0, t.jsx)(n.default, {
+                    href: '#contact',
+                    text: 'vamos trabalhar juntos',
+                    className: 'scale-90 md:scale-100 origin-bottom',
+                  }),
+                }),
+              ],
+            }),
+          }),
+        ],
+      });
+    }
+    var c = e.i(90198),
+      d = e.i(73019),
+      u = e.i(86825);
+    let m = [
+        { id: 'all', label: 'Todos os Projetos', labelMobile: 'Todos' },
+        {
+          id: 'branding',
+          label: 'Branding & Identity',
+          labelMobile: 'Branding',
+        },
+        {
+          id: 'campanha',
+          label: 'Campanhas & Advertising',
+          labelMobile: 'Campanha',
+        },
+        { id: 'web', label: 'Web & Digital', labelMobile: 'Web' },
+        { id: 'motion', label: 'Motion & Video', labelMobile: 'Motion' },
+        {
+          id: 'institucional',
+          label: 'Institucional & Retail',
+          labelMobile: 'Institucional',
+        },
+        {
+          id: 'packaging',
+          label: 'Packaging & Product',
+          labelMobile: 'Packaging',
+        },
+      ],
+      p = [0.22, 1, 0.36, 1],
+      x = ({ activeCategory: e, onChange: i, className: a = '' }) =>
+        (0, t.jsx)('div', {
+          className: `flex flex-wrap items-center gap-2 md:gap-3 ${a}`,
+          role: 'group',
+          'aria-label': 'Filtrar projetos por categoria',
+          children: m.map((a, l) => {
+            let s = e === a.id;
+            return (0, t.jsxs)(
+              d.motion.button,
+              {
+                initial: { opacity: 0, y: 10 },
+                animate: { opacity: 1, y: 0 },
+                transition: { duration: 0.5, ease: p, delay: 0.05 * l },
+                onClick: () => i(a.id),
+                'aria-pressed': s,
+                className: `
               relative px-4 py-3 md:px-5 md:py-2.5 min-h-[48px] md:min-h-0 flex items-center justify-center rounded-full text-xs md:text-sm font-medium
               transition-colors duration-300 whitespace-nowrap
-              ${s?"text-white":"text-white/60 hover:text-white/90"}
-            `,children:[s&&(0,t.jsx)(d.motion.div,{layoutId:"activeCategory",className:"absolute inset-0 bg-focus-ring rounded-full",transition:{type:"spring",bounce:.15,duration:.5}}),!s&&(0,t.jsx)("div",{className:"absolute inset-0 rounded-full border border-white/20 hover:border-white/40 transition-colors duration-300"}),(0,t.jsx)("span",{className:"relative z-10 hidden md:inline",children:a.label}),(0,t.jsx)("span",{className:"relative z-10 md:hidden",children:a.labelMobile})]},a.id)})});var h=e.i(67725),f=e.i(14689),g=e.i(35315),b=e.i(45439),y=e.i(78923),v=e.i(57023),j=e.i(63844);let{duration:w,spring:N,stagger:k}=y.MOTION_TOKENS,E=({project:e,index:a,onOpen:l,className:s=""})=>{let r=(0,u.useReducedMotion)(),n=(0,j.useRouter)(),o=(0,i.useRef)(null),[c,m]=(0,i.useState)(!1),p=(0,i.useRef)(null),{scrollYProgress:x}=(0,f.useScroll)({target:p,offset:["start end","end start"]}),E=(0,g.useTransform)(x,[0,1],["-12%","12%"]),A=()=>{e.landingPageSlug?n.push(`/projects/${e.landingPageSlug}?from=portfolio`):l&&l(e)};return(0,t.jsxs)(d.motion.article,{ref:e=>{o.current=e,o.current=e,p.current=e},initial:{opacity:0,y:24,filter:"blur(4px)"},whileInView:{opacity:1,y:0,filter:"blur(0px)"},viewport:{once:!0,margin:"-50px"},transition:(0,y.ghostTransition)(a*k.tight,w.normal),className:`card-shell group relative overflow-hidden rounded-none cursor-pointer bg-white/5 will-change-transform h-full ${e.layout.cols} ${s}`,onMouseEnter:()=>m(!0),onMouseLeave:()=>m(!1),onClick:A,role:"button",tabIndex:0,onKeyDown:e=>"Enter"===e.key&&A(),"aria-label":`Ver projeto: ${e.title}`,children:[(0,t.jsx)("div",{className:"card-media overflow-hidden flex items-center justify-center",children:(0,t.jsx)(d.motion.div,{className:"absolute inset-0 -top-[17.5%] h-[135%] w-full will-change-transform",style:r?{}:{y:E},animate:{y:c?-8:0},transition:(0,y.ghostTransition)(0,w.normal),children:(0,v.isVideo)(e.image)?(0,t.jsx)("video",{src:e.image,autoPlay:!0,muted:!0,loop:!0,playsInline:!0,className:"absolute inset-0 w-full h-full object-cover object-center"}):(0,t.jsx)(h.default,{src:e.image,alt:e.title,fill:!0,className:"object-cover object-center",sizes:"(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw",loading:"lazy",onError:v.applyImageFallback})})}),e.videoPreview&&(0,t.jsx)(d.motion.div,{className:"absolute inset-0 z-10 pointer-events-none",initial:{opacity:0},animate:{opacity:+!!c},transition:{duration:.5},children:(0,v.isVideo)(e.videoPreview)?(0,t.jsx)("video",{src:e.videoPreview,autoPlay:!0,muted:!0,loop:!0,playsInline:!0,className:"absolute inset-0 w-full h-full object-cover object-center"}):(0,t.jsx)(h.default,{src:e.videoPreview,alt:"",fill:!0,className:"object-cover object-center",loading:"lazy",unoptimized:!0,onError:v.applyImageFallback})}),(0,t.jsx)("div",{className:"absolute inset-0 z-20 bg-linear-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-500 opacity-60 group-hover:opacity-80"}),(0,t.jsx)(d.motion.div,{className:"absolute inset-0 z-20 bg-black/40 backdrop-blur-[2px]",initial:{opacity:0},animate:{opacity:+!!c},transition:{duration:.3}}),(0,t.jsx)("div",{className:"absolute top-4 right-4 z-30 hidden md:flex","aria-hidden":"true",children:(0,t.jsx)(d.motion.span,{className:"inline-flex items-center rounded-full bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 px-3 py-1.5 text-[10px] md:text-xs font-medium uppercase tracking-wide text-[#040013]",animate:{opacity:1,y:0},transition:{duration:.3},children:e.displayCategory})}),(0,t.jsx)("div",{className:"absolute bottom-0 left-0 right-0 z-30 p-5 md:p-8 transform transition-transform duration-500 group-hover:md:-translate-y-2",children:(0,t.jsxs)("div",{className:"flex items-end justify-between gap-4",children:[(0,t.jsxs)("div",{className:"flex flex-col gap-1.5 local-reset",children:[(0,t.jsx)(d.motion.h3,{className:"text-xl md:text-2xl lg:text-3xl font-bold text-white leading-[1.1] tracking-tight wrap-break-word hyphens-auto",children:e.title}),(0,t.jsxs)("span",{className:"text-sm text-white/60 font-medium tracking-wide uppercase",children:[e.client," ・ ",e.year]})]}),(0,t.jsx)(d.motion.div,{className:"flex h-11 w-11 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-full text-white shadow-[0_0_16px_rgba(0,72,255,0.25)] transition-all duration-300",style:{backgroundColor:c?"#8705f2":"#0048ff"},initial:{opacity:0,y:10},animate:{opacity:1,y:0},transition:{type:"spring",...N.snappy},whileHover:r?void 0:{x:4},children:(0,t.jsx)(b.ArrowUpRight,{className:"w-5 h-5"})})]})}),(0,t.jsx)("div",{className:"absolute inset-0 z-40 rounded-2xl md:rounded-3xl ring-2 ring-primary ring-offset-2 ring-offset-background opacity-0 group-focus-visible:opacity-100 transition-opacity pointer-events-none"})]})};var A=e.i(66537);let C=function(e={}){let{springConfig:t={stiffness:45,damping:25,mass:1},enabled:a=!0}=e,l=(0,i.useRef)(null),s=(0,i.useRef)(null),[r,n]=(0,i.useState)(!1),[o,c]=(0,i.useState)(0),[d,u]=(0,i.useState)(0);(0,i.useEffect)(()=>{let e=()=>n(window.innerWidth<1024);return e(),window.addEventListener("resize",e),()=>window.removeEventListener("resize",e)},[]);let m=a&&!r,{scrollYProgress:p}=(0,f.useScroll)({target:l,offset:["start start","end end"]}),x=(0,A.useSpring)(p,t);(0,i.useEffect)(()=>{if(!s.current||!m)return;let e=()=>{s.current&&c(s.current.offsetHeight),u(window.innerHeight)},t=new ResizeObserver(e);return t.observe(s.current),e(),()=>t.disconnect()},[m]);let h=(0,g.useTransform)(x,[0,1],[0,-(o-d)]);return{galleryRef:l,trackRef:s,style:{y:m?h:0},isScrolling:!1}};var P=e.i(89764);let M=[.22,1,.36,1],T=({projects:e,onProjectOpen:a,showFilter:l=!0,maxProjects:s,className:r="",isPaused:n=!1})=>{let[o,m]=(0,i.useState)("all"),p=(0,u.useReducedMotion)(),{galleryRef:h,trackRef:f,isScrolling:g,style:b}=C({springConfig:{stiffness:45,damping:25},enabled:!p&&!n}),[y,v]=(0,i.useState)("auto"),j=(0,i.useMemo)(()=>{let t="all"===o?e:e.filter(e=>e.category===o);return s&&(t=t.slice(0,s)),t},[o,s,e]);return(0,i.useEffect)(()=>{if(!f.current||p)return void v("auto");let e=()=>{if(f.current){let e=f.current.offsetHeight;v(`${e}px`)}},t=new ResizeObserver(e);return t.observe(f.current),e(),()=>t.disconnect()},[j,p,o,f]),(0,i.useEffect)(()=>{let e=h.current;e&&e.style.setProperty("--gallery-height",y)},[y,h]),(0,t.jsx)("section",{ref:h,id:"projects-gallery","aria-label":"Galeria de Projetos",className:`relative z-10 bg-background transition-[height] duration-300 ease-out h-(--gallery-height) ${r}`,children:(0,t.jsxs)(d.motion.div,{ref:f,style:b,className:`w-full py-16 md:py-24 overflow-hidden ${!p&&"md:sticky md:top-0 md:w-full will-change-transform"}`,children:[(0,t.jsxs)("div",{className:"absolute inset-0 pointer-events-none",children:[(0,t.jsx)("div",{className:"absolute top-0 left-1/4 w-96 h-96 bg-bluePrimary/5 rounded-full blur-[120px]"}),(0,t.jsx)("div",{className:"absolute bottom-1/4 right-0 w-80 h-80 bg-blueAccent/5 rounded-full blur-[100px]"})]}),l&&(0,t.jsx)(P.Container,{children:(0,t.jsx)(d.motion.div,{initial:!p&&{opacity:0,y:20},whileInView:{opacity:1,y:0},viewport:{once:!0},transition:{duration:.7,ease:M},className:"flex justify-center md:justify-end mb-16 md:mb-24",children:(0,t.jsx)(x,{activeCategory:o,onChange:m})})}),(0,t.jsx)(d.motion.div,{layout:!p,className:"grid grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-0 items-stretch w-full",role:"tabpanel",id:`projects-${o}`,"aria-label":`Projetos de ${o}`,children:(0,t.jsx)(c.AnimatePresence,{mode:"popLayout",children:j.map((e,i)=>(0,t.jsx)(E,{project:e,index:i,onOpen:a,className:g?"pointer-events-none":""},e.id))})}),0===j.length&&(0,t.jsx)(P.Container,{children:(0,t.jsxs)(d.motion.div,{initial:{opacity:0},animate:{opacity:1},className:"flex flex-col items-center justify-center py-20 text-center",children:[(0,t.jsx)("span",{className:"text-6xl mb-4",children:"🔍"}),(0,t.jsx)("h3",{className:"text-xl font-medium text-white mb-2",children:"Nenhum projeto encontrado"}),(0,t.jsx)("p",{className:"text-white/60",children:"Tente selecionar outra categoria."})]})})]})})};var S=e.i(57974),R=e.i(16424);let z=(0,R.default)("x",[["path",{d:"M18 6 6 18",key:"1bl5f8"}],["path",{d:"m6 6 12 12",key:"d8bk6v"}]]),I=(0,R.default)("calendar",[["path",{d:"M8 2v4",key:"1cmpym"}],["path",{d:"M16 2v4",key:"4m81vk"}],["rect",{width:"18",height:"18",x:"3",y:"4",rx:"2",key:"1hopcy"}],["path",{d:"M3 10h18",key:"8toen8"}]]),$=(0,R.default)("building-2",[["path",{d:"M10 12h4",key:"a56b0p"}],["path",{d:"M10 8h4",key:"1sr2af"}],["path",{d:"M14 21v-3a2 2 0 0 0-4 0v3",key:"1rgiei"}],["path",{d:"M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2",key:"secmi2"}],["path",{d:"M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16",key:"16ra0t"}]]),O=[.22,1,.36,1],F={initial:{opacity:0,y:16},animate:{opacity:1,y:0},exit:{opacity:0,y:-10},transition:{duration:.5,ease:O}},_=({project:e})=>(0,t.jsxs)("div",{className:"flex flex-col gap-8",children:[(0,t.jsxs)(d.motion.div,{initial:{opacity:0},animate:{opacity:1},transition:{delay:.52,duration:.24,ease:"easeOut"},className:"card-shell relative w-full rounded-2xl overflow-hidden bg-white/5",children:[(0,v.isVideo)(e.image)?(0,t.jsx)("video",{src:e.image,autoPlay:!0,muted:!0,loop:!0,playsInline:!0,className:"absolute inset-0 w-full h-full object-cover"}):(0,t.jsx)(h.default,{src:e.image,alt:e.title,fill:!0,className:"object-cover",sizes:"(max-width: 1024px) 100vw, 80vw",priority:!0}),(0,t.jsx)("div",{className:"absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent"}),(0,t.jsx)("div",{className:"absolute top-6 left-6",children:(0,t.jsx)("span",{className:"inline-flex items-center rounded-full bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-[#040013]",children:e.displayCategory})})]}),(0,t.jsxs)("div",{className:"grid md:grid-cols-[1.5fr,1fr] gap-8 md:gap-12",children:[(0,t.jsxs)("div",{className:"flex flex-col gap-6",children:[(0,t.jsx)(d.motion.h2,{initial:{opacity:0,y:6},animate:{opacity:1,y:0},transition:{delay:.76,duration:.2,ease:O},className:"text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight",children:e.title}),e.subtitle&&(0,t.jsx)(d.motion.p,{variants:F,className:"text-xl text-blueAccent font-medium",children:e.subtitle}),e.detail?.description&&(0,t.jsx)(d.motion.p,{variants:F,className:"text-base md:text-lg text-white/70 leading-relaxed",children:e.detail.description}),e.detail?.highlights&&(0,t.jsx)(d.motion.ul,{variants:F,className:"flex flex-col gap-3 list-none",children:e.detail.highlights.map((e,i)=>(0,t.jsxs)(d.motion.li,{className:"flex items-center gap-3 text-sm text-white/80",variants:F,children:[(0,t.jsx)("span",{className:"w-1.5 h-1.5 rounded-full bg-blueAccent","aria-hidden":"true"}),e]},i))})]}),(0,t.jsxs)(d.motion.div,{initial:{opacity:0,y:4},animate:{opacity:1,y:0},transition:{delay:.96,duration:.16,ease:O},className:"flex flex-col gap-6",children:[(0,t.jsxs)("div",{className:"flex flex-col gap-4",children:[(0,t.jsxs)("div",{className:"flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10",children:[(0,t.jsx)($,{className:"w-5 h-5 text-blueAccent"}),(0,t.jsxs)("div",{children:[(0,t.jsx)("span",{className:"block text-xs uppercase tracking-wider text-white/50",children:"Cliente"}),(0,t.jsx)("span",{className:"text-sm font-medium text-white",children:e.client})]})]}),(0,t.jsxs)("div",{className:"flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10",children:[(0,t.jsx)(I,{className:"w-5 h-5 text-blueAccent"}),(0,t.jsxs)("div",{children:[(0,t.jsx)("span",{className:"block text-xs uppercase tracking-wider text-white/50",children:"Ano"}),(0,t.jsx)("span",{className:"text-sm font-medium text-white",children:e.year})]})]})]}),e.tags&&(0,t.jsx)("div",{className:"flex flex-wrap gap-2",children:e.tags.map(e=>(0,t.jsx)("span",{className:"px-3 py-1.5 rounded-full bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 text-xs text-[#040013] font-medium",children:e},e))}),e.detail?.externalUrl&&(0,t.jsxs)("a",{href:e.detail.externalUrl,target:"_blank",rel:"noopener noreferrer",className:"inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-white font-semibold text-sm transition-colors bg-[#0048ff] hover:bg-[#8705f2]",children:["Ver projeto completo",(0,t.jsx)(b.ArrowUpRight,{className:"w-4 h-4"})]})]})]}),e.detail?.gallery&&e.detail.gallery.length>0&&(0,t.jsxs)(d.motion.div,{variants:F,className:"mt-8",children:[(0,t.jsx)("h3",{className:"text-lg font-semibold text-white mb-4",children:"Galeria"}),(0,t.jsx)("div",{className:"grid grid-cols-2 md:grid-cols-3 gap-4",children:e.detail.gallery.map((i,a)=>(0,t.jsx)(d.motion.div,{initial:{opacity:0,y:8},animate:{opacity:1,y:0},transition:{delay:1.12+.08*a,duration:.2,ease:O},className:"relative aspect-square rounded-xl overflow-hidden bg-white/5",children:(0,v.isVideo)(i)?(0,t.jsx)("video",{src:i,autoPlay:!0,muted:!0,loop:!0,playsInline:!0,className:"absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-500"}):(0,t.jsx)(h.default,{src:i,alt:`${e.title} - Imagem ${a+1}`,fill:!0,className:"object-cover hover:scale-105 transition-transform duration-500",sizes:"(max-width: 768px) 50vw, 33vw"})},a))})]})]});var L=e.i(59178);let U={initial:{opacity:0,y:16},animate:{opacity:1,y:0},exit:{opacity:0,y:-8},transition:{duration:.4,ease:O}},V=({project:e})=>(0,t.jsxs)("div",{className:"grid md:grid-cols-2 gap-8 md:gap-12",children:[(0,t.jsxs)(d.motion.div,{initial:{opacity:0,x:-20},animate:{opacity:1,x:0},transition:{delay:.52,duration:.5,ease:O},className:"relative aspect-square md:aspect-4/5 rounded-2xl overflow-hidden bg-white/5",children:[(0,v.isVideo)(e.image)?(0,t.jsx)("video",{src:e.image,autoPlay:!0,muted:!0,loop:!0,playsInline:!0,className:"absolute inset-0 w-full h-full object-cover"}):(0,t.jsx)(h.default,{src:e.image,alt:e.title,fill:!0,className:"object-cover",sizes:"(max-width: 768px) 100vw, 50vw",priority:!0}),e.accentColor&&(0,t.jsx)(d.motion.div,{className:"absolute inset-x-0 bottom-0 h-1/3",style:{background:`linear-gradient(to top, ${e.accentColor}40, transparent)`}}),(0,t.jsx)("div",{className:"absolute top-4 left-4",children:(0,t.jsx)("span",{className:"inline-flex items-center rounded-full bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 px-3 py-1 text-xs font-medium text-[#040013]",children:e.displayCategory})})]}),(0,t.jsxs)("div",{className:"flex flex-col justify-center gap-6",children:[(0,t.jsxs)("div",{className:"flex flex-col gap-2",children:[(0,t.jsxs)(d.motion.span,{variants:U,className:"text-xs uppercase tracking-[0.3em] text-blueAccent",children:["[",e.category,"]"]}),(0,t.jsx)(d.motion.h2,{initial:{opacity:0,y:6},animate:{opacity:1,y:0},transition:{delay:.76,duration:.2,ease:O},className:"text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight",children:e.title}),e.subtitle&&(0,t.jsx)(d.motion.p,{variants:U,className:"text-lg text-white/60",children:e.subtitle})]}),e.detail?.description&&(0,t.jsx)(d.motion.p,{variants:U,className:"text-base text-white/70 leading-relaxed",children:e.detail.description}),(0,t.jsxs)(d.motion.div,{initial:{opacity:0,y:4},animate:{opacity:1,y:0},transition:{delay:.96,duration:.16,ease:O},className:"flex flex-wrap items-center gap-4 text-sm text-white/50",children:[(0,t.jsxs)("span",{className:"flex items-center gap-2",children:[(0,t.jsx)($,{className:"w-4 h-4"}),e.client]}),(0,t.jsx)("span",{className:"w-px h-4 bg-white/20"}),(0,t.jsxs)("span",{className:"flex items-center gap-2",children:[(0,t.jsx)(I,{className:"w-4 h-4"}),e.year]}),e.tags&&e.tags.length>0&&(0,t.jsxs)(t.Fragment,{children:[(0,t.jsx)("span",{className:"w-px h-4 bg-white/20"}),(0,t.jsxs)("span",{className:"flex items-center gap-2",children:[(0,t.jsx)(L.Tag,{className:"w-4 h-4"}),e.tags.slice(0,2).join(", ")]})]})]}),e.detail?.highlights&&(0,t.jsx)("ul",{className:"flex flex-col gap-2 mt-2",children:(0,t.jsx)(d.motion.div,{variants:U,className:"contents",children:e.detail.highlights.map((e,i)=>(0,t.jsxs)("li",{className:"flex items-start gap-3 text-sm text-white/70",children:[(0,t.jsx)("span",{className:"mt-1.5 w-1.5 h-1.5 rounded-full bg-blueAccent shrink-0"}),e]},i))})}),e.tags&&(0,t.jsx)(d.motion.div,{initial:{opacity:0,y:8},animate:{opacity:1,y:0},transition:{delay:1.12,duration:.2,ease:O},className:"flex flex-wrap gap-2",children:e.tags.map(e=>(0,t.jsx)("span",{className:"px-3 py-1 rounded-full bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 text-xs text-[#040013] font-medium",children:e},e))}),(0,t.jsx)(d.motion.div,{variants:U,className:"flex gap-3 mt-4",children:e.detail?.externalUrl&&(0,t.jsx)(n.default,{href:e.detail.externalUrl,text:"ver projeto",className:"relative"})})]})]}),{offset:H}=y.MOTION_TOKENS;function K({project:e,isOpen:a,onClose:l}){let s,[r,n]=(0,i.useState)(!1),o=(0,i.useRef)(null),m=(0,i.useRef)(null),p=(0,u.useReducedMotion)();s=(0,i.useRef)(0),(0,i.useEffect)(()=>{let e=document.documentElement,t=document.body;if(a){s.current=window.scrollY;let i=window.innerWidth-e.clientWidth;t.style.overflow="hidden",t.style.position="fixed",t.style.top=`-${s.current}px`,t.style.left="0",t.style.right="0",t.style.paddingRight=`${i}px`,e.style.overflow="hidden"}else t.style.overflow="",t.style.position="",t.style.top="",t.style.left="",t.style.right="",t.style.paddingRight="",e.style.overflow="",window.scrollTo(0,s.current);return()=>{t.style.overflow="",t.style.position="",t.style.top="",t.style.left="",t.style.right="",t.style.paddingRight="",e.style.overflow=""}},[a]),(0,i.useEffect)(()=>{n(!0)},[]),(0,i.useEffect)(()=>{if(!a)return;let e=e=>{if("Escape"===e.key&&(e.preventDefault(),l()),"Tab"===e.key&&o.current){let t=o.current.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'),i=t[0],a=t[t.length-1];e.shiftKey&&document.activeElement===i?(e.preventDefault(),a?.focus()):e.shiftKey||document.activeElement!==a||(e.preventDefault(),i?.focus())}};return document.addEventListener("keydown",e),setTimeout(()=>{m.current?.focus()},100),()=>document.removeEventListener("keydown",e)},[a,l]);let x=(0,i.useCallback)(e=>{e.target===e.currentTarget&&l()},[l]);if(!r)return null;let h=(0,t.jsx)(c.AnimatePresence,{mode:"wait",children:a&&e&&(0,t.jsxs)(t.Fragment,{children:[(0,t.jsx)(d.motion.div,{initial:"hidden",animate:"visible",exit:"exit",variants:{hidden:{opacity:0},visible:{opacity:1,transition:{duration:.18,ease:"easeOut"}},exit:{opacity:0,transition:{duration:.2,ease:"easeIn"}}},onClick:x,className:"fixed inset-0 z-100 bg-black/85 backdrop-blur-md","aria-hidden":"true"},"backdrop"),(0,t.jsx)(d.motion.div,{ref:o,role:"dialog","aria-modal":"true","aria-labelledby":"modal-title",initial:p?{opacity:0}:{opacity:0,y:H.large},animate:{opacity:1,y:0},exit:p?{opacity:0}:{opacity:0,y:H.standard},transition:(0,y.ghostTransition)(.12*!p,p?.15:.26),className:"fixed inset-0 z-101 overflow-y-auto",children:(0,t.jsx)("div",{className:"min-h-full flex items-start justify-center p-4 md:p-8 lg:p-12",children:(0,t.jsxs)(d.motion.div,{initial:{opacity:0},animate:{opacity:1},transition:{duration:.26,delay:.12,ease:[.22,1,.36,1]},className:"relative w-full max-w-5xl bg-background/95 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl shadow-black/50 overflow-hidden will-change-transform",children:[(0,t.jsx)("button",{ref:m,onClick:l,className:"fixed top-6 right-6 md:top-10 md:right-10 z-110 flex items-center justify-center w-10 h-10 md:w-14 md:h-14 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white transition-all duration-300 hover:rotate-90","aria-label":"Fechar modal",children:(0,t.jsx)(z,{className:"w-5 h-5 md:w-7 md:h-7"})}),(0,t.jsx)("div",{className:"absolute top-0 inset-x-0 h-40 pointer-events-none",children:(0,t.jsx)("div",{className:"absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_center_top,var(--glow-color,rgba(0,87,255,0.3)),transparent_70%)]",...e.accentColor&&{style:{"--glow-color":`${e.accentColor}40`}}})}),(0,t.jsx)("div",{className:"relative z-10 p-6 md:p-10 lg:p-12 pt-16 md:pt-20",children:"A"===e.type?(0,t.jsx)(_,{project:e}):(0,t.jsx)(V,{project:e})}),(0,t.jsx)("div",{className:"absolute bottom-0 inset-x-0 h-24 bg-linear-to-t from-background to-transparent pointer-events-none"})]})})},"modal")]})});return(0,S.createPortal)(h,document.body)}var B=e.i(22621);function D({projects:e}){let[a,l]=(0,i.useState)(null),[s,r]=(0,i.useState)(!1),n=(0,i.useCallback)(e=>{l(e),r(!0)},[]),c=(0,i.useCallback)(()=>{r(!1),setTimeout(()=>{l(null)},400)},[]);return(0,t.jsxs)("div",{className:"min-h-screen bg-background text-text",children:[(0,t.jsx)(o,{}),(0,t.jsx)(T,{projects:e,onProjectOpen:n,isPaused:s}),(0,t.jsx)(K,{project:a,isOpen:s,onClose:c}),(0,t.jsx)(B.SiteClosure,{})]})}e.s(["default",()=>D],70432)}]);
+              ${s ? 'text-white' : 'text-white/60 hover:text-white/90'}
+            `,
+                children: [
+                  s &&
+                    (0, t.jsx)(d.motion.div, {
+                      layoutId: 'activeCategory',
+                      className: 'absolute inset-0 bg-focus-ring rounded-full',
+                      transition: {
+                        type: 'spring',
+                        bounce: 0.15,
+                        duration: 0.5,
+                      },
+                    }),
+                  !s &&
+                    (0, t.jsx)('div', {
+                      className:
+                        'absolute inset-0 rounded-full border border-white/20 hover:border-white/40 transition-colors duration-300',
+                    }),
+                  (0, t.jsx)('span', {
+                    className: 'relative z-10 hidden md:inline',
+                    children: a.label,
+                  }),
+                  (0, t.jsx)('span', {
+                    className: 'relative z-10 md:hidden',
+                    children: a.labelMobile,
+                  }),
+                ],
+              },
+              a.id
+            );
+          }),
+        });
+    var h = e.i(67725),
+      f = e.i(14689),
+      g = e.i(35315),
+      b = e.i(45439),
+      y = e.i(78923),
+      v = e.i(57023),
+      j = e.i(63844);
+    let { duration: w, spring: N, stagger: k } = y.MOTION_TOKENS,
+      E = ({ project: e, index: a, onOpen: l, className: s = '' }) => {
+        let r = (0, u.useReducedMotion)(),
+          n = (0, j.useRouter)(),
+          o = (0, i.useRef)(null),
+          [c, m] = (0, i.useState)(!1),
+          p = (0, i.useRef)(null),
+          { scrollYProgress: x } = (0, f.useScroll)({
+            target: p,
+            offset: ['start end', 'end start'],
+          }),
+          E = (0, g.useTransform)(x, [0, 1], ['-12%', '12%']),
+          A = () => {
+            e.landingPageSlug
+              ? n.push(`/projects/${e.landingPageSlug}?from=portfolio`)
+              : l && l(e);
+          };
+        return (0, t.jsxs)(d.motion.article, {
+          ref: (e) => {
+            ((o.current = e), (o.current = e), (p.current = e));
+          },
+          initial: { opacity: 0, y: 24, filter: 'blur(4px)' },
+          whileInView: { opacity: 1, y: 0, filter: 'blur(0px)' },
+          viewport: { once: !0, margin: '-50px' },
+          transition: (0, y.ghostTransition)(a * k.tight, w.normal),
+          className: `card-shell group relative overflow-hidden rounded-none cursor-pointer bg-white/5 will-change-transform h-full ${e.layout.cols} ${s}`,
+          onMouseEnter: () => m(!0),
+          onMouseLeave: () => m(!1),
+          onClick: A,
+          role: 'button',
+          tabIndex: 0,
+          onKeyDown: (e) => 'Enter' === e.key && A(),
+          'aria-label': `Ver projeto: ${e.title}`,
+          children: [
+            (0, t.jsx)('div', {
+              className:
+                'card-media overflow-hidden flex items-center justify-center',
+              children: (0, t.jsx)(d.motion.div, {
+                className:
+                  'absolute inset-0 -top-[17.5%] h-[135%] w-full will-change-transform',
+                style: r ? {} : { y: E },
+                animate: { y: c ? -8 : 0 },
+                transition: (0, y.ghostTransition)(0, w.normal),
+                children: (0, v.isVideo)(e.image)
+                  ? (0, t.jsx)('video', {
+                      src: e.image,
+                      autoPlay: !0,
+                      muted: !0,
+                      loop: !0,
+                      playsInline: !0,
+                      className:
+                        'absolute inset-0 w-full h-full object-cover object-center',
+                    })
+                  : (0, t.jsx)(h.default, {
+                      src: e.image,
+                      alt: e.title,
+                      fill: !0,
+                      className: 'object-cover object-center',
+                      sizes:
+                        '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
+                      loading: 'lazy',
+                      onError: v.applyImageFallback,
+                    }),
+              }),
+            }),
+            e.videoPreview &&
+              (0, t.jsx)(d.motion.div, {
+                className: 'absolute inset-0 z-10 pointer-events-none',
+                initial: { opacity: 0 },
+                animate: { opacity: +!!c },
+                transition: { duration: 0.5 },
+                children: (0, v.isVideo)(e.videoPreview)
+                  ? (0, t.jsx)('video', {
+                      src: e.videoPreview,
+                      autoPlay: !0,
+                      muted: !0,
+                      loop: !0,
+                      playsInline: !0,
+                      className:
+                        'absolute inset-0 w-full h-full object-cover object-center',
+                    })
+                  : (0, t.jsx)(h.default, {
+                      src: e.videoPreview,
+                      alt: '',
+                      fill: !0,
+                      className: 'object-cover object-center',
+                      loading: 'lazy',
+                      unoptimized: !0,
+                      onError: v.applyImageFallback,
+                    }),
+              }),
+            (0, t.jsx)('div', {
+              className:
+                'absolute inset-0 z-20 bg-linear-to-t from-black/90 via-black/40 to-transparent transition-opacity duration-500 opacity-60 group-hover:opacity-80',
+            }),
+            (0, t.jsx)(d.motion.div, {
+              className:
+                'absolute inset-0 z-20 bg-black/40 backdrop-blur-[2px]',
+              initial: { opacity: 0 },
+              animate: { opacity: +!!c },
+              transition: { duration: 0.3 },
+            }),
+            (0, t.jsx)('div', {
+              className: 'absolute top-4 right-4 z-30 hidden md:flex',
+              'aria-hidden': 'true',
+              children: (0, t.jsx)(d.motion.span, {
+                className:
+                  'inline-flex items-center rounded-full bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 px-3 py-1.5 text-[10px] md:text-xs font-medium uppercase tracking-wide text-[#040013]',
+                animate: { opacity: 1, y: 0 },
+                transition: { duration: 0.3 },
+                children: e.displayCategory,
+              }),
+            }),
+            (0, t.jsx)('div', {
+              className:
+                'absolute bottom-0 left-0 right-0 z-30 p-5 md:p-8 transform transition-transform duration-500 group-hover:md:-translate-y-2',
+              children: (0, t.jsxs)('div', {
+                className: 'flex items-end justify-between gap-4',
+                children: [
+                  (0, t.jsxs)('div', {
+                    className: 'flex flex-col gap-1.5 local-reset',
+                    children: [
+                      (0, t.jsx)(d.motion.h3, {
+                        className:
+                          'text-xl md:text-2xl lg:text-3xl font-bold text-white leading-[1.1] tracking-tight wrap-break-word hyphens-auto',
+                        children: e.title,
+                      }),
+                      (0, t.jsxs)('span', {
+                        className:
+                          'text-sm text-white/60 font-medium tracking-wide uppercase',
+                        children: [e.client, ' ・ ', e.year],
+                      }),
+                    ],
+                  }),
+                  (0, t.jsx)(d.motion.div, {
+                    className:
+                      'flex h-11 w-11 md:h-12 md:w-12 shrink-0 items-center justify-center rounded-full text-white shadow-[0_0_16px_rgba(0,72,255,0.25)] transition-all duration-300',
+                    style: { backgroundColor: c ? '#8705f2' : '#0048ff' },
+                    initial: { opacity: 0, y: 10 },
+                    animate: { opacity: 1, y: 0 },
+                    transition: { type: 'spring', ...N.snappy },
+                    whileHover: r ? void 0 : { x: 4 },
+                    children: (0, t.jsx)(b.ArrowUpRight, {
+                      className: 'w-5 h-5',
+                    }),
+                  }),
+                ],
+              }),
+            }),
+            (0, t.jsx)('div', {
+              className:
+                'absolute inset-0 z-40 rounded-2xl md:rounded-3xl ring-2 ring-primary ring-offset-2 ring-offset-background opacity-0 group-focus-visible:opacity-100 transition-opacity pointer-events-none',
+            }),
+          ],
+        });
+      };
+    var A = e.i(66537);
+    let C = function (e = {}) {
+      let {
+          springConfig: t = { stiffness: 45, damping: 25, mass: 1 },
+          enabled: a = !0,
+        } = e,
+        l = (0, i.useRef)(null),
+        s = (0, i.useRef)(null),
+        [r, n] = (0, i.useState)(!1),
+        [o, c] = (0, i.useState)(0),
+        [d, u] = (0, i.useState)(0);
+      (0, i.useEffect)(() => {
+        let e = () => n(window.innerWidth < 1024);
+        return (
+          e(),
+          window.addEventListener('resize', e),
+          () => window.removeEventListener('resize', e)
+        );
+      }, []);
+      let m = a && !r,
+        { scrollYProgress: p } = (0, f.useScroll)({
+          target: l,
+          offset: ['start start', 'end end'],
+        }),
+        x = (0, A.useSpring)(p, t);
+      (0, i.useEffect)(() => {
+        if (!s.current || !m) return;
+        let e = () => {
+            (s.current && c(s.current.offsetHeight), u(window.innerHeight));
+          },
+          t = new ResizeObserver(e);
+        return (t.observe(s.current), e(), () => t.disconnect());
+      }, [m]);
+      let h = (0, g.useTransform)(x, [0, 1], [0, -(o - d)]);
+      return {
+        galleryRef: l,
+        trackRef: s,
+        style: { y: m ? h : 0 },
+        isScrolling: !1,
+      };
+    };
+    var P = e.i(89764);
+    let M = [0.22, 1, 0.36, 1],
+      T = ({
+        projects: e,
+        onProjectOpen: a,
+        showFilter: l = !0,
+        maxProjects: s,
+        className: r = '',
+        isPaused: n = !1,
+      }) => {
+        let [o, m] = (0, i.useState)('all'),
+          p = (0, u.useReducedMotion)(),
+          {
+            galleryRef: h,
+            trackRef: f,
+            isScrolling: g,
+            style: b,
+          } = C({
+            springConfig: { stiffness: 45, damping: 25 },
+            enabled: !p && !n,
+          }),
+          [y, v] = (0, i.useState)('auto'),
+          j = (0, i.useMemo)(() => {
+            let t = 'all' === o ? e : e.filter((e) => e.category === o);
+            return (s && (t = t.slice(0, s)), t);
+          }, [o, s, e]);
+        return (
+          (0, i.useEffect)(() => {
+            if (!f.current || p) return void v('auto');
+            let e = () => {
+                if (f.current) {
+                  let e = f.current.offsetHeight;
+                  v(`${e}px`);
+                }
+              },
+              t = new ResizeObserver(e);
+            return (t.observe(f.current), e(), () => t.disconnect());
+          }, [j, p, o, f]),
+          (0, i.useEffect)(() => {
+            let e = h.current;
+            e && e.style.setProperty('--gallery-height', y);
+          }, [y, h]),
+          (0, t.jsx)('section', {
+            ref: h,
+            id: 'projects-gallery',
+            'aria-label': 'Galeria de Projetos',
+            className: `relative z-10 bg-background transition-[height] duration-300 ease-out h-(--gallery-height) ${r}`,
+            children: (0, t.jsxs)(d.motion.div, {
+              ref: f,
+              style: b,
+              className: `w-full py-16 md:py-24 overflow-hidden ${!p && 'md:sticky md:top-0 md:w-full will-change-transform'}`,
+              children: [
+                (0, t.jsxs)('div', {
+                  className: 'absolute inset-0 pointer-events-none',
+                  children: [
+                    (0, t.jsx)('div', {
+                      className:
+                        'absolute top-0 left-1/4 w-96 h-96 bg-bluePrimary/5 rounded-full blur-[120px]',
+                    }),
+                    (0, t.jsx)('div', {
+                      className:
+                        'absolute bottom-1/4 right-0 w-80 h-80 bg-blueAccent/5 rounded-full blur-[100px]',
+                    }),
+                  ],
+                }),
+                l &&
+                  (0, t.jsx)(P.Container, {
+                    children: (0, t.jsx)(d.motion.div, {
+                      initial: !p && { opacity: 0, y: 20 },
+                      whileInView: { opacity: 1, y: 0 },
+                      viewport: { once: !0 },
+                      transition: { duration: 0.7, ease: M },
+                      className:
+                        'flex justify-center md:justify-end mb-16 md:mb-24',
+                      children: (0, t.jsx)(x, {
+                        activeCategory: o,
+                        onChange: m,
+                      }),
+                    }),
+                  }),
+                (0, t.jsx)(d.motion.div, {
+                  layout: !p,
+                  className:
+                    'grid grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-0 items-stretch w-full',
+                  role: 'tabpanel',
+                  id: `projects-${o}`,
+                  'aria-label': `Projetos de ${o}`,
+                  children: (0, t.jsx)(c.AnimatePresence, {
+                    mode: 'popLayout',
+                    children: j.map((e, i) =>
+                      (0, t.jsx)(
+                        E,
+                        {
+                          project: e,
+                          index: i,
+                          onOpen: a,
+                          className: g ? 'pointer-events-none' : '',
+                        },
+                        e.id
+                      )
+                    ),
+                  }),
+                }),
+                0 === j.length &&
+                  (0, t.jsx)(P.Container, {
+                    children: (0, t.jsxs)(d.motion.div, {
+                      initial: { opacity: 0 },
+                      animate: { opacity: 1 },
+                      className:
+                        'flex flex-col items-center justify-center py-20 text-center',
+                      children: [
+                        (0, t.jsx)('span', {
+                          className: 'text-6xl mb-4',
+                          children: '🔍',
+                        }),
+                        (0, t.jsx)('h3', {
+                          className: 'text-xl font-medium text-white mb-2',
+                          children: 'Nenhum projeto encontrado',
+                        }),
+                        (0, t.jsx)('p', {
+                          className: 'text-white/60',
+                          children: 'Tente selecionar outra categoria.',
+                        }),
+                      ],
+                    }),
+                  }),
+              ],
+            }),
+          })
+        );
+      };
+    var S = e.i(57974),
+      R = e.i(16424);
+    let z = (0, R.default)('x', [
+        ['path', { d: 'M18 6 6 18', key: '1bl5f8' }],
+        ['path', { d: 'm6 6 12 12', key: 'd8bk6v' }],
+      ]),
+      I = (0, R.default)('calendar', [
+        ['path', { d: 'M8 2v4', key: '1cmpym' }],
+        ['path', { d: 'M16 2v4', key: '4m81vk' }],
+        [
+          'rect',
+          { width: '18', height: '18', x: '3', y: '4', rx: '2', key: '1hopcy' },
+        ],
+        ['path', { d: 'M3 10h18', key: '8toen8' }],
+      ]),
+      $ = (0, R.default)('building-2', [
+        ['path', { d: 'M10 12h4', key: 'a56b0p' }],
+        ['path', { d: 'M10 8h4', key: '1sr2af' }],
+        ['path', { d: 'M14 21v-3a2 2 0 0 0-4 0v3', key: '1rgiei' }],
+        [
+          'path',
+          {
+            d: 'M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2',
+            key: 'secmi2',
+          },
+        ],
+        [
+          'path',
+          { d: 'M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16', key: '16ra0t' },
+        ],
+      ]),
+      O = [0.22, 1, 0.36, 1],
+      F = {
+        initial: { opacity: 0, y: 16 },
+        animate: { opacity: 1, y: 0 },
+        exit: { opacity: 0, y: -10 },
+        transition: { duration: 0.5, ease: O },
+      },
+      _ = ({ project: e }) =>
+        (0, t.jsxs)('div', {
+          className: 'flex flex-col gap-8',
+          children: [
+            (0, t.jsxs)(d.motion.div, {
+              initial: { opacity: 0 },
+              animate: { opacity: 1 },
+              transition: { delay: 0.52, duration: 0.24, ease: 'easeOut' },
+              className:
+                'card-shell relative w-full rounded-2xl overflow-hidden bg-white/5',
+              children: [
+                (0, v.isVideo)(e.image)
+                  ? (0, t.jsx)('video', {
+                      src: e.image,
+                      autoPlay: !0,
+                      muted: !0,
+                      loop: !0,
+                      playsInline: !0,
+                      className: 'absolute inset-0 w-full h-full object-cover',
+                    })
+                  : (0, t.jsx)(h.default, {
+                      src: e.image,
+                      alt: e.title,
+                      fill: !0,
+                      className: 'object-cover',
+                      sizes: '(max-width: 1024px) 100vw, 80vw',
+                      priority: !0,
+                    }),
+                (0, t.jsx)('div', {
+                  className:
+                    'absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent',
+                }),
+                (0, t.jsx)('div', {
+                  className: 'absolute top-6 left-6',
+                  children: (0, t.jsx)('span', {
+                    className:
+                      'inline-flex items-center rounded-full bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-[#040013]',
+                    children: e.displayCategory,
+                  }),
+                }),
+              ],
+            }),
+            (0, t.jsxs)('div', {
+              className: 'grid md:grid-cols-[1.5fr,1fr] gap-8 md:gap-12',
+              children: [
+                (0, t.jsxs)('div', {
+                  className: 'flex flex-col gap-6',
+                  children: [
+                    (0, t.jsx)(d.motion.h2, {
+                      initial: { opacity: 0, y: 6 },
+                      animate: { opacity: 1, y: 0 },
+                      transition: { delay: 0.76, duration: 0.2, ease: O },
+                      className:
+                        'text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight',
+                      children: e.title,
+                    }),
+                    e.subtitle &&
+                      (0, t.jsx)(d.motion.p, {
+                        variants: F,
+                        className: 'text-xl text-blueAccent font-medium',
+                        children: e.subtitle,
+                      }),
+                    e.detail?.description &&
+                      (0, t.jsx)(d.motion.p, {
+                        variants: F,
+                        className:
+                          'text-base md:text-lg text-white/70 leading-relaxed',
+                        children: e.detail.description,
+                      }),
+                    e.detail?.highlights &&
+                      (0, t.jsx)(d.motion.ul, {
+                        variants: F,
+                        className: 'flex flex-col gap-3 list-none',
+                        children: e.detail.highlights.map((e, i) =>
+                          (0, t.jsxs)(
+                            d.motion.li,
+                            {
+                              className:
+                                'flex items-center gap-3 text-sm text-white/80',
+                              variants: F,
+                              children: [
+                                (0, t.jsx)('span', {
+                                  className:
+                                    'w-1.5 h-1.5 rounded-full bg-blueAccent',
+                                  'aria-hidden': 'true',
+                                }),
+                                e,
+                              ],
+                            },
+                            i
+                          )
+                        ),
+                      }),
+                  ],
+                }),
+                (0, t.jsxs)(d.motion.div, {
+                  initial: { opacity: 0, y: 4 },
+                  animate: { opacity: 1, y: 0 },
+                  transition: { delay: 0.96, duration: 0.16, ease: O },
+                  className: 'flex flex-col gap-6',
+                  children: [
+                    (0, t.jsxs)('div', {
+                      className: 'flex flex-col gap-4',
+                      children: [
+                        (0, t.jsxs)('div', {
+                          className:
+                            'flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10',
+                          children: [
+                            (0, t.jsx)($, {
+                              className: 'w-5 h-5 text-blueAccent',
+                            }),
+                            (0, t.jsxs)('div', {
+                              children: [
+                                (0, t.jsx)('span', {
+                                  className:
+                                    'block text-xs uppercase tracking-wider text-white/50',
+                                  children: 'Cliente',
+                                }),
+                                (0, t.jsx)('span', {
+                                  className: 'text-sm font-medium text-white',
+                                  children: e.client,
+                                }),
+                              ],
+                            }),
+                          ],
+                        }),
+                        (0, t.jsxs)('div', {
+                          className:
+                            'flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10',
+                          children: [
+                            (0, t.jsx)(I, {
+                              className: 'w-5 h-5 text-blueAccent',
+                            }),
+                            (0, t.jsxs)('div', {
+                              children: [
+                                (0, t.jsx)('span', {
+                                  className:
+                                    'block text-xs uppercase tracking-wider text-white/50',
+                                  children: 'Ano',
+                                }),
+                                (0, t.jsx)('span', {
+                                  className: 'text-sm font-medium text-white',
+                                  children: e.year,
+                                }),
+                              ],
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                    e.tags &&
+                      (0, t.jsx)('div', {
+                        className: 'flex flex-wrap gap-2',
+                        children: e.tags.map((e) =>
+                          (0, t.jsx)(
+                            'span',
+                            {
+                              className:
+                                'px-3 py-1.5 rounded-full bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 text-xs text-[#040013] font-medium',
+                              children: e,
+                            },
+                            e
+                          )
+                        ),
+                      }),
+                    e.detail?.externalUrl &&
+                      (0, t.jsxs)('a', {
+                        href: e.detail.externalUrl,
+                        target: '_blank',
+                        rel: 'noopener noreferrer',
+                        className:
+                          'inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-white font-semibold text-sm transition-colors bg-[#0048ff] hover:bg-[#8705f2]',
+                        children: [
+                          'Ver projeto completo',
+                          (0, t.jsx)(b.ArrowUpRight, { className: 'w-4 h-4' }),
+                        ],
+                      }),
+                  ],
+                }),
+              ],
+            }),
+            e.detail?.gallery &&
+              e.detail.gallery.length > 0 &&
+              (0, t.jsxs)(d.motion.div, {
+                variants: F,
+                className: 'mt-8',
+                children: [
+                  (0, t.jsx)('h3', {
+                    className: 'text-lg font-semibold text-white mb-4',
+                    children: 'Galeria',
+                  }),
+                  (0, t.jsx)('div', {
+                    className: 'grid grid-cols-2 md:grid-cols-3 gap-4',
+                    children: e.detail.gallery.map((i, a) =>
+                      (0, t.jsx)(
+                        d.motion.div,
+                        {
+                          initial: { opacity: 0, y: 8 },
+                          animate: { opacity: 1, y: 0 },
+                          transition: {
+                            delay: 1.12 + 0.08 * a,
+                            duration: 0.2,
+                            ease: O,
+                          },
+                          className:
+                            'relative aspect-square rounded-xl overflow-hidden bg-white/5',
+                          children: (0, v.isVideo)(i)
+                            ? (0, t.jsx)('video', {
+                                src: i,
+                                autoPlay: !0,
+                                muted: !0,
+                                loop: !0,
+                                playsInline: !0,
+                                className:
+                                  'absolute inset-0 w-full h-full object-cover hover:scale-105 transition-transform duration-500',
+                              })
+                            : (0, t.jsx)(h.default, {
+                                src: i,
+                                alt: `${e.title} - Imagem ${a + 1}`,
+                                fill: !0,
+                                className:
+                                  'object-cover hover:scale-105 transition-transform duration-500',
+                                sizes: '(max-width: 768px) 50vw, 33vw',
+                              }),
+                        },
+                        a
+                      )
+                    ),
+                  }),
+                ],
+              }),
+          ],
+        });
+    var L = e.i(59178);
+    let U = {
+        initial: { opacity: 0, y: 16 },
+        animate: { opacity: 1, y: 0 },
+        exit: { opacity: 0, y: -8 },
+        transition: { duration: 0.4, ease: O },
+      },
+      V = ({ project: e }) =>
+        (0, t.jsxs)('div', {
+          className: 'grid md:grid-cols-2 gap-8 md:gap-12',
+          children: [
+            (0, t.jsxs)(d.motion.div, {
+              initial: { opacity: 0, x: -20 },
+              animate: { opacity: 1, x: 0 },
+              transition: { delay: 0.52, duration: 0.5, ease: O },
+              className:
+                'relative aspect-square md:aspect-4/5 rounded-2xl overflow-hidden bg-white/5',
+              children: [
+                (0, v.isVideo)(e.image)
+                  ? (0, t.jsx)('video', {
+                      src: e.image,
+                      autoPlay: !0,
+                      muted: !0,
+                      loop: !0,
+                      playsInline: !0,
+                      className: 'absolute inset-0 w-full h-full object-cover',
+                    })
+                  : (0, t.jsx)(h.default, {
+                      src: e.image,
+                      alt: e.title,
+                      fill: !0,
+                      className: 'object-cover',
+                      sizes: '(max-width: 768px) 100vw, 50vw',
+                      priority: !0,
+                    }),
+                e.accentColor &&
+                  (0, t.jsx)(d.motion.div, {
+                    className: 'absolute inset-x-0 bottom-0 h-1/3',
+                    style: {
+                      background: `linear-gradient(to top, ${e.accentColor}40, transparent)`,
+                    },
+                  }),
+                (0, t.jsx)('div', {
+                  className: 'absolute top-4 left-4',
+                  children: (0, t.jsx)('span', {
+                    className:
+                      'inline-flex items-center rounded-full bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 px-3 py-1 text-xs font-medium text-[#040013]',
+                    children: e.displayCategory,
+                  }),
+                }),
+              ],
+            }),
+            (0, t.jsxs)('div', {
+              className: 'flex flex-col justify-center gap-6',
+              children: [
+                (0, t.jsxs)('div', {
+                  className: 'flex flex-col gap-2',
+                  children: [
+                    (0, t.jsxs)(d.motion.span, {
+                      variants: U,
+                      className:
+                        'text-xs uppercase tracking-[0.3em] text-blueAccent',
+                      children: ['[', e.category, ']'],
+                    }),
+                    (0, t.jsx)(d.motion.h2, {
+                      initial: { opacity: 0, y: 6 },
+                      animate: { opacity: 1, y: 0 },
+                      transition: { delay: 0.76, duration: 0.2, ease: O },
+                      className:
+                        'text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight',
+                      children: e.title,
+                    }),
+                    e.subtitle &&
+                      (0, t.jsx)(d.motion.p, {
+                        variants: U,
+                        className: 'text-lg text-white/60',
+                        children: e.subtitle,
+                      }),
+                  ],
+                }),
+                e.detail?.description &&
+                  (0, t.jsx)(d.motion.p, {
+                    variants: U,
+                    className: 'text-base text-white/70 leading-relaxed',
+                    children: e.detail.description,
+                  }),
+                (0, t.jsxs)(d.motion.div, {
+                  initial: { opacity: 0, y: 4 },
+                  animate: { opacity: 1, y: 0 },
+                  transition: { delay: 0.96, duration: 0.16, ease: O },
+                  className:
+                    'flex flex-wrap items-center gap-4 text-sm text-white/50',
+                  children: [
+                    (0, t.jsxs)('span', {
+                      className: 'flex items-center gap-2',
+                      children: [
+                        (0, t.jsx)($, { className: 'w-4 h-4' }),
+                        e.client,
+                      ],
+                    }),
+                    (0, t.jsx)('span', { className: 'w-px h-4 bg-white/20' }),
+                    (0, t.jsxs)('span', {
+                      className: 'flex items-center gap-2',
+                      children: [
+                        (0, t.jsx)(I, { className: 'w-4 h-4' }),
+                        e.year,
+                      ],
+                    }),
+                    e.tags &&
+                      e.tags.length > 0 &&
+                      (0, t.jsxs)(t.Fragment, {
+                        children: [
+                          (0, t.jsx)('span', {
+                            className: 'w-px h-4 bg-white/20',
+                          }),
+                          (0, t.jsxs)('span', {
+                            className: 'flex items-center gap-2',
+                            children: [
+                              (0, t.jsx)(L.Tag, { className: 'w-4 h-4' }),
+                              e.tags.slice(0, 2).join(', '),
+                            ],
+                          }),
+                        ],
+                      }),
+                  ],
+                }),
+                e.detail?.highlights &&
+                  (0, t.jsx)('ul', {
+                    className: 'flex flex-col gap-2 mt-2',
+                    children: (0, t.jsx)(d.motion.div, {
+                      variants: U,
+                      className: 'contents',
+                      children: e.detail.highlights.map((e, i) =>
+                        (0, t.jsxs)(
+                          'li',
+                          {
+                            className:
+                              'flex items-start gap-3 text-sm text-white/70',
+                            children: [
+                              (0, t.jsx)('span', {
+                                className:
+                                  'mt-1.5 w-1.5 h-1.5 rounded-full bg-blueAccent shrink-0',
+                              }),
+                              e,
+                            ],
+                          },
+                          i
+                        )
+                      ),
+                    }),
+                  }),
+                e.tags &&
+                  (0, t.jsx)(d.motion.div, {
+                    initial: { opacity: 0, y: 8 },
+                    animate: { opacity: 1, y: 0 },
+                    transition: { delay: 1.12, duration: 0.2, ease: O },
+                    className: 'flex flex-wrap gap-2',
+                    children: e.tags.map((e) =>
+                      (0, t.jsx)(
+                        'span',
+                        {
+                          className:
+                            'px-3 py-1 rounded-full bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 text-xs text-[#040013] font-medium',
+                          children: e,
+                        },
+                        e
+                      )
+                    ),
+                  }),
+                (0, t.jsx)(d.motion.div, {
+                  variants: U,
+                  className: 'flex gap-3 mt-4',
+                  children:
+                    e.detail?.externalUrl &&
+                    (0, t.jsx)(n.default, {
+                      href: e.detail.externalUrl,
+                      text: 'ver projeto',
+                      className: 'relative',
+                    }),
+                }),
+              ],
+            }),
+          ],
+        }),
+      { offset: H } = y.MOTION_TOKENS;
+    function K({ project: e, isOpen: a, onClose: l }) {
+      let s,
+        [r, n] = (0, i.useState)(!1),
+        o = (0, i.useRef)(null),
+        m = (0, i.useRef)(null),
+        p = (0, u.useReducedMotion)();
+      ((s = (0, i.useRef)(0)),
+        (0, i.useEffect)(() => {
+          let e = document.documentElement,
+            t = document.body;
+          if (a) {
+            s.current = window.scrollY;
+            let i = window.innerWidth - e.clientWidth;
+            ((t.style.overflow = 'hidden'),
+              (t.style.position = 'fixed'),
+              (t.style.top = `-${s.current}px`),
+              (t.style.left = '0'),
+              (t.style.right = '0'),
+              (t.style.paddingRight = `${i}px`),
+              (e.style.overflow = 'hidden'));
+          } else
+            ((t.style.overflow = ''),
+              (t.style.position = ''),
+              (t.style.top = ''),
+              (t.style.left = ''),
+              (t.style.right = ''),
+              (t.style.paddingRight = ''),
+              (e.style.overflow = ''),
+              window.scrollTo(0, s.current));
+          return () => {
+            ((t.style.overflow = ''),
+              (t.style.position = ''),
+              (t.style.top = ''),
+              (t.style.left = ''),
+              (t.style.right = ''),
+              (t.style.paddingRight = ''),
+              (e.style.overflow = ''));
+          };
+        }, [a]),
+        (0, i.useEffect)(() => {
+          n(!0);
+        }, []),
+        (0, i.useEffect)(() => {
+          if (!a) return;
+          let e = (e) => {
+            if (
+              ('Escape' === e.key && (e.preventDefault(), l()),
+              'Tab' === e.key && o.current)
+            ) {
+              let t = o.current.querySelectorAll(
+                  'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+                ),
+                i = t[0],
+                a = t[t.length - 1];
+              e.shiftKey && document.activeElement === i
+                ? (e.preventDefault(), a?.focus())
+                : e.shiftKey ||
+                  document.activeElement !== a ||
+                  (e.preventDefault(), i?.focus());
+            }
+          };
+          return (
+            document.addEventListener('keydown', e),
+            setTimeout(() => {
+              m.current?.focus();
+            }, 100),
+            () => document.removeEventListener('keydown', e)
+          );
+        }, [a, l]));
+      let x = (0, i.useCallback)(
+        (e) => {
+          e.target === e.currentTarget && l();
+        },
+        [l]
+      );
+      if (!r) return null;
+      let h = (0, t.jsx)(c.AnimatePresence, {
+        mode: 'wait',
+        children:
+          a &&
+          e &&
+          (0, t.jsxs)(t.Fragment, {
+            children: [
+              (0, t.jsx)(
+                d.motion.div,
+                {
+                  initial: 'hidden',
+                  animate: 'visible',
+                  exit: 'exit',
+                  variants: {
+                    hidden: { opacity: 0 },
+                    visible: {
+                      opacity: 1,
+                      transition: { duration: 0.18, ease: 'easeOut' },
+                    },
+                    exit: {
+                      opacity: 0,
+                      transition: { duration: 0.2, ease: 'easeIn' },
+                    },
+                  },
+                  onClick: x,
+                  className: 'fixed inset-0 z-100 bg-black/85 backdrop-blur-md',
+                  'aria-hidden': 'true',
+                },
+                'backdrop'
+              ),
+              (0, t.jsx)(
+                d.motion.div,
+                {
+                  ref: o,
+                  role: 'dialog',
+                  'aria-modal': 'true',
+                  'aria-labelledby': 'modal-title',
+                  initial: p ? { opacity: 0 } : { opacity: 0, y: H.large },
+                  animate: { opacity: 1, y: 0 },
+                  exit: p ? { opacity: 0 } : { opacity: 0, y: H.standard },
+                  transition: (0, y.ghostTransition)(
+                    0.12 * !p,
+                    p ? 0.15 : 0.26
+                  ),
+                  className: 'fixed inset-0 z-101 overflow-y-auto',
+                  children: (0, t.jsx)('div', {
+                    className:
+                      'min-h-full flex items-start justify-center p-4 md:p-8 lg:p-12',
+                    children: (0, t.jsxs)(d.motion.div, {
+                      initial: { opacity: 0 },
+                      animate: { opacity: 1 },
+                      transition: {
+                        duration: 0.26,
+                        delay: 0.12,
+                        ease: [0.22, 1, 0.36, 1],
+                      },
+                      className:
+                        'relative w-full max-w-5xl bg-background/95 backdrop-blur-xl rounded-3xl border border-white/10 shadow-2xl shadow-black/50 overflow-hidden will-change-transform',
+                      children: [
+                        (0, t.jsx)('button', {
+                          ref: m,
+                          onClick: l,
+                          className:
+                            'fixed top-6 right-6 md:top-10 md:right-10 z-110 flex items-center justify-center w-10 h-10 md:w-14 md:h-14 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white transition-all duration-300 hover:rotate-90',
+                          'aria-label': 'Fechar modal',
+                          children: (0, t.jsx)(z, {
+                            className: 'w-5 h-5 md:w-7 md:h-7',
+                          }),
+                        }),
+                        (0, t.jsx)('div', {
+                          className:
+                            'absolute top-0 inset-x-0 h-40 pointer-events-none',
+                          children: (0, t.jsx)('div', {
+                            className:
+                              'absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_center_top,var(--glow-color,rgba(0,87,255,0.3)),transparent_70%)]',
+                            ...(e.accentColor && {
+                              style: { '--glow-color': `${e.accentColor}40` },
+                            }),
+                          }),
+                        }),
+                        (0, t.jsx)('div', {
+                          className:
+                            'relative z-10 p-6 md:p-10 lg:p-12 pt-16 md:pt-20',
+                          children:
+                            'A' === e.type
+                              ? (0, t.jsx)(_, { project: e })
+                              : (0, t.jsx)(V, { project: e }),
+                        }),
+                        (0, t.jsx)('div', {
+                          className:
+                            'absolute bottom-0 inset-x-0 h-24 bg-linear-to-t from-background to-transparent pointer-events-none',
+                        }),
+                      ],
+                    }),
+                  }),
+                },
+                'modal'
+              ),
+            ],
+          }),
+      });
+      return (0, S.createPortal)(h, document.body);
+    }
+    var B = e.i(22621);
+    function D({ projects: e }) {
+      let [a, l] = (0, i.useState)(null),
+        [s, r] = (0, i.useState)(!1),
+        n = (0, i.useCallback)((e) => {
+          (l(e), r(!0));
+        }, []),
+        c = (0, i.useCallback)(() => {
+          (r(!1),
+            setTimeout(() => {
+              l(null);
+            }, 400));
+        }, []);
+      return (0, t.jsxs)('div', {
+        className: 'min-h-screen bg-background text-text',
+        children: [
+          (0, t.jsx)(o, {}),
+          (0, t.jsx)(T, { projects: e, onProjectOpen: n, isPaused: s }),
+          (0, t.jsx)(K, { project: a, isOpen: s, onClose: c }),
+          (0, t.jsx)(B.SiteClosure, {}),
+        ],
+      });
+    }
+    e.s(['default', () => D], 70432);
+  },
+]);

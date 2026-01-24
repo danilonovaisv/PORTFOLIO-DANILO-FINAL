@@ -1,1 +1,1462 @@
-(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,71810,e=>{e.v({fallbackBackground:"DesktopFluidHeader-module__gTVa7a__fallbackBackground",headerContainer:"DesktopFluidHeader-module__gTVa7a__headerContainer",headerDark:"DesktopFluidHeader-module__gTVa7a__headerDark",headerLight:"DesktopFluidHeader-module__gTVa7a__headerLight",subtleBorder:"DesktopFluidHeader-module__gTVa7a__subtleBorder"})},25827,e=>{"use strict";let t;var a=e.i(96148),r=e.i(84833),o=e.i(7766),s=e.i(60801),i=e.i(62596);async function n(){let e=(0,s.createClientComponentClient)(),{data:t,error:a}=await e.from("site_assets").select("*").order("page",{ascending:!0}).order("sort_order",{ascending:!0,nullsFirst:!1});if(a)throw a;return function(e,t={}){let{onlyActive:a=!1,dropInvalid:r=!0}=t,o=new Map,s=new Map,n=e=>{if(!e)return!0;let t=e.trim().toLowerCase();return!t||t.startsWith("updated_at:")||t.startsWith("key:")||t.startsWith("file_path:")||".keep"===t||".emptyfolderplaceholder"===t},l=e=>{if(!e)return e;let t=e.trim();if(!t)return e;let a=t.includes("/")?"/":".",r=t.split(a).filter(Boolean);if(r.length<4)return e;let o=Math.min(3,Math.floor(r.length/2));for(let e=1;e<=o;e++)if(r.slice(0,e).join("|").toLowerCase()===r.slice(e,2*e).join("|").toLowerCase())return[...r.slice(0,e),...r.slice(2*e)].join(a);return e},c=e=>4*!!e.is_active+2*!!e.publicUrl+ +!!e.file_path?.includes("/")-.01*Math.min(e.key?.length??0,60);for(let t of e){let e=function(e){let t=(e.bucket||"site-assets").replace(/^bucket:\s*/i,"").replace(/^"+|"+$/g,"").replace(/^'+|'+$/g,"").replace(/^\/+|\/+$/g,""),a=e.key?.replace(/^key:\s*/i,"").replace(/^"+|"+$/g,"").replace(/^'+|'+$/g,"").replace(/,+$/g,"").trim(),r=(0,i.normalizeStoragePath)(e.file_path,t),o=r?/^clients\.clients\.strip\./.test(r)?r.replace(/^clients\.clients\.strip\./,"clients/clients.strip."):/^clients\.strip\./.test(r)?r.replace(/^clients\.strip\./,"clients/clients.strip."):r:r,s="site-assets"===t&&o?.startsWith("projects/")?"portfolio-media":t,n=e=>{if(!e)return;let t=e.replace(/^page:\s*/i,"").replace(/^"+|"+$/g,"").replace(/^'+|'+$/g,"").replace(/,+$/g,"").trim();if(!t||/^updated_at:/i.test(t)||/^key:/i.test(t))return;let a=t.includes("/")?"/":".",r=t.split(a)[0];return r?.toLowerCase()},l=n(e.page)||n(o)||n(a)||"global",c=(0,i.buildSupabaseStorageUrl)(s,o)||(e.file_path?.startsWith("http")?e.file_path:"")||"",u={...e,key:a??e.key,bucket:s,file_path:r??"",page:l,resolvedPage:l,publicUrl:c};if(e.href){let t=(0,i.validateExternalUrl)(e.href);t&&(u={...u,href:t})}return u}({...t,key:l(t.key)??t.key,file_path:l(t.file_path)??t.file_path}),u=e.key?.trim();if(!u||r&&(n(u)||n(e.file_path))||a&&!e.is_active)continue;let d=!!(e.publicUrl||"font"===e.asset_type||e.href);if(r&&!d)continue;let m=(e,t)=>{if(!e)return t;let a=c(e),r=c(t);return r>a||r===a&&t.key.length<e.key.length?t:e},p=m(o.get(u),e);o.set(u,p);let f=e.file_path||"";if(f){let t=m(s.get(f),e);s.set(f,t)}}let u=new Map;for(let e of o.values())u.set(e.id,e);for(let e of s.values())u.set(e.id,e);return Array.from(u.values()).sort((e,t)=>{let a=e.page??"",r=t.page??"";if(a===r){let a=e.sort_order??Number.MAX_SAFE_INTEGER,r=t.sort_order??Number.MAX_SAFE_INTEGER;return a===r?e.key.localeCompare(t.key):a-r}return a.localeCompare(r)})}(t??[],{onlyActive:!0})}e.i(74920);var l=e.i(63844),c=e.i(69527);let u=(0,r.createContext)({lenis:null}),d=e=>{let t,a=new Set,r=(e,r)=>{let o="function"==typeof e?e(t):e;if(!Object.is(o,t)){let e=t;t=(null!=r?r:"object"!=typeof o||null===o)?o:Object.assign({},t,o),a.forEach(a=>a(t,e))}},o=()=>t,s={setState:r,getState:o,getInitialState:()=>i,subscribe:e=>(a.add(e),()=>a.delete(e))},i=t=e(r,o,s);return s},m=e=>{let t=e?d(e):d,a=e=>(function(e,t=e=>e){let a=r.default.useSyncExternalStore(e.subscribe,r.default.useCallback(()=>t(e.getState()),[e,t]),r.default.useCallback(()=>t(e.getInitialState()),[e,t]));return r.default.useDebugValue(a),a})(t,e);return Object.assign(a,t),a},p=(t=e=>({flags:{mountWebGL:!0,enableManifestoScroll:!0,enableHoverInteractions:!0,reducedMotion:!1,debugMode:!1},viewport:{width:0,height:0},narrativeState:"IDLE",scrollProgress:0,setFlag:(t,a)=>e(e=>({flags:{...e.flags,[t]:a}})),setFlags:t=>e(e=>({flags:{...e.flags,...t}})),setViewport:(t,a)=>e({viewport:{width:t,height:a}}),setNarrativeState:t=>e({narrativeState:t}),setScrollProgress:t=>e({scrollProgress:t})}))?m(t):m;function f({children:e}){let{flags:t}=p(),[o,s]=(0,r.useState)(null);return(0,r.useEffect)(()=>{if(t.reducedMotion)return;let e=new c.default({lerp:.08,wheelMultiplier:1,touchMultiplier:1.2});return s(e),requestAnimationFrame(function t(a){e.raf(a),requestAnimationFrame(t)}),()=>{e.destroy(),s(null)}},[t.reducedMotion]),(0,a.jsx)(u.Provider,{value:{lenis:o},children:e})}var h=e.i(32648),g=e.i(54768),b=e.i(72928),x=e.i(21998),v=e.i(67725),y=e.i(71810);function w({navItems:e,logoUrl:t,onNavigate:o,activeHref:s,isLight:i,isPageActive:n}){let l=(0,r.useRef)(null),c=(0,r.useMemo)(()=>e,[e]),u=!!n;return(0,a.jsx)("header",{className:`hidden lg:block fixed top-6 left-0 right-0 z-40 w-full pointer-events-none transition-all duration-300 ease-in-out ${i?"header--light":""}`,children:(0,a.jsx)("div",{className:"flex justify-center w-full max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24",children:(0,a.jsx)("div",{ref:l,className:"pointer-events-auto w-full relative",children:(0,a.jsx)("div",{className:`${y.default.headerContainer} ${i?y.default.headerLight:y.default.headerDark} h-16 w-[calc(100%+5rem)] -ml-10 rounded-4xl backdrop-blur-md border border-white/10 bg-black/20 transition-all duration-300`,children:(0,a.jsxs)("div",{className:"relative z-10 h-full px-10 flex items-center justify-between gap-6",children:[(0,a.jsx)(x.default,{href:"/","aria-label":"Ir para Home",className:"flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-full",children:(0,a.jsx)(v.default,{src:t,alt:"Danilo",width:32,height:32,className:"h-22 w-22 object-contain transition-colors duration-300"})}),(0,a.jsx)("nav",{"aria-label":"Navegação principal",className:"flex items-center gap-7",children:c.map(e=>{var t;let r=s===(e.href.startsWith("/#")?e.href.substring(1):e.href),n="transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-md text-xs uppercase tracking-[0.2em]",l=r?`${i?"text-blueAccent":"text-bluePrimary"} font-semibold`:`${i?"text-white":"text-white/70"} ${i?"hover:text-blueAccent":"hover:text-white"} font-medium`,c=u?"text-bluePrimary font-semibold":"",d=r?"after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[1px] after:bg-current":"after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-current group-hover:after:w-full after:transition-all after:duration-300";return(t=e.href,/^https?:\/\//.test(t)||t.startsWith("mailto:")||t.startsWith("tel:")||e.external)?(0,a.jsxs)("a",{href:e.href,target:"_blank",rel:"noopener noreferrer",className:`group ${n} ${l} ${c} relative flex items-center`,children:[(0,a.jsx)("span",{className:"tracking-tight",children:e.label}),(0,a.jsx)("span",{className:d})]},e.href):(0,a.jsxs)("button",{type:"button",onClick:()=>o(e.href),className:`group ${n} ${l} ${c} relative flex items-center`,children:[(0,a.jsx)("span",{className:"tracking-tight",children:e.label}),(0,a.jsx)("span",{className:d})]},e.href)})})]})})})})})}let j=(0,r.forwardRef)(({open:e,textLines:t,textInnerRef:r,iconRef:o,plusHRef:s,plusVRef:i,onToggle:n},l)=>(0,a.jsxs)("button",{ref:l,type:"button",onClick:n,"aria-label":e?"Fechar menu":"Abrir menu","aria-expanded":e,className:`relative inline-flex items-center justify-center gap-2 bg-transparent border-0 cursor-pointer font-medium leading-none overflow-visible z-110 min-h-[48px] min-w-[48px] px-3 transition-colors duration-300 ${e?"text-white":"text-white hover:text-primary"}`,children:[(0,a.jsx)("span",{className:"relative inline-block h-[1em] overflow-hidden whitespace-nowrap","aria-hidden":"true",children:(0,a.jsx)("span",{ref:r,className:"flex flex-col leading-none",children:t.map((e,r)=>(0,a.jsx)("span",{className:"block h-[1em] leading-none text-sm tracking-wide",style:{visibility:r===t.length-1?"visible":"hidden"},children:e},`${e}-${r}`))})}),(0,a.jsxs)("span",{ref:o,className:"relative w-[18px] h-[18px] shrink-0 inline-flex items-center justify-center will-change-transform","aria-hidden":"true",children:[(0,a.jsx)("span",{ref:s,className:"absolute left-1/2 top-1/2 w-full h-[1.5px] bg-current rounded-sm -translate-x-1/2 -translate-y-1/2 will-change-transform"}),(0,a.jsx)("span",{ref:i,className:"absolute left-1/2 top-1/2 w-full h-[1.5px] bg-current rounded-sm -translate-x-1/2 -translate-y-1/2 will-change-transform"})]})]}));j.displayName="MobileMenuButton";var k=e.i(73019),P=e.i(59747),M=e.i(98788),C=e.i(1498),O=e.i(68085);let _=(0,r.forwardRef)(({navItems:e,accentColor:t,open:r,socialsRef:o,onNavigate:s,onClose:i,activeHref:n,isPageActive:l},c)=>(0,a.jsxs)("nav",{ref:c,id:"mobile-menu-panel",className:"fixed inset-0 bg-[#0048ff] backdrop-blur-xl flex flex-col justify-center px-8 z-50 pointer-events-auto","aria-hidden":!r,onClick:e=>{e.target===e.currentTarget&&i()},children:[(0,a.jsx)("ul",{className:"flex flex-col gap-4",role:"list",children:e.map(e=>{let t=e.href.startsWith("/#")?e.href.substring(1):e.href;return(0,a.jsx)("li",{className:"overflow-hidden leading-none",children:(0,a.jsx)("button",{onClick:()=>s(e.href),className:`sm-panel-item w-full py-3 text-4xl font-light tracking-wide transition-colors text-left leading-none uppercase will-change-transform origin-bottom min-h-[48px] ${(l?"text-blueAccent font-semibold":"")||(n===t?"text-blueAccent font-medium underline underline-offset-4":"text-white/80 hover:text-white")}`,children:e.label})},e.href)})}),(0,a.jsxs)("div",{ref:o,className:"mt-12 pt-8 border-t border-white/10 flex flex-col gap-4",children:[(0,a.jsx)(k.motion.h3,{className:"sm-social-title text-sm font-medium uppercase tracking-wider",initial:!1,animate:{color:t},children:"Connect"}),(0,a.jsx)("div",{className:"flex gap-4",children:[{label:"LinkedIn",href:O.SOCIALS.linkedin,icon:(0,a.jsx)(M.Linkedin,{className:"w-5 h-5"})},{label:"Instagram",href:O.SOCIALS.instagram,icon:(0,a.jsx)(P.Instagram,{className:"w-5 h-5"})},{label:"Email",href:O.SOCIALS.emailPrimary,icon:(0,a.jsx)(C.Mail,{className:"w-5 h-5"})}].map(e=>(0,a.jsx)("a",{href:e.href,target:"_blank",rel:"noopener noreferrer","aria-label":e.label,className:"sm-social-link flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-all hover:bg-primary hover:border-primary hover:scale-105 active:scale-95",children:e.icon},e.label))})]})]}));_.displayName="MobileMenuPanel";let R=(0,r.forwardRef)((e,t)=>(0,a.jsx)("div",{ref:t,className:"fixed top-0 right-0 bottom-0 w-full pointer-events-none z-49","aria-hidden":"true",children:["#4fe6ff","#8705f2","#f501d3"].map((e,t)=>(0,a.jsx)(k.motion.div,{className:"sm-prelayer absolute top-0 right-0 h-full w-full",initial:!1,animate:{backgroundColor:e}},t))}));function E({logoUrl:e,onLogoClick:t,children:r,isLight:o=!1}){let s={hidden:{opacity:0,y:-15,filter:"blur(8px)"},show:{opacity:1,y:0,filter:"blur(0px)",transition:{duration:.8,ease:[.22,1,.36,1]}}};return(0,a.jsx)(k.motion.header,{variants:{hidden:{y:-64,opacity:0},show:{y:0,opacity:1,transition:{duration:.8,ease:[.22,1,.36,1],staggerChildren:.1,delayChildren:.2}}},initial:"hidden",animate:"show",className:`fixed top-0 left-0 right-0 z-50 pointer-events-none ${o?"header--light":""}`,children:(0,a.jsx)("div",{className:`w-full h-[60px] pointer-events-auto transition-colors duration-300 ${o?"bg-background/40 border-b border-white/10 shadow-xl":"bg-background/40 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/20"}`,children:(0,a.jsxs)("div",{className:"flex items-center justify-between h-full w-full max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24",children:[(0,a.jsx)(k.motion.div,{variants:s,children:(0,a.jsx)(x.default,{href:"/",onClick:t,children:(0,a.jsx)(v.default,{src:e,alt:"Danilo",width:32,height:32,className:"h-20 w-20 object-contain",unoptimized:!0,loading:"eager"})})}),(0,a.jsx)(k.motion.div,{variants:s,children:r})]})})})}R.displayName="MobilePreLayers";var A=e.i(38421);function T({navItems:e,logoUrl:t,isLight:o=!1,accentColor:s="#0057FF",isOpen:i,onOpen:n,onClose:l,onNavigate:c,activeHref:u,isPageActive:d}){let{refs:{panelRef:m,preLayersRef:p,socialsRef:f,toggleBtnRef:h,plusHRef:g,plusVRef:b,iconRef:x,textInnerRef:v},state:{open:y,textLines:w},actions:{toggleMenu:k,syncState:P}}=function(e,t,a){let o=(0,r.useRef)(null),s=(0,r.useRef)(null),i=(0,r.useRef)([]),n=(0,r.useRef)(null),l=(0,r.useRef)(null),c=(0,r.useRef)(null),u=(0,r.useRef)(null),d=(0,r.useRef)(null),m=(0,r.useRef)(null),[p,f]=(0,r.useState)(["Menu","Close"]),h=(0,r.useRef)(null),g=(0,r.useRef)(null),b=(0,r.useRef)(null),x=(0,r.useRef)(null),[v,y]=(0,r.useState)(!1),w=(0,r.useRef)(!1);(0,r.useLayoutEffect)(()=>{let e=A.gsap.context(()=>{let e=o.current,t=s.current,a=c.current,r=u.current,n=d.current,l=m.current;if(!e||!a||!r||!n||!l)return;let p=[];t&&(p=Array.from(t.querySelectorAll(".sm-prelayer"))),i.current=p,A.gsap.set([e,...p],{opacity:0,xPercent:100,filter:"blur(10px)",pointerEvents:"none"}),A.gsap.set(a,{transformOrigin:"50% 50%",rotate:0}),A.gsap.set(r,{transformOrigin:"50% 50%",rotate:90}),A.gsap.set(n,{rotate:0,transformOrigin:"50% 50%"}),A.gsap.set(l,{yPercent:0})});return()=>e.revert()},[]);let j=(0,r.useCallback)(e=>{let t=d.current,a=c.current,r=u.current;t&&a&&r&&(b.current?.kill(),e?(A.gsap.set(t,{rotate:0,transformOrigin:"50% 50%"}),b.current=A.gsap.timeline({defaults:{ease:"expo.out"}}).to(a,{rotate:45,duration:.6},0).to(r,{rotate:-45,duration:.6},0)):b.current=A.gsap.timeline({defaults:{ease:"expo.inOut"}}).to(a,{rotate:0,duration:.45},0).to(r,{rotate:90,duration:.45},0).to(t,{rotate:0,duration:.001},0))},[]),k=(0,r.useCallback)(e=>{let t=m.current;if(!t)return;x.current?.kill();let a=e?"Menu":"Close",r=[a],o=a;for(let e=0;e<1;e++)o="Menu"===o?"Close":"Menu";r.push(e?"Close":"Menu"),f(r),A.gsap.set(t,{yPercent:0});let s=r.length;x.current=A.gsap.to(t,{yPercent:-((s-1)/s*100),duration:.6,ease:"expo.out"})},[]),P=(0,r.useCallback)(()=>{let e=o.current,t=i.current;if(!e)return null;h.current?.kill(),g.current?.kill();let a=e.querySelectorAll(".sm-panel-item"),r=n.current,s=r?Array.from(r.querySelectorAll(".sm-social-link")):[],l=r?.querySelector(".sm-social-title");a.length&&A.gsap.set(a,{x:40,opacity:0,filter:"blur(8px)"}),l&&A.gsap.set(l,{opacity:0,filter:"blur(4px)"}),s.length&&A.gsap.set(s,{x:20,opacity:0});let c=A.gsap.timeline({paused:!0});if(t.length&&c.to(t,{opacity:.9,xPercent:0,filter:"blur(0px)",duration:.8,ease:"expo.out",stagger:.08}),c.to(e,{opacity:1,xPercent:0,filter:"blur(0px)",duration:.8,ease:"expo.out",pointerEvents:"auto"},t.length?"-=0.5":0),a.length&&c.to(a,{x:0,opacity:1,filter:"blur(0px)",duration:1,ease:"expo.out",stagger:.06},"-=0.4"),l||s.length){let e="-=0.4";l&&c.to(l,{opacity:1,filter:"blur(0px)",duration:.6},e),s.length&&c.to(s,{x:0,opacity:1,duration:.8,ease:"expo.out",stagger:.06},e+"+=0.1")}return h.current=c,c},[]),M=(0,r.useCallback)(()=>{g.current&&(g.current.kill(),g.current=null);let e=P();e&&e.play(0)},[P]),C=(0,r.useCallback)(()=>{h.current?.kill(),h.current=null;let e=o.current,t=i.current;if(!e)return;let a=[...t,e];g.current?.kill(),g.current=A.gsap.to(a,{opacity:0,xPercent:100,filter:"blur(10px)",duration:.5,ease:"expo.in",pointerEvents:"none",overwrite:"auto",onComplete:()=>{let t=e.querySelectorAll(".sm-panel-item");t.length&&A.gsap.set(t,{x:40,opacity:0,filter:"blur(8px)"});let a=n.current;if(a){let e=a.querySelector(".sm-social-title"),t=Array.from(a.querySelectorAll(".sm-social-link"));e&&A.gsap.set(e,{opacity:0}),t.length&&A.gsap.set(t,{x:20,opacity:0})}}})},[]),O=(0,r.useCallback)(()=>{e!==w.current&&(e?(w.current=!0,y(!0),M(),j(!0),k(!0)):(w.current=!1,y(!1),C(),j(!1),k(!1)))},[e,M,C,j,k]);return{refs:{panelRef:o,preLayersRef:s,socialsRef:n,toggleBtnRef:l,plusHRef:c,plusVRef:u,iconRef:d,textInnerRef:m},state:{open:v,textLines:p},actions:{toggleMenu:(0,r.useCallback)(()=>{let e=!w.current;e!==w.current&&(w.current=e,y(e),e?(t(),M()):(a(),C()),j(e),k(e))},[t,a,M,C,j,k]),syncState:O}}}(i,n,l);return(0,r.useEffect)(()=>{P()},[i,P]),(0,r.useEffect)(()=>(y?document.body.style.overflow="hidden":document.body.style.overflow="",()=>{document.body.style.overflow=""}),[y]),(0,r.useEffect)(()=>{let e=e=>{"Escape"===e.key&&y&&l()};return window.addEventListener("keydown",e),()=>window.removeEventListener("keydown",e)},[l]),(0,r.useEffect)(()=>{if(!y||!m.current)return;let e=m.current.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'),t=e[0],a=e[e.length-1],r=e=>{"Tab"===e.key&&(e.shiftKey?document.activeElement===t&&(a.focus(),e.preventDefault()):document.activeElement===a&&(t.focus(),e.preventDefault()))};return t?.focus(),window.addEventListener("keydown",r),()=>window.removeEventListener("keydown",r)},[y]),(0,a.jsxs)("div",{className:"lg:hidden relative z-60",children:[(0,a.jsx)(E,{logoUrl:t,onLogoClick:l,isLight:!y&&o,children:(0,a.jsx)(j,{ref:h,open:y,textLines:w,textInnerRef:v,iconRef:x,plusHRef:g,plusVRef:b,onToggle:k})}),(0,a.jsx)(R,{ref:p,accentColor:s}),(0,a.jsx)(_,{ref:m,navItems:e,accentColor:s,open:y,socialsRef:f,onNavigate:c,onClose:l,activeHref:u,isPageActive:d})]})}function N(e){return e.startsWith("/#")?e.substring(1):e.startsWith("#")?e:""}function q({navItems:e,gradient:t,accentColor:s}){let i=(0,l.useRouter)(),[n,c]=(0,r.useState)(!1),[u,d]=(0,r.useState)(!1),[m,p]=(0,r.useState)(!1),f=(0,g.useMediaQuery)("(min-width: 1024px)");(0,r.useEffect)(()=>{p(!0)},[]);let x=function(e,t="-45% 0px -45% 0px"){let[a,o]=(0,r.useState)("#hero");return(0,r.useEffect)(()=>{let a=e.map(e=>document.getElementById(e)).filter(Boolean);if(!a.length)return;let r=new IntersectionObserver(e=>{let t=e.filter(e=>e.isIntersecting).sort((e,t)=>(t.intersectionRatio??0)-(e.intersectionRatio??0))[0];t?.target?.id&&o(`#${t.target.id}`)},{root:null,threshold:[.15,.25,.35],rootMargin:t});return a.forEach(e=>r.observe(e)),()=>r.disconnect()},[t,e]),a}((0,r.useMemo)(()=>e.filter(e=>{var t;return(t=e.href).startsWith("#")||t.startsWith("/#")}).map(e=>N(e.href).replace("#","")),[e])),v=(0,l.usePathname)(),y=(0,r.useMemo)(()=>"/"===v?x:v??void 0,[v,x]),j=v?.startsWith("/sobre"),k=(0,r.useCallback)(e=>{let t=N(e);if(t){let a="/"===window.location.pathname;if(e.startsWith("#")||e.startsWith("/#")&&a){let e,a;e=t.replace("#",""),(a=document.getElementById(e))&&a.scrollIntoView({behavior:"smooth",block:"start"}),c(!1);return}}if(/^https?:\/\//.test(e)||e.startsWith("mailto:")||e.startsWith("tel:")){window.open(e,"_blank","noopener,noreferrer"),c(!1);return}i.push(e),c(!1)},[i]),P=(0,r.useMemo)(()=>e,[e]);(0,r.useEffect)(()=>{let e=Array.from(document.querySelectorAll("[data-light-section]"));if(!e.length)return;let t=new IntersectionObserver(e=>{d(e.some(e=>e.isIntersecting))},{threshold:.12,rootMargin:"-60px 0px 0px 0px"});return e.forEach(e=>t.observe(e)),()=>t.disconnect()},[]);let M=(0,o.useSiteAssetUrl)(b.SITE_ASSET_KEYS.logos.headerLight,h.BRAND.assets.logos.logoLight)??h.BRAND.assets.logos.logoLight;return m?(0,a.jsx)(a.Fragment,{children:f?(0,a.jsx)(w,{navItems:P,logoUrl:M,isLight:u,isPageActive:j,onNavigate:k,activeHref:y}):(0,a.jsx)(T,{navItems:P,logoUrl:M,isLight:u,gradient:t,accentColor:s,isOpen:n,onOpen:()=>c(!0),onClose:()=>c(!1),onNavigate:k,activeHref:y,isPageActive:j})}):null}function S(){return(0,a.jsx)(q,{navItems:O.NAVIGATION.header||[],gradient:["rgba(0,87,255,0.55)","rgba(82,39,255,0.45)"],accentColor:h.BRAND.colors.bluePrimary})}let H=[{id:"PROMPT_01",title:"Unificar grid global e margens laterais",severity:"critical",category:"layout",objective:'Garantir que Home, Sobre e Portfólio usem exatamente o mesmo container (largura útil, gutters e paddings) para obter alinhamento "duas laterais" perfeito em todo o scroll.',files:["src/app/layout.tsx","src/components/layout/ClientLayout.tsx","src/components/layout/Container.tsx","src/app/page.tsx","src/app/sobre/page.tsx","src/app/portfolio/page.tsx"],actions:["Padronizar um único componente Container com Tailwind (ex.: mx-auto max-w-[...px] px-4 md:px-6) para refletir exatamente o grid das imagens Ghost.","Garantir que todas as seções principais de Home, Sobre e Portfólio sejam diretamente embrulhadas por esse Container, sem paddings laterais adicionais em cada seção.","Ajustar ClientLayout (se usado) para não duplicar margens/paddings já definidos em Container.","Confirmar que globals.css e Tailwind estão corretamente importados em layout.tsx."],rules:["Mobile-first","Apenas ajustes de layout (sem alterar textos)","Manter o grid idêntico às imagens em docs/HOME, docs/SOBRE e docs/PORTFOLIO"],acceptanceCriteria:["Ao rolar de cima a baixo em /, /sobre e /portfolio, as bordas esquerda/direita de títulos, textos e cards mantêm alinhamento perfeito",'O item "grid e margens laterais correspondem exatamente à imagem?" pode ser marcado como Sim para todas as seções'],status:"pending"},{id:"PROMPT_02",title:"Corrigir Header e comportamento de clique em mobile",severity:"critical",category:"mobile",objective:"Garantir que o Header tenha área de clique/touch consistente, sem interferência na rolagem ou nos CTAs em mobile.",files:["src/components/layout/Header.tsx","src/components/layout/header/*","src/app/layout.tsx"],actions:["Revisar estrutura de nav e botões de menu (hamburger) para garantir que nenhum elemento overlay capture cliques fora da área esperada.","Em mobile, assegurar que cada item de navegação tenha área mínima de 44×44px (via Tailwind, ex.: px-3 py-2).","Validar se existe algum pointer-events indevido em wrappers do Header que interfiram em cliques no Hero e nas seções abaixo."],rules:["Não alterar o conteúdo textual nem adicionar links novos","Apenas ajustar estrutura e classes Tailwind"],acceptanceCriteria:['Em dispositivos touch, todos os links do Header respondem com precisão, sem áreas "mortas" ou cliques acidentais',"Nenhum overflow horizontal é introduzido pelo Header",'O item "mobile livre de overflow e com touch targets adequados?" pode ser marcado como Sim para Home'],status:"pending"},{id:"PROMPT_03",title:"Travar Home Hero + GhostScene na referência HERO.jpg",severity:"critical",category:"layout",objective:"Ajustar tipografia, espaçamento e cena 3D do Hero para ficar 1:1 com docs/HOME/HERO.jpg e o blueprint Ghost.",files:["src/components/home/hero/*","src/components/canvas/home/hero/GhostScene.tsx"],actions:["Equalizar hierarquia tipográfica (h1, h2/h3, body) com o blueprint, ajustando apenas classes Tailwind (weights, tracking, line-height), sem alterar o texto.","Revisar espaçamentos verticais entre título/subtítulo/CTA para que as distâncias visuais coincidam com a imagem de referência.",'Em GhostScene.tsx, ajustar posição, escala e intensidade de luz/materiais para obter o mesmo enquadramento e "glow" do Ghost na HERO.jpg.'],rules:["Não mexer no copy","Qualquer ajuste 3D deve preservar performance (usar useFrame apenas quando necessário e memoizar materiais)"],acceptanceCriteria:["Comparando a Home Hero com docs/HOME/HERO.jpg, espaçamentos, tipografia e enquadramento do Ghost são indistinguíveis a olho nu","Parallax leve do Ghost permanece suave, sem jitter"],status:"pending",dependsOn:["PROMPT_01"]},{id:"PROMPT_04",title:"Manifesto: áudio + scroll e grid alinhado",severity:"high",category:"motion",objective:"Fazer o Manifesto respeitar o grid global e implementar lógica de áudio que auto-mute/unmute conforme a seção entra/sai da viewport.",files:["src/components/home/hero/*","src/components/home/ManifestoSection.tsx"],actions:["Garantir que o container do Manifesto esteja dentro do mesmo Container global, sem paddings extras.","Implementar observer de scroll (ex.: IntersectionObserver no client) para mutar o áudio quando a seção estiver abaixo de um certo threshold de visibilidade.","Em desktop, permitir que o áudio inicie ao entrar na seção; em mobile, respeitar a necessidade de interação explícita do usuário para iniciar áudio."],rules:["Não alterar o conteúdo do Manifesto","Manter a UI atual, refinando apenas comportamento e layout"],acceptanceCriteria:["Manifesto ocupa a mesma largura da Hero/Featured Projects","Áudio nunca continua tocando enquanto a seção está completamente fora de viewport","O checklist de grid/alinhamento e mobile pode ser marcado como Sim para Manifesto"],status:"pending",dependsOn:["PROMPT_01"]},{id:"PROMPT_05",title:"Featured Projects: grid 100% horizontal e mobile centrado",severity:"critical",category:"layout",objective:"Fazer os cards de projetos em destaque preencherem 100% da largura do container, com alturas equalizadas por linha e CTAs/textos centralizados em mobile.",files:["src/components/home/featured-projects/*"],actions:["Modelar o grid com Tailwind usando combinações de grid-cols-* e auto-fit/auto-fill (ou flex com flex-[x]) para reproduzir a distribuição de larguras da referência, sem espaços vazios.","Garantir que todos os cards de uma mesma linha compartilhem a mesma altura (via items-stretch + conteúdo interno com h-full).","Em mobile, centralizar títulos/descrições/CTAs dos cards e revisar paddings para remover qualquer overflow horizontal."],rules:["Mobile-first","Sem alterar textos","Comparação constante com docs/HOME/HOME-PORTFOLIO-BLACK---GHOST.jpg e docs/HOME/HOME-PORTFOLIO-LAYOUYT-MOBILE---GHOST.jpg"],acceptanceCriteria:["Não há gaps horizontais no fim de nenhuma linha","Todos os cards têm mesma altura visual por linha","Em mobile, os CTAs ficam centralizados e facilmente clicáveis"],status:"pending",dependsOn:["PROMPT_01"]},{id:"PROMPT_06",title:"Portfólio (/portfolio): Mosaic Grid + parallax estilo CodePen",severity:"critical",category:"layout",objective:"Ajustar o grid de /portfolio para preencher 100% da largura, equalizar alturas por linha e implementar parallax/hover inspirado no CodePen de referência.",files:["src/app/portfolio/page.tsx","src/components/portfolio/PortfolioMosaicGrid.tsx","src/components/portfolio/MosaicCard.tsx","src/components/portfolio/PortfolioCard.tsx"],actions:["Refatorar PortfolioMosaicGrid para calcular larguras relativas por linha (ex.: colunas flex com basis-* e grow) de forma a sempre fechar 100% da largura do container.","Garantir que todos os cards de uma mesma linha tenham altura igual (via h-full + wrappers internos com flex flex-col e justify-between).","Implementar animações de hover/parallax nos cards usando Framer Motion (ex.: leve translateZ em perspectiva simulada, com easing cubic-bezier(0.22, 1, 0.36, 1)) para aproximar o efeito do CodePen."],rules:["Não alterar estrutura de conteúdo dos cards (título, descrição, tags)","Apenas layout e motion"],acceptanceCriteria:["Qualquer linha de cards ocupa 100% da largura do container","Nenhuma linha apresenta gaps residuais","Hover/parallax são fluidos, sem overshoot ou bounce exagerado, replicando a fluidez do CodePen"],status:"pending",dependsOn:["PROMPT_01"]},{id:"PROMPT_07",title:"About Hero (tipografia) + About Closed (vídeo Supabase)",severity:"critical",category:"accessibility",objective:"Corrigir a visibilidade do texto em About Hero e implementar troca dinâmica de vídeo Desktop/Mobile em About Closed usando URLs do Supabase.",files:["src/components/sobre/AboutHero.tsx","src/components/sobre/AboutClosing.tsx"],actions:["Em AboutHero, aplicar classes Tailwind para que o subtítulo/h3 use cor branca e contraste adequado sobre o background, respeitando a escala tipográfica Ghost.","Identificar no Supabase as chaves/URLs de vídeo para Desktop e Mobile (por ex.: colunas about_closed_desktop_url e about_closed_mobile_url).","Em AboutClosing, implementar lógica client-side (hook de breakpoint ou matchMedia) para escolher a URL correta no player de vídeo sem duplicar o componente."],rules:["Não mudar o texto dos títulos","Apenas cores/tailwind para visibilidade e seleção dinâmica de mídia"],acceptanceCriteria:["Em qualquer breakpoint, o subtítulo de About Hero é claramente legível","O About Closed carrega automaticamente a versão de vídeo adequada ao viewport (Desktop vs Mobile), sem que o usuário perceba troca de layout"],status:"pending"},{id:"PROMPT_08",title:"About Origin / Method / What I Do: scroll animations e glow roxo",severity:"medium",category:"motion",objective:"Refinar animações de scroll em Origin e Method e implementar/ajustar glow roxo + ícones redondos em What I Do, seguindo a especificação Ghost.",files:["src/components/sobre/AboutOrigin.tsx","src/components/sobre/AboutMethod.tsx","src/components/sobre/AboutWhatIDo.tsx","src/components/sobre/motion.ts"],actions:["Centralizar as variantes do Framer Motion em motion.ts com um set de easings premium (por exemplo, curvas suaves sem overshoot) e reutilizá-las em todas as seções.","Em Origin/Method, disparar animações apenas quando o bloco estiver parcialmente visível (ex.: 25–30% em viewport) para evitar disparos prematuros.","Em What I Do, ajustar o glow roxo para que o efeito seja suave, sem serrilhado, e centralizar os ícones em círculos perfeitos, respeitando o grid lateral."],rules:["Não alterar textos",'Evitar qualquer animação que cause "bounce" exagerado ou fadiga visual'],acceptanceCriteria:["As animações de entrada seguem o mesmo timing e easing em todas as seções","O glow roxo nos ícones é sutil mas perceptível, alinhado ao look Ghost",'O item "animação de parallax/hover segue a fluidez Ghost?" pode ser marcado como Sim para essas seções'],status:"pending",dependsOn:["PROMPT_07"]},{id:"PROMPT_09",title:"Centralização absoluta de mídia nos cards de portfólio",severity:"medium",category:"layout",objective:"Garantir que todas as imagens e vídeos dentro dos cards de portfólio estejam sempre centralizados e preencham o card de forma consistente, independentemente da proporção.",files:["src/components/portfolio/PortfolioCard.tsx","src/components/portfolio/ProjectsGallery.tsx"],actions:["Envolver a mídia (img/video) em um wrapper com relative overflow-hidden e altura fixa ou proporcional à linha (para suportar alturas equalizadas).","Definir mídia com object-cover object-center w-full h-full para garantir que sempre preencha o espaço sem distorção.","Validar casos extremos de proporção (super wide vs super vertical) para garantir que o recorte preserve a parte visual mais importante do conteúdo."],rules:["Não alterar textos ou ordem de informações do card","Apenas o container de mídia"],acceptanceCriteria:["Nenhum card mostra barras pretas/brancas laterais ou em cima/baixo","Todas as mídias parecem perfeitamente centradas e recortadas, mantendo a altura dos cards uniforme por linha"],status:"pending",dependsOn:["PROMPT_06"]},{id:"PROMPT_10",title:"Eliminar overflow horizontal e validar touch targets em todo o site",severity:"high",category:"mobile",objective:"Garantir que todas as páginas estejam livres de scroll horizontal acidental e que todos os CTAs/cards tenham zonas de toque confortáveis em mobile.",files:["src/app/page.tsx","src/app/sobre/page.tsx","src/app/portfolio/page.tsx","src/components/home/*","src/components/sobre/*","src/components/portfolio/*"],actions:["Auditar todos os wrappers horizontais (carrosséis, grids) para remover larguras fixas que ultrapassem 100vw em mobile.","Garantir que todos os botões/links tenham px-3 py-2 ou superior em mobile, mantendo a identidade Ghost.","Testar manualmente em breakpoints principais (sm/md/lg) para confirmar ausência total de scroll horizontal."],rules:["Não remover seções para resolver overflow","A correção deve ser via layout/responsividade"],acceptanceCriteria:["Nenhuma página apresenta scroll horizontal em qualquer breakpoint","Todos os CTAs e cards são facilmente clicáveis em touchscreen",'O item "mobile livre de overflow e com touch targets adequados?" pode ser marcado como Sim em todas as seções'],status:"pending",dependsOn:["PROMPT_02","PROMPT_05","PROMPT_06"]}];function L({children:e}){let t=(0,l.usePathname)(),o=(0,r.useMemo)(()=>t?.startsWith("/admin")??!1,[t]);return(!function(e=!0){let t=p(e=>e.setFlags),a=p(e=>e.setViewport);(0,r.useEffect)(()=>{if(!e)return;let r=()=>{let e=window.innerWidth;a(e,window.innerHeight),t((({viewport:e,prefersReducedMotion:t})=>{let a={mountWebGL:!0,enableManifestoScroll:!0,enableHoverInteractions:!0,reducedMotion:t,debugMode:!1};return"mobile"===e&&(a.mountWebGL=!1),t&&(a.mountWebGL=!1,a.enableManifestoScroll=!1,a.enableHoverInteractions=!1),a})({viewport:e>=1024?"desktop":e>=640?"tablet":"mobile",prefersReducedMotion:window.matchMedia("(prefers-reduced-motion: reduce)").matches}))};return r(),window.addEventListener("resize",r),()=>window.removeEventListener("resize",r)},[e,t,a])}(!o),(0,r.useEffect)(()=>{if(o)return document.documentElement.classList.add("admin-page"),()=>{document.documentElement.classList.remove("admin-page")}},[o]),o)?(0,a.jsx)("main",{id:"main-content",className:"admin-surface relative min-h-screen bg-slate-950 text-slate-50",children:e}):(0,a.jsxs)(f,{children:[(0,a.jsx)(S,{}),(0,a.jsx)("main",{id:"main-content",className:"relative grow",children:e}),!1]})}function z({children:e}){let[t,s]=(0,r.useState)([]),[i,l]=(0,r.useState)(!1);return((0,r.useEffect)(()=>{(async()=>{try{let e=await n();s(e)}catch(e){console.error("Falha ao carregar site_assets:",e instanceof Error?e.message:e);try{let e=await fetch("/api/site-assets");if(e.ok){let t=await e.json();s(t)}else console.error("Erro ao buscar site_assets via API:",e.status,e.statusText)}catch(e){console.error("Erro fallback de site_assets:",e instanceof Error?e.message:e)}}finally{l(!0)}})()},[]),i)?(0,a.jsx)(o.SiteAssetsProvider,{assets:t,children:(0,a.jsx)(L,{children:e})}):(0,a.jsx)(L,{children:e})}H.filter(e=>["PROMPT_01","PROMPT_02","PROMPT_05","PROMPT_06"].includes(e.id)),H.filter(e=>["PROMPT_03","PROMPT_04","PROMPT_07"].includes(e.id)),H.filter(e=>["PROMPT_08","PROMPT_09","PROMPT_10"].includes(e.id)),e.s(["default",()=>z],25827)}]);
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push([
+  'object' == typeof document ? document.currentScript : void 0,
+  71810,
+  (e) => {
+    e.v({
+      fallbackBackground:
+        'DesktopFluidHeader-module__gTVa7a__fallbackBackground',
+      headerContainer: 'DesktopFluidHeader-module__gTVa7a__headerContainer',
+      headerDark: 'DesktopFluidHeader-module__gTVa7a__headerDark',
+      headerLight: 'DesktopFluidHeader-module__gTVa7a__headerLight',
+      subtleBorder: 'DesktopFluidHeader-module__gTVa7a__subtleBorder',
+    });
+  },
+  25827,
+  (e) => {
+    'use strict';
+    let t;
+    var a = e.i(96148),
+      r = e.i(84833),
+      o = e.i(7766),
+      s = e.i(60801),
+      i = e.i(62596);
+    async function n() {
+      let e = (0, s.createClientComponentClient)(),
+        { data: t, error: a } = await e
+          .from('site_assets')
+          .select('*')
+          .order('page', { ascending: !0 })
+          .order('sort_order', { ascending: !0, nullsFirst: !1 });
+      if (a) throw a;
+      return (function (e, t = {}) {
+        let { onlyActive: a = !1, dropInvalid: r = !0 } = t,
+          o = new Map(),
+          s = new Map(),
+          n = (e) => {
+            if (!e) return !0;
+            let t = e.trim().toLowerCase();
+            return (
+              !t ||
+              t.startsWith('updated_at:') ||
+              t.startsWith('key:') ||
+              t.startsWith('file_path:') ||
+              '.keep' === t ||
+              '.emptyfolderplaceholder' === t
+            );
+          },
+          l = (e) => {
+            if (!e) return e;
+            let t = e.trim();
+            if (!t) return e;
+            let a = t.includes('/') ? '/' : '.',
+              r = t.split(a).filter(Boolean);
+            if (r.length < 4) return e;
+            let o = Math.min(3, Math.floor(r.length / 2));
+            for (let e = 1; e <= o; e++)
+              if (
+                r.slice(0, e).join('|').toLowerCase() ===
+                r
+                  .slice(e, 2 * e)
+                  .join('|')
+                  .toLowerCase()
+              )
+                return [...r.slice(0, e), ...r.slice(2 * e)].join(a);
+            return e;
+          },
+          c = (e) =>
+            4 * !!e.is_active +
+            2 * !!e.publicUrl +
+            +!!e.file_path?.includes('/') -
+            0.01 * Math.min(e.key?.length ?? 0, 60);
+        for (let t of e) {
+          let e = (function (e) {
+              let t = (e.bucket || 'site-assets')
+                  .replace(/^bucket:\s*/i, '')
+                  .replace(/^"+|"+$/g, '')
+                  .replace(/^'+|'+$/g, '')
+                  .replace(/^\/+|\/+$/g, ''),
+                a = e.key
+                  ?.replace(/^key:\s*/i, '')
+                  .replace(/^"+|"+$/g, '')
+                  .replace(/^'+|'+$/g, '')
+                  .replace(/,+$/g, '')
+                  .trim(),
+                r = (0, i.normalizeStoragePath)(e.file_path, t),
+                o = r
+                  ? /^clients\.clients\.strip\./.test(r)
+                    ? r.replace(
+                        /^clients\.clients\.strip\./,
+                        'clients/clients.strip.'
+                      )
+                    : /^clients\.strip\./.test(r)
+                      ? r.replace(/^clients\.strip\./, 'clients/clients.strip.')
+                      : r
+                  : r,
+                s =
+                  'site-assets' === t && o?.startsWith('projects/')
+                    ? 'portfolio-media'
+                    : t,
+                n = (e) => {
+                  if (!e) return;
+                  let t = e
+                    .replace(/^page:\s*/i, '')
+                    .replace(/^"+|"+$/g, '')
+                    .replace(/^'+|'+$/g, '')
+                    .replace(/,+$/g, '')
+                    .trim();
+                  if (!t || /^updated_at:/i.test(t) || /^key:/i.test(t)) return;
+                  let a = t.includes('/') ? '/' : '.',
+                    r = t.split(a)[0];
+                  return r?.toLowerCase();
+                },
+                l = n(e.page) || n(o) || n(a) || 'global',
+                c =
+                  (0, i.buildSupabaseStorageUrl)(s, o) ||
+                  (e.file_path?.startsWith('http') ? e.file_path : '') ||
+                  '',
+                u = {
+                  ...e,
+                  key: a ?? e.key,
+                  bucket: s,
+                  file_path: r ?? '',
+                  page: l,
+                  resolvedPage: l,
+                  publicUrl: c,
+                };
+              if (e.href) {
+                let t = (0, i.validateExternalUrl)(e.href);
+                t && (u = { ...u, href: t });
+              }
+              return u;
+            })({
+              ...t,
+              key: l(t.key) ?? t.key,
+              file_path: l(t.file_path) ?? t.file_path,
+            }),
+            u = e.key?.trim();
+          if (!u || (r && (n(u) || n(e.file_path))) || (a && !e.is_active))
+            continue;
+          let d = !!(e.publicUrl || 'font' === e.asset_type || e.href);
+          if (r && !d) continue;
+          let m = (e, t) => {
+              if (!e) return t;
+              let a = c(e),
+                r = c(t);
+              return r > a || (r === a && t.key.length < e.key.length) ? t : e;
+            },
+            p = m(o.get(u), e);
+          o.set(u, p);
+          let f = e.file_path || '';
+          if (f) {
+            let t = m(s.get(f), e);
+            s.set(f, t);
+          }
+        }
+        let u = new Map();
+        for (let e of o.values()) u.set(e.id, e);
+        for (let e of s.values()) u.set(e.id, e);
+        return Array.from(u.values()).sort((e, t) => {
+          let a = e.page ?? '',
+            r = t.page ?? '';
+          if (a === r) {
+            let a = e.sort_order ?? Number.MAX_SAFE_INTEGER,
+              r = t.sort_order ?? Number.MAX_SAFE_INTEGER;
+            return a === r ? e.key.localeCompare(t.key) : a - r;
+          }
+          return a.localeCompare(r);
+        });
+      })(t ?? [], { onlyActive: !0 });
+    }
+    e.i(74920);
+    var l = e.i(63844),
+      c = e.i(69527);
+    let u = (0, r.createContext)({ lenis: null }),
+      d = (e) => {
+        let t,
+          a = new Set(),
+          r = (e, r) => {
+            let o = 'function' == typeof e ? e(t) : e;
+            if (!Object.is(o, t)) {
+              let e = t;
+              ((t = (null != r ? r : 'object' != typeof o || null === o)
+                ? o
+                : Object.assign({}, t, o)),
+                a.forEach((a) => a(t, e)));
+            }
+          },
+          o = () => t,
+          s = {
+            setState: r,
+            getState: o,
+            getInitialState: () => i,
+            subscribe: (e) => (a.add(e), () => a.delete(e)),
+          },
+          i = (t = e(r, o, s));
+        return s;
+      },
+      m = (e) => {
+        let t = e ? d(e) : d,
+          a = (e) =>
+            (function (e, t = (e) => e) {
+              let a = r.default.useSyncExternalStore(
+                e.subscribe,
+                r.default.useCallback(() => t(e.getState()), [e, t]),
+                r.default.useCallback(() => t(e.getInitialState()), [e, t])
+              );
+              return (r.default.useDebugValue(a), a);
+            })(t, e);
+        return (Object.assign(a, t), a);
+      },
+      p = (t = (e) => ({
+        flags: {
+          mountWebGL: !0,
+          enableManifestoScroll: !0,
+          enableHoverInteractions: !0,
+          reducedMotion: !1,
+          debugMode: !1,
+        },
+        viewport: { width: 0, height: 0 },
+        narrativeState: 'IDLE',
+        scrollProgress: 0,
+        setFlag: (t, a) => e((e) => ({ flags: { ...e.flags, [t]: a } })),
+        setFlags: (t) => e((e) => ({ flags: { ...e.flags, ...t } })),
+        setViewport: (t, a) => e({ viewport: { width: t, height: a } }),
+        setNarrativeState: (t) => e({ narrativeState: t }),
+        setScrollProgress: (t) => e({ scrollProgress: t }),
+      }))
+        ? m(t)
+        : m;
+    function f({ children: e }) {
+      let { flags: t } = p(),
+        [o, s] = (0, r.useState)(null);
+      return (
+        (0, r.useEffect)(() => {
+          if (t.reducedMotion) return;
+          let e = new c.default({
+            lerp: 0.08,
+            wheelMultiplier: 1,
+            touchMultiplier: 1.2,
+          });
+          return (
+            s(e),
+            requestAnimationFrame(function t(a) {
+              (e.raf(a), requestAnimationFrame(t));
+            }),
+            () => {
+              (e.destroy(), s(null));
+            }
+          );
+        }, [t.reducedMotion]),
+        (0, a.jsx)(u.Provider, { value: { lenis: o }, children: e })
+      );
+    }
+    var h = e.i(32648),
+      g = e.i(54768),
+      b = e.i(72928),
+      x = e.i(21998),
+      v = e.i(67725),
+      y = e.i(71810);
+    function w({
+      navItems: e,
+      logoUrl: t,
+      onNavigate: o,
+      activeHref: s,
+      isLight: i,
+      isPageActive: n,
+    }) {
+      let l = (0, r.useRef)(null),
+        c = (0, r.useMemo)(() => e, [e]),
+        u = !!n;
+      return (0, a.jsx)('header', {
+        className: `hidden lg:block fixed top-6 left-0 right-0 z-40 w-full pointer-events-none transition-all duration-300 ease-in-out ${i ? 'header--light' : ''}`,
+        children: (0, a.jsx)('div', {
+          className:
+            'flex justify-center w-full max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24',
+          children: (0, a.jsx)('div', {
+            ref: l,
+            className: 'pointer-events-auto w-full relative',
+            children: (0, a.jsx)('div', {
+              className: `${y.default.headerContainer} ${i ? y.default.headerLight : y.default.headerDark} h-16 w-[calc(100%+5rem)] -ml-10 rounded-4xl backdrop-blur-md border border-white/10 bg-black/20 transition-all duration-300`,
+              children: (0, a.jsxs)('div', {
+                className:
+                  'relative z-10 h-full px-10 flex items-center justify-between gap-6',
+                children: [
+                  (0, a.jsx)(x.default, {
+                    href: '/',
+                    'aria-label': 'Ir para Home',
+                    className:
+                      'flex items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-full',
+                    children: (0, a.jsx)(v.default, {
+                      src: t,
+                      alt: 'Danilo',
+                      width: 32,
+                      height: 32,
+                      className:
+                        'h-22 w-22 object-contain transition-colors duration-300',
+                    }),
+                  }),
+                  (0, a.jsx)('nav', {
+                    'aria-label': 'Navegação principal',
+                    className: 'flex items-center gap-7',
+                    children: c.map((e) => {
+                      var t;
+                      let r =
+                          s ===
+                          (e.href.startsWith('/#')
+                            ? e.href.substring(1)
+                            : e.href),
+                        n =
+                          'transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-transparent rounded-md text-xs uppercase tracking-[0.2em]',
+                        l = r
+                          ? `${i ? 'text-blueAccent' : 'text-bluePrimary'} font-semibold`
+                          : `${i ? 'text-white' : 'text-white/70'} ${i ? 'hover:text-blueAccent' : 'hover:text-white'} font-medium`,
+                        c = u ? 'text-bluePrimary font-semibold' : '',
+                        d = r
+                          ? 'after:absolute after:-bottom-1 after:left-0 after:w-full after:h-[1px] after:bg-current'
+                          : 'after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[1px] after:bg-current group-hover:after:w-full after:transition-all after:duration-300';
+                      return ((t = e.href),
+                      /^https?:\/\//.test(t) ||
+                        t.startsWith('mailto:') ||
+                        t.startsWith('tel:') ||
+                        e.external)
+                        ? (0, a.jsxs)(
+                            'a',
+                            {
+                              href: e.href,
+                              target: '_blank',
+                              rel: 'noopener noreferrer',
+                              className: `group ${n} ${l} ${c} relative flex items-center`,
+                              children: [
+                                (0, a.jsx)('span', {
+                                  className: 'tracking-tight',
+                                  children: e.label,
+                                }),
+                                (0, a.jsx)('span', { className: d }),
+                              ],
+                            },
+                            e.href
+                          )
+                        : (0, a.jsxs)(
+                            'button',
+                            {
+                              type: 'button',
+                              onClick: () => o(e.href),
+                              className: `group ${n} ${l} ${c} relative flex items-center`,
+                              children: [
+                                (0, a.jsx)('span', {
+                                  className: 'tracking-tight',
+                                  children: e.label,
+                                }),
+                                (0, a.jsx)('span', { className: d }),
+                              ],
+                            },
+                            e.href
+                          );
+                    }),
+                  }),
+                ],
+              }),
+            }),
+          }),
+        }),
+      });
+    }
+    let j = (0, r.forwardRef)(
+      (
+        {
+          open: e,
+          textLines: t,
+          textInnerRef: r,
+          iconRef: o,
+          plusHRef: s,
+          plusVRef: i,
+          onToggle: n,
+        },
+        l
+      ) =>
+        (0, a.jsxs)('button', {
+          ref: l,
+          type: 'button',
+          onClick: n,
+          'aria-label': e ? 'Fechar menu' : 'Abrir menu',
+          'aria-expanded': e,
+          className: `relative inline-flex items-center justify-center gap-2 bg-transparent border-0 cursor-pointer font-medium leading-none overflow-visible z-110 min-h-[48px] min-w-[48px] px-3 transition-colors duration-300 ${e ? 'text-white' : 'text-white hover:text-primary'}`,
+          children: [
+            (0, a.jsx)('span', {
+              className:
+                'relative inline-block h-[1em] overflow-hidden whitespace-nowrap',
+              'aria-hidden': 'true',
+              children: (0, a.jsx)('span', {
+                ref: r,
+                className: 'flex flex-col leading-none',
+                children: t.map((e, r) =>
+                  (0, a.jsx)(
+                    'span',
+                    {
+                      className:
+                        'block h-[1em] leading-none text-sm tracking-wide',
+                      style: {
+                        visibility: r === t.length - 1 ? 'visible' : 'hidden',
+                      },
+                      children: e,
+                    },
+                    `${e}-${r}`
+                  )
+                ),
+              }),
+            }),
+            (0, a.jsxs)('span', {
+              ref: o,
+              className:
+                'relative w-[18px] h-[18px] shrink-0 inline-flex items-center justify-center will-change-transform',
+              'aria-hidden': 'true',
+              children: [
+                (0, a.jsx)('span', {
+                  ref: s,
+                  className:
+                    'absolute left-1/2 top-1/2 w-full h-[1.5px] bg-current rounded-sm -translate-x-1/2 -translate-y-1/2 will-change-transform',
+                }),
+                (0, a.jsx)('span', {
+                  ref: i,
+                  className:
+                    'absolute left-1/2 top-1/2 w-full h-[1.5px] bg-current rounded-sm -translate-x-1/2 -translate-y-1/2 will-change-transform',
+                }),
+              ],
+            }),
+          ],
+        })
+    );
+    j.displayName = 'MobileMenuButton';
+    var k = e.i(73019),
+      P = e.i(59747),
+      M = e.i(98788),
+      C = e.i(1498),
+      O = e.i(68085);
+    let _ = (0, r.forwardRef)(
+      (
+        {
+          navItems: e,
+          accentColor: t,
+          open: r,
+          socialsRef: o,
+          onNavigate: s,
+          onClose: i,
+          activeHref: n,
+          isPageActive: l,
+        },
+        c
+      ) =>
+        (0, a.jsxs)('nav', {
+          ref: c,
+          id: 'mobile-menu-panel',
+          className:
+            'fixed inset-0 bg-[#0048ff] backdrop-blur-xl flex flex-col justify-center px-8 z-50 pointer-events-auto',
+          'aria-hidden': !r,
+          onClick: (e) => {
+            e.target === e.currentTarget && i();
+          },
+          children: [
+            (0, a.jsx)('ul', {
+              className: 'flex flex-col gap-4',
+              role: 'list',
+              children: e.map((e) => {
+                let t = e.href.startsWith('/#') ? e.href.substring(1) : e.href;
+                return (0, a.jsx)(
+                  'li',
+                  {
+                    className: 'overflow-hidden leading-none',
+                    children: (0, a.jsx)('button', {
+                      onClick: () => s(e.href),
+                      className: `sm-panel-item w-full py-3 text-4xl font-light tracking-wide transition-colors text-left leading-none uppercase will-change-transform origin-bottom min-h-[48px] ${(l ? 'text-blueAccent font-semibold' : '') || (n === t ? 'text-blueAccent font-medium underline underline-offset-4' : 'text-white/80 hover:text-white')}`,
+                      children: e.label,
+                    }),
+                  },
+                  e.href
+                );
+              }),
+            }),
+            (0, a.jsxs)('div', {
+              ref: o,
+              className:
+                'mt-12 pt-8 border-t border-white/10 flex flex-col gap-4',
+              children: [
+                (0, a.jsx)(k.motion.h3, {
+                  className:
+                    'sm-social-title text-sm font-medium uppercase tracking-wider',
+                  initial: !1,
+                  animate: { color: t },
+                  children: 'Connect',
+                }),
+                (0, a.jsx)('div', {
+                  className: 'flex gap-4',
+                  children: [
+                    {
+                      label: 'LinkedIn',
+                      href: O.SOCIALS.linkedin,
+                      icon: (0, a.jsx)(M.Linkedin, { className: 'w-5 h-5' }),
+                    },
+                    {
+                      label: 'Instagram',
+                      href: O.SOCIALS.instagram,
+                      icon: (0, a.jsx)(P.Instagram, { className: 'w-5 h-5' }),
+                    },
+                    {
+                      label: 'Email',
+                      href: O.SOCIALS.emailPrimary,
+                      icon: (0, a.jsx)(C.Mail, { className: 'w-5 h-5' }),
+                    },
+                  ].map((e) =>
+                    (0, a.jsx)(
+                      'a',
+                      {
+                        href: e.href,
+                        target: '_blank',
+                        rel: 'noopener noreferrer',
+                        'aria-label': e.label,
+                        className:
+                          'sm-social-link flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/5 text-white transition-all hover:bg-primary hover:border-primary hover:scale-105 active:scale-95',
+                        children: e.icon,
+                      },
+                      e.label
+                    )
+                  ),
+                }),
+              ],
+            }),
+          ],
+        })
+    );
+    _.displayName = 'MobileMenuPanel';
+    let R = (0, r.forwardRef)((e, t) =>
+      (0, a.jsx)('div', {
+        ref: t,
+        className:
+          'fixed top-0 right-0 bottom-0 w-full pointer-events-none z-49',
+        'aria-hidden': 'true',
+        children: ['#4fe6ff', '#8705f2', '#f501d3'].map((e, t) =>
+          (0, a.jsx)(
+            k.motion.div,
+            {
+              className: 'sm-prelayer absolute top-0 right-0 h-full w-full',
+              initial: !1,
+              animate: { backgroundColor: e },
+            },
+            t
+          )
+        ),
+      })
+    );
+    function E({ logoUrl: e, onLogoClick: t, children: r, isLight: o = !1 }) {
+      let s = {
+        hidden: { opacity: 0, y: -15, filter: 'blur(8px)' },
+        show: {
+          opacity: 1,
+          y: 0,
+          filter: 'blur(0px)',
+          transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+        },
+      };
+      return (0, a.jsx)(k.motion.header, {
+        variants: {
+          hidden: { y: -64, opacity: 0 },
+          show: {
+            y: 0,
+            opacity: 1,
+            transition: {
+              duration: 0.8,
+              ease: [0.22, 1, 0.36, 1],
+              staggerChildren: 0.1,
+              delayChildren: 0.2,
+            },
+          },
+        },
+        initial: 'hidden',
+        animate: 'show',
+        className: `fixed top-0 left-0 right-0 z-50 pointer-events-none ${o ? 'header--light' : ''}`,
+        children: (0, a.jsx)('div', {
+          className: `w-full h-[60px] pointer-events-auto transition-colors duration-300 ${o ? 'bg-background/40 border-b border-white/10 shadow-xl' : 'bg-background/40 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/20'}`,
+          children: (0, a.jsxs)('div', {
+            className:
+              'flex items-center justify-between h-full w-full max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24',
+            children: [
+              (0, a.jsx)(k.motion.div, {
+                variants: s,
+                children: (0, a.jsx)(x.default, {
+                  href: '/',
+                  onClick: t,
+                  children: (0, a.jsx)(v.default, {
+                    src: e,
+                    alt: 'Danilo',
+                    width: 32,
+                    height: 32,
+                    className: 'h-20 w-20 object-contain',
+                    unoptimized: !0,
+                    loading: 'eager',
+                  }),
+                }),
+              }),
+              (0, a.jsx)(k.motion.div, { variants: s, children: r }),
+            ],
+          }),
+        }),
+      });
+    }
+    R.displayName = 'MobilePreLayers';
+    var A = e.i(38421);
+    function T({
+      navItems: e,
+      logoUrl: t,
+      isLight: o = !1,
+      accentColor: s = '#0057FF',
+      isOpen: i,
+      onOpen: n,
+      onClose: l,
+      onNavigate: c,
+      activeHref: u,
+      isPageActive: d,
+    }) {
+      let {
+        refs: {
+          panelRef: m,
+          preLayersRef: p,
+          socialsRef: f,
+          toggleBtnRef: h,
+          plusHRef: g,
+          plusVRef: b,
+          iconRef: x,
+          textInnerRef: v,
+        },
+        state: { open: y, textLines: w },
+        actions: { toggleMenu: k, syncState: P },
+      } = (function (e, t, a) {
+        let o = (0, r.useRef)(null),
+          s = (0, r.useRef)(null),
+          i = (0, r.useRef)([]),
+          n = (0, r.useRef)(null),
+          l = (0, r.useRef)(null),
+          c = (0, r.useRef)(null),
+          u = (0, r.useRef)(null),
+          d = (0, r.useRef)(null),
+          m = (0, r.useRef)(null),
+          [p, f] = (0, r.useState)(['Menu', 'Close']),
+          h = (0, r.useRef)(null),
+          g = (0, r.useRef)(null),
+          b = (0, r.useRef)(null),
+          x = (0, r.useRef)(null),
+          [v, y] = (0, r.useState)(!1),
+          w = (0, r.useRef)(!1);
+        (0, r.useLayoutEffect)(() => {
+          let e = A.gsap.context(() => {
+            let e = o.current,
+              t = s.current,
+              a = c.current,
+              r = u.current,
+              n = d.current,
+              l = m.current;
+            if (!e || !a || !r || !n || !l) return;
+            let p = [];
+            (t && (p = Array.from(t.querySelectorAll('.sm-prelayer'))),
+              (i.current = p),
+              A.gsap.set([e, ...p], {
+                opacity: 0,
+                xPercent: 100,
+                filter: 'blur(10px)',
+                pointerEvents: 'none',
+              }),
+              A.gsap.set(a, { transformOrigin: '50% 50%', rotate: 0 }),
+              A.gsap.set(r, { transformOrigin: '50% 50%', rotate: 90 }),
+              A.gsap.set(n, { rotate: 0, transformOrigin: '50% 50%' }),
+              A.gsap.set(l, { yPercent: 0 }));
+          });
+          return () => e.revert();
+        }, []);
+        let j = (0, r.useCallback)((e) => {
+            let t = d.current,
+              a = c.current,
+              r = u.current;
+            t &&
+              a &&
+              r &&
+              (b.current?.kill(),
+              e
+                ? (A.gsap.set(t, { rotate: 0, transformOrigin: '50% 50%' }),
+                  (b.current = A.gsap
+                    .timeline({ defaults: { ease: 'expo.out' } })
+                    .to(a, { rotate: 45, duration: 0.6 }, 0)
+                    .to(r, { rotate: -45, duration: 0.6 }, 0)))
+                : (b.current = A.gsap
+                    .timeline({ defaults: { ease: 'expo.inOut' } })
+                    .to(a, { rotate: 0, duration: 0.45 }, 0)
+                    .to(r, { rotate: 90, duration: 0.45 }, 0)
+                    .to(t, { rotate: 0, duration: 0.001 }, 0)));
+          }, []),
+          k = (0, r.useCallback)((e) => {
+            let t = m.current;
+            if (!t) return;
+            x.current?.kill();
+            let a = e ? 'Menu' : 'Close',
+              r = [a],
+              o = a;
+            for (let e = 0; e < 1; e++) o = 'Menu' === o ? 'Close' : 'Menu';
+            (r.push(e ? 'Close' : 'Menu'),
+              f(r),
+              A.gsap.set(t, { yPercent: 0 }));
+            let s = r.length;
+            x.current = A.gsap.to(t, {
+              yPercent: -(((s - 1) / s) * 100),
+              duration: 0.6,
+              ease: 'expo.out',
+            });
+          }, []),
+          P = (0, r.useCallback)(() => {
+            let e = o.current,
+              t = i.current;
+            if (!e) return null;
+            (h.current?.kill(), g.current?.kill());
+            let a = e.querySelectorAll('.sm-panel-item'),
+              r = n.current,
+              s = r ? Array.from(r.querySelectorAll('.sm-social-link')) : [],
+              l = r?.querySelector('.sm-social-title');
+            (a.length &&
+              A.gsap.set(a, { x: 40, opacity: 0, filter: 'blur(8px)' }),
+              l && A.gsap.set(l, { opacity: 0, filter: 'blur(4px)' }),
+              s.length && A.gsap.set(s, { x: 20, opacity: 0 }));
+            let c = A.gsap.timeline({ paused: !0 });
+            if (
+              (t.length &&
+                c.to(t, {
+                  opacity: 0.9,
+                  xPercent: 0,
+                  filter: 'blur(0px)',
+                  duration: 0.8,
+                  ease: 'expo.out',
+                  stagger: 0.08,
+                }),
+              c.to(
+                e,
+                {
+                  opacity: 1,
+                  xPercent: 0,
+                  filter: 'blur(0px)',
+                  duration: 0.8,
+                  ease: 'expo.out',
+                  pointerEvents: 'auto',
+                },
+                t.length ? '-=0.5' : 0
+              ),
+              a.length &&
+                c.to(
+                  a,
+                  {
+                    x: 0,
+                    opacity: 1,
+                    filter: 'blur(0px)',
+                    duration: 1,
+                    ease: 'expo.out',
+                    stagger: 0.06,
+                  },
+                  '-=0.4'
+                ),
+              l || s.length)
+            ) {
+              let e = '-=0.4';
+              (l &&
+                c.to(l, { opacity: 1, filter: 'blur(0px)', duration: 0.6 }, e),
+                s.length &&
+                  c.to(
+                    s,
+                    {
+                      x: 0,
+                      opacity: 1,
+                      duration: 0.8,
+                      ease: 'expo.out',
+                      stagger: 0.06,
+                    },
+                    e + '+=0.1'
+                  ));
+            }
+            return ((h.current = c), c);
+          }, []),
+          M = (0, r.useCallback)(() => {
+            g.current && (g.current.kill(), (g.current = null));
+            let e = P();
+            e && e.play(0);
+          }, [P]),
+          C = (0, r.useCallback)(() => {
+            (h.current?.kill(), (h.current = null));
+            let e = o.current,
+              t = i.current;
+            if (!e) return;
+            let a = [...t, e];
+            (g.current?.kill(),
+              (g.current = A.gsap.to(a, {
+                opacity: 0,
+                xPercent: 100,
+                filter: 'blur(10px)',
+                duration: 0.5,
+                ease: 'expo.in',
+                pointerEvents: 'none',
+                overwrite: 'auto',
+                onComplete: () => {
+                  let t = e.querySelectorAll('.sm-panel-item');
+                  t.length &&
+                    A.gsap.set(t, { x: 40, opacity: 0, filter: 'blur(8px)' });
+                  let a = n.current;
+                  if (a) {
+                    let e = a.querySelector('.sm-social-title'),
+                      t = Array.from(a.querySelectorAll('.sm-social-link'));
+                    (e && A.gsap.set(e, { opacity: 0 }),
+                      t.length && A.gsap.set(t, { x: 20, opacity: 0 }));
+                  }
+                },
+              })));
+          }, []),
+          O = (0, r.useCallback)(() => {
+            e !== w.current &&
+              (e
+                ? ((w.current = !0), y(!0), M(), j(!0), k(!0))
+                : ((w.current = !1), y(!1), C(), j(!1), k(!1)));
+          }, [e, M, C, j, k]);
+        return {
+          refs: {
+            panelRef: o,
+            preLayersRef: s,
+            socialsRef: n,
+            toggleBtnRef: l,
+            plusHRef: c,
+            plusVRef: u,
+            iconRef: d,
+            textInnerRef: m,
+          },
+          state: { open: v, textLines: p },
+          actions: {
+            toggleMenu: (0, r.useCallback)(() => {
+              let e = !w.current;
+              e !== w.current &&
+                ((w.current = e),
+                y(e),
+                e ? (t(), M()) : (a(), C()),
+                j(e),
+                k(e));
+            }, [t, a, M, C, j, k]),
+            syncState: O,
+          },
+        };
+      })(i, n, l);
+      return (
+        (0, r.useEffect)(() => {
+          P();
+        }, [i, P]),
+        (0, r.useEffect)(
+          () => (
+            y
+              ? (document.body.style.overflow = 'hidden')
+              : (document.body.style.overflow = ''),
+            () => {
+              document.body.style.overflow = '';
+            }
+          ),
+          [y]
+        ),
+        (0, r.useEffect)(() => {
+          let e = (e) => {
+            'Escape' === e.key && y && l();
+          };
+          return (
+            window.addEventListener('keydown', e),
+            () => window.removeEventListener('keydown', e)
+          );
+        }, [l]),
+        (0, r.useEffect)(() => {
+          if (!y || !m.current) return;
+          let e = m.current.querySelectorAll(
+              'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            ),
+            t = e[0],
+            a = e[e.length - 1],
+            r = (e) => {
+              'Tab' === e.key &&
+                (e.shiftKey
+                  ? document.activeElement === t &&
+                    (a.focus(), e.preventDefault())
+                  : document.activeElement === a &&
+                    (t.focus(), e.preventDefault()));
+            };
+          return (
+            t?.focus(),
+            window.addEventListener('keydown', r),
+            () => window.removeEventListener('keydown', r)
+          );
+        }, [y]),
+        (0, a.jsxs)('div', {
+          className: 'lg:hidden relative z-60',
+          children: [
+            (0, a.jsx)(E, {
+              logoUrl: t,
+              onLogoClick: l,
+              isLight: !y && o,
+              children: (0, a.jsx)(j, {
+                ref: h,
+                open: y,
+                textLines: w,
+                textInnerRef: v,
+                iconRef: x,
+                plusHRef: g,
+                plusVRef: b,
+                onToggle: k,
+              }),
+            }),
+            (0, a.jsx)(R, { ref: p, accentColor: s }),
+            (0, a.jsx)(_, {
+              ref: m,
+              navItems: e,
+              accentColor: s,
+              open: y,
+              socialsRef: f,
+              onNavigate: c,
+              onClose: l,
+              activeHref: u,
+              isPageActive: d,
+            }),
+          ],
+        })
+      );
+    }
+    function N(e) {
+      return e.startsWith('/#') ? e.substring(1) : e.startsWith('#') ? e : '';
+    }
+    function q({ navItems: e, gradient: t, accentColor: s }) {
+      let i = (0, l.useRouter)(),
+        [n, c] = (0, r.useState)(!1),
+        [u, d] = (0, r.useState)(!1),
+        [m, p] = (0, r.useState)(!1),
+        f = (0, g.useMediaQuery)('(min-width: 1024px)');
+      (0, r.useEffect)(() => {
+        p(!0);
+      }, []);
+      let x = (function (e, t = '-45% 0px -45% 0px') {
+          let [a, o] = (0, r.useState)('#hero');
+          return (
+            (0, r.useEffect)(() => {
+              let a = e.map((e) => document.getElementById(e)).filter(Boolean);
+              if (!a.length) return;
+              let r = new IntersectionObserver(
+                (e) => {
+                  let t = e
+                    .filter((e) => e.isIntersecting)
+                    .sort(
+                      (e, t) =>
+                        (t.intersectionRatio ?? 0) - (e.intersectionRatio ?? 0)
+                    )[0];
+                  t?.target?.id && o(`#${t.target.id}`);
+                },
+                { root: null, threshold: [0.15, 0.25, 0.35], rootMargin: t }
+              );
+              return (a.forEach((e) => r.observe(e)), () => r.disconnect());
+            }, [t, e]),
+            a
+          );
+        })(
+          (0, r.useMemo)(
+            () =>
+              e
+                .filter((e) => {
+                  var t;
+                  return (t = e.href).startsWith('#') || t.startsWith('/#');
+                })
+                .map((e) => N(e.href).replace('#', '')),
+            [e]
+          )
+        ),
+        v = (0, l.usePathname)(),
+        y = (0, r.useMemo)(() => ('/' === v ? x : (v ?? void 0)), [v, x]),
+        j = v?.startsWith('/sobre'),
+        k = (0, r.useCallback)(
+          (e) => {
+            let t = N(e);
+            if (t) {
+              let a = '/' === window.location.pathname;
+              if (e.startsWith('#') || (e.startsWith('/#') && a)) {
+                let e, a;
+                ((e = t.replace('#', '')),
+                  (a = document.getElementById(e)) &&
+                    a.scrollIntoView({ behavior: 'smooth', block: 'start' }),
+                  c(!1));
+                return;
+              }
+            }
+            if (
+              /^https?:\/\//.test(e) ||
+              e.startsWith('mailto:') ||
+              e.startsWith('tel:')
+            ) {
+              (window.open(e, '_blank', 'noopener,noreferrer'), c(!1));
+              return;
+            }
+            (i.push(e), c(!1));
+          },
+          [i]
+        ),
+        P = (0, r.useMemo)(() => e, [e]);
+      (0, r.useEffect)(() => {
+        let e = Array.from(document.querySelectorAll('[data-light-section]'));
+        if (!e.length) return;
+        let t = new IntersectionObserver(
+          (e) => {
+            d(e.some((e) => e.isIntersecting));
+          },
+          { threshold: 0.12, rootMargin: '-60px 0px 0px 0px' }
+        );
+        return (e.forEach((e) => t.observe(e)), () => t.disconnect());
+      }, []);
+      let M =
+        (0, o.useSiteAssetUrl)(
+          b.SITE_ASSET_KEYS.logos.headerLight,
+          h.BRAND.assets.logos.logoLight
+        ) ?? h.BRAND.assets.logos.logoLight;
+      return m
+        ? (0, a.jsx)(a.Fragment, {
+            children: f
+              ? (0, a.jsx)(w, {
+                  navItems: P,
+                  logoUrl: M,
+                  isLight: u,
+                  isPageActive: j,
+                  onNavigate: k,
+                  activeHref: y,
+                })
+              : (0, a.jsx)(T, {
+                  navItems: P,
+                  logoUrl: M,
+                  isLight: u,
+                  gradient: t,
+                  accentColor: s,
+                  isOpen: n,
+                  onOpen: () => c(!0),
+                  onClose: () => c(!1),
+                  onNavigate: k,
+                  activeHref: y,
+                  isPageActive: j,
+                }),
+          })
+        : null;
+    }
+    function S() {
+      return (0, a.jsx)(q, {
+        navItems: O.NAVIGATION.header || [],
+        gradient: ['rgba(0,87,255,0.55)', 'rgba(82,39,255,0.45)'],
+        accentColor: h.BRAND.colors.bluePrimary,
+      });
+    }
+    let H = [
+      {
+        id: 'PROMPT_01',
+        title: 'Unificar grid global e margens laterais',
+        severity: 'critical',
+        category: 'layout',
+        objective:
+          'Garantir que Home, Sobre e Portfólio usem exatamente o mesmo container (largura útil, gutters e paddings) para obter alinhamento "duas laterais" perfeito em todo o scroll.',
+        files: [
+          'src/app/layout.tsx',
+          'src/components/layout/ClientLayout.tsx',
+          'src/components/layout/Container.tsx',
+          'src/app/page.tsx',
+          'src/app/sobre/page.tsx',
+          'src/app/portfolio/page.tsx',
+        ],
+        actions: [
+          'Padronizar um único componente Container com Tailwind (ex.: mx-auto max-w-[...px] px-4 md:px-6) para refletir exatamente o grid das imagens Ghost.',
+          'Garantir que todas as seções principais de Home, Sobre e Portfólio sejam diretamente embrulhadas por esse Container, sem paddings laterais adicionais em cada seção.',
+          'Ajustar ClientLayout (se usado) para não duplicar margens/paddings já definidos em Container.',
+          'Confirmar que globals.css e Tailwind estão corretamente importados em layout.tsx.',
+        ],
+        rules: [
+          'Mobile-first',
+          'Apenas ajustes de layout (sem alterar textos)',
+          'Manter o grid idêntico às imagens em docs/HOME, docs/SOBRE e docs/PORTFOLIO',
+        ],
+        acceptanceCriteria: [
+          'Ao rolar de cima a baixo em /, /sobre e /portfolio, as bordas esquerda/direita de títulos, textos e cards mantêm alinhamento perfeito',
+          'O item "grid e margens laterais correspondem exatamente à imagem?" pode ser marcado como Sim para todas as seções',
+        ],
+        status: 'pending',
+      },
+      {
+        id: 'PROMPT_02',
+        title: 'Corrigir Header e comportamento de clique em mobile',
+        severity: 'critical',
+        category: 'mobile',
+        objective:
+          'Garantir que o Header tenha área de clique/touch consistente, sem interferência na rolagem ou nos CTAs em mobile.',
+        files: [
+          'src/components/layout/Header.tsx',
+          'src/components/layout/header/*',
+          'src/app/layout.tsx',
+        ],
+        actions: [
+          'Revisar estrutura de nav e botões de menu (hamburger) para garantir que nenhum elemento overlay capture cliques fora da área esperada.',
+          'Em mobile, assegurar que cada item de navegação tenha área mínima de 44×44px (via Tailwind, ex.: px-3 py-2).',
+          'Validar se existe algum pointer-events indevido em wrappers do Header que interfiram em cliques no Hero e nas seções abaixo.',
+        ],
+        rules: [
+          'Não alterar o conteúdo textual nem adicionar links novos',
+          'Apenas ajustar estrutura e classes Tailwind',
+        ],
+        acceptanceCriteria: [
+          'Em dispositivos touch, todos os links do Header respondem com precisão, sem áreas "mortas" ou cliques acidentais',
+          'Nenhum overflow horizontal é introduzido pelo Header',
+          'O item "mobile livre de overflow e com touch targets adequados?" pode ser marcado como Sim para Home',
+        ],
+        status: 'pending',
+      },
+      {
+        id: 'PROMPT_03',
+        title: 'Travar Home Hero + GhostScene na referência HERO.jpg',
+        severity: 'critical',
+        category: 'layout',
+        objective:
+          'Ajustar tipografia, espaçamento e cena 3D do Hero para ficar 1:1 com docs/HOME/HERO.jpg e o blueprint Ghost.',
+        files: [
+          'src/components/home/hero/*',
+          'src/components/canvas/home/hero/GhostScene.tsx',
+        ],
+        actions: [
+          'Equalizar hierarquia tipográfica (h1, h2/h3, body) com o blueprint, ajustando apenas classes Tailwind (weights, tracking, line-height), sem alterar o texto.',
+          'Revisar espaçamentos verticais entre título/subtítulo/CTA para que as distâncias visuais coincidam com a imagem de referência.',
+          'Em GhostScene.tsx, ajustar posição, escala e intensidade de luz/materiais para obter o mesmo enquadramento e "glow" do Ghost na HERO.jpg.',
+        ],
+        rules: [
+          'Não mexer no copy',
+          'Qualquer ajuste 3D deve preservar performance (usar useFrame apenas quando necessário e memoizar materiais)',
+        ],
+        acceptanceCriteria: [
+          'Comparando a Home Hero com docs/HOME/HERO.jpg, espaçamentos, tipografia e enquadramento do Ghost são indistinguíveis a olho nu',
+          'Parallax leve do Ghost permanece suave, sem jitter',
+        ],
+        status: 'pending',
+        dependsOn: ['PROMPT_01'],
+      },
+      {
+        id: 'PROMPT_04',
+        title: 'Manifesto: áudio + scroll e grid alinhado',
+        severity: 'high',
+        category: 'motion',
+        objective:
+          'Fazer o Manifesto respeitar o grid global e implementar lógica de áudio que auto-mute/unmute conforme a seção entra/sai da viewport.',
+        files: [
+          'src/components/home/hero/*',
+          'src/components/home/ManifestoSection.tsx',
+        ],
+        actions: [
+          'Garantir que o container do Manifesto esteja dentro do mesmo Container global, sem paddings extras.',
+          'Implementar observer de scroll (ex.: IntersectionObserver no client) para mutar o áudio quando a seção estiver abaixo de um certo threshold de visibilidade.',
+          'Em desktop, permitir que o áudio inicie ao entrar na seção; em mobile, respeitar a necessidade de interação explícita do usuário para iniciar áudio.',
+        ],
+        rules: [
+          'Não alterar o conteúdo do Manifesto',
+          'Manter a UI atual, refinando apenas comportamento e layout',
+        ],
+        acceptanceCriteria: [
+          'Manifesto ocupa a mesma largura da Hero/Featured Projects',
+          'Áudio nunca continua tocando enquanto a seção está completamente fora de viewport',
+          'O checklist de grid/alinhamento e mobile pode ser marcado como Sim para Manifesto',
+        ],
+        status: 'pending',
+        dependsOn: ['PROMPT_01'],
+      },
+      {
+        id: 'PROMPT_05',
+        title: 'Featured Projects: grid 100% horizontal e mobile centrado',
+        severity: 'critical',
+        category: 'layout',
+        objective:
+          'Fazer os cards de projetos em destaque preencherem 100% da largura do container, com alturas equalizadas por linha e CTAs/textos centralizados em mobile.',
+        files: ['src/components/home/featured-projects/*'],
+        actions: [
+          'Modelar o grid com Tailwind usando combinações de grid-cols-* e auto-fit/auto-fill (ou flex com flex-[x]) para reproduzir a distribuição de larguras da referência, sem espaços vazios.',
+          'Garantir que todos os cards de uma mesma linha compartilhem a mesma altura (via items-stretch + conteúdo interno com h-full).',
+          'Em mobile, centralizar títulos/descrições/CTAs dos cards e revisar paddings para remover qualquer overflow horizontal.',
+        ],
+        rules: [
+          'Mobile-first',
+          'Sem alterar textos',
+          'Comparação constante com docs/HOME/HOME-PORTFOLIO-BLACK---GHOST.jpg e docs/HOME/HOME-PORTFOLIO-LAYOUYT-MOBILE---GHOST.jpg',
+        ],
+        acceptanceCriteria: [
+          'Não há gaps horizontais no fim de nenhuma linha',
+          'Todos os cards têm mesma altura visual por linha',
+          'Em mobile, os CTAs ficam centralizados e facilmente clicáveis',
+        ],
+        status: 'pending',
+        dependsOn: ['PROMPT_01'],
+      },
+      {
+        id: 'PROMPT_06',
+        title: 'Portfólio (/portfolio): Mosaic Grid + parallax estilo CodePen',
+        severity: 'critical',
+        category: 'layout',
+        objective:
+          'Ajustar o grid de /portfolio para preencher 100% da largura, equalizar alturas por linha e implementar parallax/hover inspirado no CodePen de referência.',
+        files: [
+          'src/app/portfolio/page.tsx',
+          'src/components/portfolio/PortfolioMosaicGrid.tsx',
+          'src/components/portfolio/MosaicCard.tsx',
+          'src/components/portfolio/PortfolioCard.tsx',
+        ],
+        actions: [
+          'Refatorar PortfolioMosaicGrid para calcular larguras relativas por linha (ex.: colunas flex com basis-* e grow) de forma a sempre fechar 100% da largura do container.',
+          'Garantir que todos os cards de uma mesma linha tenham altura igual (via h-full + wrappers internos com flex flex-col e justify-between).',
+          'Implementar animações de hover/parallax nos cards usando Framer Motion (ex.: leve translateZ em perspectiva simulada, com easing cubic-bezier(0.22, 1, 0.36, 1)) para aproximar o efeito do CodePen.',
+        ],
+        rules: [
+          'Não alterar estrutura de conteúdo dos cards (título, descrição, tags)',
+          'Apenas layout e motion',
+        ],
+        acceptanceCriteria: [
+          'Qualquer linha de cards ocupa 100% da largura do container',
+          'Nenhuma linha apresenta gaps residuais',
+          'Hover/parallax são fluidos, sem overshoot ou bounce exagerado, replicando a fluidez do CodePen',
+        ],
+        status: 'pending',
+        dependsOn: ['PROMPT_01'],
+      },
+      {
+        id: 'PROMPT_07',
+        title: 'About Hero (tipografia) + About Closed (vídeo Supabase)',
+        severity: 'critical',
+        category: 'accessibility',
+        objective:
+          'Corrigir a visibilidade do texto em About Hero e implementar troca dinâmica de vídeo Desktop/Mobile em About Closed usando URLs do Supabase.',
+        files: [
+          'src/components/sobre/AboutHero.tsx',
+          'src/components/sobre/AboutClosing.tsx',
+        ],
+        actions: [
+          'Em AboutHero, aplicar classes Tailwind para que o subtítulo/h3 use cor branca e contraste adequado sobre o background, respeitando a escala tipográfica Ghost.',
+          'Identificar no Supabase as chaves/URLs de vídeo para Desktop e Mobile (por ex.: colunas about_closed_desktop_url e about_closed_mobile_url).',
+          'Em AboutClosing, implementar lógica client-side (hook de breakpoint ou matchMedia) para escolher a URL correta no player de vídeo sem duplicar o componente.',
+        ],
+        rules: [
+          'Não mudar o texto dos títulos',
+          'Apenas cores/tailwind para visibilidade e seleção dinâmica de mídia',
+        ],
+        acceptanceCriteria: [
+          'Em qualquer breakpoint, o subtítulo de About Hero é claramente legível',
+          'O About Closed carrega automaticamente a versão de vídeo adequada ao viewport (Desktop vs Mobile), sem que o usuário perceba troca de layout',
+        ],
+        status: 'pending',
+      },
+      {
+        id: 'PROMPT_08',
+        title:
+          'About Origin / Method / What I Do: scroll animations e glow roxo',
+        severity: 'medium',
+        category: 'motion',
+        objective:
+          'Refinar animações de scroll em Origin e Method e implementar/ajustar glow roxo + ícones redondos em What I Do, seguindo a especificação Ghost.',
+        files: [
+          'src/components/sobre/AboutOrigin.tsx',
+          'src/components/sobre/AboutMethod.tsx',
+          'src/components/sobre/AboutWhatIDo.tsx',
+          'src/components/sobre/motion.ts',
+        ],
+        actions: [
+          'Centralizar as variantes do Framer Motion em motion.ts com um set de easings premium (por exemplo, curvas suaves sem overshoot) e reutilizá-las em todas as seções.',
+          'Em Origin/Method, disparar animações apenas quando o bloco estiver parcialmente visível (ex.: 25–30% em viewport) para evitar disparos prematuros.',
+          'Em What I Do, ajustar o glow roxo para que o efeito seja suave, sem serrilhado, e centralizar os ícones em círculos perfeitos, respeitando o grid lateral.',
+        ],
+        rules: [
+          'Não alterar textos',
+          'Evitar qualquer animação que cause "bounce" exagerado ou fadiga visual',
+        ],
+        acceptanceCriteria: [
+          'As animações de entrada seguem o mesmo timing e easing em todas as seções',
+          'O glow roxo nos ícones é sutil mas perceptível, alinhado ao look Ghost',
+          'O item "animação de parallax/hover segue a fluidez Ghost?" pode ser marcado como Sim para essas seções',
+        ],
+        status: 'pending',
+        dependsOn: ['PROMPT_07'],
+      },
+      {
+        id: 'PROMPT_09',
+        title: 'Centralização absoluta de mídia nos cards de portfólio',
+        severity: 'medium',
+        category: 'layout',
+        objective:
+          'Garantir que todas as imagens e vídeos dentro dos cards de portfólio estejam sempre centralizados e preencham o card de forma consistente, independentemente da proporção.',
+        files: [
+          'src/components/portfolio/PortfolioCard.tsx',
+          'src/components/portfolio/ProjectsGallery.tsx',
+        ],
+        actions: [
+          'Envolver a mídia (img/video) em um wrapper com relative overflow-hidden e altura fixa ou proporcional à linha (para suportar alturas equalizadas).',
+          'Definir mídia com object-cover object-center w-full h-full para garantir que sempre preencha o espaço sem distorção.',
+          'Validar casos extremos de proporção (super wide vs super vertical) para garantir que o recorte preserve a parte visual mais importante do conteúdo.',
+        ],
+        rules: [
+          'Não alterar textos ou ordem de informações do card',
+          'Apenas o container de mídia',
+        ],
+        acceptanceCriteria: [
+          'Nenhum card mostra barras pretas/brancas laterais ou em cima/baixo',
+          'Todas as mídias parecem perfeitamente centradas e recortadas, mantendo a altura dos cards uniforme por linha',
+        ],
+        status: 'pending',
+        dependsOn: ['PROMPT_06'],
+      },
+      {
+        id: 'PROMPT_10',
+        title:
+          'Eliminar overflow horizontal e validar touch targets em todo o site',
+        severity: 'high',
+        category: 'mobile',
+        objective:
+          'Garantir que todas as páginas estejam livres de scroll horizontal acidental e que todos os CTAs/cards tenham zonas de toque confortáveis em mobile.',
+        files: [
+          'src/app/page.tsx',
+          'src/app/sobre/page.tsx',
+          'src/app/portfolio/page.tsx',
+          'src/components/home/*',
+          'src/components/sobre/*',
+          'src/components/portfolio/*',
+        ],
+        actions: [
+          'Auditar todos os wrappers horizontais (carrosséis, grids) para remover larguras fixas que ultrapassem 100vw em mobile.',
+          'Garantir que todos os botões/links tenham px-3 py-2 ou superior em mobile, mantendo a identidade Ghost.',
+          'Testar manualmente em breakpoints principais (sm/md/lg) para confirmar ausência total de scroll horizontal.',
+        ],
+        rules: [
+          'Não remover seções para resolver overflow',
+          'A correção deve ser via layout/responsividade',
+        ],
+        acceptanceCriteria: [
+          'Nenhuma página apresenta scroll horizontal em qualquer breakpoint',
+          'Todos os CTAs e cards são facilmente clicáveis em touchscreen',
+          'O item "mobile livre de overflow e com touch targets adequados?" pode ser marcado como Sim em todas as seções',
+        ],
+        status: 'pending',
+        dependsOn: ['PROMPT_02', 'PROMPT_05', 'PROMPT_06'],
+      },
+    ];
+    function L({ children: e }) {
+      let t = (0, l.usePathname)(),
+        o = (0, r.useMemo)(() => t?.startsWith('/admin') ?? !1, [t]);
+      return (!(function (e = !0) {
+        let t = p((e) => e.setFlags),
+          a = p((e) => e.setViewport);
+        (0, r.useEffect)(() => {
+          if (!e) return;
+          let r = () => {
+            let e = window.innerWidth;
+            (a(e, window.innerHeight),
+              t(
+                (({ viewport: e, prefersReducedMotion: t }) => {
+                  let a = {
+                    mountWebGL: !0,
+                    enableManifestoScroll: !0,
+                    enableHoverInteractions: !0,
+                    reducedMotion: t,
+                    debugMode: !1,
+                  };
+                  return (
+                    'mobile' === e && (a.mountWebGL = !1),
+                    t &&
+                      ((a.mountWebGL = !1),
+                      (a.enableManifestoScroll = !1),
+                      (a.enableHoverInteractions = !1)),
+                    a
+                  );
+                })({
+                  viewport:
+                    e >= 1024 ? 'desktop' : e >= 640 ? 'tablet' : 'mobile',
+                  prefersReducedMotion: window.matchMedia(
+                    '(prefers-reduced-motion: reduce)'
+                  ).matches,
+                })
+              ));
+          };
+          return (
+            r(),
+            window.addEventListener('resize', r),
+            () => window.removeEventListener('resize', r)
+          );
+        }, [e, t, a]);
+      })(!o),
+      (0, r.useEffect)(() => {
+        if (o)
+          return (
+            document.documentElement.classList.add('admin-page'),
+            () => {
+              document.documentElement.classList.remove('admin-page');
+            }
+          );
+      }, [o]),
+      o)
+        ? (0, a.jsx)('main', {
+            id: 'main-content',
+            className:
+              'admin-surface relative min-h-screen bg-slate-950 text-slate-50',
+            children: e,
+          })
+        : (0, a.jsxs)(f, {
+            children: [
+              (0, a.jsx)(S, {}),
+              (0, a.jsx)('main', {
+                id: 'main-content',
+                className: 'relative grow',
+                children: e,
+              }),
+              !1,
+            ],
+          });
+    }
+    function z({ children: e }) {
+      let [t, s] = (0, r.useState)([]),
+        [i, l] = (0, r.useState)(!1);
+      return ((0, r.useEffect)(() => {
+        (async () => {
+          try {
+            let e = await n();
+            s(e);
+          } catch (e) {
+            console.error(
+              'Falha ao carregar site_assets:',
+              e instanceof Error ? e.message : e
+            );
+            try {
+              let e = await fetch('/api/site-assets');
+              if (e.ok) {
+                let t = await e.json();
+                s(t);
+              } else
+                console.error(
+                  'Erro ao buscar site_assets via API:',
+                  e.status,
+                  e.statusText
+                );
+            } catch (e) {
+              console.error(
+                'Erro fallback de site_assets:',
+                e instanceof Error ? e.message : e
+              );
+            }
+          } finally {
+            l(!0);
+          }
+        })();
+      }, []),
+      i)
+        ? (0, a.jsx)(o.SiteAssetsProvider, {
+            assets: t,
+            children: (0, a.jsx)(L, { children: e }),
+          })
+        : (0, a.jsx)(L, { children: e });
+    }
+    (H.filter((e) =>
+      ['PROMPT_01', 'PROMPT_02', 'PROMPT_05', 'PROMPT_06'].includes(e.id)
+    ),
+      H.filter((e) => ['PROMPT_03', 'PROMPT_04', 'PROMPT_07'].includes(e.id)),
+      H.filter((e) => ['PROMPT_08', 'PROMPT_09', 'PROMPT_10'].includes(e.id)),
+      e.s(['default', () => z], 25827));
+  },
+]);

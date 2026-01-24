@@ -48,7 +48,7 @@ export function AboutWhatIDo() {
 
         {/* Desktop / large layout */}
         <motion.div
-          variants={staggerContainer(MOTION_TOKENS.stagger.fast)}
+          variants={staggerContainer(MOTION_TOKENS.stagger.tight)}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
@@ -66,7 +66,7 @@ export function AboutWhatIDo() {
 
         {/* Mobile layout */}
         <motion.div
-          variants={staggerContainer(MOTION_TOKENS.stagger.fast)}
+          variants={staggerContainer(MOTION_TOKENS.stagger.tight)}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
