@@ -21,7 +21,7 @@ export default function CTAProjectCard() {
       <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_50%,var(--color-primary-faint),transparent_70%)] hidden md:block" />
 
       {/* Headline - Centered on all breakpoints */}
-      <h3 className="relative z-10 text-3xl md:text-5xl lg:text-6xl font-normal text-center mb-6 md:mb-12 tracking-tight leading-[1.1] text-white transition-colors duration-300 md:group-hover:text-bluePrimary">
+      <h3 className="relative z-10 text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-normal text-center mb-6 md:mb-12 tracking-tight leading-[1.1] text-white transition-colors duration-300 md:group-hover:text-bluePrimary">
         Like what
         <br />
         you see?

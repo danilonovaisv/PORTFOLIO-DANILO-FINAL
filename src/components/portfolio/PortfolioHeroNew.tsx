@@ -65,7 +65,7 @@ export default function PortfolioHeroNew() {
           <div className="col-span-full md:col-span-7 lg:col-span-8 flex flex-col items-center md:items-start text-center md:text-left">
             <h1
               id="portfolio-hero-heading"
-              className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none"
+              className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none"
             >
               <span className="text-bluePrimary italic font-light mr-2 md:mr-4">
                 portfólio
