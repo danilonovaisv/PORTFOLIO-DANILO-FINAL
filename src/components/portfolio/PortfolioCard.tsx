@@ -94,14 +94,14 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
               muted
               loop
               playsInline
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover object-center"
             />
           ) : (
             <Image
               src={project.image}
               alt={project.title}
               fill
-              className="object-cover"
+              className="object-cover object-center"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               loading="lazy"
               onError={applyImageFallback}
@@ -125,14 +125,14 @@ const PortfolioCard: FC<PortfolioCardProps> = ({
               muted
               loop
               playsInline
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover object-center"
             />
           ) : (
             <Image
               src={project.videoPreview}
               alt=""
               fill
-              className="object-cover"
+              className="object-cover object-center"
               loading="lazy"
               unoptimized
               onError={applyImageFallback}

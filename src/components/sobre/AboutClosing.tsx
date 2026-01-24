@@ -37,7 +37,7 @@ export function AboutClosing() {
 
         {/* Bloco 2: Frase 1 e Vídeo */}
         <div className="mt-16 md:mt-20 flex flex-col items-center">
-          <p className="type-h2 text-text opacity-90 max-w-[800px] leading-snug mx-auto text-center">
+          <p className="type-h2 text-text opacity-90 max-w-200 leading-snug mx-auto text-center">
             Já liderei marcas, agências, eventos e{' '}
             <span className="text-bluePrimary">criei experiências</span> para
             todos os canais.
