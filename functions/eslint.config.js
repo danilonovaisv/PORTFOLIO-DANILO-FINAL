@@ -9,6 +9,8 @@ export default [
       'lib/**',
       'generated/**',
       '.next/**',
+      // Generated Next.js build output deployed as a Cloud Function – not source
+      'next_build/**',
       'src/dataconnect-admin-generated/**',
       'src/dataconnect-generated/**',
       'src/dataconnect-*/**',

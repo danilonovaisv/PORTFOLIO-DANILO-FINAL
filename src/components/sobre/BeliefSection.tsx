@@ -69,7 +69,7 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
               <div key={i} className="overflow-visible mb-1 md:mb-2 w-full">
                 <motion.span
                   style={{ x: lineX }}
-                  className="block text-[#4fe6ff] font-h2 text-4xl md:text-6xl lg:text-[5.5vw] xl:text-[6.5vw] leading-none tracking-[-0.04em] text-left whitespace-pre-line select-none font-black italic max-w-fit pr-[0.15em] py-2"
+                  className="block text-[#82f6fa] font-h2 text-4xl md:text-6xl lg:text-[5.5vw] xl:text-[6.5vw] leading-none tracking-[-0.04em] text-left whitespace-pre-line select-none font-black italic max-w-fit pr-[0.15em] py-2"
                 >
                   {line}
                 </motion.span>

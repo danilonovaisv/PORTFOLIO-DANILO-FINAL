@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import '@/lib/polyfills';
 import { siteMetadata, siteViewport } from '@/config/metadata';
 import JsonLd from '@/components/ui/JsonLd';
 import './globals.css'; // Fonts and styles are loaded here

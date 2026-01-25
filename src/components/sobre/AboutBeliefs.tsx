@@ -11,10 +11,10 @@ import { BeliefFixedHeader } from './BeliefFixedHeader';
 import { GhostModel } from './GhostModel';
 
 const PHRASES = [
-  'Um vídeo \nque respira.',
-  'Uma marca\n que se\n reconhece.',
-  'Um detalhe\n que fica.',
-  'Crio para\n gerar\n presença.',
+  'Um \nvídeo \nque \nrespira.',
+  'Uma \nmarca\n que se\n reconhece.',
+  'Um \ndetalhe\n que \nfica.',
+  'Crio \npara\n gerar\n presença.',
   'Mesmo\n quando\n ninguém \npercebe\n o esforço.',
 ];
 

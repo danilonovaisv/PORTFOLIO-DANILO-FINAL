@@ -15,7 +15,7 @@ export default function ClientsBrandsSection() {
   return (
     <section
       id="clients"
-      className="bg-bluePrimary py-16 md:py-20 lg:py-24 relative z-10 overflow-hidden"
+      className="bg-[#0048ff] py-16 md:py-20 lg:py-24 relative z-10 overflow-hidden"
       aria-labelledby="clients-heading"
     >
       {/* Container usando std-grid padrão do projeto */}
