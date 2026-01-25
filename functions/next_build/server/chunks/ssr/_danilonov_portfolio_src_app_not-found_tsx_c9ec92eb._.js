@@ -1,3 +1,0 @@
-module.exports=[49334,a=>{"use strict";var b=a.i(73702),c=a.i(9874);function d(){let a=(0,c.useRef)(null);return(0,c.useEffect)(()=>{a.current&&(a.current.src="/404.html")},[]),(0,b.jsx)("div",{style:{width:"100%",height:"100vh",overflow:"hidden"},children:(0,b.jsx)("iframe",{ref:a,style:{width:"100%",height:"100%",border:"none"},title:"404 Not Found"})})}a.s(["default",()=>d])}];
-
-//# sourceMappingURL=_danilonov_portfolio_src_app_not-found_tsx_c9ec92eb._.js.map

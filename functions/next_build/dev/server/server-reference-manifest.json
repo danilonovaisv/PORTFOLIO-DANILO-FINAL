@@ -1,28 +1,28 @@
 {
   "node": {
-    "4042dddf70b5f49121f2d9dcf65fa943f54bdb9189": {
+    "40740c92bcc2c60f6f122969647372afd3f85f2c1d": {
       "workers": {
         "app/page": {
-          "moduleId": "[project]/_danilonov_portfolio/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/_danilonov_portfolio/src/lib/supabase/queries/projects.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/lib/supabase/queries/projects.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
           "exportedName": "$$RSC_SERVER_ACTION_0",
-          "filename": "_danilonov_portfolio/src/lib/supabase/queries/projects.ts"
+          "filename": "src/lib/supabase/queries/projects.ts"
         },
         "app/portfolio/page": {
-          "moduleId": "[project]/_danilonov_portfolio/.next-internal/server/app/portfolio/page/actions.js { ACTIONS_MODULE0 => \"[project]/_danilonov_portfolio/src/lib/supabase/queries/projects.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "moduleId": "[project]/.next-internal/server/app/portfolio/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/lib/supabase/queries/projects.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
           "exportedName": "$$RSC_SERVER_ACTION_0",
-          "filename": "_danilonov_portfolio/src/lib/supabase/queries/projects.ts"
+          "filename": "src/lib/supabase/queries/projects.ts"
         }
       },
       "layer": {
         "app/page": "rsc",
         "app/portfolio/page": "rsc"
       },
-      "filename": "_danilonov_portfolio/src/lib/supabase/queries/projects.ts",
+      "filename": "src/lib/supabase/queries/projects.ts",
       "exportedName": "$$RSC_SERVER_ACTION_0"
     }
   },
   "edge": {},
-  "encryptionKey": "E6pBGjKwLEvERU74rCvQYYXys0Eyx2Tem7iMlNTRBkw="
+  "encryptionKey": "leoQLCpBPFxOhIYsfkuYdQyF9u8KTY+ch8DZX00P0FA="
 }

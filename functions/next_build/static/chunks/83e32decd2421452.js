@@ -1,1 +1,0 @@
-(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,21063,e=>{"use strict";var t=e.i(86825),u=e.i(84833);function o(){let e=(0,t.useReducedMotion)(),[o,c]=(0,u.useState)(!1);return(0,u.useEffect)(()=>{c(!0)},[]),!!o&&(e??!1)}e.s(["useReducedMotion",()=>o])}]);

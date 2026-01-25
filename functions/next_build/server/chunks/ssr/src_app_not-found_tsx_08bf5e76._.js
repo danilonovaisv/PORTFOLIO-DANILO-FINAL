@@ -1,0 +1,3 @@
+module.exports=[36394,a=>{"use strict";var b=a.i(87924),c=a.i(72131);function d(){let a=(0,c.useRef)(null);return(0,c.useEffect)(()=>{a.current&&(a.current.src="/404.html")},[]),(0,b.jsx)("div",{style:{width:"100%",height:"100vh",overflow:"hidden"},children:(0,b.jsx)("iframe",{ref:a,style:{width:"100%",height:"100%",border:"none"},title:"404 Not Found"})})}a.s(["default",()=>d])}];
+
+//# sourceMappingURL=src_app_not-found_tsx_08bf5e76._.js.map

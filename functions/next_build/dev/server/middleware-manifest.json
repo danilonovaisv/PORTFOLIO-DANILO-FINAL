@@ -1,36 +1,6 @@
 {
   "version": 3,
-  "middleware": {
-    "/": {
-      "files": [
-        "server/edge/chunks/105a0_next_dist_d0447b01._.js",
-        "server/edge/chunks/105a0_@opentelemetry_api_build_esm_1231efd1._.js",
-        "server/edge/chunks/105a0_@supabase_auth-js_dist_module_f794953b._.js",
-        "server/edge/chunks/105a0_9ec6174e._.js",
-        "server/edge/chunks/[root-of-the-server]__3eed0168._.js",
-        "server/edge/chunks/c351c_next_dist_esm_build_templates_edge-wrapper_d7694bd8.js"
-      ],
-      "name": "middleware",
-      "page": "/",
-      "matchers": [
-        {
-          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?(?:\\/((?!_next\\/static|_next\\/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*))(\\\\.json)?[\\/#\\?]?$",
-          "originalSource": "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"
-        }
-      ],
-      "wasm": [],
-      "assets": [],
-      "env": {
-        "__NEXT_BUILD_ID": "development",
-        "NEXT_SERVER_ACTIONS_ENCRYPTION_KEY": "E6pBGjKwLEvERU74rCvQYYXys0Eyx2Tem7iMlNTRBkw=",
-        "__NEXT_PREVIEW_MODE_ID": "9509c6e79e0c5155285134a06446c56c",
-        "__NEXT_PREVIEW_MODE_ENCRYPTION_KEY": "6211a3db3ddeae8e89392d6cecdf93e017dcdbf7deae4b0fb1fada191e5689c3",
-        "__NEXT_PREVIEW_MODE_SIGNING_KEY": "2b03ac06ea66722a9d7d2186da7ea65e2f9e50c80eb112a1889d90332b420221"
-      }
-    }
-  },
-  "sortedMiddleware": [
-    "/"
-  ],
+  "middleware": {},
+  "sortedMiddleware": [],
   "functions": {}
 }

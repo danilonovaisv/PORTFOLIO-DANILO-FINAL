@@ -79,7 +79,7 @@ self.__SERVER_FILES_MANIFEST={
       "qualities": [
         75
       ],
-      "unoptimized": true
+      "unoptimized": false
     },
     "devIndicators": {
       "position": "bottom-left"
@@ -104,7 +104,6 @@ self.__SERVER_FILES_MANIFEST={
     "compiler": {},
     "expireTime": 31536000,
     "staticPageGenerationTimeout": 60,
-    "output": "standalone",
     "modularizeImports": {
       "@mui/icons-material": {
         "transform": "@mui/icons-material/{{member}}"
@@ -113,7 +112,7 @@ self.__SERVER_FILES_MANIFEST={
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/Users/danilonovais",
+    "outputFileTracingRoot": "/Users/danilonovais/_danilonov_portfolio",
     "cacheComponents": false,
     "cacheLife": {
       "default": {
@@ -306,12 +305,12 @@ self.__SERVER_FILES_MANIFEST={
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.mjs",
     "turbopack": {
-      "root": "/Users/danilonovais"
+      "root": "/Users/danilonovais/_danilonov_portfolio"
     },
     "distDirRoot": ".next"
   },
   "appDir": "/Users/danilonovais/_danilonov_portfolio",
-  "relativeAppDir": "_danilonov_portfolio",
+  "relativeAppDir": "",
   "files": [
     ".next/routes-manifest.json",
     ".next/server/pages-manifest.json",

@@ -1,19 +1,19 @@
 {
   "node": {
-    "40bb8b741fe00d977d47d6f2ff5cdff58ab441529e": {
+    "408f6924c7242870e27fceb78780b5a6c231d5395b": {
       "workers": {
         "app/page": {
-          "moduleId": 14894,
+          "moduleId": 89011,
           "async": false,
           "exportedName": "$$RSC_SERVER_ACTION_0",
-          "filename": "_danilonov_portfolio/src/lib/supabase/queries/projects.ts"
+          "filename": "src/lib/supabase/queries/projects.ts"
         }
       },
       "layer": {
         "app/page": "rsc"
       },
       "exportedName": "$$RSC_SERVER_ACTION_0",
-      "filename": "_danilonov_portfolio/src/lib/supabase/queries/projects.ts"
+      "filename": "src/lib/supabase/queries/projects.ts"
     }
   },
   "edge": {}

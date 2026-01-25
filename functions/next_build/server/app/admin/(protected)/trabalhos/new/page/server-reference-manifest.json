@@ -1,19 +1,19 @@
 {
   "node": {
-    "00584efdbaaee9e9004cd7387e464b8ba04435c043": {
+    "0094827b48eed67f43ec1dce01bea1de2ab3b21723": {
       "workers": {
         "app/admin/(protected)/trabalhos/new/page": {
-          "moduleId": 9274,
+          "moduleId": 66138,
           "async": false,
           "exportedName": "signOut",
-          "filename": "_danilonov_portfolio/src/lib/supabase/auth-actions.ts"
+          "filename": "src/lib/supabase/auth-actions.ts"
         }
       },
       "layer": {
         "app/admin/(protected)/trabalhos/new/page": "action-browser"
       },
       "exportedName": "signOut",
-      "filename": "_danilonov_portfolio/src/lib/supabase/auth-actions.ts"
+      "filename": "src/lib/supabase/auth-actions.ts"
     }
   },
   "edge": {}

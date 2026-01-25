@@ -1,34 +1,34 @@
 {
   "node": {
-    "00584efdbaaee9e9004cd7387e464b8ba04435c043": {
+    "0094827b48eed67f43ec1dce01bea1de2ab3b21723": {
       "workers": {
         "app/admin/(protected)/trabalhos/page": {
-          "moduleId": 1186,
+          "moduleId": 44954,
           "async": false,
           "exportedName": "signOut",
-          "filename": "_danilonov_portfolio/src/lib/supabase/auth-actions.ts"
+          "filename": "src/lib/supabase/auth-actions.ts"
         }
       },
       "layer": {
         "app/admin/(protected)/trabalhos/page": "action-browser"
       },
       "exportedName": "signOut",
-      "filename": "_danilonov_portfolio/src/lib/supabase/auth-actions.ts"
+      "filename": "src/lib/supabase/auth-actions.ts"
     },
-    "40bb8b741fe00d977d47d6f2ff5cdff58ab441529e": {
+    "408f6924c7242870e27fceb78780b5a6c231d5395b": {
       "workers": {
         "app/admin/(protected)/trabalhos/page": {
-          "moduleId": 1186,
+          "moduleId": 44954,
           "async": false,
           "exportedName": "$$RSC_SERVER_ACTION_0",
-          "filename": "_danilonov_portfolio/src/lib/supabase/queries/projects.ts"
+          "filename": "src/lib/supabase/queries/projects.ts"
         }
       },
       "layer": {
         "app/admin/(protected)/trabalhos/page": "rsc"
       },
       "exportedName": "$$RSC_SERVER_ACTION_0",
-      "filename": "_danilonov_portfolio/src/lib/supabase/queries/projects.ts"
+      "filename": "src/lib/supabase/queries/projects.ts"
     }
   },
   "edge": {}

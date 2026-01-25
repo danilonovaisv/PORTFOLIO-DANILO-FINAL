@@ -1,30 +1,30 @@
 {
   "node": {
-    "40bb8b741fe00d977d47d6f2ff5cdff58ab441529e": {
+    "408f6924c7242870e27fceb78780b5a6c231d5395b": {
       "workers": {
         "app/admin/(protected)/trabalhos/page": {
-          "moduleId": 1186,
+          "moduleId": 44954,
           "async": false,
           "exportedName": "$$RSC_SERVER_ACTION_0",
-          "filename": "_danilonov_portfolio/src/lib/supabase/queries/projects.ts"
+          "filename": "src/lib/supabase/queries/projects.ts"
         },
         "app/page": {
-          "moduleId": 14894,
+          "moduleId": 89011,
           "async": false,
           "exportedName": "$$RSC_SERVER_ACTION_0",
-          "filename": "_danilonov_portfolio/src/lib/supabase/queries/projects.ts"
+          "filename": "src/lib/supabase/queries/projects.ts"
         },
         "app/portfolio/[slug]/page": {
-          "moduleId": 82851,
+          "moduleId": 13284,
           "async": false,
           "exportedName": "$$RSC_SERVER_ACTION_0",
-          "filename": "_danilonov_portfolio/src/lib/supabase/queries/projects.ts"
+          "filename": "src/lib/supabase/queries/projects.ts"
         },
         "app/portfolio/page": {
-          "moduleId": 57915,
+          "moduleId": 89485,
           "async": false,
           "exportedName": "$$RSC_SERVER_ACTION_0",
-          "filename": "_danilonov_portfolio/src/lib/supabase/queries/projects.ts"
+          "filename": "src/lib/supabase/queries/projects.ts"
         }
       },
       "layer": {
@@ -33,70 +33,70 @@
         "app/portfolio/[slug]/page": "rsc",
         "app/portfolio/page": "rsc"
       },
-      "filename": "_danilonov_portfolio/src/lib/supabase/queries/projects.ts",
+      "filename": "src/lib/supabase/queries/projects.ts",
       "exportedName": "$$RSC_SERVER_ACTION_0"
     },
-    "00584efdbaaee9e9004cd7387e464b8ba04435c043": {
+    "0094827b48eed67f43ec1dce01bea1de2ab3b21723": {
       "workers": {
         "app/admin/(protected)/config/page": {
-          "moduleId": 81447,
+          "moduleId": 85800,
           "async": false,
           "exportedName": "signOut",
-          "filename": "_danilonov_portfolio/src/lib/supabase/auth-actions.ts"
+          "filename": "src/lib/supabase/auth-actions.ts"
         },
         "app/admin/(protected)/landing-pages/[id]/page": {
-          "moduleId": 32612,
+          "moduleId": 90192,
           "async": false,
           "exportedName": "signOut",
-          "filename": "_danilonov_portfolio/src/lib/supabase/auth-actions.ts"
+          "filename": "src/lib/supabase/auth-actions.ts"
         },
         "app/admin/(protected)/landing-pages/new/page": {
-          "moduleId": 21610,
+          "moduleId": 83729,
           "async": false,
           "exportedName": "signOut",
-          "filename": "_danilonov_portfolio/src/lib/supabase/auth-actions.ts"
+          "filename": "src/lib/supabase/auth-actions.ts"
         },
         "app/admin/(protected)/landing-pages/page": {
-          "moduleId": 61825,
+          "moduleId": 68003,
           "async": false,
           "exportedName": "signOut",
-          "filename": "_danilonov_portfolio/src/lib/supabase/auth-actions.ts"
+          "filename": "src/lib/supabase/auth-actions.ts"
         },
         "app/admin/(protected)/midia/page": {
-          "moduleId": 63125,
+          "moduleId": 6020,
           "async": false,
           "exportedName": "signOut",
-          "filename": "_danilonov_portfolio/src/lib/supabase/auth-actions.ts"
+          "filename": "src/lib/supabase/auth-actions.ts"
         },
         "app/admin/(protected)/page": {
-          "moduleId": 94556,
+          "moduleId": 91491,
           "async": false,
           "exportedName": "signOut",
-          "filename": "_danilonov_portfolio/src/lib/supabase/auth-actions.ts"
+          "filename": "src/lib/supabase/auth-actions.ts"
         },
         "app/admin/(protected)/tags/page": {
-          "moduleId": 88351,
+          "moduleId": 37609,
           "async": false,
           "exportedName": "signOut",
-          "filename": "_danilonov_portfolio/src/lib/supabase/auth-actions.ts"
+          "filename": "src/lib/supabase/auth-actions.ts"
         },
         "app/admin/(protected)/trabalhos/[id]/page": {
-          "moduleId": 46991,
+          "moduleId": 81121,
           "async": false,
           "exportedName": "signOut",
-          "filename": "_danilonov_portfolio/src/lib/supabase/auth-actions.ts"
+          "filename": "src/lib/supabase/auth-actions.ts"
         },
         "app/admin/(protected)/trabalhos/new/page": {
-          "moduleId": 9274,
+          "moduleId": 66138,
           "async": false,
           "exportedName": "signOut",
-          "filename": "_danilonov_portfolio/src/lib/supabase/auth-actions.ts"
+          "filename": "src/lib/supabase/auth-actions.ts"
         },
         "app/admin/(protected)/trabalhos/page": {
-          "moduleId": 1186,
+          "moduleId": 44954,
           "async": false,
           "exportedName": "signOut",
-          "filename": "_danilonov_portfolio/src/lib/supabase/auth-actions.ts"
+          "filename": "src/lib/supabase/auth-actions.ts"
         }
       },
       "layer": {
@@ -111,55 +111,55 @@
         "app/admin/(protected)/trabalhos/new/page": "action-browser",
         "app/admin/(protected)/trabalhos/page": "action-browser"
       },
-      "filename": "_danilonov_portfolio/src/lib/supabase/auth-actions.ts",
+      "filename": "src/lib/supabase/auth-actions.ts",
       "exportedName": "signOut"
     },
-    "40a12812eb9b5d605bdf497e3c2d19a46a72323b88": {
+    "403e4d5d86c41802a75b2087023a8822e1f09f037f": {
       "workers": {
         "app/admin/(protected)/midia/page": {
-          "moduleId": 63125,
+          "moduleId": 6020,
           "async": false,
           "exportedName": "upsertAsset",
-          "filename": "_danilonov_portfolio/src/app/admin/(protected)/midia/actions.ts"
+          "filename": "src/app/admin/(protected)/midia/actions.ts"
         }
       },
       "layer": {
         "app/admin/(protected)/midia/page": "action-browser"
       },
-      "filename": "_danilonov_portfolio/src/app/admin/(protected)/midia/actions.ts",
+      "filename": "src/app/admin/(protected)/midia/actions.ts",
       "exportedName": "upsertAsset"
     },
-    "407d97ef684108e0075bb605589d7398c69975f285": {
+    "40b7064e12a7a62033ecf7925386e82c76d1c01ef3": {
       "workers": {
         "app/admin/(protected)/midia/page": {
-          "moduleId": 63125,
+          "moduleId": 6020,
           "async": false,
           "exportedName": "assignAssetRole",
-          "filename": "_danilonov_portfolio/src/app/admin/(protected)/midia/actions.ts"
+          "filename": "src/app/admin/(protected)/midia/actions.ts"
         }
       },
       "layer": {
         "app/admin/(protected)/midia/page": "action-browser"
       },
-      "filename": "_danilonov_portfolio/src/app/admin/(protected)/midia/actions.ts",
+      "filename": "src/app/admin/(protected)/midia/actions.ts",
       "exportedName": "assignAssetRole"
     },
-    "4027c3c7da1e840129015393377817601766a780ec": {
+    "40d6b3a12914c4e9bad1ec2622c3ed62530b49a8f1": {
       "workers": {
         "app/admin/(protected)/midia/page": {
-          "moduleId": 63125,
+          "moduleId": 6020,
           "async": false,
           "exportedName": "removeAsset",
-          "filename": "_danilonov_portfolio/src/app/admin/(protected)/midia/actions.ts"
+          "filename": "src/app/admin/(protected)/midia/actions.ts"
         }
       },
       "layer": {
         "app/admin/(protected)/midia/page": "action-browser"
       },
-      "filename": "_danilonov_portfolio/src/app/admin/(protected)/midia/actions.ts",
+      "filename": "src/app/admin/(protected)/midia/actions.ts",
       "exportedName": "removeAsset"
     }
   },
   "edge": {},
-  "encryptionKey": "36DId6meergqB/TwnKm4inq8j6Q89olw4LdxNLO93SM="
+  "encryptionKey": "J827mn0yMhPy6cNwpNY854EML8j3AWOQzYTaQy0wkJE="
 }
