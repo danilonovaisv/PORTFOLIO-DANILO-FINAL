@@ -53,10 +53,10 @@ html {
 body {
   overflow-x: hidden;
   width: 100%;
-  -ms-overflow-style: none;
   /* IE and Edge */
+  -ms-overflow-style: none;
+  /* Firefox & Modern Chrome */
   scrollbar-width: none;
-  /* Firefox */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -69,7 +69,6 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-/* Admin pages: force scrollbars visible and unlock overflow */
 /* Admin pages: force scrollbars visible and unlock overflow */
 .admin-page {
   overflow-y: visible !important;
