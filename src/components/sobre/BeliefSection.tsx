@@ -1,7 +1,54 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, cubicBezier } from 'framer-motion';
+import {
+  motion,
+  useScroll,
+  useTransform,
+  cubicBezier,
+  MotionValue,
+} from 'framer-motion';
+
+// Easing Ghost Padrão: cubic-bezier(0.22, 1, 0.36, 1)
+const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
+
+interface BeliefLineProps {
+  line: string;
+  index: number;
+  scrollYProgress: MotionValue<number>;
+  animationRange: number[];
+}
+
+/**
+ * Componente separado para cada linha do texto.
+ * Isso permite usar hooks (useTransform) corretamente,
+ * pois hooks não podem ser chamados dentro de loops/callbacks.
+ */
+const BeliefLine: React.FC<BeliefLineProps> = ({
+  line,
+  index,
+  scrollYProgress,
+  animationRange,
+}) => {
+  // Cada linha entra da esquerda para a direita (X: -100% -> 0)
+  const lineX = useTransform(
+    scrollYProgress,
+    [animationRange[0] + index * 0.02, animationRange[1] + index * 0.02],
+    ['-100%', '0%'],
+    { ease: ghostEase }
+  );
+
+  return (
+    <div className="overflow-visible mb-1 md:mb-2 w-full">
+      <motion.span
+        style={{ x: lineX }}
+        className="block text-[#82f6fa] font-h2 text-4xl md:text-6xl lg:text-[5.5vw] xl:text-[6.5vw] leading-none tracking-[-0.04em] text-left whitespace-pre-line select-none font-black italic max-w-fit pr-[0.15em] py-2"
+      >
+        {line}
+      </motion.span>
+    </div>
+  );
+};
 
 interface BeliefSectionProps {
   text: string;
@@ -26,9 +73,6 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
   //   permanecendo visível por muito mais tempo (até 0.9).
   const animationRange = isFirst ? [0.2, 0.4] : [0.22, 0.45];
   const exitRange = isFirst ? [0.9, 1.0] : [0.8, 0.95];
-
-  // Easing Ghost Padrão: cubic-bezier(0.22, 1, 0.36, 1)
-  const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
 
   const opacity = useTransform(
     scrollYProgress,
@@ -56,26 +100,15 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
           style={{ y: yScroll, opacity }}
           className="w-full flex flex-col justify-start z-10"
         >
-          {lines.map((line, i) => {
-            // Cada linha entra da esquerda para a direita (X: -100% -> 0)
-            const lineX = useTransform(
-              scrollYProgress,
-              [animationRange[0] + i * 0.02, animationRange[1] + i * 0.02],
-              ['-100%', '0%'],
-              { ease: ghostEase }
-            );
-
-            return (
-              <div key={i} className="overflow-visible mb-1 md:mb-2 w-full">
-                <motion.span
-                  style={{ x: lineX }}
-                  className="block text-[#82f6fa] font-h2 text-4xl md:text-6xl lg:text-[5.5vw] xl:text-[6.5vw] leading-none tracking-[-0.04em] text-left whitespace-pre-line select-none font-black italic max-w-fit pr-[0.15em] py-2"
-                >
-                  {line}
-                </motion.span>
-              </div>
-            );
-          })}
+          {lines.map((line, i) => (
+            <BeliefLine
+              key={i}
+              line={line}
+              index={i}
+              scrollYProgress={scrollYProgress}
+              animationRange={animationRange}
+            />
+          ))}
         </motion.div>
       </div>
     </section>
