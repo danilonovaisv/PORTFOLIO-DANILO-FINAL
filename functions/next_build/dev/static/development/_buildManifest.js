@@ -5,7 +5,6 @@ self.__BUILD_MANIFEST = {
     "fallback": []
   },
   "sortedPages": [
-    "/PortfolioShowcase",
     "/_app",
     "/_error"
   ]
