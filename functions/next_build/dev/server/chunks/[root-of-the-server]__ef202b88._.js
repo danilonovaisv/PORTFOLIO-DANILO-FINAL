@@ -1,0 +1,279 @@
+module.exports = [
+"[externals]/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js [external] (next/dist/compiled/next-server/app-route-turbo.runtime.dev.js, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("next/dist/compiled/next-server/app-route-turbo.runtime.dev.js", () => require("next/dist/compiled/next-server/app-route-turbo.runtime.dev.js"));
+
+module.exports = mod;
+}),
+"[externals]/next/dist/compiled/next-server/app-page-turbo.runtime.dev.js [external] (next/dist/compiled/next-server/app-page-turbo.runtime.dev.js, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("next/dist/compiled/next-server/app-page-turbo.runtime.dev.js", () => require("next/dist/compiled/next-server/app-page-turbo.runtime.dev.js"));
+
+module.exports = mod;
+}),
+"[externals]/next/dist/server/app-render/work-unit-async-storage.external.js [external] (next/dist/server/app-render/work-unit-async-storage.external.js, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("next/dist/server/app-render/work-unit-async-storage.external.js", () => require("next/dist/server/app-render/work-unit-async-storage.external.js"));
+
+module.exports = mod;
+}),
+"[externals]/next/dist/server/app-render/work-async-storage.external.js [external] (next/dist/server/app-render/work-async-storage.external.js, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("next/dist/server/app-render/work-async-storage.external.js", () => require("next/dist/server/app-render/work-async-storage.external.js"));
+
+module.exports = mod;
+}),
+"[externals]/next/dist/shared/lib/no-fallback-error.external.js [external] (next/dist/shared/lib/no-fallback-error.external.js, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("next/dist/shared/lib/no-fallback-error.external.js", () => require("next/dist/shared/lib/no-fallback-error.external.js"));
+
+module.exports = mod;
+}),
+"[externals]/next/dist/server/app-render/after-task-async-storage.external.js [external] (next/dist/server/app-render/after-task-async-storage.external.js, cjs)", ((__turbopack_context__, module, exports) => {
+
+const mod = __turbopack_context__.x("next/dist/server/app-render/after-task-async-storage.external.js", () => require("next/dist/server/app-render/after-task-async-storage.external.js"));
+
+module.exports = mod;
+}),
+"[project]/_danilonov_portfolio/src/config/brand.ts [app-route] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "BRAND",
+    ()=>BRAND,
+    "SUPABASE_STORAGE_URL",
+    ()=>SUPABASE_STORAGE_URL
+]);
+// O projeto principal é o aymuvxysygrwoicsjgxj; usamos como fallback seguro
+// para evitar perda de links quando as envs não estão presentes (ex.: build local).
+const SUPABASE_PROJECT_URL = ("TURBOPACK compile-time value", "https://umkmwbkwvulxtdodzmzf.supabase.co") ?? process.env.SUPABASE_URL ?? 'https://aymuvxysygrwoicsjgxj.supabase.co';
+const SUPABASE_STORAGE_URL = `${SUPABASE_PROJECT_URL.replace(/\/$/, '')}/storage/v1/object/public`;
+const asset = (path)=>`${SUPABASE_STORAGE_URL}/${path.replace(/^\/+/, '')}`;
+const BRAND = {
+    name: 'Danilo Novais',
+    domain: 'portfoliodanilo.com',
+    // Paleta de Cores (Design System 2.1)
+    colors: {
+        bluePrimary: '#0048ff',
+        blueAccent: '#4fe6ff',
+        purpleDetails: '#8705f2',
+        pinkDetails: '#f501d3',
+        background: '#040013',
+        backgroundLight: '#f0f0f0',
+        text: '#fcffff',
+        textInverse: '#0e0e0e',
+        textEmphasis: '#2E85F2',
+        textHighlight: '#4fe6ff',
+        textSecondary: '#a1a3a3',
+        neutral: '#0b0d3a',
+        neutralLight: '#F5F5F5',
+        contactForeground: '#fcffff'
+    },
+    // Assets Globais (2.6 Global Assets)
+    assets: {
+        logos: {
+            favicon: asset('site-assets/global/logos/global.favicon_dark.svg'),
+            faviconLight: asset('site-assets/global/logos/global.favicon_light.svg'),
+            logoLight: asset('site-assets/global/logos/global.logo_header_light.svg'),
+            logoDark: asset('site-assets/global/logos/global.logo_header_dark.svg')
+        },
+        video: {
+            manifesto: asset('site-assets/home/home.manifesto_video.mp4')
+        },
+        fonts: {
+            primary: 'TT Norms Pro',
+            mono: 'PPSupplyMono'
+        }
+    },
+    video: {
+        manifesto: asset('site-assets/home/home.manifesto_video.mp4')
+    },
+    // Leis de Layout (Absolute Laws)
+    layout: {
+        mobile: {
+            stacking: 'vertical',
+            alignment: 'center'
+        }
+    }
+};
+}),
+"[project]/_danilonov_portfolio/src/app/opengraph-image.tsx [app-route] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "alt",
+    ()=>alt,
+    "contentType",
+    ()=>contentType,
+    "default",
+    ()=>Image,
+    "dynamic",
+    ()=>dynamic,
+    "size",
+    ()=>size
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/_danilonov_portfolio/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-route] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$og$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/_danilonov_portfolio/node_modules/next/og.js [app-route] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$config$2f$brand$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/_danilonov_portfolio/src/config/brand.ts [app-route] (ecmascript)");
+;
+;
+;
+const dynamic = 'force-static'; // <--- ADICIONA ESTA LINHA
+const alt = 'Danilo Novais | Creative Developer Portfolio';
+const size = {
+    width: 1200,
+    height: 630
+};
+const contentType = 'image/png';
+async function Image() {
+    return new __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$og$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["ImageResponse"](/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        style: styles.container,
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                style: styles.logoContainer,
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                    width: "80",
+                    height: "80",
+                    viewBox: "0 0 40 40",
+                    fill: "none",
+                    xmlns: "http://www.w3.org/2000/svg",
+                    style: styles.logoSvg,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                            d: "M9 11.2c0-1.2 1-2.2 2.2-2.2h12.2c6.4 0 11.6 5.2 11.6 11.6S29.8 32.2 23.4 32.2H11.2C10 32.2 9 31.2 9 30V11.2Z",
+                            stroke: "white",
+                            strokeWidth: "2",
+                            strokeOpacity: "0.9"
+                        }, void 0, false, {
+                            fileName: "[project]/_danilonov_portfolio/src/app/opengraph-image.tsx",
+                            lineNumber: 28,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                            d: "M14 14l12 12M26 14 14 26",
+                            stroke: "white",
+                            strokeWidth: "1.6",
+                            strokeOpacity: "0.55"
+                        }, void 0, false, {
+                            fileName: "[project]/_danilonov_portfolio/src/app/opengraph-image.tsx",
+                            lineNumber: 34,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/_danilonov_portfolio/src/app/opengraph-image.tsx",
+                    lineNumber: 20,
+                    columnNumber: 9
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/_danilonov_portfolio/src/app/opengraph-image.tsx",
+                lineNumber: 18,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                style: styles.title,
+                children: "Danilo Novais"
+            }, void 0, false, {
+                fileName: "[project]/_danilonov_portfolio/src/app/opengraph-image.tsx",
+                lineNumber: 43,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                style: styles.subtitle,
+                children: "Creative Developer & Interactive Designer"
+            }, void 0, false, {
+                fileName: "[project]/_danilonov_portfolio/src/app/opengraph-image.tsx",
+                lineNumber: 44,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/_danilonov_portfolio/src/app/opengraph-image.tsx",
+        lineNumber: 17,
+        columnNumber: 5
+    }, this), {
+        ...size
+    });
+}
+const styles = {
+    container: {
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$config$2f$brand$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["BRAND"].colors.background,
+        fontFamily: __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$config$2f$brand$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["BRAND"].assets.fonts.primary
+    },
+    logoContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 40
+    },
+    logoSvg: {
+        marginRight: 0
+    },
+    title: {
+        fontSize: 64,
+        fontWeight: 700,
+        background: `linear-gradient(to bottom right, ${__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$config$2f$brand$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["BRAND"].colors.text} 0%, ${__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$config$2f$brand$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["BRAND"].colors.textHighlight} 100%)`,
+        backgroundClip: 'text',
+        color: 'transparent',
+        margin: 0,
+        marginBottom: 16,
+        letterSpacing: '-0.03em',
+        textAlign: 'center'
+    },
+    subtitle: {
+        fontSize: 32,
+        color: __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$config$2f$brand$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["BRAND"].colors.textSecondary,
+        margin: 0,
+        letterSpacing: '-0.01em',
+        textAlign: 'center'
+    }
+};
+}),
+"[project]/_danilonov_portfolio/src/app/opengraph-image--route-entry.js [app-route] (ecmascript) <locals>", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "GET",
+    ()=>GET
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/_danilonov_portfolio/node_modules/next/server.js [app-route] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$app$2f$opengraph$2d$image$2e$tsx__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/_danilonov_portfolio/src/app/opengraph-image.tsx [app-route] (ecmascript)");
+;
+;
+if (typeof __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$app$2f$opengraph$2d$image$2e$tsx__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"] !== 'function') {
+    throw new Error('Default export is missing in "./opengraph-image.tsx"');
+}
+async function GET(_, ctx) {
+    return (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$app$2f$opengraph$2d$image$2e$tsx__$5b$app$2d$route$5d$__$28$ecmascript$29$__["default"])({
+        params: ctx.params
+    });
+}
+;
+}),
+"[project]/_danilonov_portfolio/src/app/opengraph-image--route-entry.js [app-route] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "GET",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$app$2f$opengraph$2d$image$2d2d$route$2d$entry$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__$3c$locals$3e$__["GET"],
+    "alt",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$app$2f$opengraph$2d$image$2e$tsx__$5b$app$2d$route$5d$__$28$ecmascript$29$__["alt"],
+    "contentType",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$app$2f$opengraph$2d$image$2e$tsx__$5b$app$2d$route$5d$__$28$ecmascript$29$__["contentType"],
+    "dynamic",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$app$2f$opengraph$2d$image$2e$tsx__$5b$app$2d$route$5d$__$28$ecmascript$29$__["dynamic"],
+    "size",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$app$2f$opengraph$2d$image$2e$tsx__$5b$app$2d$route$5d$__$28$ecmascript$29$__["size"]
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$app$2f$opengraph$2d$image$2d2d$route$2d$entry$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/_danilonov_portfolio/src/app/opengraph-image--route-entry.js [app-route] (ecmascript) <locals>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$app$2f$opengraph$2d$image$2e$tsx__$5b$app$2d$route$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/_danilonov_portfolio/src/app/opengraph-image.tsx [app-route] (ecmascript)");
+}),
+];
+
+//# sourceMappingURL=%5Broot-of-the-server%5D__ef202b88._.js.map

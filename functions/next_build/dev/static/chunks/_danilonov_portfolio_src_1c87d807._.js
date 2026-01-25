@@ -3041,11 +3041,11 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 const PHRASES = [
-    'Um vídeo\nque respira.',
+    'Um vídeo \nque respira.',
     'Uma marca\n que se\n reconhece.',
     'Um detalhe\n que fica.',
     'Crio para\n gerar\n presença.',
-    'Mesmo\n quando\n ninguém\npercebe\n o esforço.'
+    'Mesmo\n quando\n ninguém \npercebe\n o esforço.'
 ];
 // As cores originais eram usadas como background sólido.
 // Para o efeito Ghost 3D, usaremos transparente para revelar o Canvas,
@@ -3058,7 +3058,7 @@ const COLORS = [
     'bg-purpleDetails'
 ];
 const FINAL_COLOR = 'bg-bluePrimary';
-const AboutBeliefs = ()=>{
+function AboutBeliefs() {
     _s();
     const containerRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     // Hook de Scroll do Framer Motion para controlar a rotação do fantasma
@@ -3099,7 +3099,7 @@ const AboutBeliefs = ()=>{
                         fileName: "[project]/_danilonov_portfolio/src/components/sobre/AboutBeliefs.tsx",
                         lineNumber: 71,
                         columnNumber: 9
-                    }, ("TURBOPACK compile-time value", void 0)),
+                    }, this),
                     PHRASES.map((phrase, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$components$2f$sobre$2f$BeliefSection$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["BeliefSection"], {
                             text: phrase,
                             bgColor: COLORS[index],
@@ -3108,20 +3108,20 @@ const AboutBeliefs = ()=>{
                             fileName: "[project]/_danilonov_portfolio/src/components/sobre/AboutBeliefs.tsx",
                             lineNumber: 74,
                             columnNumber: 11
-                        }, ("TURBOPACK compile-time value", void 0))),
+                        }, this)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$components$2f$sobre$2f$BeliefFinalSection$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["BeliefFinalSection"], {
                         bgColor: FINAL_COLOR
                     }, void 0, false, {
                         fileName: "[project]/_danilonov_portfolio/src/components/sobre/AboutBeliefs.tsx",
                         lineNumber: 82,
                         columnNumber: 9
-                    }, ("TURBOPACK compile-time value", void 0))
+                    }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/_danilonov_portfolio/src/components/sobre/AboutBeliefs.tsx",
                 lineNumber: 70,
                 columnNumber: 7
-            }, ("TURBOPACK compile-time value", void 0)),
+            }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute inset-0 w-full h-full pointer-events-none z-20",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3152,14 +3152,14 @@ const AboutBeliefs = ()=>{
                                 fileName: "[project]/_danilonov_portfolio/src/components/sobre/AboutBeliefs.tsx",
                                 lineNumber: 99,
                                 columnNumber: 13
-                            }, ("TURBOPACK compile-time value", void 0)),
+                            }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ambientLight", {
                                 intensity: 0.8
                             }, void 0, false, {
                                 fileName: "[project]/_danilonov_portfolio/src/components/sobre/AboutBeliefs.tsx",
                                 lineNumber: 100,
                                 columnNumber: 13
-                            }, ("TURBOPACK compile-time value", void 0)),
+                            }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("spotLight", {
                                 position: [
                                     10,
@@ -3173,7 +3173,7 @@ const AboutBeliefs = ()=>{
                                 fileName: "[project]/_danilonov_portfolio/src/components/sobre/AboutBeliefs.tsx",
                                 lineNumber: 101,
                                 columnNumber: 13
-                            }, ("TURBOPACK compile-time value", void 0)),
+                            }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Suspense"], {
                                 fallback: null,
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$components$2f$sobre$2f$GhostModel$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["GhostModel"], {
@@ -3193,35 +3193,35 @@ const AboutBeliefs = ()=>{
                                     fileName: "[project]/_danilonov_portfolio/src/components/sobre/AboutBeliefs.tsx",
                                     lineNumber: 110,
                                     columnNumber: 15
-                                }, ("TURBOPACK compile-time value", void 0))
+                                }, this)
                             }, void 0, false, {
                                 fileName: "[project]/_danilonov_portfolio/src/components/sobre/AboutBeliefs.tsx",
                                 lineNumber: 108,
                                 columnNumber: 13
-                            }, ("TURBOPACK compile-time value", void 0))
+                            }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/_danilonov_portfolio/src/components/sobre/AboutBeliefs.tsx",
                         lineNumber: 92,
                         columnNumber: 11
-                    }, ("TURBOPACK compile-time value", void 0))
+                    }, this)
                 }, void 0, false, {
                     fileName: "[project]/_danilonov_portfolio/src/components/sobre/AboutBeliefs.tsx",
                     lineNumber: 91,
                     columnNumber: 9
-                }, ("TURBOPACK compile-time value", void 0))
+                }, this)
             }, void 0, false, {
                 fileName: "[project]/_danilonov_portfolio/src/components/sobre/AboutBeliefs.tsx",
                 lineNumber: 90,
                 columnNumber: 7
-            }, ("TURBOPACK compile-time value", void 0))
+            }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/_danilonov_portfolio/src/components/sobre/AboutBeliefs.tsx",
         lineNumber: 55,
         columnNumber: 5
-    }, ("TURBOPACK compile-time value", void 0));
-};
+    }, this);
+}
 _s(AboutBeliefs, "YA2D4SWwia2Co1i34+715b9GVOI=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$scroll$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useScroll"],

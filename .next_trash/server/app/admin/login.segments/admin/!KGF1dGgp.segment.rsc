@@ -1,5 +1,0 @@
-1:"$Sreact.fragment"
-2:I[21998,["/_next/static/chunks/2b9221dd8a7056a4.js","/_next/static/chunks/be3491654cec2f0c.js","/_next/static/chunks/ffee4e5fcd58f7a7.js","/_next/static/chunks/75bdec4c61ad395e.js","/_next/static/chunks/05464d9ab25bdb23.js"],""]
-3:I[54416,["/_next/static/chunks/14d4affc291bd9c8.js","/_next/static/chunks/32bcdb2749863c79.js"],"default"]
-4:I[26373,["/_next/static/chunks/14d4affc291bd9c8.js","/_next/static/chunks/32bcdb2749863c79.js"],"default"]
-0:{"buildId":"iMnzMz6a9UGzjFCjh08o_","rsc":["$","$1","c",{"children":[null,["$","div",null,{"className":"min-h-screen bg-slate-950 text-white flex items-center justify-center px-4","children":["$","div",null,{"className":"w-full max-w-md rounded-2xl border border-white/10 bg-slate-900/60 p-8 shadow-2xl","children":[["$","div",null,{"className":"mb-6","children":["$","$L2",null,{"href":"/","className":"text-sm text-slate-400 hover:text-white transition-colors","children":"← Voltar ao site"}]}],["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}]}]]}]}]]}],"loading":null,"isPartial":false}

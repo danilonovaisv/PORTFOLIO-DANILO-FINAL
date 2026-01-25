@@ -511,22 +511,20 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node
 var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$utils$2f$reduced$2d$motion$2f$use$2d$reduced$2d$motion$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/_danilonov_portfolio/node_modules/framer-motion/dist/es/utils/reduced-motion/use-reduced-motion.mjs [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/_danilonov_portfolio/node_modules/next/image.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$config$2f$content$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/_danilonov_portfolio/src/config/content.ts [app-ssr] (ecmascript)");
+'use client';
 ;
 ;
 ;
 ;
 function ClientsBrandsSection() {
     const reducedMotion = (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$utils$2f$reduced$2d$motion$2f$use$2d$reduced$2d$motion$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useReducedMotion"])();
-    /*
-   * Bypass assets.json logic as it contains duplicated "strip" assets.
-   * We force HOME_CONTENT which now points to the correct 'client-logos' bucket.
-   */ const logos = __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$config$2f$content$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["HOME_CONTENT"].clients.logos.slice(0, 12);
+    const logos = __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$config$2f$content$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["HOME_CONTENT"].clients.logos.slice(0, 12);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         id: "clients",
-        className: "bg-[#0048ff] py-4 md:py-20 lg:py-24 relative z-10 overflow-hidden",
-        "aria-label": "marcas com as quais já trabalhei",
+        className: "bg-bluePrimary py-16 md:py-20 lg:py-24 relative z-10 overflow-hidden",
+        "aria-labelledby": "clients-heading",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "max-w-[1680px] mx-auto px-4 md:px-[clamp(24px,5vw,96px)]",
+            className: "std-grid",
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
                     initial: reducedMotion ? {
@@ -551,21 +549,24 @@ function ClientsBrandsSection() {
                             1
                         ]
                     },
-                    className: "mb-8 md:mb-16 lg:mb-20",
+                    className: "mb-10 md:mb-16 lg:mb-20",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                        id: "clients-heading",
                         className: "text-white text-[1.5rem] md:text-[2rem] font-bold text-center tracking-tight leading-tight lowercase",
                         children: __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$config$2f$content$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["HOME_CONTENT"].clients.title
                     }, void 0, false, {
                         fileName: "[project]/_danilonov_portfolio/src/components/home/clients/ClientsBrandsSection.tsx",
-                        lineNumber: 30,
+                        lineNumber: 34,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/_danilonov_portfolio/src/components/home/clients/ClientsBrandsSection.tsx",
-                    lineNumber: 20,
+                    lineNumber: 24,
                     columnNumber: 9
                 }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].ul, {
+                    role: "list",
+                    "aria-label": "Logotipos das marcas parceiras",
                     initial: "hidden",
                     whileInView: "show",
                     viewport: {
@@ -581,10 +582,11 @@ function ClientsBrandsSection() {
                             }
                         }
                     },
-                    className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8 md:gap-12 items-center justify-items-center w-full",
+                    className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 sm:gap-8 md:gap-12 items-center justify-items-center w-full",
                     children: logos.map((logo)=>{
                         const isSvg = logo.src?.toLowerCase().endsWith('.svg');
-                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
+                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].li, {
+                            role: "listitem",
                             variants: {
                                 hidden: {
                                     opacity: 0,
@@ -607,46 +609,45 @@ function ClientsBrandsSection() {
                                 }
                             },
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "group relative w-32 h-16 md:w-40 md:h-20 flex items-center justify-center",
-                                "aria-label": logo.alt,
+                                className: "group relative w-28 h-14 sm:w-32 sm:h-16 md:w-40 md:h-20 flex items-center justify-center",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                     src: logo.src || '',
                                     alt: logo.alt,
                                     fill: true,
                                     className: "w-full h-full object-contain filter brightness-0 invert opacity-60 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110 will-change-transform",
-                                    sizes: "(max-width: 768px) 128px, (max-width: 1200px) 160px, 160px",
+                                    sizes: "(max-width: 640px) 112px, (max-width: 768px) 128px, 160px",
                                     loading: "lazy",
                                     unoptimized: isSvg
                                 }, void 0, false, {
                                     fileName: "[project]/_danilonov_portfolio/src/components/home/clients/ClientsBrandsSection.tsx",
-                                    lineNumber: 73,
+                                    lineNumber: 81,
                                     columnNumber: 19
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/_danilonov_portfolio/src/components/home/clients/ClientsBrandsSection.tsx",
-                                lineNumber: 69,
+                                lineNumber: 80,
                                 columnNumber: 17
                             }, this)
                         }, logo.id, false, {
                             fileName: "[project]/_danilonov_portfolio/src/components/home/clients/ClientsBrandsSection.tsx",
-                            lineNumber: 54,
+                            lineNumber: 64,
                             columnNumber: 15
                         }, this);
                     })
                 }, void 0, false, {
                     fileName: "[project]/_danilonov_portfolio/src/components/home/clients/ClientsBrandsSection.tsx",
-                    lineNumber: 35,
+                    lineNumber: 43,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/_danilonov_portfolio/src/components/home/clients/ClientsBrandsSection.tsx",
-            lineNumber: 19,
+            lineNumber: 22,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/_danilonov_portfolio/src/components/home/clients/ClientsBrandsSection.tsx",
-        lineNumber: 14,
+        lineNumber: 16,
         columnNumber: 5
     }, this);
 }
@@ -3059,7 +3060,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node
 var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$components$2f$ui$2f$Preloader$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/_danilonov_portfolio/src/components/ui/Preloader.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$components$2f$home$2f$hero$2f$HeroCTA$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/_danilonov_portfolio/src/components/home/hero/HeroCTA.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$components$2f$home$2f$hero$2f$HeroCopy$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/_danilonov_portfolio/src/components/home/hero/HeroCopy.tsx [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$hooks$2f$useMediaQuery$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/_danilonov_portfolio/src/hooks/useMediaQuery.ts [app-ssr] (ecmascript)");
 ;
 'use client';
 ;
@@ -3069,35 +3069,42 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$
 ;
 ;
 ;
-;
-// Dynamic import for WebGL Scene
-const GhostScene = (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$shared$2f$lib$2f$app$2d$dynamic$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"])(async ()=>{}, {
+// Dynamic import para o GhostCanvas (R3F wrapper com fallbacks embutidos)
+const GhostCanvas = (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$shared$2f$lib$2f$app$2d$dynamic$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"])(async ()=>{}, {
     loadableGenerated: {
         modules: [
-            "[project]/_danilonov_portfolio/src/components/canvas/home/hero/GhostScene.tsx [app-client] (ecmascript, next/dynamic entry)"
+            "[project]/_danilonov_portfolio/src/components/canvas/home/hero/GhostCanvas.tsx [app-client] (ecmascript, next/dynamic entry)"
         ]
     },
     ssr: false,
     loading: ()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "absolute inset-0 bg-background"
+            className: "absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)]"
         }, void 0, false, {
             fileName: "[project]/_danilonov_portfolio/src/components/home/hero/HomeHero.tsx",
-            lineNumber: 20,
-            columnNumber: 20
+            lineNumber: 19,
+            columnNumber: 7
         }, ("TURBOPACK compile-time value", void 0))
 });
 const CONFIG = {
-    preloadMs: 2000
+    preloadMs: 1800
 };
 function HomeHero() {
     const heroRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     const [isLoaded, setIsLoaded] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
-    const isDesktop = (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$hooks$2f$useMediaQuery$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMediaQuery"])('(min-width: 1024px)');
+    const [canvasReady, setCanvasReady] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    // Timer de segurança para garantir que o preloader some
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         const timer = setTimeout(()=>setIsLoaded(true), CONFIG.preloadMs);
         return ()=>clearTimeout(timer);
     }, []);
+    // Callback do preloader
     const handlePreloaderDone = (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>setIsLoaded(true), []);
+    // Callback quando o Canvas R3F está pronto
+    const handleCanvasReady = (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
+        setCanvasReady(true);
+        // Força o carregamento se o canvas estiver pronto antes do timer
+        setIsLoaded(true);
+    }, []);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
             id: "hero",
@@ -3105,26 +3112,19 @@ function HomeHero() {
             className: "relative w-full min-h-screen bg-[#040013]",
             "aria-label": "Portfolio Hero Section",
             children: [
-                !isDesktop && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)] animate-pulse opacity-60"
-                }, void 0, false, {
-                    fileName: "[project]/_danilonov_portfolio/src/components/home/hero/HomeHero.tsx",
-                    lineNumber: 50,
-                    columnNumber: 11
-                }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["AnimatePresence"], {
                     children: !isLoaded && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$components$2f$ui$2f$Preloader$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Preloader"], {
                         durationMs: CONFIG.preloadMs,
                         onComplete: handlePreloaderDone,
-                        label: "Initializing Experience"
+                        label: "Summoning spirits..."
                     }, void 0, false, {
                         fileName: "[project]/_danilonov_portfolio/src/components/home/hero/HomeHero.tsx",
-                        lineNumber: 56,
+                        lineNumber: 60,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/_danilonov_portfolio/src/components/home/hero/HomeHero.tsx",
-                    lineNumber: 54,
+                    lineNumber: 58,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3134,44 +3134,46 @@ function HomeHero() {
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "std-grid pointer-events-auto pb-32 md:pb-0",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$components$2f$home$2f$hero$2f$HeroCopy$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                isLoaded: isLoaded
+                                isLoaded: isLoaded && canvasReady
                             }, void 0, false, {
                                 fileName: "[project]/_danilonov_portfolio/src/components/home/hero/HomeHero.tsx",
-                                lineNumber: 68,
+                                lineNumber: 72,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/_danilonov_portfolio/src/components/home/hero/HomeHero.tsx",
-                            lineNumber: 67,
+                            lineNumber: 71,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/_danilonov_portfolio/src/components/home/hero/HomeHero.tsx",
-                        lineNumber: 66,
+                        lineNumber: 70,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/_danilonov_portfolio/src/components/home/hero/HomeHero.tsx",
-                    lineNumber: 65,
+                    lineNumber: 69,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "absolute inset-0 z-30 pointer-events-none overflow-hidden",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "sticky top-0 h-screen w-full",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(GhostScene, {}, void 0, false, {
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(GhostCanvas, {
+                            onCreated: handleCanvasReady
+                        }, void 0, false, {
                             fileName: "[project]/_danilonov_portfolio/src/components/home/hero/HomeHero.tsx",
-                            lineNumber: 76,
+                            lineNumber: 80,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/_danilonov_portfolio/src/components/home/hero/HomeHero.tsx",
-                        lineNumber: 75,
+                        lineNumber: 79,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/_danilonov_portfolio/src/components/home/hero/HomeHero.tsx",
-                    lineNumber: 74,
+                    lineNumber: 78,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3186,27 +3188,27 @@ function HomeHero() {
                                     isLoaded: isLoaded
                                 }, void 0, false, {
                                     fileName: "[project]/_danilonov_portfolio/src/components/home/hero/HomeHero.tsx",
-                                    lineNumber: 87,
+                                    lineNumber: 89,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/_danilonov_portfolio/src/components/home/hero/HomeHero.tsx",
-                                lineNumber: 86,
+                                lineNumber: 88,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/_danilonov_portfolio/src/components/home/hero/HomeHero.tsx",
-                            lineNumber: 84,
+                            lineNumber: 87,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/_danilonov_portfolio/src/components/home/hero/HomeHero.tsx",
-                        lineNumber: 83,
+                        lineNumber: 86,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/_danilonov_portfolio/src/components/home/hero/HomeHero.tsx",
-                    lineNumber: 82,
+                    lineNumber: 85,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3214,13 +3216,13 @@ function HomeHero() {
                     children: "Decorative animation of a floating spectral ghost with glowing particles following your cursor."
                 }, void 0, false, {
                     fileName: "[project]/_danilonov_portfolio/src/components/home/hero/HomeHero.tsx",
-                    lineNumber: 93,
+                    lineNumber: 96,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/_danilonov_portfolio/src/components/home/hero/HomeHero.tsx",
-            lineNumber: 42,
+            lineNumber: 51,
             columnNumber: 7
         }, this)
     }, void 0, false);

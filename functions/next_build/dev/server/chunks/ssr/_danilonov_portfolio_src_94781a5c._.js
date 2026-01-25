@@ -737,16 +737,16 @@ function PortfolioHeroNew() {
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "absolute bottom-0 left-0 w-full z-30 pb-8 md:pb-12",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "std-grid grid grid-cols-1 md:grid-cols-12 items-center gap-6 md:gap-0",
+                    className: "std-grid grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-0 items-end md:items-center",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "col-span-full md:col-span-7 lg:col-span-8 flex flex-col items-center md:items-start text-center md:text-left",
+                            className: "col-span-full md:col-start-1 md:col-end-9 flex justify-center md:justify-start",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
                                 id: "portfolio-hero-heading",
-                                className: "text-4xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none",
+                                className: "text-4xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none text-center md:text-left",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "text-bluePrimary italic font-light mr-2 md:mr-4",
+                                        className: "text-bluePrimary italic font-light block md:inline mr-2 md:mr-4",
                                         children: "portfólio"
                                     }, void 0, false, {
                                         fileName: "[project]/_danilonov_portfolio/src/components/portfolio/PortfolioHeroNew.tsx",
@@ -754,7 +754,7 @@ function PortfolioHeroNew() {
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "text-white font-bold",
+                                        className: "text-white font-bold block md:inline",
                                         children: "showcase"
                                     }, void 0, false, {
                                         fileName: "[project]/_danilonov_portfolio/src/components/portfolio/PortfolioHeroNew.tsx",
@@ -773,7 +773,7 @@ function PortfolioHeroNew() {
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "col-span-full md:col-span-6 lg:col-span-5 flex justify-center md:justify-end",
+                            className: "col-span-full md:col-start-9 md:col-end-13 flex justify-center md:justify-end",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$components$2f$ui$2f$AntigravityCTA$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                 href: "#contact",
                                 text: "vamos trabalhar juntos",
@@ -2787,22 +2787,20 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node
 var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$utils$2f$reduced$2d$motion$2f$use$2d$reduced$2d$motion$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/_danilonov_portfolio/node_modules/framer-motion/dist/es/utils/reduced-motion/use-reduced-motion.mjs [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/_danilonov_portfolio/node_modules/next/image.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$config$2f$content$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/_danilonov_portfolio/src/config/content.ts [app-ssr] (ecmascript)");
+'use client';
 ;
 ;
 ;
 ;
 function ClientsBrandsSection() {
     const reducedMotion = (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$utils$2f$reduced$2d$motion$2f$use$2d$reduced$2d$motion$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useReducedMotion"])();
-    /*
-   * Bypass assets.json logic as it contains duplicated "strip" assets.
-   * We force HOME_CONTENT which now points to the correct 'client-logos' bucket.
-   */ const logos = __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$config$2f$content$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["HOME_CONTENT"].clients.logos.slice(0, 12);
+    const logos = __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$config$2f$content$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["HOME_CONTENT"].clients.logos.slice(0, 12);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         id: "clients",
-        className: "bg-[#0048ff] py-4 md:py-20 lg:py-24 relative z-10 overflow-hidden",
-        "aria-label": "marcas com as quais já trabalhei",
+        className: "bg-bluePrimary py-16 md:py-20 lg:py-24 relative z-10 overflow-hidden",
+        "aria-labelledby": "clients-heading",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "max-w-[1680px] mx-auto px-4 md:px-[clamp(24px,5vw,96px)]",
+            className: "std-grid",
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
                     initial: reducedMotion ? {
@@ -2827,21 +2825,24 @@ function ClientsBrandsSection() {
                             1
                         ]
                     },
-                    className: "mb-8 md:mb-16 lg:mb-20",
+                    className: "mb-10 md:mb-16 lg:mb-20",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                        id: "clients-heading",
                         className: "text-white text-[1.5rem] md:text-[2rem] font-bold text-center tracking-tight leading-tight lowercase",
                         children: __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$src$2f$config$2f$content$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["HOME_CONTENT"].clients.title
                     }, void 0, false, {
                         fileName: "[project]/_danilonov_portfolio/src/components/home/clients/ClientsBrandsSection.tsx",
-                        lineNumber: 30,
+                        lineNumber: 34,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/_danilonov_portfolio/src/components/home/clients/ClientsBrandsSection.tsx",
-                    lineNumber: 20,
+                    lineNumber: 24,
                     columnNumber: 9
                 }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
+                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].ul, {
+                    role: "list",
+                    "aria-label": "Logotipos das marcas parceiras",
                     initial: "hidden",
                     whileInView: "show",
                     viewport: {
@@ -2857,10 +2858,11 @@ function ClientsBrandsSection() {
                             }
                         }
                     },
-                    className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8 md:gap-12 items-center justify-items-center w-full",
+                    className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 sm:gap-8 md:gap-12 items-center justify-items-center w-full",
                     children: logos.map((logo)=>{
                         const isSvg = logo.src?.toLowerCase().endsWith('.svg');
-                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
+                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].li, {
+                            role: "listitem",
                             variants: {
                                 hidden: {
                                     opacity: 0,
@@ -2883,46 +2885,45 @@ function ClientsBrandsSection() {
                                 }
                             },
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "group relative w-32 h-16 md:w-40 md:h-20 flex items-center justify-center",
-                                "aria-label": logo.alt,
+                                className: "group relative w-28 h-14 sm:w-32 sm:h-16 md:w-40 md:h-20 flex items-center justify-center",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$_danilonov_portfolio$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                     src: logo.src || '',
                                     alt: logo.alt,
                                     fill: true,
                                     className: "w-full h-full object-contain filter brightness-0 invert opacity-60 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110 will-change-transform",
-                                    sizes: "(max-width: 768px) 128px, (max-width: 1200px) 160px, 160px",
+                                    sizes: "(max-width: 640px) 112px, (max-width: 768px) 128px, 160px",
                                     loading: "lazy",
                                     unoptimized: isSvg
                                 }, void 0, false, {
                                     fileName: "[project]/_danilonov_portfolio/src/components/home/clients/ClientsBrandsSection.tsx",
-                                    lineNumber: 73,
+                                    lineNumber: 81,
                                     columnNumber: 19
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/_danilonov_portfolio/src/components/home/clients/ClientsBrandsSection.tsx",
-                                lineNumber: 69,
+                                lineNumber: 80,
                                 columnNumber: 17
                             }, this)
                         }, logo.id, false, {
                             fileName: "[project]/_danilonov_portfolio/src/components/home/clients/ClientsBrandsSection.tsx",
-                            lineNumber: 54,
+                            lineNumber: 64,
                             columnNumber: 15
                         }, this);
                     })
                 }, void 0, false, {
                     fileName: "[project]/_danilonov_portfolio/src/components/home/clients/ClientsBrandsSection.tsx",
-                    lineNumber: 35,
+                    lineNumber: 43,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/_danilonov_portfolio/src/components/home/clients/ClientsBrandsSection.tsx",
-            lineNumber: 19,
+            lineNumber: 22,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/_danilonov_portfolio/src/components/home/clients/ClientsBrandsSection.tsx",
-        lineNumber: 14,
+        lineNumber: 16,
         columnNumber: 5
     }, this);
 }

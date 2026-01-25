@@ -295,6 +295,27 @@ body::-webkit-scrollbar {
     animation: showcaseArrowIdle 3s ease-in-out infinite;
   }
 
+  /* Marquee Animation - Ghost Design Infinite Scroll */
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee {
+      animation: none;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
 
     .gallery-track,
