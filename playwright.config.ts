@@ -23,7 +23,7 @@ export default defineConfig({
   webServer: {
     command:
       process.env.PLAYWRIGHT_SERVER_COMMAND ||
-      'ppnpm run dev -- --hostname 0.0.0.0 --port 3000',
+      'pnpm run dev -- --hostname 0.0.0.0 --port 3000',
     url: baseURL,
     reuseExistingServer: true,
     timeout: 120_000,
