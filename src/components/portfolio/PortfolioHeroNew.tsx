@@ -60,24 +60,24 @@ export default function PortfolioHeroNew() {
 
       {/* Hero Content - Title & CTA Fixed Bottom */}
       <div className="absolute bottom-0 left-0 w-full z-30 pb-8 md:pb-12">
-        <div className="std-grid grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-0 items-end md:items-center">
-          {/* Title - Center aligned on mobile, Left aligned on desktop */}
-          <div className="col-span-full md:col-start-1 md:col-end-9 flex justify-center md:justify-start">
+        <div className="std-grid items-end gap-6 md:gap-0">
+          {/* Title - Left aligned on desktop, Centered/Left on mobile */}
+          <div className="col-span-full md:col-span-7 lg:col-span-8 flex flex-col items-center md:items-start text-center md:text-left">
             <h1
               id="portfolio-hero-heading"
-              className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none text-center md:text-left"
+              className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tight leading-none"
             >
-              <span className="text-bluePrimary italic font-light block md:inline mr-2 md:mr-4">
+              <span className="text-bluePrimary italic font-light mr-2 md:mr-4">
                 portfólio
               </span>
-              <span className="text-white font-bold block md:inline">showcase</span>
+              <span className="text-white font-bold">showcase</span>
             </h1>
           </div>
 
-          {/* CTA - Center aligned on mobile, Right aligned on desktop */}
-          <div className="col-span-full md:col-start-9 md:col-end-13 flex justify-center md:justify-end">
+          {/* CTA - Right aligned on desktop, Centered on mobile */}
+          <div className="col-span-full md:col-span-6 lg:col-span-5 flex justify-center md:justify-end pb-2">
             <AntigravityCTA
-              href="#contact"
+              href="#contact" // Âncora para a seção de contato na mesma página (padrão para páginas internas)
               text="vamos trabalhar juntos"
               className="scale-90 md:scale-100 origin-bottom"
             />
