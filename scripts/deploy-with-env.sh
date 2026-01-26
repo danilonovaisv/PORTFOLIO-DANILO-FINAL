@@ -19,12 +19,12 @@ mkdir -p "$XDG_CONFIG_HOME"
 
 # Mostra informações de diagnóstico
 echo "Versão do Node: $(node --version)"
-echo "Versão do NPM: $(npm --version)"
+echo "Versão do ppnpm: $(ppnpm --version)"
 echo "Versão do Firebase: $(firebase --version)"
 
 # Faz o build do projeto
 echo "Executando build do projeto..."
-npm run build
+ppnpm run build
 
 # Consolidar arquivos estáticos para deploy manual
 echo "Consolidando arquivos estáticos em deploy-public..."

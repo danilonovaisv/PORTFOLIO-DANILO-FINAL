@@ -14,7 +14,7 @@
 [PRÓXIMOS PASSOS]
 
 - Validar visualmente a seção Sobre (mobile/desktop) após as mudanças de classes e bordas.
-- Rodar suite completa (`npm run test`) antes de release.
+- Rodar suite completa (`ppnpm run test`) antes de release.
 
 [ALERTA DE BUGS]
 

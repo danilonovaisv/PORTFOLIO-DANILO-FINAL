@@ -2342,7 +2342,7 @@ To use Realtime in Node.js, you need to provide a WebSocket implementation:
 Option 1: Use Node.js 22+ which has native WebSocket support
 Option 2: Install and provide the "ws" package:
 
-  npm install ws
+  ppnpm install ws
 
   import ws from "ws"
   const client = new RealtimeClient(url, {
@@ -9084,8 +9084,8 @@ ${r}`;
           })),
         ]));
     }
-    if ((a.i(43999), 'u' > typeof process && process.env?.npm_package_name)) {
-      let a = process.env.npm_package_name;
+    if ((a.i(43999), 'u' > typeof process && process.env?.ppnpm_package_name)) {
+      let a = process.env.ppnpm_package_name;
       [
         '@supabase/auth-helpers-nextjs',
         '@supabase/auth-helpers-react',
@@ -9104,8 +9104,8 @@ ${r}`;
 ║ to provide better maintenance and consistent APIs across frameworks.      ║
 ║                                                                            ║
 ║ Please update your package.json to use @supabase/ssr directly:            ║
-║   npm uninstall ${a.padEnd(42)} ║
-║   npm install @supabase/ssr                                               ║
+║   ppnpm uninstall ${a.padEnd(42)} ║
+║   ppnpm install @supabase/ssr                                               ║
 ║                                                                            ║
 ║ For more information, visit:                                              ║
 ║ https://supabase.com/docs/guides/auth/server-side                         ║

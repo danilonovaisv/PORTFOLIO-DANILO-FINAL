@@ -4307,7 +4307,7 @@ cubic-bezier(0.22, 1, 0.36, 1) - easeOutExpo
 ## Regras de Execução
 1. Execute um prompt por vez, aguarde conclusão
 2. Respeite dependências (dependsOn)
-3. Após cada prompt, valide com build: npm run build
+3. Após cada prompt, valide com build: ppnpm run build
 4. Documente mudanças no git com mensagens semânticas
 5. Se um prompt falhar, registre e continue com próximo independente
 

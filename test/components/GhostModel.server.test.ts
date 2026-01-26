@@ -11,9 +11,12 @@ const preloadMock = jest.fn(() => {
 // Stub R3F/Drei hooks so importing the component in a Node environment
 // doesn't pull in WebGL or Worker-dependent code.
 jest.mock('@react-three/drei', () => {
-  const mockUseGLTF = Object.assign(jest.fn(() => ({ nodes: {}, materials: {} })), {
-    preload: preloadMock,
-  });
+  const mockUseGLTF = Object.assign(
+    jest.fn(() => ({ nodes: {}, materials: {} })),
+    {
+      preload: preloadMock,
+    }
+  );
 
   return {
     __esModule: true,
@@ -29,7 +32,9 @@ jest.mock('@react-three/fiber', () => ({
 
 describe('GhostModel server import', () => {
   it('skips GLTF preloading when rendered during SSG/Node', async () => {
-    await expect(import('@/components/sobre/GhostModel')).resolves.toBeDefined();
+    await expect(
+      import('@/components/sobre/GhostModel')
+    ).resolves.toBeDefined();
     expect(preloadMock).not.toHaveBeenCalled();
   });
 });

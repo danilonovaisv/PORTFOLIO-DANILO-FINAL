@@ -14,8 +14,8 @@
         "rm -rf functions/next_build || true",
         "mkdir -p functions/next_build",
         "rsync -av .next/ functions/next_build/ --exclude cache || true",
-        "npm --prefix \"$RESOURCE_DIR\" run build",
-        "npm --prefix \"$RESOURCE_DIR\" run lint || true"
+        "ppnpm --prefix \"$RESOURCE_DIR\" run build",
+        "ppnpm --prefix \"$RESOURCE_DIR\" run lint || true"
       ],
       "source": "functions"
     }
