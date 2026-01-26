@@ -8,6 +8,29 @@ const FALLBACK_SUPABASE_ANON_KEY =
 let supabaseClient: ReturnType<typeof createBrowserClient> | null = null;
 
 export function createClientComponentClient() {
+  if (process.env.PLAYWRIGHT_TEST) {
+    const mockQuery = {
+      eq: () => mockQuery,
+      order: () => mockQuery,
+      limit: () => mockQuery,
+      returns: () => Promise.resolve({ data: [], error: null }),
+      select: () => mockQuery,
+      single: () => Promise.resolve({ data: null, error: null }),
+    };
+    return {
+      from: () => mockQuery,
+      auth: {
+        getSession: () => Promise.resolve({ data: { session: null }, error: null }),
+        onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
+      },
+      storage: {
+        from: () => ({
+          getPublicUrl: () => ({ data: { publicUrl: '' } }),
+        }),
+      },
+    } as any;
+  }
+
   if (supabaseClient) {
     return supabaseClient;
   }

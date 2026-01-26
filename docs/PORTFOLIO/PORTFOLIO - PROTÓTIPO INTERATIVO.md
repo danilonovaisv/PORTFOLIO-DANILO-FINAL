@@ -325,6 +325,9 @@ const containerVars = {
 - `playsInline`: reproduz inline em mobile
 - `object-fit: cover`: cobre toda a área
 
+**video hero desktop:** https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort.mp4
+**video hero mobile:** https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort-mobile.mp4
+
 **Overlay:**
 - Gradient vertical: `from-black/60 via-black/40 to-black/60`
 - Garante legibilidade do texto sobre qualquer vídeo
@@ -332,7 +335,7 @@ const containerVars = {
 **Título:**
 - "portfólio" em azul (`text-blue-400`)
 - "showcase" em branco
-- Centralizado vertical e horizontalmente
+
 
 **CTA:**
 - Cor: `bg-blue-500`
@@ -341,6 +344,7 @@ const containerVars = {
 - Transição suave: `transition-all duration-300`
 - Efeito scale no hover: `hover:scale-105`
 
+- **ALINHAMENTO: O texto "portfólio showcase" e o botão de chamada para ação (CTA) "vamos trabalhar juntos" estão alinhados horizontalmente em um mesmo nível, formando uma única linha visual. Eles são posicionados centralizados na parte inferior da HERO.**
 ---
 
 ## 🎨 GALLERY COM PARALLAX LERP
