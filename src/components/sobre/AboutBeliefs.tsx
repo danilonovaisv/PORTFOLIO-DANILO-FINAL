@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useRef, Suspense } from 'react';
-import { useScroll, useTransform, cubicBezier } from 'framer-motion';
+import React, { Suspense } from 'react';
+import { cubicBezier, useScroll, useTransform } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
 
@@ -28,8 +28,6 @@ const COLORS = [
 
 const FINAL_COLOR = 'bg-bluePrimary'; // Azul Real
 
-import { useScroll, useTransform, cubicBezier } from 'framer-motion';
-
 export const AboutBeliefs: React.FC = () => {
   const containerRef = React.useRef<HTMLDivElement>(null);
 
@@ -50,10 +48,7 @@ export const AboutBeliefs: React.FC = () => {
   );
 
   return (
-    <section
-      ref={containerRef}
-      className={`relative w-full bg-background`} // Fundo Deep Void
-    >
+    <section ref={containerRef} className={`relative w-full overflow-hidden ${COLORS[0]}`}>
       {/* 
         LAYER 1: Canvas 3D (Background Fixed/Sticky) 
         Posicionado absolutamente/fixed por trás do conteúdo.
@@ -65,7 +60,7 @@ export const AboutBeliefs: React.FC = () => {
         O texto fica "atrás" visualmente ou no mesmo plano, mas o Canvas vai sobrepor.
         Para garantir leitura, o Canvas tem pointer-events-none.
       */}
-      <div className="relative z-10 pointer-events-none">
+      <div className="relative pointer-events-none">
         <BeliefFixedHeader opacity={headerOpacity} progress={scrollYProgress} />
 
         {PHRASES.map((phrase, index) => (
@@ -106,7 +101,6 @@ export const AboutBeliefs: React.FC = () => {
             <Suspense fallback={null}>
               {/* Scale 0.6 para ser "menor". Rotation ajustada para frente. */}
               <GhostModel
-                scrollProgress={scrollYProgress}
                 scale={0.6}
                 position={[0, -1, 0]}
                 rotation={[0, 0, 0]}

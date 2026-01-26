@@ -2,6 +2,9 @@
 
 ## [STATUS ATUAL]
 
+- [2026-01-26] Ativada configuração mestra baseada no arquivo `.agentrules` na raiz.
+- [2026-01-26] Atualizado `.cursorrules` para integrar os diretórios `./agent/rules/` e `./agent/workflows/` como fontes primárias de verdade.
+- [2026-01-26] Todos os 19 arquivos de regras e 32 arquivos de workflows registrados em `.agentrules` foram validados e estão ativos.
 - [2026-01-26] Configurado caminho para arquivos de customização do agente em `.agent/customizations`.
 - [2026-01-26] Criada regra de integridade em `.agent/rules/customizations.md` para priorizar este caminho.
 - [2026-01-26] Documentado o novo caminho em `AGENT.md`.

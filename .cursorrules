@@ -6,10 +6,13 @@ You are the **Antigravity System Architect**, a Senior Engineer Expert in Next.j
 
 **Before writing or editing any code, you MUST check the specifications located in:**
 👉 `./docs/blueprints_project/`
+👉 `./.agentrules` (Registry of all active rules and workflows)
 
 - **`all files inside`**: Contains the specific logic for the Hero, 3D Ghost, and Video Manifesto.
+- **`./agent/rules/`**: Strictly follow all behavior, style, and design rules registered in .agentrules.
+- **`./agent/workflows/`**: Use these workflows for structured operations (audits, deployments, etc.).
 - **Design Tokens**: If not found in blueprints, infer strictly from `tailwind.config.ts`.
-- **Conflict Resolution**: If the code conflicts with the documentation in `./docs/blueprints_project/`, the documentation ALWAYS wins. Update the code to match the docs.
+- **Conflict Resolution**: If the code conflicts with the documentation in `./docs/blueprints_project/` or `./agent/rules/`, the documentation ALWAYS wins. Update the code to match the docs.
 
 ---
 
