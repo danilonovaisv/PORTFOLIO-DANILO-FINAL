@@ -33,26 +33,26 @@ done
 print_header "INSTALLING OFFICIAL TECH STACK"
 
 print_info "Installing Core Dependencies (Next.js, React, TypeScript)..."
-ppnpm install next@latest react@latest react-dom@latest
-ppnpm install -D typescript @types/node @types/react @types/react-dom
+pnpm install next@latest react@latest react-dom@latest
+pnpm install -D typescript @types/node @types/react @types/react-dom
 
 print_info "Installing Styling Stack (Tailwind, PostCSS, Utils)..."
-ppnpm install -D tailwindcss postcss autoprefixer
-ppnpm install clsx tailwind-merge
+pnpm install -D tailwindcss postcss autoprefixer
+pnpm install clsx tailwind-merge
 
 print_info "Installing Graphics & Animation (R3F, Motion, GSAP, Lenis)..."
-ppnpm install three @react-three/fiber @react-three/drei @react-three/postprocessing
-ppnpm install framer-motion gsap lenis
+pnpm install three @react-three/fiber @react-three/drei @react-three/postprocessing
+pnpm install framer-motion gsap lenis
 
 print_info "Installing State Management (Zustand)..."
-ppnpm install zustand
+pnpm install zustand
 
 # 3. Configuration Files Initialization
 print_header "CHECKING CONFIGURATION FILES"
 
 if [[ ! -f "tailwind.config.ts" && ! -f "tailwind.config.js" ]]; then
     print_info "Initializing Tailwind configuration..."
-    npx tailwindcss init -p --ts
+    pnpm dlx tailwindcss init -p --ts
 else
     print_success "Tailwind config exists."
 fi
@@ -73,4 +73,4 @@ else
 fi
 
 print_header "SETUP COMPLETE"
-echo -e "Ready to start development. Run: ${GREEN}ppnpm run dev${NC}"
+echo -e "Ready to start development. Run: ${GREEN}pnpm run dev${NC}"

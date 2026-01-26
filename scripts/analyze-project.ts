@@ -26,8 +26,8 @@ function logSection(title, content) {
 function analyzeDependencies() {
   console.log('--- Analisando dependências (depcheck) ---');
   try {
-    // Usar o npx para garantir que o depcheck seja executado mesmo se não estiver no path
-    const output = execSync('npx depcheck --json', { encoding: 'utf8' });
+    // Usar o pnpm dlx para garantir que o depcheck seja executado mesmo se não estiver no path
+    const output = execSync('pnpm dlx depcheck --json', { encoding: 'utf8' });
     const result = JSON.parse(output);
 
     const unusedDeps = result.dependencies || [];

@@ -5,9 +5,9 @@
     "lint": "eslint .",
     "build": "tsc",
     "build:watch": "tsc --watch",
-    "serve": "ppnpm run build && firebase emulators:start --only functions",
-    "shell": "ppnpm run build && firebase functions:shell",
-    "start": "ppnpm run shell",
+    "serve": "pnpm run build && firebase emulators:start --only functions",
+    "shell": "pnpm run build && firebase functions:shell",
+    "start": "pnpm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
   },

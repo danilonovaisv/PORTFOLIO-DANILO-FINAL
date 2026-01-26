@@ -14,24 +14,24 @@ cd "$PROJECT_ROOT"
 
 echo "🔧 Verificando ambiente..."
 echo "Node: $(node --version 2>/dev/null || echo 'Não encontrado')"
-echo "ppnpm: $(ppnpm --version 2>/dev/null || echo 'Não encontrado')"
+echo "pnpm: $(pnpm --version 2>/dev/null || echo 'Não encontrado')"
 echo "Firebase: $(firebase --version 2>/dev/null || echo 'Não encontrado')"
 
 echo ""
 echo "🧪 Executando testes..."
 
 # Executa os testes conforme definido no package.json
-if ppnpm run test; then
+if pnpm run test; then
     echo "✅ Testes executados com sucesso!"
     
     echo ""
     echo "🏗️  Executando build..."
-    if ppnpm run build; then
+    if pnpm run build; then
         echo "✅ Build realizado com sucesso!"
         
         echo ""
         echo "🚢 Executando deploy..."
-        if ppnpm run deploy; then
+        if pnpm run deploy; then
             echo "🎉 Deploy concluído com sucesso!"
         else
             echo "❌ Erro durante o deploy"

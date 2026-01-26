@@ -19,12 +19,12 @@ mkdir -p "$XDG_CONFIG_HOME"
 
 # Mostra informações de diagnóstico
 echo "Versão do Node: $(node --version)"
-echo "Versão do ppnpm: $(ppnpm --version)"
+echo "Versão do pnpm: $(pnpm --version)"
 echo "Versão do Firebase: $(firebase --version)"
 
 # Faz o build do projeto
 echo "Executando build do projeto..."
-ppnpm run build
+pnpm run build
 
 # Consolidar arquivos estáticos para deploy manual
 echo "Consolidando arquivos estáticos em deploy-public..."
@@ -46,4 +46,4 @@ fi
 
 # Executa o deploy
 echo "Executando deploy do Firebase..."
-npx firebase deploy --only hosting,functions --project portfolio-danilo-novais
+pnpm dlx firebase deploy --only hosting,functions --project portfolio-danilo-novais

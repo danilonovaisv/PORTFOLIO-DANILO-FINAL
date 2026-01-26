@@ -60,14 +60,14 @@ install_deps() {
   info "Instalando dependências..."
 
   case "$PACKAGE_MANAGER" in
-    npm)
-      npm install
+    pnpm)
+      pnpm install
       ;;
     yarn)
       yarn install
       ;;
     npm)
-      npm install
+      pnpm install
       ;;
   esac
 

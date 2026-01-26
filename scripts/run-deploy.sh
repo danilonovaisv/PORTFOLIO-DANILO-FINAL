@@ -47,8 +47,8 @@ fi
 
 # Run the build
 echo "Running project build..."
-npm run build
+pnpm run build
 
 # Deploy to Firebase
 echo "Deploying to Firebase..."
-firebase deploy --only hosting --project portfolio-danilo-novais
+pnpm dlx firebase deploy --only hosting --project portfolio-danilo-novais
