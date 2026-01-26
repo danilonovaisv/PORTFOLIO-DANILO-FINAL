@@ -14,11 +14,13 @@ const checkWebGLSupport = (): boolean => {
 };
 
 export const useWebGLSupport = (): boolean => {
-  const [supportsWebGL, setSupportsWebGL] = useState(false);
+  const [supportsWebGL, setSupportsWebGL] = useState<boolean | null>(null);
 
   useEffect(() => {
     setSupportsWebGL(checkWebGLSupport());
   }, []);
 
-  return supportsWebGL;
+  // Return false during SSR to prevent hydration mismatch
+  // Returns actual support status after hydration
+  return supportsWebGL === true;
 };

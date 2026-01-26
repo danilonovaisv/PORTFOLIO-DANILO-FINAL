@@ -33,6 +33,7 @@ export function usePerformanceAdaptive(): PerformanceConfig {
     let frames = 0;
     let lastTime = performance.now();
     let rafId: number;
+    let isMounted = true;
 
     const checkFPS = () => {
       frames++;
@@ -40,8 +41,8 @@ export function usePerformanceAdaptive(): PerformanceConfig {
 
       if (now >= lastTime + 1000) {
         const fps = Math.round((frames * 1000) / (now - lastTime));
-        if (fps < 30 && quality !== 'low') {
-          setQuality((prev) => (prev === 'high' ? 'medium' : 'low'));
+        if (fps < 30 && isMounted) {
+          setQuality((prev) => (prev === 'low' ? 'low' : 'medium'));
         }
         frames = 0;
         lastTime = now;
@@ -50,8 +51,11 @@ export function usePerformanceAdaptive(): PerformanceConfig {
     };
 
     rafId = requestAnimationFrame(checkFPS);
-    return () => cancelAnimationFrame(rafId);
-  }, [quality]);
+    return () => {
+      isMounted = false;
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
 
   const configs: Record<QualityLevel, PerformanceConfig> = {
     high: {

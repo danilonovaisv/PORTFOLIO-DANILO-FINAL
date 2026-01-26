@@ -13,6 +13,7 @@ import { useEffect, useRef, useCallback } from 'react';
  */
 export function useBodyLock(isLocked: boolean): void {
   const scrollPositionRef = useRef<number>(0);
+  const lockedRef = useRef<boolean>(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -23,6 +24,7 @@ export function useBodyLock(isLocked: boolean): void {
     if (isLocked) {
       // Salva a posição atual do scroll
       scrollPositionRef.current = window.scrollY;
+      lockedRef.current = true;
 
       // Aplica estilos para bloquear scroll
       const scrollbarWidth = window.innerWidth - html.clientWidth;
@@ -36,6 +38,7 @@ export function useBodyLock(isLocked: boolean): void {
       html.style.overflow = 'hidden';
     } else {
       // Remove os estilos e restaura a posição do scroll
+      lockedRef.current = false;
       body.style.overflow = '';
       body.style.position = '';
       body.style.top = '';
@@ -50,13 +53,17 @@ export function useBodyLock(isLocked: boolean): void {
 
     // Cleanup ao desmontar
     return () => {
-      body.style.overflow = '';
-      body.style.position = '';
-      body.style.top = '';
-      body.style.left = '';
-      body.style.right = '';
-      body.style.paddingRight = '';
-      html.style.overflow = '';
+      // Apenas limpa se ainda estava locked (componente desmontado enquanto modal aberto)
+      if (lockedRef.current) {
+        body.style.overflow = '';
+        body.style.position = '';
+        body.style.top = '';
+        body.style.left = '';
+        body.style.right = '';
+        body.style.paddingRight = '';
+        html.style.overflow = '';
+        window.scrollTo(0, scrollPositionRef.current);
+      }
     };
   }, [isLocked]);
 }
