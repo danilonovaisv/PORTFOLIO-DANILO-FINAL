@@ -1,6 +1,10 @@
 'use client';
 
-import React, { Component, type PropsWithChildren, type ErrorInfo } from 'react';
+import React, {
+  Component,
+  type PropsWithChildren,
+  type ErrorInfo,
+} from 'react';
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -32,7 +36,7 @@ export default class ErrorBoundary extends Component<
     console.error('Error Stack:', error.stack);
     console.error('Component Stack:', errorInfo.componentStack);
     console.error('=== END ERROR BOUNDARY ===');
-    
+
     this.setState({ errorInfo });
   }
 
@@ -44,13 +48,13 @@ export default class ErrorBoundary extends Component<
             <h1 className="text-2xl font-bold mb-4 text-red-400">
               🚨 Something went wrong
             </h1>
-            
+
             <div className="mb-4 p-4 bg-red-900/30 rounded-lg">
               <p className="font-mono text-sm break-all">
                 <strong>Error:</strong> {this.state.error?.message}
               </p>
             </div>
-            
+
             {this.state.error?.stack && (
               <details className="mb-4">
                 <summary className="cursor-pointer text-yellow-400 hover:text-yellow-300">
@@ -61,7 +65,7 @@ export default class ErrorBoundary extends Component<
                 </pre>
               </details>
             )}
-            
+
             {this.state.errorInfo?.componentStack && (
               <details className="mb-4">
                 <summary className="cursor-pointer text-yellow-400 hover:text-yellow-300">
@@ -72,7 +76,7 @@ export default class ErrorBoundary extends Component<
                 </pre>
               </details>
             )}
-            
+
             <div className="flex gap-4 mt-6">
               <button
                 onClick={() => window.location.reload()}
@@ -82,7 +86,11 @@ export default class ErrorBoundary extends Component<
               </button>
               <button
                 onClick={() => {
-                  this.setState({ hasError: false, error: null, errorInfo: null });
+                  this.setState({
+                    hasError: false,
+                    error: null,
+                    errorInfo: null,
+                  });
                 }}
                 className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded text-white font-medium"
               >

@@ -2,7 +2,8 @@
 
 import { useEffect, useRef } from 'react';
 
-const lerp = (start: number, end: number, t: number) => start * (1 - t) + end * t;
+const lerp = (start: number, end: number, t: number) =>
+  start * (1 - t) + end * t;
 
 /**
  * LERP-based scroll smoother for a fixed gallery track.
@@ -13,10 +14,7 @@ type TrackRef =
   | React.RefObject<HTMLElement | null>
   | React.MutableRefObject<HTMLElement | null>;
 
-export const useLERPScroll = (
-  trackRef: TrackRef,
-  enabled = true
-) => {
+export const useLERPScroll = (trackRef: TrackRef, enabled = true) => {
   const startY = useRef(0);
   const endY = useRef(0);
   const rafId = useRef<number | null>(null);

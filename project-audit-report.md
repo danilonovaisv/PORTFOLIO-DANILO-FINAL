@@ -5,6 +5,7 @@ Gerado em: 1/26/2026, 7:27:33 AM
 ---
 
 ## 📦 Dependências não utilizadas
+
 - @dataconnect/admin-generated
 - @dataconnect/generated
 - @genkit-ai/google-genai
@@ -20,8 +21,8 @@ Gerado em: 1/26/2026, 7:27:33 AM
 - postprocessing
 - statsig-js
 
-
 ## 🧱 Dependências de desenvolvimento não utilizadas
+
 - @tailwindcss/postcss
 - @tailwindcss/typography
 - @testing-library/user-event
@@ -38,12 +39,10 @@ Gerado em: 1/26/2026, 7:27:33 AM
 - ts-node
 - which
 
-
 ## 🌿 Branches no repositório
-- * main
+
+- - main
 - remotes/origin/HEAD -> origin/main
 - remotes/origin/main
 
-
 ## 🪓 Branches potencialmente obsoletas
-

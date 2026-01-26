@@ -1,4 +1,3 @@
-
 /* eslint-disable @next/next/no-img-element */
 import React from 'react';
 import { render, screen } from '@testing-library/react';
@@ -15,10 +14,19 @@ jest.mock('next/image', () => ({
 // Mock framer-motion
 // Mock framer-motion
 jest.mock('framer-motion', () => {
-  const MockComponent = ({ children, className, style, onClick, role, tabIndex, 'aria-label': ariaLabel, onKeyDown }: any) => (
-    <div 
-      className={className} 
-      style={style} 
+  const MockComponent = ({
+    children,
+    className,
+    style,
+    onClick,
+    role,
+    tabIndex,
+    'aria-label': ariaLabel,
+    onKeyDown,
+  }: any) => (
+    <div
+      className={className}
+      style={style}
       onClick={onClick}
       role={role}
       tabIndex={tabIndex}
@@ -31,8 +39,19 @@ jest.mock('framer-motion', () => {
 
   return {
     motion: {
-      section: ({ children, className, style, id, 'aria-label': ariaLabel }: any) => (
-        <section className={className} style={style} id={id} aria-label={ariaLabel}>
+      section: ({
+        children,
+        className,
+        style,
+        id,
+        'aria-label': ariaLabel,
+      }: any) => (
+        <section
+          className={className}
+          style={style}
+          id={id}
+          aria-label={ariaLabel}
+        >
           {children}
         </section>
       ),
@@ -42,7 +61,9 @@ jest.mock('framer-motion', () => {
 });
 
 // Mock react-markdown
-jest.mock('react-markdown', () => (props: any) => <div data-testid="markdown-content">{props.children}</div>);
+jest.mock('react-markdown', () => (props: any) => (
+  <div data-testid="markdown-content">{props.children}</div>
+));
 
 // Mock environment variables
 process.env.NEXT_PUBLIC_SUPABASE_URL = 'http://localhost:54321';
@@ -53,7 +74,7 @@ describe('BlockRenderer Sanitization', () => {
     type: 'text',
     content: {
       text,
-      textConfig: { color: 'black' }
+      textConfig: { color: 'black' },
     },
   });
 
@@ -69,7 +90,7 @@ describe('BlockRenderer Sanitization', () => {
     const { container } = render(<BlockRenderer block={block} index={0} />);
     // Since ReactMarkdown with skipHtml=true is used:
     // "Hello <span ...>World</span>" -> "Hello World" (tags stripped/ignored)
-    // Or if it renders tag as text? 
+    // Or if it renders tag as text?
     // Usually standard Markdown ignores HTML tags unless rehype-raw is used.
     // If they are ignored, they don't appear in output.
     // Ensure "style" is NOT in the output HTML.

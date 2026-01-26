@@ -1,21 +1,20 @@
-[STATUS ATUAL]
+# Project Memory
 
-- Inicialização do Projeto baseada na Bíblia da Página Sobre.
-- Ajustes aplicados em src/components/sobre/AboutOrigin.tsx para remover warnings do Tailwind IntelliSense e Total TypeScript.
-- Typecheck executado com sucesso após correções.
+## [STATUS ATUAL]
 
-[CONTEXTO TÉCNICO]
+- [2026-01-26] Configurado caminho para arquivos de customização do agente em `.agent/customizations`.
+- [2026-01-26] Criada regra de integridade em `.agent/rules/customizations.md` para priorizar este caminho.
+- [2026-01-26] Documentado o novo caminho em `AGENT.md`.
 
-- Substituí React.FC por função nomeada para eliminar anotação redundante no componente.
-- Tipagem refinada: `FallbackImage` (`${string}.{webp|jpg|png}`) + `satisfies` para garantir literalidade dos fallbacks.
-- RAF do Lenis usa variável local e `DOMHighResTimeStamp`, removendo refs supérfluas.
-- Classes Tailwind customizadas convertidas para tokens canônicos: `max-w-420` (1680px), `max-w-360` (1440px), `lg:max-w-130` (520px), `min-h-60` (240px), `rounded-3xl` (24px), `max-w-140` (560px).
+## [CONTEXTO TÉCNICO]
 
-[PRÓXIMOS PASSOS]
+- O diretório `.agent/customizations` serve como local centralizado para overrides e contextos específicos do usuário/projeto que não devem poluir as regras globais.
+- A regra em `customizations.md` garante que o agente sempre verifique este diretório no início de cada missão.
 
-- Validar visualmente a seção Sobre (mobile/desktop) após as mudanças de classes e bordas.
-- Rodar suite completa (`pnpm run test`) antes de release.
+## [PRÓXIMOS PASSOS]
 
-[ALERTA DE BUGS]
+- O usuário pode agora adicionar arquivos `.md` ou `.txt` em `.agent/customizations/` para ajustar o comportamento do agente.
 
-- Nenhum bug conhecido no trecho alterado.
+## [ALERTA DE BUGS]
+
+- Nenhum bug identificado nesta configuração.
