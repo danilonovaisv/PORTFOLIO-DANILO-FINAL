@@ -54,8 +54,8 @@
     "postinstall": "if [ -d scripts ]; then pnpm run prebuild; else echo 'Skipping prebuild: scripts directory not found'; fi"
   },
   "dependencies": {
-    "@dataconnect/admin-generated": "file:src/dataconnect-admin-generated",
-    "@dataconnect/generated": "file:src/dataconnect-generated",
+    "@dataconnect/admin-generated": "link:src/dataconnect-admin-generated",
+    "@dataconnect/generated": "link:src/dataconnect-generated",
     "@genkit-ai/google-genai": "^1.28.0",
     "@google/adk": "^0.2.4",
     "@gsap/react": "^2.1.2",
@@ -85,7 +85,7 @@
     "@react-three/fiber": "^9.5.0",
     "@react-three/postprocessing": "^3.0.4",
     "@supabase/ssr": "^0.8.0",
-    "@supabase/supabase-js": "^2.91.1",
+    "@supabase/supabase-js": "^2.93.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",

@@ -18,9 +18,6 @@ const PHRASES = [
   'Mesmo\n quando\n ninguém \npercebe\n o esforço.',
 ];
 
-// As cores originais eram usadas como background sólido.
-// Para o efeito Ghost 3D, usaremos transparente para revelar o Canvas,
-// mas podemos manter como referência se necessário futuramente.
 const COLORS = [
   'bg-bluePrimary', // Azul Real
   'bg-purpleDetails', // Roxo Vibrante
@@ -29,12 +26,13 @@ const COLORS = [
   'bg-purpleDetails', // Roxo Vibrante
 ];
 
-const FINAL_COLOR = 'bg-bluePrimary';
+const FINAL_COLOR = 'bg-bluePrimary'; // Azul Real
 
-export function AboutBeliefs() {
-  const containerRef = useRef<HTMLDivElement>(null);
+import { useScroll, useTransform, cubicBezier } from 'framer-motion';
 
-  // Hook de Scroll do Framer Motion para controlar a rotação do fantasma
+export const AboutBeliefs: React.FC = () => {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end end'],
