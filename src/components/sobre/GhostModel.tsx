@@ -127,6 +127,10 @@ export function GhostModel({
   );
 }
 
-useGLTF.preload(
-  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb'
-);
+// Preload only in the browser to avoid Node/SSG environments where
+// Web Workers (used by meshopt decoding) are unavailable.
+if (typeof window !== 'undefined') {
+  useGLTF.preload(
+    'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb'
+  );
+}
