@@ -6,6 +6,7 @@ import './globals.css'; // Fonts and styles are loaded here
 import type { CSSProperties } from 'react';
 import { BRAND } from '@/config/brand';
 import AssetLoaderWrapper from '@/components/layout/AssetLoaderWrapper';
+import SmoothScroll from '@/components/layout/SmoothScroll';
 
 export const metadata: Metadata = siteMetadata;
 export const viewport: Viewport = siteViewport;
@@ -52,7 +53,9 @@ export default function RootLayout({
         >
           Pular para o conteúdo
         </a>
-        <AssetLoaderWrapper>{children}</AssetLoaderWrapper>
+        <SmoothScroll>
+          <AssetLoaderWrapper>{children}</AssetLoaderWrapper>
+        </SmoothScroll>
       </body>
     </html>
   );
