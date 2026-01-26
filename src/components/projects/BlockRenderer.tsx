@@ -55,8 +55,8 @@ export default function BlockRenderer({
 
     // Sanitiza HTML embutido removendo atributos style/class perigosos que geram style como string (React error #62)
     const sanitizedText = text
-      .replace(/\sstyle="[^"]*"/gi, '')
-      .replace(/\sclass(Name)?="[^"]*"/gi, '');
+      .replace(/\sstyle=(?:"[^"]*"|'[^']*')/gi, '')
+      .replace(/\sclass(Name)?=(?:"[^"]*"|'[^']*')/gi, '');
 
     const textClasses = [
       config?.fontSize || 'text-lg md:text-xl',
