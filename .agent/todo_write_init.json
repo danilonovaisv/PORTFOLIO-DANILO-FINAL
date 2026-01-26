@@ -1,27 +1,27 @@
 [
   {
-    "content": "#1 ✓ [Infra] Fix Firebase Deploy configuration (scripts, engines, npm)",
-    "status": "completed",
-    "activeForm": "Done"
-  },
-  {
-    "content": "#2 ✓ [Quality] Run Project Lint & Fix",
-    "status": "completed",
-    "activeForm": "Passed"
-  },
-  {
-    "content": "#3 ✓ [Build] Verify Production Build",
+    "content": "#1 ✓ Project Manager Setup (pnpm/project-level)",
     "status": "completed",
     "activeForm": "Success"
   },
   {
-    "content": "#4 ✓ [Debug] Analyze firebase-debug.log",
-    "status": "completed",
-    "activeForm": "Log analyzed (JSON parser error)"
+    "content": "#2 ○ [TDD] Create CustomCursor Component",
+    "status": "in_progress",
+    "activeForm": "Planning Phase"
   },
   {
-    "content": "#5 ○ [Fix] Remove .npmrc and generate package-lock.json",
-    "status": "in_progress",
-    "activeForm": "Sanitizing env"
+    "content": "  #2.1 ○ Scaffold Interfaces (types/props)",
+    "status": "pending",
+    "activeForm": "Waiting"
+  },
+  {
+    "content": "  #2.2 ○ Write Failing Tests (Red Phase)",
+    "status": "pending",
+    "activeForm": "Waiting"
+  },
+  {
+    "content": "  #2.3 ○ Implement Minimal Code (Green Phase)",
+    "status": "pending",
+    "activeForm": "Waiting"
   }
 ]
