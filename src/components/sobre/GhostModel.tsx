@@ -6,7 +6,7 @@ Source: https://sketchfab.com/3d-models/ghost-w-tophat-6b1217e3462440519a2d0e3e7
 Title: Ghost w/ Tophat
 */
 import * as THREE from 'three';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { useGLTF, Float } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { GLTF } from 'three-stdlib';
@@ -38,8 +38,19 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
   ) as unknown as GLTFResult;
 
   const { gl, viewport } = useThree();
+  const groupRef = useRef<THREE.Group>(null);
   const animRef = useRef<THREE.Group>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
+  const basePosition = useMemo(() => {
+    if (Array.isArray(props.position)) {
+      const [x = 0, y = 0, z = 0] = props.position;
+      return new THREE.Vector3(x, y, z);
+    }
+    if (props.position && 'x' in props.position) {
+      return props.position.clone();
+    }
+    return new THREE.Vector3(0, 0, 0);
+  }, [props.position]);
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -55,15 +66,28 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
     return () => canvas.removeEventListener('mousemove', handleMouseMove);
   }, [gl]);
 
+  useEffect(() => {
+    if (groupRef.current) {
+      groupRef.current.position.copy(basePosition);
+    }
+  }, [basePosition]);
+
   // --- Responsividade (Policy 4.3) ---
   const isMobile = viewport.width < 5;
   const baseScale = isMobile ? viewport.width * 0.18 : 0.6;
 
   useFrame((state) => {
-    if (!animRef.current || !scrollProgress) return;
+    if (!animRef.current || !scrollProgress || !groupRef.current) return;
 
     const progress = scrollProgress.get();
     const mouse = mouseRef.current;
+    const finalOffsetX = !isMobile && progress > 0.8 ? -viewport.width * 0.12 : 0;
+
+    groupRef.current.position.x = THREE.MathUtils.lerp(
+      groupRef.current.position.x,
+      basePosition.x + finalOffsetX,
+      0.05
+    );
 
     // --- Animação Base (Rotação Y pelo scroll) ---
     // Aplica rotação Y baseada no scroll NO GRUPO INTERNO
@@ -144,7 +168,7 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
       floatingRange={[-0.1, 0.1]}
     >
       {/* Grupo Pai: Recebe as props de posicionamento global, mas tem escala controlada responsivamente */}
-      <group {...props} scale={baseScale} dispose={null}>
+      <group ref={groupRef} {...props} scale={baseScale} dispose={null}>
         {/* Grupo Interno: Recebe as animações (rotação, mouse sway) relativas ao pai */}
         <group ref={animRef}>
           <mesh

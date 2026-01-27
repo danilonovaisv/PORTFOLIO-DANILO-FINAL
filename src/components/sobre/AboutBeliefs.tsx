@@ -13,6 +13,7 @@ const PHRASES = [
   'Uma\nmarca\nque se\nreconhece.',
   'Um\ndetalhe\nque\nfica.',
   'Crio\npara\ngerar\npresença.',
+  'Mesmo\nquando\nnão\nestou\nali.',
   'Mesmo\nquando\nninguém\npercebe\no esforço.',
 ];
 
@@ -22,6 +23,7 @@ const COLORS = [
   'bg-pinkDetails', // Rosa Choque
   'bg-bluePrimary', // Azul Real
   'bg-purpleDetails', // Roxo Vibrante
+  'bg-pinkDetails', // Rosa Choque
 ];
 
 const FINAL_COLOR = 'bg-bluePrimary'; // Azul Real
@@ -114,12 +116,12 @@ const BackgroundController = ({ progress, colors, finalColor }: { progress: Moti
 
   useTransform(progress, (p: number) => {
     // Simple logic to detect active section
-    // 5 sections + 1 final. Range 0 to 1.
+    // 6 sections + 1 final. Range 0 to 1.
     // Approx 0.0 - 0.16 -> Section 1
     // 0.16 - 0.32 -> Section 2
     // etc.
-    const total = colors.length; // 5
-    const step = 0.8 / total; // 0.16 per section, leaving 0.2 for final
+    const total = colors.length; // 6
+    const step = 0.8 / total; // ~0.133 per section, leaving 0.2 for final
 
     if (p >= 0.8) {
       if (currentClass !== finalColor) setCurrentClass(finalColor);
@@ -131,7 +133,9 @@ const BackgroundController = ({ progress, colors, finalColor }: { progress: Moti
   });
 
   return (
-    <div className={`fixed inset-0 z-0 w-full h-full transition-colors duration-700 ease-in-out ${currentClass}`} />
+    <div
+      className={`absolute inset-0 z-0 w-full h-full pointer-events-none transition-colors duration-700 ease-in-out ${currentClass}`}
+    />
   );
 };
 
