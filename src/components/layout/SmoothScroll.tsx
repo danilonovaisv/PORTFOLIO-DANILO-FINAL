@@ -53,7 +53,9 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
   }, [flags.reducedMotion, isAdminRoute]);
 
   return (
-    <ScrollContext.Provider value={{ lenis: isAdminRoute ? null : lenisInstance }}>
+    <ScrollContext.Provider
+      value={{ lenis: isAdminRoute ? null : lenisInstance }}
+    >
       {children}
     </ScrollContext.Provider>
   );

@@ -60,10 +60,11 @@ export default function AboutMethod() {
             loop
             muted
             playsInline
-            className={`w-full h-full ${isMobile
+            className={`w-full h-full ${
+              isMobile
                 ? 'object-cover object-center opacity-55'
                 : 'object-cover object-right opacity-55'
-              }`}
+            }`}
             aria-hidden="true"
           />
         </motion.div>
