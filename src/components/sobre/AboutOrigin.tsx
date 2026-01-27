@@ -374,7 +374,7 @@ function AboutOrigin() {
               >
                 <div className="content w-full lg:max-w-130 flex flex-col gap-8 lg:transform lg:-translate-y-[15%]">
                   <div className="mobile-text-container space-y-6">
-                    <h2 className="text-h1 font-bold leading-[1.1] text-primary normal-case">
+                    <h2 className="text-h1 font-bold leading-[1.1] text-bluePrimary normal-case">
                       {block.title}
                     </h2>
                     <p className="text-[16px] md:text-[18px] lg:text-[20px] font-normal leading-[1.7] text-[#fcffff] opacity-75">

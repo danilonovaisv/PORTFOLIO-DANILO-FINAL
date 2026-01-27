@@ -60,11 +60,10 @@ export default function AboutMethod() {
             loop
             muted
             playsInline
-            className={`w-full h-full ${
-              isMobile
+            className={`w-full h-full ${isMobile
                 ? 'object-cover object-center opacity-55'
                 : 'object-cover object-right opacity-55'
-            }`}
+              }`}
             aria-hidden="true"
           />
         </motion.div>
@@ -93,8 +92,9 @@ export default function AboutMethod() {
                 className="mb-8 lg:mb-12 text-center lg:text-left"
               >
                 <h2 className="font-display leading-[1.08] tracking-[-0.02em] text-[clamp(32px,5vw,64px)] font-bold">
-                  <div className="text-primary leading-tight">
-                    Criatividade com método.
+                  <div className="text-white leading-tight">
+                    <span className="text-bluePrimary">Criatividade</span> com{' '}
+                    <span className="text-bluePrimary">método</span>.
                   </div>
                   <div className="text-white leading-tight">
                     Impacto sem ruído.
@@ -108,7 +108,7 @@ export default function AboutMethod() {
                 initial={prefersReducedMotion ? 'visible' : 'hidden'}
                 whileInView="visible"
                 viewport={{ once: true, margin: '-20%' }}
-                className="text-white leading-[2.4] space-y-1 mb-12 lg:mb-16 text-center lg:text-left text-[16px] md:text-[18px] lg:text-[20px] font-medium opacity-90 max-w-full lg:max-w-[550px]"
+                className="text-white type-h3 mb-12 lg:mb-16 text-center lg:text-left max-w-full lg:max-w-[550px]"
               >
                 {ABOUT_CONTENT.method.intro.map((line, i) => (
                   <p key={i}>{line}</p>
@@ -135,8 +135,11 @@ export default function AboutMethod() {
                     variants={motionTokens.riseSoft}
                     className="
                         group flex items-center gap-4 lg:gap-6 
-                        py-5 lg:py-6 
-                        border-b border-primary/40
+                        bg-[rgba(26,26,46,0.85)] lg:bg-transparent
+                        p-5 lg:py-6 lg:px-0
+                        mb-4 lg:mb-0
+                        rounded-xl lg:rounded-none
+                        lg:border-b lg:border-primary/40
                         transition-all duration-300
                         hover:bg-primary/5
                       "

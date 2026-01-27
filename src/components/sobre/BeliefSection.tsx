@@ -52,7 +52,7 @@ const BeliefLine: React.FC<BeliefLineProps> = ({
 
 interface BeliefSectionProps {
   text: string;
-  bgColor: string;
+  bgColor: string; // Espera uma cor HEX
   isFirst?: boolean;
 }
 
@@ -90,11 +90,11 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
     <section
       ref={containerRef}
       aria-label={text.replace(/\n/g, ' ')}
-      className={`relative w-full h-screen flex justify-start overflow-hidden ${
-        isFirst
-          ? 'items-center pt-0'
-          : 'items-start pt-[20vh] md:pt-[20vh] lg:pt-[15vh]'
-      } ${bgColor}`}
+      style={{ backgroundColor: bgColor }}
+      className={`relative w-full h-screen flex justify-start overflow-hidden ${isFirst
+        ? 'items-center pt-0'
+        : 'items-start pt-[20vh] md:pt-[20vh] lg:pt-[15vh]'
+        }`}
     >
       <div className="std-grid max-w-none">
         <motion.div

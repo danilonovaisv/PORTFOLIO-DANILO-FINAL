@@ -160,6 +160,19 @@ html.lenis {
   overflow: hidden;
 }
 
+/* ========================================================================
+   Admin pages: keep native scrolling (no Lenis)
+   ======================================================================== */
+html.admin-page {
+  scroll-behavior: auto !important;
+}
+
+html.admin-page,
+html.admin-page body {
+  overflow-y: auto !important;
+  height: auto;
+}
+
 .img-wrapper {
   clip-path: inset(0% 0% 0% 0%);
   will-change: clip-path;

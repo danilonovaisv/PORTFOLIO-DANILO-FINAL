@@ -30,14 +30,14 @@ export function AboutClosing() {
             <span className="text-bluePrimary">Diretor de Criação</span>,
             <br />
             com mais de{' '}
-            <span className="text-bluePrimary">10 anos de estrada.</span>
+            <span className="text-bluePrimary">12 anos de estrada.</span>
           </h2>
           <div className="mt-10 h-px w-full bg-blueAccent/30" />
         </div>
 
         {/* Bloco 2: Frase 1 e Vídeo */}
         <div className="mt-16 md:mt-20 flex flex-col items-center">
-          <p className="type-h2 text-text opacity-90 max-w-200 leading-snug mx-auto text-center">
+          <p className="type-h2 text-white max-w-200 leading-snug mx-auto text-center">
             Já liderei marcas, agências, eventos e{' '}
             <span className="text-bluePrimary">criei experiências</span> para
             todos os canais.
@@ -72,7 +72,7 @@ export function AboutClosing() {
 
         {/* Bloco 3: Frase 2 e CTAs */}
         <div className="mt-16 md:mt-20 flex flex-col items-center">
-          <p className="type-h2 text-text opacity-90 leading-snug">
+          <p className="type-h2 text-white leading-snug">
             Agora, quero criar algo que permaneça —{' '}
             <span className="text-bluePrimary">com você.</span>
           </p>

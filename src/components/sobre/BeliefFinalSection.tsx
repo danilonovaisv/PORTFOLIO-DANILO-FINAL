@@ -28,14 +28,12 @@ export const BeliefFinalSection: React.FC<BeliefFinalSectionProps> = ({
     ['blur(10px)', 'blur(0px)']
   );
 
-  // Opcional: Se desejar que o texto saia após um certo ponto, adicione mais ranges
-  // const exitStart = 0.95;
-  // const exitEnd = 1.0;
-  // const opacity = useTransform(scrollProgress, [introStart, introEnd, exitStart, exitEnd], [0, 1, 1, 0]);
-  // const scale = useTransform(scrollProgress, [introStart, introEnd, exitStart, exitEnd], [0.9, 1, 1, 0.95]);
-
   return (
-    <section ref={ref} className={`w-full h-screen overflow-hidden ${bgColor}`}>
+    <section
+      ref={ref}
+      className="w-full h-screen overflow-hidden"
+      style={{ backgroundColor: bgColor }}
+    >
       <motion.div
         style={{
           opacity,

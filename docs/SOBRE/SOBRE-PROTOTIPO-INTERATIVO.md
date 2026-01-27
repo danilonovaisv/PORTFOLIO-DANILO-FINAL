@@ -330,7 +330,7 @@ const variants = {
 ```
 
 **Texto:**
-- Alinhado à direita dentro do bloco
+- Alinhado à direita encontado no grid da pagina
 - Posicionado 10% acima do centro vertical
 - Sem CTA
 
@@ -382,7 +382,7 @@ sente quando
 funciona.
 ```
 
-**Subtítulo (H2):**
+**Subtítulo (H3):**
 ```
 Crio design que observa, entende
 e guia experiências com intenção,
@@ -813,7 +813,9 @@ gsap.from(".service-card", {
 
 ---
 
-# **5. Como Eu Trabalho
+
+
+# **5. Como Eu Trabalho - About Method
 
 **Função:** Gerar confiança racional através do método. Mostrar que criatividade é suportada por processo.
 
@@ -821,7 +823,7 @@ gsap.from(".service-card", {
 
 **Layout:**
 - Altura: ~120vh
-- Vídeo: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/AboutMethod.mp4`
+- Vídeo: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/method/about.method.desktop_video.mp4`
   - `object-fit: cover`, 100% largura/altura
   - Loop contínuo, sem controles
 - Overlay: gradiente linear
@@ -863,7 +865,7 @@ gsap.from(".service-card", {
 </section>
 ```
 
-**Título:**
+**Título font-h1:**
 - Alinhado à esquerda
 - Duas linhas:
   - "**Criatividade** com **método**."
@@ -874,8 +876,11 @@ gsap.from(".service-card", {
 - Font-weight: 700
 - Margin-bottom: 32–40px
 
-**Texto Introdutório:**
+**Texto Introdutório font-h3 branca:**
 - Três frases em parágrafos separados
+"Antes da estética, existe intenção."
+"Antes do layout, existe lógica."
+"Antes do impacto, existe silêncio."
 - Font-size: 18–20px
 - Line-height: 1.6
 - Opacity: 0.9
@@ -885,23 +890,6 @@ gsap.from(".service-card", {
 **Lista de Processo:**
 - 6 itens em cards verticais
 
-```tsx
-<div className="space-y-5">
-  {processItems.map((item, index) => (
-    <div 
-      key={index}
-      className="bg-surface/70 backdrop-blur-md border-l-4 border-bluePrimary rounded-lg p-6"
-    >
-      <span className="text-lg font-bold text-bluePrimary mr-4">
-        {String(index + 1).padStart(2, '0')}
-      </span>
-      <span className="text-body text-white">
-        {item.text}
-      </span>
-    </div>
-  ))}
-</div>
-```
 
 **Especificações do Card:**
 - Fundo: `rgba(26, 26, 46, 0.7)` com `backdrop-filter: blur(12px)`
@@ -915,49 +903,15 @@ gsap.from(".service-card", {
 #### Mobile
 
 **Layout:**
-- Vídeo: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/sobre_page/aboutmetodo-mob.mp4`
+- Vídeo: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/method/about.method.desktop_video.mp4`
   - `object-position: right center`
   - Gradiente vertical no fim
   - Sem overlay pesado
 - 1 coluna, padding px-6
 - Conteúdo iniciando no meio do vídeo para baixo
+`
 
-**Composição Mobile:**
-
-```tsx
-<section className="relative w-full min-h-screen">
-  {/* Vídeo Background */}
-  <video 
-    className="absolute inset-0 w-full h-full object-cover object-right"
-    src="..."
-    autoPlay
-    loop
-    muted
-    playsInline
-  />
-  
-  {/* Gradient Overlay (bottom only) */}
-  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background to-transparent" />
-  
-  {/* Conteúdo */}
-  <div className="relative px-6 py-20 flex flex-col justify-end min-h-screen">
-    <div className="text-center space-y-8">
-      {/* Título */}
-      <h2 className="text-h2">...</h2>
-      
-      {/* Texto intro */}
-      <p className="text-body">...</p>
-      
-      {/* Lista */}
-      <div className="space-y-4">
-        {/* Cards */}
-      </div>
-    </div>
-  </div>
-</section>
-```
-
-**Título:**
+**Título font-h1:**
 - Centralizado
 - Font-size: 32–36px
 - Margin-bottom: 24–32px
@@ -1330,7 +1284,7 @@ Conectar narrativa com ação, sem agressividade.
 - Primeira linha com destaque em `primary`
 - Margin-bottom: 32–40px
 
-**Texto:**
+**Texto titulo font-display:**
 > Hoje sou **Diretor de Criação**,  
 > com mais de **10 anos de estrada**.
 
@@ -1338,7 +1292,7 @@ Conectar narrativa com ação, sem agressividade.
 - Font-size: 40–48px
 - Line-height: 1.25
 - Font-weight: 700
-- "Diretor de Criação" e "10 anos de estrada" em `primary`
+- "Diretor de Criação" e "12 anos de estrada" em `blueprimary`
 - Max-width: 800px
 
 #### Parágrafos de Contexto
@@ -1346,11 +1300,11 @@ Conectar narrativa com ação, sem agressividade.
 - Spacing entre blocos: 24–32px
 - Margin-bottom total: 48–56px
 
-**Bloco 1:**
+**Bloco 1 - font-h2:**
 > Já liderei marcas, agências, eventos  
 > e **criei experiências** para todos os canais.
 
-**Bloco 2:**
+**Bloco 2 - font-h2:**
 > Agora, quero criar algo que permaneça —  
 > **com você**.
 

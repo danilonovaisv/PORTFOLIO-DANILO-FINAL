@@ -1,6 +1,6 @@
 'use client';
 import React, { Suspense } from 'react';
-import { cubicBezier, useScroll, useTransform, useMotionValueEvent, MotionValue } from 'framer-motion';
+import { cubicBezier, useScroll, useTransform } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
 import { BeliefSection } from './BeliefSection';
@@ -17,16 +17,18 @@ const PHRASES = [
   'Mesmo\nquando\nninguém\npercebe\no esforço.',
 ];
 
+import { BRAND } from '@/config/brand';
+
 const COLORS = [
-  'bg-bluePrimary', // Azul Real
-  'bg-purpleDetails', // Roxo Vibrante
-  'bg-pinkDetails', // Rosa Choque
-  'bg-bluePrimary', // Azul Real
-  'bg-purpleDetails', // Roxo Vibrante
-  'bg-pinkDetails', // Rosa Choque
+  BRAND.colors.bluePrimary,
+  BRAND.colors.purpleDetails,
+  BRAND.colors.pinkDetails,
+  BRAND.colors.bluePrimary,
+  BRAND.colors.purpleDetails,
+  BRAND.colors.pinkDetails,
 ];
 
-const FINAL_COLOR = 'bg-bluePrimary'; // Azul Real
+const FINAL_COLOR = BRAND.colors.bluePrimary;
 
 export const AboutBeliefs: React.FC = () => {
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -48,17 +50,6 @@ export const AboutBeliefs: React.FC = () => {
 
   return (
     <section ref={containerRef} className="relative w-full">
-      {/* LAYER 0: Background Color (Sticky) - Changes based on scroll */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
-        <div className="sticky top-0 w-full h-screen">
-          <BackgroundController
-            progress={scrollYProgress}
-            colors={COLORS}
-            finalColor={FINAL_COLOR}
-          />
-        </div>
-      </div>
-
       {/* LAYER 2: Conteúdo Textual (Foreground - Behind Ghost) */}
       {/* Z-Index 20: Texto fica abaixo do Ghost agora, conforme solicitado */}
       <div className="relative pointer-events-none z-20">
@@ -68,13 +59,12 @@ export const AboutBeliefs: React.FC = () => {
           <BeliefSection
             key={index}
             text={phrase}
-            // Pass transparent explicitly, BG handled by BackgroundController
-            bgColor="bg-transparent"
+            bgColor={COLORS[index] || COLORS[0]}
             isFirst={index === 0}
           />
         ))}
         <BeliefFinalSection
-          bgColor="bg-transparent"
+          bgColor={FINAL_COLOR}
           scrollProgress={scrollYProgress}
         />
       </div>
@@ -109,39 +99,6 @@ export const AboutBeliefs: React.FC = () => {
         </div>
       </div>
     </section>
-  );
-};
-
-// Sub-component to handle background classes efficiently
-const BackgroundController = ({
-  progress,
-  colors,
-  finalColor,
-}: {
-  progress: MotionValue<number>;
-  colors: string[];
-  finalColor: string;
-}) => {
-  const [currentClass, setCurrentClass] = React.useState(colors[0]);
-
-  useMotionValueEvent(progress, 'change', (latest: number) => {
-    // 6 sections + 1 final. Range 0 to 1.
-    const total = colors.length;
-    const step = 0.8 / total; // ~0.133 per section, leaving 0.2 for final
-
-    if (latest >= 0.8) {
-      if (currentClass !== finalColor) setCurrentClass(finalColor);
-    } else {
-      const index = Math.floor(latest / step);
-      const targetColor = colors[Math.min(index, total - 1)] || colors[0];
-      if (currentClass !== targetColor) setCurrentClass(targetColor);
-    }
-  });
-
-  return (
-    <div
-      className={`w-full h-full transition-colors duration-700 ease-in-out ${currentClass}`}
-    />
   );
 };
 

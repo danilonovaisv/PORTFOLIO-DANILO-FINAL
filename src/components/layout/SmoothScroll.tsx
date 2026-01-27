@@ -1,6 +1,7 @@
 'use client';
 
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import Lenis from 'lenis';
 import { ScrollContext } from '@/contexts/ScrollContext';
 
@@ -12,12 +13,23 @@ interface SmoothScrollProps {
 
 export default function SmoothScroll({ children }: SmoothScrollProps) {
   const { flags } = useAntigravityStore();
+  const pathname = usePathname();
+
+  // Admin screens should keep the browser's native scroll to avoid
+  // smooth-scroll side effects (Playwright needs window.scrollY to change).
+  const isAdminRoute = useMemo(
+    () => pathname?.startsWith('/admin') ?? false,
+    [pathname]
+  );
 
   const [lenisInstance, setLenisInstance] = useState<Lenis | null>(null);
 
   useEffect(() => {
     // ♿ SE REDUCED MOTION → SEM LENIS
-    if (flags.reducedMotion) return;
+    if (flags.reducedMotion || isAdminRoute) {
+      setLenisInstance(null);
+      return;
+    }
 
     const lenis = new Lenis({
       lerp: 0.08,
@@ -38,10 +50,10 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       lenis.destroy();
       setLenisInstance(null);
     };
-  }, [flags.reducedMotion]);
+  }, [flags.reducedMotion, isAdminRoute]);
 
   return (
-    <ScrollContext.Provider value={{ lenis: lenisInstance }}>
+    <ScrollContext.Provider value={{ lenis: isAdminRoute ? null : lenisInstance }}>
       {children}
     </ScrollContext.Provider>
   );
