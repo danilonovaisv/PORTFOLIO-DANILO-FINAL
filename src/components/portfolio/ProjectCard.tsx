@@ -41,7 +41,8 @@ export const ProjectCard = ({
       ref={ref}
       onClick={() => onClick?.(project)}
       className={cn(
-        'group relative overflow-hidden border border-white/10 bg-white/5 cursor-pointer',
+        // Keep legacy ".parallax-card" class so E2E tests can locate cards (was used by the previous Parallax card)
+        'parallax-card group relative overflow-hidden border border-white/10 bg-white/5 cursor-pointer',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400',
         'min-h-[320px] md:min-h-[420px]',
          className

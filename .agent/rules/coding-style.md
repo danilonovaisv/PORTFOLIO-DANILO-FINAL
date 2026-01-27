@@ -1,30 +1,70 @@
-# Diretrizes de Estilo de Código
+# Coding Style
 
-## Geral
+## Immutability (CRITICAL)
 
-- **Idioma:** Preferencialmente Inglês para código (variáveis, funções) e Português para comentários explicativos complexos ou documentação (como este arquivo).
-- **Clean Code:** Nomes descritivos, funções pequenas e focadas.
+ALWAYS create new objects, NEVER mutate:
 
-## TypeScript
+```javascript
+// WRONG: Mutation
+function updateUser(user, name) {
+  user.name = name  // MUTATION!
+  return user
+}
 
-- **Strict Mode:** Obrigatório.
-- **Any:** PROIBIDO. Use `unknown` se necessário e faça narrowing, ou defina tipos genéricos.
-- **Interfaces:** Prefira `interface` sobre `type` para definições de objetos extensíveis.
+// CORRECT: Immutability
+function updateUser(user, name) {
+  return {
+    ...user,
+    name
+  }
+}
+```
 
-## React (v19+)
+## File Organization
 
-- **Componentes:** Sempre Function Components.
-- **Hooks:** Use hooks padrões. Evite `useMemo` e `useCallback` prematuramente (React 19 Compiler lida bem com isso, mas verifique se está ativo).
-- **Server Components:** Padrão (default). Use `use client` apenas no topo da árvore de componentes que precisam de interatividade.
-- **Props:** Sempre tipadas explicitamente.
+MANY SMALL FILES > FEW LARGE FILES:
+- High cohesion, low coupling
+- 200-400 lines typical, 800 max
+- Extract utilities from large components
+- Organize by feature/domain, not by type
 
-## Tailwind CSS (v4)
+## Error Handling
 
-- **Mobile-First:** `flex-col md:flex-row`.
-- **Classes:** Use utilitários do Tailwind. Evite `style={{}}` inline, exceto para valores dinâmicos de animação.
-- **Ordenação:** Tente seguir ordem lógica (Layout -> Box Model -> Typography -> Visual -> Misc), ou use o plugin de ordenação se configurado.
+ALWAYS handle errors comprehensively:
 
-## Comentários e Documentação
+```typescript
+try {
+  const result = await riskyOperation()
+  return result
+} catch (error) {
+  console.error('Operation failed:', error)
+  throw new Error('Detailed user-friendly message')
+}
+```
 
-- **JSDoc:** Obrigatório para todas as funções e componentes exportados.
-- **Foco:** Explique o "PORQUÊ", não o "O QUÊ".
+## Input Validation
+
+ALWAYS validate user input:
+
+```typescript
+import { z } from 'zod'
+
+const schema = z.object({
+  email: z.string().email(),
+  age: z.number().int().min(0).max(150)
+})
+
+const validated = schema.parse(input)
+```
+
+## Code Quality Checklist
+
+Before marking work complete:
+- [ ] Code is readable and well-named
+- [ ] Functions are small (<50 lines)
+- [ ] Files are focused (<800 lines)
+- [ ] No deep nesting (>4 levels)
+- [ ] Proper error handling
+- [ ] No console.log statements
+- [ ] No hardcoded values
+- [ ] No mutation (immutable patterns used)

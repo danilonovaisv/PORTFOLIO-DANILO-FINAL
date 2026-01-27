@@ -5,7 +5,6 @@ License: CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 Source: https://sketchfab.com/3d-models/ghost-w-tophat-6b1217e3462440519a2d0e3e75bf16d3
 Title: Ghost w/ Tophat
 */
-
 import * as THREE from 'three';
 import React, { useEffect, useRef, useState } from 'react';
 import { useGLTF, Float } from '@react-three/drei';
@@ -28,6 +27,7 @@ type GLTFResult = GLTF & {
   };
 };
 
+// Definição da interface com scrollProgress
 interface GhostModelProps extends React.ComponentProps<'group'> {
   scrollProgress?: MotionValue<number>;
 }
@@ -38,82 +38,100 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
   ) as unknown as GLTFResult;
 
   const groupRef = useRef<THREE.Group>(null);
-  const { gl } = useThree();
+  const { gl } = useThree(); // Obtém a referência ao canvas WebGL
 
+  // Estados para armazenar a posição do mouse normalizada (-1 a 1)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
+  // Efeitos para adicionar e remover listeners de mouse
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
-      if (!gl?.domElement) return;
-      const rect = gl.domElement.getBoundingClientRect();
-      const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-      const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
-      setMousePosition({ x, y });
+      if (gl.domElement) { // Verifica se o domElement existe
+        // Normaliza a posição do mouse de -1 a 1
+        const rect = gl.domElement.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+        const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+        setMousePosition({ x, y });
+      }
     };
 
-    const canvas = gl?.domElement;
-    if (!canvas) return;
-
+    // Adiciona listeners ao canvas WebGL
+    const canvas = gl.domElement;
     canvas.addEventListener('mousemove', handleMouseMove);
 
     return () => {
+      // Remove listeners ao desmontar
       canvas.removeEventListener('mousemove', handleMouseMove);
     };
-  }, [gl]);
+  }, [gl]); // Dependência em gl para garantir que o listener seja reconfigurado se gl mudar
 
   useFrame((state) => {
     if (!groupRef.current || !scrollProgress) return;
 
     const progress = scrollProgress.get();
 
-    // Rotação base guiada pelo scroll
+    // --- Animação Base ---
+    // Flutuação contínua
+    // (As props do Float já lidam com isso, mas você pode manipular diretamente se quiser mais controle)
+    // Rotação baseada no scroll (já existente)
     groupRef.current.rotation.y = -progress * Math.PI * 2;
 
-    // Resposta leve ao mouse (posicionamento e rotação)
-    const mouseInfluence = 0.1;
+    // --- Resposta ao Mouse ---
+    // Influencia levemente a posição e rotação com base na posição do mouse
+    // A intensidade pode ser ajustada com um fator
+    const mouseInfluence = 0.1; // Ajuste este valor para aumentar ou diminuir a resposta ao mouse
     groupRef.current.position.x = THREE.MathUtils.lerp(
       groupRef.current.position.x,
       mousePosition.x * mouseInfluence,
-      0.05
+      0.05 // Velocidade de suavização
     );
     groupRef.current.position.y = THREE.MathUtils.lerp(
       groupRef.current.position.y,
       mousePosition.y * mouseInfluence,
-      0.05
+      0.05 // Velocidade de suavização
     );
 
+    // Rotação leve baseada no mouse
     groupRef.current.rotation.x = THREE.MathUtils.lerp(
       groupRef.current.rotation.x,
-      -mousePosition.y * mouseInfluence * 0.5,
+      -mousePosition.y * mouseInfluence * 0.5, // Menor influência para rotação X
       0.05
     );
     groupRef.current.rotation.z = THREE.MathUtils.lerp(
       groupRef.current.rotation.z,
-      mousePosition.x * mouseInfluence * 0.5,
+      mousePosition.x * mouseInfluence * 0.5, // Menor influência para rotação Z
       0.05
     );
 
-    // Ênfase final na última seção
+    // --- Animação Final ---
+    // Lógica para "movimentar mais" na última seção (progress > 0.8)
+    // "ISSO É GHOST DESIGN"
     if (progress > 0.8) {
-      const intensity = Math.min(1, (progress - 0.8) * 5);
+      // Intensifica a flutuação ou aproxima o modelo
+      const intensity = Math.min(1, (progress - 0.8) * 5); // 0 a 1 no final, limitado a 1
 
+      // Exemplo: Aproximação (Z) e leve wobble extra
       groupRef.current.position.z = THREE.MathUtils.lerp(
         groupRef.current.position.z,
-        1,
+        1, // Valor de destino para Z (levemente mais perto)
         0.05
       );
 
-      const timeBasedWobble = Math.sin(state.clock.elapsedTime * 6) * 0.1;
-      const scrollBasedWobble = (progress - 0.8) * 0.2;
+      // Oscilação adicional baseada no tempo e na intensidade
+      const timeBasedWobble = Math.sin(state.clock.elapsedTime * 6) * 0.1 * intensity;
+      const scrollBasedWobble = (progress - 0.8) * 0.2; // Oscilação baseada no progresso
       groupRef.current.rotation.z = THREE.MathUtils.lerp(
         groupRef.current.rotation.z,
-        timeBasedWobble * intensity + scrollBasedWobble,
-        0.1
+        timeBasedWobble + scrollBasedWobble,
+        0.1 // Velocidade de suavização para a oscilação final
       );
 
-      const scaleIncrease = 1 + 0.1 * intensity;
+      // Opcional: Aumentar escala levemente
+      const scaleIncrease = 1 + 0.1 * intensity; // Cresce até 10%
       groupRef.current.scale.setScalar(scaleIncrease);
+
     } else {
+      // Reset suave para valores base
       groupRef.current.position.z = THREE.MathUtils.lerp(
         groupRef.current.position.z,
         0,
@@ -124,7 +142,8 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
         0,
         0.05
       );
-      groupRef.current.scale.setScalar(0.6);
+      // Reset da escala
+      groupRef.current.scale.setScalar(0.6); // Volta para a escala base definida em props
     }
   });
 

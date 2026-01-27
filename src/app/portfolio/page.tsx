@@ -84,6 +84,7 @@ export default async function PortfolioPage() {
   let projects: PortfolioProject[] = [];
 
   try {
+    const fallbackProjects = buildFallbackProjects();
     const hasSupabaseEnv =
       Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) &&
       Boolean(
@@ -95,13 +96,18 @@ export default async function PortfolioPage() {
       const supabase = createStaticClient();
       
       const dbProjects = await listProjects({}, supabase);
-      
       projects = dbProjects.map((project, index) =>
         mapDbProjectToPortfolioProject(project, index)
       );
+
+      // If the database is empty (common in local dev/CI), fall back to curated static projects
+      if (projects.length === 0) {
+        console.warn('[Portfolio] No projects returned from Supabase, using fallback projects.');
+        projects = fallbackProjects;
+      }
     } else {
       console.warn('[Portfolio] Supabase env vars missing, using fallback projects.');
-      projects = buildFallbackProjects();
+      projects = fallbackProjects;
     }
   } catch (error) {
     console.error('[Portfolio] Error occurred:', error instanceof Error ? error.message : error);
