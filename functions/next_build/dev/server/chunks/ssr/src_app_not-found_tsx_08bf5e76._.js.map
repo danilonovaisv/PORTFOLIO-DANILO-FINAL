@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///Users/danilonovais/_danilonov_portfolio/src/app/not-found.tsx"],"sourcesContent":["'use client';\n\nimport { useEffect, useRef } from 'react';\n\nexport default function NotFound() {\n  const iframeRef = useRef<HTMLIFrameElement>(null);\n\n  useEffect(() => {\n    if (iframeRef.current) {\n      iframeRef.current.src = '/404.html';\n    }\n  }, []);\n\n  return (\n    <div style={{ width: '100%', height: '100vh', overflow: 'hidden' }}>\n      <iframe\n        ref={iframeRef}\n        style={{\n          width: '100%',\n          height: '100%',\n          border: 'none',\n        }}\n        title=\"404 Not Found\"\n      />\n    </div>\n  );\n}\n"],"names":[],"mappings":";;;;;AAEA;AAFA;;;AAIe,SAAS;IACtB,MAAM,YAAY,IAAA,8ZAAM,EAAoB;IAE5C,IAAA,iaAAS,EAAC;QACR,IAAI,UAAU,OAAO,EAAE;YACrB,UAAU,OAAO,CAAC,GAAG,GAAG;QAC1B;IACF,GAAG,EAAE;IAEL,qBACE,6bAAC;QAAI,OAAO;YAAE,OAAO;YAAQ,QAAQ;YAAS,UAAU;QAAS;kBAC/D,cAAA,6bAAC;YACC,KAAK;YACL,OAAO;gBACL,OAAO;gBACP,QAAQ;gBACR,QAAQ;YACV;YACA,OAAM;;;;;;;;;;;AAId"}}]
+}

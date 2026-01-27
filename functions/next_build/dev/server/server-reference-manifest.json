@@ -1,0 +1,21 @@
+{
+  "node": {
+    "403a3b86d80bd55a31d2203cb30c985889cc03ad07": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/lib/supabase/queries/projects.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "src/lib/supabase/queries/projects.ts"
+        }
+      },
+      "layer": {
+        "app/page": "rsc"
+      },
+      "filename": "src/lib/supabase/queries/projects.ts",
+      "exportedName": "$$RSC_SERVER_ACTION_0"
+    }
+  },
+  "edge": {},
+  "encryptionKey": "dfnOB5O5QKIXIA0SU3qUcomuHPgK7ok4MtoqGyrefZ4="
+}
