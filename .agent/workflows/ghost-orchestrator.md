@@ -1,8 +1,8 @@
 ---
-description: Trigger the Ghost Design System Orchestrator to execute the specialized agent battalion.
+description: Trigger the Ghost Design System Orchestrator
 ---
 
-1. Execute the orchestrator script to start the multi-agent workflow:
+1. Execute the orchestrator script:
    ```bash
-   python3 /Users/danilonovais/_danilonov_portfolio/.agent/orchestrator.py
+   python3 ~/.gemini/antigravity/agents/orchestrator.py
    ```

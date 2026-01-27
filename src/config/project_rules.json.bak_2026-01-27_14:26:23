@@ -1,0 +1,41 @@
+{
+  "project": "danilonov-portfolio",
+  "version": "3.1.0",
+  "identity": {
+    "name": "Ghost System v3",
+    "vision": "Creative Coding, Editorial Minimalism, High-Performance 3D",
+    "theme": "Ghost Era (Dark Mode)"
+  },
+  "design_tokens": {
+    "colors": {
+      "primary": "#0048ff",
+      "accent": "#4fe6ff",
+      "void": "#040013",
+      "text_hi": "#fcffff",
+      "text_lo": "#a1a3a3",
+      "surface": "#0b0d3a"
+    },
+    "layout": {
+      "grid_class": ".std-grid",
+      "columns_desktop": 12,
+      "columns_mobile": 4
+    }
+  },
+  "tech_stack": {
+    "framework": "Next.js 15",
+    "react": "18.3+",
+    "styling": "Tailwind CSS",
+    "three_js": "React Three Fiber (R3F)",
+    "motion": "Framer Motion",
+    "scroll": "Lenis"
+  },
+  "performance": {
+    "fps_target": 60,
+    "bundle_limit_kb": 500
+  },
+  "rules": {
+    "strict_typescript": true,
+    "zero_placeholders": true,
+    "mobile_first": true
+  }
+}
