@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Lenis from '@studio-freight/lenis';
+import Lenis from 'lenis';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -129,7 +129,7 @@ const OrigemCriativa: React.FC = () => {
         const currentWrapper = wrappers[index];
         const currentImg = images[index];
         const nextImage = images[index + 1];
-        
+
         const sectionTimeline = gsap.timeline();
 
         if (index < CONTENT_BLOCKS.length - 1) {
@@ -145,10 +145,10 @@ const OrigemCriativa: React.FC = () => {
               ease: "none"
             }, 0)
             .to(currentImg, {
-               objectPosition: "0px 60%",
-               yPercent: 15,
-               duration: 1.5,
-               ease: "none"
+              objectPosition: "0px 60%",
+              yPercent: 15,
+              duration: 1.5,
+              ease: "none"
             }, 0)
             .to(nextImage, {
               objectPosition: "0px 0%",
@@ -168,14 +168,14 @@ const OrigemCriativa: React.FC = () => {
         const h2 = block.querySelector('h2');
         const p = block.querySelector('p');
 
-        gsap.fromTo([h2, p], 
-          { 
+        gsap.fromTo([h2, p],
+          {
             y: 120, // Aumentado para garantir o efeito vindo "do rodapé"
             opacity: 0,
             filter: "blur(6px)"
           },
           {
-            y: 0, 
+            y: 0,
             opacity: 1,
             filter: "blur(0px)",
             duration: 1.4,
@@ -204,24 +204,24 @@ const OrigemCriativa: React.FC = () => {
             scrub: true
           }
         })
-        .to(img, {
-          objectPosition: "0px 30%",
-          ease: "none"
-        })
-        .to("body", {
-          backgroundColor: bgColors[index],
-          duration: 1,
-          ease: "power2.inOut"
-        }, 0);
+          .to(img, {
+            objectPosition: "0px 30%",
+            ease: "none"
+          })
+          .to("body", {
+            backgroundColor: bgColors[index],
+            duration: 1,
+            ease: "power2.inOut"
+          }, 0);
       });
 
       const mobileTexts = gsap.utils.toArray<HTMLElement>('.reveal-text');
       mobileTexts.forEach((text) => {
-        gsap.fromTo(text, 
+        gsap.fromTo(text,
           { y: 60, opacity: 0, filter: "blur(4px)" },
           {
-            y: 0, 
-            opacity: 1, 
+            y: 0,
+            opacity: 1,
             filter: "blur(0px)",
             duration: 1.2,
             ease: "power3.out",
@@ -248,7 +248,7 @@ const OrigemCriativa: React.FC = () => {
     <section className="relative w-full overflow-hidden transition-colors duration-1000" ref={containerRef}>
       {/* Progress Line */}
       <div className="fixed right-4 md:right-12 top-1/2 -translate-y-1/2 h-48 md:h-80 w-[2px] bg-white/10 z-100 rounded-full overflow-hidden hidden lg:block">
-        <div 
+        <div
           ref={progressLineRef}
           className="w-full h-full bg-[#3b82f6] origin-top scale-y-0"
         />
@@ -257,7 +257,7 @@ const OrigemCriativa: React.FC = () => {
       </div>
 
       <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-24">
-        
+
         {/* Section Title "Origem" - CustomLight, 28px, Cyan */}
         <div className="mb-24 text-center select-none">
           <h1 className="text-[1.75rem] font-['CustomLight'] font-light leading-none text-[#4fe6ff] uppercase tracking-[0.2em]">
@@ -266,12 +266,12 @@ const OrigemCriativa: React.FC = () => {
         </div>
 
         <div className="arch relative grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 md:gap-12 max-w-[1440px] mx-auto" ref={archRef}>
-          
+
           {/* Text Column: Centered on mobile, Right on Desktop */}
           <div className="col-span-4 md:col-span-8 lg:col-span-6 flex flex-col">
             {CONTENT_BLOCKS.map((block) => (
-              <div 
-                key={block.id} 
+              <div
+                key={block.id}
                 className="arch__info min-h-screen lg:h-[120vh] flex flex-col justify-center mb-24 lg:mb-0 items-center text-center lg:items-end lg:text-right"
               >
                 <div className="content w-full lg:max-w-[520px] flex flex-col gap-8 lg:transform lg:-translate-y-[15%]">
@@ -288,8 +288,8 @@ const OrigemCriativa: React.FC = () => {
 
                   {/* Mobile Image (1:1 Aspect Ratio) */}
                   <div className="lg:hidden mt-8 w-full aspect-square rounded-[24px] overflow-hidden bg-[#060018] shadow-2xl">
-                    <img 
-                      src={block.img} 
+                    <img
+                      src={block.img}
                       alt={block.alt}
                       className="mobile-img w-full h-full object-cover"
                     />
@@ -303,12 +303,12 @@ const OrigemCriativa: React.FC = () => {
           <div className="arch__right hidden lg:flex col-span-6 sticky top-0 h-screen items-center justify-center" ref={archRightRef}>
             <div className="relative w-full aspect-square max-w-[560px]">
               {CONTENT_BLOCKS.map((block) => (
-                <div 
+                <div
                   key={`desktop-img-${block.id}`}
                   className="img-wrapper absolute inset-0 rounded-[24px] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,1)] bg-[#040013]"
                 >
-                  <img 
-                    src={block.img} 
+                  <img
+                    src={block.img}
                     alt={block.alt}
                     className="w-full h-full object-cover will-change-transform"
                   />

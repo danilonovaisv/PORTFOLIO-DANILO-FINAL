@@ -1,113 +1,241 @@
 
 # Plano Integrado – Implementação e Ajustes do Sistema Ghost v2.2
+# **6. O Que Me Move - About Biliefed
 
-## 1. Contexto Geral
 
-Como **Staff Frontend Architect** e **Creative Developer Senior**, você tem autoridade completa sobre um repositório Next.js que já possui um **Design System**, seções de **Hero Video**, **Clientes** e **Contato**. O objetivo é integrar o sistema **Ghost v2.2** (virtual scroll/LERP) de forma performática, mantendo fidelidade visual aos protótipos e preparando a base para um ecossistema **“Agent‑Ready”**. Esta integração inclui uma nova seção "About Beliefs" com animações sincronizadas ao scroll, interação responsiva do modelo 3D e transição de cores conforme o texto.
-
----
-
-## 2. Fase 1: Auditoria e Reconhecimento
-
-1. **Mapeamento da Estrutura**
-   - Execute `ls -R` no repositório (ignorando `node_modules` e `.git`) para entender a estrutura de pastas e localizar onde ficam os componentes, páginas e assets.
-   - Registre caminhos relevantes, como `src/components/`, `src/app/` ou `src/features/`, para uso nas alterações.
-
-2. **Verificação de Stack**
-   - Abra `package.json` para identificar dependências de React, Next.js, Framer Motion, @react-three/fiber, @react-three/drei e verificar versões.
-   - Consulte `tsconfig.json` para garantir que as configurações de TypeScript (paths, jsx, moduleResolution) estão alinhadas.
-   - Revise `tailwind.config.ts` para conhecer temas de cores (área `extend.colors`) e utilitários personalizados.
-
-3. **Content Gap Analysis**
-   - Verifique se há **assets críticos**: logos de clientes, vídeos do hero, modelo `ghost-transformed.glb`. Caso faltem, crie placeholders temporários e documente onde substituí-los.
-   - Confirme se a URL do modelo 3D (…/ghost-transformed.glb) está acessível ou se deve ser armazenada localmente.
+## 1. Objetivo da Página/Sessão
+- [ ] **Qual a principal função desta página/sessão?**  
+      Gerar vínculo emocional através de um manifesto pessoal, mostrando a visão de design do Danilo de forma íntima, sensível e memorável, conectando o visitante com o “porquê” por trás do trabalho.
+- [ ] **Qual ação o usuário deve realizar aqui?**  
+      Sentir identificação com o manifesto, reforçar confiança no estilo/abordagem do estúdio e seguir naturalmente o fluxo da página até as seções de prova social (clientes) e contato, mais propenso a entrar em contato ou continuar explorando.
+- [ ] **Como essa seção contribui para os objetivos do site?**  
+      Consolida a identidade do “Ghost Design” como conceito autoral, diferencia o estúdio pelo posicionamento emocional e prepara o usuário para enxergar o resto do site (cases, serviços, contato) sob essa lente de conexão, não apenas estética.
 
 ---
 
-## 3. Fase 2: Parsing e Indexação
+## 2. Estrutura de Conteúdo
+- [ ] **Título principal (headline)**  
+      - Texto:  
+        > “Acredito no **design que muda o dia** de alguém.  
+        > Não pelo choque, **mas pela conexão.**”  
+      - Sempre visível (sticky), funciona como “âncora” conceitual da sessão.
 
-A partir do **Descrito da Sessão**, identifique todos os elementos (textos, cores, animações, interações) e transforme-os em tarefas sequenciais. Cada item abaixo inclui um **ID**, o **Contexto** do arquivo alvo, a **Ação** a ser executada e o **Critério de Validação**.
+- [ ] **Subtítulo ou descrição**  
+      - Não há subtítulo textual explícito; o “subtexto” é construído pela sequência de frases rotativas e pelo manifesto final “ISSO É GHOST DESIGN.”  
 
-### 3.1 Tarefas Identificadas
+- [ ] **Elementos visuais (imagens, ícones, vídeos)**  
+      - Fantasma 3D (Ghost) central, renderizado com React Three Fiber + Drei.  
+      - Ghost fica **centrado acima do texto** nas fases de manifesto, flutuando de forma contínua.  
+      - O fantasma nunca para completamente:  
+        - Flutuação leve e constante.  
+        - Ganha velocidade e inclinação suave conforme o cursor se move e conforme o usuário rola a página.  
+        - Responde de forma fluida e etérea, como se “sentisse” o toque/scroll.  
+        - Entra junto com a **primeira frase** da área de manifesto e permanece centralizado na sessão.  
+        - Quando a **última frase** entra, ele cresce ~10% de escala e fica visivelmente mais animado (mais wobble/tilt e resposta mais intensa ao scroll).  
+      - No final, o manifesto “ISSO É / GHOST DESIGN.” sela o conceito ao lado/abaixo do Ghost, mantendo o layout original de grid/coluna como referência visual.
 
-| ID | Contexto (arquivo) | Ação | Critério de validação |
-|---|---|---|---|
-| **1** | `src/components/AboutBeliefs.tsx` | Criar/atualizar o componente **AboutBeliefs** para montar a seção: <br>- Definir arrays `PHRASES`, `COLORS` e `FINAL_COLOR` conforme o descrito (cores do design system). <br>- Configurar `useScroll` com `target: containerRef` e `offset: ['start end', 'end end']` para que `scrollYProgress` atinja 1 quando a seção termina. <br>- Declarar `headerOpacity` usando `useTransform` com ranges `[0.05, 0.12, 0.85, 0.95]` e easing `cubicBezier(0.22, 1, 0.36, 1)`. <br>- Renderizar `BeliefFixedHeader` passando `opacity` e `progress={scrollYProgress}`. <br>- Iterar `PHRASES` com `BeliefSection`, mantendo a cor de fundo correspondente em `bgColor` e marcando a primeira com `isFirst`. <br>- Renderizar `BeliefFinalSection` passando `bgColor={FINAL_COLOR}` e `scrollProgress={scrollYProgress}`. <br>- Adicionar camada de **Canvas** 3D com `<Environment preset="city" />`, luzes, e `<GhostModel scrollProgress={scrollYProgress} scale={0.6} position={[0, -1, 0]} />`. Garantir que `pointer-events` do canvas esteja em `auto` para permitir interação do mouse. | O componente deve compilar sem erros TypeScript/TSX; ao navegar para a seção, as frases aparecem sequencialmente com as cores corretas; a última seção fica azul primária e exibe o texto final ao atingir ~80% do scroll; o modelo 3D responde ao scroll e ao movimento do mouse. |
-| **2** | `src/components/BeliefFinalSection.tsx` | Ajustar **BeliefFinalSection** para controlar animações via `scrollProgress`: <br>- Receber `scrollProgress: MotionValue<number>` como prop. <br>- Definir intervalos `introStart = 0.8` e `introEnd = 0.88` para sincronizar o aparecimento de "ISSO É GHOST DESIGN" com a última frase. <br>- Usar `useTransform` para gerar `opacity`, `scale` e `blur` baseados em `scrollProgress` entre esses pontos. <br>- Substituir qualquer uso de `whileInView` ou `viewport` pelos transforms calculados. <br>- Remover transições declaradas no JSX; a animação deve ocorrer via scroll. | Durante a rolagem, a seção final deve surgir gradualmente com fade-in, aumento de escala e redução de desfoque. O texto final deve estar centralizado e responsivo (tamanhos em `vw`/`rem`), e a animação deve iniciar quando a última frase está desaparecendo. |
-| **3** | `src/components/GhostModel.tsx` | Atualizar o **GhostModel** para responder ao scroll e ao mouse: <br>- Manter import da malha com `useGLTF(...)` e tipagens. <br>- Adicionar estado `mousePosition` (x,y normalizados) e `useEffect` que adiciona listeners de `mousemove` ao `gl.domElement`, calculando a posição do mouse em coordenadas Normalized Device Coordinates (NDC) (-1 a 1). <br>- No `useFrame`, acessar `scrollProgress.get()` e atualizar a rotação y do grupo (`groupRef.current.rotation.y = -progress * Math.PI * 2`). <br>- Interpolar (com `THREE.MathUtils.lerp`) a `position` e `rotation` do grupo com base em `mousePosition`, usando um `mouseInfluence` (ex.: 0.1) para suavizar o movimento. <br>- Para `progress > 0.8`, intensificar a animação: aproximar no eixo Z, adicionar wobble extra com `Math.sin(clock.elapsedTime * 6)`, aumentar levemente a escala (0 – +10%). <br>- No else, suavizar o retorno dos valores base (z = 0, rotação z = 0 e escala = 0.6). <br>- Assegurar que o modelo seja **preload** somente no navegador (guardado por `if (typeof window !== 'undefined')`). | O modelo 3D deve rotacionar de forma suave ao scroll, flutuar e reagir ao movimento do mouse sem jitter. Ao aproximar do final da seção, o fantasma deve se mover mais intensamente, aumentando escala e oscilando; ao retornar, ele deve regressar ao estado inicial. Nenhum erro de event listener deve ser registrado no console. |
-| **4** | `src/components/BeliefFixedHeader.tsx` | Verificar se o componente **BeliefFixedHeader** ainda recebe a prop `progress` por questões de compatibilidade. Ele deve aceitar `opacity: MotionValue<number>` e `progress: MotionValue<number>`, mas o uso interno deve priorizar `opacity` para controlar a opacidade do header fixo. | O header fixo deve ficar invisível no início, surgir brevemente e desaparecer novamente ao final, conforme o `headerOpacity` definido em **AboutBeliefs**. |
-| **5** | `src/components/BeliefSection.tsx` | Confirmar que `BeliefSection` recebe `text`, `bgColor` e `isFirst`. Ele deve renderizar cada frase com a cor correspondente, usando classes do Tailwind. O espaço de tela deve garantir que cada frase ocupe a viewport inteira (‘section h-screen’) com a cor definida. | Cada frase da sequência deve ocupar uma tela inteira, com transição de cor e texto conforme o scroll. |
-| **6** | **Assets e Placeholders** | Certificar-se de que o modelo GLB está acessível via URL fornecida ou hospedado localmente. Verificar também a presença de qualquer logotipo, vídeo ou imagem usada em outras seções. Substituir ausências por placeholders temporários (ex.: caixas coloridas com texto "Logo Cliente" ou "Video Hero"). | O build não deve quebrar por falta de assets; os placeholders devem ser identificáveis para substituição posterior. |
-| **7** | **Testes de Layout e Performance** | Após cada alteração, rodar a aplicação (`npm run dev` ou `pnpm dev`) e navegar até a seção. Verificar: <br>- Uso de GPU vs CPU (componentes React Three Fiber devem ser leves). <br>- Fluidez das animações no scroll e no movimento do mouse. <br>- Consistência com o design system (cores, tipografia, espaçamento). <br>- Responsividade (desktop vs mobile). | O site deve manter 60 FPS em dispositivos modernos, sem travamentos; a renderização deve ser fiel às referências visuais anexadas. |
+- [ ] **Chamada para ação (CTA)**  
+      - CTA implícito (emocional): reforçar a percepção de valor do estúdio.  
+      - Não há botão direto aqui; o CTA funcional acontece em seções posteriores (Clientes/Contato), mas essa sessão prepara o usuário emocionalmente para clicar lá.
 
-### 3.2 Observações Finais
+- [ ] **Texto de apoio (parágrafos, bullets, etc.)**  
+      - **Frases rotativas (manifesto em camadas):**
+        1. “Um vídeo que **respira**.”
+        2. “Uma marca que se **reconhece**.”
+        3. “Um detalhe que **fica**.”
+        4. “**Crio** para gerar presença.”
+        5. “**Mesmo** quando não estou ali.”
+        6. “**Mesmo** quando ninguém percebe o esforço.”
+      - Palavras-chave destacadas em `bluePrimary` e negrito, reforçando os conceitos centrais: respira, reconhece, fica, crio, mesmo…
+      - Manifesto final:  
+        > ISSO É  
+        > GHOST DESIGN.
 
-- **Sincronização precisa**: O final da seção deve ocorrer quando `scrollYProgress ≈ 1`. Ajuste `introStart` e `introEnd` se necessário para alinhar a entrada do texto final com a mudança da cor de fundo.
-- **Acessibilidade**: Verifique contraste de cores e tamanho de fonte, adicionando atributos `aria` quando possível (por exemplo, `aria-label` em elementos de texto impactante). 
-- **Organização do Repositório**: Caso não exista pasta `components/about/`, crie-a para agrupar `BeliefSection`, `BeliefFinalSection`, `GhostModel` e `AboutBeliefs`. Atualize os imports de acordo.
-- **Esmagamento de z-index**: O Canvas é posicionado com `absolute` e `z-20`, enquanto o texto fica em `z-10` para permitir que o modelo fique acima do background mas abaixo do overlay, garantindo interatividade.
+- [ ] **Layout desejado (colunas, cards, seções com fundo alternado, etc.)**  
+      - **Desktop:**
+        - Altura total da sessão: ~140vh.  
+        - Fundo base: `#040013` (mapeado como `bg-background`).  
+        - Container de conteúdo em 12 colunas (`max-width ~1440–1680px`, centrado, com `px-6 md:px-12 lg:px-16 xl:px-24`).  
+        - Estrutura em 3 momentos:
+          1. **Título Fixo** com layout de colunas 2–10, centralizado, `mt ~10–12vh` e `mb ~8–10vh`, `position: sticky` no topo (`top-24`).  
+          2. **Área de Frases Rotativas** centralizada em blocos, com Ghost 3D centrado acima do texto, ambos dentro de uma área de altura mínima (`min-h-[40vh]`) para criar respiro visual.  
+          3. **Reveal Final — Ghost + Manifesto**  
+             - Grid `grid-cols-12` com gap generoso (ex: `gap-12`).  
+             - Ghost em destaque (pode permanecer centralizado, acima dos textos, podendo ocultar um pouco de alguma palavra
+            ).  
+             - Manifesto “ISSO É GHOST DESIGN.” centralizada, ocupando colunas equivalentes a metade do grid, com tipografia grande e impactante.
 
----
-
-## 4. Atualização do Descritivo da Sessão – Fantasma 3D e Transições
-
-Esta seção complementa o plano acima com conclusões derivadas de referências externas, melhorando a interatividade e a responsividade do fantasma 3D e das transições de cor.
-
-### 4.1 Referências Analisadas
-
-- **Tutorial de Efeito de Vidro 3D (Olivier Larose)**: Mostra como criar uma cena 3D responsiva com React Three Fiber e utilizar a largura da viewport para ajustar a escala do grupo 3D:contentReference[oaicite:0]{index=0}. O uso de `Canvas` com `Environment` e luzes também enriquece a cena:contentReference[oaicite:1]{index=1}.
-- **Framer Motion useInView**: Demonstra o hook `useInView`, que retorna `true` quando um elemento entra na viewport, permitindo disparar transições de CSS ou animações na entrada dos elementos:contentReference[oaicite:2]{index=2}.
-
-### 4.2 Ajustes Implícitos
-
-1. **Flutuação constante**: O fantasma 3D deve flutuar suavemente o tempo todo, transmitindo leveza, mesmo sem interação do usuário.
-
-2. **Resposta a cursor e scroll**: O fantasma deve reagir à posição do cursor e ao progresso do scroll. Ao mover o mouse sobre a seção, ele inclina e acelera suavemente; ao rolar a página, sua rotação segue o progresso do scroll.
-
-3. **Aparição sincronizada**: O modelo aparece junto com a primeira frase, centralizado acima do texto, e continua centrado durante as mudanças. Quando a última frase entra em foco, o fantasma cresce cerca de 10% e intensifica suas oscilações.
-
-4. **Comportamento responsivo**: Utilize `viewport.width` para ajustar o `scale` do fantasma, tornando-o responsivo a diferentes tamanhos de tela:contentReference[oaicite:3]{index=3}.
-
-5. **Manter layout e opacidade**: Não altere o layout ou a posição do modelo 3D no canvas; o fantasma deve permanecer acima do texto, centralizado, sem se tornar translúcido ou transparente. A referência ao tutorial de vidro serve apenas para inspirar a animação e o comportamento fluido do modelo, não para aplicar materiais de vidro ou efeitos de transparência.
-
-6. **Transição de cores**: A mudança de cor do background deve ser disparada quando cada `BeliefSection` entra na viewport. Use `useInView` ou `scrollYProgress` para aplicar classes de Tailwind, gerando transições suaves:contentReference[oaicite:4]{index=4}.
-
-7. **Cores definidas**: O array de cores permanece:
-
-   ```tsx
-   const COLORS = [
-     'bg-bluePrimary',    // Azul Real
-     'bg-purpleDetails',  // Roxo Vibrante
-     'bg-pinkDetails',    // Rosa Choque
-     'bg-bluePrimary',    // Azul Real
-     'bg-purpleDetails',  // Roxo Vibrante
-   ];
-````
-
-Cada `BeliefSection` deve usar a cor correspondente, sendo a última seção azul primária.
-
-### 4.3 Integração com o Plano
-
-* **Atualização do GhostModel**: Garanta a flutuação constante e a resposta a cursor/scroll via `useFrame`, com ajuste de escala responsiva e aumento de 10% no final.
-* **Responsividade global**: Substitua valores fixos de escala por baseada em `viewport.width`.
-* **Sincronização de entrada**: O `AboutBeliefs` deve iniciar o fantasma no início do scroll e acionar as transições de cor conforme cada frase aparece.
-* **Estética e luzes**: Mesmo sem usar `MeshTransmissionMaterial`, mantenha `Environment` e iluminação consistentes.
-
-  * **Material sólido**: O fantasma deve manter seu material original e opaco; não aplique efeitos translúcidos. A referência ao tutorial de vidro é apenas para inspirar o movimento e a interação, não para mudar a estética ou o layout do 3D.
-* **BG via useInView**: Use `useInView` ou `useScroll` para acionar as mudanças de cor, como descrito.
+      - **Mobile:**
+        - Layout em 1 coluna (`flex-col`), padding `px-6`, altura flexível (>120vh).  
+        - Ordem: título → frases rotativas + ghost → manifesto final.  
+        - Ghost centralizado acima do manifesto no eixo vertical.
 
 ---
 
-## 5. Sumário do Plano de Execução
+## 3. Identidade Visual
+- [ ] **Cores usadas**  
+      - Fundo base: `#040013` (`bg-background`).  
+      - Acentos principais:  
+        - `bluePrimary` (azul real) — usado para realçar palavras-chave e o trecho “GHOST DESIGN”.  
+      - Transições de fundo durante o manifesto podem seguir uma paleta inspirada no sistema de crenças, por exemplo:  
+        ```ts
+        COLORS = [
+          'bg-bluePrimary',      // Azul Real
+          'bg-purpleDetails',    // Roxo Vibrante
+          'bg-pinkDetails',      // Rosa Choque
+          'bg-bluePrimary',      // Azul Real
+          'bg-purpleDetails',    // Roxo Vibrante
+        ];
+        ```  
+      - Essas cores podem ser usadas para **fades suaves de BG** sincronizados com a troca de frases, reforçando a sensação de fluxo.
 
-1. **Auditoria**: mapear arquivos, verificar configurações e assets.
-2. **Parsing do Descritivo**: gerar tarefas com ID, contexto, ação e validação conforme as seções 3 e 4.
-3. **Implementação sequencial**: aplicar as modificações nos componentes (`AboutBeliefs`, `BeliefFinalSection`, `GhostModel`, etc.), incorporando a flutuação constante, responsividade e transições de cor.
-4. **Validação**: garantir que o comportamento está alinhado ao protótipo e às referências, que a performance se mantém e que não há regressão em outras partes do site.
-5. **Preparar para agentes**: manter o código limpo, tipado e modular para facilitar a orquestração por agentes copilotos.
+- [ ] **Tipografia (fontes e pesos)**  
+      - Headline e manifesto:  
+        - Fonte display (ex: `font-display` ou `font-black`).  
+        - `font-weight: 900` nas chamadas principais.  
+        - Tamanhos com `clamp`, por exemplo:  
+          - Desktop headline: `clamp(2.5rem, 5vw + 1rem, 5.5rem)`  
+          - Manifesto final: entre `text-[42px]` (mobile) e `text-[64px]`+ (desktop).  
+      - Frases rotativas:  
+        - `font-weight: 500`  
+        - Tamanho entre `32–38px` no desktop; `22–26px` no mobile.
 
+- [ ] **Ícones ou gráficos customizados**  
+      - Ghost 3D (releitura do “Ghost w/ Tophat” em GLB, estilizado para o universo Ghost Design).  
+      - Olhar/rotação do Ghost transmite “atenção” ao usuario (leve inclinação reagindo ao mouse/scroll).
 
+---
 
+## 4. Interatividade & Animações
+- [ ] **Animações de entrada/scroll (Framer Motion ou GSAP)**  
+      - Título fixo: fade-in com blur suave na entrada (ex: `opacity: 0 → 1`, `blur(10px) → blur(0px)` em ~1.2s, ease curva customizada).  
+      - Frases rotativas:  
+        - Cada frase entra de baixo (`y: 20 → 0`), aumenta opacidade, remove blur.  
+        - Sai para cima (`y: 0 → -20`) com blur.  
+        - Ciclo total de ~4.2s por frase (entrada, permanência, saída, pausa).  
+      - Reveal final (Ghost + manifesto):  
+        - Container entra com `opacity: 0 → 1`, `y: 40 → 0`.  
+        - Pode ser via `whileInView` ou sincronizado com scrollYProgress.
+
+- [ ] **Hover effects / microinterações**  
+      - Ghost reage sutilmente quando o usuário passa o mouse próximo ou sobre ele (wobble leve, micro tilt).  
+      - Textos-chave em `bluePrimary` podem ter micro animação (leve glow ou sublinhado animado) em hover sem virar distração.
+
+- [ ] **Comportamentos especiais com o mouse ou touch**  
+      - Ghost 3D:
+        - Flutuação padrão contínua (como no tutorial de “3D glass effect” do Olivier Larose, referência de suavidade e fluidez).  
+        - **Mouse move (desktop):**  
+          - Ghost inclina levemente (rotationX/rotationZ) e desloca posição x/y seguindo o cursor de forma amortecida (LERP), nunca brusca.  
+        - **Touch (mobile/tablet):**  
+          - Resposta baseada em scroll/posição do dedo; não precisa de hover, mas pode intensificar a animação quando o usuário interage com a área.  
+
+- [ ] **Animações vinculadas ao scroll (scroll sync)**  
+      - Ghost sincronizado com `scrollYProgress` da sessão:
+        - Rotação lenta no eixo Y enquanto o usuário percorre a sessão.  
+        - Para `scrollProgress > ~0.8` (entrada da última frase / manifesto final):  
+          - Aumenta escala ~10% (1.0 → 1.1).  
+          - Ganha wobble extra (oscilações adicionais baseadas em tempo + scroll).  
+          - Aproxima levemente no eixo Z para sensação de “chegar mais perto”.  
+      - Fundo (BG) pode interpolar entre cores da paleta `COLORS` conforme o progresso das frases, com animações suaves (ease bezier).
+
+---
+
+## 5. Responsividade
+- [ ] **Comportamento no mobile**  
+      - Layout em coluna única, tudo centralizado.  
+      - Ghost centralizado, com tamanho entre `200–240px`.  
+      - Título ~28–34px; frases ~22–26px; manifesto final ~36–42px.  
+      - Interações orientadas a scroll em vez de hover; animação do Ghost responde mais ao `scrollYProgress` do que ao mouse.
+
+- [ ] **Comportamento no tablet**  
+      - Transição gradual de 1 para 2 colunas no reveal final.  
+      - Ghost entre `220–260px`.  
+      - Tipografia intermediária: título 34–38px, frases 24–28px, manifesto 40–46px.  
+
+- [ ] **Comportamento no desktop**  
+      - Título sticky no topo (colunas 2–10).  
+      - Área de frases com Ghost 3D centralizada.  
+      - Reveal final em grid 2 colunas (Ghost + Manifesto) mantendo o layout original da referência.  
+      - Ghost entre `320–380px` no desktop grande.
+
+- [ ] **Ajustes específicos para telas grandes ou pequenas**  
+      - Telas muito grandes (1440px+): aumentar levemente spacing vertical entre blocos e máximo de fonte do manifesto.  
+      - Telas muito pequenas (<360px): reduzir margens verticais e fontes levemente para evitar quebra em excesso.
+
+---
+
+## 6. Acessibilidade & SEO
+- [ ] **Tags semânticas corretas (h1, h2, etc.)**  
+      - Sessão envolta em `<section>` com `aria-labelledby` apontando para o título.  
+      - Título principal da sessão como `<h2>` (assumindo que o `<h1>` já existe no topo da página).  
+      - Frases e manifesto como `<p>` e `<h3>` conforme a hierarquia.
+
+- [ ] **Imagens com ALT**  
+      - Ghost 3D deve ter descrição acessível (por exemplo, via `aria-label` no container da cena 3D):  
+        - `"Ilustração 3D de um fantasma estilizado representando o conceito Ghost Design."`
+
+- [ ] **Contraste adequado**  
+      - Texto branco sobre fundo `#040013` + acentos em `bluePrimary` → garantir contraste AA/AAA.  
+      - Evitar texto em `purpleDetails` ou `pinkDetails` diretamente sobre azul sem checar contraste.
+
+- [ ] **Navegabilidade por teclado**  
+      - A seção é principalmente de leitura; mas o container 3D não pode “travar” o foco.  
+      - Garantir que a cena 3D não capture tab-focus de forma desnecessária.  
+      - Se houver controles, devem ser alcançáveis e visíveis.
+
+- [ ] **Meta tags e estrutura amigável para buscadores**  
+      - Descrição da página (em outra camada SEO) pode mencionar “Manifesto Ghost Design, crenças e visão de projeto de Danilo Novais”.  
+      - Estrutura de headings coerente ajuda motores de busca a entenderem que esta é a seção de manifesto/valores.
+
+---
+
+## 7. Integrações ou Recursos Especiais
+- [ ] **Componentes dinâmicos? (Ex: carrossel, tabs, sliders)**  
+      - Frases rotativas implementadas como componente controlado por estado (timer com `setInterval` / `setTimeout`).  
+      - Cena 3D do Ghost como componente separado (`<GhostModel />`) reutilizável.
+
+- [ ] **Dados vindos de API?**  
+      - Não há dependência obrigatória de API nessa sessão.  
+      - Tudo pode ser estático, com assets carregados via Supabase Storage / CDN.
+
+- [ ] **Formulários? (Campos, validação, envio)**  
+      - Nenhum formulário nesta sessão.
+
+- [ ] **Outros?**  
+      - Integração com Supabase Storage apenas para servir o modelo GLB do Ghost (e possíveis texturas).  
+      - Uso de Drei (`<Float />`, `<Environment />`) para suavizar implementação da cena 3D.
+
+---
+
+## 8. Considerações Técnicas
+- [ ] **Componente client/server?**  
+      - Sessão “About Beliefs” precisa ser **client component** (`'use client'`) porque:
+        - Usa Framer Motion (`useScroll`, `useTransform`, `AnimatePresence`).  
+        - Renderiza React Three Fiber (R3F) e listeners de mouse/scroll.
+
+- [ ] **Reutilização em outras páginas?**  
+      - Ghost 3D (`<GhostModel />`) deve ser isolado em componente próprio para reaproveitar em outras sessões (hero, transições, etc.).  
+      - A lógica de frases rotativas pode ser extraída para um hook (`useRotatingPhrases`) ou componente genérico.
+
+- [ ] **Divisão modular no projeto (Next.js - App Router)?**  
+      - Estrutura sugerida:
+        - `app/(site)/about/_sections/AboutBeliefs.tsx` (wrapper da sessão).  
+        - `app/(site)/about/_sections/components/BeliefTitle.tsx` (título fixo).  
+        - `app/(site)/about/_sections/components/BeliefPhrases.tsx` (frases + lógica de rotação).  
+        - `app/(site)/about/_sections/components/BeliefFinalManifest.tsx` (Ghost + manifesto final).  
+        - `shared/3d/GhostModel.tsx` (componente R3F para o fantasma).
+
+- [ ] **Algum fallback necessário?**  
+      - Fallback de loading para o modelo 3D (ex.: skeleton ou placeholder geométrico) enquanto o GLB é carregado.  
+      - Em navegadores que não suportam WebGL, exibir uma versão estática (SVG/PNG) do Ghost.
+
+- [ ] **Animações controladas via hook?**  
+      - Sim:
+        - Hook para controle de frases (`useRotatingPhrases`).  
+        - Hook para sincronizar `scrollYProgress` com Ghost e BG (`useBeliefsScrollSync`).  
+        - Hook (ou lógica interna) para capturar `mousemove` no canvas e aplicar LERP em posição/rotação do Ghost.
+
+---
 
 
 1. Analise o escopo detalhado fornecido.

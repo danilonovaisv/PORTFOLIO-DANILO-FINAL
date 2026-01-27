@@ -3994,17 +3994,15 @@ Read more at https://nextjs.org/docs/messages/missing-root-layout-tags"
         c = a.file_path
           ? (0, e.normalizeStoragePath)(a.file_path, a.bucket ?? 'site-assets')
           : null,
-        { error: d } = await b
-          .from('site_assets')
-          .upsert(
-            {
-              ...a,
-              bucket: a.bucket ?? 'site-assets',
-              is_active: !0,
-              file_path: c,
-            },
-            { onConflict: 'key' }
-          );
+        { error: d } = await b.from('site_assets').upsert(
+          {
+            ...a,
+            bucket: a.bucket ?? 'site-assets',
+            is_active: !0,
+            file_path: c,
+          },
+          { onConflict: 'key' }
+        );
       if (d) throw d;
       k();
     }

@@ -46,7 +46,7 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
       const [x = 0, y = 0, z = 0] = props.position;
       return new THREE.Vector3(x, y, z);
     }
-    if (props.position && 'x' in props.position) {
+    if (props.position instanceof THREE.Vector3) {
       return props.position.clone();
     }
     return new THREE.Vector3(0, 0, 0);
@@ -81,7 +81,7 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
 
     const progress = scrollProgress.get();
     const mouse = mouseRef.current;
-    const finalOffsetX = !isMobile && progress > 0.8 ? -viewport.width * 0.12 : 0;
+    const finalOffsetX = 0;
 
     groupRef.current.position.x = THREE.MathUtils.lerp(
       groupRef.current.position.x,

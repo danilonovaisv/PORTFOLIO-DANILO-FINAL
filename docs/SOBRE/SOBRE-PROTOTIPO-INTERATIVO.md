@@ -1126,8 +1126,9 @@ gsap.from(".service-card", {
           2. **Área de Frases Rotativas** centralizada em blocos, com Ghost 3D centrado acima do texto, ambos dentro de uma área de altura mínima (`min-h-[40vh]`) para criar respiro visual.  
           3. **Reveal Final — Ghost + Manifesto**  
              - Grid `grid-cols-12` com gap generoso (ex: `gap-12`).  
-             - Ghost em destaque (pode permanecer central, mas alinhado à esquerda do manifesto conforme layout original).  
-             - Manifesto “ISSO É GHOST DESIGN.” ocupando colunas equivalentes a metade do grid, com tipografia grande e impactante.
+             - Ghost em destaque (pode permanecer centralizado, acima dos textos, podendo ocultar um pouco de alguma palavra
+            ).  
+             - Manifesto “ISSO É GHOST DESIGN.” centralizada, ocupando colunas equivalentes a metade do grid, com tipografia grande e impactante.
 
       - **Mobile:**
         - Layout em 1 coluna (`flex-col`), padding `px-6`, altura flexível (>120vh).  
