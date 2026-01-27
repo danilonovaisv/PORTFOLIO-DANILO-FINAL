@@ -46,7 +46,8 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
   // Efeitos para adicionar e remover listeners de mouse
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
-      if (gl.domElement) { // Verifica se o domElement existe
+      if (gl.domElement) {
+        // Verifica se o domElement existe
         // Normaliza a posição do mouse de -1 a 1
         const rect = gl.domElement.getBoundingClientRect();
         const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
@@ -118,7 +119,8 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
       );
 
       // Oscilação adicional baseada no tempo e na intensidade
-      const timeBasedWobble = Math.sin(state.clock.elapsedTime * 6) * 0.1 * intensity;
+      const timeBasedWobble =
+        Math.sin(state.clock.elapsedTime * 6) * 0.1 * intensity;
       const scrollBasedWobble = (progress - 0.8) * 0.2; // Oscilação baseada no progresso
       groupRef.current.rotation.z = THREE.MathUtils.lerp(
         groupRef.current.rotation.z,
@@ -129,7 +131,6 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
       // Opcional: Aumentar escala levemente
       const scaleIncrease = 1 + 0.1 * intensity; // Cresce até 10%
       groupRef.current.scale.setScalar(scaleIncrease);
-
     } else {
       // Reset suave para valores base
       groupRef.current.position.z = THREE.MathUtils.lerp(

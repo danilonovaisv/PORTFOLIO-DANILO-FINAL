@@ -69,9 +69,9 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
   });
 
   // Intervalo de animação de entrada e saída:
-  // - Para a primeira seção, ajustamos para entrar mais cedo (0.2) e no meio da tela,
-  //   permanecendo visível por muito mais tempo (até 0.9).
-  const animationRange = isFirst ? [0.2, 0.4] : [0.22, 0.45];
+  // Ajustado para garantir que o primeiro item já inicie visível ou entre suavemente.
+  // [0, 0.3] para o primeiro garante que comece a animar cedo.
+  const animationRange = isFirst ? [0, 0.3] : [0.22, 0.45];
   const exitRange = isFirst ? [0.9, 1.0] : [0.8, 0.95];
 
   const opacity = useTransform(

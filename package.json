@@ -15,7 +15,8 @@
   "scripts": {
     "dev": "next dev --turbo",
     "build": "next build",
-    "build:prod": "pnpm run prebuild && next build",
+    "build:strict": "pnpm run validate-env && pnpm run prebuild && next build",
+    "build:prod": "pnpm run build:strict",
     "start": "next start --hostname 0.0.0.0 --port ${PORT:-3000}",
     "clean": "rimraf .next out .eslintcache .firebase",
     "prebuild": "node scripts/generate-build-info.cjs",
@@ -50,6 +51,8 @@
     "cleanup:project": "bash scripts/cleanup-project.sh",
     "prepare-deploy": "tsx scripts/prep-deploy.ts",
     "validate-env": "tsx scripts/validate-env.ts",
+    "admin:prepare": "pnpm run validate-env && pnpm run assets:repair && pnpm run assets:update-urls && pnpm run assets:check-links && pnpm run assets:verify-corrections",
+    "admin:deploy": "pnpm run admin:prepare && pnpm run build:strict",
     "test:portfolio": "tsx scripts/test-portfolio-page.ts",
     "postinstall": "if [ -d scripts ]; then pnpm run prebuild; else echo 'Skipping prebuild: scripts directory not found'; fi"
   },

@@ -60,7 +60,6 @@ async function initializeNextApp(): Promise<void> {
   }
 
   try {
-
     initPromise = (async () => {
       nextApp = ((next as any).default || next)({
         dev: false,
@@ -77,7 +76,6 @@ async function initializeNextApp(): Promise<void> {
 
     await initPromise;
   } catch (error) {
-
     logger.error('Failed to initialize Next.js app:', error);
     throw error;
   }

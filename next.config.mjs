@@ -6,6 +6,23 @@ import withBundleAnalyzer from '@next/bundle-analyzer';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const buildSupabaseHosts = () => {
+  const mainUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (!mainUrl) {
+    throw new Error(
+      'NEXT_PUBLIC_SUPABASE_URL é obrigatório para configurar remotePatterns de imagens.'
+    );
+  }
+
+  const primaryHost = new URL(mainUrl).host;
+  const extraHosts = (process.env.NEXT_PUBLIC_SUPABASE_IMAGE_HOSTS ?? '')
+    .split(',')
+    .map((h) => h.trim())
+    .filter(Boolean);
+
+  return Array.from(new Set([primaryHost, ...extraHosts]));
+};
+
 const nextConfig = {
   /**
    * Mantém exatamente como você já tinha
@@ -30,33 +47,21 @@ const nextConfig = {
    * Mantida INTACTA
    */
   images: {
-    // Configuração mantida para permitir imagens do Supabase
-    remotePatterns: [
+    // Hosts dinâmicos com base na URL do Supabase configurada no ambiente
+    remotePatterns: buildSupabaseHosts().flatMap((hostname) => [
       {
         protocol: 'https',
-        hostname: 'aymuvxysygrwoicsjgxj.supabase.co',
+        hostname,
         port: '',
         pathname: '/storage/v1/object/public/**',
       },
       {
         protocol: 'https',
-        hostname: 'umkmwbkwvulxtdodzmzf.supabase.co',
-        port: '',
-        pathname: '/storage/v1/object/public/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'aymuvxysygrwoicsjgxj.supabase.co',
+        hostname,
         port: '',
         pathname: '/storage/v1/render/image/public/**',
       },
-      {
-        protocol: 'https',
-        hostname: 'umkmwbkwvulxtdodzmzf.supabase.co',
-        port: '',
-        pathname: '/storage/v1/render/image/public/**',
-      },
-    ],
+    ]),
 
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",

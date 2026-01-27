@@ -1,5 +1,0 @@
-1:"$Sreact.fragment"
-2:I[93043,["/_next/static/chunks/8cf60f9f71096a74.js","/_next/static/chunks/9f85550d95aa2233.js","/_next/static/chunks/54ed2c80972bf891.js","/_next/static/chunks/1f53decc55159023.js","/_next/static/chunks/9eab2a0111585b22.js","/_next/static/chunks/ac4a07f866fce8d2.js"],""]
-3:I[48844,["/_next/static/chunks/3b1dece6a5997e72.js","/_next/static/chunks/523cc786dfad0816.js"],"default"]
-4:I[78928,["/_next/static/chunks/3b1dece6a5997e72.js","/_next/static/chunks/523cc786dfad0816.js"],"default"]
-0:{"buildId":"B14xfjN7-7joMhCUV8yZK","rsc":["$","$1","c",{"children":[null,["$","div",null,{"className":"min-h-screen bg-slate-950 text-white flex items-center justify-center px-4","children":["$","div",null,{"className":"w-full max-w-md rounded-2xl border border-white/10 bg-slate-900/60 p-8 shadow-2xl","children":[["$","div",null,{"className":"mb-6","children":["$","$L2",null,{"href":"/","className":"text-sm text-slate-400 hover:text-white transition-colors","children":"← Voltar ao site"}]}],["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}]}]]}]}]]}],"loading":null,"isPartial":false}

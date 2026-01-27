@@ -22,7 +22,11 @@ export const BeliefFinalSection: React.FC<BeliefFinalSectionProps> = ({
   // Transformações baseadas no scroll
   const opacity = useTransform(scrollProgress, [introStart, introEnd], [0, 1]);
   const scale = useTransform(scrollProgress, [introStart, introEnd], [0.9, 1]);
-  const blur = useTransform(scrollProgress, [introStart, introEnd], ['blur(10px)', 'blur(0px)']);
+  const blur = useTransform(
+    scrollProgress,
+    [introStart, introEnd],
+    ['blur(10px)', 'blur(0px)']
+  );
 
   // Opcional: Se desejar que o texto saia após um certo ponto, adicione mais ranges
   // const exitStart = 0.95;

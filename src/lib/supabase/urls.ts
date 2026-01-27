@@ -1,15 +1,14 @@
 const normalizeUrl = (value: string) => value.replace(/\/+$/, '');
-// Fallback alinhado ao projeto Ghost Era (umkmwbkwvulxtdodzmzf)
-const DEFAULT_SUPABASE_URL = 'https://umkmwbkwvulxtdodzmzf.supabase.co';
 
 export function getSupabaseBaseUrl(): string | null {
   const url =
-    process.env.NEXT_PUBLIC_SUPABASE_URL ??
-    process.env.SUPABASE_URL ??
-    process.env.NEXT_PUBLIC_SUPABASE_URL ??
-    DEFAULT_SUPABASE_URL;
+    process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL ?? null;
 
-  if (!url) return null;
+  if (!url) {
+    throw new Error(
+      'Supabase URL não definida. Configure NEXT_PUBLIC_SUPABASE_URL ou SUPABASE_URL.'
+    );
+  }
   try {
     return normalizeUrl(url);
   } catch {

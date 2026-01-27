@@ -30,13 +30,14 @@ export const AboutBeliefs: React.FC = () => {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start end', 'end end'], // Ajuste para que o scroll termine quando a seção termina no final da viewport
+    offset: ['start end', 'end end'],
   });
 
   // Easing Ghost Padrão
   const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
 
   // Opacidade do Header Fixo
+  // Ajustado para garantir visibilidade correta durante o scroll
   const headerOpacity = useTransform(
     scrollYProgress,
     [0.05, 0.12, 0.85, 0.95],
@@ -47,30 +48,17 @@ export const AboutBeliefs: React.FC = () => {
   return (
     <section
       ref={containerRef}
-      className={`relative w-full overflow-hidden ${COLORS[0]}`} // Mantém a cor da primeira seção como padrão
+      className={`relative w-full ${COLORS[0]}`} // Removido overflow-hidden para corrigir behavior do sticky
     >
-      {/* LAYER 1: Conteúdo Textual (Background Relative) */}
-      <div className="relative pointer-events-none z-10"> {/* Adicionado z-10 para garantir que o texto fique sob o canvas, mas acima de outros backgrounds */}
-        <BeliefFixedHeader opacity={headerOpacity} progress={scrollYProgress} />
-        {PHRASES.map((phrase, index) => (
-          <BeliefSection
-            key={index}
-            text={phrase}
-            bgColor={COLORS[index]}
-            isFirst={index === 0}
-          />
-        ))}
-        {/* Passando o scrollYProgress para o BeliefFinalSection */}
-        <BeliefFinalSection bgColor={FINAL_COLOR} scrollProgress={scrollYProgress} />
-      </div>
-
-      {/* LAYER 2: Canvas 3D (Overlay Top) */}
-      <div className="absolute inset-0 w-full h-full pointer-events-auto z-20"> {/* Mudei para pointer-events-auto para permitir interação com o mouse */}
-        <div className="sticky top-0 w-full h-screen overflow-hidden">
+      {/* LAYER 1: Canvas 3D (Background/Middle - Sticky) */}
+      {/* Z-Index 10: Fica atrás do texto, mas acima do background base das seções */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-10">
+        <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-auto">
+          {/* pointer-events-auto no container sticky interno para capturar mouse */}
           <Canvas
             shadows
             dpr={[1, 2]}
-            camera={{ position: [0, 0, 8], fov: 35 }} // Camera mais longe para reduzir tamanho visual
+            camera={{ position: [0, 0, 8], fov: 35 }}
             gl={{ alpha: true, antialias: true }}
             className="w-full h-full"
           >
@@ -83,7 +71,6 @@ export const AboutBeliefs: React.FC = () => {
               intensity={1}
             />
             <Suspense fallback={null}>
-              {/* Passando o scrollYProgress para o GhostModel */}
               <GhostModel
                 scrollProgress={scrollYProgress}
                 scale={0.6}
@@ -93,6 +80,24 @@ export const AboutBeliefs: React.FC = () => {
             </Suspense>
           </Canvas>
         </div>
+      </div>
+
+      {/* LAYER 2: Conteúdo Textual (Foreground) */}
+      {/* Z-Index 20: Texto sobre o Ghost */}
+      <div className="relative pointer-events-none z-20">
+        <BeliefFixedHeader opacity={headerOpacity} progress={scrollYProgress} />
+        {PHRASES.map((phrase, index) => (
+          <BeliefSection
+            key={index}
+            text={phrase}
+            bgColor={COLORS[index]}
+            isFirst={index === 0}
+          />
+        ))}
+        <BeliefFinalSection
+          bgColor={FINAL_COLOR}
+          scrollProgress={scrollYProgress}
+        />
       </div>
     </section>
   );
