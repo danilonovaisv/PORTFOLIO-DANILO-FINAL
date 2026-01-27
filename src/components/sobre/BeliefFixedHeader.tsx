@@ -32,7 +32,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
   return (
     <motion.header
       style={{ opacity }}
-      className="fixed inset-0 z-100 flex items-center pointer-events-none"
+      className="sticky top-0 z-30 flex h-screen items-center pointer-events-none"
     >
       <div className="std-grid w-full flex justify-end">
         <div className="flex flex-col items-end text-right w-full max-w-[320px] md:max-w-[480px] lg:max-w-[700px]">
@@ -43,12 +43,12 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
               </motion.span>
             </div>
             <div className="overflow-hidden">
-              <motion.span style={{ y: y2 }} className="block">
+              <motion.span style={{ y: y2 }} className="block text-bluePrimary">
                 design que
               </motion.span>
             </div>
             <div className="overflow-hidden">
-              <motion.span style={{ y: y3 }} className="block">
+              <motion.span style={{ y: y3 }} className="block text-bluePrimary">
                 muda o dia
               </motion.span>
             </div>
@@ -64,7 +64,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
           >
             Não pelo choque,
             <br />
-            mas pela conexão.
+            <span className="text-bluePrimary">mas pela conexão.</span>
           </motion.h2>
         </div>
       </div>
