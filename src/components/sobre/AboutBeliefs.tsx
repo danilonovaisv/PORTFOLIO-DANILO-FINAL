@@ -1,7 +1,7 @@
 'use client';
 
 import React, { Suspense } from 'react';
-import { cubicBezier, useScroll, useTransform } from 'framer-motion';
+import { cubicBezier, motion, useScroll, useTransform } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
 
@@ -11,11 +11,11 @@ import { BeliefFixedHeader } from './BeliefFixedHeader';
 import { GhostModel } from './GhostModel';
 
 const PHRASES = [
-  'Um \nvídeo \nque \nrespira.',
-  'Uma \nmarca\n que se\n reconhece.',
-  'Um \ndetalhe\n que \nfica.',
-  'Crio \npara\n gerar\n presença.',
-  'Mesmo\n quando\n ninguém \npercebe\n o esforço.',
+  'Um\nvídeo\nque\nrespira.',
+  'Uma\nmarca\nque se\nreconhece.',
+  'Um\ndetalhe\nque\nfica.',
+  'Crio\npara\ngerar\npresença.',
+  'Mesmo\nquando\nninguém\npercebe\no esforço.',
 ];
 
 const COLORS = [
@@ -42,16 +42,29 @@ export const AboutBeliefs: React.FC = () => {
   // Opacidade do Header Fixo
   const headerOpacity = useTransform(
     scrollYProgress,
-    [0.05, 0.12, 0.85, 0.95],
+    [0.1, 0.18, 0.82, 0.94],
+    [0, 1, 1, 0],
+    { ease: ghostEase }
+  );
+
+  // Fade-in do fundo base na entrada da seção
+  const bgOpacity = useTransform(scrollYProgress, [0, 0.06, 0.12], [0, 0.6, 1]);
+
+  // Fantasma fixo com fade-in/out sincronizado ao scroll
+  const ghostOpacity = useTransform(
+    scrollYProgress,
+    [0.02, 0.12, 0.82, 0.94],
     [0, 1, 1, 0],
     { ease: ghostEase }
   );
 
   return (
-    <section
-      ref={containerRef}
-      className={`relative w-full overflow-hidden ${COLORS[0]}`}
-    >
+    <section ref={containerRef} className="relative w-full overflow-hidden">
+      <motion.div
+        aria-hidden
+        className={`absolute inset-0 ${COLORS[0]}`}
+        style={{ opacity: bgOpacity }}
+      />
       {/* 
         LAYER 1: Canvas 3D (Background Fixed/Sticky) 
         Posicionado absolutamente/fixed por trás do conteúdo.
@@ -63,7 +76,7 @@ export const AboutBeliefs: React.FC = () => {
         O texto fica "atrás" visualmente ou no mesmo plano, mas o Canvas vai sobrepor.
         Para garantir leitura, o Canvas tem pointer-events-none.
       */}
-      <div className="relative pointer-events-none">
+      <div className="relative pointer-events-none z-10">
         <BeliefFixedHeader opacity={headerOpacity} progress={scrollYProgress} />
 
         {PHRASES.map((phrase, index) => (
@@ -75,7 +88,10 @@ export const AboutBeliefs: React.FC = () => {
           />
         ))}
 
-        <BeliefFinalSection bgColor={FINAL_COLOR} />
+        <BeliefFinalSection
+          bgColor={FINAL_COLOR}
+          scrollProgress={scrollYProgress}
+        />
       </div>
 
       {/* 
@@ -83,35 +99,38 @@ export const AboutBeliefs: React.FC = () => {
         Z-index maior que o texto.
         Sticky container para acompanhar o scroll.
       */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none z-20">
-        <div className="sticky top-0 w-full h-screen overflow-hidden">
-          <Canvas
-            shadows
-            dpr={[1, 2]}
-            camera={{ position: [0, 0, 8], fov: 35 }} // Camera mais longe para reduzir tamanho visual
-            gl={{ alpha: true, antialias: true }}
-            className="w-full h-full"
-          >
-            <Environment preset="city" />
-            <ambientLight intensity={0.8} />
-            <spotLight
-              position={[10, 10, 10]}
-              angle={0.15}
-              penumbra={1}
-              intensity={1}
-            />
+      <motion.div
+        aria-hidden
+        className="fixed inset-0 w-full h-screen pointer-events-auto z-20"
+        style={{ opacity: ghostOpacity }}
+      >
+        <Canvas
+          shadows
+          dpr={[1, 2]}
+          camera={{ position: [0, 0, 8], fov: 35 }} // Camera mais longe para reduzir tamanho visual
+          gl={{ alpha: true, antialias: true }}
+          className="w-full h-full"
+        >
+          <Environment preset="city" />
+          <ambientLight intensity={0.8} />
+          <spotLight
+            position={[10, 10, 10]}
+            angle={0.15}
+            penumbra={1}
+            intensity={1}
+          />
 
-            <Suspense fallback={null}>
-              {/* Scale 0.6 para ser "menor". Rotation ajustada para frente. */}
-              <GhostModel
-                scale={0.6}
-                position={[0, -1, 0]}
-                rotation={[0, 0, 0]}
-              />
-            </Suspense>
-          </Canvas>
-        </div>
-      </div>
+          <Suspense fallback={null}>
+            {/* Scale 0.6 para ser "menor". Rotation ajustada para frente. */}
+            <GhostModel
+              scrollProgress={scrollYProgress}
+              scale={0.6}
+              position={[0, -1, 0]}
+              rotation={[0, 0, 0]}
+            />
+          </Suspense>
+        </Canvas>
+      </motion.div>
     </section>
   );
 };

@@ -7,9 +7,9 @@ Title: Ghost w/ Tophat
 */
 
 import * as THREE from 'three';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useGLTF, Float } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { GLTF } from 'three-stdlib';
 import { MotionValue } from 'framer-motion';
 
@@ -28,43 +28,92 @@ type GLTFResult = GLTF & {
   };
 };
 
-export function GhostModel({
-  scrollProgress,
-  ...props
-}: React.ComponentProps<'group'> & { scrollProgress?: MotionValue<number> }) {
-  // Configuração da URL exata fornecida pelo usuário
+interface GhostModelProps extends React.ComponentProps<'group'> {
+  scrollProgress?: MotionValue<number>;
+}
+
+export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
   const { nodes, materials } = useGLTF(
     'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb'
   ) as unknown as GLTFResult;
 
-  const groupRef = React.useRef<THREE.Group>(null);
+  const groupRef = useRef<THREE.Group>(null);
+  const { gl } = useThree();
+
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      if (!gl?.domElement) return;
+      const rect = gl.domElement.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      const y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+      setMousePosition({ x, y });
+    };
+
+    const canvas = gl?.domElement;
+    if (!canvas) return;
+
+    canvas.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      canvas.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [gl]);
 
   useFrame((state) => {
     if (!groupRef.current || !scrollProgress) return;
 
-    // Obter progresso do scroll (0 a 1)
     const progress = scrollProgress.get();
 
-    // Rotação completa sincronizada com o scroll (360 graus / 2 * PI)
-    // Multiplicamos por -2 para girar na direção 'natural' do scroll (ou ajuste conforme preferência)
+    // Rotação base guiada pelo scroll
     groupRef.current.rotation.y = -progress * Math.PI * 2;
 
-    // Lógica para "movimentar mais" na última seção (progress > 0.8)
-    // "ISSO É GHOST DESIGN"
-    if (progress > 0.8) {
-      // Intensifica a flutuação ou aproxima o modelo
-      const intensity = (progress - 0.8) * 5; // 0 a 1 no final
+    // Resposta leve ao mouse (posicionamento e rotação)
+    const mouseInfluence = 0.1;
+    groupRef.current.position.x = THREE.MathUtils.lerp(
+      groupRef.current.position.x,
+      mousePosition.x * mouseInfluence,
+      0.05
+    );
+    groupRef.current.position.y = THREE.MathUtils.lerp(
+      groupRef.current.position.y,
+      mousePosition.y * mouseInfluence,
+      0.05
+    );
 
-      // Exemplo: Aproximação (Z) e leve wobble extra
+    groupRef.current.rotation.x = THREE.MathUtils.lerp(
+      groupRef.current.rotation.x,
+      -mousePosition.y * mouseInfluence * 0.5,
+      0.05
+    );
+    groupRef.current.rotation.z = THREE.MathUtils.lerp(
+      groupRef.current.rotation.z,
+      mousePosition.x * mouseInfluence * 0.5,
+      0.05
+    );
+
+    // Ênfase final na última seção
+    if (progress > 0.8) {
+      const intensity = Math.min(1, (progress - 0.8) * 5);
+
       groupRef.current.position.z = THREE.MathUtils.lerp(
         groupRef.current.position.z,
-        2,
+        1,
         0.05
       );
-      groupRef.current.rotation.z =
-        Math.sin(state.clock.elapsedTime * 5) * 0.1 * intensity;
+
+      const timeBasedWobble = Math.sin(state.clock.elapsedTime * 6) * 0.1;
+      const scrollBasedWobble = (progress - 0.8) * 0.2;
+      groupRef.current.rotation.z = THREE.MathUtils.lerp(
+        groupRef.current.rotation.z,
+        timeBasedWobble * intensity + scrollBasedWobble,
+        0.1
+      );
+
+      const scaleIncrease = 1 + 0.1 * intensity;
+      groupRef.current.scale.setScalar(scaleIncrease);
     } else {
-      // Reset suave
       groupRef.current.position.z = THREE.MathUtils.lerp(
         groupRef.current.position.z,
         0,
@@ -75,15 +124,16 @@ export function GhostModel({
         0,
         0.05
       );
+      groupRef.current.scale.setScalar(0.6);
     }
   });
 
   return (
     <Float
-      speed={2} // Animation speed
-      rotationIntensity={0.5} // Float rotation intensity
-      floatIntensity={0.5} // Float height intensity
-      floatingRange={[-0.1, 0.1]} // Range of y-axis values the object will float within
+      speed={2} // Velocidade da flutuação base
+      rotationIntensity={0.5} // Intensidade da rotação da flutuação base
+      floatIntensity={0.5} // Intensidade da altura da flutuação base
+      floatingRange={[-0.1, 0.1]} // Alcance da flutuação base no eixo Y
     >
       <group ref={groupRef} {...props} dispose={null}>
         <mesh

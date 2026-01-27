@@ -1,16 +1,30 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, MotionValue, useTransform } from 'framer-motion';
 
 interface BeliefFinalSectionProps {
   bgColor: string;
+  scrollProgress: MotionValue<number>;
 }
 
 export const BeliefFinalSection: React.FC<BeliefFinalSectionProps> = ({
   bgColor,
+  scrollProgress,
 }) => {
   const ref = useRef<HTMLElement>(null);
+
+  // Ranges de entrada do título final, sincronizados com a última frase e troca de cor
+  const introStart = 0.8;
+  const introEnd = 0.88;
+
+  const opacity = useTransform(scrollProgress, [introStart, introEnd], [0, 1]);
+  const scale = useTransform(scrollProgress, [introStart, introEnd], [0.9, 1]);
+  const blur = useTransform(
+    scrollProgress,
+    [introStart, introEnd],
+    ['blur(10px)', 'blur(0px)']
+  );
 
   return (
     <section
@@ -18,11 +32,12 @@ export const BeliefFinalSection: React.FC<BeliefFinalSectionProps> = ({
       className={`w-full h-screen flex flex-col items-center justify-center overflow-hidden px-4 ${bgColor}`}
     >
       <motion.div
+        style={{
+          opacity,
+          scale,
+          filter: blur,
+        }}
         className="flex flex-col items-center justify-center text-center text-white font-display leading-[0.78] w-full max-w-[98vw]"
-        initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
-        whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-        viewport={{ once: false }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="text-[16vw] md:text-[14rem] tracking-tighter uppercase font-black">
           ISSO É

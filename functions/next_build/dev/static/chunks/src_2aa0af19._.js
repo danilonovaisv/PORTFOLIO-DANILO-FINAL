@@ -493,8 +493,8 @@ const ABOUT_CONTENT = {
 const PORTFOLIO_CONTENT = {
     hero: {
         video: {
-            desktop: projectVideo('VIDEO-APRESENTACAO-PORTFOLIO.mp4'),
-            mobile: projectVideo('VIDEO-APRESENTACAO-PORTFOLIO.mp4')
+            desktop: projectVideo('video-heroPort.mp4'),
+            mobile: projectVideo('video-heroPort-mobile.mp4')
         }
     }
 };

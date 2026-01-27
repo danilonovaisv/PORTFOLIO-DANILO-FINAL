@@ -380,18 +380,18 @@ function buildLayout(projectType, index) {
    * - Altura fixa no desktop para uniformidade visual
    * - Pattern: [5+7], [7+5], [4+4+4], [6+6], [8+4], [4+8]
    */ const pairedLayouts = [
-        // Row pattern: 5 + 7 = 12
+        // Row pattern: 6 + 6 = 12 (Ensures first row is full width)
         {
-            cols: 'md:col-span-5 lg:col-span-5',
+            cols: 'md:col-span-6 lg:col-span-6',
             height: 'min-h-[320px]',
             aspectRatio: 'aspect-[4/5]',
-            sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 42vw, 42vw'
+            sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw'
         },
         {
-            cols: 'md:col-span-3 lg:col-span-7',
+            cols: 'md:col-span-6 lg:col-span-6',
             height: 'min-h-[320px]',
             aspectRatio: 'aspect-[4/5]',
-            sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 58vw, 58vw'
+            sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw'
         },
         // Row pattern: 7 + 5 = 12
         {

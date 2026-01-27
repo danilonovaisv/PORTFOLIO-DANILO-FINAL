@@ -15,17 +15,17 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
   const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
 
   // Intervalo de entrada para o Header Fixo (sincronizado com o fade do container)
-  const introRange = [0.05, 0.15];
+  const introRange = [0.14, 0.24];
 
   const y1 = useTransform(progress, introRange, [30, 0], { ease: ghostEase });
-  const y2 = useTransform(progress, [0.07, 0.17], [30, 0], { ease: ghostEase });
-  const y3 = useTransform(progress, [0.09, 0.19], [30, 0], { ease: ghostEase });
-  const y4 = useTransform(progress, [0.11, 0.21], [30, 0], { ease: ghostEase });
+  const y2 = useTransform(progress, [0.16, 0.26], [30, 0], { ease: ghostEase });
+  const y3 = useTransform(progress, [0.18, 0.28], [30, 0], { ease: ghostEase });
+  const y4 = useTransform(progress, [0.2, 0.3], [30, 0], { ease: ghostEase });
 
-  const h2Y = useTransform(progress, [0.15, 0.25], [20, 0], {
+  const h2Y = useTransform(progress, [0.26, 0.36], [20, 0], {
     ease: ghostEase,
   });
-  const h2Opacity = useTransform(progress, [0.15, 0.25], [0, 0.8], {
+  const h2Opacity = useTransform(progress, [0.26, 0.36], [0, 0.8], {
     ease: ghostEase,
   });
 
