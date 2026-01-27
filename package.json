@@ -32,7 +32,7 @@
     "analyze:bundle": "ANALYZE=true next build",
     "test-and-deploy": "tsx scripts/run-full-test-and-deploy.ts",
     "deploy": "bash scripts/deploy-with-env.sh",
-    "deploy:hosting": "pnpm run build && firebase deploy --only hosting --debug",
+    "deploy:hosting": "pnpm run build && bash scripts/prepare-hosting.sh && firebase deploy --only hosting --debug",
     "deploy:enable-web": "firebase experiments:enable webframeworks",
     "update": "pnpm dlx npm-check-updates -u && pnpm install",
     "manage-keys": "tsx scripts/manage-service-account-keys.ts --account=firebase-adminsdk-fbsvc@portfolio-danilo-novais.iam.gserviceaccount.com",
