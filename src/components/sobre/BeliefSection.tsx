@@ -87,13 +87,13 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
   const lines = text.split('\n');
 
   return (
-    <section
+    <motion.section
       ref={containerRef}
       aria-label={text.replace(/\n/g, ' ')}
       style={{ backgroundColor: bgColor }}
       className={`relative w-full h-screen flex justify-start overflow-hidden ${isFirst
-          ? 'items-center pt-0'
-          : 'items-start pt-[20vh] md:pt-[20vh] lg:pt-[15vh]'
+        ? 'items-center pt-0'
+        : 'items-start pt-[20vh] md:pt-[20vh] lg:pt-[15vh]'
         }`}
     >
       <div className="std-grid max-w-none">
@@ -112,6 +112,6 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
           ))}
         </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };

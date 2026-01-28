@@ -23,7 +23,7 @@ const MobileMenuButton = forwardRef<HTMLButtonElement, MobileMenuButtonProps>(
         type="button"
         onClick={onToggle}
         aria-label={open ? 'Fechar menu' : 'Abrir menu'}
-        aria-expanded={open}
+        aria-expanded={open ? 'true' : 'false'}
         className={`relative inline-flex items-center justify-center gap-2 bg-transparent border-0 cursor-pointer font-medium leading-none overflow-visible z-110 min-h-12 min-w-12 px-3 transition-colors duration-300 ${open ? 'text-white' : 'text-white hover:text-primary'
           }`}
       >
@@ -35,11 +35,9 @@ const MobileMenuButton = forwardRef<HTMLButtonElement, MobileMenuButtonProps>(
           <span ref={textInnerRef} className="flex flex-col leading-none">
             {textLines.map((line, i) => (
               <span
-                className="block h-[1em] leading-none text-sm tracking-wide"
+                className={`block h-[1em] leading-none text-sm tracking-wide ${i === textLines.length - 1 ? 'visible' : 'invisible'
+                  }`}
                 key={`${line}-${i}`}
-                style={{
-                  visibility: i === textLines.length - 1 ? 'visible' : 'hidden',
-                }}
               >
                 {line}
               </span>

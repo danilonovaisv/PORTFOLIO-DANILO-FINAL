@@ -26,7 +26,7 @@ export const BeliefFinalSection: React.FC<BeliefFinalSectionProps> = ({
   );
 
   return (
-    <section
+    <motion.section
       ref={ref}
       className="w-full h-screen overflow-hidden"
       style={{ backgroundColor: bgColor }}
@@ -71,6 +71,6 @@ export const BeliefFinalSection: React.FC<BeliefFinalSectionProps> = ({
           </div>
         </div>
       </motion.div>
-    </section>
+    </motion.section>
   );
 };

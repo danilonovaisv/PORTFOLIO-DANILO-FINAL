@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { useAntigravityStore } from '@/store/antigravity.store';
 
 export const AntigravityDebugger: React.FC = () => {
@@ -33,9 +34,10 @@ export const AntigravityDebugger: React.FC = () => {
           {store.narrativeState}
         </div>
         <div className="w-full bg-neutral-800 h-1 mt-1 rounded overflow-hidden">
-          <div
-            className="bg-blue-500 h-full transition-all duration-75"
+          <motion.div
+            className="bg-blue-500 h-full"
             style={{ width: `${store.scrollProgress * 100}%` }}
+            transition={{ duration: 0.075, ease: 'linear' }} // Slight smooth
           />
         </div>
       </div>
