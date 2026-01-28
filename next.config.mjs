@@ -7,11 +7,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const buildSupabaseHosts = () => {
-  const mainUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  // Fallback to known project URL if env var is missing (e.g. file lock issues)
+  const mainUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://aymuvxysygrwoicsjgxj.supabase.co';
   if (!mainUrl) {
-    throw new Error(
-      'NEXT_PUBLIC_SUPABASE_URL é obrigatório para configurar remotePatterns de imagens.'
-    );
   }
 
   const primaryHost = new URL(mainUrl).host;

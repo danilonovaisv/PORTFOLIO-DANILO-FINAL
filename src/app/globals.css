@@ -1,11 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;800&display=swap');
-@source './**/*.{js,ts,jsx,tsx}';
-@source '../components/**/*.{js,ts,jsx,tsx}';
-@source '../lib/**/*.{js,ts,jsx,tsx}';
-@source '../hooks/**/*.{js,ts,jsx,tsx}';
-@source '../utils/**/*.{js,ts,jsx,tsx}';
-@source '../contexts/**/*.{js,ts,jsx,tsx}';
-@source '../store/**/*.{js,ts,jsx,tsx}';
-@source '../data/**/*.{js,ts,jsx,tsx}';
-@import 'tailwindcss' source(none);
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
 @import '../styles/globals.css';
