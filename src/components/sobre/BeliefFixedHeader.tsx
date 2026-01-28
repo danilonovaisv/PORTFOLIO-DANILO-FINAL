@@ -8,64 +8,78 @@ interface BeliefFixedHeaderProps {
   progress: MotionValue<number>;
 }
 
+// Helper para encapsular a lógica de Morph (Blur + Opacity + Y)
+const MorphText: React.FC<{
+  children: React.ReactNode;
+  progress: MotionValue<number>;
+  range: [number, number];
+  className?: string;
+}> = ({ children, progress, range, className }) => {
+  const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
+  const blur = useTransform(progress, range, ['blur(12px)', 'blur(0px)'], {
+    ease: ghostEase,
+  });
+  const opacity = useTransform(progress, range, [0, 1], { ease: ghostEase });
+  const y = useTransform(progress, range, [40, 0], { ease: ghostEase });
+
+  return (
+    <motion.span
+      style={{ filter: blur, opacity, y }}
+      className={`block ${className || ''}`}
+    >
+      {children}
+    </motion.span>
+  );
+};
+
 export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
   opacity,
   progress,
 }) => {
-  const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
-
-  // Intervalo de entrada para o Header Fixo (sincronizado com o fade do container)
-  const introRange = [0.14, 0.24];
-
-  const y1 = useTransform(progress, introRange, [30, 0], { ease: ghostEase });
-  const y2 = useTransform(progress, [0.16, 0.26], [30, 0], { ease: ghostEase });
-  const y3 = useTransform(progress, [0.18, 0.28], [30, 0], { ease: ghostEase });
-  const y4 = useTransform(progress, [0.2, 0.3], [30, 0], { ease: ghostEase });
-
-  const h2Y = useTransform(progress, [0.26, 0.36], [20, 0], {
-    ease: ghostEase,
-  });
-  const h2Opacity = useTransform(progress, [0.26, 0.36], [0, 0.8], {
-    ease: ghostEase,
-  });
-
   return (
     <motion.header
       style={{ opacity }}
       className="sticky top-0 z-30 flex h-screen items-center pointer-events-none"
     >
       <div className="std-grid w-full flex justify-end">
-        <div className="flex flex-col items-end text-right w-full max-w-[320px] md:max-w-[480px] lg:max-w-[700px]">
-          <h1 className="text-white text-3xl md:text-5xl lg:text-7xl xl:text-8xl font-display leading-[1.1] tracking-tighter mb-6 uppercase font-black">
-            <div className="overflow-hidden">
-              <motion.span style={{ y: y1 }} className="block">
+        <div className="flex flex-col items-end text-right w-full max-w-[320px] md:max-w-[500px] lg:max-w-[750px]">
+          {/* Primeira parte: "Acredito no..." */}
+          <h1 className="text-white text-3xl md:text-5xl lg:text-7xl xl:text-8xl font-display leading-[1.1] tracking-tighter mb-8 uppercase font-black mix-blend-difference whitespace-nowrap">
+            <div className="overflow-visible">
+              <MorphText progress={progress} range={[0.1, 0.2]}>
                 Acredito no
-              </motion.span>
+              </MorphText>
             </div>
-            <div className="overflow-hidden">
-              <motion.span style={{ y: y2 }} className="block text-bluePrimary">
+            <div className="overflow-visible">
+              <MorphText progress={progress} range={[0.12, 0.22]}>
                 design que
-              </motion.span>
+              </MorphText>
             </div>
-            <div className="overflow-hidden">
-              <motion.span style={{ y: y3 }} className="block text-bluePrimary">
+            <div className="overflow-visible">
+              <MorphText progress={progress} range={[0.14, 0.24]}>
                 muda o dia
-              </motion.span>
+              </MorphText>
             </div>
-            <div className="overflow-hidden">
-              <motion.span style={{ y: y4 }} className="block">
+            <div className="overflow-visible">
+              <MorphText progress={progress} range={[0.16, 0.26]}>
                 de alguém.
-              </motion.span>
+              </MorphText>
             </div>
           </h1>
-          <motion.h2
-            style={{ y: h2Y, opacity: h2Opacity }}
-            className="text-white text-xs md:text-xl lg:text-4xl font-h2 leading-none tracking-normal font-bold"
-          >
-            Não pelo choque,
-            <br />
-            <span className="text-bluePrimary">mas pela conexão.</span>
-          </motion.h2>
+
+          {/* Segunda parte: "Não pelo choque..." */}
+          <div className="flex flex-col items-end gap-1 text-white text-sm md:text-2xl lg:text-4xl font-h2 leading-[1.2] tracking-normal font-bold whitespace-nowrap">
+            <div className="overflow-visible">
+              <MorphText progress={progress} range={[0.22, 0.32]}>
+                Não pelo choque,
+              </MorphText>
+            </div>
+            <div className="overflow-visible">
+              <MorphText progress={progress} range={[0.24, 0.34]}>
+                mas pela conexão.
+              </MorphText>
+            </div>
+          </div>
         </div>
       </div>
     </motion.header>

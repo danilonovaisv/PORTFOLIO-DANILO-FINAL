@@ -1051,7 +1051,7 @@ gsap.from(".service-card", {
         - Responde de forma fluida e etérea, como se “sentisse” o toque/scroll.  
         - Entra junto com a **primeira frase** da área de manifesto e permanece centralizado na sessão.  
         - Quando a **última frase** entra, ele cresce ~10% de escala e fica visivelmente mais animado (mais wobble/tilt e resposta mais intensa ao scroll).  
-      - No final, o manifesto “ISSO É / GHOST DESIGN.” sela o conceito ao lado/abaixo do Ghost, mantendo o layout original de grid/coluna como referência visual.
+      - No final, o manifesto “ISSO É / GHOST / DESIGN.” sela o conceito entrada suave usando 'Morphing Text', deixe o texto em três linhas, cada linha com comportamento responsivo automatico, ocupando toda a area horizontal do gride, deixando um espaçamento pequeno entre as linhas.
 
 - [ ] **Chamada para ação (CTA)**  
       - CTA implícito (emocional): reforçar a percepção de valor do estúdio.  

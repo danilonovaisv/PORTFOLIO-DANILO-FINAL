@@ -8,7 +8,9 @@ const __dirname = path.dirname(__filename);
 
 const buildSupabaseHosts = () => {
   // Fallback to known project URL if env var is missing (e.g. file lock issues)
-  const mainUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://aymuvxysygrwoicsjgxj.supabase.co';
+  const mainUrl =
+    process.env.NEXT_PUBLIC_SUPABASE_URL ||
+    'https://aymuvxysygrwoicsjgxj.supabase.co';
   if (!mainUrl) {
   }
 

@@ -24,9 +24,8 @@ const MobileMenuButton = forwardRef<HTMLButtonElement, MobileMenuButtonProps>(
         onClick={onToggle}
         aria-label={open ? 'Fechar menu' : 'Abrir menu'}
         aria-expanded={open}
-        className={`relative inline-flex items-center justify-center gap-2 bg-transparent border-0 cursor-pointer font-medium leading-none overflow-visible z-110 min-h-[48px] min-w-[48px] px-3 transition-colors duration-300 ${
-          open ? 'text-white' : 'text-white hover:text-primary'
-        }`}
+        className={`relative inline-flex items-center justify-center gap-2 bg-transparent border-0 cursor-pointer font-medium leading-none overflow-visible z-110 min-h-12 min-w-12 px-3 transition-colors duration-300 ${open ? 'text-white' : 'text-white hover:text-primary'
+          }`}
       >
         {/* Animated text */}
         <span
