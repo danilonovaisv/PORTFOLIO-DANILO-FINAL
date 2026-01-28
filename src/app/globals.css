@@ -1,5 +1,6 @@
 @config "../../tailwind.config.ts";
-@source "../{app,components,pages,ui}/**/*.{js,ts,jsx,tsx,mdx}";
+/* Tailwind v4: limit class scanning to our source (avoid scanning built assets) */
+@source "../**/*.{js,ts,jsx,tsx,mdx}";
 @import 'tailwindcss';
 @import '../styles/globals.css';
 
