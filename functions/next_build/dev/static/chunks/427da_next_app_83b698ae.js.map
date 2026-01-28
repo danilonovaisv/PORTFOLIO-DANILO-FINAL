@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 3, "column": 0}, "map": {"version":3,"sources":["file:///Users/danilonovais/_danilonov_portfolio/node_modules/.pnpm/next%4016.1.6_%40babel%2Bcore%407.28.6_%40opentelemetry%2Bapi%401.9.0_%40playwright%2Btest%401.58.0_react-d_1d7f1e47d50ae75d5387b46423a1f17f/node_modules/next/app.js"],"sourcesContent":["module.exports = require('./dist/pages/_app')\n"],"names":[],"mappings":"AAAA,OAAO,OAAO","ignoreList":[0]}}]
-}

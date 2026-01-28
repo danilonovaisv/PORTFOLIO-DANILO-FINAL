@@ -1,0 +1,165 @@
+{
+  "node": {
+    "40ad3f16a742876fb1293ccebc078fb87889a1ae37": {
+      "workers": {
+        "app/admin/(protected)/trabalhos/page": {
+          "moduleId": 44954,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "src/lib/supabase/queries/projects.ts"
+        },
+        "app/page": {
+          "moduleId": 89011,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "src/lib/supabase/queries/projects.ts"
+        },
+        "app/portfolio/[slug]/page": {
+          "moduleId": 13284,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "src/lib/supabase/queries/projects.ts"
+        },
+        "app/portfolio/page": {
+          "moduleId": 89485,
+          "async": false,
+          "exportedName": "$$RSC_SERVER_ACTION_0",
+          "filename": "src/lib/supabase/queries/projects.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/trabalhos/page": "rsc",
+        "app/page": "rsc",
+        "app/portfolio/[slug]/page": "rsc",
+        "app/portfolio/page": "rsc"
+      },
+      "filename": "src/lib/supabase/queries/projects.ts",
+      "exportedName": "$$RSC_SERVER_ACTION_0"
+    },
+    "00d08089cb6c8c8c243eedc6d961487fe76bc63d1a": {
+      "workers": {
+        "app/admin/(protected)/config/page": {
+          "moduleId": 85800,
+          "async": false,
+          "exportedName": "signOut",
+          "filename": "src/lib/supabase/auth-actions.ts"
+        },
+        "app/admin/(protected)/landing-pages/[id]/page": {
+          "moduleId": 90192,
+          "async": false,
+          "exportedName": "signOut",
+          "filename": "src/lib/supabase/auth-actions.ts"
+        },
+        "app/admin/(protected)/landing-pages/new/page": {
+          "moduleId": 83729,
+          "async": false,
+          "exportedName": "signOut",
+          "filename": "src/lib/supabase/auth-actions.ts"
+        },
+        "app/admin/(protected)/landing-pages/page": {
+          "moduleId": 68003,
+          "async": false,
+          "exportedName": "signOut",
+          "filename": "src/lib/supabase/auth-actions.ts"
+        },
+        "app/admin/(protected)/midia/page": {
+          "moduleId": 6020,
+          "async": false,
+          "exportedName": "signOut",
+          "filename": "src/lib/supabase/auth-actions.ts"
+        },
+        "app/admin/(protected)/page": {
+          "moduleId": 91491,
+          "async": false,
+          "exportedName": "signOut",
+          "filename": "src/lib/supabase/auth-actions.ts"
+        },
+        "app/admin/(protected)/tags/page": {
+          "moduleId": 37609,
+          "async": false,
+          "exportedName": "signOut",
+          "filename": "src/lib/supabase/auth-actions.ts"
+        },
+        "app/admin/(protected)/trabalhos/[id]/page": {
+          "moduleId": 81121,
+          "async": false,
+          "exportedName": "signOut",
+          "filename": "src/lib/supabase/auth-actions.ts"
+        },
+        "app/admin/(protected)/trabalhos/new/page": {
+          "moduleId": 66138,
+          "async": false,
+          "exportedName": "signOut",
+          "filename": "src/lib/supabase/auth-actions.ts"
+        },
+        "app/admin/(protected)/trabalhos/page": {
+          "moduleId": 44954,
+          "async": false,
+          "exportedName": "signOut",
+          "filename": "src/lib/supabase/auth-actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/config/page": "action-browser",
+        "app/admin/(protected)/landing-pages/[id]/page": "action-browser",
+        "app/admin/(protected)/landing-pages/new/page": "action-browser",
+        "app/admin/(protected)/landing-pages/page": "action-browser",
+        "app/admin/(protected)/midia/page": "action-browser",
+        "app/admin/(protected)/page": "action-browser",
+        "app/admin/(protected)/tags/page": "action-browser",
+        "app/admin/(protected)/trabalhos/[id]/page": "action-browser",
+        "app/admin/(protected)/trabalhos/new/page": "action-browser",
+        "app/admin/(protected)/trabalhos/page": "action-browser"
+      },
+      "filename": "src/lib/supabase/auth-actions.ts",
+      "exportedName": "signOut"
+    },
+    "40ff2118cc4137aadb09e1036482ecc4c0d5939225": {
+      "workers": {
+        "app/admin/(protected)/midia/page": {
+          "moduleId": 6020,
+          "async": false,
+          "exportedName": "upsertAsset",
+          "filename": "src/app/admin/(protected)/midia/actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/midia/page": "action-browser"
+      },
+      "filename": "src/app/admin/(protected)/midia/actions.ts",
+      "exportedName": "upsertAsset"
+    },
+    "40a7611c0e3cd1c59854bf38802b4992fd4b8a1c3e": {
+      "workers": {
+        "app/admin/(protected)/midia/page": {
+          "moduleId": 6020,
+          "async": false,
+          "exportedName": "assignAssetRole",
+          "filename": "src/app/admin/(protected)/midia/actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/midia/page": "action-browser"
+      },
+      "filename": "src/app/admin/(protected)/midia/actions.ts",
+      "exportedName": "assignAssetRole"
+    },
+    "40dfe0ecffaf9cb8a04e04d45a3e2043ec03dccbbc": {
+      "workers": {
+        "app/admin/(protected)/midia/page": {
+          "moduleId": 6020,
+          "async": false,
+          "exportedName": "removeAsset",
+          "filename": "src/app/admin/(protected)/midia/actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/(protected)/midia/page": "action-browser"
+      },
+      "filename": "src/app/admin/(protected)/midia/actions.ts",
+      "exportedName": "removeAsset"
+    }
+  },
+  "edge": {},
+  "encryptionKey": "s8RUdGzlLwZEZ39l2WF9lOSXFwAHRDx41wHSy5goBC4="
+}

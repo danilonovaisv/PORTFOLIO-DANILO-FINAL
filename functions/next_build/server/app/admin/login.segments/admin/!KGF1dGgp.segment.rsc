@@ -1,0 +1,5 @@
+1:"$Sreact.fragment"
+2:I[89668,["/_next/static/chunks/32fd6a1f50f40102.js","/_next/static/chunks/12f2b011fc1144c3.js","/_next/static/chunks/0c9773ef15fceed9.js","/_next/static/chunks/86edc36145db051f.js","/_next/static/chunks/d869dbde6b0ae538.js","/_next/static/chunks/9eab2a0111585b22.js"],""]
+3:I[59062,["/_next/static/chunks/0c93ee29fa4b01d3.js","/_next/static/chunks/6780634ae8fc6afd.js"],"default"]
+4:I[58650,["/_next/static/chunks/0c93ee29fa4b01d3.js","/_next/static/chunks/6780634ae8fc6afd.js"],"default"]
+0:{"buildId":"5PXxPsTq9SBgC1bcuT49Q","rsc":["$","$1","c",{"children":[null,["$","div",null,{"className":"min-h-screen bg-slate-950 text-white flex items-center justify-center px-4","children":["$","div",null,{"className":"w-full max-w-md rounded-2xl border border-white/10 bg-slate-900/60 p-8 shadow-2xl","children":[["$","div",null,{"className":"mb-6","children":["$","$L2",null,{"href":"/","className":"text-sm text-slate-400 hover:text-white transition-colors","children":"← Voltar ao site"}]}],["$","$L3",null,{"parallelRouterKey":"children","template":["$","$L4",null,{}]}]]}]}]]}],"loading":null,"isPartial":false}
