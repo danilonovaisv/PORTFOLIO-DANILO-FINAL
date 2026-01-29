@@ -86,7 +86,9 @@ test-results/
 # AI/Agent Tooling
 .ai/
 .aiassistant/
-.agent/
+.agent/*
+!.agent/rules/
+!.agent/workflows/
 .github/
 
 # Additional Caches

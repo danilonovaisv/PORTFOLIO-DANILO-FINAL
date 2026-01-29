@@ -13,6 +13,7 @@ import type { PortfolioProject } from '@/types/project';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { easing } from '@/components/portfolio/modal/variants';
 import { isVideo } from '@/utils/utils';
+import { sanitizeTailwindValue } from '@/lib/utils';
 
 interface TypeBContentProps {
   project: PortfolioProject;
@@ -39,6 +40,11 @@ const TIMELINE = {
  * Usado para projetos menores / grid items
  */
 const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
+  // Sanitize the accent color before using it in styles
+  const sanitizedAccentColor = project.accentColor 
+    ? sanitizeTailwindValue(project.accentColor) 
+    : undefined;
+
   return (
     <div className="grid md:grid-cols-2 gap-8 md:gap-12">
       {/* Left: Image */}
@@ -69,11 +75,11 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
         )}
         
         {/* Accent color overlay on bottom */}
-        {project.accentColor && (
+        {sanitizedAccentColor && (
           <motion.div 
             className="absolute inset-x-0 bottom-0 h-1/3"
             style={{ 
-              background: `linear-gradient(to top, ${project.accentColor}40, transparent)` 
+              background: `linear-gradient(to top, ${sanitizedAccentColor}40, transparent)` 
             }}
           />
         )}
