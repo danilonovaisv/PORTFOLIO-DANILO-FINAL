@@ -14,6 +14,7 @@ import { useBodyLock } from '@/hooks/useBodyLock';
 import { MOTION_TOKENS, ghostTransition } from '@/config/motion';
 import TypeAContent from './content/TypeAContent';
 import TypeBContent from './content/TypeBContent';
+import { sanitizeTailwindValue } from '@/lib/utils';
 
 interface PortfolioModalNewProps {
   project: PortfolioProject | null;
@@ -91,6 +92,11 @@ const handleKeyDown = (e: KeyboardEvent) => {
 
   if (!mounted) return null;
 
+  // Sanitize the accent color before using it in styles
+  const sanitizedAccentColor = project?.accentColor 
+    ? sanitizeTailwindValue(project.accentColor) 
+    : undefined;
+
   const modalContent = (
     <AnimatePresence mode="wait">
       {isOpen && project && (
@@ -153,7 +159,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
                     className="absolute inset-0 opacity-30"
                     style={{
                       backgroundImage: 'radial-gradient(ellipse at center top, var(--glow-color, rgba(0,87,255,0.3)), transparent 70%)',
-                      ...(project.accentColor && { '--glow-color': `${project.accentColor}40`})
+                      ...(sanitizedAccentColor && { '--glow-color': `${sanitizedAccentColor}40`})
                     } as React.CSSProperties}
                   />
                 </div>

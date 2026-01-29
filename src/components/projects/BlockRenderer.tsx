@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { LandingPageBlock } from '@/types/landing-page';
 import ReactMarkdown from 'react-markdown';
+import { sanitizeTailwindValue } from '@/lib/utils';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -62,14 +63,14 @@ export default function BlockRenderer({
       config?.fontSize || 'text-lg md:text-xl',
       config?.fontWeight || 'font-light',
       config?.textAlign || '',
-      config?.color && !config.color.startsWith('#') ? config.color : '',
+      config?.color && !config.color.startsWith('#') ? sanitizeTailwindValue(config.color) : '',
       'mb-4 leading-relaxed',
     ].join(' ');
 
     const hexColor =
       config?.color && config.color.startsWith('#') ? config.color : null;
     const dynamicColorClass = hexColor
-      ? `md-text-${hexColor.replace(/[^a-zA-Z0-9]/g, '')}`
+      ? `md-text-${sanitizeTailwindValue(hexColor.replace(/[^a-zA-Z0-9]/g, ''))}`
       : '';
 
     return (
