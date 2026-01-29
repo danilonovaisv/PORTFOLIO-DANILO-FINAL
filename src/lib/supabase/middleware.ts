@@ -1,4 +1,4 @@
-import { createServerClient } from '@supabase/ssr';
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
 // Fallback URLs case env vars are not available (shouldn't happen with NEXT_PUBLIC_*)
@@ -25,7 +25,7 @@ export async function updateSession(request: NextRequest) {
       getAll() {
         return request.cookies.getAll();
       },
-      setAll(cookiesToSet) {
+      setAll(cookiesToSet: { name: string; value: string; options: CookieOptions }[]) {
         // request.cookies é imutável; apenas refletimos no response.
         supabaseResponse = NextResponse.next({ request });
         cookiesToSet.forEach(({ name, value, options }) =>
@@ -58,7 +58,7 @@ export async function updateSession(request: NextRequest) {
     const redirectResponse = NextResponse.redirect(url);
     // Copy cookies from supabaseResponse to ensure session persistence
     const cookiesToSet = supabaseResponse.cookies.getAll();
-    cookiesToSet.forEach((cookie) =>
+    cookiesToSet.forEach((cookie: { name: string; value: string;[key: string]: any }) =>
       redirectResponse.cookies.set(cookie.name, cookie.value, cookie)
     );
     return redirectResponse;
@@ -72,7 +72,7 @@ export async function updateSession(request: NextRequest) {
       const redirectResponse = NextResponse.redirect(url);
       // Copy cookies from supabaseResponse to ensure session persistence
       const cookiesToSet = supabaseResponse.cookies.getAll();
-      cookiesToSet.forEach((cookie) =>
+      cookiesToSet.forEach((cookie: { name: string; value: string;[key: string]: any }) =>
         redirectResponse.cookies.set(cookie.name, cookie.value, cookie)
       );
       return redirectResponse;
