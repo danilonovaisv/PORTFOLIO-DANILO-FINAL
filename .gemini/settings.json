@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "supabase": {
+      "url": "https://mcp.supabase.com/mcp?features=storage%2Cfunctions%2Cdebugging",
+      "type": "http"
+    }
+  }
+}
