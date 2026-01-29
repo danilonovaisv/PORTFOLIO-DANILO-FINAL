@@ -106,7 +106,7 @@ export default function GhostAura() {
           'w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56',
           'top-[45%] left-[45%] -translate-x-1/2 -translate-y-1/2',
           'blur-xl sm:blur-2xl md:blur-[70px]',
-          'bg-[#00f0ff]/8'
+          'bg-[#00f0ff] opacity-[0.08]'
         )}
         animate={{
           scale: [1, 1.2, 1],

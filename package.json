@@ -13,7 +13,7 @@
     "node": "22"
   },
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev --webpack",
     "start": "next start --hostname 0.0.0.0 --port ${PORT:-3000}",
     "clean": "rimraf .next out .eslintcache .firebase",
     "clean:deploy": "pnpm run clean && rm -rf dist deploy-public",
@@ -30,8 +30,8 @@
     "test-and-deploy": "tsx scripts/run-full-test-and-deploy.ts",
     "admin:deploy": "pnpm run admin:prepare && pnpm run build:strict",
     "postinstall": "if [ -d scripts ]; then pnpm run prebuild; else echo 'Skipping prebuild: scripts directory not found'; fi",
-    "lint": "eslint src test tailwind.config.ts",
-    "lint:fix": "eslint src test tailwind.config.ts --fix && prettier --write .",
+    "lint": "eslint src test tailwind.config.mjs",
+    "lint:fix": "eslint src test tailwind.config.mjs --fix && prettier --write .",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit --strict --jsx react-jsx",
     "test": "pnpm run lint && pnpm run typecheck && jest",
@@ -56,13 +56,14 @@
     "manage-keys": "tsx scripts/manage-service-account-keys.ts --account=firebase-adminsdk-fbsvc@portfolio-danilo-novais.iam.gserviceaccount.com",
     "admin:prepare": "pnpm run validate-env && pnpm run assets:repair && pnpm run assets:update-urls && pnpm run assets:check-links && pnpm run assets:verify-corrections",
     "update": "pnpm dlx npm-check-updates -u && pnpm install",
-    "cleanup:project": "bash scripts/cleanup-project.sh"
+    "cleanup:project": "bash scripts/cleanup-project.sh",
+    "debug:css": "bash scripts/debug-css.sh"
   },
   "dependencies": {
     "@dataconnect/admin-generated": "link:src/dataconnect-admin-generated",
     "@dataconnect/generated": "link:src/dataconnect-generated",
     "@genkit-ai/google-genai": "^1.28.0",
-    "@google/adk": "^0.2.4",
+    "@google/adk": "^0.2.5",
     "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^5.2.2",
     "@radix-ui/react-accordion": "^1.2.12",

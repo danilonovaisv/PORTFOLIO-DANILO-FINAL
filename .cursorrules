@@ -1,73 +1,35 @@
-# 🛡️ PROJECT RULES: GHOST ERA PORTFOLIO
+# Ghost System Governance: CSS & Styling Rules
 
-You are the **Antigravity System Architect**, a Senior Engineer Expert in Next.js 15, WebGL (R3F), and Creative Development. Your goal is to build the "Ghost Era" portfolio: immersive, etereal, and high-performance.
+## 1. Styling Strategy & SSOT
+- **Single Source of Truth:** `src/app/globals.css` is the ONLY global stylesheet allowed.
+- **Forbidden:** Creating new global CSS files in `src/styles/` is strictly prohibited.
+- **Tailwind-First:** All styling must be done via Tailwind utility classes.
+  - ✅ `bg-background text-text p-4`
+  - ❌ `background-color: #040013; color: #fff; padding: 1rem;`
+- **Exceptions:** Complex animations or vendor library overrides may use CSS Modules or `globals.css` but must be documented.
 
-## 📂 SINGLE SOURCE OF TRUTH (CRITICAL)
+## 2. Design Tokens & Variables
+- **Colors:** Use semantic names, NOT hex codes.
+  - ✅ `text-primary`, `bg-surface`
+  - ❌ `text-[#0048ff]`, `bg-[#0b0d3a]`
+- **Typography:** Use the fluid type scale variables.
+  - ✅ `text-h1`, `text-body`
+  - ❌ `text-[32px]`
 
-**Before writing or editing any code, you MUST check the specifications in order:**
+## 3. Z-Index Scale (Strict Layering)
+- `z-0`: Default content
+- `z-10`: Elevated components (Cards, Dropdowns)
+- `z-40`: Sticky Navbars
+- `z-50`: Modals & Overlays
+- `z-100`: Critical System Alerts/Toasts
+- **Rule:** Do not use arbitrary z-indexes (e.g., `z-[9999]`). Stick to the scale.
 
-1. 👉 `./docs/blueprints_project/` (Master design & logic specs)
-2. 👉 `./.agentrules` (Registry of all active rules and workflows)
-3. 👉 `./agent/rules/` (Detailed behavioral & technical guidelines)
+## 4. Component Structure
+- **Root Element:** All major sections must be wrapped in `.std-grid` to ensure alignment.
+- **Responsive:** Mobile-first approach. Write for generic mobile first, then `md:`, `lg:`.
+  - ✅ `flex flex-col md:flex-row`
+  - ❌ `flex-row max-md:flex-col`
 
-**Conflict Resolution:** If code conflicts with documentation, the DOCS ALWAYS win.
-
----
-
-## 🛠️ TECH STACK (STRICT)
-
-- **Framework**: Next.js 15 (App Router).
-- **Core**: React 18.3+ (Stable for R3F/Postprocessing).
-- **Language**: TypeScript (Strict Mode). NO `any` allowed.
-- **Styling**: Tailwind CSS (Ghost Design System).
-- **Animation**: Framer Motion (UI/2D), GSAP (Complex timelines).
-- **3D/WebGL**: React Three Fiber (R3F), Drei, Custom GLSL Shaders.
-- **Scroll**: Lenis (Smooth Scroll) - *Mandatory for "Ghost" feel*.
-
----
-
-## 🧠 CORE PRINCIPLES (GHOST SYSTEM)
-
-### 1. Motion Signature
-
-- **Default Easing**: `cubic-bezier(0.22, 1, 0.36, 1)` (easeOutExpo).
-- **Feel**: Editorial, silent, fast start, smooth end.
-- **Stagger**: List items entering with `60ms - 100ms` delay.
-
-### 2. Z-Index Hierarchy (Non-Negotiable)
-
-- `z-50`: Preloader
-- `z-40`: Header
-- `z-30`: Manifesto Video (Expanded)
-- `z-25`: Editorial Text (Hero Copy)
-- `z-20`: Ghost WebGL Content
-- `z-0`: Background / Void
-
-### 3. Visual Ethics
-
-- **Colors**: `#0048ff` (Primary), `#4fe6ff` (Accent), `#040013` (Bg), `#fcffff` (Text).
-- **Zero Lorem Ipsum**: Use content from blueprints or existing `content.ts`.
-- **Layout**: Always wrap main content in `.std-grid`.
-
----
-
-## 🤖 OPERATIONAL WORKFLOW
-
-1. **LOAD**: Check `./docs/blueprints_project/` and `project_memory.md`.
-2. **RECALL**: Identify relevant Workflows in `./agent/workflows/`.
-3. **EXECUTE**: Build with strict adherence to Z-Index and Motion rules.
-4. **SAVE**: Update `project_memory.md` with progress and technical decisions.
-
----
-
-## 🦾 AGENT PERSONAS (Trigger Words)
-
-- **"@Architect"**: Folder structure & Next.js App Router logic.
-- **"@UI"**: Tailwind, CSS, Framer Motion, Accessibility.
-- **"@WebGL"**: R3F, Shaders, Math, Performance.
-- **"@Auditor"**: Comparison of code vs documentation.
-
----
-
-**COMANDO DE INICIALIZAÇÃO:**
-Se o arquivo `project_memory.md` não existir, crie-o agora com o status inicial: "Inicialização do Projeto baseada na Bíblia da Página Sobre".
+## 5. Maintenance
+- **Linting:** Pay attention to CSS specificity. Avoid `!important` unless overriding an external library that uses inline styles.
+- **Clean Up:** Delete unused classes. Do not leave commented-out styles.

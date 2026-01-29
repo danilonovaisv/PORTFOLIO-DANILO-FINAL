@@ -1,4 +1,319 @@
 @import 'tailwindcss';
-@import '../styles/globals.css';
+@config '../../tailwind.config.mjs';
 
-/* Force rebuild */
+/* ========================================================================
+   FONTS
+   ======================================================================== */
+/* TT Norms Pro - Primary Font */
+@font-face {
+  font-family: 'TT Norms Pro';
+  src: url('/fonts/TT%20Norms%20Pro%20Thin.woff2') format('woff2');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Norms Pro';
+  src: url('/fonts/TT%20Norms%20Pro%20Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Norms Pro';
+  src: url('/fonts/TT%20Norms%20Pro%20Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Norms Pro';
+  src: url('/fonts/TT%20Norms%20Pro%20Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Norms Pro';
+  src: url('/fonts/TT%20Norms%20Pro%20Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Norms Pro';
+  src: url('/fonts/TT%20Norms%20Pro%20Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* PPSupplyMono - Tag/Micro Font */
+@font-face {
+  font-family: 'PPSupplyMono';
+  src: url('https://assets.codepen.io/7558/PPSupplyMono-Variable.woff2')
+    format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* CustomLight */
+@font-face {
+  font-family: 'CustomLight';
+  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_light.woff2')
+    format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ========================================================================
+   GLOBAL VARIABLES
+   ======================================================================== */
+:root {
+  /* Fluid Typography (Mobile -> Desktop) */
+  --font-display: clamp(2.5rem, 5vw, 4.5rem);
+  --font-h1: clamp(2rem, 4vw, 3.5rem);
+  --font-h2: clamp(1.5rem, 3vw, 2.5rem);
+  --font-h3: clamp(1.25rem, 2vw, 1.75rem);
+  --font-body: clamp(1rem, 1.2vw, 1.125rem);
+
+  --font-small: 0.875rem; /* 14px */
+  --font-micro: 0.75rem; /* 12px */
+
+  /* Global Spacing */
+  --container-padding: clamp(24px, 5vw, 96px);
+
+  /* Ghost Cards */
+  --ghost-card-height-desktop: 480px;
+
+  /* Header Height */
+  --header-height: 80px;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-text antialiased;
+    font-family: 'TT Norms Pro', ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Mobile-First: Safe area padding */
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
+    padding-bottom: env(safe-area-inset-bottom, 0);
+
+    /* Optimize */
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Reset for anchor tags */
+  a {
+    @apply transition-colors duration-200;
+  }
+}
+
+/* ========================================================================
+   UTILITIES
+   ======================================================================== */
+@layer utilities {
+  /* Typography Utilities */
+  .text-display {
+    font-size: var(--font-display);
+    font-weight: 900;
+    line-height: 1.1;
+  }
+
+  .text-h1 {
+    font-size: var(--font-h1);
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  .text-h2 {
+    font-size: var(--font-h2);
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  .text-h3 {
+    font-size: var(--font-h3);
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  .text-body {
+    font-size: var(--font-body);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  .text-micro {
+    font-family: 'PPSupplyMono', monospace;
+    font-size: var(--font-micro);
+    line-height: 1.4;
+  }
+
+  /* Mobile-Optimized Text */
+  .text-mobile-hero {
+    font-size: clamp(2.5rem, 10vw, 6rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+
+  .text-mobile-title {
+    font-size: clamp(1.5rem, 6vw, 3rem);
+    line-height: 1.1;
+  }
+
+  .text-mobile-body {
+    font-size: clamp(0.875rem, 3.5vw, 1.125rem);
+    line-height: 1.6;
+  }
+
+  /* Layout & Grid System (Strict Standard) */
+  .std-grid {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.5rem; /* Mobile: 24px */
+    padding-right: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .std-grid {
+      padding-left: 3rem; /* Tablet: 48px */
+      padding-right: 3rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .std-grid {
+      padding-left: 6rem; /* Desktop: 96px */
+      padding-right: 6rem;
+      max-width: 1680px;
+    }
+  }
+
+  /* Card Helpers */
+  .card-shell {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 5 / 4;
+    min-height: 0;
+  }
+
+  @media (min-width: 768px) {
+    .card-shell {
+      aspect-ratio: unset;
+      min-height: var(--ghost-card-height-desktop);
+      height: var(--ghost-card-height-desktop);
+    }
+  }
+
+  .card-media {
+    position: relative;
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
+  }
+
+  /* Touch Utilities */
+  .touch-target {
+    min-width: 48px;
+    min-height: 48px;
+  }
+
+  .touch-feedback {
+    transition:
+      transform 150ms ease,
+      opacity 150ms ease;
+  }
+
+  .touch-feedback:active {
+    transform: scale(0.97);
+    opacity: 0.9;
+  }
+
+  /* Safe Area */
+  .safe-area-bottom {
+    padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
+  }
+
+  .footer-safe-area {
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  .safe-area-top {
+    padding-top: max(16px, env(safe-area-inset-top, 16px));
+  }
+
+  .safe-area-x {
+    padding-left: max(16px, env(safe-area-inset-left, 16px));
+    padding-right: max(16px, env(safe-area-inset-right, 16px));
+  }
+
+  /* Scroll Snap */
+  .scroll-snap-x {
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .scroll-snap-x::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scroll-snap-item {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  /* Image Wrapper */
+  .img-wrapper {
+    clip-path: inset(0% 0% 0% 0%);
+    will-change: clip-path;
+  }
+}
+
+/* ========================================================================
+   FRAMEWORK OVERRIDES
+   ======================================================================== */
+/* Lenis Scroll */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Admin specific */
+html.admin-page {
+  scroll-behavior: auto !important;
+}
+
+html.admin-page,
+html.admin-page body {
+  overflow-y: auto !important;
+  height: auto;
+}

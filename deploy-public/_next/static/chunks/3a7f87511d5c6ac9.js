@@ -1,4 +1,98 @@
-(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,78191,e=>{"use strict";e.i(1921);var t=e.i(77579),r=e.i(46858),s=e.i(65418),i=e.i(29550),n=e.i(40023),a=e.i(69857),l=e.i(82075),o=r,c=e.i(50798);function d(e,t){if("function"==typeof e)return e(t);null!=e&&(e.current=t)}class h extends o.Component{getSnapshotBeforeUpdate(e){let t=this.props.childRef.current;if(t&&e.isPresent&&!this.props.isPresent){let e=t.offsetParent,r=(0,l.isHTMLElement)(e)&&e.offsetWidth||0,s=(0,l.isHTMLElement)(e)&&e.offsetHeight||0,i=this.props.sizeRef.current;i.height=t.offsetHeight||0,i.width=t.offsetWidth||0,i.top=t.offsetTop,i.left=t.offsetLeft,i.right=r-i.width-i.left,i.bottom=s-i.height-i.top}return null}componentDidUpdate(){}render(){return this.props.children}}function u({children:e,isPresent:s,anchorX:i,anchorY:n,root:a}){let l=(0,o.useId)(),u=(0,o.useRef)(null),p=(0,o.useRef)({width:0,height:0,top:0,left:0,right:0,bottom:0}),{nonce:f}=(0,o.useContext)(c.MotionConfigContext),m=function(...e){return r.useCallback(function(...e){return t=>{let r=!1,s=e.map(e=>{let s=d(e,t);return r||"function"!=typeof s||(r=!0),s});if(r)return()=>{for(let t=0;t<s.length;t++){let r=s[t];"function"==typeof r?r():d(e[t],null)}}}}(...e),e)}(u,e.props?.ref??e?.ref);return(0,o.useInsertionEffect)(()=>{let{width:e,height:t,top:r,left:o,right:c,bottom:d}=p.current;if(s||!u.current||!e||!t)return;let h="left"===i?`left: ${o}`:`right: ${c}`,m="bottom"===n?`bottom: ${d}`:`top: ${r}`;u.current.dataset.motionPopId=l;let x=document.createElement("style");f&&(x.nonce=f);let g=a??document.head;return g.appendChild(x),x.sheet&&x.sheet.insertRule(`
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push([
+  'object' == typeof document ? document.currentScript : void 0,
+  78191,
+  (e) => {
+    'use strict';
+    e.i(1921);
+    var t = e.i(77579),
+      r = e.i(46858),
+      s = e.i(65418),
+      i = e.i(29550),
+      n = e.i(40023),
+      a = e.i(69857),
+      l = e.i(82075),
+      o = r,
+      c = e.i(50798);
+    function d(e, t) {
+      if ('function' == typeof e) return e(t);
+      null != e && (e.current = t);
+    }
+    class h extends o.Component {
+      getSnapshotBeforeUpdate(e) {
+        let t = this.props.childRef.current;
+        if (t && e.isPresent && !this.props.isPresent) {
+          let e = t.offsetParent,
+            r = ((0, l.isHTMLElement)(e) && e.offsetWidth) || 0,
+            s = ((0, l.isHTMLElement)(e) && e.offsetHeight) || 0,
+            i = this.props.sizeRef.current;
+          ((i.height = t.offsetHeight || 0),
+            (i.width = t.offsetWidth || 0),
+            (i.top = t.offsetTop),
+            (i.left = t.offsetLeft),
+            (i.right = r - i.width - i.left),
+            (i.bottom = s - i.height - i.top));
+        }
+        return null;
+      }
+      componentDidUpdate() {}
+      render() {
+        return this.props.children;
+      }
+    }
+    function u({ children: e, isPresent: s, anchorX: i, anchorY: n, root: a }) {
+      let l = (0, o.useId)(),
+        u = (0, o.useRef)(null),
+        p = (0, o.useRef)({
+          width: 0,
+          height: 0,
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+        }),
+        { nonce: f } = (0, o.useContext)(c.MotionConfigContext),
+        m = (function (...e) {
+          return r.useCallback(
+            (function (...e) {
+              return (t) => {
+                let r = !1,
+                  s = e.map((e) => {
+                    let s = d(e, t);
+                    return (r || 'function' != typeof s || (r = !0), s);
+                  });
+                if (r)
+                  return () => {
+                    for (let t = 0; t < s.length; t++) {
+                      let r = s[t];
+                      'function' == typeof r ? r() : d(e[t], null);
+                    }
+                  };
+              };
+            })(...e),
+            e
+          );
+        })(u, e.props?.ref ?? e?.ref);
+      return (
+        (0, o.useInsertionEffect)(() => {
+          let {
+            width: e,
+            height: t,
+            top: r,
+            left: o,
+            right: c,
+            bottom: d,
+          } = p.current;
+          if (s || !u.current || !e || !t) return;
+          let h = 'left' === i ? `left: ${o}` : `right: ${c}`,
+            m = 'bottom' === n ? `bottom: ${d}` : `top: ${r}`;
+          u.current.dataset.motionPopId = l;
+          let x = document.createElement('style');
+          f && (x.nonce = f);
+          let g = a ?? document.head;
+          return (
+            g.appendChild(x),
+            x.sheet &&
+              x.sheet.insertRule(`
           [data-motion-pop-id="${l}"] {
             position: absolute !important;
             width: ${e}px !important;
@@ -6,4 +100,423 @@
             ${h}px !important;
             ${m}px !important;
           }
-        `),()=>{g.contains(x)&&g.removeChild(x)}},[s]),(0,t.jsx)(h,{isPresent:s,childRef:u,sizeRef:p,children:o.cloneElement(e,{ref:m})})}let p=({children:e,initial:s,isPresent:n,onExitComplete:l,custom:o,presenceAffectsLayout:c,mode:d,anchorX:h,anchorY:p,root:m})=>{let x=(0,i.useConstant)(f),g=(0,r.useId)(),j=!0,y=(0,r.useMemo)(()=>(j=!1,{id:g,initial:s,isPresent:n,custom:o,onExitComplete:e=>{for(let t of(x.set(e,!0),x.values()))if(!t)return;l&&l()},register:e=>(x.set(e,!1),()=>x.delete(e))}),[n,x,l]);return c&&j&&(y={...y}),(0,r.useMemo)(()=>{x.forEach((e,t)=>x.set(t,!1))},[n]),r.useEffect(()=>{n||x.size||!l||l()},[n]),"popLayout"===d&&(e=(0,t.jsx)(u,{isPresent:n,anchorX:h,anchorY:p,root:m,children:e})),(0,t.jsx)(a.PresenceContext.Provider,{value:y,children:e})};function f(){return new Map}var m=e.i(4036);let x=e=>e.key||"";function g(e){let t=[];return r.Children.forEach(e,e=>{(0,r.isValidElement)(e)&&t.push(e)}),t}let j=({children:e,custom:a,initial:l=!0,onExitComplete:o,presenceAffectsLayout:c=!0,mode:d="sync",propagate:h=!1,anchorX:u="left",anchorY:f="top",root:j})=>{let[y,v]=(0,m.usePresence)(h),b=(0,r.useMemo)(()=>g(e),[e]),w=h&&!y?[]:b.map(x),N=(0,r.useRef)(!0),C=(0,r.useRef)(b),k=(0,i.useConstant)(()=>new Map),M=(0,r.useRef)(new Set),[E,P]=(0,r.useState)(b),[R,T]=(0,r.useState)(b);(0,n.useIsomorphicLayoutEffect)(()=>{N.current=!1,C.current=b;for(let e=0;e<R.length;e++){let t=x(R[e]);w.includes(t)?(k.delete(t),M.current.delete(t)):!0!==k.get(t)&&k.set(t,!1)}},[R,w.length,w.join("-")]);let $=[];if(b!==E){let e=[...b];for(let t=0;t<R.length;t++){let r=R[t],s=x(r);w.includes(s)||(e.splice(t,0,r),$.push(r))}return"wait"===d&&$.length&&(e=$),T(g(e)),P(b),null}let{forceRender:z}=(0,r.useContext)(s.LayoutGroupContext);return(0,t.jsx)(t.Fragment,{children:R.map(e=>{let r=x(e),s=(!h||!!y)&&(b===R||w.includes(r));return(0,t.jsx)(p,{isPresent:s,initial:(!N.current||!!l)&&void 0,custom:a,presenceAffectsLayout:c,mode:d,root:j,onExitComplete:s?void 0:()=>{if(M.current.has(r)||(M.current.add(r),!k.has(r)))return;k.set(r,!0);let e=!0;k.forEach(t=>{t||(e=!1)}),e&&(z?.(),T(C.current),h&&v?.(),o&&o())},anchorX:u,anchorY:f,children:e},r)})})};e.s(["AnimatePresence",()=>j],78191)},3214,e=>{"use strict";let t=(0,e.i(3645).default)("plus",[["path",{d:"M5 12h14",key:"1ays0h"}],["path",{d:"M12 5v14",key:"s699le"}]]);e.s(["Plus",()=>t],3214)},67669,e=>{"use strict";let t=(0,e.i(3645).default)("trash-2",[["path",{d:"M10 11v6",key:"nco0om"}],["path",{d:"M14 11v6",key:"outv1u"}],["path",{d:"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6",key:"miytrc"}],["path",{d:"M3 6h18",key:"d0wm0j"}],["path",{d:"M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2",key:"e791ji"}]]);e.s(["Trash2",()=>t],67669)},59353,e=>{"use strict";var t=e.i(77579),r=e.i(46858),s=e.i(89668),i=e.i(11795),n=e.i(3214),a=e.i(3645);let l=(0,a.default)("square-pen",[["path",{d:"M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7",key:"1m0v6g"}],["path",{d:"M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z",key:"ohrbg2"}]]);var o=e.i(67669);let c=(0,a.default)("external-link",[["path",{d:"M15 3h6v6",key:"1q9fwt"}],["path",{d:"M10 14 21 3",key:"gplh6r"}],["path",{d:"M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6",key:"a6xqqp"}]]);var d=e.i(62897),h=e.i(78191);function u(){let e=(0,i.createClientComponentClient)(),[a,u]=(0,r.useState)([]),[p,f]=(0,r.useState)(!0);async function m(){try{f(!0);let{data:t,error:r}=await e.from("landing_pages").select("id, title, slug, created_at").order("created_at",{ascending:!1});if(r)throw r;u(t||[])}catch(e){console.error("Error fetching landing pages:",e)}finally{f(!1)}}async function x(t){if(confirm("Tem certeza que deseja excluir esta página?"))try{let{error:r}=await e.from("landing_pages").delete().eq("id",t);if(r)throw r;u(a.filter(e=>e.id!==t))}catch(e){console.error("Error deleting landing page:",e),alert("Erro ao excluir página.")}}return(0,r.useEffect)(()=>{m()},[]),(0,t.jsxs)("div",{className:"space-y-8",children:[(0,t.jsxs)("div",{className:"flex items-center justify-between",children:[(0,t.jsxs)("div",{children:[(0,t.jsx)("p",{className:"text-sm uppercase tracking-[0.25em] text-slate-400",children:"Gerenciamento"}),(0,t.jsx)("h1",{className:"text-3xl font-semibold",children:"Landing Pages de Projetos"})]}),(0,t.jsxs)(s.default,{href:"/admin/landing-pages/new",className:"flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 transition-all",children:[(0,t.jsx)(n.Plus,{size:18}),"Nova Página"]})]}),(0,t.jsx)("div",{className:"overflow-hidden rounded-xl border border-white/10 bg-slate-900/40 backdrop-blur-sm",children:p?(0,t.jsx)("div",{className:"p-12 text-center text-slate-400",children:"Carregando..."}):a.length>0?(0,t.jsxs)("table",{className:"min-w-full text-sm text-left",children:[(0,t.jsx)("thead",{children:(0,t.jsxs)("tr",{className:"border-b border-white/10 text-slate-400",children:[(0,t.jsx)("th",{className:"px-6 py-4 font-medium uppercase tracking-wider",children:"Título"}),(0,t.jsx)("th",{className:"px-6 py-4 font-medium uppercase tracking-wider",children:"Slug"}),(0,t.jsx)("th",{className:"px-6 py-4 font-medium uppercase tracking-wider",children:"Criação"}),(0,t.jsx)("th",{className:"px-6 py-4 font-medium uppercase tracking-wider text-right",children:"Ações"})]})}),(0,t.jsx)("tbody",{className:"divide-y divide-white/5",children:(0,t.jsx)(h.AnimatePresence,{children:a.map(e=>(0,t.jsxs)(d.motion.tr,{initial:{opacity:0},animate:{opacity:1},exit:{opacity:0},className:"hover:bg-white/2 transition-colors group",children:[(0,t.jsx)("td",{className:"px-6 py-4 text-white font-medium",children:e.title}),(0,t.jsxs)("td",{className:"px-6 py-4 text-slate-400 font-mono text-xs",children:["/",e.slug]}),(0,t.jsx)("td",{className:"px-6 py-4 text-slate-500",children:new Date(e.created_at).toLocaleDateString("pt-BR")}),(0,t.jsx)("td",{className:"px-6 py-4 text-right",children:(0,t.jsxs)("div",{className:"flex items-center justify-end gap-2",children:[(0,t.jsx)(s.default,{href:`/projects/${e.slug}`,target:"_blank",className:"p-2 text-slate-400 hover:text-white transition-colors",title:"Ver página pública",children:(0,t.jsx)(c,{size:18})}),(0,t.jsx)(s.default,{href:`/admin/landing-pages/${e.id}`,className:"p-2 text-slate-400 hover:text-blue-400 transition-colors",title:"Editar",children:(0,t.jsx)(l,{size:18})}),(0,t.jsx)("button",{onClick:()=>x(e.id),className:"p-2 text-slate-400 hover:text-red-400 transition-colors",title:"Excluir",children:(0,t.jsx)(o.Trash2,{size:18})})]})})]},e.id))})})]}):(0,t.jsxs)("div",{className:"p-12 text-center",children:[(0,t.jsx)("p",{className:"text-slate-400 mb-4",children:"Nenhuma landing page criada."}),(0,t.jsx)(s.default,{href:"/admin/landing-pages/new",className:"text-blue-400 hover:underline text-sm",children:"Criar minha primeira página"})]})})]})}e.s(["default",()=>u],59353)}]);
+        `),
+            () => {
+              g.contains(x) && g.removeChild(x);
+            }
+          );
+        }, [s]),
+        (0, t.jsx)(h, {
+          isPresent: s,
+          childRef: u,
+          sizeRef: p,
+          children: o.cloneElement(e, { ref: m }),
+        })
+      );
+    }
+    let p = ({
+      children: e,
+      initial: s,
+      isPresent: n,
+      onExitComplete: l,
+      custom: o,
+      presenceAffectsLayout: c,
+      mode: d,
+      anchorX: h,
+      anchorY: p,
+      root: m,
+    }) => {
+      let x = (0, i.useConstant)(f),
+        g = (0, r.useId)(),
+        j = !0,
+        y = (0, r.useMemo)(
+          () => (
+            (j = !1),
+            {
+              id: g,
+              initial: s,
+              isPresent: n,
+              custom: o,
+              onExitComplete: (e) => {
+                for (let t of (x.set(e, !0), x.values())) if (!t) return;
+                l && l();
+              },
+              register: (e) => (x.set(e, !1), () => x.delete(e)),
+            }
+          ),
+          [n, x, l]
+        );
+      return (
+        c && j && (y = { ...y }),
+        (0, r.useMemo)(() => {
+          x.forEach((e, t) => x.set(t, !1));
+        }, [n]),
+        r.useEffect(() => {
+          n || x.size || !l || l();
+        }, [n]),
+        'popLayout' === d &&
+          (e = (0, t.jsx)(u, {
+            isPresent: n,
+            anchorX: h,
+            anchorY: p,
+            root: m,
+            children: e,
+          })),
+        (0, t.jsx)(a.PresenceContext.Provider, { value: y, children: e })
+      );
+    };
+    function f() {
+      return new Map();
+    }
+    var m = e.i(4036);
+    let x = (e) => e.key || '';
+    function g(e) {
+      let t = [];
+      return (
+        r.Children.forEach(e, (e) => {
+          (0, r.isValidElement)(e) && t.push(e);
+        }),
+        t
+      );
+    }
+    let j = ({
+      children: e,
+      custom: a,
+      initial: l = !0,
+      onExitComplete: o,
+      presenceAffectsLayout: c = !0,
+      mode: d = 'sync',
+      propagate: h = !1,
+      anchorX: u = 'left',
+      anchorY: f = 'top',
+      root: j,
+    }) => {
+      let [y, v] = (0, m.usePresence)(h),
+        b = (0, r.useMemo)(() => g(e), [e]),
+        w = h && !y ? [] : b.map(x),
+        N = (0, r.useRef)(!0),
+        C = (0, r.useRef)(b),
+        k = (0, i.useConstant)(() => new Map()),
+        M = (0, r.useRef)(new Set()),
+        [E, P] = (0, r.useState)(b),
+        [R, T] = (0, r.useState)(b);
+      (0, n.useIsomorphicLayoutEffect)(() => {
+        ((N.current = !1), (C.current = b));
+        for (let e = 0; e < R.length; e++) {
+          let t = x(R[e]);
+          w.includes(t)
+            ? (k.delete(t), M.current.delete(t))
+            : !0 !== k.get(t) && k.set(t, !1);
+        }
+      }, [R, w.length, w.join('-')]);
+      let $ = [];
+      if (b !== E) {
+        let e = [...b];
+        for (let t = 0; t < R.length; t++) {
+          let r = R[t],
+            s = x(r);
+          w.includes(s) || (e.splice(t, 0, r), $.push(r));
+        }
+        return ('wait' === d && $.length && (e = $), T(g(e)), P(b), null);
+      }
+      let { forceRender: z } = (0, r.useContext)(s.LayoutGroupContext);
+      return (0, t.jsx)(t.Fragment, {
+        children: R.map((e) => {
+          let r = x(e),
+            s = (!h || !!y) && (b === R || w.includes(r));
+          return (0, t.jsx)(
+            p,
+            {
+              isPresent: s,
+              initial: (!N.current || !!l) && void 0,
+              custom: a,
+              presenceAffectsLayout: c,
+              mode: d,
+              root: j,
+              onExitComplete: s
+                ? void 0
+                : () => {
+                    if (M.current.has(r) || (M.current.add(r), !k.has(r)))
+                      return;
+                    k.set(r, !0);
+                    let e = !0;
+                    (k.forEach((t) => {
+                      t || (e = !1);
+                    }),
+                      e && (z?.(), T(C.current), h && v?.(), o && o()));
+                  },
+              anchorX: u,
+              anchorY: f,
+              children: e,
+            },
+            r
+          );
+        }),
+      });
+    };
+    e.s(['AnimatePresence', () => j], 78191);
+  },
+  3214,
+  (e) => {
+    'use strict';
+    let t = (0, e.i(3645).default)('plus', [
+      ['path', { d: 'M5 12h14', key: '1ays0h' }],
+      ['path', { d: 'M12 5v14', key: 's699le' }],
+    ]);
+    e.s(['Plus', () => t], 3214);
+  },
+  67669,
+  (e) => {
+    'use strict';
+    let t = (0, e.i(3645).default)('trash-2', [
+      ['path', { d: 'M10 11v6', key: 'nco0om' }],
+      ['path', { d: 'M14 11v6', key: 'outv1u' }],
+      [
+        'path',
+        { d: 'M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6', key: 'miytrc' },
+      ],
+      ['path', { d: 'M3 6h18', key: 'd0wm0j' }],
+      ['path', { d: 'M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2', key: 'e791ji' }],
+    ]);
+    e.s(['Trash2', () => t], 67669);
+  },
+  59353,
+  (e) => {
+    'use strict';
+    var t = e.i(77579),
+      r = e.i(46858),
+      s = e.i(89668),
+      i = e.i(11795),
+      n = e.i(3214),
+      a = e.i(3645);
+    let l = (0, a.default)('square-pen', [
+      [
+        'path',
+        {
+          d: 'M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7',
+          key: '1m0v6g',
+        },
+      ],
+      [
+        'path',
+        {
+          d: 'M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z',
+          key: 'ohrbg2',
+        },
+      ],
+    ]);
+    var o = e.i(67669);
+    let c = (0, a.default)('external-link', [
+      ['path', { d: 'M15 3h6v6', key: '1q9fwt' }],
+      ['path', { d: 'M10 14 21 3', key: 'gplh6r' }],
+      [
+        'path',
+        {
+          d: 'M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6',
+          key: 'a6xqqp',
+        },
+      ],
+    ]);
+    var d = e.i(62897),
+      h = e.i(78191);
+    function u() {
+      let e = (0, i.createClientComponentClient)(),
+        [a, u] = (0, r.useState)([]),
+        [p, f] = (0, r.useState)(!0);
+      async function m() {
+        try {
+          f(!0);
+          let { data: t, error: r } = await e
+            .from('landing_pages')
+            .select('id, title, slug, created_at')
+            .order('created_at', { ascending: !1 });
+          if (r) throw r;
+          u(t || []);
+        } catch (e) {
+          console.error('Error fetching landing pages:', e);
+        } finally {
+          f(!1);
+        }
+      }
+      async function x(t) {
+        if (confirm('Tem certeza que deseja excluir esta página?'))
+          try {
+            let { error: r } = await e
+              .from('landing_pages')
+              .delete()
+              .eq('id', t);
+            if (r) throw r;
+            u(a.filter((e) => e.id !== t));
+          } catch (e) {
+            (console.error('Error deleting landing page:', e),
+              alert('Erro ao excluir página.'));
+          }
+      }
+      return (
+        (0, r.useEffect)(() => {
+          m();
+        }, []),
+        (0, t.jsxs)('div', {
+          className: 'space-y-8',
+          children: [
+            (0, t.jsxs)('div', {
+              className: 'flex items-center justify-between',
+              children: [
+                (0, t.jsxs)('div', {
+                  children: [
+                    (0, t.jsx)('p', {
+                      className:
+                        'text-sm uppercase tracking-[0.25em] text-slate-400',
+                      children: 'Gerenciamento',
+                    }),
+                    (0, t.jsx)('h1', {
+                      className: 'text-3xl font-semibold',
+                      children: 'Landing Pages de Projetos',
+                    }),
+                  ],
+                }),
+                (0, t.jsxs)(s.default, {
+                  href: '/admin/landing-pages/new',
+                  className:
+                    'flex items-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-blue-700 transition-all',
+                  children: [(0, t.jsx)(n.Plus, { size: 18 }), 'Nova Página'],
+                }),
+              ],
+            }),
+            (0, t.jsx)('div', {
+              className:
+                'overflow-hidden rounded-xl border border-white/10 bg-slate-900/40 backdrop-blur-sm',
+              children: p
+                ? (0, t.jsx)('div', {
+                    className: 'p-12 text-center text-slate-400',
+                    children: 'Carregando...',
+                  })
+                : a.length > 0
+                  ? (0, t.jsxs)('table', {
+                      className: 'min-w-full text-sm text-left',
+                      children: [
+                        (0, t.jsx)('thead', {
+                          children: (0, t.jsxs)('tr', {
+                            className:
+                              'border-b border-white/10 text-slate-400',
+                            children: [
+                              (0, t.jsx)('th', {
+                                className:
+                                  'px-6 py-4 font-medium uppercase tracking-wider',
+                                children: 'Título',
+                              }),
+                              (0, t.jsx)('th', {
+                                className:
+                                  'px-6 py-4 font-medium uppercase tracking-wider',
+                                children: 'Slug',
+                              }),
+                              (0, t.jsx)('th', {
+                                className:
+                                  'px-6 py-4 font-medium uppercase tracking-wider',
+                                children: 'Criação',
+                              }),
+                              (0, t.jsx)('th', {
+                                className:
+                                  'px-6 py-4 font-medium uppercase tracking-wider text-right',
+                                children: 'Ações',
+                              }),
+                            ],
+                          }),
+                        }),
+                        (0, t.jsx)('tbody', {
+                          className: 'divide-y divide-white/5',
+                          children: (0, t.jsx)(h.AnimatePresence, {
+                            children: a.map((e) =>
+                              (0, t.jsxs)(
+                                d.motion.tr,
+                                {
+                                  initial: { opacity: 0 },
+                                  animate: { opacity: 1 },
+                                  exit: { opacity: 0 },
+                                  className:
+                                    'hover:bg-white/2 transition-colors group',
+                                  children: [
+                                    (0, t.jsx)('td', {
+                                      className:
+                                        'px-6 py-4 text-white font-medium',
+                                      children: e.title,
+                                    }),
+                                    (0, t.jsxs)('td', {
+                                      className:
+                                        'px-6 py-4 text-slate-400 font-mono text-xs',
+                                      children: ['/', e.slug],
+                                    }),
+                                    (0, t.jsx)('td', {
+                                      className: 'px-6 py-4 text-slate-500',
+                                      children: new Date(
+                                        e.created_at
+                                      ).toLocaleDateString('pt-BR'),
+                                    }),
+                                    (0, t.jsx)('td', {
+                                      className: 'px-6 py-4 text-right',
+                                      children: (0, t.jsxs)('div', {
+                                        className:
+                                          'flex items-center justify-end gap-2',
+                                        children: [
+                                          (0, t.jsx)(s.default, {
+                                            href: `/projects/${e.slug}`,
+                                            target: '_blank',
+                                            className:
+                                              'p-2 text-slate-400 hover:text-white transition-colors',
+                                            title: 'Ver página pública',
+                                            children: (0, t.jsx)(c, {
+                                              size: 18,
+                                            }),
+                                          }),
+                                          (0, t.jsx)(s.default, {
+                                            href: `/admin/landing-pages/${e.id}`,
+                                            className:
+                                              'p-2 text-slate-400 hover:text-blue-400 transition-colors',
+                                            title: 'Editar',
+                                            children: (0, t.jsx)(l, {
+                                              size: 18,
+                                            }),
+                                          }),
+                                          (0, t.jsx)('button', {
+                                            onClick: () => x(e.id),
+                                            className:
+                                              'p-2 text-slate-400 hover:text-red-400 transition-colors',
+                                            title: 'Excluir',
+                                            children: (0, t.jsx)(o.Trash2, {
+                                              size: 18,
+                                            }),
+                                          }),
+                                        ],
+                                      }),
+                                    }),
+                                  ],
+                                },
+                                e.id
+                              )
+                            ),
+                          }),
+                        }),
+                      ],
+                    })
+                  : (0, t.jsxs)('div', {
+                      className: 'p-12 text-center',
+                      children: [
+                        (0, t.jsx)('p', {
+                          className: 'text-slate-400 mb-4',
+                          children: 'Nenhuma landing page criada.',
+                        }),
+                        (0, t.jsx)(s.default, {
+                          href: '/admin/landing-pages/new',
+                          className: 'text-blue-400 hover:underline text-sm',
+                          children: 'Criar minha primeira página',
+                        }),
+                      ],
+                    }),
+            }),
+          ],
+        })
+      );
+    }
+    e.s(['default', () => u], 59353);
+  },
+]);

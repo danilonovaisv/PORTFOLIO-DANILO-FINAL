@@ -1,1 +1,100 @@
-(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,80643,e=>{"use strict";e.i(98864);var t=e.i(54395),n=e.i(89424),i=e.i(65438);function o(e){return"number"==typeof e?e:parseFloat(e)}var r=e.i(46858),u=e.i(50798),s=e.i(30951),a=e.i(28046);function l(e,c={}){return function(e,l={}){let{isStatic:c}=(0,r.useContext)(u.MotionConfigContext),f=()=>(0,n.isMotionValue)(e)?e.get():e;if(c)return(0,a.useTransform)(f);let p=(0,s.useMotionValue)(f());return(0,r.useInsertionEffect)(()=>(function(e,r,u={}){let s,a=e.get(),l=null,c=a,f="string"==typeof a?a.replace(/[\d.-]/g,""):void 0,p=()=>{l&&(l.stop(),l=null)};if(e.attach((n,r)=>{c=n,s=e=>{var t,n;return r((t=e,(n=f)?t+n:t))},i.frame.postRender(()=>{let n,i;p(),n=o(e.get()),n!==(i=o(c))&&(l=new t.JSAnimation({keyframes:[n,i],velocity:e.getVelocity(),type:"spring",restDelta:.001,restSpeed:.01,...u,onUpdate:s})),e.events.animationStart?.notify(),l?.then(()=>{e.events.animationComplete?.notify()})})},p),(0,n.isMotionValue)(r)){let t=r.on("change",t=>{var n,i;return e.set((n=t,(i=f)?n+i:n))}),n=e.on("destroy",t);return()=>{t(),n()}}return p})(p,e,l),[p,JSON.stringify(l)]),p}(e,{type:"spring",...c})}e.s(["useSpring",()=>l],80643)},60630,e=>{"use strict";var t=e.i(90541),n=e.i(46858);function i(){let e=(0,t.useReducedMotion)(),[i,o]=(0,n.useState)(!1);return(0,n.useEffect)(()=>{o(!0)},[]),!!i&&(e??!1)}e.s(["useReducedMotion",()=>i])}]);
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push([
+  'object' == typeof document ? document.currentScript : void 0,
+  80643,
+  (e) => {
+    'use strict';
+    e.i(98864);
+    var t = e.i(54395),
+      n = e.i(89424),
+      i = e.i(65438);
+    function o(e) {
+      return 'number' == typeof e ? e : parseFloat(e);
+    }
+    var r = e.i(46858),
+      u = e.i(50798),
+      s = e.i(30951),
+      a = e.i(28046);
+    function l(e, c = {}) {
+      return (function (e, l = {}) {
+        let { isStatic: c } = (0, r.useContext)(u.MotionConfigContext),
+          f = () => ((0, n.isMotionValue)(e) ? e.get() : e);
+        if (c) return (0, a.useTransform)(f);
+        let p = (0, s.useMotionValue)(f());
+        return (
+          (0, r.useInsertionEffect)(
+            () =>
+              (function (e, r, u = {}) {
+                let s,
+                  a = e.get(),
+                  l = null,
+                  c = a,
+                  f = 'string' == typeof a ? a.replace(/[\d.-]/g, '') : void 0,
+                  p = () => {
+                    l && (l.stop(), (l = null));
+                  };
+                if (
+                  (e.attach((n, r) => {
+                    ((c = n),
+                      (s = (e) => {
+                        var t, n;
+                        return r(((t = e), (n = f) ? t + n : t));
+                      }),
+                      i.frame.postRender(() => {
+                        let n, i;
+                        (p(),
+                          (n = o(e.get())),
+                          n !== (i = o(c)) &&
+                            (l = new t.JSAnimation({
+                              keyframes: [n, i],
+                              velocity: e.getVelocity(),
+                              type: 'spring',
+                              restDelta: 0.001,
+                              restSpeed: 0.01,
+                              ...u,
+                              onUpdate: s,
+                            })),
+                          e.events.animationStart?.notify(),
+                          l?.then(() => {
+                            e.events.animationComplete?.notify();
+                          }));
+                      }));
+                  }, p),
+                  (0, n.isMotionValue)(r))
+                ) {
+                  let t = r.on('change', (t) => {
+                      var n, i;
+                      return e.set(((n = t), (i = f) ? n + i : n));
+                    }),
+                    n = e.on('destroy', t);
+                  return () => {
+                    (t(), n());
+                  };
+                }
+                return p;
+              })(p, e, l),
+            [p, JSON.stringify(l)]
+          ),
+          p
+        );
+      })(e, { type: 'spring', ...c });
+    }
+    e.s(['useSpring', () => l], 80643);
+  },
+  60630,
+  (e) => {
+    'use strict';
+    var t = e.i(90541),
+      n = e.i(46858);
+    function i() {
+      let e = (0, t.useReducedMotion)(),
+        [i, o] = (0, n.useState)(!1);
+      return (
+        (0, n.useEffect)(() => {
+          o(!0);
+        }, []),
+        !!i && (e ?? !1)
+      );
+    }
+    e.s(['useReducedMotion', () => i]);
+  },
+]);

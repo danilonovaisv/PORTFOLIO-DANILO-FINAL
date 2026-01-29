@@ -1,1 +1,23 @@
-.floating-cards-container{perspective:1000px}.card-3d-wrapper{transform-style:preserve-3d;will-change:transform}.card-glass{-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);background:#ffffff0d;border:1px solid #ffffff1a;box-shadow:0 8px 32px #0000005e}.purple-glow-text{text-shadow:0 0 10px #9333ea99}@media (prefers-reduced-motion:reduce){.card-3d-wrapper{animation:none!important;transform:none!important}}
+.floating-cards-container {
+  perspective: 1000px;
+}
+.card-3d-wrapper {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.card-glass {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  background: #ffffff0d;
+  border: 1px solid #ffffff1a;
+  box-shadow: 0 8px 32px #0000005e;
+}
+.purple-glow-text {
+  text-shadow: 0 0 10px #9333ea99;
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-3d-wrapper {
+    animation: none !important;
+    transform: none !important;
+  }
+}

@@ -1,0 +1,1360 @@
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push([
+  'object' == typeof document ? document.currentScript : void 0,
+  29832,
+  (e) => {
+    'use strict';
+    var t = e.i(11795);
+    let s = /[^a-z0-9._-]/g;
+    var a = e.i(12559);
+    async function o(e, s, o, r) {
+      let l,
+        i,
+        n = (0, t.createClientComponentClient)(),
+        d = r.name.split('.').pop(),
+        c = d ? `${o}.${d}` : o,
+        p = (i = (l = s.replace(/\/+$/g, '').replace(/^\/+/g, ''))
+          ? `${l}`
+          : '')
+          ? `${i}/${c}`
+          : c,
+        { data: u, error: b } = await n.storage
+          .from(e)
+          .upload(p, r, { cacheControl: '3600', upsert: !0 });
+      if (b) throw b;
+      return (0, a.normalizeStoragePath)(u.path, e);
+    }
+    async function r({
+      file: e,
+      key: o,
+      page: r,
+      subPath: l,
+      bucket: i = 'site-assets',
+    }) {
+      let n = (0, t.createClientComponentClient)(),
+        d = (function ({ page: e, key: t, subPath: a, extension: o }) {
+          let r = [e && e.trim().length > 0 ? e.trim() : 'global'];
+          a && r.push(a.trim().replace(/^\/+|\/+$/g, ''));
+          let l = t.trim().toLowerCase().replace(/\s+/g, '_').replace(s, ''),
+            i = o.toLowerCase().replace(/^\.+/, '') || 'bin',
+            n = `${l}.${i}`;
+          return `${r.join('/')}/${n}`;
+        })({
+          page: r,
+          key: o,
+          subPath: l,
+          extension: e.name.split('.').pop() ?? 'bin',
+        }),
+        { data: c, error: p } = await n.storage
+          .from(i)
+          .upload(d, e, { cacheControl: '3600', upsert: !0 });
+      if (p) throw p;
+      return (0, a.normalizeStoragePath)(c.path, i);
+    }
+    e.s(['uploadSiteAsset', () => r, 'uploadToBucket', () => o], 29832);
+  },
+  96710,
+  (e) => {
+    'use strict';
+    var t = e.i(82970);
+    let s = [
+        {
+          key: t.SITE_ASSET_KEYS.logos.headerLight,
+          label: 'Logo header (claro)',
+          description: 'Versão clara do logo do header',
+          page: 'global',
+          asset_type: 'image',
+          subPath: 'logos',
+        },
+        {
+          key: t.SITE_ASSET_KEYS.logos.headerDark,
+          label: 'Logo header (escuro)',
+          description: 'Versão escura do logo do header',
+          page: 'global',
+          asset_type: 'image',
+          subPath: 'logos',
+        },
+        {
+          key: t.SITE_ASSET_KEYS.logos.faviconLight,
+          label: 'Favicon claro',
+          description: 'Favicon claro utilizado na aba',
+          page: 'global',
+          asset_type: 'image',
+          subPath: 'logos',
+        },
+        {
+          key: t.SITE_ASSET_KEYS.logos.faviconDark,
+          label: 'Favicon escuro',
+          description: 'Favicon escuro utilizado na aba',
+          page: 'global',
+          asset_type: 'image',
+          subPath: 'logos',
+        },
+      ],
+      a = [
+        {
+          key: t.SITE_ASSET_KEYS.fonts.display,
+          label: '--font-display',
+          description: 'Fonte principal de destaque',
+          page: 'global',
+          asset_type: 'font',
+          subPath: 'fonts',
+        },
+        {
+          key: t.SITE_ASSET_KEYS.fonts.h1,
+          label: '--font-h1',
+          description: 'Fonte dos títulos h1',
+          page: 'global',
+          asset_type: 'font',
+          subPath: 'fonts',
+        },
+        {
+          key: t.SITE_ASSET_KEYS.fonts.h2,
+          label: '--font-h2',
+          description: 'Fonte dos títulos h2',
+          page: 'global',
+          asset_type: 'font',
+          subPath: 'fonts',
+        },
+        {
+          key: t.SITE_ASSET_KEYS.fonts.h3,
+          label: '--font-h3',
+          description: 'Fonte dos títulos h3',
+          page: 'global',
+          asset_type: 'font',
+          subPath: 'fonts',
+        },
+        {
+          key: t.SITE_ASSET_KEYS.fonts.body,
+          label: '--font-body',
+          description: 'Fonte do corpo de texto',
+          page: 'global',
+          asset_type: 'font',
+          subPath: 'fonts',
+        },
+        {
+          key: t.SITE_ASSET_KEYS.fonts.light,
+          label: '--font-light',
+          description: 'Fonte auxiliar leve',
+          page: 'global',
+          asset_type: 'font',
+          subPath: 'fonts',
+        },
+      ],
+      o = t.SITE_ASSET_KEYS.clients.strips.map((e, t) => ({
+        key: e,
+        label: `Logo cliente ${t + 1}`,
+        description: 'Logo para a faixa de clientes',
+        page: 'clients',
+        asset_type: 'image',
+        subPath: 'clients',
+        sort_order: t + 1,
+      })),
+      r = [
+        {
+          key: t.SITE_ASSET_KEYS.heroVideos.aboutDesktop,
+          label: 'Vídeo hero Sobre (desktop)',
+          description: 'Vídeo da hero da página Sobre (desktop)',
+          page: 'about',
+          asset_type: 'video',
+          subPath: 'hero',
+        },
+        {
+          key: t.SITE_ASSET_KEYS.heroVideos.aboutMobile,
+          label: 'Vídeo hero Sobre (mobile)',
+          description: 'Versão mobile da hero sobre',
+          page: 'about',
+          asset_type: 'video',
+          subPath: 'hero',
+        },
+      ],
+      l = t.SITE_ASSET_KEYS.about.originImages.map((e, t) => ({
+        key: e,
+        label: `Origem imagem ${t + 1}`,
+        description: 'Imagem da seção Origem',
+        page: 'about',
+        asset_type: 'image',
+        subPath: 'origin',
+        sort_order: t + 1,
+      })),
+      i = {
+        key: t.SITE_ASSET_KEYS.heroVideos.method,
+        label: 'Vídeo método',
+        description: 'Vídeo da seção Método',
+        page: 'about',
+        asset_type: 'video',
+        subPath: 'method',
+      },
+      n = [
+        {
+          key: t.SITE_ASSET_KEYS.about.beliefs.ghostModel,
+          label: 'Ghost Model (3D)',
+          description: 'Modelo 3D GLB exubido na seção Crenças',
+          page: 'about',
+          asset_type: 'file',
+          subPath: 'beliefs',
+        },
+        {
+          key: t.SITE_ASSET_KEYS.about.beliefs.skillsVideo,
+          label: 'Vídeo Skills (Desktop)',
+          description: 'Vídeo de background da seção Crenças (versão pesada)',
+          page: 'about',
+          asset_type: 'video',
+          subPath: 'beliefs',
+        },
+        {
+          key: t.SITE_ASSET_KEYS.about.beliefs.skillsVideoMobile,
+          label: 'Vídeo Skills (Mobile)',
+          description: 'Vídeo de background da seção Crenças (versão leve)',
+          page: 'about',
+          asset_type: 'video',
+          subPath: 'beliefs',
+        },
+      ],
+      d = [
+        {
+          key: t.SITE_ASSET_KEYS.heroVideos.portfolioDesktop,
+          label: 'Vídeo hero Portfólio (desktop)',
+          description: 'Hero do portfólio desktop',
+          page: 'portfolio',
+          asset_type: 'video',
+          subPath: 'hero',
+        },
+        {
+          key: t.SITE_ASSET_KEYS.heroVideos.portfolioMobile,
+          label: 'Vídeo hero Portfólio (mobile)',
+          description: 'Hero do portfólio mobile',
+          page: 'portfolio',
+          asset_type: 'video',
+          subPath: 'hero',
+        },
+      ],
+      c = [
+        { label: 'Global • Logos', roles: s },
+        { label: 'Global • Fonts', roles: a },
+        {
+          label: 'Home • Hero',
+          roles: [
+            {
+              key: t.SITE_ASSET_KEYS.heroVideos.homeManifesto,
+              label: 'Vídeo manifesto (home)',
+              description: 'Vídeo principal da hero da Home',
+              page: 'home',
+              asset_type: 'video',
+            },
+          ],
+        },
+        { label: 'Clients • Logos', roles: o },
+        { label: 'Sobre • Hero vídeos', roles: r },
+        { label: 'Sobre • Origem', roles: l },
+        {
+          label: 'Sobre • Método & Curriculum',
+          roles: [
+            i,
+            {
+              key: 'about.curriculum_pdf',
+              label: 'Currículo para download',
+              description: 'PDF usado na seção AboutClosing',
+              page: 'about',
+              asset_type: 'file',
+              subPath: 'curriculum',
+            },
+          ],
+        },
+        { label: 'Sobre • Crenças', roles: n },
+        { label: 'Portfólio • Hero vídeos', roles: d },
+        {
+          label: 'Portfólio • Projetos',
+          roles: [
+            {
+              key: t.SITE_ASSET_KEYS.projects.campaign.cover,
+              label: 'Campaign • Cover',
+              description: 'Capa do projeto Campaign',
+              page: 'projects',
+              asset_type: 'image',
+              subPath: 'campaign',
+            },
+            {
+              key: t.SITE_ASSET_KEYS.projects.campaign.hero,
+              label: 'Campaign • Hero',
+              description: 'Hero do projeto Campaign',
+              page: 'projects',
+              asset_type: 'image',
+              subPath: 'campaign',
+            },
+            {
+              key: t.SITE_ASSET_KEYS.projects.campaign.thumb,
+              label: 'Campaign • Thumb',
+              description: 'Thumbnail do projeto Campaign',
+              page: 'projects',
+              asset_type: 'image',
+              subPath: 'campaign',
+            },
+            {
+              key: t.SITE_ASSET_KEYS.projects.keyVision.cover,
+              label: 'Key Vision • Cover',
+              description: 'Capa do projeto Key Vision',
+              page: 'projects',
+              asset_type: 'image',
+              subPath: 'key-vision',
+            },
+            {
+              key: t.SITE_ASSET_KEYS.projects.keyVision.hero,
+              label: 'Key Vision • Hero',
+              description: 'Hero do projeto Key Vision',
+              page: 'projects',
+              asset_type: 'image',
+              subPath: 'key-vision',
+            },
+            {
+              key: t.SITE_ASSET_KEYS.projects.keyVision.thumb,
+              label: 'Key Vision • Thumb',
+              description: 'Thumbnail do projeto Key Vision',
+              page: 'projects',
+              asset_type: 'image',
+              subPath: 'key-vision',
+            },
+            {
+              key: t.SITE_ASSET_KEYS.projects.brandVideo.hero,
+              label: 'Brand Video • Hero',
+              description: 'Hero do projeto Brand Video',
+              page: 'projects',
+              asset_type: 'image',
+              subPath: 'brand-video',
+            },
+            {
+              key: t.SITE_ASSET_KEYS.projects.brandVideo.thumb,
+              label: 'Brand Video • Thumb',
+              description: 'Thumbnail do projeto Brand Video',
+              page: 'projects',
+              asset_type: 'video',
+              subPath: 'brand-video',
+            },
+            {
+              key: t.SITE_ASSET_KEYS.projects.advertisingVideo.hero,
+              label: 'Advertising Video • Hero',
+              description: 'Hero do projeto Advertising Video',
+              page: 'projects',
+              asset_type: 'image',
+              subPath: 'advertising-video',
+            },
+            {
+              key: t.SITE_ASSET_KEYS.projects.advertisingVideo.thumb,
+              label: 'Advertising Video • Thumb',
+              description: 'Thumbnail do projeto Advertising Video',
+              page: 'projects',
+              asset_type: 'image',
+              subPath: 'advertising-video',
+            },
+            {
+              key: t.SITE_ASSET_KEYS.projects.creativeDirection.hero,
+              label: 'Creative Direction • Hero',
+              description: 'Hero do projeto Creative Direction',
+              page: 'projects',
+              asset_type: 'image',
+              subPath: 'creative-direction',
+            },
+            {
+              key: t.SITE_ASSET_KEYS.projects.creativeDirection.thumb,
+              label: 'Creative Direction • Thumb',
+              description: 'Thumbnail do projeto Creative Direction',
+              page: 'projects',
+              asset_type: 'image',
+              subPath: 'creative-direction',
+            },
+          ],
+        },
+      ],
+      p = new Map(c.flatMap((e) => e.roles).map((e) => [e.key, e]));
+    function u(e) {
+      return p.get(e);
+    }
+    e.s([
+      'getSiteAssetRoleByKey',
+      () => u,
+      'siteAssetRoleGroups',
+      0,
+      c,
+      'siteAssetRoleMap',
+      0,
+      p,
+    ]);
+  },
+  88347,
+  (e) => {
+    'use strict';
+    var t = e.i(77579),
+      s = e.i(46858),
+      a = e.i(95535),
+      o = e.i(90886);
+    let r = (0, o.createServerReference)(
+      '402647630cdfaf88b2159fb86c12a29fcfe686f549',
+      o.callServer,
+      void 0,
+      o.findSourceMapURL,
+      'upsertAsset'
+    );
+    var l = e.i(96710),
+      i = e.i(29832);
+    function n({ preset: e }) {
+      let o = (0, a.useRouter)(),
+        [n, d] = (0, s.useState)(e?.key ?? ''),
+        [c, p] = (0, s.useState)(e?.page ?? 'global'),
+        [u, b] = (0, s.useState)(e?.asset_type ?? 'image'),
+        [h, m] = (0, s.useState)(e?.description ?? ''),
+        [x, g] = (0, s.useState)(e?.subPath ?? ''),
+        [S, f] = (0, s.useState)(),
+        [v, y] = (0, s.useState)(null),
+        [j, _] = (0, s.useState)(null),
+        [E, k] = (0, s.useTransition)();
+      return (0, t.jsxs)('form', {
+        className: 'space-y-3',
+        onSubmit: (e) => {
+          (e.preventDefault(),
+            _(null),
+            k(async () => {
+              try {
+                let e = (0, l.getSiteAssetRoleByKey)(n),
+                  t = null;
+                (v &&
+                  (t = await (0, i.uploadSiteAsset)({
+                    file: v,
+                    key: n,
+                    page: c,
+                    subPath: e?.subPath ?? x,
+                    bucket: 'site-assets',
+                  })),
+                  await r({
+                    key: n,
+                    page: c,
+                    asset_type: u,
+                    description: h || e?.description || null,
+                    sort_order: S ?? null,
+                    file_path: t,
+                    bucket: 'site-assets',
+                  }),
+                  o.refresh(),
+                  y(null));
+              } catch (e) {
+                _(e instanceof Error ? e.message : 'Falha ao salvar');
+              }
+            }));
+        },
+        children: [
+          (0, t.jsxs)('div', {
+            className: 'grid gap-3 md:grid-cols-2',
+            children: [
+              (0, t.jsxs)('label', {
+                className: 'flex flex-col gap-1',
+                children: [
+                  (0, t.jsx)('span', {
+                    className: 'text-sm text-slate-300',
+                    children: 'Key',
+                  }),
+                  (0, t.jsx)('input', {
+                    name: 'asset-key',
+                    required: !0,
+                    value: n,
+                    onChange: (e) => d(e.target.value),
+                    className:
+                      'rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm',
+                    placeholder: 'home.hero_background',
+                  }),
+                ],
+              }),
+              (0, t.jsxs)('label', {
+                className: 'flex flex-col gap-1',
+                children: [
+                  (0, t.jsx)('span', {
+                    className: 'text-sm text-slate-300',
+                    children: 'Página',
+                  }),
+                  (0, t.jsxs)('select', {
+                    name: 'asset-page',
+                    value: c,
+                    onChange: (e) => p(e.target.value),
+                    className:
+                      'rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm',
+                    children: [
+                      (0, t.jsx)('option', {
+                        value: 'global',
+                        children: 'Global',
+                      }),
+                      (0, t.jsx)('option', { value: 'home', children: 'Home' }),
+                      (0, t.jsx)('option', {
+                        value: 'portfolio',
+                        children: 'Portfolio',
+                      }),
+                      (0, t.jsx)('option', {
+                        value: 'about',
+                        children: 'About',
+                      }),
+                      (0, t.jsx)('option', {
+                        value: 'clients',
+                        children: 'Clients',
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+              (0, t.jsxs)('label', {
+                className: 'flex flex-col gap-1',
+                children: [
+                  (0, t.jsx)('span', {
+                    className: 'text-sm text-slate-300',
+                    children: 'Tipo',
+                  }),
+                  (0, t.jsxs)('select', {
+                    name: 'asset-type',
+                    value: u,
+                    onChange: (e) => b(e.target.value),
+                    className:
+                      'rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm',
+                    children: [
+                      (0, t.jsx)('option', {
+                        value: 'image',
+                        children: 'Imagem',
+                      }),
+                      (0, t.jsx)('option', {
+                        value: 'video',
+                        children: 'Vídeo',
+                      }),
+                      (0, t.jsx)('option', {
+                        value: 'file',
+                        children: 'Arquivo',
+                      }),
+                      (0, t.jsx)('option', {
+                        value: 'font',
+                        children: 'Fonte',
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+              (0, t.jsxs)('label', {
+                className: 'flex flex-col gap-1',
+                children: [
+                  (0, t.jsx)('span', {
+                    className: 'text-sm text-slate-300',
+                    children: 'Subpasta (opcional)',
+                  }),
+                  (0, t.jsx)('input', {
+                    name: 'asset-subpath',
+                    value: x,
+                    onChange: (e) => g(e.target.value),
+                    className:
+                      'rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm',
+                    placeholder: 'logos, fonts, hero',
+                  }),
+                ],
+              }),
+              (0, t.jsxs)('label', {
+                className: 'flex flex-col gap-1',
+                children: [
+                  (0, t.jsx)('span', {
+                    className: 'text-sm text-slate-300',
+                    children: 'Ordem',
+                  }),
+                  (0, t.jsx)('input', {
+                    type: 'number',
+                    value: S ?? '',
+                    onChange: (e) =>
+                      f(e.target.value ? Number(e.target.value) : void 0),
+                    className:
+                      'rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm',
+                    placeholder: '10',
+                  }),
+                ],
+              }),
+            ],
+          }),
+          (0, t.jsxs)('label', {
+            className: 'flex flex-col gap-1',
+            children: [
+              (0, t.jsx)('span', {
+                className: 'text-sm text-slate-300',
+                children: 'Descrição',
+              }),
+              (0, t.jsx)('textarea', {
+                value: h,
+                onChange: (e) => m(e.target.value),
+                rows: 3,
+                className:
+                  'rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm',
+                placeholder: 'Ex.: Logo principal do header',
+              }),
+            ],
+          }),
+          (0, t.jsxs)('label', {
+            className: 'flex flex-col gap-1',
+            children: [
+              (0, t.jsx)('span', {
+                className: 'text-sm text-slate-300',
+                children: 'Arquivo (opcional)',
+              }),
+              (0, t.jsx)('input', {
+                type: 'file',
+                accept:
+                  'image/*,video/*,.ttf,.otf,.woff,.woff2,.pdf,.doc,.docx',
+                onChange: (e) => y(e.target.files?.[0] ?? null),
+              }),
+            ],
+          }),
+          j &&
+            (0, t.jsx)('div', {
+              className: 'text-sm text-red-400',
+              children: j,
+            }),
+          (0, t.jsx)('button', {
+            type: 'submit',
+            className:
+              'inline-flex items-center justify-center rounded-md bg-blue-500 px-4 py-2 text-sm font-semibold text-white shadow transition hover:bg-blue-600 disabled:opacity-50',
+            disabled: E,
+            children: E ? 'Salvando...' : 'Salvar asset',
+          }),
+        ],
+      });
+    }
+    e.s(['AssetForm', () => n], 88347);
+  },
+  35288,
+  (e) => {
+    'use strict';
+    var t = e.i(77579),
+      s = e.i(82970);
+    let a = [
+      {
+        key: s.SITE_ASSET_KEYS.logos.headerLight,
+        description: 'Logo principal do header (claro)',
+        change:
+          'Atualize o arquivo (SVG recomendado) e valide o cabeçalho com useSiteAssetUrl.',
+        page: 'global',
+      },
+      {
+        key: s.SITE_ASSET_KEYS.logos.headerDark,
+        description: 'Logo principal do header (escuro)',
+        change: 'Mantenha dimensões iguais ao claro para evitar saltos.',
+        page: 'global',
+      },
+      {
+        key: s.SITE_ASSET_KEYS.logos.faviconLight,
+        description: 'Favicon claro usado em <head>',
+        change:
+          'SVG/ICO com fundo transparente; mantenha metadata/JsonLd alinhado.',
+        page: 'global',
+      },
+      {
+        key: s.SITE_ASSET_KEYS.logos.faviconDark,
+        description: 'Favicon escuro usado em <head>',
+        change: 'Mesmo tamanho do claro para consistência.',
+        page: 'global',
+      },
+      {
+        key: s.SITE_ASSET_KEYS.fonts.display,
+        description: 'Fonte display principal (--font-display)',
+        change: 'Atualize e revise tailwind/theme para usar a nova família.',
+        page: 'global',
+      },
+      {
+        key: s.SITE_ASSET_KEYS.fonts.body,
+        description: 'Fonte do corpo (--font-body)',
+        change: 'Confirme fallback stack e pesos no tema tipográfico.',
+        page: 'global',
+      },
+      {
+        key: s.SITE_ASSET_KEYS.heroVideos.homeManifesto,
+        description: 'Vídeo do manifesto na hero da Home',
+        change:
+          'Substitua o MP4; gere poster e versão -720p mantendo o mesmo prefixo.',
+        page: 'home',
+      },
+      {
+        key: s.SITE_ASSET_KEYS.heroVideos.aboutDesktop,
+        description: 'Vídeo da hero Sobre (desktop)',
+        change: 'Sincronize com a versão mobile para evitar discrepâncias.',
+        page: 'about',
+      },
+      {
+        key: s.SITE_ASSET_KEYS.heroVideos.aboutMobile,
+        description: 'Vídeo da hero Sobre (mobile)',
+        change: 'O hook AboutHero troca automaticamente entre desktop/mobile.',
+        page: 'about',
+      },
+      {
+        key: s.SITE_ASSET_KEYS.heroVideos.method,
+        description: 'Vídeo da sessão Método',
+        change: 'Use o mesmo prefixo para versões alternativas se necessário.',
+        page: 'about',
+      },
+      ...s.SITE_ASSET_KEYS.about.originImages.map((e, t) => ({
+        key: e,
+        description: `Imagem ${t + 1} da sess\xe3o Origem`,
+        change: 'Siga o padrão about.origin_image.N para cada card.',
+        page: 'about',
+      })),
+      {
+        key: s.SITE_ASSET_KEYS.heroVideos.portfolioDesktop,
+        description: 'Vídeo hero do portfólio (desktop)',
+        change: 'Atualize em par com a versão mobile.',
+        page: 'portfolio',
+      },
+      {
+        key: s.SITE_ASSET_KEYS.heroVideos.portfolioMobile,
+        description: 'Vídeo hero do portfólio (mobile)',
+        change: 'Sincronize duração e cor com a versão desktop.',
+        page: 'portfolio',
+      },
+      {
+        key: 'clients.strip.*',
+        description: 'Strip de logos da sessão de clients',
+        change:
+          'Use clients.strip.N (1-12) e carregue via useSiteAssetsByPrefix.',
+        page: 'clients',
+      },
+      {
+        key: 'about.curriculum_pdf',
+        description: 'Currículo da seção About',
+        change: 'Envie PDF atualizado; mantenha nome consistente.',
+        page: 'about',
+      },
+    ];
+    function o() {
+      return (0, t.jsxs)('div', {
+        className:
+          'rounded-xl border border-white/10 bg-slate-900/40 p-4 space-y-3',
+        children: [
+          (0, t.jsx)('h2', {
+            className: 'text-lg font-semibold text-white',
+            children: 'Guia de keys',
+          }),
+          (0, t.jsx)('p', {
+            className: 'text-xs text-slate-400',
+            children:
+              'Use essas keys no Admin para garantir que a sessão pública leia o asset correto. Ajuste o campo “Subpasta” para manter o storage organizado.',
+          }),
+          (0, t.jsx)('div', {
+            className: 'grid gap-2 text-xs',
+            children: a.map((e) =>
+              (0, t.jsxs)(
+                'div',
+                {
+                  className:
+                    'rounded-lg border border-white/10 bg-slate-900/80 p-3',
+                  children: [
+                    (0, t.jsx)('div', {
+                      className: 'text-[11px] text-slate-300',
+                      children: e.page,
+                    }),
+                    (0, t.jsx)('div', {
+                      className: 'text-sm font-semibold text-white',
+                      children: e.key,
+                    }),
+                    (0, t.jsx)('p', {
+                      className: 'text-[11px] text-slate-400',
+                      children: e.description,
+                    }),
+                    (0, t.jsx)('p', {
+                      className: 'text-[11px] text-blue-300 mt-1',
+                      children: e.change,
+                    }),
+                  ],
+                },
+                e.key
+              )
+            ),
+          }),
+        ],
+      });
+    }
+    e.s(['AssetGuide', () => o]);
+  },
+  53910,
+  (e) => {
+    'use strict';
+    var t = e.i(77579),
+      s = e.i(96710);
+    function a() {
+      return (0, t.jsxs)('div', {
+        className:
+          'rounded-xl border border-white/10 bg-slate-900/60 p-4 space-y-4',
+        children: [
+          (0, t.jsx)('h2', {
+            className: 'text-lg font-semibold',
+            children: 'Presets rápidos',
+          }),
+          (0, t.jsx)('div', {
+            className: 'space-y-4',
+            children: s.siteAssetRoleGroups.map((e) =>
+              (0, t.jsxs)(
+                'div',
+                {
+                  className: 'space-y-2',
+                  children: [
+                    (0, t.jsx)('p', {
+                      className:
+                        'text-xs font-semibold uppercase tracking-widest text-slate-500',
+                      children: e.label,
+                    }),
+                    (0, t.jsx)('div', {
+                      className: 'grid gap-2 md:grid-cols-2',
+                      children: e.roles.map((e) =>
+                        (0, t.jsx)(o, { preset: e }, e.key)
+                      ),
+                    }),
+                  ],
+                },
+                e.label
+              )
+            ),
+          }),
+          (0, t.jsx)('p', {
+            className: 'text-xs text-slate-400',
+            children:
+              'Clique para preencher o formulário ao lado com a key, página e tipo recomendados.',
+          }),
+        ],
+      });
+    }
+    function o({ preset: e }) {
+      return (0, t.jsxs)('button', {
+        type: 'button',
+        onClick: () => {
+          let t = document.querySelector('form input[name="asset-key"]'),
+            s = document.querySelector('form select[name="asset-page"]'),
+            a = document.querySelector('form select[name="asset-type"]'),
+            o = document.querySelector('form input[name="asset-subpath"]');
+          (t && (t.value = e.key),
+            s && (s.value = e.page),
+            a && (a.value = e.asset_type),
+            o && (o.value = e.subPath ?? ''),
+            t?.dispatchEvent(new Event('input', { bubbles: !0 })),
+            s?.dispatchEvent(new Event('change', { bubbles: !0 })),
+            a?.dispatchEvent(new Event('change', { bubbles: !0 })),
+            o?.dispatchEvent(new Event('input', { bubbles: !0 })));
+        },
+        className:
+          'flex w-full flex-col items-start rounded-md border border-white/10 bg-slate-900/80 px-3 py-2 text-left text-sm text-white transition hover:border-blue-400 hover:bg-blue-500/10',
+        children: [
+          (0, t.jsx)('div', { className: 'font-semibold', children: e.label }),
+          (0, t.jsx)('div', {
+            className: 'text-[11px] text-slate-400',
+            children: e.key,
+          }),
+          (0, t.jsxs)('div', {
+            className: 'text-[11px] text-slate-500',
+            children: [e.page, ' • ', e.asset_type],
+          }),
+          e.description &&
+            (0, t.jsx)('div', {
+              className: 'text-[11px] text-slate-500',
+              children: e.description,
+            }),
+        ],
+      });
+    }
+    e.s(['PresetButtons', () => a]);
+  },
+  47838,
+  (e) => {
+    'use strict';
+    var t = e.i(77579),
+      s = e.i(46858),
+      a = e.i(70315),
+      o = e.i(95535),
+      r = e.i(90886);
+    let l = (0, r.createServerReference)(
+        '40336e4149f5ff58dbbd76f87376e9673c13ac83c4',
+        r.callServer,
+        void 0,
+        r.findSourceMapURL,
+        'assignAssetRole'
+      ),
+      i = (0, r.createServerReference)(
+        '403447b888821d17c624ae55a305a357a0fc8bad46',
+        r.callServer,
+        void 0,
+        r.findSourceMapURL,
+        'removeAsset'
+      );
+    var n = e.i(96710);
+    function d({ currentKey: e, onSelectRole: a }) {
+      let [o, r] = (0, s.useState)(!1);
+      return (0, t.jsxs)('div', {
+        className: 'relative mt-3',
+        children: [
+          (0, t.jsxs)('button', {
+            type: 'button',
+            onClick: () => r((e) => !e),
+            className:
+              'flex items-center gap-2 rounded-md border border-white/10 bg-slate-900/70 px-3 py-1 text-[12px] text-white hover:border-blue-400 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400',
+            children: [
+              (0, t.jsx)('span', { children: 'Papel do asset' }),
+              (0, t.jsx)('span', {
+                className: 'text-xs text-slate-400',
+                children: o ? 'Fechar' : 'Abrir',
+              }),
+            ],
+          }),
+          o &&
+            (0, t.jsx)('div', {
+              className:
+                'absolute left-0 top-full mt-2 z-20 max-h-[320px] w-[500px] overflow-y-auto rounded-2xl border border-white/10 bg-slate-900/90 p-4 shadow-xl',
+              children: (0, t.jsx)('div', {
+                className: 'space-y-4',
+                children: n.siteAssetRoleGroups.map((s) =>
+                  (0, t.jsxs)(
+                    'div',
+                    {
+                      children: [
+                        (0, t.jsx)('div', {
+                          className:
+                            'text-xs font-semibold uppercase tracking-wider text-slate-400',
+                          children: s.label,
+                        }),
+                        (0, t.jsx)('div', {
+                          className: 'mt-2 grid gap-2 md:grid-cols-2',
+                          children: s.roles.map((s) => {
+                            let o = s.key === e;
+                            return (0, t.jsxs)(
+                              'button',
+                              {
+                                type: 'button',
+                                onClick: () => {
+                                  (a(s), r(!1));
+                                },
+                                className: `flex flex-col items-start gap-1 rounded-lg border px-3 py-2 text-left text-sm transition ${o ? 'border-blue-400 bg-blue-500/40 text-white' : 'border-white/5 bg-slate-900/70 hover:border-blue-400 hover:bg-blue-500/10'}`,
+                                children: [
+                                  (0, t.jsx)('span', {
+                                    className: 'font-semibold',
+                                    children: s.label,
+                                  }),
+                                  (0, t.jsx)('span', {
+                                    className: 'text-[11px] text-slate-400',
+                                    children: s.key,
+                                  }),
+                                  (0, t.jsx)('span', {
+                                    className: 'text-[11px] text-slate-500',
+                                    children: s.description,
+                                  }),
+                                ],
+                              },
+                              s.key
+                            );
+                          }),
+                        }),
+                      ],
+                    },
+                    s.label
+                  )
+                ),
+              }),
+            }),
+        ],
+      });
+    }
+    var c = e.i(11795),
+      p = e.i(29832),
+      u = e.i(12559);
+    function b({ asset: e }) {
+      let r = (0, o.useRouter)(),
+        [b, h] = (0, s.useTransition)(),
+        [m, x] = (0, s.useState)(null),
+        g = n.siteAssetRoleMap.get(e.key),
+        S = g?.label ?? 'Sem papel definido',
+        f = () => {
+          confirm('Excluir este asset e o arquivo associado?') &&
+            (x(null),
+            h(async () => {
+              try {
+                (await i({
+                  id: e.id,
+                  bucket: e.bucket,
+                  file_path: e.file_path,
+                }),
+                  r.refresh());
+              } catch (e) {
+                x(e instanceof Error ? e.message : 'Falha na exclusão');
+              }
+            }));
+        },
+        v =
+          e.publicUrl || (0, u.buildSupabaseStorageUrl)(e.bucket, e.file_path),
+        y = e.page ?? e.resolvedPage ?? 'global';
+      return e.key.startsWith('updated_at:') || e.key.startsWith('key:')
+        ? (0, t.jsxs)('div', {
+            className:
+              'rounded-lg border border-red-500/50 bg-slate-900/60 p-4 flex gap-4',
+            children: [
+              (0, t.jsx)('div', {
+                className:
+                  'w-24 h-24 rounded-md bg-red-900/30 flex items-center justify-center',
+                children: (0, t.jsx)('span', {
+                  className: 'text-xs text-red-400',
+                  children: 'Inválido',
+                }),
+              }),
+              (0, t.jsxs)('div', {
+                className: 'flex-1',
+                children: [
+                  (0, t.jsxs)('div', {
+                    className: 'flex flex-wrap items-center gap-2',
+                    children: [
+                      (0, t.jsx)('div', {
+                        className: 'text-sm font-semibold text-red-400',
+                        children: e.key,
+                      }),
+                      (0, t.jsx)('span', {
+                        className:
+                          'rounded-full bg-red-500/20 px-2 py-0.5 text-[11px] text-red-200',
+                        children: y,
+                      }),
+                    ],
+                  }),
+                  (0, t.jsxs)('div', {
+                    className: 'text-xs text-slate-500 mt-1',
+                    children: [e.bucket, '/', e.file_path],
+                  }),
+                  (0, t.jsx)('div', {
+                    className: 'text-xs text-red-500 mt-2',
+                    children:
+                      'Este asset tem formato inválido e deve ser corrigido ou removido',
+                  }),
+                  (0, t.jsx)('button', {
+                    type: 'button',
+                    onClick: f,
+                    className:
+                      'mt-2 inline-flex items-center rounded-md border border-red-500/60 px-2 py-1 text-[11px] text-red-200 hover:bg-red-500/10',
+                    children: 'Excluir',
+                  }),
+                ],
+              }),
+            ],
+          })
+        : (0, t.jsxs)('div', {
+            className:
+              'rounded-lg border border-white/10 bg-slate-900/60 p-4 flex gap-4',
+            children: [
+              (0, t.jsx)('div', {
+                className:
+                  'w-24 h-24 rounded-md bg-slate-800 overflow-hidden relative',
+                children:
+                  'image' === e.asset_type && v
+                    ? (0, t.jsx)(a.default, {
+                        src: v,
+                        alt: e.key,
+                        fill: !0,
+                        sizes: '96px',
+                        className: 'object-cover',
+                        unoptimized: v.toLowerCase().endsWith('.svg'),
+                      })
+                    : (0, t.jsx)('div', {
+                        className:
+                          'w-full h-full flex items-center justify-center text-xs text-slate-400',
+                        children: e.asset_type,
+                      }),
+              }),
+              (0, t.jsxs)('div', {
+                className: 'flex-1',
+                children: [
+                  (0, t.jsxs)('div', {
+                    className: 'flex flex-wrap items-center gap-2',
+                    children: [
+                      (0, t.jsx)('div', {
+                        className: 'text-sm font-semibold text-white',
+                        children: e.key,
+                      }),
+                      (0, t.jsx)('span', {
+                        className:
+                          'rounded-full bg-white/10 px-2 py-0.5 text-[11px] text-slate-200',
+                        children: y,
+                      }),
+                      (0, t.jsx)('span', {
+                        className:
+                          'rounded-full bg-blue-500/15 px-2 py-0.5 text-[11px] text-blue-100',
+                        children: e.asset_type,
+                      }),
+                    ],
+                  }),
+                  (0, t.jsx)('div', {
+                    className: 'text-xs text-slate-400',
+                    children: e.description,
+                  }),
+                  (0, t.jsxs)('div', {
+                    className: 'text-xs text-slate-500 mt-1',
+                    children: [e.bucket, '/', e.file_path],
+                  }),
+                  (0, t.jsxs)('div', {
+                    className: 'text-xs text-slate-400 mt-1',
+                    children: ['Papel: ', S],
+                  }),
+                  m &&
+                    (0, t.jsx)('div', {
+                      className: 'text-xs text-red-400 mt-2',
+                      children: m,
+                    }),
+                  (0, t.jsxs)('label', {
+                    className:
+                      'mt-3 inline-flex items-center gap-2 text-xs text-blue-300 cursor-pointer',
+                    children: [
+                      (0, t.jsx)('input', {
+                        type: 'file',
+                        className: 'hidden',
+                        onChange: (t) => {
+                          var s;
+                          (s = t.target.files?.[0] ?? null) &&
+                            (x(null),
+                            h(async () => {
+                              try {
+                                let t = await (0, p.uploadSiteAsset)({
+                                    file: s,
+                                    key: e.key,
+                                    page: e.page,
+                                    subPath: g?.subPath,
+                                    bucket: e.bucket,
+                                  }),
+                                  a = (0, c.createClientComponentClient)(),
+                                  { error: o } = await a
+                                    .from('site_assets')
+                                    .update({ file_path: t })
+                                    .eq('id', e.id);
+                                if (o) throw o;
+                                r.refresh();
+                              } catch (e) {
+                                x(
+                                  e instanceof Error
+                                    ? e.message
+                                    : 'Falha no upload'
+                                );
+                              }
+                            }));
+                        },
+                        accept: 'image/*,video/*',
+                      }),
+                      b ? 'Enviando...' : 'Substituir arquivo',
+                    ],
+                  }),
+                  (0, t.jsx)(d, {
+                    currentKey: e.key,
+                    onSelectRole: (t) => {
+                      (x(null),
+                        h(async () => {
+                          try {
+                            (await l({ assetId: e.id, role: t }), r.refresh());
+                          } catch (e) {
+                            x(
+                              e instanceof Error
+                                ? e.message
+                                : 'Falha na alteração do papel'
+                            );
+                          }
+                        }));
+                    },
+                  }),
+                  (0, t.jsxs)('div', {
+                    className: 'mt-2 text-xs text-slate-400',
+                    children: ['Status: ', e.is_active ? 'Ativo' : 'Inativo'],
+                  }),
+                  (0, t.jsx)('button', {
+                    type: 'button',
+                    onClick: () => {
+                      h(async () => {
+                        let t = (0, c.createClientComponentClient)(),
+                          { error: s } = await t
+                            .from('site_assets')
+                            .update({ is_active: !e.is_active })
+                            .eq('id', e.id);
+                        s ? x(s.message) : r.refresh();
+                      });
+                    },
+                    className:
+                      'mt-1 inline-flex items-center rounded-md border border-white/10 px-2 py-1 text-[11px] text-white hover:bg-white/10',
+                    children: e.is_active ? 'Desativar' : 'Ativar',
+                  }),
+                  (0, t.jsx)('button', {
+                    type: 'button',
+                    onClick: f,
+                    className:
+                      'ml-2 mt-1 inline-flex items-center rounded-md border border-red-500/60 px-2 py-1 text-[11px] text-red-200 hover:bg-red-500/10',
+                    children: 'Excluir',
+                  }),
+                ],
+              }),
+            ],
+          });
+    }
+    function h({ assets: e }) {
+      let [a, o] = (0, s.useState)(''),
+        [r, l] = (0, s.useState)('all'),
+        [i, n] = (0, s.useState)('all'),
+        [d, c] = (0, s.useState)(!1),
+        [p, u] = (0, s.useState)(1),
+        h = (0, s.useDeferredValue)(a),
+        m = (0, s.useMemo)(
+          () =>
+            e.filter(
+              (e) =>
+                !(
+                  !e.key ||
+                  e.key.startsWith('updated_at:') ||
+                  e.key.startsWith('key:')
+                )
+            ),
+          [e]
+        ),
+        x = (0, s.useMemo)(() => {
+          let e = new Set();
+          return (
+            m.forEach((t) => e.add(t.page ?? t.resolvedPage ?? '')),
+            Array.from(e).filter(Boolean).sort()
+          );
+        }, [m]),
+        g = (0, s.useMemo)(() => {
+          let e = new Set();
+          return (
+            m.forEach((t) => t.asset_type && e.add(t.asset_type)),
+            Array.from(e).filter(Boolean).sort()
+          );
+        }, [m]);
+      (0, s.useEffect)(() => {
+        u(1);
+      }, [r, i, d, h]);
+      let S = (0, s.useMemo)(() => {
+          let e = h.trim().toLowerCase();
+          return m.filter((t) => {
+            if (!d && !t.is_active) return !1;
+            let s = t.page ?? t.resolvedPage ?? '';
+            return (
+              ('all' === r || s === r) &&
+              ('all' === i || t.asset_type === i) &&
+              (!e ||
+                !!`${t.key} ${t.description ?? ''} ${t.file_path} ${s}`
+                  .toLowerCase()
+                  .includes(e)) &&
+              !0
+            );
+          });
+        }, [m, h, r, i, d]),
+        f = Math.max(1, Math.ceil(S.length / 24)),
+        v = Math.min(p, f),
+        y = (v - 1) * 24,
+        j = S.slice(y, y + 24);
+      return (0, t.jsxs)('div', {
+        className:
+          'rounded-xl border border-white/10 bg-slate-900/60 p-4 space-y-4',
+        children: [
+          (0, t.jsxs)('div', {
+            className: 'flex flex-wrap items-center gap-3',
+            children: [
+              (0, t.jsx)('input', {
+                type: 'search',
+                value: a,
+                onChange: (e) => o(e.target.value),
+                placeholder: 'Buscar por key, página ou caminho',
+                className:
+                  'w-full md:w-72 rounded-md border border-white/10 bg-slate-900/70 px-3 py-2 text-sm text-white placeholder:text-slate-500 focus:border-blue-400 focus:outline-none',
+              }),
+              (0, t.jsxs)('select', {
+                value: r,
+                onChange: (e) => l(e.target.value),
+                className:
+                  'rounded-md border border-white/10 bg-slate-900/70 px-3 py-2 text-sm text-white focus:border-blue-400 focus:outline-none',
+                children: [
+                  (0, t.jsx)('option', {
+                    value: 'all',
+                    children: 'Todas as páginas',
+                  }),
+                  x.map((e) =>
+                    (0, t.jsx)('option', { value: e, children: e }, e)
+                  ),
+                ],
+              }),
+              (0, t.jsxs)('select', {
+                value: i,
+                onChange: (e) => n(e.target.value),
+                className:
+                  'rounded-md border border-white/10 bg-slate-900/70 px-3 py-2 text-sm text-white focus:border-blue-400 focus:outline-none',
+                children: [
+                  (0, t.jsx)('option', {
+                    value: 'all',
+                    children: 'Todos os tipos',
+                  }),
+                  g.map((e) =>
+                    (0, t.jsx)('option', { value: e, children: e }, e)
+                  ),
+                ],
+              }),
+              (0, t.jsxs)('label', {
+                className:
+                  'inline-flex items-center gap-2 text-xs text-slate-300',
+                children: [
+                  (0, t.jsx)('input', {
+                    type: 'checkbox',
+                    className:
+                      'h-4 w-4 rounded border-white/20 bg-slate-900/80',
+                    checked: d,
+                    onChange: (e) => c(e.target.checked),
+                  }),
+                  'Mostrar inativos',
+                ],
+              }),
+              (0, t.jsxs)('div', {
+                className: 'ml-auto text-xs text-slate-400',
+                children: [S.length, ' de ', m.length, ' assets válidos'],
+              }),
+            ],
+          }),
+          (0, t.jsx)('div', {
+            className: 'grid gap-4 md:grid-cols-2 lg:grid-cols-3',
+            children: j.map((e) => (0, t.jsx)(b, { asset: e }, e.id)),
+          }),
+          !j.length &&
+            (0, t.jsx)('div', {
+              className:
+                'rounded-lg border border-white/10 bg-slate-900/40 px-4 py-6 text-sm text-slate-400',
+              children: 'Nenhum asset encontrado com os filtros atuais.',
+            }),
+          (0, t.jsxs)('div', {
+            className:
+              'flex flex-wrap items-center justify-between gap-3 text-sm text-slate-300',
+            children: [
+              (0, t.jsxs)('div', {
+                children: [
+                  'Mostrando ',
+                  j.length,
+                  ' de ',
+                  S.length,
+                  ' filtrados',
+                ],
+              }),
+              (0, t.jsxs)('div', {
+                className: 'flex items-center gap-2',
+                children: [
+                  (0, t.jsx)('button', {
+                    type: 'button',
+                    onClick: () => u((e) => Math.max(1, e - 1)),
+                    disabled: 1 === v,
+                    className:
+                      'rounded-md border border-white/10 bg-slate-900/70 px-3 py-1 text-xs text-white transition hover:border-blue-400 hover:bg-blue-500/10 disabled:cursor-not-allowed disabled:opacity-40',
+                    children: 'Anterior',
+                  }),
+                  (0, t.jsxs)('span', {
+                    className: 'text-xs text-slate-400',
+                    children: ['Página ', v, ' / ', f],
+                  }),
+                  (0, t.jsx)('button', {
+                    type: 'button',
+                    onClick: () => u((e) => Math.min(f, e + 1)),
+                    disabled: v >= f,
+                    className:
+                      'rounded-md border border-white/10 bg-slate-900/70 px-3 py-1 text-xs text-white transition hover:border-blue-400 hover:bg-blue-500/10 disabled:cursor-not-allowed disabled:opacity-40',
+                    children: 'Próxima',
+                  }),
+                ],
+              }),
+            ],
+          }),
+        ],
+      });
+    }
+    e.s(['AssetGallery', () => h], 47838);
+  },
+]);

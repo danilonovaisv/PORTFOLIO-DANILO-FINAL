@@ -102,3 +102,6 @@ site_assets_backup-*.json
 # Misc
 *.sarif.json
 firepit-log.txt
+# Fix for trash folders
+.next_trash_*/
+.next_trash_*
