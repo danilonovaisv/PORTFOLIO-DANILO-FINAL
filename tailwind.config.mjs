@@ -22,7 +22,7 @@ export default {
         accent: tokens.blueAccent,
         // Mapping token names to Tailwind expectations if distinct
         background: tokens.background,
-        foreground: tokens.text, 
+        foreground: tokens.text,
       },
       fontFamily: {
         sans: ['TT Norms Pro', 'ui-sans-serif', 'system-ui', 'sans-serif'],
