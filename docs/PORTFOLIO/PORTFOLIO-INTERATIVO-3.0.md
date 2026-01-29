@@ -365,239 +365,351 @@ const containerVars = {
 - **ALINHAMENTO: O texto "portfólio showcase" e o botão de chamada para ação (CTA) "vamos trabalhar juntos" estão alinhados horizontalmente em um mesmo nível, formando uma única linha visual. Eles são posicionados centralizados na parte inferior da HERO.**
 ---
 
-# **PROJECTS GALLERY — HYBRID SPEC (Ref 1 + Ref 2)
+## 🎨 GALLERY COM PARALLAX LERP
 
----
+### 🧠 Conceito do Parallax Lerp
 
-## **1) Projects Gallery — Hybrid Spec (Ref 1 + Ref 2)**
+O sistema usa **Linear Interpolation (Lerp)** para criar:
+- Scroll suave e fluido
+- Movimento parallax independente em cada imagem
+- Performance otimizada com `requestAnimationFrame`
 
-### **Grid Editorial: Estrutura de Spans e Composição Visual**
+### 📐 Estrutura HTML/CSS
 
-A grid é baseada em **CSS Grid 12-coluna (desktop)**, com variação dinâmica de tamanho por card para criar ritmo editorial e integrada com parallax 3D suave (Ref 1). Cada card é um item de grid com `grid-column` e `grid-row` dinâmicos, definidos por um sistema de tamanhos.
+```html
+<section class="gallery" ref={galleryRef}>
+  <div class="gallery-track" ref={trackRef}>
+    <div class="card" ref={cardRef}>
+      <div class="card-image-wrapper">
+        <img src="[URL]" alt="Project">
+      </div>
+      <div class="card-overlay">
+        <!-- Conteúdo -->
+      </div>
+    </div>
+    <!-- Mais cards... -->
+  </div>
+</section>
+```
 
-#### ✅ Tabela de Tamanhos de Cards (Enum)
+### 🧱 Layout do Grid (Ref 2 + Layout Final)
 
-| Tamanho   | Grid Column Span | Grid Row Span | Área Aprox. (col×row) | Uso Recomendado                     |
-|-----------|------------------|---------------|------------------------|-------------------------------------|
-| `sm`      | 2                | 2             | 4                      | Projetos simples, imagens verticais |
-| `md`      | 3                | 2             | 6                      | Projetos padrão, retrato            |
-| `lg`      | 4                | 3             | 12                     | Projetos com conteúdo visual forte  |
-| `wide`    | 6                | 2             | 12                     | Imagens panorâmicas, banners        |
-| `tall`    | 2                | 4             | 8                      | Retratos verticais, ilustrações     |
+A _Projects Gallery_ deve usar **CSS Grid editorial** (semelhante à Referência 2) com:
+- **Spans por card** (col/row) definidos via dados (ex.: `size: 'sm' | 'md' | 'lg' | 'wide' | 'tall'`).
+- `grid-auto-flow: dense` para preencher “buracos” e manter a composição coesa.
+- **Placeholders neutros** opcionais (quando necessário para manter o ritmo do layout, como no mock).
 
-> **Nota**: `grid-auto-flow: dense` é ativado para preencher vazios e criar composição visual não linear, sem repetição rígida.
+> Importante: o **parallax** (Ref 1) continua existindo, mas o **arranjo visual e responsivo** do grid é guiado pela Referência 2 e pelo layout final.
 
-#### ✅ Regras por Breakpoint
-
-| Breakpoint     | Colunas | Regras de Span | Observações |
-|----------------|---------|----------------|-------------|
-| **Mobile** (<768px) | 1       | Todos os cards = `span 1` | Lista vertical. Nenhum span. Overlay fixo. |
-| **Tablet** (768–1024px) | 8       | `sm`: 2×2, `md`: 3×2, `lg`: 4×3, `wide`: 5×2, `tall`: 2×4 | Redução de variação. Evitar `wide` e `tall` em excesso. |
-| **Desktop** (≥1024px) | 12      | Todos os tamanhos permitidos | Uso completo da grid editorial. Espaçamento entre cards: 1.5rem |
-
-> **Layout Responsivo**: Grid reflow automático com `minmax()` e `fit-content()` para evitar overflow.
-
----
-
-### **2) CSS Crítico (Track + Grid + Cards + Overlay)**
+### 🎨 CSS Crítico (Grid + Track + Cards)
 
 ```css
-/* ——— TRACK CONTAINER (PARALLAX SCENE) ——— */
-.projects-track {
-  position: relative;
+.gallery {
+  /* Altura setada dinamicamente via JS (cria espaço de scroll) */
+}
+
+/* Track fixo (Ref 1) + grid editorial (Ref 2) */
+.gallery-track {
+  position: fixed;
+  inset: 0;
   width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  perspective: 1000px;
-  will-change: transform;
-  contain: layout paint;
-}
-
-/* ——— GRID CONTAINER ——— */
-.projects-grid {
   display: grid;
+
+  /* Desktop: composição editorial */
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  grid-auto-rows: minmax(200px, auto);
-  grid-gap: 1.5rem;
+  grid-auto-rows: 12px; /* “unidade” de altura para row-span */
   grid-auto-flow: dense;
-  padding: 2rem;
-  transform-style: preserve-3d;
+
+  gap: 12px;
+  padding: 12px;
+
   will-change: transform;
 }
 
-/* Mobile */
-@media (max-width: 767px) {
-  .projects-grid {
-    grid-template-columns: 1fr;
-    grid-auto-flow: row;
-    grid-gap: 1rem;
-    padding: 1rem;
-  }
-}
-
-/* Tablet */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .projects-grid {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-    grid-gap: 1.25rem;
-    padding: 1.5rem;
-  }
-}
-
-/* Desktop */
-@media (min-width: 1024px) {
-  .projects-grid {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    grid-gap: 1.5rem;
-    padding: 2rem;
-  }
-}
-
-/* ——— CARD BASE ——— */
-.project-card {
+/* Card base */
+.card {
   position: relative;
   overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  will-change: transform;
-  background: #fff;
+  border-radius: 14px;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  color: #000;
-  text-decoration: none;
+  background: #0b0d3a; /* neutral token */
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  contain: layout paint; /* reduz custo de reflow */
 }
 
 /* Hover (desktop) */
-.project-card:hover {
-  transform: translateY(-8px) scale(1.01);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-}
-
-/* Focus (keyboard) */
-.project-card:focus-visible {
-  outline: 2px solid #0066cc;
-  outline-offset: 4px;
-  z-index: 1;
-}
-
-/* Active (touch) */
-.project-card:active {
-  transform: scale(0.98);
-}
-
-/* ——— OVERLAY (TEXT + BUTTON) ——— */
-.project-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 2rem;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-  color: white;
-  transform: translateY(100%);
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  pointer-events: none;
-}
-
-.project-card:hover .project-overlay,
-.project-card:focus-visible .project-overlay {
-  transform: translateY(0);
-}
-
-/* Mobile overlay — always visible, legible */
-@media (max-width: 767px) {
-  .project-overlay {
-    transform: translateY(0) !important;
-    padding: 1.5rem;
-    background: rgba(0, 0, 0, 0.7);
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+    filter: saturate(1.05);
   }
 }
 
-/* ——— IMAGE CONTAINER (PARALLAX LAYER) ——— */
-.project-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.1s ease;
+/* Press feedback (touch) */
+@media (hover: none) and (pointer: coarse) {
+  .card:active {
+    transform: scale(0.99);
+  }
+}
+
+/* Wrapper maior para permitir parallax interno */
+.card-image-wrapper {
+  position: absolute;
+  inset: 0;
+  height: 135%;
   will-change: transform;
 }
 
-/* ——— RESPONSIVE IMAGE LAZY LOADING ——— */
-.project-image {
-  loading: lazy;
+.card-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Overlay informativo (aparece no hover/focus) */
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 18px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  background: linear-gradient(to top, rgba(0,0,0,.78) 0%, rgba(0,0,0,.35) 55%, transparent 100%);
+}
+
+.card:focus-visible .card-overlay,
+@media (hover: hover) and (pointer: fine) {
+  .card:hover .card-overlay { opacity: 1; }
+}
+
+/* Spans (desktop) — exemplos */
+.card[data-size="sm"]   { grid-column: span 4; grid-row: span 22; } /* ~264px */
+.card[data-size="md"]   { grid-column: span 6; grid-row: span 26; }
+.card[data-size="lg"]   { grid-column: span 8; grid-row: span 30; }
+.card[data-size="wide"] { grid-column: span 12; grid-row: span 22; }
+.card[data-size="tall"] { grid-column: span 4; grid-row: span 34; }
+
+/* Tablet: menos variação, 8 colunas */
+@media (max-width: 1024px) {
+  .gallery-track {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    grid-auto-rows: 12px;
+  }
+  .card[data-size="sm"]   { grid-column: span 4; grid-row: span 22; }
+  .card[data-size="md"]   { grid-column: span 8; grid-row: span 26; }
+  .card[data-size="lg"]   { grid-column: span 8; grid-row: span 30; }
+  .card[data-size="wide"] { grid-column: span 8; grid-row: span 22; }
+  .card[data-size="tall"] { grid-column: span 4; grid-row: span 34; }
+}
+
+/* Mobile: lista (Ref 2) — leitura e toque */
+@media (max-width: 640px) {
+  .gallery-track {
+    position: relative;     /* remove fixed no mobile se necessário por performance */
+    inset: auto;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    gap: 14px;
+    padding: 14px;
+    will-change: auto;
+  }
+
+  .card {
+    min-height: 260px;
+  }
+
+  .card[data-size] {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .card-overlay {
+    opacity: 1; /* no mobile, overlay sempre visível e mais leve */
+    background: linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.18) 65%, transparent 100%);
+  }
 }
 ```
 
----
+### ⚙️ JavaScript — Sistema Parallax Lerp
 
-### **3) Hook/Loop do Parallax Lerp (RAF + Cancel)**
+```javascript
+// Refs e variáveis
+const galleryRef = useRef(null);
+const trackRef = useRef(null);
+const cardsRef = useRef([]);
+const rafRef = useRef(null);
+const startYRef = useRef(0);
+const endYRef = useRef(0);
+const easing = 0.05; // Suavidade do lerp (quanto menor, mais suave)
 
-```tsx
-// hooks/useParallaxScroll.ts
-import { useEffect, useRef, useState } from 'react';
+// Função Lerp
+const lerp = (start, end, t) => start * (1 - t) + end * t;
 
-export const useParallaxScroll = (enabled: boolean = true) => {
-  const sceneRef = useRef<HTMLDivElement>(null);
-  const [scrollY, setScrollY] = useState(0);
-  const animationRef = useRef<number>();
+// Função Parallax para cada card
+const parallax = (cardElement) => {
+  const wrapper = cardElement.querySelector('.card-image-wrapper');
+  if (!wrapper) return;
 
-  // Lerp function: smooth interpolation
-  const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-
-  // Handle scroll
-  const handleScroll = () => {
-    if (!sceneRef.current) return;
-    setScrollY(window.scrollY);
-  };
-
-  // RAF loop for smooth 60fps parallax
-  const updateParallax = () => {
-    if (!sceneRef.current || !enabled) return;
-
-    const speed = 0.05; // Lower = slower parallax
-    const targetY = scrollY * speed;
-    const currentY = parseFloat(sceneRef.current.style.transform.replace(/[^0-9.-]/g, '') || '0');
-
-    const newY = lerp(currentY, targetY, 0.1);
-
-    sceneRef.current.style.transform = `translateY(${newY}px)`;
-
-    animationRef.current = requestAnimationFrame(updateParallax);
-  };
-
-  useEffect(() => {
-    if (!enabled) return;
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    animationRef.current = requestAnimationFrame(updateParallax);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
-    };
-  }, [scrollY, enabled]);
-
-  return { sceneRef };
+  // Diferença entre altura do card e altura da imagem
+  const diff = cardElement.offsetHeight - wrapper.offsetHeight;
+  
+  // Posição do card na viewport
+  const { top } = cardElement.getBoundingClientRect();
+  
+  // Progresso (0 = topo da tela, 1 = fundo da tela)
+  const progress = top / window.innerHeight;
+  
+  // Posição Y do parallax
+  const yPos = diff * progress;
+  
+  wrapper.style.transform = `translateY(${yPos}px)`;
 };
+
+// Ativa parallax em todos os cards
+const activateParallax = () => {
+  cardsRef.current.forEach(card => {
+    if (card) parallax(card);
+  });
+};
+
+// Update Loop principal
+const updateScroll = () => {
+  if (!galleryRef.current || !trackRef.current) return;
+
+  // Lerp entre posição atual e posição alvo
+  startYRef.current = lerp(startYRef.current, endYRef.current, easing);
+  
+  // Atualiza altura da galeria (para criar espaço de scroll)
+  galleryRef.current.style.height = `${trackRef.current.clientHeight}px`;
+  
+  // Move o track
+  trackRef.current.style.transform = `translateY(-${startYRef.current}px)`;
+  
+  // Ativa parallax em cada card
+  activateParallax();
+  
+  // Continua o loop
+  rafRef.current = requestAnimationFrame(updateScroll);
+  
+  // Para o loop quando chegar muito perto do target
+  if (Math.abs(startYRef.current - window.scrollY) < 0.1) {
+    cancelAnimationFrame(rafRef.current);
+  }
+};
+
+// Handler do scroll
+const startScroll = () => {
+  endYRef.current = window.scrollY;
+  if (rafRef.current) cancelAnimationFrame(rafRef.current);
+  rafRef.current = requestAnimationFrame(updateScroll);
+};
+
+// Setup dos event listeners
+useEffect(() => {
+  const handleScroll = () => startScroll();
+  const handleResize = () => updateScroll();
+
+  // Inicializa
+  updateScroll();
+  
+  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('resize', handleResize);
+
+  return () => {
+    window.removeEventListener('scroll', handleScroll);
+    window.removeEventListener('resize', handleResize);
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+  };
+}, []);
 ```
 
-#### ✅ Parallax Interno por Card (Nested)
+### 🎯 Como Funciona o Parallax Lerp
 
-Cada card tem seu próprio parallax layer, com base na posição do scroll e na altura do card:
+1. **Gallery Container** (`galleryRef`):
+   - Tem altura dinâmica baseada no conteúdo
+   - Cria espaço para scroll natural
 
+2. **Gallery Track** (`trackRef`):
+   - `position: fixed` → fica fixo na tela
+   - Animado via `transform: translateY()`
+   - Lerp cria movimento suave
+
+3. **Cada Card**:
+   - Wrapper da imagem tem 135% de altura
+   - Movimento parallax independente
+   - Baseado na posição do card na viewport
+
+4. **Loop de Animação**:
+   - `requestAnimationFrame` garante 60fps
+   - Lerp interpola entre posição atual e target
+   - Para automaticamente quando chega no destino
+
+---
+
+## 🃏 PROJECT CARD — ANATOMIA COMPLETA
+
+### Estrutura Visual
 ```tsx
-// components/ProjectCard.tsx
-import { useParallaxScroll } from '@/hooks/useParallaxScroll';
+<div className="card" onClick={onClick}>
+  <div className="card-image-wrapper">
+    <img src={project.image} alt={project.title} />
+  </div>
+  
+  <div className="card-overlay">
+    <h3>{project.title}</h3>
+    <div className="card-meta">
+      <span>{project.client}</span>
+      <span>•</span>
+      <span>{project.year}</span>
+    </div>
+    <div className="card-tags">
+      {project.tags.map(tag => (
+        <span key={tag}>{tag}</span>
+      ))}
+    </div>
+  </div>
+</div>
+```
 
-const ProjectCard = ({ project }: { project: Project }) => {
-  const { sceneRef } = useParallaxScroll();
-  const cardRef = useRef<HTMLDivElement>(null);
+### Estados do Card
 
-  // Parallax interno: cada card se move 30% do scroll global
-  const cardParallax = useParallaxScroll(false
+#### Default
+```css
+.card {
+  transform: none;
+}
+
+.card-overlay {
+  opacity: 0;
+}
+```
+
+#### Hover
+```css
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.card-overlay {
+  opacity: 1;
+  background: linear-gradient(to top, 
+    rgba(0, 0, 0, 0.9) 0%, 
+    rgba(0, 0, 0, 0.5) 50%, 
+    transparent 100%
+  );
+}
+```
+
+#### Active (clique)
+- Trigger modal/página interna
+- Card permanece visível no fundo
+- Backdrop escurece a página
+
+---
 
 ## 🎭 MODAL / PÁGINA INTERNA — TIPOS
 

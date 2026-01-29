@@ -1,5 +1,20 @@
 @import 'tailwindcss';
-@config '../../tailwind.config.mjs';
+
+@theme {
+  --color-background: #040013;
+  --color-text: #fcffff;
+  --color-primary: #0048ff;
+  --color-accent: #4fe6ff;
+  --color-surface: #0b0d3a;
+  --color-error: #ff3366;
+  --color-text-secondary: #a1a3a3;
+
+  --font-sans: 'TT Norms Pro', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'PPSupplyMono', monospace;
+  --font-display: 'TT Norms Pro', ui-sans-serif;
+  --font-h1: 'TT Norms Pro', ui-sans-serif;
+  --font-h2: 'TT Norms Pro', ui-sans-serif;
+}
 
 /* ========================================================================
    FONTS
@@ -90,6 +105,9 @@
   /* Global Spacing */
   --container-padding: clamp(24px, 5vw, 96px);
 
+  /* Global Colors (RGB for opacity support) */
+  --color-primary: 0, 72, 255;
+
   /* Ghost Cards */
   --ghost-card-height-desktop: 480px;
 
@@ -126,123 +144,70 @@
 @layer utilities {
   /* Typography Utilities */
   .text-display {
-    font-size: var(--font-display);
-    font-weight: 900;
-    line-height: 1.1;
+    @apply text-[length:--font-display] font-black leading-[1.1];
   }
 
   .text-h1 {
-    font-size: var(--font-h1);
-    font-weight: 700;
-    line-height: 1.1;
+    @apply text-[length:--font-h1] font-bold leading-[1.1];
   }
 
   .text-h2 {
-    font-size: var(--font-h2);
-    font-weight: 700;
-    line-height: 1.15;
+    @apply text-[length:--font-h2] font-bold leading-[1.15];
   }
 
   .text-h3 {
-    font-size: var(--font-h3);
-    font-weight: 500;
-    line-height: 1.2;
+    @apply text-[length:--font-h3] font-medium leading-[1.2];
   }
 
   .text-body {
-    font-size: var(--font-body);
-    font-weight: 400;
-    line-height: 1.5;
+    @apply text-[length:--font-body] font-normal leading-relaxed;
   }
 
   .text-micro {
-    font-family: 'PPSupplyMono', monospace;
-    font-size: var(--font-micro);
-    line-height: 1.4;
+    @apply font-mono text-[length:--font-micro] leading-snug;
   }
 
   /* Mobile-Optimized Text */
   .text-mobile-hero {
     font-size: clamp(2.5rem, 10vw, 6rem);
-    line-height: 0.95;
-    letter-spacing: -0.03em;
+    @apply leading-[0.95] tracking-tighter;
   }
 
   .text-mobile-title {
     font-size: clamp(1.5rem, 6vw, 3rem);
-    line-height: 1.1;
+    @apply leading-[1.1];
   }
 
   .text-mobile-body {
     font-size: clamp(0.875rem, 3.5vw, 1.125rem);
-    line-height: 1.6;
+    @apply leading-relaxed;
   }
 
-  /* Layout & Grid System (Strict Standard) */
+  /* Layout & Grid System (Strict Standard)
+     Primary container for all page content. Enforces strict padding and max-width.
+     Usage: <div className="std-grid">...</div> */
   .std-grid {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1.5rem; /* Mobile: 24px */
-    padding-right: 1.5rem;
-  }
-
-  @media (min-width: 768px) {
-    .std-grid {
-      padding-left: 3rem; /* Tablet: 48px */
-      padding-right: 3rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .std-grid {
-      padding-left: 6rem; /* Desktop: 96px */
-      padding-right: 6rem;
-      max-width: 1680px;
-    }
+    @apply w-full mx-auto px-6 md:px-12 lg:px-24 max-w-[1680px];
   }
 
   /* Card Helpers */
+  /* Ghost Card Container - Primary interaction shell
+     Provides aspect ratio maintainance and responsive height */
   .card-shell {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 5 / 4;
-    min-height: 0;
-  }
-
-  @media (min-width: 768px) {
-    .card-shell {
-      aspect-ratio: unset;
-      min-height: var(--ghost-card-height-desktop);
-      height: var(--ghost-card-height-desktop);
-    }
+    @apply relative flex flex-col w-full h-auto aspect-[5/4] min-h-0 md:aspect-auto md:h-[var(--ghost-card-height-desktop)];
   }
 
   .card-media {
-    position: relative;
-    flex: 1 1 auto;
-    width: 100%;
-    min-height: 0;
+    @apply relative flex-auto w-full min-h-0;
   }
 
   /* Touch Utilities */
   .touch-target {
-    min-width: 48px;
-    min-height: 48px;
+    @apply min-w-[48px] min-h-[48px];
   }
 
   .touch-feedback {
-    transition:
-      transform 150ms ease,
-      opacity 150ms ease;
-  }
-
-  .touch-feedback:active {
-    transform: scale(0.97);
-    opacity: 0.9;
+    @apply transition-all duration-150 ease-out active:scale-95 active:opacity-90;
   }
 
   /* Safe Area */
@@ -265,25 +230,48 @@
 
   /* Scroll Snap */
   .scroll-snap-x {
-    scroll-snap-type: x mandatory;
-    overflow-x: auto;
-    -ms-overflow-style: none; /* IE/Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-
-  .scroll-snap-x::-webkit-scrollbar {
-    display: none;
+    @apply overflow-x-auto snap-x snap-mandatory flex scrollbar-hide;
   }
 
   .scroll-snap-item {
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
+    @apply snap-start snap-always;
   }
 
   /* Image Wrapper */
   .img-wrapper {
     clip-path: inset(0% 0% 0% 0%);
     will-change: clip-path;
+  }
+}
+
+@layer components {
+  /* Floating Cards */
+  .floating-cards-container {
+    perspective: 1000px;
+  }
+
+  .card-3d-wrapper {
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .card-glass {
+    background-color: rgb(255 255 255 / 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    box-shadow: 0 8px 32px 0 #0000005e;
+  }
+
+  .text-glow-primary {
+    text-shadow: 0 0 10px rgba(0, 72, 255, 0.6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-3d-wrapper {
+    animation: none !important;
+    transform: none !important;
   }
 }
 

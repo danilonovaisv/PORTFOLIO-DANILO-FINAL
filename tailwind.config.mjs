@@ -5,6 +5,11 @@ import { join } from 'path';
 const tokensPath = join(process.cwd(), 'src/config/design_tokens.json');
 const tokens = JSON.parse(readFileSync(tokensPath, 'utf8'));
 
+// Filter tokens to only include colors
+const colors = Object.fromEntries(
+  Object.entries(tokens).filter(([key]) => !key.startsWith('font') && !key.startsWith('easing'))
+);
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -16,13 +21,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        ...tokens,
+        ...colors,
         // Aliases for component capability
-        primary: tokens.bluePrimary,
-        accent: tokens.blueAccent,
+        primary: colors.bluePrimary,
+        accent: colors.blueAccent,
         // Mapping token names to Tailwind expectations if distinct
-        background: tokens.background,
-        foreground: tokens.text,
+        background: colors.background,
+        foreground: colors.text,
       },
       fontFamily: {
         sans: ['TT Norms Pro', 'ui-sans-serif', 'system-ui', 'sans-serif'],

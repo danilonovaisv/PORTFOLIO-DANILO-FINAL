@@ -6,7 +6,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { floatingCardsData } from '@/data/cards.data';
-import '@/styles/floating-cards.css';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -113,7 +113,7 @@ export default function FloatingCards() {
                 />
               </div>
 
-              <h3 className="purple-glow-text mb-2 text-xl font-bold text-white transition-colors group-hover:text-[#4fe6ff]">
+              <h3 className="text-glow-primary mb-2 text-xl font-bold text-white transition-colors group-hover:text-[#4fe6ff]">
                 {card.title}
               </h3>
               <p className="text-sm leading-relaxed text-gray-300">
