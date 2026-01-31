@@ -80,7 +80,7 @@ export const AboutBeliefs: React.FC = () => {
             gl={{ alpha: true, antialias: true }}
             className="w-full h-full"
           >
-            <Environment preset="city" />
+            <Environment files="https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/potsdamer_platz_1k.hdr" />
             <ambientLight intensity={0.8} />
             <spotLight
               position={[10, 10, 10]}
