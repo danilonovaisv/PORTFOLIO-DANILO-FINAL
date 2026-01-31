@@ -1,7 +1,7 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-export function middleware(req: NextRequest) {
+export function middleware(_req: NextRequest) {
   const res = NextResponse.next();
 
   // Cache de HTML/SSR curto para evitar stale longo em edge
@@ -41,6 +41,6 @@ export function middleware(req: NextRequest) {
 }
 
 // Evita aplicar em assets estáticos
-export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
-};
+// Desativado porque o projeto já usa src/proxy.ts (Next middleware proxy pattern)
+// Mantemos o código acima para referência; se reativar, cuidar do conflito com proxy.ts
+export const config = undefined;
