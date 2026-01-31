@@ -19,12 +19,14 @@ app/
 ### Server vs Client Components
 
 **Server Components (padrão)**
+
 - Buscar dados
 - Acessar recursos do backend
 - Manter informações sensíveis no servidor
 - Reduzir JavaScript no cliente
 
 **Client Components ('use client')**
+
 - Interatividade (onClick, onChange, etc)
 - Hooks do React (useState, useEffect, etc)
 - Hooks do navegador (usePathname, useSearchParams)
@@ -33,6 +35,7 @@ app/
 ## State Management
 
 ### Zustand (Global State)
+
 ```typescript
 // Para estado global compartilhado
 import { create } from 'zustand';
@@ -49,6 +52,7 @@ export const useStore = create<Store>((set) => ({
 ```
 
 ### React Hooks (Local State)
+
 ```typescript
 // Para estado local de componentes
 const [isOpen, setIsOpen] = useState(false);
@@ -57,6 +61,7 @@ const [isOpen, setIsOpen] = useState(false);
 ## Data Fetching
 
 ### Server Components
+
 ```typescript
 // Fetch direto no Server Component
 async function getData() {
@@ -73,6 +78,7 @@ export default async function Page() {
 ```
 
 ### Client Components
+
 ```typescript
 // Usar hooks ou SWR/React Query
 'use client';
@@ -95,11 +101,13 @@ export function ClientComponent() {
 ## Firebase & Supabase
 
 ### Firebase
+
 - Hosting
 - Functions (backend serverless)
 - Authentication (se necessário)
 
 ### Supabase
+
 - Storage de assets (imagens, vídeos)
 - Database (PostgreSQL)
 - Real-time subscriptions
@@ -107,6 +115,7 @@ export function ClientComponent() {
 ## 3D e Animações
 
 ### Three.js / React Three Fiber
+
 ```typescript
 // Sempre em Client Components
 'use client';
@@ -125,6 +134,7 @@ export function Scene3D() {
 ```
 
 ### GSAP / Framer Motion
+
 ```typescript
 // Client Components para animações
 'use client';
@@ -146,6 +156,7 @@ export function AnimatedComponent() {
 ## Performance
 
 ### Image Optimization
+
 ```typescript
 import Image from 'next/image';
 
@@ -160,6 +171,7 @@ import Image from 'next/image';
 ```
 
 ### Code Splitting
+
 ```typescript
 // Lazy loading de componentes pesados
 import dynamic from 'next/dynamic';
@@ -171,6 +183,7 @@ const HeavyComponent = dynamic(() => import('./HeavyComponent'), {
 ```
 
 ### Fonts
+
 ```typescript
 // Usar next/font para otimização
 import { Inter } from 'next/font/google';

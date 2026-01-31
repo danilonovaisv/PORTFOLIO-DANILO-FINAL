@@ -9,9 +9,17 @@ import type { PortfolioProject, ProjectCategory } from '@/types/project';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'Portfólio',
+  title: 'Portfólio | Danilo Novais',
   description:
-    'Explore uma seleção curada de projetos de Branding, Motion Design e Creative Development.',
+    'Explore uma seleção curada de projetos de Branding, Motion Design e Creative Development de Danilo Novais.',
+  openGraph: {
+    title: 'Portfólio | Danilo Novais',
+    description: 'Seleção curada de projetos criativos e tecnológicos.',
+    type: 'website',
+  },
+  alternates: {
+    canonical: 'https://portfoliodanilo.com/portfolio',
+  },
 };
 
 const FALLBACK_CATEGORY_MAP: Record<string, ProjectCategory> = {
@@ -89,12 +97,12 @@ export default async function PortfolioPage() {
       Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) &&
       Boolean(
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ??
-          process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY
+        process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY
       );
 
     if (hasSupabaseEnv) {
       const supabase = createStaticClient();
-      
+
       const dbProjects = await listProjects({}, supabase);
       projects = dbProjects.map((project, index) =>
         mapDbProjectToPortfolioProject(project, index)

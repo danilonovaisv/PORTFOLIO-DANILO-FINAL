@@ -1,4 +1,4 @@
-// O projeto principal é o aymuvxysygrwoicsjgxj; usamos como fallback seguro
+// O projeto principal é o umkmwbkwvulxtdodzmzf; usamos como fallback seguro
 // para evitar perda de links quando as envs não estão presentes (ex.: build local).
 const SUPABASE_PROJECT_URL =
   process.env.NEXT_PUBLIC_SUPABASE_URL ??

@@ -7,6 +7,7 @@ description: # Workflow: criação e Ajuste da sessão AboutWhatIDo
 **Objetivo:** Sequência visual clara de serviços.
 
 ## FASE 2: Protocolo de Análise
+
 **Desktop:** Blocos horizontais, scroll driven (direita -> esquerda).
 **Mobile:** Barras verticais, viewport trigger.
 

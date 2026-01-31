@@ -11,6 +11,13 @@ export default function JsonLd({ logoUrl }: JsonLdProps) {
     url: `https://${BRAND.domain}`,
     image: logoUrl ?? BRAND.assets.logos.logoLight,
     jobTitle: 'Creative Developer & Designer',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'São Paulo',
+      addressRegion: 'SP',
+      addressCountry: 'BR',
+    },
+    gender: 'Male',
     sameAs: [
       'https://github.com/danilonovaisv',
       'https://linkedin.com/in/danilonovaisv',
@@ -29,6 +36,11 @@ export default function JsonLd({ logoUrl }: JsonLdProps) {
       'Creative Development',
       'Interactive Design',
     ],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'professional',
+      url: `https://${BRAND.domain}/#contact`,
+    },
   };
 
   const websiteSchema = {

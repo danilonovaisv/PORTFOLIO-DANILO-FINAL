@@ -25,7 +25,7 @@ interface PortfolioModalNewProps {
 const { offset } = MOTION_TOKENS;
 
 export default function PortfolioModalNew({
- project,
+  project,
   isOpen,
   onClose,
 }: PortfolioModalNewProps) {
@@ -46,7 +46,7 @@ export default function PortfolioModalNew({
   useEffect(() => {
     if (!isOpen) return;
 
-const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         e.preventDefault();
         onClose();
@@ -71,7 +71,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
     };
 
     document.addEventListener('keydown', handleKeyDown);
-    
+
     // Focus no botãode fechar ao abrir
     setTimeout(() => {
       closeButtonRef.current?.focus();
@@ -82,7 +82,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
 
   // Previne click propagation no backdrop
   const handleBackdropClick = useCallback(
-    (e:React.MouseEvent) => {
+    (e: React.MouseEvent) => {
       if (e.target === e.currentTarget) {
         onClose();
       }
@@ -93,8 +93,8 @@ const handleKeyDown = (e: KeyboardEvent) => {
   if (!mounted) return null;
 
   // Sanitize the accent color before using it in styles
-  const sanitizedAccentColor = project?.accentColor 
-    ? sanitizeTailwindValue(project.accentColor) 
+  const sanitizedAccentColor = project?.accentColor
+    ? sanitizeTailwindValue(project.accentColor)
     : undefined;
 
   const modalContent = (
@@ -102,18 +102,18 @@ const handleKeyDown = (e: KeyboardEvent) => {
       {isOpen && project && (
         <>
           {/* Backdrop */}
-<motion.div
+          <motion.div
             key="backdrop"
             initial="hidden"
             animate="visible"
             exit="exit"
             variants={{
               hidden: { opacity: 0 },
-              visible: { 
+              visible: {
                 opacity: 1,
                 transition: { duration: 0.18, ease: 'easeOut' }
               },
-              exit: { 
+              exit: {
                 opacity: 0,
                 transition: { duration: 0.2, ease: 'easeIn' }
               }
@@ -130,10 +130,10 @@ const handleKeyDown = (e: KeyboardEvent) => {
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
-            initial={prefersReducedMotion ? { opacity: 0 } :{ opacity: 0, y: offset.large }}
+            initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: offset.large }}
             animate={{ opacity: 1, y: 0 }}
             exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: offset.standard }}
-            transition={ghostTransition(prefersReducedMotion ? 0 :0.12, prefersReducedMotion ? 0.15 : 0.26)}
+            transition={ghostTransition(prefersReducedMotion ? 0 : 0.12, prefersReducedMotion ? 0.15 : 0.26)}
             className="fixed inset-0 z-101 overflow-y-auto"
           >
             <div className="min-h-full flex items-start justify-center p-4 md:p-8 lg:p-12">
@@ -146,7 +146,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
                 {/* Close button - Always Visible */}
                 <button
                   ref={closeButtonRef}
-                 onClick={onClose}
+                  onClick={onClose}
                   className="fixed top-6 right-6 md:top-10 md:right-10 z-110 flex items-center justify-center w-10 h-10 md:w-14 md:h-14 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 text-white transition-all duration-300 hover:rotate-90"
                   aria-label="Fechar modal"
                 >
@@ -155,11 +155,11 @@ const handleKeyDown = (e: KeyboardEvent) => {
 
                 {/*Header glow */}
                 <div className="absolute top-0 inset-x-0 h-40 pointer-events-none">
-                  <div 
+                  <div
                     className="absolute inset-0 opacity-30"
                     style={{
                       backgroundImage: 'radial-gradient(ellipse at center top, var(--glow-color, rgba(0,87,255,0.3)), transparent 70%)',
-                      ...(sanitizedAccentColor && { '--glow-color': `${sanitizedAccentColor}40`})
+                      ...(sanitizedAccentColor && { '--glow-color': `${sanitizedAccentColor}40` })
                     } as React.CSSProperties}
                   />
                 </div>

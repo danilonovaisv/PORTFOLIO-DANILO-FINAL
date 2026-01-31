@@ -258,3 +258,24 @@ html.admin-page body {
   font-size: clamp(0.875rem, 3.5vw, 1.125rem);
   line-height: 1.6;
 }
+
+/* ========================================================================
+   Ghost Portfolio Hero Glows
+   ======================================================================== */
+.portfolio-hero-glow-primary {
+  background: radial-gradient(
+    circle at 75% 55%,
+    rgba(0, 72, 255, 0.12),
+    transparent 50%
+  );
+  filter: blur(40px);
+}
+
+.portfolio-hero-glow-accent {
+  background: radial-gradient(
+    circle at 25% 45%,
+    rgba(79, 230, 255, 0.08),
+    transparent 45%
+  );
+  filter: blur(40px);
+}

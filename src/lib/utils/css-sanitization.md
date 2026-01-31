@@ -1,9 +1,11 @@
 # CSS Sanitization Guidelines
 
 ## Problem
+
 Invalid CSS classes like `bg-[.4!]` and `bg-[f7...]` are generated when dynamic content from databases or user inputs is used directly in Tailwind class names without proper validation.
 
 ## Solution
+
 Always sanitize dynamic values before using them in Tailwind classes:
 
 ```typescript
@@ -18,6 +20,7 @@ const className = `bg-[${dynamicColor}]`;
 ```
 
 ## Prevention
+
 1. Validate all dynamic content coming from:
    - Database queries
    - User inputs

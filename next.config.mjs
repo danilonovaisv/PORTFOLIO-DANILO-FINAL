@@ -10,9 +10,8 @@ const buildSupabaseHosts = () => {
   // Fallback to known project URL if env var is missing (e.g. file lock issues)
   const mainUrl =
     process.env.NEXT_PUBLIC_SUPABASE_URL ||
-    'https://aymuvxysygrwoicsjgxj.supabase.co';
-  if (!mainUrl) {
-  }
+    'https://umkmwbkwvulxtdodzmzf.supabase.co';
+  if (!mainUrl) return [];
 
   const primaryHost = new URL(mainUrl).host;
   const extraHosts = (process.env.NEXT_PUBLIC_SUPABASE_IMAGE_HOSTS ?? '')
@@ -20,8 +19,33 @@ const buildSupabaseHosts = () => {
     .map((h) => h.trim())
     .filter(Boolean);
 
-  return Array.from(new Set([primaryHost, ...extraHosts]));
+  // Fallback para o host atual do portfolio se não estiver no env
+  const fallbackHost = 'umkmwbkwvulxtdodzmzf.supabase.co';
+  const aymuHost = 'aymuvxysygrwoicsjgxj.supabase.co';
+
+  return Array.from(
+    new Set([primaryHost, fallbackHost, aymuHost, ...extraHosts])
+  );
 };
+
+const supabaseHosts = buildSupabaseHosts().join(' ');
+
+// Adicionando hosts adicionais para assets do drei/three.js
+const supabaseAndExternalHosts = `${supabaseHosts} https://raw.githack.com https://dl.polyhaven.org https://www.gstatic.com https://raw.githubusercontent.com`;
+
+const cspHeader = `
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' 'unsafe-eval';
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' blob: data: ${supabaseAndExternalHosts};
+    font-src 'self';
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    connect-src 'self' ${supabaseAndExternalHosts} https://*.supabase.co https://*.firebaseio.com https://dl.polyhaven.org ws://localhost:3000 ws://127.0.0.1:3000;
+`.replace(/\s{2,}/g, ' ').trim();
+
 
 const nextConfig = {
   /**
@@ -40,6 +64,20 @@ const nextConfig = {
   // Removido experimental.turbopack pois causa warning
   experimental: {
     // any needed experimental flags
+  },
+
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: cspHeader,
+          },
+        ],
+      },
+    ];
   },
 
   /**
@@ -64,7 +102,7 @@ const nextConfig = {
     ]),
 
     dangerouslyAllowSVG: true,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;", // Movido para headers globais
   },
 };
 

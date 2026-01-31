@@ -63,7 +63,9 @@ export default function BlockRenderer({
       config?.fontSize || 'text-lg md:text-xl',
       config?.fontWeight || 'font-light',
       config?.textAlign || '',
-      config?.color && !config.color.startsWith('#') ? sanitizeTailwindValue(config.color) : '',
+      config?.color && !config.color.startsWith('#')
+        ? sanitizeTailwindValue(config.color)
+        : '',
       'mb-4 leading-relaxed',
     ].join(' ');
 

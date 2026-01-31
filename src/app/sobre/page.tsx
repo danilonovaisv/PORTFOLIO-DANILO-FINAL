@@ -9,9 +9,17 @@ import { AboutClosing } from '@/components/sobre/AboutClosing';
 import { SiteClosure } from '@/components/layout/SiteClosure';
 
 export const metadata: Metadata = {
-  title: 'Sobre',
+  title: 'Sobre | Danilo Novais',
   description:
     'Conheça a trajetória, o método e a visão de Danilo Novais por trás do design e desenvolvimento criativo.',
+  openGraph: {
+    title: 'Sobre | Danilo Novais',
+    description: 'Trajetória, método e visão criativa.',
+    type: 'profile',
+  },
+  alternates: {
+    canonical: 'https://portfoliodanilo.com/sobre',
+  },
 };
 
 export default function AboutPage() {

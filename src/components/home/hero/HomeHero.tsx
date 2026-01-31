@@ -33,7 +33,7 @@ export default function HomeHero() {
       <section
         id="hero"
         ref={heroRef}
-        className="relative w-full min-h-screen bg-[#040013]"
+        className="relative w-full min-h-screen bg-[#040013] overflow-hidden"
         aria-label="Portfolio Hero Section"
       >
         {/* Fallback Mobile Background Gradient (Ghost Atmosphere) */}

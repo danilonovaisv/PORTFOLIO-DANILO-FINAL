@@ -1046,7 +1046,7 @@ gsap.from(".service-card", {
       - Fantasma 3D (Ghost) central, renderizado com React Three Fiber + Drei.  
       - Ghost fica **centrado acima do texto** nas fases de manifesto, flutuando de forma contínua.  
       - O fantasma nunca para completamente:  
-        - Flutuação leve e constante.  
+        - Flutuação leve e constante, com leve movimentos para os lados e para cima e para baixo.  
         - Ganha velocidade e inclinação suave conforme o cursor se move e conforme o usuário rola a página.  
         - Responde de forma fluida e etérea, como se “sentisse” o toque/scroll.  
         - Entra junto com a **primeira frase** da área de manifesto e permanece centralizado na sessão.  

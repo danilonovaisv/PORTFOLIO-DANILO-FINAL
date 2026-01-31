@@ -1,10 +1,11 @@
 'use client';
+
 import React, { useRef } from 'react';
-import { motion, MotionValue, useTransform } from 'framer-motion';
+import { motion, MotionValue } from 'framer-motion';
 
 interface BeliefFinalSectionProps {
   bgColor: string;
-  scrollProgress: MotionValue<number>;
+  scrollProgress?: MotionValue<number>;
 }
 
 export const BeliefFinalSection: React.FC<BeliefFinalSectionProps> = ({
@@ -13,64 +14,28 @@ export const BeliefFinalSection: React.FC<BeliefFinalSectionProps> = ({
 }) => {
   const ref = useRef<HTMLElement>(null);
 
-  // Animação de entrada
-  const introStart = 0.85;
-  const introEnd = 0.95;
-
-  const opacity = useTransform(scrollProgress, [introStart, introEnd], [0, 1]);
-  const scale = useTransform(scrollProgress, [introStart, introEnd], [0.95, 1]);
-  const blur = useTransform(
-    scrollProgress,
-    [introStart, introEnd],
-    ['blur(10px)', 'blur(0px)']
-  );
-
   return (
-    <motion.section
+    <section
       ref={ref}
-      className="w-full h-screen overflow-hidden"
-      style={{ backgroundColor: bgColor }}
+      className={`w-full h-screen flex flex-col items-center justify-center overflow-hidden px-4 ${bgColor}`}
     >
       <motion.div
-        style={{
-          opacity,
-          scale,
-          filter: blur,
-        }}
-        className="std-grid relative flex h-full w-full flex-col justify-center pointer-events-none z-20"
+        className="flex flex-col items-center justify-center text-center text-white font-display leading-[0.78] w-full max-w-[98vw]"
+        initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+        whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+        viewport={{ once: false }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="w-full flex flex-col space-y-0 md:-space-y-4 lg:-space-y-8 font-display font-black uppercase text-white leading-none">
-          {/* Linha 1: ISSO É */}
-          <div className="w-full flex justify-between items-center text-[18vw] md:text-[14vw] tracking-tighter">
-            <span>I</span>
-            <span>S</span>
-            <span>S</span>
-            <span>O</span>
-            <span className="w-[0.5em] inline-block" /> {/* Espaço visual */}
-            <span>É</span>
-          </div>
-
-          {/* Linha 2: GHOST */}
-          <div className="w-full flex justify-between items-center text-[18vw] md:text-[14vw] tracking-tighter">
-            <span>G</span>
-            <span>H</span>
-            <span>O</span>
-            <span>S</span>
-            <span>T</span>
-          </div>
-
-          {/* Linha 3: DESIGN. */}
-          <div className="w-full flex justify-between items-center text-[18vw] md:text-[14vw] tracking-tighter">
-            <span>D</span>
-            <span>E</span>
-            <span>S</span>
-            <span>I</span>
-            <span>G</span>
-            <span>N</span>
-            <span>.</span>
-          </div>
+        <div className="text-[16vw] md:text-[14rem] tracking-tighter uppercase font-black">
+          ISSO É
+        </div>
+        <div className="text-[30vw] md:text-[25rem] font-black tracking-tighter uppercase">
+          GHOST
+        </div>
+        <div className="text-[24vw] md:text-[19rem] tracking-tighter uppercase font-black">
+          DESIGN
         </div>
       </motion.div>
-    </motion.section>
+    </section>
   );
 };

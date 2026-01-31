@@ -7,6 +7,7 @@ description: Auditoria Home
 **Fonte da Verdade:** `/docs/AUDITORIA_HOME_PORTFOLIO.md`
 
 **Execução:**
+
 1. Parsing
 2. Execução iterativa
 3. Testes de layout

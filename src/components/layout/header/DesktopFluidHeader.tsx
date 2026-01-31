@@ -77,9 +77,9 @@ export default function DesktopFluidHeader({
                 <Image
                   src={logoUrl}
                   alt="Danilo"
-                  width={32}
-                  height={32}
-                  className="h-22 w-22 object-contain transition-colors duration-300"
+                  width={40}
+                  height={40}
+                  className="h-10 w-auto object-contain transition-colors duration-300"
                 />
               </Link>
 

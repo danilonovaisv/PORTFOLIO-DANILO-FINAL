@@ -19,19 +19,24 @@ description: # Workflow: Footer
 ### FASE 2: Protocolo de Análise Profunda
 
 #### Desktop (≥1024px)
+
 **Layout:** Fixed bar at bottom, Horizontal layout.
 **Behavior:** `position: fixed`, `bottom: 0`, `z-index: 10`.
 
 #### Mobile & Tablet (≤1023px)
+
 **Layout:** Static section, Vertical stack.
 **Behavior:** Never fixed.
 
 #### Content
+
 **Copyright:** "© 2025 Danilo Novais Vilela — todos os direitos reservados"
 **Links:** Home, Portfólio Showcase, Sobre, Contato.
 
 #### Background
+
 Solid blue: `bg-[#0057FF]`, Text: White.
 
 ## FASE 3: 🛠️ EXECUÇÃO IMEDIATA
+
 ## FASE 4: 🛠️ VERIFICAÇÃO

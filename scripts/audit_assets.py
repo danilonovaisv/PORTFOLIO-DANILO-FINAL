@@ -87,6 +87,15 @@ if __name__ == "__main__":
     print(f"RELATÓRIO FINAL: {len(broken_links)} links quebrados encontrados.")
     
     # Save report
-    with open(".agent/broken_links_report.json", "w") as f:
-        json.dump(broken_links, f, indent=2)
-    print("Detalhes salvos em .agent/broken_links_report.json")
+    try:
+        with open(".agent/broken_links_report.json", "w") as f:
+            json.dump(broken_links, f, indent=2)
+        print("Detalhes salvos em .agent/broken_links_report.json")
+    except PermissionError:
+        print("⚠️ Não foi possível salvar o relatório em .agent/broken_links_report.json (Permissão negada).")
+    except Exception as e:
+        print(f"⚠️ Erro ao salvar relatório: {e}")
+
+    # Exit with error if links are broken
+    if broken_links:
+        sys.exit(1)

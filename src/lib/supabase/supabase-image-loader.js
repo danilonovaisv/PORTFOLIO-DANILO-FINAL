@@ -1,5 +1,5 @@
 // supabase-image-loader.js
-const DEFAULT_SUPABASE_URL = 'https://aymuvxysygrwoicsjgxj.supabase.co';
+const DEFAULT_SUPABASE_URL = 'https://umkmwbkwvulxtdodzmzf.supabase.co';
 const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.webp', '.avif'];
 const NON_TRANSFORM_EXTENSIONS = [
   '.svg',

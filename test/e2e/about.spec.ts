@@ -7,8 +7,9 @@ test.describe('About Page', () => {
     // Verify page content
     await expect(page.locator('main')).toBeVisible();
 
-    // Look for keywords common in an about page
-    await expect(page.locator('body')).toContainText(/Origem/i);
+    // Look for current about-page copy
+    await expect(page.locator('body')).toContainText(/Sou Danilo Novais/i);
+    await expect(page.locator('body')).toContainText(/GHOSTDESIGN/i);
 
     await page.screenshot({ path: 'test-results/about-page.png' });
   });

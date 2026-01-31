@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { createClient } from '@supabase/supabase-js';
-import { loadEnvOverrides, normalizeEnvValue } from './lib/env-loader';
+import { loadEnvOverrides, normalizeEnvValue } from './lib/env-loader.ts';
 
 /**
  * Script para corrigir assets duplicados e inconsistentes no banco de dados
@@ -40,7 +40,7 @@ async function fixDuplicateAssets() {
   // Buscar todos os assets
   const { data: assets, error } = await supabase
     .from('site_assets')
-    .select('id, key, file_path, bucket, page')
+    .select('id, key, file_path, bucket, page, asset_type')
     .order('created_at', { ascending: true }); // Assumindo que existe um campo created_at
 
   if (error) {
@@ -131,6 +131,7 @@ async function fixDuplicateAssets() {
       file_path: string | null;
       page?: string | null;
       bucket: string | null;
+      asset_type: string;
     }
   >();
 
@@ -180,6 +181,7 @@ async function fixDuplicateAssets() {
           file_path: newPath || originalPath,
           page: newPage || originalPage,
           bucket: keeper.bucket, // Preservar o bucket
+          asset_type: keeper.asset_type, // Preservar o tipo
         });
       }
     } else {
@@ -203,6 +205,7 @@ async function fixDuplicateAssets() {
           file_path: newPath || originalPath,
           page: newPage || originalPage,
           bucket: asset.bucket, // Preservar o bucket
+          asset_type: asset.asset_type, // Preservar o tipo
         });
       }
     }
@@ -259,6 +262,7 @@ async function fixDuplicateAssets() {
               file_path: newPath || originalPath,
               page: newPage || originalPage,
               bucket: keeper.bucket, // Preservar o bucket
+              asset_type: keeper.asset_type, // Preservar o tipo
             });
           }
         }

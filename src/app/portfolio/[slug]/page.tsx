@@ -56,10 +56,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: project.title,
     description: `Case study: ${project.title} for ${project.client}. Category: ${project.displayCategory}.`,
+    keywords: [...(project.tags || []), project.client, project.displayCategory, 'Danilo Novais', 'Creative Developer'],
     openGraph: {
       title: project.title,
       description: `Case study: ${project.title} for ${project.client}. Category: ${project.displayCategory}.`,
       images: [project.image || ''],
+      type: 'article',
+    },
+    alternates: {
+      canonical: `https://portfoliodanilo.com/portfolio/${slug}`,
     },
   };
 }

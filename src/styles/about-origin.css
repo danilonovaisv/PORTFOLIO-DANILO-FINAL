@@ -1,0 +1,61 @@
+/* Additional styles for AboutOrigin component */
+.arch {
+  position: relative;
+}
+
+.arch__info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-img-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  min-height: 240px;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.mobile-text-container {
+  padding: 1rem;
+}
+
+.img-wrapper {
+  position: absolute;
+  inset: 0;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 1);
+  background-color: #040013;
+}
+
+/* Responsive adjustments */
+@media (min-width: 1024px) {
+  .arch {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 2rem;
+  }
+
+  .arch__info {
+    min-height: 100vh;
+    justify-content: flex-end;
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .arch__right {
+    display: flex;
+    position: sticky;
+    top: 0;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-img-container {
+    display: none;
+  }
+}

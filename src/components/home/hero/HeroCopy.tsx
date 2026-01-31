@@ -81,18 +81,27 @@ export default function HeroCopy({
         </span>
 
         {/* Headline - Desktop (2 linhas) */}
+        {/* Headline - Desktop (2 linhas) */}
         <h1
           className={`hidden lg:block mb-20 font-display ${styles.heroTitle}`}
         >
-          {HOME_CONTENT.hero.title[0].split(' ').slice(0, 2).join(' ')} <br />
-          {HOME_CONTENT.hero.title[0].split(' ').slice(2).join(' ')}
+          {HOME_CONTENT.hero.titleDesktop.map((line, i) => (
+            <React.Fragment key={i}>
+              {line}
+              {i < HOME_CONTENT.hero.titleDesktop.length - 1 && <br />}
+            </React.Fragment>
+          ))}
         </h1>
 
         {/* Headline - Mobile & Tablet (3 linhas) */}
+        {/* Headline - Mobile & Tablet (3 linhas) */}
         <h1 className={`lg:hidden mb-12 font-display ${styles.heroTitle}`}>
-          {HOME_CONTENT.hero.title[0].split(' ').slice(0, 2).join(' ')} <br />
-          {HOME_CONTENT.hero.title[0].split(' ').slice(2, 4).join(' ')} <br />
-          {HOME_CONTENT.hero.title[0].split(' ').slice(4).join(' ')}
+          {HOME_CONTENT.hero.titleMobile.map((line, i) => (
+            <React.Fragment key={i}>
+              {line}
+              {i < HOME_CONTENT.hero.titleMobile.length - 1 && <br />}
+            </React.Fragment>
+          ))}
         </h1>
 
         {/* Subheading */}

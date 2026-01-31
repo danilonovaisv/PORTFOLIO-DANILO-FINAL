@@ -49,6 +49,7 @@
     "functions",
     "TROCAR",
     "src/index.tsx",
-    "src/App.tsx"
+    "src/App.tsx",
+    "scripts/archive"
   ]
 }
