@@ -4,18 +4,11 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { usePerformanceAdaptive } from '@/hooks/usePerformanceAdaptive';
 
-// Importações de pós-processamento do diretório de exemplos do Three.js
-// Importações de pós-processamento via three-stdlib
-// @ts-ignore
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
-// @ts-ignore
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
-// @ts-ignore
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
-// @ts-ignore
-import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass';
-// @ts-ignore
-import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 
 export default function GhostScene() {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -523,7 +516,7 @@ export default function GhostScene() {
       for (let i = 0; i < count; i++) {
         const geom =
           particleGeometries[
-            Math.floor(Math.random() * particleGeometries.length)
+          Math.floor(Math.random() * particleGeometries.length)
           ];
         const p = new THREE.Mesh(geom, particleBaseMaterial.clone());
         p.visible = false;
@@ -541,7 +534,7 @@ export default function GhostScene() {
       } else if (particles.length < params.particleCount) {
         const geom =
           particleGeometries[
-            Math.floor(Math.random() * particleGeometries.length)
+          Math.floor(Math.random() * particleGeometries.length)
           ];
         p = new THREE.Mesh(geom, particleBaseMaterial.clone());
         particleGroup.add(p);
