@@ -74,14 +74,7 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
 
   // --- Responsividade (Policy 4.3) ---
   const isMobile = viewport.width < 5;
-  const isTablet = viewport.width >= 5 && viewport.width < 8;
-
-  // Escala responsiva: mobile menor, tablet médio, desktop maior
-  const baseScale = isMobile
-    ? viewport.width * 0.15 // Mobile: 15% da largura do viewport (menor)
-    : isTablet
-      ? viewport.width * 0.12 // Tablet: 12% da largura
-      : viewport.width * 0.08; // Desktop: 8% da largura (proporcional)
+  const baseScale = isMobile ? viewport.width * 0.18 : 0.6;
 
   // Handle touch interactions simply by updating mouseRef
   useEffect(() => {
@@ -105,20 +98,11 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
 
     const progress = scrollProgress.get();
     const mouse = mouseRef.current;
-
-    // Manter o fantasma sempre centralizado independentemente do dispositivo
     const finalOffsetX = 0;
-    const finalOffsetY = 0;
 
     groupRef.current.position.x = THREE.MathUtils.lerp(
       groupRef.current.position.x,
       basePosition.x + finalOffsetX,
-      0.05
-    );
-
-    groupRef.current.position.y = THREE.MathUtils.lerp(
-      groupRef.current.position.y,
-      basePosition.y + finalOffsetY,
       0.05
     );
 
@@ -132,47 +116,37 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
       0.05
     );
 
-    // --- Resposta ao Mouse/Scroll (Posição e Rotação) ---
-    // Aumentar influência para tornar mais sensível como na home
-    const mouseInfluence = 0.4; // Influência aumentada para movimento mais perceptível
-    const scrollInfluence = 2.0; // Influência do scroll aumentada
-
-    // Movimento lateral suave (side-to-side) com oscilação natural
-    const time = state.clock.elapsedTime;
-    const sideToSideOffset = Math.sin(time * 0.5) * 0.3; // Oscilação lenta lateral aumentada
-    const upDownOffset = Math.sin(time * 0.7) * 0.2; // Oscilação vertical aumentada
-
-    // Calcula movimento baseado no scroll para adicionar à posição
-    const scrollX = (progress - 0.5) * scrollInfluence; // Usar o progresso do scroll para mover o ghost
-    const scrollY = Math.sin(progress * Math.PI * 2) * scrollInfluence * 0.5; // Movimento vertical baseado no scroll
+    // --- Resposta ao Mouse (Posição e Rotação) ---
+    // Desktop: Inclina levemente (rotationX/rotationZ) e desloca posição x/y
+    // Mobile: Resposta baseada em touch (já mapeado no mouseRef)
+    const mouseInfluence = 0.2; // Aumentado um pouco para ser perceptível "intensificar"
 
     // Lerp positions (relativo ao 0,0,0 do grupo pai)
-    // Combina movimento do mouse com scroll e oscilação natural
+    // Movimento suave seguindo o cursor
     animRef.current.position.x = THREE.MathUtils.lerp(
       animRef.current.position.x,
-      mouse.x * mouseInfluence + scrollX + sideToSideOffset,
-      0.08 // Lerp mais rápido para resposta mais imediata
+      mouse.x * mouseInfluence,
+      0.05
     );
     animRef.current.position.y = THREE.MathUtils.lerp(
       animRef.current.position.y,
-      mouse.y * mouseInfluence + scrollY + upDownOffset,
-      0.08 // Lerp mais rápido para resposta mais imediata
+      mouse.y * mouseInfluence,
+      0.05
     );
 
-    // Lerp rotações X e Z baseadas no mouse (Tilt mais perceptível)
+    // Lerp rotações X e Z baseadas no mouse (Tilt suave)
     // RotationX: Inclina para cima/baixo
     animRef.current.rotation.x = THREE.MathUtils.lerp(
       animRef.current.rotation.x,
-      -mouse.y * mouseInfluence * 0.8, // Tilt vertical mais perceptível
-      0.08
+      -mouse.y * mouseInfluence * 0.8, // Slight tilt vertical
+      0.05
     );
 
-    // RotationZ: Inclina para os lados (Bank) com oscilação natural
-    const naturalTilt = Math.sin(time * 0.6) * 0.1; // Balanço natural aumentado
+    // RotationZ: Inclina para os lados (Bank)
     animRef.current.rotation.z = THREE.MathUtils.lerp(
       animRef.current.rotation.z,
-      -mouse.x * mouseInfluence * 0.6 + naturalTilt, // Tilt horizontal mais perceptível
-      0.08
+      -mouse.x * mouseInfluence * 0.5, // Slight tilt horizontal
+      0.05
     );
 
     let targetScale = 1; // Escala base interna (multiplicativa)
@@ -184,7 +158,7 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
       // Move Z para frente (aproximação)
       animRef.current.position.z = THREE.MathUtils.lerp(
         animRef.current.position.z,
-        intensity,
+        1 * intensity,
         0.05
       );
 
@@ -211,10 +185,10 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
 
   return (
     <Float
-      speed={1.5} // Velocidade mais suave
-      rotationIntensity={0.3} // Rotação mais sutil
-      floatIntensity={1.2} // Flutuação mais pronunciada
-      floatingRange={[-0.3, 0.3]} // Maior amplitude vertical (up-down)
+      speed={2}
+      rotationIntensity={0.5}
+      floatIntensity={0.5}
+      floatingRange={[-0.1, 0.1]}
     >
       {/* Grupo Pai: Recebe as props de posicionamento global, mas tem escala controlada responsivamente */}
       <group ref={groupRef} {...props} scale={baseScale} dispose={null}>

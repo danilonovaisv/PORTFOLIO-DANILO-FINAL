@@ -28,6 +28,22 @@ const buildSupabaseHosts = () => {
   );
 };
 
+const supabaseHosts = buildSupabaseHosts().join(' ');
+
+const cspHeader = `
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' 'unsafe-eval';
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' blob: data: ${supabaseHosts};
+    font-src 'self';
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    connect-src 'self' ${supabaseHosts};
+`.replace(/\s{2,}/g, ' ').trim();
+
+
 const nextConfig = {
   /**
    * Mantém exatamente como você já tinha
@@ -45,6 +61,20 @@ const nextConfig = {
   // Removido experimental.turbopack pois causa warning
   experimental: {
     // any needed experimental flags
+  },
+
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Content-Security-Policy',
+            value: cspHeader,
+          },
+        ],
+      },
+    ];
   },
 
   /**
@@ -69,7 +99,7 @@ const nextConfig = {
     ]),
 
     dangerouslyAllowSVG: true,
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;", // Movido para headers globais
   },
 };
 

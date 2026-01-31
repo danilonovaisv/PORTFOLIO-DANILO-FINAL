@@ -1,14 +1,14 @@
 'use client';
 
-import { useEffect, useRef, useState, useContext } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import Lenis from 'lenis';
+import '@/styles/about-origin.css';
 import { useSiteAssetUrl } from '@/contexts/site-assets';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
 import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
-import { useMotionGate } from '@/hooks/useMotionGate';
-import { ScrollContext } from '@/contexts/ScrollContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -57,8 +57,6 @@ function AboutOrigin() {
   const archRef = useRef<HTMLDivElement>(null);
   const archRightRef = useRef<HTMLDivElement>(null);
   const [isClient, setIsClient] = useState(false);
-  const shouldReduceMotion = useMotionGate();
-  const { lenis } = useContext(ScrollContext);
 
   // Resolver URLs de imagem com fallback seguro
   const resolveFallback = (path: FallbackImage) =>
@@ -100,27 +98,22 @@ function AboutOrigin() {
   }, []);
 
   useEffect(() => {
-    if (!isClient || shouldReduceMotion) return;
+    if (!isClient) return;
 
-    const handleLenisScroll = () => ScrollTrigger.update();
-    if (lenis) {
-      lenis.on('scroll', handleLenisScroll);
+    let rafId = 0;
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      touchMultiplier: 2,
+    });
 
-      ScrollTrigger.scrollerProxy(document.body, {
-        scrollTop(value) {
-          if (typeof value === 'number') {
-            lenis.scrollTo(value, { immediate: true });
-          }
-          return lenis.scroll;
-        },
-        getBoundingClientRect: () => ({
-          top: 0,
-          left: 0,
-          width: window.innerWidth,
-          height: window.innerHeight,
-        }),
-      });
-    }
+    const raf = (time: DOMHighResTimeStamp) => {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    };
+    rafId = requestAnimationFrame(raf);
+
+    lenis.on('scroll', ScrollTrigger.update);
 
     const mm = gsap.matchMedia();
 
@@ -337,13 +330,12 @@ function AboutOrigin() {
 
     return () => {
       window.removeEventListener('load', refreshST);
-      if (lenis) {
-        lenis.off?.('scroll', handleLenisScroll);
-      }
+      if (rafId) cancelAnimationFrame(rafId);
       mm.revert();
+      lenis.destroy();
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
-  }, [isClient, shouldReduceMotion, lenis]);
+  }, [isClient]);
 
   if (!isClient) {
     return (
@@ -366,7 +358,7 @@ function AboutOrigin() {
     >
       <div className="max-w-420 mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-24">
         <div className="mb-24 text-center select-none">
-          <h1 className="text-[1.75rem] font-bold leading-none text-bluePrimary tracking-[0.2em] uppercase">
+          <h1 className="text-[1.75rem] font-['CustomLight'] font-light leading-none text-[#4fe6ff] tracking-[0.2em] uppercase">
             ORIGEM
           </h1>
         </div>
@@ -383,7 +375,7 @@ function AboutOrigin() {
               >
                 <div className="content w-full lg:max-w-130 flex flex-col gap-8 lg:transform lg:-translate-y-[15%]">
                   <div className="mobile-text-container space-y-6">
-                    <h2 className="text-h1 font-bold leading-[1.1] text-bluePrimary normal-case">
+                    <h2 className="text-h1 font-bold leading-[1.1] text-primary normal-case">
                       {block.title}
                     </h2>
                     <p className="text-[16px] md:text-[18px] lg:text-[20px] font-normal leading-[1.7] text-[#fcffff] opacity-75">

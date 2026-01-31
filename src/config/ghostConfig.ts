@@ -237,21 +237,22 @@ export const GHOST_CONFIG: GhostConfig = {
   eyeGlowDecay: 0.95,
 
   // Efeitos de Pós-Processamento (Matched to CodePen)
-  analogGrain: 2.4,
+  analogGrain:1.4,
   analogBleeding: 1.5,
   analogScanlines: 0.7,
-  analogVignette: 0.9,
+  analogVignette: 1.9,
   analogIntensity: 0.9,
   analogJitter: 0.5,
-  analogVSync: 0.7,
+  analogVSync: 1.7,
   limboMode: false,
 
   // Parâmetros do Véu Atmosférico (MATCHED to CodePen Reference)
-  revealRadius: 17, // Increased for better text readability
+  revealRadius: 37, // Increased for better text readability
   fadeStrength: 0.7,
   baseOpacity: 0.08, // Darker background to create reveal contrast
   revealOpacity: -0.2, // Fully transparent reveal
 };
+
 
 // Helper para converter cor do config para formato numérico (Three.js)
 export function getConfigColorHex(colorName: string): number {

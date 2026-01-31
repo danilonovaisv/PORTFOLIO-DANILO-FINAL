@@ -3,72 +3,145 @@
 import React, { useRef } from 'react';
 import { useLERPScroll } from '@/hooks/useLERPScroll';
 import { ProjectCard } from './ProjectCard';
-import type { PortfolioProject } from '@/types/project';
+import { PortfolioProject } from '@/types/project';
+
+// MOCK DATA - Replace with real data or imports later
+const PROJECTS: PortfolioProject[] = [
+  {
+    id: '1',
+    slug: 'garoto-nestle',
+    title: 'Garoto Nestlé',
+    client: 'Nestlé',
+    category: 'branding',
+    displayCategory: 'Branding',
+    year: 2024,
+    image: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/campaign/cover.webp',
+    type: 'B',
+    layout: { cols: 'col-span-1', height: 'h-[400px]', colsMobile: 'col-span-1' },
+    detail: {
+      description: 'Rebranding completo para uma das maiores marcas de chocolate do Brasil.',
+    },
+    tags: ['Branding', 'Packaging']
+  },
+  {
+    id: '2',
+    slug: 'nescafe',
+    title: 'Nescafé',
+    client: 'Nestlé',
+    category: 'web',
+    displayCategory: 'Web Design',
+    year: 2023,
+    image: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/creative-direction/hero.webp',
+    type: 'B',
+    layout: { cols: 'col-span-1', height: 'h-[400px]', colsMobile: 'col-span-1' },
+    detail: {
+      description: 'Campanha digital global com foco em sustentabilidade.',
+    },
+    tags: ['Web', 'Campaign']
+  },
+  {
+    id: '3',
+    slug: 'mpdv',
+    title: 'MPDV',
+    client: 'MPDV',
+    category: 'institucional',
+    displayCategory: 'Institucional',
+    year: 2023,
+    image: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/cover.webp',
+    type: 'A',
+    layout: { cols: 'col-span-2', height: 'h-[400px]', colsMobile: 'col-span-1' },
+    detail: {
+      description: 'Plataforma de inteligência de dados para varejo.',
+    },
+    tags: ['Product', 'UI/UX']
+  },
+  {
+    id: '4',
+    slug: 'swift',
+    title: 'Swift',
+    client: 'JBS',
+    category: 'motion',
+    displayCategory: 'Motion',
+    year: 2022,
+    image: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/brand_video/hero.png',
+    type: 'B',
+    layout: { cols: 'col-span-1', height: 'h-[400px]', colsMobile: 'col-span-1' },
+    detail: {
+      description: 'Série de vídeos em motion graphics para mídias sociais.',
+    },
+    tags: ['Motion', 'Social']
+  },
+  {
+    id: '5',
+    slug: 'ambev',
+    title: 'Ambev Tech',
+    client: 'Ambev',
+    category: 'web',
+    displayCategory: 'Web',
+    year: 2024,
+    image: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/showcase/Key-Visual.webp',
+    type: 'A',
+    layout: { cols: 'col-span-1', height: 'h-[400px]', colsMobile: 'col-span-1' },
+    detail: {
+      description: 'Portal corporativo para talentos tech.',
+    },
+    tags: ['Web', 'Dev']
+  },
+  {
+    id: '6',
+    slug: 'unilever',
+    title: 'Unilever',
+    client: 'Unilever',
+    category: 'institucional',
+    displayCategory: 'Accessibility',
+    year: 2023,
+    image: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/showcase/Branding-Project.webp',
+    type: 'B',
+    layout: { cols: 'col-span-1', height: 'h-[400px]', colsMobile: 'col-span-1' },
+    detail: {
+      description: 'Consultoria de acessibilidade e performance.',
+    },
+    tags: ['Consultoria', 'A11y']
+  }
+];
 
 interface ProjectsGalleryProps {
-  projects: PortfolioProject[];
+  projects?: PortfolioProject[];
   onProjectSelect?: (_project: PortfolioProject) => void;
+  onOpenProject?: (_project: PortfolioProject) => void;
 }
 
-/**
- * ProjectsGallery - Ghost Parallax Grid
- * 
- * Implements the "Fixed Track + Lerp" scrolling mechanism defined in AUDITORIA_PORTFOLIO.md
- * Uses CSS Grid with density packing for the editorial layout.
- */
-export const ProjectsGallery = ({ projects, onProjectSelect }: ProjectsGalleryProps) => {
+export const ProjectsGallery = ({ projects, onProjectSelect, onOpenProject }: ProjectsGalleryProps) => {
   const trackRef = useRef<HTMLDivElement>(null);
 
   // Initialize LERP Scroll
-  // The hook calculates total height based on trackRef and applies it to galleryRef
-  // to create the "scroll space", while translating the trackRef independently.
+  // The hook attaches height to .gallery (we need to make sure the parent has this class or we pass a ref)
   const { galleryRef } = useLERPScroll(trackRef);
+
+  // Use passed projects or fallback to mock data
+  const projectsToRender = projects || PROJECTS;
 
   return (
     <div
+      className="gallery relative z-0 w-full"
       ref={galleryRef as React.RefObject<HTMLDivElement>}
-      className="gallery relative z-0 w-full min-h-screen"
-      id="projects-gallery"
     >
       <div
         ref={trackRef}
-        className="gallery-track fixed top-0 left-0 w-full will-change-transform z-10"
+        className="fixed top-0 left-0 w-full will-change-transform"
       >
-        {/* Container / Grid System */}
-        <div className="w-full max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24 pt-24 pb-32">
-
-          {/* Header */}
-          <div className="mb-16 md:mb-24 text-center">
-            <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-white/90">
-              <span className="italic font-light text-[#4fe6ff] mr-4">todos os</span>
-              projetos
-            </h2>
-          </div>
-
-          {/* Editorial Grid */}
-          <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-6 lg:gap-8 auto-rows-min grid-flow-dense">
-            {projects.map((project, index) => {
-              // Extract grid sizing from project layout or fallback to defaults
-              // The audit suggests specific spans. We utilize the project.layout.cols if available,
-              // otherwise default to a varied rhythm based on index.
-
-              const defaultCols = index % 3 === 0 ? 'md:col-span-8 lg:col-span-8' : 'md:col-span-4 lg:col-span-4';
-              const colsClass = project.layout?.cols || defaultCols;
-
-              // Mobile is usually col-span-4 (full width of mobile grid)
-              const mobileClass = 'col-span-4';
-
-              return (
+        <div className="std-grid py-24 sm:py-32">
+          <div className="col-span-full grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-8">
+            {projectsToRender.map((project, index) => (
+              <div key={project.id} className="w-full">
                 <ProjectCard
-                  key={project.id}
                   project={project}
                   index={index}
-                  onClick={onProjectSelect}
-                  priority={index < 4}
-                  className={`${mobileClass} ${colsClass}`}
+                  onClick={onProjectSelect || onOpenProject}
+                  priority={index < 3}
                 />
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </div>

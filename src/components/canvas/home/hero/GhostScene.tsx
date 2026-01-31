@@ -4,14 +4,23 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { usePerformanceAdaptive } from '@/hooks/usePerformanceAdaptive';
 
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
-import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
-import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+// Importações de pós-processamento do diretório de exemplos do Three.js
+// Importações de pós-processamento via three-stdlib
+// @ts-ignore
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
+// @ts-ignore
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
+// @ts-ignore
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
+// @ts-ignore
+import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass';
+// @ts-ignore
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 
 export default function GhostScene() {
   const mountRef = useRef<HTMLDivElement>(null);
+  const preloaderRef = useRef<HTMLDivElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
   const performanceConfig = usePerformanceAdaptive();
 
   useEffect(() => {
@@ -19,6 +28,37 @@ export default function GhostScene() {
     if (!mountElement) return;
 
     // --- CONFIGURAÇÃO INICIAL E VARIÁVEIS ---
+
+    // Gestão do Preloader (Adaptado para usar Refs)
+    const preloaderManager = {
+      loadingSteps: 0,
+      totalSteps: 5,
+      isComplete: false,
+      updateProgress: (step: number) => {
+        const loadingSteps = Math.min(step, 5);
+        const percentage = (loadingSteps / 5) * 100;
+        if (progressBarRef.current) {
+          progressBarRef.current.style.width = `${percentage}%`;
+        }
+      },
+      complete: (canvas: HTMLCanvasElement) => {
+        if (preloaderManager.isComplete) return;
+        preloaderManager.isComplete = true;
+        preloaderManager.updateProgress(5);
+
+        setTimeout(() => {
+          if (preloaderRef.current)
+            preloaderRef.current.classList.add('fade-out');
+
+          canvas.classList.add('fade-in');
+
+          setTimeout(() => {
+            if (preloaderRef.current)
+              preloaderRef.current.style.display = 'none';
+          }, 1000);
+        }, 1500);
+      },
+    };
 
     // --- THREE.JS SETUP ---
 
@@ -29,9 +69,9 @@ export default function GhostScene() {
       0.1,
       1000
     );
-    camera.position.z = 20;
+    camera.position.z = 25; // Ajustado para dar mais espaço ao Ghost
 
-    camera.position.z = 20;
+    preloaderManager.updateProgress(1);
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -59,7 +99,7 @@ export default function GhostScene() {
     // Anexar ao ref em vez do body
     mountElement.appendChild(renderer.domElement);
 
-    mountElement.appendChild(renderer.domElement);
+    preloaderManager.updateProgress(2);
 
     // --- PÓS-PROCESSAMENTO ---
 
@@ -80,7 +120,7 @@ export default function GhostScene() {
     );
     composer.addPass(bloomPass);
 
-    composer.addPass(bloomPass);
+    preloaderManager.updateProgress(3);
 
     // Shader de Decaimento Analógico (Analog Decay)
     const analogDecayShader = {
@@ -243,8 +283,8 @@ export default function GhostScene() {
       violet: 0x8a2be2,
     };
 
-    // Atmosfera (Fundo)
-    const atmosphereGeometry = new THREE.PlaneGeometry(300, 300);
+    // Atmosfera (Fundo) - Ajustado para cobrir maior área do Hero
+    const atmosphereGeometry = new THREE.PlaneGeometry(500, 500);
     const atmosphereMaterial = new THREE.ShaderMaterial({
       uniforms: {
         ghostPosition: { value: new THREE.Vector3(0, 0, 0) },
@@ -340,8 +380,7 @@ export default function GhostScene() {
     rimLight2.position.set(8, -4, -6);
     scene.add(rimLight2);
 
-    rimLight2.position.set(8, -4, -6);
-    scene.add(rimLight2);
+    preloaderManager.updateProgress(4);
 
     // Olhos
     function createEyes() {
@@ -484,7 +523,7 @@ export default function GhostScene() {
       for (let i = 0; i < count; i++) {
         const geom =
           particleGeometries[
-          Math.floor(Math.random() * particleGeometries.length)
+            Math.floor(Math.random() * particleGeometries.length)
           ];
         const p = new THREE.Mesh(geom, particleBaseMaterial.clone());
         p.visible = false;
@@ -502,7 +541,7 @@ export default function GhostScene() {
       } else if (particles.length < params.particleCount) {
         const geom =
           particleGeometries[
-          Math.floor(Math.random() * particleGeometries.length)
+            Math.floor(Math.random() * particleGeometries.length)
           ];
         p = new THREE.Mesh(geom, particleBaseMaterial.clone());
         particleGroup.add(p);
@@ -611,8 +650,10 @@ export default function GhostScene() {
       for (let i = 0; i < 10; i++) createParticle();
       composer.render();
       isInitialized = true;
+      preloaderManager.complete(renderer.domElement);
     };
 
+    preloaderManager.updateProgress(5);
     setTimeout(forceInitialRender, 100);
 
     const animate = (timestamp: number) => {
@@ -639,15 +680,15 @@ export default function GhostScene() {
 
       // Movimento base automático (Sempre ativo para dar vida)
       const autoSpeed = 0.85;
-      const amplitudeX = 9;
-      const amplitudeY = 6;
+      const amplitudeX = 15; // Aumentado para permitir mais movimento
+      const amplitudeY = 10; // Aumentado para permitir mais movimento
 
       const autoX =
         Math.sin(time * autoSpeed) * amplitudeX +
-        Math.cos(time * autoSpeed * 0.5) * 2;
+        Math.cos(time * autoSpeed * 0.5) * 3;
       const autoY =
         Math.sin(time * autoSpeed * 0.7 + Math.PI / 2) * amplitudeY +
-        Math.sin(time * autoSpeed * 1.3) * 1.5;
+        Math.sin(time * autoSpeed * 1.3) * 2;
 
       if (!hasReceivedMouseInput) {
         targetX = autoX;
@@ -656,9 +697,10 @@ export default function GhostScene() {
         targetY = autoY + scrollOffset;
       } else {
         // Quando há interação, segue o input mas mantém um pouco do balanço automático
-        targetX = mouse.x * 12 + autoX * 0.1;
+        // Ajustado para permitir maior alcance na área do herói
+        targetX = mouse.x * 15 + autoX * 0.1;
         targetY =
-          mouse.y * 8 + autoY * 0.1 + (scrollY / window.innerHeight) * -15;
+          mouse.y * 12 + autoY * 0.1 + (scrollY / window.innerHeight) * -15;
       }
 
       const prevPos = ghostGroup.position.clone();
@@ -804,6 +846,43 @@ export default function GhostScene() {
   }, []);
 
   return (
-    <div ref={mountRef} className="w-full h-full absolute top-0 left-0" />
+    <>
+      <div ref={mountRef} className="w-full h-full absolute top-0 left-0" />
+
+      {/* HTML UI Overlay (Preloader & Text) */}
+      <div ref={preloaderRef} className="preloader" id="preloader">
+        <div className="preloader-content">
+          <div className="ghost-loader">
+            <svg
+              className="ghost-svg"
+              height="80"
+              viewBox="0 0 512 512"
+              width="80"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                className="ghost-body"
+                d="m508.374 432.802s-46.6-39.038-79.495-275.781c-8.833-87.68-82.856-156.139-172.879-156.139-90.015 0-164.046 68.458-172.879 156.138-32.895 236.743-79.495 275.782-79.495 275.782-15.107 25.181 20.733 28.178 38.699 27.94 35.254-.478 35.254 40.294 70.516 40.294 35.254 0 35.254-35.261 70.508-35.261s37.396 45.343 72.65 45.343 37.389-45.343 72.651-45.343c35.254 0 35.254 35.261 70.508 35.261s35.27-40.772 70.524-40.294c17.959.238 53.798-2.76 38.692-27.94z"
+                fill="white"
+              />
+              <circle
+                className="ghost-eye left-eye"
+                cx="208"
+                cy="225"
+                r="22"
+                fill="black"
+              />
+              <circle
+                className="ghost-eye right-eye"
+                cx="297"
+                cy="225"
+                r="22"
+                fill="black"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
