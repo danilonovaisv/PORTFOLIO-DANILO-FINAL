@@ -11,7 +11,12 @@ const buildContentSecurityPolicy = () => {
     'https://dl.polyhaven.org',
   ];
   const scriptSrc = ["'self'"];
-  const fontSrc = ["'self'", 'data:', 'https://*.supabase.co', 'https://assets.codepen.io'];
+  const fontSrc = [
+    "'self'",
+    'data:',
+    'https://*.supabase.co',
+    'https://assets.codepen.io',
+  ];
   const imgSrc = ["'self'", 'https:', 'data:'];
   const mediaSrc = ["'self'", 'https:', 'data:', 'blob:'];
 
@@ -52,7 +57,8 @@ const securityHeaders = {
   'X-Frame-Options': 'DENY',
 };
 
-const cacheControlHtml = 'public, max-age=0, s-maxage=300, stale-while-revalidate=600';
+const cacheControlHtml =
+  'public, max-age=0, s-maxage=300, stale-while-revalidate=600';
 
 export async function proxy(request: NextRequest) {
   const res = await updateSession(request);

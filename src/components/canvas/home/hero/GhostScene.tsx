@@ -516,7 +516,7 @@ export default function GhostScene() {
       for (let i = 0; i < count; i++) {
         const geom =
           particleGeometries[
-          Math.floor(Math.random() * particleGeometries.length)
+            Math.floor(Math.random() * particleGeometries.length)
           ];
         const p = new THREE.Mesh(geom, particleBaseMaterial.clone());
         p.visible = false;
@@ -534,7 +534,7 @@ export default function GhostScene() {
       } else if (particles.length < params.particleCount) {
         const geom =
           particleGeometries[
-          Math.floor(Math.random() * particleGeometries.length)
+            Math.floor(Math.random() * particleGeometries.length)
           ];
         p = new THREE.Mesh(geom, particleBaseMaterial.clone());
         particleGroup.add(p);

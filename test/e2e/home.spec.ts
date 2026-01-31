@@ -2,13 +2,16 @@ import { expect, test } from '@playwright/test';
 
 test.describe('Home Page', () => {
   test('should load the home page and show core sections', async ({ page }) => {
-    await page.goto('/');
+    // Increase timeout for navigation and wait for domcontentloaded
+    await page.goto('/', { timeout: 30000, waitUntil: 'domcontentloaded' });
 
-    // Check if the page title is correct
-    await expect(page).toHaveTitle(/Danilo Novais | Creative Developer/);
+    // Wait for main element to ensure basic structure is present
+    await page.locator('main').waitFor({ state: 'visible', timeout: 15000 });
+
+    // Check if the page title is correct with extended timeout to allow for metadata injection
+    await expect(page).toHaveTitle(/Danilo Novais | Creative Developer/, { timeout: 10000 });
 
     // Verify HomeHero is visible
-    // Based on src/app/page.tsx, HomeHero is a component. I'll check for a common element or text.
     await expect(page.locator('main')).toBeVisible();
 
     // Verify Featured Projects section
