@@ -16,12 +16,12 @@ Documentação para consulta e imagens de cada pagina com layout absoluto na pas
 
 ## 🌌 1. DESIGNAÇÃO DO BATALHÃO (@orchestration)
 
-| Agente | Responsabilidade | Check-in Requerido |
-| :--- | :--- | :--- |
-| **@ghost_architect** | Integridade de Pasta, Arquitetura de Componentes e Types. | [ ] |
-| **@spectral_artist** | Cores (`#0048ff`, `#040013`), Shaders e Materiais. | [ ] |
-| **@motion_choreographer** | Framer Motion, Lenis e Sincronização de Scroll. | [ ] |
-| **@audit_sentinel** | Grid Compliance (`.std-grid`), Lighthouse e Z-index. | [ ] |
+| Agente                    | Responsabilidade                                          | Check-in Requerido |
+| :------------------------ | :-------------------------------------------------------- | :----------------- |
+| **@ghost_architect**      | Integridade de Pasta, Arquitetura de Componentes e Types. | [ ]                |
+| **@spectral_artist**      | Cores (`#0048ff`, `#040013`), Shaders e Materiais.        | [ ]                |
+| **@motion_choreographer** | Framer Motion, Lenis e Sincronização de Scroll.           | [ ]                |
+| **@audit_sentinel**       | Grid Compliance (`.std-grid`), Lighthouse e Z-index.      | [ ]                |
 
 ## 🏗️ 2. FASES DA MISSÃO
 

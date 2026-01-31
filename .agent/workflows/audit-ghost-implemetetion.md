@@ -6,8 +6,8 @@ description: Replicação Fiel da Hero Animation “GHOST”
 
 **Objetivo:** Paridade visual com referência CodePen.
 
-**Agentes:**
-0. Bootstrap
+**Agentes:** 0. Bootstrap
+
 1. Análise Visual
 2. Geometria & Shader
 3. Material & Emissive

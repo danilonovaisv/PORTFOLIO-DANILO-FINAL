@@ -78,10 +78,10 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
 
   // Escala responsiva: mobile menor, tablet médio, desktop maior
   const baseScale = isMobile
-    ? viewport.width * 0.15  // Mobile: 15% da largura do viewport (menor)
+    ? viewport.width * 0.15 // Mobile: 15% da largura do viewport (menor)
     : isTablet
-    ? viewport.width * 0.12  // Tablet: 12% da largura
-    : viewport.width * 0.08; // Desktop: 8% da largura (proporcional)
+      ? viewport.width * 0.12 // Tablet: 12% da largura
+      : viewport.width * 0.08; // Desktop: 8% da largura (proporcional)
 
   // Handle touch interactions simply by updating mouseRef
   useEffect(() => {
@@ -211,9 +211,9 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
 
   return (
     <Float
-      speed={1.5}              // Velocidade mais suave
-      rotationIntensity={0.3}  // Rotação mais sutil
-      floatIntensity={1.2}     // Flutuação mais pronunciada
+      speed={1.5} // Velocidade mais suave
+      rotationIntensity={0.3} // Rotação mais sutil
+      floatIntensity={1.2} // Flutuação mais pronunciada
       floatingRange={[-0.3, 0.3]} // Maior amplitude vertical (up-down)
     >
       {/* Grupo Pai: Recebe as props de posicionamento global, mas tem escala controlada responsivamente */}

@@ -8,6 +8,7 @@ description: # Workflow: Auditoria e Limpeza Estrutural
 **Objetivo:** Organizar `src/` e limpar raiz.
 
 **Regras:**
-* Componentes em `src/components/{feature}`.
-* Raiz limpa (apenas configs e docs).
-* Docs INTOCÁVEIS.
+
+- Componentes em `src/components/{feature}`.
+- Raiz limpa (apenas configs e docs).
+- Docs INTOCÁVEIS.

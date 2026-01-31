@@ -10,6 +10,7 @@
 ## Comandos de Build
 
 ### Build Local
+
 ```bash
 # Build de desenvolvimento
 pnpm dev
@@ -22,6 +23,7 @@ pnpm build:prod
 ```
 
 ### Validações Pré-Build
+
 ```bash
 # Validar variáveis de ambiente
 pnpm validate-env
@@ -39,6 +41,7 @@ pnpm lint
 ## Deploy para Produção
 
 ### Deploy Completo
+
 ```bash
 # Deploy com todas as validações
 pnpm deploy
@@ -48,6 +51,7 @@ pnpm deploy:hosting
 ```
 
 ### Preparação de Assets
+
 ```bash
 # Reparar caminhos de assets
 pnpm assets:repair
@@ -67,6 +71,7 @@ pnpm assets:verify-corrections
 ### Build Falha
 
 1. Limpar cache e rebuildar:
+
 ```bash
 pnpm clean
 pnpm install
@@ -74,12 +79,14 @@ pnpm build
 ```
 
 2. Verificar versões de dependências:
+
 ```bash
 pnpm list tailwindcss
 pnpm list next
 ```
 
 3. Verificar variáveis de ambiente:
+
 ```bash
 pnpm validate-env
 ```

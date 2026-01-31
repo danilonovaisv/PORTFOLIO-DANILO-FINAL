@@ -1,1 +1,5952 @@
-(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,58384,e=>{"use strict";let t,n;e.i(1921);var r,o,i,a,l,s,c,u,d=e.i(77579),f=e.i(46858),p=e.i(95535),m=e.i(62897),h=e.i(11795);let v="u">typeof crypto&&crypto.randomUUID&&crypto.randomUUID.bind(crypto),g=new Uint8Array(16),x=[];for(let e=0;e<256;++e)x.push((e+256).toString(16).slice(1));let y=function(e,n,r){if(v&&!n&&!e)return v();var o=e,i=r;let a=(o=o||{}).random??o.rng?.()??function(){if(!t){if("u"<typeof crypto||!crypto.getRandomValues)throw Error("crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported");t=crypto.getRandomValues.bind(crypto)}return t(g)}();if(a.length<16)throw Error("Random bytes length must be >= 16");if(a[6]=15&a[6]|64,a[8]=63&a[8]|128,n){if((i=i||0)<0||i+16>n.length)throw RangeError(`UUID byte range ${i}:${i+15} is out of buffer bounds`);for(let e=0;e<16;++e)n[i+e]=a[e];return n}return function(e,t=0){return(x[e[t+0]]+x[e[t+1]]+x[e[t+2]]+x[e[t+3]]+"-"+x[e[t+4]]+x[e[t+5]]+"-"+x[e[t+6]]+x[e[t+7]]+"-"+x[e[t+8]]+x[e[t+9]]+"-"+x[e[t+10]]+x[e[t+11]]+x[e[t+12]]+x[e[t+13]]+x[e[t+14]]+x[e[t+15]]).toLowerCase()}(a)};var w=e.i(67669),b=e.i(3645);let j=(0,b.default)("chevron-up",[["path",{d:"m18 15-6-6-6 6",key:"153udz"}]]),N=(0,b.default)("chevron-down",[["path",{d:"m6 9 6 6 6-6",key:"qrunsl"}]]),E=(0,b.default)("save",[["path",{d:"M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z",key:"1c8476"}],["path",{d:"M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7",key:"1ydtos"}],["path",{d:"M7 3v4a1 1 0 0 0 1 1h7",key:"t51u73"}]]);var R=e.i(38518),C=e.i(3214);let k=(0,b.default)("panels-top-left",[["rect",{width:"18",height:"18",x:"3",y:"3",rx:"2",key:"afitv7"}],["path",{d:"M3 9h18",key:"1pudct"}],["path",{d:"M9 21V9",key:"1oto5p"}]]),S=(0,b.default)("image",[["rect",{width:"18",height:"18",x:"3",y:"3",rx:"2",ry:"2",key:"1m3agn"}],["circle",{cx:"9",cy:"9",r:"2",key:"af1f0g"}],["path",{d:"m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21",key:"1xmnt7"}]]),M=(0,b.default)("type",[["path",{d:"M12 4v16",key:"1654pz"}],["path",{d:"M4 7V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2",key:"e0r10z"}],["path",{d:"M9 20h6",key:"s66wpe"}]]),A=(0,b.default)("video",[["path",{d:"m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5",key:"ftymec"}],["rect",{x:"2",y:"6",width:"14",height:"12",rx:"2",key:"158x01"}]]),T=(0,b.default)("columns-2",[["rect",{width:"18",height:"18",x:"3",y:"3",rx:"2",key:"afitv7"}],["path",{d:"M12 3v18",key:"108xh3"}]]);var L=e.i(29832),P=e.i(89668),D=e.i(70315);let _=(0,b.default)("link",[["path",{d:"M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71",key:"1cjeqo"}],["path",{d:"M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71",key:"19qd67"}]]);function O({label:e,type:t,value:n,previewUrl:r,onFileSelect:o,onUrlChange:i,onClear:a}){let l,[s,c]=(0,f.useState)("upload");(0,f.useEffect)(()=>{n&&(n.startsWith("http")||n.startsWith("www"))&&!n.includes("supabase.co")&&c("url")},[n]);let u="url"===s&&n&&(l=n.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/))&&11===l[2].length?l[2]:null,p=!!r||!!n&&"url"===s,m=r||n;return(0,d.jsxs)("div",{className:"space-y-2",children:[(0,d.jsxs)("div",{className:"flex items-center justify-between",children:[(0,d.jsx)("label",{className:"text-xs uppercase tracking-widest text-slate-500 font-medium",children:e}),(0,d.jsxs)("div",{className:"flex bg-slate-800 p-1 rounded-lg",children:[(0,d.jsx)("button",{onClick:()=>c("upload"),className:`px-2 py-1 text-xs rounded-md transition-all ${"upload"===s?"bg-slate-600 text-white":"text-slate-400 hover:text-white"}`,children:"Upload"}),(0,d.jsx)("button",{onClick:()=>c("url"),className:`px-2 py-1 text-xs rounded-md transition-all ${"url"===s?"bg-slate-600 text-white":"text-slate-400 hover:text-white"}`,children:"Link"})]})]}),p?(0,d.jsxs)("div",{className:"relative rounded-xl overflow-hidden border border-white/10 group bg-black/20",children:[u?(0,d.jsx)("div",{className:"aspect-video w-full bg-black",children:(0,d.jsx)("iframe",{src:`https://www.youtube.com/embed/${u}?autoplay=0&mute=1&modestbranding=1`,title:"YouTube preview",className:"w-full h-full border-none",allowFullScreen:!0})}):"image"===t?(0,d.jsx)("div",{className:"relative min-h-[12.5rem] max-h-[25rem] w-full flex justify-center bg-black/40",children:(0,d.jsx)("img",{src:m,alt:"Preview",className:"h-full w-auto max-h-[25rem] object-contain"})}):(0,d.jsx)("video",{src:m,className:"w-full max-h-[25rem] object-contain",controls:!0,muted:!0,loop:!0,autoPlay:!0}),(0,d.jsx)("div",{className:"absolute top-2 right-2 flex gap-2",children:(0,d.jsx)("button",{onClick:a,className:"bg-red-500 p-2 rounded-full hover:bg-red-600 transition-colors shadow-lg",title:"Remover mídia",children:(0,d.jsx)(w.Trash2,{size:16})})})]}):"upload"===s?(0,d.jsxs)("label",{className:"flex flex-col items-center justify-center py-12 rounded-xl border-2 border-dashed border-white/10 hover:border-blue-500 hover:bg-blue-500/5 cursor-pointer transition-all group",children:["image"===t?(0,d.jsx)(S,{className:"text-slate-600 mb-2 group-hover:text-blue-400 transition-colors",size:32}):(0,d.jsx)(A,{className:"text-slate-600 mb-2 group-hover:text-blue-400 transition-colors",size:32}),(0,d.jsx)("span",{className:"text-xs text-slate-500 font-medium uppercase tracking-widest group-hover:text-blue-300",children:"Escolher Arquivo"}),(0,d.jsx)("input",{type:"file",accept:"image"===t?"image/*":"video/*",onChange:e=>{let t=e.target.files?.[0];t&&o(t)},className:"hidden"})]}):(0,d.jsxs)("div",{className:"flex items-center gap-2 bg-slate-950 border border-white/10 rounded-xl px-4 py-3 focus-within:border-blue-500 transition-colors",children:[(0,d.jsx)(_,{className:"text-slate-500",size:18}),(0,d.jsx)("input",{type:"text",placeholder:"image"===t?"https://exemplo.com/imagem.jpg":"Pinte aqui o link do YouTube ou .mp4",className:"bg-transparent border-none outline-none w-full text-sm text-white placeholder-slate-600",onChange:e=>i(e.target.value),value:n||""})]})]})}function I({block:e,onChange:t}){let n=n=>{t({content:{...e.content,...n}})},r=(t,r)=>{let o="text"===t?"textConfig":"textConfig2",i=e.content[o]||{},a=e=>{n({[o]:{...i,...e}})};return(0,d.jsxs)("div",{className:"flex-1 space-y-4",children:[(0,d.jsxs)("label",{className:"text-xs uppercase tracking-widest text-slate-500 font-medium flex items-center gap-2",children:[(0,d.jsx)(M,{size:14})," ",r]}),(0,d.jsxs)("div",{className:"grid grid-cols-2 md:grid-cols-4 gap-4 bg-slate-900/50 p-3 rounded-xl border border-white/5",children:[(0,d.jsxs)("div",{className:"space-y-1",children:[(0,d.jsx)("span",{className:"text-[10px] uppercase text-slate-500 block",children:"Tamanho"}),(0,d.jsxs)("select",{value:i.fontSize||"",onChange:e=>a({fontSize:e.target.value}),className:"w-full bg-slate-800 text-[11px] rounded p-1 outline-none border border-white/10 text-white",title:"Tamanho do Texto",children:[(0,d.jsx)("option",{value:"",children:"Padrão"}),(0,d.jsx)("option",{value:"text-xs",children:"Extra Small"}),(0,d.jsx)("option",{value:"text-sm",children:"Small"}),(0,d.jsx)("option",{value:"text-base",children:"Base"}),(0,d.jsx)("option",{value:"text-lg",children:"Large"}),(0,d.jsx)("option",{value:"text-xl",children:"Extra Large"}),(0,d.jsx)("option",{value:"text-2xl",children:"2XL"}),(0,d.jsx)("option",{value:"text-3xl",children:"3XL"}),(0,d.jsx)("option",{value:"text-4xl",children:"4XL"}),(0,d.jsx)("option",{value:"text-5xl",children:"5XL"}),(0,d.jsx)("option",{value:"text-6xl",children:"6XL"}),(0,d.jsx)("option",{value:"text-7xl",children:"7XL"}),(0,d.jsx)("option",{value:"text-8xl",children:"8XL"})]})]}),(0,d.jsxs)("div",{className:"space-y-1",children:[(0,d.jsx)("span",{className:"text-[10px] uppercase text-slate-500 block",children:"Peso"}),(0,d.jsxs)("select",{value:i.fontWeight||"",onChange:e=>a({fontWeight:e.target.value}),className:"w-full bg-slate-800 text-[11px] rounded p-1 outline-none border border-white/10 text-white",title:"Peso da Fonte",children:[(0,d.jsx)("option",{value:"",children:"Padrão"}),(0,d.jsx)("option",{value:"font-thin",children:"Thin"}),(0,d.jsx)("option",{value:"font-light",children:"Light"}),(0,d.jsx)("option",{value:"font-normal",children:"Normal"}),(0,d.jsx)("option",{value:"font-medium",children:"Medium"}),(0,d.jsx)("option",{value:"font-semibold",children:"SemiBold"}),(0,d.jsx)("option",{value:"font-bold",children:"Bold"}),(0,d.jsx)("option",{value:"font-extrabold",children:"ExtraBold"}),(0,d.jsx)("option",{value:"font-black",children:"Black"})]})]}),(0,d.jsxs)("div",{className:"space-y-1",children:[(0,d.jsx)("span",{className:"text-[10px] uppercase text-slate-500 block",children:"Alinhamento"}),(0,d.jsxs)("select",{value:i.textAlign||"",onChange:e=>a({textAlign:e.target.value}),className:"w-full bg-slate-800 text-[11px] rounded p-1 outline-none border border-white/10 text-white",title:"Alinhamento do Texto",children:[(0,d.jsx)("option",{value:"",children:"Padrão"}),(0,d.jsx)("option",{value:"text-left",children:"Esquerda"}),(0,d.jsx)("option",{value:"text-center",children:"Centralizado"}),(0,d.jsx)("option",{value:"text-right",children:"Direita"}),(0,d.jsx)("option",{value:"text-justify",children:"Justificado"})]})]}),(0,d.jsxs)("div",{className:"space-y-1",children:[(0,d.jsx)("span",{className:"text-[10px] uppercase text-slate-500 block",children:"Cor (Hex)"}),(0,d.jsx)("input",{type:"text",value:i.color||"",onChange:e=>a({color:e.target.value}),placeholder:"#FFFFFF",className:"w-full bg-slate-800 text-[11px] rounded p-1 outline-none border border-white/10 text-white placeholder-slate-600"})]})]}),(0,d.jsx)("textarea",{value:e.content[t]||"",onChange:e=>n({[t]:e.target.value}),className:"w-full h-full min-h-[200px] bg-slate-950/50 border border-white/10 rounded-xl p-4 outline-none focus:border-blue-500/50 transition-all resize-none font-sans",placeholder:"# Título... \\n\\nParágrafo com conteúdo..."})]})},o=(n,r,o,i,a)=>(0,d.jsx)("div",{className:"flex-1",children:(0,d.jsx)(O,{label:a,type:r,value:e.content[n],previewUrl:e[i],onFileSelect:n=>{t({[o]:n,["file"===o?"previewUrl":"previewUrl2"]:URL.createObjectURL(n),content:{...e.content,["file"===o?"media":"media2"]:""}})},onUrlChange:r=>{t({["media"===n?"file":"file2"]:null,["media"===n?"previewUrl":"previewUrl2"]:"",content:{...e.content,[n]:r}})},onClear:()=>{t({[o]:null,[i]:"",content:{...e.content,[n]:""}})}})});switch(e.type){case"text":return(0,d.jsx)("div",{className:"p-4",children:r("text","Conteúdo de Texto")});case"image":return(0,d.jsx)("div",{className:"p-4",children:o("media","image","file","previewUrl","Imagem Full")});case"video":case"video-autoplay":return(0,d.jsx)("div",{className:"p-4",children:o("media","video","file","previewUrl","Vídeo Full")});case"image-text":return(0,d.jsxs)("div",{className:"grid grid-cols-1 md:grid-cols-2 gap-6 p-4",children:[o("media","image","file","previewUrl","Imagem (Esquerda)"),r("text","Texto (Direita)")]});case"text-image":return(0,d.jsxs)("div",{className:"grid grid-cols-1 md:grid-cols-2 gap-6 p-4",children:[r("text","Texto (Esquerda)"),o("media","image","file","previewUrl","Imagem (Direita)")]});case"image-image":return(0,d.jsxs)("div",{className:"grid grid-cols-1 md:grid-cols-2 gap-6 p-4",children:[o("media","image","file","previewUrl","Imagem 01"),o("media2","image","file2","previewUrl2","Imagem 02")]});case"image-video":return(0,d.jsxs)("div",{className:"grid grid-cols-1 md:grid-cols-2 gap-6 p-4",children:[o("media","image","file","previewUrl","Imagem"),o("media2","video","file2","previewUrl2","Vídeo")]});case"video-text":return(0,d.jsxs)("div",{className:"grid grid-cols-1 md:grid-cols-2 gap-6 p-4",children:[o("media","video","file","previewUrl","Vídeo (Esquerda)"),r("text","Texto (Direita)")]});default:return(0,d.jsx)("div",{className:"p-4 text-red-500",children:"Tipo de bloco desconhecido"})}}function F(e,t,{checkForDefaultPrevented:n=!0}={}){return function(r){if(e?.(r),!1===n||!r.defaultPrevented)return t?.(r)}}function z(e,t){if("function"==typeof e)return e(t);null!=e&&(e.current=t)}function U(...e){return t=>{let n=!1,r=e.map(e=>{let r=z(e,t);return n||"function"!=typeof r||(n=!0),r});if(n)return()=>{for(let t=0;t<r.length;t++){let n=r[t];"function"==typeof n?n():z(e[t],null)}}}}function W(...e){return f.useCallback(U(...e),e)}function B(e,t=[]){let n=[],r=()=>{let t=n.map(e=>f.createContext(e));return function(n){let r=n?.[e]||t;return f.useMemo(()=>({[`__scope${e}`]:{...n,[e]:r}}),[n,r])}};return r.scopeName=e,[function(t,r){let o=f.createContext(r),i=n.length;n=[...n,r];let a=t=>{let{scope:n,children:r,...a}=t,l=n?.[e]?.[i]||o,s=f.useMemo(()=>a,Object.values(a));return(0,d.jsx)(l.Provider,{value:s,children:r})};return a.displayName=t+"Provider",[a,function(n,a){let l=a?.[e]?.[i]||o,s=f.useContext(l);if(s)return s;if(void 0!==r)return r;throw Error(`\`${n}\` must be used within \`${t}\``)}]},function(...e){let t=e[0];if(1===e.length)return t;let n=()=>{let n=e.map(e=>({useScope:e(),scopeName:e.scopeName}));return function(e){let r=n.reduce((t,{useScope:n,scopeName:r})=>{let o=n(e)[`__scope${r}`];return{...t,...o}},{});return f.useMemo(()=>({[`__scope${t.scopeName}`]:r}),[r])}};return n.scopeName=t.scopeName,n}(r,...t)]}"u">typeof window&&window.document&&window.document.createElement;var $=globalThis?.document?f.useLayoutEffect:()=>{};f[" useEffectEvent ".trim().toString()],f[" useInsertionEffect ".trim().toString()];var V=f[" useInsertionEffect ".trim().toString()]||$;function K({prop:e,defaultProp:t,onChange:n=()=>{},caller:r}){let[o,i,a]=function({defaultProp:e,onChange:t}){let[n,r]=f.useState(e),o=f.useRef(n),i=f.useRef(t);return V(()=>{i.current=t},[t]),f.useEffect(()=>{o.current!==n&&(i.current?.(n),o.current=n)},[n,o]),[n,r,i]}({defaultProp:t,onChange:n}),l=void 0!==e,s=l?e:o;{let t=f.useRef(void 0!==e);f.useEffect(()=>{let e=t.current;if(e!==l){let t=l?"controlled":"uncontrolled";console.warn(`${r} is changing from ${e?"controlled":"uncontrolled"} to ${t}. Components should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled value for the lifetime of the component.`)}t.current=l},[l,r])}return[s,f.useCallback(t=>{if(l){let n="function"==typeof t?t(e):t;n!==e&&a.current?.(n)}else i(t)},[l,e,i,a])]}Symbol("RADIX:SYNC_STATE");var H=e.i(19313);function X(e){var t;let n,r=(t=e,(n=f.forwardRef((e,t)=>{let{children:n,...r}=e;if(f.isValidElement(n)){var o;let e,i,a=(o=n,(i=(e=Object.getOwnPropertyDescriptor(o.props,"ref")?.get)&&"isReactWarning"in e&&e.isReactWarning)?o.ref:(i=(e=Object.getOwnPropertyDescriptor(o,"ref")?.get)&&"isReactWarning"in e&&e.isReactWarning)?o.props.ref:o.props.ref||o.ref),l=function(e,t){let n={...t};for(let r in t){let o=e[r],i=t[r];/^on[A-Z]/.test(r)?o&&i?n[r]=(...e)=>{let t=i(...e);return o(...e),t}:o&&(n[r]=o):"style"===r?n[r]={...o,...i}:"className"===r&&(n[r]=[o,i].filter(Boolean).join(" "))}return{...e,...n}}(r,n.props);return n.type!==f.Fragment&&(l.ref=t?U(t,a):a),f.cloneElement(n,l)}return f.Children.count(n)>1?f.Children.only(null):null})).displayName=`${t}.SlotClone`,n),o=f.forwardRef((e,t)=>{let{children:n,...o}=e,i=f.Children.toArray(n),a=i.find(G);if(a){let e=a.props.children,n=i.map(t=>t!==a?t:f.Children.count(e)>1?f.Children.only(null):f.isValidElement(e)?e.props.children:null);return(0,d.jsx)(r,{...o,ref:t,children:f.isValidElement(e)?f.cloneElement(e,void 0,n):null})}return(0,d.jsx)(r,{...o,ref:t,children:n})});return o.displayName=`${e}.Slot`,o}var q=Symbol("radix.slottable");function G(e){return f.isValidElement(e)&&"function"==typeof e.type&&"__radixId"in e.type&&e.type.__radixId===q}var Y=["a","button","div","form","h2","h3","img","input","label","li","nav","ol","p","select","span","svg","ul"].reduce((e,t)=>{let n=X(`Primitive.${t}`),r=f.forwardRef((e,r)=>{let{asChild:o,...i}=e;return"u">typeof window&&(window[Symbol.for("radix-ui")]=!0),(0,d.jsx)(o?n:t,{...i,ref:r})});return r.displayName=`Primitive.${t}`,{...e,[t]:r}},{});function Z(e,t){e&&H.flushSync(()=>e.dispatchEvent(t))}function J(e){let t=e+"CollectionProvider",[n,r]=B(t),[o,i]=n(t,{collectionRef:{current:null},itemMap:new Map}),a=e=>{let{scope:t,children:n}=e,r=f.default.useRef(null),i=f.default.useRef(new Map).current;return(0,d.jsx)(o,{scope:t,itemMap:i,collectionRef:r,children:n})};a.displayName=t;let l=e+"CollectionSlot",s=X(l),c=f.default.forwardRef((e,t)=>{let{scope:n,children:r}=e,o=W(t,i(l,n).collectionRef);return(0,d.jsx)(s,{ref:o,children:r})});c.displayName=l;let u=e+"CollectionItemSlot",p="data-radix-collection-item",m=X(u),h=f.default.forwardRef((e,t)=>{let{scope:n,children:r,...o}=e,a=f.default.useRef(null),l=W(t,a),s=i(u,n);return f.default.useEffect(()=>(s.itemMap.set(a,{ref:a,...o}),()=>void s.itemMap.delete(a))),(0,d.jsx)(m,{...{[p]:""},ref:l,children:r})});return h.displayName=u,[{Provider:a,Slot:c,ItemSlot:h},function(t){let n=i(e+"CollectionConsumer",t);return f.default.useCallback(()=>{let e=n.collectionRef.current;if(!e)return[];let t=Array.from(e.querySelectorAll(`[${p}]`));return Array.from(n.itemMap.values()).sort((e,n)=>t.indexOf(e.ref.current)-t.indexOf(n.ref.current))},[n.collectionRef,n.itemMap])},r]}var Q=new WeakMap;function ee(e,t){var n,r;let o,i,a;if("at"in Array.prototype)return Array.prototype.at.call(e,t);let l=(n=e,r=t,o=n.length,(a=(i=et(r))>=0?i:o+i)<0||a>=o?-1:a);return -1===l?void 0:e[l]}function et(e){return e!=e||0===e?0:Math.trunc(e)}(class e extends Map{#e;constructor(e){super(e),this.#e=[...super.keys()],Q.set(this,!0)}set(e,t){return Q.get(this)&&(this.has(e)?this.#e[this.#e.indexOf(e)]=e:this.#e.push(e)),super.set(e,t),this}insert(e,t,n){let r,o=this.has(t),i=this.#e.length,a=et(e),l=a>=0?a:i+a,s=l<0||l>=i?-1:l;if(s===this.size||o&&s===this.size-1||-1===s)return this.set(t,n),this;let c=this.size+ +!o;a<0&&l++;let u=[...this.#e],d=!1;for(let e=l;e<c;e++)if(l===e){let i=u[e];u[e]===t&&(i=u[e+1]),o&&this.delete(t),r=this.get(i),this.set(t,n)}else{d||u[e-1]!==t||(d=!0);let n=u[d?e:e-1],o=r;r=this.get(n),this.delete(n),this.set(n,o)}return this}with(t,n,r){let o=new e(this);return o.insert(t,n,r),o}before(e){let t=this.#e.indexOf(e)-1;if(!(t<0))return this.entryAt(t)}setBefore(e,t,n){let r=this.#e.indexOf(e);return -1===r?this:this.insert(r,t,n)}after(e){let t=this.#e.indexOf(e);if(-1!==(t=-1===t||t===this.size-1?-1:t+1))return this.entryAt(t)}setAfter(e,t,n){let r=this.#e.indexOf(e);return -1===r?this:this.insert(r+1,t,n)}first(){return this.entryAt(0)}last(){return this.entryAt(-1)}clear(){return this.#e=[],super.clear()}delete(e){let t=super.delete(e);return t&&this.#e.splice(this.#e.indexOf(e),1),t}deleteAt(e){let t=this.keyAt(e);return void 0!==t&&this.delete(t)}at(e){let t=ee(this.#e,e);if(void 0!==t)return this.get(t)}entryAt(e){let t=ee(this.#e,e);if(void 0!==t)return[t,this.get(t)]}indexOf(e){return this.#e.indexOf(e)}keyAt(e){return ee(this.#e,e)}from(e,t){let n=this.indexOf(e);if(-1===n)return;let r=n+t;return r<0&&(r=0),r>=this.size&&(r=this.size-1),this.at(r)}keyFrom(e,t){let n=this.indexOf(e);if(-1===n)return;let r=n+t;return r<0&&(r=0),r>=this.size&&(r=this.size-1),this.keyAt(r)}find(e,t){let n=0;for(let r of this){if(Reflect.apply(e,t,[r,n,this]))return r;n++}}findIndex(e,t){let n=0;for(let r of this){if(Reflect.apply(e,t,[r,n,this]))return n;n++}return -1}filter(t,n){let r=[],o=0;for(let e of this)Reflect.apply(t,n,[e,o,this])&&r.push(e),o++;return new e(r)}map(t,n){let r=[],o=0;for(let e of this)r.push([e[0],Reflect.apply(t,n,[e,o,this])]),o++;return new e(r)}reduce(...e){let[t,n]=e,r=0,o=n??this.at(0);for(let n of this)o=0===r&&1===e.length?n:Reflect.apply(t,this,[o,n,r,this]),r++;return o}reduceRight(...e){let[t,n]=e,r=n??this.at(-1);for(let n=this.size-1;n>=0;n--){let o=this.at(n);r=n===this.size-1&&1===e.length?o:Reflect.apply(t,this,[r,o,n,this])}return r}toSorted(t){return new e([...this.entries()].sort(t))}toReversed(){let t=new e;for(let e=this.size-1;e>=0;e--){let n=this.keyAt(e),r=this.get(n);t.set(n,r)}return t}toSpliced(...t){let n=[...this.entries()];return n.splice(...t),new e(n)}slice(t,n){let r=new e,o=this.size-1;if(void 0===t)return r;t<0&&(t+=this.size),void 0!==n&&n>0&&(o=n-1);for(let e=t;e<=o;e++){let t=this.keyAt(e),n=this.get(t);r.set(t,n)}return r}every(e,t){let n=0;for(let r of this){if(!Reflect.apply(e,t,[r,n,this]))return!1;n++}return!0}some(e,t){let n=0;for(let r of this){if(Reflect.apply(e,t,[r,n,this]))return!0;n++}return!1}});var en=f.createContext(void 0);function er(e){let t=f.useContext(en);return e||t||"ltr"}function eo(e){let t=f.useRef(e);return f.useEffect(()=>{t.current=e}),f.useMemo(()=>(...e)=>t.current?.(...e),[])}var ei="dismissableLayer.update",ea=f.createContext({layers:new Set,layersWithOutsidePointerEventsDisabled:new Set,branches:new Set}),el=f.forwardRef((e,t)=>{let{disableOutsidePointerEvents:n=!1,onEscapeKeyDown:r,onPointerDownOutside:o,onFocusOutside:i,onInteractOutside:a,onDismiss:l,...s}=e,u=f.useContext(ea),[p,m]=f.useState(null),h=p?.ownerDocument??globalThis?.document,[,v]=f.useState({}),g=W(t,e=>m(e)),x=Array.from(u.layers),[y]=[...u.layersWithOutsidePointerEventsDisabled].slice(-1),w=x.indexOf(y),b=p?x.indexOf(p):-1,j=u.layersWithOutsidePointerEventsDisabled.size>0,N=b>=w,E=function(e,t=globalThis?.document){let n=eo(e),r=f.useRef(!1),o=f.useRef(()=>{});return f.useEffect(()=>{let e=e=>{if(e.target&&!r.current){let r=function(){ec("dismissableLayer.pointerDownOutside",n,i,{discrete:!0})},i={originalEvent:e};"touch"===e.pointerType?(t.removeEventListener("click",o.current),o.current=r,t.addEventListener("click",o.current,{once:!0})):r()}else t.removeEventListener("click",o.current);r.current=!1},i=window.setTimeout(()=>{t.addEventListener("pointerdown",e)},0);return()=>{window.clearTimeout(i),t.removeEventListener("pointerdown",e),t.removeEventListener("click",o.current)}},[t,n]),{onPointerDownCapture:()=>r.current=!0}}(e=>{let t=e.target,n=[...u.branches].some(e=>e.contains(t));N&&!n&&(o?.(e),a?.(e),e.defaultPrevented||l?.())},h),R=function(e,t=globalThis?.document){let n=eo(e),r=f.useRef(!1);return f.useEffect(()=>{let e=e=>{e.target&&!r.current&&ec("dismissableLayer.focusOutside",n,{originalEvent:e},{discrete:!1})};return t.addEventListener("focusin",e),()=>t.removeEventListener("focusin",e)},[t,n]),{onFocusCapture:()=>r.current=!0,onBlurCapture:()=>r.current=!1}}(e=>{let t=e.target;![...u.branches].some(e=>e.contains(t))&&(i?.(e),a?.(e),e.defaultPrevented||l?.())},h);return!function(e,t=globalThis?.document){let n=eo(e);f.useEffect(()=>{let e=e=>{"Escape"===e.key&&n(e)};return t.addEventListener("keydown",e,{capture:!0}),()=>t.removeEventListener("keydown",e,{capture:!0})},[n,t])}(e=>{b===u.layers.size-1&&(r?.(e),!e.defaultPrevented&&l&&(e.preventDefault(),l()))},h),f.useEffect(()=>{if(p)return n&&(0===u.layersWithOutsidePointerEventsDisabled.size&&(c=h.body.style.pointerEvents,h.body.style.pointerEvents="none"),u.layersWithOutsidePointerEventsDisabled.add(p)),u.layers.add(p),es(),()=>{n&&1===u.layersWithOutsidePointerEventsDisabled.size&&(h.body.style.pointerEvents=c)}},[p,h,n,u]),f.useEffect(()=>()=>{p&&(u.layers.delete(p),u.layersWithOutsidePointerEventsDisabled.delete(p),es())},[p,u]),f.useEffect(()=>{let e=()=>v({});return document.addEventListener(ei,e),()=>document.removeEventListener(ei,e)},[]),(0,d.jsx)(Y.div,{...s,ref:g,style:{pointerEvents:j?N?"auto":"none":void 0,...e.style},onFocusCapture:F(e.onFocusCapture,R.onFocusCapture),onBlurCapture:F(e.onBlurCapture,R.onBlurCapture),onPointerDownCapture:F(e.onPointerDownCapture,E.onPointerDownCapture)})});function es(){let e=new CustomEvent(ei);document.dispatchEvent(e)}function ec(e,t,n,{discrete:r}){let o=n.originalEvent.target,i=new CustomEvent(e,{bubbles:!1,cancelable:!0,detail:n});t&&o.addEventListener(e,t,{once:!0}),r?Z(o,i):o.dispatchEvent(i)}el.displayName="DismissableLayer",f.forwardRef((e,t)=>{let n=f.useContext(ea),r=f.useRef(null),o=W(t,r);return f.useEffect(()=>{let e=r.current;if(e)return n.branches.add(e),()=>{n.branches.delete(e)}},[n.branches]),(0,d.jsx)(Y.div,{...e,ref:o})}).displayName="DismissableLayerBranch";var eu=0;function ed(){let e=document.createElement("span");return e.setAttribute("data-radix-focus-guard",""),e.tabIndex=0,e.style.outline="none",e.style.opacity="0",e.style.position="fixed",e.style.pointerEvents="none",e}var ef="focusScope.autoFocusOnMount",ep="focusScope.autoFocusOnUnmount",em={bubbles:!1,cancelable:!0},eh=f.forwardRef((e,t)=>{let{loop:n=!1,trapped:r=!1,onMountAutoFocus:o,onUnmountAutoFocus:i,...a}=e,[l,s]=f.useState(null),c=eo(o),u=eo(i),p=f.useRef(null),m=W(t,e=>s(e)),h=f.useRef({paused:!1,pause(){this.paused=!0},resume(){this.paused=!1}}).current;f.useEffect(()=>{if(r){let e=function(e){if(h.paused||!l)return;let t=e.target;l.contains(t)?p.current=t:ex(p.current,{select:!0})},t=function(e){if(h.paused||!l)return;let t=e.relatedTarget;null!==t&&(l.contains(t)||ex(p.current,{select:!0}))};document.addEventListener("focusin",e),document.addEventListener("focusout",t);let n=new MutationObserver(function(e){if(document.activeElement===document.body)for(let t of e)t.removedNodes.length>0&&ex(l)});return l&&n.observe(l,{childList:!0,subtree:!0}),()=>{document.removeEventListener("focusin",e),document.removeEventListener("focusout",t),n.disconnect()}}},[r,l,h.paused]),f.useEffect(()=>{if(l){ey.add(h);let e=document.activeElement;if(!l.contains(e)){let t=new CustomEvent(ef,em);l.addEventListener(ef,c),l.dispatchEvent(t),t.defaultPrevented||(function(e,{select:t=!1}={}){let n=document.activeElement;for(let r of e)if(ex(r,{select:t}),document.activeElement!==n)return}(ev(l).filter(e=>"A"!==e.tagName),{select:!0}),document.activeElement===e&&ex(l))}return()=>{l.removeEventListener(ef,c),setTimeout(()=>{let t=new CustomEvent(ep,em);l.addEventListener(ep,u),l.dispatchEvent(t),t.defaultPrevented||ex(e??document.body,{select:!0}),l.removeEventListener(ep,u),ey.remove(h)},0)}}},[l,c,u,h]);let v=f.useCallback(e=>{if(!n&&!r||h.paused)return;let t="Tab"===e.key&&!e.altKey&&!e.ctrlKey&&!e.metaKey,o=document.activeElement;if(t&&o){var i;let t,r=e.currentTarget,[a,l]=[eg(t=ev(i=r),i),eg(t.reverse(),i)];a&&l?e.shiftKey||o!==l?e.shiftKey&&o===a&&(e.preventDefault(),n&&ex(l,{select:!0})):(e.preventDefault(),n&&ex(a,{select:!0})):o===r&&e.preventDefault()}},[n,r,h.paused]);return(0,d.jsx)(Y.div,{tabIndex:-1,...a,ref:m,onKeyDown:v})});function ev(e){let t=[],n=document.createTreeWalker(e,NodeFilter.SHOW_ELEMENT,{acceptNode:e=>{let t="INPUT"===e.tagName&&"hidden"===e.type;return e.disabled||e.hidden||t?NodeFilter.FILTER_SKIP:e.tabIndex>=0?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_SKIP}});for(;n.nextNode();)t.push(n.currentNode);return t}function eg(e,t){for(let n of e)if(!function(e,{upTo:t}){if("hidden"===getComputedStyle(e).visibility)return!0;for(;e&&(void 0===t||e!==t);){if("none"===getComputedStyle(e).display)return!0;e=e.parentElement}return!1}(n,{upTo:t}))return n}function ex(e,{select:t=!1}={}){if(e&&e.focus){var n;let r=document.activeElement;e.focus({preventScroll:!0}),e!==r&&(n=e)instanceof HTMLInputElement&&"select"in n&&t&&e.select()}}eh.displayName="FocusScope";var ey=(n=[],{add(e){let t=n[0];e!==t&&t?.pause(),(n=ew(n,e)).unshift(e)},remove(e){n=ew(n,e),n[0]?.resume()}});function ew(e,t){let n=[...e],r=n.indexOf(t);return -1!==r&&n.splice(r,1),n}var eb=f[" useId ".trim().toString()]||(()=>void 0),ej=0;function eN(e){let[t,n]=f.useState(eb());return $(()=>{e||n(e=>e??String(ej++))},[e]),e||(t?`radix-${t}`:"")}let eE=["top","right","bottom","left"],eR=Math.min,eC=Math.max,ek=Math.round,eS=Math.floor,eM=e=>({x:e,y:e}),eA={left:"right",right:"left",bottom:"top",top:"bottom"},eT={start:"end",end:"start"};function eL(e,t){return"function"==typeof e?e(t):e}function eP(e){return e.split("-")[0]}function eD(e){return e.split("-")[1]}function e_(e){return"x"===e?"y":"x"}function eO(e){return"y"===e?"height":"width"}let eI=new Set(["top","bottom"]);function eF(e){return eI.has(eP(e))?"y":"x"}function ez(e){return e.replace(/start|end/g,e=>eT[e])}let eU=["left","right"],eW=["right","left"],eB=["top","bottom"],e$=["bottom","top"];function eV(e){return e.replace(/left|right|bottom|top/g,e=>eA[e])}function eK(e){return"number"!=typeof e?{top:0,right:0,bottom:0,left:0,...e}:{top:e,right:e,bottom:e,left:e}}function eH(e){let{x:t,y:n,width:r,height:o}=e;return{width:r,height:o,top:n,left:t,right:t+r,bottom:n+o,x:t,y:n}}function eX(e,t,n){let r,{reference:o,floating:i}=e,a=eF(t),l=e_(eF(t)),s=eO(l),c=eP(t),u="y"===a,d=o.x+o.width/2-i.width/2,f=o.y+o.height/2-i.height/2,p=o[s]/2-i[s]/2;switch(c){case"top":r={x:d,y:o.y-i.height};break;case"bottom":r={x:d,y:o.y+o.height};break;case"right":r={x:o.x+o.width,y:f};break;case"left":r={x:o.x-i.width,y:f};break;default:r={x:o.x,y:o.y}}switch(eD(t)){case"start":r[l]-=p*(n&&u?-1:1);break;case"end":r[l]+=p*(n&&u?-1:1)}return r}let eq=async(e,t,n)=>{let{placement:r="bottom",strategy:o="absolute",middleware:i=[],platform:a}=n,l=i.filter(Boolean),s=await (null==a.isRTL?void 0:a.isRTL(t)),c=await a.getElementRects({reference:e,floating:t,strategy:o}),{x:u,y:d}=eX(c,r,s),f=r,p={},m=0;for(let n=0;n<l.length;n++){let{name:i,fn:h}=l[n],{x:v,y:g,data:x,reset:y}=await h({x:u,y:d,initialPlacement:r,placement:f,strategy:o,middlewareData:p,rects:c,platform:a,elements:{reference:e,floating:t}});u=null!=v?v:u,d=null!=g?g:d,p={...p,[i]:{...p[i],...x}},y&&m<=50&&(m++,"object"==typeof y&&(y.placement&&(f=y.placement),y.rects&&(c=!0===y.rects?await a.getElementRects({reference:e,floating:t,strategy:o}):y.rects),{x:u,y:d}=eX(c,f,s)),n=-1)}return{x:u,y:d,placement:f,strategy:o,middlewareData:p}};async function eG(e,t){var n;void 0===t&&(t={});let{x:r,y:o,platform:i,rects:a,elements:l,strategy:s}=e,{boundary:c="clippingAncestors",rootBoundary:u="viewport",elementContext:d="floating",altBoundary:f=!1,padding:p=0}=eL(t,e),m=eK(p),h=l[f?"floating"===d?"reference":"floating":d],v=eH(await i.getClippingRect({element:null==(n=await (null==i.isElement?void 0:i.isElement(h)))||n?h:h.contextElement||await (null==i.getDocumentElement?void 0:i.getDocumentElement(l.floating)),boundary:c,rootBoundary:u,strategy:s})),g="floating"===d?{x:r,y:o,width:a.floating.width,height:a.floating.height}:a.reference,x=await (null==i.getOffsetParent?void 0:i.getOffsetParent(l.floating)),y=await (null==i.isElement?void 0:i.isElement(x))&&await (null==i.getScale?void 0:i.getScale(x))||{x:1,y:1},w=eH(i.convertOffsetParentRelativeRectToViewportRelativeRect?await i.convertOffsetParentRelativeRectToViewportRelativeRect({elements:l,rect:g,offsetParent:x,strategy:s}):g);return{top:(v.top-w.top+m.top)/y.y,bottom:(w.bottom-v.bottom+m.bottom)/y.y,left:(v.left-w.left+m.left)/y.x,right:(w.right-v.right+m.right)/y.x}}function eY(e,t){return{top:e.top-t.height,right:e.right-t.width,bottom:e.bottom-t.height,left:e.left-t.width}}function eZ(e){return eE.some(t=>e[t]>=0)}let eJ=new Set(["left","top"]);async function eQ(e,t){let{placement:n,platform:r,elements:o}=e,i=await (null==r.isRTL?void 0:r.isRTL(o.floating)),a=eP(n),l=eD(n),s="y"===eF(n),c=eJ.has(a)?-1:1,u=i&&s?-1:1,d=eL(t,e),{mainAxis:f,crossAxis:p,alignmentAxis:m}="number"==typeof d?{mainAxis:d,crossAxis:0,alignmentAxis:null}:{mainAxis:d.mainAxis||0,crossAxis:d.crossAxis||0,alignmentAxis:d.alignmentAxis};return l&&"number"==typeof m&&(p="end"===l?-1*m:m),s?{x:p*u,y:f*c}:{x:f*c,y:p*u}}function e0(){return"u">typeof window}function e1(e){return e4(e)?(e.nodeName||"").toLowerCase():"#document"}function e2(e){var t;return(null==e||null==(t=e.ownerDocument)?void 0:t.defaultView)||window}function e5(e){var t;return null==(t=(e4(e)?e.ownerDocument:e.document)||window.document)?void 0:t.documentElement}function e4(e){return!!e0()&&(e instanceof Node||e instanceof e2(e).Node)}function e3(e){return!!e0()&&(e instanceof Element||e instanceof e2(e).Element)}function e6(e){return!!e0()&&(e instanceof HTMLElement||e instanceof e2(e).HTMLElement)}function e8(e){return!(!e0()||"u"<typeof ShadowRoot)&&(e instanceof ShadowRoot||e instanceof e2(e).ShadowRoot)}let e7=new Set(["inline","contents"]);function e9(e){let{overflow:t,overflowX:n,overflowY:r,display:o}=tu(e);return/auto|scroll|overlay|hidden|clip/.test(t+r+n)&&!e7.has(o)}let te=new Set(["table","td","th"]),tt=[":popover-open",":modal"];function tn(e){return tt.some(t=>{try{return e.matches(t)}catch(e){return!1}})}let tr=["transform","translate","scale","rotate","perspective"],to=["transform","translate","scale","rotate","perspective","filter"],ti=["paint","layout","strict","content"];function ta(e){let t=tl(),n=e3(e)?tu(e):e;return tr.some(e=>!!n[e]&&"none"!==n[e])||!!n.containerType&&"normal"!==n.containerType||!t&&!!n.backdropFilter&&"none"!==n.backdropFilter||!t&&!!n.filter&&"none"!==n.filter||to.some(e=>(n.willChange||"").includes(e))||ti.some(e=>(n.contain||"").includes(e))}function tl(){return!("u"<typeof CSS)&&!!CSS.supports&&CSS.supports("-webkit-backdrop-filter","none")}let ts=new Set(["html","body","#document"]);function tc(e){return ts.has(e1(e))}function tu(e){return e2(e).getComputedStyle(e)}function td(e){return e3(e)?{scrollLeft:e.scrollLeft,scrollTop:e.scrollTop}:{scrollLeft:e.scrollX,scrollTop:e.scrollY}}function tf(e){if("html"===e1(e))return e;let t=e.assignedSlot||e.parentNode||e8(e)&&e.host||e5(e);return e8(t)?t.host:t}function tp(e,t,n){var r;void 0===t&&(t=[]),void 0===n&&(n=!0);let o=function e(t){let n=tf(t);return tc(n)?t.ownerDocument?t.ownerDocument.body:t.body:e6(n)&&e9(n)?n:e(n)}(e),i=o===(null==(r=e.ownerDocument)?void 0:r.body),a=e2(o);if(i){let e=tm(a);return t.concat(a,a.visualViewport||[],e9(o)?o:[],e&&n?tp(e):[])}return t.concat(o,tp(o,[],n))}function tm(e){return e.parent&&Object.getPrototypeOf(e.parent)?e.frameElement:null}function th(e){let t=tu(e),n=parseFloat(t.width)||0,r=parseFloat(t.height)||0,o=e6(e),i=o?e.offsetWidth:n,a=o?e.offsetHeight:r,l=ek(n)!==i||ek(r)!==a;return l&&(n=i,r=a),{width:n,height:r,$:l}}function tv(e){return e3(e)?e:e.contextElement}function tg(e){let t=tv(e);if(!e6(t))return eM(1);let n=t.getBoundingClientRect(),{width:r,height:o,$:i}=th(t),a=(i?ek(n.width):n.width)/r,l=(i?ek(n.height):n.height)/o;return a&&Number.isFinite(a)||(a=1),l&&Number.isFinite(l)||(l=1),{x:a,y:l}}let tx=eM(0);function ty(e){let t=e2(e);return tl()&&t.visualViewport?{x:t.visualViewport.offsetLeft,y:t.visualViewport.offsetTop}:tx}function tw(e,t,n,r){var o;void 0===t&&(t=!1),void 0===n&&(n=!1);let i=e.getBoundingClientRect(),a=tv(e),l=eM(1);t&&(r?e3(r)&&(l=tg(r)):l=tg(e));let s=(void 0===(o=n)&&(o=!1),r&&(!o||r===e2(a))&&o)?ty(a):eM(0),c=(i.left+s.x)/l.x,u=(i.top+s.y)/l.y,d=i.width/l.x,f=i.height/l.y;if(a){let e=e2(a),t=r&&e3(r)?e2(r):r,n=e,o=tm(n);for(;o&&r&&t!==n;){let e=tg(o),t=o.getBoundingClientRect(),r=tu(o),i=t.left+(o.clientLeft+parseFloat(r.paddingLeft))*e.x,a=t.top+(o.clientTop+parseFloat(r.paddingTop))*e.y;c*=e.x,u*=e.y,d*=e.x,f*=e.y,c+=i,u+=a,o=tm(n=e2(o))}}return eH({width:d,height:f,x:c,y:u})}function tb(e,t){let n=td(e).scrollLeft;return t?t.left+n:tw(e5(e)).left+n}function tj(e,t){let n=e.getBoundingClientRect();return{x:n.left+t.scrollLeft-tb(e,n),y:n.top+t.scrollTop}}let tN=new Set(["absolute","fixed"]);function tE(e,t,n){var r;let o;if("viewport"===t)o=function(e,t){let n=e2(e),r=e5(e),o=n.visualViewport,i=r.clientWidth,a=r.clientHeight,l=0,s=0;if(o){i=o.width,a=o.height;let e=tl();(!e||e&&"fixed"===t)&&(l=o.offsetLeft,s=o.offsetTop)}let c=tb(r);if(c<=0){let e=r.ownerDocument,t=e.body,n=getComputedStyle(t),o="CSS1Compat"===e.compatMode&&parseFloat(n.marginLeft)+parseFloat(n.marginRight)||0,a=Math.abs(r.clientWidth-t.clientWidth-o);a<=25&&(i-=a)}else c<=25&&(i+=c);return{width:i,height:a,x:l,y:s}}(e,n);else if("document"===t){let t,n,i,a,l,s,c;r=e5(e),t=e5(r),n=td(r),i=r.ownerDocument.body,a=eC(t.scrollWidth,t.clientWidth,i.scrollWidth,i.clientWidth),l=eC(t.scrollHeight,t.clientHeight,i.scrollHeight,i.clientHeight),s=-n.scrollLeft+tb(r),c=-n.scrollTop,"rtl"===tu(i).direction&&(s+=eC(t.clientWidth,i.clientWidth)-a),o={width:a,height:l,x:s,y:c}}else if(e3(t)){let e,r,i,a,l,s;r=(e=tw(t,!0,"fixed"===n)).top+t.clientTop,i=e.left+t.clientLeft,a=e6(t)?tg(t):eM(1),l=t.clientWidth*a.x,s=t.clientHeight*a.y,o={width:l,height:s,x:i*a.x,y:r*a.y}}else{let n=ty(e);o={x:t.x-n.x,y:t.y-n.y,width:t.width,height:t.height}}return eH(o)}function tR(e){return"static"===tu(e).position}function tC(e,t){if(!e6(e)||"fixed"===tu(e).position)return null;if(t)return t(e);let n=e.offsetParent;return e5(e)===n&&(n=n.ownerDocument.body),n}function tk(e,t){var n;let r=e2(e);if(tn(e))return r;if(!e6(e)){let t=tf(e);for(;t&&!tc(t);){if(e3(t)&&!tR(t))return t;t=tf(t)}return r}let o=tC(e,t);for(;o&&(n=o,te.has(e1(n)))&&tR(o);)o=tC(o,t);return o&&tc(o)&&tR(o)&&!ta(o)?r:o||function(e){let t=tf(e);for(;e6(t)&&!tc(t);){if(ta(t))return t;if(tn(t))break;t=tf(t)}return null}(e)||r}let tS=async function(e){let t=this.getOffsetParent||tk,n=this.getDimensions,r=await n(e.floating);return{reference:function(e,t,n){let r=e6(t),o=e5(t),i="fixed"===n,a=tw(e,!0,i,t),l={scrollLeft:0,scrollTop:0},s=eM(0);if(r||!r&&!i)if(("body"!==e1(t)||e9(o))&&(l=td(t)),r){let e=tw(t,!0,i,t);s.x=e.x+t.clientLeft,s.y=e.y+t.clientTop}else o&&(s.x=tb(o));i&&!r&&o&&(s.x=tb(o));let c=!o||r||i?eM(0):tj(o,l);return{x:a.left+l.scrollLeft-s.x-c.x,y:a.top+l.scrollTop-s.y-c.y,width:a.width,height:a.height}}(e.reference,await t(e.floating),e.strategy),floating:{x:0,y:0,width:r.width,height:r.height}}},tM={convertOffsetParentRelativeRectToViewportRelativeRect:function(e){let{elements:t,rect:n,offsetParent:r,strategy:o}=e,i="fixed"===o,a=e5(r),l=!!t&&tn(t.floating);if(r===a||l&&i)return n;let s={scrollLeft:0,scrollTop:0},c=eM(1),u=eM(0),d=e6(r);if((d||!d&&!i)&&(("body"!==e1(r)||e9(a))&&(s=td(r)),e6(r))){let e=tw(r);c=tg(r),u.x=e.x+r.clientLeft,u.y=e.y+r.clientTop}let f=!a||d||i?eM(0):tj(a,s);return{width:n.width*c.x,height:n.height*c.y,x:n.x*c.x-s.scrollLeft*c.x+u.x+f.x,y:n.y*c.y-s.scrollTop*c.y+u.y+f.y}},getDocumentElement:e5,getClippingRect:function(e){let{element:t,boundary:n,rootBoundary:r,strategy:o}=e,i=[..."clippingAncestors"===n?tn(t)?[]:function(e,t){let n=t.get(e);if(n)return n;let r=tp(e,[],!1).filter(e=>e3(e)&&"body"!==e1(e)),o=null,i="fixed"===tu(e).position,a=i?tf(e):e;for(;e3(a)&&!tc(a);){let t=tu(a),n=ta(a);n||"fixed"!==t.position||(o=null),(i?!n&&!o:!n&&"static"===t.position&&!!o&&tN.has(o.position)||e9(a)&&!n&&function e(t,n){let r=tf(t);return!(r===n||!e3(r)||tc(r))&&("fixed"===tu(r).position||e(r,n))}(e,a))?r=r.filter(e=>e!==a):o=t,a=tf(a)}return t.set(e,r),r}(t,this._c):[].concat(n),r],a=i[0],l=i.reduce((e,n)=>{let r=tE(t,n,o);return e.top=eC(r.top,e.top),e.right=eR(r.right,e.right),e.bottom=eR(r.bottom,e.bottom),e.left=eC(r.left,e.left),e},tE(t,a,o));return{width:l.right-l.left,height:l.bottom-l.top,x:l.left,y:l.top}},getOffsetParent:tk,getElementRects:tS,getClientRects:function(e){return Array.from(e.getClientRects())},getDimensions:function(e){let{width:t,height:n}=th(e);return{width:t,height:n}},getScale:tg,isElement:e3,isRTL:function(e){return"rtl"===tu(e).direction}};function tA(e,t){return e.x===t.x&&e.y===t.y&&e.width===t.width&&e.height===t.height}let tT=e=>({name:"arrow",options:e,async fn(t){let{x:n,y:r,placement:o,rects:i,platform:a,elements:l,middlewareData:s}=t,{element:c,padding:u=0}=eL(e,t)||{};if(null==c)return{};let d=eK(u),f={x:n,y:r},p=e_(eF(o)),m=eO(p),h=await a.getDimensions(c),v="y"===p,g=v?"clientHeight":"clientWidth",x=i.reference[m]+i.reference[p]-f[p]-i.floating[m],y=f[p]-i.reference[p],w=await (null==a.getOffsetParent?void 0:a.getOffsetParent(c)),b=w?w[g]:0;b&&await (null==a.isElement?void 0:a.isElement(w))||(b=l.floating[g]||i.floating[m]);let j=b/2-h[m]/2-1,N=eR(d[v?"top":"left"],j),E=eR(d[v?"bottom":"right"],j),R=b-h[m]-E,C=b/2-h[m]/2+(x/2-y/2),k=eC(N,eR(C,R)),S=!s.arrow&&null!=eD(o)&&C!==k&&i.reference[m]/2-(C<N?N:E)-h[m]/2<0,M=S?C<N?C-N:C-R:0;return{[p]:f[p]+M,data:{[p]:k,centerOffset:C-k-M,...S&&{alignmentOffset:M}},reset:S}}});var tL="u">typeof document?f.useLayoutEffect:function(){};function tP(e,t){let n,r,o;if(e===t)return!0;if(typeof e!=typeof t)return!1;if("function"==typeof e&&e.toString()===t.toString())return!0;if(e&&t&&"object"==typeof e){if(Array.isArray(e)){if((n=e.length)!==t.length)return!1;for(r=n;0!=r--;)if(!tP(e[r],t[r]))return!1;return!0}if((n=(o=Object.keys(e)).length)!==Object.keys(t).length)return!1;for(r=n;0!=r--;)if(!({}).hasOwnProperty.call(t,o[r]))return!1;for(r=n;0!=r--;){let n=o[r];if(("_owner"!==n||!e.$$typeof)&&!tP(e[n],t[n]))return!1}return!0}return e!=e&&t!=t}function tD(e){return"u"<typeof window?1:(e.ownerDocument.defaultView||window).devicePixelRatio||1}function t_(e,t){let n=tD(e);return Math.round(t*n)/n}function tO(e){let t=f.useRef(e);return tL(()=>{t.current=e}),t}var tI=f.forwardRef((e,t)=>{let{children:n,width:r=10,height:o=5,...i}=e;return(0,d.jsx)(Y.svg,{...i,ref:t,width:r,height:o,viewBox:"0 0 30 10",preserveAspectRatio:"none",children:e.asChild?n:(0,d.jsx)("polygon",{points:"0,0 30,0 15,10"})})});tI.displayName="Arrow";var tF="Popper",[tz,tU]=B(tF),[tW,tB]=tz(tF),t$=e=>{let{__scopePopper:t,children:n}=e,[r,o]=f.useState(null);return(0,d.jsx)(tW,{scope:t,anchor:r,onAnchorChange:o,children:n})};t$.displayName=tF;var tV="PopperAnchor",tK=f.forwardRef((e,t)=>{let{__scopePopper:n,virtualRef:r,...o}=e,i=tB(tV,n),a=f.useRef(null),l=W(t,a),s=f.useRef(null);return f.useEffect(()=>{let e=s.current;s.current=r?.current||a.current,e!==s.current&&i.onAnchorChange(s.current)}),r?null:(0,d.jsx)(Y.div,{...o,ref:l})});tK.displayName=tV;var tH="PopperContent",[tX,tq]=tz(tH),tG=f.forwardRef((e,t)=>{var n,r,o,i,a,l,s,c,u,p,m,h,v;let{__scopePopper:g,side:x="bottom",sideOffset:y=0,align:w="center",alignOffset:b=0,arrowPadding:j=0,avoidCollisions:N=!0,collisionBoundary:E=[],collisionPadding:R=0,sticky:C="partial",hideWhenDetached:k=!1,updatePositionStrategy:S="optimized",onPlaced:M,...A}=e,T=tB(tH,g),[L,P]=f.useState(null),D=W(t,e=>P(e)),[_,O]=f.useState(null),I=function(e){let[t,n]=f.useState(void 0);return $(()=>{if(e){n({width:e.offsetWidth,height:e.offsetHeight});let t=new ResizeObserver(t=>{let r,o;if(!Array.isArray(t)||!t.length)return;let i=t[0];if("borderBoxSize"in i){let e=i.borderBoxSize,t=Array.isArray(e)?e[0]:e;r=t.inlineSize,o=t.blockSize}else r=e.offsetWidth,o=e.offsetHeight;n({width:r,height:o})});return t.observe(e,{box:"border-box"}),()=>t.unobserve(e)}n(void 0)},[e]),t}(_),F=I?.width??0,z=I?.height??0,U="number"==typeof R?R:{top:0,right:0,bottom:0,left:0,...R},B=Array.isArray(E)?E:[E],V=B.length>0,K={padding:U,boundary:B.filter(tQ),altBoundary:V},{refs:X,floatingStyles:q,placement:G,isPositioned:Z,middlewareData:J}=function(e){void 0===e&&(e={});let{placement:t="bottom",strategy:n="absolute",middleware:r=[],platform:o,elements:{reference:i,floating:a}={},transform:l=!0,whileElementsMounted:s,open:c}=e,[u,d]=f.useState({x:0,y:0,strategy:n,placement:t,middlewareData:{},isPositioned:!1}),[p,m]=f.useState(r);tP(p,r)||m(r);let[h,v]=f.useState(null),[g,x]=f.useState(null),y=f.useCallback(e=>{e!==N.current&&(N.current=e,v(e))},[]),w=f.useCallback(e=>{e!==E.current&&(E.current=e,x(e))},[]),b=i||h,j=a||g,N=f.useRef(null),E=f.useRef(null),R=f.useRef(u),C=null!=s,k=tO(s),S=tO(o),M=tO(c),A=f.useCallback(()=>{var e,r;let o,i,a;if(!N.current||!E.current)return;let l={placement:t,strategy:n,middleware:p};S.current&&(l.platform=S.current),(e=N.current,r=E.current,o=new Map,a={...(i={platform:tM,...l}).platform,_c:o},eq(e,r,{...i,platform:a})).then(e=>{let t={...e,isPositioned:!1!==M.current};T.current&&!tP(R.current,t)&&(R.current=t,H.flushSync(()=>{d(t)}))})},[p,t,n,S,M]);tL(()=>{!1===c&&R.current.isPositioned&&(R.current.isPositioned=!1,d(e=>({...e,isPositioned:!1})))},[c]);let T=f.useRef(!1);tL(()=>(T.current=!0,()=>{T.current=!1}),[]),tL(()=>{if(b&&(N.current=b),j&&(E.current=j),b&&j){if(k.current)return k.current(b,j,A);A()}},[b,j,A,k,C]);let L=f.useMemo(()=>({reference:N,floating:E,setReference:y,setFloating:w}),[y,w]),P=f.useMemo(()=>({reference:b,floating:j}),[b,j]),D=f.useMemo(()=>{let e={position:n,left:0,top:0};if(!P.floating)return e;let t=t_(P.floating,u.x),r=t_(P.floating,u.y);return l?{...e,transform:"translate("+t+"px, "+r+"px)",...tD(P.floating)>=1.5&&{willChange:"transform"}}:{position:n,left:t,top:r}},[n,l,P.floating,u.x,u.y]);return f.useMemo(()=>({...u,update:A,refs:L,elements:P,floatingStyles:D}),[u,A,L,P,D])}({strategy:"fixed",placement:x+("center"!==w?"-"+w:""),whileElementsMounted:(...e)=>(function(e,t,n,r){let o;void 0===r&&(r={});let{ancestorScroll:i=!0,ancestorResize:a=!0,elementResize:l="function"==typeof ResizeObserver,layoutShift:s="function"==typeof IntersectionObserver,animationFrame:c=!1}=r,u=tv(e),d=i||a?[...u?tp(u):[],...tp(t)]:[];d.forEach(e=>{i&&e.addEventListener("scroll",n,{passive:!0}),a&&e.addEventListener("resize",n)});let f=u&&s?function(e,t){let n,r=null,o=e5(e);function i(){var e;clearTimeout(n),null==(e=r)||e.disconnect(),r=null}return!function a(l,s){void 0===l&&(l=!1),void 0===s&&(s=1),i();let c=e.getBoundingClientRect(),{left:u,top:d,width:f,height:p}=c;if(l||t(),!f||!p)return;let m={rootMargin:-eS(d)+"px "+-eS(o.clientWidth-(u+f))+"px "+-eS(o.clientHeight-(d+p))+"px "+-eS(u)+"px",threshold:eC(0,eR(1,s))||1},h=!0;function v(t){let r=t[0].intersectionRatio;if(r!==s){if(!h)return a();r?a(!1,r):n=setTimeout(()=>{a(!1,1e-7)},1e3)}1!==r||tA(c,e.getBoundingClientRect())||a(),h=!1}try{r=new IntersectionObserver(v,{...m,root:o.ownerDocument})}catch(e){r=new IntersectionObserver(v,m)}r.observe(e)}(!0),i}(u,n):null,p=-1,m=null;l&&(m=new ResizeObserver(e=>{let[r]=e;r&&r.target===u&&m&&(m.unobserve(t),cancelAnimationFrame(p),p=requestAnimationFrame(()=>{var e;null==(e=m)||e.observe(t)})),n()}),u&&!c&&m.observe(u),m.observe(t));let h=c?tw(e):null;return c&&function t(){let r=tw(e);h&&!tA(h,r)&&n(),h=r,o=requestAnimationFrame(t)}(),n(),()=>{var e;d.forEach(e=>{i&&e.removeEventListener("scroll",n),a&&e.removeEventListener("resize",n)}),null==f||f(),null==(e=m)||e.disconnect(),m=null,c&&cancelAnimationFrame(o)}})(...e,{animationFrame:"always"===S}),elements:{reference:T.anchor},middleware:[{...{name:"offset",options:r=n={mainAxis:y+z,alignmentAxis:b},async fn(e){var t,n;let{x:o,y:i,placement:a,middlewareData:l}=e,s=await eQ(e,r);return a===(null==(t=l.offset)?void 0:t.placement)&&null!=(n=l.arrow)&&n.alignmentOffset?{}:{x:o+s.x,y:i+s.y,data:{...s,placement:a}}}},options:[n,void 0]},N&&{...{name:"shift",options:a=i={mainAxis:!0,crossAxis:!1,limiter:"partial"===C?{...(o=void 0,{options:o={},fn(e){let{x:t,y:n,placement:r,rects:i,middlewareData:a}=e,{offset:l=0,mainAxis:s=!0,crossAxis:c=!0}=eL(o,e),u={x:t,y:n},d=eF(r),f=e_(d),p=u[f],m=u[d],h=eL(l,e),v="number"==typeof h?{mainAxis:h,crossAxis:0}:{mainAxis:0,crossAxis:0,...h};if(s){let e="y"===f?"height":"width",t=i.reference[f]-i.floating[e]+v.mainAxis,n=i.reference[f]+i.reference[e]-v.mainAxis;p<t?p=t:p>n&&(p=n)}if(c){var g,x;let e="y"===f?"width":"height",t=eJ.has(eP(r)),n=i.reference[d]-i.floating[e]+(t&&(null==(g=a.offset)?void 0:g[d])||0)+(t?0:v.crossAxis),o=i.reference[d]+i.reference[e]+(t?0:(null==(x=a.offset)?void 0:x[d])||0)-(t?v.crossAxis:0);m<n?m=n:m>o&&(m=o)}return{[f]:p,[d]:m}}}),options:[void 0,void 0]}:void 0,...K},async fn(e){let{x:t,y:n,placement:r}=e,{mainAxis:o=!0,crossAxis:i=!1,limiter:l={fn:e=>{let{x:t,y:n}=e;return{x:t,y:n}}},...s}=eL(a,e),c={x:t,y:n},u=await eG(e,s),d=eF(eP(r)),f=e_(d),p=c[f],m=c[d];if(o){let e="y"===f?"top":"left",t="y"===f?"bottom":"right",n=p+u[e],r=p-u[t];p=eC(n,eR(p,r))}if(i){let e="y"===d?"top":"left",t="y"===d?"bottom":"right",n=m+u[e],r=m-u[t];m=eC(n,eR(m,r))}let h=l.fn({...e,[f]:p,[d]:m});return{...h,data:{x:h.x-t,y:h.y-n,enabled:{[f]:o,[d]:i}}}}},options:[i,void 0]},N&&{...{name:"flip",options:s=l={...K},async fn(e){var t,n,r,o,i,a,l,c;let u,d,f,{placement:p,middlewareData:m,rects:h,initialPlacement:v,platform:g,elements:x}=e,{mainAxis:y=!0,crossAxis:w=!0,fallbackPlacements:b,fallbackStrategy:j="bestFit",fallbackAxisSideDirection:N="none",flipAlignment:E=!0,...R}=eL(s,e);if(null!=(t=m.arrow)&&t.alignmentOffset)return{};let C=eP(p),k=eF(v),S=eP(v)===v,M=await (null==g.isRTL?void 0:g.isRTL(x.floating)),A=b||(S||!E?[eV(v)]:(u=eV(v),[ez(v),u,ez(u)])),T="none"!==N;!b&&T&&A.push(...(d=eD(v),f=function(e,t,n){switch(e){case"top":case"bottom":if(n)return t?eW:eU;return t?eU:eW;case"left":case"right":return t?eB:e$;default:return[]}}(eP(v),"start"===N,M),d&&(f=f.map(e=>e+"-"+d),E&&(f=f.concat(f.map(ez)))),f));let L=[v,...A],P=await eG(e,R),D=[],_=(null==(n=m.flip)?void 0:n.overflows)||[];if(y&&D.push(P[C]),w){let e,t,n,r,o=(a=p,l=h,void 0===(c=M)&&(c=!1),e=eD(a),n=eO(t=e_(eF(a))),r="x"===t?e===(c?"end":"start")?"right":"left":"start"===e?"bottom":"top",l.reference[n]>l.floating[n]&&(r=eV(r)),[r,eV(r)]);D.push(P[o[0]],P[o[1]])}if(_=[..._,{placement:p,overflows:D}],!D.every(e=>e<=0)){let e=((null==(r=m.flip)?void 0:r.index)||0)+1,t=L[e];if(t&&("alignment"!==w||k===eF(t)||_.every(e=>eF(e.placement)!==k||e.overflows[0]>0)))return{data:{index:e,overflows:_},reset:{placement:t}};let n=null==(o=_.filter(e=>e.overflows[0]<=0).sort((e,t)=>e.overflows[1]-t.overflows[1])[0])?void 0:o.placement;if(!n)switch(j){case"bestFit":{let e=null==(i=_.filter(e=>{if(T){let t=eF(e.placement);return t===k||"y"===t}return!0}).map(e=>[e.placement,e.overflows.filter(e=>e>0).reduce((e,t)=>e+t,0)]).sort((e,t)=>e[1]-t[1])[0])?void 0:i[0];e&&(n=e);break}case"initialPlacement":n=v}if(p!==n)return{reset:{placement:n}}}return{}}},options:[l,void 0]},{...{name:"size",options:u=c={...K,apply:({elements:e,rects:t,availableWidth:n,availableHeight:r})=>{let{width:o,height:i}=t.reference,a=e.floating.style;a.setProperty("--radix-popper-available-width",`${n}px`),a.setProperty("--radix-popper-available-height",`${r}px`),a.setProperty("--radix-popper-anchor-width",`${o}px`),a.setProperty("--radix-popper-anchor-height",`${i}px`)}},async fn(e){var t,n;let r,o,{placement:i,rects:a,platform:l,elements:s}=e,{apply:c=()=>{},...d}=eL(u,e),f=await eG(e,d),p=eP(i),m=eD(i),h="y"===eF(i),{width:v,height:g}=a.floating;"top"===p||"bottom"===p?(r=p,o=m===(await (null==l.isRTL?void 0:l.isRTL(s.floating))?"start":"end")?"left":"right"):(o=p,r="end"===m?"top":"bottom");let x=g-f.top-f.bottom,y=v-f.left-f.right,w=eR(g-f[r],x),b=eR(v-f[o],y),j=!e.middlewareData.shift,N=w,E=b;if(null!=(t=e.middlewareData.shift)&&t.enabled.x&&(E=y),null!=(n=e.middlewareData.shift)&&n.enabled.y&&(N=x),j&&!m){let e=eC(f.left,0),t=eC(f.right,0),n=eC(f.top,0),r=eC(f.bottom,0);h?E=v-2*(0!==e||0!==t?e+t:eC(f.left,f.right)):N=g-2*(0!==n||0!==r?n+r:eC(f.top,f.bottom))}await c({...e,availableWidth:E,availableHeight:N});let R=await l.getDimensions(s.floating);return v!==R.width||g!==R.height?{reset:{rects:!0}}:{}}},options:[c,void 0]},_&&{...{name:"arrow",options:m=p={element:_,padding:j},fn(e){let{element:t,padding:n}="function"==typeof m?m(e):m;return t&&({}).hasOwnProperty.call(t,"current")?null!=t.current?tT({element:t.current,padding:n}).fn(e):{}:t?tT({element:t,padding:n}).fn(e):{}}},options:[p,void 0]},t0({arrowWidth:F,arrowHeight:z}),k&&{...{name:"hide",options:v=h={strategy:"referenceHidden",...K},async fn(e){let{rects:t}=e,{strategy:n="referenceHidden",...r}=eL(v,e);switch(n){case"referenceHidden":{let n=eY(await eG(e,{...r,elementContext:"reference"}),t.reference);return{data:{referenceHiddenOffsets:n,referenceHidden:eZ(n)}}}case"escaped":{let n=eY(await eG(e,{...r,altBoundary:!0}),t.floating);return{data:{escapedOffsets:n,escaped:eZ(n)}}}default:return{}}}},options:[h,void 0]}]}),[Q,ee]=t1(G),et=eo(M);$(()=>{Z&&et?.()},[Z,et]);let en=J.arrow?.x,er=J.arrow?.y,ei=J.arrow?.centerOffset!==0,[ea,el]=f.useState();return $(()=>{L&&el(window.getComputedStyle(L).zIndex)},[L]),(0,d.jsx)("div",{ref:X.setFloating,"data-radix-popper-content-wrapper":"",style:{...q,transform:Z?q.transform:"translate(0, -200%)",minWidth:"max-content",zIndex:ea,"--radix-popper-transform-origin":[J.transformOrigin?.x,J.transformOrigin?.y].join(" "),...J.hide?.referenceHidden&&{visibility:"hidden",pointerEvents:"none"}},dir:e.dir,children:(0,d.jsx)(tX,{scope:g,placedSide:Q,onArrowChange:O,arrowX:en,arrowY:er,shouldHideArrow:ei,children:(0,d.jsx)(Y.div,{"data-side":Q,"data-align":ee,...A,ref:D,style:{...A.style,animation:Z?void 0:"none"}})})})});tG.displayName=tH;var tY="PopperArrow",tZ={top:"bottom",right:"left",bottom:"top",left:"right"},tJ=f.forwardRef(function(e,t){let{__scopePopper:n,...r}=e,o=tq(tY,n),i=tZ[o.placedSide];return(0,d.jsx)("span",{ref:o.onArrowChange,style:{position:"absolute",left:o.arrowX,top:o.arrowY,[i]:0,transformOrigin:{top:"",right:"0 0",bottom:"center 0",left:"100% 0"}[o.placedSide],transform:{top:"translateY(100%)",right:"translateY(50%) rotate(90deg) translateX(-50%)",bottom:"rotate(180deg)",left:"translateY(50%) rotate(-90deg) translateX(50%)"}[o.placedSide],visibility:o.shouldHideArrow?"hidden":void 0},children:(0,d.jsx)(tI,{...r,ref:t,style:{...r.style,display:"block"}})})});function tQ(e){return null!==e}tJ.displayName=tY;var t0=e=>({name:"transformOrigin",options:e,fn(t){let{placement:n,rects:r,middlewareData:o}=t,i=o.arrow?.centerOffset!==0,a=i?0:e.arrowWidth,l=i?0:e.arrowHeight,[s,c]=t1(n),u={start:"0%",center:"50%",end:"100%"}[c],d=(o.arrow?.x??0)+a/2,f=(o.arrow?.y??0)+l/2,p="",m="";return"bottom"===s?(p=i?u:`${d}px`,m=`${-l}px`):"top"===s?(p=i?u:`${d}px`,m=`${r.floating.height+l}px`):"right"===s?(p=`${-l}px`,m=i?u:`${f}px`):"left"===s&&(p=`${r.floating.width+l}px`,m=i?u:`${f}px`),{data:{x:p,y:m}}}});function t1(e){let[t,n="center"]=e.split("-");return[t,n]}var t2=f.forwardRef((e,t)=>{let{container:n,...r}=e,[o,i]=f.useState(!1);$(()=>i(!0),[]);let a=n||o&&globalThis?.document?.body;return a?H.default.createPortal((0,d.jsx)(Y.div,{...r,ref:t}),a):null});t2.displayName="Portal";var t5=e=>{var t;let n,r,{present:o,children:i}=e,a=function(e){var t,n;let[r,o]=f.useState(),i=f.useRef(null),a=f.useRef(e),l=f.useRef("none"),[s,c]=(t=e?"mounted":"unmounted",n={mounted:{UNMOUNT:"unmounted",ANIMATION_OUT:"unmountSuspended"},unmountSuspended:{MOUNT:"mounted",ANIMATION_END:"unmounted"},unmounted:{MOUNT:"mounted"}},f.useReducer((e,t)=>n[e][t]??e,t));return f.useEffect(()=>{let e=t4(i.current);l.current="mounted"===s?e:"none"},[s]),$(()=>{let t=i.current,n=a.current;if(n!==e){let r=l.current,o=t4(t);e?c("MOUNT"):"none"===o||t?.display==="none"?c("UNMOUNT"):n&&r!==o?c("ANIMATION_OUT"):c("UNMOUNT"),a.current=e}},[e,c]),$(()=>{if(r){let e,t=r.ownerDocument.defaultView??window,n=n=>{let o=t4(i.current).includes(CSS.escape(n.animationName));if(n.target===r&&o&&(c("ANIMATION_END"),!a.current)){let n=r.style.animationFillMode;r.style.animationFillMode="forwards",e=t.setTimeout(()=>{"forwards"===r.style.animationFillMode&&(r.style.animationFillMode=n)})}},o=e=>{e.target===r&&(l.current=t4(i.current))};return r.addEventListener("animationstart",o),r.addEventListener("animationcancel",n),r.addEventListener("animationend",n),()=>{t.clearTimeout(e),r.removeEventListener("animationstart",o),r.removeEventListener("animationcancel",n),r.removeEventListener("animationend",n)}}c("ANIMATION_END")},[r,c]),{isPresent:["mounted","unmountSuspended"].includes(s),ref:f.useCallback(e=>{i.current=e?getComputedStyle(e):null,o(e)},[])}}(o),l="function"==typeof i?i({present:a.isPresent}):f.Children.only(i),s=W(a.ref,(t=l,(r=(n=Object.getOwnPropertyDescriptor(t.props,"ref")?.get)&&"isReactWarning"in n&&n.isReactWarning)?t.ref:(r=(n=Object.getOwnPropertyDescriptor(t,"ref")?.get)&&"isReactWarning"in n&&n.isReactWarning)?t.props.ref:t.props.ref||t.ref));return"function"==typeof i||a.isPresent?f.cloneElement(l,{ref:s}):null};function t4(e){return e?.animationName||"none"}t5.displayName="Presence";var t3="rovingFocusGroup.onEntryFocus",t6={bubbles:!1,cancelable:!0},t8="RovingFocusGroup",[t7,t9,ne]=J(t8),[nt,nn]=B(t8,[ne]),[nr,no]=nt(t8),ni=f.forwardRef((e,t)=>(0,d.jsx)(t7.Provider,{scope:e.__scopeRovingFocusGroup,children:(0,d.jsx)(t7.Slot,{scope:e.__scopeRovingFocusGroup,children:(0,d.jsx)(na,{...e,ref:t})})}));ni.displayName=t8;var na=f.forwardRef((e,t)=>{let{__scopeRovingFocusGroup:n,orientation:r,loop:o=!1,dir:i,currentTabStopId:a,defaultCurrentTabStopId:l,onCurrentTabStopIdChange:s,onEntryFocus:c,preventScrollOnEntryFocus:u=!1,...p}=e,m=f.useRef(null),h=W(t,m),v=er(i),[g,x]=K({prop:a,defaultProp:l??null,onChange:s,caller:t8}),[y,w]=f.useState(!1),b=eo(c),j=t9(n),N=f.useRef(!1),[E,R]=f.useState(0);return f.useEffect(()=>{let e=m.current;if(e)return e.addEventListener(t3,b),()=>e.removeEventListener(t3,b)},[b]),(0,d.jsx)(nr,{scope:n,orientation:r,dir:v,loop:o,currentTabStopId:g,onItemFocus:f.useCallback(e=>x(e),[x]),onItemShiftTab:f.useCallback(()=>w(!0),[]),onFocusableItemAdd:f.useCallback(()=>R(e=>e+1),[]),onFocusableItemRemove:f.useCallback(()=>R(e=>e-1),[]),children:(0,d.jsx)(Y.div,{tabIndex:y||0===E?-1:0,"data-orientation":r,...p,ref:h,style:{outline:"none",...e.style},onMouseDown:F(e.onMouseDown,()=>{N.current=!0}),onFocus:F(e.onFocus,e=>{let t=!N.current;if(e.target===e.currentTarget&&t&&!y){let t=new CustomEvent(t3,t6);if(e.currentTarget.dispatchEvent(t),!t.defaultPrevented){let e=j().filter(e=>e.focusable);nu([e.find(e=>e.active),e.find(e=>e.id===g),...e].filter(Boolean).map(e=>e.ref.current),u)}}N.current=!1}),onBlur:F(e.onBlur,()=>w(!1))})})}),nl="RovingFocusGroupItem",ns=f.forwardRef((e,t)=>{let{__scopeRovingFocusGroup:n,focusable:r=!0,active:o=!1,tabStopId:i,children:a,...l}=e,s=eN(),c=i||s,u=no(nl,n),p=u.currentTabStopId===c,m=t9(n),{onFocusableItemAdd:h,onFocusableItemRemove:v,currentTabStopId:g}=u;return f.useEffect(()=>{if(r)return h(),()=>v()},[r,h,v]),(0,d.jsx)(t7.ItemSlot,{scope:n,id:c,focusable:r,active:o,children:(0,d.jsx)(Y.span,{tabIndex:p?0:-1,"data-orientation":u.orientation,...l,ref:t,onMouseDown:F(e.onMouseDown,e=>{r?u.onItemFocus(c):e.preventDefault()}),onFocus:F(e.onFocus,()=>u.onItemFocus(c)),onKeyDown:F(e.onKeyDown,e=>{if("Tab"===e.key&&e.shiftKey)return void u.onItemShiftTab();if(e.target!==e.currentTarget)return;let t=function(e,t,n){var r;let o=(r=e.key,"rtl"!==n?r:"ArrowLeft"===r?"ArrowRight":"ArrowRight"===r?"ArrowLeft":r);if(!("vertical"===t&&["ArrowLeft","ArrowRight"].includes(o))&&!("horizontal"===t&&["ArrowUp","ArrowDown"].includes(o)))return nc[o]}(e,u.orientation,u.dir);if(void 0!==t){if(e.metaKey||e.ctrlKey||e.altKey||e.shiftKey)return;e.preventDefault();let o=m().filter(e=>e.focusable).map(e=>e.ref.current);if("last"===t)o.reverse();else if("prev"===t||"next"===t){var n,r;"prev"===t&&o.reverse();let i=o.indexOf(e.currentTarget);o=u.loop?(n=o,r=i+1,n.map((e,t)=>n[(r+t)%n.length])):o.slice(i+1)}setTimeout(()=>nu(o))}}),children:"function"==typeof a?a({isCurrentTabStop:p,hasTabStop:null!=g}):a})})});ns.displayName=nl;var nc={ArrowLeft:"prev",ArrowUp:"prev",ArrowRight:"next",ArrowDown:"next",PageUp:"first",Home:"first",PageDown:"last",End:"last"};function nu(e,t=!1){let n=document.activeElement;for(let r of e)if(r===n||(r.focus({preventScroll:t}),document.activeElement!==n))return}var nd=new WeakMap,nf=new WeakMap,np={},nm=0,nh=function(e){return e&&(e.host||nh(e.parentNode))},nv=function(e,t,n,r){var o=(Array.isArray(e)?e:[e]).map(function(e){if(t.contains(e))return e;var n=nh(e);return n&&t.contains(n)?n:(console.error("aria-hidden",e,"in not contained inside",t,". Doing nothing"),null)}).filter(function(e){return!!e});np[n]||(np[n]=new WeakMap);var i=np[n],a=[],l=new Set,s=new Set(o),c=function(e){!e||l.has(e)||(l.add(e),c(e.parentNode))};o.forEach(c);var u=function(e){!e||s.has(e)||Array.prototype.forEach.call(e.children,function(e){if(l.has(e))u(e);else try{var t=e.getAttribute(r),o=null!==t&&"false"!==t,s=(nd.get(e)||0)+1,c=(i.get(e)||0)+1;nd.set(e,s),i.set(e,c),a.push(e),1===s&&o&&nf.set(e,!0),1===c&&e.setAttribute(n,"true"),o||e.setAttribute(r,"true")}catch(t){console.error("aria-hidden: cannot operate on ",e,t)}})};return u(t),l.clear(),nm++,function(){a.forEach(function(e){var t=nd.get(e)-1,o=i.get(e)-1;nd.set(e,t),i.set(e,o),t||(nf.has(e)||e.removeAttribute(r),nf.delete(e)),o||e.removeAttribute(n)}),--nm||(nd=new WeakMap,nd=new WeakMap,nf=new WeakMap,np={})}},ng=function(e,t,n){void 0===n&&(n="data-aria-hidden");var r=Array.from(Array.isArray(e)?e:[e]),o=t||("u"<typeof document?null:(Array.isArray(e)?e[0]:e).ownerDocument.body);return o?(r.push.apply(r,Array.from(o.querySelectorAll("[aria-live], script"))),nv(r,o,n,"aria-hidden")):function(){return null}},nx=e.i(24627),ny="right-scroll-bar-position",nw="width-before-scroll-bar";function nb(e,t){return"function"==typeof e?e(t):e&&(e.current=t),e}var nj="u">typeof window?f.useLayoutEffect:f.useEffect,nN=new WeakMap,nE=(void 0===r&&(r={}),(void 0===o&&(o=function(e){return e}),i=[],a=!1,l={read:function(){if(a)throw Error("Sidecar: could not `read` from an `assigned` medium. `read` could be used only with `useMedium`.");return i.length?i[i.length-1]:null},useMedium:function(e){var t=o(e,a);return i.push(t),function(){i=i.filter(function(e){return e!==t})}},assignSyncMedium:function(e){for(a=!0;i.length;){var t=i;i=[],t.forEach(e)}i={push:function(t){return e(t)},filter:function(){return i}}},assignMedium:function(e){a=!0;var t=[];if(i.length){var n=i;i=[],n.forEach(e),t=i}var r=function(){var n=t;t=[],n.forEach(e)},o=function(){return Promise.resolve().then(r)};o(),i={push:function(e){t.push(e),o()},filter:function(e){return t=t.filter(e),i}}}}).options=(0,nx.__assign)({async:!0,ssr:!1},r),l),nR=function(){},nC=f.forwardRef(function(e,t){var n,r,o,i,a=f.useRef(null),l=f.useState({onScrollCapture:nR,onWheelCapture:nR,onTouchMoveCapture:nR}),s=l[0],c=l[1],u=e.forwardProps,d=e.children,p=e.className,m=e.removeScrollBar,h=e.enabled,v=e.shards,g=e.sideCar,x=e.noRelative,y=e.noIsolation,w=e.inert,b=e.allowPinchZoom,j=e.as,N=e.gapMode,E=(0,nx.__rest)(e,["forwardProps","children","className","removeScrollBar","enabled","shards","sideCar","noRelative","noIsolation","inert","allowPinchZoom","as","gapMode"]),R=(n=[a,t],r=function(e){return n.forEach(function(t){return nb(t,e)})},(o=(0,f.useState)(function(){return{value:null,callback:r,facade:{get current(){return o.value},set current(value){var e=o.value;e!==value&&(o.value=value,o.callback(value,e))}}}})[0]).callback=r,i=o.facade,nj(function(){var e=nN.get(i);if(e){var t=new Set(e),r=new Set(n),o=i.current;t.forEach(function(e){r.has(e)||nb(e,null)}),r.forEach(function(e){t.has(e)||nb(e,o)})}nN.set(i,n)},[n]),i),C=(0,nx.__assign)((0,nx.__assign)({},E),s);return f.createElement(f.Fragment,null,h&&f.createElement(g,{sideCar:nE,removeScrollBar:m,shards:v,noRelative:x,noIsolation:y,inert:w,setCallbacks:c,allowPinchZoom:!!b,lockRef:a,gapMode:N}),u?f.cloneElement(f.Children.only(d),(0,nx.__assign)((0,nx.__assign)({},C),{ref:R})):f.createElement(void 0===j?"div":j,(0,nx.__assign)({},C,{className:p,ref:R}),d))});nC.defaultProps={enabled:!0,removeScrollBar:!0,inert:!1},nC.classNames={fullWidth:nw,zeroRight:ny};var nk=function(e){var t=e.sideCar,n=(0,nx.__rest)(e,["sideCar"]);if(!t)throw Error("Sidecar: please provide `sideCar` property to import the right car");var r=t.read();if(!r)throw Error("Sidecar medium not found");return f.createElement(r,(0,nx.__assign)({},n))};nk.isSideCarExport=!0;var nS=function(){var e=0,t=null;return{add:function(n){if(0==e&&(t=function(){if(!document)return null;var e=document.createElement("style");e.type="text/css";var t=u||("u">typeof __webpack_nonce__?__webpack_nonce__:void 0);return t&&e.setAttribute("nonce",t),e}())){var r,o;(r=t).styleSheet?r.styleSheet.cssText=n:r.appendChild(document.createTextNode(n)),o=t,(document.head||document.getElementsByTagName("head")[0]).appendChild(o)}e++},remove:function(){--e||!t||(t.parentNode&&t.parentNode.removeChild(t),t=null)}}},nM=function(){var e=nS();return function(t,n){f.useEffect(function(){return e.add(t),function(){e.remove()}},[t&&n])}},nA=function(){var e=nM();return function(t){return e(t.styles,t.dynamic),null}},nT={left:0,top:0,right:0,gap:0},nL=function(e){return parseInt(e||"",10)||0},nP=function(e){var t=window.getComputedStyle(document.body),n=t["padding"===e?"paddingLeft":"marginLeft"],r=t["padding"===e?"paddingTop":"marginTop"],o=t["padding"===e?"paddingRight":"marginRight"];return[nL(n),nL(r),nL(o)]},nD=function(e){if(void 0===e&&(e="margin"),"u"<typeof window)return nT;var t=nP(e),n=document.documentElement.clientWidth,r=window.innerWidth;return{left:t[0],top:t[1],right:t[2],gap:Math.max(0,r-n+t[2]-t[0])}},n_=nA(),nO="data-scroll-locked",nI=function(e,t,n,r){var o=e.left,i=e.top,a=e.right,l=e.gap;return void 0===n&&(n="margin"),"\n  .".concat("with-scroll-bars-hidden"," {\n   overflow: hidden ").concat(r,";\n   padding-right: ").concat(l,"px ").concat(r,";\n  }\n  body[").concat(nO,"] {\n    overflow: hidden ").concat(r,";\n    overscroll-behavior: contain;\n    ").concat([t&&"position: relative ".concat(r,";"),"margin"===n&&"\n    padding-left: ".concat(o,"px;\n    padding-top: ").concat(i,"px;\n    padding-right: ").concat(a,"px;\n    margin-left:0;\n    margin-top:0;\n    margin-right: ").concat(l,"px ").concat(r,";\n    "),"padding"===n&&"padding-right: ".concat(l,"px ").concat(r,";")].filter(Boolean).join(""),"\n  }\n  \n  .").concat(ny," {\n    right: ").concat(l,"px ").concat(r,";\n  }\n  \n  .").concat(nw," {\n    margin-right: ").concat(l,"px ").concat(r,";\n  }\n  \n  .").concat(ny," .").concat(ny," {\n    right: 0 ").concat(r,";\n  }\n  \n  .").concat(nw," .").concat(nw," {\n    margin-right: 0 ").concat(r,";\n  }\n  \n  body[").concat(nO,"] {\n    ").concat("--removed-body-scroll-bar-size",": ").concat(l,"px;\n  }\n")},nF=function(){var e=parseInt(document.body.getAttribute(nO)||"0",10);return isFinite(e)?e:0},nz=function(){f.useEffect(function(){return document.body.setAttribute(nO,(nF()+1).toString()),function(){var e=nF()-1;e<=0?document.body.removeAttribute(nO):document.body.setAttribute(nO,e.toString())}},[])},nU=function(e){var t=e.noRelative,n=e.noImportant,r=e.gapMode,o=void 0===r?"margin":r;nz();var i=f.useMemo(function(){return nD(o)},[o]);return f.createElement(n_,{styles:nI(i,!t,o,n?"":"!important")})},nW=!1;if("u">typeof window)try{var nB=Object.defineProperty({},"passive",{get:function(){return nW=!0,!0}});window.addEventListener("test",nB,nB),window.removeEventListener("test",nB,nB)}catch(e){nW=!1}var n$=!!nW&&{passive:!1},nV=function(e,t){if(!(e instanceof Element))return!1;var n=window.getComputedStyle(e);return"hidden"!==n[t]&&(n.overflowY!==n.overflowX||"TEXTAREA"===e.tagName||"visible"!==n[t])},nK=function(e,t){var n=t.ownerDocument,r=t;do{if("u">typeof ShadowRoot&&r instanceof ShadowRoot&&(r=r.host),nH(e,r)){var o=nX(e,r);if(o[1]>o[2])return!0}r=r.parentNode}while(r&&r!==n.body)return!1},nH=function(e,t){return"v"===e?nV(t,"overflowY"):nV(t,"overflowX")},nX=function(e,t){return"v"===e?[t.scrollTop,t.scrollHeight,t.clientHeight]:[t.scrollLeft,t.scrollWidth,t.clientWidth]},nq=function(e,t,n,r,o){var i,a=(i=window.getComputedStyle(t).direction,"h"===e&&"rtl"===i?-1:1),l=a*r,s=n.target,c=t.contains(s),u=!1,d=l>0,f=0,p=0;do{if(!s)break;var m=nX(e,s),h=m[0],v=m[1]-m[2]-a*h;(h||v)&&nH(e,s)&&(f+=v,p+=h);var g=s.parentNode;s=g&&g.nodeType===Node.DOCUMENT_FRAGMENT_NODE?g.host:g}while(!c&&s!==document.body||c&&(t.contains(s)||t===s))return d&&(o&&1>Math.abs(f)||!o&&l>f)?u=!0:!d&&(o&&1>Math.abs(p)||!o&&-l>p)&&(u=!0),u},nG=function(e){return"changedTouches"in e?[e.changedTouches[0].clientX,e.changedTouches[0].clientY]:[0,0]},nY=function(e){return[e.deltaX,e.deltaY]},nZ=function(e){return e&&"current"in e?e.current:e},nJ=0,nQ=[];let n0=(s=function(e){var t=f.useRef([]),n=f.useRef([0,0]),r=f.useRef(),o=f.useState(nJ++)[0],i=f.useState(nA)[0],a=f.useRef(e);f.useEffect(function(){a.current=e},[e]),f.useEffect(function(){if(e.inert){document.body.classList.add("block-interactivity-".concat(o));var t=(0,nx.__spreadArray)([e.lockRef.current],(e.shards||[]).map(nZ),!0).filter(Boolean);return t.forEach(function(e){return e.classList.add("allow-interactivity-".concat(o))}),function(){document.body.classList.remove("block-interactivity-".concat(o)),t.forEach(function(e){return e.classList.remove("allow-interactivity-".concat(o))})}}},[e.inert,e.lockRef.current,e.shards]);var l=f.useCallback(function(e,t){if("touches"in e&&2===e.touches.length||"wheel"===e.type&&e.ctrlKey)return!a.current.allowPinchZoom;var o,i=nG(e),l=n.current,s="deltaX"in e?e.deltaX:l[0]-i[0],c="deltaY"in e?e.deltaY:l[1]-i[1],u=e.target,d=Math.abs(s)>Math.abs(c)?"h":"v";if("touches"in e&&"h"===d&&"range"===u.type)return!1;var f=window.getSelection(),p=f&&f.anchorNode;if(p&&(p===u||p.contains(u)))return!1;var m=nK(d,u);if(!m)return!0;if(m?o=d:(o="v"===d?"h":"v",m=nK(d,u)),!m)return!1;if(!r.current&&"changedTouches"in e&&(s||c)&&(r.current=o),!o)return!0;var h=r.current||o;return nq(h,t,e,"h"===h?s:c,!0)},[]),s=f.useCallback(function(e){if(nQ.length&&nQ[nQ.length-1]===i){var n="deltaY"in e?nY(e):nG(e),r=t.current.filter(function(t){var r;return t.name===e.type&&(t.target===e.target||e.target===t.shadowParent)&&(r=t.delta,r[0]===n[0]&&r[1]===n[1])})[0];if(r&&r.should){e.cancelable&&e.preventDefault();return}if(!r){var o=(a.current.shards||[]).map(nZ).filter(Boolean).filter(function(t){return t.contains(e.target)});(o.length>0?l(e,o[0]):!a.current.noIsolation)&&e.cancelable&&e.preventDefault()}}},[]),c=f.useCallback(function(e,n,r,o){var i={name:e,delta:n,target:r,should:o,shadowParent:function(e){for(var t=null;null!==e;)e instanceof ShadowRoot&&(t=e.host,e=e.host),e=e.parentNode;return t}(r)};t.current.push(i),setTimeout(function(){t.current=t.current.filter(function(e){return e!==i})},1)},[]),u=f.useCallback(function(e){n.current=nG(e),r.current=void 0},[]),d=f.useCallback(function(t){c(t.type,nY(t),t.target,l(t,e.lockRef.current))},[]),p=f.useCallback(function(t){c(t.type,nG(t),t.target,l(t,e.lockRef.current))},[]);f.useEffect(function(){return nQ.push(i),e.setCallbacks({onScrollCapture:d,onWheelCapture:d,onTouchMoveCapture:p}),document.addEventListener("wheel",s,n$),document.addEventListener("touchmove",s,n$),document.addEventListener("touchstart",u,n$),function(){nQ=nQ.filter(function(e){return e!==i}),document.removeEventListener("wheel",s,n$),document.removeEventListener("touchmove",s,n$),document.removeEventListener("touchstart",u,n$)}},[]);var m=e.removeScrollBar,h=e.inert;return f.createElement(f.Fragment,null,h?f.createElement(i,{styles:"\n  .block-interactivity-".concat(o," {pointer-events: none;}\n  .allow-interactivity-").concat(o," {pointer-events: all;}\n")}):null,m?f.createElement(nU,{noRelative:e.noRelative,gapMode:e.gapMode}):null)},nE.useMedium(s),nk);var n1=f.forwardRef(function(e,t){return f.createElement(nC,(0,nx.__assign)({},e,{ref:t,sideCar:n0}))});n1.classNames=nC.classNames;var n2=["Enter"," "],n5=["ArrowUp","PageDown","End"],n4=["ArrowDown","PageUp","Home",...n5],n3={ltr:[...n2,"ArrowRight"],rtl:[...n2,"ArrowLeft"]},n6={ltr:["ArrowLeft"],rtl:["ArrowRight"]},n8="Menu",[n7,n9,re]=J(n8),[rt,rn]=B(n8,[re,tU,nn]),rr=tU(),ro=nn(),[ri,ra]=rt(n8),[rl,rs]=rt(n8),rc=e=>{let{__scopeMenu:t,open:n=!1,children:r,dir:o,onOpenChange:i,modal:a=!0}=e,l=rr(t),[s,c]=f.useState(null),u=f.useRef(!1),p=eo(i),m=er(o);return f.useEffect(()=>{let e=()=>{u.current=!0,document.addEventListener("pointerdown",t,{capture:!0,once:!0}),document.addEventListener("pointermove",t,{capture:!0,once:!0})},t=()=>u.current=!1;return document.addEventListener("keydown",e,{capture:!0}),()=>{document.removeEventListener("keydown",e,{capture:!0}),document.removeEventListener("pointerdown",t,{capture:!0}),document.removeEventListener("pointermove",t,{capture:!0})}},[]),(0,d.jsx)(t$,{...l,children:(0,d.jsx)(ri,{scope:t,open:n,onOpenChange:p,content:s,onContentChange:c,children:(0,d.jsx)(rl,{scope:t,onClose:f.useCallback(()=>p(!1),[p]),isUsingKeyboardRef:u,dir:m,modal:a,children:r})})})};rc.displayName=n8;var ru=f.forwardRef((e,t)=>{let{__scopeMenu:n,...r}=e,o=rr(n);return(0,d.jsx)(tK,{...o,...r,ref:t})});ru.displayName="MenuAnchor";var rd="MenuPortal",[rf,rp]=rt(rd,{forceMount:void 0}),rm=e=>{let{__scopeMenu:t,forceMount:n,children:r,container:o}=e,i=ra(rd,t);return(0,d.jsx)(rf,{scope:t,forceMount:n,children:(0,d.jsx)(t5,{present:n||i.open,children:(0,d.jsx)(t2,{asChild:!0,container:o,children:r})})})};rm.displayName=rd;var rh="MenuContent",[rv,rg]=rt(rh),rx=f.forwardRef((e,t)=>{let n=rp(rh,e.__scopeMenu),{forceMount:r=n.forceMount,...o}=e,i=ra(rh,e.__scopeMenu),a=rs(rh,e.__scopeMenu);return(0,d.jsx)(n7.Provider,{scope:e.__scopeMenu,children:(0,d.jsx)(t5,{present:r||i.open,children:(0,d.jsx)(n7.Slot,{scope:e.__scopeMenu,children:a.modal?(0,d.jsx)(ry,{...o,ref:t}):(0,d.jsx)(rw,{...o,ref:t})})})})}),ry=f.forwardRef((e,t)=>{let n=ra(rh,e.__scopeMenu),r=f.useRef(null),o=W(t,r);return f.useEffect(()=>{let e=r.current;if(e)return ng(e)},[]),(0,d.jsx)(rj,{...e,ref:o,trapFocus:n.open,disableOutsidePointerEvents:n.open,disableOutsideScroll:!0,onFocusOutside:F(e.onFocusOutside,e=>e.preventDefault(),{checkForDefaultPrevented:!1}),onDismiss:()=>n.onOpenChange(!1)})}),rw=f.forwardRef((e,t)=>{let n=ra(rh,e.__scopeMenu);return(0,d.jsx)(rj,{...e,ref:t,trapFocus:!1,disableOutsidePointerEvents:!1,disableOutsideScroll:!1,onDismiss:()=>n.onOpenChange(!1)})}),rb=X("MenuContent.ScrollLock"),rj=f.forwardRef((e,t)=>{let{__scopeMenu:n,loop:r=!1,trapFocus:o,onOpenAutoFocus:i,onCloseAutoFocus:a,disableOutsidePointerEvents:l,onEntryFocus:s,onEscapeKeyDown:c,onPointerDownOutside:u,onFocusOutside:p,onInteractOutside:m,onDismiss:h,disableOutsideScroll:v,...g}=e,x=ra(rh,n),y=rs(rh,n),w=rr(n),b=ro(n),j=n9(n),[N,E]=f.useState(null),R=f.useRef(null),C=W(t,R,x.onContentChange),k=f.useRef(0),S=f.useRef(""),M=f.useRef(0),A=f.useRef(null),T=f.useRef("right"),L=f.useRef(0),P=v?n1:f.Fragment;f.useEffect(()=>()=>window.clearTimeout(k.current),[]),f.useEffect(()=>{let e=document.querySelectorAll("[data-radix-focus-guard]");return document.body.insertAdjacentElement("afterbegin",e[0]??ed()),document.body.insertAdjacentElement("beforeend",e[1]??ed()),eu++,()=>{1===eu&&document.querySelectorAll("[data-radix-focus-guard]").forEach(e=>e.remove()),eu--}},[]);let D=f.useCallback(e=>{var t,n;return T.current===A.current?.side&&(t=e,!!(n=A.current?.area)&&function(e,t){let{x:n,y:r}=e,o=!1;for(let e=0,i=t.length-1;e<t.length;i=e++){let a=t[e],l=t[i],s=a.x,c=a.y,u=l.x,d=l.y;c>r!=d>r&&n<(u-s)*(r-c)/(d-c)+s&&(o=!o)}return o}({x:t.clientX,y:t.clientY},n))},[]);return(0,d.jsx)(rv,{scope:n,searchRef:S,onItemEnter:f.useCallback(e=>{D(e)&&e.preventDefault()},[D]),onItemLeave:f.useCallback(e=>{D(e)||(R.current?.focus(),E(null))},[D]),onTriggerLeave:f.useCallback(e=>{D(e)&&e.preventDefault()},[D]),pointerGraceTimerRef:M,onPointerGraceIntentChange:f.useCallback(e=>{A.current=e},[]),children:(0,d.jsx)(P,{...v?{as:rb,allowPinchZoom:!0}:void 0,children:(0,d.jsx)(eh,{asChild:!0,trapped:o,onMountAutoFocus:F(i,e=>{e.preventDefault(),R.current?.focus({preventScroll:!0})}),onUnmountAutoFocus:a,children:(0,d.jsx)(el,{asChild:!0,disableOutsidePointerEvents:l,onEscapeKeyDown:c,onPointerDownOutside:u,onFocusOutside:p,onInteractOutside:m,onDismiss:h,children:(0,d.jsx)(ni,{asChild:!0,...b,dir:y.dir,orientation:"vertical",loop:r,currentTabStopId:N,onCurrentTabStopIdChange:E,onEntryFocus:F(s,e=>{y.isUsingKeyboardRef.current||e.preventDefault()}),preventScrollOnEntryFocus:!0,children:(0,d.jsx)(tG,{role:"menu","aria-orientation":"vertical","data-state":rq(x.open),"data-radix-menu-content":"",dir:y.dir,...w,...g,ref:C,style:{outline:"none",...g.style},onKeyDown:F(g.onKeyDown,e=>{let t=e.target.closest("[data-radix-menu-content]")===e.currentTarget,n=e.ctrlKey||e.altKey||e.metaKey,r=1===e.key.length;if(t){var o;let t,i,a,l,s,c;"Tab"===e.key&&e.preventDefault(),!n&&r&&(o=e.key,t=S.current+o,i=j().filter(e=>!e.disabled),a=document.activeElement,l=i.find(e=>e.ref.current===a)?.textValue,s=function(e,t,n){var r;let o=t.length>1&&Array.from(t).every(e=>e===t[0])?t[0]:t,i=n?e.indexOf(n):-1,a=(r=Math.max(i,0),e.map((t,n)=>e[(r+n)%e.length]));1===o.length&&(a=a.filter(e=>e!==n));let l=a.find(e=>e.toLowerCase().startsWith(o.toLowerCase()));return l!==n?l:void 0}(i.map(e=>e.textValue),t,l),c=i.find(e=>e.textValue===s)?.ref.current,function e(t){S.current=t,window.clearTimeout(k.current),""!==t&&(k.current=window.setTimeout(()=>e(""),1e3))}(t),c&&setTimeout(()=>c.focus()))}let i=R.current;if(e.target!==i||!n4.includes(e.key))return;e.preventDefault();let a=j().filter(e=>!e.disabled).map(e=>e.ref.current);n5.includes(e.key)&&a.reverse(),function(e){let t=document.activeElement;for(let n of e)if(n===t||(n.focus(),document.activeElement!==t))return}(a)}),onBlur:F(e.onBlur,e=>{e.currentTarget.contains(e.target)||(window.clearTimeout(k.current),S.current="")}),onPointerMove:F(e.onPointerMove,rZ(e=>{let t=e.target,n=L.current!==e.clientX;e.currentTarget.contains(t)&&n&&(T.current=e.clientX>L.current?"right":"left",L.current=e.clientX)}))})})})})})})});rx.displayName=rh;var rN=f.forwardRef((e,t)=>{let{__scopeMenu:n,...r}=e;return(0,d.jsx)(Y.div,{role:"group",...r,ref:t})});rN.displayName="MenuGroup";var rE=f.forwardRef((e,t)=>{let{__scopeMenu:n,...r}=e;return(0,d.jsx)(Y.div,{...r,ref:t})});rE.displayName="MenuLabel";var rR="MenuItem",rC="menu.itemSelect",rk=f.forwardRef((e,t)=>{let{disabled:n=!1,onSelect:r,...o}=e,i=f.useRef(null),a=rs(rR,e.__scopeMenu),l=rg(rR,e.__scopeMenu),s=W(t,i),c=f.useRef(!1);return(0,d.jsx)(rS,{...o,ref:s,disabled:n,onClick:F(e.onClick,()=>{let e=i.current;if(!n&&e){let t=new CustomEvent(rC,{bubbles:!0,cancelable:!0});e.addEventListener(rC,e=>r?.(e),{once:!0}),Z(e,t),t.defaultPrevented?c.current=!1:a.onClose()}}),onPointerDown:t=>{e.onPointerDown?.(t),c.current=!0},onPointerUp:F(e.onPointerUp,e=>{c.current||e.currentTarget?.click()}),onKeyDown:F(e.onKeyDown,e=>{let t=""!==l.searchRef.current;n||t&&" "===e.key||n2.includes(e.key)&&(e.currentTarget.click(),e.preventDefault())})})});rk.displayName=rR;var rS=f.forwardRef((e,t)=>{let{__scopeMenu:n,disabled:r=!1,textValue:o,...i}=e,a=rg(rR,n),l=ro(n),s=f.useRef(null),c=W(t,s),[u,p]=f.useState(!1),[m,h]=f.useState("");return f.useEffect(()=>{let e=s.current;e&&h((e.textContent??"").trim())},[i.children]),(0,d.jsx)(n7.ItemSlot,{scope:n,disabled:r,textValue:o??m,children:(0,d.jsx)(ns,{asChild:!0,...l,focusable:!r,children:(0,d.jsx)(Y.div,{role:"menuitem","data-highlighted":u?"":void 0,"aria-disabled":r||void 0,"data-disabled":r?"":void 0,...i,ref:c,onPointerMove:F(e.onPointerMove,rZ(e=>{r?a.onItemLeave(e):(a.onItemEnter(e),e.defaultPrevented||e.currentTarget.focus({preventScroll:!0}))})),onPointerLeave:F(e.onPointerLeave,rZ(e=>a.onItemLeave(e))),onFocus:F(e.onFocus,()=>p(!0)),onBlur:F(e.onBlur,()=>p(!1))})})})}),rM=f.forwardRef((e,t)=>{let{checked:n=!1,onCheckedChange:r,...o}=e;return(0,d.jsx)(rI,{scope:e.__scopeMenu,checked:n,children:(0,d.jsx)(rk,{role:"menuitemcheckbox","aria-checked":rG(n)?"mixed":n,...o,ref:t,"data-state":rY(n),onSelect:F(o.onSelect,()=>r?.(!!rG(n)||!n),{checkForDefaultPrevented:!1})})})});rM.displayName="MenuCheckboxItem";var rA="MenuRadioGroup",[rT,rL]=rt(rA,{value:void 0,onValueChange:()=>{}}),rP=f.forwardRef((e,t)=>{let{value:n,onValueChange:r,...o}=e,i=eo(r);return(0,d.jsx)(rT,{scope:e.__scopeMenu,value:n,onValueChange:i,children:(0,d.jsx)(rN,{...o,ref:t})})});rP.displayName=rA;var rD="MenuRadioItem",r_=f.forwardRef((e,t)=>{let{value:n,...r}=e,o=rL(rD,e.__scopeMenu),i=n===o.value;return(0,d.jsx)(rI,{scope:e.__scopeMenu,checked:i,children:(0,d.jsx)(rk,{role:"menuitemradio","aria-checked":i,...r,ref:t,"data-state":rY(i),onSelect:F(r.onSelect,()=>o.onValueChange?.(n),{checkForDefaultPrevented:!1})})})});r_.displayName=rD;var rO="MenuItemIndicator",[rI,rF]=rt(rO,{checked:!1}),rz=f.forwardRef((e,t)=>{let{__scopeMenu:n,forceMount:r,...o}=e,i=rF(rO,n);return(0,d.jsx)(t5,{present:r||rG(i.checked)||!0===i.checked,children:(0,d.jsx)(Y.span,{...o,ref:t,"data-state":rY(i.checked)})})});rz.displayName=rO;var rU=f.forwardRef((e,t)=>{let{__scopeMenu:n,...r}=e;return(0,d.jsx)(Y.div,{role:"separator","aria-orientation":"horizontal",...r,ref:t})});rU.displayName="MenuSeparator";var rW=f.forwardRef((e,t)=>{let{__scopeMenu:n,...r}=e,o=rr(n);return(0,d.jsx)(tJ,{...o,...r,ref:t})});rW.displayName="MenuArrow";var[rB,r$]=rt("MenuSub"),rV="MenuSubTrigger",rK=f.forwardRef((e,t)=>{let n=ra(rV,e.__scopeMenu),r=rs(rV,e.__scopeMenu),o=r$(rV,e.__scopeMenu),i=rg(rV,e.__scopeMenu),a=f.useRef(null),{pointerGraceTimerRef:l,onPointerGraceIntentChange:s}=i,c={__scopeMenu:e.__scopeMenu},u=f.useCallback(()=>{a.current&&window.clearTimeout(a.current),a.current=null},[]);return f.useEffect(()=>u,[u]),f.useEffect(()=>{let e=l.current;return()=>{window.clearTimeout(e),s(null)}},[l,s]),(0,d.jsx)(ru,{asChild:!0,...c,children:(0,d.jsx)(rS,{id:o.triggerId,"aria-haspopup":"menu","aria-expanded":n.open,"aria-controls":o.contentId,"data-state":rq(n.open),...e,ref:U(t,o.onTriggerChange),onClick:t=>{e.onClick?.(t),e.disabled||t.defaultPrevented||(t.currentTarget.focus(),n.open||n.onOpenChange(!0))},onPointerMove:F(e.onPointerMove,rZ(t=>{i.onItemEnter(t),!t.defaultPrevented&&(e.disabled||n.open||a.current||(i.onPointerGraceIntentChange(null),a.current=window.setTimeout(()=>{n.onOpenChange(!0),u()},100)))})),onPointerLeave:F(e.onPointerLeave,rZ(e=>{u();let t=n.content?.getBoundingClientRect();if(t){let r=n.content?.dataset.side,o="right"===r,a=t[o?"left":"right"],s=t[o?"right":"left"];i.onPointerGraceIntentChange({area:[{x:e.clientX+(o?-5:5),y:e.clientY},{x:a,y:t.top},{x:s,y:t.top},{x:s,y:t.bottom},{x:a,y:t.bottom}],side:r}),window.clearTimeout(l.current),l.current=window.setTimeout(()=>i.onPointerGraceIntentChange(null),300)}else{if(i.onTriggerLeave(e),e.defaultPrevented)return;i.onPointerGraceIntentChange(null)}})),onKeyDown:F(e.onKeyDown,t=>{let o=""!==i.searchRef.current;e.disabled||o&&" "===t.key||n3[r.dir].includes(t.key)&&(n.onOpenChange(!0),n.content?.focus(),t.preventDefault())})})})});rK.displayName=rV;var rH="MenuSubContent",rX=f.forwardRef((e,t)=>{let n=rp(rh,e.__scopeMenu),{forceMount:r=n.forceMount,...o}=e,i=ra(rh,e.__scopeMenu),a=rs(rh,e.__scopeMenu),l=r$(rH,e.__scopeMenu),s=f.useRef(null),c=W(t,s);return(0,d.jsx)(n7.Provider,{scope:e.__scopeMenu,children:(0,d.jsx)(t5,{present:r||i.open,children:(0,d.jsx)(n7.Slot,{scope:e.__scopeMenu,children:(0,d.jsx)(rj,{id:l.contentId,"aria-labelledby":l.triggerId,...o,ref:c,align:"start",side:"rtl"===a.dir?"left":"right",disableOutsidePointerEvents:!1,disableOutsideScroll:!1,trapFocus:!1,onOpenAutoFocus:e=>{a.isUsingKeyboardRef.current&&s.current?.focus(),e.preventDefault()},onCloseAutoFocus:e=>e.preventDefault(),onFocusOutside:F(e.onFocusOutside,e=>{e.target!==l.trigger&&i.onOpenChange(!1)}),onEscapeKeyDown:F(e.onEscapeKeyDown,e=>{a.onClose(),e.preventDefault()}),onKeyDown:F(e.onKeyDown,e=>{let t=e.currentTarget.contains(e.target),n=n6[a.dir].includes(e.key);t&&n&&(i.onOpenChange(!1),l.trigger?.focus(),e.preventDefault())})})})})})});function rq(e){return e?"open":"closed"}function rG(e){return"indeterminate"===e}function rY(e){return rG(e)?"indeterminate":e?"checked":"unchecked"}function rZ(e){return t=>"mouse"===t.pointerType?e(t):void 0}rX.displayName=rH;var rJ="DropdownMenu",[rQ,r0]=B(rJ,[rn]),r1=rn(),[r2,r5]=rQ(rJ),r4=e=>{let{__scopeDropdownMenu:t,children:n,dir:r,open:o,defaultOpen:i,onOpenChange:a,modal:l=!0}=e,s=r1(t),c=f.useRef(null),[u,p]=K({prop:o,defaultProp:i??!1,onChange:a,caller:rJ});return(0,d.jsx)(r2,{scope:t,triggerId:eN(),triggerRef:c,contentId:eN(),open:u,onOpenChange:p,onOpenToggle:f.useCallback(()=>p(e=>!e),[p]),modal:l,children:(0,d.jsx)(rc,{...s,open:u,onOpenChange:p,dir:r,modal:l,children:n})})};r4.displayName=rJ;var r3="DropdownMenuTrigger",r6=f.forwardRef((e,t)=>{let{__scopeDropdownMenu:n,disabled:r=!1,...o}=e,i=r5(r3,n),a=r1(n);return(0,d.jsx)(ru,{asChild:!0,...a,children:(0,d.jsx)(Y.button,{type:"button",id:i.triggerId,"aria-haspopup":"menu","aria-expanded":i.open,"aria-controls":i.open?i.contentId:void 0,"data-state":i.open?"open":"closed","data-disabled":r?"":void 0,disabled:r,...o,ref:U(t,i.triggerRef),onPointerDown:F(e.onPointerDown,e=>{!r&&0===e.button&&!1===e.ctrlKey&&(i.onOpenToggle(),i.open||e.preventDefault())}),onKeyDown:F(e.onKeyDown,e=>{!r&&(["Enter"," "].includes(e.key)&&i.onOpenToggle(),"ArrowDown"===e.key&&i.onOpenChange(!0),["Enter"," ","ArrowDown"].includes(e.key)&&e.preventDefault())})})})});r6.displayName=r3;var r8=e=>{let{__scopeDropdownMenu:t,...n}=e,r=r1(t);return(0,d.jsx)(rm,{...r,...n})};r8.displayName="DropdownMenuPortal";var r7="DropdownMenuContent",r9=f.forwardRef((e,t)=>{let{__scopeDropdownMenu:n,...r}=e,o=r5(r7,n),i=r1(n),a=f.useRef(!1);return(0,d.jsx)(rx,{id:o.contentId,"aria-labelledby":o.triggerId,...i,...r,ref:t,onCloseAutoFocus:F(e.onCloseAutoFocus,e=>{a.current||o.triggerRef.current?.focus(),a.current=!1,e.preventDefault()}),onInteractOutside:F(e.onInteractOutside,e=>{let t=e.detail.originalEvent,n=0===t.button&&!0===t.ctrlKey,r=2===t.button||n;(!o.modal||r)&&(a.current=!0)}),style:{...e.style,"--radix-dropdown-menu-content-transform-origin":"var(--radix-popper-transform-origin)","--radix-dropdown-menu-content-available-width":"var(--radix-popper-available-width)","--radix-dropdown-menu-content-available-height":"var(--radix-popper-available-height)","--radix-dropdown-menu-trigger-width":"var(--radix-popper-anchor-width)","--radix-dropdown-menu-trigger-height":"var(--radix-popper-anchor-height)"}})});r9.displayName=r7,f.forwardRef((e,t)=>{let{__scopeDropdownMenu:n,...r}=e,o=r1(n);return(0,d.jsx)(rN,{...o,...r,ref:t})}).displayName="DropdownMenuGroup";var oe=f.forwardRef((e,t)=>{let{__scopeDropdownMenu:n,...r}=e,o=r1(n);return(0,d.jsx)(rE,{...o,...r,ref:t})});oe.displayName="DropdownMenuLabel";var ot=f.forwardRef((e,t)=>{let{__scopeDropdownMenu:n,...r}=e,o=r1(n);return(0,d.jsx)(rk,{...o,...r,ref:t})});ot.displayName="DropdownMenuItem";var on=f.forwardRef((e,t)=>{let{__scopeDropdownMenu:n,...r}=e,o=r1(n);return(0,d.jsx)(rM,{...o,...r,ref:t})});on.displayName="DropdownMenuCheckboxItem",f.forwardRef((e,t)=>{let{__scopeDropdownMenu:n,...r}=e,o=r1(n);return(0,d.jsx)(rP,{...o,...r,ref:t})}).displayName="DropdownMenuRadioGroup";var or=f.forwardRef((e,t)=>{let{__scopeDropdownMenu:n,...r}=e,o=r1(n);return(0,d.jsx)(r_,{...o,...r,ref:t})});or.displayName="DropdownMenuRadioItem";var oo=f.forwardRef((e,t)=>{let{__scopeDropdownMenu:n,...r}=e,o=r1(n);return(0,d.jsx)(rz,{...o,...r,ref:t})});oo.displayName="DropdownMenuItemIndicator";var oi=f.forwardRef((e,t)=>{let{__scopeDropdownMenu:n,...r}=e,o=r1(n);return(0,d.jsx)(rU,{...o,...r,ref:t})});oi.displayName="DropdownMenuSeparator",f.forwardRef((e,t)=>{let{__scopeDropdownMenu:n,...r}=e,o=r1(n);return(0,d.jsx)(rW,{...o,...r,ref:t})}).displayName="DropdownMenuArrow";var oa=f.forwardRef((e,t)=>{let{__scopeDropdownMenu:n,...r}=e,o=r1(n);return(0,d.jsx)(rK,{...o,...r,ref:t})});oa.displayName="DropdownMenuSubTrigger";var ol=f.forwardRef((e,t)=>{let{__scopeDropdownMenu:n,...r}=e,o=r1(n);return(0,d.jsx)(rX,{...o,...r,ref:t,style:{...e.style,"--radix-dropdown-menu-content-transform-origin":"var(--radix-popper-transform-origin)","--radix-dropdown-menu-content-available-width":"var(--radix-popper-available-width)","--radix-dropdown-menu-content-available-height":"var(--radix-popper-available-height)","--radix-dropdown-menu-trigger-width":"var(--radix-popper-anchor-width)","--radix-dropdown-menu-trigger-height":"var(--radix-popper-anchor-height)"}})});ol.displayName="DropdownMenuSubContent";let os=(0,b.default)("check",[["path",{d:"M20 6 9 17l-5-5",key:"1gmf2c"}]]),oc=(0,b.default)("chevron-right",[["path",{d:"m9 18 6-6-6-6",key:"mthhwq"}]]),ou=(0,b.default)("circle",[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}]]);var od=e.i(75157);f.forwardRef(({className:e,inset:t,children:n,...r},o)=>(0,d.jsxs)(oa,{ref:o,className:(0,od.cn)("flex cursor-default gap-2 select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[state=open]:bg-accent [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",t&&"pl-8",e),...r,children:[n,(0,d.jsx)(oc,{className:"ml-auto"})]})).displayName=oa.displayName,f.forwardRef(({className:e,...t},n)=>(0,d.jsx)(ol,{ref:n,className:(0,od.cn)("z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",e),...t})).displayName=ol.displayName;let of=f.forwardRef(({className:e,sideOffset:t=4,...n},r)=>(0,d.jsx)(r8,{children:(0,d.jsx)(r9,{ref:r,sideOffset:t,className:(0,od.cn)("z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",e),...n})}));of.displayName=r9.displayName;let op=f.forwardRef(({className:e,inset:t,...n},r)=>(0,d.jsx)(ot,{ref:r,className:(0,od.cn)("relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",t&&"pl-8",e),...n}));op.displayName=ot.displayName,f.forwardRef(({className:e,children:t,checked:n,...r},o)=>(0,d.jsxs)(on,{ref:o,className:(0,od.cn)("relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",e),checked:n,...r,children:[(0,d.jsx)("span",{className:"absolute left-2 flex h-3.5 w-3.5 items-center justify-center",children:(0,d.jsx)(oo,{children:(0,d.jsx)(os,{className:"h-4 w-4"})})}),t]})).displayName=on.displayName,f.forwardRef(({className:e,children:t,...n},r)=>(0,d.jsxs)(or,{ref:r,className:(0,od.cn)("relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",e),...n,children:[(0,d.jsx)("span",{className:"absolute left-2 flex h-3.5 w-3.5 items-center justify-center",children:(0,d.jsx)(oo,{children:(0,d.jsx)(ou,{className:"h-2 w-2 fill-current"})})}),t]})).displayName=or.displayName;let om=f.forwardRef(({className:e,inset:t,...n},r)=>(0,d.jsx)(oe,{ref:r,className:(0,od.cn)("px-2 py-1.5 text-sm font-semibold",t&&"pl-8",e),...n}));om.displayName=oe.displayName;let oh=f.forwardRef(({className:e,...t},n)=>(0,d.jsx)(oi,{ref:n,className:(0,od.cn)("-mx-1 my-1 h-px bg-muted",e),...t}));function ov({initialData:e}){let t=(0,p.useRouter)(),n=(0,h.createClientComponentClient)(),[r,o]=(0,f.useState)(e?.title||""),[i,a]=(0,f.useState)(e?.slug||""),[l,s]=(0,f.useState)(null),[c,u]=(0,f.useState)(e?.cover?`https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/${e.cover}`:""),[v,g]=(0,f.useState)(e?.content?.map(e=>({...e,id:e.id||y(),content:{...e.content,media:e.content.media?.startsWith("http")?e.content.media:e.content.media?`https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/${e.content.media}`:void 0,media2:e.content.media2?.startsWith("http")?e.content.media2:e.content.media2?`https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/${e.content.media2}`:void 0}}))||[]),[x,b]=(0,f.useState)(!1),_=e=>{g([...v,{id:y(),type:e,content:{},file:null,file2:null}])},O=(e,t)=>{let n=[...v],r="up"===t?e-1:e+1;r<0||r>=v.length||([n[e],n[r]]=[n[r],n[e]],g(n))},F=async(e,t)=>await (0,L.uploadSiteAsset)({file:e,key:t,page:"landing-pages",subPath:i||"general",bucket:"site-assets"}),z=async()=>{if(!r||!i)return void alert("Título e Slug são obrigatórios.");try{b(!0);let o=e?.cover||"";if(l){let e=await F(l,`cover-${y()}`);e&&(o=e)}let a=await Promise.all(v.map(async e=>{let t=e.content.media,n=e.content.media2;if(e.file){let n=await F(e.file,`block-${e.id}-media1`);n&&(t=n)}else t&&t.includes("/site-assets/")&&(t=t.split("/site-assets/").pop()||"");if(e.file2){let t=await F(e.file2,`block-${e.id}-media2`);t&&(n=t)}else n&&n.includes("/site-assets/")&&(n=n.split("/site-assets/").pop()||"");return{id:e.id,type:e.type,content:{...e.content,media:t,media2:n}}})),s={title:r,slug:i,cover:o,content:a};if(e?.id){let{error:t}=await n.from("landing_pages").update(s).eq("id",e.id);if(t)throw t}else{let{error:e}=await n.from("landing_pages").insert({...s,created_at:new Date().toISOString()});if(e)throw e}t.push("/admin/landing-pages"),t.refresh()}catch(t){let e=t instanceof Error?t.message:"Erro desconhecido";console.error(t),alert(`Erro ao salvar p\xe1gina: ${e}`)}finally{b(!1)}};return(0,d.jsxs)("div",{className:"max-w-5xl mx-auto space-y-12 pb-48",children:[(0,d.jsxs)("div",{className:"sticky top-4 z-50 bg-black/50 backdrop-blur-md p-4 rounded-full border border-white/10 flex items-center justify-between shadow-2xl",children:[(0,d.jsxs)(P.default,{href:"/admin/landing-pages",className:"flex items-center gap-2 text-slate-400 hover:text-white transition-colors px-4",children:[(0,d.jsx)(R.ArrowLeft,{size:20}),(0,d.jsx)("span",{className:"hidden sm:inline",children:"Voltar"})]}),(0,d.jsxs)("div",{className:"flex items-center gap-4",children:[(0,d.jsxs)("span",{className:"text-slate-500 text-sm hidden lg:inline",children:[v.length," blocos adicionados"]}),(0,d.jsxs)("button",{onClick:z,disabled:x,className:"flex items-center gap-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 px-8 py-2.5 rounded-full font-bold transition-all shadow-lg shadow-blue-600/20 text-sm tracking-wide",children:[(0,d.jsx)(E,{size:18}),x?"PUBLICANDO...":"SALVAR PÁGINA"]})]})]}),(0,d.jsxs)("div",{className:"grid grid-cols-1 lg:grid-cols-3 gap-8",children:[(0,d.jsx)("div",{className:"space-y-6 lg:col-span-1",children:(0,d.jsxs)("div",{className:"bg-slate-900/40 border border-white/5 rounded-3xl p-6 space-y-6 sticky top-28",children:[(0,d.jsx)("h2",{className:"text-xs uppercase tracking-[0.2em] text-blue-400 font-bold mb-4",children:"Configurações"}),(0,d.jsxs)("div",{className:"space-y-2",children:[(0,d.jsx)("label",{className:"text-[10px] uppercase tracking-widest text-slate-500 font-bold",children:"Título"}),(0,d.jsx)("input",{type:"text",value:r,onChange:e=>o(e.target.value),className:"w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-lg font-medium focus:border-blue-500 outline-none",placeholder:"Nome do Projeto"})]}),(0,d.jsxs)("div",{className:"space-y-2",children:[(0,d.jsx)("label",{className:"text-[10px] uppercase tracking-widest text-slate-500 font-bold",children:"Slug URL"}),(0,d.jsxs)("div",{className:"flex items-center gap-1 text-slate-500 bg-slate-950 border border-white/10 rounded-xl px-3 py-2",children:[(0,d.jsx)("span",{className:"text-xs",children:"/projects/"}),(0,d.jsx)("input",{type:"text",value:i,onChange:e=>a(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g,"-")),className:"bg-transparent border-none outline-none text-white text-sm w-full font-mono",placeholder:"my-project"})]})]}),(0,d.jsxs)("div",{className:"space-y-3 pt-4 border-t border-white/5",children:[(0,d.jsxs)("label",{className:"text-[10px] uppercase tracking-widest text-slate-500 font-bold flex items-center gap-2",children:["Header Hero Image"," ",(0,d.jsx)("span",{className:"text-blue-500 text-[10px]",children:"(Cover)"})]}),(0,d.jsx)("div",{className:"relative group aspect-4/3 rounded-xl overflow-hidden bg-slate-950 border border-white/10",children:c?(0,d.jsxs)(d.Fragment,{children:[(0,d.jsx)(D.default,{src:c,alt:"Cover",fill:!0,className:"object-cover"}),(0,d.jsx)("button",{onClick:()=>{s(null),u("")},className:"absolute top-2 right-2 bg-red-600 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity",title:"Remover Capa","aria-label":"Remover Capa",children:(0,d.jsx)(w.Trash2,{size:16})})]}):(0,d.jsxs)("label",{className:"absolute inset-0 flex flex-col items-center justify-center cursor-pointer hover:bg-white/5 transition-colors",children:[(0,d.jsx)(S,{className:"text-slate-600 mb-2"}),(0,d.jsx)("span",{className:"text-[10px] text-slate-500",children:"Upload Capa"}),(0,d.jsx)("input",{type:"file",className:"hidden",accept:"image/*",onChange:e=>{let t=e.target.files?.[0];t&&(s(t),u(URL.createObjectURL(t)))}})]})})]})]})}),(0,d.jsxs)("div",{className:"lg:col-span-2 space-y-8",children:[(0,d.jsxs)("div",{className:"flex items-center justify-between",children:[(0,d.jsx)("h2",{className:"text-xs uppercase tracking-[0.2em] text-white font-bold",children:"Builder"}),(0,d.jsxs)(r4,{children:[(0,d.jsx)(r6,{asChild:!0,children:(0,d.jsxs)("button",{className:"flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wide transition-all shadow-lg hover:shadow-blue-500/25",children:[(0,d.jsx)(C.Plus,{size:16})," Adicionar Bloco"]})}),(0,d.jsxs)(of,{align:"end",className:"w-56 bg-slate-900 border-slate-800 text-slate-200",children:[(0,d.jsx)(om,{className:"text-xs uppercase tracking-widest text-slate-500",children:"Layouts Básicos"}),(0,d.jsxs)(op,{onClick:()=>_("text"),children:[(0,d.jsx)(M,{className:"mr-2 h-4 w-4"})," Texto Puro"]}),(0,d.jsxs)(op,{onClick:()=>_("image"),children:[(0,d.jsx)(S,{className:"mr-2 h-4 w-4"})," Imagem Full"]}),(0,d.jsxs)(op,{onClick:()=>_("video"),children:[(0,d.jsx)(A,{className:"mr-2 h-4 w-4"})," Vídeo Full"]}),(0,d.jsxs)(op,{onClick:()=>_("video-autoplay"),children:[(0,d.jsx)(A,{className:"mr-2 h-4 w-4 text-blue-400"})," Vídeo Autoplay (Loop)"]}),(0,d.jsx)(oh,{className:"bg-slate-800"}),(0,d.jsx)(om,{className:"text-xs uppercase tracking-widest text-slate-500",children:"Composições"}),(0,d.jsxs)(op,{onClick:()=>_("image-text"),children:[(0,d.jsxs)("div",{className:"flex mr-2 items-center",children:[(0,d.jsx)(S,{className:"h-3 w-3"}),(0,d.jsx)(M,{className:"h-3 w-3"})]})," ","Imagem + Texto"]}),(0,d.jsxs)(op,{onClick:()=>_("text-image"),children:[(0,d.jsxs)("div",{className:"flex mr-2 items-center",children:[(0,d.jsx)(M,{className:"h-3 w-3"}),(0,d.jsx)(S,{className:"h-3 w-3"})]})," ","Texto + Imagem"]}),(0,d.jsxs)(op,{onClick:()=>_("image-image"),children:[(0,d.jsx)(T,{className:"mr-2 h-4 w-4"})," Imagem Dupla (Grid)"]}),(0,d.jsxs)(op,{onClick:()=>_("image-video"),children:[(0,d.jsxs)("div",{className:"flex mr-2 items-center",children:[(0,d.jsx)(S,{className:"h-3 w-3"}),(0,d.jsx)(A,{className:"h-3 w-3"})]})," ","Imagem + Vídeo"]}),(0,d.jsxs)(op,{onClick:()=>_("video-text"),children:[(0,d.jsxs)("div",{className:"flex mr-2 items-center",children:[(0,d.jsx)(A,{className:"h-3 w-3"}),(0,d.jsx)(M,{className:"h-3 w-3"})]})," ","Vídeo + Texto"]})]})]})]}),(0,d.jsxs)("div",{className:"space-y-8 min-h-[500px]",children:[0===v.length&&(0,d.jsxs)("div",{className:"h-64 flex flex-col items-center justify-center border-2 border-dashed border-white/5 rounded-3xl bg-slate-900/20 text-slate-500",children:[(0,d.jsx)(k,{className:"mb-4 opacity-20",size:64}),(0,d.jsx)("p",{className:"text-sm",children:"Comece adicionando um bloco via menu acima."})]}),v.map((e,t)=>(0,d.jsxs)(m.motion.div,{initial:{opacity:0,scale:.95},animate:{opacity:1,scale:1},className:"group relative bg-[#0a0a0a] border border-white/5 rounded-3xl overflow-hidden hover:border-blue-500/30 transition-all shadow-xl",children:[(0,d.jsxs)("div",{className:"flex items-center justify-between px-6 py-4 bg-white/5 border-b border-white/5",children:[(0,d.jsxs)("div",{className:"flex items-center gap-3",children:[(0,d.jsx)("span",{className:"text-[10px] font-bold text-blue-400 bg-blue-500/10 px-2 py-1 rounded border border-blue-500/20",children:(t+1).toString().padStart(2,"0")}),(0,d.jsx)("span",{className:"text-xs font-bold uppercase tracking-widest text-slate-400",children:e.type.replace("-"," & ")})]}),(0,d.jsxs)("div",{className:"flex items-center gap-1 opacity-50 group-hover:opacity-100 transition-opacity",children:[(0,d.jsx)("button",{onClick:()=>O(t,"up"),disabled:0===t,className:"p-2 hover:bg-white/10 rounded-lg disabled:opacity-20",title:"Mover para cima","aria-label":"Mover para cima",children:(0,d.jsx)(j,{size:14})}),(0,d.jsx)("button",{onClick:()=>O(t,"down"),disabled:t===v.length-1,className:"p-2 hover:bg-white/10 rounded-lg disabled:opacity-20",title:"Mover para baixo","aria-label":"Mover para baixo",children:(0,d.jsx)(N,{size:14})}),(0,d.jsx)("div",{className:"w-px h-4 bg-white/10 mx-2"}),(0,d.jsx)("button",{onClick:()=>{var t;return t=e.id,void(confirm("Tem certeza que deseja remover este bloco?")&&g(v.filter(e=>e.id!==t)))},className:"p-2 hover:bg-red-500/20 hover:text-red-400 rounded-lg text-slate-500",title:"Remover bloco","aria-label":"Remover bloco",children:(0,d.jsx)(w.Trash2,{size:14})})]})]}),(0,d.jsx)(I,{block:e,onChange:t=>{var n;return n=e.id,void g(v.map(e=>e.id===n?{...e,...t}:e))}})]},e.id))]})]})]})]})}oh.displayName=oi.displayName,e.s(["default",()=>ov],58384)}]);
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push([
+  'object' == typeof document ? document.currentScript : void 0,
+  58384,
+  (e) => {
+    'use strict';
+    let t, n;
+    e.i(1921);
+    var r,
+      o,
+      i,
+      a,
+      l,
+      s,
+      c,
+      u,
+      d = e.i(77579),
+      f = e.i(46858),
+      p = e.i(95535),
+      m = e.i(62897),
+      h = e.i(11795);
+    let v =
+        'u' > typeof crypto &&
+        crypto.randomUUID &&
+        crypto.randomUUID.bind(crypto),
+      g = new Uint8Array(16),
+      x = [];
+    for (let e = 0; e < 256; ++e) x.push((e + 256).toString(16).slice(1));
+    let y = function (e, n, r) {
+      if (v && !n && !e) return v();
+      var o = e,
+        i = r;
+      let a =
+        (o = o || {}).random ??
+        o.rng?.() ??
+        (function () {
+          if (!t) {
+            if ('u' < typeof crypto || !crypto.getRandomValues)
+              throw Error(
+                'crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported'
+              );
+            t = crypto.getRandomValues.bind(crypto);
+          }
+          return t(g);
+        })();
+      if (a.length < 16) throw Error('Random bytes length must be >= 16');
+      if (((a[6] = (15 & a[6]) | 64), (a[8] = (63 & a[8]) | 128), n)) {
+        if ((i = i || 0) < 0 || i + 16 > n.length)
+          throw RangeError(
+            `UUID byte range ${i}:${i + 15} is out of buffer bounds`
+          );
+        for (let e = 0; e < 16; ++e) n[i + e] = a[e];
+        return n;
+      }
+      return (function (e, t = 0) {
+        return (
+          x[e[t + 0]] +
+          x[e[t + 1]] +
+          x[e[t + 2]] +
+          x[e[t + 3]] +
+          '-' +
+          x[e[t + 4]] +
+          x[e[t + 5]] +
+          '-' +
+          x[e[t + 6]] +
+          x[e[t + 7]] +
+          '-' +
+          x[e[t + 8]] +
+          x[e[t + 9]] +
+          '-' +
+          x[e[t + 10]] +
+          x[e[t + 11]] +
+          x[e[t + 12]] +
+          x[e[t + 13]] +
+          x[e[t + 14]] +
+          x[e[t + 15]]
+        ).toLowerCase();
+      })(a);
+    };
+    var w = e.i(67669),
+      b = e.i(3645);
+    let j = (0, b.default)('chevron-up', [
+        ['path', { d: 'm18 15-6-6-6 6', key: '153udz' }],
+      ]),
+      N = (0, b.default)('chevron-down', [
+        ['path', { d: 'm6 9 6 6 6-6', key: 'qrunsl' }],
+      ]),
+      E = (0, b.default)('save', [
+        [
+          'path',
+          {
+            d: 'M15.2 3a2 2 0 0 1 1.4.6l3.8 3.8a2 2 0 0 1 .6 1.4V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z',
+            key: '1c8476',
+          },
+        ],
+        [
+          'path',
+          { d: 'M17 21v-7a1 1 0 0 0-1-1H8a1 1 0 0 0-1 1v7', key: '1ydtos' },
+        ],
+        ['path', { d: 'M7 3v4a1 1 0 0 0 1 1h7', key: 't51u73' }],
+      ]);
+    var R = e.i(38518),
+      C = e.i(3214);
+    let k = (0, b.default)('panels-top-left', [
+        [
+          'rect',
+          { width: '18', height: '18', x: '3', y: '3', rx: '2', key: 'afitv7' },
+        ],
+        ['path', { d: 'M3 9h18', key: '1pudct' }],
+        ['path', { d: 'M9 21V9', key: '1oto5p' }],
+      ]),
+      S = (0, b.default)('image', [
+        [
+          'rect',
+          {
+            width: '18',
+            height: '18',
+            x: '3',
+            y: '3',
+            rx: '2',
+            ry: '2',
+            key: '1m3agn',
+          },
+        ],
+        ['circle', { cx: '9', cy: '9', r: '2', key: 'af1f0g' }],
+        [
+          'path',
+          { d: 'm21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21', key: '1xmnt7' },
+        ],
+      ]),
+      M = (0, b.default)('type', [
+        ['path', { d: 'M12 4v16', key: '1654pz' }],
+        [
+          'path',
+          { d: 'M4 7V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2', key: 'e0r10z' },
+        ],
+        ['path', { d: 'M9 20h6', key: 's66wpe' }],
+      ]),
+      A = (0, b.default)('video', [
+        [
+          'path',
+          {
+            d: 'm16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5',
+            key: 'ftymec',
+          },
+        ],
+        [
+          'rect',
+          { x: '2', y: '6', width: '14', height: '12', rx: '2', key: '158x01' },
+        ],
+      ]),
+      T = (0, b.default)('columns-2', [
+        [
+          'rect',
+          { width: '18', height: '18', x: '3', y: '3', rx: '2', key: 'afitv7' },
+        ],
+        ['path', { d: 'M12 3v18', key: '108xh3' }],
+      ]);
+    var L = e.i(29832),
+      P = e.i(89668),
+      D = e.i(70315);
+    let _ = (0, b.default)('link', [
+      [
+        'path',
+        {
+          d: 'M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71',
+          key: '1cjeqo',
+        },
+      ],
+      [
+        'path',
+        {
+          d: 'M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71',
+          key: '19qd67',
+        },
+      ],
+    ]);
+    function O({
+      label: e,
+      type: t,
+      value: n,
+      previewUrl: r,
+      onFileSelect: o,
+      onUrlChange: i,
+      onClear: a,
+    }) {
+      let l,
+        [s, c] = (0, f.useState)('upload');
+      (0, f.useEffect)(() => {
+        n &&
+          (n.startsWith('http') || n.startsWith('www')) &&
+          !n.includes('supabase.co') &&
+          c('url');
+      }, [n]);
+      let u =
+          'url' === s &&
+          n &&
+          (l = n.match(
+            /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/
+          )) &&
+          11 === l[2].length
+            ? l[2]
+            : null,
+        p = !!r || (!!n && 'url' === s),
+        m = r || n;
+      return (0, d.jsxs)('div', {
+        className: 'space-y-2',
+        children: [
+          (0, d.jsxs)('div', {
+            className: 'flex items-center justify-between',
+            children: [
+              (0, d.jsx)('label', {
+                className:
+                  'text-xs uppercase tracking-widest text-slate-500 font-medium',
+                children: e,
+              }),
+              (0, d.jsxs)('div', {
+                className: 'flex bg-slate-800 p-1 rounded-lg',
+                children: [
+                  (0, d.jsx)('button', {
+                    onClick: () => c('upload'),
+                    className: `px-2 py-1 text-xs rounded-md transition-all ${'upload' === s ? 'bg-slate-600 text-white' : 'text-slate-400 hover:text-white'}`,
+                    children: 'Upload',
+                  }),
+                  (0, d.jsx)('button', {
+                    onClick: () => c('url'),
+                    className: `px-2 py-1 text-xs rounded-md transition-all ${'url' === s ? 'bg-slate-600 text-white' : 'text-slate-400 hover:text-white'}`,
+                    children: 'Link',
+                  }),
+                ],
+              }),
+            ],
+          }),
+          p
+            ? (0, d.jsxs)('div', {
+                className:
+                  'relative rounded-xl overflow-hidden border border-white/10 group bg-black/20',
+                children: [
+                  u
+                    ? (0, d.jsx)('div', {
+                        className: 'aspect-video w-full bg-black',
+                        children: (0, d.jsx)('iframe', {
+                          src: `https://www.youtube.com/embed/${u}?autoplay=0&mute=1&modestbranding=1`,
+                          title: 'YouTube preview',
+                          className: 'w-full h-full border-none',
+                          allowFullScreen: !0,
+                        }),
+                      })
+                    : 'image' === t
+                      ? (0, d.jsx)('div', {
+                          className:
+                            'relative min-h-[12.5rem] max-h-[25rem] w-full flex justify-center bg-black/40',
+                          children: (0, d.jsx)('img', {
+                            src: m,
+                            alt: 'Preview',
+                            className:
+                              'h-full w-auto max-h-[25rem] object-contain',
+                          }),
+                        })
+                      : (0, d.jsx)('video', {
+                          src: m,
+                          className: 'w-full max-h-[25rem] object-contain',
+                          controls: !0,
+                          muted: !0,
+                          loop: !0,
+                          autoPlay: !0,
+                        }),
+                  (0, d.jsx)('div', {
+                    className: 'absolute top-2 right-2 flex gap-2',
+                    children: (0, d.jsx)('button', {
+                      onClick: a,
+                      className:
+                        'bg-red-500 p-2 rounded-full hover:bg-red-600 transition-colors shadow-lg',
+                      title: 'Remover mídia',
+                      children: (0, d.jsx)(w.Trash2, { size: 16 }),
+                    }),
+                  }),
+                ],
+              })
+            : 'upload' === s
+              ? (0, d.jsxs)('label', {
+                  className:
+                    'flex flex-col items-center justify-center py-12 rounded-xl border-2 border-dashed border-white/10 hover:border-blue-500 hover:bg-blue-500/5 cursor-pointer transition-all group',
+                  children: [
+                    'image' === t
+                      ? (0, d.jsx)(S, {
+                          className:
+                            'text-slate-600 mb-2 group-hover:text-blue-400 transition-colors',
+                          size: 32,
+                        })
+                      : (0, d.jsx)(A, {
+                          className:
+                            'text-slate-600 mb-2 group-hover:text-blue-400 transition-colors',
+                          size: 32,
+                        }),
+                    (0, d.jsx)('span', {
+                      className:
+                        'text-xs text-slate-500 font-medium uppercase tracking-widest group-hover:text-blue-300',
+                      children: 'Escolher Arquivo',
+                    }),
+                    (0, d.jsx)('input', {
+                      type: 'file',
+                      accept: 'image' === t ? 'image/*' : 'video/*',
+                      onChange: (e) => {
+                        let t = e.target.files?.[0];
+                        t && o(t);
+                      },
+                      className: 'hidden',
+                    }),
+                  ],
+                })
+              : (0, d.jsxs)('div', {
+                  className:
+                    'flex items-center gap-2 bg-slate-950 border border-white/10 rounded-xl px-4 py-3 focus-within:border-blue-500 transition-colors',
+                  children: [
+                    (0, d.jsx)(_, { className: 'text-slate-500', size: 18 }),
+                    (0, d.jsx)('input', {
+                      type: 'text',
+                      placeholder:
+                        'image' === t
+                          ? 'https://exemplo.com/imagem.jpg'
+                          : 'Pinte aqui o link do YouTube ou .mp4',
+                      className:
+                        'bg-transparent border-none outline-none w-full text-sm text-white placeholder-slate-600',
+                      onChange: (e) => i(e.target.value),
+                      value: n || '',
+                    }),
+                  ],
+                }),
+        ],
+      });
+    }
+    function I({ block: e, onChange: t }) {
+      let n = (n) => {
+          t({ content: { ...e.content, ...n } });
+        },
+        r = (t, r) => {
+          let o = 'text' === t ? 'textConfig' : 'textConfig2',
+            i = e.content[o] || {},
+            a = (e) => {
+              n({ [o]: { ...i, ...e } });
+            };
+          return (0, d.jsxs)('div', {
+            className: 'flex-1 space-y-4',
+            children: [
+              (0, d.jsxs)('label', {
+                className:
+                  'text-xs uppercase tracking-widest text-slate-500 font-medium flex items-center gap-2',
+                children: [(0, d.jsx)(M, { size: 14 }), ' ', r],
+              }),
+              (0, d.jsxs)('div', {
+                className:
+                  'grid grid-cols-2 md:grid-cols-4 gap-4 bg-slate-900/50 p-3 rounded-xl border border-white/5',
+                children: [
+                  (0, d.jsxs)('div', {
+                    className: 'space-y-1',
+                    children: [
+                      (0, d.jsx)('span', {
+                        className: 'text-[10px] uppercase text-slate-500 block',
+                        children: 'Tamanho',
+                      }),
+                      (0, d.jsxs)('select', {
+                        value: i.fontSize || '',
+                        onChange: (e) => a({ fontSize: e.target.value }),
+                        className:
+                          'w-full bg-slate-800 text-[11px] rounded p-1 outline-none border border-white/10 text-white',
+                        title: 'Tamanho do Texto',
+                        children: [
+                          (0, d.jsx)('option', {
+                            value: '',
+                            children: 'Padrão',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'text-xs',
+                            children: 'Extra Small',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'text-sm',
+                            children: 'Small',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'text-base',
+                            children: 'Base',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'text-lg',
+                            children: 'Large',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'text-xl',
+                            children: 'Extra Large',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'text-2xl',
+                            children: '2XL',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'text-3xl',
+                            children: '3XL',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'text-4xl',
+                            children: '4XL',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'text-5xl',
+                            children: '5XL',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'text-6xl',
+                            children: '6XL',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'text-7xl',
+                            children: '7XL',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'text-8xl',
+                            children: '8XL',
+                          }),
+                        ],
+                      }),
+                    ],
+                  }),
+                  (0, d.jsxs)('div', {
+                    className: 'space-y-1',
+                    children: [
+                      (0, d.jsx)('span', {
+                        className: 'text-[10px] uppercase text-slate-500 block',
+                        children: 'Peso',
+                      }),
+                      (0, d.jsxs)('select', {
+                        value: i.fontWeight || '',
+                        onChange: (e) => a({ fontWeight: e.target.value }),
+                        className:
+                          'w-full bg-slate-800 text-[11px] rounded p-1 outline-none border border-white/10 text-white',
+                        title: 'Peso da Fonte',
+                        children: [
+                          (0, d.jsx)('option', {
+                            value: '',
+                            children: 'Padrão',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'font-thin',
+                            children: 'Thin',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'font-light',
+                            children: 'Light',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'font-normal',
+                            children: 'Normal',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'font-medium',
+                            children: 'Medium',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'font-semibold',
+                            children: 'SemiBold',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'font-bold',
+                            children: 'Bold',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'font-extrabold',
+                            children: 'ExtraBold',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'font-black',
+                            children: 'Black',
+                          }),
+                        ],
+                      }),
+                    ],
+                  }),
+                  (0, d.jsxs)('div', {
+                    className: 'space-y-1',
+                    children: [
+                      (0, d.jsx)('span', {
+                        className: 'text-[10px] uppercase text-slate-500 block',
+                        children: 'Alinhamento',
+                      }),
+                      (0, d.jsxs)('select', {
+                        value: i.textAlign || '',
+                        onChange: (e) => a({ textAlign: e.target.value }),
+                        className:
+                          'w-full bg-slate-800 text-[11px] rounded p-1 outline-none border border-white/10 text-white',
+                        title: 'Alinhamento do Texto',
+                        children: [
+                          (0, d.jsx)('option', {
+                            value: '',
+                            children: 'Padrão',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'text-left',
+                            children: 'Esquerda',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'text-center',
+                            children: 'Centralizado',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'text-right',
+                            children: 'Direita',
+                          }),
+                          (0, d.jsx)('option', {
+                            value: 'text-justify',
+                            children: 'Justificado',
+                          }),
+                        ],
+                      }),
+                    ],
+                  }),
+                  (0, d.jsxs)('div', {
+                    className: 'space-y-1',
+                    children: [
+                      (0, d.jsx)('span', {
+                        className: 'text-[10px] uppercase text-slate-500 block',
+                        children: 'Cor (Hex)',
+                      }),
+                      (0, d.jsx)('input', {
+                        type: 'text',
+                        value: i.color || '',
+                        onChange: (e) => a({ color: e.target.value }),
+                        placeholder: '#FFFFFF',
+                        className:
+                          'w-full bg-slate-800 text-[11px] rounded p-1 outline-none border border-white/10 text-white placeholder-slate-600',
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+              (0, d.jsx)('textarea', {
+                value: e.content[t] || '',
+                onChange: (e) => n({ [t]: e.target.value }),
+                className:
+                  'w-full h-full min-h-[200px] bg-slate-950/50 border border-white/10 rounded-xl p-4 outline-none focus:border-blue-500/50 transition-all resize-none font-sans',
+                placeholder: '# Título... \\n\\nParágrafo com conteúdo...',
+              }),
+            ],
+          });
+        },
+        o = (n, r, o, i, a) =>
+          (0, d.jsx)('div', {
+            className: 'flex-1',
+            children: (0, d.jsx)(O, {
+              label: a,
+              type: r,
+              value: e.content[n],
+              previewUrl: e[i],
+              onFileSelect: (n) => {
+                t({
+                  [o]: n,
+                  ['file' === o ? 'previewUrl' : 'previewUrl2']:
+                    URL.createObjectURL(n),
+                  content: {
+                    ...e.content,
+                    ['file' === o ? 'media' : 'media2']: '',
+                  },
+                });
+              },
+              onUrlChange: (r) => {
+                t({
+                  ['media' === n ? 'file' : 'file2']: null,
+                  ['media' === n ? 'previewUrl' : 'previewUrl2']: '',
+                  content: { ...e.content, [n]: r },
+                });
+              },
+              onClear: () => {
+                t({ [o]: null, [i]: '', content: { ...e.content, [n]: '' } });
+              },
+            }),
+          });
+      switch (e.type) {
+        case 'text':
+          return (0, d.jsx)('div', {
+            className: 'p-4',
+            children: r('text', 'Conteúdo de Texto'),
+          });
+        case 'image':
+          return (0, d.jsx)('div', {
+            className: 'p-4',
+            children: o('media', 'image', 'file', 'previewUrl', 'Imagem Full'),
+          });
+        case 'video':
+        case 'video-autoplay':
+          return (0, d.jsx)('div', {
+            className: 'p-4',
+            children: o('media', 'video', 'file', 'previewUrl', 'Vídeo Full'),
+          });
+        case 'image-text':
+          return (0, d.jsxs)('div', {
+            className: 'grid grid-cols-1 md:grid-cols-2 gap-6 p-4',
+            children: [
+              o('media', 'image', 'file', 'previewUrl', 'Imagem (Esquerda)'),
+              r('text', 'Texto (Direita)'),
+            ],
+          });
+        case 'text-image':
+          return (0, d.jsxs)('div', {
+            className: 'grid grid-cols-1 md:grid-cols-2 gap-6 p-4',
+            children: [
+              r('text', 'Texto (Esquerda)'),
+              o('media', 'image', 'file', 'previewUrl', 'Imagem (Direita)'),
+            ],
+          });
+        case 'image-image':
+          return (0, d.jsxs)('div', {
+            className: 'grid grid-cols-1 md:grid-cols-2 gap-6 p-4',
+            children: [
+              o('media', 'image', 'file', 'previewUrl', 'Imagem 01'),
+              o('media2', 'image', 'file2', 'previewUrl2', 'Imagem 02'),
+            ],
+          });
+        case 'image-video':
+          return (0, d.jsxs)('div', {
+            className: 'grid grid-cols-1 md:grid-cols-2 gap-6 p-4',
+            children: [
+              o('media', 'image', 'file', 'previewUrl', 'Imagem'),
+              o('media2', 'video', 'file2', 'previewUrl2', 'Vídeo'),
+            ],
+          });
+        case 'video-text':
+          return (0, d.jsxs)('div', {
+            className: 'grid grid-cols-1 md:grid-cols-2 gap-6 p-4',
+            children: [
+              o('media', 'video', 'file', 'previewUrl', 'Vídeo (Esquerda)'),
+              r('text', 'Texto (Direita)'),
+            ],
+          });
+        default:
+          return (0, d.jsx)('div', {
+            className: 'p-4 text-red-500',
+            children: 'Tipo de bloco desconhecido',
+          });
+      }
+    }
+    function F(e, t, { checkForDefaultPrevented: n = !0 } = {}) {
+      return function (r) {
+        if ((e?.(r), !1 === n || !r.defaultPrevented)) return t?.(r);
+      };
+    }
+    function z(e, t) {
+      if ('function' == typeof e) return e(t);
+      null != e && (e.current = t);
+    }
+    function U(...e) {
+      return (t) => {
+        let n = !1,
+          r = e.map((e) => {
+            let r = z(e, t);
+            return (n || 'function' != typeof r || (n = !0), r);
+          });
+        if (n)
+          return () => {
+            for (let t = 0; t < r.length; t++) {
+              let n = r[t];
+              'function' == typeof n ? n() : z(e[t], null);
+            }
+          };
+      };
+    }
+    function W(...e) {
+      return f.useCallback(U(...e), e);
+    }
+    function B(e, t = []) {
+      let n = [],
+        r = () => {
+          let t = n.map((e) => f.createContext(e));
+          return function (n) {
+            let r = n?.[e] || t;
+            return f.useMemo(
+              () => ({ [`__scope${e}`]: { ...n, [e]: r } }),
+              [n, r]
+            );
+          };
+        };
+      return (
+        (r.scopeName = e),
+        [
+          function (t, r) {
+            let o = f.createContext(r),
+              i = n.length;
+            n = [...n, r];
+            let a = (t) => {
+              let { scope: n, children: r, ...a } = t,
+                l = n?.[e]?.[i] || o,
+                s = f.useMemo(() => a, Object.values(a));
+              return (0, d.jsx)(l.Provider, { value: s, children: r });
+            };
+            return (
+              (a.displayName = t + 'Provider'),
+              [
+                a,
+                function (n, a) {
+                  let l = a?.[e]?.[i] || o,
+                    s = f.useContext(l);
+                  if (s) return s;
+                  if (void 0 !== r) return r;
+                  throw Error(`\`${n}\` must be used within \`${t}\``);
+                },
+              ]
+            );
+          },
+          (function (...e) {
+            let t = e[0];
+            if (1 === e.length) return t;
+            let n = () => {
+              let n = e.map((e) => ({ useScope: e(), scopeName: e.scopeName }));
+              return function (e) {
+                let r = n.reduce((t, { useScope: n, scopeName: r }) => {
+                  let o = n(e)[`__scope${r}`];
+                  return { ...t, ...o };
+                }, {});
+                return f.useMemo(() => ({ [`__scope${t.scopeName}`]: r }), [r]);
+              };
+            };
+            return ((n.scopeName = t.scopeName), n);
+          })(r, ...t),
+        ]
+      );
+    }
+    'u' > typeof window && window.document && window.document.createElement;
+    var $ = globalThis?.document ? f.useLayoutEffect : () => {};
+    (f[' useEffectEvent '.trim().toString()],
+      f[' useInsertionEffect '.trim().toString()]);
+    var V = f[' useInsertionEffect '.trim().toString()] || $;
+    function K({ prop: e, defaultProp: t, onChange: n = () => {}, caller: r }) {
+      let [o, i, a] = (function ({ defaultProp: e, onChange: t }) {
+          let [n, r] = f.useState(e),
+            o = f.useRef(n),
+            i = f.useRef(t);
+          return (
+            V(() => {
+              i.current = t;
+            }, [t]),
+            f.useEffect(() => {
+              o.current !== n && (i.current?.(n), (o.current = n));
+            }, [n, o]),
+            [n, r, i]
+          );
+        })({ defaultProp: t, onChange: n }),
+        l = void 0 !== e,
+        s = l ? e : o;
+      {
+        let t = f.useRef(void 0 !== e);
+        f.useEffect(() => {
+          let e = t.current;
+          if (e !== l) {
+            let t = l ? 'controlled' : 'uncontrolled';
+            console.warn(
+              `${r} is changing from ${e ? 'controlled' : 'uncontrolled'} to ${t}. Components should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled value for the lifetime of the component.`
+            );
+          }
+          t.current = l;
+        }, [l, r]);
+      }
+      return [
+        s,
+        f.useCallback(
+          (t) => {
+            if (l) {
+              let n = 'function' == typeof t ? t(e) : t;
+              n !== e && a.current?.(n);
+            } else i(t);
+          },
+          [l, e, i, a]
+        ),
+      ];
+    }
+    Symbol('RADIX:SYNC_STATE');
+    var H = e.i(19313);
+    function X(e) {
+      var t;
+      let n,
+        r =
+          ((t = e),
+          ((n = f.forwardRef((e, t) => {
+            let { children: n, ...r } = e;
+            if (f.isValidElement(n)) {
+              var o;
+              let e,
+                i,
+                a =
+                  ((o = n),
+                  (i =
+                    (e = Object.getOwnPropertyDescriptor(
+                      o.props,
+                      'ref'
+                    )?.get) &&
+                    'isReactWarning' in e &&
+                    e.isReactWarning)
+                    ? o.ref
+                    : (i =
+                          (e = Object.getOwnPropertyDescriptor(
+                            o,
+                            'ref'
+                          )?.get) &&
+                          'isReactWarning' in e &&
+                          e.isReactWarning)
+                      ? o.props.ref
+                      : o.props.ref || o.ref),
+                l = (function (e, t) {
+                  let n = { ...t };
+                  for (let r in t) {
+                    let o = e[r],
+                      i = t[r];
+                    /^on[A-Z]/.test(r)
+                      ? o && i
+                        ? (n[r] = (...e) => {
+                            let t = i(...e);
+                            return (o(...e), t);
+                          })
+                        : o && (n[r] = o)
+                      : 'style' === r
+                        ? (n[r] = { ...o, ...i })
+                        : 'className' === r &&
+                          (n[r] = [o, i].filter(Boolean).join(' '));
+                  }
+                  return { ...e, ...n };
+                })(r, n.props);
+              return (
+                n.type !== f.Fragment && (l.ref = t ? U(t, a) : a),
+                f.cloneElement(n, l)
+              );
+            }
+            return f.Children.count(n) > 1 ? f.Children.only(null) : null;
+          })).displayName = `${t}.SlotClone`),
+          n),
+        o = f.forwardRef((e, t) => {
+          let { children: n, ...o } = e,
+            i = f.Children.toArray(n),
+            a = i.find(G);
+          if (a) {
+            let e = a.props.children,
+              n = i.map((t) =>
+                t !== a
+                  ? t
+                  : f.Children.count(e) > 1
+                    ? f.Children.only(null)
+                    : f.isValidElement(e)
+                      ? e.props.children
+                      : null
+              );
+            return (0, d.jsx)(r, {
+              ...o,
+              ref: t,
+              children: f.isValidElement(e)
+                ? f.cloneElement(e, void 0, n)
+                : null,
+            });
+          }
+          return (0, d.jsx)(r, { ...o, ref: t, children: n });
+        });
+      return ((o.displayName = `${e}.Slot`), o);
+    }
+    var q = Symbol('radix.slottable');
+    function G(e) {
+      return (
+        f.isValidElement(e) &&
+        'function' == typeof e.type &&
+        '__radixId' in e.type &&
+        e.type.__radixId === q
+      );
+    }
+    var Y = [
+      'a',
+      'button',
+      'div',
+      'form',
+      'h2',
+      'h3',
+      'img',
+      'input',
+      'label',
+      'li',
+      'nav',
+      'ol',
+      'p',
+      'select',
+      'span',
+      'svg',
+      'ul',
+    ].reduce((e, t) => {
+      let n = X(`Primitive.${t}`),
+        r = f.forwardRef((e, r) => {
+          let { asChild: o, ...i } = e;
+          return (
+            'u' > typeof window && (window[Symbol.for('radix-ui')] = !0),
+            (0, d.jsx)(o ? n : t, { ...i, ref: r })
+          );
+        });
+      return ((r.displayName = `Primitive.${t}`), { ...e, [t]: r });
+    }, {});
+    function Z(e, t) {
+      e && H.flushSync(() => e.dispatchEvent(t));
+    }
+    function J(e) {
+      let t = e + 'CollectionProvider',
+        [n, r] = B(t),
+        [o, i] = n(t, { collectionRef: { current: null }, itemMap: new Map() }),
+        a = (e) => {
+          let { scope: t, children: n } = e,
+            r = f.default.useRef(null),
+            i = f.default.useRef(new Map()).current;
+          return (0, d.jsx)(o, {
+            scope: t,
+            itemMap: i,
+            collectionRef: r,
+            children: n,
+          });
+        };
+      a.displayName = t;
+      let l = e + 'CollectionSlot',
+        s = X(l),
+        c = f.default.forwardRef((e, t) => {
+          let { scope: n, children: r } = e,
+            o = W(t, i(l, n).collectionRef);
+          return (0, d.jsx)(s, { ref: o, children: r });
+        });
+      c.displayName = l;
+      let u = e + 'CollectionItemSlot',
+        p = 'data-radix-collection-item',
+        m = X(u),
+        h = f.default.forwardRef((e, t) => {
+          let { scope: n, children: r, ...o } = e,
+            a = f.default.useRef(null),
+            l = W(t, a),
+            s = i(u, n);
+          return (
+            f.default.useEffect(
+              () => (
+                s.itemMap.set(a, { ref: a, ...o }),
+                () => void s.itemMap.delete(a)
+              )
+            ),
+            (0, d.jsx)(m, { ...{ [p]: '' }, ref: l, children: r })
+          );
+        });
+      return (
+        (h.displayName = u),
+        [
+          { Provider: a, Slot: c, ItemSlot: h },
+          function (t) {
+            let n = i(e + 'CollectionConsumer', t);
+            return f.default.useCallback(() => {
+              let e = n.collectionRef.current;
+              if (!e) return [];
+              let t = Array.from(e.querySelectorAll(`[${p}]`));
+              return Array.from(n.itemMap.values()).sort(
+                (e, n) => t.indexOf(e.ref.current) - t.indexOf(n.ref.current)
+              );
+            }, [n.collectionRef, n.itemMap]);
+          },
+          r,
+        ]
+      );
+    }
+    var Q = new WeakMap();
+    function ee(e, t) {
+      var n, r;
+      let o, i, a;
+      if ('at' in Array.prototype) return Array.prototype.at.call(e, t);
+      let l =
+        ((n = e),
+        (r = t),
+        (o = n.length),
+        (a = (i = et(r)) >= 0 ? i : o + i) < 0 || a >= o ? -1 : a);
+      return -1 === l ? void 0 : e[l];
+    }
+    function et(e) {
+      return e != e || 0 === e ? 0 : Math.trunc(e);
+    }
+    (class e extends Map {
+      #e;
+      constructor(e) {
+        (super(e), (this.#e = [...super.keys()]), Q.set(this, !0));
+      }
+      set(e, t) {
+        return (
+          Q.get(this) &&
+            (this.has(e) ? (this.#e[this.#e.indexOf(e)] = e) : this.#e.push(e)),
+          super.set(e, t),
+          this
+        );
+      }
+      insert(e, t, n) {
+        let r,
+          o = this.has(t),
+          i = this.#e.length,
+          a = et(e),
+          l = a >= 0 ? a : i + a,
+          s = l < 0 || l >= i ? -1 : l;
+        if (s === this.size || (o && s === this.size - 1) || -1 === s)
+          return (this.set(t, n), this);
+        let c = this.size + +!o;
+        a < 0 && l++;
+        let u = [...this.#e],
+          d = !1;
+        for (let e = l; e < c; e++)
+          if (l === e) {
+            let i = u[e];
+            (u[e] === t && (i = u[e + 1]),
+              o && this.delete(t),
+              (r = this.get(i)),
+              this.set(t, n));
+          } else {
+            d || u[e - 1] !== t || (d = !0);
+            let n = u[d ? e : e - 1],
+              o = r;
+            ((r = this.get(n)), this.delete(n), this.set(n, o));
+          }
+        return this;
+      }
+      with(t, n, r) {
+        let o = new e(this);
+        return (o.insert(t, n, r), o);
+      }
+      before(e) {
+        let t = this.#e.indexOf(e) - 1;
+        if (!(t < 0)) return this.entryAt(t);
+      }
+      setBefore(e, t, n) {
+        let r = this.#e.indexOf(e);
+        return -1 === r ? this : this.insert(r, t, n);
+      }
+      after(e) {
+        let t = this.#e.indexOf(e);
+        if (-1 !== (t = -1 === t || t === this.size - 1 ? -1 : t + 1))
+          return this.entryAt(t);
+      }
+      setAfter(e, t, n) {
+        let r = this.#e.indexOf(e);
+        return -1 === r ? this : this.insert(r + 1, t, n);
+      }
+      first() {
+        return this.entryAt(0);
+      }
+      last() {
+        return this.entryAt(-1);
+      }
+      clear() {
+        return ((this.#e = []), super.clear());
+      }
+      delete(e) {
+        let t = super.delete(e);
+        return (t && this.#e.splice(this.#e.indexOf(e), 1), t);
+      }
+      deleteAt(e) {
+        let t = this.keyAt(e);
+        return void 0 !== t && this.delete(t);
+      }
+      at(e) {
+        let t = ee(this.#e, e);
+        if (void 0 !== t) return this.get(t);
+      }
+      entryAt(e) {
+        let t = ee(this.#e, e);
+        if (void 0 !== t) return [t, this.get(t)];
+      }
+      indexOf(e) {
+        return this.#e.indexOf(e);
+      }
+      keyAt(e) {
+        return ee(this.#e, e);
+      }
+      from(e, t) {
+        let n = this.indexOf(e);
+        if (-1 === n) return;
+        let r = n + t;
+        return (
+          r < 0 && (r = 0),
+          r >= this.size && (r = this.size - 1),
+          this.at(r)
+        );
+      }
+      keyFrom(e, t) {
+        let n = this.indexOf(e);
+        if (-1 === n) return;
+        let r = n + t;
+        return (
+          r < 0 && (r = 0),
+          r >= this.size && (r = this.size - 1),
+          this.keyAt(r)
+        );
+      }
+      find(e, t) {
+        let n = 0;
+        for (let r of this) {
+          if (Reflect.apply(e, t, [r, n, this])) return r;
+          n++;
+        }
+      }
+      findIndex(e, t) {
+        let n = 0;
+        for (let r of this) {
+          if (Reflect.apply(e, t, [r, n, this])) return n;
+          n++;
+        }
+        return -1;
+      }
+      filter(t, n) {
+        let r = [],
+          o = 0;
+        for (let e of this)
+          (Reflect.apply(t, n, [e, o, this]) && r.push(e), o++);
+        return new e(r);
+      }
+      map(t, n) {
+        let r = [],
+          o = 0;
+        for (let e of this)
+          (r.push([e[0], Reflect.apply(t, n, [e, o, this])]), o++);
+        return new e(r);
+      }
+      reduce(...e) {
+        let [t, n] = e,
+          r = 0,
+          o = n ?? this.at(0);
+        for (let n of this)
+          ((o =
+            0 === r && 1 === e.length
+              ? n
+              : Reflect.apply(t, this, [o, n, r, this])),
+            r++);
+        return o;
+      }
+      reduceRight(...e) {
+        let [t, n] = e,
+          r = n ?? this.at(-1);
+        for (let n = this.size - 1; n >= 0; n--) {
+          let o = this.at(n);
+          r =
+            n === this.size - 1 && 1 === e.length
+              ? o
+              : Reflect.apply(t, this, [r, o, n, this]);
+        }
+        return r;
+      }
+      toSorted(t) {
+        return new e([...this.entries()].sort(t));
+      }
+      toReversed() {
+        let t = new e();
+        for (let e = this.size - 1; e >= 0; e--) {
+          let n = this.keyAt(e),
+            r = this.get(n);
+          t.set(n, r);
+        }
+        return t;
+      }
+      toSpliced(...t) {
+        let n = [...this.entries()];
+        return (n.splice(...t), new e(n));
+      }
+      slice(t, n) {
+        let r = new e(),
+          o = this.size - 1;
+        if (void 0 === t) return r;
+        (t < 0 && (t += this.size), void 0 !== n && n > 0 && (o = n - 1));
+        for (let e = t; e <= o; e++) {
+          let t = this.keyAt(e),
+            n = this.get(t);
+          r.set(t, n);
+        }
+        return r;
+      }
+      every(e, t) {
+        let n = 0;
+        for (let r of this) {
+          if (!Reflect.apply(e, t, [r, n, this])) return !1;
+          n++;
+        }
+        return !0;
+      }
+      some(e, t) {
+        let n = 0;
+        for (let r of this) {
+          if (Reflect.apply(e, t, [r, n, this])) return !0;
+          n++;
+        }
+        return !1;
+      }
+    });
+    var en = f.createContext(void 0);
+    function er(e) {
+      let t = f.useContext(en);
+      return e || t || 'ltr';
+    }
+    function eo(e) {
+      let t = f.useRef(e);
+      return (
+        f.useEffect(() => {
+          t.current = e;
+        }),
+        f.useMemo(
+          () =>
+            (...e) =>
+              t.current?.(...e),
+          []
+        )
+      );
+    }
+    var ei = 'dismissableLayer.update',
+      ea = f.createContext({
+        layers: new Set(),
+        layersWithOutsidePointerEventsDisabled: new Set(),
+        branches: new Set(),
+      }),
+      el = f.forwardRef((e, t) => {
+        let {
+            disableOutsidePointerEvents: n = !1,
+            onEscapeKeyDown: r,
+            onPointerDownOutside: o,
+            onFocusOutside: i,
+            onInteractOutside: a,
+            onDismiss: l,
+            ...s
+          } = e,
+          u = f.useContext(ea),
+          [p, m] = f.useState(null),
+          h = p?.ownerDocument ?? globalThis?.document,
+          [, v] = f.useState({}),
+          g = W(t, (e) => m(e)),
+          x = Array.from(u.layers),
+          [y] = [...u.layersWithOutsidePointerEventsDisabled].slice(-1),
+          w = x.indexOf(y),
+          b = p ? x.indexOf(p) : -1,
+          j = u.layersWithOutsidePointerEventsDisabled.size > 0,
+          N = b >= w,
+          E = (function (e, t = globalThis?.document) {
+            let n = eo(e),
+              r = f.useRef(!1),
+              o = f.useRef(() => {});
+            return (
+              f.useEffect(() => {
+                let e = (e) => {
+                    if (e.target && !r.current) {
+                      let r = function () {
+                          ec('dismissableLayer.pointerDownOutside', n, i, {
+                            discrete: !0,
+                          });
+                        },
+                        i = { originalEvent: e };
+                      'touch' === e.pointerType
+                        ? (t.removeEventListener('click', o.current),
+                          (o.current = r),
+                          t.addEventListener('click', o.current, { once: !0 }))
+                        : r();
+                    } else t.removeEventListener('click', o.current);
+                    r.current = !1;
+                  },
+                  i = window.setTimeout(() => {
+                    t.addEventListener('pointerdown', e);
+                  }, 0);
+                return () => {
+                  (window.clearTimeout(i),
+                    t.removeEventListener('pointerdown', e),
+                    t.removeEventListener('click', o.current));
+                };
+              }, [t, n]),
+              { onPointerDownCapture: () => (r.current = !0) }
+            );
+          })((e) => {
+            let t = e.target,
+              n = [...u.branches].some((e) => e.contains(t));
+            N && !n && (o?.(e), a?.(e), e.defaultPrevented || l?.());
+          }, h),
+          R = (function (e, t = globalThis?.document) {
+            let n = eo(e),
+              r = f.useRef(!1);
+            return (
+              f.useEffect(() => {
+                let e = (e) => {
+                  e.target &&
+                    !r.current &&
+                    ec(
+                      'dismissableLayer.focusOutside',
+                      n,
+                      { originalEvent: e },
+                      { discrete: !1 }
+                    );
+                };
+                return (
+                  t.addEventListener('focusin', e),
+                  () => t.removeEventListener('focusin', e)
+                );
+              }, [t, n]),
+              {
+                onFocusCapture: () => (r.current = !0),
+                onBlurCapture: () => (r.current = !1),
+              }
+            );
+          })((e) => {
+            let t = e.target;
+            ![...u.branches].some((e) => e.contains(t)) &&
+              (i?.(e), a?.(e), e.defaultPrevented || l?.());
+          }, h);
+        return (
+          !(function (e, t = globalThis?.document) {
+            let n = eo(e);
+            f.useEffect(() => {
+              let e = (e) => {
+                'Escape' === e.key && n(e);
+              };
+              return (
+                t.addEventListener('keydown', e, { capture: !0 }),
+                () => t.removeEventListener('keydown', e, { capture: !0 })
+              );
+            }, [n, t]);
+          })((e) => {
+            b === u.layers.size - 1 &&
+              (r?.(e), !e.defaultPrevented && l && (e.preventDefault(), l()));
+          }, h),
+          f.useEffect(() => {
+            if (p)
+              return (
+                n &&
+                  (0 === u.layersWithOutsidePointerEventsDisabled.size &&
+                    ((c = h.body.style.pointerEvents),
+                    (h.body.style.pointerEvents = 'none')),
+                  u.layersWithOutsidePointerEventsDisabled.add(p)),
+                u.layers.add(p),
+                es(),
+                () => {
+                  n &&
+                    1 === u.layersWithOutsidePointerEventsDisabled.size &&
+                    (h.body.style.pointerEvents = c);
+                }
+              );
+          }, [p, h, n, u]),
+          f.useEffect(
+            () => () => {
+              p &&
+                (u.layers.delete(p),
+                u.layersWithOutsidePointerEventsDisabled.delete(p),
+                es());
+            },
+            [p, u]
+          ),
+          f.useEffect(() => {
+            let e = () => v({});
+            return (
+              document.addEventListener(ei, e),
+              () => document.removeEventListener(ei, e)
+            );
+          }, []),
+          (0, d.jsx)(Y.div, {
+            ...s,
+            ref: g,
+            style: {
+              pointerEvents: j ? (N ? 'auto' : 'none') : void 0,
+              ...e.style,
+            },
+            onFocusCapture: F(e.onFocusCapture, R.onFocusCapture),
+            onBlurCapture: F(e.onBlurCapture, R.onBlurCapture),
+            onPointerDownCapture: F(
+              e.onPointerDownCapture,
+              E.onPointerDownCapture
+            ),
+          })
+        );
+      });
+    function es() {
+      let e = new CustomEvent(ei);
+      document.dispatchEvent(e);
+    }
+    function ec(e, t, n, { discrete: r }) {
+      let o = n.originalEvent.target,
+        i = new CustomEvent(e, { bubbles: !1, cancelable: !0, detail: n });
+      (t && o.addEventListener(e, t, { once: !0 }),
+        r ? Z(o, i) : o.dispatchEvent(i));
+    }
+    ((el.displayName = 'DismissableLayer'),
+      (f.forwardRef((e, t) => {
+        let n = f.useContext(ea),
+          r = f.useRef(null),
+          o = W(t, r);
+        return (
+          f.useEffect(() => {
+            let e = r.current;
+            if (e)
+              return (
+                n.branches.add(e),
+                () => {
+                  n.branches.delete(e);
+                }
+              );
+          }, [n.branches]),
+          (0, d.jsx)(Y.div, { ...e, ref: o })
+        );
+      }).displayName = 'DismissableLayerBranch'));
+    var eu = 0;
+    function ed() {
+      let e = document.createElement('span');
+      return (
+        e.setAttribute('data-radix-focus-guard', ''),
+        (e.tabIndex = 0),
+        (e.style.outline = 'none'),
+        (e.style.opacity = '0'),
+        (e.style.position = 'fixed'),
+        (e.style.pointerEvents = 'none'),
+        e
+      );
+    }
+    var ef = 'focusScope.autoFocusOnMount',
+      ep = 'focusScope.autoFocusOnUnmount',
+      em = { bubbles: !1, cancelable: !0 },
+      eh = f.forwardRef((e, t) => {
+        let {
+            loop: n = !1,
+            trapped: r = !1,
+            onMountAutoFocus: o,
+            onUnmountAutoFocus: i,
+            ...a
+          } = e,
+          [l, s] = f.useState(null),
+          c = eo(o),
+          u = eo(i),
+          p = f.useRef(null),
+          m = W(t, (e) => s(e)),
+          h = f.useRef({
+            paused: !1,
+            pause() {
+              this.paused = !0;
+            },
+            resume() {
+              this.paused = !1;
+            },
+          }).current;
+        (f.useEffect(() => {
+          if (r) {
+            let e = function (e) {
+                if (h.paused || !l) return;
+                let t = e.target;
+                l.contains(t) ? (p.current = t) : ex(p.current, { select: !0 });
+              },
+              t = function (e) {
+                if (h.paused || !l) return;
+                let t = e.relatedTarget;
+                null !== t && (l.contains(t) || ex(p.current, { select: !0 }));
+              };
+            (document.addEventListener('focusin', e),
+              document.addEventListener('focusout', t));
+            let n = new MutationObserver(function (e) {
+              if (document.activeElement === document.body)
+                for (let t of e) t.removedNodes.length > 0 && ex(l);
+            });
+            return (
+              l && n.observe(l, { childList: !0, subtree: !0 }),
+              () => {
+                (document.removeEventListener('focusin', e),
+                  document.removeEventListener('focusout', t),
+                  n.disconnect());
+              }
+            );
+          }
+        }, [r, l, h.paused]),
+          f.useEffect(() => {
+            if (l) {
+              ey.add(h);
+              let e = document.activeElement;
+              if (!l.contains(e)) {
+                let t = new CustomEvent(ef, em);
+                (l.addEventListener(ef, c),
+                  l.dispatchEvent(t),
+                  t.defaultPrevented ||
+                    ((function (e, { select: t = !1 } = {}) {
+                      let n = document.activeElement;
+                      for (let r of e)
+                        if (
+                          (ex(r, { select: t }), document.activeElement !== n)
+                        )
+                          return;
+                    })(
+                      ev(l).filter((e) => 'A' !== e.tagName),
+                      { select: !0 }
+                    ),
+                    document.activeElement === e && ex(l)));
+              }
+              return () => {
+                (l.removeEventListener(ef, c),
+                  setTimeout(() => {
+                    let t = new CustomEvent(ep, em);
+                    (l.addEventListener(ep, u),
+                      l.dispatchEvent(t),
+                      t.defaultPrevented ||
+                        ex(e ?? document.body, { select: !0 }),
+                      l.removeEventListener(ep, u),
+                      ey.remove(h));
+                  }, 0));
+              };
+            }
+          }, [l, c, u, h]));
+        let v = f.useCallback(
+          (e) => {
+            if ((!n && !r) || h.paused) return;
+            let t = 'Tab' === e.key && !e.altKey && !e.ctrlKey && !e.metaKey,
+              o = document.activeElement;
+            if (t && o) {
+              var i;
+              let t,
+                r = e.currentTarget,
+                [a, l] = [eg((t = ev((i = r))), i), eg(t.reverse(), i)];
+              a && l
+                ? e.shiftKey || o !== l
+                  ? e.shiftKey &&
+                    o === a &&
+                    (e.preventDefault(), n && ex(l, { select: !0 }))
+                  : (e.preventDefault(), n && ex(a, { select: !0 }))
+                : o === r && e.preventDefault();
+            }
+          },
+          [n, r, h.paused]
+        );
+        return (0, d.jsx)(Y.div, { tabIndex: -1, ...a, ref: m, onKeyDown: v });
+      });
+    function ev(e) {
+      let t = [],
+        n = document.createTreeWalker(e, NodeFilter.SHOW_ELEMENT, {
+          acceptNode: (e) => {
+            let t = 'INPUT' === e.tagName && 'hidden' === e.type;
+            return e.disabled || e.hidden || t
+              ? NodeFilter.FILTER_SKIP
+              : e.tabIndex >= 0
+                ? NodeFilter.FILTER_ACCEPT
+                : NodeFilter.FILTER_SKIP;
+          },
+        });
+      for (; n.nextNode(); ) t.push(n.currentNode);
+      return t;
+    }
+    function eg(e, t) {
+      for (let n of e)
+        if (
+          !(function (e, { upTo: t }) {
+            if ('hidden' === getComputedStyle(e).visibility) return !0;
+            for (; e && (void 0 === t || e !== t); ) {
+              if ('none' === getComputedStyle(e).display) return !0;
+              e = e.parentElement;
+            }
+            return !1;
+          })(n, { upTo: t })
+        )
+          return n;
+    }
+    function ex(e, { select: t = !1 } = {}) {
+      if (e && e.focus) {
+        var n;
+        let r = document.activeElement;
+        (e.focus({ preventScroll: !0 }),
+          e !== r &&
+            (n = e) instanceof HTMLInputElement &&
+            'select' in n &&
+            t &&
+            e.select());
+      }
+    }
+    eh.displayName = 'FocusScope';
+    var ey =
+      ((n = []),
+      {
+        add(e) {
+          let t = n[0];
+          (e !== t && t?.pause(), (n = ew(n, e)).unshift(e));
+        },
+        remove(e) {
+          ((n = ew(n, e)), n[0]?.resume());
+        },
+      });
+    function ew(e, t) {
+      let n = [...e],
+        r = n.indexOf(t);
+      return (-1 !== r && n.splice(r, 1), n);
+    }
+    var eb = f[' useId '.trim().toString()] || (() => void 0),
+      ej = 0;
+    function eN(e) {
+      let [t, n] = f.useState(eb());
+      return (
+        $(() => {
+          e || n((e) => e ?? String(ej++));
+        }, [e]),
+        e || (t ? `radix-${t}` : '')
+      );
+    }
+    let eE = ['top', 'right', 'bottom', 'left'],
+      eR = Math.min,
+      eC = Math.max,
+      ek = Math.round,
+      eS = Math.floor,
+      eM = (e) => ({ x: e, y: e }),
+      eA = { left: 'right', right: 'left', bottom: 'top', top: 'bottom' },
+      eT = { start: 'end', end: 'start' };
+    function eL(e, t) {
+      return 'function' == typeof e ? e(t) : e;
+    }
+    function eP(e) {
+      return e.split('-')[0];
+    }
+    function eD(e) {
+      return e.split('-')[1];
+    }
+    function e_(e) {
+      return 'x' === e ? 'y' : 'x';
+    }
+    function eO(e) {
+      return 'y' === e ? 'height' : 'width';
+    }
+    let eI = new Set(['top', 'bottom']);
+    function eF(e) {
+      return eI.has(eP(e)) ? 'y' : 'x';
+    }
+    function ez(e) {
+      return e.replace(/start|end/g, (e) => eT[e]);
+    }
+    let eU = ['left', 'right'],
+      eW = ['right', 'left'],
+      eB = ['top', 'bottom'],
+      e$ = ['bottom', 'top'];
+    function eV(e) {
+      return e.replace(/left|right|bottom|top/g, (e) => eA[e]);
+    }
+    function eK(e) {
+      return 'number' != typeof e
+        ? { top: 0, right: 0, bottom: 0, left: 0, ...e }
+        : { top: e, right: e, bottom: e, left: e };
+    }
+    function eH(e) {
+      let { x: t, y: n, width: r, height: o } = e;
+      return {
+        width: r,
+        height: o,
+        top: n,
+        left: t,
+        right: t + r,
+        bottom: n + o,
+        x: t,
+        y: n,
+      };
+    }
+    function eX(e, t, n) {
+      let r,
+        { reference: o, floating: i } = e,
+        a = eF(t),
+        l = e_(eF(t)),
+        s = eO(l),
+        c = eP(t),
+        u = 'y' === a,
+        d = o.x + o.width / 2 - i.width / 2,
+        f = o.y + o.height / 2 - i.height / 2,
+        p = o[s] / 2 - i[s] / 2;
+      switch (c) {
+        case 'top':
+          r = { x: d, y: o.y - i.height };
+          break;
+        case 'bottom':
+          r = { x: d, y: o.y + o.height };
+          break;
+        case 'right':
+          r = { x: o.x + o.width, y: f };
+          break;
+        case 'left':
+          r = { x: o.x - i.width, y: f };
+          break;
+        default:
+          r = { x: o.x, y: o.y };
+      }
+      switch (eD(t)) {
+        case 'start':
+          r[l] -= p * (n && u ? -1 : 1);
+          break;
+        case 'end':
+          r[l] += p * (n && u ? -1 : 1);
+      }
+      return r;
+    }
+    let eq = async (e, t, n) => {
+      let {
+          placement: r = 'bottom',
+          strategy: o = 'absolute',
+          middleware: i = [],
+          platform: a,
+        } = n,
+        l = i.filter(Boolean),
+        s = await (null == a.isRTL ? void 0 : a.isRTL(t)),
+        c = await a.getElementRects({ reference: e, floating: t, strategy: o }),
+        { x: u, y: d } = eX(c, r, s),
+        f = r,
+        p = {},
+        m = 0;
+      for (let n = 0; n < l.length; n++) {
+        let { name: i, fn: h } = l[n],
+          {
+            x: v,
+            y: g,
+            data: x,
+            reset: y,
+          } = await h({
+            x: u,
+            y: d,
+            initialPlacement: r,
+            placement: f,
+            strategy: o,
+            middlewareData: p,
+            rects: c,
+            platform: a,
+            elements: { reference: e, floating: t },
+          });
+        ((u = null != v ? v : u),
+          (d = null != g ? g : d),
+          (p = { ...p, [i]: { ...p[i], ...x } }),
+          y &&
+            m <= 50 &&
+            (m++,
+            'object' == typeof y &&
+              (y.placement && (f = y.placement),
+              y.rects &&
+                (c =
+                  !0 === y.rects
+                    ? await a.getElementRects({
+                        reference: e,
+                        floating: t,
+                        strategy: o,
+                      })
+                    : y.rects),
+              ({ x: u, y: d } = eX(c, f, s))),
+            (n = -1)));
+      }
+      return { x: u, y: d, placement: f, strategy: o, middlewareData: p };
+    };
+    async function eG(e, t) {
+      var n;
+      void 0 === t && (t = {});
+      let { x: r, y: o, platform: i, rects: a, elements: l, strategy: s } = e,
+        {
+          boundary: c = 'clippingAncestors',
+          rootBoundary: u = 'viewport',
+          elementContext: d = 'floating',
+          altBoundary: f = !1,
+          padding: p = 0,
+        } = eL(t, e),
+        m = eK(p),
+        h = l[f ? ('floating' === d ? 'reference' : 'floating') : d],
+        v = eH(
+          await i.getClippingRect({
+            element:
+              null ==
+                (n = await (null == i.isElement ? void 0 : i.isElement(h))) || n
+                ? h
+                : h.contextElement ||
+                  (await (null == i.getDocumentElement
+                    ? void 0
+                    : i.getDocumentElement(l.floating))),
+            boundary: c,
+            rootBoundary: u,
+            strategy: s,
+          })
+        ),
+        g =
+          'floating' === d
+            ? { x: r, y: o, width: a.floating.width, height: a.floating.height }
+            : a.reference,
+        x = await (null == i.getOffsetParent
+          ? void 0
+          : i.getOffsetParent(l.floating)),
+        y = ((await (null == i.isElement ? void 0 : i.isElement(x))) &&
+          (await (null == i.getScale ? void 0 : i.getScale(x)))) || {
+          x: 1,
+          y: 1,
+        },
+        w = eH(
+          i.convertOffsetParentRelativeRectToViewportRelativeRect
+            ? await i.convertOffsetParentRelativeRectToViewportRelativeRect({
+                elements: l,
+                rect: g,
+                offsetParent: x,
+                strategy: s,
+              })
+            : g
+        );
+      return {
+        top: (v.top - w.top + m.top) / y.y,
+        bottom: (w.bottom - v.bottom + m.bottom) / y.y,
+        left: (v.left - w.left + m.left) / y.x,
+        right: (w.right - v.right + m.right) / y.x,
+      };
+    }
+    function eY(e, t) {
+      return {
+        top: e.top - t.height,
+        right: e.right - t.width,
+        bottom: e.bottom - t.height,
+        left: e.left - t.width,
+      };
+    }
+    function eZ(e) {
+      return eE.some((t) => e[t] >= 0);
+    }
+    let eJ = new Set(['left', 'top']);
+    async function eQ(e, t) {
+      let { placement: n, platform: r, elements: o } = e,
+        i = await (null == r.isRTL ? void 0 : r.isRTL(o.floating)),
+        a = eP(n),
+        l = eD(n),
+        s = 'y' === eF(n),
+        c = eJ.has(a) ? -1 : 1,
+        u = i && s ? -1 : 1,
+        d = eL(t, e),
+        {
+          mainAxis: f,
+          crossAxis: p,
+          alignmentAxis: m,
+        } = 'number' == typeof d
+          ? { mainAxis: d, crossAxis: 0, alignmentAxis: null }
+          : {
+              mainAxis: d.mainAxis || 0,
+              crossAxis: d.crossAxis || 0,
+              alignmentAxis: d.alignmentAxis,
+            };
+      return (
+        l && 'number' == typeof m && (p = 'end' === l ? -1 * m : m),
+        s ? { x: p * u, y: f * c } : { x: f * c, y: p * u }
+      );
+    }
+    function e0() {
+      return 'u' > typeof window;
+    }
+    function e1(e) {
+      return e4(e) ? (e.nodeName || '').toLowerCase() : '#document';
+    }
+    function e2(e) {
+      var t;
+      return (
+        (null == e || null == (t = e.ownerDocument) ? void 0 : t.defaultView) ||
+        window
+      );
+    }
+    function e5(e) {
+      var t;
+      return null ==
+        (t = (e4(e) ? e.ownerDocument : e.document) || window.document)
+        ? void 0
+        : t.documentElement;
+    }
+    function e4(e) {
+      return !!e0() && (e instanceof Node || e instanceof e2(e).Node);
+    }
+    function e3(e) {
+      return !!e0() && (e instanceof Element || e instanceof e2(e).Element);
+    }
+    function e6(e) {
+      return (
+        !!e0() && (e instanceof HTMLElement || e instanceof e2(e).HTMLElement)
+      );
+    }
+    function e8(e) {
+      return (
+        !(!e0() || 'u' < typeof ShadowRoot) &&
+        (e instanceof ShadowRoot || e instanceof e2(e).ShadowRoot)
+      );
+    }
+    let e7 = new Set(['inline', 'contents']);
+    function e9(e) {
+      let { overflow: t, overflowX: n, overflowY: r, display: o } = tu(e);
+      return /auto|scroll|overlay|hidden|clip/.test(t + r + n) && !e7.has(o);
+    }
+    let te = new Set(['table', 'td', 'th']),
+      tt = [':popover-open', ':modal'];
+    function tn(e) {
+      return tt.some((t) => {
+        try {
+          return e.matches(t);
+        } catch (e) {
+          return !1;
+        }
+      });
+    }
+    let tr = ['transform', 'translate', 'scale', 'rotate', 'perspective'],
+      to = [
+        'transform',
+        'translate',
+        'scale',
+        'rotate',
+        'perspective',
+        'filter',
+      ],
+      ti = ['paint', 'layout', 'strict', 'content'];
+    function ta(e) {
+      let t = tl(),
+        n = e3(e) ? tu(e) : e;
+      return (
+        tr.some((e) => !!n[e] && 'none' !== n[e]) ||
+        (!!n.containerType && 'normal' !== n.containerType) ||
+        (!t && !!n.backdropFilter && 'none' !== n.backdropFilter) ||
+        (!t && !!n.filter && 'none' !== n.filter) ||
+        to.some((e) => (n.willChange || '').includes(e)) ||
+        ti.some((e) => (n.contain || '').includes(e))
+      );
+    }
+    function tl() {
+      return (
+        !('u' < typeof CSS) &&
+        !!CSS.supports &&
+        CSS.supports('-webkit-backdrop-filter', 'none')
+      );
+    }
+    let ts = new Set(['html', 'body', '#document']);
+    function tc(e) {
+      return ts.has(e1(e));
+    }
+    function tu(e) {
+      return e2(e).getComputedStyle(e);
+    }
+    function td(e) {
+      return e3(e)
+        ? { scrollLeft: e.scrollLeft, scrollTop: e.scrollTop }
+        : { scrollLeft: e.scrollX, scrollTop: e.scrollY };
+    }
+    function tf(e) {
+      if ('html' === e1(e)) return e;
+      let t = e.assignedSlot || e.parentNode || (e8(e) && e.host) || e5(e);
+      return e8(t) ? t.host : t;
+    }
+    function tp(e, t, n) {
+      var r;
+      (void 0 === t && (t = []), void 0 === n && (n = !0));
+      let o = (function e(t) {
+          let n = tf(t);
+          return tc(n)
+            ? t.ownerDocument
+              ? t.ownerDocument.body
+              : t.body
+            : e6(n) && e9(n)
+              ? n
+              : e(n);
+        })(e),
+        i = o === (null == (r = e.ownerDocument) ? void 0 : r.body),
+        a = e2(o);
+      if (i) {
+        let e = tm(a);
+        return t.concat(
+          a,
+          a.visualViewport || [],
+          e9(o) ? o : [],
+          e && n ? tp(e) : []
+        );
+      }
+      return t.concat(o, tp(o, [], n));
+    }
+    function tm(e) {
+      return e.parent && Object.getPrototypeOf(e.parent)
+        ? e.frameElement
+        : null;
+    }
+    function th(e) {
+      let t = tu(e),
+        n = parseFloat(t.width) || 0,
+        r = parseFloat(t.height) || 0,
+        o = e6(e),
+        i = o ? e.offsetWidth : n,
+        a = o ? e.offsetHeight : r,
+        l = ek(n) !== i || ek(r) !== a;
+      return (l && ((n = i), (r = a)), { width: n, height: r, $: l });
+    }
+    function tv(e) {
+      return e3(e) ? e : e.contextElement;
+    }
+    function tg(e) {
+      let t = tv(e);
+      if (!e6(t)) return eM(1);
+      let n = t.getBoundingClientRect(),
+        { width: r, height: o, $: i } = th(t),
+        a = (i ? ek(n.width) : n.width) / r,
+        l = (i ? ek(n.height) : n.height) / o;
+      return (
+        (a && Number.isFinite(a)) || (a = 1),
+        (l && Number.isFinite(l)) || (l = 1),
+        { x: a, y: l }
+      );
+    }
+    let tx = eM(0);
+    function ty(e) {
+      let t = e2(e);
+      return tl() && t.visualViewport
+        ? { x: t.visualViewport.offsetLeft, y: t.visualViewport.offsetTop }
+        : tx;
+    }
+    function tw(e, t, n, r) {
+      var o;
+      (void 0 === t && (t = !1), void 0 === n && (n = !1));
+      let i = e.getBoundingClientRect(),
+        a = tv(e),
+        l = eM(1);
+      t && (r ? e3(r) && (l = tg(r)) : (l = tg(e)));
+      let s = (void 0 === (o = n) && (o = !1), r && (!o || r === e2(a)) && o)
+          ? ty(a)
+          : eM(0),
+        c = (i.left + s.x) / l.x,
+        u = (i.top + s.y) / l.y,
+        d = i.width / l.x,
+        f = i.height / l.y;
+      if (a) {
+        let e = e2(a),
+          t = r && e3(r) ? e2(r) : r,
+          n = e,
+          o = tm(n);
+        for (; o && r && t !== n; ) {
+          let e = tg(o),
+            t = o.getBoundingClientRect(),
+            r = tu(o),
+            i = t.left + (o.clientLeft + parseFloat(r.paddingLeft)) * e.x,
+            a = t.top + (o.clientTop + parseFloat(r.paddingTop)) * e.y;
+          ((c *= e.x),
+            (u *= e.y),
+            (d *= e.x),
+            (f *= e.y),
+            (c += i),
+            (u += a),
+            (o = tm((n = e2(o)))));
+        }
+      }
+      return eH({ width: d, height: f, x: c, y: u });
+    }
+    function tb(e, t) {
+      let n = td(e).scrollLeft;
+      return t ? t.left + n : tw(e5(e)).left + n;
+    }
+    function tj(e, t) {
+      let n = e.getBoundingClientRect();
+      return { x: n.left + t.scrollLeft - tb(e, n), y: n.top + t.scrollTop };
+    }
+    let tN = new Set(['absolute', 'fixed']);
+    function tE(e, t, n) {
+      var r;
+      let o;
+      if ('viewport' === t)
+        o = (function (e, t) {
+          let n = e2(e),
+            r = e5(e),
+            o = n.visualViewport,
+            i = r.clientWidth,
+            a = r.clientHeight,
+            l = 0,
+            s = 0;
+          if (o) {
+            ((i = o.width), (a = o.height));
+            let e = tl();
+            (!e || (e && 'fixed' === t)) &&
+              ((l = o.offsetLeft), (s = o.offsetTop));
+          }
+          let c = tb(r);
+          if (c <= 0) {
+            let e = r.ownerDocument,
+              t = e.body,
+              n = getComputedStyle(t),
+              o =
+                ('CSS1Compat' === e.compatMode &&
+                  parseFloat(n.marginLeft) + parseFloat(n.marginRight)) ||
+                0,
+              a = Math.abs(r.clientWidth - t.clientWidth - o);
+            a <= 25 && (i -= a);
+          } else c <= 25 && (i += c);
+          return { width: i, height: a, x: l, y: s };
+        })(e, n);
+      else if ('document' === t) {
+        let t, n, i, a, l, s, c;
+        ((r = e5(e)),
+          (t = e5(r)),
+          (n = td(r)),
+          (i = r.ownerDocument.body),
+          (a = eC(t.scrollWidth, t.clientWidth, i.scrollWidth, i.clientWidth)),
+          (l = eC(
+            t.scrollHeight,
+            t.clientHeight,
+            i.scrollHeight,
+            i.clientHeight
+          )),
+          (s = -n.scrollLeft + tb(r)),
+          (c = -n.scrollTop),
+          'rtl' === tu(i).direction &&
+            (s += eC(t.clientWidth, i.clientWidth) - a),
+          (o = { width: a, height: l, x: s, y: c }));
+      } else if (e3(t)) {
+        let e, r, i, a, l, s;
+        ((r = (e = tw(t, !0, 'fixed' === n)).top + t.clientTop),
+          (i = e.left + t.clientLeft),
+          (a = e6(t) ? tg(t) : eM(1)),
+          (l = t.clientWidth * a.x),
+          (s = t.clientHeight * a.y),
+          (o = { width: l, height: s, x: i * a.x, y: r * a.y }));
+      } else {
+        let n = ty(e);
+        o = { x: t.x - n.x, y: t.y - n.y, width: t.width, height: t.height };
+      }
+      return eH(o);
+    }
+    function tR(e) {
+      return 'static' === tu(e).position;
+    }
+    function tC(e, t) {
+      if (!e6(e) || 'fixed' === tu(e).position) return null;
+      if (t) return t(e);
+      let n = e.offsetParent;
+      return (e5(e) === n && (n = n.ownerDocument.body), n);
+    }
+    function tk(e, t) {
+      var n;
+      let r = e2(e);
+      if (tn(e)) return r;
+      if (!e6(e)) {
+        let t = tf(e);
+        for (; t && !tc(t); ) {
+          if (e3(t) && !tR(t)) return t;
+          t = tf(t);
+        }
+        return r;
+      }
+      let o = tC(e, t);
+      for (; o && ((n = o), te.has(e1(n))) && tR(o); ) o = tC(o, t);
+      return o && tc(o) && tR(o) && !ta(o)
+        ? r
+        : o ||
+            (function (e) {
+              let t = tf(e);
+              for (; e6(t) && !tc(t); ) {
+                if (ta(t)) return t;
+                if (tn(t)) break;
+                t = tf(t);
+              }
+              return null;
+            })(e) ||
+            r;
+    }
+    let tS = async function (e) {
+        let t = this.getOffsetParent || tk,
+          n = this.getDimensions,
+          r = await n(e.floating);
+        return {
+          reference: (function (e, t, n) {
+            let r = e6(t),
+              o = e5(t),
+              i = 'fixed' === n,
+              a = tw(e, !0, i, t),
+              l = { scrollLeft: 0, scrollTop: 0 },
+              s = eM(0);
+            if (r || (!r && !i))
+              if ((('body' !== e1(t) || e9(o)) && (l = td(t)), r)) {
+                let e = tw(t, !0, i, t);
+                ((s.x = e.x + t.clientLeft), (s.y = e.y + t.clientTop));
+              } else o && (s.x = tb(o));
+            i && !r && o && (s.x = tb(o));
+            let c = !o || r || i ? eM(0) : tj(o, l);
+            return {
+              x: a.left + l.scrollLeft - s.x - c.x,
+              y: a.top + l.scrollTop - s.y - c.y,
+              width: a.width,
+              height: a.height,
+            };
+          })(e.reference, await t(e.floating), e.strategy),
+          floating: { x: 0, y: 0, width: r.width, height: r.height },
+        };
+      },
+      tM = {
+        convertOffsetParentRelativeRectToViewportRelativeRect: function (e) {
+          let { elements: t, rect: n, offsetParent: r, strategy: o } = e,
+            i = 'fixed' === o,
+            a = e5(r),
+            l = !!t && tn(t.floating);
+          if (r === a || (l && i)) return n;
+          let s = { scrollLeft: 0, scrollTop: 0 },
+            c = eM(1),
+            u = eM(0),
+            d = e6(r);
+          if (
+            (d || (!d && !i)) &&
+            (('body' !== e1(r) || e9(a)) && (s = td(r)), e6(r))
+          ) {
+            let e = tw(r);
+            ((c = tg(r)),
+              (u.x = e.x + r.clientLeft),
+              (u.y = e.y + r.clientTop));
+          }
+          let f = !a || d || i ? eM(0) : tj(a, s);
+          return {
+            width: n.width * c.x,
+            height: n.height * c.y,
+            x: n.x * c.x - s.scrollLeft * c.x + u.x + f.x,
+            y: n.y * c.y - s.scrollTop * c.y + u.y + f.y,
+          };
+        },
+        getDocumentElement: e5,
+        getClippingRect: function (e) {
+          let { element: t, boundary: n, rootBoundary: r, strategy: o } = e,
+            i = [
+              ...('clippingAncestors' === n
+                ? tn(t)
+                  ? []
+                  : (function (e, t) {
+                      let n = t.get(e);
+                      if (n) return n;
+                      let r = tp(e, [], !1).filter(
+                          (e) => e3(e) && 'body' !== e1(e)
+                        ),
+                        o = null,
+                        i = 'fixed' === tu(e).position,
+                        a = i ? tf(e) : e;
+                      for (; e3(a) && !tc(a); ) {
+                        let t = tu(a),
+                          n = ta(a);
+                        (n || 'fixed' !== t.position || (o = null),
+                          (
+                            i
+                              ? !n && !o
+                              : (!n &&
+                                  'static' === t.position &&
+                                  !!o &&
+                                  tN.has(o.position)) ||
+                                (e9(a) &&
+                                  !n &&
+                                  (function e(t, n) {
+                                    let r = tf(t);
+                                    return (
+                                      !(r === n || !e3(r) || tc(r)) &&
+                                      ('fixed' === tu(r).position || e(r, n))
+                                    );
+                                  })(e, a))
+                          )
+                            ? (r = r.filter((e) => e !== a))
+                            : (o = t),
+                          (a = tf(a)));
+                      }
+                      return (t.set(e, r), r);
+                    })(t, this._c)
+                : [].concat(n)),
+              r,
+            ],
+            a = i[0],
+            l = i.reduce(
+              (e, n) => {
+                let r = tE(t, n, o);
+                return (
+                  (e.top = eC(r.top, e.top)),
+                  (e.right = eR(r.right, e.right)),
+                  (e.bottom = eR(r.bottom, e.bottom)),
+                  (e.left = eC(r.left, e.left)),
+                  e
+                );
+              },
+              tE(t, a, o)
+            );
+          return {
+            width: l.right - l.left,
+            height: l.bottom - l.top,
+            x: l.left,
+            y: l.top,
+          };
+        },
+        getOffsetParent: tk,
+        getElementRects: tS,
+        getClientRects: function (e) {
+          return Array.from(e.getClientRects());
+        },
+        getDimensions: function (e) {
+          let { width: t, height: n } = th(e);
+          return { width: t, height: n };
+        },
+        getScale: tg,
+        isElement: e3,
+        isRTL: function (e) {
+          return 'rtl' === tu(e).direction;
+        },
+      };
+    function tA(e, t) {
+      return (
+        e.x === t.x &&
+        e.y === t.y &&
+        e.width === t.width &&
+        e.height === t.height
+      );
+    }
+    let tT = (e) => ({
+      name: 'arrow',
+      options: e,
+      async fn(t) {
+        let {
+            x: n,
+            y: r,
+            placement: o,
+            rects: i,
+            platform: a,
+            elements: l,
+            middlewareData: s,
+          } = t,
+          { element: c, padding: u = 0 } = eL(e, t) || {};
+        if (null == c) return {};
+        let d = eK(u),
+          f = { x: n, y: r },
+          p = e_(eF(o)),
+          m = eO(p),
+          h = await a.getDimensions(c),
+          v = 'y' === p,
+          g = v ? 'clientHeight' : 'clientWidth',
+          x = i.reference[m] + i.reference[p] - f[p] - i.floating[m],
+          y = f[p] - i.reference[p],
+          w = await (null == a.getOffsetParent ? void 0 : a.getOffsetParent(c)),
+          b = w ? w[g] : 0;
+        (b && (await (null == a.isElement ? void 0 : a.isElement(w)))) ||
+          (b = l.floating[g] || i.floating[m]);
+        let j = b / 2 - h[m] / 2 - 1,
+          N = eR(d[v ? 'top' : 'left'], j),
+          E = eR(d[v ? 'bottom' : 'right'], j),
+          R = b - h[m] - E,
+          C = b / 2 - h[m] / 2 + (x / 2 - y / 2),
+          k = eC(N, eR(C, R)),
+          S =
+            !s.arrow &&
+            null != eD(o) &&
+            C !== k &&
+            i.reference[m] / 2 - (C < N ? N : E) - h[m] / 2 < 0,
+          M = S ? (C < N ? C - N : C - R) : 0;
+        return {
+          [p]: f[p] + M,
+          data: {
+            [p]: k,
+            centerOffset: C - k - M,
+            ...(S && { alignmentOffset: M }),
+          },
+          reset: S,
+        };
+      },
+    });
+    var tL = 'u' > typeof document ? f.useLayoutEffect : function () {};
+    function tP(e, t) {
+      let n, r, o;
+      if (e === t) return !0;
+      if (typeof e != typeof t) return !1;
+      if ('function' == typeof e && e.toString() === t.toString()) return !0;
+      if (e && t && 'object' == typeof e) {
+        if (Array.isArray(e)) {
+          if ((n = e.length) !== t.length) return !1;
+          for (r = n; 0 != r--; ) if (!tP(e[r], t[r])) return !1;
+          return !0;
+        }
+        if ((n = (o = Object.keys(e)).length) !== Object.keys(t).length)
+          return !1;
+        for (r = n; 0 != r--; ) if (!{}.hasOwnProperty.call(t, o[r])) return !1;
+        for (r = n; 0 != r--; ) {
+          let n = o[r];
+          if (('_owner' !== n || !e.$$typeof) && !tP(e[n], t[n])) return !1;
+        }
+        return !0;
+      }
+      return e != e && t != t;
+    }
+    function tD(e) {
+      return 'u' < typeof window
+        ? 1
+        : (e.ownerDocument.defaultView || window).devicePixelRatio || 1;
+    }
+    function t_(e, t) {
+      let n = tD(e);
+      return Math.round(t * n) / n;
+    }
+    function tO(e) {
+      let t = f.useRef(e);
+      return (
+        tL(() => {
+          t.current = e;
+        }),
+        t
+      );
+    }
+    var tI = f.forwardRef((e, t) => {
+      let { children: n, width: r = 10, height: o = 5, ...i } = e;
+      return (0, d.jsx)(Y.svg, {
+        ...i,
+        ref: t,
+        width: r,
+        height: o,
+        viewBox: '0 0 30 10',
+        preserveAspectRatio: 'none',
+        children: e.asChild
+          ? n
+          : (0, d.jsx)('polygon', { points: '0,0 30,0 15,10' }),
+      });
+    });
+    tI.displayName = 'Arrow';
+    var tF = 'Popper',
+      [tz, tU] = B(tF),
+      [tW, tB] = tz(tF),
+      t$ = (e) => {
+        let { __scopePopper: t, children: n } = e,
+          [r, o] = f.useState(null);
+        return (0, d.jsx)(tW, {
+          scope: t,
+          anchor: r,
+          onAnchorChange: o,
+          children: n,
+        });
+      };
+    t$.displayName = tF;
+    var tV = 'PopperAnchor',
+      tK = f.forwardRef((e, t) => {
+        let { __scopePopper: n, virtualRef: r, ...o } = e,
+          i = tB(tV, n),
+          a = f.useRef(null),
+          l = W(t, a),
+          s = f.useRef(null);
+        return (
+          f.useEffect(() => {
+            let e = s.current;
+            ((s.current = r?.current || a.current),
+              e !== s.current && i.onAnchorChange(s.current));
+          }),
+          r ? null : (0, d.jsx)(Y.div, { ...o, ref: l })
+        );
+      });
+    tK.displayName = tV;
+    var tH = 'PopperContent',
+      [tX, tq] = tz(tH),
+      tG = f.forwardRef((e, t) => {
+        var n, r, o, i, a, l, s, c, u, p, m, h, v;
+        let {
+            __scopePopper: g,
+            side: x = 'bottom',
+            sideOffset: y = 0,
+            align: w = 'center',
+            alignOffset: b = 0,
+            arrowPadding: j = 0,
+            avoidCollisions: N = !0,
+            collisionBoundary: E = [],
+            collisionPadding: R = 0,
+            sticky: C = 'partial',
+            hideWhenDetached: k = !1,
+            updatePositionStrategy: S = 'optimized',
+            onPlaced: M,
+            ...A
+          } = e,
+          T = tB(tH, g),
+          [L, P] = f.useState(null),
+          D = W(t, (e) => P(e)),
+          [_, O] = f.useState(null),
+          I = (function (e) {
+            let [t, n] = f.useState(void 0);
+            return (
+              $(() => {
+                if (e) {
+                  n({ width: e.offsetWidth, height: e.offsetHeight });
+                  let t = new ResizeObserver((t) => {
+                    let r, o;
+                    if (!Array.isArray(t) || !t.length) return;
+                    let i = t[0];
+                    if ('borderBoxSize' in i) {
+                      let e = i.borderBoxSize,
+                        t = Array.isArray(e) ? e[0] : e;
+                      ((r = t.inlineSize), (o = t.blockSize));
+                    } else ((r = e.offsetWidth), (o = e.offsetHeight));
+                    n({ width: r, height: o });
+                  });
+                  return (
+                    t.observe(e, { box: 'border-box' }),
+                    () => t.unobserve(e)
+                  );
+                }
+                n(void 0);
+              }, [e]),
+              t
+            );
+          })(_),
+          F = I?.width ?? 0,
+          z = I?.height ?? 0,
+          U =
+            'number' == typeof R
+              ? R
+              : { top: 0, right: 0, bottom: 0, left: 0, ...R },
+          B = Array.isArray(E) ? E : [E],
+          V = B.length > 0,
+          K = { padding: U, boundary: B.filter(tQ), altBoundary: V },
+          {
+            refs: X,
+            floatingStyles: q,
+            placement: G,
+            isPositioned: Z,
+            middlewareData: J,
+          } = (function (e) {
+            void 0 === e && (e = {});
+            let {
+                placement: t = 'bottom',
+                strategy: n = 'absolute',
+                middleware: r = [],
+                platform: o,
+                elements: { reference: i, floating: a } = {},
+                transform: l = !0,
+                whileElementsMounted: s,
+                open: c,
+              } = e,
+              [u, d] = f.useState({
+                x: 0,
+                y: 0,
+                strategy: n,
+                placement: t,
+                middlewareData: {},
+                isPositioned: !1,
+              }),
+              [p, m] = f.useState(r);
+            tP(p, r) || m(r);
+            let [h, v] = f.useState(null),
+              [g, x] = f.useState(null),
+              y = f.useCallback((e) => {
+                e !== N.current && ((N.current = e), v(e));
+              }, []),
+              w = f.useCallback((e) => {
+                e !== E.current && ((E.current = e), x(e));
+              }, []),
+              b = i || h,
+              j = a || g,
+              N = f.useRef(null),
+              E = f.useRef(null),
+              R = f.useRef(u),
+              C = null != s,
+              k = tO(s),
+              S = tO(o),
+              M = tO(c),
+              A = f.useCallback(() => {
+                var e, r;
+                let o, i, a;
+                if (!N.current || !E.current) return;
+                let l = { placement: t, strategy: n, middleware: p };
+                (S.current && (l.platform = S.current),
+                  ((e = N.current),
+                  (r = E.current),
+                  (o = new Map()),
+                  (a = { ...(i = { platform: tM, ...l }).platform, _c: o }),
+                  eq(e, r, { ...i, platform: a })).then((e) => {
+                    let t = { ...e, isPositioned: !1 !== M.current };
+                    T.current &&
+                      !tP(R.current, t) &&
+                      ((R.current = t),
+                      H.flushSync(() => {
+                        d(t);
+                      }));
+                  }));
+              }, [p, t, n, S, M]);
+            tL(() => {
+              !1 === c &&
+                R.current.isPositioned &&
+                ((R.current.isPositioned = !1),
+                d((e) => ({ ...e, isPositioned: !1 })));
+            }, [c]);
+            let T = f.useRef(!1);
+            (tL(
+              () => (
+                (T.current = !0),
+                () => {
+                  T.current = !1;
+                }
+              ),
+              []
+            ),
+              tL(() => {
+                if ((b && (N.current = b), j && (E.current = j), b && j)) {
+                  if (k.current) return k.current(b, j, A);
+                  A();
+                }
+              }, [b, j, A, k, C]));
+            let L = f.useMemo(
+                () => ({
+                  reference: N,
+                  floating: E,
+                  setReference: y,
+                  setFloating: w,
+                }),
+                [y, w]
+              ),
+              P = f.useMemo(() => ({ reference: b, floating: j }), [b, j]),
+              D = f.useMemo(() => {
+                let e = { position: n, left: 0, top: 0 };
+                if (!P.floating) return e;
+                let t = t_(P.floating, u.x),
+                  r = t_(P.floating, u.y);
+                return l
+                  ? {
+                      ...e,
+                      transform: 'translate(' + t + 'px, ' + r + 'px)',
+                      ...(tD(P.floating) >= 1.5 && { willChange: 'transform' }),
+                    }
+                  : { position: n, left: t, top: r };
+              }, [n, l, P.floating, u.x, u.y]);
+            return f.useMemo(
+              () => ({
+                ...u,
+                update: A,
+                refs: L,
+                elements: P,
+                floatingStyles: D,
+              }),
+              [u, A, L, P, D]
+            );
+          })({
+            strategy: 'fixed',
+            placement: x + ('center' !== w ? '-' + w : ''),
+            whileElementsMounted: (...e) =>
+              (function (e, t, n, r) {
+                let o;
+                void 0 === r && (r = {});
+                let {
+                    ancestorScroll: i = !0,
+                    ancestorResize: a = !0,
+                    elementResize: l = 'function' == typeof ResizeObserver,
+                    layoutShift: s = 'function' == typeof IntersectionObserver,
+                    animationFrame: c = !1,
+                  } = r,
+                  u = tv(e),
+                  d = i || a ? [...(u ? tp(u) : []), ...tp(t)] : [];
+                d.forEach((e) => {
+                  (i && e.addEventListener('scroll', n, { passive: !0 }),
+                    a && e.addEventListener('resize', n));
+                });
+                let f =
+                    u && s
+                      ? (function (e, t) {
+                          let n,
+                            r = null,
+                            o = e5(e);
+                          function i() {
+                            var e;
+                            (clearTimeout(n),
+                              null == (e = r) || e.disconnect(),
+                              (r = null));
+                          }
+                          return (
+                            !(function a(l, s) {
+                              (void 0 === l && (l = !1),
+                                void 0 === s && (s = 1),
+                                i());
+                              let c = e.getBoundingClientRect(),
+                                { left: u, top: d, width: f, height: p } = c;
+                              if ((l || t(), !f || !p)) return;
+                              let m = {
+                                  rootMargin:
+                                    -eS(d) +
+                                    'px ' +
+                                    -eS(o.clientWidth - (u + f)) +
+                                    'px ' +
+                                    -eS(o.clientHeight - (d + p)) +
+                                    'px ' +
+                                    -eS(u) +
+                                    'px',
+                                  threshold: eC(0, eR(1, s)) || 1,
+                                },
+                                h = !0;
+                              function v(t) {
+                                let r = t[0].intersectionRatio;
+                                if (r !== s) {
+                                  if (!h) return a();
+                                  r
+                                    ? a(!1, r)
+                                    : (n = setTimeout(() => {
+                                        a(!1, 1e-7);
+                                      }, 1e3));
+                                }
+                                (1 !== r ||
+                                  tA(c, e.getBoundingClientRect()) ||
+                                  a(),
+                                  (h = !1));
+                              }
+                              try {
+                                r = new IntersectionObserver(v, {
+                                  ...m,
+                                  root: o.ownerDocument,
+                                });
+                              } catch (e) {
+                                r = new IntersectionObserver(v, m);
+                              }
+                              r.observe(e);
+                            })(!0),
+                            i
+                          );
+                        })(u, n)
+                      : null,
+                  p = -1,
+                  m = null;
+                l &&
+                  ((m = new ResizeObserver((e) => {
+                    let [r] = e;
+                    (r &&
+                      r.target === u &&
+                      m &&
+                      (m.unobserve(t),
+                      cancelAnimationFrame(p),
+                      (p = requestAnimationFrame(() => {
+                        var e;
+                        null == (e = m) || e.observe(t);
+                      }))),
+                      n());
+                  })),
+                  u && !c && m.observe(u),
+                  m.observe(t));
+                let h = c ? tw(e) : null;
+                return (
+                  c &&
+                    (function t() {
+                      let r = tw(e);
+                      (h && !tA(h, r) && n(),
+                        (h = r),
+                        (o = requestAnimationFrame(t)));
+                    })(),
+                  n(),
+                  () => {
+                    var e;
+                    (d.forEach((e) => {
+                      (i && e.removeEventListener('scroll', n),
+                        a && e.removeEventListener('resize', n));
+                    }),
+                      null == f || f(),
+                      null == (e = m) || e.disconnect(),
+                      (m = null),
+                      c && cancelAnimationFrame(o));
+                  }
+                );
+              })(...e, { animationFrame: 'always' === S }),
+            elements: { reference: T.anchor },
+            middleware: [
+              {
+                ...{
+                  name: 'offset',
+                  options: (r = n = { mainAxis: y + z, alignmentAxis: b }),
+                  async fn(e) {
+                    var t, n;
+                    let { x: o, y: i, placement: a, middlewareData: l } = e,
+                      s = await eQ(e, r);
+                    return a ===
+                      (null == (t = l.offset) ? void 0 : t.placement) &&
+                      null != (n = l.arrow) &&
+                      n.alignmentOffset
+                      ? {}
+                      : {
+                          x: o + s.x,
+                          y: i + s.y,
+                          data: { ...s, placement: a },
+                        };
+                  },
+                },
+                options: [n, void 0],
+              },
+              N && {
+                ...{
+                  name: 'shift',
+                  options:
+                    (a = i =
+                      {
+                        mainAxis: !0,
+                        crossAxis: !1,
+                        limiter:
+                          'partial' === C
+                            ? {
+                                ...((o = void 0),
+                                {
+                                  options: (o = {}),
+                                  fn(e) {
+                                    let {
+                                        x: t,
+                                        y: n,
+                                        placement: r,
+                                        rects: i,
+                                        middlewareData: a,
+                                      } = e,
+                                      {
+                                        offset: l = 0,
+                                        mainAxis: s = !0,
+                                        crossAxis: c = !0,
+                                      } = eL(o, e),
+                                      u = { x: t, y: n },
+                                      d = eF(r),
+                                      f = e_(d),
+                                      p = u[f],
+                                      m = u[d],
+                                      h = eL(l, e),
+                                      v =
+                                        'number' == typeof h
+                                          ? { mainAxis: h, crossAxis: 0 }
+                                          : { mainAxis: 0, crossAxis: 0, ...h };
+                                    if (s) {
+                                      let e = 'y' === f ? 'height' : 'width',
+                                        t =
+                                          i.reference[f] -
+                                          i.floating[e] +
+                                          v.mainAxis,
+                                        n =
+                                          i.reference[f] +
+                                          i.reference[e] -
+                                          v.mainAxis;
+                                      p < t ? (p = t) : p > n && (p = n);
+                                    }
+                                    if (c) {
+                                      var g, x;
+                                      let e = 'y' === f ? 'width' : 'height',
+                                        t = eJ.has(eP(r)),
+                                        n =
+                                          i.reference[d] -
+                                          i.floating[e] +
+                                          ((t &&
+                                            (null == (g = a.offset)
+                                              ? void 0
+                                              : g[d])) ||
+                                            0) +
+                                          (t ? 0 : v.crossAxis),
+                                        o =
+                                          i.reference[d] +
+                                          i.reference[e] +
+                                          (t
+                                            ? 0
+                                            : (null == (x = a.offset)
+                                                ? void 0
+                                                : x[d]) || 0) -
+                                          (t ? v.crossAxis : 0);
+                                      m < n ? (m = n) : m > o && (m = o);
+                                    }
+                                    return { [f]: p, [d]: m };
+                                  },
+                                }),
+                                options: [void 0, void 0],
+                              }
+                            : void 0,
+                        ...K,
+                      }),
+                  async fn(e) {
+                    let { x: t, y: n, placement: r } = e,
+                      {
+                        mainAxis: o = !0,
+                        crossAxis: i = !1,
+                        limiter: l = {
+                          fn: (e) => {
+                            let { x: t, y: n } = e;
+                            return { x: t, y: n };
+                          },
+                        },
+                        ...s
+                      } = eL(a, e),
+                      c = { x: t, y: n },
+                      u = await eG(e, s),
+                      d = eF(eP(r)),
+                      f = e_(d),
+                      p = c[f],
+                      m = c[d];
+                    if (o) {
+                      let e = 'y' === f ? 'top' : 'left',
+                        t = 'y' === f ? 'bottom' : 'right',
+                        n = p + u[e],
+                        r = p - u[t];
+                      p = eC(n, eR(p, r));
+                    }
+                    if (i) {
+                      let e = 'y' === d ? 'top' : 'left',
+                        t = 'y' === d ? 'bottom' : 'right',
+                        n = m + u[e],
+                        r = m - u[t];
+                      m = eC(n, eR(m, r));
+                    }
+                    let h = l.fn({ ...e, [f]: p, [d]: m });
+                    return {
+                      ...h,
+                      data: {
+                        x: h.x - t,
+                        y: h.y - n,
+                        enabled: { [f]: o, [d]: i },
+                      },
+                    };
+                  },
+                },
+                options: [i, void 0],
+              },
+              N && {
+                ...{
+                  name: 'flip',
+                  options: (s = l = { ...K }),
+                  async fn(e) {
+                    var t, n, r, o, i, a, l, c;
+                    let u,
+                      d,
+                      f,
+                      {
+                        placement: p,
+                        middlewareData: m,
+                        rects: h,
+                        initialPlacement: v,
+                        platform: g,
+                        elements: x,
+                      } = e,
+                      {
+                        mainAxis: y = !0,
+                        crossAxis: w = !0,
+                        fallbackPlacements: b,
+                        fallbackStrategy: j = 'bestFit',
+                        fallbackAxisSideDirection: N = 'none',
+                        flipAlignment: E = !0,
+                        ...R
+                      } = eL(s, e);
+                    if (null != (t = m.arrow) && t.alignmentOffset) return {};
+                    let C = eP(p),
+                      k = eF(v),
+                      S = eP(v) === v,
+                      M = await (null == g.isRTL
+                        ? void 0
+                        : g.isRTL(x.floating)),
+                      A =
+                        b ||
+                        (S || !E ? [eV(v)] : ((u = eV(v)), [ez(v), u, ez(u)])),
+                      T = 'none' !== N;
+                    !b &&
+                      T &&
+                      A.push(
+                        ...((d = eD(v)),
+                        (f = (function (e, t, n) {
+                          switch (e) {
+                            case 'top':
+                            case 'bottom':
+                              if (n) return t ? eW : eU;
+                              return t ? eU : eW;
+                            case 'left':
+                            case 'right':
+                              return t ? eB : e$;
+                            default:
+                              return [];
+                          }
+                        })(eP(v), 'start' === N, M)),
+                        d &&
+                          ((f = f.map((e) => e + '-' + d)),
+                          E && (f = f.concat(f.map(ez)))),
+                        f)
+                      );
+                    let L = [v, ...A],
+                      P = await eG(e, R),
+                      D = [],
+                      _ = (null == (n = m.flip) ? void 0 : n.overflows) || [];
+                    if ((y && D.push(P[C]), w)) {
+                      let e,
+                        t,
+                        n,
+                        r,
+                        o =
+                          ((a = p),
+                          (l = h),
+                          void 0 === (c = M) && (c = !1),
+                          (e = eD(a)),
+                          (n = eO((t = e_(eF(a))))),
+                          (r =
+                            'x' === t
+                              ? e === (c ? 'end' : 'start')
+                                ? 'right'
+                                : 'left'
+                              : 'start' === e
+                                ? 'bottom'
+                                : 'top'),
+                          l.reference[n] > l.floating[n] && (r = eV(r)),
+                          [r, eV(r)]);
+                      D.push(P[o[0]], P[o[1]]);
+                    }
+                    if (
+                      ((_ = [..._, { placement: p, overflows: D }]),
+                      !D.every((e) => e <= 0))
+                    ) {
+                      let e =
+                          ((null == (r = m.flip) ? void 0 : r.index) || 0) + 1,
+                        t = L[e];
+                      if (
+                        t &&
+                        ('alignment' !== w ||
+                          k === eF(t) ||
+                          _.every(
+                            (e) => eF(e.placement) !== k || e.overflows[0] > 0
+                          ))
+                      )
+                        return {
+                          data: { index: e, overflows: _ },
+                          reset: { placement: t },
+                        };
+                      let n =
+                        null ==
+                        (o = _.filter((e) => e.overflows[0] <= 0).sort(
+                          (e, t) => e.overflows[1] - t.overflows[1]
+                        )[0])
+                          ? void 0
+                          : o.placement;
+                      if (!n)
+                        switch (j) {
+                          case 'bestFit': {
+                            let e =
+                              null ==
+                              (i = _.filter((e) => {
+                                if (T) {
+                                  let t = eF(e.placement);
+                                  return t === k || 'y' === t;
+                                }
+                                return !0;
+                              })
+                                .map((e) => [
+                                  e.placement,
+                                  e.overflows
+                                    .filter((e) => e > 0)
+                                    .reduce((e, t) => e + t, 0),
+                                ])
+                                .sort((e, t) => e[1] - t[1])[0])
+                                ? void 0
+                                : i[0];
+                            e && (n = e);
+                            break;
+                          }
+                          case 'initialPlacement':
+                            n = v;
+                        }
+                      if (p !== n) return { reset: { placement: n } };
+                    }
+                    return {};
+                  },
+                },
+                options: [l, void 0],
+              },
+              {
+                ...{
+                  name: 'size',
+                  options:
+                    (u = c =
+                      {
+                        ...K,
+                        apply: ({
+                          elements: e,
+                          rects: t,
+                          availableWidth: n,
+                          availableHeight: r,
+                        }) => {
+                          let { width: o, height: i } = t.reference,
+                            a = e.floating.style;
+                          (a.setProperty(
+                            '--radix-popper-available-width',
+                            `${n}px`
+                          ),
+                            a.setProperty(
+                              '--radix-popper-available-height',
+                              `${r}px`
+                            ),
+                            a.setProperty(
+                              '--radix-popper-anchor-width',
+                              `${o}px`
+                            ),
+                            a.setProperty(
+                              '--radix-popper-anchor-height',
+                              `${i}px`
+                            ));
+                        },
+                      }),
+                  async fn(e) {
+                    var t, n;
+                    let r,
+                      o,
+                      { placement: i, rects: a, platform: l, elements: s } = e,
+                      { apply: c = () => {}, ...d } = eL(u, e),
+                      f = await eG(e, d),
+                      p = eP(i),
+                      m = eD(i),
+                      h = 'y' === eF(i),
+                      { width: v, height: g } = a.floating;
+                    'top' === p || 'bottom' === p
+                      ? ((r = p),
+                        (o =
+                          m ===
+                          ((await (null == l.isRTL
+                            ? void 0
+                            : l.isRTL(s.floating)))
+                            ? 'start'
+                            : 'end')
+                            ? 'left'
+                            : 'right'))
+                      : ((o = p), (r = 'end' === m ? 'top' : 'bottom'));
+                    let x = g - f.top - f.bottom,
+                      y = v - f.left - f.right,
+                      w = eR(g - f[r], x),
+                      b = eR(v - f[o], y),
+                      j = !e.middlewareData.shift,
+                      N = w,
+                      E = b;
+                    if (
+                      (null != (t = e.middlewareData.shift) &&
+                        t.enabled.x &&
+                        (E = y),
+                      null != (n = e.middlewareData.shift) &&
+                        n.enabled.y &&
+                        (N = x),
+                      j && !m)
+                    ) {
+                      let e = eC(f.left, 0),
+                        t = eC(f.right, 0),
+                        n = eC(f.top, 0),
+                        r = eC(f.bottom, 0);
+                      h
+                        ? (E =
+                            v -
+                            2 *
+                              (0 !== e || 0 !== t
+                                ? e + t
+                                : eC(f.left, f.right)))
+                        : (N =
+                            g -
+                            2 *
+                              (0 !== n || 0 !== r
+                                ? n + r
+                                : eC(f.top, f.bottom)));
+                    }
+                    await c({ ...e, availableWidth: E, availableHeight: N });
+                    let R = await l.getDimensions(s.floating);
+                    return v !== R.width || g !== R.height
+                      ? { reset: { rects: !0 } }
+                      : {};
+                  },
+                },
+                options: [c, void 0],
+              },
+              _ && {
+                ...{
+                  name: 'arrow',
+                  options: (m = p = { element: _, padding: j }),
+                  fn(e) {
+                    let { element: t, padding: n } =
+                      'function' == typeof m ? m(e) : m;
+                    return t && {}.hasOwnProperty.call(t, 'current')
+                      ? null != t.current
+                        ? tT({ element: t.current, padding: n }).fn(e)
+                        : {}
+                      : t
+                        ? tT({ element: t, padding: n }).fn(e)
+                        : {};
+                  },
+                },
+                options: [p, void 0],
+              },
+              t0({ arrowWidth: F, arrowHeight: z }),
+              k && {
+                ...{
+                  name: 'hide',
+                  options: (v = h = { strategy: 'referenceHidden', ...K }),
+                  async fn(e) {
+                    let { rects: t } = e,
+                      { strategy: n = 'referenceHidden', ...r } = eL(v, e);
+                    switch (n) {
+                      case 'referenceHidden': {
+                        let n = eY(
+                          await eG(e, { ...r, elementContext: 'reference' }),
+                          t.reference
+                        );
+                        return {
+                          data: {
+                            referenceHiddenOffsets: n,
+                            referenceHidden: eZ(n),
+                          },
+                        };
+                      }
+                      case 'escaped': {
+                        let n = eY(
+                          await eG(e, { ...r, altBoundary: !0 }),
+                          t.floating
+                        );
+                        return { data: { escapedOffsets: n, escaped: eZ(n) } };
+                      }
+                      default:
+                        return {};
+                    }
+                  },
+                },
+                options: [h, void 0],
+              },
+            ],
+          }),
+          [Q, ee] = t1(G),
+          et = eo(M);
+        $(() => {
+          Z && et?.();
+        }, [Z, et]);
+        let en = J.arrow?.x,
+          er = J.arrow?.y,
+          ei = J.arrow?.centerOffset !== 0,
+          [ea, el] = f.useState();
+        return (
+          $(() => {
+            L && el(window.getComputedStyle(L).zIndex);
+          }, [L]),
+          (0, d.jsx)('div', {
+            ref: X.setFloating,
+            'data-radix-popper-content-wrapper': '',
+            style: {
+              ...q,
+              transform: Z ? q.transform : 'translate(0, -200%)',
+              minWidth: 'max-content',
+              zIndex: ea,
+              '--radix-popper-transform-origin': [
+                J.transformOrigin?.x,
+                J.transformOrigin?.y,
+              ].join(' '),
+              ...(J.hide?.referenceHidden && {
+                visibility: 'hidden',
+                pointerEvents: 'none',
+              }),
+            },
+            dir: e.dir,
+            children: (0, d.jsx)(tX, {
+              scope: g,
+              placedSide: Q,
+              onArrowChange: O,
+              arrowX: en,
+              arrowY: er,
+              shouldHideArrow: ei,
+              children: (0, d.jsx)(Y.div, {
+                'data-side': Q,
+                'data-align': ee,
+                ...A,
+                ref: D,
+                style: { ...A.style, animation: Z ? void 0 : 'none' },
+              }),
+            }),
+          })
+        );
+      });
+    tG.displayName = tH;
+    var tY = 'PopperArrow',
+      tZ = { top: 'bottom', right: 'left', bottom: 'top', left: 'right' },
+      tJ = f.forwardRef(function (e, t) {
+        let { __scopePopper: n, ...r } = e,
+          o = tq(tY, n),
+          i = tZ[o.placedSide];
+        return (0, d.jsx)('span', {
+          ref: o.onArrowChange,
+          style: {
+            position: 'absolute',
+            left: o.arrowX,
+            top: o.arrowY,
+            [i]: 0,
+            transformOrigin: {
+              top: '',
+              right: '0 0',
+              bottom: 'center 0',
+              left: '100% 0',
+            }[o.placedSide],
+            transform: {
+              top: 'translateY(100%)',
+              right: 'translateY(50%) rotate(90deg) translateX(-50%)',
+              bottom: 'rotate(180deg)',
+              left: 'translateY(50%) rotate(-90deg) translateX(50%)',
+            }[o.placedSide],
+            visibility: o.shouldHideArrow ? 'hidden' : void 0,
+          },
+          children: (0, d.jsx)(tI, {
+            ...r,
+            ref: t,
+            style: { ...r.style, display: 'block' },
+          }),
+        });
+      });
+    function tQ(e) {
+      return null !== e;
+    }
+    tJ.displayName = tY;
+    var t0 = (e) => ({
+      name: 'transformOrigin',
+      options: e,
+      fn(t) {
+        let { placement: n, rects: r, middlewareData: o } = t,
+          i = o.arrow?.centerOffset !== 0,
+          a = i ? 0 : e.arrowWidth,
+          l = i ? 0 : e.arrowHeight,
+          [s, c] = t1(n),
+          u = { start: '0%', center: '50%', end: '100%' }[c],
+          d = (o.arrow?.x ?? 0) + a / 2,
+          f = (o.arrow?.y ?? 0) + l / 2,
+          p = '',
+          m = '';
+        return (
+          'bottom' === s
+            ? ((p = i ? u : `${d}px`), (m = `${-l}px`))
+            : 'top' === s
+              ? ((p = i ? u : `${d}px`), (m = `${r.floating.height + l}px`))
+              : 'right' === s
+                ? ((p = `${-l}px`), (m = i ? u : `${f}px`))
+                : 'left' === s &&
+                  ((p = `${r.floating.width + l}px`), (m = i ? u : `${f}px`)),
+          { data: { x: p, y: m } }
+        );
+      },
+    });
+    function t1(e) {
+      let [t, n = 'center'] = e.split('-');
+      return [t, n];
+    }
+    var t2 = f.forwardRef((e, t) => {
+      let { container: n, ...r } = e,
+        [o, i] = f.useState(!1);
+      $(() => i(!0), []);
+      let a = n || (o && globalThis?.document?.body);
+      return a
+        ? H.default.createPortal((0, d.jsx)(Y.div, { ...r, ref: t }), a)
+        : null;
+    });
+    t2.displayName = 'Portal';
+    var t5 = (e) => {
+      var t;
+      let n,
+        r,
+        { present: o, children: i } = e,
+        a = (function (e) {
+          var t, n;
+          let [r, o] = f.useState(),
+            i = f.useRef(null),
+            a = f.useRef(e),
+            l = f.useRef('none'),
+            [s, c] =
+              ((t = e ? 'mounted' : 'unmounted'),
+              (n = {
+                mounted: {
+                  UNMOUNT: 'unmounted',
+                  ANIMATION_OUT: 'unmountSuspended',
+                },
+                unmountSuspended: {
+                  MOUNT: 'mounted',
+                  ANIMATION_END: 'unmounted',
+                },
+                unmounted: { MOUNT: 'mounted' },
+              }),
+              f.useReducer((e, t) => n[e][t] ?? e, t));
+          return (
+            f.useEffect(() => {
+              let e = t4(i.current);
+              l.current = 'mounted' === s ? e : 'none';
+            }, [s]),
+            $(() => {
+              let t = i.current,
+                n = a.current;
+              if (n !== e) {
+                let r = l.current,
+                  o = t4(t);
+                (e
+                  ? c('MOUNT')
+                  : 'none' === o || t?.display === 'none'
+                    ? c('UNMOUNT')
+                    : n && r !== o
+                      ? c('ANIMATION_OUT')
+                      : c('UNMOUNT'),
+                  (a.current = e));
+              }
+            }, [e, c]),
+            $(() => {
+              if (r) {
+                let e,
+                  t = r.ownerDocument.defaultView ?? window,
+                  n = (n) => {
+                    let o = t4(i.current).includes(CSS.escape(n.animationName));
+                    if (
+                      n.target === r &&
+                      o &&
+                      (c('ANIMATION_END'), !a.current)
+                    ) {
+                      let n = r.style.animationFillMode;
+                      ((r.style.animationFillMode = 'forwards'),
+                        (e = t.setTimeout(() => {
+                          'forwards' === r.style.animationFillMode &&
+                            (r.style.animationFillMode = n);
+                        })));
+                    }
+                  },
+                  o = (e) => {
+                    e.target === r && (l.current = t4(i.current));
+                  };
+                return (
+                  r.addEventListener('animationstart', o),
+                  r.addEventListener('animationcancel', n),
+                  r.addEventListener('animationend', n),
+                  () => {
+                    (t.clearTimeout(e),
+                      r.removeEventListener('animationstart', o),
+                      r.removeEventListener('animationcancel', n),
+                      r.removeEventListener('animationend', n));
+                  }
+                );
+              }
+              c('ANIMATION_END');
+            }, [r, c]),
+            {
+              isPresent: ['mounted', 'unmountSuspended'].includes(s),
+              ref: f.useCallback((e) => {
+                ((i.current = e ? getComputedStyle(e) : null), o(e));
+              }, []),
+            }
+          );
+        })(o),
+        l =
+          'function' == typeof i
+            ? i({ present: a.isPresent })
+            : f.Children.only(i),
+        s = W(
+          a.ref,
+          ((t = l),
+          (r =
+            (n = Object.getOwnPropertyDescriptor(t.props, 'ref')?.get) &&
+            'isReactWarning' in n &&
+            n.isReactWarning)
+            ? t.ref
+            : (r =
+                  (n = Object.getOwnPropertyDescriptor(t, 'ref')?.get) &&
+                  'isReactWarning' in n &&
+                  n.isReactWarning)
+              ? t.props.ref
+              : t.props.ref || t.ref)
+        );
+      return 'function' == typeof i || a.isPresent
+        ? f.cloneElement(l, { ref: s })
+        : null;
+    };
+    function t4(e) {
+      return e?.animationName || 'none';
+    }
+    t5.displayName = 'Presence';
+    var t3 = 'rovingFocusGroup.onEntryFocus',
+      t6 = { bubbles: !1, cancelable: !0 },
+      t8 = 'RovingFocusGroup',
+      [t7, t9, ne] = J(t8),
+      [nt, nn] = B(t8, [ne]),
+      [nr, no] = nt(t8),
+      ni = f.forwardRef((e, t) =>
+        (0, d.jsx)(t7.Provider, {
+          scope: e.__scopeRovingFocusGroup,
+          children: (0, d.jsx)(t7.Slot, {
+            scope: e.__scopeRovingFocusGroup,
+            children: (0, d.jsx)(na, { ...e, ref: t }),
+          }),
+        })
+      );
+    ni.displayName = t8;
+    var na = f.forwardRef((e, t) => {
+        let {
+            __scopeRovingFocusGroup: n,
+            orientation: r,
+            loop: o = !1,
+            dir: i,
+            currentTabStopId: a,
+            defaultCurrentTabStopId: l,
+            onCurrentTabStopIdChange: s,
+            onEntryFocus: c,
+            preventScrollOnEntryFocus: u = !1,
+            ...p
+          } = e,
+          m = f.useRef(null),
+          h = W(t, m),
+          v = er(i),
+          [g, x] = K({
+            prop: a,
+            defaultProp: l ?? null,
+            onChange: s,
+            caller: t8,
+          }),
+          [y, w] = f.useState(!1),
+          b = eo(c),
+          j = t9(n),
+          N = f.useRef(!1),
+          [E, R] = f.useState(0);
+        return (
+          f.useEffect(() => {
+            let e = m.current;
+            if (e)
+              return (
+                e.addEventListener(t3, b),
+                () => e.removeEventListener(t3, b)
+              );
+          }, [b]),
+          (0, d.jsx)(nr, {
+            scope: n,
+            orientation: r,
+            dir: v,
+            loop: o,
+            currentTabStopId: g,
+            onItemFocus: f.useCallback((e) => x(e), [x]),
+            onItemShiftTab: f.useCallback(() => w(!0), []),
+            onFocusableItemAdd: f.useCallback(() => R((e) => e + 1), []),
+            onFocusableItemRemove: f.useCallback(() => R((e) => e - 1), []),
+            children: (0, d.jsx)(Y.div, {
+              tabIndex: y || 0 === E ? -1 : 0,
+              'data-orientation': r,
+              ...p,
+              ref: h,
+              style: { outline: 'none', ...e.style },
+              onMouseDown: F(e.onMouseDown, () => {
+                N.current = !0;
+              }),
+              onFocus: F(e.onFocus, (e) => {
+                let t = !N.current;
+                if (e.target === e.currentTarget && t && !y) {
+                  let t = new CustomEvent(t3, t6);
+                  if ((e.currentTarget.dispatchEvent(t), !t.defaultPrevented)) {
+                    let e = j().filter((e) => e.focusable);
+                    nu(
+                      [e.find((e) => e.active), e.find((e) => e.id === g), ...e]
+                        .filter(Boolean)
+                        .map((e) => e.ref.current),
+                      u
+                    );
+                  }
+                }
+                N.current = !1;
+              }),
+              onBlur: F(e.onBlur, () => w(!1)),
+            }),
+          })
+        );
+      }),
+      nl = 'RovingFocusGroupItem',
+      ns = f.forwardRef((e, t) => {
+        let {
+            __scopeRovingFocusGroup: n,
+            focusable: r = !0,
+            active: o = !1,
+            tabStopId: i,
+            children: a,
+            ...l
+          } = e,
+          s = eN(),
+          c = i || s,
+          u = no(nl, n),
+          p = u.currentTabStopId === c,
+          m = t9(n),
+          {
+            onFocusableItemAdd: h,
+            onFocusableItemRemove: v,
+            currentTabStopId: g,
+          } = u;
+        return (
+          f.useEffect(() => {
+            if (r) return (h(), () => v());
+          }, [r, h, v]),
+          (0, d.jsx)(t7.ItemSlot, {
+            scope: n,
+            id: c,
+            focusable: r,
+            active: o,
+            children: (0, d.jsx)(Y.span, {
+              tabIndex: p ? 0 : -1,
+              'data-orientation': u.orientation,
+              ...l,
+              ref: t,
+              onMouseDown: F(e.onMouseDown, (e) => {
+                r ? u.onItemFocus(c) : e.preventDefault();
+              }),
+              onFocus: F(e.onFocus, () => u.onItemFocus(c)),
+              onKeyDown: F(e.onKeyDown, (e) => {
+                if ('Tab' === e.key && e.shiftKey)
+                  return void u.onItemShiftTab();
+                if (e.target !== e.currentTarget) return;
+                let t = (function (e, t, n) {
+                  var r;
+                  let o =
+                    ((r = e.key),
+                    'rtl' !== n
+                      ? r
+                      : 'ArrowLeft' === r
+                        ? 'ArrowRight'
+                        : 'ArrowRight' === r
+                          ? 'ArrowLeft'
+                          : r);
+                  if (
+                    !(
+                      'vertical' === t &&
+                      ['ArrowLeft', 'ArrowRight'].includes(o)
+                    ) &&
+                    !(
+                      'horizontal' === t && ['ArrowUp', 'ArrowDown'].includes(o)
+                    )
+                  )
+                    return nc[o];
+                })(e, u.orientation, u.dir);
+                if (void 0 !== t) {
+                  if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
+                  e.preventDefault();
+                  let o = m()
+                    .filter((e) => e.focusable)
+                    .map((e) => e.ref.current);
+                  if ('last' === t) o.reverse();
+                  else if ('prev' === t || 'next' === t) {
+                    var n, r;
+                    'prev' === t && o.reverse();
+                    let i = o.indexOf(e.currentTarget);
+                    o = u.loop
+                      ? ((n = o),
+                        (r = i + 1),
+                        n.map((e, t) => n[(r + t) % n.length]))
+                      : o.slice(i + 1);
+                  }
+                  setTimeout(() => nu(o));
+                }
+              }),
+              children:
+                'function' == typeof a
+                  ? a({ isCurrentTabStop: p, hasTabStop: null != g })
+                  : a,
+            }),
+          })
+        );
+      });
+    ns.displayName = nl;
+    var nc = {
+      ArrowLeft: 'prev',
+      ArrowUp: 'prev',
+      ArrowRight: 'next',
+      ArrowDown: 'next',
+      PageUp: 'first',
+      Home: 'first',
+      PageDown: 'last',
+      End: 'last',
+    };
+    function nu(e, t = !1) {
+      let n = document.activeElement;
+      for (let r of e)
+        if (
+          r === n ||
+          (r.focus({ preventScroll: t }), document.activeElement !== n)
+        )
+          return;
+    }
+    var nd = new WeakMap(),
+      nf = new WeakMap(),
+      np = {},
+      nm = 0,
+      nh = function (e) {
+        return e && (e.host || nh(e.parentNode));
+      },
+      nv = function (e, t, n, r) {
+        var o = (Array.isArray(e) ? e : [e])
+          .map(function (e) {
+            if (t.contains(e)) return e;
+            var n = nh(e);
+            return n && t.contains(n)
+              ? n
+              : (console.error(
+                  'aria-hidden',
+                  e,
+                  'in not contained inside',
+                  t,
+                  '. Doing nothing'
+                ),
+                null);
+          })
+          .filter(function (e) {
+            return !!e;
+          });
+        np[n] || (np[n] = new WeakMap());
+        var i = np[n],
+          a = [],
+          l = new Set(),
+          s = new Set(o),
+          c = function (e) {
+            !e || l.has(e) || (l.add(e), c(e.parentNode));
+          };
+        o.forEach(c);
+        var u = function (e) {
+          !e ||
+            s.has(e) ||
+            Array.prototype.forEach.call(e.children, function (e) {
+              if (l.has(e)) u(e);
+              else
+                try {
+                  var t = e.getAttribute(r),
+                    o = null !== t && 'false' !== t,
+                    s = (nd.get(e) || 0) + 1,
+                    c = (i.get(e) || 0) + 1;
+                  (nd.set(e, s),
+                    i.set(e, c),
+                    a.push(e),
+                    1 === s && o && nf.set(e, !0),
+                    1 === c && e.setAttribute(n, 'true'),
+                    o || e.setAttribute(r, 'true'));
+                } catch (t) {
+                  console.error('aria-hidden: cannot operate on ', e, t);
+                }
+            });
+        };
+        return (
+          u(t),
+          l.clear(),
+          nm++,
+          function () {
+            (a.forEach(function (e) {
+              var t = nd.get(e) - 1,
+                o = i.get(e) - 1;
+              (nd.set(e, t),
+                i.set(e, o),
+                t || (nf.has(e) || e.removeAttribute(r), nf.delete(e)),
+                o || e.removeAttribute(n));
+            }),
+              --nm ||
+                ((nd = new WeakMap()),
+                (nd = new WeakMap()),
+                (nf = new WeakMap()),
+                (np = {})));
+          }
+        );
+      },
+      ng = function (e, t, n) {
+        void 0 === n && (n = 'data-aria-hidden');
+        var r = Array.from(Array.isArray(e) ? e : [e]),
+          o =
+            t ||
+            ('u' < typeof document
+              ? null
+              : (Array.isArray(e) ? e[0] : e).ownerDocument.body);
+        return o
+          ? (r.push.apply(
+              r,
+              Array.from(o.querySelectorAll('[aria-live], script'))
+            ),
+            nv(r, o, n, 'aria-hidden'))
+          : function () {
+              return null;
+            };
+      },
+      nx = e.i(24627),
+      ny = 'right-scroll-bar-position',
+      nw = 'width-before-scroll-bar';
+    function nb(e, t) {
+      return ('function' == typeof e ? e(t) : e && (e.current = t), e);
+    }
+    var nj = 'u' > typeof window ? f.useLayoutEffect : f.useEffect,
+      nN = new WeakMap(),
+      nE =
+        (void 0 === r && (r = {}),
+        ((void 0 === o &&
+          (o = function (e) {
+            return e;
+          }),
+        (i = []),
+        (a = !1),
+        (l = {
+          read: function () {
+            if (a)
+              throw Error(
+                'Sidecar: could not `read` from an `assigned` medium. `read` could be used only with `useMedium`.'
+              );
+            return i.length ? i[i.length - 1] : null;
+          },
+          useMedium: function (e) {
+            var t = o(e, a);
+            return (
+              i.push(t),
+              function () {
+                i = i.filter(function (e) {
+                  return e !== t;
+                });
+              }
+            );
+          },
+          assignSyncMedium: function (e) {
+            for (a = !0; i.length; ) {
+              var t = i;
+              ((i = []), t.forEach(e));
+            }
+            i = {
+              push: function (t) {
+                return e(t);
+              },
+              filter: function () {
+                return i;
+              },
+            };
+          },
+          assignMedium: function (e) {
+            a = !0;
+            var t = [];
+            if (i.length) {
+              var n = i;
+              ((i = []), n.forEach(e), (t = i));
+            }
+            var r = function () {
+                var n = t;
+                ((t = []), n.forEach(e));
+              },
+              o = function () {
+                return Promise.resolve().then(r);
+              };
+            (o(),
+              (i = {
+                push: function (e) {
+                  (t.push(e), o());
+                },
+                filter: function (e) {
+                  return ((t = t.filter(e)), i);
+                },
+              }));
+          },
+        })).options = (0, nx.__assign)({ async: !0, ssr: !1 }, r)),
+        l),
+      nR = function () {},
+      nC = f.forwardRef(function (e, t) {
+        var n,
+          r,
+          o,
+          i,
+          a = f.useRef(null),
+          l = f.useState({
+            onScrollCapture: nR,
+            onWheelCapture: nR,
+            onTouchMoveCapture: nR,
+          }),
+          s = l[0],
+          c = l[1],
+          u = e.forwardProps,
+          d = e.children,
+          p = e.className,
+          m = e.removeScrollBar,
+          h = e.enabled,
+          v = e.shards,
+          g = e.sideCar,
+          x = e.noRelative,
+          y = e.noIsolation,
+          w = e.inert,
+          b = e.allowPinchZoom,
+          j = e.as,
+          N = e.gapMode,
+          E = (0, nx.__rest)(e, [
+            'forwardProps',
+            'children',
+            'className',
+            'removeScrollBar',
+            'enabled',
+            'shards',
+            'sideCar',
+            'noRelative',
+            'noIsolation',
+            'inert',
+            'allowPinchZoom',
+            'as',
+            'gapMode',
+          ]),
+          R =
+            ((n = [a, t]),
+            (r = function (e) {
+              return n.forEach(function (t) {
+                return nb(t, e);
+              });
+            }),
+            ((o = (0, f.useState)(function () {
+              return {
+                value: null,
+                callback: r,
+                facade: {
+                  get current() {
+                    return o.value;
+                  },
+                  set current(value) {
+                    var e = o.value;
+                    e !== value && ((o.value = value), o.callback(value, e));
+                  },
+                },
+              };
+            })[0]).callback = r),
+            (i = o.facade),
+            nj(
+              function () {
+                var e = nN.get(i);
+                if (e) {
+                  var t = new Set(e),
+                    r = new Set(n),
+                    o = i.current;
+                  (t.forEach(function (e) {
+                    r.has(e) || nb(e, null);
+                  }),
+                    r.forEach(function (e) {
+                      t.has(e) || nb(e, o);
+                    }));
+                }
+                nN.set(i, n);
+              },
+              [n]
+            ),
+            i),
+          C = (0, nx.__assign)((0, nx.__assign)({}, E), s);
+        return f.createElement(
+          f.Fragment,
+          null,
+          h &&
+            f.createElement(g, {
+              sideCar: nE,
+              removeScrollBar: m,
+              shards: v,
+              noRelative: x,
+              noIsolation: y,
+              inert: w,
+              setCallbacks: c,
+              allowPinchZoom: !!b,
+              lockRef: a,
+              gapMode: N,
+            }),
+          u
+            ? f.cloneElement(
+                f.Children.only(d),
+                (0, nx.__assign)((0, nx.__assign)({}, C), { ref: R })
+              )
+            : f.createElement(
+                void 0 === j ? 'div' : j,
+                (0, nx.__assign)({}, C, { className: p, ref: R }),
+                d
+              )
+        );
+      });
+    ((nC.defaultProps = { enabled: !0, removeScrollBar: !0, inert: !1 }),
+      (nC.classNames = { fullWidth: nw, zeroRight: ny }));
+    var nk = function (e) {
+      var t = e.sideCar,
+        n = (0, nx.__rest)(e, ['sideCar']);
+      if (!t)
+        throw Error(
+          'Sidecar: please provide `sideCar` property to import the right car'
+        );
+      var r = t.read();
+      if (!r) throw Error('Sidecar medium not found');
+      return f.createElement(r, (0, nx.__assign)({}, n));
+    };
+    nk.isSideCarExport = !0;
+    var nS = function () {
+        var e = 0,
+          t = null;
+        return {
+          add: function (n) {
+            if (
+              0 == e &&
+              (t = (function () {
+                if (!document) return null;
+                var e = document.createElement('style');
+                e.type = 'text/css';
+                var t =
+                  u ||
+                  ('u' > typeof __webpack_nonce__ ? __webpack_nonce__ : void 0);
+                return (t && e.setAttribute('nonce', t), e);
+              })())
+            ) {
+              var r, o;
+              ((r = t).styleSheet
+                ? (r.styleSheet.cssText = n)
+                : r.appendChild(document.createTextNode(n)),
+                (o = t),
+                (
+                  document.head || document.getElementsByTagName('head')[0]
+                ).appendChild(o));
+            }
+            e++;
+          },
+          remove: function () {
+            --e ||
+              !t ||
+              (t.parentNode && t.parentNode.removeChild(t), (t = null));
+          },
+        };
+      },
+      nM = function () {
+        var e = nS();
+        return function (t, n) {
+          f.useEffect(
+            function () {
+              return (
+                e.add(t),
+                function () {
+                  e.remove();
+                }
+              );
+            },
+            [t && n]
+          );
+        };
+      },
+      nA = function () {
+        var e = nM();
+        return function (t) {
+          return (e(t.styles, t.dynamic), null);
+        };
+      },
+      nT = { left: 0, top: 0, right: 0, gap: 0 },
+      nL = function (e) {
+        return parseInt(e || '', 10) || 0;
+      },
+      nP = function (e) {
+        var t = window.getComputedStyle(document.body),
+          n = t['padding' === e ? 'paddingLeft' : 'marginLeft'],
+          r = t['padding' === e ? 'paddingTop' : 'marginTop'],
+          o = t['padding' === e ? 'paddingRight' : 'marginRight'];
+        return [nL(n), nL(r), nL(o)];
+      },
+      nD = function (e) {
+        if ((void 0 === e && (e = 'margin'), 'u' < typeof window)) return nT;
+        var t = nP(e),
+          n = document.documentElement.clientWidth,
+          r = window.innerWidth;
+        return {
+          left: t[0],
+          top: t[1],
+          right: t[2],
+          gap: Math.max(0, r - n + t[2] - t[0]),
+        };
+      },
+      n_ = nA(),
+      nO = 'data-scroll-locked',
+      nI = function (e, t, n, r) {
+        var o = e.left,
+          i = e.top,
+          a = e.right,
+          l = e.gap;
+        return (
+          void 0 === n && (n = 'margin'),
+          '\n  .'
+            .concat('with-scroll-bars-hidden', ' {\n   overflow: hidden ')
+            .concat(r, ';\n   padding-right: ')
+            .concat(l, 'px ')
+            .concat(r, ';\n  }\n  body[')
+            .concat(nO, '] {\n    overflow: hidden ')
+            .concat(r, ';\n    overscroll-behavior: contain;\n    ')
+            .concat(
+              [
+                t && 'position: relative '.concat(r, ';'),
+                'margin' === n &&
+                  '\n    padding-left: '
+                    .concat(o, 'px;\n    padding-top: ')
+                    .concat(i, 'px;\n    padding-right: ')
+                    .concat(
+                      a,
+                      'px;\n    margin-left:0;\n    margin-top:0;\n    margin-right: '
+                    )
+                    .concat(l, 'px ')
+                    .concat(r, ';\n    '),
+                'padding' === n &&
+                  'padding-right: '.concat(l, 'px ').concat(r, ';'),
+              ]
+                .filter(Boolean)
+                .join(''),
+              '\n  }\n  \n  .'
+            )
+            .concat(ny, ' {\n    right: ')
+            .concat(l, 'px ')
+            .concat(r, ';\n  }\n  \n  .')
+            .concat(nw, ' {\n    margin-right: ')
+            .concat(l, 'px ')
+            .concat(r, ';\n  }\n  \n  .')
+            .concat(ny, ' .')
+            .concat(ny, ' {\n    right: 0 ')
+            .concat(r, ';\n  }\n  \n  .')
+            .concat(nw, ' .')
+            .concat(nw, ' {\n    margin-right: 0 ')
+            .concat(r, ';\n  }\n  \n  body[')
+            .concat(nO, '] {\n    ')
+            .concat('--removed-body-scroll-bar-size', ': ')
+            .concat(l, 'px;\n  }\n')
+        );
+      },
+      nF = function () {
+        var e = parseInt(document.body.getAttribute(nO) || '0', 10);
+        return isFinite(e) ? e : 0;
+      },
+      nz = function () {
+        f.useEffect(function () {
+          return (
+            document.body.setAttribute(nO, (nF() + 1).toString()),
+            function () {
+              var e = nF() - 1;
+              e <= 0
+                ? document.body.removeAttribute(nO)
+                : document.body.setAttribute(nO, e.toString());
+            }
+          );
+        }, []);
+      },
+      nU = function (e) {
+        var t = e.noRelative,
+          n = e.noImportant,
+          r = e.gapMode,
+          o = void 0 === r ? 'margin' : r;
+        nz();
+        var i = f.useMemo(
+          function () {
+            return nD(o);
+          },
+          [o]
+        );
+        return f.createElement(n_, {
+          styles: nI(i, !t, o, n ? '' : '!important'),
+        });
+      },
+      nW = !1;
+    if ('u' > typeof window)
+      try {
+        var nB = Object.defineProperty({}, 'passive', {
+          get: function () {
+            return ((nW = !0), !0);
+          },
+        });
+        (window.addEventListener('test', nB, nB),
+          window.removeEventListener('test', nB, nB));
+      } catch (e) {
+        nW = !1;
+      }
+    var n$ = !!nW && { passive: !1 },
+      nV = function (e, t) {
+        if (!(e instanceof Element)) return !1;
+        var n = window.getComputedStyle(e);
+        return (
+          'hidden' !== n[t] &&
+          (n.overflowY !== n.overflowX ||
+            'TEXTAREA' === e.tagName ||
+            'visible' !== n[t])
+        );
+      },
+      nK = function (e, t) {
+        var n = t.ownerDocument,
+          r = t;
+        do {
+          if (
+            ('u' > typeof ShadowRoot && r instanceof ShadowRoot && (r = r.host),
+            nH(e, r))
+          ) {
+            var o = nX(e, r);
+            if (o[1] > o[2]) return !0;
+          }
+          r = r.parentNode;
+        } while (r && r !== n.body);
+        return !1;
+      },
+      nH = function (e, t) {
+        return 'v' === e ? nV(t, 'overflowY') : nV(t, 'overflowX');
+      },
+      nX = function (e, t) {
+        return 'v' === e
+          ? [t.scrollTop, t.scrollHeight, t.clientHeight]
+          : [t.scrollLeft, t.scrollWidth, t.clientWidth];
+      },
+      nq = function (e, t, n, r, o) {
+        var i,
+          a =
+            ((i = window.getComputedStyle(t).direction),
+            'h' === e && 'rtl' === i ? -1 : 1),
+          l = a * r,
+          s = n.target,
+          c = t.contains(s),
+          u = !1,
+          d = l > 0,
+          f = 0,
+          p = 0;
+        do {
+          if (!s) break;
+          var m = nX(e, s),
+            h = m[0],
+            v = m[1] - m[2] - a * h;
+          (h || v) && nH(e, s) && ((f += v), (p += h));
+          var g = s.parentNode;
+          s = g && g.nodeType === Node.DOCUMENT_FRAGMENT_NODE ? g.host : g;
+        } while (
+          (!c && s !== document.body) ||
+          (c && (t.contains(s) || t === s))
+        );
+        return (
+          d && ((o && 1 > Math.abs(f)) || (!o && l > f))
+            ? (u = !0)
+            : !d && ((o && 1 > Math.abs(p)) || (!o && -l > p)) && (u = !0),
+          u
+        );
+      },
+      nG = function (e) {
+        return 'changedTouches' in e
+          ? [e.changedTouches[0].clientX, e.changedTouches[0].clientY]
+          : [0, 0];
+      },
+      nY = function (e) {
+        return [e.deltaX, e.deltaY];
+      },
+      nZ = function (e) {
+        return e && 'current' in e ? e.current : e;
+      },
+      nJ = 0,
+      nQ = [];
+    let n0 =
+      ((s = function (e) {
+        var t = f.useRef([]),
+          n = f.useRef([0, 0]),
+          r = f.useRef(),
+          o = f.useState(nJ++)[0],
+          i = f.useState(nA)[0],
+          a = f.useRef(e);
+        (f.useEffect(
+          function () {
+            a.current = e;
+          },
+          [e]
+        ),
+          f.useEffect(
+            function () {
+              if (e.inert) {
+                document.body.classList.add('block-interactivity-'.concat(o));
+                var t = (0, nx.__spreadArray)(
+                  [e.lockRef.current],
+                  (e.shards || []).map(nZ),
+                  !0
+                ).filter(Boolean);
+                return (
+                  t.forEach(function (e) {
+                    return e.classList.add('allow-interactivity-'.concat(o));
+                  }),
+                  function () {
+                    (document.body.classList.remove(
+                      'block-interactivity-'.concat(o)
+                    ),
+                      t.forEach(function (e) {
+                        return e.classList.remove(
+                          'allow-interactivity-'.concat(o)
+                        );
+                      }));
+                  }
+                );
+              }
+            },
+            [e.inert, e.lockRef.current, e.shards]
+          ));
+        var l = f.useCallback(function (e, t) {
+            if (
+              ('touches' in e && 2 === e.touches.length) ||
+              ('wheel' === e.type && e.ctrlKey)
+            )
+              return !a.current.allowPinchZoom;
+            var o,
+              i = nG(e),
+              l = n.current,
+              s = 'deltaX' in e ? e.deltaX : l[0] - i[0],
+              c = 'deltaY' in e ? e.deltaY : l[1] - i[1],
+              u = e.target,
+              d = Math.abs(s) > Math.abs(c) ? 'h' : 'v';
+            if ('touches' in e && 'h' === d && 'range' === u.type) return !1;
+            var f = window.getSelection(),
+              p = f && f.anchorNode;
+            if (p && (p === u || p.contains(u))) return !1;
+            var m = nK(d, u);
+            if (!m) return !0;
+            if (
+              (m ? (o = d) : ((o = 'v' === d ? 'h' : 'v'), (m = nK(d, u))), !m)
+            )
+              return !1;
+            if (
+              (!r.current &&
+                'changedTouches' in e &&
+                (s || c) &&
+                (r.current = o),
+              !o)
+            )
+              return !0;
+            var h = r.current || o;
+            return nq(h, t, e, 'h' === h ? s : c, !0);
+          }, []),
+          s = f.useCallback(function (e) {
+            if (nQ.length && nQ[nQ.length - 1] === i) {
+              var n = 'deltaY' in e ? nY(e) : nG(e),
+                r = t.current.filter(function (t) {
+                  var r;
+                  return (
+                    t.name === e.type &&
+                    (t.target === e.target || e.target === t.shadowParent) &&
+                    ((r = t.delta), r[0] === n[0] && r[1] === n[1])
+                  );
+                })[0];
+              if (r && r.should) {
+                e.cancelable && e.preventDefault();
+                return;
+              }
+              if (!r) {
+                var o = (a.current.shards || [])
+                  .map(nZ)
+                  .filter(Boolean)
+                  .filter(function (t) {
+                    return t.contains(e.target);
+                  });
+                (o.length > 0 ? l(e, o[0]) : !a.current.noIsolation) &&
+                  e.cancelable &&
+                  e.preventDefault();
+              }
+            }
+          }, []),
+          c = f.useCallback(function (e, n, r, o) {
+            var i = {
+              name: e,
+              delta: n,
+              target: r,
+              should: o,
+              shadowParent: (function (e) {
+                for (var t = null; null !== e; )
+                  (e instanceof ShadowRoot && ((t = e.host), (e = e.host)),
+                    (e = e.parentNode));
+                return t;
+              })(r),
+            };
+            (t.current.push(i),
+              setTimeout(function () {
+                t.current = t.current.filter(function (e) {
+                  return e !== i;
+                });
+              }, 1));
+          }, []),
+          u = f.useCallback(function (e) {
+            ((n.current = nG(e)), (r.current = void 0));
+          }, []),
+          d = f.useCallback(function (t) {
+            c(t.type, nY(t), t.target, l(t, e.lockRef.current));
+          }, []),
+          p = f.useCallback(function (t) {
+            c(t.type, nG(t), t.target, l(t, e.lockRef.current));
+          }, []);
+        f.useEffect(function () {
+          return (
+            nQ.push(i),
+            e.setCallbacks({
+              onScrollCapture: d,
+              onWheelCapture: d,
+              onTouchMoveCapture: p,
+            }),
+            document.addEventListener('wheel', s, n$),
+            document.addEventListener('touchmove', s, n$),
+            document.addEventListener('touchstart', u, n$),
+            function () {
+              ((nQ = nQ.filter(function (e) {
+                return e !== i;
+              })),
+                document.removeEventListener('wheel', s, n$),
+                document.removeEventListener('touchmove', s, n$),
+                document.removeEventListener('touchstart', u, n$));
+            }
+          );
+        }, []);
+        var m = e.removeScrollBar,
+          h = e.inert;
+        return f.createElement(
+          f.Fragment,
+          null,
+          h
+            ? f.createElement(i, {
+                styles: '\n  .block-interactivity-'
+                  .concat(
+                    o,
+                    ' {pointer-events: none;}\n  .allow-interactivity-'
+                  )
+                  .concat(o, ' {pointer-events: all;}\n'),
+              })
+            : null,
+          m
+            ? f.createElement(nU, {
+                noRelative: e.noRelative,
+                gapMode: e.gapMode,
+              })
+            : null
+        );
+      }),
+      nE.useMedium(s),
+      nk);
+    var n1 = f.forwardRef(function (e, t) {
+      return f.createElement(
+        nC,
+        (0, nx.__assign)({}, e, { ref: t, sideCar: n0 })
+      );
+    });
+    n1.classNames = nC.classNames;
+    var n2 = ['Enter', ' '],
+      n5 = ['ArrowUp', 'PageDown', 'End'],
+      n4 = ['ArrowDown', 'PageUp', 'Home', ...n5],
+      n3 = { ltr: [...n2, 'ArrowRight'], rtl: [...n2, 'ArrowLeft'] },
+      n6 = { ltr: ['ArrowLeft'], rtl: ['ArrowRight'] },
+      n8 = 'Menu',
+      [n7, n9, re] = J(n8),
+      [rt, rn] = B(n8, [re, tU, nn]),
+      rr = tU(),
+      ro = nn(),
+      [ri, ra] = rt(n8),
+      [rl, rs] = rt(n8),
+      rc = (e) => {
+        let {
+            __scopeMenu: t,
+            open: n = !1,
+            children: r,
+            dir: o,
+            onOpenChange: i,
+            modal: a = !0,
+          } = e,
+          l = rr(t),
+          [s, c] = f.useState(null),
+          u = f.useRef(!1),
+          p = eo(i),
+          m = er(o);
+        return (
+          f.useEffect(() => {
+            let e = () => {
+                ((u.current = !0),
+                  document.addEventListener('pointerdown', t, {
+                    capture: !0,
+                    once: !0,
+                  }),
+                  document.addEventListener('pointermove', t, {
+                    capture: !0,
+                    once: !0,
+                  }));
+              },
+              t = () => (u.current = !1);
+            return (
+              document.addEventListener('keydown', e, { capture: !0 }),
+              () => {
+                (document.removeEventListener('keydown', e, { capture: !0 }),
+                  document.removeEventListener('pointerdown', t, {
+                    capture: !0,
+                  }),
+                  document.removeEventListener('pointermove', t, {
+                    capture: !0,
+                  }));
+              }
+            );
+          }, []),
+          (0, d.jsx)(t$, {
+            ...l,
+            children: (0, d.jsx)(ri, {
+              scope: t,
+              open: n,
+              onOpenChange: p,
+              content: s,
+              onContentChange: c,
+              children: (0, d.jsx)(rl, {
+                scope: t,
+                onClose: f.useCallback(() => p(!1), [p]),
+                isUsingKeyboardRef: u,
+                dir: m,
+                modal: a,
+                children: r,
+              }),
+            }),
+          })
+        );
+      };
+    rc.displayName = n8;
+    var ru = f.forwardRef((e, t) => {
+      let { __scopeMenu: n, ...r } = e,
+        o = rr(n);
+      return (0, d.jsx)(tK, { ...o, ...r, ref: t });
+    });
+    ru.displayName = 'MenuAnchor';
+    var rd = 'MenuPortal',
+      [rf, rp] = rt(rd, { forceMount: void 0 }),
+      rm = (e) => {
+        let { __scopeMenu: t, forceMount: n, children: r, container: o } = e,
+          i = ra(rd, t);
+        return (0, d.jsx)(rf, {
+          scope: t,
+          forceMount: n,
+          children: (0, d.jsx)(t5, {
+            present: n || i.open,
+            children: (0, d.jsx)(t2, {
+              asChild: !0,
+              container: o,
+              children: r,
+            }),
+          }),
+        });
+      };
+    rm.displayName = rd;
+    var rh = 'MenuContent',
+      [rv, rg] = rt(rh),
+      rx = f.forwardRef((e, t) => {
+        let n = rp(rh, e.__scopeMenu),
+          { forceMount: r = n.forceMount, ...o } = e,
+          i = ra(rh, e.__scopeMenu),
+          a = rs(rh, e.__scopeMenu);
+        return (0, d.jsx)(n7.Provider, {
+          scope: e.__scopeMenu,
+          children: (0, d.jsx)(t5, {
+            present: r || i.open,
+            children: (0, d.jsx)(n7.Slot, {
+              scope: e.__scopeMenu,
+              children: a.modal
+                ? (0, d.jsx)(ry, { ...o, ref: t })
+                : (0, d.jsx)(rw, { ...o, ref: t }),
+            }),
+          }),
+        });
+      }),
+      ry = f.forwardRef((e, t) => {
+        let n = ra(rh, e.__scopeMenu),
+          r = f.useRef(null),
+          o = W(t, r);
+        return (
+          f.useEffect(() => {
+            let e = r.current;
+            if (e) return ng(e);
+          }, []),
+          (0, d.jsx)(rj, {
+            ...e,
+            ref: o,
+            trapFocus: n.open,
+            disableOutsidePointerEvents: n.open,
+            disableOutsideScroll: !0,
+            onFocusOutside: F(e.onFocusOutside, (e) => e.preventDefault(), {
+              checkForDefaultPrevented: !1,
+            }),
+            onDismiss: () => n.onOpenChange(!1),
+          })
+        );
+      }),
+      rw = f.forwardRef((e, t) => {
+        let n = ra(rh, e.__scopeMenu);
+        return (0, d.jsx)(rj, {
+          ...e,
+          ref: t,
+          trapFocus: !1,
+          disableOutsidePointerEvents: !1,
+          disableOutsideScroll: !1,
+          onDismiss: () => n.onOpenChange(!1),
+        });
+      }),
+      rb = X('MenuContent.ScrollLock'),
+      rj = f.forwardRef((e, t) => {
+        let {
+            __scopeMenu: n,
+            loop: r = !1,
+            trapFocus: o,
+            onOpenAutoFocus: i,
+            onCloseAutoFocus: a,
+            disableOutsidePointerEvents: l,
+            onEntryFocus: s,
+            onEscapeKeyDown: c,
+            onPointerDownOutside: u,
+            onFocusOutside: p,
+            onInteractOutside: m,
+            onDismiss: h,
+            disableOutsideScroll: v,
+            ...g
+          } = e,
+          x = ra(rh, n),
+          y = rs(rh, n),
+          w = rr(n),
+          b = ro(n),
+          j = n9(n),
+          [N, E] = f.useState(null),
+          R = f.useRef(null),
+          C = W(t, R, x.onContentChange),
+          k = f.useRef(0),
+          S = f.useRef(''),
+          M = f.useRef(0),
+          A = f.useRef(null),
+          T = f.useRef('right'),
+          L = f.useRef(0),
+          P = v ? n1 : f.Fragment;
+        (f.useEffect(() => () => window.clearTimeout(k.current), []),
+          f.useEffect(() => {
+            let e = document.querySelectorAll('[data-radix-focus-guard]');
+            return (
+              document.body.insertAdjacentElement('afterbegin', e[0] ?? ed()),
+              document.body.insertAdjacentElement('beforeend', e[1] ?? ed()),
+              eu++,
+              () => {
+                (1 === eu &&
+                  document
+                    .querySelectorAll('[data-radix-focus-guard]')
+                    .forEach((e) => e.remove()),
+                  eu--);
+              }
+            );
+          }, []));
+        let D = f.useCallback((e) => {
+          var t, n;
+          return (
+            T.current === A.current?.side &&
+            ((t = e),
+            !!(n = A.current?.area) &&
+              (function (e, t) {
+                let { x: n, y: r } = e,
+                  o = !1;
+                for (let e = 0, i = t.length - 1; e < t.length; i = e++) {
+                  let a = t[e],
+                    l = t[i],
+                    s = a.x,
+                    c = a.y,
+                    u = l.x,
+                    d = l.y;
+                  c > r != d > r &&
+                    n < ((u - s) * (r - c)) / (d - c) + s &&
+                    (o = !o);
+                }
+                return o;
+              })({ x: t.clientX, y: t.clientY }, n))
+          );
+        }, []);
+        return (0, d.jsx)(rv, {
+          scope: n,
+          searchRef: S,
+          onItemEnter: f.useCallback(
+            (e) => {
+              D(e) && e.preventDefault();
+            },
+            [D]
+          ),
+          onItemLeave: f.useCallback(
+            (e) => {
+              D(e) || (R.current?.focus(), E(null));
+            },
+            [D]
+          ),
+          onTriggerLeave: f.useCallback(
+            (e) => {
+              D(e) && e.preventDefault();
+            },
+            [D]
+          ),
+          pointerGraceTimerRef: M,
+          onPointerGraceIntentChange: f.useCallback((e) => {
+            A.current = e;
+          }, []),
+          children: (0, d.jsx)(P, {
+            ...(v ? { as: rb, allowPinchZoom: !0 } : void 0),
+            children: (0, d.jsx)(eh, {
+              asChild: !0,
+              trapped: o,
+              onMountAutoFocus: F(i, (e) => {
+                (e.preventDefault(), R.current?.focus({ preventScroll: !0 }));
+              }),
+              onUnmountAutoFocus: a,
+              children: (0, d.jsx)(el, {
+                asChild: !0,
+                disableOutsidePointerEvents: l,
+                onEscapeKeyDown: c,
+                onPointerDownOutside: u,
+                onFocusOutside: p,
+                onInteractOutside: m,
+                onDismiss: h,
+                children: (0, d.jsx)(ni, {
+                  asChild: !0,
+                  ...b,
+                  dir: y.dir,
+                  orientation: 'vertical',
+                  loop: r,
+                  currentTabStopId: N,
+                  onCurrentTabStopIdChange: E,
+                  onEntryFocus: F(s, (e) => {
+                    y.isUsingKeyboardRef.current || e.preventDefault();
+                  }),
+                  preventScrollOnEntryFocus: !0,
+                  children: (0, d.jsx)(tG, {
+                    role: 'menu',
+                    'aria-orientation': 'vertical',
+                    'data-state': rq(x.open),
+                    'data-radix-menu-content': '',
+                    dir: y.dir,
+                    ...w,
+                    ...g,
+                    ref: C,
+                    style: { outline: 'none', ...g.style },
+                    onKeyDown: F(g.onKeyDown, (e) => {
+                      let t =
+                          e.target.closest('[data-radix-menu-content]') ===
+                          e.currentTarget,
+                        n = e.ctrlKey || e.altKey || e.metaKey,
+                        r = 1 === e.key.length;
+                      if (t) {
+                        var o;
+                        let t, i, a, l, s, c;
+                        ('Tab' === e.key && e.preventDefault(),
+                          !n &&
+                            r &&
+                            ((o = e.key),
+                            (t = S.current + o),
+                            (i = j().filter((e) => !e.disabled)),
+                            (a = document.activeElement),
+                            (l = i.find((e) => e.ref.current === a)?.textValue),
+                            (s = (function (e, t, n) {
+                              var r;
+                              let o =
+                                  t.length > 1 &&
+                                  Array.from(t).every((e) => e === t[0])
+                                    ? t[0]
+                                    : t,
+                                i = n ? e.indexOf(n) : -1,
+                                a =
+                                  ((r = Math.max(i, 0)),
+                                  e.map((t, n) => e[(r + n) % e.length]));
+                              1 === o.length && (a = a.filter((e) => e !== n));
+                              let l = a.find((e) =>
+                                e.toLowerCase().startsWith(o.toLowerCase())
+                              );
+                              return l !== n ? l : void 0;
+                            })(
+                              i.map((e) => e.textValue),
+                              t,
+                              l
+                            )),
+                            (c = i.find((e) => e.textValue === s)?.ref.current),
+                            (function e(t) {
+                              ((S.current = t),
+                                window.clearTimeout(k.current),
+                                '' !== t &&
+                                  (k.current = window.setTimeout(
+                                    () => e(''),
+                                    1e3
+                                  )));
+                            })(t),
+                            c && setTimeout(() => c.focus())));
+                      }
+                      let i = R.current;
+                      if (e.target !== i || !n4.includes(e.key)) return;
+                      e.preventDefault();
+                      let a = j()
+                        .filter((e) => !e.disabled)
+                        .map((e) => e.ref.current);
+                      (n5.includes(e.key) && a.reverse(),
+                        (function (e) {
+                          let t = document.activeElement;
+                          for (let n of e)
+                            if (
+                              n === t ||
+                              (n.focus(), document.activeElement !== t)
+                            )
+                              return;
+                        })(a));
+                    }),
+                    onBlur: F(e.onBlur, (e) => {
+                      e.currentTarget.contains(e.target) ||
+                        (window.clearTimeout(k.current), (S.current = ''));
+                    }),
+                    onPointerMove: F(
+                      e.onPointerMove,
+                      rZ((e) => {
+                        let t = e.target,
+                          n = L.current !== e.clientX;
+                        e.currentTarget.contains(t) &&
+                          n &&
+                          ((T.current =
+                            e.clientX > L.current ? 'right' : 'left'),
+                          (L.current = e.clientX));
+                      })
+                    ),
+                  }),
+                }),
+              }),
+            }),
+          }),
+        });
+      });
+    rx.displayName = rh;
+    var rN = f.forwardRef((e, t) => {
+      let { __scopeMenu: n, ...r } = e;
+      return (0, d.jsx)(Y.div, { role: 'group', ...r, ref: t });
+    });
+    rN.displayName = 'MenuGroup';
+    var rE = f.forwardRef((e, t) => {
+      let { __scopeMenu: n, ...r } = e;
+      return (0, d.jsx)(Y.div, { ...r, ref: t });
+    });
+    rE.displayName = 'MenuLabel';
+    var rR = 'MenuItem',
+      rC = 'menu.itemSelect',
+      rk = f.forwardRef((e, t) => {
+        let { disabled: n = !1, onSelect: r, ...o } = e,
+          i = f.useRef(null),
+          a = rs(rR, e.__scopeMenu),
+          l = rg(rR, e.__scopeMenu),
+          s = W(t, i),
+          c = f.useRef(!1);
+        return (0, d.jsx)(rS, {
+          ...o,
+          ref: s,
+          disabled: n,
+          onClick: F(e.onClick, () => {
+            let e = i.current;
+            if (!n && e) {
+              let t = new CustomEvent(rC, { bubbles: !0, cancelable: !0 });
+              (e.addEventListener(rC, (e) => r?.(e), { once: !0 }),
+                Z(e, t),
+                t.defaultPrevented ? (c.current = !1) : a.onClose());
+            }
+          }),
+          onPointerDown: (t) => {
+            (e.onPointerDown?.(t), (c.current = !0));
+          },
+          onPointerUp: F(e.onPointerUp, (e) => {
+            c.current || e.currentTarget?.click();
+          }),
+          onKeyDown: F(e.onKeyDown, (e) => {
+            let t = '' !== l.searchRef.current;
+            n ||
+              (t && ' ' === e.key) ||
+              (n2.includes(e.key) &&
+                (e.currentTarget.click(), e.preventDefault()));
+          }),
+        });
+      });
+    rk.displayName = rR;
+    var rS = f.forwardRef((e, t) => {
+        let { __scopeMenu: n, disabled: r = !1, textValue: o, ...i } = e,
+          a = rg(rR, n),
+          l = ro(n),
+          s = f.useRef(null),
+          c = W(t, s),
+          [u, p] = f.useState(!1),
+          [m, h] = f.useState('');
+        return (
+          f.useEffect(() => {
+            let e = s.current;
+            e && h((e.textContent ?? '').trim());
+          }, [i.children]),
+          (0, d.jsx)(n7.ItemSlot, {
+            scope: n,
+            disabled: r,
+            textValue: o ?? m,
+            children: (0, d.jsx)(ns, {
+              asChild: !0,
+              ...l,
+              focusable: !r,
+              children: (0, d.jsx)(Y.div, {
+                role: 'menuitem',
+                'data-highlighted': u ? '' : void 0,
+                'aria-disabled': r || void 0,
+                'data-disabled': r ? '' : void 0,
+                ...i,
+                ref: c,
+                onPointerMove: F(
+                  e.onPointerMove,
+                  rZ((e) => {
+                    r
+                      ? a.onItemLeave(e)
+                      : (a.onItemEnter(e),
+                        e.defaultPrevented ||
+                          e.currentTarget.focus({ preventScroll: !0 }));
+                  })
+                ),
+                onPointerLeave: F(
+                  e.onPointerLeave,
+                  rZ((e) => a.onItemLeave(e))
+                ),
+                onFocus: F(e.onFocus, () => p(!0)),
+                onBlur: F(e.onBlur, () => p(!1)),
+              }),
+            }),
+          })
+        );
+      }),
+      rM = f.forwardRef((e, t) => {
+        let { checked: n = !1, onCheckedChange: r, ...o } = e;
+        return (0, d.jsx)(rI, {
+          scope: e.__scopeMenu,
+          checked: n,
+          children: (0, d.jsx)(rk, {
+            role: 'menuitemcheckbox',
+            'aria-checked': rG(n) ? 'mixed' : n,
+            ...o,
+            ref: t,
+            'data-state': rY(n),
+            onSelect: F(o.onSelect, () => r?.(!!rG(n) || !n), {
+              checkForDefaultPrevented: !1,
+            }),
+          }),
+        });
+      });
+    rM.displayName = 'MenuCheckboxItem';
+    var rA = 'MenuRadioGroup',
+      [rT, rL] = rt(rA, { value: void 0, onValueChange: () => {} }),
+      rP = f.forwardRef((e, t) => {
+        let { value: n, onValueChange: r, ...o } = e,
+          i = eo(r);
+        return (0, d.jsx)(rT, {
+          scope: e.__scopeMenu,
+          value: n,
+          onValueChange: i,
+          children: (0, d.jsx)(rN, { ...o, ref: t }),
+        });
+      });
+    rP.displayName = rA;
+    var rD = 'MenuRadioItem',
+      r_ = f.forwardRef((e, t) => {
+        let { value: n, ...r } = e,
+          o = rL(rD, e.__scopeMenu),
+          i = n === o.value;
+        return (0, d.jsx)(rI, {
+          scope: e.__scopeMenu,
+          checked: i,
+          children: (0, d.jsx)(rk, {
+            role: 'menuitemradio',
+            'aria-checked': i,
+            ...r,
+            ref: t,
+            'data-state': rY(i),
+            onSelect: F(r.onSelect, () => o.onValueChange?.(n), {
+              checkForDefaultPrevented: !1,
+            }),
+          }),
+        });
+      });
+    r_.displayName = rD;
+    var rO = 'MenuItemIndicator',
+      [rI, rF] = rt(rO, { checked: !1 }),
+      rz = f.forwardRef((e, t) => {
+        let { __scopeMenu: n, forceMount: r, ...o } = e,
+          i = rF(rO, n);
+        return (0, d.jsx)(t5, {
+          present: r || rG(i.checked) || !0 === i.checked,
+          children: (0, d.jsx)(Y.span, {
+            ...o,
+            ref: t,
+            'data-state': rY(i.checked),
+          }),
+        });
+      });
+    rz.displayName = rO;
+    var rU = f.forwardRef((e, t) => {
+      let { __scopeMenu: n, ...r } = e;
+      return (0, d.jsx)(Y.div, {
+        role: 'separator',
+        'aria-orientation': 'horizontal',
+        ...r,
+        ref: t,
+      });
+    });
+    rU.displayName = 'MenuSeparator';
+    var rW = f.forwardRef((e, t) => {
+      let { __scopeMenu: n, ...r } = e,
+        o = rr(n);
+      return (0, d.jsx)(tJ, { ...o, ...r, ref: t });
+    });
+    rW.displayName = 'MenuArrow';
+    var [rB, r$] = rt('MenuSub'),
+      rV = 'MenuSubTrigger',
+      rK = f.forwardRef((e, t) => {
+        let n = ra(rV, e.__scopeMenu),
+          r = rs(rV, e.__scopeMenu),
+          o = r$(rV, e.__scopeMenu),
+          i = rg(rV, e.__scopeMenu),
+          a = f.useRef(null),
+          { pointerGraceTimerRef: l, onPointerGraceIntentChange: s } = i,
+          c = { __scopeMenu: e.__scopeMenu },
+          u = f.useCallback(() => {
+            (a.current && window.clearTimeout(a.current), (a.current = null));
+          }, []);
+        return (
+          f.useEffect(() => u, [u]),
+          f.useEffect(() => {
+            let e = l.current;
+            return () => {
+              (window.clearTimeout(e), s(null));
+            };
+          }, [l, s]),
+          (0, d.jsx)(ru, {
+            asChild: !0,
+            ...c,
+            children: (0, d.jsx)(rS, {
+              id: o.triggerId,
+              'aria-haspopup': 'menu',
+              'aria-expanded': n.open,
+              'aria-controls': o.contentId,
+              'data-state': rq(n.open),
+              ...e,
+              ref: U(t, o.onTriggerChange),
+              onClick: (t) => {
+                (e.onClick?.(t),
+                  e.disabled ||
+                    t.defaultPrevented ||
+                    (t.currentTarget.focus(), n.open || n.onOpenChange(!0)));
+              },
+              onPointerMove: F(
+                e.onPointerMove,
+                rZ((t) => {
+                  (i.onItemEnter(t),
+                    !t.defaultPrevented &&
+                      (e.disabled ||
+                        n.open ||
+                        a.current ||
+                        (i.onPointerGraceIntentChange(null),
+                        (a.current = window.setTimeout(() => {
+                          (n.onOpenChange(!0), u());
+                        }, 100)))));
+                })
+              ),
+              onPointerLeave: F(
+                e.onPointerLeave,
+                rZ((e) => {
+                  u();
+                  let t = n.content?.getBoundingClientRect();
+                  if (t) {
+                    let r = n.content?.dataset.side,
+                      o = 'right' === r,
+                      a = t[o ? 'left' : 'right'],
+                      s = t[o ? 'right' : 'left'];
+                    (i.onPointerGraceIntentChange({
+                      area: [
+                        { x: e.clientX + (o ? -5 : 5), y: e.clientY },
+                        { x: a, y: t.top },
+                        { x: s, y: t.top },
+                        { x: s, y: t.bottom },
+                        { x: a, y: t.bottom },
+                      ],
+                      side: r,
+                    }),
+                      window.clearTimeout(l.current),
+                      (l.current = window.setTimeout(
+                        () => i.onPointerGraceIntentChange(null),
+                        300
+                      )));
+                  } else {
+                    if ((i.onTriggerLeave(e), e.defaultPrevented)) return;
+                    i.onPointerGraceIntentChange(null);
+                  }
+                })
+              ),
+              onKeyDown: F(e.onKeyDown, (t) => {
+                let o = '' !== i.searchRef.current;
+                e.disabled ||
+                  (o && ' ' === t.key) ||
+                  (n3[r.dir].includes(t.key) &&
+                    (n.onOpenChange(!0),
+                    n.content?.focus(),
+                    t.preventDefault()));
+              }),
+            }),
+          })
+        );
+      });
+    rK.displayName = rV;
+    var rH = 'MenuSubContent',
+      rX = f.forwardRef((e, t) => {
+        let n = rp(rh, e.__scopeMenu),
+          { forceMount: r = n.forceMount, ...o } = e,
+          i = ra(rh, e.__scopeMenu),
+          a = rs(rh, e.__scopeMenu),
+          l = r$(rH, e.__scopeMenu),
+          s = f.useRef(null),
+          c = W(t, s);
+        return (0, d.jsx)(n7.Provider, {
+          scope: e.__scopeMenu,
+          children: (0, d.jsx)(t5, {
+            present: r || i.open,
+            children: (0, d.jsx)(n7.Slot, {
+              scope: e.__scopeMenu,
+              children: (0, d.jsx)(rj, {
+                id: l.contentId,
+                'aria-labelledby': l.triggerId,
+                ...o,
+                ref: c,
+                align: 'start',
+                side: 'rtl' === a.dir ? 'left' : 'right',
+                disableOutsidePointerEvents: !1,
+                disableOutsideScroll: !1,
+                trapFocus: !1,
+                onOpenAutoFocus: (e) => {
+                  (a.isUsingKeyboardRef.current && s.current?.focus(),
+                    e.preventDefault());
+                },
+                onCloseAutoFocus: (e) => e.preventDefault(),
+                onFocusOutside: F(e.onFocusOutside, (e) => {
+                  e.target !== l.trigger && i.onOpenChange(!1);
+                }),
+                onEscapeKeyDown: F(e.onEscapeKeyDown, (e) => {
+                  (a.onClose(), e.preventDefault());
+                }),
+                onKeyDown: F(e.onKeyDown, (e) => {
+                  let t = e.currentTarget.contains(e.target),
+                    n = n6[a.dir].includes(e.key);
+                  t &&
+                    n &&
+                    (i.onOpenChange(!1),
+                    l.trigger?.focus(),
+                    e.preventDefault());
+                }),
+              }),
+            }),
+          }),
+        });
+      });
+    function rq(e) {
+      return e ? 'open' : 'closed';
+    }
+    function rG(e) {
+      return 'indeterminate' === e;
+    }
+    function rY(e) {
+      return rG(e) ? 'indeterminate' : e ? 'checked' : 'unchecked';
+    }
+    function rZ(e) {
+      return (t) => ('mouse' === t.pointerType ? e(t) : void 0);
+    }
+    rX.displayName = rH;
+    var rJ = 'DropdownMenu',
+      [rQ, r0] = B(rJ, [rn]),
+      r1 = rn(),
+      [r2, r5] = rQ(rJ),
+      r4 = (e) => {
+        let {
+            __scopeDropdownMenu: t,
+            children: n,
+            dir: r,
+            open: o,
+            defaultOpen: i,
+            onOpenChange: a,
+            modal: l = !0,
+          } = e,
+          s = r1(t),
+          c = f.useRef(null),
+          [u, p] = K({
+            prop: o,
+            defaultProp: i ?? !1,
+            onChange: a,
+            caller: rJ,
+          });
+        return (0, d.jsx)(r2, {
+          scope: t,
+          triggerId: eN(),
+          triggerRef: c,
+          contentId: eN(),
+          open: u,
+          onOpenChange: p,
+          onOpenToggle: f.useCallback(() => p((e) => !e), [p]),
+          modal: l,
+          children: (0, d.jsx)(rc, {
+            ...s,
+            open: u,
+            onOpenChange: p,
+            dir: r,
+            modal: l,
+            children: n,
+          }),
+        });
+      };
+    r4.displayName = rJ;
+    var r3 = 'DropdownMenuTrigger',
+      r6 = f.forwardRef((e, t) => {
+        let { __scopeDropdownMenu: n, disabled: r = !1, ...o } = e,
+          i = r5(r3, n),
+          a = r1(n);
+        return (0, d.jsx)(ru, {
+          asChild: !0,
+          ...a,
+          children: (0, d.jsx)(Y.button, {
+            type: 'button',
+            id: i.triggerId,
+            'aria-haspopup': 'menu',
+            'aria-expanded': i.open,
+            'aria-controls': i.open ? i.contentId : void 0,
+            'data-state': i.open ? 'open' : 'closed',
+            'data-disabled': r ? '' : void 0,
+            disabled: r,
+            ...o,
+            ref: U(t, i.triggerRef),
+            onPointerDown: F(e.onPointerDown, (e) => {
+              !r &&
+                0 === e.button &&
+                !1 === e.ctrlKey &&
+                (i.onOpenToggle(), i.open || e.preventDefault());
+            }),
+            onKeyDown: F(e.onKeyDown, (e) => {
+              !r &&
+                (['Enter', ' '].includes(e.key) && i.onOpenToggle(),
+                'ArrowDown' === e.key && i.onOpenChange(!0),
+                ['Enter', ' ', 'ArrowDown'].includes(e.key) &&
+                  e.preventDefault());
+            }),
+          }),
+        });
+      });
+    r6.displayName = r3;
+    var r8 = (e) => {
+      let { __scopeDropdownMenu: t, ...n } = e,
+        r = r1(t);
+      return (0, d.jsx)(rm, { ...r, ...n });
+    };
+    r8.displayName = 'DropdownMenuPortal';
+    var r7 = 'DropdownMenuContent',
+      r9 = f.forwardRef((e, t) => {
+        let { __scopeDropdownMenu: n, ...r } = e,
+          o = r5(r7, n),
+          i = r1(n),
+          a = f.useRef(!1);
+        return (0, d.jsx)(rx, {
+          id: o.contentId,
+          'aria-labelledby': o.triggerId,
+          ...i,
+          ...r,
+          ref: t,
+          onCloseAutoFocus: F(e.onCloseAutoFocus, (e) => {
+            (a.current || o.triggerRef.current?.focus(),
+              (a.current = !1),
+              e.preventDefault());
+          }),
+          onInteractOutside: F(e.onInteractOutside, (e) => {
+            let t = e.detail.originalEvent,
+              n = 0 === t.button && !0 === t.ctrlKey,
+              r = 2 === t.button || n;
+            (!o.modal || r) && (a.current = !0);
+          }),
+          style: {
+            ...e.style,
+            '--radix-dropdown-menu-content-transform-origin':
+              'var(--radix-popper-transform-origin)',
+            '--radix-dropdown-menu-content-available-width':
+              'var(--radix-popper-available-width)',
+            '--radix-dropdown-menu-content-available-height':
+              'var(--radix-popper-available-height)',
+            '--radix-dropdown-menu-trigger-width':
+              'var(--radix-popper-anchor-width)',
+            '--radix-dropdown-menu-trigger-height':
+              'var(--radix-popper-anchor-height)',
+          },
+        });
+      });
+    ((r9.displayName = r7),
+      (f.forwardRef((e, t) => {
+        let { __scopeDropdownMenu: n, ...r } = e,
+          o = r1(n);
+        return (0, d.jsx)(rN, { ...o, ...r, ref: t });
+      }).displayName = 'DropdownMenuGroup'));
+    var oe = f.forwardRef((e, t) => {
+      let { __scopeDropdownMenu: n, ...r } = e,
+        o = r1(n);
+      return (0, d.jsx)(rE, { ...o, ...r, ref: t });
+    });
+    oe.displayName = 'DropdownMenuLabel';
+    var ot = f.forwardRef((e, t) => {
+      let { __scopeDropdownMenu: n, ...r } = e,
+        o = r1(n);
+      return (0, d.jsx)(rk, { ...o, ...r, ref: t });
+    });
+    ot.displayName = 'DropdownMenuItem';
+    var on = f.forwardRef((e, t) => {
+      let { __scopeDropdownMenu: n, ...r } = e,
+        o = r1(n);
+      return (0, d.jsx)(rM, { ...o, ...r, ref: t });
+    });
+    ((on.displayName = 'DropdownMenuCheckboxItem'),
+      (f.forwardRef((e, t) => {
+        let { __scopeDropdownMenu: n, ...r } = e,
+          o = r1(n);
+        return (0, d.jsx)(rP, { ...o, ...r, ref: t });
+      }).displayName = 'DropdownMenuRadioGroup'));
+    var or = f.forwardRef((e, t) => {
+      let { __scopeDropdownMenu: n, ...r } = e,
+        o = r1(n);
+      return (0, d.jsx)(r_, { ...o, ...r, ref: t });
+    });
+    or.displayName = 'DropdownMenuRadioItem';
+    var oo = f.forwardRef((e, t) => {
+      let { __scopeDropdownMenu: n, ...r } = e,
+        o = r1(n);
+      return (0, d.jsx)(rz, { ...o, ...r, ref: t });
+    });
+    oo.displayName = 'DropdownMenuItemIndicator';
+    var oi = f.forwardRef((e, t) => {
+      let { __scopeDropdownMenu: n, ...r } = e,
+        o = r1(n);
+      return (0, d.jsx)(rU, { ...o, ...r, ref: t });
+    });
+    ((oi.displayName = 'DropdownMenuSeparator'),
+      (f.forwardRef((e, t) => {
+        let { __scopeDropdownMenu: n, ...r } = e,
+          o = r1(n);
+        return (0, d.jsx)(rW, { ...o, ...r, ref: t });
+      }).displayName = 'DropdownMenuArrow'));
+    var oa = f.forwardRef((e, t) => {
+      let { __scopeDropdownMenu: n, ...r } = e,
+        o = r1(n);
+      return (0, d.jsx)(rK, { ...o, ...r, ref: t });
+    });
+    oa.displayName = 'DropdownMenuSubTrigger';
+    var ol = f.forwardRef((e, t) => {
+      let { __scopeDropdownMenu: n, ...r } = e,
+        o = r1(n);
+      return (0, d.jsx)(rX, {
+        ...o,
+        ...r,
+        ref: t,
+        style: {
+          ...e.style,
+          '--radix-dropdown-menu-content-transform-origin':
+            'var(--radix-popper-transform-origin)',
+          '--radix-dropdown-menu-content-available-width':
+            'var(--radix-popper-available-width)',
+          '--radix-dropdown-menu-content-available-height':
+            'var(--radix-popper-available-height)',
+          '--radix-dropdown-menu-trigger-width':
+            'var(--radix-popper-anchor-width)',
+          '--radix-dropdown-menu-trigger-height':
+            'var(--radix-popper-anchor-height)',
+        },
+      });
+    });
+    ol.displayName = 'DropdownMenuSubContent';
+    let os = (0, b.default)('check', [
+        ['path', { d: 'M20 6 9 17l-5-5', key: '1gmf2c' }],
+      ]),
+      oc = (0, b.default)('chevron-right', [
+        ['path', { d: 'm9 18 6-6-6-6', key: 'mthhwq' }],
+      ]),
+      ou = (0, b.default)('circle', [
+        ['circle', { cx: '12', cy: '12', r: '10', key: '1mglay' }],
+      ]);
+    var od = e.i(75157);
+    ((f.forwardRef(({ className: e, inset: t, children: n, ...r }, o) =>
+      (0, d.jsxs)(oa, {
+        ref: o,
+        className: (0, od.cn)(
+          'flex cursor-default gap-2 select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[state=open]:bg-accent [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+          t && 'pl-8',
+          e
+        ),
+        ...r,
+        children: [n, (0, d.jsx)(oc, { className: 'ml-auto' })],
+      })
+    ).displayName = oa.displayName),
+      (f.forwardRef(({ className: e, ...t }, n) =>
+        (0, d.jsx)(ol, {
+          ref: n,
+          className: (0, od.cn)(
+            'z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+            e
+          ),
+          ...t,
+        })
+      ).displayName = ol.displayName));
+    let of = f.forwardRef(({ className: e, sideOffset: t = 4, ...n }, r) =>
+      (0, d.jsx)(r8, {
+        children: (0, d.jsx)(r9, {
+          ref: r,
+          sideOffset: t,
+          className: (0, od.cn)(
+            'z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2',
+            e
+          ),
+          ...n,
+        }),
+      })
+    );
+    of.displayName = r9.displayName;
+    let op = f.forwardRef(({ className: e, inset: t, ...n }, r) =>
+      (0, d.jsx)(ot, {
+        ref: r,
+        className: (0, od.cn)(
+          'relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+          t && 'pl-8',
+          e
+        ),
+        ...n,
+      })
+    );
+    ((op.displayName = ot.displayName),
+      (f.forwardRef(({ className: e, children: t, checked: n, ...r }, o) =>
+        (0, d.jsxs)(on, {
+          ref: o,
+          className: (0, od.cn)(
+            'relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+            e
+          ),
+          checked: n,
+          ...r,
+          children: [
+            (0, d.jsx)('span', {
+              className:
+                'absolute left-2 flex h-3.5 w-3.5 items-center justify-center',
+              children: (0, d.jsx)(oo, {
+                children: (0, d.jsx)(os, { className: 'h-4 w-4' }),
+              }),
+            }),
+            t,
+          ],
+        })
+      ).displayName = on.displayName),
+      (f.forwardRef(({ className: e, children: t, ...n }, r) =>
+        (0, d.jsxs)(or, {
+          ref: r,
+          className: (0, od.cn)(
+            'relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+            e
+          ),
+          ...n,
+          children: [
+            (0, d.jsx)('span', {
+              className:
+                'absolute left-2 flex h-3.5 w-3.5 items-center justify-center',
+              children: (0, d.jsx)(oo, {
+                children: (0, d.jsx)(ou, { className: 'h-2 w-2 fill-current' }),
+              }),
+            }),
+            t,
+          ],
+        })
+      ).displayName = or.displayName));
+    let om = f.forwardRef(({ className: e, inset: t, ...n }, r) =>
+      (0, d.jsx)(oe, {
+        ref: r,
+        className: (0, od.cn)(
+          'px-2 py-1.5 text-sm font-semibold',
+          t && 'pl-8',
+          e
+        ),
+        ...n,
+      })
+    );
+    om.displayName = oe.displayName;
+    let oh = f.forwardRef(({ className: e, ...t }, n) =>
+      (0, d.jsx)(oi, {
+        ref: n,
+        className: (0, od.cn)('-mx-1 my-1 h-px bg-muted', e),
+        ...t,
+      })
+    );
+    function ov({ initialData: e }) {
+      let t = (0, p.useRouter)(),
+        n = (0, h.createClientComponentClient)(),
+        [r, o] = (0, f.useState)(e?.title || ''),
+        [i, a] = (0, f.useState)(e?.slug || ''),
+        [l, s] = (0, f.useState)(null),
+        [c, u] = (0, f.useState)(
+          e?.cover
+            ? `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/${e.cover}`
+            : ''
+        ),
+        [v, g] = (0, f.useState)(
+          e?.content?.map((e) => ({
+            ...e,
+            id: e.id || y(),
+            content: {
+              ...e.content,
+              media: e.content.media?.startsWith('http')
+                ? e.content.media
+                : e.content.media
+                  ? `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/${e.content.media}`
+                  : void 0,
+              media2: e.content.media2?.startsWith('http')
+                ? e.content.media2
+                : e.content.media2
+                  ? `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/${e.content.media2}`
+                  : void 0,
+            },
+          })) || []
+        ),
+        [x, b] = (0, f.useState)(!1),
+        _ = (e) => {
+          g([...v, { id: y(), type: e, content: {}, file: null, file2: null }]);
+        },
+        O = (e, t) => {
+          let n = [...v],
+            r = 'up' === t ? e - 1 : e + 1;
+          r < 0 || r >= v.length || (([n[e], n[r]] = [n[r], n[e]]), g(n));
+        },
+        F = async (e, t) =>
+          await (0, L.uploadSiteAsset)({
+            file: e,
+            key: t,
+            page: 'landing-pages',
+            subPath: i || 'general',
+            bucket: 'site-assets',
+          }),
+        z = async () => {
+          if (!r || !i) return void alert('Título e Slug são obrigatórios.');
+          try {
+            b(!0);
+            let o = e?.cover || '';
+            if (l) {
+              let e = await F(l, `cover-${y()}`);
+              e && (o = e);
+            }
+            let a = await Promise.all(
+                v.map(async (e) => {
+                  let t = e.content.media,
+                    n = e.content.media2;
+                  if (e.file) {
+                    let n = await F(e.file, `block-${e.id}-media1`);
+                    n && (t = n);
+                  } else
+                    t &&
+                      t.includes('/site-assets/') &&
+                      (t = t.split('/site-assets/').pop() || '');
+                  if (e.file2) {
+                    let t = await F(e.file2, `block-${e.id}-media2`);
+                    t && (n = t);
+                  } else
+                    n &&
+                      n.includes('/site-assets/') &&
+                      (n = n.split('/site-assets/').pop() || '');
+                  return {
+                    id: e.id,
+                    type: e.type,
+                    content: { ...e.content, media: t, media2: n },
+                  };
+                })
+              ),
+              s = { title: r, slug: i, cover: o, content: a };
+            if (e?.id) {
+              let { error: t } = await n
+                .from('landing_pages')
+                .update(s)
+                .eq('id', e.id);
+              if (t) throw t;
+            } else {
+              let { error: e } = await n
+                .from('landing_pages')
+                .insert({ ...s, created_at: new Date().toISOString() });
+              if (e) throw e;
+            }
+            (t.push('/admin/landing-pages'), t.refresh());
+          } catch (t) {
+            let e = t instanceof Error ? t.message : 'Erro desconhecido';
+            (console.error(t), alert(`Erro ao salvar p\xe1gina: ${e}`));
+          } finally {
+            b(!1);
+          }
+        };
+      return (0, d.jsxs)('div', {
+        className: 'max-w-5xl mx-auto space-y-12 pb-48',
+        children: [
+          (0, d.jsxs)('div', {
+            className:
+              'sticky top-4 z-50 bg-black/50 backdrop-blur-md p-4 rounded-full border border-white/10 flex items-center justify-between shadow-2xl',
+            children: [
+              (0, d.jsxs)(P.default, {
+                href: '/admin/landing-pages',
+                className:
+                  'flex items-center gap-2 text-slate-400 hover:text-white transition-colors px-4',
+                children: [
+                  (0, d.jsx)(R.ArrowLeft, { size: 20 }),
+                  (0, d.jsx)('span', {
+                    className: 'hidden sm:inline',
+                    children: 'Voltar',
+                  }),
+                ],
+              }),
+              (0, d.jsxs)('div', {
+                className: 'flex items-center gap-4',
+                children: [
+                  (0, d.jsxs)('span', {
+                    className: 'text-slate-500 text-sm hidden lg:inline',
+                    children: [v.length, ' blocos adicionados'],
+                  }),
+                  (0, d.jsxs)('button', {
+                    onClick: z,
+                    disabled: x,
+                    className:
+                      'flex items-center gap-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 px-8 py-2.5 rounded-full font-bold transition-all shadow-lg shadow-blue-600/20 text-sm tracking-wide',
+                    children: [
+                      (0, d.jsx)(E, { size: 18 }),
+                      x ? 'PUBLICANDO...' : 'SALVAR PÁGINA',
+                    ],
+                  }),
+                ],
+              }),
+            ],
+          }),
+          (0, d.jsxs)('div', {
+            className: 'grid grid-cols-1 lg:grid-cols-3 gap-8',
+            children: [
+              (0, d.jsx)('div', {
+                className: 'space-y-6 lg:col-span-1',
+                children: (0, d.jsxs)('div', {
+                  className:
+                    'bg-slate-900/40 border border-white/5 rounded-3xl p-6 space-y-6 sticky top-28',
+                  children: [
+                    (0, d.jsx)('h2', {
+                      className:
+                        'text-xs uppercase tracking-[0.2em] text-blue-400 font-bold mb-4',
+                      children: 'Configurações',
+                    }),
+                    (0, d.jsxs)('div', {
+                      className: 'space-y-2',
+                      children: [
+                        (0, d.jsx)('label', {
+                          className:
+                            'text-[10px] uppercase tracking-widest text-slate-500 font-bold',
+                          children: 'Título',
+                        }),
+                        (0, d.jsx)('input', {
+                          type: 'text',
+                          value: r,
+                          onChange: (e) => o(e.target.value),
+                          className:
+                            'w-full bg-slate-950 border border-white/10 rounded-xl px-4 py-3 text-lg font-medium focus:border-blue-500 outline-none',
+                          placeholder: 'Nome do Projeto',
+                        }),
+                      ],
+                    }),
+                    (0, d.jsxs)('div', {
+                      className: 'space-y-2',
+                      children: [
+                        (0, d.jsx)('label', {
+                          className:
+                            'text-[10px] uppercase tracking-widest text-slate-500 font-bold',
+                          children: 'Slug URL',
+                        }),
+                        (0, d.jsxs)('div', {
+                          className:
+                            'flex items-center gap-1 text-slate-500 bg-slate-950 border border-white/10 rounded-xl px-3 py-2',
+                          children: [
+                            (0, d.jsx)('span', {
+                              className: 'text-xs',
+                              children: '/projects/',
+                            }),
+                            (0, d.jsx)('input', {
+                              type: 'text',
+                              value: i,
+                              onChange: (e) =>
+                                a(
+                                  e.target.value
+                                    .toLowerCase()
+                                    .replace(/[^a-z0-9-]/g, '-')
+                                ),
+                              className:
+                                'bg-transparent border-none outline-none text-white text-sm w-full font-mono',
+                              placeholder: 'my-project',
+                            }),
+                          ],
+                        }),
+                      ],
+                    }),
+                    (0, d.jsxs)('div', {
+                      className: 'space-y-3 pt-4 border-t border-white/5',
+                      children: [
+                        (0, d.jsxs)('label', {
+                          className:
+                            'text-[10px] uppercase tracking-widest text-slate-500 font-bold flex items-center gap-2',
+                          children: [
+                            'Header Hero Image',
+                            ' ',
+                            (0, d.jsx)('span', {
+                              className: 'text-blue-500 text-[10px]',
+                              children: '(Cover)',
+                            }),
+                          ],
+                        }),
+                        (0, d.jsx)('div', {
+                          className:
+                            'relative group aspect-4/3 rounded-xl overflow-hidden bg-slate-950 border border-white/10',
+                          children: c
+                            ? (0, d.jsxs)(d.Fragment, {
+                                children: [
+                                  (0, d.jsx)(D.default, {
+                                    src: c,
+                                    alt: 'Cover',
+                                    fill: !0,
+                                    className: 'object-cover',
+                                  }),
+                                  (0, d.jsx)('button', {
+                                    onClick: () => {
+                                      (s(null), u(''));
+                                    },
+                                    className:
+                                      'absolute top-2 right-2 bg-red-600 p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity',
+                                    title: 'Remover Capa',
+                                    'aria-label': 'Remover Capa',
+                                    children: (0, d.jsx)(w.Trash2, {
+                                      size: 16,
+                                    }),
+                                  }),
+                                ],
+                              })
+                            : (0, d.jsxs)('label', {
+                                className:
+                                  'absolute inset-0 flex flex-col items-center justify-center cursor-pointer hover:bg-white/5 transition-colors',
+                                children: [
+                                  (0, d.jsx)(S, {
+                                    className: 'text-slate-600 mb-2',
+                                  }),
+                                  (0, d.jsx)('span', {
+                                    className: 'text-[10px] text-slate-500',
+                                    children: 'Upload Capa',
+                                  }),
+                                  (0, d.jsx)('input', {
+                                    type: 'file',
+                                    className: 'hidden',
+                                    accept: 'image/*',
+                                    onChange: (e) => {
+                                      let t = e.target.files?.[0];
+                                      t && (s(t), u(URL.createObjectURL(t)));
+                                    },
+                                  }),
+                                ],
+                              }),
+                        }),
+                      ],
+                    }),
+                  ],
+                }),
+              }),
+              (0, d.jsxs)('div', {
+                className: 'lg:col-span-2 space-y-8',
+                children: [
+                  (0, d.jsxs)('div', {
+                    className: 'flex items-center justify-between',
+                    children: [
+                      (0, d.jsx)('h2', {
+                        className:
+                          'text-xs uppercase tracking-[0.2em] text-white font-bold',
+                        children: 'Builder',
+                      }),
+                      (0, d.jsxs)(r4, {
+                        children: [
+                          (0, d.jsx)(r6, {
+                            asChild: !0,
+                            children: (0, d.jsxs)('button', {
+                              className:
+                                'flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wide transition-all shadow-lg hover:shadow-blue-500/25',
+                              children: [
+                                (0, d.jsx)(C.Plus, { size: 16 }),
+                                ' Adicionar Bloco',
+                              ],
+                            }),
+                          }),
+                          (0, d.jsxs)(of, {
+                            align: 'end',
+                            className:
+                              'w-56 bg-slate-900 border-slate-800 text-slate-200',
+                            children: [
+                              (0, d.jsx)(om, {
+                                className:
+                                  'text-xs uppercase tracking-widest text-slate-500',
+                                children: 'Layouts Básicos',
+                              }),
+                              (0, d.jsxs)(op, {
+                                onClick: () => _('text'),
+                                children: [
+                                  (0, d.jsx)(M, { className: 'mr-2 h-4 w-4' }),
+                                  ' Texto Puro',
+                                ],
+                              }),
+                              (0, d.jsxs)(op, {
+                                onClick: () => _('image'),
+                                children: [
+                                  (0, d.jsx)(S, { className: 'mr-2 h-4 w-4' }),
+                                  ' Imagem Full',
+                                ],
+                              }),
+                              (0, d.jsxs)(op, {
+                                onClick: () => _('video'),
+                                children: [
+                                  (0, d.jsx)(A, { className: 'mr-2 h-4 w-4' }),
+                                  ' Vídeo Full',
+                                ],
+                              }),
+                              (0, d.jsxs)(op, {
+                                onClick: () => _('video-autoplay'),
+                                children: [
+                                  (0, d.jsx)(A, {
+                                    className: 'mr-2 h-4 w-4 text-blue-400',
+                                  }),
+                                  ' Vídeo Autoplay (Loop)',
+                                ],
+                              }),
+                              (0, d.jsx)(oh, { className: 'bg-slate-800' }),
+                              (0, d.jsx)(om, {
+                                className:
+                                  'text-xs uppercase tracking-widest text-slate-500',
+                                children: 'Composições',
+                              }),
+                              (0, d.jsxs)(op, {
+                                onClick: () => _('image-text'),
+                                children: [
+                                  (0, d.jsxs)('div', {
+                                    className: 'flex mr-2 items-center',
+                                    children: [
+                                      (0, d.jsx)(S, { className: 'h-3 w-3' }),
+                                      (0, d.jsx)(M, { className: 'h-3 w-3' }),
+                                    ],
+                                  }),
+                                  ' ',
+                                  'Imagem + Texto',
+                                ],
+                              }),
+                              (0, d.jsxs)(op, {
+                                onClick: () => _('text-image'),
+                                children: [
+                                  (0, d.jsxs)('div', {
+                                    className: 'flex mr-2 items-center',
+                                    children: [
+                                      (0, d.jsx)(M, { className: 'h-3 w-3' }),
+                                      (0, d.jsx)(S, { className: 'h-3 w-3' }),
+                                    ],
+                                  }),
+                                  ' ',
+                                  'Texto + Imagem',
+                                ],
+                              }),
+                              (0, d.jsxs)(op, {
+                                onClick: () => _('image-image'),
+                                children: [
+                                  (0, d.jsx)(T, { className: 'mr-2 h-4 w-4' }),
+                                  ' Imagem Dupla (Grid)',
+                                ],
+                              }),
+                              (0, d.jsxs)(op, {
+                                onClick: () => _('image-video'),
+                                children: [
+                                  (0, d.jsxs)('div', {
+                                    className: 'flex mr-2 items-center',
+                                    children: [
+                                      (0, d.jsx)(S, { className: 'h-3 w-3' }),
+                                      (0, d.jsx)(A, { className: 'h-3 w-3' }),
+                                    ],
+                                  }),
+                                  ' ',
+                                  'Imagem + Vídeo',
+                                ],
+                              }),
+                              (0, d.jsxs)(op, {
+                                onClick: () => _('video-text'),
+                                children: [
+                                  (0, d.jsxs)('div', {
+                                    className: 'flex mr-2 items-center',
+                                    children: [
+                                      (0, d.jsx)(A, { className: 'h-3 w-3' }),
+                                      (0, d.jsx)(M, { className: 'h-3 w-3' }),
+                                    ],
+                                  }),
+                                  ' ',
+                                  'Vídeo + Texto',
+                                ],
+                              }),
+                            ],
+                          }),
+                        ],
+                      }),
+                    ],
+                  }),
+                  (0, d.jsxs)('div', {
+                    className: 'space-y-8 min-h-[500px]',
+                    children: [
+                      0 === v.length &&
+                        (0, d.jsxs)('div', {
+                          className:
+                            'h-64 flex flex-col items-center justify-center border-2 border-dashed border-white/5 rounded-3xl bg-slate-900/20 text-slate-500',
+                          children: [
+                            (0, d.jsx)(k, {
+                              className: 'mb-4 opacity-20',
+                              size: 64,
+                            }),
+                            (0, d.jsx)('p', {
+                              className: 'text-sm',
+                              children:
+                                'Comece adicionando um bloco via menu acima.',
+                            }),
+                          ],
+                        }),
+                      v.map((e, t) =>
+                        (0, d.jsxs)(
+                          m.motion.div,
+                          {
+                            initial: { opacity: 0, scale: 0.95 },
+                            animate: { opacity: 1, scale: 1 },
+                            className:
+                              'group relative bg-[#0a0a0a] border border-white/5 rounded-3xl overflow-hidden hover:border-blue-500/30 transition-all shadow-xl',
+                            children: [
+                              (0, d.jsxs)('div', {
+                                className:
+                                  'flex items-center justify-between px-6 py-4 bg-white/5 border-b border-white/5',
+                                children: [
+                                  (0, d.jsxs)('div', {
+                                    className: 'flex items-center gap-3',
+                                    children: [
+                                      (0, d.jsx)('span', {
+                                        className:
+                                          'text-[10px] font-bold text-blue-400 bg-blue-500/10 px-2 py-1 rounded border border-blue-500/20',
+                                        children: (t + 1)
+                                          .toString()
+                                          .padStart(2, '0'),
+                                      }),
+                                      (0, d.jsx)('span', {
+                                        className:
+                                          'text-xs font-bold uppercase tracking-widest text-slate-400',
+                                        children: e.type.replace('-', ' & '),
+                                      }),
+                                    ],
+                                  }),
+                                  (0, d.jsxs)('div', {
+                                    className:
+                                      'flex items-center gap-1 opacity-50 group-hover:opacity-100 transition-opacity',
+                                    children: [
+                                      (0, d.jsx)('button', {
+                                        onClick: () => O(t, 'up'),
+                                        disabled: 0 === t,
+                                        className:
+                                          'p-2 hover:bg-white/10 rounded-lg disabled:opacity-20',
+                                        title: 'Mover para cima',
+                                        'aria-label': 'Mover para cima',
+                                        children: (0, d.jsx)(j, { size: 14 }),
+                                      }),
+                                      (0, d.jsx)('button', {
+                                        onClick: () => O(t, 'down'),
+                                        disabled: t === v.length - 1,
+                                        className:
+                                          'p-2 hover:bg-white/10 rounded-lg disabled:opacity-20',
+                                        title: 'Mover para baixo',
+                                        'aria-label': 'Mover para baixo',
+                                        children: (0, d.jsx)(N, { size: 14 }),
+                                      }),
+                                      (0, d.jsx)('div', {
+                                        className: 'w-px h-4 bg-white/10 mx-2',
+                                      }),
+                                      (0, d.jsx)('button', {
+                                        onClick: () => {
+                                          var t;
+                                          return (
+                                            (t = e.id),
+                                            void (
+                                              confirm(
+                                                'Tem certeza que deseja remover este bloco?'
+                                              ) &&
+                                              g(v.filter((e) => e.id !== t))
+                                            )
+                                          );
+                                        },
+                                        className:
+                                          'p-2 hover:bg-red-500/20 hover:text-red-400 rounded-lg text-slate-500',
+                                        title: 'Remover bloco',
+                                        'aria-label': 'Remover bloco',
+                                        children: (0, d.jsx)(w.Trash2, {
+                                          size: 14,
+                                        }),
+                                      }),
+                                    ],
+                                  }),
+                                ],
+                              }),
+                              (0, d.jsx)(I, {
+                                block: e,
+                                onChange: (t) => {
+                                  var n;
+                                  return (
+                                    (n = e.id),
+                                    void g(
+                                      v.map((e) =>
+                                        e.id === n ? { ...e, ...t } : e
+                                      )
+                                    )
+                                  );
+                                },
+                              }),
+                            ],
+                          },
+                          e.id
+                        )
+                      ),
+                    ],
+                  }),
+                ],
+              }),
+            ],
+          }),
+        ],
+      });
+    }
+    ((oh.displayName = oi.displayName), e.s(['default', () => ov], 58384));
+  },
+]);

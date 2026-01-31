@@ -12,6 +12,7 @@ Este arquivo contém configurações, comandos e regras para o agente AI.
 ## Comandos Principais
 
 ### Desenvolvimento
+
 ```bash
 pnpm dev              # Inicia o servidor de desenvolvimento com Turbopack
 pnpm build            # Build de produção
@@ -19,6 +20,7 @@ pnpm start            # Inicia o servidor de produção
 ```
 
 ### Testes e Qualidade
+
 ```bash
 pnpm test             # Executa lint, typecheck e jest
 pnpm lint             # Executa ESLint
@@ -28,6 +30,7 @@ pnpm format           # Formata código com Prettier
 ```
 
 ### Assets e Deploy
+
 ```bash
 pnpm assets:repair    # Repara caminhos de assets
 pnpm deploy           # Deploy completo
@@ -48,16 +51,19 @@ pnpm build:prod       # Build de produção com validações
 ## Padrões de Código
 
 ### TypeScript
+
 - Usar strict mode
 - Preferir tipos explícitos
 - Evitar `any`
 
 ### React
+
 - Usar componentes funcionais
 - Hooks para gerenciamento de estado
 - Server Components quando possível (Next.js App Router)
 
 ### CSS
+
 - Tailwind CSS para estilização
 - CSS Modules para estilos específicos de componentes
 - Variáveis CSS para temas e tokens de design
@@ -65,6 +71,7 @@ pnpm build:prod       # Build de produção com validações
 ## Resolução de Problemas Conhecidos
 
 ### Tailwind CSS v4 Bug
+
 - **Problema**: `RangeError: Invalid code point 11466107` com Tailwind v4.1.18
 - **Solução**: Usar Tailwind CSS v3.4.x (estável)
 - **Config**: PostCSS com `tailwindcss` plugin tradicional
