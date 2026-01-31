@@ -10,15 +10,20 @@ export interface PerformanceConfig {
   pixelRatio: number;
 }
 
+interface NavigatorWithMemory extends Navigator {
+  deviceMemory?: number;
+}
+
 export function usePerformanceAdaptive(): PerformanceConfig {
   const [quality, setQuality] = useState<QualityLevel>('high');
 
   useEffect(() => {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    const isLowEnd =
-      navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
-    const hasLowMemory =
-      'deviceMemory' in navigator && (navigator as any).deviceMemory < 4;
+    if (typeof window === 'undefined') return;
+
+    const nav = navigator as NavigatorWithMemory;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(nav.userAgent);
+    const isLowEnd = nav.hardwareConcurrency && nav.hardwareConcurrency <= 4;
+    const hasLowMemory = nav.deviceMemory && nav.deviceMemory < 4;
 
     if (isMobile || isLowEnd || hasLowMemory) {
       setQuality('low');

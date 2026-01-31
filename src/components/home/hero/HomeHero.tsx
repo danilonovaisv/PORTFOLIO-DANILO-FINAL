@@ -11,6 +11,7 @@ import HeroCTA from './HeroCTA';
 import HeroCopy from './HeroCopy';
 
 import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useWebGLSupport } from '@/hooks/useWebGLSupport';
 
 const CONFIG = {
   preloadMs: 2000,
@@ -20,6 +21,7 @@ export default function HomeHero() {
   const heroRef = useRef<HTMLElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const isDesktop = useMediaQuery('(min-width: 1024px)');
+  const supportsWebGL = useWebGLSupport();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), CONFIG.preloadMs);
@@ -38,13 +40,7 @@ export default function HomeHero() {
       >
         {/* Fallback Mobile Background Gradient (Ghost Atmosphere) */}
         {!isDesktop && (
-          <div
-            className="absolute inset-0 z-0 animate-pulse opacity-60"
-            style={{
-              backgroundImage:
-                'radial-gradient(circle at 50% 50%, #0a0029 0%, #040013 70%)',
-            }}
-          />
+          <div className="absolute inset-0 z-0 animate-pulse opacity-60 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)]" />
         )}
 
         {/* Preloader */}
@@ -70,7 +66,11 @@ export default function HomeHero() {
         {/* Camada: Ghost WebGL (Z-30) - Agora ativo em mobile com auto-performance */}
         <div className="absolute inset-0 z-30 pointer-events-none overflow-hidden">
           <div className="sticky top-0 h-screen w-full">
-            <GhostSceneWrapper />
+            {supportsWebGL ? (
+              <GhostSceneWrapper />
+            ) : (
+              <div className="absolute inset-0 z-0 animate-pulse opacity-20 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)]" />
+            )}
           </div>
         </div>
 

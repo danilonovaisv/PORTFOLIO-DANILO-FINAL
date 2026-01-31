@@ -63,7 +63,7 @@ export function Preloader({
         setShow(false);
         try {
           onComplete();
-        } catch { }
+        } catch {}
       }, durationMs);
       return () => clearTimeout(t);
     }
@@ -94,14 +94,14 @@ export function Preloader({
                 reduced
                   ? {}
                   : {
-                    y: [0, -12, 0],
-                    opacity: [0.95, 1, 0.95],
-                    filter: [
-                      `drop-shadow(0 0 15px ${primaryShadowColor})`,
-                      `drop-shadow(0 0 25px ${accentShadowColor})`,
-                      `drop-shadow(0 0 15px ${primaryShadowColor})`,
-                    ],
-                  }
+                      y: [0, -12, 0],
+                      opacity: [0.95, 1, 0.95],
+                      filter: [
+                        `drop-shadow(0 0 15px ${primaryShadowColor})`,
+                        `drop-shadow(0 0 25px ${accentShadowColor})`,
+                        `drop-shadow(0 0 15px ${primaryShadowColor})`,
+                      ],
+                    }
               }
               transition={{
                 duration: 2.2,

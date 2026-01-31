@@ -6,19 +6,38 @@ import { createStaticClient } from '@/lib/supabase/static';
 import { HOME_CONTENT } from '@/config/content';
 import type { PortfolioProject, ProjectCategory } from '@/types/project';
 
+import { BRAND } from '@/config/brand';
+
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'Portfólio | Danilo Novais',
+  title: 'Portfólio',
   description:
     'Explore uma seleção curada de projetos de Branding, Motion Design e Creative Development de Danilo Novais.',
   openGraph: {
     title: 'Portfólio | Danilo Novais',
     description: 'Seleção curada de projetos criativos e tecnológicos.',
+    url: `https://${BRAND.domain}/portfolio`,
+    siteName: BRAND.name,
+    images: [
+      {
+        url: '/portfolio/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'Portfólio | Danilo Novais',
+      },
+    ],
+    locale: 'pt_BR',
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Portfólio | Danilo Novais',
+    description: 'Seleção curada de projetos criativos e tecnológicos.',
+    images: ['/portfolio/opengraph-image'],
+  },
   alternates: {
-    canonical: 'https://portfoliodanilo.com/portfolio',
+    canonical: `https://${BRAND.domain}/portfolio`,
   },
 };
 

@@ -9,7 +9,9 @@ test.describe('Home Page', () => {
     await page.locator('main').waitFor({ state: 'visible', timeout: 15000 });
 
     // Check if the page title is correct with extended timeout to allow for metadata injection
-    await expect(page).toHaveTitle(/Danilo Novais | Creative Developer/, { timeout: 10000 });
+    await expect(page).toHaveTitle(/Danilo Novais | Creative Developer/, {
+      timeout: 10000,
+    });
 
     // Verify HomeHero is visible
     await expect(page.locator('main')).toBeVisible();

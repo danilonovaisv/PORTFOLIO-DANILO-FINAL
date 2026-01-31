@@ -15,6 +15,7 @@ import { MOTION_TOKENS, ghostTransition } from '@/config/motion';
 import TypeAContent from './content/TypeAContent';
 import TypeBContent from './content/TypeBContent';
 import { sanitizeTailwindValue } from '@/lib/utils';
+import styles from './PortfolioModalNew.module.css';
 
 interface PortfolioModalNewProps {
   project: PortfolioProject | null;
@@ -154,14 +155,11 @@ export default function PortfolioModalNew({
                 </button>
 
                 {/*Header glow */}
-                <div className="absolute top-0 inset-x-0 h-40 pointer-events-none">
-                  <div
-                    className="absolute inset-0 opacity-30"
-                    style={{
-                      backgroundImage: 'radial-gradient(ellipse at center top, var(--glow-color, rgba(0,87,255,0.3)), transparent 70%)',
-                      ...(sanitizedAccentColor && { '--glow-color': `${sanitizedAccentColor}40` })
-                    } as React.CSSProperties}
-                  />
+                <div
+                  className={`absolute top-0 inset-x-0 h-40 pointer-events-none ${styles.headerGlow}`}
+                  style={sanitizedAccentColor ? { '--glow-color': `${sanitizedAccentColor}40` } as React.CSSProperties : undefined}
+                >
+                  <div className={`absolute inset-0 opacity-30 ${styles.headerGlowInner}`} />
                 </div>
 
                 {/* Content */}

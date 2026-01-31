@@ -43,7 +43,7 @@ export const ProjectCard = ({
       className={cn(
         'group relative overflow-hidden border border-white/10 bg-white/5 cursor-pointer',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent',
-        'min-h-[320px] md:min-h-[420px] rounded-xl will-change-transform',
+        'h-[320px] md:h-[420px] rounded-xl will-change-transform',
         className
       )}
       initial={{ opacity: 0, y: 16 }}

@@ -10,7 +10,7 @@ interface BeliefFinalSectionProps {
 
 export const BeliefFinalSection: React.FC<BeliefFinalSectionProps> = ({
   bgColor,
-  scrollProgress,
+  scrollProgress: _scrollProgress,
 }) => {
   const ref = useRef<HTMLElement>(null);
 

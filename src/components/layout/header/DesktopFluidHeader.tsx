@@ -6,13 +6,14 @@ import { useMemo, useRef } from 'react';
 import type { NavItem } from './types';
 import styles from './DesktopFluidHeader.module.css';
 
-// Forced static behavior - removing dynamic import for WebGL
-// const HeaderFluidGlass = dynamic(
-//   () => import('@/components/canvas/header/HeaderFluidGlass'),
-//   {
-//     ssr: false,
-//   }
-// );
+import dynamic from 'next/dynamic';
+
+const HeaderGlassCanvas = dynamic(
+  () => import('@/components/canvas/header/HeaderGlassCanvas'),
+  {
+    ssr: false,
+  }
+);
 
 export interface DesktopFluidHeaderProps {
   navItems: NavItem[];
@@ -61,11 +62,10 @@ export default function DesktopFluidHeader({
               isLight ? styles.headerLight : styles.headerDark
             } h-16 w-[calc(100%+5rem)] -ml-10 rounded-4xl backdrop-blur-md border border-white/10 bg-black/20 transition-all duration-300`}
           >
-            {/* glass background - Static only */}
-            {/* <div className="absolute inset-0 rounded-full overflow-hidden">
-               Static fallback always
-                <div className={styles.fallbackBackground} />
-            </div> */}
+            {/* glass background - Dynamic R3F */}
+            <div className="absolute inset-0 rounded-4xl overflow-hidden opacity-60 pointer-events-none">
+              <HeaderGlassCanvas accentColor="#0048ff" />
+            </div>
 
             {/* content */}
             <div className="relative z-10 h-full px-10 flex items-center justify-between gap-6">

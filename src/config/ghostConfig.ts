@@ -237,7 +237,7 @@ export const GHOST_CONFIG: GhostConfig = {
   eyeGlowDecay: 0.95,
 
   // Efeitos de Pós-Processamento (Matched to CodePen)
-  analogGrain:1.4,
+  analogGrain: 1.4,
   analogBleeding: 1.5,
   analogScanlines: 0.7,
   analogVignette: 1.9,
@@ -252,7 +252,6 @@ export const GHOST_CONFIG: GhostConfig = {
   baseOpacity: 0.08, // Darker background to create reveal contrast
   revealOpacity: -0.2, // Fully transparent reveal
 };
-
 
 // Helper para converter cor do config para formato numérico (Three.js)
 export function getConfigColorHex(colorName: string): number {

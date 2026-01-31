@@ -7,11 +7,19 @@
 
 import { FC } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Calendar, Building2, Tag } from 'lucide-react';
 import type { PortfolioProject } from '@/types/project';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
-import { easing } from '@/components/portfolio/modal/variants';
+import {
+  easing,
+  fadeInUp,
+  MODAL_TIMELINE,
+  getMediaVariants,
+  getTitleVariants,
+  getMetaVariants,
+  getContentVariants
+} from '@/components/portfolio/modal/variants';
 import { isVideo } from '@/utils/utils';
 import { sanitizeTailwindValue } from '@/lib/utils';
 
@@ -19,40 +27,27 @@ interface TypeBContentProps {
   project: PortfolioProject;
 }
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 16 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -8 },
-  transition: { duration: 0.4, ease: easing },
-};
-
-// Canon Timeline Delays (Ghost Era)
-const TIMELINE = {
-  MEDIA: 0.52,
-  TITLE: 0.76,
-  META: 0.96,
-  SECONDARY: 1.12,
-};
-
-
 /**
  * Layout B: Imagem à esquerda, conteúdo à direita
  * Usado para projetos menores / grid items
  */
 const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
+  const prefersReducedMotion = useReducedMotion();
+  const shouldReduce = !!prefersReducedMotion;
+
   // Sanitize the accent color before using it in styles
-  const sanitizedAccentColor = project.accentColor 
-    ? sanitizeTailwindValue(project.accentColor) 
+  const sanitizedAccentColor = project.accentColor
+    ? sanitizeTailwindValue(project.accentColor)
     : undefined;
 
   return (
     <div className="grid md:grid-cols-2 gap-8 md:gap-12">
       {/* Left: Image */}
       <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: TIMELINE.MEDIA, duration: 0.5, ease: easing }}
-        className="relative aspect-square md:aspect-4/5 rounded-2xl overflow-hidden bg-white/5"
+        initial="hidden"
+        animate="visible"
+        variants={getMediaVariants(shouldReduce)}
+        className="relative w-full aspect-square md:aspect-[4/5] rounded-2xl overflow-hidden bg-white/5"
       >
         {isVideo(project.image) ? (
           <video
@@ -73,20 +68,20 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
             priority
           />
         )}
-        
+
         {/* Accent color overlay on bottom */}
         {sanitizedAccentColor && (
-          <motion.div 
+          <motion.div
             className="absolute inset-x-0 bottom-0 h-1/3"
-            style={{ 
-              background: `linear-gradient(to top, ${sanitizedAccentColor}40, transparent)` 
+            style={{
+              background: `linear-gradient(to top, ${sanitizedAccentColor}40, transparent)`
             }}
           />
         )}
 
         {/* Category pill */}
         <div className="absolute top-4 left-4">
-          <span className="inline-flex items-center rounded-full bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 px-3 py-1 text-xs font-medium text-[#040013]">
+          <span className="inline-flex items-center rounded-full bg-white/60 backdrop-blur-md border border-white/10 px-3 py-1 text-xs font-medium text-void">
             {project.displayCategory}
           </span>
         </div>
@@ -102,11 +97,11 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
           >
             [{project.category}]
           </motion.span>
-          
+
           <motion.h2
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: TIMELINE.TITLE, duration: 0.2, ease: easing }}
+            initial="hidden"
+            animate="visible"
+            variants={getTitleVariants(shouldReduce)}
             className="text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight"
           >
             {project.title}
@@ -134,9 +129,9 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
 
         {/* Meta inline */}
         <motion.div
-          initial={{ opacity: 0, y: 4 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: TIMELINE.META, duration: 0.16, ease: easing }}
+          initial="hidden"
+          animate="visible"
+          variants={getMetaVariants(shouldReduce)}
           className="flex flex-wrap items-center gap-4 text-sm text-white/50"
         >
           <span className="flex items-center gap-2">
@@ -162,9 +157,14 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
         {/* Highlights list */}
         {project.detail?.highlights && (
           <ul className="flex flex-col gap-2 mt-2">
-            <motion.div variants={fadeInUp} className="contents">
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={getContentVariants(shouldReduce)}
+              className="contents"
+            >
               {project.detail.highlights.map((highlight, i) => (
-                <li 
+                <li
                   key={i}
                   className="flex items-start gap-3 text-sm text-white/70"
                 >
@@ -178,16 +178,16 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
 
         {/* Tags cloud */}
         {project.tags && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: TIMELINE.SECONDARY, duration: 0.2, ease: easing }}
+            transition={{ delay: MODAL_TIMELINE.SECONDARY, duration: 0.2, ease: easing }}
             className="flex flex-wrap gap-2"
           >
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-3 py-1 rounded-full bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 text-xs text-[#040013] font-medium"
+                className="px-3 py-1 rounded-full bg-white/60 backdrop-blur-md border border-white/10 text-xs text-void font-medium"
               >
                 {tag}
               </span>
@@ -206,7 +206,7 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
           )}
         </motion.div>
       </div>
-    </div>
+    </div >
   );
 };
 

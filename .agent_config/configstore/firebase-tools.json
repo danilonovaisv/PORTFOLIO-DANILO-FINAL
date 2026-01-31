@@ -1,116 +1,116 @@
 {
-	"motd": {
-		"cloudBuildErrorAfter": 1594252800000,
-		"cloudBuildWarnAfter": 1590019200000,
-		"defaultNode10After": 1594252800000,
-		"minVersion": "3.0.5",
-		"node8DeploysDisabledAfter": 1613390400000,
-		"node8RuntimeDisabledAfter": 1615809600000,
-		"node8WarnAfter": 1600128000000,
-		"fetched": 1769831723368
-	},
-	"gemini": true,
-	"usage": true,
-	"analytics-uuid": "af393235-7ee0-4bd4-b661-662cb6fbab8a",
-	"user": {
-		"iss": "accounts.google.com",
-		"azp": "563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com",
-		"aud": "563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com",
-		"sub": "118444631055338080721",
-		"email": "dannovaisv@gmail.com",
-		"email_verified": true,
-		"at_hash": "5UvEc8-2zjZ69FXClzXifA",
-		"iat": 1769831729,
-		"exp": 1769835329
-	},
-	"tokens": {
-		"expires_at": 1769893147276,
-		"refresh_token": "1//0h2b0hmmUmndvCgYIARAAGBESNwF-L9IrBoY2u2lpcIMRN-wacUdMiCyon2QBKIRz1019M8qXENi8bsolkF4Q46gmqI_7mpMiB4M",
-		"scopes": [],
-		"access_token": "ya29.a0AUMWg_LBOkbIyCAPk_O9vtBRZbobPtjojA1Qtd5rtQU4vdnI9boqnxrMjDWU-eb2j9CvMRvpEAohghwIcrLeDzkMYwwiwiY8DP8c3BQeiG_SyteQ7_-Fz7M50PM5mMeQRNQjauQSKwhFEXnmd7iihX8RuxZEQ4Y88_M_gU5_gEvoRZDDRk1xFKGFsz2nt21bpL-c3AJBXZzSmQaCgYKAd4SARcSFQHGX2MiV1L8BjDz_RtKT_mPSXZ88g0213",
-		"expires_in": 3599,
-		"scope": "https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email openid",
-		"token_type": "Bearer",
-		"id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg2MzBhNzFiZDZlYzFjNjEyNTdhMjdmZjJlZmQ5MTg3MmVjYWIxZjYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNTYzNTg0MzM1ODY5LWZncmhnbWQ0N2JxbmVraWo1aThiNXByMDNobzg0OWU2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNTYzNTg0MzM1ODY5LWZncmhnbWQ0N2JxbmVraWo1aThiNXByMDNobzg0OWU2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTE4NDQ0NjMxMDU1MzM4MDgwNzIxIiwiZW1haWwiOiJkYW5ub3ZhaXN2QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiUFA1emtxbk9YaHF5SzlPYkdzZThZZyIsImlhdCI6MTc2OTg4OTU0OCwiZXhwIjoxNzY5ODkzMTQ4fQ.ca_aWFec9g7en45n3QwblmqcRuwiqOchv5hE2Wrnst6j7BDL1RNVVO_DsOMqUx8SLTu43su6oRqIWP4gHbApCb7Gqk9nu_BsUOXVYFwi8TDDVXwRKQ_ghRZ1MIjC6y2EyOmmEIq4VKjGBb1veytBPl1fCUr8SU61Tt4dj3pK72Q55MrFEkCCTgxzTTNjBXA_AdTsIZtbGE7XNK80gfDeYf7ZbLUskRUVgS0hMevtpxZ-o90LycdCarzkQV4maJNKf03Sscxbpo_MeizQFk89x0Q6GNpgSRMtRIp3b_gQLPnP7nWDIDM9H2XKqLw0zbsBaWwaFIqoD_lTv4oQLVBxCw"
-	},
-	"apiEnablementCache": {
-		"portfolio-danilo-novais": {
-			"cloudresourcemanager.googleapis.com": true,
-			"sqladmin.googleapis.com": true,
-			"firebasedataconnect.googleapis.com": true,
-			"firestore.googleapis.com": true,
-			"runtimeconfig.googleapis.com": true,
-			"cloudfunctions.googleapis.com": true,
-			"firebaseapphosting.googleapis.com": true,
-			"developerconnect.googleapis.com": true,
-			"iam.googleapis.com": true,
-			"run.googleapis.com": true,
-			"secretmanager.googleapis.com": true,
-			"cloudbuild.googleapis.com": true,
-			"artifactregistry.googleapis.com": true,
-			"firebaseextensions.googleapis.com": true,
-			"firebasedatabase.googleapis.com": true,
-			"firebasestorage.googleapis.com": true,
-			"compute.googleapis.com": true,
-			"firebaseremoteconfig.googleapis.com": true,
-			"storage.googleapis.com": true,
-			"fcm.googleapis.com": true,
-			"identitytoolkit.googleapis.com": true
-		},
-		"350817205989": {
-			"eventarc.googleapis.com": true,
-			"pubsub.googleapis.com": true,
-			"storage.googleapis.com": true,
-			"run.googleapis.com": true,
-			"secretmanager.googleapis.com": true
-		},
-		"danilo-firebase-ai-app": {
-			"cloudresourcemanager.googleapis.com": true
-		},
-		"test-danilo-project": {
-			"cloudresourcemanager.googleapis.com": true
-		}
-	},
-	"activeProjects": {
-		"/Users/danilonovais/Library/Mobile Documents/com~apple~CloudDocs/DAN-DEV/_danilonov_portfolio": "portfolio-danilo-novais",
-		"/Users/danilonovais/_danilonov_portfolio": "portfolio-danilo-novais",
-		"/": "portfolio-danilo-novais",
-		"/Users/PROJETOS DEV/PORTFOLIO-DANILO": "portfolio-danilo-novais"
-	},
-	"vscode-analytics-clientId": "8e9b6f0a-d961-477c-b789-f6114eca5f1e",
-	"emulator-analytics-clientId": "68227db2-587e-499b-a400-d2e439942e75",
-	"adminsdkconfig": {
-		"portfolio-danilo-novais": {
-			"projectId": "portfolio-danilo-novais",
-			"databaseURL": "https://portfolio-danilo-novais-default-rtdb.firebaseio.com",
-			"storageBucket": "portfolio-danilo-novais.firebasestorage.app"
-		}
-	},
-	"webconfig": {
-		"portfolio-danilo-novais": {
-			"projectId": "portfolio-danilo-novais",
-			"appId": "1:350817205989:web:f7ae32f12d353ef081de0c",
-			"databaseURL": "https://portfolio-danilo-novais-default-rtdb.firebaseio.com",
-			"storageBucket": "portfolio-danilo-novais.firebasestorage.app",
-			"apiKey": "AIzaSyBe7uThxjKtP0A9QgK9KMu59bAUB4GXj4g",
-			"authDomain": "portfolio-danilo-novais.firebaseapp.com",
-			"messagingSenderId": "350817205989",
-			"measurementId": "G-PM34VYPZZW",
-			"projectNumber": "350817205989",
-			"version": "2"
-		}
-	},
-	"previews": {
-		"webframeworks": true
-	},
-	"mcp": {
-		"clientConfigs": {
-			"mcphost:/": {
-				"projectRoot": "/Users/danilonovais/_danilonovais/_danilonov_portfolio"
-			},
-			"antigravity-client:/": {
-				"projectRoot": "/Users/danilonovais/_danilonov_portfolio"
-			}
-		}
-	}
+  "motd": {
+    "cloudBuildErrorAfter": 1594252800000,
+    "cloudBuildWarnAfter": 1590019200000,
+    "defaultNode10After": 1594252800000,
+    "minVersion": "3.0.5",
+    "node8DeploysDisabledAfter": 1613390400000,
+    "node8RuntimeDisabledAfter": 1615809600000,
+    "node8WarnAfter": 1600128000000,
+    "fetched": 1769831723368
+  },
+  "gemini": true,
+  "usage": true,
+  "analytics-uuid": "af393235-7ee0-4bd4-b661-662cb6fbab8a",
+  "user": {
+    "iss": "accounts.google.com",
+    "azp": "563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com",
+    "aud": "563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com",
+    "sub": "118444631055338080721",
+    "email": "dannovaisv@gmail.com",
+    "email_verified": true,
+    "at_hash": "5UvEc8-2zjZ69FXClzXifA",
+    "iat": 1769831729,
+    "exp": 1769835329
+  },
+  "tokens": {
+    "expires_at": 1769893147276,
+    "refresh_token": "1//0h2b0hmmUmndvCgYIARAAGBESNwF-L9IrBoY2u2lpcIMRN-wacUdMiCyon2QBKIRz1019M8qXENi8bsolkF4Q46gmqI_7mpMiB4M",
+    "scopes": [],
+    "access_token": "ya29.a0AUMWg_LBOkbIyCAPk_O9vtBRZbobPtjojA1Qtd5rtQU4vdnI9boqnxrMjDWU-eb2j9CvMRvpEAohghwIcrLeDzkMYwwiwiY8DP8c3BQeiG_SyteQ7_-Fz7M50PM5mMeQRNQjauQSKwhFEXnmd7iihX8RuxZEQ4Y88_M_gU5_gEvoRZDDRk1xFKGFsz2nt21bpL-c3AJBXZzSmQaCgYKAd4SARcSFQHGX2MiV1L8BjDz_RtKT_mPSXZ88g0213",
+    "expires_in": 3599,
+    "scope": "https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/userinfo.email openid",
+    "token_type": "Bearer",
+    "id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg2MzBhNzFiZDZlYzFjNjEyNTdhMjdmZjJlZmQ5MTg3MmVjYWIxZjYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNTYzNTg0MzM1ODY5LWZncmhnbWQ0N2JxbmVraWo1aThiNXByMDNobzg0OWU2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNTYzNTg0MzM1ODY5LWZncmhnbWQ0N2JxbmVraWo1aThiNXByMDNobzg0OWU2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTE4NDQ0NjMxMDU1MzM4MDgwNzIxIiwiZW1haWwiOiJkYW5ub3ZhaXN2QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiUFA1emtxbk9YaHF5SzlPYkdzZThZZyIsImlhdCI6MTc2OTg4OTU0OCwiZXhwIjoxNzY5ODkzMTQ4fQ.ca_aWFec9g7en45n3QwblmqcRuwiqOchv5hE2Wrnst6j7BDL1RNVVO_DsOMqUx8SLTu43su6oRqIWP4gHbApCb7Gqk9nu_BsUOXVYFwi8TDDVXwRKQ_ghRZ1MIjC6y2EyOmmEIq4VKjGBb1veytBPl1fCUr8SU61Tt4dj3pK72Q55MrFEkCCTgxzTTNjBXA_AdTsIZtbGE7XNK80gfDeYf7ZbLUskRUVgS0hMevtpxZ-o90LycdCarzkQV4maJNKf03Sscxbpo_MeizQFk89x0Q6GNpgSRMtRIp3b_gQLPnP7nWDIDM9H2XKqLw0zbsBaWwaFIqoD_lTv4oQLVBxCw"
+  },
+  "apiEnablementCache": {
+    "portfolio-danilo-novais": {
+      "cloudresourcemanager.googleapis.com": true,
+      "sqladmin.googleapis.com": true,
+      "firebasedataconnect.googleapis.com": true,
+      "firestore.googleapis.com": true,
+      "runtimeconfig.googleapis.com": true,
+      "cloudfunctions.googleapis.com": true,
+      "firebaseapphosting.googleapis.com": true,
+      "developerconnect.googleapis.com": true,
+      "iam.googleapis.com": true,
+      "run.googleapis.com": true,
+      "secretmanager.googleapis.com": true,
+      "cloudbuild.googleapis.com": true,
+      "artifactregistry.googleapis.com": true,
+      "firebaseextensions.googleapis.com": true,
+      "firebasedatabase.googleapis.com": true,
+      "firebasestorage.googleapis.com": true,
+      "compute.googleapis.com": true,
+      "firebaseremoteconfig.googleapis.com": true,
+      "storage.googleapis.com": true,
+      "fcm.googleapis.com": true,
+      "identitytoolkit.googleapis.com": true
+    },
+    "350817205989": {
+      "eventarc.googleapis.com": true,
+      "pubsub.googleapis.com": true,
+      "storage.googleapis.com": true,
+      "run.googleapis.com": true,
+      "secretmanager.googleapis.com": true
+    },
+    "danilo-firebase-ai-app": {
+      "cloudresourcemanager.googleapis.com": true
+    },
+    "test-danilo-project": {
+      "cloudresourcemanager.googleapis.com": true
+    }
+  },
+  "activeProjects": {
+    "/Users/danilonovais/Library/Mobile Documents/com~apple~CloudDocs/DAN-DEV/_danilonov_portfolio": "portfolio-danilo-novais",
+    "/Users/danilonovais/_danilonov_portfolio": "portfolio-danilo-novais",
+    "/": "portfolio-danilo-novais",
+    "/Users/PROJETOS DEV/PORTFOLIO-DANILO": "portfolio-danilo-novais"
+  },
+  "vscode-analytics-clientId": "8e9b6f0a-d961-477c-b789-f6114eca5f1e",
+  "emulator-analytics-clientId": "68227db2-587e-499b-a400-d2e439942e75",
+  "adminsdkconfig": {
+    "portfolio-danilo-novais": {
+      "projectId": "portfolio-danilo-novais",
+      "databaseURL": "https://portfolio-danilo-novais-default-rtdb.firebaseio.com",
+      "storageBucket": "portfolio-danilo-novais.firebasestorage.app"
+    }
+  },
+  "webconfig": {
+    "portfolio-danilo-novais": {
+      "projectId": "portfolio-danilo-novais",
+      "appId": "1:350817205989:web:f7ae32f12d353ef081de0c",
+      "databaseURL": "https://portfolio-danilo-novais-default-rtdb.firebaseio.com",
+      "storageBucket": "portfolio-danilo-novais.firebasestorage.app",
+      "apiKey": "AIzaSyBe7uThxjKtP0A9QgK9KMu59bAUB4GXj4g",
+      "authDomain": "portfolio-danilo-novais.firebaseapp.com",
+      "messagingSenderId": "350817205989",
+      "measurementId": "G-PM34VYPZZW",
+      "projectNumber": "350817205989",
+      "version": "2"
+    }
+  },
+  "previews": {
+    "webframeworks": true
+  },
+  "mcp": {
+    "clientConfigs": {
+      "mcphost:/": {
+        "projectRoot": "/Users/danilonovais/_danilonovais/_danilonov_portfolio"
+      },
+      "antigravity-client:/": {
+        "projectRoot": "/Users/danilonovais/_danilonov_portfolio"
+      }
+    }
+  }
 }

@@ -17,19 +17,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     projectUrls = dbProjects.map((project) => ({
       url: `${baseUrl}/portfolio/${project.slug}`,
       lastModified: new Date(project.updated_at || new Date()),
-      changeFrequency: 'monthly',
+      changeFrequency: 'monthly' as const,
       priority: 0.7,
     }));
+
+    // Add Landing Pages
+    const { data: landingPages } = await supabase
+      .from('landing_pages')
+      .select('slug, updated_at');
+
+    if (landingPages) {
+      const landingPageUrls = (
+        landingPages as { slug: string; updated_at?: string }[]
+      ).map((page) => ({
+        url: `${baseUrl}/projects/${page.slug}`,
+        lastModified: new Date(page.updated_at || new Date()),
+        changeFrequency: 'monthly' as const,
+        priority: 0.6,
+      }));
+      projectUrls = [...projectUrls, ...landingPageUrls];
+    }
   } catch (error) {
     console.warn(
-      'Sitemap: Error fetching projects from Supabase, using fallback.',
+      'Sitemap: Error fetching data from Supabase, using fallback.',
       error
     );
 
     projectUrls = HOME_CONTENT.featuredProjects.map((project) => ({
       url: `${baseUrl}/portfolio/${project.slug}`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: 'monthly' as const,
       priority: 0.7,
     }));
   }
@@ -38,19 +55,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: baseUrl,
       lastModified: new Date(),
-      changeFrequency: 'daily',
+      changeFrequency: 'daily' as const,
       priority: 1,
     },
     {
       url: `${baseUrl}/portfolio`,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
+      changeFrequency: 'weekly' as const,
       priority: 0.9,
     },
     {
       url: `${baseUrl}/sobre`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: 'monthly' as const,
       priority: 0.8,
     },
     ...projectUrls,

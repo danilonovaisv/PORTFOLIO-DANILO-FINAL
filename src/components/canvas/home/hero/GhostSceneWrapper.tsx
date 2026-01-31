@@ -2,14 +2,16 @@
 
 import dynamic from 'next/dynamic';
 
-const GhostScene = dynamic(
-  () => import('@/components/canvas/home/hero/GhostScene'),
+const GhostCanvas = dynamic(
+  () => import('@/components/canvas/home/hero/GhostCanvas'),
   {
     ssr: false,
-    loading: () => <div className="absolute inset-0 w-full h-full bg-background" />,
+    loading: () => (
+      <div className="absolute inset-0 w-full h-full bg-transparent" />
+    ),
   }
 );
 
 export default function GhostSceneWrapper() {
-  return <GhostScene />;
+  return <GhostCanvas />;
 }

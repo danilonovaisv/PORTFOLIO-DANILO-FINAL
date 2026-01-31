@@ -23,11 +23,7 @@
   "hosting": {
     "site": "portfolio-danilo-novais",
     "public": "deploy-public",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "headers": [
       {
         "source": "/_next/static/**",

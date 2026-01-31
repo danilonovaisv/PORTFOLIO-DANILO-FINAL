@@ -28,6 +28,32 @@ export const metadata: Metadata = {
     'Portfolio',
     'Interactive Design',
   ],
+  openGraph: {
+    title: 'Danilo Novais | Creative Developer',
+    description:
+      'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais.',
+    url: `https://${BRAND.domain}`,
+    siteName: BRAND.name,
+    images: [
+      {
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'Danilo Novais | Creative Developer Portfolio',
+      },
+    ],
+    locale: 'pt_BR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Danilo Novais | Creative Developer',
+    description: 'Você não vê o design. Mas ele vê você.',
+    images: ['/opengraph-image'],
+  },
+  alternates: {
+    canonical: `https://${BRAND.domain}`,
+  },
 };
 
 export default async function HomePage() {

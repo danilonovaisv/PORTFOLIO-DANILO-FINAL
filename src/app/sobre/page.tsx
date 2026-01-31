@@ -8,17 +8,36 @@ import { AboutBeliefs } from '@/components/sobre/AboutBeliefs';
 import { AboutClosing } from '@/components/sobre/AboutClosing';
 import { SiteClosure } from '@/components/layout/SiteClosure';
 
+import { BRAND } from '@/config/brand';
+
 export const metadata: Metadata = {
-  title: 'Sobre | Danilo Novais',
+  title: 'Sobre',
   description:
     'Conheça a trajetória, o método e a visão de Danilo Novais por trás do design e desenvolvimento criativo.',
   openGraph: {
     title: 'Sobre | Danilo Novais',
-    description: 'Trajetória, método e visão criativa.',
+    description: 'Trajetória, método e visão criativa de Danilo Novais.',
+    url: `https://${BRAND.domain}/sobre`,
+    siteName: BRAND.name,
+    images: [
+      {
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'Sobre | Danilo Novais',
+      },
+    ],
+    locale: 'pt_BR',
     type: 'profile',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sobre | Danilo Novais',
+    description: 'Trajetória, método e visão criativa de Danilo Novais.',
+    images: ['/opengraph-image'],
+  },
   alternates: {
-    canonical: 'https://portfoliodanilo.com/sobre',
+    canonical: `https://${BRAND.domain}/sobre`,
   },
 };
 

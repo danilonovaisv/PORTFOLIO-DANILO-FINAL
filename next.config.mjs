@@ -44,8 +44,9 @@ const cspHeader = `
     form-action 'self';
     frame-ancestors 'none';
     connect-src 'self' ${supabaseAndExternalHosts} https://*.supabase.co https://*.firebaseio.com https://dl.polyhaven.org ws://localhost:3000 ws://127.0.0.1:3000;
-`.replace(/\s{2,}/g, ' ').trim();
-
+`
+  .replace(/\s{2,}/g, ' ')
+  .trim();
 
 const nextConfig = {
   /**

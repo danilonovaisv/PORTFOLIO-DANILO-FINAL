@@ -16,22 +16,22 @@ export const PROJECT_CATEGORIES: Array<{
   label: string;
   labelMobile: string;
 }> = [
-    { id: 'all', label: 'Todos os Projetos', labelMobile: 'Todos' },
-    { id: 'branding', label: 'Branding & Identity', labelMobile: 'Branding' },
-    { id: 'campanha', label: 'Campanhas & Advertising', labelMobile: 'Campanha' },
-    { id: 'web', label: 'Web & Digital', labelMobile: 'Web' },
-    { id: 'motion', label: 'Motion & Video', labelMobile: 'Motion' },
-    {
-      id: 'institucional',
-      label: 'Institucional & Retail',
-      labelMobile: 'Institucional',
-    },
-    {
-      id: 'packaging',
-      label: 'Packaging & Product',
-      labelMobile: 'Packaging',
-    },
-  ];
+  { id: 'all', label: 'Todos os Projetos', labelMobile: 'Todos' },
+  { id: 'branding', label: 'Branding & Identity', labelMobile: 'Branding' },
+  { id: 'campanha', label: 'Campanhas & Advertising', labelMobile: 'Campanha' },
+  { id: 'web', label: 'Web & Digital', labelMobile: 'Web' },
+  { id: 'motion', label: 'Motion & Video', labelMobile: 'Motion' },
+  {
+    id: 'institucional',
+    label: 'Institucional & Retail',
+    labelMobile: 'Institucional',
+  },
+  {
+    id: 'packaging',
+    label: 'Packaging & Product',
+    labelMobile: 'Packaging',
+  },
+];
 
 export const showcaseProjects: PortfolioProject[] = [
   // TYPE A - PROJETOS DESTAQUE (HERO STYLE)

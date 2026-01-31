@@ -47,24 +47,51 @@ async function getProject(slug: string): Promise<PortfolioProject | undefined> {
   return undefined;
 }
 
+import { BRAND } from '@/config/brand';
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const project = await getProject(slug);
 
   if (!project) return siteMetadata;
 
+  const description = `Case study: ${project.title} for ${project.client}. Category: ${project.displayCategory}.`;
+  const url = `https://${BRAND.domain}/portfolio/${slug}`;
+
   return {
     title: project.title,
-    description: `Case study: ${project.title} for ${project.client}. Category: ${project.displayCategory}.`,
-    keywords: [...(project.tags || []), project.client, project.displayCategory, 'Danilo Novais', 'Creative Developer'],
+    description,
+    keywords: [
+      ...(project.tags || []),
+      project.client,
+      project.displayCategory,
+      'Danilo Novais',
+      'Creative Developer',
+    ],
     openGraph: {
-      title: project.title,
-      description: `Case study: ${project.title} for ${project.client}. Category: ${project.displayCategory}.`,
-      images: [project.image || ''],
+      title: `${project.title} | ${BRAND.name}`,
+      description,
+      url,
+      siteName: BRAND.name,
+      images: [
+        {
+          url: project.image || '/opengraph-image',
+          width: 1200,
+          height: 630,
+          alt: project.title,
+        },
+      ],
+      locale: 'pt_BR',
       type: 'article',
     },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${project.title} | ${BRAND.name}`,
+      description,
+      images: [project.image || '/opengraph-image'],
+    },
     alternates: {
-      canonical: `https://portfoliodanilo.com/portfolio/${slug}`,
+      canonical: url,
     },
   };
 }

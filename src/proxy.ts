@@ -20,7 +20,15 @@ const buildContentSecurityPolicy = () => {
     'https://*.supabase.co',
     'https://assets.codepen.io',
   ];
-  const imgSrc = ["'self'", 'https:', 'data:', 'https://raw.githack.com', 'https://dl.polyhaven.org', 'https://www.gstatic.com', 'https://raw.githubusercontent.com'];
+  const imgSrc = [
+    "'self'",
+    'https:',
+    'data:',
+    'https://raw.githack.com',
+    'https://dl.polyhaven.org',
+    'https://www.gstatic.com',
+    'https://raw.githubusercontent.com',
+  ];
   const mediaSrc = ["'self'", 'https:', 'data:', 'blob:'];
 
   // Em dev, liberar HMR/WebSocket e inline/eval para webpack

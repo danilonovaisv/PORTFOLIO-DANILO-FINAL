@@ -7,44 +7,38 @@
 
 import { FC } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, Calendar, Building2 } from 'lucide-react';
 import type { PortfolioProject } from '@/types/project';
-import { easing } from '@/components/portfolio/modal/variants';
+import {
+  fadeInUp,
+  getMediaVariants,
+  getTitleVariants,
+  getMetaVariants,
+  getContentVariants
+} from '@/components/portfolio/modal/variants';
 import { isVideo } from '@/utils/utils';
 
 interface TypeAContentProps {
   project: PortfolioProject;
 }
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 16 },
-  animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: -10 },
-  transition: { duration: 0.5, ease: easing },
-};
-
-// Canon Timeline Delays (Ghost Era)
-const TIMELINE = {
-  MEDIA: 0.52,
-  TITLE: 0.76,
-  META: 0.96,
-  SECONDARY: 1.12,
-};
-
 /**
  * Layout A: Hero image grande no topo + Info abaixo
  * Usado para projetos de destaque
  */
 const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
+  const prefersReducedMotion = useReducedMotion();
+  const shouldReduce = !!prefersReducedMotion;
+
   return (
     <div className="flex flex-col gap-8">
       {/* Hero Image */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: TIMELINE.MEDIA, duration: 0.24, ease: 'easeOut' }}
-        className="card-shell relative w-full rounded-2xl overflow-hidden bg-white/5"
+        initial="hidden"
+        animate="visible"
+        variants={getMediaVariants(shouldReduce)}
+        className="card-shell relative w-full aspect-video md:aspect-21/9 rounded-2xl overflow-hidden bg-white/5"
       >
         {isVideo(project.image) ? (
           <video
@@ -65,13 +59,13 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
             priority
           />
         )}
-        
+
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
-        
+
         {/* Category badge */}
         <div className="absolute top-6 left-6">
-          <span className="inline-flex items-center rounded-full bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-[#040013]">
+          <span className="inline-flex items-center rounded-full bg-white/60 backdrop-blur-md border border-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wide text-void">
             {project.displayCategory}
           </span>
         </div>
@@ -82,9 +76,9 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
         {/* Left: Title & Description */}
         <div className="flex flex-col gap-6">
           <motion.h2
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: TIMELINE.TITLE, duration: 0.2, ease: easing }}
+            initial="hidden"
+            animate="visible"
+            variants={getTitleVariants(shouldReduce)}
             className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight"
           >
             {project.title}
@@ -112,7 +106,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
           {project.detail?.highlights && (
             <motion.ul variants={fadeInUp} className="flex flex-col gap-3 list-none">
               {project.detail.highlights.map((highlight, i) => (
-                <motion.li 
+                <motion.li
                   key={i}
                   className="flex items-center gap-3 text-sm text-white/80"
                   variants={fadeInUp}
@@ -126,10 +120,10 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
         </div>
 
         {/* Right: Metadata */}
-        <motion.div 
-          initial={{ opacity: 0, y: 4 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: TIMELINE.META, duration: 0.16, ease: easing }}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={getMetaVariants(shouldReduce)}
           className="flex flex-col gap-6"
         >
           {/* Meta cards */}
@@ -157,7 +151,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-3 py-1.5 rounded-full bg-[#E6EFEF]/60 backdrop-blur-md border border-white/10 text-xs text-[#040013] font-medium"
+                  className="px-3 py-1.5 rounded-full bg-white/60 backdrop-blur-md border border-white/10 text-xs text-void font-medium"
                 >
                   {tag}
                 </span>
@@ -171,7 +165,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
               href={project.detail.externalUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-white font-semibold text-sm transition-colors bg-[#0048ff] hover:bg-[#8705f2]"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-white font-semibold text-sm transition-colors bg-primary hover:bg-[#3b36ff]"
             >
               Ver projeto completo
               <ArrowUpRight className="w-4 h-4" />
@@ -182,19 +176,18 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
 
       {/* Gallery (se disponível) */}
       {project.detail?.gallery && project.detail.gallery.length > 0 && (
-        <motion.div variants={fadeInUp} className="mt-8">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={getContentVariants(shouldReduce)}
+          className="mt-8"
+        >
           <h3 className="text-lg font-semibold text-white mb-4">Galeria</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {project.detail.gallery.map((img, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  delay: TIMELINE.SECONDARY + i * 0.08, 
-                  duration: 0.20,
-                  ease: easing,
-                }}
+                variants={fadeInUp}
                 className="relative aspect-square rounded-xl overflow-hidden bg-white/5"
               >
                 {isVideo(img) ? (
