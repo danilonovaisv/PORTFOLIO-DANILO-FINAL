@@ -44,6 +44,7 @@ export default function RootLayout({
         <JsonLd logoUrl={jsonLdLogoUrl} />
       </head>
       <body
+        suppressHydrationWarning
         className="antialiased bg-background text-text pb-0 lg:pb-[64px] overflow-x-hidden"
         style={inlineStyle}
       >
