@@ -1,0 +1,3 @@
+module.exports=[81744,a=>{"use strict";a.i(9895),a.i(31887);var b=a.i(58356);b.BRAND.colors.background,b.BRAND.colors.blueAccent;var c=a.i(48046);let d={alt:"Sobre | Danilo Novais",contentType:"image/png",dynamic:"force-static",size:{width:1200,height:630}};async function e(a){let{__metadata_id__:b,...e}=await a.params,f=(0,c.fillMetadataSegment)("/sobre",e,"opengraph-image");return[function(a,b){let c={alt:a.alt,type:a.contentType||"image/png",url:f+"?f1a23a4ddb1ab003"},{size:d}=a;return d&&(c.width=d.width,c.height=d.height),c}(d,0)]}a.s(["default",0,e],81744)}];
+
+//# sourceMappingURL=src_app_sobre_opengraph-image--metadata_889f8870.js.map

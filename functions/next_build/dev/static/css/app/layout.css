@@ -1,5 +1,5 @@
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/.pnpm/next@16.1.6_@babel+core@7.28.6_@opentelemetry+api@1.9.0_@playwright+test@1.58.0_react-d_1d7f1e47d50ae75d5387b46423a1f17f/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[2]!./node_modules/.pnpm/next@16.1.6_@babel+core@7.28.6_@opentelemetry+api@1.9.0_@playwright+test@1.58.0_react-d_1d7f1e47d50ae75d5387b46423a1f17f/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[3]!./src/styles/fonts.css ***!
+  !*** css ./node_modules/.pnpm/next@16.1.6_@babel+core@7.28.6_@opentelemetry+api@1.9.0_@playwright+test@1.58.1_react-d_9f5a2330a28d835cd0ef03dc082776a6/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[2]!./node_modules/.pnpm/next@16.1.6_@babel+core@7.28.6_@opentelemetry+api@1.9.0_@playwright+test@1.58.1_react-d_9f5a2330a28d835cd0ef03dc082776a6/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[3]!./src/styles/fonts.css ***!
   \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /* TT Norms Pro - Primary Font */
 @font-face {
@@ -71,7 +71,7 @@
 }
 
 /*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/.pnpm/next@16.1.6_@babel+core@7.28.6_@opentelemetry+api@1.9.0_@playwright+test@1.58.0_react-d_1d7f1e47d50ae75d5387b46423a1f17f/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[2]!./node_modules/.pnpm/next@16.1.6_@babel+core@7.28.6_@opentelemetry+api@1.9.0_@playwright+test@1.58.0_react-d_1d7f1e47d50ae75d5387b46423a1f17f/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[3]!./src/app/globals.css ***!
+  !*** css ./node_modules/.pnpm/next@16.1.6_@babel+core@7.28.6_@opentelemetry+api@1.9.0_@playwright+test@1.58.1_react-d_9f5a2330a28d835cd0ef03dc082776a6/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[2]!./node_modules/.pnpm/next@16.1.6_@babel+core@7.28.6_@opentelemetry+api@1.9.0_@playwright+test@1.58.1_react-d_9f5a2330a28d835cd0ef03dc082776a6/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[15].oneOf[10].use[3]!./src/app/globals.css ***!
   \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 *, ::before, ::after{
   --tw-border-spacing-x: 0;
@@ -871,6 +871,9 @@ video {
 .-mt-4{
   margin-top: -1rem;
 }
+.-mt-\[20\%\]{
+  margin-top: -20%;
+}
 .mb-1{
   margin-bottom: 0.25rem;
 }
@@ -982,6 +985,9 @@ video {
 .aspect-\[4\/3\]{
   aspect-ratio: 4/3;
 }
+.aspect-\[4\/5\]{
+  aspect-ratio: 4/5;
+}
 .aspect-square{
   aspect-ratio: 1 / 1;
 }
@@ -1078,6 +1084,9 @@ video {
 }
 .h-\[135\%\]{
   height: 135%;
+}
+.h-\[140\%\]{
+  height: 140%;
 }
 .h-\[18px\]{
   height: 18px;
@@ -1483,6 +1492,10 @@ video {
 }
 .translate-x-px{
   --tw-translate-x: 1px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.translate-y-4{
+  --tw-translate-y: 1rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .translate-y-\[-50\%\]{
@@ -4332,6 +4345,11 @@ html.admin-page body {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.group:hover .group-hover\:translate-y-0{
+  --tw-translate-y: 0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .group:hover .group-hover\:rotate-0{
   --tw-rotate: 0deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -5129,6 +5147,10 @@ html.admin-page body {
 
   .md\:aspect-\[2\.4\/1\]{
     aspect-ratio: 2.4/1;
+  }
+
+  .md\:aspect-\[3\/4\]{
+    aspect-ratio: 3/4;
   }
 
   .md\:h-14{
@@ -6247,7 +6269,7 @@ html.admin-page body {
 }
 
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/.pnpm/next@16.1.6_@babel+core@7.28.6_@opentelemetry+api@1.9.0_@playwright+test@1.58.0_react-d_1d7f1e47d50ae75d5387b46423a1f17f/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[15].oneOf[5].use[2]!./node_modules/.pnpm/next@16.1.6_@babel+core@7.28.6_@opentelemetry+api@1.9.0_@playwright+test@1.58.0_react-d_1d7f1e47d50ae75d5387b46423a1f17f/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[15].oneOf[5].use[3]!./src/components/layout/header/DesktopFluidHeader.module.css ***!
+  !*** css ./node_modules/.pnpm/next@16.1.6_@babel+core@7.28.6_@opentelemetry+api@1.9.0_@playwright+test@1.58.1_react-d_9f5a2330a28d835cd0ef03dc082776a6/node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[15].oneOf[5].use[2]!./node_modules/.pnpm/next@16.1.6_@babel+core@7.28.6_@opentelemetry+api@1.9.0_@playwright+test@1.58.1_react-d_9f5a2330a28d835cd0ef03dc082776a6/node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[15].oneOf[5].use[3]!./src/components/layout/header/DesktopFluidHeader.module.css ***!
   \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .DesktopFluidHeader_headerContainer__rJS79 {
   position: relative;

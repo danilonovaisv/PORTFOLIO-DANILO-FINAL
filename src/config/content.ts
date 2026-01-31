@@ -14,8 +14,8 @@ export const HOME_CONTENT = {
     tag: '[BRAND AWARENESS]',
     // Otimizado: Array permite animação escalonada (stagger) linha a linha
     title: ['Você não vê o design.'],
-    titleDesktop: ['Você não vê', 'o design.'],
-    titleMobile: ['Você não', 'vê o', 'design.'],
+    titleDesktop: ['Você não vê ', 'o design.'],
+    titleMobile: ['Você não ', 'vê o ', 'design.'],
     subtitle: 'Mas ele vê você.',
     cta: 'step inside',
   },

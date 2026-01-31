@@ -31,4 +31,4 @@ pnpm run build
 bash "$SCRIPT_DIR/prepare-hosting.sh"
 
 # Deploy hosting + função SSR (codebase modern_ssr)
-firebase deploy --only hosting,functions:ssr_modern --project portfolio-danilo-novais
+firebase deploy --only hosting,functions:modern_ssr:ssr_modern --project portfolio-danilo-novais

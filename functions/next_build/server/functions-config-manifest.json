@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "functions": {
+    "/_middleware": {
+      "runtime": "nodejs",
+      "matchers": [
+        {
+          "regexp": "^(?:\\/(_next\\/data\\/[^/]{1,}))?(?:\\/((?!_next\\/static|_next\\/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*))(\\.json)?[\\/#\\?]?$",
+          "originalSource": "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)"
+        }
+      ]
+    },
+    "/admin": {},
+    "/admin/config": {},
+    "/admin/landing-pages": {},
+    "/admin/landing-pages/[id]": {},
+    "/admin/landing-pages/new": {},
+    "/admin/midia": {},
+    "/admin/tags": {},
+    "/admin/trabalhos": {},
+    "/admin/trabalhos/[id]": {},
+    "/admin/trabalhos/new": {}
+  }
+}
