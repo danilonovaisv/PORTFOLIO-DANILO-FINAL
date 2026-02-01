@@ -43,7 +43,8 @@ export const ProjectCard = ({
       className={cn(
         'group relative overflow-hidden border border-white/10 bg-white/5 cursor-pointer',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent',
-        'h-[320px] md:h-[420px] rounded-xl will-change-transform',
+        'h-[320px] md:h-(--ghost-card-height-desktop) rounded-xl will-change-transform',
+        'transition-transform duration-500 hover:scale-[1.02]',
         className
       )}
       initial={{ opacity: 0, y: 16 }}
@@ -70,7 +71,7 @@ export const ProjectCard = ({
                 priority={priority}
                 unoptimized
                 sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                className="object-cover transition duration-700 group-hover:scale-[1.04]"
+                className="object-cover transition duration-700 group-hover:scale-110"
               />
             </div>
           </motion.div>

@@ -1,9 +1,7 @@
-'use client';
-
 import dynamic from 'next/dynamic';
 
-const GhostScene = dynamic(
-  () => import('@/components/canvas/home/hero/GhostScene'),
+const GhostCanvas = dynamic(
+  () => import('@/components/canvas/home/hero/GhostCanvas'),
   {
     ssr: false,
     loading: () => <div className="absolute inset-0 bg-background" />,
@@ -11,5 +9,5 @@ const GhostScene = dynamic(
 );
 
 export default function GhostSceneWrapper() {
-  return <GhostScene />;
+  return <GhostCanvas />;
 }

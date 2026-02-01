@@ -39,16 +39,16 @@ export const ProjectsGallery = ({
         className="fixed top-0 left-0 w-full will-change-transform"
       >
         <div className="std-grid py-24 sm:py-32">
-          <div className="col-span-full grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 md:gap-8">
+          <div className="col-span-full grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8 auto-rows-auto auto-flow-dense">
             {projectsToRender.map((project, index) => (
-              <div key={project.id} className="w-full">
-                <ProjectCard
-                  project={project}
-                  index={index}
-                  onClick={onProjectSelect || onOpenProject}
-                  priority={index < 3}
-                />
-              </div>
+              <ProjectCard
+                key={project.id}
+                project={project}
+                index={index}
+                onClick={onProjectSelect || onOpenProject}
+                priority={index < 3}
+                className={project.layout?.cols || 'lg:col-span-4'}
+              />
             ))}
           </div>
         </div>

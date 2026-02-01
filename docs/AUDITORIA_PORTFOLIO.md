@@ -1,223 +1,518 @@
+Você é um **especialista sênior em Frontend, UI/UX e WebGL**, com domínio avançado em **Next.js (App Router), React, TypeScript, Tailwind CSS, React Three Fiber, Three.js e Framer Motion**.
+Analise a pagina portfolio e garanta que ela siga esse detalhamento.
 
-# **3. Origem Criativa**
 
-**Função:** Revelar trajetória criativa através de efeito mask reveal pinned — imagens emergem de baixo para cima como "memórias sendo descobertas".
+Site: portfoliodanilo.com
+Stack: Next.js (App Router), React, TypeScript, Tailwind CSS, Framer Motion, Lenis Scroll
+Objetivo: Página Portfolio com animação Parallax Lerp, grid editorial, modal de projeto, UX responsivo e acessível
 
-**Stack Técnico:** GSAP 3.13 + ScrollTrigger + Lenis
+⸻
 
-**Referência:** https://codepen.io/danilonovaisv/pen/KwMgWMG
-**CÓDIGO REFERENCIA:** https://drive.google.com/drive/folders/1SZg3TTXHT3l6OHZhxeFbCC8vR0k2RHE3?usp=sharing
+1️⃣ INTRODUÇÃO – ESCOPOS & EXPECTATIVAS
 
-#### Desktop
+Você é um engenheiro front-end sênior + designer de motion editorial.
+Sua missão é construir a página de Portfolio Showcase completa de acordo com as diretrizes a seguir:
 
-**Layout:**
-- Grid 2 colunas fixas:
-  - Esquerda (300px mín): textos
-  - Direita (540px máx): imagens pinned
-- Container: 1440px
-- Gap: 60px
-- Padding: 2rem
+🔹 Hero Section
+🔹 Projects Gallery com Parallax Lerp
+🔹 Modais de projeto (2 variações)
+🔹 Seções complementares (Clients, Contact, Footer)
+🔹 Design System Ghost
+🔹 Experiência premium, minimalista e performática
 
-**Composição Grid:**
+O scroll não deve ser “hijacked”, mas sim um driver suave, com sensação de 60fps e transições elegantes.
 
-```tsx
-<section className="w-full bg-background py-24">
-  <div className="max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24">
-    {/* Título */}
-    <h1 className="text-h1 text-center mb-16">Origem</h1>
-    
-    {/* Grid Desktop */}
-    <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 md:gap-12">
-      {/* Textos - Esquerda */}
-      <div className="col-span-4 md:col-span-8 lg:col-span-6 space-y-24">
-        {/* Blocos de texto */}
-      </div>
-      
-      {/* Imagens Pinned - Direita */}
-      <div className="hidden lg:block lg:col-span-6 sticky top-24 h-fit">
-        {/* Imagens com mask reveal */}
-      </div>
-    </div>
-  </div>
-</section>
-```
+1. Avaliar **estrutura, organização e integração do código**
+2. Verificar **fidelidade visual total** ao layout esperado
+3. Analisar **usabilidade, UX, UI e microinterações**
+4. Validar **responsividade mobile-first**
+5. Avaliar **requisitos técnicos, performance e boas práticas**
+6. Validar **integrações entre componentes 3D e GLB**
+7. Gerar **prompts técnicos claros para correção**, prontos para execução automática
 
-**Imagens:**
-- 4 imagens (500px altura, auto largura)
-- Pinned à direita
-- Z-index: 4 → 1 (sequencial)
-- `object-fit: cover`
-- `border-radius: 24px`
-- `blur(4px)` inicial → `blur(0)`
-- `opacity: 0.85` → `1`
 
-#### Mobile
+### 📐 Referências obrigatórias
+- 📄 Documento técnico:
+  - `./docs/PORTFOLIO/PORTFOLIO-INTERATIVO-3.0.md`
+- 🖼️ referencias para animação e layout:
+  - `./docs/PORTFOLIO/port-ref/`
 
-**Layout:**
-- Stack vertical intercalado: Texto → Imagem
-- Ordem controlada via CSS `order`
-- Imagens: 400–400px
+⸻
 
-**Composição Mobile:**
+2️⃣ ARQUITETURA DA PÁGINA
 
-```tsx
-<section className="w-full bg-background py-16">
-  <div className="max-w-[1680px] mx-auto px-6">
-    <h1 className="text-h1 text-center mb-12">Origem</h1>
-    
-    <div className="space-y-12">
-      {/* Bloco 1 */}
-      <div className="space-y-6">
-        <div className="text-center">
-          <h2 className="text-h2 text-bluePrimary mb-4">O QUE PERMANECE</h2>
-          <p className="text-body">...</p>
-        </div>
-        <img src="..." className="w-full rounded-2xl" />
-      </div>
-      
-      {/* Repetir para blocos 2-4 */}
-    </div>
-  </div>
-</section>
-```
+Portfolio Page
+├── Hero Section (Video Loop)
+│   ├── Video Background (Desktop / Mobile)
+│   ├── Overlay Gradient
+│   ├── Headline “portfólio showcase”
+│   └── CTA “vamos trabalhar juntos”
+├── Projects Gallery (Parallax Lerp)
+│   ├── GalleryContainer (fixed track)
+│   ├── GalleryTrack (scroll + lerp)
+│   └── ProjectCard[] (grid editorial)
+│       └── CardImageWrapper (internal parallax)
+├── Clients / Brands
+├── Contact (form)
+├── Footer
+└── PortfolioModal
+    ├── Backdrop
+    ├── ModalContainer
+    │   ├── CloseButton
+    │   └── ProjectContent (Tipo A / Tipo B)
+    └── AnimatePresence
 
-#### Conteúdo
 
-**Título (H1):**
-```
+⸻
+
+3️⃣ DESIGN SYSTEM — Ghost
+
+🎨 PALETA DE CORES
+
+Token    Valor    Uso
+bluePrimary    #0048ff    CTA principal, interações
+blueAccent    #4fe6ff    Destaques secundários
+purpleDetails    #8705f2    Detalhes pontuais
+pinkDetails    #f501d3    Ênfase pontual
+background    #040013    Fundo escuro principal
+backgroundLight    #f0f0f0    Fundo claro
+text    #fcffff    Texto principal (escuro)
+textInverse    #0e0e0e    Texto sobre fundo claro
+textEmphasis    #2E85F2    Destaque de palavras
+textHighlight    #4fe6ff    Destaque curto
+textSecondary    #a1a3a3    Metadata secundária
+neutral    #0b0d3a    Gradientes de fundo
+neutralLight    #F5F5F5    Fundo claro de seções
+
+
+⸻
+
+🔤 TIPOGRAFIA
+
+Fonte principal: TT Norms Pro (self-hosted)
+Fallback: ui-sans-serif, system-ui
+
+Tokens tipográficos com clamp():
+    •    display: clamp(2.5rem, 5vw, 4.5rem)
+    •    h1: clamp(2rem, 4vw, 3.5rem)
+    •    h2: clamp(1.5rem, 3vw, 2.5rem)
+    •    h3: clamp(1.25rem, 2vw, 1.75rem)
+    •    body: clamp(1rem, 1.2vw, 1.125rem)
+    •    small: 0.875rem
+    •    micro: 0.75rem
+
+⸻
+
+📐 GRID & LAYOUT — Ghost Grid System
+
+Breakpoint    Columns    Gutter    Padding (X)    Max Width
+Mobile (<768px)    4    16px    24px    100%
+Tablet (768px+)    8    24px    48px    100%
+Desktop (1024px+)    12    32px    64px    1440px
+Wide (1600px+)    12    40px    96px    1680px
+
+Regras:
+    •    Mobile primeiro
+    •    Grid editorial com spans variados no desktop
+    •    auto-flow: dense no Projects Gallery
+
+⸻
+
+4️⃣ FRAMEWORKS & BIBLIOTECAS
+    •    Next.js App Router (app/)
+    •    React + TypeScript
+    •    Tailwind CSS
+    •    Framer Motion (motional UX)
+    •    Lenis Scroll (scroll lerp suave)
+    •    No GSAP
+    •    No CSS externo
+
+Arquitetura:
+    •    Page: Server Component
+    •    Hero, Gallery, Cards, Modals: Client Components
+    •    Hooks de animação desacoplados
+
+⸻
+
+5️⃣ HERO SECTION
+
+Vídeos oficiais (Supabase)
+    •    Desktop:
+https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort.mp4
+    •    Mobile:
+https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort-mobile.mp4
+
+Comportamento
+    •    autoPlay, loop, muted, playsInline
+    •    object-fit: cover
+    •    Troca automática por breakpoint
+    •    Overlay em gradiente vertical
+    •    Hero ocupa 100vh
+    •    Texto + CTA alinhados horizontalmente na base
+    •    CTA:
+    •    cor bluePrimary
+    •    hover: escurecer e scale sutil
+    •    transição suave
+
+⸻
+
+6️⃣ PROJECTS GALLERY — Parallax Lerp
+
+Visão Geral da Arquitetura da Página
+
+A página de portfólio deve ser pensada como uma sequência de seções independentes, porém orquestradas pelo scroll:
+    1.    Hero / Intro (parallax-driven)
+    2.    Portfolio Grid (cards com motion + hover)
+    3.    Seções complementares (About, Services, Case Studies, Contact)
+    4.    Footer leve
+
+
+7. INTERATIVIDADE & ANIMAÇÕES
+
+7.1 Animações de entrada / scroll
+
+Princípios
+    •    Toda animação é:
+    •    silenciosa
+    •    funcional
+    •    orientada ao scroll
+    •    Nada deve competir com o conteúdo.
+
+Padrão técnico
+    •    Engine: Framer Motion
+    •    Ativação:
+    •    whileInView
+    •    viewport={{ once: true, margin: "-10%" }}
+
+Cards
+    •    Entrada padrão:
+    •    opacity: 0 → 1
+    •    y: 24–40px → 0
+    •    Ordem:
+    •    cascata natural baseada na posição no DOM
+    •    Nunca reanimar ao scroll reverso
+
+⸻
+
+7.2 Hover effects / microinterações (desktop)
+
+Card (desktop)
+    •    Hover no container inteiro
+    •    Efeitos combinados:
+    1.    Card:
+    •    scale: 1 → 1.02
+    2.    Imagem:
+    •    zoom interno (scale: 1.1)
+    3.    Overlay:
+    •    gradiente escuro opacity: 0 → 0.6
+    4.    Texto:
+    •    título sobe levemente (y: 8px → 0)
+    •    categoria aparece
+
+Regra de UX
+
+Hover não muda layout, não desloca grid e não causa reflow.
+
+⸻
+
+7.3 Mouse, touch e input
+
+Desktop (mouse)
+    •    Hover ativo
+    •    Cursor padrão (custom cursor é opcional, não obrigatório)
+    •    Scroll suave via Lenis
+
+Mobile (touch)
+    •    ❌ Hover desativado
+    •    ✔ Press feedback:
+    •    leve scale: 0.98
+    •    highlight rápido
+    •    Card inteiro clicável
+    •    Touch target mínimo: 48px
+
+⸻
+
+7.4 Animações vinculadas ao scroll (Scroll Sync / Parallax)
+
+Parallax Lerp — conceito central
+    •    Inspirado no REF-ANIMA
+    •    Não é scroll hijacking
+    •    Scroll continua natural
+
+Estrutura
+    •    GalleryContainer: pode ser relative ou fixed (dependendo da versão final)
+    •    GalleryTrack: move-se suavemente com lerp
+    •    Cada ProjectCard:
+    •    possui parallax interno apenas na imagem
+
+Valores recomendados
+    •    Desktop:
+    •    translateY: -30px → +30px
+    •    Tablet:
+    •    -20px → +20px
+    •    Mobile:
+    •    -10px → +10px ou desativado
+
+Regra crítica
+
+Nunca usar window.scrollY diretamente.
+Sempre useScroll({ target }) + useTransform.
+
+⸻
+
+8. RESPONSIVIDADE (FOCO PRINCIPAL)
+
+5.1 Visão geral — quantidade de cards por linha
+
+Breakpoint    Colunas Grid    Cards por linha    Observações
+Mobile (<768px)    1    1    Lista vertical
+Tablet (768–1023px)    2    2    Grid simples
+Desktop (1024–1439px)    3–4    3–4    Editorial
+Wide (≥1440px)    4–5    4–5    Ritmo amplo
+
+
+⸻
+
+8.2 Mobile (≤ 767px)
+
+Comportamento
+    •    Grid vira lista vertical
+    •    Cada card:
+    •    width: 100%
+    •    proporção estável (ex: 4:5)
+    •    Sem variação de spans
+    •    Leitura linear (scroll natural)
+
+UX
+    •    Imagem grande
+    •    Título + categoria sempre visíveis
+    •    CTA implícito (card inteiro)
+
+Animação
+    •    Entrada simples (fade-up)
+    •    Parallax:
+    •    opcional ou muito sutil
+    •    pode ser desativado em low-end devices
+
+⸻
+
+8.3 Tablet (768px – 1023px)
+
+Grid
+    •    2 colunas fixas
+    •    grid-cols-2
+    •    Spans limitados:
+    •    evitar 1x2 ou 2x2 excessivos
+
+Ritmo visual
+    •    Cards quase homogêneos
+    •    Hierarquia ainda clara, porém simplificada
+
+Animação
+    •    Parallax ativo, mas reduzido
+    •    Hover:
+    •    pode existir em tablets grandes
+    •    nunca essencial para entender conteúdo
+
+⸻
+
+8.4 Desktop (≥ 1024px)
+
+Grid editorial (núcleo da experiência)
+    •    CSS Grid:
+    •    grid-cols-12
+    •    auto-flow: dense
+
+Spans permitidos
+    •    Card padrão: col-span-4 (3 por linha)
+    •    Card destaque:
+    •    col-span-6 (2 por linha)
+    •    ou row-span-2
+
+Composição típica
+    •    Mistura de:
+    •    cards grandes (âncoras visuais)
+    •    cards médios
+    •    cards neutros (ritmo)
+
+Hover + Parallax
+    •    Ativos
+    •    Sensação de profundidade 3D (sem WebGL)
+
+⸻
+
+8.5 Telas grandes / ultrawide (≥ 1440px)
+
+Ajustes
+    •    Container centralizado
+    •    max-width: 1680px
+    •    Mais respiro entre cards
+    •    Possibilidade de:
+    •    4 ou 5 cards por linha
+    •    cards ainda maiores (luxury feel)
+
+Animação
+    •    Mais lenta
+    •    Easing mais perceptível
+
+⸻
+
+9. ACESSIBILIDADE & SEO
+
+9.1 Semântica
+    •    <main> → página
+    •    <section> → Projects Gallery
+    •    <article> → cada ProjectCard
+    •    Hierarquia:
+    •    h1: título principal da página
+    •    h2: seções
+    •    h3: título do projeto
+
+⸻
+
+9.2 Imagens
+    •    Todas com alt
+    •    Padrão:
+    •    “Projeto X — categoria Y”
+    •    Imagens decorativas:
+    •    aria-hidden="true"
+
+⸻
+
+9.3 Contraste
+    •    Overlay obrigatório sobre imagens
+    •    Texto nunca diretamente sobre imagem crua
+    •    Cores respeitam WCAG AA no mínimo
+
+⸻
+
+9.4 Navegação por teclado
+    •    Cards focáveis (tabIndex=0)
+    •    :focus-visible estilizado
+    •    Enter abre modal
+    •    Escape fecha modal
+    •    Foco retorna ao card original
+
+⸻
+
+9.5 SEO
+    •    Grid renderizado no server
+    •    Conteúdo indexável
+    •    URLs amigáveis para projetos
+    •    Estrutura preparada para JSON-LD (futuro)
+
+⸻
+
+10. INTEGRAÇÕES & RECURSOS ESPECIAIS
+
+10.1 Componentes dinâmicos
+
+✔ Grid dinâmico
+✔ Filtro por categoria (já presente no ZIP)
+✔ Modal de projeto
+✔ Lazy loading de imagens
+
+⸻
+
+10.2 Dados
+
 Origem
-```
+    •    Inicial:
+    •    JSON local / TS
+    •    Evolução:
+    •    CMS
+    •    API
+    •    Supabase
 
-**Blocos:**
+Estrutura recomendada
 
-**1. O QUE PERMANECE** (H1, `bluePrimary`)
-```
-Desde cedo, sempre prestei atenção no que ficava —
-não só no que aparecia.
-
-Enquanto muitos olhavam para o brilho imediato,
-eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo.
-A essência das coisas sempre falou mais alto do que a superfície.
-```
-- **Imagem:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.1.webp`
-- Texto: alinhado à direita, -10% vertical
-
-**2. DO TRAÇO À INTENÇÃO** (H1, `bluePrimary`)
-```
-Rabiscos viraram ideias.
-Ideias viraram projetos.
-E os projetos começaram a deixar rastros.
-
-Meu processo criativo nasceu do improviso, do lápis na margem do caderno.
-Aos poucos, aquilo que era instinto virou direção.
-Com cada tentativa, aprendi a dar forma ao invisível —
-até que os conceitos começaram a falar por si.
-```
-- **Imagem:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.2.webp`
-- Texto: alinhado à esquerda, -10% vertical
-
-**3. A DESCOBERTA DO INVISÍVEL** (H1, `bluePrimary`)
-```
-Foi ali que entendi:
-design não é enfeite.
-É ferramenta invisível de transformação.
-
-Por trás de cada escolha visual, existe intenção.
-Descobri que o design verdadeiro não grita — ele conduz.
-Ele está presente nos detalhes que ninguém percebe,
-mas que todos sentem.
-Transformar sem que se perceba a transformação: isso é potência.
-```
-- **Imagem:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.3.webp`
-- Texto: alinhado à direita, -10% vertical
-
-**4. EXPANSÃO COM PROPÓSITO** (H1, `bluePrimary`)
-```
-Estudei Comunicação, mergulhei no design, no branding
-e hoje uso inteligência artificial para expandir o alcance
-sem perder a essência humana da criação.
-
-Minha trajetória uniu intuição com método, arte com estratégia.
-O futuro pede novas ferramentas — e eu as abracei.
-Mas nunca deixei que a tecnologia apagasse o que me move:
-a sensibilidade, o olhar atento, a busca pelo significado.
-```
-- **Imagem:** `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/about.origin_image.4.webp`
-- Texto: alinhado à esquerda, -10% vertical
-
-#### Animação GSAP
-
-**Desktop (Pin + Mask Reveal):**
-
-```tsx
-gsap.timeline({
-  scrollTrigger: { 
-    pin: ".arch__right", 
-    scrub: true,
-    start: "top top",
-    end: "bottom bottom"
-  }
-})
-.to(imgAtual, { 
-  clipPath: "inset(0 0 100%)",
-  duration: 1
-})
-.to(imgProxima, { 
-  objectPosition: "0px 40%",
-  duration: 1
-}, "<");
-```
-
-**Especificações:**
-- `clipPath: "inset(0 0 100%)"` → `inset(0)`
-- Object position: `0% 0%` → `60%` (atual) + `40%` (próxima)
-- Transição BG: `#040013` → `#0a001a` (duration: 1.5s)
-- Blur/Focus: `blur(4px)` → `blur(0px)` + `opacity: 0.85→1`
-
-**Mobile (Parallax):**
-- `objectPosition: 60% → 30%` por imagem
-- Trigger: Intersection Observer
-
-#### Identidade Visual
-
-| Elemento | Especificação |
-|----------|---------------|
-| Cores | `#040013` → `#0a001a`, `#fcffff` (texto), `bluePrimary` (H1) |
-| Tipografia | TT Norms Pro: H1 800 (32-48px), H3 400 (16-20px), line-height: 1.6 |
-| Espaçamentos | Container 1440px, gap 60px, padding 2rem |
-| Bordas | `border-radius: 24px` |
-
-#### Responsividade
-
-| Breakpoint | Comportamento |
-|------------|---------------|
-| < 560px | Stack vertical, imgs 280px, container padding 10px |
-| 560–768px | Stack, imgs 360px, gap 20px |
-| 769–1024px | 2-col, right flexível, gap 30px |
-| 1024px+ | Pin completo, textos 356px fixos, max-width 1100px |
-| > 1440px | Container limitado, centralizado |
-
-#### Acessibilidade
-
-- Semântica: `<section class="origem-criativa">` + H1 por bloco
-- ALT texts descritivos (ex: "O que permanece - essência que sobrevive...")
-- Contraste: 21:1 (`#fcffff` sobre `#040013`)
-- Navegação por teclado nativa
-- `prefers-reduced-motion` support
-- SEO: H1 único "Origem" + H3s hierárquicos
-- Performance: `loading="lazy"`, GPU `transform`/`clip-path`
-
----
+{
+  id,
+  title,
+  slug,
+  category,
+  coverImage,
+  layoutType,
+  content
+}
 
 
-1. Analise o escopo detalhado fornecido.
-2. Monte um plano de execução com base nesse escopo.
-3. Implemente os ajustes necessários no código.
-4. Utilize as imagens anexas como **referência visual absoluta** — o layout e comportamento final devem refletir exatamente o que está nelas.
-5. Ao concluir, revise e valide se:
-   - Todas as alterações foram aplicadas corretamente.
-   - O sistema está funcionando como esperado.
-   - O visual está 100% fiel às referências.
+⸻
 
-✅ Nenhum ponto deve ser ignorado.
+10.3 Formulários
+    •    Apenas na seção Contact
+    •    Validação client-side
+    •    Envio assíncrono
+    •    Não interfere no scroll da gallery
+
+⸻
+
+10.4 Outros recursos
+    •    prefers-reduced-motion
+    •    Skeleton loaders
+    •    Fallback para dispositivos fracos
+
+⸻
+
+
+11. CONSIDERAÇÕES TÉCNICAS
+
+11.1 Client vs Server
+
+Componente    Tipo
+Page / Grid base    Server
+Cards animados    Client
+Parallax    Client
+Modal    Client
+
+
+⸻
+
+
+11.2 Reutilização
+    •    ProjectCard reutilizável em:
+    •    Homepage
+    •    Featured Projects
+    •    Case Studies
+    •    Hooks desacoplados permitem ajuste fino sem reescrever UI
+
+⸻
+
+11.3 Modularização (Next.js App Router)
+
+/components/portfolio
+  ├─ PortfolioSection.tsx
+  ├─ PortfolioGrid.tsx
+  ├─ ProjectCard.tsx
+  ├─ PortfolioModal.tsx
+/hooks
+  ├─ useParallaxLerp.ts
+  ├─ useRevealMotion.ts
+
+
+⸻
+
+11.4 Fallbacks
+    •    Sem JS → grid ainda funcional
+    •    Sem motion → layout intacto
+    •    Mobile low-end → parallax off
+
+⸻
+
+8.5 Animações via hook
+
+✔ Todas as animações encapsuladas
+✔ Intensidade configurável
+✔ Fácil desativação
+
+⸻
+
+CONCLUSÃO
+
+A Projects Gallery não é apenas um grid responsivo.
+Ela é:
+    •    Um sistema editorial
+    •    Guiado por scroll
+    •    Com comportamento adaptativo real
+    •    Pensado para performance, acessibilidade e evolução futura
 
