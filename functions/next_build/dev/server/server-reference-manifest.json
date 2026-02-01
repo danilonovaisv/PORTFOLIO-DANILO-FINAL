@@ -1,0 +1,24 @@
+{
+  "node": {
+    "40b904069fc3b1eaf2e37e8727b854d4c406cb1e5f": {
+      "workers": {
+        "app/page": {
+          "moduleId": "(rsc)/./node_modules/.pnpm/next@16.1.6_@babel+core@7.28.6_@opentelemetry+api@1.9.0_@playwright+test@1.58.1_react-d_9f5a2330a28d835cd0ef03dc082776a6/node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fdanilonovais%2F_danilonov_portfolio%2Fsrc%2Flib%2Fsupabase%2Fqueries%2Fprojects.ts%22%2C%5B%7B%22id%22%3A%2240b904069fc3b1eaf2e37e8727b854d4c406cb1e5f%22%2C%22exportedName%22%3A%22%24%24RSC_SERVER_ACTION_0%22%2C%22filename%22%3A%22lib%2Fsupabase%2Fqueries%2Fprojects.ts%22%7D%5D%5D%5D&__client_imported__=!",
+          "async": false
+        },
+        "app/portfolio/page": {
+          "moduleId": "(rsc)/./node_modules/.pnpm/next@16.1.6_@babel+core@7.28.6_@opentelemetry+api@1.9.0_@playwright+test@1.58.1_react-d_9f5a2330a28d835cd0ef03dc082776a6/node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fdanilonovais%2F_danilonov_portfolio%2Fsrc%2Flib%2Fsupabase%2Fqueries%2Fprojects.ts%22%2C%5B%7B%22id%22%3A%2240b904069fc3b1eaf2e37e8727b854d4c406cb1e5f%22%2C%22exportedName%22%3A%22%24%24RSC_SERVER_ACTION_0%22%2C%22filename%22%3A%22lib%2Fsupabase%2Fqueries%2Fprojects.ts%22%7D%5D%5D%5D&__client_imported__=!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/page": "rsc",
+        "app/portfolio/page": "rsc"
+      },
+      "filename": "lib/supabase/queries/projects.ts",
+      "exportedName": "$$RSC_SERVER_ACTION_0"
+    }
+  },
+  "edge": {},
+  "encryptionKey": "RK6sLcZlCcSpFB1NboLxThnv6L+qaIad+fTlIcxs3VA="
+}

@@ -3,15 +3,14 @@
     "id": 35454,
     "files": [
       "static/chunks/638e03b5217d6b5e.js",
-      "static/chunks/abf24408f194d284.js",
-      "static/chunks/e82f7b7490d65c56.js"
+      "static/chunks/4277a9ef1d80d832.js"
     ]
   },
-  "47908": {
-    "id": 47908,
+  "1398": {
+    "id": 1398,
     "files": [
-      "static/chunks/d5e7bc985cfaed55.js",
-      "static/chunks/abf24408f194d284.js"
+      "static/chunks/b5823d7e6aeca59c.js",
+      "static/chunks/4277a9ef1d80d832.js"
     ]
   }
 }

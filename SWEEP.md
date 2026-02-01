@@ -1,4 +1,4 @@
-# SWEEP Configuration
+#![alt text](image.png) Configuration
 
 Este arquivo contém configurações, comandos e regras para o agente AI.
 
