@@ -1,53 +1,94 @@
 /**
  * Origin Section Data
  * Content blocks for the AboutOrigin component
+ * Aligned with Ghost System SOBRE-PROTOTIPO-INTERATIVO.md specification
+ * 
+ * Workflow Reference:
+ * A: O QUE PERMANECE
+ * B: DO TRAÇO À INTENÇÃO
+ * C: A DESCOBERTA DO INVISÍVEL
+ * D: EXPANSÃO COM PROPÓSITO
  */
 
 export type FallbackImage =
-    | 'sobre/origin-1.webp'
-    | 'sobre/origin-2.webp'
-    | 'sobre/origin-3.webp'
-    | 'sobre/origin-4.webp';
+    | 'about/origin/about.origin_image.1.webp'
+    | 'about/origin/about.origin_image.2.webp'
+    | 'about/origin/about.origin_image.3.webp'
+    | 'about/origin/about.origin_image.4.webp';
 
 export interface OriginBlock {
     id: number;
     title: string;
+    subtitle: string;
     paragraph: string;
     fallback: FallbackImage;
+    textAlign: 'left' | 'right';
     img?: string;
 }
 
 /**
  * Content blocks with fallback images stored in Supabase
  * Each block represents a chapter in the origin story
+ * Images path: https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/origin/
  */
 export const ORIGIN_CONTENT: OriginBlock[] = [
     {
         id: 1,
-        title: 'O Começo',
-        paragraph:
-            'Minha jornada começou com uma curiosidade insaciável pelo visual. Desde cedo, fui atraído pela intersecção entre tecnologia e arte, buscando formas de transformar ideias abstratas em experiências visuais impactantes.',
-        fallback: 'sobre/origin-1.webp',
+        title: 'O QUE PERMANECE',
+        subtitle: 'A',
+        paragraph: `Desde cedo, sempre prestei atenção no que ficava —
+não só no que aparecia.
+
+Enquanto muitos olhavam para o brilho imediato,
+eu era atraído pelos vestígios, pelos detalhes que sobreviviam ao tempo.
+A essência das coisas sempre falou mais alto do que a superfície.`,
+        fallback: 'about/origin/about.origin_image.1.webp',
+        textAlign: 'right',
     },
     {
         id: 2,
-        title: 'A Evolução',
-        paragraph:
-            'Com o tempo, essa curiosidade se transformou em especialização. Estudei, experimentei e refinei minhas habilidades em motion design, direção de arte e desenvolvimento visual, sempre buscando a excelência em cada projeto.',
-        fallback: 'sobre/origin-2.webp',
+        title: 'DO TRAÇO À INTENÇÃO',
+        subtitle: 'B',
+        paragraph: `Rabiscos viraram ideias.
+Ideias viraram projetos.
+E os projetos começaram a deixar rastros.
+
+Meu processo criativo nasceu do improviso, do lápis na margem do caderno.
+Aos poucos, aquilo que era instinto virou direção.
+Com cada tentativa, aprendi a dar forma ao invisível —
+até que os conceitos começaram a falar por si.`,
+        fallback: 'about/origin/about.origin_image.2.webp',
+        textAlign: 'left',
     },
     {
         id: 3,
-        title: 'A Filosofia',
-        paragraph:
-            'Acredito que o design vai além da estética. É sobre comunicação, emoção e experiência. Cada pixel, cada movimento, cada transição deve servir a um propósito maior: conectar marcas com pessoas de forma autêntica e memorável.',
-        fallback: 'sobre/origin-3.webp',
+        title: 'A DESCOBERTA DO INVISÍVEL',
+        subtitle: 'C',
+        paragraph: `Foi ali que entendi:
+design não é enfeite.
+É ferramenta invisível de transformação.
+
+Por trás de cada escolha visual, existe intenção.
+Descobri que o design verdadeiro não grita — ele conduz.
+Ele está presente nos detalhes que ninguém percebe,
+mas que todos sentem.
+Transformar sem que se perceba a transformação: isso é potência.`,
+        fallback: 'about/origin/about.origin_image.3.webp',
+        textAlign: 'right',
     },
     {
         id: 4,
-        title: 'O Presente',
-        paragraph:
-            'Hoje, combino anos de experiência com uma visão sempre atualizada do mercado. Trabalho com marcas que buscam se destacar através de identidades visuais únicas e experiências digitais que deixam uma marca duradoura.',
-        fallback: 'sobre/origin-4.webp',
+        title: 'EXPANSÃO COM PROPÓSITO',
+        subtitle: 'D',
+        paragraph: `Estudei Comunicação, mergulhei no design, no branding
+e hoje uso inteligência artificial para expandir o alcance
+sem perder a essência humana da criação.
+
+Minha trajetória uniu intuição com método, arte com estratégia.
+O futuro pede novas ferramentas — e eu as abracei.
+Mas nunca deixei que a tecnologia apagasse o que me move:
+a sensibilidade, o olhar atento, a busca pelo significado.`,
+        fallback: 'about/origin/about.origin_image.4.webp',
+        textAlign: 'left',
     },
 ];

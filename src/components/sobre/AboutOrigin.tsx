@@ -67,10 +67,14 @@ function AboutOrigin() {
 
     if (!isClient) {
         return (
-            <section className="relative w-full overflow-hidden transition-colors duration-1000">
-                <div className="max-w-420 mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-24">
+            <section
+                className="relative w-full transition-colors duration-1000"
+                aria-label="Origem Criativa"
+                aria-busy="true"
+            >
+                <div className="std-grid py-24">
                     <div className="mb-24 text-center select-none">
-                        <h1 className="text-[1.75rem] font-['CustomLight'] font-light leading-none text-[#4fe6ff] tracking-[0.2em] uppercase">
+                        <h1 className="text-h1 font-bold leading-none text-[#0048ff] tracking-[0.2em] uppercase">
                             LOADING...
                         </h1>
                     </div>
@@ -81,18 +85,19 @@ function AboutOrigin() {
 
     return (
         <section
-            className="relative w-full overflow-hidden transition-colors duration-1000"
+            className="relative w-full transition-colors duration-1000"
             ref={containerRef}
+            aria-label="Origem Criativa"
         >
-            <div className="max-w-420 mx-auto px-6 md:px-12 lg:px-16 xl:px-24 py-24">
+            <div className="std-grid py-24">
                 <div className="mb-24 text-center select-none">
-                    <h1 className="text-[1.75rem] font-['CustomLight'] font-light leading-none text-[#4fe6ff] tracking-[0.2em] uppercase">
+                    <h1 className="text-h1 font-bold leading-none text-[#0048ff] tracking-[0.2em] uppercase">
                         ORIGEM
                     </h1>
                 </div>
 
                 <div
-                    className="arch relative grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 md:gap-12 max-w-360 mx-auto"
+                    className="arch relative grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 md:gap-12"
                     ref={archRef}
                 >
                     <div className="col-span-4 md:col-span-8 lg:col-span-6 flex flex-col">
