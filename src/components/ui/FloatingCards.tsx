@@ -6,7 +6,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { floatingCardsData } from '@/data/cards.data';
-import '@/styles/floating-cards.css';
+import styles from '@/styles/floating-cards.module.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -86,7 +86,7 @@ export default function FloatingCards() {
   return (
     <section
       ref={containerRef}
-      className="floating-cards-container relative min-h-screen w-full overflow-hidden bg-[#0f0f23] py-24 px-6 md:px-12"
+      className={`${styles['floating-cards-container']} relative min-h-screen w-full overflow-hidden bg-[#0f0f23] py-24 px-6 md:px-12`}
     >
       <div
         ref={gridRef}
@@ -95,14 +95,14 @@ export default function FloatingCards() {
         {floatingCardsData.map((card) => (
           <div
             key={card.id}
-            className="card-item card-3d-wrapper"
+            className={`card-item ${styles['card-3d-wrapper']}`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             tabIndex={0}
             role="article"
             aria-label={card.title}
           >
-            <div className="card-glass relative flex h-[320px] w-full flex-col overflow-hidden rounded-[24px] p-6 transition-colors hover:bg-white/10 group">
+            <div className={`${styles['card-glass']} relative flex h-[320px] w-full flex-col overflow-hidden rounded-[24px] p-6 transition-colors hover:bg-white/10 group`}>
               <div className="relative mb-4 h-40 w-full overflow-hidden rounded-[16px]">
                 <Image
                   src={card.img}
@@ -113,7 +113,7 @@ export default function FloatingCards() {
                 />
               </div>
 
-              <h3 className="purple-glow-text mb-2 text-xl font-bold text-white transition-colors group-hover:text-[#4fe6ff]">
+              <h3 className={`${styles['purple-glow-text']} mb-2 text-xl font-bold text-white transition-colors group-hover:text-[#4fe6ff]`}>
                 {card.title}
               </h3>
               <p className="text-sm leading-relaxed text-gray-300">

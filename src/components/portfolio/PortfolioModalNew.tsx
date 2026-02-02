@@ -155,7 +155,7 @@ export default function PortfolioModalNew({
                 </button>
 
                 {/* Header glow - inline style required for dynamic CSS variable */}
-                {/* eslint-disable-next-line react-dom/no-missing-iframe-sandbox */}
+
                 <div
                   className={`absolute top-0 inset-x-0 h-40 pointer-events-none ${styles.headerGlow}`}
                   style={sanitizedAccentColor ? { '--glow-color': `${sanitizedAccentColor}40` } as React.CSSProperties : undefined}
