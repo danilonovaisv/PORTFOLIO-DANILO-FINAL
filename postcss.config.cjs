@@ -1,6 +1,6 @@
 module.exports = {
   plugins: {
     '@tailwindcss/postcss': {},
-    autoprefixer: {},
+    './postcss-plugins/remove-invalid-tailwind-selectors.cjs': {},
   },
 };

@@ -73,9 +73,8 @@ export function ProjectPlane({
     <group ref={groupRef}>
       <Image
         url={textureUrl}
-        scale={[1.1, 1.42, 1]}
+        scale={[1.1, 1.42]}
         toneMapped={false}
-        colorSpace={THREE.SRGBColorSpace}
       />
       <mesh position={[0, 0, 0.02]}>
         <planeGeometry args={[1.12, 1.44]} />
