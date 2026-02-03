@@ -6,7 +6,7 @@ export const postSchema = z.object({
     .string()
     .min(1, 'Slug is required')
     .regex(/^[a-z0-9-]+$/, 'Slug must be lowercase, numbers, and hyphens'),
-  content: z.any().optional(), // JSON content from TipTap/EditorJS
+  content: z.unknown().optional(), // JSON content from TipTap/EditorJS
   cover_image: z.string().optional(),
   published: z.boolean().default(false),
   seo_title: z.string().optional(),

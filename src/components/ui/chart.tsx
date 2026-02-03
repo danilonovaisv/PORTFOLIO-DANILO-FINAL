@@ -144,7 +144,40 @@ ${declarations}
 
 const ChartTooltip = RechartsPrimitive.Tooltip;
 
-const ChartTooltipContent = React.forwardRef<HTMLDivElement, any>(
+// Interfaces para tipagem estrita
+interface PayloadItem {
+  dataKey?: string;
+  name?: string;
+  value?: number | string;
+  payload?: Record<string, unknown>;
+  color?: string;
+  [key: string]: any;
+}
+
+interface ChartTooltipContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  active?: boolean;
+  payload?: PayloadItem[];
+  indicator?: 'dot' | 'line' | 'dashed';
+  hideLabel?: boolean;
+  hideIndicator?: boolean;
+  label?: string | number;
+  labelFormatter?: (_value: any, _payload: PayloadItem[]) => React.ReactNode;
+  labelClassName?: string;
+  formatter?: (
+    _value: unknown,
+    _name: string,
+    _item: PayloadItem,
+    _index: number,
+    _payload: unknown
+  ) => React.ReactNode;
+  nameKey?: string;
+  labelKey?: string;
+}
+
+const ChartTooltipContent = React.forwardRef<
+  HTMLDivElement,
+  ChartTooltipContentProps
+>(
   (
     {
       active,
@@ -220,7 +253,7 @@ const ChartTooltipContent = React.forwardRef<HTMLDivElement, any>(
       >
         {!nestLabel ? tooltipLabel : null}
         <div className="grid gap-1.5">
-          {payload.map((item: any, index: number) => {
+          {payload.map((item: PayloadItem, index: number) => {
             const key = `${nameKey || item.name || item.dataKey || 'value'}`;
             const { config: payloadConfigEntry, key: payloadConfigKey } =
               getPayloadConfigFromPayload(config, item, key);
@@ -294,7 +327,17 @@ ChartTooltipContent.displayName = 'ChartTooltip';
 
 const ChartLegend = RechartsPrimitive.Legend;
 
-const ChartLegendContent = React.forwardRef<HTMLDivElement, any>(
+interface ChartLegendContentProps extends React.HTMLAttributes<HTMLDivElement> {
+  payload?: PayloadItem[];
+  verticalAlign?: 'top' | 'middle' | 'bottom';
+  hideIcon?: boolean;
+  nameKey?: string;
+}
+
+const ChartLegendContent = React.forwardRef<
+  HTMLDivElement,
+  ChartLegendContentProps
+>(
   (
     { className, hideIcon = false, payload, verticalAlign = 'bottom', nameKey },
     ref
@@ -314,7 +357,7 @@ const ChartLegendContent = React.forwardRef<HTMLDivElement, any>(
           className
         )}
       >
-        {payload.map((item: any) => {
+        {payload.map((item: PayloadItem) => {
           const key = `${nameKey || item.dataKey || 'value'}`;
           const { config: payloadConfigEntry, key: payloadConfigKey } =
             getPayloadConfigFromPayload(config, item, key);

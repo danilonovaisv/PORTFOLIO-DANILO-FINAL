@@ -172,7 +172,7 @@ export const GHOST_CONFIG: GhostConfig = {
   rendererDPR: [1, 2],
 
   // Aparência do Ghost (MATCHED to CodePen Reference)
-  ghostScale: 0.4, // FIXED: was 1.2
+  ghostScale: 0.88, // FIXED: was 1.2
   bodyColor: 'ghostBlue', // 0x0f2027
   glowColor: 'blue', // "blue"
   eyeGlowColor: 'purple', // FIXED: CodePen uses 'blue' (0x0080ff)

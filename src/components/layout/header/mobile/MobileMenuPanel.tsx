@@ -70,11 +70,12 @@ const MobileMenuPanel = forwardRef<HTMLElement, MobileMenuPanelProps>(
               <li key={item.href} className="overflow-hidden leading-none">
                 <button
                   onClick={() => onNavigate(item.href)}
-                  className={`sm-panel-item w-full py-4 text-4xl sm:text-5xl font-light tracking-wide transition-all text-left leading-none uppercase will-change-transform origin-bottom min-h-[56px] active:translate-x-2 active:opacity-70 ${pageHighlight ||
+                  className={`sm-panel-item w-full py-4 text-4xl sm:text-5xl font-light tracking-wide transition-all text-left leading-none uppercase will-change-transform origin-bottom min-h-[56px] active:translate-x-2 active:opacity-70 ${
+                    pageHighlight ||
                     (isActive
                       ? 'text-blueAccent font-medium underline underline-offset-4'
                       : 'text-white/80 hover:text-white')
-                    }`}
+                  }`}
                 >
                   {item.label}
                 </button>

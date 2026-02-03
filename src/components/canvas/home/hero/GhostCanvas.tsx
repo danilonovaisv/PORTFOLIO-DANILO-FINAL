@@ -53,7 +53,6 @@ export function GhostCanvas() {
           <Ghost
             ghostRef={ghostRef}
             particleCount={performance.particleCount * 5}
-            enableEffects={performance.enablePostProcessing}
           />
 
           <Atmosphere />

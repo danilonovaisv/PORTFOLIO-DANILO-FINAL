@@ -102,7 +102,9 @@ export default function FloatingCards() {
             role="article"
             aria-label={card.title}
           >
-            <div className={`${styles['card-glass']} relative flex h-[320px] w-full flex-col overflow-hidden rounded-[24px] p-6 transition-colors hover:bg-white/10 group`}>
+            <div
+              className={`${styles['card-glass']} relative flex h-[320px] w-full flex-col overflow-hidden rounded-[24px] p-6 transition-colors hover:bg-white/10 group`}
+            >
               <div className="relative mb-4 h-40 w-full overflow-hidden rounded-[16px]">
                 <Image
                   src={card.img}
@@ -113,7 +115,9 @@ export default function FloatingCards() {
                 />
               </div>
 
-              <h3 className={`${styles['purple-glow-text']} mb-2 text-xl font-bold text-white transition-colors group-hover:text-[#4fe6ff]`}>
+              <h3
+                className={`${styles['purple-glow-text']} mb-2 text-xl font-bold text-white transition-colors group-hover:text-[#4fe6ff]`}
+              >
                 {card.title}
               </h3>
               <p className="text-sm leading-relaxed text-gray-300">

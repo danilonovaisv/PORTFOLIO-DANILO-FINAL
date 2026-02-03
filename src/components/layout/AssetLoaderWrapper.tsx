@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { SiteAssetsProvider } from '@/contexts/site-assets';
 import { getClientSiteAssets } from '@/lib/supabase/site-assets-client';
+import type { NormalizedSiteAsset } from '@/lib/supabase/site-asset-utils';
 import ClientLayout from '@/components/layout/ClientLayout';
 import ErrorBoundary from '@/components/ui/ErrorBoundary';
 
@@ -13,7 +14,7 @@ interface AssetLoaderWrapperProps {
 export default function AssetLoaderWrapper({
   children,
 }: AssetLoaderWrapperProps) {
-  const [assets, setAssets] = useState<any[]>([]);
+  const [assets, setAssets] = useState<NormalizedSiteAsset[]>([]);
   const [assetsLoaded, setAssetsLoaded] = useState(false);
 
   useEffect(() => {

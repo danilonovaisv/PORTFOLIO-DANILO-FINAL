@@ -82,7 +82,14 @@ export default function HeroCopy({
 
         {/* Headline - Desktop (2 linhas) */}
         {/* Headline - Desktop (2 linhas) */}
-        <h1
+        {/* SEO H1 - Screen Reader Only for Semantic Perfection */}
+        <h1 className="sr-only">
+          {HOME_CONTENT.hero.title.join(' ')} {HOME_CONTENT.hero.subtitle}
+        </h1>
+
+        {/* Headline - Desktop (Visual Only) */}
+        <div
+          aria-hidden="true"
           className={`hidden lg:block mb-20 font-display ${styles.heroTitle}`}
         >
           {HOME_CONTENT.hero.titleDesktop.map((line, i) => (
@@ -91,25 +98,27 @@ export default function HeroCopy({
               {i < HOME_CONTENT.hero.titleDesktop.length - 1 && <br />}
             </React.Fragment>
           ))}
-        </h1>
+        </div>
 
-        {/* Headline - Mobile & Tablet (3 linhas) */}
-        {/* Headline - Mobile & Tablet (3 linhas) */}
-        <h1 className={`lg:hidden mb-12 font-display ${styles.heroTitle}`}>
+        {/* Headline - Mobile & Tablet (Visual Only) */}
+        <div
+          aria-hidden="true"
+          className={`lg:hidden mb-12 font-display ${styles.heroTitle}`}
+        >
           {HOME_CONTENT.hero.titleMobile.map((line, i) => (
             <React.Fragment key={i}>
               {line}
               {i < HOME_CONTENT.hero.titleMobile.length - 1 && <br />}
             </React.Fragment>
           ))}
-        </h1>
+        </div>
 
         {/* Subheading */}
-        <h2
+        <p
           className={`font-h2 type-h2 mt-6 lg:mt-9 text-textSecondary ${isMask ? '' : 'opacity-80'} ${styles.heroSubtitle}`}
         >
           {HOME_CONTENT.hero.subtitle}
-        </h2>
+        </p>
       </div>
     </Container>
   );

@@ -4,15 +4,24 @@ import { useEffect, useState, use } from 'react';
 
 import { createClientComponentClient } from '@/lib/supabase/client';
 import LandingPageForm from '@/components/admin/LandingPageForm';
+import { LandingPageBlock } from '@/types/landing-page';
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
+interface LandingPage {
+  id: string;
+  title: string;
+  slug: string;
+  cover: string;
+  content: LandingPageBlock[];
+}
+
 export default function EditLandingPage({ params }: Props) {
   const { id } = use(params);
   const supabase = createClientComponentClient();
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<LandingPage | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

@@ -21,3 +21,5 @@ functions/.npm_cache
 functions/node_modules
 
 
+.agent
+.agent/

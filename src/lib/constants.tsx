@@ -23,8 +23,12 @@ export type ProjectCategory = {
 export const ASSETS = {
   videoManifesto: getGhostAssetUrl('site-assets/home/home.manifesto_video.mp4'),
   favicon: getGhostAssetUrl('site-assets/global/logos/global.favicon_dark.svg'),
-  logoLight: getGhostAssetUrl('site-assets/global/logos/global.logo_header_light.svg'),
-  logoDark: getGhostAssetUrl('site-assets/global/logos/global.logo_header_dark.svg'),
+  logoLight: getGhostAssetUrl(
+    'site-assets/global/logos/global.logo_header_light.svg'
+  ),
+  logoDark: getGhostAssetUrl(
+    'site-assets/global/logos/global.logo_header_dark.svg'
+  ),
 };
 
 // --- 2. CONTEÚDO DA HOME (TEXTOS) ---
@@ -54,7 +58,9 @@ export const FEATURED_PROJECTS = [
     client: 'Magic',
     category: 'branding & campanha',
     displayCategory: 'branding & campanha',
-    imageUrl: getGhostAssetUrl('site-assets/home/showcase/Branding-Project.webp'),
+    imageUrl: getGhostAssetUrl(
+      'site-assets/home/showcase/Branding-Project.webp'
+    ),
     isHero: true,
     year: '2023',
   },
@@ -64,7 +70,9 @@ export const FEATURED_PROJECTS = [
     client: 'Cliente confidencial',
     category: 'branding',
     displayCategory: 'branding',
-    imageUrl: getGhostAssetUrl('site-assets/home/showcase/Branding-Project.webp'),
+    imageUrl: getGhostAssetUrl(
+      'site-assets/home/showcase/Branding-Project.webp'
+    ),
     isHero: false,
     year: '2022',
   },
@@ -95,7 +103,9 @@ export const CATEGORIES: ProjectCategory[] = [
   {
     id: 'brand-campaigns',
     label: 'Brand & Campaigns',
-    posterUrl: getGhostAssetUrl('site-assets/home/showcase/Branding-Project.webp'),
+    posterUrl: getGhostAssetUrl(
+      'site-assets/home/showcase/Branding-Project.webp'
+    ),
     thumbnailUrl: '',
   },
   {
