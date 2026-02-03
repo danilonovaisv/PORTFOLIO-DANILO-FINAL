@@ -1,10 +1,1 @@
-.PortfolioModalNew-module__pps5HG__headerGlow {
-  --glow-color: #0057ff4d;
-}
-.PortfolioModalNew-module__pps5HG__headerGlowInner {
-  background: radial-gradient(
-    ellipse at center top,
-    var(--glow-color),
-    transparent 70%
-  );
-}
+.PortfolioModalNew-module__pps5HG__headerGlow{--glow-color:#0057ff4d}.PortfolioModalNew-module__pps5HG__headerGlowInner{background:radial-gradient(ellipse at center top,var(--glow-color),transparent 70%)}
