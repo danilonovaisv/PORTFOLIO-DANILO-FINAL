@@ -7,6 +7,7 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import Image from 'next/image';
 import { useReducedMotion } from 'framer-motion';
 import { PORTFOLIO_CONTENT } from '@/config/content';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -71,10 +72,14 @@ export default function PortfolioHeroNew() {
             <source src={videoSrc} type="video/mp4" />
           </video>
         ) : (
-          <img
+          <Image
             src={HERO_POSTER}
             alt=""
-            className="h-full w-full object-cover"
+            fill
+            priority
+            unoptimized
+            sizes="100vw"
+            className="object-cover"
             aria-hidden="true"
           />
         )}

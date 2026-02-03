@@ -7,6 +7,7 @@ import { X } from 'lucide-react';
 import { PortfolioProject } from '@/types/project';
 import { createPortal } from 'react-dom';
 import { useBodyLock } from '@/hooks/useBodyLock';
+import ErrorBoundary from '@/components/ui/ErrorBoundary';
 import {
   getBackdropVariants,
   getContainerVariants,
@@ -136,11 +137,20 @@ export const PortfolioModal = ({
                       {project.title}
                     </h2>
                   ) : null}
-                  {project.type === 'A' ? (
-                    <TypeAContent project={project} />
-                  ) : (
-                    <TypeBContent project={project} />
-                  )}
+                  <ErrorBoundary
+                    fallback={
+                      <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-sm text-white/70">
+                        Não foi possível carregar este projeto agora. Tente
+                        novamente em instantes.
+                      </div>
+                    }
+                  >
+                    {project.type === 'A' ? (
+                      <TypeAContent project={project} />
+                    ) : (
+                      <TypeBContent project={project} />
+                    )}
+                  </ErrorBoundary>
                 </div>
               </div>
             </div>

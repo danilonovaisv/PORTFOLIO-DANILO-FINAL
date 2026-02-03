@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo, useRef, type RefObject } from 'react';
 import { useReducedMotion } from 'framer-motion';
 import { useLERPScroll } from '@/hooks/useLERPScroll';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -72,7 +72,7 @@ export const ProjectsGallery = ({
 
       <div
         className={cn('gallery', styles.gallery)}
-        ref={galleryRef as React.RefObject<HTMLDivElement>}
+        ref={galleryRef as RefObject<HTMLDivElement>}
       >
         <div
           ref={trackRef}

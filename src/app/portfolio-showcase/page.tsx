@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import PortfolioHeroNew from '@/components/portfolio/PortfolioHeroNew';
 import { ProjectsGallery } from '@/components/portfolio/ProjectsGallery';
 import { PortfolioModal } from '@/components/portfolio/PortfolioModal';
@@ -14,8 +14,10 @@ export default function PortfolioShowcasePage() {
   const [selectedProject, setSelectedProject] =
     useState<PortfolioProject | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const lastFocusedRef = useRef<HTMLElement | null>(null);
 
   const handleOpenProject = (project: PortfolioProject) => {
+    lastFocusedRef.current = document.activeElement as HTMLElement | null;
     setSelectedProject(project);
     setIsModalOpen(true);
   };
@@ -23,7 +25,10 @@ export default function PortfolioShowcasePage() {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     // Give time for exit animation before clearing project
-    setTimeout(() => setSelectedProject(null), 300);
+    setTimeout(() => {
+      setSelectedProject(null);
+      lastFocusedRef.current?.focus();
+    }, 300);
   };
 
   return (

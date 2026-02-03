@@ -76,6 +76,19 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .cardOverlay {
+    transition: none;
+  }
+
+  .card:hover {
+    transform: none;
+    box-shadow: none;
+    filter: none;
+  }
+}
+
 .card[data-size='sm'],
 .placeholder[data-size='sm'] {
   grid-column: span 4;

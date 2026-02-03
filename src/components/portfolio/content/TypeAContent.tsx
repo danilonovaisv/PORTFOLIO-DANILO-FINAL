@@ -11,13 +11,13 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, Calendar, Building2 } from 'lucide-react';
 import type { PortfolioProject } from '@/types/project';
 import {
-  fadeInUp,
+  getFadeInUp,
   getMediaVariants,
   getTitleVariants,
   getMetaVariants,
-  getContentVariants
+  getContentVariants,
 } from '@/components/portfolio/modal/variants';
-import { isVideo } from '@/utils/utils';
+import { applyImageFallback, isVideo } from '@/utils/utils';
 
 interface TypeAContentProps {
   project: PortfolioProject;
@@ -30,6 +30,7 @@ interface TypeAContentProps {
 const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
   const prefersReducedMotion = useReducedMotion();
   const shouldReduce = !!prefersReducedMotion;
+  const fadeInUpVariants = getFadeInUp(shouldReduce);
 
   return (
     <div className="flex flex-col gap-8">
@@ -57,6 +58,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
             className="object-cover"
             sizes="(max-width: 1024px) 100vw, 80vw"
             priority
+            onError={applyImageFallback}
           />
         )}
 
@@ -86,7 +88,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
 
           {project.subtitle && (
             <motion.p
-              variants={fadeInUp}
+              variants={fadeInUpVariants}
               className="text-xl text-blueAccent font-medium"
             >
               {project.subtitle}
@@ -95,7 +97,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
 
           {project.detail?.description && (
             <motion.p
-              variants={fadeInUp}
+              variants={fadeInUpVariants}
               className="text-base md:text-lg text-white/70 leading-relaxed"
             >
               {project.detail.description}
@@ -104,12 +106,15 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
 
           {/* Highlights */}
           {project.detail?.highlights && (
-            <motion.ul variants={fadeInUp} className="flex flex-col gap-3 list-none">
+            <motion.ul
+              variants={fadeInUpVariants}
+              className="flex flex-col gap-3 list-none"
+            >
               {project.detail.highlights.map((highlight, i) => (
                 <motion.li
                   key={i}
                   className="flex items-center gap-3 text-sm text-white/80"
-                  variants={fadeInUp}
+                  variants={fadeInUpVariants}
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-blueAccent" aria-hidden="true" />
                   {highlight}
@@ -187,7 +192,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
             {project.detail.gallery.map((img, i) => (
               <motion.div
                 key={i}
-                variants={fadeInUp}
+                variants={fadeInUpVariants}
                 className="relative aspect-square rounded-xl overflow-hidden bg-white/5"
               >
                 {isVideo(img) ? (
@@ -206,6 +211,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
                     fill
                     className="object-cover transition duration-300 hover:brightness-110"
                     sizes="(max-width: 768px) 50vw, 33vw"
+                    onError={applyImageFallback}
                   />
                 )}
               </motion.div>

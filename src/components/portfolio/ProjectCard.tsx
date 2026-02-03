@@ -40,7 +40,12 @@ export const ProjectCard = ({
   );
 
   const motionProps = reduceMotion
-    ? {}
+    ? {
+        initial: { opacity: 0 },
+        whileInView: { opacity: 1 },
+        viewport: { once: true },
+        transition: { duration: 0.2 },
+      }
     : {
         initial: { opacity: 0, y: 12 },
         whileInView: { opacity: 1, y: 0 },
@@ -52,7 +57,7 @@ export const ProjectCard = ({
         },
       };
 
-  const imageSrc = project.videoPreview ?? project.image || ASSET_PLACEHOLDER;
+  const imageSrc = project.videoPreview ?? (project.image || ASSET_PLACEHOLDER);
   const sizes =
     project.layout?.sizes ??
     '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
