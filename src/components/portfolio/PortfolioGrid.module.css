@@ -1,0 +1,41 @@
+/* -----------------------------------------------------------------------------
+ * PortfolioGrid.module.css
+ * CSS Grid with custom breakpoints to match Finch Portfolio 6 layout.
+ * - Mobile (<576px): 1 column
+ * - Tablet Portrait (>=576px): 2 columns, 20px gap
+ * - Tablet Landscape (>=769px): 3 columns
+ * - Desktop Standard (992px - 1199px): uses --columns-desktop (3 or 4)
+ * - Large Desktop (>=1200px): 4 columns
+ * --------------------------------------------------------------------------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+}
+
+@media (min-width: 576px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (min-width: 769px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .grid {
+    grid-template-columns: repeat(var(--columns-desktop, 3), minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

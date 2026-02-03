@@ -10,6 +10,8 @@ export { default as PortfolioCard } from './PortfolioCard';
 export { PortfolioCardParallax } from './PortfolioCardParallax';
 export { default as CategoryFilter } from './CategoryFilter';
 export { default as PortfolioModalNew } from './PortfolioModalNew';
+export { default as PortfolioGrid } from './PortfolioGrid';
+export { default as PortfolioItem } from './PortfolioItem';
 
 // Content layouts
 export { default as TypeAContent } from './content/TypeAContent';
