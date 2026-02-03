@@ -36,7 +36,9 @@ test.describe('Ghost System Verification', () => {
         .filter({ visible: true })
     ).toBeVisible();
     await expect(
-      page.locator('p', { hasText: /Desde cedo, sempre prestei atenção/i })
+      page
+        .locator('p', { hasText: /Desde cedo, sempre prestei atenção/i })
+        .filter({ visible: true })
     ).toBeVisible();
 
     // Sticky gallery should be present for desktop
@@ -44,7 +46,15 @@ test.describe('Ghost System Verification', () => {
   });
 
   test('navigation should work from home to about', async ({ page }) => {
-    await page.goto('/', { waitUntil: 'networkidle' });
+    // Retry logic for navigation to handle occasional dev server hiccups
+    try {
+      await page.goto('/', { waitUntil: 'domcontentloaded' });
+    } catch (error) {
+      console.warn('Retrying navigation to home due to error:', error);
+      await page.waitForTimeout(2000);
+      await page.goto('/', { waitUntil: 'domcontentloaded' });
+    }
+    await page.waitForLoadState('networkidle');
 
     // Click on "Sobre" link in header
     const aboutLink = page

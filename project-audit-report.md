@@ -1,11 +1,10 @@
 # 🧩 Auditoria do Projeto Danilo Novais Portfolio
 
-Gerado em: 1/31/2026, 4:27:09 PM
+Gerado em: 2/3/2026, 2:19:24 AM
 
 ---
 
 ## 📦 Dependências não utilizadas
-
 - @dataconnect/admin-generated
 - @dataconnect/generated
 - @genkit-ai/google-genai
@@ -21,8 +20,9 @@ Gerado em: 1/31/2026, 4:27:09 PM
 - postprocessing
 - statsig-js
 
-## 🧱 Dependências de desenvolvimento não utilizadas
 
+## 🧱 Dependências de desenvolvimento não utilizadas
+- @tailwindcss/postcss
 - @tailwindcss/typography
 - @testing-library/user-event
 - @types/handlebars
@@ -31,6 +31,7 @@ Gerado em: 1/31/2026, 4:27:09 PM
 - eslint-config-next
 - eslint-plugin-react
 - jest-environment-jsdom
+- knip
 - postcss
 - rimraf
 - serve
@@ -39,10 +40,12 @@ Gerado em: 1/31/2026, 4:27:09 PM
 - ts-node
 - which
 
-## 🌿 Branches no repositório
 
-- - main
+## 🌿 Branches no repositório
+- * main
 - remotes/origin/HEAD -> origin/main
 - remotes/origin/main
 
+
 ## 🪓 Branches potencialmente obsoletas
+
