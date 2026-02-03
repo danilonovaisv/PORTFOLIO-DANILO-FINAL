@@ -63,7 +63,10 @@ async function initializeNextApp(): Promise<void> {
     initPromise = (async () => {
       // Log directory for debugging
       logger.info('Current directory:', __dirname);
-      logger.info('Resolving next_build at:', resolve(__dirname, '../next_build'));
+      logger.info(
+        'Resolving next_build at:',
+        resolve(__dirname, '../next_build')
+      );
 
       nextApp = ((next as any).default || next)({
         dev: false,
@@ -108,7 +111,12 @@ export const ssr_modern = onRequest(
       if (err instanceof Error) {
         logger.error('Stack:', err.stack);
       }
-      res.status(500).send('Internal Server Error - SSR Failed: ' + (err instanceof Error ? err.message : String(err)));
+      res
+        .status(500)
+        .send(
+          'Internal Server Error - SSR Failed: ' +
+            (err instanceof Error ? err.message : String(err))
+        );
     }
   }
 );
