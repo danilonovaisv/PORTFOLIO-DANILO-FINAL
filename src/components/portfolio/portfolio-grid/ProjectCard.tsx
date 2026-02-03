@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion';
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
 import React, { useMemo, type MutableRefObject, type RefObject } from 'react';
 import { Project } from '@/types/portfolio-grid';
 import { cn } from '@/lib/utils';
@@ -38,6 +38,7 @@ export function ProjectCard({
   const rotXSmooth = useSpring(rotateX, { stiffness: 120, damping: 16, mass: 0.9 });
   const rotYSmooth = useSpring(rotateY, { stiffness: 120, damping: 16, mass: 0.9 });
   const hoverSmooth = useSpring(hover, { stiffness: 150, damping: 18, mass: 0.7 });
+  const scale = useTransform(hoverSmooth, [0, 1], [1, 1.02]);
 
   const techLabel = useMemo(
     () => project.technologies?.slice(0, 3).join(' • '),
@@ -85,7 +86,7 @@ export function ProjectCard({
         style: {
           rotateX: rotXSmooth,
           rotateY: rotYSmooth,
-          scale: hoverSmooth.to([0, 1], [1, 1.02]),
+          scale,
           transformPerspective: 900,
         },
       };
