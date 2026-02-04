@@ -134,7 +134,9 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
 
     // --- Animação de Flutuação Sutil (Substituindo <Float>) ---
     const elapsedTime = state.clock.getElapsedTime();
-    const floatY = prefersReducedMotion ? 0 : Math.sin(elapsedTime * 1.2) * 0.06;
+    const floatY = prefersReducedMotion
+      ? 0
+      : Math.sin(elapsedTime * 1.2) * 0.06;
 
     // --- Resposta ao Mouse (Posição e Rotação) ---
     const mouseInfluence = prefersReducedMotion ? 0 : 0.14;

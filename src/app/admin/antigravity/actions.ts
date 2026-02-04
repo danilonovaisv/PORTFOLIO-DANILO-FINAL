@@ -5,19 +5,19 @@ import OpenAI from 'openai';
 // Initialize OpenAI client
 // Note: Ensure OPENAI_API_KEY is set in .env.local
 const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY || '',
+  apiKey: process.env.OPENAI_API_KEY || '',
 });
 
 export type CopyAgentState = {
-    success: boolean;
-    content?: string;
-    error?: string;
+  success: boolean;
+  content?: string;
+  error?: string;
 };
 
 export type SceneGeneratorState = {
-    success: boolean;
-    images?: string[];
-    error?: string;
+  success: boolean;
+  images?: string[];
+  error?: string;
 };
 
 /**
@@ -25,20 +25,20 @@ export type SceneGeneratorState = {
  * Generates high-end art direction portfolio copy.
  */
 export async function generateProjectCopy(
-    prevState: CopyAgentState,
-    formData: FormData
+  prevState: CopyAgentState,
+  formData: FormData
 ): Promise<CopyAgentState> {
-    const context = formData.get('context') as string;
+  const context = formData.get('context') as string;
 
-    if (!context) {
-        return { success: false, error: 'O contexto do projeto é obrigatório.' };
-    }
+  if (!context) {
+    return { success: false, error: 'O contexto do projeto é obrigatório.' };
+  }
 
-    if (!process.env.OPENAI_API_KEY) {
-        return { success: false, error: 'Chave da API OpenAI não configurada.' };
-    }
+  if (!process.env.OPENAI_API_KEY) {
+    return { success: false, error: 'Chave da API OpenAI não configurada.' };
+  }
 
-    const SYSTEM_PROMPT = `[
+  const SYSTEM_PROMPT = `[
 # SYSTEM PROMPT — PORTFOLIO ART DIRECTION COPY AGENT
 
 You are a specialized creative writing agent focused on crafting high-level textual presentations for Art Direction portfolio projects.
@@ -128,26 +128,26 @@ Make the project feel intentional, curated and timeless.
 The reader should finish the page feeling that the work was not made to impress — but to last.
 ]`;
 
-    try {
-        const response = await openai.chat.completions.create({
-            model: 'gpt-4o', // Or 'gpt-4-turbo'
-            messages: [
-                { role: 'system', content: SYSTEM_PROMPT },
-                { role: 'user', content: `CONTEXTO DO PROJETO:\n${context}` },
-            ],
-            temperature: 0.7,
-        });
+  try {
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o', // Or 'gpt-4-turbo'
+      messages: [
+        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'user', content: `CONTEXTO DO PROJETO:\n${context}` },
+      ],
+      temperature: 0.7,
+    });
 
-        const content = response.choices[0]?.message?.content || '';
+    const content = response.choices[0]?.message?.content || '';
 
-        return { success: true, content };
-    } catch (error: any) {
-        console.error('OpenAI API Error:', error);
-        return {
-            success: false,
-            error: error.message || 'Erro ao gerar texto. Tente novamente.',
-        };
-    }
+    return { success: true, content };
+  } catch (error: any) {
+    console.error('OpenAI API Error:', error);
+    return {
+      success: false,
+      error: error.message || 'Erro ao gerar texto. Tente novamente.',
+    };
+  }
 }
 
 /**
@@ -155,33 +155,36 @@ The reader should finish the page feeling that the work was not made to impress 
  * Generates realistic advertising scenes using DALL-E 3.
  */
 export async function generateAdScenes(
-    prevState: SceneGeneratorState,
-    formData: FormData
+  prevState: SceneGeneratorState,
+  formData: FormData
 ): Promise<SceneGeneratorState> {
-    const description = formData.get('description') as string;
-    const pieceType = formData.get('pieceType') as string;
+  const description = formData.get('description') as string;
+  const pieceType = formData.get('pieceType') as string;
 
-    if (!description || !pieceType) {
-        return { success: false, error: 'Descrição e Tipo de Peça são obrigatórios.' };
-    }
+  if (!description || !pieceType) {
+    return {
+      success: false,
+      error: 'Descrição e Tipo de Peça são obrigatórios.',
+    };
+  }
 
-    if (!process.env.OPENAI_API_KEY) {
-        return { success: false, error: 'Chave da API OpenAI não configurada.' };
-    }
+  if (!process.env.OPENAI_API_KEY) {
+    return { success: false, error: 'Chave da API OpenAI não configurada.' };
+  }
 
-    // NOTE: DALL-E 3 does not support uploading an image to "place" into a scene exactly as requested 
-    // without using the edit endpoint which requires a mask, or fine-tuning.
-    // The documentation request implies sending an image ("ARTE_ORIGINAL"), but DALL-E 3 via API 
-    // is primarily text-to-image. 
-    // For this implementation, we will focus on generating the high-fidelity SCENE based on the description
-    // using the detailed system prompt logic to guide the generation, acknowledging that the "ARTE_ORIGINAL" replacement 
-    // might need a more complex pipeline (like keeping the generated scene and compositing the art manually or using a different tool). 
-    // However, we will instruct DALL-E to generate the scene AS IF the art were there, or generate a placeholder.
+  // NOTE: DALL-E 3 does not support uploading an image to "place" into a scene exactly as requested
+  // without using the edit endpoint which requires a mask, or fine-tuning.
+  // The documentation request implies sending an image ("ARTE_ORIGINAL"), but DALL-E 3 via API
+  // is primarily text-to-image.
+  // For this implementation, we will focus on generating the high-fidelity SCENE based on the description
+  // using the detailed system prompt logic to guide the generation, acknowledging that the "ARTE_ORIGINAL" replacement
+  // might need a more complex pipeline (like keeping the generated scene and compositing the art manually or using a different tool).
+  // However, we will instruct DALL-E to generate the scene AS IF the art were there, or generate a placeholder.
 
-    // To strictly follow the "Ad Scene Generator" prompt behavior requested:
-    // We will construct a prompt that describes the scene vividly.
+  // To strictly follow the "Ad Scene Generator" prompt behavior requested:
+  // We will construct a prompt that describes the scene vividly.
 
-    const PROMPT_INSTRUCTION = `
+  const PROMPT_INSTRUCTION = `
     Crie 3 variações de cenas publicitárias fotorrealistas baseadas nestes detalhes:
     TIPO DE PEÇA: ${pieceType}
     DESCRIÇÃO DA CENA: ${description}
@@ -194,44 +197,45 @@ export async function generateAdScenes(
     IMPORTANTE: Gere IMAGENS COMPLETAS.
   `;
 
-    // Since DALL-E 3 generates one image per request usually (or we iterate),
-    // and it's quite expensive/slow, we will generate ONE representative image for now 
-    // or loop 3 times if strictly required. 
-    // The requirement says "Galeria para exibir as 3 imagens".
-    // Let's try to generate 3 parallel requests or 1 request if limited.
-    // DALL-E 3 standard allows n=1. So we need 3 requests.
+  // Since DALL-E 3 generates one image per request usually (or we iterate),
+  // and it's quite expensive/slow, we will generate ONE representative image for now
+  // or loop 3 times if strictly required.
+  // The requirement says "Galeria para exibir as 3 imagens".
+  // Let's try to generate 3 parallel requests or 1 request if limited.
+  // DALL-E 3 standard allows n=1. So we need 3 requests.
 
-    try {
-        const results = await Promise.all([
-            openai.images.generate({
-                model: "dall-e-3",
-                prompt: `${PROMPT_INSTRUCTION} (Gere a Variação 1: Wide Shot)`,
-                n: 1,
-                size: "1024x1024",
-            }),
-            openai.images.generate({
-                model: "dall-e-3",
-                prompt: `${PROMPT_INSTRUCTION} (Gere a Variação 2: Medium Shot)`,
-                n: 1,
-                size: "1024x1024",
-            }),
-            openai.images.generate({
-                model: "dall-e-3",
-                prompt: `${PROMPT_INSTRUCTION} (Gere a Variação 3: Close Up)`,
-                n: 1,
-                size: "1024x1024",
-            })
-        ]);
+  try {
+    const results = await Promise.all([
+      openai.images.generate({
+        model: 'dall-e-3',
+        prompt: `${PROMPT_INSTRUCTION} (Gere a Variação 1: Wide Shot)`,
+        n: 1,
+        size: '1024x1024',
+      }),
+      openai.images.generate({
+        model: 'dall-e-3',
+        prompt: `${PROMPT_INSTRUCTION} (Gere a Variação 2: Medium Shot)`,
+        n: 1,
+        size: '1024x1024',
+      }),
+      openai.images.generate({
+        model: 'dall-e-3',
+        prompt: `${PROMPT_INSTRUCTION} (Gere a Variação 3: Close Up)`,
+        n: 1,
+        size: '1024x1024',
+      }),
+    ]);
 
-        const images = results.map((res: OpenAI.Images.ImagesResponse) => res.data?.[0]?.url).filter((url: string | undefined): url is string => !!url);
+    const images = results
+      .map((res: OpenAI.Images.ImagesResponse) => res.data?.[0]?.url)
+      .filter((url: string | undefined): url is string => !!url);
 
-        return { success: true, images };
-
-    } catch (error: any) {
-        console.error('OpenAI Image API Error:', error);
-        return {
-            success: false,
-            error: error.message || 'Erro ao gerar imagens.',
-        };
-    }
+    return { success: true, images };
+  } catch (error: any) {
+    console.error('OpenAI Image API Error:', error);
+    return {
+      success: false,
+      error: error.message || 'Erro ao gerar imagens.',
+    };
+  }
 }

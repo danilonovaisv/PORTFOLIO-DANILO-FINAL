@@ -123,21 +123,14 @@ export default function FeaturedProjectCard({
 
   if (isModalMode) {
     return (
-      <button
-        type="button"
-        onClick={handleClick}
-        className={commonClasses}
-      >
+      <button type="button" onClick={handleClick} className={commonClasses}>
         <CardContent />
       </button>
     );
   }
 
   return (
-    <Link
-      href={`/portfolio/${project.slug}`}
-      className={commonClasses}
-    >
+    <Link href={`/portfolio/${project.slug}`} className={commonClasses}>
       <CardContent />
     </Link>
   );

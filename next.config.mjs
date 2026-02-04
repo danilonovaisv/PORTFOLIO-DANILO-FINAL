@@ -53,7 +53,7 @@ const nextConfig = {
   /**
    * Mantém exatamente como você já tinha
    */
-  // output: 'standalone',
+  output: 'standalone',
   reactStrictMode: true,
 
   // Removido experimental.turbopack pois causa warning

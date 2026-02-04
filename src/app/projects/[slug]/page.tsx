@@ -30,8 +30,7 @@ export async function generateMetadata({
 
   if (!project) return { title: 'Projeto não encontrado' };
 
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ?? `https://${BRAND.domain}`;
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? `https://${BRAND.domain}`;
   const url = `${siteUrl.replace(/\/$/, '')}/projects/${slug}`;
 
   return {

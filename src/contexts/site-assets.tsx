@@ -70,8 +70,7 @@ export function useSiteAssetUrl(key: string, fallback?: string) {
 
   // Fallbacks para vídeos conhecidos quando o asset não vem do Supabase (ex.: falha de fetch)
   const fallbackPaths: Record<string, string> = {
-    'home.manifesto_video':
-      'site-assets/home/home.manifesto_video.mp4',
+    'home.manifesto_video': 'site-assets/home/home.manifesto_video.mp4',
     'about.hero.desktop_video.mp4':
       'site-assets/about/about.hero.desktop_video.mp4',
     'about.hero.mobile_video.mp4':

@@ -9,7 +9,7 @@ export const dynamic = 'force-static';
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const isProduction = process.env.NODE_ENV === 'production';
   const siteUrl = isProduction
-    ? process.env.NEXT_PUBLIC_SITE_URL ?? `https://${BRAND.domain}`
+    ? (process.env.NEXT_PUBLIC_SITE_URL ?? `https://${BRAND.domain}`)
     : 'http://localhost:3000';
   const baseUrl = siteUrl.replace(/\/$/, '');
   let projectUrls: MetadataRoute.Sitemap = [];
