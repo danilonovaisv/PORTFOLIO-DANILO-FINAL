@@ -30,10 +30,11 @@ type GLTFResult = GLTF & {
 // Definição da interface com scrollProgress
 interface GhostModelProps extends React.ComponentProps<'group'> {
   scrollProgress?: MotionValue<number>;
+  scale?: number | [number, number, number];
 }
 
 export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
-  const { nodes, materials } = useGLTF(
+  const { scene } = useGLTF(
     'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb'
   ) as unknown as GLTFResult;
 
@@ -51,6 +52,18 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
     }
     return new THREE.Vector3(0, 0, 0);
   }, [props.position]);
+
+  // Clone scene to avoid mutation issues if reused
+  const ghostScene = useMemo(() => {
+    const clonedScene = scene.clone();
+    clonedScene.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+      }
+    });
+    return clonedScene;
+  }, [scene]);
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -74,7 +87,9 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
 
   // --- Responsividade (Policy 4.3) ---
   const isMobile = viewport.width < 5;
-  const baseScale = isMobile ? viewport.width * 0.18 : 0.6;
+  // Prioritize prop scale, then responsive default
+  const defaultScale = isMobile ? viewport.width * 0.18 : 1.3;
+  const baseScale = props.scale ? (props.scale as number) : defaultScale;
 
   // Handle touch interactions simply by updating mouseRef
   useEffect(() => {
@@ -173,42 +188,7 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
   return (
     <group ref={groupRef} {...props} scale={baseScale} dispose={null}>
       <group ref={animRef}>
-        <mesh
-          name="Body_Ghost_White_0"
-          castShadow
-          receiveShadow
-          geometry={nodes.Body_Ghost_White_0.geometry}
-          material={materials.Ghost_White}
-          position={[0, 1.5578, 0]}
-          rotation={[-Math.PI / 2, 0, 0]}
-        />
-        <mesh
-          name="Eyes_Eyes_0"
-          castShadow
-          receiveShadow
-          geometry={nodes.Eyes_Eyes_0.geometry}
-          material={materials.Eyes}
-          position={[0, 1.5578, 0]}
-          rotation={[-Math.PI / 2, 0, 0]}
-        />
-        <mesh
-          name="Hat_Hat_Black_0"
-          castShadow
-          receiveShadow
-          geometry={nodes.Hat_Hat_Black_0.geometry}
-          material={materials.Hat_Black}
-          position={[0, 2.9913, 0]}
-          rotation={[-Math.PI / 2, 0, 0]}
-        />
-        <mesh
-          name="Rim_Rim_Red_0"
-          castShadow
-          receiveShadow
-          geometry={nodes.Rim_Rim_Red_0.geometry}
-          material={materials.Rim_Red}
-          position={[0, 2.3541, 0]}
-          rotation={[-Math.PI / 2, 0, 0]}
-        />
+        <primitive object={ghostScene} />
       </group>
     </group>
   );

@@ -6,6 +6,7 @@ import { Environment, Center } from '@react-three/drei';
 import { BeliefSection, BeliefMobileTextLayer } from './BeliefSection';
 import { BeliefFinalSection } from './BeliefFinalSection';
 import { BeliefFixedHeader } from './BeliefFixedHeader';
+import { BeliefFinalSectionOverlay } from './BeliefFinalSectionOverlay';
 import { GhostModel } from './GhostModel';
 
 const PHRASES = [
@@ -100,8 +101,12 @@ export const AboutBeliefs: React.FC = () => {
         scrollYProgress={scrollYProgress}
       />
 
-      {/* LAYER 3: Canvas 3D (Sticky - Top Layer) */}
-      {/* Z-Index 50: FANTASMA ACIMA DO TEXTO (GARANTIDO) */}
+      {/* LAYER 4: Final Text Overlay (Z-40) - Background for Ghost */}
+      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-40">
+        <BeliefFinalSectionOverlay />
+      </div>
+
+      {/* LAYER 3: Canvas 3D (Sticky - Top Layer Z-50) */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-50">
         <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-auto">
           <Canvas
@@ -136,8 +141,9 @@ export const AboutBeliefs: React.FC = () => {
                 <Center>
                   <GhostModel
                     scrollProgress={scrollYProgress}
-                    position={[0, 0, 0]}
+                    position={[0, 0.4, 0]}
                     rotation={[0, 0, 0]}
+                    scale={1.3}
                   />
                 </Center>
               </GLTFErrorBoundary>
