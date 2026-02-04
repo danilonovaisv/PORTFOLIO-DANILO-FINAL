@@ -1,6 +1,7 @@
+const path = require('path');
+
 module.exports = {
   plugins: {
     '@tailwindcss/postcss': {},
-    './postcss-plugins/remove-invalid-tailwind-selectors.cjs': {},
   },
 };

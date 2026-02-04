@@ -92,6 +92,7 @@ export const AboutBeliefs: React.FC = () => {
         ))}
         <BeliefFinalSection
           scrollProgress={scrollYProgress}
+          bgColor={BRAND.colors.bluePrimary}
         />
       </div>
 
