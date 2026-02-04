@@ -39,6 +39,8 @@ export function AboutHero() {
     prefersReducedMotion ? [0, 0] : [48, -48]
   );
 
+  const shouldPlayVideo = !prefersReducedMotion;
+
   // Forçar uso dos URLs padrão do HOME_CONTENT caso os assets do Supabase não estejam disponíveis
   const desktopVideo = useSiteAssetUrl(
     SITE_ASSET_KEYS.heroVideos.aboutDesktop,
@@ -61,14 +63,18 @@ export function AboutHero() {
       <motion.video
         ref={videoRef}
         src={desktopVideo || '/public/videos/about.hero.desktop_video.mp4'}
-        autoPlay
+        autoPlay={shouldPlayVideo}
         muted
-        loop
+        loop={shouldPlayVideo}
         playsInline
         preload="metadata"
+        poster="/images/about-hero-poster.jpg"
         className="hidden lg:block absolute inset-0 w-full h-full object-cover opacity-[0.55]"
         aria-hidden="true"
       />
+      <span className="sr-only">
+        Vídeo de fundo na seção sobre, com ambientação ghost/azul.
+      </span>
 
       {/* Desktop Overlay - Contrast Exception Control */}
       <div
@@ -160,11 +166,12 @@ export function AboutHero() {
           <motion.video
             ref={mobileVideoRef}
             src={mobileVideo}
-            autoPlay
+            autoPlay={shouldPlayVideo}
             muted
-            loop
+            loop={shouldPlayVideo}
             playsInline
             preload="metadata"
+            poster="/images/about-hero-poster-mobile.jpg"
             className="absolute inset-0 w-full h-full object-cover object-top opacity-[0.78]"
             style={{ y: mediaY }}
             aria-hidden="true"

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 export type Json =
   | string
   | number
@@ -326,9 +328,9 @@ export type Tables<
         DefaultSchema['Views'])
     ? (DefaultSchema['Tables'] &
         DefaultSchema['Views'])[DefaultSchemaTableNameOrOptions] extends {
-        Row: infer R;
+        Row: infer R2;
       }
-      ? R
+      ? R2
       : never
     : never;
 
@@ -345,15 +347,15 @@ export type TablesInsert<
   schema: keyof DatabaseWithoutInternals;
 }
   ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
-      Insert: infer I;
+      Insert: infer I2;
     }
-    ? I
+    ? I2
     : never
   : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
     ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
-        Insert: infer I;
+        Insert: infer _I;
       }
-      ? I
+      ? _I
       : never
     : never;
 
@@ -370,15 +372,15 @@ export type TablesUpdate<
   schema: keyof DatabaseWithoutInternals;
 }
   ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
-      Update: infer U;
+      Update: infer U2;
     }
-    ? U
+    ? U2
     : never
   : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
     ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
-        Update: infer U;
+        Update: infer U2;
       }
-      ? U
+      ? U2
       : never
     : never;
 

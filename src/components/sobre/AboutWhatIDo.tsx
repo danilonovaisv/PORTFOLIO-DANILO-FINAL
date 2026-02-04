@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import {
   motion,
   useScroll,
@@ -69,6 +69,7 @@ const ghostEase = [0.22, 1, 0.36, 1] as const;
 export function AboutWhatIDo() {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = !!useReducedMotion();
+  const [marqueePaused, setMarqueePaused] = useState(false);
 
   // Scroll-driven horizontal animation for desktop
   // Maps vertical scroll progress (0→1) to horizontal translation
@@ -228,7 +229,17 @@ export function AboutWhatIDo() {
           ============================================ */}
       <div className="relative overflow-hidden border-t border-white/5 bg-[#040013] py-6">
         {/* Dual marquee for seamless loop */}
-        <div className="flex w-max animate-marquee gap-12">
+        <div
+          className="flex w-max animate-marquee gap-12"
+          style={{
+            animationPlayState:
+              prefersReducedMotion || marqueePaused ? 'paused' : 'running',
+          }}
+          onMouseEnter={() => setMarqueePaused(true)}
+          onMouseLeave={() => setMarqueePaused(false)}
+          onFocus={() => setMarqueePaused(true)}
+          onBlur={() => setMarqueePaused(false)}
+        >
           {/* First set */}
           {MARQUEE_KEYWORDS.map((keyword, i) => (
             <span

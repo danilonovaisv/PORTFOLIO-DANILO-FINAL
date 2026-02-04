@@ -82,11 +82,6 @@ export default function HeroCopy({
 
         {/* Headline - Desktop (2 linhas) */}
         {/* Headline - Desktop (2 linhas) */}
-        {/* SEO H1 - Screen Reader Only for Semantic Perfection */}
-        <h1 className="sr-only">
-          {HOME_CONTENT.hero.title.join(' ')} {HOME_CONTENT.hero.subtitle}
-        </h1>
-
         {/* Headline - Desktop (Visual Only) */}
         <div
           aria-hidden="true"
@@ -128,6 +123,9 @@ export default function HeroCopy({
       {...motionProps}
       className={`relative flex flex-col items-center justify-center text-center w-full pointer-events-auto ${styles.root}`}
     >
+      <h1 className="sr-only">
+        {HOME_CONTENT.hero.title.join(' ')} {HOME_CONTENT.hero.subtitle}
+      </h1>
       {/* Camada 1: Texto Base (Low Opacity) */}
       <motion.div
         variants={itemAnimation}

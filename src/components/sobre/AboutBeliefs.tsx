@@ -116,13 +116,13 @@ export const AboutBeliefs: React.FC = () => {
             gl={{ alpha: true, antialias: true }}
             className="w-full h-full"
           >
-            <Environment preset="city" />
-            <ambientLight intensity={0.8} />
+            <Environment preset="studio" background={false} />
+            <ambientLight intensity={0.5} />
             <spotLight
               position={[10, 10, 10]}
-              angle={0.15}
-              penumbra={1}
-              intensity={1}
+              angle={0.2}
+              penumbra={0.9}
+              intensity={0.8}
             />
             <Suspense
               fallback={

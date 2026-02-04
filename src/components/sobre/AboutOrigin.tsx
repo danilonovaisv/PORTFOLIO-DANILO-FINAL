@@ -1,4 +1,5 @@
 'use client';
+/* eslint-disable @next/next/no-img-element */
 
 import { useEffect, useRef, useState } from 'react';
 import styles from '@/styles/about-origin.module.css';
@@ -65,24 +66,6 @@ function AboutOrigin() {
     contentCount: contentBlocks.length,
   });
 
-  if (!isClient) {
-    return (
-      <section
-        className="relative w-full transition-colors duration-1000"
-        aria-label="Origem Criativa"
-        aria-busy="true"
-      >
-        <div className="std-grid py-24">
-          <div className="mb-24 text-center select-none">
-            <h1 className="text-h1 font-bold leading-none text-[#0048ff] tracking-[0.2em] uppercase">
-              LOADING...
-            </h1>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section
       className="relative w-full transition-colors duration-1000"
@@ -106,10 +89,25 @@ function AboutOrigin() {
             ))}
           </div>
 
-          <OriginStickyGallery
-            blocks={contentBlocks}
-            archRightRef={archRightRef}
-          />
+          {isClient ? (
+            <OriginStickyGallery
+              blocks={contentBlocks}
+              archRightRef={archRightRef}
+            />
+          ) : (
+            <div className="hidden lg:block lg:col-span-6 sticky top-24 h-fit space-y-10">
+              {contentBlocks.map((block) => (
+                <div key={block.id} className="overflow-hidden rounded-2xl">
+                  <img
+                    src={block.img}
+                    alt={block.title}
+                    className="w-full h-[420px] object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

@@ -10,7 +10,7 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { GLTF } from 'three-stdlib';
-import { MotionValue } from 'framer-motion';
+import { MotionValue, useReducedMotion } from 'framer-motion';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -34,6 +34,8 @@ interface GhostModelProps extends React.ComponentProps<'group'> {
 }
 
 export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
+  const prefersReducedMotion = useReducedMotion();
+
   const { scene } = useGLTF(
     'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb'
   ) as unknown as GLTFResult;
@@ -60,12 +62,20 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
       if (child instanceof THREE.Mesh) {
         child.castShadow = true;
         child.receiveShadow = true;
+        if (child.material) {
+          const mat = child.material as THREE.MeshStandardMaterial;
+          mat.emissive = new THREE.Color('#0048ff');
+          mat.emissiveIntensity = 0.35;
+          mat.roughness = 0.3;
+          mat.metalness = 0.05;
+        }
       }
     });
     return clonedScene;
   }, [scene]);
 
   useEffect(() => {
+    if (prefersReducedMotion) return;
     const handleMouseMove = (event: MouseEvent) => {
       if (gl.domElement) {
         const rect = gl.domElement.getBoundingClientRect();
@@ -77,7 +87,7 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
     const canvas = gl.domElement;
     canvas.addEventListener('mousemove', handleMouseMove);
     return () => canvas.removeEventListener('mousemove', handleMouseMove);
-  }, [gl]);
+  }, [gl, prefersReducedMotion]);
 
   useEffect(() => {
     if (groupRef.current) {
@@ -93,6 +103,7 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
 
   // Handle touch interactions simply by updating mouseRef
   useEffect(() => {
+    if (prefersReducedMotion) return;
     const handleTouchMove = (e: TouchEvent) => {
       if (e.touches.length > 0 && gl.domElement) {
         const touch = e.touches[0];
@@ -106,13 +117,13 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
     const canvas = gl.domElement;
     canvas.addEventListener('touchmove', handleTouchMove, { passive: true });
     return () => canvas.removeEventListener('touchmove', handleTouchMove);
-  }, [gl]);
+  }, [gl, prefersReducedMotion]);
 
   useFrame((state) => {
-    if (!animRef.current || !scrollProgress || !groupRef.current) return;
+    if (!animRef.current || !groupRef.current) return;
 
-    const progress = scrollProgress.get();
-    const mouse = mouseRef.current;
+    const progress = scrollProgress?.get?.() ?? 0;
+    const mouse = prefersReducedMotion ? { x: 0, y: 0 } : mouseRef.current;
     const finalOffsetX = 0;
 
     groupRef.current.position.x = THREE.MathUtils.lerp(
@@ -123,17 +134,10 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
 
     // --- Animação de Flutuação Sutil (Substituindo <Float>) ---
     const elapsedTime = state.clock.getElapsedTime();
-    const floatY = Math.sin(elapsedTime * 1.5) * 0.08;
-
-    // --- Animação Base ---
-    animRef.current.rotation.y = THREE.MathUtils.lerp(
-      animRef.current.rotation.y,
-      0,
-      0.05
-    );
+    const floatY = prefersReducedMotion ? 0 : Math.sin(elapsedTime * 1.2) * 0.06;
 
     // --- Resposta ao Mouse (Posição e Rotação) ---
-    const mouseInfluence = 0.2;
+    const mouseInfluence = prefersReducedMotion ? 0 : 0.14;
 
     // Movimento suave seguindo o cursor
     animRef.current.position.x = THREE.MathUtils.lerp(
@@ -151,29 +155,25 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
     // Lerp rotações X e Z baseadas no mouse (Tilt suave)
     animRef.current.rotation.x = THREE.MathUtils.lerp(
       animRef.current.rotation.x,
-      -mouse.y * mouseInfluence * 0.8,
+      -mouse.y * mouseInfluence * 0.6,
       0.05
     );
     animRef.current.rotation.z = THREE.MathUtils.lerp(
       animRef.current.rotation.z,
-      -mouse.x * mouseInfluence * 0.5,
+      -mouse.x * mouseInfluence * 0.35,
       0.05
     );
 
-    let targetScale = 1;
-
     // --- Efeitos de Final de Seção ---
-    if (progress > 0.8) {
-      const intensity = Math.min(1, (progress - 0.8) * 5);
+    let targetScale = 1;
+    if (!prefersReducedMotion && progress > 0.82) {
+      const intensity = Math.min(1, (progress - 0.82) * 4);
       animRef.current.position.z = THREE.MathUtils.lerp(
         animRef.current.position.z,
-        1 * intensity,
+        0.6 * intensity,
         0.05
       );
-      const timeBasedWobble =
-        Math.sin(state.clock.elapsedTime * 2) * 0.05 * intensity;
-      animRef.current.rotation.z += timeBasedWobble;
-      targetScale = 1 + 0.1 * intensity;
+      targetScale = 1 + 0.08 * intensity;
     } else {
       animRef.current.position.z = THREE.MathUtils.lerp(
         animRef.current.position.z,
