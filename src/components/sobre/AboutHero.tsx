@@ -43,12 +43,12 @@ export function AboutHero() {
   const desktopVideo = useSiteAssetUrl(
     SITE_ASSET_KEYS.heroVideos.aboutDesktop,
     ABOUT_CONTENT.hero.videos.desktop ||
-    '/public/videos/about.hero.desktop_video.mp4'
+      '/public/videos/about.hero.desktop_video.mp4'
   );
   const mobileVideo = useSiteAssetUrl(
     SITE_ASSET_KEYS.heroVideos.aboutMobile,
     ABOUT_CONTENT.hero.videos.mobile ||
-    '/public/videos/about.hero.mobile_video.mp4'
+      '/public/videos/about.hero.mobile_video.mp4'
   );
 
   return (

@@ -14,18 +14,18 @@ import { MotionValue } from 'framer-motion';
 
 type GLTFResult = GLTF & {
   nodes: {
-    Body_Ghost_White_0: THREE.Mesh
-    Eyes_Eyes_0: THREE.Mesh
-    Hat_Hat_Black_0: THREE.Mesh
-    Rim_Rim_Red_0: THREE.Mesh
-  }
+    Body_Ghost_White_0: THREE.Mesh;
+    Eyes_Eyes_0: THREE.Mesh;
+    Hat_Hat_Black_0: THREE.Mesh;
+    Rim_Rim_Red_0: THREE.Mesh;
+  };
   materials: {
-    Ghost_White: THREE.MeshStandardMaterial
-    Eyes: THREE.MeshStandardMaterial
-    Hat_Black: THREE.MeshStandardMaterial
-    Rim_Red: THREE.MeshStandardMaterial
-  }
-}
+    Ghost_White: THREE.MeshStandardMaterial;
+    Eyes: THREE.MeshStandardMaterial;
+    Hat_Black: THREE.MeshStandardMaterial;
+    Rim_Red: THREE.MeshStandardMaterial;
+  };
+};
 
 // Definição da interface com scrollProgress
 interface GhostModelProps extends React.ComponentProps<'group'> {

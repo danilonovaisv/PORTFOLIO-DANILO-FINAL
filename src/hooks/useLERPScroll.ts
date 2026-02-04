@@ -122,4 +122,3 @@ export const useLERPScroll = (trackRef: TrackRef, enabled = true) => {
 
   return { galleryRef, isSticky } as const;
 };
-

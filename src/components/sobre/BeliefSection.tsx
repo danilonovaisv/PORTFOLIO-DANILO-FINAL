@@ -65,7 +65,7 @@ interface BeliefSectionProps {
   text: string;
   bgColor: string;
   isFirst?: boolean;
-  /** 
+  /**
    * Em mobile, o texto é renderizado em uma camada fixed separada.
    * Esta prop controla se deve renderizar o texto inline (desktop) ou não (mobile usa camada fixed)
    */
@@ -85,8 +85,8 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
     offset: ['start end', 'end start'],
   });
 
-  const animationRange = isFirst ? [0.05, 0.20] : [0.10, 0.25];
-  const exitRange = isFirst ? [0.75, 0.90] : [0.70, 0.85];
+  const animationRange = isFirst ? [0.05, 0.2] : [0.1, 0.25];
+  const exitRange = isFirst ? [0.75, 0.9] : [0.7, 0.85];
 
   const desktopOpacity = useTransform(
     scrollYProgress,
@@ -103,9 +103,10 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
       aria-label={text.replace(/\n/g, ' ')}
       style={{ backgroundColor: bgColor }}
       className={`relative w-full h-screen flex overflow-hidden
-        ${isMobile
-          ? 'items-end justify-start' // Mobile: espaço para texto fixed no footer
-          : `items-center justify-start pl-8 lg:pl-16`
+        ${
+          isMobile
+            ? 'items-end justify-start' // Mobile: espaço para texto fixed no footer
+            : `items-center justify-start pl-8 lg:pl-16`
         }
       `}
     >

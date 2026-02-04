@@ -38,6 +38,7 @@
     "test:watch": "jest --watch",
     "test:portfolio": "tsx scripts/test-portfolio-page.ts",
     "test:e2e": "playwright test",
+    "test:e2e:prod": "pnpm run build && PLAYWRIGHT_SERVER_COMMAND=\"pnpm run start\" playwright test",
     "analyze": "pnpm run lint && pnpm run typecheck",
     "analyze:project": "tsx scripts/analyze-project.ts",
     "analyze:deps": "depcheck",

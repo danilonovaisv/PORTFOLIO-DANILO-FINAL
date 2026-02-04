@@ -7,6 +7,8 @@ test.describe('Ghost System Verification', () => {
     page,
   }) => {
     await page.goto('/', { waitUntil: 'networkidle' });
+    // Wait for Ghost/3D/Hydration stability
+    await page.waitForTimeout(2000);
 
     // Check Hero title (visible one)
     await expect(
@@ -25,6 +27,7 @@ test.describe('Ghost System Verification', () => {
     page,
   }) => {
     await page.goto('/sobre', { waitUntil: 'networkidle' });
+    await page.waitForTimeout(1000);
 
     // Check "ORIGEM" heading
     await expect(page.locator('h1', { hasText: /ORIGEM/i })).toBeVisible();
@@ -57,6 +60,8 @@ test.describe('Ghost System Verification', () => {
     await page.waitForLoadState('networkidle');
 
     // Click on "Sobre" link in header
+    // Ensure menu is fully interactive
+    await page.waitForTimeout(500);
     const aboutLink = page
       .getByRole('button', { name: /sobre/i })
       .filter({ visible: true });

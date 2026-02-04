@@ -47,8 +47,9 @@ export default function DesktopFluidHeader({
 
   return (
     <header
-      className={`hidden lg:block fixed top-6 left-0 right-0 z-50 w-full pointer-events-none transition-all duration-300 ease-in-out ${isLight ? 'header--light' : ''
-        }`}
+      className={`hidden lg:block fixed top-6 left-0 right-0 z-50 w-full pointer-events-none transition-all duration-300 ease-in-out ${
+        isLight ? 'header--light' : ''
+      }`}
     >
       <div
         className={
@@ -57,8 +58,9 @@ export default function DesktopFluidHeader({
       >
         <div ref={wrapRef} className="pointer-events-auto w-full relative">
           <div
-            className={`${styles.headerContainer} ${isLight ? styles.headerLight : styles.headerDark
-              } h-16 w-[calc(100%+5rem)] -ml-10 rounded-4xl backdrop-blur-md border border-white/10 bg-black/20 transition-all duration-300`}
+            className={`${styles.headerContainer} ${
+              isLight ? styles.headerLight : styles.headerDark
+            } h-16 w-[calc(100%+5rem)] -ml-10 rounded-4xl backdrop-blur-md border border-white/10 bg-black/20 transition-all duration-300`}
           >
             {/* glass background - Dynamic R3F */}
             <div className="absolute inset-0 rounded-4xl overflow-hidden opacity-60 pointer-events-none">

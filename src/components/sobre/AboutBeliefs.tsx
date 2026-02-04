@@ -28,8 +28,6 @@ const COLORS = [
   BRAND.colors.pinkDetails,
 ];
 
-
-
 import { ProceduralGhost } from './ProceduralGhost';
 
 class GLTFErrorBoundary extends React.Component<
@@ -121,16 +119,20 @@ export const AboutBeliefs: React.FC = () => {
               penumbra={1}
               intensity={1}
             />
-            <Suspense fallback={
-              <Center>
-                <ProceduralGhost />
-              </Center>
-            }>
-              <GLTFErrorBoundary fallback={
+            <Suspense
+              fallback={
                 <Center>
                   <ProceduralGhost />
                 </Center>
-              }>
+              }
+            >
+              <GLTFErrorBoundary
+                fallback={
+                  <Center>
+                    <ProceduralGhost />
+                  </Center>
+                }
+              >
                 <Center>
                   <GhostModel
                     scrollProgress={scrollYProgress}

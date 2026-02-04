@@ -117,7 +117,7 @@ export function useLERPGalleryScroll<T extends HTMLElement = HTMLDivElement>() {
  */
 export function useParallaxCard<
   WrapperEl extends HTMLElement = HTMLDivElement,
-  CardEl extends HTMLElement = HTMLDivElement
+  CardEl extends HTMLElement = HTMLDivElement,
 >(enabled = true) {
   const wrapperRef = useRef<WrapperEl>(null);
   const cardRef = useRef<CardEl>(null); // Ref for the parent card
