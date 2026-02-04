@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 import { cubicBezier, useScroll, useTransform } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { Environment, Center } from '@react-three/drei';
-import { BeliefSection } from './BeliefSection';
+import { BeliefSection, BeliefMobileTextLayer } from './BeliefSection';
 import { BeliefFinalSection } from './BeliefFinalSection';
 import { BeliefFixedHeader } from './BeliefFixedHeader';
 import { GhostModel } from './GhostModel';
@@ -78,9 +78,8 @@ export const AboutBeliefs: React.FC = () => {
 
   return (
     <section ref={containerRef} className="relative w-full">
-      {/* LAYER 2: Conteúdo Textual (Foreground - Behind Ghost) */}
-      {/* Z-Index 20: Texto fica abaixo do Ghost agora, conforme solicitado */}
-      <div className="relative pointer-events-none z-20">
+      {/* LAYER 1: Backgrounds coloridos (Behind Everything) */}
+      <div className="relative pointer-events-none z-10">
         <BeliefFixedHeader opacity={headerOpacity} progress={scrollYProgress} />
 
         {PHRASES.map((phrase, index) => (
@@ -92,10 +91,15 @@ export const AboutBeliefs: React.FC = () => {
           />
         ))}
         <BeliefFinalSection
-          bgColor={BRAND.colors.bluePrimary}
           scrollProgress={scrollYProgress}
         />
       </div>
+
+      {/* LAYER 2: Texto Mobile Fixed no Footer */}
+      <BeliefMobileTextLayer
+        phrases={PHRASES}
+        scrollYProgress={scrollYProgress}
+      />
 
       {/* LAYER 3: Canvas 3D (Sticky - Top Layer) */}
       {/* Z-Index 50: FANTASMA ACIMA DO TEXTO (GARANTIDO) */}

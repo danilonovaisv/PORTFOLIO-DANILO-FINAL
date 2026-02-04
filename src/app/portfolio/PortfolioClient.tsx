@@ -47,7 +47,7 @@ export default function PortfolioClient({ projects }: PortfolioClientProps) {
 
         <ProjectsGallery projects={projects} onProjectSelect={handleOpenProject} />
 
-        <div className="relative z-10 bg-background">
+        <div className="relative z-30 bg-background">
           <ClientsBrandsSection />
           <ContactSection />
         </div>

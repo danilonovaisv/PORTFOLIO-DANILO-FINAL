@@ -4,12 +4,10 @@ import React, { useRef } from 'react';
 import { motion, MotionValue } from 'framer-motion';
 
 interface BeliefFinalSectionProps {
-  bgColor: string;
   scrollProgress?: MotionValue<number>;
 }
 
 export const BeliefFinalSection: React.FC<BeliefFinalSectionProps> = ({
-  bgColor,
   scrollProgress: _scrollProgress,
 }) => {
   const ref = useRef<HTMLElement>(null);
@@ -17,8 +15,7 @@ export const BeliefFinalSection: React.FC<BeliefFinalSectionProps> = ({
   return (
     <section
       ref={ref}
-      style={{ backgroundColor: bgColor }}
-      className="w-full h-screen flex flex-col items-center justify-center overflow-hidden px-4"
+      className="w-full h-screen flex flex-col items-center justify-center overflow-hidden px-4 bg-bluePrimary"
     >
       <motion.div
         className="flex flex-col items-center justify-center text-center text-white font-display leading-[0.85] w-full max-w-[98vw]"
@@ -37,6 +34,6 @@ export const BeliefFinalSection: React.FC<BeliefFinalSectionProps> = ({
           DESIGN
         </div>
       </motion.div>
-    </section>
+    </section >
   );
 };

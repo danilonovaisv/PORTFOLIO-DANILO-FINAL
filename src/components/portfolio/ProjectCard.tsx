@@ -36,6 +36,7 @@ export const ProjectCard = ({
 }: ProjectCardProps) => {
   const reduceMotion = useReducedMotion();
   const { wrapperRef, cardRef } = useParallaxCard<HTMLDivElement, HTMLButtonElement>(
+
     enableParallax
   );
 

@@ -43,12 +43,12 @@ export function AboutHero() {
   const desktopVideo = useSiteAssetUrl(
     SITE_ASSET_KEYS.heroVideos.aboutDesktop,
     ABOUT_CONTENT.hero.videos.desktop ||
-      '/public/videos/about.hero.desktop_video.mp4'
+    '/public/videos/about.hero.desktop_video.mp4'
   );
   const mobileVideo = useSiteAssetUrl(
     SITE_ASSET_KEYS.heroVideos.aboutMobile,
     ABOUT_CONTENT.hero.videos.mobile ||
-      '/public/videos/about.hero.mobile_video.mp4'
+    '/public/videos/about.hero.mobile_video.mp4'
   );
 
   return (
@@ -199,7 +199,7 @@ export function AboutHero() {
               }}
               className="space-y-4"
             >
-              <h1 className="type-h2 text-white leading-tight flex flex-col gap-1">
+              <h1 className="font-h1 text-[clamp(2rem,4vw+1rem,3.5rem)] font-bold text-white leading-tight flex flex-col gap-1">
                 <span>
                   Sou <span className="text-bluePrimary">Danilo Novais.</span>
                 </span>

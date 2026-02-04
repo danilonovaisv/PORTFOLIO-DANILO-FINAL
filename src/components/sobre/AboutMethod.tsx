@@ -61,8 +61,8 @@ export default function AboutMethod() {
             muted
             playsInline
             className={`w-full h-full ${isMobile
-                ? 'object-cover object-center opacity-55'
-                : 'object-cover object-right opacity-55'
+              ? 'object-cover object-center opacity-55'
+              : 'object-cover object-right opacity-55'
               }`}
             aria-hidden="true"
           />
@@ -127,7 +127,7 @@ export default function AboutMethod() {
                 initial={prefersReducedMotion ? 'visible' : 'hidden'}
                 whileInView="visible"
                 viewport={{ once: true, margin: '-10%' }}
-                className="flex flex-col w-full border-l-4 border-l-bluePrimary"
+                className="flex flex-col w-full"
               >
                 {ABOUT_CONTENT.method.steps.map((step) => (
                   <motion.div

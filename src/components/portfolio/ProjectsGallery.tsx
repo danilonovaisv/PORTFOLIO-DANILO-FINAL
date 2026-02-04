@@ -64,7 +64,7 @@ export const ProjectsGallery = ({
     <section
       id="portfolio-gallery"
       aria-labelledby="portfolio-gallery-heading"
-      className="relative w-full bg-background text-white"
+      className="relative z-20 w-full bg-background text-white pt-12 md:pt-16"
     >
       <h2 id="portfolio-gallery-heading" className="sr-only">
         Projetos em destaque
@@ -78,7 +78,7 @@ export const ProjectsGallery = ({
           ref={trackRef}
           className={cn(
             styles.track,
-            useLerp ? 'fixed left-0 right-0 top-0' : 'relative'
+            useLerp ? 'fixed left-0 right-0 top-0 z-[5]' : 'relative'
           )}
         >
           {items.map((item, index) =>

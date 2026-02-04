@@ -9,7 +9,23 @@ import * as THREE from 'three';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { useGLTF, Float } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
+import { GLTF } from 'three-stdlib';
 import { MotionValue } from 'framer-motion';
+
+type GLTFResult = GLTF & {
+  nodes: {
+    Body_Ghost_White_0: THREE.Mesh;
+    Eyes_Eyes_0: THREE.Mesh;
+    Hat_Hat_Black_0: THREE.Mesh;
+    Rim_Rim_Red_0: THREE.Mesh;
+  };
+  materials: {
+    Ghost_White: THREE.MeshStandardMaterial;
+    Eyes: THREE.MeshStandardMaterial;
+    Hat_Black: THREE.MeshStandardMaterial;
+    Rim_Red: THREE.MeshStandardMaterial;
+  };
+};
 
 // Definição da interface com scrollProgress
 interface GhostModelProps extends React.ComponentProps<'group'> {
@@ -17,9 +33,9 @@ interface GhostModelProps extends React.ComponentProps<'group'> {
 }
 
 export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
-  const { scene } = useGLTF(
+  const { nodes, materials } = useGLTF(
     'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb'
-  ) as any;
+  ) as unknown as GLTFResult;
 
   const { gl, viewport } = useThree();
   const groupRef = useRef<THREE.Group>(null);
@@ -35,18 +51,6 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
     }
     return new THREE.Vector3(0, 0, 0);
   }, [props.position]);
-
-  // Clone scene to avoid side effects
-  const ghostScene = useMemo(() => {
-    const cloned = scene.clone();
-    cloned.traverse((obj: any) => {
-      if (obj.isMesh) {
-        obj.castShadow = true;
-        obj.receiveShadow = true;
-      }
-    });
-    return cloned;
-  }, [scene]);
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -69,11 +73,8 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
   }, [basePosition]);
 
   // --- Responsividade (Policy 4.3) ---
-  // Ajamais obstruir o texto. Tamanho reduzido.
   const isMobile = viewport.width < 5;
-  const baseScale = isMobile ? viewport.width * 0.14 : 0.45;
-  // Mobile Shift: Move Up significantly to clear footer text
-  const mobileYOffset = isMobile ? 1.2 : 0;
+  const baseScale = isMobile ? viewport.width * 0.18 : 0.6;
 
   // Handle touch interactions simply by updating mouseRef
   useEffect(() => {
@@ -129,7 +130,7 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
     );
     animRef.current.position.y = THREE.MathUtils.lerp(
       animRef.current.position.y,
-      (mouse.y * mouseInfluence) + mobileYOffset,
+      mouse.y * mouseInfluence,
       0.05
     );
 
@@ -193,7 +194,42 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
       <group ref={groupRef} {...props} scale={baseScale} dispose={null}>
         {/* Grupo Interno: Recebe as animações (rotação, mouse sway) relativas ao pai */}
         <group ref={animRef}>
-          <primitive object={ghostScene} rotation={[-Math.PI / 2, 0, 0]} />
+          <mesh
+            name="Body_Ghost_White_0"
+            castShadow
+            receiveShadow
+            geometry={nodes.Body_Ghost_White_0.geometry}
+            material={materials.Ghost_White}
+            position={[0, 1.56, 0]}
+            rotation={[-Math.PI / 2, 0, 0]}
+          />
+          <mesh
+            name="Eyes_Eyes_0"
+            castShadow
+            receiveShadow
+            geometry={nodes.Eyes_Eyes_0.geometry}
+            material={materials.Eyes}
+            position={[0, 1.56, 0]}
+            rotation={[-Math.PI / 2, 0, 0]}
+          />
+          <mesh
+            name="Hat_Hat_Black_0"
+            castShadow
+            receiveShadow
+            geometry={nodes.Hat_Hat_Black_0.geometry}
+            material={materials.Hat_Black}
+            position={[0, 2.99, 0]}
+            rotation={[-Math.PI / 2, 0, 0]}
+          />
+          <mesh
+            name="Rim_Rim_Red_0"
+            castShadow
+            receiveShadow
+            geometry={nodes.Rim_Rim_Red_0.geometry}
+            material={materials.Rim_Red}
+            position={[0, 2.35, 0]}
+            rotation={[-Math.PI / 2, 0, 0]}
+          />
         </group>
       </group>
     </Float>

@@ -25,13 +25,13 @@ jest.mock('framer-motion', () => {
 
     return {
         motion: {
-            div: ({ children, className, style, ...props }: Record<string, unknown>) => (
-                <div className={className as string} style={style as React.CSSProperties} {...props}>
+            div: ({ children, className, ...props }: Record<string, unknown>) => (
+                <div className={className as string} {...props}>
                     {children as React.ReactNode}
                 </div>
             ),
-            button: ({ children, className, style, ...props }: Record<string, unknown>) => (
-                <button className={className as string} style={style as React.CSSProperties} {...props}>
+            button: ({ children, className, ...props }: Record<string, unknown>) => (
+                <button className={className as string} {...props}>
                     {children as React.ReactNode}
                 </button>
             ),

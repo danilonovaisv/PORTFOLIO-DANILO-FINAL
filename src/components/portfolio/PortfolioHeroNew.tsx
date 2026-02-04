@@ -53,7 +53,7 @@ export default function PortfolioHeroNew() {
     <section
       id="portfolio-hero"
       aria-labelledby="portfolio-hero-heading"
-      className="relative z-10 h-screen w-full overflow-hidden bg-background"
+      className="relative h-screen w-full overflow-hidden bg-background z-10"
     >
       {/* Video Background - Responsivo Desktop/Mobile */}
       <div className="absolute inset-0 z-0">
