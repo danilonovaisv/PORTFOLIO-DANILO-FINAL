@@ -14,7 +14,7 @@ export async function generateMetadata({
   params,
   searchParams,
 }: ProjectPageProps): Promise<Metadata> {
-  const resolvedParams = (await params) ?? {};
+  const resolvedParams = (await params) ?? { slug: '' };
   const { slug } = resolvedParams;
   const resolvedSearch = await searchParams;
   const fromParam = Array.isArray(resolvedSearch?.from)
@@ -49,7 +49,7 @@ export async function generateMetadata({
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
-  const { slug } = (await params) ?? {};
+  const { slug } = (await params) ?? { slug: '' };
   const supabase = await createClient();
 
   const { data: project, error } = await supabase
