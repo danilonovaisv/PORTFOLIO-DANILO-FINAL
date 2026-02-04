@@ -33,6 +33,8 @@ export interface ProjectGridLayout {
   height: string;
   /** Aspect ratio alternativo */
   aspectRatio?: string;
+  /** Span predefinido para o grid editorial */
+  size?: 'sm' | 'md' | 'lg' | 'wide' | 'tall';
   /** Ordem no grid */
   order?: number;
   /** Sizes used by Next/Image */

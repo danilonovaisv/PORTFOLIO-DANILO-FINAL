@@ -11,7 +11,7 @@ test.describe('Portfolio Page', () => {
 
     // Verify that at least one project is rendered
     // The gallery component renders project cards with 'group relative overflow-hidden'
-    const projects = page.locator('.gallery .group').first();
+    const projects = page.locator('article.group').first();
     await expect(projects).toBeVisible({ timeout: 15000 });
 
     await page.screenshot({ path: 'test-results/portfolio-page.png' });

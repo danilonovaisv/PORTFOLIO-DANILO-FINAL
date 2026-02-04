@@ -17,7 +17,7 @@ export const BeliefFinalSection: React.FC<BeliefFinalSectionProps> = ({
   return (
     <section
       ref={ref}
-      className={`w-full h-screen flex flex-col items-center justify-center overflow-hidden px-4 ${bgColor}`}
+      className={`w-full h-screen flex flex-col items-center justify-center overflow-hidden px-4 bg-bluePrimary`}
     >
       <motion.div
         className="flex flex-col items-center justify-center text-center text-white font-display leading-[0.78] w-full max-w-[98vw]"

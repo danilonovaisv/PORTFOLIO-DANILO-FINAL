@@ -1,10 +1,15 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { PortfolioProject } from '@/types/project';
 import { cn } from '@/lib/utils';
+import { useParallaxCard } from '@/hooks/useParallaxGallery';
+import { ASSET_PLACEHOLDER, applyImageFallback, isVideo } from '@/utils/utils';
+import styles from './ProjectsGallery.module.css';
+
+export type ProjectCardSize = 'sm' | 'md' | 'lg' | 'wide' | 'tall';
 
 interface ProjectCardProps {
   project: PortfolioProject;
@@ -12,6 +17,8 @@ interface ProjectCardProps {
   onClick?: (_project: PortfolioProject) => void;
   className?: string;
   priority?: boolean;
+  size?: ProjectCardSize;
+  enableParallax?: boolean;
 }
 
 /**
@@ -24,84 +31,103 @@ export const ProjectCard = ({
   onClick,
   className = '',
   priority = false,
+  size = 'md',
+  enableParallax = true,
 }: ProjectCardProps) => {
   const reduceMotion = useReducedMotion();
-  const ref = useRef<HTMLDivElement>(null);
+  const { wrapperRef, cardRef } = useParallaxCard<HTMLDivElement, HTMLButtonElement>(
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start'],
-  });
+    enableParallax
+  );
 
-  // Mapeia o progresso de scroll do card para um offset vertical suave
-  const y = useTransform(scrollYProgress, [0, 1], [-40, 40]);
+  const motionProps = reduceMotion
+    ? {
+        initial: { opacity: 0 },
+        whileInView: { opacity: 1 },
+        viewport: { once: true },
+        transition: { duration: 0.2 },
+      }
+    : {
+        initial: { opacity: 0, y: 12 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: '-10% 0px -10% 0px' },
+        transition: {
+          duration: 0.6,
+          delay: Math.min(0.18, index * 0.03),
+          ease: [0.22, 1, 0.36, 1] as const,
+        },
+      };
+
+  const imageSrc = project.videoPreview ?? (project.image || ASSET_PLACEHOLDER);
+  const sizes =
+    project.layout?.sizes ??
+    '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
 
   return (
-    <motion.div
-      ref={ref}
+    <motion.button
+      ref={cardRef}
+      type="button"
+      data-size={size}
       onClick={() => onClick?.(project)}
+      aria-label={`Ver projeto ${project.title}`}
+      aria-haspopup={onClick ? 'dialog' : undefined}
       className={cn(
-        'group relative overflow-hidden border border-white/10 bg-white/5 cursor-pointer',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blueAccent',
-        'h-[320px] md:h-[var(--ghost-card-height-desktop)] rounded-xl will-change-transform',
-        'transition-transform duration-500 hover:scale-[1.02]',
+        styles.card,
+        'group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
         className
       )}
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-10% 0px -10% 0px' }}
-      transition={{
-        duration: 0.6,
-        delay: Math.min(0.18, index * 0.03),
-        ease: [0.22, 1, 0.36, 1]
-      }}
+      {...motionProps}
     >
-      <div className="absolute inset-0">
-        {project.image ? (
-          <motion.div
-            className="absolute inset-0"
-            style={reduceMotion ? undefined : { y }}
-          >
-            {/* Wrapper mais alto para permitir o efeito parallax vertical */}
-            <div className="absolute inset-x-0 top-0 h-[135%]">
-              <Image
-                src={project.image}
-                alt={project.title}
-                fill
-                priority={priority}
-                unoptimized
-                sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                className="object-cover transition duration-700 group-hover:scale-110"
-              />
-            </div>
-          </motion.div>
+      <div
+        ref={wrapperRef}
+        className={cn(styles.cardImageWrapper, enableParallax ? 'motion-safe:will-change-transform' : '')}
+      >
+        {isVideo(imageSrc) ? (
+          <video
+            src={imageSrc}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 h-full w-full object-cover"
+          />
         ) : (
-          <div className="absolute inset-0 bg-white/10" />
+          <Image
+            src={imageSrc}
+            alt={project.title}
+            fill
+            className="object-cover"
+            sizes={sizes}
+            priority={priority}
+            onError={applyImageFallback}
+          />
         )}
-        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
       </div>
 
-      <div className="relative flex h-full flex-col justify-end p-5 md:p-6">
-        <div className="flex items-center justify-between gap-4 translate-z-10">
-          <div className="flex-1">
-            {project.tags?.[0] && (
-              <span className="inline-flex items-center rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-white/90 backdrop-blur-sm border border-white/10">
-                {project.tags[0]}
-              </span>
-            )}
-            <h3 className="mt-3 text-xl font-bold leading-tight text-white sm:text-2xl tracking-tight">
-              {project.title}
-            </h3>
-            <p className="mt-1.5 text-sm font-medium text-white/60">
-              {project.subtitle || project.client}
-            </p>
+      <div className={styles.cardOverlay}>
+        <div className="text-white">
+          <p className="text-[11px] uppercase tracking-[0.18em] text-white/70">
+            {project.displayCategory}
+          </p>
+          <h3 className="mt-1 text-xl font-semibold leading-tight">
+            {project.title}
+          </h3>
+          <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-white/70">
+            {project.client ? <span>{project.client}</span> : null}
+            {project.client && project.year ? <span aria-hidden>•</span> : null}
+            {project.year ? <span>{project.year}</span> : null}
           </div>
-
-          <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-all duration-300 group-hover:bg-white/20 group-hover:translate-x-1 group-hover:-translate-y-1 shrink-0">
-            <span aria-hidden className="text-xl">↗</span>
-          </div>
+          {project.tags && project.tags.length > 0 && (
+            <div className="mt-3 flex flex-wrap gap-2 text-[10px] uppercase tracking-[0.18em] text-white/70">
+              {project.tags.slice(0, 3).map((tag, tagIndex) => (
+                <span key={`${tag}-${tagIndex}`} className="rounded-full border border-white/20 px-2 py-1">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
-    </motion.div>
+    </motion.button>
   );
 };

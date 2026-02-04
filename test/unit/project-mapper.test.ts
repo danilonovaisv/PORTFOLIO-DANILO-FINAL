@@ -85,6 +85,6 @@ describe('mapDbProjectToPortfolioProject', () => {
       '/storage/v1/object/public/portfolio-media/projects/test/gallery/hero.jpg'
     );
     expect(mapped.featuredOnHome).toBe(true);
-    expect(mapped.type).toBe('A');
+    expect(mapped.type).toBe('B');
   });
 });

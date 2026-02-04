@@ -54,15 +54,15 @@ function getProjectCategory(projectType?: string): ProjectCategory {
 function determineProjectType(
   project: DbProjectWithTags | StaticProject
 ): ProjectType {
-  if ('featured_on_home' in project) {
-    // It's a DbProjectWithTags
-    if (project.featured_on_home || project.featured_on_portfolio) {
-      return 'A';
-    }
-  }
-  // For StaticProject, or if not featured, default to 'B'
-  // You might want to refine this logic based on your static data structure
-  return 'B';
+  // Conforme o Protótipo Interativo 3.2:
+  // Tipo A (Zoom): Para projetos simples (uma imagem principal)
+  // Tipo B (Case): Para projetos complexos (gallery ou descrição longa)
+
+  const hasGallery = 'gallery' in project && Array.isArray(project.gallery) && project.gallery.length > 0;
+  const description = 'description' in project ? project.description : project.title;
+  const isComplex = hasGallery || (description && description.length > 200);
+
+  return isComplex ? 'B' : 'A';
 }
 
 function buildLayout(
@@ -75,19 +75,21 @@ function buildLayout(
    * - Altura fixa no desktop para uniformidade visual
    * - Pattern: [5+7], [7+5], [4+4+4], [6+6], [8+4], [4+8]
    */
-  const pairedLayouts = [
+  const pairedLayouts: ProjectGridLayout[] = [
     // Row pattern: 6 + 6 = 12 (Ensures first row is full width)
     {
       cols: 'md:col-span-6 lg:col-span-6',
       height: 'min-h-[320px]',
       aspectRatio: 'aspect-[4/5]',
       sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw',
+      size: 'md',
     },
     {
       cols: 'md:col-span-6 lg:col-span-6',
       height: 'min-h-[320px]',
       aspectRatio: 'aspect-[4/5]',
       sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw',
+      size: 'md',
     },
     // Row pattern: 7 + 5 = 12
     {
@@ -95,12 +97,14 @@ function buildLayout(
       height: 'min-h-[320px]',
       aspectRatio: 'aspect-[4/5]',
       sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 58vw, 58vw',
+      size: 'lg',
     },
     {
       cols: 'md:col-span-3 lg:col-span-5',
       height: 'min-h-[320px]',
       aspectRatio: 'aspect-[4/5]',
       sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 42vw, 42vw',
+      size: 'md',
     },
     // Row pattern: 4 + 4 + 4 = 12 (3 cards per row)
     {
@@ -108,18 +112,21 @@ function buildLayout(
       height: 'min-h-[320px]',
       aspectRatio: 'aspect-[4/5]',
       sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 33vw',
+      size: 'sm',
     },
     {
       cols: 'md:col-span-4 lg:col-span-4',
       height: 'min-h-[320px]',
       aspectRatio: 'aspect-[4/5]',
       sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 33vw',
+      size: 'sm',
     },
     {
       cols: 'md:col-span-4 lg:col-span-4',
       height: 'min-h-[320px]',
       aspectRatio: 'aspect-[4/5]',
       sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 33vw',
+      size: 'sm',
     },
     // Row pattern: 6 + 6 = 12 (2 equal cards)
     {
@@ -127,12 +134,14 @@ function buildLayout(
       height: 'min-h-[320px]',
       aspectRatio: 'aspect-[4/5]',
       sizes: '(max-width: 768px) 100vw, 50vw',
+      size: 'md',
     },
     {
       cols: 'md:col-span-4 lg:col-span-6',
       height: 'min-h-[320px]',
       aspectRatio: 'aspect-[4/5]',
       sizes: '(max-width: 768px) 100vw, 50vw',
+      size: 'md',
     },
   ];
 
@@ -149,6 +158,7 @@ function buildLayout(
     height: 'min-h-[320px]',
     aspectRatio: 'aspect-[4/5]',
     sizes: '(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 33vw',
+    size: 'sm',
   };
 }
 

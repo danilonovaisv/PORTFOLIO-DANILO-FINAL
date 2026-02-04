@@ -6,14 +6,33 @@
 
 'use client';
 
+import { useMemo, useState } from 'react';
+import Image from 'next/image';
+import { useReducedMotion } from 'framer-motion';
 import { PORTFOLIO_CONTENT } from '@/config/content';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useSiteAssetUrl } from '@/contexts/site-assets';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
-import AntigravityCTA from '@/components/ui/AntigravityCTA';
+import PortfolioCTA from './PortfolioCTA';
+
+const HERO_POSTER = `data:image/svg+xml;utf8,${encodeURIComponent(
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+    <defs>
+      <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#040013"/>
+        <stop offset="50%" stop-color="#0b0d3a"/>
+        <stop offset="100%" stop-color="#040013"/>
+      </linearGradient>
+    </defs>
+    <rect width="1600" height="900" fill="url(#g)"/>
+    <text x="50%" y="50%" fill="#4fe6ff" font-size="48" font-family="Arial, sans-serif" text-anchor="middle" dominant-baseline="middle" opacity="0.6">portfolio showcase</text>
+  </svg>`
+)}`;
 
 export default function PortfolioHeroNew() {
   const isMobile = useMediaQuery('(max-width: 768px)');
+  const prefersReducedMotion = useReducedMotion();
+  const [videoFailed, setVideoFailed] = useState(false);
   const desktopVideo = useSiteAssetUrl(
     SITE_ASSET_KEYS.heroVideos.portfolioDesktop,
     PORTFOLIO_CONTENT.hero.video.desktop ?? undefined
@@ -25,28 +44,48 @@ export default function PortfolioHeroNew() {
 
   // Seleciona o vídeo correto baseado no dispositivo
   const videoSrc = isMobile ? mobileVideo : desktopVideo;
+  const shouldShowVideo = useMemo(
+    () => Boolean(videoSrc) && !prefersReducedMotion && !videoFailed,
+    [prefersReducedMotion, videoFailed, videoSrc]
+  );
 
   return (
     <section
       id="portfolio-hero"
-      aria-label="Portfolio Hero"
-      className="relative h-[78vh] md:h-screen w-full overflow-hidden"
+      aria-labelledby="portfolio-hero-heading"
+      className="relative h-screen w-full overflow-hidden bg-background z-10"
     >
       {/* Video Background - Responsivo Desktop/Mobile */}
       <div className="absolute inset-0 z-0">
-        <video
-          key={videoSrc}
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="h-full w-full object-cover"
-        >
-          <source src={videoSrc} type="video/mp4" />
-        </video>
+        {shouldShowVideo ? (
+          <video
+            key={videoSrc}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            poster={HERO_POSTER}
+            className="h-full w-full object-cover"
+            onError={() => setVideoFailed(true)}
+          >
+            <source src={videoSrc} type="video/mp4" />
+          </video>
+        ) : (
+          <Image
+            src={HERO_POSTER}
+            alt=""
+            fill
+            priority
+            unoptimized
+            sizes="100vw"
+            className="object-cover"
+            aria-hidden="true"
+          />
+        )}
       </div>
 
-      <div className="absolute inset-0 z-10 bg-linear-to-b from-black/70 via-transparent to-black/90" />
+      <div className="absolute inset-0 z-10 bg-linear-to-b from-black/60 via-black/40 to-black/60" />
 
       {/* Ghost Atmospheric Radial Gradients - Enhanced */}
       <div
@@ -60,28 +99,21 @@ export default function PortfolioHeroNew() {
 
       {/* Hero Content - Title & CTA Fixed Bottom - Single Visual Line */}
       <div className="absolute bottom-0 left-0 w-full z-30 pb-10 md:pb-16 px-4 md:px-12">
-        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-end justify-between gap-6 md:gap-12">
-          
+        <div className="mx-auto flex max-w-[1400px] flex-col items-center justify-center gap-6 md:flex-row md:items-end md:justify-between md:gap-12">
           {/* Title - "portfólio showcase" */}
           <div className="flex-1 text-center md:text-left">
-             <h1
+            <h1
               id="portfolio-hero-heading"
               className="text-4xl sm:text-6xl md:text-8xl tracking-tighter leading-none font-bold"
             >
-              <span className="text-[#4fe6ff] mr-3 md:mr-6">
-                portfólio
-              </span>
+              <span className="text-[#4fe6ff] mr-3 md:mr-6">portfólio</span>
               <span className="text-white">showcase</span>
             </h1>
           </div>
 
           {/* CTA - "vamos trabalhar juntos" - Aligned to bottom baseline */}
           <div className="shrink-0 flex justify-center md:justify-end">
-            <AntigravityCTA
-              href="#contact"
-              text="vamos trabalhar juntos"
-              className="static! transform-none!" // Override default fixed positioning
-            />
+            <PortfolioCTA label="vamos trabalhar juntos" href="#contact" />
           </div>
         </div>
       </div>

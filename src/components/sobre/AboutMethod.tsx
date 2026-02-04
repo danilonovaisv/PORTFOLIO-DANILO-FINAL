@@ -128,7 +128,7 @@ export default function AboutMethod() {
                 initial={prefersReducedMotion ? 'visible' : 'hidden'}
                 whileInView="visible"
                 viewport={{ once: true, margin: '-10%' }}
-                className="flex flex-col w-full border-t border-primary/40"
+                className="flex flex-col w-full"
               >
                 {ABOUT_CONTENT.method.steps.map((step) => (
                   <motion.div
@@ -140,7 +140,7 @@ export default function AboutMethod() {
                         p-5 lg:py-6 lg:px-0
                         mb-4 lg:mb-0
                         rounded-xl lg:rounded-none
-                        lg:border-b lg:border-primary/40
+                        lg:border-b lg:border-bluePrimary/30
                         transition-all duration-300
                         hover:bg-primary/5
                       "

@@ -10,17 +10,17 @@ import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Calendar, Building2, Tag } from 'lucide-react';
 import type { PortfolioProject } from '@/types/project';
-import AntigravityCTA from '@/components/ui/AntigravityCTA';
+import PortfolioCTA from '../PortfolioCTA';
 import {
   easing,
-  fadeInUp,
+  getFadeInUp,
   MODAL_TIMELINE,
   getMediaVariants,
   getTitleVariants,
   getMetaVariants,
-  getContentVariants
+  getContentVariants,
 } from '@/components/portfolio/modal/variants';
-import { isVideo } from '@/utils/utils';
+import { applyImageFallback, isVideo } from '@/utils/utils';
 import { sanitizeTailwindValue } from '@/lib/utils';
 
 interface TypeBContentProps {
@@ -34,6 +34,22 @@ interface TypeBContentProps {
 const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
   const prefersReducedMotion = useReducedMotion();
   const shouldReduce = !!prefersReducedMotion;
+  const fadeInUpVariants = getFadeInUp(shouldReduce);
+  const tagMotion = shouldReduce
+    ? {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        transition: { duration: 0.2 },
+      }
+    : {
+        initial: { opacity: 0, y: 8 },
+        animate: { opacity: 1, y: 0 },
+        transition: {
+          delay: MODAL_TIMELINE.SECONDARY,
+          duration: 0.2,
+          ease: easing,
+        },
+      };
 
   // Sanitize the accent color before using it in styles
   const sanitizedAccentColor = project.accentColor
@@ -66,6 +82,7 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 50vw"
             priority
+            onError={applyImageFallback}
           />
         )}
 
@@ -92,7 +109,7 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
         {/* Title section */}
         <div className="flex flex-col gap-2">
           <motion.span
-            variants={fadeInUp}
+            variants={fadeInUpVariants}
             className="text-xs uppercase tracking-[0.3em] text-blueAccent"
           >
             [{project.category}]
@@ -109,7 +126,7 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
 
           {project.subtitle && (
             <motion.p
-              variants={fadeInUp}
+              variants={fadeInUpVariants}
               className="text-lg text-white/60"
             >
               {project.subtitle}
@@ -120,7 +137,7 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
         {/* Description */}
         {project.detail?.description && (
           <motion.p
-            variants={fadeInUp}
+            variants={fadeInUpVariants}
             className="text-base text-white/70 leading-relaxed"
           >
             {project.detail.description}
@@ -179,9 +196,9 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
         {/* Tags cloud */}
         {project.tags && (
           <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: MODAL_TIMELINE.SECONDARY, duration: 0.2, ease: easing }}
+            initial={tagMotion.initial}
+            animate={tagMotion.animate}
+            transition={tagMotion.transition}
             className="flex flex-wrap gap-2"
           >
             {project.tags.map((tag) => (
@@ -195,13 +212,14 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
           </motion.div>
         )}
 
-        {/* CTA - Using AntigravityCTA component */}
-        <motion.div variants={fadeInUp} className="flex gap-3 mt-4">
+        {/* CTA */}
+        <motion.div variants={fadeInUpVariants} className="flex gap-3 mt-4">
           {project.detail?.externalUrl && (
-            <AntigravityCTA
+            <PortfolioCTA
               href={project.detail.externalUrl}
-              text="ver projeto"
+              label="ver projeto"
               className="relative"
+              external
             />
           )}
         </motion.div>

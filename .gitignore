@@ -104,3 +104,5 @@ site_assets_backup-*.json
 # Misc
 *.sarif.json
 firepit-log.txt
+.cache/
+artifacts/

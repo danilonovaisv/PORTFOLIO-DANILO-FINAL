@@ -52,15 +52,8 @@ const nextConfig = {
   /**
    * Mantém exatamente como você já tinha
    */
+  // output: 'standalone',
   reactStrictMode: true,
-
-  // Removido output: 'standalone' pois impede o uso de middleware
-  // O deployment no Firebase Hosting ou Vercel não precisa mais dessa configuração
-
-  // Configurar turbopack para evitar warning sobre múltiplos lockfiles
-  turbopack: {
-    root: __dirname,
-  },
 
   // Removido experimental.turbopack pois causa warning
   experimental: {

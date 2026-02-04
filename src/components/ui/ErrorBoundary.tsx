@@ -16,11 +16,19 @@ interface ErrorBoundaryState {
  * ErrorBoundary component to catch and display React errors in production.
  * Especially for debugging Error #62 (style prop as string).
  */
+interface ErrorBoundaryProps extends PropsWithChildren {
+  fallback?: React.ReactNode;
+}
+
+/**
+ * ErrorBoundary component to catch and display React errors in production.
+ * Especially for debugging Error #62 (style prop as string).
+ */
 export default class ErrorBoundary extends Component<
-  PropsWithChildren,
+  ErrorBoundaryProps,
   ErrorBoundaryState
 > {
-  constructor(props: PropsWithChildren) {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false, error: null, errorInfo: null };
   }
@@ -42,6 +50,9 @@ export default class ErrorBoundary extends Component<
 
   render() {
     if (this.state.hasError) {
+      if (this.props.fallback) {
+        return this.props.fallback;
+      }
       return (
         <div className="min-h-screen bg-red-900/20 flex items-center justify-center p-8">
           <div className="max-w-2xl w-full bg-black/90 text-white p-8 rounded-xl">

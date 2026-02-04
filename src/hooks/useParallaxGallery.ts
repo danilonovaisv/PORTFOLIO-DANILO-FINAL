@@ -115,13 +115,21 @@ export function useLERPGalleryScroll<T extends HTMLElement = HTMLDivElement>() {
  *
  * @returns A ref to be attached to the card's image wrapper element.
  */
-export function useParallaxCard<T extends HTMLElement = HTMLDivElement>() {
-  const wrapperRef = useRef<T>(null);
-  const cardRef = useRef<HTMLDivElement>(null); // Ref for the parent card
+export function useParallaxCard<
+  WrapperEl extends HTMLElement = HTMLDivElement,
+  CardEl extends HTMLElement = HTMLDivElement,
+>(enabled = true) {
+  const wrapperRef = useRef<WrapperEl>(null);
+  const cardRef = useRef<CardEl>(null); // Ref for the parent card
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    if (prefersReducedMotion || !wrapperRef.current || !cardRef.current) {
+    if (
+      prefersReducedMotion ||
+      !enabled ||
+      !wrapperRef.current ||
+      !cardRef.current
+    ) {
       return;
     }
 
@@ -147,7 +155,7 @@ export function useParallaxCard<T extends HTMLElement = HTMLDivElement>() {
     return () => {
       cancelAnimationFrame(rafId);
     };
-  }, [prefersReducedMotion]);
+  }, [enabled, prefersReducedMotion]);
 
   // We need to return both refs to be attached to the correct elements.
   return { wrapperRef, cardRef };

@@ -4,6 +4,9 @@ test.describe('Admin Login Page', () => {
   test('should display the login form', async ({ page }) => {
     await page.goto('/admin/login');
 
+    // Verify presence of login form container
+    await expect(page.locator('h1', { hasText: 'Entrar no painel' })).toBeVisible({ timeout: 15000 });
+
     // Verify presence of login fields
     await expect(
       page.locator('input[type="email"], input[name="email"]')
