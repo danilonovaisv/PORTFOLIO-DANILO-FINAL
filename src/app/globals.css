@@ -1,6 +1,39 @@
 @import 'tailwindcss';
+@theme {
+  /* Cores da marca */
+  --color-bluePrimary: #0048ff;
+  --color-blueAccent: #4fe6ff;
+  --color-purpleDetails: #8705f2;
+  --color-pinkDetails: #f501d3;
+  --color-background: #040013;
+  --color-backgroundLight: #f0f0f0;
+  --color-text: #fcffff;
+  --color-textInverse: #0e0e0e;
+  --color-textEmphasis: #2E85F2;
+  --color-textHighlight: #4fe6ff;
+  --color-textSecondary: #a1a3a3;
+  --color-neutral: #0b0d3a;
+  --color-neutralLight: #F5F5F5;
+  --color-contactForeground: #fcffff;
+  
+  /* Aliases para compatibilidade */
+  --color-primary: #0048ff;
+  --color-accent: #4fe6ff;
+  
+  /* Font families */
+  --font-family-sans: 'TT Norms Pro', ui-sans-serif, system-ui, sans-serif;
+  --font-family-mono: 'PPSupplyMono', monospace;
+  --font-family-outfit: 'Outfit', sans-serif;
+  
+  /* Min-widths */
+  --size-cta-mobile: 181px;
+  --size-cta-tablet: 201px;
+  --size-cta-desktop: 241px;
+}
+
 @import '../styles/fonts.css';
 
+/* Restante do CSS permanece igual */
 :root {
   /* Tipografia Fluida (Mobile -> Desktop) */
   /* Valores exatos do Design System 2.2 */
@@ -28,11 +61,9 @@
 }
 
 body {
-  font-family: 'TT Norms Pro', ui-sans-serif, system-ui, sans-serif;
-  background-color: #040013;
-  /* BRAND.colors.background */
-  color: #fcffff;
-  /* BRAND.colors.text */
+  font-family: var(--font-family-sans);
+  background-color: var(--color-background);
+  color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -85,7 +116,7 @@ body {
 }
 
 .text-micro {
-  font-family: 'PPSupplyMono', monospace;
+  font-family: var(--font-family-mono);
   font-size: var(--font-micro);
   line-height: 1.4;
 }

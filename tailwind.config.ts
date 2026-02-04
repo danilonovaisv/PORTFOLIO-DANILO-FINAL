@@ -1,5 +1,6 @@
+//Configuração mínima para Tailwind v4 com LightningCSS
+// As definições principais estão em src/app/globals.css usando @theme
 import type { Config } from 'tailwindcss';
-import { BRAND } from './src/config/brand.ts';
 
 const config: Config = {
   content: [
@@ -9,26 +10,9 @@ const config: Config = {
     './src/ui/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {
-      colors: {
-        ...BRAND.colors,
-        // Aliases for backward compatibility
-        primary: BRAND.colors.bluePrimary,
-        accent: BRAND.colors.blueAccent,
-      },
-      fontFamily: {
-        sans: [
-          BRAND.assets.fonts.primary,
-          'ui-sans-serif',
-          'system-ui',
-          'sans-serif',
-        ],
-        mono: [BRAND.assets.fonts.mono, 'monospace'],
-        display: [BRAND.assets.fonts.primary, 'ui-sans-serif'],
-        h1: [BRAND.assets.fonts.primary, 'ui-sans-serif'],
-        h2: [BRAND.assets.fonts.primary, 'ui-sans-serif'],
-        outfit: ['Outfit', 'sans-serif'],
-      },
+extend: {
+      //As cores e fontes principais estão definidas em @theme no globals.css
+      // Esta extensão serve principalmente para outros elementos do tema
       minWidth: {
         'cta-mobile': '181px',
         'cta-tablet': '201px',

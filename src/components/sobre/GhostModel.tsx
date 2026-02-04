@@ -7,7 +7,7 @@ Title: Ghost w/ Tophat
 */
 import * as THREE from 'three';
 import React, { useEffect, useMemo, useRef } from 'react';
-import { useGLTF, Float } from '@react-three/drei';
+import { useGLTF } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { GLTF } from 'three-stdlib';
 import { MotionValue } from 'framer-motion';
@@ -106,10 +106,11 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
       0.05
     );
 
+    // --- Animação de Flutuação Sutil (Substituindo <Float>) ---
+    const elapsedTime = state.clock.getElapsedTime();
+    const floatY = Math.sin(elapsedTime * 1.5) * 0.08;
+
     // --- Animação Base ---
-    // REMOVIDA ROTAÇÃO Y PELO SCROLL (Pedido: "não rotacione, fique sempre vista frontal")
-    // animRef.current.rotation.y = -progress * Math.PI * 2;
-    // Mantemos 0 ou uma rotação base fixa se necessário
     animRef.current.rotation.y = THREE.MathUtils.lerp(
       animRef.current.rotation.y,
       0,
@@ -117,61 +118,48 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
     );
 
     // --- Resposta ao Mouse (Posição e Rotação) ---
-    // Desktop: Inclina levemente (rotationX/rotationZ) e desloca posição x/y
-    // Mobile: Resposta baseada em touch (já mapeado no mouseRef)
-    const mouseInfluence = 0.2; // Aumentado um pouco para ser perceptível "intensificar"
+    const mouseInfluence = 0.2;
 
-    // Lerp positions (relativo ao 0,0,0 do grupo pai)
     // Movimento suave seguindo o cursor
     animRef.current.position.x = THREE.MathUtils.lerp(
       animRef.current.position.x,
       mouse.x * mouseInfluence,
       0.05
     );
+    // Combina a resposta ao mouse com a animação de flutuação
     animRef.current.position.y = THREE.MathUtils.lerp(
       animRef.current.position.y,
-      mouse.y * mouseInfluence,
+      mouse.y * mouseInfluence + floatY,
       0.05
     );
 
     // Lerp rotações X e Z baseadas no mouse (Tilt suave)
-    // RotationX: Inclina para cima/baixo
     animRef.current.rotation.x = THREE.MathUtils.lerp(
       animRef.current.rotation.x,
-      -mouse.y * mouseInfluence * 0.8, // Slight tilt vertical
+      -mouse.y * mouseInfluence * 0.8,
       0.05
     );
-
-    // RotationZ: Inclina para os lados (Bank)
     animRef.current.rotation.z = THREE.MathUtils.lerp(
       animRef.current.rotation.z,
-      -mouse.x * mouseInfluence * 0.5, // Slight tilt horizontal
+      -mouse.x * mouseInfluence * 0.5,
       0.05
     );
 
-    let targetScale = 1; // Escala base interna (multiplicativa)
+    let targetScale = 1;
 
     // --- Efeitos de Final de Seção ---
     if (progress > 0.8) {
       const intensity = Math.min(1, (progress - 0.8) * 5);
-
-      // Move Z para frente (aproximação)
       animRef.current.position.z = THREE.MathUtils.lerp(
         animRef.current.position.z,
         1 * intensity,
         0.05
       );
-
-      // Adiciona wobble extra ao Z (se desejado, mas mantendo frontalidade)
-      // Manter wobble sutil
       const timeBasedWobble =
         Math.sin(state.clock.elapsedTime * 2) * 0.05 * intensity;
       animRef.current.rotation.z += timeBasedWobble;
-
-      // Aumenta escala interna (zoom effect)
       targetScale = 1 + 0.1 * intensity;
     } else {
-      // Retorna Z para 0
       animRef.current.position.z = THREE.MathUtils.lerp(
         animRef.current.position.z,
         0,
@@ -179,60 +167,50 @@ export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
       );
     }
 
-    // Aplica escala interna (multiplicação sobre a escala base do grupo pai)
     animRef.current.scale.setScalar(targetScale);
   });
 
   return (
-    <Float
-      speed={2}
-      rotationIntensity={0.5}
-      floatIntensity={0.5}
-      floatingRange={[-0.1, 0.1]}
-    >
-      {/* Grupo Pai: Recebe as props de posicionamento global, mas tem escala controlada responsivamente */}
-      <group ref={groupRef} {...props} scale={baseScale} dispose={null}>
-        {/* Grupo Interno: Recebe as animações (rotação, mouse sway) relativas ao pai */}
-        <group ref={animRef}>
-          <mesh
-            name="Body_Ghost_White_0"
-            castShadow
-            receiveShadow
-            geometry={nodes.Body_Ghost_White_0.geometry}
-            material={materials.Ghost_White}
-            position={[0, 1.5578, 0]}
-            rotation={[-Math.PI / 2, 0, 0]}
-          />
-          <mesh
-            name="Eyes_Eyes_0"
-            castShadow
-            receiveShadow
-            geometry={nodes.Eyes_Eyes_0.geometry}
-            material={materials.Eyes}
-            position={[0, 1.5578, 0]}
-            rotation={[-Math.PI / 2, 0, 0]}
-          />
-          <mesh
-            name="Hat_Hat_Black_0"
-            castShadow
-            receiveShadow
-            geometry={nodes.Hat_Hat_Black_0.geometry}
-            material={materials.Hat_Black}
-            position={[0, 2.9913, 0]}
-            rotation={[-Math.PI / 2, 0, 0]}
-          />
-          <mesh
-            name="Rim_Rim_Red_0"
-            castShadow
-            receiveShadow
-            geometry={nodes.Rim_Rim_Red_0.geometry}
-            material={materials.Rim_Red}
-            position={[0, 2.3541, 0]}
-            rotation={[-Math.PI / 2, 0, 0]}
-          />
-        </group>
+    <group ref={groupRef} {...props} scale={baseScale} dispose={null}>
+      <group ref={animRef}>
+        <mesh
+          name="Body_Ghost_White_0"
+          castShadow
+          receiveShadow
+          geometry={nodes.Body_Ghost_White_0.geometry}
+          material={materials.Ghost_White}
+          position={[0, 1.5578, 0]}
+          rotation={[-Math.PI / 2, 0, 0]}
+        />
+        <mesh
+          name="Eyes_Eyes_0"
+          castShadow
+          receiveShadow
+          geometry={nodes.Eyes_Eyes_0.geometry}
+          material={materials.Eyes}
+          position={[0, 1.5578, 0]}
+          rotation={[-Math.PI / 2, 0, 0]}
+        />
+        <mesh
+          name="Hat_Hat_Black_0"
+          castShadow
+          receiveShadow
+          geometry={nodes.Hat_Hat_Black_0.geometry}
+          material={materials.Hat_Black}
+          position={[0, 2.9913, 0]}
+          rotation={[-Math.PI / 2, 0, 0]}
+        />
+        <mesh
+          name="Rim_Rim_Red_0"
+          castShadow
+          receiveShadow
+          geometry={nodes.Rim_Rim_Red_0.geometry}
+          material={materials.Rim_Red}
+          position={[0, 2.3541, 0]}
+          rotation={[-Math.PI / 2, 0, 0]}
+        />
       </group>
-    </Float>
+    </group>
   );
 }
 
