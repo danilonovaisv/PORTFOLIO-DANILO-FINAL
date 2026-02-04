@@ -1,0 +1,30 @@
+# clawdbot.config.yaml - Otimizado para pnpm + Next.js
+profiles:
+  pnpm-next-portfolio:
+    working_dir: "."
+    package_manager: "pnpm" # CRUCIAL para comandos corretos
+    models:
+      primary: "claude-3-5-sonnet-20241022"
+      fallback: "gpt-4o-2024-11-20"
+    permissions:
+      shell:
+        allowed_commands:
+          - "pnpm *"
+          - "git *"
+          - "next *"
+          - "node *"
+        confirm_before_exec: ["pnpm uninstall", "rm -rf"]
+      filesystem:
+        read: true
+        write: true
+        protected_files:
+          - "pnpm-lock.yaml"
+          - ".env*"
+          - "next.config.*"
+
+# Scripts personalizados para seu workflow
+scripts:
+  dev: "pnpm dev"
+  build: "pnpm build"
+  lint: "pnpm lint"
+  audit: "pnpm audit"

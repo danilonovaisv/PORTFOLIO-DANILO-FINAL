@@ -41,7 +41,10 @@
     "assets:audit": "python3 scripts/audit_assets.py",
     "manage-keys": "tsx scripts/manage-service-account-keys.ts",
     "update": "pnpm dlx npm-check-updates -u && pnpm install",
-    "tools": "bash scripts/project-tools.sh"
+    "tools": "bash scripts/project-tools.sh",
+    "clawdbot:analyze": "clawdbot chat --profile pnpm-next-portfolio",
+    "clawdbot:perf": "clawdbot exec --script webgl-performance-audit",
+    "clawdbot:seo": "clawdbot exec --script lighthouse-audit"
   },
   "dependencies": {
     "@dataconnect/admin-generated": "file:src/dataconnect-admin-generated",
