@@ -60,11 +60,10 @@ export default function AboutMethod() {
             loop
             muted
             playsInline
-            className={`w-full h-full ${
-              isMobile
+            className={`w-full h-full ${isMobile
                 ? 'object-cover object-center opacity-55'
                 : 'object-cover object-right opacity-55'
-            }`}
+              }`}
             aria-hidden="true"
           />
         </motion.div>
@@ -128,7 +127,7 @@ export default function AboutMethod() {
                 initial={prefersReducedMotion ? 'visible' : 'hidden'}
                 whileInView="visible"
                 viewport={{ once: true, margin: '-10%' }}
-                className="flex flex-col w-full border-t border-primary/40"
+                className="flex flex-col w-full border-l-4 border-l-bluePrimary"
               >
                 {ABOUT_CONTENT.method.steps.map((step) => (
                   <motion.div
@@ -140,7 +139,7 @@ export default function AboutMethod() {
                         p-5 lg:py-6 lg:px-0
                         mb-4 lg:mb-0
                         rounded-xl lg:rounded-none
-                        lg:border-b lg:border-primary/40
+                        lg:border-b lg:border-bluePrimary/30
                         transition-all duration-300
                         hover:bg-primary/5
                       "

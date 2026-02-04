@@ -25,7 +25,7 @@ export function AboutClosing() {
         {/* Bloco 1: Título Principal e Linhas */}
         <div className="w-full">
           <div className="mb-10 h-px w-full bg-blueAccent/30" />
-          <h2 className="type-h1 font-semibold leading-tight text-white md:leading-[1.2]">
+          <h2 className="font-display text-[clamp(40px,5vw,48px)] font-bold leading-[1.25] text-white max-w-[800px]">
             Hoje sou{' '}
             <span className="text-bluePrimary">Diretor de Criação</span>,
             <br />
@@ -37,7 +37,7 @@ export function AboutClosing() {
 
         {/* Bloco 2: Frase 1 e Vídeo */}
         <div className="mt-16 md:mt-20 flex flex-col items-center">
-          <p className="type-h2 text-text opacity-90 max-w-200 leading-snug mx-auto text-center">
+          <p className="text-[clamp(20px,2vw,24px)] leading-[1.5] text-text opacity-92 max-w-[700px] mx-auto text-center">
             Já liderei marcas, agências, eventos e{' '}
             <span className="text-bluePrimary">criei experiências</span> para
             todos os canais.
@@ -72,7 +72,7 @@ export function AboutClosing() {
 
         {/* Bloco 3: Frase 2 e CTAs */}
         <div className="mt-16 md:mt-20 flex flex-col items-center">
-          <p className="type-h2 text-text opacity-90 leading-snug">
+          <p className="text-[clamp(20px,2vw,24px)] leading-[1.5] text-text opacity-92">
             Agora, quero criar algo que permaneça —{' '}
             <span className="text-bluePrimary">com você.</span>
           </p>

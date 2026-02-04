@@ -78,7 +78,7 @@ export const ProjectsGallery = ({
           ref={trackRef}
           className={cn(
             styles.track,
-            useLerp ? 'fixed inset-0' : 'relative'
+            useLerp ? 'fixed left-0 right-0 top-0' : 'relative'
           )}
         >
           {items.map((item, index) =>

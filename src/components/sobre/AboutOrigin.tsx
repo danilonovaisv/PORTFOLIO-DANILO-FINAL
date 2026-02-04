@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import '@/styles/about-origin.css';
+import styles from '@/styles/about-origin.module.css';
 import { useSiteAssetUrl } from '@/contexts/site-assets';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
 import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
@@ -97,7 +97,7 @@ function AboutOrigin() {
         </div>
 
         <div
-          className="arch relative grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 md:gap-12"
+          className={`${styles.arch} relative grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-8 md:gap-12`}
           ref={archRef}
         >
           <div className="col-span-4 md:col-span-8 lg:col-span-6 flex flex-col">

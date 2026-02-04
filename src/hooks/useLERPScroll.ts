@@ -8,6 +8,7 @@ import { lerp } from '@/utils/math';
  * LERP-based scroll smoother for a fixed gallery track.
  * It keeps the track translated with an eased scroll value and
  * updates the wrapper height so the page retains native scroll.
+ * The gallery becomes fixed after scrolling past the hero section.
  */
 type TrackRef =
   | React.RefObject<HTMLElement | null>
@@ -18,6 +19,7 @@ export const useLERPScroll = (trackRef: TrackRef, enabled = true) => {
   const endY = useRef(0);
   const rafId = useRef<number | null>(null);
   const galleryRef = useRef<HTMLElement | null>(null);
+  const heroOffset = useRef(0);
 
   useEffect(() => {
     if (!enabled) {
@@ -36,14 +38,25 @@ export const useLERPScroll = (trackRef: TrackRef, enabled = true) => {
       return undefined;
     }
 
+    // Calculate hero offset - distance from page top to gallery section
+    const calculateHeroOffset = () => {
+      const galleryRect = gallery.getBoundingClientRect();
+      const currentScroll = window.scrollY;
+      // The gallery's position from document top
+      heroOffset.current = galleryRect.top + currentScroll;
+    };
+
     const updateHeight = () => {
-      gallery.style.height = `${track.clientHeight}px`;
+      // Total scrollable height = track height + hero offset
+      gallery.style.height = `${track.clientHeight + heroOffset.current}px`;
     };
 
     const animate = () => {
       startY.current = lerp(startY.current, endY.current, 0.05);
 
-      track.style.transform = `translateY(-${startY.current}px)`;
+      // Only translate when scrolled past hero
+      const scrollOffset = Math.max(0, startY.current - heroOffset.current);
+      track.style.transform = `translateY(-${scrollOffset}px)`;
 
       if (Math.abs(startY.current - endY.current) > 0.5) {
         rafId.current = requestAnimationFrame(animate);
@@ -60,16 +73,27 @@ export const useLERPScroll = (trackRef: TrackRef, enabled = true) => {
     };
 
     // Keep height in sync when content changes
-    const resizeObserver = new ResizeObserver(updateHeight);
+    const resizeObserver = new ResizeObserver(() => {
+      calculateHeroOffset();
+      updateHeight();
+    });
     resizeObserver.observe(track);
 
+    // Initial setup
+    calculateHeroOffset();
     updateHeight();
     endY.current = window.scrollY;
     rafId.current = requestAnimationFrame(animate);
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', updateHeight);
-    window.addEventListener('load', updateHeight);
+    window.addEventListener('resize', () => {
+      calculateHeroOffset();
+      updateHeight();
+    });
+    window.addEventListener('load', () => {
+      calculateHeroOffset();
+      updateHeight();
+    });
 
     return () => {
       window.removeEventListener('scroll', onScroll);
@@ -90,3 +114,4 @@ export const useLERPScroll = (trackRef: TrackRef, enabled = true) => {
 
   return { galleryRef } as const;
 };
+

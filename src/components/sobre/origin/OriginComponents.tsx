@@ -4,6 +4,7 @@ import { RefObject } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import type { OriginBlock } from './data';
+import styles from '@/styles/about-origin.module.css';
 
 interface OriginInfoBlockProps {
   block: OriginBlock & { img?: string };
@@ -18,7 +19,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
 
   return (
     <div
-      className={`arch__info min-h-[80vh] lg:min-h-screen flex flex-col py-12 lg:py-24 ${
+      className={`${styles.arch__info} min-h-[80vh] lg:min-h-screen flex flex-col py-12 lg:py-24 ${
         isRightAligned
           ? 'lg:items-end lg:justify-end lg:text-right'
           : 'lg:items-end lg:justify-start lg:text-left'
@@ -64,7 +65,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
           whileInView={{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 }}
           viewport={{ once: true, margin: '-10%' }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mobile-img-container overflow-hidden"
+          className={`${styles['mobile-img-container']} overflow-hidden`}
         >
           {block.img && (
             <Image
@@ -136,7 +137,7 @@ export function OriginStickyGallery({
 }: OriginStickyGalleryProps) {
   return (
     <div
-      className="arch__right hidden lg:flex col-span-6 h-screen sticky top-0"
+      className={`${styles.arch__right} hidden lg:flex col-span-6 h-screen sticky top-0`}
       ref={archRightRef}
     >
       {/* Gallery container - 500px height per spec */}
@@ -147,7 +148,7 @@ export function OriginStickyGallery({
         {blocks.map((block, index) => (
           <div
             key={block.id}
-            className="origin-img img-wrapper"
+            className={`${styles['img-wrapper']} origin-img`}
             data-img-index={index}
             data-z-index={index + 1}
           >

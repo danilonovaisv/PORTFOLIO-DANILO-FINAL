@@ -118,8 +118,8 @@ export const ProjectCard = ({
           </div>
           {project.tags && project.tags.length > 0 && (
             <div className="mt-3 flex flex-wrap gap-2 text-[10px] uppercase tracking-[0.18em] text-white/70">
-              {project.tags.slice(0, 3).map((tag) => (
-                <span key={tag} className="rounded-full border border-white/20 px-2 py-1">
+              {project.tags.slice(0, 3).map((tag, tagIndex) => (
+                <span key={`${tag}-${tagIndex}`} className="rounded-full border border-white/20 px-2 py-1">
                   {tag}
                 </span>
               ))}

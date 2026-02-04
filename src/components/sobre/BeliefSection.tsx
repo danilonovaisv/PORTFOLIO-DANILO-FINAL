@@ -41,20 +41,22 @@ const BeliefBlockMobile: React.FC<{
   animationRange: number[];
   exitRange: number[];
 }> = ({ text, scrollYProgress, animationRange, exitRange }) => {
-  // Mobile Animation: Right (Entry) -> Center (Hold) -> Left (Exit)
-  // Entry: 100% -> 0%
-  // Exit: 0% -> -100%
+  // Mobile Animation: Left (Entry) -> Center (Hold) -> Right (Exit)
+  // Entry: -100% -> 0% (entra da esquerda)
+  // Exit: 0% -> 100% (sai para a direita)
   const x = useTransform(
     scrollYProgress,
     [animationRange[0], animationRange[1], exitRange[0], exitRange[1]],
-    ['100%', '0%', '0%', '-100%'],
+    ['-100%', '0%', '0%', '100%'],
     { ease: ghostEase }
   );
 
+  // Opacity: Fade in suave com entrada, hold, fade out antes do próximo BG
   const opacity = useTransform(
     scrollYProgress,
-    [animationRange[0], animationRange[1] * 1.5, exitRange[0], exitRange[1]], // Fade in slightly faster
-    [0, 1, 1, 0]
+    [animationRange[0], animationRange[0] + 0.08, exitRange[0] - 0.05, exitRange[1]],
+    [0, 1, 1, 0],
+    { ease: ghostEase }
   );
 
   return (
@@ -62,7 +64,7 @@ const BeliefBlockMobile: React.FC<{
       style={{ x, opacity }}
       className="w-full text-center px-6"
     >
-      <span className="block text-blueAccent font-bold text-[clamp(2rem,6vw,3rem)] leading-[1.2] tracking-tighter text-wrap text-center select-none shadow-black/50 drop-shadow-md">
+      <span className="block text-blueAccent font-bold text-[clamp(2.5rem,8vw,3.5rem)] leading-[1.1] tracking-[-0.02em] text-wrap text-center select-none drop-shadow-[0_4px_20px_rgba(79,230,255,0.3)]">
         {text.replace(/\n/g, ' ')}
       </span>
     </motion.div>
@@ -113,8 +115,8 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
     offset: ['start end', 'end start'],
   });
 
-  const animationRange = isFirst ? [0, 0.3] : [0.22, 0.45];
-  const exitRange = isFirst ? [0.9, 1.0] : [0.8, 0.95];
+  const animationRange = isFirst ? [0, 0.25] : [0.15, 0.35];
+  const exitRange = isFirst ? [0.70, 0.88] : [0.65, 0.85];
 
   const desktopOpacity = useTransform(
     scrollYProgress,
@@ -132,7 +134,7 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
       style={{ backgroundColor: bgColor }}
       className={`relative w-full h-screen flex overflow-hidden
         ${isMobile
-          ? 'items-end pb-[15vh] justify-center' // Mobile: Bottom Center
+          ? 'items-end pb-[8vh] justify-center' // Mobile: Bottom Center - pb reduced to show full text
           : `items-start justify-start ${isFirst ? 'pt-0 items-center' : 'pt-[20vh] md:pt-[20vh] lg:pt-[15vh]'}` // Desktop: Top Left/Center
         }
       `}
