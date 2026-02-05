@@ -8,10 +8,10 @@
   width: 100%;
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  grid-auto-rows: 12px;
+  grid-auto-rows: minmax(260px, 1fr);
   grid-auto-flow: dense;
-  gap: 12px;
-  padding: 12px;
+  gap: 24px;
+  padding: 0;
   will-change: transform;
 }
 
@@ -93,67 +93,59 @@
 .card[data-size='sm'],
 .placeholder[data-size='sm'] {
   grid-column: span 4;
-  grid-row: span 22;
 }
 
 .card[data-size='md'],
 .placeholder[data-size='md'] {
   grid-column: span 6;
-  grid-row: span 26;
 }
 
 .card[data-size='lg'],
 .placeholder[data-size='lg'] {
   grid-column: span 8;
-  grid-row: span 30;
 }
 
 .card[data-size='wide'],
 .placeholder[data-size='wide'] {
   grid-column: span 12;
-  grid-row: span 22;
 }
 
 .card[data-size='tall'],
 .placeholder[data-size='tall'] {
   grid-column: span 4;
-  grid-row: span 34;
+  grid-row: span 2;
 }
 
 @media (max-width: 1024px) {
   .track {
     grid-template-columns: repeat(8, minmax(0, 1fr));
-    grid-auto-rows: 12px;
+    grid-auto-rows: minmax(240px, 1fr);
   }
 
   .card[data-size='sm'],
   .placeholder[data-size='sm'] {
     grid-column: span 4;
-    grid-row: span 22;
   }
 
   .card[data-size='md'],
   .placeholder[data-size='md'] {
     grid-column: span 8;
-    grid-row: span 26;
   }
 
   .card[data-size='lg'],
   .placeholder[data-size='lg'] {
     grid-column: span 8;
-    grid-row: span 30;
   }
 
   .card[data-size='wide'],
   .placeholder[data-size='wide'] {
     grid-column: span 8;
-    grid-row: span 22;
   }
 
   .card[data-size='tall'],
   .placeholder[data-size='tall'] {
     grid-column: span 4;
-    grid-row: span 34;
+    grid-row: span 2;
   }
 }
 
@@ -164,7 +156,7 @@
     grid-template-columns: 1fr;
     grid-auto-rows: auto;
     gap: 14px;
-    padding: 14px;
+    padding: 24px;
     will-change: auto;
   }
 

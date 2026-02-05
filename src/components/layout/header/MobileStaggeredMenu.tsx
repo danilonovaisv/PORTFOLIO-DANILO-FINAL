@@ -119,7 +119,10 @@ export default function MobileStaggeredMenu({
     <div className="lg:hidden relative z-60">
       <MobileHeaderBar
         logoUrl={logoUrl}
-        onLogoClick={onClose}
+        onLogoClick={() => {
+          onNavigate('/');
+          onClose();
+        }}
         isLight={open ? false : isLight}
       >
         <MobileMenuButton

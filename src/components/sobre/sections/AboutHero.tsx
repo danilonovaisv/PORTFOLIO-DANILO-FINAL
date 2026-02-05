@@ -13,7 +13,7 @@ import { ABOUT_CONTENT } from '@/config/content';
 import { motionTokens, motionSprings } from '../shared/motion';
 import { useSiteAssetUrl } from '@/contexts/site-assets';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
-import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 export function AboutHero() {
   const prefersReducedMotion = useReducedMotion();
@@ -46,12 +46,12 @@ export function AboutHero() {
   const desktopVideo = useSiteAssetUrl(
     SITE_ASSET_KEYS.heroVideos.aboutDesktop,
     ABOUT_CONTENT.hero.videos.desktop ||
-      '/public/videos/about.hero.desktop_video.mp4'
+    '/public/videos/about.hero.desktop_video.mp4'
   );
   const mobileVideo = useSiteAssetUrl(
     SITE_ASSET_KEYS.heroVideos.aboutMobile,
     ABOUT_CONTENT.hero.videos.mobile ||
-      '/public/videos/about.hero.mobile_video.mp4'
+    '/public/videos/about.hero.mobile_video.mp4'
   );
 
   const heroSrTitle = [
@@ -86,13 +86,7 @@ export function AboutHero() {
         className="hidden lg:block absolute inset-0 w-full h-full object-cover opacity-[0.55]"
         aria-hidden="true"
       >
-        <track
-          kind="captions"
-          src={DEFAULT_CAPTIONS}
-          srcLang="pt-BR"
-          label="Português"
-          default
-        />
+
       </motion.video>
 
       {/* Desktop Overlay - Contrast Exception Control */}
@@ -198,13 +192,7 @@ export function AboutHero() {
             style={{ y: mediaY }}
             aria-hidden="true"
           >
-            <track
-              kind="captions"
-              src={DEFAULT_CAPTIONS}
-              srcLang="pt-BR"
-              label="Português"
-              default
-            />
+
           </motion.video>
           <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent z-10" />
         </div>

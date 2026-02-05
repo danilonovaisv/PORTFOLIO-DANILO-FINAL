@@ -50,15 +50,15 @@ export default function MobileHeaderBar({
       variants={containerVariants}
       initial="hidden"
       animate="show"
-      className={`fixed top-0 left-0 right-0 z-50 pointer-events-none ${
+    className={`fixed top-0 left-0 right-0 z-[60] pointer-events-auto ${
         isLight ? 'header--light' : ''
       }`}
-    >
-      <div
-        className={`w-full h-[60px] pointer-events-auto transition-colors duration-300 ${
-          isLight
-            ? 'bg-background/40 border-b border-white/10 shadow-xl'
-            : 'bg-background/40 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/20'
+  >
+    <div
+      className={`w-full h-[60px] pointer-events-auto transition-colors duration-300 ${
+        isLight
+          ? 'bg-background/40 border-b border-white/10 shadow-xl'
+          : 'bg-background/40 backdrop-blur-md border-b border-white/5 shadow-lg shadow-black/20'
         }`}
       >
         <div className="flex items-center justify-between h-full w-full max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24">

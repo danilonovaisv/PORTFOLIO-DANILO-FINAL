@@ -19,13 +19,11 @@ import styles from './HeroCopy.module.css';
 const textContainerAnimation: Variants = {
   initial: {
     opacity: 0,
-    scale: 0.92,
     y: 60,
     filter: 'blur(10px)',
   },
   animate: {
     opacity: 1,
-    scale: [0.92, 1.02, 1],
     y: 0,
     filter: 'blur(0px)',
     transition: {

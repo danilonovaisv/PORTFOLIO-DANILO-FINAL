@@ -1,7 +1,9 @@
 // GhostScene.tsx
 import React, { Suspense, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { ContactShadows } from '@react-three/drei';
+import {
+  ContactShadows,
+} from '@react-three/drei';
 import GhostModel from './GhostModel'; // Caminho relativo para GhostModel
 import { MotionValue, motion, useTransform, cubicBezier } from 'framer-motion';
 // Importar o hook do BeliefSection.tsx
@@ -41,24 +43,38 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
         gl={{ antialias: true, alpha: true }}
         camera={{ position: [0, 0, 6], fov: 35 }}
       >
-        <ambientLight intensity={0.5} />
+        {/* Low Ambient for higher contrast shadows */}
+        <ambientLight intensity={1.2} />
+
+        {/* Strong Key Light (Front-Right) */}
         <spotLight
-          position={[10, 10, 10]}
-          angle={0.15}
-          penumbra={1}
-          intensity={1.5}
+          position={[5, 10, 5]}
+          angle={0.25}
+          penumbra={0.2}
+          intensity={2.5}
           castShadow
+          shadow-bias={-0.0001}
         />
-        <pointLight position={[-5, 5, -5]} intensity={1} />
+
+        {/* Fill Light (Left) - Soft */}
+        <pointLight position={[-5, 5, -5]} intensity={0.5} color="#e6e6ffa0" />
+
+        {/* Rim Light (Back) - Creates silhouette/separation */}
+        <pointLight position={[0, 5, -10]} intensity={3} color="#ffffff" distance={20} />
+
+
+
         <Suspense fallback={null}>
           <GhostModel scrollProgress={scrollProgress} isMobile={isMobile} />
         </Suspense>
+        {/* Stronger, grounded shadow */}
         <ContactShadows
           position={[0, -2.5, 0]}
-          opacity={0.2}
-          scale={15}
-          blur={2}
-          far={4}
+          opacity={0.6}
+          scale={18}
+          blur={2.5}
+          far={5}
+          color="#000000"
         />
       </Canvas>
     </motion.div>
@@ -66,3 +82,4 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
 };
 
 export default GhostScene;
+

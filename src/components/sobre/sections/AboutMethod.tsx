@@ -45,10 +45,10 @@ export default function AboutMethod() {
       aria-label="Como Eu Trabalho"
     >
       {/* Background Video Container */}
-      <div className="absolute top-0 left-0 w-full h-full z-0 overflow-hidden">
+      <div className="absolute inset-0 w-full h-full z-0 overflow-hidden flex justify-center">
         <motion.div
           style={{ y: isMobile ? 0 : videoParallaxY }}
-          className="w-full h-full lg:h-[120%]"
+          className="w-full h-full max-w-[1680px] lg:h-[120%]"
         >
           <video
             key={isMobile ? 'mobile' : 'desktop'}
@@ -65,7 +65,7 @@ export default function AboutMethod() {
             className={`w-full h-full ${
               isMobile
                 ? 'object-cover object-center opacity-55'
-                : 'object-cover object-right opacity-55'
+                : 'object-cover object-center opacity-55'
             }`}
             aria-hidden="true"
           >

@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { LandingPageBlock } from '@/types/landing-page';
 import ReactMarkdown from 'react-markdown';
 import { sanitizeTailwindValue } from '@/lib/utils';
-import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -186,13 +186,7 @@ export default function BlockRenderer({
             playsInline
             poster={DEFAULT_VIDEO_POSTER}
           >
-            <track
-              kind="captions"
-              src={DEFAULT_CAPTIONS}
-              srcLang="pt-BR"
-              label="Português"
-              default
-            />
+
           </video>
         </div>
       );

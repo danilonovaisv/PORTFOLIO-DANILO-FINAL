@@ -22,7 +22,7 @@ import {
 } from '@/components/portfolio/modal/variants';
 import { applyImageFallback, isVideo } from '@/utils/utils';
 import { sanitizeTailwindValue } from '@/lib/utils';
-import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 interface TypeBContentProps {
   project: PortfolioProject;
@@ -38,19 +38,19 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
   const fadeInUpVariants = getFadeInUp(shouldReduce);
   const tagMotion = shouldReduce
     ? {
-        initial: { opacity: 0 },
-        animate: { opacity: 1 },
-        transition: { duration: 0.2 },
-      }
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      transition: { duration: 0.2 },
+    }
     : {
-        initial: { opacity: 0, y: 8 },
-        animate: { opacity: 1, y: 0 },
-        transition: {
-          delay: MODAL_TIMELINE.SECONDARY,
-          duration: 0.2,
-          ease: easing,
-        },
-      };
+      initial: { opacity: 0, y: 8 },
+      animate: { opacity: 1, y: 0 },
+      transition: {
+        delay: MODAL_TIMELINE.SECONDARY,
+        duration: 0.2,
+        ease: easing,
+      },
+    };
 
   // Sanitize the accent color before using it in styles
   const sanitizedAccentColor = project.accentColor
@@ -76,13 +76,7 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
             poster={DEFAULT_VIDEO_POSTER}
             className="absolute inset-0 w-full h-full object-cover"
           >
-            <track
-              kind="captions"
-              src={DEFAULT_CAPTIONS}
-              srcLang="pt-BR"
-              label="Português"
-              default
-            />
+
           </video>
         ) : (
           <Image

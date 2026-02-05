@@ -78,8 +78,17 @@ export default function ContactSection() {
       className="bg-[#f0f0f0] py-12 sm:py-16 md:py-24 lg:py-32 relative z-10"
     >
       <Container>
+        {/* Título mobile separado para manter ordem: título → formulário → canais */}
+        <div className="lg:hidden text-center mb-10">
+          <h2 className="text-5xl md:text-6xl font-bold text-[#0057FF] uppercase tracking-tighter mb-3 leading-[0.95]">
+            {HOME_CONTENT.contact.title}
+          </h2>
+          <p className="text-[#111111] text-lg font-medium max-w-md mx-auto">
+            {HOME_CONTENT.contact.subtitle}
+          </p>
+        </div>
         {/* 2 & 3. Info & Form Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start">
+        <div className="flex flex-col gap-12 lg:grid lg:grid-cols-12 lg:gap-24 items-start">
           {/* Left Side: Headline + Contact Info */}
           <motion.div
             initial={
@@ -88,10 +97,10 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="lg:col-span-5 flex flex-col space-y-10 order-1 md:order-1 lg:order-0"
+            className="lg:col-span-5 flex flex-col space-y-10 order-2 lg:order-0"
           >
             {/* Header */}
-            <div className="text-center lg:text-left mb-6 lg:mb-10">
+            <div className="hidden lg:block text-center lg:text-left mb-6 lg:mb-10">
               <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-[#0057FF] uppercase tracking-tighter mb-4 leading-[0.9]">
                 {HOME_CONTENT.contact.title}
               </h2>
@@ -145,7 +154,7 @@ export default function ContactSection() {
           </motion.div>
 
           {/* Mobile Socials - Touch-optimized with 48px targets */}
-          <div className="lg:hidden flex flex-wrap justify-center gap-3 sm:gap-4 py-6 sm:py-8 border-t border-[#0e0e0e]/20 w-full order-2">
+          <div className="lg:hidden flex flex-wrap justify-center gap-3 sm:gap-4 py-6 sm:py-8 border-t border-[#0e0e0e]/20 w-full order-3">
             {socialLinks.map((social) => (
               <a
                 key={`mobile-${social.href}`}
@@ -162,7 +171,7 @@ export default function ContactSection() {
           </div>
 
           {/* Right Side: Form */}
-          <div className="lg:col-span-7 w-full order-3 lg:order-0">
+          <div className="lg:col-span-7 w-full order-1 lg:order-0">
             <ContactForm />
           </div>
         </div>

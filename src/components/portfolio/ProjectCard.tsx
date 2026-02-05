@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 import { useParallaxCard } from '@/hooks/useParallaxGallery';
 import { ASSET_PLACEHOLDER, applyImageFallback, isVideo } from '@/utils/utils';
 import styles from './ProjectsGallery.module.css';
-import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 export type ProjectCardSize = 'sm' | 'md' | 'lg' | 'wide' | 'tall';
 
@@ -60,6 +60,8 @@ export const ProjectCard = ({
     };
 
   const imageSrc = project.videoPreview ?? (project.image || ASSET_PLACEHOLDER);
+  const objectFit = project.layout?.objectFit ?? 'cover';
+  const objectPosition = project.layout?.objectPosition ?? 'center';
   const sizes =
     project.layout?.sizes ??
     '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
@@ -91,25 +93,21 @@ export const ProjectCard = ({
             loop
             playsInline
             poster={DEFAULT_VIDEO_POSTER}
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full"
+            style={{ objectFit, objectPosition }}
           >
-            <track
-              kind="captions"
-              src={DEFAULT_CAPTIONS}
-              srcLang="pt-BR"
-              label="Português"
-              default
-            />
+
           </video>
         ) : (
           <Image
             src={imageSrc}
             alt={project.title}
             fill
-            className="object-cover"
+            className="object-cover object-center"
             sizes={sizes}
             priority={priority}
             onError={applyImageFallback}
+            style={{ objectFit: objectFit as any, objectPosition }}
           />
         )}
       </div>

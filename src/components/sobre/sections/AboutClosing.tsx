@@ -4,12 +4,22 @@ import { motion, useReducedMotion } from 'framer-motion';
 
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { ABOUT_CONTENT } from '@/config/content';
+import { useSiteAssetUrl } from '@/contexts/site-assets';
+import { SITE_ASSET_KEYS } from '@/config/site-assets';
 
 import { motionTokens } from '../shared/motion';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 export function AboutClosing() {
   const prefersReducedMotion = useReducedMotion();
+  const desktopVideo = useSiteAssetUrl(
+    SITE_ASSET_KEYS.about.beliefs.skillsVideo,
+    'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/VIDEO-SKILLS-FINAL_compressed.mp4'
+  );
+  const mobileVideo = useSiteAssetUrl(
+    SITE_ASSET_KEYS.about.beliefs.skillsVideoMobile,
+    'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4'
+  );
 
   return (
     <section
@@ -44,12 +54,13 @@ export function AboutClosing() {
             todos os canais.
           </p>
 
-          {/* Vídeo em Loop - Full Width (Edge to Edge) */}
-          <div className="mt-12 w-screen relative left-[50%] right-[50%] -ml-[50vw] overflow-hidden shadow-none md:mt-11">
+          {/* Vídeo em Loop - alinhado ao grid, com overlay para contraste */}
+          <div className="mt-12 md:mt-11 w-full max-w-[1680px] mx-auto overflow-hidden rounded-lg bg-black/30 relative">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/15 to-transparent pointer-events-none" />
             {/* Desktop Video */}
             <video
-              className="hidden md:block w-full h-auto"
-              src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/VIDEO-SKILLS-FINAL_compressed.mp4"
+              className="hidden md:block w-full h-full object-cover"
+              src={desktopVideo ?? ''}
               autoPlay
               loop
               muted
@@ -68,8 +79,8 @@ export function AboutClosing() {
             </video>
             {/* Mobile Video */}
             <video
-              className="md:hidden w-full h-auto"
-              src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4"
+              className="md:hidden w-full h-full object-cover"
+              src={mobileVideo ?? desktopVideo ?? ''}
               autoPlay
               loop
               muted

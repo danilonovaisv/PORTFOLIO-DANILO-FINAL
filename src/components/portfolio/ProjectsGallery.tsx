@@ -8,6 +8,7 @@ import { ProjectCard, type ProjectCardSize } from './ProjectCard';
 import { PortfolioProject, ProjectCategory } from '@/types/project';
 import { cn } from '@/lib/utils';
 import styles from './ProjectsGallery.module.css';
+import { Container } from '@/components/layout/Container';
 
 interface ProjectsGalleryProps {
   projects?: PortfolioProject[];
@@ -52,7 +53,7 @@ export const ProjectsGallery = ({
     return projects.filter((p) => pillar.categories.includes(p.category));
   }, [projects, activeFilter]);
 
-  const sizePattern: ProjectCardSize[] = ['lg', 'md', 'sm', 'tall', 'md', 'wide', 'sm', 'md'];
+  const sizePattern: ProjectCardSize[] = ['lg', 'md', 'sm', 'wide', 'md', 'sm', 'md', 'lg'];
 
   const items = useMemo(() => {
     const entries: Array<
@@ -64,8 +65,11 @@ export const ProjectsGallery = ({
       const size = project.layout?.size ?? sizePattern[index % sizePattern.length];
       entries.push({ kind: 'project', project, size });
 
-      // Add architectural placeholders to maintain grid rhythm on desktop
-      if (!isMobile && index > 0 && index % 5 === 2 && activeFilter === 'all') {
+      // Only add placeholders when temos volume suficiente para manter ritmo editorial
+      const shouldAddPlaceholders =
+        !isMobile && activeFilter === 'all' && filteredProjects.length >= 10;
+
+      if (shouldAddPlaceholders && index > 0 && index % 5 === 2) {
         entries.push({
           kind: 'placeholder',
           id: `placeholder-${project.id}-${index}`,
@@ -120,38 +124,40 @@ export const ProjectsGallery = ({
         className={cn('gallery', styles.gallery)}
         ref={galleryRef as RefObject<HTMLDivElement>}
       >
-        <div
-          ref={trackRef}
-          className={cn(
-            styles.track,
-            useLerp && isSticky
-              ? 'fixed left-0 right-0 top-[88px] md:top-24 z-10'
-              : 'relative'
-          )}
-        >
-          <AnimatePresence mode="popLayout">
-            {items.map((item, index) =>
-              item.kind === 'project' ? (
-                <ProjectCard
-                  key={item.project.id}
-                  project={item.project}
-                  index={index}
-                  size={item.size}
-                  enableParallax={useLerp && isSticky}
-                  onClick={onProjectSelect || onOpenProject}
-                  priority={index < 3}
-                />
-              ) : (
-                <div
-                  key={item.id}
-                  data-size={item.size}
-                  className={styles.placeholder}
-                  aria-hidden="true"
-                />
-              )
+        <Container>
+          <div
+            ref={trackRef}
+            className={cn(
+              styles.track,
+              useLerp && isSticky
+                ? 'fixed left-0 right-0 top-[88px] md:top-24 z-10 max-w-[1680px] mx-auto px-6 md:px-12 lg:px-24'
+                : 'relative'
             )}
-          </AnimatePresence>
-        </div>
+          >
+            <AnimatePresence mode="popLayout">
+              {items.map((item, index) =>
+                item.kind === 'project' ? (
+                  <ProjectCard
+                    key={item.project.id}
+                    project={item.project}
+                    index={index}
+                    size={item.size}
+                    enableParallax={useLerp && isSticky}
+                    onClick={onProjectSelect || onOpenProject}
+                    priority={index < 3}
+                  />
+                ) : (
+                  <div
+                    key={item.id}
+                    data-size={item.size}
+                    className={styles.placeholder}
+                    aria-hidden="true"
+                  />
+                )
+              )}
+            </AnimatePresence>
+          </div>
+        </Container>
       </div>
     </section>
   );

@@ -142,11 +142,11 @@ export function AboutWhatIDo() {
                   delay: index * 0.06,
                   ease: ghostEase,
                 }}
-                className="group flex min-h-[140px] min-w-[380px] items-center gap-5 rounded-2xl bg-[#0048ff] p-6 shadow-[0_25px_50px_-12px_rgba(0,72,255,0.5)] transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_30px_60px_-12px_rgba(0,72,255,0.65)]"
+                className="group flex min-h-[140px] min-w-[380px] items-center gap-5 rounded-2xl bg-[#0048ff] p-6 shadow-[0_25px_50px_-12px_rgba(135,5,242,0.35)] transition-all duration-300 hover:shadow-[0_30px_64px_-12px_rgba(135,5,242,0.55)]"
               >
                 {/* Number */}
                 <span
-                  className="shrink-0 font-display text-5xl font-black text-[#8705f2] transition-transform duration-300 group-hover:scale-110"
+                  className="shrink-0 font-display text-5xl font-black text-[#8705f2] transition-all duration-300 flex h-14 w-14 items-center justify-center rounded-full bg-[#ffffff1a] border border-[#8705f2]/40"
                   aria-hidden="true"
                 >
                   {service.id}
@@ -203,11 +203,11 @@ export function AboutWhatIDo() {
                   delay: index * 0.08,
                   ease: ghostEase,
                 }}
-                className="group flex min-h-[76px] w-full items-center gap-4 rounded-xl bg-[#0048ff] px-5 py-4 shadow-[0_16px_40px_-12px_rgba(0,72,255,0.4)] transition-all duration-300 active:scale-[0.98]"
+                className="group flex min-h-[76px] w-full items-center gap-4 rounded-xl bg-[#0048ff] px-5 py-4 shadow-[0_16px_40px_-12px_rgba(135,5,242,0.35)] transition-all duration-300"
               >
                 {/* Number */}
                 <span
-                  className="shrink-0 font-display text-2xl font-black text-[#8705f2]"
+                  className="shrink-0 font-display text-2xl font-black text-[#8705f2] flex h-10 w-10 items-center justify-center rounded-full bg-[#ffffff1a] border border-[#8705f2]/40"
                   aria-hidden="true"
                 >
                   {service.id}
