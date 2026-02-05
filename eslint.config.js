@@ -23,6 +23,9 @@ export default [
       'src/dataconnect-generated/**',
       'src/dataconnect-admin-generated/**',
       'docs/**',
+      // Type definition files
+      'src/lib/database.types.ts',
+      'src/lib/supabase.types.ts',
       // Utility scripts (standalone TS files not part of main build)
       'scripts/**',
       // Static/deployed assets (not source code)
@@ -70,7 +73,10 @@ export default [
     settings: nextCoreWebVitals?.settings ?? {},
     rules: {
       ...(nextCoreWebVitals?.rules ?? {}),
-      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      'no-unused-vars': [
+        'warn',
+        { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
+      ],
       'prefer-const': 'warn',
       'no-console': ['warn', { allow: ['warn', 'error'] }],
     },
