@@ -66,7 +66,7 @@ export function useRealtimeAsset(assetKey: string) {
                         table: 'site_assets',
                         filter: `key=eq.${assetKey}`,
                     },
-                    (payload) => {
+                    (payload: { eventType: string; new: DbAsset; old: DbAsset }) => {
                         if (payload.eventType === 'DELETE') {
                             setAsset(null);
                             return;
@@ -129,7 +129,7 @@ export function useRealtimeAssets(page?: string) {
 
                 if (fetchError) throw fetchError;
 
-                const assetsWithUrls = (data ?? []).map((item) => {
+                const assetsWithUrls = (data ?? []).map((item: DbAsset) => {
                     const publicUrl = item.file_path?.startsWith('http')
                         ? item.file_path
                         : `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${item.bucket}/${item.file_path}`;
@@ -148,7 +148,7 @@ export function useRealtimeAssets(page?: string) {
         function setupRealtimeSubscription() {
             const channelName = page ? `assets:${page}` : 'assets:all';
 
-            let channelBuilder = supabase
+            const channelBuilder = supabase
                 .channel(channelName)
                 .on(
                     'postgres_changes',
@@ -158,7 +158,7 @@ export function useRealtimeAssets(page?: string) {
                         table: 'site_assets',
                         ...(page ? { filter: `page=eq.${page}` } : {}),
                     },
-                    (payload) => {
+                    (payload: { eventType: string; new: DbAsset; old: DbAsset }) => {
                         if (payload.eventType === 'INSERT') {
                             const newData = payload.new as DbAsset;
                             if (newData.is_active) {

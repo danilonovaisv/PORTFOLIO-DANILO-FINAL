@@ -17,6 +17,12 @@ type AssetPayload = {
   sort_order?: number | null;
   file_path?: string | null;
   bucket?: string;
+  metadata?: {
+    position?: [number, number, number];
+    scale?: [number, number, number];
+    rotation?: [number, number, number];
+    [key: string]: unknown;
+  } | null;
 };
 
 export async function upsertAsset(payload: AssetPayload) {
