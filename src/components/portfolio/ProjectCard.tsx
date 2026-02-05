@@ -8,6 +8,7 @@ import { cn } from '@/lib/utils';
 import { ASSET_PLACEHOLDER, applyImageFallback, isVideo } from '@/utils/utils';
 import styles from './ProjectsGallery.module.css';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export type ProjectCardSize = 'sm' | 'md' | 'lg' | 'wide' | 'tall';
 
@@ -33,6 +34,8 @@ export const ProjectCard = ({
   size = 'md',
 }: ProjectCardProps) => {
   const reduceMotion = useReducedMotion();
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const shouldUseSquare = !isMobile && ['sm', 'md', 'tall'].includes(size);
   const motionProps = reduceMotion
     ? {
       initial: { opacity: 0 },
@@ -51,7 +54,10 @@ export const ProjectCard = ({
       },
     };
 
-  const imageSrc = project.videoPreview ?? (project.image || ASSET_PLACEHOLDER);
+  const preferredImage = shouldUseSquare
+    ? project.imageSquare ?? project.imageLandscape ?? project.image
+    : project.imageLandscape ?? project.imageSquare ?? project.image;
+  const imageSrc = project.videoPreview ?? preferredImage ?? ASSET_PLACEHOLDER;
   const objectFit = project.layout?.objectFit ?? 'cover';
   const objectPosition = project.layout?.objectPosition ?? 'center';
   const sizes =
@@ -115,9 +121,12 @@ export const ProjectCard = ({
             {project.year ? <span>{project.year}</span> : null}
           </div>
           {project.tags && project.tags.length > 0 && (
-            <div className="mt-3 flex flex-wrap gap-2 text-[10px] uppercase tracking-[0.18em] text-white/70">
+            <div className="mt-3 flex flex-wrap gap-1.5 text-[0.5em] uppercase tracking-[0.18em] text-white/70">
               {project.tags.slice(0, 3).map((tag, tagIndex) => (
-                <span key={`${tag}-${tagIndex}`} className="rounded-full border border-white/20 px-2 py-1">
+                <span
+                  key={`${tag}-${tagIndex}`}
+                  className="inline-flex items-center justify-center rounded-full border border-white/20 px-1.5 py-0.5 text-center"
+                >
                   {tag}
                 </span>
               ))}

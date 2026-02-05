@@ -9,6 +9,7 @@ import { z } from 'zod';
 import { createClientComponentClient } from '@/lib/supabase/client';
 import { uploadToBucket } from '@/lib/supabase/storage';
 import type { DbProject, DbTag, DbLandingPage } from '@/types/admin';
+import { FieldTooltip } from '@/components/admin/FieldTooltip';
 import {
   LEGACY_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE,
@@ -51,8 +52,12 @@ export function ProjectForm({
   landingPages,
   selectedTagIds = [],
 }: Props) {
+  const hasExistingLandscape = Boolean(project?.url_landscape);
+  const hasExistingSquare = Boolean(project?.url_square);
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [hero, setHero] = useState<File | null>(null);
+  const [landscapeVariant, setLandscapeVariant] = useState<File | null>(null);
+  const [squareVariant, setSquareVariant] = useState<File | null>(null);
   const [gallery, setGallery] = useState<File[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
@@ -108,11 +113,23 @@ export function ProjectForm({
         const supabase = createClientComponentClient();
         let thumbnail_path = project?.thumbnail_path ?? null;
         let hero_image_path = project?.hero_image_path ?? null;
+        let url_landscape = project?.url_landscape ?? null;
+        let url_square = project?.url_square ?? null;
         const galleryEntries: Array<{ path: string }> = Array.isArray(
           project?.gallery
         )
           ? project?.gallery?.map((item) => ({ path: item.path }))
           : [];
+
+        if (!landscapeVariant && !hasExistingLandscape) {
+          setError('Envie a variante 16:9 antes de salvar o projeto.');
+          return;
+        }
+
+        if (!squareVariant && !hasExistingSquare) {
+          setError('Envie a variante 1:1 antes de salvar o projeto.');
+          return;
+        }
 
         if (thumbnail) {
           thumbnail_path = await uploadToBucket(
@@ -129,6 +146,24 @@ export function ProjectForm({
             `projects/${values.slug}`,
             'hero',
             hero
+          );
+        }
+
+        if (landscapeVariant) {
+          url_landscape = await uploadToBucket(
+            'portfolio-media',
+            `projects/${values.slug}`,
+            'cover-16x9',
+            landscapeVariant
+          );
+        }
+
+        if (squareVariant) {
+          url_square = await uploadToBucket(
+            'portfolio-media',
+            `projects/${values.slug}`,
+            'cover-1x1',
+            squareVariant
           );
         }
 
@@ -162,6 +197,8 @@ export function ProjectForm({
               gallery: galleryEntries,
               thumbnail_path,
               hero_image_path,
+              url_landscape,
+              url_square,
             },
             { onConflict: 'id' }
           )
@@ -200,14 +237,22 @@ export function ProjectForm({
     <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
       <div className="grid gap-4 md:grid-cols-2">
         <label className="flex flex-col gap-2">
-          <span className="text-sm text-slate-300">Título</span>
+          <FieldTooltip
+            label="Título"
+            description="Nome público do projeto exibido no portfólio e na Home."
+            className="flex items-center gap-1"
+          />
           <input
             className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
             {...form.register('title')}
           />
         </label>
         <label className="flex flex-col gap-2">
-          <span className="text-sm text-slate-300">Slug</span>
+          <FieldTooltip
+            label="Slug"
+            description="Identificador único da URL. Use hífen no lugar de espaços."
+            className="flex items-center gap-1"
+          />
           <div className="flex flex-col gap-2">
             {tags.length > 0 && (
               <select
@@ -235,21 +280,33 @@ export function ProjectForm({
           </div>
         </label>
         <label className="flex flex-col gap-2">
-          <span className="text-sm text-slate-300">Cliente</span>
+          <FieldTooltip
+            label="Cliente"
+            description="Nome da marca ou empresa vinculada ao trabalho."
+            className="flex items-center gap-1"
+          />
           <input
             className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
             {...form.register('client_name')}
           />
         </label>
         <label className="flex flex-col gap-2">
-          <span className="text-sm text-slate-300">Marca</span>
+          <FieldTooltip
+            label="Marca"
+            description="Opcional. Use quando a marca final for diferente do cliente direto."
+            className="flex items-center gap-1"
+          />
           <input
             className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
             {...form.register('brand_name')}
           />
         </label>
         <label className="flex flex-col gap-2">
-          <span className="text-sm text-slate-300">Ano</span>
+          <FieldTooltip
+            label="Ano"
+            description="Ano principal de publicação do trabalho."
+            className="flex items-center gap-1"
+          />
           <input
             type="number"
             className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
@@ -257,7 +314,11 @@ export function ProjectForm({
           />
         </label>
         <label className="flex flex-col gap-2">
-          <span className="text-sm text-slate-300">Tipo de projeto</span>
+          <FieldTooltip
+            label="Tipo de projeto"
+            description="Categoria principal para filtros e exibição no grid editorial."
+            className="flex items-center gap-1"
+          />
           <select
             className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
             {...form.register('project_type')}
@@ -270,14 +331,22 @@ export function ProjectForm({
           </select>
         </label>
         <label className="flex flex-col gap-2 md:col-span-2">
-          <span className="text-sm text-slate-300">Short label</span>
+          <FieldTooltip
+            label="Short label"
+            description="Subtítulo curto para cards e contexto rápido."
+            className="flex items-center gap-1"
+          />
           <input
             className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
             {...form.register('short_label')}
           />
         </label>
         <label className="flex flex-col gap-2 md:col-span-2">
-          <span className="text-sm text-slate-300">Descrição</span>
+          <FieldTooltip
+            label="Descrição"
+            description="Resumo editorial do case para modal e páginas internas."
+            className="flex items-center gap-1"
+          />
           <textarea
             rows={4}
             className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
@@ -300,7 +369,11 @@ export function ProjectForm({
           Publicado
         </label>
         <label className="flex flex-col gap-2">
-          <span className="text-sm text-slate-300">Ordem Home</span>
+          <FieldTooltip
+            label="Ordem Home"
+            description="Usado como desempate no CMS; a Home final embaralha os destaques ativos."
+            className="flex items-center gap-1"
+          />
           <input
             type="number"
             className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
@@ -308,7 +381,11 @@ export function ProjectForm({
           />
         </label>
         <label className="flex flex-col gap-2">
-          <span className="text-sm text-slate-300">Ordem Portfólio</span>
+          <FieldTooltip
+            label="Ordem Portfólio"
+            description="Define prioridade visual para listagem do portfólio completo."
+            className="flex items-center gap-1"
+          />
           <input
             type="number"
             className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
@@ -316,9 +393,11 @@ export function ProjectForm({
           />
         </label>
         <label className="flex flex-col gap-2">
-          <span className="text-sm text-slate-300">
-            Tamanho preferencial no grid
-          </span>
+          <FieldTooltip
+            label="Tamanho preferencial no grid"
+            description="Sugestão de ocupação do card no grid editorial 12 colunas."
+            className="flex items-center gap-1"
+          />
           <select
             className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
             {...form.register('preferred_size')}
@@ -341,9 +420,11 @@ export function ProjectForm({
           Página de Destino (Link Interno)
         </h3>
         <label className="flex flex-col gap-2">
-          <span className="text-xs text-slate-400">
-            Selecione uma Landing Page para este trabalho
-          </span>
+          <FieldTooltip
+            label="Landing Page vinculada"
+            description="Quando definida, o clique no card abre a página dinâmica /projects/[slug] em vez do modal padrão."
+            className="flex items-center gap-1"
+          />
           <select
             className="rounded-md bg-slate-900 border border-white/10 px-3 py-2 text-sm text-white"
             {...form.register('landing_page_id')}
@@ -365,9 +446,50 @@ export function ProjectForm({
         </label>
       </div>
 
+      <div className="grid gap-4 md:grid-cols-2">
+        <label className="flex flex-col gap-2">
+          <FieldTooltip
+            label="Capa 16:9 (obrigatória)"
+            description="Variante horizontal usada em hero/full-highlight e containers amplos."
+            className="flex items-center gap-1"
+          />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setLandscapeVariant(e.target.files?.[0] ?? null)}
+          />
+          {project?.url_landscape && (
+            <span className="text-xs text-slate-400 break-all">
+              Atual: {project.url_landscape}
+            </span>
+          )}
+        </label>
+        <label className="flex flex-col gap-2">
+          <FieldTooltip
+            label="Capa 1:1 (obrigatória)"
+            description="Variante quadrada para cards compactos e grid denso."
+            className="flex items-center gap-1"
+          />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setSquareVariant(e.target.files?.[0] ?? null)}
+          />
+          {project?.url_square && (
+            <span className="text-xs text-slate-400 break-all">
+              Atual: {project.url_square}
+            </span>
+          )}
+        </label>
+      </div>
+
       <div className="grid gap-4 md:grid-cols-3">
         <label className="flex flex-col gap-2">
-          <span className="text-sm text-slate-300">Thumbnail</span>
+          <FieldTooltip
+            label="Thumbnail (opcional)"
+            description="Fallback legado para listagens antigas."
+            className="flex items-center gap-1"
+          />
           <input
             type="file"
             accept="image/*,video/*"
@@ -380,7 +502,11 @@ export function ProjectForm({
           )}
         </label>
         <label className="flex flex-col gap-2">
-          <span className="text-sm text-slate-300">Hero image</span>
+          <FieldTooltip
+            label="Hero image (opcional)"
+            description="Imagem complementar para páginas de projeto e fallback visual."
+            className="flex items-center gap-1"
+          />
           <input
             type="file"
             accept="image/*"
@@ -393,7 +519,11 @@ export function ProjectForm({
           )}
         </label>
         <label className="flex flex-col gap-2">
-          <span className="text-sm text-slate-300">Galeria</span>
+          <FieldTooltip
+            label="Galeria"
+            description="Assets extras para modal/case; aceita imagens e vídeos."
+            className="flex items-center gap-1"
+          />
           <input
             type="file"
             accept="image/*,video/*"
@@ -409,7 +539,11 @@ export function ProjectForm({
       </div>
 
       <div>
-        <p className="text-sm text-slate-300 mb-2">Tags</p>
+        <FieldTooltip
+          label="Tags"
+          description="Usadas para highlights rápidos no card e categorização editorial."
+          className="mb-2 flex items-center gap-1"
+        />
         <div className="flex flex-wrap gap-3">
           {tags.map((tag) => (
             <label

@@ -34,8 +34,10 @@ const normalizeHighlightColor = (value?: string): string => {
 
 const getGridSpanClass = (layout: MasterProjectGalleryItem['layout']) => {
   switch (layout) {
+    case 'full-highlight':
     case 'feature':
       return 'lg:col-span-12 lg:row-span-2';
+    case 'grid':
     case 'split-left':
     case 'split-right':
       return 'lg:col-span-6';
@@ -345,7 +347,9 @@ export default function MasterProjectTemplate({
               }
 
               const isSplit =
-                item.layout === 'split-left' || item.layout === 'split-right';
+                item.layout === 'split-left' ||
+                item.layout === 'split-right' ||
+                item.layout === 'grid';
 
               return (
                 <motion.figure
@@ -362,7 +366,8 @@ export default function MasterProjectTemplate({
                 >
                   <div
                     className={
-                      item.layout === 'feature'
+                      item.layout === 'feature' ||
+                      item.layout === 'full-highlight'
                         ? 'aspect-[16/10] md:aspect-[20/9]'
                         : 'aspect-[4/3] md:aspect-[16/10]'
                     }

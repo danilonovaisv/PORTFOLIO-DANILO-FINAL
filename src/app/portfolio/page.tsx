@@ -131,6 +131,8 @@ function buildFallbackProjects(): PortfolioProject[] {
           ? project.year
           : Number(project.year) || new Date().getFullYear(),
       image: project.img || '',
+      imageLandscape: project.img || undefined,
+      imageSquare: project.img || undefined,
       type: index < 4 ? 'A' : 'B',
       layout: {
         cols: layout.cols ?? 'md:col-span-4',

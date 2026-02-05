@@ -5,7 +5,7 @@
 
 'use client';
 
-import { FC } from 'react';
+import { FC, useMemo, useState } from 'react';
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import { Calendar, Building2, Tag } from 'lucide-react';
@@ -23,6 +23,7 @@ import {
 import { applyImageFallback, isVideo } from '@/utils/utils';
 import { sanitizeTailwindValue } from '@/lib/utils';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { ImageLightbox } from '@/components/portfolio/ImageLightbox';
 
 interface TypeBContentProps {
   project: PortfolioProject;
@@ -35,7 +36,12 @@ interface TypeBContentProps {
 const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
   const prefersReducedMotion = useReducedMotion();
   const shouldReduce = !!prefersReducedMotion;
+  const [lightboxSource, setLightboxSource] = useState<string | null>(null);
   const fadeInUpVariants = getFadeInUp(shouldReduce);
+  const primaryMedia = useMemo(
+    () => project.imageLandscape ?? project.imageSquare ?? project.image,
+    [project.image, project.imageLandscape, project.imageSquare]
+  );
   const tagMotion = shouldReduce
     ? {
       initial: { opacity: 0 },
@@ -66,9 +72,9 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
         variants={getMediaVariants(shouldReduce)}
         className="relative w-full aspect-square md:aspect-[4/5] rounded-2xl overflow-hidden bg-white/5"
       >
-        {isVideo(project.image) ? (
+        {isVideo(primaryMedia) ? (
           <video
-            src={project.image}
+            src={primaryMedia}
             autoPlay
             muted
             loop
@@ -80,7 +86,7 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
           </video>
         ) : (
           <Image
-            src={project.image}
+            src={primaryMedia}
             alt={project.title}
             fill
             className="object-cover"
@@ -106,6 +112,13 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
             {project.displayCategory}
           </span>
         </div>
+
+        <button
+          type="button"
+          onClick={() => setLightboxSource(primaryMedia)}
+          className="absolute inset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+          aria-label="Ampliar mídia do projeto"
+        />
       </motion.div>
 
       {/* Right: Content */}
@@ -208,7 +221,7 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-3 py-1 rounded-full bg-white/60 backdrop-blur-md border border-white/10 text-xs text-void font-medium"
+                className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/60 px-1.5 py-0.5 text-[0.5em] text-center uppercase tracking-[0.18em] text-void"
               >
                 {tag}
               </span>
@@ -228,6 +241,13 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
           )}
         </motion.div>
       </div>
+
+      <ImageLightbox
+        isOpen={Boolean(lightboxSource)}
+        src={lightboxSource}
+        alt={project.title}
+        onClose={() => setLightboxSource(null)}
+      />
     </div >
   );
 };

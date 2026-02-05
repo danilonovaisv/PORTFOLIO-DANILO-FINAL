@@ -20,6 +20,11 @@ export default function FeaturedProjectCard({
 }: FeaturedProjectCardProps) {
   const reducedMotion = useReducedMotion();
   const isModalMode = typeof onOpen === 'function';
+  const mediaSource =
+    project.videoPreview ??
+    project.imageLandscape ??
+    project.imageSquare ??
+    project.image;
 
   const handleClick = () => {
     if (onOpen) {
@@ -32,15 +37,15 @@ export default function FeaturedProjectCard({
       <div
         className={`card-shell relative overflow-hidden rounded-md w-full bg-white/5 transition-all duration-500 ${reducedMotion
           ? ''
-          : 'md:group-hover:shadow-[0_22px_54px_-12px_rgba(0,72,255,0.15)] md:group-hover:-translate-y-1 active:scale-[0.98]'
+          : 'md:group-hover:shadow-[0_22px_54px_-12px_rgba(0,72,255,0.15)] md:group-hover:-translate-y-1'
           }`}
       >
         {/* Subtle Noise Overlay */}
         <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
-        {isVideo(project.image) ? (
+        {isVideo(mediaSource) ? (
           <video
-            src={project.image}
+            src={mediaSource}
             autoPlay
             muted
             loop
@@ -52,12 +57,11 @@ export default function FeaturedProjectCard({
           </video>
         ) : (
           <Image
-            src={project.image}
+            src={mediaSource}
             alt={`Logo da marca ${project.client} para ${project.category} - ${project.title}`}
             fill
             sizes={project.layout.sizes ?? '100vw'}
-            className={`object-cover transition-transform duration-700 opacity-90 md:group-hover:opacity-100 ${reducedMotion ? '' : 'md:group-hover:scale-103'
-              }`}
+            className="object-cover transition-opacity duration-700 opacity-90 md:group-hover:opacity-100"
             loading="lazy"
             onError={applyImageFallback}
           />
@@ -92,7 +96,7 @@ export default function FeaturedProjectCard({
             : 'md:group-hover:translate-x-5 md:group-hover:bg-[#8705f2] md:group-hover:shadow-[0_0_20px_rgba(135,5,242,0.4)]'
             }`}
         >
-          <ArrowIcon className="w-5 h-5 md:w-6 md:h-6 -rotate-45 transition-transform duration-500 md:group-hover:rotate-0" />
+          <ArrowIcon className="w-5 h-5 md:w-6 md:h-6 transition-transform duration-500 md:group-hover:translate-x-0.5 md:group-hover:-translate-y-0.5" />
         </div>
       </div>
     </>

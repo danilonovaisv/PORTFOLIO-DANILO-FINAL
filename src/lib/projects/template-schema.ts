@@ -50,12 +50,14 @@ const asGalleryLayout = (
   value: unknown
 ): MasterProjectGalleryItem['layout'] => {
   switch (value) {
+    case 'grid':
+    case 'full-highlight':
+    case 'full':
     case 'quote-band':
     case 'feature':
     case 'split-left':
     case 'split-right':
       return value;
-    case 'full':
     default:
       return 'full';
   }

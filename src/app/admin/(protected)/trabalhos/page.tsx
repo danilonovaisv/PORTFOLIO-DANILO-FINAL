@@ -37,7 +37,7 @@ export default async function TrabalhosPage(props: Props) {
   let query = supabase
     .from('portfolio_projects')
     .select(
-      'id, title, client_name, year, featured_on_home, featured_home_order, featured_on_portfolio, featured_portfolio_order, is_published, thumbnail_path, project_type, slug, tags:portfolio_project_tags(tag:portfolio_tags(label, slug)), landing_page:landing_pages(slug)'
+      'id, title, client_name, year, featured_on_home, featured_home_order, featured_on_portfolio, featured_portfolio_order, is_published, thumbnail_path, url_landscape, url_square, project_type, slug, tags:portfolio_project_tags(tag:portfolio_tags(label, slug)), landing_page:landing_pages(slug)'
     )
     .order('updated_at', { ascending: false });
 
@@ -104,6 +104,7 @@ export default async function TrabalhosPage(props: Props) {
               <th className="px-4 py-3">Tipo</th>
               <th className="px-4 py-3">Tags</th>
               <th className="px-4 py-3">Flags</th>
+              <th className="px-4 py-3">Variantes</th>
               <th className="px-4 py-3">Destaques</th>
               <th className="px-4 py-3">Status</th>
               <th className="px-4 py-3 text-right">Ações</th>
@@ -173,6 +174,28 @@ export default async function TrabalhosPage(props: Props) {
                 </td>
                 <td className="px-4 py-3 text-slate-300">
                   <div className="flex flex-col gap-1 text-xs">
+                    <span
+                      className={
+                        project.url_landscape
+                          ? 'text-emerald-300'
+                          : 'text-amber-300'
+                      }
+                    >
+                      16:9 {project.url_landscape ? 'ok' : 'faltando'}
+                    </span>
+                    <span
+                      className={
+                        project.url_square
+                          ? 'text-emerald-300'
+                          : 'text-amber-300'
+                      }
+                    >
+                      1:1 {project.url_square ? 'ok' : 'faltando'}
+                    </span>
+                  </div>
+                </td>
+                <td className="px-4 py-3 text-slate-300">
+                  <div className="flex flex-col gap-1 text-xs">
                     <div className="flex items-center gap-2">
                       <span className="text-slate-400">Home:</span>
                       {project.featured_on_home ? (
@@ -229,7 +252,7 @@ export default async function TrabalhosPage(props: Props) {
               <tr>
                 <td
                   className="px-4 py-6 text-center text-slate-400"
-                  colSpan={9}
+                  colSpan={10}
                 >
                   Nenhum projeto encontrado.
                 </td>

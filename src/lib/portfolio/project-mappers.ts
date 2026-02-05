@@ -237,6 +237,19 @@ function toVideoPreview(galleryUrls: string[]) {
   );
 }
 
+function resolveProjectMedia(path?: string | null): string | undefined {
+  if (!path) return undefined;
+  if (path.startsWith('http://') || path.startsWith('https://')) {
+    return path;
+  }
+
+  return (
+    buildSupabaseStorageUrl('portfolio-media', path) ??
+    buildSupabaseStorageUrl('site-assets', path) ??
+    undefined
+  );
+}
+
 export function mapDbProjectToPortfolioProject(
   project: DbProjectWithTags,
   index: number
@@ -248,9 +261,12 @@ export function mapDbProjectToPortfolioProject(
   const category = getProjectCategory(project.project_type);
   const tags = toTagsList(project.tags);
   const gallery = createGallery(project);
+  const landscapeUrl = resolveProjectMedia(project.url_landscape);
+  const squareUrl = resolveProjectMedia(project.url_square);
   const thumbnailUrl =
-    buildSupabaseStorageUrl('portfolio-media', project.thumbnail_path ?? undefined) ||
-    buildSupabaseStorageUrl('portfolio-media', project.hero_image_path ?? undefined);
+    resolveProjectMedia(project.thumbnail_path) ||
+    resolveProjectMedia(project.hero_image_path);
+  const primaryImage = landscapeUrl || squareUrl || thumbnailUrl || '';
 
   const detail = {
     description: project.description ?? '',
@@ -268,12 +284,14 @@ export function mapDbProjectToPortfolioProject(
     displayCategory: project.project_type ?? 'Web',
     tags,
     year: project.year ?? 0,
-    image: thumbnailUrl || '',
+    image: primaryImage,
+    imageLandscape: landscapeUrl,
+    imageSquare: squareUrl,
     type,
     layout,
     detail,
     accentColor: ACCENT_COLOR_MAP[category] ?? undefined,
-    isFeatured: project.featured_on_portfolio,
+    isFeatured: project.featured_on_home || project.featured_on_portfolio,
     featuredOnHome: project.featured_on_home,
     featuredOnPortfolio: project.featured_on_portfolio,
     videoPreview: toVideoPreview(gallery),
@@ -308,6 +326,8 @@ export function mapStaticProjectToPortfolioProject(
     tags,
     year: project.year,
     image: project.img || '',
+    imageLandscape: project.img || undefined,
+    imageSquare: project.img || undefined,
     type,
     layout,
     detail,

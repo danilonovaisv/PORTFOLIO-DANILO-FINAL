@@ -97,7 +97,7 @@ export const ProjectsGallery = ({
                   <motion.div
                     layoutId="activeFilter"
                     className="absolute -bottom-1 left-0 right-0 h-px bg-[#4fe6ff]"
-                    transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+                    transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                   />
                 )}
               </button>

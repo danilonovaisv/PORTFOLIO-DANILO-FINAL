@@ -10,6 +10,8 @@ export type DbProject = {
   description: string | null;
   thumbnail_path: string | null;
   hero_image_path: string | null;
+  url_landscape: string | null;
+  url_square: string | null;
   gallery: Array<{ path: string; caption?: string }> | null;
   featured_on_home: boolean;
   featured_on_portfolio: boolean;

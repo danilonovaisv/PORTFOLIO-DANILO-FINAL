@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import {
   MOTION_TOKENS,
@@ -38,7 +38,12 @@ export default function FeaturedProjectsSection({
   onProjectOpen,
 }: FeaturedProjectsSectionProps) {
   const reducedMotion = useReducedMotion();
-  const featuredProjects = projects.filter((project) => project.isFeatured);
+  const featuredProjects = useMemo(() => {
+    const source = projects.filter(
+      (project) => project.featuredOnHome ?? project.isFeatured
+    );
+    return [...source].sort(() => 0.5 - Math.random());
+  }, [projects]);
 
   // Card variants sem scale (Ghost Design System proíbe scale em elementos principais)
   const cardVariants = {

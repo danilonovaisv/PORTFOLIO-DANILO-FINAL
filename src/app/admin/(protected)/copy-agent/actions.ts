@@ -1,6 +1,7 @@
 'use server';
 
 import OpenAI from 'openai';
+import { z } from 'zod';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -16,10 +17,48 @@ const ALLOWED_REFERENCE_IMAGE_TYPES = new Set([
 const MAX_REFERENCE_IMAGES = 4;
 const MAX_REFERENCE_IMAGE_SIZE_BYTES = 8 * 1024 * 1024;
 
+const copyInputSchema = z.object({
+  projectName: z
+    .string()
+    .min(2, 'Informe o nome do projeto.')
+    .max(120, 'Use no máximo 120 caracteres.'),
+  clientName: z
+    .string()
+    .min(2, 'Informe o cliente.')
+    .max(120, 'Use no máximo 120 caracteres.'),
+  objective: z
+    .string()
+    .min(12, 'Descreva o objetivo do projeto com mais contexto.')
+    .max(600, 'Use no máximo 600 caracteres.'),
+  targetAudience: z
+    .string()
+    .min(4, 'Informe o público-alvo.')
+    .max(300, 'Use no máximo 300 caracteres.'),
+  visualConcept: z
+    .string()
+    .min(12, 'Descreva o conceito visual principal.')
+    .max(600, 'Use no máximo 600 caracteres.'),
+  keyChallenges: z
+    .string()
+    .min(12, 'Liste os principais desafios criativos/técnicos.')
+    .max(600, 'Use no máximo 600 caracteres.'),
+  deliverables: z
+    .string()
+    .max(300, 'Use no máximo 300 caracteres.')
+    .optional(),
+  toneOfVoice: z
+    .string()
+    .max(180, 'Use no máximo 180 caracteres.')
+    .optional(),
+});
+
+type CopyInput = z.infer<typeof copyInputSchema>;
+
 export type CopyAgentState = {
   success: boolean;
   content?: string;
   error?: string;
+  fieldErrors?: Partial<Record<keyof CopyInput, string>>;
 };
 
 /**
@@ -27,23 +66,56 @@ export type CopyAgentState = {
  * Generates high-end art direction portfolio copy.
  */
 export async function generateProjectCopy(
-  prevState: CopyAgentState,
+  _prevState: CopyAgentState,
   formData: FormData
 ): Promise<CopyAgentState> {
-  const context = (formData.get('context') as string | null)?.trim() || '';
+  const rawInput: CopyInput = {
+    projectName: (formData.get('projectName') as string | null)?.trim() || '',
+    clientName: (formData.get('clientName') as string | null)?.trim() || '',
+    objective: (formData.get('objective') as string | null)?.trim() || '',
+    targetAudience:
+      (formData.get('targetAudience') as string | null)?.trim() || '',
+    visualConcept:
+      (formData.get('visualConcept') as string | null)?.trim() || '',
+    keyChallenges:
+      (formData.get('keyChallenges') as string | null)?.trim() || '',
+    deliverables: (formData.get('deliverables') as string | null)?.trim() || '',
+    toneOfVoice: (formData.get('toneOfVoice') as string | null)?.trim() || '',
+  };
+
+  const parsedInput = copyInputSchema.safeParse(rawInput);
   const imageEntries = formData.getAll('referenceImages');
   const referenceImages = imageEntries.filter(
     (entry): entry is File => entry instanceof File && entry.size > 0
   );
 
-  if (!context) {
-    return { success: false, error: 'O contexto do projeto é obrigatório.' };
+  if (!parsedInput.success) {
+    const fields = parsedInput.error.flatten().fieldErrors;
+    const fieldErrors: Partial<Record<keyof CopyInput, string>> = {
+      projectName: fields.projectName?.[0],
+      clientName: fields.clientName?.[0],
+      objective: fields.objective?.[0],
+      targetAudience: fields.targetAudience?.[0],
+      visualConcept: fields.visualConcept?.[0],
+      keyChallenges: fields.keyChallenges?.[0],
+      deliverables: fields.deliverables?.[0],
+      toneOfVoice: fields.toneOfVoice?.[0],
+    };
+
+    return {
+      success: false,
+      error: 'Revise os campos destacados antes de gerar o copy.',
+      fieldErrors,
+    };
   }
+
+  const context = parsedInput.data;
 
   if (referenceImages.length > MAX_REFERENCE_IMAGES) {
     return {
       success: false,
       error: `Envie no máximo ${MAX_REFERENCE_IMAGES} imagens de referência.`,
+      fieldErrors: {},
     };
   }
 
@@ -52,6 +124,7 @@ export async function generateProjectCopy(
       return {
         success: false,
         error: `Formato não suportado: ${image.name}. Use PNG, JPG, WEBP ou GIF.`,
+        fieldErrors: {},
       };
     }
 
@@ -59,12 +132,17 @@ export async function generateProjectCopy(
       return {
         success: false,
         error: `A imagem "${image.name}" excede 8MB. Reduza o arquivo e tente novamente.`,
+        fieldErrors: {},
       };
     }
   }
 
   if (!process.env.OPENAI_API_KEY) {
-    return { success: false, error: 'Chave da API OpenAI não configurada.' };
+    return {
+      success: false,
+      error: 'Chave da API OpenAI não configurada.',
+      fieldErrors: {},
+    };
   }
 
   const SYSTEM_PROMPT = `[
@@ -179,8 +257,21 @@ The reader should finish the page feeling that the work was not made to impress 
       {
         type: 'text',
         text: [
-          'CONTEXTO DO PROJETO:',
-          context,
+          'CONTEXTO ESTRUTURADO DO PROJETO (JSON):',
+          JSON.stringify(
+            {
+              project_name: context.projectName,
+              client_name: context.clientName,
+              objective: context.objective,
+              target_audience: context.targetAudience,
+              visual_concept: context.visualConcept,
+              key_challenges: context.keyChallenges,
+              deliverables: context.deliverables,
+              tone_of_voice: context.toneOfVoice,
+            },
+            null,
+            2
+          ),
           '',
           referenceImages.length > 0
             ? `IMAGENS ANEXADAS: ${referenceImages.length}. Analise composição, tom visual, estilo e intenção para orientar o texto.`
@@ -202,7 +293,7 @@ The reader should finish the page feeling that the work was not made to impress 
 
     const content = response.choices[0]?.message?.content || '';
 
-    return { success: true, content };
+    return { success: true, content, fieldErrors: {} };
   } catch (error: unknown) {
     console.error('OpenAI API Error:', error);
     const errorMessage =
@@ -212,6 +303,7 @@ The reader should finish the page feeling that the work was not made to impress 
     return {
       success: false,
       error: errorMessage,
+      fieldErrors: {},
     };
   }
 }

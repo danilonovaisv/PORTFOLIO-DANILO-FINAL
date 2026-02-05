@@ -4,11 +4,13 @@ import { useActionState, useState, type ChangeEvent } from 'react';
 import { generateProjectCopy } from './actions';
 import { Loader2, Copy, Check, PenTool } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import { FieldTooltip } from '@/components/admin/FieldTooltip';
 
 const initialState = {
   success: false,
   content: '',
   error: '',
+  fieldErrors: {} as Record<string, string | undefined>,
 };
 
 export default function CopyAgentPage() {
@@ -18,6 +20,13 @@ export default function CopyAgentPage() {
   );
   const [copied, setCopied] = useState(false);
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
+  const fieldErrors = state.fieldErrors ?? {};
+  const inputClass = (hasError: boolean) =>
+    `w-full rounded-lg border px-4 py-2.5 text-sm text-slate-200 placeholder:text-slate-600 outline-none transition-all ${
+      hasError
+        ? 'border-red-400/70 bg-red-500/5 focus:border-red-400 focus:ring-1 focus:ring-red-400'
+        : 'border-white/10 bg-slate-950 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500'
+    }`;
 
   const handleImagesChange = (event: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
@@ -62,39 +71,159 @@ export default function CopyAgentPage() {
                 className="space-y-4"
                 encType="multipart/form-data"
               >
-                <div className="space-y-2">
-                  <label
-                    htmlFor="context"
-                    className="block text-sm font-medium text-slate-300"
-                  >
-                    Contexto do Projeto
-                  </label>
-                  <textarea
-                    id="context"
-                    name="context"
-                    required
-                    rows={12}
-                    className="w-full rounded-lg bg-slate-950 border border-white/10 px-4 py-3 text-sm text-slate-200 placeholder:text-slate-600 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all resize-none"
-                    placeholder={`Nome do Projeto:
-Cliente:
-Objetivo:
-Conceito Visual:
-Público Alvo:
-Desafios:`}
-                  />
-                  <p className="text-xs text-slate-500">
-                    Quanto mais detalhes sobre a intenção e o conceito, melhor o
-                    resultado.
-                  </p>
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="space-y-2">
+                    <FieldTooltip
+                      label="Nome do Projeto"
+                      description="Use o nome oficial para o texto final respeitar branding e consistência."
+                      className="flex items-center gap-1"
+                    />
+                    <input
+                      id="projectName"
+                      name="projectName"
+                      required
+                      className={inputClass(Boolean(fieldErrors.projectName))}
+                      placeholder="Ex: Rebranding Orion Systems"
+                    />
+                    {fieldErrors.projectName && (
+                      <p className="text-xs text-red-300">{fieldErrors.projectName}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <FieldTooltip
+                      label="Cliente"
+                      description="Nome da empresa/marca para contextualizar tom e posicionamento."
+                      className="flex items-center gap-1"
+                    />
+                    <input
+                      id="clientName"
+                      name="clientName"
+                      required
+                      className={inputClass(Boolean(fieldErrors.clientName))}
+                      placeholder="Ex: Orion Systems"
+                    />
+                    {fieldErrors.clientName && (
+                      <p className="text-xs text-red-300">{fieldErrors.clientName}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <FieldTooltip
+                      label="Objetivo"
+                      description="Explique o problema estratégico que o projeto precisa resolver."
+                      className="flex items-center gap-1"
+                    />
+                    <textarea
+                      id="objective"
+                      name="objective"
+                      required
+                      rows={3}
+                      className={`${inputClass(Boolean(fieldErrors.objective))} resize-none`}
+                      placeholder="Ex: Reposicionar a marca para o segmento enterprise sem perder percepção de inovação."
+                    />
+                    {fieldErrors.objective && (
+                      <p className="text-xs text-red-300">{fieldErrors.objective}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <FieldTooltip
+                      label="Público-alvo"
+                      description="Quem deve se conectar com a narrativa do case."
+                      className="flex items-center gap-1"
+                    />
+                    <input
+                      id="targetAudience"
+                      name="targetAudience"
+                      required
+                      className={inputClass(Boolean(fieldErrors.targetAudience))}
+                      placeholder="Ex: Diretores de marketing B2B e tomadores de decisão em tecnologia."
+                    />
+                    {fieldErrors.targetAudience && (
+                      <p className="text-xs text-red-300">{fieldErrors.targetAudience}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <FieldTooltip
+                      label="Conceito Visual"
+                      description="Direção criativa principal, linguagem, ritmo e universo estético."
+                      className="flex items-center gap-1"
+                    />
+                    <textarea
+                      id="visualConcept"
+                      name="visualConcept"
+                      required
+                      rows={3}
+                      className={`${inputClass(Boolean(fieldErrors.visualConcept))} resize-none`}
+                      placeholder="Ex: Sistema modular com contraste alto, tipografia condensada e presença silenciosa."
+                    />
+                    {fieldErrors.visualConcept && (
+                      <p className="text-xs text-red-300">{fieldErrors.visualConcept}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <FieldTooltip
+                      label="Desafios"
+                      description="Liste limitações, conflitos de escopo ou pontos críticos de execução."
+                      className="flex items-center gap-1"
+                    />
+                    <textarea
+                      id="keyChallenges"
+                      name="keyChallenges"
+                      required
+                      rows={3}
+                      className={`${inputClass(Boolean(fieldErrors.keyChallenges))} resize-none`}
+                      placeholder="Ex: Harmonizar linguagem premium com prazos curtos e múltiplos touchpoints."
+                    />
+                    {fieldErrors.keyChallenges && (
+                      <p className="text-xs text-red-300">{fieldErrors.keyChallenges}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <FieldTooltip
+                      label="Entregáveis (opcional)"
+                      description="Lista curta do que foi produzido."
+                      className="flex items-center gap-1"
+                    />
+                    <input
+                      id="deliverables"
+                      name="deliverables"
+                      className={inputClass(Boolean(fieldErrors.deliverables))}
+                      placeholder="Ex: Brand system, key visual, guideline, assets digitais"
+                    />
+                    {fieldErrors.deliverables && (
+                      <p className="text-xs text-red-300">{fieldErrors.deliverables}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <FieldTooltip
+                      label="Tom desejado (opcional)"
+                      description="Diretriz de voz para saída textual (editorial, técnico, emocional, etc.)."
+                      className="flex items-center gap-1"
+                    />
+                    <input
+                      id="toneOfVoice"
+                      name="toneOfVoice"
+                      className={inputClass(Boolean(fieldErrors.toneOfVoice))}
+                      placeholder="Ex: Editorial, sofisticado e conciso"
+                    />
+                    {fieldErrors.toneOfVoice && (
+                      <p className="text-xs text-red-300">{fieldErrors.toneOfVoice}</p>
+                    )}
+                  </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label
-                    htmlFor="referenceImages"
-                    className="block text-sm font-medium text-slate-300"
-                  >
-                    Imagens de Referência (Opcional)
-                  </label>
+                  <FieldTooltip
+                    label="Imagens de Referência (opcional)"
+                    description="Até 4 imagens para orientar direção visual e tom narrativo."
+                    className="flex items-center gap-1"
+                  />
                   <input
                     id="referenceImages"
                     name="referenceImages"

@@ -23,6 +23,8 @@ create table if not exists public.portfolio_projects (
   description text,
   thumbnail_path text,
   hero_image_path text,
+  url_landscape text,
+  url_square text,
   gallery jsonb not null default '[]'::jsonb,
   featured_on_home boolean not null default false,
   featured_on_portfolio boolean not null default false,
@@ -169,3 +171,37 @@ create policy "Auth update portfolio-media/site-assets"
 create policy "Auth delete portfolio-media/site-assets"
   on storage.objects for delete
   using (bucket_id in ('portfolio-media', 'site-assets') and auth.role() = 'authenticated');
+
+-- Realtime publication (zero-deploy sync)
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_publication_tables
+    where pubname = 'supabase_realtime'
+      and schemaname = 'public'
+      and tablename = 'portfolio_projects'
+  ) then
+    alter publication supabase_realtime add table public.portfolio_projects;
+  end if;
+
+  if not exists (
+    select 1
+    from pg_publication_tables
+    where pubname = 'supabase_realtime'
+      and schemaname = 'public'
+      and tablename = 'portfolio_project_tags'
+  ) then
+    alter publication supabase_realtime add table public.portfolio_project_tags;
+  end if;
+
+  if not exists (
+    select 1
+    from pg_publication_tables
+    where pubname = 'supabase_realtime'
+      and schemaname = 'public'
+      and tablename = 'site_assets'
+  ) then
+    alter publication supabase_realtime add table public.site_assets;
+  end if;
+end $$;

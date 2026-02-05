@@ -112,6 +112,8 @@ export type Database = {
           slug: string;
           thumbnail_path: string | null;
           title: string;
+          url_landscape: string | null;
+          url_square: string | null;
           updated_at: string;
           year: number | null;
         };
@@ -134,6 +136,8 @@ export type Database = {
           slug: string;
           thumbnail_path?: string | null;
           title: string;
+          url_landscape?: string | null;
+          url_square?: string | null;
           updated_at?: string;
           year?: number | null;
         };
@@ -156,6 +160,8 @@ export type Database = {
           slug?: string;
           thumbnail_path?: string | null;
           title?: string;
+          url_landscape?: string | null;
+          url_square?: string | null;
           updated_at?: string;
           year?: number | null;
         };

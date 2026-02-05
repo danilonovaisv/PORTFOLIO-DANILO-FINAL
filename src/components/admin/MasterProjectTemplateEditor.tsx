@@ -53,7 +53,7 @@ const splitLines = (value: string): string[] =>
 const createGalleryDraft = (index: number): MasterProjectGalleryDraft => ({
   id: `grid-item-${index + 1}`,
   kind: 'image',
-  layout: 'full',
+  layout: 'grid',
   src: '',
   alt: '',
   title: '',
@@ -595,6 +595,8 @@ export default function MasterProjectTemplateEditor({
                         })
                       }
                     >
+                      <option value="grid">Grid</option>
+                      <option value="full-highlight">Full Highlight</option>
                       <option value="full">Full Width</option>
                       <option value="feature">Feature Banner</option>
                       <option value="quote-band">Quote Band</option>

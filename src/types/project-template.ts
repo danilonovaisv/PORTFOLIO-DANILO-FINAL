@@ -10,6 +10,8 @@ export type ProjectTemplateId =
 export type MasterProjectMediaKind = 'image' | 'video';
 
 export type MasterProjectGalleryLayout =
+  | 'grid'
+  | 'full-highlight'
   | 'full'
   | 'quote-band'
   | 'feature'

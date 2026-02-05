@@ -1,4 +1,5 @@
 export type AIModel = 'nano-banana' | 'dall-e-3' | 'sora' | 'flow' | 'whisky';
+export type OutputRatio = '1:1' | '16:9' | '9:16' | '4:5';
 
 export type AIModelOption = {
   id: AIModel;
@@ -77,9 +78,30 @@ export function normalizeAIModels(value: unknown): AIModelOption[] {
   return AI_MODELS;
 }
 
+export const OUTPUT_RATIO_PRESETS: Array<{
+  id: OutputRatio;
+  label: string;
+  description: string;
+}> = [
+  { id: '1:1', label: 'Quadrado', description: 'Feeds e composições centrais' },
+  { id: '16:9', label: 'Horizontal', description: 'Hero, vídeo e outdoor digital' },
+  { id: '9:16', label: 'Vertical', description: 'Stories, Reels e mobile-first' },
+  { id: '4:5', label: 'Retrato', description: 'Social ads e posters verticais' },
+];
+
+export type SceneGenerationPayload = {
+  model: AIModel;
+  pieceType: string;
+  description: string;
+  batchSize: number;
+  outputRatio: OutputRatio;
+  referenceCount: number;
+};
+
 export type SceneGeneratorState = {
   success: boolean;
   images?: string[];
   error?: string;
   model?: AIModel;
+  requestPayload?: SceneGenerationPayload;
 };

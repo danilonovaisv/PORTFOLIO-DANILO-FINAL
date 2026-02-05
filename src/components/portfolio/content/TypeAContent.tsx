@@ -5,7 +5,7 @@
 
 'use client';
 
-import { FC } from 'react';
+import { FC, useMemo, useState } from 'react';
 import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, Calendar, Building2 } from 'lucide-react';
@@ -19,6 +19,7 @@ import {
 } from '@/components/portfolio/modal/variants';
 import { applyImageFallback, isVideo } from '@/utils/utils';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { ImageLightbox } from '@/components/portfolio/ImageLightbox';
 
 interface TypeAContentProps {
   project: PortfolioProject;
@@ -32,6 +33,17 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
   const prefersReducedMotion = useReducedMotion();
   const shouldReduce = !!prefersReducedMotion;
   const fadeInUpVariants = getFadeInUp(shouldReduce);
+  const [lightboxSource, setLightboxSource] = useState<string | null>(null);
+  const [lightboxAlt, setLightboxAlt] = useState('');
+  const heroMedia = useMemo(
+    () => project.imageLandscape ?? project.imageSquare ?? project.image,
+    [project.image, project.imageLandscape, project.imageSquare]
+  );
+
+  const openLightbox = (src: string, alt: string) => {
+    setLightboxSource(src);
+    setLightboxAlt(alt);
+  };
 
   return (
     <div className="flex flex-col gap-8">
@@ -42,9 +54,9 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
         variants={getMediaVariants(shouldReduce)}
         className="card-shell relative w-full aspect-video md:aspect-21/9 rounded-2xl overflow-hidden bg-white/5"
       >
-        {isVideo(project.image) ? (
+        {isVideo(heroMedia) ? (
           <video
-            src={project.image}
+            src={heroMedia}
             autoPlay
             muted
             loop
@@ -56,7 +68,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
           </video>
         ) : (
           <Image
-            src={project.image}
+            src={heroMedia}
             alt={project.title}
             fill
             className="object-cover"
@@ -68,6 +80,13 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
 
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
+
+        <button
+          type="button"
+          onClick={() => openLightbox(heroMedia, `${project.title} - imagem principal`)}
+          className="absolute inset-0 z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+          aria-label="Ampliar imagem principal"
+        />
 
         {/* Category badge */}
         <div className="absolute top-6 left-6">
@@ -160,7 +179,7 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-3 py-1.5 rounded-full bg-white/60 backdrop-blur-md border border-white/10 text-xs text-void font-medium"
+                  className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/60 px-1.5 py-0.5 text-[0.5em] text-center uppercase tracking-[0.18em] text-void"
                 >
                   {tag}
                 </span>
@@ -194,10 +213,12 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
           <h3 className="text-lg font-semibold text-white mb-4">Galeria</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {project.detail.gallery.map((img, i) => (
-              <motion.div
+              <motion.button
                 key={i}
                 variants={fadeInUpVariants}
-                className="relative aspect-square rounded-xl overflow-hidden bg-white/5"
+                type="button"
+                onClick={() => openLightbox(img, `${project.title} - Imagem ${i + 1}`)}
+                className="relative aspect-square rounded-xl overflow-hidden bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
               >
                 {isVideo(img) ? (
                   <video
@@ -221,11 +242,18 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
                     onError={applyImageFallback}
                   />
                 )}
-              </motion.div>
+              </motion.button>
             ))}
           </div>
         </motion.div>
       )}
+
+      <ImageLightbox
+        isOpen={Boolean(lightboxSource)}
+        src={lightboxSource}
+        alt={lightboxAlt || project.title}
+        onClose={() => setLightboxSource(null)}
+      />
     </div>
   );
 };

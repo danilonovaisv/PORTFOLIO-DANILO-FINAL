@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { SiteClosure } from '@/components/layout/SiteClosure';
-import FeaturedProjectsSection from '@/components/home/featured-projects/FeaturedProjectsSection';
+import FeaturedProjectsRealtime from '@/components/home/featured-projects/FeaturedProjectsRealtime';
 import HomeHero from '@/components/home/hero/HomeHero';
 import PortfolioShowcase from '@/components/home/portfolio-showcase/PortfolioShowcase';
 import { VideoManifesto } from '@/components/home/hero/VideoManifesto';
@@ -78,7 +78,7 @@ export default async function HomePage() {
       <HomeHero />
       <VideoManifesto src={BRAND.assets.video.manifesto} />
       <PortfolioShowcase />
-      <FeaturedProjectsSection projects={featuredProjects} />
+      <FeaturedProjectsRealtime initialProjects={featuredProjects} />
       <ClientsBrandsSection />
       <ContactSection />
       <SiteClosure />

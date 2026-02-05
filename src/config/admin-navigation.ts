@@ -8,7 +8,8 @@ export const ADMIN_NAVIGATION = {
   tags: '/admin/tags',
   midia: '/admin/midia',
   'landing-pages': '/admin/landing-pages',
-  config: '/admin/config',
+  settings: '/admin/settings',
+  config: '/admin/settings',
   copyAgent: '/admin/copy-agent',
   sceneGenerator: '/admin/scene-generator',
 } as const;

@@ -87,6 +87,10 @@ export interface PortfolioProject {
   year: number;
   /** Imagem principal (cover) */
   image: string;
+  /** Variante 16:9 para containers horizontais */
+  imageLandscape?: string;
+  /** Variante 1:1 para containers quadrados */
+  imageSquare?: string;
   /** Imagem de hover (opcional) */
   hoverImage?: string;
   /** Vídeo de preview (opcional, para motion) */
