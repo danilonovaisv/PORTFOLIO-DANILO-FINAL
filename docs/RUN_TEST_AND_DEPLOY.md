@@ -34,7 +34,7 @@ Este script:
 ### Opção 1: Usando o script shell
 
 ```bash
-cd /Users/danilonovais/_danilonov_portfolio
+cd /Users/danilonovais/PORTFOLIO-DANILO-FINAL
 chmod +x scripts/test-and-deploy.sh
 ./scripts/test-and-deploy.sh
 ```
@@ -42,7 +42,7 @@ chmod +x scripts/test-and-deploy.sh
 ### Opção 2: Usando o script TypeScript
 
 ```bash
-cd /Users/danilonovais/_danilonov_portfolio
+cd /Users/danilonovais/PORTFOLIO-DANILO-FINAL
 npx tsx scripts/run-full-test-and-deploy.ts
 ```
 

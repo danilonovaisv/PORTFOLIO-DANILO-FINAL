@@ -1,12 +1,12 @@
  WARN  Unsupported engine: wanted: {"node":"22"} (current: {"node":"v24.12.0","npm":"10.28.0"})
 
-> danilo-novais-portfolio@1.0.1 prebuild /Users/danilonovais/_danilonov_portfolio
+> danilo-novais-portfolio@1.0.1 prebuild /Users/danilonovais/PORTFOLIO-DANILO-FINAL
 > node scripts/generate-build-info.cjs
 
-[build-info] wrote /Users/danilonovais/_danilonov_portfolio/public/build-info.json
+[build-info] wrote /Users/danilonovais/PORTFOLIO-DANILO-FINAL/public/build-info.json
 [build-info] {"buildTimeISO":"2026-01-16T10:55:28.708Z","gitSha":"","gitShaShort":"","nodeEnv":""}
 
-> danilo-novais-portfolio@1.0.1 build /Users/danilonovais/_danilonov_portfolio
+> danilo-novais-portfolio@1.0.1 build /Users/danilonovais/PORTFOLIO-DANILO-FINAL
 > next build
 
    ▲ Next.js 15.1.11
@@ -69,4 +69,3 @@ Route (app)                              Size     First Load JS
 ○  (Static)   prerendered as static content
 ●  (SSG)      prerendered as static HTML (uses generateStaticParams)
 ƒ  (Dynamic)  server-rendered on demand
-

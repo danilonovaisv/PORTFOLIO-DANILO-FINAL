@@ -213,7 +213,7 @@ https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/ab
 
 ### Documentação:
 ```
-/Users/danilonovais/_danilonov_portfolio/docs/SOBRE/AboutBeliefs/
+/Users/danilonovais/PORTFOLIO-DANILO-FINAL/docs/SOBRE/AboutBeliefs/
 ├── INDEX.md                      # Navegação completa
 ├── README.md                     # Porta de entrada
 ├── SPEC_AboutBeliefs_v2.md       # Especificação completa
@@ -226,7 +226,7 @@ https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/ab
 
 ### Implementação:
 ```
-/Users/danilonovais/_danilonov_portfolio/src/components/sobre/
+/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/sobre/
 ├── sections/
 │   └── AboutBeliefs.tsx          # Componente principal
 ├── beliefs/

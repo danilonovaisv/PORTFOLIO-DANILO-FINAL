@@ -1,7 +1,7 @@
 # 🎬 PROTÓTIPO INTERATIVO — PÁGINA PORTFOLIO (Showcase)
 Versão: **3.3 (layout + hover azul)** • Data: **2026-02-05**  
 Produção: https://portfoliodanilo.com  
-Repo: https://github.com/danilonovaisv/_danilonov_portfolio  
+Repo: https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL.git  
 
 > Este arquivo é a **fonte canônica** para a página **/portfolio**: estrutura, comportamento, animações e contratos de dados.
 >

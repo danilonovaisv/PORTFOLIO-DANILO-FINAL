@@ -2,7 +2,7 @@
 
 **Data:** 02 de Fevereiro de 2026
 **Responsável:** Antigravity Agent
-**Escopo:** Repositório `_danilonov_portfolio` (src/)
+**Escopo:** Repositório `PORTFOLIO-DANILO-FINAL` (src/)
 
 ---
 

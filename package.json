@@ -53,8 +53,8 @@
     "clawdbot:seo": "clawdbot exec --script lighthouse-audit"
   },
   "dependencies": {
-    "@dataconnect/admin-generated": "link:src/dataconnect-admin-generated",
-    "@dataconnect/generated": "link:src/dataconnect-generated",
+    "@dataconnect/admin-generated": "file:src/dataconnect-admin-generated",
+    "@dataconnect/generated": "file:src/dataconnect-generated",
     "@genkit-ai/google-genai": "^1.28.0",
     "@google/adk": "^0.3.0",
     "@gsap/react": "^2.1.2",

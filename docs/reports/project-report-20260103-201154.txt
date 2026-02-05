@@ -1,5 +1,5 @@
 ===========================================
- Projeto: _danilonov_portfolio
+ Projeto: PORTFOLIO-DANILO-FINAL
  Data: Sat Jan  3 20:11:54 -03 2026
  Package manager detectado: npm
 ===========================================
@@ -53,15 +53,15 @@ npm warn Unknown project config "shamefully-hoist". This will stop working in th
 > npm run eslint:ci && npm run typecheck && npm run prettier && npm run jest
 
 
-> danilo-novais-portfolio@0.0.0 eslint:ci /Users/danilonovais/_danilonov_portfolio
+> danilo-novais-portfolio@0.0.0 eslint:ci /Users/danilonovais/PORTFOLIO-DANILO-FINAL
 > eslint .
 
 
-> danilo-novais-portfolio@0.0.0 typecheck /Users/danilonovais/_danilonov_portfolio
+> danilo-novais-portfolio@0.0.0 typecheck /Users/danilonovais/PORTFOLIO-DANILO-FINAL
 > tsc --noEmit --strict --jsx react-jsx
 
 
-> danilo-novais-portfolio@0.0.0 prettier /Users/danilonovais/_danilonov_portfolio
+> danilo-novais-portfolio@0.0.0 prettier /Users/danilonovais/PORTFOLIO-DANILO-FINAL
 > prettier --check .
 
 Checking formatting...
@@ -104,4 +104,3 @@ Use este relatório para colar em uma IA (Codex/ChatGPT) e pedir:
 - Sugestões para corrigir erros de lint e testes;
 - Ajustes de dependências desatualizadas ou não utilizadas;
 - Refatorações sugeridas com base nos erros.
-

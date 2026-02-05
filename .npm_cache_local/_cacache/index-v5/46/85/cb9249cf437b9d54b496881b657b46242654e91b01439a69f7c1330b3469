@@ -1,0 +1,2 @@
+
+0409e536f84115c0fb339288e699c1a353f03bde	{"key":"make-fetch-happen:request-cache:https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest","integrity":"sha512-oqMIfG/OxwiSpLR4X97NUFBjovBN8Hm1tSqjl/oHdhB5f3vAJC9C52Lym0VjaWqOCoy8tVUXHSxSDnZ0VIB4sw==","time":1770307626160,"size":432539,"metadata":{"time":1770307626101,"url":"https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest","reqHeaders":{},"resHeaders":{"content-type":"application/octet-stream","date":"Thu, 05 Feb 2026 16:07:06 GMT","vary":"Origin"},"options":{"compress":true}}}
