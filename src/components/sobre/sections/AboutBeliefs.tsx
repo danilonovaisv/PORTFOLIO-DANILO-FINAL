@@ -1,6 +1,7 @@
+
 'use client';
-import React, { Suspense } from 'react';
-import { cubicBezier, useScroll, useTransform, MotionValue } from 'framer-motion';
+import React from 'react';
+import { cubicBezier, useScroll, useTransform } from 'framer-motion';
 import { BeliefSection, BeliefMobileTextLayer } from '../beliefs/BeliefSection';
 import { BeliefFinalSection } from '../beliefs/BeliefFinalSection';
 import { BeliefFixedHeader } from '../beliefs/BeliefFixedHeader';
@@ -83,9 +84,6 @@ export const AboutBeliefs: React.FC = () => {
 
           {/* 3D Scene Wrapper - Responsive Positioning */}
           <div className="w-full h-full md:absolute md:inset-0 relative">
-            {/* Mobile specific positioning if needed can be handled via CSS or Drei Canvas props, 
-                 but standard full screen canvas usually works best with camera adjustments inside.
-             */}
             <GhostScene scrollProgress={scrollYProgress} />
           </div>
 

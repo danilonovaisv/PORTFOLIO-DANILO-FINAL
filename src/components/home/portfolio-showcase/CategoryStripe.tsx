@@ -179,7 +179,7 @@ export function CategoryStripe({
               ))}
             </div>
             {/* Touch target: 48px minimum for accessibility */}
-            <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-[#0048ff] active:bg-[#8705f2] active:scale-95 transition-all duration-200">
+            <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-[#0048ff] active:bg-purpleDetails active:scale-95 transition-all duration-200">
               <ArrowUpRight className="w-5 h-5 text-white" />
             </div>
           </div>

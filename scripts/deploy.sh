@@ -25,7 +25,7 @@ echo "pnpm: $(pnpm --version)"
 echo "firebase: $(firebase --version)"
 
 # Build (assume predeploy já rodou via package.json)
-pnpm run build
+npx next build
 
 # Consolida estáticos
 bash "$SCRIPT_DIR/prepare-hosting.sh"

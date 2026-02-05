@@ -54,8 +54,8 @@ export default function SceneGeneratorPage() {
                       <label
                         key={model.id}
                         className={`relative flex items-center gap-3 rounded-lg border p-3 cursor-pointer transition-all ${model.available
-                            ? 'border-white/10 hover:border-emerald-500/50 hover:bg-white/5'
-                            : 'border-white/5 opacity-50 cursor-not-allowed'
+                          ? 'border-white/10 hover:border-emerald-500/50 hover:bg-white/5'
+                          : 'border-white/5 opacity-50 cursor-not-allowed'
                           }`}
                       >
                         <input
@@ -66,7 +66,7 @@ export default function SceneGeneratorPage() {
                           disabled={!model.available}
                           className="sr-only peer"
                         />
-                        <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center peer-checked:bg-emerald-500/20 peer-checked:text-emerald-400 transition-colors">
+                        <div className="shrink-0 w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center peer-checked:bg-emerald-500/20 peer-checked:text-emerald-400 transition-colors">
                           <Sparkles size={16} />
                         </div>
                         <div className="flex-1 min-w-0">
