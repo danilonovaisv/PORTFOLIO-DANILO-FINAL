@@ -1,14 +1,12 @@
-import React, { ReactNode, Suspense } from 'react';
+import React, { ReactNode } from 'react';
 import { Canvas } from '@react-three/fiber';
 import {
   Environment,
   ScrollControls,
-  Scroll,
   Sparkles,
   ContactShadows,
 } from '@react-three/drei';
-import GhostModel from './GhostModel';
-import { ProceduralGhost } from './ProceduralGhost';
+import { GhostModel } from './GhostModel';
 
 interface ThreeErrorBoundaryProps {
   children?: ReactNode;
@@ -42,23 +40,22 @@ const AmbientLight = 'ambientLight' as any;
 const DirectionalLight = 'directionalLight' as any;
 const PointLight = 'pointLight' as any;
 
-interface GhostSceneProps {
-  children?: ReactNode;
-  pages?: number;
-}
-
-const GhostScene: React.FC<GhostSceneProps> = ({ children, pages = 6 }) => {
+const GhostScene: React.FC = () => {
   return (
     <Canvas
       shadows
       dpr={[1, 2]}
-      gl={{ antialias: true, alpha: true }}
+      gl={{ antialias: true, alpha: true }} // Alpha true permite ver o que está atrás do canvas
       camera={{ position: [0, 0, 5], fov: 45 }}
-      style={{ width: '100%', height: '100vh' }}
     >
+      {/* Background transparente para mostrar o Overlay que está na camada de baixo */}
+
       <AmbientLight intensity={0.5} />
+
       <DirectionalLight position={[2, 5, 2]} intensity={1.5} castShadow />
+
       <PointLight position={[-5, 2, 2]} intensity={1} />
+
       <Environment preset="city" />
 
       <Sparkles
@@ -70,20 +67,10 @@ const GhostScene: React.FC<GhostSceneProps> = ({ children, pages = 6 }) => {
         color="#ffffff"
       />
 
-      <ScrollControls pages={pages} damping={0.1}>
-        {/* Layer 3D - The Ghost follows the scroll */}
-        <Scroll>
-          <ThreeErrorBoundary fallback={<ProceduralGhost />}>
-            <Suspense fallback={<ProceduralGhost />}>
-              <GhostModel />
-            </Suspense>
-          </ThreeErrorBoundary>
-        </Scroll>
-
-        {/* Layer HTML - The Text Content */}
-        <Scroll html style={{ width: '100%', height: '100%' }}>
-          {children}
-        </Scroll>
+      <ScrollControls pages={4} damping={0.1}>
+        <ThreeErrorBoundary fallback={null}>
+          <GhostModel />
+        </ThreeErrorBoundary>
       </ScrollControls>
 
       <ContactShadows

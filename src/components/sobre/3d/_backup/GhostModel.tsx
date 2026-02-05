@@ -7,7 +7,7 @@ Title: Ghost w/ Tophat
 */
 import * as THREE from 'three';
 import React, { useEffect, useMemo, useRef } from 'react';
-import { useGLTF, useScroll } from '@react-three/drei';
+import { useGLTF } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { GLTF } from 'three-stdlib';
 import { MotionValue, useReducedMotion } from 'framer-motion';
@@ -29,7 +29,6 @@ type GLTFResult = GLTF & {
 
 // Definição da interface com scrollProgress
 interface GhostModelProps extends React.ComponentProps<'group'> {
-  // Mantemos para compatibilidade, mas o componente usa useScroll do Drei prioritariamente
   scrollProgress?: MotionValue<number>;
   scale?: number | [number, number, number];
 }
@@ -38,9 +37,8 @@ const GHOST_URL =
   'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb';
 const GHOST_MESH_ROTATION: [number, number, number] = [-Math.PI / 2, 0, 0];
 
-export function GhostModel({ scrollProgress: _scrollProgress, ...props }: GhostModelProps) {
+export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
   const prefersReducedMotion = useReducedMotion();
-  const scroll = useScroll(); // DREI SCROLL HOOK
 
   const { nodes, materials } = useGLTF(GHOST_URL) as unknown as GLTFResult;
 
@@ -48,7 +46,6 @@ export function GhostModel({ scrollProgress: _scrollProgress, ...props }: GhostM
   const groupRef = useRef<THREE.Group>(null);
   const animRef = useRef<THREE.Group>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
-
   const basePosition = useMemo(() => {
     if (Array.isArray(props.position)) {
       const [x = 0, y = 0, z = 0] = props.position;
@@ -164,9 +161,7 @@ export function GhostModel({ scrollProgress: _scrollProgress, ...props }: GhostM
   useFrame((state) => {
     if (!animRef.current || !groupRef.current) return;
 
-    // Use Drei's scroll.offset if available, fallback to 0
-    // This allows the animation to work with ScrollControls
-    const progress = scroll ? scroll.offset : 0;
+    const progress = scrollProgress?.get?.() ?? 0;
     const mouse = prefersReducedMotion ? { x: 0, y: 0 } : mouseRef.current;
 
     const desktopMouseX = viewport.width >= 5 ? mouse.x * 0.14 : 0;
@@ -196,18 +191,11 @@ export function GhostModel({ scrollProgress: _scrollProgress, ...props }: GhostM
     const floatX = prefersReducedMotion
       ? 0
       : Math.cos(elapsedTime * 0.8) * 0.018;
-
-    // Animate Y position based on scroll progress (fly up/down)
-    // Logic from docs/SOBRE/ANIMA-3DGHOST/GhostModel.tsx
     const scrollLift = prefersReducedMotion
       ? 0
       : THREE.MathUtils.clamp(progress * 0.14, 0, 0.14);
-
     const mobileLift = viewport.width < 5 ? 0.06 : 0;
-
     const targetY = mouse.y * 0.04 + floatY + scrollLift + mobileLift;
-    // Note: Restored original logic ensuring scroll affects Y position
-
     const targetX = floatX;
 
     animRef.current.position.x = THREE.MathUtils.lerp(
@@ -225,15 +213,8 @@ export function GhostModel({ scrollProgress: _scrollProgress, ...props }: GhostM
       0,
       0.06
     );
-
-    // Rotation based on scroll
-    animRef.current.rotation.y = THREE.MathUtils.lerp(
-      animRef.current.rotation.y,
-      progress * Math.PI * 4, // Spin based on scroll
-      0.05
-    );
-
     animRef.current.rotation.x = 0;
+    animRef.current.rotation.y = 0;
     animRef.current.rotation.z = 0;
   });
 
@@ -277,9 +258,8 @@ export function GhostModel({ scrollProgress: _scrollProgress, ...props }: GhostM
   );
 }
 
-// Preload only in the browser
+// Preload only in the browser to avoid Node/SSG environments where
+// Web Workers (used by meshopt decoding) are unavailable.
 if (typeof window !== 'undefined') {
   useGLTF.preload(GHOST_URL);
 }
-
-export default GhostModel;
