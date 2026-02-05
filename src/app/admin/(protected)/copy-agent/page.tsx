@@ -105,15 +105,19 @@ Desafios:`}
                     className="block w-full rounded-lg border border-white/10 bg-slate-950 px-3 py-2 text-sm text-slate-300 file:mr-3 file:rounded-md file:border-0 file:bg-indigo-500/20 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-indigo-300 hover:file:bg-indigo-500/30 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 outline-none transition-all"
                     aria-describedby="referenceImages-help"
                   />
-                  <p id="referenceImages-help" className="text-xs text-slate-500">
-                    Envie até 4 imagens (PNG, JPG, WEBP ou GIF, máximo de 8MB cada)
-                    para o agent considerar o visual na escrita.
+                  <p
+                    id="referenceImages-help"
+                    className="text-xs text-slate-500"
+                  >
+                    Envie até 4 imagens (PNG, JPG, WEBP ou GIF, máximo de 8MB
+                    cada) para o agent considerar o visual na escrita.
                   </p>
                   {selectedImages.length > 0 && (
                     <ul className="rounded-lg border border-white/5 bg-slate-950/50 p-3 text-xs text-slate-400 space-y-1 max-h-32 overflow-y-auto">
                       {selectedImages.map((file) => (
                         <li key={`${file.name}-${file.lastModified}`}>
-                          {file.name} ({(file.size / (1024 * 1024)).toFixed(2)} MB)
+                          {file.name} ({(file.size / (1024 * 1024)).toFixed(2)}{' '}
+                          MB)
                         </li>
                       ))}
                     </ul>

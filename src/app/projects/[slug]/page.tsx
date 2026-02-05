@@ -123,7 +123,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   const projectYear =
     parsed.template === 'master-project-v1'
-      ? parsed.data.project_year ?? new Date().getFullYear()
+      ? (parsed.data.project_year ?? new Date().getFullYear())
       : new Date().getFullYear();
 
   const projectDescription = getProjectSeoDescription(parsed, project.title);

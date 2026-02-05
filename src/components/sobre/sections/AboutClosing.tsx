@@ -44,9 +44,9 @@ export function AboutClosing() {
             todos os canais.
           </p>
 
-          {/* Vídeo em Loop - Container flexível para manter aspecto nativo do vídeo */}
-          <div className="mt-12 w-full overflow-hidden rounded-xl shadow-2xl md:mt-11">
-            {/* Desktop Video - Mantém aspecto nativo sem corte */}
+          {/* Vídeo em Loop - Full Width (Edge to Edge) */}
+          <div className="mt-12 w-screen relative left-[50%] right-[50%] -ml-[50vw] overflow-hidden shadow-none md:mt-11">
+            {/* Desktop Video */}
             <video
               className="hidden md:block w-full h-auto"
               src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/VIDEO-SKILLS-FINAL_compressed.mp4"
@@ -66,7 +66,7 @@ export function AboutClosing() {
                 default
               />
             </video>
-            {/* Mobile Video - Mantém aspecto nativo sem corte */}
+            {/* Mobile Video */}
             <video
               className="md:hidden w-full h-auto"
               src="https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4"

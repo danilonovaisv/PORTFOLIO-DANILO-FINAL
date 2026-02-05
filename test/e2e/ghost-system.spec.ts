@@ -16,9 +16,7 @@ test.describe('Ghost System Verification', () => {
     ).toBeVisible();
 
     // Check navigation (wait longer for mount)
-    const nav = page
-      .getByRole('navigation', { name: /navegação principal/i })
-      .filter({ visible: true });
+    const nav = page.getByTestId('site-navigation').filter({ visible: true });
     await expect(nav).toBeVisible({ timeout: 10000 });
     await expect(nav).toContainText(/sobre/i);
   });
@@ -45,7 +43,7 @@ test.describe('Ghost System Verification', () => {
     ).toBeVisible();
 
     // Sticky gallery should be present for desktop
-    await expect(page.locator('.arch__right')).toBeVisible();
+    await expect(page.getByTestId('origin-sticky-gallery')).toBeVisible();
   });
 
   test('navigation should work from home to about', async ({ page }) => {

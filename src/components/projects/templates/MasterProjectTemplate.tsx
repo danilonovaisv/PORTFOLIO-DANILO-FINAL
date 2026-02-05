@@ -227,7 +227,9 @@ export default function MasterProjectTemplate({
             transition={{ duration: 0.72, ease: GHOST_EASE, delay: 0.16 }}
             className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.18em] text-[#4fe6ff]"
           >
-            {project.project_client ? <span>{project.project_client}</span> : null}
+            {project.project_client ? (
+              <span>{project.project_client}</span>
+            ) : null}
             {project.project_year ? <span>{project.project_year}</span> : null}
             {project.project_tags.map((tag) => (
               <span key={tag}>{tag}</span>

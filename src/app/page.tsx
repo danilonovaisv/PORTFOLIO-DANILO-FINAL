@@ -10,6 +10,7 @@ import { listProjects } from '@/lib/supabase/queries/projects';
 import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
 import { createStaticClient } from '@/lib/supabase/static';
 import type { PortfolioProject } from '@/types/project';
+import JsonLd from '@/components/ui/JsonLd';
 // Removed unused AntigravityDebugger import
 
 export const metadata: Metadata = {
@@ -71,6 +72,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <JsonLd pageType="home" />
       <HomeHero />
       <VideoManifesto src={BRAND.assets.video.manifesto} />
       <PortfolioShowcase />

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import ContactSection from '@/components/home/contact/ContactSection';
 import SiteFooter from '@/components/layout/SiteFooter';
 import { BRAND } from '@/config/brand';
+import JsonLd from '@/components/ui/JsonLd';
 
 export const metadata: Metadata = {
   title: 'Contato | Danilo Novais',
@@ -39,6 +40,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <JsonLd pageType="contact" />
       <ContactSection />
       <SiteFooter />
     </div>

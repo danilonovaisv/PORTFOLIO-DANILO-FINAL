@@ -97,8 +97,8 @@ export default function SceneGeneratorPage() {
                       <>
                         <input type="hidden" name="model" value="dall-e-3" />
                         <p className="rounded-lg border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-300">
-                          Não foi possível carregar os modelos de IA. O sistema usará
-                          DALL-E 3 como fallback.
+                          Não foi possível carregar os modelos de IA. O sistema
+                          usará DALL-E 3 como fallback.
                         </p>
                       </>
                     )}

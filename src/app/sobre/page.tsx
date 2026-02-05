@@ -9,6 +9,7 @@ import {
   AboutClosing,
 } from '@/components/sobre/sections';
 import { SiteClosure } from '@/components/layout/SiteClosure';
+import JsonLd from '@/components/ui/JsonLd';
 
 import { BRAND } from '@/config/brand';
 
@@ -48,6 +49,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background text-white">
+      <JsonLd pageType="about" />
       {/* Seção 01 — Hero/Manifesto */}
       <AboutHero />
       {/* Seção 02 — Origem Criativa */}

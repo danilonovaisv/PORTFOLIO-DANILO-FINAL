@@ -232,7 +232,9 @@ export default function MasterProjectTemplateEditor({
             <input
               className={inputClasses}
               value={value.project_title}
-              onChange={(event) => update({ project_title: event.target.value })}
+              onChange={(event) =>
+                update({ project_title: event.target.value })
+              }
             />
           </label>
 
@@ -263,7 +265,9 @@ export default function MasterProjectTemplateEditor({
                 type="color"
                 className="h-10 w-12 rounded border border-white/10 bg-transparent"
                 value={value.highlight_color || '#0048ff'}
-                onChange={(event) => update({ highlight_color: event.target.value })}
+                onChange={(event) =>
+                  update({ highlight_color: event.target.value })
+                }
                 title="Cor de destaque"
               />
               <input
@@ -281,7 +285,9 @@ export default function MasterProjectTemplateEditor({
             <input
               className={inputClasses}
               value={value.project_client || ''}
-              onChange={(event) => update({ project_client: event.target.value })}
+              onChange={(event) =>
+                update({ project_client: event.target.value })
+              }
             />
           </label>
 
@@ -313,7 +319,9 @@ export default function MasterProjectTemplateEditor({
           </label>
 
           <label className="space-y-1 md:col-span-2">
-            <span className={labelClasses}>Serviços (separados por vírgula)</span>
+            <span className={labelClasses}>
+              Serviços (separados por vírgula)
+            </span>
             <input
               className={inputClasses}
               value={(value.project_services || []).join(', ')}
@@ -328,7 +336,9 @@ export default function MasterProjectTemplateEditor({
             <textarea
               className={`${inputClasses} min-h-28`}
               value={value.project_summary || ''}
-              onChange={(event) => update({ project_summary: event.target.value })}
+              onChange={(event) =>
+                update({ project_summary: event.target.value })
+              }
             />
           </label>
 
@@ -337,12 +347,16 @@ export default function MasterProjectTemplateEditor({
             <input
               className={inputClasses}
               value={value.intro_headline || ''}
-              onChange={(event) => update({ intro_headline: event.target.value })}
+              onChange={(event) =>
+                update({ intro_headline: event.target.value })
+              }
             />
           </label>
 
           <label className="space-y-1 md:col-span-2">
-            <span className={labelClasses}>Parágrafos da intro (1 por linha)</span>
+            <span className={labelClasses}>
+              Parágrafos da intro (1 por linha)
+            </span>
             <textarea
               className={`${inputClasses} min-h-32`}
               value={(value.intro_body || []).join('\n')}
@@ -576,7 +590,8 @@ export default function MasterProjectTemplateEditor({
                       value={item.layout}
                       onChange={(event) =>
                         updateGalleryItem(item.id, {
-                          layout: event.target.value as MasterProjectGalleryItem['layout'],
+                          layout: event.target
+                            .value as MasterProjectGalleryItem['layout'],
                         })
                       }
                     >
@@ -595,7 +610,8 @@ export default function MasterProjectTemplateEditor({
                       value={item.kind}
                       onChange={(event) =>
                         updateGalleryItem(item.id, {
-                          kind: event.target.value === 'video' ? 'video' : 'image',
+                          kind:
+                            event.target.value === 'video' ? 'video' : 'image',
                         })
                       }
                     >

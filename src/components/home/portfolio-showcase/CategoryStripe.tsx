@@ -79,8 +79,6 @@ export function CategoryStripe({
             isHovered ? 'gap-10' : 'gap-6'
           )}
         >
-
-
           <motion.div
             className="relative overflow-hidden rounded-lg shrink-0"
             initial={false}

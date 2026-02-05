@@ -46,7 +46,9 @@ const asStringArray = (value: unknown): string[] => {
 const asMediaKind = (value: unknown): 'image' | 'video' =>
   value === 'video' ? 'video' : 'image';
 
-const asGalleryLayout = (value: unknown): MasterProjectGalleryItem['layout'] => {
+const asGalleryLayout = (
+  value: unknown
+): MasterProjectGalleryItem['layout'] => {
   switch (value) {
     case 'quote-band':
     case 'feature':
@@ -211,7 +213,9 @@ function normalizeMasterTemplate(
       ? normalizeAsset(record.hero_logo_image, `${defaults.project_title} logo`)
       : undefined,
     project_title:
-      asString(record.project_title) ?? fallback.title ?? defaults.project_title,
+      asString(record.project_title) ??
+      fallback.title ??
+      defaults.project_title,
     project_subtitle:
       asString(record.project_subtitle) ?? defaults.project_subtitle,
     project_client: asString(record.project_client) ?? defaults.project_client,
@@ -220,8 +224,7 @@ function normalizeMasterTemplate(
     project_services: asStringArray(record.project_services),
     project_summary:
       asString(record.project_summary) ?? defaults.project_summary,
-    intro_headline:
-      asString(record.intro_headline) ?? defaults.intro_headline,
+    intro_headline: asString(record.intro_headline) ?? defaults.intro_headline,
     intro_body: asStringArray(record.intro_body),
     highlight_color:
       asString(record.highlight_color) ?? defaults.highlight_color,

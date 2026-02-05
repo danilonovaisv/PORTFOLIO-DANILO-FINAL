@@ -153,6 +153,8 @@ function buildFallbackProjects(): PortfolioProject[] {
   });
 }
 
+import JsonLd from '@/components/ui/JsonLd';
+
 export default async function PortfolioPage(_props: PortfolioPageProps) {
   let projects: PortfolioProject[] = [];
 
@@ -187,5 +189,10 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
     projects = buildFallbackProjects();
   }
 
-  return <PortfolioClient projects={projects} />;
+  return (
+    <>
+      <JsonLd pageType="portfolio" />
+      <PortfolioClient projects={projects} />
+    </>
+  );
 }

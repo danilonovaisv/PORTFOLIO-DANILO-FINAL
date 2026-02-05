@@ -105,10 +105,11 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
       ref={containerRef}
       aria-label={text.replace(/\n/g, ' ')}
       style={{ backgroundColor: bgColor }}
-      className={`relative w-full h-screen flex overflow-hidden ${isMobile
-        ? 'items-end justify-start' // Mobile: espaço para texto fixed no footer
-        : 'items-center justify-start pl-8 lg:pl-16'
-        }`}
+      className={`relative w-full h-screen flex overflow-hidden ${
+        isMobile
+          ? 'items-end justify-start' // Mobile: espaço para texto fixed no footer
+          : 'items-center justify-start pl-8 lg:pl-16'
+      }`}
     >
       {/* Desktop: Texto inline */}
       {!isMobile && !isMobileTextLayer && (
@@ -221,9 +222,17 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
     { ease: ghostEase }
   );
 
+  // Blur: 10px na entrada/saída, 0 no centro
+  const blur = useTransform(
+    scrollYProgress,
+    [entryStart, entryEnd, exitStart, exitEnd],
+    ['blur(10px)', 'blur(0px)', 'blur(0px)', 'blur(10px)'],
+    { ease: ghostEase }
+  );
+
   return (
     <motion.div
-      style={{ x, opacity }}
+      style={{ x, opacity, filter: blur }}
       className="fixed bottom-[20%] left-0 right-0 z-[60] text-center pointer-events-none px-4"
     >
       <span className="text-blueAccent italic font-semibold text-[clamp(2rem,6vw,3.5rem)] leading-[1.1] tracking-[-0.01em] block w-full mx-auto">

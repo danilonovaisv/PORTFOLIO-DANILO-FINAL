@@ -1,7 +1,12 @@
 'use server';
 
 import OpenAI from 'openai';
-import { AIModel, AI_MODELS, SceneGeneratorState, normalizeAIModels } from './types';
+import {
+  AIModel,
+  AI_MODELS,
+  SceneGeneratorState,
+  normalizeAIModels,
+} from './types';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -24,7 +29,8 @@ export async function generateAdScenes(
 
   const description = formData.get('description') as string;
   const pieceType = formData.get('pieceType') as string;
-  const model = ((formData.get('model') as AIModel) || fallbackModel) as AIModel;
+  const model = ((formData.get('model') as AIModel) ||
+    fallbackModel) as AIModel;
 
   if (!description || !pieceType) {
     return {

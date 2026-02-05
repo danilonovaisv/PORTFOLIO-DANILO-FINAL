@@ -174,17 +174,18 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
       : []
   );
 
-  const [masterTemplate, setMasterTemplate] = useState<MasterProjectTemplateDraft>(
-    toMasterDraft(
-      initialParsed.template === MASTER_PROJECT_TEMPLATE
-        ? initialParsed.data
-        : createDefaultMasterProjectTemplate({
-            slug: initialData?.slug,
-            title: initialData?.title,
-            cover: initialData?.cover,
-          })
-    )
-  );
+  const [masterTemplate, setMasterTemplate] =
+    useState<MasterProjectTemplateDraft>(
+      toMasterDraft(
+        initialParsed.template === MASTER_PROJECT_TEMPLATE
+          ? initialParsed.data
+          : createDefaultMasterProjectTemplate({
+              slug: initialData?.slug,
+              title: initialData?.title,
+              cover: initialData?.cover,
+            })
+      )
+    );
 
   const [loading, setLoading] = useState(false);
 
@@ -304,7 +305,10 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
 
     let heroLogo = nextTemplate.hero_logo_image;
     if (heroLogo?.file) {
-      const path = await handleFileUpload(heroLogo.file, `master-logo-${uuidv4()}`);
+      const path = await handleFileUpload(
+        heroLogo.file,
+        `master-logo-${uuidv4()}`
+      );
       if (path) {
         heroLogo = {
           ...heroLogo,
@@ -324,7 +328,10 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
       nextTemplate.gallery_grid.map(async (item) => {
         let src = item.src;
         if (item.file) {
-          const path = await handleFileUpload(item.file, `master-grid-${item.id}`);
+          const path = await handleFileUpload(
+            item.file,
+            `master-grid-${item.id}`
+          );
           if (path) src = path;
         } else {
           src = toStoragePath(src);
@@ -471,8 +478,8 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
                 <option value={LEGACY_PROJECT_TEMPLATE}>Legacy Blocks</option>
               </select>
               <p className="text-[11px] leading-relaxed text-slate-500">
-                O template novo usa schema estruturado para páginas editoriais em
-                `/projects/:slug`. O modo legacy mantém o builder por blocos.
+                O template novo usa schema estruturado para páginas editoriais
+                em `/projects/:slug`. O modo legacy mantém o builder por blocos.
               </p>
             </div>
 

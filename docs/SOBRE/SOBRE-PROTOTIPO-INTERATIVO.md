@@ -1059,7 +1059,7 @@ Consolida a identidade do “Ghost Design” como conceito autoral, diferencia o
   - Responde de forma fluida e etérea, como se “sentisse” o toque/scroll.  
   - Entra junto com a **primeira frase** da área de manifesto e permanece presente durante a sessão.  
   - Quando a **última frase** entra, ele cresce ~10% de escala, ajusta sua posição alinhando-se no centro, horizontal e vertical, da seção. e fica visivelmente mais animado (mais wobble/tilt e resposta mais intensa ao scroll).
-  - animação de saida seguindo scroll da sessão;  
+  - animação de saida seguindo scroll da sessão junto com o texto o manifesto “ISSO É / GHOST / DESIGN.” ;  
 
 **Regra de alinhamento (obrigatória) — Desktop e Mobile:**
 - O Ghost 3D deve ficar **sempre alinhado verticalmente ao centro do bloco de texto à sua esquerda**.

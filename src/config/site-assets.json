@@ -2,30 +2,6 @@
   {
     "export_json": [
       {
-        "id": "8240537f-6f90-4a93-8939-eee391feb6ce",
-        "key": "projects.",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/.keep",
-        "file_path": "projects/.keep",
-        "updated_at": "2026-01-14 00:04:37.625628+00"
-      },
-      {
-        "id": "2fbbc69a-b7eb-4e96-9c7a-f77b71029f6a",
-        "key": "projects.example-slug.",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/example-slug/.keep",
-        "file_path": "projects/example-slug/.keep",
-        "updated_at": "2026-01-14 00:04:37.625628+00"
-      },
-      {
-        "id": "33815bf1-f3ca-4576-89c6-553956d2e9cc",
-        "key": "projects.example-slug.gallery.",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/example-slug/gallery/.keep",
-        "file_path": "projects/example-slug/gallery/.keep",
-        "updated_at": "2026-01-14 00:04:37.625628+00"
-      },
-      {
         "id": "f0774555-65f9-4222-91c3-8d5f215a5313",
         "key": "home.showcase.webdesigner-2",
         "bucket": "site-assets",
@@ -1018,12 +994,12 @@
         "updated_at": "2026-01-28 06:46:01.058864+00"
       },
       {
-        "id": "895539fb-b7df-4e18-84a3-8f06438769d3",
+        "id": "65b5aaa3-6090-4a09-9ca8-d2a527182ea8",
         "key": "about.beliefs.ghost-transformed",
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb",
         "file_path": "about/beliefs/ghost-transformed.glb",
-        "updated_at": "2026-02-04 00:41:13.370652+00"
+        "updated_at": "2026-02-04 21:12:31.645073+00"
       }
     ]
   }

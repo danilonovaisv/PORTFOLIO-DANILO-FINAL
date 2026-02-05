@@ -76,7 +76,13 @@ export function useOriginAnimations({
           images.forEach((img, i) => {
             const isActive = i === activeIndex;
             gsap.to(img, {
-              clipPath: isActive ? 'inset(0% 0% 0% 0%)' : (i < activeIndex ? 'inset(0% 0% 0% 0%)' : (direction === 'down' ? 'inset(100% 0% 0% 0%)' : 'inset(0% 0% 100% 0%)')),
+              clipPath: isActive
+                ? 'inset(0% 0% 0% 0%)'
+                : i < activeIndex
+                  ? 'inset(0% 0% 0% 0%)'
+                  : direction === 'down'
+                    ? 'inset(100% 0% 0% 0%)'
+                    : 'inset(0% 0% 100% 0%)',
               opacity: isActive ? 1 : 0.85,
               filter: isActive ? 'blur(0px)' : 'blur(4px)',
               duration,

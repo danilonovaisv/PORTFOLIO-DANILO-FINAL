@@ -1,4 +1,3 @@
-
 'use client';
 import React from 'react';
 import { cubicBezier, useScroll, useTransform } from 'framer-motion';
@@ -6,8 +5,10 @@ import { BeliefSection, BeliefMobileTextLayer } from '../beliefs/BeliefSection';
 import { BeliefFinalSection } from '../beliefs/BeliefFinalSection';
 import { BeliefFixedHeader } from '../beliefs/BeliefFixedHeader';
 import { BeliefFinalSectionOverlay } from '../beliefs/BeliefFinalSectionOverlay';
-import GhostScene from '../3d/GhostScene';
 import { BRAND } from '@/config/brand';
+import dynamic from 'next/dynamic';
+
+const GhostScene = dynamic(() => import('../3d/GhostScene'), { ssr: false });
 
 const PHRASES = [
   'Um\nvídeo\nque\nrespira.',
@@ -81,12 +82,10 @@ export const AboutBeliefs: React.FC = () => {
       {/* Desktop: Centered in viewport */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-50">
         <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-auto flex md:items-center md:justify-end items-end justify-start">
-
           {/* 3D Scene Wrapper - Responsive Positioning */}
           <div className="w-full h-full md:absolute md:inset-0 relative">
             <GhostScene scrollProgress={scrollYProgress} />
           </div>
-
         </div>
       </div>
     </section>

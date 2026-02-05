@@ -21,14 +21,18 @@ type GLTFResult = GLTF & {
   };
 };
 
-const GHOST_URL = 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb';
+const GHOST_URL =
+  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb';
 
 interface GhostModelProps {
   scrollProgress: MotionValue<number>;
   isMobile: boolean;
 }
 
-const GhostModel: React.FC<GhostModelProps> = ({ scrollProgress, isMobile }) => {
+const GhostModel: React.FC<GhostModelProps> = ({
+  scrollProgress,
+  isMobile,
+}) => {
   const group = useRef<THREE.Group>(null);
   const { viewport } = useThree();
 
@@ -42,9 +46,9 @@ const GhostModel: React.FC<GhostModelProps> = ({ scrollProgress, isMobile }) => 
       baseX: isMobile ? -viewport.width / 3.5 : 0,
 
       // Desktop: Centralizado (0)
-      // Mobile: 20% do topo (aproximadamente 30% da altura da viewport acima do centro)
-      startY: isMobile ? viewport.height * 0.3 : 0,
-      endY: isMobile ? viewport.height * 0.3 : 0, // Mantém posição fixa até o final
+      // Mobile: 17% do topo (alinhado com titulo)
+      startY: isMobile ? viewport.height * 0.17 : 0,
+      endY: isMobile ? viewport.height * 0.17 : 0, // Mantém posição fixa até o final
 
       // Intensidade flutuante
       floatBase: isMobile ? 0.08 : 0.05,
@@ -90,9 +94,21 @@ const GhostModel: React.FC<GhostModelProps> = ({ scrollProgress, isMobile }) => 
     const targetScale = baseScale * scaleFactor;
 
     // Lerp scale
-    group.current.scale.x = THREE.MathUtils.lerp(group.current.scale.x, targetScale, 0.07);
-    group.current.scale.y = THREE.MathUtils.lerp(group.current.scale.y, targetScale, 0.07);
-    group.current.scale.z = THREE.MathUtils.lerp(group.current.scale.z, targetScale, 0.07);
+    group.current.scale.x = THREE.MathUtils.lerp(
+      group.current.scale.x,
+      targetScale,
+      0.07
+    );
+    group.current.scale.y = THREE.MathUtils.lerp(
+      group.current.scale.y,
+      targetScale,
+      0.07
+    );
+    group.current.scale.z = THREE.MathUtils.lerp(
+      group.current.scale.z,
+      targetScale,
+      0.07
+    );
 
     // === FINAL PHASE & EXIT ===
     let targetY = config.startY;
@@ -104,37 +120,63 @@ const GhostModel: React.FC<GhostModelProps> = ({ scrollProgress, isMobile }) => 
       targetY = 0;
     }
 
-    // Saída Suave (Exit Phase) - REMOVIDO: Exit manual. O CSS Sticky cuidará de levar o Ghost junto com o scroll da seção.
-    // Assim ele sai exatamente "junto" com o texto final.
+    // Saída Suave (Exit Phase)
+    // O CSS Sticky cuida da saída junto com o scroll da seção.
+    // O Ghost permanece centralizado (0,0) e a seção o leva embora ao terminar.
 
-    // if (scroll > 0.95) { targetY = 5; }
-
-    // Aplica Low Pass 
-    group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, targetY, 0.1);
+    // Aplica Low Pass
+    group.current.position.y = THREE.MathUtils.lerp(
+      group.current.position.y,
+      targetY,
+      0.1
+    );
 
     // X Position Logic with Wiggle
-    const wiggleX = Math.sin(state.clock.getElapsedTime() * 2.5) * config.floatAmplitude * 0.5;
-    const scrollDriftX = Math.sin(t * Math.PI * 2) * config.scrollResponse * 0.1;
-    group.current.position.x = THREE.MathUtils.lerp(group.current.position.x, targetX + wiggleX + scrollDriftX, 0.06);
+    const wiggleX =
+      Math.sin(state.clock.getElapsedTime() * 2.5) *
+      config.floatAmplitude *
+      0.5;
+    const scrollDriftX =
+      Math.sin(t * Math.PI * 2) * config.scrollResponse * 0.1;
+    group.current.position.x = THREE.MathUtils.lerp(
+      group.current.position.x,
+      targetX + wiggleX + scrollDriftX,
+      0.06
+    );
 
     // === POSIÇÃO Z (leve profundidade) ===
     const targetZ = Math.cos(t * Math.PI * 0.8) * 0.3;
-    group.current.position.z = THREE.MathUtils.lerp(group.current.position.z, targetZ, 0.06);
+    group.current.position.z = THREE.MathUtils.lerp(
+      group.current.position.z,
+      targetZ,
+      0.06
+    );
 
     // === TILT (mouse + scroll) ===
     const mouseTiltX = state.mouse.y * config.tiltBase;
     const mouseTiltZ = -state.mouse.x * config.tiltBase;
 
     // Scroll também afeta tilt (mais intenso no final + saída)
-    const scrollTiltFactor = t * (scroll > 0.95 ? 4 : (isFinalPhase.current ? 2.5 : 1));
-    const scrollTiltX = Math.sin(t * Math.PI * 3) * config.tiltBase * 0.3 * scrollTiltFactor;
-    const scrollTiltZ = Math.cos(t * Math.PI * 3) * config.tiltBase * 0.3 * scrollTiltFactor;
+    const scrollTiltFactor =
+      t * (scroll > 0.95 ? 4 : isFinalPhase.current ? 2.5 : 1);
+    const scrollTiltX =
+      Math.sin(t * Math.PI * 3) * config.tiltBase * 0.3 * scrollTiltFactor;
+    const scrollTiltZ =
+      Math.cos(t * Math.PI * 3) * config.tiltBase * 0.3 * scrollTiltFactor;
 
     const targetRotX = mouseTiltX + scrollTiltX;
     const targetRotZ = mouseTiltZ + scrollTiltZ;
 
-    group.current.rotation.x = THREE.MathUtils.lerp(group.current.rotation.x, targetRotX, 0.12);
-    group.current.rotation.z = THREE.MathUtils.lerp(group.current.rotation.z, targetRotZ, 0.12);
+    group.current.rotation.x = THREE.MathUtils.lerp(
+      group.current.rotation.x,
+      targetRotX,
+      0.12
+    );
+    group.current.rotation.z = THREE.MathUtils.lerp(
+      group.current.rotation.z,
+      targetRotZ,
+      0.12
+    );
 
     // === Saltitante no final (wobble + bounce) ===
     if (isFinalPhase.current) {
@@ -151,7 +193,8 @@ const GhostModel: React.FC<GhostModelProps> = ({ scrollProgress, isMobile }) => 
   });
 
   // Escala de entrada (animação de fade-in + boost final)
-  const targetScale = config.baseScale * (isFinalPhase.current ? 1 + config.scaleBoost : 1);
+  const targetScale =
+    config.baseScale * (isFinalPhase.current ? 1 + config.scaleBoost : 1);
   const enterScale = isEntering ? 0.1 : config.baseScale;
   const currentScale = THREE.MathUtils.lerp(enterScale, targetScale, 0.07); // Lerp suave
 
@@ -161,7 +204,10 @@ const GhostModel: React.FC<GhostModelProps> = ({ scrollProgress, isMobile }) => 
         speed={2.2}
         rotationIntensity={isFinalPhase.current ? 1.2 : 0.6}
         floatIntensity={isFinalPhase.current ? 1.0 : 0.5}
-        floatingRange={[-config.floatBase * (isFinalPhase.current ? 1.5 : 1), config.floatBase * (isFinalPhase.current ? 1.5 : 1)]}
+        floatingRange={[
+          -config.floatBase * (isFinalPhase.current ? 1.5 : 1),
+          config.floatBase * (isFinalPhase.current ? 1.5 : 1),
+        ]}
       >
         <mesh
           name="Body_Ghost_White_0"

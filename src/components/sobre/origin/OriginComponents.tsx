@@ -21,8 +21,8 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
   return (
     <div
       className={`${styles.arch__info} min-h-screen flex flex-col justify-start pt-[20vh] pb-[20vh] ${isRightAligned
-        ? 'lg:items-end lg:justify-start lg:text-right'
-        : 'lg:items-end lg:justify-start lg:text-left'
+          ? 'lg:items-end lg:justify-start lg:text-right'
+          : 'lg:items-end lg:justify-start lg:text-left'
         }`}
       data-origin-block={block.id}
     >
@@ -119,6 +119,7 @@ export function OriginStickyGallery({
     <div
       className={`${styles.arch__right} hidden lg:flex col-span-6 h-screen sticky top-0 items-start justify-center pt-[20vh] pointer-events-none`}
       ref={archRightRef}
+      data-testid="origin-sticky-gallery"
     >
       {/* Gallery container - 500px height per spec */}
       <div className="origin-gallery-container relative w-full max-w-lg h-[500px]">

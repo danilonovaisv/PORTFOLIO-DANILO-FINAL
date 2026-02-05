@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import '@/lib/polyfills';
 import { siteMetadata, siteViewport } from '@/config/metadata';
-import JsonLd from '@/components/ui/JsonLd';
 import './globals.css'; // Fonts and styles are loaded here
 import type { CSSProperties } from 'react';
 import { BRAND } from '@/config/brand';
@@ -36,13 +35,11 @@ export default function RootLayout({
   setVar('--favicon-dark-url', BRAND.assets.logos.favicon);
 
   const inlineStyle = cssVars as CSSProperties;
-  const jsonLdLogoUrl = BRAND.assets.logos.logoLight;
 
   return (
     <html lang="pt-BR" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
-        <JsonLd logoUrl={jsonLdLogoUrl} />
       </head>
       <body
         suppressHydrationWarning
