@@ -45,7 +45,6 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
       gl={{ antialias: true, alpha: true }}
       camera={{ position: [0, 0, 6], fov: 35 }}
     >
-      <color attach="background" args={['transparent' as any]} />
       <ambientLight intensity={0.5} />
       <spotLight
         position={[10, 10, 10]}

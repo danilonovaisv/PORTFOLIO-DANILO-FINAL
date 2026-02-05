@@ -42,7 +42,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
       className="sticky top-0 z-30 flex h-screen pointer-events-none"
     >
       <div className="std-grid w-full h-full">
-        <div className="flex h-full items-start md:items-center justify-end pt-16 md:pt-0">
+        <div className="flex h-full items-start md:items-center justify-end pt-12 md:pt-0 col-span-12">
           <div className="flex flex-col items-end text-right w-full max-w-[280px] md:max-w-[500px] lg:max-w-[750px] pr-4 md:pr-0">
             {/* Primeira parte: "Acredito no..." */}
             <div className="flex flex-col items-end text-right w-full max-w-[280px] md:max-w-[500px] lg:max-w-[750px] pr-4 md:pr-0">

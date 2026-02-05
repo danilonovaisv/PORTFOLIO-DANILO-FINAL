@@ -80,7 +80,7 @@ export const AboutBeliefs: React.FC = () => {
       {/* Mobile: Ghost positioned to align vertically with text block in footer */}
       {/* Desktop: Centered in viewport */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-50">
-        <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-auto flex items-center justify-center">
+        <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-auto flex md:items-center md:justify-end items-end justify-start">
 
           {/* 3D Scene Wrapper - Responsive Positioning */}
           <div className="w-full h-full md:absolute md:inset-0 relative">

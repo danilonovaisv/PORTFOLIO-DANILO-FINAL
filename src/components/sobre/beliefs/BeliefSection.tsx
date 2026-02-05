@@ -103,10 +103,9 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
       aria-label={text.replace(/\n/g, ' ')}
       style={{ backgroundColor: bgColor }}
       className={`relative w-full h-screen flex overflow-hidden
-        ${
-          isMobile
-            ? 'items-end justify-start' // Mobile: espaço para texto fixed no footer
-            : `items-center justify-start pl-8 lg:pl-16`
+        ${isMobile
+          ? 'items-end justify-start' // Mobile: espaço para texto fixed no footer
+          : `items-center justify-start pl-8 lg:pl-16`
         }
       `}
     >
@@ -206,11 +205,11 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   const exitStart = endPoint - segmentSize * 0.25;
   const exitEnd = endPoint - 0.02;
 
-  // X: Entra da DIREITA, mantém centro, sai para a DIREITA (Antigravity Spec)
+  // X: Entra da DIREITA (+24px), mantém centro, sai para a ESQUERDA (-24px)
   const x = useTransform(
     scrollYProgress,
     [entryStart, entryEnd, exitStart, exitEnd],
-    ['100%', '0%', '0%', '100%'],
+    ['24px', '0px', '0px', '-24px'],
     { ease: ghostEase }
   );
 
