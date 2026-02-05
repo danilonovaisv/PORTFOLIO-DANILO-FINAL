@@ -17,7 +17,7 @@
     "start": "next start --hostname 0.0.0.0 --port ${PORT:-3000}",
     "clean": "rimraf .next out .eslintcache .firebase dist deploy-public",
     "prebuild": "node scripts/generate-build-info.cjs",
-    "validate-env": "tsx scripts/validate-env.ts",
+    "validate-env": "node scripts/validate-env.cjs",
     "build": "pnpm run validate-env && pnpm run prebuild && next build --webpack",
     "prepare-deploy": "tsx scripts/prep-deploy.ts",
     "firebase:preflight": "bash scripts/firebase-preflight.sh",
