@@ -39,6 +39,10 @@ export interface ProjectGridLayout {
   order?: number;
   /** Sizes used by Next/Image */
   sizes?: string;
+  /** Object fit for images/videos */
+  objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
+  /** Object position for images/videos */
+  objectPosition?: string;
 }
 
 /**

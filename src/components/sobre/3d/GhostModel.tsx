@@ -250,5 +250,9 @@ const GhostModel: React.FC<GhostModelProps> = ({
   );
 };
 
-useGLTF.preload(GHOST_URL);
+// Only preload in browser environment
+if (typeof window !== 'undefined') {
+  useGLTF.preload(GHOST_URL);
+}
+
 export default GhostModel;
