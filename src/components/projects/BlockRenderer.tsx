@@ -185,9 +185,7 @@ export default function BlockRenderer({
             controls={true}
             playsInline
             poster={DEFAULT_VIDEO_POSTER}
-          >
-
-          </video>
+          ></video>
         </div>
       );
     }

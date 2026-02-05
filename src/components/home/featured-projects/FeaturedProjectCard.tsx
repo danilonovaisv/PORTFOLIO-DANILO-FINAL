@@ -30,10 +30,11 @@ export default function FeaturedProjectCard({
   const CardContent = () => (
     <>
       <div
-        className={`relative overflow-hidden rounded-md w-full bg-white/5 transition-all duration-500 min-h-[360px] md:min-h-[420px] aspect-[4/5] ${reducedMotion
-          ? ''
-          : 'md:group-hover:shadow-[0_22px_54px_-12px_rgba(0,72,255,0.15)] md:group-hover:-translate-y-1'
-          }`}
+        className={`relative overflow-hidden rounded-md w-full bg-white/5 transition-all duration-500 min-h-[360px] md:min-h-[420px] aspect-[4/5] ${
+          reducedMotion
+            ? ''
+            : 'md:group-hover:shadow-[0_22px_54px_-12px_rgba(0,72,255,0.15)] md:group-hover:-translate-y-1'
+        }`}
       >
         {/* Subtle Noise Overlay */}
         <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
@@ -47,9 +48,7 @@ export default function FeaturedProjectCard({
             playsInline
             poster={DEFAULT_VIDEO_POSTER}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 opacity-90 md:group-hover:opacity-100"
-          >
-
-          </video>
+          ></video>
         ) : (
           <Image
             src={project.image}
@@ -86,10 +85,11 @@ export default function FeaturedProjectCard({
 
         {/* Arrow Icon Circle - Blue default, Purple on hover */}
         <div
-          className={`w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-white shrink-0 border border-white/10 transition-all duration-700 bg-[#0048ff] ${reducedMotion
-            ? ''
-            : 'md:group-hover:translate-x-5 md:group-hover:bg-[#8705f2] md:group-hover:shadow-[0_0_20px_rgba(135,5,242,0.4)]'
-            }`}
+          className={`w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-white shrink-0 border border-white/10 transition-all duration-700 bg-[#0048ff] ${
+            reducedMotion
+              ? ''
+              : 'md:group-hover:translate-x-5 md:group-hover:bg-[#8705f2] md:group-hover:shadow-[0_0_20px_rgba(135,5,242,0.4)]'
+          }`}
         >
           <ArrowIcon className="w-5 h-5 md:w-6 md:h-6 -rotate-45 transition-transform duration-500 md:group-hover:rotate-0" />
         </div>

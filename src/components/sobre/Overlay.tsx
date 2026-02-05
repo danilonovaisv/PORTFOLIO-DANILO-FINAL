@@ -1,9 +1,13 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const Section: React.FC<{ children: React.ReactNode; className?: string }> = ({ children, className }) => (
-  <section className={`h-screen flex flex-col justify-center px-8 md:px-24 ${className}`}>
+const Section: React.FC<{ children: React.ReactNode; className?: string }> = ({
+  children,
+  className,
+}) => (
+  <section
+    className={`h-screen flex flex-col justify-center px-8 md:px-24 ${className}`}
+  >
     {children}
   </section>
 );
@@ -13,7 +17,7 @@ const Overlay: React.FC = () => {
     <div className="w-full pointer-events-none">
       {/* Intro Section */}
       <Section>
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
@@ -33,7 +37,7 @@ const Overlay: React.FC = () => {
 
       {/* Feature Section */}
       <Section className="items-end text-right">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
@@ -43,14 +47,15 @@ const Overlay: React.FC = () => {
             FLUID MOTION
           </h2>
           <p className="text-lg text-cyan-200/50">
-            Reactive physics tied to your journey. The ghost ascends as you descend deeper into the ethereal void.
+            Reactive physics tied to your journey. The ghost ascends as you
+            descend deeper into the ethereal void.
           </p>
         </motion.div>
       </Section>
 
       {/* Detail Section */}
       <Section>
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
@@ -58,17 +63,20 @@ const Overlay: React.FC = () => {
         >
           <div className="flex items-center gap-4 mb-4">
             <div className="w-3 h-3 rounded-full bg-cyan-400 animate-pulse" />
-            <h3 className="text-sm uppercase tracking-widest text-cyan-400 font-bold">Spectral Analysis</h3>
+            <h3 className="text-sm uppercase tracking-widest text-cyan-400 font-bold">
+              Spectral Analysis
+            </h3>
           </div>
           <p className="text-cyan-50 font-medium">
-            Crafted with high-index refraction and chromatic aberration, the form mimics glass caught in a temporal rift.
+            Crafted with high-index refraction and chromatic aberration, the
+            form mimics glass caught in a temporal rift.
           </p>
         </motion.div>
       </Section>
 
       {/* Footer / Call to action */}
       <Section className="items-center">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           className="text-center"
@@ -84,7 +92,9 @@ const Overlay: React.FC = () => {
 
       <div className="fixed bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
         <div className="w-1 h-12 bg-gradient-to-b from-transparent to-cyan-400 rounded-full" />
-        <span className="text-[10px] uppercase tracking-[0.2em] text-cyan-400">Scroll</span>
+        <span className="text-[10px] uppercase tracking-[0.2em] text-cyan-400">
+          Scroll
+        </span>
       </div>
     </div>
   );

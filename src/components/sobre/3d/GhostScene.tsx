@@ -1,9 +1,7 @@
 // GhostScene.tsx
 import React, { Suspense, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
-import {
-  ContactShadows,
-} from '@react-three/drei';
+import { ContactShadows } from '@react-three/drei';
 import GhostModel from './GhostModel'; // Caminho relativo para GhostModel
 import { MotionValue, motion, useTransform, cubicBezier } from 'framer-motion';
 // Importar o hook do BeliefSection.tsx
@@ -60,9 +58,12 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
         <pointLight position={[-5, 5, -5]} intensity={0.5} color="#e6e6ffa0" />
 
         {/* Rim Light (Back) - Creates silhouette/separation */}
-        <pointLight position={[0, 5, -10]} intensity={3} color="#ffffff" distance={20} />
-
-
+        <pointLight
+          position={[0, 5, -10]}
+          intensity={3}
+          color="#ffffff"
+          distance={20}
+        />
 
         <Suspense fallback={null}>
           <GhostModel scrollProgress={scrollProgress} isMobile={isMobile} />
@@ -82,4 +83,3 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
 };
 
 export default GhostScene;
-

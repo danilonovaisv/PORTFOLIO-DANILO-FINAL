@@ -105,9 +105,7 @@ export function CategoryStripe({
                     playsInline
                     poster={DEFAULT_VIDEO_POSTER}
                     className="object-cover w-full h-full"
-                  >
-
-                  </video>
+                  ></video>
                 ) : (
                   <Image
                     src={category.thumbnail}

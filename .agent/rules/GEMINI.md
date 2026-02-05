@@ -143,6 +143,52 @@ When user's prompt is NOT in English:
 2. What PRINCIPLES must I apply?
 3. How does this DIFFER from generic output?
 
+### 🔥 Firebase Deploy Guard (CRITICAL)
+
+> 🔴 **MANDATORY:** Before ANY Firebase deployment, verify these configurations to prevent build failures.
+
+**Problem:** Firebase Functions usa `npm` que NÃO suporta o protocolo `link:` do pnpm. Isso causa erro `EUNSUPPORTEDPROTOCOL` em todo deploy.
+
+**Required Checks:**
+
+1. **functions/package.json Dependencies:**
+
+   ```json
+   // ❌ ERRADO (causa EUNSUPPORTEDPROTOCOL)
+   "@dataconnect/admin-generated": "link:src/dataconnect-admin-generated"
+   
+   // ✅ CORRETO (usa file: com caminho relativo ao diretório functions/)
+   "@dataconnect/admin-generated": "file:../src/dataconnect-admin-generated"
+   ```
+
+2. **Verify Path Exists:**
+   - O caminho deve ser relativo ao diretório `functions/`
+   - Verificar se `../src/dataconnect-admin-generated` existe
+   - Se houver `@dataconnect/generated`, aplicar mesma correção
+
+3. **Pre-Deploy Validation:**
+
+   ```bash
+   # Sempre rodar antes de deploy
+   cd functions && npm install
+   # Se falhar com EUNSUPPORTEDPROTOCOL → corrigir package.json
+   ```
+
+**Auto-Fix Protocol:**
+
+Quando detectar erro de deploy relacionado a `link:` ou `EUNSUPPORTEDPROTOCOL`:
+
+1. Abrir `functions/package.json`
+2. Substituir TODAS ocorrências de `"link:src/` por `"file:../src/`
+3. Rodar `cd functions && npm install` para validar
+4. Continuar com deploy
+
+**Prevention:**
+
+- ✅ Sempre usar `file:../` em `functions/package.json`
+- ✅ Nunca usar `link:` em dependências do Firebase Functions
+- ✅ Validar com `npm install` antes de cada deploy
+
 ---
 
 ## TIER 1: CODE RULES (When Writing Code)
