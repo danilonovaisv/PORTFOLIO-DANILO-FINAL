@@ -51,6 +51,12 @@ export type DbAsset = {
   is_active: boolean;
   sort_order: number | null;
   href?: string | null;
+  metadata?: {
+    position?: [number, number, number];
+    scale?: [number, number, number];
+    rotation?: [number, number, number];
+    [key: string]: unknown;
+  } | null;
   created_at: string | null;
   updated_at: string | null;
 };
