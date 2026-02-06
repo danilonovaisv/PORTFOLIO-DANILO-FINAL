@@ -42,7 +42,7 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
         camera={{ position: [0, 0, 6], fov: 35 }}
       >
         {/* Low Ambient for higher contrast shadows */}
-        <ambientLight intensity={1.4} />
+        <ambientLight intensity={1.2} />
 
         {/* Strong Key Light (Front-Right) */}
         <spotLight

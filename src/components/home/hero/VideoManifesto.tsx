@@ -84,8 +84,10 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
   }, [muted]);
 
   const baseSrc = asset?.publicUrl || src;
-  // Usa SD somente se existir um variant explícito; evita 404 silencioso.
-  const sdVariant = asset?.variants?.sd as string | undefined;
+  // Usa SD somente se existir um variant explícito em metadata; evita 404 silencioso.
+  const sdVariant = (
+    asset?.metadata as { variants?: { sd?: string } } | undefined
+  )?.variants?.sd;
   const videoSrc = videoQuality === 'sd' && sdVariant ? sdVariant : baseSrc;
 
   const posterSrc = baseSrc.replace('.mp4', '-poster.jpg');

@@ -21,7 +21,10 @@ type DynamicAssetVideoProps = {
  * Video component that automatically updates when the asset changes in the database.
  * Handles smooth transition between video sources and supports playbackRate.
  */
-export const DynamicAssetVideo = forwardRef<HTMLVideoElement, DynamicAssetVideoProps>(
+export const DynamicAssetVideo = forwardRef<
+    HTMLVideoElement | null,
+    DynamicAssetVideoProps
+>(
     (
         {
             assetKey,
@@ -43,7 +46,7 @@ export const DynamicAssetVideo = forwardRef<HTMLVideoElement, DynamicAssetVideoP
         const internalVideoRef = useRef<HTMLVideoElement | null>(null);
 
         // Expose the internal video ref to forwarded ref
-        useImperativeHandle(ref, () => internalVideoRef.current);
+        useImperativeHandle(ref, () => internalVideoRef.current as HTMLVideoElement);
 
         useEffect(() => {
             if (asset?.publicUrl && asset.publicUrl !== displayUrl) {
