@@ -125,7 +125,7 @@ export default function ContactSection() {
                   className="flex items-center gap-3 sm:gap-4 group w-fit py-2 active:opacity-80 transition-opacity"
                 >
                   {/* Touch target: 48px minimum */}
-                  <span className="flex h-12 w-12 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-transparent border-2 border-[#0057FF] text-[#0057FF] transition-all duration-200 group-hover:bg-[#0057FF] group-hover:text-white group-active:bg-[#0057FF] group-active:text-white group-active:scale-95">
+                  <span className="flex h-12 w-12 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-transparent border-2 border-[#0057FF] text-[#0057FF] transition-all duration-200 will-change-transform group-hover:bg-[#0057FF] group-hover:text-white group-active:bg-[#0057FF] group-active:text-white group-active:translate-y-[1px]">
                     {link.icon}
                   </span>
                   <span className="text-base sm:text-lg md:text-xl font-semibold text-[#111111] transition-all duration-200 group-hover:text-[#0057FF] group-hover:underline group-hover:underline-offset-4">
@@ -144,7 +144,7 @@ export default function ContactSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="flex h-14 w-14 items-center justify-center rounded-full border border-[#0e0e0e]/30 bg-transparent text-[#0e0e0e] transition-all hover:border-[#0048ff] hover:bg-[#0048ff] hover:text-white hover:scale-110"
+                  className="flex h-14 w-14 items-center justify-center rounded-full border border-[#0e0e0e]/30 bg-transparent text-[#0e0e0e] transition-all will-change-transform hover:border-[#0048ff] hover:bg-[#0048ff] hover:text-white hover:-translate-y-0.5"
                 >
                   {social.icon}
                   <span className="sr-only">{social.label}</span>
@@ -162,7 +162,7 @@ export default function ContactSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#0e0e0e]/30 bg-transparent text-[#0e0e0e] shadow-sm transition-all duration-200 active:scale-90 active:bg-[#0048ff] active:border-[#0048ff] active:text-white"
+                className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#0e0e0e]/30 bg-transparent text-[#0e0e0e] shadow-sm transition-all duration-200 will-change-transform active:translate-y-[1px] active:bg-[#0048ff] active:border-[#0048ff] active:text-white"
               >
                 {social.icon}
                 <span className="sr-only">{social.label}</span>

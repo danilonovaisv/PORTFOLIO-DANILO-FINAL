@@ -53,8 +53,8 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
 
   // Variantes de animação do botão completo
   const buttonVariants = {
-    initial: { scale: 1, y: 0 },
-    hover: { scale: 1.02, y: -2 },
+    initial: { y: 0 },
+    hover: { y: -2 },
   };
 
   return (
@@ -102,7 +102,8 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
           rounded-full
           select-none
           transition-colors duration-200
-          active:scale-[0.98]
+          active:translate-y-[1px]
+          will-change-transform
         "
         style={{
           backgroundColor: isHovered ? '#8705f2' : '#0048ff',
@@ -125,7 +126,8 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
           shadow-lg
           rounded-full
           transition-colors duration-200
-          active:scale-95
+          active:translate-y-[1px]
+          will-change-transform
         "
         style={{
           backgroundColor: isHovered ? '#8705f2' : '#0048ff',

@@ -51,7 +51,7 @@ const BeliefLineDesktop: React.FC<BeliefLineProps> = ({
   return (
     <motion.span
       style={{ x: lineX }}
-      className="block text-blueAccent italic font-semibold text-[clamp(2.5rem,7vw,6.5rem)] leading-[0.9] text-left whitespace-pre-line select-none tracking-[-0.04em] max-w-fit"
+      className="block text-blueAccent italic font-semibold text-[clamp(4rem,9vw,8.5rem)] leading-[0.85] text-left whitespace-pre-line select-none tracking-[-0.04em] max-w-fit"
     >
       {line}
     </motion.span>
@@ -114,7 +114,7 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
       {!isMobile && !isMobileTextLayer && (
         <motion.div
           style={{ y: yScroll, opacity: desktopOpacity }}
-          className="relative z-30 w-full flex flex-col justify-start max-w-[400px]"
+          className="relative z-30 w-full flex flex-col justify-start max-w-[80vw]"
         >
           {lines.map((line, i) => (
             <BeliefLineDesktop
@@ -232,9 +232,9 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   return (
     <motion.div
       style={{ x, opacity, filter: blur }}
-      className="fixed bottom-[20%] left-0 right-0 z-60 text-center pointer-events-none px-4"
+      className="fixed bottom-[25%] left-0 right-0 z-60 text-center pointer-events-none px-8"
     >
-      <span className="text-blueAccent italic font-semibold text-[clamp(2rem,6vw,3.5rem)] leading-[1.1] tracking-[-0.01em] block w-full mx-auto">
+      <span className="text-blueAccent italic font-semibold text-[clamp(2rem,6vw,3.5rem)] leading-[1.4] tracking-widest block w-full mx-auto">
         {text}
       </span>
     </motion.div>

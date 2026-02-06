@@ -70,7 +70,7 @@ const ContactDetails: FC = () => {
             className="justify-start text-lg font-medium text-text-dark hover:text-primary hover:bg-black/5 gap-4 h-auto py-3 px-4"
           >
             <a href={item.href}>
-              <span className="rounded-full bg-blue-50 p-2 text-primary shadow-sm group-hover:scale-110 transition-transform">
+              <span className="rounded-full bg-blue-50 p-2 text-primary shadow-sm transition-transform group-hover:-translate-y-0.5 will-change-transform">
                 {item.icon}
               </span>
               {item.label}

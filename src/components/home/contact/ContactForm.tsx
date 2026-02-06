@@ -212,9 +212,10 @@ const ContactForm: React.FC = () => {
             <motion.button
               type="submit"
               disabled={isSubmitting}
-              whileHover={{ y: -1, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="w-full h-[60px] md:h-[64px] flex items-center justify-center gap-3 bg-[#0048ff] text-white font-bold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0048ff] focus-visible:ring-offset-2 tracking-tight text-lg shadow-[0_10px_30px_-10px_rgba(0,72,255,0.3)]"
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 1 }}
+              transition={{ type: 'spring', stiffness: 200, damping: 30 }}
+              className="w-full h-[60px] md:h-[64px] flex items-center justify-center gap-3 bg-[#0048ff] text-white font-bold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0048ff] focus-visible:ring-offset-2 tracking-tight text-lg shadow-[0_10px_30px_-10px_rgba(0,72,255,0.3)] will-change-transform"
             >
               {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
               {!isSubmitting && (

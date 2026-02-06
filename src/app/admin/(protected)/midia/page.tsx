@@ -13,7 +13,9 @@ export default async function MidiaPage() {
   const supabase = await createClient();
   const { data: assets } = await supabase
     .from('site_assets')
-    .select('*')
+    .select(
+      'id,key,bucket,file_path,asset_type,page,description,is_active,sort_order,metadata,created_at,updated_at'
+    )
     .order('page', { ascending: true })
     .order('sort_order', { ascending: true, nullsFirst: false });
 

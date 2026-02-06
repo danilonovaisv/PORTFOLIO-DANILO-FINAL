@@ -71,7 +71,7 @@ export default function SiteFooter() {
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:scale-105 transition-transform duration-200 opacity-100 lg:opacity-90 lg:hover:opacity-100 p-3 lg:p-0 flex items-center justify-center min-w-[48px] min-h-[48px] lg:min-w-0 lg:min-h-0"
+              className="transition-transform duration-200 opacity-100 lg:opacity-90 lg:hover:opacity-100 p-3 lg:p-0 flex items-center justify-center min-w-[48px] min-h-[48px] lg:min-w-0 lg:min-h-0 hover:-translate-y-0.5 will-change-transform"
               aria-label={social.label}
             >
               {social.icon}

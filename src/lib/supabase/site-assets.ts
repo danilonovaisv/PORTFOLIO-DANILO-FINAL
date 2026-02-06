@@ -11,7 +11,9 @@ export async function getSiteAssets() {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from('site_assets')
-    .select('*')
+    .select(
+      'id,key,bucket,file_path,asset_type,page,description,is_active,sort_order,metadata,created_at,updated_at'
+    )
     .order('page', { ascending: true })
     .order('sort_order', { ascending: true, nullsFirst: false });
 

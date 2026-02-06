@@ -84,13 +84,13 @@ export default function ClientsBrandsSection() {
                   },
                 }}
               >
-                <div className="group relative w-28 h-14 sm:w-32 sm:h-16 md:w-40 md:h-20 flex items-center justify-center">
+                <div className="group relative w-28 h-14 sm:w-32 sm:h-16 md:w-40 md:h-20 flex items-center justify-center transition-transform duration-500 will-change-transform group-hover:-translate-y-0.5">
                   <DynamicAssetImage
                     assetKey={assetKey}
                     alt={logo.alt}
                     fallbackUrl={logo.src || ''}
                     priority={shouldEagerLoad}
-                    className="w-full h-full object-contain filter brightness-0 invert opacity-60 transition-all duration-500 group-hover:opacity-100 group-hover:scale-110 will-change-transform"
+                    className="w-full h-full object-contain filter brightness-0 invert opacity-60 transition-all duration-500 group-hover:opacity-100"
                   />
                 </div>
               </motion.li>
