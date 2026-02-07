@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { requireAdminAccess } from '@/lib/admin/server-access';
 import {
+  toggleFeaturedOnHome,
   toggleFeaturedOnPortfolio,
   togglePublish,
 } from '@/lib/supabase/queries/projects';
@@ -43,7 +44,7 @@ export default async function TrabalhosPage(props: Props) {
   let query = supabase
     .from('portfolio_projects')
     .select(
-      'id, title, client_name, year, featured_on_home, featured_home_order, featured_on_portfolio, featured_portfolio_order, is_published, thumbnail_path, url_landscape, url_square, project_type, slug'
+      'id, title, client_name, year, featured_on_home, featured_on_portfolio, is_published, thumbnail_path, hero_image_path, project_type, slug'
     )
     .order('updated_at', { ascending: false });
 
@@ -233,46 +234,26 @@ export default async function TrabalhosPage(props: Props) {
                       </span>
                     )}
                   </div>
-                  <form action={toggleFeaturedOnPortfolio} className="mt-2">
-                    <input type="hidden" name="id" value={project.id} />
-                    <input
-                      type="hidden"
-                      name="nextStatus"
-                      value={project.featured_on_portfolio ? 'false' : 'true'}
-                    />
-                    <button
-                      type="submit"
-                      className={`rounded px-2 py-1 text-xs font-semibold ${
-                        project.featured_on_portfolio
-                          ? 'bg-emerald-500/20 text-emerald-200 border border-emerald-500/30'
-                          : 'bg-slate-700 text-slate-200 border border-white/10'
-                      }`}
-                    >
-                      {project.featured_on_portfolio
-                        ? 'Em destaque'
-                        : 'Destacar'}
-                    </button>
-                  </form>
                 </td>
                 <td className="px-4 py-3 text-slate-300">
                   <div className="flex flex-col gap-1 text-xs">
                     <span
                       className={
-                        project.url_landscape
+                        project.thumbnail_path
                           ? 'text-emerald-300'
                           : 'text-amber-300'
                       }
                     >
-                      16:9 {project.url_landscape ? 'ok' : 'faltando'}
+                      16:9 {project.thumbnail_path ? 'ok' : 'faltando'}
                     </span>
                     <span
                       className={
-                        project.url_square
+                        project.hero_image_path
                           ? 'text-emerald-300'
                           : 'text-amber-300'
                       }
                     >
-                      1:1 {project.url_square ? 'ok' : 'faltando'}
+                      1:1 {project.hero_image_path ? 'ok' : 'faltando'}
                     </span>
                   </div>
                 </td>
@@ -280,23 +261,45 @@ export default async function TrabalhosPage(props: Props) {
                   <div className="flex flex-col gap-1 text-xs">
                     <div className="flex items-center gap-2">
                       <span className="text-slate-400">Home:</span>
-                      {project.featured_on_home ? (
-                        <span className="rounded bg-blue-500/15 px-2 py-1 text-blue-100">
-                          #{project.featured_home_order ?? '—'}
-                        </span>
-                      ) : (
-                        <span className="text-slate-500">—</span>
-                      )}
+                      <form action={toggleFeaturedOnHome}>
+                        <input type="hidden" name="id" value={project.id} />
+                        <input
+                          type="hidden"
+                          name="nextStatus"
+                          value={project.featured_on_home ? 'false' : 'true'}
+                        />
+                        <button
+                          type="submit"
+                          className={`rounded px-2 py-1 text-xs font-semibold ${
+                            project.featured_on_home
+                              ? 'bg-blue-500/20 text-blue-200 border border-blue-500/30'
+                              : 'bg-slate-700 text-slate-200 border border-white/10'
+                          }`}
+                        >
+                          {project.featured_on_home ? 'Ativo' : 'Destacar'}
+                        </button>
+                      </form>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-slate-400">Portfólio:</span>
-                      {project.featured_on_portfolio ? (
-                        <span className="rounded bg-emerald-500/15 px-2 py-1 text-emerald-100">
-                          Ativo
-                        </span>
-                      ) : (
-                        <span className="text-slate-500">—</span>
-                      )}
+                      <form action={toggleFeaturedOnPortfolio}>
+                        <input type="hidden" name="id" value={project.id} />
+                        <input
+                          type="hidden"
+                          name="nextStatus"
+                          value={project.featured_on_portfolio ? 'false' : 'true'}
+                        />
+                        <button
+                          type="submit"
+                          className={`rounded px-2 py-1 text-xs font-semibold ${
+                            project.featured_on_portfolio
+                              ? 'bg-emerald-500/20 text-emerald-200 border border-emerald-500/30'
+                              : 'bg-slate-700 text-slate-200 border border-white/10'
+                          }`}
+                        >
+                          {project.featured_on_portfolio ? 'Ativo' : 'Destacar'}
+                        </button>
+                      </form>
                     </div>
                   </div>
                 </td>

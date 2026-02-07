@@ -11,9 +11,6 @@ import { uploadToBucket } from '@/lib/supabase/storage';
 import type { DbProject, DbTag, DbLandingPage } from '@/types/admin';
 import { FieldTooltip } from '@/components/admin/FieldTooltip';
 import { upsertTagAction } from '@/app/admin/(protected)/tags/actions';
-import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
-import { isVideo } from '@/utils/utils';
-import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import {
   LEGACY_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE,
@@ -31,11 +28,6 @@ const projectSchema = z.object({
   short_label: z.string().optional(),
   description: z.string().optional(),
   featured_on_home: z.boolean().optional(),
-  featured_home_order: z.coerce.number().int().optional().nullable(),
-  preferred_size: z.preprocess(
-    (val) => (val === '' ? undefined : val),
-    z.enum(['sm', 'md', 'lg', 'wide']).optional().nullable()
-  ),
   is_published: z.boolean().optional(),
   landing_page_id: z.string().optional().nullable(),
   tags: z.array(z.string()).optional(),
@@ -56,8 +48,10 @@ export function ProjectForm({
   landingPages,
   selectedTagIds = [],
 }: Props) {
-  const hasExistingLandscape = Boolean(project?.url_landscape);
-  const hasExistingSquare = Boolean(project?.url_square);
+  const hasExistingLandscape = Boolean(
+    project?.url_landscape ?? project?.thumbnail_path
+  );
+  const hasExistingSquare = Boolean(project?.url_square ?? project?.hero_image_path);
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [hero, setHero] = useState<File | null>(null);
   const [landscapeVariant, setLandscapeVariant] = useState<File | null>(null);
@@ -86,8 +80,6 @@ export function ProjectForm({
       short_label: project?.short_label ?? '',
       description: project?.description ?? '',
       featured_on_home: project?.featured_on_home ?? false,
-      featured_home_order: project?.featured_home_order ?? undefined,
-      preferred_size: project?.preferred_size ?? null,
       is_published: project?.is_published ?? true,
       landing_page_id: project?.landing_page_id ?? '',
       tags: selectedTagIds,
@@ -227,7 +219,7 @@ export function ProjectForm({
           payloadData.landing_page_id = null;
         }
 
-        const { data, error: upsertError } = await supabase
+        let { data, error: upsertError } = await supabase
           .from('portfolio_projects')
           .upsert(
             {
@@ -243,6 +235,34 @@ export function ProjectForm({
           )
           .select()
           .single();
+
+        if (upsertError?.message?.includes('column')) {
+          const fallbackPayload = {
+            id: project?.id,
+            title: values.title,
+            slug: values.slug,
+            client_name: values.client_name,
+            brand_name: values.brand_name || null,
+            year: values.year ?? null,
+            project_type: values.project_type,
+            short_label: values.short_label || null,
+            description: values.description || null,
+            featured_on_home: values.featured_on_home ?? false,
+            is_published: values.is_published ?? true,
+            gallery: galleryEntries,
+            thumbnail_path: url_landscape ?? thumbnail_path,
+            hero_image_path: url_square ?? hero_image_path,
+          };
+
+          const fallbackResult = await supabase
+            .from('portfolio_projects')
+            .upsert(fallbackPayload, { onConflict: 'id' })
+            .select()
+            .single();
+
+          data = fallbackResult.data;
+          upsertError = fallbackResult.error;
+        }
 
         if (upsertError) throw upsertError;
 
@@ -442,57 +462,8 @@ export function ProjectForm({
           Destaque Home
         </label>
         <label className="flex items-center gap-2 text-sm text-slate-300">
-          <input type="checkbox" {...form.register('featured_on_portfolio')} />
-          Destaque Portfólio
-        </label>
-        <label className="flex items-center gap-2 text-sm text-slate-300">
           <input type="checkbox" {...form.register('is_published')} />
           Publicado
-        </label>
-        <label className="flex flex-col gap-2">
-          <FieldTooltip
-            label="Ordem Home"
-            description="Usado como desempate no CMS; a Home final embaralha os destaques ativos."
-            className="flex items-center gap-1"
-          />
-          <input
-            type="number"
-            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
-            {...form.register('featured_home_order')}
-          />
-        </label>
-        <label className="flex flex-col gap-2">
-          <FieldTooltip
-            label="Ordem Portfólio"
-            description="Define prioridade visual para listagem do portfólio completo."
-            className="flex items-center gap-1"
-          />
-          <input
-            type="number"
-            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
-            {...form.register('featured_portfolio_order')}
-          />
-        </label>
-        <label className="flex flex-col gap-2">
-          <FieldTooltip
-            label="Tamanho preferencial no grid"
-            description="Sugestão de ocupação do card no grid editorial 12 colunas."
-            className="flex items-center gap-1"
-          />
-          <select
-            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
-            {...form.register('preferred_size')}
-          >
-            <option value="">Automático (padrão)</option>
-            <option value="sm">Pequeno (1/3 da linha)</option>
-            <option value="md">Médio (1/3 da linha)</option>
-            <option value="lg">Grande (2/3 da linha)</option>
-            <option value="wide">Full (linha inteira)</option>
-          </select>
-          <p className="text-[11px] text-slate-500 leading-relaxed">
-            Usado como preferência visual; o grid pode adaptar para fechar 12
-            colunas mantendo a mesma altura.
-          </p>
         </label>
       </div>
 
@@ -540,7 +511,7 @@ export function ProjectForm({
           />
           <input
             type="file"
-            accept="image/*"
+            accept="image/*,video/*"
             onChange={(e) => setLandscapeVariant(e.target.files?.[0] ?? null)}
           />
           {project?.url_landscape && (
@@ -557,7 +528,7 @@ export function ProjectForm({
           />
           <input
             type="file"
-            accept="image/*"
+            accept="image/*,video/*"
             onChange={(e) => setSquareVariant(e.target.files?.[0] ?? null)}
           />
           {project?.url_square && (
@@ -594,7 +565,7 @@ export function ProjectForm({
           />
           <input
             type="file"
-            accept="image/*"
+            accept="image/*,video/*"
             onChange={(e) => setHero(e.target.files?.[0] ?? null)}
           />
           {project?.hero_image_path && (
@@ -629,8 +600,24 @@ export function ProjectForm({
           description="Usadas para highlights rápidos no card e categorização editorial."
           className="mb-2 flex items-center gap-1"
         />
+        <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center">
+          <input
+            value={newTagLabel}
+            onChange={(event) => setNewTagLabel(event.target.value)}
+            placeholder="Criar nova tag"
+            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+          />
+          <button
+            type="button"
+            onClick={handleCreateTag}
+            disabled={isCreatingTag || !newTagLabel.trim()}
+            className="rounded-md border border-white/10 px-3 py-2 text-sm font-medium text-white disabled:opacity-50"
+          >
+            {isCreatingTag ? 'Criando...' : 'Criar tag'}
+          </button>
+        </div>
         <div className="flex flex-wrap gap-3">
-          {tags.map((tag) => (
+          {availableTags.map((tag) => (
             <label
               key={tag.id}
               className="flex items-center gap-2 text-sm text-slate-200"
