@@ -28,29 +28,29 @@ function parseEnv(filePath) {
 
 function validateEnv() {
   const filePath = path.resolve(ENV_FILE);
-  let env = {};
+  let fileEnv = {};
   try {
-    env = parseEnv(filePath);
+    fileEnv = parseEnv(filePath);
   } catch (error) {
-    console.error(`Não foi possível ler ${ENV_FILE}:`, error.message);
-    process.exit(1);
+    if (process.env.CI !== 'true') {
+      console.error(`Não foi possível ler ${ENV_FILE}:`, error.message);
+      process.exit(1);
+    }
   }
 
-  const missing = REQUIRED_KEYS.filter(
-    (key) => !env[key] || env[key].length === 0
-  );
+  const missing = REQUIRED_KEYS.filter((key) => {
+    const value = process.env[key] ?? fileEnv[key];
+    return !value || value.length === 0;
+  });
+
   if (missing.length) {
-    console.error(
-      `As seguintes variáveis obrigatórias estão faltando em ${ENV_FILE}: ${missing.join(
-        ', '
-      )}`
-    );
+    const source = process.env.CI === 'true' ? 'CI/.env.local' : ENV_FILE;
+    console.error(`As seguintes variáveis obrigatórias estão faltando em ${source}: ${missing.join(', ')}`);
     process.exit(1);
   }
 
-  console.log(
-    `${ENV_FILE} validado com sucesso (${REQUIRED_KEYS.length} chaves).`
-  );
+  const source = process.env.CI === 'true' ? 'CI/.env.local' : ENV_FILE;
+  console.log(`${source} validado com sucesso (${REQUIRED_KEYS.length} chaves).`);
 }
 
 validateEnv();
