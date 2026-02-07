@@ -51,7 +51,9 @@ export function ProjectForm({
   const hasExistingLandscape = Boolean(
     project?.url_landscape ?? project?.thumbnail_path
   );
-  const hasExistingSquare = Boolean(project?.url_square ?? project?.hero_image_path);
+  const hasExistingSquare = Boolean(
+    project?.url_square ?? project?.hero_image_path
+  );
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [hero, setHero] = useState<File | null>(null);
   const [landscapeVariant, setLandscapeVariant] = useState<File | null>(null);
@@ -318,7 +320,8 @@ export function ProjectForm({
         .maybeSingle();
 
       if (fetchError) throw fetchError;
-      if (!data) throw new Error('Tag criada, mas não foi possível carregá-la.');
+      if (!data)
+        throw new Error('Tag criada, mas não foi possível carregá-la.');
 
       setAvailableTags((prev) =>
         [...prev, data].sort((a, b) =>

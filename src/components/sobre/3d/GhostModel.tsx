@@ -59,7 +59,7 @@ const GhostModel: React.FC<GhostModelProps> = ({
       floatBase: isMobile ? 0.09 : 0.05,
       floatAmplitude: 0.2,
       tiltBase: 0.15,
-      tiltBase: 0.15,
+
       // Escala ajustada para maior presença
       // 🟣 [CONFIG VISUAL]: Escala Base - Tamanho inicial do Ghost (0.22 mobile, 0.65 desktop)
       baseScale: isMobile ? 0.22 : 0.65,

@@ -11,7 +11,7 @@ import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers'
 import { createStaticClient } from '@/lib/supabase/static';
 import type { PortfolioProject } from '@/types/project';
 import JsonLd from '@/components/ui/JsonLd';
-
+import { SITE_ASSET_KEYS } from '@/config/site-assets';
 
 export const metadata: Metadata = {
   title: 'Danilo Novais | Creative Developer',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   },
 };
 
-import { SITE_ASSET_KEYS } from '@/config/site-assets';
+
 
 export default async function HomePage() {
   let featuredProjects: PortfolioProject[] = [];
@@ -69,7 +69,6 @@ export default async function HomePage() {
     );
   } catch (error) {
     console.error('Error fetching projects:', error);
-
   }
 
   return (

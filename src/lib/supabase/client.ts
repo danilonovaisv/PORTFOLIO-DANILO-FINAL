@@ -18,7 +18,7 @@ export function createClientComponentClient() {
         getSession: () =>
           Promise.resolve({ data: { session: null }, error: null }),
         onAuthStateChange: () => ({
-          data: { subscription: { unsubscribe: () => { } } },
+          data: { subscription: { unsubscribe: () => {} } },
         }),
       },
       storage: {

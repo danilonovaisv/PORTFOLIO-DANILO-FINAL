@@ -287,7 +287,9 @@ export default async function TrabalhosPage(props: Props) {
                         <input
                           type="hidden"
                           name="nextStatus"
-                          value={project.featured_on_portfolio ? 'false' : 'true'}
+                          value={
+                            project.featured_on_portfolio ? 'false' : 'true'
+                          }
                         />
                         <button
                           type="submit"
