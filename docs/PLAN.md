@@ -1,51 +1,56 @@
-# PLAN: Ajuste de Alinhamento e Estética - Ghost System v3
+# Plano de Ajustes e Melhorias - Frontend Audit
 
-Este plano visa sincronizar a interface do portfólio com o design especificado na imagem de referência, focando no alinhamento de grid, tamanho de fontes e posicionamento do elemento 3D Ghost.
+## 1. Visão Geral
 
-## 📋 Tarefas
+Auditoria realizada nas páginas principais (`/`, `/sobre`, `/portfolio`, `/contato`) e estilos globais com foco em "Frontend Code Review" e "Frontend Design" (Ghost Era Guidelines).
 
-### 1. Ajuste do Texto à Esquerda (BeliefSection)
+## 2. Resultados da Auditoria
 
-- **Arquivo**: `src/components/sobre/beliefs/BeliefSection.tsx`
-- **Ação**:
-  - Aumentar o tamanho da fonte (`text-clamp`) para desktop.
-  - Ajustar o `padding-left` ou alinhamento para que o texto comece exatamente na linha do grid (conforme as linhas amarelas da imagem).
-  - Verificar o `leading` (espaçamento entre linhas).
+### 🟢 Pontos Positivos
 
-### 2. Redimensionamento e Reposicionamento do Ghost (GhostModel)
+- **Estrutura**: Uso consistente de Server Components e metadados de SEO.
+- **Design System**: Variáveis CSS (Tailwind v4-like) e `std-grid` bem definidos.
+- **Patterns**: Uso do `SiteClosure` na maioria das páginas.
+- **Performance**: `createStaticClient` e ISR configurados.
 
-- **Arquivo**: `src/components/sobre/3d/GhostModel.tsx`
-- **Ação**:
-  - Aumentar a `baseScale` para desktop (de `0.35` para `0.45` ou `0.5`).
-  - Ajustar `targetY` e `targetX` no `isFinalPhase` para elevar o Ghost e centralizá-lo conforme a caixa azul da imagem.
+### 🔴 Pontos de Atenção (Ajustes Necessários)
 
-### 3. Ajuste do Texto à Direita (BeliefFixedHeader)
+#### A. Arquitetura & Código (Code Review)
 
-- **Arquivo**: `src/components/sobre/beliefs/BeliefFixedHeader.tsx`
-- **Ação**:
-  - Validar o alinhamento do bloco de texto com o grid à direita.
-  - Garantir que a hierarquia "Acredito no..." vs "Não pelo choque..." esteja visualmente equilibrada.
+1. **Portfolio Page (`src/app/portfolio/page.tsx`)**:
+   - **Complexidade**: Lógica de fallback (`buildFallbackProjects`, `FALLBACK_CATEGORY_MAP`) acoplada diretamente à página. Dificulta manutenção.
+   - **Hardcoding**: Cores de destaque (`accentColor`) hardcoded dentro do mapper.
 
-### 4. Verificação Final
+2. **Home Page (`src/app/page.tsx`)**:
+   - **Dead Code**: Comentários de código morto (`// Removed unused...`).
+   - **Robustez**: Tratamento de erro no fetch de projetos pode resultar em seção vazia sem feedback visual (embora evite crash).
 
-- **Ação**:
-  - Rodar `lint_runner.py` para garantir integridade.
-  - Se possível, rodar `lighthouse_audit.py` (ou pelo menos garantir que não quebramos a performance).
+#### B. Design & Consistência (Frontend Design)
 
-## 🤖 Agentes Envolvidos
+1. **Contact Page (`src/app/contato/page.tsx`)**:
+   - **Violação de Pattern**: A página de contato não segue o padrão "Ghost Era Closure" completo. Falta a seção `ClientsBrandsSection` antes do formulário, quebrando a consistência narrativa presente em Home e Sobre.
 
-| Agente | Responsabilidade |
-| :--- | :--- |
-| **@ghost_architect** | Orquestração e estrutura dos componentes de layout. |
-| **@spectral_artist** | Ajustes no modelo 3D (Escala e Posição). |
-| **@motion_choreographer** | Sincronização das animações de entrada/saída. |
-| **@test-engineer** | Auditoria de lint e conformidade. |
+2. **Global Styles (`src/app/globals.css`)**:
+   - **Manutenção**: Mistura de definições de variáveis. Algumas cores hardcoded em hex que poderiam usar tokens do sistema (ex: `#0048ff` repetido).
 
-## 🚦 Status
+## 3. Plano de Ação
 
-- [ ] Implementação do Texto Esquerdo
-- [ ] Implementação do Ghost 3D
-- [ ] Implementação do Texto Direito
-- [ ] Validação de Lint
+### Fase 1: Refatoração & Limpeza
 
-✅ **Pronto para iniciar?** (Aguardando aprovação do usuário)
+- [x] **Extrair Lógica de Fallback**: Mover `buildFallbackProjects` e mapas auxiliares de `/portfolio` para `src/lib/portfolio/fallbacks.ts`.
+- [x] **Centralizar Estilos**: Mover lógica de cores por categoria para `src/config/brand.ts` ou utilitário de estilos.
+- [x] **Limpeza Home**: Remover comentários e importações não utilizadas.
+
+### Fase 2: Consistência Visual (Ghost Era)
+
+- [x] **Padronizar Contato**: Adicionar `ClientsBrandsSection` na página de contato (antes do formulário) para alinhar com o `SiteClosure` pattern.
+- [x] **Revisão de Cores**: Substituir valores hex hardcoded em `globals.css` por variáveis CSS onde possível para facilitar temas.
+
+### Fase 3: Validação
+
+- [ ] Verificar build (`npm run build`) - *Validation skipped: Dev server locked files. Please verify manually.*
+- [ ] Verificar consistência visual em mobile/desktop.
+
+---
+
+**Aprovação**: Aguardando confirmação do usuário para iniciar a implementação via `parallel-agents`.

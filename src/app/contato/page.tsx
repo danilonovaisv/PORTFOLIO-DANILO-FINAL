@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import ClientsBrandsSection from '@/components/home/clients/ClientsBrandsSection';
 import ContactSection from '@/components/home/contact/ContactSection';
 import SiteFooter from '@/components/layout/SiteFooter';
 import { BRAND } from '@/config/brand';
@@ -41,6 +42,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <JsonLd pageType="contact" />
+      <ClientsBrandsSection />
       <ContactSection />
       <SiteFooter />
     </div>
