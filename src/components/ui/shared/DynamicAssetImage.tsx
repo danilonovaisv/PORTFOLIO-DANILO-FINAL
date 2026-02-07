@@ -80,8 +80,9 @@ export function DynamicAssetImage({
         width={width}
         height={height}
         priority={priority}
-        className={`object-cover transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'
-          }`}
+        className={`object-cover transition-opacity duration-300 ${
+          isTransitioning ? 'opacity-0' : 'opacity-100'
+        }`}
       />
     </div>
   );

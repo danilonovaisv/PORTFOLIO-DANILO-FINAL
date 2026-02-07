@@ -1,14 +1,28 @@
 'use client';
-import React from 'react';
-import { cubicBezier, useScroll, useTransform } from 'framer-motion';
-import { BeliefSection, BeliefMobileTextLayer } from '../beliefs/BeliefSection';
-import { BeliefFinalSection } from '../beliefs/BeliefFinalSection';
-import { BeliefFixedHeader } from '../beliefs/BeliefFixedHeader';
-import { BeliefFinalSectionOverlay } from '../beliefs/BeliefFinalSectionOverlay';
-import { BRAND } from '@/config/brand';
+
+import React, { useRef } from 'react';
+import { useScroll } from 'framer-motion';
 import dynamic from 'next/dynamic';
 
-const GhostScene = dynamic(() => import('../3d/GhostScene'), { ssr: false });
+// Importações dos sub-componentes (Certifique-se que os caminhos estão corretos)
+import { BeliefSection, BeliefMobileTextLayer } from '../beliefs/BeliefSection';
+import { BeliefFinalSection } from '../beliefs/BeliefFinalSection';
+import { BeliefFinalSectionOverlay } from '../beliefs/BeliefFinalSectionOverlay';
+import { BRAND } from '@/config/brand';
+
+// [CORREÇÃO CRÍTICA]: Tratamento robusto para importação dinâmica.
+// Isso garante que pega o componente correto, seja export default ou export nomeado.
+const GhostScene = dynamic<{ scrollProgress: MotionValue<number> }>(
+  () =>
+    import('../3d/GhostScene').then((mod: any) => {
+      // Retorna a exportação nomeada 'GhostScene' OU a 'default'
+      return mod.GhostScene || mod.default;
+    }),
+  {
+    ssr: false,
+    loading: () => <div className="w-full h-full bg-transparent" />, // Placeholder invisível
+  }
+);
 
 const PHRASES = [
   'Um\nvídeo\nque\nrespira.',
@@ -28,30 +42,22 @@ const COLORS = [
   BRAND.colors.pinkDetails,
 ];
 
-export const AboutBeliefs: React.FC = () => {
-  const containerRef = React.useRef<HTMLDivElement>(null);
+export function AboutBeliefs() {
+  const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end end'],
   });
 
-  // Easing Ghost Padrão
-  const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
-
-  // Opacidade do Header Fixo
-  const headerOpacity = useTransform(
-    scrollYProgress,
-    [0.05, 0.12, 0.85, 0.95],
-    [0, 1, 1, 0],
-    { ease: ghostEase }
-  );
-
   return (
-    <section ref={containerRef} className="relative w-full">
-      {/* LAYER 1: Backgrounds coloridos (Behind Everything) */}
-      <div className="relative pointer-events-none z-10 w-full">
-        <BeliefFixedHeader opacity={headerOpacity} progress={scrollYProgress} />
-
+    <section
+      ref={containerRef}
+      className="relative w-full"
+      style={{ minHeight: `${(PHRASES.length + 2) * 100}vh` }} // Garante altura baseada no conteúdo
+    >
+      {/* LAYER 1: Seções de Conteúdo (Texto Scrollável) */}
+      <div className="relative z-30">
+        {/* Adicionei verificações para evitar erro se PHRASES/COLORS estiverem vazios */}
         {PHRASES.map((phrase, index) => (
           <BeliefSection
             key={index}
@@ -60,6 +66,7 @@ export const AboutBeliefs: React.FC = () => {
             isFirst={index === 0}
           />
         ))}
+
         <BeliefFinalSection
           scrollProgress={scrollYProgress}
           bgColor={BRAND.colors.bluePrimary}
@@ -78,11 +85,8 @@ export const AboutBeliefs: React.FC = () => {
       </div>
 
       {/* LAYER 3: Canvas 3D (Sticky - Top Layer Z-50) */}
-      {/* Mobile: Ghost positioned to align vertically with text block in footer */}
-      {/* Desktop: Centered in viewport */}
       <div className="absolute inset-0 w-full h-full pointer-events-none z-50">
         <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-auto flex md:items-center md:justify-center items-end justify-start">
-          {/* 3D Scene Wrapper - Responsive Positioning */}
           <div className="w-full h-full md:absolute md:inset-0 relative">
             <GhostScene scrollProgress={scrollYProgress} />
           </div>
@@ -90,6 +94,4 @@ export const AboutBeliefs: React.FC = () => {
       </div>
     </section>
   );
-};
-
-export default AboutBeliefs;
+}

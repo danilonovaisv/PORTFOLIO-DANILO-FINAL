@@ -6,6 +6,7 @@ import { useGLTF, Float } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
 import { MotionValue } from 'framer-motion';
 import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
+import { SITE_ASSET_KEYS } from '@/config/site-assets';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -37,7 +38,7 @@ const GhostModel: React.FC<GhostModelProps> = ({
   const group = useRef<THREE.Group>(null);
   const { viewport } = useThree();
 
-  const { asset } = useRealtimeAsset('about.beliefs.ghost_model');
+  const { asset } = useRealtimeAsset(SITE_ASSET_KEYS.about.beliefs.ghostModel);
   const modelUrl = asset?.publicUrl || GHOST_URL;
 
   const { nodes, materials } = useGLTF(modelUrl) as unknown as GLTFResult;
@@ -50,8 +51,8 @@ const GhostModel: React.FC<GhostModelProps> = ({
       // 🟣 [CONFIG VISUAL]: Posição Base X - Define onde o Ghost começa horizontalmente (Desktop vs Mobile)
       baseX: isMobile ? -viewport.width / 3 : 0,
 
-      // Desktop: Centralizado (0)
-      // Mobile: 17% do topo (alinhado com titulo)
+      // Desktop: ancorado no centro do viewport
+      // Mobile: 17% do topo (alinhado com título)
       startY: isMobile ? viewport.height * 0.17 : 0,
       endY: isMobile ? viewport.height * 0.17 : 0, // Mantém posição fixa até o final
 
@@ -63,6 +64,8 @@ const GhostModel: React.FC<GhostModelProps> = ({
       // Escala ajustada para maior presença
       // 🟣 [CONFIG VISUAL]: Escala Base - Tamanho inicial do Ghost (0.22 mobile, 0.65 desktop)
       baseScale: isMobile ? 0.22 : 0.585,
+      // Compensa pivot do GLB para centralização visual no desktop
+      modelOffsetY: isMobile ? 0 : -1.9,
       // 🟣 [CONFIG VISUAL]: Boost de Escala - Quanto o Ghost cresce na fase final (+15%)
       scaleBoost: 0.15, // +15% no final
       scrollResponse: isMobile ? 0.2 : 0,
@@ -124,9 +127,9 @@ const GhostModel: React.FC<GhostModelProps> = ({
     let targetX = config.baseX;
 
     if (isFinalPhase.current) {
-      // Fase Final: Centraliza X e Y
+      // Fase Final: mantém âncora central e centraliza X
       targetX = 0;
-      targetY = 0;
+      targetY = config.startY;
     }
 
     // Saída Suave (Exit Phase)
@@ -210,52 +213,54 @@ const GhostModel: React.FC<GhostModelProps> = ({
 
   return (
     <group ref={group} scale={currentScale} dispose={null}>
-      <Float
-        speed={2.2}
-        rotationIntensity={isFinalPhase.current ? 1.2 : 0.6}
-        floatIntensity={isFinalPhase.current ? 1.0 : 0.5}
-        floatingRange={[
-          -config.floatBase * (isFinalPhase.current ? 1.5 : 1),
-          config.floatBase * (isFinalPhase.current ? 1.5 : 1),
-        ]}
-      >
-        <mesh
-          name="Body_Ghost_White_0"
-          castShadow
-          receiveShadow
-          geometry={nodes.Body_Ghost_White_0.geometry}
-          material={materials.Ghost_White}
-          position={[0, 1.5578, 0]}
-          rotation={[-Math.PI / 2, 0, 0]}
-        />
-        <mesh
-          name="Eyes_Eyes_0"
-          castShadow
-          receiveShadow
-          geometry={nodes.Eyes_Eyes_0.geometry}
-          material={materials.Eyes}
-          position={[0, 1.5578, 0]}
-          rotation={[-Math.PI / 2, 0, 0]}
-        />
-        <mesh
-          name="Hat_Hat_Black_0"
-          castShadow
-          receiveShadow
-          geometry={nodes.Hat_Hat_Black_0.geometry}
-          material={materials.Hat_Black}
-          position={[0, 2.9913, 0]}
-          rotation={[-Math.PI / 2, 0, 0]}
-        />
-        <mesh
-          name="Rim_Rim_Red_0"
-          castShadow
-          receiveShadow
-          geometry={nodes.Rim_Rim_Red_0.geometry}
-          material={materials.Rim_Red}
-          position={[0, 2.3541, 0]}
-          rotation={[-Math.PI / 2, 0, 0]}
-        />
-      </Float>
+      <group position={[0, config.modelOffsetY, 0]}>
+        <Float
+          speed={2.2}
+          rotationIntensity={isFinalPhase.current ? 1.2 : 0.6}
+          floatIntensity={isFinalPhase.current ? 1.0 : 0.5}
+          floatingRange={[
+            -config.floatBase * (isFinalPhase.current ? 1.5 : 1),
+            config.floatBase * (isFinalPhase.current ? 1.5 : 1),
+          ]}
+        >
+          <mesh
+            name="Body_Ghost_White_0"
+            castShadow
+            receiveShadow
+            geometry={nodes.Body_Ghost_White_0.geometry}
+            material={materials.Ghost_White}
+            position={[0, 1.5578, 0]}
+            rotation={[-Math.PI / 2, 0, 0]}
+          />
+          <mesh
+            name="Eyes_Eyes_0"
+            castShadow
+            receiveShadow
+            geometry={nodes.Eyes_Eyes_0.geometry}
+            material={materials.Eyes}
+            position={[0, 1.5578, 0]}
+            rotation={[-Math.PI / 2, 0, 0]}
+          />
+          <mesh
+            name="Hat_Hat_Black_0"
+            castShadow
+            receiveShadow
+            geometry={nodes.Hat_Hat_Black_0.geometry}
+            material={materials.Hat_Black}
+            position={[0, 2.9913, 0]}
+            rotation={[-Math.PI / 2, 0, 0]}
+          />
+          <mesh
+            name="Rim_Rim_Red_0"
+            castShadow
+            receiveShadow
+            geometry={nodes.Rim_Rim_Red_0.geometry}
+            material={materials.Rim_Red}
+            position={[0, 2.3541, 0]}
+            rotation={[-Math.PI / 2, 0, 0]}
+          />
+        </Float>
+      </group>
     </group>
   );
 };

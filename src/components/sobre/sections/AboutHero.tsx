@@ -196,26 +196,39 @@ export function AboutHero() {
               }}
               className="space-y-4"
             >
+              {/* TÍTULO MOBILE AJUSTADO
+                  1. text-[clamp(1.8rem...)]: Reduzi o mínimo para caber melhor em telas pequenas.
+                  2. text-balance: Garante que as linhas fiquem visualmente equilibradas.
+              */}
               <div
                 aria-hidden="true"
-                className="font-h1 text-[clamp(2rem,4vw+1rem,3.5rem)] font-bold text-white leading-tight flex flex-col gap-1"
+                className="font-h1 text-[clamp(1.8rem,4vw+1rem,3.5rem)] font-bold text-white leading-tight flex flex-col gap-1 text-balance"
               >
                 <span>
                   Sou <span className="text-bluePrimary">Danilo Novais.</span>
                 </span>
                 <span>
-                  Você <span className="text-bluePrimary">não vê tudo</span> o
-                  que eu faço.
+                  Você <span className="text-bluePrimary">não vê tudo</span>{' '}
+                  {/* whitespace-nowrap impede a quebra: "o | que eu faço" */}
+                  <span className="whitespace-nowrap">o que eu faço.</span>
                 </span>
                 <span>
                   Mas sente quando{' '}
-                  <span className="text-bluePrimary">funciona.</span>
+                  {/* whitespace-nowrap impede que 'funciona' fique sozinho */}
+                  <span className="text-bluePrimary whitespace-nowrap">
+                    funciona.
+                  </span>
                 </span>
               </div>
             </motion.div>
+
+            {/* SUBTÍTULO MOBILE AJUSTADO
+                mix-blend-normal: Garante cor sólida no mobile (sem overlay)
+                md:mix-blend-difference: Aplica o efeito apenas em tablets/desktop se necessário
+            */}
             <motion.div
               variants={motionTokens.fadeGhost}
-              className="type-h3 text-white leading-snug tracking-tight max-w-[98%] mx-auto font-medium"
+              className="type-h2 text-white leading-snug tracking-tight max-w-[99%] mx-auto font-semibold mix-blend-normal md:mix-blend-difference"
             >
               {ABOUT_CONTENT.hero.description.map((line, index) => (
                 <span key={index} className="block">
