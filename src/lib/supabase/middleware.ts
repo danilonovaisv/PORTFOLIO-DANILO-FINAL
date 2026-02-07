@@ -23,7 +23,7 @@ export async function updateSession(request: NextRequest) {
       // Firebase Hosting só encaminha o cookie "__session" para as Functions.
       name: '__session',
       sameSite: 'lax',
-      secure: true,
+      secure: process.env.NODE_ENV === 'production',
     },
     cookies: {
       getAll() {

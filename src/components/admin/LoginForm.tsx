@@ -61,7 +61,10 @@ export default function LoginForm() {
           return;
         }
 
-        console.log('SignIn success, session:', data.session ? 'created' : 'missing');
+        console.log(
+          'SignIn success, session:',
+          data.session ? 'created' : 'missing'
+        );
 
         if (data.session) {
           setIsRedirecting(true);

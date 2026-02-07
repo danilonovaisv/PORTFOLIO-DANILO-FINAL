@@ -107,7 +107,9 @@ export function buildSupabaseStorageUrl(
     return filePath.startsWith('http') ? filePath : null;
   }
 
-  return `${baseUrl}/storage/v1/object/public/${cleanBucket}/${normalizedPath}`;
+  const finalUrl = `${baseUrl}/storage/v1/object/public/${cleanBucket}/${normalizedPath}`;
+  debugUrl(finalUrl);
+  return finalUrl;
 }
 
 // Função adicional para validar e construir URLs de links externos

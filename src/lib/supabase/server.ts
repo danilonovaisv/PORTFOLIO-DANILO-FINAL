@@ -29,7 +29,7 @@ export async function createClient() {
       // Firebase Hosting (Functions/Frameworks) só encaminha "__session"
       name: '__session',
       sameSite: 'lax',
-      secure: true,
+      secure: process.env.NODE_ENV === 'production',
     },
     cookies: {
       getAll() {

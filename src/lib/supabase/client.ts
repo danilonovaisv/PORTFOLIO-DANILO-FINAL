@@ -18,7 +18,7 @@ export function createClientComponentClient() {
         getSession: () =>
           Promise.resolve({ data: { session: null }, error: null }),
         onAuthStateChange: () => ({
-          data: { subscription: { unsubscribe: () => {} } },
+          data: { subscription: { unsubscribe: () => { } } },
         }),
       },
       storage: {
@@ -53,7 +53,7 @@ export function createClientComponentClient() {
     cookieOptions: {
       name: '__session',
       sameSite: 'lax',
-      secure: true,
+      secure: process.env.NODE_ENV === 'production',
     },
   });
 
