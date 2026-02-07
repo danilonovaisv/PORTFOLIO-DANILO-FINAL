@@ -33,9 +33,9 @@ const MorphText: React.FC<{
 };
 
 export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
-                                                                      opacity,
-                                                                      progress,
-                                                                    }) => {
+  opacity,
+  progress,
+}) => {
   return (
     <motion.header
       style={{ opacity }}

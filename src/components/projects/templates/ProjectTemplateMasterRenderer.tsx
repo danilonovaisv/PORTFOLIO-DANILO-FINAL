@@ -205,7 +205,9 @@ export default function ProjectTemplateMasterRenderer({
                   <video
                     className="h-full w-full object-cover"
                     src={heroImage}
-                    poster={resolveSiteAssetUrl(project.hero_cover_image.poster)}
+                    poster={resolveSiteAssetUrl(
+                      project.hero_cover_image.poster
+                    )}
                     autoPlay={!prefersReducedMotion}
                     loop={!prefersReducedMotion}
                     muted
@@ -285,8 +287,12 @@ export default function ProjectTemplateMasterRenderer({
                 className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.18em]"
                 style={{ color: mixHex(accentColor, '#ffffff', 0.4) }}
               >
-                {project.project_client ? <span>{project.project_client}</span> : null}
-                {project.project_year ? <span>{project.project_year}</span> : null}
+                {project.project_client ? (
+                  <span>{project.project_client}</span>
+                ) : null}
+                {project.project_year ? (
+                  <span>{project.project_year}</span>
+                ) : null}
                 {project.project_tags.map((tag) => (
                   <span key={tag}>{tag}</span>
                 ))}

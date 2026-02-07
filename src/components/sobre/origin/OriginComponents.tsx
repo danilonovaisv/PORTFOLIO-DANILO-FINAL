@@ -20,10 +20,11 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
 
   return (
     <div
-      className={`${styles.arch__info} min-h-screen flex flex-col justify-start pt-[20vh] pb-[20vh] ${isRightAligned
-        ? 'lg:items-end lg:justify-start lg:text-right'
-        : 'lg:items-end lg:justify-start lg:text-left'
-        }`}
+      className={`${styles.arch__info} min-h-screen flex flex-col justify-start pt-[20vh] pb-[20vh] ${
+        isRightAligned
+          ? 'lg:items-end lg:justify-start lg:text-right'
+          : 'lg:items-end lg:justify-start lg:text-left'
+      }`}
       data-origin-block={block.id}
     >
       {/* Mobile: Stack vertical intercalado - Texto primeiro, depois Imagem */}

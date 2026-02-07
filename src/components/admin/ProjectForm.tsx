@@ -446,9 +446,9 @@ export function ProjectForm({
                   ? 'Template Mestre V1'
                   : lp.template === MASTER_PROJECT_TEMPLATE_V3
                     ? 'Template Mestre V3'
-                  : lp.template === MASTER_PROJECT_TEMPLATE_V2
-                    ? 'Template Mestre V2'
-                    : 'Legacy'}
+                    : lp.template === MASTER_PROJECT_TEMPLATE_V2
+                      ? 'Template Mestre V2'
+                      : 'Legacy'}
               </option>
             ))}
           </select>

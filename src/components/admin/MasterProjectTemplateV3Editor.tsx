@@ -101,7 +101,10 @@ const COMPOSITION_PRESETS: BlockPreset[] = [
   { type: 'video-text', label: 'Vídeo + Texto', icon: Video },
 ];
 
-const createBlockDraft = (type: BlockType, index: number): LandingPageBlock => ({
+const createBlockDraft = (
+  type: BlockType,
+  index: number
+): LandingPageBlock => ({
   id: `block-${type}-${index + 1}`,
   type,
   content: {
@@ -215,7 +218,9 @@ function MediaAssetField({
       </label>
 
       {missingAlt ? (
-        <p className="text-xs text-red-300">Alt text obrigatório para imagem.</p>
+        <p className="text-xs text-red-300">
+          Alt text obrigatório para imagem.
+        </p>
       ) : null}
 
       {isVideo ? (
@@ -224,7 +229,9 @@ function MediaAssetField({
           <input
             className={inputClasses}
             value={value.poster || ''}
-            onChange={(event) => onChange({ ...value, poster: event.target.value })}
+            onChange={(event) =>
+              onChange({ ...value, poster: event.target.value })
+            }
           />
         </label>
       ) : null}
@@ -232,7 +239,13 @@ function MediaAssetField({
       {preview ? (
         <div className="overflow-hidden border border-white/10 bg-black/40">
           {isVideo ? (
-            <video src={preview} className="h-56 w-full object-cover" controls muted playsInline />
+            <video
+              src={preview}
+              className="h-56 w-full object-cover"
+              controls
+              muted
+              playsInline
+            />
           ) : (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -332,7 +345,9 @@ function BlockMediaField({
       </label>
 
       {missingAlt ? (
-        <p className="text-xs text-red-300">Alt text obrigatório para imagens.</p>
+        <p className="text-xs text-red-300">
+          Alt text obrigatório para imagens.
+        </p>
       ) : null}
 
       {isVideo ? (
@@ -357,10 +372,20 @@ function BlockMediaField({
       {preview ? (
         <div className="overflow-hidden border border-white/10 bg-black/40">
           {isVideo ? (
-            <video src={preview} className="h-44 w-full object-cover" controls muted playsInline />
+            <video
+              src={preview}
+              className="h-44 w-full object-cover"
+              controls
+              muted
+              playsInline
+            />
           ) : (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={preview} alt="Preview" className="h-44 w-full object-cover" />
+            <img
+              src={preview}
+              alt="Preview"
+              className="h-44 w-full object-cover"
+            />
           )}
         </div>
       ) : null}
@@ -385,7 +410,9 @@ export default function MasterProjectTemplateV3Editor({
   };
 
   const removeBlock = (id: string) => {
-    update({ gallery_grid: value.gallery_grid.filter((block) => block.id !== id) });
+    update({
+      gallery_grid: value.gallery_grid.filter((block) => block.id !== id),
+    });
   };
 
   const moveBlock = (index: number, direction: 'up' | 'down') => {
@@ -399,7 +426,10 @@ export default function MasterProjectTemplateV3Editor({
 
   const addBlock = (type: BlockType) => {
     update({
-      gallery_grid: [...value.gallery_grid, createBlockDraft(type, value.gallery_grid.length)],
+      gallery_grid: [
+        ...value.gallery_grid,
+        createBlockDraft(type, value.gallery_grid.length),
+      ],
     });
   };
 
@@ -416,7 +446,9 @@ export default function MasterProjectTemplateV3Editor({
             <input
               className={inputClasses}
               value={value.project_title}
-              onChange={(event) => update({ project_title: event.target.value })}
+              onChange={(event) =>
+                update({ project_title: event.target.value })
+              }
             />
           </label>
 
@@ -425,7 +457,9 @@ export default function MasterProjectTemplateV3Editor({
             <input
               className={inputClasses}
               value={value.project_subtitle || ''}
-              onChange={(event) => update({ project_subtitle: event.target.value || '' })}
+              onChange={(event) =>
+                update({ project_subtitle: event.target.value || '' })
+              }
             />
           </label>
 
@@ -443,7 +477,9 @@ export default function MasterProjectTemplateV3Editor({
             <input
               className={inputClasses}
               value={value.project_client || ''}
-              onChange={(event) => update({ project_client: event.target.value })}
+              onChange={(event) =>
+                update({ project_client: event.target.value })
+              }
             />
           </label>
 
@@ -455,36 +491,48 @@ export default function MasterProjectTemplateV3Editor({
               value={value.project_year || ''}
               onChange={(event) =>
                 update({
-                  project_year: event.target.value ? Number(event.target.value) : undefined,
+                  project_year: event.target.value
+                    ? Number(event.target.value)
+                    : undefined,
                 })
               }
             />
           </label>
 
           <label className="space-y-1">
-            <span className={labelClasses}>Cor do tema (ALPA + Liquid Ether)</span>
+            <span className={labelClasses}>
+              Cor do tema (ALPA + Liquid Ether)
+            </span>
             <div className="flex gap-2">
               <input
                 type="color"
                 className="h-10 w-12 border border-white/10 bg-transparent"
                 value={value.theme_color || '#0048ff'}
-                onChange={(event) => update({ theme_color: event.target.value })}
+                onChange={(event) =>
+                  update({ theme_color: event.target.value })
+                }
                 title="Cor do tema"
               />
               <input
                 className={inputClasses}
                 value={value.theme_color || '#0048ff'}
-                onChange={(event) => update({ theme_color: event.target.value || '#0048ff' })}
+                onChange={(event) =>
+                  update({ theme_color: event.target.value || '#0048ff' })
+                }
               />
             </div>
           </label>
 
           <label className="space-y-1 md:col-span-2">
-            <span className={labelClasses}>Tags (separadas por espaço ou vírgula)</span>
+            <span className={labelClasses}>
+              Tags (separadas por espaço ou vírgula)
+            </span>
             <input
               className={inputClasses}
               value={value.project_tags.join(', ')}
-              onChange={(event) => update({ project_tags: splitTokenList(event.target.value) })}
+              onChange={(event) =>
+                update({ project_tags: splitTokenList(event.target.value) })
+              }
             />
           </label>
 
@@ -493,7 +541,9 @@ export default function MasterProjectTemplateV3Editor({
             <textarea
               className={`${inputClasses} min-h-24`}
               value={value.project_summary || ''}
-              onChange={(event) => update({ project_summary: event.target.value })}
+              onChange={(event) =>
+                update({ project_summary: event.target.value })
+              }
             />
           </label>
 
@@ -502,16 +552,22 @@ export default function MasterProjectTemplateV3Editor({
             <input
               className={inputClasses}
               value={value.intro_headline || ''}
-              onChange={(event) => update({ intro_headline: event.target.value })}
+              onChange={(event) =>
+                update({ intro_headline: event.target.value })
+              }
             />
           </label>
 
           <label className="space-y-1 md:col-span-2">
-            <span className={labelClasses}>Parágrafos da introdução (1 por linha)</span>
+            <span className={labelClasses}>
+              Parágrafos da introdução (1 por linha)
+            </span>
             <textarea
               className={`${inputClasses} min-h-28`}
               value={(value.intro_body || []).join('\n')}
-              onChange={(event) => update({ intro_body: splitLines(event.target.value) })}
+              onChange={(event) =>
+                update({ intro_body: splitLines(event.target.value) })
+              }
             />
           </label>
         </div>
@@ -697,7 +753,10 @@ export default function MasterProjectTemplateV3Editor({
               {BASIC_PRESETS.map((preset) => {
                 const Icon = preset.icon;
                 return (
-                  <DropdownMenuItem key={preset.type} onClick={() => addBlock(preset.type)}>
+                  <DropdownMenuItem
+                    key={preset.type}
+                    onClick={() => addBlock(preset.type)}
+                  >
                     <Icon className="mr-2 h-4 w-4" />
                     {preset.label}
                   </DropdownMenuItem>
@@ -711,7 +770,10 @@ export default function MasterProjectTemplateV3Editor({
               {COMPOSITION_PRESETS.map((preset) => {
                 const Icon = preset.icon;
                 return (
-                  <DropdownMenuItem key={preset.type} onClick={() => addBlock(preset.type)}>
+                  <DropdownMenuItem
+                    key={preset.type}
+                    onClick={() => addBlock(preset.type)}
+                  >
                     <Icon className="mr-2 h-4 w-4" />
                     {preset.label}
                   </DropdownMenuItem>
@@ -733,7 +795,10 @@ export default function MasterProjectTemplateV3Editor({
               updateBlock(block.id, next);
 
             return (
-              <div key={block.id} className="space-y-4 border border-white/10 bg-slate-900/35 p-5">
+              <div
+                key={block.id}
+                className="space-y-4 border border-white/10 bg-slate-900/35 p-5"
+              >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <p className="text-xs uppercase tracking-[0.14em] text-slate-300">
                     Bloco {index + 1} · {blockLabelMap[block.type]}
@@ -806,7 +871,9 @@ export default function MasterProjectTemplateV3Editor({
                     </label>
 
                     <label className="space-y-1 md:col-span-2">
-                      <span className={labelClasses}>Texto de apoio (opcional)</span>
+                      <span className={labelClasses}>
+                        Texto de apoio (opcional)
+                      </span>
                       <textarea
                         className={`${inputClasses} min-h-20`}
                         value={block.content.text2 || ''}
@@ -896,7 +963,9 @@ export default function MasterProjectTemplateV3Editor({
                     <BlockMediaField
                       block={block}
                       label={
-                        block.type === 'video-text' ? 'Mídia (Vídeo)' : 'Mídia (Imagem)'
+                        block.type === 'video-text'
+                          ? 'Mídia (Vídeo)'
+                          : 'Mídia (Imagem)'
                       }
                       mediaKey="media"
                       altKey="alt"
@@ -926,7 +995,8 @@ export default function MasterProjectTemplateV3Editor({
                   </div>
                 ) : null}
 
-                {block.type === 'image-image' || block.type === 'image-video' ? (
+                {block.type === 'image-image' ||
+                block.type === 'image-video' ? (
                   <div className="grid gap-4 md:grid-cols-2">
                     <BlockMediaField
                       block={block}
@@ -942,7 +1012,11 @@ export default function MasterProjectTemplateV3Editor({
 
                     <BlockMediaField
                       block={block}
-                      label={block.type === 'image-video' ? 'Mídia 02 (Vídeo)' : 'Mídia 02'}
+                      label={
+                        block.type === 'image-video'
+                          ? 'Mídia 02 (Vídeo)'
+                          : 'Mídia 02'
+                      }
                       mediaKey="media2"
                       altKey="alt2"
                       posterKey="poster2"

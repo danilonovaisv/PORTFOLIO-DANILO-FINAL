@@ -25,8 +25,10 @@ function getTemplateFromContent(content: unknown): ProjectTemplateId {
   if (content && typeof content === 'object' && 'template' in content) {
     const template = (content as { template?: string }).template;
     if (template === MASTER_PROJECT_TEMPLATE) return MASTER_PROJECT_TEMPLATE;
-    if (template === MASTER_PROJECT_TEMPLATE_V2) return MASTER_PROJECT_TEMPLATE_V2;
-    if (template === MASTER_PROJECT_TEMPLATE_V3) return MASTER_PROJECT_TEMPLATE_V3;
+    if (template === MASTER_PROJECT_TEMPLATE_V2)
+      return MASTER_PROJECT_TEMPLATE_V2;
+    if (template === MASTER_PROJECT_TEMPLATE_V3)
+      return MASTER_PROJECT_TEMPLATE_V3;
   }
   return LEGACY_PROJECT_TEMPLATE;
 }
@@ -80,8 +82,13 @@ export default async function LandingPagesListPage() {
             </thead>
             <tbody className="divide-y divide-white/5">
               {pages.map((page) => (
-                <tr key={page.id} className="transition-colors hover:bg-white/2">
-                  <td className="px-6 py-4 font-medium text-white">{page.title}</td>
+                <tr
+                  key={page.id}
+                  className="transition-colors hover:bg-white/2"
+                >
+                  <td className="px-6 py-4 font-medium text-white">
+                    {page.title}
+                  </td>
                   <td className="px-6 py-4 font-mono text-xs text-slate-400">
                     /{page.slug}
                   </td>

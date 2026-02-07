@@ -15,7 +15,9 @@ type SectionFeatures3Props = {
   prefersReducedMotion: boolean;
 };
 
-function deriveFeatures(item: MasterProjectV2GalleryItem): MasterProjectV2FeatureItem[] {
+function deriveFeatures(
+  item: MasterProjectV2GalleryItem
+): MasterProjectV2FeatureItem[] {
   if (item.features && item.features.length > 0) {
     return item.features.slice(0, 3);
   }

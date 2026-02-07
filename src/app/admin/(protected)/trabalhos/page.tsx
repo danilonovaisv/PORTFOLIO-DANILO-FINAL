@@ -143,8 +143,8 @@ export default async function TrabalhosPage(props: Props) {
       <div className="overflow-x-auto rounded-xl border border-white/10 bg-slate-900/60">
         {projectsError ? (
           <div className="border-b border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
-            Falha ao carregar projetos. Verifique permissões/filtros no
-            Supabase e recarregue a página.
+            Falha ao carregar projetos. Verifique permissões/filtros no Supabase
+            e recarregue a página.
           </div>
         ) : null}
         <table className="min-w-full text-sm">

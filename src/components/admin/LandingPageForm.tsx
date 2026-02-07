@@ -642,7 +642,8 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
 
     const isVideoLike = (value?: string) =>
       Boolean(
-        value && (VIDEO_FILE_PATTERN.test(value) || YOUTUBE_URL_PATTERN.test(value))
+        value &&
+        (VIDEO_FILE_PATTERN.test(value) || YOUTUBE_URL_PATTERN.test(value))
       );
 
     if (
@@ -667,7 +668,9 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
         !isVideoLike(block.content.media) &&
         !block.content.alt?.trim()
       ) {
-        throw new Error(`Alt text obrigatório no bloco "${block.id}" (mídia 1).`);
+        throw new Error(
+          `Alt text obrigatório no bloco "${block.id}" (mídia 1).`
+        );
       }
 
       if (
@@ -675,7 +678,9 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
         !isVideoLike(block.content.media2) &&
         !block.content.alt2?.trim()
       ) {
-        throw new Error(`Alt text obrigatório no bloco "${block.id}" (mídia 2).`);
+        throw new Error(
+          `Alt text obrigatório no bloco "${block.id}" (mídia 2).`
+        );
       }
     }
 
@@ -692,7 +697,10 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
 
     let heroLogo = nextTemplate.hero_logo_image;
     if (heroLogo?.file) {
-      const path = await handleFileUpload(heroLogo.file, `master-v3-logo-${uuidv4()}`);
+      const path = await handleFileUpload(
+        heroLogo.file,
+        `master-v3-logo-${uuidv4()}`
+      );
       if (path) {
         heroLogo = {
           ...heroLogo,
@@ -714,14 +722,20 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
         let media2 = block.content.media2;
 
         if (block.file) {
-          const path = await handleFileUpload(block.file, `master-v3-${block.id}-media1`);
+          const path = await handleFileUpload(
+            block.file,
+            `master-v3-${block.id}-media1`
+          );
           if (path) media = path;
         } else if (media) {
           media = toStoragePath(media);
         }
 
         if (block.file2) {
-          const path = await handleFileUpload(block.file2, `master-v3-${block.id}-media2`);
+          const path = await handleFileUpload(
+            block.file2,
+            `master-v3-${block.id}-media2`
+          );
           if (path) media2 = path;
         } else if (media2) {
           media2 = toStoragePath(media2);
@@ -889,8 +903,8 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
               </select>
               <p className="text-[11px] leading-relaxed text-slate-500">
                 O V3 (ALPA) usa blocos atômicos/composições com hero limpa e
-                zoom de assets. O V2 mantém o MLPE, o V1 o template anterior e
-                o Legacy mantém o builder antigo por blocos.
+                zoom de assets. O V2 mantém o MLPE, o V1 o template anterior e o
+                Legacy mantém o builder antigo por blocos.
               </p>
             </div>
 

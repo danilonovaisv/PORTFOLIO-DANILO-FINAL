@@ -34,8 +34,10 @@ export function useRealtimeAsset(assetKey: string) {
     const toPublicUrl = (item: DbAsset) =>
       item.file_path?.startsWith('http')
         ? item.file_path
-        : buildSupabaseStorageUrl(item.bucket || 'site-assets', item.file_path) ||
-          null;
+        : buildSupabaseStorageUrl(
+            item.bucket || 'site-assets',
+            item.file_path
+          ) || null;
 
     async function fetchInitial() {
       try {
@@ -142,8 +144,10 @@ export function useRealtimeAssets(page?: string) {
     const toPublicUrl = (item: DbAsset) =>
       item.file_path?.startsWith('http')
         ? item.file_path
-        : buildSupabaseStorageUrl(item.bucket || 'site-assets', item.file_path) ||
-          null;
+        : buildSupabaseStorageUrl(
+            item.bucket || 'site-assets',
+            item.file_path
+          ) || null;
 
     async function fetchInitial() {
       try {
@@ -169,9 +173,8 @@ export function useRealtimeAssets(page?: string) {
             const publicUrl = toPublicUrl(item);
             return publicUrl ? ({ ...item, publicUrl } as RealtimeAsset) : null;
           })
-          .filter(
-            (item: RealtimeAsset | null): item is RealtimeAsset =>
-              Boolean(item)
+          .filter((item: RealtimeAsset | null): item is RealtimeAsset =>
+            Boolean(item)
           );
 
         setAssets(assetsWithUrls);

@@ -29,7 +29,9 @@ export function TagForm({ tag, onSaved }: Props) {
 
   type FormValues = z.input<typeof tagSchema>;
   const normalizedKind: NonNullable<FormValues['kind']> =
-    tag?.kind === 'category' || tag?.kind === 'discipline' || tag?.kind === 'industry'
+    tag?.kind === 'category' ||
+    tag?.kind === 'discipline' ||
+    tag?.kind === 'industry'
       ? tag.kind
       : 'category';
 

@@ -13,7 +13,10 @@ const landingPageMutationSchema = z.object({
     .trim()
     .min(3)
     .max(180)
-    .regex(/^[a-z0-9-]+$/, 'Slug deve conter apenas letras minúsculas, números e hífen.'),
+    .regex(
+      /^[a-z0-9-]+$/,
+      'Slug deve conter apenas letras minúsculas, números e hífen.'
+    ),
   cover: z.string().trim().max(600).optional(),
   content: z.unknown(),
 });
@@ -114,7 +117,10 @@ export async function saveLandingPageAction(input: SaveLandingPageInput) {
 export async function deleteLandingPageAction(id: string) {
   const parsedId = z.string().uuid().parse(id);
   const { supabase, user } = await requireAdminAccess();
-  const { error } = await supabase.from('landing_pages').delete().eq('id', parsedId);
+  const { error } = await supabase
+    .from('landing_pages')
+    .delete()
+    .eq('id', parsedId);
 
   if (error) {
     await logAdminAudit(supabase, user, {

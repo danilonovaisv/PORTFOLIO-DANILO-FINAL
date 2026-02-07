@@ -72,7 +72,10 @@ const parseFeatures = (value: string): MasterProjectV2FeatureDraft[] =>
 
 const toFeatureText = (features?: MasterProjectV2FeatureDraft[]) =>
   (features ?? [])
-    .map((feature) => `${feature.title}${feature.description ? ` | ${feature.description}` : ''}`)
+    .map(
+      (feature) =>
+        `${feature.title}${feature.description ? ` | ${feature.description}` : ''}`
+    )
     .join('\n');
 
 const createGalleryDraft = (index: number): MasterProjectV2GalleryDraft => ({
@@ -171,7 +174,9 @@ function MediaField({
       </label>
 
       <label className="space-y-1">
-        <span className={labelClasses}>Texto alternativo (obrigatório para imagem)</span>
+        <span className={labelClasses}>
+          Texto alternativo (obrigatório para imagem)
+        </span>
         <input
           className={inputClasses}
           value={value.alt || ''}
@@ -179,7 +184,9 @@ function MediaField({
         />
       </label>
       {missingAlt ? (
-        <p className="text-xs text-red-300">Alt text obrigatório para mídia de imagem.</p>
+        <p className="text-xs text-red-300">
+          Alt text obrigatório para mídia de imagem.
+        </p>
       ) : null}
 
       {isVideo ? (
@@ -321,7 +328,9 @@ export default function MasterProjectTemplateV2Editor({
                 type="color"
                 className="h-10 w-12 rounded border border-white/10 bg-transparent"
                 value={value.theme_color || '#0048ff'}
-                onChange={(event) => update({ theme_color: event.target.value })}
+                onChange={(event) =>
+                  update({ theme_color: event.target.value })
+                }
                 title="Cor do tema"
               />
               <input
@@ -362,7 +371,9 @@ export default function MasterProjectTemplateV2Editor({
           </label>
 
           <label className="space-y-1 md:col-span-2">
-            <span className={labelClasses}>Tags (separadas por espaço ou vírgula)</span>
+            <span className={labelClasses}>
+              Tags (separadas por espaço ou vírgula)
+            </span>
             <input
               className={inputClasses}
               value={value.project_tags.join(', ')}

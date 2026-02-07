@@ -105,10 +105,11 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
       ref={containerRef}
       aria-label={text.replace(/\n/g, ' ')}
       style={{ backgroundColor: bgColor }}
-      className={`relative w-full h-screen flex overflow-hidden ${isMobile
-        ? 'items-end justify-start pb-32' // Mobile: espaço para texto fixed no footer
-        : 'items-center justify-start px-[5%] md:px-[7.5%] lg:px-[10%]'
-        }`}
+      className={`relative w-full h-screen flex overflow-hidden ${
+        isMobile
+          ? 'items-end justify-start pb-32' // Mobile: espaço para texto fixed no footer
+          : 'items-center justify-start px-[5%] md:px-[7.5%] lg:px-[10%]'
+      }`}
     >
       {/* Desktop: Texto inline */}
       {!isMobile && !isMobileTextLayer && (

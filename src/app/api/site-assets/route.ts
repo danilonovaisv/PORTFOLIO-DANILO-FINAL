@@ -26,7 +26,9 @@ export async function GET() {
 
   const { data, error } = await supabase
     .from('site_assets')
-    .select('id, key, bucket, file_path, page, is_active, sort_order, asset_type')
+    .select(
+      'id, key, bucket, file_path, page, is_active, sort_order, asset_type'
+    )
     .eq('is_active', true)
     .order('page', { ascending: true })
     .order('sort_order', { ascending: true, nullsFirst: false });
@@ -34,11 +36,7 @@ export async function GET() {
   if (error) {
     console.error('Supabase error:', error);
     const status =
-      error.code === 'PGRST301'
-        ? 401
-        : error.code === '42501'
-          ? 403
-          : 500;
+      error.code === 'PGRST301' ? 401 : error.code === '42501' ? 403 : 500;
     return NextResponse.json({ error: error.message }, { status });
   }
 

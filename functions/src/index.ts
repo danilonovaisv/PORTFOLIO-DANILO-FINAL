@@ -115,7 +115,7 @@ export const ssr_modern = onRequest(
         .status(500)
         .send(
           'Internal Server Error - SSR Failed: ' +
-          (err instanceof Error ? err.message : String(err))
+            (err instanceof Error ? err.message : String(err))
         );
     }
   }

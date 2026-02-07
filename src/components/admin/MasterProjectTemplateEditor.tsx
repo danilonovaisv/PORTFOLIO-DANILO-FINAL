@@ -308,7 +308,9 @@ export default function MasterProjectTemplateEditor({
           </label>
 
           <label className="space-y-1 md:col-span-2">
-            <span className={labelClasses}>Tags (separadas por espaço ou vírgula)</span>
+            <span className={labelClasses}>
+              Tags (separadas por espaço ou vírgula)
+            </span>
             <input
               className={inputClasses}
               value={value.project_tags.join(', ')}

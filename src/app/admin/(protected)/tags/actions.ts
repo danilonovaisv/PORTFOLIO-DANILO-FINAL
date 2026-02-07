@@ -13,7 +13,10 @@ const tagMutationSchema = z.object({
     .trim()
     .min(2)
     .max(120)
-    .regex(/^[a-z0-9-]+$/, 'Slug deve conter apenas letras minúsculas, números e hífen.'),
+    .regex(
+      /^[a-z0-9-]+$/,
+      'Slug deve conter apenas letras minúsculas, números e hífen.'
+    ),
   kind: z.enum(['category', 'discipline', 'industry']).default('category'),
   description: z.string().trim().max(400).optional(),
   sort_order: z.number().int().min(0).max(9999).optional(),

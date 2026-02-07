@@ -136,7 +136,8 @@ export async function generateProjectCopy(
   if (totalSize > MAX_TOTAL_REFERENCE_IMAGES_BYTES) {
     return {
       success: false,
-      error: 'Tamanho total das imagens excede 32MB. Envie menos arquivos ou comprima.',
+      error:
+        'Tamanho total das imagens excede 32MB. Envie menos arquivos ou comprima.',
       fieldErrors: {},
     };
   }

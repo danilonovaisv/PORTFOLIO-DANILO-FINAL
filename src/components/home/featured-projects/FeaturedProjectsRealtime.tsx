@@ -81,7 +81,10 @@ export default function FeaturedProjectsRealtime({
         )
         .subscribe((status: string, err?: Error) => {
           if (status === 'CHANNEL_ERROR') {
-            console.error('[FeaturedProjectsRealtime] Subscription error:', err);
+            console.error(
+              '[FeaturedProjectsRealtime] Subscription error:',
+              err
+            );
           }
         });
     } catch (error) {

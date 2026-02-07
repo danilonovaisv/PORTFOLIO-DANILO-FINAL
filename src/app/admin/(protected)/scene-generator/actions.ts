@@ -139,7 +139,8 @@ export async function generateAdScenes(
   if (totalSize > MAX_TOTAL_REFERENCE_IMAGES_BYTES) {
     return {
       success: false,
-      error: 'Tamanho total das referências excede 32MB. Reduza ou envie menos arquivos.',
+      error:
+        'Tamanho total das referências excede 32MB. Reduza ou envie menos arquivos.',
       requestPayload: prevState.requestPayload,
     };
   }

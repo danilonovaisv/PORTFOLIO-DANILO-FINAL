@@ -123,14 +123,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? `https://${BRAND.domain}`;
   const projectUrl = `${siteUrl.replace(/\/$/, '')}/projects/${slug}`;
 
-  const projectCategory =
-    parsedMaster?.project_tags[0] || 'Creative Project';
+  const projectCategory = parsedMaster?.project_tags[0] || 'Creative Project';
 
-  const projectClient =
-    parsedMaster?.project_client || BRAND.name;
+  const projectClient = parsedMaster?.project_client || BRAND.name;
 
-  const projectYear =
-    parsedMaster?.project_year ?? new Date().getFullYear();
+  const projectYear = parsedMaster?.project_year ?? new Date().getFullYear();
 
   const projectDescription = getProjectSeoDescription(parsed, project.title);
   const projectImage =
@@ -158,8 +155,10 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       name: projectClient,
     },
     genre: projectCategory,
-    keywords:
-      parsedMaster?.project_tags ?? ['Creative Development', 'Danilo Novais'],
+    keywords: parsedMaster?.project_tags ?? [
+      'Creative Development',
+      'Danilo Novais',
+    ],
   };
 
   return (

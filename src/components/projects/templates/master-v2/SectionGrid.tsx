@@ -52,18 +52,18 @@ export default function SectionGrid({
             item={item}
             title={title}
             priority={index < 2}
-            aspectClassName={isTwoCol ? 'aspect-[5/4] md:aspect-[16/10]' : 'aspect-[16/10] md:aspect-[21/10]'}
+            aspectClassName={
+              isTwoCol
+                ? 'aspect-[5/4] md:aspect-[16/10]'
+                : 'aspect-[16/10] md:aspect-[21/10]'
+            }
           />
         </div>
 
         {hasCopy ? (
           <div
             className={`space-y-4 px-1 pb-2 pt-2 ${
-              isTwoCol
-                ? textFirst
-                  ? 'lg:order-1'
-                  : 'lg:order-2'
-                : ''
+              isTwoCol ? (textFirst ? 'lg:order-1' : 'lg:order-2') : ''
             }`}
           >
             {item.eyebrow ? (

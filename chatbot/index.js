@@ -35,7 +35,7 @@ exports.telegramWebhook = onRequest(
         res.status(500).send({ ok: false, error: 'Internal Server Error' });
       }
     }
-  },
+  }
 );
 
 exports.setWebhook = onRequest(
@@ -49,5 +49,5 @@ exports.setWebhook = onRequest(
       console.error('setWebhook error:', error);
       res.status(500).send({ ok: false, error: 'Internal Server Error' });
     }
-  },
+  }
 );

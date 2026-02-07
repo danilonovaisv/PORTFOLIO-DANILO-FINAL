@@ -288,7 +288,8 @@ const normalizeGalleryItemV2 = (
     id: asString(record.id) ?? `grid-item-${index + 1}`,
     layout_type,
     src,
-    alt: asString(record.alt) ?? (layout_type === 'grid_quote' ? '' : fallbackAlt),
+    alt:
+      asString(record.alt) ?? (layout_type === 'grid_quote' ? '' : fallbackAlt),
     kind: asMediaKind(record.kind),
     poster: asString(record.poster),
     title: asString(record.title),
@@ -536,8 +537,7 @@ function normalizeMasterTemplate(
 
   const template = asString(record.template);
   const hasMasterFields =
-    template === MASTER_PROJECT_TEMPLATE ||
-    Array.isArray(record.gallery_grid);
+    template === MASTER_PROJECT_TEMPLATE || Array.isArray(record.gallery_grid);
 
   if (!hasMasterFields) return null;
 
@@ -819,7 +819,8 @@ export function parseLandingPageContent(
 
   if (
     template === MASTER_PROJECT_TEMPLATE_V2 ||
-    (template !== MASTER_PROJECT_TEMPLATE && hasV2LayoutType(record?.gallery_grid))
+    (template !== MASTER_PROJECT_TEMPLATE &&
+      hasV2LayoutType(record?.gallery_grid))
   ) {
     const masterV2 = normalizeMasterTemplateV2(content, fallback);
     if (masterV2) {

@@ -19,9 +19,7 @@ describe('admin audit payload', () => {
     expect(record.actor_email).toBe(user.email);
     expect(record.action).toBe('tag.create');
     expect(record.resource).toBe('portfolio_tags');
-    expect(record.resource_id).toBe(
-      '00000000-0000-0000-0000-000000000010'
-    );
+    expect(record.resource_id).toBe('00000000-0000-0000-0000-000000000010');
     expect(record.status).toBe('success');
     expect(record.metadata).toEqual({ source: 'admin-ui' });
   });

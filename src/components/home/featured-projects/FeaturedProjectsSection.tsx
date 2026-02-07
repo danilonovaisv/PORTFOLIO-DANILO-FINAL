@@ -53,11 +53,11 @@ export default function FeaturedProjectsSection({
     visible: reducedMotion
       ? { opacity: 1 }
       : {
-        opacity: 1,
-        y: 0,
-        filter: 'blur(0px)',
-        transition: ghostTransition(0, duration.normal),
-      },
+          opacity: 1,
+          y: 0,
+          filter: 'blur(0px)',
+          transition: ghostTransition(0, duration.normal),
+        },
   };
 
   return (

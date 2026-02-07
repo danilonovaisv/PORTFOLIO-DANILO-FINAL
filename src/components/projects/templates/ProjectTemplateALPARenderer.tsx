@@ -243,7 +243,10 @@ function AssetInteractive({
   className?: string;
   videoAutoplay?: boolean;
   prefersReducedMotion: boolean;
-  onOpen: (_asset: ZoomAsset, _event: ReactMouseEvent<HTMLButtonElement>) => void;
+  onOpen: (
+    _asset: ZoomAsset,
+    _event: ReactMouseEvent<HTMLButtonElement>
+  ) => void;
 }) {
   if (!src) return null;
 
@@ -358,7 +361,9 @@ export default function ProjectTemplateALPARenderer({
     ? buildEtherPalette(accentColor)
     : DEFAULT_ETHER_COLORS;
 
-  const revealInitial = prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 18 };
+  const revealInitial = prefersReducedMotion
+    ? { opacity: 0 }
+    : { opacity: 0, y: 18 };
   const revealVisible = { opacity: 1, y: 0 };
 
   const heroLogo = project.hero_logo_image?.src
@@ -450,7 +455,10 @@ export default function ProjectTemplateALPARenderer({
                 onOpen={openAsset}
               />
               <div className="mx-auto flex w-full max-w-xl flex-col items-center gap-4 text-center md:items-start md:text-left">
-                <BlockText text={block.content.text} alignClass="text-center md:text-left" />
+                <BlockText
+                  text={block.content.text}
+                  alignClass="text-center md:text-left"
+                />
               </div>
             </div>
           </motion.section>
@@ -469,7 +477,10 @@ export default function ProjectTemplateALPARenderer({
           >
             <div className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
               <div className="mx-auto flex w-full max-w-xl flex-col items-center gap-4 text-center md:items-end md:text-right">
-                <BlockText text={block.content.text} alignClass="text-center md:text-right" />
+                <BlockText
+                  text={block.content.text}
+                  alignClass="text-center md:text-right"
+                />
               </div>
               <AssetInteractive
                 src={block.content.media}
@@ -518,7 +529,10 @@ export default function ProjectTemplateALPARenderer({
         );
 
       case 'quote-band': {
-        const bandColor = normalizeHexColor(block.content.bandColor, accentColor);
+        const bandColor = normalizeHexColor(
+          block.content.bandColor,
+          accentColor
+        );
         return (
           <motion.section
             key={block.id}
@@ -602,7 +616,10 @@ export default function ProjectTemplateALPARenderer({
                 <div className="relative h-20 w-40 md:h-28 md:w-64">
                   <Image
                     src={heroLogo}
-                    alt={project.hero_logo_image?.alt || `Logo de ${project.project_title}`}
+                    alt={
+                      project.hero_logo_image?.alt ||
+                      `Logo de ${project.project_title}`
+                    }
                     fill
                     sizes="256px"
                     className="object-contain"
@@ -624,8 +641,12 @@ export default function ProjectTemplateALPARenderer({
                 className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.18em]"
                 style={{ color: mixHex(accentColor, '#ffffff', 0.4) }}
               >
-                {project.project_client ? <span>{project.project_client}</span> : null}
-                {project.project_year ? <span>{project.project_year}</span> : null}
+                {project.project_client ? (
+                  <span>{project.project_client}</span>
+                ) : null}
+                {project.project_year ? (
+                  <span>{project.project_year}</span>
+                ) : null}
                 {project.project_tags.map((tag) => (
                   <span key={tag}>{tag}</span>
                 ))}
@@ -655,11 +676,16 @@ export default function ProjectTemplateALPARenderer({
             </div>
           </motion.section>
 
-          <section aria-labelledby="dynamic-content-v3-heading" className="pb-12 md:pb-16">
+          <section
+            aria-labelledby="dynamic-content-v3-heading"
+            className="pb-12 md:pb-16"
+          >
             <h2 id="dynamic-content-v3-heading" className="sr-only">
               Conteúdo dinâmico da landing
             </h2>
-            {project.gallery_grid.map((block, index) => renderDynamicBlock(block, index))}
+            {project.gallery_grid.map((block, index) =>
+              renderDynamicBlock(block, index)
+            )}
           </section>
 
           <motion.section

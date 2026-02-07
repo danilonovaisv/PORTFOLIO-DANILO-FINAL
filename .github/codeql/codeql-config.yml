@@ -1,9 +1,9 @@
-name: "CodeQL Config"
+name: 'CodeQL Config'
 
 paths-ignore:
-  - "deploy-public/**"
-  - "docs/**"
-  - "functions/lib/**"
-  - "functions/next_build/**"
-  - ".next/**"
-  - "node_modules/**"
+  - 'deploy-public/**'
+  - 'docs/**'
+  - 'functions/lib/**'
+  - 'functions/next_build/**'
+  - '.next/**'
+  - 'node_modules/**'
