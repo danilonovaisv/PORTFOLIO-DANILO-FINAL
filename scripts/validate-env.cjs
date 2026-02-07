@@ -32,10 +32,11 @@ function validateEnv() {
   try {
     fileEnv = parseEnv(filePath);
   } catch (error) {
-    if (process.env.CI !== 'true') {
-      console.error(`Não foi possível ler ${ENV_FILE}:`, error.message);
-      process.exit(1);
-    }
+    console.warn(
+      `Aviso: Não foi possível ler ${ENV_FILE}. Verificando process.env...`,
+      error.message
+    );
+    // Continuar mesmo sem arquivo, confiando nas variáveis de ambiente do sistema
   }
 
   const missing = REQUIRED_KEYS.filter((key) => {
@@ -45,12 +46,16 @@ function validateEnv() {
 
   if (missing.length) {
     const source = process.env.CI === 'true' ? 'CI/.env.local' : ENV_FILE;
-    console.error(`As seguintes variáveis obrigatórias estão faltando em ${source}: ${missing.join(', ')}`);
+    console.error(
+      `As seguintes variáveis obrigatórias estão faltando em ${source}: ${missing.join(', ')}`
+    );
     process.exit(1);
   }
 
   const source = process.env.CI === 'true' ? 'CI/.env.local' : ENV_FILE;
-  console.log(`${source} validado com sucesso (${REQUIRED_KEYS.length} chaves).`);
+  console.log(
+    `${source} validado com sucesso (${REQUIRED_KEYS.length} chaves).`
+  );
 }
 
 validateEnv();
