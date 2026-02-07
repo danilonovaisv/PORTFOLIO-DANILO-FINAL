@@ -37,11 +37,11 @@ const useIsMobile = () => {
  * Desktop: Texto animado na esquerda (linha por linha)
  */
 const BeliefLineDesktop: React.FC<BeliefLineProps> = ({
-  line,
-  index,
-  scrollYProgress,
-  animationRange,
-}) => {
+                                                        line,
+                                                        index,
+                                                        scrollYProgress,
+                                                        animationRange,
+                                                      }) => {
   const lineX = useTransform(
     scrollYProgress,
     [animationRange[0] + index * 0.02, animationRange[1] + index * 0.02],
@@ -51,9 +51,9 @@ const BeliefLineDesktop: React.FC<BeliefLineProps> = ({
   return (
     <motion.span
       // 🟣 [CONFIG VISUAL]: Define a cor do texto das linhas (desktop)
-      className="block text-blueAccent italic font-semibold text-left whitespace-pre-line select-none tracking-[-0.04em] max-w-fit"
-      // 🟣 [CONFIG VISUAL]: Define o tamanho da fonte (Desktop: clamp de 4rem a 8.5rem)
-      style={{ x: lineX, fontSize: 'clamp(4rem,9vw,8.5rem)', lineHeight: 0.85 }}
+      className="block text-blueAccent italic font-bold text-left whitespace-pre-line select-none tracking-[-0.04em] max-w-fit"
+      // 🟣 [CONFIG VISUAL]: Define o tamanho da fonte (Desktop: clamp de 2rem a 6.5rem)
+      style={{ x: lineX, fontSize: 'clamp(2.8rem,6.8vw,6rem)', lineHeight: 0.85 }}
     >
       {line}
     </motion.span>
@@ -72,11 +72,11 @@ interface BeliefSectionProps {
 }
 
 export const BeliefSection: React.FC<BeliefSectionProps> = ({
-  text,
-  bgColor,
-  isFirst = false,
-  isMobileTextLayer = false, // Nova prop para controle explícito
-}) => {
+                                                              text,
+                                                              bgColor,
+                                                              isFirst = false,
+                                                              isMobileTextLayer = false, // Nova prop para controle explícito
+                                                            }) => {
   const containerRef = useRef(null);
   const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll({
@@ -146,9 +146,9 @@ interface MobileTextLayerProps {
 }
 
 export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
-  phrases,
-  scrollYProgress,
-}) => {
+                                                                        phrases,
+                                                                        scrollYProgress,
+                                                                      }) => {
   const [isMobile, setIsMobile] = React.useState(false);
   React.useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -188,11 +188,11 @@ interface MobilePhraseProps {
 }
 
 const MobilePhrase: React.FC<MobilePhraseProps> = ({
-  text,
-  index,
-  totalPhrases,
-  scrollYProgress,
-}) => {
+                                                     text,
+                                                     index,
+                                                     totalPhrases,
+                                                     scrollYProgress,
+                                                   }) => {
   // MobilePhrase: Calcula seus próprios segmentos baseados no range útil [0.35 - 0.95]
   const usefulRangeStart = 0.35;
   const usefulRangeEnd = 0.95;
@@ -239,7 +239,7 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
       className="fixed bottom-[25%] left-0 right-0 z-60 text-center pointer-events-none px-8"
     >
       {/* 🟣 [CONFIG VISUAL]: Define cor e tamanho do texto (Mobile: clamp 2rem-3.5rem) */}
-      <span className="text-blueAccent italic font-semibold text-[clamp(2rem,6vw,3.5rem)] leading-[1.4] tracking-widest block w-full mx-auto">
+      <span className="text-blueAccent italic font-bold text-[clamp(2rem,6vw,3.5rem)] leading-[1.4] tracking-widest block w-full mx-auto">
         {text}
       </span>
     </motion.div>

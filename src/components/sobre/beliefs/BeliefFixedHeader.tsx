@@ -46,8 +46,8 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
           <div className="flex flex-col items-end text-right w-full max-w-[280px] md:max-w-[500px] lg:max-w-[850px] pr-[5%] md:pr-0">
             {/* Primeira parte: "Acredito no..." */}
             <div className="flex flex-col items-end text-right w-full">
-              {/* 🟣 [CONFIG VISUAL]: Define a cor do título principal e o tamanho da fonte (5xl a 9xl) */}
-              <h2 className="text-white text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-display leading-[0.85] tracking-tighter mb-4 md:mb-12 uppercase font-black mix-blend-difference whitespace-nowrap">
+              {/* 🟣 [CONFIG VISUAL]: Define a cor do título principal e o tamanho da fonte (4xl a 7xl) */}
+              <h2 className="text-white text-5xl md:text-5xl lg:text-6xl xl:text-8xl font-display leading-[1] tracking-tighter mb-4 md:mb-12 uppercase font-black mix-blend-difference whitespace-nowrap">
                 <div className="overflow-visible">
                   <MorphText progress={progress} range={[0.1, 0.2]}>
                     Acredito no
@@ -72,7 +72,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
 
               {/* Segunda parte: "Não pelo choque..." */}
               {/* 🟣 [CONFIG VISUAL]: Define a cor e tamanho do subtítulo (sm a 4xl) */}
-              <div className="flex flex-col items-end gap-1 text-white text-sm md:text-2xl lg:text-4xl font-h1 leading-[1.2] tracking-normal font-bold whitespace-nowrap">
+              <div className="flex flex-col items-end gap-1 text-white text-sm md:text-4xl lg:text-6xl font-h1 leading-[1] tracking-normal font-bold whitespace-nowrap">
                 <div className="overflow-visible">
                   <MorphText progress={progress} range={[0.22, 0.32]}>
                     Não pelo choque,
