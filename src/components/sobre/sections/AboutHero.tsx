@@ -105,7 +105,7 @@ export function AboutHero() {
                   >
                     {ABOUT_CONTENT.hero.title.text}
                     {ABOUT_CONTENT.hero.title.highlight && (
-                      <span className="text-bluePrimary font-semibold ml-2">
+                      <span className="text-bluePrimary font-black ml-2">
                         {ABOUT_CONTENT.hero.title.highlight}
                       </span>
                     )}
@@ -115,11 +115,11 @@ export function AboutHero() {
                     {ABOUT_CONTENT.hero.manifesto.map((item, index) => (
                       <p
                         key={index}
-                        className="text-[clamp(44px,4.5vw,64px)] font-medium leading-[1.08] tracking-[-0.02em] text-text-light text-right"
+                        className="text-[clamp(44px,4.5vw,64px)] font-bold leading-[1.08] tracking-[-0.02em] text-bold text-right"
                       >
                         {item.text}
                         {item.highlight && (
-                          <span className="text-bluePrimary font-semibold ml-2">
+                          <span className="text-bluePrimary font-black ml-2">
                             {item.highlight}
                           </span>
                         )}
@@ -139,7 +139,7 @@ export function AboutHero() {
                     delay: 0.4,
                   }}
                 >
-                  <p className="type-h3 text-white text-right font-medium max-w-[620px]">
+                  <p className="type-h3 text-white text-right font-medium max-w-[520px]">
                     {ABOUT_CONTENT.hero.description.join(' ')}
                   </p>
                 </motion.div>

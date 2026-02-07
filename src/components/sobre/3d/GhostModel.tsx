@@ -48,7 +48,7 @@ const GhostModel: React.FC<GhostModelProps> = ({
       // Desktop: Centralizado (0)
       // Mobile: Canto esquerdo superior (ajuste negativo em X, positivo em Y)
       // 🟣 [CONFIG VISUAL]: Posição Base X - Define onde o Ghost começa horizontalmente (Desktop vs Mobile)
-      baseX: isMobile ? -viewport.width / 3 : viewport.width / 3.5,
+      baseX: isMobile ? -viewport.width / 3 : 0,
 
       // Desktop: Centralizado (0)
       // Mobile: 17% do topo (alinhado com titulo)
@@ -62,10 +62,10 @@ const GhostModel: React.FC<GhostModelProps> = ({
 
       // Escala ajustada para maior presença
       // 🟣 [CONFIG VISUAL]: Escala Base - Tamanho inicial do Ghost (0.22 mobile, 0.65 desktop)
-      baseScale: isMobile ? 0.22 : 0.65,
+      baseScale: isMobile ? 0.22 : 0.585,
       // 🟣 [CONFIG VISUAL]: Boost de Escala - Quanto o Ghost cresce na fase final (+15%)
       scaleBoost: 0.15, // +15% no final
-      scrollResponse: isMobile ? 0.2 : 0.5,
+      scrollResponse: isMobile ? 0.2 : 0,
 
       // Saída (Exit)
       // 🟣 [CONFIG VISUAL]: Posição de Saída Y - Define o quanto ele sobe ao sair da tela
@@ -141,10 +141,11 @@ const GhostModel: React.FC<GhostModelProps> = ({
     );
 
     // X Position Logic with Wiggle
-    const wiggleX =
-      Math.sin(state.clock.getElapsedTime() * 2.5) *
-      config.floatAmplitude *
-      0.5;
+    const wiggleX = isMobile
+      ? Math.sin(state.clock.getElapsedTime() * 2.5) *
+        config.floatAmplitude *
+        0.5
+      : 0;
     const scrollDriftX =
       Math.sin(t * Math.PI * 2) * config.scrollResponse * 0.1;
     group.current.position.x = THREE.MathUtils.lerp(

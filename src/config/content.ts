@@ -190,9 +190,8 @@ export const ABOUT_CONTENT = {
       {
         text: 'Você ',
         highlight: 'não vê tudo ',
-        textEnd: 'o que eu faço.',
+        textEnd: 'o que eu faço. Mas sente',
       },
-      { text: 'Mas sente ' },
       { text: 'quando ', highlight: 'funciona.' },
     ],
     description: [
