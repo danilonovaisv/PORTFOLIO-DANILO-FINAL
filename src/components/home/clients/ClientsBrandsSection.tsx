@@ -84,7 +84,7 @@ export default function ClientsBrandsSection() {
                   },
                 }}
               >
-                <div className="group relative w-28 h-14 sm:w-32 sm:h-16 md:w-40 md:h-20 flex items-center justify-center transition-transform duration-500 will-change-transform group-hover:-translate-y-0.5">
+                <div className="group relative w-32 h-16 sm:w-40 sm:h-20 md:w-48 md:h-24 flex items-center justify-center transition-transform duration-500 will-change-transform group-hover:-translate-y-0.5 p-2">
                   <DynamicAssetImage
                     assetKey={assetKey}
                     alt={logo.alt}

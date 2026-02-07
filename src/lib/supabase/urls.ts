@@ -145,3 +145,9 @@ export function validateExternalUrl(url: string): string | null {
     return null;
   }
 }
+// Add debugging for missing assets
+export const debugUrl = (url: string) => {
+  if (process.env.NODE_ENV === 'development') {
+    console.log('[SupabaseURL] checking:', url);
+  }
+};

@@ -43,10 +43,12 @@ export default function LoginForm() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
+    console.log('Login attempt started for:', email);
 
     startTransition(async () => {
       try {
         const supabase = createClientComponentClient();
+        console.log('Supabase client created, calling signInWithPassword...');
         const { data, error: signInError } =
           await supabase.auth.signInWithPassword({
             email,
@@ -54,9 +56,12 @@ export default function LoginForm() {
           });
 
         if (signInError) {
+          console.error('SignIn error:', signInError);
           setError(signInError.message);
           return;
         }
+
+        console.log('SignIn success, session:', data.session ? 'created' : 'missing');
 
         if (data.session) {
           setIsRedirecting(true);
@@ -72,7 +77,7 @@ export default function LoginForm() {
           setError('Falha ao estabelecer sessão. Tente novamente.');
         }
       } catch (err) {
-        console.error('Login error:', err);
+        console.error('Login exception:', err);
         setError('Ocorreu um erro inesperado.');
       }
     });
