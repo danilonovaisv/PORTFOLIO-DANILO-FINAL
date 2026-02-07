@@ -5,12 +5,20 @@ import withBundleAnalyzer from '@next/bundle-analyzer';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const DEFAULT_SUPABASE_HOST = 'umkmwbkwvulxtdodzmzf.supabase.co';
 
 const buildSupabaseHosts = () => {
-  const mainUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  if (!mainUrl) return [];
+  const mainUrl =
+    process.env.NEXT_PUBLIC_SUPABASE_URL ??
+    process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL ??
+    `https://${DEFAULT_SUPABASE_HOST}`;
 
-  const primaryHost = new URL(mainUrl).host;
+  let primaryHost = DEFAULT_SUPABASE_HOST;
+  try {
+    primaryHost = new URL(mainUrl).host;
+  } catch {
+    primaryHost = DEFAULT_SUPABASE_HOST;
+  }
   const extraHosts = (process.env.NEXT_PUBLIC_SUPABASE_IMAGE_HOSTS ?? '')
     .split(',')
     .map((h) => h.trim())

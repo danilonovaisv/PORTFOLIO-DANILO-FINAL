@@ -3,14 +3,14 @@ import { getAnalytics, isSupported } from 'firebase/analytics';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBe7uThxjKtP0A9QgK9KMu59bAUB4GXj4g',
-  authDomain: 'portfolio-danilo-novais.firebaseapp.com',
-  databaseURL: 'https://portfolio-danilo-novais-default-rtdb.firebaseio.com',
-  projectId: 'portfolio-danilo-novais',
-  storageBucket: 'portfolio-danilo-novais.firebasestorage.app',
-  messagingSenderId: '350817205989',
-  appId: '1:350817205989:web:f7ae32f12d353ef081de0c',
-  measurementId: 'G-PM34VYPZZW',
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY ?? '',
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN ?? '',
+  databaseURL: process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL ?? '',
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ?? '',
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET ?? '',
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID ?? '',
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID ?? '',
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID ?? '',
 };
 
 // Initialize Firebase

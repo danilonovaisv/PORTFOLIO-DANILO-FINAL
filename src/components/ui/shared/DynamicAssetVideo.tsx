@@ -42,7 +42,10 @@ export const DynamicAssetVideo = forwardRef<
         ref
     ) => {
         const { asset, loading, error } = useRealtimeAsset(assetKey);
-        const [displayUrl, setDisplayUrl] = useState<string | null>(fallbackUrl || null);
+        const normalizedFallback = fallbackUrl?.trim() || null;
+        const [displayUrl, setDisplayUrl] = useState<string | null>(
+            normalizedFallback
+        );
         const internalVideoRef = useRef<HTMLVideoElement | null>(null);
 
         // Expose the internal video ref to forwarded ref
@@ -60,7 +63,7 @@ export const DynamicAssetVideo = forwardRef<
             }
         }, [playbackRate, displayUrl]);
 
-        const finalUrl = displayUrl || fallbackUrl;
+        const finalUrl = displayUrl || normalizedFallback;
 
         if (loading && !fallbackUrl) {
             return (
@@ -71,8 +74,12 @@ export const DynamicAssetVideo = forwardRef<
             );
         }
 
-        if ((error || !finalUrl) && !loading) {
+        if (!finalUrl && !loading) {
             return null;
+        }
+
+        if (error && finalUrl) {
+            console.warn(`[DynamicAssetVideo] usando fallback para ${assetKey}`, error);
         }
 
         return (

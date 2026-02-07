@@ -94,7 +94,6 @@ export const ssr_modern = onRequest(
     region: 'us-central1',
     memory: '1GiB',
     timeoutSeconds: 60,
-    enforceAppCheck: true, // Rejeita requisições com tokens App Check ausentes ou inválidos.
   },
   async (req, res) => {
     try {

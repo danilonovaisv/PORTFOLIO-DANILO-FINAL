@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { createClientComponentClient } from '@/lib/supabase/client';
+import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 import type { DbAsset } from '@/types/admin';
 import type { RealtimeChannel } from '@supabase/supabase-js';
 
@@ -27,11 +28,20 @@ export function useRealtimeAsset(assetKey: string) {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    const supabase = createClientComponentClient();
+    let supabase: ReturnType<typeof createClientComponentClient> | null = null;
     let channel: RealtimeChannel;
+
+    const toPublicUrl = (item: DbAsset) =>
+      item.file_path?.startsWith('http')
+        ? item.file_path
+        : buildSupabaseStorageUrl(item.bucket || 'site-assets', item.file_path) ||
+          null;
 
     async function fetchInitial() {
       try {
+        if (!supabase) {
+          supabase = createClientComponentClient();
+        }
         const { data, error: fetchError } = await supabase
           .from('site_assets')
           .select('*')
@@ -39,14 +49,18 @@ export function useRealtimeAsset(assetKey: string) {
           .eq('is_active', true)
           .single();
 
-        if (fetchError) throw fetchError;
+        if (fetchError) {
+          if (fetchError.code === 'PGRST116') {
+            return;
+          }
+          throw fetchError;
+        }
 
         if (data) {
-          const publicUrl = data.file_path?.startsWith('http')
-            ? data.file_path
-            : `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${data.bucket}/${data.file_path}`;
-
-          setAsset({ ...data, publicUrl } as RealtimeAsset);
+          const publicUrl = toPublicUrl(data as DbAsset);
+          if (publicUrl) {
+            setAsset({ ...data, publicUrl } as RealtimeAsset);
+          }
         }
       } catch (err) {
         setError(
@@ -59,6 +73,9 @@ export function useRealtimeAsset(assetKey: string) {
 
     function setupRealtimeSubscription() {
       try {
+        if (!supabase) {
+          supabase = createClientComponentClient();
+        }
         channel = supabase
           .channel(`asset:${assetKey}`)
           .on(
@@ -77,11 +94,10 @@ export function useRealtimeAsset(assetKey: string) {
 
               const newData = payload.new as DbAsset;
               if (newData && newData.is_active) {
-                const publicUrl = newData.file_path?.startsWith('http')
-                  ? newData.file_path
-                  : `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${newData.bucket}/${newData.file_path}`;
-
-                setAsset({ ...newData, publicUrl } as RealtimeAsset);
+                const publicUrl = toPublicUrl(newData);
+                if (publicUrl) {
+                  setAsset({ ...newData, publicUrl } as RealtimeAsset);
+                }
               } else if (payload.eventType === 'UPDATE' && !newData.is_active) {
                 setAsset(null);
               }
@@ -120,11 +136,20 @@ export function useRealtimeAssets(page?: string) {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    const supabase = createClientComponentClient();
+    let supabase: ReturnType<typeof createClientComponentClient> | null = null;
     let channel: RealtimeChannel;
+
+    const toPublicUrl = (item: DbAsset) =>
+      item.file_path?.startsWith('http')
+        ? item.file_path
+        : buildSupabaseStorageUrl(item.bucket || 'site-assets', item.file_path) ||
+          null;
 
     async function fetchInitial() {
       try {
+        if (!supabase) {
+          supabase = createClientComponentClient();
+        }
         let query = supabase
           .from('site_assets')
           .select('*')
@@ -139,13 +164,15 @@ export function useRealtimeAssets(page?: string) {
 
         if (fetchError) throw fetchError;
 
-        const assetsWithUrls = (data ?? []).map((item: DbAsset) => {
-          const publicUrl = item.file_path?.startsWith('http')
-            ? item.file_path
-            : `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${item.bucket}/${item.file_path}`;
-
-          return { ...item, publicUrl } as RealtimeAsset;
-        });
+        const assetsWithUrls = (data ?? [])
+          .map((item: DbAsset) => {
+            const publicUrl = toPublicUrl(item);
+            return publicUrl ? ({ ...item, publicUrl } as RealtimeAsset) : null;
+          })
+          .filter(
+            (item: RealtimeAsset | null): item is RealtimeAsset =>
+              Boolean(item)
+          );
 
         setAssets(assetsWithUrls);
       } catch (err) {
@@ -159,6 +186,9 @@ export function useRealtimeAssets(page?: string) {
 
     function setupRealtimeSubscription() {
       try {
+        if (!supabase) {
+          supabase = createClientComponentClient();
+        }
         const channelName = page ? `assets:${page}` : 'assets:all';
 
         const channelBuilder = supabase.channel(channelName).on(
@@ -173,9 +203,8 @@ export function useRealtimeAssets(page?: string) {
             if (payload.eventType === 'INSERT') {
               const newData = payload.new as DbAsset;
               if (newData.is_active) {
-                const publicUrl = newData.file_path?.startsWith('http')
-                  ? newData.file_path
-                  : `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${newData.bucket}/${newData.file_path}`;
+                const publicUrl = toPublicUrl(newData);
+                if (!publicUrl) return;
 
                 setAssets((prev) => [
                   ...prev,
@@ -189,9 +218,8 @@ export function useRealtimeAssets(page?: string) {
                   return prev.filter((a) => a.id !== updatedData.id);
                 }
 
-                const publicUrl = updatedData.file_path?.startsWith('http')
-                  ? updatedData.file_path
-                  : `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${updatedData.bucket}/${updatedData.file_path}`;
+                const publicUrl = toPublicUrl(updatedData);
+                if (!publicUrl) return prev;
 
                 return prev.map((a) =>
                   a.id === updatedData.id

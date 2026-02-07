@@ -28,7 +28,10 @@ export function DynamicAssetImage({
   fallbackUrl,
 }: DynamicAssetImageProps) {
   const { asset, loading, error } = useRealtimeAsset(assetKey);
-  const [displayUrl, setDisplayUrl] = useState<string | null>(fallbackUrl || null);
+  const normalizedFallback = fallbackUrl?.trim() || null;
+  const [displayUrl, setDisplayUrl] = useState<string | null>(
+    normalizedFallback
+  );
   const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
@@ -42,7 +45,7 @@ export function DynamicAssetImage({
     }
   }, [asset?.publicUrl, displayUrl]);
 
-  const finalUrl = displayUrl || fallbackUrl;
+  const finalUrl = displayUrl || normalizedFallback;
 
   if (loading && !fallbackUrl) {
     return (
@@ -53,7 +56,7 @@ export function DynamicAssetImage({
     );
   }
 
-  if ((error || !finalUrl) && !loading) {
+  if (!finalUrl && !loading) {
     return (
       <div
         className={`flex items-center justify-center bg-slate-900/50 text-slate-500 text-sm ${className}`}
@@ -62,6 +65,10 @@ export function DynamicAssetImage({
         Asset not found
       </div>
     );
+  }
+
+  if (error && finalUrl) {
+    console.warn(`[DynamicAssetImage] usando fallback para ${assetKey}`, error);
   }
 
   return (
