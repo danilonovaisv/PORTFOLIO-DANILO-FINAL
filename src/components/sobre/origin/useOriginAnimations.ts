@@ -56,7 +56,7 @@ export function useOriginAnimations({
         blocks.forEach((block, index) => {
           ScrollTrigger.create({
             trigger: block,
-            start: 'top center',
+            start: 'top 75%', // Reveal image earlier (before text fully enters center)
             onEnter: () => revealImage(index, 'down'),
             onEnterBack: () => revealImage(index, 'up'),
           });

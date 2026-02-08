@@ -3,7 +3,6 @@
 import { RefObject } from 'react';
 import { motion } from 'framer-motion';
 import type { OriginBlock } from './data';
-import styles from '@/styles/about-origin.module.css';
 import { DynamicAssetImage } from '@/components/ui/shared/DynamicAssetImage';
 
 interface OriginInfoBlockProps {
@@ -20,11 +19,10 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
 
   return (
     <div
-      className={`${styles.arch__info} min-h-screen flex flex-col justify-start pt-[20vh] pb-[20vh] ${
-        isRightAligned
-          ? 'lg:items-end lg:justify-start lg:text-right'
-          : 'lg:items-end lg:justify-start lg:text-left'
-      }`}
+      className={`min-h-screen flex flex-col justify-start pt-[20vh] pb-[20vh] lg:min-h-screen lg:justify-end lg:items-end lg:text-right ${isRightAligned
+        ? 'lg:items-end lg:justify-start lg:text-right'
+        : 'lg:items-end lg:justify-start lg:text-left'
+        }`}
       data-origin-block={block.id}
     >
       {/* Mobile: Stack vertical intercalado - Texto primeiro, depois Imagem */}
@@ -66,7 +64,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
           whileInView={{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 }}
           viewport={{ once: true, margin: '-10%' }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className={`${styles['mobile-img-container']} overflow-hidden`}
+          className="relative w-full aspect-square min-h-[240px] rounded-[1.5rem] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] lg:hidden"
         >
           <DynamicAssetImage
             assetKey={block.assetKey}
@@ -115,7 +113,7 @@ export function OriginStickyGallery({
 }: OriginStickyGalleryProps) {
   return (
     <div
-      className={`${styles.arch__right} hidden lg:flex col-span-6 h-screen sticky top-0 items-start justify-center pt-[20vh] pointer-events-none`}
+      className="hidden lg:flex lg:col-span-6 lg:h-screen lg:sticky lg:top-0 lg:items-center lg:justify-center pointer-events-none"
       ref={archRightRef}
       data-testid="origin-sticky-gallery"
     >
@@ -127,7 +125,7 @@ export function OriginStickyGallery({
         {blocks.map((block, index) => (
           <div
             key={block.id}
-            className={`${styles['img-wrapper']} origin-img absolute inset-0 w-full h-full`}
+            className="origin-img absolute inset-0 w-full h-full rounded-[1.5rem] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,1)] bg-[#040013]"
             data-img-index={index}
             data-z-index={index + 1}
             style={{ zIndex: index + 1 }}
@@ -147,3 +145,4 @@ export function OriginStickyGallery({
     </div>
   );
 }
+

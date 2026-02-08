@@ -57,22 +57,22 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
               {/* 🟣 [CONFIG VISUAL]: Define a cor do título principal e o tamanho da fonte (4xl a 7xl) */}
               <h2 className="text-white text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-display leading-[1] tracking-tighter mb-4 md:mb-12 uppercase font-black mix-blend-difference whitespace-nowrap">
                 <div className="overflow-visible">
-                  <MorphText progress={scrollProgress} range={[0.1, 0.2]}>
+                  <MorphText progress={scrollProgress} range={[0.15, 0.25]}>
                     Acredito no
                   </MorphText>
                 </div>
                 <div className="overflow-visible">
-                  <MorphText progress={scrollProgress} range={[0.12, 0.22]}>
+                  <MorphText progress={scrollProgress} range={[0.17, 0.27]}>
                     design que
                   </MorphText>
                 </div>
                 <div className="overflow-visible">
-                  <MorphText progress={scrollProgress} range={[0.14, 0.24]}>
+                  <MorphText progress={scrollProgress} range={[0.19, 0.29]}>
                     muda o dia
                   </MorphText>
                 </div>
                 <div className="overflow-visible">
-                  <MorphText progress={scrollProgress} range={[0.16, 0.26]}>
+                  <MorphText progress={scrollProgress} range={[0.21, 0.31]}>
                     de alguém.
                   </MorphText>
                 </div>

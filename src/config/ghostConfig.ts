@@ -171,41 +171,41 @@ export const GHOST_CONFIG: GhostConfig = {
   cameraFov: 75,
   rendererDPR: [1, 2],
 
-  // Aparência do Ghost (MATCHED to CodePen Reference)
-  ghostScale: 0.88, // FIXED: was 1.2
-  bodyColor: 'ghostBlue', // 0x0f2027
-  glowColor: 'blue', // "blue"
-  eyeGlowColor: 'purple', // FIXED: CodePen uses 'blue' (0x0080ff)
+  // Aparência do Ghost (Blue/Spectral Theme)
+  ghostScale: 1.1, // Slightly larger
+  bodyColor: '#0048ff', // Brand Blue
+  glowColor: '#4fe6ff', // Cyan/Electric Blue Glow
+  eyeGlowColor: '#ffffff', // White Eyes for contrast
 
-  ghostOpacity: 0.88,
-  emissiveIntensity: 8.5, // FIXED: was 5.8
-  pulseSpeed: 1.6,
-  pulseIntensity: 0.6,
-  floatSpeed: 1.6, // FIXED: was 1.6
+  ghostOpacity: 0.9,
+  emissiveIntensity: 2.0, // Balanced emission
+  pulseSpeed: 2.0,
+  pulseIntensity: 0.4,
+  floatSpeed: 1.5,
 
   // Comportamento do Ghost
-  followSpeed: 0.05, // FIXED: was 0.05
-  movementThreshold: 0.07,
+  followSpeed: 0.08, // More responsive
+  movementThreshold: 0.05,
 
   // Iluminação
-  rimLightIntensity: 1.8,
-  ambientLightColor: 'cyan',
-  ambientLightIntensity: 0.08,
+  rimLightIntensity: 2.5,
+  ambientLightColor: '#000033', // Deep Blue Ambient
+  ambientLightIntensity: 0.2,
 
   // Véu Atmosférico (Revelação)
-  veilColor: 'ghostBlue',
-  veilEmissive: 'blue',
-  veilEmissiveIntensity: 3.6,
-  veilOpacity: 3.9,
-  veilPulseAmount: 1.6,
-  veilBackgroundColor: 'blue',
-  veilBackgroundOpacity: 0.95,
+  veilColor: '#0048ff',
+  veilEmissive: '#0048ff',
+  veilEmissiveIntensity: 1.0,
+  veilOpacity: 0.1,
+  veilPulseAmount: 0.5,
+  veilBackgroundColor: '#040013',
+  veilBackgroundOpacity: 1.0,
 
-  // Fireflies (Matched to CodePen)
-  fireflyCount: 20, // CodePen cria 20 fireflies em createFireflies loop
-  fireflySpeed: 0.09,
-  fireflyBaseRadius: 0.02,
-  fireflyRadiusVariance: 0.06,
+  // Fireflies (Blue/Cyan)
+  fireflyCount: 40,
+  fireflySpeed: 0.5,
+  fireflyBaseRadius: 0.05,
+  fireflyRadiusVariance: 0.1,
   fireflyScaleBase: 1,
   fireflyScaleVariance: 0.5,
   fireflyFloatFrequency: 1,

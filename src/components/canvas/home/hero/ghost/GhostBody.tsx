@@ -8,6 +8,8 @@ interface GhostBodyProps {
   bodyRef: React.RefObject<THREE.Mesh | null>;
 }
 
+import { Trail } from '@react-three/drei';
+
 export function GhostBody({ bodyRef }: GhostBodyProps) {
   const onBeforeCompile = useMemo(
     () =>
@@ -40,21 +42,29 @@ export function GhostBody({ bodyRef }: GhostBodyProps) {
   );
 
   return (
-    <mesh ref={bodyRef}>
-      <sphereGeometry args={[2, 64, 64]} />
-      <meshStandardMaterial
-        color={getConfigColorHex(GHOST_CONFIG.bodyColor)}
-        emissive={getConfigColorHex(GHOST_CONFIG.glowColor)}
-        emissiveIntensity={GHOST_CONFIG.emissiveIntensity}
-        roughness={0.02}
-        metalness={0.0}
-        transparent
-        opacity={0.5}
-        blending={THREE.AdditiveBlending}
-        depthWrite={false}
-        side={THREE.DoubleSide}
-        onBeforeCompile={onBeforeCompile}
-      />
-    </mesh>
+    <group>
+      <Trail
+        width={3} // Width of the trail
+        length={8} // Length of the trail
+        color={new THREE.Color('#0048ff')} // Trail color
+        attenuation={(t) => t * t} // Trail transparency
+      >
+        <mesh ref={bodyRef}>
+          <sphereGeometry args={[2, 64, 64]} />
+          <meshStandardMaterial
+            color={getConfigColorHex(GHOST_CONFIG.bodyColor)}
+            emissive={getConfigColorHex(GHOST_CONFIG.glowColor)}
+            emissiveIntensity={GHOST_CONFIG.emissiveIntensity}
+            roughness={0.1}
+            metalness={0.5}
+            transparent
+            opacity={0.8}
+            blending={THREE.NormalBlending}
+            side={THREE.DoubleSide}
+            onBeforeCompile={onBeforeCompile}
+          />
+        </mesh>
+      </Trail>
+    </group>
   );
 }

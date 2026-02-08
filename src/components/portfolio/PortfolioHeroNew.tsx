@@ -34,8 +34,8 @@ export default function PortfolioHeroNew() {
   const prefersReducedMotion = useReducedMotion();
 
   const videoAssetKey = isMobile
-    ? SITE_ASSET_KEYS.heroVideos.portfolioMobile
-    : SITE_ASSET_KEYS.heroVideos.portfolioDesktop;
+    ? SITE_ASSET_KEYS.portfolio.heroMobile
+    : SITE_ASSET_KEYS.portfolio.heroDesktop;
 
   const fallbackVideo = isMobile
     ? (PORTFOLIO_CONTENT.hero.video.mobile ?? undefined)
@@ -51,6 +51,7 @@ export default function PortfolioHeroNew() {
       <div className="absolute inset-0 z-0">
         {!prefersReducedMotion ? (
           <DynamicAssetVideo
+            key={isMobile ? 'mobile' : 'desktop'}
             assetKey={videoAssetKey}
             fallbackUrl={fallbackVideo}
             poster={HERO_POSTER}

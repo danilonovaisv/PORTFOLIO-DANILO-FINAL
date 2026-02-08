@@ -120,6 +120,7 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
         {shouldLoad ? (
           <>
             <motion.video
+              key={videoSrc} // Force remount if source changes
               ref={videoRef}
               className="w-full h-full object-cover"
               src={videoSrc}
@@ -128,8 +129,13 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
               loop
               muted={muted}
               playsInline
-              preload="metadata"
+              preload="auto" // Changed from metadata to auto for hero reliability
               aria-label="Vídeo showreel demonstrando projetos de design gráfico"
+              onError={(e) => {
+                console.error('VideoManifesto Error:', e);
+                // Fallback logic could be added here if needed, 
+                // but src fallback is already handled in render logic
+              }}
             ></motion.video>
 
             {/* Overlay */}
@@ -145,7 +151,7 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
               aria-label={
                 muted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'
               }
-              aria-pressed={!muted}
+              aria-pressed={!muted ? 'true' : 'false'}
             >
               {muted ? (
                 <svg

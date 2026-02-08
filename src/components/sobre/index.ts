@@ -24,4 +24,4 @@ export {
 export { GhostModel, GhostScene, ProceduralGhost } from './3d';
 
 // Shared Utilities
-export { motionTokens, motionSprings, kw, Overlay } from './shared';
+export { motionTokens, motionSprings, kw } from './shared';

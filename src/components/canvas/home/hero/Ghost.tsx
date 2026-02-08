@@ -98,7 +98,7 @@ export function Ghost({
   return (
     <>
       <GhostFireflies />
-      // Replaced GhostParticles with HeroParticles
+      {/* Replaced GhostParticles with HeroParticles */}
       <HeroParticles
         count={5000} // High count for impact
         baseColor={GHOST_CONFIG.particleColor}

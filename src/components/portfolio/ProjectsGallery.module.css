@@ -36,11 +36,13 @@
   inset: 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: 18px;
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  text-align: center; /* Center text */
+  padding: 24px;
   opacity: 0;
   transition: opacity 0.25s ease, background 0.25s ease;
-  background: rgba(0, 87, 255, 0.7);
+  background: rgba(0, 72, 255, 0.85); /* #0048ff Brand Color */
 }
 
 .card:focus-visible .cardOverlay {
@@ -102,6 +104,7 @@
 .card[data-size='wide'],
 .placeholder[data-size='wide'] {
   grid-column: span 12;
+  min-height: 600px; /* Increased from 450px per user request */
 }
 
 .card[data-size='tall'],
@@ -154,6 +157,8 @@
 
   .card {
     min-height: 260px;
+    /* Mobile: Ensure card maintains visual integrity */
+    background: #040013;
   }
 
   .card[data-size],
@@ -162,12 +167,25 @@
     grid-row: auto;
   }
 
+  /* Mobile: Overlay hidden by default, visible on active/tap */
   .cardOverlay {
+    opacity: 0;
+    justify-content: center; /* Center content mobile */
+    align-items: center;
+    text-align: center;
+    transition: opacity 0.2s ease;
+  }
+
+  /* Mobile Interaction: Blue only on Tap/Activity */
+  .card:active .cardOverlay,
+  .card:focus .cardOverlay,
+  .card[data-active='true'] .cardOverlay {
     opacity: 1;
-    background: rgba(0, 87, 255, 0.7);
+    background: rgba(0, 72, 255, 0.85); /* #0048ff */
   }
 
   .placeholder {
     display: none;
   }
 }
+

@@ -43,6 +43,7 @@ const ACCENT_COLOR_MAP: Record<ProjectCategory, string> = {
   institucional: '#00a868',
   packaging: '#ffd700',
   all: '#ffffff',
+  'Landing Page': '#6366f1', // Indigo for Landing Pages
 };
 
 function getProjectCategory(projectType?: string): ProjectCategory {

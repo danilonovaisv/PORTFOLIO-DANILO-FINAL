@@ -65,12 +65,30 @@ export const ProjectCard = ({
     '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
   const headingId = `project-card-${project.id}-title`;
 
+  // ... (imports)
+
+  // LANDING PAGE LOGIC
+  // Check category OR tag for 'Landing Page'
+  const normalizedCategory = project.category?.toLowerCase()?.trim();
+  const isLandingPage =
+    normalizedCategory === 'landing page' ||
+    project.tags?.some(tag => tag.toLowerCase().trim() === 'landing page');
+
+  const handleClick = () => {
+    if (isLandingPage && project.link) {
+      window.open(project.link, '_blank', 'noopener,noreferrer');
+    } else {
+      onClick?.(project);
+    }
+  };
+
   return (
     <motion.button
       type="button"
       data-size={size}
-      onClick={() => onClick?.(project)}
-      aria-haspopup={onClick ? 'dialog' : undefined}
+      data-landing={isLandingPage}
+      onClick={handleClick}
+      aria-haspopup={!isLandingPage ? 'dialog' : undefined}
       aria-labelledby={headingId}
       className={cn(
         styles.card,
@@ -90,9 +108,7 @@ export const ProjectCard = ({
             poster={DEFAULT_VIDEO_POSTER}
             className="absolute inset-0 h-full w-full"
             style={{ objectFit, objectPosition }}
-          >
-
-          </video>
+          />
         ) : (
           <Image
             src={imageSrc}
@@ -108,30 +124,19 @@ export const ProjectCard = ({
       </div>
 
       <div className={styles.cardOverlay}>
-        <div className="text-white">
-          <p className="text-[11px] uppercase tracking-[0.18em] text-white/70">
+        <div className="text-white flex flex-col items-center justify-center text-center w-full h-full">
+          <p className="text-[11px] uppercase tracking-[0.18em] text-white/70 mb-2">
             {project.displayCategory}
           </p>
-          <h3 id={headingId} className="mt-1 text-xl font-semibold leading-tight">
+          <h3 id={headingId} className="text-2xl md:text-3xl font-bold leading-tight mb-3">
             {project.title}
           </h3>
-          <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-white/70">
+          <div className="flex flex-wrap items-center justify-center gap-2 text-xs text-white/80">
             {project.client ? <span>{project.client}</span> : null}
             {project.client && project.year ? <span aria-hidden>•</span> : null}
             {project.year ? <span>{project.year}</span> : null}
           </div>
-          {project.tags && project.tags.length > 0 && (
-            <div className="mt-3 flex flex-wrap gap-1.5 text-[0.5em] uppercase tracking-[0.18em] text-white/70">
-              {project.tags.slice(0, 3).map((tag, tagIndex) => (
-                <span
-                  key={`${tag}-${tagIndex}`}
-                  className="inline-flex items-center justify-center rounded-full border border-white/20 px-1.5 py-0.5 text-center"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
+          {/* Tags hidden on hover/active to reduce clutter and focus on Title */}
         </div>
       </div>
     </motion.button>

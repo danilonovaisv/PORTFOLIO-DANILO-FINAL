@@ -19,7 +19,18 @@ export type ProjectCategory =
   | 'motion'
   | 'institucional'
   | 'packaging'
+  | 'Landing Page'
   | 'all';
+
+// ... (existing code)
+
+export interface PortfolioProject {
+  // ... (existing fields)
+  featuredOnPortfolio?: boolean;
+  landingPageSlug?: string | null;
+  /** Link direto para redirecionamento (ex: Landing Pages) */
+  link?: string;
+}
 
 /**
  * Layout Grid responsivo
@@ -108,6 +119,8 @@ export interface PortfolioProject {
   featuredOnHome?: boolean;
   featuredOnPortfolio?: boolean;
   landingPageSlug?: string | null;
+  /** Link direto para redirecionamento (ex: Landing Pages) */
+  link?: string;
 }
 
 /**

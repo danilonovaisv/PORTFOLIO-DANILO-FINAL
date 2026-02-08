@@ -155,7 +155,7 @@ export function CategoryStripe({
         </div>
 
         {/* Mobile Card - Simplified per UI refinement spec (no thumbnails) */}
-        <div className="lg:hidden flex flex-col gap-4 py-5 border-t border-blueAccent/40 active:bg-white/5 transition-colors duration-200 rounded-lg -mx-2 px-2">
+        <div className="lg:hidden flex flex-col gap-6 py-8 border-t border-blueAccent/40 active:bg-white/5 transition-colors duration-200 rounded-lg -mx-2 px-4">
           {/* Title + Arrow Row */}
           <div className="flex items-center justify-between gap-4">
             <div className="flex flex-col flex-1">

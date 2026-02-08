@@ -62,14 +62,14 @@ export default function PortfolioShowcase() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: GHOST_EASE }}
-          className="text-center mb-10 lg:mb-14"
+          className="text-center mb-16 lg:mb-20"
         >
           <h2
             id="portfolio-showcase-heading"
-            className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-tight"
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tighter leading-none"
           >
-            <span className="text-white italic font-light">portfólio </span>
-            <span className="text-bluePrimary font-bold">showcase</span>
+            <span className="text-white italic font-light block sm:inline">portfólio </span>
+            <span className="text-bluePrimary font-bold block sm:inline">showcase</span>
           </h2>
         </motion.header>
 

@@ -31,7 +31,7 @@ export default function HeroCTA({ isLoaded = true }: { isLoaded?: boolean }) {
       <AntigravityCTA
         href="/sobre"
         text={HOME_CONTENT.hero.cta}
-        className="relative"
+        className="relative w-48 justify-center" // Standardized width
       />
     </motion.div>
   );
