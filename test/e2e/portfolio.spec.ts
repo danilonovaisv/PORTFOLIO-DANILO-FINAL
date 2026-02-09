@@ -6,8 +6,10 @@ test.describe('Portfolio Page', () => {
   }) => {
     await page.goto('/portfolio', { waitUntil: 'domcontentloaded' });
 
-    // Check for a common element in portfolio
-    await expect(page.locator('h1')).toBeVisible({ timeout: 30000 });
+    // Check for a stable hero heading in portfolio
+    await expect(page.locator('#portfolio-hero-heading')).toBeVisible({
+      timeout: 30000,
+    });
 
     // Validate Hero video source explicitly (no networkidle dependency).
     const heroVideo = page.locator('#portfolio-hero video').first();

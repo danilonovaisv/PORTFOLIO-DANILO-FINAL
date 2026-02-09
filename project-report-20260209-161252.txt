@@ -1,0 +1,131 @@
+===========================================
+ Projeto: PORTFOLIO-DANILO-FINAL
+ Data: Mon Feb  9 16:12:52 -03 2026
+ Package manager detectado: pnpm
+===========================================
+
+### Ambiente
+
+$ node -v
+v20.20.0
+
+$ npm -v
+10.8.2
+
+Sistema operacional:
+Darwin 192.168.0.6 25.3.0 Darwin Kernel Version 25.3.0: Wed Jan 28 20:53:15 PST 2026; root:xnu-12377.81.4~5/RELEASE_ARM64_T6000 arm64
+
+-------------------------------------------
+### Git status
+
+$ git status -sb
+## main...origin/main [ahead 2]
+ M pnpm-lock.yaml
+ M public/build-info.json
+ M test/e2e/portfolio.spec.ts
+?? project-report-20260209-161252.txt
+?? project-tools.sh
+
+-------------------------------------------
+### Lint (npm run lint)
+
+$ npm run lint
+
+> danilo-novais-portfolio@1.0.1 lint
+> eslint src test tailwind.config.ts
+
+
+-------------------------------------------
+### Testes (npm run test)
+
+$ npm run test
+
+> danilo-novais-portfolio@1.0.1 test
+> pnpm run lint && pnpm run typecheck && jest
+
+
+> danilo-novais-portfolio@1.0.1 lint /Users/danilonovais/PORTFOLIO-DANILO-FINAL
+> eslint src test tailwind.config.ts
+
+
+> danilo-novais-portfolio@1.0.1 typecheck /Users/danilonovais/PORTFOLIO-DANILO-FINAL
+> tsc --noEmit --strict --jsx react-jsx
+
+PASS test/components/ui/CustomCursor.test.tsx
+PASS test/components/portfolio/ProjectCard.test.tsx
+PASS test/components/HeroCopy.test.tsx
+PASS test/components/GhostModel.server.test.ts
+PASS test/components/projects/BlockRenderer.test.tsx
+PASS test/security/admin-server-access.test.ts
+PASS test/config.test.ts
+PASS test/tsconfig.test.ts
+PASS test/unit/project-mapper.test.ts
+PASS test/unit/image-loader.test.ts
+PASS test/security/admin-audit.test.ts
+PASS test/unit/site-asset-utils.test.ts
+PASS test/security/admin-authz.test.ts
+
+Test Suites: 13 passed, 13 total
+Tests:       58 passed, 58 total
+Snapshots:   0 total
+Time:        2.449 s
+Ran all test suites.
+
+-------------------------------------------
+### Dependências desatualizadas
+
+$ pnpm outdated
+┌─────────────────────────┬─────────┬────────────┐
+│ Package                 │ Current │ Latest     │
+├─────────────────────────┼─────────┼────────────┤
+│ @types/handlebars (dev) │ 4.1.0   │ Deprecated │
+├─────────────────────────┼─────────┼────────────┤
+│ statsig-js              │ 5.1.0   │ Deprecated │
+└─────────────────────────┴─────────┴────────────┘
+
+-------------------------------------------
+### Depcheck (dependências não usadas / faltando)
+
+$ npx depcheck
+Unused dependencies
+* @dataconnect/admin-generated
+* @dataconnect/generated
+* @genkit-ai/google-genai
+* @google/adk
+* @react-three/postprocessing
+* firebase-admin
+* firebase-frameworks
+* firebase-functions
+* husky
+* lightningcss
+* lint-staged
+* motion-studio-mcp
+* postprocessing
+* statsig-js
+* tailwindcss-animate
+Unused devDependencies
+* @tailwindcss/postcss
+* @tailwindcss/typography
+* @testing-library/user-event
+* @types/handlebars
+* autoprefixer
+* esbuild
+* eslint-config-next
+* eslint-plugin-react
+* jest-environment-jsdom
+* knip
+* postcss
+* rimraf
+* serve
+* shadcn
+* styled-jsx
+* ts-node
+* which
+
+-------------------------------------------
+### Observações
+Use este relatório para colar em uma IA (Codex/ChatGPT) e pedir:
+- Sugestões para corrigir erros de lint e testes;
+- Ajustes de dependências desatualizadas ou não utilizadas;
+- Refatorações sugeridas com base nos erros.
+
