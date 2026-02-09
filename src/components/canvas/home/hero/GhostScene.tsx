@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { usePerformanceAdaptive } from '@/hooks/usePerformanceAdaptive';
 
-// Importações de pós-processamento do diretório de exemplos do Three.js
 // Importações de pós-processamento via three-stdlib
 // @ts-ignore
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
@@ -17,6 +16,9 @@ import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass';
 // @ts-ignore
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 
+// --- CONFIGURAÇÃO DE PARTICULAS ---
+const MAX_PARTICLES = 500; // Limite máximo para InstancedMesh
+
 export default function GhostScene() {
   const mountRef = useRef<HTMLDivElement>(null);
   const preloaderRef = useRef<HTMLDivElement>(null);
@@ -27,12 +29,22 @@ export default function GhostScene() {
     const mountElement = mountRef.current;
     if (!mountElement) return;
 
-    // --- CONFIGURAÇÃO INICIAL E VARIÁVEIS ---
+    // --- VARIÁVEIS DE CONTROLE (REFS PARA EVITAR ALOCAÇÕES) ---
+    const _vector = new THREE.Vector3();
+    const _dummy = new THREE.Object3D();
+
+    // Arrays para gerenciar estado das partículas instanciadas
+    interface ParticleData {
+      velocity: THREE.Vector3;
+      currentPos: THREE.Vector3;
+      life: number;
+      decay: number;
+      rotationSpeed: { x: number; y: number; z: number };
+    }
+    const _particleData: ParticleData[] = [];
 
     // Gestão do Preloader (Adaptado para usar Refs)
     const preloaderManager = {
-      loadingSteps: 0,
-      totalSteps: 5,
       isComplete: false,
       updateProgress: (step: number) => {
         const loadingSteps = Math.min(step, 5);
@@ -96,7 +108,6 @@ export default function GhostScene() {
     renderer.domElement.style.pointerEvents = 'none';
     renderer.domElement.style.background = 'transparent';
 
-    // Anexar ao ref em vez do body
     mountElement.appendChild(renderer.domElement);
 
     preloaderManager.updateProgress(2);
@@ -247,7 +258,7 @@ export default function GhostScene() {
       wobbleAmount: 0.35,
       floatSpeed: 1.6,
       movementThreshold: 0.07,
-      particleCount: performanceConfig.particleCount * 5, // Scaling for the specific scene density
+      particleCount: Math.min(performanceConfig.particleCount * 5, MAX_PARTICLES),
       particleDecayRate: 0.005,
       particleColor: 'violet',
       createParticlesOnlyWhenMoving: true,
@@ -455,6 +466,7 @@ export default function GhostScene() {
     const eyes = createEyes();
 
     // Pirilampos (Fireflies)
+    // InstancedMesh para Pirilampos
     const fireflies: THREE.Mesh[] = [];
     const fireflyGroup = new THREE.Group();
     scene.add(fireflyGroup);
@@ -468,11 +480,13 @@ export default function GhostScene() {
         opacity: 0.9,
       });
       const firefly = new THREE.Mesh(fireflyGeom, fireflyMat);
-      firefly.position.set(
+      // Posição inicial
+      _vector.set(
         (Math.random() - 0.5) * 40,
         (Math.random() - 0.5) * 30,
         (Math.random() - 0.5) * 20
       );
+      firefly.position.copy(_vector);
 
       const glowGeom = new THREE.SphereGeometry(0.08, 8, 8);
       const glowMat = new THREE.MeshBasicMaterial({
@@ -502,85 +516,61 @@ export default function GhostScene() {
       fireflies.push(firefly);
     }
 
-    // Partículas
-    const particles: THREE.Mesh[] = [];
-    const particleGroup = new THREE.Group();
-    scene.add(particleGroup);
-    const particlePool: THREE.Mesh[] = [];
-    const particleGeometries = [
-      new THREE.SphereGeometry(0.05, 6, 6),
-      new THREE.TetrahedronGeometry(0.04, 0),
-      new THREE.OctahedronGeometry(0.045, 0),
-    ];
-    const particleBaseMaterial = new THREE.MeshBasicMaterial({
-      color: fluorescentColors[params.particleColor],
+    // --- INSTANCED PARTICLE SYSTEM ---
+    const particleGeometry = new THREE.SphereGeometry(0.05, 6, 6);
+    const particleMaterial = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
       transparent: true,
-      opacity: 0,
-      alphaTest: 0.1,
+      opacity: 1, // Controlado via scale no loop
     });
 
-    function initParticlePool(count: number) {
-      for (let i = 0; i < count; i++) {
-        const geom =
-          particleGeometries[
-            Math.floor(Math.random() * particleGeometries.length)
-          ];
-        const p = new THREE.Mesh(geom, particleBaseMaterial.clone());
-        p.visible = false;
-        particleGroup.add(p);
-        particlePool.push(p);
-      }
+    const particleMesh = new THREE.InstancedMesh(particleGeometry, particleMaterial, MAX_PARTICLES);
+    particleMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    scene.add(particleMesh);
+
+    // Inicializar pool de partículas
+    for (let i = 0; i < MAX_PARTICLES; i++) {
+      _dummy.position.set(0, -1000, 0);
+      _dummy.scale.set(0, 0, 0);
+      _dummy.updateMatrix();
+      particleMesh.setMatrixAt(i, _dummy.matrix);
+      // Inicializar estado data
+      _particleData[i] = {
+        velocity: new THREE.Vector3(),
+        currentPos: new THREE.Vector3(),
+        life: 0,
+        decay: 0,
+        rotationSpeed: { x: 0, y: 0, z: 0 }
+      };
     }
-    initParticlePool(100);
 
-    function createParticle() {
-      let p;
-      if (particlePool.length > 0) {
-        p = particlePool.pop();
-        if (p) p.visible = true;
-      } else if (particles.length < params.particleCount) {
-        const geom =
-          particleGeometries[
-            Math.floor(Math.random() * particleGeometries.length)
-          ];
-        p = new THREE.Mesh(geom, particleBaseMaterial.clone());
-        particleGroup.add(p);
-      } else return null;
+    function spawnInstancedParticle(index: number) {
+      const data = _particleData[index];
+      data.life = 1.0;
+      data.decay = Math.random() * 0.003 + params.particleDecayRate;
 
-      if (!p) return null;
+      // Posição Inicial baseada no Ghost
+      _vector.copy(ghostGroup.position);
+      _vector.z -= 0.8 + Math.random() * 0.6;
+      _vector.x += (Math.random() - 0.5) * 3.5;
+      _vector.y += (Math.random() - 0.5) * 3.5 - 0.8;
 
-      const pColor = new THREE.Color(fluorescentColors[params.particleColor]);
-      pColor.offsetHSL(Math.random() * 0.1 - 0.05, 0, 0);
-      const pMaterial = p.material as THREE.MeshBasicMaterial;
-      pMaterial.color = pColor;
-      p.position.copy(ghostGroup.position);
-      p.position.z -= 0.8 + Math.random() * 0.6;
-      p.position.x += (Math.random() - 0.5) * 3.5;
-      p.position.y += (Math.random() - 0.5) * 3.5 - 0.8;
+      data.currentPos.copy(_vector);
 
-      const s = 0.6 + Math.random() * 0.7;
-      p.scale.set(s, s, s);
-      p.rotation.set(Math.random() * 6, Math.random() * 6, Math.random() * 6);
-
-      p.userData.life = 1.0;
-      p.userData.decay = Math.random() * 0.003 + params.particleDecayRate;
-      p.userData.rotationSpeed = {
+      data.rotationSpeed = {
         x: (Math.random() - 0.5) * 0.015,
         y: (Math.random() - 0.5) * 0.015,
         z: (Math.random() - 0.5) * 0.015,
       };
-      p.userData.velocity = {
-        x: (Math.random() - 0.5) * 0.012,
-        y: (Math.random() - 0.5) * 0.012 - 0.002,
-        z: (Math.random() - 0.5) * 0.012 - 0.006,
-      };
-      pMaterial.opacity = Math.random() * 0.9;
-      particles.push(p);
-    }
+      data.velocity.set(
+        (Math.random() - 0.5) * 0.012,
+        (Math.random() - 0.5) * 0.012 - 0.002,
+        (Math.random() - 0.5) * 0.012 - 0.006,
+      );
 
-    // Tweakpane removed for production
-    // const pane = new Pane({ title: 'Spectral Ghost', expanded: false });
-    // ... (rest of the tweakpane code commented out or removed)
+      // Cor das partículas (simulada mudando a cor do material não funciona com instância única sem attribute color)
+      // Compromisso: Todas tem a mesma cor base (branco/violeta)
+    }
 
     // --- DETECÇÃO DE DISPOSITIVO TOUCH/MOBILE ---
     const isTouchDevice =
@@ -607,7 +597,7 @@ export default function GhostScene() {
       clearTimeout(touchTimeout);
       touchTimeout = setTimeout(() => {
         hasReceivedMouseInput = false;
-      }, 3000); // Retorna ao modo automático após 3s sem toque/mouse
+      }, 3000);
     };
 
     const onMouseMove = (e: MouseEvent) => {
@@ -645,10 +635,12 @@ export default function GhostScene() {
     let animationId: number;
     let lastParticleTime = 0;
 
+    // Ref para posição anterior pra calcular delta sem alocar
+    const _prevGhostPos = new THREE.Vector3();
+
     const forceInitialRender = () => {
+      // Pré-render para compilar shaders
       for (let i = 0; i < 3; i++) composer.render();
-      for (let i = 0; i < 10; i++) createParticle();
-      composer.render();
       isInitialized = true;
       preloaderManager.complete(renderer.domElement);
     };
@@ -673,12 +665,9 @@ export default function GhostScene() {
       analogDecayPass.uniforms.uLimboMode.value = params.limboMode ? 1.0 : 0.0;
 
       // Movimento do Fantasma
-      // Mobile: Movimento automático usando curva de Lissajous (orgânico e fluido)
-      // Desktop: Segue o mouse
       let targetX: number;
       let targetY: number;
 
-      // Movimento base automático (Sempre ativo para dar vida)
       const autoSpeed = 0.85;
       const amplitudeX = 9;
       const amplitudeY = 6;
@@ -692,24 +681,24 @@ export default function GhostScene() {
 
       if (!hasReceivedMouseInput) {
         targetX = autoX;
-        // Offset Y baseado no scroll para mobile sempre presente
         const scrollOffset = (scrollY / window.innerHeight) * -15;
         targetY = autoY + scrollOffset;
       } else {
-        // Quando há interação, segue o input mas mantém um pouco do balanço automático
         targetX = mouse.x * 12 + autoX * 0.1;
         targetY =
           mouse.y * 8 + autoY * 0.1 + (scrollY / window.innerHeight) * -15;
       }
 
-      const prevPos = ghostGroup.position.clone();
+      // Copiar posição atual antes de mover
+      _prevGhostPos.copy(ghostGroup.position);
+
       ghostGroup.position.x +=
         (targetX - ghostGroup.position.x) * params.followSpeed;
       ghostGroup.position.y +=
         (targetY - ghostGroup.position.y) * params.followSpeed;
       atmosphereMaterial.uniforms.ghostPosition.value.copy(ghostGroup.position);
 
-      const moveAmt = prevPos.distanceTo(ghostGroup.position);
+      const moveAmt = _prevGhostPos.distanceTo(ghostGroup.position);
       currentMovement =
         currentMovement * params.eyeGlowDecay +
         moveAmt * (1 - params.eyeGlowDecay);
@@ -736,49 +725,70 @@ export default function GhostScene() {
       eyes.leftOuterGlowMaterial.opacity = newOpacity * 0.3;
       eyes.rightOuterGlowMaterial.opacity = newOpacity * 0.3;
 
-      // Atualizar Partículas
-      // Mobile: Sempre criar partículas (movimento automático está sempre ativo)
+      // --- LOGICA DE PARTICULAS (Instanced) ---
+
+      // Criar novas
       const shouldCreate = isMobile
-        ? currentMovement > 0.003 // Threshold menor para mobile (movimento automático é mais suave)
+        ? currentMovement > 0.003
         : params.createParticlesOnlyWhenMoving
           ? currentMovement > 0.005 && hasReceivedMouseInput
           : currentMovement > 0.005;
+
       if (shouldCreate && timestamp - lastParticleTime > 100) {
         const count = Math.min(
           params.particleCreationRate,
           Math.max(1, Math.floor(moveAmt * 100))
         );
-        Array.from({ length: count }).forEach(() => createParticle());
+
+        let spawned = 0;
+        // Encontrar slots vazios
+        for (let i = 0; i < MAX_PARTICLES && spawned < count; i++) {
+          if (_particleData[i].life <= 0) {
+            spawnInstancedParticle(i);
+            spawned++;
+          }
+        }
         lastParticleTime = timestamp;
       }
 
-      // Ciclo de vida das partículas
-      particles.forEach((p) => {
-        if (!p.visible) return;
-        p.userData.life -= p.userData.decay;
-        const particleMaterial = p.material as THREE.MeshBasicMaterial;
-        particleMaterial.opacity = p.userData.life * 0.85;
-        if (p.userData.velocity) {
-          p.position.add(p.userData.velocity as THREE.Vector3);
-          p.position.x += Math.cos(time * 1.8 + p.position.y) * 0.0008;
-        }
-        if (p.userData.rotationSpeed) {
-          p.rotation.x += p.userData.rotationSpeed.x;
-          p.rotation.y += p.userData.rotationSpeed.y;
-          p.rotation.z += p.userData.rotationSpeed.z;
-        }
-        if (p.userData.life <= 0) {
-          p.visible = false;
-          particleMaterial.opacity = 0;
-          particlePool.push(p);
-        }
-      });
+      // Atualizar Existentes
+      let activeParticles = 0;
+      for (let i = 0; i < MAX_PARTICLES; i++) {
+        const p = _particleData[i];
+        if (p.life > 0) {
+          activeParticles++;
+          p.life -= p.decay;
 
-      // Limpeza de array (simplificada)
-      for (let i = particles.length - 1; i >= 0; i--) {
-        if (!particles[i].visible) particles.splice(i, 1);
+          const pos = p.currentPos;
+          pos.add(p.velocity); // Atualiza referência direta de p.currentPos
+          pos.x += Math.cos(time * 1.8 + pos.y) * 0.0008;
+
+          _dummy.position.copy(pos);
+
+          const s = (0.6 + Math.random() * 0.7) * (Math.max(0, p.life) * 0.85);
+          _dummy.scale.set(s, s, s);
+
+          _dummy.rotation.x += p.rotationSpeed.x;
+          _dummy.rotation.y += p.rotationSpeed.y;
+          _dummy.rotation.z += p.rotationSpeed.z;
+
+          _dummy.updateMatrix();
+          particleMesh.setMatrixAt(i, _dummy.matrix);
+
+        } else {
+          // Hide
+          _dummy.position.set(0, -9999, 0); // Longe da tela
+          _dummy.scale.set(0, 0, 0);
+          _dummy.updateMatrix();
+          particleMesh.setMatrixAt(i, _dummy.matrix);
+        }
       }
 
+      if (activeParticles > 0 || shouldCreate) {
+        particleMesh.instanceMatrix.needsUpdate = true;
+      }
+
+      // --- RENDER ---
       if (performanceConfig.enablePostProcessing) {
         composer.render();
       } else {
@@ -788,7 +798,7 @@ export default function GhostScene() {
 
     animate(0);
 
-    // --- CLEANUP ---
+    // --- CLEANUP (Rule #1: Geometry/Material Dispose) ---
     return () => {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('mousemove', onMouseMove);
@@ -796,94 +806,35 @@ export default function GhostScene() {
       window.removeEventListener('touchmove', onTouchMove);
       window.removeEventListener('resize', onResize);
       cancelAnimationFrame(animationId);
-      // pane.dispose(); // Removed
-      // --- CLEANUP ---
-      // Dispose de geometrias e materiais para evitar memory leaks
-      atmosphereGeometry.dispose();
-      atmosphereMaterial.dispose();
 
-      ghostGeometry.dispose();
-      ghostMaterial.dispose();
-
-      eyes.leftEyeMaterial.dispose();
-      eyes.rightEyeMaterial.dispose();
-      eyes.leftOuterGlowMaterial.dispose();
-      eyes.rightOuterGlowMaterial.dispose();
-
-      fireflies.forEach((f) => {
-        f.geometry.dispose();
-        (f.material as THREE.Material).dispose();
-        if (f.userData.glowMat) f.userData.glowMat.dispose();
-        if (f.userData.fireflyMat) f.userData.fireflyMat.dispose();
+      scene.traverse((object) => {
+        if (object instanceof THREE.Mesh) {
+          if (object.geometry) {
+            object.geometry.dispose();
+          }
+          if (object.material) {
+            if (Array.isArray(object.material)) {
+              object.material.forEach((m: THREE.Material) => m.dispose());
+            } else {
+              object.material.dispose();
+            }
+          }
+        }
       });
 
-      // Cleanup de particulas (pool e ativas)
-      particleGeometries.forEach((g) => g.dispose());
-      particleBaseMaterial.dispose();
-      // As particulas clonam o material, entao precisamos limpar todos
-      particlePool.forEach((p) => {
-        p.geometry.dispose();
-        (p.material as THREE.Material).dispose();
-      });
-      particles.forEach((p) => {
-        p.geometry.dispose();
-        (p.material as THREE.Material).dispose();
-      });
-
-      // Cleanup do Composer e Passes
       renderer.dispose();
-
-      // Alguns passes criam rendertargets internos que precisam ser limpos se expostos
-      if (bloomPass.dispose) bloomPass.dispose();
-      if (renderPass.dispose) renderPass.dispose();
-      // analogDecayPass e outputPass usam shaders simples, sem targets extras geralmente
-
       if (mountElement && renderer.domElement) {
         mountElement.removeChild(renderer.domElement);
       }
     };
-  }, []);
+  }, [performanceConfig, preloaderRef, progressBarRef]); // Added deps
 
   return (
     <>
-      <div ref={mountRef} className="w-full h-full absolute top-0 left-0" />
-
-      {/* HTML UI Overlay (Preloader & Text) */}
-      <div ref={preloaderRef} className="preloader" id="preloader">
-        <div className="preloader-content">
-          <div className="ghost-loader">
-            <svg
-              className="ghost-svg"
-              height="80"
-              viewBox="0 0 512 512"
-              width="80"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                className="ghost-body"
-                d="m508.374 432.802s-46.6-39.038-79.495-275.781c-8.833-87.68-82.856-156.139-172.879-156.139-90.015 0-164.046 68.458-172.879 156.138-32.895 236.743-79.495 275.782-79.495 275.782-15.107 25.181 20.733 28.178 38.699 27.94 35.254-.478 35.254 40.294 70.516 40.294 35.254 0 35.254-35.261 70.508-35.261s37.396 45.343 72.65 45.343 37.389-45.343 72.651-45.343c35.254 0 35.254 35.261 70.508 35.261s35.27-40.772 70.524-40.294c17.959.238 53.798-2.76 38.692-27.94z"
-                fill="white"
-              />
-              <circle
-                className="ghost-eye left-eye"
-                cx="208"
-                cy="225"
-                r="22"
-                fill="black"
-              />
-              <circle
-                className="ghost-eye right-eye"
-                cx="297"
-                cy="225"
-                r="22"
-                fill="black"
-              />
-            </svg>
-          </div>
-          <div className="loading-text">Summoning spirits</div>
-          <div className="loading-progress">
-            <div ref={progressBarRef} className="progress-bar"></div>
-          </div>
+      <div ref={mountRef} className="absolute inset-0 z-0 pointer-events-none" />
+      <div ref={preloaderRef} className="fixed inset-0 z-50 flex items-center justify-center bg-black transition-opacity duration-1000">
+        <div className="w-64 h-1 bg-gray-800 rounded overflow-hidden">
+          <div ref={progressBarRef} className="h-full bg-blue-600 transition-all duration-300 w-0" />
         </div>
       </div>
     </>

@@ -143,7 +143,7 @@ export function ProjectForm({
     setError(null);
     startTransition(async () => {
       try {
-        const supabase = createClientComponentClient();
+        // const supabase = createClientComponentClient(); // Used ONLY for Storage uploads
         let thumbnail_path = project?.thumbnail_path ?? null;
         let hero_image_path = project?.hero_image_path ?? null;
         let url_landscape = project?.url_landscape ?? null;
@@ -164,6 +164,7 @@ export function ProjectForm({
           return;
         }
 
+        // Upload Logic (Client-Side)
         if (thumbnail) {
           thumbnail_path = await uploadToBucket(
             'portfolio-media',
@@ -214,80 +215,43 @@ export function ProjectForm({
           }
         }
 
-        const { tags: formTags = [], ...payloadData } = values;
+        // Clean landing_page_id
+        const landingPageId =
+          values.landing_page_id === '' ? null : values.landing_page_id;
 
-        // Clean landing_page_id to be null if empty string
-        if (payloadData.landing_page_id === '') {
-          payloadData.landing_page_id = null;
+        // Collect Tag IDs
+        const selectedTagIds = form.watch('tags') || [];
+
+        // Server Action Call
+        // Dynamic import to avoid cycles or ensure correct loading if necessary,
+        // but standard import is preferred. I'll add the import at the top later.
+        const { upsertProjectAction } =
+          await import('@/app/admin/(protected)/trabalhos/actions');
+
+        const result = await upsertProjectAction({
+          id: project?.id,
+          title: values.title,
+          slug: values.slug,
+          client_name: values.client_name,
+          brand_name: values.brand_name || null,
+          year: values.year ?? null,
+          project_type: values.project_type,
+          short_label: values.short_label || null,
+          description: values.description || null,
+          featured_on_home: values.featured_on_home ?? false,
+          is_published: values.is_published ?? true,
+          landing_page_id: landingPageId,
+          tags: selectedTagIds,
+          thumbnail_path,
+          hero_image_path,
+          url_landscape,
+          url_square,
+          gallery: galleryEntries,
+        });
+
+        if (!result.ok) {
+          throw new Error(result.error ?? 'Erro desconhecido ao salvar.');
         }
-
-        let { data, error: upsertError } = await supabase
-          .from('portfolio_projects')
-          .upsert(
-            {
-              id: project?.id,
-              ...payloadData,
-              gallery: galleryEntries,
-              thumbnail_path,
-              hero_image_path,
-              url_landscape,
-              url_square,
-            },
-            { onConflict: 'id' }
-          )
-          .select()
-          .single();
-
-        if (upsertError?.message?.includes('column')) {
-          const fallbackPayload = {
-            id: project?.id,
-            title: values.title,
-            slug: values.slug,
-            client_name: values.client_name,
-            brand_name: values.brand_name || null,
-            year: values.year ?? null,
-            project_type: values.project_type,
-            short_label: values.short_label || null,
-            description: values.description || null,
-            featured_on_home: values.featured_on_home ?? false,
-            is_published: values.is_published ?? true,
-            gallery: galleryEntries,
-            thumbnail_path: url_landscape ?? thumbnail_path,
-            hero_image_path: url_square ?? hero_image_path,
-          };
-
-          const fallbackResult = await supabase
-            .from('portfolio_projects')
-            .upsert(fallbackPayload, { onConflict: 'id' })
-            .select()
-            .single();
-
-          data = fallbackResult.data;
-          upsertError = fallbackResult.error;
-        }
-
-        if (upsertError) throw upsertError;
-
-        if (data?.id) {
-          await supabase
-            .from('portfolio_project_tags')
-            .delete()
-            .eq('project_id', data.id);
-          const tagIds = formTags.length > 0 ? formTags : selectedTags;
-          if (tagIds.length > 0) {
-            await supabase.from('portfolio_project_tags').insert(
-              tagIds.map((tagId) => ({
-                project_id: data.id,
-                tag_id: tagId,
-              }))
-            );
-          }
-        }
-
-        // Cache Update (Optimistic/Confirmed)
-        // We could import { useContentStore } and call upsertProject(data) here if ProjectForm was purely client-side state driven.
-        // For now, we rely on router.refresh() to update Server Components, but we ADD the store update for potential client-side listeners.
-        // (Note: To do this cleanly, we'd need to bring the store into scope or import it directly if it's a module).
 
         router.push('/admin/trabalhos');
         router.refresh();

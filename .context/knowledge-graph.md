@@ -8,8 +8,8 @@ The central orchestration layer for the portfolio.
 
 #### 1. The Renderer (Client)
 
-- **Nodes:** `GhostCanvas`, `ShaderManager`, `PostProcessing`.
-- **Hooks:** `useGhostEnergy`, `useGhostReveal`, `usePerformanceAdaptive`.
+- **Nodes:** `GhostCanvas`, `ShaderManager`, `PostProcessing`, `GhostScene` (Optimized).
+- **Techniques:** InstancedMesh, ShaderMaterial, AnalogDecay (Custom Pass).
 - **Context:** Handles all R3F visual output and narrative transitions.
 - **Dependencies:** Three.js, Drei, Lamina.
 
