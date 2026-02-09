@@ -4,6 +4,7 @@ import { listProjects } from '@/lib/supabase/queries/projects';
 import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
 import { createStaticClient } from '@/lib/supabase/static';
 import type { PortfolioProject } from '@/types/project';
+import { getSupabasePublicKey } from '@/lib/supabase/env';
 
 import { BRAND } from '@/config/brand';
 
@@ -97,10 +98,7 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
     const fallbackProjects = buildFallbackProjects();
     const hasSupabaseEnv =
       Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) &&
-      Boolean(
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ??
-        process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY
-      );
+      Boolean(getSupabasePublicKey());
 
     if (hasSupabaseEnv) {
       const supabase = createStaticClient();

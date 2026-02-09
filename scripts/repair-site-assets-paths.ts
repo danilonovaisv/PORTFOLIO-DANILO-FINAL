@@ -19,6 +19,7 @@ interface SiteAssetRow {
  * @returns {Promise<void>}
  */
 async function main() {
+  const shouldApply = process.argv.includes('--apply');
   const {
     NEXT_PUBLIC_SUPABASE_URL,
     SUPABASE_URL,
@@ -150,6 +151,13 @@ async function main() {
   console.log(`Backup salvo em ${backupPath}`);
   console.log(`Corrigindo ${updates.length} registros em site_assets...`);
   console.table(preview);
+
+  if (!shouldApply) {
+    console.log(
+      'Modo DRY-RUN: nenhuma atualização aplicada. Reexecute com --apply para persistir.'
+    );
+    return;
+  }
 
   // Processar atualizações em lotes menores para evitar problemas com limites
   const batchSize = 50;

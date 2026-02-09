@@ -40,7 +40,7 @@ export const CompoundPillCTA = ({ href, label }: CompoundPillCTAProps) => {
         className="group flex items-center gap-[5px] transition-transform duration-200 ease-out hover:-translate-y-px"
       >
         {/* Pill Label */}
-        <div className="relative z-10 flex h-[58px] items-center justify-center rounded-full bg-bluePrimary px-10 transition-all duration-200 ease-out group-hover:bg-blueAccent shadow-[0_15px_45px_var(--color-bluePrimary-faint)]">
+        <div className="relative z-10 flex h-[58px] items-center justify-center rounded-full bg-bluePrimary px-14 transition-all duration-200 ease-out group-hover:bg-blueAccent shadow-[0_15px_45px_var(--color-bluePrimary-faint)]">
           <span className="text-base font-bold lowercase tracking-tight text-white transition-colors duration-200 ease-out group-hover:text-background">
             {label}
           </span>

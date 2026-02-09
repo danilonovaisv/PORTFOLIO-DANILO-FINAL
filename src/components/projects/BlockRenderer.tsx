@@ -7,6 +7,7 @@ import { LandingPageBlock } from '@/types/landing-page';
 import ReactMarkdown from 'react-markdown';
 import { sanitizeTailwindValue } from '@/lib/utils';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -42,7 +43,7 @@ export default function BlockRenderer({
   const resolveMedia = (path?: string): string => {
     if (!path) return '';
     if (path.startsWith('http')) return path;
-    return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/site-assets/${path}`;
+    return buildSupabaseStorageUrl('site-assets', path) ?? path;
   };
 
   const getYouTubeId = (url: string): string | null => {

@@ -7,6 +7,7 @@ import { GLTF } from 'three-stdlib';
 import { MotionValue } from 'framer-motion';
 import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
+import { getSupabaseStorageUrl } from '@/lib/supabase/storage-url';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -23,8 +24,8 @@ type GLTFResult = GLTF & {
   };
 };
 
-const GHOST_URL =
-  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb';
+const GHOST_MODEL_URL =
+  getSupabaseStorageUrl('site-assets/about/beliefs/ghost-transformed.glb');
 
 interface GhostModelProps {
   scrollProgress: MotionValue<number>;
@@ -39,7 +40,7 @@ const GhostModel: React.FC<GhostModelProps> = ({
   const { viewport } = useThree();
 
   const { asset } = useRealtimeAsset(SITE_ASSET_KEYS.about.beliefs.ghostModel);
-  const modelUrl = asset?.publicUrl || GHOST_URL;
+  const modelUrl = asset?.publicUrl || GHOST_MODEL_URL;
 
   const { nodes, materials } = useGLTF(modelUrl) as unknown as GLTFResult;
 
@@ -148,8 +149,8 @@ const GhostModel: React.FC<GhostModelProps> = ({
     // X Position Logic with Wiggle
     const wiggleX = isMobile
       ? Math.sin(state.clock.getElapsedTime() * 2.5) *
-        config.floatAmplitude *
-        0.5
+      config.floatAmplitude *
+      0.5
       : 0;
     const scrollDriftX =
       Math.sin(t * Math.PI * 2) * config.scrollResponse * 0.1;
@@ -269,7 +270,7 @@ const GhostModel: React.FC<GhostModelProps> = ({
 
 // Only preload in browser environment
 if (typeof window !== 'undefined') {
-  useGLTF.preload(GHOST_URL);
+  useGLTF.preload(GHOST_MODEL_URL);
 }
 
 export default GhostModel;

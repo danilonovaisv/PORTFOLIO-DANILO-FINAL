@@ -46,11 +46,16 @@ function validateEnv() {
 
   if (missing.length) {
     const source = process.env.CI === 'true' ? 'CI/.env.local' : ENV_FILE;
-    console.warn(
+    console.error(
       `As seguintes variáveis obrigatórias estão faltando em ${source}: ${missing.join(', ')}`
     );
-    console.warn('IGNORANDO ERRO DE VALIDAÇÃO (DEPLOY MODE)');
-    // process.exit(1);
+    if (process.env.VALIDATE_ENV_WARN_ONLY === '1') {
+      console.warn(
+        'VALIDATE_ENV_WARN_ONLY=1 ativo: continuando mesmo com variáveis faltando.'
+      );
+    } else {
+      process.exit(1);
+    }
   }
 
   const source = process.env.CI === 'true' ? 'CI/.env.local' : ENV_FILE;

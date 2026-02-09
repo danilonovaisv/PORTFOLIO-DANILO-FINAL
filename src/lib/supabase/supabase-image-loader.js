@@ -1,5 +1,7 @@
 // supabase-image-loader.js
-const DEFAULT_SUPABASE_URL = 'https://umkmwbkwvulxtdodzmzf.supabase.co';
+const DEFAULT_SUPABASE_URL =
+  process.env.NEXT_PUBLIC_SUPABASE_URL ||
+  process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL;
 const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.webp', '.avif'];
 const NON_TRANSFORM_EXTENSIONS = [
   '.svg',
@@ -25,6 +27,9 @@ export default function supabaseLoader({ src, width, quality }) {
   }
 
   if (src.includes('/storage/v1/object/public/')) {
+    if (!src.startsWith('http') && !DEFAULT_SUPABASE_URL) {
+      return src;
+    }
     const base = src.startsWith('http')
       ? src
       : `${DEFAULT_SUPABASE_URL}${src.startsWith('/') ? '' : '/'}${src}`;

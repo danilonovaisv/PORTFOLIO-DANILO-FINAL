@@ -11,18 +11,17 @@ const {
   SUPABASE_URL,
   SUPABASE_SERVICE_ROLE_KEY,
   SUPABASE_SERVICE_KEY,
-  SUPABASE_ANON_KEY,
 } = loadEnvOverrides();
 const supabaseUrl = normalizeEnvValue(
   NEXT_PUBLIC_SUPABASE_URL ?? SUPABASE_URL ?? undefined
 );
 const serviceRoleKey = normalizeEnvValue(
-  SUPABASE_SERVICE_ROLE_KEY ?? SUPABASE_SERVICE_KEY ?? SUPABASE_ANON_KEY
+  SUPABASE_SERVICE_ROLE_KEY ?? SUPABASE_SERVICE_KEY
 );
 
 if (!supabaseUrl || !serviceRoleKey) {
   throw new Error(
-    'Configure NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (or SUPABASE_SERVICE_KEY or SUPABASE_ANON_KEY).'
+    'Configure NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY (or SUPABASE_SERVICE_KEY).'
   );
 }
 

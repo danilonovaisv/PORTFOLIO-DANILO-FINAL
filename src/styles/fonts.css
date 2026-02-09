@@ -56,13 +56,3 @@
   font-style: normal;
   font-display: swap;
 }
-
-/* CustomLight - From about-origin.css */
-@font-face {
-  font-family: 'CustomLight';
-  src: url('https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_light.woff2')
-    format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}

@@ -7,13 +7,14 @@ import { useRouter } from 'next/navigation';
 import {
   assignAssetRole,
   removeAsset,
+  toggleAssetActive,
+  updateAssetFilePath,
 } from '@/app/admin/(protected)/midia/actions';
 import { AssetRoleMenu } from '@/components/admin/AssetRoleMenu';
 import {
   siteAssetRoleMap,
   type SiteAssetRole,
 } from '@/lib/supabase/asset-roles';
-import { createClientComponentClient } from '@/lib/supabase/client';
 import { uploadSiteAsset } from '@/lib/supabase/storage';
 import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 import type { NormalizedSiteAsset } from '@/lib/supabase/site-asset-utils';
@@ -41,12 +42,11 @@ export function AssetCard({ asset }: Props) {
           subPath: currentRole?.subPath,
           bucket: asset.bucket as 'site-assets',
         });
-        const supabase = createClientComponentClient();
-        const { error: updateError } = await supabase
-          .from('site_assets')
-          .update({ file_path: newPath })
-          .eq('id', asset.id);
-        if (updateError) throw updateError;
+        await updateAssetFilePath({
+          id: asset.id,
+          file_path: newPath ?? '',
+          bucket: asset.bucket,
+        });
         router.refresh();
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Falha no upload');
@@ -69,17 +69,17 @@ export function AssetCard({ asset }: Props) {
   };
 
   const toggleActive = () => {
+    setError(null);
     startTransition(async () => {
-      const supabase = createClientComponentClient();
-      const { error: updateError } = await supabase
-        .from('site_assets')
-        .update({ is_active: !asset.is_active })
-        .eq('id', asset.id);
-      if (updateError) {
-        setError(updateError.message);
-        return;
+      try {
+        await toggleAssetActive({
+          id: asset.id,
+          is_active: !asset.is_active,
+        });
+        router.refresh();
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Falha ao atualizar status');
       }
-      router.refresh();
     });
   };
 

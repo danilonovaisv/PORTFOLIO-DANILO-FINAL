@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+import { getSupabasePublicKey, getSupabasePublicUrl } from '@/lib/supabase/env';
 
 export async function createClient() {
   let cookieStore: Awaited<ReturnType<typeof cookies>> | undefined;
@@ -9,10 +10,8 @@ export async function createClient() {
     // During build/static generation, cookies() might not be available
   }
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey =
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY ??
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabaseUrl = getSupabasePublicUrl();
+  const supabaseKey = getSupabasePublicKey();
 
   if (!supabaseUrl) {
     throw new Error('NEXT_PUBLIC_SUPABASE_URL não está definida no ambiente.');
@@ -20,7 +19,7 @@ export async function createClient() {
 
   if (!supabaseKey) {
     throw new Error(
-      'Defina NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY ou NEXT_PUBLIC_SUPABASE_ANON_KEY.'
+      'Defina NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY (ou NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY/NEXT_PUBLIC_SUPABASE_ANON_KEY).'
     );
   }
 

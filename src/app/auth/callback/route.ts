@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
+import { getSupabasePublicKey, getSupabasePublicUrl } from '@/lib/supabase/env';
 
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
@@ -10,10 +11,8 @@ export async function GET(request: NextRequest) {
   if (code) {
     const cookieStore = await cookies();
 
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseKey =
-      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY ??
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    const supabaseUrl = getSupabasePublicUrl();
+    const supabaseKey = getSupabasePublicKey();
 
     if (!supabaseUrl || !supabaseKey) {
       return NextResponse.redirect(

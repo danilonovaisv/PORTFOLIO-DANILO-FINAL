@@ -159,8 +159,82 @@ export async function removeAsset(payload: {
   refreshAssetRoutes();
 }
 
+export async function updateAssetFilePath(payload: {
+  id: string;
+  file_path: string;
+  bucket?: string;
+}) {
+  const { supabase, user } = await requireAdminAccess();
+  const normalizedPath = normalizeStoragePath(
+    payload.file_path,
+    payload.bucket ?? 'site-assets'
+  );
+
+  if (!normalizedPath) {
+    throw new Error('Caminho de arquivo inválido para atualização do asset.');
+  }
+
+  const { error } = await supabase
+    .from('site_assets')
+    .update({ file_path: normalizedPath })
+    .eq('id', payload.id);
+
+  if (error) {
+    await logAdminAudit(supabase, user, {
+      action: 'asset.update_file_path',
+      resource: 'site_assets',
+      resourceId: payload.id,
+      status: 'error',
+      errorMessage: error.message,
+    });
+    throw error;
+  }
+
+  await logAdminAudit(supabase, user, {
+    action: 'asset.update_file_path',
+    resource: 'site_assets',
+    resourceId: payload.id,
+    status: 'success',
+    metadata: { file_path: normalizedPath },
+  });
+
+  refreshAssetRoutes();
+}
+
+export async function toggleAssetActive(payload: {
+  id: string;
+  is_active: boolean;
+}) {
+  const { supabase, user } = await requireAdminAccess();
+  const { error } = await supabase
+    .from('site_assets')
+    .update({ is_active: payload.is_active })
+    .eq('id', payload.id);
+
+  if (error) {
+    await logAdminAudit(supabase, user, {
+      action: 'asset.toggle_active',
+      resource: 'site_assets',
+      resourceId: payload.id,
+      status: 'error',
+      errorMessage: error.message,
+    });
+    throw error;
+  }
+
+  await logAdminAudit(supabase, user, {
+    action: 'asset.toggle_active',
+    resource: 'site_assets',
+    resourceId: payload.id,
+    status: 'success',
+    metadata: { is_active: payload.is_active },
+  });
+
+  refreshAssetRoutes();
+}
+
 function refreshAssetRoutes() {
   revalidatePath('/');
-  revalidatePath('/about');
+  revalidatePath('/sobre');
   revalidatePath('/portfolio');
 }

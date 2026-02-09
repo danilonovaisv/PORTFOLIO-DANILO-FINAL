@@ -15,6 +15,7 @@ import {
 import type { PortfolioProject } from '@/types/project';
 import { isVideo } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { getSupabasePublicKey } from '@/lib/supabase/env';
 
 async function getProject(slug: string): Promise<PortfolioProject | undefined> {
   // Try database first
@@ -111,7 +112,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export async function generateStaticParams() {
   const hasSupabaseEnv =
     Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) &&
-    Boolean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+    Boolean(getSupabasePublicKey());
 
   const staticSlugs = HOME_CONTENT.featuredProjects.map((p) => ({
     slug: p.slug,

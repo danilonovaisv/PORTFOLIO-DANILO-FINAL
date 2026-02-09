@@ -4,7 +4,7 @@ interface SupabaseLoaderProps {
   quality?: number;
 }
 
-const DEFAULT_SUPABASE_URL = 'https://umkmwbkwvulxtdodzmzf.supabase.co';
+// Removed: DEFAULT_SUPABASE_URL is now handled by getSupabaseBaseUrl() from urls.ts
 const IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg', '.webp', '.avif'];
 const NON_TRANSFORM_EXTENSIONS = [
   '.svg',
@@ -69,9 +69,15 @@ export default function supabaseLoader({
   }
 
   if (src.includes('/storage/v1/object/public/')) {
+    const baseUrl =
+      process.env.NEXT_PUBLIC_SUPABASE_URL ??
+      process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL;
+    if (!src.startsWith('http') && !baseUrl) {
+      return src;
+    }
     const base = src.startsWith('http')
       ? src
-      : `${DEFAULT_SUPABASE_URL}${src.startsWith('/') ? '' : '/'}${src}`;
+      : `${baseUrl}${src.startsWith('/') ? '' : '/'}${src}`;
 
     const isImage = IMAGE_EXTENSIONS.some((ext) => normalizedSrc.endsWith(ext));
 

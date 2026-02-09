@@ -10,15 +10,17 @@ import { SITE_ASSET_KEYS } from '@/config/site-assets';
 import { motionTokens } from '../shared/motion';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
+import { getSupabaseStorageUrl } from '@/lib/supabase/storage-url';
+
 export function AboutClosing() {
   const prefersReducedMotion = useReducedMotion();
   const desktopVideo = useSiteAssetUrl(
     SITE_ASSET_KEYS.about.beliefs.skillsVideo,
-    'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/VIDEO-SKILLS-FINAL_compressed.mp4'
+    getSupabaseStorageUrl('site-assets/about/beliefs/VIDEO-SKILLS-FINAL_compressed.mp4')
   );
   const mobileVideo = useSiteAssetUrl(
     SITE_ASSET_KEYS.about.beliefs.skillsVideoMobile,
-    'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4'
+    getSupabaseStorageUrl('site-assets/about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4')
   );
 
   return (

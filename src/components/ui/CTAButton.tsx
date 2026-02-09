@@ -66,7 +66,7 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
   const buttonContent = (
     <>
       <span
-        className={`inline-flex items-center px-8 md:px-10 py-3 md:py-4 ${v.bg} ${v.text} font-medium uppercase tracking-wide text-sm md:text-base rounded-full whitespace-nowrap transition-all duration-300`}
+        className={`inline-flex items-center px-10 md:px-14 py-3 md:py-4 ${v.bg} ${v.text} font-medium uppercase tracking-wide text-sm md:text-base rounded-full whitespace-nowrap transition-all duration-300`}
       >
         {children}
       </span>
@@ -75,11 +75,10 @@ export const CTAButton: React.FC<CTAButtonProps> = ({
         className={`flex items-center justify-center w-12 h-12 md:w-14 md:h-14 ${v.iconBg} text-white rounded-full -ml-4 md:-ml-5 z-10 transition-all duration-300`}
       >
         <ArrowRight
-          className={`w-4 h-4 md:w-5 md:h-5 -rotate-45 ${
-            prefersReducedMotion
+          className={`w-4 h-4 md:w-5 md:h-5 -rotate-45 ${prefersReducedMotion
               ? ''
               : 'transition-transform duration-300 group-hover:rotate-0'
-          }`}
+            }`}
         />
       </span>
     </>

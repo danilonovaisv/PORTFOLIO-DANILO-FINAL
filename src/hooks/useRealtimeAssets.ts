@@ -27,6 +27,23 @@ export function useRealtimeAsset(assetKey: string) {
     if (storeAsset) setLoading(false);
 
     const supabase = createClientComponentClient();
+    let channel: ReturnType<typeof supabase.channel> | null = null;
+    let pollingId: ReturnType<typeof setInterval> | null = null;
+    let isDisposed = false;
+
+    const stopPolling = () => {
+      if (pollingId) {
+        clearInterval(pollingId);
+        pollingId = null;
+      }
+    };
+
+    const startPolling = () => {
+      if (pollingId) return;
+      pollingId = setInterval(() => {
+        void fetchInitial();
+      }, 15000);
+    };
 
     // 2. Initial Fetch (if needed)
     async function fetchInitial() {
@@ -38,39 +55,90 @@ export function useRealtimeAsset(assetKey: string) {
         .eq('key', assetKey)
         .maybeSingle();
 
-      if (fetchError) {
+      if (fetchError && !isDisposed) {
         setError(new Error(fetchError.message));
       }
 
-      if (data) {
+      if (data && !isDisposed) {
         upsertAsset(data as DbAsset);
       }
-      setLoading(false);
+      if (!isDisposed) {
+        setLoading(false);
+      }
     }
 
-    fetchInitial();
+    startPolling();
+    void fetchInitial();
 
-    // 3. Subscription (Broadcast)
-    // We listen to the 'site_assets' channel (TG_TABLE_NAME) and filter events.
-    const channel = supabase
-      .channel('site_assets')
-      .on(
-        'broadcast',
-        { event: 'site_assets' },
-        (payload: any) => {
-          // The trigger payload structure from realtime.broadcast_changes includes 'new' and 'old'
-          // We need to check if this update is relevant to our assetKey
-          const newData = payload.payload?.new as DbAsset | undefined;
-
-          if (newData && newData.key === assetKey) {
-            upsertAsset(newData);
-          }
+    const initializeSubscription = async () => {
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        if (session?.access_token) {
+          supabase.realtime.setAuth(session.access_token);
         }
-      )
-      .subscribe();
+      } catch (authError) {
+        console.error(
+          '[useRealtimeAsset] Failed to configure realtime auth:',
+          authError
+        );
+      }
+
+      if (isDisposed) return;
+
+      // 3. Subscription (Broadcast)
+      // We listen to the 'site_assets' channel (TG_TABLE_NAME) and filter events.
+      channel = supabase
+        .channel('site_assets', {
+          config: {
+            broadcast: { self: false, ack: true },
+          },
+        })
+        .on(
+          'broadcast',
+          { event: 'site_assets' },
+          (payload: any) => {
+            const newData = payload.payload?.new as DbAsset | undefined;
+
+            if (newData && newData.key === assetKey) {
+              upsertAsset(newData);
+              setLoading(false);
+              setError(null);
+            }
+          }
+        )
+        .subscribe((status: string, err?: Error) => {
+          if (status === 'SUBSCRIBED') {
+            stopPolling();
+            return;
+          }
+
+          if (
+            status === 'TIMED_OUT' ||
+            status === 'CHANNEL_ERROR' ||
+            status === 'CLOSED'
+          ) {
+            if (err && !isDisposed) {
+              setError(
+                new Error(
+                  err.message || 'Falha na subscription de assets em realtime.'
+                )
+              );
+            }
+            startPolling();
+          }
+        });
+    };
+
+    void initializeSubscription();
 
     return () => {
-      supabase.removeChannel(channel);
+      isDisposed = true;
+      stopPolling();
+      if (channel) {
+        void supabase.removeChannel(channel);
+      }
     };
   }, [assetKey, upsertAsset, storeAsset]); // Added storeAsset dep to ensure we are reactive if needed
 

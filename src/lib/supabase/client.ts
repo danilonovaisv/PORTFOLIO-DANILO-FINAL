@@ -1,4 +1,5 @@
 import { createBrowserClient } from '@supabase/ssr';
+import { getSupabasePublicKey, getSupabasePublicUrl } from '@/lib/supabase/env';
 
 let supabaseClient: ReturnType<typeof createBrowserClient> | null = null;
 
@@ -33,17 +34,15 @@ export function createClientComponentClient() {
     return supabaseClient;
   }
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey =
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY ??
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabaseUrl = getSupabasePublicUrl();
+  const supabaseKey = getSupabasePublicKey();
 
   if (!supabaseUrl) {
     throw new Error('NEXT_PUBLIC_SUPABASE_URL não está definida.');
   }
   if (!supabaseKey) {
     throw new Error(
-      'Defina NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY ou NEXT_PUBLIC_SUPABASE_ANON_KEY.'
+      'Defina NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY (ou NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY/NEXT_PUBLIC_SUPABASE_ANON_KEY).'
     );
   }
 

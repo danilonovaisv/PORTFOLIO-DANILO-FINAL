@@ -3,6 +3,7 @@ export const runtime = 'nodejs';
 export const fetchCache = 'force-no-store';
 
 import { createClient } from '@/lib/supabase/server';
+import { getSupabasePublicKey } from '@/lib/supabase/env';
 
 const credentialFields = [
   {
@@ -12,10 +13,7 @@ const credentialFields = [
   },
   {
     name: 'Supabase Key (public)',
-    value:
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY ||
-      '',
+    value: getSupabasePublicKey() || '',
   },
   {
     name: 'OpenAI API Key',

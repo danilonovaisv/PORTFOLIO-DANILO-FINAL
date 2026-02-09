@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
 import { createClient } from '@supabase/supabase-js';
+import { normalizeStoragePath } from '../src/lib/supabase/urls';
 import { loadEnvOverrides, normalizeEnvValue } from './lib/env-loader';
 
-// Script para atualizar URLs antigas do Supabase no banco de dados
 async function updateSupabaseUrls() {
-  // Carregar variáveis de ambiente
+  const shouldApply = process.argv.includes('--apply');
+
   const {
     NEXT_PUBLIC_SUPABASE_URL,
     SUPABASE_URL,
@@ -29,15 +30,6 @@ async function updateSupabaseUrls() {
 
   const supabase = createClient(supabaseUrl, serviceRoleKey);
 
-  // URL antiga e nova
-  const oldProjectUrl = 'umkmwbkwvulxtdodzmzf.supabase.co';
-  const newProjectUrl = supabaseUrl.replace('https://', '').replace(/\/$/, '');
-
-  console.log(
-    `Atualizando URLs do projeto: ${oldProjectUrl} → ${newProjectUrl}`
-  );
-
-  // Obter todos os assets do banco de dados
   const { data: assets, error } = await supabase
     .from('site_assets')
     .select('id, file_path, bucket');
@@ -52,41 +44,62 @@ async function updateSupabaseUrls() {
     return;
   }
 
-  // Filtrar assets que contêm a URL antiga
-  const assetsToUpdate = assets.filter(
-    (asset) => asset.file_path && asset.file_path.includes(oldProjectUrl)
-  );
+  const assetsToUpdate = assets
+    .map((asset) => {
+      const bucket = (asset.bucket ?? 'site-assets').replace(/^\/+|\/+$/g, '');
+      const normalizedPath = normalizeStoragePath(asset.file_path, bucket);
+
+      if (!asset.file_path || !normalizedPath || normalizedPath === asset.file_path) {
+        return null;
+      }
+
+      return {
+        id: asset.id,
+        bucket,
+        from: asset.file_path,
+        to: normalizedPath,
+      };
+    })
+    .filter(Boolean) as Array<{
+    id: string;
+    bucket: string;
+    from: string;
+    to: string;
+  }>;
 
   if (assetsToUpdate.length === 0) {
-    console.log('Nenhum asset encontrado com a URL antiga');
+    console.log('Nenhum asset com URL/caminho legado encontrado.');
     return;
   }
 
-  console.log(`Encontrados ${assetsToUpdate.length} assets com URLs antigas`);
+  console.log(`Assets com correção proposta: ${assetsToUpdate.length}`);
+  console.table(
+    assetsToUpdate.slice(0, 10).map((asset) => ({
+      id: asset.id,
+      from: asset.from,
+      to: asset.to,
+    }))
+  );
 
-  // Atualizar cada asset com a nova URL
-  for (const asset of assetsToUpdate) {
-    const newFilePath = asset.file_path!.replace(
-      `https://${oldProjectUrl}/storage/v1/object/public/${asset.bucket}/`,
-      ''
-    );
-
+  if (!shouldApply) {
     console.log(
-      `Atualizando asset ${asset.id}: ${asset.file_path} → ${newFilePath}`
+      'Modo DRY-RUN: nenhuma atualização aplicada. Reexecute com --apply para persistir.'
     );
-
-    const { error: updateError } = await supabase
-      .from('site_assets')
-      .update({ file_path: newFilePath })
-      .eq('id', asset.id);
-
-    if (updateError) {
-      console.error(`Erro ao atualizar asset ${asset.id}:`, updateError);
-    }
+    return;
   }
 
-  console.log('Atualização de URLs concluída!');
+  for (const asset of assetsToUpdate) {
+    const { error: updateError } = await supabase
+      .from('site_assets')
+      .update({ file_path: asset.to })
+      .eq('id', asset.id);
+    if (updateError) throw updateError;
+  }
+
+  console.log('Correções de URL/caminho aplicadas com sucesso.');
 }
 
-// Executar o script
-updateSupabaseUrls().catch(console.error);
+updateSupabaseUrls().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

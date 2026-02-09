@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { loadEnvOverrides, normalizeEnvValue } from './lib/env-loader';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,10 +44,10 @@ function normalizeStoragePath(filePath?: string | null, bucket?: string) {
 }
 
 function getSupabaseBaseUrl() {
-  // Fallback alinhado ao projeto principal (aymuvxysygrwoicsjgxj) para evitar
-  // geração de links quebrados quando variáveis de ambiente estiverem ausentes.
-  const DEFAULT_SUPABASE_URL = 'https://aymuvxysygrwoicsjgxj.supabase.co';
-  return DEFAULT_SUPABASE_URL;
+  const { NEXT_PUBLIC_SUPABASE_URL, SUPABASE_URL } = loadEnvOverrides();
+  return normalizeEnvValue(
+    NEXT_PUBLIC_SUPABASE_URL ?? SUPABASE_URL ?? undefined
+  );
 }
 
 function buildSupabaseStorageUrl(bucket: string, filePath?: string | null) {

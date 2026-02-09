@@ -115,7 +115,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
           flex items-center justify-center 
           h-12 sm:h-14 lg:h-[68px]
           pl-5 pr-4 sm:pl-8 sm:pr-6 lg:pl-10 lg:pr-8
-          w-[180px] sm:w-[220px] lg:w-[260px]
+          w-[220px] sm:w-[280px] lg:w-[340px]
           text-white 
           shadow-lg
           rounded-full

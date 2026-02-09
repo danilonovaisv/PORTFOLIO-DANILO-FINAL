@@ -136,7 +136,18 @@ export const ProjectCard = ({
             {project.client && project.year ? <span aria-hidden>•</span> : null}
             {project.year ? <span>{project.year}</span> : null}
           </div>
-          {/* Tags hidden on hover/active to reduce clutter and focus on Title */}
+          {project.tags?.length ? (
+            <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-[11px] text-white/70">
+              {project.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-white/20 px-2 py-0.5"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          ) : null}
         </div>
       </div>
     </motion.button>

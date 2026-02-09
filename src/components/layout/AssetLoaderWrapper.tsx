@@ -54,7 +54,30 @@ export default function AssetLoaderWrapper({
       }
     };
 
-    loadAssets();
+    void loadAssets();
+
+    const refreshTimer = setInterval(() => {
+      void loadAssets();
+    }, 30000);
+
+    const handleVisibility = () => {
+      if (document.visibilityState === 'visible') {
+        void loadAssets();
+      }
+    };
+
+    const handleWindowFocus = () => {
+      void loadAssets();
+    };
+
+    window.addEventListener('focus', handleWindowFocus);
+    document.addEventListener('visibilitychange', handleVisibility);
+
+    return () => {
+      clearInterval(refreshTimer);
+      window.removeEventListener('focus', handleWindowFocus);
+      document.removeEventListener('visibilitychange', handleVisibility);
+    };
   }, []);
 
   // If assets haven't loaded yet, render the children without the provider

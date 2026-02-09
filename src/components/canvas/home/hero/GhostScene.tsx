@@ -465,56 +465,52 @@ export default function GhostScene() {
     }
     const eyes = createEyes();
 
-    // Pirilampos (Fireflies)
-    // InstancedMesh para Pirilampos
-    const fireflies: THREE.Mesh[] = [];
-    const fireflyGroup = new THREE.Group();
-    scene.add(fireflyGroup);
+    // --- PIRILAMPOS (FIREFLIES) OTIMIZADOS ---
+    // Substituindo 40 PointLights/Meshes por 1 InstancedMesh e simulando brilho via Shader ou Glow compartilhado
+    // Para manter a performance alta, removemos PointLights individuais.
+    // O brilho será visual, via material emissivo e Post-Processing (Bloom).
 
-    const fireflyCount = performanceConfig.fireflyCount;
+    const fireflyGeometry = new THREE.SphereGeometry(0.035, 4, 4);
+    const fireflyMaterial = new THREE.MeshBasicMaterial({
+      color: 0xffff88,
+      transparent: true,
+      opacity: 0.8,
+    });
+    const fireflyMesh = new THREE.InstancedMesh(fireflyGeometry, fireflyMaterial, params.particleCount);
+    fireflyMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    scene.add(fireflyMesh);
+
+    // Dados dos pirilampos (reutilizando estrutura _particleData ou criando nova se precisar lógica diferente)
+    interface FireflyData {
+      position: THREE.Vector3;
+      velocity: THREE.Vector3;
+      phase: number;
+      speed: number;
+    }
+    const _fireflyData: FireflyData[] = [];
+
+    const fireflyCount = Math.min(params.particleCount, 60); // Limite razoável para visual
+
     for (let i = 0; i < fireflyCount; i++) {
-      const fireflyGeom = new THREE.SphereGeometry(0.02, 2, 2);
-      const fireflyMat = new THREE.MeshBasicMaterial({
-        color: 0xffff44,
-        transparent: true,
-        opacity: 0.9,
-      });
-      const firefly = new THREE.Mesh(fireflyGeom, fireflyMat);
-      // Posição inicial
-      _vector.set(
-        (Math.random() - 0.5) * 40,
-        (Math.random() - 0.5) * 30,
-        (Math.random() - 0.5) * 20
-      );
-      firefly.position.copy(_vector);
-
-      const glowGeom = new THREE.SphereGeometry(0.08, 8, 8);
-      const glowMat = new THREE.MeshBasicMaterial({
-        color: 0xffff88,
-        transparent: true,
-        opacity: 0.4,
-        side: THREE.BackSide,
-      });
-      const glow = new THREE.Mesh(glowGeom, glowMat);
-      firefly.add(glow);
-      const light = new THREE.PointLight(0xffff44, 0.8, 3, 2);
-      firefly.add(light);
-
-      firefly.userData = {
+      _fireflyData.push({
+        position: new THREE.Vector3(
+          (Math.random() - 0.5) * 45,
+          (Math.random() - 0.5) * 35,
+          (Math.random() - 0.5) * 25
+        ),
         velocity: new THREE.Vector3(
-          (Math.random() - 0.5) * params.fireflySpeed,
-          (Math.random() - 0.5) * params.fireflySpeed,
-          (Math.random() - 0.5) * params.fireflySpeed
+          (Math.random() - 0.5) * params.fireflySpeed * 0.8,
+          (Math.random() - 0.5) * params.fireflySpeed * 0.8,
+          (Math.random() - 0.5) * params.fireflySpeed * 0.8
         ),
         phase: Math.random() * Math.PI * 2,
-        pulseSpeed: 2 + Math.random() * 3,
-        glowMat,
-        fireflyMat,
-        light,
-      };
-      fireflyGroup.add(firefly);
-      fireflies.push(firefly);
+        speed: 0.5 + Math.random() * 0.5
+      });
     }
+
+    // Adiciona UMA luz móvel suave para simular o grupo (opcional, ou remove totalmente para performance máxima)
+    const sharedFireflyLight = new THREE.PointLight(0xffff44, 1.5, 15, 2);
+    scene.add(sharedFireflyLight);
 
     // --- INSTANCED PARTICLE SYSTEM ---
     const particleGeometry = new THREE.SphereGeometry(0.05, 6, 6);
@@ -751,7 +747,7 @@ export default function GhostScene() {
         lastParticleTime = timestamp;
       }
 
-      // Atualizar Existentes
+      // Atualizar Partículas de Rastro (Dust)
       let activeParticles = 0;
       for (let i = 0; i < MAX_PARTICLES; i++) {
         const p = _particleData[i];
@@ -760,7 +756,7 @@ export default function GhostScene() {
           p.life -= p.decay;
 
           const pos = p.currentPos;
-          pos.add(p.velocity); // Atualiza referência direta de p.currentPos
+          pos.add(p.velocity);
           pos.x += Math.cos(time * 1.8 + pos.y) * 0.0008;
 
           _dummy.position.copy(pos);
@@ -777,7 +773,7 @@ export default function GhostScene() {
 
         } else {
           // Hide
-          _dummy.position.set(0, -9999, 0); // Longe da tela
+          _dummy.position.set(0, -9999, 0);
           _dummy.scale.set(0, 0, 0);
           _dummy.updateMatrix();
           particleMesh.setMatrixAt(i, _dummy.matrix);
@@ -787,6 +783,32 @@ export default function GhostScene() {
       if (activeParticles > 0 || shouldCreate) {
         particleMesh.instanceMatrix.needsUpdate = true;
       }
+
+      // --- ATUALIZAR PIRILAMPOS (Instanced) ---
+      // Movimento suave baseado em noise/sin
+      for (let i = 0; i < fireflyCount; i++) {
+        const f = _fireflyData[i];
+        f.position.add(f.velocity);
+
+        // Boundaries check (simples bounce ou wrap)
+        if (Math.abs(f.position.x) > 25) f.velocity.x *= -1;
+        if (Math.abs(f.position.y) > 20) f.velocity.y *= -1;
+        if (Math.abs(f.position.z) > 15) f.velocity.z *= -1;
+
+        _dummy.position.copy(f.position);
+
+        // Pulsação de tamanho
+        const pulsate = 1.0 + Math.sin(time * f.speed + f.phase) * 0.3;
+        _dummy.scale.set(pulsate, pulsate, pulsate);
+
+        _dummy.updateMatrix();
+        fireflyMesh.setMatrixAt(i, _dummy.matrix);
+      }
+      fireflyMesh.instanceMatrix.needsUpdate = true;
+
+      // Animar Luz Compartilhada dos Pirilampos
+      sharedFireflyLight.position.x = Math.sin(time * 0.5) * 10;
+      sharedFireflyLight.position.y = Math.cos(time * 0.3) * 5;
 
       // --- RENDER ---
       if (performanceConfig.enablePostProcessing) {
@@ -798,45 +820,55 @@ export default function GhostScene() {
 
     animate(0);
 
-    // --- CLEANUP (Rule #1: Geometry/Material Dispose) ---
+    // --- FUNÇÃO DE LIMPEZA (MEMORY LEAK FIX) ---
     return () => {
-      window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(animationId);
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('touchstart', onTouchMove);
       window.removeEventListener('touchmove', onTouchMove);
       window.removeEventListener('resize', onResize);
-      cancelAnimationFrame(animationId);
+      window.removeEventListener('scroll', onScroll);
 
+      if (mountElement.contains(renderer.domElement)) {
+        mountElement.removeChild(renderer.domElement);
+      }
+
+      // Descartar Geometrias e Materiais
       scene.traverse((object) => {
         if (object instanceof THREE.Mesh) {
-          if (object.geometry) {
-            object.geometry.dispose();
-          }
-          if (object.material) {
-            if (Array.isArray(object.material)) {
-              object.material.forEach((m: THREE.Material) => m.dispose());
-            } else {
-              object.material.dispose();
-            }
+          object.geometry.dispose();
+          if (object.material instanceof THREE.Material) {
+            object.material.dispose();
+          } else if (Array.isArray(object.material)) {
+            object.material.forEach((mat) => mat.dispose());
           }
         }
       });
 
+      // Descartar recursos específicos
       renderer.dispose();
-      if (mountElement && renderer.domElement) {
-        mountElement.removeChild(renderer.domElement);
-      }
+      composer.dispose();
     };
-  }, [performanceConfig, preloaderRef, progressBarRef]); // Added deps
+  }, []); // Fim do useEffect
 
   return (
     <>
-      <div ref={mountRef} className="absolute inset-0 z-0 pointer-events-none" />
-      <div ref={preloaderRef} className="fixed inset-0 z-50 flex items-center justify-center bg-black transition-opacity duration-1000">
-        <div className="w-64 h-1 bg-gray-800 rounded overflow-hidden">
-          <div ref={progressBarRef} className="h-full bg-blue-600 transition-all duration-300 w-0" />
+      <div
+        ref={preloaderRef}
+        className="preloader-overlay absolute inset-0 z-50 flex items-center justify-center bg-[#070b15] transition-opacity duration-1000"
+      >
+        <div className="w-64">
+          <div className="h-0.5 w-full overflow-hidden bg-white/10">
+            <div
+              ref={progressBarRef}
+              className="h-full bg-blue-500 transition-all duration-300 ease-out"
+              style={{ width: '0%' }}
+            />
+          </div>
         </div>
       </div>
+      <div ref={mountRef} className="absolute inset-0 z-0 h-full w-full" />
     </>
   );
 }
+

@@ -1,16 +1,18 @@
 const normalizeUrl = (value: string) => value.replace(/\/+$/, '');
-const DEFAULT_PUBLIC_SUPABASE_URL = 'https://umkmwbkwvulxtdodzmzf.supabase.co';
 
+/**
+ * Get the base Supabase URL from environment variables.
+ */
 export function getSupabaseBaseUrl(): string | null {
   const url =
     process.env.NEXT_PUBLIC_SUPABASE_URL ??
-    process.env.SUPABASE_URL ??
     process.env.NEXT_PUBLIC_SUPABASE_FALLBACK_URL ??
-    DEFAULT_PUBLIC_SUPABASE_URL;
+    process.env.SUPABASE_URL;
 
   if (!url) {
     return null;
   }
+
   try {
     return normalizeUrl(url);
   } catch {

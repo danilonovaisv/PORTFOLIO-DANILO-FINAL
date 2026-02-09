@@ -7,7 +7,11 @@ import React, {
   type ReactNode,
 } from 'react';
 import type { SiteAsset } from '@/lib/supabase/site-assets';
-import { validateExternalUrl } from '@/lib/supabase/urls';
+import {
+  buildSupabaseStorageUrl,
+  normalizeStoragePath,
+  validateExternalUrl,
+} from '@/lib/supabase/urls';
 
 type SiteAssetsContextValue = {
   getUrl: (_key: string) => string | undefined;
@@ -88,15 +92,22 @@ export function useSiteAssetUrl(key: string, fallback?: string) {
 
   if (context?.getUrl(key)) return context.getUrl(key);
 
-  if (fallback) return fallback;
+  if (fallback) {
+    if (fallback.startsWith('http://') || fallback.startsWith('https://')) {
+      return fallback;
+    }
+    const normalizedFallback = normalizeStoragePath(fallback, 'site-assets');
+    return buildSupabaseStorageUrl('site-assets', normalizedFallback ?? fallback);
+  }
 
   if (fallbackPaths[key]) {
-    // Reutiliza o helper global do BRAND (Supabase URL) via import dinâmico para evitar ciclo.
-    const baseUrl =
-      process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, '') ??
-      process.env.SUPABASE_URL?.replace(/\/$/, '') ??
-      'https://umkmwbkwvulxtdodzmzf.supabase.co';
-    return `${baseUrl}/storage/v1/object/public/${fallbackPaths[key]}`;
+    const normalizedFallback = normalizeStoragePath(fallbackPaths[key], 'site-assets');
+    return (
+      buildSupabaseStorageUrl(
+        'site-assets',
+        normalizedFallback ?? fallbackPaths[key]
+      ) ?? undefined
+    );
   }
 
   return undefined;
