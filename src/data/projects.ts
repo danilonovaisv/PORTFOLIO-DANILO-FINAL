@@ -1,5 +1,5 @@
 import type { PortfolioProject, ProjectCategory } from '@/types/project';
-import { getGhostAssetUrl } from '@/utils/utils';
+import { getGhostAssetUrl } from '@/lib/utils';
 
 // Asset Constants (conforme regras de integridade)
 const ASSETS = {

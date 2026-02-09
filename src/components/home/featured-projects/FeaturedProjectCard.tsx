@@ -6,7 +6,7 @@ import { useReducedMotion } from 'framer-motion';
 import { ArrowIcon } from '@/components/ui/ArrowIcon';
 import Link from 'next/link';
 import type { PortfolioProject } from '@/types/project';
-import { applyImageFallback, isVideo } from '@/utils/utils';
+import { applyImageFallback, isVideo } from '@/lib/utils';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 interface FeaturedProjectCardProps {

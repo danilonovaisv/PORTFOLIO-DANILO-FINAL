@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { lerp } from '@/utils/math';
+import { lerp } from '@/lib/utils';
 
 /**
  * LERP-based scroll smoother for a fixed gallery track.

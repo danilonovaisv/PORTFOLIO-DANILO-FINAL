@@ -1,4 +1,4 @@
-import { getAssetUrl } from '@/utils/utils';
+import { getAssetUrl } from '@/lib/utils';
 
 export const PlaceHolderImages = [
   {

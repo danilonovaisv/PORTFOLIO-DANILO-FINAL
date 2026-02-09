@@ -13,7 +13,7 @@ import {
   mapStaticProjectToPortfolioProject,
 } from '@/lib/portfolio/project-mappers';
 import type { PortfolioProject } from '@/types/project';
-import { isVideo } from '@/utils/utils';
+import { isVideo } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 async function getProject(slug: string): Promise<PortfolioProject | undefined> {

@@ -24,6 +24,12 @@ The central orchestration layer for the portfolio.
 - **Context:** Fetches and syncs data to UI.
 - **Dependencies:** Supabase Realtime, Zustand.
 
+#### 4. The Core (Shared)
+
+- **Nodes:** `src/lib/utils` (Unified), `config/brand`.
+- **Context:** Global helpers (cn, math, assets) available everywhere.
+- **Dependencies:** clsx, tailwind-merge.
+
 ## Key Relationships
 
 - `GhostCanvas` **observes** `ScrollState` (Zustand).

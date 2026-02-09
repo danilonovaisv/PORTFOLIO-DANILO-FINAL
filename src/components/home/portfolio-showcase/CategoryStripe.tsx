@@ -7,7 +7,7 @@ import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { GHOST_EASE } from '@/config/motion';
-import { applyImageFallback } from '@/utils/utils';
+import { applyImageFallback } from '@/lib/utils';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 const GHOST_SPRING = { damping: 30, stiffness: 200, mass: 1 } as const;

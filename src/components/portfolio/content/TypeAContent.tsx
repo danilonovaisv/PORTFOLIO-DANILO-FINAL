@@ -17,7 +17,7 @@ import {
   getMetaVariants,
   getContentVariants,
 } from '@/components/portfolio/modal/variants';
-import { applyImageFallback, isVideo } from '@/utils/utils';
+import { applyImageFallback, isVideo } from '@/lib/utils';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { ImageLightbox } from '@/components/portfolio/ImageLightbox';
 

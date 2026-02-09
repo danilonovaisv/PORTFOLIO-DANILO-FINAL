@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { Container } from '@/components/layout/Container';
 import { CategoryStripe } from './CategoryStripe';
-import { getAssetUrl } from '@/utils/utils';
+import { getAssetUrl } from '@/lib/utils';
 import { GHOST_EASE } from '@/config/motion';
 
 // Category data with assets

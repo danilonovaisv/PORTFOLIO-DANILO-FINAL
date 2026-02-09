@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { motion, useReducedMotion } from 'framer-motion';
 import { PortfolioProject } from '@/types/project';
 import { cn } from '@/lib/utils';
-import { ASSET_PLACEHOLDER, applyImageFallback, isVideo } from '@/utils/utils';
+import { ASSET_PLACEHOLDER, applyImageFallback, isVideo } from '@/lib/utils';
 import styles from './ProjectsGallery.module.css';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { useMediaQuery } from '@/hooks/useMediaQuery';

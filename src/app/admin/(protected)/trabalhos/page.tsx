@@ -13,7 +13,7 @@ import {
 import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
 import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
-import { isVideo } from '@/utils/utils';
+import { isVideo } from '@/lib/utils';
 
 type Props = {
   searchParams: Promise<{

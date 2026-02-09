@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import { useBodyLock } from '@/hooks/useBodyLock';
-import { isVideo } from '@/utils/utils';
+import { isVideo } from '@/lib/utils';
 
 type ImageLightboxProps = {
   isOpen: boolean;

@@ -92,19 +92,19 @@ Quando o usuário comandar /loki:
 
 3. Valide visualmente (se possível via screenshot) ou via logs do terminal.
 
-## \---
+## ---
 
-**5\. DESIGN TOKENS (Backup Rápido)**
+**5. DESIGN TOKENS (Backup Rápido)**
 
-* **Primary**: \#E50914 (Vermelho Nestlé/Acento)
+* **Primary**: #0048ff (Deep Blue/Ghost)
 
-* **Background**: \#0a0a0a (Noise Texture Overlay)
+* **Background**: #040013 (Void Black)
 
 * **Type**: Inter Tight (UI), Playfair Display (Hero)
 
-## \---
+## ---
 
-## **6\. SISTEMA DE CONHECIMENTO E LOGS (antiGravity)**
+## **6. SISTEMA DE CONHECIMENTO E LOGS (antiGravity)**
 
 **Objetivo:** garantir que cada ajuste, descoberta ou decisão tomada durante o desenvolvimento seja registrado e facilmente acessível para consultas futuras.
 

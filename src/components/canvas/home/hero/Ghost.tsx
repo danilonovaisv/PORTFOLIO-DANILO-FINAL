@@ -10,7 +10,7 @@ import {
   ShaderPass,
 } from 'three-stdlib';
 
-import { AnalogDecayShader } from '@/components/canvas/shaders/AnalogShader';
+import { AnalogDecayShader } from '@/components/canvas/shaders/hero/AnalogShader';
 import { GHOST_CONFIG } from '@/config/ghostConfig';
 
 import { GhostFireflies } from './GhostFireflies';
