@@ -10,6 +10,8 @@
 
 Este portfólio digital foi concebido como uma **experiência editorial premium**, onde o design não apenas mostra trabalhos, mas demonstra excelência através de sua própria execução. A filosofia central — _"Você não vê o design. Mas ele vê você."_ — permeia cada decisão de interface, animação e conteúdo.
 
+
+
 ## 1. PROJECT OVERVIEW
 
 ### 1.1 Vision & Goals
@@ -58,7 +60,6 @@ Homepage
 ```
 
 ### 1,5.2 Fluxo de Navegação
-
 ```
 Hero → Portfolio Showcase → Projetos → Contato
   ↓
@@ -66,179 +67,7 @@ Sobre (secundário)
 ```
 
 **Princípio:** Guiar intuitivamente do contexto (quem sou) → trabalho (o que faço) → ação (como trabalhar junto).
-
 ---
-
-## 2. DESIGN SYSTEM
-
-### 2.1 Color Palette
-
-| Token             | Value     | Uso Principal                        |
-| :---------------- | :-------- | :----------------------------------- |
-| **bluePrimary**   | `#0048ff` | Marca, CTAs, Links, Foco             |
-| **blueAccent**    | `#4fe6ff` | Atmosfera Ghost, Brilhos, Highlights |
-| **background**    | `#040013` | Deep Void (Fundo Principal)          |
-| **text**          | `#fcffff` | Texto Primário (Contraste Alto)      |
-| **textSecondary** | `#a1a3a3` | Metadados, Legendas                  |
-| **surface**       | `#0b0d3a` | Cards sutis, Gradientes de fundo     |
-| **error**         | `#ff3366` | Validação de formulários             |
-
----
-
-### 2.2 Typography
-
-**Family:** `TT Norms Pro` (Primary), `Geist Mono` (Code/Tech details).
-
-#### Fluid Typography Tokens (`clamp`)
-
-| Token       | Mobile (<768px) | Desktop (≥1024px) | Weight  | Tailwind Class |
-| :---------- | :-------------- | :---------------- | :------ | :------------- |
-| **Display** | 2.5rem (40px)   | 5.5rem (88px)     | Black   | `text-display` |
-| **H1**      | 2rem (32px)     | 3.5rem (56px)     | Bold    | `text-h1`      |
-| **H2**      | 1.5rem (24px)   | 2.5rem (40px)     | Bold    | `text-h2`      |
-| **H3**      | 1.25rem (20px)  | 1.75rem (28px)    | Medium  | `text-h3`      |
-| **Body**    | 1rem (16px)     | 1.125rem (18px)   | Regular | `text-body`    |
-
-**CSS Implementation:**
-
-```css
-@layer base {
-  :root {
-    --font-display: clamp(2.5rem, 5vw + 1rem, 5.5rem);
-    --font-h1: clamp(2rem, 4vw + 1rem, 3.5rem);
-    --font-body: clamp(1rem, 0.5vw + 0.8rem, 1.125rem);
-  }
-}
-```
-
----
-
-### 2.3 Spacing, Grid & Layout (OPTIMIZED)
-
-O sistema de Grid foi otimizado para **12 colunas** no desktop e **4 colunas** no mobile, garantindo alinhamento matemático perfeito.
-
-#### 📐 The Ghost Grid System
-
-| Breakpoint            | Columns | Gutter (Gap)    | Margin (X-Padding) | Container Max |
-| --------------------- | ------- | --------------- | ------------------ | ------------- |
-| **Mobile** (<768px)   | **4**   | `16px` (gap-4)  | `24px` (px-6)      | 100%          |
-| **Tablet** (768px+)   | **8**   | `24px` (gap-6)  | `48px` (px-12)     | 100%          |
-| **Desktop** (1024px+) | **12**  | `32px` (gap-8)  | `64px` (px-16)     | 1440px        |
-| **Wide** (1600px+)    | **12**  | `40px` (gap-10) | `96px` (px-24)     | 1680px        |
-
-#### 🧱 Tailwind Composition
-
-**1. Container Base:**
-
-```tsx
-// Wrapper global para centralizar o conteúdo
-<div className="w-full max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24">
-  {children}
-</div>
-```
-
-**2. Section Grid (Padrão):**
-
-```tsx
-// Grid responsivo automático
-<section className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 md:gap-8 w-full py-16 md:py-24">
-  {/* Ex: Card ocupando full no mobile e 4 colunas no desktop */}
-  <div className="col-span-4 md:col-span-4 lg:col-span-4">Card Content</div>
-</section>
-```
-
-**3. Z-Index Layering (Ghost Philosophy):**
-Para garantir que o 3D não bloqueie a interatividade.
-
-- `z-0`: **Canvas WebGL** (Background interativo).
-- `z-10`: **Glass Layers** (Paineis com backdrop-blur).
-- `z-20`: **Content** (Textos, Imagens).
-- `z-50`: **Navigation/Header** (Sticky).
-- `z-100`: **Modals/Overlays**.
-
-#### 📱 Mobile Alignment Rules
-
-No breakpoint `< md` (Mobile First):
-
-1. **Text Align:** `text-center` (Títulos e CTAs).
-2. **Flex:** `flex-col items-center`.
-3. **Order:** Visualmente o "Hero Image/Video" pode vir antes ou depois do texto dependendo da narrativa, usar `order-first` ou `order-last`.
-
----
-
-### 2.4 Animation Principles
-
-**Engine:** Framer Motion + Lenis Scroll.
-
-**The "Ghost" Easing:**
-Sensação de peso e elegância. Movimento rápido no início, frenagem suave no final.
-
-- `ease: [0.22, 1, 0.36, 1]`
-
-**Padrões de Código:**
-
-```tsx
-// 1. Reveal Padrão (Fade Up)
-<motion.div
-  initial={{ opacity: 0, y: 32 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  viewport={{ once: true, margin: "-10%" }}
-  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
->
-
-// 2. Container Stagger (Cascata)
-const containerVars = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
-}
-
-```
-
----
-
-### 2.5 Global Assets (Supabase CDN)
-
-**Fonts:**
-
-- TT Norms Pro (Hosted on Supabase Storage).
-- Fallback: `sans-serif`.
-
-**Logos:**
-
-- Dark/Light versions SVG.
-- Favicon SVG.
-
-**Media:**
-
-- Manifesto Video: `VIDEO-APRESENTACAO-PORTFOLIO.mp4` (Otimizado para streaming/loop).
-- Client Logos: SVGs monocromáticos (fill-current text-white).
-
----
-
-## 3. SITE ARCHITECTURE
-
-### 3.1 Sitemap & Flow
-
-1. **Home:**
-
-- _Hero:_ WebGL Atmosphere + Headline.
-- _Manifesto:_ Vídeo full-width scroll-linked.
-- _Showcase:_ Accordion vertical interativo.
-
-2. **Sobre:** Narrativa pessoal, timeline "Origem Criativa".
-3. **Portfólio:** Grid completo com filtros (Bento Grid).
-
-### 3.2 Navigation
-
-- **Header:** Sticky, Glassmorphism. Links: Home, Sobre, Portfólio, Contato.
-- **Mobile Menu:** Fullscreen overlay com animação staggered.
-
-```
-
-```
 
 ---
 
@@ -1178,3 +1007,5 @@ Este portfólio não é apenas uma vitrine de trabalhos — é uma **declaraçã
 - [ ] Integração com CMS (Sanity/Contentful)
 
 ---
+
+

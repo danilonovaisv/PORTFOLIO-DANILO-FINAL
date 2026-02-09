@@ -28,12 +28,12 @@ export default function FeaturedProjectsRealtime({
 
   const loadFeaturedProjects = useCallback(async () => {
     const { data, error } = await supabase
-      .from('portfolio_projects')
+      .from('public_projects_view')
       .select(
         '*, tags:portfolio_project_tags(tag:portfolio_tags(id, slug, label, kind)), landing_page:landing_pages(slug)'
       )
       .eq('featured_on_home', true)
-      .eq('is_published', true)
+      // .eq('is_published', true) -- Implicit in View
       .order('featured_portfolio_order', {
         ascending: true,
         nullsFirst: false,

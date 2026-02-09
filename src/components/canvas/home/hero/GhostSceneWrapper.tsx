@@ -2,8 +2,8 @@
 
 import dynamic from 'next/dynamic';
 
-const GhostCanvas = dynamic(
-  () => import('@/components/canvas/home/hero/GhostCanvas').then((mod) => mod.GhostCanvas),
+const GhostScene = dynamic(
+  () => import('@/components/canvas/home/hero/GhostScene'),
   {
     ssr: false,
     loading: () => (
@@ -13,5 +13,5 @@ const GhostCanvas = dynamic(
 );
 
 export default function GhostSceneWrapper() {
-  return <GhostCanvas />;
+  return <GhostScene />;
 }

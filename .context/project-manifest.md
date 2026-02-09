@@ -1,42 +1,30 @@
-# Project Manifest
+# Project Manifest: PORTFOLIO-DANILO-FINAL
 
 ## Identity
 
-- **Project Name**: Danilo Novais Portfolio
-- **Type**: High-End Creative Portfolio (Awwwards Aim)
-- **Role**: Senior Creative Technologist Agent
+- **Name:** Ghost System v3
+- **Owner:** Danilo Novais
+- **Type:** Creative Developer Portfolio
+- **Status:** Active Development
 
-## Tech Stack (Locked)
+## Tech Stack (Core)
 
-- **Framework**: Next.js 16.1.6 (App Router)
-- **Language**: TypeScript 5.9.3
-- **Styling**: Tailwind CSS 4.1.18
-  - Plugins: `tailwindcss-animate`, `@tailwindcss/typography`
-- **WebGL Engine**:
-  - `three`: 0.182.0
-  - `@react-three/fiber`: 9.5.0
-  - `@react-three/drei`: 10.7.7
-  - `@react-three/postprocessing`: 3.0.4
-- **Animation**:
-  - `gsap`: 3.14.2
-  - `framer-motion`: 12.33.0
-  - `lenis`: 1.3.17 (Smooth Scroll)
-- **Backend/Services**:
-  - Firebase (Hosting/Functions)
-  - Supabase (Database/Storage/Realtime)
+- **Framework:** Next.js 15 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS 4
+- **3D Engine:** React Three Fiber (Three.js)
+- **Backend:** Firebase (Functions/Hosting) + Supabase (DB/Realtime)
 
-## Folder Structure (Key Paths)
+## Core Architectures
 
-- `.context/`: Source of Truth & Memory
-- `docs/plans/`: Feature Implementation Plans
-- `src/app/`: Next.js App Router Pages
-- `src/components/canvas/`: R3F/WebGL Components (Meshes, Shaders)
-- `src/components/dom/`: React UI Components
-- `src/config/`: Constants & Configuration
-- `public/assets/`: 3D Models (Draco Compressed) & Textures
+- **Frontend:** Atomic Design (Components), Atomic State (Zustand).
+- **Animation:** GSAP (Complex) + Framer Motion (UI) + R3F (Canvas).
+- **Deployment:** CI/CD via Firebase CLI.
 
-## Build & Deploy
+## Key Directories
 
-- **Build Command**: `pnpm build`
-- **Package Manager**: `pnpm`
-- **Output**: Standalone (Next.js) -> Firebase Hosting
+- `src/app`: Routes.
+- `src/components`: UI Building Blocks.
+- `src/components/canvas`: WebGL Scenes.
+- `src/lib`: Utilities & Helpers.
+- `src/store`: State Management.

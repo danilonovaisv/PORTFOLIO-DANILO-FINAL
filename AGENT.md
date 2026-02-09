@@ -207,27 +207,3 @@ Quando o usuário comandar /loki:
 * Registre no Knowledge Item qualquer ajuste significativo no fluxo de realtime ou na organização do admin.
 
 ---
-
-[\[1\]](https://antigravity.google/docs/browser-recordings) Google Antigravity Documentation
-
-[https://antigravity.google/docs/browser-recordings](https://antigravity.google/docs/browser-recordings)
-
-[\[2\]](https://antigravity.google/docs/rules-workflows) [\[4\]](https://antigravity.google/docs/rules-workflows) Google Antigravity Documentation
-
-[https://antigravity.google/docs/rules-workflows](https://antigravity.google/docs/rules-workflows)
-
-[\[3\]](https://antigravity.google/docs/skills) Google Antigravity Documentation
-
-[https://antigravity.google/docs/skills](https://antigravity.google/docs/skills)
-
-[\[5\]](https://antigravity.google/docs/task-list) Google Antigravity Documentation
-
-[https://antigravity.google/docs/task-list](https://antigravity.google/docs/task-list)
-
-[\[6\]](https://antigravity.google/docs/implementation-plan) Google Antigravity Documentation
-
-[https://antigravity.google/docs/implementation-plan](https://antigravity.google/docs/implementation-plan)
-
-[\[7\]](https://antigravity.google/docs/artifacts) Google Antigravity Documentation
-
-[https://antigravity.google/docs/artifacts](https://antigravity.google/docs/artifacts)

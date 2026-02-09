@@ -1,17 +1,36 @@
-# Knowledge Graph
+# Knowledge Graph (Ghost System)
 
-## Component Interactions
+## Root Node: Ghost System
 
-- **GhostCanvas**: Main WebGL entry point. Hosts `Ghost` (Model) and `Atmosphere`.
-- **HeroParticles**: New R3F component. InstancedMesh based. Replaces legacy `GhostParticles`.
-- **Loader**: Controls initial loading state. Dispatches 'loaded' event to start animations.
+The central orchestration layer for the portfolio.
 
-## State Management
+### Sub-Systems
 
-- **Zustand**: Used for high-frequency updates (mouse position, scroll progress) to avoid React re-renders.
-  - *Store Location*: `src/hooks/useStore.ts` (Verify if exists)
+#### 1. The Renderer (Client)
 
-## Shaders
+- **Nodes:** `GhostCanvas`, `ShaderManager`, `PostProcessing`.
+- **Context:** Handles all R3F visual output.
+- **Dependencies:** Three.js, Drei, Lamina.
 
-- **Vertex**: Standard `vUv`, `vNormal` passed to fragment.
-- **Fragment**: Soft circle alpha blending standard for particles.
+#### 2. The Administrator (Server/Auth)
+
+- **Nodes:** `AdminDashboard`, `AuthGuard`, `ProjectsTable`.
+- **Context:** Protected management area.
+- **Dependencies:** Supabase Auth, Firebase Functions.
+
+#### 3. The Content Engine (Data)
+
+- **Nodes:** `useProjects`, `ProjectStore`, `RealtimeSubscriptions`.
+- **Context:** Fetches and syncs data to UI.
+- **Dependencies:** Supabase Realtime, Zustand.
+
+## Key Relationships
+
+- `GhostCanvas` **observes** `ScrollState` (Zustand).
+- `AdminDashboard` **controls** `Supabase:Projects`.
+- `HeroSection` **embeds** `GhostCanvas`.
+
+## Current Status (Bootstrapping)
+
+- Agent System is being injected.
+- Core app is stable.

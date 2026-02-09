@@ -1,26 +1,28 @@
+'use client';
+
 import { Suspense, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { AdaptiveDpr, Preload } from '@react-three/drei';
 import * as THREE from 'three';
 import { GHOST_CONFIG } from '@/config/ghostConfig';
+import { usePerformanceAdaptive } from '@/hooks/usePerformanceAdaptive';
 import { Ghost } from './Ghost';
 import { Atmosphere } from './Atmosphere';
 
 export function GhostCanvas() {
+  const performance = usePerformanceAdaptive();
   const ghostRef = useRef<THREE.Group>(null!);
 
-  // Removed usePerformanceAdaptive and related variables.
-  // Defaulting dpr to 1 for now, or it can be removed if not strictly needed.
-  // Particle count and quality checks will need to be re-evaluated if performance adaptation is desired.
+  const dpr = performance.pixelRatio;
 
   return (
     <div className="w-full h-full relative bg-transparent">
       <Canvas
         shadows={false}
-        dpr={1} // Defaulting dpr to 1 after removing performance hook
+        dpr={dpr}
         camera={{ position: [0, 0, 25], fov: 75 }}
         gl={{
-          antialias: false, // Start with false for post-processing
+          antialias: performance.quality !== 'low',
           powerPreference: 'high-performance',
           alpha: true,
           stencil: false,
@@ -54,25 +56,6 @@ export function GhostCanvas() {
           />
 
           <Atmosphere ghostRef={ghostRef} />
-
-          {/* Post-Processing: Old TV / Signal Failure Look - DISABLED per user feedback (prefer Spectral look) */}
-          {/* {isHighQuality && (
-            <EffectComposer enableNormalPass={false} multisampling={0}>
-              <Noise opacity={0.15} blendFunction={BlendFunction.OVERLAY} />
-              <Scanline
-                density={1.5}
-                opacity={0.2}
-                scrollSpeed={0.05}
-                blendFunction={BlendFunction.OVERLAY}
-              />
-              <ChromaticAberration
-                offset={[0.002, 0.002]}
-                radialModulation={false}
-                modulationOffset={0}
-              />
-              <Vignette eskil={false} offset={0.1} darkness={1.1} />
-            </EffectComposer>
-          )} */}
 
           <Preload all />
         </Suspense>

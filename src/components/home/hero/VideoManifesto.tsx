@@ -120,7 +120,6 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
         {shouldLoad ? (
           <>
             <motion.video
-              key={videoSrc} // Force remount if source changes
               ref={videoRef}
               className="w-full h-full object-cover"
               src={videoSrc}
@@ -129,13 +128,8 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
               loop
               muted={muted}
               playsInline
-              preload="auto" // Changed from metadata to auto for hero reliability
+              preload="metadata"
               aria-label="Vídeo showreel demonstrando projetos de design gráfico"
-              onError={(e) => {
-                console.error('VideoManifesto Error:', e);
-                // Fallback logic could be added here if needed, 
-                // but src fallback is already handled in render logic
-              }}
             ></motion.video>
 
             {/* Overlay */}

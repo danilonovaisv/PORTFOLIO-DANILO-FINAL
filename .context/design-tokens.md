@@ -1,43 +1,29 @@
-# Design Tokens
+# Design Tokens Snapshot
 
-## Colors (Source: src/app/globals.css)
+> [!NOTE]
+> This file helps agents maintain visual consistency without guessing.
 
-### Brand Core
+## Colors
 
-- **Primary Blue**: `#0048ff` (`--color-bluePrimary`)
-- **Accent Blue**: `#4fe6ff` (`--color-blueAccent`)
-- **Background**: `#040013` (`--color-background`) - Deep Dark Blue/Black
-- **Text Main**: `#fcffff` (`--color-text`)
-- **Nestlé Red (Accent)**: `#E50914` (From AGENT.md Override)
-
-### Secondary / Details
-
-- **Purple**: `#8705f2`
-- **Pink**: `#f501d3`
-- **Neutral Dark**: `#0b0d3a`
-- **Text Secondary**: `#a1a3a3`
+- **Primary Blue:** `#0048ff` (Deep Spectral Blue)
+- **Void Black:** `#040013` (Background)
+- **Accent Red:** `#E50914` (Highlights)
+- **Pure White:** `#FFFFFF` (Text)
+- **Ghost Gray:** `#F5F5F5` (Subtle UI)
 
 ## Typography
 
-### Families
+- **Headings:** Playfair Display
+- **UI:** Inter Tight
+- **Code/Tech:** Geist Mono
 
-- **Sans (UI/Body)**: 'TT Norms Pro', system-ui
-- **Display**: 'Outfit', sans-serif (also used for Headings)
-- **Mono**: 'PPSupplyMono', monospace
+## Spacing (Grid)
 
-### Scale (Fluid Clamp)
+- **Container:** `.std-grid` (Standard Grid Wrapper)
+- **Mobile Padding:** `px-4`
+- **Desktop Padding:** `px-8` or `px-12`
 
-- **Display**: `clamp(2.5rem, 5vw, 4.5rem)`
-- **H1**: `clamp(2rem, 4vw, 3.5rem)`
-- **H2**: `clamp(1.5rem, 3vw, 2.5rem)`
-- **Body**: `clamp(1rem, 1.2vw, 1.125rem)`
+## Motion
 
-## Animation Curves (Standard)
-
-- **Ease Out Quad**: `power2.out` (GSAP)
-- **Smooth**: `[0.25, 0.1, 0.25, 1.0]` (Bezier)
-
-## Spacing
-
-- **Container**: `clamp(24px, 5vw, 96px)`
-- **Card Height (Desktop)**: `480px`
+- **Ease:** Custom Bezier (Smooth, Floaty).
+- **Duration:** 0.6s (Standard), 0.2s (Micro-interactions).

@@ -25,17 +25,20 @@ export async function listProjects(
 ) {
   const supabase = supabaseClient ?? (await createClient());
 
+  // [REF] Zero Deploy: Use public_projects_view (No-Select Rule)
+  // public_projects_view filters is_published=true by default.
   let query = supabase
-    .from('portfolio_projects')
+    .from('public_projects_view')
     .select(
       '*, tags:portfolio_project_tags(tag:portfolio_tags(id, slug, label, kind)), landing_page:landing_pages(slug)'
     );
 
-  if (!filters.includeUnpublished) {
-    query = query.eq('is_published', true);
-  }
+  // [NOTE] includeUnpublished is now ignored for public lists.
+  // Admin tools must use a separate admin-only query function.
 
   if (filters.tagSlug) {
+    // public_projects_view inherits relations if properly defined.
+    // Based on curl test, standard joining works.
     query = query.eq('tags.tag.slug', filters.tagSlug);
   }
 
@@ -51,10 +54,20 @@ export async function listProjects(
 
   if (filters.featuredOnHome) {
     query = query.eq('featured_on_home', true);
-  }
-
-  if (filters.featuredOnPortfolio) {
+    // Use the view's column for sorting
+    query = query.order('featured_home_order', {
+      ascending: true,
+      nullsFirst: false,
+    });
+  } else if (filters.featuredOnPortfolio) {
     query = query.eq('featured_on_portfolio', true);
+    query = query.order('featured_portfolio_order', {
+      ascending: true,
+      nullsFirst: false,
+    });
+  } else {
+    // Default sort
+    query = query.order('year', { ascending: false });
   }
 
   const { data, error } = await query.returns<DbProjectWithTags[]>();
@@ -64,8 +77,9 @@ export async function listProjects(
 
 export async function getProject(id: string) {
   const supabase = await createClient();
+  // [REF] Zero Deploy: Use public_projects_view
   const { data, error } = await supabase
-    .from('portfolio_projects')
+    .from('public_projects_view')
     .select(
       '*, tags:portfolio_project_tags(tag:portfolio_tags(id, slug, label, kind))'
     )
