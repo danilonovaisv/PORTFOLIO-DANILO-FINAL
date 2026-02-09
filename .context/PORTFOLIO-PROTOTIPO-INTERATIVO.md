@@ -1,1705 +1,299 @@
-# 🎬 PROTÓTIPO INTERATIVO — PÁGINA PORTFOLIO (Showcase)
+  # PORTFOLIO — PROTOTIPO INTERATIVO (CANONICO)
 
-Versão: **3.2 (reorganizado)** • Data: **2026-02-03**  
-Produção: https://portfoliodanilo.com  
-Repo: https://github.com/danilonovaisv/_danilonov_portfolio
+Versao: **4.0**  
+Data: **2026-02-09**  
+Status: **Canonica para implementacao**
 
-> Este arquivo é a **fonte canônica** para a página **/portfolio**: estrutura, comportamento, animações e contratos de dados.
->
-> **Design System (tokens + regras globais):** ver `GHOST-DESIGN-SYSTEM.md` (arquivo separado).
+## 1. Objetivo da pagina `/portfolio`
 
----
+Criar uma vitrine editorial premium com foco em:
 
-## Sumário
+1. qualidade percebida;
+2. escaneabilidade rapida;
+3. abertura de projeto por modal/rota;
+4. conversao para contato.
 
-1. Contexto e objetivo
-2. IA da página (ordem das seções)
-3. Especificação por seção (Header → Hero → Gallery → Card)
-4. Modal / Página interna (Tipo A / Tipo B)
-5. Implementação (Next.js App Router + React)
-6. Contrato de dados (Project) + exemplos
-7. Checklists (validação + acessibilidade)
+CTA primario obrigatorio: **"vamos trabalhar juntos ->"** (ancora para `#contact`).
 
----
+## 2. Estrutura semantica canonica
 
-## 1) Contexto e objetivo
+```txt
+Header
+main
+  Hero
+  Gallery
+  Brands
+  Contact
+Footer
+ModalRoot
+```
 
-Criar a **página Portfolio Showcase completa** com:
+Semantica obrigatoria:
 
-- Hero Section com vídeo em loop
-- Grid de projetos com **Parallax Lerp** (scroll suave)
-- Modal/Página Interna de Projeto (**2 tipos**)
-- Sistema de animação editorial silencioso
-- Navegação e interação consistentes (mouse/touch/teclado)
+- `header/nav/main/section/footer`
+- 1 H1 na pagina
+- H2 por secao
+- H3 por card de projeto
 
----
+## 3. IA e fluxo de navegacao
 
-## 2) IA da página
-
-Ordem final (canônica):
+Ordem da pagina:
 
 1. Header
-2. Hero (vídeo + título + CTA)
-3. Projects Gallery (híbrido: grid editorial + parallax lerp)
-4. Modal / Página interna (Tipo A / Tipo B)
+2. Hero (video + titulo + CTA)
+3. Gallery de projetos (grid editorial)
+4. ModalRoot (abre projeto)
 5. Marcas
 6. Contato
 7. Footer
 
-### Referências visuais (layout)
+Fluxo esperado:
 
-- Desktop: `PORTFOLIO-PAGE-LAYOUYT.jpeg`
-- Mobile: `PORTFOLIO-PAGE-MOBILE.jpeg`
+1. Usuario entra e entende o tema da pagina.
+2. Usuario explora projetos no grid.
+3. Usuario abre um card para detalhe.
+4. Usuario volta para o grid sem perder contexto.
+5. Usuario segue para contato.
 
-> Dica de repo: coloque imagens em `docs/assets/` e referencie no README/MD.
+## 4. Grid editorial e responsividade
 
----
+### 4.1 Desktop
 
-## 3) Especificação por seção (estrutura + comportamento)
+- CSS Grid de 12 colunas.
+- `grid-auto-flow: dense`.
+- Cards com spans variados via dados.
+- Placeholders neutros permitidos apenas para ritmo visual.
 
-## Estrutura da Página
+### 4.2 Mobile
 
-### Ordem das Seções
+- Lista vertical full-width.
+- Sem placeholders vazios.
+- Menor custo de motion/3D.
+- Alvos touch >= 48x48.
 
-1. Header
-2. HeroSection
-3. Projects Gallery
-4. Portfolio Modal
-5. Prajects
-6. Clients / Brands
-7. Contato
-8. Footer
-
----
-
-## Seções Detalhadas
-
-# \*\*1. Header
-
-**Comportamento:** Idêntico à página Home
-
-#### Desktop
-
-- Logo à esquerda
-- Navegação à direita (Home, Sobre, Portfólio do Acaso, Contato)
-- Link ativo (/sobre) destacado em `bluePrimary`
-- Fundo translúcido sobre vídeo hero
-- Borda inferior sutil em `bluePrimary`
-
-#### Mobile
-
-- Logo à esquerda
-- Ícone menu (hambúrguer) à direita
-- Menu overlay escuro ocupando tela inteira
-
-#### Scroll
-
-- Pode fixar no topo com fundo mais sólido
-- Sem efeitos de scale/bounce
-
----
-
----
-
-# \*\*🎥 HERO SECTION — VÍDEO LOOPING
-
-**video hero desktop:** https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort.mp4
-**video hero mobile:** https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort-mobile.mp4
-
-### Estrutura HTML/JSX
-
-```tsx
-<section className="hero-section relative h-screen overflow-hidden">
-  <video
-    autoPlay
-    loop
-    muted
-    playsInline
-    className="absolute inset-0 w-full h-full object-cover"
-  >
-    <source src="[URL_DO_VIDEO]" type="video/mp4" />
-  </video>
-
-  <div className="overlay absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
-
-  <div className="content relative h-full flex flex-col items-center justify-center text-white px-4">
-    <h1 className="text-4xl md:text-6xl font-bold mb-6 text-center">
-      <span className="text-blue-400">portfólio</span> showcase
-    </h1>
-    <button className="cta bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full">
-      vamos trabalhar juntos →
-    </button>
-  </div>
-</section>
-```
-
-### Especificações Técnicas
-
-**Vídeo:**
-
-- `autoPlay`: inicia automaticamente
-- `loop`: repete infinitamente
-- `muted`: sem som (necessário para autoplay)
-- `playsInline`: reproduz inline em mobile
-- `object-fit: cover`: cobre toda a área
-
-**video hero desktop:** https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort.mp4
-**video hero mobile:** https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort-mobile.mp4
-
-**Overlay:**
-
-- Gradient vertical: `from-black/60 via-black/40 to-black/60`
-- Garante legibilidade do texto sobre qualquer vídeo
-
-**Título:**
-
-- "portfólio" em azul (`text-blue-400`)
-- "showcase" em branco
-
-**CTA:**
-
-- Cor: `bg-blue-500`
-- Hover: `hover:bg-blue-600`
-- Border radius: `rounded-full`
-- Transição suave: `transition-all duration-300`
-- Efeito scale no hover: `hover:scale-105`
-
-- **ALINHAMENTO: O texto "portfólio showcase" e o botão de chamada para ação (CTA) "vamos trabalhar juntos" estão alinhados horizontalmente em um mesmo nível, formando uma única linha visual. Eles são posicionados centralizados na parte inferior da HERO.**
-
----
-
-## 🎨 GALLERY COM PARALLAX LERP
-
-### 🧠 Conceito do Parallax Lerp
-
-O sistema usa **Linear Interpolation (Lerp)** para criar:
-
-- Scroll suave e fluido
-- Movimento parallax independente em cada imagem
-- Performance otimizada com `requestAnimationFrame`
-
-### 📐 Estrutura HTML/CSS
-
-```html
-<section class="gallery" ref="{galleryRef}">
-  <div class="gallery-track" ref="{trackRef}">
-    <div class="card" ref="{cardRef}">
-      <div class="card-image-wrapper">
-        <img src="[URL]" alt="Project" />
-      </div>
-      <div class="card-overlay">
-        <!-- Conteúdo -->
-      </div>
-    </div>
-    <!-- Mais cards... -->
-  </div>
-</section>
-```
-
-### 🧱 Layout do Grid (Ref 2 + Layout Final)
-
-A _Projects Gallery_ deve usar **CSS Grid editorial** (semelhante à Referência 2) com:
-
-- **Spans por card** (col/row) definidos via dados (ex.: `size: 'sm' | 'md' | 'lg' | 'wide' | 'tall'`).
-- `grid-auto-flow: dense` para preencher “buracos” e manter a composição coesa.
-- **Placeholders neutros** opcionais (quando necessário para manter o ritmo do layout, como no mock).
-
-> Importante: o **parallax** (Ref 1) continua existindo, mas o **arranjo visual e responsivo** do grid é guiado pela Referência 2 e pelo layout final.
-
-### 🎨 CSS Crítico (Grid + Track + Cards)
-
-```css
-.gallery {
-  /* Altura setada dinamicamente via JS (cria espaço de scroll) */
-}
-
-/* Track fixo (Ref 1) + grid editorial (Ref 2) */
-.gallery-track {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  display: grid;
-
-  /* Desktop: composição editorial */
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  grid-auto-rows: 12px; /* “unidade” de altura para row-span */
-  grid-auto-flow: dense;
-
-  gap: 12px;
-  padding: 12px;
-
-  will-change: transform;
-}
-
-/* Card base */
-.card {
-  position: relative;
-  overflow: hidden;
-  border-radius: 14px;
-  cursor: pointer;
-  background: #0b0d3a; /* neutral token */
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    filter 0.25s ease;
-  contain: layout paint; /* reduz custo de reflow */
-}
-
-/* Hover (desktop) */
-@media (hover: hover) and (pointer: fine) {
-  .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
-    filter: saturate(1.05);
-  }
-}
-
-/* Press feedback (touch) */
-@media (hover: none) and (pointer: coarse) {
-  .card:active {
-    transform: scale(0.99);
-  }
-}
-
-/* Wrapper maior para permitir parallax interno */
-.card-image-wrapper {
-  position: absolute;
-  inset: 0;
-  height: 135%;
-  will-change: transform;
-}
-
-.card-image-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Overlay informativo (aparece no hover/focus) */
-.card-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 18px;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.78) 0%,
-    rgba(0, 0, 0, 0.35) 55%,
-    transparent 100%
-  );
-}
-
-.card:focus-visible .card-overlay,
-@media (hover: hover) and (pointer: fine) {
-  .card:hover .card-overlay {
-    opacity: 1;
-  }
-}
-
-/* Spans (desktop) — exemplos */
-.card[data-size='sm'] {
-  grid-column: span 4;
-  grid-row: span 22;
-} /* ~264px */
-.card[data-size='md'] {
-  grid-column: span 6;
-  grid-row: span 26;
-}
-.card[data-size='lg'] {
-  grid-column: span 8;
-  grid-row: span 30;
-}
-.card[data-size='wide'] {
-  grid-column: span 12;
-  grid-row: span 22;
-}
-.card[data-size='tall'] {
-  grid-column: span 4;
-  grid-row: span 34;
-}
-
-/* Tablet: menos variação, 8 colunas */
-@media (max-width: 1024px) {
-  .gallery-track {
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-    grid-auto-rows: 12px;
-  }
-  .card[data-size='sm'] {
-    grid-column: span 4;
-    grid-row: span 22;
-  }
-  .card[data-size='md'] {
-    grid-column: span 8;
-    grid-row: span 26;
-  }
-  .card[data-size='lg'] {
-    grid-column: span 8;
-    grid-row: span 30;
-  }
-  .card[data-size='wide'] {
-    grid-column: span 8;
-    grid-row: span 22;
-  }
-  .card[data-size='tall'] {
-    grid-column: span 4;
-    grid-row: span 34;
-  }
-}
-
-/* Mobile: lista (Ref 2) — leitura e toque */
-@media (max-width: 640px) {
-  .gallery-track {
-    position: relative; /* remove fixed no mobile se necessário por performance */
-    inset: auto;
-    grid-template-columns: 1fr;
-    grid-auto-rows: auto;
-    gap: 14px;
-    padding: 14px;
-    will-change: auto;
-  }
-
-  .card {
-    min-height: 260px;
-  }
-
-  .card[data-size] {
-    grid-column: auto;
-    grid-row: auto;
-  }
-
-  .card-overlay {
-    opacity: 1; /* no mobile, overlay sempre visível e mais leve */
-    background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.72) 0%,
-      rgba(0, 0, 0, 0.18) 65%,
-      transparent 100%
-    );
-  }
-}
-```
-
-### ⚙️ JavaScript — Sistema Parallax Lerp
-
-```javascript
-// Refs e variáveis
-const galleryRef = useRef(null);
-const trackRef = useRef(null);
-const cardsRef = useRef([]);
-const rafRef = useRef(null);
-const startYRef = useRef(0);
-const endYRef = useRef(0);
-const easing = 0.05; // Suavidade do lerp (quanto menor, mais suave)
-
-// Função Lerp
-const lerp = (start, end, t) => start * (1 - t) + end * t;
-
-// Função Parallax para cada card
-const parallax = (cardElement) => {
-  const wrapper = cardElement.querySelector('.card-image-wrapper');
-  if (!wrapper) return;
-
-  // Diferença entre altura do card e altura da imagem
-  const diff = cardElement.offsetHeight - wrapper.offsetHeight;
-
-  // Posição do card na viewport
-  const { top } = cardElement.getBoundingClientRect();
-
-  // Progresso (0 = topo da tela, 1 = fundo da tela)
-  const progress = top / window.innerHeight;
-
-  // Posição Y do parallax
-  const yPos = diff * progress;
-
-  wrapper.style.transform = `translateY(${yPos}px)`;
-};
-
-// Ativa parallax em todos os cards
-const activateParallax = () => {
-  cardsRef.current.forEach((card) => {
-    if (card) parallax(card);
-  });
-};
-
-// Update Loop principal
-const updateScroll = () => {
-  if (!galleryRef.current || !trackRef.current) return;
-
-  // Lerp entre posição atual e posição alvo
-  startYRef.current = lerp(startYRef.current, endYRef.current, easing);
-
-  // Atualiza altura da galeria (para criar espaço de scroll)
-  galleryRef.current.style.height = `${trackRef.current.clientHeight}px`;
-
-  // Move o track
-  trackRef.current.style.transform = `translateY(-${startYRef.current}px)`;
-
-  // Ativa parallax em cada card
-  activateParallax();
-
-  // Continua o loop
-  rafRef.current = requestAnimationFrame(updateScroll);
-
-  // Para o loop quando chegar muito perto do target
-  if (Math.abs(startYRef.current - window.scrollY) < 0.1) {
-    cancelAnimationFrame(rafRef.current);
-  }
-};
-
-// Handler do scroll
-const startScroll = () => {
-  endYRef.current = window.scrollY;
-  if (rafRef.current) cancelAnimationFrame(rafRef.current);
-  rafRef.current = requestAnimationFrame(updateScroll);
-};
-
-// Setup dos event listeners
-useEffect(() => {
-  const handleScroll = () => startScroll();
-  const handleResize = () => updateScroll();
-
-  // Inicializa
-  updateScroll();
-
-  window.addEventListener('scroll', handleScroll);
-  window.addEventListener('resize', handleResize);
-
-  return () => {
-    window.removeEventListener('scroll', handleScroll);
-    window.removeEventListener('resize', handleResize);
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-  };
-}, []);
-```
-
-### 🎯 Como Funciona o Parallax Lerp
-
-1. **Gallery Container** (`galleryRef`):
-   - Tem altura dinâmica baseada no conteúdo
-   - Cria espaço para scroll natural
-
-2. **Gallery Track** (`trackRef`):
-   - `position: fixed` → fica fixo na tela
-   - Animado via `transform: translateY()`
-   - Lerp cria movimento suave
-
-3. **Cada Card**:
-   - Wrapper da imagem tem 135% de altura
-   - Movimento parallax independente
-   - Baseado na posição do card na viewport
-
-4. **Loop de Animação**:
-   - `requestAnimationFrame` garante 60fps
-   - Lerp interpola entre posição atual e target
-   - Para automaticamente quando chega no destino
-
----
-
-## 🃏 PROJECT CARD — ANATOMIA COMPLETA
-
-### Estrutura Visual
-
-```tsx
-<div className="card" onClick={onClick}>
-  <div className="card-image-wrapper">
-    <img src={project.image} alt={project.title} />
-  </div>
-
-  <div className="card-overlay">
-    <h3>{project.title}</h3>
-    <div className="card-meta">
-      <span>{project.client}</span>
-      <span>•</span>
-      <span>{project.year}</span>
-    </div>
-    <div className="card-tags">
-      {project.tags.map((tag) => (
-        <span key={tag}>{tag}</span>
-      ))}
-    </div>
-  </div>
-</div>
-```
-
-### Estados do Card
-
-#### Default
-
-```css
-.card {
-  transform: none;
-}
-
-.card-overlay {
-  opacity: 0;
-}
-```
-
-#### Hover
-
-```css
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-}
-
-.card-overlay {
-  opacity: 1;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.9) 0%,
-    rgba(0, 0, 0, 0.5) 50%,
-    transparent 100%
-  );
-}
-```
-
-#### Active (clique)
-
-- Trigger modal/página interna
-- Card permanece visível no fundo
-- Backdrop escurece a página
-
----
-
----
-
-## 4) Modal / Página interna (Tipo A e Tipo B)
-
-## 🎭 MODAL / PÁGINA INTERNA — TIPOS
-
-### 🅐 TIPO A — ZOOM VIEWER
-
-**Quando usar:**
-
-- Projeto visual simples
-- Uma peça principal forte
-- Foco em observação
-
-**Layout:**
-
-```
-┌────────────────────────────────────┐
-│  [X]                               │
-│                                    │
-│     ┌──────────────────────┐      │
-│     │                      │      │
-│     │   MÍDIA PRINCIPAL    │      │
-│     │                      │      │
-│     └──────────────────────┘      │
-│                                    │
-│  Título do Projeto                 │
-│  Cliente • 2024 • tag tag          │
-│                                    │
-└────────────────────────────────────┘
-```
-
-**Código:**
-
-```tsx
-<div className="modal-type-a">
-  <div className="media-container">
-    <img src={project.image} alt={project.title} />
-  </div>
-
-  <div className="info-container">
-    <h2>{project.title}</h2>
-
-    <div className="meta">
-      <span>{project.client}</span>
-      <span>•</span>
-      <span>{project.year}</span>
-    </div>
-
-    <div className="tags">
-      {project.tags.map((tag) => (
-        <span key={tag}>{tag}</span>
-      ))}
-    </div>
-  </div>
-</div>
-```
-
----
-
-### 🅑 TIPO B — PÁGINA INTERNA DE PROJETO
-
-**Quando usar:**
-
-- Projeto complexo
-- Múltiplas entregas
-- Contexto necessário
-
-**Layout:**
-
-```
-┌────────────────────────────────────┐
-│  [X]                               │
-│                                    │
-│  ┌──────────┐  ┌─────────────┐    │
-│  │  MÍDIA   │  │   Título    │    │
-│  │  HERO    │  │   Cliente   │    │
-│  │          │  │   Ano       │    │
-│  └──────────┘  │   Tags      │    │
-│                │   Descrição │    │
-│                └─────────────┘    │
-│                                    │
-│  ┌────────────────────────────┐   │
-│  │  Galeria / Texto / Lista   │   │
-│  └────────────────────────────┘   │
-│                                    │
-└────────────────────────────────────┘
-```
-
-**Código:**
-
-```tsx
-<div className="modal-type-b">
-  <div className="hero-section">
-    <div className="hero-media">
-      <img src={project.image} alt={project.title} />
-    </div>
-
-    <div className="hero-info">
-      <h2>{project.title}</h2>
-
-      <div className="meta">
-        <span>{project.client}</span>
-        <span>•</span>
-        <span>{project.year}</span>
-      </div>
-
-      <div className="tags">
-        {project.tags.map((tag) => (
-          <span key={tag}>{tag}</span>
-        ))}
-      </div>
-
-      <p className="description">{project.description}</p>
-    </div>
-  </div>
-
-  {project.gallery && (
-    <div className="gallery-section">
-      {project.gallery.map((img, idx) => (
-        <img key={idx} src={img} alt={`${project.title} - ${idx + 1}`} />
-      ))}
-    </div>
-  )}
-</div>
-```
-
----
-
-## 🎞️ ANIMAÇÃO — TIMELINE CANÔNICO DO MODAL
-
-### 📍 ABERTURA DO MODAL
-
-#### T = 0ms — Estado Inicial
+## 5. Contrato de dados (obrigatorio)
 
 ```ts
-// Backdrop
-opacity: 0
-
-// Modal Container
-opacity: 0
-scale: 0.98
-y: 12px
-
-// Conteúdo interno
-visibility: hidden
-opacity: 0
-```
-
----
-
-#### T = 0 → 180ms — Backdrop Aparece
-
-```ts
-backdrop {
-  opacity: 0 → 1
-  transition: linear 180ms
-}
-```
-
-**CSS/Framer Motion:**
-
-```tsx
-<motion.div
-  className="backdrop"
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  exit={{ opacity: 0 }}
-  transition={{ duration: 0.18, ease: 'linear' }}
-/>
-```
-
----
-
-#### T = 120 → 380ms — Container Aparece
-
-```ts
-modalContainer {
-  opacity: 0 → 1
-  scale: 0.98 → 1
-  y: 12 → 0
-  transition: cubic-bezier(0.22, 1, 0.36, 1) 260ms
-  delay: 120ms
-}
-```
-
-**CSS/Framer Motion:**
-
-```tsx
-<motion.div
-  className="modal-container"
-  initial={{ opacity: 0, scale: 0.98, y: 12 }}
-  animate={{ opacity: 1, scale: 1, y: 0 }}
-  exit={{ opacity: 0, scale: 0.98, y: 8 }}
-  transition={{
-    opacity: { duration: 0.26 },
-    scale: { duration: 0.26, ease: [0.22, 1, 0.36, 1] },
-    y: { duration: 0.26, ease: [0.22, 1, 0.36, 1] },
-  }}
-/>
-```
-
----
-
-#### T = 380 → 520ms — Pausa Consciente
-
-- **Nenhuma animação**
-- Usuário reconhece contexto
-- Estabilização visual
-- Container está visível mas conteúdo ainda não
-
----
-
-#### T = 520 → 760ms — Mídia Principal
-
-```ts
-mainMedia {
-  opacity: 0 → 1
-  transition: ease-out 240ms
-  delay: 520ms
-}
-// ❌ Sem translate
-// ❌ Sem scale
-// Apenas presença
-```
-
-**Implementação:**
-
-```tsx
-<motion.div
-  className="main-media"
-  initial={{ opacity: 0 }}
-  animate={{ opacity: 1 }}
-  transition={{
-    delay: 0.52,
-    duration: 0.24,
-    ease: 'easeOut',
-  }}
->
-  <img src={project.image} alt={project.title} />
-</motion.div>
-```
-
----
-
-#### T = 760 → 960ms — Título
-
-```ts
-projectTitle {
-  opacity: 0 → 1
-  y: 6 → 0
-  duration: 200ms
-  delay: 760ms
-}
-```
-
-**Implementação:**
-
-```tsx
-<motion.h2
-  initial={{ opacity: 0, y: 6 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{
-    delay: 0.76,
-    duration: 0.2,
-  }}
->
-  {project.title}
-</motion.h2>
-```
-
----
-
-#### T = 960 → 1120ms — Meta Informações
-
-```ts
-projectMeta {
-  opacity: 0 → 1
-  y: 4 → 0
-  duration: 160ms
-  delay: 960ms
-}
-```
-
-**Implementação:**
-
-```tsx
-<motion.div
-  className="meta"
-  initial={{ opacity: 0, y: 4 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{
-    delay: 0.96,
-    duration: 0.16,
-  }}
->
-  <span>{project.client}</span>
-  <span>•</span>
-  <span>{project.year}</span>
-</motion.div>
-```
-
----
-
-#### T = 1120 → 1500ms — Conteúdo Secundário
-
-```ts
-// Galeria, texto, bullets
-secondaryContent {
-  opacity: 0 → 1
-  y: 8 → 0
-  stagger: 80ms
-  duration: 200ms
-  delay: 1120ms (base)
-}
-```
-
-**Implementação com Stagger:**
-
-```tsx
-{
-  project.gallery?.map((img, idx) => (
-    <motion.img
-      key={idx}
-      src={img}
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        delay: 1.12 + idx * 0.08,
-        duration: 0.2,
-      }}
-    />
-  ));
-}
-```
-
----
-
-### 📍 ESTADO IDLE (T > 1500ms)
-
-**Após entrada completa:**
-
-- ✅ Nenhuma animação contínua
-- ✅ Nada flutua
-- ✅ Nada pulsa
-- ✅ Foco total em leitura
-- ✅ Scroll interno habilitado
-- ✅ Parallax do fundo está pausado (body overflow hidden)
-
----
-
-### 📍 FECHAMENTO DO MODAL
-
-#### T = 0 → 180ms — Container Sai
-
-```ts
-modalContainer {
-  opacity: 1 → 0
-  scale: 1 → 0.98
-  y: 0 → 8
-  transition: ease-in 180ms
-}
-```
-
-#### T = 0 → 150ms — Backdrop Sai
-
-```ts
-backdrop {
-  opacity: 1 → 0
-  transition: linear 150ms
-}
-```
-
-**Implementação:**
-
-```tsx
-<AnimatePresence>
-  {selectedProject && (
-    <PortfolioModal
-      project={selectedProject}
-      onClose={() => setSelectedProject(null)}
-    />
-  )}
-</AnimatePresence>
-```
-
----
-
-## 🖱️ INTERAÇÃO — FLUXO COMPLETO
-
-### 1️⃣ Usuário rola a página
-
-- Parallax lerp ativo
-- Cards se movem suavemente
-- Imagens internas fazem parallax independente
-
-### 2️⃣ Usuário passa mouse sobre card
-
-```ts
-onMouseEnter={() => setIsHovered(true)}
-
-// CSS aplicado
-.card-overlay {
-  opacity: 0 → 1
-  backdrop-filter: blur(4px)
-}
-```
-
-### 3️⃣ Usuário clica em um card
-
-```ts
-onClick={() => setSelectedProject(project)}
-
-// Ações
-1. Estado atualizado
-2. Modal renderizado via Portal
-3. Scroll da página bloqueado (body overflow: hidden)
-4. Foco move para o modal
-```
-
-### 4️⃣ Modal/Página Interna abre
-
-- Backdrop aparece (0→180ms)
-- Container aparece (120→380ms)
-- Pausa (380→520ms)
-- Conteúdo se revela em sequência (520→1500ms)
-- Scroll interno disponível após 1500ms
-
-### 5️⃣ Usuário lê/explora o projeto
-
-- Scroll interno disponível
-- Botão fechar sempre visível (fixed position)
-- ESC funciona
-- Click no backdrop funciona
-
-### 6️⃣ Usuário fecha modal
-
-**Gatilhos:**
-
-- Click no backdrop
-- Click no botão [X]
-- Tecla ESC
-
-**Código:**
-
-```tsx
-const handleClose = () => {
-  setSelectedProject(null);
-  // Body overflow restaurado automaticamente no useEffect cleanup
-};
-
-// ESC handler
-useEffect(() => {
-  const handleEscape = (e) => {
-    if (e.key === 'Escape') handleClose();
-  };
-  window.addEventListener('keydown', handleEscape);
-  return () => window.removeEventListener('keydown', handleEscape);
-}, []);
-
-// Backdrop click
-<div
-  onClick={(e) => {
-    if (e.target === e.currentTarget) handleClose();
-  }}
-/>;
-```
-
-**Resultado:**
-
-- Modal fecha com animação reversa
-- Foco retorna ao card original
-- Scroll da página é restaurado
-- Parallax volta a funcionar
-
----
-
----
-
-## 5) Implementação (React / Next.js)
-
-> Objetivo aqui é **mapeamento de implementação** + blocos de código essenciais.
-> Tokens e regras globais ficam no **Design System**.
-
-## ⚛️ IMPLEMENTAÇÃO REACT COMPLETA
-
-### Estado Global
-
-```tsx
-const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-```
-
-### Hero Section
-
-```tsx
-<section className="relative h-screen overflow-hidden">
-  <video
-    autoPlay
-    loop
-    muted
-    playsInline
-    className="absolute inset-0 w-full h-full object-cover"
-  >
-    <source src="video.mp4" type="video/mp4" />
-  </video>
-
-  <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
-
-  <div className="relative h-full flex flex-col items-center justify-center text-white px-4">
-    <h1 className="text-4xl md:text-6xl font-bold mb-6 text-center">
-      <span className="text-blue-400">portfólio</span> showcase
-    </h1>
-    <button className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full transition-all duration-300 transform hover:scale-105 flex items-center gap-2">
-      vamos trabalhar juntos
-      <span className="text-xl">→</span>
-    </button>
-  </div>
-</section>
-```
-
-### Gallery com Parallax
-
-```tsx
-<section ref={galleryRef} className="gallery">
-  <div
-    ref={trackRef}
-    className="gallery-track fixed grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 p-1"
-  >
-    {projects.map((project, index) => (
-      <ProjectCard
-        key={project.id}
-        ref={(el) => (cardsRef.current[index] = el)}
-        project={project}
-        onClick={() => setSelectedProject(project)}
-      />
-    ))}
-  </div>
-</section>
-```
-
-### Modal com Portal
-
-```tsx
-import { createPortal } from 'react-dom';
-
-{
-  selectedProject &&
-    createPortal(
-      <PortfolioModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />,
-      document.body
-    );
-}
-```
-
-### useEffect — Parallax Setup
-
-```tsx
-useEffect(() => {
-  const handleScroll = () => startScroll();
-  const handleResize = () => updateScroll();
-
-  updateScroll();
-  window.addEventListener('scroll', handleScroll);
-  window.addEventListener('resize', handleResize);
-
-  return () => {
-    window.removeEventListener('scroll', handleScroll);
-    window.removeEventListener('resize', handleResize);
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-  };
-}, []);
-```
-
-### useEffect — Modal Body Lock
-
-```tsx
-useEffect(() => {
-  if (selectedProject) {
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }
-}, [selectedProject]);
-```
-
----
-
-## 🎨 ESTILO — CSS/TAILWIND COMPLETO
-
-### Hero Section
-
-```css
-.hero-section {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.hero-section video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.hero-section .overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.6) 0%,
-    rgba(0, 0, 0, 0.4) 50%,
-    rgba(0, 0, 0, 0.6) 100%
-  );
-}
-
-.hero-section .content {
-  position: relative;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  padding: 1rem;
-}
-```
-
-### Gallery & Track
-
-```css
-.gallery {
-  /* Height dinâmica via JS */
-}
-
-.gallery-track {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.25rem;
-  padding: 0.25rem;
-  will-change: transform;
-}
-
-@media (max-width: 1024px) {
-  .gallery-track {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .gallery-track {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-```
-
-### Card
-
-```css
-.card {
-  position: relative;
-  height: 400px;
-  overflow: hidden;
-  background: #f3f4f6;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
-}
-
-.card-image-wrapper {
-  position: absolute;
-  inset: 0;
-  height: 135%;
-  will-change: transform;
-}
-
-.card-image-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.card-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.9) 0%,
-    rgba(0, 0, 0, 0.5) 50%,
-    transparent 100%
-  );
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 1.5rem;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.card:hover .card-overlay {
-  opacity: 1;
-}
-```
-
-### Modal
-
-```css
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-}
-
-.modal-container {
-  position: relative;
-  width: 100%;
-  max-width: 1200px;
-  max-height: 90vh;
-  background: white;
-  border-radius: 1.5rem;
-  padding: 2rem;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-}
-
-@media (min-width: 768px) {
-  .modal-container {
-    padding: 3rem;
-  }
-}
-
-.close-button {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 2.5rem;
-  height: 2.5rem;
-<function_calls>
-<invoke name="artifacts">
-<parameter name="command">update</parameter>
-<parameter name="id">prototipo_completo_final</parameter>
-<parameter name="old_str">  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 2.5rem;
-  height: 2.5rem;</parameter>
-<parameter name="new_str">  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease;
-  cursor: pointer;
-  z-index: 10;
-}
-
-.close-button:hover {
-  background: rgba(0, 0, 0, 0.1);
-}
-```
-
----
-
-## 📱 RESPONSIVO — BREAKPOINTS
-
-### Desktop (≥1024px)
-
-```css
-.gallery-track {
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.25rem;
-  padding: 0.25rem;
-}
-
-.modal-container {
-  max-width: 1200px;
-  padding: 3rem;
-}
-
-.card {
-  height: 400px;
-}
-```
-
-### Tablet (768px - 1023px)
-
-```css
-.gallery-track {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.modal-container {
-  max-width: 90vw;
-  padding: 2rem;
-}
-
-.card {
-  height: 350px;
-}
-```
-
-### Mobile (<768px)
-
-```css
-.gallery-track {
-  grid-template-columns: repeat(1, 1fr);
-  gap: 0.5rem;
-  padding: 0.5rem;
-}
-
-.modal-container {
-  width: 95vw;
-  padding: 1.5rem;
-  border-radius: 1rem;
-}
-
-.card {
-  height: 300px;
-}
-
-.hero-section h1 {
-  font-size: 2rem;
-}
-
-.hero-section button {
-  font-size: 0.875rem;
-  padding: 0.625rem 1.5rem;
-}
-```
-
----
-
-# **Seções Subsequentes**
-
-Após esta seção, na ordem:
-
-1. **Marcas / Clientes** (bloco com BG blueprimary - sessão igual as paginas anteriores)
-2. **Contato** (formulário em fundo claro — contraste forte - sessão igual as paginas anteriores)
-3. **Footer** (BG blueprimary - sessão igual as paginas anteriores)
-
-### Transição para Seção de Marcas
-
-- Padding-top generoso: 80–120px
-- Pode ter linha divisória sutil
-- Mantém fundo escuro ou inicia transição gradual
-
----
-
-## Notas de Implementação
-
-### Acessibilidade
-
-- Heading hierarchy: `<h2>` para título principal
-- Botões com `aria-label` descritivos se necessário
-- Focus visible em todos os elementos interativos
-- Contraste mínimo AA/AAA
-
-### Performance
-
-- Lazy load de assets se fora do viewport inicial
-- Intersection Observer para animações
-- `will-change` apenas durante animações
-
-### Analytics
-
-- Track impressions da seção
-- Track clicks em cada CTA
-- Track downloads do curriculum
-- Eventos: `section_view`, `cta_click`, `cv_download`
-
-### SEO
-
-- Conteúdo semântico bem estruturado
-- Texto alternativo em ícones (se relevante)
-- Schema.org markup para pessoa/profissional (opcional)
-
----
-
-## Variações Opcionais
-
-### Versão com Linha do Tempo
-
-- Adicionar mini timeline visual de carreira
-- Apenas se não interferir na simplicidade
-
-### Versão com Depoimento
-
-- Quote curto de cliente/parceiro
-- Posicionado entre parágrafos e CTAs
-- Estilo ghost/sutil
-
-### Versão com Social Proof
-
-- Logos pequenos de 3-5 marcas principais
-- Acima ou abaixo dos CTAs
-- Escala de cinza, opacity 0.6
-
-**Recomendação:** manter versão minimal e direta conforme especificado inicialmente.
-
-### Estrutura sugerida no repo
-
-**Rotas**
-
-- `src/app/portfolio/page.tsx`
-
-**Componentes**
-
-- `src/components/portfolio/HeroPortfolio.tsx`
-- `src/components/portfolio/ProjectsGallery.tsx`
-- `src/components/portfolio/ProjectCard.tsx`
-- `src/components/portfolio/PortfolioModal/PortfolioModal.tsx`
-- `src/components/portfolio/PortfolioModal/ProjectTypeA.tsx`
-- `src/components/portfolio/PortfolioModal/ProjectTypeB.tsx`
-
-**Hooks (opcional, recomendado)**
-
-- `src/components/portfolio/hooks/useParallaxLerp.ts`
-- `src/components/portfolio/hooks/useBodyLock.ts`
-- `src/components/portfolio/hooks/useFocusReturn.ts`
-
-**Data**
-
-- `src/content/projects.ts` (ou `src/data/projects.ts`)
-
----
-
-## 6) Contrato de dados (Project) + exemplos
-
-### Estrutura de Projeto
-
-```typescript
-interface Project {
-  id: number;
+type Project = {
+  id: string;
   title: string;
-  client: string;
-  year: string;
-  tags: string[];
-  image: string;
-  type: 'A' | 'B';
-  description?: string;
-  gallery?: string[];
-  deliverables?: string[];
-  links?: {
-    label: string;
-    url: string;
-  }[];
-}
+  client?: string;
+  year?: string;
+  cover: {
+    src: string;
+    alt: string;
+  };
+  tags?: string[];
+  layout: {
+    colSpanLg: number;
+    rowSpanLg: number;
+    colSpanMd?: number;
+  };
+  kind: 'image' | 'video' | 'case';
+};
 ```
 
-### Exemplo de Projeto Tipo A
+## 6. Modal e roteamento
 
-```typescript
-{
-  id: 1,
-  title: 'Visual Identity',
-  client: 'Tech Corp',
-  year: '2024',
-  tags: ['Branding', 'Design'],
-  image: 'https://example.com/image.jpg',
-  type: 'A',
-  description: 'Complete visual identity redesign for a tech startup.'
-}
-```
+Suportar as duas estrategias:
 
-### Exemplo de Projeto Tipo B
+1. Modal por estado local (simples).
+2. Parallel routes compartilhaveis:
+   - `@modal/(.)project/[id]`
 
-```typescript
-{
-  id: 2,
-  title: 'Garoto - Nestlé',
-  client: 'Nestlé',
-  year: '2023',
-  tags: ['Packaging', 'Campaign'],
-  image: 'https://example.com/hero.jpg',
-  type: 'B',
-  description: 'Embalagens especiais GAROTO para páscoa com identidade renovada.',
-  gallery: [
-    'https://example.com/gallery-1.jpg',
-    'https://example.com/gallery-2.jpg',
-    'https://example.com/gallery-3.jpg'
-  ],
-  deliverables: [
-    'Redesign de embalagens',
-    'Campanha digital',
-    'Materiais PDV',
-    'Guidelines de marca'
-  ],
-  links: [
-    { label: 'Ver campanha completa', url: 'https://example.com' }
-  ]
-}
-```
+Acessibilidade obrigatoria do modal:
 
-## 📚 REFERÊNCIAS TÉCNICAS
+- `role="dialog"`
+- `aria-modal="true"`
+- foco preso no dialog
+- fecha com `Esc`
+- restaura foco no card de origem
 
-### Parallax Lerp Original
+## 7. Motion system (Ghost rules)
 
-- CodePen: https://codepen.io/danilonovaisv/pen/VYjejyb
-- Técnica: Vertical Scrolling Parallax com Lerp
-- Autor: danilonovaisv
+Regras duras:
 
-### Ghost Design System
+- easing: `cubic-bezier(0.22, 1, 0.36, 1)`
+- permitido: `opacity`, `blur`, `translateY`
+- proibido: `scale`, `bounce`, `rotate`
+- `translateY` maximo: `18px`
 
-- Filosofia: Presença sem peso
-- Motion: Editorial e silencioso
-- Foco: Conteúdo sobre efeito
+Composicao:
 
-### Framer Motion
+- uma secao = uma intencao de motion
+- evitar animacoes concorrentes
 
-- Docs: https://www.framer.com/motion/
-- AnimatePresence para mount/unmount
-- Variants para animações complexas
+`prefers-reduced-motion`:
 
-### Performance
+- desliga parallax/lerp
+- troca reveals por fade simples
+- desliga Canvas/3D
 
-- Web Vitals: https://web.dev/vitals/
-- requestAnimationFrame: https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame
+## 8. Hero da pagina Portfolio
 
----
+Objetivo: abrir com contexto e CTA direto.
 
-## 🔄 VERSIONAMENTO
+Conteudo:
 
----
+- H1: `portfolio showcase`
+- Subtexto curto de posicionamento
+- CTA primario: `vamos trabalhar juntos ->` para `#contact`
 
-## 7) Checklists
+Video hero (opcional):
 
-### 7.1 Checklist de validação (funcional + Ghost QA)
+- desktop: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort.mp4`
+- mobile: `https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/project-videos/video-heroPort-mobile.mp4`
 
-## ✅ CHECKLIST DE VALIDAÇÃO COMPLETO
+Regras:
 
-### Hero Section
+- overlay escuro para contraste
+- poster/fallback obrigatorio
+- lazy fora da dobra
 
-- [ ] Vídeo carrega e faz loop corretamente
-- [ ] Overlay garante legibilidade do texto
-- [ ] CTA tem hover state claro
-- [ ] Responsivo em todos os tamanhos
-- [ ] Performance ok (vídeo <10MB)
+## 9. Gallery e cards
 
-### Grid de Projetos
+### 9.1 Card base
 
-- [ ] Cards respondem a hover suavemente
-- [ ] Parallax lerp funciona em todos os cards
-- [ ] Imagens carregam progressivamente
-- [ ] Layout responsivo funciona
-- [ ] Performance fluida em 60fps
-- [ ] Scroll é natural (não hijacked)
+Cada card deve conter:
 
-### Modal/Página Interna
+- midia de capa (`cover`)
+- titulo (H3)
+- meta opcional (cliente/ano)
+- tags opcionais
+- acao clara de abertura
 
-- [ ] Abertura silenciosa e orientada
-- [ ] Pausa perceptível após container (380-520ms)
-- [ ] Mídia aparece antes do texto
-- [ ] Título antes dos detalhes
-- [ ] Conteúdo secundário não compete
-- [ ] Fechamento rápido e discreto
-- [ ] Scroll interno funciona
-- [ ] Não parece landing page
+### 9.2 Interacao
 
-### Interação
+- Hover desktop: apenas opacidade/translateY sutil.
+- Touch: feedback discreto sem escala.
+- Clique abre modal ou rota interna.
 
-- [ ] Click no card abre modal correto
+### 9.3 Fallbacks
+
+- imagem fallback para video
+- skeleton durante loading
+- tratamento de erro de asset
+
+## 10. Acessibilidade da pagina
+
+Checklist minimo:
+
+- [ ] skip link para `main`
+- [ ] foco visivel em todos os cards e botoes
+- [ ] leitura por teclado da galeria ao modal
 - [ ] ESC fecha modal
-- [ ] Click no backdrop fecha modal
-- [ ] Click no botão [X] fecha modal
-- [ ] Foco retorna ao card original
-- [ ] Scroll da página bloqueado durante modal
-- [ ] Parallax pausado durante modal
-- [ ] Parallax retoma após fechar modal
+- [ ] foco retorna ao trigger original
+- [ ] contraste AA no texto sobre midia
 
-### Acessibilidade
+## 11. Performance e qualidade
 
-- [ ] `role="dialog"` presente
-- [ ] `aria-modal="true"` presente
-- [ ] `aria-label` em botões
-- [ ] Foco gerenciado corretamente
-- [ ] Screen reader compatível
-- [ ] Navegação por teclado completa
-- [ ] prefers-reduced-motion respeitado
+Targets:
 
-### Ghost System
+- LCP < 2.5s
+- CLS < 0.1
+- INP bom
+- Lighthouse > 90
 
-- [ ] Não parece landing page
-- [ ] Mantém contexto do portfólio
-- [ ] Leitura confortável
-- [ ] Animação serve à leitura
-- [ ] Coerente com página SOBRE
-- [ ] Silencioso e editorial
-- [ ] Foco no conteúdo, não no efeito
+Estrategias:
+
+- WebP + `srcset/sizes`
+- compressao de video
+- dynamic import para blocos pesados
+- limitar DPR em WebGL
+- antialias condicional
+
+## 12. SEO da rota `/portfolio`
+
+- `export const metadata` com title/description/OG
+- `og:image` especifico da pagina
+- JSON-LD (`Portfolio` + `CreativeWork`)
+
+## 13. Estrutura recomendada de pastas
+
+```txt
+app/portfolio/page.tsx
+app/portfolio/_components/PortfolioHero.tsx
+app/portfolio/_components/ProjectsGallery.tsx
+app/portfolio/_components/ProjectCard.tsx
+app/portfolio/_components/ProjectModal.tsx
+app/portfolio/_components/ModalRoot.tsx
+app/portfolio/_data/projects.ts
+app/portfolio/_hooks/useScrollLerp.ts
+app/portfolio/_hooks/usePrefersReducedMotion.ts
+lib/motion.ts
+lib/math.ts
+```
+
+## 14. Checklists de validacao
+
+### 14.1 Funcional
+
+- [ ] Hero renderiza com H1 e CTA
+- [ ] Grid denso desktop com spans via dados
+- [ ] Lista vertical mobile sem placeholders
+- [ ] Clique em card abre detalhe correto
+- [ ] Modal fecha por ESC, botao e backdrop
+
+### 14.2 Acessibilidade
+
+- [ ] role/aria corretos no modal
+- [ ] teclado navega por toda a pagina
+- [ ] foco retorna ao card de origem
+- [ ] reduced motion aplicado
+
+### 14.3 Performance
+
+- [ ] imagens e videos lazy quando aplicavel
+- [ ] sem layout shift relevante
+- [ ] sem bloqueios longos na thread principal
+- [ ] resultado Lighthouse > 90
 
 ---
 
-### 7.2 Checklist de acessibilidade (pré-deploy)
+## 15. Prompt estruturado (prototype-prompt-generator)
 
-**Antes do Deploy:**
+### Role
 
-- [ ] Contraste de cores validado (WCAG AA/AAA)
-- [ ] Navegação completa por teclado (Tab, Enter, Esc, Setas)
-- [ ] Hierarquia semântica correta (H1 único, sequência H2-H6)
-- [ ] ALT texts descritivos em todas as imagens
-- [ ] `aria-label` em elementos interativos sem texto
-- [ ] `prefers-reduced-motion` implementado
-- [ ] Focus visível em todos os elementos interativos
-- [ ] Testado com screen reader (NVDA/JAWS/VoiceOver)
-- [ ] Zoom 200% sem quebra de layout
-- [ ] Landmarks semânticos (`<main>`, `<nav>`, `<section>`)
-- [ ] Vídeos com `aria-hidden` quando decorativos
-- [ ] Formulários com labels associados
-- [ ] Skip links para navegação rápida
+Voce e um engenheiro(a) frontend especialista em portfolios editoriais de alta performance usando Next.js, Tailwind e Framer Motion.
 
----
+### Task
+
+Crie a pagina `/portfolio` com grid editorial denso, abertura de projeto por modal/rota e CTA de contato, seguindo Ghost Design System.
+
+### Tech Stack
+
+- Next.js App Router + React 18+ + TypeScript
+- Tailwind CSS
+- Framer Motion
+- Lenis (opcional)
+- R3F/Drei (opcional e nunca dominante)
+
+### Visual Requirements
+
+- layout desktop em grid 12 colunas com `grid-auto-flow: dense`
+- cards com spans variaveis por contrato de dados
+- mobile em lista vertical full-width
+- visual premium e legivel
+
+### Motion Requirements
+
+- easing: `cubic-bezier(0.22, 1, 0.36, 1)`
+- usar so `opacity`, `blur`, `translateY`
+- proibido `scale`, `bounce`, `rotate`
+- reduzir movimento para usuarios com preferencia reduzida
+
+### Accessibility Requirements
+
+- modal acessivel (`dialog`, `aria-modal`, focus trap, ESC)
+- semantica correta e headings hierarquicos
+- foco visivel e alvos touch >= 48x48
+
+### Output Format
+
+Entregar implementacao com:
+
+1. componentes modulares por secao;
+2. contrato `Project` aplicado;
+3. modal com duas estrategias de roteamento;
+4. fallbacks de video/3D/assets;
+5. metadata SEO e JSON-LD.

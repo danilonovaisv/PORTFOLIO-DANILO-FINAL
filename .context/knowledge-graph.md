@@ -39,4 +39,10 @@ The central orchestration layer for the portfolio.
 ## Current Status (Bootstrapping)
 
 - Agent System is being injected.
-- Core app is stable.
+- Audit Completed (Master Plan Executed).
+
+## Knowledge Items (Learnings)
+
+- [KI-001: Unified Architecture](.context/knowledge/KI-001-Unified-Architecture.md)
+- [KI-002: Blue Ghost Identity](.context/knowledge/KI-002-Blue-identity.md)
+- [KI-003: Clean Ecosystem](.context/knowledge/KI-003-Clean-Ecosystem.md)
