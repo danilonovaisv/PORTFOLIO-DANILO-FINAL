@@ -106,19 +106,24 @@ export const ProjectCard = ({
             loop
             playsInline
             poster={DEFAULT_VIDEO_POSTER}
-            className="absolute inset-0 h-full w-full"
-            style={{ objectFit, objectPosition }}
+            className={cn(
+              "absolute inset-0 h-full w-full",
+              objectFit === 'contain' ? 'object-contain' : 'object-cover'
+            )}
+            data-object-position={objectPosition}
           />
         ) : (
           <Image
             src={imageSrc}
             alt={project.title}
             fill
-            className="object-cover object-center"
+            className={cn(
+              "object-center",
+              objectFit === 'contain' ? 'object-contain' : 'object-cover'
+            )}
             sizes={sizes}
             priority={priority}
             onError={applyImageFallback}
-            style={{ objectFit: objectFit as any, objectPosition }}
           />
         )}
       </div>

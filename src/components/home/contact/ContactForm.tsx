@@ -144,12 +144,13 @@ const ContactForm: React.FC = () => {
             <input
               type="text"
               name="_honey"
-              className="hidden"
+              style={{ display: 'none' }}
               hidden
               aria-hidden="true"
               tabIndex={-1}
               title="Ignore this field"
               autoComplete="off"
+              readOnly
             />
             <input type="hidden" name="_captcha" value="false" />
 

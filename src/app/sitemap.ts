@@ -7,11 +7,10 @@ import { listProjects } from '@/lib/supabase/queries/projects';
 export const dynamic = 'force-static';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const isProduction = process.env.NODE_ENV === 'production';
-  const siteUrl = isProduction
-    ? (process.env.NEXT_PUBLIC_SITE_URL ?? `https://${BRAND.domain}`)
-    : 'http://localhost:3000';
+  // Always use production URL for sitemap (never localhost)
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? `https://${BRAND.domain}`;
   const baseUrl = siteUrl.replace(/\/$/, '');
+
   let projectUrls: MetadataRoute.Sitemap = [];
   const fallbackLandingSlugs = ['brand-video', 'key-vision'];
 
@@ -80,6 +79,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'weekly' as const,
       priority: 0.9,
     },
+    // Add portfolio category pages (missing from original sitemap)
+    {
+      url: `${baseUrl}/portfolio?category=motion`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/portfolio?category=branding`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/portfolio?category=web`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    },
     {
       url: `${baseUrl}/sobre`,
       lastModified: new Date(),
@@ -101,3 +119,4 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...projectUrls,
   ];
 }
+

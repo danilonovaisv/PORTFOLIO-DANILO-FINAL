@@ -36,11 +36,10 @@ export default function FeaturedProjectCard({
   const CardContent = () => (
     <>
       <div
-        className={`card-shell relative overflow-hidden rounded-md w-full bg-white/5 transition-all duration-500 ${
-          reducedMotion
-            ? ''
-            : 'md:group-hover:shadow-[0_22px_54px_-12px_rgba(0,72,255,0.15)] md:group-hover:-translate-y-1'
-        }`}
+        className={`card-shell relative overflow-hidden rounded-md w-full bg-white/5 transition-all duration-500 ${reducedMotion
+          ? ''
+          : 'md:group-hover:shadow-[0_22px_54px_-12px_rgba(0,72,255,0.15)] md:group-hover:-translate-y-1'
+          }`}
       >
         {/* Subtle Noise Overlay */}
         <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
@@ -72,7 +71,7 @@ export default function FeaturedProjectCard({
       <div className="mt-6 flex flex-row justify-between items-start gap-4 md:gap-6 px-1 text-left">
         <div className="flex-1">
           {/* Category / Client / Year */}
-          <div className="flex items-center justify-start gap-2 text-white/40 text-xs md:text-sm leading-tight mb-2">
+          <div className="flex items-center justify-start gap-2 text-white/60 text-xs md:text-sm leading-tight mb-2">
             <span className="uppercase tracking-widest font-mono text-[9px] md:text-[10px]">
               {project.category}
             </span>
@@ -120,7 +119,7 @@ export default function FeaturedProjectCard({
         type="button"
         onClick={handleClick}
         className={commonClasses}
-        aria-label={`View details for project ${project.title}`}
+        aria-label={`Ver detalhes do projeto ${project.title}`}
       >
         <CardContent />
       </button>

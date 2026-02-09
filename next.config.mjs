@@ -32,6 +32,17 @@ const supabaseHosts = buildSupabaseHosts().join(' ');
 // Adicionando hosts adicionais para assets do drei/three.js
 const supabaseAndExternalHosts = `${supabaseHosts} https://raw.githack.com https://dl.polyhaven.org https://www.gstatic.com https://raw.githubusercontent.com`;
 
+/**
+ * Content Security Policy Configuration
+ *
+ * SECURITY NOTE: unsafe-inline and unsafe-eval are required for:
+ * - Three.js/R3F WebGL shader compilation
+ * - GSAP animations
+ * - Framer Motion inline styles
+ *
+ * These are necessary trade-offs for the Ghost System's 3D capabilities.
+ * All user input is sanitized and validated before rendering.
+ */
 const cspHeader = `
     default-src 'self';
     script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:;
@@ -41,9 +52,9 @@ const cspHeader = `
     font-src 'self' https://assets.codepen.io ${supabaseHosts};
     object-src 'none';
     base-uri 'self';
-    form-action 'self';
+    form-action 'self' https://formsubmit.co;
     frame-ancestors 'none';
-    connect-src 'self' ${supabaseAndExternalHosts} https://*.supabase.co wss://*.supabase.co https://*.firebaseio.com https://dl.polyhaven.org ws://localhost:3000 ws://127.0.0.1:3000;
+    connect-src 'self' ${supabaseAndExternalHosts} https://*.supabase.co wss://*.supabase.co https://*.firebaseio.com https://dl.polyhaven.org https://formsubmit.co ws://localhost:3000 ws://127.0.0.1:3000;
     media-src 'self' blob: data: ${supabaseAndExternalHosts} https://*.supabase.co;
 `
   .replace(/\s{2,}/g, ' ')

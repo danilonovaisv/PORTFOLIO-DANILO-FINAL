@@ -604,7 +604,7 @@ export default function ProjectTemplateALPARenderer({
       </Link>
 
       <div className="relative z-10">
-        <main id="main-content">
+        <main>
           <section className="std-grid flex min-h-[82vh] items-center justify-center py-24 text-center">
             <motion.div
               className="mx-auto flex max-w-5xl flex-col items-center gap-6"
@@ -689,7 +689,7 @@ export default function ProjectTemplateALPARenderer({
           </section>
 
           <motion.section
-            id="contact"
+            id="project-contact-alpa"
             className="std-grid pb-24 pt-10 text-center md:pb-28"
             initial={revealInitial}
             whileInView={revealVisible}

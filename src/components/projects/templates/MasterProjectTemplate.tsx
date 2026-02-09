@@ -270,7 +270,7 @@ export default function MasterProjectTemplate({
 
       <main>
         <motion.section
-          id="project-intro"
+          id="project-intro-legacy"
           className="std-grid py-20 md:py-28"
           initial={revealInitial}
           whileInView={revealVisible}
@@ -368,7 +368,7 @@ export default function MasterProjectTemplate({
                   <div
                     className={
                       item.layout === 'feature' ||
-                      item.layout === 'full-highlight'
+                        item.layout === 'full-highlight'
                         ? 'aspect-16/10 md:aspect-20/9'
                         : 'aspect-4/3 md:aspect-16/10'
                     }
@@ -408,7 +408,7 @@ export default function MasterProjectTemplate({
         </section>
 
         <motion.section
-          id="contact"
+          id="project-contact-legacy"
           className="std-grid pb-28"
           initial={revealInitial}
           whileInView={revealVisible}

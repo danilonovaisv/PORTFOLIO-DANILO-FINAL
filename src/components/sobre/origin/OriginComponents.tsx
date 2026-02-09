@@ -19,11 +19,10 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
 
   return (
     <div
-      className={`min-h-screen flex flex-col justify-start pt-[20vh] pb-[20vh] lg:min-h-screen lg:justify-end lg:items-end lg:text-right ${
-        isRightAligned
+      className={`min-h-screen flex flex-col justify-start pt-[20vh] pb-[20vh] lg:min-h-screen lg:justify-end lg:items-end lg:text-right ${isRightAligned
           ? 'lg:items-end lg:justify-start lg:text-right'
           : 'lg:items-end lg:justify-start lg:text-left'
-      }`}
+        }`}
       data-origin-block={block.id}
     >
       {/* Mobile: Stack vertical intercalado - Texto primeiro, depois Imagem */}
@@ -126,10 +125,9 @@ export function OriginStickyGallery({
         {blocks.map((block, index) => (
           <div
             key={block.id}
-            className="origin-img absolute inset-0 w-full h-full rounded-[1.5rem] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,1)] bg-[#040013]"
+            className="origin-img absolute inset-0 w-full h-full rounded-[1.5rem] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,1)] bg-background"
             data-img-index={index}
             data-z-index={index + 1}
-            style={{ zIndex: index + 1 }}
           >
             <DynamicAssetImage
               assetKey={block.assetKey}

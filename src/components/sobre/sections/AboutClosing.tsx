@@ -58,7 +58,7 @@ export function AboutClosing() {
 
           {/* Vídeo em Loop - alinhado ao grid, com overlay para contraste */}
           <div className="mt-12 md:mt-11 w-full max-w-[1680px] mx-auto overflow-hidden rounded-lg bg-black/30 relative">
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/15 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/30 via-black/15 to-transparent pointer-events-none" />
             {/* Desktop Video */}
             <video
               className="hidden md:block w-full h-full object-cover"

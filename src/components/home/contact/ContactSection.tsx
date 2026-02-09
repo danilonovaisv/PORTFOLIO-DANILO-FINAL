@@ -80,9 +80,9 @@ export default function ContactSection() {
       <Container>
         {/* Título mobile separado para manter ordem: título → formulário → canais */}
         <div className="lg:hidden text-center mb-10">
-          <h2 className="text-5xl md:text-6xl font-bold text-[#0057FF] uppercase tracking-tighter mb-3 leading-[0.95]">
+          <h1 className="text-5xl md:text-6xl font-bold text-[#0057FF] uppercase tracking-tighter mb-3 leading-[0.95]">
             {HOME_CONTENT.contact.title}
-          </h2>
+          </h1>
           <p className="text-[#111111] text-lg font-medium max-w-md mx-auto">
             {HOME_CONTENT.contact.subtitle}
           </p>
@@ -101,9 +101,9 @@ export default function ContactSection() {
           >
             {/* Header */}
             <div className="hidden lg:block text-center lg:text-left mb-6 lg:mb-10">
-              <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-[#0057FF] uppercase tracking-tighter mb-4 leading-[0.9]">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-[#0057FF] uppercase tracking-tighter mb-4 leading-[0.9]">
                 {HOME_CONTENT.contact.title}
-              </h2>
+              </h1>
               <p className="text-[#111111] text-lg md:text-xl font-medium max-w-md mx-auto lg:mx-0">
                 {HOME_CONTENT.contact.subtitle}
               </p>

@@ -72,9 +72,9 @@ function AboutOrigin() {
       >
         <div className="std-grid py-24">
           <div className="mb-24 text-center select-none">
-            <h1 className="text-h1 font-bold leading-none text-[#0048ff] tracking-[0.2em] uppercase">
+            <h2 className="text-h1 font-bold leading-none text-[#0048ff] tracking-[0.2em] uppercase">
               LOADING...
-            </h1>
+            </h2>
           </div>
         </div>
       </section>
@@ -89,9 +89,9 @@ function AboutOrigin() {
     >
       <div className="std-grid py-24">
         <div className="mb-24 text-center select-none">
-          <h1 className="text-h1 font-bold leading-none text-[#0048ff] tracking-[0.2em] uppercase">
+          <h2 className="text-h1 font-bold leading-none text-[#0048ff] tracking-[0.2em] uppercase">
             ORIGEM
-          </h1>
+          </h2>
         </div>
 
         <div

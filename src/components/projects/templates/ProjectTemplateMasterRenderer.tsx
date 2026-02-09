@@ -123,7 +123,7 @@ export default function ProjectTemplateMasterRenderer({
   const ctaHref = project.cta?.href ?? '/#contact';
 
   return (
-    <article className="relative min-h-screen bg-[#040013] text-[#fcffff]">
+    <article className="relative min-h-screen bg-background text-[#fcffff]">
       {prefersReducedMotion ? (
         <div
           aria-hidden
@@ -184,7 +184,7 @@ export default function ProjectTemplateMasterRenderer({
           </nav>
         </header>
 
-        <main id="main-content">
+        <main>
           <section className="relative flex min-h-[86vh] items-end overflow-hidden pt-20">
             {heroImage ? (
               <div className="absolute inset-0">
@@ -321,7 +321,7 @@ export default function ProjectTemplateMasterRenderer({
           </section>
 
           <motion.section
-            id="project-intro"
+            id="project-intro-master"
             className="std-grid py-20 md:py-28"
             initial={revealInitial}
             whileInView={revealVisible}
@@ -417,7 +417,7 @@ export default function ProjectTemplateMasterRenderer({
           </section>
 
           <motion.section
-            id="contact"
+            id="project-contact-master"
             className="std-grid pb-24 md:pb-28"
             initial={revealInitial}
             whileInView={revealVisible}

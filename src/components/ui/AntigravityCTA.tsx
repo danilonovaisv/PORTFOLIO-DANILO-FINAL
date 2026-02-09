@@ -121,7 +121,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
           rounded-full
           select-none
           transition-colors duration-200
-          active:translate-y-[1px]
+          active:translate-y-px
           will-change-transform
         "
         style={{

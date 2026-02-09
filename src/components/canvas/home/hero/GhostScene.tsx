@@ -861,8 +861,7 @@ export default function GhostScene() {
           <div className="h-0.5 w-full overflow-hidden bg-white/10">
             <div
               ref={progressBarRef}
-              className="h-full bg-blue-500 transition-all duration-300 ease-out"
-              style={{ width: '0%' }}
+              className="h-full bg-blue-500 transition-all duration-300 ease-out w-0"
             />
           </div>
         </div>
