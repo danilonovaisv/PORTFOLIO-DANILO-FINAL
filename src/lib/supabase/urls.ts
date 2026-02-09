@@ -56,6 +56,12 @@ export function normalizeStoragePath(
     normalized = normalized.slice(bucketPrefix.length + 1);
   }
 
+  // Corrige caminhos legados mal serializados como ".../video/mp4" para ".../video.mp4".
+  normalized = normalized.replace(
+    /\/(mp4|mov|webm|m4v|png|jpe?g|webp|avif|svg|gif|woff2?|ttf|otf)$/i,
+    '.$1'
+  );
+
   return normalized;
 }
 

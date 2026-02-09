@@ -69,8 +69,8 @@ export const SITE_ASSET_KEYS = {
     },
   },
   portfolio: {
-    heroDesktop: 'portfolio.hero_video.desktop',
-    heroMobile: 'portfolio.hero_video.mobile',
+    heroDesktop: 'portfolio.hero_desktop_video',
+    heroMobile: 'portfolio.hero_mobile_video',
   },
   clients: {
     strips: Array.from({ length: 12 }, (_, i) => `clients.strip.${i + 1}`),

@@ -9,6 +9,15 @@ interface VideoManifestoProps {
   assetKey?: string;
 }
 
+const VIDEO_EXTENSIONS_REGEX =
+  /\.(mp4|webm|mov|m4v)(?:[?#].*)?$/i;
+
+const isLikelyVideoUrl = (url?: string | null) => {
+  if (!url) return false;
+  if (url.startsWith('blob:') || url.startsWith('data:video/')) return true;
+  return VIDEO_EXTENSIONS_REGEX.test(url);
+};
+
 export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
   const { asset } = useRealtimeAsset(assetKey || '');
   const [muted, setMuted] = useState(true);
@@ -83,14 +92,26 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
     videoRef.current.muted = muted;
   }, [muted]);
 
-  const baseSrc = asset?.publicUrl || src;
+  const baseSrc = isLikelyVideoUrl(asset?.publicUrl)
+    ? (asset?.publicUrl as string)
+    : src;
+  const [currentSrc, setCurrentSrc] = useState(baseSrc);
+
+  useEffect(() => {
+    setCurrentSrc(baseSrc);
+  }, [baseSrc]);
+
   // Usa SD somente se existir um variant explícito em metadata; evita 404 silencioso.
   const sdVariant = (
     asset?.metadata as { variants?: { sd?: string } } | undefined
   )?.variants?.sd;
-  const videoSrc = videoQuality === 'sd' && sdVariant ? sdVariant : baseSrc;
+  const variantSrc =
+    videoQuality === 'sd' && isLikelyVideoUrl(sdVariant)
+      ? (sdVariant as string)
+      : currentSrc;
+  const videoSrc = variantSrc;
 
-  const posterSrc = baseSrc.replace('.mp4', '-poster.jpg');
+  const posterSrc = videoSrc.replace('.mp4', '-poster.jpg');
 
   return (
     <motion.section
@@ -99,12 +120,12 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
       initial={
         shouldReduceMotion
           ? { opacity: 0 }
-          : { opacity: 0, scale: 1.1, rotate: -1, y: 40 }
+          : { opacity: 0, y: 18, filter: 'blur(6px)' }
       }
       whileInView={
         shouldReduceMotion
           ? { opacity: 1 }
-          : { opacity: 1, scale: 1, rotate: 0, y: 0 }
+          : { opacity: 1, y: 0, filter: 'blur(0px)' }
       }
       transition={
         shouldReduceMotion
@@ -129,6 +150,11 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
               muted={muted}
               playsInline
               preload="metadata"
+              onError={() => {
+                if (videoSrc !== src) {
+                  setCurrentSrc(src);
+                }
+              }}
               aria-label="Vídeo showreel demonstrando projetos de design gráfico"
             ></motion.video>
 

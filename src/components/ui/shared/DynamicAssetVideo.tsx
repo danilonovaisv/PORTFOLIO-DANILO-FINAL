@@ -23,6 +23,15 @@ type DynamicAssetVideoProps = {
   style?: React.CSSProperties;
 };
 
+const VIDEO_EXTENSIONS_REGEX =
+  /\.(mp4|webm|mov|m4v)(?:[?#].*)?$/i;
+
+const isLikelyVideoUrl = (url?: string | null) => {
+  if (!url) return false;
+  if (url.startsWith('blob:') || url.startsWith('data:video/')) return true;
+  return VIDEO_EXTENSIONS_REGEX.test(url);
+};
+
 /**
  * Video component that automatically updates when the asset changes in the database.
  * Handles smooth transition between video sources and supports playbackRate.
@@ -49,6 +58,9 @@ export const DynamicAssetVideo = forwardRef<
   ) => {
     const { asset, loading, error } = useRealtimeAsset(assetKey);
     const normalizedFallback = fallbackUrl?.trim() || null;
+    const safeAssetUrl = isLikelyVideoUrl(asset?.publicUrl)
+      ? asset?.publicUrl
+      : null;
     const [displayUrl, setDisplayUrl] = useState<string | null>(
       normalizedFallback
     );
@@ -61,10 +73,10 @@ export const DynamicAssetVideo = forwardRef<
     );
 
     useEffect(() => {
-      if (asset?.publicUrl && asset.publicUrl !== displayUrl) {
-        setDisplayUrl(asset.publicUrl);
+      if (safeAssetUrl && safeAssetUrl !== displayUrl) {
+        setDisplayUrl(safeAssetUrl);
       }
-    }, [asset?.publicUrl, displayUrl]);
+    }, [safeAssetUrl, displayUrl]);
 
     useEffect(() => {
       if (internalVideoRef.current && playbackRate !== 1) {
@@ -107,6 +119,11 @@ export const DynamicAssetVideo = forwardRef<
         preload={preload}
         style={style}
         key={finalUrl}
+        onError={() => {
+          if (normalizedFallback && finalUrl !== normalizedFallback) {
+            setDisplayUrl(normalizedFallback);
+          }
+        }}
       />
     );
   }
