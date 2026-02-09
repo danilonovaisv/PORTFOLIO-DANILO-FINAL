@@ -22,7 +22,7 @@
 | **Deep Neutral** | `--color-neutral` | `#0b0d3a` | Gradients, deep cards, subtle surfaces. |
 | **Text Primary** | `--color-text` | `#fcffff` | Main content. High contrast but not harsh white. |
 | **Text Secondary** | `--color-textSecondary` | `#a1a3a3` | Metadata, captions, deactivated states. |
-| **Details (Purple)**| `--color-purpleDetails`| `#8705f2` | *Rare* accent for specific "glitch" or spectral anomalies. |
+| **Details (Purple)**| `--color-purpleDetails`| `#8705f2` | **Exception:** Allowed on Hover states and specific "glitch" anomalies. |
 | **System Red** | `--color-redAccent` | `#E50914` | Errors, destructive actions, or high-alert system status. |
 
 ### 1.2 Typography
@@ -119,9 +119,19 @@
 - **`<GhostGlitch />`**: For specific "anomalies" or hover states.
 - **`<StandardGrid />`**: The wrapper that enforces the 4/8/12 column layout.
 
-### 3.3 CTA Components (Antigravity)
+### 3.3 CTA Components
 
-- **Mandate:** All primary actions use `<AntigravityCTA />`.
+#### Small CTA (`.btn-icon-circle`)
+
+- **Structure**: 48px Circle (`w-12 h-12`).
+- **Default**: Blue (`--color-bluePrimary`).
+- **Hover**: Purple (`--color-purpleDetails`).
+- **Icon**: `ArrowUpRight` (White).
+- **Usage**: Project Cards, Secondary actions.
+
+#### Primary CTA (`<AntigravityCTA />`)
+
+- **Mandate:** All primary page actions use `<AntigravityCTA />`.
 
 - **Sizing (Fixed Min-Widths):**
   - **Mobile:** `min-w-[180px]` (`min-w-cta-mobile`)

@@ -8,8 +8,10 @@ match: "**/*.{css,tsx}"
 
 ## 🎨 Visual Identity
 
+> **FULL SYSTEM**: See `docs/PORTFOLIO/GHOST-DESIGN-SYSTEM.md` for the Single Source of Truth.
+
 - **Primary Colors**: `#0048ff` (Deep Blue), `#040013` (Void Black), `#E50914` (Accent Red).
-- **Forbidden**: NO VIOLET / PURPLE.
+- **Forbidden**: NO VIOLET / PURPLE on main surfaces. **Exception**: Allowed on Hover states and "Glitch" effects.
 - **Typography**: Inter Tight (UI), Playfair Display (Headings), Geist Mono (Code).
 
 ## 🎭 Motion Principles

@@ -250,6 +250,27 @@ html.admin-page body {
    Mobile-First Utilities
    ======================================================================== */
 
+/* Small CTA - Circle Arrow (Design Token) */
+.btn-icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem; /* 48px */
+  height: 3rem;
+  border-radius: 9999px;
+  background-color: var(--color-bluePrimary);
+  color: var(--color-text);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Group hover effect for cards */
+.group:hover .btn-icon-circle {
+  background-color: var(--color-purpleDetails);
+}
+
 /* Touch Target - Minimum 48px for accessibility (WCAG 2.5.5) */
 .touch-target {
   min-width: 48px;

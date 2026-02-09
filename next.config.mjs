@@ -55,6 +55,7 @@ const nextConfig = {
    */
   output: 'standalone',
   reactStrictMode: true,
+  turbopack: {},
 
   // Removido experimental.turbopack pois causa warning
   experimental: {

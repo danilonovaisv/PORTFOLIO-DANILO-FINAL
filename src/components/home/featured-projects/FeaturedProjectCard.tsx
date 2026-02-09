@@ -4,7 +4,7 @@ import Image from 'next/image';
 import React from 'react';
 import { useReducedMotion } from 'framer-motion';
 
-import AntigravityCTA from '@/components/ui/AntigravityCTA';
+import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import type { PortfolioProject } from '@/types/project';
 import { applyImageFallback, isVideo } from '@/lib/utils';
@@ -36,11 +36,10 @@ export default function FeaturedProjectCard({
   const CardContent = () => (
     <>
       <div
-        className={`card-shell relative overflow-hidden rounded-md w-full bg-white/5 transition-all duration-500 ${
-          reducedMotion
-            ? ''
-            : 'md:group-hover:shadow-[0_22px_54px_-12px_rgba(0,72,255,0.15)] md:group-hover:-translate-y-1'
-        }`}
+        className={`card-shell relative overflow-hidden rounded-md w-full bg-white/5 transition-all duration-500 ${reducedMotion
+          ? ''
+          : 'md:group-hover:shadow-[0_22px_54px_-12px_rgba(0,72,255,0.15)] md:group-hover:-translate-y-1'
+          }`}
       >
         {/* Subtle Noise Overlay */}
         <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
@@ -90,13 +89,11 @@ export default function FeaturedProjectCard({
         </div>
 
         {/* Arrow Icon Circle - Blue default, Purple on hover */}
-        {/* Standardized CTA - View Project */}
+        {/* Small CTA (Design Token) */}
         <div className="shrink-0">
-          <AntigravityCTA
-            as="div"
-            text="View Project"
-            className="static transform-none pointer-events-none"
-          />
+          <div className="btn-icon-circle">
+            <ArrowUpRight className="w-6 h-6" />
+          </div>
         </div>
       </div>
     </>

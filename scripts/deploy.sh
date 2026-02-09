@@ -17,15 +17,21 @@ fi
 
 export PATH="$PROJECT_ROOT/node_modules/.bin:$PATH"
 export NO_UPDATE_NOTIFIER=1
-export XDG_CONFIG_HOME="$PROJECT_ROOT/.agent_config"
-mkdir -p "$XDG_CONFIG_HOME"
+
+# Por padrão, usa o config global do Firebase CLI (onde costuma existir login).
+# Para isolar o config por projeto, habilite FIREBASE_USE_LOCAL_CONFIG=1.
+if [ "${FIREBASE_USE_LOCAL_CONFIG:-0}" = "1" ]; then
+  export XDG_CONFIG_HOME="$PROJECT_ROOT/.agent_config"
+  mkdir -p "$XDG_CONFIG_HOME"
+fi
 
 echo "Node: $(node --version)"
 echo "pnpm: $(pnpm --version)"
 echo "firebase: $(firebase --version)"
 
-# Build (assume predeploy já rodou via package.json)
-npx next build
+# Build explicitamente com webpack para evitar conflito com Turbopack
+# quando existe configuração custom em next.config.mjs.
+npx next build --webpack
 
 # Consolida estáticos
 bash "$SCRIPT_DIR/prepare-hosting.sh"
