@@ -7404,7 +7404,7 @@ packages:
     resolution: {integrity: sha512-XRPebVypsl0UM+7v0Hr8o9UAj0S2djsQWRdHBd5iVouVpMrQqAI0C/rDAT3QaYnXnHuC5hMcwDHCboNeyYjPoQ==}
 
   motion-studio-mcp@https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest:
-    resolution: {integrity: sha512-oqMIfG/OxwiSpLR4X97NUFBjovBN8Hm1tSqjl/oHdhB5f3vAJC9C52Lym0VjaWqOCoy8tVUXHSxSDnZ0VIB4sw==, tarball: https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest}
+    resolution: {tarball: https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest}
     version: 5.2.0
     hasBin: true
 
