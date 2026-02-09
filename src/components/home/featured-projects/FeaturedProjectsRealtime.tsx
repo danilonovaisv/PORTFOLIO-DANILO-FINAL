@@ -63,19 +63,14 @@ export default function FeaturedProjectsRealtime({
     let channel: any = null;
 
     try {
+      // Subscribe to the 'portfolio_projects' channel (matches TG_TABLE_NAME in DB trigger)
       channel = supabase
-        .channel('featured-home-projects')
+        .channel('portfolio_projects')
         .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'portfolio_projects' },
+          'broadcast',
+          { event: 'portfolio_projects' },
           () => {
-            void loadFeaturedProjects();
-          }
-        )
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'portfolio_project_tags' },
-          () => {
+            // Reload on any project change
             void loadFeaturedProjects();
           }
         )
@@ -87,6 +82,10 @@ export default function FeaturedProjectsRealtime({
             );
           }
         });
+
+      // Note: If we need to listen to Tags changes, we'd need another channel 'portfolio_project_tags'
+      // or handle it here if we merge topics. For now, project updates are the main driver.
+
     } catch (error) {
       console.error(
         '[FeaturedProjectsRealtime] Failed to initialize realtime channel:',

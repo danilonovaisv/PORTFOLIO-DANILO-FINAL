@@ -6,14 +6,14 @@ import type { DbAsset } from '@/types/admin';
 import { useContentStore } from '@/store/content.store';
 import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 
-import { RealtimePostgresChangesPayload } from '@supabase/supabase-js';
+// import { RealtimePostgresChangesPayload } from '@supabase/supabase-js';
 
 // Helper to format URL
 const toPublicUrl = (item: DbAsset) =>
   item.file_path?.startsWith('http')
     ? item.file_path
     : buildSupabaseStorageUrl(item.bucket || 'site-assets', item.file_path) ||
-      null;
+    null;
 
 export function useRealtimeAsset(assetKey: string) {
   const storeAsset = useContentStore((state) => state.assets[assetKey]);
@@ -50,22 +50,20 @@ export function useRealtimeAsset(assetKey: string) {
 
     fetchInitial();
 
-    // 3. Subscription
+    // 3. Subscription (Broadcast)
+    // We listen to the 'site_assets' channel (TG_TABLE_NAME) and filter events.
     const channel = supabase
-      .channel(`asset-${assetKey}`)
+      .channel('site_assets')
       .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'site_assets',
-          filter: `key=eq.${assetKey}`,
-        },
-        (payload: RealtimePostgresChangesPayload<DbAsset>) => {
-          if (payload.eventType === 'DELETE') {
-            // Handle delete if needed, or just keep stale
-          } else {
-            upsertAsset(payload.new as DbAsset);
+        'broadcast',
+        { event: 'site_assets' },
+        (payload: any) => {
+          // The trigger payload structure from realtime.broadcast_changes includes 'new' and 'old'
+          // We need to check if this update is relevant to our assetKey
+          const newData = payload.payload?.new as DbAsset | undefined;
+
+          if (newData && newData.key === assetKey) {
+            upsertAsset(newData);
           }
         }
       )
@@ -78,9 +76,9 @@ export function useRealtimeAsset(assetKey: string) {
 
   const assetWithUrl = storeAsset
     ? {
-        ...storeAsset,
-        publicUrl: toPublicUrl(storeAsset) || '',
-      }
+      ...storeAsset,
+      publicUrl: toPublicUrl(storeAsset) || '',
+    }
     : null;
 
   return { asset: assetWithUrl, loading, error };
