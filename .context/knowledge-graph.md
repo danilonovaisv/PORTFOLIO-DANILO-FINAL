@@ -49,3 +49,5 @@ The central orchestration layer for the portfolio.
 - [KI-001: Unified Architecture](.context/knowledge/KI-001-Unified-Architecture.md)
 - [KI-002: Blue Ghost Identity](.context/knowledge/KI-002-Blue-identity.md)
 - [KI-003: Clean Ecosystem](.context/knowledge/KI-003-Clean-Ecosystem.md)
+- [KI-004: Agent Capacities](.context/knowledge/KI-004-Agent-Capacities.md)
+- [KI-005: Asset Map](.context/knowledge/KI-005-Asset-Map.md)

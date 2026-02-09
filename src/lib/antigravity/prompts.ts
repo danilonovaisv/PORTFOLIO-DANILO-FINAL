@@ -67,7 +67,7 @@ export const ATOMIC_PROMPTS: AtomicPrompt[] = [
     rules: [
       'Mobile-first',
       'Apenas ajustes de layout (sem alterar textos)',
-      'Manter o grid idêntico às imagens em docs/HOME, docs/SOBRE e docs/PORTFOLIO',
+      'Manter o grid idêntico às imagens em .context/HOME, .context/SOBRE e .context/PORTFOLIO',
     ],
     acceptanceCriteria: [
       'Ao rolar de cima a baixo em /, /sobre e /portfolio, as bordas esquerda/direita de títulos, textos e cards mantêm alinhamento perfeito',
@@ -109,7 +109,7 @@ export const ATOMIC_PROMPTS: AtomicPrompt[] = [
     severity: 'critical',
     category: 'layout',
     objective:
-      'Ajustar tipografia, espaçamento e cena 3D do Hero para ficar 1:1 com docs/HOME/HERO.jpg e o blueprint Ghost.',
+      'Ajustar tipografia, espaçamento e cena 3D do Hero para ficar 1:1 com .context/HOME/HERO.jpg e o blueprint Ghost.',
     files: [
       'src/components/home/hero/*',
       'src/components/canvas/home/hero/GhostScene.tsx',
@@ -124,7 +124,7 @@ export const ATOMIC_PROMPTS: AtomicPrompt[] = [
       'Qualquer ajuste 3D deve preservar performance (usar useFrame apenas quando necessário e memoizar materiais)',
     ],
     acceptanceCriteria: [
-      'Comparando a Home Hero com docs/HOME/HERO.jpg, espaçamentos, tipografia e enquadramento do Ghost são indistinguíveis a olho nu',
+      'Comparando a Home Hero com .context/HOME/HERO.jpg, espaçamentos, tipografia e enquadramento do Ghost são indistinguíveis a olho nu',
       'Parallax leve do Ghost permanece suave, sem jitter',
     ],
     status: 'pending',
@@ -174,7 +174,7 @@ export const ATOMIC_PROMPTS: AtomicPrompt[] = [
     rules: [
       'Mobile-first',
       'Sem alterar textos',
-      'Comparação constante com docs/HOME/HOME-PORTFOLIO-BLACK---GHOST.jpg e docs/HOME/HOME-PORTFOLIO-LAYOUYT-MOBILE---GHOST.jpg',
+      'Comparação constante com .context/HOME/HOME-PORTFOLIO-BLACK---GHOST.jpg e .context/HOME/HOME-PORTFOLIO-LAYOUYT-MOBILE---GHOST.jpg',
     ],
     acceptanceCriteria: [
       'Não há gaps horizontais no fim de nenhuma linha',
