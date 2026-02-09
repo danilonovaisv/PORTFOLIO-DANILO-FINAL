@@ -1,29 +1,43 @@
-# Design Tokens Snapshot
+# Ghost System Design Tokens
 
-> [!NOTE]
-> This file helps agents maintain visual consistency without guessing.
+> **Source of Truth**: `src/app/globals.css`
+> **Last Synced**: 2026-02-09
 
-## Colors
+## 🎨 Colors
 
-- **Primary Blue:** `#0048ff` (Deep Spectral Blue)
-- **Void Black:** `#040013` (Background)
-- **Accent Red:** `#E50914` (Highlights)
-- **Pure White:** `#FFFFFF` (Text)
-- **Ghost Gray:** `#F5F5F5` (Subtle UI)
+| Token                   | Value     | Role                                                  |
+| :---------------------- | :-------- | :---------------------------------------------------- |
+| `--color-bluePrimary`   | `#0048ff` | **Brand Core** (Ghost Blue)                           |
+| `--color-blueAccent`    | `#4fe6ff` | Highlights / Energy                                   |
+| `--color-background`    | `#040013` | **Void** (Main BG)                                    |
+| `--color-text`          | `#fcffff` | Primary Text                                          |
+| `--color-textInverse`   | `#0e0e0e` | Dark Text on Light                                    |
+| `--color-purpleDetails` | `#8705f2` | **[FLAGGED]** Potential Violation of "No Purple" Rule |
+| `--color-pinkDetails`   | `#f501d3` | Accents                                               |
 
 ## Typography
 
-- **Headings:** Playfair Display
-- **UI:** Inter Tight
-- **Code/Tech:** Geist Mono
+| Alias    | Font Family                 |
+| :------- | :-------------------------- |
+| `sans`   | `TT Norms Pro`, `system-ui` |
+| `mono`   | `PPSupplyMono`, `monospace` |
+| `outfit` | `Outfit`                    |
 
-## Spacing (Grid)
+## Fluid Typography (Clamp)
 
-- **Container:** `.std-grid` (Standard Grid Wrapper)
-- **Mobile Padding:** `px-4`
-- **Desktop Padding:** `px-8` or `px-12`
+- **Display**: `clamp(2.5rem, 5vw, 4.5rem)`
+- **H1**: `clamp(2rem, 4vw, 3.5rem)`
+- **H2**: `clamp(1.5rem, 3vw, 2.5rem)`
+- **Body**: `clamp(1rem, 1.2vw, 1.125rem)`
 
-## Motion
+## 📐 Layout
 
-- **Ease:** Custom Bezier (Smooth, Floaty).
-- **Duration:** 0.6s (Standard), 0.2s (Micro-interactions).
+- **Container Padding**: `clamp(24px, 5vw, 96px)`
+- **Grid Strategy**: `.std-grid` (Mobile: 24px, Tablet: 48px, Desktop: 96px)
+- **Max Width**: `1680px`
+
+## 🧩 Component Sizes
+
+- **Ghost Card Height (Desktop)**: `480px`
+- **Ghost Card Aspect (Mobile)**: `5 / 4`
+- **Touch Target**: `min 48px`

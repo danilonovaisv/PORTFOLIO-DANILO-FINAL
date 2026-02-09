@@ -14,9 +14,9 @@ const config: Config = {
       //As cores e fontes principais estão definidas em @theme no globals.css
       // Esta extensão serve principalmente para outros elementos do tema
       minWidth: {
-        'cta-mobile': '181px',
-        'cta-tablet': '201px',
-        'cta-desktop': '241px',
+        'cta-mobile': '180px',
+        'cta-tablet': '200px',
+        'cta-desktop': '220px',
       },
     },
   },

@@ -22,21 +22,37 @@ import { ArrowUpRight } from 'lucide-react';
 interface AntigravityCTAProps {
   text?: string;
   href?: string;
-  onClick?: (_event: MouseEvent<HTMLAnchorElement>) => void;
+  onClick?: (_event: MouseEvent<HTMLAnchorElement | HTMLDivElement>) => void;
+  /**
+   * Custom color override for the button (Pill + Circle).
+   * Used in Project Templates to match the project's theme.
+   * If provided, overrides the default Blue (#0048ff).
+   */
+  color?: string;
   className?: string;
+  /**
+   * Render as a div instead of an anchor.
+   * Useful when placed inside another Link component to avoid invalid nesting.
+   */
+  as?: 'a' | 'div' | 'button';
+  type?: 'button' | 'submit' | 'reset';
 }
 
 const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
   text = "let's build something great",
   href = '/',
   onClick,
+  color, // Custom color prop
   // Mobile: bottom-20 para evitar gesture bar, right-4 para edge comfort
   // Desktop: posição original
   className = 'fixed bottom-20 right-4 sm:bottom-12 sm:right-8 lg:bottom-12 lg:right-12 z-100 md:z-50',
+  as = 'a',
+  type,
 }) => {
   // State para controlar hover
   const [isHovered, setIsHovered] = useState(false);
   const iconRef = useRef<HTMLDivElement>(null);
+  const Component = motion[as as keyof typeof motion] as any;
 
   // Spring physics config
   const springTransition = {
@@ -57,9 +73,12 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
     hover: { y: -2 },
   };
 
+  const mainColor = color || '#0048ff'; // Default Blue
+
   return (
-    <motion.a
-      href={href}
+    <Component
+      href={as === 'a' ? href : undefined}
+      type={as === 'button' ? type : undefined}
       onClick={onClick}
       className={`
         relative group 
@@ -96,7 +115,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
           flex items-center justify-center 
           h-12 sm:h-14 lg:h-[68px]
           pl-5 pr-4 sm:pl-8 sm:pr-6 lg:pl-10 lg:pr-8
-          min-w-cta-mobile sm:min-w-cta-tablet lg:min-w-cta-desktop
+          w-[180px] sm:w-[220px] lg:w-[260px]
           text-white 
           shadow-lg
           rounded-full
@@ -106,7 +125,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
           will-change-transform
         "
         style={{
-          backgroundColor: isHovered ? '#8705f2' : '#0048ff',
+          backgroundColor: mainColor, // Custom or Default Blue
         }}
       >
         <span className="text-sm sm:text-base lg:text-lg font-medium tracking-wide sm:tracking-wider whitespace-nowrap leading-none font-sans">
@@ -126,11 +145,12 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
           shadow-lg
           rounded-full
           transition-colors duration-200
-          active:translate-y-[1px]
+          active:translate-y-px
           will-change-transform
         "
         style={{
-          backgroundColor: isHovered ? '#8705f2' : '#0048ff',
+          // Circle becomes Purple on hover, otherwise matches Pill
+          backgroundColor: isHovered ? '#8705f2' : mainColor,
         }}
         variants={arrowVariants}
         initial="initial"
@@ -144,7 +164,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
           strokeLinejoin="round"
         />
       </motion.div>
-    </motion.a>
+    </Component>
   );
 };
 

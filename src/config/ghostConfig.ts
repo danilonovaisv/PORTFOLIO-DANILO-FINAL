@@ -220,7 +220,7 @@ export const GHOST_CONFIG: GhostConfig = {
 
   // Partículas (Matched to CodePen)
   particleCount: 650,
-  particleColor: 'violet',
+  particleColor: '#0048ff', // Brand Blue (Fixed from violet)
   particleSpeedFactor: 0.012,
   particleRadius: 3.5,
   particleGlowOffset: 0.6,
@@ -236,14 +236,14 @@ export const GHOST_CONFIG: GhostConfig = {
   eyeGlowResponse: 0.31,
   eyeGlowDecay: 0.95,
 
-  // Efeitos de Pós-Processamento (Matched to CodePen)
-  analogGrain: 1.4,
-  analogBleeding: 1.5,
-  analogScanlines: 0.7,
-  analogVignette: 1.9,
-  analogIntensity: 0.9,
-  analogJitter: 0.5,
-  analogVSync: 1.7,
+  // Efeitos de Pós-Processamento (Cleaned up for Spectral Look)
+  analogGrain: 0.2, // Reduced from 1.4
+  analogBleeding: 0.4, // Reduced from 1.5
+  analogScanlines: 0.2, // Reduced from 0.7
+  analogVignette: 1.2, // Kept slightly high for depth
+  analogIntensity: 0.6, // Reduced intensity
+  analogJitter: 0.1, // Reduced jitter
+  analogVSync: 0.2, // Reduced vsync
   limboMode: false,
 
   // Parâmetros do Véu Atmosférico (MATCHED to CodePen Reference)

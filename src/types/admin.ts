@@ -20,6 +20,7 @@ export type DbProject = {
   preferred_size?: 'sm' | 'md' | 'lg' | 'wide' | null;
   is_published: boolean;
   landing_page_id: string | null;
+  landing_page_slug?: string | null;
   created_at: string | null;
   updated_at: string | null;
 };

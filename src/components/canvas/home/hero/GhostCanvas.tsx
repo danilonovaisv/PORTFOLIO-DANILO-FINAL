@@ -10,10 +10,10 @@ import { Ghost } from './Ghost';
 import { Atmosphere } from './Atmosphere';
 
 export function GhostCanvas() {
-  const performance = usePerformanceAdaptive();
+  const perfConfig = usePerformanceAdaptive();
   const ghostRef = useRef<THREE.Group>(null!);
 
-  const dpr = performance.pixelRatio;
+  const dpr = perfConfig.pixelRatio;
 
   return (
     <div className="w-full h-full relative bg-transparent">
@@ -22,7 +22,7 @@ export function GhostCanvas() {
         dpr={dpr}
         camera={{ position: [0, 0, 25], fov: 75 }}
         gl={{
-          antialias: performance.quality !== 'low',
+          antialias: perfConfig.quality !== 'low',
           powerPreference: 'high-performance',
           alpha: true,
           stencil: false,
@@ -31,7 +31,7 @@ export function GhostCanvas() {
         style={{ background: 'transparent' }}
       >
         <Suspense fallback={null}>
-          <AdaptiveDpr pixelated={performance.quality === 'low'} />
+          <AdaptiveDpr pixelated={perfConfig.quality === 'low'} />
 
           <ambientLight
             color={GHOST_CONFIG.ambientLightColor}
@@ -52,7 +52,7 @@ export function GhostCanvas() {
 
           <Ghost
             ghostRef={ghostRef}
-            particleCount={performance.particleCount * 5}
+            particleCount={perfConfig.particleCount * 5}
           />
 
           <Atmosphere ghostRef={ghostRef} />

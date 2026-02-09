@@ -19,10 +19,11 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
 
   return (
     <div
-      className={`min-h-screen flex flex-col justify-start pt-[20vh] pb-[20vh] lg:min-h-screen lg:justify-end lg:items-end lg:text-right ${isRightAligned
-        ? 'lg:items-end lg:justify-start lg:text-right'
-        : 'lg:items-end lg:justify-start lg:text-left'
-        }`}
+      className={`min-h-screen flex flex-col justify-start pt-[20vh] pb-[20vh] lg:min-h-screen lg:justify-end lg:items-end lg:text-right ${
+        isRightAligned
+          ? 'lg:items-end lg:justify-start lg:text-right'
+          : 'lg:items-end lg:justify-start lg:text-left'
+      }`}
       data-origin-block={block.id}
     >
       {/* Mobile: Stack vertical intercalado - Texto primeiro, depois Imagem */}
@@ -145,4 +146,3 @@ export function OriginStickyGallery({
     </div>
   );
 }
-

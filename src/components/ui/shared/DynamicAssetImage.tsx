@@ -27,7 +27,9 @@ export function DynamicAssetImage({
   priority = false,
   fallbackUrl,
   objectFit = 'cover',
-}: DynamicAssetImageProps & { objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down' }) {
+}: DynamicAssetImageProps & {
+  objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
+}) {
   const { asset, loading, error } = useRealtimeAsset(assetKey);
   const normalizedFallback = fallbackUrl?.trim() || null;
   const [displayUrl, setDisplayUrl] = useState<string | null>(
@@ -81,8 +83,9 @@ export function DynamicAssetImage({
         width={width}
         height={height}
         priority={priority}
-        className={`object-${objectFit} transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'
-          }`}
+        className={`object-${objectFit} transition-opacity duration-300 ${
+          isTransitioning ? 'opacity-0' : 'opacity-100'
+        }`}
       />
     </div>
   );

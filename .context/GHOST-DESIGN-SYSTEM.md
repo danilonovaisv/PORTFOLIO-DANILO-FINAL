@@ -166,4 +166,4 @@ O sistema de Grid foi otimizado para **12 colunas** no desktop e **4 colunas** n
 <div className="w-full max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24">
   {children}
 </div>
-
+```

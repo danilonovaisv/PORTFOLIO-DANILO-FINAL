@@ -8,6 +8,7 @@ Fonte de verdade para protótipos, layout e motion.
 
 ## Protótipos Interativos
 
+- `ADMIN - PROTOTIPO INTERATIVO.md`
 - `HOME - PROTOTIPO INTERATIVO.md`
 - `PORTFOLIO-PROTOTIPO-INTERATIVO.md`
 - `SOBRE-PROTOTIPO-INTERATIVO.md`

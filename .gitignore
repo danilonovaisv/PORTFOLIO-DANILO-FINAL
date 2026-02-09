@@ -117,3 +117,4 @@ deploy-public/
 
 # Firebase local auth cache (never commit)
 .agent_config/configstore/firebase-tools.json
+client_secrets.json

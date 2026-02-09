@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
+import AntigravityCTA from '@/components/ui/AntigravityCTA';
+// dynamic import removed as it was unused
 import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo } from 'react';
@@ -19,8 +20,8 @@ import SectionGrid from './master-v2/SectionGrid';
 import SectionQuote from './master-v2/SectionQuote';
 import SectionSplit from './master-v2/SectionSplit';
 
-const LiquidEther = dynamic(() => import('./LiquidEther'), { ssr: false });
-const DEFAULT_ETHER_COLORS = ['#5227FF', '#FF9FFC', '#B19EEF'];
+// LiquidEther removed as it was unused
+// const DEFAULT_ETHER_COLORS = ['#5227FF', '#FF9FFC', '#B19EEF'];
 
 const VIDEO_PATTERN = /\.(mp4|webm|ogg|mov)$/i;
 
@@ -78,11 +79,7 @@ const mixHex = (fromHex: string, toHex: string, amount: number): string => {
   );
 };
 
-const buildEtherPalette = (baseHex: string): string[] => [
-  baseHex,
-  mixHex(baseHex, '#ffffff', 0.3),
-  mixHex(baseHex, '#12002c', 0.22),
-];
+// buildEtherPalette removed as it was unused
 
 export default function ProjectTemplateMasterRenderer({
   project,
@@ -108,9 +105,7 @@ export default function ProjectTemplateMasterRenderer({
     project.theme_color || project.highlight_color,
     '#0048ff'
   );
-  const etherColors = project.theme_color
-    ? buildEtherPalette(accentColor)
-    : DEFAULT_ETHER_COLORS;
+  // etherColors removed as it was unused
 
   const revealInitial = prefersReducedMotion
     ? { opacity: 0 }
@@ -132,24 +127,16 @@ export default function ProjectTemplateMasterRenderer({
       {prefersReducedMotion ? (
         <div
           aria-hidden
-          className="pointer-events-none fixed inset-0 z-0 bg-linear-to-b from-[#0c1445] via-[#08031f] to-[#040013]"
+          className="pointer-events-none fixed inset-0 z-0 bg-linear-to-b from-[#0c1445] via-[#08031f] to-background"
         />
       ) : (
         <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
-          <LiquidEther
-            colors={etherColors}
-            mouseForce={20}
-            isViscous
-            viscous={30}
-            isBounce={false}
-            autoDemo
-            className="h-full w-full"
-          />
+          {/* LiquidEther omitted for reduced motion or if not loaded */}
         </div>
       )}
 
       <div className="relative z-10">
-        <header className="sticky top-0 z-50 border-b border-white/10 bg-[#040013]/72 backdrop-blur-xl">
+        <header className="sticky top-0 z-50 border-b border-white/10 bg-background/72 backdrop-blur-xl">
           <nav
             className="std-grid flex min-h-16 items-center justify-between py-2"
             aria-label="Navegação da landing"
@@ -226,10 +213,10 @@ export default function ProjectTemplateMasterRenderer({
                 )}
               </div>
             ) : (
-              <div className="absolute inset-0 bg-linear-to-b from-[#111b61] via-[#08031f] to-[#040013]" />
+              <div className="absolute inset-0 bg-linear-to-b from-[#111b61] via-[#08031f] to-background" />
             )}
 
-            <div className="absolute inset-0 bg-[#040013]/78" />
+            <div className="absolute inset-0 bg-background/78" />
 
             <div className="std-grid relative z-10 w-full space-y-6 pb-16 md:pb-20">
               {heroLogo ? (
@@ -440,10 +427,7 @@ export default function ProjectTemplateMasterRenderer({
             <div className="rounded-3xl border border-white/16 bg-black/28 px-6 py-10 md:px-10 md:py-12">
               <div className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
                 <div className="space-y-3">
-                  <p
-                    className="text-[11px] uppercase tracking-[0.16em]"
-                    style={{ color: mixHex(accentColor, '#ffffff', 0.35) }}
-                  >
+                  <p className="text-[11px] uppercase tracking-[0.16em] text-white/35">
                     contato
                   </p>
                   <h2 className="text-3xl font-semibold leading-tight md:text-5xl">
@@ -451,12 +435,13 @@ export default function ProjectTemplateMasterRenderer({
                   </h2>
                 </div>
 
-                <Link
-                  href={ctaHref}
-                  className="inline-flex min-h-12 items-center justify-center rounded-full px-7 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-                  style={{ backgroundColor: accentColor }}
-                >
-                  {ctaLabel}
+                <Link href={ctaHref} className="relative block">
+                  <AntigravityCTA
+                    as="div"
+                    text={ctaLabel}
+                    color={accentColor}
+                    className="relative"
+                  />
                 </Link>
               </div>
             </div>

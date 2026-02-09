@@ -12,7 +12,8 @@ import { RealtimePostgresChangesPayload } from '@supabase/supabase-js';
 const toPublicUrl = (item: DbAsset) =>
   item.file_path?.startsWith('http')
     ? item.file_path
-    : buildSupabaseStorageUrl(item.bucket || 'site-assets', item.file_path) || null;
+    : buildSupabaseStorageUrl(item.bucket || 'site-assets', item.file_path) ||
+      null;
 
 export function useRealtimeAsset(assetKey: string) {
   const storeAsset = useContentStore((state) => state.assets[assetKey]);
@@ -21,7 +22,7 @@ export function useRealtimeAsset(assetKey: string) {
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    // 1. If we have it in cache, we are good (optimistic). 
+    // 1. If we have it in cache, we are good (optimistic).
     // But we still subscribe for updates.
     if (storeAsset) setLoading(false);
 
@@ -52,18 +53,22 @@ export function useRealtimeAsset(assetKey: string) {
     // 3. Subscription
     const channel = supabase
       .channel(`asset-${assetKey}`)
-      .on('postgres_changes', {
-        event: '*',
-        schema: 'public',
-        table: 'site_assets',
-        filter: `key=eq.${assetKey}`
-      }, (payload: RealtimePostgresChangesPayload<DbAsset>) => {
-        if (payload.eventType === 'DELETE') {
-          // Handle delete if needed, or just keep stale
-        } else {
-          upsertAsset(payload.new as DbAsset);
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'site_assets',
+          filter: `key=eq.${assetKey}`,
+        },
+        (payload: RealtimePostgresChangesPayload<DbAsset>) => {
+          if (payload.eventType === 'DELETE') {
+            // Handle delete if needed, or just keep stale
+          } else {
+            upsertAsset(payload.new as DbAsset);
+          }
         }
-      })
+      )
       .subscribe();
 
     return () => {
@@ -71,10 +76,12 @@ export function useRealtimeAsset(assetKey: string) {
     };
   }, [assetKey, upsertAsset, storeAsset]); // Added storeAsset dep to ensure we are reactive if needed
 
-  const assetWithUrl = storeAsset ? {
-    ...storeAsset,
-    publicUrl: toPublicUrl(storeAsset) || ''
-  } : null;
+  const assetWithUrl = storeAsset
+    ? {
+        ...storeAsset,
+        publicUrl: toPublicUrl(storeAsset) || '',
+      }
+    : null;
 
   return { asset: assetWithUrl, loading, error };
 }

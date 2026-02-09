@@ -9,37 +9,40 @@ The central orchestration layer for the portfolio.
 #### 1. The Renderer (Client)
 
 - **Nodes:** `GhostCanvas`, `ShaderManager`, `PostProcessing`.
-- **Context:** Handles all R3F visual output.
+- **Hooks:** `useGhostEnergy`, `useGhostReveal`, `usePerformanceAdaptive`.
+- **Context:** Handles all R3F visual output and narrative transitions.
 - **Dependencies:** Three.js, Drei, Lamina.
 
 #### 2. The Administrator (Server/Auth)
 
 - **Nodes:** `AdminDashboard`, `AuthGuard`, `ProjectsTable`.
+- **Backend:** `DataConnect` (Firebase), `Supabase Client`.
 - **Context:** Protected management area.
 - **Dependencies:** Supabase Auth, Firebase Functions.
 
 #### 3. The Content Engine (Data)
 
-- **Nodes:** `useProjects`, `ProjectStore`, `RealtimeSubscriptions`.
+- **Nodes:** `ContentStore` (Projects/Assets), `useProjects`.
 - **Context:** Fetches and syncs data to UI.
 - **Dependencies:** Supabase Realtime, Zustand.
 
 #### 4. The Core (Shared)
 
-- **Nodes:** `src/lib/utils` (Unified), `config/brand`.
-- **Context:** Global helpers (cn, math, assets) available everywhere.
+- **Nodes:** `AntigravityStore` (Global State), `src/lib/utils`, `config/brand`.
+- **Context:** Global helpers (cn, math) and Narrative State management.
 - **Dependencies:** clsx, tailwind-merge.
 
 ## Key Relationships
 
-- `GhostCanvas` **observes** `ScrollState` (Zustand).
-- `AdminDashboard` **controls** `Supabase:Projects`.
-- `HeroSection` **embeds** `GhostCanvas`.
+- `GhostCanvas` **observes** `AntigravityStore` (Narrative State).
+- `AdminDashboard` **controls** `ContentStore`.
+- `HeroSection` **embeds** `GhostCanvas` and triggers `useGhostReveal`.
 
-## Current Status (Bootstrapping)
+## Current Status (Syncing)
 
-- Agent System is being injected.
-- Audit Completed (Master Plan Executed).
+- **Last Sync:** 2026-02-09
+- **Focus:** Consolidating Stores (`AntigravityStore`, `ContentStore`).
+- **Audit:** Design Tokens extracted to `.context/design-tokens.md`.
 
 ## Knowledge Items (Learnings)
 

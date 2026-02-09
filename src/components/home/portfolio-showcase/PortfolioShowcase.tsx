@@ -68,8 +68,12 @@ export default function PortfolioShowcase() {
             id="portfolio-showcase-heading"
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tighter leading-none"
           >
-            <span className="text-white italic font-light block sm:inline">portfólio </span>
-            <span className="text-bluePrimary font-bold block sm:inline">showcase</span>
+            <span className="text-white italic font-light block sm:inline">
+              portfólio{' '}
+            </span>
+            <span className="text-bluePrimary font-bold block sm:inline">
+              showcase
+            </span>
           </h2>
         </motion.header>
 

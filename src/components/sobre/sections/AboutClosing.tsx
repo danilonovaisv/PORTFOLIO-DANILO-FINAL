@@ -113,7 +113,7 @@ export function AboutClosing() {
                 key={index}
                 href={cta.href}
                 text={cta.label}
-                className="relative min-w-50"
+                className="relative"
               />
             ))}
           </div>

@@ -94,18 +94,18 @@ export function ProjectForm({
       landingPages.map((page) => {
         const template =
           page.content &&
-            typeof page.content === 'object' &&
-            'template' in page.content &&
-            ((page.content as { template?: string }).template ===
-              MASTER_PROJECT_TEMPLATE ||
-              (page.content as { template?: string }).template ===
+          typeof page.content === 'object' &&
+          'template' in page.content &&
+          ((page.content as { template?: string }).template ===
+            MASTER_PROJECT_TEMPLATE ||
+            (page.content as { template?: string }).template ===
               MASTER_PROJECT_TEMPLATE_V2 ||
-              (page.content as { template?: string }).template ===
+            (page.content as { template?: string }).template ===
               MASTER_PROJECT_TEMPLATE_V3)
             ? ((page.content as { template?: string }).template as
-              | typeof MASTER_PROJECT_TEMPLATE
-              | typeof MASTER_PROJECT_TEMPLATE_V2
-              | typeof MASTER_PROJECT_TEMPLATE_V3)
+                | typeof MASTER_PROJECT_TEMPLATE
+                | typeof MASTER_PROJECT_TEMPLATE_V2
+                | typeof MASTER_PROJECT_TEMPLATE_V3)
             : LEGACY_PROJECT_TEMPLATE;
 
         return {

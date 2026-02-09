@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
+import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo, useRef } from 'react';
@@ -144,7 +145,7 @@ export default function MasterProjectTemplate({
   const ctaHref = project.cta?.href ?? '/#contact';
 
   return (
-    <article className="bg-[#040013] text-[#fcffff]">
+    <article className="bg-background text-[#fcffff]">
       <header
         ref={heroRef}
         className="relative flex min-h-[88vh] items-end overflow-hidden pt-28"
@@ -177,10 +178,10 @@ export default function MasterProjectTemplate({
             )}
           </motion.div>
         ) : (
-          <div className="absolute inset-0 bg-linear-to-b from-[#0c1b58] via-[#07021f] to-[#040013]" />
+          <div className="absolute inset-0 bg-linear-to-b from-[#0c1b58] via-[#07021f] to-background" />
         )}
 
-        <div className="absolute inset-0 bg-[#040013]/80" />
+        <div className="absolute inset-0 bg-background/80" />
 
         <div className="std-grid relative z-10 flex w-full flex-col gap-7 pb-16 md:pb-20">
           {heroLogo ? (
@@ -362,14 +363,14 @@ export default function MasterProjectTemplate({
                     ease: GHOST_EASE,
                     delay: prefersReducedMotion ? 0 : index * 0.03,
                   }}
-                  className={`${spanClass} overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]`}
+                  className={`${spanClass} overflow-hidden rounded-2xl border border-white/10 bg-white/3`}
                 >
                   <div
                     className={
                       item.layout === 'feature' ||
                       item.layout === 'full-highlight'
-                        ? 'aspect-[16/10] md:aspect-[20/9]'
-                        : 'aspect-[4/3] md:aspect-[16/10]'
+                        ? 'aspect-16/10 md:aspect-20/9'
+                        : 'aspect-4/3 md:aspect-16/10'
                     }
                   >
                     <GalleryMedia
@@ -414,7 +415,7 @@ export default function MasterProjectTemplate({
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.7, ease: GHOST_EASE }}
         >
-          <div className="rounded-2xl border border-white/15 bg-white/[0.02] px-6 py-10 md:px-10 md:py-12">
+          <div className="rounded-2xl border border-white/15 bg-white/2 px-6 py-10 md:px-10 md:py-12">
             <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
               <div className="space-y-3">
                 <p className="text-xs uppercase tracking-[0.16em] text-[#4fe6ff]">
@@ -425,12 +426,13 @@ export default function MasterProjectTemplate({
                 </h2>
               </div>
 
-              <Link
-                href={ctaHref}
-                className="inline-flex min-h-12 items-center justify-center rounded-full px-7 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-opacity hover:opacity-85"
-                style={{ backgroundColor: highlightColor }}
-              >
-                {ctaLabel}
+              <Link href={ctaHref} className="relative block">
+                <AntigravityCTA
+                  as="div"
+                  text={ctaLabel}
+                  color={highlightColor}
+                  className="relative"
+                />
               </Link>
             </div>
           </div>

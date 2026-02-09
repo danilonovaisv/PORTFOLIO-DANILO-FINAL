@@ -229,7 +229,7 @@ export function mapDbProjectToPortfolioProject(
   index: number
 ): PortfolioProject {
   const normalizedSlug = project.slug?.replace(/_/g, '-');
-  const normalizedLandingSlug = project.landing_page?.slug?.replace(/_/g, '-');
+  const normalizedLandingSlug = project.landing_page_slug?.replace(/_/g, '-');
   const type = determineProjectType(project);
   const layout = buildLayout(type, index, project.preferred_size ?? undefined);
   const category = getProjectCategory(project.project_type);
@@ -269,7 +269,7 @@ export function mapDbProjectToPortfolioProject(
     featuredOnHome: project.featured_on_home,
     featuredOnPortfolio: project.featured_on_portfolio,
     videoPreview: toVideoPreview(gallery),
-    landingPageSlug: normalizedLandingSlug ?? project.landing_page?.slug,
+    landingPageSlug: normalizedLandingSlug ?? project.landing_page_slug,
   };
 }
 

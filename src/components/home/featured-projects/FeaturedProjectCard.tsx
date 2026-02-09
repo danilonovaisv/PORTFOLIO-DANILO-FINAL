@@ -3,7 +3,8 @@
 import Image from 'next/image';
 import React from 'react';
 import { useReducedMotion } from 'framer-motion';
-import { ArrowIcon } from '@/components/ui/ArrowIcon';
+
+import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import Link from 'next/link';
 import type { PortfolioProject } from '@/types/project';
 import { applyImageFallback, isVideo } from '@/lib/utils';
@@ -89,14 +90,13 @@ export default function FeaturedProjectCard({
         </div>
 
         {/* Arrow Icon Circle - Blue default, Purple on hover */}
-        <div
-          className={`w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-white shrink-0 border border-white/10 transition-all duration-700 bg-[#0048ff] ${
-            reducedMotion
-              ? ''
-              : 'md:group-hover:translate-x-5 md:group-hover:bg-[#8705f2] md:group-hover:shadow-[0_0_20px_rgba(135,5,242,0.4)]'
-          }`}
-        >
-          <ArrowIcon className="w-5 h-5 md:w-6 md:h-6 transition-transform duration-500 md:group-hover:translate-x-0.5 md:group-hover:-translate-y-0.5" />
+        {/* Standardized CTA - View Project */}
+        <div className="shrink-0">
+          <AntigravityCTA
+            as="div"
+            text="View Project"
+            className="static transform-none pointer-events-none"
+          />
         </div>
       </div>
     </>
@@ -118,14 +118,23 @@ export default function FeaturedProjectCard({
 
   if (isModalMode) {
     return (
-      <button type="button" onClick={handleClick} className={commonClasses}>
+      <button
+        type="button"
+        onClick={handleClick}
+        className={commonClasses}
+        aria-label={`View details for project ${project.title}`}
+      >
         <CardContent />
       </button>
     );
   }
 
   return (
-    <Link href={`/portfolio/${project.slug}`} className={commonClasses}>
+    <Link
+      href={`/portfolio/${project.slug}`}
+      className={commonClasses}
+      aria-label={`View details for project ${project.title}`}
+    >
       <CardContent />
     </Link>
   );
