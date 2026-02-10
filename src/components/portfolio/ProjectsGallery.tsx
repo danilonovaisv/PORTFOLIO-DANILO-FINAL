@@ -38,6 +38,7 @@ export const ProjectsGallery = ({
 }: ProjectsGalleryProps) => {
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const trackRef = useRef<HTMLDivElement>(null);
+  const galleryWrapperRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const isMobile = useMediaQuery('(max-width: 640px)');
 
@@ -53,7 +54,7 @@ export const ProjectsGallery = ({
   const useLerp = !prefersReducedMotion && !isMobile && filteredProjects.length > 6;
 
   // Initialize LERP Scroll
-  const { galleryRef, isSticky } = useLERPScroll(trackRef, useLerp);
+  const { isSticky } = useLERPScroll(trackRef, galleryWrapperRef, useLerp);
 
   const sizePattern = useMemo<ProjectCardSize[]>(
     () => ['lg', 'sm', 'sm', 'sm', 'sm', 'lg', 'sm', 'wide'],
@@ -110,7 +111,7 @@ export const ProjectsGallery = ({
 
       <div
         className={cn('gallery', styles.gallery)}
-        ref={galleryRef as RefObject<HTMLDivElement>}
+        ref={galleryWrapperRef as RefObject<HTMLDivElement>}
       >
         <Container>
           {items.length === 0 ? (

@@ -16,38 +16,54 @@ export default function AssetLoaderWrapper({
 }: AssetLoaderWrapperProps) {
   const [assets, setAssets] = useState<NormalizedSiteAsset[]>([]);
   const [assetsLoaded, setAssetsLoaded] = useState(false);
+  const isDev = process.env.NODE_ENV !== 'production';
 
   useEffect(() => {
     const loadAssets = async () => {
+      const toErrorMessage = (error: unknown) => {
+        if (error instanceof Error) return error.message;
+        if (typeof error === 'string') return error;
+        try {
+          return JSON.stringify(error);
+        } catch {
+          return 'unknown error';
+        }
+      };
+
       try {
         const loadedAssets = await getClientSiteAssets();
         setAssets(loadedAssets);
       } catch (error) {
-        console.error(
-          'Falha ao carregar site_assets:',
-          error instanceof Error ? error.message : error
-        );
+        if (isDev) {
+          console.warn(
+            'Falha ao carregar site_assets no client. Tentando fallback via API.',
+            toErrorMessage(error)
+          );
+        }
 
         // Try fallback API call
         try {
           const response = await fetch('/api/site-assets');
           if (response.ok) {
-            const assetsData = await response.json();
-            setAssets(assetsData);
+            const assetsData =
+              (await response.json()) as NormalizedSiteAsset[] | null;
+            setAssets(Array.isArray(assetsData) ? assetsData : []);
           } else {
-            console.error(
-              'Erro ao buscar site_assets via API:',
-              response.status,
-              response.statusText
-            );
+            if (isDev) {
+              console.warn(
+                'Erro ao buscar site_assets via API:',
+                response.status,
+                response.statusText
+              );
+            }
           }
         } catch (fallbackError) {
-          console.error(
-            'Erro fallback de site_assets:',
-            fallbackError instanceof Error
-              ? fallbackError.message
-              : fallbackError
-          );
+          if (isDev) {
+            console.warn(
+              'Erro no fallback de site_assets:',
+              toErrorMessage(fallbackError)
+            );
+          }
         }
       } finally {
         setAssetsLoaded(true);

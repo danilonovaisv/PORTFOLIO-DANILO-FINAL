@@ -8,16 +8,30 @@ import React, { useEffect } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowIcon } from './ArrowIcon';
+import { cn } from '@/lib/utils';
 
 interface CompoundPillCTAProps {
   href: string;
   label: string;
+  size?: 'default' | 'compact';
+  direction?: 'forward' | 'back';
+  className?: string;
 }
 
-export const CompoundPillCTA = ({ href, label }: CompoundPillCTAProps) => {
+export const CompoundPillCTA = ({
+  href,
+  label,
+  size = 'default',
+  direction = 'forward',
+  className,
+}: CompoundPillCTAProps) => {
+  const isCompact = size === 'compact';
+
   // Idle orbital animation for the arrow
   const time = useMotionValue(0);
   useEffect(() => {
+    if (isCompact) return;
+
     let frame: number;
     const animate = (t: number) => {
       time.set(t / 1000);
@@ -25,7 +39,7 @@ export const CompoundPillCTA = ({ href, label }: CompoundPillCTAProps) => {
     };
     frame = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(frame);
-  }, [time]);
+  }, [isCompact, time]);
 
   // Orbital motion (very subtle idle)
   const radius = 2;
@@ -34,24 +48,50 @@ export const CompoundPillCTA = ({ href, label }: CompoundPillCTAProps) => {
   const orbitY = useTransform(time, (t) => Math.sin(t * speed) * radius);
 
   return (
-    <div className="relative flex items-center justify-center py-12">
+    <div
+      className={cn(
+        'relative flex items-center',
+        isCompact ? 'justify-start py-0' : 'justify-center py-12',
+        className
+      )}
+    >
       <Link
         href={href}
-        className="group flex items-center gap-[5px] transition-transform duration-200 ease-out hover:-translate-y-px"
+        className={cn(
+          'group inline-flex items-center gap-[5px] transition-opacity duration-200 ease-out hover:opacity-90',
+          isCompact && 'gap-2'
+        )}
       >
         {/* Pill Label */}
-        <div className="relative z-10 flex h-[58px] items-center justify-center rounded-full bg-bluePrimary px-14 transition-all duration-200 ease-out group-hover:bg-blueAccent shadow-[0_15px_45px_var(--color-bluePrimary-faint)]">
-          <span className="text-base font-bold lowercase tracking-tight text-white transition-colors duration-200 ease-out group-hover:text-background">
+        <div
+          className={cn(
+            'relative z-10 flex items-center justify-center rounded-full bg-bluePrimary transition-all duration-200 ease-out shadow-[0_15px_45px_var(--color-bluePrimary-faint)] group-hover:bg-blueAccent',
+            isCompact ? 'h-12 px-5' : 'h-[58px] px-14'
+          )}
+        >
+          <span
+            className={cn(
+              'transition-colors duration-200 ease-out group-hover:text-background',
+              isCompact
+                ? 'text-[11px] font-medium uppercase tracking-[0.14em] text-white/92'
+                : 'text-base font-bold lowercase tracking-tight text-white'
+            )}
+          >
             {label}
           </span>
         </div>
 
         {/* Arrow Circle */}
         <motion.div
-          style={{ x: orbitX, y: orbitY }}
-          className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-bluePrimary text-white transition-all duration-200 ease-out group-hover:bg-blueAccent group-hover:text-background group-hover:scale-105 shadow-[0_10px_30px_rgba(0,0,0,0.1)]"
+          style={isCompact ? undefined : { x: orbitX, y: orbitY }}
+          className={cn(
+            'flex items-center justify-center rounded-full bg-bluePrimary text-white transition-all duration-200 ease-out group-hover:bg-blueAccent group-hover:text-background shadow-[0_10px_30px_rgba(0,0,0,0.1)]',
+            isCompact ? 'h-10 w-10' : 'h-[46px] w-[46px]'
+          )}
         >
-          <ArrowIcon className="h-6 w-6" />
+          <ArrowIcon
+            className={cn('h-6 w-6', direction === 'back' && 'rotate-180')}
+          />
         </motion.div>
       </Link>
     </div>

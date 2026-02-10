@@ -57,7 +57,11 @@ export const ProjectCard = ({
   const preferredImage = shouldUseSquare
     ? project.imageSquare ?? project.imageLandscape ?? project.image
     : project.imageLandscape ?? project.imageSquare ?? project.image;
-  const imageSrc = project.videoPreview ?? preferredImage ?? ASSET_PLACEHOLDER;
+  const imageSrc =
+    project.thumbnailMedia ??
+    project.videoPreview ??
+    preferredImage ??
+    ASSET_PLACEHOLDER;
   const objectFit = project.layout?.objectFit ?? 'cover';
   const objectPosition = project.layout?.objectPosition ?? 'center';
   const sizes =
@@ -153,9 +157,9 @@ export const ProjectCard = ({
           </div>
           {project.tags?.length ? (
             <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-[11px] text-white/70">
-              {project.tags.map((tag) => (
+              {project.tags.map((tag, tagIndex) => (
                 <span
-                  key={tag}
+                  key={`${project.id}-${tag}-${tagIndex}`}
                   className="rounded-full border border-white/20 px-2 py-0.5"
                 >
                   {tag}

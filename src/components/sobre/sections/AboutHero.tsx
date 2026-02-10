@@ -224,7 +224,7 @@ export function AboutHero() {
 
             <motion.div
               variants={motionTokens.fadeGhost}
-              className="text-h3 text-white/92 leading-snug tracking-tight max-w-[99%] mx-auto font-medium"
+              className="text-[clamp(1.35rem,4.8vw,1.62rem)] text-white/95 leading-snug tracking-tight max-w-[99%] mx-auto font-medium"
             >
               {ABOUT_CONTENT.hero.description.map((line, index) => (
                 <span key={index} className="block">

@@ -13,7 +13,7 @@ import {
   useState,
   type MouseEvent as ReactMouseEvent,
 } from 'react';
-import { ArrowLeft, Play, X } from 'lucide-react';
+import { Play, X } from 'lucide-react';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { GHOST_EASE } from '@/config/motion';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
@@ -21,6 +21,7 @@ import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
 import type { LandingPageBlock } from '@/types/landing-page';
 import type { MasterProjectTemplateV3Data } from '@/types/project-template';
 import { useLandingBackLink } from './useLandingBackLink';
+import { CompoundPillCTA } from '@/components/ui/CompoundPillCTA';
 
 const LiquidEther = dynamic(() => import('./LiquidEther'), { ssr: false });
 const DEFAULT_ETHER_COLORS = ['#5227FF', '#FF9FFC', '#B19EEF'];
@@ -640,7 +641,7 @@ export default function ProjectTemplateALPARenderer({
 
       <div className="relative z-10">
         <main>
-          <section className="std-grid flex min-h-[82vh] items-center justify-center py-24 text-center">
+          <section className="std-grid relative flex min-h-[82vh] items-center justify-center py-24 text-center">
             <motion.div
               className="mx-auto flex max-w-5xl flex-col items-center gap-6"
               initial={revealInitial}
@@ -682,25 +683,25 @@ export default function ProjectTemplateALPARenderer({
                 {project.project_year ? (
                   <span>{project.project_year}</span>
                 ) : null}
-                {project.project_tags.map((tag) => (
-                  <span key={tag}>{tag}</span>
+                {project.project_tags.map((tag, tagIndex) => (
+                  <span key={`${project.project_slug}-${tag}-${tagIndex}`}>
+                    {tag}
+                  </span>
                 ))}
               </div>
 
-              <div className="pt-4">
-                <Link
-                  href={backHref}
-                  className="inline-flex min-h-12 items-center gap-3 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-                >
-                  <span className="btn-icon-circle">
-                    <ArrowLeft className="h-4 w-4" />
-                  </span>
-                  <span className="text-[11px] uppercase tracking-[0.14em] text-white/88">
-                    {LANDING_PAGE_BACK.label}
-                  </span>
-                </Link>
-              </div>
             </motion.div>
+
+            <div className="pointer-events-auto absolute bottom-6 left-0 right-0 z-20 sm:bottom-8">
+              <div className="flex justify-start">
+                <CompoundPillCTA
+                  href={backHref}
+                  label={LANDING_PAGE_BACK.label}
+                  size="compact"
+                  direction="back"
+                />
+              </div>
+            </div>
           </section>
 
           <motion.section

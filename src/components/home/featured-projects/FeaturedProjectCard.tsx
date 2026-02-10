@@ -22,6 +22,7 @@ export default function FeaturedProjectCard({
   const reducedMotion = useReducedMotion();
   const isModalMode = typeof onOpen === 'function';
   const mediaSource =
+    project.thumbnailMedia ??
     project.videoPreview ??
     project.imageLandscape ??
     project.imageSquare ??

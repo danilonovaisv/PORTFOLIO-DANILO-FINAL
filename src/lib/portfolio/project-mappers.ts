@@ -4,8 +4,12 @@ import type {
   ProjectGridLayout,
   ProjectType,
 } from '@/types/project';
-import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
+import {
+  buildSupabaseStorageUrl,
+  normalizeStoragePath,
+} from '@/lib/supabase/urls';
 import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
+import { isVideo } from '@/lib/utils';
 
 // Define a type for the static project from HOME_CONTENT
 type StaticProject = {
@@ -44,6 +48,21 @@ const ACCENT_COLOR_MAP: Record<ProjectCategory, string> = {
   packaging: '#ffd700',
   all: '#ffffff',
   'Landing Page': '#6366f1', // Indigo for Landing Pages
+};
+const LOCAL_PUBLIC_ASSET_PATTERN = /^\/(site\.assets|images|videos|fonts|captions)\//i;
+const STORAGE_PUBLIC_PATH_PATTERN =
+  /^\/?storage\/v1\/object\/public\/([^/]+)\/(.+)$/i;
+const EXPLICIT_BUCKET_PATTERN =
+  /^(site-assets|portfolio-media|landing-pages)\/(.+)$/i;
+
+const uniqueStrings = (values: string[]): string[] => {
+  const seen = new Set<string>();
+  return values.filter((value) => {
+    const normalized = value.trim();
+    if (!normalized || seen.has(normalized)) return false;
+    seen.add(normalized);
+    return true;
+  });
 };
 
 function getProjectCategory(projectType?: string): ProjectCategory {
@@ -181,47 +200,70 @@ function buildLayout(
 function toTagsList(tags?: DbProjectWithTags['tags'] | string[]): string[] {
   if (!tags) return [];
   if (typeof tags[0] === 'string') {
-    return tags as string[];
+    return uniqueStrings(tags as string[]);
   }
-  return (
+  const extracted =
     (tags as DbProjectWithTags['tags'])
       ?.map((entry) => entry?.tag?.label ?? entry?.tag?.slug)
       .filter(Boolean)
-      .map((value) => value as string) ?? []
-  );
+      .map((value) => value as string) ?? [];
+  return uniqueStrings(extracted);
 }
 
 function createGallery(project: DbProjectWithTags): string[] {
   const entries = project.gallery ?? [];
-  return entries
+  const media = entries
     .filter((entry): entry is { path: string; caption?: string } => !!entry)
     .map((entry) => entry.path)
     .filter((path): path is string => !!path)
-    .map((path) => buildSupabaseStorageUrl('portfolio-media', path))
-    .filter((url): url is string => !!url); // Additional filter to remove any null urls from buildSupabaseStorageUrl
+    .map((path) => resolveProjectMedia(path))
+    .filter((url): url is string => !!url);
+
+  return uniqueStrings(media);
 }
 
 function toVideoPreview(galleryUrls: string[]) {
-  const videoExt = ['mp4', 'mov', 'webm', 'm4v'];
-  return (
-    galleryUrls.find((url) => {
-      const extension = url.split('.').pop()?.toLowerCase();
-      return extension ? videoExt.includes(extension) : false;
-    }) ?? undefined
-  );
+  return galleryUrls.find((url) => isVideo(url)) ?? undefined;
 }
 
 function resolveProjectMedia(path?: string | null): string | undefined {
   if (!path) return undefined;
-  if (path.startsWith('http://') || path.startsWith('https://')) {
-    return path;
+
+  const raw = path.trim();
+  if (!raw) return undefined;
+
+  if (
+    raw.startsWith('http://') ||
+    raw.startsWith('https://') ||
+    raw.startsWith('blob:') ||
+    raw.startsWith('data:')
+  ) {
+    return raw;
   }
 
-  return (
-    buildSupabaseStorageUrl('portfolio-media', path) ??
-    buildSupabaseStorageUrl('site-assets', path) ??
-    undefined
-  );
+  if (raw.startsWith('#') || LOCAL_PUBLIC_ASSET_PATTERN.test(raw)) {
+    return raw;
+  }
+
+  const storageMatch = raw.match(STORAGE_PUBLIC_PATH_PATTERN);
+  if (storageMatch) {
+    const [, bucket, bucketPath] = storageMatch;
+    return buildSupabaseStorageUrl(bucket, bucketPath) ?? undefined;
+  }
+
+  const noLeadingSlash = raw.replace(/^\/+/, '');
+  const explicitBucketMatch = noLeadingSlash.match(EXPLICIT_BUCKET_PATTERN);
+  if (explicitBucketMatch) {
+    const [, bucket, bucketPath] = explicitBucketMatch;
+    return buildSupabaseStorageUrl(bucket.toLowerCase(), bucketPath) ?? undefined;
+  }
+
+  const normalizedPath = normalizeStoragePath(noLeadingSlash) ?? noLeadingSlash;
+  const inferredBucket = normalizedPath.startsWith('projects/')
+    ? 'portfolio-media'
+    : 'site-assets';
+
+  return buildSupabaseStorageUrl(inferredBucket, normalizedPath) ?? undefined;
 }
 
 export function mapDbProjectToPortfolioProject(
@@ -229,7 +271,11 @@ export function mapDbProjectToPortfolioProject(
   index: number
 ): PortfolioProject {
   const normalizedSlug = project.slug?.replace(/_/g, '-');
-  const normalizedLandingSlug = project.landing_page_slug?.replace(/_/g, '-');
+  const relationLandingSlug =
+    (project as unknown as { landing_page?: { slug?: string | null } | null })
+      .landing_page?.slug ?? null;
+  const landingSlugSource = project.landing_page_slug ?? relationLandingSlug;
+  const normalizedLandingSlug = landingSlugSource?.replace(/_/g, '-');
   const type = determineProjectType(project);
   const layout = buildLayout(type, index, project.preferred_size ?? undefined);
   const category = getProjectCategory(project.project_type);
@@ -237,10 +283,20 @@ export function mapDbProjectToPortfolioProject(
   const gallery = createGallery(project);
   const landscapeUrl = resolveProjectMedia(project.url_landscape);
   const squareUrl = resolveProjectMedia(project.url_square);
-  const thumbnailUrl =
+  const thumbnailMedia =
     resolveProjectMedia(project.thumbnail_path) ||
     resolveProjectMedia(project.hero_image_path);
-  const primaryImage = landscapeUrl || squareUrl || thumbnailUrl || '';
+  const thumbnailIsVideo = isVideo(thumbnailMedia);
+  const primaryImage =
+    (!thumbnailIsVideo ? thumbnailMedia : undefined) ||
+    landscapeUrl ||
+    squareUrl ||
+    thumbnailMedia ||
+    gallery[0] ||
+    '';
+  const videoPreview = thumbnailIsVideo
+    ? thumbnailMedia
+    : toVideoPreview(gallery);
 
   const detail = {
     description: project.description ?? '',
@@ -261,6 +317,7 @@ export function mapDbProjectToPortfolioProject(
     image: primaryImage,
     imageLandscape: landscapeUrl,
     imageSquare: squareUrl,
+    thumbnailMedia: thumbnailMedia ?? undefined,
     type,
     layout,
     detail,
@@ -268,8 +325,8 @@ export function mapDbProjectToPortfolioProject(
     isFeatured: project.featured_on_home || project.featured_on_portfolio,
     featuredOnHome: project.featured_on_home,
     featuredOnPortfolio: project.featured_on_portfolio,
-    videoPreview: toVideoPreview(gallery),
-    landingPageSlug: normalizedLandingSlug ?? project.landing_page_slug,
+    videoPreview,
+    landingPageSlug: normalizedLandingSlug ?? landingSlugSource,
   };
 }
 
@@ -302,6 +359,7 @@ export function mapStaticProjectToPortfolioProject(
     image: project.img || '',
     imageLandscape: project.img || undefined,
     imageSquare: project.img || undefined,
+    thumbnailMedia: project.img || undefined,
     type,
     layout,
     detail,

@@ -85,5 +85,16 @@ export const applyLazyLoading = (img: HTMLImageElement) => {
 export const isVideo = (path?: string | null): boolean => {
   if (!path) return false;
   const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov', '.m4v'];
-  return videoExtensions.some((ext) => path.toLowerCase().endsWith(ext));
+  const raw = path.trim().toLowerCase();
+  if (!raw) return false;
+
+  try {
+    const withProtocol = raw.startsWith('http') ? raw : `https://${raw}`;
+    const parsed = new URL(withProtocol);
+    return videoExtensions.some((ext) => parsed.pathname.endsWith(ext));
+  } catch {
+    return videoExtensions.some((ext) =>
+      raw.split('?')[0].split('#')[0].endsWith(ext)
+    );
+  }
 };

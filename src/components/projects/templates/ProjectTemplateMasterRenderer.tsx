@@ -6,7 +6,7 @@ import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo } from 'react';
-import { ArrowDown, ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowDown, ArrowRight } from 'lucide-react';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { GHOST_EASE } from '@/config/motion';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
@@ -21,6 +21,7 @@ import SectionGrid from './master-v2/SectionGrid';
 import SectionQuote from './master-v2/SectionQuote';
 import SectionSplit from './master-v2/SectionSplit';
 import { useLandingBackLink } from './useLandingBackLink';
+import { CompoundPillCTA } from '@/components/ui/CompoundPillCTA';
 
 // LiquidEther removed as it was unused
 // const DEFAULT_ETHER_COLORS = ['#5227FF', '#FF9FFC', '#B19EEF'];
@@ -280,8 +281,10 @@ export default function ProjectTemplateMasterRenderer({
                 {project.project_year ? (
                   <span>{project.project_year}</span>
                 ) : null}
-                {project.project_tags.map((tag) => (
-                  <span key={tag}>{tag}</span>
+                {project.project_tags.map((tag, tagIndex) => (
+                  <span key={`${project.project_slug}-${tag}-${tagIndex}`}>
+                    {tag}
+                  </span>
                 ))}
               </motion.div>
 
@@ -295,17 +298,12 @@ export default function ProjectTemplateMasterRenderer({
                 }}
                 className="relative z-20 grid gap-2 pt-8 text-xs uppercase tracking-[0.15em] text-white/88 sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:gap-3"
               >
-                <Link
+                <CompoundPillCTA
                   href={backHref}
-                  className="inline-flex min-h-12 items-center gap-3 px-2 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 sm:justify-start"
-                >
-                  <span className="btn-icon-circle">
-                    <ArrowLeft className="h-4 w-4" />
-                  </span>
-                  <span className="text-[11px] uppercase tracking-[0.14em] text-white/88">
-                    {LANDING_PAGE_BACK.label}
-                  </span>
-                </Link>
+                  label={LANDING_PAGE_BACK.label}
+                  size="compact"
+                  direction="back"
+                />
                 <a
                   href="#project-intro"
                   className="inline-flex min-h-12 items-center gap-2 px-2 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 sm:justify-center"

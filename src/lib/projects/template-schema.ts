@@ -73,9 +73,10 @@ const asBoolean = (value: unknown): boolean | undefined => {
 
 const asStringArray = (value: unknown): string[] => {
   if (!Array.isArray(value)) return [];
-  return value
+  const normalized = value
     .map((item) => asString(item))
     .filter((item): item is string => Boolean(item));
+  return Array.from(new Set(normalized));
 };
 
 const asIntroParagraphs = (value: unknown): string[] => {

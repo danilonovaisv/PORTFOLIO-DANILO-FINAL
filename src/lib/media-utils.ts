@@ -8,7 +8,7 @@ export type MediaAspectRatio = 'horizontal' | 'vertical' | 'square';
  */
 export function getMediaAspectRatio(
     mediaUrl: string,
-    callback: (ratio: MediaAspectRatio) => void
+    callback: (_ratio: MediaAspectRatio) => void
 ): void {
     if (!mediaUrl) return;
 

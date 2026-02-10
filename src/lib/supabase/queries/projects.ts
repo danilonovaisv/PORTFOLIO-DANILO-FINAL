@@ -17,6 +17,7 @@ type ProjectFilters = {
 export type DbProjectWithTags = DbProject & {
   tags?: Array<{ tag: DbTag } | null> | null;
   landing_page_slug?: string | null;
+  landing_page?: { slug?: string | null } | null;
 };
 
 export async function listProjects(
@@ -29,9 +30,7 @@ export async function listProjects(
   // public_projects_view filters is_published=true by default.
   let query = supabase
     .from('public_projects_view')
-    .select(
-      '*, tags:portfolio_project_tags(tag:portfolio_tags(id, slug, label, kind)), landing_page_slug'
-    );
+    .select('*, tags:portfolio_project_tags(tag:portfolio_tags(id, slug, label, kind))');
 
   // [NOTE] includeUnpublished is now ignored for public lists.
   // Admin tools must use a separate admin-only query function.

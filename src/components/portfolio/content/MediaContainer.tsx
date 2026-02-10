@@ -2,7 +2,6 @@
 
 import { FC } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { isVideo } from '@/lib/utils';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { applyImageFallback } from '@/lib/utils';
@@ -12,8 +11,8 @@ interface MediaContainerProps {
     activeMedia: string;
     allMedia: string[];
     title: string;
-    onSelect: (media: string) => void;
-    onMainClick: (media: string) => void;
+    onSelect: (_media: string) => void;
+    onMainClick: (_media: string) => void;
     isMotion?: boolean;
 }
 

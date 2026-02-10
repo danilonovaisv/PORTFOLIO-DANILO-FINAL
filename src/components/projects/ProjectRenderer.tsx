@@ -4,8 +4,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
+import { CompoundPillCTA } from '@/components/ui/CompoundPillCTA';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { LandingPageBlock } from '@/types/landing-page';
 import {
@@ -81,25 +81,23 @@ function LegacyProjectRenderer({
             <div className="h-24 w-px bg-linear-to-b from-blue-600 to-transparent" />
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.72, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-6 flex justify-center"
-          >
-            <Link
-              href={backHref}
-              className="inline-flex min-h-12 items-center gap-3 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-            >
-              <span className="btn-icon-circle">
-                <ArrowLeft className="h-4 w-4" />
-              </span>
-              <span className="text-[11px] uppercase tracking-[0.14em] text-white/88">
-                {LANDING_PAGE_BACK.label}
-              </span>
-            </Link>
-          </motion.div>
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.72, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="pointer-events-auto absolute inset-x-0 bottom-8 z-20"
+        >
+          <div className="std-grid flex justify-start">
+            <CompoundPillCTA
+              href={backHref}
+              label={LANDING_PAGE_BACK.label}
+              size="compact"
+              direction="back"
+            />
+          </div>
+        </motion.div>
       </section>
 
       <div className="space-y-32 pb-32 md:space-y-64">

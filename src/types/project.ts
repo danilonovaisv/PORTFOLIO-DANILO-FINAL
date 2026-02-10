@@ -28,6 +28,7 @@ export interface PortfolioProject {
   // ... (existing fields)
   featuredOnPortfolio?: boolean;
   landingPageSlug?: string | null;
+  thumbnailMedia?: string;
   /** Link direto para redirecionamento (ex: Landing Pages) */
   link?: string;
 }
@@ -106,6 +107,8 @@ export interface PortfolioProject {
   hoverImage?: string;
   /** Vídeo de preview (opcional, para motion) */
   videoPreview?: string;
+  /** Thumb principal definido no admin (imagem ou vídeo) */
+  thumbnailMedia?: string;
   /** Tipo de layout: A (grande) ou B (pequeno) */
   type: ProjectType;
   /** Configuração de layout no grid */

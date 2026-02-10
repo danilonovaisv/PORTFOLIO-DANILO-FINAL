@@ -98,7 +98,7 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   return (
     <motion.div
       style={{ x, opacity, filter: blur }}
-      className="fixed bottom-[25%] left-0 right-0 z-[60] text-center pointer-events-none px-8"
+      className="fixed bottom-[25%] left-0 right-0 z-[64] text-center pointer-events-none px-8"
     >
       {/* 🟣 [CONFIG VISUAL]: Define cor e tamanho do texto (Mobile: clamp 2rem-3.5rem) */}
       <span className="text-blueAccent italic font-bold text-[clamp(2rem,6vw,3.5rem)] leading-[1.4] tracking-widest block w-full mx-auto">

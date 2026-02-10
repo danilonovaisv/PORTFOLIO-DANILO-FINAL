@@ -12,13 +12,19 @@ import { lerp } from '@/lib/utils';
 type TrackRef =
   | React.RefObject<HTMLElement | null>
   | React.MutableRefObject<HTMLElement | null>;
+type GalleryRef =
+  | React.RefObject<HTMLElement | null>
+  | React.MutableRefObject<HTMLElement | null>;
 
-export const useLERPScroll = (trackRef: TrackRef, enabled = true) => {
+export const useLERPScroll = (
+  trackRef: TrackRef,
+  galleryRef: GalleryRef,
+  enabled = true
+) => {
   const [isSticky, setIsSticky] = useState(false);
   const startY = useRef(0);
   const endY = useRef(0);
   const rafId = useRef<number | null>(null);
-  const galleryRef = useRef<HTMLElement | null>(null);
   const heroOffset = useRef(0);
   const maxScroll = useRef(0);
   const stickyState = useRef(false);
@@ -28,11 +34,6 @@ export const useLERPScroll = (trackRef: TrackRef, enabled = true) => {
     if (!enabled) {
       setIsSticky(false);
       return undefined;
-    }
-
-    // Resolve the gallery wrapper (main element with class "gallery")
-    if (!galleryRef.current) {
-      galleryRef.current = document.querySelector('.gallery');
     }
 
     const track = trackRef.current;
@@ -62,10 +63,10 @@ export const useLERPScroll = (trackRef: TrackRef, enabled = true) => {
       );
 
       maxScroll.current = Math.max(0, trackHeight - availableViewport);
-      const wrapperHeight = Math.max(
-        trackHeight,
-        viewportHeight + maxScroll.current
-      );
+      const wrapperHeight =
+        maxScroll.current > 0
+          ? trackHeight + stickyTopOffset.current
+          : trackHeight;
 
       gallery.style.height = `${wrapperHeight}px`;
     };
@@ -157,7 +158,7 @@ export const useLERPScroll = (trackRef: TrackRef, enabled = true) => {
       stickyState.current = false;
       setIsSticky(false);
     };
-  }, [enabled, trackRef]);
+  }, [enabled, galleryRef, trackRef]);
 
   return { galleryRef, isSticky } as const;
 };

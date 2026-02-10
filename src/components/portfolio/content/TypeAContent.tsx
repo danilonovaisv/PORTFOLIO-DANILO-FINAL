@@ -19,11 +19,21 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
 
   // [BUG FIX #9]: Prioritize video for motion projects
   const heroMedia = useMemo(() => {
+    if (project.thumbnailMedia) {
+      return project.thumbnailMedia;
+    }
     if (project.category === 'motion' && project.videoPreview) {
       return project.videoPreview;
     }
     return project.imageLandscape ?? project.imageSquare ?? project.image;
-  }, [project.category, project.videoPreview, project.image, project.imageLandscape, project.imageSquare]);
+  }, [
+    project.thumbnailMedia,
+    project.category,
+    project.videoPreview,
+    project.image,
+    project.imageLandscape,
+    project.imageSquare,
+  ]);
 
   return (
     <div className="w-full">

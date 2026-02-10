@@ -13,7 +13,7 @@ type HomeProjectRow =
     tags?: Array<{
       tag?: { id: string; slug: string; label: string; kind: string } | null;
     }> | null;
-    landing_page?: { slug: string } | null;
+    landing_page_slug?: string | null;
   };
 
 type FeaturedProjectsRealtimeProps = {
@@ -25,37 +25,61 @@ export default function FeaturedProjectsRealtime({
 }: FeaturedProjectsRealtimeProps) {
   const supabase = useMemo(() => createClientComponentClient(), []);
   const [projects, setProjects] = useState<PortfolioProject[]>(initialProjects);
+  const isDev = process.env.NODE_ENV !== 'production';
 
   const loadFeaturedProjects = useCallback(async () => {
-    const { data, error } = await supabase
-      .from('public_projects_view')
-      .select(
-        '*, tags:portfolio_project_tags(tag:portfolio_tags(id, slug, label, kind)), landing_page:landing_pages(slug)'
-      )
-      .eq('featured_on_home', true)
-      // .eq('is_published', true) -- Implicit in View
-      .order('featured_portfolio_order', {
-        ascending: true,
-        nullsFirst: false,
-      });
-
-    if (error) {
-      console.error(
-        '[FeaturedProjectsRealtime] Failed to load projects:',
-        error.message
-      );
-      return;
-    }
-
-    const nextProjects = ((data as HomeProjectRow[]) ?? []).map(
-      (project, index) =>
-        mapDbProjectToPortfolioProject(
-          project as unknown as DbProjectWithTags,
-          index
+    try {
+      const { data, error } = await supabase
+        .from('public_projects_view')
+        .select(
+          '*, tags:portfolio_project_tags(tag:portfolio_tags(id, slug, label, kind))'
         )
-    );
-    setProjects(nextProjects);
-  }, [supabase]);
+        .eq('featured_on_home', true)
+        // .eq('is_published', true) -- Implicit in View
+        .order('featured_home_order', {
+          ascending: true,
+          nullsFirst: false,
+        });
+
+      if (error) {
+        if (isDev) {
+          console.warn(
+            '[FeaturedProjectsRealtime] Supabase unavailable, keeping current project set.',
+            error.message
+          );
+        }
+        setProjects((current) =>
+          current.length > 0 ? current : initialProjects
+        );
+        return;
+      }
+
+      const nextProjects = ((data as HomeProjectRow[]) ?? []).map(
+        (project, index) =>
+          mapDbProjectToPortfolioProject(
+            project as unknown as DbProjectWithTags,
+            index
+          )
+      );
+
+      if (nextProjects.length === 0) {
+        setProjects((current) =>
+          current.length > 0 ? current : initialProjects
+        );
+        return;
+      }
+
+      setProjects(nextProjects);
+    } catch (error) {
+      if (isDev) {
+        console.warn(
+          '[FeaturedProjectsRealtime] Failed to load projects:',
+          error
+        );
+      }
+      setProjects((current) => (current.length > 0 ? current : initialProjects));
+    }
+  }, [initialProjects, isDev, supabase]);
 
   useEffect(() => {
     void loadFeaturedProjects();
@@ -115,17 +139,21 @@ export default function FeaturedProjectsRealtime({
                 startPolling();
               }
               if (status === 'CHANNEL_ERROR') {
-                console.error(
-                  '[FeaturedProjectsRealtime] Subscription error:',
-                  err
-                );
+                if (isDev) {
+                  console.warn(
+                    '[FeaturedProjectsRealtime] Subscription error:',
+                    err
+                  );
+                }
               }
             });
         } catch (error) {
-          console.error(
-            '[FeaturedProjectsRealtime] Failed to initialize realtime auth:',
-            error
-          );
+          if (isDev) {
+            console.warn(
+              '[FeaturedProjectsRealtime] Failed to initialize realtime auth:',
+              error
+            );
+          }
         }
       };
       void setup();
@@ -134,10 +162,12 @@ export default function FeaturedProjectsRealtime({
       // or handle it here if we merge topics. For now, project updates are the main driver.
 
     } catch (error) {
-      console.error(
-        '[FeaturedProjectsRealtime] Failed to initialize realtime channel:',
-        error
-      );
+      if (isDev) {
+        console.warn(
+          '[FeaturedProjectsRealtime] Failed to initialize realtime channel:',
+          error
+        );
+      }
     }
 
     return () => {

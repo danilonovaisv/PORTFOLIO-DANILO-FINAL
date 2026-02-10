@@ -20,7 +20,7 @@ interface ContentContainerProps {
 export const ContentContainer: FC<ContentContainerProps> = ({
     project,
     shouldReduce = false,
-    accentColor
+    accentColor: _accentColor
 }) => {
     const fadeInUpVariants = getFadeInUp(shouldReduce);
 
@@ -108,9 +108,9 @@ export const ContentContainer: FC<ContentContainerProps> = ({
                     {/* Tags */}
                     {project.tags && (
                         <div className="flex flex-wrap gap-2">
-                            {project.tags.map((tag) => (
+                            {project.tags.map((tag, tagIndex) => (
                                 <span
-                                    key={tag}
+                                    key={`${project.id}-${tag}-${tagIndex}`}
                                     className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/60 px-1.5 py-0.5 text-[0.5rem] text-center uppercase tracking-[0.18em] text-void"
                                 >
                                     {tag}

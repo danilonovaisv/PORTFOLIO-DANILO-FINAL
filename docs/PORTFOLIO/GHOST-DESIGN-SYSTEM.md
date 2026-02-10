@@ -42,13 +42,13 @@
 | `.text-h2` | `2.5rem` (40px) | `1.5rem` (24px) | SemiBold (600)| 1.15 |
 | `.text-h3` | `1.75rem` (28px) | `1.25rem` (20px) | Medium (500) | 1.2 |
 | `.text-body-enhanced` | `1.25rem` (20px) | `1.125rem` (18px) | Medium (500) | 1.5 |
-| `.text-body` | `1.125rem` (18px)| `1.25rem` (20px) | Medium (500) | 1.45 |
+| `.text-body` | `1.125rem` (18px)| `1.25rem` ~ `1.375rem` (20px ~ 22px) | Medium (500) | 1.4 |
 | `.text-small` | `0.875rem` (14px)| `0.875rem` | Regular | 1.4 |
 | `.text-micro` | `0.75rem` (12px) | `0.75rem` | Mono | 1.4 |
 
 **Mobile Readability Token (mandatory):**
 
-- `--font-body-mobile: 1.25rem` (20px)
+- `--font-body-mobile: clamp(1.25rem, 4.6vw, 1.375rem)` (20px ~ 22px)
 - Applied automatically to `.text-body` under `max-width: 767px`.
 
 ### 1.3 Spacing & Grid (The Rhythm)
@@ -141,6 +141,11 @@
 - **Hover**: Purple (`--color-purpleDetails`).
 - **Icon**: `ArrowUpRight` (White).
 - **Usage**: Project Cards, Secondary actions.
+
+#### Landing Back CTA (`<CompoundPillCTA />`)
+
+- **Usage:** Hero footer, left side, for contextual "voltar ao portfólio".
+- **Variant:** `size="compact"` and `direction="back"` for landing pages.
 
 #### Primary CTA (`<AntigravityCTA />`)
 
