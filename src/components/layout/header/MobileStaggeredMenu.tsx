@@ -116,7 +116,7 @@ export default function MobileStaggeredMenu({
   }, [open]);
 
   return (
-    <div className="lg:hidden relative z-60">
+    <div className="lg:hidden relative z-[1000]">
       <MobileHeaderBar
         logoUrl={logoUrl}
         onLogoClick={() => {

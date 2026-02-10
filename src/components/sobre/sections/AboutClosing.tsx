@@ -32,7 +32,7 @@ export function AboutClosing() {
         variants={motionTokens.fadeGhost}
         initial={prefersReducedMotion ? 'visible' : 'hidden'}
         whileInView="visible"
-        viewport={{ once: true, margin: '-80px' }}
+        viewport={{ once: false, margin: '-80px' }}
         className="w-full flex flex-col items-center text-center"
       >
         {/* Bloco 1: Título Principal e Linhas */}

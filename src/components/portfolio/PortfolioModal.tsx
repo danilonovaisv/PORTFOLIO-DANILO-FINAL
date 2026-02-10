@@ -99,7 +99,7 @@ export const PortfolioModal = ({
         <>
           <motion.div
             key="backdrop"
-            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md"
+            className="fixed inset-0 z-[1200] bg-black/90 backdrop-blur-md"
             variants={backdropVariants}
             initial="hidden"
             animate="visible"
@@ -118,7 +118,7 @@ export const PortfolioModal = ({
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-0 z-[60] overflow-y-auto"
+            className="fixed inset-0 z-[1210] overflow-y-auto"
           >
             <div className="min-h-full flex items-start justify-center p-4 md:p-8 lg:p-12">
               <div className="relative w-full max-w-5xl rounded-3xl border border-white/10 bg-[#0c1024] text-white shadow-[0_24px_90px_-30px_rgba(0,0,0,0.6)]">
@@ -126,7 +126,7 @@ export const PortfolioModal = ({
                   ref={closeRef}
                   onClick={onClose}
                   aria-label="Fechar modal"
-                  className="fixed top-6 right-6 z-[70] flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                  className="fixed top-6 right-6 z-[1220] flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                 >
                   <X size={22} />
                 </button>

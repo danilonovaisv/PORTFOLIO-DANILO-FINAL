@@ -99,7 +99,7 @@ export default function AboutMethod() {
                 variants={motionTokens.fadeGhost}
                 initial={prefersReducedMotion ? 'visible' : 'hidden'}
                 whileInView="visible"
-                viewport={{ once: true, margin: '-20%' }}
+                viewport={{ once: false, margin: '-20%' }}
                 className="mb-8 lg:mb-12 text-center lg:text-left"
               >
                 <h2 className="font-display leading-[1.08] tracking-[-0.02em] text-[clamp(32px,5vw,64px)] font-bold">
@@ -118,7 +118,7 @@ export default function AboutMethod() {
                 variants={motionTokens.fadeGhost}
                 initial={prefersReducedMotion ? 'visible' : 'hidden'}
                 whileInView="visible"
-                viewport={{ once: true, margin: '-20%' }}
+                viewport={{ once: false, margin: '-20%' }}
                 className="text-white type-h3 mb-12 lg:mb-16 text-center lg:text-left max-w-full lg:max-w-[550px]"
               >
                 {ABOUT_CONTENT.method.intro.map((line, i) => (
@@ -137,7 +137,7 @@ export default function AboutMethod() {
                 }}
                 initial={prefersReducedMotion ? 'visible' : 'hidden'}
                 whileInView="visible"
-                viewport={{ once: true, margin: '-10%' }}
+                viewport={{ once: false, margin: '-10%' }}
                 className="flex flex-col w-full"
               >
                 {ABOUT_CONTENT.method.steps.map((step) => (

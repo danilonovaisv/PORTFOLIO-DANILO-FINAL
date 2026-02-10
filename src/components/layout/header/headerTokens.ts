@@ -14,7 +14,9 @@ export const headerColors = {
 
 export const headerZ = {
   heroContent: 20,
-  header: 40,
+  header: 1000,
+  mobileMenu: 1100,
+  modal: 1200,
 };
 
 export const glassMotionTokens = {

@@ -84,7 +84,7 @@ export function AboutHero() {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
+              viewport={{ once: false, amount: 0.3 }}
               className="col-span-6 flex flex-col items-end text-right -translate-y-[10%]"
             >
               <div className="w-full flex flex-col items-end max-w-[750px] ml-auto">

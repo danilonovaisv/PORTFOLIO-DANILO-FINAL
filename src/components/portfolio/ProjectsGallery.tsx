@@ -40,10 +40,6 @@ export const ProjectsGallery = ({
   const trackRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const isMobile = useMediaQuery('(max-width: 640px)');
-  const useLerp = !prefersReducedMotion && !isMobile;
-
-  // Initialize LERP Scroll
-  const { galleryRef, isSticky } = useLERPScroll(trackRef, useLerp);
 
   // Filter logic
   const filteredProjects = useMemo(() => {
@@ -52,6 +48,12 @@ export const ProjectsGallery = ({
     if (!pillar || !('categories' in pillar)) return projects;
     return projects.filter((p) => pillar.categories.includes(p.category));
   }, [projects, activeFilter]);
+
+  // LERP only for larger sets to avoid end-of-list distortion in short galleries.
+  const useLerp = !prefersReducedMotion && !isMobile && filteredProjects.length > 6;
+
+  // Initialize LERP Scroll
+  const { galleryRef, isSticky } = useLERPScroll(trackRef, useLerp);
 
   const sizePattern = useMemo<ProjectCardSize[]>(
     () => ['lg', 'sm', 'sm', 'sm', 'sm', 'lg', 'sm', 'wide'],
@@ -111,28 +113,37 @@ export const ProjectsGallery = ({
         ref={galleryRef as RefObject<HTMLDivElement>}
       >
         <Container>
-          <div
-            ref={trackRef}
-            className={cn(
-              styles.track,
-              useLerp && isSticky
-                ? 'fixed left-0 right-0 top-[88px] md:top-24 z-10 max-w-[1680px] mx-auto px-6 md:px-12 lg:px-24'
-                : 'relative'
-            )}
-          >
-            <AnimatePresence mode="popLayout">
-              {items.map((item, index) => (
-                <ProjectCard
-                  key={item.project.id}
-                  project={item.project}
-                  index={index}
-                  size={item.size}
-                  onClick={onProjectSelect || onOpenProject}
-                  priority={index < 3}
-                />
-              ))}
-            </AnimatePresence>
-          </div>
+          {items.length === 0 ? (
+            <div className="relative rounded-2xl border border-white/10 bg-neutral/40 p-8 text-center">
+              <h3 className="text-lg font-semibold text-white">Nenhum projeto nesta categoria</h3>
+              <p className="mt-2 text-sm text-white/70">
+                Selecione outro filtro para visualizar os trabalhos disponíveis.
+              </p>
+            </div>
+          ) : (
+            <div
+              ref={trackRef}
+              className={cn(
+                styles.track,
+                useLerp && isSticky
+                  ? 'fixed left-0 right-0 top-[88px] md:top-24 z-10 max-w-[1680px] mx-auto px-6 md:px-12 lg:px-24'
+                  : 'relative'
+              )}
+            >
+              <AnimatePresence mode="popLayout">
+                {items.map((item, index) => (
+                  <ProjectCard
+                    key={item.project.id}
+                    project={item.project}
+                    index={index}
+                    size={item.size}
+                    onClick={onProjectSelect || onOpenProject}
+                    priority={index < 3}
+                  />
+                ))}
+              </AnimatePresence>
+            </div>
+          )}
         </Container>
       </div>
     </section>

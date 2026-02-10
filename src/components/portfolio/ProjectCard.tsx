@@ -40,13 +40,13 @@ export const ProjectCard = ({
     ? {
       initial: { opacity: 0 },
       whileInView: { opacity: 1 },
-      viewport: { once: true },
+      viewport: { once: false, amount: 0.2 },
       transition: { duration: 0.2 },
     }
     : {
-      initial: { opacity: 0, y: 12 },
-      whileInView: { opacity: 1, y: 0 },
-      viewport: { once: true, margin: '-10% 0px -10% 0px' },
+      initial: { opacity: 0, y: 12, filter: 'blur(8px)' },
+      whileInView: { opacity: 1, y: 0, filter: 'blur(0px)' },
+      viewport: { once: false, margin: '-10% 0px -10% 0px' },
       transition: {
         duration: 0.6,
         delay: Math.min(0.18, index * 0.03),
@@ -110,7 +110,7 @@ export const ProjectCard = ({
               "absolute inset-0 h-full w-full",
               objectFit === 'contain' ? 'object-contain' : 'object-cover'
             )}
-            data-object-position={objectPosition}
+            style={{ objectPosition }}
           />
         ) : (
           <Image
@@ -121,6 +121,7 @@ export const ProjectCard = ({
               "object-center",
               objectFit === 'contain' ? 'object-contain' : 'object-cover'
             )}
+            style={{ objectPosition }}
             sizes={sizes}
             priority={priority}
             onError={applyImageFallback}

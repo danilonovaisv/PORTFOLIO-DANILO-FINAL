@@ -36,38 +36,46 @@ export function useOriginAnimations({
         const blocks = archEl.querySelectorAll('[data-origin-block]');
         const images = archRightEl.querySelectorAll('.origin-img');
         const maskOverlays = archRightEl.querySelectorAll('.origin-mask');
+        const triggers: ScrollTrigger[] = [];
 
         if (blocks.length === 0 || images.length === 0) return;
 
-        gsap.set(images, {
-          clipPath: 'inset(100% 0% 0% 0%)',
-          opacity: 0.85,
-          filter: 'blur(4px)',
-        });
-        gsap.set(images[0], {
-          clipPath: 'inset(0% 0% 0% 0%)',
-          opacity: 1,
-          filter: 'blur(0px)',
-        });
-
-        gsap.set(maskOverlays, { scaleY: 1, transformOrigin: 'top center' });
-        gsap.set(maskOverlays[0], { scaleY: 0 });
+        const setInitialState = () => {
+          gsap.set(images, {
+            clipPath: 'inset(100% 0% 0% 0%)',
+            opacity: 0.85,
+            filter: 'blur(4px)',
+          });
+          gsap.set(images[0], {
+            clipPath: 'inset(0% 0% 0% 0%)',
+            opacity: 1,
+            filter: 'blur(0px)',
+          });
+          gsap.set(maskOverlays, { scaleY: 1, transformOrigin: 'top center' });
+          gsap.set(maskOverlays[0], { scaleY: 0 });
+        };
+        setInitialState();
 
         blocks.forEach((block, index) => {
-          ScrollTrigger.create({
+          const trigger = ScrollTrigger.create({
             trigger: block,
             start: 'top 75%', // Reveal image earlier (before text fully enters center)
             onEnter: () => revealImage(index, 'down'),
             onEnterBack: () => revealImage(index, 'up'),
+            onLeaveBack: () => {
+              if (index === 0) setInitialState();
+            },
           });
+          triggers.push(trigger);
         });
 
-        ScrollTrigger.create({
+        const endTrigger = ScrollTrigger.create({
           trigger: archEl,
           start: 'bottom 80%',
           onEnter: () => hideLastImage(),
-          onLeaveBack: () => revealImage(contentCount - 1, 'up'),
+          onLeaveBack: () => setInitialState(),
         });
+        triggers.push(endTrigger);
 
         function revealImage(activeIndex: number, direction: 'up' | 'down') {
           const duration = 0.8;
@@ -115,18 +123,18 @@ export function useOriginAnimations({
         gsap.from(archRightEl, {
           opacity: 0,
           y: 60,
-          scale: 0.95,
           duration: 1.2,
           delay: 0.2,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: archEl,
             start: 'top 85%',
-            toggleActions: 'play none none reverse',
+            toggleActions: 'play reverse play reverse',
+            onLeaveBack: setInitialState,
           },
         });
 
-        gsap.to(archRightEl, {
+        const parallaxTween = gsap.to(archRightEl, {
           y: -40,
           ease: 'none',
           scrollTrigger: {
@@ -136,11 +144,17 @@ export function useOriginAnimations({
             scrub: 1,
           },
         });
+        if (parallaxTween.scrollTrigger) {
+          triggers.push(parallaxTween.scrollTrigger);
+        }
+
+        return () => {
+          triggers.forEach((trigger) => trigger.kill());
+        };
       }, archEl);
 
       return () => {
         ctx.revert();
-        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
       };
     });
 

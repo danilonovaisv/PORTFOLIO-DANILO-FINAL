@@ -134,9 +134,9 @@ export function AboutWhatIDo() {
             {SERVICES.map((service, index) => (
               <motion.article
                 key={service.id}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, margin: '-5%' }}
+                initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
+                whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                viewport={{ once: false, margin: '-5%' }}
                 transition={{
                   duration: 0.4,
                   delay: index * 0.06,
@@ -197,7 +197,7 @@ export function AboutWhatIDo() {
                     : { opacity: 0, x: 80 }
                 }
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: '-10%' }}
+                viewport={{ once: false, margin: '-10%' }}
                 transition={{
                   duration: 0.4,
                   delay: index * 0.08,

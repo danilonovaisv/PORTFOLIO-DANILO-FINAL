@@ -32,7 +32,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-10%' }}
+            viewport={{ once: false, margin: '-10%' }}
             transition={{
               duration: 0.6,
               delay: 0.1,
@@ -46,7 +46,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-10%' }}
+            viewport={{ once: false, margin: '-10%' }}
             transition={{
               duration: 0.6,
               delay: 0.2,
@@ -62,7 +62,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
         <motion.div
           initial={{ clipPath: 'inset(100% 0% 0% 0%)', opacity: 0.85 }}
           whileInView={{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 }}
-          viewport={{ once: true, margin: '-10%' }}
+          viewport={{ once: false, margin: '-10%' }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="relative w-full aspect-square min-h-[240px] rounded-[1.5rem] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] lg:hidden"
         >

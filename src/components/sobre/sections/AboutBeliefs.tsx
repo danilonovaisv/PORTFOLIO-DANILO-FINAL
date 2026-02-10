@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { useScroll, MotionValue } from 'framer-motion';
+import { useScroll, MotionValue, useReducedMotion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 
 // Importações dos sub-componentes (Certifique-se que os caminhos estão corretos)
@@ -48,6 +48,7 @@ const COLORS = [
 
 export function AboutBeliefs() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end end'],
@@ -56,7 +57,7 @@ export function AboutBeliefs() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full"
+      className="relative isolate w-full"
       style={{ minHeight: `${(PHRASES.length + 2) * 100}vh` }} // Garante altura baseada no conteúdo
     >
       <BeliefFixedHeader scrollProgress={scrollYProgress} />
@@ -79,21 +80,20 @@ export function AboutBeliefs() {
       </div>
 
       {/* LAYER 2: Texto Mobile Fixed no Footer */}
-      <BeliefMobileTextLayer
-        phrases={PHRASES}
-        scrollYProgress={scrollYProgress}
-      />
+      <BeliefMobileTextLayer phrases={PHRASES} scrollYProgress={scrollYProgress} />
 
       {/* LAYER 4: Final Text Overlay (Z-40) - Background for Ghost */}
-      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-40">
+      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-30">
         <BeliefFinalSectionOverlay />
       </div>
 
-      {/* LAYER 3: Canvas 3D (Sticky - Top Layer Z-60) */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none z-60">
-        <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-auto flex md:items-center md:justify-center items-end justify-start">
-          <div className="w-full h-full md:absolute md:inset-0 relative">
-            <GhostScene scrollProgress={scrollYProgress} />
+      {/* LAYER 3: Canvas 3D abaixo do header (safe zone no topo) */}
+      <div className="absolute inset-0 z-20 w-full h-full pointer-events-none" aria-hidden>
+        <div className="sticky top-0 flex h-screen w-full items-end justify-start overflow-hidden pointer-events-none md:items-center md:justify-center">
+          <div className="relative mt-24 h-[calc(100vh-96px)] w-full md:absolute md:inset-x-0 md:bottom-0 md:mt-0 md:h-[calc(100vh-112px)]">
+            {!prefersReducedMotion ? (
+              <GhostScene scrollProgress={scrollYProgress} />
+            ) : null}
           </div>
         </div>
       </div>

@@ -79,6 +79,14 @@ export const useLERPScroll = (trackRef: TrackRef, enabled = true) => {
         rafId.current = requestAnimationFrame(animate);
       }
     };
+    const onResize = () => {
+      calculateHeroOffset();
+      updateHeight();
+    };
+    const onLoad = () => {
+      calculateHeroOffset();
+      updateHeight();
+    };
 
     // Keep height in sync when content changes
     const resizeObserver = new ResizeObserver(() => {
@@ -94,19 +102,13 @@ export const useLERPScroll = (trackRef: TrackRef, enabled = true) => {
     rafId.current = requestAnimationFrame(animate);
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', () => {
-      calculateHeroOffset();
-      updateHeight();
-    });
-    window.addEventListener('load', () => {
-      calculateHeroOffset();
-      updateHeight();
-    });
+    window.addEventListener('resize', onResize);
+    window.addEventListener('load', onLoad);
 
     return () => {
       window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', updateHeight);
-      window.removeEventListener('load', updateHeight);
+      window.removeEventListener('resize', onResize);
+      window.removeEventListener('load', onLoad);
       resizeObserver.disconnect();
 
       if (rafId.current) {
