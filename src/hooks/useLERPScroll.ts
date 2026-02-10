@@ -20,6 +20,9 @@ export const useLERPScroll = (trackRef: TrackRef, enabled = true) => {
   const rafId = useRef<number | null>(null);
   const galleryRef = useRef<HTMLElement | null>(null);
   const heroOffset = useRef(0);
+  const maxScroll = useRef(0);
+  const stickyState = useRef(false);
+  const stickyTopOffset = useRef(88);
 
   useEffect(() => {
     if (!enabled) {
@@ -39,31 +42,54 @@ export const useLERPScroll = (trackRef: TrackRef, enabled = true) => {
       return undefined;
     }
 
-    // Calculate hero offset - distance from page top to gallery section
+    const resolveStickyTop = () => (window.innerWidth >= 768 ? 96 : 88);
+
+    // Calculate gallery start offset from page top
     const calculateHeroOffset = () => {
       const galleryRect = gallery.getBoundingClientRect();
       const currentScroll = window.scrollY;
-      // The gallery's position from document top
       heroOffset.current = galleryRect.top + currentScroll;
     };
 
     const updateHeight = () => {
-      // Total scrollable height = track height + hero offset
-      // Added a small buffer to avoid jitter at the end
-      gallery.style.height = `${track.clientHeight + heroOffset.current}px`;
+      stickyTopOffset.current = resolveStickyTop();
+
+      const trackHeight = track.scrollHeight;
+      const viewportHeight = window.innerHeight;
+      const availableViewport = Math.max(
+        1,
+        viewportHeight - stickyTopOffset.current
+      );
+
+      maxScroll.current = Math.max(0, trackHeight - availableViewport);
+      const wrapperHeight = Math.max(
+        trackHeight,
+        viewportHeight + maxScroll.current
+      );
+
+      gallery.style.height = `${wrapperHeight}px`;
     };
 
     const animate = () => {
       startY.current = lerp(startY.current, endY.current, 0.05);
 
-      // Determine sticky state based on eased scroll
-      const active = startY.current >= heroOffset.current;
-      setIsSticky(active);
+      const rawOffset = startY.current - heroOffset.current;
+      const hasScrollableRange = maxScroll.current > 0.5;
+      const clampedOffset = hasScrollableRange
+        ? Math.max(0, Math.min(rawOffset, maxScroll.current))
+        : 0;
+      const active =
+        hasScrollableRange &&
+        rawOffset >= 0 &&
+        rawOffset <= maxScroll.current + 0.5;
 
-      // Only translate when scrolled past hero
-      const scrollOffset = Math.max(0, startY.current - heroOffset.current);
+      if (stickyState.current !== active) {
+        stickyState.current = active;
+        setIsSticky(active);
+      }
+
       if (track) {
-        track.style.transform = `translateY(-${scrollOffset}px)`;
+        track.style.transform = `translateY(-${clampedOffset}px)`;
       }
 
       if (Math.abs(startY.current - endY.current) > 0.1) {
@@ -82,10 +108,18 @@ export const useLERPScroll = (trackRef: TrackRef, enabled = true) => {
     const onResize = () => {
       calculateHeroOffset();
       updateHeight();
+      endY.current = window.scrollY;
+      if (!rafId.current) {
+        rafId.current = requestAnimationFrame(animate);
+      }
     };
     const onLoad = () => {
       calculateHeroOffset();
       updateHeight();
+      endY.current = window.scrollY;
+      if (!rafId.current) {
+        rafId.current = requestAnimationFrame(animate);
+      }
     };
 
     // Keep height in sync when content changes
@@ -98,6 +132,7 @@ export const useLERPScroll = (trackRef: TrackRef, enabled = true) => {
     // Initial setup
     calculateHeroOffset();
     updateHeight();
+    startY.current = window.scrollY;
     endY.current = window.scrollY;
     rafId.current = requestAnimationFrame(animate);
 
@@ -119,6 +154,8 @@ export const useLERPScroll = (trackRef: TrackRef, enabled = true) => {
       // Reset inline styles
       if (track) track.style.transform = '';
       if (gallery) gallery.style.height = 'auto';
+      stickyState.current = false;
+      setIsSticky(false);
     };
   }, [enabled, trackRef]);
 

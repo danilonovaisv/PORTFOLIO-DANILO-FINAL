@@ -18,6 +18,7 @@ export function ImageLightbox({ isOpen, src, alt, onClose }: ImageLightboxProps)
   const shouldReduceMotion = useReducedMotion();
   const [mounted, setMounted] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const lastFocusRef = useRef<HTMLElement | null>(null);
 
   useBodyLock(isOpen);
@@ -47,6 +48,14 @@ export function ImageLightbox({ isOpen, src, alt, onClose }: ImageLightboxProps)
       document.removeEventListener('keydown', onKeyDown);
     };
   }, [isOpen, onClose]);
+
+  useEffect(() => {
+    if (!isOpen || !src || !isVideo(src) || !videoRef.current) return;
+
+    const video = videoRef.current;
+    video.muted = false;
+    void video.play().catch(() => undefined);
+  }, [isOpen, src]);
 
   if (!mounted) return null;
 
@@ -92,12 +101,18 @@ export function ImageLightbox({ isOpen, src, alt, onClose }: ImageLightboxProps)
             <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-black/60">
               {isVideo(src) ? (
                 <video
+                  ref={videoRef}
                   src={src}
                   className="h-full w-full object-contain"
                   controls
                   autoPlay
-                  muted
+                  muted={false}
                   playsInline
+                  preload="metadata"
+                  onLoadedMetadata={(event) => {
+                    event.currentTarget.muted = false;
+                    void event.currentTarget.play().catch(() => undefined);
+                  }}
                 />
               ) : (
                 // eslint-disable-next-line @next/next/no-img-element

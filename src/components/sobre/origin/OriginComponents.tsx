@@ -30,12 +30,12 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
         {/* Text Content - Mobile */}
         <div className="text-center px-4">
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, margin: '-10%' }}
             transition={{
               duration: 0.6,
-              delay: 0.1,
+              delay: 0.24,
               ease: [0.22, 1, 0.36, 1],
             }}
             className="text-h2 font-bold text-bluePrimary mb-4"
@@ -44,15 +44,15 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, margin: '-10%' }}
             transition={{
               duration: 0.6,
-              delay: 0.2,
+              delay: 0.32,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="text-body text-white/70 leading-relaxed whitespace-pre-line text-pretty"
+            className="text-h3 font-medium text-white/88 leading-relaxed whitespace-pre-line text-pretty"
           >
             {block.paragraph}
           </motion.p>
@@ -63,7 +63,11 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
           initial={{ clipPath: 'inset(100% 0% 0% 0%)', opacity: 0.85 }}
           whileInView={{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 }}
           viewport={{ once: false, margin: '-10%' }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          transition={{
+            duration: 0.72,
+            delay: 0.08,
+            ease: [0.22, 1, 0.36, 1],
+          }}
           className="relative w-full aspect-square min-h-[240px] rounded-[1.5rem] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] lg:hidden"
         >
           <DynamicAssetImage
@@ -78,11 +82,17 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
 
       {/* Desktop: Text Content Only (controlled by native scroll) */}
       <div className="hidden lg:block lg:max-w-md relative z-10 transition-opacity duration-500">
-        <h2 className="text-h2 font-bold text-bluePrimary mb-6 tracking-wide translate-y-0 opacity-100">
+        <h2
+          data-origin-title
+          className="text-h2 font-bold text-bluePrimary mb-6 tracking-wide translate-y-0 opacity-100"
+        >
           {block.title}
         </h2>
 
-        <p className="text-body text-white/70 leading-relaxed whitespace-pre-line text-pretty translate-y-0 opacity-100">
+        <p
+          data-origin-copy
+          className="text-h3 font-medium text-white/82 leading-relaxed whitespace-pre-line text-pretty translate-y-0 opacity-100"
+        >
           {block.paragraph}
         </p>
       </div>

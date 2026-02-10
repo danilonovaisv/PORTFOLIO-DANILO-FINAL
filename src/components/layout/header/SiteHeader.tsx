@@ -26,8 +26,9 @@ function getHashFromHref(href: string) {
 function scrollToHash(hashHref: string) {
   const id = hashHref.replace('#', '');
   const el = document.getElementById(id);
-  if (!el) return;
+  if (!el) return false;
   el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  return true;
 }
 
 function isExternalHref(href: string) {
@@ -83,8 +84,14 @@ export default function SiteHeader({
           href.startsWith('#') || (href.startsWith('/#') && isHomePage);
 
         if (isTargetingCurrentPageHash) {
-          scrollToHash(hash);
           setIsOpen(false);
+
+          window.requestAnimationFrame(() => {
+            const didScroll = scrollToHash(hash);
+            if (!didScroll && hash === '#contact') {
+              router.push('/#contact');
+            }
+          });
           return;
         }
       }

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
+import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import {
   useCallback,
   useEffect,
@@ -13,11 +14,13 @@ import {
   type MouseEvent as ReactMouseEvent,
 } from 'react';
 import { ArrowLeft, Play, X } from 'lucide-react';
+import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { GHOST_EASE } from '@/config/motion';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
 import type { LandingPageBlock } from '@/types/landing-page';
 import type { MasterProjectTemplateV3Data } from '@/types/project-template';
+import { useLandingBackLink } from './useLandingBackLink';
 
 const LiquidEther = dynamic(() => import('./LiquidEther'), { ssr: false });
 const DEFAULT_ETHER_COLORS = ['#5227FF', '#FF9FFC', '#B19EEF'];
@@ -93,10 +96,41 @@ type ProjectTemplateALPARendererProps = {
 };
 
 const getYouTubeId = (url: string): string | null => {
-  const expression =
-    /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=|shorts\/)([^#&?]*).*/;
-  const match = url.match(expression);
-  return match && match[2].length === 11 ? match[2] : null;
+  const candidate = url.trim();
+  if (!candidate) return null;
+  if (/^[a-zA-Z0-9_-]{11}$/.test(candidate)) return candidate;
+
+  const withProtocol = candidate.startsWith('http')
+    ? candidate
+    : `https://${candidate}`;
+
+  try {
+    const parsed = new URL(withProtocol);
+    const host = parsed.hostname.replace(/^www\./, '');
+
+    if (host === 'youtu.be') {
+      const id = parsed.pathname.replace('/', '');
+      return id.length === 11 ? id : null;
+    }
+
+    if (host.endsWith('youtube.com')) {
+      const videoParam = parsed.searchParams.get('v');
+      if (videoParam && videoParam.length === 11) return videoParam;
+
+      const pathParts = parsed.pathname.split('/').filter(Boolean);
+      const embedIndex = pathParts.findIndex(
+        (part) => part === 'embed' || part === 'shorts' || part === 'v'
+      );
+      if (embedIndex >= 0) {
+        const id = pathParts[embedIndex + 1];
+        return id && id.length === 11 ? id : null;
+      }
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
 };
 
 const getAssetKind = (
@@ -202,7 +236,7 @@ function AssetLightbox({
         ) : asset.kind === 'youtube' && asset.youtubeId ? (
           <div className="aspect-video w-full bg-black">
             <iframe
-              src={`https://www.youtube.com/embed/${asset.youtubeId}?autoplay=1&mute=1&loop=1&playlist=${asset.youtubeId}&controls=0&modestbranding=1&rel=0`}
+              src={`https://www.youtube.com/embed/${asset.youtubeId}?autoplay=1&mute=0&loop=1&playlist=${asset.youtubeId}&controls=1&modestbranding=1&rel=0&playsinline=1`}
               title={asset.alt || 'Vídeo do YouTube'}
               className="h-full w-full border-none"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -215,10 +249,14 @@ function AssetLightbox({
             src={asset.src}
             poster={asset.poster}
             autoPlay
-            muted
-            loop
-            controls={false}
+            muted={false}
+            loop={false}
+            controls
             playsInline
+            onLoadedMetadata={(event) => {
+              event.currentTarget.muted = false;
+              void event.currentTarget.play().catch(() => undefined);
+            }}
           />
         )}
       </div>
@@ -251,6 +289,16 @@ function AssetInteractive({
   if (!src) return null;
 
   const resolved = resolveSiteAssetUrl(src);
+  if (!resolved) {
+    return (
+      <div
+        className={`flex min-h-[220px] items-center justify-center border border-white/15 bg-black/35 px-4 text-center text-sm text-white/72 ${className || ''}`}
+      >
+        Mídia indisponível
+      </div>
+    );
+  }
+
   const resolvedPoster = resolveSiteAssetUrl(poster);
   const youtubeId = kind === 'youtube' ? getYouTubeId(src) : null;
 
@@ -340,6 +388,7 @@ export default function ProjectTemplateALPARenderer({
   project,
 }: ProjectTemplateALPARendererProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const backHref = useLandingBackLink();
   const [zoomAsset, setZoomAsset] = useState<ZoomAsset | null>(null);
   const lastFocusedTriggerRef = useRef<HTMLElement | null>(null);
 
@@ -369,10 +418,6 @@ export default function ProjectTemplateALPARenderer({
   const heroLogo = project.hero_logo_image?.src
     ? resolveSiteAssetUrl(project.hero_logo_image.src)
     : '';
-
-  const backLabel = project.navigation?.back_label || 'voltar';
-  const ctaLabel = project.cta?.label || 'vamos trabalhar juntos →';
-  const ctaHref = project.cta?.href || '/#contact';
 
   const openAsset = useCallback(
     (asset: ZoomAsset, event: ReactMouseEvent<HTMLButtonElement>) => {
@@ -593,16 +638,6 @@ export default function ProjectTemplateALPARenderer({
         </div>
       )}
 
-      <Link
-        href="/portfolio"
-        className="fixed left-4 top-4 z-[60] inline-flex min-h-12 items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-      >
-        <span className="alpa-circle inline-flex h-12 w-12 items-center justify-center border border-white/40 bg-[#0000ff] text-white">
-          <ArrowLeft className="h-4 w-4" />
-        </span>
-        <span>{backLabel}</span>
-      </Link>
-
       <div className="relative z-10">
         <main>
           <section className="std-grid flex min-h-[82vh] items-center justify-center py-24 text-center">
@@ -650,6 +685,20 @@ export default function ProjectTemplateALPARenderer({
                 {project.project_tags.map((tag) => (
                   <span key={tag}>{tag}</span>
                 ))}
+              </div>
+
+              <div className="pt-4">
+                <Link
+                  href={backHref}
+                  className="inline-flex min-h-12 items-center gap-3 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                >
+                  <span className="btn-icon-circle">
+                    <ArrowLeft className="h-4 w-4" />
+                  </span>
+                  <span className="text-[11px] uppercase tracking-[0.14em] text-white/88">
+                    {LANDING_PAGE_BACK.label}
+                  </span>
+                </Link>
               </div>
             </motion.div>
           </section>
@@ -700,12 +749,13 @@ export default function ProjectTemplateALPARenderer({
               <h2 className="text-3xl font-semibold leading-tight md:text-5xl">
                 Vamos criar o próximo projeto?
               </h2>
-              <Link
-                href={ctaHref}
-                className="inline-flex min-h-12 items-center justify-center border border-transparent px-8 py-3 text-sm font-semibold uppercase tracking-[0.12em] text-white transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-                style={{ backgroundColor: accentColor }}
-              >
-                {ctaLabel}
+              <Link href={LANDING_PAGE_CTA.href} className="relative block">
+                <AntigravityCTA
+                  as="div"
+                  text={LANDING_PAGE_CTA.label}
+                  color={LANDING_PAGE_CTA.color}
+                  className="relative"
+                />
               </Link>
             </div>
           </motion.section>

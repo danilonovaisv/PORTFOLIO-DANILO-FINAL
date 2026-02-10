@@ -24,7 +24,11 @@ export default function PortfolioClient({ projects }: PortfolioClientProps) {
 
   const handleOpenProject = useCallback((project: PortfolioProject) => {
     if (project.landingPageSlug) {
-      router.push(`/projects/${project.landingPageSlug}`);
+      const params = new URLSearchParams({
+        from: 'portfolio',
+        originCard: project.slug,
+      });
+      router.push(`/projects/${project.landingPageSlug}?${params.toString()}`);
       return;
     }
     lastFocusedRef.current = document.activeElement as HTMLElement | null;

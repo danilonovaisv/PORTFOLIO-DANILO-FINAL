@@ -4,8 +4,9 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
+import AntigravityCTA from '@/components/ui/AntigravityCTA';
+import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { LandingPageBlock } from '@/types/landing-page';
 import {
   parseLandingPageContent,
@@ -20,6 +21,7 @@ import BlockRenderer from './BlockRenderer';
 import MasterProjectTemplate from './templates/MasterProjectTemplate';
 import ProjectTemplateMasterRenderer from './templates/ProjectTemplateMasterRenderer';
 import ProjectTemplateALPARenderer from './templates/ProjectTemplateALPARenderer';
+import { useLandingBackLink } from './templates/useLandingBackLink';
 
 interface ProjectRendererProps {
   project: {
@@ -38,12 +40,7 @@ function LegacyProjectRenderer({
   blocks: LandingPageBlock[];
 }) {
   const coverUrl = resolveSiteAssetUrl(project.cover ?? '');
-
-  const searchParams = useSearchParams();
-  const from = searchParams.get('from');
-  const backUrl = from === 'portfolio' ? '/portfolio' : '/';
-  const backLabel =
-    from === 'portfolio' ? 'Voltar ao Portfólio' : 'Voltar para Home';
+  const backHref = useLandingBackLink();
 
   return (
     <div className="bg-[#040013] text-white selection:bg-blue-600 selection:text-white">
@@ -66,20 +63,6 @@ function LegacyProjectRenderer({
           </motion.div>
         )}
 
-        <div className="pointer-events-none absolute top-0 left-0 z-50 flex w-full items-start justify-between p-6 md:p-10">
-          <Link
-            href={backUrl}
-            className="pointer-events-auto group flex items-center gap-3 text-white/50 transition-colors duration-300 hover:text-white"
-          >
-            <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-black/20 backdrop-blur-md transition-all group-hover:bg-white/10">
-              <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
-            </div>
-            <span className="-translate-x-2 text-sm font-medium uppercase tracking-widest opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
-              {backLabel}
-            </span>
-          </Link>
-        </div>
-
         <div className="std-grid relative z-10 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
@@ -96,6 +79,25 @@ function LegacyProjectRenderer({
             className="mt-12 flex justify-center"
           >
             <div className="h-24 w-px bg-linear-to-b from-blue-600 to-transparent" />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.72, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-6 flex justify-center"
+          >
+            <Link
+              href={backHref}
+              className="inline-flex min-h-12 items-center gap-3 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+            >
+              <span className="btn-icon-circle">
+                <ArrowLeft className="h-4 w-4" />
+              </span>
+              <span className="text-[11px] uppercase tracking-[0.14em] text-white/88">
+                {LANDING_PAGE_BACK.label}
+              </span>
+            </Link>
           </motion.div>
         </div>
       </section>
@@ -125,11 +127,13 @@ function LegacyProjectRenderer({
             Quer criar algo incrível?
           </h2>
           <div className="flex justify-center pt-8">
-            <Link
-              href="/#contact"
-              className="inline-block rounded-full bg-blue-600 px-12 py-5 text-lg font-bold transition-all duration-500 hover:bg-white hover:text-blue-600"
-            >
-              Vamos Conversar
+            <Link href={LANDING_PAGE_CTA.href} className="relative block">
+              <AntigravityCTA
+                as="div"
+                text={LANDING_PAGE_CTA.label}
+                color={LANDING_PAGE_CTA.color}
+                className="relative"
+              />
             </Link>
           </div>
         </div>

@@ -105,7 +105,7 @@
     "motion": "^12.34.0",
     "motion-studio-mcp": "https://api.motion.dev/registry.tgz?package=motion-studio-mcp&version=latest",
     "next": "^16.1.6",
-    "openai": "^6.19.0",
+    "openai": "^6.21.0",
     "postprocessing": "^6.38.2",
     "react": "^19.2.4",
     "react-day-picker": "^9.13.2",
@@ -136,7 +136,7 @@
     "@testing-library/user-event": "^14.6.1",
     "@types/handlebars": "^4.1.0",
     "@types/jest": "^30.0.0",
-    "@types/node": "25.2.2",
+    "@types/node": "25.2.3",
     "@types/react": "19.2.13",
     "@types/react-dom": "19.2.3",
     "@types/three": "^0.182.0",
@@ -169,7 +169,7 @@
     "tsx": "^4.21.0",
     "tweakpane": "^4.0.5",
     "typescript": "5.9.3",
-    "which": "6.0.0"
+    "which": "6.0.1"
   },
   "overrides": {
     "esbuild": "0.27.3",

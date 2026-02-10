@@ -163,10 +163,10 @@ export function AboutHero() {
             muted
             loop={shouldPlayVideo}
             poster={DEFAULT_VIDEO_POSTER}
-            className="absolute inset-0 w-full h-full object-cover object-top opacity-[0.78]"
+            className="absolute inset-0 w-full h-full object-cover object-top opacity-[0.62]"
             style={{ y: mediaY } as any}
           />
-          <div className="absolute inset-0 bg-linear-to-t from-background via-transparent to-transparent z-10" />
+          <div className="absolute inset-0 bg-linear-to-t from-background/95 via-background/72 to-transparent z-10" />
         </div>
         <div className="relative z-10 px-6 pt-10 pb-20 text-center">
           <motion.div
@@ -222,13 +222,9 @@ export function AboutHero() {
               </div>
             </motion.div>
 
-            {/* SUBTÍTULO MOBILE AJUSTADO
-                mix-blend-normal: Garante cor sólida no mobile (sem overlay)
-                md:mix-blend-difference: Aplica o efeito apenas em tablets/desktop se necessário
-            */}
             <motion.div
               variants={motionTokens.fadeGhost}
-              className="type-h2 text-white leading-snug tracking-tight max-w-[99%] mx-auto font-semibold mix-blend-normal md:mix-blend-difference"
+              className="text-h3 text-white/92 leading-snug tracking-tight max-w-[99%] mx-auto font-medium"
             >
               {ABOUT_CONTENT.hero.description.map((line, index) => (
                 <span key={index} className="block">

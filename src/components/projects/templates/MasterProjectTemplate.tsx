@@ -7,8 +7,10 @@ import Link from 'next/link';
 import { useMemo, useRef } from 'react';
 import { ArrowLeft, ArrowRight, ArrowDown } from 'lucide-react';
 import { GHOST_EASE } from '@/config/motion';
+import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
+import { useLandingBackLink } from './useLandingBackLink';
 import type {
   MasterProjectAsset,
   MasterProjectGalleryItem,
@@ -101,6 +103,7 @@ export default function MasterProjectTemplate({
   project,
 }: MasterProjectTemplateProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const backHref = useLandingBackLink();
   const heroRef = useRef<HTMLElement | null>(null);
 
   const { scrollYProgress } = useScroll({
@@ -135,14 +138,10 @@ export default function MasterProjectTemplate({
     ? { opacity: 1 }
     : { opacity: 1, y: 0, filter: 'blur(0px)' };
 
-  const backLabel = project.navigation?.back_label ?? 'voltar';
   const nextLabel = project.navigation?.next_label ?? 'próximo projeto';
   const nextHref = project.navigation?.next_project_slug
     ? `/projects/${project.navigation.next_project_slug}`
     : '/portfolio';
-
-  const ctaLabel = project.cta?.label ?? 'vamos trabalhar juntos →';
-  const ctaHref = project.cta?.href ?? '/#contact';
 
   return (
     <article className="bg-background text-[#fcffff]">
@@ -241,11 +240,15 @@ export default function MasterProjectTemplate({
 
           <div className="relative z-20 grid gap-2 pt-8 text-xs uppercase tracking-[0.14em] text-white/80 sm:flex sm:items-center sm:justify-between sm:gap-4">
             <Link
-              href="/portfolio"
-              className="inline-flex min-h-12 items-center gap-2 px-2 py-2 transition-opacity hover:opacity-80 sm:justify-start"
+              href={backHref}
+              className="inline-flex min-h-12 items-center gap-3 px-2 py-2 transition-opacity hover:opacity-80 sm:justify-start"
             >
-              <ArrowLeft className="h-4 w-4" />
-              {backLabel}
+              <span className="btn-icon-circle">
+                <ArrowLeft className="h-4 w-4" />
+              </span>
+              <span className="text-[11px] uppercase tracking-[0.14em] text-white/88">
+                {LANDING_PAGE_BACK.label}
+              </span>
             </Link>
 
             <a
@@ -270,7 +273,7 @@ export default function MasterProjectTemplate({
 
       <main>
         <motion.section
-          id="project-intro-legacy"
+          id="project-intro"
           className="std-grid py-20 md:py-28"
           initial={revealInitial}
           whileInView={revealVisible}
@@ -426,11 +429,11 @@ export default function MasterProjectTemplate({
                 </h2>
               </div>
 
-              <Link href={ctaHref} className="relative block">
+              <Link href={LANDING_PAGE_CTA.href} className="relative block">
                 <AntigravityCTA
                   as="div"
-                  text={ctaLabel}
-                  color={highlightColor}
+                  text={LANDING_PAGE_CTA.label}
+                  color={LANDING_PAGE_CTA.color}
                   className="relative"
                 />
               </Link>

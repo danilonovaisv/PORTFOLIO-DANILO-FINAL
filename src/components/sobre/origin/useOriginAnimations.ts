@@ -36,6 +36,11 @@ export function useOriginAnimations({
         const blocks = archEl.querySelectorAll('[data-origin-block]');
         const images = archRightEl.querySelectorAll('.origin-img');
         const maskOverlays = archRightEl.querySelectorAll('.origin-mask');
+        const titles = archEl.querySelectorAll('[data-origin-title]');
+        const copies = archEl.querySelectorAll('[data-origin-copy]');
+        const prefersReducedMotion = window.matchMedia(
+          '(prefers-reduced-motion: reduce)'
+        ).matches;
         const triggers: ScrollTrigger[] = [];
 
         if (blocks.length === 0 || images.length === 0) return;
@@ -53,13 +58,18 @@ export function useOriginAnimations({
           });
           gsap.set(maskOverlays, { scaleY: 1, transformOrigin: 'top center' });
           gsap.set(maskOverlays[0], { scaleY: 0 });
+
+          gsap.set(titles, { opacity: 0.45, y: 6, filter: 'blur(2px)' });
+          gsap.set(copies, { opacity: 0.4, y: 6, filter: 'blur(2px)' });
+          gsap.set(titles[0], { opacity: 1, y: 0, filter: 'blur(0px)' });
+          gsap.set(copies[0], { opacity: 0.82, y: 0, filter: 'blur(0px)' });
         };
         setInitialState();
 
         blocks.forEach((block, index) => {
           const trigger = ScrollTrigger.create({
             trigger: block,
-            start: 'top 75%', // Reveal image earlier (before text fully enters center)
+            start: 'top 82%',
             onEnter: () => revealImage(index, 'down'),
             onEnterBack: () => revealImage(index, 'up'),
             onLeaveBack: () => {
@@ -78,8 +88,8 @@ export function useOriginAnimations({
         triggers.push(endTrigger);
 
         function revealImage(activeIndex: number, direction: 'up' | 'down') {
-          const duration = 0.8;
-          const ease = 'power3.inOut';
+          const duration = prefersReducedMotion ? 0.2 : 0.72;
+          const ease = prefersReducedMotion ? 'none' : 'power3.inOut';
 
           images.forEach((img, i) => {
             const isActive = i === activeIndex;
@@ -105,6 +115,31 @@ export function useOriginAnimations({
               ease,
             });
           });
+
+          // Sequence: image settles first, then text block enters.
+          titles.forEach((title, i) => {
+            const isActive = i === activeIndex;
+            gsap.to(title, {
+              opacity: isActive ? 1 : 0.45,
+              y: 0,
+              filter: 'blur(0px)',
+              duration: prefersReducedMotion ? 0.2 : 0.42,
+              delay: prefersReducedMotion ? 0 : isActive ? 0.14 : 0,
+              ease: prefersReducedMotion ? 'none' : 'power3.out',
+            });
+          });
+
+          copies.forEach((copy, i) => {
+            const isActive = i === activeIndex;
+            gsap.to(copy, {
+              opacity: isActive ? 0.82 : 0.4,
+              y: 0,
+              filter: 'blur(0px)',
+              duration: prefersReducedMotion ? 0.2 : 0.44,
+              delay: prefersReducedMotion ? 0 : isActive ? 0.18 : 0,
+              ease: prefersReducedMotion ? 'none' : 'power3.out',
+            });
+          });
         }
 
         function hideLastImage() {
@@ -122,10 +157,10 @@ export function useOriginAnimations({
 
         gsap.from(archRightEl, {
           opacity: 0,
-          y: 60,
-          duration: 1.2,
-          delay: 0.2,
-          ease: 'power3.out',
+          y: 16,
+          duration: prefersReducedMotion ? 0.22 : 0.9,
+          delay: prefersReducedMotion ? 0 : 0.12,
+          ease: prefersReducedMotion ? 'none' : 'power3.out',
           scrollTrigger: {
             trigger: archEl,
             start: 'top 85%',
@@ -134,18 +169,20 @@ export function useOriginAnimations({
           },
         });
 
-        const parallaxTween = gsap.to(archRightEl, {
-          y: -40,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: archEl,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1,
-          },
-        });
-        if (parallaxTween.scrollTrigger) {
-          triggers.push(parallaxTween.scrollTrigger);
+        if (!prefersReducedMotion) {
+          const parallaxTween = gsap.to(archRightEl, {
+            y: -16,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: archEl,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1,
+            },
+          });
+          if (parallaxTween.scrollTrigger) {
+            triggers.push(parallaxTween.scrollTrigger);
+          }
         }
 
         return () => {

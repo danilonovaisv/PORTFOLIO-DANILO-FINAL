@@ -1,6 +1,6 @@
 # 🫥 Ghost Design System — Tokens + Global Rules
 
-**Version:** 3.0 (Consolidated) • **Date:** 2026-02-09
+**Version:** 3.1 (Post-Deploy Contingency) • **Date:** 2026-02-10
 
 > This file is the **Single Source of Truth** for the Ghost System.
 > It consolidates design tokens, motion principles, and architectural rules driven by the "Ghost" philosophy:
@@ -42,9 +42,14 @@
 | `.text-h2` | `2.5rem` (40px) | `1.5rem` (24px) | SemiBold (600)| 1.15 |
 | `.text-h3` | `1.75rem` (28px) | `1.25rem` (20px) | Medium (500) | 1.2 |
 | `.text-body-enhanced` | `1.25rem` (20px) | `1.125rem` (18px) | Medium (500) | 1.5 |
-| `.text-body` | `1.125rem` (18px)| `1rem` (16px) | Regular (400) | 1.5 |
+| `.text-body` | `1.125rem` (18px)| `1.25rem` (20px) | Medium (500) | 1.45 |
 | `.text-small` | `0.875rem` (14px)| `0.875rem` | Regular | 1.4 |
 | `.text-micro` | `0.75rem` (12px) | `0.75rem` | Mono | 1.4 |
+
+**Mobile Readability Token (mandatory):**
+
+- `--font-body-mobile: 1.25rem` (20px)
+- Applied automatically to `.text-body` under `max-width: 767px`.
 
 ### 1.3 Spacing & Grid (The Rhythm)
 
@@ -61,11 +66,12 @@
 
 **Z-Index Layers:**
 
-- `z-0`: **Canvas/R3F** (Background)
-- `z-10`: **Glass Panels** (Blur layers)
-- `z-20`: **Content** (Text, Images)
-- `z-40`: **Sticky UI** (Nav, Controls)
-- `z-50`: **Overlays/Modals**
+- `z-0`: **Background Base** (gradients/video base)
+- `z-10`: **Glass/Overlay Utility** (soft masks)
+- `z-20`: **Primary Content** (text/images)
+- `z-30`: **Canvas/R3F FX** (3D between base and final overlays)
+- `z-50`: **Final Overlays/Modals**
+- `z-[60]`: **Critical Mobile Text Layer** (exception, when guaranteed readability is required)
 - `z-cursor`: **Custom Cursor** (Topmost)
 
 ---
@@ -87,11 +93,17 @@
 
 1. **GhostFadeUp:**
     - `opacity: 0 -> 1`
-    - `y: 32px -> 0px`
+    - `y: 18px -> 0px` (hard max for content UI)
     - `duration: 0.8s`
     - `stagger: 0.1s` (for lists)
 
-### 2.3 Interaction Rules
+### 2.3 Allowed vs Forbidden Motion
+
+- **Allowed (content/UI):** `opacity`, `blur`, `translateY` (max `18px`)
+- **Forbidden (content/UI):** `scale`, `bounce`, `rotate`
+- **Reduced Motion:** Disable parallax/lerp and replace reveals with simple fade.
+
+### 2.4 Interaction Rules
 
 - **Hovers:** Silence. No massive scaling. Subtle opacity change (0.7 -> 1) or glow intensity shift.
 
@@ -133,6 +145,7 @@
 #### Primary CTA (`<AntigravityCTA />`)
 
 - **Mandate:** All primary page actions use `<AntigravityCTA />`.
+- **Default Landing CTA:** label `vamos trabalhar juntos →` + href `/#contact` + color `#0048ff`.
 
 - **Sizing (Fixed Min-Widths):**
   - **Mobile:** `min-w-[180px]` (`min-w-cta-mobile`)

@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { ProjectCard } from '@/components/portfolio/ProjectCard';
 import { PortfolioProject } from '@/types/project';
@@ -106,6 +106,7 @@ describe('ProjectCard', () => {
             name: /test project/i,
         });
         expect(button).toBeInTheDocument();
+        expect(button).toHaveAttribute('id', 'portfolio-card-test-project');
     });
 
     it('should apply priority loading for first 3 items', () => {
@@ -131,5 +132,55 @@ describe('ProjectCard', () => {
         expect(screen.getByText('branding')).toBeInTheDocument();
         expect(screen.getByText('ui-design')).toBeInTheDocument();
         expect(screen.getByText('motion')).toBeInTheDocument();
+    });
+
+    it('should prioritize internal landing route click when landingPageSlug exists', () => {
+        const onClick = jest.fn();
+        const openSpy = jest
+            .spyOn(window, 'open')
+            .mockImplementation(() => null);
+
+        const landingProject: PortfolioProject = {
+            ...mockProject,
+            category: 'Landing Page',
+            link: 'https://example.com/external-landing',
+            landingPageSlug: 'internal-landing',
+        };
+
+        render(<ProjectCard project={landingProject} index={0} onClick={onClick} />);
+
+        fireEvent.click(screen.getByRole('button', { name: /test project/i }));
+
+        expect(onClick).toHaveBeenCalledWith(landingProject);
+        expect(openSpy).not.toHaveBeenCalled();
+        openSpy.mockRestore();
+    });
+
+    it('should open external landing links when no internal landingPageSlug exists', () => {
+        const onClick = jest.fn();
+        const openSpy = jest
+            .spyOn(window, 'open')
+            .mockImplementation(() => null);
+
+        const externalLandingProject: PortfolioProject = {
+            ...mockProject,
+            category: 'Landing Page',
+            link: 'https://example.com/external-landing',
+            landingPageSlug: undefined,
+        };
+
+        render(
+            <ProjectCard project={externalLandingProject} index={0} onClick={onClick} />
+        );
+
+        fireEvent.click(screen.getByRole('button', { name: /test project/i }));
+
+        expect(openSpy).toHaveBeenCalledWith(
+            'https://example.com/external-landing',
+            '_blank',
+            'noopener,noreferrer'
+        );
+        expect(onClick).not.toHaveBeenCalled();
+        openSpy.mockRestore();
     });
 });

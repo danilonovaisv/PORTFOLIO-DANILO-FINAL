@@ -64,6 +64,9 @@ export const ProjectCard = ({
     project.layout?.sizes ??
     '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw';
   const headingId = `project-card-${project.id}-title`;
+  const cardAnchorId = `portfolio-card-${project.slug
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, '-')}`;
 
   // ... (imports)
 
@@ -75,6 +78,11 @@ export const ProjectCard = ({
     project.tags?.some(tag => tag.toLowerCase().trim() === 'landing page');
 
   const handleClick = () => {
+    if (project.landingPageSlug) {
+      onClick?.(project);
+      return;
+    }
+
     if (isLandingPage && project.link) {
       window.open(project.link, '_blank', 'noopener,noreferrer');
     } else {
@@ -85,6 +93,7 @@ export const ProjectCard = ({
   return (
     <motion.button
       type="button"
+      id={cardAnchorId}
       data-size={size}
       data-landing={isLandingPage}
       onClick={handleClick}

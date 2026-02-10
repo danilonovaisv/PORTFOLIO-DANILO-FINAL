@@ -1,5 +1,9 @@
 import type { BlockType, LandingPageBlock } from '@/types/landing-page';
 import {
+  buildSupabaseStorageUrl,
+  normalizeStoragePath,
+} from '@/lib/supabase/urls';
+import {
   LEGACY_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE_V2,
@@ -22,6 +26,9 @@ type TemplateFallback = {
 
 const DEFAULT_HIGHLIGHT = '#0048ff';
 const VIDEO_FILE_PATTERN = /\.(mp4|webm|ogg|mov)$/i;
+const LOCAL_PUBLIC_ASSET_PATTERN = /^\/(site\.assets|images|videos|fonts|captions)\//i;
+const STORAGE_PUBLIC_PATH_PATTERN =
+  /^\/?storage\/v1\/object\/public\/([^/]+)\/(.+)$/i;
 const YOUTUBE_PATTERN =
   /(youtu\.be\/|youtube\.com\/watch\?v=|youtube\.com\/embed\/|youtube\.com\/shorts\/)/i;
 const V3_BLOCK_TYPES: BlockType[] = [
@@ -344,17 +351,43 @@ const normalizeLandingBlock = (
 
 export function resolveSiteAssetUrl(value?: string | null): string {
   if (!value) return '';
-  if (value.startsWith('http://') || value.startsWith('https://')) return value;
+  const raw = value.trim();
+  if (!raw) return '';
 
-  const baseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, '');
-  if (!baseUrl) return value;
+  if (
+    raw.startsWith('http://') ||
+    raw.startsWith('https://') ||
+    raw.startsWith('blob:') ||
+    raw.startsWith('data:')
+  ) {
+    return raw;
+  }
 
-  const cleanPath = value
-    .replace(/^\/?storage\/v1\/object\/public\/site-assets\//, '')
-    .replace(/^\/?site-assets\//, '')
-    .replace(/^\//, '');
+  if (raw.startsWith('#') || LOCAL_PUBLIC_ASSET_PATTERN.test(raw)) {
+    return raw;
+  }
 
-  return `${baseUrl}/storage/v1/object/public/site-assets/${cleanPath}`;
+  const storageMatch = raw.match(STORAGE_PUBLIC_PATH_PATTERN);
+  if (storageMatch) {
+    const [, bucket, path] = storageMatch;
+    return buildSupabaseStorageUrl(bucket, path) ?? raw;
+  }
+
+  const noLeadingSlash = raw.replace(/^\/+/, '');
+  const explicitBucketMatch = noLeadingSlash.match(
+    /^(site-assets|portfolio-media|landing-pages)\/(.+)$/i
+  );
+  if (explicitBucketMatch) {
+    const [, bucket, path] = explicitBucketMatch;
+    return buildSupabaseStorageUrl(bucket.toLowerCase(), path) ?? raw;
+  }
+
+  const normalizedPath = normalizeStoragePath(noLeadingSlash) ?? noLeadingSlash;
+  const inferredBucket = normalizedPath.startsWith('projects/')
+    ? 'portfolio-media'
+    : 'site-assets';
+
+  return buildSupabaseStorageUrl(inferredBucket, normalizedPath) ?? raw;
 }
 
 export function createDefaultMasterProjectTemplate(
