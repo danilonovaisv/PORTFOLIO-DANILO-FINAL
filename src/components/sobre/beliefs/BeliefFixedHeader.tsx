@@ -47,7 +47,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
   return (
     <motion.header
       style={{ opacity }}
-      className="sticky top-0 z-40 flex h-screen pointer-events-none"
+      className="sticky top-0 z-50 flex h-screen pointer-events-none"
     >
       <div className="std-grid w-full h-full">
         <div className="flex h-full items-start md:items-center justify-end pt-32 md:pt-0 col-span-12">
