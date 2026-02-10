@@ -82,13 +82,8 @@ export function AboutBeliefs() {
       {/* LAYER 2: Texto Mobile Fixed no Footer */}
       <BeliefMobileTextLayer phrases={PHRASES} scrollYProgress={scrollYProgress} />
 
-      {/* LAYER 4: Final Text Overlay (Z-40) - Background for Ghost */}
-      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-40">
-        <BeliefFinalSectionOverlay />
-      </div>
-
-      {/* LAYER 3: Canvas 3D (sem captura de eventos) */}
-      <div className="absolute inset-0 z-60 w-full h-full pointer-events-none" aria-hidden>
+      {/* LAYER 3: Canvas 3D (BELOW text overlay) */}
+      <div className="absolute inset-0 z-30 w-full h-full pointer-events-none" aria-hidden>
         <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-none flex md:items-center md:justify-center items-end justify-start">
           <div className="w-full h-full md:absolute md:inset-0 relative">
             {!prefersReducedMotion ? (
@@ -96,6 +91,11 @@ export function AboutBeliefs() {
             ) : null}
           </div>
         </div>
+      </div>
+
+      {/* LAYER 4: Final Text Overlay (ABOVE Ghost 3D) */}
+      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-50">
+        <BeliefFinalSectionOverlay />
       </div>
     </section>
   );

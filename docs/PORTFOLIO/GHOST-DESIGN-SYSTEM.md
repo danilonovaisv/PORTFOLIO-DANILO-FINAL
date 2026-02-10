@@ -41,6 +41,7 @@
 | `.text-h1` | `3.5rem` (56px) | `2rem` (32px) | Bold (700) | 1.1 |
 | `.text-h2` | `2.5rem` (40px) | `1.5rem` (24px) | SemiBold (600)| 1.15 |
 | `.text-h3` | `1.75rem` (28px) | `1.25rem` (20px) | Medium (500) | 1.2 |
+| `.text-body-enhanced` | `1.25rem` (20px) | `1.125rem` (18px) | Medium (500) | 1.5 |
 | `.text-body` | `1.125rem` (18px)| `1rem` (16px) | Regular (400) | 1.5 |
 | `.text-small` | `0.875rem` (14px)| `0.875rem` | Regular | 1.4 |
 | `.text-micro` | `0.75rem` (12px) | `0.75rem` | Mono | 1.4 |

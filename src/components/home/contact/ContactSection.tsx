@@ -97,7 +97,7 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="lg:col-span-5 flex flex-col space-y-10 order-2 lg:order-0"
+            className="lg:col-span-5 flex flex-col space-y-10 order-1 lg:order-0"
           >
             {/* Header */}
             <div className="hidden lg:block text-center lg:text-left mb-6 lg:mb-10">
@@ -154,7 +154,7 @@ export default function ContactSection() {
           </motion.div>
 
           {/* Mobile Socials - Touch-optimized with 48px targets */}
-          <div className="lg:hidden flex flex-wrap justify-center gap-3 sm:gap-4 py-6 sm:py-8 border-t border-[#0e0e0e]/20 w-full order-3">
+          <div className="lg:hidden flex flex-wrap justify-center gap-3 sm:gap-4 py-6 sm:py-8 border-t border-[#0e0e0e]/20 w-full order-2">
             {socialLinks.map((social) => (
               <a
                 key={`mobile-${social.href}`}
@@ -171,7 +171,7 @@ export default function ContactSection() {
           </div>
 
           {/* Right Side: Form */}
-          <div className="lg:col-span-7 w-full order-1 lg:order-0">
+          <div className="lg:col-span-7 w-full order-3 lg:order-0">
             <ContactForm />
           </div>
         </div>

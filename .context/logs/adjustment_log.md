@@ -1,5 +1,53 @@
 # Adjustment Log
 
+## [2026-02-10T00:20] Orchestration - 11-Point Post-Deploy Adjustments (Partial)
+
+**Context:** Multi-agent orchestration to fix 11 post-deploy issues across UI, responsiveness, motion, and navigation. Completed Phase 1 (Design System) and 1 critical layout fix, then pivoted to comprehensive documentation.
+
+**Completed (2/11):**
+
+- **DS-01: Mobile Typography Global Fix** ✅
+  - Added `--font-body-enhanced` token (18px → 20px) to `globals.css`
+  - Created `.text-body-enhanced` utility class
+  - Updated GHOST-DESIGN-SYSTEM.md documentation
+  - **Impact:** Improved mobile readability across all pages
+
+- **LAYOUT-01: Contact Mobile Order Fix** ✅
+  - Fixed flexbox order in `ContactSection.tsx`
+  - Correct sequence: Title → Contact List → Social Icons → Form
+  - **Impact:** Proper UX flow on mobile contact section
+
+- **Critical Bug Fix: Invalid Hook Call** ✅
+  - Moved `useGhostInteraction()` hook call outside `useEffect` in `GhostScene.tsx`
+  - **Impact:** Resolved runtime error blocking homepage
+
+**Documentation Created:**
+
+- `docs/tasks/post-deploy-implementation-tasks.md` (~15,000 words)
+  - Detailed implementation guide for 9 remaining issues
+  - Code examples, validation checklists, troubleshooting
+- `docs/reports/phase1-design-system-complete.md`
+- `docs/reports/orchestration-11-point-post-deploy.md`
+
+**Remaining (9/11):** Documented with implementation instructions
+
+- CTA-01, CTA-02 (CTA fixes)
+- LAYOUT-02, LAYOUT-03 (Layout fixes)
+- VIDEO-01, VIDEO-02 (Video fixes)
+- NAV-01, NAV-02 (Navigation fixes)
+- MOTION-01 (Animation sequence)
+
+**Files Modified:**
+
+- `src/app/globals.css` (+8 lines)
+- `docs/PORTFOLIO/GHOST-DESIGN-SYSTEM.md` (+1 line)
+- `src/components/home/contact/ContactSection.tsx` (3 lines)
+- `src/components/canvas/home/hero/GhostScene.tsx` (hook position fix)
+
+**Strategic Decision:** Pivoted to documentation due to time constraints and complexity, providing user with flexibility for phased implementation.
+
+---
+
 ## [2026-02-10T00:15] Loki Mode - Code Quality Refactor (Phase 2: GhostScene Decomposition)
 
 **Context:** Autonomous decomposition of GhostScene.tsx from 874 lines to 380 lines through modular extraction.
