@@ -67,11 +67,12 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
     }
 
     return { ok: true, data: updatedProject };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Erro ao salvar projeto:', error);
+    const message = error instanceof Error ? error.message : 'Erro ao salvar projeto.';
     return {
       ok: false,
-      error: error.message || 'Erro ao salvar projeto.',
+      error: message,
     };
   }
 }
@@ -83,8 +84,9 @@ export async function deleteProjectAction(id: string) {
     revalidatePath('/portfolio');
     revalidatePath('/');
     return { ok: true };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Erro ao deletar projeto:', error);
-    return { ok: false, error: error.message };
+    const message = error instanceof Error ? error.message : 'Erro desconhecido';
+    return { ok: false, error: message };
   }
 }

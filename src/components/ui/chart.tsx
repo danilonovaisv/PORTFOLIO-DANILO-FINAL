@@ -12,9 +12,9 @@ export type ChartConfigEntry = {
   label?: React.ReactNode;
   icon?: React.ComponentType;
 } & (
-  | { color?: string; theme?: never }
-  | { color?: never; theme: Record<keyof typeof THEMES, string> }
-);
+    | { color?: string; theme?: never }
+    | { color?: never; theme: Record<keyof typeof THEMES, string> }
+  );
 
 export type ChartConfig = Record<string, ChartConfigEntry>;
 
@@ -151,7 +151,7 @@ interface PayloadItem {
   value?: number | string;
   payload?: Record<string, unknown>;
   color?: string;
-  [key: string]: any;
+  [key: string]: string | number | boolean | undefined | Record<string, unknown>;
 }
 
 interface ChartTooltipContentProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -161,7 +161,7 @@ interface ChartTooltipContentProps extends React.HTMLAttributes<HTMLDivElement> 
   hideLabel?: boolean;
   hideIndicator?: boolean;
   label?: string | number;
-  labelFormatter?: (_value: any, _payload: PayloadItem[]) => React.ReactNode;
+  labelFormatter?: (_value: unknown, _payload: PayloadItem[]) => React.ReactNode;
   labelClassName?: string;
   formatter?: (
     _value: unknown,
@@ -284,13 +284,13 @@ const ChartTooltipContent = React.forwardRef<
                             indicator === 'dot' && 'h-2.5 w-2.5',
                             indicator === 'line' && 'h-2.5 w-1',
                             indicator === 'dashed' &&
-                              'w-0 border-[1.5px] border-dashed bg-transparent',
+                            'w-0 border-[1.5px] border-dashed bg-transparent',
                             nestLabel && indicator === 'dashed' && 'my-0.5',
                             hasPayloadColor &&
-                              getConfigClassName(
-                                indicatorClassKey,
-                                'chart-tooltip-indicator'
-                              )
+                            getConfigClassName(
+                              indicatorClassKey,
+                              'chart-tooltip-indicator'
+                            )
                           )}
                         />
                       )
@@ -412,8 +412,8 @@ function getPayloadConfigFromPayload(
 
   const payloadPayload =
     'payload' in payload &&
-    typeof payload.payload === 'object' &&
-    payload.payload !== null
+      typeof payload.payload === 'object' &&
+      payload.payload !== null
       ? payload.payload
       : undefined;
 

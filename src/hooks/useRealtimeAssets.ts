@@ -98,8 +98,8 @@ export function useRealtimeAsset(assetKey: string) {
         .on(
           'broadcast',
           { event: 'site_assets' },
-          (payload: any) => {
-            const newData = payload.payload?.new as DbAsset | undefined;
+          (payload: { payload?: { new?: DbAsset } }) => {
+            const newData = payload.payload?.new;
 
             if (newData && newData.key === assetKey) {
               upsertAsset(newData);
