@@ -471,3 +471,7 @@ html.admin-page body {
     @apply bg-(--color-background) text-(--color-text);
   }
 }
+
+.pause-animation {
+  animation-play-state: paused !important;
+}

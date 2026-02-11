@@ -230,11 +230,7 @@ export function AboutWhatIDo() {
       <div className="relative overflow-hidden border-t border-white/5 bg-background py-6">
         {/* Dual marquee for seamless loop */}
         <div
-          className="flex w-max animate-marquee gap-12"
-          style={{
-            animationPlayState:
-              prefersReducedMotion || marqueePaused ? 'paused' : 'running',
-          }}
+          className={`flex w-max animate-marquee gap-12 ${prefersReducedMotion || marqueePaused ? 'pause-animation' : ''}`}
           onMouseEnter={() => setMarqueePaused(true)}
           onMouseLeave={() => setMarqueePaused(false)}
           onFocus={() => setMarqueePaused(true)}
