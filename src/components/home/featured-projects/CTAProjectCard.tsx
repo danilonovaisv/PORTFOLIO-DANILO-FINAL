@@ -16,15 +16,9 @@ import AntigravityCTA from '@/components/ui/AntigravityCTA';
  */
 export default function CTAProjectCard() {
   return (
-    <div className="card-shell group relative flex flex-col items-center justify-center h-full bg-[#040013] p-6 md:p-12 md:overflow-hidden md:rounded-md border-none shadow-none md:transition-none">
+    <div className="card-shell group relative flex flex-col items-center justify-center h-full bg-background p-6 md:p-12 md:overflow-hidden md:rounded-md border-none shadow-none md:transition-none">
       {/* Ghost Atmosphere Glow - Desktop Only */}
-      <div
-        className="absolute inset-0 opacity-40 hidden md:block"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle at 50% 50%, var(--color-primary-faint), transparent 70%)',
-        }}
-      />
+      <div className="absolute inset-0 opacity-40 hidden md:block bg-[radial-gradient(circle_at_50%_50%,oklch(from_var(--color-primary)_l_c_h_/_0.12),transparent_70%)]" />
 
       {/* Headline - Centered on all breakpoints */}
       <h3 className="relative z-10 text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-normal text-center mb-6 md:mb-12 tracking-tight leading-[1.1] text-white transition-colors duration-300 md:group-hover:text-bluePrimary">
