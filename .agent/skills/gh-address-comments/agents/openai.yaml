@@ -1,0 +1,7 @@
+interface:
+  display_name: "GitHub Address Comments"
+  short_description: Address comments in a GitHub PR review"
+  brand_color: "#4F46E5"
+  icon_small: "./assets/icon-small.svg"
+  icon_large: "./assets/icon-large.svg"
+  default_prompt: "Address all actionable GitHub PR review comments in this branch and summarize the updates."

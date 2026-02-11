@@ -1,0 +1,7 @@
+interface:
+  display_name: "Parallel Agents"
+  short_description: "Run independent tasks in parallel efficiently"
+  icon_small: "./assets/icon-small.svg"
+  icon_large: "./assets/icon-large.svg"
+  brand_color: "#84CC16"
+  default_prompt: "Use $parallel-agents to split and parallelize this work."

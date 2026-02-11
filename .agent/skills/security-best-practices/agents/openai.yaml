@@ -1,0 +1,7 @@
+interface:
+  display_name: "Security Best Practices"
+  short_description: "Security reviews and secure-by-default guidance"
+  icon_small: "./assets/icon-small.svg"
+  icon_large: "./assets/icon-large.svg"
+  brand_color: "#DC2626"
+  default_prompt: "Review this codebase for security best practices and suggest secure-by-default improvements."

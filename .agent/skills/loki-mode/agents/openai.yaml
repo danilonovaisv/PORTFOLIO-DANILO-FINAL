@@ -1,0 +1,7 @@
+interface:
+  display_name: "Loki Mode"
+  short_description: "Multi-agent orchestration for complex tasks"
+  icon_small: "./assets/icon-small.svg"
+  icon_large: "./assets/icon-large.svg"
+  brand_color: "#A855F7"
+  default_prompt: "Use $loki-mode to orchestrate multiple agents for this task."

@@ -1,0 +1,7 @@
+interface:
+  display_name: "Security Ownership Map"
+  short_description: "Map maintainers, bus factor, and sensitive code ownership"
+  icon_small: "./assets/icon-small.svg"
+  icon_large: "./assets/icon-large.svg"
+  brand_color: "#7C3AED"
+  default_prompt: "Build a security ownership map for this repository and identify bus-factor risks in sensitive code."
