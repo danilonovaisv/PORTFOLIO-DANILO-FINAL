@@ -1,0 +1,45 @@
+{
+  "node": {
+    "400bb4f3200bd80ebc6335f7aa8a32ad5c382abdd7": {
+      "workers": {
+        "app/page": {
+          "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fdanilonovais%2FPORTFOLIO-DANILO-FINAL%2Fsrc%2Flib%2Fsupabase%2Fqueries%2Fprojects.ts%22%2C%5B%7B%22id%22%3A%22400bb4f3200bd80ebc6335f7aa8a32ad5c382abdd7%22%2C%22exportedName%22%3A%22%24%24RSC_SERVER_ACTION_2%22%2C%22filename%22%3A%22lib%2Fsupabase%2Fqueries%2Fprojects.ts%22%7D%2C%7B%22id%22%3A%2240333c6b6085a5272e7b4299941f2f83101bd47839%22%2C%22exportedName%22%3A%22%24%24RSC_SERVER_ACTION_1%22%2C%22filename%22%3A%22lib%2Fsupabase%2Fqueries%2Fprojects.ts%22%7D%2C%7B%22id%22%3A%22403f0893dd428de93e01e3ae71bae899fa94b0248e%22%2C%22exportedName%22%3A%22%24%24RSC_SERVER_ACTION_0%22%2C%22filename%22%3A%22lib%2Fsupabase%2Fqueries%2Fprojects.ts%22%7D%5D%5D%5D&__client_imported__=!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/page": "rsc"
+      },
+      "filename": "lib/supabase/queries/projects.ts",
+      "exportedName": "$$RSC_SERVER_ACTION_2"
+    },
+    "40333c6b6085a5272e7b4299941f2f83101bd47839": {
+      "workers": {
+        "app/page": {
+          "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fdanilonovais%2FPORTFOLIO-DANILO-FINAL%2Fsrc%2Flib%2Fsupabase%2Fqueries%2Fprojects.ts%22%2C%5B%7B%22id%22%3A%22400bb4f3200bd80ebc6335f7aa8a32ad5c382abdd7%22%2C%22exportedName%22%3A%22%24%24RSC_SERVER_ACTION_2%22%2C%22filename%22%3A%22lib%2Fsupabase%2Fqueries%2Fprojects.ts%22%7D%2C%7B%22id%22%3A%2240333c6b6085a5272e7b4299941f2f83101bd47839%22%2C%22exportedName%22%3A%22%24%24RSC_SERVER_ACTION_1%22%2C%22filename%22%3A%22lib%2Fsupabase%2Fqueries%2Fprojects.ts%22%7D%2C%7B%22id%22%3A%22403f0893dd428de93e01e3ae71bae899fa94b0248e%22%2C%22exportedName%22%3A%22%24%24RSC_SERVER_ACTION_0%22%2C%22filename%22%3A%22lib%2Fsupabase%2Fqueries%2Fprojects.ts%22%7D%5D%5D%5D&__client_imported__=!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/page": "rsc"
+      },
+      "filename": "lib/supabase/queries/projects.ts",
+      "exportedName": "$$RSC_SERVER_ACTION_1"
+    },
+    "403f0893dd428de93e01e3ae71bae899fa94b0248e": {
+      "workers": {
+        "app/page": {
+          "moduleId": "(rsc)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fdanilonovais%2FPORTFOLIO-DANILO-FINAL%2Fsrc%2Flib%2Fsupabase%2Fqueries%2Fprojects.ts%22%2C%5B%7B%22id%22%3A%22400bb4f3200bd80ebc6335f7aa8a32ad5c382abdd7%22%2C%22exportedName%22%3A%22%24%24RSC_SERVER_ACTION_2%22%2C%22filename%22%3A%22lib%2Fsupabase%2Fqueries%2Fprojects.ts%22%7D%2C%7B%22id%22%3A%2240333c6b6085a5272e7b4299941f2f83101bd47839%22%2C%22exportedName%22%3A%22%24%24RSC_SERVER_ACTION_1%22%2C%22filename%22%3A%22lib%2Fsupabase%2Fqueries%2Fprojects.ts%22%7D%2C%7B%22id%22%3A%22403f0893dd428de93e01e3ae71bae899fa94b0248e%22%2C%22exportedName%22%3A%22%24%24RSC_SERVER_ACTION_0%22%2C%22filename%22%3A%22lib%2Fsupabase%2Fqueries%2Fprojects.ts%22%7D%5D%5D%5D&__client_imported__=!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/page": "rsc"
+      },
+      "filename": "lib/supabase/queries/projects.ts",
+      "exportedName": "$$RSC_SERVER_ACTION_0"
+    }
+  },
+  "edge": {},
+  "encryptionKey": "vl67e0IR/R81v/SznWLXRw33fjsO2Kp1LlLJDS2v2LM="
+}

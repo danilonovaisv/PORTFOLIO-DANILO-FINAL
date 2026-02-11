@@ -68,10 +68,10 @@ const nextConfig = {
    */
   output: 'standalone',
   reactStrictMode: true,
-  turbopack: {},
 
   // Removido experimental.turbopack pois causa warning
   experimental: {
+    turbopack: {},
     serverActions: {
       bodySizeLimit: '32mb',
       allowedOrigins: [
@@ -88,10 +88,6 @@ const nextConfig = {
       type: 'asset/source',
     });
     return config;
-  },
-
-  devIndicators: {
-    allowedDevOrigins: ['http://localhost:3000', 'http://127.0.0.1:3000'],
   },
 
   async headers() {
@@ -173,12 +169,9 @@ const nextConfig = {
     // contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;", // Movido para headers globais
   },
 
-  // Ignora erros de lint/typescript no build (CRÍTICO para deploy em ambiente instável)
+  // Ignora erros de typescript no build (CRÍTICO para deploy em ambiente instável)
   typescript: {
     ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
   },
 };
 
