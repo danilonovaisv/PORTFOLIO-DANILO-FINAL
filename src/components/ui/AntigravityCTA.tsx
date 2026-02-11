@@ -84,6 +84,8 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
         relative group 
         inline-flex items-center 
         cursor-pointer 
+        min-w-fit
+        rounded-full
         focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background
         ${className}
       `}

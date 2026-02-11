@@ -51,13 +51,16 @@ As regras são automaticamente carregadas pelo agente AI. Para adicionar novas r
 3. Commit e push para compartilhar com a equipe
 
 **Exemplo:**
+
 ```markdown
 # Nome da Regra
 
 ## Descrição
+
 ...
 
 ## Exemplos
+
 ...
 ```
 
@@ -70,18 +73,22 @@ Os workflows descrevem processos passo-a-passo. Para adicionar novos workflows:
 3. Commit e push para compartilhar com a equipe
 
 **Exemplo:**
+
 ```markdown
 # Nome do Workflow
 
 ## Pré-requisitos
+
 - Item 1
 - Item 2
 
 ## Passos
+
 1. Passo 1
 2. Passo 2
 
 ## Comandos
+
 \`\`\`bash
 comando aqui
 \`\`\`

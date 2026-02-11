@@ -16,11 +16,15 @@ export function AboutClosing() {
   const prefersReducedMotion = useReducedMotion();
   const desktopVideo = useSiteAssetUrl(
     SITE_ASSET_KEYS.about.beliefs.skillsVideo,
-    getSupabaseStorageUrl('site-assets/about/beliefs/VIDEO-SKILLS-FINAL_compressed.mp4')
+    getSupabaseStorageUrl(
+      'site-assets/about/beliefs/VIDEO-SKILLS-FINAL_compressed.mp4'
+    )
   );
   const mobileVideo = useSiteAssetUrl(
     SITE_ASSET_KEYS.about.beliefs.skillsVideoMobile,
-    getSupabaseStorageUrl('site-assets/about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4')
+    getSupabaseStorageUrl(
+      'site-assets/about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4'
+    )
   );
 
   return (

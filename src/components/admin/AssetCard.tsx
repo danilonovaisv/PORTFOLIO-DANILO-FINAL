@@ -78,7 +78,9 @@ export function AssetCard({ asset }: Props) {
         });
         router.refresh();
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Falha ao atualizar status');
+        setError(
+          err instanceof Error ? err.message : 'Falha ao atualizar status'
+        );
       }
     });
   };

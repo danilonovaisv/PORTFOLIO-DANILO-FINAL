@@ -689,7 +689,6 @@ export default function ProjectTemplateALPARenderer({
                   </span>
                 ))}
               </div>
-
             </motion.div>
 
             <div className="pointer-events-auto absolute bottom-6 left-0 right-0 z-20 sm:bottom-8">

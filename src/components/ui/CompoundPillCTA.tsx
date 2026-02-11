@@ -60,7 +60,7 @@ export const CompoundPillCTA = ({
         className={cn(
           'transition-colors duration-200 ease-out group-hover:text-background',
           isCompact
-            ? 'text-[11px] font-medium uppercase tracking-[0.14em] text-white/92'
+            ? 'text-[11px] font-medium uppercase tracking-[0.14em] text-white'
             : 'text-base font-bold lowercase tracking-tight text-white'
         )}
       >
@@ -75,7 +75,7 @@ export const CompoundPillCTA = ({
       className={cn(
         'flex items-center justify-center bg-bluePrimary text-white transition-all duration-200 ease-out group-hover:bg-blueAccent group-hover:text-background shadow-[0_10px_30px_rgba(0,0,0,0.1)]',
         isCompact && isBack
-          ? 'h-10 w-10 rounded-lg'
+          ? 'h-10 w-10 rounded-full'
           : isCompact
             ? 'h-10 w-10 rounded-full'
             : 'h-[46px] w-[46px] rounded-full'

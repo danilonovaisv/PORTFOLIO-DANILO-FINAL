@@ -45,8 +45,9 @@ export default function AssetLoaderWrapper({
         try {
           const response = await fetch('/api/site-assets');
           if (response.ok) {
-            const assetsData =
-              (await response.json()) as NormalizedSiteAsset[] | null;
+            const assetsData = (await response.json()) as
+              | NormalizedSiteAsset[]
+              | null;
             setAssets(Array.isArray(assetsData) ? assetsData : []);
           } else {
             if (isDev) {

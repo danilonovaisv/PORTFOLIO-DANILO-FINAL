@@ -44,6 +44,7 @@ Este documento descreve a configuração do sistema de Agent/AI para o projeto.
 ```
 
 **Resultado:**
+
 - ✅ `rules/` e `workflows/` são versionados
 - ❌ Outros arquivos em `.agent/` são ignorados
 - ✅ `.context/` é versionado (fonte de verdade visual e protótipos)
@@ -51,6 +52,7 @@ Este documento descreve a configuração do sistema de Agent/AI para o projeto.
 ### 2. SWEEP.md Criado
 
 Arquivo principal de configuração do agente localizado na raiz do projeto:
+
 - Comandos principais do projeto
 - Stack tecnológica
 - Padrões de código
@@ -62,11 +64,13 @@ Arquivo principal de configuração do agente localizado na raiz do projeto:
 **Localização:** `.agent/rules/`
 
 **Arquivos criados:**
+
 - `README.md` - Documentação da pasta
 - `coding-standards.md` - Padrões TypeScript, React, CSS, nomenclatura
 - `architecture.md` - Next.js App Router, state management, data fetching
 
 **Como usar:**
+
 - O agente AI carrega automaticamente as regras
 - Adicione novos arquivos `.md` para novas regras
 - Commit e push para compartilhar com a equipe
@@ -76,11 +80,13 @@ Arquivo principal de configuração do agente localizado na raiz do projeto:
 **Localização:** `.agent/workflows/`
 
 **Arquivos criados:**
+
 - `README.md` - Documentação da pasta
 - `build-and-deploy.md` - Processo completo de build e deploy
 - **30+ workflows existentes** (já presentes no projeto)
 
 **Como usar:**
+
 - Workflows descrevem processos passo-a-passo
 - Adicione novos arquivos `.md` para novos workflows
 - Commit e push para compartilhar com a equipe
@@ -88,6 +94,7 @@ Arquivo principal de configuração do agente localizado na raiz do projeto:
 ## 📋 Regras Disponíveis
 
 ### coding-standards.md
+
 - ✅ TypeScript strict mode
 - ✅ React functional components
 - ✅ Tailwind CSS first
@@ -95,6 +102,7 @@ Arquivo principal de configuração do agente localizado na raiz do projeto:
 - ✅ Boas práticas de código
 
 ### architecture.md
+
 - ✅ Next.js App Router (Server vs Client Components)
 - ✅ State Management (Zustand, React Hooks)
 - ✅ Data Fetching patterns
@@ -105,6 +113,7 @@ Arquivo principal de configuração do agente localizado na raiz do projeto:
 ## 🔄 Workflows Disponíveis
 
 ### build-and-deploy.md
+
 - ✅ Pré-deploy checklist
 - ✅ Comandos de build
 - ✅ Validações pré-build
@@ -113,6 +122,7 @@ Arquivo principal de configuração do agente localizado na raiz do projeto:
 - ✅ Troubleshooting
 
 ### Workflows Existentes (30+)
+
 - hero-section.md
 - portfolio-page.md
 - seo-optimization.md
@@ -160,13 +170,16 @@ git push
 # Nome da Regra
 
 ## Descrição
+
 Breve descrição da regra
 
 ## Diretrizes
+
 - ✅ Fazer isso
 - ❌ Não fazer aquilo
 
 ## Exemplos
+
 \`\`\`typescript
 // Código de exemplo
 \`\`\`
@@ -178,19 +191,23 @@ Breve descrição da regra
 # Nome do Workflow
 
 ## Pré-requisitos
+
 - Item 1
 - Item 2
 
 ## Passos
+
 1. Passo 1
 2. Passo 2
 
 ## Comandos
+
 \`\`\`bash
 comando aqui
 \`\`\`
 
 ## Troubleshooting
+
 Problemas comuns e soluções
 ```
 

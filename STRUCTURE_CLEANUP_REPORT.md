@@ -140,15 +140,15 @@ import type { SiteAsset } from '@/lib/supabase/site-assets';
 
 ### Analysis
 
-| Directory | Status | Recommendation |
-|-----------|--------|----------------|
-| `AJUSTES` | ❓ Not found | Remove from exclude if deleted |
-| `AJUSTE HERO` | ❓ Not found | Remove from exclude if deleted |
-| `REFERENCIA_HERO-GHOST` | ❓ Not found | Remove from exclude if deleted |
-| `TROCAR` | ❓ Not found | Remove from exclude if deleted |
-| `docs` | ✅ Exists | Keep excluded |
-| `functions` | ✅ Exists | Keep excluded |
-| `scripts/archive` | ❓ Not verified | Verify existence |
+| Directory               | Status          | Recommendation                 |
+| ----------------------- | --------------- | ------------------------------ |
+| `AJUSTES`               | ❓ Not found    | Remove from exclude if deleted |
+| `AJUSTE HERO`           | ❓ Not found    | Remove from exclude if deleted |
+| `REFERENCIA_HERO-GHOST` | ❓ Not found    | Remove from exclude if deleted |
+| `TROCAR`                | ❓ Not found    | Remove from exclude if deleted |
+| `docs`                  | ✅ Exists       | Keep excluded                  |
+| `functions`             | ✅ Exists       | Keep excluded                  |
+| `scripts/archive`       | ❓ Not verified | Verify existence               |
 
 **Recommendation:** Clean up `tsconfig.json` exclude list to remove non-existent directories.
 
@@ -251,13 +251,13 @@ Document learnings from audit:
 
 ## Final Assessment
 
-| Category | Status | Score |
-|----------|--------|-------|
-| Directory Structure | ✅ Excellent | 10/10 |
-| Component Organization | ✅ Feature-based | 10/10 |
-| Import Paths | ✅ Consistent | 10/10 |
-| Root Cleanliness | ✅ Clean (post-audit) | 10/10 |
-| TypeScript Config | ⚠️ Minor cleanup needed | 8/10 |
+| Category               | Status                  | Score |
+| ---------------------- | ----------------------- | ----- |
+| Directory Structure    | ✅ Excellent            | 10/10 |
+| Component Organization | ✅ Feature-based        | 10/10 |
+| Import Paths           | ✅ Consistent           | 10/10 |
+| Root Cleanliness       | ✅ Clean (post-audit)   | 10/10 |
+| TypeScript Config      | ⚠️ Minor cleanup needed | 8/10  |
 
 **Overall:** 9.6/10 - **Production Ready**
 

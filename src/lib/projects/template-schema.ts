@@ -26,7 +26,8 @@ type TemplateFallback = {
 
 const DEFAULT_HIGHLIGHT = '#0048ff';
 const VIDEO_FILE_PATTERN = /\.(mp4|webm|ogg|mov)$/i;
-const LOCAL_PUBLIC_ASSET_PATTERN = /^\/(site\.assets|images|videos|fonts|captions)\//i;
+const LOCAL_PUBLIC_ASSET_PATTERN =
+  /^\/(site\.assets|images|videos|fonts|captions)\//i;
 const STORAGE_PUBLIC_PATH_PATTERN =
   /^\/?storage\/v1\/object\/public\/([^/]+)\/(.+)$/i;
 const YOUTUBE_PATTERN =

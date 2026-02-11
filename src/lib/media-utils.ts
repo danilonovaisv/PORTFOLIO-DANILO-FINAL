@@ -7,49 +7,51 @@ export type MediaAspectRatio = 'horizontal' | 'vertical' | 'square';
  * Works for both images and videos.
  */
 export function getMediaAspectRatio(
-    mediaUrl: string,
-    callback: (_ratio: MediaAspectRatio) => void
+  mediaUrl: string,
+  callback: (_ratio: MediaAspectRatio) => void
 ): void {
-    if (!mediaUrl) return;
+  if (!mediaUrl) return;
 
-    if (isYouTubeUrl(mediaUrl)) {
-        callback('horizontal');
-        return;
-    }
+  if (isYouTubeUrl(mediaUrl)) {
+    callback('horizontal');
+    return;
+  }
 
-    if (isVideo(mediaUrl)) {
-        const video = document.createElement('video');
-        video.src = mediaUrl;
-        video.preload = 'metadata';
+  if (isVideo(mediaUrl)) {
+    const video = document.createElement('video');
+    video.src = mediaUrl;
+    video.preload = 'metadata';
 
-        video.onloadedmetadata = () => {
-            const ratio = video.videoWidth / video.videoHeight;
-            callback(getRatioType(ratio));
-        };
+    video.onloadedmetadata = () => {
+      const ratio = video.videoWidth / video.videoHeight;
+      callback(getRatioType(ratio));
+    };
 
-        video.onerror = () => {
-            // Fallback for video errors
-            console.warn(`[media-utils] Failed to load video metadata for: ${mediaUrl}`);
-            callback('horizontal');
-        };
-    } else {
-        const img = new Image();
-        img.src = mediaUrl;
+    video.onerror = () => {
+      // Fallback for video errors
+      console.warn(
+        `[media-utils] Failed to load video metadata for: ${mediaUrl}`
+      );
+      callback('horizontal');
+    };
+  } else {
+    const img = new Image();
+    img.src = mediaUrl;
 
-        img.onload = () => {
-            const ratio = img.naturalWidth / img.naturalHeight;
-            callback(getRatioType(ratio));
-        };
+    img.onload = () => {
+      const ratio = img.naturalWidth / img.naturalHeight;
+      callback(getRatioType(ratio));
+    };
 
-        img.onerror = () => {
-            console.warn(`[media-utils] Failed to load image for: ${mediaUrl}`);
-            callback('horizontal');
-        };
-    }
+    img.onerror = () => {
+      console.warn(`[media-utils] Failed to load image for: ${mediaUrl}`);
+      callback('horizontal');
+    };
+  }
 }
 
 function getRatioType(ratio: number): MediaAspectRatio {
-    if (ratio > 1.1) return 'horizontal'; // Landscape
-    if (ratio < 0.9) return 'vertical';   // Portrait
-    return 'square';                       // Square
+  if (ratio > 1.1) return 'horizontal'; // Landscape
+  if (ratio < 0.9) return 'vertical'; // Portrait
+  return 'square'; // Square
 }

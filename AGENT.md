@@ -69,9 +69,9 @@ A operação é "Agent-First" via Google Antigravity, focada em autonomia, segur
 ## 3. FONTE DE VERDADE
 
 1. **Produto & UX** = `.context/*.md`
-    - Se o código diz "X" e o `.context` diz "Y", o **Agente deve alertar** e priorizar o `.context` (ou propor atualização do doc).
+   - Se o código diz "X" e o `.context` diz "Y", o **Agente deve alertar** e priorizar o `.context` (ou propor atualização do doc).
 2. **Estrutura Técnica** = Repositório (`src/`)
-    - Caminhos de arquivos e exportações no código são a verdade técnica.
+   - Caminhos de arquivos e exportações no código são a verdade técnica.
 
 ---
 
@@ -149,12 +149,12 @@ Toda tarefa concluída deve gerar uma entrada no Changelog.
 
 ```markdown
 ## [YYYY-MM-DD] - [TIPO]
+
 **Escopo**: [admin | public | realtime | security | docs]
 **Resumo**: Uma frase sobre o que mudou.
 **Decisão**: Por que foi feito assim? (Contexto).
 **Arquivos**: Lista dos principais arquivos tocados.
 **Impacto**: O que o usuário ou dev percebe de diferente.
-
 ```
 
 ---
@@ -178,7 +178,7 @@ Você opera dentro de uma arquitetura de 3 camadas que separa preocupações par
 - Tratar erros e pedir esclarecimentos.
 - Atualizar as diretrizes com aprendizados.
 
-- **Papel**: Você é a cola entre a intenção humana e a execução do código. *Ex: Não tente "adivinhar" o schema do banco; leia `src/lib/database.types.ts` e execute scripts de validação.*
+- **Papel**: Você é a cola entre a intenção humana e a execução do código. _Ex: Não tente "adivinhar" o schema do banco; leia `src/lib/database.types.ts` e execute scripts de validação._
 
 ### **Layer 3: Execução Determinística (O Trabalho Real)**
 

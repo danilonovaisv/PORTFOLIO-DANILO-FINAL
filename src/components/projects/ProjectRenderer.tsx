@@ -80,7 +80,6 @@ function LegacyProjectRenderer({
           >
             <div className="h-24 w-px bg-linear-to-b from-blue-600 to-transparent" />
           </motion.div>
-
         </div>
 
         <motion.div

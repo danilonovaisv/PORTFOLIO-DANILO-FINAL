@@ -97,11 +97,17 @@ export function useSiteAssetUrl(key: string, fallback?: string) {
       return fallback;
     }
     const normalizedFallback = normalizeStoragePath(fallback, 'site-assets');
-    return buildSupabaseStorageUrl('site-assets', normalizedFallback ?? fallback);
+    return buildSupabaseStorageUrl(
+      'site-assets',
+      normalizedFallback ?? fallback
+    );
   }
 
   if (fallbackPaths[key]) {
-    const normalizedFallback = normalizeStoragePath(fallbackPaths[key], 'site-assets');
+    const normalizedFallback = normalizeStoragePath(
+      fallbackPaths[key],
+      'site-assets'
+    );
     return (
       buildSupabaseStorageUrl(
         'site-assets',

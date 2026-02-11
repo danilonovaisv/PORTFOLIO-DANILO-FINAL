@@ -69,7 +69,8 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
     return { ok: true, data: updatedProject };
   } catch (error: unknown) {
     console.error('Erro ao salvar projeto:', error);
-    const message = error instanceof Error ? error.message : 'Erro ao salvar projeto.';
+    const message =
+      error instanceof Error ? error.message : 'Erro ao salvar projeto.';
     return {
       ok: false,
       error: message,
@@ -86,7 +87,8 @@ export async function deleteProjectAction(id: string) {
     return { ok: true };
   } catch (error: unknown) {
     console.error('Erro ao deletar projeto:', error);
-    const message = error instanceof Error ? error.message : 'Erro desconhecido';
+    const message =
+      error instanceof Error ? error.message : 'Erro desconhecido';
     return { ok: false, error: message };
   }
 }

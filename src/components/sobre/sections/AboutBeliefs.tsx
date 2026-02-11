@@ -57,8 +57,7 @@ export function AboutBeliefs() {
   return (
     <section
       ref={containerRef}
-      className="relative isolate w-full overflow-x-clip"
-      style={{ minHeight: `${(PHRASES.length + 2) * 100}vh` }} // Garante altura baseada no conteúdo
+      className="relative isolate w-full overflow-x-clip min-h-[800vh]"
     >
       <BeliefFixedHeader scrollProgress={scrollYProgress} />
       {/* LAYER 1: Seções de Conteúdo (Texto Scrollável) */}
@@ -80,10 +79,16 @@ export function AboutBeliefs() {
       </div>
 
       {/* LAYER 2: Texto Mobile Fixed no Footer */}
-      <BeliefMobileTextLayer phrases={PHRASES} scrollYProgress={scrollYProgress} />
+      <BeliefMobileTextLayer
+        phrases={PHRASES}
+        scrollYProgress={scrollYProgress}
+      />
 
       {/* LAYER 3: Canvas 3D (entre fundos e texto final) */}
-      <div className="absolute inset-0 z-40 w-full h-full pointer-events-none" aria-hidden>
+      <div
+        className="absolute inset-0 z-40 w-full h-full pointer-events-none"
+        aria-hidden
+      >
         <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-none flex md:items-center md:justify-center items-end justify-start">
           <div className="w-full h-full md:absolute md:inset-0 relative">
             {!prefersReducedMotion ? (
@@ -94,7 +99,7 @@ export function AboutBeliefs() {
       </div>
 
       {/* LAYER 4: Final Text Overlay (sempre acima do Canvas) */}
-      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-[65]">
+      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-65">
         <BeliefFinalSectionOverlay />
       </div>
     </section>

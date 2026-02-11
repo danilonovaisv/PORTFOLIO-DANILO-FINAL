@@ -113,13 +113,13 @@ chmod 644 .env.local
 
 ### Storage Savings
 
-| Category | Size Freed | Status |
-|----------|------------|--------|
-| Old .next backups | ~500MB-1GB | ✅ Freed |
-| Reference images | 16.7MB | ✅ Freed from production |
-| Old configs | ~10KB | ✅ Freed |
-| Backup JSONs | ~1-5MB | ❌ Not freed (permissions) |
-| **Total** | **~520MB-1GB** | **95% Success** |
+| Category          | Size Freed     | Status                     |
+| ----------------- | -------------- | -------------------------- |
+| Old .next backups | ~500MB-1GB     | ✅ Freed                   |
+| Reference images  | 16.7MB         | ✅ Freed from production   |
+| Old configs       | ~10KB          | ✅ Freed                   |
+| Backup JSONs      | ~1-5MB         | ❌ Not freed (permissions) |
+| **Total**         | **~520MB-1GB** | **95% Success**            |
 
 ### Production Bundle Impact
 

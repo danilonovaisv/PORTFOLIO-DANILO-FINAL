@@ -24,11 +24,10 @@ test.describe('Ghost System Verification', () => {
   test('about page should render refactored Origin section', async ({
     page,
   }) => {
-    await page.goto('/sobre', { waitUntil: 'networkidle' });
-    await page.waitForTimeout(1000);
+    await page.goto('/sobre', { waitUntil: 'domcontentloaded' });
 
-    // Check "ORIGEM" heading
-    await expect(page.locator('h1', { hasText: /ORIGEM/i })).toBeVisible();
+    // Check "ORIGEM" heading with explicit timeout
+    await expect(page.locator('h1', { hasText: /ORIGEM/i })).toBeVisible({ timeout: 15000 });
 
     // Check for content from Origin data
     await expect(
@@ -55,11 +54,12 @@ test.describe('Ghost System Verification', () => {
       await page.waitForTimeout(2000);
       await page.goto('/', { waitUntil: 'domcontentloaded' });
     }
-    await page.waitForLoadState('networkidle');
+
+    // Check if we are on home before proceeding
+    await expect(page.getByTestId('home-hero')).toBeVisible({ timeout: 10000 });
 
     // Click on "Sobre" link in header
     // Ensure menu is fully interactive
-    await page.waitForTimeout(500);
     const aboutLink = page
       .getByRole('button', { name: /sobre/i })
       .filter({ visible: true });

@@ -20,7 +20,9 @@ describe('resolveSiteAssetUrl', () => {
 
   it('normalizes /storage/v1/object/public paths with explicit bucket', () => {
     expect(
-      resolveSiteAssetUrl('/storage/v1/object/public/landing-pages/demo/video.mp4')
+      resolveSiteAssetUrl(
+        '/storage/v1/object/public/landing-pages/demo/video.mp4'
+      )
     ).toBe(
       'https://test.supabase.co/storage/v1/object/public/landing-pages/demo/video.mp4'
     );

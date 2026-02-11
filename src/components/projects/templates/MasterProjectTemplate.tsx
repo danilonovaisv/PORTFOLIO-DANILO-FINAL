@@ -369,7 +369,7 @@ export default function MasterProjectTemplate({
                   <div
                     className={
                       item.layout === 'feature' ||
-                        item.layout === 'full-highlight'
+                      item.layout === 'full-highlight'
                         ? 'aspect-16/10 md:aspect-20/9'
                         : 'aspect-4/3 md:aspect-16/10'
                     }

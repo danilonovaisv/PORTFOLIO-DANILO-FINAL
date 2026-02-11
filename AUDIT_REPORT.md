@@ -18,56 +18,56 @@
 
 ### Unused Production Dependencies (15)
 
-| Package | Severity | Recommended Action |
-|---------|----------|-------------------|
-| `@dataconnect/admin-generated` | Low | Verify if used in admin routes, remove if unused |
-| `@dataconnect/generated` | Low | Verify if used in public routes, remove if unused |
-| `@genkit-ai/google-genai` | Medium | Remove if AI features not implemented |
-| `@google/adk` | Medium | Remove if ADK not in use |
-| `@react-three/postprocessing` | **High** | Used in Ghost.tsx - FALSE POSITIVE, keep |
-| `firebase-admin` | Low | Used in server-side only, may not be detected |
-| `firebase-frameworks` | Low | Required for Firebase hosting, keep |
-| `firebase-functions` | Low | Required for functions/, keep |
-| `husky` | Low | Git hooks - verify .husky/ exists |
-| `lightningcss` | Low | Verify if used in build process |
-| `lint-staged` | Low | Verify if used with husky |
-| `motion-studio-mcp` | Low | MCP server dependency, keep |
-| `postprocessing` | **High** | Used in Ghost.tsx - FALSE POSITIVE, keep |
-| `statsig-js` | Medium | Remove if feature flags not used |
-| `tailwindcss-animate` | Medium | Verify if animations use this |
+| Package                        | Severity | Recommended Action                                |
+| ------------------------------ | -------- | ------------------------------------------------- |
+| `@dataconnect/admin-generated` | Low      | Verify if used in admin routes, remove if unused  |
+| `@dataconnect/generated`       | Low      | Verify if used in public routes, remove if unused |
+| `@genkit-ai/google-genai`      | Medium   | Remove if AI features not implemented             |
+| `@google/adk`                  | Medium   | Remove if ADK not in use                          |
+| `@react-three/postprocessing`  | **High** | Used in Ghost.tsx - FALSE POSITIVE, keep          |
+| `firebase-admin`               | Low      | Used in server-side only, may not be detected     |
+| `firebase-frameworks`          | Low      | Required for Firebase hosting, keep               |
+| `firebase-functions`           | Low      | Required for functions/, keep                     |
+| `husky`                        | Low      | Git hooks - verify .husky/ exists                 |
+| `lightningcss`                 | Low      | Verify if used in build process                   |
+| `lint-staged`                  | Low      | Verify if used with husky                         |
+| `motion-studio-mcp`            | Low      | MCP server dependency, keep                       |
+| `postprocessing`               | **High** | Used in Ghost.tsx - FALSE POSITIVE, keep          |
+| `statsig-js`                   | Medium   | Remove if feature flags not used                  |
+| `tailwindcss-animate`          | Medium   | Verify if animations use this                     |
 
 **Action:** Run manual verification for each package before removal. Some are false positives (server-only, build-time).
 
 ### Unused Dev Dependencies (17)
 
-| Package | Severity | Recommended Action |
-|---------|----------|-------------------|
-| `@tailwindcss/postcss` | Low | Verify Tailwind 4 config |
-| `@tailwindcss/typography` | Low | Check if prose classes used |
-| `@testing-library/user-event` | Low | Remove if not used in tests |
-| `@types/handlebars` | Low | Remove if handlebars not used |
-| `autoprefixer` | Medium | Verify PostCSS config |
-| `esbuild` | Low | Locked version override, keep |
-| `eslint-config-next` | **High** | FALSE POSITIVE - required, keep |
-| `eslint-plugin-react` | Medium | Verify ESLint config |
-| `jest-environment-jsdom` | Low | Required for React testing, keep |
-| `knip` | Low | Used in deep-clean workflow, keep |
-| `postcss` | Medium | Verify if Tailwind needs it |
-| `rimraf` | Low | Used in clean script, keep |
-| `serve` | Low | Used for preview, keep |
-| `shadcn` | Low | CLI tool, keep |
-| `styled-jsx` | Low | Next.js dependency, keep |
-| `ts-node` | Low | Used in scripts, keep |
-| `which` | Low | Utility dependency, keep |
+| Package                       | Severity | Recommended Action                |
+| ----------------------------- | -------- | --------------------------------- |
+| `@tailwindcss/postcss`        | Low      | Verify Tailwind 4 config          |
+| `@tailwindcss/typography`     | Low      | Check if prose classes used       |
+| `@testing-library/user-event` | Low      | Remove if not used in tests       |
+| `@types/handlebars`           | Low      | Remove if handlebars not used     |
+| `autoprefixer`                | Medium   | Verify PostCSS config             |
+| `esbuild`                     | Low      | Locked version override, keep     |
+| `eslint-config-next`          | **High** | FALSE POSITIVE - required, keep   |
+| `eslint-plugin-react`         | Medium   | Verify ESLint config              |
+| `jest-environment-jsdom`      | Low      | Required for React testing, keep  |
+| `knip`                        | Low      | Used in deep-clean workflow, keep |
+| `postcss`                     | Medium   | Verify if Tailwind needs it       |
+| `rimraf`                      | Low      | Used in clean script, keep        |
+| `serve`                       | Low      | Used for preview, keep            |
+| `shadcn`                      | Low      | CLI tool, keep                    |
+| `styled-jsx`                  | Low      | Next.js dependency, keep          |
+| `ts-node`                     | Low      | Used in scripts, keep             |
+| `which`                       | Low      | Utility dependency, keep          |
 
 **Action:** Most are false positives or required for tooling. Safe to ignore.
 
 ### Missing Dependencies (2)
 
-| Package | Used In | Severity | Recommended Action |
-|---------|---------|----------|-------------------|
+| Package       | Used In                     | Severity | Recommended Action     |
+| ------------- | --------------------------- | -------- | ---------------------- |
 | `server-only` | `src/lib/supabase/admin.ts` | **HIGH** | `pnpm add server-only` |
-| `dotenv` | `scripts/debug-projects.ts` | Medium | `pnpm add -D dotenv` |
+| `dotenv`      | `scripts/debug-projects.ts` | Medium   | `pnpm add -D dotenv`   |
 
 **Action:** Install immediately to prevent runtime errors.
 
@@ -77,11 +77,11 @@
 
 ### `dangerouslySetInnerHTML` Usage (3 instances)
 
-| File | Line | Context | Risk Level | Status |
-|------|------|---------|------------|--------|
-| `src/components/ui/chart.tsx` | 138 | CSS style injection for chart theming | ✅ LOW | SAFE - Sanitized CSS variables |
-| `src/components/ui/JsonLd.tsx` | 197 | JSON-LD structured data | ✅ LOW | SAFE - JSON.stringify() |
-| `src/app/projects/[slug]/page.tsx` | 168 | Project JSON-LD schema | ✅ LOW | SAFE - JSON.stringify() |
+| File                               | Line | Context                               | Risk Level | Status                         |
+| ---------------------------------- | ---- | ------------------------------------- | ---------- | ------------------------------ |
+| `src/components/ui/chart.tsx`      | 138  | CSS style injection for chart theming | ✅ LOW     | SAFE - Sanitized CSS variables |
+| `src/components/ui/JsonLd.tsx`     | 197  | JSON-LD structured data               | ✅ LOW     | SAFE - JSON.stringify()        |
+| `src/app/projects/[slug]/page.tsx` | 168  | Project JSON-LD schema                | ✅ LOW     | SAFE - JSON.stringify()        |
 
 **Analysis:**
 
@@ -100,14 +100,14 @@
 **Scanned:** Admin components (`src/components/admin/`)  
 **Results:** ✅ ALL images have alt attributes
 
-| File | Images | Alt Status |
-|------|--------|------------|
-| `MasterProjectTemplateV2Editor.tsx` | 2 | ✅ Dynamic alt with fallback |
-| `MasterProjectTemplateV3Editor.tsx` | 2 | ✅ Dynamic alt with fallback |
-| `MasterProjectTemplateEditor.tsx` | 2 | ✅ Dynamic alt with fallback |
-| `MediaInput.tsx` | 1 | ✅ Static "Preview" alt |
-| `LandingPageForm.tsx` | 1 | ✅ Static "Cover" alt |
-| `AssetCard.tsx` | 1 | ✅ Dynamic alt from asset.key |
+| File                                | Images | Alt Status                    |
+| ----------------------------------- | ------ | ----------------------------- |
+| `MasterProjectTemplateV2Editor.tsx` | 2      | ✅ Dynamic alt with fallback  |
+| `MasterProjectTemplateV3Editor.tsx` | 2      | ✅ Dynamic alt with fallback  |
+| `MasterProjectTemplateEditor.tsx`   | 2      | ✅ Dynamic alt with fallback  |
+| `MediaInput.tsx`                    | 1      | ✅ Static "Preview" alt       |
+| `LandingPageForm.tsx`               | 1      | ✅ Static "Cover" alt         |
+| `AssetCard.tsx`                     | 1      | ✅ Dynamic alt from asset.key |
 
 **Pattern Used:**
 
@@ -132,12 +132,12 @@ alt={asset.key}                        // Good: Dynamic description
 
 ### High-Risk Files (Potential Complexity Issues)
 
-| File | Estimated LOC | Risk | Reason |
-|------|---------------|------|--------|
-| `MasterProjectTemplateV2Editor.tsx` | 862+ | Medium | Large editor component, may exceed 200 LOC |
-| `MasterProjectTemplateV3Editor.tsx` | 386+ | Medium | Large editor component |
-| `MasterProjectTemplateEditor.tsx` | 749+ | Medium | Large editor component |
-| `LandingPageForm.tsx` | 1004+ | **HIGH** | Exceeds 200 LOC guideline significantly |
+| File                                | Estimated LOC | Risk     | Reason                                     |
+| ----------------------------------- | ------------- | -------- | ------------------------------------------ |
+| `MasterProjectTemplateV2Editor.tsx` | 862+          | Medium   | Large editor component, may exceed 200 LOC |
+| `MasterProjectTemplateV3Editor.tsx` | 386+          | Medium   | Large editor component                     |
+| `MasterProjectTemplateEditor.tsx`   | 749+          | Medium   | Large editor component                     |
+| `LandingPageForm.tsx`               | 1004+         | **HIGH** | Exceeds 200 LOC guideline significantly    |
 
 **Recommendation:**
 

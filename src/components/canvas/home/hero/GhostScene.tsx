@@ -1,7 +1,7 @@
 /**
  * Ghost Scene - Main Component
  * Orchestrates the WebGL ghost animation with all sub-systems
- * 
+ *
  * Refactored from 874 lines to ~380 lines
  * Modular architecture with extracted utilities and systems
  */
@@ -13,12 +13,25 @@ import * as THREE from 'three';
 import { usePerformanceAdaptive } from '@/hooks/usePerformanceAdaptive';
 import { useGhostInteraction } from './hooks/useGhostInteraction';
 import { DEFAULT_GHOST_PARAMS } from './utils/constants';
-import { createRenderer, createCamera, createLights, handleResize } from './utils/sceneSetup';
+import {
+  createRenderer,
+  createCamera,
+  createLights,
+  handleResize,
+} from './utils/sceneSetup';
 import { createComposer } from './utils/postProcessing';
-import { createAtmosphere, createGhostBody, updateGhostBody, updateAtmosphere } from './components/GhostBody';
+import {
+  createAtmosphere,
+  createGhostBody,
+  updateGhostBody,
+  updateAtmosphere,
+} from './components/GhostBody';
 import { createEyes, updateEyeGlow } from './components/GhostEyes';
 import { createFireflySystem, updateFireflies } from './systems/FireflySystem';
-import { createParticleSystem, updateParticles } from './systems/ParticleSystem';
+import {
+  createParticleSystem,
+  updateParticles,
+} from './systems/ParticleSystem';
 
 export default function GhostScene() {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -53,10 +66,12 @@ export default function GhostScene() {
         preloaderManager.updateProgress(5);
 
         setTimeout(() => {
-          if (preloaderRef.current) preloaderRef.current.classList.add('fade-out');
+          if (preloaderRef.current)
+            preloaderRef.current.classList.add('fade-out');
           canvas.classList.add('fade-in');
           setTimeout(() => {
-            if (preloaderRef.current) preloaderRef.current.style.display = 'none';
+            if (preloaderRef.current)
+              preloaderRef.current.style.display = 'none';
           }, 1000);
         }, 1500);
       },
@@ -72,7 +87,11 @@ export default function GhostScene() {
     preloaderManager.updateProgress(2);
 
     // Post-Processing
-    const { composer, bloomPass, analogDecayPass } = createComposer(renderer, scene, camera);
+    const { composer, bloomPass, analogDecayPass } = createComposer(
+      renderer,
+      scene,
+      camera
+    );
     preloaderManager.updateProgress(3);
 
     // Lighting
@@ -141,7 +160,9 @@ export default function GhostScene() {
 
       // Update shader uniforms
       analogDecayPass.uniforms.uTime.value = time;
-      analogDecayPass.uniforms.uLimboMode.value = DEFAULT_GHOST_PARAMS.limboMode ? 1.0 : 0.0;
+      analogDecayPass.uniforms.uLimboMode.value = DEFAULT_GHOST_PARAMS.limboMode
+        ? 1.0
+        : 0.0;
 
       // Ghost Movement
       const autoSpeed = 0.85;
@@ -165,7 +186,9 @@ export default function GhostScene() {
       } else {
         targetX = interaction.mouse.x * 12 + autoX * 0.1;
         targetY =
-          interaction.mouse.y * 8 + autoY * 0.1 + (interaction.scrollY / window.innerHeight) * -15;
+          interaction.mouse.y * 8 +
+          autoY * 0.1 +
+          (interaction.scrollY / window.innerHeight) * -15;
       }
 
       // Update ghost position
@@ -182,7 +205,8 @@ export default function GhostScene() {
         moveAmt * (1 - DEFAULT_GHOST_PARAMS.eyeGlowDecay);
 
       // Float animation
-      ghostGroup.position.y += Math.sin(time * DEFAULT_GHOST_PARAMS.floatSpeed * 1.5) * 0.03;
+      ghostGroup.position.y +=
+        Math.sin(time * DEFAULT_GHOST_PARAMS.floatSpeed * 1.5) * 0.03;
 
       // Update Ghost Body (pulse)
       updateGhostBody(ghostBody, time, DEFAULT_GHOST_PARAMS);

@@ -3,11 +3,11 @@
 import { FC } from 'react';
 import Image from 'next/image';
 import {
-  applyImageFallback,
-  getYouTubeEmbedUrl,
-  getYouTubeThumbnailUrl,
-  isVideo,
-  isYouTubeUrl,
+    applyImageFallback,
+    getYouTubeEmbedUrl,
+    getYouTubeThumbnailUrl,
+    isVideo,
+    isYouTubeUrl,
 } from '@/lib/utils';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { Play } from 'lucide-react';
@@ -108,7 +108,7 @@ export const MediaContainer: FC<MediaContainerProps> = ({
                             <button
                                 key={`${media}-${index}`}
                                 onClick={() => onSelect(media)}
-                                className={`relative flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden transition-all duration-300 ring-2 ${isActive ? 'ring-blueAccent z-10' : 'ring-white/5 opacity-60 hover:opacity-100 hover:ring-white/20'
+                                className={`relative shrink-0 w-20 h-20 rounded-xl overflow-hidden transition-all duration-300 ring-2 ${isActive ? 'ring-blueAccent z-10' : 'ring-white/5 opacity-60 hover:opacity-100 hover:ring-white/20'
                                     }`}
                                 aria-label={`Visualizar mídia ${index + 1}`}
                             >

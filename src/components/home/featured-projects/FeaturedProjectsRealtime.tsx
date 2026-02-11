@@ -28,7 +28,8 @@ export default function FeaturedProjectsRealtime({
   const router = useRouter();
   const supabase = useMemo(() => createClientComponentClient(), []);
   const [projects, setProjects] = useState<PortfolioProject[]>(initialProjects);
-  const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
+  const [selectedProject, setSelectedProject] =
+    useState<PortfolioProject | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const lastFocusedRef = useRef<HTMLElement | null>(null);
   const isDev = process.env.NODE_ENV !== 'production';
@@ -83,7 +84,9 @@ export default function FeaturedProjectsRealtime({
           error
         );
       }
-      setProjects((current) => (current.length > 0 ? current : initialProjects));
+      setProjects((current) =>
+        current.length > 0 ? current : initialProjects
+      );
     }
   }, [initialProjects, isDev, supabase]);
 
@@ -125,14 +128,10 @@ export default function FeaturedProjectsRealtime({
                 broadcast: { self: false, ack: true },
               },
             })
-            .on(
-              'broadcast',
-              { event: 'portfolio_projects' },
-              () => {
-                // Reload on any project change
-                void loadFeaturedProjects();
-              }
-            )
+            .on('broadcast', { event: 'portfolio_projects' }, () => {
+              // Reload on any project change
+              void loadFeaturedProjects();
+            })
             .subscribe((status: string, err?: Error) => {
               if (status === 'SUBSCRIBED') {
                 stopPolling();
@@ -166,7 +165,6 @@ export default function FeaturedProjectsRealtime({
 
       // Note: If we need to listen to Tags changes, we'd need another channel 'portfolio_project_tags'
       // or handle it here if we merge topics. For now, project updates are the main driver.
-
     } catch (error) {
       if (isDev) {
         console.warn(
@@ -191,7 +189,9 @@ export default function FeaturedProjectsRealtime({
           from: 'home',
           originCard: project.slug,
         });
-        router.push(`/projects/${project.landingPageSlug}?${params.toString()}`);
+        router.push(
+          `/projects/${project.landingPageSlug}?${params.toString()}`
+        );
         return;
       }
 

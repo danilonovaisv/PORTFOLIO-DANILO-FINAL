@@ -9,8 +9,7 @@ interface VideoManifestoProps {
   assetKey?: string;
 }
 
-const VIDEO_EXTENSIONS_REGEX =
-  /\.(mp4|webm|mov|m4v)(?:[?#].*)?$/i;
+const VIDEO_EXTENSIONS_REGEX = /\.(mp4|webm|mov|m4v)(?:[?#].*)?$/i;
 
 const isLikelyVideoUrl = (url?: string | null) => {
   if (!url) return false;

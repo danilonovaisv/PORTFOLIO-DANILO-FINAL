@@ -9,10 +9,10 @@
 
 ### 🗂️ Old Build Artifacts
 
-| Path | Type | Size | Last Modified | Risk | Action |
-|------|------|------|---------------|------|--------|
-| `.next_backup_1770284599/` | Directory | Unknown | ~Jan 2026 | **LOW** | Move to quarantine |
-| `.next_backup_1770285237_2/` | Directory | Unknown | ~Jan 2026 | **LOW** | Move to quarantine |
+| Path                         | Type      | Size    | Last Modified | Risk    | Action             |
+| ---------------------------- | --------- | ------- | ------------- | ------- | ------------------ |
+| `.next_backup_1770284599/`   | Directory | Unknown | ~Jan 2026     | **LOW** | Move to quarantine |
+| `.next_backup_1770285237_2/` | Directory | Unknown | ~Jan 2026     | **LOW** | Move to quarantine |
 
 **Rationale:** Old Next.js build backups, no longer needed. Current `.next/` is active.
 
@@ -20,10 +20,10 @@
 
 ### 📦 Backup JSON Files
 
-| Path | Type | Size | Last Modified | Risk | Action |
-|------|------|------|---------------|------|--------|
-| `site_assets_backup-1770487257002.json` | File | Unknown | ~Jan 2026 | **LOW** | Move to quarantine |
-| `site_assets_backup-1770609415892.json` | File | Unknown | ~Feb 2026 | **LOW** | Move to quarantine |
+| Path                                    | Type | Size    | Last Modified | Risk    | Action             |
+| --------------------------------------- | ---- | ------- | ------------- | ------- | ------------------ |
+| `site_assets_backup-1770487257002.json` | File | Unknown | ~Jan 2026     | **LOW** | Move to quarantine |
+| `site_assets_backup-1770609415892.json` | File | Unknown | ~Feb 2026     | **LOW** | Move to quarantine |
 
 **Rationale:** Asset backup files. Supabase is source of truth. Safe to archive.
 
@@ -31,15 +31,15 @@
 
 ### 🖼️ Reference Images (16.7MB Total)
 
-| Path | Size | Purpose | Risk | Action |
-|------|------|---------|------|--------|
-| `public/referencias/HERO.jpg` | 613KB | Design reference | **LOW** | Move to `docs/referencias/` |
-| `public/referencias/HOME-PORTFOLIO-BLACK---GHOST.jpg` | 3.8MB | Design reference | **LOW** | Move to `docs/referencias/` |
+| Path                                                           | Size  | Purpose          | Risk    | Action                      |
+| -------------------------------------------------------------- | ----- | ---------------- | ------- | --------------------------- |
+| `public/referencias/HERO.jpg`                                  | 613KB | Design reference | **LOW** | Move to `docs/referencias/` |
+| `public/referencias/HOME-PORTFOLIO-BLACK---GHOST.jpg`          | 3.8MB | Design reference | **LOW** | Move to `docs/referencias/` |
 | `public/referencias/HOME-PORTFOLIO-LAYOUYT-MOBILE---GHOST.jpg` | 2.4MB | Design reference | **LOW** | Move to `docs/referencias/` |
-| `public/referencias/PORTFOLIO-PAGE-LAYOUYT.jpg` | 1.3MB | Design reference | **LOW** | Move to `docs/referencias/` |
-| `public/referencias/PORTFOLIO-PAGE-MOBILE.jpg` | 2.0MB | Design reference | **LOW** | Move to `docs/referencias/` |
-| `public/referencias/SOBRE-MOBILE-BLACK---GHOST.jpg` | 3.9MB | Design reference | **LOW** | Move to `docs/referencias/` |
-| `public/referencias/SOBRE-PORTFOLIO-BLACK---GHOST.jpg` | 2.8MB | Design reference | **LOW** | Move to `docs/referencias/` |
+| `public/referencias/PORTFOLIO-PAGE-LAYOUYT.jpg`                | 1.3MB | Design reference | **LOW** | Move to `docs/referencias/` |
+| `public/referencias/PORTFOLIO-PAGE-MOBILE.jpg`                 | 2.0MB | Design reference | **LOW** | Move to `docs/referencias/` |
+| `public/referencias/SOBRE-MOBILE-BLACK---GHOST.jpg`            | 3.9MB | Design reference | **LOW** | Move to `docs/referencias/` |
+| `public/referencias/SOBRE-PORTFOLIO-BLACK---GHOST.jpg`         | 2.8MB | Design reference | **LOW** | Move to `docs/referencias/` |
 
 **Rationale:** Design references should not be in `public/` (served to users). Move to `docs/` for internal use only.
 
@@ -49,13 +49,13 @@
 
 ### ⚙️ Duplicate Configuration Files
 
-| Path | Purpose | Status | Risk | Action |
-|------|---------|--------|------|--------|
-| `.cursorrules` | Cursor IDE rules | **ACTIVE** | **SAFE** | Keep |
-| `.cursorrulesjules` | Duplicate/old rules | **INACTIVE** | **LOW** | Move to quarantine |
-| `.agentrules` | Old agent rules | **INACTIVE** | **LOW** | Move to quarantine |
-| `.agent` | Active agent config | **ACTIVE** | **SAFE** | Keep |
-| `.agent_config` | Agent config | **ACTIVE** | **SAFE** | Keep |
+| Path                | Purpose             | Status       | Risk     | Action             |
+| ------------------- | ------------------- | ------------ | -------- | ------------------ |
+| `.cursorrules`      | Cursor IDE rules    | **ACTIVE**   | **SAFE** | Keep               |
+| `.cursorrulesjules` | Duplicate/old rules | **INACTIVE** | **LOW**  | Move to quarantine |
+| `.agentrules`       | Old agent rules     | **INACTIVE** | **LOW**  | Move to quarantine |
+| `.agent`            | Active agent config | **ACTIVE**   | **SAFE** | Keep               |
+| `.agent_config`     | Agent config        | **ACTIVE**   | **SAFE** | Keep               |
 
 **Rationale:** `.cursorrulesjules` and `.agentrules` appear to be duplicates or old versions. `.cursorrules` and `.agent/` are active.
 
@@ -63,8 +63,8 @@
 
 ### 🐍 Python Scripts
 
-| Path | Purpose | Risk | Action |
-|------|---------|------|--------|
+| Path                     | Purpose           | Risk    | Action             |
+| ------------------------ | ----------------- | ------- | ------------------ |
 | `smart_backup_daemon.py` | Backup automation | **LOW** | Move to `scripts/` |
 
 **Rationale:** Python script should be in `scripts/` directory, not root.

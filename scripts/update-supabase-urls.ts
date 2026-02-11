@@ -49,7 +49,11 @@ async function updateSupabaseUrls() {
       const bucket = (asset.bucket ?? 'site-assets').replace(/^\/+|\/+$/g, '');
       const normalizedPath = normalizeStoragePath(asset.file_path, bucket);
 
-      if (!asset.file_path || !normalizedPath || normalizedPath === asset.file_path) {
+      if (
+        !asset.file_path ||
+        !normalizedPath ||
+        normalizedPath === asset.file_path
+      ) {
         return null;
       }
 

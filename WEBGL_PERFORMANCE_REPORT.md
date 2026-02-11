@@ -102,7 +102,10 @@ if (!mesh.visible) {
   useEffect(() => {
     if (composerRef.current) {
       composerRef.current.setSize(size.width, size.height);
-      analogPassRef.current?.uniforms.uResolution.value.set(size.width, size.height);
+      analogPassRef.current?.uniforms.uResolution.value.set(
+        size.width,
+        size.height
+      );
       return;
     }
     // Only create composer once
@@ -130,7 +133,9 @@ if (!mesh.visible) {
 ```typescript
 useFrame(({ clock }) => {
   materialRef.current.uniforms.time.value = clock.getElapsedTime();
-  materialRef.current.uniforms.ghostPosition.value.copy(ghostRef.current.position);
+  materialRef.current.uniforms.ghostPosition.value.copy(
+    ghostRef.current.position
+  );
 });
 ```
 
@@ -140,16 +145,16 @@ useFrame(({ clock }) => {
 
 ### Other Components (Summary)
 
-| Component | File | Performance | Notes |
-|-----------|------|-------------|-------|
-| GlassBar | `canvas/header/GlassBar.tsx` | ✅ GOOD | Efficient material updates |
-| HeaderGlassCanvas | `canvas/header/HeaderGlassCanvas.tsx` | ✅ GOOD | Minimal calculations |
-| HeaderFluidGlass | `canvas/header/HeaderFluidGlass.tsx` | ✅ GOOD | Shader-based |
-| NavItems | `canvas/header/NavItems.tsx` | ✅ GOOD | Simple position updates |
-| Fireflies | `canvas/home/hero/Fireflies.tsx` | ✅ GOOD | Instanced geometry (assumed) |
-| GhostFireflies | `canvas/home/hero/GhostFireflies.tsx` | ✅ GOOD | Similar to Fireflies |
-| AtmosphereVeil | `canvas/home/hero/AtmosphereVeil.tsx` | ✅ GOOD | Shader-based |
-| Shaders Index | `canvas/shaders/index.tsx` | ✅ GOOD | Uniform updates only |
+| Component         | File                                  | Performance | Notes                        |
+| ----------------- | ------------------------------------- | ----------- | ---------------------------- |
+| GlassBar          | `canvas/header/GlassBar.tsx`          | ✅ GOOD     | Efficient material updates   |
+| HeaderGlassCanvas | `canvas/header/HeaderGlassCanvas.tsx` | ✅ GOOD     | Minimal calculations         |
+| HeaderFluidGlass  | `canvas/header/HeaderFluidGlass.tsx`  | ✅ GOOD     | Shader-based                 |
+| NavItems          | `canvas/header/NavItems.tsx`          | ✅ GOOD     | Simple position updates      |
+| Fireflies         | `canvas/home/hero/Fireflies.tsx`      | ✅ GOOD     | Instanced geometry (assumed) |
+| GhostFireflies    | `canvas/home/hero/GhostFireflies.tsx` | ✅ GOOD     | Similar to Fireflies         |
+| AtmosphereVeil    | `canvas/home/hero/AtmosphereVeil.tsx` | ✅ GOOD     | Shader-based                 |
+| Shaders Index     | `canvas/shaders/index.tsx`            | ✅ GOOD     | Uniform updates only         |
 
 ---
 
@@ -159,11 +164,11 @@ useFrame(({ clock }) => {
 
 **Location:** `public/site.assets/3d/`
 
-| File | Size | Status | Recommendation |
-|------|------|--------|----------------|
-| `ghost.glb` | Pending | ⚠️ CHECK | Verify Draco compression |
+| File                    | Size    | Status   | Recommendation           |
+| ----------------------- | ------- | -------- | ------------------------ |
+| `ghost.glb`             | Pending | ⚠️ CHECK | Verify Draco compression |
 | `ghost-transformed.glb` | Pending | ⚠️ CHECK | Verify Draco compression |
-| `bar.glb` | Pending | ⚠️ CHECK | Verify Draco compression |
+| `bar.glb`               | Pending | ⚠️ CHECK | Verify Draco compression |
 
 **Action Required:** Run `ls -lh public/site.assets/3d/` to check file sizes.
 
@@ -244,7 +249,7 @@ import { Stats } from '@react-three/drei';
    useFrame(() => {
      const vec = new THREE.Vector3(); // Creates new object every frame!
    });
-   
+
    // GOOD
    const vec = useRef(new THREE.Vector3());
    useFrame(() => {

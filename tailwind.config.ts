@@ -18,6 +18,10 @@ const config: Config = {
         'cta-tablet': '200px',
         'cta-desktop': '220px',
       },
+      zIndex: {
+        '55': '55',
+        '65': '65',
+      },
     },
   },
   plugins: [],

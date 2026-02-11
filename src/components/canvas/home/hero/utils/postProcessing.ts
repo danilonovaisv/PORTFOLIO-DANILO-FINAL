@@ -21,29 +21,29 @@ import { BLOOM_SETTINGS } from './constants';
  * Creates vintage VHS/CRT effects with grain, bleeding, scanlines, etc.
  */
 export const analogDecayShader = {
-    uniforms: {
-        tDiffuse: { value: null },
-        uTime: { value: 0.0 },
-        uResolution: {
-            value: new THREE.Vector2(window.innerWidth, window.innerHeight),
-        },
-        uAnalogGrain: { value: 0.4 },
-        uAnalogBleeding: { value: 1.0 },
-        uAnalogVSync: { value: 1.0 },
-        uAnalogScanlines: { value: 1.0 },
-        uAnalogVignette: { value: 1.0 },
-        uAnalogJitter: { value: 0.4 },
-        uAnalogIntensity: { value: 0.6 },
-        uLimboMode: { value: 0.0 },
+  uniforms: {
+    tDiffuse: { value: null },
+    uTime: { value: 0.0 },
+    uResolution: {
+      value: new THREE.Vector2(window.innerWidth, window.innerHeight),
     },
-    vertexShader: `
+    uAnalogGrain: { value: 0.4 },
+    uAnalogBleeding: { value: 1.0 },
+    uAnalogVSync: { value: 1.0 },
+    uAnalogScanlines: { value: 1.0 },
+    uAnalogVignette: { value: 1.0 },
+    uAnalogJitter: { value: 0.4 },
+    uAnalogIntensity: { value: 0.6 },
+    uLimboMode: { value: 0.0 },
+  },
+  vertexShader: `
     varying vec2 vUv;
     void main() {
       vUv = uv;
       gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
     }
   `,
-    fragmentShader: `
+  fragmentShader: `
     uniform sampler2D tDiffuse;
     uniform float uTime;
     uniform vec2 uResolution;
@@ -124,32 +124,32 @@ export const analogDecayShader = {
  * Creates the Effect Composer with all post-processing passes
  */
 export function createComposer(
-    renderer: THREE.WebGLRenderer,
-    scene: THREE.Scene,
-    camera: THREE.PerspectiveCamera
+  renderer: THREE.WebGLRenderer,
+  scene: THREE.Scene,
+  camera: THREE.PerspectiveCamera
 ) {
-    const composer = new EffectComposer(renderer);
+  const composer = new EffectComposer(renderer);
 
-    // Render Pass
-    const renderPass = new RenderPass(scene, camera);
-    composer.addPass(renderPass);
+  // Render Pass
+  const renderPass = new RenderPass(scene, camera);
+  composer.addPass(renderPass);
 
-    // Bloom Pass
-    const bloomPass = new UnrealBloomPass(
-        new THREE.Vector2(window.innerWidth, window.innerHeight),
-        BLOOM_SETTINGS.strength,
-        BLOOM_SETTINGS.radius,
-        BLOOM_SETTINGS.threshold
-    );
-    composer.addPass(bloomPass);
+  // Bloom Pass
+  const bloomPass = new UnrealBloomPass(
+    new THREE.Vector2(window.innerWidth, window.innerHeight),
+    BLOOM_SETTINGS.strength,
+    BLOOM_SETTINGS.radius,
+    BLOOM_SETTINGS.threshold
+  );
+  composer.addPass(bloomPass);
 
-    // Analog Decay Pass
-    const analogDecayPass = new ShaderPass(analogDecayShader);
-    composer.addPass(analogDecayPass);
+  // Analog Decay Pass
+  const analogDecayPass = new ShaderPass(analogDecayShader);
+  composer.addPass(analogDecayPass);
 
-    // Output Pass
-    const outputPass = new OutputPass();
-    composer.addPass(outputPass);
+  // Output Pass
+  const outputPass = new OutputPass();
+  composer.addPass(outputPass);
 
-    return { composer, bloomPass, analogDecayPass };
+  return { composer, bloomPass, analogDecayPass };
 }
