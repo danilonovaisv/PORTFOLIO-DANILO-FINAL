@@ -273,13 +273,13 @@ export default function GhostScene() {
     <>
       <div
         ref={preloaderRef}
-        className="preloader-overlay absolute inset-0 z-50 flex items-center justify-center bg-[#070b15] transition-opacity duration-1000"
+        className="preloader-overlay absolute inset-0 z-50 flex items-center justify-center bg-background transition-opacity duration-1000"
       >
         <div className="w-64">
           <div className="h-0.5 w-full overflow-hidden bg-white/10">
             <div
               ref={progressBarRef}
-              className="h-full bg-blue-500 transition-all duration-300 ease-out w-0"
+              className="h-full bg-bluePrimary transition-all duration-300 ease-out w-0"
             />
           </div>
         </div>

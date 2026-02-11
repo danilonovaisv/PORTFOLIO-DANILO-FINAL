@@ -3,6 +3,7 @@
 import React, { useRef, useState, type MouseEvent } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
+import { BRAND } from '@/config/brand';
 
 /**
  * AntigravityCTA - Botão CTA inspirado em Lo&Behold Studio
@@ -26,7 +27,7 @@ interface AntigravityCTAProps {
   /**
    * Custom color override for the button (Pill + Circle).
    * Used in Project Templates to match the project's theme.
-   * If provided, overrides the default Blue (#0048ff).
+   * If provided, overrides the default Blue (bluePrimary).
    */
   color?: string;
   className?: string;
@@ -73,7 +74,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
     hover: { y: -2 },
   };
 
-  const mainColor = color || '#0048ff'; // Default Blue
+  const mainColor = color || BRAND.colors.bluePrimary; // Default Blue
 
   return (
     <Component
@@ -86,7 +87,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
         cursor-pointer 
         min-w-fit
         rounded-full
-        focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background
+        focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-bluePrimary/50 focus-visible:ring-offset-2 focus-visible:ring-offset-background
         ${className}
       `}
       onHoverStart={() => setIsHovered(true)}
@@ -102,7 +103,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
       {/* Ghost Glow - Apenas no hover, muito sutil */}
       <motion.div
         className="absolute inset-0 rounded-full blur-2xl opacity-0 pointer-events-none"
-        style={{ backgroundColor: '#8705f2' }}
+        style={{ backgroundColor: 'var(--color-purpleDetails)' }}
         animate={{
           opacity: isHovered ? 0.2 : 0,
           scale: isHovered ? 1.3 : 1,
@@ -152,7 +153,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
         "
         style={{
           // Circle becomes Purple on hover, otherwise matches Pill
-          backgroundColor: isHovered ? '#8705f2' : mainColor,
+          backgroundColor: isHovered ? 'var(--color-purpleDetails)' : mainColor,
         }}
         variants={arrowVariants}
         initial="initial"
