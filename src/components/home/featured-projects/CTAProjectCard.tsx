@@ -19,7 +19,7 @@ export default function CTAProjectCard() {
     <div className="card-shell group relative flex flex-col items-center justify-center h-full bg-[#040013] p-6 md:p-12 md:overflow-hidden md:rounded-md border-none shadow-none md:transition-none">
       {/* Ghost Atmosphere Glow - Desktop Only */}
       <div
-        className="absolute inset-0 opacity-30 hidden md:block"
+        className="absolute inset-0 opacity-40 hidden md:block"
         style={{
           backgroundImage:
             'radial-gradient(circle at 50% 50%, var(--color-primary-faint), transparent 70%)',

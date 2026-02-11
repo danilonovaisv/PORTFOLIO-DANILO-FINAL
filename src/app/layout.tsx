@@ -49,6 +49,30 @@ export default function RootLayout({
     >
       <head>
         <meta charSet="utf-8" />
+        {/* Preload critical fonts to reduce FOIT and improve FCP */}
+        <link
+          rel="preload"
+          href="/fonts/TT%20Norms%20Pro%20Regular.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/TT%20Norms%20Pro%20Medium.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/TT%20Norms%20Pro%20Bold.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+        {/* DNS Prefetch for external resources */}
+        <link rel="dns-prefetch" href="https://assets.codepen.io" />
       </head>
       <body
         suppressHydrationWarning
