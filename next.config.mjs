@@ -70,9 +70,8 @@ const nextConfig = {
   output: 'standalone',
   reactStrictMode: true,
 
-  // Removido experimental.turbopack pois causa warning
+  // Next.js 16 expects turbopack config at top-level (not inside experimental)
   experimental: {
-    turbopack: {},
     serverActions: {
       bodySizeLimit: '32mb',
       allowedOrigins: [
@@ -82,6 +81,7 @@ const nextConfig = {
       ],
     },
   },
+  turbopack: {},
 
   webpack: (config, { isServer }) => {
     config.module.rules.push({
