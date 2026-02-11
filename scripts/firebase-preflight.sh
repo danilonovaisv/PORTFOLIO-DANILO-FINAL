@@ -36,13 +36,13 @@ if [ -f "functions/package.json" ]; then
     echo -e "${GREEN}✅ OK: Dependências usando protocolo correto${NC}"
   fi
   
-  # Validate npm install
+  # Validate pnpm install
   echo -e "\n📥 Validando instalação de dependências..."
   cd functions
-  if npm install --dry-run > /dev/null 2>&1; then
-    echo -e "${GREEN}✅ OK: npm install validado com sucesso${NC}"
+  if pnpm install --dry-run > /dev/null 2>&1; then
+    echo -e "${GREEN}✅ OK: pnpm install validado com sucesso${NC}"
   else
-    echo -e "${RED}❌ ERRO: npm install falhou${NC}"
+    echo -e "${RED}❌ ERRO: pnpm install falhou${NC}"
     ERRORS=$((ERRORS + 1))
   fi
   cd ..

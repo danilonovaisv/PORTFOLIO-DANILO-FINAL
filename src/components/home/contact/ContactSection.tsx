@@ -75,15 +75,15 @@ export default function ContactSection() {
       id="contact"
       data-light-section
       aria-label="Contato"
-      className="bg-[#f0f0f0] py-12 sm:py-16 md:py-24 lg:py-32 relative z-10"
+      className="bg-backgroundLight py-12 sm:py-16 md:py-24 lg:py-32 relative z-10"
     >
       <Container>
         {/* Título mobile separado para manter ordem: título → formulário → canais */}
         <div className="lg:hidden text-center mb-10">
-          <h1 className="text-5xl md:text-6xl font-bold text-[#0057FF] uppercase tracking-tighter mb-3 leading-[0.95]">
+          <h2 className="text-5xl md:text-6xl font-bold text-bluePrimary uppercase tracking-tighter mb-3 leading-[0.95]">
             {HOME_CONTENT.contact.title}
-          </h1>
-          <p className="text-[#111111] text-lg font-medium max-w-md mx-auto">
+          </h2>
+          <p className="text-textInverse text-lg font-medium max-w-md mx-auto">
             {HOME_CONTENT.contact.subtitle}
           </p>
         </div>
@@ -101,10 +101,10 @@ export default function ContactSection() {
           >
             {/* Header */}
             <div className="hidden lg:block text-center lg:text-left mb-6 lg:mb-10">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-[#0057FF] uppercase tracking-tighter mb-4 leading-[0.9]">
+              <h2 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-bluePrimary uppercase tracking-tighter mb-4 leading-[0.9]">
                 {HOME_CONTENT.contact.title}
-              </h1>
-              <p className="text-[#111111] text-lg md:text-xl font-medium max-w-md mx-auto lg:mx-0">
+              </h2>
+              <p className="text-textInverse text-lg md:text-xl font-medium max-w-md mx-auto lg:mx-0">
                 {HOME_CONTENT.contact.subtitle}
               </p>
             </div>
@@ -125,10 +125,10 @@ export default function ContactSection() {
                   className="flex items-center gap-3 sm:gap-4 group w-fit py-2 active:opacity-80 transition-opacity"
                 >
                   {/* Touch target: 48px minimum */}
-                  <span className="flex h-12 w-12 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-transparent border-2 border-[#0057FF] text-[#0057FF] transition-all duration-200 will-change-transform group-hover:bg-[#0057FF] group-hover:text-white group-active:bg-[#0057FF] group-active:text-white group-active:translate-y-[1px]">
+                  <span className="flex h-12 w-12 sm:h-12 sm:w-12 items-center justify-center rounded-full bg-transparent border-2 border-bluePrimary text-bluePrimary transition-all duration-200 will-change-transform group-hover:bg-bluePrimary group-hover:text-white group-active:bg-bluePrimary group-active:text-white group-active:translate-y-px">
                     {link.icon}
                   </span>
-                  <span className="text-base sm:text-lg md:text-xl font-semibold text-[#111111] transition-all duration-200 group-hover:text-[#0057FF] group-hover:underline group-hover:underline-offset-4">
+                  <span className="text-base sm:text-lg md:text-xl font-semibold text-textInverse transition-all duration-200 group-hover:text-bluePrimary group-hover:underline group-hover:underline-offset-4">
                     {link.label}
                   </span>
                 </a>
@@ -136,7 +136,7 @@ export default function ContactSection() {
             </div>
 
             {/* Social Icons (Desktop) */}
-            <div className="hidden lg:flex flex-wrap items-center gap-4 pt-10 border-t border-[#0e0e0e]/20">
+            <div className="hidden lg:flex flex-wrap items-center gap-4 pt-10 border-t border-textInverse/20">
               {socialLinks.map((social) => (
                 <a
                   key={social.href}
@@ -144,7 +144,7 @@ export default function ContactSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="flex h-14 w-14 items-center justify-center rounded-full border border-[#0e0e0e]/30 bg-transparent text-[#0e0e0e] transition-all will-change-transform hover:border-[#0048ff] hover:bg-[#0048ff] hover:text-white hover:-translate-y-0.5"
+                  className="flex h-14 w-14 items-center justify-center rounded-full border border-textInverse/30 bg-transparent text-textInverse transition-all will-change-transform hover:border-bluePrimary hover:bg-bluePrimary hover:text-white hover:-translate-y-0.5"
                 >
                   {social.icon}
                   <span className="sr-only">{social.label}</span>
@@ -154,7 +154,7 @@ export default function ContactSection() {
           </motion.div>
 
           {/* Mobile Socials - Touch-optimized with 48px targets */}
-          <div className="lg:hidden flex flex-wrap justify-center gap-3 sm:gap-4 py-6 sm:py-8 border-t border-[#0e0e0e]/20 w-full order-2">
+          <div className="lg:hidden flex flex-wrap justify-center gap-3 sm:gap-4 py-6 sm:py-8 border-t border-textInverse/20 w-full order-2">
             {socialLinks.map((social) => (
               <a
                 key={`mobile-${social.href}`}
@@ -162,7 +162,7 @@ export default function ContactSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-[#0e0e0e]/30 bg-transparent text-[#0e0e0e] shadow-sm transition-all duration-200 will-change-transform active:translate-y-[1px] active:bg-[#0048ff] active:border-[#0048ff] active:text-white"
+                className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-textInverse/30 bg-transparent text-textInverse shadow-sm transition-all duration-200 will-change-transform active:translate-y-px active:bg-bluePrimary active:border-bluePrimary active:text-white"
               >
                 {social.icon}
                 <span className="sr-only">{social.label}</span>

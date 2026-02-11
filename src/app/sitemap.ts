@@ -8,7 +8,12 @@ export const dynamic = 'force-static';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Always use production URL for sitemap (never localhost)
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? `https://${BRAND.domain}`;
+  // Logic: 1. Env Var -> 2. Brand Domain -> 3. Fallback to https://
+  const domain = BRAND.domain || 'portfoliodanilo.com';
+  const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
+  // If explicitly set in env, use it. Otherwise, construct from domain.
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? `${protocol}://${domain}`;
+  
   const baseUrl = siteUrl.replace(/\/$/, '');
 
   let projectUrls: MetadataRoute.Sitemap = [];
