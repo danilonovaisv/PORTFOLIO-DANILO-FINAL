@@ -31,7 +31,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
         <div className="text-center px-4">
           <motion.h2
             initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
-            whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             viewport={{ once: false, margin: '-10%' }}
             transition={{
               duration: 0.6,
@@ -45,7 +45,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
 
           <motion.p
             initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
-            whileInView={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             viewport={{ once: false, margin: '-10%' }}
             transition={{
               duration: 0.6,
@@ -91,7 +91,7 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
 
         <p
           data-origin-copy
-          className="text-h3 font-medium text-white/82 leading-relaxed whitespace-pre-line text-pretty translate-y-0 opacity-100"
+          className="text-body font-normal text-white/88 leading-relaxed whitespace-pre-line text-pretty translate-y-0 opacity-100"
         >
           {block.paragraph}
         </p>

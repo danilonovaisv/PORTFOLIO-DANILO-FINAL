@@ -1,11 +1,13 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@/lib/supabase/client';
 import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
 import type { PortfolioProject } from '@/types/project';
 import type { Database } from '@/lib/supabase.types';
 import FeaturedProjectsSection from './FeaturedProjectsSection';
+import { PortfolioModal } from '@/components/portfolio/PortfolioModal';
 import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
 
 type HomeProjectRow =
@@ -23,8 +25,12 @@ type FeaturedProjectsRealtimeProps = {
 export default function FeaturedProjectsRealtime({
   initialProjects,
 }: FeaturedProjectsRealtimeProps) {
+  const router = useRouter();
   const supabase = useMemo(() => createClientComponentClient(), []);
   const [projects, setProjects] = useState<PortfolioProject[]>(initialProjects);
+  const [selectedProject, setSelectedProject] = useState<PortfolioProject | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const lastFocusedRef = useRef<HTMLElement | null>(null);
   const isDev = process.env.NODE_ENV !== 'production';
 
   const loadFeaturedProjects = useCallback(async () => {
@@ -178,5 +184,43 @@ export default function FeaturedProjectsRealtime({
     };
   }, [loadFeaturedProjects, supabase]);
 
-  return <FeaturedProjectsSection projects={projects} />;
+  const handleOpenProject = useCallback(
+    (project: PortfolioProject) => {
+      if (project.landingPageSlug) {
+        const params = new URLSearchParams({
+          from: 'home',
+          originCard: project.slug,
+        });
+        router.push(`/projects/${project.landingPageSlug}?${params.toString()}`);
+        return;
+      }
+
+      lastFocusedRef.current = document.activeElement as HTMLElement | null;
+      setSelectedProject(project);
+      setIsModalOpen(true);
+    },
+    [router]
+  );
+
+  const handleCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+    window.setTimeout(() => {
+      setSelectedProject(null);
+      lastFocusedRef.current?.focus();
+    }, 220);
+  }, []);
+
+  return (
+    <>
+      <FeaturedProjectsSection
+        projects={projects}
+        onProjectOpen={handleOpenProject}
+      />
+      <PortfolioModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        project={selectedProject}
+      />
+    </>
+  );
 }

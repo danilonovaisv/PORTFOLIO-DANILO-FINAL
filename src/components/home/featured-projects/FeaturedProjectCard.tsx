@@ -34,6 +34,10 @@ export default function FeaturedProjectCard({
     }
   };
 
+  const landingHref = project.landingPageSlug
+    ? `/projects/${project.landingPageSlug}?from=home&originCard=${encodeURIComponent(project.slug)}`
+    : undefined;
+
   const CardContent = () => (
     <>
       <div
@@ -103,17 +107,6 @@ export default function FeaturedProjectCard({
   const commonClasses =
     'group block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md text-center md:text-left';
 
-  if (project.landingPageSlug) {
-    return (
-      <Link
-        href={`/projects/${project.landingPageSlug}`}
-        className={commonClasses}
-      >
-        <CardContent />
-      </Link>
-    );
-  }
-
   if (isModalMode) {
     return (
       <button
@@ -124,6 +117,14 @@ export default function FeaturedProjectCard({
       >
         <CardContent />
       </button>
+    );
+  }
+
+  if (landingHref) {
+    return (
+      <Link href={landingHref} className={commonClasses}>
+        <CardContent />
+      </Link>
     );
   }
 

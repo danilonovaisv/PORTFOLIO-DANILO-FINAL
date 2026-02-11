@@ -2,7 +2,7 @@
 
 ## Problem
 
-Invalid CSS classes like `bg-[.4!]` and `bg-[f7...]` are generated when dynamic content from databases or user inputs is used directly in Tailwind class names without proper validation.
+Invalid CSS classes like `bg-[ .4! ]` and `bg-[ f7... ]` are generated when dynamic content from databases or user inputs is used directly in Tailwind class names without proper validation.
 
 ## Solution
 
@@ -13,10 +13,10 @@ import { sanitizeTailwindValue } from '@/lib/utils';
 
 // ✅ Good: Sanitize dynamic values
 const sanitizedColor = sanitizeTailwindValue(dynamicColor);
-const className = `bg-[${sanitizedColor}]`;
+const className = `bg-[ ${sanitizedColor} ]`;
 
 // ❌ Bad: Direct usage without sanitization
-const className = `bg-[${dynamicColor}]`;
+const className = `bg-[ ${dynamicColor} ]`;
 ```
 
 ## Prevention

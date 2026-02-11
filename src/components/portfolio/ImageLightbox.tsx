@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { X } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import { useBodyLock } from '@/hooks/useBodyLock';
-import { isVideo } from '@/lib/utils';
+import { getYouTubeEmbedUrl, isVideo, isYouTubeUrl } from '@/lib/utils';
 
 type ImageLightboxProps = {
   isOpen: boolean;
@@ -65,6 +65,7 @@ export function ImageLightbox({ isOpen, src, alt, onClose }: ImageLightboxProps)
   const panelTransition = shouldReduceMotion
     ? { duration: 0.16 }
     : { duration: 0.32, ease: [0.22, 1, 0.36, 1] as const };
+  const youtubeEmbedUrl = src && isYouTubeUrl(src) ? getYouTubeEmbedUrl(src) : null;
 
   return createPortal(
     <AnimatePresence>
@@ -99,7 +100,15 @@ export function ImageLightbox({ isOpen, src, alt, onClose }: ImageLightboxProps)
             </button>
 
             <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-black/60">
-              {isVideo(src) ? (
+              {youtubeEmbedUrl ? (
+                <iframe
+                  src={youtubeEmbedUrl}
+                  title={alt}
+                  className="h-full w-full border-none"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              ) : isVideo(src) ? (
                 <video
                   ref={videoRef}
                   src={src}

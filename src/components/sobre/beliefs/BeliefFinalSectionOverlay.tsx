@@ -14,7 +14,7 @@ export const BeliefFinalSectionOverlay: React.FC = () => {
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
         {/* 🟣 [CONFIG VISUAL]: "ISSO É" - Tamanho (16vw a 14rem), Cor branca (herdada), Opacidade 80% */}
-        <div className="text-[16vw] md:text-[14rem] tracking-tighter uppercase font-black mix-blend-overlay opacity-80">
+        <div className="text-[16vw] text-white/85 md:text-[14rem] tracking-tighter uppercase font-black">
           ISSO É
         </div>
         {/* 🟣 [CONFIG VISUAL]: "GHOST" - Tamanho (30vw a 25rem), Cor branca (herdada) */}
@@ -22,7 +22,7 @@ export const BeliefFinalSectionOverlay: React.FC = () => {
           GHOST
         </div>
         {/* 🟣 [CONFIG VISUAL]: "DESIGN" - Tamanho (24vw a 19rem), Cor branca (herdada), Opacidade 80% */}
-        <div className="text-[24vw] md:text-[19rem] tracking-tighter uppercase font-black mix-blend-overlay opacity-80">
+        <div className="text-[24vw] text-white/85 md:text-[19rem] tracking-tighter uppercase font-black">
           DESIGN
         </div>
       </motion.div>

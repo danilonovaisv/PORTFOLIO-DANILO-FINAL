@@ -118,20 +118,20 @@ export const PortfolioModal = ({
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-0 z-[1210] overflow-y-auto"
+            className="fixed inset-0 z-[1210]"
           >
-            <div className="min-h-full flex items-start justify-center p-4 md:p-8 lg:p-12">
-              <div className="relative w-full max-w-5xl rounded-3xl border border-white/10 bg-[#0c1024] text-white shadow-[0_24px_90px_-30px_rgba(0,0,0,0.6)]">
+            <div className="min-h-full flex items-center justify-center p-2 sm:p-4 md:p-8">
+              <div className="relative w-full max-w-5xl max-h-[calc(100dvh-1rem)] sm:max-h-[calc(100dvh-2rem)] overflow-hidden rounded-3xl border border-white/10 bg-[#0c1024] text-white shadow-[0_24px_90px_-30px_rgba(0,0,0,0.6)]">
                 <button
                   ref={closeRef}
                   onClick={onClose}
                   aria-label="Fechar modal"
-                  className="fixed top-6 right-6 z-[1220] flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+                  className="absolute top-3 right-3 z-[1220] flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
                 >
                   <X size={22} />
                 </button>
 
-                <div className="relative p-6 pt-14 md:p-10 md:pt-16 lg:p-12 lg:pt-20">
+                <div className="relative max-h-[calc(100dvh-1rem)] sm:max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain p-6 pt-14 md:p-10 md:pt-16 lg:p-12 lg:pt-20">
                   {titleId ? (
                     <h2 id={titleId} className="sr-only">
                       {project.title}

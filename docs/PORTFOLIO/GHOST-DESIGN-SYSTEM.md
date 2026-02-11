@@ -146,6 +146,7 @@
 
 - **Usage:** Hero footer, left side, for contextual "voltar ao portfólio".
 - **Variant:** `size="compact"` and `direction="back"` for landing pages.
+- **Semantics:** Back variant renders `arrow-left` first, then text label.
 
 #### Primary CTA (`<AntigravityCTA />`)
 

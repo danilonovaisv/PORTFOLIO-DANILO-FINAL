@@ -7,6 +7,7 @@
 import React, { useEffect } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 import { ArrowIcon } from './ArrowIcon';
 import { cn } from '@/lib/utils';
 
@@ -26,6 +27,7 @@ export const CompoundPillCTA = ({
   className,
 }: CompoundPillCTAProps) => {
   const isCompact = size === 'compact';
+  const isBack = direction === 'back';
 
   // Idle orbital animation for the arrow
   const time = useMotionValue(0);
@@ -47,6 +49,47 @@ export const CompoundPillCTA = ({
   const orbitX = useTransform(time, (t) => Math.cos(t * speed) * radius);
   const orbitY = useTransform(time, (t) => Math.sin(t * speed) * radius);
 
+  const labelPill = (
+    <div
+      className={cn(
+        'relative z-10 flex items-center justify-center rounded-full bg-bluePrimary transition-all duration-200 ease-out shadow-[0_15px_45px_var(--color-bluePrimary-faint)] group-hover:bg-blueAccent',
+        isCompact ? 'h-12 px-5' : 'h-[58px] px-14'
+      )}
+    >
+      <span
+        className={cn(
+          'transition-colors duration-200 ease-out group-hover:text-background',
+          isCompact
+            ? 'text-[11px] font-medium uppercase tracking-[0.14em] text-white/92'
+            : 'text-base font-bold lowercase tracking-tight text-white'
+        )}
+      >
+        {label}
+      </span>
+    </div>
+  );
+
+  const arrowPill = (
+    <motion.div
+      style={isCompact ? undefined : { x: orbitX, y: orbitY }}
+      className={cn(
+        'flex items-center justify-center bg-bluePrimary text-white transition-all duration-200 ease-out group-hover:bg-blueAccent group-hover:text-background shadow-[0_10px_30px_rgba(0,0,0,0.1)]',
+        isCompact && isBack
+          ? 'h-10 w-10 rounded-lg'
+          : isCompact
+            ? 'h-10 w-10 rounded-full'
+            : 'h-[46px] w-[46px] rounded-full'
+      )}
+      aria-hidden="true"
+    >
+      {isBack ? (
+        <ArrowLeft className="h-5 w-5" />
+      ) : (
+        <ArrowIcon className="h-6 w-6" />
+      )}
+    </motion.div>
+  );
+
   return (
     <div
       className={cn(
@@ -62,37 +105,17 @@ export const CompoundPillCTA = ({
           isCompact && 'gap-2'
         )}
       >
-        {/* Pill Label */}
-        <div
-          className={cn(
-            'relative z-10 flex items-center justify-center rounded-full bg-bluePrimary transition-all duration-200 ease-out shadow-[0_15px_45px_var(--color-bluePrimary-faint)] group-hover:bg-blueAccent',
-            isCompact ? 'h-12 px-5' : 'h-[58px] px-14'
-          )}
-        >
-          <span
-            className={cn(
-              'transition-colors duration-200 ease-out group-hover:text-background',
-              isCompact
-                ? 'text-[11px] font-medium uppercase tracking-[0.14em] text-white/92'
-                : 'text-base font-bold lowercase tracking-tight text-white'
-            )}
-          >
-            {label}
-          </span>
-        </div>
-
-        {/* Arrow Circle */}
-        <motion.div
-          style={isCompact ? undefined : { x: orbitX, y: orbitY }}
-          className={cn(
-            'flex items-center justify-center rounded-full bg-bluePrimary text-white transition-all duration-200 ease-out group-hover:bg-blueAccent group-hover:text-background shadow-[0_10px_30px_rgba(0,0,0,0.1)]',
-            isCompact ? 'h-10 w-10' : 'h-[46px] w-[46px]'
-          )}
-        >
-          <ArrowIcon
-            className={cn('h-6 w-6', direction === 'back' && 'rotate-180')}
-          />
-        </motion.div>
+        {isBack ? (
+          <>
+            {arrowPill}
+            {labelPill}
+          </>
+        ) : (
+          <>
+            {labelPill}
+            {arrowPill}
+          </>
+        )}
       </Link>
     </div>
   );

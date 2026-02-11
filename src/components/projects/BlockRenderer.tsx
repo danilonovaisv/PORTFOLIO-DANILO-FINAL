@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { LandingPageBlock } from '@/types/landing-page';
 import ReactMarkdown from 'react-markdown';
-import { sanitizeTailwindValue } from '@/lib/utils';
+import { getYouTubeEmbedUrl, sanitizeTailwindValue } from '@/lib/utils';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 
@@ -158,16 +158,19 @@ export default function BlockRenderer({
       : type || (src.match(/\.(mp4|webm|ogg)$/i) ? 'video' : 'image');
 
     if (actualType === 'youtube' && youtubeId) {
+      const embedUrl = getYouTubeEmbedUrl(youtubeId);
+
       return (
         <div className="w-full relative rounded-2xl overflow-hidden bg-slate-900/50 border border-white/5 aspect-video">
           <iframe
-            src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&loop=1&playlist=${youtubeId}&controls=0&modestbranding=1&rel=0`}
+            src={embedUrl ?? `https://www.youtube.com/embed/${youtubeId}`}
             title="YouTube video player"
             className="absolute inset-0 w-full h-full"
             width={1280}
             height={720}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
+            loading="lazy"
           />
         </div>
       );

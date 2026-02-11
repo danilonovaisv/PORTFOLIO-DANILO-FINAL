@@ -1,4 +1,4 @@
-import { isVideo } from './utils';
+import { isVideo, isYouTubeUrl } from './utils';
 
 export type MediaAspectRatio = 'horizontal' | 'vertical' | 'square';
 
@@ -11,6 +11,11 @@ export function getMediaAspectRatio(
     callback: (_ratio: MediaAspectRatio) => void
 ): void {
     if (!mediaUrl) return;
+
+    if (isYouTubeUrl(mediaUrl)) {
+        callback('horizontal');
+        return;
+    }
 
     if (isVideo(mediaUrl)) {
         const video = document.createElement('video');

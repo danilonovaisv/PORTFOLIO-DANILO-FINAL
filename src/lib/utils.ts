@@ -29,6 +29,7 @@ export const clamp = (val: number, min: number, max: number) =>
 
 export const ASSET_PLACEHOLDER =
   'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
+const YOUTUBE_ID_DIRECT_PATTERN = /^[a-zA-Z0-9_-]{11}$/;
 
 function normalizePath(path: string) {
   return path
@@ -98,3 +99,67 @@ export const isVideo = (path?: string | null): boolean => {
     );
   }
 };
+
+export function extractYouTubeId(value?: string | null): string | null {
+  if (!value) return null;
+
+  const candidate = value.trim();
+  if (!candidate) return null;
+  if (YOUTUBE_ID_DIRECT_PATTERN.test(candidate)) return candidate;
+
+  const withProtocol = candidate.startsWith('http')
+    ? candidate
+    : `https://${candidate}`;
+
+  try {
+    const parsed = new URL(withProtocol);
+    const host = parsed.hostname.replace(/^www\./, '');
+
+    if (host === 'youtu.be') {
+      const id = parsed.pathname.replace('/', '');
+      return YOUTUBE_ID_DIRECT_PATTERN.test(id) ? id : null;
+    }
+
+    if (host.endsWith('youtube.com')) {
+      const vParam = parsed.searchParams.get('v');
+      if (vParam && YOUTUBE_ID_DIRECT_PATTERN.test(vParam)) return vParam;
+
+      const parts = parsed.pathname.split('/').filter(Boolean);
+      const embedIndex = parts.findIndex(
+        (part) => part === 'embed' || part === 'shorts' || part === 'v'
+      );
+
+      if (embedIndex >= 0) {
+        const id = parts[embedIndex + 1];
+        return id && YOUTUBE_ID_DIRECT_PATTERN.test(id) ? id : null;
+      }
+    }
+  } catch {
+    return null;
+  }
+
+  return null;
+}
+
+export const isYouTubeUrl = (value?: string | null): boolean =>
+  Boolean(extractYouTubeId(value));
+
+export function getYouTubeEmbedUrl(value: string): string | null {
+  const id = extractYouTubeId(value);
+  if (!id) return null;
+  const params = new URLSearchParams({
+    autoplay: '1',
+    mute: '0',
+    controls: '1',
+    rel: '0',
+    modestbranding: '1',
+    playsinline: '1',
+  });
+  return `https://www.youtube.com/embed/${id}?${params.toString()}`;
+}
+
+export function getYouTubeThumbnailUrl(value: string): string | null {
+  const id = extractYouTubeId(value);
+  if (!id) return null;
+  return `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+}
