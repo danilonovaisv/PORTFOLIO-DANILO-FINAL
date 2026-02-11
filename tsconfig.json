@@ -30,6 +30,11 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "ignoreDeprecations": "5.0",
+    "types": [
+      "node",
+      "react",
+      "jest"
+    ],
     "plugins": [
       {
         "name": "next"

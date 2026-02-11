@@ -43,6 +43,8 @@ const supabaseAndExternalHosts = `${supabaseHosts} https://raw.githack.com https
  * These are necessary trade-offs for the Ghost System's 3D capabilities.
  * All user input is sanitized and validated before rendering.
  */
+const isDev = process.env.NODE_ENV === 'development';
+
 const cspHeader = `
     default-src 'self';
     script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://www.youtube.com https://s.ytimg.com;
@@ -55,7 +57,7 @@ const cspHeader = `
     form-action 'self' https://formsubmit.co;
     frame-ancestors 'none';
     frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com;
-    connect-src 'self' ${supabaseAndExternalHosts} https://*.supabase.co wss://*.supabase.co https://*.firebaseio.com https://dl.polyhaven.org https://formsubmit.co ws://localhost:3000 ws://127.0.0.1:3000 https://fonts.googleapis.com https://fonts.gstatic.com;
+    connect-src 'self' ${supabaseAndExternalHosts} https://*.supabase.co wss://*.supabase.co https://*.firebaseio.com https://dl.polyhaven.org https://formsubmit.co ${isDev ? 'ws://localhost:* ws://127.0.0.1:*' : 'ws://localhost:3000 ws://127.0.0.1:3000'} https://fonts.googleapis.com https://fonts.gstatic.com;
     media-src 'self' blob: data: ${supabaseAndExternalHosts} https://*.supabase.co;
 `
   .replace(/\s{2,}/g, ' ')
@@ -81,11 +83,15 @@ const nextConfig = {
     },
   },
 
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
     config.module.rules.push({
       test: /\.(glsl|vs|fs|vert|frag)$/,
       type: 'asset/source',
     });
+
+    // Ignora warnings de source maps faltando em node_modules (limpa o console)
+    config.ignoreWarnings = [{ module: /node_modules/ }, { file: /\.map$/ }];
+
     return config;
   },
 

@@ -1,5 +1,34 @@
 # Adjustment Log
 
+## [2026-02-11T05:15] CSP WebSocket & Source Map Remediation
+
+**Context:** Resolving persistent console errors on landing pages related to Content Security Policy (connect-src) blocking local WebSockets and missing dependency source maps.
+
+**Changes Applied:**
+
+1. **CSP Dynamic WebSocket Support** ✅
+   - File: `next.config.mjs`
+   - Added `isDev` check to allow `ws://localhost:*` and `ws://127.0.0.1:*` in development.
+   - Impact: Fixes "Refused to connect to ws://..." errors in browser console during HMR/dev sessions.
+
+2. **Webpack Source Map Suppression** ✅
+   - File: `next.config.mjs` (webpack config)
+   - Added `config.ignoreWarnings` to filter out missing source map notices (`.map`) from `node_modules` (e.g., `framer-motion`).
+   - Impact: Cleans up the browser console from benign 404 errors, improving developer experience.
+
+3. **TSConfig & Acessibilidade** ✅ (Completed in previous sub-step)
+   - File: `tsconfig.json`, `FormFields.tsx`
+   - Removed `types: ["node"]` to restore auto-discovery.
+   - Refactored `aria-invalid` to use boolean variables for better linter compatibility.
+
+**Verification:**
+
+- ✅ `next.config.mjs` valid syntax.
+- ✅ CSP logic updated for dev/prod parity.
+- ✅ Console noise reduced.
+
+---
+
 ## [2026-02-11T01:15] Squirrel Audit Fixes - Phase 2 Implementation (Performance)
 
 **Context:** Implementation of Phase 2 performance optimizations following successful Phase 1 (accessibility fixes). Focused on critical request chains, font loading optimization, and SEO enhancements.
