@@ -45,17 +45,17 @@ const supabaseAndExternalHosts = `${supabaseHosts} https://raw.githack.com https
  */
 const cspHeader = `
     default-src 'self';
-    script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:;
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://www.youtube.com https://s.ytimg.com;
     worker-src 'self' blob:;
-    style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data: ${supabaseAndExternalHosts} https://grainy-gradients.vercel.app https://img.youtube.com https://i.ytimg.com;
-    font-src 'self' https://assets.codepen.io ${supabaseHosts};
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+    font-src 'self' data: https://fonts.gstatic.com https://assets.codepen.io ${supabaseHosts};
+    img-src 'self' blob: data: ${supabaseAndExternalHosts} https://grainy-gradients.vercel.app https://img.youtube.com https://i.ytimg.com https://fonts.gstatic.com https://www.gstatic.com;
     object-src 'none';
     base-uri 'self';
     form-action 'self' https://formsubmit.co;
     frame-ancestors 'none';
     frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com;
-    connect-src 'self' ${supabaseAndExternalHosts} https://*.supabase.co wss://*.supabase.co https://*.firebaseio.com https://dl.polyhaven.org https://formsubmit.co ws://localhost:3000 ws://127.0.0.1:3000;
+    connect-src 'self' ${supabaseAndExternalHosts} https://*.supabase.co wss://*.supabase.co https://*.firebaseio.com https://dl.polyhaven.org https://formsubmit.co ws://localhost:3000 ws://127.0.0.1:3000 https://fonts.googleapis.com https://fonts.gstatic.com;
     media-src 'self' blob: data: ${supabaseAndExternalHosts} https://*.supabase.co;
 `
   .replace(/\s{2,}/g, ' ')

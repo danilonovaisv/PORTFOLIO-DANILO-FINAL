@@ -78,7 +78,7 @@
    - Dynamic ID pattern: `portfolio-card-${project.slug.toLowerCase().replace(/[^a-z0-9-]/g, '-')}`
    - No action needed - code is correct
 
-2. **Lazy Loading** - ✅ ALREADY OPTIMIZED  
+2. **Lazy Loading** - ✅ ALREADY OPTIMIZED
    - `ProjectsGallery.tsx` already sets `priority={index < 3}`
    - First 3 cards load eagerly (above-fold)
    - Remaining cards lazy-load correctly

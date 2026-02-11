@@ -141,11 +141,7 @@ const ContactForm: React.FC = () => {
                 redirecionamento padrão.
               </p>
             </noscript>
-            <input
-              type="hidden"
-              name="_honey"
-              autoComplete="off"
-            />
+            <input type="hidden" name="_honey" autoComplete="off" />
             <input type="hidden" name="_captcha" value="true" />
 
             <div className="grid grid-cols-1 gap-8">
@@ -182,6 +178,7 @@ const ContactForm: React.FC = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 error={errors.phone}
+                autoComplete="tel"
                 placeholder="(11) 99999-9999"
               />
 

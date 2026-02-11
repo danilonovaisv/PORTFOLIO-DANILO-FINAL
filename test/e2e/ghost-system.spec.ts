@@ -27,7 +27,9 @@ test.describe('Ghost System Verification', () => {
     await page.goto('/sobre', { waitUntil: 'domcontentloaded' });
 
     // Check "ORIGEM" heading with explicit timeout
-    await expect(page.locator('h1', { hasText: /ORIGEM/i })).toBeVisible({ timeout: 15000 });
+    await expect(page.locator('h1', { hasText: /ORIGEM/i })).toBeVisible({
+      timeout: 15000,
+    });
 
     // Check for content from Origin data
     await expect(

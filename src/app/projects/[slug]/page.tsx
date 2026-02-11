@@ -10,10 +10,7 @@ import {
   parseLandingPageContent,
   resolveSiteAssetUrl,
 } from '@/lib/projects/template-schema';
-import {
-  getCanonicalSiteUrl,
-  normalizeMetaDescription,
-} from '@/lib/seo';
+import { getCanonicalSiteUrl, normalizeMetaDescription } from '@/lib/seo';
 import {
   MASTER_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE_V2,
@@ -266,8 +263,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             progressão de conteúdo sem ruído.
           </p>
           <p className="leading-relaxed">
-            Em produção, o projeto adota abordagem incremental: melhorias de
-            SEO técnico, metadados semânticos, estrutura de heading correta,
+            Em produção, o projeto adota abordagem incremental: melhorias de SEO
+            técnico, metadados semânticos, estrutura de heading correta,
             otimização de ativos e monitoramento contínuo de Core Web Vitals.
             Isso reduz risco de regressão, fortalece descoberta orgânica e
             mantém experiência estável para usuários e crawlers.

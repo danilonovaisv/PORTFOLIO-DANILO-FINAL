@@ -98,7 +98,7 @@ export function AboutWhatIDo() {
   return (
     <section
       ref={containerRef}
-      className="relative z-10 w-full bg-[#040013] text-white"
+      className="relative z-10 w-full bg-background text-white"
       aria-labelledby="what-i-do-heading"
     >
       {/* ============================================
@@ -114,8 +114,8 @@ export function AboutWhatIDo() {
                 id="what-i-do-heading"
                 className="font-display text-5xl font-black leading-[1.15] tracking-tight text-white md:text-6xl"
               >
-                Do <span className="text-[#0048ff]">insight</span> ao{' '}
-                <span className="text-[#0048ff]">impacto</span>.
+                Do <span className="text-bluePrimary">insight</span> ao{' '}
+                <span className="text-bluePrimary">impacto</span>.
               </h2>
               <p className="mt-3 font-display text-4xl font-black leading-[1.15] tracking-tight text-white/90 md:text-5xl">
                 Mesmo quando você não percebe.
@@ -142,18 +142,18 @@ export function AboutWhatIDo() {
                   delay: index * 0.06,
                   ease: ghostEase,
                 }}
-                className="group flex min-h-[140px] min-w-[380px] items-center gap-5 rounded-2xl bg-[#0048ff] p-6 shadow-[0_25px_50px_-12px_rgba(135,5,242,0.35)] transition-all duration-300 hover:shadow-[0_30px_64px_-12px_rgba(135,5,242,0.55)]"
+                className="group flex min-h-[140px] min-w-[380px] items-center gap-5 rounded-2xl bg-bluePrimary p-6 shadow-[0_25px_50px_-12px_rgba(135,5,242,0.35)] transition-all duration-300 hover:shadow-[0_30px_64px_-12px_rgba(135,5,242,0.55)]"
               >
                 {/* Number */}
                 <span
-                  className="shrink-0 font-display text-5xl font-black text-[#8705f2] transition-all duration-300 flex h-14 w-14 items-center justify-center rounded-full bg-[#ffffff1a] border border-[#8705f2]/40"
+                  className="shrink-0 font-display text-5xl font-black text-purpleDetails transition-all duration-300 flex h-14 w-14 items-center justify-center rounded-full bg-[#ffffff1a] border border-purpleDetails/40"
                   aria-hidden="true"
                 >
                   {service.id}
                 </span>
                 {/* Text */}
                 <p className="font-display text-xl font-bold leading-tight text-white">
-                  <strong className="text-[#4fe6ff]">{service.keyword}</strong>{' '}
+                  <strong className="text-blueAccent">{service.keyword}</strong>{' '}
                   {service.description}
                 </p>
               </motion.article>
@@ -161,8 +161,8 @@ export function AboutWhatIDo() {
           </motion.div>
 
           {/* Ghost Gradient Edges */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-linear-to-r from-[#040013] to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-linear-to-l from-[#040013] to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-linear-to-r from-background to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-linear-to-l from-background to-transparent" />
         </div>
       </div>
 
@@ -178,8 +178,8 @@ export function AboutWhatIDo() {
               id="what-i-do-heading-mobile"
               className="font-display text-[2.5rem] font-black leading-[1.1] tracking-tight text-white"
             >
-              Do <span className="text-[#0048ff]">insight</span> ao{' '}
-              <span className="text-[#0048ff]">impacto</span>.
+              Do <span className="text-bluePrimary">insight</span> ao{' '}
+              <span className="text-bluePrimary">impacto</span>.
             </h2>
             <p className="mt-2 font-display text-[1.75rem] font-black leading-[1.1] tracking-tight text-white/90">
               Mesmo quando você não percebe.
@@ -203,18 +203,18 @@ export function AboutWhatIDo() {
                   delay: index * 0.08,
                   ease: ghostEase,
                 }}
-                className="group flex min-h-[76px] w-full items-center gap-4 rounded-xl bg-[#0048ff] px-5 py-4 shadow-[0_16px_40px_-12px_rgba(135,5,242,0.35)] transition-all duration-300"
+                className="group flex min-h-[76px] w-full items-center gap-4 rounded-xl bg-bluePrimary px-5 py-4 shadow-[0_16px_40px_-12px_rgba(135,5,242,0.35)] transition-all duration-300"
               >
                 {/* Number */}
                 <span
-                  className="shrink-0 font-display text-2xl font-black text-[#8705f2] flex h-10 w-10 items-center justify-center rounded-full bg-[#ffffff1a] border border-[#8705f2]/40"
+                  className="shrink-0 font-display text-2xl font-black text-purpleDetails flex h-10 w-10 items-center justify-center rounded-full bg-[#ffffff1a] border border-purpleDetails/40"
                   aria-hidden="true"
                 >
                   {service.id}
                 </span>
                 {/* Text */}
                 <p className="text-sm font-semibold leading-snug text-white">
-                  <strong className="text-[#4fe6ff]">{service.keyword}</strong>{' '}
+                  <strong className="text-blueAccent">{service.keyword}</strong>{' '}
                   {service.description}
                 </p>
               </motion.article>
@@ -227,7 +227,7 @@ export function AboutWhatIDo() {
           MARQUEE FOOTER (Ghost Design)
           Infinite horizontal scroll - keywords
           ============================================ */}
-      <div className="relative overflow-hidden border-t border-white/5 bg-[#040013] py-6">
+      <div className="relative overflow-hidden border-t border-white/5 bg-background py-6">
         {/* Dual marquee for seamless loop */}
         <div
           className="flex w-max animate-marquee gap-12"
@@ -261,8 +261,8 @@ export function AboutWhatIDo() {
         </div>
 
         {/* Ghost gradient edges */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-linear-to-r from-[#040013] to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-linear-to-l from-[#040013] to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-linear-to-r from-background to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-linear-to-l from-background to-transparent" />
       </div>
     </section>
   );
