@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { LandingPageBlock } from '@/types/landing-page';
 import ReactMarkdown from 'react-markdown';
 import { getYouTubeEmbedUrl, sanitizeTailwindValue } from '@/lib/utils';
-import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 
 const fadeInUp = {
@@ -189,7 +189,15 @@ export default function BlockRenderer({
             controls={false}
             playsInline
             poster={DEFAULT_VIDEO_POSTER}
-          ></video>
+          >
+            <track
+              kind="captions"
+              src={DEFAULT_CAPTIONS}
+              srcLang="pt-BR"
+              label="Português"
+              default
+            />
+          </video>
         </div>
       );
     }

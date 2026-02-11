@@ -6,6 +6,7 @@ import { X } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import { useBodyLock } from '@/hooks/useBodyLock';
 import { getYouTubeEmbedUrl, isVideo, isYouTubeUrl } from '@/lib/utils';
+import { DEFAULT_CAPTIONS } from '@/lib/video';
 
 type ImageLightboxProps = {
   isOpen: boolean;
@@ -122,7 +123,15 @@ export function ImageLightbox({ isOpen, src, alt, onClose }: ImageLightboxProps)
                     event.currentTarget.muted = false;
                     void event.currentTarget.play().catch(() => undefined);
                   }}
-                />
+                >
+                  <track
+                    kind="captions"
+                    src={DEFAULT_CAPTIONS}
+                    srcLang="pt-BR"
+                    label="Português"
+                    default
+                  />
+                </video>
               ) : (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img

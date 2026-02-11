@@ -1,6 +1,7 @@
 'use client';
 
 import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
+import { DEFAULT_CAPTIONS } from '@/lib/video';
 import {
   useEffect,
   useState,
@@ -21,6 +22,9 @@ type DynamicAssetVideoProps = {
   playbackRate?: number;
   preload?: 'none' | 'metadata' | 'auto';
   style?: React.CSSProperties;
+  captionSrc?: string;
+  captionLang?: string;
+  captionLabel?: string;
 };
 
 const VIDEO_EXTENSIONS_REGEX = /\.(mp4|webm|mov|m4v)(?:[?#].*)?$/i;
@@ -52,6 +56,9 @@ export const DynamicAssetVideo = forwardRef<
       playbackRate = 1,
       preload = 'metadata',
       style,
+      captionSrc = DEFAULT_CAPTIONS,
+      captionLang = 'pt-BR',
+      captionLabel = 'Português',
     },
     ref
   ) => {
@@ -123,7 +130,15 @@ export const DynamicAssetVideo = forwardRef<
             setDisplayUrl(normalizedFallback);
           }
         }}
-      />
+      >
+        <track
+          kind="captions"
+          src={captionSrc}
+          srcLang={captionLang}
+          label={captionLabel}
+          default
+        />
+      </video>
     );
   }
 );

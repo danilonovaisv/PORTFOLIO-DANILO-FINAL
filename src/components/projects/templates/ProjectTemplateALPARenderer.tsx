@@ -22,6 +22,7 @@ import type { LandingPageBlock } from '@/types/landing-page';
 import type { MasterProjectTemplateV3Data } from '@/types/project-template';
 import { useLandingBackLink } from './useLandingBackLink';
 import { CompoundPillCTA } from '@/components/ui/CompoundPillCTA';
+import { DEFAULT_CAPTIONS } from '@/lib/video';
 
 const LiquidEther = dynamic(() => import('./LiquidEther'), { ssr: false });
 const DEFAULT_ETHER_COLORS = ['#5227FF', '#FF9FFC', '#B19EEF'];
@@ -258,7 +259,15 @@ function AssetLightbox({
               event.currentTarget.muted = false;
               void event.currentTarget.play().catch(() => undefined);
             }}
-          />
+          >
+            <track
+              kind="captions"
+              src={DEFAULT_CAPTIONS}
+              srcLang="pt-BR"
+              label="Português"
+              default
+            />
+          </video>
         )}
       </div>
     </div>
@@ -359,7 +368,15 @@ function AssetInteractive({
           controls={false}
           playsInline
           preload="metadata"
-        />
+        >
+          <track
+            kind="captions"
+            src={DEFAULT_CAPTIONS}
+            srcLang="pt-BR"
+            label="Português"
+            default
+          />
+        </video>
       )}
 
       <span className="pointer-events-none absolute inset-0 border border-white/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
@@ -640,7 +657,7 @@ export default function ProjectTemplateALPARenderer({
       )}
 
       <div className="relative z-10">
-        <main>
+        <div role="region" aria-label="Conteúdo do projeto">
           <section className="std-grid relative flex min-h-[82vh] items-center justify-center py-24 text-center">
             <motion.div
               className="mx-auto flex max-w-5xl flex-col items-center gap-6"
@@ -759,7 +776,7 @@ export default function ProjectTemplateALPARenderer({
               </Link>
             </div>
           </motion.section>
-        </main>
+        </div>
       </div>
 
       <AssetLightbox asset={zoomAsset} onClose={closeAsset} />

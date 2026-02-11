@@ -7,6 +7,11 @@ import type { PortfolioProject } from '@/types/project';
 import { getSupabasePublicKey } from '@/lib/supabase/env';
 
 import { BRAND } from '@/config/brand';
+import {
+  normalizeMetaDescription,
+  normalizeMetaTitle,
+  toCanonicalUrl,
+} from '@/lib/seo';
 
 export const revalidate = 60;
 
@@ -45,14 +50,16 @@ export async function generateMetadata({
   };
 
   const metaForCategory = category ? categoryMeta[category] : undefined;
-  const title = metaForCategory
+  const rawTitle = metaForCategory
     ? `Portfólio ${metaForCategory.label} | Danilo Novais`
     : 'Portfólio | Danilo Novais';
-  const description =
+  const rawDescription =
     metaForCategory?.description ??
     'Explore uma seleção curada de projetos de Branding, Motion Design e Creative Development de Danilo Novais, com foco em presença, narrativa e performance.';
 
-  const baseUrl = `https://${BRAND.domain}/portfolio`;
+  const title = normalizeMetaTitle(rawTitle);
+  const description = normalizeMetaDescription(rawDescription);
+  const baseUrl = toCanonicalUrl('/portfolio');
   const url = category ? `${baseUrl}?category=${category}` : baseUrl;
 
   return {

@@ -11,6 +11,7 @@ import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { GHOST_EASE } from '@/config/motion';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
+import { DEFAULT_CAPTIONS } from '@/lib/video';
 import type {
   MasterProjectAsset,
   MasterProjectTemplateV2Data,
@@ -185,7 +186,7 @@ export default function ProjectTemplateMasterRenderer({
           </nav>
         </header>
 
-        <main>
+        <div role="region" aria-label="Conteúdo do projeto">
           <section className="relative flex min-h-[86vh] items-end overflow-hidden pt-20">
             {heroImage ? (
               <div className="absolute inset-0">
@@ -201,7 +202,15 @@ export default function ProjectTemplateMasterRenderer({
                     muted
                     playsInline
                     preload="metadata"
-                  />
+                  >
+                    <track
+                      kind="captions"
+                      src={DEFAULT_CAPTIONS}
+                      srcLang="pt-BR"
+                      label="Português"
+                      default
+                    />
+                  </video>
                 ) : (
                   <Image
                     src={heroImage}
@@ -448,7 +457,7 @@ export default function ProjectTemplateMasterRenderer({
               </div>
             </div>
           </motion.section>
-        </main>
+        </div>
       </div>
     </article>
   );

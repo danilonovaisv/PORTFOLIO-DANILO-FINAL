@@ -1,6 +1,8 @@
 # Dependencies
 node_modules/
+node_modules_bad_*/
 node_modules_fail_*/
+node_modules_backup_*/
 .pnp
 .pnp.js
 

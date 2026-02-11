@@ -8,7 +8,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { GHOST_EASE } from '@/config/motion';
 import { applyImageFallback } from '@/lib/utils';
-import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 const GHOST_SPRING = { damping: 30, stiffness: 200, mass: 1 } as const;
 
@@ -105,7 +105,15 @@ export function CategoryStripe({
                     playsInline
                     poster={DEFAULT_VIDEO_POSTER}
                     className="object-cover w-full h-full"
-                  ></video>
+                  >
+                    <track
+                      kind="captions"
+                      src={DEFAULT_CAPTIONS}
+                      srcLang="pt-BR"
+                      label="Português"
+                      default
+                    />
+                  </video>
                 ) : (
                   <Image
                     src={category.thumbnail}
@@ -141,7 +149,7 @@ export function CategoryStripe({
               className="w-8 h-8 lg:w-10 lg:h-10 rounded-full flex items-center justify-center shrink-0 transition-colors duration-300"
               initial={false}
               animate={{
-                rotate: isHovered ? 0 : -45,
+                y: isHovered ? -1 : 0,
                 backgroundColor: isHovered ? '#8705f2' : '#0048ff',
               }}
               transition={{
@@ -169,7 +177,7 @@ export function CategoryStripe({
               ))}
             </div>
             {/* Touch target: 48px minimum for accessibility */}
-            <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-[#0048ff] active:bg-purpleDetails active:scale-95 transition-all duration-200">
+            <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-[#0048ff] active:bg-purpleDetails transition-all duration-200">
               <ArrowUpRight className="w-5 h-5 text-white" />
             </div>
           </div>

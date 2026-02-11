@@ -89,7 +89,11 @@ export default function FeaturedProjectsSection({
                 // Added h-full and flex flex-col to ensure child card stretches
                 className={`w-full col-span-4 ${gridCols} h-full flex flex-col`}
               >
-                <FeaturedProjectCard project={project} onOpen={onProjectOpen} />
+                <FeaturedProjectCard
+                  project={project}
+                  onOpen={onProjectOpen}
+                  priority={index < 2}
+                />
               </motion.div>
             );
           })}

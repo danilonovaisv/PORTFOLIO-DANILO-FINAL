@@ -16,6 +16,11 @@ import type { PortfolioProject } from '@/types/project';
 import { isVideo } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { getSupabasePublicKey } from '@/lib/supabase/env';
+import {
+  normalizeMetaDescription,
+  normalizeMetaTitle,
+  toCanonicalUrl,
+} from '@/lib/seo';
 
 async function getProject(slug: string): Promise<PortfolioProject | undefined> {
   // Try database first
@@ -68,11 +73,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!project) return siteMetadata;
 
-  const description = `Case study: ${project.title} for ${project.client}. ${project.displayCategory} com foco em presença, narrativa e resultado, reunindo processo, direção criativa e execução digital.`;
-  const url = `https://${BRAND.domain}/portfolio/${slug}`;
+  const description = normalizeMetaDescription(
+    `Case study de ${project.title} para ${project.client}. Projeto de ${project.displayCategory} com foco em presença, narrativa e resultado, reunindo processo, direção criativa, execução digital e performance.`
+  );
+  const url = toCanonicalUrl(`/portfolio/${slug}`);
+  const title = normalizeMetaTitle(`${project.title} | ${BRAND.name}`);
 
   return {
-    title: `${project.title} | ${BRAND.name}`,
+    title,
     description,
     keywords: [
       ...(project.tags || []),
@@ -82,7 +90,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       'Creative Developer',
     ],
     openGraph: {
-      title: `${project.title} | ${BRAND.name}`,
+      title,
       description,
       url,
       siteName: BRAND.name,
@@ -99,7 +107,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${project.title} | ${BRAND.name}`,
+      title,
       description,
       images: [project.image || '/opengraph-image'],
     },
@@ -235,13 +243,37 @@ export default async function ProjectPage({ params }: Props) {
             About the Project
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            This is a showcase page for <strong>{project.title}</strong>.
-            Detailed case study content, process documentation, and final
-            deliverables would typically appear here.
+            <strong>{project.title}</strong> é um case que integra direção
+            criativa, design e execução digital com foco em resultado concreto.
+            O trabalho foi estruturado para comunicar valor da marca com
+            narrativa clara, hierarquia visual consistente e fluxo de leitura
+            pensado para telas móveis e desktop.
           </p>
           <p className="text-muted-foreground leading-relaxed mt-4">
-            The project focuses on {project.displayCategory} solutions for{' '}
-            {project.client}, delivered in {project.year}.
+            O escopo priorizou soluções de {project.displayCategory} para{' '}
+            {project.client}, com entregas em {project.year}. Além da camada
+            estética, o projeto considera semântica HTML, acessibilidade,
+            desempenho e estabilidade visual como parte do produto final.
+          </p>
+          <p className="text-muted-foreground leading-relaxed mt-4">
+            A construção do case adota abordagem editorial: contexto, problema,
+            estratégia e execução. Essa ordem facilita entendimento por pessoas
+            e por mecanismos de busca, melhora descoberta orgânica e sustenta
+            decisões de UX com foco em legibilidade, contraste e navegação
+            orientada por conteúdo.
+          </p>
+          <p className="text-muted-foreground leading-relaxed mt-4">
+            Em termos técnicos, o projeto usa arquitetura moderna com otimização
+            de ativos, carregamento progressivo e metadados estruturados para
+            ampliar visibilidade. O objetivo é manter a experiência rápida em
+            rede móvel, sem sacrificar consistência visual nem precisão da
+            mensagem.
+          </p>
+          <p className="text-muted-foreground leading-relaxed mt-4">
+            O resultado final combina presença de marca e eficiência operacional:
+            conteúdo claro, interação objetiva e base preparada para evolução
+            contínua. Esse equilíbrio entre design e engenharia é o que garante
+            impacto perceptível no uso real e não apenas em apresentação.
           </p>
         </div>
       </section>

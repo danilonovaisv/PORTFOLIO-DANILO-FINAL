@@ -9,7 +9,7 @@ import {
     isVideo,
     isYouTubeUrl,
 } from '@/lib/utils';
-import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { Play } from 'lucide-react';
 
 interface MediaContainerProps {
@@ -61,7 +61,15 @@ export const MediaContainer: FC<MediaContainerProps> = ({
                                 event.currentTarget.muted = false;
                                 void event.currentTarget.play().catch(() => undefined);
                             }}
-                        />
+                        >
+                            <track
+                                kind="captions"
+                                src={DEFAULT_CAPTIONS}
+                                srcLang="pt-BR"
+                                label="Português"
+                                default
+                            />
+                        </video>
                     ) : (
                         <Image
                             key={activeMedia}
@@ -134,7 +142,15 @@ export const MediaContainer: FC<MediaContainerProps> = ({
                                             muted
                                             playsInline
                                             preload="metadata"
-                                        />
+                                        >
+                                            <track
+                                                kind="captions"
+                                                src={DEFAULT_CAPTIONS}
+                                                srcLang="pt-BR"
+                                                label="Português"
+                                                default
+                                            />
+                                        </video>
                                         <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                                             <Play className="w-5 h-5 text-white fill-current opacity-80" />
                                         </div>

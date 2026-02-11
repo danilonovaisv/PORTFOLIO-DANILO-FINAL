@@ -142,17 +142,11 @@ const ContactForm: React.FC = () => {
               </p>
             </noscript>
             <input
-              type="text"
+              type="hidden"
               name="_honey"
-              style={{ display: 'none' }}
-              hidden
-              aria-hidden="true"
-              tabIndex={-1}
-              title="Ignore this field"
               autoComplete="off"
-              readOnly
             />
-            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_captcha" value="true" />
 
             <div className="grid grid-cols-1 gap-8">
               <InputField

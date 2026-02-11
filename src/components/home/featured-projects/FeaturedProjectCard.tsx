@@ -8,16 +8,18 @@ import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import type { PortfolioProject } from '@/types/project';
 import { applyImageFallback, isVideo } from '@/lib/utils';
-import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 interface FeaturedProjectCardProps {
   project: PortfolioProject;
   onOpen?: (_project: PortfolioProject) => void;
+  priority?: boolean;
 }
 
 export default function FeaturedProjectCard({
   project,
   onOpen,
+  priority = false,
 }: FeaturedProjectCardProps) {
   const reducedMotion = useReducedMotion();
   const isModalMode = typeof onOpen === 'function';
@@ -37,6 +39,9 @@ export default function FeaturedProjectCard({
   const landingHref = project.landingPageSlug
     ? `/projects/${project.landingPageSlug}?from=home&originCard=${encodeURIComponent(project.slug)}`
     : undefined;
+  const headingId = `featured-project-${project.slug
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, '-')}-title`;
 
   const CardContent = () => (
     <>
@@ -57,9 +62,18 @@ export default function FeaturedProjectCard({
             muted
             loop
             playsInline
+            preload={priority ? 'auto' : 'metadata'}
             poster={DEFAULT_VIDEO_POSTER}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 opacity-90 md:group-hover:opacity-100"
-          ></video>
+          >
+            <track
+              kind="captions"
+              src={DEFAULT_CAPTIONS}
+              srcLang="pt-BR"
+              label="Português"
+              default
+            />
+          </video>
         ) : (
           <Image
             src={mediaSource}
@@ -67,7 +81,8 @@ export default function FeaturedProjectCard({
             fill
             sizes={project.layout.sizes ?? '100vw'}
             className="object-cover transition-opacity duration-700 opacity-90 md:group-hover:opacity-100"
-            loading="lazy"
+            loading={priority ? 'eager' : 'lazy'}
+            priority={priority}
             onError={applyImageFallback}
           />
         )}
@@ -89,7 +104,10 @@ export default function FeaturedProjectCard({
             </span>
           </div>
           {/* Title */}
-          <h3 className="text-xl md:text-2xl lg:text-3xl font-medium tracking-tight text-white leading-[1.2] transition-colors duration-500 md:group-hover:text-primary">
+          <h3
+            id={headingId}
+            className="text-xl md:text-2xl lg:text-3xl font-medium tracking-tight text-white leading-[1.2] transition-colors duration-500 md:group-hover:text-primary"
+          >
             {project.title}
           </h3>
         </div>
@@ -114,7 +132,7 @@ export default function FeaturedProjectCard({
         type="button"
         onClick={handleClick}
         className={commonClasses}
-        aria-label={`Ver detalhes do projeto ${project.title}`}
+        aria-labelledby={headingId}
       >
         <CardContent />
       </button>
@@ -133,7 +151,7 @@ export default function FeaturedProjectCard({
     <Link
       href={`/portfolio/${project.slug}`}
       className={commonClasses}
-      aria-label={`View details for project ${project.title}`}
+      aria-labelledby={headingId}
     >
       <CardContent />
     </Link>

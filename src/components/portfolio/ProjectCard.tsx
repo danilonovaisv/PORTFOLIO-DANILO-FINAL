@@ -7,7 +7,7 @@ import { PortfolioProject } from '@/types/project';
 import { cn } from '@/lib/utils';
 import { ASSET_PLACEHOLDER, applyImageFallback, isVideo } from '@/lib/utils';
 import styles from './ProjectsGallery.module.css';
-import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export type ProjectCardSize = 'sm' | 'md' | 'lg' | 'wide' | 'tall';
@@ -118,13 +118,22 @@ export const ProjectCard = ({
             muted
             loop
             playsInline
+            preload={priority ? 'auto' : 'metadata'}
             poster={DEFAULT_VIDEO_POSTER}
             className={cn(
               "absolute inset-0 h-full w-full",
               objectFit === 'contain' ? 'object-contain' : 'object-cover'
             )}
             style={{ objectPosition }}
-          />
+          >
+            <track
+              kind="captions"
+              src={DEFAULT_CAPTIONS}
+              srcLang="pt-BR"
+              label="Português"
+              default
+            />
+          </video>
         ) : (
           <Image
             src={imageSrc}

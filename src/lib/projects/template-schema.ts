@@ -3,6 +3,8 @@ import {
   buildSupabaseStorageUrl,
   normalizeStoragePath,
 } from '@/lib/supabase/urls';
+import { BRAND } from '@/config/brand';
+import { getCanonicalSiteUrl } from '@/lib/seo';
 import {
   LEGACY_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE,
@@ -30,6 +32,8 @@ const LOCAL_PUBLIC_ASSET_PATTERN =
   /^\/(site\.assets|images|videos|fonts|captions)\//i;
 const STORAGE_PUBLIC_PATH_PATTERN =
   /^\/?storage\/v1\/object\/public\/([^/]+)\/(.+)$/i;
+const LOCALHOST_URL_PATTERN =
+  /^https?:\/\/(?:localhost|127\.0\.0\.1|0\.0\.0\.0)(?::\d+)?(\/.*)?$/i;
 const YOUTUBE_PATTERN =
   /(youtu\.be\/|youtube\.com\/watch\?v=|youtube\.com\/embed\/|youtube\.com\/shorts\/)/i;
 const V3_BLOCK_TYPES: BlockType[] = [
@@ -356,12 +360,25 @@ export function resolveSiteAssetUrl(value?: string | null): string {
   const raw = value.trim();
   if (!raw) return '';
 
-  if (
-    raw.startsWith('http://') ||
-    raw.startsWith('https://') ||
-    raw.startsWith('blob:') ||
-    raw.startsWith('data:')
-  ) {
+  if (raw.startsWith('blob:') || raw.startsWith('data:')) return raw;
+
+  const localhostMatch = raw.match(LOCALHOST_URL_PATTERN);
+  if (localhostMatch) {
+    const canonical = getCanonicalSiteUrl().replace(/\/$/, '');
+    const path = localhostMatch[1] || '';
+    return `${canonical}${path.startsWith('/') ? path : `/${path}`}`;
+  }
+
+  if (raw.startsWith('http://') || raw.startsWith('https://')) {
+    try {
+      const parsed = new URL(raw);
+      if (parsed.hostname.toLowerCase() === BRAND.domain.toLowerCase()) {
+        parsed.protocol = 'https:';
+        return parsed.toString();
+      }
+    } catch {
+      return raw;
+    }
     return raw;
   }
 

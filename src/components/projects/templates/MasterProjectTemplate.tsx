@@ -12,6 +12,7 @@ import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
 import { useLandingBackLink } from './useLandingBackLink';
 import { CompoundPillCTA } from '@/components/ui/CompoundPillCTA';
+import { DEFAULT_CAPTIONS } from '@/lib/video';
 import type {
   MasterProjectAsset,
   MasterProjectGalleryItem,
@@ -82,7 +83,15 @@ function GalleryMedia({
         muted
         playsInline
         preload={priority ? 'metadata' : 'none'}
-      />
+      >
+        <track
+          kind="captions"
+          src={DEFAULT_CAPTIONS}
+          srcLang="pt-BR"
+          label="Português"
+          default
+        />
+      </video>
     );
   }
 
@@ -165,7 +174,15 @@ export default function MasterProjectTemplate({
                 muted
                 playsInline
                 preload="metadata"
-              />
+              >
+                <track
+                  kind="captions"
+                  src={DEFAULT_CAPTIONS}
+                  srcLang="pt-BR"
+                  label="Português"
+                  default
+                />
+              </video>
             ) : (
               <Image
                 src={heroImage}
@@ -269,7 +286,7 @@ export default function MasterProjectTemplate({
         </div>
       </header>
 
-      <main>
+      <div role="region" aria-label="Conteúdo do projeto">
         <motion.section
           id="project-intro"
           className="std-grid py-20 md:py-28"
@@ -438,7 +455,7 @@ export default function MasterProjectTemplate({
             </div>
           </div>
         </motion.section>
-      </main>
+      </div>
     </article>
   );
 }

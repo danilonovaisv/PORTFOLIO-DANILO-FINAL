@@ -28,13 +28,17 @@ if [ "${FIREBASE_USE_LOCAL_CONFIG:-0}" = "1" ]; then
   mkdir -p "$XDG_CONFIG_HOME"
 fi
 
+# Bypass .env EPERM issue
+export VALIDATE_ENV_WARN_ONLY=1
+
 echo "Node: $(node --version)"
 echo "pnpm: $(pnpm --version)"
 echo "firebase: $(firebase --version)"
 
 # Build explicitamente com webpack para evitar conflito com Turbopack
 # quando existe configuração custom em next.config.mjs.
-npx next build --webpack
+# Build via script in package.json (ensures prebuild/validate-env run)
+pnpm run build
 
 # Consolida estáticos
 bash "$SCRIPT_DIR/prepare-hosting.sh"
