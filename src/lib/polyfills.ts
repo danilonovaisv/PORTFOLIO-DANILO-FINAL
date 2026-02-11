@@ -19,3 +19,16 @@ if (typeof globalThis !== 'undefined') {
     (globalThis as any).ProgressEvent = NodeProgressEvent;
   }
 }
+
+// Global suppressor for ResizeObserver loop errors (harmless noise in dev)
+if (typeof window !== 'undefined') {
+  window.addEventListener('error', (e) => {
+    if (
+      e.message === 'ResizeObserver loop completed with undelivered notifications.' ||
+      e.message === 'ResizeObserver loop limit exceeded'
+    ) {
+      e.stopImmediatePropagation();
+    }
+  });
+}
+

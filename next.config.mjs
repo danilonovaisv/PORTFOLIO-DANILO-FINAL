@@ -45,10 +45,9 @@ const supabaseAndExternalHosts = `${supabaseHosts} https://raw.githack.com https
  */
 const cspHeader = `
     default-src 'self';
-    script-src 'self' blob:;
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' blob:;
     worker-src 'self' blob:;
     style-src 'self' 'unsafe-inline';
-    upgrade-insecure-requests;
     img-src 'self' blob: data: ${supabaseAndExternalHosts} https://grainy-gradients.vercel.app https://img.youtube.com https://i.ytimg.com;
     font-src 'self' https://assets.codepen.io ${supabaseHosts};
     object-src 'none';

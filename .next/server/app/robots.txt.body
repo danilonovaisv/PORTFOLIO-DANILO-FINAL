@@ -1,7 +1,0 @@
-User-Agent: *
-Allow: /
-Disallow: /admin
-Disallow: /api/*
-Disallow: /_next/*
-
-Sitemap: https://portfoliodanilo.com/sitemap.xml
