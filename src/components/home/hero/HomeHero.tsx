@@ -15,7 +15,9 @@ import { useWebGLSupport } from '@/hooks/useWebGLSupport';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 const CONFIG = {
-  preloadMs: 2000,
+  // Reduzido drasticamente para não bloquear LCP.
+  // O texto deve aparecer quase instantaneamente.
+  preloadMs: 100,
 } as const;
 
 export default function HomeHero() {
@@ -23,10 +25,14 @@ export default function HomeHero() {
   const [isLoaded, setIsLoaded] = useState(false);
   const isDesktop = useMediaQuery('(min-width: 1024px)');
   const supportsWebGL = useWebGLSupport();
-  const motionGate = useMotionGate();
-  const shouldRenderWebGL = supportsWebGL && !motionGate;
+  // `shouldReduceMotion` agora controla tanto a preferência do usuário quanto a flag global
+  const shouldReduceMotion = useMotionGate();
+
+  // Só renderiza WebGL se suportado E se não houver preferência por movimento reduzido
+  const shouldRenderWebGL = supportsWebGL && !shouldReduceMotion;
 
   useEffect(() => {
+    // Timer apenas para coordenar a entrada das animações, não para carregar assets
     const timer = setTimeout(() => setIsLoaded(true), CONFIG.preloadMs);
     return () => clearTimeout(timer);
   }, []);
@@ -38,15 +44,17 @@ export default function HomeHero() {
       <section
         id="hero"
         ref={heroRef}
-        className="relative w-full min-h-screen bg-[#040013] overflow-hidden"
+        // min-h-screen já estava presente, ok para CLS.
+        // Adicionado z-index explícito para contexto de empilhamento.
+        className="relative w-full min-h-screen bg-background overflow-hidden z-0"
         aria-label="Portfolio Hero Section"
       >
-        {/* Fallback Mobile Background Gradient (Ghost Atmosphere) */}
-        {!isDesktop && (
+        {/* Fallback Mobile Background Gradient (Ghost Atmosphere) - Também usado para Reduced Motion */}
+        {(!isDesktop || shouldReduceMotion) && (
           <div className="absolute inset-0 z-0 animate-pulse opacity-60 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)]" />
         )}
 
-        {/* Preloader */}
+        {/* Preloader - Mantido visualmente mas não bloqueia renderização do DOM abaixo */}
         <AnimatePresence>
           {!isLoaded && (
             <Preloader
@@ -61,18 +69,22 @@ export default function HomeHero() {
         <div className="absolute inset-0 z-20 pointer-events-none">
           <div className="flex items-center justify-center w-full h-screen md:sticky md:top-0">
             <div className="w-full pointer-events-auto pb-32 md:pb-0">
+              {/* isLoaded agora é true muito mais rápido */}
               <HeroCopy isLoaded={isLoaded} />
             </div>
           </div>
         </div>
 
-        {/* Camada: Ghost WebGL (Z-30) - Agora ativo em mobile com auto-performance */}
+        {/* Camada: Ghost WebGL (Z-30) */}
         <div className="absolute inset-0 z-30 pointer-events-none overflow-hidden">
           <div className="sticky top-0 h-screen w-full">
             {shouldRenderWebGL ? (
               <GhostSceneWrapper />
             ) : (
-              <div className="absolute inset-0 z-0 animate-pulse opacity-20 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)]" />
+              <div
+                className="absolute inset-0 z-0 opacity-20 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)]"
+                aria-hidden="true"
+              />
             )}
           </div>
         </div>
@@ -82,7 +94,9 @@ export default function HomeHero() {
         <div className="absolute inset-0 z-50 pointer-events-none">
           <div className="flex items-end justify-center w-full h-screen md:sticky md:top-0">
             <div className="absolute bottom-12 left-0 w-full flex justify-center md:relative md:bottom-auto md:left-auto md:w-auto md:block md:pb-12 lg:pb-20 pointer-events-auto">
-              <HeroCTA isLoaded={isLoaded} />
+              {/* Force render CTA immediately, don't wait for 'isLoaded' inside logic if possible, 
+                  but HeroCTA checks isLoaded. Since we reduced preloadMs to 100, it's fine. */}
+              <HeroCTA />
             </div>
           </div>
         </div>

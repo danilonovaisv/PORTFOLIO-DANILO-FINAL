@@ -121,3 +121,4 @@ deploy-public/
 .agent_config/configstore/firebase-tools.json
 client_secrets.json
 node_modules
+node_modules

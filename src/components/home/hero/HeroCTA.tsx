@@ -18,8 +18,9 @@ const itemAnimation: Variants = {
   },
 };
 
-export default function HeroCTA({ isLoaded = true }: { isLoaded?: boolean }) {
-  if (!isLoaded) return null;
+export default function HeroCTA() {
+  // isLoaded check removed for immediate LCP
+  // if (!isLoaded) return null;
 
   return (
     <motion.div

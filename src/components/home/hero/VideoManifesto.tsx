@@ -145,8 +145,8 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
               className="w-full h-full object-cover"
               src={videoSrc}
               poster={posterSrc}
-              autoPlay
-              loop
+              autoPlay={!shouldReduceMotion}
+              loop={!shouldReduceMotion}
               muted={muted}
               playsInline
               preload="metadata"
