@@ -29,7 +29,7 @@
     "firebase:preflight": "bash scripts/firebase-preflight.sh",
     "predeploy": "bash scripts/firebase-preflight.sh && python3 scripts/audit_assets.py",
     "deploy": "pnpm run predeploy && bash scripts/deploy.sh",
-    "deploy:hosting": "pnpm run build && bash scripts/prepare-hosting.sh && firebase deploy --only hosting --debug",
+    "deploy:hosting": "pnpm run build && firebase deploy --only hosting --debug",
     "test-and-deploy": "tsx scripts/run-full-test-and-deploy.ts",
     "admin:deploy": "pnpm run admin:prepare:mutate && pnpm run admin:prepare:verify && pnpm run build",
     "admin:prepare": "pnpm run admin:prepare:verify",

@@ -29,6 +29,8 @@
   "hosting": {
     "source": ".",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "cleanUrls": true,
+    "trailingSlash": false,
     "frameworksBackend": {
       "region": "us-central1"
     },
