@@ -1,0 +1,214 @@
+===========================================
+ Projeto: PORTFOLIO-DANILO-FINAL
+ Data: Wed Feb 11 23:56:06 -03 2026
+ Package manager detectado: pnpm
+===========================================
+
+### Ambiente
+
+$ node -v
+v20.20.0
+
+$ npm -v
+10.8.2
+
+Sistema operacional:
+Darwin 192.168.0.12 25.3.0 Darwin Kernel Version 25.3.0: Wed Jan 28 20:53:15 PST 2026; root:xnu-12377.81.4~5/RELEASE_ARM64_T6000 arm64
+
+-------------------------------------------
+### Git status
+
+$ git status -sb
+## main...origin/main
+ M node_modules/.modules.yaml
+ M node_modules/.pnpm-workspace-state-v1.json
+ M node_modules/.pnpm/lock.yaml
+ M node_modules/@google-cloud/pubsub/build/src/lease-manager.d.ts
+ M node_modules/@google-cloud/pubsub/build/src/lease-manager.js
+ M node_modules/@google-cloud/pubsub/build/src/lease-manager.js.map
+ M node_modules/@google-cloud/pubsub/build/src/subscriber.js
+ M node_modules/@google-cloud/pubsub/build/src/subscriber.js.map
+ M node_modules/@google-cloud/pubsub/package.json
+ M node_modules/@google/genai/dist/genai.d.ts
+ M node_modules/@google/genai/dist/index.cjs
+ M node_modules/@google/genai/dist/index.mjs
+ M node_modules/@google/genai/dist/index.mjs.map
+ M node_modules/@google/genai/dist/node/index.cjs
+ M node_modules/@google/genai/dist/node/index.mjs
+ M node_modules/@google/genai/dist/node/index.mjs.map
+ M node_modules/@google/genai/dist/node/node.d.ts
+ M node_modules/@google/genai/dist/tokenizer/node.d.ts
+ M node_modules/@google/genai/dist/tokenizer/node.mjs.map
+ M node_modules/@google/genai/dist/web/index.mjs
+ M node_modules/@google/genai/dist/web/index.mjs.map
+ M node_modules/@google/genai/dist/web/web.d.ts
+ M node_modules/@google/genai/package.json
+ M node_modules/@tanstack/react-query/build/legacy/infiniteQueryOptions.d.cts
+ M node_modules/@tanstack/react-query/build/legacy/infiniteQueryOptions.d.ts
+ M node_modules/@tanstack/react-query/build/legacy/queryOptions.d.cts
+ M node_modules/@tanstack/react-query/build/legacy/queryOptions.d.ts
+ M node_modules/@tanstack/react-query/build/legacy/suspense.d.cts
+ M node_modules/@tanstack/react-query/build/legacy/suspense.d.ts
+ M node_modules/@tanstack/react-query/build/legacy/types.d.cts
+ M node_modules/@tanstack/react-query/build/legacy/types.d.ts
+ M node_modules/@tanstack/react-query/build/legacy/useQueries.cjs
+ M node_modules/@tanstack/react-query/build/legacy/useQueries.cjs.map
+ M node_modules/@tanstack/react-query/build/legacy/useQueries.d.cts
+ M node_modules/@tanstack/react-query/build/legacy/useQueries.d.ts
+ M node_modules/@tanstack/react-query/build/legacy/useQueries.js
+ M node_modules/@tanstack/react-query/build/legacy/useQueries.js.map
+ M node_modules/@tanstack/react-query/build/legacy/useSuspenseQueries.d.cts
+ M node_modules/@tanstack/react-query/build/legacy/useSuspenseQueries.d.ts
+ M node_modules/@tanstack/react-query/build/modern/infiniteQueryOptions.d.cts
+ M node_modules/@tanstack/react-query/build/modern/infiniteQueryOptions.d.ts
+ M node_modules/@tanstack/react-query/build/modern/queryOptions.d.cts
+ M node_modules/@tanstack/react-query/build/modern/queryOptions.d.ts
+ M node_modules/@tanstack/react-query/build/modern/suspense.d.cts
+ M node_modules/@tanstack/react-query/build/modern/suspense.d.ts
+ M node_modules/@tanstack/react-query/build/modern/types.d.cts
+ M node_modules/@tanstack/react-query/build/modern/types.d.ts
+ M node_modules/@tanstack/react-query/build/modern/useQueries.cjs
+ M node_modules/@tanstack/react-query/build/modern/useQueries.cjs.map
+ M node_modules/@tanstack/react-query/build/modern/useQueries.d.cts
+ M node_modules/@tanstack/react-query/build/modern/useQueries.d.ts
+ M node_modules/@tanstack/react-query/build/modern/useQueries.js
+ M node_modules/@tanstack/react-query/build/modern/useQueries.js.map
+ M node_modules/@tanstack/react-query/build/modern/useSuspenseQueries.d.cts
+ M node_modules/@tanstack/react-query/build/modern/useSuspenseQueries.d.ts
+ M node_modules/@tanstack/react-query/package.json
+ M node_modules/@tanstack/react-query/src/useQueries.ts
+ M node_modules/@types/react/README.md
+ M node_modules/@types/react/experimental.d.ts
+ M node_modules/@types/react/index.d.ts
+ M node_modules/@types/react/package.json
+ M node_modules/@types/react/ts5.0/experimental.d.ts
+ M node_modules/@types/react/ts5.0/index.d.ts
+ M node_modules/jest-runner/build/testWorker.js
+ M node_modules/jest/bin/jest.js
+ M node_modules/next/dist/build/webpack/loaders/next-swc-loader.js
+ M node_modules/next/dist/compiled/webpack/bundle5.js
+ M node_modules/next/dist/server/lib/start-server.js
+ M node_modules/qs/.editorconfig
+ M node_modules/qs/CHANGELOG.md
+ M node_modules/qs/README.md
+ M node_modules/qs/dist/qs.js
+ M node_modules/qs/lib/parse.js
+ M node_modules/qs/lib/utils.js
+ M node_modules/qs/package.json
+ M node_modules/qs/test/parse.js
+ M node_modules/qs/test/utils.js
+ M node_modules/serve/build/main.js
+ M node_modules/shadcn/node_modules/is-unicode-supported/index.js
+ M node_modules/shadcn/node_modules/is-unicode-supported/package.json
+ M package.json
+ M pnpm-lock.yaml
+ M public/build-info.json
+?? project-report-20260211-235606.txt
+
+-------------------------------------------
+### Lint (npm run lint)
+
+$ npm run lint
+
+> danilo-novais-portfolio@1.0.1 lint
+> eslint src test tailwind.config.ts
+
+
+-------------------------------------------
+### Testes (npm run test)
+
+$ npm run test
+
+> danilo-novais-portfolio@1.0.1 test
+> pnpm run lint && pnpm run typecheck && jest
+
+
+> danilo-novais-portfolio@1.0.1 lint /Users/danilonovais/PORTFOLIO-DANILO-FINAL
+> eslint src test tailwind.config.ts
+
+
+> danilo-novais-portfolio@1.0.1 typecheck /Users/danilonovais/PORTFOLIO-DANILO-FINAL
+> NODE_OPTIONS='--max-old-space-size=8192' tsc --noEmit --strict --jsx react-jsx
+
+PASS test/components/portfolio/ProjectCard.test.tsx
+PASS test/components/projects/BlockRenderer.test.tsx
+PASS test/components/GhostModel.server.test.ts
+PASS test/components/HeroCopy.test.tsx
+PASS test/unit/project-mapper.test.ts
+PASS test/unit/template-schema.test.ts
+PASS test/components/ui/CustomCursor.test.tsx
+PASS test/unit/image-loader.test.ts
+PASS test/components/projects/useLandingBackLink.test.tsx
+PASS test/unit/site-asset-utils.test.ts
+PASS test/security/admin-audit.test.ts
+PASS test/security/admin-server-access.test.ts
+PASS test/config.test.ts
+PASS test/tsconfig.test.ts
+PASS test/security/admin-authz.test.ts
+
+Test Suites: 15 passed, 15 total
+Tests:       70 passed, 70 total
+Snapshots:   0 total
+Time:        2.203 s
+Ran all test suites.
+
+-------------------------------------------
+### Dependências desatualizadas
+
+$ pnpm outdated
+┌─────────────────────────┬─────────┬────────────┐
+│ Package                 │ Current │ Latest     │
+├─────────────────────────┼─────────┼────────────┤
+│ @types/handlebars (dev) │ 4.1.0   │ Deprecated │
+├─────────────────────────┼─────────┼────────────┤
+│ statsig-js              │ 5.1.0   │ Deprecated │
+└─────────────────────────┴─────────┴────────────┘
+
+-------------------------------------------
+### Depcheck (dependências não usadas / faltando)
+
+$ npx depcheck
+Unused dependencies
+* @dataconnect/admin-generated
+* @dataconnect/generated
+* @genkit-ai/google-genai
+* @google/adk
+* @react-three/postprocessing
+* firebase-admin
+* firebase-frameworks
+* firebase-functions
+* husky
+* lightningcss
+* lint-staged
+* motion-studio-mcp
+* postprocessing
+* statsig-js
+* tailwindcss-animate
+Unused devDependencies
+* @tailwindcss/postcss
+* @tailwindcss/typography
+* @testing-library/user-event
+* @types/handlebars
+* autoprefixer
+* esbuild
+* eslint-config-next
+* eslint-plugin-react
+* jest-environment-jsdom
+* knip
+* postcss
+* rimraf
+* serve
+* shadcn
+* styled-jsx
+* ts-node
+* which
+Missing dependencies
+* yaml: ./scripts/normalize-frontmatter.js
+
+-------------------------------------------
+### Observações
+Use este relatório para colar em uma IA (Codex/ChatGPT) e pedir:
+- Sugestões para corrigir erros de lint e testes;
+- Ajustes de dependências desatualizadas ou não utilizadas;
+- Refatorações sugeridas com base nos erros.
+
