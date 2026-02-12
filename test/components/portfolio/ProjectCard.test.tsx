@@ -106,7 +106,7 @@ describe('ProjectCard', () => {
             name: /test project/i,
         });
         expect(button).toBeInTheDocument();
-        expect(button).toHaveAttribute('id', 'portfolio-card-test-project');
+        expect(button).toHaveAttribute('id', 'portfolio-card-test-project-0');
     });
 
     it('should apply priority loading for first 3 items', () => {

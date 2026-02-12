@@ -15,15 +15,12 @@ const MorphText: React.FC<{
   className?: string;
 }> = ({ children, progress, range, className }) => {
   const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
-  const blur = useTransform(progress, range, ['blur(12px)', 'blur(0px)'], {
-    ease: ghostEase,
-  });
-  const opacity = useTransform(progress, range, [0, 1], { ease: ghostEase });
+  // [MODIFICADO]: Removido blur e opacity iniciais. Mantido apenas Y para movimento.
   const y = useTransform(progress, range, [40, 0], { ease: ghostEase });
 
   return (
     <motion.span
-      style={{ filter: blur, opacity, y }}
+      style={{ y }}
       className={`block ${className || ''}`}
     >
       {children}
@@ -47,7 +44,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
   return (
     <motion.header
       style={{ opacity }}
-      className="sticky top-0 z-55 flex h-screen pointer-events-none"
+      className="sticky top-0 z-[55] flex h-screen pointer-events-none"
     >
       <div className="std-grid w-full h-full">
         <div className="flex h-full items-start md:items-center justify-end pt-32 md:pt-0 col-span-12">
