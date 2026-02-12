@@ -12,9 +12,10 @@ import { SiteClosure } from '@/components/layout/SiteClosure';
 import JsonLd from '@/components/ui/JsonLd';
 
 import { BRAND } from '@/config/brand';
+import { generateVideoSchema } from '@/lib/schema';
 
 export const metadata: Metadata = {
-  title: 'Sobre | Danilo Novais',
+  title: 'Sobre',
   description:
     'Conheça a trajetória, o método e a visão de Danilo Novais — Creative Developer focado em branding, motion e experiências digitais que conectam pessoas e marcas.',
   openGraph: {
@@ -50,6 +51,22 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background text-white">
       <JsonLd pageType="about" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            generateVideoSchema({
+              name: 'Manifesto Danilo Novais',
+              description:
+                'Manifesto em vídeo com direção criativa e linguagem visual autoral.',
+              thumbnailUrl: `https://${BRAND.domain}/opengraph-image`,
+              uploadDate: '2025-01-01',
+              contentUrl: BRAND.assets.video.manifesto,
+              embedUrl: `https://${BRAND.domain}/sobre`,
+            })
+          ),
+        }}
+      />
       {/* Seção 01 — Hero/Manifesto */}
       <AboutHero />
       {/* Seção 02 — Origem Criativa */}

@@ -13,7 +13,7 @@ import {
     toggleFeaturedOnHome,
     toggleFeaturedOnPortfolio,
     togglePublish,
-} from '@/lib/supabase/queries/projects';
+} from '@/lib/supabase/actions/project-toggles';
 
 type Project = {
     id: string;

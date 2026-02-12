@@ -1,7 +1,7 @@
 export const SOCIALS = {
   instagram: 'https://instagram.com/danilo_novais',
   facebook: 'https://facebook.com/danilonovaisvilela',
-  linkedin: 'https://linkedin.com/in/danilonovais',
+  linkedin: 'https://linkedin.com/in/danilonovaisv',
   twitter: 'https://twitter.com/danilo_novais',
   emailPrimary: 'mailto:danilo@portfoliodanilo.com',
   emailSecondary: 'mailto:dannovaisv@gmail.com',
@@ -23,6 +23,7 @@ export const NAVIGATION = {
       { label: 'portfólio', href: '/portfolio' },
       { label: 'contato', href: '/contato' },
       { label: 'privacidade', href: '/privacidade' },
+      { label: 'privacy policy', href: '/privacy-policy' },
     ],
   },
 };

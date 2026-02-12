@@ -33,7 +33,7 @@ export async function generateMetadata({
     { label: string; description: string }
   > = {
     branding: {
-      label: 'Branding & Identidade',
+      label: 'Branding',
       description:
         'Seleção de projetos de branding, identidade visual e campanhas que traduzem posicionamento em presença, forma e consistência.',
     },
@@ -51,8 +51,8 @@ export async function generateMetadata({
 
   const metaForCategory = category ? categoryMeta[category] : undefined;
   const rawTitle = metaForCategory
-    ? `Portfólio ${metaForCategory.label} | Danilo Novais`
-    : 'Portfólio | Danilo Novais';
+    ? `Portfólio | ${metaForCategory.label}`
+    : 'Portfólio';
   const rawDescription =
     metaForCategory?.description ??
     'Explore uma seleção curada de projetos de Branding, Motion Design e Creative Development de Danilo Novais, com foco em presença, narrativa e performance.';
@@ -97,6 +97,7 @@ export async function generateMetadata({
 import { buildFallbackProjects } from '@/lib/portfolio/fallbacks';
 
 import JsonLd from '@/components/ui/JsonLd';
+import { generateVideoSchema } from '@/lib/schema';
 
 export default async function PortfolioPage(_props: PortfolioPageProps) {
   let projects: PortfolioProject[] = [];
@@ -132,6 +133,22 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
   return (
     <>
       <JsonLd pageType="portfolio" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            generateVideoSchema({
+              name: 'Showcase de Vídeo | Portfólio Danilo Novais',
+              description:
+                'Vídeo de apresentação e amostras de motion no portfólio de Danilo Novais.',
+              thumbnailUrl: `https://${BRAND.domain}/portfolio/opengraph-image`,
+              uploadDate: '2025-01-01',
+              contentUrl: BRAND.assets.video.manifesto,
+              embedUrl: `https://${BRAND.domain}/portfolio`,
+            })
+          ),
+        }}
+      />
       <PortfolioClient projects={projects} />
     </>
   );

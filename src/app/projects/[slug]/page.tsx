@@ -10,7 +10,11 @@ import {
   parseLandingPageContent,
   resolveSiteAssetUrl,
 } from '@/lib/projects/template-schema';
-import { getCanonicalSiteUrl, normalizeMetaDescription } from '@/lib/seo';
+import {
+  getCanonicalSiteUrl,
+  normalizeMetaDescription,
+  normalizeMetaTitle,
+} from '@/lib/seo';
 import {
   MASTER_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE_V2,
@@ -124,7 +128,7 @@ export async function generateMetadata({
   const ogImage = toAbsoluteUrl(siteUrl, ogResolved);
 
   return {
-    title: `${project.title} | Danilo Novais`,
+    title: normalizeMetaTitle(project.title),
     description: seoDescription,
     openGraph: {
       title: project.title,

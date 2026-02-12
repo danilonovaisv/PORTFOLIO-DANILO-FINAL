@@ -12,9 +12,10 @@ import { createStaticClient } from '@/lib/supabase/static';
 import type { PortfolioProject } from '@/types/project';
 import JsonLd from '@/components/ui/JsonLd';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
+import { generateVideoSchema } from '@/lib/schema';
 
 export const metadata: Metadata = {
-  title: 'Danilo Novais | Creative Developer',
+  title: 'Creative Developer',
   description:
     'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais - Creative Developer especializado em WebGL, R3F, Next.js e experiências digitais interativas.',
   keywords: [
@@ -72,6 +73,22 @@ export default async function HomePage() {
   return (
     <>
       <JsonLd pageType="home" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            generateVideoSchema({
+              name: 'Showreel Danilo Novais',
+              description:
+                'Showreel com projetos de branding, motion e experiências digitais.',
+              thumbnailUrl: `https://${BRAND.domain}/opengraph-image`,
+              uploadDate: '2025-01-01',
+              contentUrl: BRAND.assets.video.manifesto,
+              embedUrl: `https://${BRAND.domain}`,
+            })
+          ),
+        }}
+      />
       <HomeHero />
       <VideoManifesto
         src={BRAND.assets.video.manifesto}

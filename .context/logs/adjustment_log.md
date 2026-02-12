@@ -184,3 +184,5 @@
 ---
 
 ## [2026-02-11T00:56] Debug Mode - System Health Analysis & Remediation
+[2026-02-12] [Fix] [AboutBeliefs] Resolved Z-Index conflict where section backgrounds obscured text and 3D elements. Implemented strict layer hierarchy: BG(z-0) < Content(z-1) < Ghost(z-50) < Overlay(z-60).
+[2026-02-12] [Fix] [GhostScene] Removed opacity fade-in transition. Element is now fully opaque (opacity: 1) immediately.

@@ -109,18 +109,23 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
     <motion.section
       ref={containerRef}
       aria-label={text.replace(/\n/g, ' ')}
-      // 🟣 [CONFIG VISUAL]: Define a cor de fundo da seção
-      style={{ backgroundColor: bgColor }}
-      className={`relative w-full h-screen flex overflow-hidden ${isMobile
-          ? 'items-end justify-start pb-32' // Mobile: espaço para texto fixed no footer
-          : 'items-center justify-start px-[5%] md:px-[7.5%] lg:px-[10%]'
+      className={`relative isolate w-full h-screen flex overflow-hidden ${isMobile
+        ? 'items-end justify-start pb-32' // Mobile: espaço para texto fixed no footer
+        : 'items-center justify-start px-[5%] md:px-[7.5%] lg:px-[10%]'
         }`}
     >
+      {/* LAYER 0: Background Color (Decoupled from container) */}
+      <div
+        className="absolute inset-0 z-0 w-full h-full pointer-events-none"
+        style={{ backgroundColor: bgColor }}
+      />
+
+      {/* LAYER 1: Content (Text) */}
       {/* Desktop: Texto inline */}
       {!isMobile && !isMobileTextLayer && (
         <motion.div
           style={{ y: yScroll, opacity: desktopOpacity }}
-          className="relative z-50 w-full flex flex-col justify-start max-w-[80vw]"
+          className="relative z-10 w-full flex flex-col justify-start max-w-[80vw]"
         >
           {lines.map((line, i) => (
             <BeliefLineDesktop

@@ -19,9 +19,10 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
   const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
 
   // Sync com BeliefFixedHeader (range 0.1 ~ 0.2)
-  const opacity = useTransform(scrollProgress, [0.1, 0.25], [0, 1], {
-    ease: ghostEase,
-  });
+  // [MODIFICADO]: Opacidade agora é sempre 1 (retirado fade-in)
+  // const opacity = useTransform(scrollProgress, [0.1, 0.25], [0, 1], {
+  //   ease: ghostEase,
+  // });
   const blur = useTransform(
     scrollProgress,
     [0.1, 0.25],
@@ -32,7 +33,7 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
   return (
     <motion.div
       ref={containerRef}
-      style={{ opacity, filter: blur }}
+      style={{ opacity: 1, filter: blur }}
       className="w-full h-full pointer-events-none"
     >
       <Canvas

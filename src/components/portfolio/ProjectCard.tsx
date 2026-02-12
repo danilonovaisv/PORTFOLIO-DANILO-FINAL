@@ -70,7 +70,7 @@ export const ProjectCard = ({
   const headingId = `project-card-${project.id}-title`;
   const cardAnchorId = `portfolio-card-${project.slug
     .toLowerCase()
-    .replace(/[^a-z0-9-]/g, '-')}`;
+    .replace(/[^a-z0-9-]/g, '-')}-${index}`;
 
   // ... (imports)
 
@@ -145,6 +145,7 @@ export const ProjectCard = ({
             )}
             style={{ objectPosition }}
             sizes={sizes}
+            loading={priority ? 'eager' : 'lazy'}
             priority={priority}
             onError={applyImageFallback}
           />

@@ -6,7 +6,7 @@ import { BRAND } from '@/config/brand';
 import JsonLd from '@/components/ui/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'Contato | Danilo Novais',
+  title: 'Contato',
   description:
     'Fale com Danilo Novais para projetos de branding, motion e experiências digitais. Formulário direto, e-mail e redes para iniciar a conversa.',
   openGraph: {
@@ -42,6 +42,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <JsonLd pageType="contact" />
+      <h1 className="sr-only">Contato com Danilo Novais</h1>
       <ClientsBrandsSection />
       <ContactSection />
       <SiteFooter />

@@ -92,7 +92,7 @@ export default function FeaturedProjectsSection({
                 <FeaturedProjectCard
                   project={project}
                   onOpen={onProjectOpen}
-                  priority={index < 2}
+                  priority={index < 3}
                 />
               </motion.div>
             );

@@ -2,7 +2,7 @@ import FloatingCards from '@/components/ui/FloatingCards';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Floating Cards Prototype | Danilo Novais',
+  title: 'Floating Cards Prototype',
   description: 'Interactive 3D floating cards grid using GSAP and Next.js.',
 };
 

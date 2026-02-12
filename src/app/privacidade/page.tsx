@@ -4,7 +4,7 @@ import SiteFooter from '@/components/layout/SiteFooter';
 import { BRAND } from '@/config/brand';
 
 export const metadata: Metadata = {
-  title: 'Política de Privacidade | Danilo Novais',
+  title: 'Política de Privacidade',
   description:
     'Entenda como os dados são tratados no portfólio de Danilo Novais. Transparência sobre coleta, uso e direitos de privacidade.',
   openGraph: {

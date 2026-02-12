@@ -197,7 +197,7 @@ export const CONTACT_INFO = [
 export const SOCIALS = [
   {
     platform: 'LinkedIn',
-    url: 'https://linkedin.com/in/danilonovais',
+    url: 'https://linkedin.com/in/danilonovaisv',
     icon: <Linkedin className="w-5 h-5" />,
   },
   {

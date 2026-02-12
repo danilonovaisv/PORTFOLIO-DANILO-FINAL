@@ -61,7 +61,7 @@ export function AboutBeliefs() {
     >
       <BeliefFixedHeader scrollProgress={scrollYProgress} />
       {/* LAYER 1: Seções de Conteúdo (Texto Scrollável) */}
-      <div className="relative z-0">
+      <div className="relative z-1">
         {/* Adicionei verificações para evitar erro se PHRASES/COLORS estiverem vazios */}
         {PHRASES.map((phrase, index) => (
           <BeliefSection
@@ -85,8 +85,9 @@ export function AboutBeliefs() {
       />
 
       {/* LAYER 3: Canvas 3D (entre fundos e texto final) */}
+      {/* 🟣 [FIX-LAYERS]: Promovido para Z-50. Garante que fique acima dos BGs (Z-10) */}
       <div
-        className="absolute inset-0 z-40 w-full h-full pointer-events-none"
+        className="absolute inset-0 z-50 w-full h-full pointer-events-none"
         aria-hidden
       >
         <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-none flex md:items-center md:justify-center items-end justify-start">
@@ -99,7 +100,8 @@ export function AboutBeliefs() {
       </div>
 
       {/* LAYER 4: Final Text Overlay (sempre acima do Canvas) */}
-      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-65">
+      {/* 🟣 [FIX-LAYERS]: Promovido para Z-60. Sempre no topo. */}
+      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-60">
         <BeliefFinalSectionOverlay />
       </div>
     </section>

@@ -137,6 +137,17 @@ export default function JsonLd({
         '@id': `${baseUrl}/#person`,
       },
     };
+    pageSchemas.videoObject = {
+      '@type': 'VideoObject',
+      '@id': `${baseUrl}/sobre#video-manifesto`,
+      name: 'Manifesto Danilo Novais',
+      description:
+        'Manifesto em vídeo com direção criativa e linguagem visual autoral.',
+      thumbnailUrl: `${baseUrl}/opengraph-image`,
+      uploadDate: '2025-01-01',
+      contentUrl: BRAND.assets.video.manifesto,
+      embedUrl: `${baseUrl}/sobre`,
+    };
   }
 
   // Contact Page
@@ -151,6 +162,20 @@ export default function JsonLd({
       mainEntity: {
         '@id': `${baseUrl}/#person`,
       },
+    };
+  }
+
+  if (pageType === 'home' || pageType === 'portfolio') {
+    pageSchemas.videoObject = {
+      '@type': 'VideoObject',
+      '@id': `${baseUrl}/${pageType === 'home' ? '' : 'portfolio'}#video-manifesto`,
+      name: 'Showreel Danilo Novais',
+      description:
+        'Showreel com projetos de branding, motion e experiências digitais.',
+      thumbnailUrl: `${baseUrl}/opengraph-image`,
+      uploadDate: '2025-01-01',
+      contentUrl: BRAND.assets.video.manifesto,
+      embedUrl: pageType === 'home' ? baseUrl : `${baseUrl}/portfolio`,
     };
   }
 
