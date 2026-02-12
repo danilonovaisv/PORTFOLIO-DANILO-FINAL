@@ -6,9 +6,8 @@
 
 .track {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  grid-auto-flow: dense;
+  display: flex;
+  flex-wrap: wrap;
   align-items: stretch;
   gap: 12px;
   padding: 0;
@@ -92,29 +91,33 @@
 
 .card[data-size='sm'],
 .placeholder[data-size='sm'] {
-  grid-column: span 4;
+  flex: 1 1 calc(33.333% - 8px);
+  max-width: 100%;
 }
 
 .card[data-size='md'],
 .placeholder[data-size='md'] {
-  grid-column: span 4;
+  flex: 1 1 calc(33.333% - 8px);
+  max-width: 100%;
 }
 
 .card[data-size='lg'],
 .placeholder[data-size='lg'] {
-  grid-column: span 8;
+  flex: 2 1 calc(66.666% - 8px);
+  max-width: 100%;
   aspect-ratio: 8 / 5;
 }
 
 .card[data-size='wide'],
 .placeholder[data-size='wide'] {
-  grid-column: span 12;
+  flex: 1 1 100%;
   aspect-ratio: 16 / 7;
 }
 
 .card[data-size='tall'],
 .placeholder[data-size='tall'] {
-  grid-column: span 4;
+  flex: 1 1 calc(33.333% - 8px);
+  max-width: 100%;
   aspect-ratio: 3 / 5;
 }
 
@@ -157,8 +160,7 @@
   .track {
     position: relative;
     inset: auto;
-    grid-template-columns: 1fr;
-    grid-auto-rows: auto;
+    flex-direction: column;
     gap: 12px;
     padding: 24px;
     will-change: auto;

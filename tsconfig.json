@@ -33,7 +33,8 @@
     "types": [
       "node",
       "react",
-      "jest"
+      "jest",
+      "@testing-library/jest-dom"
     ],
     "plugins": [
       {
