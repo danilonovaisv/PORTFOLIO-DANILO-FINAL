@@ -59,7 +59,7 @@ const cspConfig = {
   'script-src': [
     "'self'",
     "'unsafe-inline'",
-    "'unsafe-eval'",
+    ...(isDev ? ["'unsafe-eval'"] : []),
     'blob:',
     'https://www.youtube.com',
     'https://s.ytimg.com',

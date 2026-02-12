@@ -135,6 +135,9 @@ export default function GhostScene() {
     let currentMovement = 0;
     let isInitialized = false;
     let animationId: number;
+    // New: Idle detection state
+    let idleTime = 0;
+    const IDLE_THRESHOLD = 8000; // 8 seconds to enter idle mode
 
     const forceInitialRender = () => {
       // Pre-render to compile shaders
@@ -156,7 +159,25 @@ export default function GhostScene() {
       if (deltaTime > 100) return; // Skip large frame gaps
 
       const timeIncrement = (deltaTime / 16.67) * 0.01;
-      time += timeIncrement;
+
+      // Idle Logic
+      if (!interaction.hasReceivedInput) {
+        idleTime += deltaTime;
+      } else {
+        idleTime = 0;
+      }
+      const isIdle = idleTime > IDLE_THRESHOLD;
+
+      // ULTRA-LOW MODE: Skip heavy updates if low quality OR idle
+      // If low, we might even skip every other frame, but for now let's just reduce logic
+      const isUltraLow = performanceConfig.quality === 'low';
+
+      if (isIdle || isUltraLow) {
+        // Slow down time in idle/low mode to save calculations
+        time += timeIncrement * 0.5;
+      } else {
+        time += timeIncrement;
+      }
 
       // Update shader uniforms
       analogDecayPass.uniforms.uTime.value = time;
@@ -231,12 +252,20 @@ export default function GhostScene() {
       );
 
       // Update Fireflies
-      updateFireflies(fireflySystem, time, _dummy);
+      // Disable fireflies in ultra-low mode or deep idle to save extensive draws
+      fireflySystem.mesh.visible = !isUltraLow;
+      fireflySystem.light.visible = !isUltraLow;
 
-      // Render
-      if (performanceConfig.enablePostProcessing) {
+      if (!isUltraLow) {
+        updateFireflies(fireflySystem, time, _dummy);
+      }
+
+      // Render Strategy
+      // If idle for long time, we could stop rendering, but for now we lower frequency logic above
+      if (performanceConfig.enablePostProcessing && !isUltraLow) {
         composer.render();
       } else {
+        // Fallback to simple render in ultra-low or if post-proc disabled
         renderer.render(scene, camera);
       }
     };
