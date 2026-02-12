@@ -15,7 +15,7 @@ import { SITE_ASSET_KEYS } from '@/config/site-assets';
 import { generateVideoSchema } from '@/lib/schema';
 
 export const metadata: Metadata = {
-  title: 'Creative Developer',
+  title: 'Danilo Novais | Creative Developer',
   description:
     'Você não vê o design. Mas ele vê você. Portfólio de Danilo Novais - Creative Developer especializado em WebGL, R3F, Next.js e experiências digitais interativas.',
   keywords: [

@@ -43,6 +43,7 @@ export default function HomeHero() {
     <>
       <section
         id="hero"
+        data-testid="home-hero"
         ref={heroRef}
         // min-h-screen já estava presente, ok para CLS.
         // Adicionado z-index explícito para contexto de empilhamento.

@@ -13,7 +13,7 @@ import {
   toCanonicalUrl,
 } from '@/lib/seo';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 type PortfolioPageProps = {
   params?: Promise<Record<string, string>>;

@@ -4,12 +4,20 @@ export const fetchCache = 'force-no-store';
 
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { isRedirectError } from 'next/dist/client/components/redirect-error';
 import { AdminShell } from '@/components/admin/AdminShell';
 import { AdminErrorDisplay } from '@/components/admin/AdminErrorDisplay';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { isAdminUser, shouldEnforceAdminRole } from '@/lib/admin/authz';
+
+function isRedirectError(error: unknown): boolean {
+  if (!error || typeof error !== 'object' || !('digest' in error)) {
+    return false;
+  }
+
+  const digest = (error as { digest?: unknown }).digest;
+  return typeof digest === 'string' && digest.startsWith('NEXT_REDIRECT');
+}
 
 export const metadata: Metadata = {
   robots: {

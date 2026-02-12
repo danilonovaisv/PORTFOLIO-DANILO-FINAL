@@ -136,8 +136,8 @@ const nextConfig = {
   output: 'standalone',
   distDir: deployDistDir,
   reactStrictMode: true,
+  staticPageGenerationTimeout: 180,
 
-  // Next.js 16 expects turbopack config at top-level (not inside experimental)
   experimental: {
     serverActions: {
       bodySizeLimit: '32mb',
@@ -148,7 +148,6 @@ const nextConfig = {
       ],
     },
   },
-  turbopack: {},
 
   webpack: (config, { isServer }) => {
     config.module.rules.push({
