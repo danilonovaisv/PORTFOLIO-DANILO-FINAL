@@ -13,7 +13,7 @@ const toPublicUrl = (item: DbAsset) =>
   item.file_path?.startsWith('http')
     ? item.file_path
     : buildSupabaseStorageUrl(item.bucket || 'site-assets', item.file_path) ||
-      null;
+    null;
 
 export function useRealtimeAsset(assetKey: string) {
   const storeAsset = useContentStore((state) => state.assets[assetKey]);
@@ -144,9 +144,9 @@ export function useRealtimeAsset(assetKey: string) {
 
   const assetWithUrl = storeAsset
     ? {
-        ...storeAsset,
-        publicUrl: toPublicUrl(storeAsset) || '',
-      }
+      ...storeAsset,
+      publicUrl: toPublicUrl(storeAsset) || '',
+    }
     : null;
 
   return { asset: assetWithUrl, loading, error };
