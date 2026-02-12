@@ -54,23 +54,80 @@ const supabaseAndExternalHosts = `${supabaseHosts} https://raw.githack.com https
  */
 const isDev = process.env.NODE_ENV === 'development';
 
-const cspHeader = `
-    default-src 'self';
-    script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://www.youtube.com https://s.ytimg.com;
-    worker-src 'self' blob:;
-    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-    font-src 'self' data: https://fonts.gstatic.com https://assets.codepen.io ${supabaseHosts};
-    img-src 'self' blob: data: ${supabaseAndExternalHosts} https://grainy-gradients.vercel.app https://img.youtube.com https://i.ytimg.com https://fonts.gstatic.com https://www.gstatic.com;
-    object-src 'none';
-    base-uri 'self';
-    form-action 'self' https://formsubmit.co;
-    frame-ancestors 'none';
-    frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com;
-    connect-src 'self' ${supabaseAndExternalHosts} https://*.supabase.co wss://*.supabase.co https://*.firebaseio.com https://dl.polyhaven.org https://formsubmit.co ${isDev ? 'ws://localhost:* ws://127.0.0.1:*' : 'ws://localhost:3000 ws://127.0.0.1:3000'} https://fonts.googleapis.com https://fonts.gstatic.com;
-    media-src 'self' blob: data: ${supabaseAndExternalHosts} https://*.supabase.co;
-`
-  .replace(/\s{2,}/g, ' ')
-  .trim();
+const cspConfig = {
+  'default-src': ["'self'"],
+  'script-src': [
+    "'self'",
+    "'unsafe-inline'",
+    "'unsafe-eval'",
+    'blob:',
+    'https://www.youtube.com',
+    'https://s.ytimg.com',
+  ],
+  'worker-src': ["'self'", 'blob:'],
+  'style-src': ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+  'font-src': [
+    "'self'",
+    'data:',
+    'https://fonts.gstatic.com',
+    'https://assets.codepen.io',
+    ...buildSupabaseHosts(),
+  ],
+  'img-src': [
+    "'self'",
+    'blob:',
+    'data:',
+    ...buildSupabaseHosts(),
+    'https://raw.githack.com',
+    'https://dl.polyhaven.org',
+    'https://www.gstatic.com',
+    'https://raw.githubusercontent.com',
+    'https://grainy-gradients.vercel.app',
+    'https://img.youtube.com',
+    'https://i.ytimg.com',
+    'https://fonts.gstatic.com',
+  ],
+  'object-src': ["'none'"],
+  'base-uri': ["'self'"],
+  'form-action': ["'self'", 'https://formsubmit.co'],
+  'frame-ancestors': ["'none'"],
+  'frame-src': [
+    "'self'",
+    'https://www.youtube.com',
+    'https://www.youtube-nocookie.com',
+  ],
+  'connect-src': [
+    "'self'",
+    ...buildSupabaseHosts(),
+    'https://*.supabase.co',
+    'wss://*.supabase.co',
+    'https://*.firebaseio.com',
+    'https://dl.polyhaven.org',
+    'https://formsubmit.co',
+    'https://raw.githack.com',
+    'https://www.gstatic.com',
+    'https://raw.githubusercontent.com',
+    'https://fonts.googleapis.com',
+    'https://fonts.gstatic.com',
+    isDev ? 'ws://localhost:*' : '',
+    isDev ? 'ws://127.0.0.1:*' : '',
+  ].filter(Boolean),
+  'media-src': [
+    "'self'",
+    'blob:',
+    'data:',
+    ...buildSupabaseHosts(),
+    'https://*.supabase.co',
+    'https://raw.githack.com',
+    'https://dl.polyhaven.org',
+    'https://www.gstatic.com',
+    'https://raw.githubusercontent.com',
+  ],
+};
+
+const cspHeader = Object.entries(cspConfig)
+  .map(([key, values]) => `${key} ${values.join(' ')}`)
+  .join('; ');
 
 const nextConfig = {
   /**
