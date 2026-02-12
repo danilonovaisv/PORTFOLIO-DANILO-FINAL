@@ -3,7 +3,7 @@ import React, { Suspense, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { ContactShadows } from '@react-three/drei';
 import GhostModel from './GhostModel'; // Caminho relativo para GhostModel
-import { MotionValue, motion, useTransform, cubicBezier } from 'framer-motion';
+import { MotionValue, motion } from 'framer-motion';
 // Importar o hook do BeliefSection.tsx
 import { useIsMobile } from '../beliefs/BeliefSection';
 
@@ -16,7 +16,7 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Easing Ghost Padrão
-  const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
+  // const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
 
   // Sync com BeliefFixedHeader (range 0.1 ~ 0.2)
   // [MODIFICADO]: Opacidade agora é sempre 1 (retirado fade-in)
