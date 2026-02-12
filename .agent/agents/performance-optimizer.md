@@ -12,7 +12,14 @@ Expert in performance optimization, profiling, and web vitals improvement.
 
 ## Core Philosophy
 
-> "Measure first, optimize second. Profile, don't guess."
+> "Performance is not a feature; it's a requirement. If a fancy animation drops FPS below 60, kill it."
+
+## The 60FPS Mandate (R3F)
+
+1. **Instance everything** for >10 meshes.
+2. **No allocations in `useFrame`** (no `new Vector3`).
+3. **Texture budget**: Max 2048px (Hero), 1024px (Props). Use WebP/KTX2.
+4. **Draw counts**: Keep under 100 per scene.
 
 ## Your Mindset
 
@@ -126,23 +133,27 @@ What's slow?
 ## Quick Wins Checklist
 
 ### Images
+
 - [ ] Lazy loading enabled
 - [ ] Proper format (WebP, AVIF)
 - [ ] Correct dimensions
 - [ ] Responsive srcset
 
 ### JavaScript
+
 - [ ] Code splitting for routes
 - [ ] Tree shaking enabled
 - [ ] No unused dependencies
 - [ ] Async/defer for non-critical
 
 ### CSS
+
 - [ ] Critical CSS inlined
 - [ ] Unused CSS removed
 - [ ] No render-blocking CSS
 
 ### Caching
+
 - [ ] Static assets cached
 - [ ] Proper cache headers
 - [ ] CDN configured

@@ -54,6 +54,8 @@ Specialist AI personas for different domains.
 | `qa-automation-engineer` | E2E testing, CI pipelines  | webapp-testing, testing-patterns                         |
 | `code-archaeologist`     | Legacy code, refactoring   | clean-code, code-review-checklist                        |
 | `explorer-agent`         | Codebase analysis          | -                                                        |
+| `game-developer`         | Game logic, WebGL, 3D      | r3f-fundamentals, threejs-skills, physics-engine         |
+| `mobile-developer`       | iOS, Android, Expo         | mobile-design, react-native-architecture                 |
 
 ---
 
@@ -168,9 +170,13 @@ Modular knowledge domains that agents can load on-demand. based on task context.
 
 ---
 
-## 🔄 Workflows (11)
+## 🔄 Workflows (63)
 
 Slash command procedures. Invoke with `/command`.
+
+### Core Workflows (11)
+
+Standard Antigravity Kit procedures.
 
 | Command          | Description              |
 | ---------------- | ------------------------ |
@@ -185,6 +191,27 @@ Slash command procedures. Invoke with `/command`.
 | `/status`        | Check project status     |
 | `/test`          | Run tests                |
 | `/ui-ux-pro-max` | Design with 50 styles    |
+
+### Ghost System Workflows
+
+Specific to the portfolio's aesthetics and 3D effects.
+
+- `/ghost-hero`: Hero section setup.
+- `/ghost-orchestrator`: Orchestrate Ghost System components.
+- `/hero-section`: Implementation of the 3D Hero.
+- `/scroll-experience`: Lenis + Parallax setup.
+
+### Audit & Quality Workflows
+
+- `/audit-master`: Full system audit.
+- `/webgl-performance-pass`: R3F specific optimization.
+- `/performance-audit`: Core Web Vitals checks.
+
+### Setup & Infrastructure
+
+- `/supabase-fixer`: RLS and Realtime fixes.
+- `/deploy-production`: Secure production release.
+- `/sync-docs-and-knowledge`: Sync project memory.
 
 ---
 

@@ -7,11 +7,16 @@ priority: high
 
 ## 🏗️ The Stack
 
-- **Framework**: Next.js 15 (App Router). Server Components by default.
-- **Language**: TypeScript 5.x. Strict Mode enabled.
-- **Styling**: Tailwind CSS 4. No arbitrary values if tokens exist.
+- **Framework**: Next.js 14+ (App Router - currently 16.1.6). NÃO utilizar diretório pages/.
+- **Motor 3D**: React Three Fiber (R3F) v8+ com Three.js r160+. Componentes DEVEM ser "use client".
+- **Backend**: Supabase (PostgreSQL 15+). Utilizar @supabase/ssr.
+- **Hosting**: Firebase Hosting (via webframeworks experiment).
+- **Styling**: Tailwind CSS v4.
 - **State**: Zustand (Global), React Context (Compound Components).
-- **Date**: Date-fns (Lightweight).
+- **Architecture**:
+  - Dados no Servidor (Server Actions/Components).
+  - Interatividade e 3D no Cliente.
+  - Loops R3F via Zustand para performance.
 
 ## 💻 Coding Standards
 
