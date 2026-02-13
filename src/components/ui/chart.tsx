@@ -34,7 +34,7 @@ const getConfigClassName = (key: string, prefix: string) =>
 
 const isSafeColor = (color: string) => {
   // Check for characters that could break out of the style block or start a new one
-  return !/[\{\};<>]/.test(color);
+  return !/[\\{};<>]/.test(color);
 };
 
 function useChart() {
