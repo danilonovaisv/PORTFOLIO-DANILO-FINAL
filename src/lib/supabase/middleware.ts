@@ -9,17 +9,17 @@ const SUPABASE_PUBLIC_KEY = getSupabasePublicKey();
 export async function updateSession(request: NextRequest) {
   if (!SUPABASE_URL || !SUPABASE_PUBLIC_KEY) {
     throw new Error(
-      'Missing Supabase middleware credentials. Define NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY (or NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY/NEXT_PUBLIC_SUPABASE_ANON_KEY).'
+      'Missing Supabase middleware credentials. Define NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY.'
     );
   }
 
+  // 1. Create an unmodified response
   let supabaseResponse = NextResponse.next({
     request,
   });
 
   const supabase = createServerClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY, {
     cookieOptions: {
-      // Firebase Hosting só encaminha o cookie "__session" para as Functions.
       name: '__session',
       sameSite: 'lax',
       secure: process.env.NODE_ENV === 'production',
@@ -29,8 +29,12 @@ export async function updateSession(request: NextRequest) {
         return request.cookies.getAll();
       },
       setAll(cookiesToSet) {
-        // request.cookies é imutável; apenas refletimos no response.
-        supabaseResponse = NextResponse.next({ request });
+        cookiesToSet.forEach(({ name, value, options: _options }) =>
+          request.cookies.set(name, value)
+        );
+        supabaseResponse = NextResponse.next({
+          request,
+        });
         cookiesToSet.forEach(({ name, value, options }) =>
           supabaseResponse.cookies.set(name, value, options)
         );
@@ -38,8 +42,7 @@ export async function updateSession(request: NextRequest) {
     },
   });
 
-  // IMPORTANT: Do not use auth.getSession() - it reads from cookies without validation
-  // Use auth.getUser() which always validates the session with Supabase Auth server
+  // 2. Validate User
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -48,6 +51,8 @@ export async function updateSession(request: NextRequest) {
   const isLoginPage = pathname === '/admin/login';
   const isAdminRoute = pathname.startsWith('/admin');
   const isAuthCallbackRoute = pathname.startsWith('/auth/callback');
+
+  // 3. Handle Auth Logic
 
   // Skip auth callback route
   if (isAuthCallbackRoute) {
@@ -58,13 +63,7 @@ export async function updateSession(request: NextRequest) {
   if (user && isLoginPage) {
     const url = request.nextUrl.clone();
     url.pathname = '/admin';
-    const redirectResponse = NextResponse.redirect(url);
-    // Copy cookies from supabaseResponse to ensure session persistence
-    const cookiesToSet = supabaseResponse.cookies.getAll();
-    cookiesToSet.forEach((cookie) =>
-      redirectResponse.cookies.set(cookie.name, cookie.value, cookie)
-    );
-    return redirectResponse;
+    return NextResponse.redirect(url);
   }
 
   // Protect /admin routes (except login)
@@ -72,13 +71,7 @@ export async function updateSession(request: NextRequest) {
     if (!user) {
       const url = request.nextUrl.clone();
       url.pathname = '/admin/login';
-      const redirectResponse = NextResponse.redirect(url);
-      // Copy cookies from supabaseResponse to ensure session persistence
-      const cookiesToSet = supabaseResponse.cookies.getAll();
-      cookiesToSet.forEach((cookie) =>
-        redirectResponse.cookies.set(cookie.name, cookie.value, cookie)
-      );
-      return redirectResponse;
+      return NextResponse.redirect(url);
     }
 
     if (shouldEnforceAdminRole() && !isAdminUser(user)) {
@@ -88,5 +81,6 @@ export async function updateSession(request: NextRequest) {
     }
   }
 
+  // 4. Return response with updated cookies
   return supabaseResponse;
 }
