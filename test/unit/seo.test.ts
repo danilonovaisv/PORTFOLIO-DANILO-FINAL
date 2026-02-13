@@ -80,6 +80,28 @@ describe('SEO Utils', () => {
       process.env.NEXT_PUBLIC_SITE_URL = 'https://example.com';
       expect(toCanonicalUrl()).toBe('https://example.com/');
     });
+
+    it('falls back when NEXT_PUBLIC_SITE_URL is missing', () => {
+      delete process.env.NEXT_PUBLIC_SITE_URL;
+
+      const base = getCanonicalSiteUrl();
+      expect(toCanonicalUrl('/blog/post')).toBe(`${base}/blog/post`);
+    });
+
+    it('falls back when NEXT_PUBLIC_SITE_URL is blank', () => {
+      process.env.NEXT_PUBLIC_SITE_URL = '';
+
+      const base = getCanonicalSiteUrl();
+      expect(toCanonicalUrl('/blog/post')).toBe(`${base}/blog/post`);
+    });
+
+    it('falls back when NEXT_PUBLIC_SITE_URL is invalid and normalizes slashes', () => {
+      process.env.NEXT_PUBLIC_SITE_URL = 'not-a-url';
+
+      const base = getCanonicalSiteUrl();
+      expect(toCanonicalUrl('/blog/post')).toBe(`${base}/blog/post`);
+      expect(toCanonicalUrl('blog/post')).toBe(`${base}/blog/post`);
+    });
   });
 
   describe('normalizeMetaTitle', () => {
