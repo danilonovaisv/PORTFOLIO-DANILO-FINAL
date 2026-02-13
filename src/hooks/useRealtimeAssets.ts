@@ -64,7 +64,7 @@ const subscribeToAssets = async () => {
 };
 
 const unsubscribeFromAssets = () => {
-  subscribersCount--;
+  subscribersCount = Math.max(0, subscribersCount - 1);
   if (subscribersCount <= 0) {
     if (unsubscribeTimeout) clearTimeout(unsubscribeTimeout);
 
