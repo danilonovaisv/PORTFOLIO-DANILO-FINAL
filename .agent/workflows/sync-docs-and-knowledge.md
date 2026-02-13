@@ -9,7 +9,7 @@ This workflow ensures that the "Ghost System" memory remains accurate and up-to-
 ## Trigger
 
 - After significant architectural changes.
-- when `docs/` or `.context/` feels stale.
+- When `.context/` documents feel stale.
 - Before starting a major new feature (Loki Mode).
 
 ## Steps
@@ -32,7 +32,7 @@ This workflow ensures that the "Ghost System" memory remains accurate and up-to-
 
 5. **Verify Design Tokens**
    - Check `tailwind.config.ts` or `src/app/globals.css`.
-   - Ensure `.context/design-tokens.md` matches the actual values.
+   - Ensure `.context/GHOST-DESIGN-SYSTEM.md` matches the actual values.
 
 6. **Self-Healing Report**
-   - If significant discrepancies were found, create a `docs/fix-report-[date].md` listing what was fixed.
+   - If significant discrepancies were found, log them in `.context/logs/fix-report-[date].md` or directly in `adjustment_log.md`.
