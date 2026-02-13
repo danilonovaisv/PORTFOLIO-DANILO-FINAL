@@ -30,6 +30,13 @@ import type {
 const YOUTUBE_PATTERN =
   /(youtu\.be\/|youtube\.com\/watch\?v=|youtube\.com\/embed\/|youtube\.com\/shorts\/)/i;
 
+const getYoutubeId = (url: string) => {
+  const match = url.match(
+    /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/
+  );
+  return match && match[2].length === 11 ? match[2] : null;
+};
+
 export type MasterProjectV3AssetDraft = MasterProjectAsset & {
   file?: File | null;
   previewUrl?: string;
@@ -145,6 +152,7 @@ function MediaAssetField({
   const isVideo = value.kind === 'video';
   const preview = value.previewUrl || value.src;
   const missingAlt = requireAlt && !isVideo && !value.alt?.trim();
+  const youtubeId = preview ? getYoutubeId(preview) : null;
 
   return (
     <div className="space-y-3 border border-white/10 bg-slate-950/30 p-4">
@@ -242,13 +250,23 @@ function MediaAssetField({
       {preview ? (
         <div className="relative h-56 w-full overflow-hidden border border-white/10 bg-black/40">
           {isVideo ? (
-            <video
-              src={preview}
-              className="h-56 w-full object-cover"
-              controls
-              muted
-              playsInline
-            />
+            youtubeId ? (
+              <iframe
+                src={`https://www.youtube.com/embed/${youtubeId}`}
+                title="YouTube video player"
+                className="h-56 w-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            ) : (
+              <video
+                src={preview}
+                className="h-56 w-full object-cover"
+                controls
+                muted
+                playsInline
+              />
+            )
           ) : (
             <Image
               src={preview}
@@ -288,6 +306,7 @@ function BlockMediaField({
   const isVideo = isVideoMode(kind, block.content[mediaKey]);
   const preview = block[previewKey] || block.content[mediaKey];
   const missingAlt = !isVideo && !block.content[altKey]?.trim();
+  const youtubeId = preview ? getYoutubeId(preview) : null;
 
   return (
     <div className="space-y-2 border border-white/10 bg-slate-950/30 p-4">
@@ -376,13 +395,23 @@ function BlockMediaField({
       {preview ? (
         <div className="relative h-44 w-full overflow-hidden border border-white/10 bg-black/40">
           {isVideo ? (
-            <video
-              src={preview}
-              className="h-44 w-full object-cover"
-              controls
-              muted
-              playsInline
-            />
+            youtubeId ? (
+              <iframe
+                src={`https://www.youtube.com/embed/${youtubeId}`}
+                title="YouTube Content"
+                className="h-44 w-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            ) : (
+              <video
+                src={preview}
+                className="h-44 w-full object-cover"
+                controls
+                muted
+                playsInline
+              />
+            )
           ) : (
             <Image
               src={preview}
