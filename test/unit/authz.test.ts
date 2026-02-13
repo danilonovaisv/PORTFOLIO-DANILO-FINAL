@@ -60,6 +60,35 @@ describe('isAdminUser', () => {
     expect(isAdminUser(user)).toBe(true);
   });
 
+  it('should match allowed emails case-insensitively', () => {
+    process.env.ADMIN_ALLOWED_EMAILS = 'admin@example.com';
+    const user = createUser({}, {}, 'ADMIN@EXAMPLE.COM');
+    expect(isAdminUser(user)).toBe(true);
+  });
+
+  it('should trim whitespace in ADMIN_ALLOWED_EMAILS entries', () => {
+    process.env.ADMIN_ALLOWED_EMAILS = '  admin@example.com ,  super@example.com  ';
+    const user = createUser({}, {}, 'admin@example.com');
+    expect(isAdminUser(user)).toBe(true);
+  });
+
+  it('should treat unset, empty, or comma-only ADMIN_ALLOWED_EMAILS as no allowed emails', () => {
+    // Unset
+    delete process.env.ADMIN_ALLOWED_EMAILS;
+    let user = createUser({}, {}, 'admin@example.com');
+    expect(isAdminUser(user)).toBe(false);
+
+    // Empty string
+    process.env.ADMIN_ALLOWED_EMAILS = '';
+    user = createUser({}, {}, 'admin@example.com');
+    expect(isAdminUser(user)).toBe(false);
+
+    // Comma-only / whitespace-only entries
+    process.env.ADMIN_ALLOWED_EMAILS = ',,,  ,';
+    user = createUser({}, {}, 'admin@example.com');
+    expect(isAdminUser(user)).toBe(false);
+  });
+
   it('should return false for regular user', () => {
     const user = createUser({}, {});
     expect(isAdminUser(user)).toBe(false);
