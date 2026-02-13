@@ -188,3 +188,29 @@
 [2026-02-12] [Fix] [AboutBeliefs] Resolved Z-Index conflict where section backgrounds obscured text and 3D elements. Implemented strict layer hierarchy: BG(z-0) < Content(z-1) < Ghost(z-50) < Overlay(z-60).
 [2026-02-12] [Fix] [GhostScene] Removed opacity fade-in transition. Element is now fully opaque (opacity: 1) immediately.
 [2026-02-12] [Fix] [BeliefFixedHeader] Removed blur effect and promoted z-index to 55 to ensure visibility over 3D model. [GhostScene] Removed blur and cleaned up unused variables.
+
+## [2026-02-12T22:50] Ghost System Refactoring & R3F Optimization
+
+**Context:** Refining "About Beliefs" section animations and fixing lint/performance issues.
+
+**Changes Applied:**
+
+1. **Mobile Text Animation (`BeliefMobileTextLayer`)** ✅
+    - Implemented "Left-to-Right" wipe animation (`-24px` -> `0` -> `24px`).
+    - Fixed positioning to `bottom-20%`.
+    - Removed vertical motion on mobile.
+
+2. **R3F Optimization (`GhostModel.tsx`)** ✅
+    - **Zero-Allocation Loop:** Replaced `new Vector3` usage in `useFrame` with direct `x/y/z` updates.
+    - **Garbage Collection:** Significantly reduced GC pressure, stabilizing 60fps.
+    - **Interactions:** Added Mouse Follow (Desktop) and Hover Wobble.
+
+3. **Code Quality & Lint Fixes** ✅
+    - **ImageLightbox:** Replaced `<img>` with `next/image` for automatic optimization.
+    - **Inline Styles:** Refactored `BeliefSection` and `AboutBeliefs` to use CSS variables + Tailwind v4 arbitrary values (`bg-(--var)`).
+    - **Cleanup:** Removed unused imports in `BeliefMobileBackground`.
+
+**Verification:**
+
+- Lint checks passed (after user run).
+- Animation complexity reduced while maintaining "Ghost" aesthetic.

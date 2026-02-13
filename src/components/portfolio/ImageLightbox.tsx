@@ -7,6 +7,7 @@ import { createPortal } from 'react-dom';
 import { useBodyLock } from '@/hooks/useBodyLock';
 import { getYouTubeEmbedUrl, isVideo, isYouTubeUrl } from '@/lib/utils';
 import { DEFAULT_CAPTIONS } from '@/lib/video';
+import Image from 'next/image';
 
 type ImageLightboxProps = {
   isOpen: boolean;
