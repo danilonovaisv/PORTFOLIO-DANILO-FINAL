@@ -4,30 +4,46 @@ describe('extractYouTubeId', () => {
   // --- Happy Paths ---
 
   it('extracts ID from standard watch URL', () => {
-    expect(extractYouTubeId('https://www.youtube.com/watch?v=dQw4w9WgXcQ')).toBe('dQw4w9WgXcQ');
-    expect(extractYouTubeId('http://youtube.com/watch?v=dQw4w9WgXcQ')).toBe('dQw4w9WgXcQ');
+    expect(
+      extractYouTubeId('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+    ).toBe('dQw4w9WgXcQ');
+    expect(extractYouTubeId('http://youtube.com/watch?v=dQw4w9WgXcQ')).toBe(
+      'dQw4w9WgXcQ'
+    );
   });
 
   it('extracts ID from short URL (youtu.be)', () => {
-    expect(extractYouTubeId('https://youtu.be/dQw4w9WgXcQ')).toBe('dQw4w9WgXcQ');
+    expect(extractYouTubeId('https://youtu.be/dQw4w9WgXcQ')).toBe(
+      'dQw4w9WgXcQ'
+    );
     expect(extractYouTubeId('http://youtu.be/dQw4w9WgXcQ')).toBe('dQw4w9WgXcQ');
   });
 
   it('extracts ID from embed URL', () => {
-    expect(extractYouTubeId('https://www.youtube.com/embed/dQw4w9WgXcQ')).toBe('dQw4w9WgXcQ');
+    expect(extractYouTubeId('https://www.youtube.com/embed/dQw4w9WgXcQ')).toBe(
+      'dQw4w9WgXcQ'
+    );
   });
 
   it('extracts ID from shorts URL', () => {
-    expect(extractYouTubeId('https://www.youtube.com/shorts/dQw4w9WgXcQ')).toBe('dQw4w9WgXcQ');
+    expect(extractYouTubeId('https://www.youtube.com/shorts/dQw4w9WgXcQ')).toBe(
+      'dQw4w9WgXcQ'
+    );
   });
 
   it('extracts ID from /v/ URL', () => {
-    expect(extractYouTubeId('https://www.youtube.com/v/dQw4w9WgXcQ')).toBe('dQw4w9WgXcQ');
+    expect(extractYouTubeId('https://www.youtube.com/v/dQw4w9WgXcQ')).toBe(
+      'dQw4w9WgXcQ'
+    );
   });
 
   it('handles URLs without protocol', () => {
-    expect(extractYouTubeId('www.youtube.com/watch?v=dQw4w9WgXcQ')).toBe('dQw4w9WgXcQ');
-    expect(extractYouTubeId('youtube.com/watch?v=dQw4w9WgXcQ')).toBe('dQw4w9WgXcQ');
+    expect(extractYouTubeId('www.youtube.com/watch?v=dQw4w9WgXcQ')).toBe(
+      'dQw4w9WgXcQ'
+    );
+    expect(extractYouTubeId('youtube.com/watch?v=dQw4w9WgXcQ')).toBe(
+      'dQw4w9WgXcQ'
+    );
     expect(extractYouTubeId('youtu.be/dQw4w9WgXcQ')).toBe('dQw4w9WgXcQ');
   });
 
@@ -36,12 +52,20 @@ describe('extractYouTubeId', () => {
   });
 
   it('ignores extra query parameters', () => {
-    expect(extractYouTubeId('https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be')).toBe('dQw4w9WgXcQ');
-    expect(extractYouTubeId('https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=123s')).toBe('dQw4w9WgXcQ');
+    expect(
+      extractYouTubeId(
+        'https://www.youtube.com/watch?v=dQw4w9WgXcQ&feature=youtu.be'
+      )
+    ).toBe('dQw4w9WgXcQ');
+    expect(
+      extractYouTubeId('https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=123s')
+    ).toBe('dQw4w9WgXcQ');
   });
 
   it('handles whitespace', () => {
-    expect(extractYouTubeId('  https://www.youtube.com/watch?v=dQw4w9WgXcQ  ')).toBe('dQw4w9WgXcQ');
+    expect(
+      extractYouTubeId('  https://www.youtube.com/watch?v=dQw4w9WgXcQ  ')
+    ).toBe('dQw4w9WgXcQ');
     expect(extractYouTubeId('  dQw4w9WgXcQ  ')).toBe('dQw4w9WgXcQ');
   });
 
@@ -75,14 +99,20 @@ describe('extractYouTubeId', () => {
 
   // Potential tricky case: `v` param is empty but path has something else?
   it('prioritizes v param over path for youtube.com', () => {
-     // If v param is present but invalid, it should probably return null, or fallback?
-     // Current implementation: check v param first. If valid, return. If not, check path.
-     // So:
-     expect(extractYouTubeId('https://www.youtube.com/watch?v=INVALID&other=dQw4w9WgXcQ')).toBeNull();
+    // If v param is present but invalid, it should probably return null, or fallback?
+    // Current implementation: check v param first. If valid, return. If not, check path.
+    // So:
+    expect(
+      extractYouTubeId(
+        'https://www.youtube.com/watch?v=INVALID&other=dQw4w9WgXcQ'
+      )
+    ).toBeNull();
   });
 
   it('falls back to path if v param is invalid', () => {
     // v param is invalid, but path has a valid ID (embed)
-    expect(extractYouTubeId('https://www.youtube.com/embed/dQw4w9WgXcQ?v=INVALID')).toBe('dQw4w9WgXcQ');
+    expect(
+      extractYouTubeId('https://www.youtube.com/embed/dQw4w9WgXcQ?v=INVALID')
+    ).toBe('dQw4w9WgXcQ');
   });
 });

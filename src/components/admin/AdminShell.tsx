@@ -67,7 +67,7 @@ export function AdminShell({ children, userEmail }: Props) {
   return (
     <div className="admin-shell min-h-screen bg-slate-950 text-slate-50">
       <div className="flex">
-        <aside className="hidden md:flex w-64 flex-col border-r border-white/10 bg-slate-900/40 backdrop-blur-sm">
+        <aside className="hidden md:flex w-64 flex-col border-r border-white/10 bg-slate-900/40 backdrop-blur-sm sticky top-0 h-screen overflow-y-auto">
           <div className="px-6 py-6 border-b border-white/10">
             <Link
               href={ADMIN_NAVIGATION.dashboard}
@@ -86,9 +86,8 @@ export function AdminShell({ children, userEmail }: Props) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-white/5 ${
-                    active ? 'bg-white/10 text-white' : 'text-slate-300'
-                  }`}
+                  className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-white/5 ${active ? 'bg-white/10 text-white' : 'text-slate-300'
+                    }`}
                 >
                   <Icon size={18} />
                   {item.label}
@@ -161,9 +160,8 @@ export function AdminShell({ children, userEmail }: Props) {
                           key={`mobile-${item.href}`}
                           href={item.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className={`flex min-h-12 items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-white/5 ${
-                            active ? 'bg-white/10 text-white' : 'text-slate-300'
-                          }`}
+                          className={`flex min-h-12 items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-white/5 ${active ? 'bg-white/10 text-white' : 'text-slate-300'
+                            }`}
                         >
                           <Icon size={18} />
                           {item.label}

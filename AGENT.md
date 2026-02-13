@@ -11,14 +11,14 @@
 Este repositório opera sob uma arquitetura estrita de separação entre **Inteligência** e **Estado**:
 
 1. **🧠 `.agent/` (READ-ONLY para lógica de negócio)**:
-    * Contém **QUEM** você é e **COMO** você trabalha.
-    * Você consulta esta pasta para saber regras, workflows e ferramentas.
-    * *Você raramente edita esta pasta, a menos que esteja evoluindo suas próprias skills.*
+   - Contém **QUEM** você é e **COMO** você trabalha.
+   - Você consulta esta pasta para saber regras, workflows e ferramentas.
+   - _Você raramente edita esta pasta, a menos que esteja evoluindo suas próprias skills._
 
 2. **🗂️ `.context/` (READ-WRITE para estado do projeto)**:
-    * Contém **O QUE** o projeto é agora.
-    * Toda vez que você altera código (`src/`), você **DEVE** atualizar o documento correspondente em `.context/`.
-    * Se o código diz "X" e o `.context` diz "Y", priorize o `.context` e alerte o humano.
+   - Contém **O QUE** o projeto é agora.
+   - Toda vez que você altera código (`src/`), você **DEVE** atualizar o documento correspondente em `.context/`.
+   - Se o código diz "X" e o `.context` diz "Y", priorize o `.context` e alerte o humano.
 
 ---
 
@@ -26,21 +26,21 @@ Este repositório opera sob uma arquitetura estrita de separação entre **Intel
 
 ### 📚 Knowledge & Rules (Como operar)
 
-* **[Security & Permissions](.agent/rules/security.md)**: RLS, Auth Gates e Pentest Protocol.
-* **[Tech Stack & Architecture](.agent/rules/tech-stack-standards.md)**: Padrões de código, "Zero Deploy", Realtime e Debugging.
-* **[👮 Auditor Protocol](.agent/rules/auditor-protocol.md)**: Validação obrigatória entre Código vs. Documentação.
-* **[Global Identity](.agent/rules/00-global-identity.md)**: Persona e Diretrizes de Design/Tom (Se existir).
+- **[Security & Permissions](.agent/rules/security.md)**: RLS, Auth Gates e Pentest Protocol.
+- **[Tech Stack & Architecture](.agent/rules/tech-stack-standards.md)**: Padrões de código, "Zero Deploy", Realtime e Debugging.
+- **[👮 Auditor Protocol](.agent/rules/auditor-protocol.md)**: Validação obrigatória entre Código vs. Documentação.
+- **[Global Identity](.agent/rules/00-global-identity.md)**: Persona e Diretrizes de Design/Tom (Se existir).
 
 ### ⚙️ Workflows (O que executar)
 
-* **[Tasks](.agent/tasks/active.md)**: Kanban atual e backlog (se aplicável).
-* **[Workflows](.agent/workflows/)**: Pipelines de CI/CD, Refactor e Deploy.
+- **[Tasks](.agent/tasks/active.md)**: Kanban atual e backlog (se aplicável).
+- **[Workflows](.agent/workflows/)**: Pipelines de CI/CD, Refactor e Deploy.
 
 ### 🗺️ Project State (A Verdade do Projeto)
 
-* **Sitemap & Escopo**: [.context/SITEMAP.md](.context/SITEMAP.md)
-* **Arquitetura**: `.context/ARCHITECTURE.md` (Se existir)
-* **Logs & Histórico**: `.context/logs/`
+- **Sitemap & Escopo**: [.context/SITEMAP.md](.context/SITEMAP.md)
+- **Arquitetura**: `.context/ARCHITECTURE.md` (Se existir)
+- **Logs & Histórico**: `.context/logs/`
 
 ---
 
@@ -78,10 +78,10 @@ Ao receber um prompt, opere nestas camadas:
 
 Dependendo do prompt, assuma um destes chapéus:
 
-* **Orchestrator**: Gerencia tasks e atualiza `.context`.
-* **Architect**: Define estruturas em `src/lib` e schemas de banco.
-* **Builder**: Implementa componentes React/Next.js.
-* **Scribe**: Especialista em documentação Markdown.
+- **Orchestrator**: Gerencia tasks e atualiza `.context`.
+- **Architect**: Define estruturas em `src/lib` e schemas de banco.
+- **Builder**: Implementa componentes React/Next.js.
+- **Scribe**: Especialista em documentação Markdown.
 
 ---
 
@@ -89,6 +89,6 @@ Dependendo do prompt, assuma um destes chapéus:
 
 Uma tarefa só termina quando:
 
-* [ ] O código roda sem erros de TypeScript/Lint.
-* [ ] A funcionalidade foi verificada (Manualmente ou Teste).
-* [ ] O arquivo `.context/[AREA].md` foi atualizado.
+- [ ] O código roda sem erros de TypeScript/Lint.
+- [ ] A funcionalidade foi verificada (Manualmente ou Teste).
+- [ ] O arquivo `.context/[AREA].md` foi atualizado.
