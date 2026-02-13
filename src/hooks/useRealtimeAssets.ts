@@ -54,8 +54,8 @@ const subscribeToAssets = async () => {
         }
       )
       .subscribe((status, err) => {
-        if (status === 'CHANNEL_ERROR') {
-          console.warn('[useRealtimeAssets] Global subscription error:', err);
+        if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT' || status === 'CLOSED') {
+          console.warn(`[useRealtimeAssets] Global subscription status: ${status}`, err);
         }
       });
 
