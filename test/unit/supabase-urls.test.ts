@@ -105,6 +105,79 @@ describe('Supabase URL Utilities', () => {
         'intro.mp4'
       );
     });
+
+    describe('edge cases', () => {
+      it('handles duplicate slashes', () => {
+        expect(normalizeStoragePath('//folder//file.png')).toBe(
+          'folder//file.png'
+        );
+        expect(normalizeStoragePath('folder///file.png')).toBe(
+          'folder///file.png'
+        );
+      });
+
+      it('preserves dot segments', () => {
+        expect(normalizeStoragePath('folder/./file.png')).toBe(
+          'folder/./file.png'
+        );
+        expect(normalizeStoragePath('folder/../file.png')).toBe(
+          'folder/../file.png'
+        );
+      });
+
+      it('handles special characters and unicode', () => {
+        expect(normalizeStoragePath('folder/my file.png')).toBe(
+          'folder/my file.png'
+        );
+        expect(normalizeStoragePath('folder/fílè.png')).toBe('folder/fílè.png');
+        expect(normalizeStoragePath('folder/🚀.png')).toBe('folder/🚀.png');
+      });
+
+      it('handles mixed malformed inputs', () => {
+        expect(normalizeStoragePath('file_path: key: "folder/file.png"')).toBe(
+          'folder/file.png'
+        );
+        expect(normalizeStoragePath('"\'folder/file.png\'"')).toBe(
+          'folder/file.png'
+        );
+      });
+
+      it('handles bucket prefix collisions correctly', () => {
+        // Should NOT strip if it's just a prefix match but not a folder match
+        expect(normalizeStoragePath('testing/image.png', 'test')).toBe(
+          'testing/image.png'
+        );
+        // Should strip if it matches bucket name + slash
+        expect(normalizeStoragePath('test/image.png', 'test')).toBe(
+          'image.png'
+        );
+      });
+
+      it('normalizes legacy extensions case-insensitively', () => {
+        expect(normalizeStoragePath('folder/image/JPG')).toBe(
+          'folder/image.JPG'
+        );
+        expect(normalizeStoragePath('folder/video/MP4')).toBe(
+          'folder/video.MP4'
+        );
+      });
+
+      it('does not normalize extensions not in the list', () => {
+        expect(normalizeStoragePath('folder/data/txt')).toBe('folder/data/txt');
+      });
+
+      it('removes render/image prefix', () => {
+        const url =
+          'https://project.supabase.co/storage/v1/render/image/public/bucket/file.png';
+        expect(normalizeStoragePath(url, 'bucket')).toBe('file.png');
+      });
+
+      it('handles urls with query parameters', () => {
+        const url =
+          'https://project.supabase.co/storage/v1/object/public/bucket/file.png?width=100';
+        expect(normalizeStoragePath(url, 'bucket')).toBe('file.png?width=100');
+      });
+    });
   });
 
   describe('buildSupabaseStorageUrl', () => {
