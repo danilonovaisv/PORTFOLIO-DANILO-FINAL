@@ -1,169 +1,186 @@
-# 🫥 Ghost Design System — Tokens + Regras Globais
+# 🫥 Ghost Design System — Tokens + Global Rules
 
-Versão: **extraído/reorganizado** • Data: **2026-02-03**
+**Version:** 3.1 (Post-Deploy Contingency) • **Date:** 2026-02-10
 
-> Este arquivo centraliza **tokens**, **princípios de motion**, **grid/spacing**, **componentes base** e **regras absolutas**.
-> A especificação da página /portfolio fica em `PORTFOLIO-PROTOTIPO-INTERATIVO.md`.
-
----
-
-## 1. Design System (conceitual)
-
-## 2. Design System
-
-### 2.1 Color Palette
-
-| Token           | Value     | Uso                                                       |
-| --------------- | --------- | --------------------------------------------------------- |
-| bluePrimary     | `#0048ff` | Cor primária da marca, CTAs, links, elementos interativos |
-| blueAccent      | `#4fe6ff` | Destaques secundários, brilhos “ghost”/atmosfera          |
-| purpleDetails   | `#8705f2` | Pequenos detalhes e highlights                            |
-| pinkDetails     | `#f501d3` | Pequenos detalhes, ênfases pontuais                       |
-| background      | `#040013` | Fundo escuro principal                                    |
-| backgroundLight | `#f0f0f0` | Seções claras (forms, blocos alternados)                  |
-| text            | `#fcffff` | Texto principal em fundo escuro                           |
-| textInverse     | `#0e0e0e` | Texto em fundos claros                                    |
-| textEmphasis    | `#2E85F2` | Palavras destacadas no meio do texto                      |
-| textHighlight   | `#4fe6ff` | Destaques curtos, intros breves                           |
-| textSecondary   | `#a1a3a3` | Infos secundárias, metadata                               |
-| neutral         | `#0b0d3a` | Gradientes, fundos sutis                                  |
-| neutralLight    | `#F5F5F5` | Fundos de seções secundárias                              |
-
-> Obs: `textEmphasis` estava com `##2E85F2` e `textHilght` com typo — normalizei para `textHighlight`.
+> This file is the **Single Source of Truth** for the Ghost System.
+> It consolidates design tokens, motion principles, and architectural rules driven by the "Ghost" philosophy:
+> *Presence without noise. Motion as breath. Design as an invisible guide.*
 
 ---
 
-### 2.2 Typography
+## 1. Design Tokens (The Code)
 
-**Fonte primária:** TT Norms Pro (self-hosted, fallback: `ui-sans-serif, system-ui`)
+### 1.1 Color Palette
 
-Tokens de texto **responsivos** (usando `clamp`) para manter coerência em todos os breakpoints:
+**Philosophy:** Deep, void-like backgrounds (`Void Black`) pierced by electric, spectral light (`Brand Blue`, `Ghost Cyan`).
 
-| Token   | Mobile (~<640px) | Desktop (~≥1024px) | Peso    | Uso                                                           |
-| ------- | ---------------- | ------------------ | ------- | ------------------------------------------------------------- |
-| display | 2.5rem (40px)    | 4.5rem (72px)      | Black   | Frases grandes no meio da página, não-semânticas (Big Phrase) |
-| h1      | 2rem (32px)      | 3.5rem (56px)      | Bold    | Hero headlines, títulos principais                            |
-| h2      | 1.5rem (24px)    | 2.5rem (40px)      | Bold    | Títulos de seção                                              |
-| h3      | 1.25rem (20px)   | 1.75rem (28px)     | Medium  | Títulos de cards, subtítulos                                  |
-| body    | 1rem (16px)      | 1.125rem (18px)    | Regular | Texto corrido                                                 |
-| small   | 0.875rem (14px)  | 0.875rem (14px)    | Reg/Med | Labels, legendas                                              |
-| micro   | 0.75rem (12px)   | 0.75rem (12px)     | Mono    | Tags, infos de sistema                                        |
+| Token | Variable | Value | Usage |
+| :--- | :--- | :--- | :--- |
+| **Brand Primary** | `--color-bluePrimary` | `#0048ff` | Primary CTAs, key interactive elements, "Solid" state. |
+| **Ghost Accent** | `--color-blueAccent` | `#4fe6ff` | Ethereal glows, secondary highlights, "Spectral" state. |
+| **Pink Details** | `--color-pinkDetails` | `#f501d3` | Extra detail highlights, glitch effects. |
+| **Void Black** | `--background` | `#040013` | The infinite background. Absolute distinct from "Black". |
+| **Deep Neutral** | `--color-neutral` | `#0b0d3a` | Gradients, deep cards, subtle surfaces. |
+| **Text Primary** | `--color-text` | `#fcffff` | Main content. High contrast but not harsh white. |
+| **Text Secondary** | `--color-textSecondary` | `#a1a3a3` | Metadata, captions, deactivated states. |
+| **Details (Purple)** | `--color-purpleDetails` | `#8705f2` | **Exception:** Allowed on Hover states and specific "glitch" anomalies. |
+| **System Red** | `--color-redAccent` | `#E50914` | Errors, destructive actions, or high-alert system status. |
 
-#### 2.2.1 Tokens em CSS com `clamp()`
+### 1.2 Typography
 
-['css
-:root {
---font-display: clamp(2.5rem, 5vw, 4.5rem);
---font-h1: clamp(2rem, 4vw, 3.5rem);
---font-h2: clamp(1.5rem, 3vw, 2.5rem);
---font-h3: clamp(1.25rem, 2vw, 1.75rem);
---font-body: clamp(1rem, 1.2vw, 1.125rem);
---font-small: 0.875rem;
---font-micro: 0.75rem;
-}
+**Fonts:**
 
-body {
-font-family: "TT Norms Pro", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-"Segoe UI", sans-serif;
-}
+- **Primary:** `TT Norms Pro` (UI, Body, Headings)
+- **Mono:** `PPSupplyMono` (Code, metadata, coordinates)
+- **Display:** `Outfit` (Optional, for massive headers)
 
-.display-text {
-font-size: var(--font-display);
-font-weight: 900;
-line-height: 1.1;
-}
+**Fluid Scale (Clamp):**
 
-.h1 {
-font-size: var(--font-h1);
-font-weight: 700;
-line-height: 1.1;
-}
+| Class | Desktop (lg) | Mobile (sm) | Weight | Line Height |
+| :--- | :--- | :--- | :--- | :--- |
+| `.text-display` | `4.5rem` (72px) | `2.5rem` (40px) | Black (900) | 1.1 |
+| `.text-h1` | `3.5rem` (56px) | `2rem` (32px) | Bold (700) | 1.1 |
+| `.text-h2` | `2.5rem` (40px) | `1.5rem` (24px) | SemiBold (600) | 1.15 |
+| `.text-h3` | `1.75rem` (28px) | `1.25rem` (20px) | Medium (500) | 1.2 |
+| `.text-body-enhanced` | `1.25rem` (20px) | `1.125rem` (18px) | Medium (500) | 1.5 |
+| `.text-body` | `1.125rem` (18px) | `1.25rem` ~ `1.375rem` (20px ~ 22px) | Medium (500) | 1.4 |
+| `.text-small` | `0.875rem` (14px) | `0.875rem` | Regular | 1.4 |
+| `.text-micro` | `0.75rem` (12px) | `0.75rem` | Mono | 1.4 |
 
-.h2 {
-font-size: var(--font-h2);
-font-weight: 600;
-line-height: 1.15;
-}
+**Mobile Readability Token (mandatory):**
 
-.h3 {
-font-size: var(--font-h3);
-font-weight: 500;
-line-height: 1.2;
-}
+- `--font-body-mobile: clamp(1.25rem, 4.6vw, 1.375rem)` (20px ~ 22px)
+- Applied automatically to `.text-body` under `max-width: 767px`.
 
-.body {
-font-size: var(--font-body);
-font-weight: 400;
-line-height: 1.5;
-}
+### 1.3 Spacing & Grid (The Rhythm)
 
-.small {
-font-size: var(--font-small);
-}
+**Grid System:**
 
-.micro {
-font-size: var(--font-micro);
-font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
-monospace;
-}
+- **Desktop:** 12 Columns. Max-width `1680px`. Gutter `32px`.
+- **Tablet:** 8 Columns. Gutter `24px`.
+- **Mobile:** 4 Columns. Gutter `16px`.
 
-#### 2.2.2 Versão conceitual em Tailwind
+**Standard Spacing (Padding):**
 
-// tailwind.config.js
-module.exports = {
-theme: {
-extend: {
-fontFamily: {
-sans: ['"TT Norms Pro"', "ui-sans-serif", "system-ui"],
-},
-fontSize: {
-display: [
-"clamp(2.5rem, 5vw, 4.5rem)",
-{ lineHeight: "1.1", fontWeight: "700" },
-],
-h1: [
-"clamp(2rem, 4vw, 3.5rem)",
-{ lineHeight: "1.1", fontWeight: "700" },
-],
-h2: [
-"clamp(1.5rem, 3vw, 2.5rem)",
-{ lineHeight: "1.15", fontWeight: "700" },
-],
-h3: [
-"clamp(1.25rem, 2vw, 1.75rem)",
-{ lineHeight: "1.2", fontWeight: "500" },
-],
-body: [
-"clamp(1rem, 1.2vw, 1.125rem)",
-{ lineHeight: "1.5", fontWeight: "400" },
-],
-small: ["0.875rem", { lineHeight: "1.4" }],
-micro: ["0.75rem", { lineHeight: "1.4" }],
-},
-},
-},
-};']
+- **Container:** `px-6` (Mobile) -> `px-12` (Tablet) -> `px-16` ~ `px-24` (Desktop).
+- **Section Vertical:** `py-16` (Mobile) -> `py-24` (Desktop).
 
-### 2.3 Spacing, Grid & Layout (OPTIMIZED)
+**Z-Index Layers:**
 
-O sistema de Grid foi otimizado para **12 colunas** no desktop e **4 colunas** no mobile, garantindo alinhamento matemático perfeito.
+- `z-0`: **Background Base** (gradients/video base)
+- `z-10`: **Glass/Overlay Utility** (soft masks)
+- `z-20`: **Primary Content** (text/images)
+- `z-30`: **Canvas/R3F FX** (3D between base and final overlays)
+- `z-50`: **Final Overlays/Modals**
+- `z-55`: **Header Promotion** (Header above 3D Scene)
+- `z-[60]`: **Critical Mobile Text Layer**
+- `z-65`: **Topmost Overlays/Debug**
+- `z-cursor`: **Custom Cursor** (Topmost)
 
-#### 2.3.1 📐 The Ghost Grid System
+---
 
-| Breakpoint            | Columns | Gutter (Gap)    | Margin (X-Padding) | Container Max |
-| --------------------- | ------- | --------------- | ------------------ | ------------- |
-| **Mobile** (<768px)   | **4**   | `16px` (gap-4)  | `24px` (px-6)      | 100%          |
-| **Tablet** (768px+)   | **8**   | `24px` (gap-6)  | `48px` (px-12)     | 100%          |
-| **Desktop** (1024px+) | **12**  | `32px` (gap-8)  | `64px` (px-16)     | 1440px        |
-| **Wide** (1600px+)    | **12**  | `40px` (gap-10) | `96px` (px-24)     | 1680px        |
+## 2. Motion Principles (The Breath)
 
-#### 2.3.2 🧱 Tailwind Composition
+**Core Tenet:** "Ghost easing" is heavy but elegant. It starts fast and brakes smoothly, like a spirit settling.
 
-##### 2.3.2.1 Container Base
+### 2.1 The "Ghost" Ease
 
-```tsx
-// Wrapper global para centralizar o conteúdo
-<div className="w-full max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24">
-  {children}
-</div>
-```
+- **CSS/Framer:** `[0.22, 1, 0.36, 1]`
+
+- **Duration:**
+  - **Fast (UI):** `0.2s` (Buttons, Hover)
+  - **Normal (Reveal):** `0.8s` (Sections, Cards)
+  - **Slow (Atmosphere):** `1.5s+` (Backgrounds, Glows)
+
+### 2.2 Standard Reveals
+
+1. **GhostFadeUp:**
+    - `opacity: 0 -> 1`
+    - `y: 18px -> 0px` (hard max for content UI)
+    - `duration: 0.8s`
+    - `stagger: 0.1s` (for lists)
+
+### 2.3 Allowed vs Forbidden Motion
+
+- **Allowed (content/UI):** `opacity`, `blur`, `translateY` (max `18px`)
+- **Forbidden (content/UI):** `scale`, `bounce`, `rotate`
+- **Reduced Motion:** Disable parallax/lerp and replace reveals with simple fade.
+
+### 2.4 Interaction Rules
+
+- **Hovers:** Silence. No massive scaling. Subtle opacity change (0.7 -> 1) or glow intensity shift.
+
+- **Scroll:** Use `lenis` for smooth inertia. Parallax should be subtle (< 15% shift).
+
+---
+
+## 3. Component Architecture
+
+### 3.1 Base Components (Shadcn + Ghost)
+
+- **Buttons:**
+  - `default`: Solid Blue `#0048ff`. Sharp corners or slight radius (`rounded-md`).
+  - `ghost`: Transparent with minimal hover glow.
+  - `outline`: 1px Border `#4fe6ff` (Accent).
+
+- **Cards:**
+  - Background: `bg-white/5` (Glass) or `bg-[#0b0d3a]` (Deep Neutral).
+  - Border: `border-white/10`.
+  - Backdrop: `backdrop-blur-md`.
+
+### 3.2 Feature Components
+
+- **`<GhostText />`**: Text that blurs in.
+
+- **`<GhostGlitch />`**: For specific "anomalies" or hover states.
+- **`<StandardGrid />`**: The wrapper that enforces the 4/8/12 column layout.
+
+### 3.3 CTA Components
+
+#### Small CTA (`.btn-icon-circle`)
+
+- **Structure**: 48px Circle (`w-12 h-12`).
+- **Default**: Blue (`--color-bluePrimary`).
+- **Hover**: Purple (`--color-purpleDetails`).
+- **Icon**: `ArrowUpRight` (White).
+- **Usage**: Project Cards, Secondary actions.
+
+#### Landing Back CTA (`<CompoundPillCTA />`)
+
+- **Usage:** Hero footer, left side, for contextual "voltar ao portfólio".
+- **Variant:** `size="compact"` and `direction="back"` for landing pages.
+- **Semantics:** Back variant renders `arrow-left` first, then text label.
+
+#### Primary CTA (`<AntigravityCTA />`)
+
+- **Mandate:** All primary page actions use `<AntigravityCTA />`.
+- **Default Landing CTA:** label `vamos trabalhar juntos →` + href `/#contact` + color `#0048ff`.
+
+- **Sizing (Fixed Min-Widths):**
+  - **Mobile:** `181px` (`min-w-cta-mobile`)
+  - **Tablet:** `201px` (`min-w-cta-tablet`)
+  - **Desktop:** `241px` (`min-w-cta-desktop`)
+- **Behavior (The "Ghost" Interaction):**
+  - **Idle:** Pill `Blue 500` + Circle `Blue 500`.
+  - **Hover:** Pill `Blue 500` (Static) + Circle `Purple` (`#8705f2`).
+  - **Animation:** Icon rotates `-45deg` to `0deg`. Circle separates by `8px`.
+
+---
+
+## 4. Global implementation Rules
+
+1. **Mobile First:** Write logic for mobile first. Use `md:` and `lg:` overrides.
+2. **No Magic Numbers:** Use Tailwind tokens. If you need `123px`, ask why.
+3. **Performance:**
+    - No animations running off-screen.
+    - Use `WILL-CHANGE` sparingly.
+    - R3F Canvas must define `dpr={[1, 2]}`.
+4. **Acessibility:**
+    - Contrast AA+ is mandatory.
+    - `prefers-reduced-motion` must disable "Ghost" easing.
+    - Interactive elements focus states must be visible.
+
+---
+
+**Certified by Ghost Commander**
+*System Integrity Verified.*

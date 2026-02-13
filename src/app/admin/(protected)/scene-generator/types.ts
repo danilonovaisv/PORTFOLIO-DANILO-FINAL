@@ -27,7 +27,7 @@ export const AI_MODELS: AIModelOption[] = [
     id: 'nano-banana',
     name: 'Nano Banana',
     description: 'Custom - Estilizado, artístico',
-    available: false,
+    available: true,
   },
   {
     id: 'sora',
@@ -39,13 +39,13 @@ export const AI_MODELS: AIModelOption[] = [
     id: 'flow',
     name: 'Flow',
     description: 'Custom - Fluxo criativo dinâmico',
-    available: false,
+    available: true,
   },
   {
     id: 'whisky',
     name: 'Whisky',
     description: 'Custom - Estética cinematográfica',
-    available: false,
+    available: true,
   },
 ];
 

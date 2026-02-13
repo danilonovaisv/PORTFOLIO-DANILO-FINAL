@@ -8,6 +8,7 @@ import {
   Trash2,
   Video,
 } from 'lucide-react';
+import Image from 'next/image';
 import type {
   MasterProjectAsset,
   MasterProjectTemplateV2Data,
@@ -120,7 +121,7 @@ function MediaField({
           <select
             className={inputClasses}
             value={value.kind || 'image'}
-            onChange={(event) =>
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
               onChange({
                 ...value,
                 kind: event.target.value === 'video' ? 'video' : 'image',
@@ -138,7 +139,7 @@ function MediaField({
             className={`${inputClasses} file:mr-3 file:rounded-md file:border-0 file:bg-blue-600 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white`}
             type="file"
             accept={isVideo ? 'video/*' : 'image/*'}
-            onChange={(event) => {
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               const file = event.target.files?.[0];
               if (!file) return;
 
@@ -162,7 +163,7 @@ function MediaField({
               : 'landing-pages/meu-projeto/hero.webp'
           }
           value={value.src || ''}
-          onChange={(event) =>
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             onChange({
               ...value,
               src: event.target.value,
@@ -180,7 +181,9 @@ function MediaField({
         <input
           className={inputClasses}
           value={value.alt || ''}
-          onChange={(event) => onChange({ ...value, alt: event.target.value })}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            onChange({ ...value, alt: event.target.value })
+          }
         />
       </label>
       {missingAlt ? (
@@ -196,7 +199,7 @@ function MediaField({
             className={inputClasses}
             placeholder="landing-pages/meu-projeto/poster.webp"
             value={value.poster || ''}
-            onChange={(event) =>
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               onChange({ ...value, poster: event.target.value })
             }
           />
@@ -204,7 +207,7 @@ function MediaField({
       ) : null}
 
       {preview ? (
-        <div className="overflow-hidden rounded-xl border border-white/10 bg-black/40">
+        <div className="relative h-56 w-full overflow-hidden rounded-xl border border-white/10 bg-black/40">
           {isVideo ? (
             <video
               src={preview}
@@ -214,11 +217,12 @@ function MediaField({
               playsInline
             />
           ) : (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <Image
               src={preview}
               alt={value.alt || 'Pré-visualização'}
-              className="h-56 w-full object-cover"
+              fill
+              className="object-cover"
+              unoptimized
             />
           )}
         </div>
@@ -273,7 +277,7 @@ export default function MasterProjectTemplateV2Editor({
             <input
               className={inputClasses}
               value={value.project_title}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({ project_title: event.target.value })
               }
             />
@@ -284,7 +288,7 @@ export default function MasterProjectTemplateV2Editor({
             <input
               className={inputClasses}
               value={value.project_subtitle || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({ project_subtitle: event.target.value || '' })
               }
             />
@@ -295,7 +299,9 @@ export default function MasterProjectTemplateV2Editor({
             <input
               className={inputClasses}
               value={value.project_slug}
-              onChange={(event) => update({ project_slug: event.target.value })}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                update({ project_slug: event.target.value })
+              }
             />
           </label>
 
@@ -306,7 +312,7 @@ export default function MasterProjectTemplateV2Editor({
                 type="color"
                 className="h-10 w-12 rounded border border-white/10 bg-transparent"
                 value={value.highlight_color || '#0048ff'}
-                onChange={(event) =>
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   update({ highlight_color: event.target.value })
                 }
                 title="Cor de destaque"
@@ -314,7 +320,7 @@ export default function MasterProjectTemplateV2Editor({
               <input
                 className={inputClasses}
                 value={value.highlight_color || '#0048ff'}
-                onChange={(event) =>
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   update({ highlight_color: event.target.value || '#0048ff' })
                 }
               />
@@ -328,7 +334,7 @@ export default function MasterProjectTemplateV2Editor({
                 type="color"
                 className="h-10 w-12 rounded border border-white/10 bg-transparent"
                 value={value.theme_color || '#0048ff'}
-                onChange={(event) =>
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   update({ theme_color: event.target.value })
                 }
                 title="Cor do tema"
@@ -336,7 +342,7 @@ export default function MasterProjectTemplateV2Editor({
               <input
                 className={inputClasses}
                 value={value.theme_color || '#0048ff'}
-                onChange={(event) =>
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   update({ theme_color: event.target.value || '#0048ff' })
                 }
               />
@@ -348,7 +354,7 @@ export default function MasterProjectTemplateV2Editor({
             <input
               className={inputClasses}
               value={value.project_client || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({ project_client: event.target.value })
               }
             />
@@ -360,7 +366,7 @@ export default function MasterProjectTemplateV2Editor({
               className={inputClasses}
               type="number"
               value={value.project_year || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({
                   project_year: event.target.value
                     ? Number(event.target.value)
@@ -377,7 +383,7 @@ export default function MasterProjectTemplateV2Editor({
             <input
               className={inputClasses}
               value={value.project_tags.join(', ')}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({ project_tags: splitTokenList(event.target.value) })
               }
             />
@@ -390,7 +396,7 @@ export default function MasterProjectTemplateV2Editor({
             <input
               className={inputClasses}
               value={(value.project_services || []).join(', ')}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({ project_services: splitTokenList(event.target.value) })
               }
             />
@@ -401,7 +407,7 @@ export default function MasterProjectTemplateV2Editor({
             <textarea
               className={`${inputClasses} min-h-28`}
               value={value.project_summary || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
                 update({ project_summary: event.target.value })
               }
             />
@@ -412,7 +418,7 @@ export default function MasterProjectTemplateV2Editor({
             <input
               className={inputClasses}
               value={value.intro_headline || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({ intro_headline: event.target.value })
               }
             />
@@ -425,7 +431,7 @@ export default function MasterProjectTemplateV2Editor({
             <textarea
               className={`${inputClasses} min-h-32`}
               value={(value.intro_body || []).join('\n')}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
                 update({ intro_body: splitLines(event.target.value) })
               }
             />
@@ -468,7 +474,7 @@ export default function MasterProjectTemplateV2Editor({
             <input
               className={inputClasses}
               value={value.navigation?.back_label || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({
                   navigation: {
                     ...value.navigation,
@@ -484,7 +490,7 @@ export default function MasterProjectTemplateV2Editor({
             <input
               className={inputClasses}
               value={value.navigation?.next_label || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({
                   navigation: {
                     ...value.navigation,
@@ -500,7 +506,7 @@ export default function MasterProjectTemplateV2Editor({
             <input
               className={inputClasses}
               value={value.navigation?.next_project_slug || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({
                   navigation: {
                     ...value.navigation,
@@ -516,7 +522,7 @@ export default function MasterProjectTemplateV2Editor({
             <input
               className={inputClasses}
               value={value.cta?.label || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({
                   cta: {
                     ...value.cta,
@@ -532,7 +538,7 @@ export default function MasterProjectTemplateV2Editor({
             <input
               className={inputClasses}
               value={value.cta?.href || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({
                   cta: {
                     ...value.cta,
@@ -548,7 +554,7 @@ export default function MasterProjectTemplateV2Editor({
             <textarea
               className={`${inputClasses} min-h-24`}
               value={value.seo?.description || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
                 update({
                   seo: {
                     ...value.seo,
@@ -564,7 +570,7 @@ export default function MasterProjectTemplateV2Editor({
             <input
               className={inputClasses}
               value={value.seo?.og_image || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({
                   seo: {
                     ...value.seo,
@@ -592,7 +598,7 @@ export default function MasterProjectTemplateV2Editor({
                 ],
               })
             }
-            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-blue-600 px-4 text-xs font-semibold uppercase tracking-[0.1em] text-white hover:bg-blue-500"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full bg-blue-600 px-4 text-xs font-semibold uppercase tracking-widest text-white hover:bg-blue-500"
           >
             <Plus size={14} />
             Adicionar bloco
@@ -657,7 +663,7 @@ export default function MasterProjectTemplateV2Editor({
                     <select
                       className={inputClasses}
                       value={item.layout_type}
-                      onChange={(event) =>
+                      onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
                         updateGalleryItem(item.id, {
                           layout_type: event.target
                             .value as MasterProjectV2GalleryItem['layout_type'],
@@ -678,7 +684,7 @@ export default function MasterProjectTemplateV2Editor({
                     <select
                       className={inputClasses}
                       value={item.kind}
-                      onChange={(event) =>
+                      onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
                         updateGalleryItem(item.id, {
                           kind:
                             event.target.value === 'video' ? 'video' : 'image',
@@ -696,7 +702,9 @@ export default function MasterProjectTemplateV2Editor({
                       <select
                         className={inputClasses}
                         value={item.media_align || 'left'}
-                        onChange={(event) =>
+                        onChange={(
+                          event: React.ChangeEvent<HTMLSelectElement>
+                        ) =>
                           updateGalleryItem(item.id, {
                             media_align:
                               event.target.value === 'right' ? 'right' : 'left',
@@ -716,7 +724,9 @@ export default function MasterProjectTemplateV2Editor({
                         <input
                           className={inputClasses}
                           value={item.src}
-                          onChange={(event) =>
+                          onChange={(
+                            event: React.ChangeEvent<HTMLInputElement>
+                          ) =>
                             updateGalleryItem(item.id, {
                               src: event.target.value,
                               file: null,
@@ -732,7 +742,9 @@ export default function MasterProjectTemplateV2Editor({
                           type="file"
                           className={`${inputClasses} file:mr-3 file:rounded-md file:border-0 file:bg-blue-600 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white`}
                           accept={item.kind === 'video' ? 'video/*' : 'image/*'}
-                          onChange={(event) => {
+                          onChange={(
+                            event: React.ChangeEvent<HTMLInputElement>
+                          ) => {
                             const file = event.target.files?.[0];
                             if (!file) return;
                             updateGalleryItem(item.id, {
@@ -748,7 +760,9 @@ export default function MasterProjectTemplateV2Editor({
                         <input
                           className={inputClasses}
                           value={item.poster || ''}
-                          onChange={(event) =>
+                          onChange={(
+                            event: React.ChangeEvent<HTMLInputElement>
+                          ) =>
                             updateGalleryItem(item.id, {
                               poster: event.target.value,
                             })
@@ -764,7 +778,9 @@ export default function MasterProjectTemplateV2Editor({
                       <input
                         className={inputClasses}
                         value={item.alt}
-                        onChange={(event) =>
+                        onChange={(
+                          event: React.ChangeEvent<HTMLInputElement>
+                        ) =>
                           updateGalleryItem(item.id, {
                             alt: event.target.value,
                           })
@@ -783,7 +799,7 @@ export default function MasterProjectTemplateV2Editor({
                     <input
                       className={inputClasses}
                       value={item.eyebrow || ''}
-                      onChange={(event) =>
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                         updateGalleryItem(item.id, {
                           eyebrow: event.target.value,
                         })
@@ -796,7 +812,7 @@ export default function MasterProjectTemplateV2Editor({
                     <input
                       className={inputClasses}
                       value={item.title || ''}
-                      onChange={(event) =>
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                         updateGalleryItem(item.id, {
                           title: event.target.value,
                         })
@@ -809,7 +825,9 @@ export default function MasterProjectTemplateV2Editor({
                     <textarea
                       className={`${inputClasses} min-h-24`}
                       value={item.description || ''}
-                      onChange={(event) =>
+                      onChange={(
+                        event: React.ChangeEvent<HTMLTextAreaElement>
+                      ) =>
                         updateGalleryItem(item.id, {
                           description: event.target.value,
                         })
@@ -822,7 +840,7 @@ export default function MasterProjectTemplateV2Editor({
                     <input
                       className={inputClasses}
                       value={item.quote || ''}
-                      onChange={(event) =>
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                         updateGalleryItem(item.id, {
                           quote: event.target.value,
                         })
@@ -838,7 +856,9 @@ export default function MasterProjectTemplateV2Editor({
                       <textarea
                         className={`${inputClasses} min-h-24`}
                         value={toFeatureText(item.features)}
-                        onChange={(event) =>
+                        onChange={(
+                          event: React.ChangeEvent<HTMLTextAreaElement>
+                        ) =>
                           updateGalleryItem(item.id, {
                             features: parseFeatures(event.target.value),
                           })
@@ -849,7 +869,7 @@ export default function MasterProjectTemplateV2Editor({
                 </div>
 
                 {preview ? (
-                  <div className="overflow-hidden rounded-xl border border-white/10 bg-black/50">
+                  <div className="relative h-48 w-full overflow-hidden rounded-xl border border-white/10 bg-black/50">
                     {item.kind === 'video' ? (
                       <video
                         src={preview}
@@ -859,11 +879,12 @@ export default function MasterProjectTemplateV2Editor({
                         playsInline
                       />
                     ) : (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
+                      <Image
                         src={preview}
                         alt={item.alt || 'Pré-visualização'}
-                        className="h-48 w-full object-cover"
+                        fill
+                        className="object-cover"
+                        unoptimized
                       />
                     )}
                   </div>

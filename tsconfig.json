@@ -53,14 +53,10 @@
   ],
   "exclude": [
     "node_modules",
-    "AJUSTES",
-    "AJUSTE HERO",
     "docs",
-    "REFERENCIA_HERO-GHOST",
     "functions",
-    "TROCAR",
-    "src/index.tsx",
-    "src/App.tsx",
-    "scripts/archive"
+    "scripts/archive",
+    ".next",
+    "out"
   ]
 }

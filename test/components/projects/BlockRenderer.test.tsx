@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
+/* eslint-disable */
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
@@ -12,14 +12,12 @@ jest.mock('next/image', () => ({
 }));
 
 // Mock framer-motion
-// Mock framer-motion
 jest.mock('framer-motion', () => {
   const MockComponent = ({
     children,
     className,
     style,
     onClick,
-    role,
     tabIndex,
     'aria-label': ariaLabel,
     onKeyDown,
@@ -28,7 +26,6 @@ jest.mock('framer-motion', () => {
       className={className}
       style={style}
       onClick={onClick}
-      role={role}
       tabIndex={tabIndex}
       aria-label={ariaLabel}
       onKeyDown={onKeyDown}

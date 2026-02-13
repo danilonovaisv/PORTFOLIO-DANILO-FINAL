@@ -64,6 +64,7 @@ export default function ClientsBrandsSection() {
           className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center justify-items-center w-full"
         >
           {logos.map((logo, index) => {
+            const shouldEagerLoad = logo.id <= 3;
             const assetKey = SITE_ASSET_KEYS.clients.strips[index];
 
             return (
@@ -88,9 +89,7 @@ export default function ClientsBrandsSection() {
                     assetKey={assetKey}
                     alt={logo.alt}
                     fallbackUrl={logo.src || ''}
-                    width={192}
-                    height={96}
-                    priority={false}
+                    priority={shouldEagerLoad}
                     objectFit="contain"
                     className="w-full h-full filter brightness-0 invert opacity-60 transition-all duration-500 group-hover:opacity-100"
                   />

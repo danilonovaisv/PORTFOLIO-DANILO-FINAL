@@ -11,6 +11,7 @@ import {
   Type,
   Video,
 } from 'lucide-react';
+import Image from 'next/image';
 import type { ComponentType } from 'react';
 import {
   DropdownMenu,
@@ -28,6 +29,13 @@ import type {
 
 const YOUTUBE_PATTERN =
   /(youtu\.be\/|youtube\.com\/watch\?v=|youtube\.com\/embed\/|youtube\.com\/shorts\/)/i;
+
+const getYoutubeId = (url: string) => {
+  const match = url.match(
+    /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/
+  );
+  return match && match[2].length === 11 ? match[2] : null;
+};
 
 export type MasterProjectV3AssetDraft = MasterProjectAsset & {
   file?: File | null;
@@ -144,6 +152,7 @@ function MediaAssetField({
   const isVideo = value.kind === 'video';
   const preview = value.previewUrl || value.src;
   const missingAlt = requireAlt && !isVideo && !value.alt?.trim();
+  const youtubeId = preview ? getYoutubeId(preview) : null;
 
   return (
     <div className="space-y-3 border border-white/10 bg-slate-950/30 p-4">
@@ -155,7 +164,7 @@ function MediaAssetField({
           <select
             className={inputClasses}
             value={value.kind || 'image'}
-            onChange={(event) =>
+            onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
               onChange({
                 ...value,
                 kind: event.target.value === 'video' ? 'video' : 'image',
@@ -173,7 +182,7 @@ function MediaAssetField({
             className={`${inputClasses} file:mr-3 file:border-0 file:bg-blue-600 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white`}
             type="file"
             accept={isVideo ? 'video/*' : 'image/*'}
-            onChange={(event) => {
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               const file = event.target.files?.[0];
               if (!file) return;
 
@@ -197,7 +206,7 @@ function MediaAssetField({
               : 'landing-pages/meu-projeto/hero.webp'
           }
           value={value.src || ''}
-          onChange={(event) =>
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             onChange({
               ...value,
               src: event.target.value,
@@ -213,7 +222,9 @@ function MediaAssetField({
         <input
           className={inputClasses}
           value={value.alt || ''}
-          onChange={(event) => onChange({ ...value, alt: event.target.value })}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            onChange({ ...value, alt: event.target.value })
+          }
         />
       </label>
 
@@ -229,7 +240,7 @@ function MediaAssetField({
           <input
             className={inputClasses}
             value={value.poster || ''}
-            onChange={(event) =>
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               onChange({ ...value, poster: event.target.value })
             }
           />
@@ -237,21 +248,32 @@ function MediaAssetField({
       ) : null}
 
       {preview ? (
-        <div className="overflow-hidden border border-white/10 bg-black/40">
+        <div className="relative h-56 w-full overflow-hidden border border-white/10 bg-black/40">
           {isVideo ? (
-            <video
-              src={preview}
-              className="h-56 w-full object-cover"
-              controls
-              muted
-              playsInline
-            />
+            youtubeId ? (
+              <iframe
+                src={`https://www.youtube.com/embed/${youtubeId}`}
+                title="YouTube video player"
+                className="h-56 w-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            ) : (
+              <video
+                src={preview}
+                className="h-56 w-full object-cover"
+                controls
+                muted
+                playsInline
+              />
+            )
           ) : (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <Image
               src={preview}
               alt={value.alt || 'Pré-visualização'}
-              className="h-56 w-full object-cover"
+              fill
+              className="object-cover"
+              unoptimized
             />
           )}
         </div>
@@ -284,6 +306,7 @@ function BlockMediaField({
   const isVideo = isVideoMode(kind, block.content[mediaKey]);
   const preview = block[previewKey] || block.content[mediaKey];
   const missingAlt = !isVideo && !block.content[altKey]?.trim();
+  const youtubeId = preview ? getYoutubeId(preview) : null;
 
   return (
     <div className="space-y-2 border border-white/10 bg-slate-950/30 p-4">
@@ -294,7 +317,7 @@ function BlockMediaField({
         <input
           className={inputClasses}
           value={block.content[mediaKey] || ''}
-          onChange={(event) =>
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             onChange({
               ...block,
               [fileKey]: null,
@@ -314,7 +337,7 @@ function BlockMediaField({
           type="file"
           className={`${inputClasses} file:mr-3 file:border-0 file:bg-blue-600 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white`}
           accept={isVideo ? 'video/*' : 'image/*'}
-          onChange={(event) => {
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             const file = event.target.files?.[0];
             if (!file) return;
 
@@ -332,7 +355,7 @@ function BlockMediaField({
         <input
           className={inputClasses}
           value={block.content[altKey] || ''}
-          onChange={(event) =>
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             onChange({
               ...block,
               content: {
@@ -356,7 +379,7 @@ function BlockMediaField({
           <input
             className={inputClasses}
             value={block.content[posterKey] || ''}
-            onChange={(event) =>
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               onChange({
                 ...block,
                 content: {
@@ -370,21 +393,32 @@ function BlockMediaField({
       ) : null}
 
       {preview ? (
-        <div className="overflow-hidden border border-white/10 bg-black/40">
+        <div className="relative h-44 w-full overflow-hidden border border-white/10 bg-black/40">
           {isVideo ? (
-            <video
-              src={preview}
-              className="h-44 w-full object-cover"
-              controls
-              muted
-              playsInline
-            />
+            youtubeId ? (
+              <iframe
+                src={`https://www.youtube.com/embed/${youtubeId}`}
+                title="YouTube Content"
+                className="h-44 w-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            ) : (
+              <video
+                src={preview}
+                className="h-44 w-full object-cover"
+                controls
+                muted
+                playsInline
+              />
+            )
           ) : (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <Image
               src={preview}
               alt="Preview"
-              className="h-44 w-full object-cover"
+              fill
+              className="object-cover"
+              unoptimized
             />
           )}
         </div>
@@ -446,7 +480,7 @@ export default function MasterProjectTemplateV3Editor({
             <input
               className={inputClasses}
               value={value.project_title}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({ project_title: event.target.value })
               }
             />
@@ -457,7 +491,7 @@ export default function MasterProjectTemplateV3Editor({
             <input
               className={inputClasses}
               value={value.project_subtitle || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({ project_subtitle: event.target.value || '' })
               }
             />
@@ -468,7 +502,9 @@ export default function MasterProjectTemplateV3Editor({
             <input
               className={inputClasses}
               value={value.project_slug}
-              onChange={(event) => update({ project_slug: event.target.value })}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                update({ project_slug: event.target.value })
+              }
             />
           </label>
 
@@ -477,7 +513,7 @@ export default function MasterProjectTemplateV3Editor({
             <input
               className={inputClasses}
               value={value.project_client || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({ project_client: event.target.value })
               }
             />
@@ -489,7 +525,7 @@ export default function MasterProjectTemplateV3Editor({
               className={inputClasses}
               type="number"
               value={value.project_year || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({
                   project_year: event.target.value
                     ? Number(event.target.value)
@@ -508,7 +544,7 @@ export default function MasterProjectTemplateV3Editor({
                 type="color"
                 className="h-10 w-12 border border-white/10 bg-transparent"
                 value={value.theme_color || '#0048ff'}
-                onChange={(event) =>
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   update({ theme_color: event.target.value })
                 }
                 title="Cor do tema"
@@ -516,7 +552,7 @@ export default function MasterProjectTemplateV3Editor({
               <input
                 className={inputClasses}
                 value={value.theme_color || '#0048ff'}
-                onChange={(event) =>
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                   update({ theme_color: event.target.value || '#0048ff' })
                 }
               />
@@ -530,7 +566,7 @@ export default function MasterProjectTemplateV3Editor({
             <input
               className={inputClasses}
               value={value.project_tags.join(', ')}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({ project_tags: splitTokenList(event.target.value) })
               }
             />
@@ -541,7 +577,7 @@ export default function MasterProjectTemplateV3Editor({
             <textarea
               className={`${inputClasses} min-h-24`}
               value={value.project_summary || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
                 update({ project_summary: event.target.value })
               }
             />
@@ -552,7 +588,7 @@ export default function MasterProjectTemplateV3Editor({
             <input
               className={inputClasses}
               value={value.intro_headline || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({ intro_headline: event.target.value })
               }
             />
@@ -565,7 +601,7 @@ export default function MasterProjectTemplateV3Editor({
             <textarea
               className={`${inputClasses} min-h-28`}
               value={(value.intro_body || []).join('\n')}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
                 update({ intro_body: splitLines(event.target.value) })
               }
             />
@@ -618,7 +654,7 @@ export default function MasterProjectTemplateV3Editor({
             <input
               className={inputClasses}
               value={value.navigation?.back_label || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({
                   navigation: {
                     ...value.navigation,
@@ -634,7 +670,7 @@ export default function MasterProjectTemplateV3Editor({
             <input
               className={inputClasses}
               value={value.navigation?.next_label || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({
                   navigation: {
                     ...value.navigation,
@@ -650,7 +686,7 @@ export default function MasterProjectTemplateV3Editor({
             <input
               className={inputClasses}
               value={value.navigation?.next_project_slug || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({
                   navigation: {
                     ...value.navigation,
@@ -666,7 +702,7 @@ export default function MasterProjectTemplateV3Editor({
             <input
               className={inputClasses}
               value={value.cta?.label || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({
                   cta: {
                     ...value.cta,
@@ -682,7 +718,7 @@ export default function MasterProjectTemplateV3Editor({
             <input
               className={inputClasses}
               value={value.cta?.href || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({
                   cta: {
                     ...value.cta,
@@ -698,7 +734,7 @@ export default function MasterProjectTemplateV3Editor({
             <textarea
               className={`${inputClasses} min-h-24`}
               value={value.seo?.description || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
                 update({
                   seo: {
                     ...value.seo,
@@ -714,7 +750,7 @@ export default function MasterProjectTemplateV3Editor({
             <input
               className={inputClasses}
               value={value.seo?.og_image || ''}
-              onChange={(event) =>
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
                 update({
                   seo: {
                     ...value.seo,
@@ -737,7 +773,7 @@ export default function MasterProjectTemplateV3Editor({
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                className="inline-flex min-h-11 items-center gap-2 bg-blue-600 px-4 text-xs font-semibold uppercase tracking-[0.1em] text-white hover:bg-blue-500"
+                className="inline-flex min-h-11 items-center gap-2 bg-blue-600 px-4 text-xs font-semibold uppercase tracking-widest text-white hover:bg-blue-500"
               >
                 <Plus size={14} />
                 Adicionar bloco
@@ -838,7 +874,9 @@ export default function MasterProjectTemplateV3Editor({
                     <textarea
                       className={`${inputClasses} min-h-28`}
                       value={block.content.text || ''}
-                      onChange={(event) =>
+                      onChange={(
+                        event: React.ChangeEvent<HTMLTextAreaElement>
+                      ) =>
                         updateCurrentBlock({
                           ...block,
                           content: {
@@ -858,7 +896,9 @@ export default function MasterProjectTemplateV3Editor({
                       <textarea
                         className={`${inputClasses} min-h-20`}
                         value={block.content.text || ''}
-                        onChange={(event) =>
+                        onChange={(
+                          event: React.ChangeEvent<HTMLTextAreaElement>
+                        ) =>
                           updateCurrentBlock({
                             ...block,
                             content: {
@@ -877,7 +917,9 @@ export default function MasterProjectTemplateV3Editor({
                       <textarea
                         className={`${inputClasses} min-h-20`}
                         value={block.content.text2 || ''}
-                        onChange={(event) =>
+                        onChange={(
+                          event: React.ChangeEvent<HTMLTextAreaElement>
+                        ) =>
                           updateCurrentBlock({
                             ...block,
                             content: {
@@ -896,7 +938,9 @@ export default function MasterProjectTemplateV3Editor({
                           type="color"
                           className="h-10 w-12 border border-white/10 bg-transparent"
                           value={block.content.bandColor || '#0048ff'}
-                          onChange={(event) =>
+                          onChange={(
+                            event: React.ChangeEvent<HTMLInputElement>
+                          ) =>
                             updateCurrentBlock({
                               ...block,
                               content: {
@@ -909,7 +953,9 @@ export default function MasterProjectTemplateV3Editor({
                         <input
                           className={inputClasses}
                           value={block.content.bandColor || '#0048ff'}
-                          onChange={(event) =>
+                          onChange={(
+                            event: React.ChangeEvent<HTMLInputElement>
+                          ) =>
                             updateCurrentBlock({
                               ...block,
                               content: {
@@ -957,8 +1003,8 @@ export default function MasterProjectTemplateV3Editor({
                 ) : null}
 
                 {block.type === 'image-text' ||
-                block.type === 'text-image' ||
-                block.type === 'video-text' ? (
+                  block.type === 'text-image' ||
+                  block.type === 'video-text' ? (
                   <div className="grid gap-4 md:grid-cols-2">
                     <BlockMediaField
                       block={block}
@@ -981,7 +1027,9 @@ export default function MasterProjectTemplateV3Editor({
                       <textarea
                         className={`${inputClasses} min-h-40`}
                         value={block.content.text || ''}
-                        onChange={(event) =>
+                        onChange={(
+                          event: React.ChangeEvent<HTMLTextAreaElement>
+                        ) =>
                           updateCurrentBlock({
                             ...block,
                             content: {
@@ -996,7 +1044,7 @@ export default function MasterProjectTemplateV3Editor({
                 ) : null}
 
                 {block.type === 'image-image' ||
-                block.type === 'image-video' ? (
+                  block.type === 'image-video' ? (
                   <div className="grid gap-4 md:grid-cols-2">
                     <BlockMediaField
                       block={block}

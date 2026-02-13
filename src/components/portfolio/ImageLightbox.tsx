@@ -7,6 +7,7 @@ import { createPortal } from 'react-dom';
 import { useBodyLock } from '@/hooks/useBodyLock';
 import { getYouTubeEmbedUrl, isVideo, isYouTubeUrl } from '@/lib/utils';
 import { DEFAULT_CAPTIONS } from '@/lib/video';
+import Image from 'next/image';
 
 type ImageLightboxProps = {
   isOpen: boolean;
@@ -75,7 +76,7 @@ export function ImageLightbox({ isOpen, src, alt, onClose }: ImageLightboxProps)
           role="dialog"
           aria-modal="true"
           aria-label="Visualização ampliada"
-          className="fixed inset-0 z-[90] flex items-center justify-center bg-black/95 p-4 md:p-8"
+          className="fixed inset-0 z-90 flex items-center justify-center bg-black/95 p-4 md:p-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -133,11 +134,14 @@ export function ImageLightbox({ isOpen, src, alt, onClose }: ImageLightboxProps)
                   />
                 </video>
               ) : (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+
+                <Image
                   src={src}
                   alt={alt}
-                  className="h-full w-full object-contain"
+                  fill
+                  sizes="90vw"
+                  className="object-contain" // h-full w-full is implied by fill
+                  priority
                 />
               )}
             </div>

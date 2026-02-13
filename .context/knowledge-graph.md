@@ -8,56 +8,58 @@ The central orchestration layer for the portfolio.
 
 #### 1. The Renderer (Client)
 
-- **Nodes:** `GhostCanvas`, `ShaderManager`, `PostProcessing`, `GhostScene` (Optimized).
+- **Nodes:** `GhostCanvas`, `ShaderManager`, `PostProcessing`, `GhostScene` (Vanilla/Optimized), `Ghost.tsx` ([DEPRECATED]), `GhostParticles` ([DEPRECATED]).
 - **Techniques:** InstancedMesh, ShaderMaterial, AnalogDecay (Custom Pass).
-- **Context:** Handles all R3F visual output and narrative transitions.
-- **Dependencies:** Three.js, Drei, Lamina.
+- **Context:** Handles all R3F visual output and narrative transitions. High-performance Vanilla Three.js used in key sections.
+- **Dependencies:** Three.js, Drei, Postprocessing (pmndrs).
 
 #### 2. The Administrator (Server/Auth)
 
 - **Nodes:** `AdminDashboard`, `AuthGuard`, `ProjectsTable`.
 - **Backend:** `DataConnect` (Firebase), `Supabase Client`.
-- **Context:** Protected management area.
-- **Dependencies:** Supabase Auth, Firebase Functions.
+- **Context:** Protected management area with real-time sync.
+- **Dependencies:** Supabase Auth, Firebase Functions, DataConnect.
 
 #### 3. The Content Engine (Data)
 
-- **Nodes:** `ContentStore` (Projects/Assets), `useProjects`.
-- **Context:** Fetches and syncs data to UI.
+- **Nodes:** `ContentStore` (Projects/Assets), `ExperienceStore`, `PortfolioModalStore`, `useProjects`.
+- **Context:** Fetches and syncs data to UI via Zustand and Supabase Realtime.
 - **Dependencies:** Supabase Realtime, Zustand.
 
 #### 4. The Core (Shared)
 
-- **Nodes:** `AntigravityStore` (Global State), `src/lib/utils`, `config/brand`.
+- **Nodes:** `AntigravityStore` (Global State), `src/lib/utils`, `src/lib/motionTokens`.
 - **Context:** Global helpers (cn, math) and Narrative State management.
-- **Dependencies:** clsx, tailwind-merge.
+- **Dependencies:** clsx, tailwind-merge, gsap, framer-motion.
 
 ## Key Relationships
 
 - `GhostCanvas` **observes** `AntigravityStore` (Narrative State).
 - `AdminDashboard` **controls** `ContentStore`.
 - `HeroSection` **embeds** `GhostCanvas` and triggers `useGhostReveal`.
+- `PostProcessing` applies `AnalogDecay` to the entire scene.
 
-## Current Status (Post-Audit 2026-02-09)
+## Current Status (Post-Audit 2026-02-13)
 
-- **Last Sync:** 2026-02-09
-- **Last Audit:** Master Audit & Optimization (Phases 1-4 Complete)
-- **Focus:** Performance optimization and code cleanliness
-- **Storage Freed:** ~520MB-1GB (old builds, reference images, configs)
-- **Production Bundle:** -16.7MB (reference images moved to docs/)
+- **Last Sync:** 2026-02-13
+- **Last Audit:** Master Audit & Performance Optimization (Phase 2 Complete)
+- **Focus:** Performance stability, Zero-Jank high-performance WebGL, and Code Hygiene.
+- **Storage Status:** Cleaned. Old builds and redundant assets quarantined.
+- **Production Bundle:** Optimized. Reference images moved to docs/.
 
-### Recent Optimizations
+### Recent Optimizations (2026-02-13)
 
-1. **Ghost.tsx EffectComposer** - 98% faster resize handling
-2. **Deep Clean** - Quarantined old builds and duplicate configs
-3. **Reference Images** - Moved from public/ to docs/ (-16.7MB)
+1. **GhostScene.tsx** - Mutated to Vanilla Three.js with `InstancedMesh` for 60FPS.
+2. **Zero-Allocation Loop** - `GhostModel.tsx` optimized to avoid object creation in `useFrame`.
+3. **Z-Index Hierarchy** - Strictly defined in `globals.css` and `GHOST-DESIGN-SYSTEM.md`.
+4. **Deep Clean Protocol** - Scripted cleanup for project hygiene.
 
 ### Audit Findings
 
-- **Dependencies:** 15 unused production deps, 17 unused dev deps identified
-- **WebGL Performance:** Score 8.5/10 - Excellent patterns detected
-- **Security:** 3 safe uses of `dangerouslySetInnerHTML` validated
-- **Accessibility:** All images have alt attributes
+- **WebGL Performance:** Score 9/10 - High performance Vanilla Three.js integration.
+- **Accessibility:** WCAG AA Contrast fixes applied. Font preloading implemented.
+- **SEO:** Video Schema and JSON-LD implemented for projects.
+- **Environment:** `EPERM` issues in `node_modules` identified as a blocker for automated cleanup.
 
 ## Knowledge Items (Learnings)
 
@@ -66,5 +68,14 @@ The central orchestration layer for the portfolio.
 - [KI-003: Clean Ecosystem](.context/knowledge/KI-003-Clean-Ecosystem.md)
 - [KI-004: Agent Capacities](.context/knowledge/KI-004-Agent-Capacities.md)
 - [KI-005: Asset Map](.context/knowledge/KI-005-Asset-Map.md)
-- **[NEW] KI-006: WebGL Performance Patterns** - Object pooling, ref-based state, shader optimization
-- **[NEW] KI-007: Deep Clean Protocol** - Safe file quarantine and rollback procedures
+- **KI-006: WebGL Performance Patterns** - Object pooling, ref-based state, Vanilla Three.js mutation.
+- **KI-007: Deep Clean Protocol** - SafetyGuardian and quarantine procedures.
+- **[NEW] KI-008: Node Permissions (EPERM)** - Documented lifecycle of permission issues in CI/CD environments.
+
+## 5. Security & Data Engineering
+
+### Supabase Architecture
+
+- **Auth Middleware**: Simplificado para `createServerClient` com manipulação direta de cookies (Samesite=Lax).
+- **RLS Policy**: Strict por padrão. Scripts SQL manuais (`supabase/migrations/`) necessários para buckets públicos (`portfolio-media`).
+- **Media Handling**: YouTube exige extração de ID + Iframe. `<video>` tag apenas para assets diretos.

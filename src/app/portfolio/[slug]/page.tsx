@@ -22,17 +22,30 @@ import {
   toCanonicalUrl,
 } from '@/lib/seo';
 
+export const dynamic = 'force-dynamic';
+
+function normalizeSlug(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/[_\s]+/g, '-')
+    .replace(/[^a-z0-9-]/g, '')
+    .replace(/-+/g, '-');
+}
+
 async function getProject(slug: string): Promise<PortfolioProject | undefined> {
   // Try database first
   try {
     const supabase = createStaticClient();
     const dbProjects = await listProjects({}, supabase);
     const normalizedSlug = slug.replace(/-/g, '_');
+    const normalizedRequested = normalizeSlug(slug);
     const dbProject = dbProjects.find(
       (p) =>
         p.slug === slug ||
         p.slug === normalizedSlug ||
-        p.slug?.replace(/_/g, '-') === slug
+        p.slug?.replace(/_/g, '-') === slug ||
+        normalizeSlug(p.slug || '') === normalizedRequested
     );
 
     if (dbProject) {
@@ -122,20 +135,21 @@ export async function generateStaticParams() {
     Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) &&
     Boolean(getSupabasePublicKey());
 
-  const staticSlugs = HOME_CONTENT.featuredProjects.map((p) => ({
-    slug: p.slug,
-  }));
+  const staticSlugs = HOME_CONTENT.featuredProjects
+    .map((p) => ({ slug: normalizeSlug(p.slug) }))
+    .filter((item) => Boolean(item.slug));
 
   if (hasSupabaseEnv) {
     try {
       const supabase = createStaticClient();
       const dbProjects = await listProjects({}, supabase);
       const dbSlugs = dbProjects.map((p) => ({ slug: p.slug }));
-
-      const allSlugs = [...dbSlugs, ...staticSlugs];
-      const uniqueSlugs = Array.from(new Set(allSlugs.map((s) => s.slug))).map(
-        (slug) => ({ slug })
-      );
+      const allSlugs = [...dbSlugs, ...staticSlugs]
+        .map((s) => normalizeSlug(s.slug || ''))
+        .filter(Boolean);
+      const uniqueSlugs = Array.from(new Set(allSlugs)).map((slug) => ({
+        slug,
+      }));
       return uniqueSlugs;
     } catch (error) {
       console.error('Error fetching projects for static params:', error);
@@ -149,6 +163,8 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
+import JsonLd from '@/components/ui/JsonLd';
+
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
   const project = await getProject(slug);
@@ -157,8 +173,22 @@ export default async function ProjectPage({ params }: Props) {
     notFound();
   }
 
+  const baseUrl = `https://${BRAND.domain}`;
+
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white">
+      <JsonLd
+        pageType="project"
+        project={{
+          title: project.title,
+          description: project.shortDescription || project.detail?.description || '',
+          image: project.image,
+          client: project.client,
+          category: project.displayCategory,
+          year: project.year,
+          url: `${baseUrl}/portfolio/${slug}`,
+        }}
+      />
       <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 md:px-12 md:py-8 mix-blend-difference">
         <Link
           href="/portfolio"

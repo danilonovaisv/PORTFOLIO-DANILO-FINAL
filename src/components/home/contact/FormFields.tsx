@@ -28,8 +28,9 @@ export const InputField: React.FC<InputFieldProps> = ({
         id={id}
         aria-invalid={isInvalid}
         aria-describedby={error ? `${id}-error` : undefined}
-        className={`w-full min-h-[48px] rounded-lg border border-[#111111]/20 bg-[#f8fafc] px-4 py-4 text-[#111111] placeholder:text-[#111111]/50 transition-all outline-none focus:border-bluePrimary focus:ring-2 focus:ring-bluePrimary/20 ${error ? 'border-red-500' : ''
-          } ${className}`}
+        className={`w-full min-h-[48px] rounded-lg border border-[#111111]/20 bg-[#f8fafc] px-4 py-4 text-[#111111] placeholder:text-[#111111]/50 transition-all outline-none focus:border-bluePrimary focus:ring-2 focus:ring-bluePrimary/20 ${
+          error ? 'border-red-500' : ''
+        } ${className}`}
         {...props}
       />
       {error && (
@@ -70,8 +71,9 @@ export const TextAreaField: React.FC<TextAreaFieldProps> = ({
         id={id}
         aria-invalid={isInvalid}
         aria-describedby={error ? `${id}-error` : undefined}
-        className={`w-full resize-none rounded-lg border border-[#111111]/20 bg-[#f8fafc] px-4 py-4 text-[#111111] placeholder:text-[#111111]/50 transition-all outline-none focus:border-bluePrimary focus:ring-2 focus:ring-bluePrimary/20 min-h-[120px] ${error ? 'border-red-500' : ''
-          } ${className}`}
+        className={`w-full resize-none rounded-lg border border-[#111111]/20 bg-[#f8fafc] px-4 py-4 text-[#111111] placeholder:text-[#111111]/50 transition-all outline-none focus:border-bluePrimary focus:ring-2 focus:ring-bluePrimary/20 min-h-[120px] ${
+          error ? 'border-red-500' : ''
+        } ${className}`}
         {...props}
       />
       {error && (

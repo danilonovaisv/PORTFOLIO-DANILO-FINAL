@@ -38,7 +38,9 @@ export default function PrivacyPolicyAliasPage() {
   return (
     <section className="min-h-screen bg-background text-foreground">
       <div className="std-grid py-24">
-        <h1 className="text-4xl font-semibold tracking-tight">Privacy Policy</h1>
+        <h1 className="text-4xl font-semibold tracking-tight">
+          Privacy Policy
+        </h1>
         <p className="mt-6 max-w-2xl text-base text-foreground/80">
           The official policy is available in Portuguese. Access the complete
           version at{' '}

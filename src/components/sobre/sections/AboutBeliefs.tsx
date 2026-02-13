@@ -1,13 +1,14 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { useScroll, MotionValue, useReducedMotion } from 'framer-motion';
+import { useScroll, MotionValue } from 'framer-motion';
 import dynamic from 'next/dynamic';
 
 // Importações dos sub-componentes (Certifique-se que os caminhos estão corretos)
 import {
   BeliefSection,
   BeliefMobileTextLayer,
+  BeliefMobileBackground,
   BeliefFinalSection,
   BeliefFinalSectionOverlay,
   BeliefFixedHeader,
@@ -18,9 +19,9 @@ import { BRAND } from '@/config/brand';
 // Isso garante que pega o componente correto, seja export default ou export nomeado.
 const GhostScene = dynamic<{ scrollProgress: MotionValue<number> }>(
   () =>
-    import('../3d/GhostScene').then((mod: any) => {
+    import('../3d/GhostScene').then((mod) => {
       // Retorna a exportação nomeada 'GhostScene' OU a 'default'
-      return mod.GhostScene || mod.default;
+      return (mod as any).GhostScene || (mod as any).default || mod;
     }),
   {
     ssr: false,
@@ -43,12 +44,11 @@ const COLORS = [
   BRAND.colors.pinkDetails,
   BRAND.colors.bluePrimary,
   BRAND.colors.purpleDetails,
-  BRAND.colors.pinkDetails,
+  BRAND.colors.bluePrimary, // Última frase com azul primary (antes do manifesto final)
 ];
 
 export function AboutBeliefs() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end end'],
@@ -57,11 +57,17 @@ export function AboutBeliefs() {
   return (
     <section
       ref={containerRef}
-      className="relative isolate w-full overflow-x-clip min-h-[800vh]"
+      className="relative w-full h-(--beliefs-min-h)" // Tailwind utility for variable
+      // CSS variable assigned to style prop
+      style={
+        {
+          '--beliefs-min-h': `${(PHRASES.length + 2) * 100}vh`,
+        } as React.CSSProperties
+      }
     >
       <BeliefFixedHeader scrollProgress={scrollYProgress} />
       {/* LAYER 1: Seções de Conteúdo (Texto Scrollável) */}
-      <div className="relative z-1">
+      <div className="relative z-20">
         {/* Adicionei verificações para evitar erro se PHRASES/COLORS estiverem vazios */}
         {PHRASES.map((phrase, index) => (
           <BeliefSection
@@ -78,31 +84,31 @@ export function AboutBeliefs() {
         />
       </div>
 
-      {/* LAYER 2: Texto Mobile Fixed no Footer */}
+      {/* LAYER 2: Mobile Background Color Transitions */}
+      <BeliefMobileBackground
+        colors={COLORS}
+        scrollYProgress={scrollYProgress}
+        finalColor={BRAND.colors.bluePrimary}
+      />
+
+      {/* LAYER 3: Texto Mobile Fixed no Footer */}
       <BeliefMobileTextLayer
         phrases={PHRASES}
         scrollYProgress={scrollYProgress}
       />
 
-      {/* LAYER 3: Canvas 3D (entre fundos e texto final) */}
-      {/* 🟣 [FIX-LAYERS]: Promovido para Z-50. Garante que fique acima dos BGs (Z-10) */}
-      <div
-        className="absolute inset-0 z-50 w-full h-full pointer-events-none"
-        aria-hidden
-      >
-        <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-none flex md:items-center md:justify-center items-end justify-start">
-          <div className="w-full h-full md:absolute md:inset-0 relative">
-            {!prefersReducedMotion ? (
-              <GhostScene scrollProgress={scrollYProgress} />
-            ) : null}
-          </div>
-        </div>
+      {/* LAYER 4: Final Text Overlay (Z-40) - Background for Ghost */}
+      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-40">
+        <BeliefFinalSectionOverlay />
       </div>
 
-      {/* LAYER 4: Final Text Overlay (sempre acima do Canvas) */}
-      {/* 🟣 [FIX-LAYERS]: Promovido para Z-60. Sempre no topo. */}
-      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-60">
-        <BeliefFinalSectionOverlay />
+      {/* LAYER 3: Canvas 3D (Sticky - Top Layer Z-60) */}
+      <div className="absolute inset-0 w-full h-full pointer-events-none z-60">
+        <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-auto flex md:items-center md:justify-center items-end justify-start">
+          <div className="w-full h-full md:absolute md:inset-0 relative">
+            <GhostScene scrollProgress={scrollYProgress} />
+          </div>
+        </div>
       </div>
     </section>
   );

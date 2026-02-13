@@ -5,6 +5,7 @@ import {
   Link as LinkIcon,
   Trash2,
 } from 'lucide-react';
+import Image from 'next/image';
 
 interface MediaInputProps {
   label: string;
@@ -86,18 +87,19 @@ export function MediaInput({
               />
             </div>
           ) : type === 'image' ? (
-            <div className="relative min-h-[12.5rem] max-h-[25rem] w-full flex justify-center bg-black/40">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={displaySrc}
+            <div className="relative min-h-50 max-h-100 w-full flex justify-center bg-black/40">
+              <Image
+                src={displaySrc || ''}
                 alt="Preview"
-                className="h-full w-auto max-h-[25rem] object-contain"
+                fill
+                className="object-contain"
+                unoptimized
               />
             </div>
           ) : (
             <video
               src={displaySrc}
-              className="w-full max-h-[25rem] object-contain"
+              className="w-full max-h-100 object-contain"
               controls
               muted
               loop

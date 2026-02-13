@@ -6,9 +6,9 @@ test.describe('Ghost System Verification', () => {
   test('home page should render the ghost hero and navigation', async ({
     page,
   }) => {
-    await page.goto('/', { waitUntil: 'networkidle' });
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
     // Wait for Ghost/3D/Hydration stability
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(1000);
 
     // Check Hero title (visible one)
     await expect(
@@ -27,7 +27,7 @@ test.describe('Ghost System Verification', () => {
     await page.goto('/sobre', { waitUntil: 'domcontentloaded' });
 
     // Check "ORIGEM" heading with explicit timeout
-    await expect(page.locator('h1', { hasText: /ORIGEM/i })).toBeVisible({
+    await expect(page.locator('h2', { hasText: /ORIGEM/i })).toBeVisible({
       timeout: 15000,
     });
 
@@ -70,7 +70,7 @@ test.describe('Ghost System Verification', () => {
 
     // Wait for navigation to complete (Next.js client-side routing)
     await page.waitForURL(/\/sobre/, { timeout: 30000 });
-    await expect(page.locator('h1', { hasText: /ORIGEM/i })).toBeVisible({
+    await expect(page.locator('h2', { hasText: /ORIGEM/i })).toBeVisible({
       timeout: 10000,
     });
   });
