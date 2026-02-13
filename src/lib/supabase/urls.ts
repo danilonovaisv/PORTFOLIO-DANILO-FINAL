@@ -137,10 +137,6 @@ export function validateExternalUrl(url: string): string | null {
     console.warn(`Link externo inseguro bloqueado: ${url}`);
     return null;
   } catch {
-    if (normalized.startsWith('/') || normalized.startsWith('#')) {
-      return normalized;
-    }
-
     if (normalized.startsWith('//')) {
       try {
         const parsedFallback = new URL(`https:${normalized}`);
@@ -149,6 +145,10 @@ export function validateExternalUrl(url: string): string | null {
         console.error(`URL externa inválida: ${url}`);
         return null;
       }
+    }
+
+    if (normalized.startsWith('/') || normalized.startsWith('#')) {
+      return normalized;
     }
 
     console.error(`URL externa inválida: ${url}`);
