@@ -281,6 +281,7 @@ export default function GhostScene() {
 
         // Grupo do Fantasma
         const ghostGroup = new THREE.Group();
+        ghostGroup.scale.setScalar(params.ghostScale);
         scene.add(ghostGroup);
 
         const ghostGeometry = new THREE.SphereGeometry(2, 40, 40);
@@ -445,12 +446,117 @@ export default function GhostScene() {
         const paneEl = pane.element;
         paneEl.style.position = "fixed"; paneEl.style.top = "20px"; paneEl.style.right = "20px"; paneEl.style.zIndex = "10000";
 
-        // (Simplificando a adição de controlos para brevidade - podes adicionar todos os folders aqui seguindo o padrão)
+        // Inicializar Uniforms de Pós-processamento com valores dos params
+        analogDecayPass.uniforms.uAnalogIntensity.value = params.analogIntensity;
+        analogDecayPass.uniforms.uAnalogGrain.value = params.analogGrain;
+        analogDecayPass.uniforms.uAnalogBleeding.value = params.analogBleeding;
+        analogDecayPass.uniforms.uAnalogVSync.value = params.analogVSync;
+        analogDecayPass.uniforms.uAnalogScanlines.value = params.analogScanlines;
+        analogDecayPass.uniforms.uAnalogVignette.value = params.analogVignette;
+        analogDecayPass.uniforms.uAnalogJitter.value = params.analogJitter;
+        analogDecayPass.uniforms.uLimboMode.value = params.limboMode ? 1.0 : 0.0;
+
+        const colorOptions = Object.keys(fluorescentColors).reduce((acc, key) => {
+            acc[key.charAt(0).toUpperCase() + key.slice(1)] = key;
+            return acc;
+        }, {} as Record<string, string>);
+
         const glowFolder = pane.addFolder({ title: "Glow Effects", expanded: true });
-        glowFolder.addBinding(params, "glowColor", { options: { Cyan: "cyan", Lime: "lime", Magenta: "magenta", Violet: "violet" } }).on("change", (ev) => {
+        glowFolder.addBinding(params, "glowColor", { options: colorOptions }).on("change", (ev) => {
             ghostMaterial.emissive.set(fluorescentColors[ev.value]);
         });
-        // ... Adiciona os restantes controlos conforme necessário ...
+        glowFolder.addBinding(params, "emissiveIntensity", { min: 0, max: 10 });
+        glowFolder.addBinding(params, "pulseSpeed", { min: 0, max: 5 });
+        glowFolder.addBinding(params, "pulseIntensity", { min: 0, max: 2 });
+
+        const appearanceFolder = pane.addFolder({ title: "Appearance", expanded: false });
+        appearanceFolder.addBinding(params, "bodyColor", { view: 'color' }).on("change", (ev) => {
+            ghostMaterial.color.set(ev.value);
+        });
+        appearanceFolder.addBinding(params, "ghostOpacity", { min: 0, max: 1 }).on("change", (ev) => {
+            ghostMaterial.opacity = ev.value;
+        });
+        appearanceFolder.addBinding(params, "ghostScale", { min: 0.1, max: 5 }).on("change", (ev) => {
+             ghostGroup.scale.setScalar(ev.value);
+        });
+        appearanceFolder.addBinding(params, "rimLightIntensity", { min: 0, max: 5 }).on("change", (ev) => {
+            rimLight1.intensity = ev.value;
+            rimLight2.intensity = ev.value * 0.7;
+        });
+
+        const eyesFolder = pane.addFolder({ title: "Eyes", expanded: false });
+        eyesFolder.addBinding(params, "eyeGlowColor", { options: colorOptions }).on("change", (ev) => {
+            const color = fluorescentColors[ev.value];
+            eyes.leftEyeMaterial.color.set(color);
+            eyes.rightEyeMaterial.color.set(color);
+            eyes.leftOuterGlowMaterial.color.set(color);
+            eyes.rightOuterGlowMaterial.color.set(color);
+        });
+        eyesFolder.addBinding(params, "eyeGlowIntensity", { min: 0, max: 10 });
+        eyesFolder.addBinding(params, "eyeGlowDecay", { min: 0.5, max: 0.999 });
+        eyesFolder.addBinding(params, "eyeGlowResponse", { min: 0.01, max: 1.0 });
+
+        const movementFolder = pane.addFolder({ title: "Movement", expanded: false });
+        movementFolder.addBinding(params, "followSpeed", { min: 0.01, max: 0.2 });
+        movementFolder.addBinding(params, "floatSpeed", { min: 0, max: 5 });
+        movementFolder.addBinding(params, "wobbleAmount", { min: 0, max: 1 });
+        movementFolder.addBinding(params, "movementThreshold", { min: 0, max: 0.2 });
+
+        const particlesFolder = pane.addFolder({ title: "Particles", expanded: false });
+        particlesFolder.addBinding(params, "particleCount", { min: 0, max: 1000, step: 1 });
+        particlesFolder.addBinding(params, "particleColor", { options: colorOptions });
+        particlesFolder.addBinding(params, "particleDecayRate", { min: 0.001, max: 0.1 });
+        particlesFolder.addBinding(params, "createParticlesOnlyWhenMoving");
+        particlesFolder.addBinding(params, "particleCreationRate", { min: 1, max: 20, step: 1 });
+
+        const atmosphereFolder = pane.addFolder({ title: "Atmosphere", expanded: false });
+        atmosphereFolder.addBinding(params, "revealRadius", { min: 0, max: 100 }).on("change", (ev) => {
+            atmosphereMaterial.uniforms.revealRadius.value = ev.value;
+        });
+        atmosphereFolder.addBinding(params, "fadeStrength", { min: 0.1, max: 5 }).on("change", (ev) => {
+            atmosphereMaterial.uniforms.fadeStrength.value = ev.value;
+        });
+        atmosphereFolder.addBinding(params, "baseOpacity", { min: 0, max: 1 }).on("change", (ev) => {
+            atmosphereMaterial.uniforms.baseOpacity.value = ev.value;
+        });
+        atmosphereFolder.addBinding(params, "revealOpacity", { min: 0, max: 1 }).on("change", (ev) => {
+            atmosphereMaterial.uniforms.revealOpacity.value = ev.value;
+        });
+
+        const firefliesFolder = pane.addFolder({ title: "Fireflies", expanded: false });
+        firefliesFolder.addBinding(params, "fireflyGlowIntensity", { min: 0, max: 10 }).on("change", (ev) => {
+            fireflies.forEach(f => {
+                const ud = f.userData as any;
+                if (ud.light) ud.light.intensity = ev.value;
+            });
+        });
+        firefliesFolder.addBinding(params, "fireflySpeed", { min: 0, max: 0.5 });
+
+        const postProcFolder = pane.addFolder({ title: "Post Processing", expanded: false });
+        postProcFolder.addBinding(params, "analogIntensity", { min: 0, max: 2 }).on("change", (ev) => {
+             analogDecayPass.uniforms.uAnalogIntensity.value = ev.value;
+        });
+        postProcFolder.addBinding(params, "analogGrain", { min: 0, max: 2 }).on("change", (ev) => {
+             analogDecayPass.uniforms.uAnalogGrain.value = ev.value;
+        });
+        postProcFolder.addBinding(params, "analogBleeding", { min: 0, max: 2 }).on("change", (ev) => {
+             analogDecayPass.uniforms.uAnalogBleeding.value = ev.value;
+        });
+        postProcFolder.addBinding(params, "analogVSync", { min: 0, max: 2 }).on("change", (ev) => {
+             analogDecayPass.uniforms.uAnalogVSync.value = ev.value;
+        });
+        postProcFolder.addBinding(params, "analogScanlines", { min: 0, max: 2 }).on("change", (ev) => {
+             analogDecayPass.uniforms.uAnalogScanlines.value = ev.value;
+        });
+        postProcFolder.addBinding(params, "analogVignette", { min: 0, max: 5 }).on("change", (ev) => {
+             analogDecayPass.uniforms.uAnalogVignette.value = ev.value;
+        });
+        postProcFolder.addBinding(params, "analogJitter", { min: 0, max: 2 }).on("change", (ev) => {
+             analogDecayPass.uniforms.uAnalogJitter.value = ev.value;
+        });
+        postProcFolder.addBinding(params, "limboMode").on('change', (ev) => {
+            analogDecayPass.uniforms.uLimboMode.value = ev.value ? 1.0 : 0.0;
+        });
 
         // Event Listeners
         const mouse = new THREE.Vector2();
