@@ -1,10 +1,10 @@
 'use client';
 
 import { Canvas, useFrame } from '@react-three/fiber';
-import React, { memo, useMemo, useRef } from 'react';
+import React, { memo, useEffect, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 
-function GlassPlane({ accentColor }: { accentColor: string }) {
+export function GlassPlane({ accentColor }: { accentColor: string }) {
   const meshRef = useRef<THREE.Mesh>(null);
 
   const material = useMemo(() => {
@@ -71,7 +71,16 @@ function GlassPlane({ accentColor }: { accentColor: string }) {
     });
 
     return mat;
-  }, [accentColor]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    material.uniforms.uAccent.value.set(accentColor);
+  }, [accentColor, material]);
+
+  useEffect(() => {
+    return () => material.dispose();
+  }, [material]);
 
   useFrame((state) => {
     if (!meshRef.current) return;
