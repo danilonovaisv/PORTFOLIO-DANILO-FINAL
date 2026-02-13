@@ -86,3 +86,77 @@ describe('extractYouTubeId', () => {
     expect(extractYouTubeId('https://www.youtube.com/embed/dQw4w9WgXcQ?v=INVALID')).toBe('dQw4w9WgXcQ');
   });
 });
+
+describe('getGhostAssetUrl', () => {
+  const originalEnv = process.env;
+  let getGhostAssetUrl: (_path?: string | null) => string;
+  let ASSET_PLACEHOLDER: string;
+
+  beforeEach(async () => {
+    jest.resetModules();
+    process.env = {
+      ...originalEnv,
+      NEXT_PUBLIC_SUPABASE_URL: 'https://test-project.supabase.co',
+    };
+
+    // Import the module again so it picks up the new env var in config/brand
+    const utils = await import('@/lib/utils');
+    getGhostAssetUrl = utils.getGhostAssetUrl;
+    ASSET_PLACEHOLDER = utils.ASSET_PLACEHOLDER;
+  });
+
+  afterAll(() => {
+    process.env = originalEnv;
+  });
+
+  it('returns placeholder for null/undefined/empty path', () => {
+    expect(getGhostAssetUrl(null)).toBe('/assets/placeholder.webp');
+    expect(getGhostAssetUrl(undefined)).toBe('/assets/placeholder.webp');
+    expect(getGhostAssetUrl('')).toBe('/assets/placeholder.webp');
+  });
+
+  it('returns valid absolute URLs as is', () => {
+    expect(getGhostAssetUrl('https://example.com/image.png')).toBe(
+      'https://example.com/image.png'
+    );
+    expect(getGhostAssetUrl('http://example.com/image.png')).toBe(
+      'http://example.com/image.png'
+    );
+  });
+
+  it('constructs Supabase URL for relative paths', () => {
+    const path = 'folder/image.png';
+    const result = getGhostAssetUrl(path);
+    // Note: getAssetUrl uses normalized path logic
+    expect(result).toBe(
+      'https://test-project.supabase.co/storage/v1/object/public/folder/image.png'
+    );
+  });
+
+  it('handles exception during processing and returns placeholder', () => {
+    const consoleSpy = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+
+    // Pass an invalid input that causes an error (e.g. invalid object)
+    // to trigger the catch block. casting to any to bypass TS.
+    const invalidInput = {
+      toString: () => {
+        throw new Error('Simulated error');
+      },
+      startsWith: () => {
+        throw new Error('Simulated error');
+      },
+    } as any;
+
+    const result = getGhostAssetUrl(invalidInput);
+
+    expect(result).toBe(ASSET_PLACEHOLDER);
+    expect(consoleSpy).toHaveBeenCalledWith(
+      'Erro ao obter URL do asset:',
+      expect.any(Error)
+    );
+
+    consoleSpy.mockRestore();
+  });
+});
