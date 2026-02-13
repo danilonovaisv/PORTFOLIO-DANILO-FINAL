@@ -6,7 +6,77 @@ import type { DbAsset } from '@/types/admin';
 import { useContentStore } from '@/store/content.store';
 import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 
-// import { RealtimePostgresChangesPayload } from '@supabase/supabase-js';
+// --- Singleton Subscription Manager ---
+let globalChannel: ReturnType<ReturnType<typeof createClientComponentClient>['channel']> | null = null;
+let subscribersCount = 0;
+let unsubscribeTimeout: NodeJS.Timeout | null = null;
+let isConnecting = false;
+
+const subscribeToAssets = async () => {
+  if (unsubscribeTimeout) {
+    clearTimeout(unsubscribeTimeout);
+    unsubscribeTimeout = null;
+  }
+
+  subscribersCount++;
+
+  if (!globalChannel && !isConnecting) {
+    isConnecting = true;
+    const supabase = createClientComponentClient();
+
+    try {
+      // Setup Auth if available
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.access_token) {
+        supabase.realtime.setAuth(session.access_token);
+      }
+    } catch (e) {
+      console.warn('[useRealtimeAssets] Auth setup optional check failed', e);
+    }
+
+    // Double check if still needed (in case all unmounted during await)
+    if (subscribersCount <= 0) {
+      isConnecting = false;
+      return;
+    }
+
+    globalChannel = supabase
+      .channel('site_assets_global')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'site_assets' },
+        (payload: any) => {
+          const newItem = payload.new as DbAsset;
+          // Only process valid updates
+          if (newItem && typeof newItem === 'object') {
+             useContentStore.getState().upsertAsset(newItem);
+          }
+        }
+      )
+      .subscribe((status: string, err: Error | null) => {
+        if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT' || status === 'CLOSED') {
+          console.warn(`[useRealtimeAssets] Global subscription status: ${status}`, err);
+        }
+      });
+
+    isConnecting = false;
+  }
+};
+
+const unsubscribeFromAssets = () => {
+  subscribersCount = Math.max(0, subscribersCount - 1);
+  if (subscribersCount <= 0) {
+    if (unsubscribeTimeout) clearTimeout(unsubscribeTimeout);
+
+    unsubscribeTimeout = setTimeout(async () => {
+      if (subscribersCount <= 0 && globalChannel) {
+        const supabase = createClientComponentClient();
+        await supabase.removeChannel(globalChannel);
+        globalChannel = null;
+      }
+    }, 5000); // 5s debounce
+  }
+};
 
 // Helper to format URL
 const toPublicUrl = (item: DbAsset) =>
@@ -67,12 +137,15 @@ export function useRealtimeAsset(assetKey: string) {
     [assetKey, upsertAsset]
   );
 
+  // 1. State Sync Effect: Handle loading state based on store presence
   useEffect(() => {
-    // 1. Optimistic Cache
-    if (storeAsset) setLoading(false);
+    if (storeAsset) {
+      setLoading(false);
+    }
+  }, [storeAsset]);
 
-    const supabase = createClientComponentClient();
-    let channel: ReturnType<typeof supabase.channel> | null = null;
+  // 2. Polling & Subscription Effect: Manage lifecycle independent of store updates
+  useEffect(() => {
     let isDisposed = false;
     const isMounted = () => !isDisposed;
 
@@ -137,74 +210,17 @@ export function useRealtimeAsset(assetKey: string) {
       scheduleNextPoll();
     });
 
-    // --- Realtime Subscription ---
-    const initializeSubscription = async () => {
-      try {
-        const {
-          data: { session },
-        } = await supabase.auth.getSession();
-        if (session?.access_token && !isDisposed) {
-          supabase.realtime.setAuth(session.access_token);
-        }
-      } catch (authError) {
-        if (!isDisposed)
-          console.error('[useRealtimeAsset] Auth config failed:', authError);
-      }
-
-      if (isDisposed) return;
-
-      channel = supabase
-        .channel(`site_assets_${assetKey}`) // Unique channel per asset to avoid conflicts? Or single channel? 'site_assets' is fine for broadcast if filtered.
-        .on(
-          'broadcast',
-          { event: 'site_assets' },
-          (payload: { payload?: { new?: DbAsset } }) => {
-            const newData = payload.payload?.new;
-            if (newData && newData.key === assetKey) {
-              upsertAsset(newData);
-              setLoading(false);
-              setError(null);
-            }
-          }
-        )
-        .subscribe((status: string, err?: Error) => {
-          if (status === 'SUBSCRIBED') {
-            // If realtime works, we can relax polling even more?
-            // For now, keep "activeInterval" as 15s is not too aggressive.
-            // But if functionality assumes realtime is primary, we could stop polling.
-            // The original code stopped polling on SUBSCRIBED.
-            // Let's keep that optimization but maintain visibility check for "reconnect".
-            // Actually, let's keep polling as backup/sync.
-            // stopPolling(); // Removed to allow polling as backup
-          }
-
-          if (
-            status === 'TIMED_OUT' ||
-            status === 'CHANNEL_ERROR' ||
-            status === 'CLOSED'
-          ) {
-            if (err && !isDisposed) {
-              console.warn('[useRealtimeAsset] Subscription error:', err);
-              // Don't set main Error state, just relying on polling
-            }
-            // Ensure polling is active
-            if (!pollingTimerRef.current) scheduleNextPoll();
-          }
-        });
-    };
-
-    void initializeSubscription();
+    // --- Join Global Subscription ---
+    void subscribeToAssets();
 
     return () => {
       isDisposed = true;
       stopPolling();
+      unsubscribeFromAssets();
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('focus', handleVisibilityChange);
-      if (channel) {
-        void supabase.removeChannel(channel);
-      }
     };
-  }, [assetKey, upsertAsset, fetchInitial, storeAsset]); // Added missing deps
+  }, [assetKey, fetchInitial]); // Removed storeAsset to prevent re-execution on updates
 
   const assetWithUrl = storeAsset
     ? {

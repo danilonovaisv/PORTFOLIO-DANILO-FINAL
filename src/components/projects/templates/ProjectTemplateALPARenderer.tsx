@@ -27,6 +27,7 @@ import { DEFAULT_CAPTIONS } from '@/lib/video';
 const LiquidEther = dynamic(() => import('./LiquidEther'), { ssr: false });
 const DEFAULT_ETHER_COLORS = ['#5227FF', '#FF9FFC', '#B19EEF'];
 const VIDEO_PATTERN = /\.(mp4|webm|ogg|mov)$/i;
+const YOUTUBE_HOST_WHITELIST = ['youtube.com', 'm.youtube.com'];
 const YOUTUBE_PATTERN =
   /(youtu\.be\/|youtube\.com\/watch\?v=|youtube\.com\/embed\/|youtube\.com\/shorts\/)/i;
 
@@ -115,7 +116,7 @@ const getYouTubeId = (url: string): string | null => {
       return id.length === 11 ? id : null;
     }
 
-    if (host.endsWith('youtube.com')) {
+    if (YOUTUBE_HOST_WHITELIST.includes(host)) {
       const videoParam = parsed.searchParams.get('v');
       if (videoParam && videoParam.length === 11) return videoParam;
 

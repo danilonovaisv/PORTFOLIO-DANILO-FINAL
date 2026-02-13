@@ -113,14 +113,14 @@ export function extractYouTubeId(value?: string | null): string | null {
 
   try {
     const parsed = new URL(withProtocol);
-    const host = parsed.hostname.replace(/^www\./, '');
+    const hostname = parsed.hostname;
 
-    if (host === 'youtu.be') {
+    if (hostname === 'youtu.be') {
       const id = parsed.pathname.replace('/', '');
       return YOUTUBE_ID_DIRECT_PATTERN.test(id) ? id : null;
     }
 
-    if (host.endsWith('youtube.com')) {
+    if (hostname === 'youtube.com' || hostname.endsWith('.youtube.com')) {
       const vParam = parsed.searchParams.get('v');
       if (vParam && YOUTUBE_ID_DIRECT_PATTERN.test(vParam)) return vParam;
 
