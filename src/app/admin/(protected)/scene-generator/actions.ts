@@ -43,6 +43,16 @@ const SHOT_DIRECTIONS = [
   'Detail shot cinematográfico com foco em textura e materialidade',
 ] as const;
 
+const MODEL_PROMPT_STYLES: Record<AIModel, string> = {
+  'dall-e-3': 'Crie uma cena publicitária fotorrealista e premium.',
+  'nano-banana':
+    'Crie uma cena publicitária altamente estilizada e artística. Foco em criatividade visual, cores vibrantes e composição única (estilo Nano Banana).',
+  flow: 'Crie uma cena publicitária com foco em fluxo criativo dinâmico. Use linhas orgânicas, iluminação suave e dinâmica para transmitir energia e leveza.',
+  whisky:
+    'Crie uma cena publicitária com estética cinematográfica sofisticada. Use iluminação dramática, tons ricos, contraste elegante e textura de filme premium.',
+  sora: 'Geração de vídeo não suportada neste modo.',
+};
+
 /**
  * AD SCENE GENERATOR
  * Generates realistic advertising scenes using various AI models.
@@ -164,8 +174,11 @@ export async function generateAdScenes(
           .join('\n')
       : 'Nenhuma referência anexada.';
 
+  const promptStyle =
+    MODEL_PROMPT_STYLES[model] || MODEL_PROMPT_STYLES['dall-e-3'];
+
   const promptBase = [
-    'Crie uma cena publicitária fotorrealista e premium.',
+    promptStyle,
     'Regras obrigatórias:',
     "- Sem textos ilegíveis ou marcas d'água.",
     '- Composição editorial limpa e iluminação cinematográfica.',
@@ -181,13 +194,20 @@ export async function generateAdScenes(
   ].join('\n');
 
   try {
-    // Currently only DALL-E 3 is implemented
-    if (model === 'dall-e-3') {
+    // Supported image generation models (Sora is video only)
+    const supportedModels = new Set<AIModel>([
+      'dall-e-3',
+      'nano-banana',
+      'flow',
+      'whisky',
+    ]);
+
+    if (supportedModels.has(model)) {
       const results = await Promise.all(
         Array.from({ length: batchSize }, (_, index) => {
           const shot = SHOT_DIRECTIONS[index] ?? SHOT_DIRECTIONS[0];
           return openai.images.generate({
-            model: 'dall-e-3',
+            model: 'dall-e-3', // Use DALL-E 3 engine for all style presets
             prompt: `${promptBase}\n\nVariação ${index + 1}: ${shot}.`,
             n: 1,
             size: outputSize,
@@ -202,10 +222,10 @@ export async function generateAdScenes(
       return { success: true, images, model, requestPayload };
     }
 
-    // Placeholder for other models
+    // Placeholder for other models (e.g. Sora)
     return {
       success: false,
-      error: `Modelo ${model} não implementado ainda.`,
+      error: `Modelo ${model} não implementado para geração de imagens.`,
       requestPayload,
     };
   } catch (error: unknown) {
