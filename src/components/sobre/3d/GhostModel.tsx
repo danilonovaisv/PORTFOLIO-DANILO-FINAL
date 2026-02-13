@@ -7,7 +7,6 @@ import { GLTF } from 'three-stdlib';
 import { MotionValue } from 'framer-motion';
 import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
-import { getSupabaseStorageUrl } from '@/lib/supabase/storage-url';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -24,9 +23,8 @@ type GLTFResult = GLTF & {
   };
 };
 
-const GHOST_MODEL_URL = getSupabaseStorageUrl(
-  'site-assets/about/beliefs/ghost-transformed.glb'
-);
+const GHOST_URL =
+  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb';
 
 interface GhostModelProps {
   scrollProgress: MotionValue<number>;
@@ -41,17 +39,17 @@ const GhostModel: React.FC<GhostModelProps> = ({
   const { viewport } = useThree();
 
   const { asset } = useRealtimeAsset(SITE_ASSET_KEYS.about.beliefs.ghostModel);
-  const modelUrl = asset?.publicUrl || GHOST_MODEL_URL;
+  const modelUrl = asset?.publicUrl || GHOST_URL;
 
   const { nodes, materials } = useGLTF(modelUrl) as unknown as GLTFResult;
 
   // Configuração responsiva refinada para Mobile/Desktop - Posições Absolutas
   const config = useMemo(
     () => ({
-      // Desktop: Deslocado para esquerda para não sobrepor texto à direita (-1.5)
+      // Desktop: Centralizado (0)
       // Mobile: Canto esquerdo superior (ajuste negativo em X, positivo em Y)
       // 🟣 [CONFIG VISUAL]: Posição Base X - Define onde o Ghost começa horizontalmente (Desktop vs Mobile)
-      baseX: isMobile ? -viewport.width / 3 : -1.5,
+      baseX: isMobile ? -viewport.width / 3 : 0,
 
       // Desktop: ancorado no centro do viewport
       // Mobile: 17% do topo (alinhado com título)
@@ -271,7 +269,7 @@ const GhostModel: React.FC<GhostModelProps> = ({
 
 // Only preload in browser environment
 if (typeof window !== 'undefined') {
-  useGLTF.preload(GHOST_MODEL_URL);
+  useGLTF.preload(GHOST_URL);
 }
 
 export default GhostModel;

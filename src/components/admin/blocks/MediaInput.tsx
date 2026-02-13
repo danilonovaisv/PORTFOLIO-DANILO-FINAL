@@ -86,18 +86,18 @@ export function MediaInput({
               />
             </div>
           ) : type === 'image' ? (
-            <div className="relative min-h-[12.5rem] max-h-[25rem] w-full flex justify-center bg-black/40">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
+            <div className="relative min-h-50 max-h-100 w-full flex justify-center bg-black/40">
+
               <img
                 src={displaySrc}
                 alt="Preview"
-                className="h-full w-auto max-h-[25rem] object-contain"
+                className="h-full w-auto max-h-100 object-contain"
               />
             </div>
           ) : (
             <video
               src={displaySrc}
-              className="w-full max-h-[25rem] object-contain"
+              className="w-full max-h-100 object-contain"
               controls
               muted
               loop

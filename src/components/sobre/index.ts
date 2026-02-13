@@ -3,21 +3,21 @@
 
 // Page Sections
 export {
-  AboutHero,
-  AboutOrigin,
-  AboutWhatIDo,
-  AboutMethod,
-  AboutBeliefs,
-  AboutClosing,
+    AboutHero,
+    AboutOrigin,
+    AboutWhatIDo,
+    AboutMethod,
+    AboutBeliefs,
+    AboutClosing,
 } from './sections';
 
 // Belief Components
 export {
-  BeliefSection,
-  BeliefMobileTextLayer,
-  BeliefFinalSection,
-  BeliefFixedHeader,
-  BeliefFinalSectionOverlay,
+    BeliefSection,
+    BeliefMobileTextLayer,
+    BeliefFinalSection,
+    BeliefFixedHeader,
+    BeliefFinalSectionOverlay,
 } from './beliefs';
 
 // 3D Components
