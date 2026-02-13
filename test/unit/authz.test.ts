@@ -12,13 +12,13 @@ const createUser = (
     app_metadata: appMetadata,
     user_metadata: userMetadata,
     aud: 'authenticated',
-    created_at: new Date().toISOString(),
+    created_at: '2023-01-01T00:00:00.000Z',
     email: email,
     phone: '',
-    confirmed_at: new Date().toISOString(),
-    last_sign_in_at: new Date().toISOString(),
+    confirmed_at: '2023-01-01T00:00:00.000Z',
+    last_sign_in_at: '2023-01-01T00:00:00.000Z',
     role: 'authenticated',
-    updated_at: new Date().toISOString(),
+    updated_at: '2023-01-01T00:00:00.000Z',
   } as User;
 };
 
