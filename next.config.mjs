@@ -6,15 +6,7 @@ import withBundleAnalyzer from '@next/bundle-analyzer';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DEFAULT_SUPABASE_HOST = 'umkmwbkwvulxtdodzmzf.supabase.co';
-const isFirebaseFrameworksBuild =
-  Boolean(process.env.FIREBASE_CONFIG) ||
-  Boolean(process.env.GCLOUD_PROJECT) ||
-  Boolean(process.env.__FIREBASE_FRAMEWORKS_ENTRY__);
-const deployDistDir = process.env.NEXT_DIST_DIR
-  ? process.env.NEXT_DIST_DIR
-  : isFirebaseFrameworksBuild
-    ? '.next-firebase'
-    : '.next';
+const deployDistDir = '.next';
 
 const buildSupabaseHosts = () => {
   const mainUrl =

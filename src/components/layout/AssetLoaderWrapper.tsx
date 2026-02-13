@@ -15,7 +15,6 @@ export default function AssetLoaderWrapper({
   children,
 }: AssetLoaderWrapperProps) {
   const [assets, setAssets] = useState<NormalizedSiteAsset[]>([]);
-  const [assetsLoaded, setAssetsLoaded] = useState(false);
   const isDev = process.env.NODE_ENV !== 'production';
 
   useEffect(() => {
@@ -66,8 +65,6 @@ export default function AssetLoaderWrapper({
             );
           }
         }
-      } finally {
-        setAssetsLoaded(true);
       }
     };
 
@@ -95,13 +92,7 @@ export default function AssetLoaderWrapper({
       window.removeEventListener('focus', handleWindowFocus);
       document.removeEventListener('visibilitychange', handleVisibility);
     };
-  }, []);
-
-  // If assets haven't loaded yet, render the children without the provider
-  // This allows the page to render while assets are being fetched
-  if (!assetsLoaded) {
-    return <ClientLayout>{children}</ClientLayout>;
-  }
+  }, [isDev]);
 
   return (
     <ErrorBoundary>
