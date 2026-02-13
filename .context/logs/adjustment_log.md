@@ -226,3 +226,10 @@
 - Integration: Added `npm run deep-clean`.
 - Status: Script ready, but environment locked (EPERM on node_modules) blocking execution. Requires system restart.
 - Created `docs/audits/AUDIT-2026-02-13.md` with action plan.
+[2026-02-13] [Self-Healing] [Documentation] Executed `/sync-docs-and-knowledge` workflow:
+- **Knowledge Graph**: Updated with correct stores (`ExperienceStore`, `PortfolioModalStore`), updated renderer nodes (`GhostScene` vs dead `Ghost.tsx`), and current audit findings.
+- **Design System**: Synchronized tokens with `globals.css` (CTA min-widths: 181/201/241px, added `pinkDetails`) and updated Z-index layers (`z-55`, `z-65` debug layers).
+- **Verification**: Codebase structure scanned via `find`. Dead code marked as deprecated.
+[2026-02-13] [Supabase Fixer] Refatoração do Middleware de Auth para corrigir loops de login e estabilidade de sessão.
+[2026-02-13] [Admin] Implementação de suporte nativo a YouTube Iframe (`getYoutubeId`) no Editor V3, corrigindo playback.
+[2026-02-13] [Database] Criação de migration `20240320_fix_rls_and_storage.sql` para habilitar acesso público e escrita autenticada em Buckets.

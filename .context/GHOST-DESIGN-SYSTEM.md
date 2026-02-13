@@ -18,11 +18,12 @@
 | :--- | :--- | :--- | :--- |
 | **Brand Primary** | `--color-bluePrimary` | `#0048ff` | Primary CTAs, key interactive elements, "Solid" state. |
 | **Ghost Accent** | `--color-blueAccent` | `#4fe6ff` | Ethereal glows, secondary highlights, "Spectral" state. |
+| **Pink Details** | `--color-pinkDetails` | `#f501d3` | Extra detail highlights, glitch effects. |
 | **Void Black** | `--background` | `#040013` | The infinite background. Absolute distinct from "Black". |
 | **Deep Neutral** | `--color-neutral` | `#0b0d3a` | Gradients, deep cards, subtle surfaces. |
 | **Text Primary** | `--color-text` | `#fcffff` | Main content. High contrast but not harsh white. |
 | **Text Secondary** | `--color-textSecondary` | `#a1a3a3` | Metadata, captions, deactivated states. |
-| **Details (Purple)**| `--color-purpleDetails`| `#8705f2` | **Exception:** Allowed on Hover states and specific "glitch" anomalies. |
+| **Details (Purple)** | `--color-purpleDetails` | `#8705f2` | **Exception:** Allowed on Hover states and specific "glitch" anomalies. |
 | **System Red** | `--color-redAccent` | `#E50914` | Errors, destructive actions, or high-alert system status. |
 
 ### 1.2 Typography
@@ -39,11 +40,11 @@
 | :--- | :--- | :--- | :--- | :--- |
 | `.text-display` | `4.5rem` (72px) | `2.5rem` (40px) | Black (900) | 1.1 |
 | `.text-h1` | `3.5rem` (56px) | `2rem` (32px) | Bold (700) | 1.1 |
-| `.text-h2` | `2.5rem` (40px) | `1.5rem` (24px) | SemiBold (600)| 1.15 |
+| `.text-h2` | `2.5rem` (40px) | `1.5rem` (24px) | SemiBold (600) | 1.15 |
 | `.text-h3` | `1.75rem` (28px) | `1.25rem` (20px) | Medium (500) | 1.2 |
 | `.text-body-enhanced` | `1.25rem` (20px) | `1.125rem` (18px) | Medium (500) | 1.5 |
-| `.text-body` | `1.125rem` (18px)| `1.25rem` ~ `1.375rem` (20px ~ 22px) | Medium (500) | 1.4 |
-| `.text-small` | `0.875rem` (14px)| `0.875rem` | Regular | 1.4 |
+| `.text-body` | `1.125rem` (18px) | `1.25rem` ~ `1.375rem` (20px ~ 22px) | Medium (500) | 1.4 |
+| `.text-small` | `0.875rem` (14px) | `0.875rem` | Regular | 1.4 |
 | `.text-micro` | `0.75rem` (12px) | `0.75rem` | Mono | 1.4 |
 
 **Mobile Readability Token (mandatory):**
@@ -71,7 +72,9 @@
 - `z-20`: **Primary Content** (text/images)
 - `z-30`: **Canvas/R3F FX** (3D between base and final overlays)
 - `z-50`: **Final Overlays/Modals**
-- `z-[60]`: **Critical Mobile Text Layer** (exception, when guaranteed readability is required)
+- `z-55`: **Header Promotion** (Header above 3D Scene)
+- `z-[60]`: **Critical Mobile Text Layer**
+- `z-65`: **Topmost Overlays/Debug**
 - `z-cursor`: **Custom Cursor** (Topmost)
 
 ---
@@ -154,9 +157,9 @@
 - **Default Landing CTA:** label `vamos trabalhar juntos →` + href `/#contact` + color `#0048ff`.
 
 - **Sizing (Fixed Min-Widths):**
-  - **Mobile:** `min-w-[180px]` (`min-w-cta-mobile`)
-  - **Tablet:** `min-w-[200px]` (`min-w-cta-tablet`)
-  - **Desktop:** `min-w-[220px]` (`min-w-cta-desktop`)
+  - **Mobile:** `181px` (`min-w-cta-mobile`)
+  - **Tablet:** `201px` (`min-w-cta-tablet`)
+  - **Desktop:** `241px` (`min-w-cta-desktop`)
 - **Behavior (The "Ghost" Interaction):**
   - **Idle:** Pill `Blue 500` + Circle `Blue 500`.
   - **Hover:** Pill `Blue 500` (Static) + Circle `Purple` (`#8705f2`).
