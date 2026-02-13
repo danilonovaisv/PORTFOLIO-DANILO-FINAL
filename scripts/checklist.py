@@ -24,7 +24,7 @@ import sys
 import subprocess
 import argparse
 from pathlib import Path
-from typing import List, Tuple, Optional
+from typing import List, Optional, Sequence, Union
 
 # ANSI colors for terminal output
 class Colors:
@@ -66,7 +66,7 @@ CORE_CHECKS = [
 
 PERFORMANCE_CHECKS = [
     ("Lighthouse Audit", ".agent/skills/performance-profiling/scripts/lighthouse_audit.py", True),
-    ("Playwright E2E", ".agent/skills/webapp-testing/scripts/playwright_runner.py", False),
+    ("Playwright E2E", ["pnpm", "run", "test:e2e"], False),
 ]
 
 def check_script_exists(script_path: Path) -> bool:
@@ -121,6 +121,44 @@ def run_script(name: str, script_path: Path, project_path: str, url: Optional[st
         print_error(f"{name}: TIMEOUT (>5 minutes)")
         return {"name": name, "passed": False, "output": "", "error": "Timeout", "skipped": False}
     
+    except Exception as e:
+        print_error(f"{name}: ERROR - {str(e)}")
+        return {"name": name, "passed": False, "output": "", "error": str(e), "skipped": False}
+
+def run_command(name: str, cmd: Sequence[str], cwd: Path) -> dict:
+    """Run a command-based check (e.g., pnpm scripts)."""
+    print_step(f"Running: {name}")
+
+    try:
+        result = subprocess.run(
+            list(cmd),
+            cwd=str(cwd),
+            capture_output=True,
+            text=True,
+            timeout=900,
+        )
+
+        passed = result.returncode == 0
+
+        if passed:
+            print_success(f"{name}: PASSED")
+        else:
+            print_error(f"{name}: FAILED")
+            if result.stderr:
+                print(f"  Error: {result.stderr[:200]}")
+
+        return {
+            "name": name,
+            "passed": passed,
+            "output": result.stdout,
+            "error": result.stderr,
+            "skipped": False,
+        }
+
+    except subprocess.TimeoutExpired:
+        print_error(f"{name}: TIMEOUT (>15 minutes)")
+        return {"name": name, "passed": False, "output": "", "error": "Timeout", "skipped": False}
+
     except Exception as e:
         print_error(f"{name}: ERROR - {str(e)}")
         return {"name": name, "passed": False, "output": "", "error": str(e), "skipped": False}
@@ -189,8 +227,8 @@ Examples:
     
     # Run core checks
     print_header("📋 CORE CHECKS")
-    for name, script_path, required in CORE_CHECKS:
-        script = project_path / script_path
+    for name, runner, required in CORE_CHECKS:
+        script = project_path / runner
         result = run_script(name, script, str(project_path))
         results.append(result)
         
@@ -203,9 +241,12 @@ Examples:
     # Run performance checks if URL provided
     if args.url and not args.skip_performance:
         print_header("⚡ PERFORMANCE CHECKS")
-        for name, script_path, required in PERFORMANCE_CHECKS:
-            script = project_path / script_path
-            result = run_script(name, script, str(project_path), args.url)
+        for name, runner, required in PERFORMANCE_CHECKS:
+            if isinstance(runner, (list, tuple)):
+                result = run_command(name, runner, project_path)
+            else:
+                script = project_path / runner
+                result = run_script(name, script, str(project_path), args.url)
             results.append(result)
     
     # Print summary

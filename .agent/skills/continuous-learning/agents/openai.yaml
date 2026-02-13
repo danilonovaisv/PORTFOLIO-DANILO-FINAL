@@ -1,7 +1,0 @@
-interface:
-  display_name: "Continuous Learning"
-  short_description: "Extract reusable patterns from sessions"
-  icon_small: "./assets/icon-small.svg"
-  icon_large: "./assets/icon-large.svg"
-  brand_color: "#16A34A"
-  default_prompt: "Use $continuous-learning to extract reusable patterns from this session."

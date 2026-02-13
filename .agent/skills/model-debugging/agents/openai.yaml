@@ -1,7 +1,0 @@
-interface:
-  display_name: "Model Debugging"
-  short_description: "Diagnose Pollinations model/service errors"
-  icon_small: "./assets/icon-small.svg"
-  icon_large: "./assets/icon-large.svg"
-  brand_color: "#14B8A6"
-  default_prompt: "Use $model-debugging to investigate these model errors."

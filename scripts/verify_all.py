@@ -26,7 +26,7 @@ import sys
 import subprocess
 import argparse
 from pathlib import Path
-from typing import List, Dict, Optional
+from typing import List, Optional, Sequence, Union
 from datetime import datetime
 
 # ANSI colors
@@ -126,7 +126,7 @@ VERIFICATION_SUITE = [
         "category": "E2E Testing",
         "requires_url": True,
         "checks": [
-            ("Playwright E2E", ".agent/skills/webapp-testing/scripts/playwright_runner.py", False),
+            ("Playwright E2E", ["pnpm", "run", "test:e2e"], False),
         ]
     },
     
@@ -194,6 +194,49 @@ def run_script(name: str, script_path: Path, project_path: str, url: Optional[st
         print_error(f"{name}: TIMEOUT (>{duration:.0f}s)")
         return {"name": name, "passed": False, "skipped": False, "duration": duration, "error": "Timeout"}
     
+    except Exception as e:
+        duration = (datetime.now() - start_time).total_seconds()
+        print_error(f"{name}: ERROR - {str(e)}")
+        return {"name": name, "passed": False, "skipped": False, "duration": duration, "error": str(e)}
+
+def run_command(name: str, cmd: Sequence[str], cwd: Path) -> dict:
+    """Run a command-based check (e.g., pnpm scripts)."""
+    print_step(f"Running: {name}")
+    start_time = datetime.now()
+
+    try:
+        result = subprocess.run(
+            list(cmd),
+            cwd=str(cwd),
+            capture_output=True,
+            text=True,
+            timeout=900,  # allow longer for e2e
+        )
+
+        duration = (datetime.now() - start_time).total_seconds()
+        passed = result.returncode == 0
+
+        if passed:
+            print_success(f"{name}: PASSED ({duration:.1f}s)")
+        else:
+            print_error(f"{name}: FAILED ({duration:.1f}s)")
+            if result.stderr:
+                print(f"  {result.stderr[:300]}")
+
+        return {
+            "name": name,
+            "passed": passed,
+            "output": result.stdout,
+            "error": result.stderr,
+            "skipped": False,
+            "duration": duration,
+        }
+
+    except subprocess.TimeoutExpired:
+        duration = (datetime.now() - start_time).total_seconds()
+        print_error(f"{name}: TIMEOUT (>{duration:.0f}s)")
+        return {"name": name, "passed": False, "skipped": False, "duration": duration, "error": "Timeout"}
+
     except Exception as e:
         duration = (datetime.now() - start_time).total_seconds()
         print_error(f"{name}: ERROR - {str(e)}")
@@ -306,9 +349,12 @@ Examples:
         
         print_header(f"📋 {category.upper()}")
         
-        for name, script_path, required in suite["checks"]:
-            script = project_path / script_path
-            result = run_script(name, script, str(project_path), args.url)
+        for name, runner, required in suite["checks"]:
+            if isinstance(runner, (list, tuple)):
+                result = run_command(name, runner, project_path)
+            else:
+                script = project_path / runner
+                result = run_script(name, script, str(project_path), args.url)
             result["category"] = category
             results.append(result)
             

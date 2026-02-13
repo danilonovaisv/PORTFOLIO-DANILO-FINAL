@@ -1,7 +1,0 @@
-interface:
-  display_name: "n8n Integration"
-  short_description: "Integrate n8n workflows with React/Next.js"
-  icon_small: "./assets/icon-small.svg"
-  icon_large: "./assets/icon-large.svg"
-  brand_color: "#06B6D4"
-  default_prompt: "Use $n8n-integration to plan and implement this n8n workflow."

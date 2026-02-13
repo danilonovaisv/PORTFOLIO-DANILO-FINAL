@@ -332,7 +332,7 @@ python .agent/skills/frontend-design/scripts/ux_audit.py .
 python .agent/skills/performance-profiling/scripts/lighthouse_audit.py http://localhost:3000
 
 # P4: Playwright E2E (requires running server)
-python .agent/skills/webapp-testing/scripts/playwright_runner.py http://localhost:3000 --screenshot
+pnpm run test:e2e
 ```
 
 #### 3. Build Verification
@@ -348,7 +348,7 @@ npm run build
 npm run dev
 
 # Optional: Run Playwright tests if available
-python .agent/skills/webapp-testing/scripts/playwright_runner.py http://localhost:3000 --screenshot
+pnpm run test:e2e
 ```
 
 #### 4. Rule Compliance (Manual Check)
@@ -403,4 +403,3 @@ python .agent/skills/webapp-testing/scripts/playwright_runner.py http://localhos
 | 10 | **Phase X** | Verification is ALWAYS final | Definition of done |
 
 ---
-
