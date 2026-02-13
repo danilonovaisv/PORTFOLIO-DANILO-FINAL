@@ -141,12 +141,18 @@ export default function FeaturedProjectsRealtime({
               startPolling();
             }
             if (status === 'CHANNEL_ERROR' && isDev) {
-              console.warn('[FeaturedProjectsRealtime] Subscription error:', err);
+              console.warn(
+                '[FeaturedProjectsRealtime] Subscription error:',
+                err
+              );
             }
           });
       } catch (error) {
         if (isDev) {
-          console.warn('[FeaturedProjectsRealtime] Realtime setup failed:', error);
+          console.warn(
+            '[FeaturedProjectsRealtime] Realtime setup failed:',
+            error
+          );
         }
       }
     };

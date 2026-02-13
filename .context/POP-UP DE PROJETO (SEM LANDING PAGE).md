@@ -1,4 +1,3 @@
-
 # POP-UP DE PROJETO (SEM LANDING PAGE)
 
 ## Modal Dinâmico para Cards do Portfólio
@@ -50,7 +49,7 @@ Informações do projeto
 
 # 4. ESTRUTURA DE DADOS
 
-```ts
+````ts
 interface PortfolioProject {
   id: string
   title: string
@@ -320,3 +319,4 @@ Se quiser, posso agora:
 Escolha a próxima etapa.
 
 
+````
