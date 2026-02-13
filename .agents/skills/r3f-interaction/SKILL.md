@@ -8,8 +8,8 @@ description: React Three Fiber interaction - pointer events, controls, gestures,
 ## Quick Start
 
 ```tsx
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
 
 function InteractiveMesh() {
   return (
@@ -21,7 +21,7 @@ function InteractiveMesh() {
       <boxGeometry />
       <meshStandardMaterial color="hotpink" />
     </mesh>
-  )
+  );
 }
 
 export default function App() {
@@ -31,7 +31,7 @@ export default function App() {
       <InteractiveMesh />
       <OrbitControls />
     </Canvas>
-  )
+  );
 }
 ```
 
@@ -44,25 +44,22 @@ R3F provides built-in pointer events on mesh elements.
 ```tsx
 <mesh
   // Click events
-  onClick={(e) => {}}           // Click (pointerdown + pointerup on same object)
-  onDoubleClick={(e) => {}}     // Double click
-  onContextMenu={(e) => {}}     // Right click
-
+  onClick={(e) => {}} // Click (pointerdown + pointerup on same object)
+  onDoubleClick={(e) => {}} // Double click
+  onContextMenu={(e) => {}} // Right click
   // Pointer events
-  onPointerDown={(e) => {}}     // Pointer pressed
-  onPointerUp={(e) => {}}       // Pointer released
-  onPointerMove={(e) => {}}     // Pointer moved while over object
-  onPointerOver={(e) => {}}     // Pointer enters object
-  onPointerOut={(e) => {}}      // Pointer leaves object
-  onPointerEnter={(e) => {}}    // Pointer enters object (no bubbling)
-  onPointerLeave={(e) => {}}    // Pointer leaves object (no bubbling)
-  onPointerMissed={(e) => {}}   // Click that missed all objects
-
+  onPointerDown={(e) => {}} // Pointer pressed
+  onPointerUp={(e) => {}} // Pointer released
+  onPointerMove={(e) => {}} // Pointer moved while over object
+  onPointerOver={(e) => {}} // Pointer enters object
+  onPointerOut={(e) => {}} // Pointer leaves object
+  onPointerEnter={(e) => {}} // Pointer enters object (no bubbling)
+  onPointerLeave={(e) => {}} // Pointer leaves object (no bubbling)
+  onPointerMissed={(e) => {}} // Click that missed all objects
   // Wheel
-  onWheel={(e) => {}}           // Mouse wheel
-
+  onWheel={(e) => {}} // Mouse wheel
   // Touch
-  onPointerCancel={(e) => {}}   // Touch cancelled
+  onPointerCancel={(e) => {}} // Touch cancelled
 >
   <boxGeometry />
   <meshStandardMaterial />
@@ -75,59 +72,59 @@ R3F provides built-in pointer events on mesh elements.
 function InteractiveMesh() {
   const handleClick = (event) => {
     // Stop propagation to parent objects
-    event.stopPropagation()
+    event.stopPropagation();
 
     // Event properties
     console.log({
-      object: event.object,           // The mesh that was clicked
-      point: event.point,             // World coordinates of intersection
-      distance: event.distance,       // Distance from camera
-      face: event.face,               // Intersected face
-      faceIndex: event.faceIndex,     // Face index
-      uv: event.uv,                   // UV coordinates at intersection
-      normal: event.normal,           // Face normal
-      camera: event.camera,           // Current camera
-      ray: event.ray,                 // Ray used for intersection
+      object: event.object, // The mesh that was clicked
+      point: event.point, // World coordinates of intersection
+      distance: event.distance, // Distance from camera
+      face: event.face, // Intersected face
+      faceIndex: event.faceIndex, // Face index
+      uv: event.uv, // UV coordinates at intersection
+      normal: event.normal, // Face normal
+      camera: event.camera, // Current camera
+      ray: event.ray, // Ray used for intersection
       intersections: event.intersections, // All intersections
       nativeEvent: event.nativeEvent, // Original DOM event
-      delta: event.delta,             // Click distance (useful for drag detection)
-    })
-  }
+      delta: event.delta, // Click distance (useful for drag detection)
+    });
+  };
 
   return (
     <mesh onClick={handleClick}>
       <boxGeometry />
       <meshStandardMaterial />
     </mesh>
-  )
+  );
 }
 ```
 
 ### Hover Effects
 
 ```tsx
-import { useState } from 'react'
+import { useState } from 'react';
 
 function HoverableMesh() {
-  const [hovered, setHovered] = useState(false)
+  const [hovered, setHovered] = useState(false);
 
   return (
     <mesh
       onPointerOver={(e) => {
-        e.stopPropagation()
-        setHovered(true)
-        document.body.style.cursor = 'pointer'
+        e.stopPropagation();
+        setHovered(true);
+        document.body.style.cursor = 'pointer';
       }}
       onPointerOut={(e) => {
-        setHovered(false)
-        document.body.style.cursor = 'default'
+        setHovered(false);
+        document.body.style.cursor = 'default';
       }}
       scale={hovered ? 1.2 : 1}
     >
       <boxGeometry />
       <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
     </mesh>
-  )
+  );
 }
 ```
 
@@ -155,7 +152,7 @@ function HoverableMesh() {
 ### OrbitControls
 
 ```tsx
-import { OrbitControls } from '@react-three/drei'
+import { OrbitControls } from '@react-three/drei';
 
 function Scene() {
   return (
@@ -166,8 +163,8 @@ function Scene() {
       </mesh>
 
       <OrbitControls
-        makeDefault                    // Use as default controls
-        enableDamping                  // Smooth movement
+        makeDefault // Use as default controls
+        enableDamping // Smooth movement
         dampingFactor={0.05}
         enableZoom={true}
         enablePan={true}
@@ -176,36 +173,36 @@ function Scene() {
         autoRotateSpeed={2}
         minDistance={2}
         maxDistance={50}
-        minPolarAngle={0}              // Top limit
-        maxPolarAngle={Math.PI / 2}    // Horizon limit
+        minPolarAngle={0} // Top limit
+        maxPolarAngle={Math.PI / 2} // Horizon limit
         minAzimuthAngle={-Math.PI / 4} // Left limit
-        maxAzimuthAngle={Math.PI / 4}  // Right limit
-        target={[0, 1, 0]}             // Look-at point
+        maxAzimuthAngle={Math.PI / 4} // Right limit
+        target={[0, 1, 0]} // Look-at point
       />
     </>
-  )
+  );
 }
 ```
 
 ### OrbitControls with Ref
 
 ```tsx
-import { OrbitControls } from '@react-three/drei'
-import { useRef, useEffect } from 'react'
+import { OrbitControls } from '@react-three/drei';
+import { useRef, useEffect } from 'react';
 
 function Scene() {
-  const controlsRef = useRef()
+  const controlsRef = useRef();
 
   useEffect(() => {
     // Access controls methods
     if (controlsRef.current) {
-      controlsRef.current.reset()
-      controlsRef.current.target.set(0, 1, 0)
-      controlsRef.current.update()
+      controlsRef.current.reset();
+      controlsRef.current.target.set(0, 1, 0);
+      controlsRef.current.update();
     }
-  }, [])
+  }, []);
 
-  return <OrbitControls ref={controlsRef} />
+  return <OrbitControls ref={controlsRef} />;
 }
 ```
 
@@ -214,14 +211,14 @@ function Scene() {
 Top-down map-style controls.
 
 ```tsx
-import { MapControls } from '@react-three/drei'
+import { MapControls } from '@react-three/drei';
 
 <MapControls
   enableDamping
   dampingFactor={0.05}
-  screenSpacePanning={false}  // Pan in world space
+  screenSpacePanning={false} // Pan in world space
   maxPolarAngle={Math.PI / 2}
-/>
+/>;
 ```
 
 ### FlyControls
@@ -229,13 +226,9 @@ import { MapControls } from '@react-three/drei'
 Free-flying camera controls.
 
 ```tsx
-import { FlyControls } from '@react-three/drei'
+import { FlyControls } from '@react-three/drei';
 
-<FlyControls
-  movementSpeed={10}
-  rollSpeed={Math.PI / 24}
-  dragToLook
-/>
+<FlyControls movementSpeed={10} rollSpeed={Math.PI / 24} dragToLook />;
 ```
 
 ### FirstPersonControls
@@ -243,13 +236,9 @@ import { FlyControls } from '@react-three/drei'
 FPS-style controls.
 
 ```tsx
-import { FirstPersonControls } from '@react-three/drei'
+import { FirstPersonControls } from '@react-three/drei';
 
-<FirstPersonControls
-  movementSpeed={10}
-  lookSpeed={0.1}
-  lookVertical
-/>
+<FirstPersonControls movementSpeed={10} lookSpeed={0.1} lookVertical />;
 ```
 
 ### PointerLockControls
@@ -257,11 +246,11 @@ import { FirstPersonControls } from '@react-three/drei'
 Lock pointer for FPS games.
 
 ```tsx
-import { PointerLockControls } from '@react-three/drei'
-import { useRef } from 'react'
+import { PointerLockControls } from '@react-three/drei';
+import { useRef } from 'react';
 
 function Scene() {
-  const controlsRef = useRef()
+  const controlsRef = useRef();
 
   return (
     <>
@@ -273,7 +262,7 @@ function Scene() {
         <meshBasicMaterial color="green" />
       </mesh>
     </>
-  )
+  );
 }
 ```
 
@@ -282,20 +271,24 @@ function Scene() {
 Advanced camera controls with smooth transitions.
 
 ```tsx
-import { CameraControls } from '@react-three/drei'
-import { useRef } from 'react'
+import { CameraControls } from '@react-three/drei';
+import { useRef } from 'react';
 
 function Scene() {
-  const controlsRef = useRef()
+  const controlsRef = useRef();
 
   const focusOnObject = async () => {
     // Smooth transition to target
     await controlsRef.current?.setLookAt(
-      5, 3, 5,    // Camera position
-      0, 0, 0,    // Look-at target
-      true        // Enable transition
-    )
-  }
+      5,
+      3,
+      5, // Camera position
+      0,
+      0,
+      0, // Look-at target
+      true // Enable transition
+    );
+  };
 
   return (
     <>
@@ -306,7 +299,7 @@ function Scene() {
         <meshStandardMaterial color="red" />
       </mesh>
     </>
-  )
+  );
 }
 ```
 
@@ -315,14 +308,14 @@ function Scene() {
 Unconstrained rotation controls.
 
 ```tsx
-import { TrackballControls } from '@react-three/drei'
+import { TrackballControls } from '@react-three/drei';
 
 <TrackballControls
   rotateSpeed={2.0}
   zoomSpeed={1.2}
   panSpeed={0.8}
   staticMoving={true}
-/>
+/>;
 ```
 
 ### ArcballControls
@@ -330,12 +323,9 @@ import { TrackballControls } from '@react-three/drei'
 Arc-based rotation controls.
 
 ```tsx
-import { ArcballControls } from '@react-three/drei'
+import { ArcballControls } from '@react-three/drei';
 
-<ArcballControls
-  enableAnimations
-  dampingFactor={25}
-/>
+<ArcballControls enableAnimations dampingFactor={25} />;
 ```
 
 ## Transform Controls
@@ -343,13 +333,13 @@ import { ArcballControls } from '@react-three/drei'
 Gizmo for moving/rotating/scaling objects.
 
 ```tsx
-import { TransformControls, OrbitControls } from '@react-three/drei'
-import { useRef, useState } from 'react'
+import { TransformControls, OrbitControls } from '@react-three/drei';
+import { useRef, useState } from 'react';
 
 function Scene() {
-  const meshRef = useRef()
-  const [mode, setMode] = useState('translate')
-  const orbitRef = useRef()
+  const meshRef = useRef();
+  const [mode, setMode] = useState('translate');
+  const orbitRef = useRef();
 
   return (
     <>
@@ -357,14 +347,14 @@ function Scene() {
 
       <TransformControls
         object={meshRef}
-        mode={mode}  // 'translate' | 'rotate' | 'scale'
-        space="local"  // 'local' | 'world'
+        mode={mode} // 'translate' | 'rotate' | 'scale'
+        space="local" // 'local' | 'world'
         onMouseDown={() => {
           // Disable orbit while transforming
-          if (orbitRef.current) orbitRef.current.enabled = false
+          if (orbitRef.current) orbitRef.current.enabled = false;
         }}
         onMouseUp={() => {
-          if (orbitRef.current) orbitRef.current.enabled = true
+          if (orbitRef.current) orbitRef.current.enabled = true;
         }}
       />
 
@@ -380,7 +370,7 @@ function Scene() {
         <button onClick={() => setMode('scale')}>Scale</button>
       </div>
     </>
-  )
+  );
 }
 ```
 
@@ -389,24 +379,24 @@ function Scene() {
 Alternative transform gizmo with pivot point.
 
 ```tsx
-import { PivotControls } from '@react-three/drei'
+import { PivotControls } from '@react-three/drei';
 
 function Scene() {
   return (
     <PivotControls
-      anchor={[0, 0, 0]}         // Anchor point
-      depthTest={false}          // Always visible
-      lineWidth={2}              // Axis line width
+      anchor={[0, 0, 0]} // Anchor point
+      depthTest={false} // Always visible
+      lineWidth={2} // Axis line width
       axisColors={['red', 'green', 'blue']}
-      scale={1}                  // Gizmo scale
-      fixed={false}              // Fixed screen size
+      scale={1} // Gizmo scale
+      fixed={false} // Fixed screen size
     >
       <mesh>
         <boxGeometry />
         <meshStandardMaterial color="orange" />
       </mesh>
     </PivotControls>
-  )
+  );
 }
 ```
 
@@ -419,43 +409,43 @@ npm install @use-gesture/react
 ```
 
 ```tsx
-import { useDrag } from '@use-gesture/react'
-import { useSpring, animated } from '@react-spring/three'
-import { useThree } from '@react-three/fiber'
+import { useDrag } from '@use-gesture/react';
+import { useSpring, animated } from '@react-spring/three';
+import { useThree } from '@react-three/fiber';
 
 function DraggableMesh() {
-  const { size, viewport } = useThree()
-  const aspect = size.width / viewport.width
+  const { size, viewport } = useThree();
+  const aspect = size.width / viewport.width;
 
   const [spring, api] = useSpring(() => ({
     position: [0, 0, 0],
-    config: { mass: 1, tension: 280, friction: 60 }
-  }))
+    config: { mass: 1, tension: 280, friction: 60 },
+  }));
 
   const bind = useDrag(({ movement: [mx, my], down }) => {
     api.start({
-      position: down ? [mx / aspect, -my / aspect, 0] : [0, 0, 0]
-    })
-  })
+      position: down ? [mx / aspect, -my / aspect, 0] : [0, 0, 0],
+    });
+  });
 
   return (
     <animated.mesh {...bind()} position={spring.position}>
       <boxGeometry />
       <meshStandardMaterial color="hotpink" />
     </animated.mesh>
-  )
+  );
 }
 ```
 
 ### DragControls (Drei)
 
 ```tsx
-import { DragControls, OrbitControls } from '@react-three/drei'
-import { useRef } from 'react'
+import { DragControls, OrbitControls } from '@react-three/drei';
+import { useRef } from 'react';
 
 function Scene() {
-  const meshRef = useRef()
-  const orbitRef = useRef()
+  const meshRef = useRef();
+  const orbitRef = useRef();
 
   return (
     <>
@@ -463,10 +453,10 @@ function Scene() {
 
       <DragControls
         onDragStart={() => {
-          if (orbitRef.current) orbitRef.current.enabled = false
+          if (orbitRef.current) orbitRef.current.enabled = false;
         }}
         onDragEnd={() => {
-          if (orbitRef.current) orbitRef.current.enabled = true
+          if (orbitRef.current) orbitRef.current.enabled = true;
         }}
       >
         <mesh ref={meshRef}>
@@ -475,7 +465,7 @@ function Scene() {
         </mesh>
       </DragControls>
     </>
-  )
+  );
 }
 ```
 
@@ -484,9 +474,9 @@ function Scene() {
 ### KeyboardControls (Drei)
 
 ```tsx
-import { KeyboardControls, useKeyboardControls } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber'
-import { useRef } from 'react'
+import { KeyboardControls, useKeyboardControls } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
+import { useRef } from 'react';
 
 // Define key mappings
 const keyMap = [
@@ -496,30 +486,30 @@ const keyMap = [
   { name: 'right', keys: ['ArrowRight', 'KeyD'] },
   { name: 'jump', keys: ['Space'] },
   { name: 'sprint', keys: ['ShiftLeft'] },
-]
+];
 
 function Player() {
-  const meshRef = useRef()
-  const [, getKeys] = useKeyboardControls()
+  const meshRef = useRef();
+  const [, getKeys] = useKeyboardControls();
 
   useFrame((state, delta) => {
-    const { forward, backward, left, right, jump, sprint } = getKeys()
+    const { forward, backward, left, right, jump, sprint } = getKeys();
 
-    const speed = sprint ? 10 : 5
+    const speed = sprint ? 10 : 5;
 
-    if (forward) meshRef.current.position.z -= speed * delta
-    if (backward) meshRef.current.position.z += speed * delta
-    if (left) meshRef.current.position.x -= speed * delta
-    if (right) meshRef.current.position.x += speed * delta
-    if (jump) meshRef.current.position.y += speed * delta
-  })
+    if (forward) meshRef.current.position.z -= speed * delta;
+    if (backward) meshRef.current.position.z += speed * delta;
+    if (left) meshRef.current.position.x -= speed * delta;
+    if (right) meshRef.current.position.x += speed * delta;
+    if (jump) meshRef.current.position.y += speed * delta;
+  });
 
   return (
     <mesh ref={meshRef}>
       <boxGeometry />
       <meshStandardMaterial color="blue" />
     </mesh>
-  )
+  );
 }
 
 export default function App() {
@@ -530,26 +520,26 @@ export default function App() {
         <Player />
       </Canvas>
     </KeyboardControls>
-  )
+  );
 }
 ```
 
 ### Subscribe to Key Changes
 
 ```tsx
-import { useKeyboardControls } from '@react-three/drei'
-import { useEffect } from 'react'
+import { useKeyboardControls } from '@react-three/drei';
+import { useEffect } from 'react';
 
 function KeyListener() {
-  const jumpPressed = useKeyboardControls((state) => state.jump)
+  const jumpPressed = useKeyboardControls((state) => state.jump);
 
   useEffect(() => {
     if (jumpPressed) {
-      console.log('Jump!')
+      console.log('Jump!');
     }
-  }, [jumpPressed])
+  }, [jumpPressed]);
 
-  return null
+  return null;
 }
 ```
 
@@ -558,20 +548,24 @@ function KeyListener() {
 ### Click to Select
 
 ```tsx
-import { useState } from 'react'
+import { useState } from 'react';
 
 function SelectableScene() {
-  const [selected, setSelected] = useState(null)
+  const [selected, setSelected] = useState(null);
 
   return (
     <>
-      {[[-2, 0, 0], [0, 0, 0], [2, 0, 0]].map((position, i) => (
+      {[
+        [-2, 0, 0],
+        [0, 0, 0],
+        [2, 0, 0],
+      ].map((position, i) => (
         <mesh
           key={i}
           position={position}
           onClick={(e) => {
-            e.stopPropagation()
-            setSelected(i)
+            e.stopPropagation();
+            setSelected(i);
           }}
         >
           <boxGeometry />
@@ -593,47 +587,48 @@ function SelectableScene() {
         <meshStandardMaterial color="gray" />
       </mesh>
     </>
-  )
+  );
 }
 ```
 
 ### Multi-Select with Outline
 
 ```tsx
-import { useState } from 'react'
-import { EffectComposer, Outline, Selection, Select } from '@react-three/postprocessing'
+import { useState } from 'react';
+import {
+  EffectComposer,
+  Outline,
+  Selection,
+  Select,
+} from '@react-three/postprocessing';
 
 function MultiSelectScene() {
-  const [selected, setSelected] = useState(new Set())
+  const [selected, setSelected] = useState(new Set());
 
   const toggleSelect = (id, event) => {
-    event.stopPropagation()
+    event.stopPropagation();
     setSelected((prev) => {
-      const next = new Set(prev)
+      const next = new Set(prev);
       if (event.shiftKey) {
         // Multi-select with shift
         if (next.has(id)) {
-          next.delete(id)
+          next.delete(id);
         } else {
-          next.add(id)
+          next.add(id);
         }
       } else {
         // Single select
-        next.clear()
-        next.add(id)
+        next.clear();
+        next.add(id);
       }
-      return next
-    })
-  }
+      return next;
+    });
+  };
 
   return (
     <Selection>
       <EffectComposer autoClear={false}>
-        <Outline
-          blur
-          visibleEdgeColor={0xffffff}
-          edgeStrength={10}
-        />
+        <Outline blur visibleEdgeColor={0xffffff} edgeStrength={10} />
       </EffectComposer>
 
       {[0, 1, 2, 3, 4].map((id) => (
@@ -648,7 +643,7 @@ function MultiSelectScene() {
         </Select>
       ))}
     </Selection>
-  )
+  );
 }
 ```
 
@@ -657,64 +652,60 @@ function MultiSelectScene() {
 ### Get World Position from Click
 
 ```tsx
-import { useThree } from '@react-three/fiber'
-import * as THREE from 'three'
+import { useThree } from '@react-three/fiber';
+import * as THREE from 'three';
 
 function ClickToPlace() {
-  const { camera, raycaster, pointer } = useThree()
-  const planeRef = useRef()
+  const { camera, raycaster, pointer } = useThree();
+  const planeRef = useRef();
 
   const handleClick = (event) => {
     // Create intersection plane
-    const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0)
-    const intersection = new THREE.Vector3()
+    const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+    const intersection = new THREE.Vector3();
 
     // Cast ray from pointer
-    raycaster.setFromCamera(pointer, camera)
-    raycaster.ray.intersectPlane(plane, intersection)
+    raycaster.setFromCamera(pointer, camera);
+    raycaster.ray.intersectPlane(plane, intersection);
 
-    console.log('World position:', intersection)
-  }
+    console.log('World position:', intersection);
+  };
 
   return (
-    <mesh
-      ref={planeRef}
-      rotation={[-Math.PI / 2, 0, 0]}
-      onClick={handleClick}
-    >
+    <mesh ref={planeRef} rotation={[-Math.PI / 2, 0, 0]} onClick={handleClick}>
       <planeGeometry args={[100, 100]} />
       <meshBasicMaterial visible={false} />
     </mesh>
-  )
+  );
 }
 ```
 
 ### World Position to Screen Position
 
 ```tsx
-import { useThree, useFrame } from '@react-three/fiber'
-import { Html } from '@react-three/drei'
-import * as THREE from 'three'
+import { useThree, useFrame } from '@react-three/fiber';
+import { Html } from '@react-three/drei';
+import * as THREE from 'three';
 
 function WorldToScreen({ target }) {
-  const { camera, size } = useThree()
+  const { camera, size } = useThree();
 
   const getScreenPosition = (worldPos) => {
-    const vector = worldPos.clone()
-    vector.project(camera)
+    const vector = worldPos.clone();
+    vector.project(camera);
 
     return {
       x: (vector.x * 0.5 + 0.5) * size.width,
-      y: (1 - (vector.y * 0.5 + 0.5)) * size.height
-    }
-  }
+      y: (1 - (vector.y * 0.5 + 0.5)) * size.height,
+    };
+  };
 
   // Or use Html component which handles this automatically
   return (
     <Html position={target}>
       <div className="label">Label</div>
     </Html>
-  )
+  );
 }
 ```
 
@@ -723,62 +714,62 @@ function WorldToScreen({ target }) {
 ### usePinch and useWheel
 
 ```tsx
-import { usePinch, useWheel } from '@use-gesture/react'
-import { useSpring, animated } from '@react-spring/three'
+import { usePinch, useWheel } from '@use-gesture/react';
+import { useSpring, animated } from '@react-spring/three';
 
 function ZoomableMesh() {
   const [spring, api] = useSpring(() => ({
     scale: 1,
-    config: { mass: 1, tension: 200, friction: 30 }
-  }))
+    config: { mass: 1, tension: 200, friction: 30 },
+  }));
 
   usePinch(
     ({ offset: [s] }) => {
-      api.start({ scale: s })
+      api.start({ scale: s });
     },
     { target: window }
-  )
+  );
 
   useWheel(
     ({ delta: [, dy] }) => {
-      api.start({ scale: spring.scale.get() - dy * 0.001 })
+      api.start({ scale: spring.scale.get() - dy * 0.001 });
     },
     { target: window }
-  )
+  );
 
   return (
     <animated.mesh scale={spring.scale}>
       <boxGeometry />
       <meshStandardMaterial color="cyan" />
     </animated.mesh>
-  )
+  );
 }
 ```
 
 ## Scroll Controls
 
 ```tsx
-import { Canvas } from '@react-three/fiber'
-import { ScrollControls, Scroll, useScroll } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber'
-import { useRef } from 'react'
+import { Canvas } from '@react-three/fiber';
+import { ScrollControls, Scroll, useScroll } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
+import { useRef } from 'react';
 
 function AnimatedOnScroll() {
-  const meshRef = useRef()
-  const scroll = useScroll()
+  const meshRef = useRef();
+  const scroll = useScroll();
 
   useFrame(() => {
-    const offset = scroll.offset // 0 to 1
-    meshRef.current.rotation.y = offset * Math.PI * 2
-    meshRef.current.position.y = offset * 5
-  })
+    const offset = scroll.offset; // 0 to 1
+    meshRef.current.rotation.y = offset * Math.PI * 2;
+    meshRef.current.position.y = offset * 5;
+  });
 
   return (
     <mesh ref={meshRef}>
       <boxGeometry />
       <meshStandardMaterial color="orange" />
     </mesh>
-  )
+  );
 }
 
 export default function App() {
@@ -797,7 +788,7 @@ export default function App() {
         </Scroll>
       </ScrollControls>
     </Canvas>
-  )
+  );
 }
 ```
 
@@ -806,18 +797,18 @@ export default function App() {
 For product showcases with limited rotation.
 
 ```tsx
-import { PresentationControls } from '@react-three/drei'
+import { PresentationControls } from '@react-three/drei';
 
 function ProductShowcase() {
   return (
     <PresentationControls
-      global                 // Apply to whole scene
-      snap                   // Snap back when released
-      speed={1}              // Rotation speed
-      zoom={1}               // Zoom speed
-      rotation={[0, 0, 0]}   // Initial rotation
-      polar={[-Math.PI / 4, Math.PI / 4]}    // Vertical limits
-      azimuth={[-Math.PI / 4, Math.PI / 4]}  // Horizontal limits
+      global // Apply to whole scene
+      snap // Snap back when released
+      speed={1} // Rotation speed
+      zoom={1} // Zoom speed
+      rotation={[0, 0, 0]} // Initial rotation
+      polar={[-Math.PI / 4, Math.PI / 4]} // Vertical limits
+      azimuth={[-Math.PI / 4, Math.PI / 4]} // Horizontal limits
       config={{ mass: 1, tension: 170, friction: 26 }}
     >
       <mesh>
@@ -825,7 +816,7 @@ function ProductShowcase() {
         <meshStandardMaterial color="gold" />
       </mesh>
     </PresentationControls>
-  )
+  );
 }
 ```
 
@@ -854,27 +845,28 @@ function OptimizedInteraction() {
         <meshBasicMaterial visible={false} />
       </mesh>
     </group>
-  )
+  );
 }
 
 // Throttle pointer move events
-import { useMemo, useCallback } from 'react'
-import throttle from 'lodash/throttle'
+import { useMemo, useCallback } from 'react';
+import throttle from 'lodash/throttle';
 
 function ThrottledHover() {
   const handleMove = useMemo(
-    () => throttle((e) => {
-      console.log('Move', e.point)
-    }, 100),
+    () =>
+      throttle((e) => {
+        console.log('Move', e.point);
+      }, 100),
     []
-  )
+  );
 
   return (
     <mesh onPointerMove={handleMove}>
       <boxGeometry />
       <meshStandardMaterial />
     </mesh>
-  )
+  );
 }
 ```
 

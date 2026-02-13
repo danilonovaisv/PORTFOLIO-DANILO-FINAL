@@ -11,61 +11,275 @@ const ROOT = path.resolve(__dirname, '..');
 const SKILLS_DIR = path.join(ROOT, 'skills');
 
 const STOPWORDS = new Set([
-  'a', 'an', 'and', 'are', 'as', 'at', 'be', 'but', 'by', 'for', 'from', 'has', 'have', 'in', 'into',
-  'is', 'it', 'its', 'of', 'on', 'or', 'our', 'out', 'over', 'that', 'the', 'their', 'they', 'this',
-  'to', 'use', 'when', 'with', 'you', 'your', 'will', 'can', 'if', 'not', 'only', 'also', 'more',
-  'best', 'practice', 'practices', 'expert', 'specialist', 'focused', 'focus', 'master', 'modern',
-  'advanced', 'comprehensive', 'production', 'production-ready', 'ready', 'build', 'create', 'deliver',
-  'design', 'implement', 'implementation', 'strategy', 'strategies', 'patterns', 'pattern', 'workflow',
-  'workflows', 'guide', 'template', 'templates', 'tool', 'tools', 'project', 'projects', 'support',
-  'manage', 'management', 'system', 'systems', 'services', 'service', 'across', 'end', 'end-to-end',
-  'using', 'based', 'ensure', 'ensure', 'help', 'needs', 'need', 'focuses', 'handles', 'builds', 'make',
+  'a',
+  'an',
+  'and',
+  'are',
+  'as',
+  'at',
+  'be',
+  'but',
+  'by',
+  'for',
+  'from',
+  'has',
+  'have',
+  'in',
+  'into',
+  'is',
+  'it',
+  'its',
+  'of',
+  'on',
+  'or',
+  'our',
+  'out',
+  'over',
+  'that',
+  'the',
+  'their',
+  'they',
+  'this',
+  'to',
+  'use',
+  'when',
+  'with',
+  'you',
+  'your',
+  'will',
+  'can',
+  'if',
+  'not',
+  'only',
+  'also',
+  'more',
+  'best',
+  'practice',
+  'practices',
+  'expert',
+  'specialist',
+  'focused',
+  'focus',
+  'master',
+  'modern',
+  'advanced',
+  'comprehensive',
+  'production',
+  'production-ready',
+  'ready',
+  'build',
+  'create',
+  'deliver',
+  'design',
+  'implement',
+  'implementation',
+  'strategy',
+  'strategies',
+  'patterns',
+  'pattern',
+  'workflow',
+  'workflows',
+  'guide',
+  'template',
+  'templates',
+  'tool',
+  'tools',
+  'project',
+  'projects',
+  'support',
+  'manage',
+  'management',
+  'system',
+  'systems',
+  'services',
+  'service',
+  'across',
+  'end',
+  'end-to-end',
+  'using',
+  'based',
+  'ensure',
+  'ensure',
+  'help',
+  'needs',
+  'need',
+  'focuses',
+  'handles',
+  'builds',
+  'make',
 ]);
 
 const TAG_STOPWORDS = new Set([
-  'pro', 'expert', 'patterns', 'pattern', 'workflow', 'workflows', 'templates', 'template', 'toolkit',
-  'tools', 'tool', 'project', 'projects', 'guide', 'management', 'engineer', 'architect', 'developer',
-  'specialist', 'assistant', 'analysis', 'review', 'reviewer', 'automation', 'orchestration', 'scaffold',
-  'scaffolding', 'implementation', 'strategy', 'context', 'management', 'feature', 'features', 'smart',
-  'system', 'systems', 'design', 'development', 'development', 'test', 'testing', 'workflow',
+  'pro',
+  'expert',
+  'patterns',
+  'pattern',
+  'workflow',
+  'workflows',
+  'templates',
+  'template',
+  'toolkit',
+  'tools',
+  'tool',
+  'project',
+  'projects',
+  'guide',
+  'management',
+  'engineer',
+  'architect',
+  'developer',
+  'specialist',
+  'assistant',
+  'analysis',
+  'review',
+  'reviewer',
+  'automation',
+  'orchestration',
+  'scaffold',
+  'scaffolding',
+  'implementation',
+  'strategy',
+  'context',
+  'management',
+  'feature',
+  'features',
+  'smart',
+  'system',
+  'systems',
+  'design',
+  'development',
+  'development',
+  'test',
+  'testing',
+  'workflow',
 ]);
 
 const CATEGORY_RULES = [
   {
     name: 'security',
     keywords: [
-      'security', 'sast', 'compliance', 'privacy', 'threat', 'vulnerability', 'owasp', 'pci', 'gdpr',
-      'secrets', 'risk', 'malware', 'forensics', 'attack', 'incident', 'auth', 'mtls', 'zero', 'trust',
+      'security',
+      'sast',
+      'compliance',
+      'privacy',
+      'threat',
+      'vulnerability',
+      'owasp',
+      'pci',
+      'gdpr',
+      'secrets',
+      'risk',
+      'malware',
+      'forensics',
+      'attack',
+      'incident',
+      'auth',
+      'mtls',
+      'zero',
+      'trust',
     ],
   },
   {
     name: 'infrastructure',
     keywords: [
-      'kubernetes', 'k8s', 'helm', 'terraform', 'cloud', 'network', 'devops', 'gitops', 'prometheus',
-      'grafana', 'observability', 'monitoring', 'logging', 'tracing', 'deployment', 'istio', 'linkerd',
-      'service', 'mesh', 'slo', 'sre', 'oncall', 'incident', 'pipeline', 'cicd', 'ci', 'cd', 'kafka',
+      'kubernetes',
+      'k8s',
+      'helm',
+      'terraform',
+      'cloud',
+      'network',
+      'devops',
+      'gitops',
+      'prometheus',
+      'grafana',
+      'observability',
+      'monitoring',
+      'logging',
+      'tracing',
+      'deployment',
+      'istio',
+      'linkerd',
+      'service',
+      'mesh',
+      'slo',
+      'sre',
+      'oncall',
+      'incident',
+      'pipeline',
+      'cicd',
+      'ci',
+      'cd',
+      'kafka',
     ],
   },
   {
     name: 'data-ai',
     keywords: [
-      'data', 'database', 'db', 'sql', 'postgres', 'mysql', 'analytics', 'etl', 'warehouse', 'dbt',
-      'ml', 'ai', 'llm', 'rag', 'vector', 'embedding', 'spark', 'airflow', 'cdc', 'pipeline',
+      'data',
+      'database',
+      'db',
+      'sql',
+      'postgres',
+      'mysql',
+      'analytics',
+      'etl',
+      'warehouse',
+      'dbt',
+      'ml',
+      'ai',
+      'llm',
+      'rag',
+      'vector',
+      'embedding',
+      'spark',
+      'airflow',
+      'cdc',
+      'pipeline',
     ],
   },
   {
     name: 'development',
     keywords: [
-      'python', 'javascript', 'typescript', 'java', 'golang', 'go', 'rust', 'csharp', 'dotnet', 'php',
-      'ruby', 'node', 'react', 'frontend', 'backend', 'mobile', 'ios', 'android', 'flutter', 'fastapi',
-      'django', 'nextjs', 'vue', 'api',
+      'python',
+      'javascript',
+      'typescript',
+      'java',
+      'golang',
+      'go',
+      'rust',
+      'csharp',
+      'dotnet',
+      'php',
+      'ruby',
+      'node',
+      'react',
+      'frontend',
+      'backend',
+      'mobile',
+      'ios',
+      'android',
+      'flutter',
+      'fastapi',
+      'django',
+      'nextjs',
+      'vue',
+      'api',
     ],
   },
   {
     name: 'architecture',
     keywords: [
-      'architecture', 'c4', 'microservices', 'event', 'cqrs', 'saga', 'domain', 'ddd', 'patterns',
-      'decision', 'adr',
+      'architecture',
+      'c4',
+      'microservices',
+      'event',
+      'cqrs',
+      'saga',
+      'domain',
+      'ddd',
+      'patterns',
+      'decision',
+      'adr',
     ],
   },
   {
@@ -75,47 +289,126 @@ const CATEGORY_RULES = [
   {
     name: 'business',
     keywords: [
-      'business', 'market', 'sales', 'finance', 'startup', 'legal', 'hr', 'product', 'customer', 'seo',
-      'marketing', 'kpi', 'contract', 'employment',
+      'business',
+      'market',
+      'sales',
+      'finance',
+      'startup',
+      'legal',
+      'hr',
+      'product',
+      'customer',
+      'seo',
+      'marketing',
+      'kpi',
+      'contract',
+      'employment',
     ],
   },
   {
     name: 'workflow',
-    keywords: ['workflow', 'orchestration', 'conductor', 'automation', 'process', 'collaboration'],
+    keywords: [
+      'workflow',
+      'orchestration',
+      'conductor',
+      'automation',
+      'process',
+      'collaboration',
+    ],
   },
 ];
 
 const BUNDLE_RULES = {
   'core-dev': {
-    description: 'Core development skills across languages, frameworks, and backend/frontend fundamentals.',
+    description:
+      'Core development skills across languages, frameworks, and backend/frontend fundamentals.',
     keywords: [
-      'python', 'javascript', 'typescript', 'go', 'golang', 'rust', 'java', 'node', 'frontend', 'backend',
-      'react', 'fastapi', 'django', 'nextjs', 'api', 'mobile', 'ios', 'android', 'flutter', 'php', 'ruby',
+      'python',
+      'javascript',
+      'typescript',
+      'go',
+      'golang',
+      'rust',
+      'java',
+      'node',
+      'frontend',
+      'backend',
+      'react',
+      'fastapi',
+      'django',
+      'nextjs',
+      'api',
+      'mobile',
+      'ios',
+      'android',
+      'flutter',
+      'php',
+      'ruby',
     ],
   },
   'security-core': {
     description: 'Security, privacy, and compliance essentials.',
     keywords: [
-      'security', 'sast', 'compliance', 'threat', 'risk', 'privacy', 'secrets', 'owasp', 'gdpr', 'pci',
-      'vulnerability', 'auth',
+      'security',
+      'sast',
+      'compliance',
+      'threat',
+      'risk',
+      'privacy',
+      'secrets',
+      'owasp',
+      'gdpr',
+      'pci',
+      'vulnerability',
+      'auth',
     ],
   },
   'k8s-core': {
     description: 'Kubernetes and service mesh essentials.',
-    keywords: ['kubernetes', 'k8s', 'helm', 'istio', 'linkerd', 'service', 'mesh'],
+    keywords: [
+      'kubernetes',
+      'k8s',
+      'helm',
+      'istio',
+      'linkerd',
+      'service',
+      'mesh',
+    ],
   },
   'data-core': {
     description: 'Data engineering and analytics foundations.',
     keywords: [
-      'data', 'database', 'sql', 'dbt', 'airflow', 'spark', 'analytics', 'etl', 'warehouse', 'postgres',
-      'mysql', 'kafka',
+      'data',
+      'database',
+      'sql',
+      'dbt',
+      'airflow',
+      'spark',
+      'analytics',
+      'etl',
+      'warehouse',
+      'postgres',
+      'mysql',
+      'kafka',
     ],
   },
   'ops-core': {
     description: 'Operations, observability, and delivery pipelines.',
     keywords: [
-      'observability', 'monitoring', 'logging', 'tracing', 'prometheus', 'grafana', 'devops', 'gitops',
-      'deployment', 'cicd', 'pipeline', 'slo', 'sre', 'incident',
+      'observability',
+      'monitoring',
+      'logging',
+      'tracing',
+      'prometheus',
+      'grafana',
+      'devops',
+      'gitops',
+      'deployment',
+      'cicd',
+      'pipeline',
+      'slo',
+      'sre',
+      'incident',
     ],
   },
 };
@@ -144,18 +437,18 @@ const CURATED_COMMON = [
 ];
 
 function normalizeTokens(tokens) {
-  return unique(tokens.map(token => token.toLowerCase())).filter(Boolean);
+  return unique(tokens.map((token) => token.toLowerCase())).filter(Boolean);
 }
 
 function deriveTags(skill) {
   let tags = Array.isArray(skill.tags) ? skill.tags : [];
-  tags = tags.map(tag => tag.toLowerCase()).filter(Boolean);
+  tags = tags.map((tag) => tag.toLowerCase()).filter(Boolean);
 
   if (!tags.length) {
     tags = skill.id
       .split('-')
-      .map(tag => tag.toLowerCase())
-      .filter(tag => tag && !TAG_STOPWORDS.has(tag));
+      .map((tag) => tag.toLowerCase())
+      .filter((tag) => tag && !TAG_STOPWORDS.has(tag));
   }
 
   return normalizeTokens(tags);
@@ -181,13 +474,14 @@ function detectCategory(skill, tags) {
 }
 
 function buildTriggers(skill, tags) {
-  const tokens = tokenize(`${skill.name} ${skill.description}`)
-    .filter(token => token.length >= 2 && !STOPWORDS.has(token));
+  const tokens = tokenize(`${skill.name} ${skill.description}`).filter(
+    (token) => token.length >= 2 && !STOPWORDS.has(token)
+  );
   return unique([...tags, ...tokens]).slice(0, 12);
 }
 
 function buildAliases(skills) {
-  const existingIds = new Set(skills.map(skill => skill.id));
+  const existingIds = new Set(skills.map((skill) => skill.id));
   const aliases = {};
   const used = new Set();
 
@@ -211,9 +505,10 @@ function buildAliases(skills) {
       deduped.push(token);
     }
 
-    const aliasTokens = deduped.length > 3
-      ? [deduped[0], deduped[1], deduped[deduped.length - 1]]
-      : deduped;
+    const aliasTokens =
+      deduped.length > 3
+        ? [deduped[0], deduped[1], deduped[deduped.length - 1]]
+        : deduped;
     const alias = unique(aliasTokens).join('-');
 
     if (!alias || alias === skill.id) continue;
@@ -241,11 +536,11 @@ function buildBundles(skills) {
 
   for (const [bundleName, rule] of Object.entries(BUNDLE_RULES)) {
     const bundleSkills = [];
-    const keywords = rule.keywords.map(keyword => keyword.toLowerCase());
+    const keywords = rule.keywords.map((keyword) => keyword.toLowerCase());
 
     for (const skill of skills) {
       const tokenSet = skillTokens.get(skill.id) || new Set();
-      if (keywords.some(keyword => tokenSet.has(keyword))) {
+      if (keywords.some((keyword) => tokenSet.has(keyword))) {
         bundleSkills.push(skill.id);
       }
     }
@@ -256,7 +551,7 @@ function buildBundles(skills) {
     };
   }
 
-  const common = CURATED_COMMON.filter(skillId => skillTokens.has(skillId));
+  const common = CURATED_COMMON.filter((skillId) => skillTokens.has(skillId));
 
   return { bundles, common };
 }
@@ -275,19 +570,28 @@ function renderCatalogMarkdown(catalog) {
   lines.push(`Total skills: ${catalog.total}`);
   lines.push('');
 
-  const categories = Array.from(new Set(catalog.skills.map(skill => skill.category))).sort();
+  const categories = Array.from(
+    new Set(catalog.skills.map((skill) => skill.category))
+  ).sort();
   for (const category of categories) {
-    const grouped = catalog.skills.filter(skill => skill.category === category);
+    const grouped = catalog.skills.filter(
+      (skill) => skill.category === category
+    );
     lines.push(`## ${category} (${grouped.length})`);
     lines.push('');
     lines.push('| Skill | Description | Tags | Triggers |');
     lines.push('| --- | --- | --- | --- |');
 
     for (const skill of grouped) {
-      const description = truncate(skill.description, 160).replace(/\|/g, '\\|');
+      const description = truncate(skill.description, 160).replace(
+        /\|/g,
+        '\\|'
+      );
       const tags = skill.tags.join(', ');
       const triggers = skill.triggers.join(', ');
-      lines.push(`| \`${skill.id}\` | ${description} | ${tags} | ${triggers} |`);
+      lines.push(
+        `| \`${skill.id}\` | ${description} | ${tags} | ${triggers} |`
+      );
     }
 
     lines.push('');
@@ -298,7 +602,7 @@ function renderCatalogMarkdown(catalog) {
 
 function buildCatalog() {
   const skillRelPaths = listSkillIdsRecursive(SKILLS_DIR);
-  const skills = skillRelPaths.map(relPath => readSkill(SKILLS_DIR, relPath));
+  const skills = skillRelPaths.map((relPath) => readSkill(SKILLS_DIR, relPath));
   const catalogSkills = [];
 
   for (const skill of skills) {
@@ -318,11 +622,15 @@ function buildCatalog() {
   }
 
   const catalog = {
-    generatedAt: process.env.SOURCE_DATE_EPOCH 
-      ? new Date(process.env.SOURCE_DATE_EPOCH * 1000).toISOString() 
-      : (process.env.CI ? '2026-02-08T00:00:00.000Z' : new Date().toISOString()),
+    generatedAt: process.env.SOURCE_DATE_EPOCH
+      ? new Date(process.env.SOURCE_DATE_EPOCH * 1000).toISOString()
+      : process.env.CI
+        ? '2026-02-08T00:00:00.000Z'
+        : new Date().toISOString(),
     total: catalogSkills.length,
-    skills: catalogSkills.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0)),
+    skills: catalogSkills.sort((a, b) =>
+      a.id < b.id ? -1 : a.id > b.id ? 1 : 0
+    ),
   };
 
   const aliases = buildAliases(catalog.skills);
@@ -337,11 +645,11 @@ function buildCatalog() {
   fs.writeFileSync(catalogMarkdownPath, renderCatalogMarkdown(catalog));
   fs.writeFileSync(
     bundlesPath,
-    JSON.stringify({ generatedAt: catalog.generatedAt, ...bundleData }, null, 2),
+    JSON.stringify({ generatedAt: catalog.generatedAt, ...bundleData }, null, 2)
   );
   fs.writeFileSync(
     aliasesPath,
-    JSON.stringify({ generatedAt: catalog.generatedAt, aliases }, null, 2),
+    JSON.stringify({ generatedAt: catalog.generatedAt, aliases }, null, 2)
   );
 
   return catalog;

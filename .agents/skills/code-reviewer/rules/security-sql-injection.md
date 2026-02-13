@@ -12,6 +12,7 @@ Never construct SQL queries with string concatenation or f-strings. Always use p
 ## Why This Matters
 
 SQL injection is one of the most common and dangerous web vulnerabilities. Attackers can:
+
 - Access unauthorized data
 - Modify or delete database records
 - Execute admin operations on the database
@@ -33,6 +34,7 @@ def get_user(user_id):
 ```
 
 **Why it's dangerous:**
+
 - Attacker can inject arbitrary SQL
 - Can bypass authentication
 - Can extract entire database
@@ -45,10 +47,10 @@ def get_user(user_id):
 ```python
 def get_user(user_id: int) -> Optional[Dict[str, Any]]:
     """Safely retrieve user by ID.
-    
+
     Args:
         user_id: User ID to look up
-        
+
     Returns:
         User record or None if not found
     """
@@ -61,6 +63,7 @@ def get_user(user_id: int) -> Optional[Dict[str, Any]]:
 ```
 
 **Why it's safe:**
+
 - Parameters are escaped automatically
 - Input treated as data, never as code
 - Database driver handles sanitization
@@ -69,6 +72,7 @@ def get_user(user_id: int) -> Optional[Dict[str, Any]]:
 ## Framework-Specific Solutions
 
 ### SQLAlchemy (Python)
+
 ```python
 from sqlalchemy import select, text
 
@@ -84,6 +88,7 @@ result = session.execute(query, {"id": user_id})
 ```
 
 ### Django (Python)
+
 ```python
 # ✅ Using ORM
 User.objects.get(id=user_id)
@@ -93,26 +98,27 @@ User.objects.raw("SELECT * FROM users WHERE id = %s", [user_id])
 ```
 
 ### Node.js (PostgreSQL)
+
 ```javascript
 // ✅ Using parameterized query
-const result = await client.query(
-  'SELECT * FROM users WHERE id = $1',
-  [userId]
-);
+const result = await client.query('SELECT * FROM users WHERE id = $1', [
+  userId,
+]);
 ```
 
 ### Node.js (MySQL)
+
 ```javascript
 // ✅ Using placeholder
-const [rows] = await connection.execute(
-  'SELECT * FROM users WHERE id = ?',
-  [userId]
-);
+const [rows] = await connection.execute('SELECT * FROM users WHERE id = ?', [
+  userId,
+]);
 ```
 
 ## Additional Best Practices
 
 1. **Validate input types**
+
    ```python
    def get_user(user_id: int) -> Optional[User]:
        if not isinstance(user_id, int):

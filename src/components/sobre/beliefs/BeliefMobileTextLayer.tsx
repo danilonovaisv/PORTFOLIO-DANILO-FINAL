@@ -1,9 +1,7 @@
-
 'use client';
 
 import React from 'react';
 import { motion, MotionValue, useTransform, cubicBezier } from 'framer-motion';
-// Import useIsMobile from BeliefSection to avoid duplication
 import { useIsMobile } from './BeliefSection';
 
 // Easing Ghost Padrão: cubic-bezier(0.22, 1, 0.36, 1)
@@ -21,10 +19,8 @@ export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
   const isMobile = useIsMobile();
   const [activePhraseIndex, setActivePhraseIndex] = React.useState(-1);
 
-  // Monitora o índice ativo para setar o data-attribute para o Ghost
   React.useEffect(() => {
     const unsubscribe = scrollYProgress.on('change', (latest) => {
-      // Cálculo aproximado do índice baseado no scroll
       // Range útil: 0.35 a 0.95
       const start = 0.35;
       const end = 0.95;
@@ -45,9 +41,8 @@ export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
 
   if (!isMobile) return null;
 
-  // Divisão do scroll total em segmentos para cada frase
   const totalPhrases = phrases.length;
-  const segmentSize = 1 / (totalPhrases + 1); // +1 para a seção final
+  const segmentSize = 1 / (totalPhrases + 1);
 
   return (
     <>
@@ -80,7 +75,7 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   index,
   totalPhrases,
   scrollYProgress,
-  isActive
+  isActive,
 }) => {
   // MobilePhrase: Calcula seus próprios segmentos baseados no range útil [0.35 - 0.95]
   const usefulRangeStart = 0.35;
@@ -92,9 +87,6 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   const endPoint = startPoint + adjustedSegmentSize;
 
   // Ajuste de Timing para ciclo ~4.2s
-  // Entry: 15% do segmento
-  // Exit: 15% do segmento
-
   const entryDuration = adjustedSegmentSize * 0.15;
   const exitDuration = adjustedSegmentSize * 0.15;
 
@@ -103,13 +95,12 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   const exitStart = endPoint - exitDuration;
   const exitEnd = endPoint;
 
-  // X: Entra da DIREITA (+24px), mantém centro (0px), sai para a ESQUERDA (-24px)
-  // Refinamento Mobile: Ghost ESQUERDA, Texto DIREITA.
-  // O texto deve entrar suavemente.
+  // X: Entra pela ESQUERDA (-24px -> 0), sai para a DIREITA (0 -> 24px)
+  // Fluxo visual: L -> C -> R (entrada pela esquerda, saída pela direita)
   const x = useTransform(
     scrollYProgress,
     [entryStart, entryEnd, exitStart, exitEnd],
-    ['24px', '0px', '0px', '-24px'],
+    ['-24px', '0px', '0px', '24px'],
     { ease: ghostEase }
   );
 
@@ -131,17 +122,12 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
 
   return (
     <motion.div
-      data-ghost-target={isActive ? "true" : "false"}
+      data-ghost-target={isActive ? 'true' : 'false'}
       style={{ x, opacity, filter: blur }}
-      // Layout Refinado:
-      // - fixed: âncora na viewport
-      // - top-[45%]: Centralizado verticalmente (visual)
-      // - right-[5%]: Alinhado à direita
-      // - w-[45%]: Ocupa metade da tela (Ghost ocupa a outra)
-      // - text-right ou center: melhor center dentro do bloco
-      className="fixed top-[45%] right-[5%] w-[45%] z-60 flex items-center justify-center pointer-events-none px-2 translate-y-[-50%]"
+      // Fixed at bottom 20% relative to viewport.
+      // Width full, centered text.
+      className="fixed bottom-[20%] left-0 w-full z-60 flex items-center justify-center pointer-events-none px-4"
     >
-      {/* 🟣 [CONFIG VISUAL]: Define cor e tamanho do texto (Mobile: clamp 1.8rem-2.5rem) */}
       <span className="text-blueAccent italic font-bold text-[clamp(1.8rem,5vw,2.5rem)] leading-[1.2] text-center tracking-wide block w-full">
         {text}
       </span>

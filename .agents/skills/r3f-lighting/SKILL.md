@@ -8,7 +8,7 @@ description: React Three Fiber lighting - light types, shadows, Environment comp
 ## Quick Start
 
 ```tsx
-import { Canvas } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber';
 
 function Scene() {
   return (
@@ -31,25 +31,29 @@ function Scene() {
       </mesh>
 
       {/* Ground */}
-      <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]}>
+      <mesh
+        receiveShadow
+        rotation={[-Math.PI / 2, 0, 0]}
+        position={[0, -0.5, 0]}
+      >
         <planeGeometry args={[10, 10]} />
         <meshStandardMaterial color="#888" />
       </mesh>
     </Canvas>
-  )
+  );
 }
 ```
 
 ## Light Types Overview
 
-| Light | Description | Shadow Support | Cost |
-|-------|-------------|----------------|------|
-| ambientLight | Uniform everywhere | No | Very Low |
-| hemisphereLight | Sky/ground gradient | No | Very Low |
-| directionalLight | Parallel rays (sun) | Yes | Low |
-| pointLight | Omnidirectional (bulb) | Yes | Medium |
-| spotLight | Cone-shaped | Yes | Medium |
-| rectAreaLight | Area light (window) | No* | High |
+| Light            | Description            | Shadow Support | Cost     |
+| ---------------- | ---------------------- | -------------- | -------- |
+| ambientLight     | Uniform everywhere     | No             | Very Low |
+| hemisphereLight  | Sky/ground gradient    | No             | Very Low |
+| directionalLight | Parallel rays (sun)    | Yes            | Low      |
+| pointLight       | Omnidirectional (bulb) | Yes            | Medium   |
+| spotLight        | Cone-shaped            | Yes            | Medium   |
+| rectAreaLight    | Area light (window)    | No\*           | High     |
 
 ## ambientLight
 
@@ -57,7 +61,7 @@ Illuminates all objects equally. No direction, no shadows.
 
 ```tsx
 <ambientLight
-  color="#ffffff"  // or color={new THREE.Color('#ffffff')}
+  color="#ffffff" // or color={new THREE.Color('#ffffff')}
   intensity={0.5}
 />
 ```
@@ -68,8 +72,8 @@ Gradient from sky to ground. Good for outdoor scenes.
 
 ```tsx
 <hemisphereLight
-  color="#87ceeb"        // Sky color
-  groundColor="#8b4513"  // Ground color
+  color="#87ceeb" // Sky color
+  groundColor="#8b4513" // Ground color
   intensity={0.6}
   position={[0, 50, 0]}
 />
@@ -84,7 +88,6 @@ Parallel light rays. Simulates distant light (sun).
   color="#ffffff"
   intensity={1}
   position={[5, 10, 5]}
-
   // Shadow configuration
   castShadow
   shadow-mapSize={[2048, 2048]}
@@ -96,11 +99,11 @@ Parallel light rays. Simulates distant light (sun).
   shadow-camera-bottom={-10}
   shadow-bias={-0.0001}
   shadow-normalBias={0.02}
-/>
+/>;
 
 // With target (light points at target)
 function DirectionalWithTarget() {
-  const lightRef = useRef()
+  const lightRef = useRef();
 
   return (
     <>
@@ -110,7 +113,7 @@ function DirectionalWithTarget() {
         target-position={[0, 0, 0]}
       />
     </>
-  )
+  );
 }
 ```
 
@@ -123,9 +126,8 @@ Emits light in all directions. Like a light bulb.
   color="#ffffff"
   intensity={1}
   position={[0, 5, 0]}
-  distance={100}  // Maximum range (0 = infinite)
-  decay={2}       // Light falloff (physically correct = 2)
-
+  distance={100} // Maximum range (0 = infinite)
+  decay={2} // Light falloff (physically correct = 2)
   // Shadows
   castShadow
   shadow-mapSize={[1024, 1024]}
@@ -144,14 +146,12 @@ Cone-shaped light. Like a flashlight.
   color="#ffffff"
   intensity={1}
   position={[0, 10, 0]}
-  angle={Math.PI / 6}     // Cone angle (max Math.PI/2)
-  penumbra={0.5}          // Soft edge (0-1)
-  distance={100}          // Range
-  decay={2}               // Falloff
-
+  angle={Math.PI / 6} // Cone angle (max Math.PI/2)
+  penumbra={0.5} // Soft edge (0-1)
+  distance={100} // Range
+  decay={2} // Falloff
   // Target
   target-position={[0, 0, 0]}
-
   // Shadows
   castShadow
   shadow-mapSize={[1024, 1024]}
@@ -159,17 +159,17 @@ Cone-shaped light. Like a flashlight.
   shadow-camera-far={50}
   shadow-camera-fov={30}
   shadow-bias={-0.0001}
-/>
+/>;
 
 // SpotLight helper
-import { useHelper } from '@react-three/drei'
-import { SpotLightHelper } from 'three'
+import { useHelper } from '@react-three/drei';
+import { SpotLightHelper } from 'three';
 
 function SpotLightWithHelper() {
-  const lightRef = useRef()
-  useHelper(lightRef, SpotLightHelper, 'cyan')
+  const lightRef = useRef();
+  useHelper(lightRef, SpotLightHelper, 'cyan');
 
-  return <spotLight ref={lightRef} position={[0, 5, 0]} />
+  return <spotLight ref={lightRef} position={[0, 5, 0]} />;
 }
 ```
 
@@ -178,10 +178,10 @@ function SpotLightWithHelper() {
 Rectangular area light. Great for soft, realistic lighting.
 
 ```tsx
-import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper'
+import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper';
 
 function AreaLight() {
-  const lightRef = useRef()
+  const lightRef = useRef();
 
   return (
     <>
@@ -192,10 +192,10 @@ function AreaLight() {
         width={4}
         height={2}
         position={[0, 5, 0]}
-        rotation={[-Math.PI / 2, 0, 0]}  // Point downward
+        rotation={[-Math.PI / 2, 0, 0]} // Point downward
       />
     </>
-  )
+  );
 }
 
 // Note: RectAreaLight only works with MeshStandardMaterial and MeshPhysicalMaterial
@@ -250,14 +250,14 @@ function AreaLight() {
 ### Shadow Camera Helper
 
 ```tsx
-import { useHelper } from '@react-three/drei'
-import { CameraHelper } from 'three'
+import { useHelper } from '@react-three/drei';
+import { CameraHelper } from 'three';
 
 function LightWithShadowHelper() {
-  const lightRef = useRef()
+  const lightRef = useRef();
 
   // Visualize shadow camera frustum
-  useHelper(lightRef.current?.shadow.camera, CameraHelper)
+  useHelper(lightRef.current?.shadow.camera, CameraHelper);
 
   return (
     <directionalLight
@@ -268,7 +268,7 @@ function LightWithShadowHelper() {
       shadow-camera-top={10}
       shadow-camera-bottom={-10}
     />
-  )
+  );
 }
 ```
 
@@ -315,16 +315,16 @@ import { Environment } from '@react-three/drei'
 Create custom light shapes inside Environment.
 
 ```tsx
-import { Environment, Lightformer } from '@react-three/drei'
+import { Environment, Lightformer } from '@react-three/drei';
 
 <Environment>
   <Lightformer
-    form="ring"          // circle, ring, rect
+    form="ring" // circle, ring, rect
     intensity={2}
     color="white"
     scale={10}
     position={[0, 5, -5]}
-    target={[0, 0, 0]}   // Point at target
+    target={[0, 0, 0]} // Point at target
   />
 
   <Lightformer
@@ -334,7 +334,7 @@ import { Environment, Lightformer } from '@react-three/drei'
     scale={[5, 2]}
     position={[-5, 5, 0]}
   />
-</Environment>
+</Environment>;
 ```
 
 ### Sky
@@ -342,18 +342,18 @@ import { Environment, Lightformer } from '@react-three/drei'
 Procedural sky with sun.
 
 ```tsx
-import { Sky } from '@react-three/drei'
+import { Sky } from '@react-three/drei';
 
 <Sky
   distance={450000}
-  sunPosition={[0, 1, 0]}   // Or calculate from inclination/azimuth
-  inclination={0.6}         // Sun elevation (0 = horizon, 0.5 = zenith)
-  azimuth={0.25}            // Sun rotation around horizon
-  turbidity={10}            // Haziness
-  rayleigh={2}              // Light scattering
+  sunPosition={[0, 1, 0]} // Or calculate from inclination/azimuth
+  inclination={0.6} // Sun elevation (0 = horizon, 0.5 = zenith)
+  azimuth={0.25} // Sun rotation around horizon
+  turbidity={10} // Haziness
+  rayleigh={2} // Light scattering
   mieCoefficient={0.005}
   mieDirectionalG={0.8}
-/>
+/>;
 ```
 
 ### Stars
@@ -361,17 +361,17 @@ import { Sky } from '@react-three/drei'
 Starfield background.
 
 ```tsx
-import { Stars } from '@react-three/drei'
+import { Stars } from '@react-three/drei';
 
 <Stars
-  radius={100}      // Sphere radius
-  depth={50}        // Depth of star distribution
-  count={5000}      // Number of stars
-  factor={4}        // Size factor
-  saturation={0}    // Color saturation
-  fade              // Fade at edges
-  speed={1}         // Twinkle speed
-/>
+  radius={100} // Sphere radius
+  depth={50} // Depth of star distribution
+  count={5000} // Number of stars
+  factor={4} // Size factor
+  saturation={0} // Color saturation
+  fade // Fade at edges
+  speed={1} // Twinkle speed
+/>;
 ```
 
 ### Stage
@@ -379,17 +379,17 @@ import { Stars } from '@react-three/drei'
 Quick lighting setup for product showcase.
 
 ```tsx
-import { Stage } from '@react-three/drei'
+import { Stage } from '@react-three/drei';
 
 <Stage
-  preset="rembrandt"  // rembrandt, portrait, upfront, soft
+  preset="rembrandt" // rembrandt, portrait, upfront, soft
   intensity={1}
-  shadows="contact"   // false, 'contact', 'accumulative', true
+  shadows="contact" // false, 'contact', 'accumulative', true
   environment="city"
-  adjustCamera={1.2}  // Adjust camera to fit content
+  adjustCamera={1.2} // Adjust camera to fit content
 >
   <Model />
-</Stage>
+</Stage>;
 ```
 
 ### ContactShadows
@@ -419,7 +419,7 @@ import { ContactShadows } from '@react-three/drei'
 Soft, accumulated shadows.
 
 ```tsx
-import { AccumulativeShadows, RandomizedLight } from '@react-three/drei'
+import { AccumulativeShadows, RandomizedLight } from '@react-three/drei';
 
 <AccumulativeShadows
   position={[0, -0.5, 0]}
@@ -427,7 +427,7 @@ import { AccumulativeShadows, RandomizedLight } from '@react-three/drei'
   color="#316d39"
   opacity={0.8}
   frames={100}
-  temporal          // Smooth accumulation over time
+  temporal // Smooth accumulation over time
 >
   <RandomizedLight
     amount={8}
@@ -437,7 +437,7 @@ import { AccumulativeShadows, RandomizedLight } from '@react-three/drei'
     position={[5, 5, -10]}
     bias={0.001}
   />
-</AccumulativeShadows>
+</AccumulativeShadows>;
 ```
 
 ### SoftShadows
@@ -445,15 +445,11 @@ import { AccumulativeShadows, RandomizedLight } from '@react-three/drei'
 Enable PCF soft shadows globally.
 
 ```tsx
-import { SoftShadows } from '@react-three/drei'
+import { SoftShadows } from '@react-three/drei';
 
 <Canvas shadows>
-  <SoftShadows
-    size={25}
-    samples={10}
-    focus={0}
-  />
-</Canvas>
+  <SoftShadows size={25} samples={10} focus={0} />
+</Canvas>;
 ```
 
 ### BakeShadows
@@ -461,11 +457,11 @@ import { SoftShadows } from '@react-three/drei'
 Bake shadows for static scenes.
 
 ```tsx
-import { BakeShadows } from '@react-three/drei'
+import { BakeShadows } from '@react-three/drei';
 
 <Canvas shadows>
-  <BakeShadows />  {/* Bakes shadows once on mount */}
-</Canvas>
+  <BakeShadows /> {/* Bakes shadows once on mount */}
+</Canvas>;
 ```
 
 ## Common Lighting Setups
@@ -477,35 +473,25 @@ function ThreePointLighting() {
   return (
     <>
       {/* Key light (main) */}
-      <directionalLight
-        position={[5, 5, 5]}
-        intensity={1}
-        castShadow
-      />
+      <directionalLight position={[5, 5, 5]} intensity={1} castShadow />
 
       {/* Fill light (softer, opposite side) */}
-      <directionalLight
-        position={[-5, 3, 5]}
-        intensity={0.5}
-      />
+      <directionalLight position={[-5, 3, 5]} intensity={0.5} />
 
       {/* Back light (rim lighting) */}
-      <directionalLight
-        position={[0, 5, -5]}
-        intensity={0.3}
-      />
+      <directionalLight position={[0, 5, -5]} intensity={0.3} />
 
       {/* Ambient fill */}
       <ambientLight intensity={0.2} />
     </>
-  )
+  );
 }
 ```
 
 ### Outdoor Daylight
 
 ```tsx
-import { Sky, Environment } from '@react-three/drei'
+import { Sky, Environment } from '@react-three/drei';
 
 function OutdoorLighting() {
   return (
@@ -525,20 +511,16 @@ function OutdoorLighting() {
         shadow-camera-bottom={-50}
       />
 
-      <hemisphereLight
-        color="#87ceeb"
-        groundColor="#8b4513"
-        intensity={0.5}
-      />
+      <hemisphereLight color="#87ceeb" groundColor="#8b4513" intensity={0.5} />
     </>
-  )
+  );
 }
 ```
 
 ### Studio Lighting
 
 ```tsx
-import { Environment, Lightformer, ContactShadows } from '@react-three/drei'
+import { Environment, Lightformer, ContactShadows } from '@react-three/drei';
 
 function StudioLighting() {
   return (
@@ -570,66 +552,60 @@ function StudioLighting() {
         />
       </Environment>
 
-      <ContactShadows
-        position={[0, -0.5, 0]}
-        opacity={0.5}
-        blur={2}
-      />
+      <ContactShadows position={[0, -0.5, 0]} opacity={0.5} blur={2} />
     </>
-  )
+  );
 }
 ```
 
 ## Animated Lighting
 
 ```tsx
-import { useFrame } from '@react-three/fiber'
-import { useRef } from 'react'
+import { useFrame } from '@react-three/fiber';
+import { useRef } from 'react';
 
 function AnimatedLight() {
-  const lightRef = useRef()
+  const lightRef = useRef();
 
   useFrame(({ clock }) => {
-    const t = clock.elapsedTime
+    const t = clock.elapsedTime;
 
     // Orbit around scene
-    lightRef.current.position.x = Math.cos(t) * 5
-    lightRef.current.position.z = Math.sin(t) * 5
+    lightRef.current.position.x = Math.cos(t) * 5;
+    lightRef.current.position.z = Math.sin(t) * 5;
 
     // Pulsing intensity
-    lightRef.current.intensity = 1 + Math.sin(t * 2) * 0.5
+    lightRef.current.intensity = 1 + Math.sin(t * 2) * 0.5;
 
     // Color cycling
-    lightRef.current.color.setHSL((t * 0.1) % 1, 1, 0.5)
-  })
+    lightRef.current.color.setHSL((t * 0.1) % 1, 1, 0.5);
+  });
 
-  return (
-    <pointLight ref={lightRef} position={[5, 3, 0]} castShadow />
-  )
+  return <pointLight ref={lightRef} position={[5, 3, 0]} castShadow />;
 }
 ```
 
 ## Light Helpers
 
 ```tsx
-import { useHelper } from '@react-three/drei'
+import { useHelper } from '@react-three/drei';
 import {
   DirectionalLightHelper,
   PointLightHelper,
   SpotLightHelper,
   HemisphereLightHelper,
-} from 'three'
+} from 'three';
 
 function LightWithHelpers() {
-  const dirLightRef = useRef()
-  const pointLightRef = useRef()
-  const spotLightRef = useRef()
-  const hemiLightRef = useRef()
+  const dirLightRef = useRef();
+  const pointLightRef = useRef();
+  const spotLightRef = useRef();
+  const hemiLightRef = useRef();
 
-  useHelper(dirLightRef, DirectionalLightHelper, 5, 'red')
-  useHelper(pointLightRef, PointLightHelper, 1, 'green')
-  useHelper(spotLightRef, SpotLightHelper, 'blue')
-  useHelper(hemiLightRef, HemisphereLightHelper, 5, 'yellow', 'brown')
+  useHelper(dirLightRef, DirectionalLightHelper, 5, 'red');
+  useHelper(pointLightRef, PointLightHelper, 1, 'green');
+  useHelper(spotLightRef, SpotLightHelper, 'blue');
+  useHelper(hemiLightRef, HemisphereLightHelper, 5, 'yellow', 'brown');
 
   return (
     <>
@@ -638,7 +614,7 @@ function LightWithHelpers() {
       <spotLight ref={spotLightRef} position={[0, 5, 5]} />
       <hemisphereLight ref={hemiLightRef} />
     </>
-  )
+  );
 }
 ```
 

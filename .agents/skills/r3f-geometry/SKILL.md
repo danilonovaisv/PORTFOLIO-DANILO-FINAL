@@ -8,7 +8,7 @@ description: React Three Fiber geometry - built-in shapes, BufferGeometry, insta
 ## Quick Start
 
 ```tsx
-import { Canvas } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber';
 
 function Scene() {
   return (
@@ -19,7 +19,7 @@ function Scene() {
         <meshStandardMaterial color="hotpink" />
       </mesh>
     </Canvas>
-  )
+  );
 }
 ```
 
@@ -84,7 +84,7 @@ All Three.js geometries are available as JSX elements. The `args` prop passes co
 ### Path-Based Shapes
 
 ```tsx
-import * as THREE from 'three'
+import * as THREE from 'three';
 
 // LatheGeometry - revolve points around Y axis
 function LatheShape() {
@@ -94,14 +94,14 @@ function LatheShape() {
     new THREE.Vector2(0.5, 0.5),
     new THREE.Vector2(0.3, 1),
     new THREE.Vector2(0, 1),
-  ]
+  ];
 
   return (
     <mesh>
       <latheGeometry args={[points, 32]} />
       <meshStandardMaterial color="gold" side={THREE.DoubleSide} />
     </mesh>
-  )
+  );
 }
 
 // TubeGeometry - extrude along a curve
@@ -111,24 +111,24 @@ function TubeShape() {
     new THREE.Vector3(-1, 1, 0),
     new THREE.Vector3(1, -1, 0),
     new THREE.Vector3(2, 0, 0),
-  ])
+  ]);
 
   return (
     <mesh>
       <tubeGeometry args={[curve, 64, 0.2, 8, false]} />
       <meshStandardMaterial color="blue" />
     </mesh>
-  )
+  );
 }
 
 // ExtrudeGeometry - extrude a 2D shape
 function ExtrudedShape() {
-  const shape = new THREE.Shape()
-  shape.moveTo(0, 0)
-  shape.lineTo(1, 0)
-  shape.lineTo(1, 1)
-  shape.lineTo(0, 1)
-  shape.lineTo(0, 0)
+  const shape = new THREE.Shape();
+  shape.moveTo(0, 0);
+  shape.lineTo(1, 0);
+  shape.lineTo(1, 1);
+  shape.lineTo(0, 1);
+  shape.lineTo(0, 0);
 
   const extrudeSettings = {
     steps: 2,
@@ -137,14 +137,14 @@ function ExtrudedShape() {
     bevelThickness: 0.1,
     bevelSize: 0.1,
     bevelSegments: 3,
-  }
+  };
 
   return (
     <mesh>
       <extrudeGeometry args={[shape, extrudeSettings]} />
       <meshStandardMaterial color="purple" />
     </mesh>
-  )
+  );
 }
 ```
 
@@ -154,10 +154,22 @@ function ExtrudedShape() {
 
 ```tsx
 import {
-  Box, Sphere, Plane, Circle, Cylinder, Cone,
-  Torus, TorusKnot, Ring, Capsule, Dodecahedron,
-  Icosahedron, Octahedron, Tetrahedron, RoundedBox
-} from '@react-three/drei'
+  Box,
+  Sphere,
+  Plane,
+  Circle,
+  Cylinder,
+  Cone,
+  Torus,
+  TorusKnot,
+  Ring,
+  Capsule,
+  Dodecahedron,
+  Icosahedron,
+  Octahedron,
+  Tetrahedron,
+  RoundedBox,
+} from '@react-three/drei';
 
 function DreiShapes() {
   return (
@@ -177,15 +189,15 @@ function DreiShapes() {
 
       {/* RoundedBox - box with rounded edges */}
       <RoundedBox
-        args={[1, 1, 1]}      // width, height, depth
-        radius={0.1}          // border radius
-        smoothness={4}        // smoothness of rounded edges
+        args={[1, 1, 1]} // width, height, depth
+        radius={0.1} // border radius
+        smoothness={4} // smoothness of rounded edges
         position={[3, 0, 0]}
       >
         <meshStandardMaterial color="orange" />
       </RoundedBox>
     </>
-  )
+  );
 }
 ```
 
@@ -194,46 +206,44 @@ function DreiShapes() {
 ### Basic Custom Geometry
 
 ```tsx
-import { useMemo, useRef } from 'react'
-import * as THREE from 'three'
+import { useMemo, useRef } from 'react';
+import * as THREE from 'three';
 
 function CustomTriangle() {
   const geometry = useMemo(() => {
-    const geo = new THREE.BufferGeometry()
+    const geo = new THREE.BufferGeometry();
 
     // Vertices (3 floats per vertex: x, y, z)
     const vertices = new Float32Array([
-      -1, -1, 0,  // vertex 0
-       1, -1, 0,  // vertex 1
-       0,  1, 0,  // vertex 2
-    ])
+      -1,
+      -1,
+      0, // vertex 0
+      1,
+      -1,
+      0, // vertex 1
+      0,
+      1,
+      0, // vertex 2
+    ]);
 
     // Normals (pointing toward camera)
-    const normals = new Float32Array([
-      0, 0, 1,
-      0, 0, 1,
-      0, 0, 1,
-    ])
+    const normals = new Float32Array([0, 0, 1, 0, 0, 1, 0, 0, 1]);
 
     // UVs
-    const uvs = new Float32Array([
-      0, 0,
-      1, 0,
-      0.5, 1,
-    ])
+    const uvs = new Float32Array([0, 0, 1, 0, 0.5, 1]);
 
-    geo.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
-    geo.setAttribute('normal', new THREE.BufferAttribute(normals, 3))
-    geo.setAttribute('uv', new THREE.BufferAttribute(uvs, 2))
+    geo.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+    geo.setAttribute('normal', new THREE.BufferAttribute(normals, 3));
+    geo.setAttribute('uv', new THREE.BufferAttribute(uvs, 2));
 
-    return geo
-  }, [])
+    return geo;
+  }, []);
 
   return (
     <mesh geometry={geometry}>
       <meshStandardMaterial color="cyan" side={THREE.DoubleSide} />
     </mesh>
-  )
+  );
 }
 ```
 
@@ -242,75 +252,83 @@ function CustomTriangle() {
 ```tsx
 function CustomQuad() {
   const geometry = useMemo(() => {
-    const geo = new THREE.BufferGeometry()
+    const geo = new THREE.BufferGeometry();
 
     // 4 vertices for a quad
     const vertices = new Float32Array([
-      -1, -1, 0,  // 0: bottom-left
-       1, -1, 0,  // 1: bottom-right
-       1,  1, 0,  // 2: top-right
-      -1,  1, 0,  // 3: top-left
-    ])
+      -1,
+      -1,
+      0, // 0: bottom-left
+      1,
+      -1,
+      0, // 1: bottom-right
+      1,
+      1,
+      0, // 2: top-right
+      -1,
+      1,
+      0, // 3: top-left
+    ]);
 
     // Indices to form 2 triangles
     const indices = new Uint16Array([
-      0, 1, 2,  // triangle 1
-      0, 2, 3,  // triangle 2
-    ])
+      0,
+      1,
+      2, // triangle 1
+      0,
+      2,
+      3, // triangle 2
+    ]);
 
-    const normals = new Float32Array([
-      0, 0, 1,  0, 0, 1,  0, 0, 1,  0, 0, 1,
-    ])
+    const normals = new Float32Array([0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1]);
 
-    const uvs = new Float32Array([
-      0, 0,  1, 0,  1, 1,  0, 1,
-    ])
+    const uvs = new Float32Array([0, 0, 1, 0, 1, 1, 0, 1]);
 
-    geo.setAttribute('position', new THREE.BufferAttribute(vertices, 3))
-    geo.setAttribute('normal', new THREE.BufferAttribute(normals, 3))
-    geo.setAttribute('uv', new THREE.BufferAttribute(uvs, 2))
-    geo.setIndex(new THREE.BufferAttribute(indices, 1))
+    geo.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
+    geo.setAttribute('normal', new THREE.BufferAttribute(normals, 3));
+    geo.setAttribute('uv', new THREE.BufferAttribute(uvs, 2));
+    geo.setIndex(new THREE.BufferAttribute(indices, 1));
 
-    return geo
-  }, [])
+    return geo;
+  }, []);
 
   return (
     <mesh geometry={geometry}>
       <meshStandardMaterial color="lime" side={THREE.DoubleSide} />
     </mesh>
-  )
+  );
 }
 ```
 
 ### Dynamic Geometry
 
 ```tsx
-import { useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
+import { useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
 
 function WavyPlane() {
-  const meshRef = useRef()
+  const meshRef = useRef();
 
   useFrame(({ clock }) => {
-    const positions = meshRef.current.geometry.attributes.position
-    const time = clock.elapsedTime
+    const positions = meshRef.current.geometry.attributes.position;
+    const time = clock.elapsedTime;
 
     for (let i = 0; i < positions.count; i++) {
-      const x = positions.getX(i)
-      const y = positions.getY(i)
-      positions.setZ(i, Math.sin(x * 2 + time) * Math.cos(y * 2 + time) * 0.5)
+      const x = positions.getX(i);
+      const y = positions.getY(i);
+      positions.setZ(i, Math.sin(x * 2 + time) * Math.cos(y * 2 + time) * 0.5);
     }
 
-    positions.needsUpdate = true
-    meshRef.current.geometry.computeVertexNormals()
-  })
+    positions.needsUpdate = true;
+    meshRef.current.geometry.computeVertexNormals();
+  });
 
   return (
     <mesh ref={meshRef} rotation={[-Math.PI / 2, 0, 0]}>
       <planeGeometry args={[10, 10, 32, 32]} />
       <meshStandardMaterial color="royalblue" side={THREE.DoubleSide} />
     </mesh>
-  )
+  );
 }
 ```
 
@@ -321,12 +339,12 @@ Efficient rendering of many identical objects.
 ### Instances Component
 
 ```tsx
-import { Instances, Instance } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber'
-import { useRef } from 'react'
+import { Instances, Instance } from '@react-three/drei';
+import { useFrame } from '@react-three/fiber';
+import { useRef } from 'react';
 
 function InstancedBoxes() {
-  const count = 1000
+  const count = 1000;
 
   return (
     <Instances limit={count} range={count}>
@@ -337,28 +355,32 @@ function InstancedBoxes() {
         <AnimatedInstance key={i} index={i} />
       ))}
     </Instances>
-  )
+  );
 }
 
 function AnimatedInstance({ index }) {
-  const ref = useRef()
+  const ref = useRef();
 
   // Random initial position
-  const position = useMemo(() => [
-    (Math.random() - 0.5) * 20,
-    (Math.random() - 0.5) * 20,
-    (Math.random() - 0.5) * 20,
-  ], [])
+  const position = useMemo(
+    () => [
+      (Math.random() - 0.5) * 20,
+      (Math.random() - 0.5) * 20,
+      (Math.random() - 0.5) * 20,
+    ],
+    []
+  );
 
-  const color = useMemo(() =>
-    ['red', 'blue', 'green', 'yellow', 'purple'][index % 5],
-  [index])
+  const color = useMemo(
+    () => ['red', 'blue', 'green', 'yellow', 'purple'][index % 5],
+    [index]
+  );
 
   useFrame(({ clock }) => {
-    const t = clock.elapsedTime
-    ref.current.rotation.x = t + index
-    ref.current.rotation.y = t * 0.5 + index
-  })
+    const t = clock.elapsedTime;
+    ref.current.rotation.x = t + index;
+    ref.current.rotation.y = t * 0.5 + index;
+  });
 
   return (
     <Instance
@@ -367,7 +389,7 @@ function AnimatedInstance({ index }) {
       color={color}
       scale={0.5 + Math.random() * 0.5}
     />
-  )
+  );
 }
 ```
 
@@ -376,17 +398,20 @@ function AnimatedInstance({ index }) {
 For static instances, merge geometry for best performance:
 
 ```tsx
-import { Merged } from '@react-three/drei'
-import { useMemo } from 'react'
-import * as THREE from 'three'
+import { Merged } from '@react-three/drei';
+import { useMemo } from 'react';
+import * as THREE from 'three';
 
 function MergedMeshes() {
   // Create geometries to merge
-  const meshes = useMemo(() => ({
-    Sphere: new THREE.SphereGeometry(0.5, 32, 32),
-    Box: new THREE.BoxGeometry(1, 1, 1),
-    Cone: new THREE.ConeGeometry(0.5, 1, 32),
-  }), [])
+  const meshes = useMemo(
+    () => ({
+      Sphere: new THREE.SphereGeometry(0.5, 32, 32),
+      Box: new THREE.BoxGeometry(1, 1, 1),
+      Cone: new THREE.ConeGeometry(0.5, 1, 32),
+    }),
+    []
+  );
 
   return (
     <Merged meshes={meshes}>
@@ -401,7 +426,7 @@ function MergedMeshes() {
         </>
       )}
     </Merged>
-  )
+  );
 }
 ```
 
@@ -410,10 +435,10 @@ function MergedMeshes() {
 ### Basic Points
 
 ```tsx
-import { Points, Point, PointMaterial } from '@react-three/drei'
+import { Points, Point, PointMaterial } from '@react-three/drei';
 
 function ParticleField() {
-  const count = 5000
+  const count = 5000;
 
   return (
     <Points limit={count}>
@@ -436,41 +461,41 @@ function ParticleField() {
         />
       ))}
     </Points>
-  )
+  );
 }
 ```
 
 ### Buffer-Based Points (High Performance)
 
 ```tsx
-import { useMemo, useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
-import * as THREE from 'three'
+import { useMemo, useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
+import * as THREE from 'three';
 
 function BufferParticles() {
-  const count = 10000
-  const pointsRef = useRef()
+  const count = 10000;
+  const pointsRef = useRef();
 
   const { positions, colors } = useMemo(() => {
-    const positions = new Float32Array(count * 3)
-    const colors = new Float32Array(count * 3)
+    const positions = new Float32Array(count * 3);
+    const colors = new Float32Array(count * 3);
 
     for (let i = 0; i < count; i++) {
-      positions[i * 3] = (Math.random() - 0.5) * 10
-      positions[i * 3 + 1] = (Math.random() - 0.5) * 10
-      positions[i * 3 + 2] = (Math.random() - 0.5) * 10
+      positions[i * 3] = (Math.random() - 0.5) * 10;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 10;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
 
-      colors[i * 3] = Math.random()
-      colors[i * 3 + 1] = Math.random()
-      colors[i * 3 + 2] = Math.random()
+      colors[i * 3] = Math.random();
+      colors[i * 3 + 1] = Math.random();
+      colors[i * 3 + 2] = Math.random();
     }
 
-    return { positions, colors }
-  }, [])
+    return { positions, colors };
+  }, []);
 
   useFrame(({ clock }) => {
-    pointsRef.current.rotation.y = clock.elapsedTime * 0.1
-  })
+    pointsRef.current.rotation.y = clock.elapsedTime * 0.1;
+  });
 
   return (
     <points ref={pointsRef}>
@@ -490,7 +515,7 @@ function BufferParticles() {
       </bufferGeometry>
       <pointsMaterial size={0.05} vertexColors sizeAttenuation />
     </points>
-  )
+  );
 }
 ```
 
@@ -499,7 +524,7 @@ function BufferParticles() {
 ### Basic Line
 
 ```tsx
-import { Line } from '@react-three/drei'
+import { Line } from '@react-three/drei';
 
 function BasicLine() {
   const points = [
@@ -507,29 +532,32 @@ function BasicLine() {
     [1, 1, 0],
     [2, 0, 0],
     [3, 1, 0],
-  ]
+  ];
 
-  return (
-    <Line
-      points={points}
-      color="red"
-      lineWidth={2}
-    />
-  )
+  return <Line points={points} color="red" lineWidth={2} />;
 }
 ```
 
 ### Curved Line
 
 ```tsx
-import { CatmullRomLine, QuadraticBezierLine, CubicBezierLine } from '@react-three/drei'
+import {
+  CatmullRomLine,
+  QuadraticBezierLine,
+  CubicBezierLine,
+} from '@react-three/drei';
 
 function CurvedLines() {
   return (
     <>
       {/* Smooth curve through points */}
       <CatmullRomLine
-        points={[[0, 0, 0], [1, 1, 0], [2, 0, 0], [3, 1, 0]]}
+        points={[
+          [0, 0, 0],
+          [1, 1, 0],
+          [2, 0, 0],
+          [3, 1, 0],
+        ]}
         color="blue"
         lineWidth={2}
         segments={64}
@@ -554,7 +582,7 @@ function CurvedLines() {
         lineWidth={2}
       />
     </>
-  )
+  );
 }
 ```
 
@@ -562,7 +590,10 @@ function CurvedLines() {
 
 ```tsx
 <Line
-  points={[[0, 0, 0], [5, 0, 0]]}
+  points={[
+    [0, 0, 0],
+    [5, 0, 0],
+  ]}
   color="white"
   lineWidth={2}
   dashed
@@ -576,7 +607,7 @@ function CurvedLines() {
 ## Edges and Wireframe
 
 ```tsx
-import { Edges } from '@react-three/drei'
+import { Edges } from '@react-three/drei';
 
 function BoxWithEdges() {
   return (
@@ -585,11 +616,11 @@ function BoxWithEdges() {
       <meshStandardMaterial color="orange" />
       <Edges
         scale={1.1}
-        threshold={15}  // Display edges with angle > 15 degrees
+        threshold={15} // Display edges with angle > 15 degrees
         color="black"
       />
     </mesh>
-  )
+  );
 }
 
 // Wireframe material
@@ -599,7 +630,7 @@ function WireframeBox() {
       <boxGeometry />
       <meshBasicMaterial color="cyan" wireframe />
     </mesh>
-  )
+  );
 }
 ```
 
@@ -608,7 +639,7 @@ function WireframeBox() {
 ### Using Drei Text3D
 
 ```tsx
-import { Text3D, Center } from '@react-three/drei'
+import { Text3D, Center } from '@react-three/drei';
 
 function Text3DExample() {
   return (
@@ -628,7 +659,7 @@ function Text3DExample() {
         <meshStandardMaterial color="gold" />
       </Text3D>
     </Center>
-  )
+  );
 }
 ```
 
@@ -666,30 +697,30 @@ function CenteredModel() {
 ### Compute Bounds
 
 ```tsx
-import { useBounds, Bounds } from '@react-three/drei'
+import { useBounds, Bounds } from '@react-three/drei';
 
 function FitToView() {
   return (
     <Bounds fit clip observe margin={1.2}>
       <SelectToZoom />
     </Bounds>
-  )
+  );
 }
 
 function SelectToZoom() {
-  const bounds = useBounds()
+  const bounds = useBounds();
 
   return (
     <mesh
       onClick={(e) => {
-        e.stopPropagation()
-        bounds.refresh(e.object).fit()
+        e.stopPropagation();
+        bounds.refresh(e.object).fit();
       }}
     >
       <boxGeometry />
       <meshStandardMaterial />
     </mesh>
-  )
+  );
 }
 ```
 

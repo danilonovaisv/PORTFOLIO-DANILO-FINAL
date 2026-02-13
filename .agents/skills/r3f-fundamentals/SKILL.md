@@ -8,24 +8,24 @@ description: React Three Fiber fundamentals - Canvas, hooks (useFrame, useThree)
 ## Quick Start
 
 ```tsx
-import { Canvas } from '@react-three/fiber'
-import { useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber';
+import { useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
 
 function RotatingBox() {
-  const meshRef = useRef()
+  const meshRef = useRef();
 
   useFrame((state, delta) => {
-    meshRef.current.rotation.x += delta
-    meshRef.current.rotation.y += delta * 0.5
-  })
+    meshRef.current.rotation.x += delta;
+    meshRef.current.rotation.y += delta * 0.5;
+  });
 
   return (
     <mesh ref={meshRef}>
       <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial color="hotpink" />
     </mesh>
-  )
+  );
 }
 
 export default function App() {
@@ -35,7 +35,7 @@ export default function App() {
       <directionalLight position={[5, 5, 5]} />
       <RotatingBox />
     </Canvas>
-  )
+  );
 }
 ```
 
@@ -44,7 +44,7 @@ export default function App() {
 The root component that creates the WebGL context, scene, camera, and renderer.
 
 ```tsx
-import { Canvas } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber';
 
 function App() {
   return (
@@ -59,47 +59,41 @@ function App() {
       // Or use orthographic
       orthographic
       camera={{ zoom: 50, position: [0, 0, 100] }}
-
       // Renderer settings
       gl={{
         antialias: true,
         alpha: true,
         powerPreference: 'high-performance',
-        preserveDrawingBuffer: true,  // For screenshots
+        preserveDrawingBuffer: true, // For screenshots
       }}
-      dpr={[1, 2]}  // Pixel ratio min/max
-
+      dpr={[1, 2]} // Pixel ratio min/max
       // Shadows
-      shadows  // or shadows="soft" | "basic" | "percentage"
-
+      shadows // or shadows="soft" | "basic" | "percentage"
       // Color management
-      flat  // Disable automatic sRGB color management
-
+      flat // Disable automatic sRGB color management
       // Frame loop control
-      frameloop="demand"  // 'always' | 'demand' | 'never'
-
+      frameloop="demand" // 'always' | 'demand' | 'never'
       // Event handling
       eventSource={document.getElementById('root')}
-      eventPrefix="client"  // 'offset' | 'client' | 'page' | 'layer' | 'screen'
-
+      eventPrefix="client" // 'offset' | 'client' | 'page' | 'layer' | 'screen'
       // Callbacks
       onCreated={(state) => {
-        console.log('Canvas ready:', state.gl, state.scene, state.camera)
+        console.log('Canvas ready:', state.gl, state.scene, state.camera);
       }}
       onPointerMissed={() => console.log('Clicked background')}
-
       // Styling
       style={{ width: '100%', height: '100vh' }}
     >
       <Scene />
     </Canvas>
-  )
+  );
 }
 ```
 
 ### Canvas Defaults
 
 R3F sets sensible defaults:
+
 - Renderer: antialias, alpha, outputColorSpace = SRGBColorSpace
 - Camera: PerspectiveCamera at [0, 0, 5]
 - Scene: Automatic resize handling
@@ -110,11 +104,11 @@ R3F sets sensible defaults:
 Subscribe to the render loop. Called every frame (typically 60fps).
 
 ```tsx
-import { useFrame } from '@react-three/fiber'
-import { useRef } from 'react'
+import { useFrame } from '@react-three/fiber';
+import { useRef } from 'react';
 
 function AnimatedMesh() {
-  const meshRef = useRef()
+  const meshRef = useRef();
 
   useFrame((state, delta, xrFrame) => {
     // state: Full R3F state (see useThree)
@@ -122,24 +116,24 @@ function AnimatedMesh() {
     // xrFrame: XR frame if in VR/AR mode
 
     // Animate rotation
-    meshRef.current.rotation.y += delta
+    meshRef.current.rotation.y += delta;
 
     // Access clock
-    const elapsed = state.clock.elapsedTime
-    meshRef.current.position.y = Math.sin(elapsed) * 2
+    const elapsed = state.clock.elapsedTime;
+    meshRef.current.position.y = Math.sin(elapsed) * 2;
 
     // Access pointer position (-1 to 1)
-    const { x, y } = state.pointer
-    meshRef.current.rotation.x = y * 0.5
-    meshRef.current.rotation.z = x * 0.5
-  })
+    const { x, y } = state.pointer;
+    meshRef.current.rotation.x = y * 0.5;
+    meshRef.current.rotation.z = x * 0.5;
+  });
 
   return (
     <mesh ref={meshRef}>
       <boxGeometry />
       <meshStandardMaterial color="orange" />
     </mesh>
-  )
+  );
 }
 ```
 
@@ -151,17 +145,17 @@ Control render order with priority (higher = later).
 // Default priority is 0
 useFrame((state, delta) => {
   // Runs first
-}, -1)
+}, -1);
 
 useFrame((state, delta) => {
   // Runs after priority -1
-}, 0)
+}, 0);
 
 // Manual rendering with positive priority
 useFrame((state, delta) => {
   // Take over rendering
-  state.gl.render(state.scene, state.camera)
-}, 1)
+  state.gl.render(state.scene, state.camera);
+}, 1);
 ```
 
 ### Conditional useFrame
@@ -169,9 +163,9 @@ useFrame((state, delta) => {
 ```tsx
 function ConditionalAnimation({ active }) {
   useFrame((state, delta) => {
-    if (!active) return  // Skip when inactive
-    meshRef.current.rotation.y += delta
-  })
+    if (!active) return; // Skip when inactive
+    meshRef.current.rotation.y += delta;
+  });
 }
 ```
 
@@ -180,17 +174,17 @@ function ConditionalAnimation({ active }) {
 Access the R3F state store.
 
 ```tsx
-import { useThree } from '@react-three/fiber'
+import { useThree } from '@react-three/fiber';
 
 function CameraInfo() {
   // Get full state (triggers re-render on any change)
-  const state = useThree()
+  const state = useThree();
 
   // Selective subscription (recommended)
-  const camera = useThree((state) => state.camera)
-  const gl = useThree((state) => state.gl)
-  const scene = useThree((state) => state.scene)
-  const size = useThree((state) => state.size)
+  const camera = useThree((state) => state.camera);
+  const gl = useThree((state) => state.gl);
+  const scene = useThree((state) => state.scene);
+  const size = useThree((state) => state.size);
 
   // Available state properties:
   // gl: WebGLRenderer
@@ -209,7 +203,7 @@ function CameraInfo() {
   // invalidate: Trigger re-render (for frameloop="demand")
   // advance: Advance one frame (for frameloop="never")
 
-  return null
+  return null;
 }
 ```
 
@@ -218,34 +212,34 @@ function CameraInfo() {
 ```tsx
 // Responsive to viewport
 function ResponsiveObject() {
-  const viewport = useThree((state) => state.viewport)
+  const viewport = useThree((state) => state.viewport);
   return (
     <mesh scale={[viewport.width / 4, viewport.height / 4, 1]}>
       <planeGeometry />
       <meshBasicMaterial color="blue" />
     </mesh>
-  )
+  );
 }
 
 // Manual render trigger
 function TriggerRender() {
-  const invalidate = useThree((state) => state.invalidate)
+  const invalidate = useThree((state) => state.invalidate);
 
   const handleClick = () => {
     // Trigger render when using frameloop="demand"
-    invalidate()
-  }
+    invalidate();
+  };
 }
 
 // Update camera
 function CameraController() {
-  const camera = useThree((state) => state.camera)
-  const set = useThree((state) => state.set)
+  const camera = useThree((state) => state.camera);
+  const set = useThree((state) => state.set);
 
   useEffect(() => {
-    camera.position.set(10, 10, 10)
-    camera.lookAt(0, 0, 0)
-  }, [camera])
+    camera.position.set(10, 10, 10);
+    camera.lookAt(0, 0, 0);
+  }, [camera]);
 }
 ```
 
@@ -345,30 +339,38 @@ Control how children attach to parents:
   <boxGeometry />
   {/* Default: attaches as 'material' */}
   <meshStandardMaterial />
-</mesh>
+</mesh>;
 
-{/* Explicit attach */}
+{
+  /* Explicit attach */
+}
 <mesh>
   <boxGeometry attach="geometry" />
   <meshStandardMaterial attach="material" />
-</mesh>
+</mesh>;
 
-{/* Array attachment */}
+{
+  /* Array attachment */
+}
 <mesh>
   <boxGeometry />
   <meshStandardMaterial attach="material-0" color="red" />
   <meshStandardMaterial attach="material-1" color="blue" />
-</mesh>
+</mesh>;
 
-{/* Custom attachment with function */}
+{
+  /* Custom attachment with function */
+}
 <someObject>
   <texture
     attach={(parent, self) => {
-      parent.map = self
-      return () => { parent.map = null }  // Cleanup
+      parent.map = self;
+      return () => {
+        parent.map = null;
+      }; // Cleanup
     }}
   />
-</someObject>
+</someObject>;
 ```
 
 ## Event Handling
@@ -377,38 +379,38 @@ R3F provides React-style events on 3D objects.
 
 ```tsx
 function InteractiveBox() {
-  const [hovered, setHovered] = useState(false)
-  const [clicked, setClicked] = useState(false)
+  const [hovered, setHovered] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
   return (
     <mesh
       onClick={(e) => {
-        e.stopPropagation()  // Prevent bubbling
-        setClicked(!clicked)
+        e.stopPropagation(); // Prevent bubbling
+        setClicked(!clicked);
 
         // Event properties:
-        console.log(e.object)      // THREE.Mesh
-        console.log(e.point)       // Vector3 - intersection point
-        console.log(e.distance)    // Distance from camera
-        console.log(e.face)        // Intersected face
-        console.log(e.faceIndex)   // Face index
-        console.log(e.uv)          // UV coordinates
-        console.log(e.normal)      // Face normal
-        console.log(e.pointer)     // Normalized pointer coords
-        console.log(e.ray)         // Raycaster ray
-        console.log(e.camera)      // Camera
-        console.log(e.delta)       // Distance moved (drag events)
+        console.log(e.object); // THREE.Mesh
+        console.log(e.point); // Vector3 - intersection point
+        console.log(e.distance); // Distance from camera
+        console.log(e.face); // Intersected face
+        console.log(e.faceIndex); // Face index
+        console.log(e.uv); // UV coordinates
+        console.log(e.normal); // Face normal
+        console.log(e.pointer); // Normalized pointer coords
+        console.log(e.ray); // Raycaster ray
+        console.log(e.camera); // Camera
+        console.log(e.delta); // Distance moved (drag events)
       }}
       onContextMenu={(e) => console.log('Right click')}
       onDoubleClick={(e) => console.log('Double click')}
       onPointerOver={(e) => {
-        e.stopPropagation()
-        setHovered(true)
-        document.body.style.cursor = 'pointer'
+        e.stopPropagation();
+        setHovered(true);
+        document.body.style.cursor = 'pointer';
       }}
       onPointerOut={(e) => {
-        setHovered(false)
-        document.body.style.cursor = 'default'
+        setHovered(false);
+        document.body.style.cursor = 'default';
       }}
       onPointerDown={(e) => console.log('Pointer down')}
       onPointerUp={(e) => console.log('Pointer up')}
@@ -419,7 +421,7 @@ function InteractiveBox() {
       <boxGeometry />
       <meshStandardMaterial color={clicked ? 'hotpink' : 'orange'} />
     </mesh>
-  )
+  );
 }
 ```
 
@@ -429,10 +431,12 @@ Events bubble up through the scene graph:
 
 ```tsx
 <group onClick={(e) => console.log('Group clicked')}>
-  <mesh onClick={(e) => {
-    e.stopPropagation()  // Stop bubbling to group
-    console.log('Mesh clicked')
-  }}>
+  <mesh
+    onClick={(e) => {
+      e.stopPropagation(); // Stop bubbling to group
+      console.log('Mesh clicked');
+    }}
+  >
     <boxGeometry />
     <meshStandardMaterial />
   </mesh>
@@ -444,20 +448,20 @@ Events bubble up through the scene graph:
 Use existing Three.js objects directly:
 
 ```tsx
-import * as THREE from 'three'
+import * as THREE from 'three';
 
 // Existing object
-const geometry = new THREE.BoxGeometry()
-const material = new THREE.MeshStandardMaterial({ color: 'red' })
-const mesh = new THREE.Mesh(geometry, material)
+const geometry = new THREE.BoxGeometry();
+const material = new THREE.MeshStandardMaterial({ color: 'red' });
+const mesh = new THREE.Mesh(geometry, material);
 
 function Scene() {
-  return <primitive object={mesh} position={[0, 1, 0]} />
+  return <primitive object={mesh} position={[0, 1, 0]} />;
 }
 
 // Common with loaded models
 function Model({ gltf }) {
-  return <primitive object={gltf.scene} />
+  return <primitive object={gltf.scene} />;
 }
 ```
 
@@ -466,23 +470,26 @@ function Model({ gltf }) {
 Register custom Three.js classes for JSX use:
 
 ```tsx
-import { extend } from '@react-three/fiber'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { extend } from '@react-three/fiber';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 // Extend once (usually at module level)
-extend({ OrbitControls })
+extend({ OrbitControls });
 
 // Now use as JSX
 function Scene() {
-  const { camera, gl } = useThree()
-  return <orbitControls args={[camera, gl.domElement]} />
+  const { camera, gl } = useThree();
+  return <orbitControls args={[camera, gl.domElement]} />;
 }
 
 // TypeScript declaration
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      orbitControls: ReactThreeFiber.Object3DNode<OrbitControls, typeof OrbitControls>
+      orbitControls: ReactThreeFiber.Object3DNode<
+        OrbitControls,
+        typeof OrbitControls
+      >;
     }
   }
 }
@@ -491,34 +498,34 @@ declare global {
 ## Refs and Imperative Access
 
 ```tsx
-import { useRef, useEffect } from 'react'
-import { useFrame } from '@react-three/fiber'
-import * as THREE from 'three'
+import { useRef, useEffect } from 'react';
+import { useFrame } from '@react-three/fiber';
+import * as THREE from 'three';
 
 function MeshWithRef() {
-  const meshRef = useRef<THREE.Mesh>(null)
-  const materialRef = useRef<THREE.MeshStandardMaterial>(null)
+  const meshRef = useRef<THREE.Mesh>(null);
+  const materialRef = useRef<THREE.MeshStandardMaterial>(null);
 
   useEffect(() => {
     if (meshRef.current) {
       // Direct Three.js access
-      meshRef.current.geometry.computeBoundingBox()
-      console.log(meshRef.current.geometry.boundingBox)
+      meshRef.current.geometry.computeBoundingBox();
+      console.log(meshRef.current.geometry.boundingBox);
     }
-  }, [])
+  }, []);
 
   useFrame(() => {
     if (materialRef.current) {
-      materialRef.current.color.setHSL(Math.random(), 1, 0.5)
+      materialRef.current.color.setHSL(Math.random(), 1, 0.5);
     }
-  })
+  });
 
   return (
     <mesh ref={meshRef}>
       <boxGeometry />
       <meshStandardMaterial ref={materialRef} />
     </mesh>
-  )
+  );
 }
 ```
 
@@ -550,17 +557,21 @@ function Scene() {
   return (
     <>
       <StaticEnvironment />
-      <AnimatedObject />  {/* Only this re-renders on animation */}
+      <AnimatedObject /> {/* Only this re-renders on animation */}
     </>
-  )
+  );
 }
 
 function AnimatedObject() {
-  const ref = useRef()
+  const ref = useRef();
   useFrame((_, delta) => {
-    ref.current.rotation.y += delta
-  })
-  return <mesh ref={ref}><boxGeometry /></mesh>
+    ref.current.rotation.y += delta;
+  });
+  return (
+    <mesh ref={ref}>
+      <boxGeometry />
+    </mesh>
+  );
 }
 ```
 
@@ -569,7 +580,9 @@ function AnimatedObject() {
 R3F auto-disposes geometries, materials, and textures. Override with:
 
 ```tsx
-<mesh dispose={null}>  {/* Prevent auto-dispose */}
+<mesh dispose={null}>
+  {' '}
+  {/* Prevent auto-dispose */}
   <boxGeometry />
   <meshStandardMaterial />
 </mesh>
@@ -596,14 +609,14 @@ html, body, #root {
 
 ```tsx
 function ResponsiveScene() {
-  const { viewport } = useThree()
+  const { viewport } = useThree();
 
   return (
     <mesh scale={Math.min(viewport.width, viewport.height) / 5}>
       <boxGeometry />
       <meshStandardMaterial />
     </mesh>
-  )
+  );
 }
 ```
 
@@ -639,7 +652,7 @@ npm install leva
 ### Basic Controls
 
 ```tsx
-import { useControls } from 'leva'
+import { useControls } from 'leva';
 
 function DebugMesh() {
   const { position, color, scale, visible } = useControls({
@@ -647,21 +660,21 @@ function DebugMesh() {
     color: '#ff0000',
     scale: { value: 1, min: 0.1, max: 5, step: 0.1 },
     visible: true,
-  })
+  });
 
   return (
     <mesh position={position} scale={scale} visible={visible}>
       <boxGeometry />
       <meshStandardMaterial color={color} />
     </mesh>
-  )
+  );
 }
 ```
 
 ### Organized Folders
 
 ```tsx
-import { useControls, folder } from 'leva'
+import { useControls, folder } from 'leva';
 
 function DebugScene() {
   const { lightIntensity, lightColor, shadowMapSize } = useControls({
@@ -674,7 +687,7 @@ function DebugScene() {
       fov: { value: 75, min: 30, max: 120 },
       near: { value: 0.1, min: 0.01, max: 1 },
     }),
-  })
+  });
 
   return (
     <directionalLight
@@ -682,38 +695,38 @@ function DebugScene() {
       color={lightColor}
       shadow-mapSize={[shadowMapSize, shadowMapSize]}
     />
-  )
+  );
 }
 ```
 
 ### Button Actions
 
 ```tsx
-import { useControls, button } from 'leva'
+import { useControls, button } from 'leva';
 
 function DebugActions() {
-  const meshRef = useRef()
+  const meshRef = useRef();
 
   useControls({
     'Reset Position': button(() => {
-      meshRef.current.position.set(0, 0, 0)
+      meshRef.current.position.set(0, 0, 0);
     }),
     'Random Color': button(() => {
-      meshRef.current.material.color.setHex(Math.random() * 0xffffff)
+      meshRef.current.material.color.setHex(Math.random() * 0xffffff);
     }),
     'Log State': button(() => {
-      console.log(meshRef.current.position)
+      console.log(meshRef.current.position);
     }),
-  })
+  });
 
-  return <mesh ref={meshRef}>...</mesh>
+  return <mesh ref={meshRef}>...</mesh>;
 }
 ```
 
 ### Hide in Production
 
 ```tsx
-import { Leva } from 'leva'
+import { Leva } from 'leva';
 
 function App() {
   return (
@@ -725,29 +738,29 @@ function App() {
         <Scene />
       </Canvas>
     </>
-  )
+  );
 }
 ```
 
 ### Monitor Values (Read-Only)
 
 ```tsx
-import { useControls, monitor } from 'leva'
-import { useFrame } from '@react-three/fiber'
+import { useControls, monitor } from 'leva';
+import { useFrame } from '@react-three/fiber';
 
 function PerformanceMonitor() {
-  const [fps, setFps] = useState(0)
+  const [fps, setFps] = useState(0);
 
   useControls({
     FPS: monitor(() => fps, { graph: true, interval: 100 }),
-  })
+  });
 
   useFrame((state) => {
     // Update FPS display
-    setFps(Math.round(1 / state.clock.getDelta()))
-  })
+    setFps(Math.round(1 / state.clock.getDelta()));
+  });
 
-  return null
+  return null;
 }
 ```
 
@@ -755,25 +768,26 @@ function PerformanceMonitor() {
 
 ```tsx
 function AnimatedDebugMesh() {
-  const meshRef = useRef()
+  const meshRef = useRef();
 
   const { speed, amplitude, enabled } = useControls('Animation', {
     enabled: true,
     speed: { value: 1, min: 0, max: 5 },
     amplitude: { value: 1, min: 0, max: 3 },
-  })
+  });
 
   useFrame(({ clock }) => {
-    if (!enabled) return
-    meshRef.current.position.y = Math.sin(clock.elapsedTime * speed) * amplitude
-  })
+    if (!enabled) return;
+    meshRef.current.position.y =
+      Math.sin(clock.elapsedTime * speed) * amplitude;
+  });
 
   return (
     <mesh ref={meshRef}>
       <sphereGeometry />
       <meshStandardMaterial color="cyan" />
     </mesh>
-  )
+  );
 }
 ```
 

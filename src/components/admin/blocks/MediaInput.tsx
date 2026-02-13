@@ -87,7 +87,6 @@ export function MediaInput({
             </div>
           ) : type === 'image' ? (
             <div className="relative min-h-50 max-h-100 w-full flex justify-center bg-black/40">
-
               <img
                 src={displaySrc}
                 alt="Preview"

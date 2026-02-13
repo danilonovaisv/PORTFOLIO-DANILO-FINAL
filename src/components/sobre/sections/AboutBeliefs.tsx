@@ -8,6 +8,7 @@ import dynamic from 'next/dynamic';
 import {
   BeliefSection,
   BeliefMobileTextLayer,
+  BeliefMobileBackground,
   BeliefFinalSection,
   BeliefFinalSectionOverlay,
   BeliefFixedHeader,
@@ -43,7 +44,7 @@ const COLORS = [
   BRAND.colors.pinkDetails,
   BRAND.colors.bluePrimary,
   BRAND.colors.purpleDetails,
-  BRAND.colors.pinkDetails,
+  BRAND.colors.bluePrimary, // Última frase com azul primary (antes do manifesto final)
 ];
 
 export function AboutBeliefs() {
@@ -56,8 +57,13 @@ export function AboutBeliefs() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full"
-      style={{ minHeight: `${(PHRASES.length + 2) * 100}vh` }} // Garante altura baseada no conteúdo
+      className="relative w-full h-(--beliefs-min-h)" // Tailwind utility for variable
+      // CSS variable assigned to style prop
+      style={
+        {
+          '--beliefs-min-h': `${(PHRASES.length + 2) * 100}vh`,
+        } as React.CSSProperties
+      }
     >
       <BeliefFixedHeader scrollProgress={scrollYProgress} />
       {/* LAYER 1: Seções de Conteúdo (Texto Scrollável) */}
@@ -78,7 +84,14 @@ export function AboutBeliefs() {
         />
       </div>
 
-      {/* LAYER 2: Texto Mobile Fixed no Footer */}
+      {/* LAYER 2: Mobile Background Color Transitions */}
+      <BeliefMobileBackground
+        colors={COLORS}
+        scrollYProgress={scrollYProgress}
+        finalColor={BRAND.colors.bluePrimary}
+      />
+
+      {/* LAYER 3: Texto Mobile Fixed no Footer */}
       <BeliefMobileTextLayer
         phrases={PHRASES}
         scrollYProgress={scrollYProgress}

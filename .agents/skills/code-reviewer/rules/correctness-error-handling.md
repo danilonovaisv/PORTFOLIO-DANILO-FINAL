@@ -12,6 +12,7 @@ Always handle errors explicitly. Don't use bare except clauses or ignore errors 
 ## Why This Matters
 
 Proper error handling:
+
 - Prevents silent failures
 - Aids debugging with clear messages
 - Allows graceful degradation
@@ -21,6 +22,7 @@ Proper error handling:
 ## ❌ Incorrect
 
 ### Bare Except Clause
+
 ```python
 # ❌ Catches everything, including KeyboardInterrupt, SystemExit
 try:
@@ -30,6 +32,7 @@ except:
 ```
 
 ### Generic Exception Without Context
+
 ```python
 # ❌ Too generic, loses error information
 try:
@@ -41,6 +44,7 @@ except Exception:
 ```
 
 ### Ignoring Specific Errors
+
 ```python
 # ❌ Ignoring errors entirely
 try:
@@ -52,6 +56,7 @@ except json.JSONDecodeError:
 ## ✅ Correct
 
 ### Catch Specific Exceptions
+
 ```python
 # ✅ Handle specific errors appropriately
 try:
@@ -66,6 +71,7 @@ except FileNotFoundError:
 ```
 
 ### Provide Context in Error Messages
+
 ```python
 # ✅ Clear, actionable error messages
 def  get_user(user_id: int) -> User:
@@ -87,6 +93,7 @@ def  get_user(user_id: int) -> User:
 ```
 
 ### Re-raise with Context
+
 ```python
 # ✅ Add context while preserving stack trace
 try:
@@ -101,22 +108,24 @@ except ValidationError as e:
 ## JavaScript/TypeScript
 
 ### ❌ Catching Without Specificity
+
 ```javascript
 // ❌ No error handling
 async function fetchUser(id) {
   const response = await fetch(`/api/users/${id}`);
-  return response.json();  // What if fetch fails? What if not JSON?
+  return response.json(); // What if fetch fails? What if not JSON?
 }
 
 // ❌ Generic catch
 try {
   const user = await fetchUser(id);
 } catch (error) {
-  console.log('Error');  // Which error? From where?
+  console.log('Error'); // Which error? From where?
 }
 ```
 
 ### ✅ Explicit Error Handling
+
 ```typescript
 // ✅ Proper error handling with types
 class UserNotFoundError extends Error {
@@ -128,10 +137,10 @@ class UserNotFoundError extends Error {
 
 async function fetchUser(id: string): Promise<User> {
   let response: Response;
-  
+
   try {
     response = await fetch(`/api/users/${id}`, {
-      signal: AbortSignal.timeout(5000)
+      signal: AbortSignal.timeout(5000),
     });
   } catch (error) {
     if (error instanceof DOMException && error.name === 'TimeoutError') {
@@ -139,14 +148,14 @@ async function fetchUser(id: string): Promise<User> {
     }
     throw new Error(`Network error fetching user ${id}: ${error}`);
   }
-  
+
   if (!response.ok) {
     if (response.status === 404) {
       throw new UserNotFoundError(id);
     }
     throw new Error(`HTTP ${response.status} fetching user ${id}`);
   }
-  
+
   try {
     return await response.json();
   } catch (error) {
@@ -171,10 +180,9 @@ try {
 ## Error Handling Patterns
 
 ### Result Type (Rust-inspired)
+
 ```typescript
-type Result<T, E = Error> = 
-  | { ok: true; value: T }
-  | { ok: false; error: E };
+type Result<T, E = Error> = { ok: true; value: T } | { ok: false; error: E };
 
 function parseConfig(json: string): Result<Config> {
   try {
@@ -196,6 +204,7 @@ if (result.ok) {
 ```
 
 ### Custom Error Classes
+
 ```python
 class DatabaseError(Exception):
     """Base class for database errors."""

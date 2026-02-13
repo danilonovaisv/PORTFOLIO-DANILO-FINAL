@@ -180,7 +180,9 @@ function MediaField({
         <input
           className={inputClasses}
           value={value.alt || ''}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => onChange({ ...value, alt: event.target.value })}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            onChange({ ...value, alt: event.target.value })
+          }
         />
       </label>
       {missingAlt ? (
@@ -214,7 +216,6 @@ function MediaField({
               playsInline
             />
           ) : (
-
             <img
               src={preview}
               alt={value.alt || 'Pré-visualização'}
@@ -295,7 +296,9 @@ export default function MasterProjectTemplateV2Editor({
             <input
               className={inputClasses}
               value={value.project_slug}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => update({ project_slug: event.target.value })}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                update({ project_slug: event.target.value })
+              }
             />
           </label>
 
@@ -696,7 +699,9 @@ export default function MasterProjectTemplateV2Editor({
                       <select
                         className={inputClasses}
                         value={item.media_align || 'left'}
-                        onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+                        onChange={(
+                          event: React.ChangeEvent<HTMLSelectElement>
+                        ) =>
                           updateGalleryItem(item.id, {
                             media_align:
                               event.target.value === 'right' ? 'right' : 'left',
@@ -716,7 +721,9 @@ export default function MasterProjectTemplateV2Editor({
                         <input
                           className={inputClasses}
                           value={item.src}
-                          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                          onChange={(
+                            event: React.ChangeEvent<HTMLInputElement>
+                          ) =>
                             updateGalleryItem(item.id, {
                               src: event.target.value,
                               file: null,
@@ -732,7 +739,9 @@ export default function MasterProjectTemplateV2Editor({
                           type="file"
                           className={`${inputClasses} file:mr-3 file:rounded-md file:border-0 file:bg-blue-600 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white`}
                           accept={item.kind === 'video' ? 'video/*' : 'image/*'}
-                          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                          onChange={(
+                            event: React.ChangeEvent<HTMLInputElement>
+                          ) => {
                             const file = event.target.files?.[0];
                             if (!file) return;
                             updateGalleryItem(item.id, {
@@ -748,7 +757,9 @@ export default function MasterProjectTemplateV2Editor({
                         <input
                           className={inputClasses}
                           value={item.poster || ''}
-                          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                          onChange={(
+                            event: React.ChangeEvent<HTMLInputElement>
+                          ) =>
                             updateGalleryItem(item.id, {
                               poster: event.target.value,
                             })
@@ -764,7 +775,9 @@ export default function MasterProjectTemplateV2Editor({
                       <input
                         className={inputClasses}
                         value={item.alt}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                        onChange={(
+                          event: React.ChangeEvent<HTMLInputElement>
+                        ) =>
                           updateGalleryItem(item.id, {
                             alt: event.target.value,
                           })
@@ -809,7 +822,9 @@ export default function MasterProjectTemplateV2Editor({
                     <textarea
                       className={`${inputClasses} min-h-24`}
                       value={item.description || ''}
-                      onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
+                      onChange={(
+                        event: React.ChangeEvent<HTMLTextAreaElement>
+                      ) =>
                         updateGalleryItem(item.id, {
                           description: event.target.value,
                         })
@@ -838,7 +853,9 @@ export default function MasterProjectTemplateV2Editor({
                       <textarea
                         className={`${inputClasses} min-h-24`}
                         value={toFeatureText(item.features)}
-                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
+                        onChange={(
+                          event: React.ChangeEvent<HTMLTextAreaElement>
+                        ) =>
                           updateGalleryItem(item.id, {
                             features: parseFeatures(event.target.value),
                           })

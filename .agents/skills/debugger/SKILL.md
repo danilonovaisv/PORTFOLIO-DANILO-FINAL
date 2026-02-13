@@ -7,7 +7,7 @@ description: |
 license: MIT
 metadata:
   author: awesome-llm-apps
-  version: "1.0.0"
+  version: '1.0.0'
 ---
 
 # Debugger
@@ -17,6 +17,7 @@ You are an expert debugger who uses systematic approaches to identify and resolv
 ## When to Apply
 
 Use this skill when:
+
 - Investigating bugs or unexpected behavior
 - Analyzing error messages and stack traces
 - Troubleshooting performance issues
@@ -30,6 +31,7 @@ Use this skill when:
 Follow this systematic approach:
 
 ### 1. **Understand the Problem**
+
 - What is the expected behavior?
 - What is the actual behavior?
 - Can you reproduce it consistently?
@@ -37,6 +39,7 @@ Follow this systematic approach:
 - What changed recently?
 
 ### 2. **Gather Information**
+
 - Error messages and stack traces
 - Log files and error logs
 - Environment details (OS, versions, config)
@@ -44,11 +47,13 @@ Follow this systematic approach:
 - System state before/during/after
 
 ### 3. **Form Hypotheses**
+
 - What are the most likely causes?
 - List hypotheses from most to least probable
 - Consider: logic errors, data issues, environment, timing, dependencies
 
 ### 4. **Test Hypotheses**
+
 - Use binary search to narrow down location
 - Add logging/print statements strategically
 - Use debugger breakpoints
@@ -56,11 +61,13 @@ Follow this systematic approach:
 - Test with minimal reproduction case
 
 ### 5. **Identify Root Cause**
+
 - Don't stop at symptoms - find the real cause
 - Verify with evidence
 - Understand why it wasn't caught earlier
 
 ### 6. **Fix and Verify**
+
 - Implement fix
 - Test the fix thoroughly
 - Ensure no regressions
@@ -69,6 +76,7 @@ Follow this systematic approach:
 ## Debugging Strategies
 
 ### Binary Search
+
 ```
 1. Identify code region (start → end)
 2. Check middle point
@@ -78,11 +86,13 @@ Follow this systematic approach:
 ```
 
 ### Rubber Duck Debugging
+
 - Explain the code line by line
 - Often reveals the issue through verbalization
 - Clarifies assumptions
 
 ### Add Strategic Logging
+
 ```python
 # At function entry
 print(f"[DEBUG] function_name called with: {args}")
@@ -95,6 +105,7 @@ print(f"[DEBUG] Before: {state}, After: {new_state}")
 ```
 
 ### Bisect Method (for regressions)
+
 ```bash
 # Find which commit introduced the bug
 git bisect start
@@ -106,22 +117,27 @@ git bisect good <last-known-good-commit>
 ## Common Bug Patterns
 
 ### Off-by-One Errors
+
 - Loop indices (`i < n` vs `i <= n`)
 - Array bounds (`arr[len(arr)]` instead of `arr[len(arr)-1]`)
 
 ### Null/Undefined References
+
 - Check variables before use
 - Verify API responses have expected fields
 
 ### Race Conditions
+
 - Async operations completing in unexpected order
 - Shared state without proper locking
 
 ### Type Mismatches
+
 - String vs number comparisons
 - Implicit type coercion issues
 
 ### Stale State
+
 - Cached values not updated
 - Closure capturing old variables
 
@@ -131,31 +147,39 @@ Structure debugging analysis as:
 
 ```markdown
 ## Problem Statement
+
 [Clear description of the issue]
 
 ## Environment
+
 - [Relevant version/config info]
 
 ## Error Analysis
+
 [Error message/stack trace analysis]
 
 ## Hypotheses (Priority Order)
+
 1. **[Most Likely]**: [Reasoning]
 2. **[Second Most Likely]**: [Reasoning]
 3. **[Less Likely]**: [Reasoning]
 
 ## Investigation Steps
+
 1. [What to check first]
 2. [How to verify hypothesis]
 3. [Next steps based on results]
 
 ## Root Cause
+
 [Once identified, explain the underlying issue]
 
 ## Fix
+
 [Specific code changes needed]
 
 ## Prevention
+
 [How to avoid this in the future]
 ```
 
@@ -166,15 +190,19 @@ Structure debugging analysis as:
 **Debugging Response:**
 
 ## Problem Statement
+
 API endpoint returns HTTP 500 errors intermittently. Not all requests fail - some succeed.
 
 ## Environment
-- Node.js version? 
+
+- Node.js version?
 - Database type?
 - Request rate/concurrency?
 
 ## Error Analysis
+
 Need to see:
+
 1. Full error stack trace
 2. Server logs around failure time
 3. Example request that fails
@@ -195,6 +223,7 @@ Need to see:
 ## Investigation Steps
 
 1. **Add Detailed Logging**
+
    ```javascript
    app.post('/api/endpoint', async (req, res) => {
      console.log('[DEBUG] Request received:', req.body);
@@ -210,6 +239,7 @@ Need to see:
    ```
 
 2. **Monitor Connection Pool**
+
    ```javascript
    db.on('acquire', () => {
      console.log(`[POOL] Connection acquired (${db.pool.size}/${db.pool.max})`);
@@ -224,7 +254,9 @@ Need to see:
    ```
 
 ## Next Steps
+
 Deploy logging changes and monitor for patterns in:
+
 - Time of day
 - Specific user data
 - Server resource usage (CPU, memory, connections)

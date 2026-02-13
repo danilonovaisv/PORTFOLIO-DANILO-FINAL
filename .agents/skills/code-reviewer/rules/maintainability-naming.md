@@ -12,6 +12,7 @@ Choose descriptive, intention-revealing names. Avoid single letters (except loop
 ## Why This Matters
 
 Code is read 10x more than it's written. Clear names:
+
 - Make code self-documenting
 - Reduce cognitive load
 - Prevent bugs from misunderstanding
@@ -59,6 +60,7 @@ account_balance = get_account_balance(username)
 ## Naming Conventions by Language
 
 ### Python (PEP 8)
+
 ```python
 # Variables & functions: snake_case
 user_count = 10
@@ -72,6 +74,7 @@ MAX_RETRY_ATTEMPTS = 3
 ```
 
 ### JavaScript/TypeScript
+
 ```javascript
 // Variables & functions: camelCase
 const userCount = 10;
@@ -82,10 +85,11 @@ class UserAccount {}
 
 // Constants: UPPER_SNAKE_CASE or camelCase
 const MAX_RETRY_ATTEMPTS = 3;
-const maxRetryAttempts = 3;  // Also acceptable
+const maxRetryAttempts = 3; // Also acceptable
 ```
 
 ### Booleans
+
 ```python
 # Use is_, has_, can_ prefixes
 is_active = True
@@ -98,6 +102,7 @@ can_edit = user.role == "admin"
 ## Context Matters
 
 ### Loop Variables
+
 ```python
 # ❌ Generic in complex loop
 for i in users:
@@ -115,6 +120,7 @@ for i in range(10):
 ```
 
 ### Scope-Appropriate Names
+
 ```python
 # Short scope: concise OK
 def validate(email):

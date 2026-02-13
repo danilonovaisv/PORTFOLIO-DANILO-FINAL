@@ -8,9 +8,9 @@ export const BeliefFinalSectionOverlay: React.FC = () => {
     <section className="w-full h-full flex flex-col items-center justify-center overflow-hidden px-4 pointer-events-none">
       <motion.div
         className="flex flex-col items-center justify-center text-center text-white font-display leading-[0.78] w-full max-w-[98vw]"
-        initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
-        whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-        viewport={{ once: false }}
+        initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
+        whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        viewport={{ once: false, margin: '-10%' }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
         {/* 🟣 [CONFIG VISUAL]: "ISSO É" - Tamanho (16vw a 14rem), Cor branca (herdada), Opacidade 80% */}

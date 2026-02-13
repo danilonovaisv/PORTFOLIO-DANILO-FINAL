@@ -3,7 +3,7 @@ import React, { Suspense, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { ContactShadows } from '@react-three/drei';
 import GhostModel from './GhostModel'; // Caminho relativo para GhostModel
-import { MotionValue, motion, useTransform, cubicBezier } from 'framer-motion';
+import { MotionValue, motion } from 'framer-motion';
 // Importar o hook do BeliefSection.tsx
 import { useIsMobile } from '../beliefs/BeliefSection';
 
@@ -16,23 +16,22 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Easing Ghost Padrão
-  const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
+  // const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
 
   // Sync com BeliefFixedHeader (range 0.1 ~ 0.2)
-  const opacity = useTransform(scrollProgress, [0.1, 0.25], [0, 1], {
-    ease: ghostEase,
-  });
-  const blur = useTransform(
-    scrollProgress,
-    [0.1, 0.25],
-    ['blur(12px)', 'blur(0px)'],
-    { ease: ghostEase }
-  );
+  // [MODIFICADO]: Opacidade agora é sempre 1 (retirado fade-in)
+  // const opacity = useTransform(scrollProgress, [0.1, 0.25], [0, 1], {
+  //   ease: ghostEase,
+  // });
+  // [MODIFICADO]: Opacidade agora é sempre 1 (retirado fade-in)
+  // const opacity = useTransform(scrollProgress, [0.1, 0.25], [0, 1], {
+  //   ease: ghostEase,
+  // });
 
   return (
     <motion.div
       ref={containerRef}
-      style={{ opacity, filter: blur }}
+      style={{ opacity: 1 }}
       className="w-full h-full pointer-events-none"
     >
       <Canvas

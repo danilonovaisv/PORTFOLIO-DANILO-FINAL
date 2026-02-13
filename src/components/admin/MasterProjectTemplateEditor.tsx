@@ -178,7 +178,6 @@ function MediaField({
               playsInline
             />
           ) : (
-
             <img
               src={preview}
               alt={value.alt || 'Pré-visualização'}
@@ -649,7 +648,9 @@ export default function MasterProjectTemplateEditor({
                       type="file"
                       className={`${inputClasses} file:mr-3 file:rounded-md file:border-0 file:bg-blue-600 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white`}
                       accept={item.kind === 'video' ? 'video/*' : 'image/*'}
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                      onChange={(
+                        event: React.ChangeEvent<HTMLInputElement>
+                      ) => {
                         const file = event.target.files?.[0];
                         if (!file) return;
                         updateGalleryItem(item.id, {
@@ -717,7 +718,9 @@ export default function MasterProjectTemplateEditor({
                     <textarea
                       className={`${inputClasses} min-h-24`}
                       value={item.description || ''}
-                      onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) =>
+                      onChange={(
+                        event: React.ChangeEvent<HTMLTextAreaElement>
+                      ) =>
                         updateGalleryItem(item.id, {
                           description: event.target.value,
                         })

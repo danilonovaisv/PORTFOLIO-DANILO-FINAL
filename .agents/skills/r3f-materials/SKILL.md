@@ -8,7 +8,7 @@ description: React Three Fiber materials - PBR materials, Drei materials, shader
 ## Quick Start
 
 ```tsx
-import { Canvas } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber';
 
 function Scene() {
   return (
@@ -18,29 +18,25 @@ function Scene() {
 
       <mesh>
         <boxGeometry />
-        <meshStandardMaterial
-          color="hotpink"
-          roughness={0.5}
-          metalness={0.5}
-        />
+        <meshStandardMaterial color="hotpink" roughness={0.5} metalness={0.5} />
       </mesh>
     </Canvas>
-  )
+  );
 }
 ```
 
 ## Material Types Overview
 
-| Material | Use Case | Lighting |
-|----------|----------|----------|
-| meshBasicMaterial | Unlit, flat colors | No |
-| meshLambertMaterial | Matte surfaces, fast | Yes (diffuse) |
-| meshPhongMaterial | Shiny, specular | Yes |
-| meshStandardMaterial | PBR, realistic | Yes (PBR) |
-| meshPhysicalMaterial | Advanced PBR | Yes (PBR+) |
-| meshToonMaterial | Cel-shaded | Yes (toon) |
-| meshNormalMaterial | Debug normals | No |
-| shaderMaterial | Custom GLSL | Custom |
+| Material             | Use Case             | Lighting      |
+| -------------------- | -------------------- | ------------- |
+| meshBasicMaterial    | Unlit, flat colors   | No            |
+| meshLambertMaterial  | Matte surfaces, fast | Yes (diffuse) |
+| meshPhongMaterial    | Shiny, specular      | Yes           |
+| meshStandardMaterial | PBR, realistic       | Yes (PBR)     |
+| meshPhysicalMaterial | Advanced PBR         | Yes (PBR+)    |
+| meshToonMaterial     | Cel-shaded           | Yes (toon)    |
+| meshNormalMaterial   | Debug normals        | No            |
+| shaderMaterial       | Custom GLSL          | Custom        |
 
 ## meshBasicMaterial
 
@@ -53,7 +49,7 @@ No lighting calculations. Always visible, fast.
     color="red"
     transparent
     opacity={0.5}
-    side={THREE.DoubleSide}  // FrontSide, BackSide, DoubleSide
+    side={THREE.DoubleSide} // FrontSide, BackSide, DoubleSide
     wireframe={false}
     map={colorTexture}
     alphaMap={alphaTexture}
@@ -68,8 +64,8 @@ No lighting calculations. Always visible, fast.
 Physically-based rendering. Recommended for realistic results.
 
 ```tsx
-import { useTexture } from '@react-three/drei'
-import * as THREE from 'three'
+import { useTexture } from '@react-three/drei';
+import * as THREE from 'three';
 
 function PBRMesh() {
   // Load PBR texture set
@@ -79,7 +75,7 @@ function PBRMesh() {
     '/textures/roughness.jpg',
     '/textures/metalness.jpg',
     '/textures/ao.jpg',
-  ])
+  ]);
 
   return (
     <mesh>
@@ -88,37 +84,31 @@ function PBRMesh() {
         // Base color
         color="#ffffff"
         map={colorMap}
-
         // PBR properties
-        roughness={1}         // 0 = mirror, 1 = diffuse
+        roughness={1} // 0 = mirror, 1 = diffuse
         roughnessMap={roughnessMap}
-        metalness={0}         // 0 = dielectric, 1 = metal
+        metalness={0} // 0 = dielectric, 1 = metal
         metalnessMap={metalnessMap}
-
         // Surface detail
         normalMap={normalMap}
         normalScale={[1, 1]}
-
         // Ambient occlusion (requires uv2)
         aoMap={aoMap}
         aoMapIntensity={1}
-
         // Emissive
         emissive="#000000"
         emissiveIntensity={1}
         emissiveMap={emissiveTexture}
-
         // Environment
         envMap={envTexture}
         envMapIntensity={1}
-
         // Other
         flatShading={false}
         fog={true}
         transparent={false}
       />
     </mesh>
-  )
+  );
 }
 ```
 
@@ -136,13 +126,13 @@ function Glass() {
         color="#ffffff"
         metalness={0}
         roughness={0}
-        transmission={1}      // 0 = opaque, 1 = fully transparent
-        thickness={0.5}       // Volume thickness for refraction
-        ior={1.5}             // Index of refraction (glass ~1.5)
+        transmission={1} // 0 = opaque, 1 = fully transparent
+        thickness={0.5} // Volume thickness for refraction
+        ior={1.5} // Index of refraction (glass ~1.5)
         envMapIntensity={1}
       />
     </mesh>
-  )
+  );
 }
 
 // Car paint
@@ -154,11 +144,11 @@ function CarPaint() {
         color="#ff0000"
         metalness={0.9}
         roughness={0.5}
-        clearcoat={1}              // Clearcoat layer strength
-        clearcoatRoughness={0.1}   // Clearcoat roughness
+        clearcoat={1} // Clearcoat layer strength
+        clearcoatRoughness={0.1} // Clearcoat roughness
       />
     </mesh>
-  )
+  );
 }
 
 // Fabric/velvet (sheen)
@@ -174,7 +164,7 @@ function Fabric() {
         sheenColor="#ff88ff"
       />
     </mesh>
-  )
+  );
 }
 
 // Iridescent (soap bubbles)
@@ -189,7 +179,7 @@ function Iridescent() {
         iridescenceThicknessRange={[100, 400]}
       />
     </mesh>
-  )
+  );
 }
 ```
 
@@ -200,17 +190,17 @@ function Iridescent() {
 Realistic mirror-like reflections.
 
 ```tsx
-import { MeshReflectorMaterial } from '@react-three/drei'
+import { MeshReflectorMaterial } from '@react-three/drei';
 
 function ReflectiveFloor() {
   return (
     <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]}>
       <planeGeometry args={[10, 10]} />
       <MeshReflectorMaterial
-        blur={[400, 100]}         // Blur amount [x, y]
-        resolution={1024}         // Reflection resolution
-        mixBlur={1}               // Mix blur with reflection
-        mixStrength={0.5}         // Reflection strength
+        blur={[400, 100]} // Blur amount [x, y]
+        resolution={1024} // Reflection resolution
+        mixBlur={1} // Mix blur with reflection
+        mixStrength={0.5} // Reflection strength
         roughness={1}
         depthScale={1.2}
         minDepthThreshold={0.4}
@@ -220,7 +210,7 @@ function ReflectiveFloor() {
         mirror={0.5}
       />
     </mesh>
-  )
+  );
 }
 ```
 
@@ -229,21 +219,21 @@ function ReflectiveFloor() {
 Animated wobble effect.
 
 ```tsx
-import { MeshWobbleMaterial } from '@react-three/drei'
+import { MeshWobbleMaterial } from '@react-three/drei';
 
 function WobblyMesh() {
   return (
     <mesh>
       <torusKnotGeometry args={[1, 0.4, 100, 16]} />
       <MeshWobbleMaterial
-        factor={1}       // Wobble amplitude
-        speed={2}        // Wobble speed
+        factor={1} // Wobble amplitude
+        speed={2} // Wobble speed
         color="hotpink"
         metalness={0}
         roughness={0.5}
       />
     </mesh>
-  )
+  );
 }
 ```
 
@@ -252,20 +242,20 @@ function WobblyMesh() {
 Perlin noise distortion.
 
 ```tsx
-import { MeshDistortMaterial } from '@react-three/drei'
+import { MeshDistortMaterial } from '@react-three/drei';
 
 function DistortedMesh() {
   return (
     <mesh>
       <sphereGeometry args={[1, 64, 64]} />
       <MeshDistortMaterial
-        distort={0.5}    // Distortion amount
-        speed={2}        // Animation speed
+        distort={0.5} // Distortion amount
+        speed={2} // Animation speed
         color="cyan"
         roughness={0.2}
       />
     </mesh>
-  )
+  );
 }
 ```
 
@@ -274,20 +264,20 @@ function DistortedMesh() {
 Better glass/refractive materials.
 
 ```tsx
-import { MeshTransmissionMaterial } from '@react-three/drei'
+import { MeshTransmissionMaterial } from '@react-three/drei';
 
 function GlassSphere() {
   return (
     <mesh>
       <sphereGeometry args={[1, 64, 64]} />
       <MeshTransmissionMaterial
-        backside              // Render backside
-        samples={16}          // Refraction samples
-        resolution={1024}     // Buffer resolution
-        transmission={1}      // Transmission factor
+        backside // Render backside
+        samples={16} // Refraction samples
+        resolution={1024} // Buffer resolution
+        transmission={1} // Transmission factor
         roughness={0.0}
-        thickness={0.5}       // Volume thickness
-        ior={1.5}             // Index of refraction
+        thickness={0.5} // Volume thickness
+        ior={1.5} // Index of refraction
         chromaticAberration={0.06}
         anisotropy={0.1}
         distortion={0.0}
@@ -299,7 +289,7 @@ function GlassSphere() {
         color="#c9ffa1"
       />
     </mesh>
-  )
+  );
 }
 ```
 
@@ -308,15 +298,15 @@ function GlassSphere() {
 Discard fragments - useful for shadows only.
 
 ```tsx
-import { MeshDiscardMaterial } from '@react-three/drei'
+import { MeshDiscardMaterial } from '@react-three/drei';
 
 function ShadowOnlyMesh() {
   return (
     <mesh castShadow>
       <boxGeometry />
-      <MeshDiscardMaterial />  {/* Invisible but casts shadows */}
+      <MeshDiscardMaterial /> {/* Invisible but casts shadows */}
     </mesh>
-  )
+  );
 }
 ```
 
@@ -364,14 +354,12 @@ All materials share these base properties:
   visible={true}
   transparent={false}
   opacity={1}
-  alphaTest={0}          // Discard pixels with alpha < value
-
+  alphaTest={0} // Discard pixels with alpha < value
   // Rendering
   side={THREE.FrontSide} // FrontSide, BackSide, DoubleSide
   depthTest={true}
   depthWrite={true}
   colorWrite={true}
-
   // Blending
   blending={THREE.NormalBlending}
   // NormalBlending, AdditiveBlending, SubtractiveBlending, MultiplyBlending
@@ -380,7 +368,6 @@ All materials share these base properties:
   polygonOffset={false}
   polygonOffsetFactor={0}
   polygonOffsetUnits={0}
-
   // Misc
   dithering={false}
   toneMapped={true}
@@ -392,42 +379,43 @@ All materials share these base properties:
 ### Updating Material Properties
 
 ```tsx
-import { useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
+import { useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
 
 function AnimatedMaterial() {
-  const materialRef = useRef()
+  const materialRef = useRef();
 
   useFrame(({ clock }) => {
-    const t = clock.elapsedTime
+    const t = clock.elapsedTime;
 
     // Update color
-    materialRef.current.color.setHSL((t * 0.1) % 1, 1, 0.5)
+    materialRef.current.color.setHSL((t * 0.1) % 1, 1, 0.5);
 
     // Update properties
-    materialRef.current.roughness = (Math.sin(t) + 1) / 2
-  })
+    materialRef.current.roughness = (Math.sin(t) + 1) / 2;
+  });
 
   return (
     <mesh>
       <boxGeometry />
       <meshStandardMaterial ref={materialRef} />
     </mesh>
-  )
+  );
 }
 ```
 
 ### Shared Materials
 
 ```tsx
-import { useMemo } from 'react'
-import * as THREE from 'three'
+import { useMemo } from 'react';
+import * as THREE from 'three';
 
 function SharedMaterial() {
   // Create once, use many times
-  const material = useMemo(() =>
-    new THREE.MeshStandardMaterial({ color: 'red' }),
-  [])
+  const material = useMemo(
+    () => new THREE.MeshStandardMaterial({ color: 'red' }),
+    []
+  );
 
   return (
     <>
@@ -441,7 +429,7 @@ function SharedMaterial() {
         <coneGeometry />
       </mesh>
     </>
-  )
+  );
 }
 ```
 
@@ -451,20 +439,22 @@ function SharedMaterial() {
 // Different materials per face (BoxGeometry has 6 material groups)
 <mesh>
   <boxGeometry />
-  <meshStandardMaterial attach="material-0" color="red" />   {/* +X */}
+  <meshStandardMaterial attach="material-0" color="red" /> {/* +X */}
   <meshStandardMaterial attach="material-1" color="green" /> {/* -X */}
-  <meshStandardMaterial attach="material-2" color="blue" />  {/* +Y */}
-  <meshStandardMaterial attach="material-3" color="yellow" />{/* -Y */}
-  <meshStandardMaterial attach="material-4" color="cyan" />  {/* +Z */}
-  <meshStandardMaterial attach="material-5" color="magenta" />{/* -Z */}
+  <meshStandardMaterial attach="material-2" color="blue" /> {/* +Y */}
+  <meshStandardMaterial attach="material-3" color="yellow" />
+  {/* -Y */}
+  <meshStandardMaterial attach="material-4" color="cyan" /> {/* +Z */}
+  <meshStandardMaterial attach="material-5" color="magenta" />
+  {/* -Z */}
 </mesh>
 ```
 
 ## Material with Textures
 
 ```tsx
-import { useTexture } from '@react-three/drei'
-import * as THREE from 'three'
+import { useTexture } from '@react-three/drei';
+import * as THREE from 'three';
 
 function TexturedMaterial() {
   // Named object pattern (recommended)
@@ -472,20 +462,20 @@ function TexturedMaterial() {
     map: '/textures/color.jpg',
     normalMap: '/textures/normal.jpg',
     roughnessMap: '/textures/roughness.jpg',
-  })
+  });
 
   // Set texture properties
-  Object.values(textures).forEach(texture => {
-    texture.wrapS = texture.wrapT = THREE.RepeatWrapping
-    texture.repeat.set(2, 2)
-  })
+  Object.values(textures).forEach((texture) => {
+    texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+    texture.repeat.set(2, 2);
+  });
 
   return (
     <mesh>
       <planeGeometry args={[5, 5]} />
       <meshStandardMaterial {...textures} />
     </mesh>
-  )
+  );
 }
 ```
 
@@ -512,10 +502,10 @@ function TexturedMaterial() {
 ## Environment Maps
 
 ```tsx
-import { useEnvironment } from '@react-three/drei'
+import { useEnvironment } from '@react-three/drei';
 
 function EnvMappedMaterial() {
-  const envMap = useEnvironment({ preset: 'sunset' })
+  const envMap = useEnvironment({ preset: 'sunset' });
 
   return (
     <mesh>
@@ -527,7 +517,7 @@ function EnvMappedMaterial() {
         envMapIntensity={1}
       />
     </mesh>
-  )
+  );
 }
 ```
 
@@ -536,8 +526,8 @@ function EnvMappedMaterial() {
 See `r3f-shaders` for detailed shader material usage.
 
 ```tsx
-import { shaderMaterial } from '@react-three/drei'
-import { extend } from '@react-three/fiber'
+import { shaderMaterial } from '@react-three/drei';
+import { extend } from '@react-three/fiber';
 
 const CustomMaterial = shaderMaterial(
   { time: 0, color: new THREE.Color('hotpink') },
@@ -558,23 +548,23 @@ const CustomMaterial = shaderMaterial(
       gl_FragColor = vec4(color * (sin(time + vUv.x * 10.0) * 0.5 + 0.5), 1.0);
     }
   `
-)
+);
 
-extend({ CustomMaterial })
+extend({ CustomMaterial });
 
 function CustomShaderMesh() {
-  const materialRef = useRef()
+  const materialRef = useRef();
 
   useFrame(({ clock }) => {
-    materialRef.current.time = clock.elapsedTime
-  })
+    materialRef.current.time = clock.elapsedTime;
+  });
 
   return (
     <mesh>
       <boxGeometry />
       <customMaterial ref={materialRef} />
     </mesh>
-  )
+  );
 }
 ```
 
@@ -588,14 +578,14 @@ function CustomShaderMesh() {
 
 ```tsx
 // Material caching pattern
-const materialCache = new Map()
+const materialCache = new Map();
 
 function getCachedMaterial(color) {
-  const key = color.toString()
+  const key = color.toString();
   if (!materialCache.has(key)) {
-    materialCache.set(key, new THREE.MeshStandardMaterial({ color }))
+    materialCache.set(key, new THREE.MeshStandardMaterial({ color }));
   }
-  return materialCache.get(key)
+  return materialCache.get(key);
 }
 ```
 

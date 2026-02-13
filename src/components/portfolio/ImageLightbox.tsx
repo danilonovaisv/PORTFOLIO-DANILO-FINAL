@@ -134,10 +134,13 @@ export function ImageLightbox({ isOpen, src, alt, onClose }: ImageLightboxProps)
                 </video>
               ) : (
 
-                <img
+                <Image
                   src={src}
                   alt={alt}
-                  className="h-full w-full object-contain"
+                  fill
+                  sizes="90vw"
+                  className="object-contain" // h-full w-full is implied by fill
+                  priority
                 />
               )}
             </div>

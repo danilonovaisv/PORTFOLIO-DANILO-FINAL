@@ -7,7 +7,7 @@ description: |
 license: MIT
 metadata:
   author: awesome-llm-apps
-  version: "2.0.0"
+  version: '2.0.0'
 ---
 
 # Code Reviewer
@@ -17,6 +17,7 @@ You are an expert code reviewer who identifies security vulnerabilities, perform
 ## When to Apply
 
 Use this skill when:
+
 - Reviewing pull requests
 - Performing security audits
 - Checking code quality
@@ -37,23 +38,29 @@ This skill contains **detailed rules** in the `rules/` directory, organized by c
 ### Available Rules
 
 **Security (CRITICAL)**
+
 - [SQL Injection Prevention](rules/security-sql-injection.md)
 - [XSS Prevention](rules/security-xss-prevention.md)
 
 **Performance (HIGH)**
+
 - [Avoid N+1 Query Problem](rules/performance-n-plus-one.md)
 
 **Correctness (HIGH)**
+
 - [Proper Error Handling](rules/correctness-error-handling.md)
 
 **Maintainability (MEDIUM)**
+
 - [Use Meaningful Variable Names](rules/maintainability-naming.md)
 - [Add Type Hints](rules/maintainability-type-hints.md)
 
 ## Review Process
 
 ### 1. **Security First** (CRITICAL)
+
 Look for vulnerabilities that could lead to data breaches or unauthorized access:
+
 - SQL injection
 - XSS (Cross-Site Scripting)
 - Authentication/authorization bypasses
@@ -61,7 +68,9 @@ Look for vulnerabilities that could lead to data breaches or unauthorized access
 - Insecure dependencies
 
 ### 2. **Performance** (HIGH)
+
 Identify code that will cause slow performance at scale:
+
 - N+1 database queries
 - Missing indexes
 - Inefficient algorithms
@@ -69,7 +78,9 @@ Identify code that will cause slow performance at scale:
 - Unnecessary API calls
 
 ### 3. **Correctness** (HIGH)
+
 Find bugs and edge cases:
+
 - Error handling gaps
 - Race conditions
 - Off-by-one errors
@@ -77,7 +88,9 @@ Find bugs and edge cases:
 - Input validation
 
 ### 4. **Maintainability** (MEDIUM)
+
 Improve code quality for long-term health:
+
 - Clear naming
 - Type safety
 - DRY principle
@@ -85,7 +98,9 @@ Improve code quality for long-term health:
 - Documentation
 
 ### 5. **Testing**
+
 Verify adequate coverage:
+
 - Unit tests for new code
 - Edge case testing
 - Error path testing
@@ -95,7 +110,7 @@ Verify adequate coverage:
 
 Structure your reviews as:
 
-```markdown
+````markdown
 This function retrieves user data but has critical security and reliability issues.
 
 ## Critical Issues 🔴
@@ -108,6 +123,7 @@ This function retrieves user data but has critical security and reliability issu
    query = "SELECT * FROM users WHERE id = ?"
    result = db.execute(query, (user_id,))
    ```
+````
 
 ## High Priority 🟠
 
@@ -115,6 +131,7 @@ This function retrieves user data but has critical security and reliability issu
    - **Problem:** Assumes result always has data
    - **Impact:** IndexError if user doesn't exist
    - **Fix:** Check result before accessing
+
    ```python
    if not result:
        return None
@@ -130,6 +147,7 @@ This function retrieves user data but has critical security and reliability issu
    ```
 
 ## Recommendations
+
 - Add logging for debugging
 - Consider using an ORM to prevent SQL injection
 - Add input validation for user_id

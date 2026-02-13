@@ -1150,10 +1150,10 @@ ts COLORS = [ 'bg-bluePrimary', 'bg-purpleDetails', 'bg-pinkDetails', 'bg-bluePr
 
 - **Frases rotativas — Mobile:**
   - O texto animado fica **sempre 20% acima do rodapé da sessão**, **centralizado na página**.
-  - **Entrada:** entra pela direita  
+  - **Entrada:** entra pela esquerda  
     - `x: +24 → 0`, `opacity: 0 → 1`, `blur: 10px → 0`
   - **Permanência:** estável, centralizado no rodapé.  
-  - **Saída:** sai pela esquerda  
+  - **Saída:** sai pela direita  
     - `x: 0 → -24`, `opacity: 1 → 0`, `blur: 0 → 10px`
   - No mobile, **não usar `y`** (sem subir/descer), apenas deslocamento horizontal.
   - **Quebra de linha só quando necessário** (evitar linhas forçadas; centralizado).

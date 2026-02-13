@@ -180,7 +180,7 @@ export function GhostParticles({
       if (data.life <= 0) {
         mesh.visible = false;
       }
-    };
+    }
   });
 
   return (

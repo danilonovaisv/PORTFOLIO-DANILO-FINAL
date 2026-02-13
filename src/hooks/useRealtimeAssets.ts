@@ -13,13 +13,13 @@ const toPublicUrl = (item: DbAsset) =>
   item.file_path?.startsWith('http')
     ? item.file_path
     : buildSupabaseStorageUrl(item.bucket || 'site-assets', item.file_path) ||
-    null;
+      null;
 
 // Smart Polling Config
 const POLLING_CONFIG = {
-  activeInterval: 15000,   // 15 seconds when active
+  activeInterval: 15000, // 15 seconds when active
   backgroundInterval: 300000, // 5 minutes when background
-  maxBackoff: 600000,      // 10 minutes max
+  maxBackoff: 600000, // 10 minutes max
 };
 
 export function useRealtimeAsset(assetKey: string) {
@@ -34,35 +34,38 @@ export function useRealtimeAsset(assetKey: string) {
   const isVisibleRef = useRef(true);
 
   // Define fetchInitial outside useEffect for reuse
-  const fetchInitial = useCallback(async (isMounted: () => boolean) => {
-    // Only fetch if not in cache OR if we want to ensure freshness
-    const supabase = createClientComponentClient();
+  const fetchInitial = useCallback(
+    async (isMounted: () => boolean) => {
+      // Only fetch if not in cache OR if we want to ensure freshness
+      const supabase = createClientComponentClient();
 
-    // Check if we should even fetch (e.g. if tab is hidden, skip unless forced)
-    // But for initial load we always fetch.
+      // Check if we should even fetch (e.g. if tab is hidden, skip unless forced)
+      // But for initial load we always fetch.
 
-    const { data, error: fetchError } = await supabase
-      .from('site_assets')
-      .select('*')
-      .eq('key', assetKey)
-      .maybeSingle();
+      const { data, error: fetchError } = await supabase
+        .from('site_assets')
+        .select('*')
+        .eq('key', assetKey)
+        .maybeSingle();
 
-    if (!isMounted()) return;
+      if (!isMounted()) return;
 
-    if (fetchError) {
-      setError(new Error(fetchError.message));
-      // Increase backoff on error
-      backoffCountRef.current++;
-    }
+      if (fetchError) {
+        setError(new Error(fetchError.message));
+        // Increase backoff on error
+        backoffCountRef.current++;
+      }
 
-    if (data) {
-      upsertAsset(data as DbAsset);
-      // Reset backoff on success
-      backoffCountRef.current = 0;
-    }
+      if (data) {
+        upsertAsset(data as DbAsset);
+        // Reset backoff on success
+        backoffCountRef.current = 0;
+      }
 
-    setLoading(false);
-  }, [assetKey, upsertAsset]);
+      setLoading(false);
+    },
+    [assetKey, upsertAsset]
+  );
 
   useEffect(() => {
     // 1. Optimistic Cache
@@ -87,7 +90,10 @@ export function useRealtimeAsset(assetKey: string) {
 
       // Add simple backoff factor (capped)
       if (backoffCountRef.current > 0) {
-        delay = Math.min(delay * (backoffCountRef.current + 1), POLLING_CONFIG.maxBackoff);
+        delay = Math.min(
+          delay * (backoffCountRef.current + 1),
+          POLLING_CONFIG.maxBackoff
+        );
       }
 
       pollingTimerRef.current = setTimeout(() => {
@@ -134,12 +140,15 @@ export function useRealtimeAsset(assetKey: string) {
     // --- Realtime Subscription ---
     const initializeSubscription = async () => {
       try {
-        const { data: { session } } = await supabase.auth.getSession();
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
         if (session?.access_token && !isDisposed) {
           supabase.realtime.setAuth(session.access_token);
         }
       } catch (authError) {
-        if (!isDisposed) console.error('[useRealtimeAsset] Auth config failed:', authError);
+        if (!isDisposed)
+          console.error('[useRealtimeAsset] Auth config failed:', authError);
       }
 
       if (isDisposed) return;
@@ -199,9 +208,9 @@ export function useRealtimeAsset(assetKey: string) {
 
   const assetWithUrl = storeAsset
     ? {
-      ...storeAsset,
-      publicUrl: toPublicUrl(storeAsset) || '',
-    }
+        ...storeAsset,
+        publicUrl: toPublicUrl(storeAsset) || '',
+      }
     : null;
 
   return { asset: assetWithUrl, loading, error };

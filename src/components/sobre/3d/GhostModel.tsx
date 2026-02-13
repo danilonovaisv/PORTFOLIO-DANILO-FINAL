@@ -43,187 +43,147 @@ const GhostModel: React.FC<GhostModelProps> = ({
 
   const { nodes, materials } = useGLTF(modelUrl) as unknown as GLTFResult;
 
-  // Configuração responsiva refinada para Mobile/Desktop - Posições Absolutas
   const config = useMemo(
     () => ({
-      // Desktop: Centralizado (0)
-      // Mobile: Canto esquerdo superior (ajuste negativo em X, positivo em Y)
-      // 🟣 [CONFIG VISUAL]: Posição Base X - Define onde o Ghost começa horizontalmente (Desktop vs Mobile)
       baseX: isMobile ? -viewport.width / 3 : 0,
-
-      // Desktop: ancorado no centro do viewport
-      // Mobile: 17% do topo (alinhado com título)
       startY: isMobile ? viewport.height * 0.17 : 0,
-      endY: isMobile ? viewport.height * 0.17 : 0, // Mantém posição fixa até o final
-
-      // Intensidade flutuante
-      floatBase: isMobile ? 0.09 : 0.05,
-      floatAmplitude: 0.2,
-      tiltBase: 0.15,
-
-      // Escala ajustada para maior presença
-      // 🟣 [CONFIG VISUAL]: Escala Base - Tamanho inicial do Ghost (0.22 mobile, 0.65 desktop)
       baseScale: isMobile ? 0.22 : 0.585,
-      // Compensa pivot do GLB para centralização visual no desktop
       modelOffsetY: isMobile ? 0 : -1.9,
-      // 🟣 [CONFIG VISUAL]: Boost de Escala - Quanto o Ghost cresce na fase final (+15%)
-      scaleBoost: 0.15, // +15% no final
-      scrollResponse: isMobile ? 0.2 : 0,
-
-      // Saída (Exit)
-      // 🟣 [CONFIG VISUAL]: Posição de Saída Y - Define o quanto ele sobe ao sair da tela
-      exitY: 6, // Sobe para sair
+      scaleBoost: 0.1, // 10% boost at end
     }),
     [isMobile, viewport.width, viewport.height]
   );
 
-  const [isEntering, setIsEntering] = useState(true);
+  const [hovered, setHover] = useState(false);
   const isFinalPhase = useRef(false);
 
   useEffect(() => {
-    // Sincronização estrita com "Acredito no..." (0.1 ~ 0.2 no BeliefFixedHeader)
     const unsubscribe = scrollProgress.on('change', (val) => {
-      if (val > 0.05 && isEntering) {
-        setIsEntering(false);
-      }
-      // Final phase triggers warning/exit prep
-      if (val > 0.85 && !isFinalPhase.current) {
+      // Logic for phases if needed outside useFrame
+      if (val > 0.8 && !isFinalPhase.current) {
         isFinalPhase.current = true;
+      } else if (val <= 0.8 && isFinalPhase.current) {
+        isFinalPhase.current = false;
       }
     });
     return () => unsubscribe();
-  }, [scrollProgress, isEntering]);
+  }, [scrollProgress]);
 
   useFrame((state) => {
     if (!group.current) return;
 
+    // 1. Scroll Progress
     const scroll = scrollProgress.get();
-    const t = Math.min(1, Math.max(0, scroll)); // Clamp entre 0 e 1
+    const t = Math.min(1, Math.max(0, scroll));
 
-    // === ESCALA DINÂMICA (final: +10%) ===
-    const baseScale = config.baseScale;
-    const scaleFactor = 1 + (isFinalPhase.current ? config.scaleBoost : 0);
-    const targetScale = baseScale * scaleFactor;
+    // 2. Base Transforms (LERP)
+    // Scale Logic: Base -> Boost at >0.8
+    const finalScaleBoost = t > 0.8 ? (t - 0.8) * 5 * config.scaleBoost : 0; // 0 to 0.1
+    const targetScale = config.baseScale * (1 + finalScaleBoost);
 
-    // Lerp scale
-    group.current.scale.x = THREE.MathUtils.lerp(
-      group.current.scale.x,
-      targetScale,
-      0.07
-    );
-    group.current.scale.y = THREE.MathUtils.lerp(
-      group.current.scale.y,
-      targetScale,
-      0.07
-    );
-    group.current.scale.z = THREE.MathUtils.lerp(
-      group.current.scale.z,
-      targetScale,
-      0.07
+    // Use LERP menor quando t >= 0.95 para manter valores finais
+    const lerpFactor = t >= 0.95 ? 0.02 : 0.1;
+    group.current.scale.lerp(
+      new THREE.Vector3(targetScale, targetScale, targetScale),
+      lerpFactor
     );
 
-    // === FINAL PHASE & EXIT ===
-    let targetY = config.startY;
+    // Position Logic
     let targetX = config.baseX;
+    let targetY = config.startY;
+    let targetZ = 0;
 
-    if (isFinalPhase.current) {
-      // Fase Final: mantém âncora central e centraliza X
-      targetX = 0;
-      targetY = config.startY;
-      // OBS: Se quiser que ele saia para cima, use: targetY = config.exitY;
-      // Por enquanto, mantemos no centro para compor com o texto final.
+    // Mobile specific override
+    if (isMobile) {
+      // Mobile: Ghost stays left
+    } else {
+      // Desktop: Follow cursor logic
+      const mouseX = state.mouse.x * 2; // -1 to 1 range (roughly)
+      const mouseY = state.mouse.y * 2;
+
+      // LERP Mouse follow
+      targetX += mouseX * 0.5; // Move slightly with mouse
+      targetY += mouseY * 0.5;
     }
 
-    // Saída Suave (Exit Phase)
-    // O CSS Sticky cuida da saída junto com o scroll da seção.
-    // O Ghost permanece centralizado (0,0) e a seção o leva embora ao terminar.
+    // Scroll Sync: Z-approach at end
+    if (t > 0.8) {
+      // Move closer by +2 units at end, scaled by remaining scroll
+      const zBoost = (t - 0.8) * 5 * 2;
+      targetZ += zBoost;
+    }
 
-    // Aplica Low Pass
+    // Direct component LERP to avoid Vector3 allocation per frame (Rule #21)
+    // Use LERP menor quando t >= 0.95 para manter posição final
+    const posLerpFactor = t >= 0.95 ? 0.02 : 0.05;
+    group.current.position.x = THREE.MathUtils.lerp(
+      group.current.position.x,
+      targetX,
+      posLerpFactor
+    );
     group.current.position.y = THREE.MathUtils.lerp(
       group.current.position.y,
       targetY,
-      0.1
+      posLerpFactor
     );
-
-    // X Position Logic with Wiggle
-    const wiggleX = isMobile
-      ? Math.sin(state.clock.getElapsedTime() * 2.5) *
-        config.floatAmplitude *
-        0.5
-      : 0;
-    const scrollDriftX =
-      Math.sin(t * Math.PI * 2) * config.scrollResponse * 0.1;
-    group.current.position.x = THREE.MathUtils.lerp(
-      group.current.position.x,
-      targetX + wiggleX + scrollDriftX,
-      0.06
-    );
-
-    // === POSIÇÃO Z (leve profundidade) ===
-    const targetZ = Math.cos(t * Math.PI * 0.8) * 0.3;
     group.current.position.z = THREE.MathUtils.lerp(
       group.current.position.z,
       targetZ,
-      0.06
+      posLerpFactor
     );
 
-    // === TILT (mouse + scroll) ===
-    const mouseTiltX = state.mouse.y * config.tiltBase;
-    const mouseTiltZ = -state.mouse.x * config.tiltBase;
+    // 3. Rotation Logic
+    // Base rotation Y starts at -PI/2 or similar? GLTFs differ. Assuming 0 is front.
+    // Scroll creates slow Y rotation
+    const scrollRotY = t * Math.PI * 0.5; // Rotate 90deg over scroll
 
-    // Scroll também afeta tilt (mais intenso no final + saída)
-    const scrollTiltFactor =
-      t * (scroll > 0.95 ? 4 : isFinalPhase.current ? 2.5 : 1);
-    const scrollTiltX =
-      Math.sin(t * Math.PI * 3) * config.tiltBase * 0.3 * scrollTiltFactor;
-    const scrollTiltZ =
-      Math.cos(t * Math.PI * 3) * config.tiltBase * 0.3 * scrollTiltFactor;
+    // Mouse Tilt (Desktop only)
+    const tiltX = isMobile ? 0 : state.mouse.y * 0.2;
+    const tiltY = isMobile ? 0 : state.mouse.x * 0.2;
 
-    const targetRotX = mouseTiltX + scrollTiltX;
-    const targetRotZ = mouseTiltZ + scrollTiltZ;
+    // Wobble (Hover or Final Phase)
+    const time = state.clock.getElapsedTime();
+    const isWobbling = (hovered && !isMobile) || t > 0.8;
+    const wobbleIntensity = isWobbling ? 0.2 : 0.05;
+    const wobbleX = Math.sin(time * 3) * wobbleIntensity;
+    const wobbleZ = Math.cos(time * 2) * wobbleIntensity;
 
+    const targetRotX = tiltX + wobbleX * 0.5;
+    const targetRotY = scrollRotY + tiltY + wobbleX;
+    const targetRotZ = wobbleZ * 0.5;
+
+    // Apply Rotation Lerp (Direct)
+    // Use LERP menor quando t >= 0.95 para manter rotação final
+    const rotLerpFactor = t >= 0.95 ? 0.02 : 0.1;
     group.current.rotation.x = THREE.MathUtils.lerp(
       group.current.rotation.x,
       targetRotX,
-      0.12
+      rotLerpFactor
+    );
+    group.current.rotation.y = THREE.MathUtils.lerp(
+      group.current.rotation.y,
+      targetRotY,
+      rotLerpFactor
     );
     group.current.rotation.z = THREE.MathUtils.lerp(
       group.current.rotation.z,
       targetRotZ,
-      0.12
+      rotLerpFactor
     );
-
-    // === Saltitante no final (wobble + bounce) ===
-    if (isFinalPhase.current) {
-      const bounce = Math.sin(state.clock.getElapsedTime() * 6) * 0.035;
-      const wobble = Math.sin(state.clock.getElapsedTime() * 4 + 1) * 0.025;
-
-      // Se estiver saindo, reduz o wobble para focar na subida
-      const exitDamp = scroll > 0.95 ? 0.2 : 1;
-
-      group.current.position.y += bounce * exitDamp;
-      group.current.rotation.x += wobble * exitDamp;
-      group.current.rotation.z += wobble * 0.5 * exitDamp;
-    }
   });
 
-  // Escala de entrada (animação de fade-in + boost final)
-  const targetScale =
-    config.baseScale * (isFinalPhase.current ? 1 + config.scaleBoost : 1);
-  const enterScale = isEntering ? 0.1 : config.baseScale;
-  const currentScale = THREE.MathUtils.lerp(enterScale, targetScale, 0.07); // Lerp suave
-
   return (
-    <group ref={group} scale={currentScale} dispose={null}>
+    <group
+      ref={group}
+      dispose={null}
+      onPointerOver={() => !isMobile && setHover(true)}
+      onPointerOut={() => !isMobile && setHover(false)}
+    >
       <group position={[0, config.modelOffsetY, 0]}>
         <Float
-          speed={2.2}
-          rotationIntensity={isFinalPhase.current ? 1.2 : 0.6}
-          floatIntensity={isFinalPhase.current ? 1.0 : 0.5}
-          floatingRange={[
-            -config.floatBase * (isFinalPhase.current ? 1.5 : 1),
-            config.floatBase * (isFinalPhase.current ? 1.5 : 1),
-          ]}
+          speed={hovered ? 4 : 2} // Faster float on hover
+          rotationIntensity={hovered ? 1.5 : 0.5}
+          floatIntensity={hovered ? 1.5 : 0.5}
         >
           <mesh
             name="Body_Ghost_White_0"

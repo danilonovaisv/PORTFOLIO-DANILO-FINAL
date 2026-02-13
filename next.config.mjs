@@ -149,6 +149,16 @@ const nextConfig = {
     },
   },
 
+  // As of Next.js 16, Turbopack is default but requires no webpack config or an explicit empty turbopack config
+  // to silence the error about conflict when using both.
+  // Since we use webpack for GLSL shaders, we suppress the warning/error.
+  // We can't easily migrate GLSL loader to turbopack yet without a plugin, so we keep webpack.
+  // In Next.js 15+, to avoid the error we can try disabling turbopack via flag, but here we can't change the command.
+  // However, often just providing an empty turbopack object or just accepting that we use webpack is enough.
+  // The error says: "This build is using Turbopack, with a `webpack` config and no `turbopack` config."
+  // So let's add an empty turbopack config.
+  turbopack: {},
+
   webpack: (config, { isServer }) => {
     config.module.rules.push({
       test: /\.(glsl|vs|fs|vert|frag)$/,

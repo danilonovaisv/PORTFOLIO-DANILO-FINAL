@@ -12,6 +12,7 @@ The N+1 query problem occurs when code executes 1 query to fetch a list, then N 
 ## Why This Matters
 
 N+1 queries are one of the most common performance problems:
+
 - **10 items** → 11 queries (1 + 10)
 - **100 items** → 101 queries (1 + 100)
 - **1000 items** → 1001 queries (1 + 1000)
@@ -23,26 +24,28 @@ Each query has network latency (~1-50ms), so 1000 queries = 1-50 seconds of wait
 **Problem:** Fetching related data inside a loop.
 
 ### Python (Django ORM)
+
 ```python
 # ❌ N+1 queries
 def get_posts_with_authors():
     posts = Post.objects.all()  # 1 query: SELECT * FROM posts
-    
+
     for post in posts:
         # N queries (one per post): SELECT * FROM users WHERE id = ?
         print(f"{post.title} by {post.author.name}")
-    
+
     return posts
 
 # With 100 posts: 101 database queries!
 ```
 
 ### JavaScript (Sequelize)
+
 ```javascript
 // ❌ N+1 queries
 async function getPostsWithAuthors() {
-  const posts = await Post.findAll();  // 1 query
-  
+  const posts = await Post.findAll(); // 1 query
+
   for (const post of posts) {
     // N queries
     const author = await User.findByPk(post.authorId);
@@ -52,16 +55,17 @@ async function getPostsWithAuthors() {
 ```
 
 ### GraphQL (Common Mistake)
+
 ```javascript
 // ❌ N+1 queries in resolvers
 const resolvers = {
   Query: {
-    posts: () => db.posts.findAll()  // 1 query
+    posts: () => db.posts.findAll(), // 1 query
   },
   Post: {
     // Runs for EACH post!
-    author: (post) => db.users.findById(post.authorId)  // N queries
-  }
+    author: (post) => db.users.findById(post.authorId), // N queries
+  },
 };
 ```
 
@@ -70,19 +74,21 @@ const resolvers = {
 ### Solution 1: Eager Loading / Join Fetching
 
 **Python (Django)**
+
 ```python
 # ✅ 1 query with JOIN
 def get_posts_with_authors():
     posts = Post.objects.select_related('author').all()
     # Single query: SELECT * FROM posts JOIN users ON posts.author_id = users.id
-    
+
     for post in posts:
         print(f"{post.title} by {post.author.name}")  # No extra query!
-    
+
     return posts
 ```
 
 **Python (SQLAlchemy)**
+
 ```python
 # ✅ 1 query with JOIN
 from sqlalchemy.orm import joinedload
@@ -91,27 +97,31 @@ posts = session.query(Post).options(joinedload(Post.author)).all()
 ```
 
 **JavaScript (Sequelize)**
+
 ```javascript
 // ✅ 1 query with JOIN
 const posts = await Post.findAll({
-  include: [{
-    model: User,
-    as: 'author'
-  }]
+  include: [
+    {
+      model: User,
+      as: 'author',
+    },
+  ],
 });
 
-posts.forEach(post => {
-  console.log(`${post.title} by ${post.author.name}`);  // No extra query!
+posts.forEach((post) => {
+  console.log(`${post.title} by ${post.author.name}`); // No extra query!
 });
 ```
 
 **JavaScript (Prisma)**
+
 ```javascript
 // ✅ 1 query with JOIN
 const posts = await prisma.post.findMany({
   include: {
-    author: true
-  }
+    author: true,
+  },
 });
 ```
 
@@ -124,17 +134,17 @@ const DataLoader = require('dataloader');
 const userLoader = new DataLoader(async (userIds) => {
   // Called once with all user IDs: [1, 2, 3, 4, ...]
   const users = await db.users.findAll({
-    where: { id: { in: userIds } }
+    where: { id: { in: userIds } },
   });
-  
+
   // Return in same order as requested
-  return userIds.map(id => users.find(u => u.id === id));
+  return userIds.map((id) => users.find((u) => u.id === id));
 });
 
 const resolvers = {
   Post: {
-    author: (post) => userLoader.load(post.authorId)  // Batched!
-  }
+    author: (post) => userLoader.load(post.authorId), // Batched!
+  },
 };
 
 // 100 posts → 2 queries (1 for posts, 1 batched for all authors)
@@ -146,18 +156,18 @@ const resolvers = {
 # ✅ Fetch all at once
 def get_posts_with_authors():
     posts = Post.objects.all()
-    
+
     # Get all unique author IDs
     author_ids = {post.author_id for post in posts}
-    
+
     # Single query for all authors
     authors = User.objects.filter(id__in=author_ids)
     author_map = {author.id: author for author in authors}
-    
+
     # Attach authors to posts
     for post in posts:
         post.author = author_map[post.author_id]
-    
+
     return posts
 
 # 2 queries total (much better than N+1)
@@ -166,6 +176,7 @@ def get_posts_with_authors():
 ## Many-to-Many Relationships
 
 **❌ N+1 with many-to-many**
+
 ```python
 # ❌ Bad
 posts = Post.objects.all()
@@ -174,6 +185,7 @@ for post in posts:
 ```
 
 **✅ Prefetch many-to-many**
+
 ```python
 # ✅ Good
 posts = Post.objects.prefetch_related('tags').all()
@@ -188,6 +200,7 @@ for post in posts:
 ## Detecting N+1 Queries
 
 ### Django Debug Toolbar
+
 ```python
 # settings.py
 INSTALLED_APPS = ['debug_toolbar', ...]
@@ -197,6 +210,7 @@ INSTALLED_APPS = ['debug_toolbar', ...]
 ```
 
 ### Query Logging
+
 ```python
 # Python: log all queries
 import logging
@@ -207,11 +221,12 @@ logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
 ```javascript
 // Sequelize: log queries
 const sequelize = new Sequelize({
-  logging: console.log  // or custom logger
+  logging: console.log, // or custom logger
 });
 ```
 
 ### Profiling Tools
+
 - **Django**: django-silk, django-debug-toolbar
 - **Rails**: bullet gem
 - **Node.js**: Sequelize logging, Prisma debug mode
