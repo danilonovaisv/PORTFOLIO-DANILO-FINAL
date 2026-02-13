@@ -32,6 +32,11 @@ const sanitizeConfigKey = (key: string) => {
 const getConfigClassName = (key: string, prefix: string) =>
   `${prefix}-${sanitizeConfigKey(key)}`;
 
+const isSafeColor = (color: string) => {
+  // Check for characters that could break out of the style block or start a new one
+  return !/[\\{};<>]/.test(color);
+};
+
 function useChart() {
   const context = React.useContext(ChartContext);
 
@@ -93,7 +98,8 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
             itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
             itemConfig.color;
 
-          return color ? `  --color-${safeKey}: ${color};` : null;
+          const isSafe = color && isSafeColor(color);
+          return isSafe ? `  --color-${safeKey}: ${color};` : null;
         })
         .filter(Boolean)
         .join('\n');
