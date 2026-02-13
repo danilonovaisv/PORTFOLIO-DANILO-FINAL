@@ -554,7 +554,9 @@ export default function GhostScene() {
         postProcFolder.addBinding(params, "analogJitter", { min: 0, max: 2 }).on("change", (ev) => {
              analogDecayPass.uniforms.uAnalogJitter.value = ev.value;
         });
-        postProcFolder.addBinding(params, "limboMode");
+        postProcFolder.addBinding(params, "limboMode").on('change', (ev) => {
+            analogDecayPass.uniforms.uLimboMode.value = ev.value ? 1.0 : 0.0;
+        });
 
         // Event Listeners
         const mouse = new THREE.Vector2();
