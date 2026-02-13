@@ -56,6 +56,8 @@ const GhostModel: React.FC<GhostModelProps> = ({
 
   const [hovered, setHover] = useState(false);
   const isFinalPhase = useRef(false);
+  // Reusable vector for scale calculations to avoid per-frame allocation
+  const tempScale = useMemo(() => new THREE.Vector3(), []);
 
   useEffect(() => {
     const unsubscribe = scrollProgress.on('change', (val) => {
@@ -86,10 +88,8 @@ const GhostModel: React.FC<GhostModelProps> = ({
 
     // Use LERP consistente para garantir reset suave
     const lerpFactor = 0.1;
-    group.current.scale.lerp(
-      new THREE.Vector3(targetScale, targetScale, targetScale),
-      lerpFactor
-    );
+    tempScale.set(targetScale, targetScale, targetScale);
+    group.current.scale.lerp(tempScale, lerpFactor);
 
     // Position Logic
     let targetX = config.baseX;
