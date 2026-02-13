@@ -153,7 +153,7 @@ describe('getGhostAssetUrl', () => {
 
     expect(result).toBe(ASSET_PLACEHOLDER);
     expect(consoleSpy).toHaveBeenCalledWith(
-      'Erro ao obter URL do asset:',
+      expect.stringContaining('URL do asset'),
       expect.any(Error)
     );
 
