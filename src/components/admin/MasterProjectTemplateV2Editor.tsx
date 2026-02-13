@@ -8,6 +8,7 @@ import {
   Trash2,
   Video,
 } from 'lucide-react';
+import Image from 'next/image';
 import type {
   MasterProjectAsset,
   MasterProjectTemplateV2Data,
@@ -206,7 +207,7 @@ function MediaField({
       ) : null}
 
       {preview ? (
-        <div className="overflow-hidden rounded-xl border border-white/10 bg-black/40">
+        <div className="relative h-56 w-full overflow-hidden rounded-xl border border-white/10 bg-black/40">
           {isVideo ? (
             <video
               src={preview}
@@ -216,10 +217,12 @@ function MediaField({
               playsInline
             />
           ) : (
-            <img
+            <Image
               src={preview}
               alt={value.alt || 'Pré-visualização'}
-              className="h-56 w-full object-cover"
+              fill
+              className="object-cover"
+              unoptimized
             />
           )}
         </div>
@@ -866,7 +869,7 @@ export default function MasterProjectTemplateV2Editor({
                 </div>
 
                 {preview ? (
-                  <div className="overflow-hidden rounded-xl border border-white/10 bg-black/50">
+                  <div className="relative h-48 w-full overflow-hidden rounded-xl border border-white/10 bg-black/50">
                     {item.kind === 'video' ? (
                       <video
                         src={preview}
@@ -876,10 +879,12 @@ export default function MasterProjectTemplateV2Editor({
                         playsInline
                       />
                     ) : (
-                      <img
+                      <Image
                         src={preview}
                         alt={item.alt || 'Pré-visualização'}
-                        className="h-48 w-full object-cover"
+                        fill
+                        className="object-cover"
+                        unoptimized
                       />
                     )}
                   </div>

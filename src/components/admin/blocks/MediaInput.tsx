@@ -5,6 +5,7 @@ import {
   Link as LinkIcon,
   Trash2,
 } from 'lucide-react';
+import Image from 'next/image';
 
 interface MediaInputProps {
   label: string;
@@ -87,10 +88,12 @@ export function MediaInput({
             </div>
           ) : type === 'image' ? (
             <div className="relative min-h-50 max-h-100 w-full flex justify-center bg-black/40">
-              <img
-                src={displaySrc}
+              <Image
+                src={displaySrc || ''}
                 alt="Preview"
-                className="h-full w-auto max-h-100 object-contain"
+                fill
+                className="object-contain"
+                unoptimized
               />
             </div>
           ) : (

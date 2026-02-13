@@ -11,6 +11,7 @@ import {
   Type,
   Video,
 } from 'lucide-react';
+import Image from 'next/image';
 import type { ComponentType } from 'react';
 import {
   DropdownMenu,
@@ -239,7 +240,7 @@ function MediaAssetField({
       ) : null}
 
       {preview ? (
-        <div className="overflow-hidden border border-white/10 bg-black/40">
+        <div className="relative h-56 w-full overflow-hidden border border-white/10 bg-black/40">
           {isVideo ? (
             <video
               src={preview}
@@ -249,10 +250,12 @@ function MediaAssetField({
               playsInline
             />
           ) : (
-            <img
+            <Image
               src={preview}
               alt={value.alt || 'Pré-visualização'}
-              className="h-56 w-full object-cover"
+              fill
+              className="object-cover"
+              unoptimized
             />
           )}
         </div>
@@ -371,7 +374,7 @@ function BlockMediaField({
       ) : null}
 
       {preview ? (
-        <div className="overflow-hidden border border-white/10 bg-black/40">
+        <div className="relative h-44 w-full overflow-hidden border border-white/10 bg-black/40">
           {isVideo ? (
             <video
               src={preview}
@@ -381,10 +384,12 @@ function BlockMediaField({
               playsInline
             />
           ) : (
-            <img
+            <Image
               src={preview}
               alt="Preview"
-              className="h-44 w-full object-cover"
+              fill
+              className="object-cover"
+              unoptimized
             />
           )}
         </div>
@@ -969,8 +974,8 @@ export default function MasterProjectTemplateV3Editor({
                 ) : null}
 
                 {block.type === 'image-text' ||
-                block.type === 'text-image' ||
-                block.type === 'video-text' ? (
+                  block.type === 'text-image' ||
+                  block.type === 'video-text' ? (
                   <div className="grid gap-4 md:grid-cols-2">
                     <BlockMediaField
                       block={block}
@@ -1010,7 +1015,7 @@ export default function MasterProjectTemplateV3Editor({
                 ) : null}
 
                 {block.type === 'image-image' ||
-                block.type === 'image-video' ? (
+                  block.type === 'image-video' ? (
                   <div className="grid gap-4 md:grid-cols-2">
                     <BlockMediaField
                       block={block}
