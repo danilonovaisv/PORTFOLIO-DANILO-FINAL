@@ -1,18 +1,15 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import SmoothScroll from '@/components/layout/SmoothScroll';
 import Header from '@/components/layout/Header';
 
 import { useExperience } from '@/hooks/useExperience';
-import { useEffect } from 'react';
 
 import { AntigravityDebugger } from '@/components/debug/AntigravityDebugger';
 
 /**
  * Client-side layout wrapper that handles:
- * - Smooth scrolling (Lenis)
  * - Experience orchestration (device detection, WebGL flags)
  * - Header/Footer rendering
  * - Debug overlay
@@ -50,12 +47,12 @@ export default function ClientLayout({
   }
 
   return (
-    <SmoothScroll>
+    <>
       <Header />
       <main id="main-content" className="relative grow">
         {children}
       </main>
       {process.env.NODE_ENV === 'development' && <AntigravityDebugger />}
-    </SmoothScroll>
+    </>
   );
 }
