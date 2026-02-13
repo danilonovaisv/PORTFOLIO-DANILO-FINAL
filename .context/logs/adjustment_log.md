@@ -220,4 +220,9 @@
 - Critical `EPERM` issues in `node_modules` blocking automation.
 - Hero Section has mutated to high-performance Vanilla Three.js (`GhostScene.tsx`) using `InstancedMesh`.
 - Detected Dead Code: `Ghost.tsx` (R3F) and dependencies (`GhostParticles.tsx`, `GhostFireflies.tsx`).
+[2026-02-13] [Feature] [Workflow] Created Deep Clean Protocol:
+- Script: `scripts/clean_project.py` (Python) with SafetyGuardian.
+- Workflow: `.agent/workflows/deep-clean-project.md`.
+- Integration: Added `npm run deep-clean`.
+- Status: Script ready, but environment locked (EPERM on node_modules) blocking execution. Requires system restart.
 - Created `docs/audits/AUDIT-2026-02-13.md` with action plan.
