@@ -49,7 +49,7 @@ const GhostModel: React.FC<GhostModelProps> = ({
       startY: isMobile ? viewport.height * 0.17 : 0,
       baseScale: isMobile ? 0.22 : 0.585,
       modelOffsetY: isMobile ? 0 : -1.9,
-      scaleBoost: 0.1, // 10% boost at end
+      scaleBoost: 0.1, // Exactly 10% boost at end
     }),
     [isMobile, viewport.width, viewport.height]
   );
@@ -77,12 +77,15 @@ const GhostModel: React.FC<GhostModelProps> = ({
     const t = Math.min(1, Math.max(0, scroll));
 
     // 2. Base Transforms (LERP)
+
     // Scale Logic: Base -> Boost at >0.8
-    const finalScaleBoost = t > 0.8 ? (t - 0.8) * 5 * config.scaleBoost : 0; // 0 to 0.1
+    // "aumentar 10% do tamanho anterior"
+    const progressInFinalPhase = t > 0.8 ? (t - 0.8) * 5 : 0; // 0 to 1
+    const finalScaleBoost = progressInFinalPhase * config.scaleBoost;
     const targetScale = config.baseScale * (1 + finalScaleBoost);
 
-    // Use LERP menor quando t >= 0.95 para manter valores finais
-    const lerpFactor = t >= 0.95 ? 0.02 : 0.1;
+    // Use LERP consistente para garantir reset suave
+    const lerpFactor = 0.1;
     group.current.scale.lerp(
       new THREE.Vector3(targetScale, targetScale, targetScale),
       lerpFactor
@@ -93,51 +96,52 @@ const GhostModel: React.FC<GhostModelProps> = ({
     let targetY = config.startY;
     let targetZ = 0;
 
-    // Mobile specific override
-    if (isMobile) {
-      // Mobile: Ghost stays left
-    } else {
+    // "quando ele vai para o centro e dança"
+    // Move X to 0 (Center) during final phase
+    if (progressInFinalPhase > 0) {
+      targetX = THREE.MathUtils.lerp(
+        config.baseX,
+        0, // Target Center X
+        progressInFinalPhase
+      );
+    }
+
+    if (!isMobile) {
       // Desktop: Follow cursor logic
-      const mouseX = state.mouse.x * 2; // -1 to 1 range (roughly)
+      const mouseX = state.mouse.x * 2;
       const mouseY = state.mouse.y * 2;
 
-      // LERP Mouse follow
-      targetX += mouseX * 0.5; // Move slightly with mouse
+      targetX += mouseX * 0.5;
       targetY += mouseY * 0.5;
     }
 
     // Scroll Sync: Z-approach at end
-    if (t > 0.8) {
-      // Move closer by +2 units at end, scaled by remaining scroll
-      const zBoost = (t - 0.8) * 5 * 2;
+    if (progressInFinalPhase > 0) {
+      // Move closer by +2 units at end
+      const zBoost = progressInFinalPhase * 2;
       targetZ += zBoost;
     }
 
-    // Direct component LERP to avoid Vector3 allocation per frame (Rule #21)
-    // Use LERP menor quando t >= 0.95 para manter posição final
-    const posLerpFactor = t >= 0.95 ? 0.02 : 0.05;
+    // Direct component LERP
     group.current.position.x = THREE.MathUtils.lerp(
       group.current.position.x,
       targetX,
-      posLerpFactor
+      0.05
     );
     group.current.position.y = THREE.MathUtils.lerp(
       group.current.position.y,
       targetY,
-      posLerpFactor
+      0.05
     );
     group.current.position.z = THREE.MathUtils.lerp(
       group.current.position.z,
       targetZ,
-      posLerpFactor
+      0.05
     );
 
     // 3. Rotation Logic
-    // Base rotation Y starts at -PI/2 or similar? GLTFs differ. Assuming 0 is front.
-    // Scroll creates slow Y rotation
-    const scrollRotY = t * Math.PI * 0.5; // Rotate 90deg over scroll
+    const scrollRotY = t * Math.PI * 0.5;
 
-    // Mouse Tilt (Desktop only)
     const tiltX = isMobile ? 0 : state.mouse.y * 0.2;
     const tiltY = isMobile ? 0 : state.mouse.x * 0.2;
 
@@ -145,6 +149,8 @@ const GhostModel: React.FC<GhostModelProps> = ({
     const time = state.clock.getElapsedTime();
     const isWobbling = (hovered && !isMobile) || t > 0.8;
     const wobbleIntensity = isWobbling ? 0.2 : 0.05;
+
+    // Reset wobble smoothly implies reducing intensity if not wobbling, handled by ternary
     const wobbleX = Math.sin(time * 3) * wobbleIntensity;
     const wobbleZ = Math.cos(time * 2) * wobbleIntensity;
 
@@ -152,23 +158,20 @@ const GhostModel: React.FC<GhostModelProps> = ({
     const targetRotY = scrollRotY + tiltY + wobbleX;
     const targetRotZ = wobbleZ * 0.5;
 
-    // Apply Rotation Lerp (Direct)
-    // Use LERP menor quando t >= 0.95 para manter rotação final
-    const rotLerpFactor = t >= 0.95 ? 0.02 : 0.1;
     group.current.rotation.x = THREE.MathUtils.lerp(
       group.current.rotation.x,
       targetRotX,
-      rotLerpFactor
+      0.1
     );
     group.current.rotation.y = THREE.MathUtils.lerp(
       group.current.rotation.y,
       targetRotY,
-      rotLerpFactor
+      0.1
     );
     group.current.rotation.z = THREE.MathUtils.lerp(
       group.current.rotation.z,
       targetRotZ,
-      rotLerpFactor
+      0.1
     );
   });
 
@@ -181,7 +184,7 @@ const GhostModel: React.FC<GhostModelProps> = ({
     >
       <group position={[0, config.modelOffsetY, 0]}>
         <Float
-          speed={hovered ? 4 : 2} // Faster float on hover
+          speed={hovered ? 4 : 2}
           rotationIntensity={hovered ? 1.5 : 0.5}
           floatIntensity={hovered ? 1.5 : 0.5}
         >
