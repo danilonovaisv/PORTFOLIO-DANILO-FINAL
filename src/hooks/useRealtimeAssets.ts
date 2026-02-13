@@ -45,7 +45,7 @@ const subscribeToAssets = async () => {
       .on(
         'postgres_changes',
         { event: '*', schema: 'public', table: 'site_assets' },
-        (payload) => {
+        (payload: any) => {
           const newItem = payload.new as DbAsset;
           // Only process valid updates
           if (newItem && typeof newItem === 'object') {
@@ -53,7 +53,7 @@ const subscribeToAssets = async () => {
           }
         }
       )
-      .subscribe((status, err) => {
+      .subscribe((status: string, err: Error | null) => {
         if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT' || status === 'CLOSED') {
           console.warn(`[useRealtimeAssets] Global subscription status: ${status}`, err);
         }
@@ -137,10 +137,15 @@ export function useRealtimeAsset(assetKey: string) {
     [assetKey, upsertAsset]
   );
 
+  // 1. State Sync Effect: Handle loading state based on store presence
   useEffect(() => {
-    // 1. Optimistic Cache
-    if (storeAsset) setLoading(false);
+    if (storeAsset) {
+      setLoading(false);
+    }
+  }, [storeAsset]);
 
+  // 2. Polling & Subscription Effect: Manage lifecycle independent of store updates
+  useEffect(() => {
     let isDisposed = false;
     const isMounted = () => !isDisposed;
 
@@ -215,7 +220,7 @@ export function useRealtimeAsset(assetKey: string) {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('focus', handleVisibilityChange);
     };
-  }, [assetKey, upsertAsset, fetchInitial, storeAsset]); // Added missing deps
+  }, [assetKey, fetchInitial]); // Removed storeAsset to prevent re-execution on updates
 
   const assetWithUrl = storeAsset
     ? {
