@@ -6,6 +6,7 @@ import { createClientComponentClient } from '@/lib/supabase/client';
 import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
 import type { PortfolioProject } from '@/types/project';
 import type { Database } from '@/lib/supabase.types';
+import type { RealtimeChannel } from '@supabase/supabase-js';
 import FeaturedProjectsSection from './FeaturedProjectsSection';
 import { PortfolioModal } from '@/components/portfolio/PortfolioModal';
 import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
@@ -42,7 +43,6 @@ export default function FeaturedProjectsRealtime({
           '*, tags:portfolio_project_tags(tag:portfolio_tags(id, slug, label, kind))'
         )
         .eq('featured_on_home', true)
-        // .eq('is_published', true) -- Implicit in View
         .order('featured_home_order', {
           ascending: true,
           nullsFirst: false,
@@ -93,7 +93,7 @@ export default function FeaturedProjectsRealtime({
   useEffect(() => {
     void loadFeaturedProjects();
 
-    let channel: any = null;
+    let channel: RealtimeChannel | null = null;
     let pollingId: ReturnType<typeof setInterval> | null = null;
 
     const startPolling = () => {
@@ -111,68 +111,47 @@ export default function FeaturedProjectsRealtime({
 
     startPolling();
 
-    try {
-      const setup = async () => {
-        try {
-          const {
-            data: { session },
-          } = await supabase.auth.getSession();
-          if (session?.access_token) {
-            supabase.realtime.setAuth(session.access_token);
-          }
-
-          // Subscribe to the 'portfolio_projects' channel (matches TG_TABLE_NAME in DB trigger)
-          channel = supabase
-            .channel('portfolio_projects', {
-              config: {
-                broadcast: { self: false, ack: true },
-              },
-            })
-            .on('broadcast', { event: 'portfolio_projects' }, () => {
-              // Reload on any project change
-              void loadFeaturedProjects();
-            })
-            .subscribe((status: string, err?: Error) => {
-              if (status === 'SUBSCRIBED') {
-                stopPolling();
-              }
-              if (
-                status === 'CHANNEL_ERROR' ||
-                status === 'TIMED_OUT' ||
-                status === 'CLOSED'
-              ) {
-                startPolling();
-              }
-              if (status === 'CHANNEL_ERROR') {
-                if (isDev) {
-                  console.warn(
-                    '[FeaturedProjectsRealtime] Subscription error:',
-                    err
-                  );
-                }
-              }
-            });
-        } catch (error) {
-          if (isDev) {
-            console.warn(
-              '[FeaturedProjectsRealtime] Failed to initialize realtime auth:',
-              error
-            );
-          }
+    const setup = async () => {
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        if (session?.access_token) {
+          supabase.realtime.setAuth(session.access_token);
         }
-      };
-      void setup();
 
-      // Note: If we need to listen to Tags changes, we'd need another channel 'portfolio_project_tags'
-      // or handle it here if we merge topics. For now, project updates are the main driver.
-    } catch (error) {
-      if (isDev) {
-        console.warn(
-          '[FeaturedProjectsRealtime] Failed to initialize realtime channel:',
-          error
-        );
+        channel = supabase
+          .channel('portfolio_projects', {
+            config: {
+              broadcast: { self: false, ack: true },
+            },
+          })
+          .on('broadcast', { event: 'portfolio_projects' }, () => {
+            void loadFeaturedProjects();
+          })
+          .subscribe((status: string, err?: Error) => {
+            if (status === 'SUBSCRIBED') {
+              stopPolling();
+            }
+            if (
+              status === 'CHANNEL_ERROR' ||
+              status === 'TIMED_OUT' ||
+              status === 'CLOSED'
+            ) {
+              startPolling();
+            }
+            if (status === 'CHANNEL_ERROR' && isDev) {
+              console.warn('[FeaturedProjectsRealtime] Subscription error:', err);
+            }
+          });
+      } catch (error) {
+        if (isDev) {
+          console.warn('[FeaturedProjectsRealtime] Realtime setup failed:', error);
+        }
       }
-    }
+    };
+
+    void setup();
 
     return () => {
       stopPolling();
@@ -180,7 +159,7 @@ export default function FeaturedProjectsRealtime({
         void supabase.removeChannel(channel);
       }
     };
-  }, [loadFeaturedProjects, supabase]);
+  }, [loadFeaturedProjects, supabase, isDev]);
 
   const handleOpenProject = useCallback(
     (project: PortfolioProject) => {

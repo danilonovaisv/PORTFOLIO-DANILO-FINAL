@@ -163,6 +163,8 @@ type Props = {
   params: Promise<{ slug: string }>;
 };
 
+import JsonLd from '@/components/ui/JsonLd';
+
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
   const project = await getProject(slug);
@@ -171,8 +173,22 @@ export default async function ProjectPage({ params }: Props) {
     notFound();
   }
 
+  const baseUrl = `https://${BRAND.domain}`;
+
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white">
+      <JsonLd
+        pageType="project"
+        project={{
+          title: project.title,
+          description: project.shortDescription || project.detail?.description || '',
+          image: project.image,
+          client: project.client,
+          category: project.displayCategory,
+          year: project.year,
+          url: `${baseUrl}/portfolio/${slug}`,
+        }}
+      />
       <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 md:px-12 md:py-8 mix-blend-difference">
         <Link
           href="/portfolio"

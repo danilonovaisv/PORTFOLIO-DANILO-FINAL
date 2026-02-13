@@ -19,9 +19,9 @@ import { BRAND } from '@/config/brand';
 // Isso garante que pega o componente correto, seja export default ou export nomeado.
 const GhostScene = dynamic<{ scrollProgress: MotionValue<number> }>(
   () =>
-    import('../3d/GhostScene').then((mod: any) => {
+    import('../3d/GhostScene').then((mod) => {
       // Retorna a exportação nomeada 'GhostScene' OU a 'default'
-      return mod.GhostScene || mod.default;
+      return (mod as any).GhostScene || (mod as any).default || mod;
     }),
   {
     ssr: false,
