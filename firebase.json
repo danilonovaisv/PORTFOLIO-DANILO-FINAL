@@ -9,11 +9,13 @@
         "firebase-debug.*.log",
         "*.local"
       ],
-      "predeploy": [],
+      "predeploy": [
+        "npm --prefix \"$RESOURCE_DIR\" run lint",
+        "npm --prefix \"$RESOURCE_DIR\" run build"
+      ],
       "source": "functions"
     },
     {
-      "source": "chatbot",
       "codebase": "chatbot",
       "disallowLegacyRuntimeConfig": true,
       "ignore": [
@@ -25,7 +27,8 @@
       ],
       "predeploy": [
         "npm --prefix \"$RESOURCE_DIR\" run lint"
-      ]
+      ],
+      "source": "chatbot"
     }
   ],
   "hosting": {
@@ -35,76 +38,9 @@
       "**/.*",
       "**/node_modules/**"
     ],
-    "cleanUrls": true,
-    "trailingSlash": false,
     "frameworksBackend": {
-      "region": "us-central1"
-    },
-    "rewrites": [
-      {
-        "source": "/telegram/webhook",
-        "function": "telegramWebhook"
-      }
-    ],
-    "headers": [
-      {
-        "source": "**",
-        "headers": [
-          {
-            "key": "Strict-Transport-Security",
-            "value": "max-age=31536000; includeSubDomains; preload"
-          },
-          {
-            "key": "X-Content-Type-Options",
-            "value": "nosniff"
-          },
-          {
-            "key": "X-Frame-Options",
-            "value": "DENY"
-          },
-          {
-            "key": "Referrer-Policy",
-            "value": "strict-origin-when-cross-origin"
-          }
-        ]
-      },
-      {
-        "source": "**/*.@(jpg|jpeg|gif|png|webp|svg|css|js)",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "max-age=31536000, immutable"
-          }
-        ]
-      },
-      {
-        "source": "/_next/static/**",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "public, max-age=31536000, immutable"
-          }
-        ]
-      },
-      {
-        "source": "**/*.@(glb|gltf|bin|hdr|exr|mp4|webm|mov|m3u8)",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "public, max-age=3600, stale-while-revalidate=86400"
-          }
-        ]
-      },
-      {
-        "source": "/api/**",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "no-store"
-          }
-        ]
-      }
-    ]
+      "region": "us-west1"
+    }
   },
   "emulators": {
     "functions": {
@@ -141,7 +77,7 @@
     "source": "dataconnect"
   },
   "remoteconfig": {
-    "template": "remoteconfig.template.json"
+    "template": " "
   },
   "database": {
     "rules": "database.rules.json"
@@ -155,5 +91,8 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
-  "extensions": {}
+  "extensions": {},
+  "auth": {
+    "providers": {}
+  }
 }

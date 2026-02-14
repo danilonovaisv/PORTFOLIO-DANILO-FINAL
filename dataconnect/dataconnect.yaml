@@ -1,13 +1,13 @@
-specVersion: 'v1'
-serviceId: 'portfolio-danilo-novais-service'
-location: 'southamerica-west1'
+specVersion: "v1"
+serviceId: "portfolio-danilo-novais-service"
+location: "southamerica-west1"
 schema:
-  source: './schema'
+  source: "./schema"
   datasource:
     postgresql:
-      database: 'portfolio-danilo-novais-database'
+      database: "portfolio-danilo-novais-database"
       cloudSql:
-        instanceId: 'portfolio-danilo-novais-fdc'
+        instanceId: "portfolio-danilo-novais-fdc"
         # schemaValidation: "STRICT"     # STRICT mode makes Postgres schema match Data Connect exactly.
         # schemaValidation: "COMPATIBLE" # COMPATIBLE mode makes Postgres schema compatible with Data Connect.
-connectorDirs: ['./gemini-test', './default']
+connectorDirs: ["./gemini-test","./default"]

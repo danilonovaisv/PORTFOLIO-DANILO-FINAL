@@ -17,51 +17,53 @@ All operations are delegated to specialized agents located in `.agent/agents/`.
 | **The Commander** | `.agent/agents/orchestrator.md` | Master coordination, GitHub hygiene, Architecture enforcement. |
 | **Spectral Artist** | `.agent/agents/frontend-specialist.md` | R3F, WebGL, Shaders, Tailwind, Ghost Atmosphere & Motion. |
 | **Data Sentinel** | `.agent/agents/agent-supabase-audit.md` | Supabase Security, RLS Policies, Storage Audit. |
-| **The Strategist** | `.agent/agents/project-planner.md` | Roadmap, Task Breakdown, Documentation specs. |
 | **Code Archaeologist** | `.agent/agents/code-archaeologist.md` | Legacy code analysis, refactoring patterns. |
-| **Security Prime** | `.agent/agents/security-auditor.md` | Auth flows, Penetration Testing coordination. |
+| **Sentinel Prime** | *(Virtual Role)* | **NOVO:** Responsável por deteção de erros, correção (Self-Healing) e Reporting. |
 
 ---
 
-## ⚡ Routing & Immediate Triggers (Routing Rules)
+## 📏 Ghost System v3.0 - Non-Negotiables & Rules
 
-Route tasks instantly to agents based on these project-specific keywords:
-
-1. **Visuals & 3D (Ghost Atmosphere):** ➔ **Spectral Artist** (`.agent/agents/frontend-specialist.md`)
-    * *Keywords:* `Canvas`, `Shader`, `Glow`, `R3F`, `Three.js`, `Motion`, `Tailwind`, `Framer`.
-2. **Architecture & DevOps:** ➔ **The Commander** (`.agent/agents/orchestrator.md`)
-    * *Keywords:* `Next.js Structure`, `GitHub`, `Deploy`, `CI/CD`, `Scaffold`.
-3. **Data & Storage:** ➔ **Data Sentinel** (`.agent/agents/agent-supabase-audit.md`)
-    * *Keywords:* `Supabase`, `RLS`, `Database`, `Storage`, `Buckets`, `Postgres`.
-4. **Planning & Docs:** ➔ **The Strategist** (`.agent/agents/project-planner.md`)
-    * *Keywords:* `Plan`, `Roadmap`, `Specs`, `Overview`, `Brief`.
-
----
-
-## 📏 Ghost System v3.0 - Non-Negotiables
-
-All agents must adhere to these rules derived from `.agent/rules/`:
+### Visual & Architecture
 
 * **Color Palette:** `bluePrimary: #0048ff`, `blueAccent: #4fe6ff`, `background: #040013`.
-* **Grid System:** Major sections MUST be wrapped in `.std-grid` or `Container` component.
+* **Grid System:** Major sections MUST be wrapped in `.std-grid` or `Container`.
 * **Asset Integrity:** Use REAL assets from Supabase. **Zero Placeholder Policy.**
 * **Typography:** 'TT Norms Pro'. Use `clamp()` for fluid scaling.
-* **Performance:** All 3D scenes must use `drei/PerformanceMonitor` and proper disposing.
+
+### 🛡️ Protocolo de Resiliência (Error Handling Web)
+
+1. **Fronteira de Erros:** Todo o segmento de rota (`src/app/**`) deve ter um `error.tsx` configurado.
+2. **Crashlytics Web:** Erros fatais no Client-Side devem ser capturados e enviados para a Cloud Function `reportarErroWeb`.
+3. **Prevenção R3F:** Cenas 3D (`<Canvas>`) devem ser isoladas. Se o WebGL falhar, um fallback HTML deve ser renderizado imediatamente.
 
 ---
 
 ## 📂 Context Loading Protocol
 
-1. **Skills First:** Before executing, check `.agent/knowledge_skills.json` for the exact Skill ID.
-2. **MCP First:** If a tool exists in `.agent/mcp_config.json`, use it instead of writing a script.
-3. **Memory:** Maintain session persistence in `.agent/data/memory.json` (ou `.agent/memory.md`).
+1. **Skills First:** Check `.agent/knowledge_skills.json`.
+2. **MCP First:** Use tools in `.agent/mcp_config.json` before writing scripts.
+3. **Memory:** Maintain session persistence in `.agent/data/memory.json`.
 
 ---
 
-## 🛠️ Workflows (Slash Commands)
+## ⚡ Routing Rules & Workflows
 
-* `/calibragem-descoberta`: **The Commander** verifica o ambiente via `.agent/workflows/calibragem-descoberta.md`.
-* `/orchestrate`: **Orchestrator** coordena múltiplos agentes via `.agent/workflows/orchestrate.md`.
-* `/ghost-init`: **The Commander** cria boilerplate via `.agent/workflows/create.md`.
-* `/ghost-visuals`: **Spectral Artist** aplica shaders via `.agent/workflows/r3f-setup.md`.
-* `/ghost-audit`: **Data Sentinel** checks security via `.agent/workflows/audit-master.md`.
+* `/orchestrate`: **Orchestrator** coordena múltiplos agentes.
+* `/ghost-init`: Cria boilerplate via `.agent/workflows/create.md`.
+* **`/debug-mode` (NOVO):** Inicia a varredura profunda de erros, compilação e envio de relatórios para Agents Antigravity.
+
+---
+
+## 📝 Formato de Reporte (Para Agents Antigravity)
+
+Sempre que o **Sentinel Prime** corrigir um erro, deve gerar um log JSON interno simulando o payload para a API externa:
+
+```json
+{
+  "origem": "Ghost System Portfolio",
+  "erro_detectado": "[Descrição Técnica]",
+  "componente_afetado": "src/...",
+  "solucao_aplicada": "[Resumo da correção via AI]",
+  "status": "RESOLVIDO"
+}
