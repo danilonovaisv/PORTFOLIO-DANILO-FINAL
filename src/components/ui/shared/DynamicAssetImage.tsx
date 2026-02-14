@@ -12,6 +12,7 @@ type DynamicAssetImageProps = {
   height?: number;
   priority?: boolean;
   fallbackUrl?: string; // Optional fallback if asset is not in DB
+  sizes?: string; // Next.js Image sizes attribute
 };
 
 /**
@@ -26,6 +27,7 @@ export function DynamicAssetImage({
   height,
   priority = false,
   fallbackUrl,
+  sizes,
   objectFit = 'cover',
 }: DynamicAssetImageProps & {
   objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
@@ -83,9 +85,9 @@ export function DynamicAssetImage({
         width={width}
         height={height}
         priority={priority}
-        className={`object-${objectFit} transition-opacity duration-300 ${
-          isTransitioning ? 'opacity-0' : 'opacity-100'
-        }`}
+        sizes={sizes || (!width && !height ? '100vw' : undefined)}
+        className={`object-${objectFit} transition-opacity duration-300 ${isTransitioning ? 'opacity-0' : 'opacity-100'
+          }`}
       />
     </div>
   );

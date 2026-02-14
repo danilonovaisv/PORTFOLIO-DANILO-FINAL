@@ -92,6 +92,7 @@ export default function ClientsBrandsSection() {
                     fallbackUrl={logo.src || ''}
                     priority={shouldEagerLoad}
                     objectFit="contain"
+                    sizes="(max-width: 640px) 128px, (max-width: 768px) 160px, 192px"
                     className="w-full h-full filter brightness-0 invert opacity-60 transition-all duration-500 group-hover:opacity-100"
                   />
                 </div>
