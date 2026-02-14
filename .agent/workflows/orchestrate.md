@@ -1,34 +1,79 @@
 # 🎼 Multi-Agent Orchestration
 
 **Trigger:** `/orchestrate`
-**Agent:** `agents/agent-orchestrator-audit.md`
+**Agent:** `agents/orchestrator.md`
 
-## 1. Setup & Context
+## Overview
 
-- **MCP Required:** `github`, `supabase`, `firebase`
-- **Context:** Coordinate multiple specialized agents for complex, multi-domain tasks.
+Coordena múltiplos agentes especializados para resolver tarefas complexas que cruzam diferentes domínios (ex: UI + Backend + Performance).
 
-## 2. Steps (Skill-Based Execution)
+---
 
-### Step 1: Task Decomposition
+### Parallel Execution Protocol
 
-- **Instruction:** Break down the complex request into domain-specific sub-tasks.
-- **Skill:** `use a skill concise-planning`
-- **MCP Action:** None
+Para tarefas independentes, execute os agentes em paralelo seguindo este esquema:
 
-### Step 2: Agent Selection
+```markdown
+### Parallel Phase
+Run simultaneously:
+- @spectral_artist (UI/WebGL)
+- @ghost_architect (Architecture)
+- @audit_sentinel (Performance/Quality)
 
-- **Instruction:** Select a minimum of 3 specialized agents based on task requirements.
-- **Skill:** `use a skill concise-planning`
-- **MCP Action:** None
+### Merge Results
+Combine outputs into single report
+```
 
-### Step 3: Execution Coordination
+---
 
-- **Instruction:** Orchestrate the agents in parallel or sequence as defined in the plan.
-- **Skill:** `use a skill nextjs-react-expert`
-- **MCP Action:** Coordinate tool usage across selected MCPs (GitHub, Supabase, Firebase).
+### Step-by-Step Execution
 
-## 3. Completion Protocol
+1. **Planner**: Analisa a requisição, restabelece requisitos e cria o plano de implementação.
+2. **TDD Guide**: Define os contratos de interface e scaffolds de testes.
+3. **Execution**: Os agentes especializados implementam o código conforme planejado.
+4. **Code Reviewer**: Revisa a qualidade e padrão do código.
+5. **Security Reviewer**: Valida segurança (especialmente em fluxos de Auth/Supabase).
 
-- **Validation:** `use a skill verification-before-completion`
-- **Output:** Unified Orchestration Report and complete implementation.
+---
+
+### Required Output Template
+
+AGENT OUTPUTS
+-------------
+
+Planner: [summary]
+TDD Guide: [summary]
+Code Reviewer: [summary]
+Security Reviewer: [summary]
+
+FILES CHANGED
+-------------
+
+[List all files modified]
+
+TEST RESULTS
+------------
+
+[Test pass/fail summary]
+
+SECURITY STATUS
+---------------
+
+[Security findings]
+
+RECOMMENDATION
+--------------
+
+[SHIP / NEEDS WORK / BLOCKED]
+
+---
+
+### Arguments
+
+$ARGUMENTS:
+
+- `feature <description>` - Full feature workflow
+- `bugfix <description>` - Bug fix workflow
+- `refactor <description>` - Refactoring workflow
+- `security <description>` - Security review workflow
+- `custom <agents> <description>` - Custom agent sequence
