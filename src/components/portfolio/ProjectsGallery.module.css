@@ -162,8 +162,9 @@
   .track {
     position: relative;
     inset: auto;
-    flex-direction: column;
-    gap: 12px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
     padding: 24px;
     will-change: auto;
   }

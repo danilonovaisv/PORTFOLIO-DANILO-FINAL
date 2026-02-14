@@ -7,7 +7,6 @@ import { AnimatePresence } from 'framer-motion';
 import { Preloader } from '@/components/ui/Preloader';
 import GhostSceneWrapper from '@/components/canvas/home/hero/GhostSceneWrapper';
 
-import HeroCTA from './HeroCTA';
 import HeroCopy from './HeroCopy';
 
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -86,18 +85,6 @@ export default function HomeHero() {
                 aria-hidden="true"
               />
             )}
-          </div>
-        </div>
-
-        {/* Camada: CTA (Z-50) */}
-        {/* Mobile: Bottom absolute | Desktop: Sticky bottom */}
-        <div className="absolute inset-0 z-50 pointer-events-none">
-          <div className="flex items-end justify-center w-full h-screen md:sticky md:top-0">
-            <div className="absolute bottom-12 left-0 w-full flex justify-center md:relative md:bottom-auto md:left-auto md:w-auto md:block md:pb-12 lg:pb-20 pointer-events-auto">
-              {/* Force render CTA immediately, don't wait for 'isLoaded' inside logic if possible, 
-                  but HeroCTA checks isLoaded. Since we reduced preloadMs to 100, it's fine. */}
-              <HeroCTA />
-            </div>
           </div>
         </div>
 

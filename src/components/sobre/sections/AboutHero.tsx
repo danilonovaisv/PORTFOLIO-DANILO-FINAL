@@ -1,12 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import {
-  motion,
-  useScroll,
-  useSpring,
-  useTransform,
-} from 'framer-motion';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 import { ABOUT_CONTENT } from '@/config/content';

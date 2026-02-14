@@ -10,4 +10,4 @@ Detectei e corrigi o problema de visibilidade dos workflows. A causa raiz era a 
 
 **Teste agora:** Digite `/` no chat e verifique se esses comandos aparecem.
 
-*Nota: Não consegui usar a ferramenta de notificação padrão nesta etapa, por isso criei este arquivo.*
+_Nota: Não consegui usar a ferramenta de notificação padrão nesta etapa, por isso criei este arquivo._

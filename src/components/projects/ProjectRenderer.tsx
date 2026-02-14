@@ -43,7 +43,7 @@ function LegacyProjectRenderer({
   const backHref = useLandingBackLink();
 
   return (
-    <div className="bg-[#040013] text-white selection:bg-blue-600 selection:text-white">
+    <div className="bg-background text-white selection:bg-blue-600 selection:text-white">
       <section className="relative flex h-[90vh] w-full flex-col items-center justify-center overflow-hidden">
         {coverUrl && (
           <motion.div
@@ -59,7 +59,7 @@ function LegacyProjectRenderer({
               className="object-cover opacity-60"
               priority
             />
-            <div className="absolute inset-0 bg-linear-to-b from-transparent via-[#040013]/50 to-[#040013]" />
+            <div className="absolute inset-0 bg-linear-to-b from-transparent via-background/50 to-background" />
           </motion.div>
         )}
 
@@ -124,7 +124,7 @@ function LegacyProjectRenderer({
             Quer criar algo incrível?
           </h2>
           <div className="flex justify-center pt-8">
-            <Link href={LANDING_PAGE_CTA.href} className="relative block">
+            <Link href={LANDING_PAGE_CTA.href} className="relative inline-block rounded-full focus:outline-none">
               <AntigravityCTA
                 as="div"
                 text={LANDING_PAGE_CTA.label}

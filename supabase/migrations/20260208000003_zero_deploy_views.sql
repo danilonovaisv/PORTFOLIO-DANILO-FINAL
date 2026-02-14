@@ -13,6 +13,7 @@ comment on column public.site_assets.metadata is 'JSON metadata for the asset (w
 -- 1. Public Projects View
 -- Filters: is_published = true
 -- Security: security_invoker = true (Respects RLS of underlying table)
+drop view if exists public.public_projects_view;
 create or replace view public.public_projects_view with (security_invoker = true) as
 select id,
   slug,
@@ -40,6 +41,7 @@ where is_published = true;
 -- 2. Public Assets View
 -- Filters: is_active = true
 -- Security: security_invoker = true
+drop view if exists public.public_assets_view;
 create or replace view public.public_assets_view with (security_invoker = true) as
 select id,
   key,
@@ -56,6 +58,7 @@ select id,
 from public.site_assets
 where is_active = true;
 -- 3. Public Tags View (Optional but good for consistency)
+drop view if exists public.public_tags_view;
 create or replace view public.public_tags_view with (security_invoker = true) as
 select id,
   slug,

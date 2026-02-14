@@ -103,10 +103,11 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
     <motion.section
       ref={containerRef}
       aria-label={text.replace(/\n/g, ' ')}
-      className={`relative isolate w-full h-screen flex overflow-hidden ${isMobile
-        ? 'items-end justify-start pb-32'
-        : 'items-center justify-start px-[5%] md:px-0' // Removed relative padding, rely on grid
-        }`}
+      className={`relative isolate w-full h-screen flex overflow-hidden ${
+        isMobile
+          ? 'items-end justify-start pb-32'
+          : 'items-center justify-start px-[5%] md:px-0' // Removed relative padding, rely on grid
+      }`}
     >
       {/* LAYER 1: Content (Text) */}
       {/* Desktop: Inline Text */}
@@ -116,7 +117,9 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
             style={{ y: yScroll, opacity: desktopOpacity }}
             className="col-span-12 md:col-start-1 md:col-span-6 relative z-10 w-full flex flex-col justify-center h-full pointer-events-auto"
           >
-            <div className="flex flex-col items-start justify-center pl-[10%]"> {/* Added PL inside grid col */}
+            <div className="flex flex-col items-start justify-center pl-[10%]">
+              {' '}
+              {/* Added PL inside grid col */}
               {lines.map((line, i) => (
                 <BeliefLineDesktop
                   key={i}

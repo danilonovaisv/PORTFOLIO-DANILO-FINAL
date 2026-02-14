@@ -386,7 +386,7 @@ export default function MasterProjectTemplate({
                   <div
                     className={
                       item.layout === 'feature' ||
-                      item.layout === 'full-highlight'
+                        item.layout === 'full-highlight'
                         ? 'aspect-16/10 md:aspect-20/9'
                         : 'aspect-4/3 md:aspect-16/10'
                     }
@@ -444,7 +444,7 @@ export default function MasterProjectTemplate({
                 </h2>
               </div>
 
-              <Link href={LANDING_PAGE_CTA.href} className="relative block">
+              <Link href={LANDING_PAGE_CTA.href} className="relative inline-block rounded-full focus:outline-none">
                 <AntigravityCTA
                   as="div"
                   text={LANDING_PAGE_CTA.label}

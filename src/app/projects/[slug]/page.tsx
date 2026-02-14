@@ -62,7 +62,6 @@ function toAbsoluteUrl(siteUrl: string, value?: string | null): string | null {
   return `${siteUrl.replace(/\/$/, '')}${normalized}`;
 }
 
-
 export async function generateMetadata({
   params,
   searchParams,
@@ -143,8 +142,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   const parsedMaster =
     parsed.template === MASTER_PROJECT_TEMPLATE ||
-      parsed.template === MASTER_PROJECT_TEMPLATE_V2 ||
-      parsed.template === MASTER_PROJECT_TEMPLATE_V3
+    parsed.template === MASTER_PROJECT_TEMPLATE_V2 ||
+    parsed.template === MASTER_PROJECT_TEMPLATE_V3
       ? parsed.data
       : null;
 

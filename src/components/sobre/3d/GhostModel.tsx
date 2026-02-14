@@ -149,8 +149,10 @@ export default function GhostModel({
 
     // Wobble (Hover or Final Phase or Intensity)
     const time = state.clock.getElapsedTime();
-    const currentIntensity = typeof intensity === 'number' ? intensity : intensity.get();
-    const isWobbling = (hovered && !isMobile) || t > 0.8 || currentIntensity > 0.1;
+    const currentIntensity =
+      typeof intensity === 'number' ? intensity : intensity.get();
+    const isWobbling =
+      (hovered && !isMobile) || t > 0.8 || currentIntensity > 0.1;
     const wobbleIntensity = isWobbling ? 0.2 + currentIntensity * 0.2 : 0.05;
 
     // Reset wobble smoothly implies reducing intensity if not wobbling, handled by ternary

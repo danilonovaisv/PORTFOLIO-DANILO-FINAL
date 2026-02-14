@@ -50,17 +50,15 @@ export function AboutBeliefs() {
   const shouldRender3D = supportsWebGL && !shouldReduceMotion;
 
   // Centralized Animation Hook
-  const { backgroundColor, ghostIntensity, headerOpacity } = useBeliefsAnimation({
-    scrollYProgress,
-    totalPhrases: PHRASES.length,
-    colors: COLORS,
-  });
+  const { backgroundColor, ghostIntensity, headerOpacity } =
+    useBeliefsAnimation({
+      scrollYProgress,
+      totalPhrases: PHRASES.length,
+      colors: COLORS,
+    });
 
   return (
-    <section
-      ref={containerRef}
-      className="relative w-full h-[750vh]"
-    >
+    <section ref={containerRef} className="relative w-full h-[750vh]">
       {/* LAYER 0: Background - Z-0 */}
       <div className="absolute inset-0 bg-background" />
       {/* Shared animated background for Desktop */}
@@ -85,7 +83,11 @@ export function AboutBeliefs() {
                 <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
                   <ambientLight intensity={0.5} />
                   <directionalLight position={[2, 5, 2]} intensity={1} />
-                  <GhostModel isMobile={false} intensity={ghostIntensity} scrollProgress={scrollYProgress} />
+                  <GhostModel
+                    isMobile={false}
+                    intensity={ghostIntensity}
+                    scrollProgress={scrollYProgress}
+                  />
                   <Environment preset="city" />
                 </Canvas>
               </div>
@@ -100,7 +102,11 @@ export function AboutBeliefs() {
             <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
               <ambientLight intensity={0.5} />
               <directionalLight position={[2, 5, 2]} intensity={1} />
-              <GhostModel isMobile={true} intensity={ghostIntensity} scrollProgress={scrollYProgress} />
+              <GhostModel
+                isMobile={true}
+                intensity={ghostIntensity}
+                scrollProgress={scrollYProgress}
+              />
               <Environment preset="city" />
             </Canvas>
           ) : null}
@@ -115,7 +121,7 @@ export function AboutBeliefs() {
             text={phrase}
             bgColor={COLORS[index] || COLORS[0]}
             isFirst={index === 0}
-            isMobileTextLayer={true} // Mobile handled by footer layer
+            isMobileTextLayer={false} // Desktop text rendering enabled
           />
         ))}
 
@@ -126,7 +132,10 @@ export function AboutBeliefs() {
       </div>
 
       {/* LAYER 2: Sticky Header - Z-20 */}
-      <BeliefFixedHeader scrollProgress={scrollYProgress} opacity={headerOpacity} />
+      <BeliefFixedHeader
+        scrollProgress={scrollYProgress}
+        opacity={headerOpacity}
+      />
 
       {/* LAYER 3: Mobile Footer Text - Z-20 */}
       <BeliefMobileTextLayer
