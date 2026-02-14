@@ -1,0 +1,64 @@
+name: audit-fullstack-config
+version: 1.0.0
+trigger:
+  type: cli
+
+policy:
+  contract: .agent/contracts/audit-agent-contract.yaml
+  retry:
+    attempts: 3
+    backoff: exponential
+    initial_delay_ms: 500
+    max_delay_ms: 5000
+  guardrails:
+    - never_expose_service_role_key
+    - never_mutate_bucket_without_backup
+    - never_change_firebase_json_without_diff_preview
+    - always_revalidate_after_fix
+
+inputs:
+  auto_fix:
+    type: boolean
+    default: false
+
+steps:
+  - id: validate-project
+    agent: agent-orchestrator-audit
+    action: validate_structure
+
+  - id: analyze-supabase
+    agent: agent-supabase-audit
+    action: run_storage_audit
+
+  - id: analyze-firebase
+    agent: agent-firebase-audit
+    action: run_hosting_audit
+
+  - id: consolidate
+    agent: agent-orchestrator-audit
+    action: generate_master_report
+
+  - id: propose_fixes
+    agent: agent-orchestrator-audit
+    action: generate_fix_plan
+
+  - id: apply_fixes
+    agent: agent-orchestrator-audit
+    action: apply_approved_fixes
+    when: auto_fix == true
+
+  - id: revalidate
+    agent: agent-orchestrator-audit
+    action: re_audit
+
+  - id: finalize
+    agent: agent-orchestrator-audit
+    action: export_final_report
+
+outputs:
+  - reports/storage-audit.json
+  - reports/hosting-audit.json
+  - reports/master-audit.json
+  - reports/security-score.json
+  - reports/performance-score.json
+  - reports/final-report.html

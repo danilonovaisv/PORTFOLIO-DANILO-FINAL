@@ -1,0 +1,77 @@
+--- firebase.json.before
++++ firebase.json.after
+@@ -23,12 +23,18 @@
+         "firebase-debug.*.log",
+         "*.local"
+       ],
+-      "predeploy": ["npm --prefix \"$RESOURCE_DIR\" run lint"]
++      "predeploy": [
++        "npm --prefix \"$RESOURCE_DIR\" run lint"
++      ]
+     }
+   ],
+   "hosting": {
+     "source": ".",
+-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
++    "ignore": [
++      "firebase.json",
++      "**/.*",
++      "**/node_modules/**"
++    ],
+     "cleanUrls": true,
+     "trailingSlash": false,
+     "frameworksBackend": {
+@@ -46,7 +52,7 @@
+         "headers": [
+           {
+             "key": "Strict-Transport-Security",
+-            "value": "max-age=31536000; includeSubDomains"
++            "value": "max-age=31536000; includeSubDomains; preload"
+           },
+           {
+             "key": "X-Content-Type-Options",
+@@ -55,6 +61,10 @@
+           {
+             "key": "X-Frame-Options",
+             "value": "DENY"
++          },
++          {
++            "key": "Referrer-Policy",
++            "value": "strict-origin-when-cross-origin"
+           }
+         ]
+       },
+@@ -64,6 +74,33 @@
+           {
+             "key": "Cache-Control",
+             "value": "max-age=31536000, immutable"
++          }
++        ]
++      },
++      {
++        "source": "/_next/static/**",
++        "headers": [
++          {
++            "key": "Cache-Control",
++            "value": "public, max-age=31536000, immutable"
++          }
++        ]
++      },
++      {
++        "source": "**/*.@(glb|gltf|bin|hdr|exr|mp4|webm|mov|m3u8)",
++        "headers": [
++          {
++            "key": "Cache-Control",
++            "value": "public, max-age=3600, stale-while-revalidate=86400"
++          }
++        ]
++      },
++      {
++        "source": "/api/**",
++        "headers": [
++          {
++            "key": "Cache-Control",
++            "value": "no-store"
+           }
+         ]
+       }
