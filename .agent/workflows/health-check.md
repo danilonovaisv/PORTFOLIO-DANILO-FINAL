@@ -1,31 +1,28 @@
----
-description: Lightweight system health check (Supabase, Firebase, WebGL).
----
+# 🏥 System Health Check
 
-# Health Check Workflow
+**Trigger:** `/health-check` or keywords related to "service status".
+**Agent:** `agents/audit_sentinel`
 
-A fast, diagnostic-only workflow to quickly assess the status of key services without performing deep fixes. Useful for CI/CD pipelines or quick sanity checks.
+## 1. Setup & Context
 
-## Phase 1: Connectivity (Supabase)
+- **MCP Required:** `supabase`, `firebase`, `chrome-devtools`
+- **Context:** Lightweight, diagnostic-only workflow for assessing service status without performing modifications.
 
-1. **Action**: Check if Supabase client connects and can fetch `auth.users` (if admin) or public data.
-2. **Success**: HTTP 200 OK or valid JSON response.
-3. **Failure**: Network error or Bad API Key.
+## 2. Steps (Skill-Based Execution)
 
-## Phase 2: Configuration (Firebase/Next.js)
+### Step 1: Service Connectivity Audit
 
-1. **Action**: Validate `next.config.mjs` exists and is valid JS.
-2. **Action**: Validate `firebase.json` syntax.
-3. **Success**: Files exist and are parsable.
+- **Instruction:** Verify Supabase connectivity and public data accessibility. Check Firebase Hosting availability.
+- **Skill:** `use a skill performance-profiling`
+- **MCP Action:** Use Supabase and Firebase MCPs to query current status and health logs.
 
-## Phase 3: Assets (Storage)
+### Step 2: Asset Availability Check
 
-1. **Action**: Verify accessibility of a critical asset (e.g., logo, hero model) via public URL.
-2. **Success**: HTTP 200 OK on asset fetch.
+- **Instruction:** Verify accessibility of critical storage assets (hero models, textures) via public endpoints.
+- **Skill:** `use a skill verification-before-completion`
+- **MCP Action:** Use Chrome DevTools MCP to check for 404s or network failures on assets.
 
-## Output
+## 3. Completion Protocol
 
-- **Status Report**:
-  - Supabase: [OK/FAIL]
-  - Firebase Config: [OK/FAIL]
-  - Assets: [OK/FAIL]
+- **Validation:** `use a skill verification-before-completion`
+- **Output:** unified Health Report [OK/FAIL] for all critical services.

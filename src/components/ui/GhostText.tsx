@@ -52,7 +52,8 @@ export function GhostText({
 }: GhostTextProps) {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: '-10%' });
-    const shouldAnimate = useMotionGate();
+    const isReducedMotion = useMotionGate();
+    const shouldAnimate = !isReducedMotion;
 
     if (!shouldAnimate) {
         return (

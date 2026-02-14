@@ -180,7 +180,7 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
               aria-label={
                 muted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'
               }
-              aria-pressed={!muted ? 'true' : 'false'}
+              aria-pressed={!muted}
             >
               {muted ? (
                 <svg

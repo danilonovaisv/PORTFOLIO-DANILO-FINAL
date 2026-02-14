@@ -11,9 +11,9 @@ import {
   BeliefFixedHeader,
 } from '../beliefs';
 import { BRAND } from '@/config/brand';
-import { GhostModel } from '@/components/shared/3d/GhostModel';
+import GhostModel from '../3d/GhostModel';
 import { Canvas } from '@react-three/fiber';
-import { Environment, Float } from '@react-three/drei';
+import { Environment } from '@react-three/drei';
 import { useWebGLSupport } from '@/hooks/useWebGLSupport';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useBeliefsAnimation } from '@/hooks/useBeliefsAnimation';
@@ -50,7 +50,7 @@ export function AboutBeliefs() {
   const shouldRender3D = supportsWebGL && !shouldReduceMotion;
 
   // Centralized Animation Hook
-  const { backgroundColor, ghostIntensity } = useBeliefsAnimation({
+  const { backgroundColor, ghostIntensity, headerOpacity } = useBeliefsAnimation({
     scrollYProgress,
     totalPhrases: PHRASES.length,
     colors: COLORS,
@@ -59,14 +59,10 @@ export function AboutBeliefs() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full"
-      style={{
-        // Height determined by number of phrases to allow scroll time
-        height: `${(PHRASES.length + 1.5) * 100}vh`,
-      }}
+      className="relative w-full h-[750vh]"
     >
       {/* LAYER 0: Background - Z-0 */}
-      <div className="absolute inset-0 z-0 bg-background" />
+      <div className="absolute inset-0 bg-background" />
       {/* Shared animated background for Desktop */}
       <motion.div
         style={{ backgroundColor }}
@@ -79,41 +75,35 @@ export function AboutBeliefs() {
         finalColor={BRAND.colors.bluePrimary}
       />
 
-      {/* LAYER 1: Content & Ghost - Z-10 */}
+      {/* LAYER 1: Ghost - Z-10 */}
       <div className="sticky top-0 h-screen w-full z-10 overflow-hidden pointer-events-none">
-        <div className="std-grid h-full w-full">
-
-          {/* Desktop Content: Left Side (Cols 1-6) - Handled by mapped BeliefSection */}
-
-          {/* Desktop Ghost: Right Side (Cols 7-12) */}
-          <div className="hidden md:flex col-span-12 md:col-start-7 md:col-span-6 h-full items-center justify-center">
+        {/* Desktop Ghost: Right Side (Cols 7-12) */}
+        <div className="hidden md:grid std-grid h-full w-full">
+          <div className="col-start-7 col-span-6 h-full flex items-center justify-center">
             {shouldRender3D ? (
               <div className="w-full h-[80%] relative">
                 <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
                   <ambientLight intensity={0.5} />
                   <directionalLight position={[2, 5, 2]} intensity={1} />
-                  <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
-                    <GhostModel scale={2.5} intensity={ghostIntensity} scrollProgress={scrollYProgress} />
-                  </Float>
+                  <GhostModel isMobile={false} intensity={ghostIntensity} scrollProgress={scrollYProgress} />
                   <Environment preset="city" />
                 </Canvas>
               </div>
             ) : null}
           </div>
+        </div>
 
-          {/* Mobile Ghost: Top Left (20% Top, 50% Width) */}
-          <div className="md:hidden absolute top-[15%] left-0 w-[60%] h-[40%]">
-            {shouldRender3D ? (
-              <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
-                <ambientLight intensity={0.5} />
-                <directionalLight position={[2, 5, 2]} intensity={1} />
-                <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
-                  <GhostModel scale={2.2} intensity={ghostIntensity} scrollProgress={scrollYProgress} />
-                </Float>
-                <Environment preset="city" />
-              </Canvas>
-            ) : null}
-          </div>
+        {/* Mobile Ghost: Left Side (Row with invisible text space mentally) */}
+        {/* Composition: Ghost (Left 40%) / Space for Footer Text (Right) */}
+        <div className="md:hidden absolute top-[15%] left-0 w-[40%] h-[40%]">
+          {shouldRender3D ? (
+            <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
+              <ambientLight intensity={0.5} />
+              <directionalLight position={[2, 5, 2]} intensity={1} />
+              <GhostModel isMobile={true} intensity={ghostIntensity} scrollProgress={scrollYProgress} />
+              <Environment preset="city" />
+            </Canvas>
+          ) : null}
         </div>
       </div>
 

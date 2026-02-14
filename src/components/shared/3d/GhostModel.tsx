@@ -25,7 +25,6 @@ export type GhostModelProps = React.ComponentProps<'group'> & {
 export function GhostModel({
     src = GHOST_GLB_URL,
     intensity = 0,
-    scrollProgress,
     ...props
 }: GhostModelProps) {
     const gltf = useGLTF(src) as GhostGLTF;

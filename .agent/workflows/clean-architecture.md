@@ -1,36 +1,28 @@
----
-description: Master Protocol for project hygiene, structure cleanup, and deep cleaning.
----
-
 # 🧹 Clean Architecture Protocol
 
-**"The Janitor"**
-Systematic cleaning and reorganization of the codebase.
+**Trigger:** `/clean-architecture`
+**Agent:** `agents/ghost-architect.md`
 
-## Scope
+## 1. Setup & Context
 
-- Removing dead code.
-- Organizing imports.
-- Standardizing file names.
-- Archiving old docs.
+- **MCP Required:** `github`
+- **Context:** Systematic hygiene, structure cleanup, and deep cleaning of the codebase.
 
-## Steps
+## 2. Steps (Skill-Based Execution)
 
-1. **Dead File Detection**
-   - Identify files not imported by any other file (excluding `app/` pages and `api/` routes).
-   - Move suspect files to `_TRASH_BIN/` (create if needed) before deleting.
+### Step 1: Dead Code & File Detection
 
-2. **Structure Enforcement**
-   - **Components**: Ensure they are in `src/components/[feature]/`.
-   - **Styles**: Ensure duplicate CSS is merged into Tailwind classes.
-   - **Assets**: Check for unused images in `public/`.
+- **Instruction:** Identify unused files and blocks. Move orphans to `_TRASH_BIN/` before final pruning.
+- **Skill:** `use a skill lint-and-validate`
+- **MCP Action:** None
 
-3. **Import Audit**
-   - Convert relative `../../` imports to absolute `@/` imports.
+### Step 2: Standard Enforcement
 
-4. **Documentation Pruning**
-   - Move completed plans to `docs/plans/archive/`.
-   - Delete temporary logs.
+- **Instruction:** Convert relative imports to absolute `@/` aliases and standardize component groupings.
+- **Skill:** `use a skill nextjs-best-practices`
+- **MCP Action:** None
 
-5. **Final Polish**
-   - Run `npm run format` (Prettier) to standardize code style.
+## 3. Completion Protocol
+
+- **Validation:** `use a skill verification-before-completion`
+- **Output:** Architecture cleanup report and formatted codebase.

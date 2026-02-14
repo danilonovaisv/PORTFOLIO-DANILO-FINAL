@@ -1,13 +1,28 @@
----
-description: # Workflow: Configuração de Assets e Tokens Globais
----
+# 🖼️ Global Assets & Tokens Setup
 
-# Workflow: Configuração de Assets e Tokens Globais
+**Trigger:** Requests to initialize or update global design tokens.
+**Agent:** `agents/ghost-architect.md`
 
-**Arquivos Alvo:** `src/config/brand.ts`, `content.ts`, `fonts.css`.
+## 1. Setup & Context
 
-**Config:**
+- **MCP Required:** `supabase`, `github`
+- **Context:** Centralized configuration for brand colors, Supabase-hosted assets, and typographic scales.
 
-- Cores (Blue Primary #0048ff).
-- Assets (Logos Supabase).
-- Tipografia (TT Norms Pro).
+## 2. Steps (Skill-Based Execution)
+
+### Step 1: Token Configuration
+
+- **Instruction:** Synchronize `brand.ts` and `content.ts` with the primary color (#0048ff) and TT Norms Pro typography.
+- **Skill:** `use a skill ui-ux-pro-max`
+- **MCP Action:** None
+
+### Step 2: Asset Verification
+
+- **Instruction:** Ensure all global logos and baseline textures are correctly pointed to Supabase Storage.
+- **Skill:** `use a skill supabase-security-auditor`
+- **MCP Action:** Use Supabase MCP to check asset availability.
+
+## 3. Completion Protocol
+
+- **Validation:** `use a skill ui-visual-validator`
+- **Output:** Updated branding configuration and asset integrity report.

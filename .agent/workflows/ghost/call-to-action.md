@@ -1,26 +1,28 @@
----
-description: ### ⚡ Workflow CALL TO ACTION BUTTON
----
+# ⚡ Call to Action Workflow
 
-### ⚡ Workflow CALL TO ACTION BUTTON (Lo&Behold Reference)
+**Trigger:** Requests to implement or refine CTA buttons/sections.
+**Agent:** `agents/frontend-specialist.md`
 
-## ⚙️ PROTOCOLO DE EXECUÇÃO
+## 1. Setup & Context
 
-### FASE 1: PARSING E INDEXAÇÃO
+- **MCP Required:** `github`
+- **Context:** Implementation of high-fidelity CTA components with spring physics and Ghost aesthetic.
 
-- Layout pill-fusion, spring physics bouncy, neon glow.
+## 2. Steps (Skill-Based Execution)
 
-### FASE 2: project_truth.json
+### Step 1: Physics Configuration
 
-- Reference: https://loandbehold.studio/
-- Physics: stiffness 480, damping 20.
+- **Instruction:** Define spring physics constants (stiffness 480, damping 20) for ultra-bouncy interactions.
+- **Skill:** `use a skill framer-motion`
+- **MCP Action:** None
 
-### FASE 3: IMPLEMENTAÇÃO
+### Step 2: VFX & Layering
 
-1. Arquitetura: Overlay z-[100].
-2. Physics: Spring ultra-bouncy.
-3. VFX: Glow Neon, Glassmorphism, Mouse Parallax.
+- **Instruction:** Implement Ghost VFX (Neon Glow, Glassmorphism, Mouse Parallax) with strict Z-index stacking.
+- **Skill:** `use a skill react-best-practices`
+- **MCP Action:** None
 
-## 🛠️ CÓDIGO FINAL EXECUTADO: components/AntigravityCTA.tsx
+## 3. Completion Protocol
 
-(Código React completo incluído no workflow original)
+- **Validation:** `use a skill ui-visual-validator`
+- **Output:** Specialized CTA implementation (e.g., `AntigravityCTA.tsx`).

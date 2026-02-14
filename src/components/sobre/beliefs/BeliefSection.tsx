@@ -76,7 +76,7 @@ interface BeliefSectionProps {
 
 export const BeliefSection: React.FC<BeliefSectionProps> = ({
   text,
-  bgColor, // Keep for now if needed for text color contrast, but BG is parent.
+  bgColor: _bgColor, // Keep for now if needed for text color contrast, but BG is parent.
   isFirst = false,
   isMobileTextLayer = false,
 }) => {

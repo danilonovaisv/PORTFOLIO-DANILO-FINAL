@@ -1,71 +1,28 @@
----
-description: Solves Supabase issues with Realtime and Storage (RLS/Permissions)
----
+# 🔧 Supabase Integration Fixer
 
-# Supabase Fixer Workflow
+**Trigger:** Reports of 403 errors, Realtime stalls, or Storage permission issues.
+**Agent:** `agents/audit_sentinel`
 
-This workflow systematically diagnoses and fixes common Supabase integration issues in Next.js applications, specifically targeting Realtime connectivity and Storage permissions (RLS).
+## 1. Setup & Context
 
-## Trigger
+- **MCP Required:** `supabase`, `chrome-devtools`
+- **Context:** Diagnostic and corrective protocol for Supabase Realtime connectivity and Storage RLS permissions.
 
-- User reports "Upload failed with 403"
-- User reports "Realtime updates not working"
-- User reports "Client-side hydration mismatch with Supabase"
+## 2. Steps (Skill-Based Execution)
 
-## Phase 1: Audit Configuration & RLS
+### Step 1: Permission & Publication Audit
 
-1. **Load Context**:
-   - Read `src/utils/supabase/client.ts`
-   - Read `supabase/config.toml` (if exists)
+- **Instruction:** Introspect database publications (supabase_realtime) and RLS policies for `storage.objects`.
+- **Skill:** `use a skill supabase-security-auditor`
+- **MCP Action:** Use Supabase MCP to query `pg_publication_tables` and security policies.
 
-2. **Database Introspection**:
-   - Check if `supabase_realtime` publication exists and includes the target table.
-   - Command: `psql` or direct SQL query execution via Supabase MCP if available.
-   - Query: `select * from pg_publication_tables where pubname = 'supabase_realtime';`
+### Step 2: Corrective Implementation
 
-3. **RLS Policy Analysis**:
-   - Extract policies for `storage.objects`.
-   - Verify `INSERT` policy for `authenticated` role.
-   - Check if bucket ID matches implementation (e.g., 'portfolio-assets').
+- **Instruction:** Apply missing SQL policies or refactor React hooks to handle channel error states (CHANNEL_ERROR).
+- **Skill:** `use a skill react-best-practices`
+- **MCP Action:** None
 
-## Phase 2: Implementation Plan & Fix
+## 3. Completion Protocol
 
-1. **Storage Fix**:
-   - Proposal: Create/Update RLS policy for uploads.
-   - Example SQL:
-
-     ```sql
-     create policy "Permitir upload autenticado"
-     on storage.objects for insert
-     to authenticated
-     with check ( bucket_id = 'portfolio-assets' AND auth.uid() = owner );
-     ```
-
-2. **Realtime Fix**:
-   - Refactor client-side hook to handle channel error states.
-   - Pattern:
-
-     ```typescript
-     channel.subscribe((status) => {
-       if (status === 'SUBSCRIBED') { /* ... */ }
-       if (status === 'CHANNEL_ERROR') { console.error('RLS or Connection Error'); }
-     })
-     ```
-
-## Phase 3: Verification
-
-1. **Browser Test**:
-   - Navigate to the problematic page.
-   - Perform the action (upload/update).
-   - Capture screenshot of success or console error.
-
-## Dependencies
-
-- `@supabase/ssr`
-- `src/utils/supabase/`
-
-## Artifacts
-
-- Updated SQL policies
-- Refactored React hooks
-- Verification Screenshot
+- **Validation:** `use a skill verification-before-completion`
+- **Output:** Updated SQL policies and UI verification report.

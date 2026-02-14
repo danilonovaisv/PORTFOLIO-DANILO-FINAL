@@ -1,25 +1,28 @@
----
-description: ##PROTOCOLO GÊNESE - PORTFOLIO GHOST
----
+# 🧬 Portfolio Genesis Protocol
 
-# 🧬 PROMPT MESTRE: PROTOCOLO GÊNESE - PORTFOLIO GHOST V2.2
+**Trigger:** `/portfolio-page` or strategic portfolio refactoring requests.
+**Agent:** `agents/ghost-architect.md`
 
-**Contexto:** Staff Frontend Architect. Orquestrar sistema Ghost v2.2.
+## 1. Setup & Context
 
-## FASE 1: AUDITORIA
+- **MCP Required:** `supabase`, `github`
+- **Context:** Strategic orchestration for building and refining the Portfolio Ghost system v2.2.
 
-Mapear estrutura e assets.
+## 2. Steps (Skill-Based Execution)
 
-## FASE 2: PLANEJAMENTO
+### Step 1: Hybrid Architecture Blueprint
 
-1. Arquitetura Híbrida.
-2. Physics Engine (`useLERPGalleryScroll`).
-3. Componentes Visuais (Hero Otimizada, Project Card, Gallery, Modal).
+- **Instruction:** Design the data-physics interaction using `useLERPGalleryScroll` and specialized hooks.
+- **Skill:** `use a skill concise-planning`
+- **MCP Action:** None
 
-## FASE 3: EXECUÇÃO
+### Step 2: Component Core Implementation
 
-Implementar hooks de física e componentes visuais.
+- **Instruction:** Build the optimized Hero, Project Cards, and Galleries following editorial standards.
+- **Skill:** `use a skill react-best-practices`
+- **MCP Action:** None
 
-## FASE 4: VERIFICAÇÃO
+## 3. Completion Protocol
 
-Checklist técnico e visual.
+- **Validation:** `use a skill ui-visual-validator`
+- **Output:** Fully functional Portfolio Ghost implementation v2.2.

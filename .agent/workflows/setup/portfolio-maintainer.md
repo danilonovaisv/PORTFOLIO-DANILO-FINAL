@@ -1,42 +1,34 @@
----
-description: Master Protocol for project maintenance and health checks.
----
+# 💂 Portfolio Master Maintainer
 
-# Portfolio Maintainer
+**Trigger:** "Audit the system", "system health check", or "Fix everything".
+**Agent:** `agents/audit_sentinel`
 
-This consolidated workflow performs periodic checks on the health of the portfolio's critical layers: Storage, Rendering, and Deployment.
+## 1. Setup & Context
 
-## Trigger
+- **MCP Required:** `supabase`, `firebase`, `chrome-devtools`
+- **Context:** Master protocol for periodic health checks across Storage (Supabase), Rendering (WebGL), and Deployment (Firebase).
 
-- "Run a health check on the project"
-- "Audit the system"
-- "Fix everything"
+## 2. Steps (Skill-Based Execution)
 
-## Check 1: Supabase Connectivity & Policy (High Priority)
+### Step 1: Security & Storage Audit
 
-1. **Tool**: Run `supabase-fixer` protocol (phase 1: audit).
-2. **Action**: Verify `supabase_realtime` and `storage.objects` permissions (RLS).
-3. **Failure**: Create implementation plan for SQL fixes from artifact.
+- **Instruction:** Verify Supabase RLS policies and Storage bucket permissions.
+- **Skill:** `use a skill supabase-security-auditor`
+- **MCP Action:** Use Supabase MCP to audit database health.
 
-## Check 2: Firebase Environment Consistency (Medium Priority)
+### Step 2: DevOps Consistency Check
 
-1. **Tool**: Use `firebase-devops-orchestrator` (phase 1: audit config).
-2. **Action**: Check `package.json` vs `.firebaserc` (webframeworks enabled).
-3. **Failure**: Update `firebase.json` or `package.json` engines.
+- **Instruction:** Validate Firebase Hosting config vs package.json engines.
+- **Skill:** `use a skill nextjs-best-practices`
+- **MCP Action:** Use Firebase MCP for environment verification.
 
-## Check 3: WebGL Performance Smoke Test (Low Priority)
+### Step 3: Performance Smoke Test
 
-1. **Tool**: Run `r3f-visual-debugger` (phase 1: instrumentation).
-2. **Action**: Check for `Stats` component presence and frame drops.
-3. **Failure**: Flag high-draw-call scenes for optimization.
+- **Instruction:** Analyze WebGL frame drops and draw calls.
+- **Skill:** `use a skill performance-profiling`
+- **MCP Action:** Use Chrome DevTools MCP to capture performance traces.
 
-## Artifacts
+## 3. Completion Protocol
 
-- Maintenance Log
-- SQL Migration Plan (if any)
-- Performance Stats report (optional)
-
-## Success Criteria
-
-- All system checks pass (green).
-- Detailed report generated with clear action items.
+- **Validation:** `use a skill verification-before-completion`
+- **Output:** Comprehensive Maintenance Report and SQL migration plans (if required).

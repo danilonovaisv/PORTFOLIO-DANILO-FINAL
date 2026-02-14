@@ -15,9 +15,8 @@ import { useWebGLSupport } from '@/hooks/useWebGLSupport';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 const CONFIG = {
-  // Reduzido drasticamente para não bloquear LCP.
-  // O texto deve aparecer quase instantaneamente.
-  preloadMs: 100,
+  // Aumentado levemente para evitar flicker e permitir percepção da atmosfera.
+  preloadMs: 500,
 } as const;
 
 export default function HomeHero() {

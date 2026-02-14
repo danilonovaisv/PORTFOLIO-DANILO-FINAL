@@ -1,18 +1,28 @@
----
-description: Replicação Fiel da Hero Animation “GHOST”
----
+# 👻 Ghost Implementation Audit
 
-# 🧠 WORKFLOW ANTIGRAVITY: Ghost Hero Animation
+**Trigger:** `/audit-ghost-implementation` or requests for visual parity check.
+**Agent:** `agents/frontend-specialist.md`
 
-**Objetivo:** Paridade visual com referência CodePen.
+## 1. Setup & Context
 
-**Agentes:** 0. Bootstrap
+- **MCP Required:** `chrome-devtools`
+- **Context:** Specialized workflow for ensuring high-fidelity replication of the "Ghost" Hero Animation.
 
-1. Análise Visual
-2. Geometria & Shader
-3. Material & Emissive
-4. Partículas (Instanced)
-5. Post-Processing (Analog Decay)
-6. Interação & Física
-7. Performance
-8. Testes
+## 2. Steps (Skill-Based Execution)
+
+### Step 1: Visual Fidelity Check
+
+- **Instruction:** Compare the current implementation against reference shaders and geometry behaviors.
+- **Skill:** `use a skill threejs-skills`
+- **MCP Action:** None
+
+### Step 2: VFX & Particle Optimization
+
+- **Instruction:** Audit instanced meshes and post-processing (Analog Decay) for visual accuracy and performance.
+- **Skill:** `use a skill webgl-optimizer`
+- **MCP Action:** Use Chrome DevTools MCP to verify frame budget and GPU utilization.
+
+## 3. Completion Protocol
+
+- **Validation:** `use a skill ui-visual-validator`
+- **Output:** Visual Parity Report and specialized implementation fixes.

@@ -1,62 +1,34 @@
----
-name: audit-fullstack-config
-description: Workflow to audit and correct Supabase Storage and Firebase Hosting configuration.
-triggers:
-  - type: cli
-    command: antigravity workflow run audit-fullstack-config
----
+# ⚙️ Fullstack Configuration Audit
 
-# Audit Fullstack Configuration Workflow
+**Trigger:** `/audit-fullstack-config`
+**Agent:** `agents/agent-orchestrator-audit.md`
 
-This workflow orchestrates the auditing and correction of the project's Supabase Storage and Firebase Hosting configurations.
+## 1. Setup & Context
 
-## Steps
+- **MCP Required:** `supabase`, `firebase`, `github`
+- **Context:** End-to-end audit and correction of Supabase Storage and Firebase Hosting configurations.
 
-### Step 1: Validate Project Structure
+## 2. Steps (Skill-Based Execution)
 
-- **Agent**: `agent-orchestrator-audit`
-- **Action**: `validate_structure`
-- **Description**: Verifies the presence of critical project files (`src/app`, `firebase.json`, etc.) before proceeding.
+### Step 1: Storage & RLS Analysis
 
-### Step 2: Analyze Supabase Storage
+- **Instruction:** Audit Supabase Storage buckets and RLS policies for security and performance.
+- **Skill:** `use a skill supabase-security-auditor`
+- **MCP Action:** Use Supabase MCP to check bucket permissions and policy logic.
 
-- **Agent**: `agent-supabase-audit`
-- **Action**: `run_storage_audit`
-- **Description**: Audits Supabase Storage buckets, RLS policies, and key exposure. Generates `reports/storage-audit.json`.
+### Step 2: Hosting & Infrastructure Review
 
-### Step 3: Analyze Firebase Hosting
+- **Instruction:** Verify Firebase Hosting security headers, rewrites, and SSR compatibility.
+- **Skill:** `use a skill nextjs-best-practices`
+- **MCP Action:** Use Firebase MCP to audit hosting configuration and domain status.
 
-- **Agent**: `agent-firebase-audit`
-- **Action**: `run_hosting_audit`
-- **Description**: Audits Firebase Hosting configuration, security headers, and cache settings. Generates `reports/hosting-audit.json`.
+### Step 3: Fix Orchestration
 
-### Step 4: Consolidate Reports
+- **Instruction:** Generate and apply a fix plan based on identified vulnerabilities or misconfigurations.
+- **Skill:** `use a skill vulnerability-scanner`
+- **MCP Action:** Coordinate fixes across both cloud providers.
 
-- **Agent**: `agent-orchestrator-audit`
-- **Action**: `generate_master_report`
-- **Description**: Consolidates findings from Supabase and Firebase audits into a master report (`reports/master-audit.json`).
+## 3. Completion Protocol
 
-### Step 5: Propose Fixes
-
-- **Agent**: `agent-orchestrator-audit`
-- **Action**: `generate_fix_plan`
-- **Description**: Generates a plan for correcting identified issues (`reports/FIX_PLAN.md`).
-
-### Step 6: Apply Fixes (Optional)
-
-- **Agent**: `agent-orchestrator-audit`
-- **Action**: `apply_approved_fixes`
-- **Condition**: User approval or `--auto-fix` flag.
-- **Description**: Applies approved fixes to configuration files.
-
-### Step 7: Re-Audit
-
-- **Agent**: `agent-orchestrator-audit`
-- **Action**: `re_audit`
-- **Description**: Re-runs audits to verify fixes.
-
-### Step 8: Finalize
-
-- **Agent**: `agent-orchestrator-audit`
-- **Action**: `export_final_report`
-- **Description**: Generates the final audit report (`reports/final-report.html`).
+- **Validation:** `use a skill verification-before-completion`
+- **Output:** Master Audit Report and Finalized Infrastructure State.

@@ -1,33 +1,28 @@
----
-description: # Workflow de QA e Otimização Mobile: Agent Antigravity
----
+# 📱 Mobile Optimization Workflow
 
-# 🌌 WORKFLOW ANTIGRAVITY: Orquestração Baseada em Dados
+**Trigger:** Requests related to mobile layout or responsive performance.
+**Agent:** `agents/frontend-specialist.md`
 
-## FASE 0: Extração de Contexto
+## 1. Setup & Context
 
-Gerar `project_truth.json` a partir de `.context`.
+- **MCP Required:** `chrome-devtools`
+- **Context:** Mobile-first QA and optimization ensuring 60FPS performance and accessibility on touch devices.
 
-## FASE 1: Ignição
+## 2. Steps (Skill-Based Execution)
 
-Configurar Tailwind e Layout Root.
+### Step 1: Responsive Architecture Audit
 
-## FASE 2: Construção Adaptativa
+- **Instruction:** Verify Tailwind class order and ensure proper grid collapse at mobile breakpoints.
+- **Skill:** `use a skill react-best-practices`
+- **MCP Action:** Use Chrome DevTools MCP to verify "Lei do Polegar" (min height 48px).
 
-**Regra de Ouro:**
+### Step 2: Cinematics & Motion Optimization
 
-- Mobile: `flex-col text-center items-center gap-6`
-- Desktop: `lg:flex-row lg:text-left`
+- **Instruction:** Audit parallax and transitions for mobile performance (Lei da Cinemática).
+- **Skill:** `use a skill webgl-optimizer`
+- **MCP Action:** None
 
-## FASE 3: Infusão de Alma (Motion)
+## 3. Completion Protocol
 
-Hero Ghost, Transições GSAP, Parallax Lerp.
-
-## 6 LEIS DA GRAVIDADE ZERO
-
-1. Lei do Polegar (Min height 48px).
-2. Lei da Verticalidade (Sem scroll horizontal).
-3. Lei do Alinhamento Central (<768px).
-4. Lei do Sanduíche (Grid Collapse).
-5. Lei da Performance.
-6. Lei da Cinemática.
+- **Validation:** `use a skill ui-visual-validator`
+- **Output:** Mobile Optimization Report and responsive-validated UI.

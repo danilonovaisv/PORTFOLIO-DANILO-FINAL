@@ -1,41 +1,34 @@
----
-description: Specialized audit for Three.js/R3F performance optimization.
----
+# 🚀 WebGL Performance Pass
 
-# WebGL Performance Pass
+**Trigger:** "The site feels slow" or keywords related to 3D lag.
+**Agent:** `agents/frontend-specialist.md`
 
-This workflow focuses purely on 3D performance metrics (FPS, Draw Calls, Memory).
+## 1. Setup & Context
 
-## Trigger
+- **MCP Required:** `chrome-devtools`
+- **Context:** Specialized audit for Three.js/R3F performance optimization to maintain the 60FPS mandate.
 
-- "The site feels slow".
-- Before a major release.
-- When adding new 3D models.
+## 2. Steps (Skill-Based Execution)
 
-## Steps
+### Step 1: Static Asset Analysis
 
-1. **Static Asset Analysis**
-   - Check `public/models/` and `public/textures/`.
-   - **Rule:** Textures should be `.webp` or `.ktx2`. Max 2048px.
-   - **Rule:** Models should be `.glb` (Draco compressed).
+- **Instruction:** Audit models and textures in `public/`. Ensure `.webp`/`.ktx2` usage and proper compression.
+- **Skill:** `use a skill threejs-skills`
+- **MCP Action:** None
 
-2. **Code Optimization Scan**
-   - Search for `useFrame` in `src/`.
-   - **Check:** Are there object allocations (new Vector3) inside the loop? -> **Refactor**.
-   - **Check:** Are geometries/materials reused?
+### Step 2: Render Loop Audit
 
-3. **Render Loop Analysis**
-   - Check `<Canvas>` props.
-   - Ensure `dpr={[1, 2]}` (never uncapped).
-   - Check `shadows` prop (soft shadows are expensive).
+- **Instruction:** Analyze `useFrame` implementations for object allocations and render-cycle efficiency.
+- **Skill:** `use a skill webgl-optimizer`
+- **MCP Action:** Use Chrome DevTools MCP to monitor memory heaps and draw calls.
 
-4. **Performance Monitor Injection**
-   - (Temporary) Add `<Stats />` or `<Perf />` (r3f-perf) to the scene.
-   - Ask user to run and report:
-     - Draw Calls (Target: < 100)
-     - Triangles (Target: < 500k for mobile)
-     - Texture Memory
+### Step 3: Scene Stress Test
 
-5. **Report & Fix**
-   - Generate `docs/perf/webgl-report-[date].md`.
-   - Apply fixes (Instancing, Texture resizing, Shader simplification).
+- **Instruction:** Verify Draw Calls (< 100) and Triangles (< 500k) using performance monitoring tools.
+- **Skill:** `use a skill webgl-optimizer`
+- **MCP Action:** None
+
+## 3. Completion Protocol
+
+- **Validation:** `use a skill verification-before-completion`
+- **Output:** Performance report in `docs/perf/webgl-report-[date].md` with optimization results.

@@ -179,7 +179,7 @@ describe('SEO Utils', () => {
       // candidate = "This is a long titl"
       // replace handles trailing punctuation.
 
-      const text = 'This is a long title!!!!!';
+      // const text = 'This is a long title!!!!!';
       // normalizeMetaTitle(text, 20)
       // candidate = "This is a long titl"
       // no punctuation to remove.

@@ -1,81 +1,28 @@
----
-description: Preview server start, stop, and status check. Local development server management.
----
+# 🌐 Preview Management
 
-# /preview - Preview Management
+**Trigger:** `/preview`
+**Agent:** `agents/frontend-specialist.md`
 
-$ARGUMENTS
+## 1. Setup & Context
 
----
+- **MCP Required:** `chrome-devtools`
+- **Context:** Manage the local development server and ensure application health.
 
-## Task
+## 2. Steps (Skill-Based Execution)
 
-Manage preview server: start, stop, status check.
+### Step 1: Server Control
 
-### Commands
+- **Instruction:** Start, stop, or restart the development server based on command.
+- **Skill:** `use a skill nextjs-best-practices`
+- **MCP Action:** None
 
-```
-/preview           - Show current status
-/preview start     - Start server
-/preview stop      - Stop server
-/preview restart   - Restart
-/preview check     - Health check
-```
+### Step 2: Health Verification
 
----
+- **Instruction:** Check the server status and ensure the application is responding correctly.
+- **Skill:** `use a skill performance-profiling`
+- **MCP Action:** Use Chrome DevTools MCP to verify page load and console errors.
 
-## Usage Examples
+## 3. Completion Protocol
 
-### Start Server
-```
-/preview start
-
-Response:
-🚀 Starting preview...
-   Port: 3000
-   Type: Next.js
-
-✅ Preview ready!
-   URL: http://localhost:3000
-```
-
-### Status Check
-```
-/preview
-
-Response:
-=== Preview Status ===
-
-🌐 URL: http://localhost:3000
-📁 Project: C:/projects/my-app
-🏷️ Type: nextjs
-💚 Health: OK
-```
-
-### Port Conflict
-```
-/preview start
-
-Response:
-⚠️ Port 3000 is in use.
-
-Options:
-1. Start on port 3001
-2. Close app on 3000
-3. Specify different port
-
-Which one? (default: 1)
-```
-
----
-
-## Technical
-
-Auto preview uses `auto_preview.py` script:
-
-```bash
-python .agent/scripts/auto_preview.py start [port]
-python .agent/scripts/auto_preview.py stop
-python .agent/scripts/auto_preview.py status
-```
-
+- **Validation:** `use a skill verification-before-completion`
+- **Output:** Server status and access URL.

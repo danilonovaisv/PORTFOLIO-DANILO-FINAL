@@ -1,43 +1,34 @@
----
-description: Autonomous execution protocol for complex features.
----
+# 👺 Loki Execution Mode (Autonomous)
 
-# Loki Execution Mode Protocol
+**Trigger:** `/loki` or "Take control".
+**Agent:** `agents/ghost-architect.md`
 
-This workflow defines how the agent operates when in "Loki Mode" (High Agency / Autonomous).
+## 1. Setup & Context
 
-## Trigger
+- **MCP Required:** `github`, `supabase`, `firebase`
+- **Context:** Autonomous execution protocol for complex feature implementation, prioritizing atomic operations and persistent state updates.
 
-- User command: `/loki` or "Take control".
-- Complex refactors requiring multiple steps.
+## 2. Steps (Skill-Based Execution)
 
-## Steps
+### Step 1: Autonomous Planning
 
-### Phase 1: Planning (The Architect)
+- **Instruction:** Read context, create a detailed implementation plan in `docs/plans/`, and update the project `task.md`.
+- **Skill:** `use a skill concise-planning`
+- **MCP Action:** None
 
-1. **Read Context**: Always read `.context/active_state.md` and `AGENT.md` first.
-2. **Create Plan**: Generate `docs/plans/[feature-name].md`.
-   - Must include: Goal, Changes, Verification Plan.
-3. **Wait for Approval**: (If strictly required) or proceed if Auto-Run is authorized.
+### Step 2: Atomic Execution
 
-### Phase 2: Execution (The Engineer)
+- **Instruction:** Implement changes one component at a time, never editing >3 files without verification.
+- **Skill:** `use a skill react-best-practices`
+- **MCP Action:** None
 
-1. **Atomic Operations**:
-   - Create/Edit one component at a time.
-   - **Rule:** Never edit > 3 files without a verification step.
-2. **Context Update**:
-   - If a file is created, update `task.md` immediately.
+### Step 3: Verified Delivery
 
-### Phase 3: Verification (The Sentinel)
+- **Instruction:** Run full lint/type checks, generate a walkthrough, and update the adjustment log.
+- **Skill:** `use a skill verification-before-completion`
+- **MCP Action:** None
 
-1. **Lint & Type Check**:
-   - Run `npm run lint` and `npm run type-check`.
-   - **Stop** if errors occur. Fix them before proceeding.
-2. **Visual Check**:
-   - If UI involved, ask user to check `localhost:3000`.
+## 3. Completion Protocol
 
-### Phase 4: Delivery
-
-1. **Walkthrough**: Create a `walkthrough.md` artifact.
-2. **Log**: Update `.context/logs/adjustment_log.md`.
-3. **Cleanup**: Remove temporary plan files if no longer needed (archives).
+- **Validation:** `use a skill performance-profiling`
+- **Output:** Walkthrough artifact and deployment-ready state.

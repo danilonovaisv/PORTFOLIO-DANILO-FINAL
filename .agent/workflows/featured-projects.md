@@ -1,20 +1,28 @@
----
-description: # Workflow: Featured Projects
----
+# ✨ Featured Projects Workflow
 
-# Workflow: Featured Projects (Destaques)
+**Trigger:** Requests to update or build the "Destaques" section of the home page.
+**Agent:** `agents/ghost-architect.md`
 
-**Contexto:** Grid responsivo (Bento Grid) de projetos selecionados.
+## 1. Setup & Context
 
-**Dados Obrigatórios:**
+- **MCP Required:** `github`
+- **Context:** Implementation of the responsivo Bento Grid for selected showcase projects.
 
-1. Magic (Radio Branding)
-2. Branding Project 01
-3. Key Visual Campaign
-4. Web Experience Motion
+## 2. Steps (Skill-Based Execution)
 
-**Implementação:**
+### Step 1: Bento Grid Architecture
 
-1. `FeaturedProjects.tsx`: Bento grid desktop, Stack mobile.
-2. `ProjectCard.tsx`: Scroll reveal, hover effects.
-3. `CTAProjectCard.tsx`: "Like what you see?".
+- **Instruction:** Construct the grid using Tailwind grid-auto-flow: dense and ensure responsive stack behavior.
+- **Skill:** `use a skill react-best-practices`
+- **MCP Action:** None
+
+### Step 2: Interactive Polish
+
+- **Instruction:** Implement scroll reveals and hover effects for `ProjectCard.tsx` and `CTAProjectCard.tsx`.
+- **Skill:** `use a skill framer-motion`
+- **MCP Action:** None
+
+## 3. Completion Protocol
+
+- **Validation:** `use a skill ui-visual-validator`
+- **Output:** Responsive Bento Grid implementation and walkthrough.

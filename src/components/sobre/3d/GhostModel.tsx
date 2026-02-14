@@ -29,12 +29,14 @@ const GHOST_URL =
 interface GhostModelProps {
   scrollProgress: MotionValue<number>;
   isMobile: boolean;
+  intensity?: number | MotionValue<number>;
 }
 
-const GhostModel: React.FC<GhostModelProps> = ({
+export default function GhostModel({
   scrollProgress,
   isMobile,
-}) => {
+  intensity = 0,
+}: GhostModelProps) {
   const group = useRef<THREE.Group>(null);
   const { viewport } = useThree();
 
@@ -145,10 +147,11 @@ const GhostModel: React.FC<GhostModelProps> = ({
     const tiltX = isMobile ? 0 : state.mouse.y * 0.2;
     const tiltY = isMobile ? 0 : state.mouse.x * 0.2;
 
-    // Wobble (Hover or Final Phase)
+    // Wobble (Hover or Final Phase or Intensity)
     const time = state.clock.getElapsedTime();
-    const isWobbling = (hovered && !isMobile) || t > 0.8;
-    const wobbleIntensity = isWobbling ? 0.2 : 0.05;
+    const currentIntensity = typeof intensity === 'number' ? intensity : intensity.get();
+    const isWobbling = (hovered && !isMobile) || t > 0.8 || currentIntensity > 0.1;
+    const wobbleIntensity = isWobbling ? 0.2 + currentIntensity * 0.2 : 0.05;
 
     // Reset wobble smoothly implies reducing intensity if not wobbling, handled by ternary
     const wobbleX = Math.sin(time * 3) * wobbleIntensity;
@@ -228,11 +231,9 @@ const GhostModel: React.FC<GhostModelProps> = ({
       </group>
     </group>
   );
-};
+}
 
 // Only preload in browser environment
 if (typeof window !== 'undefined') {
   useGLTF.preload(GHOST_URL);
 }
-
-export default GhostModel;

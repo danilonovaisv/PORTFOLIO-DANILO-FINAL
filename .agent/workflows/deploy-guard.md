@@ -1,31 +1,28 @@
----
-description: Workflow para garantir deploys seguros.
----
+# 🛡️ Deploy Guard Protocol
 
-# Deploy Guard Workflow
+**Trigger:** `/deploy` or "Ready for production".
+**Agent:** `agents/audit_sentinel`
 
-Este workflow deve ser acionado sempre que o usuário pedir /deploy ou Prepare para produção.
+## 1. Setup & Context
 
-Passo 1: Lint & Type Check
+- **MCP Required:** `chrome-devtools`, `firebase`
+- **Context:** Mandatory safety gate ensuring production-readiness through rigorous verification.
 
-Execute npm run lint.
+## 2. Steps (Skill-Based Execution)
 
-Execute npm run type-check (ou tsc --noEmit).
+### Step 1: Integrity & Build Audit
 
-Se houver erros, PARE e liste os erros. Corrija-os se solicitado.
+- **Instruction:** Execute lint, type check, and production build. Analyze bundle chunks (> 200kb triggers warning).
+- **Skill:** `use a skill lint-and-validate`
+- **MCP Action:** None
 
-Passo 2: Auditoria de Build
+### Step 2: Smoke Test & Health
 
-Execute npm run build.
+- **Instruction:** Execute visual smoke tests on Home and Projects pages via browser.
+- **Skill:** `use a skill performance-engineer`
+- **MCP Action:** Use Chrome DevTools MCP to capture console errors and LCP metrics.
 
-Analise o tamanho do bundle. Se algum chunk JS for maior que 200kb, avise o usuário e sugira Code Splitting.
+## 3. Completion Protocol
 
-Passo 3: Smoke Test Visual
-
-Use o navegador para abrir <http://localhost:3000>.
-
-Verifique se a "Home" e a página "Projetos" carregam sem erros no console (F12).
-
-Passo 4: Conclusão
-
-Se tudo passar, confirme: "O projeto está pronto para deploy. Posso prosseguir com o commit?"
+- **Validation:** `use a skill verification-before-completion`
+- **Output:** Ready-for-Deploy confirmation and Commit recommendation.

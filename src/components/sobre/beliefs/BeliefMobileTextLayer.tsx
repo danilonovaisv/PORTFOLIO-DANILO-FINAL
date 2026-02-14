@@ -105,7 +105,7 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   const x = useTransform(
     scrollYProgress,
     [entryStart, entryEnd, exitEnd - exitDuration, exitEnd],
-    ['-40px', '0px', '0px', '40px'], // Aumentei um pouco o range para ser mais perceptível
+    ['24px', '0px', '0px', '-24px'],
     { ease: ghostEase }
   );
 
@@ -129,12 +129,10 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
     <motion.div
       data-ghost-target={isActive ? 'true' : 'false'}
       style={{ x, opacity, filter: blur }}
-      // Doc: "sempre 20% acima do rodapé da sessão"
-      // bottom-20% pode ser baixo demais em telas grandes, ou alto demais.
-      // Vamos usar bottom-[15vh] para garantir segurança
-      className="fixed bottom-[15vh] left-0 w-full z-20 flex items-center justify-center pointer-events-none px-6"
+      // Doc: Composição row: Ghost esq (40%) / Texto dir (60%)
+      className="fixed bottom-[15vh] left-0 w-full z-20 flex items-center justify-end pointer-events-none px-12"
     >
-      <span className="text-blueAccent italic font-bold text-[clamp(1.5rem,5vw,2.5rem)] leading-[1.2] text-center tracking-wide block w-full drop-shadow-lg">
+      <span className="text-blueAccent italic font-bold text-[clamp(1.5rem,5vw,2.5rem)] leading-[1.2] text-right tracking-wide block max-w-[60%] drop-shadow-lg">
         {text}
       </span>
     </motion.div>

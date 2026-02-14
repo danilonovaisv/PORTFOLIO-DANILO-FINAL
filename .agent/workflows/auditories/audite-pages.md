@@ -1,14 +1,28 @@
----
-description: # 🕵️ Workflow: Auditoria de Layout e Conformidade Visual
----
+# 🕵️ Page Layout Audit
 
-# 🕵️ Workflow: Auditoria de Layout
+**Trigger:** `/audit --page`
+**Agent:** `agents/frontend-specialist.md`
 
-**Agente:** `DesignSystemAuditor`
+## 1. Setup & Context
 
-**Passos:**
+- **MCP Required:** `chrome-devtools`
+- **Context:** Rigorous visual and layout compliance audit for pages to ensure Ghost System integrity.
 
-1. Inicialização e Setup (`/audit --page [HOME]`).
-2. Análise Profunda (Estrutura, Espaçamentos, Tipografia, Responsividade).
-3. Geração de Relatório.
-4. Plano de Ação.
+## 2. Steps (Skill-Based Execution)
+
+### Step 1: Visual Structural Analysis
+
+- **Instruction:** Audit spacing, typography, and grid alignment across breakpoints.
+- **Skill:** `use a skill ui-visual-validator`
+- **MCP Action:** None
+
+### Step 2: Compliance Verification
+
+- **Instruction:** Match the implementation against the Ghost Design System tokens and rules.
+- **Skill:** `use a skill ui-ux-pro-max`
+- **MCP Action:** Use Chrome DevTools MCP to verify responsive layout shifts.
+
+## 3. Completion Protocol
+
+- **Validation:** `use a skill verification-before-completion`
+- **Output:** Visual Compliance Report and actionable fix plan.

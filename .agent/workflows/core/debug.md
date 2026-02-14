@@ -1,103 +1,34 @@
----
-description: Debugging command. Activates DEBUG mode for systematic problem investigation.
----
+# 🔍 Systematic Debugging
 
-# /debug - Systematic Problem Investigation
+**Trigger:** `/debug`
+**Agent:** `agents/frontend-specialist.md`
 
-$ARGUMENTS
+## 1. Setup & Context
 
----
+- **MCP Required:** `chrome-devtools`, `github`
+- **Context:** Activate DEBUG mode for systematic investigation of errors or unexpected behavior.
 
-## Purpose
+## 2. Steps (Skill-Based Execution)
 
-This command activates DEBUG mode for systematic investigation of issues, errors, or unexpected behavior.
+### Step 1: Symptom Analysis
 
----
+- **Instruction:** Gather error messages, reproduction steps, and identify recent code changes.
+- **Skill:** `use a skill typescript-expert`
+- **MCP Action:** Use Chrome DevTools MCP to capture console logs or network traces.
 
-## Behavior
+### Step 2: Hypothesis & Investigation
 
-When `/debug` is triggered:
+- **Instruction:** Formulate potential causes and test them systematically via elimination.
+- **Skill:** `use a skill nextjs-react-expert`
+- **MCP Action:** Use GitHub MCP to check commit history for relevant changes.
 
-1. **Gather information**
-   - Error message
-   - Reproduction steps
-   - Expected vs actual behavior
-   - Recent changes
+### Step 3: Resolution & Prevention
 
-2. **Form hypotheses**
-   - List possible causes
-   - Order by likelihood
+- **Instruction:** Apply the fix and document the root cause and prevention measures.
+- **Skill:** `use a skill react-best-practices`
+- **MCP Action:** None
 
-3. **Investigate systematically**
-   - Test each hypothesis
-   - Check logs, data flow
-   - Use elimination method
+## 3. Completion Protocol
 
-4. **Fix and prevent**
-   - Apply fix
-   - Explain root cause
-   - Add prevention measures
-
----
-
-## Output Format
-
-```markdown
-## 🔍 Debug: [Issue]
-
-### 1. Symptom
-[What's happening]
-
-### 2. Information Gathered
-- Error: `[error message]`
-- File: `[filepath]`
-- Line: [line number]
-
-### 3. Hypotheses
-1. ❓ [Most likely cause]
-2. ❓ [Second possibility]
-3. ❓ [Less likely cause]
-
-### 4. Investigation
-
-**Testing hypothesis 1:**
-[What I checked] → [Result]
-
-**Testing hypothesis 2:**
-[What I checked] → [Result]
-
-### 5. Root Cause
-🎯 **[Explanation of why this happened]**
-
-### 6. Fix
-```[language]
-// Before
-[broken code]
-
-// After
-[fixed code]
-```
-
-### 7. Prevention
-🛡️ [How to prevent this in the future]
-```
-
----
-
-## Examples
-
-```
-/debug login not working
-/debug API returns 500
-/debug form doesn't submit
-/debug data not saving
-```
-
----
-
-## Key Principles
-
-- **Ask before assuming** - get full error context
-- **Test hypotheses** - don't guess randomly
-- **Explain why** - not just what to fix
-- **Prevent recurrence** - add tests, validation
+- **Validation:** `use a skill verification-before-completion`
+- **Output:** Debug report and code fix.

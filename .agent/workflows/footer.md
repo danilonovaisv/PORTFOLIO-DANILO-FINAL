@@ -1,42 +1,28 @@
----
-description: # Workflow: Footer
----
+# 🦶 Footer Implementation
 
-# Workflow: Footer
+**Trigger:** Requests to update or build the project footer.
+**Agent:** `agents/ghost-architect.md`
 
-**Purpose:** Provide legal information, supplementary navigation, and social links while respecting the overall editorial aesthetic.
+## 1. Setup & Context
 
-## ⚙️ PROTOCOLO DE EXECUÇÃO (ALGORITMO)
+- **MCP Required:** `github`
+- **Context:** Implementing the rigid editorial footer with fixed-bottom behavior on desktop and static stack on mobile.
 
-### FASE 1: PARSING E INDEXAÇÃO (Chain of Thought)
+## 2. Steps (Skill-Based Execution)
 
-1. Ler e entender completamente o DESCRITIVO DA SESSÃO ABAIXO
-2. Identificar **todos os elementos, textos, animações, cores e interações** descritos nesse documento (um a um, na ordem em que aparecem).
-3. **Executar cada fase sequencialmente**, aplicando as mudanças no código.
-4. Para cada fase executado, rodar **testes de layout e animação** relacionados.
-5. Registrar o resultado de cada etapa (sucesso, falhas, pendências).
+### Step 1: Responsive Layout Engineering
 
-### FASE 2: Protocolo de Análise Profunda
+- **Instruction:** Implement `fixed bottom-0` for desktop (lg) and `static` for mobile. Use `bg-[#0048ff]` tokens.
+- **Skill:** `use a skill react-best-practices`
+- **MCP Action:** None
 
-#### Desktop (≥1024px)
+### Step 2: Content & Integrity
 
-**Layout:** Fixed bar at bottom, Horizontal layout.
-**Behavior:** `position: fixed`, `bottom: 0`, `z-index: 10`.
+- **Instruction:** Verify copyright text and ensure all supplementary links match the navigation schema.
+- **Skill:** `use a skill verification-before-completion`
+- **MCP Action:** None
 
-#### Mobile & Tablet (≤1023px)
+## 3. Completion Protocol
 
-**Layout:** Static section, Vertical stack.
-**Behavior:** Never fixed.
-
-#### Content
-
-**Copyright:** "© 2025 Danilo Novais Vilela — todos os direitos reservados"
-**Links:** Home, Portfólio Showcase, Sobre, Contato.
-
-#### Background
-
-Solid blue: `bg-[#0057FF]`, Text: White.
-
-## FASE 3: 🛠️ EXECUÇÃO IMEDIATA
-
-## FASE 4: 🛠️ VERIFICAÇÃO
+- **Validation:** `use a skill ui-visual-validator`
+- **Output:** Finalized Footer component implementation.

@@ -1,54 +1,34 @@
----
-description: 🛡️ PROTOCOLO GHOST - TEMPLATE DE AUDITORIA MESTRE V3.1
----
+# 🛡️ Master Audit Template V3.1
 
-# 🛡️ TEMPLATE DE AUDITORIA GHOST SYSTEM V3.1
+**Trigger:** Internal template usage for rigorous system reviews.
+**Agent:** `agents/agent-orchestrator-audit.md`
 
-**Status:** `READY_FOR_EXECUTION`
-**Nível de Rigor:** Máximo (Orchestrated)
+## 1. Setup & Context
 
-## 📂 FONTE DA VERDADE
+- **MCP Required:** `github`, `supabase`, `firebase`, `chrome-devtools`
+- **Context:** High-rigor baseline for all system audits, ensuring full Ghost System compliance.
 
-O arquivo mestre é: `docs/AUDITORIA_PORTFOLIO.md` (ou caminho equivalente fornecido).
-Este arquivo dita O QUE fazer. O código atual dita ONDE fazer.
+## 2. Steps (Skill-Based Execution)
 
-Documentação para consulta e imagens de cada pagina com layout absoluto na pasta: '.context'
+### Step 1: Technical Scanning (Parsing)
 
-## 🌌 1. DESIGNAÇÃO DO BATALHÃO (@orchestration)
+- **Instruction:** Map all files, assets, and dependencies within the target section.
+- **Skill:** `use a skill concise-planning`
+- **MCP Action:** None
 
-| Agente                    | Responsabilidade                                          | Check-in Requerido |
-| :------------------------ | :-------------------------------------------------------- | :----------------- |
-| **@ghost_architect**      | Integridade de Pasta, Arquitetura de Componentes e Types. | [ ]                |
-| **@spectral_artist**      | Cores (`#0048ff`, `#040013`), Shaders e Materiais.        | [ ]                |
-| **@motion_choreographer** | Framer Motion, Lenis e Sincronização de Scroll.           | [ ]                |
-| **@audit_sentinel**       | Grid Compliance (`.std-grid`), Lighthouse e Z-index.      | [ ]                |
+### Step 2: Compliance Verification
 
-## 🏗️ 2. FASES DA MISSÃO
+- **Instruction:** Audit grid margins (.std-grid), color tokens, and motion timings.
+- **Skill:** `use a skill ui-visual-validator`
+- **MCP Action:** None
 
-### FASE 1: ESCANEAMENTO TÉCNICO (Parsing)
+### Step 3: Performance & Accessibility Vet
 
-- [ ] Mapear todos os arquivos da seção específica.
-- [ ] Identificar dependências de assets no `assets.json`.
-- [ ] Verificar versões do Next.js e React no contexto do arquivo.
+- **Instruction:** Run FPS audits, Aria label checks, and mobile-first snapshots.
+- **Skill:** `use a skill verification-before-completion`
+- **MCP Action:** Use Chrome DevTools MCP for Lighthouse and Stacking Context analysis.
 
-### FASE 2: ANÁLISE DE CONFORMIDADE
+## 3. Completion Protocol
 
-- [ ] **Grid:** Todas as margens seguem o sistema `.std-grid`?
-- [ ] **Aesthetics:** O glow está dentro dos parâmetros Ghost Blue?
-- [ ] **Motion:** O easing segue `[0.22, 1, 0.36, 1]`?
-
-### FASE 3: IMPLEMENTAÇÃO ORQUESTRADA
-
-1. **Sub-tarefa A:** Correção de bugs estruturais (@ghost_architect).
-2. **Sub-tarefa B:** Polimento visual e shaders (@spectral_artist).
-3. **Sub-tarefa C:** Ajustes de micro-interações (@motion_choreographer).
-
-### FASE 4: VETAGEM FINAL (QA)
-
-- [ ] Teste de performance (FPS > 50).
-- [ ] Verificação de acessibilidade (Aria labels).
-- [ ] Snapshot visual mobile-first.
-
-## 📝 3. LOG DE SAÍDA (RESUMO)
-
-> Todos os bugs devem ser reportados no `AUDIT_PENTEST.md` após a execução.
+- **Validation:** `use a skill frontend-code-review`
+- **Output:** Standardized Audit Log in `AUDIT_PENTEST.md`.

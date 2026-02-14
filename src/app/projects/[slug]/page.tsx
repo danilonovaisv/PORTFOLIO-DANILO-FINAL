@@ -20,6 +20,7 @@ import {
   MASTER_PROJECT_TEMPLATE_V2,
   MASTER_PROJECT_TEMPLATE_V3,
 } from '@/types/project-template';
+import JsonLd from '@/components/ui/JsonLd';
 
 type LandingPageRecord = {
   id: string;
@@ -61,35 +62,6 @@ function toAbsoluteUrl(siteUrl: string, value?: string | null): string | null {
   return `${siteUrl.replace(/\/$/, '')}${normalized}`;
 }
 
-const VIDEO_FILE_PATTERN = /\.(mp4|webm|mov|m4v|ogg)(?:[?#].*)?$/i;
-
-function findFirstVideoCandidate(value: unknown): string | null {
-  if (!value) return null;
-
-  if (typeof value === 'string') {
-    const normalized = value.trim();
-    return VIDEO_FILE_PATTERN.test(normalized) ? normalized : null;
-  }
-
-  if (Array.isArray(value)) {
-    for (const item of value) {
-      const found = findFirstVideoCandidate(item);
-      if (found) return found;
-    }
-    return null;
-  }
-
-  if (typeof value === 'object') {
-    for (const key of Object.keys(value as Record<string, unknown>)) {
-      const found = findFirstVideoCandidate(
-        (value as Record<string, unknown>)[key]
-      );
-      if (found) return found;
-    }
-  }
-
-  return null;
-}
 
 export async function generateMetadata({
   params,
@@ -171,8 +143,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   const parsedMaster =
     parsed.template === MASTER_PROJECT_TEMPLATE ||
-    parsed.template === MASTER_PROJECT_TEMPLATE_V2 ||
-    parsed.template === MASTER_PROJECT_TEMPLATE_V3
+      parsed.template === MASTER_PROJECT_TEMPLATE_V2 ||
+      parsed.template === MASTER_PROJECT_TEMPLATE_V3
       ? parsed.data
       : null;
 
@@ -188,60 +160,23 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const projectDescription = normalizeMetaDescription(
     getProjectSeoDescription(parsed, project.title)
   );
-  const projectImage =
-    toAbsoluteUrl(
-      siteUrl,
-      resolveSiteAssetUrl(getProjectOgImage(parsed, project.cover))
-    ) ?? `${siteUrl.replace(/\/$/, '')}/opengraph-image`;
-
-  const videoCandidate = findFirstVideoCandidate(parsed);
-  const projectVideoUrl = toAbsoluteUrl(
-    siteUrl,
-    resolveSiteAssetUrl(videoCandidate ?? undefined)
-  );
-
-  const projectJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'CreativeWork',
-    '@id': `${projectUrl}#project`,
-    name: project.title,
-    description: projectDescription,
-    image: projectImage,
-    url: projectUrl,
-    dateCreated: `${projectYear}-01-01`,
-    creator: {
-      '@type': 'Person',
-      name: BRAND.name,
-      url: `https://${BRAND.domain}`,
-    },
-    provider: {
-      '@type': 'Organization',
-      name: projectClient,
-    },
-    genre: projectCategory,
-    keywords: parsedMaster?.project_tags ?? [
-      'Creative Development',
-      'Danilo Novais',
-    ],
-    ...(projectVideoUrl
-      ? {
-          video: {
-            '@type': 'VideoObject',
-            name: `${project.title} - vídeo do projeto`,
-            description: projectDescription,
-            contentUrl: projectVideoUrl,
-            thumbnailUrl: projectImage,
-            uploadDate: `${projectYear}-01-01`,
-          },
-        }
-      : {}),
-  };
-
   return (
     <div className="min-h-screen">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd) }}
+      <JsonLd
+        pageType="project"
+        project={{
+          title: project.title,
+          description: projectDescription,
+          image:
+            toAbsoluteUrl(
+              siteUrl,
+              resolveSiteAssetUrl(getProjectOgImage(parsed, project.cover))
+            ) ?? `${siteUrl.replace(/\/$/, '')}/opengraph-image`,
+          client: projectClient,
+          category: projectCategory,
+          year: projectYear as number,
+          url: projectUrl,
+        }}
       />
       <ProjectRenderer project={project} />
       <section className="std-grid bg-background py-16 md:py-24">

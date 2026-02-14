@@ -1,39 +1,28 @@
----
-description: # Workflow: Implementação do Portfolio Showcase
----
+# 🎭 Portfolio Showcase (Lo&Behold Style)
 
-# Workflow: Implementação do Portfolio Showcase (Lo&Behold Style)
+**Trigger:** Requests for high-sophistication showcase or interactive stripes.
+**Agent:** `agents/ghost-architect.md`
 
-## Purpose
+## 1. Setup & Context
 
-Apresentar as principais categorias de trabalho com sofisticação editorial.
+- **MCP Required:** `github`, `chrome-devtools`
+- **Context:** Implementing the Lo&Behold style showcase with interactive strips and editorial sophistication.
 
-## ⚙️ PROTOCOLO DE EXECUÇÃO
+## 2. Steps (Skill-Based Execution)
 
-### FASE 1: PARSING E INDEXAÇÃO
+### Step 1: Desktop Interactive Stripes
 
-1. Ler e entender o descritivo.
-2. Identificar elementos.
-3. Executar sequencialmente.
+- **Instruction:** Implement the three interactive stripes (Brand, Motion, Web) with thumbnail reveals and rotation effects.
+- **Skill:** `use a skill framer-motion`
+- **MCP Action:** None
 
-### FASE 2: Protocolo de Análise Profunda
+### Step 2: Responsive Adaptivity
 
-#### Layout Desktop
+- **Instruction:** Collapse stripes into vertical full-width cards on mobile, ensuring a snappy non-hover experience.
+- **Skill:** `use a skill react-best-practices`
+- **MCP Action:** None
 
-- Headline: "portfólio showcase"
-- Três faixas interativas: Brand & Campaigns, Videos & Motions, Web Campaigns.
-- CTA: "let’s build something great →"
+## 3. Completion Protocol
 
-#### Interações
-
-- Scroll Reveal (Opacity 0->1, Y 24->0).
-- Hover Stripe: Revela thumbnail, ajusta gap, gira seta.
-
-#### Mobile
-
-- Cards verticais full-width.
-- Sem hover.
-
-### FASE 3: EXECUÇÃO DO LOOP
-
-### FASE 4: VERIFICAÇÃO
+- **Validation:** `use a skill ui-visual-validator`
+- **Output:** Sophisticated Portfolio Showcase implementation and UX walkthrough.

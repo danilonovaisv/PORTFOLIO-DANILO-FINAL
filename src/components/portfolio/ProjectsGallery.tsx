@@ -9,7 +9,7 @@ import { ProjectCard, type ProjectCardSize } from './ProjectCard';
 import { PortfolioProject, ProjectCategory } from '@/types/project';
 import { cn } from '@/lib/utils';
 import styles from './ProjectsGallery.module.css';
-import { Container } from '@/components/layout/Container';
+import { StandardGrid } from '@/components/layout/Container';
 
 interface ProjectsGalleryProps {
   projects?: PortfolioProject[];
@@ -58,7 +58,7 @@ export const ProjectsGallery = ({
   const { isSticky } = useLERPScroll(trackRef, galleryWrapperRef, useLerp);
 
   const sizePattern = useMemo<ProjectCardSize[]>(
-    () => ['lg', 'sm', 'sm', 'sm', 'sm', 'lg', 'sm', 'wide'],
+    () => ['lg', 'sm', 'sm', 'sm', 'lg', 'sm', 'sm', 'sm', 'wide'],
     []
   );
 
@@ -114,7 +114,7 @@ export const ProjectsGallery = ({
         className={cn('gallery', styles.gallery)}
         ref={galleryWrapperRef as RefObject<HTMLDivElement>}
       >
-        <Container>
+        <StandardGrid>
           {items.length === 0 ? (
             <div className="relative rounded-2xl border border-white/10 bg-neutral/40 p-8 text-center">
               <h3 className="text-lg font-semibold text-white">Nenhum projeto nesta categoria</h3>
@@ -146,7 +146,7 @@ export const ProjectsGallery = ({
               </AnimatePresence>
             </div>
           )}
-        </Container>
+        </StandardGrid>
       </div>
     </section>
   );

@@ -1,46 +1,34 @@
----
-description: Master Protocol for production deployment. Unifies safe-deploy, deploy-guard, and standard deploy.
----
-
 # 🚀 Master Deploy Protocol
 
-**"The Launchpad"**
-Secure, guarded, and automated deployment process for Next.js + Firebase.
+**Trigger:** `/deploy-production` or "Ready for release".
+**Agent:** `agents/audit_sentinel`
 
-## Pre-Flight Checks (MANDATORY)
+## 1. Setup & Context
 
-// turbo
+- **MCP Required:** `firebase`, `github`
+- **Context:** Secure, guarded, and automated deployment process for Next.js + Firebase, incorporating the SSR Guardrail.
 
-1. **Type Safety**: `npm run type-check`
-// turbo
-2. **Linting**: `npm run lint`
-3. **Build Verification**: `npm run build`
-   - *STOP* if any of these fail.
+## 2. Steps (Skill-Based Execution)
 
-## SSR Guardrail
+### Step 1: Pre-Flight Integrity
 
-1. **Firebase Check**:
-   - Verify `firebase.json` points to the correct destination.
-   - Ensure `package.json` engines match Firebase Runtime (Node 18/20).
-   - Check `src/` for hardcoded secrets.
+- **Instruction:** Execute type safety check, linting, and production build verification.
+- **Skill:** `use a skill lint-and-validate`
+- **MCP Action:** None
 
-## Deployment Execution
+### Step 2: SSR Guardrail & Config
 
-1. **Deploy Command**:
-   - `firebase deploy --only hosting,functions` (or specific targets).
-   - Watch the output stream for "SSR Failed" warning.
+- **Instruction:** Verify `firebase.json` destinations and ensure `package.json` engines match the target runtime (Node 20).
+- **Skill:** `use a skill nextjs-best-practices`
+- **MCP Action:** Use Firebase MCP to audit hosting site health.
 
-## Post-Launch Verification
+### Step 3: Deployment & Live Check
 
-1. **Live Check**:
-   - Visit the production URL.
-   - Verify Critical Paths:
-     - Home Page (Hero Render).
-     - Admin Login.
-     - Projects Gallery.
-2. **Rollback Plan**:
-   - If critical failure: `firebase hosting:channel:deploy rollback_preview` (or specific rollback command if set up).
+- **Instruction:** Deploy to production and verify critical paths (Home, Admin, Projects) immediately after launch.
+- **Skill:** `use a skill verification-before-completion`
+- **MCP Action:** Use Chrome DevTools MCP to verify the production URL responsiveness.
 
-## Logging
+## 3. Completion Protocol
 
-- Update `.context/logs/deployment_log.md` with version and status.
+- **Validation:** `use a skill performance-profiling`
+- **Output:** Deployment log update and production health status.
