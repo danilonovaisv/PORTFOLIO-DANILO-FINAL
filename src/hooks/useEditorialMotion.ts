@@ -1,6 +1,6 @@
 'use client';
 
-import { useReducedMotion } from 'framer-motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 import { motionTokens } from '@/config/about-motion';
 
 const reducedTokens = {
@@ -35,7 +35,7 @@ const reducedTokens = {
 };
 
 export function useEditorialMotion() {
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useMotionGate();
 
   return {
     prefersReducedMotion,

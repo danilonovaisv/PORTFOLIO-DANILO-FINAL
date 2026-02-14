@@ -7,7 +7,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useReducedMotion } from 'framer-motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 import { PORTFOLIO_CONTENT } from '@/config/content';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
@@ -31,7 +31,7 @@ import { DynamicAssetVideo } from '@/components/ui/shared/DynamicAssetVideo';
 
 export default function PortfolioHeroNew() {
   const isMobile = useMediaQuery('(max-width: 768px)');
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useMotionGate();
 
   const videoAssetKey = isMobile
     ? SITE_ASSET_KEYS.portfolio.heroMobile

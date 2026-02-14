@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { useReducedMotion } from 'framer-motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 
 const LERP_EASING = 0.08;
 
@@ -24,7 +24,7 @@ const lerp = (start: number, end: number, t: number): number => {
  */
 export function useLERPGalleryScroll<T extends HTMLElement = HTMLDivElement>() {
   const trackRef = useRef<T>(null);
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useMotionGate();
 
   // Use refs to store state that changes frequently without causing re-renders.
   const scrollState = useRef({
@@ -121,7 +121,7 @@ export function useParallaxCard<
 >(enabled = true) {
   const wrapperRef = useRef<WrapperEl>(null);
   const cardRef = useRef<CardEl>(null); // Ref for the parent card
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useMotionGate();
 
   useEffect(() => {
     if (

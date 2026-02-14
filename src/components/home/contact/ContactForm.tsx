@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 import { InputField, TextAreaField } from './FormFields';
 import { CONTACT_FORM } from '@/config/navigation';
 
 const ContactForm: React.FC = () => {
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useMotionGate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',

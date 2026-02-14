@@ -2,7 +2,8 @@
 
 import React from 'react';
 import Image from 'next/image';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 import { PortfolioProject } from '@/types/project';
 import { cn } from '@/lib/utils';
 import { ASSET_PLACEHOLDER, applyImageFallback, isVideo } from '@/lib/utils';
@@ -33,7 +34,7 @@ export const ProjectCard = ({
   priority = false,
   size = 'md',
 }: ProjectCardProps) => {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useMotionGate();
   const isMobile = useMediaQuery('(max-width: 768px)');
   const shouldUseSquare = !isMobile && ['sm', 'md', 'tall'].includes(size);
   const motionProps = reduceMotion

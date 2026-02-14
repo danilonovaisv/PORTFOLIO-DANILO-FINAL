@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 import { HOME_CONTENT } from '@/config/content';
 
 /**
@@ -15,7 +16,7 @@ import { SITE_ASSET_KEYS } from '@/config/site-assets';
  * Segue o Ghost System v3.0 com animações sutis e responsividade
  */
 export default function ClientsBrandsSection() {
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = useMotionGate();
   const logos = HOME_CONTENT.clients.logos.slice(0, 12);
 
   return (

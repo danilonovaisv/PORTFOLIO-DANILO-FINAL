@@ -1,7 +1,8 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { Container } from '@/components/layout/Container';
 import { CategoryStripe } from './CategoryStripe';
@@ -44,7 +45,7 @@ const CATEGORIES = [
 export default function PortfolioShowcase() {
   const sectionRef = useRef<HTMLElement>(null);
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
-  const prefersReducedMotion = !!useReducedMotion();
+  const prefersReducedMotion = useMotionGate();
 
   return (
     <section

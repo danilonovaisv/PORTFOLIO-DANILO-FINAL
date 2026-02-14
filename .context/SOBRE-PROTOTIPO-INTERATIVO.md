@@ -1075,7 +1075,7 @@ Consolida a identidade do “Ghost Design” como conceito autoral, diferencia o
 
 ⸻
 
-## \*\*2. Estrutura de Conteúdo
+## **2. Estrutura de Conteúdo
 
     •    Título principal (headline) — BeliefFixedHeader (sticky)
 
@@ -1351,6 +1351,9 @@ import { GhostModel } from '@/shared/3d/GhostModel';
 Observação importante (para consistência com seu layout)
 
 Como você quer o Ghost sempre alinhado ao centro do bloco de texto, recomendo que o container “texto + ghost” seja o responsável por controlar altura/centro, e o Canvas/Group do ghost apenas “obedeça” (sem posicionar no centro da viewport).
+
+
+
 
 ---
 

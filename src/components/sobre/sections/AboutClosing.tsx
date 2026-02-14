@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { ABOUT_CONTENT } from '@/config/content';
@@ -13,7 +14,7 @@ import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { getSupabaseStorageUrl } from '@/lib/supabase/storage-url';
 
 export function AboutClosing() {
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useMotionGate();
   const desktopVideo = useSiteAssetUrl(
     SITE_ASSET_KEYS.about.beliefs.skillsVideo,
     getSupabaseStorageUrl(

@@ -2,7 +2,8 @@
 
 import type { MouseEvent } from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 import { X } from 'lucide-react';
 import { PortfolioProject } from '@/types/project';
 import { createPortal } from 'react-dom';
@@ -26,7 +27,7 @@ export const PortfolioModal = ({
   onClose,
   project,
 }: PortfolioModalProps) => {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useMotionGate();
   const [mounted, setMounted] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);

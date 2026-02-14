@@ -10,7 +10,8 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { GLTF } from 'three-stdlib';
-import { MotionValue, useReducedMotion } from 'framer-motion';
+import { MotionValue } from 'framer-motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -38,7 +39,7 @@ const GHOST_URL =
 const GHOST_MESH_ROTATION: [number, number, number] = [-Math.PI / 2, 0, 0];
 
 export function GhostModel({ scrollProgress, ...props }: GhostModelProps) {
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useMotionGate();
 
   const { nodes, materials } = useGLTF(GHOST_URL) as unknown as GLTFResult;
 

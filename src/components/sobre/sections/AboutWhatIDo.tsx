@@ -6,8 +6,8 @@ import {
   useScroll,
   useTransform,
   useSpring,
-  useReducedMotion,
 } from 'framer-motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 
 // =============================================================================
 // AboutWhatIDo - Ghost System v3.0
@@ -68,7 +68,7 @@ const ghostEase = [0.22, 1, 0.36, 1] as const;
 
 export function AboutWhatIDo() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const prefersReducedMotion = !!useReducedMotion();
+  const prefersReducedMotion = !!useMotionGate();
   const [marqueePaused, setMarqueePaused] = useState(false);
 
   // Scroll-driven horizontal animation for desktop

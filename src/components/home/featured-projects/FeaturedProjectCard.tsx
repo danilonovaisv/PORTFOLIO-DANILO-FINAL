@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import React from 'react';
-import { useReducedMotion } from 'framer-motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 
 import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
@@ -21,7 +21,7 @@ export default function FeaturedProjectCard({
   onOpen,
   priority = false,
 }: FeaturedProjectCardProps) {
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = useMotionGate();
   const isModalMode = typeof onOpen === 'function';
   const mediaSource =
     project.thumbnailMedia ??
@@ -46,11 +46,10 @@ export default function FeaturedProjectCard({
   const CardContent = () => (
     <>
       <div
-        className={`card-shell relative overflow-hidden rounded-md w-full bg-white/5 transition-all duration-500 ${
-          reducedMotion
+        className={`card-shell relative overflow-hidden rounded-md w-full bg-white/5 transition-all duration-500 ${reducedMotion
             ? ''
             : 'md:group-hover:shadow-[0_22px_54px_-12px_rgba(0,72,255,0.15)] md:group-hover:-translate-y-1'
-        }`}
+          }`}
       >
         {/* Subtle Noise Overlay */}
         <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />

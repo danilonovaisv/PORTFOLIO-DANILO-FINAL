@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useMemo } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 import {
   MOTION_TOKENS,
   ghostTransition,
@@ -37,7 +38,7 @@ export default function FeaturedProjectsSection({
   projects,
   onProjectOpen,
 }: FeaturedProjectsSectionProps) {
-  const reducedMotion = useReducedMotion();
+  const reducedMotion = useMotionGate();
   const featuredProjects = useMemo(() => {
     const source = projects.filter(
       (project) => project.featuredOnHome ?? project.isFeatured
@@ -53,11 +54,11 @@ export default function FeaturedProjectsSection({
     visible: reducedMotion
       ? { opacity: 1 }
       : {
-          opacity: 1,
-          y: 0,
-          filter: 'blur(0px)',
-          transition: ghostTransition(0, duration.normal),
-        },
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        transition: ghostTransition(0, duration.normal),
+      },
   };
 
   return (

@@ -1,10 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { useScroll, MotionValue } from 'framer-motion';
-import dynamic from 'next/dynamic';
-
-// Importações dos sub-componentes (Certifique-se que os caminhos estão corretos)
+import { useScroll } from 'framer-motion';
 import {
   BeliefSection,
   BeliefMobileTextLayer,
@@ -14,20 +11,13 @@ import {
   BeliefFixedHeader,
 } from '../beliefs';
 import { BRAND } from '@/config/brand';
-
-// [CORREÇÃO CRÍTICA]: Tratamento robusto para importação dinâmica.
-// Isso garante que pega o componente correto, seja export default ou export nomeado.
-const GhostScene = dynamic<{ scrollProgress: MotionValue<number> }>(
-  () =>
-    import('../3d/GhostScene').then((mod) => {
-      // Retorna a exportação nomeada 'GhostScene' OU a 'default'
-      return (mod as any).GhostScene || (mod as any).default || mod;
-    }),
-  {
-    ssr: false,
-    loading: () => <div className="w-full h-full bg-transparent" />, // Placeholder invisível
-  }
-);
+import { GhostModel } from '@/components/shared/3d/GhostModel';
+import { Canvas } from '@react-three/fiber';
+import { Environment, Float } from '@react-three/drei';
+import { useWebGLSupport } from '@/hooks/useWebGLSupport';
+import { useMotionGate } from '@/hooks/useMotionGate';
+import { useBeliefsAnimation } from '@/hooks/useBeliefsAnimation';
+import { motion } from 'framer-motion';
 
 const PHRASES = [
   'Um\nvídeo\nque\nrespira.',
@@ -44,7 +34,7 @@ const COLORS = [
   BRAND.colors.pinkDetails,
   BRAND.colors.bluePrimary,
   BRAND.colors.purpleDetails,
-  BRAND.colors.bluePrimary, // Última frase com azul primary (antes do manifesto final)
+  BRAND.colors.bluePrimary,
 ];
 
 export function AboutBeliefs() {
@@ -54,27 +44,88 @@ export function AboutBeliefs() {
     offset: ['start end', 'end end'],
   });
 
+  const supportsWebGL = useWebGLSupport();
+  const shouldReduceMotion = useMotionGate();
+  // 3D only if WebGL supported + No Reduced Motion
+  const shouldRender3D = supportsWebGL && !shouldReduceMotion;
+
+  // Centralized Animation Hook
+  const { backgroundColor, ghostIntensity } = useBeliefsAnimation({
+    scrollYProgress,
+    totalPhrases: PHRASES.length,
+    colors: COLORS,
+  });
+
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-(--beliefs-min-h)" // Tailwind utility for variable
-      // CSS variable assigned to style prop
-      style={
-        {
-          '--beliefs-min-h': `${(PHRASES.length + 2) * 100}vh`,
-        } as React.CSSProperties
-      }
+      className="relative w-full"
+      style={{
+        // Height determined by number of phrases to allow scroll time
+        height: `${(PHRASES.length + 1.5) * 100}vh`,
+      }}
     >
-      <BeliefFixedHeader scrollProgress={scrollYProgress} />
-      {/* LAYER 1: Seções de Conteúdo (Texto Scrollável) */}
-      <div className="relative z-20">
-        {/* Adicionei verificações para evitar erro se PHRASES/COLORS estiverem vazios */}
+      {/* LAYER 0: Background - Z-0 */}
+      <div className="absolute inset-0 z-0 bg-background" />
+      {/* Shared animated background for Desktop */}
+      <motion.div
+        style={{ backgroundColor }}
+        className="absolute inset-0 z-0 w-full h-full transition-colors duration-500 pointer-events-none hidden md:block"
+      />
+      {/* Shared animated background/colors for Mobile */}
+      <BeliefMobileBackground
+        colors={COLORS}
+        scrollYProgress={scrollYProgress}
+        finalColor={BRAND.colors.bluePrimary}
+      />
+
+      {/* LAYER 1: Content & Ghost - Z-10 */}
+      <div className="sticky top-0 h-screen w-full z-10 overflow-hidden pointer-events-none">
+        <div className="std-grid h-full w-full">
+
+          {/* Desktop Content: Left Side (Cols 1-6) - Handled by mapped BeliefSection */}
+
+          {/* Desktop Ghost: Right Side (Cols 7-12) */}
+          <div className="hidden md:flex col-span-12 md:col-start-7 md:col-span-6 h-full items-center justify-center">
+            {shouldRender3D ? (
+              <div className="w-full h-[80%] relative">
+                <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
+                  <ambientLight intensity={0.5} />
+                  <directionalLight position={[2, 5, 2]} intensity={1} />
+                  <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+                    <GhostModel scale={2.5} intensity={ghostIntensity} scrollProgress={scrollYProgress} />
+                  </Float>
+                  <Environment preset="city" />
+                </Canvas>
+              </div>
+            ) : null}
+          </div>
+
+          {/* Mobile Ghost: Top Left (20% Top, 50% Width) */}
+          <div className="md:hidden absolute top-[15%] left-0 w-[60%] h-[40%]">
+            {shouldRender3D ? (
+              <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
+                <ambientLight intensity={0.5} />
+                <directionalLight position={[2, 5, 2]} intensity={1} />
+                <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
+                  <GhostModel scale={2.2} intensity={ghostIntensity} scrollProgress={scrollYProgress} />
+                </Float>
+                <Environment preset="city" />
+              </Canvas>
+            ) : null}
+          </div>
+        </div>
+      </div>
+
+      {/* Content Scroller - Z-10 (Interleaved with Ghost mentally, but DOM-wise distinct) */}
+      <div className="relative z-10 pointer-events-none">
         {PHRASES.map((phrase, index) => (
           <BeliefSection
             key={index}
             text={phrase}
             bgColor={COLORS[index] || COLORS[0]}
             isFirst={index === 0}
+            isMobileTextLayer={true} // Mobile handled by footer layer
           />
         ))}
 
@@ -84,31 +135,18 @@ export function AboutBeliefs() {
         />
       </div>
 
-      {/* LAYER 2: Mobile Background Color Transitions */}
-      <BeliefMobileBackground
-        colors={COLORS}
-        scrollYProgress={scrollYProgress}
-        finalColor={BRAND.colors.bluePrimary}
-      />
+      {/* LAYER 2: Sticky Header - Z-20 */}
+      <BeliefFixedHeader scrollProgress={scrollYProgress} opacity={headerOpacity} />
 
-      {/* LAYER 3: Texto Mobile Fixed no Footer */}
+      {/* LAYER 3: Mobile Footer Text - Z-20 */}
       <BeliefMobileTextLayer
         phrases={PHRASES}
         scrollYProgress={scrollYProgress}
       />
 
-      {/* LAYER 4: Final Text Overlay (Z-40) - Background for Ghost */}
-      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-40">
+      {/* LAYER 4: Final Overlay - Z-30 */}
+      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-30">
         <BeliefFinalSectionOverlay />
-      </div>
-
-      {/* LAYER 3: Canvas 3D (Sticky - Top Layer Z-60) */}
-      <div className="absolute inset-0 w-full h-full pointer-events-none z-60">
-        <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-auto flex md:items-center md:justify-center items-end justify-start">
-          <div className="w-full h-full md:absolute md:inset-0 relative">
-            <GhostScene scrollProgress={scrollYProgress} />
-          </div>
-        </div>
       </div>
     </section>
   );

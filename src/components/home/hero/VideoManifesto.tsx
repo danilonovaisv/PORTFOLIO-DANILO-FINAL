@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
 import { DEFAULT_CAPTIONS } from '@/lib/video';
 
@@ -23,7 +24,7 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
   const [muted, setMuted] = useState(true);
   const [shouldLoad, setShouldLoad] = useState(false);
   const [videoQuality, setVideoQuality] = useState<'hd' | 'sd'>('hd');
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useMotionGate();
 
   const sectionRef = useRef<HTMLElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);

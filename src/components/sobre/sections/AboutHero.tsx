@@ -3,11 +3,11 @@
 import { useRef } from 'react';
 import {
   motion,
-  useReducedMotion,
   useScroll,
   useSpring,
   useTransform,
 } from 'framer-motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 
 import { ABOUT_CONTENT } from '@/config/content';
 import { motionTokens, motionSprings } from '../shared/motion';
@@ -17,7 +17,7 @@ import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { DynamicAssetVideo } from '@/components/ui/shared/DynamicAssetVideo';
 
 export function AboutHero() {
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useMotionGate();
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,

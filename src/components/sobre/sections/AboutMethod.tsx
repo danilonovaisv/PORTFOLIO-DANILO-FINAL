@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 
-import { useReducedMotion } from '@/hooks/useReducedMotion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { ABOUT_CONTENT } from '@/config/content';
 // import { Container } from '@/components/layout/Container'; // Removed in favor of std-grid
@@ -13,7 +13,7 @@ import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 export default function AboutMethod() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useMotionGate();
   const isMobile = useMediaQuery('(max-width: 768px)');
 
   const { scrollYProgress } = useScroll({
@@ -62,11 +62,10 @@ export default function AboutMethod() {
             muted
             playsInline
             poster={DEFAULT_VIDEO_POSTER}
-            className={`w-full h-full ${
-              isMobile
+            className={`w-full h-full ${isMobile
                 ? 'object-cover object-center opacity-55'
                 : 'object-cover object-center opacity-55'
-            }`}
+              }`}
             aria-hidden="true"
           >
             <track

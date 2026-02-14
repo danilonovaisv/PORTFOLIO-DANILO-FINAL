@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useMemo, useRef, useState, type RefObject } from 'react';
-import { useReducedMotion, motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 import { useLERPScroll } from '@/hooks/useLERPScroll';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { ProjectCard, type ProjectCardSize } from './ProjectCard';
@@ -39,7 +40,7 @@ export const ProjectsGallery = ({
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const trackRef = useRef<HTMLDivElement>(null);
   const galleryWrapperRef = useRef<HTMLDivElement>(null);
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useMotionGate();
   const isMobile = useMediaQuery('(max-width: 640px)');
 
   // Filter logic

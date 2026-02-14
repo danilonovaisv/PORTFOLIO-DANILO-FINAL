@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 
 export const BeliefFinalSectionOverlay: React.FC = () => {
   return (
-    <section className="w-full h-full flex flex-col items-center justify-center overflow-hidden px-4 pointer-events-none">
+    <section className="w-full h-full flex flex-col items-center justify-center overflow-hidden px-4 pointer-events-none z-30">
       <div
         className="flex flex-col items-center justify-center text-center text-white font-display leading-[0.78] w-full max-w-[98vw]"
       >

@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, useMemo } from 'react';
-import { useReducedMotion } from 'framer-motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 import type { PortfolioProject } from '@/types/project';
 import { AdaptiveMediaLayout } from './AdaptiveMediaLayout';
 
@@ -14,7 +14,7 @@ interface TypeBContentProps {
  * Substitui o layout compacto antigo por um sistema inteligente estilo e-commerce.
  */
 const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = useMotionGate();
   const shouldReduce = !!prefersReducedMotion;
 
   // [BUG FIX #9]: Prioritize video for motion projects

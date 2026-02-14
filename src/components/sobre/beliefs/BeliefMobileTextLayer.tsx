@@ -132,7 +132,7 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
       // Doc: "sempre 20% acima do rodapé da sessão"
       // bottom-20% pode ser baixo demais em telas grandes, ou alto demais.
       // Vamos usar bottom-[15vh] para garantir segurança
-      className="fixed bottom-[15vh] left-0 w-full z-60 flex items-center justify-center pointer-events-none px-6"
+      className="fixed bottom-[15vh] left-0 w-full z-20 flex items-center justify-center pointer-events-none px-6"
     >
       <span className="text-blueAccent italic font-bold text-[clamp(1.5rem,5vw,2.5rem)] leading-[1.2] text-center tracking-wide block w-full drop-shadow-lg">
         {text}

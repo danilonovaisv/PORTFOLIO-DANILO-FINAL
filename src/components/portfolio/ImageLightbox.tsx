@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
 import { X } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import { useBodyLock } from '@/hooks/useBodyLock';
@@ -17,7 +18,7 @@ type ImageLightboxProps = {
 };
 
 export function ImageLightbox({ isOpen, src, alt, onClose }: ImageLightboxProps) {
-  const shouldReduceMotion = useReducedMotion();
+  const shouldReduceMotion = useMotionGate();
   const [mounted, setMounted] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
