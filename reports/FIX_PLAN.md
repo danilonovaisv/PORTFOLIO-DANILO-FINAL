@@ -2,11 +2,11 @@
 
 The following critical issues were identified in the `firebase.json` configuration and require immediate remediation:
 
-| Priority | Issue | Description | Recommended Fix |
-| :--- | :--- | :--- | :--- |
-| **HIGH** | Missing HSTS | `Strict-Transport-Security` header not found. | Add `max-age=31536000; includeSubDomains`. |
-| **HIGH** | Clickjacking Prevention | `X-Frame-Options` missing. | Add `DENY` or `SAMEORIGIN`. |
-| **HIGH** | MIME Sniffing | `X-Content-Type-Options` missing. | Add `nosniff`. |
+| Priority | Issue                   | Description                                   | Recommended Fix                            |
+| :------- | :---------------------- | :-------------------------------------------- | :----------------------------------------- |
+| **HIGH** | Missing HSTS            | `Strict-Transport-Security` header not found. | Add `max-age=31536000; includeSubDomains`. |
+| **HIGH** | Clickjacking Prevention | `X-Frame-Options` missing.                    | Add `DENY` or `SAMEORIGIN`.                |
+| **HIGH** | MIME Sniffing           | `X-Content-Type-Options` missing.             | Add `nosniff`.                             |
 
 ## Proposed Configuration Change
 

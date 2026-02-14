@@ -86,8 +86,9 @@ export function AdminShell({ children, userEmail }: Props) {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-white/5 ${active ? 'bg-white/10 text-white' : 'text-slate-300'
-                    }`}
+                  className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-white/5 ${
+                    active ? 'bg-white/10 text-white' : 'text-slate-300'
+                  }`}
                 >
                   <Icon size={18} />
                   {item.label}
@@ -160,8 +161,9 @@ export function AdminShell({ children, userEmail }: Props) {
                           key={`mobile-${item.href}`}
                           href={item.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className={`flex min-h-12 items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-white/5 ${active ? 'bg-white/10 text-white' : 'text-slate-300'
-                            }`}
+                          className={`flex min-h-12 items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-white/5 ${
+                            active ? 'bg-white/10 text-white' : 'text-slate-300'
+                          }`}
                         >
                           <Icon size={18} />
                           {item.label}

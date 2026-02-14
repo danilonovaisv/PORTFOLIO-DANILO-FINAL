@@ -43,41 +43,43 @@ describe('getMediaAspectRatio', () => {
     global.Image = MockImage as unknown as typeof Image;
 
     // Mock Video via document.createElement
-    jest.spyOn(document, 'createElement').mockImplementation((tagName: string) => {
-      if (tagName === 'video') {
-        const mockVideo = {
-          src: '',
-          videoWidth: 0,
-          videoHeight: 0,
-          onloadedmetadata: null as (() => void) | null,
-          onerror: null as (() => void) | null,
-          preload: '',
-        };
+    jest
+      .spyOn(document, 'createElement')
+      .mockImplementation((tagName: string) => {
+        if (tagName === 'video') {
+          const mockVideo = {
+            src: '',
+            videoWidth: 0,
+            videoHeight: 0,
+            onloadedmetadata: null as (() => void) | null,
+            onerror: null as (() => void) | null,
+            preload: '',
+          };
 
-        // Simulate async metadata loading
-        setTimeout(() => {
-          if (mockVideo.src.includes('error')) {
-            if (mockVideo.onerror) mockVideo.onerror();
-          } else if (mockVideo.src) {
-            if (mockVideo.src.includes('vertical')) {
-              mockVideo.videoWidth = 800;
-              mockVideo.videoHeight = 1200;
-            } else if (mockVideo.src.includes('square')) {
-              mockVideo.videoWidth = 1000;
-              mockVideo.videoHeight = 1000;
-            } else {
-              // Default horizontal
-              mockVideo.videoWidth = 1200;
-              mockVideo.videoHeight = 800;
+          // Simulate async metadata loading
+          setTimeout(() => {
+            if (mockVideo.src.includes('error')) {
+              if (mockVideo.onerror) mockVideo.onerror();
+            } else if (mockVideo.src) {
+              if (mockVideo.src.includes('vertical')) {
+                mockVideo.videoWidth = 800;
+                mockVideo.videoHeight = 1200;
+              } else if (mockVideo.src.includes('square')) {
+                mockVideo.videoWidth = 1000;
+                mockVideo.videoHeight = 1000;
+              } else {
+                // Default horizontal
+                mockVideo.videoWidth = 1200;
+                mockVideo.videoHeight = 800;
+              }
+              if (mockVideo.onloadedmetadata) mockVideo.onloadedmetadata();
             }
-            if (mockVideo.onloadedmetadata) mockVideo.onloadedmetadata();
-          }
-        }, 0);
+          }, 0);
 
-        return mockVideo as unknown as HTMLElement;
-      }
-      return originalCreateElement(tagName);
-    });
+          return mockVideo as unknown as HTMLElement;
+        }
+        return originalCreateElement(tagName);
+      });
   });
 
   afterEach(() => {
@@ -92,10 +94,13 @@ describe('getMediaAspectRatio', () => {
   });
 
   it('returns horizontal for YouTube URLs', (done) => {
-    getMediaAspectRatio('https://www.youtube.com/watch?v=dQw4w9WgXcQ', (ratio) => {
-      expect(ratio).toBe('horizontal');
-      done();
-    });
+    getMediaAspectRatio(
+      'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      (ratio) => {
+        expect(ratio).toBe('horizontal');
+        done();
+      }
+    );
   });
 
   // --- Image Tests ---

@@ -258,7 +258,10 @@ export default function GhostScene() {
       wobbleAmount: 0.35,
       floatSpeed: 1.6,
       movementThreshold: 0.07,
-      particleCount: Math.min(performanceConfig.particleCount * 5, MAX_PARTICLES),
+      particleCount: Math.min(
+        performanceConfig.particleCount * 5,
+        MAX_PARTICLES
+      ),
       particleDecayRate: 0.005,
       particleColor: 'violet',
       createParticlesOnlyWhenMoving: true,
@@ -476,7 +479,11 @@ export default function GhostScene() {
       transparent: true,
       opacity: 0.8,
     });
-    const fireflyMesh = new THREE.InstancedMesh(fireflyGeometry, fireflyMaterial, params.particleCount);
+    const fireflyMesh = new THREE.InstancedMesh(
+      fireflyGeometry,
+      fireflyMaterial,
+      params.particleCount
+    );
     fireflyMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
     scene.add(fireflyMesh);
 
@@ -504,7 +511,7 @@ export default function GhostScene() {
           (Math.random() - 0.5) * params.fireflySpeed * 0.8
         ),
         phase: Math.random() * Math.PI * 2,
-        speed: 0.5 + Math.random() * 0.5
+        speed: 0.5 + Math.random() * 0.5,
       });
     }
 
@@ -520,7 +527,11 @@ export default function GhostScene() {
       opacity: 1, // Controlado via scale no loop
     });
 
-    const particleMesh = new THREE.InstancedMesh(particleGeometry, particleMaterial, MAX_PARTICLES);
+    const particleMesh = new THREE.InstancedMesh(
+      particleGeometry,
+      particleMaterial,
+      MAX_PARTICLES
+    );
     particleMesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
     scene.add(particleMesh);
 
@@ -536,7 +547,7 @@ export default function GhostScene() {
         currentPos: new THREE.Vector3(),
         life: 0,
         decay: 0,
-        rotationSpeed: { x: 0, y: 0, z: 0 }
+        rotationSpeed: { x: 0, y: 0, z: 0 },
       };
     }
 
@@ -561,7 +572,7 @@ export default function GhostScene() {
       data.velocity.set(
         (Math.random() - 0.5) * 0.012,
         (Math.random() - 0.5) * 0.012 - 0.002,
-        (Math.random() - 0.5) * 0.012 - 0.006,
+        (Math.random() - 0.5) * 0.012 - 0.006
       );
 
       // Cor das partículas (simulada mudando a cor do material não funciona com instância única sem attribute color)
@@ -770,7 +781,6 @@ export default function GhostScene() {
 
           _dummy.updateMatrix();
           particleMesh.setMatrixAt(i, _dummy.matrix);
-
         } else {
           // Hide
           _dummy.position.set(0, -9999, 0);
@@ -871,4 +881,3 @@ export default function GhostScene() {
     </>
   );
 }
-

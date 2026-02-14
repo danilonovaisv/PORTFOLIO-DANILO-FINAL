@@ -63,7 +63,9 @@ describe('SEO Utils', () => {
   describe('toCanonicalUrl', () => {
     it('appends path to canonical URL', () => {
       process.env.NEXT_PUBLIC_SITE_URL = 'https://example.com';
-      expect(toCanonicalUrl('/blog/post')).toBe('https://example.com/blog/post');
+      expect(toCanonicalUrl('/blog/post')).toBe(
+        'https://example.com/blog/post'
+      );
     });
 
     it('handles path without leading slash', () => {
@@ -106,7 +108,9 @@ describe('SEO Utils', () => {
 
   describe('normalizeMetaTitle', () => {
     it('collapses whitespace', () => {
-      expect(normalizeMetaTitle('  Title  with   spaces  ')).toBe('Title with spaces');
+      expect(normalizeMetaTitle('  Title  with   spaces  ')).toBe(
+        'Title with spaces'
+      );
     });
 
     it('truncates to default max length (60)', () => {
@@ -121,7 +125,8 @@ describe('SEO Utils', () => {
 
     it('respects word boundaries when truncating (only if max is large enough)', () => {
       // We need a max > 80 to trigger the word boundary logic
-      const title = 'This is a very long title that should be truncated intelligently and not in the middle of a word like thisone';
+      const title =
+        'This is a very long title that should be truncated intelligently and not in the middle of a word like thisone';
       // 90 chars
       // "This is a very long title that should be truncated intelligently and not in the" (length 79)
       // "This is a very long title that should be truncated intelligently and not in the middle" (length 86)
@@ -135,19 +140,21 @@ describe('SEO Utils', () => {
       // 85 > 80 -> True.
       // Trimmed: "This is a very long title that should be truncated intelligently and not in the middle"
 
-      expect(result).toBe('This is a very long title that should be truncated intelligently and not in the middle.');
+      expect(result).toBe(
+        'This is a very long title that should be truncated intelligently and not in the middle.'
+      );
     });
 
     it('does not respect word boundaries when max is small (<= 80)', () => {
-       const title = 'This is a very long title that should be truncated';
-       const max = 30;
-       // Candidate: slice(0, 29) -> "This is a very long title tha"
-       // lastSpace: 26.
-       // 26 > 80 -> False.
-       // Returns candidate + '.'
+      const title = 'This is a very long title that should be truncated';
+      const max = 30;
+      // Candidate: slice(0, 29) -> "This is a very long title tha"
+      // lastSpace: 26.
+      // 26 > 80 -> False.
+      // Returns candidate + '.'
 
-       const result = normalizeMetaTitle(title, max);
-       expect(result).toBe('This is a very long title tha.');
+      const result = normalizeMetaTitle(title, max);
+      expect(result).toBe('This is a very long title tha.');
     });
 
     it('removes trailing punctuation', () => {

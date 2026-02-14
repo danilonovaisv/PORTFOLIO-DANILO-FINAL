@@ -7,7 +7,9 @@ import { useContentStore } from '@/store/content.store';
 import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
 
 // --- Singleton Subscription Manager ---
-let globalChannel: ReturnType<ReturnType<typeof createClientComponentClient>['channel']> | null = null;
+let globalChannel: ReturnType<
+  ReturnType<typeof createClientComponentClient>['channel']
+> | null = null;
 let subscribersCount = 0;
 let unsubscribeTimeout: NodeJS.Timeout | null = null;
 let isConnecting = false;
@@ -26,7 +28,9 @@ const subscribeToAssets = async () => {
 
     try {
       // Setup Auth if available
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (session?.access_token) {
         supabase.realtime.setAuth(session.access_token);
       }
@@ -49,13 +53,20 @@ const subscribeToAssets = async () => {
           const newItem = payload.new as DbAsset;
           // Only process valid updates
           if (newItem && typeof newItem === 'object') {
-             useContentStore.getState().upsertAsset(newItem);
+            useContentStore.getState().upsertAsset(newItem);
           }
         }
       )
       .subscribe((status: string, err: Error | null) => {
-        if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT' || status === 'CLOSED') {
-          console.warn(`[useRealtimeAssets] Global subscription status: ${status}`, err);
+        if (
+          status === 'CHANNEL_ERROR' ||
+          status === 'TIMED_OUT' ||
+          status === 'CLOSED'
+        ) {
+          console.warn(
+            `[useRealtimeAssets] Global subscription status: ${status}`,
+            err
+          );
         }
       });
 

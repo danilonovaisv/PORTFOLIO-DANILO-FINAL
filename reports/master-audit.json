@@ -1,19 +1,19 @@
 {
-    "timestamp": "2026-02-13T23:40:00-03:00",
-    "project": "PORTFOLIO-DANILO-FINAL",
-    "global_score": 98,
-    "audits": {
-        "supabase_storage": {
-            "score": 95,
-            "status": "PASS",
-            "details": "RLS policies for public-assets, private-assets, and legacy buckets are correctly configured with Admin-only write access."
-        },
-        "firebase_hosting": {
-            "score": 100,
-            "status": "PASS",
-            "details": "Security headers (HSTS, X-Frame, NoSniff) and Cache-Control policies are correctly configured."
-        }
+  "timestamp": "2026-02-13T23:40:00-03:00",
+  "project": "PORTFOLIO-DANILO-FINAL",
+  "global_score": 98,
+  "audits": {
+    "supabase_storage": {
+      "score": 95,
+      "status": "PASS",
+      "details": "RLS policies for public-assets, private-assets, and legacy buckets are correctly configured with Admin-only write access."
     },
-    "action_items": [],
-    "status": "AUDIT_COMPLETE_AND_SECURED"
+    "firebase_hosting": {
+      "score": 100,
+      "status": "PASS",
+      "details": "Security headers (HSTS, X-Frame, NoSniff) and Cache-Control policies are correctly configured."
+    }
+  },
+  "action_items": [],
+  "status": "AUDIT_COMPLETE_AND_SECURED"
 }

@@ -92,30 +92,35 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
 
   const entryStart = startPoint;
   const entryEnd = startPoint + entryDuration;
-  const exitStart = endPoint - exitDuration;
+
   const exitEnd = endPoint;
 
   // X: Entra pela ESQUERDA (-24px -> 0), sai para a DIREITA (0 -> 24px)
   // Fluxo visual: L -> C -> R (entrada pela esquerda, saída pela direita)
+
+  // X: Entra pela ESQUERDA (Left -> Center), sai para a DIREITA (Center -> Right)
+  // Doc: "Entra da esquerda para direita"
+  // Range visual: -100% (hidden lefet) -> 0 (center) -> +100% (exit right)
+  // Mas para manter sutil como design ghost: -24px -> 0 -> 24px
   const x = useTransform(
     scrollYProgress,
-    [entryStart, entryEnd, exitStart, exitEnd],
-    ['-24px', '0px', '0px', '24px'],
+    [entryStart, entryEnd, exitEnd - exitDuration, exitEnd],
+    ['-40px', '0px', '0px', '40px'], // Aumentei um pouco o range para ser mais perceptível
     { ease: ghostEase }
   );
 
-  // Opacity: Fade in com entrada, fade out antes da próxima
+  // Opacity: Fade in / Fade out
   const opacity = useTransform(
     scrollYProgress,
-    [entryStart, entryEnd, exitStart, exitEnd],
+    [entryStart, entryEnd, exitEnd - exitDuration, exitEnd],
     [0, 1, 1, 0],
     { ease: ghostEase }
   );
 
-  // Blur: 10px na entrada/saída, 0 no centro
+  // Blur: 10px -> 0px -> 10px
   const blur = useTransform(
     scrollYProgress,
-    [entryStart, entryEnd, exitStart, exitEnd],
+    [entryStart, entryEnd, exitEnd - exitDuration, exitEnd],
     ['blur(10px)', 'blur(0px)', 'blur(0px)', 'blur(10px)'],
     { ease: ghostEase }
   );
@@ -124,11 +129,12 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
     <motion.div
       data-ghost-target={isActive ? 'true' : 'false'}
       style={{ x, opacity, filter: blur }}
-      // Fixed at bottom 20% relative to viewport.
-      // Width full, centered text.
-      className="fixed bottom-[20%] left-0 w-full z-60 flex items-center justify-center pointer-events-none px-4"
+      // Doc: "sempre 20% acima do rodapé da sessão"
+      // bottom-20% pode ser baixo demais em telas grandes, ou alto demais.
+      // Vamos usar bottom-[15vh] para garantir segurança
+      className="fixed bottom-[15vh] left-0 w-full z-60 flex items-center justify-center pointer-events-none px-6"
     >
-      <span className="text-blueAccent italic font-bold text-[clamp(1.8rem,5vw,2.5rem)] leading-[1.2] text-center tracking-wide block w-full">
+      <span className="text-blueAccent italic font-bold text-[clamp(1.5rem,5vw,2.5rem)] leading-[1.2] text-center tracking-wide block w-full drop-shadow-lg">
         {text}
       </span>
     </motion.div>

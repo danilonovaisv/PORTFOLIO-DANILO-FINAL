@@ -55,7 +55,10 @@ describe('generateVideoSchema', () => {
   });
 
   it('includes optional contentUrl field', () => {
-    const params = { ...baseParams, contentUrl: 'https://example.com/video.mp4' };
+    const params = {
+      ...baseParams,
+      contentUrl: 'https://example.com/video.mp4',
+    };
     const schema = generateVideoSchema(params);
 
     expect(schema.contentUrl).toBe('https://example.com/video.mp4');

@@ -1,7 +1,7 @@
 // GhostScene.tsx
 import React, { Suspense, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { ContactShadows } from '@react-three/drei';
+import { ContactShadows, Sparkles, Environment } from '@react-three/drei';
 import GhostModel from './GhostModel'; // Caminho relativo para GhostModel
 import { MotionValue, motion } from 'framer-motion';
 // Importar o hook do BeliefSection.tsx
@@ -78,6 +78,19 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
           far={5}
           color="#000000"
         />
+
+        {/* 🟣 [CONFIG VISUAL]: Partículas Atmosféricas (Ghost Dust) */}
+        <Sparkles
+          count={50}
+          scale={10}
+          size={4}
+          speed={0.4}
+          opacity={0.5}
+          color="#4fe6ff" // Ghost Accent
+        />
+
+        {/* 🟣 [CONFIG VISUAL]: Iluminação Ambiental HDRI */}
+        <Environment preset="city" environmentIntensity={0.5} />
       </Canvas>
     </motion.div>
   );

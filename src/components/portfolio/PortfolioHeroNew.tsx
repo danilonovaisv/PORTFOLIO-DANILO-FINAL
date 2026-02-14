@@ -89,10 +89,22 @@ export default function PortfolioHeroNew() {
           {/* Title - "portfólio showcase" - Centered */}
           <h1
             id="portfolio-hero-heading"
-            className="text-4xl sm:text-6xl md:text-8xl tracking-tighter leading-none font-bold text-center"
+            className="text-4xl sm:text-6xl md:text-8xl tracking-tighter leading-none font-bold text-center flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8"
           >
-            <span className="text-[#4fe6ff] italic font-light mr-3 md:mr-6">portfólio</span>
-            <span className="text-white font-bold">showcase</span>
+            <div className="flex items-center">
+              <span className="text-[#4fe6ff] italic font-light mr-3 md:mr-6">portfólio</span>
+              <span className="text-white font-bold">showcase</span>
+            </div>
+
+            {/* CTA Button - Aligned horizontally on desktop */}
+            <a
+              href="#contato"
+              className="group relative inline-flex items-center justify-center px-8 py-3 bg-bluePrimary hover:bg-blue-600 text-white rounded-full transition-all duration-300 transform hover:scale-105 no-underline ml-0 md:ml-4"
+              role="button"
+            >
+              <span className="font-medium mr-2">vamos trabalhar juntos</span>
+              <span className="text-xl transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">→</span>
+            </a>
           </h1>
         </div>
       </div>

@@ -67,7 +67,8 @@ describe('isAdminUser', () => {
   });
 
   it('should trim whitespace in ADMIN_ALLOWED_EMAILS entries', () => {
-    process.env.ADMIN_ALLOWED_EMAILS = '  admin@example.com ,  super@example.com  ';
+    process.env.ADMIN_ALLOWED_EMAILS =
+      '  admin@example.com ,  super@example.com  ';
     const user = createUser({}, {}, 'admin@example.com');
     expect(isAdminUser(user)).toBe(true);
   });

@@ -9,12 +9,12 @@ jest.mock('three', () => {
   return {
     ...original,
     ShaderMaterial: jest.fn().mockImplementation((config) => {
-        return {
-            uniforms: config.uniforms, // pass through the uniforms object created in component
-            vertexShader: config.vertexShader,
-            fragmentShader: config.fragmentShader,
-            dispose: jest.fn(),
-        }
+      return {
+        uniforms: config.uniforms, // pass through the uniforms object created in component
+        vertexShader: config.vertexShader,
+        fragmentShader: config.fragmentShader,
+        dispose: jest.fn(),
+      };
     }),
   };
 });
@@ -32,12 +32,13 @@ describe('GlassPlane Performance & Memory Leak', () => {
     // Suppress console errors about unrecognized elements <mesh>, <primitive>, <planeGeometry>
     consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation((msg) => {
       // Filter out React warnings about lowercase custom elements
-      if (typeof msg === 'string' && (
-        msg.includes('<mesh>') ||
-        msg.includes('<primitive>') ||
-        msg.includes('<planeGeometry>') ||
-        msg.includes('recognized in this browser')
-      )) {
+      if (
+        typeof msg === 'string' &&
+        (msg.includes('<mesh>') ||
+          msg.includes('<primitive>') ||
+          msg.includes('<planeGeometry>') ||
+          msg.includes('recognized in this browser'))
+      ) {
         return;
       }
       // console.error(msg);
@@ -57,12 +58,14 @@ describe('GlassPlane Performance & Memory Leak', () => {
 
     // Initial render check
     expect(THREE.ShaderMaterial).toHaveBeenCalled();
-    const firstCallConfig = (THREE.ShaderMaterial as unknown as jest.Mock).mock.calls[0][0];
+    const firstCallConfig = (THREE.ShaderMaterial as unknown as jest.Mock).mock
+      .calls[0][0];
     const initialColor = firstCallConfig.uniforms.uAccent.value;
     expect(initialColor.getHexString()).toBe('ff0000');
 
     // Get the material instance returned by the first call
-    const materialInstance = (THREE.ShaderMaterial as unknown as jest.Mock).mock.results[0].value;
+    const materialInstance = (THREE.ShaderMaterial as unknown as jest.Mock).mock
+      .results[0].value;
 
     // Clear mock to check subsequent calls
     (THREE.ShaderMaterial as unknown as jest.Mock).mockClear();
@@ -75,7 +78,9 @@ describe('GlassPlane Performance & Memory Leak', () => {
     expect(THREE.ShaderMaterial).not.toHaveBeenCalled();
 
     // 2. The SAME material instance should have its uniform updated
-    expect(materialInstance.uniforms.uAccent.value.getHexString()).toBe('00ff00');
+    expect(materialInstance.uniforms.uAccent.value.getHexString()).toBe(
+      '00ff00'
+    );
 
     // Unmount
     unmount();
