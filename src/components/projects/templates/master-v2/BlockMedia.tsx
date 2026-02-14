@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
 import type { MasterProjectV2GalleryItem } from '@/types/project-template';
-import { DEFAULT_CAPTIONS } from '@/lib/video';
+
 
 const VIDEO_PATTERN = /\.(mp4|webm|ogg|mov)$/i;
 
@@ -49,13 +49,6 @@ export default function BlockMedia({
           playsInline
           preload={priority ? 'metadata' : 'none'}
         >
-          <track
-            kind="captions"
-            src={DEFAULT_CAPTIONS}
-            srcLang="pt-BR"
-            label="Português"
-            default
-          />
         </video>
       </div>
     );

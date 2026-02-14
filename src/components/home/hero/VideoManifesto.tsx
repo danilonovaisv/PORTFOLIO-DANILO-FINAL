@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
-import { DEFAULT_CAPTIONS } from '@/lib/video';
+
 
 interface VideoManifestoProps {
   src: string;
@@ -158,13 +158,6 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
               }}
               aria-label="Vídeo showreel demonstrando projetos de design gráfico"
             >
-              <track
-                kind="captions"
-                src={DEFAULT_CAPTIONS}
-                srcLang="pt-BR"
-                label="Português"
-                default
-              />
             </motion.video>
 
             {/* Overlay */}

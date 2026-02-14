@@ -97,14 +97,6 @@ export default function PortfolioHeroNew() {
             </div>
 
             {/* CTA Button - Aligned horizontally on desktop */}
-            <a
-              href="#contato"
-              className="group relative inline-flex items-center justify-center px-8 py-3 bg-bluePrimary hover:bg-blue-600 text-white rounded-full transition-all duration-300 transform hover:scale-105 no-underline ml-0 md:ml-4"
-              role="button"
-            >
-              <span className="font-medium mr-2">vamos trabalhar juntos</span>
-              <span className="text-xl transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">→</span>
-            </a>
           </h1>
         </div>
       </div>

@@ -76,9 +76,9 @@ interface BeliefSectionProps {
 
 export const BeliefSection: React.FC<BeliefSectionProps> = ({
   text,
-  bgColor: _bgColor, // Keep for now if needed for text color contrast, but BG is parent.
+  bgColor,
   isFirst = false,
-  isMobileTextLayer = false,
+  isMobileTextLayer = false, // Nova prop para controle explícito
 }) => {
   const containerRef = useRef(null);
   const isMobile = useIsMobile();
@@ -86,6 +86,11 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
     target: containerRef,
     offset: ['start end', 'end start'],
   });
+
+  // Desktop Ranges
+  // isFirst: Atrasar entrada para garantir que o FixedHeader (parent 0-0.35) terminou.
+  // Como este componente usa scroll relativo a si mesmo (0-1), e é o primeiro,
+  // 0.5 aqui ≈ momento que o usuário já scrollou metade da primeira tela.
 
   const animationRange: [number, number] = isFirst ? [0.55, 0.7] : [0.2, 0.35];
   const exitRange: [number, number] = [0.8, 0.95];
@@ -97,42 +102,43 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
   );
 
   const yScroll = useTransform(scrollYProgress, [0.7, 0.95], ['0vh', '-100vh']);
+
   const lines = text.split('\n');
 
   return (
     <motion.section
       ref={containerRef}
       aria-label={text.replace(/\n/g, ' ')}
-      className={`relative isolate w-full h-screen flex overflow-hidden ${
-        isMobile
-          ? 'items-end justify-start pb-32'
-          : 'items-center justify-start px-[5%] md:px-0' // Removed relative padding, rely on grid
-      }`}
+      className={`relative isolate w-full h-screen flex overflow-hidden ${isMobile
+        ? 'items-end justify-start pb-32' // Mobile: espaço para texto fixed no footer
+        : 'items-center justify-start px-[5%] md:px-[7.5%] lg:px-[10%]'
+        }`}
     >
+      {/* LAYER 0: Background Color (Decoupled from container) */}
+      <div
+        className="absolute inset-0 z-0 w-full h-full pointer-events-none"
+        style={{ backgroundColor: bgColor }}
+      />
+
       {/* LAYER 1: Content (Text) */}
-      {/* Desktop: Inline Text */}
+      {/* Desktop: Texto inline */}
       {!isMobile && !isMobileTextLayer && (
-        <div className="std-grid w-full h-full pointer-events-none">
-          <motion.div
-            style={{ y: yScroll, opacity: desktopOpacity }}
-            className="col-span-12 md:col-start-1 md:col-span-6 relative z-10 w-full flex flex-col justify-center h-full pointer-events-auto"
-          >
-            <div className="flex flex-col items-start justify-center pl-[10%]">
-              {' '}
-              {/* Added PL inside grid col */}
-              {lines.map((line, i) => (
-                <BeliefLineDesktop
-                  key={i}
-                  line={line}
-                  index={i}
-                  scrollYProgress={scrollYProgress}
-                  animationRange={animationRange}
-                />
-              ))}
-            </div>
-          </motion.div>
-        </div>
+        <motion.div
+          style={{ y: yScroll, opacity: desktopOpacity }}
+          className="relative z-10 w-full flex flex-col justify-start max-w-[80vw]"
+        >
+          {lines.map((line, i) => (
+            <BeliefLineDesktop
+              key={i} // Adicionado key
+              line={line}
+              index={i}
+              scrollYProgress={scrollYProgress}
+              animationRange={animationRange}
+            />
+          ))}
+        </motion.div>
       )}
+      {/* Mobile: Texto será renderizado em camada fixed no AboutBeliefs */}
     </motion.section>
   );
 };

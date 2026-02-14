@@ -1,0 +1,141 @@
+@font-face {
+  font-family: "TT Norms Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/fonts/global.font_h1.woff2")
+      format("woff2");
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: #000;
+  font-family: "TT Norms Pro", "Inter", "Segoe UI", system-ui, sans-serif;
+  color: #fff;
+}
+
+.belief-section {
+  min-height: 140vh;
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.8s ease;
+}
+
+.belief-inner {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 5vh;
+}
+
+.belief-grid {
+  width: min(1200px, 100%);
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 0;
+  padding: clamp(32px, 4vw, 64px) clamp(24px, 5vw, 72px) clamp(48px, 10vh, 96px);
+}
+
+.belief-title {
+  grid-column: 2 / 11;
+  margin-top: clamp(4rem, 10vh, 12rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  color: #ffffff;
+  font-weight: 700;
+  line-height: 1.2;
+  font-size: clamp(2.3rem, 4vw, 3.8rem);
+}
+
+.belief-title-line {
+  display: block;
+}
+
+.belief-frame {
+  grid-column: 3 / 11;
+  min-height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: clamp(2rem, 5vh, 5rem);
+}
+
+.belief-phrase {
+  margin: 0;
+  color: #4fe6ff;
+  font-size: clamp(32px, 4vw, 38px);
+  line-height: 1.3;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: -0.01em;
+}
+
+.belief-manifesto {
+  grid-column: 1 / -1;
+  margin-top: clamp(4rem, 6vh, 8rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.35rem, 0.7vw, 0.8rem);
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.25em;
+  line-height: 1;
+  text-align: center;
+  font-size: clamp(48px, 10vw, 120px);
+}
+
+.belief-manifesto span {
+  display: block;
+}
+
+.belief-spacer {
+  width: 100%;
+  height: clamp(20vh, 30vh, 40vh);
+}
+
+@media (max-width: 960px) {
+  .belief-title {
+    grid-column: 1 / -1;
+    font-size: clamp(2rem, 7vw, 3rem);
+  }
+
+  .belief-frame {
+    grid-column: 1 / -1;
+    min-height: 360px;
+    padding-top: clamp(1.5rem, 5vw, 4rem);
+  }
+
+  .belief-grid {
+    padding-inline: clamp(20px, 5vw, 32px);
+  }
+}
+
+@media (max-width: 640px) {
+  .belief-title {
+    gap: 0.25rem;
+    letter-spacing: -0.02em;
+  }
+
+  .belief-phrase {
+    font-size: clamp(26px, 10vw, 32px);
+  }
+
+  .belief-manifesto {
+    letter-spacing: 0.2em;
+    font-size: clamp(36px, 12vw, 72px);
+  }
+}

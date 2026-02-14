@@ -56,9 +56,9 @@ export const DynamicAssetVideo = forwardRef<
       playbackRate = 1,
       preload = 'metadata',
       style,
-      captionSrc = DEFAULT_CAPTIONS,
-      captionLang = 'pt-BR',
-      captionLabel = 'Português',
+      captionSrc: _captionSrc = DEFAULT_CAPTIONS,
+      captionLang: _captionLang = 'pt-BR',
+      captionLabel: _captionLabel = 'Português',
     },
     ref
   ) => {
@@ -131,13 +131,6 @@ export const DynamicAssetVideo = forwardRef<
           }
         }}
       >
-        <track
-          kind="captions"
-          src={captionSrc}
-          srcLang={captionLang}
-          label={captionLabel}
-          default
-        />
       </video>
     );
   }

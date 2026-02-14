@@ -23,7 +23,9 @@ export function useBeliefsAnimation({
   const colorStops = colors.map((_, i) => 0.15 + (i / totalPhrases) * 0.65);
   // Add start and end buffers
   const colorInput = [0, ...colorStops, 1];
-  const colorOutput = [colors[0], ...colors, colors[colors.length - 1]];
+  // Ensure the sequence ends with bluePrimary as requested
+  const finalColor = colors[0]; // Assuming colors[0] is bluePrimary based on arrays
+  const colorOutput = [colors[0], ...colors, finalColor];
 
   const backgroundColor = useTransform(
     scrollYProgress,

@@ -71,7 +71,7 @@ export function GlassPlane({ accentColor }: { accentColor: string }) {
     });
 
     return mat;
-  }, [accentColor]);
+  }, []);
 
   useEffect(() => {
     material.uniforms.uAccent.value.set(accentColor);

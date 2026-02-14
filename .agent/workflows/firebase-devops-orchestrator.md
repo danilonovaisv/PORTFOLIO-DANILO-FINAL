@@ -1,28 +1,57 @@
-# 🛠️ Firebase DevOps Orchestrator
+---
+description: Workflow for debugging Firebase Hosting + Next.js App Router
+---
 
-**Trigger:** `/firebase-devops` or "Firebase deploy failed".
-**Agent:** `agents/audit_sentinel`
+# Firebase DevOps Orchestrator
 
-## 1. Setup & Context
+This protocol addresses build and deployment issues for Next.js 14+ on Firebase Hosting, particularly related to SSR/Cloud Functions ("Error 500" or build failures).
 
-- **MCP Required:** `firebase`, `chrome-devtools`
-- **Context:** specialized protocol for debugging Next.js App Router deployments on Firebase Hosting, focusing on SSR/Functions.
+## Trigger
 
-## 2. Steps (Skill-Based Execution)
+- "Firebase deploy failed with 404"
+- "Functions failed with UNKNOWN error"
+- "Infinite redirect loop on dynamic routes"
 
-### Step 1: Configuration & Secrets Audit
+## Phase 1: Audit Configuration (firebase.json)
 
-- **Instruction:** Validate `firebase.json` rewrites and check if secrets are correctly injected for SSR routes.
-- **Skill:** `use a skill nextjs-best-practices`
-- **MCP Action:** Use Firebase MCP to check environment configurations.
+1. **Wait for webframeworks**:
+   - Check if `experiments: { webframeworks: true }` is enabled or implicitly active (e.g., via `firebase experiments:enable webframeworks`).
+   - Validate `next.config.mjs` has correct output settings (avoid `export` if SSR is needed).
 
-### Step 2: Build Simulation
+2. **Wait for Secrets**:
+   - Verify if `firebase-functions` dependencies are correctly present (`firebase-admin`, etc.).
+   - Check if `engines` field in `package.json` matches Firebase runtime (e.g., `node: "18"` or `node: "20"`).
 
-- **Instruction:** Simulate the production build locally and verify dynamic route handling in `next.config.mjs`.
-- **Skill:** `use a skill lint-and-validate`
-- **MCP Action:** None
+## Phase 2: Build Simulation & Secret Injection
 
-## 3. Completion Protocol
+1. **Pre-Deploy Check**:
+   - Run `firebase emulators:start` to simulate production environment locally.
+   - Run `firebase deploy --only hosting --dry-run` if applicable, or verify `npm run build` connects to required services (Supabase) via injected secrets.
 
-- **Validation:** `use a skill verification-before-completion`
-- **Output:** DevOps Troubleshooting Report and successful deployment log.
+2. **Secrets Handling**:
+   - Ensure environment variables needed at build time (`generateStaticParams`, API calls) are available.
+   - Use `firebase-functions:config:set` or `.env` file management strategies (avoid committing secrets).
+
+## Phase 3: Route Handling (Rewrites)
+
+1. **SPA Routing**:
+   - Check `rewrites` in `firebase.json`:
+
+     ```json
+     "rewrites": [
+       { "source": "**", "function": "server" }
+     ]
+     ```
+
+   - Verify that dynamic routes are not accidentally treated as static assets.
+
+2. **Preview Deployment**:
+   - Deploy to a preview channel before merging to production.
+   - `firebase hosting:channel:deploy preview_name`
+   - Validate dynamic route loading (e.g., `/project/[slug]`).
+
+## Success Criteria
+
+- Deployment completes with exit code 0.
+- Dynamic routes load correctly in preview URL.
+- No `INTERNAL` errors in Cloud Functions logs.
