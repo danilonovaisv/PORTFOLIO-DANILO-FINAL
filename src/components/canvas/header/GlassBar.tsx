@@ -11,7 +11,7 @@ import { useFBO, useGLTF, MeshTransmissionMaterial } from '@react-three/drei';
 import { easing } from 'maath';
 import { memo, ReactNode, useEffect, useRef, useState } from 'react';
 
-useGLTF.preload('/assets/3d/bar.glb');
+useGLTF.preload('/assets/3d/bar-v2.glb');
 
 type ModeProps = Record<string, unknown>;
 
@@ -189,7 +189,7 @@ export function GlassBar({
 
   return (
     <ModeWrapper
-      glb="/assets/3d/bar.glb"
+      glb="/assets/3d/bar-v2.glb"
       geometryKey="Cube"
       lockToBottom
       followPointer={!pointer} // If pointer provided, don't follow mouse auto? Or handle via customPointer

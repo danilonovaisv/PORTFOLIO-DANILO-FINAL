@@ -81,6 +81,9 @@ def list_tracked_files(project_root: Path) -> list[Path]:
         if not raw:
             continue
         p = project_root / raw
-        if p.exists() and p.is_file():
-            files.append(p)
+        try:
+            if p.exists() and p.is_file():
+                files.append(p)
+        except PermissionError:
+            continue
     return files

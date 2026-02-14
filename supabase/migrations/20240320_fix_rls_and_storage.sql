@@ -1,6 +1,6 @@
 -- ATENÇÃO: Comandos de 'alter table' foram removidos para evitar erros de permissão (42501).
 -- O RLS já vem habilitado por padrão no Supabase Storage.
--- 1. Garantir que os Buckets existam e sejam públicos
+-- 1. Garantir que os Buckets existam (apenas media/site-assets públicos)
 insert into storage.buckets (id, name, public)
 values ('portfolio-media', 'portfolio-media', true) on conflict (id) do
 update
@@ -10,9 +10,9 @@ values ('site-assets', 'site-assets', true) on conflict (id) do
 update
 set public = true;
 insert into storage.buckets (id, name, public)
-values ('portfolio-assets', 'portfolio-assets', true) on conflict (id) do
+values ('portfolio-assets', 'portfolio-assets', false) on conflict (id) do
 update
-set public = true;
+set public = false;
 -- 2. Limpeza segura de políticas antigas
 -- Usamos um bloco DO para evitar erros se as policies não existirem ou tiverem nomes diferentes
 do $$ begin -- Tenta remover policies comuns que podem causar conflito
@@ -32,8 +32,7 @@ create policy "Public Access to Media" on storage.objects for
 select using (
         bucket_id in (
             'portfolio-media',
-            'site-assets',
-            'portfolio-assets'
+            'site-assets'
         )
     );
 -- Política 2: Upload Autenticado (INSERT) - Apenas admins logados podem fazer upload

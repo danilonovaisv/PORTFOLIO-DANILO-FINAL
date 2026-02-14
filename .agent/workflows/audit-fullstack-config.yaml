@@ -22,38 +22,11 @@ inputs:
     default: false
 
 steps:
-  - id: validate-project
+  - id: execute-full-audit
     agent: agent-orchestrator-audit
-    action: validate_structure
-
-  - id: analyze-supabase
-    agent: agent-supabase-audit
-    action: run_storage_audit
-
-  - id: analyze-firebase
-    agent: agent-firebase-audit
-    action: run_hosting_audit
-
-  - id: consolidate
-    agent: agent-orchestrator-audit
-    action: generate_master_report
-
-  - id: propose_fixes
-    agent: agent-orchestrator-audit
-    action: generate_fix_plan
-
-  - id: apply_fixes
-    agent: agent-orchestrator-audit
-    action: apply_approved_fixes
-    when: auto_fix == true
-
-  - id: revalidate
-    agent: agent-orchestrator-audit
-    action: re_audit
-
-  - id: finalize
-    agent: agent-orchestrator-audit
-    action: export_final_report
+    action: run_orchestrator_script
+    description: "Orchestrator script validates project, invokes sub-agent modules (Supabase & Firebase), generates reports, and handles optional auto-fixes."
+    command: "python3 scripts/antigravity/agent_orchestrator_audit.py"
 
 outputs:
   - reports/storage-audit.json
