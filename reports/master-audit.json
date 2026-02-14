@@ -1,0 +1,31 @@
+{
+    "timestamp": "2026-02-13T23:36:28-03:00",
+    "project": "PORTFOLIO-DANILO-FINAL",
+    "global_score": 75,
+    "audits": {
+        "supabase_storage": {
+            "score": 95,
+            "status": "PASS",
+            "details": "RLS policies for public-assets, private-assets, and legacy buckets are correctly configured with Admin-only write access."
+        },
+        "firebase_hosting": {
+            "score": 55,
+            "status": "FAIL",
+            "critical_issues": [
+                "Missing Strict-Transport-Security (HSTS) header",
+                "Missing X-Frame-Options header",
+                "Missing X-Content-Type-Options header"
+            ],
+            "warnings": [
+                "No explicit Cache-Control strategy in firebase.json"
+            ]
+        }
+    },
+    "action_items": [
+        {
+            "priority": "HIGH",
+            "agent": "agent-firebase-audit",
+            "task": "Inject security headers into firebase.json"
+        }
+    ]
+}

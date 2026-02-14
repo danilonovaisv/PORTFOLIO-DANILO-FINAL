@@ -817,5 +817,149 @@
     "description": "Use this skill when implementing tasks according to Conductor's TDD workflow, handling phase checkpoints, managing git commits for tasks, or understanding the verification protocol.",
     "risk": "unknown",
     "source": "unknown"
+  },
+  {
+    "knowledge_base_meta": {
+      "description": "Índice de repositórios de Habilidades (Skills) e Superpoderes para Agentes de IA",
+      "owner": "danilonovaisv",
+      "generated_at": "2026-02-08"
+    },
+    "repositories": [
+      {
+        "name": "antigravity-awesome-skills",
+        "description": "Repositório principal contendo uma vasta biblioteca de 'Skills' (habilidades modulares) para agentes, abrangendo desenvolvimento, design, segurança e automação.",
+        "url": "https://github.com/danilonovaisv/antigravity-awesome-skills",
+        "root_paths": ["skills/", "docs/"],
+        "key_knowledge_files": [
+          {
+            "category": "Core Framework",
+            "paths": [
+              "README.md",
+              "docs/SKILL_ANATOMY.md",
+              "docs/GETTING_STARTED.md",
+              "data/catalog.json"
+            ]
+          },
+          {
+            "category": "Skills (Destaques)",
+            "note": "Cada caminho abaixo contém um arquivo SKILL.md com instruções para o agente",
+            "paths": [
+              "skills/loki-mode/SKILL.md",
+              "skills/python-pro/SKILL.md",
+              "skills/react-best-practices/SKILL.md",
+              "skills/postgres-best-practices/SKILL.md",
+              "skills/prompt-engineering/SKILL.md",
+              "skills/security-auditor/SKILL.md",
+              "skills/seo-audit/SKILL.md",
+              "skills/systematic-debugging/SKILL.md",
+              "skills/tdd-workflow/SKILL.md",
+              "skills/ui-ux-designer/SKILL.md",
+              "skills/voice-ai-development/SKILL.md",
+              "skills/web-performance-optimization/SKILL.md",
+              "skills/writing-skills/SKILL.md"
+            ]
+          },
+          {
+            "category": "Loki Mode (Advanced)",
+            "paths": [
+              "skills/loki-mode/README.md",
+              "skills/loki-mode/autonomy/CONSTITUTION.md",
+              "skills/loki-mode/docs/COMPETITIVE-ANALYSIS.md",
+              "skills/loki-mode/references/agent-types.md"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "superpowers",
+        "description": "Framework e ferramentas para estender as capacidades dos agentes (brainstorming, execução de planos, revisão de código).",
+        "url": "https://github.com/danilonovaisv/superpowers",
+        "root_paths": ["agents/", "commands/", "skills/"],
+        "key_knowledge_files": [
+          {
+            "category": "Commands & Abilities",
+            "paths": [
+              "README.md",
+              "commands/brainstorm.md",
+              "commands/execute-plan.md",
+              "commands/write-plan.md"
+            ]
+          },
+          {
+            "category": "Agent Personas",
+            "paths": [
+              "agents/code-reviewer.md",
+              "skills/requesting-code-review/code-reviewer.md"
+            ]
+          },
+          {
+            "category": "Development Flows",
+            "paths": [
+              "skills/subagent-driven-development/SKILL.md",
+              "skills/subagent-driven-development/spec-reviewer-prompt.md",
+              "skills/subagent-driven-development/implementer-prompt.md"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "agent-skills-for-context-engineering",
+        "description": "Focado em engenharia de contexto, avaliação de LLMs (LLM-as-a-Judge) e pipelines de raciocínio complexo.",
+        "url": "https://github.com/danilonovaisv/agent-skills-for-context-engineering",
+        "root_paths": ["examples/", "skills/", "docs/"],
+        "key_knowledge_files": [
+          {
+            "category": "LLM as Judge & Evaluation",
+            "paths": [
+              "examples/llm-as-judge-skills/README.md",
+              "examples/llm-as-judge-skills/prompts/evaluation/direct-scoring-prompt.md",
+              "examples/llm-as-judge-skills/prompts/evaluation/pairwise-comparison-prompt.md",
+              "skills/evaluation/SKILL.md"
+            ]
+          },
+          {
+            "category": "Thinking & Research",
+            "paths": [
+              "examples/interleaved_thinking/SKILL.md",
+              "examples/interleaved_thinking/docs/interleavedthinking.md",
+              "examples/digital-brain-skill/SKILL.md",
+              "examples/book-sft-pipeline/SKILL.md"
+            ]
+          },
+          {
+            "category": "Context Management",
+            "paths": [
+              "skills/context-compression/SKILL.md",
+              "skills/context-degradation/SKILL.md",
+              "skills/context-optimization/SKILL.md"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "agent-skills",
+        "description": "Estrutura base para construção e build de habilidades de agentes (MCP - Model Context Protocol).",
+        "url": "https://github.com/danilonovaisv/agent-skills",
+        "root_paths": ["packages/skills-build/", "skills/"],
+        "key_knowledge_files": [
+          {
+            "category": "Infrastructure",
+            "paths": [
+              "README.md",
+              "AGENTS.md",
+              ".mcp.json",
+              "packages/skills-build/src/build.ts"
+            ]
+          },
+          {
+            "category": "Specific Skills",
+            "paths": [
+              "skills/supabase-postgres-best-practices/SKILL.md",
+              "skills/supabase-postgres-best-practices/references/security-rls-basics.md"
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]

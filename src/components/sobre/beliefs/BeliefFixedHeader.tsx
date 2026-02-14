@@ -55,7 +55,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
             {/* Primeira parte: "Acredito no..." */}
             <div className="flex flex-col items-end text-right w-full">
               {/* 🟣 [CONFIG VISUAL]: Define a cor do título principal e o tamanho da fonte (4xl a 7xl) */}
-              <h2 className="text-white text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-display leading-[1] tracking-tighter mb-4 md:mb-12 uppercase font-black mix-blend-difference whitespace-nowrap">
+              <h2 className="text-white text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-display leading-none tracking-tighter mb-4 md:mb-12 uppercase font-black mix-blend-difference whitespace-nowrap">
                 <div className="overflow-visible">
                   <MorphText progress={scrollProgress} range={[0.15, 0.25]}>
                     Acredito no

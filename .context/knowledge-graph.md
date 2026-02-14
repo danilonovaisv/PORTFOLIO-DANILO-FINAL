@@ -79,3 +79,11 @@ The central orchestration layer for the portfolio.
 - **Auth Middleware**: Simplificado para `createServerClient` com manipulação direta de cookies (Samesite=Lax).
 - **RLS Policy**: Strict por padrão. Scripts SQL manuais (`supabase/migrations/`) necessários para buckets públicos (`portfolio-media`).
 - **Media Handling**: YouTube exige extração de ID + Iframe. `<video>` tag apenas para assets diretos.
+
+## 6. External Knowledge Bases (Research Sources)
+
+> **Auto-Injected**: These sources are active in the agent's context.
+
+- **[Firebase Knowledge Base](.context/knowledge/Knowledge-Base-Firebase.json)**: Complete index of Firebase documentation, SDKs, and tools.
+- **[Supabase Knowledge Base](.context/knowledge/Knowledge-Base-Supabase.json)**: Complete index of Supabase documentation, client libraries, and community tools.
+- **[Knowledge Skills](.context/knowledge/knowledge_skills.json)**: Definition of specialized agent capabilities and available tools.
