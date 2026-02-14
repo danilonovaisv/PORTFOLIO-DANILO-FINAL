@@ -1,0 +1,170 @@
+===========================================
+ Projeto: PORTFOLIO-DANILO-FINAL
+ Data: Fri Feb 13 21:13:17 -03 2026
+ Package manager detectado: npm
+===========================================
+
+### Ambiente
+
+$ node -v
+v20.20.0
+
+$ npm -v
+10.8.2
+
+Sistema operacional:
+Darwin 192.168.0.12 25.3.0 Darwin Kernel Version 25.3.0: Wed Jan 28 20:53:15 PST 2026; root:xnu-12377.81.4~5/RELEASE_ARM64_T6000 arm64
+
+-------------------------------------------
+### Git status
+
+$ git status -sb
+## main...origin/main
+ M package.json
+?? project-report-20260213-211317.txt
+?? scripts/install-mcps.sh
+
+-------------------------------------------
+### Lint (npm run lint)
+
+$ npm run lint
+
+> danilo-novais-portfolio@1.0.1 lint
+> eslint src test tailwind.config.ts
+
+sh: eslint: command not found
+
+-------------------------------------------
+### Testes (npm run test)
+
+$ npm run test
+
+> danilo-novais-portfolio@1.0.1 test
+> pnpm run lint && pnpm run typecheck && jest
+
+
+> danilo-novais-portfolio@1.0.1 lint /Users/danilonovais/PORTFOLIO-DANILO-FINAL
+> eslint src test tailwind.config.ts
+
+sh: eslint: command not found
+ ELIFECYCLE  Command failed.
+ WARN   Local package.json exists, but node_modules missing, did you mean to install?
+
+-------------------------------------------
+### Dependências desatualizadas
+
+$ npm outdated
+Package                        Current   Wanted   Latest  Location  Depended by
+@genkit-ai/google-genai        MISSING   1.28.0   1.28.0  -         PORTFOLIO-DANILO-FINAL
+@google/adk                    MISSING    0.3.0    0.3.0  -         PORTFOLIO-DANILO-FINAL
+@gsap/react                    MISSING    2.1.2    2.1.2  -         PORTFOLIO-DANILO-FINAL
+@hookform/resolvers            MISSING    5.2.2    5.2.2  -         PORTFOLIO-DANILO-FINAL
+@radix-ui/react-alert-dialog   MISSING   1.1.15   1.1.15  -         PORTFOLIO-DANILO-FINAL
+@radix-ui/react-avatar         MISSING   1.1.11   1.1.11  -         PORTFOLIO-DANILO-FINAL
+@radix-ui/react-checkbox       MISSING    1.3.3    1.3.3  -         PORTFOLIO-DANILO-FINAL
+@radix-ui/react-collapsible    MISSING   1.1.12   1.1.12  -         PORTFOLIO-DANILO-FINAL
+@radix-ui/react-dialog         MISSING   1.1.15   1.1.15  -         PORTFOLIO-DANILO-FINAL
+@radix-ui/react-dropdown-menu  MISSING   2.1.16   2.1.16  -         PORTFOLIO-DANILO-FINAL
+@radix-ui/react-label          MISSING    2.1.8    2.1.8  -         PORTFOLIO-DANILO-FINAL
+@radix-ui/react-menubar        MISSING   1.1.16   1.1.16  -         PORTFOLIO-DANILO-FINAL
+@radix-ui/react-popover        MISSING   1.1.15   1.1.15  -         PORTFOLIO-DANILO-FINAL
+@radix-ui/react-radio-group    MISSING    1.3.8    1.3.8  -         PORTFOLIO-DANILO-FINAL
+@radix-ui/react-separator      MISSING    1.1.8    1.1.8  -         PORTFOLIO-DANILO-FINAL
+@radix-ui/react-slider         MISSING    1.3.6    1.3.6  -         PORTFOLIO-DANILO-FINAL
+@radix-ui/react-slot           MISSING    1.2.4    1.2.4  -         PORTFOLIO-DANILO-FINAL
+@radix-ui/react-switch         MISSING    1.2.6    1.2.6  -         PORTFOLIO-DANILO-FINAL
+@radix-ui/react-tabs           MISSING   1.1.13   1.1.13  -         PORTFOLIO-DANILO-FINAL
+@radix-ui/react-toast          MISSING   1.2.15   1.2.15  -         PORTFOLIO-DANILO-FINAL
+@radix-ui/react-tooltip        MISSING    1.2.8    1.2.8  -         PORTFOLIO-DANILO-FINAL
+@react-three/drei              MISSING   10.7.7   10.7.7  -         PORTFOLIO-DANILO-FINAL
+@react-three/fiber             MISSING    9.5.0    9.5.0  -         PORTFOLIO-DANILO-FINAL
+@react-three/postprocessing    MISSING    3.0.4    3.0.4  -         PORTFOLIO-DANILO-FINAL
+@supabase/ssr                  MISSING    0.8.0    0.8.0  -         PORTFOLIO-DANILO-FINAL
+@supabase/supabase-js          MISSING   2.95.3   2.95.3  -         PORTFOLIO-DANILO-FINAL
+class-variance-authority       MISSING    0.7.1    0.7.1  -         PORTFOLIO-DANILO-FINAL
+clsx                           MISSING    2.1.1    2.1.1  -         PORTFOLIO-DANILO-FINAL
+embla-carousel-react           MISSING    8.6.0    8.6.0  -         PORTFOLIO-DANILO-FINAL
+firebase                       MISSING   12.9.0   12.9.0  -         PORTFOLIO-DANILO-FINAL
+firebase-admin                 MISSING   13.6.1   13.6.1  -         PORTFOLIO-DANILO-FINAL
+firebase-frameworks            MISSING   0.11.8   0.11.8  -         PORTFOLIO-DANILO-FINAL
+firebase-functions             MISSING    7.0.5    7.0.5  -         PORTFOLIO-DANILO-FINAL
+framer-motion                  MISSING  12.34.0  12.34.0  -         PORTFOLIO-DANILO-FINAL
+gsap                           MISSING   3.14.2   3.14.2  -         PORTFOLIO-DANILO-FINAL
+husky                          MISSING    9.1.7    9.1.7  -         PORTFOLIO-DANILO-FINAL
+lenis                          MISSING   1.3.17   1.3.17  -         PORTFOLIO-DANILO-FINAL
+lightningcss                   MISSING   1.31.1   1.31.1  -         PORTFOLIO-DANILO-FINAL
+lint-staged                    MISSING   16.2.7   16.2.7  -         PORTFOLIO-DANILO-FINAL
+lucide-react                   MISSING  0.564.0  0.564.0  -         PORTFOLIO-DANILO-FINAL
+maath                          MISSING   0.10.8   0.10.8  -         PORTFOLIO-DANILO-FINAL
+motion                         MISSING  12.34.0  12.34.0  -         PORTFOLIO-DANILO-FINAL
+next                           MISSING   16.1.6   16.1.6  -         PORTFOLIO-DANILO-FINAL
+openai                         MISSING   6.21.0   6.21.0  -         PORTFOLIO-DANILO-FINAL
+postprocessing                 MISSING   6.38.2   6.38.2  -         PORTFOLIO-DANILO-FINAL
+react                          MISSING   19.2.4   19.2.4  -         PORTFOLIO-DANILO-FINAL
+react-day-picker               MISSING   9.13.2   9.13.2  -         PORTFOLIO-DANILO-FINAL
+react-dom                      MISSING   19.2.4   19.2.4  -         PORTFOLIO-DANILO-FINAL
+react-hook-form                MISSING   7.71.1   7.71.1  -         PORTFOLIO-DANILO-FINAL
+react-markdown                 MISSING   10.1.0   10.1.0  -         PORTFOLIO-DANILO-FINAL
+server-only                    MISSING    0.0.1    0.0.1  -         PORTFOLIO-DANILO-FINAL
+tailwind-merge                 MISSING    3.4.0    3.4.0  -         PORTFOLIO-DANILO-FINAL
+tailwindcss-animate            MISSING    1.0.7    1.0.7  -         PORTFOLIO-DANILO-FINAL
+three                          MISSING  0.182.0  0.182.0  -         PORTFOLIO-DANILO-FINAL
+three-stdlib                   MISSING   2.36.1   2.36.1  -         PORTFOLIO-DANILO-FINAL
+uuid                           MISSING   13.0.0   13.0.0  -         PORTFOLIO-DANILO-FINAL
+zod                            MISSING    4.3.6    4.3.6  -         PORTFOLIO-DANILO-FINAL
+zustand                        MISSING   5.0.11   5.0.11  -         PORTFOLIO-DANILO-FINAL
+
+-------------------------------------------
+### Depcheck (dependências não usadas / faltando)
+
+$ npx depcheck
+Unused dependencies
+* @dataconnect/admin-generated
+* @dataconnect/generated
+* @genkit-ai/google-genai
+* @google/adk
+* @react-three/postprocessing
+* firebase-admin
+* firebase-frameworks
+* firebase-functions
+* husky
+* lightningcss
+* lint-staged
+* motion-studio-mcp
+* postprocessing
+* tailwindcss-animate
+Unused devDependencies
+* @tailwindcss/postcss
+* @tailwindcss/typography
+* @testing-library/dom
+* @testing-library/user-event
+* @types/handlebars
+* autoprefixer
+* depcheck
+* esbuild
+* eslint
+* eslint-config-next
+* eslint-plugin-react
+* firebase-tools
+* jest
+* jest-environment-jsdom
+* knip
+* postcss
+* prettier
+* rimraf
+* serve
+* shadcn
+* ts-node
+* typescript
+* which
+Missing dependencies
+* yaml: ./scripts/normalize-frontmatter.js
+* tweakpane: ./docs/HOME/GhostScene.tsx
+
+-------------------------------------------
+### Observações
+Use este relatório para colar em uma IA (Codex/ChatGPT) e pedir:
+- Sugestões para corrigir erros de lint e testes;
+- Ajustes de dependências desatualizadas ou não utilizadas;
+- Refatorações sugeridas com base nos erros.
+

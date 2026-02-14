@@ -43,7 +43,7 @@ export function Ghost({
   const prevPositionRef = useRef(new THREE.Vector3());
   const currentMovementRef = useRef(0);
 
-  // Inicializar o compositor de efeitos (only once)
+  // Inicializar o compositor de efeitos
   useEffect(() => {
     if (!gl || !scene || !camera) return;
 
@@ -75,18 +75,7 @@ export function Ghost({
       composer.dispose();
       setIsLoaded(false);
     };
-  }, [gl, scene, camera]); // Removed 'size' dependency
-
-  // Handle resize separately without recreating composer
-  useEffect(() => {
-    if (composerRef.current && analogPassRef.current && isLoaded) {
-      composerRef.current.setSize(size.width, size.height);
-      analogPassRef.current.uniforms.uResolution.value.set(
-        size.width,
-        size.height
-      );
-    }
-  }, [size, isLoaded]);
+  }, [gl, scene, camera, size]);
 
   // Hook de movimento e animações
   useGhostMovement({

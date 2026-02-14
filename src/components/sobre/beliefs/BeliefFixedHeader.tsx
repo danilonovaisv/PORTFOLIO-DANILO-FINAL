@@ -15,11 +15,17 @@ const MorphText: React.FC<{
   className?: string;
 }> = ({ children, progress, range, className }) => {
   const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
-  // [MODIFICADO]: Removido blur e opacity iniciais. Mantido apenas Y para movimento.
+  const blur = useTransform(progress, range, ['blur(12px)', 'blur(0px)'], {
+    ease: ghostEase,
+  });
+  const opacity = useTransform(progress, range, [0, 1], { ease: ghostEase });
   const y = useTransform(progress, range, [40, 0], { ease: ghostEase });
 
   return (
-    <motion.span style={{ y }} className={`block ${className || ''}`}>
+    <motion.span
+      style={{ filter: blur, opacity, y }}
+      className={`block ${className || ''}`}
+    >
       {children}
     </motion.span>
   );
@@ -30,18 +36,18 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
 }) => {
   // Opacity for the header container itself
   // Fade IN: 0 -> 0.1
-  // Visible: 0.1 -> 0.55
-  // Fade OUT: 0.55 -> 0.68 (Sai junto com a última frase, antes do manifesto final)
+  // Visible: 0.1 -> 0.75
+  // Fade OUT: 0.75 -> 0.9 (Changes to avoid overlap with Final Section)
   const opacity = useTransform(
     scrollProgress,
-    [0, 0.1, 0.55, 0.68],
+    [0, 0.1, 0.75, 0.9],
     [0, 1, 1, 0]
   );
 
   return (
     <motion.header
       style={{ opacity }}
-      className="sticky top-0 z-55 flex h-screen pointer-events-none"
+      className="sticky top-0 z-50 flex h-screen pointer-events-none"
     >
       <div className="std-grid w-full h-full">
         <div className="flex h-full items-start md:items-center justify-end pt-32 md:pt-0 col-span-12">
@@ -49,7 +55,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
             {/* Primeira parte: "Acredito no..." */}
             <div className="flex flex-col items-end text-right w-full">
               {/* 🟣 [CONFIG VISUAL]: Define a cor do título principal e o tamanho da fonte (4xl a 7xl) */}
-              <h2 className="text-white text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-display leading-none tracking-tighter mb-4 md:mb-12 uppercase font-black whitespace-nowrap">
+              <h2 className="text-white text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-display leading-[1] tracking-tighter mb-4 md:mb-12 uppercase font-black mix-blend-difference whitespace-nowrap">
                 <div className="overflow-visible">
                   <MorphText progress={scrollProgress} range={[0.15, 0.25]}>
                     Acredito no
