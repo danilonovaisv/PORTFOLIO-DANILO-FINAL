@@ -49,7 +49,7 @@ export function CategoryStripe({
   const smoothProgress = useSpring(scrollYProgress, GHOST_SPRING);
   const parallaxY = useTransform(smoothProgress, [0, 1], [-20, 20]);
   const isVideo = category.thumbnail.endsWith('.mp4');
-  const shouldEagerLoad = index < 3;
+
 
   return (
     <motion.div
@@ -121,8 +121,8 @@ export function CategoryStripe({
                     fill
                     className="object-cover"
                     sizes="288px"
-                    loading={shouldEagerLoad ? 'eager' : 'lazy'}
-                    priority={shouldEagerLoad}
+                    loading="lazy"
+                    priority={false}
                     onError={applyImageFallback}
                   />
                 )}
@@ -177,7 +177,7 @@ export function CategoryStripe({
               ))}
             </div>
             {/* Touch target: 48px minimum for accessibility */}
-            <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-[#0048ff] active:bg-purpleDetails transition-all duration-200">
+            <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-bluePrimary active:bg-purpleDetails transition-all duration-200">
               <ArrowUpRight className="w-5 h-5 text-white" />
             </div>
           </div>

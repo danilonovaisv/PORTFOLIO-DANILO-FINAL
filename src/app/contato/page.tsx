@@ -6,7 +6,7 @@ import { BRAND } from '@/config/brand';
 import JsonLd from '@/components/ui/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'Contato',
+  title: 'Contato | Vamos Conversar',
   description:
     'Fale com Danilo Novais para projetos de branding, motion e experiências digitais. Formulário direto, e-mail e redes para iniciar a conversa.',
   openGraph: {

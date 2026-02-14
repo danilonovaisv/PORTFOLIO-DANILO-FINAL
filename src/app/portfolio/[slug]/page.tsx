@@ -15,6 +15,7 @@ import {
 import type { PortfolioProject } from '@/types/project';
 import { isVideo } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { generateVideoSchema } from '@/lib/schema';
 import { getSupabasePublicKey } from '@/lib/supabase/env';
 import {
   normalizeMetaDescription,
@@ -189,6 +190,23 @@ export default async function ProjectPage({ params }: Props) {
           url: `${baseUrl}/portfolio/${slug}`,
         }}
       />
+      {isVideo(project.image) && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(
+              generateVideoSchema({
+                name: project.title,
+                description: project.shortDescription || `Case video for ${project.title}`,
+                thumbnailUrl: project.image.replace(/\.(mp4|webm|mov)$/, '-poster.jpg'),
+                uploadDate: project.year ? `${project.year}-01-01` : '2024-01-01',
+                contentUrl: project.image,
+                embedUrl: `${baseUrl}/portfolio/${slug}`,
+              })
+            ),
+          }}
+        />
+      )}
       <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 md:px-12 md:py-8 mix-blend-difference">
         <Link
           href="/portfolio"

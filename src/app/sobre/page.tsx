@@ -15,7 +15,7 @@ import { BRAND } from '@/config/brand';
 import { generateVideoSchema } from '@/lib/schema';
 
 export const metadata: Metadata = {
-  title: 'Sobre',
+  title: 'Sobre | Trajetória e Visão',
   description:
     'Conheça a trajetória, o método e a visão de Danilo Novais — Creative Developer focado em branding, motion e experiências digitais que conectam pessoas e marcas.',
   openGraph: {

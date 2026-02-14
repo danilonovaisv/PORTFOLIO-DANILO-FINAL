@@ -34,12 +34,12 @@ export default function Error({
     }, [error]);
 
     return (
-        <div className="flex h-screen w-full flex-col items-center justify-center bg-[#040013] text-white">
-            <h2 className="mb-4 text-2xl font-bold text-[#E50914]">Something went wrong!</h2>
-            <p className="mb-8 text-white/60">Our specific error reporting system has been notified.</p>
+        <div className="flex h-screen w-full flex-col items-center justify-center bg-background text-foreground">
+            <h2 className="mb-4 text-2xl font-bold text-accentRed">Something went wrong!</h2>
+            <p className="mb-8 text-textInverse/60">Our specific error reporting system has been notified.</p>
             <button
                 onClick={() => reset()}
-                className="rounded bg-[#0048ff] px-6 py-2 text-white transition-colors hover:bg-blue-700"
+                className="rounded-xl bg-bluePrimary px-6 py-3 font-bold text-white transition-all hover:bg-bluePrimary/90 active:scale-95"
             >
                 Try again
             </button>
