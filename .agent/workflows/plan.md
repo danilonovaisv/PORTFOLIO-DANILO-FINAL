@@ -1,3 +1,7 @@
+---
+description: Planning Mode
+---
+
 # 📋 Planning Mode
 
 **Trigger:** `/plan`

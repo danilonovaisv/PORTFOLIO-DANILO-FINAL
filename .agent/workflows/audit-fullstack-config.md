@@ -1,3 +1,7 @@
+---
+description: Fullstack Configuration Audit
+---
+
 # ⚙️ Fullstack Configuration Audit
 
 **Trigger:** `/audit-fullstack-config`

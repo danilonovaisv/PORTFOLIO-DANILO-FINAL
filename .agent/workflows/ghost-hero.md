@@ -1,3 +1,7 @@
+---
+description: Ghost Hero Animation
+---
+
 # 👻 Ghost Hero Animation
 
 **Trigger:** `/ghost-hero` or requests to refine the hero section.

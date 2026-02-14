@@ -1,3 +1,7 @@
+---
+description: Create Application
+---
+
 # 🏗️ Create Application
 
 **Trigger:** `/create`

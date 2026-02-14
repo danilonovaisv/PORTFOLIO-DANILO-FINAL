@@ -1,3 +1,7 @@
+---
+description: Portfolio Master Maintainer
+---
+
 # 💂 Portfolio Master Maintainer
 
 **Trigger:** "Audit the system", "system health check", or "Fix everything".

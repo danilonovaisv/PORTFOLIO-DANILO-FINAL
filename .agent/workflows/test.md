@@ -1,3 +1,7 @@
+---
+description: Test Generation and Execution
+---
+
 # 🧪 Test Generation and Execution
 
 **Trigger:** `/test`

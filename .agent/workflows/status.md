@@ -1,3 +1,7 @@
+---
+description: Show Status
+---
+
 # 📊 Show Status
 
 **Trigger:** `/status`

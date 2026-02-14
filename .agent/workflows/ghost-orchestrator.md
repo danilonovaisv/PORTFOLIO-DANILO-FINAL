@@ -1,3 +1,7 @@
+---
+description: Ghost Orchestrator
+---
+
 # 👻 Ghost Orchestrator
 
 **Trigger:** `/ghost-orchestrator`

@@ -1,3 +1,7 @@
+---
+description: Update Application
+---
+
 # ✨ Update Application
 
 **Trigger:** `/enhance`

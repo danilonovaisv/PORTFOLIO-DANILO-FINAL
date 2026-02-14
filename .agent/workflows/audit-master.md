@@ -1,3 +1,7 @@
+---
+description: Master Audit Protocol
+---
+
 # 🛡️ Master Audit Protocol
 
 **Trigger:** `/audit-master` or "Perform a system audit".

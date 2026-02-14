@@ -1,3 +1,7 @@
+---
+description: Multi-Agent Orchestration
+---
+
 # 🎼 Multi-Agent Orchestration
 
 **Trigger:** `/orchestrate`

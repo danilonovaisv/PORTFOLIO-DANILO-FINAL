@@ -1,3 +1,7 @@
+---
+description: Systematic Debugging
+---
+
 # 🔍 Systematic Debugging
 
 **Trigger:** `/debug`

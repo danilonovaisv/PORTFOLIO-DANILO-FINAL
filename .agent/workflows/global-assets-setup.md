@@ -1,3 +1,7 @@
+---
+description: Global Assets & Tokens Setup
+---
+
 # 🖼️ Global Assets & Tokens Setup
 
 **Trigger:** Requests to initialize or update global design tokens.

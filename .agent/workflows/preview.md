@@ -1,3 +1,7 @@
+---
+description: Preview Management
+---
+
 # 🌐 Preview Management
 
 **Trigger:** `/preview`

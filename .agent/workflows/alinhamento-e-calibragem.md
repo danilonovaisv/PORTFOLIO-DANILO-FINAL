@@ -1,3 +1,7 @@
+---
+description: Bootstrap & Calibration
+---
+
 # 🔄 Bootstrap & Calibration
 
 **Trigger:** Start of any session or requests for "alignment".

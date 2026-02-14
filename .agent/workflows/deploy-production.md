@@ -1,3 +1,7 @@
+---
+description: Master Deploy Protocol
+---
+
 # 🚀 Master Deploy Protocol
 
 **Trigger:** `/deploy-production` or "Ready for release".

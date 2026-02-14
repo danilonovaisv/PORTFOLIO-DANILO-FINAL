@@ -1,3 +1,7 @@
+---
+description: Performance Audit Checklist
+---
+
 # ⚡ Performance Audit Checklist
 
 **Trigger:** "Audit performance" or keywords related to speed/optimization.

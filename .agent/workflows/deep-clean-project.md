@@ -1,3 +1,7 @@
+---
+description: Deep Clean Project
+---
+
 # 🧹 Deep Clean Project
 
 **Trigger:** `/deep-clean-project` or keywords related to "limpeza total".

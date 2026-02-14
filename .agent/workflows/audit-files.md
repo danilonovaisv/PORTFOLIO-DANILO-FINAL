@@ -1,3 +1,7 @@
+---
+description: Architecture Audit
+---
+
 # 🛡️ Architecture Audit
 
 **Trigger:** Requests to audit file structure or dependencies.

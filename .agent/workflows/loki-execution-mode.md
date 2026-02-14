@@ -1,3 +1,7 @@
+---
+description: Loki Execution Mode (Autonomous)
+---
+
 # 👺 Loki Execution Mode (Autonomous)
 
 **Trigger:** `/loki` or "Take control".
