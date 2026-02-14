@@ -34,7 +34,7 @@ Este repositório opera sob uma arquitetura estrita de separação entre **Intel
 ### ⚙️ Workflows (O que executar)
 
 - **[Tasks](.agent/tasks/active.md)**: Kanban atual e backlog (se aplicável).
-- **[Workflows](.agent/workflows/)**: Pipelines de CI/CD, Refactor e Deploy.
+- **[Workflows](.agent/)**: Pipelines de CI/CD, Refactor e Deploy (Ver `r3f-setup.md`).
 
 ### 🗺️ Project State (A Verdade do Projeto)
 
