@@ -1,6 +1,7 @@
 # HOME-AUDIT
 
 ## Contexto de Auditoria
+
 - Página alvo: `HOME` (`/`)
 - Stack observada: Next.js App Router + React + TypeScript + Tailwind + Framer Motion + Lenis + Supabase (Realtime/Storage) + WebGL (R3F)
 - Referências aplicadas:
@@ -19,6 +20,7 @@
 # 01-HEADER
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivos principais:
   - `src/components/layout/Header.tsx`
   - `src/components/layout/header/SiteHeader.tsx`
@@ -43,9 +45,11 @@
   - Acoplamento médio com camada de animação mobile (hook extenso) e com runtime de assets.
 
 ## 1. Objetivo da Página/Sessão
+
 Garantir navegação global do portfólio com foco em transição fluida entre rotas e âncoras, mantendo identidade visual Ghost e suporte completo a desktop/mobile.
 
 ## 2. Estrutura de Conteúdo
+
 - Headings:
   - Não possui heading próprio, atua como navegação global (`nav`).
 - Hierarquia semântica:
@@ -65,6 +69,7 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
   - Baixa, orientada à orientação do usuário.
 
 ## 3. Identidade Visual
+
 - Cores aplicadas:
   - Fundo translúcido escuro + destaques em `#0048ff` e `#4fe6ff`.
 - Gradientes:
@@ -79,6 +84,7 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
   - Consistente com sistema global.
 
 ## 4. Interatividade & Animações
+
 - Uso de Framer Motion:
   - Presente no mobile (`MobileHeaderBar`, painel e botões).
 - Variants:
@@ -94,6 +100,7 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
   - Moderado no desktop por canvas R3F no header.
 
 ## 5. Responsividade
+
 - Desktop:
   - Header fixo com largura ampliada (`w-[calc(100%+5rem)]`).
 - Tablet:
@@ -110,6 +117,7 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
   - Baixo a médio por animação de entrada do header mobile.
 
 ## 6. Acessibilidade & SEO
+
 - Estrutura semântica:
   - `header`/`nav` corretos.
 - ARIA:
@@ -128,6 +136,7 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
   - Navegação limpa e indexável.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Firebase:
   - Não há uso direto na sessão.
 - Supabase:
@@ -142,6 +151,7 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
   - Não aplicado diretamente.
 
 ## 8. Considerações Técnicas
+
 - Performance:
   - Ponto de atenção no canvas do header desktop.
 - Bundle size:
@@ -165,6 +175,7 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
 # 02-HERO
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivos principais:
   - `src/components/home/hero/HomeHero.tsx`
   - `src/components/home/hero/HeroCopy.tsx`
@@ -188,9 +199,11 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
   - Acoplamento médio com store global de experiência para motion gate.
 
 ## 1. Objetivo da Página/Sessão
+
 Estabelecer a proposta editorial principal da HOME com impacto visual e assinatura Ghost: mensagem curta, ambiente imersivo e direção para continuidade da jornada.
 
 ## 2. Estrutura de Conteúdo
+
 - Headings:
   - `h1` presente via `sr-only` em `HeroCopy` com título + subtítulo.
 - Hierarquia semântica:
@@ -210,6 +223,7 @@ Estabelecer a proposta editorial principal da HOME com impacto visual e assinatu
   - Baixa, orientada a manifesto.
 
 ## 3. Identidade Visual
+
 - Cores aplicadas:
   - Base escura (`background`) com brilhos azul/ciano.
 - Gradientes:
@@ -224,6 +238,7 @@ Estabelecer a proposta editorial principal da HOME com impacto visual e assinatu
   - Forte, com escala fluida e tracking editorial.
 
 ## 4. Interatividade & Animações
+
 - Uso de Framer Motion:
   - Entrada de texto, preloader e transições de camadas.
 - Variants:
@@ -238,6 +253,7 @@ Estabelecer a proposta editorial principal da HOME com impacto visual e assinatu
   - Alto potencial por WebGL + efeitos blur + preloader.
 
 ## 5. Responsividade
+
 - Desktop:
   - Hero full-screen com camada 3D ativa.
 - Tablet:
@@ -254,6 +270,7 @@ Estabelecer a proposta editorial principal da HOME com impacto visual e assinatu
   - Baixo estruturalmente; atenção ao preloader que pode mascarar render inicial.
 
 ## 6. Acessibilidade & SEO
+
 - Estrutura semântica:
   - `section` com identificação e `h1` invisível para leitores de tela.
 - ARIA:
@@ -272,6 +289,7 @@ Estabelecer a proposta editorial principal da HOME com impacto visual e assinatu
   - Conteúdo textual principal presente no DOM.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Firebase:
   - Não há uso direto nesta seção.
 - Supabase:
@@ -286,6 +304,7 @@ Estabelecer a proposta editorial principal da HOME com impacto visual e assinatu
   - Não utilizado diretamente.
 
 ## 8. Considerações Técnicas
+
 - Performance:
   - Sessão mais custosa da HOME.
 - Bundle size:
@@ -310,6 +329,7 @@ Estabelecer a proposta editorial principal da HOME com impacto visual e assinatu
 # 03-VIDEO-MANIFESTO
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivos principais:
   - `src/components/home/hero/VideoManifesto.tsx`
   - `src/hooks/useRealtimeAssets.ts`
@@ -326,9 +346,11 @@ Estabelecer a proposta editorial principal da HOME com impacto visual e assinatu
   - Acoplamento médio com camada de assets em tempo real.
 
 ## 1. Objetivo da Página/Sessão
+
 Apresentar reel audiovisual imediatamente após o hero para reforçar prova visual de qualidade e direcionar percepção de valor criativo.
 
 ## 2. Estrutura de Conteúdo
+
 - Headings:
   - Não possui heading próprio.
 - Hierarquia semântica:
@@ -347,6 +369,7 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
   - Baixa (mídia central).
 
 ## 3. Identidade Visual
+
 - Cores aplicadas:
   - Overlay escuro sobre vídeo para legibilidade de controles.
 - Gradientes:
@@ -361,6 +384,7 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
   - Neutro (sem tipografia protagonista).
 
 ## 4. Interatividade & Animações
+
 - Uso de Framer Motion:
   - Reveal com `opacity + translateY + blur`.
 - Variants:
@@ -375,6 +399,7 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
   - Médio/alto por mídia de vídeo; mitigado por lazy load + preload metadata.
 
 ## 5. Responsividade
+
 - Desktop:
   - Exibição ampla com qualidade de vídeo adaptável.
 - Tablet:
@@ -391,6 +416,7 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
   - Baixo (reserva de espaço com `aspect-video`).
 
 ## 6. Acessibilidade & SEO
+
 - Estrutura semântica:
   - `section` presente.
 - ARIA:
@@ -409,6 +435,7 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
   - Vídeo possui schema, porém há duplicação de `VideoObject` entre script inline e `JsonLd`.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Firebase:
   - Não usado.
 - Supabase:
@@ -423,6 +450,7 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
   - Não aplicado.
 
 ## 8. Considerações Técnicas
+
 - Performance:
   - Bom baseline para lazy media.
 - Bundle size:
@@ -446,6 +474,7 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
 # 04-PORTFOLIO-SHOWCASE
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivos principais:
   - `src/components/home/portfolio-showcase/PortfolioShowcase.tsx`
   - `src/components/home/portfolio-showcase/CategoryStripe.tsx`
@@ -463,9 +492,11 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
   - Acoplamento baixo/médio com utilitários globais de asset.
 
 ## 1. Objetivo da Página/Sessão
+
 Atuar como hub de exploração do portfólio por categoria, com linguagem visual premium e caminho rápido para contato.
 
 ## 2. Estrutura de Conteúdo
+
 - Headings:
   - `h2` principal: “portfólio showcase”.
 - Hierarquia semântica:
@@ -484,6 +515,7 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
   - Média (escaneável, focada em categorias).
 
 ## 3. Identidade Visual
+
 - Cores aplicadas:
   - Texto branco/azul em fundo escuro.
 - Gradientes:
@@ -498,6 +530,7 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
   - Boa hierarquia e ritmo.
 
 ## 4. Interatividade & Animações
+
 - Uso de Framer Motion:
   - Reveal de bloco e stripes, parallax por scroll na thumbnail.
 - Variants:
@@ -512,6 +545,7 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
   - Médio, especialmente com vídeo em thumbnail.
 
 ## 5. Responsividade
+
 - Desktop:
   - Stripes com thumbnails animadas e alinhamento variável.
 - Tablet:
@@ -528,6 +562,7 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
   - Baixo.
 
 ## 6. Acessibilidade & SEO
+
 - Estrutura semântica:
   - `section`, `header`, links navegáveis.
 - ARIA:
@@ -546,6 +581,7 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
   - Bom uso de links internos por categoria.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Firebase:
   - Não usado.
 - Supabase:
@@ -560,6 +596,7 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
   - Não aplicado.
 
 ## 8. Considerações Técnicas
+
 - Performance:
   - Boa otimização mobile ao remover thumbnails.
 - Bundle size:
@@ -582,6 +619,7 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
 # 05-FEATURED-PROJECTS
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivos principais:
   - `src/components/home/featured-projects/FeaturedProjectsRealtime.tsx`
   - `src/components/home/featured-projects/FeaturedProjectsSection.tsx`
@@ -601,9 +639,11 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
   - Acoplamento médio com schema de dados e modal global de projeto.
 
 ## 1. Objetivo da Página/Sessão
+
 Exibir projetos em destaque da HOME com atualização dinâmica e permitir exploração via landing page ou modal contextual.
 
 ## 2. Estrutura de Conteúdo
+
 - Headings:
   - Cards usam `h3` por projeto.
   - A seção não possui heading visível (`h2`) próprio.
@@ -624,6 +664,7 @@ Exibir projetos em destaque da HOME com atualização dinâmica e permitir explo
   - Média/alta (4 cards + CTA em layout bento).
 
 ## 3. Identidade Visual
+
 - Cores aplicadas:
   - Fundo dark e cartões com superfícies translúcidas.
 - Gradientes:
@@ -638,6 +679,7 @@ Exibir projetos em destaque da HOME com atualização dinâmica e permitir explo
   - Consistente com padrão editorial.
 
 ## 4. Interatividade & Animações
+
 - Uso de Framer Motion:
   - Stagger de cards + reveal.
 - Variants:
@@ -652,6 +694,7 @@ Exibir projetos em destaque da HOME com atualização dinâmica e permitir explo
   - Médio por vídeos autoplay + atualização realtime/polling.
 
 ## 5. Responsividade
+
 - Desktop:
   - Grid bento 12 colunas bem definido.
 - Tablet:
@@ -668,6 +711,7 @@ Exibir projetos em destaque da HOME com atualização dinâmica e permitir explo
   - Baixo, desde que a mídia mantenha aspect ratio esperado.
 
 ## 6. Acessibilidade & SEO
+
 - Estrutura semântica:
   - `section` presente, mas ausência de heading próprio reduz legibilidade semântica.
 - ARIA:
@@ -686,6 +730,7 @@ Exibir projetos em destaque da HOME com atualização dinâmica e permitir explo
   - Links internos para cases favorecem crawling.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Firebase:
   - Não utilizado diretamente.
 - Supabase:
@@ -700,6 +745,7 @@ Exibir projetos em destaque da HOME com atualização dinâmica e permitir explo
   - Não aplicado diretamente.
 
 ## 8. Considerações Técnicas
+
 - Performance:
   - Polling periódico + realtime pode aumentar consumo em background.
 - Bundle size:
@@ -724,6 +770,7 @@ Exibir projetos em destaque da HOME com atualização dinâmica e permitir explo
 # 06-CLIENTS-BRANDS
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivos principais:
   - `src/components/home/clients/ClientsBrandsSection.tsx`
   - `src/components/ui/shared/DynamicAssetImage.tsx`
@@ -739,9 +786,11 @@ Exibir projetos em destaque da HOME com atualização dinâmica e permitir explo
   - Acoplamento baixo/médio com sistema de assets em tempo real.
 
 ## 1. Objetivo da Página/Sessão
+
 Reforçar prova social com marcas atendidas, sustentando confiança antes da conversão em contato.
 
 ## 2. Estrutura de Conteúdo
+
 - Headings:
   - `h2`: “marcas com as quais já trabalhei”.
 - Hierarquia semântica:
@@ -760,6 +809,7 @@ Reforçar prova social com marcas atendidas, sustentando confiança antes da con
   - Média (12 logos).
 
 ## 3. Identidade Visual
+
 - Cores aplicadas:
   - Fundo azul sólido com logos em branco.
 - Gradientes:
@@ -774,6 +824,7 @@ Reforçar prova social com marcas atendidas, sustentando confiança antes da con
   - Consistente.
 
 ## 4. Interatividade & Animações
+
 - Uso de Framer Motion:
   - Reveal do título e stagger dos itens.
 - Variants:
@@ -788,6 +839,7 @@ Reforçar prova social com marcas atendidas, sustentando confiança antes da con
   - Baixo/médio, dependendo de atualização de assets.
 
 ## 5. Responsividade
+
 - Desktop:
   - 6 colunas.
 - Tablet:
@@ -804,6 +856,7 @@ Reforçar prova social com marcas atendidas, sustentando confiança antes da con
   - Baixo.
 
 ## 6. Acessibilidade & SEO
+
 - Estrutura semântica:
   - Boa (`ul/li` com rótulo de lista).
 - ARIA:
@@ -822,6 +875,7 @@ Reforçar prova social com marcas atendidas, sustentando confiança antes da con
   - Neutro; seção mais voltada a confiança visual.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Firebase:
   - Não utilizado.
 - Supabase:
@@ -836,6 +890,7 @@ Reforçar prova social com marcas atendidas, sustentando confiança antes da con
   - Não aplicado.
 
 ## 8. Considerações Técnicas
+
 - Performance:
   - Boa, com carga de imagens controlada.
 - Bundle size:
@@ -858,6 +913,7 @@ Reforçar prova social com marcas atendidas, sustentando confiança antes da con
 # 07-CONTACT
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivos principais:
   - `src/components/home/contact/ContactSection.tsx`
   - `src/components/home/contact/ContactForm.tsx`
@@ -875,9 +931,11 @@ Reforçar prova social com marcas atendidas, sustentando confiança antes da con
   - Acoplamento externo com endpoint FormSubmit.
 
 ## 1. Objetivo da Página/Sessão
+
 Converter interesse em contato qualificado com múltiplos canais (telefone, email, redes sociais) e formulário de mensagem.
 
 ## 2. Estrutura de Conteúdo
+
 - Headings:
   - `h2`: “contato”.
 - Hierarquia semântica:
@@ -896,6 +954,7 @@ Converter interesse em contato qualificado com múltiplos canais (telefone, emai
   - Média/alta (dados de contato + formulário completo).
 
 ## 3. Identidade Visual
+
 - Cores aplicadas:
   - Contraste claro/escuro com ênfase em azul.
 - Gradientes:
@@ -910,6 +969,7 @@ Converter interesse em contato qualificado com múltiplos canais (telefone, emai
   - Adequada.
 
 ## 4. Interatividade & Animações
+
 - Uso de Framer Motion:
   - Reveal da seção e do formulário.
 - Variants:
@@ -924,6 +984,7 @@ Converter interesse em contato qualificado com múltiplos canais (telefone, emai
   - Baixo.
 
 ## 5. Responsividade
+
 - Desktop:
   - Grid `5/7` com boa separação entre informação e form.
 - Tablet:
@@ -940,6 +1001,7 @@ Converter interesse em contato qualificado com múltiplos canais (telefone, emai
   - Baixo.
 
 ## 6. Acessibilidade & SEO
+
 - Estrutura semântica:
   - Boa estrutura de formulário, labels associadas (`htmlFor`).
 - ARIA:
@@ -958,6 +1020,7 @@ Converter interesse em contato qualificado com múltiplos canais (telefone, emai
   - Sessão de conversão não crítica para ranking, mas boa semântica ajuda crawlability.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Firebase:
   - Não utilizado.
 - Supabase:
@@ -972,6 +1035,7 @@ Converter interesse em contato qualificado com múltiplos canais (telefone, emai
   - Não aplicado.
 
 ## 8. Considerações Técnicas
+
 - Performance:
   - Seção leve.
 - Bundle size:
@@ -996,6 +1060,7 @@ Converter interesse em contato qualificado com múltiplos canais (telefone, emai
 # 08-FOOTER
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivos principais:
   - `src/components/layout/SiteFooter.tsx`
   - `src/config/navigation.ts` (`NAVIGATION.footer`, `SOCIALS`)
@@ -1007,9 +1072,11 @@ Converter interesse em contato qualificado com múltiplos canais (telefone, emai
   - Alta coesão, baixo acoplamento.
 
 ## 1. Objetivo da Página/Sessão
+
 Encerrar jornada com navegação secundária, reforço de marca e atalhos para canais sociais.
 
 ## 2. Estrutura de Conteúdo
+
 - Headings:
   - Não possui heading explícito.
 - Hierarquia semântica:
@@ -1028,6 +1095,7 @@ Encerrar jornada com navegação secundária, reforço de marca e atalhos para c
   - Média.
 
 ## 3. Identidade Visual
+
 - Cores aplicadas:
   - Fundo azul sólido com texto branco.
 - Gradientes:
@@ -1042,6 +1110,7 @@ Encerrar jornada com navegação secundária, reforço de marca e atalhos para c
   - Boa.
 
 ## 4. Interatividade & Animações
+
 - Uso de Framer Motion:
   - Não utiliza Framer Motion diretamente.
 - Variants:
@@ -1056,6 +1125,7 @@ Encerrar jornada com navegação secundária, reforço de marca e atalhos para c
   - Muito baixo.
 
 ## 5. Responsividade
+
 - Desktop:
   - Footer fixo (`lg:fixed`) com altura estável.
 - Tablet:
@@ -1072,6 +1142,7 @@ Encerrar jornada com navegação secundária, reforço de marca e atalhos para c
   - Baixo.
 
 ## 6. Acessibilidade & SEO
+
 - Estrutura semântica:
   - `footer` e `nav` corretos.
 - ARIA:
@@ -1090,6 +1161,7 @@ Encerrar jornada com navegação secundária, reforço de marca e atalhos para c
   - Links internos úteis para distribuição de crawl.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Firebase:
   - Não usado.
 - Supabase:
@@ -1104,6 +1176,7 @@ Encerrar jornada com navegação secundária, reforço de marca e atalhos para c
   - Não aplicável.
 
 ## 8. Considerações Técnicas
+
 - Performance:
   - Excelente.
 - Bundle size:
@@ -1126,6 +1199,7 @@ Encerrar jornada com navegação secundária, reforço de marca e atalhos para c
 # 09-MODAL-ROOT
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivos principais:
   - `src/components/portfolio/PortfolioModal.tsx`
   - `src/components/home/featured-projects/FeaturedProjectsRealtime.tsx`
@@ -1140,9 +1214,11 @@ Encerrar jornada com navegação secundária, reforço de marca e atalhos para c
   - Acoplado ao formato de `PortfolioProject`.
 
 ## 1. Objetivo da Página/Sessão
+
 Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mantendo contexto da navegação.
 
 ## 2. Estrutura de Conteúdo
+
 - Headings:
   - `h2` invisível (`sr-only`) dentro do diálogo com título do projeto.
 - Hierarquia semântica:
@@ -1161,6 +1237,7 @@ Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mante
   - Variável por projeto.
 
 ## 3. Identidade Visual
+
 - Cores aplicadas:
   - Superfície escura com contraste alto.
 - Gradientes:
@@ -1175,6 +1252,7 @@ Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mante
   - Consistente.
 
 ## 4. Interatividade & Animações
+
 - Uso de Framer Motion:
   - Backdrop e container animados.
 - Variants:
@@ -1189,6 +1267,7 @@ Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mante
   - Baixo/médio.
 
 ## 5. Responsividade
+
 - Desktop:
   - Modal central com largura máxima `max-w-5xl`.
 - Tablet:
@@ -1205,6 +1284,7 @@ Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mante
   - Baixo.
 
 ## 6. Acessibilidade & SEO
+
 - Estrutura semântica:
   - Muito boa para diálogo acessível.
 - ARIA:
@@ -1223,6 +1303,7 @@ Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mante
   - Modal não prejudica indexação principal.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Firebase:
   - Não usado.
 - Supabase:
@@ -1237,6 +1318,7 @@ Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mante
   - Não aplicado.
 
 ## 8. Considerações Técnicas
+
 - Performance:
   - Boa.
 - Bundle size:
@@ -1259,16 +1341,19 @@ Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mante
 # ANÁLISE GLOBAL DA HOME
 
 ## Coerência entre sessões
+
 - A HOME segue narrativa consistente: Header → Hero → Reel → Showcase → Featured Projects → Social Proof (Clients) → Conversão (Contact) → Footer.
 - Encadeamento de intenção está claro e orientado à conversão.
 
 ## Consistência do Design System
+
 - Forte aderência ao Ghost em paleta, atmosfera e ritmo visual.
 - Inconsistências pontuais:
   - Uso residual de propriedades proibidas pelo Ghost em alguns pontos de UI (`scale` e microbounces).
   - Azul de footer (`#0057FF`) diferente do token principal (`#0048ff`).
 
 ## Problemas estruturais
+
 - Estrutura semântica global contém problema crítico:
   - Há `main` aninhado e `id="main-content"` duplicado entre `src/app/layout.tsx` e `src/components/layout/ClientLayout.tsx`.
 - Lacunas de heading:
@@ -1277,27 +1362,33 @@ Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mante
   - Divergência de nomes em arquivos obrigatórios solicitados vs. arquivos existentes no projeto.
 
 ## Riscos de escalabilidade
+
 - Custo cumulativo de runtime:
   - WebGL no hero + canvas no header desktop + polling/realtime em múltiplas camadas.
 - Realtime/polling concorrentes podem elevar custo de rede em sessões longas.
 - Dependência externa de formulário (FormSubmit) limita observabilidade operacional.
 
 ## Recomendações estratégicas
+
 1. Corrigir semântica estrutural imediatamente:
+
 - Remover duplicação de `main` e de `id="main-content"`.
 
 2. Fechar conformidade Ghost Motion:
+
 - Revisar componentes que usam `scale`, `rotate` e animações excessivas em conteúdo/UI.
 - Centralizar validação de motion tokens em lint rule/checklist de PR.
 
 3. Otimizar custo de render da HOME:
+
 - Aplicar estratégia de degradação progressiva para canvas (hero/header) com heurística de device/performance.
 - Priorizar fallback estático em hardware fraco.
 
 4. Reforçar semântica e SEO on-page:
+
 - Incluir `h2` explícito em `Featured Projects`.
 - Evitar duplicação de `VideoObject` schema entre fontes JSON-LD.
 
 5. Melhorar governança de conversão:
-- Migrar envio de contato para endpoint controlado (Next/Firebase/Supabase) com logs, rate-limit e monitoramento.
 
+- Migrar envio de contato para endpoint controlado (Next/Firebase/Supabase) com logs, rate-limit e monitoramento.

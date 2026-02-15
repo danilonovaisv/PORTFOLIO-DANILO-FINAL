@@ -19,10 +19,7 @@ const MorphText: React.FC<{
   const y = useTransform(progress, range, [40, 0], { ease: ghostEase });
 
   return (
-    <motion.span
-      style={{ y }}
-      className={`block ${className || ''}`}
-    >
+    <motion.span style={{ y }} className={`block ${className || ''}`}>
       {children}
     </motion.span>
   );

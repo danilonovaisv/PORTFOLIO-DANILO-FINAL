@@ -1,6 +1,7 @@
 # 06-CLIENTS-BRANDS
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivos principais:
   - `src/components/home/clients/ClientsBrandsSection.tsx`
   - `src/components/ui/shared/DynamicAssetImage.tsx`
@@ -16,9 +17,11 @@
   - Acoplamento baixo/médio com sistema de assets em tempo real.
 
 ## 1. Objetivo da Página/Sessão
+
 Reforçar prova social com marcas atendidas, sustentando confiança antes da conversão em contato.
 
 ## 2. Estrutura de Conteúdo
+
 - Headings:
   - `h2`: “marcas com as quais já trabalhei”.
 - Hierarquia semântica:
@@ -37,6 +40,7 @@ Reforçar prova social com marcas atendidas, sustentando confiança antes da con
   - Média (12 logos).
 
 ## 3. Identidade Visual
+
 - Cores aplicadas:
   - Fundo azul sólido com logos em branco.
 - Gradientes:
@@ -51,6 +55,7 @@ Reforçar prova social com marcas atendidas, sustentando confiança antes da con
   - Consistente.
 
 ## 4. Interatividade & Animações
+
 - Uso de Framer Motion:
   - Reveal do título e stagger dos itens.
 - Variants:
@@ -65,6 +70,7 @@ Reforçar prova social com marcas atendidas, sustentando confiança antes da con
   - Baixo/médio, dependendo de atualização de assets.
 
 ## 5. Responsividade
+
 - Desktop:
   - 6 colunas.
 - Tablet:
@@ -81,6 +87,7 @@ Reforçar prova social com marcas atendidas, sustentando confiança antes da con
   - Baixo.
 
 ## 6. Acessibilidade & SEO
+
 - Estrutura semântica:
   - Boa (`ul/li` com rótulo de lista).
 - ARIA:
@@ -99,6 +106,7 @@ Reforçar prova social com marcas atendidas, sustentando confiança antes da con
   - Neutro; seção mais voltada a confiança visual.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Firebase:
   - Não utilizado.
 - Supabase:
@@ -113,6 +121,7 @@ Reforçar prova social com marcas atendidas, sustentando confiança antes da con
   - Não aplicado.
 
 ## 8. Considerações Técnicas
+
 - Performance:
   - Boa, com carga de imagens controlada.
 - Bundle size:
@@ -132,7 +141,6 @@ Reforçar prova social com marcas atendidas, sustentando confiança antes da con
 
 ---
 
-
 ## 9. Componentes Interativos
 
 🎨 **Biblioteca de Componentes:**
@@ -145,6 +153,7 @@ Reforçar prova social com marcas atendidas, sustentando confiança antes da con
 | Menu Mobile | Global via header | Closed/Open | Navegação global | Implementado (global) |
 
 🔄 **Estados e Transições:**
+
 - Hover: Logos/cards respondem com destaque sutil.
 - Focus: Elementos clicáveis permanecem navegáveis por teclado.
 - Loading: Logos carregados de forma preguiçosa quando possível.
@@ -152,9 +161,11 @@ Reforçar prova social com marcas atendidas, sustentando confiança antes da con
 - Success: Sessão reforça confiança sem bloquear fluxo até contato.
 
 ## 10. Estrutura de Páginas e Navegação
+
 - Sessão institucional sem troca de rota obrigatória.
 - Pode conter links externos de marcas/parcerias conforme configuração.
 
 ## 11. Informações Relevantes para Compreensão da Sessão
+
 - Ajuda a compor prova social no terço final da HOME.
 - Evitar excesso de motion em logos para não comprometer legibilidade e estabilidade visual.

@@ -235,3 +235,4 @@
   [2026-02-13] [Database] Criação de migration `20240320_fix_rls_and_storage.sql` para habilitar acesso público e escrita autenticada em Buckets.
 - [2026-02-14] Fixed AboutBeliefs architecture: Stuck Global BG, adjusted Z-indices (Ghost Z-30), refined Mobile Text animation ranges, and removed default video captions.
 - [2026-02-14] Refined AboutBeliefs (v2): Ghost Z-60 (above text), Mobile Text Enter-Left/-20% Bottom, Header Top-24 sticky, EventSource enabled for 3D interaction.
+- [2026-02-15] [Test Expansion] Implementação de testes unitários para a Antigravity Store e hooks críticos (useLERPScroll, usePerformanceAdaptive). Criação de plano de expansão de cobertura e walkthrough.

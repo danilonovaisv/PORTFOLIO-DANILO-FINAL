@@ -206,7 +206,8 @@ export default function SceneGeneratorPage() {
                       Clique ou arraste imagens para upload
                     </p>
                     <p className="mt-1 text-[11px] text-slate-500">
-                      PNG, JPG, WEBP, GIF · até {MAX_REFERENCE_IMAGES} arquivos · máximo 8MB por arquivo
+                      PNG, JPG, WEBP, GIF · até {MAX_REFERENCE_IMAGES} arquivos
+                      · máximo 8MB por arquivo
                     </p>
                     <input
                       ref={fileInputRef}
@@ -356,8 +357,8 @@ export default function SceneGeneratorPage() {
                   )}
                   {state.retryAfterSeconds && (
                     <p className="mt-1 text-xs text-red-300/90">
-                      Tente novamente em aproximadamente {state.retryAfterSeconds}{' '}
-                      segundos.
+                      Tente novamente em aproximadamente{' '}
+                      {state.retryAfterSeconds} segundos.
                     </p>
                   )}
                 </div>

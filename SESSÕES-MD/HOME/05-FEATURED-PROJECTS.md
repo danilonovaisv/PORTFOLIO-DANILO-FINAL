@@ -1,6 +1,7 @@
 # 05-FEATURED-PROJECTS
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivos principais:
   - `src/components/home/featured-projects/FeaturedProjectsRealtime.tsx`
   - `src/components/home/featured-projects/FeaturedProjectsSection.tsx`
@@ -20,9 +21,11 @@
   - Acoplamento médio com schema de dados e modal global de projeto.
 
 ## 1. Objetivo da Página/Sessão
+
 Exibir projetos em destaque da HOME com atualização dinâmica e permitir exploração via landing page ou modal contextual.
 
 ## 2. Estrutura de Conteúdo
+
 - Headings:
   - Cards usam `h3` por projeto.
   - A seção não possui heading visível (`h2`) próprio.
@@ -43,6 +46,7 @@ Exibir projetos em destaque da HOME com atualização dinâmica e permitir explo
   - Média/alta (4 cards + CTA em layout bento).
 
 ## 3. Identidade Visual
+
 - Cores aplicadas:
   - Fundo dark e cartões com superfícies translúcidas.
 - Gradientes:
@@ -57,6 +61,7 @@ Exibir projetos em destaque da HOME com atualização dinâmica e permitir explo
   - Consistente com padrão editorial.
 
 ## 4. Interatividade & Animações
+
 - Uso de Framer Motion:
   - Stagger de cards + reveal.
 - Variants:
@@ -71,6 +76,7 @@ Exibir projetos em destaque da HOME com atualização dinâmica e permitir explo
   - Médio por vídeos autoplay + atualização realtime/polling.
 
 ## 5. Responsividade
+
 - Desktop:
   - Grid bento 12 colunas bem definido.
 - Tablet:
@@ -87,6 +93,7 @@ Exibir projetos em destaque da HOME com atualização dinâmica e permitir explo
   - Baixo, desde que a mídia mantenha aspect ratio esperado.
 
 ## 6. Acessibilidade & SEO
+
 - Estrutura semântica:
   - `section` presente, mas ausência de heading próprio reduz legibilidade semântica.
 - ARIA:
@@ -105,6 +112,7 @@ Exibir projetos em destaque da HOME com atualização dinâmica e permitir explo
   - Links internos para cases favorecem crawling.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Firebase:
   - Não utilizado diretamente.
 - Supabase:
@@ -119,6 +127,7 @@ Exibir projetos em destaque da HOME com atualização dinâmica e permitir explo
   - Não aplicado diretamente.
 
 ## 8. Considerações Técnicas
+
 - Performance:
   - Polling periódico + realtime pode aumentar consumo em background.
 - Bundle size:
@@ -140,7 +149,6 @@ Exibir projetos em destaque da HOME com atualização dinâmica e permitir explo
 
 ---
 
-
 ## 9. Componentes Interativos
 
 🎨 **Biblioteca de Componentes:**
@@ -153,6 +161,7 @@ Exibir projetos em destaque da HOME com atualização dinâmica e permitir explo
 | Menu Mobile | Global via header | Closed/Open | Navegação global | Implementado (global) |
 
 🔄 **Estados e Transições:**
+
 - Hover: Cards destacam metadados e affordance de clique.
 - Focus: Acesso por teclado em cards e CTA com foco visível.
 - Loading: Skeleton/carregamento progressivo durante fetch de projetos.
@@ -160,9 +169,11 @@ Exibir projetos em destaque da HOME com atualização dinâmica e permitir explo
 - Success: Modal/roteamento de projeto inicia fluxo de exploração sem recarregar a página.
 
 ## 10. Estrutura de Páginas e Navegação
+
 - Nó de navegação para detalhes de projetos em `/portfolio/[slug]` e modal contextual.
 - Inclui CTA final para conversão no fluxo principal.
 
 ## 11. Informações Relevantes para Compreensão da Sessão
+
 - Fonte dinâmica de dados com Supabase + fallback de polling para resiliência.
 - A sessão é crítica para engajamento e deve manter INP sob controle em grids com animação.

@@ -5,6 +5,7 @@ export const fetchCache = 'force-no-store';
 import { notFound } from 'next/navigation';
 import { requireAdminAccess } from '@/lib/admin/server-access';
 import { ProjectForm } from '@/components/admin/ProjectForm';
+import type { DbProject } from '@/types/admin';
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -39,6 +40,31 @@ export default async function EditProjectPage(props: Props) {
     notFound();
   }
 
+  const normalizedGallery = Array.isArray(project.gallery)
+    ? project.gallery
+        .filter(
+          (
+            item
+          ): item is {
+            path: string;
+            caption?: string;
+          } =>
+            typeof item === 'object' &&
+            item !== null &&
+            'path' in item &&
+            typeof (item as { path?: unknown }).path === 'string'
+        )
+        .map((item) => ({
+          path: item.path,
+          caption: typeof item.caption === 'string' ? item.caption : undefined,
+        }))
+    : null;
+
+  const normalizedProject = {
+    ...project,
+    gallery: normalizedGallery,
+  } as DbProject;
+
   const selectedTagIds =
     project.project_tags
       ?.map((tag: { tag_id: string }) => tag.tag_id)
@@ -53,7 +79,7 @@ export default async function EditProjectPage(props: Props) {
         <h1 className="text-3xl font-semibold">Editar projeto</h1>
       </div>
       <ProjectForm
-        project={project}
+        project={normalizedProject}
         tags={tags ?? []}
         landingPages={landingPages ?? []}
         selectedTagIds={selectedTagIds}

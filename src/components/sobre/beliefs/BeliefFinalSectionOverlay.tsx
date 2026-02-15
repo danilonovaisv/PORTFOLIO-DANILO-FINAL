@@ -9,10 +9,9 @@ interface BeliefFinalSectionOverlayProps {
   progress: number;
 }
 
-export const BeliefFinalSectionOverlay: React.FC<BeliefFinalSectionOverlayProps> = ({
-  visible,
-  progress,
-}) => {
+export const BeliefFinalSectionOverlay: React.FC<
+  BeliefFinalSectionOverlayProps
+> = ({ visible, progress }) => {
   const safeProgress = Math.max(0, Math.min(1, progress));
   const opacity = visible ? safeProgress : 0;
   const y = 24 - safeProgress * 24;

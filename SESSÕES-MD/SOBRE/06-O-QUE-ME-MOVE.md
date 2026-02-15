@@ -1,6 +1,7 @@
 # 06-O-QUE-ME-MOVE
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivo principal:
   - `src/components/sobre/sections/AboutBeliefs.tsx`
 - Subcomponentes:
@@ -14,9 +15,11 @@
   - `src/components/sobre/3d/GhostModel.tsx`
 
 ## 1. Objetivo da Página/Sessão
+
 Entregar clímax emocional da página Sobre, transformando crenças em experiência sensorial (texto, cor e presença do Ghost).
 
 ## 2. Estrutura de Conteúdo
+
 - Header fixo:
   - “Acredito no design que muda o dia de alguém…”
 - Frases rotativas:
@@ -27,53 +30,63 @@ Entregar clímax emocional da página Sobre, transformando crenças em experiên
   - Ghost interativo com scroll + mouse.
 
 ## 3. Identidade Visual
+
 - Cores:
   - Alternância entre `bluePrimary`, `purpleDetails`, `pinkDetails`.
 - Estética:
   - Sessão mais experimental e impactante da página.
 
 ## 4. Interatividade & Animações
+
 - Camadas fixas + scroll progress global.
 - Texto mobile em camada fixed independente.
 - Ghost 3D com escala, wobble e rotação dinâmica.
 
 ## 5. Responsividade
+
 - Desktop:
   - Frases no fluxo, header fixo, canvas central.
 - Mobile:
   - Frases renderizadas em camada fixa na base.
 
 ## 6. Acessibilidade & SEO
+
 - `section` e `aria-label` presentes.
 - Falta estratégia clara para desativar 3D sob `prefers-reduced-motion`.
 - Complexidade visual alta pode impactar legibilidade em alguns cenários.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Canvas R3F com GLTF remoto em tempo real.
 - DPR até 2 e `antialias: true`.
 - Camadas com z-index alto e sticky.
 
 ## 8. Considerações Técnicas
+
 - É a sessão de maior custo gráfico da página.
 - Alto risco de variação de performance em dispositivos móveis.
 - Arquitetura atual diverge de pontos críticos do protótipo.
 
 ## 9. Componentes Interativos
-| Componente | Descrição | Estados | Interações | Status |
-|------------|-----------|---------|------------|--------|
-| BeliefFixedHeader | Texto fixo inicial | Hidden, Visible, FadeOut | Scroll progress | Implementado |
-| BeliefSection | Frases por tela | Enter, Hold, Exit | Scroll por seção | Implementado |
-| BeliefFinalSectionOverlay | Manifesto final | Hidden, Visible | whileInView | Implementado |
-| GhostScene (3D) | Canvas do Ghost | Idle, Intensified | Scroll + cursor | Implementado |
+
+| Componente                | Descrição          | Estados                  | Interações       | Status       |
+| ------------------------- | ------------------ | ------------------------ | ---------------- | ------------ |
+| BeliefFixedHeader         | Texto fixo inicial | Hidden, Visible, FadeOut | Scroll progress  | Implementado |
+| BeliefSection             | Frases por tela    | Enter, Hold, Exit        | Scroll por seção | Implementado |
+| BeliefFinalSectionOverlay | Manifesto final    | Hidden, Visible          | whileInView      | Implementado |
+| GhostScene (3D)           | Canvas do Ghost    | Idle, Intensified        | Scroll + cursor  | Implementado |
 
 ## 10. Estrutura de Páginas e Navegação
+
 - Quinta sessão principal da `/sobre`.
 - Prepara transição para fechamento e CTAs.
 
 ## 11. Informações Relevantes para Compreensão da Sessão
+
 - O protótipo desta sessão é extremamente específico: camadas, sincronização de cor com frase, reset total e scroll bidirecional reversível.
 
 ## 12. Análise de Inconformidades (Sessão vs Protótipo)
+
 - Inconformidade 1 (Crítica): sincronização cor + texto
   - Protótipo exige transição de cor DURANTE entrada de cada frase com camada de crossfade.
   - Implementação aplica cor por seção full-screen, sem mecanismo explícito de crossfade sincronizado por frase.

@@ -46,6 +46,7 @@ import {
   createDefaultMasterProjectTemplateV3,
   parseLandingPageContent,
 } from '@/lib/projects/template-schema';
+import type { Json } from '@/lib/supabase.types';
 import MasterProjectTemplateEditor, {
   type MasterProjectTemplateDraft,
 } from './MasterProjectTemplateEditor';
@@ -62,7 +63,7 @@ interface LandingPageFormProps {
     id: string;
     title: string;
     slug: string;
-    cover: string;
+    cover: string | null;
     content: unknown;
   };
 }
@@ -811,7 +812,7 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
         title,
         slug,
         cover: persisted.coverPath,
-        content: persisted.content,
+        content: persisted.content as unknown as Json,
       };
 
       await saveLandingPageAction({

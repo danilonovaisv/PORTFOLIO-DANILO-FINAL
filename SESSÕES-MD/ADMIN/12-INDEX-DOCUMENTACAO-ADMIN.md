@@ -1,6 +1,7 @@
 # ÍNDICE DE DOCUMENTAÇÃO — ADMIN
 
 ## 1) Documentação da sessão (`SESSÕES-MD/ADMIN`)
+
 - `SESSÕES-MD/ADMIN/ADMIN - PROTOTIPO INTERATIVO.md`
 - `SESSÕES-MD/ADMIN/PROTOTIPO INTERATIVO DA LANDING PAGE.md`
 - `SESSÕES-MD/ADMIN/POP-UP DE PROJETO (SEM LANDING PAGE).md`
@@ -21,6 +22,7 @@
 - `SESSÕES-MD/ADMIN/14-PLANO-DE-AJUSTES-ADMIN.md`
 
 ## 2) Documentação existente relacionada em `docs/`
+
 - `docs/ADMIN_README.md`
 - `docs/ADMIN/AGENT.md`
 - `docs/ADMIN/prototipo-landing-template-mestre.md`
@@ -33,6 +35,7 @@
 - `docs/walkthroughs/admin-scroll-fix.md`
 
 ## 3) Fontes de código mapeadas para ADMIN
+
 - Auth:
   - `src/app/admin/(auth)/layout.tsx`
   - `src/app/admin/(auth)/login/page.tsx`

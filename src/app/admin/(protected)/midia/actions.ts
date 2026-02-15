@@ -31,12 +31,31 @@ export async function upsertAsset(payload: AssetPayload) {
   const normalizedPath = payload.file_path
     ? normalizeStoragePath(payload.file_path, payload.bucket ?? 'site-assets')
     : null;
+  let filePath = normalizedPath;
+
+  if (!filePath) {
+    const { data: existing, error: existingError } = await supabase
+      .from('site_assets')
+      .select('file_path')
+      .eq('key', payload.key)
+      .maybeSingle();
+
+    if (existingError) throw existingError;
+    filePath = existing?.file_path ?? null;
+  }
+
+  if (!filePath) {
+    throw new Error(
+      'Informe um arquivo para criar o asset ou mantenha um caminho existente.'
+    );
+  }
+
   const { error } = await supabase.from('site_assets').upsert(
     {
       ...payload,
       bucket: payload.bucket ?? 'site-assets',
       is_active: true,
-      file_path: normalizedPath,
+      file_path: filePath,
     },
     { onConflict: 'key' }
   );
@@ -85,7 +104,11 @@ export async function assignAssetRole(payload: AssignAssetRolePayload) {
     extension,
   });
 
-  let file_path = currentPath;
+  let file_path = currentPath ?? existing.file_path;
+
+  if (!file_path) {
+    throw new Error('Asset sem caminho de arquivo válido para atualização.');
+  }
 
   if (file_path && file_path !== targetPath) {
     const { error: moveError } = await supabase.storage

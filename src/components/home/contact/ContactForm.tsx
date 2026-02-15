@@ -79,9 +79,9 @@ const ContactForm: React.FC = () => {
         setFormData({ name: '', email: '', phone: '', message: '' });
         setTimeout(() => setSubmitSuccess(false), 5000);
       } else {
-        const payload = (await response.json().catch(() => null)) as
-          | { message?: string }
-          | null;
+        const payload = (await response.json().catch(() => null)) as {
+          message?: string;
+        } | null;
         throw new Error(payload?.message || 'Submission failed');
       }
     } catch (error) {

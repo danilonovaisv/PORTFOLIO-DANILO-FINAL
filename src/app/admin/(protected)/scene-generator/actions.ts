@@ -41,8 +41,7 @@ const MODEL_PROMPT_STYLES: Record<AIModel, string> = {
 
 function resolveSceneModelCapabilities() {
   const hasOpenAIKey = Boolean(process.env.OPENAI_API_KEY?.trim());
-  const envEnabledModels = process.env.ADMIN_ENABLED_SCENE_MODELS
-    ?.split(',')
+  const envEnabledModels = process.env.ADMIN_ENABLED_SCENE_MODELS?.split(',')
     .map((value) => value.trim())
     .filter(Boolean);
 
@@ -55,7 +54,9 @@ function resolveSceneModelCapabilities() {
     // No estado atual, todos os modelos de imagem usam backend OpenAI.
     const requiresOpenAI = model.id !== 'sora';
     const available =
-      model.available && enabledByEnv && (requiresOpenAI ? hasOpenAIKey : false);
+      model.available &&
+      enabledByEnv &&
+      (requiresOpenAI ? hasOpenAIKey : false);
 
     return {
       ...model,
@@ -100,7 +101,8 @@ export async function generateAdScenes(
 
   const description = ((formData.get('description') as string) || '').trim();
   const pieceType = ((formData.get('pieceType') as string) || '').trim();
-  const model = ((formData.get('model') as AIModel) || fallbackModel) as AIModel;
+  const model = ((formData.get('model') as AIModel) ||
+    fallbackModel) as AIModel;
   const batchSizeRaw = Number(formData.get('batchSize') ?? 3);
   const batchSize = Number.isFinite(batchSizeRaw)
     ? Math.max(1, Math.min(4, Math.floor(batchSizeRaw)))
@@ -286,7 +288,9 @@ export async function generateAdScenes(
       status: 'error',
       errorCode: 'generation_error',
       errorMessage:
-        error instanceof Error ? error.message : 'Erro desconhecido ao gerar cenas',
+        error instanceof Error
+          ? error.message
+          : 'Erro desconhecido ao gerar cenas',
       metadata: requestPayload,
     });
 

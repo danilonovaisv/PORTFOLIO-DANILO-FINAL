@@ -46,10 +46,13 @@ export async function requireAdminAccess() {
     supabase = createAdminClient();
     privilegeLevel = 'service_role';
   } catch (error) {
-    console.warn('[Admin Access] service role unavailable, using request-scoped client.', {
-      reason: error instanceof Error ? error.message : 'unknown',
-      userId: user?.id ?? null,
-    });
+    console.warn(
+      '[Admin Access] service role unavailable, using request-scoped client.',
+      {
+        reason: error instanceof Error ? error.message : 'unknown',
+        userId: user?.id ?? null,
+      }
+    );
   }
 
   return { supabase, user, privilegeLevel };

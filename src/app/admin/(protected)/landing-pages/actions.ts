@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 import { logAdminAudit } from '@/lib/admin/audit';
 import { requireAdminAccess } from '@/lib/admin/server-access';
+import type { Json, TablesInsert, TablesUpdate } from '@/lib/supabase.types';
 
 const landingPageMutationSchema = z.object({
   id: z.string().uuid().optional(),
@@ -18,7 +19,7 @@ const landingPageMutationSchema = z.object({
       'Slug deve conter apenas letras minúsculas, números e hífen.'
     ),
   cover: z.string().trim().max(600).optional(),
-  content: z.unknown(),
+  content: z.custom<Json>((value) => value !== undefined),
 });
 
 export type SaveLandingPageInput = z.infer<typeof landingPageMutationSchema>;
@@ -51,10 +52,10 @@ export async function saveLandingPageAction(input: SaveLandingPageInput) {
   const parsed = landingPageMutationSchema.parse(input);
   const { supabase, user } = await requireAdminAccess();
 
-  const payload = {
+  const payload: TablesUpdate<'landing_pages'> = {
     title: parsed.title,
     slug: parsed.slug,
-    cover: parsed.cover ?? '',
+    cover: parsed.cover ?? null,
     content: parsed.content,
   };
 
@@ -82,12 +83,17 @@ export async function saveLandingPageAction(input: SaveLandingPageInput) {
       status: 'success',
     });
   } else {
+    const insertPayload: TablesInsert<'landing_pages'> = {
+      title: parsed.title,
+      slug: parsed.slug,
+      cover: parsed.cover ?? null,
+      content: parsed.content,
+      created_at: new Date().toISOString(),
+    };
+
     const { data, error } = await supabase
       .from('landing_pages')
-      .insert({
-        ...payload,
-        created_at: new Date().toISOString(),
-      })
+      .insert(insertPayload)
       .select('id')
       .single();
 

@@ -1,6 +1,7 @@
 # 04-PORTFOLIO-SHOWCASE
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivos principais:
   - `src/components/home/portfolio-showcase/PortfolioShowcase.tsx`
   - `src/components/home/portfolio-showcase/CategoryStripe.tsx`
@@ -18,9 +19,11 @@
   - Acoplamento baixo/médio com utilitários globais de asset.
 
 ## 1. Objetivo da Página/Sessão
+
 Atuar como hub de exploração do portfólio por categoria, com linguagem visual premium e caminho rápido para contato.
 
 ## 2. Estrutura de Conteúdo
+
 - Headings:
   - `h2` principal: “portfólio showcase”.
 - Hierarquia semântica:
@@ -39,6 +42,7 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
   - Média (escaneável, focada em categorias).
 
 ## 3. Identidade Visual
+
 - Cores aplicadas:
   - Texto branco/azul em fundo escuro.
 - Gradientes:
@@ -53,6 +57,7 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
   - Boa hierarquia e ritmo.
 
 ## 4. Interatividade & Animações
+
 - Uso de Framer Motion:
   - Reveal de bloco e stripes, parallax por scroll na thumbnail.
 - Variants:
@@ -67,6 +72,7 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
   - Médio, especialmente com vídeo em thumbnail.
 
 ## 5. Responsividade
+
 - Desktop:
   - Stripes com thumbnails animadas e alinhamento variável.
 - Tablet:
@@ -83,6 +89,7 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
   - Baixo.
 
 ## 6. Acessibilidade & SEO
+
 - Estrutura semântica:
   - `section`, `header`, links navegáveis.
 - ARIA:
@@ -101,6 +108,7 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
   - Bom uso de links internos por categoria.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Firebase:
   - Não usado.
 - Supabase:
@@ -115,6 +123,7 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
   - Não aplicado.
 
 ## 8. Considerações Técnicas
+
 - Performance:
   - Boa otimização mobile ao remover thumbnails.
 - Bundle size:
@@ -134,7 +143,6 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
 
 ---
 
-
 ## 9. Componentes Interativos
 
 🎨 **Biblioteca de Componentes:**
@@ -147,6 +155,7 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
 | Menu Mobile | Global via header | Closed/Open | Navegação global | Implementado (global) |
 
 🔄 **Estados e Transições:**
+
 - Hover: Cards e CTA com elevação/contraste sem scale agressivo.
 - Focus: Cards acionáveis acessíveis por teclado.
 - Loading: Assets de capa sob política lazy e priorização seletiva.
@@ -154,9 +163,11 @@ Atuar como hub de exploração do portfólio por categoria, com linguagem visual
 - Success: Navegação para detalhe/modal sem quebra de contexto.
 
 ## 10. Estrutura de Páginas e Navegação
+
 - Ponto de transição para aprofundamento em projetos e contato.
 - Cards e CTAs orientam para `/portfolio`, detalhe de projeto e `#contact`.
 
 ## 11. Informações Relevantes para Compreensão da Sessão
+
 - Referência de layout relacionada: `.context/PORTFOLIO-PAGE-LAYOUYT.jpg` (consistência visual).
 - Parallax deve respeitar prefers-reduced-motion e limites de translate para preservar legibilidade.

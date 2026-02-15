@@ -114,12 +114,18 @@ export function AboutBeliefs() {
   const finalVisible = finalProgress > 0.03;
   const phraseOpacity = prefersReducedMotion
     ? 1
-    : Math.min(1, phraseProgress / 0.2) * Math.min(1, (1 - phraseProgress) / 0.2);
+    : Math.min(1, phraseProgress / 0.2) *
+      Math.min(1, (1 - phraseProgress) / 0.2);
   const phraseTransformY = prefersReducedMotion ? 0 : 18 - phraseProgress * 18;
-  const phraseBlur = prefersReducedMotion ? 'blur(0px)' : `blur(${Math.max(0, 8 - phraseProgress * 8)}px)`;
+  const phraseBlur = prefersReducedMotion
+    ? 'blur(0px)'
+    : `blur(${Math.max(0, 8 - phraseProgress * 8)}px)`;
 
   return (
-    <section ref={containerRef} className="relative w-full h-[170vh] md:h-[180vh]">
+    <section
+      ref={containerRef}
+      className="relative w-full h-[170vh] md:h-[180vh]"
+    >
       <div className="sticky top-0 h-screen overflow-hidden">
         {/* Layer 0: base background */}
         <div
@@ -171,7 +177,10 @@ export function AboutBeliefs() {
 
         {/* Layer 4: final manifesto above Ghost */}
         <div className="absolute inset-0 z-[80] pointer-events-none">
-          <BeliefFinalSectionOverlay visible={finalVisible} progress={finalProgress} />
+          <BeliefFinalSectionOverlay
+            visible={finalVisible}
+            progress={finalProgress}
+          />
         </div>
 
         {/* Layer 5: Ghost 3D */}

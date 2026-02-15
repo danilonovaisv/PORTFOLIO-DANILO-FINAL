@@ -308,7 +308,9 @@ The reader should finish the page feeling that the work was not made to impress 
       status: 'error',
       errorCode: 'openai_error',
       errorMessage:
-        error instanceof Error ? error.message : 'Erro desconhecido ao gerar copy.',
+        error instanceof Error
+          ? error.message
+          : 'Erro desconhecido ao gerar copy.',
       metadata: {
         fallbackApplied: true,
         referenceCount: referenceImages.length,

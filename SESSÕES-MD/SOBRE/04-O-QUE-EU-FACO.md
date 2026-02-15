@@ -1,6 +1,7 @@
 # 04-O-QUE-EU-FACO
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivo principal:
   - `src/components/sobre/sections/AboutWhatIDo.tsx`
 - Dependências:
@@ -8,9 +9,11 @@
   - `useMotionGate`
 
 ## 1. Objetivo da Página/Sessão
+
 Transformar lista de serviços em sequência visual ritmada, reforçando domínio técnico e criativo sem quebrar a narrativa.
 
 ## 2. Estrutura de Conteúdo
+
 - Título:
   - “Do insight ao impacto. Mesmo quando você não percebe.”
 - Lista de 7 cards:
@@ -19,12 +22,14 @@ Transformar lista de serviços em sequência visual ritmada, reforçando domíni
   - Marquee de palavras-chave.
 
 ## 3. Identidade Visual
+
 - Paleta:
   - Fundo `background`, cards `bluePrimary`, números em `purpleDetails`, keywords em `blueAccent`.
 - Tom visual:
   - Denso e tecnológico, com sombras fortes.
 
 ## 4. Interatividade & Animações
+
 - Desktop:
   - Track horizontal controlada por scroll vertical (`x` de `120vw` até `-120%`).
 - Mobile:
@@ -33,6 +38,7 @@ Transformar lista de serviços em sequência visual ritmada, reforçando domíni
   - Loop contínuo com pausa por hover/focus.
 
 ## 5. Responsividade
+
 - Desktop:
   - Seção sticky de longa duração.
 - Mobile:
@@ -41,6 +47,7 @@ Transformar lista de serviços em sequência visual ritmada, reforçando domíni
   - `lg`.
 
 ## 6. Acessibilidade & SEO
+
 - Semântica:
   - Cards como `article`.
 - Leitura:
@@ -49,29 +56,35 @@ Transformar lista de serviços em sequência visual ritmada, reforçando domíni
   - Sem bloqueios de teclado.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Sessão autônoma sem chamadas externas.
 - Motion gate aplicado para reduzir deslocamento.
 
 ## 8. Considerações Técnicas
+
 - Boa performance geral por uso de `transform`.
 - Seção longa (`300vh`) aumenta permanência e custo de scroll.
 
 ## 9. Componentes Interativos
-| Componente | Descrição | Estados | Interações | Status |
-|------------|-----------|---------|------------|--------|
-| Cards Desktop | Serviços em trilha horizontal | Hidden, Active | Scroll vertical controla X | Implementado |
-| Cards Mobile | Lista empilhada | Hidden, Visible | Reveal por viewport | Implementado |
-| Marquee | Faixa de keywords | Running, Paused | Hover/focus pausa | Implementado |
+
+| Componente    | Descrição                     | Estados         | Interações                 | Status       |
+| ------------- | ----------------------------- | --------------- | -------------------------- | ------------ |
+| Cards Desktop | Serviços em trilha horizontal | Hidden, Active  | Scroll vertical controla X | Implementado |
+| Cards Mobile  | Lista empilhada               | Hidden, Visible | Reveal por viewport        | Implementado |
+| Marquee       | Faixa de keywords             | Running, Paused | Hover/focus pausa          | Implementado |
 
 ## 10. Estrutura de Páginas e Navegação
+
 - Terceira sessão de conteúdo.
 - Transição entre narrativa pessoal (`Origem`) e racionalização de oferta.
 
 ## 11. Informações Relevantes para Compreensão da Sessão
+
 - O protótipo define movimento horizontal no desktop e vertical no mobile.
 - As imagens de referência mostram barras azuis numeradas coerentes com esta sessão.
 
 ## 12. Análise de Inconformidades (Sessão vs Protótipo)
+
 - Inconformidade 1 (Média): duração da seção no desktop
   - Protótipo descreve seção próxima de 100vh.
   - Implementação usa `300vh` com sticky prolongado.

@@ -2,7 +2,6 @@
 
 import { revalidatePath } from 'next/cache';
 import { upsertProject, deleteProject } from '@/lib/supabase/queries/projects';
-import type { DbProject } from '@/types/admin';
 import {
   projectMutationSchema,
   type ProjectMutationInput,
@@ -32,7 +31,7 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
     const updatedProject = await upsertProject({
       ...projectData,
       tagIds: tags,
-    } as Partial<DbProject> & { id?: string; tagIds?: string[] });
+    });
 
     // Revalidação de cache
     revalidatePath('/admin/trabalhos');

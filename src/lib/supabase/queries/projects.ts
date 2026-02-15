@@ -1,6 +1,7 @@
 import { logAdminAudit } from '@/lib/admin/audit';
 import { requireAdminAccess } from '@/lib/admin/server-access';
 import { createClient } from '@/lib/supabase/server';
+import type { TablesInsert } from '@/lib/supabase.types';
 import type { DbProject, DbTag } from '@/types/admin';
 import type { SupabaseClient } from '@supabase/supabase-js';
 
@@ -91,7 +92,10 @@ export async function getProject(id: string) {
 }
 
 export async function upsertProject(
-  payload: Partial<DbProject> & { id?: string; tagIds?: string[] }
+  payload: TablesInsert<'portfolio_projects'> & {
+    id?: string;
+    tagIds?: string[];
+  }
 ) {
   const { supabase, user } = await requireAdminAccess();
 

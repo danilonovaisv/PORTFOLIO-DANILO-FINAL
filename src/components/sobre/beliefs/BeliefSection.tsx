@@ -109,10 +109,11 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
     <motion.section
       ref={containerRef}
       aria-label={text.replace(/\n/g, ' ')}
-      className={`relative isolate w-full h-screen flex overflow-hidden ${isMobile
-        ? 'items-end justify-start pb-32' // Mobile: espaço para texto fixed no footer
-        : 'items-center justify-start px-[5%] md:px-[7.5%] lg:px-[10%]'
-        }`}
+      className={`relative isolate w-full h-screen flex overflow-hidden ${
+        isMobile
+          ? 'items-end justify-start pb-32' // Mobile: espaço para texto fixed no footer
+          : 'items-center justify-start px-[5%] md:px-[7.5%] lg:px-[10%]'
+      }`}
     >
       {/* LAYER 0: Background Color (Decoupled from container) */}
       <div

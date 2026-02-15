@@ -1,6 +1,7 @@
 import { logAdminAudit } from '@/lib/admin/audit';
 import { requireAdminAccess } from '@/lib/admin/server-access';
 import { createClient } from '@/lib/supabase/server';
+import type { TablesInsert } from '@/lib/supabase.types';
 import type { DbTag } from '@/types/admin';
 
 export async function listTags() {
@@ -14,7 +15,7 @@ export async function listTags() {
   return data as DbTag[];
 }
 
-export async function upsertTag(payload: Partial<DbTag>) {
+export async function upsertTag(payload: TablesInsert<'portfolio_tags'>) {
   const { supabase, user } = await requireAdminAccess();
   const { data, error } = await supabase
     .from('portfolio_tags')

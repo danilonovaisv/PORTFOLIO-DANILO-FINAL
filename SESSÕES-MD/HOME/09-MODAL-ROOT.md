@@ -1,6 +1,7 @@
 # 09-MODAL-ROOT
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivos principais:
   - `src/components/portfolio/PortfolioModal.tsx`
   - `src/components/home/featured-projects/FeaturedProjectsRealtime.tsx`
@@ -15,9 +16,11 @@
   - Acoplado ao formato de `PortfolioProject`.
 
 ## 1. Objetivo da Página/Sessão
+
 Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mantendo contexto da navegação.
 
 ## 2. Estrutura de Conteúdo
+
 - Headings:
   - `h2` invisível (`sr-only`) dentro do diálogo com título do projeto.
 - Hierarquia semântica:
@@ -36,6 +39,7 @@ Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mante
   - Variável por projeto.
 
 ## 3. Identidade Visual
+
 - Cores aplicadas:
   - Superfície escura com contraste alto.
 - Gradientes:
@@ -50,6 +54,7 @@ Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mante
   - Consistente.
 
 ## 4. Interatividade & Animações
+
 - Uso de Framer Motion:
   - Backdrop e container animados.
 - Variants:
@@ -64,6 +69,7 @@ Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mante
   - Baixo/médio.
 
 ## 5. Responsividade
+
 - Desktop:
   - Modal central com largura máxima `max-w-5xl`.
 - Tablet:
@@ -80,6 +86,7 @@ Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mante
   - Baixo.
 
 ## 6. Acessibilidade & SEO
+
 - Estrutura semântica:
   - Muito boa para diálogo acessível.
 - ARIA:
@@ -98,6 +105,7 @@ Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mante
   - Modal não prejudica indexação principal.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Firebase:
   - Não usado.
 - Supabase:
@@ -112,6 +120,7 @@ Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mante
   - Não aplicado.
 
 ## 8. Considerações Técnicas
+
 - Performance:
   - Boa.
 - Bundle size:
@@ -131,7 +140,6 @@ Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mante
 
 ---
 
-
 ## 9. Componentes Interativos
 
 🎨 **Biblioteca de Componentes:**
@@ -144,6 +152,7 @@ Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mante
 | Menu Mobile | Independente do modal; recurso global | Closed/Open | Navegação global | Implementado (global) |
 
 🔄 **Estados e Transições:**
+
 - Hover: Ações internas do modal (botões/links) com feedback visual consistente.
 - Focus: Trap de foco ativo enquanto modal estiver aberto.
 - Loading: Conteúdo do modal pode demandar estado de carregamento assíncrono.
@@ -151,9 +160,11 @@ Permitir aprofundamento de projeto sem sair da HOME, reduzindo fricção e mante
 - Success: Fechamento restaura foco no gatilho original e mantém contexto da página.
 
 ## 10. Estrutura de Páginas e Navegação
+
 - Overlay transversal usado por sessões de projeto para detalhamento contextual.
 - Compatível com estratégia de modal por estado e evolução para rotas paralelas.
 
 ## 11. Informações Relevantes para Compreensão da Sessão
+
 - Elemento central para UX de exploração sem perda de contexto da HOME.
 - Necessário monitorar lock de scroll, restauração de foco e fechamento por teclado.

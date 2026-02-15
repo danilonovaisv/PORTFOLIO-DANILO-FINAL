@@ -20,7 +20,6 @@ export function isAdminUser(user: User | null | undefined): boolean {
     return true;
   }
 
-
   if (user.email) {
     const allowedEmails = parseAllowedEmails();
     if (allowedEmails.has(user.email.toLowerCase())) {

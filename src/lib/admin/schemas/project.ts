@@ -18,40 +18,23 @@ const slugSchema = z
     'Slug deve conter apenas letras minúsculas, números e hífen.'
   );
 
-const optionalYearField = z.preprocess(
-  (value) => {
-    if (value === '' || value === null || value === undefined) {
-      return undefined;
-    }
+const optionalYearField = z.preprocess((value) => {
+  if (value === '' || value === null || value === undefined) {
+    return undefined;
+  }
 
-    const parsed = typeof value === 'number' ? value : Number(value);
-    return Number.isNaN(parsed) ? value : parsed;
-  },
-  z
-    .number()
-    .int('Ano precisa ser inteiro.')
-    .min(1900, 'Ano inválido.')
-    .max(2100, 'Ano inválido.')
-    .optional()
-);
+  const parsed = typeof value === 'number' ? value : Number(value);
+  return Number.isNaN(parsed) ? value : parsed;
+}, z.number().int('Ano precisa ser inteiro.').min(1900, 'Ano inválido.').max(2100, 'Ano inválido.').optional());
 
-const nullableOptionalYearField = z.preprocess(
-  (value) => {
-    if (value === '' || value === null || value === undefined) {
-      return null;
-    }
+const nullableOptionalYearField = z.preprocess((value) => {
+  if (value === '' || value === null || value === undefined) {
+    return null;
+  }
 
-    const parsed = typeof value === 'number' ? value : Number(value);
-    return Number.isNaN(parsed) ? value : parsed;
-  },
-  z
-    .number()
-    .int('Ano precisa ser inteiro.')
-    .min(1900, 'Ano inválido.')
-    .max(2100, 'Ano inválido.')
-    .nullable()
-    .optional()
-);
+  const parsed = typeof value === 'number' ? value : Number(value);
+  return Number.isNaN(parsed) ? value : parsed;
+}, z.number().int('Ano precisa ser inteiro.').min(1900, 'Ano inválido.').max(2100, 'Ano inválido.').nullable().optional());
 
 const projectBaseSchema = z
   .object({
@@ -74,7 +57,11 @@ const projectBaseSchema = z
     featured_on_home: z.boolean().optional(),
     is_published: z.boolean().optional(),
     landing_page_id: z
-      .union([z.string().uuid('Landing page inválida.'), z.literal(''), z.null()])
+      .union([
+        z.string().uuid('Landing page inválida.'),
+        z.literal(''),
+        z.null(),
+      ])
       .optional(),
     tags: z.array(z.string().uuid('Tag inválida.')).optional(),
   })

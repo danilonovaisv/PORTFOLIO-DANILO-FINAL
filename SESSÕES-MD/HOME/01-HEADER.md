@@ -1,6 +1,7 @@
 # 01-HEADER
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivos principais:
   - `src/components/layout/Header.tsx`
   - `src/components/layout/header/SiteHeader.tsx`
@@ -25,9 +26,11 @@
   - Acoplamento médio com camada de animação mobile (hook extenso) e com runtime de assets.
 
 ## 1. Objetivo da Página/Sessão
+
 Garantir navegação global do portfólio com foco em transição fluida entre rotas e âncoras, mantendo identidade visual Ghost e suporte completo a desktop/mobile.
 
 ## 2. Estrutura de Conteúdo
+
 - Headings:
   - Não possui heading próprio, atua como navegação global (`nav`).
 - Hierarquia semântica:
@@ -47,6 +50,7 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
   - Baixa, orientada à orientação do usuário.
 
 ## 3. Identidade Visual
+
 - Cores aplicadas:
   - Fundo translúcido escuro + destaques em `#0048ff` e `#4fe6ff`.
 - Gradientes:
@@ -61,6 +65,7 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
   - Consistente com sistema global.
 
 ## 4. Interatividade & Animações
+
 - Uso de Framer Motion:
   - Presente no mobile (`MobileHeaderBar`, painel e botões).
 - Variants:
@@ -76,6 +81,7 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
   - Moderado no desktop por canvas R3F no header.
 
 ## 5. Responsividade
+
 - Desktop:
   - Header fixo com largura ampliada (`w-[calc(100%+5rem)]`).
 - Tablet:
@@ -92,6 +98,7 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
   - Baixo a médio por animação de entrada do header mobile.
 
 ## 6. Acessibilidade & SEO
+
 - Estrutura semântica:
   - `header`/`nav` corretos.
 - ARIA:
@@ -110,6 +117,7 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
   - Navegação limpa e indexável.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Firebase:
   - Não há uso direto na sessão.
 - Supabase:
@@ -124,6 +132,7 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
   - Não aplicado diretamente.
 
 ## 8. Considerações Técnicas
+
 - Performance:
   - Ponto de atenção no canvas do header desktop.
 - Bundle size:
@@ -144,7 +153,6 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
 
 ---
 
-
 ## 9. Componentes Interativos
 
 🎨 **Biblioteca de Componentes:**
@@ -157,6 +165,7 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
 | Menu Mobile | Menu colapsável com trap de foco e fechamento por Esc | Closed, Opening, Open, Closing | Clique, teclado, outside click, Esc | Implementado |
 
 🔄 **Estados e Transições:**
+
 - Hover: Links e gatilho de menu aplicam feedback visual sem deslocamento de layout.
 - Focus: Foco visível em links e botão do menu mobile com navegação por teclado.
 - Loading: Header renderiza sem bloquear paint; canvas decorativo em carga progressiva.
@@ -164,10 +173,12 @@ Garantir navegação global do portfólio com foco em transição fluida entre r
 - Success: Menu abre/fecha com transição fluida e restauração de foco.
 
 ## 10. Estrutura de Páginas e Navegação
+
 - Escopo global: navegação primária para `/`, `/sobre`, `/portfolio` e âncora `#contact`.
 - Entrada para menu mobile com foco em navegação por teclado e fechamento por `Esc`.
 - Dependência da configuração central de navegação (`src/config/navigation.ts`).
 
 ## 11. Informações Relevantes para Compreensão da Sessão
+
 - Referência visual esperada: `.context/HOME-PORTFOLIO-BLACK---GHOST.jpg`.
 - Ponto crítico arquitetural: evitar duplicidade de landmarks `<main>` entre layout raiz e client layout.

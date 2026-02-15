@@ -21,7 +21,9 @@ function getClientIp(request: NextRequest): string {
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
   const entries = ipRequestHistory.get(ip) ?? [];
-  const recent = entries.filter((timestamp) => now - timestamp < RATE_LIMIT_WINDOW_MS);
+  const recent = entries.filter(
+    (timestamp) => now - timestamp < RATE_LIMIT_WINDOW_MS
+  );
 
   if (recent.length >= RATE_LIMIT_MAX_REQUESTS) {
     ipRequestHistory.set(ip, recent);
@@ -86,7 +88,10 @@ export async function POST(request: NextRequest) {
 
   if (isRateLimited(ip)) {
     return NextResponse.json(
-      { ok: false, message: 'Muitas tentativas. Aguarde 1 minuto e tente novamente.' },
+      {
+        ok: false,
+        message: 'Muitas tentativas. Aguarde 1 minuto e tente novamente.',
+      },
       { status: 429 }
     );
   }
@@ -104,9 +109,15 @@ export async function POST(request: NextRequest) {
   const validationError = validatePayload(payload);
   if (validationError) {
     if (isJson) {
-      return NextResponse.json({ ok: false, message: validationError }, { status: 400 });
+      return NextResponse.json(
+        { ok: false, message: validationError },
+        { status: 400 }
+      );
     }
-    return NextResponse.redirect(new URL('/#contact?error=1', request.url), 303);
+    return NextResponse.redirect(
+      new URL('/#contact?error=1', request.url),
+      303
+    );
   }
 
   const normalizedPayload = {

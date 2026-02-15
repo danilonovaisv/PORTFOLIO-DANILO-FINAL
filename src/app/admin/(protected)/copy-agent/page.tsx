@@ -5,7 +5,10 @@ import { generateProjectCopy } from './actions';
 import { Loader2, Copy, Check, PenTool } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { FieldTooltip } from '@/components/admin/FieldTooltip';
-import { COPY_FIELD_LIMITS, MAX_REFERENCE_IMAGES } from '@/lib/admin/schemas/copy-agent';
+import {
+  COPY_FIELD_LIMITS,
+  MAX_REFERENCE_IMAGES,
+} from '@/lib/admin/schemas/copy-agent';
 
 const initialState = {
   success: false,
@@ -271,8 +274,9 @@ export default function CopyAgentPage() {
                     id="referenceImages-help"
                     className="text-xs text-slate-500"
                   >
-                    Envie até {MAX_REFERENCE_IMAGES} imagens (PNG, JPG, WEBP ou GIF, máximo de 8MB
-                    cada) para o agent considerar o visual na escrita.
+                    Envie até {MAX_REFERENCE_IMAGES} imagens (PNG, JPG, WEBP ou
+                    GIF, máximo de 8MB cada) para o agent considerar o visual na
+                    escrita.
                   </p>
                   {selectedImages.length > 0 && (
                     <ul className="rounded-lg border border-white/5 bg-slate-950/50 p-3 text-xs text-slate-400 space-y-1 max-h-32 overflow-y-auto">
