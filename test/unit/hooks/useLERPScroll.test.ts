@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 import { useLERPScroll } from '@/hooks/useLERPScroll';
-import { beforeEach, describe, expect, it, jest } from '@jest/globals';
+import { beforeEach, describe, expect, it, jest, afterEach } from '@jest/globals';
 
 describe('useLERPScroll', () => {
   let trackMock: HTMLElement;
@@ -12,8 +12,14 @@ describe('useLERPScroll', () => {
     galleryMock = document.createElement('div');
 
     // Mock layout properties
-    Object.defineProperty(trackMock, 'scrollHeight', { value: 2000, configurable: true });
-    Object.defineProperty(window, 'innerHeight', { value: 1000, configurable: true });
+    Object.defineProperty(trackMock, 'scrollHeight', {
+      value: 2000,
+      configurable: true,
+    });
+    Object.defineProperty(window, 'innerHeight', {
+      value: 1000,
+      configurable: true,
+    });
     Object.defineProperty(window, 'scrollY', { value: 0, writable: true });
 
     // Mock getBoundingClientRect
@@ -34,33 +40,103 @@ describe('useLERPScroll', () => {
       observe: jest.fn(),
       unobserve: jest.fn(),
       disconnect: jest.fn(),
-    }));
+    })) as unknown as typeof ResizeObserver;
 
-    // Mock requestAnimationFrame
-    jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
-      cb(0);
-      return 1;
-    });
+    // Spy on RAF
+    global.requestAnimationFrame = jest.fn(
+      (cb: FrameRequestCallback): number => {
+        // Execute callback immediately for test simplicity
+        cb(performance.now());
+        return 1;
+      }
+    ) as unknown as typeof requestAnimationFrame;
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it('calculates heights and updates styles on mount', () => {
+    const trackMock = document.createElement('div');
+    const galleryMock = document.createElement('div');
+
+    // Mock layout properties
+    Object.defineProperty(trackMock, 'scrollHeight', {
+      value: 2000,
+      configurable: true,
+    });
+    Object.defineProperty(window, 'innerHeight', {
+      value: 1000,
+      configurable: true,
+    });
+    Object.defineProperty(window, 'scrollY', { value: 0, writable: true });
+
+    // Mock getBoundingClientRect
+    trackMock.getBoundingClientRect = jest.fn(() => ({
+      top: 0,
+      bottom: 2000,
+      height: 2000,
+      left: 0,
+      right: 1000,
+      width: 1000,
+      x: 0,
+      y: 0,
+      toJSON: () => { },
+    }));
+
     const trackRef = { current: trackMock };
     const galleryRef = { current: galleryMock };
 
-    renderHook(() => useLERPScroll(trackRef, galleryRef, true));
+    renderHook(() =>
+      useLERPScroll(trackRef, galleryRef, true)
+    );
 
-    // Should set height based on scroll range
-    // stickyTopOffset (desktop: 96) + maxScroll (trackHeight - availableViewport)
-    // 2000 - (1000 - 96) = 2000 - 904 = 1096
-    // Total: 2000 + 96 = 2096 approx
-    expect(galleryMock.style.height).toContain('px');
+    // Initial calculation should happen
+    expect(galleryMock.style.height).toBe('2000px');
   });
 
   it('updates isSticky state based on scroll position', () => {
+    const trackMock = document.createElement('div');
+    const galleryMock = document.createElement('div');
+
+    // Mock layout properties
+    Object.defineProperty(trackMock, 'scrollHeight', {
+      value: 2000,
+      configurable: true,
+    });
+    Object.defineProperty(window, 'innerHeight', {
+      value: 1000,
+      configurable: true,
+    });
+    // Start scrolled
+    Object.defineProperty(window, 'scrollY', { value: 0, writable: true });
+
+    // Mock getBoundingClientRect
+    trackMock.getBoundingClientRect = jest.fn(() => ({
+      top: 500, // Not at top yet
+      bottom: 2500,
+      height: 2000,
+      left: 0,
+      right: 1000,
+      width: 1000,
+      x: 0,
+      y: 500,
+      toJSON: () => { },
+    }));
+
+    // Mock ResizeObserver
+    global.ResizeObserver = jest.fn().mockImplementation(() => ({
+      observe: jest.fn(),
+      unobserve: jest.fn(),
+      disconnect: jest.fn(),
+    })) as unknown as typeof ResizeObserver;
+
     const trackRef = { current: trackMock };
     const galleryRef = { current: galleryMock };
 
-    const { result, rerender } = renderHook(() => useLERPScroll(trackRef, galleryRef, true));
+    const { result } = renderHook(() =>
+      useLERPScroll(trackRef, galleryRef, true)
+    );
 
     // Simulate scroll past heroOffset
     window.scrollY = 600;
@@ -77,7 +153,9 @@ describe('useLERPScroll', () => {
     const trackRef = { current: trackMock };
     const galleryRef = { current: galleryMock };
 
-    const { unmount } = renderHook(() => useLERPScroll(trackRef, galleryRef, true));
+    const { unmount } = renderHook(() =>
+      useLERPScroll(trackRef, galleryRef, true)
+    );
 
     unmount();
 

@@ -81,7 +81,7 @@ describe('usePerformanceAdaptive', () => {
     let now = 1000;
     global.performance.now = jest.fn(() => now);
 
-    const { result } = renderHook(() => usePerformanceAdaptive());
+    renderHook(() => usePerformanceAdaptive());
 
     // Simulate low FPS (only 10 frames in 1 second)
     act(() => {

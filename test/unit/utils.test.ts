@@ -1,22 +1,37 @@
-import { extractYouTubeId, getAssetUrl, getGhostAssetUrl, isVideo, isYouTubeUrl, ASSET_PLACEHOLDER } from '@/lib/utils';
+import {
+  extractYouTubeId,
+  getAssetUrl,
+  getGhostAssetUrl,
+  isVideo,
+  isYouTubeUrl,
+  ASSET_PLACEHOLDER,
+} from '@/lib/utils';
 import { SUPABASE_STORAGE_URL } from '@/config/brand';
 
 describe('YouTube Utilities', () => {
   describe('extractYouTubeId', () => {
     it('extracts ID from standard watch URL', () => {
-      expect(extractYouTubeId('https://www.youtube.com/watch?v=dQw4w9WgXcQ')).toBe('dQw4w9WgXcQ');
+      expect(
+        extractYouTubeId('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+      ).toBe('dQw4w9WgXcQ');
     });
 
     it('extracts ID from short URL (youtu.be)', () => {
-      expect(extractYouTubeId('https://youtu.be/dQw4w9WgXcQ')).toBe('dQw4w9WgXcQ');
+      expect(extractYouTubeId('https://youtu.be/dQw4w9WgXcQ')).toBe(
+        'dQw4w9WgXcQ'
+      );
     });
 
     it('extracts ID from embed URL', () => {
-      expect(extractYouTubeId('https://www.youtube.com/embed/dQw4w9WgXcQ')).toBe('dQw4w9WgXcQ');
+      expect(
+        extractYouTubeId('https://www.youtube.com/embed/dQw4w9WgXcQ')
+      ).toBe('dQw4w9WgXcQ');
     });
 
     it('extracts ID from shorts URL', () => {
-      expect(extractYouTubeId('https://www.youtube.com/shorts/dQw4w9WgXcQ')).toBe('dQw4w9WgXcQ');
+      expect(
+        extractYouTubeId('https://www.youtube.com/shorts/dQw4w9WgXcQ')
+      ).toBe('dQw4w9WgXcQ');
     });
 
     it('handles direct 11-char ID', () => {
@@ -63,7 +78,9 @@ describe('Asset Utilities', () => {
 
     it('removes redundant storage paths during normalization', () => {
       const complexPath = 'storage/v1/object/public/test/image.png';
-      expect(getAssetUrl(complexPath)).toBe(`${SUPABASE_STORAGE_URL}/test/image.png`);
+      expect(getAssetUrl(complexPath)).toBe(
+        `${SUPABASE_STORAGE_URL}/test/image.png`
+      );
     });
   });
 

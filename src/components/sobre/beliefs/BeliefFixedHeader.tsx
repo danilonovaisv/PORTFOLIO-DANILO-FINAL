@@ -44,9 +44,14 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
   const y = useTransform(scrollProgress, [0.72, 0.9], [0, -18], {
     ease: ghostEase,
   });
-  const filter = useTransform(scrollProgress, [0.72, 0.9], ['blur(0px)', 'blur(6px)'], {
-    ease: ghostEase,
-  });
+  const filter = useTransform(
+    scrollProgress,
+    [0.72, 0.9],
+    ['blur(0px)', 'blur(6px)'],
+    {
+      ease: ghostEase,
+    }
+  );
 
   return (
     <motion.header

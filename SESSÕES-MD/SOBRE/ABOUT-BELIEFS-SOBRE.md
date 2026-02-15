@@ -11,7 +11,7 @@ Sessão manifesto emocional que revela o “porquê” do Ghost Design.
 Objetivo: gerar vínculo, presença e diferenciação conceitual.
 
 Altura base desktop: ~140vh  
-Altura mobile: fluida (>120vh)  
+Altura mobile: fluida (>120vh)
 
 Fundo base inicial: #040013
 
@@ -22,6 +22,7 @@ Fundo base inicial: #040013
 A sessão é estruturada em camadas independentes para controle de animação e reset.
 
 ## Camada 0 — Background Layer
+
 - Responsável por troca de cores.
 - Fica abaixo de tudo.
 - Controlada via scroll progress.
@@ -29,32 +30,35 @@ A sessão é estruturada em camadas independentes para controle de animação e 
 - Não deve causar repaint brusco.
 
 ## Camada 1 — Background Overlay Transition Layer
+
 - Camada auxiliar para transição crossfade entre cores.
 - Evita flicker.
 - Opacity animada sincronizada com entrada de frases.
 
 ## Camada 2 — BeliefFixedHeader (Sticky)
+
 - Z-index acima do BG.
 - Independente das trocas de cor.
 - Não participa do morph final.
 
 ## Camada 3 — Texto Rotativo
+
 - Vive dentro do container principal.
 - Controla o timing da troca de cores.
 - É o gatilho de sincronização de fundo.
 
 ## Camada 4 — Manifesto Final (Morphing Layer)
+
 - Aparece no clímax.
 - Fica acima do Ghost.
 - Controla intensificação do ghost.
 
 ## Camada 5 — Ghost 3D (Canvas Layer)
+
 - Z-index acima do BG, e todos os textos.
 - Alinhado ao centro do texto (não da viewport).
 - Nunca absoluto na viewport.
 - Obedece o container pai.
-
-
 
 ---
 
@@ -72,7 +76,7 @@ Ordem obrigatória de cores:
 6. bg-pinkDetails
 7. bg-bluePrimary
 
-A troca de fundo **não é uma transição simples de cor**, mas um **sistema de interpolação controlada por scroll progress**, com duas camadas (`Camada 0` + `Camada 1`) trabalhando em conjunto para criar um efeito de **absorção emocional**, onde a cor *muda enquanto o texto entra*, não depois.
+A troca de fundo **não é uma transição simples de cor**, mas um **sistema de interpolação controlada por scroll progress**, com duas camadas (`Camada 0` + `Camada 1`) trabalhando em conjunto para criar um efeito de **absorção emocional**, onde a cor _muda enquanto o texto entra_, não depois.
 
 > ✅ **Tipo de animação**:  
 > **Interpolação contínua de cor + crossfade overlay**  
@@ -83,12 +87,13 @@ A troca de fundo **não é uma transição simples de cor**, mas um **sistema de
 ## 🔍 **Como Funciona: Passo a Passo Técnico**
 
 ### 1. **Estrutura de Camadas (obrigatória)**
-| Camada | Papel | Animação |
-|--------|-------|----------|
-| **Camada 0** (`bg-layer`) | Fundo base — recebe a cor final interpolada | `backgroundColor` animado via `gsap.to()` ou `Web Animations API` |
-| **Camada 1** (`overlay-layer`) | Camada de transição — evita flicker e suaviza a mudança | `opacity: 0 → 1 → 0` sincronizada com o bloco de frase |
 
-> 📌 A *Camada 1* é essencial: sem ela, a troca de cor pode causar *repaint* visível ou *jank* em dispositivos médios.
+| Camada                         | Papel                                                   | Animação                                                          |
+| ------------------------------ | ------------------------------------------------------- | ----------------------------------------------------------------- |
+| **Camada 0** (`bg-layer`)      | Fundo base — recebe a cor final interpolada             | `backgroundColor` animado via `gsap.to()` ou `Web Animations API` |
+| **Camada 1** (`overlay-layer`) | Camada de transição — evita flicker e suaviza a mudança | `opacity: 0 → 1 → 0` sincronizada com o bloco de frase            |
+
+> 📌 A _Camada 1_ é essencial: sem ela, a troca de cor pode causar _repaint_ visível ou _jank_ em dispositivos médios.
 
 ---
 
@@ -97,6 +102,7 @@ A troca de fundo **não é uma transição simples de cor**, mas um **sistema de
 A cor não muda de forma discreta (ex: `#253EFF` → `#8A00FF`), mas sim por **interpolação linear entre duas cores**, controlada pelo `scrollYProgress`.
 
 #### Fórmula geral:
+
 ```ts
 const t = clamp((scrollProgress - start) / duration, 0, 1); // 0 → 1 dentro do bloco
 const color = lerp(colorPrev, colorNext, ease(t));
@@ -108,6 +114,7 @@ const color = lerp(colorPrev, colorNext, ease(t));
 - `lerp(a, b, t)`: interpolação RGB ou HSL (recomenda-se **HSL** para transições naturais)
 
 #### Exemplo prático (entre frase 1 e 2):
+
 - `scrollProgress = 0.14` → começa transição de `bluePrimary` → `purpleDetails`
 - `scrollProgress = 0.196` (≈ 40% do bloco) → cor está em ~60% da interpolação → **cor já dominante**
 - `scrollProgress = 0.28` → transição completa → `bg-purpleDetails` estabilizado
@@ -121,24 +128,24 @@ const color = lerp(colorPrev, colorNext, ease(t));
 
 A **entrada do texto é o gatilho**, não o resultado.
 
-| Momento | Texto | Cor (BG) |
-|---------|-------|----------|
-| `t = 0.00` | `"Um vídeo..."` inicia fade-in (`opacity: 0 → 1`) | BG inicia interpolação `#040013 → #253EFF` |
-| `t = 0.056` (~40% da frase) | Texto em 40% visível | Cor em ~60% interpolada |
-| `t = 0.14` | Texto 100% visível | Cor 100% estabilizada (`#253EFF`) |
-| `t = 0.14+ε` | Texto 1 começa a sair | Cor 2 já inicia interpolação (`#253EFF → #8A00FF`) |
+| Momento                     | Texto                                             | Cor (BG)                                           |
+| --------------------------- | ------------------------------------------------- | -------------------------------------------------- |
+| `t = 0.00`                  | `"Um vídeo..."` inicia fade-in (`opacity: 0 → 1`) | BG inicia interpolação `#040013 → #253EFF`         |
+| `t = 0.056` (~40% da frase) | Texto em 40% visível                              | Cor em ~60% interpolada                            |
+| `t = 0.14`                  | Texto 100% visível                                | Cor 100% estabilizada (`#253EFF`)                  |
+| `t = 0.14+ε`                | Texto 1 começa a sair                             | Cor 2 já inicia interpolação (`#253EFF → #8A00FF`) |
 
-Essa sincronia é feita via **timeline única no GSAP** (ou `ScrollTrigger` com `scrub: 1`), onde ambos os `to()` compartilham o mesmo *offset* de tempo.
+Essa sincronia é feita via **timeline única no GSAP** (ou `ScrollTrigger` com `scrub: 1`), onde ambos os `to()` compartilham o mesmo _offset_ de tempo.
 
 ---
 
 ### 4. **Por que usar duas camadas? (Camada 0 + Camada 1)**
 
-| Problema | Solução |
-|---------|---------|
-| Transição direta de `backgroundColor` causa *flash* em Safari/Android | Camada 1 (`overlay`) faz crossfade suave: `opacity: 0 → 1` durante a transição, ocultando o ponto de corte |
-| Mudança abrupta quebra o “efeito de absorção” | Overlay com `mix-blend-mode: multiply` ou `normal` + `opacity` cria transparência gradual |
-| Scroll reverso (para cima) causa *jump* se não for bidirecional | Com `scrub: 1`, a interpolação é reversível: `scrollProgress` diminuindo → cor volta ao anterior |
+| Problema                                                              | Solução                                                                                                    |
+| --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Transição direta de `backgroundColor` causa _flash_ em Safari/Android | Camada 1 (`overlay`) faz crossfade suave: `opacity: 0 → 1` durante a transição, ocultando o ponto de corte |
+| Mudança abrupta quebra o “efeito de absorção”                         | Overlay com `mix-blend-mode: multiply` ou `normal` + `opacity` cria transparência gradual                  |
+| Scroll reverso (para cima) causa _jump_ se não for bidirecional       | Com `scrub: 1`, a interpolação é reversível: `scrollProgress` diminuindo → cor volta ao anterior           |
 
 > 💡 Dica de implementação:  
 > Use `will-change: background-color` na Camada 0 e `contain: paint` para evitar repaints desnecessários.
@@ -149,7 +156,15 @@ Essa sincronia é feita via **timeline única no GSAP** (ou `ScrollTrigger` com 
 
 ```ts
 // Função de interpolação HSL (evita tons estranhos em RGB)
-const lerpHsl = (h1: number, s1: number, l1: number, h2: number, s2: number, l2: number, t: number) => {
+const lerpHsl = (
+  h1: number,
+  s1: number,
+  l1: number,
+  h2: number,
+  s2: number,
+  l2: number,
+  t: number
+) => {
   const h = ((h2 - h1 + 360) % 360) * t + h1;
   const s = s1 * (1 - t) + s2 * t;
   const l = l1 * (1 - t) + l2 * t;
@@ -157,30 +172,37 @@ const lerpHsl = (h1: number, s1: number, l1: number, h2: number, s2: number, l2:
 };
 
 // Na timeline:
-tl.to(bgLayer, {
-  backgroundColor: () => lerpHsl(
-    230, 85, 30,   // bluePrimary: hsl(230,85%,30%)
-    270, 80, 40,   // purpleDetails: hsl(270,80%,40%)
-    progressInBlock // t ∈ [0,1]
-  ),
-  duration: 0.14,
-  ease: "power2.inOut"
-}, start);
+tl.to(
+  bgLayer,
+  {
+    backgroundColor: () =>
+      lerpHsl(
+        230,
+        85,
+        30, // bluePrimary: hsl(230,85%,30%)
+        270,
+        80,
+        40, // purpleDetails: hsl(270,80%,40%)
+        progressInBlock // t ∈ [0,1]
+      ),
+    duration: 0.14,
+    ease: 'power2.inOut',
+  },
+  start
+);
 ```
-
 
 ## ✅ Conclusão Técnica
 
 A animação de troca de BG é:
+
 - **Controlada por scroll progress** (não por timer),
 - **Sincronizada com o texto em tempo real** (não após),
 - **Implementada com duas camadas** para evitar flicker e garantir suavidade,
 - **Bidirecional** (funciona ao subir/descer),
 - **Baseada em interpolação HSL + easing suave** para fidelidade emocional.
 
-É um sistema *reactivo*, não *temporal* — e isso é o que torna o Ghost Design único: **a interface respira com o usuário**, não contra ele.
-
-
+É um sistema _reactivo_, não _temporal_ — e isso é o que torna o Ghost Design único: **a interface respira com o usuário**, não contra ele.
 
 ### Importante
 
@@ -212,7 +234,7 @@ Todas as animações devem funcionar:
 Quando a sessão:
 
 - Sai completamente da viewport (IntersectionObserver threshold 0)
-OU
+  OU
 - scrollYProgress retorna a 0
 
 Todos os estados devem resetar:
@@ -233,27 +255,32 @@ Todos os estados devem resetar:
 # 7. GHOST 3D — COMPORTAMENTO COMPLETO
 
 ## Estado Inicial
+
 - Scale: 1
 - Rotação leve Y
 - Flutuação base
 - Sem intensificação
 
 ## Durante Frases
+
 - Follow cursor (desktop)
 - Scroll influencia rotação Y
 - Leve deslocamento Z
 
 ## Após 0.8 scroll progress
+
 - Scale: 1 → 1.1
 - Wobble intensifica
 - Resposta ao scroll aumenta
 
 ## No Manifesto Final
+
 - Centraliza horizontal e verticalmente
 - Intensidade máxima
 - Pequeno avanço no eixo Z
 
 ## Ao Sair da Sessão
+
 - Tudo retorna ao estado inicial
 
 ---
@@ -312,7 +339,3 @@ Ghost intensifica no momento exato em que "GHOST" completa o morph.
 - Canvas aria-label
 - Sem focus trap
 - Contraste AA/AAA
-
-
-
-
