@@ -15,18 +15,39 @@ interface ProjectsGalleryProps {
   projects?: PortfolioProject[];
   onProjectSelect?: (_project: PortfolioProject) => void;
   onOpenProject?: (_project: PortfolioProject) => void;
+  initialCategory?: string;
 }
 
 const CATEGORY_PILLARS = [
-  { id: 'all', label: 'Tudo' },
   {
     id: 'brand-campaigns',
     label: 'Brand & Campaigns',
     categories: ['branding', 'campanha', 'packaging', 'institucional'] as ProjectCategory[],
   },
-  { id: 'videos-motions', label: 'Videos & Motion', categories: ['motion'] as ProjectCategory[] },
-  { id: 'web-tech', label: 'Web & Tech', categories: ['web'] as ProjectCategory[] },
+  { id: 'videos-motions', label: 'Videos & Motions', categories: ['motion'] as ProjectCategory[] },
+  {
+    id: 'web-tech',
+    label: 'Web Campaigns, Websites & Tech',
+    categories: ['web', 'Landing Page'] as ProjectCategory[],
+  },
 ] as const;
+
+function mapCategoryToPillar(category?: string) {
+  const normalized = category?.trim().toLowerCase();
+  if (!normalized) return 'brand-campaigns';
+  if (normalized === 'motion' || normalized === 'videos-motions') {
+    return 'videos-motions';
+  }
+  if (
+    normalized === 'web' ||
+    normalized === 'web-tech' ||
+    normalized === 'websites-tech' ||
+    normalized === 'websites-webcampaigns-tech'
+  ) {
+    return 'web-tech';
+  }
+  return 'brand-campaigns';
+}
 
 /**
  * ProjectsGallery - Ghost Era v2.2
@@ -36,8 +57,11 @@ export const ProjectsGallery = ({
   projects = [],
   onProjectSelect,
   onOpenProject,
+  initialCategory,
 }: ProjectsGalleryProps) => {
-  const [activeFilter, setActiveFilter] = useState<string>('all');
+  const [activeFilter, setActiveFilter] = useState<string>(
+    mapCategoryToPillar(initialCategory)
+  );
   const trackRef = useRef<HTMLDivElement>(null);
   const galleryWrapperRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useMotionGate();
@@ -45,11 +69,10 @@ export const ProjectsGallery = ({
 
   // Filter logic
   const filteredProjects = useMemo(() => {
-    if (activeFilter === 'all') return projects;
     const pillar = CATEGORY_PILLARS.find((p) => p.id === activeFilter);
     if (!pillar || !('categories' in pillar)) return projects;
     return projects.filter((p) => pillar.categories.includes(p.category));
-  }, [projects, activeFilter]);
+  }, [activeFilter, projects]);
 
   // LERP only for larger sets to avoid end-of-list distortion in short galleries.
   const useLerp = !prefersReducedMotion && !isMobile && filteredProjects.length > 6;

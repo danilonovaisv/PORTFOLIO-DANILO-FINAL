@@ -116,6 +116,9 @@ importers:
       firebase-functions:
         specifier: ^7.0.5
         version: 7.0.5(firebase-admin@13.6.1(encoding@0.1.13))(graphql@16.12.0)
+      fix:
+        specifier: ^0.0.6
+        version: 0.0.6
       framer-motion:
         specifier: ^12.34.0
         version: 12.34.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -5504,6 +5507,10 @@ packages:
   firebase@12.9.0:
     resolution: {integrity: sha512-CwwTYoqZg6KxygPOaaJqIc4aoLvo0RCRrXoln9GoxLE8QyAwTydBaSLGVlR4WPcuOgN3OEL0tJLT1H4IU/dv7w==}
 
+  fix@0.0.6:
+    resolution: {integrity: sha512-UQ+8m0GnIakgpY+92a9y+pYoX3Y6eaW7WNTkPolQ7r58Fjzq7NhyRLMrZ6J6U1u4y7H7APugjRmZ+i6CAn4+Dg==}
+    engines: {node: '>=0.4.8'}
+
   flat-cache@4.0.1:
     resolution: {integrity: sha512-f7ccFPK3SXFHpx15UIGyRJ/FJQctuKZ0zVuN3frBo4HnK3cay9VEW0R6yPYFHC0AgqhukPzKjq22t5DmAyqGyw==}
     engines: {node: '>=16'}
@@ -7810,6 +7817,10 @@ packages:
     engines: {node: '>=0.10'}
     hasBin: true
 
+  pipe@0.0.2:
+    resolution: {integrity: sha512-67s0/X7rv2PX1sl64FQqC0qQuSpd1tv8Wh6c+U1lprj6Q7NxDYulCxZTbVbDvc/HSpZLYh7Oo821xReXSCZikQ==}
+    engines: {node: '>=0.4.8'}
+
   pirates@4.0.7:
     resolution: {integrity: sha512-TfySrs/5nm8fQJDcBDuUng3VOUKsd7S+zqvbOTiGXHfxX4wK31ard+hoNuvkicM/2YFzlpDgABOevKSsB4G/FA==}
     engines: {node: '>= 6'}
@@ -8990,6 +9001,12 @@ packages:
   unbox-primitive@1.1.0:
     resolution: {integrity: sha512-nWJ91DjeOkej/TA8pXQ3myruKpKEYgqvpw9lz4OPHj/NWFNluYrjbz9j01CJ8yKQd2g4jFoOkINCTW2I5LEEyw==}
     engines: {node: '>= 0.4'}
+
+  underscore.string@1.1.4:
+    resolution: {integrity: sha512-WsF8NWzIbTvxUaSOpSLq+AiO0tzweXdWQZ4w9Op8S/1BT9Fh7hCS7bfrF17vZu9kJg3pcqO+8WXfQSr1ah0f2g==}
+
+  underscore@1.1.6:
+    resolution: {integrity: sha512-aqSzrO92Cjmeo8G7F49+ZHWBo3IJpjpsUZZaqfOHJGN61flbpLxQw/sP91p4kf/2+nkFrG6AG2WHlJh6RCf+/g==}
 
   undici-types@6.21.0:
     resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
@@ -15778,6 +15795,12 @@ snapshots:
     transitivePeerDependencies:
       - '@react-native-async-storage/async-storage'
 
+  fix@0.0.6:
+    dependencies:
+      pipe: 0.0.2
+      underscore: 1.1.6
+      underscore.string: 1.1.4
+
   flat-cache@4.0.1:
     dependencies:
       flatted: 3.3.3
@@ -18475,6 +18498,8 @@ snapshots:
 
   pidtree@0.6.0: {}
 
+  pipe@0.0.2: {}
+
   pirates@4.0.7: {}
 
   pkce-challenge@5.0.1: {}
@@ -19916,6 +19941,12 @@ snapshots:
       has-bigints: 1.1.0
       has-symbols: 1.1.0
       which-boxed-primitive: 1.1.1
+
+  underscore.string@1.1.4:
+    dependencies:
+      underscore: 1.1.6
+
+  underscore@1.1.6: {}
 
   undici-types@6.21.0: {}
 

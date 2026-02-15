@@ -1,60 +1,43 @@
 'use server';
 
 import OpenAI from 'openai';
-import { z } from 'zod';
+import { logAdminAudit } from '@/lib/admin/audit';
+import { requireAdminAccess } from '@/lib/admin/server-access';
+import {
+  copyInputSchema,
+  type CopyInput,
+  validateCopyReferenceImages,
+} from '@/lib/admin/schemas/copy-agent';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',
 });
 
-const ALLOWED_REFERENCE_IMAGE_TYPES = new Set([
-  'image/jpeg',
-  'image/png',
-  'image/webp',
-  'image/gif',
-]);
-const MAX_REFERENCE_IMAGES = 4;
-const MAX_REFERENCE_IMAGE_SIZE_BYTES = 8 * 1024 * 1024;
-const MAX_TOTAL_REFERENCE_IMAGES_BYTES = 32 * 1024 * 1024; // matches serverActions limit
-
-const copyInputSchema = z.object({
-  projectName: z
-    .string()
-    .min(2, 'Informe o nome do projeto.')
-    .max(120, 'Use no máximo 120 caracteres.'),
-  clientName: z
-    .string()
-    .min(2, 'Informe o cliente.')
-    .max(120, 'Use no máximo 120 caracteres.'),
-  objective: z
-    .string()
-    .min(12, 'Descreva o objetivo do projeto com mais contexto.')
-    .max(600, 'Use no máximo 600 caracteres.'),
-  targetAudience: z
-    .string()
-    .min(4, 'Informe o público-alvo.')
-    .max(300, 'Use no máximo 300 caracteres.'),
-  visualConcept: z
-    .string()
-    .min(12, 'Descreva o conceito visual principal.')
-    .max(600, 'Use no máximo 600 caracteres.'),
-  keyChallenges: z
-    .string()
-    .min(12, 'Liste os principais desafios criativos/técnicos.')
-    .max(600, 'Use no máximo 600 caracteres.'),
-  deliverables: z.string().max(300, 'Use no máximo 300 caracteres.').optional(),
-  toneOfVoice: z.string().max(180, 'Use no máximo 180 caracteres.').optional(),
-});
-
-type CopyInput = z.infer<typeof copyInputSchema>;
-
 export type CopyAgentState = {
   success: boolean;
   content?: string;
   error?: string;
+  notice?: string;
   fieldErrors?: Partial<Record<keyof CopyInput, string>>;
 };
+
+function buildFallbackCopy(context: CopyInput): string {
+  return `## 1. Abertura do Projeto
+${context.projectName} nasce para responder a um desafio concreto de posicionamento para ${context.clientName}. A direção criativa foi estruturada para sustentar presença de marca com clareza e consistência.
+
+## 2. Conceito e Direção Criativa
+O objetivo central foi ${context.objective}. A narrativa visual foi orientada para ${context.targetAudience}, priorizando decisão estratégica e leitura imediata em diferentes contextos de uso.
+
+## 3. Sistema Visual e Lógica de Design
+O sistema foi construído a partir de ${context.visualConcept}. As escolhas reforçam coerência entre forma e mensagem, mantendo flexibilidade para evolução sem perder assinatura.
+
+## 4. Aplicações e Experiência
+Na execução, os principais desafios foram ${context.keyChallenges}. Os entregáveis ${context.deliverables ? `(${context.deliverables})` : ''} foram pensados como um ecossistema integrado, não peças isoladas.
+
+## 5. Fechamento
+Resultado orientado por direção, não por excesso. Um projeto desenhado para permanecer relevante com consistência editorial e intenção clara.${context.toneOfVoice ? `\n\n_Tom aplicado: ${context.toneOfVoice}_` : ''}`;
+}
 
 /**
  * PORTFOLIO CLIENT COPY AGENT
@@ -64,6 +47,20 @@ export async function generateProjectCopy(
   _prevState: CopyAgentState,
   formData: FormData
 ): Promise<CopyAgentState> {
+  let supabase: Awaited<ReturnType<typeof requireAdminAccess>>['supabase'];
+  let user: Awaited<ReturnType<typeof requireAdminAccess>>['user'];
+  try {
+    const access = await requireAdminAccess();
+    supabase = access.supabase;
+    user = access.user;
+  } catch {
+    return {
+      success: false,
+      error: 'Sessão administrativa inválida. Faça login novamente.',
+      fieldErrors: {},
+    };
+  }
+
   const rawInput: CopyInput = {
     projectName: (formData.get('projectName') as string | null)?.trim() || '',
     clientName: (formData.get('clientName') as string | null)?.trim() || '',
@@ -105,47 +102,35 @@ export async function generateProjectCopy(
   }
 
   const context = parsedInput.data;
-
-  if (referenceImages.length > MAX_REFERENCE_IMAGES) {
+  const imageValidationError = validateCopyReferenceImages(referenceImages);
+  if (imageValidationError) {
     return {
       success: false,
-      error: `Envie no máximo ${MAX_REFERENCE_IMAGES} imagens de referência.`,
-      fieldErrors: {},
-    };
-  }
-
-  for (const image of referenceImages) {
-    if (!ALLOWED_REFERENCE_IMAGE_TYPES.has(image.type)) {
-      return {
-        success: false,
-        error: `Formato não suportado: ${image.name}. Use PNG, JPG, WEBP ou GIF.`,
-        fieldErrors: {},
-      };
-    }
-
-    if (image.size > MAX_REFERENCE_IMAGE_SIZE_BYTES) {
-      return {
-        success: false,
-        error: `A imagem "${image.name}" excede 8MB. Reduza o arquivo e tente novamente.`,
-        fieldErrors: {},
-      };
-    }
-  }
-
-  const totalSize = referenceImages.reduce((acc, image) => acc + image.size, 0);
-  if (totalSize > MAX_TOTAL_REFERENCE_IMAGES_BYTES) {
-    return {
-      success: false,
-      error:
-        'Tamanho total das imagens excede 32MB. Envie menos arquivos ou comprima.',
+      error: imageValidationError,
       fieldErrors: {},
     };
   }
 
   if (!process.env.OPENAI_API_KEY) {
+    const fallbackContent = buildFallbackCopy(context);
+
+    await logAdminAudit(supabase, user, {
+      action: 'copy.generate',
+      resource: 'admin_copy_agent',
+      status: 'error',
+      errorCode: 'missing_openai_key',
+      errorMessage: 'OPENAI_API_KEY ausente',
+      metadata: {
+        fallbackApplied: true,
+        referenceCount: referenceImages.length,
+      },
+    });
+
     return {
-      success: false,
-      error: 'Chave da API OpenAI não configurada.',
+      success: true,
+      content: fallbackContent,
+      notice:
+        'IA indisponível no momento. Foi gerado um rascunho base editável para não bloquear o fluxo.',
       fieldErrors: {},
     };
   }
@@ -298,16 +283,44 @@ The reader should finish the page feeling that the work was not made to impress 
 
     const content = response.choices[0]?.message?.content || '';
 
+    await logAdminAudit(supabase, user, {
+      action: 'copy.generate',
+      resource: 'admin_copy_agent',
+      status: 'success',
+      metadata: {
+        model: 'gpt-4o',
+        referenceCount: referenceImages.length,
+        fallbackApplied: false,
+      },
+    });
+
     return { success: true, content, fieldErrors: {} };
   } catch (error: unknown) {
-    console.error('OpenAI API Error:', error);
-    const errorMessage =
-      error instanceof Error
-        ? error.message
-        : 'Erro ao gerar texto. Tente novamente.';
+    console.error('[Admin Copy Agent] OpenAI API Error', {
+      error: error instanceof Error ? error.message : 'unknown',
+      referenceCount: referenceImages.length,
+      projectName: context.projectName,
+    });
+
+    await logAdminAudit(supabase, user, {
+      action: 'copy.generate',
+      resource: 'admin_copy_agent',
+      status: 'error',
+      errorCode: 'openai_error',
+      errorMessage:
+        error instanceof Error ? error.message : 'Erro desconhecido ao gerar copy.',
+      metadata: {
+        fallbackApplied: true,
+        referenceCount: referenceImages.length,
+      },
+    });
+
+    const fallbackContent = buildFallbackCopy(context);
     return {
-      success: false,
-      error: errorMessage,
+      success: true,
+      content: fallbackContent,
+      notice:
+        'A geração com IA falhou nesta tentativa. Entregamos um rascunho base para edição imediata.',
       fieldErrors: {},
     };
   }

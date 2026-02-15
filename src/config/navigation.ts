@@ -18,10 +18,10 @@ export const NAVIGATION = {
   footer: {
     copyright: '© 2025 Danilo Novais Vilela — todos os direitos reservados',
     links: [
-      { label: 'home', href: '#hero' },
+      { label: 'home', href: '/' },
       { label: 'sobre', href: '/sobre' },
       { label: 'portfólio', href: '/portfolio' },
-      { label: 'contato', href: '#contact' },
+      { label: 'contato', href: '/#contact' },
       { label: 'privacidade', href: '/privacidade' },
       { label: 'privacy policy', href: '/privacy-policy' },
     ],

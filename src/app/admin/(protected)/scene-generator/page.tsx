@@ -2,18 +2,20 @@
 
 import {
   useActionState,
+  useEffect,
   useRef,
   useState,
   type ChangeEvent,
   type DragEvent,
 } from 'react';
-import { generateAdScenes } from './actions';
+import { generateAdScenes, getSceneModelCapabilities } from './actions';
 import {
   AI_MODELS,
   OUTPUT_RATIO_PRESETS,
   normalizeAIModels,
   type OutputRatio,
 } from './types';
+import { MAX_REFERENCE_IMAGES } from '@/lib/admin/schemas/scene-generator';
 import {
   Loader2,
   ImageIcon,
@@ -47,15 +49,42 @@ export default function SceneGeneratorPage() {
   const [batchSize, setBatchSize] = useState(3);
   const [outputRatio, setOutputRatio] = useState<OutputRatio>('16:9');
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [modelOptions, setModelOptions] = useState(() =>
+    normalizeAIModels(AI_MODELS)
+  );
+  const [isCapabilitiesLoading, setIsCapabilitiesLoading] = useState(true);
 
-  const modelOptions = normalizeAIModels(AI_MODELS);
+  useEffect(() => {
+    let mounted = true;
+
+    const loadCapabilities = async () => {
+      try {
+        const capabilities = await getSceneModelCapabilities();
+        if (!mounted) return;
+        setModelOptions(normalizeAIModels(capabilities));
+      } catch {
+        if (!mounted) return;
+        setModelOptions(normalizeAIModels(AI_MODELS));
+      } finally {
+        if (mounted) {
+          setIsCapabilitiesLoading(false);
+        }
+      }
+    };
+
+    void loadCapabilities();
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   const defaultModelId =
     modelOptions.find((model) => model.id === 'dall-e-3' && model.available)
       ?.id ?? modelOptions.find((model) => model.available)?.id;
 
   const handleFilesSelection = (files: FileList | null) => {
     if (!files) return;
-    setSelectedImages(Array.from(files).slice(0, 8));
+    setSelectedImages(Array.from(files).slice(0, MAX_REFERENCE_IMAGES));
   };
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -163,7 +192,7 @@ export default function SceneGeneratorPage() {
                 <div className="space-y-2">
                   <FieldTooltip
                     label="Referências Visuais"
-                    description="Arraste múltiplos arquivos (até 8) para orientar iluminação, estilo e contexto."
+                    description={`Arraste múltiplos arquivos (até ${MAX_REFERENCE_IMAGES}) para orientar iluminação, estilo e contexto.`}
                     className="flex items-center gap-1"
                   />
                   <div
@@ -177,7 +206,7 @@ export default function SceneGeneratorPage() {
                       Clique ou arraste imagens para upload
                     </p>
                     <p className="mt-1 text-[11px] text-slate-500">
-                      PNG, JPG, WEBP, GIF · máximo 8MB por arquivo
+                      PNG, JPG, WEBP, GIF · até {MAX_REFERENCE_IMAGES} arquivos · máximo 8MB por arquivo
                     </p>
                     <input
                       ref={fileInputRef}
@@ -319,8 +348,25 @@ export default function SceneGeneratorPage() {
 
               {state.error && (
                 <div className="rounded-lg border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-400">
-                  {state.error}
+                  <p>{state.error}</p>
+                  {state.supportCode && (
+                    <p className="mt-2 text-xs text-red-300/90">
+                      Código de suporte: {state.supportCode}
+                    </p>
+                  )}
+                  {state.retryAfterSeconds && (
+                    <p className="mt-1 text-xs text-red-300/90">
+                      Tente novamente em aproximadamente {state.retryAfterSeconds}{' '}
+                      segundos.
+                    </p>
+                  )}
                 </div>
+              )}
+
+              {isCapabilitiesLoading && (
+                <p className="text-xs text-slate-500">
+                  Carregando disponibilidade real dos modelos...
+                </p>
               )}
             </div>
 

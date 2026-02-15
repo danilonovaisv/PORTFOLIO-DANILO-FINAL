@@ -105,7 +105,7 @@ export const CATEGORIES: ProjectCategory[] = [
     thumbnailUrl: '',
   },
   {
-    id: 'websites-webcampaigns-tech',
+    id: 'web-tech',
     label: 'Web Campaigns, Websites & Tech',
     posterUrl: getGhostAssetUrl('project-images/WelcomeAd_800x500px.webp'),
     thumbnailUrl: '',

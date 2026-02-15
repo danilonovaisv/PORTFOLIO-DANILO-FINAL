@@ -46,14 +46,14 @@ export const HOME_CONTENT = {
       },
       {
         id: 'videos-motions',
-        label: 'Videos & Motion', // Corrigido: Motion (singular)
-        titleDesktop: 'Videos & Motion',
-        titleMobile: 'Videos &\nMotion',
+        label: 'Videos & Motions',
+        titleDesktop: 'Videos & Motions',
+        titleMobile: 'Videos &\nMotions',
         align: 'center',
         thumb: siteAsset('home/showcase/Key-Visual.webp'),
       },
       {
-        id: 'websites-webcampaigns-tech',
+        id: 'web-tech',
         label: 'Web Campaigns, Websites & Tech',
         // Otimizado: Balanceamento visual para desktop
         titleDesktop: 'Web Campaigns,\nWebsites & Tech',

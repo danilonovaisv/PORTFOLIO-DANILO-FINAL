@@ -98,6 +98,9 @@ export default function LoginForm() {
           <input
             type="email"
             required
+            autoComplete="email"
+            autoCapitalize="none"
+            spellCheck={false}
             className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -108,13 +111,18 @@ export default function LoginForm() {
           <input
             type="password"
             required
+            autoComplete="current-password"
             className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
 
-        {error && <div className="text-sm text-red-400">{error}</div>}
+        {error && (
+          <div className="text-sm text-red-400" role="alert" aria-live="polite">
+            {error}
+          </div>
+        )}
 
         <button
           type="submit"

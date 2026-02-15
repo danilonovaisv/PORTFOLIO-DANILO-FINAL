@@ -5,6 +5,7 @@ import { generateProjectCopy } from './actions';
 import { Loader2, Copy, Check, PenTool } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { FieldTooltip } from '@/components/admin/FieldTooltip';
+import { COPY_FIELD_LIMITS, MAX_REFERENCE_IMAGES } from '@/lib/admin/schemas/copy-agent';
 
 const initialState = {
   success: false,
@@ -82,6 +83,8 @@ export default function CopyAgentPage() {
                       id="projectName"
                       name="projectName"
                       required
+                      minLength={COPY_FIELD_LIMITS.projectName.min}
+                      maxLength={COPY_FIELD_LIMITS.projectName.max}
                       className={inputClass(Boolean(fieldErrors.projectName))}
                       placeholder="Ex: Rebranding Orion Systems"
                     />
@@ -102,6 +105,8 @@ export default function CopyAgentPage() {
                       id="clientName"
                       name="clientName"
                       required
+                      minLength={COPY_FIELD_LIMITS.clientName.min}
+                      maxLength={COPY_FIELD_LIMITS.clientName.max}
                       className={inputClass(Boolean(fieldErrors.clientName))}
                       placeholder="Ex: Orion Systems"
                     />
@@ -123,6 +128,8 @@ export default function CopyAgentPage() {
                       name="objective"
                       required
                       rows={3}
+                      minLength={COPY_FIELD_LIMITS.objective.min}
+                      maxLength={COPY_FIELD_LIMITS.objective.max}
                       className={`${inputClass(Boolean(fieldErrors.objective))} resize-none`}
                       placeholder="Ex: Reposicionar a marca para o segmento enterprise sem perder percepção de inovação."
                     />
@@ -143,6 +150,8 @@ export default function CopyAgentPage() {
                       id="targetAudience"
                       name="targetAudience"
                       required
+                      minLength={COPY_FIELD_LIMITS.targetAudience.min}
+                      maxLength={COPY_FIELD_LIMITS.targetAudience.max}
                       className={inputClass(
                         Boolean(fieldErrors.targetAudience)
                       )}
@@ -166,6 +175,8 @@ export default function CopyAgentPage() {
                       name="visualConcept"
                       required
                       rows={3}
+                      minLength={COPY_FIELD_LIMITS.visualConcept.min}
+                      maxLength={COPY_FIELD_LIMITS.visualConcept.max}
                       className={`${inputClass(Boolean(fieldErrors.visualConcept))} resize-none`}
                       placeholder="Ex: Sistema modular com contraste alto, tipografia condensada e presença silenciosa."
                     />
@@ -187,6 +198,8 @@ export default function CopyAgentPage() {
                       name="keyChallenges"
                       required
                       rows={3}
+                      minLength={COPY_FIELD_LIMITS.keyChallenges.min}
+                      maxLength={COPY_FIELD_LIMITS.keyChallenges.max}
                       className={`${inputClass(Boolean(fieldErrors.keyChallenges))} resize-none`}
                       placeholder="Ex: Harmonizar linguagem premium com prazos curtos e múltiplos touchpoints."
                     />
@@ -206,6 +219,7 @@ export default function CopyAgentPage() {
                     <input
                       id="deliverables"
                       name="deliverables"
+                      maxLength={COPY_FIELD_LIMITS.deliverables.max}
                       className={inputClass(Boolean(fieldErrors.deliverables))}
                       placeholder="Ex: Brand system, key visual, guideline, assets digitais"
                     />
@@ -225,6 +239,7 @@ export default function CopyAgentPage() {
                     <input
                       id="toneOfVoice"
                       name="toneOfVoice"
+                      maxLength={COPY_FIELD_LIMITS.toneOfVoice.max}
                       className={inputClass(Boolean(fieldErrors.toneOfVoice))}
                       placeholder="Ex: Editorial, sofisticado e conciso"
                     />
@@ -239,7 +254,7 @@ export default function CopyAgentPage() {
                 <div className="space-y-2">
                   <FieldTooltip
                     label="Imagens de Referência (opcional)"
-                    description="Até 4 imagens para orientar direção visual e tom narrativo."
+                    description={`Até ${MAX_REFERENCE_IMAGES} imagens para orientar direção visual e tom narrativo.`}
                     className="flex items-center gap-1"
                   />
                   <input
@@ -256,7 +271,7 @@ export default function CopyAgentPage() {
                     id="referenceImages-help"
                     className="text-xs text-slate-500"
                   >
-                    Envie até 4 imagens (PNG, JPG, WEBP ou GIF, máximo de 8MB
+                    Envie até {MAX_REFERENCE_IMAGES} imagens (PNG, JPG, WEBP ou GIF, máximo de 8MB
                     cada) para o agent considerar o visual na escrita.
                   </p>
                   {selectedImages.length > 0 && (
@@ -290,6 +305,12 @@ export default function CopyAgentPage() {
               {state.error && (
                 <div className="p-4 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
                   {state.error}
+                </div>
+              )}
+
+              {state.notice && (
+                <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm">
+                  {state.notice}
                 </div>
               )}
             </div>

@@ -33,17 +33,17 @@ export async function generateMetadata({
     { label: string; description: string }
   > = {
     branding: {
-      label: 'Branding',
+      label: 'Brand & Campaigns',
       description:
-        'Seleção de projetos de branding, identidade visual e campanhas que traduzem posicionamento em presença, forma e consistência.',
+        'Seleção de projetos de Brand & Campaigns com foco em presença, direção visual e consistência de marca.',
     },
     motion: {
-      label: 'Motion & Vídeo',
+      label: 'Videos & Motions',
       description:
         'Projetos de motion design, vídeo e direção criativa com ritmo editorial, narrativa e impacto visual.',
     },
     web: {
-      label: 'Web & Digital',
+      label: 'Web Campaigns, Websites & Tech',
       description:
         'Experiências web e digitais com foco em performance, interatividade e design que conecta pessoas e marcas.',
     },
@@ -100,6 +100,10 @@ import JsonLd from '@/components/ui/JsonLd';
 import { generateVideoSchema } from '@/lib/schema';
 
 export default async function PortfolioPage(_props: PortfolioPageProps) {
+  const resolvedSearchParams = await _props.searchParams;
+  const categoryParam = Array.isArray(resolvedSearchParams?.category)
+    ? resolvedSearchParams?.category[0]
+    : resolvedSearchParams?.category;
   let projects: PortfolioProject[] = [];
 
   try {
@@ -149,7 +153,7 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
           ),
         }}
       />
-      <PortfolioClient projects={projects} />
+      <PortfolioClient projects={projects} initialCategory={categoryParam} />
     </>
   );
 }

@@ -4,7 +4,6 @@ import { useMemo, useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, type Resolver, type SubmitHandler } from 'react-hook-form';
-import { z } from 'zod';
 
 import { createClientComponentClient } from '@/lib/supabase/client';
 import { uploadToBucket } from '@/lib/supabase/storage';
@@ -12,28 +11,16 @@ import type { DbProject, DbTag, DbLandingPage } from '@/types/admin';
 import { FieldTooltip } from '@/components/admin/FieldTooltip';
 import { upsertTagAction } from '@/app/admin/(protected)/tags/actions';
 import {
+  PROJECT_TYPE_OPTIONS,
+  projectFormSchema,
+  type ProjectFormValues,
+} from '@/lib/admin/schemas/project';
+import {
   LEGACY_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE_V2,
   MASTER_PROJECT_TEMPLATE_V3,
 } from '@/types/project-template';
-
-const projectSchema = z.object({
-  title: z.string().min(3),
-  slug: z.string().min(3),
-  client_name: z.string().min(2),
-  brand_name: z.string().optional(),
-  year: z.coerce.number().int().optional(),
-  project_type: z.string().min(2),
-  short_label: z.string().optional(),
-  description: z.string().optional(),
-  featured_on_home: z.boolean().optional(),
-  is_published: z.boolean().optional(),
-  landing_page_id: z.string().optional().nullable(),
-  tags: z.array(z.string()).optional(),
-});
-
-type FormValues = z.infer<typeof projectSchema>;
 
 type Props = {
   project?: DbProject;
@@ -70,15 +57,15 @@ export function ProjectForm({
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
-  const form = useForm<FormValues>({
-    resolver: zodResolver(projectSchema) as Resolver<FormValues>,
+  const form = useForm<ProjectFormValues>({
+    resolver: zodResolver(projectFormSchema) as Resolver<ProjectFormValues>,
     defaultValues: {
       title: project?.title ?? '',
       slug: project?.slug ?? '',
       client_name: project?.client_name ?? '',
       brand_name: project?.brand_name ?? '',
       year: project?.year ?? undefined,
-      project_type: project?.project_type ?? 'Branding & Identity',
+      project_type: project?.project_type ?? PROJECT_TYPE_OPTIONS[0],
       short_label: project?.short_label ?? '',
       description: project?.description ?? '',
       featured_on_home: project?.featured_on_home ?? false,
@@ -139,7 +126,7 @@ export function ProjectForm({
       .replace(/^-+|-+$/g, '')
       .slice(0, 120);
 
-  const onSubmit: SubmitHandler<FormValues> = (values) => {
+  const onSubmit: SubmitHandler<ProjectFormValues> = (values) => {
     setError(null);
     startTransition(async () => {
       try {
@@ -396,11 +383,9 @@ export function ProjectForm({
             className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
             {...form.register('project_type')}
           >
-            <option>Branding & Identity</option>
-            <option>Campanhas & Advertising</option>
-            <option>Web & Digital</option>
-            <option>Motion & Video</option>
-            <option>Institucional & Retail</option>
+            {PROJECT_TYPE_OPTIONS.map((option) => (
+              <option key={option}>{option}</option>
+            ))}
           </select>
         </label>
         <label className="flex flex-col gap-2 md:col-span-2">

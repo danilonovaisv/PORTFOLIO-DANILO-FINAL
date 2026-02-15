@@ -4,6 +4,7 @@ export const fetchCache = 'force-no-store';
 
 import { createClient } from '@/lib/supabase/server';
 import { getSupabasePublicKey } from '@/lib/supabase/env';
+import { isServiceRoleConfigured } from '@/lib/supabase/admin';
 
 const credentialFields = [
   {
@@ -16,7 +17,11 @@ const credentialFields = [
     value: getSupabasePublicKey() || '',
   },
   {
-    name: 'OpenAI API Key',
+    name: 'Supabase Service Role (server)',
+    value: isServiceRoleConfigured() ? 'configured' : '',
+  },
+  {
+    name: 'OpenAI API Key (server)',
     value: process.env.OPENAI_API_KEY || '',
   },
 ] as const;
@@ -35,8 +40,8 @@ export default async function AdminSettingsPage() {
         </p>
         <h1 className="text-3xl font-semibold">Logins & Credenciais</h1>
         <p className="mt-2 max-w-2xl text-sm text-slate-300">
-          Painel operacional para validar sessão ativa e variáveis de integração
-          críticas do CMS headless.
+          Painel operacional para validar sessão ativa e status mínimo de
+          integrações do CMS.
         </p>
       </div>
 
@@ -54,7 +59,7 @@ export default async function AdminSettingsPage() {
             UID
           </p>
           <p className="mt-2 break-all text-sm text-slate-200">
-            {user?.id ?? '—'}
+            {user?.id ? `${user.id.slice(0, 8)}…` : '—'}
           </p>
         </div>
         <div className="rounded-xl border border-white/10 bg-slate-900/60 p-4">
@@ -69,9 +74,9 @@ export default async function AdminSettingsPage() {
 
       <section className="rounded-xl border border-white/10 bg-slate-900/60">
         <div className="border-b border-white/10 px-4 py-3">
-          <h2 className="text-lg font-semibold">Saúde das Credenciais</h2>
+          <h2 className="text-lg font-semibold">Status das Integrações</h2>
           <p className="text-xs text-slate-400">
-            Status mínimo para Admin, Realtime e ferramentas de IA.
+            Mostra somente presença das credenciais, sem expor chaves.
           </p>
         </div>
         <ul className="divide-y divide-white/10">

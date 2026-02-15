@@ -1,11 +1,11 @@
 // =============================================================================
-// Portfolio Project Types - Ghost Era v2.0
+// Portfolio Project Types - Ghost Era v2.1
 // =============================================================================
 
 /**
  * Tipo do projeto define o layout do card
- * - A: Cards grandes, hero-style (6 colunas)
- * - B: Cards menores, grid-style (3 colunas)
+ * - A: Cards grandes, hero-style
+ * - B: Cards menores, grid-style
  */
 export type ProjectType = 'A' | 'B';
 
@@ -22,108 +22,78 @@ export type ProjectCategory =
   | 'Landing Page'
   | 'all';
 
-// ... (existing code)
+/**
+ * Destino explícito de navegação de um card.
+ * Evita heurísticas baseadas em categoria/tag no clique.
+ */
+export type ProjectDestinationType =
+  | 'modal'
+  | 'internal_landing'
+  | 'external_url';
 
-export interface PortfolioProject {
-  // ... (existing fields)
-  featuredOnPortfolio?: boolean;
-  landingPageSlug?: string | null;
-  thumbnailMedia?: string;
-  /** Link direto para redirecionamento (ex: Landing Pages) */
-  link?: string;
+export interface ProjectDestination {
+  type: ProjectDestinationType;
+  href?: string;
+  landingSlug?: string;
+  openInNewTab?: boolean;
 }
 
 /**
  * Layout Grid responsivo
  */
 export interface ProjectGridLayout {
-  /** Colunas no desktop (ex: 'col-span-6') */
   cols: string;
-  /** Colunas no mobile */
   colsMobile?: string;
-  /** Altura do card (ex: 'h-[400px]') */
   height: string;
-  /** Aspect ratio alternativo */
   aspectRatio?: string;
-  /** Span predefinido para o grid editorial */
   size?: 'sm' | 'md' | 'lg' | 'wide' | 'tall';
-  /** Ordem no grid */
   order?: number;
-  /** Sizes used by Next/Image */
   sizes?: string;
-  /** Object fit for images/videos */
   objectFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down';
-  /** Object position for images/videos */
   objectPosition?: string;
 }
 
 /**
- * Conteúdo detalhado do modal
+ * Conteúdo detalhado do modal/página
  */
 export interface ProjectDetail {
-  /** Parágrafo de descrição principal */
   description: string;
-  /** Bullets ou destaques */
   highlights?: string[];
-  /** Créditos/equipe */
   credits?: Array<{ role: string; name: string }>;
-  /** Link externo (behance, site, etc) */
   externalUrl?: string;
-  /** Galeria de imagens do projeto */
   gallery?: string[];
 }
 
 /**
- * Interface principal do Projeto
+ * Interface principal do projeto
  */
 export interface PortfolioProject {
-  /** Identificador único */
   id: string;
-  /** Slug para URL */
   slug: string;
-  /** Título do projeto */
   title: string;
-  /** Subtítulo ou tagline */
   subtitle?: string;
-  /** Descrição curta para cards */
   shortDescription?: string;
-  /** Cliente */
   client: string;
-  /** Categoria principal */
   category: ProjectCategory;
-  /** Display de categoria para UI */
   displayCategory: string;
-  /** Tags adicionais */
   tags?: string[];
-  /** Ano do projeto */
   year: number;
-  /** Imagem principal (cover) */
   image: string;
-  /** Variante 16:9 para containers horizontais */
   imageLandscape?: string;
-  /** Variante 1:1 para containers quadrados */
   imageSquare?: string;
-  /** Imagem de hover (opcional) */
   hoverImage?: string;
-  /** Vídeo de preview (opcional, para motion) */
   videoPreview?: string;
-  /** Thumb principal definido no admin (imagem ou vídeo) */
   thumbnailMedia?: string;
-  /** Tipo de layout: A (grande) ou B (pequeno) */
   type: ProjectType;
-  /** Configuração de layout no grid */
   layout: ProjectGridLayout;
-  /** Conteúdo detalhado para o modal */
   detail?: ProjectDetail;
-  /** Cor de destaque/gradiente do projeto */
   accentColor?: string;
-  /** Projeto em destaque? */
   isFeatured?: boolean;
   featuredOnHome?: boolean;
   featuredOnPortfolio?: boolean;
   landingPageSlug?: string | null;
-  /** Link direto para redirecionamento (ex: Landing Pages) */
   link?: string;
+  destination?: ProjectDestination;
 }
 
 /**

@@ -4,9 +4,11 @@ import type { PortfolioProject, ProjectCategory } from '@/types/project';
 const FALLBACK_CATEGORY_MAP: Record<string, ProjectCategory> = {
     'branding & campanha': 'branding',
     branding: 'branding',
-    campanha: 'campanha',
+    campanha: 'branding',
+    'brand & campaigns': 'branding',
     'web & motion': 'web',
     'web & digital': 'web',
+    'web campaigns, websites & tech': 'web',
     'motion & video': 'motion',
     'video & motion': 'motion',
     'motion': 'motion',
@@ -30,6 +32,12 @@ export function buildFallbackProjects(): PortfolioProject[] {
                 aspectRatio?: string;
             }) ?? {};
         const category = mapFallbackCategory(project.category);
+        const displayCategory =
+            category === 'motion'
+                ? 'Videos & Motions'
+                : category === 'web'
+                    ? 'Web Campaigns, Websites & Tech'
+                    : 'Brand & Campaigns';
 
         return {
             id: `fallback-${project.id ?? index}`,
@@ -38,7 +46,7 @@ export function buildFallbackProjects(): PortfolioProject[] {
             subtitle: project.category,
             client: project.client ?? 'Cliente confidencial',
             category,
-            displayCategory: project.category ?? 'Projeto',
+            displayCategory,
             tags: project.tags ?? [],
             year:
                 typeof project.year === 'number'
@@ -61,9 +69,7 @@ export function buildFallbackProjects(): PortfolioProject[] {
             accentColor:
                 category === 'branding'
                     ? '#0057ff'
-                    : category === 'campanha'
-                        ? '#ff3366'
-                        : undefined,
+                    : undefined,
             featuredOnPortfolio: true,
         };
     });

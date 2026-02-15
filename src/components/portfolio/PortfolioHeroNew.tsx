@@ -71,15 +71,15 @@ export default function PortfolioHeroNew() {
         )}
       </div>
 
-      <div className="absolute inset-0 z-10 bg-linear-to-b from-black/60 via-black/40 to-black/60" />
+      <div className="absolute inset-0 z-10 bg-linear-to-b from-black/82 via-black/58 to-black/78" />
 
       {/* Ghost Atmospheric Radial Gradients - Enhanced */}
       <div
         className="absolute inset-0 z-10 pointer-events-none"
         aria-hidden="true"
       >
-        <div className="absolute inset-0 portfolio-hero-glow-primary opacity-60" />
-        <div className="absolute inset-0 portfolio-hero-glow-accent opacity-40" />
+        <div className="absolute inset-0 portfolio-hero-glow-primary opacity-45" />
+        <div className="absolute inset-0 portfolio-hero-glow-accent opacity-25" />
         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-background via-background/80 to-transparent" />
       </div>
 
@@ -89,7 +89,7 @@ export default function PortfolioHeroNew() {
           {/* Title - "portfólio showcase" - Centered */}
           <h1
             id="portfolio-hero-heading"
-            className="text-4xl sm:text-6xl md:text-8xl tracking-tighter leading-none font-bold text-center flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8"
+            className="text-4xl sm:text-6xl md:text-8xl tracking-tighter leading-none font-bold text-center flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 [text-shadow:0_12px_34px_rgba(0,0,0,0.55)]"
           >
             <div className="flex items-center">
               <span className="text-[#4fe6ff] italic font-light mr-3 md:mr-6">portfólio</span>

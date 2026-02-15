@@ -28,7 +28,7 @@ const CATEGORIES = [
     showLabel: false,
   },
   {
-    id: 'websites-tech',
+    id: 'web-tech',
     title: ['Web Campaigns,', 'Websites & Tech'],
     slug: 'web',
     // GIF substituído por frame estático WebP para reduzir LCP e peso inicial

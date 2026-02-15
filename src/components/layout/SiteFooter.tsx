@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Instagram, Linkedin, Twitter } from 'lucide-react';
+import { usePathname, useRouter } from 'next/navigation';
 import { NAVIGATION, SOCIALS } from '@/config/navigation';
 
 /**
@@ -11,6 +12,34 @@ import { NAVIGATION, SOCIALS } from '@/config/navigation';
  * - Mobile (<1024px): Static section, vertical stack (Copyright → Nav → Social), space-y-8, py-10.
  */
 export default function SiteFooter() {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleFooterNavigation = (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    const isHash = href.startsWith('#') || href.startsWith('/#');
+    if (!isHash) return;
+
+    const hash = href.startsWith('/#') ? href.slice(1) : href;
+    const targetId = hash.replace('#', '');
+    const target = document.getElementById(targetId);
+
+    if (target) {
+      event.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+
+    // Quando o link é hash local (#contact) e não existe seção na página atual,
+    // cai para home com hash.
+    if (href.startsWith('#') && pathname !== '/') {
+      event.preventDefault();
+      router.push(`/${hash}`);
+    }
+  };
+
   const socialLinks = [
     {
       label: 'Instagram',
@@ -51,6 +80,7 @@ export default function SiteFooter() {
             <Link
               key={link.label}
               href={link.href}
+              onClick={(event) => handleFooterNavigation(event, link.href)}
               className="group relative text-[11px] sm:text-[12px] font-bold uppercase tracking-widest hover:opacity-80 transition-opacity duration-200 py-4 px-3 sm:px-4 lg:py-2 lg:px-0 flex items-center whitespace-nowrap shrink-0"
             >
               {link.label}

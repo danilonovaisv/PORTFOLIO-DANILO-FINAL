@@ -114,6 +114,9 @@ export type SceneGeneratorState = {
   success: boolean;
   images?: string[];
   error?: string;
+  notice?: string;
+  supportCode?: string;
+  retryAfterSeconds?: number;
   model?: AIModel;
   requestPayload?: SceneGenerationPayload;
 };

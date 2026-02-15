@@ -22,6 +22,7 @@ import {
   normalizeMetaTitle,
   toCanonicalUrl,
 } from '@/lib/seo';
+import RotatingHighlights from '@/components/portfolio/RotatingHighlights';
 
 export const dynamic = 'force-dynamic';
 
@@ -87,9 +88,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!project) return siteMetadata;
 
-  const description = normalizeMetaDescription(
-    `Case study de ${project.title} para ${project.client}. Projeto de ${project.displayCategory} com foco em presença, narrativa e resultado, reunindo processo, direção criativa, execução digital e performance.`
-  );
+  const metadataDescription =
+    project.shortDescription?.trim() ||
+    project.detail?.description?.trim() ||
+    `${project.title} para ${project.client}.`;
+  const description = normalizeMetaDescription(metadataDescription);
   const url = toCanonicalUrl(`/portfolio/${slug}`);
   const title = normalizeMetaTitle(`${project.title} | ${BRAND.name}`);
 
@@ -175,6 +178,24 @@ export default async function ProjectPage({ params }: Props) {
   }
 
   const baseUrl = `https://${BRAND.domain}`;
+  const description =
+    project.detail?.description?.trim() || project.shortDescription?.trim();
+  const narrativeParagraphs = description
+    ? description
+        .split(/\n{2,}/)
+        .map((paragraph) => paragraph.trim())
+        .filter(Boolean)
+    : [];
+  const highlights = (project.detail?.highlights ?? project.tags ?? [])
+    .map((item) => item.trim())
+    .filter(Boolean);
+  const galleryMedia = Array.from(
+    new Set(
+      (project.detail?.gallery ?? []).filter(
+        (item) => item && item.trim() && item !== project.image
+      )
+    )
+  );
 
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-white">
@@ -182,7 +203,7 @@ export default async function ProjectPage({ params }: Props) {
         pageType="project"
         project={{
           title: project.title,
-          description: project.shortDescription || project.detail?.description || '',
+          description: description || '',
           image: project.image,
           client: project.client,
           category: project.displayCategory,
@@ -197,7 +218,7 @@ export default async function ProjectPage({ params }: Props) {
             __html: JSON.stringify(
               generateVideoSchema({
                 name: project.title,
-                description: project.shortDescription || `Case video for ${project.title}`,
+                description: description || `Case video for ${project.title}`,
                 thumbnailUrl: project.image.replace(/\.(mp4|webm|mov)$/, '-poster.jpg'),
                 uploadDate: project.year ? `${project.year}-01-01` : '2024-01-01',
                 contentUrl: project.image,
@@ -285,45 +306,78 @@ export default async function ProjectPage({ params }: Props) {
         </div>
       </section>
 
-      <section className="px-6 md:px-12 pb-32 max-w-4xl mx-auto">
+      <section className="px-6 md:px-12 pb-32 max-w-5xl mx-auto">
         <div className="prose prose-invert prose-lg md:prose-xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold mb-6">
-            About the Project
-          </h2>
-          <p className="text-muted-foreground leading-relaxed">
-            <strong>{project.title}</strong> é um case que integra direção
-            criativa, design e execução digital com foco em resultado concreto.
-            O trabalho foi estruturado para comunicar valor da marca com
-            narrativa clara, hierarquia visual consistente e fluxo de leitura
-            pensado para telas móveis e desktop.
-          </p>
-          <p className="text-muted-foreground leading-relaxed mt-4">
-            O escopo priorizou soluções de {project.displayCategory} para{' '}
-            {project.client}, com entregas em {project.year}. Além da camada
-            estética, o projeto considera semântica HTML, acessibilidade,
-            desempenho e estabilidade visual como parte do produto final.
-          </p>
-          <p className="text-muted-foreground leading-relaxed mt-4">
-            A construção do case adota abordagem editorial: contexto, problema,
-            estratégia e execução. Essa ordem facilita entendimento por pessoas
-            e por mecanismos de busca, melhora descoberta orgânica e sustenta
-            decisões de UX com foco em legibilidade, contraste e navegação
-            orientada por conteúdo.
-          </p>
-          <p className="text-muted-foreground leading-relaxed mt-4">
-            Em termos técnicos, o projeto usa arquitetura moderna com otimização
-            de ativos, carregamento progressivo e metadados estruturados para
-            ampliar visibilidade. O objetivo é manter a experiência rápida em
-            rede móvel, sem sacrificar consistência visual nem precisão da
-            mensagem.
-          </p>
-          <p className="text-muted-foreground leading-relaxed mt-4">
-            O resultado final combina presença de marca e eficiência operacional:
-            conteúdo claro, interação objetiva e base preparada para evolução
-            contínua. Esse equilíbrio entre design e engenharia é o que garante
-            impacto perceptível no uso real e não apenas em apresentação.
-          </p>
+          <h2 className="text-2xl md:text-3xl font-bold mb-6">Sobre o projeto</h2>
+          {narrativeParagraphs.length > 0 ? (
+            narrativeParagraphs.map((paragraph, index) => (
+              <p
+                key={`${project.id}-paragraph-${index}`}
+                className="text-muted-foreground leading-relaxed"
+              >
+                {paragraph}
+              </p>
+            ))
+          ) : (
+            <p className="text-muted-foreground leading-relaxed">
+              {project.title} para {project.client} em {project.year}. Projeto de{' '}
+              {project.displayCategory} com foco em clareza narrativa, precisão
+              visual e experiência consistente.
+            </p>
+          )}
+
+          {highlights.length > 0 ? (
+            <>
+              <h3 className="text-xl md:text-2xl font-semibold mt-10 mb-4">
+                Destaques
+              </h3>
+              <RotatingHighlights
+                items={highlights}
+                maxVisible={4}
+                intervalMs={4200}
+                className="list-disc pl-5 space-y-2"
+              />
+            </>
+          ) : null}
         </div>
+
+        {galleryMedia.length > 0 ? (
+          <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {galleryMedia.map((media, index) => (
+              <div
+                key={`${project.id}-gallery-${index}`}
+                className="relative overflow-hidden rounded-2xl border border-white/10 bg-muted aspect-video"
+              >
+                {isVideo(media) ? (
+                  <video
+                    src={media}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="absolute inset-0 h-full w-full object-cover"
+                  >
+                    <track
+                      kind="captions"
+                      src={DEFAULT_CAPTIONS}
+                      srcLang="pt-BR"
+                      label="Português"
+                      default
+                    />
+                  </video>
+                ) : (
+                  <Image
+                    src={media}
+                    alt={`${project.title} - mídia ${index + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        ) : null}
       </section>
 
       <SiteClosure />

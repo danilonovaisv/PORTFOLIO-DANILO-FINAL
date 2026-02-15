@@ -6,7 +6,11 @@ import { motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { PortfolioProject } from '@/types/project';
 import { cn } from '@/lib/utils';
-import { ASSET_PLACEHOLDER, applyImageFallback, isVideo } from '@/lib/utils';
+import {
+  ASSET_PLACEHOLDER,
+  applyImageFallback,
+  isVideo,
+} from '@/lib/utils';
 import styles from './ProjectsGallery.module.css';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
@@ -75,24 +79,14 @@ export const ProjectCard = ({
 
   // ... (imports)
 
-  // LANDING PAGE LOGIC
-  // Check category OR tag for 'Landing Page'
-  const normalizedCategory = project.category?.toLowerCase()?.trim();
-  const isLandingPage =
-    normalizedCategory === 'landing page' ||
-    project.tags?.some(tag => tag.toLowerCase().trim() === 'landing page');
+  const destination = project.destination ??
+    (project.landingPageSlug
+      ? { type: 'internal_landing' as const, landingSlug: project.landingPageSlug }
+      : { type: 'modal' as const });
+  const isModalDestination = destination.type === 'modal';
 
   const handleClick = () => {
-    if (project.landingPageSlug) {
-      onClick?.(project);
-      return;
-    }
-
-    if (isLandingPage && project.link) {
-      window.open(project.link, '_blank', 'noopener,noreferrer');
-    } else {
-      onClick?.(project);
-    }
+    onClick?.(project);
   };
 
   return (
@@ -100,9 +94,9 @@ export const ProjectCard = ({
       type="button"
       id={cardAnchorId}
       data-size={size}
-      data-landing={isLandingPage}
+      data-destination={destination.type}
       onClick={handleClick}
-      aria-haspopup={!isLandingPage ? 'dialog' : undefined}
+      aria-haspopup={isModalDestination ? 'dialog' : undefined}
       aria-labelledby={headingId}
       className={cn(
         styles.card,

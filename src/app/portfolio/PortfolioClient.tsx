@@ -13,9 +13,13 @@ import AntigravityCTA from '@/components/ui/AntigravityCTA';
 
 type PortfolioClientProps = {
   projects: PortfolioProject[];
+  initialCategory?: string;
 };
 
-export default function PortfolioClient({ projects }: PortfolioClientProps) {
+export default function PortfolioClient({
+  projects,
+  initialCategory,
+}: PortfolioClientProps) {
   const router = useRouter();
   const [selectedProject, setSelectedProject] =
     useState<PortfolioProject | null>(null);
@@ -23,14 +27,23 @@ export default function PortfolioClient({ projects }: PortfolioClientProps) {
   const lastFocusedRef = useRef<HTMLElement | null>(null);
 
   const handleOpenProject = useCallback((project: PortfolioProject) => {
-    if (project.landingPageSlug) {
+    const destination = project.destination
+      ? project.destination.type === 'external_url'
+        ? { type: 'modal' as const }
+        : project.destination
+      : project.landingPageSlug
+        ? { type: 'internal_landing' as const, landingSlug: project.landingPageSlug }
+        : { type: 'modal' as const };
+
+    if (destination.type === 'internal_landing' && destination.landingSlug) {
       const params = new URLSearchParams({
         from: 'portfolio',
         originCard: project.slug,
       });
-      router.push(`/projects/${project.landingPageSlug}?${params.toString()}`);
+      router.push(`/projects/${destination.landingSlug}?${params.toString()}`);
       return;
     }
+
     lastFocusedRef.current = document.activeElement as HTMLElement | null;
     setSelectedProject(project);
     setIsModalOpen(true);
@@ -56,7 +69,11 @@ export default function PortfolioClient({ projects }: PortfolioClientProps) {
       <div>
         <PortfolioHeroNew />
 
-        <ProjectsGallery projects={projects} onProjectSelect={handleOpenProject} />
+        <ProjectsGallery
+          projects={projects}
+          onProjectSelect={handleOpenProject}
+          initialCategory={initialCategory}
+        />
 
         {/* CTA Section - After Cards, Following AntigravityCTA Pattern */}
         <section className="relative z-20 bg-background py-16 md:py-24">

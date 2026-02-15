@@ -1,5 +1,6 @@
 import type {
   PortfolioProject,
+  ProjectDestination,
   ProjectCategory,
   ProjectGridLayout,
   ProjectType,
@@ -9,7 +10,7 @@ import {
   normalizeStoragePath,
 } from '@/lib/supabase/urls';
 import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
-import { isVideo } from '@/lib/utils';
+import { isVideo, isYouTubeUrl } from '@/lib/utils';
 
 // Define a type for the static project from HOME_CONTENT
 type StaticProject = {
@@ -21,6 +22,9 @@ type StaticProject = {
   year: number;
   tags: string[];
   img: string | null | undefined;
+  description?: string;
+  link?: string;
+  landingPageSlug?: string | null;
   layout: {
     h: string;
     cols: string;
@@ -30,13 +34,13 @@ type StaticProject = {
 
 const CATEGORY_MAP: Record<string, ProjectCategory> = {
   'Branding & Identity': 'branding',
-  'Campanhas & Advertising': 'campanha',
-  Campanha: 'campanha',
+  'Campanhas & Advertising': 'branding',
+  Campanha: 'branding',
   Branding: 'branding',
   'Web & Digital': 'web',
   'Motion & Video': 'motion',
-  'Institucional & Retail': 'institucional',
-  Packaging: 'packaging',
+  'Institucional & Retail': 'branding',
+  Packaging: 'branding',
 };
 
 const ACCENT_COLOR_MAP: Record<ProjectCategory, string> = {
@@ -226,6 +230,50 @@ function toVideoPreview(galleryUrls: string[]) {
   return galleryUrls.find((url) => isVideo(url)) ?? undefined;
 }
 
+function toShortDescription(
+  description?: string | null,
+  fallback?: string | null
+) {
+  const normalized = description?.trim();
+  if (normalized) return normalized.slice(0, 180);
+  const fallbackNormalized = fallback?.trim();
+  return fallbackNormalized ? fallbackNormalized.slice(0, 180) : undefined;
+}
+
+function getPortfolioPillarLabel(category: ProjectCategory) {
+  if (category === 'motion') return 'Videos & Motions';
+  if (category === 'web' || category === 'Landing Page') {
+    return 'Web Campaigns, Websites & Tech';
+  }
+  return 'Brand & Campaigns';
+}
+
+function appendYouTubeMedia(gallery: string[], candidate?: string | null) {
+  const normalized = candidate?.trim();
+  if (!normalized || !isYouTubeUrl(normalized)) {
+    return gallery;
+  }
+  return uniqueStrings([...gallery, normalized]);
+}
+
+function inferProjectDestination({
+  landingSlug,
+}: {
+  landingSlug?: string | null;
+}): ProjectDestination {
+  const normalizedLandingSlug = landingSlug?.trim();
+  if (normalizedLandingSlug) {
+    return {
+      type: 'internal_landing',
+      landingSlug: normalizedLandingSlug,
+    };
+  }
+
+  return {
+    type: 'modal',
+  };
+}
+
 function resolveProjectMedia(path?: string | null): string | undefined {
   if (!path) return undefined;
 
@@ -281,6 +329,12 @@ export function mapDbProjectToPortfolioProject(
   const category = getProjectCategory(project.project_type);
   const tags = toTagsList(project.tags);
   const gallery = createGallery(project);
+  const rawProjectLink =
+    (project as DbProjectWithTags & { link?: string | null; external_url?: string | null })
+      .link ??
+    (project as DbProjectWithTags & { external_url?: string | null }).external_url ??
+    null;
+  const galleryWithYoutube = appendYouTubeMedia(gallery, rawProjectLink);
   const landscapeUrl = resolveProjectMedia(project.url_landscape);
   const squareUrl = resolveProjectMedia(project.url_square);
   const thumbnailMedia =
@@ -300,18 +354,22 @@ export function mapDbProjectToPortfolioProject(
 
   const detail = {
     description: project.description ?? '',
-    highlights: tags.length ? tags.slice(0, 3) : undefined,
-    gallery, // Already filtered in createGallery function
+    highlights: tags.length ? tags.slice(0, 4) : undefined,
+    gallery: galleryWithYoutube,
   };
+  const destination = inferProjectDestination({
+    landingSlug: normalizedLandingSlug ?? landingSlugSource,
+  });
 
   return {
     id: project.id,
     slug: normalizedSlug ?? project.slug,
     title: project.title,
     subtitle: project.short_label ?? project.client_name,
+    shortDescription: toShortDescription(project.description, project.short_label),
     client: project.client_name,
     category,
-    displayCategory: project.project_type ?? 'Web',
+    displayCategory: getPortfolioPillarLabel(category),
     tags,
     year: project.year ?? 0,
     image: primaryImage,
@@ -327,6 +385,7 @@ export function mapDbProjectToPortfolioProject(
     featuredOnPortfolio: project.featured_on_portfolio,
     videoPreview,
     landingPageSlug: normalizedLandingSlug ?? landingSlugSource,
+    destination,
   };
 }
 
@@ -341,19 +400,24 @@ export function mapStaticProjectToPortfolioProject(
   const tags = toTagsList(project.tags);
 
   const detail = {
-    description: project.title, // fallback
-    highlights: tags.slice(0, 3),
-    gallery: project.img ? [project.img] : [],
+    description: project.description ?? project.title,
+    highlights: tags.slice(0, 4),
+    gallery: appendYouTubeMedia(project.img ? [project.img] : [], project.link),
   };
+  const normalizedLandingSlug = project.landingPageSlug?.replace(/_/g, '-');
+  const destination = inferProjectDestination({
+    landingSlug: normalizedLandingSlug ?? project.landingPageSlug,
+  });
 
   return {
     id: `static-${project.id}`,
     slug: normalizedSlug ?? project.slug,
     title: project.title,
     subtitle: project.client,
+    shortDescription: toShortDescription(project.description, project.client),
     client: project.client,
     category,
-    displayCategory: project.category,
+    displayCategory: getPortfolioPillarLabel(category),
     tags,
     year: project.year,
     image: project.img || '',
@@ -368,6 +432,8 @@ export function mapStaticProjectToPortfolioProject(
     featuredOnHome: true,
     featuredOnPortfolio: true,
     videoPreview: undefined,
-    landingPageSlug: undefined,
+    landingPageSlug: normalizedLandingSlug ?? project.landingPageSlug,
+    link: project.link,
+    destination,
   };
 }
