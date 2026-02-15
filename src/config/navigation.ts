@@ -29,5 +29,5 @@ export const NAVIGATION = {
 };
 
 export const CONTACT_FORM = {
-  action: 'https://formsubmit.co/danilo@portfoliodanilo.com',
+  action: '/api/contact',
 };

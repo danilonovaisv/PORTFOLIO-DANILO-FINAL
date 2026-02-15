@@ -9,12 +9,12 @@
 ## Sync Actions
 
 1. **Update `.agent/agents/agent-orchestrator-audit.md`**:
-    - Change "Delegate execution audits to specialized agents" to "Invoke specialized audit modules (library call)".
+   - Change "Delegate execution audits to specialized agents" to "Invoke specialized audit modules (library call)".
 2. **Update `.agent/agents/agent-supabase-audit.md`**:
-    - Change "Automatic Fixes (safe-only)" to "Automatic Fixes (safe-only) & Generation".
-    - Explicitly state: "Generates SQL migration for RLS policies (does not apply automatically)".
+   - Change "Automatic Fixes (safe-only)" to "Automatic Fixes (safe-only) & Generation".
+   - Explicitly state: "Generates SQL migration for RLS policies (does not apply automatically)".
 3. **Update `.agent/workflows/audit-fullstack-config.yaml`**:
-    - Update description to reflect the direct execution model.
+   - Update description to reflect the direct execution model.
 
 ## Verification
 

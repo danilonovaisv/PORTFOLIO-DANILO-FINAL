@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
 
-
 interface VideoManifestoProps {
   src: string;
   assetKey?: string;
@@ -157,8 +156,7 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
                 }
               }}
               aria-label="Vídeo showreel demonstrando projetos de design gráfico"
-            >
-            </motion.video>
+            ></motion.video>
 
             {/* Overlay */}
             <div className="video-overlay absolute inset-0 pointer-events-none" />

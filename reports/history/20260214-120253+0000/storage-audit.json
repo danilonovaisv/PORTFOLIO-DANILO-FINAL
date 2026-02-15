@@ -22,12 +22,8 @@
       "recommendation": "Remove hardcoded token and load it only from secure server-side environment.",
       "auto_fixable": false,
       "evidence": {
-        "files": [
-          ".env.example"
-        ],
-        "snippets": [
-          "sb_service_role_***"
-        ]
+        "files": [".env.example"],
+        "snippets": ["sb_service_role_***"]
       }
     },
     {
@@ -39,12 +35,8 @@
       "recommendation": "Migrate these buckets to private access with signed URLs.",
       "auto_fixable": false,
       "evidence": {
-        "files": [
-          "supabase/**/*.sql"
-        ],
-        "snippets": [
-          "portfolio-assets"
-        ]
+        "files": ["supabase/**/*.sql"],
+        "snippets": ["portfolio-assets"]
       }
     },
     {
@@ -60,9 +52,7 @@
           "public/site.assets/3d/bar.glb",
           "public/site.assets/3d/ghost-transformed.glb"
         ],
-        "snippets": [
-          "count=2"
-        ]
+        "snippets": ["count=2"]
       }
     }
   ],
@@ -73,9 +63,7 @@
       "portfolio-media",
       "site-assets"
     ],
-    "unexpected_public_buckets": [
-      "portfolio-assets"
-    ],
+    "unexpected_public_buckets": ["portfolio-assets"],
     "storage_policy_operations": [
       "all",
       "delete",

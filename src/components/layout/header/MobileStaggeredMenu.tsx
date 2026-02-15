@@ -34,7 +34,7 @@ export default function MobileStaggeredMenu({
   navItems,
   logoUrl,
   isLight = false,
-  accentColor = '#0057FF',
+  accentColor = '#0048FF',
   isOpen,
   onOpen,
   onClose,

@@ -2,11 +2,13 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { NavItem } from './types';
 import styles from './DesktopFluidHeader.module.css';
 
 import dynamic from 'next/dynamic';
+import { useMotionGate } from '@/hooks/useMotionGate';
+import { useAntigravityStore } from '@/store/antigravity.store';
 
 const HeaderGlassCanvas = dynamic(
   () => import('@/components/canvas/header/HeaderGlassCanvas'),
@@ -41,9 +43,40 @@ export default function DesktopFluidHeader({
   isPageActive,
 }: DesktopFluidHeaderProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
+  const reducedMotion = useMotionGate();
+  const mountWebGL = useAntigravityStore((state) => state.flags.mountWebGL);
+  const [allowCanvas, setAllowCanvas] = useState(false);
 
   const nav = useMemo(() => navItems, [navItems]);
   const shouldHighlightPage = Boolean(isPageActive);
+
+  useEffect(() => {
+    if (reducedMotion || !mountWebGL) {
+      setAllowCanvas(false);
+      return;
+    }
+
+    type NavigatorWithHints = Navigator & {
+      deviceMemory?: number;
+      connection?: {
+        saveData?: boolean;
+        effectiveType?: string;
+      };
+    };
+
+    const navInfo = navigator as NavigatorWithHints;
+    const lowCpu =
+      typeof navInfo.hardwareConcurrency === 'number' &&
+      navInfo.hardwareConcurrency <= 4;
+    const lowMemory =
+      typeof navInfo.deviceMemory === 'number' && navInfo.deviceMemory <= 4;
+    const saveData = !!navInfo.connection?.saveData;
+    const slowNetwork =
+      typeof navInfo.connection?.effectiveType === 'string' &&
+      /2g/.test(navInfo.connection.effectiveType);
+
+    setAllowCanvas(!(lowCpu || lowMemory || saveData || slowNetwork));
+  }, [mountWebGL, reducedMotion]);
 
   return (
     <header
@@ -64,7 +97,11 @@ export default function DesktopFluidHeader({
           >
             {/* glass background - Dynamic R3F */}
             <div className="absolute inset-0 rounded-4xl overflow-hidden opacity-60 pointer-events-none">
-              <HeaderGlassCanvas accentColor="#0048ff" />
+              {allowCanvas ? (
+                <HeaderGlassCanvas accentColor="#0048ff" />
+              ) : (
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(0,72,255,0.25),rgba(0,0,0,0.25)_65%)]" />
+              )}
             </div>
 
             {/* content */}

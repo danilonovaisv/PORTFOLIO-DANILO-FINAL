@@ -66,29 +66,30 @@ const ContactForm: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      const formDataToSend = new FormData();
-      Object.entries(formData).forEach(([key, value]) => {
-        formDataToSend.append(key, value);
+      const response = await fetch(CONTACT_FORM.action, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-
-      const response = await fetch(
-        `${CONTACT_FORM.action.replace('formsubmit.co/', 'formsubmit.co/ajax/')}`,
-        {
-          method: 'POST',
-          body: formDataToSend,
-        }
-      );
 
       if (response.ok) {
         setSubmitSuccess(true);
         setFormData({ name: '', email: '', phone: '', message: '' });
         setTimeout(() => setSubmitSuccess(false), 5000);
       } else {
-        throw new Error('Submission failed');
+        const payload = (await response.json().catch(() => null)) as
+          | { message?: string }
+          | null;
+        throw new Error(payload?.message || 'Submission failed');
       }
-    } catch {
+    } catch (error) {
       setErrors({
-        submit: 'Falha ao enviar mensagem. Por favor tente novamente.',
+        submit:
+          error instanceof Error
+            ? error.message
+            : 'Falha ao enviar mensagem. Por favor tente novamente.',
       });
     } finally {
       setIsSubmitting(false);
@@ -143,7 +144,6 @@ const ContactForm: React.FC = () => {
               </p>
             </noscript>
             <input type="hidden" name="_honey" autoComplete="off" />
-            <input type="hidden" name="_captcha" value="true" />
 
             <div className="grid grid-cols-1 gap-8">
               <InputField

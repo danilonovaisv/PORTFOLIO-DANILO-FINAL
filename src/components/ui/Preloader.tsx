@@ -77,7 +77,7 @@ export function Preloader({
             'fixed inset-0 z-50 grid place-items-center bg-linear-to-b from-background to-neutral ' +
             (className ?? '')
           }
-          initial={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+          initial={{ opacity: 1, filter: 'blur(0px)' }}
           exit={{ opacity: 0, filter: 'blur(20px)' }}
           transition={{
             duration: reduced ? 0.3 : 1,

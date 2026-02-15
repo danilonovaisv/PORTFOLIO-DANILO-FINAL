@@ -71,8 +71,9 @@ export default function AssetLoaderWrapper({
     void loadAssets();
 
     const refreshTimer = setInterval(() => {
+      if (document.visibilityState !== 'visible') return;
       void loadAssets();
-    }, 30000);
+    }, 120000);
 
     const handleVisibility = () => {
       if (document.visibilityState === 'visible') {

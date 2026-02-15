@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
 import type { MasterProjectV2GalleryItem } from '@/types/project-template';
 
-
 const VIDEO_PATTERN = /\.(mp4|webm|ogg|mov)$/i;
 
 const isVideoAsset = (item: MasterProjectV2GalleryItem) =>
@@ -48,8 +47,7 @@ export default function BlockMedia({
           muted
           playsInline
           preload={priority ? 'metadata' : 'none'}
-        >
-        </video>
+        ></video>
       </div>
     );
   }

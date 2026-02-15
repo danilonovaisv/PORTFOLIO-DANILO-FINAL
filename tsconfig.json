@@ -1,10 +1,15 @@
 {
   "compilerOptions": {
+    // Trigger Reload
     "target": "ES2022",
     "experimentalDecorators": true,
     "useDefineForClassFields": false,
     "module": "ESNext",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "baseUrl": ".",
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
@@ -14,7 +19,9 @@
     "allowJs": true,
     "jsx": "react-jsx",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     },
     "allowImportingTsExtensions": true,
     "declaration": true,
@@ -24,7 +31,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "ignoreDeprecations": "5.0",
-    "types": ["node", "react", "jest", "@testing-library/jest-dom"],
+    // "types": ["node", "react", "jest", "@testing-library/jest-dom"],
     "plugins": [
       {
         "name": "next"

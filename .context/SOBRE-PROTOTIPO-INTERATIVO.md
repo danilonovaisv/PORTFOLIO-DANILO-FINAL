@@ -1063,296 +1063,232 @@ gsap.from('.service-card', {
 
 # **6. O Que Me Move — “About Beliefed”**
 
-## **1. Objetivo da Página/Sessão**
-
-    •    Qual a principal função desta página/sessão?
-
-Gerar vínculo emocional através de um manifesto pessoal, mostrando a visão de design do Danilo de forma íntima, sensível e memorável, conectando o visitante com o “porquê” por trás do trabalho.
-• Qual ação o usuário deve realizar aqui?
-Sentir identificação com o manifesto, reforçar confiança no estilo/abordagem do estúdio e seguir naturalmente o fluxo da página até as seções de prova social (clientes) e contato, mais propenso a entrar em contato ou continuar explorando.
-• Como essa seção contribui para os objetivos do site?
-Consolida a identidade do “Ghost Design” como conceito autoral, diferencia o estúdio pelo posicionamento emocional e prepara o usuário para enxergar o resto do site (cases, serviços, contato) sob essa lente de conexão, não apenas estética.
-
-⸻
-
-## \*\*2. Estrutura de Conteúdo
-
-    •    Título principal (headline) — BeliefFixedHeader (sticky)
-
-- Texto:
-  > “Acredito no design que muda o dia de alguém.
-  > Não pelo choque, mas pela conexão.”
-- Sempre visível (sticky), funciona como “âncora” conceitual da sessão.
-
-**Comportamento responsivo do `BeliefFixedHeader`:**
-
-- **Desktop:** permanece sticky e **alinhado no centro (visual) com ancoragem à direita** do grid — aparência “centro + direita”, com `text-right` e respiro no lado esquerdo.
-- **Mobile:** permanece sticky e **muda de posição para o topo e a direita da sessão** (top-right), respeitando padding do container. Mantém `text-right` e não disputa espaço com o bloco principal.
-
-  • Subtítulo ou descrição
-
-- Não há subtítulo textual explícito; o “subtexto” é construído pela sequência de frases rotativas e pelo manifesto final “ISSO É GHOST DESIGN.”
-  • Elementos visuais (imagens, ícones, vídeos)
-- Fantasma 3D (Ghost), renderizado com React Three Fiber + Drei.
-- Asset 3D (GLB) oficial da sessão (obrigatório):
-- O modelo .glb utilizado deve ser carregado do Supabase Storage público:
-- https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb
-
-- O Ghost nunca para completamente:
-  - Flutuação leve e constante, com leves movimentos para os lados e para cima/baixo.
-  - Ganha velocidade e inclinação suave conforme o cursor se move (desktop) e conforme o usuário rola a página (desktop/mobile).
-  - Responde de forma fluida e etérea, como se “sentisse” o toque/scroll.
-  - Entra junto com a **primeira frase** da área de manifesto e permanece presente durante a sessão.
-  - Quando a **última frase** entra, ele cresce ~10% de escala, ajusta sua posição alinhando-se no centro, horizontal e vertical, da seção. e fica visivelmente mais animado (mais wobble/tilt e resposta mais intensa ao scroll).
-  - animação de saida seguindo scroll da sessão junto com o texto o manifesto “ISSO É / GHOST / DESIGN.” ;
-
-**Regra de alinhamento (obrigatória) — Desktop e Mobile:**
-
-- O Ghost 3D deve ficar **sempre alinhado verticalmente ao centro do bloco de texto à sua esquerda**.
-- Existe um “container de conteúdo” onde **texto (à esquerda)** e **Ghost (à direita)** coexistem; o Ghost acompanha o **centro do texto** (não o centro da viewport).
-- Se o texto quebrar linhas ou mudar de altura, o Ghost mantém-se **centralizado no eixo Y** em relação ao bloco textual.
-
-- No final, o manifesto “ISSO É / GHOST / DESIGN.” sela o conceito com entrada suave usando **Morphing Text**:
-  - Texto em **três linhas fixas**:
-    > ISSO É  
-    > GHOST  
-    > DESIGN.
-  - Cada linha com comportamento responsivo automático, ocupando a área horizontal disponível do grid, com **espaçamento pequeno** entre as linhas.
-
-    • Chamada para ação (CTA)
-
-- CTA implícito (emocional): reforçar a percepção de valor do estúdio.
-- Não há botão direto aqui; o CTA funcional acontece em seções posteriores (Clientes/Contato), mas essa sessão prepara o usuário emocionalmente para clicar lá.
-  • Texto de apoio — font-h1 — blueAccent
-- Frases rotativas (manifesto em camadas):
-
-1. “Um vídeo que respira.”
-2. “Uma marca que se reconhece.”
-3. “Um detalhe que fica.”
-4. “Crio para gerar presença.”
-5. “Mesmo quando não estou ali.”
-6. “Mesmo quando ninguém percebe o esforço.”
-
-- Manifesto final:
-
-  > ISSO É  
-  > GHOST  
-  > DESIGN.
-
-  • Layout desejado (colunas, cards, seções com fundo alternado, etc.)
-
-- Desktop:
-- Altura total da sessão: ~140vh.
-- Fundo base: #040013 (mapeado como bg-background).
-- Container em 12 colunas (max-width ~1440–1680px, centrado, com px-6 md:px-12 lg:px-16 xl:px-24).
-- Estrutura em 3 momentos:
-
-1. Título Fixo (BeliefFixedHeader) sticky com aparência “centro + direita”: bloco visualmente centralizado no topo da sessão, mas alinhado à direita do grid (ex.: justify-self-end / text-right), com position: sticky e top-24.
-2. Área de Frases Rotativas + Ghost em composição controlada: texto e Ghost convivem com respiro, mantendo o Ghost alinhado verticalmente ao centro do texto (texto à esquerda, ghost à direita).
-3. Reveal Final — Ghost + Manifesto
-
-- Grid grid-cols-12 com gap generoso (ex: gap-12).
-- Ghost em destaque, mantendo relação com o texto (ghost pode “invadir” levemente uma palavra para efeito visual).
-- Manifesto “ISSO É / GHOST / DESIGN.” grande, ocupando colunas equivalentes a 90% do grid.
-
-- **Mobile (ATUALIZADO):**
-  - Fluxo geral em 1 coluna, padding `px-6`, altura flexível (>120vh).
-  - **`BeliefFixedHeader` sticky no topo-direita** da sessão, com `text-right`.
-  - **Bloco principal em composição “texto + ghost” lado a lado (row)** dentro de um container próprio:
-    - **Texto à direita**
-    - **Ghost 3D à esquerda** alinhado no canto superior esquerdo, 20% abaixo do topo da sessão.
-    - Ghost **sempre alinhado verticalmente ao centro do bloco de texto à esquerda**.
-  - **Texto animado rotativo** fica **sempre no rodapé da sessão**, centralizado na página, com quebra de linha somente quando necessário.
-  - Ordem (percepção do usuário): header sticky (top-right) → bloco principal (texto + ghost) → manifesto final.
-
-⸻
-
-## \*\*3. Identidade Visual
-
-    •    Cores usadas
-
-- Fundo base: #040013 (bg-background).
-- Acentos principais:
-- bluePrimary (azul real) — usado para realçar palavras-chave e o trecho “GHOST”.
-- Transições de fundo durante o manifesto podem seguir uma paleta inspirada no sistema de crenças, por exemplo:
-  ts COLORS = [ 'bg-bluePrimary', 'bg-purpleDetails', 'bg-pinkDetails', 'bg-bluePrimary', 'bg-purpleDetails', ];
-- Usar fades suaves sincronizados com a troca de frases.
-  • Tipografia (fontes e pesos)
-- Headline e manifesto: display, font-weight: 900.
-- Tamanhos com clamp.
-- Frases rotativas: font-weight: 500, 32–38px desktop; 22–26px mobile.
-  • Ícones ou gráficos customizados
-- Ghost 3D (GLB “Ghost w/ Tophat” transformado para o universo Ghost Design).
-- Rotação/olhar transmite “atenção” ao usuário.
-
-⸻
-
-## \*\*4. Interatividade & Animações
-
-    •    Animações de entrada/scroll (Framer Motion ou GSAP)
-
-- BeliefFixedHeader: fade-in + blur suave (ex.: opacity 0→1, blur 10→0 em ~1.2s).
-
-- **Frases rotativas — Desktop (mantém):**
-  - Entra de baixo (`y: 20 → 0`) + `opacity` + blur.
-  - Sai para cima (`y: 0 → -20`) + blur.
-  - Ciclo ~4.2s por frase.
-
-- **Frases rotativas — Mobile:**
-  - O texto animado fica **sempre 20% acima do rodapé da sessão**, **centralizado na página**.
-  - **Entrada:** entra pela esquerda
-    - `x: +24 → 0`, `opacity: 0 → 1`, `blur: 10px → 0`
-  - **Permanência:** estável, centralizado no rodapé.
-  - **Saída:** sai pela direita
-    - `x: 0 → -24`, `opacity: 1 → 0`, `blur: 0 → 10px`
-  - No mobile, **não usar `y`** (sem subir/descer), apenas deslocamento horizontal.
-  - **Quebra de linha só quando necessário** (evitar linhas forçadas; centralizado).
-
-- Reveal final (Ghost + manifesto):
-  - Container `opacity 0→1`, `y 40→0` (via `whileInView` ou scroll).
-
-    • Hover effects / microinterações
-
-- Ghost wobble/tilt suave no hover (desktop).
-- Textos-chave em bluePrimary: micro glow/sublinhado discreto.
-  • Comportamentos especiais com mouse/touch
-- Desktop: follow cursor com LERP (posição + rotação).
-- Mobile: resposta orientada a scroll/touch (sem hover).
-  • Animações vinculadas ao scroll (scroll sync)
-- Rotação lenta em Y com scrollYProgress.
-- Após ~0.8 de progresso: escala 1.0→1.1, wobble extra, aproxima no Z.
-- BG pode interpolar cores da paleta.
-
-⸻
-
-## \*\*5. Responsividade
-
-    •    Mobile
-
-- BeliefFixedHeader: sticky top-right, text-right.
-- Bloco principal: texto à direita + ghost à a esquerda, ghost sempre centrado verticalmente ao texto.
-- Ghost 200–240px.
-- Texto rotativo: rodapé, centralizado; entra da esquerda para direita, fica parado no rodapé da pagina até a mudança do BG e sai da esquerda para direita para o a outra frase entrar junto com a mudança do BG; quebra só quando necessário.
-- Interações mais por scroll do que por hover.
-  • Tablet
-- Transição gradual; ghost 220–260px; tipografia intermediária.
-  • Desktop
-- Header sticky “centro + direita”.
-- Relação texto+ghost preservada (ghost centrado verticalmente ao texto).
-- Reveal final em 2 colunas; ghost 320–380px.
-  • Ajustes extremos
-- 1440px+: mais respiro vertical e limite superior do manifesto.
-- <360px: reduzir margens e fontes para evitar quebras excessivas.
-
-⸻
-
-## \*\*6. Acessibilidade & SEO
-
-    •    <section aria-labelledby="...">
-    •    h2 para o título, frases como p, manifesto como h3 (ou h2 interno se fizer sentido).
-    •    Cena 3D com aria-label: “Ilustração 3D de um fantasma estilizado representando o conceito Ghost Design.”
-    •    Garantir contraste AA/AAA.
-    •    Canvas 3D não deve prender foco.
-
-⸻
-
-## \*\*7. Integrações ou Recursos Especiais
-
-    •    Componentes dinâmicos
-
-- Rotação de frases via estado/timer.
-- Cena 3D isolada em <GhostModel />.
-  • Dados de API
-- Não obrigatório.
-  • Formulários
-- Nenhum.
-  • Outros (ATUALIZADO)
-- Supabase Storage para servir o GLB.
-- URL pública do GLB usado nesta sessão:
-- https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb
-- Drei (<Float />, <Environment />) para suavizar a cena.
-
-⸻
-
-## \*\*8. Considerações Técnicas
-
-    •    Client component ('use client') por R3F + Framer Motion.
-    •    Reutilização: shared/3d/GhostModel.tsx + hooks de rotação/scroll sync.
-    •    Estrutura sugerida:
-    •    app/(site)/about/_sections/AboutBeliefs.tsx
-    •    app/(site)/about/_sections/components/BeliefTitle.tsx
-    •    app/(site)/about/_sections/components/BeliefPhrases.tsx
-    •    app/(site)/about/_sections/components/BeliefFinalManifest.tsx
-    •    shared/3d/GhostModel.tsx
-    •    Fallback (ATUALIZADO)
-
-- Loading placeholder enquanto o GLB carrega da URL pública.
-- Sem WebGL: versão estática (SVG/PNG).
-  • Animações via hook
-- useRotatingPhrases, useBeliefsScrollSync, captura de mousemove com LERP.
-
-⸻
-
-## \*\*SUGESTÃO DE ANIMÇÃO 3D — Plugar a URL direto no GhostModel.tsx (R3F/Drei)
-
-A ideia é deixar o GhostModel 100% declarativo: você só passa className/scale/position, e o componente já carrega o GLB do Supabase.
-
-✅ Exemplo de implementação (com preload + tipagem + path único)
-
-'use client';
-
-import \* as React from 'react';
-import { useGLTF } from '@react-three/drei';
-import type { GroupProps } from '@react-three/fiber';
-import type { GLTF } from 'three-stdlib';
-
-const GHOST_GLB_URL =
-'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb';
-
-type GhostGLTF = GLTF & {
-nodes: Record<string, unknown>;
-materials: Record<string, unknown>;
-};
-
-export type GhostModelProps = GroupProps & {
-/\*_ Optional: override the default Supabase URL (useful for local/dev A/B). _/
-src?: string;
-};
-
-export function GhostModel({ src = GHOST_GLB_URL, ...props }: GhostModelProps) {
-const gltf = useGLTF(src) as GhostGLTF;
-
-// Observação: "scene" já vem pronto; ideal quando o GLB já está organizado.
-return <primitive object={gltf.scene} {...props} />;
-}
-
-// Preload para evitar “pop-in” quando a seção entrar
-useGLTF.preload(GHOST_GLB_URL);
-
-Como usar (exemplo)
-
-<GhostModel
-position={[0, 0, 0]}
-scale={1}
-rotation={[0, 0, 0]}
-/>
-
-✅ Sugestão de fallback (quando o GLB ainda não carregou)
-
-No componente que renderiza o Canvas, você coloca um Suspense:
-
-import { Suspense } from 'react';
-import { GhostModel } from '@/shared/3d/GhostModel';
-
-<Suspense fallback={<mesh /_ placeholder simples _/ />}>
-<GhostModel />
-</Suspense>
-
-Observação importante (para consistência com seu layout)
-
-Como você quer o Ghost sempre alinhado ao centro do bloco de texto, recomendo que o container “texto + ghost” seja o responsável por controlar altura/centro, e o Canvas/Group do ghost apenas “obedeça” (sem posicionar no centro da viewport).
+Sessão: 6. O Que Me Move  
+Versão: Atualizada com Camadas, BG Sync, Reset e Scroll Bidirecional
 
 ---
+
+# 1. VISÃO GERAL
+
+Sessão manifesto emocional que revela o “porquê” do Ghost Design.  
+Objetivo: gerar vínculo, presença e diferenciação conceitual.
+
+Altura base desktop: ~140vh  
+Altura mobile: fluida (>120vh)
+
+Fundo base inicial: #040013
+
+---
+
+# 2. ARQUITETURA EM CAMADAS (OBRIGATÓRIO)
+
+A sessão é estruturada em camadas independentes para controle de animação e reset.
+
+## Camada 0 — Background Layer
+
+- Responsável por troca de cores.
+- Fica abaixo de tudo.
+- Controlada via scroll progress.
+- Transição suave (interpolação linear + easing suave).
+- Não deve causar repaint brusco.
+
+## Camada 1 — Background Overlay Transition Layer
+
+- Camada auxiliar para transição crossfade entre cores.
+- Evita flicker.
+- Opacity animada sincronizada com entrada de frases.
+
+## Camada 2 — BeliefFixedHeader (Sticky)
+
+- Z-index acima do BG.
+- Independente das trocas de cor.
+- Não participa do morph final.
+
+## Camada 3 — Texto Rotativo
+
+- Vive dentro do container principal.
+- Controla o timing da troca de cores.
+- É o gatilho de sincronização de fundo.
+
+## Camada 4 — Manifesto Final (Morphing Layer)
+
+- Aparece no clímax.
+- Fica acima do Ghost.
+- Controla intensificação do ghost.
+
+## Camada 5 — Ghost 3D (Canvas Layer)
+
+- Z-index acima do BG, e todos os textos.
+- Alinhado ao centro do texto (não da viewport).
+- Nunca absoluto na viewport.
+- Obedece o container pai.
+
+---
+
+# 3. SISTEMA DE TROCA DE CORES DO BACKGROUND
+
+## Paleta Sequencial
+
+Ordem obrigatória de cores:
+
+1. bg-bluePrimary
+2. bg-purpleDetails
+3. bg-pinkDetails
+4. bg-bluePrimary
+5. bg-purpleDetails
+6. bg-pinkDetails
+7. bg-bluePrimary
+
+---
+
+# 4. SINCRONIZAÇÃO COR + TEXTO (REFERÊNCIA: anima.mov)
+
+Cada frase controla a troca de cor.
+
+## Sequência Sincronizada
+
+Quando uma frase:
+
+- Entra → cor começa a transição.
+- Está 40% visível → cor atinge 60% da interpolação.
+- Está 100% visível → cor estabiliza completamente.
+- Começa a sair → próxima cor inicia transição.
+
+### Importante
+
+A troca de cor NÃO acontece após a frase.
+Ela acontece DURANTE a entrada.
+
+Isso cria efeito de absorção emocional.
+
+---
+
+# 5. ANIMAÇÕES — SCROLL BIDIRECIONAL
+
+Todas as animações devem funcionar:
+
+- Scroll para baixo
+- Scroll para cima
+
+## Regras
+
+- Não usar animações irreversíveis.
+- Usar scrollYProgress normalizado (0 → 1).
+- Mapear intervalos com clamp.
+- Não usar timers para eventos principais (apenas para rotação automática se necessário).
+
+---
+
+# 6. RESET TOTAL AO SAIR DA SESSÃO
+
+Quando a sessão:
+
+- Sai completamente da viewport (IntersectionObserver threshold 0)
+  OU
+- scrollYProgress retorna a 0
+
+Todos os estados devem resetar:
+
+- Frase volta para a primeira.
+- Ghost escala volta para 1.
+- Ghost rotação zera.
+- Intensidade de wobble volta ao padrão base.
+- Background volta para #040013.
+- Overlay opacity = 0.
+- Manifesto final invisível.
+- Morph resetado.
+
+⚠️ Isso garante reexecução perfeita ao reentrar na sessão.
+
+---
+
+# 7. GHOST 3D — COMPORTAMENTO COMPLETO
+
+## Estado Inicial
+
+- Scale: 1
+- Rotação leve Y
+- Flutuação base
+- Sem intensificação
+
+## Durante Frases
+
+- Follow cursor (desktop)
+- Scroll influencia rotação Y
+- Leve deslocamento Z
+
+## Após 0.8 scroll progress
+
+- Scale: 1 → 1.1
+- Wobble intensifica
+- Resposta ao scroll aumenta
+
+## No Manifesto Final
+
+- Centraliza horizontal e verticalmente
+- Intensidade máxima
+- Pequeno avanço no eixo Z
+
+## Ao Sair da Sessão
+
+- Tudo retorna ao estado inicial
+
+---
+
+# 8. ORDEM DE ENTRADA DOS ELEMENTOS
+
+Sequência cronológica:
+
+1. BG inicial visível
+2. BeliefFixedHeader fade-in
+3. Ghost entra com primeira frase
+4. Primeira troca de cor inicia
+5. Frases rotativas continuam
+6. Intensificação gradual do ghost
+7. Manifesto final surge
+8. Ghost escala + centraliza
+9. Clímax
+10. Scroll continua → elementos saem
+11. Reset total
+
+---
+
+# 9. MANIFESTO FINAL — MORPHING
+
+Texto fixo:
+
+ISSO É  
+GHOST  
+DESIGN.
+
+- Cada linha independente.
+- Pequeno espaçamento.
+- "GHOST" em bluePrimary.
+- Opacity 0 → 1
+- Y 40 → 0
+
+Ghost intensifica no momento exato em que "GHOST" completa o morph.
+
+---
+
+# 10. PERFORMANCE
+
+- Preload do GLB.
+- Suspense com fallback.
+- Evitar re-render do Canvas.
+- Hooks isolados:
+  - useBeliefsScrollSync
+  - useRotatingPhrases
+  - useGhostWobble
+
+---
+
+# 11. ACESSIBILIDADE
+
+- section aria-labelledby
+- Canvas aria-label
+- Sem focus trap
+- Contraste AA/AAA
 
 # **SEÇÃO 07 — FECHAMENTO / CONFIRMAÇÃO**
 

@@ -168,7 +168,7 @@ export const CLIENT_LOGOS = [
 export const CONTACT_CONFIG = {
   title: 'contato',
   subtitle: 'Tem uma pergunta ou quer trabalhar junto?',
-  formAction: 'https://formsubmit.co/danilo@portfoliodanilo.com',
+  formAction: '/api/contact',
   submitLabel: 'Enviar Mensagem',
   emails: {
     primary: 'dannovaisv@gmail.com',

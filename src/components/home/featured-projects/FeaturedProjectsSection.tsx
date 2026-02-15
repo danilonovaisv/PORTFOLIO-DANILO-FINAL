@@ -68,6 +68,9 @@ export default function FeaturedProjectsSection({
       className="relative z-10 bg-background py-16 md:py-24"
     >
       <Container>
+        <h2 className="mb-8 text-2xl md:text-3xl font-bold tracking-tight text-text">
+          Projetos em destaque
+        </h2>
         <motion.div
           initial={reducedMotion ? 'visible' : 'hidden'}
           whileInView="visible"

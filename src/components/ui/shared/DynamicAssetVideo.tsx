@@ -130,8 +130,7 @@ export const DynamicAssetVideo = forwardRef<
             setDisplayUrl(normalizedFallback);
           }
         }}
-      >
-      </video>
+      ></video>
     );
   }
 );

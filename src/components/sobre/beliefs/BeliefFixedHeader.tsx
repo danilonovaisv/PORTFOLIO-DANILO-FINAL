@@ -35,10 +35,9 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
   // Fade IN: 0 -> 0.1
   // Visible: 0.1 -> 0.75
   // Fade OUT: 0.75 -> 0.9 (Changes to avoid overlap with Final Section)
-  // Fade OUT: 0.6 -> 0.8 (Earlier exit to clean stage for Final Reveal)
   const opacity = useTransform(
     scrollProgress,
-    [0, 0.1, 0.6, 0.8],
+    [0, 0.1, 0.75, 0.9],
     [0, 1, 1, 0]
   );
 
@@ -48,7 +47,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
       className="sticky top-0 z-55 flex h-screen pointer-events-none"
     >
       <div className="std-grid w-full h-full">
-        <div className="flex h-full items-start justify-end pt-32 md:pt-24 col-span-12">
+        <div className="flex h-full items-start md:items-center justify-end pt-32 md:pt-0 col-span-12">
           <div className="flex flex-col items-end text-right w-full max-w-[280px] md:max-w-[500px] lg:max-w-[850px] pr-[5%] md:pr-0">
             {/* Primeira parte: "Acredito no..." */}
             <div className="flex flex-col items-end text-right w-full">

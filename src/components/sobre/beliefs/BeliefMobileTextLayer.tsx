@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion, MotionValue, useTransform, cubicBezier } from 'framer-motion';
 // Import useIsMobile from BeliefSection to avoid duplication
+import { useIsMobile } from './BeliefSection';
 
 // Easing Ghost Padrão: cubic-bezier(0.22, 1, 0.36, 1)
 const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
@@ -16,29 +17,27 @@ export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
   phrases,
   scrollYProgress,
 }) => {
-  // useIsMobile removed as we use CSS for visibility control now
+  const isMobile = useIsMobile();
 
-  // !isMobile check removed to avoid hydration mismatch. Handled via CSS.
+  if (!isMobile) return null;
 
   // Divisão do scroll total em segmentos para cada frase
   const totalPhrases = phrases.length;
   const segmentSize = 1 / (totalPhrases + 1); // +1 para a seção final
 
   return (
-    <div className="block md:hidden" >
-      {
-        phrases.map((phrase, index) => (
-          <MobilePhrase
-            key={index}
-            text={phrase}
-            index={index}
-            totalPhrases={totalPhrases}
-            segmentSize={segmentSize}
-            scrollYProgress={scrollYProgress}
-          />
-        ))
-      }
-    </div >
+    <>
+      {phrases.map((phrase, index) => (
+        <MobilePhrase
+          key={index}
+          text={phrase}
+          index={index}
+          totalPhrases={totalPhrases}
+          segmentSize={segmentSize}
+          scrollYProgress={scrollYProgress}
+        />
+      ))}
+    </>
   );
 };
 
@@ -56,9 +55,8 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   totalPhrases,
   scrollYProgress,
 }) => {
-  // MobilePhrase: Calcula seus próprios segmentos baseados no range útil [0.15 - 0.95]
-  // Ajustado para 0.15 para eliminar gap entre header e primeira frase
-  const usefulRangeStart = 0.15;
+  // MobilePhrase: Calcula seus próprios segmentos baseados no range útil [0.35 - 0.95]
+  const usefulRangeStart = 0.35;
   const usefulRangeEnd = 0.95;
   const totalRange = usefulRangeEnd - usefulRangeStart;
   const adjustedSegmentSize = totalRange / totalPhrases;
@@ -66,20 +64,18 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   const startPoint = usefulRangeStart + index * adjustedSegmentSize;
   const endPoint = startPoint + adjustedSegmentSize;
 
-  // Adjusted ranges for contiguous visibility
+  // Entry: 10% do segmento
+  // Exit: 10% do segmento
   const entryStart = startPoint;
-  const entryEnd = startPoint + adjustedSegmentSize * 0.2; // 20% fade in
-  const exitStart = endPoint - adjustedSegmentSize * 0.2;  // 20% fade out
+  const entryEnd = startPoint + adjustedSegmentSize * 0.15;
+  const exitStart = endPoint - adjustedSegmentSize * 0.15;
   const exitEnd = endPoint;
 
   // X: Entra da DIREITA (+24px), mantém centro (0px), sai para a ESQUERDA (-24px)
-  // Adjusted values for smoother mobile feel
-  // X: Entra da ESQUERDA (-24px), mantém centro (0px), sai para a DIREITA (+24px)
-  // [FIX] Invertido para seguir descrição textual: "Entra pela esquerda"
   const x = useTransform(
     scrollYProgress,
     [entryStart, entryEnd, exitStart, exitEnd],
-    ['-24px', '0px', '0px', '24px'],
+    ['18px', '0px', '0px', '-18px'],
     { ease: ghostEase }
   );
 
@@ -102,7 +98,7 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   return (
     <motion.div
       style={{ x, opacity, filter: blur }}
-      className="fixed bottom-[20%] left-0 right-0 z-50 text-center pointer-events-none px-8"
+      className="fixed bottom-[25%] left-0 right-0 z-[64] text-center pointer-events-none px-8"
     >
       {/* 🟣 [CONFIG VISUAL]: Define cor e tamanho do texto (Mobile: clamp 2rem-3.5rem) */}
       <span className="text-blueAccent italic font-bold text-[clamp(2rem,6vw,3.5rem)] leading-[1.4] tracking-widest block w-full mx-auto">

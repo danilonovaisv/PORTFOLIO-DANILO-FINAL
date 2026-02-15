@@ -23,6 +23,8 @@ type FeaturedProjectsRealtimeProps = {
   initialProjects: PortfolioProject[];
 };
 
+const POLLING_INTERVAL_MS = 45_000;
+
 export default function FeaturedProjectsRealtime({
   initialProjects,
 }: FeaturedProjectsRealtimeProps) {
@@ -97,10 +99,10 @@ export default function FeaturedProjectsRealtime({
     let pollingId: ReturnType<typeof setInterval> | null = null;
 
     const startPolling = () => {
-      if (pollingId) return;
+      if (pollingId || document.visibilityState !== 'visible') return;
       pollingId = setInterval(() => {
         void loadFeaturedProjects();
-      }, 15000);
+      }, POLLING_INTERVAL_MS);
     };
 
     const stopPolling = () => {
@@ -110,6 +112,24 @@ export default function FeaturedProjectsRealtime({
     };
 
     startPolling();
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        void loadFeaturedProjects();
+        startPolling();
+      } else {
+        stopPolling();
+      }
+    };
+
+    const handleWindowFocus = () => {
+      if (document.visibilityState === 'visible') {
+        void loadFeaturedProjects();
+      }
+    };
+
+    window.addEventListener('focus', handleWindowFocus);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     const setup = async () => {
       try {
@@ -161,6 +181,8 @@ export default function FeaturedProjectsRealtime({
 
     return () => {
       stopPolling();
+      window.removeEventListener('focus', handleWindowFocus);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
       if (channel) {
         void supabase.removeChannel(channel);
       }

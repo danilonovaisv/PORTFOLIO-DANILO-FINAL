@@ -54,11 +54,9 @@ const GhostModel: React.FC<GhostModelProps> = ({
       baseX: isMobile ? -viewport.width / 3 : -1.5,
 
       // Desktop: ancorado no centro do viewport
-      // Mobile: Alinhado verticalmente com o texto (bottom-25% approx)
-      // Texto mobile está em bottom-35%, então ghost deve descer.
-      // -0.15 * viewport.height move para baixo do centro
-      startY: isMobile ? -viewport.height * 0.15 : 0,
-      endY: isMobile ? -viewport.height * 0.15 : 0, // Mantém posição fixa até o final
+      // Mobile: 17% do topo (alinhado com título)
+      startY: isMobile ? viewport.height * 0.17 : 0,
+      endY: isMobile ? viewport.height * 0.17 : 0, // Mantém posição fixa até o final
 
       // Intensidade flutuante
       floatBase: isMobile ? 0.09 : 0.05,
@@ -131,9 +129,11 @@ const GhostModel: React.FC<GhostModelProps> = ({
     let targetX = config.baseX;
 
     if (isFinalPhase.current) {
-      // Fase Final: mantém âncora central e centraliza X e Y
+      // Fase Final: mantém âncora central e centraliza X
       targetX = 0;
-      targetY = 0; // Centraliza verticalmente na tela (viewport center)
+      targetY = config.startY;
+      // OBS: Se quiser que ele saia para cima, use: targetY = config.exitY;
+      // Por enquanto, mantemos no centro para compor com o texto final.
     }
 
     // Saída Suave (Exit Phase)
@@ -150,8 +150,8 @@ const GhostModel: React.FC<GhostModelProps> = ({
     // X Position Logic with Wiggle
     const wiggleX = isMobile
       ? Math.sin(state.clock.getElapsedTime() * 2.5) *
-      config.floatAmplitude *
-      0.5
+        config.floatAmplitude *
+        0.5
       : 0;
     const scrollDriftX =
       Math.sin(t * Math.PI * 2) * config.scrollResponse * 0.1;

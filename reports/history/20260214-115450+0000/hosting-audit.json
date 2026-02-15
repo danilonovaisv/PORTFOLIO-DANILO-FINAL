@@ -22,12 +22,8 @@
       "recommendation": "Upgrade HSTS to include preload for stricter browser enforcement.",
       "auto_fixable": true,
       "evidence": {
-        "files": [
-          "firebase.json"
-        ],
-        "snippets": [
-          "max-age=31536000; includeSubDomains"
-        ]
+        "files": ["firebase.json"],
+        "snippets": ["max-age=31536000; includeSubDomains"]
       }
     },
     {
@@ -39,12 +35,8 @@
       "recommendation": "Add hosting header `Referrer-Policy: strict-origin-when-cross-origin`.",
       "auto_fixable": true,
       "evidence": {
-        "files": [
-          "firebase.json"
-        ],
-        "snippets": [
-          "Referrer-Policy"
-        ]
+        "files": ["firebase.json"],
+        "snippets": ["Referrer-Policy"]
       }
     },
     {
@@ -56,12 +48,8 @@
       "recommendation": "Add immutable long-term caching for `/_next/static/**`.",
       "auto_fixable": true,
       "evidence": {
-        "files": [
-          "firebase.json"
-        ],
-        "snippets": [
-          "/_next/static/**"
-        ]
+        "files": ["firebase.json"],
+        "snippets": ["/_next/static/**"]
       }
     },
     {
@@ -73,12 +61,8 @@
       "recommendation": "Add bounded cache-control for 3D/media assets to avoid stale visual artifacts.",
       "auto_fixable": true,
       "evidence": {
-        "files": [
-          "firebase.json"
-        ],
-        "snippets": [
-          ".glb/.gltf/.mp4"
-        ]
+        "files": ["firebase.json"],
+        "snippets": [".glb/.gltf/.mp4"]
       }
     },
     {
@@ -90,12 +74,8 @@
       "recommendation": "Add `Cache-Control: no-store` for `/api/**` routes.",
       "auto_fixable": true,
       "evidence": {
-        "files": [
-          "firebase.json"
-        ],
-        "snippets": [
-          "/api/**"
-        ]
+        "files": ["firebase.json"],
+        "snippets": ["/api/**"]
       }
     }
   ],

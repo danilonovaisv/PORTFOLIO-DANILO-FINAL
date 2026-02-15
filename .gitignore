@@ -122,3 +122,6 @@ deploy-public/
 client_secrets.json
 node_modules
 node_modules
+.pnpm-store/
+.pnpm-state
+~/Library/pnpm/store/

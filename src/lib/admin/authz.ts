@@ -20,10 +20,6 @@ export function isAdminUser(user: User | null | undefined): boolean {
     return true;
   }
 
-  const userRole = user.user_metadata?.role;
-  if (typeof userRole === 'string' && ADMIN_ROLES.has(userRole.toLowerCase())) {
-    return true;
-  }
 
   if (user.email) {
     const allowedEmails = parseAllowedEmails();

@@ -7,7 +7,7 @@ set -e
 # CONFIG BÁSICA
 # --------------------------
 
-PACKAGE_MANAGER="npm"   # mude para "yarn" ou "pnpm" se quiser
+PACKAGE_MANAGER="pnpm"   # mude para "yarn" ou "pnpm" se quiser
 LOCKFILE_NPM="package-lock.json"
 LOCKFILE_YARN="yarn.lock"
 LOCKFILE_PNPM="pnpm-lock.yaml"

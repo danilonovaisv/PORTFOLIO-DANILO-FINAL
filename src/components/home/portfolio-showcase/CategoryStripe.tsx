@@ -50,7 +50,6 @@ export function CategoryStripe({
   const parallaxY = useTransform(smoothProgress, [0, 1], [-20, 20]);
   const isVideo = category.thumbnail.endsWith('.mp4');
 
-
   return (
     <motion.div
       ref={stripeRef}

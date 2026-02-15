@@ -9,7 +9,7 @@ export default function Header() {
   return (
     <SiteHeader
       navItems={NAVIGATION.header || []}
-      gradient={['rgba(0,87,255,0.55)', 'rgba(82,39,255,0.45)']}
+      gradient={['rgba(0,72,255,0.55)', 'rgba(82,39,255,0.45)']}
       accentColor={BRAND.colors.bluePrimary}
     />
   );

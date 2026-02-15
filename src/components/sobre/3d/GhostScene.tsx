@@ -38,8 +38,6 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
         shadows
         dpr={[1, 2]}
         gl={{ antialias: true, alpha: true }}
-        eventSource={typeof window !== 'undefined' ? document.body : undefined}
-        eventPrefix="client"
         // 🟣 [CONFIG VISUAL]: Câmera - Posição Z=6 define o quão perto/longe o objeto parece estar. FOV=35 define a distorção da perspectiva.
         camera={{ position: [0, 0, 6], fov: 35 }}
       >

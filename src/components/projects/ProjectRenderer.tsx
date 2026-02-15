@@ -124,7 +124,10 @@ function LegacyProjectRenderer({
             Quer criar algo incrível?
           </h2>
           <div className="flex justify-center pt-8">
-            <Link href={LANDING_PAGE_CTA.href} className="relative inline-block rounded-full focus:outline-none">
+            <Link
+              href={LANDING_PAGE_CTA.href}
+              className="relative inline-block rounded-full focus:outline-none"
+            >
               <AntigravityCTA
                 as="div"
                 text={LANDING_PAGE_CTA.label}

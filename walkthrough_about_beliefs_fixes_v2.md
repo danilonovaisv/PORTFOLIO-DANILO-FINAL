@@ -8,7 +8,7 @@ This update refines the "About Beliefs" section based on explicit user feedback 
 
 ### 1. **Layer Order & Z-Index Strategy** (`AboutBeliefs.tsx`)
 
-- **Objective:** Ensure the 3D Ghost model sits *above* textual elements for immersion, while maintaining usability.
+- **Objective:** Ensure the 3D Ghost model sits _above_ textual elements for immersion, while maintaining usability.
 - **New Hierarchy:**
   - **Z-70:** Final Reveal Overlay ("ISSO É GHOST DESIGN").
   - **Z-60:** Ghost 3D Scene (Now sits above standard text).
@@ -40,6 +40,6 @@ This update refines the "About Beliefs" section based on explicit user feedback 
 ## Verification Checklist
 
 1. **Mobile Text:** Confirm text slides in from the **Left**.
-2. **Layering:** Confirm Ghost passes *over* the "Acredito no..." header text if they intersect.
+2. **Layering:** Confirm Ghost passes _over_ the "Acredito no..." header text if they intersect.
 3. **Final Reveal:** Confirm "ISSO É..." appears cleanly on top of everything at the end.
 4. **Desktop Header:** Confirm it sticks to the top area (not middle) and fades out before the end.

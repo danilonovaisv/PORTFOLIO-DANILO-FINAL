@@ -1,9 +1,11 @@
 {
-  "allowedOrigins": [
-    "https://portfoliodanilo.com",
-    "http://localhost:3000"
-  ],
+  "allowedOrigins": ["https://portfoliodanilo.com", "http://localhost:3000"],
   "allowedMethods": ["GET", "HEAD", "OPTIONS"],
-  "allowedHeaders": ["Authorization", "Content-Type", "x-client-info", "apikey"],
+  "allowedHeaders": [
+    "Authorization",
+    "Content-Type",
+    "x-client-info",
+    "apikey"
+  ],
   "maxAgeSeconds": 3600
 }

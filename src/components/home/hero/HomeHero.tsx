@@ -12,6 +12,7 @@ import HeroCopy from './HeroCopy';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useWebGLSupport } from '@/hooks/useWebGLSupport';
 import { useMotionGate } from '@/hooks/useMotionGate';
+import { useAntigravityStore } from '@/store/antigravity.store';
 
 const CONFIG = {
   // Aumentado levemente para evitar flicker e permitir percepção da atmosfera.
@@ -21,19 +22,50 @@ const CONFIG = {
 export default function HomeHero() {
   const heroRef = useRef<HTMLElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [allowHeavyWebGL, setAllowHeavyWebGL] = useState(false);
   const isDesktop = useMediaQuery('(min-width: 1024px)');
   const supportsWebGL = useWebGLSupport();
+  const mountWebGL = useAntigravityStore((state) => state.flags.mountWebGL);
   // `shouldReduceMotion` agora controla tanto a preferência do usuário quanto a flag global
   const shouldReduceMotion = useMotionGate();
 
-  // Só renderiza WebGL se suportado E se não houver preferência por movimento reduzido
-  const shouldRenderWebGL = supportsWebGL && !shouldReduceMotion;
+  // Só renderiza WebGL em dispositivos que suportam custo gráfico adicional
+  const shouldRenderWebGL =
+    supportsWebGL && mountWebGL && !shouldReduceMotion && allowHeavyWebGL;
 
   useEffect(() => {
     // Timer apenas para coordenar a entrada das animações, não para carregar assets
     const timer = setTimeout(() => setIsLoaded(true), CONFIG.preloadMs);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (shouldReduceMotion || !mountWebGL || !isDesktop) {
+      setAllowHeavyWebGL(false);
+      return;
+    }
+
+    type NavigatorWithHints = Navigator & {
+      deviceMemory?: number;
+      connection?: {
+        saveData?: boolean;
+        effectiveType?: string;
+      };
+    };
+
+    const nav = navigator as NavigatorWithHints;
+    const lowCpu =
+      typeof nav.hardwareConcurrency === 'number' &&
+      nav.hardwareConcurrency <= 4;
+    const lowMemory =
+      typeof nav.deviceMemory === 'number' && nav.deviceMemory <= 4;
+    const saveData = !!nav.connection?.saveData;
+    const slowNetwork =
+      typeof nav.connection?.effectiveType === 'string' &&
+      /2g/.test(nav.connection.effectiveType);
+
+    setAllowHeavyWebGL(!(lowCpu || lowMemory || saveData || slowNetwork));
+  }, [isDesktop, mountWebGL, shouldReduceMotion]);
 
   const handlePreloaderDone = useCallback(() => setIsLoaded(true), []);
 
@@ -50,7 +82,7 @@ export default function HomeHero() {
       >
         {/* Fallback Mobile Background Gradient (Ghost Atmosphere) - Também usado para Reduced Motion */}
         {(!isDesktop || shouldReduceMotion) && (
-          <div className="absolute inset-0 z-0 animate-pulse opacity-60 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)]" />
+          <div className="absolute inset-0 z-0 opacity-60 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)]" />
         )}
 
         {/* Preloader - Mantido visualmente mas não bloqueia renderização do DOM abaixo */}

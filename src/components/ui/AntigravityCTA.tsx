@@ -4,14 +4,14 @@ import React, { useRef, useState, type MouseEvent } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { BRAND } from '@/config/brand';
+import { useMotionGate } from '@/hooks/useMotionGate';
 
 /**
  * AntigravityCTA - Botão CTA inspirado em Lo&Behold Studio
  *
  * Características principais:
  * - Pílula e círculo separados mas conectados na ponta
- * - Animação ao hover: círculo se afasta da pílula (x: +8px)
- * - Ícone rotaciona de -45° para 0° simultaneamente
+ * - Animação ao hover: deslocamento vertical sutil e ajuste de opacidade
  * - Spring physics: stiffness 300, damping 25
  *
  * @param text - Texto do botão (default: "let's build something great")
@@ -54,6 +54,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
   const [isHovered, setIsHovered] = useState(false);
   const iconRef = useRef<HTMLDivElement>(null);
   const Component = motion[as as keyof typeof motion] as any;
+  const reduceMotion = useMotionGate();
 
   // Spring physics config
   const springTransition = {
@@ -62,10 +63,10 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
     damping: 25,
   };
 
-  // Variantes de animação do ícone (rotação + movimento para direita)
+  // Variantes do ícone seguindo Ghost Motion (sem rotate/scale)
   const arrowVariants = {
-    initial: { rotate: -45, x: 0 },
-    hover: { rotate: 0, x: 8 }, // Move 8px para direita criando gap
+    initial: { y: 0, opacity: 0.92 },
+    hover: { y: -3, opacity: 1 },
   };
 
   // Variantes de animação do botão completo
@@ -95,7 +96,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
       variants={buttonVariants}
       initial="initial"
       animate={isHovered ? 'hover' : 'initial'}
-      transition={springTransition}
+      transition={reduceMotion ? { duration: 0 } : springTransition}
       role="button"
       tabIndex={0}
       aria-label={`${text} - Clique para acessar`}
@@ -106,9 +107,8 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
         style={{ backgroundColor: 'var(--color-purpleDetails)' }}
         animate={{
           opacity: isHovered ? 0.2 : 0,
-          scale: isHovered ? 1.3 : 1,
         }}
-        transition={springTransition}
+        transition={reduceMotion ? { duration: 0 } : springTransition}
       />
 
       {/* Pílula de Texto - Mobile-First Sizing */}
@@ -158,7 +158,7 @@ const AntigravityCTA: React.FC<AntigravityCTAProps> = ({
         variants={arrowVariants}
         initial="initial"
         animate={isHovered ? 'hover' : 'initial'}
-        transition={springTransition}
+        transition={reduceMotion ? { duration: 0 } : springTransition}
       >
         <ArrowUpRight
           className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7"
