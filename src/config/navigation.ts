@@ -12,7 +12,7 @@ export const NAVIGATION = {
   header: [
     { label: 'home', href: '/' }, // ou #hero se estiver na home
     { label: 'sobre', href: '/sobre' },
-    { label: 'portfólio', href: '/portfolio' },
+    { label: 'portfólio do acaso', href: '/portfolio' },
     { label: 'contato', href: '#contact' }, // Always anchor
   ],
   footer: {
@@ -21,7 +21,7 @@ export const NAVIGATION = {
       { label: 'home', href: '#hero' },
       { label: 'sobre', href: '/sobre' },
       { label: 'portfólio', href: '/portfolio' },
-      { label: 'contato', href: '/contato' },
+      { label: 'contato', href: '#contact' },
       { label: 'privacidade', href: '/privacidade' },
       { label: 'privacy policy', href: '/privacy-policy' },
     ],

@@ -57,8 +57,8 @@ export default function AboutMethod() {
                 ? ABOUT_CONTENT.method.videos.mobile
                 : ABOUT_CONTENT.method.videos.desktop) || ''
             }
-            autoPlay
-            loop
+            autoPlay={!prefersReducedMotion}
+            loop={!prefersReducedMotion}
             muted
             playsInline
             poster={DEFAULT_VIDEO_POSTER}
@@ -127,7 +127,7 @@ export default function AboutMethod() {
               </motion.div>
 
               {/* Steps List */}
-              <motion.div
+              <motion.ul
                 variants={{
                   visible: {
                     transition: {
@@ -141,29 +141,30 @@ export default function AboutMethod() {
                 className="flex flex-col w-full"
               >
                 {ABOUT_CONTENT.method.steps.map((step) => (
-                  <motion.div
+                  <motion.li
                     key={step.id}
                     variants={motionTokens.riseSoft}
                     className="
-                        group flex items-center gap-4 lg:gap-6 
-                        bg-[rgba(26,26,46,0.85)] lg:bg-transparent
-                        p-5 lg:py-6 lg:px-0
-                        mb-4 lg:mb-0
-                        rounded-xl lg:rounded-none
-                        lg:border-b lg:border-bluePrimary/30
+                        group flex items-start gap-4 lg:gap-6
+                        bg-[rgba(26,26,46,0.85)] lg:bg-[rgba(26,26,46,0.70)]
+                        backdrop-blur-[12px]
+                        p-5 lg:p-6
+                        mb-4
+                        rounded-lg
+                        border-l-4 border-bluePrimary
                         transition-all duration-300
-                        hover:bg-primary/5
+                        hover:bg-[rgba(26,26,46,0.85)]
                       "
                   >
-                    <span className="text-primary font-bold text-[16px] lg:text-[20px] tabular-nums">
+                    <span className="text-bluePrimary font-bold text-[16px] lg:text-[20px] tabular-nums shrink-0">
                       {step.id}
                     </span>
-                    <p className="text-white group-hover:text-primary transition-colors font-medium text-left text-[14px] md:text-[16px] lg:text-[20px] leading-[1.4]">
+                    <p className="text-white group-hover:text-bluePrimary transition-colors font-medium text-left text-[14px] md:text-[16px] lg:text-[20px] leading-[1.4]">
                       {step.text}
                     </p>
-                  </motion.div>
+                  </motion.li>
                 ))}
-              </motion.div>
+              </motion.ul>
             </motion.div>
           </div>
 

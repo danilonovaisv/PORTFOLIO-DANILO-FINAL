@@ -25,9 +25,9 @@ export const HOME_CONTENT = {
       href: '/#contact',
     },
     ctas: [
-      { label: 'Fale Comigo', href: '#contact', variant: 'primary' },
+      { label: 'fale comigo', href: '#contact', variant: 'primary' },
       {
-        label: 'Download CV',
+        label: 'baixar curriculum',
         href: '/cv-danilo-novais.pdf',
         variant: 'secondary',
         download: true,
@@ -323,9 +323,9 @@ export const ABOUT_CONTENT = {
       main: 'GHOST DESIGN',
     },
     ctas: [
-      { label: 'Fale Comigo', href: '#contact', variant: 'primary' },
+      { label: 'fale comigo', href: '#contact', variant: 'primary' },
       {
-        label: 'Download CV',
+        label: 'baixar curriculum',
         href: '/cv-danilo-novais.pdf',
         variant: 'secondary',
         download: true,

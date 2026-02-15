@@ -88,7 +88,7 @@ Transformar sem que se perceba a transformação: isso é potência.`,
 e hoje uso inteligência artificial para expandir o alcance
 sem perder a essência humana da criação.
 
-Minha trajetória uniu intuição com método, arte comestratégia.
+Minha trajetória uniu intuição com método, arte com estratégia.
 O futuro pede novas ferramentas — e eu as abracei.
 Mas nunca deixei que a tecnologia apagasse o que me move:
 a sensibilidade, o olhar atento, a busca pelo significado.`,

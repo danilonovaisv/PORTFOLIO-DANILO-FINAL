@@ -64,7 +64,7 @@ export function AboutHero() {
 
       {/* Desktop Overlay - Contrast Exception Control */}
       <div
-        className="hidden lg:block absolute inset-0 bg-background/60 bg-linear-to-r from-background via-background/40 to-background/80 pointer-events-none z-1"
+        className="hidden lg:block absolute inset-0 bg-background/80 bg-linear-to-r from-background/95 via-background/70 to-background/85 pointer-events-none z-1"
         aria-hidden="true"
       />
 

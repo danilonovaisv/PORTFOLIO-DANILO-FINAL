@@ -83,15 +83,19 @@ const GhostModel: React.FC<GhostModelProps> = ({
   const isFinalPhase = useRef(false);
 
   useEffect(() => {
-    // Sincronização estrita com "Acredito no..." (0.1 ~ 0.2 no BeliefFixedHeader)
     const unsubscribe = scrollProgress.on('change', (val) => {
+      if (val <= 0.02) {
+        isFinalPhase.current = false;
+        setIsEntering(true);
+        return;
+      }
+
       if (val > 0.05 && isEntering) {
         setIsEntering(false);
       }
-      // Final phase triggers warning/exit prep
-      if (val > 0.85 && !isFinalPhase.current) {
-        isFinalPhase.current = true;
-      }
+
+      // Bidirectional behavior: final phase is active only on late progress
+      isFinalPhase.current = val > 0.85;
     });
     return () => unsubscribe();
   }, [scrollProgress, isEntering]);
