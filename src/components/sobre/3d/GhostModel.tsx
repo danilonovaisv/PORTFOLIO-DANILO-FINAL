@@ -51,11 +51,12 @@ const GhostModel: React.FC<GhostModelProps> = ({
       // Desktop: Deslocado para esquerda para não sobrepor texto à direita (-1.5)
       // Mobile: Canto esquerdo superior (ajuste negativo em X, positivo em Y)
       // 🟣 [CONFIG VISUAL]: Posição Base X - Define onde o Ghost começa horizontalmente (Desktop vs Mobile)
-      baseX: isMobile ? -viewport.width / 3 : -1.5,
+      baseX: isMobile ? -viewport.width * 0.22 : -1.1,
 
       // Desktop: ancorado no centro do viewport
       // Mobile: 17% do topo (alinhado com título)
-      startY: isMobile ? viewport.height * 0.17 : 0,
+      startY: isMobile ? viewport.height * 0.19 : 0,
+      finalY: 0,
       endY: isMobile ? viewport.height * 0.17 : 0, // Mantém posição fixa até o final
 
       // Intensidade flutuante
@@ -65,11 +66,11 @@ const GhostModel: React.FC<GhostModelProps> = ({
 
       // Escala ajustada para maior presença
       // 🟣 [CONFIG VISUAL]: Escala Base - Tamanho inicial do Ghost (0.22 mobile, 0.65 desktop)
-      baseScale: isMobile ? 0.22 : 0.585,
+      baseScale: isMobile ? 0.22 : 0.56,
       // Compensa pivot do GLB para centralização visual no desktop
       modelOffsetY: isMobile ? 0 : -1.9,
       // 🟣 [CONFIG VISUAL]: Boost de Escala - Quanto o Ghost cresce na fase final (+15%)
-      scaleBoost: 0.15, // +15% no final
+      scaleBoost: 0.12, // +12% no final
       scrollResponse: isMobile ? 0.2 : 0,
 
       // Saída (Exit)
@@ -135,7 +136,7 @@ const GhostModel: React.FC<GhostModelProps> = ({
     if (isFinalPhase.current) {
       // Fase Final: mantém âncora central e centraliza X
       targetX = 0;
-      targetY = config.startY;
+      targetY = config.finalY;
       // OBS: Se quiser que ele saia para cima, use: targetY = config.exitY;
       // Por enquanto, mantemos no centro para compor com o texto final.
     }

@@ -8,6 +8,7 @@ import { Preloader } from '@/components/ui/Preloader';
 import GhostSceneWrapper from '@/components/canvas/home/hero/GhostSceneWrapper';
 
 import HeroCopy from './HeroCopy';
+import HeroCTA from './HeroCTA';
 
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useWebGLSupport } from '@/hooks/useWebGLSupport';
@@ -96,18 +97,21 @@ export default function HomeHero() {
           )}
         </AnimatePresence>
 
-        {/* Camada: Texto Editorial (Z-20) */}
-        <div className="absolute inset-0 z-20 pointer-events-none">
+        {/* Camada: Texto Editorial (acima do WebGL para manter legibilidade e CTA) */}
+        <div className="absolute inset-0 z-30 pointer-events-none">
           <div className="flex items-center justify-center w-full h-screen md:sticky md:top-0">
-            <div className="w-full pointer-events-auto pb-32 md:pb-0">
+            <div className="w-full pointer-events-auto pb-24 md:pb-0 flex flex-col items-center">
               {/* isLoaded agora é true muito mais rápido */}
               <HeroCopy isLoaded={isLoaded} />
+              <div className="relative z-40 mt-2 md:mt-4">
+                <HeroCTA />
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Camada: Ghost WebGL (Z-30) */}
-        <div className="absolute inset-0 z-30 pointer-events-none overflow-hidden">
+        {/* Camada: Ghost WebGL (abaixo do conteúdo textual) */}
+        <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
           <div className="sticky top-0 h-screen w-full">
             {shouldRenderWebGL ? (
               <GhostSceneWrapper />

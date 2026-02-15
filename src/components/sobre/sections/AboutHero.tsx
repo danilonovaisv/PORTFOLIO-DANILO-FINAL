@@ -58,13 +58,13 @@ export function AboutHero() {
         muted
         loop={shouldPlayVideo}
         poster={DEFAULT_VIDEO_POSTER}
-        className="hidden lg:block absolute inset-0 w-full h-full object-cover opacity-[0.55]"
+        className="hidden lg:block absolute inset-0 w-full h-full object-cover opacity-[0.78]"
         style={{ zIndex: 0 }}
       />
 
       {/* Desktop Overlay - Contrast Exception Control */}
       <div
-        className="hidden lg:block absolute inset-0 bg-background/80 bg-linear-to-r from-background/95 via-background/70 to-background/85 pointer-events-none z-1"
+        className="hidden lg:block absolute inset-0 pointer-events-none z-1 mix-blend-multiply bg-linear-to-l from-background/92 via-background/64 to-background/24"
         aria-hidden="true"
       />
 
@@ -158,10 +158,10 @@ export function AboutHero() {
             muted
             loop={shouldPlayVideo}
             poster={DEFAULT_VIDEO_POSTER}
-            className="absolute inset-0 w-full h-full object-cover object-top opacity-[0.62]"
+            className="absolute inset-0 w-full h-full object-cover object-top opacity-[0.78]"
             style={{ y: mediaY } as any}
           />
-          <div className="absolute inset-0 bg-linear-to-t from-background/95 via-background/72 to-transparent z-10" />
+          <div className="absolute inset-0 bg-linear-to-t from-background/88 via-background/54 to-transparent z-10" />
         </div>
         <div className="relative z-10 px-6 pt-10 pb-20 text-center">
           <motion.div

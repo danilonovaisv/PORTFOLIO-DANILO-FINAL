@@ -15,11 +15,17 @@ const MorphText: React.FC<{
   className?: string;
 }> = ({ children, progress, range, className }) => {
   const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
-  // [MODIFICADO]: Removido blur e opacity iniciais. Mantido apenas Y para movimento.
-  const y = useTransform(progress, range, [40, 0], { ease: ghostEase });
+  const y = useTransform(progress, range, [18, 0], { ease: ghostEase });
+  const opacity = useTransform(progress, range, [0, 1], { ease: ghostEase });
+  const filter = useTransform(progress, range, ['blur(6px)', 'blur(0px)'], {
+    ease: ghostEase,
+  });
 
   return (
-    <motion.span style={{ y }} className={`block ${className || ''}`}>
+    <motion.span
+      style={{ y, opacity, filter }}
+      className={`block ${className || ''}`}
+    >
       {children}
     </motion.span>
   );
@@ -28,19 +34,23 @@ const MorphText: React.FC<{
 export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
   scrollProgress,
 }) => {
-  // Opacity for the header container itself
-  // Fade IN: 0 -> 0.1
-  // Visible: 0.1 -> 0.75
-  // Fade OUT: 0.75 -> 0.9 (Changes to avoid overlap with Final Section)
+  const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
+  // Saída explícita do texto fixo para abrir espaço ao manifesto final.
   const opacity = useTransform(
     scrollProgress,
-    [0, 0.1, 0.75, 0.9],
+    [0, 0.1, 0.72, 0.88],
     [0, 1, 1, 0]
   );
+  const y = useTransform(scrollProgress, [0.72, 0.9], [0, -18], {
+    ease: ghostEase,
+  });
+  const filter = useTransform(scrollProgress, [0.72, 0.9], ['blur(0px)', 'blur(6px)'], {
+    ease: ghostEase,
+  });
 
   return (
     <motion.header
-      style={{ opacity }}
+      style={{ opacity, y, filter }}
       className="sticky top-0 z-55 flex h-screen pointer-events-none"
     >
       <div className="std-grid w-full h-full">

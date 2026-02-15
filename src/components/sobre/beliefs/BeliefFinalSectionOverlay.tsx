@@ -18,22 +18,25 @@ export const BeliefFinalSectionOverlay: React.FC<
   const blur = `blur(${Math.max(0, 10 - safeProgress * 10)}px)`;
 
   return (
-    <section className="w-full h-full flex flex-col items-center justify-center overflow-hidden px-4 pointer-events-none">
+    <section className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden px-4 pointer-events-none">
       <motion.div
-        className="flex flex-col items-center justify-center text-center text-white font-display leading-[0.78] w-full max-w-[98vw]"
+        className="absolute inset-0"
+        style={{ backgroundColor: BRAND.colors.bluePrimary }}
+        animate={{ opacity }}
+        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+      />
+      <motion.div
+        className="relative z-10 flex flex-col items-center justify-center text-center text-white font-display leading-[0.78] w-full max-w-[98vw]"
         animate={{ opacity, y, filter: blur }}
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="text-[16vw] text-white/85 md:text-[14rem] tracking-tighter uppercase font-black">
+        <div className="text-[16vw] text-white md:text-[14rem] tracking-tighter uppercase font-black">
           ISSO É
         </div>
-        <div
-          className="text-[30vw] md:text-[25rem] font-black tracking-tighter uppercase relative z-10"
-          style={{ color: BRAND.colors.bluePrimary }}
-        >
+        <div className="text-[30vw] md:text-[25rem] text-white font-black tracking-tighter uppercase relative z-10">
           GHOST
         </div>
-        <div className="text-[24vw] text-white/85 md:text-[19rem] tracking-tighter uppercase font-black">
+        <div className="text-[24vw] text-white md:text-[19rem] tracking-tighter uppercase font-black">
           DESIGN
         </div>
       </motion.div>
