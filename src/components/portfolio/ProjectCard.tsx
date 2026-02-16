@@ -82,10 +82,16 @@ export const ProjectCard = ({
   const destination = project.destination ??
     (project.landingPageSlug
       ? { type: 'internal_landing' as const, landingSlug: project.landingPageSlug }
-      : { type: 'modal' as const });
+      : project.link && project.category === 'Landing Page'
+        ? { type: 'external_url' as const, href: project.link }
+        : { type: 'modal' as const });
   const isModalDestination = destination.type === 'modal';
 
   const handleClick = () => {
+    if (destination.type === 'external_url' && destination.href) {
+      window.open(destination.href, '_blank', 'noopener,noreferrer');
+      return;
+    }
     onClick?.(project);
   };
 

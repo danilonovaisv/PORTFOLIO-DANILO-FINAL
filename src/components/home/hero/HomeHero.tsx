@@ -97,15 +97,25 @@ export default function HomeHero() {
           )}
         </AnimatePresence>
 
-        {/* Camada: Texto Editorial (agora ABAIXO do WebGL para efeito de fog, mas acessível via pointer-events) */}
+        {/* Camada: Texto Editorial (ABAIXO do WebGL para efeito de fog, mas acessível via pointer-events) */}
         <div className="absolute inset-0 z-30 pointer-events-none">
           <div className="flex items-center justify-center w-full h-screen md:sticky md:top-0">
             <div className="w-full pointer-events-auto pb-24 md:pb-0 flex flex-col items-center">
               {/* isLoaded agora é true muito mais rápido */}
               <HeroCopy isLoaded={isLoaded} />
-              <div className="relative z-40 mt-2 md:mt-4">
-                <HeroCTA />
-              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ═══════════════════════════════════════════════════════════════════ */}
+        {/* Camada: HERO CTA — z-50: ACIMA do Ghost WebGL (z-40)             */}
+        {/* e do texto (z-30). Abaixo do Header (z-1000).                    */}
+        {/* Extraído do z-30 para ter stacking context independente.          */}
+        {/* ═══════════════════════════════════════════════════════════════════ */}
+        <div className="absolute inset-0 z-50 pointer-events-none">
+          <div className="flex items-end justify-center w-full h-screen pb-[15vh] md:pb-0 md:items-center md:pt-[22vh]">
+            <div className="pointer-events-auto">
+              <HeroCTA />
             </div>
           </div>
         </div>

@@ -1,363 +1,373 @@
 
 # 6. O Que Me Move — "About Beliefed"
 
-**Sessão:** 6. O Que Me Move  
-**Versão:** Atualizada com Camadas, BG Sync, Reset, Scroll Bidirecional + Animações Desktop/Mobile Detalhadas
 
----
+Versão: Alinhada com scroll-triggered (Motion) + PDF de referência
+Status: Mantidas todas as cores e textos; ajustado apenas o detalhamento de animação de BG e entrada/saída de texto para refletir um comportamento de scroll-triggered, com entrada e reverso suave, semelhante ao exemplo https://examples.motion.dev/js/scroll-triggered.
 
-## 1. VISÃO GERAL
+1. VISÃO GERAL
 
 Sessão manifesto emocional que revela o "porquê" do Ghost Design.
+Objetivo: gerar vínculo, presença e diferenciação conceitual.
 
-**Objetivo:** gerar vínculo, presença e diferenciação conceitual.
+Altura base desktop: ~140vh
+Altura mobile: fluida (>120vh)
+Fundo base inicial: #040013
 
-**Altura base desktop:** ~140vh  
-**Altura mobile:** fluida (>120vh)  
-**Fundo base inicial:** #040013
+2. ARQUITETURA EM CAMADAS (OBRIGATÓRIO)
 
----
+A sessão é estruturada em camadas independentes para controle de animação, scroll-triggered e reset.
 
-## 2. ARQUITETURA EM CAMADAS (OBRIGATÓRIO)
+| Camada | Responsabilidade                               | Observação |
+|--------|-----------------------------------------------|-----------|
+| Camada 0 — Background Layer | Responsável por troca de cores | Fica abaixo de tudo, controlada via scroll progress com interpolação suave; animação sempre reversível (scroll para cima/baixo), sem repaints bruscos |
+| Camada 1 — Background Overlay Transition Layer | Camada auxiliar para transição crossfade entre cores | Evita flicker; opacity animada sincronizada com a entrada e a saída das frases, em resposta ao scroll |
+| Camada 2 — BeliefFixedHeader (Sticky) | Header fixo no topo | z-index acima do BG; independente das trocas de cor; frase sai sincronizada com a saída do último texto animado; não participa do morph final |
+| Camada 3 — Texto Rotativo | Textos animados que rotacionam | Vive dentro do container principal; controla o timing da troca de cores; cada frase é um elemento observado (tipo .scroll-section pre), entrando e saindo com animação de opacity + transform gatilhada por scroll |
+| Camada 4 — Manifesto Final (Morphing Layer) | Texto final "ISSO É GHOST DESIGN" | Aparece no clímax, acima do Ghost; controla intensificação do Ghost |
+| Camada 5 — Ghost 3D (Canvas Layer) | Modelo 3D do Ghost | z-index acima do BG e de todos os textos; alinhado ao centro do texto (não da viewport); nunca absoluto na viewport; obedece o container pai |
 
-A sessão é estruturada em camadas independentes para controle de animação e reset.
+3. SISTEMA DE TROCA DE CORES DO BACKGROUND
 
-| Camada | Responsabilidade | Observação |
-|--------|------------------|------------|
-| **Camada 0** — Background Layer | Responsável por troca de cores | Fica abaixo de tudo, controlada via scroll progress, transição suave (interpolação linear + easing suave), não deve causar repaint brusco |
-| **Camada 1** — Background Overlay Transition Layer | Camada auxiliar para transição crossfade entre cores | Evita flicker, opacity animada sincronizada com entrada de frases |
-| **Camada 2** — BeliefFixedHeader (Sticky) | Header fixo no topo | Z-index acima do BG, independente das trocas de cor, frase sai sincronizada com a saída do último texto animado, não participa do morph final |
-| **Camada 3** — Texto Rotativo | Textos animados que rotacionam | Vive dentro do container principal, controla o timing da troca de cores, é o gatilho de sincronização de fundo |
-| **Camada 4** — Manifesto Final (Morphing Layer) | Texto final "ISSO É GHOST DESIGN" | Aparece no clímax, fica acima do Ghost, controla intensificação do ghost |
-| **Camada 5** — Ghost 3D (Canvas Layer) | Modelo 3D do Ghost | Z-index acima do BG e todos os textos, alinhado ao centro do texto (não da viewport), nunca absoluto na viewport, obedece o container pai |
+3.1 Paleta Sequencial
 
----
+Ordem obrigatória de cores (mantida):
 
-## 3. SISTEMA DE TROCA DE CORES DO BACKGROUND
+bg-bluePrimary (hsl(230, 85%, 30%))
+bg-purpleDetails (hsl(270, 80%, 40%))
+bg-pinkDetails (hsl(330, 85%, 50%))
+bg-bluePrimary
+bg-purpleDetails
+bg-pinkDetails
+bg-bluePrimary (retorna ao início)
 
-### Paleta Sequencial
+A troca de fundo não é uma transição discreta (jump de uma cor para outra), mas um sistema de interpolação contínua controlada por scroll progress, usando duas camadas (Camada 0 + Camada 1) trabalhando em conjunto para criar um efeito de absorção emocional, em sincronia com a entrada e saída das frases — tal como no exemplo de scroll-triggered do Motion, onde o elemento entra quando entra no viewport e volta ao estado inicial ao sair.
 
-Ordem obrigatória de cores:
+✅ Tipo de animação (BG):
+  Interpolação contínua de cor em HSL + crossfade overlay
+  Totalmente bidirecional (subir/descer scroll restaura estados)
+  Temporalmente vinculada à visibilidade do texto (entrada/saída), não a timers fixos
 
-1. `bg-bluePrimary` (HSL: 230, 85%, 30%)
-2. `bg-purpleDetails` (HSL: 270, 80%, 40%)
-3. `bg-pinkDetails` (HSL: 330, 85%, 50%)
-4. `bg-bluePrimary`
-5. `bg-purpleDetails`
-6. `bg-pinkDetails`
-7. `bg-bluePrimary` (retorna ao início)
+3.2 Estrutura de Camadas (BG)
 
-A troca de fundo não é uma transição simples de cor, mas um sistema de interpolação controlada por scroll progress, com duas camadas (`Camada 0` + `Camada 1`) trabalhando em conjunto para criar um efeito de absorção emocional, onde a cor muda **enquanto o texto entra**, não depois.
+| Camada  | Papel                                  | Animação (scroll-triggered) |
+|---------|----------------------------------------|-----------------------------|
+| Camada 0 (bg-layer) | Fundo base — recebe a cor final interpolada | backgroundColor interpolado em HSL, controlado por scrollProgress ou scrollYProgress da área de manifesto |
+| Camada 1 (overlay-layer) | Camada de transição — evita flicker e cortes bruscos | opacity: 0 → 1 → 0 sincronizada com entrada/saída de cada frase; atua como um fade over suave entre cores consecutivas |
 
-**✅ Tipo de animação:** Interpolação contínua de cor + crossfade overlay  
-→ É uma transição suave, bidirecional e temporalmente vinculada ao texto.
+A Camada 0 guarda o estado “estável” de cor da sessão.
+A Camada 1 é usada durante a transição entre cores, acompanhando o intervalo em que a nova frase entra em cena (fade-in) e a anterior sai (fade-out / deslocamento).
+📌 A Camada 1 é obrigatória: sem ela, a troca de cor pode causar flash/jank em Safari/Android, especialmente quando o scroll é rápido ou os elementos entram e saem do viewport com muita frequência.
 
----
+3.3 Lógica de Interpolação (Core do Sistema)
 
-### 🔍 Como Funciona: Passo a Passo Técnico
+A cor não muda de forma instantânea (#253EFF → #8A00FF), mas por interpolação linear entre duas cores, controlada pelo progresso do bloco de frase — seguindo a mesma lógica do exemplo de scroll-triggered da Motion: quando o elemento entra em viewport, animamos de um estado inicial para um final; quando sai, revertemos para o estado inicial.
 
-#### 1. Estrutura de Camadas (obrigatória)
+Fórmula geral
 
-| Camada | Papel | Animação |
-|--------|-------|----------|
-| **Camada 0** (bg-layer) | Fundo base — recebe a cor final interpolada | `backgroundColor` animado via `gsap.to()` ou Web Animations API |
-| **Camada 1** (overlay-layer) | Camada de transição — evita flicker e suaviza a mudança | `opacity: 0 → 1 → 0` sincronizada com o bloco de frase |
+const t = clamp((scrollProgress - start) / duration, 0, 1) // 0 → 1 dentro do bloco
+const color = lerp(colorPrev, colorNext, ease(t))
 
-📌 **A Camada 1 é essencial:** sem ela, a troca de cor pode causar repaint visível ou jank em dispositivos médios.
+start: início do bloco (ex: 0.14)
+duration: intervalo do bloco (ex: 0.14)
+ease(t): curva suave, ex: power2.inOut
+lerp(a, b, t): interpolação em HSL (recomendado) para transições naturais
 
----
+Comportamento tipo scroll-triggered
 
-#### 2. Lógica de Interpolação (Core do Sistema)
+Entrada da frase (equivalente ao “element enters viewport”):**
+  opacity: 0 → 1
+  transform ajustado (ver seções Desktop/Mobile)
+  backgroundColor inicia interpolação de colorPrev para colorNext
+Saída da frase (equivalente ao “element leaves viewport”):**
+  Frase anima de volta para um estado “oculto” (offset + opacity)
+  BG volta “de forma coerente” para a cor relacionada à nova frase que entra
+  O sistema é reversível: se o usuário rolar para cima, a frase volta a entrar, e a cor do BG volta a acompanhar o movimento.
 
-A cor não muda de forma discreta (ex: `#253EFF` → `#8A00FF`), mas sim por interpolação linear entre duas cores, controlada pelo `scrollYProgress`.
+Exemplo prático (entre frase 1 e 2)
 
-**Fórmula geral:**
-```javascript
-const t = clamp((scrollProgress - start) / duration, 0, 1); // 0 → 1 dentro do bloco
-const color = lerp(colorPrev, colorNext, ease(t));
-```
+scrollProgress = 0.14 → começa transição bluePrimary → purpleDetails
+scrollProgress = 0.196 (≈ 40% do bloco) → cor em ~60% da interpolação → cor já dominante
+scrollProgress = 0.28 → transição completa → bg-purpleDetails estabilizado
+Mantido: “Quando a frase está 40% visível, a cor atinge 60% da interpolação.”
+Ajuste: essa regra passa a ser estritamente vinculada à entrada/saída do elemento (scroll-triggered), de forma reversível, em vez de depender de um tempo fixo.
 
-- `start`: início do bloco (ex: `0.14`)
-- `duration`: `0.14` (fixo para blocos 1–6)
-- `ease(t)`: `power2.inOut` (suave no início e fim)
-- `lerp(a, b, t)`: interpolação RGB ou HSL (recomenda-se HSL para transições naturais)
+3.4 Sincronização com o Texto — Versão Desktop (Scroll-triggered DETALHADA)
 
-**Exemplo prático (entre frase 1 e 2):**
-- `scrollProgress = 0.14` → começa transição de `bluePrimary` → `purpleDetails`
-- `scrollProgress = 0.196` (≈ 40% do bloco) → cor está em ~60% da interpolação → cor já dominante
-- `scrollProgress = 0.28` → transição completa → `bg-purpleDetails` estabilizado
+A visibilidade da frase é o gatilho da animação, inspirada diretamente no padrão do exemplo https://examples.motion.dev/js/scroll-triggered:
 
-Isso cumpre a regra do manifesto: *"Quando a frase está 40% visível, a cor atinge 60% da interpolação."*
+Quando a frase entra no viewport (topo da área de manifesto), ela:
+  Faz fade-in (opacity: 0 → 1)
+  Se desloca de fora da tela para o topo (análogo a x: [-100, 0], mas aqui via eixo y)
+Quando a frase sai do viewport (scrolando para cima), ela:
+  Faz fade-out (opacity: 1 → 0)
+  Desliza levemente para cima, voltando a um estado oculto
+Todo o processo é reverso se o usuário rolar de volta.
 
----
+Linha do tempo Desktop (em termos de progress, não timer absoluto)
 
-#### 3. Sincronização com o Texto — Versão Desktop (DETALHADA)
+| Momento | Texto                             | Cor (BG)                           | Comportamento Visual |
+|---------|-----------------------------------|------------------------------------|----------------------|
+| t = 0.00 | "Um vídeo que respira." é considerado off-screen | BG: #040013 (base)              | Texto está com opacity: 0, posicionado ligeiramente acima do topo (estado inicial escondido) |
+| t ~ entrada (frase cruza limiar de viewport) | Inicia fade-in (opacity: 0 → 1) e movimento de y (de cima para o topo) | BG inicia interpolação #040013 → #253EFF | Análogo a x: [-100, 0] do exemplo Motion, mas aplicado em y + opacity |
+| t ≈ 0.056 (40% da visibilidade da frase) | Texto 40% visível no topo          | Cor em ~60% interpolada           | Texto estabiliza na posição fixa no topo (sticky dentro da área) |
+| t = 0.14 (frase totalmente “em cena”) | Texto 100% visível                 | Cor 100% estabilizada (#253EFF) | BG estável; texto permanece fixo |
+| t > 0.14 (início da saída da frase) | Texto começa a deslizar para cima e fazer leve fade-out | Cor já começa a interpolar para próxima (#253EFF → #8A00FF) | Frase anterior sobe, próxima entra. Processos de entrada/saída são sincronizados com scroll |
 
-A entrada do texto é o gatilho, não o resultado.
+Detalhes Técnicos Desktop (ajustados ao padrão Motion):
 
-| Momento | Texto | Cor (BG) | Comportamento Visual |
-|---------|-------|----------|----------------------|
-| **t = 0.00** | "Um vídeo que respira." inicia fade-in (opacity: 0 → 1) | BG inicia interpolação #040013 → #253EFF | Texto aparece no topo da tela |
-| **t = 0.056** (~40% da frase) | Texto em 40% visível | Cor em ~60% interpolada | Texto mantém posição no topo |
-| **t = 0.14** | Texto 100% visível | Cor 100% estabilizada (#253EFF) | Texto permanece no topo |
-| **t = 0.14+ε** | Texto 1 começa a sair (para cima) | Cor 2 já inicia interpolação (#253EFF → #8A00FF) | Texto desliza para cima suavemente |
-| **t = 0.28** | Texto 2 100% visível | Cor 100% estabilizada (#8A00FF) | Novo texto aparece no topo |
+A entrada da frase usa o mesmo conceito do Motion:
+  opacity: 0 → 1
+  y: [offsetNegativo, 0] (efeito de “slide in” de cima)
+  duration equivalente a ~0.8–0.9s quando o usuário faz um scroll contínuo, mas scrubado pelo scroll (não um timer fixo).
+A saída é um “reverse” coerente:
+  opacity: 1 → 0
+  y: [0, offsetPositivo] (frase sobe e some)
+O BG acompanha essa entrada/saída com interpolação contínua, usando ease suave.
+Não há timers para enter/leave principais: tudo é scroll-triggered baseado em scrollYProgress e em algo como um IntersectionObserver/inView, similar ao tutorial do PDF.
 
-**Detalhes Técnicos Desktop:**
-- A animação de entrada do texto é **simultânea** com a transição de cores, não sequencial
-- O texto sempre entra **do topo da tela** na versão desktop
-- A transição de cores ocorre durante a **entrada** do texto, não após sua total exibição
-- A interpolação de cores usa HSL para transições mais naturais (evitando tons estranhos do RGB)
-- A escala de tempo da animação é ajustada para corresponder ao ritmo do vídeo de referência (0.2s para cada frase)
-- A saída do texto é por deslize **para cima**, criando um fluxo contínuo de entrada/saída
+3.5 Sincronização com o Texto — Versão Mobile (Scroll-triggered DETALHADA)
 
----
+No mobile, a referência visual e de movimento é mantida, mas adaptada ao layout:
 
-#### 4. Sincronização com o Texto — Versão Mobile (DETALHADA)
+Linha do tempo Mobile
 
-| Momento | Texto | Cor (BG) | Comportamento Visual |
-|---------|-------|----------|----------------------|
-| **t = 0.00** | "Um vídeo que respira." inicia fade-in (opacity: 0 → 1) | BG inicia interpolação #040013 → #253EFF | Texto aparece centralizado, a 20% do rodapé |
-| **t = 0.056** (~40% da frase) | Texto em 40% visível | Cor em ~60% interpolada | Texto mantém posição centralizada |
-| **t = 0.14** | Texto 100% visível | Cor 100% estabilizada (#253EFF) | Texto permanece parado, centralizado a 20% do rodapé |
-| **t = 0.14+ε** | Texto 1 começa a sair (para a direita) | Cor 2 já inicia interpolação (#253EFF → #8A00FF) | Texto desliza para a direita suavemente |
-| **t = 0.28** | Texto 2 100% visível | Cor 100% estabilizada (#8A00FF) | Novo texto aparece centralizado |
+| Momento | Texto                             | Cor (BG)                           | Comportamento Visual |
+|---------|-----------------------------------|------------------------------------|----------------------|
+| t = 0.00 | "Um vídeo que respira." fora da área ativa | BG: #040013 (base)              | Texto está com opacity: 0, fora do viewport central |
+| Ao entrar no viewport (ponto de ativação) | Inicia fade-in (opacity: 0 → 1) | BG inicia interpolação #040013 → #253EFF | Texto surge centralizado, a 20% do rodapé, com leve movimento (pode ser em y ou scale sutil) |
+| t ≈ 0.056 (40% da frase visível) | Texto 40% visível                  | BG em ~60% da interpolação        | Texto mantém posição centralizada |
+| t = 0.14 (frase 100% visível) | Texto totalmente visível           | BG estabilizado em #253EFF      | Texto parado, centralizado a 20% do rodapé |
+| A partir de t > 0.14 (saída da frase) | Texto inicia slide out para a direita com opacity: 1 → 0 | BG inicia interpolação #253EFF → #8A00FF | Frase atual desliza para a direita; a próxima entra novamente com fade-in no centro |
 
-**Detalhes Técnicos Mobile:**
-- O texto entra com a mesma animação de fade-in (opacity: 0 → 1)
-- **Posicionamento:** Texto fica centralizado na tela, a **20% da distância do rodapé** (conforme imagem "ghost-3D-position-mobile2.png")
-- **Saída:** Texto sai pela direita da tela (em vez de deslizar para cima)
-- **Comportamento do BG:** Mantém a mesma sincronia com o texto, mas com a animação de saída do texto para a direita
-- **Ghost 3D:** Mantém alinhamento centralizado com o texto, não com a viewport
-- A transição de cores mantém a mesma lógica de interpolação que na versão desktop
-- A sincronia é calculada com base no scroll progress, não na posição do texto
+Detalhes Técnicos Mobile (alinhados ao comportamento scroll-triggered):
 
----
+Entrada:**
+  opacity: 0 → 1
+  Leve deslocamento (ex: de baixo para posição fixa ou pequeno y/scale)
+  Disparada quando o elemento entra na área “in view” (threshold configurado, ex: 0.5).
+Posicionamento:**
+  Texto fica centralizado na tela, a 20% da distância do rodapé (como já especificado na versão anterior).
+Saída (direita):**
+  Quando o bloco está prestes a sair da área de foco (rolando para cima ou para baixo), o texto:
+    Desliza para a direita (x: [0, offsetPositivo])
+    Faz fade-out (opacity: 1 → 0)
+  Esse movimento é reversível: se o usuário rolar de volta, a frase retorna do lado direito, com opacity: 0 → 1, restaurando a posição central.
+BG:**
+  Mantém a mesma lógica de interpolação da versão desktop.
+  A sincronia é baseada em scrollProgress e no estado de “in view” de cada frase, não na posição absoluta do texto.
 
-#### 5. Por que usar duas camadas? (Camada 0 + Camada 1)
+3.6 Por que usar duas camadas? (Camada 0 + Camada 1)
 
-| Problema | Solução |
-|----------|---------|
-| Transição direta de `backgroundColor` causa flash em Safari/Android | Camada 1 (overlay) faz crossfade suave: `opacity: 0 → 1` durante a transição, ocultando o ponto de corte |
-| Mudança abrupta quebra o "efeito de absorção" | Overlay com `mix-blend-mode: multiply` ou `normal` + `opacity` cria transparência gradual |
-| Scroll reverso (para cima) causa jump se não for bidirecional | Com `scrub: 1`, a interpolação é reversível: `scrollProgress` diminuindo → cor volta ao anterior |
+| Problema                                              | Solução                                                                                 |
+|-------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| Transição direta de backgroundColor causa flash em Safari/Android | Usar Camada 1 (overlay) para fazer crossfade: opacity: 0 → 1 → 0, escondendo o corte brusco |
+| Mudança abrupta quebra o “efeito de absorção”        | Overlay atua como véu suave entre as cores, garantindo continuidade visual              |
+| Scroll reverso causa “jump” se a interpolação não for bidirecional | Com scrub: 1 (ou lógica ligada ao scrollYProgress), a cor volta naturalmente ao estado anterior ao rolar para cima |
+💡 Dica de implementação:
+- will-change: background-color na Camada 0
+- contain: paint para evitar repaints desnecessários
 
-💡 **Dica de implementação:**
-Use `will-change: background-color` na Camada 0 e `contain: paint` para evitar repaints desnecessários.
+3.7 Exemplo de Código (mantendo HSL + conceito Motion)
 
----
-
-#### 6. Exemplo de Código (GSAP + HSL Interpolação)
-
-```typescript
 // Função de interpolação HSL (evita tons estranhos em RGB)
 const lerpHsl = (
   h1: number, s1: number, l1: number,
   h2: number, s2: number, l2: number,
   t: number
 ) => {
-  const h = ((h2 - h1 + 360) % 360) * t + h1;
-  const s = s1 * (1 - t) + s2 * t;
-  const l = l1 * (1 - t) + l2 * t;
-  return `hsl(${h}, ${s}%, ${l}%)`;
-};
+  const h = ((h2 - h1 + 360) % 360) * t + h1
+  const s = s1 * (1 - t) + s2 * t
+  const l = l1 * (1 - t) + l2 * t
 
-// Na timeline:
+  return hsl(${h}, ${s}%, ${l}%)
+}
+
+// Dentro do update de scroll (equivalente a scrub):
+// progressInBlock ∈ [0,1], calculado por clamp no intervalo da frase.
 tl.to(bgLayer, {
-  backgroundColor: () => lerpHsl(
-    230, 85, 30,   // bluePrimary: hsl(230,85%,30%)
-    270, 80, 40,   // purpleDetails: hsl(270,80%,40%)
-    progressInBlock // t ∈ [0,1]
-  ),
+  backgroundColor: () =>
+    lerpHsl(
+      230, 85, 30, // bluePrimary: hsl(230,85%,30%)
+      270, 80, 40, // purpleDetails: hsl(270,80%,40%)
+      progressInBlock // t ∈ [0,1]
+    ),
   duration: 0.14,
   ease: "power2.inOut"
-}, start);
-```
+}, start)
 
----
+Mantida a conclusão:
+Controlada por scroll progress (não por timer fixo)
+Sincronizada com a entrada e saída do texto em tempo real
+Implementada com duas camadas para evitar flicker
+Bidirecional (subir/descer scroll mantém coerência visual)
 
-### ✅ Conclusão Técnica
+4. ANIMAÇÕES — SCROLL BIDIRECIONAL
 
-A animação de troca de BG é:
+Todas as animações devem funcionar para:
 
-- Controlada por scroll progress (não por timer)
-- Sincronizada com o texto em tempo real (não após)
-- Implementada com duas camadas para evitar flicker e garantir suavidade
-- Bidirecional (funciona ao subir/descer)
-- É um sistema reactivo, não temporal — e isso é o que torna o Ghost Design único: a interface respira com o usuário, não contra ele.
+Scroll para baixo (entrada natural dos elementos)
+Scroll para cima (saída reversa — reverte animações, como no exemplo do PDF)
 
-**Importante:** A troca de cor NÃO acontece após a frase. Ela acontece **justo na entrada**. Isso cria efeito de absorção emocional.
+Regras (ajustadas ao padrão scroll-triggered Motion):
 
----
+Não usar animações irreversíveis (tudo precisa poder “desfazer” com scroll inverso).
+Usar scrollYProgress normalizado (0 → 1).
+Mapear intervalos com clamp para cada frase/bloco.
+Não usar timers para eventos principais:
+  As transições principais (entrada/saída de texto, variação de BG) são reativas ao scroll.
+  Timers podem ser usados apenas para microdetalhes, como wobble automático, se necessário.
 
-## 4. ANIMAÇÕES — SCROLL BIDIRECIONAL
-
-Todas as animações devem funcionar:
-
-- Scroll para baixo
-- Scroll para cima
-
-### Regras
-
-- Não usar animações irreversíveis
-- Usar scrollYProgress normalizado (0 → 1)
-- Mapear intervalos com clamp
-- Não usar timers para eventos principais (apenas para rotação automática se necessário)
-
----
-
-## 5. RESET TOTAL AO SAIR DA SESSÃO
+5. RESET TOTAL AO SAIR DA SESSÃO
 
 Quando a sessão:
 
-- Sai completamente da viewport (IntersectionObserver threshold 0)
-- OU scrollYProgress retorna a 0
+Sai completamente da viewport (IntersectionObserver threshold 0)
+  OU
+scrollYProgress retorna a 0
 
-**Todos os estados devem resetar:**
+Todos os estados devem resetar:
 
-- Frase volta para a primeira
-- Ghost escala volta para 1
-- Ghost rotação zera
-- Intensidade de wobble volta ao padrão base
-- Background volta para #040013
-- Overlay opacity = 0
-- Manifesto final invisível
-- Morph resetado
+Frase volta para a primeira
+Ghost scale volta para 1
+Ghost rotação zera
+Intensidade de wobble volta ao padrão base
+Background volta para #040013
+Overlay opacity = 0
+Manifesto final invisível
+Morph resetado
+⚠️ Isso garante reexecução perfeita ao reentrar na sessão, exatamente como no exemplo de scroll-triggered, em que o elemento volta ao estado inicial quando sai de cena.
 
-⚠️ **Isso garante reexecução perfeita ao reentrar na sessão.**
+6. GHOST 3D — COMPORTAMENTO COMPLETO
 
----
+(Conteúdo mantido, apenas reforçada a relação com o scroll)
 
-## 6. GHOST 3D — COMPORTAMENTO COMPLETO
+Estado Inicial
 
-### Estado Inicial
+scale: 1
+Rotação leve em Y
+Flutuação base
+Sem intensificação
 
-- Scale: 1
-- Rotação leve Y
-- Flutuação base
-- Sem intensificação
+Durante Frases
 
-### Durante Frases
+Follow cursor (desktop)
+Scroll influencia rotação em Y
+Leve deslocamento em Z, vinculado ao scrollYProgress
 
-- Follow cursor (desktop)
-- Scroll influencia rotação Y
-- Leve deslocamento Z
+Após 0.8 de scroll progress
 
-### Após 0.8 scroll progress
+scale: 1 → 1.1
+wobble intensifica
+Resposta ao scroll aumenta
 
-- Scale: 1 → 1.1
-- Wobble intensifica
-- Resposta ao scroll aumenta
+No Manifesto Final
 
-### No Manifesto Final
+Centraliza horizontal e verticalmente
+Intensidade máxima
+Pequeno avanço no eixo Z
 
-- Centraliza horizontal e verticalmente
-- Intensidade máxima
-- Pequeno avanço no eixo Z
+Ao Sair da Sessão
 
-### Ao Sair da Sessão
+Tudo retorna ao estado inicial (reset descrito na seção 5)
 
-- Tudo retorna ao estado inicial
+7. ORDEM DE ENTRADA DOS ELEMENTOS
 
----
+Sequência cronológica — Versão Desktop
 
-## 7. ORDEM DE ENTRADA DOS ELEMENTOS
+BG inicial visível
+BeliefFixedHeader faz fade-in no topo
+Ghost entra com a primeira frase (estado inicial suave)
+Primeira troca de cor inicia simultaneamente com a entrada scroll-triggered do texto
+Frases rotativas continuam, cada uma:
+   Entrando do topo com opacity: 0 → 1 e movimento de y
+   Saindo por cima com opacity: 1 → 0
+   Sempre de forma reversível se o usuário rolar para cima
+Intensificação gradual do Ghost conforme scrollYProgress
+Manifesto final surge:
+   Ao mesmo tempo em que a frase fixa sai para cima
+Ghost escala + centraliza (clímax)
+Scroll continua → elementos saem para cima com animação suave
+Reset total ao sair da sessão
 
-### Sequência cronológica — Versão Desktop:
+Sequência cronológica — Versão Mobile
 
-1. BG inicial visível
-2. BeliefFixedHeader fade-in no topo
-3. Ghost entra com primeira frase
-4. Primeira troca de cor inicia **simultaneamente** com a entrada do texto
-5. Frases rotativas continuam, cada uma entrando do topo
-6. Intensificação gradual do ghost conforme scroll
-7. Manifesto final surge — ao mesmo tempo em que a frase fixa sai para cima
-8. Ghost escala + centraliza
-9. Clímax
-10. Scroll continua → elementos saem para cima
-11. Reset total
+BG inicial visível
+BeliefFixedHeader faz fade-in
+Ghost entra com a primeira frase
+Primeira troca de cor inicia simultaneamente com a entrada scroll-triggered do texto
+Texto fica centralizado a 20% da distância do rodapé
+Frases rotativas continuam, cada uma:
+   Entrando com fade-in, posicionando-se no centro
+   Saindo pela direita com opacity: 1 → 0
+   Reversível: ao rolar para cima, o texto volta desde a direita até o centro com opacity: 0 → 1
+Intensificação gradual do Ghost conforme scroll
+Manifesto final surge ao mesmo tempo em que a frase fixa sai para a direita
+Ghost escala + centraliza
+Scroll continua → elementos saem para a direita
+Reset total ao sair da sessão
 
-### Sequência cronológica — Versão Mobile:
+8. MANIFESTO FINAL — MORPHING
 
-1. BG inicial visível
-2. BeliefFixedHeader fade-in
-3. Ghost entra com primeira frase
-4. Primeira troca de cor inicia **simultaneamente** com a entrada do texto
-5. Texto fica centralizado a 20% da distância do rodapé
-6. Frases rotativas continuam, cada uma entrando com fade-in e posicionando-se no centro
-7. Texto sai pela direita ao final de sua exibição
-8. Intensificação gradual do ghost conforme scroll
-9. Manifesto final surge — ao mesmo tempo em que a frase fixa sai para a direita
-10. Ghost escala + centraliza
-11. Scroll continua → elementos saem para a direita
-12. Reset total
+Texto fixo:
+ISSO É GHOST DESIGN.
 
----
+Especificações (mantidas):
 
-## 8. MANIFESTO FINAL — MORPHING
+Cada linha independente
+Pequeno espaçamento entre linhas
+opacity: 0 → 1
+y: 40 → 0 (entrada de cima para baixo)
+Ghost intensifica no momento exato em que "GHOST" completa o morph
 
-**Texto fixo:**
+Integração com scroll-triggered:
 
-```
-ISSO É
-GHOST
-DESIGN.
-```
+O manifesto entra quando sua área entra em viewport / atinge o bloco de progresso definido.
+A animação de entrada (opacity + y) é vinculada à faixa de scrollProgress do manifesto (scrub).
+Ao sair da área de viewport (rolando para cima ou para baixo), o manifesto pode:
+  Fazer fade-out suave
+  Voltar ao offset em y, mantendo a reversibilidade do sistema.
 
-**Especificações:**
+9. COMPORTAMENTO MOBILE ESPECÍFICO
 
-- Cada linha independente
-- Pequeno espaçamento entre linhas
-- Opacity 0 → 1
-- Y 40 → 0 (entrada de cima para baixo)
-- Ghost intensifica no momento exato em que "GHOST" completa o morph
+Posicionamento do Texto
 
----
+Texto entra com fade-in (opacity: 0 → 1)
+Mantém posição centralizada, a 20% da distância do rodapé da tela
+Texto não se move verticalmente durante sua exibição
+Ao final da exibição (quando o bloco atinge o limiar de saída), desliza para a direita até sair da tela (x: 0 → offsetPositivo, opacity: 1 → 0)
 
-## 9. COMPORTAMENTO MOBILE ESPECÍFICO
+Sincronização BG-Texto Mobile
 
-### Posicionamento do Texto:
+A transição de cores mantém a mesma lógica de interpolação da versão desktop
+A sincronia é calculada com base no scroll progress e na entrada/saída scroll-triggered do texto, não na posição absoluta em pixels
+A troca de cores acontece enquanto o texto entra e se estabiliza, não somente após
 
-- Texto entra com fade-in (opacity: 0 → 1)
-- Mantém posição centralizada, a **20% da distância do rodapé** da tela
-- Texto não se move verticalmente durante sua exibição
-- Ao final de sua exibição, desliza para a direita até sair da tela
+Ghost 3D Mobile
 
-### Sincronização BG-Texto Mobile:
+Mantém alinhamento com o texto (não com a viewport)
+Ghost flutua levemente em torno do texto centralizado
+Durante a saída do texto (para a direita), o Ghost acompanha suavemente a direção, podendo ter leve deslocamento em x sincronizado com o scrollProgress do bloco
 
-- A transição de cores mantém a mesma lógica de interpolação que na versão desktop
-- A sincronia é calculada com base no scroll progress, não na posição do texto
-- A troca de cores acontece durante a entrada do texto, não após
+Observação Importante
+A animação mobile não é uma versão reduzida da desktop, mas uma adaptação específica que mantém a essência emocional do design, respeitando as expectativas de mobile.
+A saída pela direita cria um fluxo mais natural para telas menores, enquanto os movimentos seguem a lógica de scroll-triggered reversível, como no exemplo utilizado de referência.
 
-### Ghost 3D Mobile:
+10. PERFORMANCE
 
-- Mantém alinhamento com o texto (não com a viewport)
-- O ghost flutua levemente em torno do texto centralizado
-- Durante a saída do texto (para a direita), o ghost acompanha suavemente a direção
+Preload do GLB
+Suspense com fallback
+Evitar re-render do Canvas
+Hooks isolados:
+  useBeliefsScrollSync
+  useRotatingPhrases
+  useGhostWobble
 
-### Observação Importante:
+11. ACESSIBILIDADE
 
-A animação mobile não é uma versão reduzida da desktop, mas uma adaptação específica que mantém a essência emocional do design enquanto respeita as limitações e expectativas do formato mobile. A saída pela direita cria um fluxo natural para telas menores, onde o movimento vertical pode causar confusão.
+section aria-labelledby
+canvas aria-label
+Sem focus trap
+Contraste AA/AAA
 
----
-
-## 10. PERFORMANCE
-
-- Preload do GLB
-- Suspense com fallback
-- Evitar re-render do Canvas
-- Hooks isolados:
-  - `useBeliefsScrollSync`
-  - `useRotatingPhrases`
-  - `useGhostWobble`
-
----
-
-## 11. ACESSIBILIDADE
-
-- `section aria-labelledby`
-- `Canvas aria-label`
-- Sem focus trap
-- Contraste AA/AAA
-```
 

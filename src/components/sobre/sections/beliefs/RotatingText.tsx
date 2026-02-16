@@ -1,92 +1,193 @@
-import React from 'react';
-import { motion, AnimatePresence, Variants } from 'framer-motion';
+'use client';
+
+import React, { useEffect, useRef } from 'react';
+import { inView, animate, type DOMKeyframesDefinition, type AnimationOptions } from 'framer-motion';
 import { PHRASES } from './useBeliefAnimation';
 
+/**
+ * Animation constants per spec Section 3.4 & 3.5
+ */
+const ANIMATION_DURATION = 0.9;
+const ANIMATION_EASING: [number, number, number, number] = [0.17, 0.55, 0.55, 1];
+
+const ANIM_OPTIONS: AnimationOptions = {
+  duration: ANIMATION_DURATION,
+  ease: ANIMATION_EASING,
+};
+
 interface RotatingTextProps {
-  activePhraseIndex: number;
-  phraseProgress: number;
+  /** Hide phrases when manifesto is showing */
   finalProgress: number;
   prefersReducedMotion?: boolean;
 }
 
-const GHOST_EASE = [0.22, 1, 0.36, 1] as const;
-
-const desktopVariants: Variants = {
-  enter: { y: -40, opacity: 0 },
-  center: {
-    y: 0,
-    opacity: 1,
-    transition: { ease: GHOST_EASE, duration: 0.8 },
-  },
-  exit: {
-    y: -40,
-    opacity: 0,
-    transition: { ease: 'easeIn', duration: 0.6 },
-  },
-};
-
-const mobileVariants: Variants = {
-  enter: { opacity: 0, scale: 0.95, x: 0 },
-  center: {
-    opacity: 1,
-    scale: 1,
-    x: 0,
-    transition: { ease: GHOST_EASE, duration: 0.6 },
-  },
-  exit: {
-    x: '100%',
-    opacity: 0,
-    transition: { ease: 'easeIn', duration: 0.5 },
-  },
-};
-
+/**
+ * RotatingText — Layer 3 (z-15)
+ *
+ * Per spec Section 3.4 & 3.5 (inView + animate pattern):
+ *
+ * Desktop:
+ *   - CSS Initial: opacity: 0, transform: translateX(-100px)
+ *   - Enter (inView): animate → opacity: 1, x: [-100, 0]
+ *   - Exit (cleanup): animate → opacity: 0, x: -100
+ *
+ * Mobile:
+ *   - CSS Initial: opacity: 0, transform: translateY(60px)
+ *   - Enter (inView): animate → opacity: 1, y: [60, 0]
+ *   - Exit (cleanup): animate → opacity: 0, x: 100 (exits right)
+ *
+ * Everything is scroll-triggered via inView detection and fully
+ * reversible via cleanup functions. No motion components — pure
+ * imperative animate() calls for maximum performance.
+ */
 export function RotatingText({
-  activePhraseIndex,
   finalProgress,
+  prefersReducedMotion,
 }: RotatingTextProps) {
-  const activePhrase = PHRASES[activePhraseIndex] ?? PHRASES[0];
-  const phraseVisible = finalProgress < 0.04;
-
-  if (!phraseVisible) return null;
+  // Hide phrases during manifesto
+  if (finalProgress > 0.06) return null;
 
   return (
     <>
-      {/* Desktop View - Z-index 3 */}
-      <div className="hidden md:flex absolute inset-0 z-3 pointer-events-none items-center px-[10%]">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`desktop-${activePhraseIndex}`}
-            variants={desktopVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="text-blueAccent italic font-bold whitespace-pre-line tracking-[-0.04em] leading-[0.85]"
-            style={{
-              fontSize: 'clamp(2.6rem, 5.8vw, 6rem)',
-            }}
-          >
-            {activePhrase}
-          </motion.div>
-        </AnimatePresence>
+      {PHRASES.map((phrase, index) => (
+        <PhraseBlock
+          key={index}
+          phrase={phrase}
+          index={index}
+          prefersReducedMotion={prefersReducedMotion}
+        />
+      ))}
+    </>
+  );
+}
+
+/* ────────────────────────────────────────────────────────
+   PhraseBlock — Individual phrase with inView + animate
+   ──────────────────────────────────────────────────────── */
+
+interface PhraseBlockProps {
+  phrase: string;
+  index: number;
+  prefersReducedMotion?: boolean;
+}
+
+/**
+ * Each phrase is rendered as a full-height block that occupies
+ * the viewport. When it scrolls into view, inView detects it
+ * and triggers animate(). When it leaves, the cleanup function
+ * reverses the animation. This is the exact pattern from the spec.
+ */
+function PhraseBlock({ phrase, index, prefersReducedMotion }: PhraseBlockProps) {
+  const desktopRef = useRef<HTMLDivElement>(null);
+  const mobileRef = useRef<HTMLDivElement>(null);
+
+  // ─── Desktop: x: [-100, 0] enter, x: -100 exit ───
+  useEffect(() => {
+    if (!desktopRef.current || prefersReducedMotion) return;
+
+    const element = desktopRef.current;
+
+    // CSS initial state (critical for inView + animate pattern)
+    element.style.opacity = '0';
+    element.style.transform = 'translateX(-100px)';
+
+    // inView callback: (element: Element, entry: IntersectionObserverEntry) => cleanup
+    const unsubscribe = inView(
+      element,
+      (el) => {
+        // Animate entry: slide from left
+        animate(
+          el,
+          { opacity: 1, x: [-100, 0] } as DOMKeyframesDefinition,
+          ANIM_OPTIONS
+        );
+
+        // Cleanup: reverse when element leaves viewport
+        return () => {
+          animate(
+            el,
+            { opacity: 0, x: -100 } as DOMKeyframesDefinition,
+            ANIM_OPTIONS
+          );
+        };
+      },
+      {
+        amount: 0.5, // 50% visible threshold
+        margin: '0px 0px -20% 0px', // Adjust activation zone
+      }
+    );
+
+    return () => unsubscribe();
+  }, [prefersReducedMotion]);
+
+  // ─── Mobile: y: [60, 0] enter, x: 100 exit (right) ───
+  useEffect(() => {
+    if (!mobileRef.current || prefersReducedMotion) return;
+
+    const element = mobileRef.current;
+
+    // CSS initial state
+    element.style.opacity = '0';
+    element.style.transform = 'translateY(60px)';
+
+    const unsubscribe = inView(
+      element,
+      (el) => {
+        // Animate entry: slide from bottom
+        animate(
+          el,
+          { opacity: 1, y: [60, 0] } as DOMKeyframesDefinition,
+          ANIM_OPTIONS
+        );
+
+        // Cleanup: exit to the right
+        return () => {
+          animate(
+            el,
+            { opacity: 0, x: 100 } as DOMKeyframesDefinition,
+            ANIM_OPTIONS
+          );
+        };
+      },
+      {
+        amount: 0.5,
+        margin: '0px 0px -20% 0px',
+      }
+    );
+
+    return () => unsubscribe();
+  }, [prefersReducedMotion]);
+
+  return (
+    <>
+      {/* === Desktop View === */}
+      {/* Per spec: text on the left side, aligned with padding */}
+      <div
+        ref={desktopRef}
+        className="hidden md:flex items-center min-h-screen w-full px-[10%] z-15 pointer-events-none"
+        aria-hidden={prefersReducedMotion ? undefined : 'true'}
+      >
+        <p
+          className="text-blueAccent italic font-bold whitespace-pre-line tracking-[-0.04em] leading-[0.85]"
+          style={{ fontSize: 'clamp(2.6rem, 5.8vw, 6rem)' }}
+        >
+          {phrase}
+        </p>
       </div>
 
-      {/* Mobile View */}
-      <div className="md:hidden absolute inset-x-0 bottom-[22%] z-3 pointer-events-none px-8 text-center overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={`mobile-${activePhraseIndex}`}
-            variants={mobileVariants}
-            initial="enter"
-            animate="center"
-            exit="exit"
-            className="text-blueAccent italic font-bold whitespace-pre-line tracking-widest leading-[1.35]"
-            style={{
-              fontSize: 'clamp(2rem, 6vw, 3.5rem)',
-            }}
-          >
-            {activePhrase}
-          </motion.div>
-        </AnimatePresence>
+      {/* === Mobile View === */}
+      {/* Per spec: text centered, 20% from footer */}
+      <div
+        ref={mobileRef}
+        className="md:hidden flex items-center justify-center min-h-screen w-full px-6 z-15 pointer-events-none text-center"
+        style={{ position: 'relative', paddingBottom: '20%' }}
+      >
+        <p
+          className="text-blueAccent italic font-bold whitespace-pre-line tracking-widest leading-[1.35]"
+          style={{ fontSize: 'clamp(2rem, 6vw, 3.5rem)' }}
+        >
+          {phrase}
+        </p>
       </div>
     </>
   );
