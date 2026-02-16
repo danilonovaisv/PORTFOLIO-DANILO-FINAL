@@ -19,10 +19,10 @@ describe('admin authz helpers', () => {
     expect(isAdminUser(user)).toBe(true);
   });
 
-  it('accepts user_metadata owner role', () => {
+  it('accepts app_metadata owner role', () => {
     const user = {
-      app_metadata: {},
-      user_metadata: { role: 'owner' },
+      app_metadata: { role: 'owner' },
+      user_metadata: {},
       email: 'user@domain.com',
     } as any;
 

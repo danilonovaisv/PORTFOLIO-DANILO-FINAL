@@ -19,7 +19,7 @@ describe('global site links', () => {
     const footerHrefs = NAVIGATION.footer.links.map(
       (l: { href: string }) => l.href
     );
-    expect(footerHrefs).toContain('#hero');
+    expect(footerHrefs).toContain('/');
     expect(footerHrefs).toContain('/sobre');
     expect(footerHrefs).toContain('/portfolio');
     expect(footerHrefs).toContain('/contato');

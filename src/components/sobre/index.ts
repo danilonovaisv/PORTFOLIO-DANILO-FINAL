@@ -14,7 +14,7 @@ export {
 // Belief Components
 export {
   BeliefSection,
-  BeliefMobileTextLayer,
+
   BeliefFinalSection,
   BeliefFixedHeader,
   BeliefFinalSectionOverlay,

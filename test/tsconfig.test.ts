@@ -7,7 +7,12 @@ describe('tsconfig.json', () => {
 
   beforeAll(() => {
     const tsconfigContent = fs.readFileSync(tsconfigPath, 'utf-8');
-    tsconfig = JSON.parse(tsconfigContent);
+    // Simple regex to strip comments (both // and /* */)
+    const jsonWithoutComments = tsconfigContent.replace(
+      /\\"|"(?:\\"|[^"])*"|(\/\/.*|\/\*[\s\S]*?\*\/)/g,
+      (m, g) => (g ? '' : m)
+    );
+    tsconfig = JSON.parse(jsonWithoutComments);
   });
 
   it('should have ES2022 as target', () => {

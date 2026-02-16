@@ -274,3 +274,32 @@ Ajustes finos baseados em inspeção visual e feedback:
    - **Ghost**: Posicionado no Top-Left (`x: -1.2`, `y: 1.3`, `scale: 0.7`), alinhando visualmente com o Header (Top-Right).
 2. **Iluminação (Brilho)**:
    - Boost na `ambientLight` (0.4 -> 0.6) e `spotLight` (1.2 -> 1.5) para garantir que o modelo se destaque em telas menores ou com menor contraste.
+
+### [2026-02-16] [Correção Build & Lint About Beliefs]
+
+Resolvido erro crítico de compilação e warnings de linter:
+
+1. **Build Fix (BeliefMobileTextLayer)**:
+   - Removido imports/exports inválidos para `BeliefMobileTextLayer` nos arquivos de índice (`src/components/sobre/beliefs/index.ts`, `src/components/sobre/index.ts`).
+   - O componente não existia e causava erro `Cannot find module`.
+
+2. **Lint Cleanups (BeliefFinalSectionOverlay)**:
+   - Removida prop `progress` não utilizada.
+   - Removido import `BRAND` não utilizado.
+   - Substituídos estilos inline (`opacity`, `transform`) por classes Tailwind (`opacity-0`, `translate-y-[40px]`) para conformidade.
+
+3. **Lint Cleanup (useBeliefAnimation)**:
+   - Removido import `useCallback` não utilizado.
+
+### [2026-02-16] [Correção Test Suite]
+
+Corrigido falhas nos testes unitários:
+
+1. **Test Fix (tsconfig.json)**:
+   - Adicionado stripping de comentários antes do parse JSON em `test/tsconfig.test.ts`. O arquivo `tsconfig.json` continha comentários válidos para TS mas inválidos para `JSON.parse` padrão.
+
+2. **Test Fix (config.test.ts)**:
+   - Atualizado expectativa de link no footer de `#hero` para `/`, refletindo a configuração real em `src/config/navigation.ts`.
+
+3. **Test Fix (Admin Auth)**:
+   - Atualizado teste `admin-authz.test.ts` para verificar role 'owner' em `app_metadata` em vez de `user_metadata`, alinhando com a lógica de segurança implementada em `src/lib/admin/authz.ts`.
