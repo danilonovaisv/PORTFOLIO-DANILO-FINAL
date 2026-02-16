@@ -561,6 +561,11 @@ function truncate(value, limit) {
   return `${value.slice(0, limit - 3)}...`;
 }
 
+function escapeMarkdownTableCell(text) {
+  // First escape backslashes, then pipe characters used as table separators.
+  return text.replace(/\\/g, '\\\\').replace(/\|/g, '\\|');
+}
+
 function renderCatalogMarkdown(catalog) {
   const lines = [];
   lines.push('# Skill Catalog');
@@ -583,9 +588,8 @@ function renderCatalogMarkdown(catalog) {
     lines.push('| --- | --- | --- | --- |');
 
     for (const skill of grouped) {
-      const description = truncate(skill.description, 160).replace(
-        /\|/g,
-        '\\|'
+      const description = escapeMarkdownTableCell(
+        truncate(skill.description, 160)
       );
       const tags = skill.tags.join(', ');
       const triggers = skill.triggers.join(', ');
