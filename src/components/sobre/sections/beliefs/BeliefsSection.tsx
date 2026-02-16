@@ -57,56 +57,60 @@ export function BeliefsSection() {
   const totalHeight = `${(PHRASES.length + 1) * 100 + 30}vh`;
 
   return (
-    // eslint-disable-next-line react-dom/no-unsafe-inline-style
-    <section
-      ref={containerRef}
-      id="beliefs-section"
-      aria-labelledby="beliefs-heading"
-      style={{
-        '--section-height': totalHeight,
-      } as React.CSSProperties}
-      className="relative w-full h-(--section-height)"
-    >
-      {/* Sticky viewport container — holds ALL visual layers */}
-      <div className="sticky top-0 h-screen overflow-hidden">
-        {/* Layer 0 & 1: Backgrounds — continuous color interpolation (z-0, z-[1]) */}
-        <BeliefsBackground
-          baseColor={baseColor}
-          overlayColor={overlayColor}
-          overlayOpacity={overlayOpacity}
-        />
-
-        {/* Layer 2: Fixed intro header — z-10, above BG */}
-        <div className="absolute inset-0 z-10 pointer-events-none">
-          <BeliefFixedHeader scrollProgress={scrollYProgress} />
-        </div>
-
-        {/* Layer 3: Rotating Phrases — z-20, above header */}
-        <div className="absolute inset-0 z-20 pointer-events-none">
-          <RotatingText
-            scrollYProgress={scrollYProgress}
-            finalProgress={finalProgress}
-            prefersReducedMotion={prefersReducedMotion}
+    <>
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+          #beliefs-section {
+            --section-height: ${totalHeight};
+          }
+        `,
+        }}
+      />
+      <section
+        ref={containerRef}
+        id="beliefs-section"
+        aria-labelledby="beliefs-heading"
+        className="relative w-full h-(--section-height)"
+      >
+        {/* Sticky viewport container — holds ALL visual layers */}
+        <div className="sticky top-0 h-screen overflow-hidden">
+          {/* Layer 0 & 1: Backgrounds — continuous color interpolation (z-0, z-[1]) */}
+          <BeliefsBackground
+            baseColor={baseColor}
+            overlayColor={overlayColor}
+            overlayOpacity={overlayOpacity}
           />
-        </div>
 
-        {/* Layer 4: Final Manifesto Overlay — z-30 */}
-        <div className="absolute inset-0 z-30 pointer-events-none">
-          <BeliefFinalSectionOverlay
-            visible={finalVisible}
-            progress={finalProgress}
-          />
-        </div>
-
-        {/* Layer 5: Ghost 3D — z-40 (topmost, per spec 4.1, interacts with mouse/scroll) */}
-        {!prefersReducedMotion && (
-          <div className="absolute inset-y-0 right-0 w-full md:w-[60%] z-40 pointer-events-none">
-            <div className="w-full h-full">
-              <GhostScene scrollProgress={scrollYProgress} />
-            </div>
+          {/* Layer 2: Fixed intro header — z-10, above BG */}
+          <div className="absolute inset-0 z-10 pointer-events-none">
+            <BeliefFixedHeader scrollProgress={scrollYProgress} />
           </div>
-        )}
-      </div>
-    </section>
+
+          {/* Layer 3: Rotating Phrases — z-20, above header */}
+          <div className="absolute inset-0 z-20 pointer-events-none">
+            <RotatingText
+              scrollYProgress={scrollYProgress}
+              finalProgress={finalProgress}
+              prefersReducedMotion={prefersReducedMotion}
+            />
+          </div>
+
+          {/* Layer 4: Final Manifesto Overlay — z-30 */}
+          <div className="absolute inset-0 z-30 pointer-events-none">
+            <BeliefFinalSectionOverlay visible={finalVisible} />
+          </div>
+
+          {/* Layer 5: Ghost 3D — z-40 (topmost, per spec 4.1, interacts with mouse/scroll) */}
+          {!prefersReducedMotion && (
+            <div className="absolute inset-y-0 right-0 w-full md:w-[60%] z-40 pointer-events-none">
+              <div className="w-full h-full">
+                <GhostScene scrollProgress={scrollYProgress} />
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+    </>
   );
 }

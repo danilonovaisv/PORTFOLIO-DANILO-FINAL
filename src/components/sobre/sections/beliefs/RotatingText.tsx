@@ -176,24 +176,20 @@ export function RotatingText({
           {PHRASES.map((phrase, index) => (
             <React.Fragment key={index}>
               {/* === Desktop View === */}
+              {/* === Desktop View === */}
               <div
                 ref={(el) => {
                   desktopRefs.current[index] = el;
                 }}
-                className="hidden md:flex items-center absolute inset-0 w-full"
-                style={{
-                  opacity:
-                    prefersReducedMotion && activeIndex === index ? 1 : 0,
-                  transform: prefersReducedMotion
-                    ? 'none'
-                    : 'translateY(-50px)',
-                  willChange: 'opacity, transform',
-                }}
+                className={`hidden md:flex items-center absolute inset-0 w-full will-change-[opacity,transform] ${
+                  prefersReducedMotion
+                    ? activeIndex === index
+                      ? 'opacity-100'
+                      : 'opacity-0'
+                    : 'opacity-0 -translate-y-[50px]'
+                }`}
               >
-                <p
-                  className="text-blueAccent italic font-bold leading-[0.95] tracking-tighter whitespace-pre-line"
-                  style={{ fontSize: 'clamp(3rem, 5vw, 5.5rem)' }}
-                >
+                <p className="text-blueAccent italic font-bold leading-[0.95] tracking-tighter whitespace-pre-line text-[clamp(3rem,5vw,5.5rem)]">
                   {phrase}
                 </p>
               </div>
@@ -205,18 +201,15 @@ export function RotatingText({
                 ref={(el) => {
                   mobileRefs.current[index] = el;
                 }}
-                className="md:hidden flex items-end justify-center absolute bottom-[20%] left-0 right-0 w-full px-6 text-center"
-                style={{
-                  opacity:
-                    prefersReducedMotion && activeIndex === index ? 1 : 0,
-                  transform: prefersReducedMotion ? 'none' : 'translateX(0)',
-                  willChange: 'opacity, transform',
-                }}
+                className={`md:hidden flex items-end justify-center absolute bottom-[20%] left-0 right-0 w-full px-6 text-center will-change-[opacity,transform] ${
+                  prefersReducedMotion
+                    ? activeIndex === index
+                      ? 'opacity-100'
+                      : 'opacity-0'
+                    : 'opacity-0 translate-x-0'
+                }`}
               >
-                <p
-                  className="text-blueAccent italic font-bold leading-[1.1] tracking-tight"
-                  style={{ fontSize: 'clamp(2.5rem, 8vw, 4rem)' }}
-                >
+                <p className="text-blueAccent italic font-bold leading-[1.1] tracking-tight text-[clamp(2.5rem,8vw,4rem)]">
                   {phrase}
                 </p>
               </div>

@@ -6,11 +6,9 @@ import {
   type DOMKeyframesDefinition,
   type AnimationOptions,
 } from 'framer-motion';
-import { BRAND } from '@/config/brand';
 
 interface BeliefFinalSectionOverlayProps {
   visible: boolean;
-  progress: number;
 }
 
 const MANIFEST_EASING: [number, number, number, number] = [0.17, 0.55, 0.55, 1];
@@ -36,7 +34,7 @@ const BG_EASING: [number, number, number, number] = [0.22, 1, 0.36, 1];
  */
 export const BeliefFinalSectionOverlay: React.FC<
   BeliefFinalSectionOverlayProps
-> = ({ visible, progress }) => {
+> = ({ visible }) => {
   const manifestoRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const wasVisible = useRef(false);
@@ -81,24 +79,14 @@ export const BeliefFinalSectionOverlay: React.FC<
 
   return (
     <section
-      className="relative w-full h-full flex flex-col items-center justify-center overflow-hidden px-4 pointer-events-none"
-      style={{ opacity: visible || wasVisible.current ? 1 : 0 }}
+      className={`relative w-full h-full flex flex-col items-center justify-center overflow-hidden px-4 pointer-events-none transition-opacity duration-300 ${
+        visible || wasVisible.current ? 'opacity-100' : 'opacity-0'
+      }`}
     >
-      <div
-        ref={bgRef}
-        className="absolute inset-0"
-        style={{
-          backgroundColor: BRAND.colors.bluePrimary,
-          opacity: 0,
-        }}
-      />
+      <div ref={bgRef} className="absolute inset-0 bg-bluePrimary opacity-0" />
       <div
         ref={manifestoRef}
-        className="relative z-10 flex flex-col items-center justify-center text-center text-white font-display leading-[0.78] w-full max-w-[98vw]"
-        style={{
-          opacity: 0,
-          transform: 'translateY(40px)',
-        }}
+        className="relative z-10 flex flex-col items-center justify-center text-center text-white font-display leading-[0.78] w-full max-w-[98vw] opacity-0 translate-y-[40px]"
       >
         <div className="text-[16vw] text-white md:text-[14rem] tracking-tighter uppercase font-black">
           ISSO É
