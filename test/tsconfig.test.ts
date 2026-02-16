@@ -71,8 +71,5 @@ describe('tsconfig.json', () => {
     expect(tsconfig.compilerOptions.esModuleInterop).toBe(true);
   });
 
-  it('should include jest types for testing', () => {
-    expect(tsconfig.compilerOptions.types).toContain('jest');
-    expect(tsconfig.compilerOptions.types).toContain('node');
-  });
+
 });

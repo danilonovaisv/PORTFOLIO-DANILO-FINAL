@@ -22,7 +22,7 @@ describe('global site links', () => {
     expect(footerHrefs).toContain('/');
     expect(footerHrefs).toContain('/sobre');
     expect(footerHrefs).toContain('/portfolio');
-    expect(footerHrefs).toContain('/contato');
+    expect(footerHrefs).toContain('/#contact');
     expect(footerHrefs).toContain('/privacidade');
     expect(footerHrefs).toContain('/privacy-policy');
   });
