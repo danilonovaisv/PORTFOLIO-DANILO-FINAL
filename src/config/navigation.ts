@@ -12,7 +12,7 @@ export const NAVIGATION = {
   header: [
     { label: 'home', href: '/' }, // ou #hero se estiver na home
     { label: 'sobre', href: '/sobre' },
-    { label: 'portfólio do acaso', href: '/portfolio' },
+    { label: 'portfólio', href: '/portfolio' },
     { label: 'contato', href: '#contact' }, // Always anchor
   ],
   footer: {

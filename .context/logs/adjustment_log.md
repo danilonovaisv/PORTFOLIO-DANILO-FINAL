@@ -236,3 +236,41 @@
 - [2026-02-14] Fixed AboutBeliefs architecture: Stuck Global BG, adjusted Z-indices (Ghost Z-30), refined Mobile Text animation ranges, and removed default video captions.
 - [2026-02-14] Refined AboutBeliefs (v2): Ghost Z-60 (above text), Mobile Text Enter-Left/-20% Bottom, Header Top-24 sticky, EventSource enabled for 3D interaction.
 - [2026-02-15] [Test Expansion] Implementação de testes unitários para a Antigravity Store e hooks críticos (useLERPScroll, usePerformanceAdaptive). Criação de plano de expansão de cobertura e walkthrough.
+
+### [2026-02-16] [Refatoração About Beliefs]
+
+Implementação do spec de ajuste `06-O-QUE-ME-MOVE-AJUSTE.md`:
+
+1. **BeliefsSection.tsx**: Reordenação de camadas Z-Index (Ghost z-40 passa a ser topo-visual). Ajuste na arquitetura sticky.
+2. **RotatingText.tsx**:
+   - **Desktop**: Animação slide vertical (Top -> 0 -> Top).
+   - **Mobile**: Animação slide horizontal (Fade In -> Slide Right Exit).
+   - **Cor**: Mantido `text-blueAccent`.
+   - **Texto**: Removidos `\n` manuais.
+3. **GhostScene.tsx**:
+   - Adicionado follow-mouse suave para Desktop.
+   - Desativado follow-mouse para Mobile.
+   - Ajuste de escala final.
+4. **BeliefFixedHeader.tsx**:
+   - **Desktop**: Exit slide UP.
+   - **Mobile**: Exit slide RIGHT.
+   - Uso de `useIsMobile`.
+5. **Cleanup**: Removido `BeliefMobileTextLayer.tsx`.
+
+### [2026-02-16] [Correção Visual About Beliefs]
+
+Ajustes finos baseados em inspeção visual e feedback:
+
+1. **Ghost Position (Desktop)**: Implementado lógica de posição X dinâmica. Inicia em `x: -1.5` (Esquerda) para liberar espaço para o Header (Direita), e transita para `x: 0` (Centro) durante o manifesto final (`t > 0.8`).
+2. **RotatingText**: Restaurado `whitespace-pre-line` e adicionado `\n` nas frases para forçar quebra de linha em Desktop ("Um \n vídeo..."), garantindo layout empilhado.
+3. **Ghost Interaction**: Mantido follow-mouse apenas em Desktop.
+4. **Header Visibility**: Resolvido conflito visual movendo o Ghost para a esquerda, evitando sobreposição com o texto fixo à direita.
+5. **Correção de Visibilidade Header**: Implementado `useInView` + `useAnimation` para gatilho de entrada. Substituído mapeamento de opacidade baseado em scroll por animação de entrada direta (Slide Left + Fade In). Mantido scroll apenas para saída (Exit).
+
+### [2026-02-16] [Ajuste Fino Mobile & Lighting]
+
+1. **Layout Mobile Refinado**:
+   - **Header**: Padding top ajustado para `20vh` (antes era px fixo), garantindo posição consistente 20% do topo.
+   - **Ghost**: Posicionado no Top-Left (`x: -1.2`, `y: 1.3`, `scale: 0.7`), alinhando visualmente com o Header (Top-Right).
+2. **Iluminação (Brilho)**:
+   - Boost na `ambientLight` (0.4 -> 0.6) e `spotLight` (1.2 -> 1.5) para garantir que o modelo se destaque em telas menores ou com menor contraste.

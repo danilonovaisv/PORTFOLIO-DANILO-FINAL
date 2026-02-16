@@ -1,7 +1,11 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
-import { animate as motionAnimate, type DOMKeyframesDefinition, type AnimationOptions } from 'framer-motion';
+import {
+  animate as motionAnimate,
+  type DOMKeyframesDefinition,
+  type AnimationOptions,
+} from 'framer-motion';
 import { BRAND } from '@/config/brand';
 
 interface BeliefFinalSectionOverlayProps {

@@ -36,23 +36,21 @@ interface HSLColor {
 }
 
 const COLORS_HSL: readonly HSLColor[] = [
-  { h: 250, s: 100, l: 4 },   // #040013 (void background)
-  { h: 223, s: 100, l: 50 },  // bluePrimary  (#0048ff)
-  { h: 270, s: 97, l: 48 },   // purpleDetails (#8705f2)
-  { h: 310, s: 98, l: 48 },   // pinkDetails (#f501d3)
-  { h: 223, s: 100, l: 50 },  // bluePrimary
-  { h: 270, s: 97, l: 48 },   // purpleDetails
-  { h: 310, s: 98, l: 48 },   // pinkDetails
-  { h: 223, s: 100, l: 50 },  // bluePrimary (final / manifesto)
+  { h: 250, s: 100, l: 4 }, // #040013 (void background)
+  { h: 223, s: 100, l: 50 }, // bluePrimary  (#0048ff)
+  { h: 270, s: 97, l: 48 }, // purpleDetails (#8705f2)
+  { h: 310, s: 98, l: 48 }, // pinkDetails (#f501d3)
+  { h: 223, s: 100, l: 50 }, // bluePrimary
+  { h: 270, s: 97, l: 48 }, // purpleDetails
+  { h: 310, s: 98, l: 48 }, // pinkDetails
+  { h: 223, s: 100, l: 50 }, // bluePrimary (final / manifesto)
 ];
 
 /**
  * Ghost easing — power2.inOut approximation for smooth color transitions.
  */
 function easeInOut(t: number): number {
-  return t < 0.5
-    ? 2 * t * t
-    : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 }
 
 /**
@@ -67,7 +65,7 @@ function lerpHSL(a: HSLColor, b: HSLColor, t: number): string {
   if (dh > 180) dh -= 360;
   if (dh < -180) dh += 360;
 
-  const h = ((a.h + dh * eased) % 360 + 360) % 360;
+  const h = (((a.h + dh * eased) % 360) + 360) % 360;
   const s = a.s + (b.s - a.s) * eased;
   const l = a.l + (b.l - a.l) * eased;
 
@@ -89,8 +87,12 @@ interface UseBeliefAnimationProps {
 
 export function useBeliefAnimation({ containerRef }: UseBeliefAnimationProps) {
   // --- State for React renders (background + manifesto) ---
-  const [baseColor, setBaseColor] = useState(lerpHSL(COLORS_HSL[0], COLORS_HSL[0], 0));
-  const [overlayColor, setOverlayColor] = useState(lerpHSL(COLORS_HSL[1], COLORS_HSL[1], 0));
+  const [baseColor, setBaseColor] = useState(
+    lerpHSL(COLORS_HSL[0], COLORS_HSL[0], 0)
+  );
+  const [overlayColor, setOverlayColor] = useState(
+    lerpHSL(COLORS_HSL[1], COLORS_HSL[1], 0)
+  );
   const [overlayOpacity, setOverlayOpacity] = useState(0);
   const [finalProgress, setFinalProgress] = useState(0);
 
@@ -101,7 +103,10 @@ export function useBeliefAnimation({ containerRef }: UseBeliefAnimationProps) {
 
   const phraseCount = PHRASES.length;
   const finalStart = useMemo(() => 0.82, []); // Manifesto starts at 82%
-  const segment = useMemo(() => finalStart / phraseCount, [finalStart, phraseCount]);
+  const segment = useMemo(
+    () => finalStart / phraseCount,
+    [finalStart, phraseCount]
+  );
 
   // Refs for previous values to avoid unnecessary state updates
   const prevState = useRef({
@@ -136,7 +141,7 @@ export function useBeliefAnimation({ containerRef }: UseBeliefAnimationProps) {
       const lastColor = lerpHSL(
         COLORS_HSL[COLORS_HSL.length - 2],
         COLORS_HSL[COLORS_HSL.length - 1],
-        1,
+        1
       );
       const roundedFinal = Math.round(clamp01(local) * 100) / 100;
 
@@ -158,7 +163,11 @@ export function useBeliefAnimation({ containerRef }: UseBeliefAnimationProps) {
     // ─── Color interpolation (HSL, continuous, bidirectional) ───
     // Per spec: "When text is 40% visible, color reaches 60% interpolation"
     const colorT = clamp01(localProgress * 1.5);
-    const currentColor = lerpHSL(COLORS_HSL[index], COLORS_HSL[index + 1], colorT);
+    const currentColor = lerpHSL(
+      COLORS_HSL[index],
+      COLORS_HSL[index + 1],
+      colorT
+    );
 
     // ─── Overlay crossfade: ramps up during first 40%, down during last 30% ───
     const overlayIn = clamp01(localProgress / 0.4);

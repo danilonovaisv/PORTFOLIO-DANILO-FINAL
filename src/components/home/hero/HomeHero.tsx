@@ -111,9 +111,10 @@ export default function HomeHero() {
         {/* Camada: HERO CTA — z-50: ACIMA do Ghost WebGL (z-40)             */}
         {/* e do texto (z-30). Abaixo do Header (z-1000).                    */}
         {/* Extraído do z-30 para ter stacking context independente.          */}
+        {/* Posicionado 10% acima do rodapé da sessão e centralizado.        */}
         {/* ═══════════════════════════════════════════════════════════════════ */}
         <div className="absolute inset-0 z-50 pointer-events-none">
-          <div className="flex items-end justify-center w-full h-screen pb-[15vh] md:pb-0 md:items-center md:pt-[22vh]">
+          <div className="absolute bottom-[10%] left-0 right-0 flex justify-center">
             <div className="pointer-events-auto">
               <HeroCTA />
             </div>

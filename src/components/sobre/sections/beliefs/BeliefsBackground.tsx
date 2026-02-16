@@ -12,7 +12,7 @@ interface BeliefsBackgroundProps {
  * Two-layer background system per spec Section 3.
  * Layer 0: Base color — receives the continuously interpolated color.
  * Layer 1: Overlay crossfade — fades in/out to smooth transitions and avoid flicker.
- * 
+ *
  * Uses `will-change` and `contain: paint` for performance on Safari/Android.
  */
 export function BeliefsBackground({

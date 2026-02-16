@@ -3,24 +3,22 @@
 import { motion, Variants } from 'framer-motion';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { HOME_CONTENT } from '@/config/content';
-import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 
 const itemAnimation: Variants = {
-  initial: { opacity: 0, y: MOTION_TOKENS.offset.standard },
+  initial: { opacity: 0, y: 24 },
   animate: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: MOTION_TOKENS.duration.normal,
-      ease: GHOST_EASE,
+      duration: 0.8,
+      ease: [0.22, 1, 0.36, 1], // Ghost ease
       delay: 1.0,
     },
   },
 };
 
-export default function HeroCTA() {
-  // isLoaded check removed for immediate LCP
-  // if (!isLoaded) return null;
+export default function HeroCTA({ isLoaded = true }: { isLoaded?: boolean }) {
+  if (!isLoaded) return null;
 
   return (
     <motion.div

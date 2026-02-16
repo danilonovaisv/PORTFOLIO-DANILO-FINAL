@@ -1,50 +1,9 @@
 --- firebase.json.before
 +++ firebase.json.after
-@@ -25,7 +25,57 @@
-     ],
-     "frameworksBackend": {
-       "region": "us-west1"
--    }
-+    },
-+    "headers": [
-+      {
-+        "source": "**",
-+        "headers": [
-+          {
-+            "key": "Strict-Transport-Security",
-+            "value": "max-age=31536000; includeSubDomains; preload"
-+          },
-+          {
-+            "key": "X-Frame-Options",
-+            "value": "DENY"
-+          },
-+          {
-+            "key": "X-Content-Type-Options",
-+            "value": "nosniff"
-+          },
-+          {
-+            "key": "Referrer-Policy",
-+            "value": "strict-origin-when-cross-origin"
-+          }
-+        ]
-+      },
-+      {
-+        "source": "/_next/static/**",
-+        "headers": [
-+          {
-+            "key": "Cache-Control",
-+            "value": "public, max-age=31536000, immutable"
-+          }
-+        ]
-+      },
-+      {
-+        "source": "**/*.@(glb|gltf|bin|hdr|exr|mp4|webm|mov|m3u8)",
-+        "headers": [
-+          {
-+            "key": "Cache-Control",
-+            "value": "public, max-age=3600, stale-while-revalidate=86400"
-+          }
-+        ]
+@@ -53,6 +53,15 @@
+             "value": "public, max-age=3600, stale-while-revalidate=86400"
+           }
+         ]
 +      },
 +      {
 +        "source": "/api/**",
@@ -54,8 +13,6 @@
 +            "value": "no-store"
 +          }
 +        ]
-+      }
-+    ]
+       }
+     ]
    },
-   "emulators": {
-     "functions": {
