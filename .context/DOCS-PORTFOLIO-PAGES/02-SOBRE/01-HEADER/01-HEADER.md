@@ -1,6 +1,7 @@
 # 01-HEADER
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivos principais:
   - `src/components/layout/Header.tsx`
   - `src/components/layout/header/SiteHeader.tsx`
@@ -24,9 +25,11 @@
   - Acoplamento médio com animações GSAP no mobile.
 
 ## 1. Objetivo da Página/Sessão
+
 Garantir navegação global consistente na `/sobre`, preservando leitura fluida da narrativa e acesso rápido para Home, Sobre, Portfólio e Contato.
 
 ## 2. Estrutura de Conteúdo
+
 - Headings:
   - Não possui heading próprio (componente de navegação global).
 - Hierarquia semântica:
@@ -41,6 +44,7 @@ Garantir navegação global consistente na `/sobre`, preservando leitura fluida 
   - Predominância de `bluePrimary`, `blueAccent`, fundo escuro translúcido.
 
 ## 3. Identidade Visual
+
 - Cores aplicadas:
   - Header escuro translúcido com acento azul.
 - Backgrounds:
@@ -51,6 +55,7 @@ Garantir navegação global consistente na `/sobre`, preservando leitura fluida 
   - Bom contraste em desktop e mobile.
 
 ## 4. Interatividade & Animações
+
 - Framer Motion:
   - Entrada do header mobile (`MobileHeaderBar`).
 - GSAP:
@@ -63,6 +68,7 @@ Garantir navegação global consistente na `/sobre`, preservando leitura fluida 
   - Médio no mobile por timeline completa + blur.
 
 ## 5. Responsividade
+
 - Desktop:
   - Navegação horizontal fluida.
 - Mobile:
@@ -71,6 +77,7 @@ Garantir navegação global consistente na `/sobre`, preservando leitura fluida 
   - Alternância principal em `lg`.
 
 ## 6. Acessibilidade & SEO
+
 - Estrutura semântica:
   - `header`, `nav`, botões e links corretos.
 - ARIA:
@@ -81,12 +88,14 @@ Garantir navegação global consistente na `/sobre`, preservando leitura fluida 
   - Em conformidade geral com leitura adequada.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Assets dinâmicos:
   - Logo via `useSiteAssetUrl`.
 - Runtime:
   - `useExperience` e detecção de seções claras para ajuste visual.
 
 ## 8. Considerações Técnicas
+
 - Performance:
   - Mobile menu com animações robustas; custo aceitável para baixa frequência de uso.
 - Reusabilidade:
@@ -95,13 +104,15 @@ Garantir navegação global consistente na `/sobre`, preservando leitura fluida 
   - Complexidade do hook `useMobileMenuAnimation` dificulta manutenção.
 
 ## 9. Componentes Interativos
-| Componente | Descrição | Estados | Interações | Status |
-|------------|-----------|---------|------------|--------|
-| Navegação Desktop | Links principais | Default, Hover, Active | Clique e scroll para âncora | Implementado |
-| Menu Mobile | Overlay completo | Closed, Opening, Open, Closing | Clique, Esc, outside click | Implementado |
-| Botão do Menu | Troca Menu/Close | Idle, Active | Clique/tap | Implementado |
+
+| Componente        | Descrição        | Estados                        | Interações                  | Status       |
+| ----------------- | ---------------- | ------------------------------ | --------------------------- | ------------ |
+| Navegação Desktop | Links principais | Default, Hover, Active         | Clique e scroll para âncora | Implementado |
+| Menu Mobile       | Overlay completo | Closed, Opening, Open, Closing | Clique, Esc, outside click  | Implementado |
+| Botão do Menu     | Troca Menu/Close | Idle, Active                   | Clique/tap                  | Implementado |
 
 ## 10. Estrutura de Páginas e Navegação
+
 - Fluxo principal:
   - Home (`/`)
   - Sobre (`/sobre`)
@@ -111,12 +122,14 @@ Garantir navegação global consistente na `/sobre`, preservando leitura fluida 
   - Header idêntico ao da Home com destaque de página ativa em Sobre.
 
 ## 11. Informações Relevantes para Compreensão da Sessão
+
 - Referências:
   - `.context/SOBRE-PROTOTIPO-INTERATIVO.md`
   - `.context/SOBRE-PORTFOLIO-BLACK---GHOST.jpg`
   - `.context/SOBRE-MOBILE-BLACK---GHOST.jpg`
 
 ## 12. Análise de Inconformidades (Sessão vs Protótipo)
+
 - Inconformidade 1 (Média): item de navegação
   - Esperado: `Portfólio do Acaso`.
   - Implementado: `portfólio` (`src/config/navigation.ts`).

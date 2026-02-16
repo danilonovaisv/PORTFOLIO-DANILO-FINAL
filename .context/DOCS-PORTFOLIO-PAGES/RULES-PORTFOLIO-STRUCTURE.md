@@ -4,24 +4,24 @@
 > **STATUS:** V1.0.0
 > **FONTE:** .context/DOCS-PORTFOLIO-PAGES/estrutura-site-portfolio.txt
 
-Este documento define a estrutura arquitetural *imutável* do site. Qualquer alteração na ordem, nome ou composição das sessões deve ser refletida aqui *antes* de ser implementada no código.
+Este documento define a estrutura arquitetural _imutável_ do site. Qualquer alteração na ordem, nome ou composição das sessões deve ser refletida aqui _antes_ de ser implementada no código.
 
 ---
 
 # 1. Tabela Resumo Geral
 
-| Página | Ordem | Caminho Real | Nº Sessões | Dependências Críticas |
-| :--- | :--- | :--- | :--- | :--- |
-| **01-HOME** | 01 | `/app/page.tsx` | 08 | `Header`, `Hero`, `Showcase`, `Contact` |
-| **02-SOBRE** | 02 | `/app/sobre/page.tsx` | 10 | `Header`, `MotionGate`, `Assets`, `Footer` |
-| **03-PORTFOLIO** | 03 | `/app/portfolio/page.tsx` | 09 | `Gallery`, `Modal`, `ProjectSlug`, `CMS` |
-| **04-ADMIN** | 04 | `/app/admin/*` | Multi | `Auth`, `Supabase`, `ProtectedLayout` |
+| Página           | Ordem | Caminho Real              | Nº Sessões | Dependências Críticas                      |
+| :--------------- | :---- | :------------------------ | :--------- | :----------------------------------------- |
+| **01-HOME**      | 01    | `/app/page.tsx`           | 08         | `Header`, `Hero`, `Showcase`, `Contact`    |
+| **02-SOBRE**     | 02    | `/app/sobre/page.tsx`     | 10         | `Header`, `MotionGate`, `Assets`, `Footer` |
+| **03-PORTFOLIO** | 03    | `/app/portfolio/page.tsx` | 09         | `Gallery`, `Modal`, `ProjectSlug`, `CMS`   |
+| **04-ADMIN**     | 04    | `/app/admin/*`            | Multi      | `Auth`, `Supabase`, `ProtectedLayout`      |
 
 ---
 
 # 2. Documentação Completa por Página
 
-------------------------------------------------
+---
 
 ## [01-HOME]
 
@@ -168,7 +168,7 @@ Este documento define a estrutura arquitetural *imutável* do site. Qualquer alt
   - Desktop: `.../08-FOOTER/08-FOOTER-DESKTOP.jpg`
   - Mobile: `.../08-FOOTER/08-FOOTER-MOBILE.jpg`
 
-------------------------------------------------
+---
 
 ## [02-SOBRE]
 
@@ -256,9 +256,9 @@ Este documento define a estrutura arquitetural *imutável* do site. Qualquer alt
   - Desktop: `.../07-FECHAMENTO-CONFIRMACAO/07-FECHAMENTO-CONFIRMACAO-DESKTOP.jpg`
   - Mobile: `.../07-FECHAMENTO-CONFIRMACAO/07-FECHAMENTO-CONFIRMACAO-MOBILE.jpg`
 
-*(Sessões 08, 09, 10 seguem estrutura padrão de Clients, Contact e Footer)*
+_(Sessões 08, 09, 10 seguem estrutura padrão de Clients, Contact e Footer)_
 
-------------------------------------------------
+---
 
 ## [03-PORTFOLIO]
 
@@ -308,9 +308,9 @@ Este documento define a estrutura arquitetural *imutável* do site. Qualquer alt
   - Desktop: `.../06-PROJETO-SLUG/LANDING-PAGE-DESKTOP.jpg`
   - Mobile: `.../06-PROJETO-SLUG/LANDING-PAGE-MOBILE.jpg`
 
-*(Demais sessões seguem padrões já documentados)*
+_(Demais sessões seguem padrões já documentados)_
 
-------------------------------------------------
+---
 
 ## [04-ADMIN]
 
@@ -324,4 +324,5 @@ Este documento define a estrutura arquitetural *imutável* do site. Qualquer alt
 - `10-SCENE-GENERATOR`: Ferramentas criativas.
 
 ---
+
 **FIM DA REGRA ESTRUTURAL**

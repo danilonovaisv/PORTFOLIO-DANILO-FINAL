@@ -1,6 +1,13 @@
 import { renderHook } from '@testing-library/react';
 import { useLERPScroll } from '@/hooks/useLERPScroll';
-import { beforeEach, describe, expect, it, jest, afterEach } from '@jest/globals';
+import {
+  beforeEach,
+  describe,
+  expect,
+  it,
+  jest,
+  afterEach,
+} from '@jest/globals';
 
 describe('useLERPScroll', () => {
   let trackMock: HTMLElement;
@@ -87,12 +94,10 @@ describe('useLERPScroll', () => {
     const trackRef = { current: trackMock };
     const galleryRef = { current: galleryMock };
 
-    renderHook(() =>
-      useLERPScroll(trackRef, galleryRef, true)
-    );
+    renderHook(() => useLERPScroll(trackRef, galleryRef, true));
 
-    // Initial calculation should happen
-    expect(galleryMock.style.height).toBe('2000px');
+    // Initial calculation should happen (2000px content + 96px sticky offset)
+    expect(galleryMock.style.height).toBe('2096px');
   });
 
   it('updates isSticky state based on scroll position', () => {

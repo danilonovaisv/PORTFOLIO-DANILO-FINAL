@@ -1,6 +1,7 @@
 # 07-CONTACT
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivos principais:
   - `src/components/home/contact/ContactSection.tsx`
   - `src/components/home/contact/ContactForm.tsx`
@@ -18,9 +19,11 @@
   - Acoplamento externo com endpoint FormSubmit.
 
 ## 1. Objetivo da Página/Sessão
+
 Converter interesse em contato qualificado com múltiplos canais (telefone, email, redes sociais) e formulário de mensagem.
 
 ## 2. Estrutura de Conteúdo
+
 - Headings:
   - `h2`: “contato”.
 - Hierarquia semântica:
@@ -39,6 +42,7 @@ Converter interesse em contato qualificado com múltiplos canais (telefone, emai
   - Média/alta (dados de contato + formulário completo).
 
 ## 3. Identidade Visual
+
 - Cores aplicadas:
   - Contraste claro/escuro com ênfase em azul.
 - Gradientes:
@@ -53,6 +57,7 @@ Converter interesse em contato qualificado com múltiplos canais (telefone, emai
   - Adequada.
 
 ## 4. Interatividade & Animações
+
 - Uso de Framer Motion:
   - Reveal da seção e do formulário.
 - Variants:
@@ -67,6 +72,7 @@ Converter interesse em contato qualificado com múltiplos canais (telefone, emai
   - Baixo.
 
 ## 5. Responsividade
+
 - Desktop:
   - Grid `5/7` com boa separação entre informação e form.
 - Tablet:
@@ -83,6 +89,7 @@ Converter interesse em contato qualificado com múltiplos canais (telefone, emai
   - Baixo.
 
 ## 6. Acessibilidade & SEO
+
 - Estrutura semântica:
   - Boa estrutura de formulário, labels associadas (`htmlFor`).
 - ARIA:
@@ -101,6 +108,7 @@ Converter interesse em contato qualificado com múltiplos canais (telefone, emai
   - Sessão de conversão não crítica para ranking, mas boa semântica ajuda crawlability.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Firebase:
   - Não utilizado.
 - Supabase:
@@ -115,6 +123,7 @@ Converter interesse em contato qualificado com múltiplos canais (telefone, emai
   - Não aplicado.
 
 ## 8. Considerações Técnicas
+
 - Performance:
   - Seção leve.
 - Bundle size:
@@ -136,7 +145,6 @@ Converter interesse em contato qualificado com múltiplos canais (telefone, emai
 
 ---
 
-
 ## 9. Componentes Interativos
 
 🎨 **Biblioteca de Componentes:**
@@ -149,6 +157,7 @@ Converter interesse em contato qualificado com múltiplos canais (telefone, emai
 | Menu Mobile | Global via header | Closed/Open | Navegação global | Implementado (global) |
 
 🔄 **Estados e Transições:**
+
 - Hover: Botão de envio e campos destacam estado interativo.
 - Focus: Campos com foco visível e ordem lógica de navegação.
 - Loading: Estado de envio com feedback de processamento.
@@ -156,9 +165,11 @@ Converter interesse em contato qualificado com múltiplos canais (telefone, emai
 - Success: Confirmação explícita de envio bem-sucedido.
 
 ## 10. Estrutura de Páginas e Navegação
+
 - Âncora final de conversão (`#contact`) acessada por header/CTAs da HOME.
 - Encadeia submissão de lead sem redirecionamento obrigatório.
 
 ## 11. Informações Relevantes para Compreensão da Sessão
+
 - Integração atual com endpoint externo de envio (FormSubmit).
 - Recomendável endpoint próprio para observabilidade, rate-limit e segurança de produção.

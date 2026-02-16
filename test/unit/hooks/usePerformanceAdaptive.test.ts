@@ -23,7 +23,11 @@ describe('usePerformanceAdaptive', () => {
 
   afterEach(() => {
     jest.restoreAllMocks();
-    global.navigator = originalNavigator;
+    Object.defineProperty(global, 'navigator', {
+      value: originalNavigator,
+      configurable: true,
+      writable: true,
+    });
   });
 
   it('should return low quality for mobile devices', () => {

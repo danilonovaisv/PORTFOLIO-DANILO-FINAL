@@ -1,6 +1,7 @@
 # ÍNDICE DE DOCUMENTAÇÃO — PORTFOLIO
 
 ## 1) Documentação da sessão (`SESSÕES-MD/PORTFOLIO`)
+
 - `SESSÕES-MD/PORTFOLIO/PORTFOLIO-PROTOTIPO-INTERATIVO.md`
 - `SESSÕES-MD/PORTFOLIO/PORTFOLIO-PAGE-LAYOUYT.jpg`
 - `SESSÕES-MD/PORTFOLIO/PORTFOLIO-PAGE-MOBILE.jpg`
@@ -19,6 +20,7 @@
 - `SESSÕES-MD/PORTFOLIO/13-PLANO-DE-AJUSTES-PORTFOLIO.md`
 
 ## 2) Documentação existente relacionada em `docs/`
+
 - `docs/PORTFOLIO/PAGE-PORTFOLIO.md`
 - `docs/PORTFOLIO/PORTFOLIO - AJUSTE.md`
 - `docs/PORTFOLIO/PORTFOLIO - PROTÓTIPO INTERATIVO.md`
@@ -37,6 +39,7 @@
 - `docs/PORTFOLIO_FIX_GUIDE.md`
 
 ## 3) Fontes de código mapeadas para PORTFOLIO
+
 - Rota principal: `src/app/portfolio/page.tsx`
 - Cliente da página: `src/app/portfolio/PortfolioClient.tsx`
 - Página dinâmica: `src/app/portfolio/[slug]/page.tsx`

@@ -1,6 +1,7 @@
 # 02-HERO
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivos principais:
   - `src/components/home/hero/HomeHero.tsx`
   - `src/components/home/hero/HeroCopy.tsx`
@@ -24,9 +25,11 @@
   - Acoplamento médio com store global de experiência para motion gate.
 
 ## 1. Objetivo da Página/Sessão
+
 Estabelecer a proposta editorial principal da HOME com impacto visual e assinatura Ghost: mensagem curta, ambiente imersivo e direção para continuidade da jornada.
 
 ## 2. Estrutura de Conteúdo
+
 - Headings:
   - `h1` presente via `sr-only` em `HeroCopy` com título + subtítulo.
 - Hierarquia semântica:
@@ -46,6 +49,7 @@ Estabelecer a proposta editorial principal da HOME com impacto visual e assinatu
   - Baixa, orientada a manifesto.
 
 ## 3. Identidade Visual
+
 - Cores aplicadas:
   - Base escura (`background`) com brilhos azul/ciano.
 - Gradientes:
@@ -60,6 +64,7 @@ Estabelecer a proposta editorial principal da HOME com impacto visual e assinatu
   - Forte, com escala fluida e tracking editorial.
 
 ## 4. Interatividade & Animações
+
 - Uso de Framer Motion:
   - Entrada de texto, preloader e transições de camadas.
 - Variants:
@@ -74,6 +79,7 @@ Estabelecer a proposta editorial principal da HOME com impacto visual e assinatu
   - Alto potencial por WebGL + efeitos blur + preloader.
 
 ## 5. Responsividade
+
 - Desktop:
   - Hero full-screen com camada 3D ativa.
 - Tablet:
@@ -90,6 +96,7 @@ Estabelecer a proposta editorial principal da HOME com impacto visual e assinatu
   - Baixo estruturalmente; atenção ao preloader que pode mascarar render inicial.
 
 ## 6. Acessibilidade & SEO
+
 - Estrutura semântica:
   - `section` com identificação e `h1` invisível para leitores de tela.
 - ARIA:
@@ -108,6 +115,7 @@ Estabelecer a proposta editorial principal da HOME com impacto visual e assinatu
   - Conteúdo textual principal presente no DOM.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Firebase:
   - Não há uso direto nesta seção.
 - Supabase:
@@ -122,6 +130,7 @@ Estabelecer a proposta editorial principal da HOME com impacto visual e assinatu
   - Não utilizado diretamente.
 
 ## 8. Considerações Técnicas
+
 - Performance:
   - Sessão mais custosa da HOME.
 - Bundle size:
@@ -143,7 +152,6 @@ Estabelecer a proposta editorial principal da HOME com impacto visual e assinatu
 
 ---
 
-
 ## 9. Componentes Interativos
 
 🎨 **Biblioteca de Componentes:**
@@ -156,6 +164,7 @@ Estabelecer a proposta editorial principal da HOME com impacto visual e assinatu
 | Menu Mobile | Consumido indiretamente via header global | Closed/Open | Acesso via topo | Implementado (global) |
 
 🔄 **Estados e Transições:**
+
 - Hover: CTAs e elementos interativos com realce de contraste e microtransição sutil.
 - Focus: Ordem de tabulação prioriza conteúdo e CTA principal.
 - Loading: Preloader e fallback de mídia até confirmação de recursos de animação.
@@ -163,9 +172,11 @@ Estabelecer a proposta editorial principal da HOME com impacto visual e assinatu
 - Success: Entrada do hero concluída sem shift; CTA pronto para ação.
 
 ## 10. Estrutura de Páginas e Navegação
+
 - Conecta usuário ao fluxo de conversão via CTA para portfólio/contato.
 - Opera como ponto inicial semântico da HOME (H1 principal).
 
 ## 11. Informações Relevantes para Compreensão da Sessão
+
 - Referências visuais: `.context/HERO-PORTFOLIO-GHOST.jpg`, `.context/HERO.png`.
 - A presença de preloader e gate de motion exige monitoramento de LCP e INP em mobile.

@@ -1,4 +1,3 @@
-
 # 6. O Que Me Move — "About Beliefed"
 
 **Sessão:** 6. O Que Me Move  
@@ -22,14 +21,14 @@ Sessão manifesto emocional que revela o "porquê" do Ghost Design.
 
 A sessão é estruturada em camadas independentes para controle de animação e reset.
 
-| Camada | Responsabilidade | Observação |
-|--------|------------------|------------|
-| **Camada 0** — Background Layer | Responsável por troca de cores | Fica abaixo de tudo, controlada via scroll progress, transição suave (interpolação linear + easing suave), não deve causar repaint brusco |
-| **Camada 1** — Background Overlay Transition Layer | Camada auxiliar para transição crossfade entre cores | Evita flicker, opacity animada sincronizada com entrada de frases |
-| **Camada 2** — BeliefFixedHeader (Sticky) | Header fixo no topo | Z-index acima do BG, independente das trocas de cor, frase sai sincronizada com a saída do último texto animado, não participa do morph final |
-| **Camada 3** — Texto Rotativo | Textos animados que rotacionam | Vive dentro do container principal, controla o timing da troca de cores, é o gatilho de sincronização de fundo |
-| **Camada 4** — Manifesto Final (Morphing Layer) | Texto final "ISSO É GHOST DESIGN" | Aparece no clímax, fica acima do Ghost, controla intensificação do ghost |
-| **Camada 5** — Ghost 3D (Canvas Layer) | Modelo 3D do Ghost | Z-index acima do BG e todos os textos, alinhado ao centro do texto (não da viewport), nunca absoluto na viewport, obedece o container pai |
+| Camada                                             | Responsabilidade                                     | Observação                                                                                                                                    |
+| -------------------------------------------------- | ---------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Camada 0** — Background Layer                    | Responsável por troca de cores                       | Fica abaixo de tudo, controlada via scroll progress, transição suave (interpolação linear + easing suave), não deve causar repaint brusco     |
+| **Camada 1** — Background Overlay Transition Layer | Camada auxiliar para transição crossfade entre cores | Evita flicker, opacity animada sincronizada com entrada de frases                                                                             |
+| **Camada 2** — BeliefFixedHeader (Sticky)          | Header fixo no topo                                  | Z-index acima do BG, independente das trocas de cor, frase sai sincronizada com a saída do último texto animado, não participa do morph final |
+| **Camada 3** — Texto Rotativo                      | Textos animados que rotacionam                       | Vive dentro do container principal, controla o timing da troca de cores, é o gatilho de sincronização de fundo                                |
+| **Camada 4** — Manifesto Final (Morphing Layer)    | Texto final "ISSO É GHOST DESIGN"                    | Aparece no clímax, fica acima do Ghost, controla intensificação do ghost                                                                      |
+| **Camada 5** — Ghost 3D (Canvas Layer)             | Modelo 3D do Ghost                                   | Z-index acima do BG e todos os textos, alinhado ao centro do texto (não da viewport), nunca absoluto na viewport, obedece o container pai     |
 
 ---
 
@@ -58,10 +57,10 @@ A troca de fundo não é uma transição simples de cor, mas um sistema de inter
 
 #### 1. Estrutura de Camadas (obrigatória)
 
-| Camada | Papel | Animação |
-|--------|-------|----------|
-| **Camada 0** (bg-layer) | Fundo base — recebe a cor final interpolada | `backgroundColor` animado via `gsap.to()` ou Web Animations API |
-| **Camada 1** (overlay-layer) | Camada de transição — evita flicker e suaviza a mudança | `opacity: 0 → 1 → 0` sincronizada com o bloco de frase |
+| Camada                       | Papel                                                   | Animação                                                        |
+| ---------------------------- | ------------------------------------------------------- | --------------------------------------------------------------- |
+| **Camada 0** (bg-layer)      | Fundo base — recebe a cor final interpolada             | `backgroundColor` animado via `gsap.to()` ou Web Animations API |
+| **Camada 1** (overlay-layer) | Camada de transição — evita flicker e suaviza a mudança | `opacity: 0 → 1 → 0` sincronizada com o bloco de frase          |
 
 📌 **A Camada 1 é essencial:** sem ela, a troca de cor pode causar repaint visível ou jank em dispositivos médios.
 
@@ -72,6 +71,7 @@ A troca de fundo não é uma transição simples de cor, mas um sistema de inter
 A cor não muda de forma discreta (ex: `#253EFF` → `#8A00FF`), mas sim por interpolação linear entre duas cores, controlada pelo `scrollYProgress`.
 
 **Fórmula geral:**
+
 ```javascript
 const t = clamp((scrollProgress - start) / duration, 0, 1); // 0 → 1 dentro do bloco
 const color = lerp(colorPrev, colorNext, ease(t));
@@ -83,11 +83,12 @@ const color = lerp(colorPrev, colorNext, ease(t));
 - `lerp(a, b, t)`: interpolação RGB ou HSL (recomenda-se HSL para transições naturais)
 
 **Exemplo prático (entre frase 1 e 2):**
+
 - `scrollProgress = 0.14` → começa transição de `bluePrimary` → `purpleDetails`
 - `scrollProgress = 0.196` (≈ 40% do bloco) → cor está em ~60% da interpolação → cor já dominante
 - `scrollProgress = 0.28` → transição completa → `bg-purpleDetails` estabilizado
 
-Isso cumpre a regra do manifesto: *"Quando a frase está 40% visível, a cor atinge 60% da interpolação."*
+Isso cumpre a regra do manifesto: _"Quando a frase está 40% visível, a cor atinge 60% da interpolação."_
 
 ---
 
@@ -95,15 +96,16 @@ Isso cumpre a regra do manifesto: *"Quando a frase está 40% visível, a cor ati
 
 A entrada do texto é o gatilho, não o resultado.
 
-| Momento | Texto | Cor (BG) | Comportamento Visual |
-|---------|-------|----------|----------------------|
-| **t = 0.00** | "Um vídeo que respira." inicia fade-in (opacity: 0 → 1) | BG inicia interpolação #040013 → #253EFF | Texto aparece no topo da tela |
-| **t = 0.056** (~40% da frase) | Texto em 40% visível | Cor em ~60% interpolada | Texto mantém posição no topo |
-| **t = 0.14** | Texto 100% visível | Cor 100% estabilizada (#253EFF) | Texto permanece no topo |
-| **t = 0.14+ε** | Texto 1 começa a sair (para cima) | Cor 2 já inicia interpolação (#253EFF → #8A00FF) | Texto desliza para cima suavemente |
-| **t = 0.28** | Texto 2 100% visível | Cor 100% estabilizada (#8A00FF) | Novo texto aparece no topo |
+| Momento                       | Texto                                                   | Cor (BG)                                         | Comportamento Visual               |
+| ----------------------------- | ------------------------------------------------------- | ------------------------------------------------ | ---------------------------------- |
+| **t = 0.00**                  | "Um vídeo que respira." inicia fade-in (opacity: 0 → 1) | BG inicia interpolação #040013 → #253EFF         | Texto aparece no topo da tela      |
+| **t = 0.056** (~40% da frase) | Texto em 40% visível                                    | Cor em ~60% interpolada                          | Texto mantém posição no topo       |
+| **t = 0.14**                  | Texto 100% visível                                      | Cor 100% estabilizada (#253EFF)                  | Texto permanece no topo            |
+| **t = 0.14+ε**                | Texto 1 começa a sair (para cima)                       | Cor 2 já inicia interpolação (#253EFF → #8A00FF) | Texto desliza para cima suavemente |
+| **t = 0.28**                  | Texto 2 100% visível                                    | Cor 100% estabilizada (#8A00FF)                  | Novo texto aparece no topo         |
 
 **Detalhes Técnicos Desktop:**
+
 - A animação de entrada do texto é **simultânea** com a transição de cores, não sequencial
 - O texto sempre entra **do topo da tela** na versão desktop
 - A transição de cores ocorre durante a **entrada** do texto, não após sua total exibição
@@ -115,15 +117,16 @@ A entrada do texto é o gatilho, não o resultado.
 
 #### 4. Sincronização com o Texto — Versão Mobile (DETALHADA)
 
-| Momento | Texto | Cor (BG) | Comportamento Visual |
-|---------|-------|----------|----------------------|
-| **t = 0.00** | "Um vídeo que respira." inicia fade-in (opacity: 0 → 1) | BG inicia interpolação #040013 → #253EFF | Texto aparece centralizado, a 20% do rodapé |
-| **t = 0.056** (~40% da frase) | Texto em 40% visível | Cor em ~60% interpolada | Texto mantém posição centralizada |
-| **t = 0.14** | Texto 100% visível | Cor 100% estabilizada (#253EFF) | Texto permanece parado, centralizado a 20% do rodapé |
-| **t = 0.14+ε** | Texto 1 começa a sair (para a direita) | Cor 2 já inicia interpolação (#253EFF → #8A00FF) | Texto desliza para a direita suavemente |
-| **t = 0.28** | Texto 2 100% visível | Cor 100% estabilizada (#8A00FF) | Novo texto aparece centralizado |
+| Momento                       | Texto                                                   | Cor (BG)                                         | Comportamento Visual                                 |
+| ----------------------------- | ------------------------------------------------------- | ------------------------------------------------ | ---------------------------------------------------- |
+| **t = 0.00**                  | "Um vídeo que respira." inicia fade-in (opacity: 0 → 1) | BG inicia interpolação #040013 → #253EFF         | Texto aparece centralizado, a 20% do rodapé          |
+| **t = 0.056** (~40% da frase) | Texto em 40% visível                                    | Cor em ~60% interpolada                          | Texto mantém posição centralizada                    |
+| **t = 0.14**                  | Texto 100% visível                                      | Cor 100% estabilizada (#253EFF)                  | Texto permanece parado, centralizado a 20% do rodapé |
+| **t = 0.14+ε**                | Texto 1 começa a sair (para a direita)                  | Cor 2 já inicia interpolação (#253EFF → #8A00FF) | Texto desliza para a direita suavemente              |
+| **t = 0.28**                  | Texto 2 100% visível                                    | Cor 100% estabilizada (#8A00FF)                  | Novo texto aparece centralizado                      |
 
 **Detalhes Técnicos Mobile:**
+
 - O texto entra com a mesma animação de fade-in (opacity: 0 → 1)
 - **Posicionamento:** Texto fica centralizado na tela, a **20% da distância do rodapé** (conforme imagem "ghost-3D-position-mobile2.png")
 - **Saída:** Texto sai pela direita da tela (em vez de deslizar para cima)
@@ -136,11 +139,11 @@ A entrada do texto é o gatilho, não o resultado.
 
 #### 5. Por que usar duas camadas? (Camada 0 + Camada 1)
 
-| Problema | Solução |
-|----------|---------|
+| Problema                                                            | Solução                                                                                                  |
+| ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | Transição direta de `backgroundColor` causa flash em Safari/Android | Camada 1 (overlay) faz crossfade suave: `opacity: 0 → 1` durante a transição, ocultando o ponto de corte |
-| Mudança abrupta quebra o "efeito de absorção" | Overlay com `mix-blend-mode: multiply` ou `normal` + `opacity` cria transparência gradual |
-| Scroll reverso (para cima) causa jump se não for bidirecional | Com `scrub: 1`, a interpolação é reversível: `scrollProgress` diminuindo → cor volta ao anterior |
+| Mudança abrupta quebra o "efeito de absorção"                       | Overlay com `mix-blend-mode: multiply` ou `normal` + `opacity` cria transparência gradual                |
+| Scroll reverso (para cima) causa jump se não for bidirecional       | Com `scrub: 1`, a interpolação é reversível: `scrollProgress` diminuindo → cor volta ao anterior         |
 
 💡 **Dica de implementação:**
 Use `will-change: background-color` na Camada 0 e `contain: paint` para evitar repaints desnecessários.
@@ -152,8 +155,12 @@ Use `will-change: background-color` na Camada 0 e `contain: paint` para evitar r
 ```typescript
 // Função de interpolação HSL (evita tons estranhos em RGB)
 const lerpHsl = (
-  h1: number, s1: number, l1: number,
-  h2: number, s2: number, l2: number,
+  h1: number,
+  s1: number,
+  l1: number,
+  h2: number,
+  s2: number,
+  l2: number,
   t: number
 ) => {
   const h = ((h2 - h1 + 360) % 360) * t + h1;
@@ -163,15 +170,24 @@ const lerpHsl = (
 };
 
 // Na timeline:
-tl.to(bgLayer, {
-  backgroundColor: () => lerpHsl(
-    230, 85, 30,   // bluePrimary: hsl(230,85%,30%)
-    270, 80, 40,   // purpleDetails: hsl(270,80%,40%)
-    progressInBlock // t ∈ [0,1]
-  ),
-  duration: 0.14,
-  ease: "power2.inOut"
-}, start);
+tl.to(
+  bgLayer,
+  {
+    backgroundColor: () =>
+      lerpHsl(
+        230,
+        85,
+        30, // bluePrimary: hsl(230,85%,30%)
+        270,
+        80,
+        40, // purpleDetails: hsl(270,80%,40%)
+        progressInBlock // t ∈ [0,1]
+      ),
+    duration: 0.14,
+    ease: 'power2.inOut',
+  },
+  start
+);
 ```
 
 ---
@@ -359,5 +375,7 @@ A animação mobile não é uma versão reduzida da desktop, mas uma adaptação
 - `Canvas aria-label`
 - Sem focus trap
 - Contraste AA/AAA
+
 ```
 
+```

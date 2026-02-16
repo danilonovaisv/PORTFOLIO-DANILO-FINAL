@@ -1,6 +1,7 @@
 # 03-VIDEO-MANIFESTO
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivos principais:
   - `src/components/home/hero/VideoManifesto.tsx`
   - `src/hooks/useRealtimeAssets.ts`
@@ -17,9 +18,11 @@
   - Acoplamento médio com camada de assets em tempo real.
 
 ## 1. Objetivo da Página/Sessão
+
 Apresentar reel audiovisual imediatamente após o hero para reforçar prova visual de qualidade e direcionar percepção de valor criativo.
 
 ## 2. Estrutura de Conteúdo
+
 - Headings:
   - Não possui heading próprio.
 - Hierarquia semântica:
@@ -38,6 +41,7 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
   - Baixa (mídia central).
 
 ## 3. Identidade Visual
+
 - Cores aplicadas:
   - Overlay escuro sobre vídeo para legibilidade de controles.
 - Gradientes:
@@ -52,6 +56,7 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
   - Neutro (sem tipografia protagonista).
 
 ## 4. Interatividade & Animações
+
 - Uso de Framer Motion:
   - Reveal com `opacity + translateY + blur`.
 - Variants:
@@ -66,6 +71,7 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
   - Médio/alto por mídia de vídeo; mitigado por lazy load + preload metadata.
 
 ## 5. Responsividade
+
 - Desktop:
   - Exibição ampla com qualidade de vídeo adaptável.
 - Tablet:
@@ -82,6 +88,7 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
   - Baixo (reserva de espaço com `aspect-video`).
 
 ## 6. Acessibilidade & SEO
+
 - Estrutura semântica:
   - `section` presente.
 - ARIA:
@@ -100,6 +107,7 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
   - Vídeo possui schema, porém há duplicação de `VideoObject` entre script inline e `JsonLd`.
 
 ## 7. Integrações ou Recursos Especiais
+
 - Firebase:
   - Não usado.
 - Supabase:
@@ -114,6 +122,7 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
   - Não aplicado.
 
 ## 8. Considerações Técnicas
+
 - Performance:
   - Bom baseline para lazy media.
 - Bundle size:
@@ -134,7 +143,6 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
 
 ---
 
-
 ## 9. Componentes Interativos
 
 🎨 **Biblioteca de Componentes:**
@@ -147,6 +155,7 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
 | Menu Mobile | Recurso global externo à sessão | Closed/Open | Acesso pelo header | Implementado (global) |
 
 🔄 **Estados e Transições:**
+
 - Hover: Controle de áudio e área de vídeo recebem feedback visual discreto.
 - Focus: Botões de mídia acessíveis por teclado com foco visível.
 - Loading: Poster inicial + carregamento progressivo do vídeo em viewport.
@@ -154,9 +163,11 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
 - Success: Vídeo reproduz em mute/autoplay conforme política do browser.
 
 ## 10. Estrutura de Páginas e Navegação
+
 - Sessão intermediária de narrativa; não altera arquitetura de rotas.
 - Pode conter links contextuais de aprofundamento dependendo da configuração de conteúdo.
 
 ## 11. Informações Relevantes para Compreensão da Sessão
+
 - Referência visual global da home: `.context/HOME-PORTFOLIO-BLACK---GHOST.jpg`.
 - Carregamento lazy com poster é obrigatório para proteger FCP/LCP em redes lentas.

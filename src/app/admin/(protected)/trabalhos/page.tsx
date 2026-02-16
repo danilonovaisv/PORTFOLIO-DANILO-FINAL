@@ -36,7 +36,7 @@ export default async function TrabalhosPage(props: Props) {
   let query = supabase
     .from('portfolio_projects')
     .select(
-      'id, title, client_name, year, featured_on_home, featured_on_portfolio, is_published, thumbnail_path, hero_image_path, project_type, slug'
+      'id, title, client_name, year, featured_on_home, featured_on_portfolio, is_published, thumbnail_path, hero_image_path, project_type, slug, updated_at'
     )
     .order('updated_at', { ascending: false });
 
@@ -58,10 +58,12 @@ export default async function TrabalhosPage(props: Props) {
 
   if (projectsError) {
     console.error(
-      '[admin/trabalhos] Erro ao listar projetos:',
-      projectsError.message,
-      projectsError.details,
-      projectsError.hint
+      '[admin/trabalhos] Falha Crítica ao listar projetos:',
+      JSON.stringify(projectsError, null, 2)
+    );
+  } else {
+    console.warn(
+      `[admin/trabalhos] Projetos encontrados: ${baseProjects?.length ?? 0}`
     );
   }
 

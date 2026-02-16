@@ -89,15 +89,22 @@ export const isVideo = (path?: string | null): boolean => {
   const raw = path.trim().toLowerCase();
   if (!raw) return false;
 
-  try {
-    const withProtocol = raw.startsWith('http') ? raw : `https://${raw}`;
-    const parsed = new URL(withProtocol);
-    return videoExtensions.some((ext) => parsed.pathname.endsWith(ext));
-  } catch {
-    return videoExtensions.some((ext) =>
-      raw.split('?')[0].split('#')[0].endsWith(ext)
-    );
+  // Remove query params and hashes for extension check
+  const cleanPath = raw.split('?')[0].split('#')[0];
+
+  // If it contains a protocol, use URL parser
+  if (cleanPath.includes('://')) {
+    try {
+      const parsed = new URL(cleanPath);
+      return videoExtensions.some((ext) => parsed.pathname.endsWith(ext));
+    } catch {
+      // Fallback if URL parsing fails
+      return videoExtensions.some((ext) => cleanPath.endsWith(ext));
+    }
   }
+
+  // Local paths or filenames
+  return videoExtensions.some((ext) => cleanPath.endsWith(ext));
 };
 
 export function extractYouTubeId(value?: string | null): string | null {

@@ -1,6 +1,7 @@
 # 02-HERO-MANIFESTO
 
 ## 0. Estrutura de arquivos da sessão
+
 - Arquivos principais:
   - `src/components/sobre/sections/AboutHero.tsx`
   - `src/config/content.ts` (`ABOUT_CONTENT.hero`)
@@ -13,9 +14,11 @@
   - Hero com vídeo de fundo + overlay + bloco de texto manifesto.
 
 ## 1. Objetivo da Página/Sessão
+
 Abrir a página `/sobre` com presença editorial silenciosa, apresentando posicionamento e assinatura verbal de Danilo Novais.
 
 ## 2. Estrutura de Conteúdo
+
 - Headings:
   - `h1` existe em `sr-only` (concatenação de título e manifesto).
 - Texto principal (desktop):
@@ -27,6 +30,7 @@ Abrir a página `/sobre` com presença editorial silenciosa, apresentando posici
   - Não há CTA direto no hero (conforme proposta narrativa).
 
 ## 3. Identidade Visual
+
 - Mídia:
   - Vídeo desktop e mobile via Supabase (dinâmico).
 - Overlay:
@@ -36,6 +40,7 @@ Abrir a página `/sobre` com presença editorial silenciosa, apresentando posici
   - Linguagem visual muito aderente às referências de imagem.
 
 ## 4. Interatividade & Animações
+
 - Framer Motion:
   - Entrada com `opacity + blur + translateY`.
 - Scroll:
@@ -44,6 +49,7 @@ Abrir a página `/sobre` com presença editorial silenciosa, apresentando posici
   - Vídeo deixa de autoplay/loop com `useMotionGate`.
 
 ## 5. Responsividade
+
 - Desktop:
   - Composição em 12 colunas com espaço negativo (1-6 vazias, texto 7-12).
 - Mobile:
@@ -52,6 +58,7 @@ Abrir a página `/sobre` com presença editorial silenciosa, apresentando posici
   - Chave de layout em `lg`.
 
 ## 6. Acessibilidade & SEO
+
 - Semântica:
   - `section` com `aria-label` e `h1` para leitores de tela.
 - Legibilidade:
@@ -60,31 +67,37 @@ Abrir a página `/sobre` com presença editorial silenciosa, apresentando posici
   - Conteúdo textual essencial presente no DOM.
 
 ## 7. Integrações ou Recursos Especiais
+
 - `DynamicAssetVideo` com fallback.
 - Gate central de movimento via store global + `prefers-reduced-motion`.
 
 ## 8. Considerações Técnicas
+
 - Performance:
   - Boa estratégia de fallback, mas hero continua componente client-heavy.
 - Reusabilidade:
   - Estrutura clara e separada de conteúdo/configuração.
 
 ## 9. Componentes Interativos
-| Componente | Descrição | Estados | Interações | Status |
-|------------|-----------|---------|------------|--------|
-| Vídeo Hero Desktop | Fundo imersivo | Loading, Ready | Autoplay/loop condicional | Implementado |
-| Vídeo Hero Mobile | Fundo mobile | Loading, Ready | Parallax + autoplay condicional | Implementado |
-| Bloco de Manifesto | Texto principal | Hidden, Visible | Reveal por viewport | Implementado |
+
+| Componente         | Descrição       | Estados         | Interações                      | Status       |
+| ------------------ | --------------- | --------------- | ------------------------------- | ------------ |
+| Vídeo Hero Desktop | Fundo imersivo  | Loading, Ready  | Autoplay/loop condicional       | Implementado |
+| Vídeo Hero Mobile  | Fundo mobile    | Loading, Ready  | Parallax + autoplay condicional | Implementado |
+| Bloco de Manifesto | Texto principal | Hidden, Visible | Reveal por viewport             | Implementado |
 
 ## 10. Estrutura de Páginas e Navegação
+
 - Primeiro bloco narrativo após Header.
 - Conecta para Origem sem ruptura visual por gradiente inferior.
 
 ## 11. Informações Relevantes para Compreensão da Sessão
+
 - Protótipo define hero como exceção controlada de texto sobre vídeo.
 - Imagens de referência confirmam estrutura: vídeo + texto com destaque em azul.
 
 ## 12. Análise de Inconformidades (Sessão vs Protótipo)
+
 - Inconformidade 1 (Média): força do overlay no desktop
   - Regra do documento: evitar texto sobre mídia sem cobertura escura forte (80%+).
   - Implementação atual usa parte do plano com `bg-background/60`; nas áreas menos escuras do gradiente pode reduzir margem de legibilidade.
