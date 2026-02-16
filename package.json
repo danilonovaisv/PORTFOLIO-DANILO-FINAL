@@ -26,6 +26,7 @@
     "fix-pnpm": "chmod +x scripts/fix-pnpm.sh && ./scripts/fix-pnpm.sh",
     "prebuild": "node scripts/generate-build-info.cjs",
     "validate-env": "node scripts/validate-env.cjs",
+    "validate:structure": "python3 scripts/validate_structure.py",
     "build": "pnpm run validate-env && pnpm run prebuild && next build",
     "prepare-deploy": "tsx scripts/prep-deploy.ts",
     "firebase:preflight": "bash scripts/firebase-preflight.sh",

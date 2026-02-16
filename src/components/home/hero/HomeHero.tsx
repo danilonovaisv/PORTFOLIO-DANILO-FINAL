@@ -97,7 +97,7 @@ export default function HomeHero() {
           )}
         </AnimatePresence>
 
-        {/* Camada: Texto Editorial (acima do WebGL para manter legibilidade e CTA) */}
+        {/* Camada: Texto Editorial (agora ABAIXO do WebGL para efeito de fog, mas acessível via pointer-events) */}
         <div className="absolute inset-0 z-30 pointer-events-none">
           <div className="flex items-center justify-center w-full h-screen md:sticky md:top-0">
             <div className="w-full pointer-events-auto pb-24 md:pb-0 flex flex-col items-center">
@@ -110,8 +110,8 @@ export default function HomeHero() {
           </div>
         </div>
 
-        {/* Camada: Ghost WebGL (abaixo do conteúdo textual) */}
-        <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
+        {/* Camada: Ghost WebGL (ACIMA do conteúdo textual para efeito de fog/imersão) */}
+        <div className="absolute inset-0 z-40 pointer-events-none overflow-hidden">
           <div className="sticky top-0 h-screen w-full">
             {shouldRenderWebGL ? (
               <GhostSceneWrapper />

@@ -19,6 +19,7 @@
   2. `.context/system_prompt.md` (Personalidade e limites).
   3. `CONTEXT.md` (Visão geral do projeto).
   4. `mission.md` (Objetivos atuais).
+  5. `.context/DOCS-PORTFOLIO-PAGES/RULES-PORTFOLIO-STRUCTURE.md` (Arquitetura oficial).
 - **Validation:** Confirme se os arquivos existem. Se faltar algum, pare e reporte.
 - **Skill:** `use a skill skill-context-optimization` (ou leitura direta via MCP).
 
@@ -30,6 +31,7 @@
   - Verificar existência de `agents/` OU `.agent/agents/`.
   - Verificar existência de `workflows/` OU `.agent/workflows/`.
   - Validar se `GEMINI.md` aponta para os caminhos encontrados.
+  - **Action:** Executar `pnpm run validate:structure` para garantir integridade arquitetural conforme a Rule.
 - **Critical Check:** Se houver duplicidade (pastas na raiz E dentro de `.agent`), sugira uma consolidação.
 - **Skill:** `use a skill skill-file-system-navigation` (implícito no agente).
 

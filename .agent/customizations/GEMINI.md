@@ -55,6 +55,14 @@ All operations are delegated to specialized agents located in `.agent/agents/`.
 
 ---
 
+## 📚 Rule Registry (The Knowledge Base)
+
+| Layer | File | Purpose |
+| :--- | :--- | :--- |
+| **Architecture** | `.context/DOCS-PORTFOLIO-PAGES/RULES-PORTFOLIO-STRUCTURE.md` | **SINGLE SOURCE OF TRUTH** for Site Structure. |
+
+---
+
 ## 📝 Formato de Reporte (Para Agents Antigravity)
 
 Sempre que o **Sentinel Prime** corrigir um erro, deve gerar um log JSON interno simulando o payload para a API externa:
