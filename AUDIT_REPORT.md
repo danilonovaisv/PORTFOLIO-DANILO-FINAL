@@ -59,7 +59,7 @@ Atue como Arquiteto de Sistema Antigravity. Realize as seguintes correções cr�
 
 ### 2. Limpeza e Padronização de Workflows
 ```markdown
-[/slash_command] "Instrução de limpeza e otimização..."
+/comando_agente "Instrução de limpeza e otimização..."
 
 Atue como Engenheiro de DevOps Agêntico. Vamos limpar a pasta de workflows e estabelecer o padrão 2026:
 
