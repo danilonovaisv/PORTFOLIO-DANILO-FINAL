@@ -46,6 +46,6 @@ Execute os seguintes prompts no Antigravity para aplicar as correções:
 ### Prompt 5: NEXT.JS & SEO
 ```text
 [/slash_command] "Revisão Final de Metadados e Cache:
-1.  Validar em `src/app/page.tsx` se `alternates: { canonical: ... }` está configurado corretamente com a URL de produção.
-2.  Verificar se o polling de `FeaturedProjectsRealtime` (45s) está causando re-renderizações desnecessárias e otimizar com `useMemo`/`useCallback` se necessário."
+1.  Valide em src/app/page.tsx que alternates: { canonical: ... } está configurado com a URL de produção correta.
+2.  Otimize o componente FeaturedProjectsRealtime para evitar re-renderizações desnecessárias causadas pelo polling de 45s, aplicando `useMemo` e `useCallback` conforme apropriado."
 ```
