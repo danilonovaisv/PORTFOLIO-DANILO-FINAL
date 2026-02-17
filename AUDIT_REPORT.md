@@ -40,7 +40,7 @@ Execute os comandos abaixo sequencialmente no seu **Agent Manager** para corrigi
 
 ### 1. Correção de Configuração e Identidade
 ```markdown
-[/slash_command] "Instrução de correção de configuração..."
+/comando_agente "Instrução de correção de configuração..."
 
 Atue como Arquiteto de Sistema Antigravity. Realize as seguintes correções críticas de infraestrutura:
 
