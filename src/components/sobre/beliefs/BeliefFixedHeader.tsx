@@ -84,7 +84,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
   const filterExit = useTransform(
     scrollProgress,
     [0.72, 0.82],
-    ['blur(0px)', 'blur(6px)'],
+    ['blur(0)', 'blur(6px)'],
     {
       ease: ghostEase,
     }
@@ -94,21 +94,15 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
     <motion.header
       ref={ref}
       id="beliefs-heading"
-      // Combine Scroll Exit Transforms with InView Entry State
       style={{
-        opacity: exitOpacity, // Scroll Exit overrides everything (multiplicative?) No, just replaces.
-        // Issue: If controls sets opacity=1, and exitOpacity says 1, it's fine.
-        // If exitOpacity says 0, it should be 0.
-        // We can pass exitOpacity to a parent or use 'useMotionTemplate' if needed, but style prop usually wins?
-        // Actually, 'animate' prop (controls) usually overrides 'style' prop for same keys in Framer Motion unless handled carefully.
-        // BETTER STRATEGY:
-        // Use `controls` for the Inner Content (Entry).
-        // Use `style` on the Outer Container for Exit.
+        opacity: exitOpacity,
         y: isMobile ? 0 : yExit,
-        x: isMobile ? xExitMobile : 0, // This applies to container
+        x: isMobile ? xExitMobile : 0,
         filter: filterExit,
+        transformStyle: 'preserve-3d',
+        backfaceVisibility: 'hidden',
       }}
-      className="flex w-full h-full pointer-events-none"
+      className="flex w-full h-full pointer-events-none subpixel-antialiased"
     >
       <div className="std-grid w-full h-full">
         <div className="flex h-full items-start md:items-center justify-end pt-[20vh] md:pt-0 col-span-12">
@@ -117,10 +111,14 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
             initial={{ opacity: 0, x: 100 }}
             animate={controls}
             className="flex flex-col items-end text-right w-full max-w-[280px] md:max-w-[500px] lg:max-w-[850px] pr-[5%] md:pr-0"
+            style={{
+              transform: 'translateZ(0)', // Promote to layer for sharpness
+              willChange: 'transform, opacity'
+            }}
           >
             {/* Primary: "Acredito no design que muda o dia de alguém." */}
             <div className="flex flex-col items-end text-right w-full">
-              <h2 className="text-white text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display leading-none tracking-tighter mb-4 md:mb-12 uppercase font-black whitespace-nowrap">
+              <h2 className="text-white text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display leading-none tracking-tighter mb-4 md:mb-12 uppercase font-black whitespace-nowrap drop-shadow-sm">
                 Acredito no
                 <br />
                 design que
@@ -131,7 +129,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
               </h2>
 
               {/* Secondary: "Não pelo choque, mas pela conexão." */}
-              <div className="flex flex-col items-end gap-1 text-white text-[clamp(1rem,4vw,1.25rem)] md:text-3xl lg:text-4xl xl:text-5xl leading-[1.2] tracking-normal font-bold whitespace-nowrap">
+              <div className="flex flex-col items-end gap-1 text-white text-[clamp(1rem,4vw,1.25rem)] md:text-3xl lg:text-4xl xl:text-5xl leading-[1.2] tracking-normal font-bold whitespace-nowrap drop-shadow-sm">
                 Não pelo choque,
                 <br />
                 mas pela conexão.

@@ -1,7 +1,7 @@
 'use client';
 
-import { useMemo, useRef, useState } from 'react';
-import { useMotionValueEvent, useScroll } from 'framer-motion';
+import { useState } from 'react';
+import { useMotionValueEvent, useScroll, useTransform } from 'framer-motion';
 
 /* ────────────────────────────────────────────────────────
    CONSTANTS
@@ -86,109 +86,87 @@ interface UseBeliefAnimationProps {
 }
 
 export function useBeliefAnimation({ containerRef }: UseBeliefAnimationProps) {
-  // --- State for React renders (background + manifesto) ---
-  const [baseColor, setBaseColor] = useState(
-    lerpHSL(COLORS_HSL[0], COLORS_HSL[0], 0)
-  );
-  const [overlayColor, setOverlayColor] = useState(
-    lerpHSL(COLORS_HSL[1], COLORS_HSL[1], 0)
-  );
-  const [overlayOpacity, setOverlayOpacity] = useState(0);
-  const [finalProgress, setFinalProgress] = useState(0);
-
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
   });
 
+  // --- Motion Values (Reactive, no re-renders) ---
   const phraseCount = PHRASES.length;
-  const finalStart = useMemo(() => 0.82, []); // Manifesto starts at 82%
-  const segment = useMemo(
-    () => finalStart / phraseCount,
-    [finalStart, phraseCount]
-  );
+  const finalStart = 0.82; // Static constant for transform
+  const segment = finalStart / phraseCount;
 
-  // Refs for previous values to avoid unnecessary state updates
-  const prevState = useRef({
-    baseColor: '',
-    overlayColor: '',
-    overlayOpacity: -1,
-    finalProgress: -1,
-  });
+  const baseColor = useTransform(scrollYProgress, (v: number) => {
+    const value = clamp01(v);
 
-  useMotionValueEvent(scrollYProgress, 'change', (rawValue) => {
-    const value = clamp01(rawValue);
-
-    // ──── RESET STATE (scroll returns to top) ────
-    // Per spec Section 5: reset total ao sair da sessão
+    // 1. Reset / Start
     if (value <= 0.001) {
-      const resetColor = lerpHSL(COLORS_HSL[0], COLORS_HSL[0], 0);
-      if (prevState.current.baseColor !== resetColor) {
-        setBaseColor(resetColor);
-        setOverlayColor(lerpHSL(COLORS_HSL[1], COLORS_HSL[1], 0));
-        setOverlayOpacity(0);
-        setFinalProgress(0);
-        prevState.current.baseColor = resetColor;
-        prevState.current.overlayOpacity = 0;
-        prevState.current.finalProgress = 0;
-      }
-      return;
+      return lerpHSL(COLORS_HSL[0], COLORS_HSL[0], 0);
     }
 
-    // ──── FINAL MANIFESTO (82% → 100%) ────
+    // 2. Final Manifesto (82% -> 100%)
     if (value >= finalStart) {
       const local = (value - finalStart) / Math.max(1 - finalStart, 0.0001);
-      const lastColor = lerpHSL(
+      return lerpHSL(
         COLORS_HSL[COLORS_HSL.length - 2],
         COLORS_HSL[COLORS_HSL.length - 1],
-        1
+        local // Interpolate to final color
       );
-      const roundedFinal = Math.round(clamp01(local) * 100) / 100;
-
-      if (prevState.current.finalProgress !== roundedFinal) {
-        setBaseColor(lastColor);
-        setOverlayOpacity(0);
-        setFinalProgress(roundedFinal);
-        prevState.current.baseColor = lastColor;
-        prevState.current.overlayOpacity = 0;
-        prevState.current.finalProgress = roundedFinal;
-      }
-      return;
     }
 
-    // ──── PHRASE SEGMENTS (0% → 82%) ────
+    // 3. Phrase Segments
     const index = Math.min(phraseCount - 1, Math.floor(value / segment));
     const localProgress = clamp01((value - index * segment) / segment);
 
-    // ─── Color interpolation (HSL, continuous, bidirectional) ───
-    // Per spec: "When text is 40% visible, color reaches 60% interpolation"
-    const colorT = clamp01(localProgress * 1.5);
-    const currentColor = lerpHSL(
-      COLORS_HSL[index],
-      COLORS_HSL[index + 1],
-      colorT
-    );
+    // "Color reaches 60% at 40% text visibility" -> slightly accelerated
+    // Text enters [0.15, 0.85]. Color should be active there.
+    const colorT = clamp01(localProgress * 1.5); // 0 -> 0.66 progress maps to 0->1 color completion
 
-    // ─── Overlay crossfade: ramps up during first 40%, down during last 30% ───
+    return lerpHSL(COLORS_HSL[index], COLORS_HSL[index + 1], colorT);
+  });
+
+  const overlayOpacity = useTransform(scrollYProgress, (v: number) => {
+    const value = clamp01(v);
+    if (value <= 0.001 || value >= finalStart) return 0;
+
+    const index = Math.floor(value / segment);
+    const localProgress = (value - index * segment) / segment;
+
+    // Overlay logic: ramp up during first 40%, down during last 30%
     const overlayIn = clamp01(localProgress / 0.4);
     const overlayOut = clamp01((1 - localProgress) / 0.3);
-    const overlayMix = Math.min(overlayIn, overlayOut) * 0.25; // Subtle
-    const roundedOverlay = Math.round(overlayMix * 100) / 100;
+    return Math.min(overlayIn, overlayOut) * 0.25;
+  });
 
-    // Only update state if values actually changed
-    if (
-      prevState.current.baseColor !== currentColor ||
-      prevState.current.overlayOpacity !== roundedOverlay
-    ) {
-      setBaseColor(currentColor);
-      setOverlayColor(lerpHSL(COLORS_HSL[index + 1], COLORS_HSL[index + 1], 0));
-      setOverlayOpacity(roundedOverlay);
+  const overlayColor = useTransform(scrollYProgress, (v: number) => {
+    const value = clamp01(v);
+    if (value >= finalStart) return lerpHSL(COLORS_HSL[1], COLORS_HSL[1], 0); // Default/Safe
+
+    const index = Math.min(phraseCount - 1, Math.floor(value / segment));
+    // Overlay is "next color" usually, or current target
+    return lerpHSL(COLORS_HSL[index + 1], COLORS_HSL[index + 1], 0);
+  });
+
+  // Final Progress State (keep as state if used for conditional rendering logic elsewhere, 
+  // currently used for 'finalVisible' boolean which toggles components)
+  // We can keep this state update but check if it's strictly needed.
+  // BeliefsSection uses `finalVisible` to remove Ghost/RotatingText? 
+  // No, `finalProgress > 0.06`.
+  // Let's keep finalProgress in state for React conditional rendering, 
+  // but colors are now optimized.
+
+  // Actually, let's optimize the simple state update to reduce frequency
+  const [finalProgress, setFinalProgress] = useState(0);
+
+  useMotionValueEvent(scrollYProgress, 'change', (v: number) => {
+    const value = clamp01(v);
+    if (value >= finalStart) {
+      const local = (value - finalStart) / Math.max(1 - finalStart, 0.0001);
+      if (Math.abs(local - finalProgress) > 0.05) {
+        setFinalProgress(local);
+      }
+    } else if (finalProgress !== 0) {
       setFinalProgress(0);
-
-      prevState.current.baseColor = currentColor;
-      prevState.current.overlayColor = '';
-      prevState.current.overlayOpacity = roundedOverlay;
-      prevState.current.finalProgress = 0;
     }
   });
 

@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
+import { motion, MotionValue } from 'framer-motion';
 
 interface BeliefsBackgroundProps {
-  baseColor: string;
-  overlayColor: string;
-  overlayOpacity: number;
+  baseColor: MotionValue<string>;
+  overlayColor: MotionValue<string>;
+  overlayOpacity: MotionValue<number>;
 }
 
 /**
@@ -23,7 +23,7 @@ export function BeliefsBackground({
   return (
     <>
       {/* Layer 0: Base background — continuous color interpolation */}
-      <div
+      <motion.div
         className="absolute inset-0 z-0"
         style={{
           backgroundColor: baseColor,
@@ -33,7 +33,7 @@ export function BeliefsBackground({
         aria-hidden="true"
       />
       {/* Layer 1: Overlay crossfade — smooths transition cuts */}
-      <div
+      <motion.div
         className="absolute inset-0 z-1"
         style={{
           backgroundColor: overlayColor,

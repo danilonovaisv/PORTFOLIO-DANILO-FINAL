@@ -1,7 +1,7 @@
 'use client';
 
 import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, Float } from '@react-three/drei';
+import { useGLTF } from '@react-three/drei';
 import { Suspense, useEffect, useRef } from 'react';
 import { MotionValue, useMotionValueEvent } from 'framer-motion';
 import * as THREE from 'three';
@@ -22,6 +22,9 @@ function GhostModel({
   const targetRotation = useRef(new THREE.Euler(0, 0.3, 0));
   const targetScale = useRef(1);
   const mouseLerp = useRef(new THREE.Vector2(0, 0));
+
+  // Simulation Time for floating
+  const time = useRef(0);
 
   useEffect(() => {
     // Check mobile once on mount
@@ -46,9 +49,23 @@ function GhostModel({
     scrollRef.current = v;
   });
 
-  useFrame((state) => {
+  useFrame((state, delta) => {
     if (!groupRef.current) return;
     const t = scrollRef.current;
+    time.current += delta;
+
+    // --- ENERGY SYSTEM ---
+    // Start calm, get intense.
+    // Base frequency: 1. Max frequency: 3.
+    // Base amplitude: 0.1. Max amplitude: 0.25.
+    const intensity = 1 + t * 2.5; // 1 -> 3.5
+    const floatSpeed = 1.5 * intensity;
+    const floatAmp = 0.1 + (t * 0.15);
+
+    const floatY = Math.sin(time.current * floatSpeed) * floatAmp;
+
+    // Add "breathing" scale
+    const breath = Math.cos(time.current * floatSpeed * 0.5) * 0.02 * intensity;
 
     /**
      * ROTATION LOGIC
@@ -79,9 +96,9 @@ function GhostModel({
     // Spec 5.1 Desktop: "Ghost: Segue levemente o cursor"
     // Spec 5.2 Mobile: "Ghost: ... sem follow mouse"
     targetRotation.current.set(
-      mouseY * 0.5, // Look up/down slightly
+      mouseY * 0.5 + (floatY * 0.5), // Tilt with float
       0.3 + t * 2.5 + mouseX, // Rotate Y with scroll + mouse
-      0 // Minimal Z tilt
+      Math.sin(time.current * 0.5) * 0.05 // Subtle Z sway
     );
 
     /**
@@ -89,40 +106,40 @@ function GhostModel({
      * - Trigger starts at 82% scroll
      */
     const scaleT = t > 0.82 ? 1 + (t - 0.82) * 1.5 : 1;
-    targetScale.current = scaleT;
+    targetScale.current = scaleT + breath;
 
     /**
-     * POSITION LOGIC (NEW)
-     * - Desktop: Start Left (x: -1.5) to clear Right Text. animate to Center (x: 0) on Manifesto.
-     * - Mobile: Always Center (x: 0), slightly lower y.
+     * POSITION LOGIC (Updated for "Text Left | Ghost Right" layout)
      */
-    const TARGET_X_DESKTOP = -1.5;
+    // Container is Right 60%. X=0 is center of that.
+    // If Text is Left 41%, and Container starts at 40%, then X=0 is at 70% viewport.
+    // We want Ghost to look "at" the text.
+    // Let's start slightly Right (1.2) and move to Center (0) on Manifesto.
 
-    // Calculate Target Position
     let targetX = 0;
     let targetY = -0.5;
 
     if (isMobileRef.current) {
-      // Mobile Spec: Top-Left, 20% down.
-      // R3F Coords approx: x=-1.2 (Left), y=1.3 (Top).
-      // Scale adjusted to 0.7 to fit comfortably without overwhelming text.
-      targetX = -1.2;
-      targetY = 1.3;
-      targetScale.current = 0.7; // Override scaleT for mobile base size?
-      // Actually scaleT is dynamic based on scroll. Let's multiply or just set base.
-      // If we want the scale animation (manifesto) to still work, we should apply it to 'scaleT'.
-      // But scaleT is calculated above. Let's adjust scaleT for mobile.
+      // Mobile Spec: Top-Leftish or Center? 
+      // Doc says: "Mobile... Texto centralizado... Ghost entra"
+      // "Layout: Texto (esquerda) | Ghost (direita)" is general rule.
+      // But Mobile is narrower. Usually Ghost top / Text bottom or stacked.
+      // Doc says: "Ghost entra junto com header".
+      // Let's keep Ghost Top in mobile.
+      targetX = 0;
+      targetY = 1.0 + floatY; // Higher up
+
       const mobileScaleT = t > 0.82 ? 0.7 + (t - 0.82) * 1.5 : 0.7;
-      targetScale.current = mobileScaleT;
+      targetScale.current = mobileScaleT + breath;
     } else {
       // Desktop:
-      // t < 0.8: x = -1.5 (Left)
-      // t > 0.8: Lerp to x = 0 (Center)
+      // Start Right (clear of text), Center on Manifesto
       const transitionProgress = t > 0.8 ? (t - 0.8) / 0.2 : 0;
-      // Clamp transition to 0-1
       const clampedTransition = Math.min(Math.max(transitionProgress, 0), 1);
-      targetX = THREE.MathUtils.lerp(TARGET_X_DESKTOP, 0, clampedTransition);
-      targetY = -0.5;
+
+      // Interpolate X from Right (1.5) to Center (0)
+      targetX = THREE.MathUtils.lerp(1.5, 0, clampedTransition);
+      targetY = -0.5 + floatY;
     }
 
     // Apply smooth lerp to position
@@ -171,14 +188,7 @@ export default function GhostScene({ scrollProgress }: GhostSceneProps) {
       }}
     >
       <Suspense fallback={null}>
-        <Float
-          speed={2.5}
-          rotationIntensity={0.2}
-          floatIntensity={1.5}
-          floatingRange={[-0.1, 0.1]}
-        >
-          <GhostModel scrollProgress={scrollProgress} />
-        </Float>
+        <GhostModel scrollProgress={scrollProgress} />
 
         {/* Cinematic Lighting matching Ghost Atmosphere - Boosted for visibility */}
         <ambientLight intensity={0.6} color="#ccccff" />

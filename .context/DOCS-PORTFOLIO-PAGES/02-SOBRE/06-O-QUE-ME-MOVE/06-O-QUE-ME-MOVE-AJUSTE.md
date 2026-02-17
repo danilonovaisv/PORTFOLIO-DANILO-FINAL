@@ -1,157 +1,323 @@
-# 06. O QUE ME MOVE — "About Beliefs"
+# **6. O Que Me Move — "About Beliefed"**
 
-**Sessão:** 6. O Que Me Move
-**Status:** Especificação Técnica Final (Ghost System v3.1)
-**Conceito:** Manifesto emocional com sincronia de scroll, cor e 3D.
+# 🎯 Objetivo
 
----
+Construir a sessão manifesto **“O Que Me Move”** como uma experiência scroll-driven cinematográfica usando:
 
-## 1. Objetivo da Página/Sessão
+- Motion (https://motion.dev)
+- `inView()` para detectar entrada no viewport
+- `animate()` para animações suaves
+- Interpolação contínua de background
+- Sistema de camadas
+- Ghost 3D com React Three Fiber
+- Sincronização emocional entre texto e cor
 
-Esta sessão atua como o **clímax emocional** da página "Sobre". Seu objetivo é transitar da lógica (método) para o sentimento (propósito), gerando vínculo através de uma narrativa visual imersiva. Ela materializa o conceito "Você não vê o design, mas ele vê você" através de uma interação onde o ambiente (cor e 3D) reage à leitura do usuário.
-
----
-
-## 2. Estrutura de Conteúdo
-
-### 2.1 Tipografia & Textos
-
-Todos os textos utilizam a família **TT Norms Pro** (ou _Outfit_ para Display, se configurado no token `text-display`).
-
-- **BeliefFixedHeader (Texto Fixo):**
-  - _Título (text-display):_ "ACREDITO NO DESIGN QUE MUDA O DIA DE ALGUÉM." (`text-display`, `font-black`, uppercase).
-  - _Subtítulo (h2):_ "Não pelo choque, mas pela conexão." (`text-h2`, `font-bold`).
-- **Rotating Phrases (Frases Rotativas):**
-  - Lista de strings renderizadas sequencialmente.
-  - _Estilo:_ `text-h1` (dependendo do breakpoint), cor `text-primary`.
-  - _Conteúdo:_
-    1. "Um vídeo que respira."
-    2. "Uma marca que se reconhece."
-    3. "Um detalhe que fica."
-    4. "Crio para gerar presença."
-    5. "Mesmo quando não estou ali."
-    6. "Mesmo quando ninguém percebe o esforço."
-- **Manifesto Final (Clímax):**
-  - _Texto:_ "ISSO É GHOST DESIGN"
-  - _Estilo:_ `text-display`, `font-black`, alinhamento central.
-
-### 2.2 Call to Actions (CTA)
-
-- Nesta sessão não há botões clicáveis. A ação é o **scroll**.
+Referência técnica obrigatória:
+https://motion.dev/tutorials/js-scroll-triggered#detect-when-elements-enter-the-viewport
 
 ---
 
-## 3. Identidade Visual (Ghost System)
+# 🧠 Stack Obrigatória
 
-### 3.1 Paleta de Cores & Tokens
-
-A sessão utiliza uma **Paleta Sequencial** controlada por interpolação. As cores são estáticas.
-
-- **Base:** `var(--background)` aka Void Black (`#040013`).
-- **Tokens de Transição (Background):**
-  1.  `var(--color-bluePrimary)` (`#0048ff`)
-  2.  `var(--color-purpleDetails)` (`#8705f2`) — _Ajuste: Ghost System define Purple como exceção/detalhe._
-  3.  `var(--color-pinkDetails)` (`#f501d3`)
-- **Texto:** `var(--color-text)` (`#fcffff`) com excelente contraste sobre as cores saturadas.
-
-### 3.2 Elementos 3D (Ghost Layer)
-
-- **Modelo:** Fantasma estilizado (Shader ou GLB otimizado).
-- **Iluminação:** Ambiente espectral reagindo à cor do fundo atual.
+- Next.js (App Router)
+- React + TypeScript
+- Tailwind CSS
+- Motion (`inView`, `animate`)
+- React Three Fiber + drei + three.js
+- Firebase Hosting
+- Supabase Storage (assets)
 
 ---
 
-## 4. Interatividade & Animações
+# 🏗 Arquitetura em Camadas (Obrigatória)
 
-**Motor:** Framer Motion (`useScroll`, `useTransform`) + React Three Fiber.
-**Easing Obrigatório:** `cubic-bezier(0.22, 1, 0.36, 1)` (Ghost Ease).
+### Camada 0 — Background Layer
+- absolute inset-0
+- Recebe interpolação de cor
+- Controlado por `animate()`
+- NÃO usa fade simples
 
-### 4.1 Arquitetura de Camadas (Z-Index)
+### Camada 1 — Overlay Transition Layer
+- Opacity animada (0 → 1 → 0)
+- Evita flicker
+- Atua como camada de absorção
 
-A ordem de empilhamento é crítica para o funcionamento das máscaras e legibilidade.
+### Camada 2 — BeliefFixedHeader (Sticky)
 
-| Layer | Z-Index | Componente            | Descrição                                     |
-| :---- | :------ | :-------------------- | :-------------------------------------------- |
-| **0** | `z-0`   | **Background Layer**  | Container que recebe a cor interpolada.       |
-| **1** | `z-10`  | **BeliefFixedHeader** | Texto fixo ("Acredito no design..."). Sticky. |
-| **2** | `z-20`  | **Rotating Texts**    | Frases que entram/saem. Gatilho das cores.    |
-| **3** | `z-30`  | **Manifesto Final**   | Texto clímax sobrepondo tudo.                 |
-| **4** | `z-40`  | **Ghost 3D Scene**    | Canvas R3F. Interage com mouse/scroll.        |
+Texto:
 
-### 4.2 Lógica de Motion (Scroll-Linked)
+> “Acredito no design que muda o dia de alguém. - font-Display - black - Branca
+> Não pelo choque, mas pela conexão.” - font-h2 - bold - Branca
 
-- **Trigger:** `scrollYProgress` do container da seção (0 a 1).
-- **Mapeamento:** Uso de `clamp` para isolar o tempo de cada frase.
-- **Reversibilidade:** Obrigatória. O scroll para cima deve reverter a animação suavemente.
+**Desktop**
+- Sticky
+- Alinhado visualmente ao centro
+- Ancorado à direita do grid
+- text-right
 
----
-
-## 5. Responsividade
-
-### 5.1 Desktop (≥ 1024px)
-
-- **Layout:** Distribuído. Texto Fixo à direita, Frases à esquerda, Ghost ao centro.
-- **Motion Text:** Slide vertical. Entra do topo (`y: -50px` -> `0`), sai para cima (`y: -50px`).
-- **Ghost:** Segue levemente o cursor (mouse move).
-
-### 5.2 Mobile (< 768px)
-
-- **Layout:** Stack Vertical. Header no topo, Ghost no meio, Frases na base (20% do bottom).
-- **Motion Text:** Slide lateral. Entra com Fade, sai deslizando para a **DIREITA** (`x: 100%`).
-- **Ghost:** Centralizado, sem follow mouse (apenas giroscópio ou animação idle).
+**Mobile**
+- Sticky top-right
+- text-right
+- Não disputa espaço com bloco central
 
 ---
 
-## 6. Acessibilidade & SEO
+### Camada 3 — Texto Rotativo
 
-- **WCAG AA:** Contraste mínimo de 4.5:1 garantido entre texto branco e fundos coloridos (Blue/Purple/Pink).
-- **Reduced Motion:** Se `prefers-reduced-motion: reduce`:
-  - Desativar parallax e rotação do Ghost.
-  - Trocar slides (X/Y) por Fades (Opacity) simples.
-- **Semântica:** O Canvas 3D possui `aria-hidden="true"`. Os textos estão no DOM para leitores de tela.
+font-h1 - bold - **blueAccent** | `#4fe6ff`
+Frases (ordem obrigatória):
+
+1. Design não é sobre estética.
+2. É sobre sentimento.
+3. É sobre presença.
+4. É sobre criar algo que permanece.
+5. Algo que respira.
+6. Algo que toca.
+7. Algo que muda.
+
+Cada frase:
+
+- Começa invisível (`opacity: 0`)
+- Levemente deslocada verticalmente
+- Entra via `inView()`
+- Dispara troca de cor
+- Possui cleanup ao sair
 
 ---
 
-## 7. Integrações e Recursos
+### Camada 4 — Manifesto Final
 
-- **Assets:** Carregamento de GLB/Texturas via `useLoader` com Suspense.
-- **Estado:** Gerenciamento local ou Zustand para sincronizar o índice da frase atual com a cor do fundo.
+font-Display - black - branca
+exto fixo (3 linhas) ocupando 90% da tela:
+
+ISSO É  
+GHOST  
+DESIGN.
+
+- Morphing Text
+- Espaçamento pequeno entre linhas
+- Forte peso visual
+- Entrada sincronizada com clímax do Ghost
 
 ---
 
-## 8. Considerações Técnicas
+### Camada 5 — Ghost 3D
 
-- **Performance:** Usar `will-change: transform` nos textos. O background deve usar interpolação de cor otimizada (evitar repaints pesados).
-- **Reset:** Ao sair da viewport (`amount: 0`), resetar todos os estados para garantir que a animação reinicie corretamente se o usuário voltar.
+GLB oficial:
+
+https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb
+
+Carregado via `useGLTF`.
 
 ---
 
-### SEQUÊNCIA CRONOLÓGICA (TIMELINE)
+# 👻 Comportamento do Ghost
 
-#### A. Versão Desktop
+- Flutuação constante
+- Movimento lateral leve
+- Responde ao cursor (desktop)
+- Responde ao scroll (mobile)
+- Nunca completamente parado
 
-1.  **BG Inicial:** Visível (`var(--background)`).
-2.  **BeliefFixedHeader:** Fade-in e fixa-se no centro.
-3.  **Ghost:** Entra suavemente junto com o Header.
-4.  **Texto 1:** Entra do topo. **Simultaneamente**, o BG interpolar para `bg-bluePrimary`.
-5.  **Ciclo:** Frases subsequentes entram/saem (slide up). Cor muda a cada frase.
-6.  **Ghost:** Intensifica wobble/rotação com o scroll.
-7.  **Clímax:** "ISSO É GHOST DESIGN" surge. Header fixo sai para cima.
-8.  **Final:** Ghost escala e centraliza.
-9.  **Saída:** Scroll continua, elementos saem para cima. Reset total.
+### Entrada:
+- Surge junto com BeliefFixedHeader
+- scale 0.95 → 1
+- Fade suave
 
-#### B. Versão Mobile
+### Intensificação:
+- Cada nova frase aumenta levemente energia
+- Última frase:
+  - Escala +10%
+  - Centraliza na seção
+  - Movimento mais intenso
 
-1.  **BG Inicial:** Visível.
-2.  **BeliefFixedHeader:** Fade-in no topo.
-3.  **Ghost:** Entra visível no centro.
-4.  **Texto 1:** Fade-in na posição fixa centralizado quebra de linhas apnas quando necessário (20% do rodapé). Cor muda simultaneamente.
-5.  **Ciclo:** Frases trocam. Saída de cada frase é um slide para a **DIREITA**.
-6.  **Clímax:** Manifesto final surge. Header sai para a direita.
-7.  **Final:** Ghost escala.
-8.  **Saída:** Scroll continua, elementos saem para a direita. Reset total.
+### Saída:
+- Sai junto com manifesto
+- Acompanha scroll
 
+---
+
+# 🎨 Sistema de Troca de Cor do Background
+
+## Ordem obrigatória de cores:
+
+1. bg-bluePrimary -`#0048ff`- (HSL: 230, 85%, 30%)
+2. bg-purpleDetails -`#8705f2`- (HSL: 270, 80%, 40%)
+3. bg-pinkDetails -`#f501d3`- (HSL: 330, 85%, 50%)
+4. bg-bluePrimary
+5. bg-purpleDetails
+6. bg-pinkDetails
+7. bg-bluePrimary (retorna ao início)
+
+---
+
+# 🔥 REGRA CRÍTICA
+
+A troca de fundo NÃO é uma transição simples.
+
+Não usar:
+- `transition: background-color`
+- Fade entre divs simples
+
+---
+
+# ✅ Tipo de animação
+
+Interpolação contínua de cor + crossfade overlay
+
+→ A cor muda **enquanto o texto entra**, não depois.
+
+---
+
+# 🎬 Sincronização Detalhada
+
+Inspirado no padrão:
+
+```js
+inView(".scroll-section pre", (element) => {
+    animate(element, { opacity: 1, x: [-100, 0] }, { duration: 0.9 })
+})
 ```
 
 ---
+
+## Implementação Conceitual Adaptada
+
+```ts
+import { animate, inView } from "motion"
+
+inView(".belief-line", (element) => {
+
+  // 1️⃣ Entrada do texto
+  animate(
+    element,
+    { opacity: [0, 1], y: [40, 0] },
+    {
+      duration: 0.8,
+      easing: [0.17, 0.55, 0.55, 1]
+    }
+  )
+
+  // 2️⃣ Troca sincronizada do BG
+  animate(
+    backgroundLayer,
+    { backgroundColor: nextColor },
+    {
+      duration: 0.9,
+      easing: [0.4, 0, 0.2, 1]
+    }
+  )
+
+  // 3️⃣ Overlay absorvendo a transição
+  animate(
+    overlayLayer,
+    { opacity: [0, 1, 0] },
+    { duration: 0.9 }
+  )
+
+  return () => {
+    animate(element, { opacity: 0, y: 40 })
+  }
+})
 ```
+
+---
+
+# 🧠 Lógica de Interpolação Contínua
+
+A cor não muda de forma discreta.
+
+Ela é interpolada em HSL:
+
+```
+const t = progress normalizado (0 → 1)
+color = lerpHSL(previousColor, nextColor, ease(t))
+```
+
+- A transição inicia no primeiro frame da entrada do texto
+- Quando o texto atinge 60% de visibilidade, o BG já está ~70% interpolado
+- A cor termina exatamente quando o texto termina a animação
+
+Isso cria a sensação:
+
+> A cor absorve a frase.
+
+---
+
+# 📐 Regra de Alinhamento do Ghost (Obrigatória)
+
+Layout:
+
+| Texto (esquerda) | Ghost (direita) |
+
+- Ghost sempre alinhado ao centro vertical do bloco de texto
+- Nunca alinhado à viewport
+- Se o texto cresce, o Ghost acompanha
+- Usar grid/flex com items-center
+
+---
+
+# ⏱ Sequência Cronológica — Desktop
+
+1. BG inicial visível
+2. BeliefFixedHeader fade-in
+3. Ghost entra junto com BeliefFixedHeader
+4. Primeira troca de cor inicia simultaneamente com entrada do texto
+5. Frases rotativas continuam, entrando do topo
+6. Intensificação gradual do Ghost
+7. Manifesto final surge enquanto frase fixa sai para cima
+8. Ghost escala + centraliza
+9. Clímax
+10. Scroll continua → elementos saem para cima
+11. Reset total
+
+---
+
+# 📱 Sequência Cronológica — Mobile
+
+1. BG inicial visível
+2. BeliefFixedHeader fade-in
+3. Ghost entra junto com BeliefFixedHeader
+4. Primeira troca de cor inicia simultaneamente com entrada do texto
+5. Texto centralizado a 20% da distância do rodapé
+6. Frases entram com fade-in no centro
+7. Texto sai pela direita ao final
+8. Intensificação gradual do Ghost
+9. Manifesto surge enquanto frase fixa sai para a direita
+10. Ghost escala + centraliza
+11. Elementos saem para a direita
+12. Reset total
+
+---
+
+# 🎭 Personalidade da Experiência
+
+- Cinemática
+- Emocional
+- Profunda
+- Elegante
+- Fluida
+- Escura
+- Nunca agressiva
+
+Sensação final:
+
+O design respira.  
+O Ghost sente.  
+A cor absorve significado.
+
+---
+
+# 🏁 Resultado Esperado
+
+Uma seção onde:
+
+- Texto e cor são um único sistema
+- O BG reage no mesmo frame que o texto entra
+- O Ghost vive dentro da narrativa
+- Scroll é a força motriz emocional
+- Desktop e Mobile possuem ritmos distintos
+- Reset é perfeito e bidirecional
+
+----
+
