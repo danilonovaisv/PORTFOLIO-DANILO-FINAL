@@ -45,14 +45,15 @@ Execute os comandos abaixo sequencialmente no seu **Agent Manager** para corrigi
 Atue como Arquiteto de Sistema Antigravity. Realize as seguintes correções críticas de infraestrutura:
 
 1. **Renomeação de Governança:** Renomeie o arquivo `AGENT.md` na raiz para `AGENTS.md`.
-2. **Integração MCP Context7:** Edite o arquivo `mcp_servers.json` na raiz para incluir a configuração do servidor `context7`. Use a estrutura padrão:
+2. **Integração MCP Context7:** Edite o arquivo mcp_servers.json na raiz para que ele contenha a configuração do servidor context7. O arquivo deve ser um objeto JSON válido. Exemplo:
    ```json
-   "context7": {
-     "command": "npx",
-     "args": ["-y", "@modelcontextprotocol/server-context7"],
-     "env": { "CONTEXT7_API_KEY": "PLACEHOLDER_KEY" }
+   {
+     "context7": {
+       "command": "npx",
+       "args": ["-y", "@modelcontextprotocol/server-context7"],
+       "env": { "CONTEXT7_API_KEY": "PLACEHOLDER_KEY" }
+     }
    }
-   ```
 3. **Política Pure Install:** Adicione uma seção explícita "3.1 Pure Install Policy" no novo `AGENTS.md`, determinando que toda instalação de dependência deve ser limpa (`npm ci` ou equivalente) e vetando modificações manuais em `node_modules`.
 ```
 
