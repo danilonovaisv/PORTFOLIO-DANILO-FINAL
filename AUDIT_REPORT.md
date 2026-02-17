@@ -68,7 +68,7 @@ Atue como Engenheiro de DevOps Agêntico. Vamos limpar a pasta de workflows e es
    - `dev.md` (Mapeado para comando `/dev`)
    - `qa.md` (Mapeado para comando `/qa`)
    - `pm.md` (Mapeado para comando `/pm`)
-3. **Estrutura Ghost Design:** Em cada um desses novos arquivos, insira um cabeçalho YAML padrão:
+3. **Estrutura Ghost Design:** Em cada um desses novos arquivos, insira o seguinte cabeçalho YAML, preenchendo os placeholders com os valores apropriados para cada workflow:
    ```yaml
    ---
    trigger: /comando
