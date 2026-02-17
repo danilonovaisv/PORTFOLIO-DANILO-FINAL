@@ -81,7 +81,7 @@ Atue como Engenheiro de DevOps Agêntico. Vamos limpar a pasta de workflows e es
 
 ### 3. Atualização de Skills e Raciocínio
 ```markdown
-[/slash_command] "Instrução de atualização de Skills..."
+/comando_agente "Instrução de atualização de Skills..."
 
 Atue como Especialista em IA Cognitiva. Vamos endurecer as skills dos agentes:
 
