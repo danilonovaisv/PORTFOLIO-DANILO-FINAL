@@ -1,93 +1,51 @@
-## 🚨 RELATÓRIO DE AUDITORIA TÉCNICA: ANTIGRAVITY v2026
+# Relatório de Auditoria e Prompts Orquestrados (Antigravity)
 
-**Status Geral:** ⚠️ **PARCIALMENTE INCOMPATÍVEL**
-**Criticidade:** ALTA (Bloqueio de Funcionalidades Agênticas Avançadas)
+## Resumo da Auditoria
+A auditoria identificou discrepâncias significativas entre a documentação (`.context/DOCS-PORTFOLIO-PAGES`) e a implementação atual. A principal falha de fidelidade é a ausência do comportamento "Floating Manifesto Thumbnail" na Home. Além disso, foram encontradas oportunidades de melhoria em performance (preloader) e organização de código.
 
-Conduzi uma verificação profunda na estrutura `.agent` e `.context` comparando com os padrões "Antigravity 2026" e Método BMAD. Abaixo, as inconformidades detectadas:
+## Prompts Orquestrados
 
-### 1. 🧠 Modelo de Raciocínio (Reasoning)
-*   **Status:** ⚠️ **Parcial**
-*   **Achado:** As regras em `.agent/rules` existem, mas o protocolo de execução (`30-execution-protocol.md`) é genérico. Faltam diretrizes explícitas para **Multi-step Reasoning** (Cadeia de Pensamento) e loops de autocrítica (ReAct) obrigatórios para agentes seniores.
+Execute os seguintes prompts no Antigravity para aplicar as correções:
 
-### 2. 🛠️ Ferramentas e MCP
-*   **Status:** ❌ **CRÍTICO**
-*   **Achado:** O servidor MCP **Context7** NÃO está configurado em `mcp_servers.json` (raiz), impedindo o grounding de conhecimento. Existe apenas um placeholder inativo em `.agent/mcp_config.json`.
-*   **Impacto:** O agente opera "cego" sem acesso à memória de longo prazo ou base de conhecimento externa estruturada.
-
-### 3. 📦 Artefatos
-*   **Status:** ⚠️ **Inconsistente**
-*   **Achado:** O sistema gera alguns logs (`audit-*.md`), mas não possui um padrão unificado para **Planos de Implementação** (ex: `docs/PLAN-*.md`) ou **Checklists de QA** automatizados. A geração de artefatos é ad-hoc e não sistêmica.
-
-### 4. 📚 Conhecimento Agêntico
-*   **Status:** ❌ **Inconformidade de Padrão**
-*   **Achado 1:** O arquivo mestre está nomeado como `AGENT.md` (singular), violando o padrão plural `AGENTS.md` que indica governança multi-agente.
-*   **Achado 2:** A política de **"Pure Install"** (instalação limpa e determinística) não está explicitamente documentada, abrindo risco para "dirty states".
-
-### 5. 🧩 Personalizações (Skills)
-*   **Status:** ✅ **Conforme**
-*   **Achado:** A estrutura de skills (ex: `.agent/skills/planner/SKILL.md`) segue o padrão correto de encapsulamento. Ponto positivo.
-
-### 6. 🔄 Regras e Workflows (Slash Commands)
-*   **Status:** ❌ **CAOS ESTRUTURAL**
-*   **Achado:** A pasta `.agent/workflows` contém mais de 30 arquivos de tarefas soltas (`audit-home.md`, `deploy.md`, etc.), poluindo o namespace.
-*   **Falta Grave:** Não existem os workflows padrão mapeados para os comandos essenciais: `/dev`, `/qa`, `/pm`. O comando `/plan` existe, mas está isolado.
-
----
-
-## 🎹 PLANO DE AÇÃO ORQUESTRADO (Copiar e Colar)
-
-Execute os comandos abaixo sequencialmente no seu **Agent Manager** para corrigir a arquitetura:
-
-### 1. Correção de Configuração e Identidade
-```markdown
-/comando_agente "Instrução de correção de configuração..."
-
-Atue como Arquiteto de Sistema Antigravity. Realize as seguintes correções críticas de infraestrutura:
-
-1. **Renomeação de Governança:** Renomeie o arquivo `AGENT.md` na raiz para `AGENTS.md`.
-2. **Integração MCP Context7:** Edite o arquivo mcp_servers.json na raiz para que ele contenha a configuração do servidor context7. O arquivo deve ser um objeto JSON válido. Exemplo:
-   ```json
-   {
-     "context7": {
-       "command": "npx",
-       "args": ["-y", "@modelcontextprotocol/server-context7"],
-       "env": { "CONTEXT7_API_KEY": "PLACEHOLDER_KEY" }
-     }
-   }
-3. **Política Pure Install:** Adicione uma seção explícita "3.1 Pure Install Policy" no novo `AGENTS.md`, determinando que toda instalação de dependência deve ser limpa (`npm ci` ou equivalente) e vetando modificações manuais em `node_modules`.
+### Prompt 1: FIDELIDADE & UX (Critical Fix)
+```text
+[/slash_command] "Refatorar `src/components/home/hero/HomeHero.tsx` e `VideoManifesto.tsx` para implementar o comportamento 'Floating Manifesto Thumbnail' conforme documentação (.context/DOCS-PORTFOLIO-PAGES/01-HOME/02-HERO.md):
+1.  **Estado Inicial (Desktop):** O vídeo deve iniciar como um thumbnail flutuante no canto inferior direito (fixed/absolute, z-30), mudo e em loop.
+2.  **Scroll Interaction:** Implementar animação scroll-driven (Framer Motion `useScroll`):
+    -   Ao rolar o Hero, o vídeo deve escalar (`scale: 0.3 -> 1`), perder o `borderRadius` e centralizar na tela.
+    -   O texto do Hero deve fazer fade-out enquanto o vídeo expande.
+3.  **Estado Fullscreen:** Ao completar o scroll do Hero, o vídeo deve travar em fullscreen (sticky/fixed), ativar o áudio (unmute) e manter-se por 2s antes de liberar o scroll para a próxima seção.
+4.  **Mobile:** Manter o comportamento atual (seção estática abaixo do Hero) para performance."
 ```
 
-### 2. Limpeza e Padronização de Workflows
-```markdown
-/comando_agente "Instrução de limpeza e otimização..."
-
-Atue como Engenheiro de DevOps Agêntico. Vamos limpar a pasta de workflows e estabelecer o padrão 2026:
-
-1. **Arquivamento de Legado:** Crie a pasta `.agent/workflows/archive/` e mova TODOS os arquivos `.md` atuais de `.agent/workflows/` para lá, EXCETO o `plan.md`.
-2. **Criação de Workflows Padrão:** Crie três novos arquivos vazios na raiz de `.agent/workflows/`:
-   - `dev.md` (Mapeado para comando `/dev`)
-   - `qa.md` (Mapeado para comando `/qa`)
-   - `pm.md` (Mapeado para comando `/pm`)
-3. **Estrutura Ghost Design:** Em cada um desses novos arquivos, insira o seguinte cabeçalho YAML, preenchendo os placeholders com os valores apropriados para cada workflow:
-   ```yaml
-   ---
-   trigger: /comando
-   role: [role_especifica]
-   context_required: true
-   ---
-   # Workflow: [Nome]
-   ```
+### Prompt 2: PERFORMANCE WEBGL & LOADING
+```text
+[/slash_command] "Otimizar o carregamento da Home em `src/components/home/hero/HomeHero.tsx`:
+1.  Substituir o `setTimeout` de 500ms do Preloader por um sinal real de `onCreated` do Canvas R3F (`GhostSceneWrapper`).
+2.  Implementar 'Graceful Degradation': Se o WebGL falhar ou demorar >3s, remover o Preloader e exibir o fallback de gradiente imediatamente.
+3.  Garantir que `GhostSceneWrapper` utilize `dpr={[1, 1.5]}` para limitar o custo de renderização em telas de alta densidade."
 ```
 
-### 3. Atualização de Skills e Raciocínio
-```markdown
-/comando_agente "Instrução de atualização de Skills..."
+### Prompt 3: ORGANIZAÇÃO & LIMPEZA
+```text
+[/slash_command] "Padronização e Limpeza de Código:
+1.  Verificar `src/components/home/hero/HeroCTA.tsx`: Se não estiver sendo usado visualmente (layout quebrado ou sobreposto), remover ou integrar corretamente com z-index ajustado (z-50).
+2.  Converter estilos CSS Modules residuais em `HeroCopy.module.css` para Tailwind CSS utilitário, unificando a stack de estilização.
+3.  Remover imports não utilizados em `src/app/page.tsx` após a refatoração do Manifesto."
+```
 
-Atue como Especialista em IA Cognitiva. Vamos endurecer as skills dos agentes:
+### Prompt 4: ACESSIBILIDADE (A11Y)
+```text
+[/slash_command] "Garantir Acessibilidade na nova interação do Manifesto:
+1.  O thumbnail do vídeo deve ser focável (`tabIndex=0`) e expansível via teclado (Enter/Space).
+2.  Adicionar `aria-label` dinâmico ('Expandir vídeo manifesto' / 'Vídeo em tela cheia').
+3.  Assegurar que o botão de 'Mute/Unmute' permaneça acessível e visível em todos os estados da animação.
+4.  Respeitar `prefers-reduced-motion`: Se ativo, desabilitar a animação de expansão e exibir o vídeo estático em tamanho real."
+```
 
-1. **Mapeamento de Skills:** Para cada novo workflow criado (`dev`, `qa`, `pm`), verifique se existe uma pasta correspondente em `.agent/skills/`. Se não, crie-a.
-2. **Geração de SKILL.md:** Dentro de cada pasta de skill, crie/atualize o arquivo `SKILL.md` com o seguinte padrão obrigatório:
-   - **Metadados:** Nome, Versão, Dependências.
-   - **Reasoning Loop:** Uma seção "### Cognitive Steps" que obrigue o agente a pensar passo-a-passo (Chain-of-Thought) antes de agir.
-   - **Few-Shot Examples:** Pelo menos 2 exemplos de inputs e outputs esperados para aquela skill.
+### Prompt 5: NEXT.JS & SEO
+```text
+[/slash_command] "Revisão Final de Metadados e Cache:
+1.  Valide em src/app/page.tsx que alternates: { canonical: ... } está configurado com a URL de produção correta.
+2.  Otimize o componente FeaturedProjectsRealtime para evitar re-renderizações desnecessárias causadas pelo polling de 45s, aplicando `useMemo` e `useCallback` conforme apropriado."
 ```
