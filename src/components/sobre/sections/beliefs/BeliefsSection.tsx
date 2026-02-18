@@ -103,7 +103,7 @@ export function BeliefsSection() {
 
           {/* Layer 5: Ghost 3D — z-40 (topmost, per spec 4.1, interacts with mouse/scroll) */}
           {!prefersReducedMotion && (
-            <div className="absolute inset-y-0 right-0 w-full md:w-[60%] z-40 pointer-events-none">
+            <div className="absolute inset-y-0 right-0 w-full md:w-full z-40 pointer-events-none">
               <div className="w-full h-full">
                 <GhostScene scrollProgress={scrollYProgress} />
               </div>

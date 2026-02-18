@@ -67,7 +67,6 @@ export const ProjectCard = ({
     project.videoPreview ??
     preferredImage ??
     ASSET_PLACEHOLDER;
-  const objectFit = project.layout?.objectFit ?? 'cover';
   const objectPosition = project.layout?.objectPosition ?? 'center';
   const sizes =
     project.layout?.sizes ??
@@ -123,7 +122,7 @@ export const ProjectCard = ({
             poster={DEFAULT_VIDEO_POSTER}
             className={cn(
               "absolute inset-0 h-full w-full",
-              objectFit === 'contain' ? 'object-contain' : 'object-cover'
+              isMobile ? "object-contain" : "object-cover"
             )}
             style={{ objectPosition }}
           >
@@ -141,8 +140,8 @@ export const ProjectCard = ({
             alt={project.title}
             fill
             className={cn(
-              "object-center",
-              objectFit === 'contain' ? 'object-contain' : 'object-cover'
+              "object-center transition-transform duration-700 group-hover:scale-105",
+              isMobile ? "object-contain" : "object-cover"
             )}
             style={{ objectPosition }}
             sizes={sizes}

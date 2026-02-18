@@ -39,7 +39,7 @@ describe('useLERPScroll', () => {
       height: 2000,
       x: 0,
       y: 500,
-      toJSON: () => {},
+      toJSON: () => { },
     }));
 
     // Mock ResizeObserver
@@ -88,7 +88,7 @@ describe('useLERPScroll', () => {
       width: 1000,
       x: 0,
       y: 0,
-      toJSON: () => {},
+      toJSON: () => { },
     }));
 
     const trackRef = { current: trackMock };
@@ -100,7 +100,7 @@ describe('useLERPScroll', () => {
     expect(galleryMock.style.height).toBe('2096px');
   });
 
-  it('updates isSticky state based on scroll position', () => {
+  it('updates scrollState based on scroll position', () => {
     const trackMock = document.createElement('div');
     const galleryMock = document.createElement('div');
 
@@ -126,7 +126,7 @@ describe('useLERPScroll', () => {
       width: 1000,
       x: 0,
       y: 500,
-      toJSON: () => {},
+      toJSON: () => { },
     }));
 
     // Mock ResizeObserver
@@ -151,7 +151,7 @@ describe('useLERPScroll', () => {
 
     // After animation/lerp cycle, it should be sticky
     // (Note: in real tests we use act() and timer mocks, but here we focus on logic structure)
-    expect(result.current.isSticky).toBeDefined();
+    expect(result.current.scrollState).toBeDefined();
   });
 
   it('cleans up on unmount', () => {

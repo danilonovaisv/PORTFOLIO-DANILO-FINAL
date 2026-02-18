@@ -164,8 +164,8 @@
     inset: auto;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 24px;
-    padding: 24px;
+    gap: 32px; /* Increased gap for better mobile spacing */
+    padding: 24px 20px;
     will-change: auto;
   }
 

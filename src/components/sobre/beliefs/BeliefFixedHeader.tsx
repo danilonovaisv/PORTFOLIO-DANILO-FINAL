@@ -72,6 +72,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
   // OR strictly separate them opacity-wise so visual conflicts are hidden.
   // Actually, for Mobile Exit, let's keep it simple: Fade Out + Slide Right.
 
+  // Mobile Exit: slide right (x: 0 -> 100%)
   const xExitMobile = useTransform(
     scrollProgress,
     [0.72, 0.82],

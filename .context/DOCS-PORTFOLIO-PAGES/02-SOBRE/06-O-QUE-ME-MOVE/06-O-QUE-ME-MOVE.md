@@ -103,7 +103,7 @@ Construir a sessão manifesto "O Que Me Move" como uma experiência scroll-drive
 - Forte peso visual
 - Entrada sincronizada com clímax do Ghost
 
-### **Camada 5 — Ghost 3D (Atualizado)**
+### **Camada 5 — Ghost 3D**
 - **Posicionamento:**
   - **Z-index máximo (camada acima de todas)**
   - GLB oficial: [https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb](https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb)

@@ -78,7 +78,7 @@ export const ProjectsGallery = ({
   const useLerp = !prefersReducedMotion && !isMobile && filteredProjects.length > 6;
 
   // Initialize LERP Scroll
-  const { isSticky } = useLERPScroll(trackRef, galleryWrapperRef, useLerp);
+  const { scrollState } = useLERPScroll(trackRef, galleryWrapperRef, useLerp);
 
   const sizePattern = useMemo<ProjectCardSize[]>(
     () => ['lg', 'sm', 'sm', 'sm', 'lg', 'sm', 'sm', 'sm', 'wide'],
@@ -93,6 +93,20 @@ export const ProjectsGallery = ({
       })),
     [filteredProjects, sizePattern]
   );
+
+  // Determine track classes based on scroll state
+  const getTrackClasses = () => {
+    if (!useLerp) return 'relative';
+
+    switch (scrollState) {
+      case 'fixed':
+        return 'fixed left-0 right-0 top-[88px] md:top-24 z-10 max-w-[1680px] mx-auto px-6 md:px-12 lg:px-24';
+      case 'post':
+        return 'absolute bottom-0 left-0 right-0 z-10 max-w-[1680px] mx-auto px-6 md:px-12 lg:px-24';
+      default: // 'pre'
+        return 'relative';
+    }
+  };
 
   return (
     <section
@@ -148,12 +162,7 @@ export const ProjectsGallery = ({
           ) : (
             <div
               ref={trackRef}
-              className={cn(
-                styles.track,
-                useLerp && isSticky
-                  ? 'fixed left-0 right-0 top-[88px] md:top-24 z-10 max-w-[1680px] mx-auto px-6 md:px-12 lg:px-24'
-                  : 'relative'
-              )}
+              className={cn(styles.track, getTrackClasses())}
             >
               <AnimatePresence mode="popLayout">
                 {items.map((item, index) => (

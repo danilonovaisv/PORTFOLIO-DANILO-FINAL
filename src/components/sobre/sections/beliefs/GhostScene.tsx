@@ -17,6 +17,7 @@ function GhostModel({
   const groupRef = useRef<THREE.Group>(null);
   const scrollRef = useRef(0);
   const isMobileRef = useRef(false);
+  const mouseRef = useRef(new THREE.Vector2(0, 0)); // Global mouse tracker
 
   // Pre-allocated objects for clean loop
   const targetRotation = useRef(new THREE.Euler(0, 0.3, 0));
@@ -25,6 +26,7 @@ function GhostModel({
 
   // Simulation Time for floating
   const time = useRef(0);
+  const startTime = useRef(Date.now());
 
   useEffect(() => {
     // Check mobile once on mount
@@ -33,7 +35,23 @@ function GhostModel({
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+
+    // Mouse listener: works even if Canvas handles pointer-events poorly
+    const handleMouseMove = (e: MouseEvent) => {
+      // Normalize -1 to 1
+      const x = (e.clientX / window.innerWidth) * 2 - 1;
+      const y = -(e.clientY / window.innerHeight) * 2 + 1;
+      mouseRef.current.set(x, y);
+    };
+
+    if (!isMobileRef.current) {
+      window.addEventListener('mousemove', handleMouseMove);
+    }
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
   }, []);
 
   useEffect(() => {
@@ -52,110 +70,116 @@ function GhostModel({
   useFrame((state, delta) => {
     if (!groupRef.current) return;
     const t = scrollRef.current;
+
+    // Constant time flow for floating (never stops)
     time.current += delta;
 
+    // --- ENTRY FADE (1.2s) ---
+    const elapsed = Date.now() - startTime.current;
+    const entryProgress = Math.min(elapsed / 1200, 1);
+    // Smooth easing for entry
+    const entryEase = 1 - Math.pow(1 - entryProgress, 3);
+
     // --- ENERGY SYSTEM ---
-    // Start calm, get intense.
-    // Base frequency: 1. Max frequency: 3.
-    // Base amplitude: 0.1. Max amplitude: 0.25.
-    const intensity = 1 + t * 2.5; // 1 -> 3.5
-    const floatSpeed = 1.5 * intensity;
-    const floatAmp = 0.1 + t * 0.15;
+    // Phrases are approx 0 -> 0.82.
+    // 6 Phrases. Each adds energy.
+    // Base: 1. Max (Manifesto): 2.5.
+    const phraseProgress = Math.min(t / 0.82, 1);
+    const intensity = 1 + phraseProgress * 1.5;
 
-    const floatY = Math.sin(time.current * floatSpeed) * floatAmp;
+    // "Última frase ... movimento mais intenso"
+    // At end of phrases (t ~ 0.8), boost speed
+    const movementSpeed = 1.0 * intensity;
+    const movementAmp = 0.1 * intensity;
 
-    // Add "breathing" scale
-    const breath = Math.cos(time.current * floatSpeed * 0.5) * 0.02 * intensity;
+    // "Flutuação constante" + "Movimento lateral leve"
+    const floatY = Math.sin(time.current * movementSpeed) * movementAmp;
+    const floatX = Math.cos(time.current * movementSpeed * 0.7) * (movementAmp * 0.6);
 
-    /**
-     * ROTATION LOGIC
-     * - Base: slight offset (0.3 rad) + scroll influence
-     * - Desktop: Mouse follow (pointer x/y)
-     * - Mobile: Idle only (no mouse follow)
-     */
-    let mouseX = 0;
-    let mouseY = 0;
+    // "Responde ao cursor (desktop)" vs "Responde ao scroll (mobile)"
+    let rotationY = 0.3; // Base rotation
+    let rotationX = 0;
 
-    if (!isMobileRef.current) {
-      // Smooth lerp for mouse input
-      mouseLerp.current.x = THREE.MathUtils.lerp(
-        mouseLerp.current.x,
-        state.pointer.x,
-        0.1
-      );
-      mouseLerp.current.y = THREE.MathUtils.lerp(
-        mouseLerp.current.y,
-        state.pointer.y,
-        0.1
-      );
+    if (isMobileRef.current) {
+      // Mobile: Scroll influence on rotation to feel "alive"
+      rotationY += t * 2.0;
+    } else {
+      // Desktop: Mouse/Cursor influence
+      // Smooth lerp for mouse
+      mouseLerp.current.x = THREE.MathUtils.lerp(mouseLerp.current.x, mouseRef.current.x, 0.1);
+      mouseLerp.current.y = THREE.MathUtils.lerp(mouseLerp.current.y, mouseRef.current.y, 0.1);
 
-      mouseX = mouseLerp.current.x * 0.5; // Sensitivity
-      mouseY = mouseLerp.current.y * 0.2;
+      rotationY += mouseLerp.current.x * 0.5;
+      rotationX = -mouseLerp.current.y * 0.2;
     }
 
-    // Spec 5.1 Desktop: "Ghost: Segue levemente o cursor"
-    // Spec 5.2 Mobile: "Ghost: ... sem follow mouse"
+    // Apply Rotation (with floating tilt)
+    // "Nunca completamente parado" -> Add noise/sway
     targetRotation.current.set(
-      mouseY * 0.5 + floatY * 0.5, // Tilt with float
-      0.3 + t * 2.5 + mouseX, // Rotate Y with scroll + mouse
+      rotationX + floatY * 0.2, // Tilt based on vertical float
+      rotationY + Math.sin(time.current * 0.3) * 0.1, // Slow breathe rotate
       Math.sin(time.current * 0.5) * 0.05 // Subtle Z sway
     );
 
-    /**
-     * SCALE LOGIC
-     * - Trigger starts at 82% scroll
-     */
-    const scaleT = t > 0.82 ? 1 + (t - 0.82) * 1.5 : 1;
-    targetScale.current = scaleT + breath;
-
-    /**
-     * POSITION LOGIC (Updated for "Text Left | Ghost Right" layout)
-     */
-    // Container is Right 60%. X=0 is center of that.
-    // If Text is Left 41%, and Container starts at 40%, then X=0 is at 70% viewport.
-    // We want Ghost to look "at" the text.
-    // Let's start slightly Right (1.2) and move to Center (0) on Manifesto.
-
+    // --- POSITIONING LOGIC ---
     let targetX = 0;
-    let targetY = -0.5;
+    let targetY = 0; // Center default (0,0,0)
 
     if (isMobileRef.current) {
-      // Mobile Spec: Top-Leftish or Center?
-      // Doc says: "Mobile... Texto centralizado... Ghost entra"
-      // "Layout: Texto (esquerda) | Ghost (direita)" is general rule.
-      // But Mobile is narrower. Usually Ghost top / Text bottom or stacked.
-      // Doc says: "Ghost entra junto com header".
-      // Let's keep Ghost Top in mobile.
-      targetX = 0;
-      targetY = 1.0 + floatY; // Higher up
+      // Mobile: Sticky Top-Left (20% top). 
+      // At z=6 camera, 20% top is approx y=1.5
+      // X=-1.0 puts it on left edge
+      const mobileStartX = -1.0;
+      const mobileStartY = 1.5;
 
-      const mobileScaleT = t > 0.82 ? 0.7 + (t - 0.82) * 1.5 : 0.7;
-      targetScale.current = mobileScaleT + breath;
+      // "Vai para o centro da pagina na ultima sessão" (Manifesto > 0.82)
+      if (t > 0.82) { // Manifesto Transition
+        const transition = (t - 0.82) / 0.18; // 0..1 in final section
+        const easeTransition = Math.min(transition, 1);
+
+        targetX = THREE.MathUtils.lerp(mobileStartX, 0, easeTransition);
+        targetY = THREE.MathUtils.lerp(mobileStartY, 0, easeTransition);
+      } else {
+        targetX = mobileStartX;
+        targetY = mobileStartY;
+      }
     } else {
-      // Desktop:
-      // Start Right (clear of text), Center on Manifesto
-      const transitionProgress = t > 0.8 ? (t - 0.8) / 0.2 : 0;
-      const clampedTransition = Math.min(Math.max(transitionProgress, 0), 1);
-
-      // Interpolate X from Right (1.5) to Center (0)
-      targetX = THREE.MathUtils.lerp(1.5, 0, clampedTransition);
-      targetY = -0.5 + floatY;
+      // Desktop: "Posicionado centralizado no eixo horizontal e vertical"
+      // Container is now w-full, so x=0 is true center.
+      // y=-0.5 aligns with visual center better
+      targetX = 0;
+      targetY = -0.5;
     }
 
-    // Apply smooth lerp to position
-    const ease = 0.08;
-    groupRef.current.position.x +=
-      (targetX - groupRef.current.position.x) * ease;
-    groupRef.current.position.y +=
-      (targetY - groupRef.current.position.y) * ease;
+    // Add float offsets
+    targetX += floatX;
+    targetY += floatY;
 
-    // Apply Rotation & Scale
-    groupRef.current.rotation.x +=
-      (targetRotation.current.x - groupRef.current.rotation.x) * ease;
-    groupRef.current.rotation.y +=
-      (targetRotation.current.y - groupRef.current.rotation.y) * ease;
-    groupRef.current.rotation.z +=
-      (targetRotation.current.z - groupRef.current.rotation.z) * ease;
+    // --- SCALE LOGIC ---
+    // Reduced Base Scale (User: "Muito grande")
+    // Entry: 0.75 -> 0.8 (Fade handled by opacity/scale mix)
+    let baseScale = 0.75 + (0.05 * entryEase);
+
+    if (t > 0.82) {
+      // "Escala +10%" -> 0.88
+      const transition = Math.min((t - 0.82) / 0.1, 1);
+      baseScale = 0.8 + (0.08 * transition);
+    }
+
+    // Add "Breathing"
+    // "Cada nova frase aumenta levemente energia" -> Breath gets deeper
+    const breath = Math.sin(time.current * movementSpeed) * (0.02 * intensity);
+    targetScale.current = baseScale + breath;
+
+    // --- INTERPOLATION ---
+    const ease = 0.08;
+
+    groupRef.current.position.x += (targetX - groupRef.current.position.x) * ease;
+    groupRef.current.position.y += (targetY - groupRef.current.position.y) * ease;
+
+    groupRef.current.rotation.x += (targetRotation.current.x - groupRef.current.rotation.x) * ease;
+    groupRef.current.rotation.y += (targetRotation.current.y - groupRef.current.rotation.y) * ease;
+    groupRef.current.rotation.z += (targetRotation.current.z - groupRef.current.rotation.z) * ease;
 
     const currentScale = groupRef.current.scale.x;
     const newScale = currentScale + (targetScale.current - currentScale) * ease;
@@ -191,16 +215,16 @@ export default function GhostScene({ scrollProgress }: GhostSceneProps) {
         <GhostModel scrollProgress={scrollProgress} />
 
         {/* Cinematic Lighting matching Ghost Atmosphere - Boosted for visibility */}
-        <ambientLight intensity={0.6} color="#ccccff" />
+        <ambientLight intensity={1.5} color="#ccccff" />
         <spotLight
           position={[5, 5, 5]}
           angle={0.5}
           penumbra={1}
-          intensity={1.5}
+          intensity={3.0}
           color="#ffffff"
           castShadow
         />
-        <pointLight position={[-5, -5, -5]} intensity={0.8} color="#0048ff" />
+        <pointLight position={[-5, -5, -5]} intensity={2.0} color="#0048ff" />
         <RimLight />
       </Suspense>
     </Canvas>

@@ -16,23 +16,25 @@ type GalleryRef =
   | React.RefObject<HTMLElement | null>
   | React.MutableRefObject<HTMLElement | null>;
 
+export type ScrollState = 'pre' | 'fixed' | 'post';
+
 export const useLERPScroll = (
   trackRef: TrackRef,
   galleryRef: GalleryRef,
   enabled = true
 ) => {
-  const [isSticky, setIsSticky] = useState(false);
+  const [scrollState, setScrollState] = useState<ScrollState>('pre');
   const startY = useRef(0);
   const endY = useRef(0);
   const rafId = useRef<number | null>(null);
   const heroOffset = useRef(0);
   const maxScroll = useRef(0);
-  const stickyState = useRef(false);
+  const stickyState = useRef<ScrollState | 'idle'>('idle');
   const stickyTopOffset = useRef(88);
 
   useEffect(() => {
     if (!enabled) {
-      setIsSticky(false);
+      setScrollState('pre');
       return undefined;
     }
 
@@ -84,12 +86,23 @@ export const useLERPScroll = (
         rawOffset >= 0 &&
         rawOffset <= maxScroll.current + 0.5;
 
-      if (stickyState.current !== active) {
-        stickyState.current = active;
-        setIsSticky(active);
+      const newScrollState = active
+        ? 'fixed'
+        : rawOffset > maxScroll.current + 0.5
+          ? 'post'
+          : 'pre';
+
+      if (stickyState.current !== newScrollState) { // Changed from boolean to string check
+        stickyState.current = newScrollState as any; // Using explicit cast or generic if needed, here just keeping simple.
+        setScrollState(newScrollState);
+
+        // Reset transform if not fixed to avoid conflicting with CSS positioning
+        if (newScrollState !== 'fixed' && track) {
+          track.style.transform = '';
+        }
       }
 
-      if (track) {
+      if (track && newScrollState === 'fixed') {
         track.style.transform = `translateY(-${clampedOffset}px)`;
       }
 
@@ -155,10 +168,10 @@ export const useLERPScroll = (
       // Reset inline styles
       if (track) track.style.transform = '';
       if (gallery) gallery.style.height = 'auto';
-      stickyState.current = false;
-      setIsSticky(false);
+      stickyState.current = 'pre';
+      setScrollState('pre');
     };
   }, [enabled, galleryRef, trackRef]);
 
-  return { galleryRef, isSticky } as const;
+  return { galleryRef, scrollState } as const;
 };

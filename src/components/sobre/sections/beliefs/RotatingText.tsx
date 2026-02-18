@@ -4,27 +4,12 @@ import React, { useRef, useState, useEffect } from 'react';
 import {
   MotionValue,
   useMotionValueEvent,
-  animate as motionAnimate,
-  type DOMKeyframesDefinition,
-  type AnimationOptions,
+  animate,
+  AnimatePresence,
+  motion,
 } from 'framer-motion';
+import { useIsMobile } from '@/hooks/useIsMobile';
 import { PHRASES } from './useBeliefAnimation';
-
-/**
- * Animation constants per spec Section 3.4 & 3.5 & 8
- */
-const ANIM_DURATION = 0.8;
-const ANIM_EASING: [number, number, number, number] = [0.17, 0.55, 0.55, 1]; // Spec Easing
-
-const ENTER_OPTIONS: AnimationOptions = {
-  duration: ANIM_DURATION,
-  ease: ANIM_EASING,
-};
-
-const EXIT_OPTIONS: AnimationOptions = {
-  duration: ANIM_DURATION,
-  ease: ANIM_EASING,
-};
 
 interface RotatingTextProps {
   scrollYProgress: MotionValue<number>;
@@ -39,55 +24,37 @@ const PHRASE_ZONE_END = 0.82; // After this, manifesto takes over
  * RotatingText — Layer 3 (z-20)
  *
  * Handles the sequential display of phrases based on scroll progress.
- *
- * Per spec 06-O-QUE-ME-MOVE-AJUSTE.md:
- *
- * DESKTOP (≥ 1024px):
- * - Layout: Text on Left (col-span-12 md:col-span-5)
- * - Motion: Slide VERTICAL.
- *   - Enter: From Top (y: -50px -> 0)
- *   - Exit: To Top (y: -50px)
- *   - Style: text-blueAccent, text-h1 size
- *
- * MOBILE (< 768px):
- * - Layout: Fixed at bottom 20%
- * - Motion: Slide HORIZONTAL.
- *   - Enter: Fade in (opacity 0->1)
- *   - Exit: Slide Right (x: 0 -> 100%)
- *
- * Implementation Note:
- * Since this component is inside a sticky container, we use `scrollYProgress`
- * to calculate the active index and trigger imperative animations with `animate()`.
+ * Desktop: Imperative animation using refs for performance.
+ * Mobile: AnimatePresence for layout stability.
  */
 export function RotatingText({
   scrollYProgress,
   finalProgress,
   prefersReducedMotion,
 }: RotatingTextProps) {
+  const isMobile = useIsMobile();
   const phraseCount = PHRASES.length;
+  // Calculate segment size based on the scroll zone allocated for phrases
   const segment = PHRASE_ZONE_END / phraseCount;
 
   // Track current active phrase index
   const [activeIndex, setActiveIndex] = useState(-1);
   const prevIndex = useRef(-1);
 
-  // Refs to all phrase elements
-  const desktopRefs = useRef<(HTMLDivElement | null)[]>(
-    new Array(phraseCount).fill(null)
-  );
-  const mobileRefs = useRef<(HTMLDivElement | null)[]>(
-    new Array(phraseCount).fill(null)
-  );
+  // Refs for animating the text lines (Desktop)
+  const desktopRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Determine which phrase is active based on scroll progress
+  // ---------------------------------------------------------------------------
+  // SCROLL-BASED PROGRESS LOGIC
+  // ---------------------------------------------------------------------------
   useMotionValueEvent(scrollYProgress, 'change', (value) => {
-    // Reset if out of bounds
+    // Reset if out of bounds (before start or after end)
     if (value <= 0.001 || value >= PHRASE_ZONE_END) {
       if (activeIndex !== -1) setActiveIndex(-1);
       return;
     }
 
-    // Which phrase segment are we in?
+    // Determine which phrase segment we are in
     const idx = Math.min(phraseCount - 1, Math.floor(value / segment));
     const localProgress = (value - idx * segment) / segment;
 
@@ -105,34 +72,24 @@ export function RotatingText({
     }
   });
 
-  // Animate phrase transitions when activeIndex changes
+  // ---------------------------------------------------------------------------
+  // ANIMATION EFFECT (Triggered when activeIndex changes)
+  // ---------------------------------------------------------------------------
   useEffect(() => {
-    if (prefersReducedMotion) {
-      prevIndex.current = activeIndex;
-      return;
-    }
+    // Mobile is handled by AnimatePresence in JSX
+    if (isMobile) return;
+    if (prefersReducedMotion) return;
 
     const prev = prevIndex.current;
 
     // --- EXIT Previous Phrase ---
     if (prev >= 0 && prev !== activeIndex) {
       const desktopEl = desktopRefs.current[prev];
-      const mobileEl = mobileRefs.current[prev];
-
       if (desktopEl) {
-        // Desktop Exit: Slide UP (y: -50px)
-        motionAnimate(
+        animate(
           desktopEl,
-          { opacity: 0, y: -50 } as DOMKeyframesDefinition,
-          EXIT_OPTIONS
-        );
-      }
-      if (mobileEl) {
-        // Mobile Exit: Slide RIGHT (x: 100%)
-        motionAnimate(
-          mobileEl,
-          { opacity: 0, x: '100%' } as DOMKeyframesDefinition,
-          EXIT_OPTIONS
+          { opacity: 0, y: -50, filter: 'blur(4px)' },
+          { duration: 0.4, ease: [0.17, 0.55, 0.55, 1] }
         );
       }
     }
@@ -140,83 +97,76 @@ export function RotatingText({
     // --- ENTER New Phrase ---
     if (activeIndex >= 0 && activeIndex !== prev) {
       const desktopEl = desktopRefs.current[activeIndex];
-      const mobileEl = mobileRefs.current[activeIndex];
-
       if (desktopEl) {
-        // Desktop Enter: Slide form Top (y: -50px -> 0)
-        motionAnimate(
+        animate(
           desktopEl,
-          { opacity: 1, y: [-50, 0] } as DOMKeyframesDefinition,
-          ENTER_OPTIONS
-        );
-      }
-      if (mobileEl) {
-        // Mobile Enter: Fade In (y is static/handled by CSS or simpler Anim)
-        // Spec says: "Entra com Fade, sai deslizando para a DIREITA"
-        motionAnimate(
-          mobileEl,
-          { opacity: 1, x: 0 } as DOMKeyframesDefinition,
-          ENTER_OPTIONS
+          { opacity: 1, y: 0, filter: 'blur(0px)' },
+          { duration: 0.5, ease: [0.17, 0.55, 0.55, 1], delay: 0.1 }
         );
       }
     }
 
     prevIndex.current = activeIndex;
-  }, [activeIndex, prefersReducedMotion]);
+  }, [activeIndex, isMobile, prefersReducedMotion]);
 
-  // Hide all phrases during manifesto or if none active (and no animation running)
-  // We let the animation cleanup handle the hiding visually, but if finalProgress is high, force hide.
+  // Force hide if we are past the zone (Manifesto visible)
   if (finalProgress > 0.06) return null;
 
-  return (
-    <div className="relative w-full h-full pointer-events-none">
-      <div className="std-grid h-full items-center">
-        {/* Container for Desktop Text - Limits width to left columns */}
-        <div className="col-span-12 md:col-span-6 lg:col-span-5 h-full relative">
-          {PHRASES.map((phrase, index) => (
-            <React.Fragment key={index}>
-              {/* === Desktop View === */}
-              {/* === Desktop View === */}
-              <div
-                ref={(el) => {
-                  desktopRefs.current[index] = el;
-                }}
-                className={`hidden md:flex items-center absolute inset-0 w-full will-change-[opacity,transform] ${
-                  prefersReducedMotion
-                    ? activeIndex === index
-                      ? 'opacity-100'
-                      : 'opacity-0'
-                    : 'opacity-0 -translate-y-[50px]'
-                }`}
-              >
-                <p className="text-blueAccent italic font-bold leading-[0.95] tracking-tighter whitespace-pre-line text-[clamp(3rem,5vw,5.5rem)]">
-                  {phrase}
-                </p>
-              </div>
+  // Conditional Rendering logic
+  const shouldShowMobile = isMobile;
+  const shouldShowDesktop = !isMobile;
 
-              {/* === Mobile View === */}
-              {/* Note: Mobile positioning is "Fixed at bottom 20%" per spec.
-                  We use a fixed container relative to the viewport here. */}
+  return (
+    <div className="relative z-10 flex h-full w-full items-end pb-12 md:pb-0 md:items-center pointer-events-none">
+      {/* --- DESKTOP LAYOUT --- */}
+      {shouldShowDesktop && (
+        <div className="hidden md:flex flex-col items-start justify-center h-full pl-0 md:pl-12 lg:pl-0 w-full max-w-[800px]">
+          <div className="relative w-full h-full flex items-center">
+            {PHRASES.map((phrase, i) => (
               <div
+                key={`desktop-${i}`}
                 ref={(el) => {
-                  mobileRefs.current[index] = el;
+                  if (el) desktopRefs.current[i] = el;
                 }}
-                className={`md:hidden flex items-end justify-center absolute bottom-[20%] left-0 right-0 w-full px-6 text-center will-change-[opacity,transform] ${
-                  prefersReducedMotion
-                    ? activeIndex === index
-                      ? 'opacity-100'
-                      : 'opacity-0'
-                    : 'opacity-0 translate-x-0'
-                }`}
+                className="absolute inset-0 flex items-center w-full will-change-[opacity,transform]"
+                style={{
+                  opacity: 0, // Initial state hidden
+                  transform: 'translateY(-50px)',
+                  filter: 'blur(4px)',
+                }}
               >
-                <p className="text-blueAccent italic font-bold leading-[1.1] tracking-tight text-[clamp(2.5rem,8vw,4rem)]">
+                <p className="text-blueAccent italic font-bold leading-[0.95] tracking-tighter whitespace-pre-line text-[clamp(4rem,7vw,8rem)] text-left">
                   {phrase}
                 </p>
               </div>
-            </React.Fragment>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* --- MOBILE LAYOUT --- */}
+      {shouldShowMobile && (
+        <div className="flex md:hidden w-full absolute bottom-[20vh] left-0 px-6 justify-center">
+          <div className="relative w-full h-[120px] flex items-end justify-center">
+            <AnimatePresence mode="wait">
+              {activeIndex >= 0 && (
+                <motion.div
+                  key={`mobile-${activeIndex}`}
+                  initial={{ opacity: 0, x: 20, filter: 'blur(4px)' }}
+                  animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                  exit={{ opacity: 0, x: -20, filter: 'blur(4px)' }}
+                  transition={{ duration: 0.4, ease: 'easeOut' }}
+                  className="absolute bottom-0 w-full text-center"
+                >
+                  <p className="text-blueAccent italic font-bold leading-[1.1] tracking-tight text-[clamp(2.5rem,8vw,4rem)]">
+                    {PHRASES[activeIndex].replace(/\n/g, ' ')}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
