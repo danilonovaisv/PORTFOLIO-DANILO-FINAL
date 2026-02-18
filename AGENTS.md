@@ -92,3 +92,12 @@ Uma tarefa só termina quando:
 - [ ] O código roda sem erros de TypeScript/Lint.
 - [ ] A funcionalidade foi verificada (Manualmente ou Teste).
 - [ ] O arquivo `.context/[AREA].md` foi atualizado.
+
+### 3.1 Pure Install Policy
+
+Regras:
+- npm ci obrigatório
+- Proibido alterar node_modules manualmente
+- Lockfile versionado
+- Build determinístico
+- CI bloqueia dirty state
