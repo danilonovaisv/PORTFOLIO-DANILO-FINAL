@@ -63,4 +63,7 @@ export function GhostModel({
 }
 
 // Preload para evitar “pop-in” quando a seção entrar
-useGLTF.preload(GHOST_GLB_URL);
+// Apenas no cliente para evitar erros em testes Node/SSG
+if (typeof window !== 'undefined') {
+  useGLTF.preload(GHOST_GLB_URL);
+}

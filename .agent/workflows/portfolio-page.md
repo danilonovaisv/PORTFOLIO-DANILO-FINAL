@@ -1,3 +1,7 @@
+---
+description: Portfolio Page
+---
+
 # 🧬 Portfolio Genesis Protocol
 
 **Trigger:** `/portfolio-page` or strategic portfolio refactoring requests.

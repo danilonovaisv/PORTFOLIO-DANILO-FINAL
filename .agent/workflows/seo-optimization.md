@@ -1,3 +1,7 @@
+---
+description: Seo Optimization
+---
+
 # 📈 SEO Optimization
 
 **Trigger:** `/seo-boost` or SEO requests.

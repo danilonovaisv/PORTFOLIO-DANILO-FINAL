@@ -1,3 +1,7 @@
+---
+description: Webgl Performance Pass
+---
+
 # 🚀 WebGL Performance Pass
 
 **Trigger:** "The site feels slow" or keywords related to 3D lag.

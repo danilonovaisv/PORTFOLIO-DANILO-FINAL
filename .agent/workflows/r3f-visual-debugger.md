@@ -1,3 +1,7 @@
+---
+description: R3F Visual Debugger
+---
+
 # 👁️ R3F Visual Debugger
 
 **Trigger:** "3D animation freezes" or "FPS drops in 3D".

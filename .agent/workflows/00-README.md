@@ -1,3 +1,7 @@
+---
+description: 00 Readme
+---
+
 # Agent Workflows
 
 Este diretório contém workflows automatizados para tarefas comuns do projeto.

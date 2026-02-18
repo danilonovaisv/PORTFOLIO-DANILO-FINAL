@@ -1,3 +1,7 @@
+---
+description: Call To Action
+---
+
 # ⚡ Call to Action Workflow
 
 **Trigger:** Requests to implement or refine CTA buttons/sections.

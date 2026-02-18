@@ -1,3 +1,7 @@
+---
+description: Deploy
+---
+
 # 🚀 Production Deployment
 
 **Trigger:** `/deploy`

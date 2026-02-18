@@ -1,3 +1,7 @@
+---
+description: Footer
+---
+
 # 🦶 Footer Implementation
 
 **Trigger:** Requests to update or build the project footer.

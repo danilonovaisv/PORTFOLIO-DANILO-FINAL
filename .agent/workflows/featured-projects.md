@@ -1,3 +1,7 @@
+---
+description: Featured Projects
+---
+
 # ✨ Featured Projects Workflow
 
 **Trigger:** Requests to update or build the "Destaques" section of the home page.

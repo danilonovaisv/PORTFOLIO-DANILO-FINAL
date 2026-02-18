@@ -1,3 +1,7 @@
+---
+description: Auditoria Template
+---
+
 # 🛡️ Master Audit Template V3.1
 
 **Trigger:** Internal template usage for rigorous system reviews.

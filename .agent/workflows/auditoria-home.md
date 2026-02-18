@@ -1,3 +1,7 @@
+---
+description: Auditoria Home
+---
+
 # 🏠 Home Page Audit
 
 **Trigger:** `/audit --page home` or Home page specific requests.

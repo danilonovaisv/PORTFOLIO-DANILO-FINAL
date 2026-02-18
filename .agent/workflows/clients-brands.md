@@ -1,3 +1,7 @@
+---
+description: Clients Brands
+---
+
 # 🤝 Client & Brand Integration
 
 **Trigger:** Requests to integrate logos or client rosters.

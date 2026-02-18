@@ -1,3 +1,7 @@
+---
+description: Hero Section
+---
+
 # 🌌 Hero Section Implementation
 
 **Trigger:** Requests to build or refine the Hero section.

@@ -1,3 +1,7 @@
+---
+description: Health Check
+---
+
 # 🏥 System Health Check
 
 **Trigger:** `/health-check` or keywords related to "service status".

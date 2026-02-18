@@ -1,3 +1,7 @@
+---
+description: Clean Architecture
+---
+
 # 🧹 Clean Architecture Protocol
 
 **Trigger:** `/clean-architecture`

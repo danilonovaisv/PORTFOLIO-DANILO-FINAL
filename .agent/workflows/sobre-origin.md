@@ -1,3 +1,7 @@
+---
+description: Sobre Origin
+---
+
 # 🏔️ Section: About Origin
 
 **Trigger:** Requests to build or refine the "About Origin" section on the About page.

@@ -1,3 +1,7 @@
+---
+description: Sync Docs And Knowledge
+---
+
 # 🧠 Sync Docs & Knowledge
 
 **Trigger:** After major changes, architectural shifts, or when context feels "stale".

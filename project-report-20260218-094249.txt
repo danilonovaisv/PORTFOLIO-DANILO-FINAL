@@ -1,0 +1,255 @@
+===========================================
+ Projeto: PORTFOLIO-DANILO-FINAL
+ Data: Wed Feb 18 09:42:49 -03 2026
+ Package manager detectado: pnpm
+===========================================
+
+### Ambiente
+
+$ node -v
+v24.13.1
+
+$ npm -v
+npm warn Unknown project config "pnpm-store-path". This will stop working in the next major version of npm.
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm.
+11.8.0
+
+Sistema operacional:
+Darwin 192.168.0.12 25.4.0 Darwin Kernel Version 25.4.0: Sun Feb  8 23:36:18 PST 2026; root:xnu-12377.100.591.501.2~2/RELEASE_ARM64_T6000 arm64
+
+-------------------------------------------
+### Git status
+
+$ git status -sb
+## main...origin/main
+ M .agent/workflows/00-README.md
+ M .agent/workflows/ajuste-mobile.md
+ M .agent/workflows/audit-ghost-implemetetion.md
+ M .agent/workflows/audite-pages.md
+ M .agent/workflows/auditoria-home.md
+ M .agent/workflows/auditoria-portfolio-page.md
+ M .agent/workflows/auditoria-sobre.md
+ M .agent/workflows/auditoria-template.md
+ M .agent/workflows/brainstorm.md
+ M .agent/workflows/calibragem-descoberta.md
+ M .agent/workflows/call-to-action.md
+ M .agent/workflows/clean-architecture.md
+ M .agent/workflows/clients-brands.md
+ M .agent/workflows/code-quality-refactor.md
+ M .agent/workflows/deep-clean.md
+ M .agent/workflows/deploy-guard.md
+ M .agent/workflows/deploy.md
+ M .agent/workflows/featured-projects.md
+ M .agent/workflows/footer.md
+ M .agent/workflows/header-workflow.md
+ M .agent/workflows/health-check.md
+ M .agent/workflows/hero-section.md
+ M .agent/workflows/pentest-r3f.md
+ M .agent/workflows/portfolio-page.md
+ M .agent/workflows/portfolio-showcase.md
+ M .agent/workflows/r3f-visual-debugger.md
+ M .agent/workflows/seo-optimization.md
+ M .agent/workflows/sobre-about-whatido.md
+ M .agent/workflows/sobre-origin.md
+ M .agent/workflows/structure-cleanup.md
+ M .agent/workflows/sync-docs-and-knowledge.md
+ M .agent/workflows/ui-ux-pro-max.md
+ M .agent/workflows/webgl-performance-pass.md
+ M package.json
+ M pnpm-lock.yaml
+ M public/build-info.json
+ M src/components/shared/3d/GhostModel.tsx
+ D src/components/sobre/sections/beliefs/BeliefFinalSectionOverlay.tsx
+ D src/components/sobre/sections/beliefs/BeliefFixedHeader.tsx
+ D src/components/sobre/sections/beliefs/BeliefsBackground.tsx
+ M src/components/sobre/sections/beliefs/BeliefsSection.tsx
+ D src/components/sobre/sections/beliefs/GhostScene.tsx
+ D src/components/sobre/sections/beliefs/RotatingText.tsx
+ D src/components/sobre/sections/beliefs/__tests__/BeliefsSection.test.tsx
+ D src/components/sobre/sections/beliefs/useBeliefAnimation.ts
+ M supabase/config.toml
+?? docs/SOBRE/AboutBeliefs-template/EXEMPLE-ABOUT-BELIFS/
+?? project-report-20260218-094249.txt
+?? src/components/sobre/sections/beliefs/BackgroundLayer.tsx
+?? src/components/sobre/sections/beliefs/FixedHeader.tsx
+?? src/components/sobre/sections/beliefs/Ghost3D.tsx
+?? src/components/sobre/sections/beliefs/OverlayLayer.tsx
+?? src/components/sobre/sections/beliefs/TextRotator.tsx
+?? src/lib/colors.ts
+?? src/lib/motion.ts
+?? src/lib/three.ts
+
+-------------------------------------------
+### Lint (npm run lint)
+
+$ npm run lint
+npm warn Unknown project config "pnpm-store-path". This will stop working in the next major version of npm.
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm.
+
+> danilo-novais-portfolio@1.0.1 lint
+> eslint src test tailwind.config.ts
+
+
+/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/sobre/sections/beliefs/Ghost3D.tsx
+  11:18  warning  'nodes' is assigned a value but never used. Allowed unused vars must match /^_/u      no-unused-vars
+  11:25  warning  'materials' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  17:13  warning  'state' is defined but never used. Allowed unused args must match /^_/u               no-unused-vars
+  17:20  warning  'delta' is defined but never used. Allowed unused args must match /^_/u               no-unused-vars
+
+/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/sobre/sections/beliefs/TextRotator.tsx
+   3:28  warning  'useEffect' is defined but never used. Allowed unused vars must match /^_/u                no-unused-vars
+  17:10  warning  'currentSection' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+
+/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/lib/colors.ts
+  7:12  warning  's1' is never reassigned. Use 'const' instead  prefer-const
+  7:16  warning  'l1' is never reassigned. Use 'const' instead  prefer-const
+  8:12  warning  's2' is never reassigned. Use 'const' instead  prefer-const
+  8:16  warning  'l2' is never reassigned. Use 'const' instead  prefer-const
+
+/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/lib/motion.ts
+   1:10  warning  'animate' is defined but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  17:13  warning  'element' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+  18:13  warning  'element' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+
+✖ 13 problems (0 errors, 13 warnings)
+
+
+-------------------------------------------
+### Testes (npm run test)
+
+$ npm run test
+npm warn Unknown project config "pnpm-store-path". This will stop working in the next major version of npm.
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm.
+
+> danilo-novais-portfolio@1.0.1 test
+> pnpm run lint && pnpm run typecheck && jest
+
+ WARN  Unsupported engine: wanted: {"node":"20"} (current: {"node":"v24.13.1","pnpm":"10.30.0"})
+
+> danilo-novais-portfolio@1.0.1 lint /Users/danilonovais/PORTFOLIO-DANILO-FINAL
+> eslint src test tailwind.config.ts
+
+
+/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/sobre/sections/beliefs/Ghost3D.tsx
+  11:18  warning  'nodes' is assigned a value but never used. Allowed unused vars must match /^_/u      no-unused-vars
+  11:25  warning  'materials' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  17:13  warning  'state' is defined but never used. Allowed unused args must match /^_/u               no-unused-vars
+  17:20  warning  'delta' is defined but never used. Allowed unused args must match /^_/u               no-unused-vars
+
+/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/components/sobre/sections/beliefs/TextRotator.tsx
+   3:28  warning  'useEffect' is defined but never used. Allowed unused vars must match /^_/u                no-unused-vars
+  17:10  warning  'currentSection' is assigned a value but never used. Allowed unused vars must match /^_/u  no-unused-vars
+
+/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/lib/colors.ts
+  7:12  warning  's1' is never reassigned. Use 'const' instead  prefer-const
+  7:16  warning  'l1' is never reassigned. Use 'const' instead  prefer-const
+  8:12  warning  's2' is never reassigned. Use 'const' instead  prefer-const
+  8:16  warning  'l2' is never reassigned. Use 'const' instead  prefer-const
+
+/Users/danilonovais/PORTFOLIO-DANILO-FINAL/src/lib/motion.ts
+   1:10  warning  'animate' is defined but never used. Allowed unused vars must match /^_/u  no-unused-vars
+  17:13  warning  'element' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+  18:13  warning  'element' is defined but never used. Allowed unused args must match /^_/u  no-unused-vars
+
+✖ 13 problems (0 errors, 13 warnings)
+
+ WARN  Unsupported engine: wanted: {"node":"20"} (current: {"node":"v24.13.1","pnpm":"10.30.0"})
+
+> danilo-novais-portfolio@1.0.1 typecheck /Users/danilonovais/PORTFOLIO-DANILO-FINAL
+> NODE_OPTIONS='--max-old-space-size=8192' tsc --noEmit --strict --jsx react-jsx
+
+PASS test/components/GhostModel.server.test.ts
+PASS test/security/admin-server-access.test.ts
+PASS test/unit/hooks/usePerformanceAdaptive.test.ts
+PASS test/unit/hooks/useLERPScroll.test.ts
+PASS test/components/canvas/header/HeaderGlassCanvas.test.tsx
+PASS test/components/projects/BlockRenderer.test.tsx
+PASS test/components/HeroCopy.test.tsx
+PASS test/tsconfig.test.ts
+PASS test/unit/media-utils.test.ts
+PASS test/components/projects/useLandingBackLink.test.tsx
+PASS test/unit/supabase-urls.test.ts
+PASS test/unit/seo.test.ts
+PASS test/components/portfolio/PortfolioHeroNew.test.tsx
+PASS test/config.test.ts
+PASS test/components/ui/CustomCursor.test.tsx
+PASS test/components/portfolio/ProjectCard.test.tsx
+PASS test/unit/utils.test.ts
+PASS test/unit/authz.test.ts
+PASS test/unit/store/antigravity.store.test.ts
+PASS test/unit/template-schema.test.ts
+PASS test/unit/image-loader.test.ts
+PASS test/security/admin-audit.test.ts
+PASS test/security/admin-authz.test.ts
+PASS test/unit/schema.test.ts
+PASS test/unit/site-asset-utils.test.ts
+PASS test/unit/project-mapper.test.ts
+
+Test Suites: 26 passed, 26 total
+Tests:       197 passed, 197 total
+Snapshots:   0 total
+Time:        2.102 s
+Ran all test suites.
+
+-------------------------------------------
+### Dependências desatualizadas
+
+$ pnpm outdated
+ WARN  Unsupported engine: wanted: {"node":"20"} (current: {"node":"v24.13.1","pnpm":"10.30.0"})
+┌─────────────────────────┬─────────┬────────────┐
+│ Package                 │ Current │ Latest     │
+├─────────────────────────┼─────────┼────────────┤
+│ @types/handlebars (dev) │ 4.1.0   │ Deprecated │
+└─────────────────────────┴─────────┴────────────┘
+
+-------------------------------------------
+### Depcheck (dependências não usadas / faltando)
+
+$ npx depcheck
+npm warn Unknown project config "pnpm-store-path". This will stop working in the next major version of npm.
+npm warn Unknown project config "shamefully-hoist". This will stop working in the next major version of npm.
+Unused dependencies
+* @dataconnect/admin-generated
+* @dataconnect/generated
+* @genkit-ai/google-genai
+* @google/adk
+* @react-three/postprocessing
+* firebase-admin
+* firebase-frameworks
+* firebase-functions
+* fix
+* husky
+* lightningcss
+* lint-staged
+* motion-studio-mcp
+* postprocessing
+* tailwindcss-animate
+Unused devDependencies
+* @tailwindcss/postcss
+* @tailwindcss/typography
+* @testing-library/user-event
+* @types/handlebars
+* @types/jest
+* autoprefixer
+* esbuild
+* eslint-config-next
+* eslint-plugin-react
+* jest-environment-jsdom
+* knip
+* postcss
+* rimraf
+* serve
+* shadcn
+* ts-node
+* which
+Missing dependencies
+* yaml: ./scripts/normalize-frontmatter.js
+* tweakpane: ./docs/HOME/GhostScene.tsx
+
+-------------------------------------------
+### Observações
+Use este relatório para colar em uma IA (Codex/ChatGPT) e pedir:
+- Sugestões para corrigir erros de lint e testes;
+- Ajustes de dependências desatualizadas ou não utilizadas;
+- Refatorações sugeridas com base nos erros.
+

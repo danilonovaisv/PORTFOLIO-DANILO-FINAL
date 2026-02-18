@@ -1,3 +1,7 @@
+---
+description: Ajuste Mobile
+---
+
 # 📱 Mobile Optimization Workflow
 
 **Trigger:** Requests related to mobile layout or responsive performance.

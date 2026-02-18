@@ -1,3 +1,7 @@
+---
+description: Audit Ghost Implemetetion
+---
+
 # 👻 Ghost Implementation Audit
 
 **Trigger:** `/audit-ghost-implementation` or requests for visual parity check.

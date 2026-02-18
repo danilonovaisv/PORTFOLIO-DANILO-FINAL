@@ -1,3 +1,7 @@
+---
+description: Portfolio Showcase
+---
+
 # 🎭 Portfolio Showcase (Lo&Behold Style)
 
 **Trigger:** Requests for high-sophistication showcase or interactive stripes.

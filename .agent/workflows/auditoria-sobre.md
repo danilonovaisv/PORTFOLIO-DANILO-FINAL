@@ -1,3 +1,7 @@
+---
+description: Auditoria Sobre
+---
+
 # 🕵️ About Page Audit
 
 **Trigger:** Requests related to auditing the About page or "beliefs" section.

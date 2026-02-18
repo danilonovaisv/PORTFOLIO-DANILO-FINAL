@@ -1,3 +1,7 @@
+---
+description: Structure Cleanup
+---
+
 # 🏗️ Structural Audit & Cleanup
 
 **Trigger:** Requests to reorganize `src/` or perform a global structure audit.

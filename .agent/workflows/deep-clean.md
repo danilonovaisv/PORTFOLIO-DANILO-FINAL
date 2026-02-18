@@ -1,3 +1,7 @@
+---
+description: Deep Clean
+---
+
 # 🧽 Deep Clean Protocol
 
 **Trigger:** Requests for deep code hygiene or removing technical debt.

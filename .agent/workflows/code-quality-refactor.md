@@ -1,3 +1,7 @@
+---
+description: Code Quality Refactor
+---
+
 # 🧹 Code Quality & Refactor
 
 **Trigger:** `/refactor` or requests for code hygiene/cleanup.

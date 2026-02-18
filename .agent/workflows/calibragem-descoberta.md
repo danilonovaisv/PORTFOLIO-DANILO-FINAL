@@ -1,3 +1,7 @@
+---
+description: Calibragem Descoberta
+---
+
 # 🔄 WORKFLOW: Calibragem e Validação de Contexto (Project Boot)
 
 **Gatilho:** `/calibrate` ou `init_session`

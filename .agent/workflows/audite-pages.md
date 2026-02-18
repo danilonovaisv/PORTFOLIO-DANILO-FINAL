@@ -1,3 +1,7 @@
+---
+description: Audite Pages
+---
+
 # 🕵️ Page Layout Audit
 
 **Trigger:** `/audit --page`

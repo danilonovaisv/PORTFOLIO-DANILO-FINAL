@@ -1,3 +1,7 @@
+---
+description: Header Workflow
+---
+
 # 🎈 Header Workflow
 
 **Trigger:** Requests to update the site navigation or floating header.

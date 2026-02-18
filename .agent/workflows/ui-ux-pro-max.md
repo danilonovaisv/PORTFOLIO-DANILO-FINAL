@@ -1,3 +1,7 @@
+---
+description: Ui Ux Pro Max
+---
+
 # 🎨 UI/UX Pro Max
 
 **Trigger:** `/ui-ux-pro-max`

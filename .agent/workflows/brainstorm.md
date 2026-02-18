@@ -1,3 +1,7 @@
+---
+description: Brainstorm
+---
+
 # 🧠 Structured Idea Exploration
 
 **Trigger:** `/brainstorm`

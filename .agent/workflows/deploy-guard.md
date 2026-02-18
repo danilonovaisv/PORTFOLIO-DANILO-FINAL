@@ -1,3 +1,7 @@
+---
+description: Deploy Guard
+---
+
 # 🛡️ Deploy Guard Protocol
 
 **Trigger:** `/deploy` or "Ready for production".

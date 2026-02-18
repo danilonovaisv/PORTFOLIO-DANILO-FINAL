@@ -303,3 +303,53 @@ Corrigido falhas nos testes unitários:
 
 3. **Test Fix (Admin Auth)**:
    - Atualizado teste `admin-authz.test.ts` para verificar role 'owner' em `app_metadata` em vez de `user_metadata`, alinhando com a lógica de segurança implementada em `src/lib/admin/authz.ts`.
+
+## 2026-02-18
+- Corrigidos avisos de lint em Ghost3D, TextRotator, colors e motion (remoção de imports/vars não usados e ajustes de destructuring).
+
+## 2026-02-18
+- Isolada a seção de crenças com container sticky e min-h para evitar invasão da página.
+- Camadas Background/Overlay/Ghost movidas para absolute dentro da seção e com z-index controlado.
+- Prefer-reduced-motion adicionado para desabilitar 3D e animações pesadas.
+- Header e textos ajustados para posicionamento conforme doc.
+
+---
+
+## [2026-02-18T12:30] About Beliefs — Motion inView Sync + BG HSL (No Overlay)
+
+**Context:** Ajuste completo da sessão "O Que Me Move" para seguir o doc `06-O-QUE-ME-MOVE.md`, com `inView` + `animate` e troca de BG sem fade.
+
+**Changes Applied:**
+
+1. **BeliefsSection Orquestração por inView** ✅
+   - File: `src/components/sobre/sections/beliefs/BeliefsSection.tsx`
+   - Removido cálculo de seção por scroll; `inView` controla `isActive`.
+   - `activeIndex` passa a ser dirigido pelo TextRotator.
+   - Manifesto final ajustado para `translateY(18px)` + easing Ghost.
+
+2. **TextRotator como Orquestrador** ✅
+   - File: `src/components/sobre/sections/beliefs/TextRotator.tsx`
+   - `inView` por `.belief-line` com dataset `data-index`.
+   - Entrada/saída sincronizadas ao doc com easing Ghost.
+   - Reduced motion exibe apenas a frase ativa.
+
+3. **Background HSL Interpolado (Sem Fade)** ✅
+   - File: `src/components/sobre/sections/beliefs/BackgroundLayer.tsx`
+   - Interpolação contínua HSL acionada por `activeIndex`.
+   - Overlay removido da cadeia de transição.
+
+4. **Overlay Desativado** ✅
+   - File: `src/components/sobre/sections/beliefs/OverlayLayer.tsx`
+   - Opacity fixa em 0 (sem animação).
+
+5. **FixedHeader com Entrada/Saída Sincronizadas** ✅
+   - File: `src/components/sobre/sections/beliefs/FixedHeader.tsx`
+   - Entrada pela direita + fade-in; saída antes do manifesto conforme `activeIndex`.
+
+6. **Ghost 3D Intensidade Sincronizada** ✅
+   - File: `src/components/sobre/sections/beliefs/Ghost3D.tsx`
+   - Intensidade agora usa `activeIndex` / `totalSections`.
+
+**Verification:**
+
+- Not run (user can run `npm run lint` / `npm run typecheck`).

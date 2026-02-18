@@ -1,3 +1,7 @@
+---
+description: Sobre About Whatido
+---
+
 # 📄 Section: What I Do (About)
 
 **Trigger:** Requests to build or refine the "What I Do" section on the About page.

@@ -1,111 +1,119 @@
 'use client';
 
-import React, { useRef } from 'react';
-import dynamic from 'next/dynamic';
-import { motion } from 'framer-motion';
-import { BeliefFixedHeader } from './BeliefFixedHeader';
-import { BeliefFinalSectionOverlay } from './BeliefFinalSectionOverlay';
-import { useMotionGate } from '@/hooks/useMotionGate';
-import { useBeliefAnimation, PHRASES } from './useBeliefAnimation';
-import { BeliefsBackground } from './BeliefsBackground';
-import { RotatingText } from './RotatingText';
+import { useEffect, useRef, useState } from 'react';
+import { inView } from 'motion';
+import { BackgroundLayer } from './BackgroundLayer';
+import { OverlayLayer } from './OverlayLayer';
+import { FixedHeader } from './FixedHeader';
+import { TextRotator } from './TextRotator';
+import { Ghost3D } from './Ghost3D';
 
-const GhostScene = dynamic(() => import('./GhostScene'), {
-  ssr: false,
-  loading: () => (
-    <div className="w-full h-full bg-transparent" aria-hidden="true" />
-  ),
-});
+export const BeliefsSection = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isActive, setIsActive] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const totalSections = 6;
+  
+  // Detecta preferências de motion
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setPrefersReducedMotion(media.matches);
 
-/**
- * BeliefsSection — "O Que Me Move" (Seção 06)
- *
- * Architecture (layered, per spec 06-O-QUE-ME-MOVE-AJUSTE.md Section 4.1):
- *
- * The section uses a tall container (N phrases × 100vh + manifesto space)
- * with a sticky viewport. Inside the sticky viewport:
- *
- * - Layer 0 (z-0):   Background Layer — continuous HSL color interpolation
- * - Layer 1 (z-[1]): Overlay crossfade — anti-flicker buffer
- * - Layer 2 (z-10):  BeliefFixedHeader — "Acredito no design..." (sticky)
- * - Layer 3 (z-20):  RotatingText — scroll-triggered phrases
- * - Layer 4 (z-30):  Final Manifesto — "ISSO É GHOST DESIGN"
- * - Layer 5 (z-40):  Ghost 3D Canvas — R3F + scrollYProgress (topmost visual)
- *
- * CRITICAL ARCHITECTURE:
- * - The outer section has a tall explicit height to create scroll space
- * - The sticky container holds ALL visual layers
- * - RotatingText uses scroll-progress state to determine which phrase to show
- *   (inView won't work inside a sticky container because it's always in viewport)
- * - Ghost is on z-40, it visually "invades" text for the cross-layer effect
- *   visible in the reference images (Ghost overlapping "GHOST" in manifesto)
- */
-export function BeliefsSection() {
-  const containerRef = useRef<HTMLElement>(null);
-  const prefersReducedMotion = useMotionGate();
+    update();
+    if (media.addEventListener) {
+      media.addEventListener('change', update);
+    } else {
+      media.addListener(update);
+    }
 
-  const {
-    scrollYProgress,
-    baseColor,
-    overlayColor,
-    overlayOpacity,
-    finalProgress,
-    currentSection,
-  } = useBeliefAnimation({ containerRef });
+    return () => {
+      if (media.removeEventListener) {
+        media.removeEventListener('change', update);
+      } else {
+        media.removeListener(update);
+      }
+    };
+  }, []);
 
-  const finalVisible = finalProgress > 0.06;
+  // Detecta entrada/saída da seção para controlar camadas e 3D
+  useEffect(() => {
+    if (!sectionRef.current) return;
 
-  // Total height: each phrase gets ~100vh of scroll, plus 30vh for manifesto
-  const totalHeight = `${(PHRASES.length + 1) * 100 + 30}vh`;
-
+    return inView(
+      sectionRef.current,
+      () => {
+        setIsActive(true);
+        return () => setIsActive(false);
+      },
+      { margin: '-20% 0px -20% 0px' }
+    );
+  }, []);
+  
   return (
-    <>
-      <motion.section
-        ref={containerRef}
-        id="beliefs-section"
-        aria-labelledby="beliefs-heading"
-        className="relative w-full"
-        style={{ height: totalHeight }}
-      >
-        {/* Sticky viewport container — holds ALL visual layers */}
-        <div className="sticky top-0 h-screen overflow-hidden">
-          {/* Layer 0 & 1: Backgrounds — continuous color interpolation (z-0, z-[1]) */}
-          <BeliefsBackground
-            baseColor={baseColor}
-            overlayColor={overlayColor}
-            overlayOpacity={overlayOpacity}
-          />
+    <section
+      ref={sectionRef}
+      className="relative w-full min-h-[600vh] overflow-hidden"
+    >
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        {/* Camada 0 - Background */}
+        <BackgroundLayer
+          activeIndex={activeIndex}
+          reducedMotion={prefersReducedMotion}
+        />
 
-          {/* Layer 2: Fixed intro header — z-10, above BG */}
-          <div className="absolute inset-0 z-10 pointer-events-none">
-            <BeliefFixedHeader scrollProgress={scrollYProgress} />
-          </div>
+        {/* Camada 1 - Overlay */}
+        <OverlayLayer />
 
-          {/* Layer 3: Rotating Phrases — z-20, above header */}
-          <div className="absolute inset-0 z-20 pointer-events-none">
-            <RotatingText
-              scrollYProgress={scrollYProgress}
-              currentSection={currentSection}
-              finalProgress={finalProgress}
-              prefersReducedMotion={prefersReducedMotion}
-            />
-          </div>
+        {/* Camada 2 - Cabeçalho Fixo */}
+        <FixedHeader
+          activeIndex={activeIndex}
+          totalSections={totalSections}
+          reducedMotion={prefersReducedMotion}
+        />
 
-          {/* Layer 4: Final Manifesto Overlay — z-30 */}
-          <div className="absolute inset-0 z-30 pointer-events-none">
-            <BeliefFinalSectionOverlay visible={finalVisible} />
-          </div>
+        {/* Camada 3 - Texto Rotativo */}
+        <TextRotator
+          reducedMotion={prefersReducedMotion}
+          activeIndex={activeIndex}
+          onActiveIndexChange={setActiveIndex}
+        />
 
-          {/* Layer 5: Ghost 3D — z-40 (topmost, per spec 4.1, interacts with mouse/scroll) */}
-          {!prefersReducedMotion && (
-            <div className="absolute inset-y-0 right-0 w-full md:w-full z-40 pointer-events-none">
-              <div className="w-full h-full">
-                <GhostScene scrollProgress={scrollYProgress} />
-              </div>
+        {/* Camada 5 - Ghost 3D (acima de todas) */}
+        {isActive && !prefersReducedMotion && (
+          <Ghost3D activeIndex={activeIndex} totalSections={totalSections} />
+        )}
+
+        {/* Camada 4 - Manifesto Final */}
+        {isActive && activeIndex === 5 && (
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
+            <div className="text-center text-white font-display text-[120px] md:text-[180px] font-black leading-[0.8] opacity-0 animate-manifesto">
+              <div>ISSO É</div>
+              <div>GHOST</div>
+              <div>DESIGN.</div>
             </div>
-          )}
-        </div>
-      </motion.section>
-    </>
+          </div>
+        )}
+      </div>
+
+      {/* Estilos de animação */}
+      <style jsx global>{`
+        @keyframes manifesto {
+          0% {
+            opacity: 0;
+            transform: translateY(18px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-manifesto {
+          animation: manifesto 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+          animation-delay: 0.3s;
+        }
+      `}</style>
+    </section>
   );
-}
+};
