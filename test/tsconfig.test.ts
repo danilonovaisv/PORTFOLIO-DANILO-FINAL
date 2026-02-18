@@ -70,6 +70,4 @@ describe('tsconfig.json', () => {
   it('should have esModuleInterop enabled for CommonJS compatibility', () => {
     expect(tsconfig.compilerOptions.esModuleInterop).toBe(true);
   });
-
-
 });

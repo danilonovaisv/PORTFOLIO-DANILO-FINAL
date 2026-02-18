@@ -126,7 +126,10 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
   }
 
   return (
-    <div ref={containerRef} className="relative h-[200vh] mt-[-100vh] z-20 pointer-events-none">
+    <div
+      ref={containerRef}
+      className="relative h-[200vh] mt-[-100vh] z-20 pointer-events-none"
+    >
       {/* 
         O containerRef tem altura extra (200vh) para criar track de scroll.
         Margin negativa puxa ele para cima para começar a "trackear" desde o Hero, se necessário.
@@ -148,7 +151,11 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
           onKeyDown={handleKeyDown}
           tabIndex={0}
           role="button"
-          aria-label={isExpanded ? "Minimizar vídeo manifesto" : "Expandir vídeo manifesto"}
+          aria-label={
+            isExpanded
+              ? 'Minimizar vídeo manifesto'
+              : 'Expandir vídeo manifesto'
+          }
           aria-expanded={isExpanded}
         >
           <div className="relative w-full h-full bg-black overflow-hidden">
@@ -175,12 +182,38 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
                 setIsMuted(!isMuted);
               }}
               className="absolute bottom-8 right-8 z-50 p-3 rounded-full bg-black/40 backdrop-blur-md text-white hover:bg-white/20 transition-all focus:outline-hidden focus:ring-2 focus:ring-primary"
-              aria-label={isMuted ? "Ativar som" : "Mudo"}
+              aria-label={isMuted ? 'Ativar som' : 'Mudo'}
             >
               {isMuted ? (
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z" /><line x1="23" x2="1" y1="9" y2="15" /></svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M11 5L6 9H2v6h4l5 4V5z" />
+                  <line x1="23" x2="1" y1="9" y2="15" />
+                </svg>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" /><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" /></svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+                </svg>
               )}
             </button>
 
@@ -199,11 +232,23 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
                   className="absolute top-8 right-8 z-50 p-4 rounded-full bg-black/40 backdrop-blur-md text-white hover:bg-white/20"
                   aria-label="Fechar vídeo fullscreen"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
                 </motion.button>
               )}
             </AnimatePresence>
-
           </div>
         </motion.div>
       </div>

@@ -147,12 +147,12 @@ export function useBeliefAnimation({ containerRef }: UseBeliefAnimationProps) {
     return lerpHSL(COLORS_HSL[index + 1], COLORS_HSL[index + 1], 0);
   });
 
-  // Final Progress State (keep as state if used for conditional rendering logic elsewhere, 
+  // Final Progress State (keep as state if used for conditional rendering logic elsewhere,
   // currently used for 'finalVisible' boolean which toggles components)
   // We can keep this state update but check if it's strictly needed.
-  // BeliefsSection uses `finalVisible` to remove Ghost/RotatingText? 
+  // BeliefsSection uses `finalVisible` to remove Ghost/RotatingText?
   // No, `finalProgress > 0.06`.
-  // Let's keep finalProgress in state for React conditional rendering, 
+  // Let's keep finalProgress in state for React conditional rendering,
   // but colors are now optimized.
 
   // Actually, let's optimize the simple state update to reduce frequency

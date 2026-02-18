@@ -93,10 +93,10 @@ export default function HeroCopy({
   const motionProps = prefersReducedMotion
     ? {}
     : {
-      initial: 'initial' as const,
-      animate: 'animate' as const,
-      variants: textContainerAnimation,
-    };
+        initial: 'initial' as const,
+        animate: 'animate' as const,
+        variants: textContainerAnimation,
+      };
 
   const renderTextContent = (isMask: boolean) => (
     <Container className={isMask ? 'text-white' : 'text-white/85'}>

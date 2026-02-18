@@ -181,12 +181,13 @@ export function RotatingText({
                 ref={(el) => {
                   desktopRefs.current[index] = el;
                 }}
-                className={`hidden md:flex items-center absolute inset-0 w-full will-change-[opacity,transform] ${prefersReducedMotion
+                className={`hidden md:flex items-center absolute inset-0 w-full will-change-[opacity,transform] ${
+                  prefersReducedMotion
                     ? activeIndex === index
                       ? 'opacity-100'
                       : 'opacity-0'
                     : 'opacity-0 -translate-y-[50px]'
-                  }`}
+                }`}
               >
                 <p className="text-blueAccent italic font-bold leading-[0.95] tracking-tighter whitespace-pre-line text-[clamp(3rem,5vw,5.5rem)]">
                   {phrase}
@@ -200,12 +201,13 @@ export function RotatingText({
                 ref={(el) => {
                   mobileRefs.current[index] = el;
                 }}
-                className={`md:hidden flex items-end justify-center absolute bottom-[20%] left-0 right-0 w-full px-6 text-center will-change-[opacity,transform] ${prefersReducedMotion
+                className={`md:hidden flex items-end justify-center absolute bottom-[20%] left-0 right-0 w-full px-6 text-center will-change-[opacity,transform] ${
+                  prefersReducedMotion
                     ? activeIndex === index
                       ? 'opacity-100'
                       : 'opacity-0'
                     : 'opacity-0 translate-x-0'
-                  }`}
+                }`}
               >
                 <p className="text-blueAccent italic font-bold leading-[1.1] tracking-tight text-[clamp(2.5rem,8vw,4rem)]">
                   {phrase}

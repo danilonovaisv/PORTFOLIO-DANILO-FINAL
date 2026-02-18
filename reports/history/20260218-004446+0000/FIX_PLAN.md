@@ -1,6 +1,6 @@
 # FIX_PLAN
 
-Generated at: `2026-02-16T15:37:58+00:00`
+Generated at: `2026-02-18T00:44:46+00:00`
 
 ## Auto-fix Eligible Findings
 

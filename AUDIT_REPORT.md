@@ -1,6 +1,7 @@
 # Relatório de Auditoria e Prompts Orquestrados (Antigravity)
 
 ## Resumo da Auditoria
+
 A auditoria identificou discrepâncias significativas entre a documentação (`.context/DOCS-PORTFOLIO-PAGES`) e a implementação atual. A principal falha de fidelidade é a ausência do comportamento "Floating Manifesto Thumbnail" na Home. Além disso, foram encontradas oportunidades de melhoria em performance (preloader) e organização de código.
 
 ## Prompts Orquestrados
@@ -8,6 +9,7 @@ A auditoria identificou discrepâncias significativas entre a documentação (`.
 Execute os seguintes prompts no Antigravity para aplicar as correções:
 
 ### Prompt 1: FIDELIDADE & UX (Critical Fix)
+
 ```text
 [/slash_command] "Refatorar `src/components/home/hero/HomeHero.tsx` e `VideoManifesto.tsx` para implementar o comportamento 'Floating Manifesto Thumbnail' conforme documentação (.context/DOCS-PORTFOLIO-PAGES/01-HOME/02-HERO.md):
 1.  **Estado Inicial (Desktop):** O vídeo deve iniciar como um thumbnail flutuante no canto inferior direito (fixed/absolute, z-30), mudo e em loop.
@@ -19,6 +21,7 @@ Execute os seguintes prompts no Antigravity para aplicar as correções:
 ```
 
 ### Prompt 2: PERFORMANCE WEBGL & LOADING
+
 ```text
 [/slash_command] "Otimizar o carregamento da Home em `src/components/home/hero/HomeHero.tsx`:
 1.  Substituir o `setTimeout` de 500ms do Preloader por um sinal real de `onCreated` do Canvas R3F (`GhostSceneWrapper`).
@@ -27,6 +30,7 @@ Execute os seguintes prompts no Antigravity para aplicar as correções:
 ```
 
 ### Prompt 3: ORGANIZAÇÃO & LIMPEZA
+
 ```text
 [/slash_command] "Padronização e Limpeza de Código:
 1.  Verificar `src/components/home/hero/HeroCTA.tsx`: Se não estiver sendo usado visualmente (layout quebrado ou sobreposto), remover ou integrar corretamente com z-index ajustado (z-50).
@@ -35,6 +39,7 @@ Execute os seguintes prompts no Antigravity para aplicar as correções:
 ```
 
 ### Prompt 4: ACESSIBILIDADE (A11Y)
+
 ```text
 [/slash_command] "Garantir Acessibilidade na nova interação do Manifesto:
 1.  O thumbnail do vídeo deve ser focável (`tabIndex=0`) e expansível via teclado (Enter/Space).
@@ -44,6 +49,7 @@ Execute os seguintes prompts no Antigravity para aplicar as correções:
 ```
 
 ### Prompt 5: NEXT.JS & SEO
+
 ```text
 [/slash_command] "Revisão Final de Metadados e Cache:
 1.  Valide em src/app/page.tsx que alternates: { canonical: ... } está configurado com a URL de produção correta.

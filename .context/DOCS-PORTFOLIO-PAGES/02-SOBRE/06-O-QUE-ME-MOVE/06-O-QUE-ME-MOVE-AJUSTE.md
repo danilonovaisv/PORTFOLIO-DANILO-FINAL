@@ -32,12 +32,14 @@ https://motion.dev/tutorials/js-scroll-triggered#detect-when-elements-enter-the-
 # 🏗 Arquitetura em Camadas (Obrigatória)
 
 ### Camada 0 — Background Layer
+
 - absolute inset-0
 - Recebe interpolação de cor
 - Controlado por `animate()`
 - NÃO usa fade simples
 
 ### Camada 1 — Overlay Transition Layer
+
 - Opacity animada (0 → 1 → 0)
 - Evita flicker
 - Atua como camada de absorção
@@ -50,12 +52,14 @@ Texto:
 > Não pelo choque, mas pela conexão.” - font-h2 - bold - Branca
 
 **Desktop**
+
 - Sticky
 - Alinhado visualmente ao centro
 - Ancorado à direita do grid
 - text-right
 
 **Mobile**
+
 - Sticky top-right
 - text-right
 - Não disputa espaço com bloco central
@@ -120,11 +124,13 @@ Carregado via `useGLTF`.
 - Nunca completamente parado
 
 ### Entrada:
+
 - Surge junto com BeliefFixedHeader
 - scale 0.95 → 1
 - Fade suave
 
 ### Intensificação:
+
 - Cada nova frase aumenta levemente energia
 - Última frase:
   - Escala +10%
@@ -132,6 +138,7 @@ Carregado via `useGLTF`.
   - Movimento mais intenso
 
 ### Saída:
+
 - Sai junto com manifesto
 - Acompanha scroll
 
@@ -156,6 +163,7 @@ Carregado via `useGLTF`.
 A troca de fundo NÃO é uma transição simples.
 
 Não usar:
+
 - `transition: background-color`
 - Fade entre divs simples
 
@@ -174,9 +182,9 @@ Interpolação contínua de cor + crossfade overlay
 Inspirado no padrão:
 
 ```js
-inView(".scroll-section pre", (element) => {
-    animate(element, { opacity: 1, x: [-100, 0] }, { duration: 0.9 })
-})
+inView('.scroll-section pre', (element) => {
+  animate(element, { opacity: 1, x: [-100, 0] }, { duration: 0.9 });
+});
 ```
 
 ---
@@ -184,19 +192,18 @@ inView(".scroll-section pre", (element) => {
 ## Implementação Conceitual Adaptada
 
 ```ts
-import { animate, inView } from "motion"
+import { animate, inView } from 'motion';
 
-inView(".belief-line", (element) => {
-
+inView('.belief-line', (element) => {
   // 1️⃣ Entrada do texto
   animate(
     element,
     { opacity: [0, 1], y: [40, 0] },
     {
       duration: 0.8,
-      easing: [0.17, 0.55, 0.55, 1]
+      easing: [0.17, 0.55, 0.55, 1],
     }
-  )
+  );
 
   // 2️⃣ Troca sincronizada do BG
   animate(
@@ -204,21 +211,17 @@ inView(".belief-line", (element) => {
     { backgroundColor: nextColor },
     {
       duration: 0.9,
-      easing: [0.4, 0, 0.2, 1]
+      easing: [0.4, 0, 0.2, 1],
     }
-  )
+  );
 
   // 3️⃣ Overlay absorvendo a transição
-  animate(
-    overlayLayer,
-    { opacity: [0, 1, 0] },
-    { duration: 0.9 }
-  )
+  animate(overlayLayer, { opacity: [0, 1, 0] }, { duration: 0.9 });
 
   return () => {
-    animate(element, { opacity: 0, y: 40 })
-  }
-})
+    animate(element, { opacity: 0, y: 40 });
+  };
+});
 ```
 
 ---
@@ -319,5 +322,4 @@ Uma seção onde:
 - Desktop e Mobile possuem ritmos distintos
 - Reset é perfeito e bidirecional
 
-----
-
+---

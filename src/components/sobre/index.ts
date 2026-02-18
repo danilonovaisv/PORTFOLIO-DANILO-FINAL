@@ -14,7 +14,6 @@ export {
 // Belief Components
 export {
   BeliefSection,
-
   BeliefFinalSection,
   BeliefFixedHeader,
   BeliefFinalSectionOverlay,

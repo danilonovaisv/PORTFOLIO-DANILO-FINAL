@@ -113,7 +113,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
             className="flex flex-col items-end text-right w-full max-w-[280px] md:max-w-[500px] lg:max-w-[850px] pr-[5%] md:pr-0"
             style={{
               transform: 'translateZ(0)', // Promote to layer for sharpness
-              willChange: 'transform, opacity'
+              willChange: 'transform, opacity',
             }}
           >
             {/* Primary: "Acredito no design que muda o dia de alguém." */}

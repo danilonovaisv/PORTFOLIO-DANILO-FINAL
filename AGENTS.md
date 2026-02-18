@@ -96,6 +96,7 @@ Uma tarefa só termina quando:
 ### 3.1 Pure Install Policy
 
 Regras:
+
 - npm ci obrigatório
 - Proibido alterar node_modules manualmente
 - Lockfile versionado

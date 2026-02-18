@@ -60,7 +60,7 @@ function GhostModel({
     // Base amplitude: 0.1. Max amplitude: 0.25.
     const intensity = 1 + t * 2.5; // 1 -> 3.5
     const floatSpeed = 1.5 * intensity;
-    const floatAmp = 0.1 + (t * 0.15);
+    const floatAmp = 0.1 + t * 0.15;
 
     const floatY = Math.sin(time.current * floatSpeed) * floatAmp;
 
@@ -96,7 +96,7 @@ function GhostModel({
     // Spec 5.1 Desktop: "Ghost: Segue levemente o cursor"
     // Spec 5.2 Mobile: "Ghost: ... sem follow mouse"
     targetRotation.current.set(
-      mouseY * 0.5 + (floatY * 0.5), // Tilt with float
+      mouseY * 0.5 + floatY * 0.5, // Tilt with float
       0.3 + t * 2.5 + mouseX, // Rotate Y with scroll + mouse
       Math.sin(time.current * 0.5) * 0.05 // Subtle Z sway
     );
@@ -120,7 +120,7 @@ function GhostModel({
     let targetY = -0.5;
 
     if (isMobileRef.current) {
-      // Mobile Spec: Top-Leftish or Center? 
+      // Mobile Spec: Top-Leftish or Center?
       // Doc says: "Mobile... Texto centralizado... Ghost entra"
       // "Layout: Texto (esquerda) | Ghost (direita)" is general rule.
       // But Mobile is narrower. Usually Ghost top / Text bottom or stacked.
