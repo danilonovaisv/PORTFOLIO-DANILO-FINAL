@@ -74,16 +74,6 @@ export function GhostEyes3D({ eyesRef, groupRef }: GhostEyes3DProps) {
     if (groupRef.current) {
       groupRef.current.add(eyesRef.current);
     }
-
-    // Cleanup function to prevent memory leaks
-    return () => {
-      socketGeo.dispose();
-      socketMat.dispose();
-      eyeGeo.dispose();
-      outerGeo.dispose();
-      eyeMat.dispose();
-      outerMat.dispose();
-    };
   }, [groupRef, eyesRef]);
 
   return <group ref={eyesRef} />;

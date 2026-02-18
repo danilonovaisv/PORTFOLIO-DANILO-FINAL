@@ -1,19 +1,12 @@
 'use client';
-
 import React, { useRef, useState, useEffect } from 'react';
-import {
-  MotionValue,
-  useMotionValueEvent,
-  animate,
-  AnimatePresence,
-  motion,
-} from 'framer-motion';
+import { MotionValue, useMotionValueEvent } from 'framer-motion';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import { PHRASES } from './useBeliefAnimation';
 
 interface RotatingTextProps {
-  scrollYProgress: MotionValue<number>;
-  /** Hide phrases when manifesto is showing */
+  scrollYProgress: MotionValue;
+  currentSection: number;
   finalProgress: number;
   prefersReducedMotion?: boolean;
 }
@@ -22,33 +15,32 @@ const PHRASE_ZONE_END = 0.82; // After this, manifesto takes over
 
 /**
  * RotatingText — Layer 3 (z-20)
- *
  * Handles the sequential display of phrases based on scroll progress.
- * Desktop: Imperative animation using refs for performance.
- * Mobile: AnimatePresence for layout stability.
+ * Desktop: Text aligned left, entering from left, moving with scroll
+ * Mobile: Text centered at 20% from bottom, fixed position, exiting right
  */
 export function RotatingText({
   scrollYProgress,
+  currentSection,
   finalProgress,
   prefersReducedMotion,
 }: RotatingTextProps) {
   const isMobile = useIsMobile();
   const phraseCount = PHRASES.length;
-  // Calculate segment size based on the scroll zone allocated for phrases
   const segment = PHRASE_ZONE_END / phraseCount;
 
   // Track current active phrase index
   const [activeIndex, setActiveIndex] = useState(-1);
   const prevIndex = useRef(-1);
 
-  // Refs for animating the text lines (Desktop)
-  const desktopRefs = useRef<(HTMLDivElement | null)[]>([]);
+  // Refs for each phrase element
+  const phraseRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // ---------------------------------------------------------------------------
   // SCROLL-BASED PROGRESS LOGIC
   // ---------------------------------------------------------------------------
   useMotionValueEvent(scrollYProgress, 'change', (value) => {
-    // Reset if out of bounds (before start or after end)
+    // Reset if out of bounds
     if (value <= 0.001 || value >= PHRASE_ZONE_END) {
       if (activeIndex !== -1) setActiveIndex(-1);
       return;
@@ -58,115 +50,103 @@ export function RotatingText({
     const idx = Math.min(phraseCount - 1, Math.floor(value / segment));
     const localProgress = (value - idx * segment) / segment;
 
-    // Phrase is "active" when in the middle 70% of its segment
-    // Entry: 0→0.15, Visible: 0.15→0.85, Exit: 0.85→1.0
+    // Update active index based on progress
     if (localProgress >= 0.15 && localProgress <= 0.85) {
       if (activeIndex !== idx) setActiveIndex(idx);
     } else if (localProgress < 0.15) {
-      // Transitioning in... keep previous if meaningful, else wait
+      // Transitioning in
       if (idx > 0 && activeIndex !== idx - 1) setActiveIndex(idx - 1);
       else if (idx === 0 && activeIndex !== -1) setActiveIndex(-1);
     } else {
-      // Transitioning out...
+      // Transitioning out
       if (activeIndex !== -1) setActiveIndex(-1);
     }
   });
 
+  // Force hide if manifesto is visible
+  if (finalProgress > 0.06) return null;
+
   // ---------------------------------------------------------------------------
-  // ANIMATION EFFECT (Triggered when activeIndex changes)
+  // ANIMATION EFFECTS
   // ---------------------------------------------------------------------------
   useEffect(() => {
-    // Mobile is handled by AnimatePresence in JSX
-    if (isMobile) return;
     if (prefersReducedMotion) return;
 
     const prev = prevIndex.current;
 
-    // --- EXIT Previous Phrase ---
+    // Exit previous phrase
     if (prev >= 0 && prev !== activeIndex) {
-      const desktopEl = desktopRefs.current[prev];
-      if (desktopEl) {
-        animate(
-          desktopEl,
-          { opacity: 0, y: -50, filter: 'blur(4px)' },
-          { duration: 0.4, ease: [0.17, 0.55, 0.55, 1] }
-        );
+      const prevEl = phraseRefs.current[prev];
+      if (prevEl) {
+        const exitDirection = isMobile ? 100 : -100;
+        prevEl.style.transition = 'opacity 0.6s var(--ghost-ease), transform 0.6s var(--ghost-ease)';
+        prevEl.style.opacity = '0';
+        prevEl.style.transform = `translateX(${exitDirection}px)`;
       }
     }
 
-    // --- ENTER New Phrase ---
+    // Enter new phrase
     if (activeIndex >= 0 && activeIndex !== prev) {
-      const desktopEl = desktopRefs.current[activeIndex];
-      if (desktopEl) {
-        animate(
-          desktopEl,
-          { opacity: 1, y: 0, filter: 'blur(0px)' },
-          { duration: 0.5, ease: [0.17, 0.55, 0.55, 1], delay: 0.1 }
-        );
+      const currentEl = phraseRefs.current[activeIndex];
+      if (currentEl) {
+        currentEl.style.transition = 'opacity 0.8s var(--ghost-ease), transform 0.8s var(--ghost-ease)';
+        currentEl.style.opacity = '1';
+        currentEl.style.transform = 'translateX(0)';
       }
     }
 
     prevIndex.current = activeIndex;
   }, [activeIndex, isMobile, prefersReducedMotion]);
 
-  // Force hide if we are past the zone (Manifesto visible)
-  if (finalProgress > 0.06) return null;
+  // Reset styles when section changes
+  useEffect(() => {
+    if (activeIndex >= 0) {
+      const currentEl = phraseRefs.current[activeIndex];
+      if (currentEl) {
+        // Reset to initial state for re-animation
+        currentEl.style.opacity = '0';
+        currentEl.style.transform = `translateX(${isMobile ? '-100px' : '-100px'})`;
 
-  // Conditional Rendering logic
-  const shouldShowMobile = isMobile;
-  const shouldShowDesktop = !isMobile;
+        // Force reflow
+        void currentEl.offsetWidth;
+
+        // Apply initial animation
+        currentEl.style.transition = 'opacity 0.8s var(--ghost-ease), transform 0.8s var(--ghost-ease)';
+        currentEl.style.opacity = '1';
+        currentEl.style.transform = 'translateX(0)';
+      }
+    }
+  }, [currentSection, activeIndex, isMobile]);
 
   return (
-    <div className="relative z-10 flex h-full w-full items-end pb-12 md:pb-0 md:items-center pointer-events-none">
-      {/* --- DESKTOP LAYOUT --- */}
-      {shouldShowDesktop && (
-        <div className="hidden md:flex flex-col items-start justify-center h-full pl-0 md:pl-12 lg:pl-0 w-full max-w-[800px]">
-          <div className="relative w-full h-full flex items-center">
-            {PHRASES.map((phrase, i) => (
-              <div
-                key={`desktop-${i}`}
-                ref={(el) => {
-                  if (el) desktopRefs.current[i] = el;
-                }}
-                className="absolute inset-0 flex items-center w-full will-change-[opacity,transform]"
-                style={{
-                  opacity: 0, // Initial state hidden
-                  transform: 'translateY(-50px)',
-                  filter: 'blur(4px)',
-                }}
-              >
-                <p className="text-blueAccent italic font-bold leading-[0.95] tracking-tighter whitespace-pre-line text-[clamp(4rem,7vw,8rem)] text-left">
-                  {phrase}
-                </p>
-              </div>
+    <div className="relative w-full h-full">
+      {PHRASES.map((phrase, index) => (
+        <div
+          key={`phrase-${index}`}
+          ref={el => {
+            if (el) phraseRefs.current[index] = el;
+          }}
+          className={`
+            absolute w-[90%] md:w-auto md:max-w-[600px] 
+            left-[5%] md:left-[15%] 
+            bottom-[20vh] md:bottom-[10%] 
+            text-[36px] md:text-[48px]
+            font-h1 text-[#4fe6ff] font-bold
+            transition-all duration-300
+            opacity-0 -translate-x-[100px]
+            ${isMobile ? 'text-center' : 'text-left'}
+          `}
+        >
+          {isMobile
+            ? phrase
+            : phrase.split('\n').map((word, i) => (
+              <span key={i}>
+                {word}
+                {i < phrase.split('\n').length - 1 && <br />}
+              </span>
             ))}
-          </div>
         </div>
-      )}
-
-      {/* --- MOBILE LAYOUT --- */}
-      {shouldShowMobile && (
-        <div className="flex md:hidden w-full absolute bottom-[20vh] left-0 px-6 justify-center">
-          <div className="relative w-full h-[120px] flex items-end justify-center">
-            <AnimatePresence mode="wait">
-              {activeIndex >= 0 && (
-                <motion.div
-                  key={`mobile-${activeIndex}`}
-                  initial={{ opacity: 0, x: 20, filter: 'blur(4px)' }}
-                  animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-                  exit={{ opacity: 0, x: -20, filter: 'blur(4px)' }}
-                  transition={{ duration: 0.4, ease: 'easeOut' }}
-                  className="absolute bottom-0 w-full text-center"
-                >
-                  <p className="text-blueAccent italic font-bold leading-[1.1] tracking-tight text-[clamp(2.5rem,8vw,4rem)]">
-                    {PHRASES[activeIndex].replace(/\n/g, ' ')}
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
-      )}
+      ))}
     </div>
   );
 }

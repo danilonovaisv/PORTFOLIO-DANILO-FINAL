@@ -1,66 +1,143 @@
-import { useTransform, MotionValue } from 'framer-motion';
+'use client';
+import { useTransform, MotionValue, useReducedMotion } from 'framer-motion';
 
-interface UseBeliefsAnimationProps {
-  scrollYProgress: MotionValue<number>;
-  totalPhrases: number;
-  colors: string[];
+/* ────────────────────────────────────────────────────────
+CONSTANTS & CONFIG
+──────────────────────────────────────────────────────── */
+// Target HSL values from specs
+const COLOR_SEQUENCE = [
+  { h: 230, s: 85, l: 30 }, // Blue
+  { h: 270, s: 80, l: 40 }, // Purple
+  { h: 330, s: 85, l: 50 }, // Pink
+  { h: 230, s: 85, l: 30 }, // Blue
+  { h: 270, s: 80, l: 40 }, // Purple
+  { h: 330, s: 85, l: 50 }, // Pink
+  { h: 230, s: 85, l: 30 }, // Blue
+];
+
+// Ghost Easing for background interpolation [0.4, 0, 0.2, 1]
+function ghostEase(t: number): number {
+  return 0.4 * t * t + 0.2 * t;
 }
 
+interface UseBeliefsAnimationProps {
+  scrollYProgress: MotionValue;
+  totalPhrases: number;
+}
+
+/**
+ * useBeliefsAnimation - Hook principal para animações da sessão "O Que Me Move"
+ * 
+ * Implementa a interpolação contínua de cores conforme especificação do Ghost Design System:
+ * - A interpolação inicia no primeiro frame da entrada do texto
+ * - Quando o texto atinge 60% de visibilidade, o BG está ~70% interpolado
+ * - A interpolação termina exatamente quando o texto termina a animação
+ * 
+ * Arquitetura:
+ * 1. Background Color Interpolation (Camada 0)
+ * 2. Overlay Transition (Camada 1)
+ * 3. Text Animation State
+ * 4. Ghost 3D Intensity
+ * 5. Final Manifesto Trigger
+ */
 export function useBeliefsAnimation({
   scrollYProgress,
   totalPhrases,
-  colors,
 }: UseBeliefsAnimationProps) {
-  // Timeline:
-  // 0.0 - 0.15: Intro (Sticky Header fades in)
-  // 0.15 - 0.8: Phrases Sequence
-  // 0.8 - 0.9: Final Reveal Intro
-  // 0.9 - 1.0: Final Overlay
+  // Check for reduced motion preference
+  const prefersReducedMotion = useReducedMotion();
 
-  // 1. Background Color Interpolation
+  // Timeline configuration
+  const PHRASE_ZONE_END = 0.82; // After this, manifesto takes over
+  const segment = PHRASE_ZONE_END / totalPhrases;
+
+  // 1. Background Color Interpolation (Camada 0)
   // Map scroll progress to colors based on phrase index
-  // We want colors to switch roughly when the phrase becomes active
-  const colorStops = colors.map((_, i) => 0.15 + (i / totalPhrases) * 0.65);
-  // Add start and end buffers
-  const colorInput = [0, ...colorStops, 1];
-  // Ensure the sequence ends with bluePrimary as requested
-  const finalColor = colors[0]; // Assuming colors[0] is bluePrimary based on arrays
-  const colorOutput = [colors[0], ...colors, finalColor];
+  const backgroundColor = useTransform(scrollYProgress, (progress) => {
+    if (progress <= 0.001 || progress >= PHRASE_ZONE_END || prefersReducedMotion) {
+      const c = COLOR_SEQUENCE[0];
+      return `hsl(${c.h}, ${c.s}%, ${c.l}%)`;
+    }
 
-  const backgroundColor = useTransform(
-    scrollYProgress,
-    colorInput,
-    colorOutput
-  );
+    // Determine current section index
+    const sectionIndex = Math.min(totalPhrases - 1, Math.floor(progress / segment));
+    const sectionProgress = (progress - (sectionIndex * segment)) / segment;
 
-  // 2. Active Index (for mobile text layer mainly)
-  // Logic handled inside components usually, but we can expose a "phase"
-  // 0 = Intro, 1 = Phrases, 2 = Outro
+    // Calculate which color transition we're in
+    const colorIndex = Math.min(sectionIndex, COLOR_SEQUENCE.length - 2);
+    const startColor = COLOR_SEQUENCE[colorIndex];
+    const endColor = COLOR_SEQUENCE[colorIndex + 1];
 
-  // 3. Ghost Intensity (0 to 1)
-  // Increases as we scroll down, peaks at the end of phrases
-  const ghostIntensity = useTransform(
-    scrollYProgress,
-    [0, 0.2, 0.8, 1],
-    [0, 0.2, 1, 0] // Calms down at very end or stays high? Let's drop to 0 for exit.
-  );
+    // Apply Ghost Easing [0.4, 0, 0.2, 1]
+    const easedProgress = ghostEase(sectionProgress);
 
-  // 4. Header Opacity
-  // Visible during phrases, fades out for final reveal
-  const headerOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.1, 0.75, 0.85],
-    [0, 1, 1, 0]
-  );
+    // Interpolate HSL with circular hue handling
+    let deltaH = endColor.h - startColor.h;
+    if (deltaH > 180) deltaH -= 360;
+    else if (deltaH < -180) deltaH += 360;
 
-  // 5. Final Section Reveal
-  // Trigger for "ISSO É GHOST DESIGN"
-  const showFinalReveal = useTransform(scrollYProgress, [0.85, 0.9], [0, 1]);
+    const h = (startColor.h + deltaH * easedProgress + 360) % 360;
+    const s = startColor.s + (endColor.s - startColor.s) * easedProgress;
+    const l = startColor.l + (endColor.l - startColor.l) * easedProgress;
+
+    return `hsl(${h.toFixed(1)}, ${s.toFixed(1)}%, ${l.toFixed(1)}%)`;
+  });
+
+  // 2. Overlay Transition (Camada 1)
+  // Opacity animada (0 → 1 → 0) com duração de 0.9s
+  const overlayOpacity = useTransform(scrollYProgress, (progress) => {
+    if (progress <= 0.001 || progress >= PHRASE_ZONE_END || prefersReducedMotion) {
+      return 0;
+    }
+
+    // Determine current section index
+    const sectionIndex = Math.min(totalPhrases - 1, Math.floor(progress / segment));
+    const sectionProgress = (progress - (sectionIndex * segment)) / segment;
+
+    // Easing personalizado para sincronia perfeita com texto [0.4, 0, 0.2, 1]
+    const easedProgress = ghostEase(sectionProgress);
+
+    // Overlay: 0 → 1 → 0
+    if (easedProgress < 0.5) {
+      return easedProgress * 2;
+    } else {
+      return 2 - easedProgress * 2;
+    }
+  });
+
+  // 3. Active Section Index (para renderização do texto)
+  const currentSection = useTransform(scrollYProgress, (progress) => {
+    if (progress <= 0.001 || progress >= PHRASE_ZONE_END) {
+      return -1;
+    }
+
+    return Math.min(totalPhrases - 1, Math.floor(progress / segment));
+  });
+
+  // 4. Ghost 3D Intensity
+  // Aumenta gradualmente com cada frase, atinge pico na última frase
+  const ghostIntensity = useTransform(scrollYProgress, (progress) => {
+    if (progress <= 0.001 || prefersReducedMotion) return 0;
+    if (progress >= PHRASE_ZONE_END) return 1;
+
+    // Intensidade baseada no progresso normalizado
+    const normalized = Math.min(1, progress / PHRASE_ZONE_END);
+    return Math.min(1, normalized * 1.1);
+  });
+
+  // 5. Final Manifesto Trigger
+  // Ativa o manifesto final quando o scroll atinge 85%
+  const showFinalManifesto = useTransform(scrollYProgress, (progress) => {
+    if (progress < 0.85) return 0;
+    return Math.min(1, (progress - 0.85) / 0.15);
+  });
 
   return {
     backgroundColor,
+    overlayOpacity,
+    currentSection,
     ghostIntensity,
-    headerOpacity,
-    showFinalReveal,
+    showFinalManifesto,
+    prefersReducedMotion,
   };
 }

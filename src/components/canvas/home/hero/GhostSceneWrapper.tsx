@@ -12,10 +12,6 @@ const GhostScene = dynamic(
   }
 );
 
-export default function GhostSceneWrapper({
-  onCreated,
-}: {
-  onCreated?: () => void;
-}) {
-  return <GhostScene onCreated={onCreated} />;
+export default function GhostSceneWrapper() {
+  return <GhostScene />;
 }

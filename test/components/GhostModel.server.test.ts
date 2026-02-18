@@ -33,7 +33,7 @@ jest.mock('@react-three/fiber', () => ({
 describe('GhostModel server import', () => {
   it('skips GLTF preloading when rendered during SSG/Node', async () => {
     await expect(
-      import('@/components/sobre/3d/GhostModel')
+      import('@/components/shared/3d/GhostModel')
     ).resolves.toBeDefined();
     expect(preloadMock).not.toHaveBeenCalled();
   });

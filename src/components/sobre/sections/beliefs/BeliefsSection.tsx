@@ -2,6 +2,7 @@
 
 import React, { useRef } from 'react';
 import dynamic from 'next/dynamic';
+import { motion } from 'framer-motion';
 import { BeliefFixedHeader } from './BeliefFixedHeader';
 import { BeliefFinalSectionOverlay } from './BeliefFinalSectionOverlay';
 import { useMotionGate } from '@/hooks/useMotionGate';
@@ -40,7 +41,7 @@ const GhostScene = dynamic(() => import('./GhostScene'), {
  *   visible in the reference images (Ghost overlapping "GHOST" in manifesto)
  */
 export function BeliefsSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useMotionGate();
 
   const {
@@ -49,6 +50,7 @@ export function BeliefsSection() {
     overlayColor,
     overlayOpacity,
     finalProgress,
+    currentSection,
   } = useBeliefAnimation({ containerRef });
 
   const finalVisible = finalProgress > 0.06;
@@ -58,20 +60,12 @@ export function BeliefsSection() {
 
   return (
     <>
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-          #beliefs-section {
-            --section-height: ${totalHeight};
-          }
-        `,
-        }}
-      />
-      <section
+      <motion.section
         ref={containerRef}
         id="beliefs-section"
         aria-labelledby="beliefs-heading"
-        className="relative w-full h-(--section-height)"
+        className="relative w-full"
+        style={{ height: totalHeight }}
       >
         {/* Sticky viewport container — holds ALL visual layers */}
         <div className="sticky top-0 h-screen overflow-hidden">
@@ -91,6 +85,7 @@ export function BeliefsSection() {
           <div className="absolute inset-0 z-20 pointer-events-none">
             <RotatingText
               scrollYProgress={scrollYProgress}
+              currentSection={currentSection}
               finalProgress={finalProgress}
               prefersReducedMotion={prefersReducedMotion}
             />
@@ -110,7 +105,7 @@ export function BeliefsSection() {
             </div>
           )}
         </div>
-      </section>
+      </motion.section>
     </>
   );
 }

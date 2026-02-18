@@ -1,19 +1,23 @@
 'use client';
-
 import { motion, MotionValue } from 'framer-motion';
 
 interface BeliefsBackgroundProps {
-  baseColor: MotionValue<string>;
-  overlayColor: MotionValue<string>;
-  overlayOpacity: MotionValue<number>;
+  baseColor: MotionValue;
+  overlayColor: MotionValue;
+  overlayOpacity: MotionValue;
 }
 
 /**
- * Two-layer background system per spec Section 3.
- * Layer 0: Base color — receives the continuously interpolated color.
- * Layer 1: Overlay crossfade — fades in/out to smooth transitions and avoid flicker.
- *
- * Uses `will-change` and `contain: paint` for performance on Safari/Android.
+ * Two-layer background system per Ghost Design System.
+ * 
+ * Layer 0 (z-0): Base background — receives the continuously interpolated color.
+ * Layer 1 (z-10): Overlay crossfade — smooths transition cuts to avoid flicker.
+ * 
+ * Critical implementation details:
+ * - Uses Ghost Easing [0.4, 0, 0.2, 1] for background interpolation
+ * - Interpolation starts on first frame of text entry
+ * - When text is 60% visible, BG is ~70% interpolated
+ * - Color interpolation completes exactly when text animation completes
  */
 export function BeliefsBackground({
   baseColor,
@@ -24,7 +28,7 @@ export function BeliefsBackground({
     <>
       {/* Layer 0: Base background — continuous color interpolation */}
       <motion.div
-        className="absolute inset-0 z-0"
+        className="fixed inset-0 z-0"
         style={{
           backgroundColor: baseColor,
           willChange: 'background-color',
@@ -32,14 +36,16 @@ export function BeliefsBackground({
         }}
         aria-hidden="true"
       />
+
       {/* Layer 1: Overlay crossfade — smooths transition cuts */}
       <motion.div
-        className="absolute inset-0 z-1"
+        className="fixed inset-0 z-10"
         style={{
           backgroundColor: overlayColor,
           opacity: overlayOpacity,
           willChange: 'opacity',
           contain: 'paint',
+          pointerEvents: 'none',
         }}
         aria-hidden="true"
       />

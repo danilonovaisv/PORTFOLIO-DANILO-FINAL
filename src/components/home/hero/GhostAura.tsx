@@ -68,7 +68,7 @@ export default function GhostAura() {
           'bg-primary/10'
         )}
         animate={{
-          y: [0, -14, 0],
+          scale: [1, 1.15, 1],
           opacity: [0.05, 0.12, 0.05],
         }}
         transition={{
@@ -109,7 +109,7 @@ export default function GhostAura() {
           'bg-[#00f0ff]/8'
         )}
         animate={{
-          y: [0, -10, 0],
+          scale: [1, 1.2, 1],
           opacity: [0.06, 0.12, 0.06],
         }}
         transition={{

@@ -19,11 +19,7 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
 // --- CONFIGURAÇÃO DE PARTICULAS ---
 const MAX_PARTICLES = 500; // Limite máximo para InstancedMesh
 
-interface GhostSceneProps {
-  onCreated?: () => void;
-}
-
-export default function GhostScene({ onCreated }: GhostSceneProps) {
+export default function GhostScene() {
   const mountRef = useRef<HTMLDivElement>(null);
   const preloaderRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
@@ -50,19 +46,29 @@ export default function GhostScene({ onCreated }: GhostSceneProps) {
     // Gestão do Preloader (Adaptado para usar Refs)
     const preloaderManager = {
       isComplete: false,
-      updateProgress: (_step: number) => {
-        // const loadingSteps = Math.min(step, 5);
+      updateProgress: (step: number) => {
+        const loadingSteps = Math.min(step, 5);
+        const percentage = (loadingSteps / 5) * 100;
         if (progressBarRef.current) {
-          // Visual feedback only
+          progressBarRef.current.style.width = `${percentage}%`;
         }
       },
       complete: (canvas: HTMLCanvasElement) => {
         if (preloaderManager.isComplete) return;
         preloaderManager.isComplete = true;
+        preloaderManager.updateProgress(5);
 
-        // Immediate notification - render is ready
-        canvas.classList.add('fade-in');
-        if (onCreated) onCreated();
+        setTimeout(() => {
+          if (preloaderRef.current)
+            preloaderRef.current.classList.add('fade-out');
+
+          canvas.classList.add('fade-in');
+
+          setTimeout(() => {
+            if (preloaderRef.current)
+              preloaderRef.current.style.display = 'none';
+          }, 1000);
+        }, 1500);
       },
     };
 

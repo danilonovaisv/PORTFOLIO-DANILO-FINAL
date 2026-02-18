@@ -1,18 +1,10 @@
 'use client';
-
-import { useState } from 'react';
-import { useMotionValueEvent, useScroll, useTransform } from 'framer-motion';
+import { useState, useEffect, useRef } from 'react';
+import { useMotionValue, useMotionValueEvent, useScroll, animate } from 'framer-motion';
 
 /* ────────────────────────────────────────────────────────
-   CONSTANTS
-   ──────────────────────────────────────────────────────── */
-
-const clamp01 = (v: number) => Math.max(0, Math.min(1, v));
-
-/**
- * Phrases for the section — exported for RotatingText to consume.
- * Per spec Section 7: rotation order.
- */
+CONSTANTS & CONFIG
+──────────────────────────────────────────────────────── */
 export const PHRASES: readonly string[] = [
   'Um\nvídeo\nque\nrespira.',
   'Uma\nmarca\nque se\nreconhece.',
@@ -22,67 +14,24 @@ export const PHRASES: readonly string[] = [
   'Mesmo\nquando\nninguém\npercebe\no esforço.',
 ];
 
-/**
- * Color palette in HSL — sequential order per spec Section 3.1.
- * Using HSL avoids the "muddy brown" transitions that RGB lerp produces.
- *
- * Index 0 = initial void (#040013)
- * Then: bluePrimary → purpleDetails → pinkDetails (repeating)
- */
-interface HSLColor {
-  h: number;
-  s: number;
-  l: number;
-}
-
-const COLORS_HSL: readonly HSLColor[] = [
-  { h: 250, s: 100, l: 4 }, // #040013 (void background)
-  { h: 223, s: 100, l: 50 }, // bluePrimary  (#0048ff)
-  { h: 270, s: 97, l: 48 }, // purpleDetails (#8705f2)
-  { h: 310, s: 98, l: 48 }, // pinkDetails (#f501d3)
-  { h: 223, s: 100, l: 50 }, // bluePrimary
-  { h: 270, s: 97, l: 48 }, // purpleDetails
-  { h: 310, s: 98, l: 48 }, // pinkDetails
-  { h: 223, s: 100, l: 50 }, // bluePrimary (final / manifesto)
+// Target HSL values from specs
+const COLOR_SEQUENCE = [
+  { h: 230, s: 85, l: 30 }, // Blue
+  { h: 270, s: 80, l: 40 }, // Purple
+  { h: 330, s: 85, l: 50 }, // Pink
+  { h: 230, s: 85, l: 30 }, // Blue
+  { h: 270, s: 80, l: 40 }, // Purple
+  { h: 330, s: 85, l: 50 }, // Pink
+  { h: 230, s: 85, l: 30 }, // Blue
 ];
 
-/**
- * Ghost easing — power2.inOut approximation for smooth color transitions.
- */
-function easeInOut(t: number): number {
-  return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+// Ghost Easing for background interpolation [0.4, 0, 0.2, 1]
+function ghostEase(t: number): number {
+  return 0.4 * t * t + 0.2 * t;
 }
-
-/**
- * HSL interpolation — produces natural, vibrant color transitions.
- * Uses shortest-path hue interpolation to avoid jumping through the color wheel.
- */
-function lerpHSL(a: HSLColor, b: HSLColor, t: number): string {
-  const eased = easeInOut(clamp01(t));
-
-  // Shortest-path hue interpolation
-  let dh = b.h - a.h;
-  if (dh > 180) dh -= 360;
-  if (dh < -180) dh += 360;
-
-  const h = (((a.h + dh * eased) % 360) + 360) % 360;
-  const s = a.s + (b.s - a.s) * eased;
-  const l = a.l + (b.l - a.l) * eased;
-
-  return `hsl(${h.toFixed(1)}, ${s.toFixed(1)}%, ${l.toFixed(1)}%)`;
-}
-
-/* ────────────────────────────────────────────────────────
-   HOOK — BG Color + Overlay + Manifesto Progress ONLY
-   
-   Per spec separation of concerns:
-   - BG: useScroll + HSL interpolation (this hook)
-   - Texto: inView + animate (RotatingText component)  
-   - Ghost: R3F, seguindo scrollYProgress (GhostScene)
-   ──────────────────────────────────────────────────────── */
 
 interface UseBeliefAnimationProps {
-  containerRef: React.RefObject<HTMLDivElement | null>;
+  containerRef: React.RefObject<HTMLElement | null>;
 }
 
 export function useBeliefAnimation({ containerRef }: UseBeliefAnimationProps) {
@@ -91,84 +40,138 @@ export function useBeliefAnimation({ containerRef }: UseBeliefAnimationProps) {
     offset: ['start start', 'end end'],
   });
 
-  // --- Motion Values (Reactive, no re-renders) ---
-  const phraseCount = PHRASES.length;
-  const finalStart = 0.82; // Static constant for transform
-  const segment = finalStart / phraseCount;
+  // Background color (continuously interpolated)
+  const baseColor = useMotionValue(`hsl(${COLOR_SEQUENCE[0].h}, ${COLOR_SEQUENCE[0].s}%, ${COLOR_SEQUENCE[0].l}%)`);
+  // Overlay for smooth transitions
+  const overlayColor = useMotionValue('#000000');
+  const overlayOpacity = useMotionValue(0);
 
-  const baseColor = useTransform(scrollYProgress, (v: number) => {
-    const value = clamp01(v);
-
-    // 1. Reset / Start
-    if (value <= 0.001) {
-      return lerpHSL(COLORS_HSL[0], COLORS_HSL[0], 0);
-    }
-
-    // 2. Final Manifesto (82% -> 100%)
-    if (value >= finalStart) {
-      const local = (value - finalStart) / Math.max(1 - finalStart, 0.0001);
-      return lerpHSL(
-        COLORS_HSL[COLORS_HSL.length - 2],
-        COLORS_HSL[COLORS_HSL.length - 1],
-        local // Interpolate to final color
-      );
-    }
-
-    // 3. Phrase Segments
-    const index = Math.min(phraseCount - 1, Math.floor(value / segment));
-    const localProgress = clamp01((value - index * segment) / segment);
-
-    // "Color reaches 60% at 40% text visibility" -> slightly accelerated
-    // Text enters [0.15, 0.85]. Color should be active there.
-    const colorT = clamp01(localProgress * 1.5); // 0 -> 0.66 progress maps to 0->1 color completion
-
-    return lerpHSL(COLORS_HSL[index], COLORS_HSL[index + 1], colorT);
-  });
-
-  const overlayOpacity = useTransform(scrollYProgress, (v: number) => {
-    const value = clamp01(v);
-    if (value <= 0.001 || value >= finalStart) return 0;
-
-    const index = Math.floor(value / segment);
-    const localProgress = (value - index * segment) / segment;
-
-    // Overlay logic: ramp up during first 40%, down during last 30%
-    const overlayIn = clamp01(localProgress / 0.4);
-    const overlayOut = clamp01((1 - localProgress) / 0.3);
-    return Math.min(overlayIn, overlayOut) * 0.25;
-  });
-
-  const overlayColor = useTransform(scrollYProgress, (v: number) => {
-    const value = clamp01(v);
-    if (value >= finalStart) return lerpHSL(COLORS_HSL[1], COLORS_HSL[1], 0); // Default/Safe
-
-    const index = Math.min(phraseCount - 1, Math.floor(value / segment));
-    // Overlay is "next color" usually, or current target
-    return lerpHSL(COLORS_HSL[index + 1], COLORS_HSL[index + 1], 0);
-  });
-
-  // Final Progress State (keep as state if used for conditional rendering logic elsewhere,
-  // currently used for 'finalVisible' boolean which toggles components)
-  // We can keep this state update but check if it's strictly needed.
-  // BeliefsSection uses `finalVisible` to remove Ghost/RotatingText?
-  // No, `finalProgress > 0.06`.
-  // Let's keep finalProgress in state for React conditional rendering,
-  // but colors are now optimized.
-
-  // Actually, let's optimize the simple state update to reduce frequency
+  // State for rendering logic
   const [finalProgress, setFinalProgress] = useState(0);
+  const [currentSection, setCurrentSection] = useState(0);
 
-  useMotionValueEvent(scrollYProgress, 'change', (v: number) => {
-    const value = clamp01(v);
-    if (value >= finalStart) {
-      const local = (value - finalStart) / Math.max(1 - finalStart, 0.0001);
+  // Animation Refs
+  const currentAnimRaf = useRef<number | null>(null);
+  const currentOverlayAnim = useRef<any>(null);
+  const lastSection = useRef(0);
+
+  // Track continuous state to avoid jumps
+  const currentHSL = useRef({ ...COLOR_SEQUENCE[0] });
+
+  // Constants
+  const phraseCount = PHRASES.length;
+  const finalStart = 0.82; // Start of final manifesto section
+  const segment = finalStart / phraseCount; // Size of each phrase segment
+
+  // Initialize with the first color
+  useEffect(() => {
+    const c = COLOR_SEQUENCE[0];
+    baseColor.set(`hsl(${c.h}, ${c.s}%, ${c.l}%)`);
+    currentHSL.current = { ...c };
+  }, [baseColor]);
+
+  // Main scroll progress handler
+  useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+    // 1. Handle final section progress
+    if (latest >= finalStart) {
+      const local = (latest - finalStart) / Math.max(1 - finalStart, 0.0001);
       if (Math.abs(local - finalProgress) > 0.05) {
         setFinalProgress(local);
       }
     } else if (finalProgress !== 0) {
       setFinalProgress(0);
     }
+
+    // 2. Skip if outside phrase area or at final section
+    if (latest <= 0.001 || latest >= finalStart) return;
+
+    // 3. Calculate current section index
+    const sectionIndex = Math.min(phraseCount - 1, Math.floor(latest / segment));
+
+    // 4. Determine progress within current section (0 to 1) - purely for logic if needed
+    // const sectionProgress = (latest - (sectionIndex * segment)) / segment;
+
+    // 5. Trigger transition when entering a new section
+    if (sectionIndex !== lastSection.current) {
+      const isForward = sectionIndex > lastSection.current;
+      lastSection.current = sectionIndex;
+
+      // Cancel any ongoing animations
+      if (currentAnimRaf.current) {
+        cancelAnimationFrame(currentAnimRaf.current);
+        currentAnimRaf.current = null;
+      }
+
+      if (currentOverlayAnim.current) {
+        currentOverlayAnim.current.stop();
+        currentOverlayAnim.current = null;
+      }
+
+      // Only transition forward (ignore backward scrolling for smoothness)
+      if (isForward && sectionIndex < COLOR_SEQUENCE.length - 1) {
+        const startColor = { ...currentHSL.current };
+        const endColor = COLOR_SEQUENCE[sectionIndex + 1];
+
+        const startTime = performance.now();
+        const duration = 900; // Must match text animation duration
+
+        const animateFrame = (time: number) => {
+          const elapsed = time - startTime;
+          const rawT = Math.min(elapsed / duration, 1);
+
+          // Apply Ghost Easing [0.4, 0, 0.2, 1]
+          const easedT = ghostEase(rawT);
+
+          // Interpolate HSL with circular hue handling
+          let deltaH = endColor.h - startColor.h;
+          if (deltaH > 180) deltaH -= 360;
+          else if (deltaH < -180) deltaH += 360;
+
+          const h = (startColor.h + deltaH * easedT + 360) % 360;
+          const s = startColor.s + (endColor.s - startColor.s) * easedT;
+          const l = startColor.l + (endColor.l - startColor.l) * easedT;
+
+          // Update current state
+          currentHSL.current = { h, s, l };
+          baseColor.set(`hsl(${h.toFixed(1)}, ${s.toFixed(1)}%, ${l.toFixed(1)}%)`);
+
+          // Update section for rendering
+          setCurrentSection(sectionIndex);
+
+          if (rawT < 1) {
+            currentAnimRaf.current = requestAnimationFrame(animateFrame);
+          }
+        };
+
+        currentAnimRaf.current = requestAnimationFrame(animateFrame);
+
+        // Animate overlay for smooth transition
+        overlayOpacity.set(0);
+        currentOverlayAnim.current = animate(overlayOpacity, [0, 1, 0], {
+          duration: 0.9,
+          ease: 'linear',
+        });
+      }
+    } else {
+      // Update current section for rendering
+      setCurrentSection(sectionIndex);
+
+      // For backward scrolling, snap to current section's color
+      // but don't trigger animation
+      const targetColor = COLOR_SEQUENCE[sectionIndex];
+      currentHSL.current = { ...targetColor };
+      baseColor.set(`hsl(${targetColor.h}, ${targetColor.s}%, ${targetColor.l}%)`);
+    }
   });
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (currentAnimRaf.current) {
+        cancelAnimationFrame(currentAnimRaf.current);
+      }
+    };
+  }, []);
 
   return {
     scrollYProgress,
@@ -176,5 +179,6 @@ export function useBeliefAnimation({ containerRef }: UseBeliefAnimationProps) {
     overlayColor,
     overlayOpacity,
     finalProgress,
+    currentSection,
   };
 }

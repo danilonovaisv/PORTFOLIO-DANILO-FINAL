@@ -1,12 +1,10 @@
 'use client';
-
 import { useEffect, useRef, useState } from 'react';
 import { lerp } from '@/lib/utils';
 
 /**
- * LERP-based scroll smoother for a fixed gallery track.
- * It keeps the track translated with an eased scroll value and
- * updates the wrapper height so the page retains native scroll.
+ * LERP-based scroll smoother for fixed gallery track.
+ * Maintains track translation with eased scroll value and updates wrapper height.
  * The gallery becomes fixed only when it enters the viewport.
  */
 type TrackRef =
@@ -65,10 +63,9 @@ export const useLERPScroll = (
       );
 
       maxScroll.current = Math.max(0, trackHeight - availableViewport);
-      const wrapperHeight =
-        maxScroll.current > 0
-          ? trackHeight + stickyTopOffset.current
-          : trackHeight;
+      const wrapperHeight = maxScroll.current > 0
+        ? trackHeight + stickyTopOffset.current
+        : trackHeight;
 
       gallery.style.height = `${wrapperHeight}px`;
     };
@@ -81,19 +78,18 @@ export const useLERPScroll = (
       const clampedOffset = hasScrollableRange
         ? Math.max(0, Math.min(rawOffset, maxScroll.current))
         : 0;
-      const active =
-        hasScrollableRange &&
+      const active = hasScrollableRange &&
         rawOffset >= 0 &&
         rawOffset <= maxScroll.current + 0.5;
 
-      const newScrollState = active
+      const newScrollState: ScrollState = active
         ? 'fixed'
         : rawOffset > maxScroll.current + 0.5
           ? 'post'
           : 'pre';
 
-      if (stickyState.current !== newScrollState) { // Changed from boolean to string check
-        stickyState.current = newScrollState as any; // Using explicit cast or generic if needed, here just keeping simple.
+      if (stickyState.current !== newScrollState) {
+        stickyState.current = newScrollState;
         setScrollState(newScrollState);
 
         // Reset transform if not fixed to avoid conflicting with CSS positioning
@@ -119,6 +115,7 @@ export const useLERPScroll = (
         rafId.current = requestAnimationFrame(animate);
       }
     };
+
     const onResize = () => {
       calculateHeroOffset();
       updateHeight();
@@ -127,6 +124,7 @@ export const useLERPScroll = (
         rafId.current = requestAnimationFrame(animate);
       }
     };
+
     const onLoad = () => {
       calculateHeroOffset();
       updateHeight();
