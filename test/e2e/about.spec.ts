@@ -9,7 +9,7 @@ test.describe('About Page', () => {
 
     // Look for current about-page copy
     await expect(page.locator('body')).toContainText(/Sou Danilo Novais/i);
-    await expect(page.locator('body')).toContainText(/GHOSTDESIGN/i);
+    await expect(page.locator('body')).toContainText(/Do insight ao impacto/i);
 
     await page.screenshot({ path: 'test-results/about-page.png' });
   });

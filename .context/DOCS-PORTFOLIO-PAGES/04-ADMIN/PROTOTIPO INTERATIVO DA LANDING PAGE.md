@@ -7,7 +7,7 @@
 
 Baseado em:
 
-- Admin Template Mestre V3 (ALPA) [oai_citation:0‡Danilo Novais | Creative Developer.pdf](sediment://file_000000002a28720e98cb4c0d4522c6ed)
+- Admin Template Mestre V3 (ALPA) [Danilo Novais | Creative Developer.pdf]
 - Sistema gallery_grid
 - BG animado (LiquidEther + Three.js)
 - Estrutura pública da landing

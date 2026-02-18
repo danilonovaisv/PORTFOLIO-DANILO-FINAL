@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { animate } from 'motion';
 import { useScrollTriggeredAnimation } from '@/lib/motion';
 
@@ -16,7 +16,7 @@ const phrases = [
 type TextRotatorProps = {
   reducedMotion?: boolean;
   activeIndex: number;
-  onActiveIndexChange?: (index: number) => void;
+  onActiveIndexChange?: (_index: number) => void;
 };
 
 export const TextRotator = ({
@@ -25,6 +25,7 @@ export const TextRotator = ({
   onActiveIndexChange,
 }: TextRotatorProps) => {
   const [isMobile, setIsMobile] = useState(false);
+  const phraseRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const update = () => setIsMobile(window.innerWidth <= 767);
@@ -33,51 +34,71 @@ export const TextRotator = ({
     return () => window.removeEventListener('resize', update);
   }, []);
 
-  // Configura as animações para cada frase
+  const animateIn = useCallback(
+    (index: number) => {
+      const line = phraseRefs.current[index];
+      if (!line) return;
+
+      if (reducedMotion) {
+        line.style.opacity = '1';
+        line.style.transform = 'translateX(0)';
+        return;
+      }
+
+      animate(
+        line,
+        {
+          opacity: [isMobile ? 0 : 0.3, 1],
+          x: [-100, 0],
+        },
+        {
+          duration: 0.8,
+          ease: [0.22, 1, 0.36, 1],
+          delay: 0.2,
+        }
+      );
+    },
+    [isMobile, reducedMotion]
+  );
+
+  const animateOut = useCallback(
+    (index: number) => {
+      const line = phraseRefs.current[index];
+      if (!line || reducedMotion) return;
+
+      const exitDirection = isMobile ? 100 : -100;
+      animate(
+        line,
+        { opacity: 0, x: exitDirection },
+        {
+          duration: 0.6,
+          ease: [0.25, 0.46, 0.45, 0.94],
+        }
+      );
+    },
+    [isMobile, reducedMotion]
+  );
+
   useScrollTriggeredAnimation(
-    '.belief-line',
+    '.belief-sentinel',
     (element) => {
       const el = element as HTMLElement;
       const indexAttr = el.dataset.index ?? '-1';
       const index = Number(indexAttr);
 
-      if (!Number.isNaN(index)) {
-        onActiveIndexChange?.(index);
-      }
+      if (Number.isNaN(index)) return;
 
-      if (reducedMotion) {
-        el.style.opacity = '1';
-        el.style.transform = 'translateX(0)';
-        return;
-      }
-
-      // Animação de entrada
-      animate(
-        element,
-        { 
-          opacity: [isMobile ? 0 : 0.3, 1], 
-          x: [-100, 0] 
-        },
-        {
-          duration: 0.8,
-          ease: [0.22, 1, 0.36, 1],
-          delay: 0.2
-        }
-      );
+      onActiveIndexChange?.(index);
+      animateIn(index);
     },
     (element) => {
-      if (reducedMotion) return;
+      const el = element as HTMLElement;
+      const indexAttr = el.dataset.index ?? '-1';
+      const index = Number(indexAttr);
 
-      // Animação de saída
-      const exitDirection = isMobile ? 100 : -100;
-      animate(
-        element, 
-        { opacity: 0, x: exitDirection }, 
-        { 
-          duration: 0.6, 
-          ease: [0.25, 0.46, 0.45, 0.94] 
-        }
-      );
+      if (Number.isNaN(index)) return;
+
+      animateOut(index);
     }
   );
   
@@ -87,6 +108,7 @@ export const TextRotator = ({
         <div 
           key={index}
           data-index={index}
+          data-testid={`belief-line-${index}`}
           className={`
             belief-line absolute w-full z-20
             font-h1 text-[#4fe6ff] font-bold 
@@ -106,6 +128,9 @@ export const TextRotator = ({
             maxWidth: '600px',
             opacity: reducedMotion ? (index === activeIndex ? 1 : 0) : 0,
             transform: reducedMotion ? 'translateX(0)' : 'translateX(-100px)'
+          }}
+          ref={(el) => {
+            phraseRefs.current[index] = el;
           }}
         >
           {isMobile 

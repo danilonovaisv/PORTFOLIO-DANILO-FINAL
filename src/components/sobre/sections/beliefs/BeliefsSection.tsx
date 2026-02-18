@@ -54,6 +54,7 @@ export const BeliefsSection = () => {
     <section
       ref={sectionRef}
       className="relative w-full min-h-[600vh] overflow-hidden"
+      data-testid="about-beliefs-section"
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Camada 0 - Background */}
@@ -94,6 +95,22 @@ export const BeliefsSection = () => {
             </div>
           </div>
         )}
+      </div>
+
+      {/* Sentinelas de scroll para orquestrar entradas */}
+      <div
+        className="absolute left-0 top-0 w-full pointer-events-none"
+        style={{ height: `${totalSections * 100}vh` }}
+        aria-hidden="true"
+      >
+        {Array.from({ length: totalSections }).map((_, index) => (
+          <div
+            key={`belief-sentinel-${index}`}
+            data-index={index}
+            data-testid={`belief-sentinel-${index}`}
+            className="belief-sentinel h-screen w-full"
+          />
+        ))}
       </div>
 
       {/* Estilos de animação */}

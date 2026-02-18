@@ -353,3 +353,24 @@ Corrigido falhas nos testes unitários:
 **Verification:**
 
 - Not run (user can run `npm run lint` / `npm run typecheck`).
+
+---
+
+## [2026-02-18T13:05] About Beliefs — Scroll Sentinels + Deterministic Trigger
+
+**Context:** Corrigir a sessão “O-QUE-ME-MOVE” onde todas as frases entravam ao mesmo tempo.
+
+**Changes Applied:**
+
+1. **Sentinelas de Scroll (inView)** ✅
+   - File: `src/components/sobre/sections/beliefs/BeliefsSection.tsx`
+   - Adicionadas `.belief-sentinel` empilhadas (1 viewport por frase).
+
+2. **TextRotator Orquestração Determinística** ✅
+   - File: `src/components/sobre/sections/beliefs/TextRotator.tsx`
+   - `inView` agora observa sentinelas e anima apenas a frase ativa.
+   - Refs estáveis + callbacks para evitar re-render quebrando motion.
+
+**Verification:**
+
+- Not run (user can run `pnpm run lint` / `pnpm run typecheck`).
