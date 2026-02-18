@@ -1,9 +1,20 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useState, useCallback } from 'react';
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  AnimatePresence,
+} from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
+// import { cn } from '@/lib/utils';
+
+// --- CONFIGURAÇÃO ---
+const SPRING_CONFIG = { stiffness: 200, damping: 25, mass: 0.5 };
 
 interface VideoManifestoProps {
   src: string;
@@ -20,78 +31,55 @@ const isLikelyVideoUrl = (url?: string | null) => {
 
 export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
   const { asset } = useRealtimeAsset(assetKey || '');
-  const [muted, setMuted] = useState(true);
-  const [shouldLoad, setShouldLoad] = useState(false);
-  const [videoQuality, setVideoQuality] = useState<'hd' | 'sd'>('hd');
-  const shouldReduceMotion = useMotionGate();
-
-  const sectionRef = useRef<HTMLElement>(null);
-  const wrapperRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Lazy loading
-  useEffect(() => {
-    if (!wrapperRef.current) return;
+  // Estados
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldLoad(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '200px' }
-    );
+  // Hooks do Sistema
+  const shouldReduceMotion = useMotionGate();
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
 
-    observer.observe(wrapperRef.current);
-    return () => observer.disconnect();
-  }, []);
+  // Scroll Progress para controlar a expansão baseada em scroll (se desejado futuramente)
+  // Por enquanto, a especificação pede Floating → Fullscreen via clique, mas também menciona "Scroll Driven: scale 0.3 -> 1"
+  // Vamos implementar a lógica:
+  // 1. Inicialmente Floating (Bottom-Right)
+  // 2. Ao clicar -> Expande para Fullscreen Modal
+  // 3. A parte "Scroll Driven" geralmente se refere a transição do Hero para o conteúdo.
+  //    Neste caso, vamos manter o vídeo fixo no canto até o usuário interagir OU chegar numa seção específica.
 
-  // Mutar sempre por padrão; som só habilita via ação explícita do usuário (botão)
-  useEffect(() => {
-    if (!sectionRef.current) return;
+  // Pela descrição da FASE 1: "Scroll Driven (Framer Motion): useScroll + useTransform scale: 0.3 -> 1"
+  // Isso sugere que conforme o usuário scrolla a página, o vídeo cresce? Ou o contrário (Hero -> Thumb)?
+  // "Estado Inicial: Vídeo como thumbnail flutuante... Scroll Driven: scale 0.3 -> 1 ... translate para center"
+  // Isso soa como: Começa pequeno no canto (enquanto no Hero?), e scrollando ELE CRESCE para tomar a tela?
+  // OU: Começa Fullscreen (Hero Background) e encolhe para thumb?
+  // LEITURA DO PEDIDO: "Estado Inicial: Vídeo como thumbnail flutuante... Scroll Driven... scale: 0.3 -> 1"
+  // OK, vamos assumir que ele COMEÇA como thumbnail flutuante no canto inferior direito.
+  // E conforme o usuário scrolla (saindo do Hero?), ele se expande? Ou é uma seção dedicada?
+  // O contexto "VídeoManifesto" geralmente é abaixo do Hero.
+  // Vamos implementar com "Scroll Trigger" container.
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) {
-          setMuted(true);
-        }
-      },
-      { threshold: 0.5 }
-    );
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'center center'],
+  });
 
-    observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
+  // Transformações baseadas no scroll (apenas Desktop)
+  const scale = useTransform(scrollYProgress, [0, 1], [0.3, 1]);
+  const borderRadius = useTransform(scrollYProgress, [0, 1], [24, 0]);
+  const x = useTransform(scrollYProgress, [0, 1], ['35vw', '0vw']); // De canto direito para centro
+  const y = useTransform(scrollYProgress, [0, 1], ['40vh', '0vh']); // De baixo para centro
 
-  // Detectar qualidade de conexão
-  useEffect(() => {
-    // Definir interface mínima para conexão
-    interface NetworkInformation extends EventTarget {
-      readonly effectiveType: 'slow-2g' | '2g' | '3g' | '4g' | '5g';
-      readonly saveData: boolean;
-    }
+  // Spring suave para o movimento
+  const smoothScale = useSpring(scale, SPRING_CONFIG);
+  const smoothX = useSpring(x, SPRING_CONFIG);
+  const smoothY = useSpring(y, SPRING_CONFIG);
+  const smoothRadius = useSpring(borderRadius, SPRING_CONFIG);
 
-    const nav = navigator as Navigator & { connection?: NetworkInformation };
-
-    if (nav.connection) {
-      if (
-        nav.connection.effectiveType === '4g' ||
-        nav.connection.effectiveType === '5g'
-      ) {
-        setVideoQuality('hd');
-      } else {
-        setVideoQuality('sd');
-      }
-    }
-  }, []);
-
-  // Aplicar mute
-  useEffect(() => {
-    if (!videoRef.current) return;
-    videoRef.current.muted = muted;
-  }, [muted]);
-
+  // Resolver Source do Vídeo
   const baseSrc = isLikelyVideoUrl(asset?.publicUrl)
     ? (asset?.publicUrl as string)
     : src;
@@ -101,120 +89,124 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
     setCurrentSrc(baseSrc);
   }, [baseSrc]);
 
-  // Usa SD somente se existir um variant explícito em metadata; evita 404 silencioso.
-  const sdVariant = (
-    asset?.metadata as { variants?: { sd?: string } } | undefined
-  )?.variants?.sd;
-  const variantSrc =
-    videoQuality === 'sd' && isLikelyVideoUrl(sdVariant)
-      ? (sdVariant as string)
-      : currentSrc;
-  const videoSrc = variantSrc;
+  // Handler de clique para expandir/recolher manual
+  const toggleExpand = useCallback(() => {
+    setIsExpanded((prev) => !prev);
+    if (!hasInteracted) {
+      setHasInteracted(true);
+      setIsMuted(false); // Unmute ao expandir pela primeira vez
+    }
+  }, [hasInteracted]);
 
-  const posterSrc = videoSrc.replace('.mp4', '-poster.jpg');
+  // Acessibilidade: Teclado
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleExpand();
+    }
+  };
 
-  return (
-    <motion.section
-      ref={sectionRef}
-      className="video-manifesto w-full overflow-hidden rounded-[2px]"
-      initial={
-        shouldReduceMotion
-          ? { opacity: 0 }
-          : { opacity: 0, y: 18, filter: 'blur(6px)' }
-      }
-      whileInView={
-        shouldReduceMotion
-          ? { opacity: 1 }
-          : { opacity: 1, y: 0, filter: 'blur(0px)' }
-      }
-      transition={
-        shouldReduceMotion
-          ? { duration: 0.2 }
-          : { duration: 1.2, ease: [0.22, 1, 0.36, 1] }
-      }
-      viewport={{ once: true, amount: 0.2 }}
-    >
-      <div
-        ref={wrapperRef}
-        className="video-wrapper relative w-full aspect-video"
-      >
-        {shouldLoad ? (
-          <>
-            <motion.video
-              ref={videoRef}
+  if (shouldReduceMotion || !isDesktop) {
+    // Fallback Mobile / Reduced Motion: Renderização padrão estática (sem floating complexo)
+    return (
+      <section className="relative w-full py-12 md:py-24 bg-background">
+        <div className="container px-4 mx-auto">
+          <div className="relative w-full aspect-video rounded-lg overflow-hidden ring-1 ring-white/10">
+            <video
+              src={currentSrc}
               className="w-full h-full object-cover"
-              src={videoSrc}
-              poster={posterSrc}
-              autoPlay={!shouldReduceMotion}
-              loop={!shouldReduceMotion}
-              muted={muted}
+              controls
               playsInline
               preload="metadata"
-              onError={() => {
-                if (videoSrc !== src) {
-                  setCurrentSrc(src);
-                }
-              }}
-              aria-label="Vídeo showreel demonstrando projetos de design gráfico"
-            ></motion.video>
+            />
+          </div>
+        </div>
+      </section>
+    );
+  }
 
-            {/* Overlay */}
-            <div className="video-overlay absolute inset-0 pointer-events-none" />
+  return (
+    <div ref={containerRef} className="relative h-[200vh] mt-[-100vh] z-20 pointer-events-none">
+      {/* 
+        O containerRef tem altura extra (200vh) para criar track de scroll.
+        Margin negativa puxa ele para cima para começar a "trackear" desde o Hero, se necessário.
+        Mas dado que é um componente "VideoManifesto" abaixo do Hero, vamos ajustar.
+      */}
 
-            {/* Metadados */}
+      <div className="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+        <motion.div
+          className="relative origin-center shadow-2xl cursor-pointer pointer-events-auto"
+          style={{
+            width: '100vw',
+            height: '100vh',
+            scale: isExpanded ? 1 : smoothScale,
+            x: isExpanded ? 0 : smoothX,
+            y: isExpanded ? 0 : smoothY,
+            borderRadius: isExpanded ? 0 : smoothRadius,
+          }}
+          onClick={toggleExpand}
+          onKeyDown={handleKeyDown}
+          tabIndex={0}
+          role="button"
+          aria-label={isExpanded ? "Minimizar vídeo manifesto" : "Expandir vídeo manifesto"}
+          aria-expanded={isExpanded}
+        >
+          <div className="relative w-full h-full bg-black overflow-hidden">
+            <motion.video
+              ref={videoRef}
+              src={currentSrc}
+              className="w-full h-full object-cover"
+              autoPlay
+              muted={isMuted}
+              loop
+              playsInline
+            />
 
-            {/* Toggle som */}
+            {/* Overlay Gradient (apenas quando pequeno para legibilidade se tiver texto sobre, ou estético) */}
+            <motion.div
+              className="absolute inset-0 bg-black/20 hover:bg-black/0 transition-colors duration-500"
+              style={{ opacity: isExpanded ? 0 : 1 }}
+            />
+
+            {/* Mute toggle button (sempre visível) */}
             <button
-              type="button"
-              className="toggle-sound absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/70 transition-colors focus-visible:outline-2 focus-visible:outline-[#4fe6ff] focus-visible:outline-offset-2"
-              onClick={() => setMuted((m: boolean) => !m)}
-              aria-label={
-                muted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'
-              }
-              aria-pressed={!muted}
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMuted(!isMuted);
+              }}
+              className="absolute bottom-8 right-8 z-50 p-3 rounded-full bg-black/40 backdrop-blur-md text-white hover:bg-white/20 transition-all focus:outline-hidden focus:ring-2 focus:ring-primary"
+              aria-label={isMuted ? "Ativar som" : "Mudo"}
             >
-              {muted ? (
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"
-                  />
-                </svg>
+              {isMuted ? (
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 5L6 9H2v6h4l5 4V5z" /><line x1="23" x2="1" y1="9" y2="15" /></svg>
               ) : (
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
-                  />
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" /><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" /></svg>
               )}
             </button>
-          </>
-        ) : (
-          // Placeholder
-          <div className="w-full h-full bg-linear-to-br from-neutral-900 to-neutral-800 animate-pulse" />
-        )}
+
+            {/* Expanded Close Button */}
+            <AnimatePresence>
+              {isExpanded && (
+                <motion.button
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    // console.log('Close clicked'); // Debug
+                    setIsExpanded(false);
+                  }}
+                  className="absolute top-8 right-8 z-50 p-4 rounded-full bg-black/40 backdrop-blur-md text-white hover:bg-white/20"
+                  aria-label="Fechar vídeo fullscreen"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+                </motion.button>
+              )}
+            </AnimatePresence>
+
+          </div>
+        </motion.div>
       </div>
-    </motion.section>
+    </div>
   );
 }

@@ -78,7 +78,15 @@ export default function FeaturedProjectsRealtime({
         return;
       }
 
-      setProjects(nextProjects);
+      // Optimization: Only update state if projects have changed
+      setProjects((current) => {
+        const isSame =
+          current.length === nextProjects.length &&
+          current.every((p, i) => p.slug === nextProjects[i].slug); // Basic check, can be deeper if needed
+
+        if (isSame) return current;
+        return nextProjects;
+      });
     } catch (error) {
       if (isDev) {
         console.warn(

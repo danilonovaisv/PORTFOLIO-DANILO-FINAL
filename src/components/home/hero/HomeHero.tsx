@@ -34,9 +34,15 @@ export default function HomeHero() {
   const shouldRenderWebGL =
     supportsWebGL && mountWebGL && !shouldReduceMotion && allowHeavyWebGL;
 
+  const handleWebGLCreated = useCallback(() => {
+    setIsLoaded(true);
+  }, []);
+
+  // Fallback de segurança: se o WebGL não carregar em 3s, remove preloader
   useEffect(() => {
-    // Timer apenas para coordenar a entrada das animações, não para carregar assets
-    const timer = setTimeout(() => setIsLoaded(true), CONFIG.preloadMs);
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 3000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -125,7 +131,7 @@ export default function HomeHero() {
         <div className="absolute inset-0 z-40 pointer-events-none overflow-hidden">
           <div className="sticky top-0 h-screen w-full">
             {shouldRenderWebGL ? (
-              <GhostSceneWrapper />
+              <GhostSceneWrapper onCreated={handleWebGLCreated} />
             ) : (
               <div
                 className="absolute inset-0 z-0 opacity-20 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)]"
