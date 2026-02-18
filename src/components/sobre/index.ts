@@ -11,16 +11,5 @@ export {
   AboutClosing,
 } from './sections';
 
-// Belief Components
-export {
-  BeliefSection,
-  BeliefFinalSection,
-  BeliefFixedHeader,
-  BeliefFinalSectionOverlay,
-} from './beliefs';
-
-// 3D Components
-export { GhostModel, GhostScene, ProceduralGhost } from './3d';
-
 // Shared Utilities
 export { motionTokens, motionSprings, kw } from './shared';

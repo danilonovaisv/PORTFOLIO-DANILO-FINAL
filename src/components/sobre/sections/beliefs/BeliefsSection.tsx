@@ -2,8 +2,8 @@
 
 import React, { useRef } from 'react';
 import dynamic from 'next/dynamic';
-import { BeliefFixedHeader } from '../../beliefs/BeliefFixedHeader';
-import { BeliefFinalSectionOverlay } from '../../beliefs/BeliefFinalSectionOverlay';
+import { BeliefFixedHeader } from './BeliefFixedHeader';
+import { BeliefFinalSectionOverlay } from './BeliefFinalSectionOverlay';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useBeliefAnimation, PHRASES } from './useBeliefAnimation';
 import { BeliefsBackground } from './BeliefsBackground';
