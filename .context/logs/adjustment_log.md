@@ -412,3 +412,27 @@ Corrigido falhas nos testes unitários:
 - ✅ `pnpm lint`
 - ✅ `pnpm typecheck`
 - ✅ `pnpm test:e2e test/e2e/about-beliefs.spec.ts`
+
+---
+
+## [2026-02-19T10:10] Firebase Deploy — Peer Conflict Fix (three/postprocessing)
+
+**Context:** Firebase Hosting deploy falhava por conflito de peer deps entre `postprocessing` e `three`.
+
+**Changes Applied:**
+
+1. **Downgrade compatível de Three.js** ✅
+   - Files:
+     - `package.json`
+     - `pnpm-lock.yaml`
+   - `three` ajustado para `^0.182.0` (compatível com `postprocessing@6.38.2`).
+   - `@types/three` ajustado para `^0.182.0`.
+
+2. **Deploy Firebase Hosting (frameworks)** ✅
+   - Deploy concluído com Node 20 via `pnpm exec firebase deploy --only hosting`.
+   - Hosting release publicado.
+
+**Verification:**
+
+- ✅ `pnpm install`
+- ✅ `firebase deploy --only hosting`
