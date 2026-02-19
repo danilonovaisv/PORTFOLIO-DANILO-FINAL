@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { animate } from 'motion';
-import { useScrollTriggeredAnimation } from '@/lib/motion';
 
 const phrases = [
   "Um vídeo que respira.",
@@ -16,16 +15,17 @@ const phrases = [
 type TextRotatorProps = {
   reducedMotion?: boolean;
   activeIndex: number;
-  onActiveIndexChange?: (_index: number) => void;
 };
 
 export const TextRotator = ({
   reducedMotion = false,
   activeIndex,
-  onActiveIndexChange,
 }: TextRotatorProps) => {
   const [isMobile, setIsMobile] = useState(false);
   const phraseRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const previousIndexRef = useRef(activeIndex);
+  const controlsRef = useRef<{ stop?: () => void }[]>([]);
+  const GHOST_EASING: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
   useEffect(() => {
     const update = () => setIsMobile(window.innerWidth <= 767);
@@ -34,79 +34,83 @@ export const TextRotator = ({
     return () => window.removeEventListener('resize', update);
   }, []);
 
-  const animateIn = useCallback(
-    (index: number) => {
-      const line = phraseRefs.current[index];
+  const stopAnimations = () => {
+    controlsRef.current.forEach((control) => control?.stop?.());
+    controlsRef.current = [];
+  };
+
+  const setLineHidden = (line: HTMLDivElement) => {
+    line.style.opacity = '0';
+    line.style.transform = 'translate3d(0px, 18px, 0)';
+  };
+
+  const updateActiveLine = useCallback(() => {
+    stopAnimations();
+
+    const previousIndex = previousIndexRef.current;
+    const isFirstRender = previousIndex === activeIndex;
+
+    phraseRefs.current.forEach((line, index) => {
       if (!line) return;
 
       if (reducedMotion) {
-        line.style.opacity = '1';
-        line.style.transform = 'translateX(0)';
+        line.style.opacity = index === activeIndex ? '1' : '0';
+        line.style.transform = 'translate3d(0px, 0, 0)';
         return;
       }
 
-      animate(
-        line,
-        {
-          opacity: [isMobile ? 0 : 0.3, 1],
-          x: [-100, 0],
-        },
-        {
-          duration: 0.8,
-          ease: [0.22, 1, 0.36, 1],
-          delay: 0.2,
-        }
-      );
-    },
-    [isMobile, reducedMotion]
-  );
+      if (index !== activeIndex && index !== previousIndex) {
+        setLineHidden(line);
+      }
+    });
 
-  const animateOut = useCallback(
-    (index: number) => {
-      const line = phraseRefs.current[index];
-      if (!line || reducedMotion) return;
+    const activeLine = phraseRefs.current[activeIndex];
+    if (!activeLine) return;
 
-      const exitDirection = isMobile ? 100 : -100;
-      animate(
-        line,
-        { opacity: 0, x: exitDirection },
-        {
-          duration: 0.6,
-          ease: [0.25, 0.46, 0.45, 0.94],
-        }
-      );
-    },
-    [isMobile, reducedMotion]
-  );
-
-  useScrollTriggeredAnimation(
-    '.belief-sentinel',
-    (element) => {
-      const el = element as HTMLElement;
-      const indexAttr = el.dataset.index ?? '-1';
-      const index = Number(indexAttr);
-
-      if (Number.isNaN(index)) return;
-
-      onActiveIndexChange?.(index);
-      animateIn(index);
-    },
-    (element) => {
-      const el = element as HTMLElement;
-      const indexAttr = el.dataset.index ?? '-1';
-      const index = Number(indexAttr);
-
-      if (Number.isNaN(index)) return;
-
-      animateOut(index);
+    if (reducedMotion || isFirstRender) {
+      activeLine.style.opacity = '1';
+      activeLine.style.transform = 'translate3d(0px, 0, 0)';
+      previousIndexRef.current = activeIndex;
+      return;
     }
-  );
-  
+
+    const previousLine = phraseRefs.current[previousIndex] ?? null;
+    activeLine.style.opacity = '0';
+    activeLine.style.transform = 'translate3d(0px, 18px, 0)';
+
+    if (previousLine) {
+      controlsRef.current.push(
+        animate(previousLine, { opacity: 0, y: -18 }, {
+          duration: 0.34,
+          ease: GHOST_EASING,
+        })
+      );
+    }
+
+    controlsRef.current.push(
+      animate(activeLine, { opacity: 1, y: 0 }, {
+        duration: 0.54,
+        ease: GHOST_EASING,
+        delay: 0.05,
+      })
+    );
+
+    previousIndexRef.current = activeIndex;
+  }, [activeIndex, reducedMotion]);
+
+  useEffect(() => {
+    updateActiveLine();
+  }, [updateActiveLine]);
+
+  useEffect(() => {
+    return () => stopAnimations();
+  }, []);
+
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full pointer-events-none">
       {phrases.map((phrase, index) => (
         <div 
-          key={index}
+          key={phrase}
           data-index={index}
           data-testid={`belief-line-${index}`}
           className={`
@@ -115,30 +119,34 @@ export const TextRotator = ({
             ${isMobile ? 'text-center' : 'text-left'}
           `}
           style={isMobile ? {
-            bottom: '20vh',
+            bottom: '12vh',
             fontSize: '36px',
-            width: '90%',
-            left: '5%',
+            width: '86%',
+            left: '7%',
             opacity: reducedMotion ? (index === activeIndex ? 1 : 0) : 0,
-            transform: reducedMotion ? 'translateX(0)' : 'translateX(-100px)'
+            transform: reducedMotion
+              ? 'translate3d(0px, 0, 0)'
+              : `translate3d(0px, ${index === activeIndex ? 0 : 18}px, 0)`
           } : {
             left: '15%',
-            bottom: '10%',
+            bottom: '33%',
             fontSize: '48px',
             maxWidth: '600px',
             opacity: reducedMotion ? (index === activeIndex ? 1 : 0) : 0,
-            transform: reducedMotion ? 'translateX(0)' : 'translateX(-100px)'
+            transform: reducedMotion
+              ? 'translate3d(0px, 0, 0)'
+              : `translate3d(0px, ${index === activeIndex ? 0 : 18}px, 0)`
           }}
           ref={(el) => {
             phraseRefs.current[index] = el;
           }}
         >
-          {isMobile 
-            ? phrase 
-            : phrase.split(' ').map((word, i) => (
-              <span key={i}>
+          {isMobile
+            ? phrase
+            : phrase.split(' ').map((word, wordIndex, words) => (
+              <span key={`${phrase}-${word}-${wordIndex}`}>
                 {word}
-                {i < phrase.split(' ').length - 1 && <br />}
+                {wordIndex < words.length - 1 && <br />}
               </span>
             ))
           }

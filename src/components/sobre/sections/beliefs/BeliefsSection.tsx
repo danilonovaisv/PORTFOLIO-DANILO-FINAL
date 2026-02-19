@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { inView } from 'motion';
 import { BackgroundLayer } from './BackgroundLayer';
 import { OverlayLayer } from './OverlayLayer';
 import { FixedHeader } from './FixedHeader';
@@ -36,24 +35,47 @@ export const BeliefsSection = () => {
     };
   }, []);
 
-  // Detecta entrada/saída da seção para controlar camadas e 3D
+  // Controle determinístico por blocos de viewport (1 frase por ~100vh)
   useEffect(() => {
-    if (!sectionRef.current) return;
+    const section = sectionRef.current;
+    if (!section) return;
 
-    return inView(
-      sectionRef.current,
-      () => {
-        setIsActive(true);
-        return () => setIsActive(false);
-      },
-      { margin: '-20% 0px -20% 0px' }
-    );
-  }, []);
+    const updateActiveIndex = () => {
+      const rect = section.getBoundingClientRect();
+      const sectionTop = window.scrollY + rect.top;
+      const sectionHeight = section.offsetHeight;
+      const sectionBottom = sectionTop + sectionHeight;
+      const viewportHeight = window.innerHeight;
+      const scrollY = window.scrollY;
+      const triggerOffset = viewportHeight * 0.35;
+      const traveled = scrollY + triggerOffset - sectionTop;
+      const block = Math.floor(traveled / Math.max(viewportHeight, 1));
+      const nextIndex = Math.max(0, Math.min(totalSections - 1, block));
+
+      const nextIsActive = scrollY + viewportHeight > sectionTop && scrollY < sectionBottom;
+      setIsActive((previousIsActive) =>
+        previousIsActive === nextIsActive ? previousIsActive : nextIsActive
+      );
+
+      setActiveIndex((previousIndex) =>
+        previousIndex === nextIndex ? previousIndex : nextIndex
+      );
+    };
+
+    updateActiveIndex();
+    window.addEventListener('scroll', updateActiveIndex, { passive: true });
+    window.addEventListener('resize', updateActiveIndex);
+
+    return () => {
+      window.removeEventListener('scroll', updateActiveIndex);
+      window.removeEventListener('resize', updateActiveIndex);
+    };
+  }, [totalSections]);
   
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-[600vh] overflow-hidden"
+      className="relative w-full min-h-[600vh] overflow-visible"
       data-testid="about-beliefs-section"
     >
       <div className="sticky top-0 h-screen w-full overflow-hidden">
@@ -77,7 +99,6 @@ export const BeliefsSection = () => {
         <TextRotator
           reducedMotion={prefersReducedMotion}
           activeIndex={activeIndex}
-          onActiveIndexChange={setActiveIndex}
         />
 
         {/* Camada 5 - Ghost 3D (acima de todas) */}
@@ -88,7 +109,7 @@ export const BeliefsSection = () => {
         {/* Camada 4 - Manifesto Final */}
         {isActive && activeIndex === 5 && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
-            <div className="text-center text-white font-display text-[120px] md:text-[180px] font-black leading-[0.8] opacity-0 animate-manifesto">
+            <div className="text-center text-white font-display text-[22vw] md:text-[16vw] font-black leading-[0.78] opacity-0 animate-manifesto">
               <div>ISSO É</div>
               <div>GHOST</div>
               <div>DESIGN.</div>

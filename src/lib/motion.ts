@@ -15,7 +15,10 @@ export const textAnimation = {
 export const useScrollTriggeredAnimation = (
   selector: string,
   onEnter: (_element: Element) => void,
-  onExit?: (_element: Element) => void
+  onExit?: (_element: Element) => void,
+  options?: {
+    margin?: string;
+  }
 ) => {
   useEffect(() => {
     return inView(
@@ -27,7 +30,7 @@ export const useScrollTriggeredAnimation = (
           if (onExit) onExit(element);
         };
       },
-      { margin: "-30% 0px 0px 0px" }
+      { margin: (options?.margin ?? '-30% 0px 0px 0px') as never }
     );
-  }, [selector, onEnter, onExit]);
+  }, [selector, onEnter, onExit, options?.margin]);
 };

@@ -13,19 +13,26 @@ export const BackgroundLayer = ({
   reducedMotion = false,
 }: BackgroundLayerProps) => {
   const bgRef = useRef<HTMLDivElement>(null);
+  const previousIndexRef = useRef(activeIndex);
   
   useEffect(() => {
     if (!bgRef.current) return;
-    
+
+    const previousColor = colorSequence[previousIndexRef.current % colorSequence.length];
     const currentColor = colorSequence[activeIndex % colorSequence.length];
-    const nextColor = colorSequence[(activeIndex + 1) % colorSequence.length];
 
     if (reducedMotion) {
       bgRef.current.style.backgroundColor = hslToString(currentColor);
+      previousIndexRef.current = activeIndex;
       return;
     }
-    
-    // Interpolação contínua de cor conforme especificação
+
+    if (previousIndexRef.current === activeIndex) {
+      bgRef.current.style.backgroundColor = hslToString(currentColor);
+      return;
+    }
+
+    // Interpolação contínua de cor conforme especificação (sem fade)
     const startTime = Date.now();
     const duration = 900; // 0.9s
     let rafId = 0;
@@ -37,7 +44,7 @@ export const BackgroundLayer = ({
       const t = Math.min(elapsed / duration, 1);
       
       // A cor termina exatamente quando o texto termina a animação
-      const color = interpolateHSL(currentColor, nextColor, t);
+      const color = interpolateHSL(previousColor, currentColor, t);
       bgRef.current.style.backgroundColor = color;
       
       if (t < 1) {
@@ -50,12 +57,12 @@ export const BackgroundLayer = ({
     return () => {
       cancelled = true;
       if (rafId) cancelAnimationFrame(rafId);
-      // Reset para a próxima animação
-      if (bgRef.current) {
-        bgRef.current.style.backgroundColor = hslToString(currentColor);
-      }
     };
   }, [activeIndex, reducedMotion]);
+
+  useEffect(() => {
+    previousIndexRef.current = activeIndex;
+  }, [activeIndex]);
   
   return (
     <div 

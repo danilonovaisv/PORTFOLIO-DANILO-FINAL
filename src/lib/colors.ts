@@ -9,8 +9,10 @@ export const interpolateHSL = (
   let [h2] = endHSL;
   const [, s2, l2] = endHSL;
   
-  // Interpolação suave com easing personalizado
-  const easedT = 0.4 * t * t + 0.2 * t;
+  // Interpolação suave (garante 0..1 sem truncar o valor final)
+  const easedT = t < 0.5
+    ? 4 * t * t * t
+    : 1 - Math.pow(-2 * t + 2, 3) / 2;
   
   // Interpolação de matiz (com tratamento especial para circularidade)
   let h = h1 + (h2 - h1) * easedT;

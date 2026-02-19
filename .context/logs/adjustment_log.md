@@ -374,3 +374,39 @@ Corrigido falhas nos testes unitários:
 **Verification:**
 
 - Not run (user can run `pnpm run lint` / `pnpm run typecheck`).
+
+---
+
+## [2026-02-18T14:20] About Beliefs — Ghost Motion Compliance + Trigger Stabilization
+
+**Context:** Ajustes finais de layout/motion da sessão "O-QUE-ME-MOVE" para remover deslocamentos laterais, reduzir sobreposição com texto e estabilizar o gatilho de frase no scroll.
+
+**Changes Applied:**
+
+1. **Ghost Motion Rules (sem X/bounce/scale agressivo em UI)** ✅
+   - Files:
+     - `src/components/sobre/sections/beliefs/TextRotator.tsx`
+     - `src/components/sobre/sections/beliefs/FixedHeader.tsx`
+   - Entrada/saída ajustadas para `opacity + translateY` (máx `18px`) com easing Ghost.
+   - Removidos deslocamentos horizontais das animações de texto/cabeçalho.
+
+2. **Ghost 3D Rebalance** ✅
+   - File: `src/components/sobre/sections/beliefs/Ghost3D.tsx`
+   - Reposicionado para reduzir colisão com frase lateral e header fixo.
+   - Mantido reduced-cost setup (dpr limitado, antialias off).
+
+3. **Active Section Trigger Refinado** ✅
+   - File: `src/components/sobre/sections/beliefs/BeliefsSection.tsx`
+   - Ativação por blocos de viewport (`~100vh` por frase), mais estável no scroll real.
+   - Evita saltos de índice quando o elemento é centralizado por scroll programático.
+
+4. **E2E Robustez de Scroll** ✅
+   - File: `test/e2e/about-beliefs.spec.ts`
+   - Scroll do teste alterado para posicionamento determinístico no topo dos blocos.
+   - Resolve falso-negativo de opacidade causado por `scrollIntoViewIfNeeded()` centralizando a seção.
+
+**Verification:**
+
+- ✅ `pnpm lint`
+- ✅ `pnpm typecheck`
+- ✅ `pnpm test:e2e test/e2e/about-beliefs.spec.ts`
