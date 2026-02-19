@@ -4,7 +4,9 @@ test('O-QUE-ME-MOVE anima frases em sequência no scroll', async ({ page }) => {
   await page.goto('/sobre');
 
   const scrollToElementTop = async (selector: string) => {
-    const top = await page.locator(selector).evaluate((el) => window.scrollY + el.getBoundingClientRect().top);
+    const top = await page
+      .locator(selector)
+      .evaluate((el) => window.scrollY + el.getBoundingClientRect().top);
     await page.evaluate((y) => {
       window.scrollTo(0, Math.max(0, y + 2));
     }, top);

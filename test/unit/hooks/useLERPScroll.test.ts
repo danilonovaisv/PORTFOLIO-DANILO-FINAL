@@ -39,7 +39,7 @@ describe('useLERPScroll', () => {
       height: 2000,
       x: 0,
       y: 500,
-      toJSON: () => { },
+      toJSON: () => {},
     }));
 
     // Mock ResizeObserver
@@ -88,7 +88,7 @@ describe('useLERPScroll', () => {
       width: 1000,
       x: 0,
       y: 0,
-      toJSON: () => { },
+      toJSON: () => {},
     }));
 
     const trackRef = { current: trackMock };
@@ -126,7 +126,7 @@ describe('useLERPScroll', () => {
       width: 1000,
       x: 0,
       y: 500,
-      toJSON: () => { },
+      toJSON: () => {},
     }));
 
     // Mock ResizeObserver

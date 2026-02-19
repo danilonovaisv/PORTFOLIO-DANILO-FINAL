@@ -2,7 +2,6 @@
 description: # Portfolio-Danilo Agentic Orchestration System (v2.0)
 ---
 
-
 # Portfolio-Danilo Agentic Orchestration System (v2.0)
 
 ## 1. System Overview
@@ -93,7 +92,7 @@ Este sistema opera como um **"Living Infrastructure"**. A orquestração é guia
 ### Artifact: SYSTEM_BOOTSTRAP_CHECKLIST
 
 **Status:** Ready to Start
-**MCP Configuration:**
+**MCP Configuration:** 
 
 * [ ] GitHub Token detectado (MCP Github ativo).
 * [ ] Firebase CLI autenticado (MCP Firebase ativo).

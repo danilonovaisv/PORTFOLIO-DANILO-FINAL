@@ -1,7 +1,12 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { animate, type AnimationOptions, type DOMKeyframesDefinition } from 'motion';
+import {
+  animate,
+  type AnimationOptions,
+  type DOMKeyframesDefinition,
+} from 'motion';
+import { MorphingText } from './MorphingText';
 
 type FixedHeaderProps = {
   activeIndex: number;
@@ -16,7 +21,8 @@ export const FixedHeader = ({
 }: FixedHeaderProps) => {
   const headerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
-  
+  const [hasEntered, setHasEntered] = useState(false);
+
   useEffect(() => {
     if (!headerRef.current) return;
 
@@ -26,6 +32,12 @@ export const FixedHeader = ({
     return () => window.removeEventListener('resize', update);
   }, []);
 
+  // Ativa a animação de MorphingText após um breve delay para garantir que o componente está montado
+  useEffect(() => {
+    const timer = setTimeout(() => setHasEntered(true), 200);
+    return () => clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     if (!headerRef.current) return;
     if (reducedMotion) {
@@ -33,11 +45,14 @@ export const FixedHeader = ({
       headerRef.current.style.transform = 'translateY(0px)';
       return;
     }
-    
-    // Animação de entrada do cabeçalho
-    const keyframes = { opacity: [0.3, 1], y: [18, 0] } as unknown as DOMKeyframesDefinition;
+
+    // Animação de entrada suave do container
+    const keyframes = {
+      opacity: [0, 1],
+      y: [10, 0],
+    } as unknown as DOMKeyframesDefinition;
     const options: AnimationOptions = {
-      duration: 1.2,
+      duration: 0.8,
       ease: [0.22, 1, 0.36, 1],
     };
 
@@ -59,31 +74,52 @@ export const FixedHeader = ({
       return;
     }
 
-    animate(
-      headerRef.current,
-      { opacity: 1, y: 0 } as DOMKeyframesDefinition,
-      { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
-    );
+    animate(headerRef.current, { opacity: 1, y: 0 } as DOMKeyframesDefinition, {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
+    });
   }, [activeIndex, isMobile, reducedMotion, totalSections]);
-  
+
   return (
-    <div 
+    <div
       ref={headerRef}
       className="
-        absolute z-30 right-[6vw] top-[17vh] sm:top-[16vh] md:right-[5vw] md:top-[15vh]
-        text-right w-[min(440px,72vw)] md:w-[min(520px,58vw)] lg:w-[min(560px,46vw)] pointer-events-none
+        absolute z-30 pointer-events-none
+        right-[4vw] top-[12vh]
+        sm:right-[4vw] sm:top-[12vh]
+        md:right-[3vw] md:top-[10vh]
+        lg:right-[4vw] lg:top-[10vh]
+        text-right
+        w-[min(460px,78vw)]
+        md:w-[min(560px,52vw)]
+        lg:w-[min(640px,50vw)]
         transition-opacity duration-300
       "
-      style={{ opacity: 0.3 }}
+      style={{ opacity: 0 }}
     >
-      <h1 className="font-display text-white text-[34px] sm:text-[38px] md:text-[58px] lg:text-[64px] font-black leading-[0.95] uppercase mb-3">
-        Acredito no design que
-        <br />
-        muda o dia de alguém.
-      </h1>
-      <p className="font-h2 text-white text-[22px] sm:text-[24px] md:text-[38px] lg:text-[44px] leading-[0.92] font-bold">
-        Não pelo choque, mas pela conexão.
-      </p>
+      {/* Título principal — MorphingText entrando pela DIREITA */}
+      <MorphingText
+        text="ACREDITO NO DESIGN QUE MUDA O DIA DE ALGUÉM."
+        enterFrom="right"
+        isVisible={hasEntered}
+        duration={700}
+        staggerDelay={14}
+        offset={80}
+        reducedMotion={reducedMotion}
+        className="font-display text-white text-[36px] sm:text-[40px] md:text-[60px] lg:text-[68px] font-black leading-[0.92] uppercase mb-3 text-right"
+      />
+
+      {/* Subtítulo — MorphingText entrando pela DIREITA com delay */}
+      <MorphingText
+        text="Não pelo choque, mas pela conexão."
+        enterFrom="right"
+        isVisible={hasEntered}
+        duration={600}
+        staggerDelay={20}
+        offset={50}
+        reducedMotion={reducedMotion}
+        className="font-h2 text-white text-[20px] sm:text-[22px] md:text-[36px] lg:text-[44px] leading-[0.95] font-bold text-right mt-2"
+      />
     </div>
   );
 };

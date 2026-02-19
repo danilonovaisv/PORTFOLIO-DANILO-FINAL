@@ -63,9 +63,10 @@ export const useLERPScroll = (
       );
 
       maxScroll.current = Math.max(0, trackHeight - availableViewport);
-      const wrapperHeight = maxScroll.current > 0
-        ? trackHeight + stickyTopOffset.current
-        : trackHeight;
+      const wrapperHeight =
+        maxScroll.current > 0
+          ? trackHeight + stickyTopOffset.current
+          : trackHeight;
 
       gallery.style.height = `${wrapperHeight}px`;
     };
@@ -78,7 +79,8 @@ export const useLERPScroll = (
       const clampedOffset = hasScrollableRange
         ? Math.max(0, Math.min(rawOffset, maxScroll.current))
         : 0;
-      const active = hasScrollableRange &&
+      const active =
+        hasScrollableRange &&
         rawOffset >= 0 &&
         rawOffset <= maxScroll.current + 0.5;
 

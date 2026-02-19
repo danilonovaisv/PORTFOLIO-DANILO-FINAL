@@ -54,8 +54,12 @@ const GhostModel = ({
     if (!root) return;
 
     const isFinalSection = activeIndex >= totalSections - 1;
-    const normalizedProgress = Math.min(activeIndex / Math.max(totalSections - 1, 1), 1);
-    const wobble = 0.035 * Math.sin(state.clock.elapsedTime * 1.8 + normalizedProgress * 2);
+    const normalizedProgress = Math.min(
+      activeIndex / Math.max(totalSections - 1, 1),
+      1
+    );
+    const wobble =
+      0.035 * Math.sin(state.clock.elapsedTime * 1.8 + normalizedProgress * 2);
 
     const desiredSize = isMobile
       ? isFinalSection
@@ -76,7 +80,7 @@ const GhostModel = ({
     const yTarget = isMobile
       ? isFinalSection
         ? -0.02
-        : -0.30
+        : -0.3
       : isFinalSection
         ? -0.04
         : -0.22;
@@ -84,21 +88,37 @@ const GhostModel = ({
     const rotationInfluenceX = isMobile ? 0 : pointerRef.current.x * 0.08;
     const rotationInfluenceY = isMobile ? 0 : pointerRef.current.y * 0.05;
 
-    root.position.x = THREE.MathUtils.lerp(root.position.x, xTarget, delta * 4.2);
-    root.position.y = THREE.MathUtils.lerp(root.position.y, yTarget + wobble, delta * 4.2);
+    root.position.x = THREE.MathUtils.lerp(
+      root.position.x,
+      xTarget,
+      delta * 4.2
+    );
+    root.position.y = THREE.MathUtils.lerp(
+      root.position.y,
+      yTarget + wobble,
+      delta * 4.2
+    );
     root.position.z = 0;
 
     root.scale.x = THREE.MathUtils.lerp(root.scale.x, scaleTarget, delta * 4.2);
     root.scale.y = THREE.MathUtils.lerp(root.scale.y, scaleTarget, delta * 4.2);
     root.scale.z = THREE.MathUtils.lerp(root.scale.z, scaleTarget, delta * 4.2);
 
-    root.rotation.x = THREE.MathUtils.lerp(root.rotation.x, -rotationInfluenceY, delta * 3.6);
+    root.rotation.x = THREE.MathUtils.lerp(
+      root.rotation.x,
+      -rotationInfluenceY,
+      delta * 3.6
+    );
     root.rotation.y = THREE.MathUtils.lerp(
       root.rotation.y,
       0.08 * Math.sin(state.clock.elapsedTime * 0.7) + rotationInfluenceX,
       delta * 3.6
     );
-    root.rotation.z = THREE.MathUtils.lerp(root.rotation.z, rotationInfluenceX * -0.16, delta * 3.6);
+    root.rotation.z = THREE.MathUtils.lerp(
+      root.rotation.z,
+      rotationInfluenceX * -0.16,
+      delta * 3.6
+    );
   });
 
   return (
@@ -132,11 +152,19 @@ export const Ghost3D = ({
       <Canvas
         dpr={[1, 1.5]}
         camera={{ position: [0, 0, 6.8], fov: 40 }}
-        gl={{ antialias: false, alpha: true, powerPreference: 'high-performance' }}
+        gl={{
+          antialias: false,
+          alpha: true,
+          powerPreference: 'high-performance',
+        }}
       >
         <ambientLight intensity={1} />
         <directionalLight position={[3, 4, 6]} intensity={1.3} />
-        <directionalLight position={[-3, 1.5, 4]} intensity={0.45} color="#dbe6ff" />
+        <directionalLight
+          position={[-3, 1.5, 4]}
+          intensity={0.45}
+          color="#dbe6ff"
+        />
         <GhostModel
           activeIndex={activeIndex}
           totalSections={totalSections}

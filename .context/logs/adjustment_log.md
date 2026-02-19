@@ -305,9 +305,11 @@ Corrigido falhas nos testes unitários:
    - Atualizado teste `admin-authz.test.ts` para verificar role 'owner' em `app_metadata` em vez de `user_metadata`, alinhando com a lógica de segurança implementada em `src/lib/admin/authz.ts`.
 
 ## 2026-02-18
+
 - Corrigidos avisos de lint em Ghost3D, TextRotator, colors e motion (remoção de imports/vars não usados e ajustes de destructuring).
 
 ## 2026-02-18
+
 - Isolada a seção de crenças com container sticky e min-h para evitar invasão da página.
 - Camadas Background/Overlay/Ghost movidas para absolute dentro da seção e com z-index controlado.
 - Prefer-reduced-motion adicionado para desabilitar 3D e animações pesadas.

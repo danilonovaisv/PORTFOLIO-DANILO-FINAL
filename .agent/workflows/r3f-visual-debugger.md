@@ -9,7 +9,7 @@ description: R3F Visual Debugger
 
 ## 1. Setup & Context
 
-- **MCP Required:** `chrome-devtools`
+- **MCP Required:** `MCP context7`
 - **Context:** Specialized audit for R3F visual correctness and render loop stability.
 
 ## 2. Steps (Skill-Based Execution)
@@ -18,7 +18,7 @@ description: R3F Visual Debugger
 
 - **Instruction:** Audit `useFrame` callbacks for state mutations or object allocations inside the loop.
 - **Skill:** `use a skill webgl-optimizer`
-- **MCP Action:** None
+- **MCP Action:** `MCP context7`
 
 ### Step 2: Context & Lifecycle Verification
 

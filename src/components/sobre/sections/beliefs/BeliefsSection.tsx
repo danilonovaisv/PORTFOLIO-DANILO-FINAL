@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { BackgroundLayer } from './BackgroundLayer';
-import { OverlayLayer } from './OverlayLayer';
 import { FixedHeader } from './FixedHeader';
 import { TextRotator } from './TextRotator';
 import { Ghost3D } from './Ghost3D';
@@ -13,7 +12,7 @@ export const BeliefsSection = () => {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const totalSections = 6;
-  
+
   // Detecta preferências de motion
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -52,7 +51,8 @@ export const BeliefsSection = () => {
       const block = Math.floor(traveled / Math.max(viewportHeight, 1));
       const nextIndex = Math.max(0, Math.min(totalSections - 1, block));
 
-      const nextIsActive = scrollY + viewportHeight > sectionTop && scrollY < sectionBottom;
+      const nextIsActive =
+        scrollY + viewportHeight > sectionTop && scrollY < sectionBottom;
       setIsActive((previousIsActive) =>
         previousIsActive === nextIsActive ? previousIsActive : nextIsActive
       );
@@ -71,7 +71,7 @@ export const BeliefsSection = () => {
       window.removeEventListener('resize', updateActiveIndex);
     };
   }, [totalSections]);
-  
+
   return (
     <section
       ref={sectionRef}
@@ -84,9 +84,6 @@ export const BeliefsSection = () => {
           activeIndex={activeIndex}
           reducedMotion={prefersReducedMotion}
         />
-
-        {/* Camada 1 - Overlay */}
-        <OverlayLayer />
 
         {/* Camada 2 - Cabeçalho Fixo */}
         <FixedHeader

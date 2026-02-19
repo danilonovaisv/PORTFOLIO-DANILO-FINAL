@@ -27,12 +27,12 @@ interface UseBeliefsAnimationProps {
 
 /**
  * useBeliefsAnimation - Hook principal para animações da sessão "O Que Me Move"
- * 
+ *
  * Implementa a interpolação contínua de cores conforme especificação do Ghost Design System:
  * - A interpolação inicia no primeiro frame da entrada do texto
  * - Quando o texto atinge 60% de visibilidade, o BG está ~70% interpolado
  * - A interpolação termina exatamente quando o texto termina a animação
- * 
+ *
  * Arquitetura:
  * 1. Background Color Interpolation (Camada 0)
  * 2. Overlay Transition (Camada 1)
@@ -54,14 +54,21 @@ export function useBeliefsAnimation({
   // 1. Background Color Interpolation (Camada 0)
   // Map scroll progress to colors based on phrase index
   const backgroundColor = useTransform(scrollYProgress, (progress) => {
-    if (progress <= 0.001 || progress >= PHRASE_ZONE_END || prefersReducedMotion) {
+    if (
+      progress <= 0.001 ||
+      progress >= PHRASE_ZONE_END ||
+      prefersReducedMotion
+    ) {
       const c = COLOR_SEQUENCE[0];
       return `hsl(${c.h}, ${c.s}%, ${c.l}%)`;
     }
 
     // Determine current section index
-    const sectionIndex = Math.min(totalPhrases - 1, Math.floor(progress / segment));
-    const sectionProgress = (progress - (sectionIndex * segment)) / segment;
+    const sectionIndex = Math.min(
+      totalPhrases - 1,
+      Math.floor(progress / segment)
+    );
+    const sectionProgress = (progress - sectionIndex * segment) / segment;
 
     // Calculate which color transition we're in
     const colorIndex = Math.min(sectionIndex, COLOR_SEQUENCE.length - 2);
@@ -86,13 +93,20 @@ export function useBeliefsAnimation({
   // 2. Overlay Transition (Camada 1)
   // Opacity animada (0 → 1 → 0) com duração de 0.9s
   const overlayOpacity = useTransform(scrollYProgress, (progress) => {
-    if (progress <= 0.001 || progress >= PHRASE_ZONE_END || prefersReducedMotion) {
+    if (
+      progress <= 0.001 ||
+      progress >= PHRASE_ZONE_END ||
+      prefersReducedMotion
+    ) {
       return 0;
     }
 
     // Determine current section index
-    const sectionIndex = Math.min(totalPhrases - 1, Math.floor(progress / segment));
-    const sectionProgress = (progress - (sectionIndex * segment)) / segment;
+    const sectionIndex = Math.min(
+      totalPhrases - 1,
+      Math.floor(progress / segment)
+    );
+    const sectionProgress = (progress - sectionIndex * segment) / segment;
 
     // Easing personalizado para sincronia perfeita com texto [0.4, 0, 0.2, 1]
     const easedProgress = ghostEase(sectionProgress);

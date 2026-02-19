@@ -9,7 +9,7 @@ description: Preview Management
 
 ## 1. Setup & Context
 
-- **MCP Required:** `chrome-devtools`
+- **MCP Required:** `MCP context7`, `chrome-devtools`
 - **Context:** Manage the local development server and ensure application health.
 
 ## 2. Steps (Skill-Based Execution)
@@ -18,7 +18,7 @@ description: Preview Management
 
 - **Instruction:** Start, stop, or restart the development server based on command.
 - **Skill:** `use a skill nextjs-best-practices`
-- **MCP Action:** None
+- **MCP Action:** `MCP context7`
 
 ### Step 2: Health Verification
 

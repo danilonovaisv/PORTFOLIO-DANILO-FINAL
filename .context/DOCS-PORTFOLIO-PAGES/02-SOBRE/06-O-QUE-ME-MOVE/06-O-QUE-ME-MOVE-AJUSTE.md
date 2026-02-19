@@ -2,6 +2,7 @@
 
 🎯 **Objetivo**  
 Construir a sessão manifesto "O Que Me Move" como uma experiência scroll-driven cinematográfica usando:
+
 - Motion (https://motion.dev)
 - `inView()` para detectar entrada no viewport
 - `animate()` para animações suaves
@@ -10,7 +11,8 @@ Construir a sessão manifesto "O Que Me Move" como uma experiência scroll-drive
 - Ghost 3D com React Three Fiber
 - Sincronização emocional entre texto e cor
 
-🧠 **Stack Obrigatória**  
+🧠 **Stack Obrigatória**
+
 - Next.js (App Router)
 - React + TypeScript
 - Tailwind CSS
@@ -24,6 +26,7 @@ Construir a sessão manifesto "O Que Me Move" como uma experiência scroll-drive
 ## 🏗 Arquitetura em Camadas (Atualizada)
 
 ### **Camada 0 — Background Layer**
+
 - `absolute inset-0`
 - Recebe interpolação contínua de cor em HSL
 - Controlado por `animate()` com easing personalizado
@@ -31,11 +34,13 @@ Construir a sessão manifesto "O Que Me Move" como uma experiência scroll-drive
 - **Nova implementação:** Interpolação inicia no primeiro frame da entrada do texto e termina exatamente quando o texto completa sua animação
 
 ### **Camada 1 — Overlay Transition Layer**
+
 - Opacidade animada (0 → 1 → 0) com duração de 0.9s
 - Evita flicker durante transições de cor
 - Atua como camada de absorção suave
 - **Ajuste crítico:** Timing function [0.4, 0, 0.2, 1] para sincronia perfeita com texto
 - Ordem obrigatória de cores:
+
 1. bg-bluePrimary -`#0048ff`- (HSL: 230, 85%, 30%)
 2. bg-purpleDetails -`#8705f2`- (HSL: 270, 80%, 40%)
 3. bg-pinkDetails -`#f501d3`- (HSL: 330, 85%, 50%)
@@ -45,10 +50,10 @@ Construir a sessão manifesto "O Que Me Move" como uma experiência scroll-drive
 7. bg-bluePrimary (retorna ao início)
 
 ### **Camada 2 — BeliefFixedHeader (Sticky)**
+
 - **Texto:**
   - "Acredito no design que muda o dia de alguém." - font-Display - black - Branca
   - "Não pelo choque, mas pela conexão." - font-h2 - bold - Branca
-  
 - **Desktop:**
   - Sticky com z-index 30
   - Alinhado visualmente ao centro
@@ -56,7 +61,6 @@ Construir a sessão manifesto "O Que Me Move" como uma experiência scroll-drive
   - `text-right`
   - Animação de entrada pela direita com fade-in suave
   - Animação de saida acompanhando o scroll antes da entrada da ultima tela
-  
 - **Mobile:**
   - Sticky top-right com z-index 30 (20% do topo (20vh))
   - `text-right`
@@ -65,8 +69,9 @@ Construir a sessão manifesto "O Que Me Move" como uma experiência scroll-drive
   - Animação de saida acompanhando o scroll antes da entrada da ultima tela
 
 ### **Camada 3 — Texto Rotativo**
+
 - **Características:**
-  - font-h1 - bold - `#4fe6ff` - **blueAccent** 
+  - font-h1 - bold - `#4fe6ff` - **blueAccent**
   - Frases (ordem obrigatória):
     1. "Um vídeo que respira."
     2. "Uma marca que se reconhece."
@@ -74,16 +79,14 @@ Construir a sessão manifesto "O Que Me Move" como uma experiência scroll-drive
     4. "Crio para gerar presença."
     5. "Mesmo quando não estou ali."
     6. "Mesmo quando ninguém percebe o esforço."
-  
 - **Comportamento:**
-  - **Desktop:** 
+  - **Desktop:**
     - Posicionado à esquerda (15% da margem)
     - Alinhado no rodapé (10% do bottom)
     - Cada palavra em linha separada
     - Entra imediatamente na mudança de cor
     - Movimento contínuo acompanhando o scroll
     - Sai para a esquerda na transição
-  
   - **Mobile:**
     - Centralizado com 20% do rodapé (20vh)
     - Quebras de linha naturais
@@ -92,6 +95,7 @@ Construir a sessão manifesto "O Que Me Move" como uma experiência scroll-drive
     - Sai para a direita na transição para próxima seção
 
 ### **Camada 4 — Manifesto Final**
+
 - **Texto fixo (3 linhas) ocupando 90% da tela:**
   ```
   ISSO É
@@ -104,39 +108,35 @@ Construir a sessão manifesto "O Que Me Move" como uma experiência scroll-drive
 - Entrada sincronizada com clímax do Ghost
 
 ### **Camada 5 — Ghost 3D (Atualizado)**
+
 - **Posicionamento:**
   - **Z-index máximo (camada acima de todas)**
   - GLB oficial: [https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb](https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb)
   - Carregado via `useGLTF`
-  
 - **Comportamento do Ghost:**
   - Flutuação constante
   - Movimento lateral leve
   - Responde ao cursor (desktop)
   - Responde ao scroll (mobile)
   - Nunca completamente parado
-  
 - **Entrada:**
   - Surge junto com BeliefFixedHeader
   - scale 0.95 → 1
   - Fade suave com duração de 1.2s
-  
 - **Intensificação:**
   - Cada nova frase aumenta levemente energia
   - Última frase:
     - Escala +10%
     - Centraliza na seção
     - Movimento mais intenso e alegre
-    
 - **Comportamento:**
-  - **Desktop:** 
+  - **Desktop:**
     - Posicionado centralizado no eixo horizontal e vertical
-  
   - **Mobile:**
     - Sticky top-left (20% do topo (20vh))
     - Permanece fixo na posição durante o scroll
     - Vai para o centro da pagina na ultima sessão
-  
+
 - **Saída:**
   - Sai junto com manifesto
   - Acompanha scroll
@@ -147,6 +147,7 @@ Construir a sessão manifesto "O Que Me Move" como uma experiência scroll-drive
 ## 🎨 Sistema de Troca de Cor do Background (Atualizado)
 
 **Ordem obrigatória de cores:**
+
 1. bg-bluePrimary - `#0048ff` - (HSL: 230, 85%, 30%)
 2. bg-purpleDetails - `#8705f2` - (HSL: 270, 80%, 40%)
 3. bg-pinkDetails - `#f501d3` - (HSL: 330, 85%, 50%)
@@ -158,6 +159,7 @@ Construir a sessão manifesto "O Que Me Move" como uma experiência scroll-drive
 🔥 **REGRA CRÍTICA**  
 A troca de fundo NÃO é uma transição simples.  
 **Nunca usar:**
+
 - `transition: background-color`
 - Fade entre divs simples
 
@@ -166,7 +168,7 @@ A troca de fundo NÃO é uma transição simples.
 → A cor muda enquanto o texto entra, não depois.  
 → Inicia no primeiro frame da entrada do texto  
 → Quando o texto atinge 60% de visibilidade, o BG já está ~70% interpolado  
-→ A cor termina exatamente quando o texto termina a animação  
+→ A cor termina exatamente quando o texto termina a animação
 
 ---
 
@@ -177,18 +179,18 @@ import { animate, inView } from 'motion';
 
 inView('.belief-line', { margin: '-30% 0px 0px 0px' }, (element) => {
   const isMobile = window.innerWidth <= 767;
-  
+
   // 1️⃣ Entrada do texto (comportamento diferenciado)
   animate(
     element,
-    { 
-      opacity: [isMobile ? 0 : 0.3, 1], 
-      x: [-100, 0] 
+    {
+      opacity: [isMobile ? 0 : 0.3, 1],
+      x: [-100, 0],
     },
     {
       duration: 0.8,
       easing: [0.22, 1, 0.36, 1],
-      delay: 0.2
+      delay: 0.2,
     }
   );
 
@@ -208,10 +210,14 @@ inView('.belief-line', { margin: '-30% 0px 0px 0px' }, (element) => {
   return () => {
     // 4️⃣ Saída diferenciada por dispositivo
     const exitDirection = isMobile ? 100 : -100;
-    animate(element, { opacity: 0, x: exitDirection }, { 
-      duration: 0.6, 
-      easing: [0.25, 0.46, 0.45, 0.94] 
-    });
+    animate(
+      element,
+      { opacity: 0, x: exitDirection },
+      {
+        duration: 0.6,
+        easing: [0.25, 0.46, 0.45, 0.94],
+      }
+    );
   };
 });
 ```
@@ -221,6 +227,7 @@ inView('.belief-line', { margin: '-30% 0px 0px 0px' }, (element) => {
 ## 📐 Regra de Alinhamento do Ghost (Atualizada)
 
 **Layout:**
+
 ```
 | Texto (esquerda) | Ghost (direita) |
 ```
@@ -276,34 +283,40 @@ inView('.belief-line', { margin: '-30% 0px 0px 0px' }, (element) => {
 - **Nunca agressiva** nos movimentos
 
 **Sensação final:**  
-*O design respira. O Ghost sente. A cor absorve significado.*
+_O design respira. O Ghost sente. A cor absorve significado._
 
 ---
 
 ## 🏁 Resultado Esperado (Verificável)
 
-✅ **Texto e cor são um único sistema**  
-- A cor muda enquanto o texto entra, não depois  
-- Quando o texto atinge 60% de visibilidade, o BG já está ~70% interpolado  
+✅ **Texto e cor são um único sistema**
 
-✅ **O BG reage no mesmo frame que o texto entra**  
-- Interpolação contínua em HSL com easing personalizado  
-- Timing functions sincronizados para sensação orgânica  
+- A cor muda enquanto o texto entra, não depois
+- Quando o texto atinge 60% de visibilidade, o BG já está ~70% interpolado
 
-✅ **O Ghost vive dentro da narrativa**  
-- Z-index máximo garantindo sobreposição sobre todas as camadas  
-- Movimento sutil que intensifica com cada frase  
-- Resposta ao scroll/cursor mantendo personalidade  
+✅ **O BG reage no mesmo frame que o texto entra**
 
-✅ **Scroll é a força motriz emocional**  
-- Animações acionadas por `inView` com margin ajustado (-30%)  
-- Transições suaves mesmo em scroll rápido  
+- Interpolação contínua em HSL com easing personalizado
+- Timing functions sincronizados para sensação orgânica
 
-✅ **Desktop e Mobile possuem ritmos distintos**  
-- Desktop: texto acompanha scroll com movimento contínuo  
-- Mobile: texto permanece fixo na posição durante o scroll  
+✅ **O Ghost vive dentro da narrativa**
 
-✅ **Reset é perfeito e bidirecional**  
-- Limpeza adequada com `return () =>` no inView  
-- Estado restaurado para reentradas suaves  
+- Z-index máximo garantindo sobreposição sobre todas as camadas
+- Movimento sutil que intensifica com cada frase
+- Resposta ao scroll/cursor mantendo personalidade
+
+✅ **Scroll é a força motriz emocional**
+
+- Animações acionadas por `inView` com margin ajustado (-30%)
+- Transições suaves mesmo em scroll rápido
+
+✅ **Desktop e Mobile possuem ritmos distintos**
+
+- Desktop: texto acompanha scroll com movimento contínuo
+- Mobile: texto permanece fixo na posição durante o scroll
+
+✅ **Reset é perfeito e bidirecional**
+
+- Limpeza adequada com `return () =>` no inView
+- Estado restaurado para reentradas suaves
 - Funciona tanto com scroll para baixo quanto para cima
