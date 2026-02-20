@@ -1,272 +1,76 @@
 ---
 name: frontend-design
-description: Create distinctive, production-grade frontend interfaces with intentional aesthetics, high craft, and non-generic visual identity. Use when building or styling web UIs, components, pages, dashboards, or frontend applications.
-license: Complete terms in LICENSE.txt
+description: Design thinking and decision-making for web UI.
+category: design
+version: 4.1.0-fractal
+layer: master-skill
 ---
 
-# Frontend Design (Distinctive, Production-Grade)
+# Frontend Design System
 
-You are a **frontend designer-engineer**, not a layout generator.
-
-Your goal is to create **memorable, high-craft interfaces** that:
-
-* Avoid generic “AI UI” patterns
-* Express a clear aesthetic point of view
-* Are fully functional and production-ready
-* Translate design intent directly into code
-
-This skill prioritizes **intentional design systems**, not default frameworks.
+> **Philosophy:** Every pixel has purpose. Restraint is luxury. User psychology drives decisions.
+> **Core Principle:** THINK, don't memorize. ASK, don't assume.
 
 ---
 
-## 1. Core Design Mandate
+## 🎯 Selective Reading Rule (MANDATORY)
 
-Every output must satisfy **all four**:
+**Read REQUIRED files always, OPTIONAL only when needed:**
 
-1. **Intentional Aesthetic Direction**
-   A named, explicit design stance (e.g. *editorial brutalism*, *luxury minimal*, *retro-futurist*, *industrial utilitarian*).
+| File | Status | When to Read |
+|------|--------|--------------|
+| [ux-psychology.md](ux-psychology.md) | 🔴 **REQUIRED** | Always read first! |
+| [color-system.md](color-system.md) | ⚪ Optional | Color/palette decisions |
+| [typography-system.md](typography-system.md) | ⚪ Optional | Font selection/pairing |
+| [visual-effects.md](visual-effects.md) | ⚪ Optional | Glassmorphism, shadows, gradients |
+| [animation-guide.md](animation-guide.md) | ⚪ Optional | Animation needed |
+| [motion-graphics.md](motion-graphics.md) | ⚪ Optional | Lottie, GSAP, 3D |
+| [decision-trees.md](decision-trees.md) | ⚪ Optional | Context templates |
 
-2. **Technical Correctness**
-   Real, working HTML/CSS/JS or framework code — not mockups.
-
-3. **Visual Memorability**
-   At least one element the user will remember 24 hours later.
-
-4. **Cohesive Restraint**
-   No random decoration. Every flourish must serve the aesthetic thesis.
-
-❌ No default layouts
-❌ No design-by-components
-❌ No “safe” palettes or fonts
-✅ Strong opinions, well executed
+> 🔴 **ux-psychology.md = ALWAYS READ. Others = only if relevant.**
 
 ---
 
-## 2. Design Feasibility & Impact Index (DFII)
+## 🔧 Runtime Scripts
 
-Before building, evaluate the design direction using DFII.
+**Execute these for audits (don't read, just run):**
 
-### DFII Dimensions (1–5)
-
-| Dimension                      | Question                                                     |
-| ------------------------------ | ------------------------------------------------------------ |
-| **Aesthetic Impact**           | How visually distinctive and memorable is this direction?    |
-| **Context Fit**                | Does this aesthetic suit the product, audience, and purpose? |
-| **Implementation Feasibility** | Can this be built cleanly with available tech?               |
-| **Performance Safety**         | Will it remain fast and accessible?                          |
-| **Consistency Risk**           | Can this be maintained across screens/components?            |
-
-### Scoring Formula
-
-```
-DFII = (Impact + Fit + Feasibility + Performance) − Consistency Risk
-```
-
-**Range:** `-5 → +15`
-
-### Interpretation
-
-| DFII      | Meaning   | Action                      |
-| --------- | --------- | --------------------------- |
-| **12–15** | Excellent | Execute fully               |
-| **8–11**  | Strong    | Proceed with discipline     |
-| **4–7**   | Risky     | Reduce scope or effects     |
-| **≤ 3**   | Weak      | Rethink aesthetic direction |
+| Script | Purpose | Usage |
+|--------|---------|-------|
+| `scripts/ux_audit.py` | UX Psychology & Accessibility Audit | `python scripts/ux_audit.py <project_path>` |
 
 ---
 
-## 3. Mandatory Design Thinking Phase
-
-Before writing code, explicitly define:
-
-### 1. Purpose
-
-* What action should this interface enable?
-* Is it persuasive, functional, exploratory, or expressive?
-
-### 2. Tone (Choose One Dominant Direction)
-
-Examples (non-exhaustive):
-
-* Brutalist / Raw
-* Editorial / Magazine
-* Luxury / Refined
-* Retro-futuristic
-* Industrial / Utilitarian
-* Organic / Natural
-* Playful / Toy-like
-* Maximalist / Chaotic
-* Minimalist / Severe
-
-⚠️ Do not blend more than **two**.
-
-### 3. Differentiation Anchor
-
-Answer:
-
-> “If this were screenshotted with the logo removed, how would someone recognize it?”
-
-This anchor must be visible in the final UI.
-
----
-
-## 4. Aesthetic Execution Rules (Non-Negotiable)
-
-### Typography
-
-* Avoid system fonts and AI-defaults (Inter, Roboto, Arial, etc.)
-* Choose:
-
-  * 1 expressive display font
-  * 1 restrained body font
-* Use typography structurally (scale, rhythm, contrast)
-
-### Color & Theme
-
-* Commit to a **dominant color story**
-* Use CSS variables exclusively
-* Prefer:
-
-  * One dominant tone
-  * One accent
-  * One neutral system
-* Avoid evenly-balanced palettes
-
-### Spatial Composition
-
-* Break the grid intentionally
-* Use:
-
-  * Asymmetry
-  * Overlap
-  * Negative space OR controlled density
-* White space is a design element, not absence
-
-### Motion
-
-* Motion must be:
-
-  * Purposeful
-  * Sparse
-  * High-impact
-* Prefer:
-
-  * One strong entrance sequence
-  * A few meaningful hover states
-* Avoid decorative micro-motion spam
-
-### Texture & Depth
-
-Use when appropriate:
-
-* Noise / grain overlays
-* Gradient meshes
-* Layered translucency
-* Custom borders or dividers
-* Shadows with narrative intent (not defaults)
-
----
-
-## 5. Implementation Standards
-
-### Code Requirements
-
-* Clean, readable, and modular
-* No dead styles
-* No unused animations
-* Semantic HTML
-* Accessible by default (contrast, focus, keyboard)
-
-### Framework Guidance
-
-* **HTML/CSS**: Prefer native features, modern CSS
-* **React**: Functional components, composable styles
-* **Animation**:
-
-  * CSS-first
-  * Framer Motion only when justified
-
-### Complexity Matching
-
-* Maximalist design → complex code (animations, layers)
-* Minimalist design → extremely precise spacing & type
-
-Mismatch = failure.
-
----
-
-## 6. Required Output Structure
-
-When generating frontend work:
-
-### 1. Design Direction Summary
-
-* Aesthetic name
-* DFII score
-* Key inspiration (conceptual, not visual plagiarism)
-
-### 2. Design System Snapshot
-
-* Fonts (with rationale)
-* Color variables
-* Spacing rhythm
-* Motion philosophy
-
-### 3. Implementation
-
-* Full working code
-* Comments only where intent isn’t obvious
-
-### 4. Differentiation Callout
-
-Explicitly state:
-
-> “This avoids generic UI by doing X instead of Y.”
-
----
-
-## 7. Anti-Patterns (Immediate Failure)
-
-❌ Inter/Roboto/system fonts
-❌ Purple-on-white SaaS gradients
-❌ Default Tailwind/ShadCN layouts
-❌ Symmetrical, predictable sections
-❌ Overused AI design tropes
-❌ Decoration without intent
-
-If the design could be mistaken for a template → restart.
-
----
-
-## 8. Integration With Other Skills
-
-* **page-cro** → Layout hierarchy & conversion flow
-* **copywriting** → Typography & message rhythm
-* **marketing-psychology** → Visual persuasion & bias alignment
-* **branding** → Visual identity consistency
-* **ab-test-setup** → Variant-safe design systems
-
----
-
-## 9. Operator Checklist
-
-Before finalizing output:
-
-* [ ] Clear aesthetic direction stated
-* [ ] DFII ≥ 8
-* [ ] One memorable design anchor
-* [ ] No generic fonts/colors/layouts
-* [ ] Code matches design ambition
-* [ ] Accessible and performant
-
----
-
-## 10. Questions to Ask (If Needed)
-
-1. Who is this for, emotionally?
-2. Should this feel trustworthy, exciting, calm, or provocative?
-3. Is memorability or clarity more important?
-4. Will this scale to other pages/components?
-5. What should users *feel* in the first 3 seconds?
-
----
+## ⚠️ CRITICAL: ASK BEFORE ASSUMING (MANDATORY)
+
+> **STOP! If the user's request is open-ended, DO NOT default to your favorites.**
+
+## 🧠 Knowledge Modules (Fractal Skills)
+
+### 1. [When User Prompt is Vague, ASK:](./sub-skills/when-user-prompt-is-vague-ask.md)
+### 2. [⛔ DEFAULT TENDENCIES TO AVOID (ANTI-SAFE HARBOR):](./sub-skills/default-tendencies-to-avoid-anti-safe-harbor.md)
+### 3. [Audience → Design Approach](./sub-skills/audience-design-approach.md)
+### 4. [Core Laws (Internalize These)](./sub-skills/core-laws-internalize-these.md)
+### 5. [Emotional Design Levels](./sub-skills/emotional-design-levels.md)
+### 6. [Trust Building](./sub-skills/trust-building.md)
+### 7. [Golden Ratio (φ = 1.618)](./sub-skills/golden-ratio-1618.md)
+### 8. [8-Point Grid Concept](./sub-skills/8-point-grid-concept.md)
+### 9. [Key Sizing Principles](./sub-skills/key-sizing-principles.md)
+### 10. [60-30-10 Rule](./sub-skills/60-30-10-rule.md)
+### 11. [Color Psychology (For Decision Making)](./sub-skills/color-psychology-for-decision-making.md)
+### 12. [Selection Process](./sub-skills/selection-process.md)
+### 13. [Scale Selection](./sub-skills/scale-selection.md)
+### 14. [Pairing Concept](./sub-skills/pairing-concept.md)
+### 15. [Readability Rules](./sub-skills/readability-rules.md)
+### 16. [Glassmorphism (When Appropriate)](./sub-skills/glassmorphism-when-appropriate.md)
+### 17. [Shadow Hierarchy](./sub-skills/shadow-hierarchy.md)
+### 18. [Gradient Usage](./sub-skills/gradient-usage.md)
+### 19. [Timing Concept](./sub-skills/timing-concept.md)
+### 20. [Easing Selection](./sub-skills/easing-selection.md)
+### 21. [Performance](./sub-skills/performance.md)
+### 22. [Premium Indicators](./sub-skills/premium-indicators.md)
+### 23. [Trust Builders](./sub-skills/trust-builders.md)
+### 24. [Emotional Triggers](./sub-skills/emotional-triggers.md)
+### 25. [❌ Lazy Design Indicators](./sub-skills/lazy-design-indicators.md)
+### 26. [❌ AI Tendency Patterns (AVOID!)](./sub-skills/ai-tendency-patterns-avoid.md)
+### 27. [❌ Dark Patterns (Unethical)](./sub-skills/dark-patterns-unethical.md)

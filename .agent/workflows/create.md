@@ -1,38 +1,59 @@
 ---
-description: Create Application
+description: Muốn tạo tính năng mới từ A-Z? Dùng cái này.
 ---
 
-# 🏗️ Create Application
+# /create - Create Application
 
-**Trigger:** `/create`
-**Agent:** `agents/frontend-specialist.md`
+$ARGUMENTS
 
-## 1. Setup & Context
+---
 
-- **MCP Required:** `github`, `supabase`
-- **Context:** Start a new application creation process with interactive dialogue and planning.
+## Task
 
-## 2. Steps (Skill-Based Execution)
+This command starts a new application creation process.
 
-### Step 1: Request Analysis
+### Steps:
 
-- **Instruction:** Analyze the user request and identify missing project details.
-- **Skill:** `use a skill concise-planning`
-- **MCP Action:** None
+1. **Request Analysis**
+   - Understand what the user wants
+   - If information is missing, use `conversation-manager` skill to ask
 
-### Step 2: Technical Planning
+2. **Project Planning**
+   - Use `project-planner` agent for task breakdown
+   - Determine tech stack
+   - Plan file structure
+   - Create plan file and proceed to building
 
-- **Instruction:** Determine tech stack, plan file structure, and define task breakdown.
-- **Skill:** `use a skill nextjs-best-practices`
-- **MCP Action:** None
+3. **Application Building (After Approval)**
+   - Orchestrate with `app-builder` skill
+   - Coordinate expert agents:
+     - `database-architect` → Schema
+     - `backend-specialist` → API
+     - `frontend-specialist` → UI
 
-### Step 3: Implementation
+4. **Preview**
+   - Start with `auto_preview.py` when complete
+   - Present URL to user
 
-- **Instruction:** Execute the plan, coordinating between frontend, backend, and database logic.
-- **Skill:** `use a skill react-best-practices`
-- **MCP Action:** Use Supabase MCP to initialize database schema if required.
+---
 
-## 3. Completion Protocol
+## Usage Examples
 
-- **Validation:** `use a skill verification-before-completion`
-- **Output:** New application codebase and `docs/walkthrough.md`.
+```
+/create blog site
+/create e-commerce app with product listing and cart
+/create todo app
+/create Instagram clone
+/create crm system with customer management
+```
+
+---
+
+## Before Starting
+
+If request is unclear, ask these questions:
+- What type of application?
+- What are the basic features?
+- Who will use it?
+
+Use defaults, add details later.

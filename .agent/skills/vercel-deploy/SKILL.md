@@ -1,121 +1,51 @@
 ---
 name: vercel-deploy
-description: Deploy applications and websites to Vercel using the bundled `scripts/deploy.sh` claimable-preview flow. Use when the user asks to deploy to Vercel, wants a preview URL, or says to push a project live on Vercel.
+description: Automated Vercel deployment skill.
+category: infrastructure
+version: 4.1.0-fractal
+layer: master-skill
 ---
 
-# Vercel Deploy
+# Vercel Deployment Skill
 
-Deploy any project to Vercel instantly. No authentication required.
+> **Goal**: Seamlessly deploy any frontend/full-stack application to Vercel global edge network.
 
-## Prerequisites
+## 1. Prerequisites
 
-- When sandboxing blocks the deployment network calls, rerun with `sandbox_permissions=require_escalated`.
-- The deployment might take a few minutes. Use appropriate timeout values.
+- **CLI**: `vercel` (Install via `npm i -g vercel`)
+- **Auth**: User must be logged in (`vercel login`) or provide `VERCEL_TOKEN`.
 
-## How It Works
+## 2. Deployment Workflow
 
-1. Packages your project into a `.tar.gz` (excludes `node_modules` and `.git`)
-2. Auto-detects framework from `package.json`
-3. Uploads to deployment service
-4. Returns **Preview URL** (live site) and **Claim URL** (transfer to your Vercel account)
+1.  **Detection**:
+    - Scanner checks `package.json` for frameworks (Next.js, Vite, Remix, Astro).
+    - Identifies build command (`npm run build`) and output directory (`dist` or `.next`).
 
-## Usage
+2.  **Configuration**:
+    - Generates `vercel.json` if custom headers/rewrites are needed.
+    - Sets project settings (Root Directory, Framework Preset).
 
-```bash
-bash scripts/deploy.sh [path]
-```
+3.  **Execution**:
+    - **Preview**: `vercel --no-prod` (For testing feature branches).
+    - **Production**: `vercel --prod` (For live release).
 
-**Arguments:**
+4.  **Verification**:
+    - Checks deployment status via `vercel inspect <url>`.
+    - Returns the **Claimable URL** for the user.
 
-- `path` - Directory to deploy, or a `.tgz` file (defaults to current directory)
+## 3. Environment Variables
 
-If you pass a directory, the script will create a `.tar.gz` before upload.
+- **Auto-Sync**: Pulls `.env` from Vercel Project Settings (`vercel env pull`).
+- **Push**: Pushes local `.env` to Vercel (Interactive confirmation required).
 
-**Examples:**
+## 4. Troubleshooting common errors
 
-```bash
-# Deploy current directory
-bash scripts/deploy.sh
+- **Build Fail**: Usually due to strict type checking or linting in CI. Suggest `ignoreBuildErrors: true` ONLY for hotfixes.
+- **Missing Secrets**: Check if `VERCEL_TOKEN` is active in CI/CD environment.
 
-# Deploy specific project
-bash scripts/deploy.sh /path/to/project
+---
 
-# Deploy existing tarball
-bash scripts/deploy.sh /path/to/project.tgz
-```
-
-## Packaging Rules
-
-- Exclude `node_modules`, `.git`, and `.env*`
-- If no `package.json`, keep `framework` as `null`
-- For static HTML with a single `.html` file, rename it to `index.html` before packaging
-
-## Output
-
-```
-Preparing deployment...
-Creating deployment package...
-Deploying...
-✓ Deployment successful!
-
-Preview URL: https://skill-deploy-abc123.vercel.app
-Claim URL:   https://vercel.com/claim-deployment?code=...
-```
-
-The script also outputs JSON to stdout for programmatic use.
-
-```json
-{
-  "previewUrl": "https://skill-deploy-abc123.vercel.app",
-  "claimUrl": "https://vercel.com/claim-deployment?code=...",
-  "deploymentId": "dpl_...",
-  "projectId": "prj_..."
-}
-```
-
-## Framework Detection
-
-The script auto-detects frameworks from `package.json`. Supported frameworks include:
-
-- **React**: Next.js, Gatsby, Create React App, Remix, React Router
-- **Vue**: Nuxt, Vitepress, Vuepress, Gridsome
-- **Svelte**: SvelteKit, Svelte, Sapper
-- **Other Frontend**: Astro, Solid Start, Angular, Ember, Preact, Docusaurus
-- **Backend**: Express, Hono, Fastify, NestJS, Elysia, h3, Nitro
-- **Build Tools**: Vite, Parcel
-- **And more**: Blitz, Hydrogen, RedwoodJS, Storybook, Sanity, etc.
-
-For static HTML projects (no `package.json`), framework is set to `null`.
-
-## Static HTML Projects
-
-For projects without a `package.json`:
-
-- If there's a single `.html` file not named `index.html`, it gets renamed automatically
-- This ensures the page is served at the root URL (`/`)
-
-## Present Results to User
-
-Always show both URLs:
-
-```
-✓ Deployment successful!
-
-Preview URL: https://skill-deploy-abc123.vercel.app
-Claim URL:   https://vercel.com/claim-deployment?code=...
-
-View your site at the Preview URL.
-To transfer this deployment to your Vercel account, visit the Claim URL.
-```
-
-## Troubleshooting
-
-### Escalated Network Access
-
-If deployment fails due to network issues (timeouts, DNS errors, connection resets), rerun the deploy with escalated permissions (use `sandbox_permissions=require_escalated`). The deploy requires escalated network access when sandbox networking blocks outbound requests.
-
-Example guidance to the user:
-
-```
-The deploy needs escalated network access to deploy to Vercel. I can rerun the command with escalated permissions—want me to proceed?
-```
+**Command Reference**:
+- `vercel link`: Link local folder to remote project.
+- `vercel deploy`: Deploy preview.
+- `vercel deploy --prod`: Deploy production.

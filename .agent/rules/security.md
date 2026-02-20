@@ -1,24 +1,42 @@
-# SECURITY & COMPLIANCE PROTOCOLS
+---
+trigger: always_on
+---
 
-## 🛡️ Autenticação & RLS
+# SECURITY.MD - Security Guardrails
 
-1. **Auth Gate**: Middleware `src/middleware.ts` deve bloquear `/admin/(protected)` para não-autenticados.
-2. **RLS (Row Level Security)**:
-   - **Public**: `SELECT` permitido APENAS onde `status = 'published'`.
-   - **Admin**: `ALL` permitido para roles autenticadas com claim de admin.
-3. **Secrets**: Nunca commitar `.env`. Validar `NEXT_PUBLIC_SUPABASE_URL` e `SUPABASE_SERVICE_ROLE_KEY`.
+> **Mục tiêu**: Bảo vệ hệ thống khỏi các lỗ hổng phổ biến và sai sót của con người.
 
-## 🚦 Regras de Execução (Agent Permissions)
+---
 
-- **Allowlist (Livre)**: `git status`, `ls`, `npm run typecheck`, `npm run build`.
-- **Denislist (Requer Aprovação)**: `rm -rf`, `sudo`, `git push` (Agente faz stage, Humano faz push).
-- **Modo Review**: O Agente deve pedir confirmação antes de alterações destrutivas no banco ou configurações de RLS.
+## 🚫 1. FORBIDDEN ACTIONS (Cấm tuyệt đối)
 
-## 🕵️ Ethical Pentest Protocol
->
-> **STATUS**: INATIVO (Ativar apenas sob comando explícito: "INICIAR PENTEST")
+1. **Hardcode Secrets**: 
+   - Không bao giờ viết API Key, Password, Token trực tiếp vào code.
+   - Luôn sử dụng `process.env` hoặc biến môi trường.
+2. **Commit Token**: 
+   - Kiểm tra file `.gitignore` trước khi commit.
+   - Đảm bảo `.env` nằm trong `.gitignore`.
+3. **Delete Database**: 
+   - Không bao giờ chạy lệnh `DROP TABLE` hoặc xóa file `.sqlite` nếu không có lệnh rõ ràng từ người dùng và BA bước xác nhận.
 
-1. **Scope Check**: Ler `targets/scope.txt`.
-2. **No Destructive**: Proibido DoS ou exclusão de dados.
-3. **PII Stop**: Se encontrar dados pessoais reais, PARAR e reportar.
-4. **Artifacts**: Gerar relatório em `reports/final-pentest.md`.
+---
+
+## 🛡️ 2. CODING STANDARDS (Tiêu chuẩn Code An toàn)
+
+1. **SQL Injection**:
+   - Luôn sử dụng Parameterized Queries (hoặc ORM như Prisma/TypeORM).
+   - Cấm nối chuỗi trực tiếp vào câu lệnh SQL.
+2. **XSS (Cross-Site Scripting)**:
+   - Sanitize mọi dữ liệu đầu vào từ người dùng hoặc API.
+   - Sử dụng các thư viện như `dompurify` khi render HTML.
+3. **Authentication**:
+   - Luôn hash mật khẩu (Bcrypt/Argon2).
+
+---
+
+## 🚨 3. INCIDENT PROTOCOL (Quy trình sự cố)
+
+Khi phát hiện lỗ hổng hoặc nghi ngờ lộ secret:
+1. **DỪNG**: Ngừng mọi tác vụ hiện tại.
+2. **BÁO CÁO**: Thông báo ngay cho người dùng bằng cảnh báo đ (RED ALERT).
+3. **KHẮC PHỤC**: Đề xuất phương án xoay key (rotation) hoặc vá lỗi.

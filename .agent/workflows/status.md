@@ -1,32 +1,86 @@
 ---
-description: Show Status
+description: Dự án đang đến đâu rồi? Xem Dashboard báo cáo.
 ---
 
-# 📊 Show Status
+# /status - Show Status
 
-**Trigger:** `/status`
-**Agent:** `agents/frontend-specialist.md`
+$ARGUMENTS
 
-## 1. Setup & Context
+---
 
-- **MCP Required:** `github`
-- **Context:** Display project progress, agent activity, and application health metrics.
+## Task
 
-## 2. Steps (Skill-Based Execution)
+Show current project and agent status.
 
-### Step 1: Progress Tracking
+### What It Shows
 
-- **Instruction:** Analyze completed versus pending tasks and summarize file changes.
-- **Skill:** `use a skill lint-and-validate`
-- **MCP Action:** Use GitHub MCP to summarize recent commits.
+1. **Project Info**
+   - Project name and path
+   - Tech stack
+   - Current features
 
-### Step 2: Environment Audit
+2. **Agent Status Board**
+   - Which agents are running
+   - Which tasks are completed
+   - Pending work
 
-- **Instruction:** Report on tech stack status, preview availability, and feature parity.
-- **Skill:** `use a skill performance-profiling`
-- **MCP Action:** None
+3. **File Statistics**
+   - Files created count
+   - Files modified count
 
-## 3. Completion Protocol
+4. **Preview Status**
+   - Is server running
+   - URL
+   - Health check
 
-- **Validation:** `use a skill verification-before-completion`
-- **Output:** Comprehensive Status Board.
+---
+
+## Example Output
+
+```
+=== Project Status ===
+
+📁 Project: my-ecommerce
+📂 Path: C:/projects/my-ecommerce
+🏷️ Type: nextjs-ecommerce
+📊 Status: active
+
+🔧 Tech Stack:
+   Framework: next.js
+   Database: postgresql
+   Auth: clerk
+   Payment: stripe
+
+✅ Features (5):
+   • product-listing
+   • cart
+   • checkout
+   • user-auth
+   • order-history
+
+⏳ Pending (2):
+   • admin-panel
+   • email-notifications
+
+📄 Files: 73 created, 12 modified
+
+=== Agent Status ===
+
+✅ database-architect → Completed
+✅ backend-specialist → Completed
+🔄 frontend-specialist → Dashboard components (60%)
+⏳ test-engineer → Waiting
+
+=== Preview ===
+
+🌐 URL: http://localhost:3000
+💚 Health: OK
+```
+
+---
+
+## Technical
+
+Status uses these scripts:
+- `python .agent/scripts/session_manager.py status`
+- `python .agent/scripts/auto_preview.py status`
