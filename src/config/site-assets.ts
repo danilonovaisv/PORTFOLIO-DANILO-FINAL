@@ -39,7 +39,7 @@ export const SITE_ASSET_KEYS = {
     methodDesktop: 'about.method_video',
     methodMobile: 'about.method_video',
     beliefs: {
-      ghostModel: 'about.beliefs.ghost-transformed.glb',
+      ghostModel: 'about.beliefs.ghost-transformed',
       skillsVideo: 'about.beliefs.VIDEO-SKILLS-FINAL_compressed.mp4',
       skillsVideoMobile: 'about.beliefs.VIDEO-SKILLS-MOBILE-FINAL.mp4',
     },

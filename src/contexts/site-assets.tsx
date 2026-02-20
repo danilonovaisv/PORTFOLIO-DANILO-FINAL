@@ -88,6 +88,7 @@ export function useSiteAssetUrl(key: string, fallback?: string) {
       'site-assets/about/beliefs/VIDEO-SKILLS-FINAL_compressed.mp4',
     'about.beliefs.VIDEO-SKILLS-MOBILE-FINAL.mp4':
       'site-assets/about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4',
+    'about.beliefs.ghost-transformed': 'site-assets/about/beliefs/ghost.glb',
   };
 
   if (context?.getUrl(key)) return context.getUrl(key);
