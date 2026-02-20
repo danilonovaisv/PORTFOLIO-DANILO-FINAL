@@ -43,7 +43,7 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
 ## 3. Identidade Visual
 
 - Cores aplicadas:
-  - Overlay escuro sobre vídeo para legibilidade de controles.
+  - Vídeo exibido sem overlay/filtro para preservar cor e contraste originais da mídia.
 - Gradientes:
   - Placeholder com gradiente quando vídeo ainda não carregou.
 - Backgrounds:
@@ -51,14 +51,14 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
 - Consistência com GHOST-DESIGN-SYSTEM:
   - Alinhado (entrada suave, atmosfera escura).
 - Uso de contraste:
-  - Botão de som com contraste aceitável.
+  - Botão de som com contraste mantido via `bg-black/50` no próprio controle.
 - Coerência tipográfica:
   - Neutro (sem tipografia protagonista).
 
 ## 4. Interatividade & Animações
 
 - Uso de Framer Motion:
-  - Reveal com `opacity + translateY + blur`.
+  - Reveal com `opacity + translateY` (sem filtro blur).
 - Variants:
   - Animação direta via props (`initial`/`whileInView`).
 - Scroll animations:
@@ -98,7 +98,7 @@ Apresentar reel audiovisual imediatamente após o hero para reforçar prova visu
 - Navegação por teclado:
   - Botão acessível por teclado.
 - Contraste (WCAG):
-  - Bom no botão sobre overlay escuro.
+  - Bom no botão, com contraste garantido pelo fundo do próprio botão.
 - Heading structure:
   - Não impacta estrutura global, mas poderia ter `h2` para reforço semântico.
 - Meta tags:

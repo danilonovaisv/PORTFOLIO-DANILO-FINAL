@@ -120,12 +120,12 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
       initial={
         shouldReduceMotion
           ? { opacity: 0 }
-          : { opacity: 0, y: 18, filter: 'blur(6px)' }
+          : { opacity: 0, y: 18 }
       }
       whileInView={
         shouldReduceMotion
           ? { opacity: 1 }
-          : { opacity: 1, y: 0, filter: 'blur(0px)' }
+          : { opacity: 1, y: 0 }
       }
       transition={
         shouldReduceMotion
@@ -157,9 +157,6 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
               }}
               aria-label="Vídeo showreel demonstrando projetos de design gráfico"
             ></motion.video>
-
-            {/* Overlay */}
-            <div className="video-overlay absolute inset-0 pointer-events-none bg-background/80" />
 
             {/* Metadados */}
 
