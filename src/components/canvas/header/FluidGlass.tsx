@@ -58,7 +58,7 @@ export function FluidGlass({
     // Inline style é necessário para altura dinâmica baseada em HEADER_TOKENS
     <div className={`relative w-full h-16 ${className}`}>
       <Canvas
-        shadows
+        shadows={{ type: THREE.PCFShadowMap }}
         dpr={[1, 2]}
         gl={{
           antialias: true,

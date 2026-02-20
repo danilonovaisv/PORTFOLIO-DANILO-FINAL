@@ -2,6 +2,7 @@
 import React, { Suspense, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { ContactShadows } from '@react-three/drei';
+import * as THREE from 'three';
 import GhostModel from './GhostModel'; // Caminho relativo para GhostModel
 import { MotionValue, motion, useTransform, cubicBezier } from 'framer-motion';
 // Importar o hook do BeliefSection.tsx
@@ -49,7 +50,7 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
       className="w-full h-full pointer-events-none"
     >
       <Canvas
-        shadows
+        shadows={{ type: THREE.PCFShadowMap }}
         dpr={[1, 2]}
         gl={{ antialias: true, alpha: true }}
         // 🟣 [CONFIG VISUAL]: Câmera - Posição Z=6 define o quão perto/longe o objeto parece estar. FOV=35 define a distorção da perspectiva.
@@ -69,7 +70,7 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
         />
 
         {/* Fill Light (Left) - Soft */}
-        <pointLight position={[-5, 5, -5]} intensity={0.5} color="#e6e6ffa0" />
+        <pointLight position={[-5, 5, -5]} intensity={0.5} color="#e6e6ff" />
 
         {/* Rim Light (Back) - Creates silhouette/separation */}
         <pointLight

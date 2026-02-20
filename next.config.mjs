@@ -51,6 +51,7 @@ const cspConfig = {
   'script-src': [
     "'self'",
     "'unsafe-inline'",
+    "'wasm-unsafe-eval'",
     ...(isDev ? ["'unsafe-eval'"] : []),
     'blob:',
     'https://www.youtube.com',
