@@ -9,7 +9,7 @@ description: Auditoria Template
 
 ## 1. Setup & Context
 
-- **MCP Required:** `github`, `supabase`, `firebase`, `chrome-devtools`
+- **MCP Required:** `github`, `supabase`, `firebase`, `chrome-devtools`, `context7`
 - **Context:** High-rigor baseline for all system audits, ensuring full Ghost System compliance.
 
 ## 2. Steps (Skill-Based Execution)
@@ -18,13 +18,13 @@ description: Auditoria Template
 
 - **Instruction:** Map all files, assets, and dependencies within the target section.
 - **Skill:** `use a skill concise-planning`
-- **MCP Action:** None
+- **MCP Action:** `context7`
 
 ### Step 2: Compliance Verification
 
 - **Instruction:** Audit grid margins (.std-grid), color tokens, and motion timings.
 - **Skill:** `use a skill ui-visual-validator`
-- **MCP Action:** None
+- **MCP Action:** `context7`
 
 ### Step 3: Performance & Accessibility Vet
 
