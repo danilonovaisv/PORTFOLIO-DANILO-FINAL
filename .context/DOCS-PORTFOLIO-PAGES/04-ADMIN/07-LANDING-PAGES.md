@@ -26,3 +26,9 @@ Gerenciar páginas detalhadas de projetos (`/projects/[slug]`) com templates ver
 ## 4. Inconformidades observadas
 
 - Inconformidade baixa: reforçar validação de estrutura do campo `content` por template para evitar payload híbrido inválido.
+
+## 5. Atualização 2026-02-20
+
+- `save/delete` em `landing_pages` agora exigem `service_role` para evitar `new row violates row-level security policy`.
+- Uploads de assets da landing page passaram a usar endpoint server-side do admin (`/api/admin/storage/upload`).
+- Criado script SQL de manutenção para claim admin e limpeza de objetos órfãos: `supabase/sql/2026-02-20_admin_claim_and_cached_egress_cleanup.sql`.

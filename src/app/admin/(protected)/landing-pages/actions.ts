@@ -50,7 +50,9 @@ export async function getLandingPageAction(id: string) {
 
 export async function saveLandingPageAction(input: SaveLandingPageInput) {
   const parsed = landingPageMutationSchema.parse(input);
-  const { supabase, user } = await requireAdminAccess();
+  const { supabase, user } = await requireAdminAccess({
+    requireServiceRole: true,
+  });
 
   const payload: TablesUpdate<'landing_pages'> = {
     title: parsed.title,
@@ -122,7 +124,9 @@ export async function saveLandingPageAction(input: SaveLandingPageInput) {
 
 export async function deleteLandingPageAction(id: string) {
   const parsedId = z.string().uuid().parse(id);
-  const { supabase, user } = await requireAdminAccess();
+  const { supabase, user } = await requireAdminAccess({
+    requireServiceRole: true,
+  });
   const { error } = await supabase
     .from('landing_pages')
     .delete()

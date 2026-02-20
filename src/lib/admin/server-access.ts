@@ -15,6 +15,9 @@ export class AdminAccessError extends Error {
 }
 
 export type AdminPrivilegeLevel = 'service_role' | 'request_scoped';
+type RequireAdminAccessOptions = {
+  requireServiceRole?: boolean;
+};
 
 export function assertAdminAccess(user: User | null | undefined) {
   if (!user) {
@@ -26,7 +29,9 @@ export function assertAdminAccess(user: User | null | undefined) {
   }
 }
 
-export async function requireAdminAccess() {
+export async function requireAdminAccess(
+  options: RequireAdminAccessOptions = {}
+) {
   const requestScopedSupabase = await createClient();
   const {
     data: { user },
@@ -52,6 +57,13 @@ export async function requireAdminAccess() {
         reason: error instanceof Error ? error.message : 'unknown',
         userId: user?.id ?? null,
       }
+    );
+  }
+
+  if (options.requireServiceRole && privilegeLevel !== 'service_role') {
+    throw new AdminAccessError(
+      'Operação administrativa requer SUPABASE_SERVICE_ROLE_KEY configurada no servidor.',
+      'forbidden'
     );
   }
 

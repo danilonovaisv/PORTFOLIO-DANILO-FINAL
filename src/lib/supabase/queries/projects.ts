@@ -97,7 +97,9 @@ export async function upsertProject(
     tagIds?: string[];
   }
 ) {
-  const { supabase, user } = await requireAdminAccess();
+  const { supabase, user } = await requireAdminAccess({
+    requireServiceRole: true,
+  });
 
   const { tagIds, ...projectData } = payload;
 
@@ -146,7 +148,9 @@ export async function upsertProject(
 }
 
 export async function deleteProject(projectId: string) {
-  const { supabase, user } = await requireAdminAccess();
+  const { supabase, user } = await requireAdminAccess({
+    requireServiceRole: true,
+  });
   const { error } = await supabase
     .from('portfolio_projects')
     .delete()

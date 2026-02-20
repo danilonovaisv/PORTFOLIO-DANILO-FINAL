@@ -33,3 +33,9 @@ CRUD completo de projetos com filtros, publicação e destaques para Home/Portfo
 ## 5. Inconformidades observadas
 
 - Inconformidade média: padronizar validação de slug/publicação/tags em uma camada única (evitar regras divergentes entre formulário e servidor).
+
+## 6. Atualização 2026-02-20
+
+- Mutações de projetos (`upsert/delete`) passaram a exigir `service_role` no servidor para evitar falha de RLS em ambientes com claims inconsistentes.
+- Upload de mídia no admin foi centralizado em endpoint server-side (`/api/admin/storage/upload`) para remover dependência de policy de upload no client.
+- Schema de projeto refatorado para separar campos base e refinements, eliminando o conflito de runtime entre `extend()` e schema refinado.

@@ -13,7 +13,7 @@ import {
   Menu,
   House,
 } from 'lucide-react';
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { signOut } from '@/lib/supabase/auth-actions';
 import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
 import {
@@ -63,6 +63,11 @@ const navItems = [
 export function AdminShell({ children, userEmail }: Props) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <div className="admin-shell min-h-screen bg-slate-950 text-slate-50">
@@ -126,74 +131,87 @@ export function AdminShell({ children, userEmail }: Props) {
             >
               Admin
             </Link>
-            <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-              <SheetTrigger asChild>
-                <button
-                  type="button"
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-white/15 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-                  aria-label="Abrir menu do admin"
+            {isMounted ? (
+              <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+                <SheetTrigger asChild>
+                  <button
+                    type="button"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-white/15 text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
+                    aria-label="Abrir menu do admin"
+                  >
+                    <Menu size={18} />
+                  </button>
+                </SheetTrigger>
+                <SheetContent
+                  side="right"
+                  className="border-white/10 bg-slate-950 p-0 text-slate-50"
                 >
-                  <Menu size={18} />
-                </button>
-              </SheetTrigger>
-              <SheetContent
-                side="right"
-                className="border-white/10 bg-slate-950 p-0 text-slate-50"
-              >
-                <SheetHeader className="border-b border-white/10 px-5 py-4 text-left">
-                  <SheetTitle className="text-base font-semibold text-white">
-                    Menu Admin
-                  </SheetTitle>
-                  <p className="text-xs text-slate-400">
-                    {userEmail || 'Usuário autenticado'}
-                  </p>
-                </SheetHeader>
-                <div className="flex h-full flex-col">
-                  <nav className="flex-1 space-y-1 p-4">
-                    {navItems.map((item) => {
-                      const active =
-                        pathname === item.href ||
-                        pathname?.startsWith(item.href + '/');
-                      const Icon = item.icon;
+                  <SheetHeader className="border-b border-white/10 px-5 py-4 text-left">
+                    <SheetTitle className="text-base font-semibold text-white">
+                      Menu Admin
+                    </SheetTitle>
+                    <p className="text-xs text-slate-400">
+                      {userEmail || 'Usuário autenticado'}
+                    </p>
+                  </SheetHeader>
+                  <div className="flex h-full flex-col">
+                    <nav className="flex-1 space-y-1 p-4">
+                      {navItems.map((item) => {
+                        const active =
+                          pathname === item.href ||
+                          pathname?.startsWith(item.href + '/');
+                        const Icon = item.icon;
 
-                      return (
-                        <Link
-                          key={`mobile-${item.href}`}
-                          href={item.href}
-                          onClick={() => setMobileMenuOpen(false)}
-                          className={`flex min-h-12 items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-white/5 ${
-                            active ? 'bg-white/10 text-white' : 'text-slate-300'
-                          }`}
-                        >
-                          <Icon size={18} />
-                          {item.label}
-                        </Link>
-                      );
-                    })}
+                        return (
+                          <Link
+                            key={`mobile-${item.href}`}
+                            href={item.href}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className={`flex min-h-12 items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-white/5 ${
+                              active
+                                ? 'bg-white/10 text-white'
+                                : 'text-slate-300'
+                            }`}
+                          >
+                            <Icon size={18} />
+                            {item.label}
+                          </Link>
+                        );
+                      })}
 
-                    <Link
-                      href="/"
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="mt-3 flex min-h-12 items-center gap-3 rounded-lg border border-white/10 px-3 py-2 text-sm text-slate-200 transition hover:bg-white/5"
-                    >
-                      <House size={18} />
-                      Ir para o Site
-                    </Link>
-                  </nav>
-
-                  <div className="border-t border-white/10 p-4">
-                    <form action={signOut}>
-                      <button
-                        className="inline-flex min-h-12 w-full items-center justify-center rounded-md border border-white/15 px-3 py-2 text-sm font-semibold text-white hover:bg-white/10"
+                      <Link
+                        href="/"
                         onClick={() => setMobileMenuOpen(false)}
+                        className="mt-3 flex min-h-12 items-center gap-3 rounded-lg border border-white/10 px-3 py-2 text-sm text-slate-200 transition hover:bg-white/5"
                       >
-                        Sair
-                      </button>
-                    </form>
+                        <House size={18} />
+                        Ir para o Site
+                      </Link>
+                    </nav>
+
+                    <div className="border-t border-white/10 p-4">
+                      <form action={signOut}>
+                        <button
+                          className="inline-flex min-h-12 w-full items-center justify-center rounded-md border border-white/15 px-3 py-2 text-sm font-semibold text-white hover:bg-white/10"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          Sair
+                        </button>
+                      </form>
+                    </div>
                   </div>
-                </div>
-              </SheetContent>
-            </Sheet>
+                </SheetContent>
+              </Sheet>
+            ) : (
+              <button
+                type="button"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-white/15 text-white"
+                aria-label="Abrir menu do admin"
+                disabled
+              >
+                <Menu size={18} />
+              </button>
+            )}
           </header>
           <div className="px-4 md:px-10 py-6 md:py-10">{children}</div>
         </main>

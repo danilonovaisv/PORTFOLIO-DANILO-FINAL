@@ -1,8 +1,38 @@
-import { createClientComponentClient } from '@/lib/supabase/client';
 import { buildAssetFilePath } from '@/lib/supabase/asset-paths';
 import { normalizeStoragePath } from '@/lib/supabase/urls';
 
 type UploadBucket = 'portfolio-media' | 'site-assets';
+
+async function uploadThroughAdminRoute({
+  bucket,
+  path,
+  file,
+}: {
+  bucket: UploadBucket;
+  path: string;
+  file: File;
+}) {
+  const formData = new FormData();
+  formData.set('bucket', bucket);
+  formData.set('path', path);
+  formData.set('file', file);
+
+  const response = await fetch('/api/admin/storage/upload', {
+    method: 'POST',
+    body: formData,
+  });
+
+  const payload = (await response.json().catch(() => ({}))) as {
+    path?: string;
+    error?: string;
+  };
+
+  if (!response.ok || !payload.path) {
+    throw new Error(payload.error || 'Falha no upload do arquivo.');
+  }
+
+  return payload.path;
+}
 
 function buildPath(base: string, slug: string) {
   const sanitizedBase = base.replace(/\/+$/g, '').replace(/^\/+/g, '');
@@ -16,16 +46,11 @@ export async function uploadToBucket(
   identifier: string,
   file: File
 ) {
-  const supabase = createClientComponentClient();
   const ext = file.name.split('.').pop();
   const name = ext ? `${identifier}.${ext}` : identifier;
   const path = buildPath(basePath, name);
-  const { data, error } = await supabase.storage
-    .from(bucket)
-    .upload(path, file, { cacheControl: '3600', upsert: true });
-
-  if (error) throw error;
-  return normalizeStoragePath(data.path, bucket);
+  const uploadedPath = await uploadThroughAdminRoute({ bucket, path, file });
+  return normalizeStoragePath(uploadedPath, bucket);
 }
 
 export async function uploadSiteAsset({
@@ -41,7 +66,6 @@ export async function uploadSiteAsset({
   subPath?: string;
   bucket?: UploadBucket;
 }) {
-  const supabase = createClientComponentClient();
   const extension = file.name.split('.').pop() ?? 'bin';
   const path = buildAssetFilePath({
     page,
@@ -50,10 +74,6 @@ export async function uploadSiteAsset({
     extension,
   });
 
-  const { data, error } = await supabase.storage
-    .from(bucket)
-    .upload(path, file, { cacheControl: '3600', upsert: true });
-
-  if (error) throw error;
-  return normalizeStoragePath(data.path, bucket);
+  const uploadedPath = await uploadThroughAdminRoute({ bucket, path, file });
+  return normalizeStoragePath(uploadedPath, bucket);
 }
