@@ -2,8 +2,6 @@
 
 import React from 'react';
 import { motion, MotionValue, useTransform, cubicBezier } from 'framer-motion';
-// Import useIsMobile from BeliefSection to avoid duplication
-import { useIsMobile } from './BeliefSection';
 
 // Easing Ghost Padrão: cubic-bezier(0.22, 1, 0.36, 1)
 const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
@@ -17,22 +15,17 @@ export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
   phrases,
   scrollYProgress,
 }) => {
-  const isMobile = useIsMobile();
-
-  if (!isMobile) return null;
-
   // Divisão do scroll total em segmentos para cada frase
   const totalPhrases = phrases.length;
 
   return (
-    <div className="fixed inset-0 z-70 pointer-events-none">
+    <div className="fixed inset-0 z-70 pointer-events-none md:hidden">
       {phrases.map((phrase, index) => (
         <MobilePhrase
           key={index}
           text={phrase}
           index={index}
           totalPhrases={totalPhrases}
-          segmentSize={0}
           scrollYProgress={scrollYProgress}
         />
       ))}
@@ -44,7 +37,6 @@ interface MobilePhraseProps {
   text: string;
   index: number;
   totalPhrases: number;
-  segmentSize: number;
   scrollYProgress: MotionValue<number>;
 }
 
@@ -58,17 +50,18 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   // O container pai tem (PHRASES.length + 2) * 100vh de altura
   // com offset ['start end', 'end end'], o progress vai de 0 a 1
   // Cada frase ocupa 1 tela (100vh), então cada segmento é aprox. 1/(totalPhrases+2)
-  const totalScreens = totalPhrases + 2; // +2 = header + final section
+  const totalScreens = totalPhrases + 1; // +1 = final section
   const segmentSize = 1 / totalScreens;
+  const timelineOffset = 0.08;
 
-  // Primeira frase começa após a tela do header (1 tela)
-  const startPoint = (index + 1) * segmentSize;
+  // Ajuste fino para alinhar a primeira frase visível logo no topo da seção.
+  const startPoint = index * segmentSize + timelineOffset;
   const endPoint = startPoint + segmentSize;
 
-  // Entry: primeiros 20% do segmento; Exit: últimos 20% do segmento
+  // Entry/Exit mais longos para evitar "piscar" e manter legibilidade.
   const entryStart = startPoint;
-  const entryEnd = startPoint + segmentSize * 0.2;
-  const exitStart = endPoint - segmentSize * 0.2;
+  const entryEnd = startPoint + segmentSize * 0.35;
+  const exitStart = endPoint - segmentSize * 0.35;
   const exitEnd = endPoint;
 
   // X: Entra da ESQUERDA (-40px), mantém centro (0px), sai para a DIREITA (+40px)

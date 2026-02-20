@@ -1,6 +1,6 @@
 // GhostModel.tsx
 import * as THREE from 'three';
-import React, { useRef, useMemo, useEffect, useState } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useGLTF, Float } from '@react-three/drei';
 import { GLTF } from 'three-stdlib';
@@ -41,7 +41,15 @@ const GhostModel: React.FC<GhostModelProps> = ({
   const { viewport } = useThree();
 
   const { asset } = useRealtimeAsset(SITE_ASSET_KEYS.about.beliefs.ghostModel);
-  const modelUrl = asset?.publicUrl || GHOST_MODEL_URL;
+  const modelUrl = useMemo(() => {
+    const assetUrl = asset?.publicUrl;
+    if (!assetUrl) return GHOST_MODEL_URL;
+
+    // Evita runtime 400 quando o CMS aponta para ghost-transformed.glb inexistente.
+    if (assetUrl.includes('ghost-transformed.glb')) return GHOST_MODEL_URL;
+
+    return assetUrl;
+  }, [asset?.publicUrl]);
 
   const { nodes, materials } = useGLTF(modelUrl) as unknown as GLTFResult;
 
@@ -79,33 +87,23 @@ const GhostModel: React.FC<GhostModelProps> = ({
     [isMobile, viewport.width, viewport.height]
   );
 
-  const [isEntering, setIsEntering] = useState(true);
-  const isFinalPhase = useRef(false);
-
-  useEffect(() => {
-    // Sincronização estrita com "Acredito no..." (0.1 ~ 0.2 no BeliefFixedHeader)
-    const unsubscribe = scrollProgress.on('change', (val) => {
-      if (val > 0.05 && isEntering) {
-        setIsEntering(false);
-      }
-      // Final phase triggers warning/exit prep
-      if (val > 0.85 && !isFinalPhase.current) {
-        isFinalPhase.current = true;
-      }
-    });
-    return () => unsubscribe();
-  }, [scrollProgress, isEntering]);
-
   useFrame((state) => {
     if (!group.current) return;
 
-    const scroll = scrollProgress.get();
-    const t = Math.min(1, Math.max(0, scroll)); // Clamp entre 0 e 1
+    const scroll = THREE.MathUtils.clamp(scrollProgress.get(), 0, 1);
+    const t = scroll;
+    const enterProgress = THREE.MathUtils.clamp((scroll - 0.05) / 0.15, 0, 1);
+    const finalPhaseProgress = THREE.MathUtils.clamp(
+      (scroll - 0.85) / 0.12,
+      0,
+      1
+    );
 
-    // === ESCALA DINÂMICA (final: +10%) ===
+    // Sempre recomeça ao voltar no scroll: nenhuma fase fica "presa".
+    // === ESCALA DINÂMICA (final: +15%) ===
     const baseScale = config.baseScale;
-    const scaleFactor = 1 + (isFinalPhase.current ? config.scaleBoost : 0);
-    const targetScale = baseScale * scaleFactor;
+    const scaleFactor = 1 + config.scaleBoost * finalPhaseProgress;
+    const targetScale = THREE.MathUtils.lerp(0.1, baseScale * scaleFactor, enterProgress);
 
     // Lerp scale
     group.current.scale.x = THREE.MathUtils.lerp(
@@ -125,16 +123,9 @@ const GhostModel: React.FC<GhostModelProps> = ({
     );
 
     // === FINAL PHASE & EXIT ===
-    let targetY = config.startY;
-    let targetX = config.baseX;
-
-    if (isFinalPhase.current) {
-      // Fase Final: mantém âncora central e centraliza X
-      targetX = 0;
-      targetY = config.startY;
-      // OBS: Se quiser que ele saia para cima, use: targetY = config.exitY;
-      // Por enquanto, mantemos no centro para compor com o texto final.
-    }
+    const targetX = THREE.MathUtils.lerp(config.baseX, 0, finalPhaseProgress);
+    const mobileFinalY = isMobile ? 0 : config.startY;
+    const targetY = THREE.MathUtils.lerp(config.startY, mobileFinalY, finalPhaseProgress);
 
     // Saída Suave (Exit Phase)
     // O CSS Sticky cuida da saída junto com o scroll da seção.
@@ -174,8 +165,7 @@ const GhostModel: React.FC<GhostModelProps> = ({
     const mouseTiltZ = -state.mouse.x * config.tiltBase;
 
     // Scroll também afeta tilt (mais intenso no final + saída)
-    const scrollTiltFactor =
-      t * (scroll > 0.95 ? 4 : isFinalPhase.current ? 2.5 : 1);
+    const scrollTiltFactor = t * (scroll > 0.95 ? 4 : 1 + finalPhaseProgress * 1.5);
     const scrollTiltX =
       Math.sin(t * Math.PI * 3) * config.tiltBase * 0.3 * scrollTiltFactor;
     const scrollTiltZ =
@@ -196,12 +186,12 @@ const GhostModel: React.FC<GhostModelProps> = ({
     );
 
     // === Saltitante no final (wobble + bounce) ===
-    if (isFinalPhase.current) {
+    if (finalPhaseProgress > 0.001) {
       const bounce = Math.sin(state.clock.getElapsedTime() * 6) * 0.035;
       const wobble = Math.sin(state.clock.getElapsedTime() * 4 + 1) * 0.025;
 
       // Se estiver saindo, reduz o wobble para focar na subida
-      const exitDamp = scroll > 0.95 ? 0.2 : 1;
+      const exitDamp = (scroll > 0.95 ? 0.2 : 1) * finalPhaseProgress;
 
       group.current.position.y += bounce * exitDamp;
       group.current.rotation.x += wobble * exitDamp;
@@ -209,23 +199,14 @@ const GhostModel: React.FC<GhostModelProps> = ({
     }
   });
 
-  // Escala de entrada (animação de fade-in + boost final)
-  const targetScale =
-    config.baseScale * (isFinalPhase.current ? 1 + config.scaleBoost : 1);
-  const enterScale = isEntering ? 0.1 : config.baseScale;
-  const currentScale = THREE.MathUtils.lerp(enterScale, targetScale, 0.07); // Lerp suave
-
   return (
-    <group ref={group} scale={currentScale} dispose={null}>
+    <group ref={group} scale={0.1} dispose={null}>
       <group position={[0, config.modelOffsetY, 0]}>
         <Float
           speed={2.2}
-          rotationIntensity={isFinalPhase.current ? 1.2 : 0.6}
-          floatIntensity={isFinalPhase.current ? 1.0 : 0.5}
-          floatingRange={[
-            -config.floatBase * (isFinalPhase.current ? 1.5 : 1),
-            config.floatBase * (isFinalPhase.current ? 1.5 : 1),
-          ]}
+          rotationIntensity={0.6}
+          floatIntensity={0.5}
+          floatingRange={[-config.floatBase, config.floatBase]}
         >
           <mesh
             name="Body_Ghost_White_0"

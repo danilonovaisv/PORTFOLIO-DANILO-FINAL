@@ -231,3 +231,19 @@ export const Ghost = () => {
 | **Reset bidirecional**        | Função de cleanup (`return () => { … }`) restaura estado ao rolar para cima.        |
 
 ---
+
+## 🛠 Estado Implementado (2026-02-20)
+
+- `BeliefFixedHeader` permanece `sticky`, mas sem empurrar o fluxo (`mb-[-100vh]`), permitindo a primeira frase aparecer no topo da seção e estabilizando o E2E.
+- Desktop:
+  - texto da coluna esquerda realinhado para centro vertical da viewport;
+  - largura de bloco refinada para leitura editorial (`max-w-[38vw]` / `lg:max-w-[34vw]`);
+  - fonte ampliada (`clamp(2.8rem, 5.8vw, 6.3rem)`).
+- Mobile:
+  - camada de texto rotativo renderiza com `md:hidden` (sem depender de hook de viewport);
+  - timeline ajustada para a primeira frase já entrar visível no início da seção.
+- Ghost 3D:
+  - reset contínuo por progresso de scroll (sem estado “preso” em fase final);
+  - fallback defensivo para `ghost.glb` quando URL dinâmica vier como `ghost-transformed.glb` inválida.
+- Verificação:
+  - suíte E2E completa passou (`9 passed`), incluindo `about-beliefs.spec.ts`.

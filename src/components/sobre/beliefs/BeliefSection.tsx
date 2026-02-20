@@ -54,7 +54,7 @@ const BeliefLineDesktop: React.FC<BeliefLineProps> = ({
       // 🟣 [CONFIG VISUAL]: Define o tamanho da fonte (Desktop: clamp de 2.8rem a 6rem)
       style={{
         x: lineX,
-        fontSize: 'clamp(2.4rem,5.2vw,5.5rem)',
+        fontSize: 'clamp(2.8rem,5.8vw,6.3rem)',
         lineHeight: 0.9,
       }}
     >
@@ -84,7 +84,6 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
   isMobileTextLayer = false, // Nova prop para controle explícito
 }) => {
   const containerRef = useRef(null);
-  const isMobile = useIsMobile();
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end start'],
@@ -95,7 +94,7 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
   // Como este componente usa scroll relativo a si mesmo (0-1), e é o primeiro,
   // 0.5 aqui ≈ momento que o usuário já scrollou metade da primeira tela.
 
-  const animationRange: [number, number] = isFirst ? [0.55, 0.7] : [0.2, 0.35];
+  const animationRange: [number, number] = isFirst ? [0.4, 0.54] : [0.22, 0.36];
   const exitRange: [number, number] = [0.8, 0.95];
 
   const desktopOpacity = useTransform(
@@ -115,16 +114,13 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
       data-testid={index !== undefined ? `belief-sentinel-${index}` : undefined}
       // 🟣 [CONFIG VISUAL]: Define a cor de fundo da seção
       style={{ backgroundColor: bgColor }}
-      className={`relative w-full h-screen flex overflow-hidden ${isMobile
-          ? 'items-end justify-center pb-[20vh]' // Mobile: espaço para texto fixed no footer (20% do bottom)
-          : 'items-end justify-start pl-[5%] md:pl-[7.5%] lg:pl-[15%] pb-[10%]'
-        }`}
+      className="relative w-full h-screen flex items-center justify-start overflow-hidden pl-[6%] lg:pl-[8%]"
     >
       {/* Desktop: Texto inline */}
-      {!isMobile && !isMobileTextLayer && (
+      {!isMobileTextLayer && (
         <motion.div
           style={{ y: yScroll, opacity: desktopOpacity }}
-          className="relative z-30 w-full flex flex-col justify-end max-w-[60vw]"
+          className="relative z-30 hidden md:flex w-full flex-col justify-center max-w-[38vw] lg:max-w-[34vw]"
           data-testid={index !== undefined ? `belief-line-${index}` : undefined}
         >
           {lines.map((line, i) => (
