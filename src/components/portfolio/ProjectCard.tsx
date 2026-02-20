@@ -140,7 +140,7 @@ export const ProjectCard = ({
             alt={project.title}
             fill
             className={cn(
-              "object-center transition-transform duration-700 group-hover:scale-105",
+              'object-center transition-opacity duration-500 group-hover:opacity-95',
               isMobile ? "object-contain" : "object-cover"
             )}
             style={{ objectPosition }}

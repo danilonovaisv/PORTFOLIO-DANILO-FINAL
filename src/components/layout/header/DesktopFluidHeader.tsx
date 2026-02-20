@@ -86,7 +86,7 @@ export default function DesktopFluidHeader({
     >
       <div
         className={
-          'flex justify-center w-full max-w-[1680px] mx-auto px-6 md:px-12 lg:px-16 xl:px-24'
+          'flex justify-center w-full max-w-[1680px] mx-auto px-6 md:px-16'
         }
       >
         <div ref={wrapRef} className="pointer-events-auto w-full relative">

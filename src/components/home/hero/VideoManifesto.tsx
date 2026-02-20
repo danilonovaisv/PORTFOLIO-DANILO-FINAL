@@ -159,14 +159,14 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
             ></motion.video>
 
             {/* Overlay */}
-            <div className="video-overlay absolute inset-0 pointer-events-none" />
+            <div className="video-overlay absolute inset-0 pointer-events-none bg-background/80" />
 
             {/* Metadados */}
 
             {/* Toggle som */}
             <button
               type="button"
-              className="toggle-sound absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/70 transition-colors focus-visible:outline-2 focus-visible:outline-[#4fe6ff] focus-visible:outline-offset-2"
+              className="toggle-sound absolute top-3 right-3 h-12 w-12 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/70 transition-colors focus-visible:outline-2 focus-visible:outline-[#4fe6ff] focus-visible:outline-offset-2"
               onClick={() => setMuted((m: boolean) => !m)}
               aria-label={
                 muted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'

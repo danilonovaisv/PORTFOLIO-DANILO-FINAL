@@ -1,6 +1,12 @@
 'use client';
 
-import React, { useMemo, useRef, useState, type RefObject } from 'react';
+import React, {
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+  type RefObject,
+} from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useLERPScroll } from '@/hooks/useLERPScroll';
@@ -62,6 +68,7 @@ export const ProjectsGallery = ({
   const [activeFilter, setActiveFilter] = useState<string>(
     mapCategoryToPillar(initialCategory)
   );
+  const filterRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const trackRef = useRef<HTMLDivElement>(null);
   const galleryWrapperRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useMotionGate();
@@ -94,15 +101,56 @@ export const ProjectsGallery = ({
     [filteredProjects, sizePattern]
   );
 
+  const activeFilterIndex = useMemo(
+    () =>
+      Math.max(
+        0,
+        CATEGORY_PILLARS.findIndex((pillar) => pillar.id === activeFilter)
+      ),
+    [activeFilter]
+  );
+
+  const handleFilterKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLButtonElement>, index: number) => {
+      if (
+        event.key !== 'ArrowRight' &&
+        event.key !== 'ArrowLeft' &&
+        event.key !== 'Home' &&
+        event.key !== 'End'
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+
+      let nextIndex = index;
+
+      if (event.key === 'ArrowRight') {
+        nextIndex = (index + 1) % CATEGORY_PILLARS.length;
+      } else if (event.key === 'ArrowLeft') {
+        nextIndex = (index - 1 + CATEGORY_PILLARS.length) % CATEGORY_PILLARS.length;
+      } else if (event.key === 'Home') {
+        nextIndex = 0;
+      } else if (event.key === 'End') {
+        nextIndex = CATEGORY_PILLARS.length - 1;
+      }
+
+      const nextFilter = CATEGORY_PILLARS[nextIndex];
+      setActiveFilter(nextFilter.id);
+      filterRefs.current[nextIndex]?.focus();
+    },
+    []
+  );
+
   // Determine track classes based on scroll state
   const getTrackClasses = () => {
     if (!useLerp) return 'relative';
 
     switch (scrollState) {
       case 'fixed':
-        return 'fixed left-0 right-0 top-[88px] md:top-24 z-10 max-w-[1680px] mx-auto px-6 md:px-12 lg:px-24';
+        return 'fixed left-0 right-0 top-[88px] md:top-24 z-10 max-w-[1680px] mx-auto px-6 md:px-16';
       case 'post':
-        return 'absolute bottom-0 left-0 right-0 z-10 max-w-[1680px] mx-auto px-6 md:px-12 lg:px-24';
+        return 'absolute bottom-0 left-0 right-0 z-10 max-w-[1680px] mx-auto px-6 md:px-16';
       default: // 'pre'
         return 'relative';
     }
@@ -112,22 +160,39 @@ export const ProjectsGallery = ({
     <section
       id="portfolio-gallery"
       aria-labelledby="portfolio-gallery-heading"
+      aria-live="polite"
       className="relative z-20 w-full bg-background text-white pb-32"
     >
       {/* Filter Bar - Editorial Positioning */}
-      <div className="sticky top-0 z-40 w-full bg-background/80 backdrop-blur-md py-6 px-4 md:px-12 border-b border-white/5">
+      <div className="sticky top-0 z-40 w-full bg-background/80 backdrop-blur-md py-6 px-6 md:px-16 border-b border-white/5">
         <div className="mx-auto flex max-w-[1400px] items-center justify-between">
           <h2 id="portfolio-gallery-heading" className="text-xs uppercase tracking-[0.3em] text-white/60">
             [showcase]
           </h2>
 
-          <div className="flex items-center gap-4 md:gap-8">
-            {CATEGORY_PILLARS.map((pillar) => (
+          <div
+            role="tablist"
+            aria-label="Filtros de categorias do portfólio"
+            className="flex items-center gap-4 md:gap-8 overflow-x-auto whitespace-nowrap pb-1"
+          >
+            {CATEGORY_PILLARS.map((pillar, index) => (
               <button
                 key={pillar.id}
+                id={`portfolio-filter-${pillar.id}`}
+                ref={(element) => {
+                  filterRefs.current[index] = element;
+                }}
+                type="button"
+                role="tab"
+                aria-controls="portfolio-filter-panel"
+                aria-selected={activeFilter === pillar.id}
+                tabIndex={activeFilter === pillar.id ? 0 : -1}
                 onClick={() => setActiveFilter(pillar.id)}
+                onKeyDown={(event) =>
+                  handleFilterKeyDown(event, index)
+                }
                 className={cn(
-                  'relative text-xs uppercase tracking-widest transition-colors py-2',
+                  'relative shrink-0 text-xs uppercase tracking-widest transition-colors py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
                   activeFilter === pillar.id
                     ? 'text-[#4fe6ff]'
                     : 'text-white/60 hover:text-white'
@@ -148,6 +213,11 @@ export const ProjectsGallery = ({
       </div>
 
       <div
+        id="portfolio-filter-panel"
+        role="tabpanel"
+        aria-labelledby={`portfolio-filter-${
+          CATEGORY_PILLARS[activeFilterIndex]?.id ?? CATEGORY_PILLARS[0].id
+        }`}
         className={cn('gallery', styles.gallery)}
         ref={galleryWrapperRef as RefObject<HTMLDivElement>}
       >

@@ -77,7 +77,7 @@ export default function PortfolioClient({
 
         {/* CTA Section - After Cards, Following AntigravityCTA Pattern */}
         <section className="relative z-20 bg-background py-16 md:py-24">
-          <div className="mx-auto flex justify-center px-4 md:px-12">
+          <div className="mx-auto flex justify-center px-6 md:px-16">
             <AntigravityCTA
               text="vamos trabalhar juntos"
               href="#contact"

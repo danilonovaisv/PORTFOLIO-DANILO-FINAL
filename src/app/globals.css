@@ -226,9 +226,9 @@ body {
 
 @media (min-width: 1024px) {
   .std-grid {
-    padding-left: 6rem;
-    /* Desktop: 96px */
-    padding-right: 6rem;
+    padding-left: 4rem;
+    /* Desktop: 64px */
+    padding-right: 4rem;
     max-width: 1680px;
     /* Max-width constraint */
   }

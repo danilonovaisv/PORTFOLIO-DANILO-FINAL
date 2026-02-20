@@ -436,3 +436,47 @@ Corrigido falhas nos testes unitários:
 
 - ✅ `pnpm install`
 - ✅ `firebase deploy --only hosting`
+
+## [2026-02-20T07:52] Ajustes Orquestrados — Home + Portfolio + Grid
+
+**Context:** Execução do workflow `.agent/workflows/ajustes-orquestrados.md` com base em `docs/AUDIT_EXECUTION_PLAN.md`.
+
+**Changes Applied:**
+
+1. **Hero layering (copy acima do WebGL)** ✅
+   - File: `src/components/home/hero/HomeHero.tsx`
+   - Copy promovida para `z-50` e camada WebGL reduzida para `z-20`.
+   - Fallback visual respeita `reduced motion` sem pulso animado.
+
+2. **Video Manifesto (contraste + touch target)** ✅
+   - File: `src/components/home/hero/VideoManifesto.tsx`
+   - Overlay real aplicado com `bg-background/80`.
+   - Botão de áudio ajustado para área mínima de toque (`48x48`).
+
+3. **Portfolio Gallery (A11y de filtros + mobile robustness)** ✅
+   - File: `src/components/portfolio/ProjectsGallery.tsx`
+   - Filtros com `role="tablist"/"tab"`, `aria-selected`, `aria-controls` e `tabpanel`.
+   - Navegação por teclado com `ArrowLeft/ArrowRight/Home/End`.
+   - Overflow horizontal seguro para labels longos em mobile.
+
+4. **Project Cards (Ghost motion compliance)** ✅
+   - File: `src/components/portfolio/ProjectCard.tsx`
+   - Removido hover com `scale`; substituído por variação de `opacity`.
+
+5. **Containers/Spacing (24 mobile / 64 desktop)** ✅
+   - Files:
+     - `src/app/globals.css`
+     - `src/components/layout/header/DesktopFluidHeader.tsx`
+     - `src/components/layout/header/mobile/MobileHeaderBar.tsx`
+     - `src/app/portfolio/PortfolioClient.tsx`
+   - `.std-grid` desktop ajustado para 64px.
+   - Header/CTA de portfolio alinhados ao padrão de container.
+
+6. **Artifact de planejamento (pré-implementação)** ✅
+   - File: `docs/IMPLEMENTATION_PLAN_AJUSTES_ORQUESTRADOS.md`
+
+**Verification:**
+
+- ✅ `pnpm exec prettier --check` nos arquivos alterados.
+- ⚠️ `pnpm lint` bloqueado por ambiente local (`eslint/bin/eslint.js` ausente) + Node `v25` fora da engine.
+- ⚠️ `pnpm typecheck` falha por inconsistências preexistentes do workspace/deps (não introduzidas por este ajuste).
