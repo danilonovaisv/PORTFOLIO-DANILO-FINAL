@@ -33,7 +33,17 @@ export function FluidGlass({
   reducedMotion = false,
   className,
 }: FluidGlassProps) {
+  const is3DDisabled = process.env.NEXT_PUBLIC_DISABLE_3D === 'true';
+
   if (mode !== 'bar') return null;
+
+  if (is3DDisabled) {
+    return (
+      <div
+        className={`relative w-full h-16 ${className} bg-zinc-900 border-dashed border-2 border-zinc-700`}
+      />
+    );
+  }
 
   const materialProps: FluidGlassMaterialProps = {
     ior: 1.15,

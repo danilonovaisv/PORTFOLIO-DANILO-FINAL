@@ -14,6 +14,7 @@ interface GhostSceneProps {
 const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
   const isMobile = useIsMobile();
   const containerRef = useRef<HTMLDivElement>(null);
+  const is3DDisabled = process.env.NEXT_PUBLIC_DISABLE_3D === 'true';
 
   // Easing Ghost Padrão
   const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
@@ -28,6 +29,18 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
     ['blur(12px)', 'blur(0px)'],
     { ease: ghostEase }
   );
+
+  if (is3DDisabled) {
+    return (
+      <motion.div
+        ref={containerRef}
+        style={{ opacity, filter: blur }}
+        className="w-full h-full pointer-events-none"
+      >
+        <div className="h-full w-full bg-zinc-900 border-dashed border-2 border-zinc-700" />
+      </motion.div>
+    );
+  }
 
   return (
     <motion.div

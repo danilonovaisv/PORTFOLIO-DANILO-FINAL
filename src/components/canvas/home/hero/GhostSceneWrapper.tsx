@@ -13,5 +13,13 @@ const GhostScene = dynamic(
 );
 
 export default function GhostSceneWrapper() {
+  const is3DDisabled = process.env.NEXT_PUBLIC_DISABLE_3D === 'true';
+
+  if (is3DDisabled) {
+    return (
+      <div className="absolute inset-0 w-full h-full bg-zinc-900 border-dashed border-2 border-zinc-700" />
+    );
+  }
+
   return <GhostScene />;
 }

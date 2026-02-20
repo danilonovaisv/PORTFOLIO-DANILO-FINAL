@@ -112,6 +112,14 @@ const HeaderGlassCanvas = memo(function HeaderGlassCanvas({
 }: {
   accentColor: string;
 }) {
+  const is3DDisabled = process.env.NEXT_PUBLIC_DISABLE_3D === 'true';
+
+  if (is3DDisabled) {
+    return (
+      <div className="h-full w-full bg-zinc-900 border-dashed border-2 border-zinc-700" />
+    );
+  }
+
   return (
     <Canvas
       dpr={[1, 2]}
