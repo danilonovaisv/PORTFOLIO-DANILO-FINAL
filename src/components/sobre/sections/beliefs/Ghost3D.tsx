@@ -1,23 +1,72 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  Component,
+  Suspense,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
+import { useSiteAssetUrl } from '@/contexts/site-assets';
+import { SITE_ASSET_KEYS } from '@/config/site-assets';
 
-const MODEL_URL =
+const LEGACY_MODEL_URL =
   'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb';
+const STABLE_MODEL_URL =
+  'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost.glb';
+
+const toStableGhostVariant = (value: string) =>
+  value.replace(/ghost-transformed\.glb(?:\?.*)?$/i, 'ghost.glb');
+
+const buildModelCandidates = (primary?: string) => {
+  const candidates = [primary, primary ? toStableGhostVariant(primary) : null];
+  candidates.push(STABLE_MODEL_URL, LEGACY_MODEL_URL);
+  return Array.from(new Set(candidates.filter(Boolean) as string[]));
+};
+
+const canLoadModel = async (url: string, signal: AbortSignal) => {
+  try {
+    const headResponse = await fetch(url, {
+      method: 'HEAD',
+      cache: 'no-store',
+      signal,
+    });
+
+    if (headResponse.ok) return true;
+  } catch {
+    // Fallback para GET de 1 byte quando HEAD não for confiável.
+  }
+
+  try {
+    const getResponse = await fetch(url, {
+      method: 'GET',
+      headers: { Range: 'bytes=0-0' },
+      cache: 'no-store',
+      signal,
+    });
+    return getResponse.ok;
+  } catch {
+    return false;
+  }
+};
 
 const GhostModel = ({
+  modelUrl,
   activeIndex,
   totalSections,
   isMobile,
 }: {
+  modelUrl: string;
   activeIndex: number;
   totalSections: number;
   isMobile: boolean;
 }) => {
-  const { scene } = useGLTF(MODEL_URL);
+  const { scene } = useGLTF(modelUrl);
   const modelRootRef = useRef<THREE.Group>(null);
   const pointerRef = useRef({ x: 0, y: 0 });
 
@@ -118,6 +167,26 @@ const GhostModel = ({
   );
 };
 
+class GhostCanvasErrorBoundary extends Component<
+  { children: ReactNode; onError: () => void },
+  { hasError: boolean }
+> {
+  state = { hasError: false };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch() {
+    this.props.onError();
+  }
+
+  render() {
+    if (this.state.hasError) return null;
+    return this.props.children;
+  }
+}
+
 export const Ghost3D = ({
   activeIndex,
   totalSections,
@@ -126,6 +195,14 @@ export const Ghost3D = ({
   totalSections: number;
 }) => {
   const [isMobile, setIsMobile] = useState(false);
+  const [modelUrl, setModelUrl] = useState<string | null>(null);
+  const [isResolvingModel, setIsResolvingModel] = useState(true);
+  const [modelUnavailable, setModelUnavailable] = useState(false);
+
+  const resolvedAssetUrl = useSiteAssetUrl(
+    SITE_ASSET_KEYS.about.beliefs.ghostModel,
+    'site-assets/about/beliefs/ghost.glb'
+  );
 
   useEffect(() => {
     const updateMobileState = () => {
@@ -137,32 +214,78 @@ export const Ghost3D = ({
     return () => window.removeEventListener('resize', updateMobileState);
   }, []);
 
+  useEffect(() => {
+    let isCancelled = false;
+    const controller = new AbortController();
+
+    const resolveModel = async () => {
+      setIsResolvingModel(true);
+      setModelUnavailable(false);
+
+      const candidates = buildModelCandidates(resolvedAssetUrl);
+
+      for (const candidate of candidates) {
+        const isValid = await canLoadModel(candidate, controller.signal);
+        if (!isValid) continue;
+
+        if (isCancelled) return;
+        setModelUrl(candidate);
+        setIsResolvingModel(false);
+        useGLTF.preload(candidate);
+        return;
+      }
+
+      if (!isCancelled) {
+        setModelUrl(null);
+        setModelUnavailable(true);
+        setIsResolvingModel(false);
+      }
+    };
+
+    void resolveModel();
+
+    return () => {
+      isCancelled = true;
+      controller.abort();
+    };
+  }, [resolvedAssetUrl]);
+
+  if (isResolvingModel || modelUnavailable || !modelUrl) return null;
+
   return (
     <div className="absolute inset-0 pointer-events-none z-40">
-      <Canvas
-        dpr={[1, 1.5]}
-        camera={{ position: [0, 0, 6.8], fov: 40 }}
-        gl={{
-          antialias: false,
-          alpha: true,
-          powerPreference: 'high-performance',
+      <GhostCanvasErrorBoundary
+        onError={() => {
+          setModelUnavailable(true);
+          setModelUrl(null);
         }}
       >
-        <ambientLight intensity={1} />
-        <directionalLight position={[3, 4, 6]} intensity={1.3} />
-        <directionalLight
-          position={[-3, 1.5, 4]}
-          intensity={0.45}
-          color="#dbe6ff"
-        />
-        <GhostModel
-          activeIndex={activeIndex}
-          totalSections={totalSections}
-          isMobile={isMobile}
-        />
-      </Canvas>
+        <Canvas
+          dpr={[1, 1.5]}
+          camera={{ position: [0, 0, 6.8], fov: 40 }}
+          gl={{
+            antialias: false,
+            alpha: true,
+            powerPreference: 'high-performance',
+          }}
+        >
+          <ambientLight intensity={1} />
+          <directionalLight position={[3, 4, 6]} intensity={1.3} />
+          <directionalLight
+            position={[-3, 1.5, 4]}
+            intensity={0.45}
+            color="#dbe6ff"
+          />
+          <Suspense fallback={null}>
+            <GhostModel
+              modelUrl={modelUrl}
+              activeIndex={activeIndex}
+              totalSections={totalSections}
+              isMobile={isMobile}
+            />
+          </Suspense>
+        </Canvas>
+      </GhostCanvasErrorBoundary>
     </div>
   );
 };
-
-useGLTF.preload(MODEL_URL);

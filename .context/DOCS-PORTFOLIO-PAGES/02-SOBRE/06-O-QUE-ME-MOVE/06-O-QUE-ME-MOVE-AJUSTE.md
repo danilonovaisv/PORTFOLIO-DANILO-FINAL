@@ -111,7 +111,8 @@ Construir a sessão manifesto "O Que Me Move" como uma experiência scroll-drive
 
 - **Posicionamento:**
   - **Z-index máximo (camada acima de todas)**
-  - GLB oficial: [https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb](https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb)
+  - GLB oficial: [https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost.glb](https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost.glb)
+  - Compatibilidade: se a chave legado apontar para `ghost-transformed.glb` (retorno 400), o runtime faz fallback automático para `ghost.glb`
   - Carregado via `useGLTF`
 - **Comportamento do Ghost:**
   - Flutuação constante

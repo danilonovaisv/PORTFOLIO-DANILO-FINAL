@@ -131,4 +131,4 @@
 | `about.beliefs.VIDEO-SKILLS-FINAL_compressed`                                       | `about/beliefs/VIDEO-SKILLS-FINAL_compressed.mp4`                                       | `site-assets`     |
 | `clients.clients.strip.9`                                                           | `clients/clients.strip.9.svg`                                                           | `site-assets`     |
 | `about.origin.about.origin_image.1`                                                 | `about/origin/about.origin_image.1.webp`                                                | `site-assets`     |
-| `about.beliefs.ghost-transformed`                                                   | `about/beliefs/ghost-transformed.glb`                                                   | `site-assets`     |
+| `about.beliefs.ghost-transformed`                                                   | `about/beliefs/ghost.glb`                                                               | `site-assets`     |
