@@ -38,6 +38,8 @@ const GhostModel: React.FC<GhostModelProps> = ({
   isMobile,
 }) => {
   const group = useRef<THREE.Group>(null);
+  const lastScrollRef = useRef(0);
+  const scrollImpulseRef = useRef(0);
   const { viewport } = useThree();
 
   const { asset } = useRealtimeAsset(SITE_ASSET_KEYS.about.beliefs.ghostModel);
@@ -78,7 +80,10 @@ const GhostModel: React.FC<GhostModelProps> = ({
       modelOffsetY: isMobile ? 0 : -1.9,
       // 🟣 [CONFIG VISUAL]: Boost de Escala - Quanto o Ghost cresce na fase final (+15%)
       scaleBoost: 0.15, // +15% no final
-      scrollResponse: isMobile ? 0.2 : 0,
+      scrollResponse: isMobile ? 0.65 : 0.85,
+      scrollYResponse: isMobile ? 0.22 : 0.3,
+      scrollZResponse: isMobile ? 0.45 : 0.55,
+      scrollImpulseGain: isMobile ? 1.4 : 1.8,
 
       // Saída (Exit)
       // 🟣 [CONFIG VISUAL]: Posição de Saída Y - Define o quanto ele sobe ao sair da tela
@@ -92,12 +97,21 @@ const GhostModel: React.FC<GhostModelProps> = ({
 
     const scroll = THREE.MathUtils.clamp(scrollProgress.get(), 0, 1);
     const t = scroll;
-    const enterProgress = THREE.MathUtils.clamp((scroll - 0.05) / 0.15, 0, 1);
+    const enterProgress = THREE.MathUtils.clamp((scroll - 0.015) / 0.075, 0, 1);
     const finalPhaseProgress = THREE.MathUtils.clamp(
       (scroll - 0.85) / 0.12,
       0,
       1
     );
+    const scrollDelta = scroll - lastScrollRef.current;
+    lastScrollRef.current = scroll;
+    const scrollKick = THREE.MathUtils.clamp(scrollDelta * 32, -0.65, 0.65);
+    scrollImpulseRef.current = THREE.MathUtils.lerp(
+      scrollImpulseRef.current,
+      Math.min(1, Math.abs(scrollDelta) * 140),
+      0.28
+    );
+    const scrollImpulse = scrollImpulseRef.current;
 
     // Sempre recomeça ao voltar no scroll: nenhuma fase fica "presa".
     // === ESCALA DINÂMICA (final: +15%) ===
@@ -127,33 +141,39 @@ const GhostModel: React.FC<GhostModelProps> = ({
     const mobileFinalY = isMobile ? 0 : config.startY;
     const targetY = THREE.MathUtils.lerp(config.startY, mobileFinalY, finalPhaseProgress);
 
-    // Saída Suave (Exit Phase)
-    // O CSS Sticky cuida da saída junto com o scroll da seção.
-    // O Ghost permanece centralizado (0,0) e a seção o leva embora ao terminar.
-
-    // Aplica Low Pass
-    group.current.position.y = THREE.MathUtils.lerp(
-      group.current.position.y,
-      targetY,
-      0.1
-    );
-
     // X Position Logic with Wiggle
     const wiggleX = isMobile
       ? Math.sin(state.clock.getElapsedTime() * 2.5) *
         config.floatAmplitude *
         0.5
       : 0;
-    const scrollDriftX =
-      Math.sin(t * Math.PI * 2) * config.scrollResponse * 0.1;
+    const scrollWaveX =
+      Math.sin(t * Math.PI * 2.2) *
+      config.scrollResponse *
+      (0.25 + scrollImpulse * 0.75);
     group.current.position.x = THREE.MathUtils.lerp(
       group.current.position.x,
-      targetX + wiggleX + scrollDriftX,
+      targetX + wiggleX + scrollWaveX + scrollKick * 0.5,
       0.06
     );
 
-    // === POSIÇÃO Z (leve profundidade) ===
-    const targetZ = Math.cos(t * Math.PI * 0.8) * 0.3;
+    // === POSIÇÃO Y/Z (profundidade e reação ao scroll) ===
+    const scrollWaveY =
+      Math.sin(t * Math.PI * 3.1) *
+      config.scrollYResponse *
+      (0.2 + scrollImpulse * 0.8);
+    const yTargetWithScroll = targetY + scrollWaveY - Math.abs(scrollKick) * 0.08;
+    group.current.position.y = THREE.MathUtils.lerp(
+      group.current.position.y,
+      yTargetWithScroll,
+      0.1
+    );
+
+    const scrollWaveZ =
+      Math.cos(t * Math.PI * 2.2) *
+      config.scrollZResponse *
+      (0.2 + scrollImpulse * 0.9);
+    const targetZ = Math.cos(t * Math.PI * 0.8) * 0.3 + scrollWaveZ + Math.abs(scrollKick) * 0.3;
     group.current.position.z = THREE.MathUtils.lerp(
       group.current.position.z,
       targetZ,
@@ -165,14 +185,19 @@ const GhostModel: React.FC<GhostModelProps> = ({
     const mouseTiltZ = -state.mouse.x * config.tiltBase;
 
     // Scroll também afeta tilt (mais intenso no final + saída)
-    const scrollTiltFactor = t * (scroll > 0.95 ? 4 : 1 + finalPhaseProgress * 1.5);
+    const scrollTiltFactor =
+      0.45 +
+      t * (scroll > 0.95 ? 4 : 1.3 + finalPhaseProgress * 1.8) +
+      scrollImpulse * 1.6;
     const scrollTiltX =
-      Math.sin(t * Math.PI * 3) * config.tiltBase * 0.3 * scrollTiltFactor;
+      Math.sin(t * Math.PI * 3) * config.tiltBase * 0.42 * scrollTiltFactor;
     const scrollTiltZ =
-      Math.cos(t * Math.PI * 3) * config.tiltBase * 0.3 * scrollTiltFactor;
+      Math.cos(t * Math.PI * 3) * config.tiltBase * 0.42 * scrollTiltFactor;
+    const impulseTiltX = -scrollKick * config.scrollImpulseGain * 0.8;
+    const impulseTiltZ = scrollKick * config.scrollImpulseGain * 0.6;
 
-    const targetRotX = mouseTiltX + scrollTiltX;
-    const targetRotZ = mouseTiltZ + scrollTiltZ;
+    const targetRotX = mouseTiltX + scrollTiltX + impulseTiltX;
+    const targetRotZ = mouseTiltZ + scrollTiltZ + impulseTiltZ;
 
     group.current.rotation.x = THREE.MathUtils.lerp(
       group.current.rotation.x,

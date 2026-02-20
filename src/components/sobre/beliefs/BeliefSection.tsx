@@ -90,20 +90,18 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
   });
 
   // Desktop Ranges
-  // isFirst: Atrasar entrada para garantir que o FixedHeader (parent 0-0.35) terminou.
-  // Como este componente usa scroll relativo a si mesmo (0-1), e é o primeiro,
-  // 0.5 aqui ≈ momento que o usuário já scrollou metade da primeira tela.
-
-  const animationRange: [number, number] = isFirst ? [0.4, 0.54] : [0.22, 0.36];
-  const exitRange: [number, number] = [0.8, 0.95];
+  // Ajuste de sincronia:
+  // A primeira frase entra levemente depois para respeitar a ordem:
+  // FixedHeader + Ghost primeiro, texto logo em seguida.
+  const animationRange: [number, number] = isFirst ? [0.5, 0.64] : [0.36, 0.52];
+  const exitRange: [number, number] = [0.78, 0.92];
 
   const desktopOpacity = useTransform(
     scrollYProgress,
     [animationRange[0], animationRange[1], exitRange[0], exitRange[1]],
     [0, 1, 1, 0]
   );
-
-  const yScroll = useTransform(scrollYProgress, [0.7, 0.95], ['0vh', '-100vh']);
+  const yScroll = useTransform(scrollYProgress, [0.68, 0.92], ['0vh', '-100vh']);
 
   const lines = text.split('\n');
 
@@ -112,7 +110,6 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
       ref={containerRef}
       aria-label={text.replace(/\n/g, ' ')}
       data-testid={index !== undefined ? `belief-sentinel-${index}` : undefined}
-      // 🟣 [CONFIG VISUAL]: Define a cor de fundo da seção
       style={{ backgroundColor: bgColor }}
       className="relative w-full h-screen flex items-center justify-start overflow-hidden pl-[6%] lg:pl-[8%]"
     >

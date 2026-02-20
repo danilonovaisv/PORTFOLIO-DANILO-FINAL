@@ -94,7 +94,7 @@ export default function HomeHero() {
 
         {/* Camada: CTA (Z-60 — acima do Ghost, clicável) */}
         <div className="absolute inset-0 z-60 pointer-events-none">
-          <div className="relative h-full w-full flex items-end justify-center pb-[10%]">
+          <div className="relative h-full w-full flex items-end justify-center pb-[5%]">
             <div className="pointer-events-auto">
               {isLoaded && <HeroCTA />}
             </div>

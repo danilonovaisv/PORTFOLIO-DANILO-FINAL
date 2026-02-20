@@ -40,7 +40,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
   // Fade OUT: 0.75 -> 0.9 (Changes to avoid overlap with Final Section)
   const opacity = useTransform(
     scrollProgress,
-    [0, 0.1, 0.75, 0.9],
+    [0, 0.08, 0.75, 0.9],
     [0, 1, 1, 0]
   );
 
@@ -57,22 +57,22 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
               {/* 🟣 [CONFIG VISUAL]: Define a cor do título principal e o tamanho da fonte (4xl a 7xl) */}
               <h2 className="text-white text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-display leading-[1] tracking-tighter mb-4 md:mb-12 uppercase font-black mix-blend-difference whitespace-nowrap">
                 <div className="overflow-visible">
-                  <MorphText progress={scrollProgress} range={[0.15, 0.25]}>
+                  <MorphText progress={scrollProgress} range={[0.06, 0.16]}>
                     Acredito no
                   </MorphText>
                 </div>
                 <div className="overflow-visible">
-                  <MorphText progress={scrollProgress} range={[0.17, 0.27]}>
+                  <MorphText progress={scrollProgress} range={[0.08, 0.18]}>
                     design que
                   </MorphText>
                 </div>
                 <div className="overflow-visible">
-                  <MorphText progress={scrollProgress} range={[0.19, 0.29]}>
+                  <MorphText progress={scrollProgress} range={[0.1, 0.2]}>
                     muda o dia
                   </MorphText>
                 </div>
                 <div className="overflow-visible">
-                  <MorphText progress={scrollProgress} range={[0.21, 0.31]}>
+                  <MorphText progress={scrollProgress} range={[0.12, 0.22]}>
                     de alguém.
                   </MorphText>
                 </div>
@@ -82,12 +82,12 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
               {/* 🟣 [CONFIG VISUAL]: Define a cor e tamanho do subtítulo (sm a 4xl) */}
               <div className="flex flex-col items-end gap-1 text-white text-[clamp(1.125rem,4.4vw,1.35rem)] md:text-3xl lg:text-4xl xl:text-5xl leading-[1.2] tracking-normal font-bold whitespace-nowrap">
                 <div className="overflow-visible">
-                  <MorphText progress={scrollProgress} range={[0.22, 0.32]}>
+                  <MorphText progress={scrollProgress} range={[0.13, 0.23]}>
                     Não pelo choque,
                   </MorphText>
                 </div>
                 <div className="overflow-visible">
-                  <MorphText progress={scrollProgress} range={[0.24, 0.34]}>
+                  <MorphText progress={scrollProgress} range={[0.15, 0.25]}>
                     mas pela conexão.
                   </MorphText>
                 </div>

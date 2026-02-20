@@ -46,29 +46,27 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   totalPhrases,
   scrollYProgress,
 }) => {
-  // MobilePhrase: Calcula seus próprios segmentos baseados no range útil
-  // O container pai tem (PHRASES.length + 2) * 100vh de altura
-  // com offset ['start end', 'end end'], o progress vai de 0 a 1
-  // Cada frase ocupa 1 tela (100vh), então cada segmento é aprox. 1/(totalPhrases+2)
-  const totalScreens = totalPhrases + 1; // +1 = final section
-  const segmentSize = 1 / totalScreens;
-  const timelineOffset = 0.08;
+  const phraseZoneStart = 0.16;
+  const phraseZoneEnd = 0.94;
 
-  // Ajuste fino para alinhar a primeira frase visível logo no topo da seção.
-  const startPoint = index * segmentSize + timelineOffset;
+  // MobilePhrase: Calcula seus próprios segmentos baseados no range útil
+  // A timeline das frases começa apenas após entrada do header + Ghost.
+  const phraseZoneSize = phraseZoneEnd - phraseZoneStart;
+  const segmentSize = phraseZoneSize / totalPhrases;
+  const startPoint = phraseZoneStart + index * segmentSize;
   const endPoint = startPoint + segmentSize;
 
   // Entry/Exit mais longos para evitar "piscar" e manter legibilidade.
-  const entryStart = startPoint;
-  const entryEnd = startPoint + segmentSize * 0.35;
-  const exitStart = endPoint - segmentSize * 0.35;
-  const exitEnd = endPoint;
+  const entryStart = startPoint + segmentSize * 0.02;
+  const entryEnd = startPoint + segmentSize * 0.34;
+  const exitStart = endPoint - segmentSize * 0.34;
+  const exitEnd = endPoint - segmentSize * 0.02;
 
-  // X: Entra da ESQUERDA (-40px), mantém centro (0px), sai para a DIREITA (+40px)
+  // X: Entra da ESQUERDA, mantém centro, sai para a DIREITA.
   const x = useTransform(
     scrollYProgress,
     [entryStart, entryEnd, exitStart, exitEnd],
-    ['-40px', '0px', '0px', '40px'],
+    ['-24px', '0px', '0px', '24px'],
     { ease: ghostEase }
   );
 
@@ -80,11 +78,11 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
     { ease: ghostEase }
   );
 
-  // Blur: 8px na entrada/saída, 0 no centro
+  // Blur suave para manter legibilidade e evitar pop brusco
   const blur = useTransform(
     scrollYProgress,
     [entryStart, entryEnd, exitStart, exitEnd],
-    ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(8px)'],
+    ['blur(6px)', 'blur(0px)', 'blur(0px)', 'blur(6px)'],
     { ease: ghostEase }
   );
 

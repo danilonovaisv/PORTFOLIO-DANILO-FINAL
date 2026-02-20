@@ -12,8 +12,15 @@ test('O-QUE-ME-MOVE anima frases em sequência no scroll', async ({ page }) => {
     }, top);
     await page.waitForTimeout(250);
   };
+  const scrollBy = async (pixels: number) => {
+    await page.evaluate((delta) => {
+      window.scrollBy(0, delta);
+    }, pixels);
+    await page.waitForTimeout(250);
+  };
 
   await scrollToElementTop('[data-testid="about-beliefs-section"]');
+  await scrollBy(240);
 
   const line0 = page.locator('[data-testid="belief-line-0"]');
   await expect

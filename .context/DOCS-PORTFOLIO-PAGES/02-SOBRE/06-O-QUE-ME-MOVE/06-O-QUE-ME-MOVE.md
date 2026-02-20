@@ -41,7 +41,7 @@ Criar a sessão **manifesto "O Que Me Move"** como uma experiência scroll‑dri
 
 - **Não** usar `transition: background-color` nem fade simples entre divs.
 - Utilizar **interpolação contínua em HSL** + **cross‑fade overlay**.
-- A cor começa a mudar no **primeiro frame** da entrada do texto e termina exatamente quando a animação do texto finaliza (≈ 60 % de visibilidade → 70 % de interpolação).
+- A cor começa a mudar no **primeiro frame** junto com a entrada do texto e termina exatamente quando a animação do texto finaliza (≈ 60 % de visibilidade → 70 % de interpolação).
 
 ---
 
@@ -114,7 +114,7 @@ Criar a sessão **manifesto "O Que Me Move"** como uma experiência scroll‑dri
 10. Elementos saem para a direita.
 11. Reset total.
 
----
+--- 
 
 ## 🎬 Código de Animação (Motion)
 
@@ -242,6 +242,24 @@ export const Ghost = () => {
 - Mobile:
   - camada de texto rotativo renderiza com `md:hidden` (sem depender de hook de viewport);
   - timeline ajustada para a primeira frase já entrar visível no início da seção.
+- Ajuste fino de sincronia (2026-02-20, v2):
+  - Desktop: `animationRange` das frases 2..N movido de `[0.22, 0.36]` para `[0.36, 0.52]`, aproximando entrada/saída do texto do momento em que o BG da frase domina a viewport;
+  - Desktop: `exitRange` refinado para `[0.78, 0.92]` e deslocamento vertical iniciado em `0.68` para reduzir saída tardia;
+  - Mobile: cálculo de segmentos alinhado à altura real da seção (`totalPhrases + 2`), eliminando drift acumulado entre texto e troca de BG em scroll longo;
+  - Mobile: `timelineOffset` convertido para valor relativo ao segmento (`segmentSize * 0.1`) e janelas de entrada/saída ajustadas (`2%` / `34%`) para reduzir atraso de frase;
+  - Mobile: deslocamento horizontal suavizado (`±24px`) com blur de entrada/saída reduzido (`6px`) para manter legibilidade durante a troca de cor.
+- Ajuste de ordem de entrada (2026-02-20, v3):
+  - Desktop: frases da primeira tela agora têm gate global de entrada (`0.16 → 0.27`) para só aparecer após o `BeliefFixedHeader` e o Ghost já estarem visíveis;
+  - Mobile: timeline das frases foi movida para uma zona pós-intro (`0.28 → 0.96`), garantindo sequência cronológica: Header → Ghost → Frase;
+  - Mobile: opacidade das frases também usa gate global (`0.16 → 0.27`) para impedir entrada prematura no topo da seção.
+- Ajuste de ordem de entrada (2026-02-20, v4):
+  - Desktop: gate global removido (evitava a frase 1) e a primeira frase passou para `animationRange [0.50, 0.64]`, preservando a sequência Header → Ghost → Texto sem perder entrada inicial;
+  - Mobile: janela das frases recalibrada para `0.16 → 0.94`, mantendo entrada só após a intro visual e saída contínua no fim da seção;
+  - `BeliefFixedHeader` e `Ghost` tiveram entrada antecipada (`header` e `ghost` finalizam antes do texto rotativo iniciar), incluindo aceleração do `enterProgress` do modelo 3D.
+- Ajuste de dinâmica do Ghost (2026-02-20, v5):
+  - Entrada do Ghost acelerada no wrapper (`0.015 → 0.09`) para aparecer mais rápido na seção;
+  - Entrada de escala do modelo 3D acelerada (`enterProgress` em `0.015/0.075`);
+  - Movimento reativo ao scroll intensificado com impulso amortecido por delta de scroll (`scrollKick` + `scrollImpulse`), aumentando deslocamento em X/Y/Z e inclinação durante o acionamento do scroll.
 - Ghost 3D:
   - reset contínuo por progresso de scroll (sem estado “preso” em fase final);
   - fallback defensivo para `ghost.glb` quando URL dinâmica vier como `ghost-transformed.glb` inválida.

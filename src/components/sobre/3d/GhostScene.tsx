@@ -19,13 +19,13 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
   // Easing Ghost Padrão
   const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
 
-  // Sync com BeliefFixedHeader (range 0.1 ~ 0.2)
-  const opacity = useTransform(scrollProgress, [0.1, 0.25], [0, 1], {
+  // Entrada mais rápida do Ghost 3D.
+  const opacity = useTransform(scrollProgress, [0.015, 0.09], [0, 1], {
     ease: ghostEase,
   });
   const blur = useTransform(
     scrollProgress,
-    [0.1, 0.25],
+    [0.015, 0.09],
     ['blur(12px)', 'blur(0px)'],
     { ease: ghostEase }
   );
