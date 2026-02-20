@@ -59,38 +59,28 @@ const GhostModel = ({
       1
     );
     const wobble =
-      0.035 * Math.sin(state.clock.elapsedTime * 1.8 + normalizedProgress * 2);
+      0.04 * Math.sin(state.clock.elapsedTime * 1.8 + normalizedProgress * 2);
+    const driftX =
+      (isMobile ? 0.028 : 0.05) * Math.sin(state.clock.elapsedTime * 0.95);
 
-    const desiredSize = isMobile
-      ? isFinalSection
-        ? 1.25
-        : 0.72
-      : isFinalSection
-        ? 1.62
-        : 0.92;
+    // Intensificação progressiva por frase + clímax final (+10%)
+    const baseSize = isMobile ? 0.66 : 0.9;
+    const progressiveEnergy = isMobile
+      ? normalizedProgress * 0.1
+      : normalizedProgress * 0.12;
+    const finalBoost = isFinalSection ? 0.1 : 0;
+    const desiredSize = baseSize + progressiveEnergy + finalBoost;
 
     const scaleTarget = desiredSize / maxDimension;
-    const xTarget = isMobile
-      ? isFinalSection
-        ? -0.04
-        : -0.34
-      : isFinalSection
-        ? -0.02
-        : -0.88;
-    const yTarget = isMobile
-      ? isFinalSection
-        ? -0.02
-        : -0.3
-      : isFinalSection
-        ? -0.04
-        : -0.22;
+    const xTarget = isMobile ? (isFinalSection ? 0 : -0.52) : 0;
+    const yTarget = isMobile ? (isFinalSection ? 0.02 : 0.46) : 0;
 
     const rotationInfluenceX = isMobile ? 0 : pointerRef.current.x * 0.08;
     const rotationInfluenceY = isMobile ? 0 : pointerRef.current.y * 0.05;
 
     root.position.x = THREE.MathUtils.lerp(
       root.position.x,
-      xTarget,
+      xTarget + driftX,
       delta * 4.2
     );
     root.position.y = THREE.MathUtils.lerp(

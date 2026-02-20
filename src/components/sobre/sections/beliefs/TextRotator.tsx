@@ -53,6 +53,8 @@ export const TextRotator = ({
         const isActive = index === activeIndex;
         const isExiting = index === exitingIndex;
         const isVisible = isActive || isExiting;
+        const shouldRender = reducedMotion ? isActive : isVisible;
+        const displayText = isMobile ? phrase : phrase.split(' ').join('\n');
 
         return (
           <div
@@ -66,27 +68,28 @@ export const TextRotator = ({
             style={
               isMobile
                 ? {
-                    bottom: '10vh',
-                    width: '88%',
-                    left: '6%',
-                    opacity: isVisible || reducedMotion ? 1 : 0,
-                    pointerEvents: isVisible ? 'auto' : 'none',
+                    bottom: '20vh',
+                    width: 'min(92vw, 680px)',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    opacity: shouldRender ? 1 : 0,
+                    pointerEvents: shouldRender ? 'auto' : 'none',
                   }
                 : {
-                    left: '4%',
-                    bottom: '12%',
-                    maxWidth: '650px',
-                    opacity: isVisible || reducedMotion ? 1 : 0,
-                    pointerEvents: isVisible ? 'auto' : 'none',
+                    left: '15%',
+                    bottom: '10vh',
+                    maxWidth: '680px',
+                    opacity: shouldRender ? 1 : 0,
+                    pointerEvents: shouldRender ? 'auto' : 'none',
                   }
             }
           >
             {/* Only mount MorphingText for active/exiting phrases for performance */}
-            {(isVisible || reducedMotion) && (
+            {shouldRender && (
               <MorphingText
-                text={phrase}
+                text={displayText}
                 enterFrom="left"
-                exitTo={isMobile ? 'right' : null}
+                exitTo={isMobile ? 'right' : 'left'}
                 isVisible={isActive}
                 isExiting={isExiting}
                 duration={isMobile ? 500 : 600}
@@ -94,7 +97,7 @@ export const TextRotator = ({
                 offset={isMobile ? 40 : 60}
                 reducedMotion={reducedMotion}
                 className={`
-                  font-h1 text-[#4fe6ff] font-bold italic
+                  font-h1 text-[#4fe6ff] font-bold
                   ${
                     isMobile
                       ? 'text-[32px] sm:text-[36px] leading-[1.1]'

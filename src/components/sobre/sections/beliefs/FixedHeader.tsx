@@ -42,14 +42,13 @@ export const FixedHeader = ({
     if (!headerRef.current) return;
     if (reducedMotion) {
       headerRef.current.style.opacity = '1';
-      headerRef.current.style.transform = 'translateY(0px)';
       return;
     }
 
-    // Animação de entrada suave do container
+    // Animação de entrada pela direita, conforme o documento da seção
     const keyframes = {
       opacity: [0, 1],
-      y: [10, 0],
+      x: [isMobile ? 70 : 100, 0],
     } as unknown as DOMKeyframesDefinition;
     const options: AnimationOptions = {
       duration: 0.8,
@@ -57,7 +56,7 @@ export const FixedHeader = ({
     };
 
     animate(headerRef.current, keyframes, options);
-  }, [reducedMotion]);
+  }, [isMobile, reducedMotion]);
 
   useEffect(() => {
     if (!headerRef.current || reducedMotion) return;
@@ -85,12 +84,10 @@ export const FixedHeader = ({
       ref={headerRef}
       className="
         absolute z-30 pointer-events-none
-        right-[4vw] top-[12vh]
-        sm:right-[4vw] sm:top-[12vh]
-        md:right-[3vw] md:top-[10vh]
-        lg:right-[4vw] lg:top-[10vh]
+        right-0 top-[20vh]
+        md:right-[4vw] md:top-1/2 md:-translate-y-1/2
         text-right
-        w-[min(460px,78vw)]
+        w-[min(460px,84vw)]
         md:w-[min(560px,52vw)]
         lg:w-[min(640px,50vw)]
         transition-opacity duration-300

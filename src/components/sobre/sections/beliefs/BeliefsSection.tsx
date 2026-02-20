@@ -75,9 +75,16 @@ export const BeliefsSection = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full min-h-[600vh] overflow-visible"
+      id="about-beliefs"
+      aria-labelledby="about-beliefs-heading"
+      className="relative w-full overflow-visible"
+      style={{ minHeight: `${totalSections * 100}vh` }}
       data-testid="about-beliefs-section"
     >
+      <h2 id="about-beliefs-heading" className="sr-only">
+        O Que Me Move
+      </h2>
+
       <div className="sticky top-0 h-screen w-full overflow-hidden">
         {/* Camada 0 - Background */}
         <BackgroundLayer
@@ -106,7 +113,7 @@ export const BeliefsSection = () => {
         {/* Camada 4 - Manifesto Final */}
         {isActive && activeIndex === 5 && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-30">
-            <div className="text-center text-white font-display text-[22vw] md:text-[16vw] font-black leading-[0.78] opacity-0 animate-manifesto">
+            <div className="text-center text-white font-display text-[22vw] md:text-[15vw] font-black leading-[0.78] opacity-0 animate-manifesto">
               <div>ISSO É</div>
               <div>GHOST</div>
               <div>DESIGN.</div>

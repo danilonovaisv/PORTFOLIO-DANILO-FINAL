@@ -73,36 +73,52 @@ export const MorphingText = memo(
       container.innerHTML = '';
       charsRef.current = [];
 
-      // Divide por palavras, preserva espaços
-      const words = text.split(' ');
-      words.forEach((word, wordIdx) => {
-        // Wrap cada palavra em um span inline-block para evitar quebra no meio
-        const wordSpan = document.createElement('span');
-        wordSpan.style.display = 'inline-block';
-        wordSpan.style.whiteSpace = 'nowrap';
+      const lines = text.split('\n');
 
-        for (let i = 0; i < word.length; i++) {
-          const charSpan = document.createElement('span');
-          charSpan.textContent = word[i];
-          charSpan.style.display = 'inline-block';
-          charSpan.style.opacity = '0';
-          charSpan.style.willChange = 'transform, opacity';
+      lines.forEach((line, lineIdx) => {
+        const lineSpan = document.createElement('span');
+        lineSpan.style.display = 'block';
+        lineSpan.style.whiteSpace = 'normal';
 
-          const xOffset = enterFrom === 'left' ? -offset : offset;
-          charSpan.style.transform = `translate3d(${xOffset}px, 0, 0)`;
+        const words = line.split(' ');
+        words.forEach((word, wordIdx) => {
+          // Wrap cada palavra em um span inline-block para evitar quebra no meio
+          const wordSpan = document.createElement('span');
+          wordSpan.style.display = 'inline-block';
+          wordSpan.style.whiteSpace = 'nowrap';
 
-          wordSpan.appendChild(charSpan);
-          charsRef.current.push(charSpan);
-        }
+          for (let i = 0; i < word.length; i++) {
+            const charSpan = document.createElement('span');
+            charSpan.textContent = word[i];
+            charSpan.style.display = 'inline-block';
+            charSpan.style.opacity = '0';
+            charSpan.style.willChange = 'transform, opacity';
 
-        container.appendChild(wordSpan);
+            const xOffset = enterFrom === 'left' ? -offset : offset;
+            charSpan.style.transform = `translate3d(${xOffset}px, 0, 0)`;
 
-        // Adiciona espaço entre palavras (exceto depois da última)
-        if (wordIdx < words.length - 1) {
-          const spaceSpan = document.createElement('span');
-          spaceSpan.innerHTML = '&nbsp;';
-          spaceSpan.style.display = 'inline-block';
-          container.appendChild(spaceSpan);
+            wordSpan.appendChild(charSpan);
+            charsRef.current.push(charSpan);
+          }
+
+          lineSpan.appendChild(wordSpan);
+
+          // Adiciona espaço entre palavras (exceto depois da última)
+          if (wordIdx < words.length - 1) {
+            const spaceSpan = document.createElement('span');
+            spaceSpan.innerHTML = '&nbsp;';
+            spaceSpan.style.display = 'inline-block';
+            lineSpan.appendChild(spaceSpan);
+          }
+        });
+
+        container.appendChild(lineSpan);
+
+        if (lineIdx < lines.length - 1) {
+          const spacer = document.createElement('span');
+          spacer.style.display = 'block';
+          spacer.style.height = '0.12em';
+          container.appendChild(spacer);
         }
       });
     }, [text, enterFrom, offset]);

@@ -480,3 +480,44 @@ Corrigido falhas nos testes unitários:
 - ✅ `pnpm exec prettier --check` nos arquivos alterados.
 - ⚠️ `pnpm lint` bloqueado por ambiente local (`eslint/bin/eslint.js` ausente) + Node `v25` fora da engine.
 - ⚠️ `pnpm typecheck` falha por inconsistências preexistentes do workspace/deps (não introduzidas por este ajuste).
+
+## [2026-02-20T08:45] Ajustes Orquestrados — Sobre / O Que Me Move (About Beliefs)
+
+**Context:** Auditoria e correções da seção com base no documento `.context/DOCS-PORTFOLIO-PAGES/02-SOBRE/06-O-QUE-ME-MOVE/06-O-QUE-ME-MOVE.md`.
+
+**Changes Applied:**
+
+1. **BeliefsSection — semântica e estrutura** ✅
+   - File: `src/components/sobre/sections/beliefs/BeliefsSection.tsx`
+   - Adicionado `id="about-beliefs"`, `aria-labelledby` e `h2` `sr-only`.
+   - Altura da seção passou a ser derivada de `totalSections` (`style={{ minHeight: ... }}`).
+
+2. **FixedHeader — posicionamento e entrada pela direita** ✅
+   - File: `src/components/sobre/sections/beliefs/FixedHeader.tsx`
+   - Mobile: `top-[20vh]` à direita.
+   - Desktop: centro vertical (`md:top-1/2 md:-translate-y-1/2`) à direita.
+   - Entrada ajustada para `x: [70|100, 0]` + `opacity` com easing Ghost.
+
+3. **TextRotator — layout desktop/mobile e reduced-motion** ✅
+   - File: `src/components/sobre/sections/beliefs/TextRotator.tsx`
+   - Desktop: `left: 15%`, `bottom: 10vh`.
+   - Mobile: centralizado horizontal, `bottom: 20vh`.
+   - Corrigido bug de reduced motion que sobrepunha todas as frases.
+   - Saída desktop configurada para esquerda e mobile para direita.
+
+4. **MorphingText — suporte a multiline** ✅
+   - File: `src/components/sobre/sections/beliefs/MorphingText.tsx`
+   - Agora interpreta `\n` para renderização em múltiplas linhas mantendo animação por caractere.
+
+5. **Ghost3D — conformidade de posição e progressão** ✅
+   - File: `src/components/sobre/sections/beliefs/Ghost3D.tsx`
+   - Desktop centralizado durante sequência.
+   - Mobile em top-left com transição para centro no final.
+   - Intensificação progressiva por frase + boost final.
+
+**Verification:**
+
+- ✅ `pnpm exec prettier --check` (arquivos alterados)
+- ✅ `pnpm lint`
+- ✅ `pnpm typecheck`
+- ⚠️ `pnpm test:e2e test/e2e/about-beliefs.spec.ts` bloqueado por browser Playwright ausente (`pnpm exec playwright install`).
