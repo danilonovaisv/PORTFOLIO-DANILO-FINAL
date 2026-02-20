@@ -23,21 +23,20 @@ export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
 
   // Divisão do scroll total em segmentos para cada frase
   const totalPhrases = phrases.length;
-  const segmentSize = 1 / (totalPhrases + 1); // +1 para a seção final
 
   return (
-    <>
+    <div className="fixed inset-0 z-70 pointer-events-none">
       {phrases.map((phrase, index) => (
         <MobilePhrase
           key={index}
           text={phrase}
           index={index}
           totalPhrases={totalPhrases}
-          segmentSize={segmentSize}
+          segmentSize={0}
           scrollYProgress={scrollYProgress}
         />
       ))}
-    </>
+    </div>
   );
 };
 
@@ -55,27 +54,28 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   totalPhrases,
   scrollYProgress,
 }) => {
-  // MobilePhrase: Calcula seus próprios segmentos baseados no range útil [0.35 - 0.95]
-  const usefulRangeStart = 0.35;
-  const usefulRangeEnd = 0.95;
-  const totalRange = usefulRangeEnd - usefulRangeStart;
-  const adjustedSegmentSize = totalRange / totalPhrases;
+  // MobilePhrase: Calcula seus próprios segmentos baseados no range útil
+  // O container pai tem (PHRASES.length + 2) * 100vh de altura
+  // com offset ['start end', 'end end'], o progress vai de 0 a 1
+  // Cada frase ocupa 1 tela (100vh), então cada segmento é aprox. 1/(totalPhrases+2)
+  const totalScreens = totalPhrases + 2; // +2 = header + final section
+  const segmentSize = 1 / totalScreens;
 
-  const startPoint = usefulRangeStart + index * adjustedSegmentSize;
-  const endPoint = startPoint + adjustedSegmentSize;
+  // Primeira frase começa após a tela do header (1 tela)
+  const startPoint = (index + 1) * segmentSize;
+  const endPoint = startPoint + segmentSize;
 
-  // Entry: 10% do segmento
-  // Exit: 10% do segmento
+  // Entry: primeiros 20% do segmento; Exit: últimos 20% do segmento
   const entryStart = startPoint;
-  const entryEnd = startPoint + adjustedSegmentSize * 0.15;
-  const exitStart = endPoint - adjustedSegmentSize * 0.15;
+  const entryEnd = startPoint + segmentSize * 0.2;
+  const exitStart = endPoint - segmentSize * 0.2;
   const exitEnd = endPoint;
 
-  // X: Entra da DIREITA (+24px), mantém centro (0px), sai para a ESQUERDA (-24px)
+  // X: Entra da ESQUERDA (-40px), mantém centro (0px), sai para a DIREITA (+40px)
   const x = useTransform(
     scrollYProgress,
     [entryStart, entryEnd, exitStart, exitEnd],
-    ['24px', '0px', '0px', '-24px'],
+    ['-40px', '0px', '0px', '40px'],
     { ease: ghostEase }
   );
 
@@ -87,22 +87,25 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
     { ease: ghostEase }
   );
 
-  // Blur: 10px na entrada/saída, 0 no centro
+  // Blur: 8px na entrada/saída, 0 no centro
   const blur = useTransform(
     scrollYProgress,
     [entryStart, entryEnd, exitStart, exitEnd],
-    ['blur(10px)', 'blur(0px)', 'blur(0px)', 'blur(10px)'],
+    ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(8px)'],
     { ease: ghostEase }
   );
+
+  // Remover newlines para mobile — mostrar como frase corrida com quebras naturais
+  const mobileText = text.replace(/\n/g, ' ');
 
   return (
     <motion.div
       style={{ x, opacity, filter: blur }}
-      className="fixed bottom-[25%] left-0 right-0 z-60 text-center pointer-events-none px-8"
+      className="absolute bottom-[20vh] left-0 right-0 text-center pointer-events-none px-6"
     >
-      {/* 🟣 [CONFIG VISUAL]: Define cor e tamanho do texto (Mobile: clamp 2rem-3.5rem) */}
-      <span className="text-blueAccent italic font-bold text-[clamp(2rem,6vw,3.5rem)] leading-[1.4] tracking-widest block w-full mx-auto">
-        {text}
+      {/* 🟣 [CONFIG VISUAL]: Define cor e tamanho do texto (Mobile: clamp 1.8rem-3rem) */}
+      <span className="text-blueAccent italic font-bold text-[clamp(1.8rem,7vw,3rem)] leading-[1.3] tracking-tight block w-full mx-auto">
+        {mobileText}
       </span>
     </motion.div>
   );

@@ -114,13 +114,16 @@
 /* CTA Spacer - Maior em mobile para thumb reach */
 .ctaSpacer {
   padding-top: 1.5rem;
-  height: 56px;
+  min-height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (min-width: 768px) {
   .ctaSpacer {
     padding-top: 2rem;
-    height: 48px;
+    min-height: 48px;
   }
 }
 

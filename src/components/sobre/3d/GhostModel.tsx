@@ -24,8 +24,9 @@ type GLTFResult = GLTF & {
   };
 };
 
-const GHOST_MODEL_URL =
-  getSupabaseStorageUrl('site-assets/about/beliefs/ghost.glb');
+const GHOST_MODEL_URL = getSupabaseStorageUrl(
+  'site-assets/about/beliefs/ghost.glb'
+);
 
 interface GhostModelProps {
   scrollProgress: MotionValue<number>;
@@ -149,8 +150,8 @@ const GhostModel: React.FC<GhostModelProps> = ({
     // X Position Logic with Wiggle
     const wiggleX = isMobile
       ? Math.sin(state.clock.getElapsedTime() * 2.5) *
-      config.floatAmplitude *
-      0.5
+        config.floatAmplitude *
+        0.5
       : 0;
     const scrollDriftX =
       Math.sin(t * Math.PI * 2) * config.scrollResponse * 0.1;

@@ -62,10 +62,10 @@ export default function HeroCopy({
   const motionProps = prefersReducedMotion
     ? {}
     : {
-        initial: 'initial' as const,
-        animate: 'animate' as const,
-        variants: textContainerAnimation,
-      };
+      initial: 'initial' as const,
+      animate: 'animate' as const,
+      variants: textContainerAnimation,
+    };
 
   // Estrutura de conteúdo idêntica para ambas as camadas para garantir alinhamento perfeito
   const renderTextContent = (isMask: boolean) => (
@@ -125,7 +125,6 @@ export default function HeroCopy({
         className="w-full flex flex-col items-center"
       >
         {renderTextContent(false)}
-        <div className={styles.ctaSpacer}></div>
       </motion.div>
 
       {/* Camada 2: Texto Revelado (Masked / Bright / Glow) */}
@@ -134,7 +133,6 @@ export default function HeroCopy({
           <div className="w-full flex flex-col items-center text-center">
             <motion.div variants={itemAnimation}>
               {renderTextContent(true)}
-              <div className={styles.ctaSpacer}></div>
             </motion.div>
           </div>
         </div>

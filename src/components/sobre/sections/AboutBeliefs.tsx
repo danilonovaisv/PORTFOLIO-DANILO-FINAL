@@ -58,6 +58,7 @@ export function AboutBeliefs() {
     <section
       ref={containerRef}
       className="relative w-full"
+      data-testid="about-beliefs-section"
       style={{ minHeight: `${(PHRASES.length + 2) * 100}vh` }} // Garante altura baseada no conteúdo
     >
       <BeliefFixedHeader scrollProgress={scrollYProgress} />
@@ -67,6 +68,7 @@ export function AboutBeliefs() {
         {PHRASES.map((phrase, index) => (
           <BeliefSection
             key={index}
+            index={index}
             text={phrase}
             bgColor={COLORS[index] || COLORS[0]}
             isFirst={index === 0}
@@ -80,7 +82,10 @@ export function AboutBeliefs() {
       </div>
 
       {/* LAYER 2: Texto Mobile Fixed no Footer */}
-      <BeliefMobileTextLayer phrases={PHRASES} scrollYProgress={scrollYProgress} />
+      <BeliefMobileTextLayer
+        phrases={PHRASES}
+        scrollYProgress={scrollYProgress}
+      />
 
       {/* LAYER 4: Final Text Overlay (Z-40) - Background for Ghost */}
       <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-40">
@@ -88,7 +93,10 @@ export function AboutBeliefs() {
       </div>
 
       {/* LAYER 3: Canvas 3D (sem captura de eventos) */}
-      <div className="absolute inset-0 z-60 w-full h-full pointer-events-none" aria-hidden>
+      <div
+        className="absolute inset-0 z-60 w-full h-full pointer-events-none"
+        aria-hidden
+      >
         <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-none flex md:items-center md:justify-center items-end justify-start">
           <div className="w-full h-full md:absolute md:inset-0 relative">
             {!prefersReducedMotion ? (

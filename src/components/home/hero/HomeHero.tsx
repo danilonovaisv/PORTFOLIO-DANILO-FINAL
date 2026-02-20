@@ -8,6 +8,7 @@ import { Preloader } from '@/components/ui/Preloader';
 import GhostSceneWrapper from '@/components/canvas/home/hero/GhostSceneWrapper';
 
 import HeroCopy from './HeroCopy';
+import HeroCTA from './HeroCTA';
 
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useWebGLSupport } from '@/hooks/useWebGLSupport';
@@ -51,9 +52,8 @@ export default function HomeHero() {
         {/* Fallback Mobile Background Gradient (Ghost Atmosphere) - Também usado para Reduced Motion */}
         {(!isDesktop || shouldReduceMotion) && (
           <div
-            className={`absolute inset-0 z-0 opacity-60 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)] ${
-              shouldReduceMotion ? '' : 'animate-pulse'
-            }`}
+            className={`absolute inset-0 z-0 opacity-60 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)] ${shouldReduceMotion ? '' : 'animate-pulse'
+              }`}
           />
         )}
 
@@ -68,8 +68,8 @@ export default function HomeHero() {
           )}
         </AnimatePresence>
 
-        {/* Camada: Texto Editorial (Z-50) */}
-        <div className="absolute inset-0 z-50 pointer-events-none">
+        {/* Camada: Texto Editorial (Z-20) */}
+        <div className="absolute inset-0 z-20 pointer-events-none">
           <div className="flex items-center justify-center w-full h-screen md:sticky md:top-0">
             <div className="w-full pointer-events-auto pb-32 md:pb-0">
               {/* isLoaded agora é true muito mais rápido */}
@@ -78,8 +78,8 @@ export default function HomeHero() {
           </div>
         </div>
 
-        {/* Camada: Ghost WebGL (Z-20) */}
-        <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
+        {/* Camada: Ghost WebGL (Z-50 — acima do texto) */}
+        <div className="absolute inset-0 z-50 pointer-events-none overflow-hidden">
           <div className="sticky top-0 h-screen w-full">
             {shouldRenderWebGL ? (
               <GhostSceneWrapper />
@@ -89,6 +89,15 @@ export default function HomeHero() {
                 aria-hidden="true"
               />
             )}
+          </div>
+        </div>
+
+        {/* Camada: CTA (Z-60 — acima do Ghost, clicável) */}
+        <div className="absolute inset-0 z-60 pointer-events-none">
+          <div className="relative h-full w-full flex items-end justify-center pb-[10%]">
+            <div className="pointer-events-auto">
+              {isLoaded && <HeroCTA />}
+            </div>
           </div>
         </div>
 

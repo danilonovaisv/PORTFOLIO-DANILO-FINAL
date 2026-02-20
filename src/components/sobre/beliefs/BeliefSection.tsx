@@ -54,8 +54,8 @@ const BeliefLineDesktop: React.FC<BeliefLineProps> = ({
       // 🟣 [CONFIG VISUAL]: Define o tamanho da fonte (Desktop: clamp de 2.8rem a 6rem)
       style={{
         x: lineX,
-        fontSize: 'clamp(2.6rem,5.8vw,6rem)',
-        lineHeight: 0.85,
+        fontSize: 'clamp(2.4rem,5.2vw,5.5rem)',
+        lineHeight: 0.9,
       }}
     >
       {line}
@@ -67,6 +67,8 @@ interface BeliefSectionProps {
   text: string;
   bgColor: string;
   isFirst?: boolean;
+  /** Index of this belief section for E2E test IDs */
+  index?: number;
   /**
    * Em mobile, o texto é renderizado em uma camada fixed separada.
    * Esta prop controla se deve renderizar o texto inline (desktop) ou não (mobile usa camada fixed)
@@ -78,6 +80,7 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
   text,
   bgColor,
   isFirst = false,
+  index,
   isMobileTextLayer = false, // Nova prop para controle explícito
 }) => {
   const containerRef = useRef(null);
@@ -109,23 +112,24 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
     <motion.section
       ref={containerRef}
       aria-label={text.replace(/\n/g, ' ')}
+      data-testid={index !== undefined ? `belief-sentinel-${index}` : undefined}
       // 🟣 [CONFIG VISUAL]: Define a cor de fundo da seção
       style={{ backgroundColor: bgColor }}
-      className={`relative w-full h-screen flex overflow-hidden ${
-        isMobile
-          ? 'items-end justify-start pb-32' // Mobile: espaço para texto fixed no footer
-          : 'items-center justify-start px-[5%] md:px-[7.5%] lg:px-[10%]'
-      }`}
+      className={`relative w-full h-screen flex overflow-hidden ${isMobile
+          ? 'items-end justify-center pb-[20vh]' // Mobile: espaço para texto fixed no footer (20% do bottom)
+          : 'items-end justify-start pl-[5%] md:pl-[7.5%] lg:pl-[15%] pb-[10%]'
+        }`}
     >
       {/* Desktop: Texto inline */}
       {!isMobile && !isMobileTextLayer && (
         <motion.div
           style={{ y: yScroll, opacity: desktopOpacity }}
-          className="relative z-30 w-full flex flex-col justify-start max-w-[80vw]"
+          className="relative z-30 w-full flex flex-col justify-end max-w-[60vw]"
+          data-testid={index !== undefined ? `belief-line-${index}` : undefined}
         >
           {lines.map((line, i) => (
             <BeliefLineDesktop
-              key={i} // Adicionado key
+              key={i}
               line={line}
               index={i}
               scrollYProgress={scrollYProgress}
