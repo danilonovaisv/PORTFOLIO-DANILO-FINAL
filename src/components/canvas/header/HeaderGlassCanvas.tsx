@@ -124,6 +124,7 @@ const HeaderGlassCanvas = memo(function HeaderGlassCanvas({
     <Canvas
       dpr={[1, 2]}
       gl={{ antialias: false, alpha: true, premultipliedAlpha: true }}
+      frameloop="always"
       orthographic
       camera={{ position: [0, 0, 1], zoom: 1 }}
     >

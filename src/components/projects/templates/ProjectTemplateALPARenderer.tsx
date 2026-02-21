@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import Link from 'next/link';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import {
   useCallback,
