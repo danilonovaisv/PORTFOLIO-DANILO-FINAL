@@ -252,7 +252,7 @@ function MediaAssetField({
           {isVideo ? (
             youtubeId ? (
               <iframe
-                src={`https://www.youtube.com/embed/${youtubeId}`}
+                src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&loop=1&playlist=${youtubeId}&controls=0&modestbranding=1&rel=0&playsinline=1`}
                 title="YouTube video player"
                 className="h-56 w-full border-0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -397,7 +397,7 @@ function BlockMediaField({
           {isVideo ? (
             youtubeId ? (
               <iframe
-                src={`https://www.youtube.com/embed/${youtubeId}`}
+                src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&loop=1&playlist=${youtubeId}&controls=0&modestbranding=1&rel=0&playsinline=1`}
                 title="YouTube Content"
                 className="h-44 w-full border-0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -1003,8 +1003,8 @@ export default function MasterProjectTemplateV3Editor({
                 ) : null}
 
                 {block.type === 'image-text' ||
-                block.type === 'text-image' ||
-                block.type === 'video-text' ? (
+                  block.type === 'text-image' ||
+                  block.type === 'video-text' ? (
                   <div className="grid gap-4 md:grid-cols-2">
                     <BlockMediaField
                       block={block}
@@ -1044,7 +1044,7 @@ export default function MasterProjectTemplateV3Editor({
                 ) : null}
 
                 {block.type === 'image-image' ||
-                block.type === 'image-video' ? (
+                  block.type === 'image-video' ? (
                   <div className="grid gap-4 md:grid-cols-2">
                     <BlockMediaField
                       block={block}

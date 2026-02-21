@@ -239,7 +239,7 @@ function AssetLightbox({
         ) : asset.kind === 'youtube' && asset.youtubeId ? (
           <div className="aspect-video w-full bg-black">
             <iframe
-              src={`https://www.youtube.com/embed/${asset.youtubeId}?autoplay=1&mute=0&loop=1&playlist=${asset.youtubeId}&controls=1&modestbranding=1&rel=0&playsinline=1`}
+              src={`https://www.youtube.com/embed/${asset.youtubeId}?autoplay=1&mute=1&loop=1&playlist=${asset.youtubeId}&controls=0&modestbranding=1&rel=0&playsinline=1`}
               title={asset.alt || 'Vídeo do YouTube'}
               className="h-full w-full border-none"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -600,7 +600,7 @@ export default function ProjectTemplateALPARenderer({
         return (
           <motion.section
             key={block.id}
-            className="w-full px-4 py-14 md:px-8 md:py-20"
+            className="alpa-quote-band w-full px-4 py-20 md:px-8 md:py-32"
             style={{ backgroundColor: mixHex(bandColor, '#050013', 0.18) }}
             initial={revealInitial}
             whileInView={revealVisible}
@@ -635,6 +635,13 @@ export default function ProjectTemplateALPARenderer({
 
         .template-alpa .alpa-circle {
           border-radius: 9999px !important;
+        }
+
+        /* Garantir que quote-band seja full width ignorando paddings de containers superiores */
+        .template-alpa .alpa-quote-band {
+          width: 100vw;
+          margin-left: 50%;
+          transform: translateX(-50%);
         }
       `}</style>
 

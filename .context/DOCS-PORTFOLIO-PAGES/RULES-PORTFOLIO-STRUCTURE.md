@@ -299,12 +299,15 @@ _(Sessões 08, 09, 10 seguem estrutura padrão de Clients, Contact e Footer)_
 ---
 
 ### Sessão 06 – PROJETO-SLUG
-
 - **Caminho absoluto:** `.context/DOCS-PORTFOLIO-PAGES/03-PORTFOLIO/06-PROJETO-SLUG`
 - **Objetivo estratégico:** Página dinâmica de detalhe do projeto.
-- **Papel narrativo:** CASE STUDY.
-- **Observação:** Renderizada dinamicamente em `/portfolio/[slug]`.
-- **Referência Visual:**
+- **Papel narrativo:** CASE STUDY. Mergulho imersivo em resultados e assets.
+- **Arquitetura de Renderização (ALPA V3)**:
+    - O sistema utiliza agora o **Template ALPA (V3)** como padrão-ouro para novos case studies.
+    - **Dispatcher**: `ProjectRenderer.tsx` intercepta o tipo `MASTER_PROJECT_TEMPLATE_V3`.
+    - **Componente**: `ProjectTemplateALPARenderer.tsx` gerencia 10 tipos de blocos editoriais.
+- **Observação**: Renderizada dinamicamente em `/portfolio/[slug]`.
+- **Referência Visual**:
   - Desktop: `.../06-PROJETO-SLUG/LANDING-PAGE-DESKTOP.jpg`
   - Mobile: `.../06-PROJETO-SLUG/LANDING-PAGE-MOBILE.jpg`
 
