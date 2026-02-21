@@ -4,7 +4,7 @@ export const fetchCache = 'force-no-store';
 
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { AdminShell } from '@/components/admin/AdminShell';
+import { AdminShellNoSSR } from '@/components/admin/AdminShellNoSSR';
 import { AdminErrorDisplay } from '@/components/admin/AdminErrorDisplay';
 import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
@@ -58,7 +58,9 @@ export default async function ProtectedLayout({
     }
 
     return (
-      <AdminShell userEmail={user.email ?? undefined}>{children}</AdminShell>
+      <AdminShellNoSSR userEmail={user.email ?? undefined}>
+        {children}
+      </AdminShellNoSSR>
     );
   } catch (error) {
     if (isRedirectError(error)) {
