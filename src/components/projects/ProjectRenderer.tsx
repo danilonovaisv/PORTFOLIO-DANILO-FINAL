@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
-import { CompoundPillCTA } from '@/components/ui/CompoundPillCTA';
+import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { LandingPageBlock } from '@/types/landing-page';
 import {
@@ -89,11 +89,9 @@ function LegacyProjectRenderer({
           className="pointer-events-auto absolute inset-x-0 bottom-8 z-20"
         >
           <div className="std-grid flex justify-start">
-            <CompoundPillCTA
+            <HeroBackCTA
               href={backHref}
               label={LANDING_PAGE_BACK.label}
-              size="compact"
-              direction="back"
             />
           </div>
         </motion.div>

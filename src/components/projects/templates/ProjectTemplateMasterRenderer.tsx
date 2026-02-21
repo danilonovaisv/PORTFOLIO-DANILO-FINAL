@@ -22,7 +22,7 @@ import SectionGrid from './master-v2/SectionGrid';
 import SectionQuote from './master-v2/SectionQuote';
 import SectionSplit from './master-v2/SectionSplit';
 import { useLandingBackLink } from './useLandingBackLink';
-import { CompoundPillCTA } from '@/components/ui/CompoundPillCTA';
+import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
 
 // LiquidEther removed as it was unused
 // const DEFAULT_ETHER_COLORS = ['#5227FF', '#FF9FFC', '#B19EEF'];
@@ -307,12 +307,7 @@ export default function ProjectTemplateMasterRenderer({
                 }}
                 className="relative z-20 grid gap-2 pt-8 text-xs uppercase tracking-[0.15em] text-white/88 sm:flex sm:flex-wrap sm:items-center sm:justify-between sm:gap-3"
               >
-                <CompoundPillCTA
-                  href={backHref}
-                  label={LANDING_PAGE_BACK.label}
-                  size="compact"
-                  direction="back"
-                />
+                <HeroBackCTA href={backHref} label={LANDING_PAGE_BACK.label} />
                 <a
                   href="#project-intro"
                   className="inline-flex min-h-12 items-center gap-2 px-2 transition-opacity hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 sm:justify-center"
@@ -446,14 +441,14 @@ export default function ProjectTemplateMasterRenderer({
                   </h2>
                 </div>
 
-                <Link href={LANDING_PAGE_CTA.href} className="relative block">
+                <div className="relative block w-fit">
                   <AntigravityCTA
-                    as="div"
+                    href={LANDING_PAGE_CTA.href}
                     text={LANDING_PAGE_CTA.label}
                     color={LANDING_PAGE_CTA.color}
                     className="relative"
                   />
-                </Link>
+                </div>
               </div>
             </div>
           </motion.section>

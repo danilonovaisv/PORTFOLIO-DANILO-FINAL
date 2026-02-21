@@ -11,7 +11,7 @@ import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
 import { useLandingBackLink } from './useLandingBackLink';
-import { CompoundPillCTA } from '@/components/ui/CompoundPillCTA';
+import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
 import { DEFAULT_CAPTIONS } from '@/lib/video';
 import type {
   MasterProjectAsset,
@@ -259,11 +259,9 @@ export default function MasterProjectTemplate({
           </motion.div>
 
           <div className="relative z-20 grid gap-2 pt-8 text-xs uppercase tracking-[0.14em] text-white/80 sm:flex sm:items-center sm:justify-between sm:gap-4">
-            <CompoundPillCTA
+            <HeroBackCTA
               href={backHref}
               label={LANDING_PAGE_BACK.label}
-              size="compact"
-              direction="back"
             />
 
             <a
@@ -386,7 +384,7 @@ export default function MasterProjectTemplate({
                   <div
                     className={
                       item.layout === 'feature' ||
-                      item.layout === 'full-highlight'
+                        item.layout === 'full-highlight'
                         ? 'aspect-16/10 md:aspect-20/9'
                         : 'aspect-4/3 md:aspect-16/10'
                     }
@@ -444,17 +442,14 @@ export default function MasterProjectTemplate({
                 </h2>
               </div>
 
-              <Link
-                href={LANDING_PAGE_CTA.href}
-                className="relative inline-block rounded-full focus:outline-none"
-              >
+              <div className="relative inline-block focus:outline-none">
                 <AntigravityCTA
-                  as="div"
+                  href={LANDING_PAGE_CTA.href}
                   text={LANDING_PAGE_CTA.label}
                   color={LANDING_PAGE_CTA.color}
                   className="relative"
                 />
-              </Link>
+              </div>
             </div>
           </div>
         </motion.section>

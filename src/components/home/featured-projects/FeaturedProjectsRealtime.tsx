@@ -154,6 +154,17 @@ export default function FeaturedProjectsRealtime({
               broadcast: { self: false, ack: true },
             },
           })
+          .on(
+            'postgres_changes',
+            {
+              event: '*',
+              schema: 'public',
+              table: 'portfolio_projects',
+            },
+            () => {
+              void loadFeaturedProjects();
+            }
+          )
           .on('broadcast', { event: 'portfolio_projects' }, () => {
             void loadFeaturedProjects();
           })

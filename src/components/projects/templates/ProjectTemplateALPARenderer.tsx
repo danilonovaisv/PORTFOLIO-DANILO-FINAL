@@ -21,7 +21,7 @@ import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
 import type { LandingPageBlock } from '@/types/landing-page';
 import type { MasterProjectTemplateV3Data } from '@/types/project-template';
 import { useLandingBackLink } from './useLandingBackLink';
-import { CompoundPillCTA } from '@/components/ui/CompoundPillCTA';
+import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
 import { DEFAULT_CAPTIONS } from '@/lib/video';
 
 const LiquidEther = dynamic(() => import('./LiquidEther'), { ssr: false });
@@ -629,7 +629,7 @@ export default function ProjectTemplateALPARenderer({
   return (
     <article className="template-alpa relative min-h-screen bg-[#040013] text-[#fcffff]">
       <style jsx global>{`
-        .template-alpa :where(*, *::before, *::after) {
+        .template-alpa :where(img, video, figure) {
           border-radius: 0 !important;
         }
 
@@ -717,13 +717,8 @@ export default function ProjectTemplateALPARenderer({
             </motion.div>
 
             <div className="pointer-events-auto absolute bottom-6 left-0 right-0 z-20 sm:bottom-8">
-              <div className="flex justify-start">
-                <CompoundPillCTA
-                  href={backHref}
-                  label={LANDING_PAGE_BACK.label}
-                  size="compact"
-                  direction="back"
-                />
+              <div className="flex justify-start px-4 md:px-8">
+                <HeroBackCTA href={backHref} label={LANDING_PAGE_BACK.label} />
               </div>
             </div>
           </section>
@@ -774,14 +769,14 @@ export default function ProjectTemplateALPARenderer({
               <h2 className="text-3xl font-semibold leading-tight md:text-5xl">
                 Vamos criar o próximo projeto?
               </h2>
-              <Link href={LANDING_PAGE_CTA.href} className="relative block">
+              <div className="relative block w-fit">
                 <AntigravityCTA
-                  as="div"
+                  href={LANDING_PAGE_CTA.href}
                   text={LANDING_PAGE_CTA.label}
                   color={LANDING_PAGE_CTA.color}
                   className="relative"
                 />
-              </Link>
+              </div>
             </div>
           </motion.section>
         </div>
