@@ -1003,8 +1003,8 @@ export default function MasterProjectTemplateV3Editor({
                 ) : null}
 
                 {block.type === 'image-text' ||
-                  block.type === 'text-image' ||
-                  block.type === 'video-text' ? (
+                block.type === 'text-image' ||
+                block.type === 'video-text' ? (
                   <div className="grid gap-4 md:grid-cols-2">
                     <BlockMediaField
                       block={block}
@@ -1044,7 +1044,7 @@ export default function MasterProjectTemplateV3Editor({
                 ) : null}
 
                 {block.type === 'image-image' ||
-                  block.type === 'image-video' ? (
+                block.type === 'image-video' ? (
                   <div className="grid gap-4 md:grid-cols-2">
                     <BlockMediaField
                       block={block}

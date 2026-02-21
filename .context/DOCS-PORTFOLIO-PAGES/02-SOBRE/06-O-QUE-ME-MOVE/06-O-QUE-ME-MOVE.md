@@ -114,7 +114,7 @@ Criar a sessão **manifesto "O Que Me Move"** como uma experiência scroll‑dri
 10. Elementos saem para a direita.
 11. Reset total.
 
---- 
+---
 
 ## 🎬 Código de Animação (Motion)
 

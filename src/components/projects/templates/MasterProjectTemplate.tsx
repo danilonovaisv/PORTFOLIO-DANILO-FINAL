@@ -259,10 +259,7 @@ export default function MasterProjectTemplate({
           </motion.div>
 
           <div className="relative z-20 grid gap-2 pt-8 text-xs uppercase tracking-[0.14em] text-white/80 sm:flex sm:items-center sm:justify-between sm:gap-4">
-            <HeroBackCTA
-              href={backHref}
-              label={LANDING_PAGE_BACK.label}
-            />
+            <HeroBackCTA href={backHref} label={LANDING_PAGE_BACK.label} />
 
             <a
               href="#project-intro"
@@ -384,7 +381,7 @@ export default function MasterProjectTemplate({
                   <div
                     className={
                       item.layout === 'feature' ||
-                        item.layout === 'full-highlight'
+                      item.layout === 'full-highlight'
                         ? 'aspect-16/10 md:aspect-20/9'
                         : 'aspect-4/3 md:aspect-16/10'
                     }

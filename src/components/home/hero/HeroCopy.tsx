@@ -62,10 +62,10 @@ export default function HeroCopy({
   const motionProps = prefersReducedMotion
     ? {}
     : {
-      initial: 'initial' as const,
-      animate: 'animate' as const,
-      variants: textContainerAnimation,
-    };
+        initial: 'initial' as const,
+        animate: 'animate' as const,
+        variants: textContainerAnimation,
+      };
 
   // Estrutura de conteúdo idêntica para ambas as camadas para garantir alinhamento perfeito
   const renderTextContent = (isMask: boolean) => (

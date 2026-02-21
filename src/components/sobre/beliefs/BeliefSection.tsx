@@ -101,7 +101,11 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
     [animationRange[0], animationRange[1], exitRange[0], exitRange[1]],
     [0, 1, 1, 0]
   );
-  const yScroll = useTransform(scrollYProgress, [0.68, 0.92], ['0vh', '-100vh']);
+  const yScroll = useTransform(
+    scrollYProgress,
+    [0.68, 0.92],
+    ['0vh', '-100vh']
+  );
 
   const lines = text.split('\n');
 

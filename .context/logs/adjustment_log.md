@@ -546,9 +546,11 @@ Corrigido falhas nos testes unitários:
    - **Infra DB**: Criadas `landing_pages` do tipo `master-project-v3-alpa` e vinculadas aos novos projetos no Supabase.
 
 **Verification:**
+
 - ✅ Database records verified via `curl`.
 - ✅ V3 Template routing confirmed in `ProjectRenderer.tsx`.
 - ⚠️ Local dev server blocked by `EPERM` on `node_modules`.
 
 **Next Steps:**
+
 - User to insert real content blocks via Admin Dashboard.

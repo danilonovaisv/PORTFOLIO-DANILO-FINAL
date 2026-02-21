@@ -52,8 +52,9 @@ export default function HomeHero() {
         {/* Fallback Mobile Background Gradient (Ghost Atmosphere) - Também usado para Reduced Motion */}
         {(!isDesktop || shouldReduceMotion) && (
           <div
-            className={`absolute inset-0 z-0 opacity-60 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)] ${shouldReduceMotion ? '' : 'animate-pulse'
-              }`}
+            className={`absolute inset-0 z-0 opacity-60 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)] ${
+              shouldReduceMotion ? '' : 'animate-pulse'
+            }`}
           />
         )}
 
@@ -95,9 +96,7 @@ export default function HomeHero() {
         {/* Camada: CTA (Z-60 — acima do Ghost, clicável) */}
         <div className="absolute inset-0 z-60 pointer-events-none">
           <div className="relative h-full w-full flex items-end justify-center pb-[5%]">
-            <div className="pointer-events-auto">
-              {isLoaded && <HeroCTA />}
-            </div>
+            <div className="pointer-events-auto">{isLoaded && <HeroCTA />}</div>
           </div>
         </div>
 

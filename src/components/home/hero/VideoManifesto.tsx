@@ -117,16 +117,8 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
     <motion.section
       ref={sectionRef}
       className="video-manifesto w-full overflow-hidden rounded-[2px]"
-      initial={
-        shouldReduceMotion
-          ? { opacity: 0 }
-          : { opacity: 0, y: 18 }
-      }
-      whileInView={
-        shouldReduceMotion
-          ? { opacity: 1 }
-          : { opacity: 1, y: 0 }
-      }
+      initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 18 }}
+      whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       transition={
         shouldReduceMotion
           ? { duration: 0.2 }

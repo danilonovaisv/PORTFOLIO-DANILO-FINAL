@@ -126,7 +126,12 @@ export default function ProjectsTable({ projects }: Props) {
                           : 'text-amber-300'
                     }
                   >
-                    16:9 {project.url_landscape ? 'ok' : project.thumbnail_path ? 'legado' : 'faltando'}
+                    16:9{' '}
+                    {project.url_landscape
+                      ? 'ok'
+                      : project.thumbnail_path
+                        ? 'legado'
+                        : 'faltando'}
                   </span>
                   <span
                     className={
@@ -137,26 +142,35 @@ export default function ProjectsTable({ projects }: Props) {
                           : 'text-amber-300'
                     }
                   >
-                    1:1 {project.url_square ? 'ok' : project.hero_image_path ? 'legado' : 'faltando'}
+                    1:1{' '}
+                    {project.url_square
+                      ? 'ok'
+                      : project.hero_image_path
+                        ? 'legado'
+                        : 'faltando'}
                   </span>
                 </div>
               </td>
               <td className="px-4 py-3 text-slate-300">
                 {project.landing_page_id ? (
                   <div className="flex flex-col gap-1 text-[10px]">
-                    <span className="text-blue-300 font-medium">Landing Page</span>
+                    <span className="text-blue-300 font-medium">
+                      Landing Page
+                    </span>
                     <span className="text-slate-500 italic">
                       {project.landing_pages?.content &&
-                        typeof project.landing_pages.content === 'object' &&
-                        'template' in project.landing_pages.content
+                      typeof project.landing_pages.content === 'object' &&
+                      'template' in project.landing_pages.content
                         ? String(project.landing_pages.content.template)
-                          .replace('master-project-', 'V')
-                          .replace('-alpa', ' ALPA')
+                            .replace('master-project-', 'V')
+                            .replace('-alpa', ' ALPA')
                         : 'Custom'}
                     </span>
                   </div>
                 ) : (
-                  <span className="text-slate-500 text-[10px]">Modal Default</span>
+                  <span className="text-slate-500 text-[10px]">
+                    Modal Default
+                  </span>
                 )}
               </td>
               <td className="px-4 py-3 text-slate-300">
@@ -172,10 +186,11 @@ export default function ProjectsTable({ projects }: Props) {
                       />
                       <button
                         type="submit"
-                        className={`rounded px-1.5 py-0.5 text-[10px] font-semibold transition ${project.featured_on_home
+                        className={`rounded px-1.5 py-0.5 text-[10px] font-semibold transition ${
+                          project.featured_on_home
                             ? 'bg-blue-500/20 text-blue-200 border border-blue-500/30'
                             : 'bg-slate-700 text-slate-400 border border-white/5 hover:bg-slate-600'
-                          }`}
+                        }`}
                       >
                         {project.featured_on_home ? 'Ativo' : 'Off'}
                       </button>
@@ -192,10 +207,11 @@ export default function ProjectsTable({ projects }: Props) {
                       />
                       <button
                         type="submit"
-                        className={`rounded px-1.5 py-0.5 text-[10px] font-semibold transition ${project.featured_on_portfolio
+                        className={`rounded px-1.5 py-0.5 text-[10px] font-semibold transition ${
+                          project.featured_on_portfolio
                             ? 'bg-emerald-500/20 text-emerald-200 border border-emerald-500/30'
                             : 'bg-slate-700 text-slate-400 border border-white/5 hover:bg-slate-600'
-                          }`}
+                        }`}
                       >
                         {project.featured_on_portfolio ? 'Ativo' : 'Off'}
                       </button>
@@ -213,10 +229,11 @@ export default function ProjectsTable({ projects }: Props) {
                   />
                   <button
                     type="submit"
-                    className={`rounded px-2 py-1 text-xs font-semibold ${project.is_published
-                      ? 'bg-green-500/20 text-green-300 border border-green-500/30'
-                      : 'bg-slate-700 text-slate-200 border border-white/10'
-                      }`}
+                    className={`rounded px-2 py-1 text-xs font-semibold ${
+                      project.is_published
+                        ? 'bg-green-500/20 text-green-300 border border-green-500/30'
+                        : 'bg-slate-700 text-slate-200 border border-white/10'
+                    }`}
                   >
                     {project.is_published ? 'Publicado' : 'Rascunho'}
                   </button>

@@ -56,11 +56,7 @@ const projectBaseFieldsSchema = z.object({
   featured_on_home: z.boolean().optional(),
   is_published: z.boolean().optional(),
   landing_page_id: z
-    .union([
-      z.string().uuid('Landing page inválida.'),
-      z.literal(''),
-      z.null(),
-    ])
+    .union([z.string().uuid('Landing page inválida.'), z.literal(''), z.null()])
     .optional(),
   tags: z.array(z.string().uuid('Tag inválida.')).optional(),
 });
@@ -84,32 +80,37 @@ const projectBaseSchema = projectBaseFieldsSchema.superRefine(
 
 export const projectFormSchema = projectBaseSchema;
 
-// @ts-ignore: safeExtend is added via a plugin or patch but not strictly typed
-export const projectMutationSchema = projectBaseSchema.safeExtend({
-  id: z.string().uuid().optional(),
-  year: nullableOptionalYearField,
-  brand_name: z.string().trim().max(120).nullable().optional(),
-  short_label: z.string().trim().max(120).nullable().optional(),
-  description: z.string().trim().max(4000).nullable().optional(),
-  landing_page_id: z.preprocess(
-    (value) => (value === '' ? null : value),
-    z.string().uuid('Landing page inválida.').nullable().optional()
-  ),
-  tags: z.array(z.string().uuid('Tag inválida.')).optional(),
-  thumbnail_path: z.string().trim().nullable().optional(),
-  hero_image_path: z.string().trim().nullable().optional(),
-  url_landscape: z.string().trim().nullable().optional(),
-  url_square: z.string().trim().nullable().optional(),
-  gallery: z
-    .array(
-      z.object({
-        path: z.string().trim().min(1, 'Path da galeria é obrigatório.'),
-        caption: z.string().trim().max(240).optional(),
-      })
-    )
-    .nullable()
-    .optional(),
-});
+// Mutation schema uses spread-shape pattern instead of .safeExtend() because
+// the mutation deliberately widens some field types (e.g., adding .nullable())
+// which .safeExtend() in Zod v4 correctly rejects as non-assignable.
+export const projectMutationSchema = z
+  .object({
+    ...projectBaseFieldsSchema.shape,
+    id: z.string().uuid().optional(),
+    year: nullableOptionalYearField,
+    brand_name: z.string().trim().max(120).nullable().optional(),
+    short_label: z.string().trim().max(120).nullable().optional(),
+    description: z.string().trim().max(4000).nullable().optional(),
+    landing_page_id: z.preprocess(
+      (value) => (value === '' ? null : value),
+      z.string().uuid('Landing page inválida.').nullable().optional()
+    ),
+    tags: z.array(z.string().uuid('Tag inválida.')).optional(),
+    thumbnail_path: z.string().trim().nullable().optional(),
+    hero_image_path: z.string().trim().nullable().optional(),
+    url_landscape: z.string().trim().nullable().optional(),
+    url_square: z.string().trim().nullable().optional(),
+    gallery: z
+      .array(
+        z.object({
+          path: z.string().trim().min(1, 'Path da galeria é obrigatório.'),
+          caption: z.string().trim().max(240).optional(),
+        })
+      )
+      .nullable()
+      .optional(),
+  })
+  .superRefine(enforceFeaturedPublishedRule);
 
 export type ProjectFormValues = z.infer<typeof projectFormSchema>;
 export type ProjectMutationInput = z.infer<typeof projectMutationSchema>;

@@ -1,12 +1,21 @@
 import { NextResponse } from 'next/server';
-import { requireAdminAccess, AdminAccessError } from '@/lib/admin/server-access';
+import {
+  requireAdminAccess,
+  AdminAccessError,
+} from '@/lib/admin/server-access';
 
 type UploadBucket = 'portfolio-media' | 'site-assets';
 
-const ALLOWED_BUCKETS = new Set<UploadBucket>(['portfolio-media', 'site-assets']);
+const ALLOWED_BUCKETS = new Set<UploadBucket>([
+  'portfolio-media',
+  'site-assets',
+]);
 
 function normalizePath(rawPath: string) {
-  return rawPath.trim().replace(/^\/+/, '').replace(/\/{2,}/g, '/');
+  return rawPath
+    .trim()
+    .replace(/^\/+/, '')
+    .replace(/\/{2,}/g, '/');
 }
 
 function invalidPath(path: string) {
@@ -24,7 +33,10 @@ export async function POST(request: Request) {
     const rawPath = formData.get('path');
     const file = formData.get('file');
 
-    if (typeof bucket !== 'string' || !ALLOWED_BUCKETS.has(bucket as UploadBucket)) {
+    if (
+      typeof bucket !== 'string' ||
+      !ALLOWED_BUCKETS.has(bucket as UploadBucket)
+    ) {
       return NextResponse.json({ error: 'Bucket inválido.' }, { status: 400 });
     }
 
@@ -35,21 +47,29 @@ export async function POST(request: Request) {
     const path = normalizePath(rawPath);
 
     if (invalidPath(path)) {
-      return NextResponse.json({ error: 'Path inválido para upload.' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Path inválido para upload.' },
+        { status: 400 }
+      );
     }
 
     if (!(file instanceof File)) {
-      return NextResponse.json({ error: 'Arquivo obrigatório.' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Arquivo obrigatório.' },
+        { status: 400 }
+      );
     }
 
     const bytes = await file.arrayBuffer();
     const payload = Buffer.from(bytes);
 
-    const { data, error } = await supabase.storage.from(bucket).upload(path, payload, {
-      contentType: file.type || undefined,
-      cacheControl: '3600',
-      upsert: true,
-    });
+    const { data, error } = await supabase.storage
+      .from(bucket)
+      .upload(path, payload, {
+        contentType: file.type || undefined,
+        cacheControl: '3600',
+        upsert: true,
+      });
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 400 });

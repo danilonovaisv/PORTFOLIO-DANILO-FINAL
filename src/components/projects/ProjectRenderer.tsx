@@ -89,10 +89,7 @@ function LegacyProjectRenderer({
           className="pointer-events-auto absolute inset-x-0 bottom-8 z-20"
         >
           <div className="std-grid flex justify-start">
-            <HeroBackCTA
-              href={backHref}
-              label={LANDING_PAGE_BACK.label}
-            />
+            <HeroBackCTA href={backHref} label={LANDING_PAGE_BACK.label} />
           </div>
         </motion.div>
       </section>

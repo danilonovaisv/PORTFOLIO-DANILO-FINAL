@@ -117,7 +117,11 @@ const GhostModel: React.FC<GhostModelProps> = ({
     // === ESCALA DINÂMICA (final: +15%) ===
     const baseScale = config.baseScale;
     const scaleFactor = 1 + config.scaleBoost * finalPhaseProgress;
-    const targetScale = THREE.MathUtils.lerp(0.1, baseScale * scaleFactor, enterProgress);
+    const targetScale = THREE.MathUtils.lerp(
+      0.1,
+      baseScale * scaleFactor,
+      enterProgress
+    );
 
     // Lerp scale
     group.current.scale.x = THREE.MathUtils.lerp(
@@ -139,7 +143,11 @@ const GhostModel: React.FC<GhostModelProps> = ({
     // === FINAL PHASE & EXIT ===
     const targetX = THREE.MathUtils.lerp(config.baseX, 0, finalPhaseProgress);
     const mobileFinalY = isMobile ? 0 : config.startY;
-    const targetY = THREE.MathUtils.lerp(config.startY, mobileFinalY, finalPhaseProgress);
+    const targetY = THREE.MathUtils.lerp(
+      config.startY,
+      mobileFinalY,
+      finalPhaseProgress
+    );
 
     // X Position Logic with Wiggle
     const wiggleX = isMobile
@@ -162,7 +170,8 @@ const GhostModel: React.FC<GhostModelProps> = ({
       Math.sin(t * Math.PI * 3.1) *
       config.scrollYResponse *
       (0.2 + scrollImpulse * 0.8);
-    const yTargetWithScroll = targetY + scrollWaveY - Math.abs(scrollKick) * 0.08;
+    const yTargetWithScroll =
+      targetY + scrollWaveY - Math.abs(scrollKick) * 0.08;
     group.current.position.y = THREE.MathUtils.lerp(
       group.current.position.y,
       yTargetWithScroll,
@@ -173,7 +182,10 @@ const GhostModel: React.FC<GhostModelProps> = ({
       Math.cos(t * Math.PI * 2.2) *
       config.scrollZResponse *
       (0.2 + scrollImpulse * 0.9);
-    const targetZ = Math.cos(t * Math.PI * 0.8) * 0.3 + scrollWaveZ + Math.abs(scrollKick) * 0.3;
+    const targetZ =
+      Math.cos(t * Math.PI * 0.8) * 0.3 +
+      scrollWaveZ +
+      Math.abs(scrollKick) * 0.3;
     group.current.position.z = THREE.MathUtils.lerp(
       group.current.position.z,
       targetZ,
