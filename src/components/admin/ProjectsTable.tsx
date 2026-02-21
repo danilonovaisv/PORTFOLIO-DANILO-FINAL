@@ -25,6 +25,10 @@ type Project = {
   is_published: boolean;
   thumbnail_path: string | null;
   hero_image_path: string | null;
+  url_landscape: string | null;
+  url_square: string | null;
+  landing_page_id: string | null;
+  landing_pages?: { content: any } | null;
   project_type: string | null;
   slug: string | null;
   tags: Array<{ tag: { label: string; slug: string } }>;
@@ -69,8 +73,8 @@ export default function ProjectsTable({ projects }: Props) {
             <th className="px-4 py-3">Ano</th>
             <th className="px-4 py-3">Tipo</th>
             <th className="px-4 py-3">Tags</th>
-            <th className="px-4 py-3">Flags</th>
             <th className="px-4 py-3">Variantes</th>
+            <th className="px-4 py-3">Modo</th>
             <th className="px-4 py-3">Destaques</th>
             <th className="px-4 py-3">Status</th>
             <th className="px-4 py-3 text-right">Ações</th>
@@ -81,9 +85,9 @@ export default function ProjectsTable({ projects }: Props) {
             <tr key={project.id} className="border-t border-white/5">
               <td className="px-4 py-3 font-medium text-white">
                 <div className="flex items-center gap-3">
-                  {project.thumbnail_path && (
+                  {(project.url_landscape || project.thumbnail_path) && (
                     <AdminMediaThumb
-                      path={project.thumbnail_path}
+                      path={project.url_landscape || project.thumbnail_path!}
                       alt={project.title}
                     />
                   )}
@@ -112,38 +116,48 @@ export default function ProjectsTable({ projects }: Props) {
                 </div>
               </td>
               <td className="px-4 py-3 text-slate-300">
-                <div className="flex gap-2 text-xs">
-                  {project.featured_on_home && (
-                    <span className="px-2 py-1 rounded bg-white/10">Home</span>
-                  )}
-                  {project.featured_on_portfolio && (
-                    <span className="px-2 py-1 rounded bg-white/10">
-                      Portfólio
-                    </span>
-                  )}
-                </div>
-              </td>
-              <td className="px-4 py-3 text-slate-300">
                 <div className="flex flex-col gap-1 text-xs">
                   <span
                     className={
-                      project.thumbnail_path
+                      project.url_landscape
                         ? 'text-emerald-300'
-                        : 'text-amber-300'
+                        : project.thumbnail_path
+                          ? 'text-blue-300'
+                          : 'text-amber-300'
                     }
                   >
-                    16:9 {project.thumbnail_path ? 'ok' : 'faltando'}
+                    16:9 {project.url_landscape ? 'ok' : project.thumbnail_path ? 'legado' : 'faltando'}
                   </span>
                   <span
                     className={
-                      project.hero_image_path
+                      project.url_square
                         ? 'text-emerald-300'
-                        : 'text-amber-300'
+                        : project.hero_image_path
+                          ? 'text-blue-300'
+                          : 'text-amber-300'
                     }
                   >
-                    1:1 {project.hero_image_path ? 'ok' : 'faltando'}
+                    1:1 {project.url_square ? 'ok' : project.hero_image_path ? 'legado' : 'faltando'}
                   </span>
                 </div>
+              </td>
+              <td className="px-4 py-3 text-slate-300">
+                {project.landing_page_id ? (
+                  <div className="flex flex-col gap-1 text-[10px]">
+                    <span className="text-blue-300 font-medium">Landing Page</span>
+                    <span className="text-slate-500 italic">
+                      {project.landing_pages?.content &&
+                        typeof project.landing_pages.content === 'object' &&
+                        'template' in project.landing_pages.content
+                        ? String(project.landing_pages.content.template)
+                          .replace('master-project-', 'V')
+                          .replace('-alpa', ' ALPA')
+                        : 'Custom'}
+                    </span>
+                  </div>
+                ) : (
+                  <span className="text-slate-500 text-[10px]">Modal Default</span>
+                )}
               </td>
               <td className="px-4 py-3 text-slate-300">
                 <div className="flex flex-col gap-1 text-xs">
@@ -158,18 +172,17 @@ export default function ProjectsTable({ projects }: Props) {
                       />
                       <button
                         type="submit"
-                        className={`rounded px-2 py-1 text-xs font-semibold ${
-                          project.featured_on_home
+                        className={`rounded px-1.5 py-0.5 text-[10px] font-semibold transition ${project.featured_on_home
                             ? 'bg-blue-500/20 text-blue-200 border border-blue-500/30'
-                            : 'bg-slate-700 text-slate-200 border border-white/10'
-                        }`}
+                            : 'bg-slate-700 text-slate-400 border border-white/5 hover:bg-slate-600'
+                          }`}
                       >
-                        {project.featured_on_home ? 'Ativo' : 'Destacar'}
+                        {project.featured_on_home ? 'Ativo' : 'Off'}
                       </button>
                     </form>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-slate-400">Portfólio:</span>
+                    <span className="text-slate-400">Portfolio:</span>
                     <form action={toggleFeaturedOnPortfolio}>
                       <input type="hidden" name="id" value={project.id} />
                       <input
@@ -179,13 +192,12 @@ export default function ProjectsTable({ projects }: Props) {
                       />
                       <button
                         type="submit"
-                        className={`rounded px-2 py-1 text-xs font-semibold ${
-                          project.featured_on_portfolio
+                        className={`rounded px-1.5 py-0.5 text-[10px] font-semibold transition ${project.featured_on_portfolio
                             ? 'bg-emerald-500/20 text-emerald-200 border border-emerald-500/30'
-                            : 'bg-slate-700 text-slate-200 border border-white/10'
-                        }`}
+                            : 'bg-slate-700 text-slate-400 border border-white/5 hover:bg-slate-600'
+                          }`}
                       >
-                        {project.featured_on_portfolio ? 'Ativo' : 'Destacar'}
+                        {project.featured_on_portfolio ? 'Ativo' : 'Off'}
                       </button>
                     </form>
                   </div>
@@ -201,11 +213,10 @@ export default function ProjectsTable({ projects }: Props) {
                   />
                   <button
                     type="submit"
-                    className={`rounded px-2 py-1 text-xs font-semibold ${
-                      project.is_published
-                        ? 'bg-green-500/20 text-green-300 border border-green-500/30'
-                        : 'bg-slate-700 text-slate-200 border border-white/10'
-                    }`}
+                    className={`rounded px-2 py-1 text-xs font-semibold ${project.is_published
+                      ? 'bg-green-500/20 text-green-300 border border-green-500/30'
+                      : 'bg-slate-700 text-slate-200 border border-white/10'
+                      }`}
                   >
                     {project.is_published ? 'Publicado' : 'Rascunho'}
                   </button>

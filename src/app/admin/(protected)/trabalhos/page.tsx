@@ -36,7 +36,7 @@ export default async function TrabalhosPage(props: Props) {
   let query = supabase
     .from('portfolio_projects')
     .select(
-      'id, title, client_name, year, featured_on_home, featured_on_portfolio, is_published, thumbnail_path, hero_image_path, project_type, slug, updated_at'
+      'id, title, client_name, year, featured_on_home, featured_on_portfolio, is_published, thumbnail_path, hero_image_path, project_type, slug, updated_at, url_landscape, url_square, landing_page_id, landing_pages(content)'
     )
     .order('updated_at', { ascending: false });
 
@@ -71,9 +71,9 @@ export default async function TrabalhosPage(props: Props) {
   const { data: projectTagRows, error: projectTagsError } =
     projectIds.length > 0
       ? await supabase
-          .from('portfolio_project_tags')
-          .select('project_id, tag_id')
-          .in('project_id', projectIds)
+        .from('portfolio_project_tags')
+        .select('project_id, tag_id')
+        .in('project_id', projectIds)
       : { data: [], error: null };
 
   if (projectTagsError) {
@@ -107,8 +107,8 @@ export default async function TrabalhosPage(props: Props) {
 
   const filteredProjects = tagFilter
     ? projects.filter((project) =>
-        project.tags.some((relation) => relation.tag.slug === tagFilter)
-      )
+      project.tags.some((relation) => relation.tag.slug === tagFilter)
+    )
     : projects;
 
   const uniqueYears = Array.from(

@@ -521,3 +521,34 @@ Corrigido falhas nos testes unitários:
 - ✅ `pnpm lint`
 - ✅ `pnpm typecheck`
 - ⚠️ `pnpm test:e2e test/e2e/about-beliefs.spec.ts` bloqueado por browser Playwright ausente (`pnpm exec playwright install`).
+
+---
+
+## [2026-02-21T04:35] ALPA (V3) Template Finalization & Phase 3 Migration
+
+**Context:** Finalização do renderer ALPA V3 conforme a missão e migração técnica de 4 projetos candidatos para o banco de dados Supabase.
+
+**Changes Applied:**
+
+1. **ALPA Renderer (V3) Compliance** ✅
+   - File: `ProjectTemplateALPARenderer.tsx`, `MasterProjectTemplateV3Editor.tsx`
+   - **YouTube Protocol**: Implementado `autoplay=1&mute=1&loop=1&controls=0` em todos os vídeos ALPA.
+   - **Zero Border Radius**: Forçada a estética editorial em todos os blocos ALPA via CSS global no template.
+   - **Full Width Band**: Componente `quote-band` otimizado para 100vw.
+
+2. **Admin Project List Support** ✅
+   - File: `trabalhos/page.tsx`, `ProjectsTable.tsx`
+   - Integrado suporte a variantes `url_landscape` e `url_square`.
+   - Adicionada identificação do template (Default vs V3 ALPA) na listagem.
+
+3. **Project Migration (Phase 3)** ✅
+   - **Projetos Criados**: `magic-radio-branding`, `branding-project-01`, `key-visual-campaign`, `webdesigner-motion`.
+   - **Infra DB**: Criadas `landing_pages` do tipo `master-project-v3-alpa` e vinculadas aos novos projetos no Supabase.
+
+**Verification:**
+- ✅ Database records verified via `curl`.
+- ✅ V3 Template routing confirmed in `ProjectRenderer.tsx`.
+- ⚠️ Local dev server blocked by `EPERM` on `node_modules`.
+
+**Next Steps:**
+- User to insert real content blocks via Admin Dashboard.
