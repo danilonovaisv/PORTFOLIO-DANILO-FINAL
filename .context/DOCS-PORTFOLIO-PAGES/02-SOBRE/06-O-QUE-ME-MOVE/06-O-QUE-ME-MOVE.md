@@ -270,3 +270,6 @@ export const Ghost = () => {
   - `BeliefFinalSection` marcado com `'use client'` por usar `useTransform` durante prerender.
   - `GhostScene` marcado com `'use client'` para evitar execução em ambiente server durante o build.
   - `AboutBeliefsNoSSR` em `/sobre` aplica `dynamic(..., { ssr: false })` para evitar execução SSR dos hooks de scroll durante o build.
+- Runtime guard (2026-02-22):
+  - `BeliefSection` e `BeliefFinalSectionOverlay` passam a usar `cubicBezier(...GHOST_EASE)` para `useTransform/transition`, evitando erro de easing no client.
+  - `AboutBeliefs` agora injeta wrappers e flags de `prefersReducedMotion` para garantir fallback estático quando motion é desativado.
