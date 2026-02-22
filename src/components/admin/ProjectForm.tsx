@@ -9,6 +9,7 @@ import { createClientComponentClient } from '@/lib/supabase/client';
 import { uploadToBucket } from '@/lib/supabase/storage';
 import type { DbProject, DbTag, DbLandingPage } from '@/types/admin';
 import { FieldTooltip } from '@/components/admin/FieldTooltip';
+import { GalleryManager, type GalleryItem } from '@/components/admin/GalleryManager';
 import { upsertTagAction } from '@/app/admin/(protected)/tags/actions';
 import {
   PROJECT_TYPE_OPTIONS,
@@ -41,11 +42,11 @@ export function ProjectForm({
   const hasExistingSquare = Boolean(
     project?.url_square ?? project?.hero_image_path
   );
-  const [thumbnail, setThumbnail] = useState<File | null>(null);
-  const [hero, setHero] = useState<File | null>(null);
   const [landscapeVariant, setLandscapeVariant] = useState<File | null>(null);
   const [squareVariant, setSquareVariant] = useState<File | null>(null);
-  const [gallery, setGallery] = useState<File[]>([]);
+  const [galleryItems, setGalleryItems] = useState<GalleryItem[]>(() =>
+    Array.isArray(project?.gallery) ? project.gallery.map((g, i) => ({ id: `existing-${i}`, path: g.path, caption: g.caption })) : []
+  );
   const [availableTags, setAvailableTags] = useState<DbTag[]>(() =>
     [...tags].sort((a, b) =>
       a.label.localeCompare(b.label, 'pt-BR', { sensitivity: 'base' })
@@ -81,18 +82,18 @@ export function ProjectForm({
       landingPages.map((page) => {
         const template =
           page.content &&
-          typeof page.content === 'object' &&
-          'template' in page.content &&
-          ((page.content as { template?: string }).template ===
-            MASTER_PROJECT_TEMPLATE ||
-            (page.content as { template?: string }).template ===
+            typeof page.content === 'object' &&
+            'template' in page.content &&
+            ((page.content as { template?: string }).template ===
+              MASTER_PROJECT_TEMPLATE ||
+              (page.content as { template?: string }).template ===
               MASTER_PROJECT_TEMPLATE_V2 ||
-            (page.content as { template?: string }).template ===
+              (page.content as { template?: string }).template ===
               MASTER_PROJECT_TEMPLATE_V3)
             ? ((page.content as { template?: string }).template as
-                | typeof MASTER_PROJECT_TEMPLATE
-                | typeof MASTER_PROJECT_TEMPLATE_V2
-                | typeof MASTER_PROJECT_TEMPLATE_V3)
+              | typeof MASTER_PROJECT_TEMPLATE
+              | typeof MASTER_PROJECT_TEMPLATE_V2
+              | typeof MASTER_PROJECT_TEMPLATE_V3)
             : LEGACY_PROJECT_TEMPLATE;
 
         return {
@@ -131,15 +132,9 @@ export function ProjectForm({
     startTransition(async () => {
       try {
         // const supabase = createClientComponentClient(); // Used ONLY for Storage uploads
-        let thumbnail_path = project?.thumbnail_path ?? null;
-        let hero_image_path = project?.hero_image_path ?? null;
         let url_landscape = project?.url_landscape ?? null;
         let url_square = project?.url_square ?? null;
-        const galleryEntries: Array<{ path: string }> = Array.isArray(
-          project?.gallery
-        )
-          ? project?.gallery?.map((item) => ({ path: item.path }))
-          : [];
+        const galleryEntries: Array<{ path: string; caption?: string }> = [];
 
         if (!landscapeVariant && !hasExistingLandscape) {
           setError('Envie a variante 16:9 antes de salvar o projeto.');
@@ -152,23 +147,7 @@ export function ProjectForm({
         }
 
         // Upload Logic (Client-Side)
-        if (thumbnail) {
-          thumbnail_path = await uploadToBucket(
-            'portfolio-media',
-            `projects/${values.slug}`,
-            'thumb',
-            thumbnail
-          );
-        }
-
-        if (hero) {
-          hero_image_path = await uploadToBucket(
-            'portfolio-media',
-            `projects/${values.slug}`,
-            'hero',
-            hero
-          );
-        }
+        // Thumbnail and Hero no longer sent from UI
 
         if (landscapeVariant) {
           url_landscape = await uploadToBucket(
@@ -188,16 +167,20 @@ export function ProjectForm({
           );
         }
 
-        if (gallery.length > 0) {
-          for (const file of gallery) {
-            const path = await uploadToBucket(
-              'portfolio-media',
-              `projects/${values.slug}/gallery`,
-              file.name.replace(/\W+/g, '-'),
-              file
-            );
-            if (path) {
-              galleryEntries.push({ path });
+        if (galleryItems.length > 0) {
+          for (const item of galleryItems) {
+            if (item.file) {
+              const path = await uploadToBucket(
+                'portfolio-media',
+                `projects/${values.slug}/gallery`,
+                item.file.name.replace(/\W+/g, '-'),
+                item.file
+              );
+              if (path) {
+                galleryEntries.push({ path, caption: item.caption });
+              }
+            } else if (item.path) {
+              galleryEntries.push({ path: item.path, caption: item.caption });
             }
           }
         }
@@ -229,8 +212,8 @@ export function ProjectForm({
           is_published: values.is_published ?? true,
           landing_page_id: landingPageId,
           tags: selectedTagIds,
-          thumbnail_path,
-          hero_image_path,
+          thumbnail_path: project?.thumbnail_path ?? null,
+          hero_image_path: project?.hero_image_path ?? null,
           url_landscape,
           url_square,
           gallery: galleryEntries,
@@ -495,62 +478,16 @@ export function ProjectForm({
           )}
         </label>
       </div>
-
-      <div className="grid gap-4 md:grid-cols-3">
-        <label className="flex flex-col gap-2">
+      <div className="mt-8 border-t border-white/5 pt-6">
+        <label className="flex flex-col gap-4">
           <FieldTooltip
-            label="Thumbnail (opcional)"
-            description="Fallback legado para listagens antigas."
-            className="flex items-center gap-1"
+            label="Galeria (gerenciador de peças)"
+            description="Peças completas do portfólio. As peças podem ser reordenadas arrastando."
+            className="flex items-center gap-1 font-semibold text-slate-200 text-lg"
           />
-          <input
-            type="file"
-            accept="image/*,video/*"
-            onChange={(e) => setThumbnail(e.target.files?.[0] ?? null)}
-          />
-          {project?.thumbnail_path && (
-            <span className="text-xs text-slate-400 break-all">
-              {project.thumbnail_path}
-            </span>
-          )}
-        </label>
-        <label className="flex flex-col gap-2">
-          <FieldTooltip
-            label="Hero image (opcional)"
-            description="Imagem complementar para páginas de projeto e fallback visual."
-            className="flex items-center gap-1"
-          />
-          <input
-            type="file"
-            accept="image/*,video/*"
-            onChange={(e) => setHero(e.target.files?.[0] ?? null)}
-          />
-          {project?.hero_image_path && (
-            <span className="text-xs text-slate-400 break-all">
-              {project.hero_image_path}
-            </span>
-          )}
-        </label>
-        <label className="flex flex-col gap-2">
-          <FieldTooltip
-            label="Galeria"
-            description="Assets extras para modal/case; aceita imagens e vídeos."
-            className="flex items-center gap-1"
-          />
-          <input
-            type="file"
-            accept="image/*,video/*"
-            multiple
-            onChange={(e) => setGallery(Array.from(e.target.files ?? []))}
-          />
-          {Array.isArray(project?.gallery) && project.gallery.length > 0 && (
-            <span className="text-xs text-slate-400">
-              {project.gallery.length} itens já cadastrados
-            </span>
-          )}
+          <GalleryManager items={galleryItems} onChange={setGalleryItems} />
         </label>
       </div>
-
       <div>
         <FieldTooltip
           label="Tags"
@@ -610,6 +547,6 @@ export function ProjectForm({
       >
         {isPending ? 'Salvando...' : 'Salvar projeto'}
       </button>
-    </form>
+    </form >
   );
 }

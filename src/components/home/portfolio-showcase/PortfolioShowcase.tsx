@@ -29,7 +29,7 @@ const CATEGORIES = [
   },
   {
     id: 'web-tech',
-    title: ['Web Campaigns,', 'Websites & Tech'],
+    title: 'Websites & Tech',
     slug: 'web',
     // GIF substituído por frame estático WebP para reduzir LCP e peso inicial
     thumbnail: getAssetUrl('site-assets/home/showcase/Branding-Project.webp'),

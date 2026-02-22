@@ -2,13 +2,14 @@
 
 import { FC, useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
+import { Play } from 'lucide-react';
 import type { PortfolioProject } from '@/types/project';
-import { getMediaAspectRatio, MediaAspectRatio } from '@/lib/media-utils';
-import { MediaContainer } from './MediaContainer';
-import { ContentContainer } from './ContentContainer';
-import { getContentVariants } from '@/components/portfolio/modal/variants';
+import { isVideo, isYouTubeUrl, getYouTubeEmbedUrl, getYouTubeThumbnailUrl, applyImageFallback } from '@/lib/utils';
+import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { ImageLightbox } from '@/components/portfolio/ImageLightbox';
-import { sanitizeTailwindValue } from '@/lib/utils';
+import PortfolioCTA from '../PortfolioCTA';
+import { getContentVariants } from '@/components/portfolio/modal/variants';
 
 interface AdaptiveMediaLayoutProps {
     project: PortfolioProject;
@@ -21,15 +22,8 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
     heroMedia,
     shouldReduce = false,
 }) => {
-    const [aspectRatio, setAspectRatio] = useState<MediaAspectRatio>('horizontal');
     const [activeMedia, setActiveMedia] = useState(heroMedia);
-    const [isDetecting, setIsDetecting] = useState(true);
     const [lightboxSource, setLightboxSource] = useState<string | null>(null);
-
-    // Sanitize accent color
-    const sanitizedAccentColor = project.accentColor
-        ? sanitizeTailwindValue(project.accentColor)
-        : undefined;
 
     // Combine hero media + gallery
     const allMedia = useMemo(() => {
@@ -43,87 +37,228 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
         return list;
     }, [heroMedia, project.detail?.gallery]);
 
-    // Handle active media changes from outside (e.g. project change)
     useEffect(() => {
         setActiveMedia(heroMedia);
     }, [heroMedia]);
 
-    // Detect aspect ratio of the ACTIVE media
-    useEffect(() => {
-        setIsDetecting(true);
-        getMediaAspectRatio(activeMedia, (ratio) => {
-            setAspectRatio(ratio);
-            setIsDetecting(false);
-        });
-    }, [activeMedia]);
-
-    const isMotion = project.category === 'motion';
     const contentVariants = getContentVariants(shouldReduce);
+    const isMotion = project.category === 'motion';
 
-    // Loading skeleton state
-    if (isDetecting && activeMedia === heroMedia) {
-        return (
-            <div className="w-full h-[60vh] bg-white/5 animate-pulse rounded-2xl flex items-center justify-center">
-                <span className="text-white/20 text-sm tracking-widest uppercase">Detectando Dimensões...</span>
-            </div>
-        );
-    }
-
-    // Choose layout based on aspect ratio
-    // If vertical/square: side-by-side grid
-    // If horizontal: stacked layout
-    const isHorizontal = aspectRatio === 'horizontal';
+    const activeYouTubeEmbed = isYouTubeUrl(activeMedia)
+        ? getYouTubeEmbedUrl(activeMedia)
+        : null;
+    const isVid = isVideo(activeMedia);
 
     return (
         <AnimatePresence mode="wait">
             <motion.div
-                key={isHorizontal ? 'horizontal' : 'vertical'}
+                key="cinematic-layout"
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
                 variants={contentVariants}
-                className="w-full"
+                className="w-full flex-1"
             >
-                {isHorizontal ? (
-                    /* Horizontal Layout (Legacy-ish but cleaned up) */
-                    <div className="flex flex-col gap-10">
-                        <MediaContainer
-                            activeMedia={activeMedia}
-                            allMedia={allMedia}
-                            title={project.title}
-                            onSelect={setActiveMedia}
-                            onMainClick={setLightboxSource}
-                            isMotion={isMotion}
-                        />
-                        <hr className="border-white/5" />
-                        <ContentContainer
-                            project={project}
-                            shouldReduce={shouldReduce}
-                            accentColor={sanitizedAccentColor}
-                        />
-                    </div>
-                ) : (
-                    /* Vertical/Square Layout (E-commerce style) */
-                    <div className="grid md:grid-cols-[1fr,0.85fr] gap-8 lg:gap-12 items-start">
-                        <div className="sticky top-0">
-                            <MediaContainer
-                                activeMedia={activeMedia}
-                                allMedia={allMedia}
+                <section className="relative w-full group overflow-hidden">
+                    {/* HERO MEDIA */}
+                    <div className="relative w-full aspect-video md:aspect-[21/9] max-h-[70vh] bg-black/50 overflow-hidden flex items-center justify-center">
+                        {activeYouTubeEmbed ? (
+                            <iframe
+                                src={activeYouTubeEmbed}
                                 title={project.title}
-                                onSelect={setActiveMedia}
-                                onMainClick={setLightboxSource}
-                                isMotion={isMotion}
+                                className="absolute inset-0 w-full h-full border-none z-0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
                             />
+                        ) : isVid ? (
+                            <video
+                                key={activeMedia}
+                                src={activeMedia}
+                                autoPlay
+                                muted={false}
+                                playsInline
+                                controls
+                                preload="metadata"
+                                poster={DEFAULT_VIDEO_POSTER}
+                                className="absolute inset-0 w-full h-full object-contain z-0"
+                                onLoadedMetadata={(event) => {
+                                    event.currentTarget.muted = false;
+                                    void event.currentTarget.play().catch(() => undefined);
+                                }}
+                            >
+                                <track
+                                    kind="captions"
+                                    src={DEFAULT_CAPTIONS}
+                                    srcLang="pt-BR"
+                                    label="Português"
+                                    default
+                                />
+                            </video>
+                        ) : (
+                            <div className="absolute inset-0 w-full h-full z-0 cursor-pointer" onClick={() => setLightboxSource(activeMedia)}>
+                                <Image
+                                    src={activeMedia}
+                                    alt={project.title}
+                                    fill
+                                    className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-[1.02]"
+                                    sizes="100vw"
+                                    priority
+                                    onError={applyImageFallback}
+                                />
+                            </div>
+                        )}
+
+                        {/* Ghost Ambient Gradient */}
+                        {!isVid && !activeYouTubeEmbed && (
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#040013] via-[#040013]/20 to-transparent opacity-90 pointer-events-none z-10" />
+                        )}
+
+                        {/* Motion & Video Label */}
+                        {isMotion && (
+                            <div className="absolute top-4 left-6 md:left-12 z-20 pointer-events-none">
+                                <span className="inline-flex items-center rounded-full bg-[#0b0d3a]/60 backdrop-blur-md border border-white/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white/90 shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
+                                    Motion & Video
+                                </span>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* THUMBNAILS CAROUSEL */}
+                    <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-30 mt-6 md:mt-8 mb-12">
+                        {allMedia.length > 1 && (
+                            <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
+                                {allMedia.map((media, idx) => {
+                                    const isActive = activeMedia === media;
+                                    const isThumbVid = isVideo(media);
+                                    const youtubeThumb = isYouTubeUrl(media)
+                                        ? getYouTubeThumbnailUrl(media)
+                                        : null;
+
+                                    return (
+                                        <button
+                                            key={`${media}-${idx}`}
+                                            onClick={() => setActiveMedia(media)}
+                                            className={`relative w-32 md:w-48 aspect-video flex-shrink-0 rounded-lg overflow-hidden border-2 cursor-pointer transition-all duration-300 outline-none
+                                                ${isActive ? 'border-[#4fe6ff] ring-4 ring-[#4fe6ff]/20 z-10 scale-105' : 'border-white/20 hover:border-white/50 opacity-70 hover:opacity-100'}
+                                            `}
+                                        >
+                                            {youtubeThumb ? (
+                                                <div className="relative w-full h-full">
+                                                    <Image src={youtubeThumb} alt={`Thumbnail ${idx}`} fill className="object-cover" sizes="200px" unoptimized />
+                                                    <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                                                        <Play className="w-6 h-6 text-white fill-current opacity-90" />
+                                                    </div>
+                                                </div>
+                                            ) : isThumbVid ? (
+                                                <div className="relative w-full h-full">
+                                                    <video src={media} className="w-full h-full object-cover" muted playsInline preload="metadata" />
+                                                    <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                                                        <Play className="w-6 h-6 text-white fill-current opacity-80" />
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <Image src={media} alt={`Thumbnail ${idx}`} fill className="object-cover" sizes="200px" />
+                                            )}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        )}
+                    </div>
+
+                    {/* DETAILS / TEXT CONTENT */}
+                    <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-30 pb-24">
+                        <h1 className="text-4xl md:text-7xl font-bold tracking-tight text-white mb-2 drop-shadow-2xl">
+                            {project.title}
+                        </h1>
+                        {project.subtitle && (
+                            <p className="text-base md:text-xl lg:text-2xl text-gray-300 font-light mb-8 max-w-3xl leading-relaxed">
+                                {project.subtitle}
+                            </p>
+                        )}
+
+                        <div className="flex flex-row flex-wrap gap-x-8 gap-y-4 items-center text-sm border-t border-white/10 pt-6 mb-12 w-full">
+                            {project.category && (
+                                <div className="flex flex-row items-baseline gap-2">
+                                    <span className="text-xs uppercase tracking-widest text-gray-500 font-semibold">Categoria</span>
+                                    <span className="text-white text-base font-medium uppercase">{project.category}</span>
+                                </div>
+                            )}
+                            {project.client && (
+                                <div className="flex flex-row items-baseline gap-2">
+                                    <span className="text-xs uppercase tracking-widest text-gray-500 font-semibold">Cliente</span>
+                                    <span className="text-white text-base font-medium">{project.client}</span>
+                                </div>
+                            )}
+                            {project.year && (
+                                <div className="flex flex-row items-baseline gap-2">
+                                    <span className="text-xs uppercase tracking-widest text-gray-500 font-semibold">Ano</span>
+                                    <span className="text-white text-base font-medium">{project.year}</span>
+                                </div>
+                            )}
                         </div>
-                        <div className="flex flex-col gap-8">
-                            <ContentContainer
-                                project={project}
-                                shouldReduce={shouldReduce}
-                                accentColor={sanitizedAccentColor}
-                            />
+
+                        <div className="max-w-3xl flex flex-col gap-10">
+                            {project.detail?.description && (
+                                <div className="prose prose-lg prose-invert max-w-none">
+                                    <p className="text-xl md:text-2xl leading-relaxed text-gray-200 font-light">
+                                        {project.detail.description}
+                                    </p>
+                                </div>
+                            )}
+
+                            {/* Tags and Highlights */}
+                            <div className="flex flex-col md:flex-row gap-10">
+                                {project.detail?.highlights && (
+                                    <div className="flex-1 flex flex-col gap-4">
+                                        <h3 className="text-sm font-semibold uppercase tracking-wider text-white/40">Destaques</h3>
+                                        <ul className="flex flex-col gap-3 list-none p-0 m-0">
+                                            {project.detail.highlights.map((highlight, i) => (
+                                                <li key={i} className="flex items-start gap-3 text-sm md:text-base text-white/80">
+                                                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#4fe6ff] shrink-0 shadow-[0_0_8px_rgba(79,230,255,0.8)]" aria-hidden="true" />
+                                                    {highlight}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+
+                                {project.tags && (
+                                    <div className="flex-1 flex flex-col gap-4">
+                                        <h3 className="text-sm font-semibold uppercase tracking-wider text-white/40">Tecnologias</h3>
+                                        <div className="flex flex-wrap gap-2">
+                                            {project.tags.map((tag, tagIndex) => (
+                                                <span
+                                                    key={`${project.id}-${tag}-${tagIndex}`}
+                                                    className="inline-flex items-center justify-center rounded-sm border border-white/10 bg-white/5 hover:bg-white/10 transition-colors px-3 py-1.5 text-xs text-center uppercase tracking-wider text-white"
+                                                >
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* External link / CTA */}
+                            {project.detail?.externalUrl && (
+                                <div className="pt-8 md:pt-12 flex justify-start">
+                                    <a className="group inline-flex items-center gap-1.5 no-underline" href={project.detail.externalUrl} target="_blank" rel="noopener noreferrer">
+                                        <div className="h-14 px-8 flex items-center justify-center bg-[#0048ff] rounded-full hover:bg-[#1a5cff] hover:scale-[1.02] transition-all duration-300 shadow-[0_0_20px_rgba(0,72,255,0.3)] hover:shadow-[0_0_30px_rgba(0,72,255,0.5)]">
+                                            <span className="text-white text-sm md:text-base font-medium tracking-wide">VER PROJETO COMPLETO</span>
+                                        </div>
+                                        <div className="h-14 w-14 flex-shrink-0 flex items-center justify-center bg-[#0048ff] rounded-full hover:bg-[#1a5cff] hover:rotate-45 transition-all duration-300 shadow-[0_0_20px_rgba(0,72,255,0.3)] hover:shadow-[0_0_30px_rgba(0,72,255,0.5)]">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
+                                                <path d="M7 17L17 7"></path>
+                                                <path d="M7 7H17V17"></path>
+                                            </svg>
+                                        </div>
+                                    </a>
+                                </div>
+                            )}
                         </div>
                     </div>
-                )}
+                </section>
 
                 <ImageLightbox
                     isOpen={Boolean(lightboxSource)}

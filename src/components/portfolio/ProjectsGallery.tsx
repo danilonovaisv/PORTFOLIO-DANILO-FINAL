@@ -33,7 +33,7 @@ const CATEGORY_PILLARS = [
   { id: 'videos-motions', label: 'Videos & Motions', categories: ['motion'] as ProjectCategory[] },
   {
     id: 'web-tech',
-    label: 'Web Campaigns, Websites & Tech',
+    label: 'Websites & Tech',
     categories: ['web', 'Landing Page'] as ProjectCategory[],
   },
 ] as const;
@@ -41,14 +41,14 @@ const CATEGORY_PILLARS = [
 function mapCategoryToPillar(category?: string) {
   const normalized = category?.trim().toLowerCase();
   if (!normalized) return 'brand-campaigns';
-  if (normalized === 'motion' || normalized === 'videos-motions') {
+  if (normalized === 'motion' || normalized === 'videos-motions' || normalized === 'videos & motions') {
     return 'videos-motions';
   }
   if (
     normalized === 'web' ||
     normalized === 'web-tech' ||
-    normalized === 'websites-tech' ||
-    normalized === 'websites-webcampaigns-tech'
+    normalized === 'websites & tech' ||
+    normalized === 'websites-tech'
   ) {
     return 'web-tech';
   }
@@ -215,9 +215,8 @@ export const ProjectsGallery = ({
       <div
         id="portfolio-filter-panel"
         role="tabpanel"
-        aria-labelledby={`portfolio-filter-${
-          CATEGORY_PILLARS[activeFilterIndex]?.id ?? CATEGORY_PILLARS[0].id
-        }`}
+        aria-labelledby={`portfolio-filter-${CATEGORY_PILLARS[activeFilterIndex]?.id ?? CATEGORY_PILLARS[0].id
+          }`}
         className={cn('gallery', styles.gallery)}
         ref={galleryWrapperRef as RefObject<HTMLDivElement>}
       >

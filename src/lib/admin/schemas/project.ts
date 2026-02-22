@@ -1,11 +1,9 @@
 import { z } from 'zod';
 
 export const PROJECT_TYPE_OPTIONS = [
-  'Branding & Identity',
-  'Campanhas & Advertising',
-  'Web & Digital',
-  'Motion & Video',
-  'Institucional & Retail',
+  'Brand & Campaigns',
+  'Videos & Motions',
+  'Websites & Tech',
 ] as const;
 
 const slugSchema = z

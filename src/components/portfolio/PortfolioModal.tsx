@@ -70,10 +70,6 @@ export const PortfolioModal = ({
     };
   }, [isOpen, onClose]);
 
-  const backdropVariants = useMemo(
-    () => getBackdropVariants(shouldReduceMotion),
-    [shouldReduceMotion]
-  );
   const containerVariants = useMemo(
     () => getContainerVariants(shouldReduceMotion),
     [shouldReduceMotion]
@@ -83,15 +79,6 @@ export const PortfolioModal = ({
     ? `portfolio-modal-${project.slug.replace(/[^a-z0-9-]/gi, '')}`
     : undefined;
 
-  const handleBackdropClick = useCallback(
-    (e: MouseEvent<HTMLDivElement>) => {
-      if (e.target === e.currentTarget) {
-        onClose();
-      }
-    },
-    [onClose]
-  );
-
   if (!mounted) return null;
 
   return createPortal(
@@ -100,12 +87,11 @@ export const PortfolioModal = ({
         <>
           <motion.div
             key="backdrop"
-            className="fixed inset-0 z-[1200] bg-black/90 backdrop-blur-md"
-            variants={backdropVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            onClick={handleBackdropClick}
+            className="fixed inset-0 z-[1200] pointer-events-none bg-[#040013]/95 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5, ease: 'easeInOut' }}
             aria-hidden="true"
           />
 
@@ -119,42 +105,44 @@ export const PortfolioModal = ({
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-0 z-[1210]"
+            className="fixed inset-0 z-[1210] flex flex-col font-display selection:bg-[#4fe6ff] selection:text-black overflow-hidden h-[100dvh] w-screen"
           >
-            <div className="min-h-full flex items-center justify-center p-2 sm:p-4 md:p-8">
-              <div className="relative w-full max-w-5xl max-h-[calc(100dvh-1rem)] sm:max-h-[calc(100dvh-2rem)] overflow-hidden rounded-3xl border border-white/10 bg-[#0c1024] text-white shadow-[0_24px_90px_-30px_rgba(0,0,0,0.6)]">
-                <button
-                  ref={closeRef}
-                  onClick={onClose}
-                  aria-label="Fechar modal"
-                  className="absolute top-3 right-3 z-[1220] flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur transition-colors hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-                >
-                  <X size={22} />
-                </button>
+            {/* Ambient Background Gradient inside modal */}
+            <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#0b0d3a] via-[#040013] to-[#040013] opacity-80"></div>
 
-                <div className="relative max-h-[calc(100dvh-1rem)] sm:max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain p-6 pt-14 md:p-10 md:pt-16 lg:p-12 lg:pt-20">
-                  {titleId ? (
-                    <h2 id={titleId} className="sr-only">
-                      {project.title}
-                    </h2>
-                  ) : null}
-                  <ErrorBoundary
-                    fallback={
-                      <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-sm text-white/70">
-                        Não foi possível carregar este projeto agora. Tente
-                        novamente em instantes.
-                      </div>
-                    }
-                  >
-                    {project.type === 'A' ? (
-                      <TypeAContent project={project} />
-                    ) : (
-                      <TypeBContent project={project} />
-                    )}
-                  </ErrorBoundary>
-                </div>
-              </div>
+            <div className="fixed top-6 right-4 md:right-8 z-[1220]">
+              <button
+                ref={closeRef}
+                onClick={onClose}
+                aria-label="Fechar modal"
+                className="flex items-center justify-center w-[56px] h-[56px] md:w-[68px] md:h-[68px] rounded-full bg-black/40 hover:bg-white/10 border border-white/10 backdrop-blur-md transition-all duration-300 group shadow-[0_0_30px_rgba(0,0,0,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff]"
+              >
+                <X className="text-white/70 group-hover:text-white transition-colors" size={32} strokeWidth={1.5} />
+              </button>
             </div>
+
+            <main className="flex-1 overflow-y-auto relative z-10 w-full pt-16 md:pt-0">
+              {titleId ? (
+                <h2 id={titleId} className="sr-only">
+                  {project.title}
+                </h2>
+              ) : null}
+              <ErrorBoundary
+                fallback={
+                  <div className="flex items-center justify-center min-h-[50vh]">
+                    <div className="rounded-2xl border border-white/10 bg-white/5 p-6 text-sm text-white/70">
+                      Não foi possível carregar este projeto agora. Tente novamente em instantes.
+                    </div>
+                  </div>
+                }
+              >
+                {project.type === 'A' ? (
+                  <TypeAContent project={project} />
+                ) : (
+                  <TypeBContent project={project} />
+                )}
+              </ErrorBoundary>
+            </main>
           </motion.div>
         </>
       ) : null}

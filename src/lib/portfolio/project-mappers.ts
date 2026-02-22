@@ -33,13 +33,17 @@ type StaticProject = {
 };
 
 const CATEGORY_MAP: Record<string, ProjectCategory> = {
+  'Brand & Campaigns': 'branding',
+  'Videos & Motions': 'motion',
+  'Websites & Tech': 'web',
+  // keep legacy matches for old entries temporarily
   'Branding & Identity': 'branding',
   'Campanhas & Advertising': 'branding',
-  Campanha: 'branding',
-  Branding: 'branding',
   'Web & Digital': 'web',
   'Motion & Video': 'motion',
   'Institucional & Retail': 'branding',
+  Campanha: 'branding',
+  Branding: 'branding',
   Packaging: 'branding',
 };
 
@@ -243,7 +247,7 @@ function toShortDescription(
 function getPortfolioPillarLabel(category: ProjectCategory) {
   if (category === 'motion') return 'Videos & Motions';
   if (category === 'web' || category === 'Landing Page') {
-    return 'Web Campaigns, Websites & Tech';
+    return 'Websites & Tech';
   }
   return 'Brand & Campaigns';
 }
@@ -341,13 +345,15 @@ export function mapDbProjectToPortfolioProject(
     resolveProjectMedia(project.thumbnail_path) ||
     resolveProjectMedia(project.hero_image_path);
   const thumbnailIsVideo = isVideo(thumbnailMedia);
-  const primaryImage =
-    (!thumbnailIsVideo ? thumbnailMedia : undefined) ||
-    landscapeUrl ||
-    squareUrl ||
-    thumbnailMedia ||
-    gallery[0] ||
-    '';
+  const primaryImageCandidates = [
+    !thumbnailIsVideo ? thumbnailMedia : undefined,
+    landscapeUrl,
+    squareUrl,
+    thumbnailMedia,
+    gallery[0],
+  ].filter(Boolean) as string[];
+
+  const primaryImage = primaryImageCandidates[0] || '';
   const videoPreview = thumbnailIsVideo
     ? thumbnailMedia
     : toVideoPreview(gallery);

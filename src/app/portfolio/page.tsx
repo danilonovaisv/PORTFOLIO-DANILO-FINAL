@@ -43,7 +43,7 @@ export async function generateMetadata({
         'Projetos de motion design, vídeo e direção criativa com ritmo editorial, narrativa e impacto visual.',
     },
     web: {
-      label: 'Web Campaigns, Websites & Tech',
+      label: 'Websites & Tech',
       description:
         'Experiências web e digitais com foco em performance, interatividade e design que conecta pessoas e marcas.',
     },
