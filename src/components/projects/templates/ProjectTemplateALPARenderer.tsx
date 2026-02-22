@@ -665,55 +665,57 @@ export default function ProjectTemplateALPARenderer({
 
       <div className="relative z-10">
         <div role="region" aria-label="Conteúdo do projeto">
-          <section className="std-grid relative flex min-h-[82vh] items-center justify-center py-24 text-center">
-            <motion.div
-              className="mx-auto flex max-w-5xl flex-col items-center gap-6"
-              initial={revealInitial}
-              animate={revealVisible}
-              transition={{ duration: 0.7, ease: GHOST_EASE }}
-            >
-              {heroLogo ? (
-                <div className="relative h-20 w-40 md:h-28 md:w-64">
-                  <Image
-                    src={heroLogo}
-                    alt={
-                      project.hero_logo_image?.alt ||
-                      `Logo de ${project.project_title}`
-                    }
-                    fill
-                    sizes="256px"
-                    className="object-contain"
-                  />
-                </div>
-              ) : null}
-
-              <h1 className="max-w-5xl text-4xl font-semibold leading-[0.95] tracking-tight md:text-6xl lg:text-7xl">
-                {project.project_title}
-              </h1>
-
-              {project.project_subtitle ? (
-                <p className="max-w-3xl text-lg leading-relaxed text-white/85 md:text-2xl">
-                  {project.project_subtitle}
-                </p>
-              ) : null}
-
-              <div
-                className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.18em]"
-                style={{ color: mixHex(accentColor, '#ffffff', 0.4) }}
+          <section className="relative flex min-h-[82vh] flex-col items-center justify-center overflow-hidden py-24 text-center">
+            <div className="std-grid relative z-10 mx-auto w-full">
+              <motion.div
+                className="mx-auto flex max-w-5xl flex-col items-center gap-6"
+                initial={revealInitial}
+                animate={revealVisible}
+                transition={{ duration: 0.7, ease: GHOST_EASE }}
               >
-                {project.project_client ? (
-                  <span>{project.project_client}</span>
+                {heroLogo ? (
+                  <div className="relative h-20 w-40 md:h-28 md:w-64">
+                    <Image
+                      src={heroLogo}
+                      alt={
+                        project.hero_logo_image?.alt ||
+                        `Logo de ${project.project_title}`
+                      }
+                      fill
+                      sizes="256px"
+                      className="object-contain"
+                    />
+                  </div>
                 ) : null}
-                {project.project_year ? (
-                  <span>{project.project_year}</span>
+
+                <h1 className="max-w-5xl text-4xl font-semibold leading-[0.95] tracking-tight md:text-6xl lg:text-7xl">
+                  {project.project_title}
+                </h1>
+
+                {project.project_subtitle ? (
+                  <p className="max-w-3xl text-lg leading-relaxed text-white/85 md:text-2xl">
+                    {project.project_subtitle}
+                  </p>
                 ) : null}
-                {project.project_tags.map((tag, tagIndex) => (
-                  <span key={`${project.project_slug}-${tag}-${tagIndex}`}>
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
+
+                <div
+                  className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.18em]"
+                  style={{ color: mixHex(accentColor, '#ffffff', 0.4) }}
+                >
+                  {project.project_client ? (
+                    <span>{project.project_client}</span>
+                  ) : null}
+                  {project.project_year ? (
+                    <span>{project.project_year}</span>
+                  ) : null}
+                  {project.project_tags.map((tag, tagIndex) => (
+                    <span key={`${project.project_slug}-${tag}-${tagIndex}`}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
 
             <div className="pointer-events-auto absolute bottom-6 left-0 right-0 z-20 sm:bottom-8">
               <div className="flex justify-start px-4 md:px-8">

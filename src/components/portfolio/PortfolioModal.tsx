@@ -119,7 +119,7 @@ export const PortfolioModal = ({
               </button>
             </div>
 
-            <main className="flex-1 overflow-y-auto relative z-10 w-full pt-16 md:pt-0">
+            <main className="flex-1 overflow-y-auto overscroll-contain relative z-10 w-full pt-16 md:pt-0">
               {titleId ? (
                 <h2 id={titleId} className="sr-only">
                   {project.title}
