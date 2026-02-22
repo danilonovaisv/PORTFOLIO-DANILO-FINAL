@@ -124,4 +124,5 @@ node_modules
 node_modules
 .pnpm-store/
 .pnpm-state
-~/Library/pnpm/store/
+~/Library/pnpm/store/.pnpm-store-new
+.pnpm-store_old
