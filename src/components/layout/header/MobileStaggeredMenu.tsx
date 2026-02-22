@@ -63,15 +63,19 @@ export default function MobileStaggeredMenu({
     syncState();
   }, [isOpen, syncState]);
 
-  // Lock body scroll
+  // Lock body scroll and set aria-hidden on main content
   useEffect(() => {
+    const mainContent = document.getElementById('main-content');
     if (open) {
       document.body.style.overflow = 'hidden';
+      if (mainContent) mainContent.setAttribute('aria-hidden', 'true');
     } else {
       document.body.style.overflow = '';
+      if (mainContent) mainContent.removeAttribute('aria-hidden');
     }
     return () => {
       document.body.style.overflow = '';
+      if (mainContent) mainContent.removeAttribute('aria-hidden');
     };
   }, [open]);
 

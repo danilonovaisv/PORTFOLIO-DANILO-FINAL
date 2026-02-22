@@ -75,7 +75,7 @@ export default function SiteFooter() {
 
         {/* 2. Navigation (Order 2 on Mobile, Center/Right on Desktop) */}
         <nav
-          className="flex flex-row flex-nowrap justify-center items-center gap-4 sm:gap-6 lg:gap-8 order-2 lg:order-0 overflow-x-auto no-scrollbar"
+          className="flex flex-row flex-wrap justify-center items-center gap-x-4 gap-y-2 sm:gap-6 lg:gap-8 order-2 lg:order-0 w-full lg:w-auto px-4 lg:px-0"
           aria-label="Navegação do rodapé"
         >
           {NAVIGATION.footer.links.map((link) => (
@@ -83,7 +83,7 @@ export default function SiteFooter() {
               key={link.label}
               href={link.href}
               onClick={(event) => handleFooterNavigation(event, link.href)}
-              className="group relative text-[11px] sm:text-[12px] font-bold uppercase tracking-widest hover:opacity-80 transition-opacity duration-200 py-4 px-3 sm:px-4 lg:py-2 lg:px-0 flex items-center whitespace-nowrap shrink-0"
+              className="group relative text-[11px] sm:text-[12px] font-bold uppercase tracking-widest hover:opacity-80 transition-opacity duration-200 py-3 lg:py-2 flex items-center shrink-0"
             >
               {link.label}
               {/* Hover Underline (Desktop Only) */}

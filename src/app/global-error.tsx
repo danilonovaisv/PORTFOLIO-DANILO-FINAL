@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 
 export default function GlobalError({
   error,
@@ -22,12 +23,12 @@ export default function GlobalError({
               {error.message}
             </p>
             <div className="flex flex-wrap justify-center gap-3">
-              <a
+              <Link
                 href="/"
                 className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#040013] transition hover:bg-[#4fe6ff] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff]"
               >
                 Go back home
-              </a>
+              </Link>
               {reset && (
                 <button
                   type="button"

@@ -88,9 +88,9 @@ export default function RootLayout({
           Pular para o conteúdo
         </a>
         <SmoothScroll>
-          <div className="relative w-full">
+          <main id="main-content" className="relative w-full flex-1">
             <AssetLoaderWrapper>{children}</AssetLoaderWrapper>
-          </div>
+          </main>
         </SmoothScroll>
       </body>
     </html>

@@ -14,8 +14,8 @@ const baseConfig = {
     '^.+\\.[tj]sx?$': ['ts-jest', tsJestConfig],
   },
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
     '\\.(css|less|scss|sass)$': '<rootDir>/test/__mocks__/styleMock.js',
+    '^@/(.*)$': '<rootDir>/src/$1',
     'server-only': '<rootDir>/test/__mocks__/serverOnlyMock.js',
   },
   transformIgnorePatterns: ['node_modules/(?!(framer-motion)/)'],
