@@ -1,0 +1,173 @@
+===========================================
+ Projeto: PORTFOLIO-DANILO-FINAL
+ Data: Sun Feb 22 20:14:56 -03 2026
+ Package manager detectado: pnpm
+===========================================
+
+### Ambiente
+
+$ node -v
+v20.20.0
+
+$ npm -v
+10.8.2
+
+Sistema operacional:
+Darwin 192.168.0.34 25.4.0 Darwin Kernel Version 25.4.0: Sun Feb  8 23:36:18 PST 2026; root:xnu-12377.100.591.501.2~2/RELEASE_ARM64_T6000 arm64
+
+-------------------------------------------
+### Git status
+
+$ git status -sb
+## main...origin/main [ahead 2]
+ M pnpm-lock.yaml
+ M public/build-info.json
+?? project-report-20260222-201456.txt
+
+-------------------------------------------
+### Lint (npm run lint)
+
+$ npm run lint
+
+> danilo-novais-portfolio@1.0.1 lint
+> eslint src test tailwind.config.ts
+
+
+-------------------------------------------
+### Testes (npm run test)
+
+$ npm run test
+
+> danilo-novais-portfolio@1.0.1 test
+> pnpm run lint && pnpm run typecheck && jest
+
+
+> danilo-novais-portfolio@1.0.1 lint /Users/danilonovais/PORTFOLIO-DANILO-FINAL
+> eslint src test tailwind.config.ts
+
+
+> danilo-novais-portfolio@1.0.1 typecheck /Users/danilonovais/PORTFOLIO-DANILO-FINAL
+> NODE_OPTIONS='--max-old-space-size=8192' tsc --noEmit --strict --jsx react-jsx
+
+PASS test/security/admin-server-access.test.ts
+PASS test/unit/media-utils.test.ts
+FAIL test/unit/template-schema.test.ts
+  ● resolveSiteAssetUrl › normalizes /storage/v1/object/public paths with explicit bucket
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "https://test.supabase.co/storage/v1/object/public/landing-pages/demo/video.mp4"
+    Received: "https://test.supabase.co/storage/v1/object/public/site-assets/landing-pages/demo/video.mp4"
+
+      24 |         '/storage/v1/object/public/landing-pages/demo/video.mp4'
+      25 |       )
+    > 26 |     ).toBe(
+         |       ^
+      27 |       'https://test.supabase.co/storage/v1/object/public/landing-pages/demo/video.mp4'
+      28 |     );
+      29 |   });
+
+      at Object.<anonymous> (test/unit/template-schema.test.ts:26:7)
+
+PASS test/unit/hooks/usePerformanceAdaptive.test.ts
+PASS test/unit/hooks/useLERPScroll.test.ts
+PASS test/components/portfolio/PortfolioHeroNew.test.tsx
+PASS test/components/canvas/header/HeaderGlassCanvas.test.tsx
+PASS test/components/projects/BlockRenderer.test.tsx
+PASS test/components/ui/CustomCursor.test.tsx
+PASS test/unit/project-mapper.test.ts
+PASS test/unit/supabase-urls.test.ts
+PASS test/unit/authz.test.ts
+PASS test/unit/seo.test.ts
+PASS test/components/GhostModel.server.test.ts
+PASS test/components/projects/useLandingBackLink.test.tsx
+PASS test/components/HeroCopy.test.tsx
+PASS test/unit/utils.test.ts
+PASS test/unit/store/antigravity.store.test.ts
+PASS test/config.test.ts
+PASS test/unit/image-loader.test.ts
+PASS test/unit/site-asset-utils.test.ts
+PASS test/security/admin-authz.test.ts
+PASS test/components/portfolio/ProjectCard.test.tsx
+PASS test/unit/schema.test.ts
+PASS test/tsconfig.test.ts
+PASS test/security/admin-audit.test.ts
+
+Summary of all failing tests
+FAIL test/unit/template-schema.test.ts
+  ● resolveSiteAssetUrl › normalizes /storage/v1/object/public paths with explicit bucket
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: "https://test.supabase.co/storage/v1/object/public/landing-pages/demo/video.mp4"
+    Received: "https://test.supabase.co/storage/v1/object/public/site-assets/landing-pages/demo/video.mp4"
+
+      24 |         '/storage/v1/object/public/landing-pages/demo/video.mp4'
+      25 |       )
+    > 26 |     ).toBe(
+         |       ^
+      27 |       'https://test.supabase.co/storage/v1/object/public/landing-pages/demo/video.mp4'
+      28 |     );
+      29 |   });
+
+      at Object.<anonymous> (test/unit/template-schema.test.ts:26:7)
+
+
+Test Suites: 1 failed, 25 passed, 26 total
+Tests:       1 failed, 196 passed, 197 total
+Snapshots:   0 total
+Time:        1.809 s, estimated 2 s
+Ran all test suites.
+
+-------------------------------------------
+### Dependências desatualizadas
+
+$ pnpm outdated
+
+-------------------------------------------
+### Depcheck (dependências não usadas / faltando)
+
+$ npx depcheck
+Unused dependencies
+* @dataconnect/admin-generated
+* @dataconnect/generated
+* @genkit-ai/google-genai
+* @google/adk
+* @modelcontextprotocol/sdk
+* @react-three/postprocessing
+* firebase-admin
+* firebase-frameworks
+* firebase-functions
+* husky
+* lightningcss
+* lint-staged
+* motion-studio-mcp
+* postprocessing
+* tailwindcss-animate
+Unused devDependencies
+* @tailwindcss/postcss
+* @tailwindcss/typography
+* @testing-library/user-event
+* @types/jest
+* autoprefixer
+* esbuild
+* eslint-config-next
+* eslint-plugin-react
+* jest-environment-jsdom
+* knip
+* postcss
+* rimraf
+* serve
+* shadcn
+* ts-node
+* which
+Missing dependencies
+* tweakpane: ./docs/HOME/GhostScene.tsx
+
+-------------------------------------------
+### Observações
+Use este relatório para colar em uma IA (Codex/ChatGPT) e pedir:
+- Sugestões para corrigir erros de lint e testes;
+- Ajustes de dependências desatualizadas ou não utilizadas;
+- Refatorações sugeridas com base nos erros.
+
