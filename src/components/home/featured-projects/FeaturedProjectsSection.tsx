@@ -54,11 +54,11 @@ export default function FeaturedProjectsSection({
     visible: reducedMotion
       ? { opacity: 1 }
       : {
-        opacity: 1,
-        y: 0,
-        filter: 'blur(0px)',
-        transition: ghostTransition(0, duration.normal),
-      },
+          opacity: 1,
+          y: 0,
+          filter: 'blur(0px)',
+          transition: ghostTransition(0, duration.normal),
+        },
   };
 
   return (
@@ -68,7 +68,6 @@ export default function FeaturedProjectsSection({
       className="relative z-10 bg-background py-16 md:py-24"
     >
       <Container>
-
         <motion.div
           initial={reducedMotion ? 'visible' : 'hidden'}
           whileInView="visible"

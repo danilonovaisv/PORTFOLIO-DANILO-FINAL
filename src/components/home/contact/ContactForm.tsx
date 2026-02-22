@@ -4,7 +4,10 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { GHOST_EASE, viewportConfig } from '@/config/motion';
-import { InputField, TextAreaField } from '@/components/home/contact/FormFields';
+import {
+  InputField,
+  TextAreaField,
+} from '@/components/home/contact/FormFields';
 import { CONTACT_FORM } from '@/config/navigation';
 
 const ContactForm: React.FC = () => {

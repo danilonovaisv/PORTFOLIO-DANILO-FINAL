@@ -8,7 +8,10 @@ import {
   type ChangeEvent,
   type DragEvent,
 } from 'react';
-import { generateAdScenes, getSceneModelCapabilities } from '@/app/admin/(protected)/scene-generator/actions';
+import {
+  generateAdScenes,
+  getSceneModelCapabilities,
+} from '@/app/admin/(protected)/scene-generator/actions';
 import {
   AI_MODELS,
   OUTPUT_RATIO_PRESETS,

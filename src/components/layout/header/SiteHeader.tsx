@@ -8,7 +8,10 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useSiteAssetUrl } from '@/contexts/site-assets';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
 
-import type { NavItem, SiteHeaderProps } from '@/components/layout/header/types';
+import type {
+  NavItem,
+  SiteHeaderProps,
+} from '@/components/layout/header/types';
 import DesktopFluidHeader from '@/components/layout/header/DesktopFluidHeader';
 import MobileStaggeredMenu from '@/components/layout/header/MobileStaggeredMenu';
 import { useActiveSection } from '@/components/layout/header/useActiveSection';

@@ -5,7 +5,12 @@ import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 import { ABOUT_CONTENT } from '@/config/content';
-import { MOTION_TOKENS, GHOST_EASE, ghostFade, viewportConfig } from '@/config/motion';
+import {
+  MOTION_TOKENS,
+  GHOST_EASE,
+  ghostFade,
+  viewportConfig,
+} from '@/config/motion';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 

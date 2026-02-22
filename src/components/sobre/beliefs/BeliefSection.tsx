@@ -1,11 +1,6 @@
 'use client';
 import React, { useRef } from 'react';
-import {
-  motion,
-  useScroll,
-  useTransform,
-  MotionValue,
-} from 'framer-motion';
+import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 import { GHOST_EASE } from '@/config/motion';
 
 // Easing Ghost Padrão
@@ -52,11 +47,13 @@ const BeliefLineDesktop: React.FC<BeliefLineProps> = ({
       // 🟣 [CONFIG VISUAL]: Define a cor do texto das linhas (desktop)
       className="block text-blueAccent italic font-bold text-left whitespace-pre-line select-none tracking-[-0.04em] max-w-fit"
       // 🟣 [CONFIG VISUAL]: Define o tamanho da fonte (Desktop: clamp de 2.8rem a 6rem)
-      style={{
-        x: lineX,
-        fontSize: 'clamp(2.8rem,5.8vw,6.3rem)',
-        lineHeight: 0.9,
-      } as any}
+      style={
+        {
+          x: lineX,
+          fontSize: 'clamp(2.8rem,5.8vw,6.3rem)',
+          lineHeight: 0.9,
+        } as any
+      }
     >
       {line}
     </motion.span>

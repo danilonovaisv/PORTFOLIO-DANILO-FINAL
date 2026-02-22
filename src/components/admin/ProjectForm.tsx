@@ -9,7 +9,10 @@ import { createClientComponentClient } from '@/lib/supabase/client';
 import { uploadToBucket } from '@/lib/supabase/storage';
 import type { DbProject, DbTag, DbLandingPage } from '@/types/admin';
 import { FieldTooltip } from '@/components/admin/FieldTooltip';
-import { GalleryManager, type GalleryItem } from '@/components/admin/GalleryManager';
+import {
+  GalleryManager,
+  type GalleryItem,
+} from '@/components/admin/GalleryManager';
 import { upsertTagAction } from '@/app/admin/(protected)/tags/actions';
 import {
   PROJECT_TYPE_OPTIONS,
@@ -45,7 +48,13 @@ export function ProjectForm({
   const [landscapeVariant, setLandscapeVariant] = useState<File | null>(null);
   const [squareVariant, setSquareVariant] = useState<File | null>(null);
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>(() =>
-    Array.isArray(project?.gallery) ? project.gallery.map((g, i) => ({ id: `existing-${i}`, path: g.path, caption: g.caption })) : []
+    Array.isArray(project?.gallery)
+      ? project.gallery.map((g, i) => ({
+          id: `existing-${i}`,
+          path: g.path,
+          caption: g.caption,
+        }))
+      : []
   );
   const [availableTags, setAvailableTags] = useState<DbTag[]>(() =>
     [...tags].sort((a, b) =>
@@ -82,18 +91,18 @@ export function ProjectForm({
       landingPages.map((page) => {
         const template =
           page.content &&
-            typeof page.content === 'object' &&
-            'template' in page.content &&
-            ((page.content as { template?: string }).template ===
-              MASTER_PROJECT_TEMPLATE ||
-              (page.content as { template?: string }).template ===
+          typeof page.content === 'object' &&
+          'template' in page.content &&
+          ((page.content as { template?: string }).template ===
+            MASTER_PROJECT_TEMPLATE ||
+            (page.content as { template?: string }).template ===
               MASTER_PROJECT_TEMPLATE_V2 ||
-              (page.content as { template?: string }).template ===
+            (page.content as { template?: string }).template ===
               MASTER_PROJECT_TEMPLATE_V3)
             ? ((page.content as { template?: string }).template as
-              | typeof MASTER_PROJECT_TEMPLATE
-              | typeof MASTER_PROJECT_TEMPLATE_V2
-              | typeof MASTER_PROJECT_TEMPLATE_V3)
+                | typeof MASTER_PROJECT_TEMPLATE
+                | typeof MASTER_PROJECT_TEMPLATE_V2
+                | typeof MASTER_PROJECT_TEMPLATE_V3)
             : LEGACY_PROJECT_TEMPLATE;
 
         return {
@@ -547,6 +556,6 @@ export function ProjectForm({
       >
         {isPending ? 'Salvando...' : 'Salvar projeto'}
       </button>
-    </form >
+    </form>
   );
 }

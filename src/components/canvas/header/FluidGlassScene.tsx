@@ -2,7 +2,10 @@
 
 import React from 'react';
 import { Environment, Lightformer, SpotLight } from '@react-three/drei';
-import { GlassBar, type FluidGlassMaterialProps } from '@/components/canvas/header/GlassBar';
+import {
+  GlassBar,
+  type FluidGlassMaterialProps,
+} from '@/components/canvas/header/GlassBar';
 
 export interface FluidGlassSceneProps {
   materialProps: FluidGlassMaterialProps;
