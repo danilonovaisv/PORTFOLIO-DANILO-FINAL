@@ -1,3 +1,5 @@
+'use client';
+
 export * from '@/components/sobre/beliefs/BeliefSection';
 export * from '@/components/sobre/beliefs/BeliefMobileTextLayer';
 export * from '@/components/sobre/beliefs/BeliefFinalSection';

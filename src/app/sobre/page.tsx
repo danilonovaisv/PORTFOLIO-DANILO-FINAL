@@ -5,9 +5,9 @@ import {
   AboutOrigin,
   AboutWhatIDo,
   AboutMethod,
-  AboutBeliefs,
   AboutClosing,
 } from '@/components/sobre/sections';
+import AboutBeliefsNoSSR from '@/components/sobre/sections/AboutBeliefsNoSSR';
 import { SiteClosure } from '@/components/layout/SiteClosure';
 import JsonLd from '@/components/ui/JsonLd';
 
@@ -59,7 +59,7 @@ export default function AboutPage() {
       {/* Seção 04 — Como Eu Trabalho */}
       <AboutMethod />
       {/* Seção 05 — O Que Me Move (Beliefs) */}
-      <AboutBeliefs />
+      <AboutBeliefsNoSSR />
       {/* Seção 06 — Fechamento/Confirmação */}
       <AboutClosing />
       <SiteClosure />

@@ -265,3 +265,8 @@ export const Ghost = () => {
   - fallback defensivo para `ghost.glb` quando URL dinâmica vier como `ghost-transformed.glb` inválida.
 - Verificação:
   - suíte E2E completa passou (`9 passed`), incluindo `about-beliefs.spec.ts`.
+- Client boundary (2026-02-22):
+  - `components/sobre/beliefs/index.ts` marcado com `'use client'` para forçar bundle client dos exports.
+  - `BeliefFinalSection` marcado com `'use client'` por usar `useTransform` durante prerender.
+  - `GhostScene` marcado com `'use client'` para evitar execução em ambiente server durante o build.
+  - `AboutBeliefsNoSSR` em `/sobre` aplica `dynamic(..., { ssr: false })` para evitar execução SSR dos hooks de scroll durante o build.
