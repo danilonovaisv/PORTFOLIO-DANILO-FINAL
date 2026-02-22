@@ -17,11 +17,11 @@ import {
   MASTER_PROJECT_TEMPLATE_V2,
   MASTER_PROJECT_TEMPLATE_V3,
 } from '@/types/project-template';
-import BlockRenderer from './BlockRenderer';
-import MasterProjectTemplate from './templates/MasterProjectTemplate';
-import ProjectTemplateMasterRenderer from './templates/ProjectTemplateMasterRenderer';
-import ProjectTemplateALPARenderer from './templates/ProjectTemplateALPARenderer';
-import { useLandingBackLink } from './templates/useLandingBackLink';
+import BlockRenderer from '@/components/projects/BlockRenderer';
+import MasterProjectTemplate from '@/components/projects/templates/MasterProjectTemplate';
+import ProjectTemplateMasterRenderer from '@/components/projects/templates/ProjectTemplateMasterRenderer';
+import ProjectTemplateALPARenderer from '@/components/projects/templates/ProjectTemplateALPARenderer';
+import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
 
 interface ProjectRendererProps {
   project: {

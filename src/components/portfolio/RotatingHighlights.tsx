@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
+import { GHOST_EASE } from '@/config/motion';
 
 type RotatingHighlightsProps = {
   items: string[];
@@ -80,7 +81,7 @@ export default function RotatingHighlights({
       className={className}
       initial={reduceMotion ? false : { opacity: 0, y: 12, filter: 'blur(6px)' }}
       animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, filter: 'blur(0px)' }}
-      transition={{ duration: reduceMotion ? 0.15 : 0.45, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: reduceMotion ? 0.15 : 0.45, ease: GHOST_EASE as any }}
       aria-live="off"
     >
       {visibleHighlights.map((item, index) => (

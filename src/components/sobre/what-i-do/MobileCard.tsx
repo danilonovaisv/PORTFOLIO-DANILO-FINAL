@@ -2,6 +2,7 @@
 
 import { ArrowUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { GHOST_EASE, viewportConfig } from '@/config/motion';
 
 interface MobileCardProps {
   index: number;
@@ -26,7 +27,7 @@ export const MobileCard = ({
       transition: {
         duration: 0.55,
         delay: index * 0.08,
-        ease: [0.22, 1, 0.36, 1] as const,
+        ease: GHOST_EASE as any,
       },
     },
   };
@@ -37,7 +38,7 @@ export const MobileCard = ({
       aria-label={text}
       initial={prefersReducedMotion ? 'visible' : 'hidden'}
       whileInView="visible"
-      viewport={{ once: true, amount: 0.25 }}
+      viewport={viewportConfig}
       variants={variants}
       className="group flex w-full items-center gap-4 rounded-[12px] bg-[#150d2f] px-4 py-4 text-left shadow-[0_16px_40px_-28px_rgba(0,0,0,0.6)] outline-none ring-1 ring-white/5 transition hover:-translate-y-0.5 hover:bg-[#1a1138] focus-visible:ring-2 focus-visible:ring-[#4fe6ff] min-h-[76px]"
     >

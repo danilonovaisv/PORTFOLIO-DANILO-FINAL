@@ -8,7 +8,7 @@ import React, { useEffect } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
-import { ArrowIcon } from './ArrowIcon';
+import { ArrowIcon } from '@/components/ui/ArrowIcon';
 import { cn } from '@/lib/utils';
 
 interface CompoundPillCTAProps {

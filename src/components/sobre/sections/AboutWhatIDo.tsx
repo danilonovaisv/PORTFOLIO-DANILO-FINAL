@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
+import { GHOST_EASE, viewportConfig } from '@/config/motion';
 
 // =============================================================================
 // AboutWhatIDo - Ghost System v3.0
@@ -57,9 +58,6 @@ const MARQUEE_KEYWORDS = [
   'Creative Coding',
   'AI Design',
 ];
-
-// Ghost easing curve
-const ghostEase = [0.22, 1, 0.36, 1] as const;
 
 export function AboutWhatIDo() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -131,11 +129,11 @@ export function AboutWhatIDo() {
                 key={service.id}
                 initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
                 whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                viewport={{ once: false, margin: '-5%' }}
+                viewport={viewportConfig}
                 transition={{
                   duration: 0.4,
                   delay: index * 0.06,
-                  ease: ghostEase,
+                  ease: GHOST_EASE as any,
                 }}
                 className="group flex min-h-[140px] min-w-[380px] items-center gap-5 rounded-2xl bg-bluePrimary p-6 shadow-[0_25px_50px_-12px_rgba(135,5,242,0.35)] transition-all duration-300 hover:shadow-[0_30px_64px_-12px_rgba(135,5,242,0.55)]"
               >
@@ -192,11 +190,11 @@ export function AboutWhatIDo() {
                     : { opacity: 0, x: 80 }
                 }
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: false, margin: '-10%' }}
+                viewport={viewportConfig}
                 transition={{
                   duration: 0.4,
                   delay: index * 0.08,
-                  ease: ghostEase,
+                  ease: GHOST_EASE as any,
                 }}
                 className="group flex min-h-[76px] w-full items-center gap-4 rounded-xl bg-bluePrimary px-5 py-4 shadow-[0_16px_40px_-12px_rgba(135,5,242,0.35)] transition-all duration-300"
               >

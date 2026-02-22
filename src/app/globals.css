@@ -475,3 +475,17 @@ html.admin-page body {
 .pause-animation {
   animation-play-state: paused !important;
 }
+
+/* Hide scrollbar for elements with the .no-scrollbar class */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Stitch Text Glow */
+.text-glow {
+  text-shadow: 0 0 20px rgba(79, 230, 255, 0.3);
+}

@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
-import { InputField, TextAreaField } from './FormFields';
+import { GHOST_EASE, viewportConfig } from '@/config/motion';
+import { InputField, TextAreaField } from '@/components/home/contact/FormFields';
 import { CONTACT_FORM } from '@/config/navigation';
 
 const ContactForm: React.FC = () => {
@@ -100,8 +101,8 @@ const ContactForm: React.FC = () => {
     <motion.div
       initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      viewport={viewportConfig}
+      transition={{ duration: 0.6, ease: GHOST_EASE }}
       className="w-full max-w-[640px] mx-auto lg:ml-auto bg-white p-8 md:p-12 rounded-[24px] shadow-sm border border-textInverse/5"
     >
       <div className="p-0">

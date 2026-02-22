@@ -10,7 +10,7 @@ import { GHOST_EASE } from '@/config/motion';
 import { LANDING_PAGE_BACK, LANDING_PAGE_CTA } from '@/config/cta';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
-import { useLandingBackLink } from './useLandingBackLink';
+import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
 import { DEFAULT_CAPTIONS } from '@/lib/video';
 import type {

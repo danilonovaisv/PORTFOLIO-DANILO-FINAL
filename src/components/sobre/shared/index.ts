@@ -1,3 +1,3 @@
 // Shared utilities and components
-export * from './motion';
-export { kw } from './keywords';
+export * from '@/components/sobre/shared/motion';
+export { kw } from '@/components/sobre/shared/keywords';

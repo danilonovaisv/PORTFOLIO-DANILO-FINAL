@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { GHOST_EASE, viewportConfig } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
 
@@ -122,9 +123,9 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
       transition={
         shouldReduceMotion
           ? { duration: 0.2 }
-          : { duration: 1.2, ease: [0.22, 1, 0.36, 1] }
+          : { duration: 1.2, ease: GHOST_EASE }
       }
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={viewportConfig}
     >
       <div
         ref={wrapperRef}

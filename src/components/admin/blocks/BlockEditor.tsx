@@ -1,5 +1,5 @@
 import { LandingPageBlock } from '@/types/landing-page';
-import { MediaInput } from './MediaInput';
+import { MediaInput } from '@/components/admin/blocks/MediaInput';
 import { Type } from 'lucide-react';
 
 interface BlockEditorProps {

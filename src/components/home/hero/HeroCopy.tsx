@@ -10,7 +10,7 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
 import { HOME_CONTENT } from '@/config/content';
 import { Container } from '@/components/layout/Container';
 
-import styles from './HeroCopy.module.css';
+import styles from '@/components/home/hero/HeroCopy.module.css';
 
 // noinspection JSDeprecatedSymbols
 /**

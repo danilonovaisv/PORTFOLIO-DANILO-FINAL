@@ -8,13 +8,13 @@ import {
   type ChangeEvent,
   type DragEvent,
 } from 'react';
-import { generateAdScenes, getSceneModelCapabilities } from './actions';
+import { generateAdScenes, getSceneModelCapabilities } from '@/app/admin/(protected)/scene-generator/actions';
 import {
   AI_MODELS,
   OUTPUT_RATIO_PRESETS,
   normalizeAIModels,
   type OutputRatio,
-} from './types';
+} from '@/app/admin/(protected)/scene-generator/types';
 import { MAX_REFERENCE_IMAGES } from '@/lib/admin/schemas/scene-generator';
 import {
   Loader2,

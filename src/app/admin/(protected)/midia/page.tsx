@@ -5,7 +5,7 @@ export const fetchCache = 'force-no-store';
 import { createClient } from '@/lib/supabase/server';
 import { AssetForm } from '@/components/admin/AssetForm';
 import { AssetGuide } from '@/components/admin/AssetGuide';
-import { PresetButtons } from './preset-buttons';
+import { PresetButtons } from '@/app/admin/(protected)/midia/preset-buttons';
 import { normalizeAssetList } from '@/lib/supabase/site-asset-utils';
 import { AssetGallery } from '@/components/admin/AssetGallery';
 

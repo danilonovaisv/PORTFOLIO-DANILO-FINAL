@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
+import { GHOST_EASE } from '@/config/motion';
 import { PortfolioProject } from '@/types/project';
 import { cn } from '@/lib/utils';
 import {
@@ -11,7 +12,7 @@ import {
   applyImageFallback,
   isVideo,
 } from '@/lib/utils';
-import styles from './ProjectsGallery.module.css';
+import styles from '@/components/portfolio/ProjectsGallery.module.css';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 
@@ -55,7 +56,7 @@ export const ProjectCard = ({
       transition: {
         duration: 0.6,
         delay: Math.min(0.18, index * 0.03),
-        ease: [0.22, 1, 0.36, 1] as const,
+        ease: GHOST_EASE as any,
       },
     };
 

@@ -8,7 +8,7 @@ import type { PortfolioProject } from '@/types/project';
 import { isVideo, isYouTubeUrl, getYouTubeEmbedUrl, getYouTubeThumbnailUrl, applyImageFallback } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { ImageLightbox } from '@/components/portfolio/ImageLightbox';
-import PortfolioCTA from '../PortfolioCTA';
+import PortfolioCTA from '@/components/portfolio/PortfolioCTA';
 import { getContentVariants } from '@/components/portfolio/modal/variants';
 
 interface AdaptiveMediaLayoutProps {
@@ -59,9 +59,9 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                 variants={contentVariants}
                 className="w-full flex-1"
             >
-                <section className="relative w-full group overflow-hidden">
+                <section className="relative w-full group overflow-hidden bg-transparent">
                     {/* HERO MEDIA */}
-                    <div className="relative w-full aspect-video md:aspect-[21/9] max-h-[70vh] bg-black/50 overflow-hidden flex items-center justify-center">
+                    <div className="relative w-full aspect-video max-h-[70vh] bg-black/50 overflow-hidden flex items-center justify-center">
                         {activeYouTubeEmbed ? (
                             <iframe
                                 src={activeYouTubeEmbed}
@@ -138,8 +138,8 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                         <button
                                             key={`${media}-${idx}`}
                                             onClick={() => setActiveMedia(media)}
-                                            className={`relative w-32 md:w-48 aspect-video flex-shrink-0 rounded-lg overflow-hidden border-2 cursor-pointer transition-all duration-300 outline-none
-                                                ${isActive ? 'border-[#4fe6ff] ring-4 ring-[#4fe6ff]/20 z-10 scale-105' : 'border-white/20 hover:border-white/50 opacity-70 hover:opacity-100'}
+                                            className={`relative w-32 md:w-48 aspect-video flex-shrink-0 rounded-lg overflow-hidden border-2 cursor-pointer transition-colors outline-none
+                                                ${isActive ? 'border-[#4fe6ff] ring-4 ring-[#4fe6ff]/20 z-10' : 'border-white/20 hover:border-white/50 opacity-70 hover:opacity-100'}
                                             `}
                                         >
                                             {youtubeThumb ? (
@@ -168,20 +168,20 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
 
                     {/* DETAILS / TEXT CONTENT */}
                     <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-30 pb-24">
-                        <h1 className="text-4xl md:text-7xl font-bold tracking-tight text-white mb-2 drop-shadow-2xl">
+                        <h1 className="text-4xl md:text-7xl font-bold tracking-tight text-white mb-2 drop-shadow-2xl font-display">
                             {project.title}
                         </h1>
                         {project.subtitle && (
-                            <p className="text-base md:text-xl lg:text-2xl text-gray-300 font-light mb-8 max-w-3xl leading-relaxed">
+                            <p className="text-xl md:text-2xl text-gray-300 font-light mb-8 max-w-3xl leading-relaxed">
                                 {project.subtitle}
                             </p>
                         )}
 
-                        <div className="flex flex-row flex-wrap gap-x-8 gap-y-4 items-center text-sm border-t border-white/10 pt-6 mb-12 w-full">
+                        <div className="flex flex-row flex-wrap gap-8 items-center text-sm border-t border-white/10 pt-6 mb-12 w-full">
                             {project.category && (
                                 <div className="flex flex-row items-baseline gap-2">
                                     <span className="text-xs uppercase tracking-widest text-gray-500 font-semibold">Categoria</span>
-                                    <span className="text-white text-base font-medium uppercase">{project.category}</span>
+                                    <span className="text-white text-base font-medium uppercase font-sans">{project.category}</span>
                                 </div>
                             )}
                             {project.client && (
@@ -242,16 +242,13 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
 
                             {/* External link / CTA */}
                             {project.detail?.externalUrl && (
-                                <div className="pt-8 md:pt-12 flex justify-start">
+                                <div className="pt-16 mt-12 flex justify-start">
                                     <a className="group inline-flex items-center gap-1.5 no-underline" href={project.detail.externalUrl} target="_blank" rel="noopener noreferrer">
-                                        <div className="h-14 px-8 flex items-center justify-center bg-[#0048ff] rounded-full hover:bg-[#1a5cff] hover:scale-[1.02] transition-all duration-300 shadow-[0_0_20px_rgba(0,72,255,0.3)] hover:shadow-[0_0_30px_rgba(0,72,255,0.5)]">
-                                            <span className="text-white text-sm md:text-base font-medium tracking-wide">VER PROJETO COMPLETO</span>
+                                        <div className="h-16 px-8 flex items-center justify-center bg-[#0048ff] rounded-full hover:bg-[#1a5cff] hover:scale-[1.02] transition-all duration-300 shadow-[0_0_20px_rgba(0,72,255,0.3)] hover:shadow-[0_0_30px_rgba(0,72,255,0.5)]">
+                                            <span className="text-white text-lg font-medium tracking-wide lowercase">ver projeto completo</span>
                                         </div>
-                                        <div className="h-14 w-14 flex-shrink-0 flex items-center justify-center bg-[#0048ff] rounded-full hover:bg-[#1a5cff] hover:rotate-45 transition-all duration-300 shadow-[0_0_20px_rgba(0,72,255,0.3)] hover:shadow-[0_0_30px_rgba(0,72,255,0.5)]">
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
-                                                <path d="M7 17L17 7"></path>
-                                                <path d="M7 7H17V17"></path>
-                                            </svg>
+                                        <div className="h-16 w-16 flex-shrink-0 flex items-center justify-center bg-[#0048ff] rounded-full hover:bg-[#1a5cff] hover:rotate-45 transition-all duration-300 shadow-[0_0_20px_rgba(0,72,255,0.3)] hover:shadow-[0_0_30px_rgba(0,72,255,0.5)]">
+                                            <span className="material-icons-round text-white text-2xl">north_east</span>
                                         </div>
                                     </a>
                                 </div>

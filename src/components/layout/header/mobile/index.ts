@@ -1,5 +1,5 @@
-export { default as MobileMenuButton } from './MobileMenuButton';
-export { default as MobileMenuPanel } from './MobileMenuPanel';
-export { default as MobilePreLayers } from './MobilePreLayers';
-export { default as MobileHeaderBar } from './MobileHeaderBar';
-export type { NavItem } from './MobileMenuPanel';
+export { default as MobileMenuButton } from '@/components/layout/header/mobile/MobileMenuButton';
+export { default as MobileMenuPanel } from '@/components/layout/header/mobile/MobileMenuPanel';
+export { default as MobilePreLayers } from '@/components/layout/header/mobile/MobilePreLayers';
+export { default as MobileHeaderBar } from '@/components/layout/header/mobile/MobileHeaderBar';
+export type { NavItem } from '@/components/layout/header/mobile/MobileMenuPanel';

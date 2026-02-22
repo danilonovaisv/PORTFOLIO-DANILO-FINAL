@@ -7,8 +7,8 @@ import { AnimatePresence } from 'framer-motion';
 import { Preloader } from '@/components/ui/Preloader';
 import GhostSceneWrapper from '@/components/canvas/home/hero/GhostSceneWrapper';
 
-import HeroCopy from './HeroCopy';
-import HeroCTA from './HeroCTA';
+import HeroCopy from '@/components/home/hero/HeroCopy';
+import HeroCTA from '@/components/home/hero/HeroCTA';
 
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useWebGLSupport } from '@/hooks/useWebGLSupport';

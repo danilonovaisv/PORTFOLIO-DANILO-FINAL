@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { GHOST_EASE } from '@/config/motion';
 import type { MasterProjectV2GalleryItem } from '@/types/project-template';
-import BlockMedia from './BlockMedia';
+import BlockMedia from '@/components/projects/templates/master-v2/BlockMedia';
 
 type SectionSplitProps = {
   item: MasterProjectV2GalleryItem;

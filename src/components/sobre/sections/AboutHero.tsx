@@ -5,7 +5,7 @@ import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 import { ABOUT_CONTENT } from '@/config/content';
-import { motionTokens, motionSprings } from '../shared/motion';
+import { MOTION_TOKENS, GHOST_EASE, ghostFade, viewportConfig } from '@/config/motion';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
@@ -19,7 +19,7 @@ export function AboutHero() {
     offset: ['start end', 'end start'],
   });
 
-  const smoothProgress = useSpring(scrollYProgress, motionSprings.ghost);
+  const smoothProgress = useSpring(scrollYProgress, MOTION_TOKENS.spring.ghost);
 
   const mediaY = useTransform(
     smoothProgress,
@@ -87,9 +87,10 @@ export function AboutHero() {
                 <motion.div
                   initial={{ opacity: 0, y: 24, filter: 'blur(10px)' }}
                   whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                  viewport={viewportConfig}
                   transition={{
-                    duration: 1.2,
-                    ease: [0.22, 1, 0.36, 1],
+                    duration: MOTION_TOKENS.duration.slow,
+                    ease: GHOST_EASE,
                     delay: 0,
                   }}
                   className="mb-12 flex flex-col items-end gap-1"
@@ -128,9 +129,10 @@ export function AboutHero() {
                 <motion.div
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
+                  viewport={viewportConfig}
                   transition={{
-                    duration: 1.2,
-                    ease: [0.22, 1, 0.36, 1],
+                    duration: MOTION_TOKENS.duration.slow,
+                    ease: GHOST_EASE,
                     delay: 0.4,
                   }}
                 >
@@ -184,8 +186,8 @@ export function AboutHero() {
                   opacity: 1,
                   filter: 'blur(0px)',
                   transition: {
-                    duration: 1.4,
-                    ease: [0.22, 1, 0.36, 1] as const,
+                    duration: MOTION_TOKENS.duration.slow,
+                    ease: GHOST_EASE as any,
                   },
                 },
               }}
@@ -218,7 +220,7 @@ export function AboutHero() {
             </motion.div>
 
             <motion.div
-              variants={motionTokens.fadeGhost}
+              variants={ghostFade}
               className="text-[clamp(1.35rem,4.8vw,1.62rem)] text-white/95 leading-snug tracking-tight max-w-[99%] mx-auto font-medium"
             >
               {ABOUT_CONTENT.hero.description.map((line, index) => (

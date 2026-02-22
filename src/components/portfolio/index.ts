@@ -4,12 +4,12 @@
 // =============================================================================
 
 // Main components
-export { default as PortfolioHeroNew } from './PortfolioHeroNew';
-export { default as PortfolioCTA } from './PortfolioCTA';
-export { ProjectsGallery } from './ProjectsGallery';
-export { ProjectCard } from './ProjectCard';
-export { PortfolioModal } from './PortfolioModal';
+export { default as PortfolioHeroNew } from '@/components/portfolio/PortfolioHeroNew';
+export { default as PortfolioCTA } from '@/components/portfolio/PortfolioCTA';
+export { ProjectsGallery } from '@/components/portfolio/ProjectsGallery';
+export { ProjectCard } from '@/components/portfolio/ProjectCard';
+export { PortfolioModal } from '@/components/portfolio/PortfolioModal';
 
 // Content layouts
-export { default as TypeAContent } from './content/TypeAContent';
-export { default as TypeBContent } from './content/TypeBContent';
+export { default as TypeAContent } from '@/components/portfolio/content/TypeAContent';
+export { default as TypeBContent } from '@/components/portfolio/content/TypeBContent';

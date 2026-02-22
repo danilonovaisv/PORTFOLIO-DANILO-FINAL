@@ -3,10 +3,10 @@ import React, { Suspense, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
-import GhostModel from './GhostModel'; // Caminho relativo para GhostModel
+import GhostModel from '@/components/sobre/3d/GhostModel'; // Caminho relativo para GhostModel
 import { MotionValue, motion, useTransform, cubicBezier } from 'framer-motion';
 // Importar o hook do BeliefSection.tsx
-import { useIsMobile } from '../beliefs/BeliefSection';
+import { useIsMobile } from '@/components/sobre/beliefs/BeliefSection';
 
 interface GhostSceneProps {
   scrollProgress: MotionValue<number>;

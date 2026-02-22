@@ -9,6 +9,7 @@ import { useBodyLock } from '@/hooks/useBodyLock';
 import { getYouTubeEmbedUrl, isVideo, isYouTubeUrl } from '@/lib/utils';
 import { DEFAULT_CAPTIONS } from '@/lib/video';
 import Image from 'next/image';
+import { GHOST_EASE } from '@/config/motion';
 
 type ImageLightboxProps = {
   isOpen: boolean;
@@ -64,10 +65,10 @@ export function ImageLightbox({ isOpen, src, alt, onClose }: ImageLightboxProps)
 
   const backdropTransition = shouldReduceMotion
     ? { duration: 0.16 }
-    : { duration: 0.24, ease: [0.22, 1, 0.36, 1] as const };
+    : { duration: 0.24, ease: GHOST_EASE };
   const panelTransition = shouldReduceMotion
     ? { duration: 0.16 }
-    : { duration: 0.32, ease: [0.22, 1, 0.36, 1] as const };
+    : { duration: 0.32, ease: GHOST_EASE };
   const youtubeEmbedUrl = src && isYouTubeUrl(src) ? getYouTubeEmbedUrl(src) : null;
 
   return createPortal(

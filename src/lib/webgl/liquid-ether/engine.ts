@@ -1,8 +1,8 @@
 import * as THREE from 'three';
-import { Common } from './common';
-import { Mouse } from './mouse';
-import * as shaders from './shaders';
-import { SimOptions, AutoDriverOptions } from './types';
+import { Common } from '@/lib/webgl/liquid-ether/common';
+import { Mouse } from '@/lib/webgl/liquid-ether/mouse';
+import * as shaders from '@/lib/webgl/liquid-ether/shaders';
+import { SimOptions, AutoDriverOptions } from '@/lib/webgl/liquid-ether/types';
 import {
   Advection,
   ExternalForce,
@@ -10,7 +10,7 @@ import {
   Divergence,
   Poisson,
   Pressure,
-} from './passes';
+} from '@/lib/webgl/liquid-ether/passes';
 
 export class Simulation {
   options: SimOptions;

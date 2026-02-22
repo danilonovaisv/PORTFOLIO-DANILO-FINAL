@@ -3,6 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
+import { viewportConfig } from '@/config/motion';
 import {
   Mail,
   Phone,
@@ -16,7 +17,7 @@ import {
 import { BRAND } from '@/config/brand';
 import { HOME_CONTENT } from '@/config/content';
 import { SOCIALS } from '@/config/navigation';
-import ContactForm from './ContactForm';
+import ContactForm from '@/components/home/contact/ContactForm';
 import { Container } from '@/components/layout/Container';
 
 export default function ContactSection() {
@@ -96,7 +97,7 @@ export default function ContactSection() {
               reducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }
             }
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={viewportConfig}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="lg:col-span-5 flex flex-col space-y-10 order-1 lg:order-0"
           >

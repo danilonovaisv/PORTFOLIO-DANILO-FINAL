@@ -71,7 +71,6 @@ export default function PortfolioHeroNew() {
         )}
       </div>
 
-      <div className="absolute inset-0 z-10 bg-linear-to-b from-black/82 via-black/58 to-black/78" />
 
       {/* Ghost Atmospheric Radial Gradients - Enhanced */}
       <div

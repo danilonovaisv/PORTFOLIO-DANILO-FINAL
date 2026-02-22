@@ -8,8 +8,8 @@ import {
   ghostTransition,
   staggerContainer,
 } from '@/config/motion';
-import FeaturedProjectCard from './FeaturedProjectCard';
-import CTAProjectCard from './CTAProjectCard';
+import FeaturedProjectCard from '@/components/home/featured-projects/FeaturedProjectCard';
+import CTAProjectCard from '@/components/home/featured-projects/CTAProjectCard';
 import type { PortfolioProject } from '@/types/project';
 import { Container } from '@/components/layout/Container';
 
@@ -54,11 +54,11 @@ export default function FeaturedProjectsSection({
     visible: reducedMotion
       ? { opacity: 1 }
       : {
-          opacity: 1,
-          y: 0,
-          filter: 'blur(0px)',
-          transition: ghostTransition(0, duration.normal),
-        },
+        opacity: 1,
+        y: 0,
+        filter: 'blur(0px)',
+        transition: ghostTransition(0, duration.normal),
+      },
   };
 
   return (
@@ -68,9 +68,7 @@ export default function FeaturedProjectsSection({
       className="relative z-10 bg-background py-16 md:py-24"
     >
       <Container>
-        <h2 className="mb-8 text-2xl md:text-3xl font-bold tracking-tight text-text">
-          Projetos em destaque
-        </h2>
+
         <motion.div
           initial={reducedMotion ? 'visible' : 'hidden'}
           whileInView="visible"

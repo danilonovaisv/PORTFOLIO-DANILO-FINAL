@@ -21,7 +21,7 @@ import { uploadSiteAsset } from '@/lib/supabase/storage';
 import Link from 'next/link';
 import Image from 'next/image';
 import { LandingPageBlock, BlockType } from '@/types/landing-page';
-import { BlockEditor } from './blocks/BlockEditor';
+import { BlockEditor } from '@/components/admin/blocks/BlockEditor';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -49,13 +49,13 @@ import {
 import type { Json } from '@/lib/supabase.types';
 import MasterProjectTemplateEditor, {
   type MasterProjectTemplateDraft,
-} from './MasterProjectTemplateEditor';
+} from '@/components/admin/MasterProjectTemplateEditor';
 import MasterProjectTemplateV2Editor, {
   type MasterProjectTemplateV2Draft,
-} from './MasterProjectTemplateV2Editor';
+} from '@/components/admin/MasterProjectTemplateV2Editor';
 import MasterProjectTemplateV3Editor, {
   type MasterProjectTemplateV3Draft,
-} from './MasterProjectTemplateV3Editor';
+} from '@/components/admin/MasterProjectTemplateV3Editor';
 import { saveLandingPageAction } from '@/app/admin/(protected)/landing-pages/actions';
 
 interface LandingPageFormProps {

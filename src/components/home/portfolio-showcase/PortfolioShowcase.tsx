@@ -5,9 +5,9 @@ import { motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { Container } from '@/components/layout/Container';
-import { CategoryStripe } from './CategoryStripe';
+import { CategoryStripe } from '@/components/home/portfolio-showcase/CategoryStripe';
 import { getAssetUrl } from '@/lib/utils';
-import { GHOST_EASE } from '@/config/motion';
+import { GHOST_EASE, viewportConfig } from '@/config/motion';
 
 // Category data with assets
 const CATEGORIES = [
@@ -61,7 +61,7 @@ export default function PortfolioShowcase() {
             prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 30 }
           }
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={viewportConfig}
           transition={{ duration: 0.7, ease: GHOST_EASE }}
           className="text-center mb-16 lg:mb-20"
         >
@@ -101,7 +101,7 @@ export default function PortfolioShowcase() {
             prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
           }
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={viewportConfig}
           transition={{ duration: 0.6, ease: GHOST_EASE, delay: 0.4 }}
           className="flex justify-center mt-12 lg:mt-16"
         >

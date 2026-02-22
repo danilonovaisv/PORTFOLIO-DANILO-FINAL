@@ -16,7 +16,7 @@ import {
   SceneGenerationPayload,
   SceneGeneratorState,
   normalizeAIModels,
-} from './types';
+} from '@/app/admin/(protected)/scene-generator/types';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',

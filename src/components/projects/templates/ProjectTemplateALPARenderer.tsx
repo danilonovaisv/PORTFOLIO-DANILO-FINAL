@@ -19,7 +19,7 @@ import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import { resolveSiteAssetUrl } from '@/lib/projects/template-schema';
 import type { LandingPageBlock } from '@/types/landing-page';
 import type { MasterProjectTemplateV3Data } from '@/types/project-template';
-import { useLandingBackLink } from './useLandingBackLink';
+import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
 import { DEFAULT_CAPTIONS } from '@/lib/video';
 

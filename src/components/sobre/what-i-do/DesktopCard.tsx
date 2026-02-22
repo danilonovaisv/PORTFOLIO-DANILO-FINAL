@@ -2,6 +2,7 @@
 
 import { ArrowUpRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { GHOST_EASE, viewportConfig } from '@/config/motion';
 
 interface DesktopCardProps {
   index: number;
@@ -26,7 +27,7 @@ export const DesktopCard = ({
       transition: {
         duration: 0.5,
         delay: index * 0.05,
-        ease: [0.22, 1, 0.36, 1] as const,
+        ease: GHOST_EASE as any,
       },
     },
   };
@@ -37,7 +38,7 @@ export const DesktopCard = ({
       aria-label={text}
       initial={prefersReducedMotion ? 'visible' : 'hidden'}
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={viewportConfig}
       variants={variants}
       className="group flex h-full min-h-[160px] flex-col gap-4 rounded-[14px] bg-[#150d2f] px-5 py-6 shadow-[0_20px_60px_-30px_rgba(0,0,0,0.5)] outline-none ring-1 ring-white/5 transition hover:-translate-y-1 hover:bg-[#1a1138] focus-visible:ring-2 focus-visible:ring-[#4fe6ff]"
     >

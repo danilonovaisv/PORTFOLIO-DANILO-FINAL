@@ -11,11 +11,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useLERPScroll } from '@/hooks/useLERPScroll';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { ProjectCard, type ProjectCardSize } from './ProjectCard';
+import { ProjectCard, type ProjectCardSize } from '@/components/portfolio/ProjectCard';
 import { PortfolioProject, ProjectCategory } from '@/types/project';
 import { cn } from '@/lib/utils';
-import styles from './ProjectsGallery.module.css';
+import styles from '@/components/portfolio/ProjectsGallery.module.css';
 import { StandardGrid } from '@/components/layout/Container';
+import { GHOST_EASE } from '@/config/motion';
 
 interface ProjectsGalleryProps {
   projects?: PortfolioProject[];
@@ -203,7 +204,7 @@ export const ProjectsGallery = ({
                   <motion.div
                     layoutId="activeFilter"
                     className="absolute -bottom-1 left-0 right-0 h-px bg-[#4fe6ff]"
-                    transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ duration: 0.28, ease: GHOST_EASE }}
                   />
                 )}
               </button>

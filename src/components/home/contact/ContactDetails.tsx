@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { motion } from 'framer-motion';
 import { SOCIALS } from '@/config/navigation';
+import { GHOST_EASE, viewportConfig } from '@/config/motion';
 import { Button } from '@/components/ui/button';
 import {
   Mail,
@@ -58,8 +59,8 @@ const ContactDetails: FC = () => {
     <motion.div
       initial={{ opacity: 0, x: -30 }}
       whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      viewport={viewportConfig}
+      transition={{ duration: 0.8, ease: GHOST_EASE }}
     >
       <div className="space-y-6 flex flex-col items-center md:items-start w-full">
         {contactInfo.map((item, idx) => (

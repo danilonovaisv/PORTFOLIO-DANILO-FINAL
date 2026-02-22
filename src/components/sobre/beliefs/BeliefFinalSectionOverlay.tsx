@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { GHOST_EASE, viewportConfig } from '@/config/motion';
 
 export const BeliefFinalSectionOverlay: React.FC = () => {
   return (
@@ -10,8 +11,8 @@ export const BeliefFinalSectionOverlay: React.FC = () => {
         className="flex flex-col items-center justify-center text-center text-white font-display leading-[0.78] w-full max-w-[98vw]"
         initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
         whileInView={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-        viewport={{ once: false }}
-        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        viewport={viewportConfig}
+        transition={{ duration: 0.8, ease: GHOST_EASE as any }}
       >
         {/* 🟣 [CONFIG VISUAL]: "ISSO É" - Tamanho (16vw a 14rem), Cor branca (herdada), Opacidade 80% */}
         <div className="text-[16vw] md:text-[14rem] tracking-tighter uppercase font-black mix-blend-overlay opacity-80">

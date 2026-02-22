@@ -6,7 +6,7 @@ import type {
   MasterProjectV2FeatureItem,
   MasterProjectV2GalleryItem,
 } from '@/types/project-template';
-import BlockMedia from './BlockMedia';
+import BlockMedia from '@/components/projects/templates/master-v2/BlockMedia';
 
 type SectionFeatures3Props = {
   item: MasterProjectV2GalleryItem;

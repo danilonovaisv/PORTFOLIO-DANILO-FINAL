@@ -1,4 +1,4 @@
-import { storage } from './config';
+import { storage } from '@/lib/firebase/config';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { buildAssetFilePath } from '@/lib/supabase/asset-paths';
 

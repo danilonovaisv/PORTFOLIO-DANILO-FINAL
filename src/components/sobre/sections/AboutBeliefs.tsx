@@ -11,7 +11,7 @@ import {
   BeliefFinalSection,
   BeliefFinalSectionOverlay,
   BeliefFixedHeader,
-} from '../beliefs';
+} from '@/components/sobre/beliefs';
 import { BRAND } from '@/config/brand';
 
 // [CORREÇÃO CRÍTICA]: Tratamento robusto para importação dinâmica.

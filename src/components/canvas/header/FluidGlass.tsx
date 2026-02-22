@@ -4,8 +4,8 @@ import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrthographicCamera } from '@react-three/drei';
 import * as THREE from 'three';
-import FluidGlassScene from './FluidGlassScene';
-import { type FluidGlassMaterialProps } from './GlassBar';
+import FluidGlassScene from '@/components/canvas/header/FluidGlassScene';
+import { type FluidGlassMaterialProps } from '@/components/canvas/header/GlassBar';
 
 export type FluidGlassMode = 'bar';
 

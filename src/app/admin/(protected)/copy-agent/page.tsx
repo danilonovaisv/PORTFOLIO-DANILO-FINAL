@@ -1,7 +1,7 @@
 'use client';
 
 import { useActionState, useState, type ChangeEvent } from 'react';
-import { generateProjectCopy } from './actions';
+import { generateProjectCopy } from '@/app/admin/(protected)/copy-agent/actions';
 import { Loader2, Copy, Check, PenTool } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { FieldTooltip } from '@/components/admin/FieldTooltip';

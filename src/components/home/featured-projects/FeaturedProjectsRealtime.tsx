@@ -7,7 +7,7 @@ import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers'
 import type { PortfolioProject } from '@/types/project';
 import type { Database } from '@/lib/supabase.types';
 import type { RealtimeChannel } from '@supabase/supabase-js';
-import FeaturedProjectsSection from './FeaturedProjectsSection';
+import FeaturedProjectsSection from '@/components/home/featured-projects/FeaturedProjectsSection';
 import { PortfolioModal } from '@/components/portfolio/PortfolioModal';
 import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
 

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PortfolioClient from './PortfolioClient';
+import PortfolioClient from '@/app/portfolio/PortfolioClient';
 import { listProjects } from '@/lib/supabase/queries/projects';
 import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
 import { createStaticClient } from '@/lib/supabase/static';

@@ -11,7 +11,7 @@ import {
 import { getGhostAssetUrl } from '@/lib/utils';
 
 // Se não tiveres um ficheiro de tipos, podes definir aqui ou importar
-// import { ProjectCategory } from './types';
+// import { ProjectCategory } from '@/lib/types';
 export type ProjectCategory = {
   id: string;
   label: string;

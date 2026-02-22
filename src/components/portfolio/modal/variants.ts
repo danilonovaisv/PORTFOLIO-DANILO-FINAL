@@ -1,4 +1,6 @@
-export const easing: [number, number, number, number] = [0.22, 1, 0.36, 1];
+import { GHOST_EASE } from '@/config/motion';
+
+export const easing = GHOST_EASE;
 
 // Canon Timeline Delays (Ghost Era v2.0)
 export const MODAL_TIMELINE = {

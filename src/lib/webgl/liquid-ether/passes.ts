@@ -1,8 +1,8 @@
 import * as THREE from 'three';
-import { Common } from './common';
-import { Mouse } from './mouse';
-import * as shaders from './shaders';
-import { ShaderPassProps } from './types';
+import { Common } from '@/lib/webgl/liquid-ether/common';
+import { Mouse } from '@/lib/webgl/liquid-ether/mouse';
+import * as shaders from '@/lib/webgl/liquid-ether/shaders';
+import { ShaderPassProps } from '@/lib/webgl/liquid-ether/types';
 
 export class ShaderPass {
   props: ShaderPassProps;

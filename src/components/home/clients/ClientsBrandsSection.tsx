@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { HOME_CONTENT } from '@/config/content';
+import { GHOST_EASE, viewportConfig } from '@/config/motion';
 
 /**
  * ClientsBrandsSection - Exibe logotipos das marcas/clientes
@@ -31,10 +32,10 @@ export default function ClientsBrandsSection() {
         <motion.div
           initial={reducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={viewportConfig}
           transition={{
             duration: 0.6,
-            ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+            ease: GHOST_EASE as [number, number, number, number],
           }}
           className="mb-10 md:mb-16 lg:mb-20"
         >
@@ -52,7 +53,7 @@ export default function ClientsBrandsSection() {
           aria-label="Logotipos das marcas parceiras"
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: '-10%' }}
+          viewport={viewportConfig}
           variants={{
             hidden: {},
             show: {
@@ -80,7 +81,7 @@ export default function ClientsBrandsSection() {
                     filter: 'blur(0px)',
                     transition: {
                       duration: 0.8,
-                      ease: [0.22, 1, 0.36, 1],
+                      ease: GHOST_EASE,
                     },
                   },
                 }}

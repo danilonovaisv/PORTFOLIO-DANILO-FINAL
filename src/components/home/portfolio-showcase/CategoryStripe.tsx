@@ -6,10 +6,11 @@ import Link from 'next/link';
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { GHOST_EASE } from '@/config/motion';
+import { GHOST_EASE, viewportConfig } from '@/config/motion';
 import { applyImageFallback } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
+// ... (GHOST_SPRING, Category interface, etc.)
 const GHOST_SPRING = { damping: 30, stiffness: 200, mass: 1 } as const;
 
 interface Category {
@@ -55,7 +56,7 @@ export function CategoryStripe({
       ref={stripeRef}
       initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={viewportConfig}
       transition={{
         duration: 0.8,
         ease: GHOST_EASE,

@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import type { NavItem } from './types';
-import styles from './DesktopFluidHeader.module.css';
+import type { NavItem } from '@/components/layout/header/types';
+import styles from '@/components/layout/header/DesktopFluidHeader.module.css';
 
 import dynamic from 'next/dynamic';
 import { useMotionGate } from '@/hooks/useMotionGate';

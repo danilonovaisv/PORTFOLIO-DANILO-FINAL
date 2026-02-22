@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Building2 } from 'lucide-react';
 import type { PortfolioProject } from '@/types/project';
-import PortfolioCTA from '../PortfolioCTA';
+import PortfolioCTA from '@/components/portfolio/PortfolioCTA';
 import {
     getFadeInUp,
     getTitleVariants,

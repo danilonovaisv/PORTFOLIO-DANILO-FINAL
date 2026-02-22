@@ -2,8 +2,9 @@
 
 import { RefObject } from 'react';
 import { motion } from 'framer-motion';
-import type { OriginBlock } from './data';
+import type { OriginBlock } from '@/components/sobre/origin/data';
 import { DynamicAssetImage } from '@/components/ui/shared/DynamicAssetImage';
+import { GHOST_EASE, viewportConfig } from '@/config/motion';
 
 interface OriginInfoBlockProps {
   block: OriginBlock & { img?: string };
@@ -19,11 +20,10 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
 
   return (
     <div
-      className={`min-h-screen flex flex-col justify-start pt-[20vh] pb-[20vh] lg:min-h-screen lg:justify-end lg:items-end lg:text-right ${
-        isRightAligned
+      className={`min-h-screen flex flex-col justify-start pt-[20vh] pb-[20vh] lg:min-h-screen lg:justify-end lg:items-end lg:text-right ${isRightAligned
           ? 'lg:items-end lg:justify-start lg:text-right'
           : 'lg:items-end lg:justify-start lg:text-left'
-      }`}
+        }`}
       data-origin-block={block.id}
     >
       {/* Mobile: Stack vertical intercalado - Texto primeiro, depois Imagem */}
@@ -33,11 +33,11 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
           <motion.h2
             initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
             whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            viewport={{ once: false, margin: '-10%' }}
+            viewport={viewportConfig}
             transition={{
               duration: 0.6,
               delay: 0.24,
-              ease: [0.22, 1, 0.36, 1],
+              ease: GHOST_EASE as any,
             }}
             className="text-h2 font-bold text-bluePrimary mb-4"
           >
@@ -47,11 +47,11 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
           <motion.p
             initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
             whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            viewport={{ once: false, margin: '-10%' }}
+            viewport={viewportConfig}
             transition={{
               duration: 0.6,
               delay: 0.32,
-              ease: [0.22, 1, 0.36, 1],
+              ease: GHOST_EASE as any,
             }}
             className="text-h3 font-medium text-white/88 leading-relaxed whitespace-pre-line text-pretty"
           >
@@ -63,11 +63,11 @@ export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
         <motion.div
           initial={{ clipPath: 'inset(100% 0% 0% 0%)', opacity: 0.85 }}
           whileInView={{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 }}
-          viewport={{ once: false, margin: '-10%' }}
+          viewport={viewportConfig}
           transition={{
             duration: 0.72,
             delay: 0.08,
-            ease: [0.22, 1, 0.36, 1],
+            ease: GHOST_EASE as any,
           }}
           className="relative w-full aspect-square min-h-[240px] rounded-[1.5rem] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] lg:hidden"
         >

@@ -4,12 +4,12 @@ import {
   motion,
   useScroll,
   useTransform,
-  cubicBezier,
   MotionValue,
 } from 'framer-motion';
+import { GHOST_EASE } from '@/config/motion';
 
-// Easing Ghost Padrão: cubic-bezier(0.22, 1, 0.36, 1)
-const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
+// Easing Ghost Padrão
+const ghostEase = GHOST_EASE;
 
 interface BeliefLineProps {
   line: string;
@@ -45,7 +45,7 @@ const BeliefLineDesktop: React.FC<BeliefLineProps> = ({
     scrollYProgress,
     [animationRange[0] + index * 0.02, animationRange[1] + index * 0.02],
     ['-100%', '0%'],
-    { ease: ghostEase }
+    { ease: ghostEase as any }
   );
   return (
     <motion.span
@@ -56,7 +56,7 @@ const BeliefLineDesktop: React.FC<BeliefLineProps> = ({
         x: lineX,
         fontSize: 'clamp(2.8rem,5.8vw,6.3rem)',
         lineHeight: 0.9,
-      }}
+      } as any}
     >
       {line}
     </motion.span>

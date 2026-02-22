@@ -9,7 +9,7 @@ export {
   AboutMethod,
   AboutBeliefs,
   AboutClosing,
-} from './sections';
+} from '@/components/sobre/sections';
 
 // Shared Utilities
-export { motionTokens, motionSprings, kw } from './shared';
+export { motionTokens, motionSprings, kw } from '@/components/sobre/shared';

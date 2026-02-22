@@ -5,7 +5,7 @@ import {
   MobileMenuPanel,
   MobilePreLayers,
   MobileHeaderBar,
-} from './mobile';
+} from '@/components/layout/header/mobile';
 
 import React, { useEffect } from 'react';
 import { useMobileMenuAnimation } from '@/hooks/useMobileMenuAnimation';

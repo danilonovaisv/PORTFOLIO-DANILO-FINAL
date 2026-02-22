@@ -1,4 +1,4 @@
-import { isVideo, isYouTubeUrl } from './utils';
+import { isVideo, isYouTubeUrl } from '@/lib/utils';
 
 export type MediaAspectRatio = 'horizontal' | 'vertical' | 'square';
 

@@ -3,7 +3,7 @@
 import { FC, useMemo } from 'react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import type { PortfolioProject } from '@/types/project';
-import { AdaptiveMediaLayout } from './AdaptiveMediaLayout';
+import { AdaptiveMediaLayout } from '@/components/portfolio/content/AdaptiveMediaLayout';
 
 interface TypeBContentProps {
   project: PortfolioProject;

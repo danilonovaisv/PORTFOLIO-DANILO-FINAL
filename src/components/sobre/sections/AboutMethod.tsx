@@ -8,7 +8,7 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { ABOUT_CONTENT } from '@/config/content';
 // import { Container } from '@/components/layout/Container'; // Removed in favor of std-grid
 
-import { motionTokens, motionSprings } from '../shared/motion';
+import { motionTokens, motionSprings } from '@/components/sobre/shared/motion';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 export default function AboutMethod() {

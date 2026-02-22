@@ -12,9 +12,9 @@ import ErrorBoundary from '@/components/ui/ErrorBoundary';
 import {
   getBackdropVariants,
   getContainerVariants,
-} from './modal/variants';
-import TypeAContent from './content/TypeAContent';
-import TypeBContent from './content/TypeBContent';
+} from '@/components/portfolio/modal/variants';
+import TypeAContent from '@/components/portfolio/content/TypeAContent';
+import TypeBContent from '@/components/portfolio/content/TypeBContent';
 
 interface PortfolioModalProps {
   isOpen: boolean;
@@ -110,12 +110,12 @@ export const PortfolioModal = ({
             {/* Ambient Background Gradient inside modal */}
             <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#0b0d3a] via-[#040013] to-[#040013] opacity-80"></div>
 
-            <div className="fixed top-6 right-4 md:right-8 z-[1220]">
+            <div className="fixed top-8 right-6 md:right-10 z-[1220]">
               <button
                 ref={closeRef}
                 onClick={onClose}
                 aria-label="Fechar modal"
-                className="flex items-center justify-center w-[56px] h-[56px] md:w-[68px] md:h-[68px] rounded-full bg-black/40 hover:bg-white/10 border border-white/10 backdrop-blur-md transition-all duration-300 group shadow-[0_0_30px_rgba(0,0,0,0.5)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff]"
+                className="flex items-center justify-center w-[56px] h-[56px] md:w-[68px] md:h-[68px] rounded-full bg-black/40 hover:bg-white/10 border border-white/10 backdrop-blur-md transition-all duration-300 group shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff]"
               >
                 <X className="text-white/70 group-hover:text-white transition-colors" size={32} strokeWidth={1.5} />
               </button>

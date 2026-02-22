@@ -3,8 +3,8 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import vertexShader from './shaders/vertex.glsl';
-import fragmentShader from './shaders/fragment.glsl';
+import vertexShader from '@/components/canvas/shaders/shaders/vertex.glsl';
+import fragmentShader from '@/components/canvas/shaders/shaders/fragment.glsl';
 
 interface HeroParticlesProps {
   count?: number;

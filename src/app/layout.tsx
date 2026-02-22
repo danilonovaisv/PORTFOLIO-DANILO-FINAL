@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import '@/lib/polyfills';
 import { siteMetadata, siteViewport } from '@/config/metadata';
-import './globals.css'; // Fonts and styles are loaded here
+import '@/app/globals.css'; // Fonts and styles are loaded here
 import type { CSSProperties } from 'react';
 import { BRAND } from '@/config/brand';
 import AssetLoaderWrapper from '@/components/layout/AssetLoaderWrapper';

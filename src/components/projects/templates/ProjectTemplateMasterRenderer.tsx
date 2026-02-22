@@ -16,12 +16,12 @@ import type {
   MasterProjectAsset,
   MasterProjectTemplateV2Data,
 } from '@/types/project-template';
-import SectionFeatures3 from './master-v2/SectionFeatures3';
-import SectionFullHighlight from './master-v2/SectionFullHighlight';
-import SectionGrid from './master-v2/SectionGrid';
-import SectionQuote from './master-v2/SectionQuote';
-import SectionSplit from './master-v2/SectionSplit';
-import { useLandingBackLink } from './useLandingBackLink';
+import SectionFeatures3 from '@/components/projects/templates/master-v2/SectionFeatures3';
+import SectionFullHighlight from '@/components/projects/templates/master-v2/SectionFullHighlight';
+import SectionGrid from '@/components/projects/templates/master-v2/SectionGrid';
+import SectionQuote from '@/components/projects/templates/master-v2/SectionQuote';
+import SectionSplit from '@/components/projects/templates/master-v2/SectionSplit';
+import { useLandingBackLink } from '@/components/projects/templates/useLandingBackLink';
 import { HeroBackCTA } from '@/components/ui/HeroBackCTA';
 
 // LiquidEther removed as it was unused
