@@ -89,7 +89,6 @@ export default function RootLayout({
         <SmoothScroll>
           <div className="relative w-full">
             <AssetLoaderWrapper>
-              <JsonLd pageType="home" />
               {children}
             </AssetLoaderWrapper>
           </div>
