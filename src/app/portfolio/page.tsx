@@ -52,7 +52,7 @@ export async function generateMetadata({
   const metaForCategory = category ? categoryMeta[category] : undefined;
   const rawTitle = metaForCategory
     ? `Portfólio | ${metaForCategory.label}`
-    : 'Portfólio';
+    : 'Portfólio — Projetos de Branding, Motion e Web';
   const rawDescription =
     metaForCategory?.description ??
     'Explore uma seleção curada de projetos de Branding, Motion Design e Creative Development de Danilo Novais, com foco em presença, narrativa e performance.';

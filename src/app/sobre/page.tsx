@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import type { Metadata } from 'next';
 import {
   AboutHero,
@@ -12,6 +12,21 @@ import { SiteClosure } from '@/components/layout/SiteClosure';
 import JsonLd from '@/components/ui/JsonLd';
 
 import { BRAND } from '@/config/brand';
+
+/** Minimal skeleton fallback for Suspense boundaries */
+function SectionSkeleton({ label }: { label: string }) {
+  return (
+    <section
+      className="relative w-full min-h-[60vh] bg-background"
+      aria-label={label}
+      aria-busy="true"
+    >
+      <div className="std-grid py-24">
+        <div className="h-10 w-40 bg-bluePrimary/20 rounded-md animate-pulse" />
+      </div>
+    </section>
+  );
+}
 
 export const metadata: Metadata = {
   title: 'Sobre | Trajetória e Visão',
@@ -51,18 +66,30 @@ export default function AboutPage() {
     <div className="min-h-screen bg-background text-white">
       <JsonLd pageType="about" />
       {/* Seção 01 — Hero/Manifesto */}
-      <AboutHero />
+      <Suspense fallback={<SectionSkeleton label="Hero" />}>
+        <AboutHero />
+      </Suspense>
       {/* Seção 02 — Origem Criativa */}
-      <AboutOrigin />
+      <Suspense fallback={<SectionSkeleton label="Origem Criativa" />}>
+        <AboutOrigin />
+      </Suspense>
       {/* Seção 03 — O Que Eu Faço */}
-      <AboutWhatIDo />
+      <Suspense fallback={<SectionSkeleton label="O Que Eu Faço" />}>
+        <AboutWhatIDo />
+      </Suspense>
       {/* Seção 04 — Como Eu Trabalho */}
-      <AboutMethod />
+      <Suspense fallback={<SectionSkeleton label="Como Eu Trabalho" />}>
+        <AboutMethod />
+      </Suspense>
       {/* Seção 05 — O Que Me Move (Beliefs) */}
       <AboutBeliefsNoSSR />
       {/* Seção 06 — Fechamento/Confirmação */}
-      <AboutClosing />
-      <SiteClosure />
+      <Suspense fallback={<SectionSkeleton label="Fechamento" />}>
+        <AboutClosing />
+      </Suspense>
+      <Suspense fallback={<SectionSkeleton label="Footer" />}>
+        <SiteClosure />
+      </Suspense>
     </div>
   );
 }

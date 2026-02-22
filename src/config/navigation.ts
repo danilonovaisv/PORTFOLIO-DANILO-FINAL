@@ -1,7 +1,7 @@
 export const SOCIALS = {
   instagram: 'https://instagram.com/danilo_novais',
   facebook: 'https://facebook.com/danilonovaisvilela',
-  linkedin: 'https://linkedin.com/in/danilonovaisv',
+  linkedin: 'https://www.linkedin.com/in/danilonovaisv',
   twitter: 'https://twitter.com/danilo_novais',
   emailPrimary: 'mailto:danilo@portfoliodanilo.com',
   emailSecondary: 'mailto:dannovaisv@gmail.com',

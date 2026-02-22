@@ -54,7 +54,7 @@ export default function JsonLd({
     },
     sameAs: [
       'https://github.com/danilonovaisv',
-      'https://linkedin.com/in/danilonovaisv',
+      'https://www.linkedin.com/in/danilonovaisv',
       'https://instagram.com/_novais',
       'https://x.com/_novais',
     ],
