@@ -8,7 +8,7 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { ABOUT_CONTENT } from '@/config/content';
 // import { Container } from '@/components/layout/Container'; // Removed in favor of std-grid
 
-import { motionTokens, motionSprings } from '@/components/sobre/shared/motion';
+import { motionTokens, motionSprings } from '@/config/about-motion';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 export default function AboutMethod() {
@@ -62,11 +62,10 @@ export default function AboutMethod() {
             muted
             playsInline
             poster={DEFAULT_VIDEO_POSTER}
-            className={`w-full h-full ${
-              isMobile
+            className={`w-full h-full ${isMobile
                 ? 'object-cover object-center opacity-55'
                 : 'object-cover object-center opacity-55'
-            }`}
+              }`}
             aria-hidden="true"
           >
             <track

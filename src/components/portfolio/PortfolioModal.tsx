@@ -1,7 +1,6 @@
 'use client';
 
-import type { MouseEvent } from 'react';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { X } from 'lucide-react';
@@ -10,7 +9,6 @@ import { createPortal } from 'react-dom';
 import { useBodyLock } from '@/hooks/useBodyLock';
 import ErrorBoundary from '@/components/ui/ErrorBoundary';
 import {
-  getBackdropVariants,
   getContainerVariants,
 } from '@/components/portfolio/modal/variants';
 import TypeAContent from '@/components/portfolio/content/TypeAContent';

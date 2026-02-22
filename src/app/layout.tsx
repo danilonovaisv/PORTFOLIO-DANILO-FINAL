@@ -6,6 +6,7 @@ import type { CSSProperties } from 'react';
 import { BRAND } from '@/config/brand';
 import AssetLoaderWrapper from '@/components/layout/AssetLoaderWrapper';
 import SmoothScroll from '@/components/layout/SmoothScroll';
+import JsonLd from '@/components/ui/JsonLd';
 
 export const metadata: Metadata = siteMetadata;
 export const viewport: Viewport = siteViewport;
@@ -87,7 +88,10 @@ export default function RootLayout({
         </a>
         <SmoothScroll>
           <div className="relative w-full">
-            <AssetLoaderWrapper>{children}</AssetLoaderWrapper>
+            <AssetLoaderWrapper>
+              <JsonLd pageType="home" />
+              {children}
+            </AssetLoaderWrapper>
           </div>
         </SmoothScroll>
       </body>

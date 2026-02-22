@@ -8,7 +8,7 @@ import type { PortfolioProject } from '@/types/project';
 import { isVideo, isYouTubeUrl, getYouTubeEmbedUrl, getYouTubeThumbnailUrl, applyImageFallback } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { ImageLightbox } from '@/components/portfolio/ImageLightbox';
-import PortfolioCTA from '@/components/portfolio/PortfolioCTA';
+
 import { getContentVariants } from '@/components/portfolio/modal/variants';
 
 interface AdaptiveMediaLayoutProps {

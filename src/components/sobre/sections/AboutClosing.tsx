@@ -8,7 +8,7 @@ import { ABOUT_CONTENT } from '@/config/content';
 import { useSiteAssetUrl } from '@/contexts/site-assets';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
 
-import { motionTokens } from '@/components/sobre/shared/motion';
+import { motionTokens } from '@/config/about-motion';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 import { getSupabaseStorageUrl } from '@/lib/supabase/storage-url';

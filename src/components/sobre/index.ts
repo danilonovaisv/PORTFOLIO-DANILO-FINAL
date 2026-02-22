@@ -12,4 +12,4 @@ export {
 } from '@/components/sobre/sections';
 
 // Shared Utilities
-export { motionTokens, motionSprings, kw } from '@/components/sobre/shared';
+export { kw, motionTokens, motionSprings } from '@/components/sobre/shared';

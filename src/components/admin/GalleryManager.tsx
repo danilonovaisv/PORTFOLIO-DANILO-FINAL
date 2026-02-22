@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { GripVertical, Trash2, ArrowUp, ArrowDown } from 'lucide-react';
+import { Trash2, ArrowUp, ArrowDown } from 'lucide-react';
 import Image from 'next/image';
 
 export type GalleryItem = {
