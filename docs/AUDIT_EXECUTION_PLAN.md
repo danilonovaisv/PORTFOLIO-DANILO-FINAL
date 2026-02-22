@@ -1,944 +1,814 @@
-🕵️ Auditoria Técnica e Plano de Execução V2 — Portfolio Danilo (Next.js + R3F + Ghost DS)
-Regras-mãe (sempre):
-
-❌ NÃO alterar nenhum conteúdo textual.
-
-❌ NÃO mudar a ordem das seções.
-
-✅ MOBILE-FIRST (24px mobile / 64px desktop).
-
-✅ Respeitar prefers-reduced-motion (Framer Motion: useReducedMotion / MotionConfig reducedMotion="user").
-
-✅ Manter performance Lighthouse > 90 (principalmente Home + 3D).
-
-✅ A referência visual dos docs em .context/DOCS-PORTFOLIO-PAGES/** é lei.
-
-✅ Workflow recomendado (para agente Copilot/autônomo)
-Abrir o par de imagens de referência Desktop/Mobile dentro do doc da sessão (ex.: .context/DOCS-PORTFOLIO-PAGES/01-HOME/02-HERO-HOME/02-HERO-HOME-DESKTOP.jpg).
-
-Abrir o componente/rota responsável (paths sugeridos nos prompts abaixo).
-
-Ajustar layout primeiro (grid/spacing/z-index), depois motion, depois dados (Supabase), depois perf.
-
-Validar em:
-
-Mobile (base) + Desktop (md:).
-
-prefers-reduced-motion: reduce.
-
-60fps (principalmente Hero 3D e Beliefs 3D).
-
-🏠 HOME
-🛠️ Prompt #01 — Header (Glass + Pixel-perfect)
-Objetivo:
-Garantir fidelidade total ao documento 01-HEADER.md.
-
-Ações:
-
-Auditar o Header no desktop (comportamento “glass”) e garantir backdrop-blur + camada translúcida + borda sutil conforme 01-HEADER-DESKTOP.jpg.
-Arquivos-alvo prováveis:
-
-src/components/layout/header/SiteHeader.tsx
-
-src/components/layout/header/DesktopFluidHeader.tsx
-
-src/components/layout/header/DesktopFluidHeader.module.css
-
-Validar o Header no mobile conforme 01-HEADER-MOBILE.jpg (menu, alinhamento, espaçamentos e alturas).
-
-Garantir que o Header fique acima do Hero/Canvas (z-index consistente), sem “pular” em scroll e sem bloquear interação no conteúdo abaixo.
-
-Regras:
-
-❌ NÃO alterar conteúdo textual.
-
-✅ Usar Tailwind e/ou CSS module existente (sem reinventar).
-
-✅ Mobile-first: px-6 no mobile e md:px-16 no desktop.
-
-🛠️ Prompt #02 — Home Hero (camadas + z-index do copy)
-Objetivo:
-Garantir fidelidade total ao documento 02-HERO-HOME.md (02-HERO.md) e às imagens HOME-DESKTOP.jpg / HOME-MOBILE.jpg.
-
-Ações:
-
-Ajustar HeroCopy.tsx para garantir que o bloco de copy/CTAs tenha z-index: 50 acima do Canvas 3D, mantendo o texto sempre legível sobre o 3D.
-Arquivo-alvo: src/components/home/hero/HeroCopy.tsx.
-
-Revisar o stacking context do Hero completo (HomeHero.tsx), garantindo a ordem:
-background → Canvas (Ghost3D/GhostAura) → overlays (gradientes, auras) → copy/CTA.
-Ajustar position/z-index com Tailwind/CSS module para evitar overdraw do 3D sobre o texto em resoluções intermediárias.
-
-Auditar performance da cena R3F no Hero (src/components/home/hero/HomeHero.tsx + src/components/canvas/**):
-
-Controlar dpr em mobile (<Canvas dpr={[1, 1.5]}> ou hook adaptativo)
-
-Evitar pós-processamento pesado em devices fracos
-
-Garantir que usePerformanceAdaptive (se usado) esteja integrado à cena para manter 60fps quando possível.
-
-Regras:
-
-❌ Não alterar textos do Hero.
-
-✅ Tailwind para z-50/relative/absolute conforme necessário.
-
-✅ Sem escalas agressivas no motion (Ghost Motion: opacity/transform suaves).
-
-🛠️ Prompt #03 — Video Manifesto (overlay + contraste AAA)
-Objetivo:
-Garantir fidelidade total ao documento 03-VIDEO-MANIFESTO.md.
-
-Ações:
-
-No componente VideoManifesto.tsx, ajustar a camada de overlay que fica sobre o vídeo para utilizar bg-background/80 (ou equivalente no tema) garantindo contraste AAA com o texto branco #fcffff.
-Arquivo-alvo: src/components/home/hero/VideoManifesto.tsx.
-
-Validar atributos de acessibilidade do <video>:
-
-playsInline para evitar fullscreen automático em mobile
-
-muted se houver autoplay
-
-controls conforme especificado no .md
-
-track de legendas, apontando para arquivos em public/captions/** se existirem.
-
-Revisar a ordem de camadas e eventos:
-
-Garantir que o overlay não bloqueie interações indevidas (usar pointer-events-none para camadas puramente visuais)
-
-Garantir que CTAs e controles do vídeo sejam facilmente clicáveis em mobile, com área mínima de toque adequada.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Usar Tailwind.
-
-✅ Validar mobile primeiro.
-
-🛠️ Prompt #04 — Portfolio Showcase (scroll + microinterações)
-Objetivo:
-Garantir fidelidade total ao documento 04-PORTFOLIO-SHOWCASE.md.
-
-Ações:
-
-Mapear a seção de showcase de portfólio na Home e garantir:
-
-Container com px-6 md:px-16
-
-Gaps/hierarquia de cards (imagem, título, tags) seguindo o layout do doc.
-
-Ajustar microinterações (hover/focus) para o padrão Ghost:
-
-Evitar whileHover={{ scale: 1.05 }} ou similares
-
-Preferir whileHover={{ opacity: 0.9, y: -2 }} com transition curta e suave.
-
-Ativar lazy-loading de imagens e componentes pesados:
-
-Utilizar next/image com loading="lazy" onde possível
-
-Garantir que o carregamento não cause CLS perceptível (definir width/height/aspect-ratio).
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Tailwind + Framer Motion.
-
-✅ Garantir foco visível (acessibilidade).
-
-🛠️ Prompt #05 — Featured Projects (dados Supabase + render estável)
-Objetivo:
-Garantir fidelidade total ao documento 05-FEATURED-PROJECTS.md.
-
-Ações:
-
-Auditar a leitura de projetos em destaque:
-
-Verificar client Supabase em src/lib/** e componentes em src/components/home/featured-projects/**
-
-Confirmar filtros/flags para “featured” conforme o esquema do DB.
-
-Implementar estados de carregamento:
-
-Exibir skeletons placeholders nos cards enquanto dados do Supabase são carregados
-
-Garantir que o layout final não “salte” ao receber os dados (mesmas dimensões dos placeholders).
-
-Implementar fallback:
-
-Quando a query falhar ou não houver projetos, mostrar estado vazio alinhado ao .md (sem mudar textos), evitando erros de render.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Manter fetch no server quando possível (evitar expor chaves).
-
-✅ Lighthouse > 90.
-
-🛠️ Prompt #06 — Clients/Brands (marcas + layout contínuo)
-Objetivo:
-Garantir fidelidade total ao documento 06-CLIENTS-BRANDS.md.
-
-Ações:
-
-Ajustar layout das marcas em src/components/home/clients/**:
-
-Garantir espaçamentos horizontais/verticais conforme mock Desktop/Mobile
-
-Evitar logos muito pequenos ou desproporcionais.
-
-Otimizar logos:
-
-Usar next/image com dimensões explícitas
-
-Ativar loading="lazy" e formatos otimizados (WebP/AVIF) quando disponível.
-
-Microinterações Ghost:
-
-Aplicar animação de entrada com opacity + y leve
-
-Evitar scale agressivo no hover e garantir focus visível em itens clicáveis.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Mobile-first.
-
-🛠️ Prompt #07 — Contact (contraste + foco + autoComplete)
-Objetivo:
-Garantir fidelidade total ao documento 07-CONTACT.md.
-
-Ações:
-
-Revisar formulário de contato (provavelmente em src/components/home/contact/**):
-
-Checar contraste entre labels, inputs, bordas e background escuro
-
-Ajustar cores/espessura de borda e background dos campos conforme doc.
-
-Configurar autoComplete:
-
-Ex.: name, email, tel, organization, conforme o campo
-
-Garantir que o browser ofereça preenchimento automático adequado.
-
-Estados do formulário:
-
-Loading: indicar claramente feedback visual ao enviar
-
-Success/Error: aplicar estilos diferenciados sem alterar o texto de feedback definido nos docs.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Acessibilidade obrigatória.
-
-🛠️ Prompt #08 — Footer (estrutura + links + spacing)
-Objetivo:
-Garantir fidelidade total aos documentos 08-FOOTER / 10-FOOTER.md.
-
-Ações:
-
-Validar estrutura do SiteFooter.tsx:
-
-Colunas e grupos de links batendo com o layout de referência
-
-Espaçamentos verticais/horizontais alinhados aos tokens Ghost.
-
-Links:
-
-Adicionar rel="noopener noreferrer" para links externos
-
-Garantir :focus-visible claro (outline/ring).
-
-Responsividade:
-
-Evitar overflow horizontal em mobile
-
-Garantir que a ordem visual em mobile siga o doc (sem inversões indevidas).
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Mobile-first.
-
-👤 SOBRE
-🛠️ Prompt #09 — Hero Manifesto (Sobre)
-Objetivo:
-Garantir fidelidade total ao documento 02-HERO-MANIFESTO.md.
-
-Ações:
-
-Em src/components/sobre/sections/AboutHero.tsx, validar:
-
-Hierarquia tipográfica (título, subtítulo, parágrafos)
-
-Line-height e espaçamentos verticais (mobile vs desktop) conforme Ghost DS.
-
-Ajustar animação de entrada:
-
-Uso de Framer Motion para fade-in + leve y (ex.: initial={{ opacity: 0, y: 8 }} → animate={{ opacity: 1, y: 0 }})
-
-Respeitar useReducedMotion (src/hooks/useReducedMotion.ts).
-
-Se houver integração com 3D/overlays:
-
-Garantir que o texto permaneça legível (z-index, contraste)
-
-Garantir que o 3D não cause jank em scroll.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Tailwind + Framer Motion.
-
-🛠️ Prompt #10 — Origem Criativa
-Objetivo:
-Garantir fidelidade total ao documento 03-ORIGEM-CRIATIVA.md.
-
-Ações:
-
-Em AboutOrigin.tsx, verificar:
-
-Layout em colunas no desktop (texto + imagem/ilustração)
-
-Ordem e empilhamento em mobile (stack vertical).
-
-Imagens:
-
-Definir width/height ou aspect-ratio para evitar CLS
-
-Checar que as ilustrações/frames não ultrapassem a largura do container em mobile.
-
-Animar entrada no scroll:
-
-Ghost Motion: opacity + y suave
-
-Eliminar animações de scale/rotate agressivas, se houver.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Mobile-first.
-
-🛠️ Prompt #11 — O Que Eu Faço
-Objetivo:
-Garantir fidelidade total ao documento 04-O-QUE-EU-FACO.md.
-
-Ações:
-
-Em AboutWhatIDo.tsx, validar:
-
-Gaps entre cartões, padding interno e bordas conforme o mock
-
-Hierarquia clara entre título, descrição e detalhes.
-
-Acessibilidade:
-
-Se os cards forem clicáveis, garantir role="button" ou <button>/<a> semânticos
-
-Garantir navegação por teclado (tab) cobrindo toda área interativa do card.
-
-Motion:
-
-Implementar stagger leve nos cards com Framer Motion
-
-Usar variações Ghost (opacity, y) para entrada e hover.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Tailwind + Framer Motion.
-
-🛠️ Prompt #12 — Método/Processo (refatoração dos cards)
-Objetivo:
-Ajustar AboutMethod.tsx para o padrão Ghost conforme 05-COMO-EU-TRABALHO.md.
-
-Ações:
-
-Em src/components/sobre/sections/AboutMethod.tsx, alterar o estilo de cada passo do método:
-
-Substituir linhas/bordas inferiores simples por cards com:
-
-bg-surface/50
-
-backdrop-blur
-
-border-l-4 border-bluePrimary
-
-Implementar animação de entrada com staggerChildren:
-
-Container com variants e staggerChildren: 0.05~0.08
-
-Filhos com initial={{ opacity: 0, y: 8 }} e animate={{ opacity: 1, y: 0 }}.
-
-Garantir que espaçamentos horizontais/verticais respeitem os tokens de 24px/64px (Mobile/Desktop) sem alterar o conteúdo textual.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Usar Tailwind + Framer Motion.
-
-✅ Sem scale agressivo.
-
-🛠️ Prompt #13 — Crenças / “O Que Me Move” (Scroll Sync em 5 camadas)
-Objetivo:
-Corrigir a seção 06 conforme 06-O-QUE-ME-MOVE.md / ABOUT-BELIEFS-SOBRE.md.
-
-Ações:
-
-Garantir arquitetura em 5 camadas na pasta beliefs:
-
-Camada 0: Background (gradiente/base) — BackgroundLayer.tsx
-
-Camada 1: Overlay sutil (ruído, vinheta) — OverlayLayer.tsx
-
-Camada 2: Ghost 3D — Ghost3D.tsx (Canvas, luzes, etc.)
-
-Camada 3: Texto dinâmico (rotator / morph) — TextRotator.tsx / MorphingText.tsx
-
-Camada 4: Header fixo / labels — FixedHeader.tsx
-Arquivo-orquestrador: BeliefsSection.tsx deve compor essas camadas respeitando position: fixed/sticky indicado no doc.
-
-Ajustar hook de sincronia:
-
-Usar useScroll + scrollYProgress (Framer Motion) em src/hooks/useBeliefsAnimation.ts (ou equivalente)
-
-Mapear scrollYProgress para interpolar cor de fundo de #040013 → #0a001a (pelo menos) conforme ranges do doc.
-
-Mobile:
-
-Implementar animação onde o texto sai deslizando para a direita (x positivo) ao trocar de crença
-
-Fazer com que o Ghost 3D acompanhe, ajustando levemente posição/rotação para manter a sensação de sincronia, sem saltos bruscos.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Framer Motion via scrollYProgress.
-
-✅ Respeitar prefers-reduced-motion.
-
-🛠️ Prompt #14 — Fechamento/Confirmação
-Objetivo:
-Garantir fidelidade total ao documento 07-FECHAMENTO-CONFIRMACAO.md.
-
-Ações:
-
-Em AboutClosing.tsx, validar:
-
-Intensidade visual da seção de fechamento (background, bordas, destaque do CTA final).
-
-Espaçamento acima/abaixo da seção, alinhado ao doc.
-
-Motion:
-
-Entrada suave com Ghost Motion, sem overshoot forte
-
-Saída/transição para o Footer fluida, evitando cortes secos.
-
-Responsividade:
-
-Garantir boa leitura em mobile (quebra de linhas/tamanho de fonte)
-
-Manter o CTA visível sem exigir scroll excessivo.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Mobile-first.
-
-📂 PORTFOLIO
-🛠️ Prompt #15 — Gallery/Filtros
-Objetivo:
-Garantir fidelidade total ao documento 03-GALLERY.md.
-
-Ações:
-
-Na página src/app/portfolio/page.tsx + PortfolioClient.tsx + src/components/portfolio/**:
-
-Validar UI dos filtros/tags (layout horizontal/vertical, comportamento em mobile).
-
-Garantir que tags longas não estourem o container em telas pequenas.
-
-Acessibilidade:
-
-Tratar filtros como role="tab"/aria-pressed ou aria-selected (conforme padrão do doc)
-
-Permitir navegação via teclado (setas/tab) entre filtros.
-
-Motion:
-
-No filtro ativo/inativo, utilizar transições suaves de opacity, y ou background, evitando reflows caros.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Tailwind + Framer Motion.
-
-🛠️ Prompt #16 — Project Cards (padrão Ghost)
-Objetivo:
-Garantir fidelidade total ao documento 04-PROJECT-CARDS.md.
-
-Ações:
-
-Em src/components/projects/** (e/ou src/components/portfolio/**), auditar cards:
-
-Proporção da imagem (aspect ratio) idêntica ao mock
-
-Hierarquia tipográfica (título, subtítulo, tags).
-
-Estados de foco/hover:
-
-Adicionar :focus-visible com outline adequado
-
-No hover, limitar-se a leves variações de opacity, y ou box-shadow, evitando scale > 1.02.
-
-Touch/mobile:
-
-Garantir área de toque mínima de 44x44px
-
-Evitar dependência exclusiva em hover para transmitir interatividade.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Mobile-first.
-
-🛠️ Prompt #17 — Modal de Detalhes (UI/UX + acessibilidade)
-Objetivo:
-Garantir fidelidade total aos documentos 05-MODAL.md e 09-MODAL-ROOT.md.
-
-Ações:
-
-Identificar o componente de Modal de Detalhes em src/components/portfolio/** ou src/components/shared/**:
-
-Garantir que o modal seja renderizado via portal/root dedicado (ModalRoot)
-
-Configurar overlay com z-index alto suficiente para cobrir toda a tela.
-
-Scroll Lock:
-
-Integrar src/hooks/useBodyLock.ts ao ciclo de vida do modal
-
-Bloquear scroll de fundo quando o modal estiver aberto (e liberar ao fechar).
-
-Acessibilidade:
-
-Implementar focus trap dentro do modal
-
-Permitir fechamento por tecla ESC e clique fora (se especificado)
-
-Retornar foco para o elemento disparador ao fechar.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Acessibilidade é obrigatória.
-
-✅ Motion leve (opacity + y) respeitando reduced motion.
-
-🛠️ Prompt #18 — Projeto (Slug): SEO + metadata dinâmica
-Objetivo:
-Otimizar a página de projeto individual conforme 06-PROJETO-SLUG.md.
-
-Ações:
-
-Em src/app/portfolio/[slug]/page.tsx, implementar generateMetadata:
-
-Ler params.slug (via App Router assíncrono)
-
-Buscar dados do projeto no Supabase (título, descrição, imagem OG)
-
-Retornar Metadata com title, description e openGraph mínimos.
-
-Fallback:
-
-Se o fetch falhar, retornar metadata estática segura (nome do portfolio + fallback genérico)
-
-Evitar que uma falha de metadata quebre a página.
-
-CTA de retorno:
-
-Garantir que o botão “Voltar ao Portfólio” use a variante compact do Design System (estilo de botão já existente em src/components/ui/**).
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Manter generateMetadata no Server Component.
-
-✅ SEO não pode quebrar a renderização.
-
-🛠️ Prompt #19 — Landing Pages Dinâmicas (render + cache)
-Objetivo:
-Garantir fidelidade total ao documento 07-LANDING-PAGES.md.
-
-Ações:
-
-Encontrar rotas de landing dinâmicas em src/app/** (ex.: src/app/landing/[slug]/page.tsx ou similar) e validar:
-
-Que os dados são carregados do Supabase conforme schema do doc
-
-Que não há acoplamento excessivo com a página de portfólio geral.
-
-Fallback quando não existir landing:
-
-Renderizar estado vazio ou redirect seguro, sem 500
-
-Garantir consistência de layout com as demais páginas.
-
-Cache/Revalidate:
-
-Usar fetch com revalidate adequado (ou route segment config) para equilibrar frescor de conteúdo e performance
-
-Documentar o comportamento no código (// revalidate: X) conforme especificado.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Mobile-first.
-
-🔐 ADMIN (CMS)
-🛠️ Prompt #20 — Proteção de Rotas (admin/(protected))
-Objetivo:
-Consolidar segurança e UX do Admin conforme docs 03-DASHBOARD.md e estrutura admin/(protected).
-
-Ações:
-
-Auditar src/app/admin/(protected)/layout.tsx e src/middleware.ts:
-
-Garantir que apenas usuários autenticados e com role correta possam acessar /admin/(protected)
-
-Aplicar pattern de verificação de sessão próxima às chamadas de Supabase / DAL.
-
-Redirects:
-
-Em caso de ausência de sessão, redirecionar para /admin/(auth) ou rota de login definida
-
-Evitar “flash” de conteúdo protegido: checks server-side antes de renderizar.
-
-Server Actions / Mutations:
-
-Garantir que mutações críticas (CRUD de trabalhos/tags/mídias) sejam protegidas por checks de role
-
-Evitar expor endpoints inseguros acessíveis sem autenticação.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Segurança server-side obrigatória.
-
-🛠️ Prompt #21 — Dashboard (Skeletons + Suspense)
-Objetivo:
-Melhorar UX/performance do dashboard conforme 03-DASHBOARD.md.
-
-Ações:
-
-Em src/app/admin/(protected)/page.tsx e componentes de métricas (src/components/admin/**):
-
-Introduzir Suspense em torno de blocos de métricas
-
-Criar componentes de skeleton que imitem o layout final (altura/largura iguais).
-
-Evitar CLS:
-
-Garantir que o espaço ocupado pelo skeleton seja idêntico ao conteúdo real
-
-Não alterar o fluxo ao trocar skeleton → dados.
-
-Responsividade:
-
-Validar que a grid do Dashboard em mobile respeita 24px de padding e colunas em stacking adequado
-
-Em desktop, manter alinhamento e espaçamentos de 64px entre blocos principais.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Mobile-first.
-
-✅ Performance > 90.
-
-🛠️ Prompt #22 — Trabalhos (CRUD)
-Objetivo:
-Garantir fidelidade total ao documento 04-TRABALHOS.md.
-
-Ações:
-
-Em src/app/admin/(protected)/trabalhos/** + ProjectsTable.tsx:
-
-Validar ordenação padrão (ex.: por data de criação ou destaque)
-
-Implementar paginação ou carregamento incremental se o doc especificar.
-
-Segurança de dados:
-
-Garantir que IDs sensíveis ou chaves nunca sejam renderizados no client
-
-Centralizar lógica de Supabase em libs/server actions.
-
-Uploads/mídia associada:
-
-Validar fluxo de criação/edição de trabalho com associação de mídia (thumbnails, vídeos)
-
-Tratar erros de upload/storage com mensagens coerentes (sem mudar texto).
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Segurança + UX.
-
-🛠️ Prompt #23 — ProjectForm: validação de slug com Zod
-Objetivo:
-Adicionar validação robusta (sem caracteres especiais) conforme docs.
-
-Ações:
-
-Em src/components/admin/ProjectForm.tsx, ajustar o schema Zod do formulário:
-
-Campo slug deve usar algo como:
-z.string().min(1).regex(/^[a-z0-9-]+$/, "slug inválido")
-(somente letras minúsculas, números e hífen).
-
-Feedback visual:
-
-Exibir estado de erro no input (borda/cor de label) sem alterar o texto existente de erro
-
-Garantir que o erro seja anunciado (aria-describedby) quando possível.
-
-Persistência:
-
-Confirmar que o slug persistido no Supabase é exatamente o validado (sem transformações silenciosas divergentes)
-
-Normalizar slug (ex.: .trim().toLowerCase()) antes de salvar se o doc pedir.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Zod obrigatório.
-
-✅ Validar antes de salvar (client e/ou server).
-
-🛠️ Prompt #24 — Tags
-Objetivo:
-Garantir fidelidade total ao documento 05-TAGS.md.
-
-Ações:
-
-Em src/app/admin/(protected)/tags/** + TagForm.tsx:
-
-Validar criação/edição/exclusão de tags
-
-Garantir atualização imediata dos filtros no Portfolio (via revalidate ou listeners).
-
-Normalização:
-
-Impedir duplicatas por case/whitespace (ex.: "Brand" vs "brand")
-
-Podar espaços extras (trim) antes de persistir.
-
-Estados:
-
-Implementar loading e erros claros na criação/remoção de tags
-
-Garantir que falhas não deixem a UI em estado inconsistente.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Integridade de dados.
-
-🛠️ Prompt #25 — Mídia (upload + preview + segurança)
-Objetivo:
-Garantir fidelidade total ao documento 06-MIDIA.md.
-
-Ações:
-
-Em src/app/admin/(protected)/midia/** + AssetForm.tsx/AssetGallery.tsx:
-
-Validar restrições de tipo de arquivo (imagens, vídeos, etc.)
-
-Limitar tamanho máximo e exibir mensagem de erro adequada.
-
-Políticas de storage:
-
-Verificar policies do Supabase (bucket, RLS) para garantir acesso somente a quem deve
-
-Evitar expor URLs privadas diretamente em público.
-
-Performance mobile:
-
-Ativar lazy-loading de thumbnails
-
-Considerar geração de versões menores em background, se doc sugerir.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Performance + segurança.
-
-🛠️ Prompt #26 — Copy Agent (IA)
-Objetivo:
-Garantir fidelidade total ao documento 09-COPY-AGENT.md.
-
-Ações:
-
-Em src/app/admin/(protected)/copy-agent/**:
-
-Verificar fluxo de input (briefing, parâmetros) → chamada IA → resultado
-
-Garantir estados de loading claros e erro tratável.
-
-Proteção do site público:
-
-Assegurar que nenhum texto do site público seja sobrescrito automaticamente sem confirmação explícita do usuário (ex.: botão “Aplicar” ou “Substituir”).
-
-Rate limiting / UX:
-
-Evitar sobrecarga de chamadas (ex.: desabilitar botão enquanto requisição em aberto)
-
-Indicar quando limites de uso forem atingidos, se especificado.
-
-Regras:
-
-❌ Não alterar textos do site público.
-
-✅ Ações do agente devem ser reversíveis.
-
-🛠️ Prompt #27 — Settings/Config
-Objetivo:
-Garantir fidelidade total ao documento 08-SETTINGS-CONFIG.md.
-
-Ações:
-
-Em src/app/admin/(protected)/settings/**:
-
-Verificar estrutura em abas/seções
-
-Garantir que os campos reflitam todas as configs descritas no doc.
-
-Validação:
-
-Adicionar validações (Zod ou similar) para limites de campos (URLs válidas, cores, toggles, etc.)
-
-Exibir erros de forma consistente com o resto do CMS.
-
-Loading:
-
-Se as configs forem carregadas do Supabase, exibir skeleton ou placeholder até os dados chegarem, evitando pulo de layout.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Mobile-first.
-
-🌐 CROSS-CUTTING (Global)
-🛠️ Prompt #28 — Reduced Motion (global hardening)
-Objetivo:
-Garantir que TODAS as transições respeitem prefers-reduced-motion.
-
-Ações:
-
-Auditar uso de Framer Motion:
-
-Onde houver animações fortes (grandes deslocamentos, duração > 0.6s), adicionar branch de useReducedMotion() para reduzir ou desabilitar motion.
-
-Scroll-based motion:
-
-Para seções que dependem de scroll (Hero, Beliefs, Gallery), garantir fallback estático quando prefers-reduced-motion for reduce (ex.: estados “final” direto, sem animações contínuas).
-
-GSAP ScrollTrigger (se usado):
-
-Desativar ou simplificar animações sob reduced motion, seguindo o padrão definido no GHOST DESIGN SYSTEM.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Acessibilidade obrigatória.
-
-🛠️ Prompt #29 — Performance (R3F + imagens + vídeo)
-Objetivo:
-Manter Lighthouse > 90 sem perder fidelidade visual.
-
-Ações:
-
-R3F:
-
-Limitar dpr em mobile ([1, 1.5])
-
-Evitar materiais/shaders caros onde não houver ganho visual claro
-
-Usar usePerformanceAdaptive.ts para ajustar qualidade conforme device.
-
-Imagens:
-
-Definir sizes corretos em next/image para evitar overfetch
-
-Garantir placeholders (blur/background) quando necessário.
-
-Vídeos:
-
-Ajustar preload (metadata ou none quando possível)
-
-Evitar que o manifesto/hero bloqueiem TTI em conexões lentas.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Performance é requisito.
-
-🛠️ Prompt #30 — Consistência de Containers (Ghost spacing)
-Objetivo:
-Garantir consistência de espaçamento global.
-
-Ações:
-
-Padronizar containers top-level:
-
-Usar px-6 no mobile e md:px-16 no desktop em todas as seções principais (Home, Sobre, Portfólio, Admin público quando aplicável).
-
-max-w e alinhamentos:
-
-Definir max-w-* coerentes (ex.: max-w-6xl/7xl) e manter headings alinhados entre páginas para evitar “drift”.
-
-Overflow:
-
-Auditar seções que estouram horizontalmente (efeitos 3D, carrosseis, etc.)
-
-Usar overflow-x-hidden apenas onde estritamente necessário e documentar no código.
-
-Regras:
-
-❌ Não alterar textos.
-
-✅ Mobile-first.
-
-
+// file: docs/AUDITORIA_COMPLETA-danilo-novais-portfolio-GHOST.md
+# Auditoria Completa — danilo-novais-portfolio (Ghost Design System)
+
+**Projeto:** `danilo-novais-portfolio`  
+**Domínio:** https://portfoliodanilo.com  
+**Repo:** https://github.com/danilonovaisv/PORTFOLIO-DANILO-FINAL.git  
+
+**Stack & Infra (estado atual do repositório)**  
+- Runtime: `Node.js 20`  
+- Framework principal: `Next.js 16.x` (App Router)  
+- Linguagem: `TypeScript 5.x`  
+- UI: `React 19.x`  
+- Estilo: `Tailwind CSS 4.x`  
+- Motion: `Framer Motion 12.x` + `Lenis`  
+- 3D/WebGL: `three`, `@react-three/fiber`, `@react-three/drei`, `@react-three/postprocessing`  
+- Backend/Data: `Supabase` (`@supabase/supabase-js`, `@supabase/ssr`)  
+- Auth/Admin: Supabase Auth + rotas protegidas em `/admin/(protected)`  
+- Ferramentas de qualidade: `ESLint`, `Prettier`, `Jest`, `Playwright`  
+- Deploy/Hosting: `Vercel` / `Netlify` / `Cloudflare Pages` + fluxo com scripts de `Firebase Hosting`  
+
+**Prioridades fixas da auditoria**  
+1. Acessibilidade  
+2. Performance  
+3. Qualidade Editorial  
+4. Motion sutil  
+
+**Regras de Motion**  
+- Não aceitar: `scale`, `bounce`, `rotate` em conteúdo.  
+- Aceitar apenas: `opacity`, `blur`, `translateY` (máx 18px).  
+- Respeitar `prefers-reduced-motion`: desligar parallax/lerp/3D quando necessário.  
+
+**Padrões de A11Y**  
+- Validar WCAG AA (contraste, foco visível, teclado).  
+- Validar semântica (`header`/`nav`/`main`/`section`/`footer`; 1x `h1` por página).  
+
+**Mobile-first**  
+- 320px+, touch target ≥ 48x48, sem overflow horizontal.  
+
+**Grid / Layout (Ghost)**  
+- Colunas, largura útil e gutters idênticos à referência.  
+- Margens laterais edge-to-edge sem saltos entre seções.  
+- Portfólio: cards com mesma altura vertical por linha; larguras variáveis preenchendo 100% do container (sem espaços vazios).  
+
+**Metas de Performance (validação)**  
+- Peso inicial < 2MB  
+- FCP < 2s  
+- LCP < 2.5s  
+- TTI < 5s (3G)  
+- CLS < 0.1  
+- Lighthouse > 90 (páginas principais)  
+
+**Escopo:** Auditoria **página por página**, incluindo **/admin** (rotas protegidas) + rotas auxiliares (`not-found`, `global-error`).
+
+---
+
+## 1️⃣ Visão Geral
+
+- **Resumo técnico (Home, Sobre, Portfólio)**
+  - **Home (`/`)**
+    - Existe `src/app/page.tsx` e a estrutura de App Router está presente com `src/app/layout.tsx`, `template.tsx`, `globals.css` etc.
+    - Risco principal (a11y/perf): se houver 3D/motion above-the-fold, pode comprometer **LCP/TTI** e precisa respeitar `prefers-reduced-motion`.
+  - **Sobre (`/sobre`)**
+    - Existe `src/app/sobre/page.tsx` com `opengraph-image.tsx` e `error.tsx` no segmento.
+    - Risco principal: **legibilidade + contraste** (WCAG AA) e **outline correto de headings** (1x `h1`).
+  - **Portfólio (`/portfolio` + `/portfolio/[slug]` + `/projects/[slug]`)**
+    - Existe `src/app/portfolio/page.tsx` e um client component `src/app/portfolio/PortfolioClient.tsx` (indício forte de interações como modal/grid).
+    - Existe `src/app/portfolio/[slug]/page.tsx` e `src/app/projects/[slug]/page.tsx`.
+    - Risco principal: **fluxo crítico de cards** (card → modal vs card → landing) + **grid Ghost** (altura igual por linha, preenchimento 100% sem vazios) + **modal a11y**.
+
+- **Principais riscos (A11y/Performance/Funcionalidade)**
+  1. **Admin e Server Actions**: há múltiplos `actions.ts` em `/admin/(protected)/**` (ex.: `trabalhos/actions.ts`, `landing-pages/actions.ts`, `midia/actions.ts`, `copy-agent/actions.ts`, `scene-generator/actions.ts`, `tags/actions.ts`). A regra é **não depender de bloqueio apenas no client**; é necessário validar autorização em cada Server Action/Route Handler.
+  2. **Reduced motion**: stack inclui **Framer Motion + Lenis + 3D**; precisa desligar smooth scroll/parallax/lerp/3D quando `prefers-reduced-motion` estiver ativo.
+  3. **Grid Ghost no Portfólio**: requisito absoluto de **altura igual por linha** e **preenchimento 100% sem espaços vazios**.
+  4. **Semântica + 1x H1**: obrigatório por rota (header/nav/main/section/footer; 1x h1).
+  5. **Erros globais**: existe `src/app/global-error.tsx` e `src/app/not-found.tsx`. Em App Router, root layout precisa incluir `<html>`/`<body>` e `global-error` também deve ser um documento completo.
+
+- **Estado geral (Aprovado | Aprovado com ressalvas | Reprovado)**
+  - **Aprovado com ressalvas**
+    - Motivo: a estrutura de rotas principais e admin existe, mas os requisitos críticos (modal a11y, grid Ghost, reduced motion, budget de performance e hardening server-side do admin) precisam ser validados/ajustados.
+
+---
+
+## 2️⃣ Diagnóstico por Seção
+
+### Home Hero
+- **Achados**
+  - Verificar se o Hero mantém **1x `h1`** na Home e se o CTA é navegável por teclado.
+  - Se houver Canvas/3D no hero, avaliar se está carregando **antes** do conteúdo (risco LCP/TTI).
+- **Evidências**
+  - Confirmar semântica no `src/app/page.tsx` e nos componentes de Home.
+  - Rodar Lighthouse mobile: FCP/LCP/TTI/CLS (meta: LCP < 2.5s; CLS < 0.1; peso inicial < 2MB).
+- **Recomendações (prioridade)**
+  - **P0**: foco visível + navegação por teclado no CTA do hero.
+  - **P1**: lazy-load de 3D e assets grandes; 3D como progressive enhancement.
+
+### Manifesto
+- **Achados**
+  - Tipicamente é bloco textual: risco de **coluna larga demais**, contraste insuficiente e headings mal hierarquizados.
+- **Evidências**
+  - Checar contraste WCAG AA (texto principal e secundário).
+  - Checar largura de coluna em desktop e espaçamento em 320px.
+- **Recomendações (prioridade)**
+  - **P1**: limitar largura útil do texto e garantir contraste AA (sem alterar copy).
+
+### Featured Projects
+- **Achados**
+  - Cards: risco de alturas inconsistentes e hover-only info (inacessível).
+- **Evidências**
+  - Verificar se cards são `Link`/`button` (não `div` clicável).
+  - Verificar imagens com dimensões para evitar CLS.
+- **Recomendações (prioridade)**
+  - **P0**: garantir teclado + foco visível em cards.
+  - **P1**: equal-height por linha (Ghost).
+
+### About (Origin / Method / What I Do)
+- **Achados**
+  - Seções precisam de `section` + headings coerentes (sem mudar texto).
+- **Evidências**
+  - Heading outline (1x h1 + h2/h3 adequados).
+- **Recomendações (prioridade)**
+  - **P1**: semântica por seção e responsividade real (320px+, sem overflow).
+
+### Portfolio Grid
+- **Achados**
+  - Requisito absoluto Ghost: **mesma altura por linha** + **preencher 100% da largura** sem vazios.
+  - Como existe `src/app/portfolio/PortfolioClient.tsx`, é provável que o grid e a lógica de clique/modal estejam ali.
+- **Evidências**
+  - Screenshots em 320/375/768/1024/1440: validar vazios e alturas.
+  - Checar implementação do grid em `src/app/portfolio/page.tsx` + `src/app/portfolio/PortfolioClient.tsx`.
+- **Recomendações (prioridade)**
+  - **P0**: garantir equal-height por linha e preenchimento horizontal total.
+  - **P0**: garantir modal acessível (se existir) para cards sem landing.
+
+---
+
+## 3️⃣ Lista de Problemas (Severidade 🔴🟡🟢)
+
+- 🔴 **Crítico:**
+  - **Admin hardening incompleto (se aplicável):** presença de múltiplos `actions.ts` no admin exige checagem server-side de auth/role em toda mutação (não só UI). É necessário aplicar checagens explícitas em Server Actions/Route Handlers.
+  - **Modal do Portfólio (se existir):** se não houver trap de foco + `Esc` + retorno de foco ao card, quebra WCAG e fluxo crítico.
+
+- 🟡 **Médio/Alto:**
+  - **Reduced motion:** Lenis + Motion + 3D precisam ser desligáveis (prefers-reduced-motion).
+  - **Grid Ghost:** cards com alturas diferentes por linha ou vazios horizontais quebram regra absoluta.
+  - **SEO duplicado de privacidade:** existe `/privacidade` e também `/privacy-policy` — risco de conteúdo duplicado/canonical (sem alterar copy, resolver via redirect/canonical/noindex).
+
+- 🟢 **Baixo:**
+  - Ajustes finos de foco visível, contraste em textos secundários e consistência de gutters/margens laterais.
+
+---
+
+## Auditoria por Rotas (página por página)
+
+> Para cada rota, seguir a ordem fixa: Estrutura -> UI/UX -> Mobile -> Motion -> Performance -> Funcionalidade -> SEO.
+
+### Rota: `/`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ⚠️
+  - UI/UX: ⚠️
+  - Mobile: ⚠️
+  - Motion: ⚠️
+  - Performance: ⚠️
+  - Funcionalidade: ✅
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/page.tsx`.
+  - Root layout em App Router deve definir `<html>` e `<body>` (validar em `src/app/layout.tsx`).
+- **Severidade:** Alto
+- **Recomendação prática (com prioridade)**
+  - **P0:** validar 1x `h1`, landmarks e foco visível.
+  - **P1:** garantir budget de performance (LCP/TTI/peso inicial).
+
+### Rota: `/sobre`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ⚠️
+  - UI/UX: ⚠️
+  - Mobile: ⚠️
+  - Motion: ⚠️
+  - Performance: ✅
+  - Funcionalidade: ✅
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/sobre/page.tsx` + `src/app/sobre/opengraph-image.tsx` + `src/app/sobre/error.tsx`.
+- **Severidade:** Médio
+- **Recomendação prática (com prioridade)**
+  - **P1:** contraste AA e heading outline (sem alterar texto).
+
+### Rota: `/portfolio`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ⚠️
+  - UI/UX: ⚠️
+  - Mobile: ⚠️
+  - Motion: ⚠️
+  - Performance: ⚠️
+  - Funcionalidade: ⚠️
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/portfolio/page.tsx`.
+  - Client behavior em `src/app/portfolio/PortfolioClient.tsx` (ponto central para checar modal, grid, e lógica card→landing).
+  - OG específico: `src/app/portfolio/opengraph-image.tsx`.
+- **Severidade:** Alto
+- **Recomendação prática (com prioridade)**
+  - **P0:** validar fluxo crítico:
+    - card sem landing → abre modal
+    - card com landing → navega `/projects/[slug]`
+  - **P0:** grid Ghost (altura igual por linha + 100% sem vazios).
+
+### Rota: `/portfolio/[slug]`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ⚠️
+  - UI/UX: ⚠️
+  - Mobile: ⚠️
+  - Motion: ⚠️
+  - Performance: ⚠️
+  - Funcionalidade: ⚠️
+  - SEO: ⚠️
+- **Evidências objetivas**
+  - Implementada em `src/app/portfolio/[slug]/page.tsx`.
+  - Validar que slugs inválidos chamam `notFound()` e caem em `src/app/not-found.tsx`.
+- **Severidade:** Alto
+- **Recomendação prática (com prioridade)**
+  - **P0:** `notFound()` para slug inválido + foco e CTA no 404.
+  - **P1:** metadata dinâmica via `generateMetadata` quando aplicável.
+
+### Rota: `/projects/[slug]`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ⚠️
+  - UI/UX: ⚠️
+  - Mobile: ⚠️
+  - Motion: ⚠️
+  - Performance: ⚠️
+  - Funcionalidade: ⚠️
+  - SEO: ⚠️
+- **Evidências objetivas**
+  - Implementada em `src/app/projects/[slug]/page.tsx` + `src/app/projects/error.tsx`.
+- **Severidade:** Alto
+- **Recomendação prática (com prioridade)**
+  - **P0:** garantir LCP/CLS do hero e imagens.
+  - **P1:** canonical/OG por slug.
+
+### Rota: `/contato`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ⚠️
+  - UI/UX: ✅
+  - Mobile: ⚠️
+  - Motion: ✅
+  - Performance: ✅
+  - Funcionalidade: ⚠️
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/contato/page.tsx` + `src/app/contato/opengraph-image.tsx`.
+- **Severidade:** Médio
+- **Recomendação prática (com prioridade)**
+  - **P0:** se existir form: labels, erros e foco no primeiro erro.
+
+### Rota: `/privacidade`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ✅
+  - UI/UX: ✅
+  - Mobile: ✅
+  - Motion: ✅
+  - Performance: ✅
+  - Funcionalidade: ✅
+  - SEO: ⚠️
+- **Evidências objetivas**
+  - Implementada em `src/app/privacidade/page.tsx`.
+  - Existe também `src/app/privacy-policy/page.tsx` (rota extra). Risco SEO de duplicidade.
+- **Severidade:** Médio
+- **Recomendação prática (com prioridade)**
+  - **P1:** definir canonical/redirect entre `/privacidade` e `/privacy-policy` (sem mudar texto).
+
+### Rota: `/admin/login`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ⚠️
+  - UI/UX: ⚠️
+  - Mobile: ⚠️
+  - Motion: ✅
+  - Performance: ✅
+  - Funcionalidade: ⚠️
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/admin/(auth)/login/page.tsx` + layout `src/app/admin/(auth)/layout.tsx`.
+- **Severidade:** Alto
+- **Recomendação prática (com prioridade)**
+  - **P0:** a11y do formulário (labels + aria-live + foco no erro).
+
+### Rota: `/admin`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ⚠️
+  - UI/UX: ⚠️
+  - Mobile: ⚠️
+  - Motion: ✅
+  - Performance: ⚠️
+  - Funcionalidade: ⚠️
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/admin/(protected)/page.tsx` + `src/app/admin/(protected)/layout.tsx`.
+  - Há `src/app/admin/error.tsx` (error boundary do segmento admin).
+  - É necessário que as Server Actions verifiquem permissão e não dependam apenas de UI client.
+- **Severidade:** Crítico
+- **Recomendação prática (com prioridade)**
+  - **P0:** garantir proteção server-side em todas as ações e páginas.
+
+### Rota: `/admin/trabalhos`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ⚠️
+  - UI/UX: ⚠️
+  - Mobile: ⚠️
+  - Motion: ✅
+  - Performance: ⚠️
+  - Funcionalidade: ⚠️
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/admin/(protected)/trabalhos/page.tsx` + `src/app/admin/(protected)/trabalhos/actions.ts`.
+- **Severidade:** Alto
+- **Recomendação prática (com prioridade)**
+  - **P0:** confirmar que `actions.ts` valida sessão/role.
+
+### Rota: `/admin/trabalhos/new`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ⚠️
+  - UI/UX: ⚠️
+  - Mobile: ⚠️
+  - Motion: ✅
+  - Performance: ✅
+  - Funcionalidade: ⚠️
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/admin/(protected)/trabalhos/new/page.tsx`.
+- **Severidade:** Alto
+- **Recomendação prática (com prioridade)**
+  - **P0:** validação de form + foco no erro + prevenção de perda de dados.
+
+### Rota: `/admin/trabalhos/[id]`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ⚠️
+  - UI/UX: ⚠️
+  - Mobile: ⚠️
+  - Motion: ✅
+  - Performance: ✅
+  - Funcionalidade: ⚠️
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/admin/(protected)/trabalhos/[id]/page.tsx`.
+- **Severidade:** Alto
+- **Recomendação prática (com prioridade)**
+  - **P0:** 404/403 para `id` inválido e autorização por recurso.
+
+### Rota: `/admin/tags`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ⚠️
+  - UI/UX: ⚠️
+  - Mobile: ⚠️
+  - Motion: ✅
+  - Performance: ✅
+  - Funcionalidade: ⚠️
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/admin/(protected)/tags/page.tsx` + `src/app/admin/(protected)/tags/actions.ts`.
+- **Severidade:** Médio
+- **Recomendação prática (com prioridade)**
+  - **P1:** CRUD acessível (teclado, foco, confirmação em ações destrutivas).
+
+### Rota: `/admin/midia`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ⚠️
+  - UI/UX: ⚠️
+  - Mobile: ⚠️
+  - Motion: ✅
+  - Performance: ⚠️
+  - Funcionalidade: ⚠️
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/admin/(protected)/midia/page.tsx` + `src/app/admin/(protected)/midia/actions.ts`.
+- **Severidade:** Alto
+- **Recomendação prática (com prioridade)**
+  - **P0:** upload resiliente (progress/cancel/retry) + não travar UI.
+
+### Rota: `/admin/landing-pages`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ⚠️
+  - UI/UX: ⚠️
+  - Mobile: ⚠️
+  - Motion: ✅
+  - Performance: ✅
+  - Funcionalidade: ⚠️
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/admin/(protected)/landing-pages/page.tsx` + `src/app/admin/(protected)/landing-pages/actions.ts`.
+- **Severidade:** Alto
+- **Recomendação prática (com prioridade)**
+  - **P0:** consistência preview/publicação + “ver pública” correto.
+
+### Rota: `/admin/landing-pages/new`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ⚠️
+  - UI/UX: ⚠️
+  - Mobile: ⚠️
+  - Motion: ✅
+  - Performance: ✅
+  - Funcionalidade: ⚠️
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/admin/(protected)/landing-pages/new/page.tsx`.
+- **Severidade:** Alto
+- **Recomendação prática (com prioridade)**
+  - **P0:** validar slug único + validação e mensagens acessíveis.
+
+### Rota: `/admin/landing-pages/[id]`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ⚠️
+  - UI/UX: ⚠️
+  - Mobile: ⚠️
+  - Motion: ✅
+  - Performance: ✅
+  - Funcionalidade: ⚠️
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/admin/(protected)/landing-pages/[id]/page.tsx`.
+- **Severidade:** Alto
+- **Recomendação prática (com prioridade)**
+  - **P0:** autorização por recurso + estados de loading/erro consistentes.
+
+### Rota: `/admin/settings`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ⚠️
+  - UI/UX: ⚠️
+  - Mobile: ⚠️
+  - Motion: ✅
+  - Performance: ✅
+  - Funcionalidade: ⚠️
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/admin/(protected)/settings/page.tsx`.
+- **Severidade:** Médio
+- **Recomendação prática (com prioridade)**
+  - **P1:** feedback acessível ao salvar + confirmar ações de alto impacto.
+
+### Rota: `/admin/scene-generator`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ⚠️
+  - UI/UX: ⚠️
+  - Mobile: ⚠️
+  - Motion: ⚠️
+  - Performance: ❌
+  - Funcionalidade: ⚠️
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/admin/(protected)/scene-generator/page.tsx` + `actions.ts`.
+  - Por ser 3D/tooling, é rota com maior risco de budget de performance.
+- **Severidade:** Alto
+- **Recomendação prática (com prioridade)**
+  - **P0:** lazy-load e reduzir render contínuo; desligar 3D no reduced motion.
+
+### Rota: `/admin/copy-agent`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ⚠️
+  - UI/UX: ⚠️
+  - Mobile: ⚠️
+  - Motion: ✅
+  - Performance: ✅
+  - Funcionalidade: ⚠️
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/admin/(protected)/copy-agent/page.tsx` + `actions.ts`.
+- **Severidade:** Médio
+- **Recomendação prática (com prioridade)**
+  - **P1:** `aria-live` para estados async e foco correto.
+
+### Rota: `/admin/config` (redirect)
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ✅
+  - UI/UX: ✅
+  - Mobile: ✅
+  - Motion: ✅
+  - Performance: ✅
+  - Funcionalidade: ⚠️
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/admin/(protected)/config/page.tsx`.
+- **Severidade:** Médio
+- **Recomendação prática (com prioridade)**
+  - **P1:** garantir redirect server-side (sem loop) e coerente para logado/não logado.
+
+### Rota: `/portfolio-showcase`
+- **Status:** Reprovado
+- **Checklist**
+  - Estrutura: ❌
+  - UI/UX: ❌
+  - Mobile: ❌
+  - Motion: ❌
+  - Performance: ❌
+  - Funcionalidade: ❌
+  - SEO: ❌
+- **Evidências objetivas**
+  - **Não existe rota correspondente em `src/app/portfolio-showcase`** (não encontrada na estrutura de `src/app`).
+- **Severidade:** Médio
+- **Recomendação prática (com prioridade)**
+  - **P1:** remover do sitemap/docs se não for para existir, ou criar a rota real (sem criar novas seções/layout fora da referência).
+
+### Rota: `/floating-cards`
+- **Status:** Reprovado
+- **Checklist**
+  - Estrutura: ❌
+  - UI/UX: ❌
+  - Mobile: ❌
+  - Motion: ❌
+  - Performance: ❌
+  - Funcionalidade: ❌
+  - SEO: ❌
+- **Evidências objetivas**
+  - **Não existe rota correspondente em `src/app/floating-cards`**.
+- **Severidade:** Médio
+- **Recomendação prática (com prioridade)**
+  - **P1:** alinhar rota real vs documentação.
+
+### Rota: `/playground`
+- **Status:** Reprovado
+- **Checklist**
+  - Estrutura: ❌
+  - UI/UX: ❌
+  - Mobile: ❌
+  - Motion: ❌
+  - Performance: ❌
+  - Funcionalidade: ❌
+  - SEO: ❌
+- **Evidências objetivas**
+  - **Não existe rota correspondente em `src/app/playground`**.
+- **Severidade:** Médio
+- **Recomendação prática (com prioridade)**
+  - **P1:** alinhar rota real vs documentação/sitemap.
+
+### Rota: `/examples/supabase`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ✅
+  - UI/UX: ✅
+  - Mobile: ✅
+  - Motion: ✅
+  - Performance: ✅
+  - Funcionalidade: ⚠️
+  - SEO: ⚠️
+- **Evidências objetivas**
+  - Implementada em `src/app/examples/supabase/page.tsx`.
+- **Severidade:** Alto
+- **Recomendação prática (com prioridade)**
+  - **P0:** garantir que não expõe dados/rotas sensíveis e definir `noindex` se for apenas exemplo.
+
+### Rota: `/instruments`
+- **Status:** Reprovado
+- **Checklist**
+  - Estrutura: ❌
+  - UI/UX: ❌
+  - Mobile: ❌
+  - Motion: ❌
+  - Performance: ❌
+  - Funcionalidade: ❌
+  - SEO: ❌
+- **Evidências objetivas**
+  - **Não existe rota correspondente em `src/app/instruments`**.
+- **Severidade:** Baixo
+- **Recomendação prática (com prioridade)**
+  - **P2:** alinhar lista de rotas esperadas com rotas reais do repo.
+
+### Rota: `not-found`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ✅
+  - UI/UX: ⚠️
+  - Mobile: ✅
+  - Motion: ✅
+  - Performance: ✅
+  - Funcionalidade: ⚠️
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/not-found.tsx`.
+  - Em Next App Router, `not-found.tsx` é a UI de 404 do segmento e deve ser simples e acessível.
+- **Severidade:** Médio
+- **Recomendação prática (com prioridade)**
+  - **P1:** foco inicial e CTA de retorno.
+
+### Rota: `global-error`
+- **Status:** Aprovado com ressalvas
+- **Checklist**
+  - Estrutura: ✅
+  - UI/UX: ⚠️
+  - Mobile: ✅
+  - Motion: ✅
+  - Performance: ✅
+  - Funcionalidade: ⚠️
+  - SEO: ✅
+- **Evidências objetivas**
+  - Implementada em `src/app/global-error.tsx`.
+  - `global-error` deve renderizar um documento completo com `<html>` e `<body>`. Root layout também deve conter `<html>/<body>`.
+- **Severidade:** Alto
+- **Recomendação prática (com prioridade)**
+  - **P0:** botão de reset “Try again” acessível e foco correto (sem vazar info sensível).
+
+---
+
+## Fluxos Críticos E2E (prioridade máxima)
+
+1. Header: `/` -> `/sobre` -> `/portfolio` -> `#contact`
+2. Em `/portfolio`: card abre modal quando não há landing vinculada
+3. Em `/portfolio`: card abre `/projects/[slug]` quando há landing vinculada
+4. Fechamento de modal com `Esc`, trap de foco e retorno de foco ao card
+5. Admin cria/edita landing page e visualiza página pública
+6. Admin publica trabalho e valida visibilidade em Home/Portfólio
+
+---
+
+## Entregável Final
+
+### 1) Resumo executivo (Top 10)
+
+1. **P0** — Admin: garantir autorização server-side em **todas** Server Actions/Route Handlers.
+2. **P0** — Portfólio: validar fluxo card→modal vs card→landing (consistência).
+3. **P0** — Modal (se existir): `Esc` + trap de foco + retorno de foco (WCAG).
+4. **P0** — Reduced motion: Lenis + 3D + motion desligáveis.
+5. **P0** — Grid Ghost: equal-height por linha + 100% preenchimento sem vazios.
+6. **P1** — Performance budget: peso inicial < 2MB; LCP < 2.5s; CLS < 0.1.
+7. **P1** — SEO por slug: `generateMetadata` em rotas dinâmicas.
+8. **P1** — Duplicidade `/privacidade` vs `/privacy-policy`: canonical/redirect/noindex.
+9. **P1** — `/examples/supabase`: definir política de indexação e segurança.
+10. **P2** — Rotas listadas no briefing mas inexistentes no repo (`/playground`, `/floating-cards`, etc.): alinhar.
+
+### 2) Matriz por página (status)
+
+| Rota | Status |
+|---|---|
+| `/` | Aprovado com ressalvas |
+| `/sobre` | Aprovado com ressalvas |
+| `/portfolio` | Aprovado com ressalvas |
+| `/portfolio/[slug]` | Aprovado com ressalvas |
+| `/projects/[slug]` | Aprovado com ressalvas |
+| `/contato` | Aprovado com ressalvas |
+| `/privacidade` | Aprovado com ressalvas |
+| `/admin/login` | Aprovado com ressalvas |
+| `/admin` | Aprovado com ressalvas |
+| `/admin/trabalhos` | Aprovado com ressalvas |
+| `/admin/trabalhos/new` | Aprovado com ressalvas |
+| `/admin/trabalhos/[id]` | Aprovado com ressalvas |
+| `/admin/tags` | Aprovado com ressalvas |
+| `/admin/midia` | Aprovado com ressalvas |
+| `/admin/landing-pages` | Aprovado com ressalvas |
+| `/admin/landing-pages/new` | Aprovado com ressalvas |
+| `/admin/landing-pages/[id]` | Aprovado com ressalvas |
+| `/admin/settings` | Aprovado com ressalas |
+| `/admin/scene-generator` | Aprovado com ressalas |
+| `/admin/copy-agent` | Aprovado com ressalas |
+| `/admin/config` | Aprovado com ressalas |
+| `/portfolio-showcase` | Reprovado (rota não existe no repo) |
+| `/floating-cards` | Reprovado (rota não existe no repo) |
+| `/playground` | Reprovado (rota não existe no repo) |
+| `/examples/supabase` | Aprovado com ressalas |
+| `/instruments` | Reprovado (rota não existe no repo) |
+| `not-found` | Aprovado com ressalvas |
+| `global-error` | Aprovado com ressalvas |
+
+### 3) Backlog priorizado (P0/P1/P2)
+
+- **P0**
+  - Auditar e reforçar auth/role em Server Actions do Admin.
+  - Garantir reduced motion global.
+  - Corrigir/validar Portfólio: grid Ghost + fluxo card→modal/landing + modal a11y.
+- **P1**
+  - Performance budget (bundle + imagens + 3D).
+  - SEO dinâmico por slug com `generateMetadata`.
+  - Resolver duplicidade `/privacidade` vs `/privacy-policy`.
+  - Definir `noindex`/política para rotas de exemplo.
+- **P2**
+  - Ajustes finos de foco visível e contraste.
+  - Alinhar rotas documentadas vs rotas existentes.
+
+### 4) Plano de correção (ciclos: rápido, estrutural, polimento)
+
+- **Rápido (1–2 dias)**
+  - Modal a11y e reduced motion.
+  - Noindex/SEO básico de rotas de exemplo e duplicidades.
+- **Estrutural (3–7 dias)**
+  - Segurança do Admin: autorização server-side em ações e handlers.
+  - Grid Ghost do Portfólio (equal-height por linha e 100% de preenchimento).
+  - Performance budget (split/lazy).
+- **Polimento (contínuo)**
+  - Contraste, foco visível, consistência de gutters e micro ajustes semânticos.
+
+---
+
+## 4️⃣ Prompts Técnicos para Agentes Google Antigravity (Atômicos)
+
+> **### 🛠️ Prompt #01 — Hardening do Admin: autorização server-side em Server Actions**  
+> **Objetivo:** Garantir que todas as mutações/leitura sensível do Admin validem sessão/role no servidor (não confiar em UI).  
+> **Arquivos:**  
+> - `src/app/admin/(protected)/trabalhos/actions.ts`  
+> - `src/app/admin/(protected)/landing-pages/actions.ts`  
+> - `src/app/admin/(protected)/midia/actions.ts`  
+> - `src/app/admin/(protected)/tags/actions.ts`  
+> - `src/app/admin/(protected)/copy-agent/actions.ts`  
+> - `src/app/admin/(protected)/scene-generator/actions.ts`  
+> **Ações:**  
+> 1. Implementar/usar helper `verifySession()`/`requireAdmin()` server-side.  
+> 2. Em cada action, validar autenticação e permissão antes de executar qualquer operação.  
+> 3. Em falha, retornar erro/redirect consistente (401/403).  
+> **Regras:** Não alterar copy; seguir boas práticas de segurança (Server Actions como endpoints).  
+> **Critérios de Aceite:** Ações não executam sem permissão; acesso direto às rotas protegidas sem sessão falha corretamente.
+
+> **### 🛠️ Prompt #02 — Reduced motion global: desligar Lenis + 3D + motion contínuo**  
+> **Objetivo:** Respeitar `prefers-reduced-motion` desligando smooth scroll, parallax/lerp e render contínuo 3D.  
+> **Arquivos:** `src/app/template.tsx`, `src/app/layout.tsx`, `src/hooks/**`, `src/components/**`  
+> **Ações:**  
+> 1. Criar hook `usePrefersReducedMotion`.  
+> 2. Condicionar Lenis/scroll smoothing ao hook.  
+> 3. Condicionar animações (Framer Motion) e 3D (R3F) ao hook.  
+> **Regras:** Motion permitido apenas `opacity`, `blur`, `translateY` (≤ 18px).  
+> **Critérios de Aceite:** Em reduced motion, não há animações contínuas nem smooth scroll.
+
+> **### 🛠️ Prompt #03 — Portfólio: regra card→modal vs card→landing**  
+> **Objetivo:** Garantir fluxo consistente no `/portfolio`.  
+> **Arquivos:** `src/app/portfolio/page.tsx`, `src/app/portfolio/PortfolioClient.tsx`  
+> **Ações:**  
+> 1. Se o trabalho tiver landing vinculada: card é `Link` para `/projects/[slug]`.  
+> 2. Se não tiver: card é `button` e abre modal acessível.  
+> **Regras:** Não alterar textos; manter layout Ghost.  
+> **Critérios de Aceite:** Teclado aciona 100%; comportamento previsível em todos os cards.
+
+> **### 🛠️ Prompt #04 — Modal do Portfólio (se existir): trap de foco + ESC + retorno de foco**  
+> **Objetivo:** WCAG AA no modal aberto pelo card.  
+> **Arquivos:** `src/app/portfolio/PortfolioClient.tsx`, `src/components/ui/**`  
+> **Ações:**  
+> 1. `Esc` fecha modal.  
+> 2. Trap de foco dentro do modal.  
+> 3. Retornar foco ao card disparador ao fechar.  
+> 4. Bloquear scroll do body enquanto aberto.  
+> **Regras:** Motion apenas `opacity`; sem scale/bounce/rotate.  
+> **Critérios de Aceite:** Teclado e leitor de tela funcionam; foco consistente.
+
+> **### 🛠️ Prompt #05 — Grid Ghost no Portfólio: equal-height por linha e 100% preenchimento**  
+> **Objetivo:** Cards com a mesma altura por linha e sem vazios horizontais.  
+> **Arquivos:** `src/app/portfolio/page.tsx`, `src/app/portfolio/PortfolioClient.tsx`, `src/components/portfolio/**`  
+> **Ações:**  
+> 1. Ajustar layout para grid/flex com `items-stretch` e cards `h-full`.  
+> 2. Evitar masonry/columns que quebram altura por linha.  
+> **Regras:** Mobile-first 320px+, sem overflow, touch targets ≥ 48x48.  
+> **Critérios de Aceite:** Em 320/375/768/1024/1440: alturas iguais por linha, sem buracos.
+
+> **### 🛠️ Prompt #06 — SEO dinâmico por slug com `generateMetadata`**  
+> **Objetivo:** Completar metadata/canonical/OG em rotas dinâmicas.  
+> **Arquivos:** `src/app/portfolio/[slug]/page.tsx`, `src/app/projects/[slug]/page.tsx`  
+> **Ações:**  
+> 1. Implementar `generateMetadata` para título/descrição/OG por slug.  
+> 2. Garantir canonical coerente.  
+> **Regras:** Não alterar copy do corpo; apenas metadata.  
+> **Critérios de Aceite:** Lighthouse SEO > 90 nas páginas principais.
+
+> **### 🛠️ Prompt #07 — Resolver duplicidade `/privacidade` vs `/privacy-policy`**  
+> **Objetivo:** Evitar conteúdo duplicado e inconsistência de indexação.  
+> **Arquivos:** `src/app/privacidade/page.tsx`, `src/app/privacy-policy/page.tsx`, `src/app/robots.ts`, `src/app/sitemap.ts`  
+> **Ações:**  
+> 1. Escolher rota canônica (sem mudar texto).  
+> 2. Implementar redirect 301/308 da outra rota ou canonical/noindex.  
+> 3. Garantir sitemap/robots coerentes.  
+> **Regras:** Não alterar o texto da política.  
+> **Critérios de Aceite:** Uma única URL indexável; sem duplicidade.
+
+> **### 🛠️ Prompt #08 — Alinhar rotas “esperadas” vs rotas reais**  
+> **Objetivo:** Corrigir discrepância entre briefing e o que existe em `src/app`.  
+> **Arquivos:** `src/app/sitemap.ts`, `docs/**`, `.context/**`  
+> **Ações:**  
+> 1. Verificar se `/portfolio-showcase`, `/floating-cards`, `/playground`, `/instruments` são realmente necessários.  
+> 2. Se não forem: remover de sitemap e docs.  
+> 3. Se forem: criar rotas reais (sem adicionar novas seções/layout fora da referência).  
+> **Regras:** Não reinventar layout; seguir Ghost; manter performance budget.  
+> **Critérios de Aceite:** Sitemap não aponta para 404; docs e rotas batem.
+
+> **### 🛠️ Prompt #09 — A11y base por rota: 1x h1 + landmarks + foco visível**  
+> **Objetivo:** Padronizar WCAG AA e semântica.  
+> **Arquivos:** `src/app/**/page.tsx`, `src/components/layout/**`, `src/app/globals.css`  
+> **Ações:**  
+> 1. Garantir 1x `h1` por página.  
+> 2. Garantir `header/nav/main/footer` presentes.  
+> 3. Garantir `:focus-visible` claro (não remover outline).  
+> **Regras:** Não alterar textos; apenas estrutura/estilo.  
+> **Critérios de Aceite:** Navegação 100% por teclado; foco sempre visível.
+
+> **### 🛠️ Prompt #10 — Orçamento de performance: peso inicial < 2MB**  
+> **Objetivo:** Bater metas FCP/LCP/TTI/CLS e bundle inicial.  
+> **Arquivos:** `src/app/**`, `src/components/**`, `next.config.mjs`  
+> **Ações:**  
+> 1. Dynamic import/lazy-load de 3D e tooling pesado.  
+> 2. Evitar que Admin contamine bundle público.  
+> 3. Auditar imagens e fontes.  
+> **Regras:** Não alterar layout; 3D nunca acima de conteúdo essencial sem fallback.  
+> **Critérios de Aceite:** LCP < 2.5s; CLS < 0.1; Lighthouse > 90 (páginas principais).

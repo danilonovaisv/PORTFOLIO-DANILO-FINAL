@@ -51,7 +51,7 @@ export async function generateMetadata({
 
   const metaForCategory = category ? categoryMeta[category] : undefined;
   const rawTitle = metaForCategory
-    ? `Portfólio | ${metaForCategory.label}`
+    ? `Portfólio | ${metaForCategory.label} — Danilo Novais`
     : 'Portfólio — Projetos de Branding, Motion e Web';
   const rawDescription =
     metaForCategory?.description ??

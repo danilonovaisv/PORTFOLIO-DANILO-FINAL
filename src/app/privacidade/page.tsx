@@ -90,7 +90,7 @@ export default function PrivacyPage() {
               <p>
                 Você pode solicitar a atualização ou exclusão dos seus dados a
                 qualquer momento. Entre em contato pela página de{' '}
-                <Link href="/#contact" className="text-bluePrimary underline">
+                <Link href="/contato" className="text-bluePrimary underline">
                   contato
                 </Link>
                 .

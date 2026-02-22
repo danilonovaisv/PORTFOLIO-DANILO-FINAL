@@ -207,6 +207,36 @@ const nextConfig = {
           },
         ],
       },
+      // Immutable cache for static assets (fingerprinted by Next.js)
+      {
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Long cache for fonts
+      {
+        source: '/fonts/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache for captions
+      {
+        source: '/captions/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, stale-while-revalidate=604800',
+          },
+        ],
+      },
     ];
   },
 
@@ -220,6 +250,11 @@ const nextConfig = {
       {
         source: '/portfolio/brand_video',
         destination: '/portfolio/brand-video',
+        permanent: true,
+      },
+      {
+        source: '/privacy-policy',
+        destination: '/privacidade',
         permanent: true,
       },
     ];

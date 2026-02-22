@@ -10,6 +10,7 @@ import {
 import AboutBeliefsNoSSR from '@/components/sobre/sections/AboutBeliefsNoSSR';
 import { SiteClosure } from '@/components/layout/SiteClosure';
 import JsonLd from '@/components/ui/JsonLd';
+import { generateVideoSchema } from '@/lib/schema';
 
 import { BRAND } from '@/config/brand';
 
@@ -29,7 +30,7 @@ function SectionSkeleton({ label }: { label: string }) {
 }
 
 export const metadata: Metadata = {
-  title: 'Sobre | Trajetória e Visão',
+  title: 'Sobre — Trajetória e Visão | Danilo Novais',
   description:
     'Conheça a trajetória, o método e a visão de Danilo Novais — Creative Developer focado em branding, motion e experiências digitais que conectam pessoas e marcas.',
   openGraph: {
@@ -65,6 +66,21 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background text-white">
       <JsonLd pageType="about" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            generateVideoSchema({
+              name: 'Sobre Danilo Novais — Trajetória Criativa',
+              description:
+                'Vídeo apresentando a trajetória, método e visão criativa de Danilo Novais como Creative Developer.',
+              thumbnailUrl: `https://${BRAND.domain}/opengraph-image`,
+              uploadDate: '2025-01-01',
+              embedUrl: `https://${BRAND.domain}/sobre`,
+            })
+          ),
+        }}
+      />
       {/* Seção 01 — Hero/Manifesto */}
       <Suspense fallback={<SectionSkeleton label="Hero" />}>
         <AboutHero />

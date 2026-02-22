@@ -149,7 +149,15 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
                 }
               }}
               aria-label="Vídeo showreel demonstrando projetos de design gráfico"
-            ></motion.video>
+            >
+              <track
+                kind="captions"
+                src="/captions/ambient.vtt"
+                srcLang="pt-BR"
+                label="Português"
+                default
+              />
+            </motion.video>
 
             {/* Metadados */}
 

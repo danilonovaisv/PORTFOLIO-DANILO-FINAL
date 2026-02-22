@@ -182,9 +182,9 @@ export default async function ProjectPage({ params }: Props) {
     project.detail?.description?.trim() || project.shortDescription?.trim();
   const narrativeParagraphs = description
     ? description
-        .split(/\n{2,}/)
-        .map((paragraph) => paragraph.trim())
-        .filter(Boolean)
+      .split(/\n{2,}/)
+      .map((paragraph) => paragraph.trim())
+      .filter(Boolean)
     : [];
   const highlights = (project.detail?.highlights ?? project.tags ?? [])
     .map((item) => item.trim())
@@ -355,6 +355,7 @@ export default async function ProjectPage({ params }: Props) {
                     muted
                     loop
                     playsInline
+                    poster={DEFAULT_VIDEO_POSTER}
                     className="absolute inset-0 h-full w-full object-cover"
                   >
                     <track
