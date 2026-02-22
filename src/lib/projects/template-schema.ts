@@ -394,7 +394,7 @@ export function resolveSiteAssetUrl(value?: string | null): string {
 
   const noLeadingSlash = raw.replace(/^\/+/, '');
   const explicitBucketMatch = noLeadingSlash.match(
-    /^(site-assets|portfolio-media|landing-pages)\/(.+)$/i
+    /^(site-assets|portfolio-media)\/(.+)$/i
   );
   if (explicitBucketMatch) {
     const [, bucket, path] = explicitBucketMatch;
@@ -598,8 +598,8 @@ function normalizeMasterTemplate(
 
   const galleryGrid = Array.isArray(record.gallery_grid)
     ? record.gallery_grid
-        .map((item, index) => normalizeGalleryItem(item, index, fallbackAlt))
-        .filter((item): item is MasterProjectGalleryItem => item !== null)
+      .map((item, index) => normalizeGalleryItem(item, index, fallbackAlt))
+      .filter((item): item is MasterProjectGalleryItem => item !== null)
     : defaults.gallery_grid;
 
   const navigationRecord = asRecord(record.navigation);
@@ -680,8 +680,8 @@ function normalizeMasterTemplateV2(
 
   const galleryGrid = Array.isArray(record.gallery_grid)
     ? record.gallery_grid
-        .map((item, index) => normalizeGalleryItemV2(item, index, fallbackAlt))
-        .filter((item): item is MasterProjectV2GalleryItem => item !== null)
+      .map((item, index) => normalizeGalleryItemV2(item, index, fallbackAlt))
+      .filter((item): item is MasterProjectV2GalleryItem => item !== null)
     : defaults.gallery_grid;
 
   const navigationRecord = asRecord(record.navigation);
@@ -776,8 +776,8 @@ function normalizeMasterTemplateV3(
 
   const galleryGrid = Array.isArray(record.gallery_grid)
     ? record.gallery_grid
-        .map((item, index) => normalizeLandingBlock(item, index, fallbackAlt))
-        .filter((item): item is LandingPageBlock => item !== null)
+      .map((item, index) => normalizeLandingBlock(item, index, fallbackAlt))
+      .filter((item): item is LandingPageBlock => item !== null)
     : defaults.gallery_grid;
 
   const navigationRecord = asRecord(record.navigation);
@@ -791,10 +791,10 @@ function normalizeMasterTemplateV3(
       asString(record.project_slug) ?? fallback.slug ?? defaults.project_slug,
     hero_cover_image: heroCoverRecord
       ? normalizeAsset(
-          heroCoverRecord,
-          fallbackAlt,
-          fallback.cover ?? defaults.hero_cover_image?.src
-        )
+        heroCoverRecord,
+        fallbackAlt,
+        fallback.cover ?? defaults.hero_cover_image?.src
+      )
       : defaults.hero_cover_image,
     hero_logo_image: heroLogoRecord
       ? normalizeAsset(heroLogoRecord, `${defaults.project_title} logo`)

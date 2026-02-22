@@ -93,16 +93,26 @@ export function buildSupabaseStorageUrl(
     }
   }
 
-  const cleanBucket = bucket.replace(/^\/+|\/+$/g, '');
-  const normalizedPath = normalizeStoragePath(filePath, cleanBucket);
+  let cleanBucket = bucket.replace(/^\/+|\/+$/g, '');
+  let finalFilePath = filePath;
+
+  // AUTO-HEAL: Se o banco de dados enviou "landing-pages" incorretamente como sendo o bucket
+  if (cleanBucket === 'landing-pages') {
+    cleanBucket = 'site-assets';
+    if (finalFilePath && !finalFilePath.startsWith('landing-pages/')) {
+      finalFilePath = `landing-pages/${finalFilePath}`;
+    }
+  }
+
+  const normalizedPath = normalizeStoragePath(finalFilePath, cleanBucket);
   if (!normalizedPath) {
-    return filePath.startsWith('http') ? filePath : null;
+    return finalFilePath.startsWith('http') ? finalFilePath : null;
   }
 
   // Preserva a origem caso o caminho já seja uma URL completa de outro projeto Supabase
   if (isHttp && isSupabaseUrl) {
     try {
-      const url = new URL(filePath);
+      const url = new URL(finalFilePath);
       const baseOrigin = `${url.protocol}//${url.host}`;
       return `${baseOrigin}/storage/v1/object/public/${cleanBucket}/${normalizedPath}`;
     } catch {
@@ -112,7 +122,7 @@ export function buildSupabaseStorageUrl(
 
   const baseUrl = getSupabaseBaseUrl();
   if (!baseUrl) {
-    return filePath.startsWith('http') ? filePath : null;
+    return finalFilePath.startsWith('http') ? finalFilePath : null;
   }
 
   const finalUrl = `${baseUrl}/storage/v1/object/public/${cleanBucket}/${normalizedPath}`;

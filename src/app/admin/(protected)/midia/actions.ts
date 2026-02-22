@@ -260,4 +260,57 @@ function refreshAssetRoutes() {
   revalidatePath('/');
   revalidatePath('/sobre');
   revalidatePath('/portfolio');
+  revalidatePath('/admin/landing-pages', 'layout');
+}
+
+export async function healLandingPagesBucketAction() {
+  const { supabase, user } = await requireAdminAccess();
+
+  // 1. Busca todos os assets corrompidos
+  const { data: corruptedAssets, error: fetchError } = await supabase
+    .from('site_assets')
+    .select('id, file_path')
+    .eq('bucket', 'landing-pages');
+
+  if (fetchError) {
+    throw new Error(`Falha ao buscar assets corrompidos: ${fetchError.message}`);
+  }
+
+  if (!corruptedAssets || corruptedAssets.length === 0) {
+    return { success: true, fixedCount: 0, message: 'Nenhum bucket landing-pages incorreto encontrado.' };
+  }
+
+  let fixedCount = 0;
+
+  // 2. Corrige um a um para reescrever file_path junto com o bucket
+  for (const asset of corruptedAssets) {
+    // Se o file_path não tiver landing-pages/, devemos adicionar para não quebrar no storage real
+    let newPath = asset.file_path || '';
+    if (newPath && !newPath.startsWith('landing-pages/')) {
+      newPath = `landing-pages/${newPath}`;
+    }
+
+    const { error: updateError } = await supabase
+      .from('site_assets')
+      .update({
+        bucket: 'site-assets',
+        file_path: newPath
+      })
+      .eq('id', asset.id);
+
+    if (!updateError) {
+      fixedCount++;
+    }
+  }
+
+  await logAdminAudit(supabase, user, {
+    action: 'system.heal_landing_pages_bucket',
+    resource: 'site_assets',
+    resourceId: 'batch',
+    status: 'success',
+    metadata: { fixedCount },
+  });
+
+  refreshAssetRoutes();
+  return { success: true, fixedCount, message: `${fixedCount} assets corrigidos com sucesso.` };
 }

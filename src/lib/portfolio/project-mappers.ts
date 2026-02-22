@@ -61,7 +61,7 @@ const LOCAL_PUBLIC_ASSET_PATTERN = /^\/(site\.assets|images|videos|fonts|caption
 const STORAGE_PUBLIC_PATH_PATTERN =
   /^\/?storage\/v1\/object\/public\/([^/]+)\/(.+)$/i;
 const EXPLICIT_BUCKET_PATTERN =
-  /^(site-assets|portfolio-media|landing-pages)\/(.+)$/i;
+  /^(site-assets|portfolio-media)\/(.+)$/i;
 
 const uniqueStrings = (values: string[]): string[] => {
   const seen = new Set<string>();
