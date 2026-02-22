@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { useScroll, MotionValue, useReducedMotion } from 'framer-motion';
+import { motion, useScroll, MotionValue, useReducedMotion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 
 // Importações dos sub-componentes (Certifique-se que os caminhos estão corretos)
@@ -49,21 +49,34 @@ const COLORS = [
 export function AboutBeliefs() {
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  const prefersReduced = !!prefersReducedMotion;
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end end'],
   });
 
+  // Gate framer-motion features for reduced motion to avoid runtime errors
+  // and to honor user preference.
+  const MotionSection: React.ElementType = prefersReduced
+    ? 'section'
+    : motion.section;
+  const MotionDiv: React.ElementType = prefersReduced ? 'div' : motion.div;
+  const MotionHeader: React.ElementType = prefersReduced ? 'header' : motion.header;
+
   return (
-    <section
+    <MotionSection
       ref={containerRef}
       className="relative w-full"
       data-testid="about-beliefs-section"
       style={{ minHeight: `${(PHRASES.length + 2) * 100}vh` }} // Garante altura baseada no conteúdo
     >
-      <BeliefFixedHeader scrollProgress={scrollYProgress} />
+      <BeliefFixedHeader
+        scrollProgress={prefersReduced ? (undefined as any) : scrollYProgress}
+        MotionHeader={MotionHeader}
+        prefersReducedMotion={prefersReduced}
+      />
       {/* LAYER 1: Seções de Conteúdo (Texto Scrollável) */}
-      <div className="relative z-20">
+      <MotionDiv className="relative z-20">
         {/* Adicionei verificações para evitar erro se PHRASES/COLORS estiverem vazios */}
         {PHRASES.map((phrase, index) => (
           <BeliefSection
@@ -72,24 +85,35 @@ export function AboutBeliefs() {
             text={phrase}
             bgColor={COLORS[index] || COLORS[0]}
             isFirst={index === 0}
+            MotionSection={MotionSection}
+            MotionDiv={MotionDiv}
+            scrollYProgressOverride={prefersReduced ? undefined : scrollYProgress}
+            prefersReducedMotion={prefersReduced}
           />
         ))}
 
         <BeliefFinalSection
-          scrollProgress={scrollYProgress}
+          scrollProgress={prefersReduced ? undefined : scrollYProgress}
           bgColor={BRAND.colors.bluePrimary}
+          MotionDiv={MotionDiv}
+          prefersReducedMotion={prefersReduced}
         />
-      </div>
+      </MotionDiv>
 
       {/* LAYER 2: Texto Mobile Fixed no Footer */}
       <BeliefMobileTextLayer
         phrases={PHRASES}
-        scrollYProgress={scrollYProgress}
+        scrollYProgress={prefersReduced ? undefined : scrollYProgress}
+        MotionDiv={MotionDiv}
+        prefersReducedMotion={prefersReduced}
       />
 
       {/* LAYER 4: Final Text Overlay (Z-40) - Background for Ghost */}
       <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-40">
-        <BeliefFinalSectionOverlay />
+        <BeliefFinalSectionOverlay
+          MotionDiv={MotionDiv}
+          prefersReducedMotion={prefersReduced}
+        />
       </div>
 
       {/* LAYER 3: Canvas 3D (sem captura de eventos) */}
@@ -105,6 +129,6 @@ export function AboutBeliefs() {
           </div>
         </div>
       </div>
-    </section>
+    </MotionSection>
   );
 }

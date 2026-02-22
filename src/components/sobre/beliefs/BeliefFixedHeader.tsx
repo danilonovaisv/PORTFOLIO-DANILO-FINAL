@@ -1,10 +1,18 @@
 'use client';
 
 import React from 'react';
-import { motion, MotionValue, useTransform, cubicBezier } from 'framer-motion';
+import {
+  motion,
+  MotionValue,
+ useMotionValue,
+  useTransform,
+  cubicBezier,
+} from 'framer-motion';
 
 interface BeliefFixedHeaderProps {
-  scrollProgress: MotionValue<number>;
+  scrollProgress?: MotionValue<number>;
+  MotionHeader?: React.ElementType;
+  prefersReducedMotion?: boolean;
 }
 
 // Helper para encapsular a lógica de Morph (Blur + Opacity + Y)
@@ -33,20 +41,25 @@ const MorphText: React.FC<{
 
 export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
   scrollProgress,
+  MotionHeader,
+  prefersReducedMotion,
 }) => {
+  const Header = MotionHeader ?? motion.header;
+  const staticProgress = useMotionValue(1);
+  const progress = scrollProgress ?? staticProgress;
   // Opacity for the header container itself
   // Fade IN: 0 -> 0.1
   // Visible: 0.1 -> 0.75
   // Fade OUT: 0.75 -> 0.9 (Changes to avoid overlap with Final Section)
   const opacity = useTransform(
-    scrollProgress,
+    progress,
     [0, 0.08, 0.75, 0.9],
     [0, 1, 1, 0]
   );
 
   return (
-    <motion.header
-      style={{ opacity }}
+    <Header
+      style={prefersReducedMotion ? undefined : { opacity }}
       className="sticky top-0 z-50 mb-[-100vh] flex h-screen pointer-events-none"
     >
       <div className="std-grid w-full h-full">
@@ -96,6 +109,6 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
           </div>
         </div>
       </div>
-    </motion.header>
+    </Header>
   );
 };

@@ -1,22 +1,35 @@
 'use client';
 
 import React from 'react';
-import { motion, MotionValue, useTransform, cubicBezier } from 'framer-motion';
+import {
+  motion,
+  MotionValue,
+  useMotionValue,
+  useTransform,
+  cubicBezier,
+} from 'framer-motion';
 
 // Easing Ghost Padrão: cubic-bezier(0.22, 1, 0.36, 1)
 const ghostEase = cubicBezier(0.22, 1, 0.36, 1);
 
 interface MobileTextLayerProps {
   phrases: string[];
-  scrollYProgress: MotionValue<number>;
+  scrollYProgress?: MotionValue<number>;
+  MotionDiv?: React.ElementType;
+  prefersReducedMotion?: boolean;
 }
 
 export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
   phrases,
   scrollYProgress,
+  MotionDiv,
+  prefersReducedMotion,
 }) => {
   // Divisão do scroll total em segmentos para cada frase
   const totalPhrases = phrases.length;
+  const staticProgress = useMotionValue(1);
+  const progress = scrollYProgress ?? staticProgress;
+  const Container = MotionDiv ?? motion.div;
 
   return (
     <div className="fixed inset-0 z-70 pointer-events-none md:hidden">
@@ -26,7 +39,9 @@ export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
           text={phrase}
           index={index}
           totalPhrases={totalPhrases}
-          scrollYProgress={scrollYProgress}
+          scrollYProgress={progress}
+          MotionDiv={Container}
+          prefersReducedMotion={prefersReducedMotion}
         />
       ))}
     </div>
@@ -38,6 +53,8 @@ interface MobilePhraseProps {
   index: number;
   totalPhrases: number;
   scrollYProgress: MotionValue<number>;
+  MotionDiv?: React.ElementType;
+  prefersReducedMotion?: boolean;
 }
 
 const MobilePhrase: React.FC<MobilePhraseProps> = ({
@@ -45,7 +62,10 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   index,
   totalPhrases,
   scrollYProgress,
+  MotionDiv,
+  prefersReducedMotion,
 }) => {
+  const Container = MotionDiv ?? motion.div;
   const phraseZoneStart = 0.16;
   const phraseZoneEnd = 0.94;
 
@@ -90,14 +110,16 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   const mobileText = text.replace(/\n/g, ' ');
 
   return (
-    <motion.div
-      style={{ x, opacity, filter: blur }}
+    <Container
+      style={
+        prefersReducedMotion ? undefined : { x, opacity, filter: blur }
+      }
       className="absolute bottom-[20vh] left-0 right-0 text-center pointer-events-none px-6"
     >
       {/* 🟣 [CONFIG VISUAL]: Define cor e tamanho do texto (Mobile: clamp 1.8rem-3rem) */}
       <span className="text-blueAccent italic font-bold text-[clamp(1.8rem,7vw,3rem)] leading-[1.3] tracking-tight block w-full mx-auto">
         {mobileText}
       </span>
-    </motion.div>
+    </Container>
   );
 };

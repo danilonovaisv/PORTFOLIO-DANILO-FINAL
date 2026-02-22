@@ -1,10 +1,16 @@
 'use client';
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
+import {
+  motion,
+  useScroll,
+  useTransform,
+  MotionValue,
+  cubicBezier,
+} from 'framer-motion';
 import { GHOST_EASE } from '@/config/motion';
 
 // Easing Ghost Padrão
-const ghostEase = GHOST_EASE;
+const ghostEase = cubicBezier(...GHOST_EASE);
 
 interface BeliefLineProps {
   line: string;
@@ -66,6 +72,12 @@ interface BeliefSectionProps {
   isFirst?: boolean;
   /** Index of this belief section for E2E test IDs */
   index?: number;
+  /** Override scroll progress from parent section */
+  scrollYProgressOverride?: MotionValue<number>;
+  /** Optional motion wrappers for reduced motion mode */
+  MotionSection?: React.ElementType;
+  MotionDiv?: React.ElementType;
+  prefersReducedMotion?: boolean;
   /**
    * Em mobile, o texto é renderizado em uma camada fixed separada.
    * Esta prop controla se deve renderizar o texto inline (desktop) ou não (mobile usa camada fixed)
@@ -78,6 +90,10 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
   bgColor,
   isFirst = false,
   index,
+  scrollYProgressOverride,
+  MotionSection,
+  MotionDiv,
+  prefersReducedMotion,
   isMobileTextLayer = false, // Nova prop para controle explícito
 }) => {
   const containerRef = useRef(null);
@@ -85,6 +101,9 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
     target: containerRef,
     offset: ['start end', 'end start'],
   });
+  const effectiveProgress = scrollYProgressOverride ?? scrollYProgress;
+  const Section = MotionSection ?? motion.section;
+  const Content = MotionDiv ?? motion.div;
 
   // Desktop Ranges
   // Ajuste de sincronia:
@@ -94,12 +113,12 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
   const exitRange: [number, number] = [0.78, 0.92];
 
   const desktopOpacity = useTransform(
-    scrollYProgress,
+    effectiveProgress,
     [animationRange[0], animationRange[1], exitRange[0], exitRange[1]],
     [0, 1, 1, 0]
   );
   const yScroll = useTransform(
-    scrollYProgress,
+    effectiveProgress,
     [0.68, 0.92],
     ['0vh', '-100vh']
   );
@@ -107,7 +126,7 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
   const lines = text.split('\n');
 
   return (
-    <motion.section
+    <Section
       ref={containerRef}
       aria-label={text.replace(/\n/g, ' ')}
       data-testid={index !== undefined ? `belief-sentinel-${index}` : undefined}
@@ -116,8 +135,10 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
     >
       {/* Desktop: Texto inline */}
       {!isMobileTextLayer && (
-        <motion.div
-          style={{ y: yScroll, opacity: desktopOpacity }}
+        <Content
+          style={
+            prefersReducedMotion ? undefined : { y: yScroll, opacity: desktopOpacity }
+          }
           className="relative z-30 hidden md:flex w-full flex-col justify-center max-w-[38vw] lg:max-w-[34vw]"
           data-testid={index !== undefined ? `belief-line-${index}` : undefined}
         >
@@ -130,10 +151,10 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
               animationRange={animationRange}
             />
           ))}
-        </motion.div>
+        </Content>
       )}
       {/* Mobile: Texto será renderizado em camada fixed no AboutBeliefs */}
-    </motion.section>
+    </Section>
   );
 };
 
