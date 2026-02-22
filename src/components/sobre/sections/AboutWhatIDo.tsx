@@ -233,7 +233,7 @@ export function AboutWhatIDo() {
           {MARQUEE_KEYWORDS.map((keyword, i) => (
             <span
               key={`a-${i}`}
-              className="text-sm font-medium uppercase tracking-[0.2em] text-white/30"
+              className="text-sm font-medium uppercase tracking-[0.2em] text-white/60"
             >
               {keyword}
             </span>
@@ -242,7 +242,7 @@ export function AboutWhatIDo() {
           {MARQUEE_KEYWORDS.map((keyword, i) => (
             <span
               key={`b-${i}`}
-              className="text-sm font-medium uppercase tracking-[0.2em] text-white/30"
+              className="text-sm font-medium uppercase tracking-[0.2em] text-white/60"
             >
               {keyword}
             </span>

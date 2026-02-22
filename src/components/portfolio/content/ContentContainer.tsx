@@ -61,7 +61,7 @@ export const ContentContainer: FC<ContentContainerProps> = ({
                 {/* Left: Highlights */}
                 {project.detail?.highlights && (
                     <div className="flex flex-col gap-4">
-                        <h3 className="text-sm font-semibold uppercase tracking-wider text-white/40">Destaques</h3>
+                        <h3 className="text-sm font-semibold uppercase tracking-wider text-white/60">Destaques</h3>
                         <motion.ul
                             variants={fadeInUpVariants}
                             className="flex flex-col gap-3 list-none"
@@ -91,7 +91,7 @@ export const ContentContainer: FC<ContentContainerProps> = ({
                         <div className="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
                             <Building2 className="w-5 h-5 text-blueAccent" />
                             <div>
-                                <span className="block text-xs uppercase tracking-wider text-white/50">Cliente</span>
+                                <span className="block text-xs uppercase tracking-wider text-white/65">Cliente</span>
                                 <span className="text-sm font-medium text-white">{project.client}</span>
                             </div>
                         </div>
@@ -99,7 +99,7 @@ export const ContentContainer: FC<ContentContainerProps> = ({
                         <div className="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
                             <Calendar className="w-5 h-5 text-blueAccent" />
                             <div>
-                                <span className="block text-xs uppercase tracking-wider text-white/50">Ano</span>
+                                <span className="block text-xs uppercase tracking-wider text-white/65">Ano</span>
                                 <span className="text-sm font-medium text-white">{project.year}</span>
                             </div>
                         </div>

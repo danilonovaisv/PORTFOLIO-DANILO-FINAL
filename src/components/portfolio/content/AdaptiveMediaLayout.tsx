@@ -211,7 +211,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                             <div className="flex flex-col md:flex-row gap-10">
                                 {project.detail?.highlights && (
                                     <div className="flex-1 flex flex-col gap-4">
-                                        <h3 className="text-sm font-semibold uppercase tracking-wider text-white/40">Destaques</h3>
+                                        <h3 className="text-sm font-semibold uppercase tracking-wider text-white/60">Destaques</h3>
                                         <ul className="flex flex-col gap-3 list-none p-0 m-0">
                                             {project.detail.highlights.map((highlight, i) => (
                                                 <li key={i} className="flex items-start gap-3 text-sm md:text-base text-white/80">
@@ -225,7 +225,7 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
 
                                 {project.tags && (
                                     <div className="flex-1 flex flex-col gap-4">
-                                        <h3 className="text-sm font-semibold uppercase tracking-wider text-white/40">Tecnologias</h3>
+                                        <h3 className="text-sm font-semibold uppercase tracking-wider text-white/60">Tecnologias</h3>
                                         <div className="flex flex-wrap gap-2">
                                             {project.tags.map((tag, tagIndex) => (
                                                 <span
