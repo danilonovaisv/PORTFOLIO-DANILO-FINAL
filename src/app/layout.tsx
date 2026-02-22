@@ -73,6 +73,8 @@ export default function RootLayout({
         />
         {/* DNS Prefetch for external resources */}
         <link rel="dns-prefetch" href="https://assets.codepen.io" />
+        {/* Preconnect to Supabase storage for faster LCP image delivery */}
+        <link rel="preconnect" href={getSupabaseBaseUrl().replace(/\/+$/, '')} crossOrigin="anonymous" />
       </head>
       <body
         suppressHydrationWarning

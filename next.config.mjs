@@ -132,6 +132,13 @@ const nextConfig = {
   staticPageGenerationTimeout: 180,
 
   experimental: {
+    optimizePackageImports: [
+      'lucide-react',
+      'framer-motion',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-tabs',
+      '@supabase/supabase-js',
+    ],
     serverActions: {
       bodySizeLimit: '32mb',
       allowedOrigins: [

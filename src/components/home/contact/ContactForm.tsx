@@ -9,6 +9,13 @@ import {
   TextAreaField,
 } from '@/components/home/contact/FormFields';
 import { CONTACT_FORM } from '@/config/navigation';
+import Script from 'next/script';
+
+declare global {
+  interface Window {
+    onTurnstileSuccess?: (token: string) => void;
+  }
+}
 
 const ContactForm: React.FC = () => {
   const prefersReducedMotion = useMotionGate();
@@ -17,10 +24,20 @@ const ContactForm: React.FC = () => {
     email: '',
     phone: '',
     message: '',
+    'cf-turnstile-response': '',
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  React.useEffect(() => {
+    window.onTurnstileSuccess = (token: string) => {
+      setFormData((prev) => ({ ...prev, 'cf-turnstile-response': token }));
+    };
+    return () => {
+      delete window.onTurnstileSuccess;
+    };
+  }, []);
 
   const validateField = (name: string, value: string) => {
     switch (name) {
@@ -58,9 +75,15 @@ const ContactForm: React.FC = () => {
 
     const newErrors: Record<string, string> = {};
     Object.entries(formData).forEach(([key, value]) => {
-      const error = validateField(key, value);
-      if (error) newErrors[key] = error;
+      if (key !== 'cf-turnstile-response') {
+        const error = validateField(key, value);
+        if (error) newErrors[key] = error;
+      }
     });
+
+    if (!formData['cf-turnstile-response']) {
+      newErrors.submit = 'Por favor, complete a verificação de segurança.';
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -80,7 +103,7 @@ const ContactForm: React.FC = () => {
 
       if (response.ok) {
         setSubmitSuccess(true);
-        setFormData({ name: '', email: '', phone: '', message: '' });
+        setFormData({ name: '', email: '', phone: '', message: '', 'cf-turnstile-response': '' });
         setTimeout(() => setSubmitSuccess(false), 5000);
       } else {
         const payload = (await response.json().catch(() => null)) as {
@@ -141,6 +164,7 @@ const ContactForm: React.FC = () => {
             method="POST"
             className="space-y-8"
           >
+            <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="afterInteractive" />
             <noscript>
               <p className="p-4 mb-4 text-sm text-amber-800 bg-amber-50 rounded-lg">
                 JavaScript está desativado. O formulário será enviado via
@@ -205,6 +229,12 @@ const ContactForm: React.FC = () => {
                 {errors.submit}
               </p>
             )}
+
+            <div
+              className="cf-turnstile"
+              data-sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'}
+              data-callback="onTurnstileSuccess"
+            ></div>
 
             <motion.button
               type="submit"

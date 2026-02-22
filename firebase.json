@@ -12,7 +12,8 @@
       "scripts/**"
     ],
     "frameworksBackend": {
-      "region": "us-central1"
+      "region": "us-central1",
+      "minInstances": 1
     },
     "headers": [
       {

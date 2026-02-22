@@ -13,7 +13,7 @@ import {
   toCanonicalUrl,
 } from '@/lib/seo';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // 1 hour caching for better TTFB
 
 type PortfolioPageProps = {
   params?: Promise<Record<string, string>>;

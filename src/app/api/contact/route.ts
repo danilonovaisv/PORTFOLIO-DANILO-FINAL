@@ -6,6 +6,7 @@ type ContactPayload = {
   phone?: string;
   message: string;
   _honey?: string;
+  'cf-turnstile-response'?: string;
 };
 
 const RATE_LIMIT_WINDOW_MS = 60_000;
@@ -65,6 +66,7 @@ async function readPayload(request: NextRequest): Promise<{
         phone: json.phone ? `${json.phone}` : '',
         message: `${json.message || ''}`,
         _honey: json._honey ? `${json._honey}` : '',
+        'cf-turnstile-response': json['cf-turnstile-response'] ? `${json['cf-turnstile-response']}` : '',
       },
       isJson,
     };
@@ -78,6 +80,7 @@ async function readPayload(request: NextRequest): Promise<{
       phone: `${formData.get('phone') || ''}`,
       message: `${formData.get('message') || ''}`,
       _honey: `${formData.get('_honey') || ''}`,
+      'cf-turnstile-response': `${formData.get('cf-turnstile-response') || ''}`,
     },
     isJson,
   };
@@ -97,6 +100,39 @@ export async function POST(request: NextRequest) {
   }
 
   const { payload, isJson } = await readPayload(request);
+
+  // Validate Cloudflare Turnstile token
+  const turnstileToken = payload['cf-turnstile-response'] || '';
+  if (!turnstileToken) {
+    if (isJson) {
+      return NextResponse.json(
+        { ok: false, message: 'Validação de segurança (CAPTCHA) falhou. Token ausente.' },
+        { status: 400 }
+      );
+    }
+    return NextResponse.redirect(new URL('/#contact?error=captcha', request.url), 303);
+  }
+
+  const secretKey = process.env.TURNSTILE_SECRET_KEY || '1x0000000000000000000000000000000AA'; // Fallback to testing key
+  try {
+    const turnstileVerify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `secret=${encodeURIComponent(secretKey)}&response=${encodeURIComponent(turnstileToken)}`
+    });
+    const turnstileData = await turnstileVerify.json();
+    if (!turnstileData.success) {
+      if (isJson) {
+        return NextResponse.json(
+          { ok: false, message: 'Validação de segurança (CAPTCHA) falhou.' },
+          { status: 400 }
+        );
+      }
+      return NextResponse.redirect(new URL('/#contact?error=captcha', request.url), 303);
+    }
+  } catch (err) {
+    console.error('[contact-form] CAPTCHA verification error:', err);
+  }
 
   // Honeypot: aceita silenciosamente para não sinalizar ao bot.
   if (payload._honey?.trim()) {
