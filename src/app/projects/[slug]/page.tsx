@@ -183,37 +183,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         }}
       />
       <ProjectRenderer project={project} />
-      <section className="std-grid bg-background py-16 md:py-24">
-        <div className="mx-auto max-w-4xl space-y-6 text-white/80">
-          <h2
-            id="project-context-heading"
-            className="text-2xl font-semibold tracking-tight text-white md:text-3xl"
-          >
-            Contexto do Projeto
-          </h2>
-          <p className="leading-relaxed">
-            Este case apresenta um recorte completo do processo criativo, do
-            diagnóstico inicial à entrega final. O objetivo foi construir uma
-            presença digital consistente, com narrativa visual clara,
-            arquitetura de informação objetiva e execução técnica preparada para
-            performance real em dispositivos móveis e desktop.
-          </p>
-          <p className="leading-relaxed">
-            A proposta considera posicionamento de marca, direção de arte,
-            composição de mídia e decisões de interação orientadas por contexto
-            de uso. Cada bloco foi estruturado para manter legibilidade,
-            acessibilidade e ritmo editorial, priorizando leitura, contraste e
-            progressão de conteúdo sem ruído.
-          </p>
-          <p className="leading-relaxed">
-            Em produção, o projeto adota abordagem incremental: melhorias de SEO
-            técnico, metadados semânticos, estrutura de heading correta,
-            otimização de ativos e monitoramento contínuo de Core Web Vitals.
-            Isso reduz risco de regressão, fortalece descoberta orgânica e
-            mantém experiência estável para usuários e crawlers.
-          </p>
-        </div>
-      </section>
       <SiteFooter />
     </div>
   );

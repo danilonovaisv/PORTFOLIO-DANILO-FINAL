@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
+import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
 import type { ComponentType } from 'react';
 import {
   DropdownMenu,

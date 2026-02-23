@@ -162,24 +162,44 @@
   .track {
     position: relative;
     inset: auto;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 32px; /* Increased gap for better mobile spacing */
-    padding: 24px 20px;
+    display: block;
+    column-count: 2;
+    column-gap: 4px; /* Minimal gaps */
+    padding: 16px 8px;
     will-change: auto;
   }
 
   .card {
-    min-height: 240px;
-    aspect-ratio: 16 / 12;
-    /* Mobile: Ensure card maintains visual integrity */
+    width: 100%;
+    margin-bottom: 4px; /* Minimal gaps */
+    break-inside: avoid;
+    display: inline-block; /* Crucial for masonry */
     background: #040013;
   }
 
-  .card[data-size],
-  .placeholder[data-size] {
-    grid-column: auto;
-    grid-row: auto;
+  .card[data-size='sm'],
+  .placeholder[data-size='sm'] {
+    aspect-ratio: 4 / 5;
+  }
+
+  .card[data-size='md'],
+  .placeholder[data-size='md'] {
+    aspect-ratio: 1 / 1;
+  }
+
+  .card[data-size='lg'],
+  .placeholder[data-size='lg'] {
+    aspect-ratio: 4 / 3;
+  }
+
+  .card[data-size='wide'],
+  .placeholder[data-size='wide'] {
+    aspect-ratio: 16 / 9;
+  }
+
+  .card[data-size='tall'],
+  .placeholder[data-size='tall'] {
+    aspect-ratio: 3 / 5;
   }
 
   /* Mobile: Overlay hidden by default, visible on active/tap */
