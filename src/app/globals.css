@@ -489,3 +489,8 @@ html.admin-page body {
 .text-glow {
   text-shadow: 0 0 20px rgba(79, 230, 255, 0.3);
 }
+
+/* related resource: globals.css:2737:3 */
+.bg-transparent { /* the element was section.relative.w-full.group.overflow-hidden.bg-transparent */
+  overflow: auto;
+}

@@ -103,7 +103,7 @@ export const PortfolioModal = ({
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-0 z-[1210] flex flex-col font-display selection:bg-[#4fe6ff] selection:text-black overflow-hidden h-[100dvh] w-screen"
+            className="fixed inset-0 z-[1210] flex flex-col font-display selection:bg-[#4fe6ff] selection:text-black overflow-auto h-[100dvh] w-screen"
           >
             {/* Ambient Background Gradient inside modal */}
             <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#0b0d3a] via-[#040013] to-[#040013] opacity-80"></div>
