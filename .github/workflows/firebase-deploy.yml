@@ -22,7 +22,7 @@ env:
 jobs:
   test-and-deploy:
     runs-on: ubuntu-latest
-    
+
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
@@ -82,7 +82,7 @@ jobs:
         run: pnpm run build
         env:
           # TEMP: bypass lint rules during next build
-          NEXTJS_IGNORE_ESLINT: "1"
+          NEXTJS_IGNORE_ESLINT: '1'
 
       - name: Prepare hosting files
         run: bash scripts/prepare-hosting.sh
