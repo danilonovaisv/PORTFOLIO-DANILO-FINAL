@@ -2,13 +2,16 @@
 import {
   ArrowDown,
   ArrowUp,
+  Check,
   Columns2,
+  GripVertical,
   Image as ImageIcon,
   Plus,
   Quote,
   Trash2,
   Type,
   Video,
+  Youtube,
 } from 'lucide-react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -250,12 +253,9 @@ function MediaAssetField({
         <div className="relative h-56 w-full overflow-hidden border border-white/10 bg-black/40">
           {isVideo ? (
             youtubeId ? (
-              <iframe
-                src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&loop=1&playlist=${youtubeId}&controls=0&modestbranding=1&rel=0&playsinline=1`}
-                title="YouTube video player"
+              <YouTubePlayer
+                videoId={youtubeId}
                 className="h-56 w-full border-0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
               />
             ) : (
               <video
@@ -394,12 +394,9 @@ function BlockMediaField({
         <div className="relative h-44 w-full overflow-hidden border border-white/10 bg-black/40">
           {isVideo ? (
             youtubeId ? (
-              <iframe
-                src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&loop=1&playlist=${youtubeId}&controls=0&modestbranding=1&rel=0&playsinline=1`}
-                title="YouTube Content"
+              <YouTubePlayer
+                videoId={youtubeId}
                 className="h-44 w-full border-0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
               />
             ) : (
               <video

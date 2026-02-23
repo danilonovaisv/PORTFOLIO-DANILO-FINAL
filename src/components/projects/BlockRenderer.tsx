@@ -8,6 +8,7 @@ import ReactMarkdown from 'react-markdown';
 import { getYouTubeEmbedUrl, sanitizeTailwindValue } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
+import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -158,19 +159,13 @@ export default function BlockRenderer({
       : type || (src.match(/\.(mp4|webm|ogg)$/i) ? 'video' : 'image');
 
     if (actualType === 'youtube' && youtubeId) {
-      const embedUrl = getYouTubeEmbedUrl(youtubeId);
-
       return (
         <div className="w-full relative rounded-2xl overflow-hidden bg-slate-900/50 border border-white/5 aspect-video">
-          <iframe
-            src={embedUrl ?? `https://www.youtube.com/embed/${youtubeId}`}
-            title="YouTube video player"
+          <YouTubePlayer
+            videoId={youtubeId}
+            autoplay={autoplay}
+            hasNarration={true} // Add hasNarration to block content model if needed, default true
             className="absolute inset-0 w-full h-full"
-            width={1280}
-            height={720}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            loading="lazy"
           />
         </div>
       );

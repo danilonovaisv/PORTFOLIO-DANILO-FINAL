@@ -8,7 +8,7 @@ import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import type { PortfolioProject } from '@/types/project';
 import { applyImageFallback, isVideo } from '@/lib/utils';
-import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 interface FeaturedProjectCardProps {
   project: PortfolioProject;
@@ -46,9 +46,9 @@ export default function FeaturedProjectCard({
   const CardContent = () => (
     <>
       <div
-        className={`card-shell relative overflow-hidden rounded-md w-full bg-white/5 transition-all duration-500 ${reducedMotion
-            ? ''
-            : 'md:group-hover:shadow-[0_22px_54px_-12px_rgba(0,72,255,0.15)] md:group-hover:-translate-y-1'
+        className={`card-shell relative overflow-hidden rounded-md w-full aspect-[4/3] sm:aspect-video lg:aspect-auto flex-1 min-h-[300px] bg-white/5 transition-all duration-500 ${reducedMotion
+          ? ''
+          : 'md:group-hover:shadow-[0_22px_54px_-12px_rgba(0,72,255,0.15)] md:group-hover:-translate-y-1'
           }`}
       >
         {/* Subtle Noise Overlay */}
@@ -64,15 +64,7 @@ export default function FeaturedProjectCard({
             preload={priority ? 'auto' : 'metadata'}
             poster={DEFAULT_VIDEO_POSTER}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 opacity-90 md:group-hover:opacity-100"
-          >
-            <track
-              kind="captions"
-              src={DEFAULT_CAPTIONS}
-              srcLang="pt-BR"
-              label="Português"
-              default
-            />
-          </video>
+          />
         ) : (
           <Image
             src={mediaSource}
