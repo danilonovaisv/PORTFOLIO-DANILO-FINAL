@@ -114,7 +114,10 @@ export const projectMutationSchema = z
       .array(
         z.object({
           path: z.string().trim().optional(),
-          type: z.enum(['image', 'youtube', 'video']).default('image').optional(),
+          type: z
+            .enum(['image', 'youtube', 'video'])
+            .default('image')
+            .optional(),
           youtube_video_id: z.string().trim().optional(),
           caption: z.string().trim().max(240).optional(),
         })

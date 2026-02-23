@@ -23,7 +23,9 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
   const [youtubeInput, setYoutubeInput] = useState('');
 
   const extractYoutubeId = (url: string) => {
-    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/);
+    const match = url.match(
+      /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/
+    );
     return match ? match[1] : null;
   };
 
@@ -148,7 +150,8 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
               <div className="w-20 h-20 relative bg-black/40 rounded overflow-hidden flex-shrink-0 flex items-center justify-center">
                 {item.type === 'youtube' || item.youtube_video_id ? (
                   <div className="text-xs text-red-500 font-bold px-2 text-center break-all">
-                    YT: <br />{item.youtube_video_id}
+                    YT: <br />
+                    {item.youtube_video_id}
                   </div>
                 ) : isVid ? (
                   <video
@@ -172,7 +175,11 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
 
               <div className="flex-1 flex flex-col gap-1 overflow-hidden">
                 <span className="text-xs text-slate-400 truncate">
-                  {item.type === 'youtube' ? 'YouTube Embed' : item.file ? item.file.name : item.path}
+                  {item.type === 'youtube'
+                    ? 'YouTube Embed'
+                    : item.file
+                      ? item.file.name
+                      : item.path}
                 </span>
                 <input
                   type="text"

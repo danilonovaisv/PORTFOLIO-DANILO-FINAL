@@ -48,9 +48,9 @@ export function validatePayload<T>(
 ):
   | { success: true; data: T }
   | {
-    success: false;
-    response: { ok: false; error: string; issues?: string[] };
-  } {
+      success: false;
+      response: { ok: false; error: string; issues?: string[] };
+    } {
   const result = schema.safeParse(payload);
   if (!result.success) {
     return {
