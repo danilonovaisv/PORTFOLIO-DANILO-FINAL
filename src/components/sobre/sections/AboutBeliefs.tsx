@@ -87,7 +87,6 @@ export function AboutBeliefs() {
             isFirst={index === 0}
             MotionSection={MotionSection}
             MotionDiv={MotionDiv}
-            scrollYProgressOverride={prefersReduced ? undefined : scrollYProgress}
             prefersReducedMotion={prefersReduced}
           />
         ))}
