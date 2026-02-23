@@ -41,7 +41,13 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <JsonLd pageType="contact" />
+      <JsonLd
+        pageType="contact"
+        breadcrumbs={[
+          { name: 'Home', url: `https://${BRAND.domain}` },
+          { name: 'Contato', url: `https://${BRAND.domain}/contato` },
+        ]}
+      />
       <h1 className="sr-only">Contato com Danilo Novais</h1>
       <ClientsBrandsSection />
       <ContactSection />

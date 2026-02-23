@@ -65,7 +65,13 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background text-white">
-      <JsonLd pageType="about" />
+      <JsonLd
+        pageType="about"
+        breadcrumbs={[
+          { name: 'Home', url: `https://${BRAND.domain}` },
+          { name: 'Sobre', url: `https://${BRAND.domain}/sobre` },
+        ]}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

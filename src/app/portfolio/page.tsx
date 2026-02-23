@@ -136,7 +136,13 @@ export default async function PortfolioPage(_props: PortfolioPageProps) {
 
   return (
     <>
-      <JsonLd pageType="portfolio" />
+      <JsonLd
+        pageType="portfolio"
+        breadcrumbs={[
+          { name: 'Home', url: `https://${BRAND.domain}` },
+          { name: 'Portfolio', url: `https://${BRAND.domain}/portfolio` },
+        ]}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

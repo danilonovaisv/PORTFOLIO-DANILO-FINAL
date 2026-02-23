@@ -72,7 +72,10 @@ export default async function HomePage() {
 
   return (
     <>
-      <JsonLd pageType="home" />
+      <JsonLd
+        pageType="home"
+        breadcrumbs={[{ name: 'Home', url: `https://${BRAND.domain}` }]}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

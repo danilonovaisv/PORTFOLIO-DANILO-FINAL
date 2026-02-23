@@ -142,8 +142,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   const parsedMaster =
     parsed.template === MASTER_PROJECT_TEMPLATE ||
-    parsed.template === MASTER_PROJECT_TEMPLATE_V2 ||
-    parsed.template === MASTER_PROJECT_TEMPLATE_V3
+      parsed.template === MASTER_PROJECT_TEMPLATE_V2 ||
+      parsed.template === MASTER_PROJECT_TEMPLATE_V3
       ? parsed.data
       : null;
 
@@ -163,6 +163,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     <div className="min-h-screen">
       <JsonLd
         pageType="project"
+        breadcrumbs={[
+          { name: 'Home', url: siteUrl },
+          { name: 'Portfolio', url: `${siteUrl.replace(/\/$/, '')}/portfolio` },
+          { name: project.title, url: projectUrl },
+        ]}
         project={{
           title: project.title,
           description: projectDescription,
