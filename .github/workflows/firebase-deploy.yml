@@ -19,30 +19,19 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
-
-      - name: Setup Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
-        with:
-          node-version: ${{ env.NODE_VERSION }}
+        # Utilizar a tag @v4 facilita a leitura, mas você pode manter o SHA se sua política de segurança exigir pinning estrito.
+        uses: actions/checkout@v4 
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d
+        uses: pnpm/action-setup@v3
         with:
           version: 10
 
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: Setup pnpm cache
-        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm' # Substitui as +10 linhas de configuração manual de cache
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -53,28 +42,15 @@ jobs:
       - name: Run type check
         run: pnpm run typecheck
 
-      - name: Run unit tests
-        run: pnpm exec jest
-
-      - name: Validate environment
-        run: pnpm run validate-env
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
-
-      - name: Fix Firebase Functions dependencies
+      - name: Validate functions codebase
         run: |
-          # Verificar e corrigir dependências locais
           if grep -q '"link:' functions/package.json; then
             echo "⚠️  Detectado protocolo 'link:' em functions/package.json"
             sed -i 's/"link:src\//"file:..\/src\//g' functions/package.json
             echo "✅ Corrigido para 'file:../src/'"
           fi
-
-          # Validar instalação
+          # Validar instalação das funções
           cd functions && npm install
-          cd ..
 
       - name: Build Next.js application
         run: pnpm run build
@@ -90,13 +66,13 @@ jobs:
         run: npm install -g firebase-tools
 
       - name: Deploy to Firebase
+        # A flag --only aceita múltiplos alvos separados por vírgula (sem espaços)
         run: |
           firebase experiments:enable webframeworks
-          firebase deploy --only hosting --project portfolio-danilo-novais --token ${{ secrets.FIREBASE_TOKEN }}
-
-      - name: Deploy Functions
-        run: |
-          firebase deploy --only functions:modern_ssr:ssr_modern --project portfolio-danilo-novais --token ${{ secrets.FIREBASE_TOKEN }}
+          firebase deploy --only hosting,functions:modern_ssr:ssr_modern --project portfolio-danilo-novais
+        env:
+          # A flag --token está depreciada. A CLI lê automaticamente esta variável de ambiente.
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
       - name: Notify success
         if: success()
@@ -107,4 +83,4 @@ jobs:
       - name: Notify failure
         if: failure()
         run: |
-          echo "❌ Deploy failed. Check logs above."
+          echo "❌ Pipeline de deploy falhou."

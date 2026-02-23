@@ -106,11 +106,10 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
   const Content = MotionDiv ?? motion.div;
 
   // Desktop Ranges
-  // Ajuste de sincronia:
-  // A primeira frase entra levemente depois para respeitar a ordem:
-  // FixedHeader + Ghost primeiro, texto logo em seguida.
-  const animationRange: [number, number] = isFirst ? [0.5, 0.64] : [0.36, 0.52];
-  const exitRange: [number, number] = [0.78, 0.92];
+  // Ajuste de sincronia (Acelerado):
+  // Frases entram mais cedo para garantir visibilidade e rapidez.
+  const animationRange: [number, number] = isFirst ? [0.25, 0.45] : [0.20, 0.40];
+  const exitRange: [number, number] = [0.70, 0.85];
 
   const desktopOpacity = useTransform(
     effectiveProgress,

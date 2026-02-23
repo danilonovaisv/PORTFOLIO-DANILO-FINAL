@@ -1,4 +1,4 @@
-const { createUserRef, getProjectsByUserRef, createProjectRef, deleteProjectRef, connectorConfig } = require('@/dataconnect-generated/index.cjs.js');
+const { createUserRef, getProjectsByUserRef, createProjectRef, deleteProjectRef, connectorConfig } = require('../index.cjs.js');
 const { validateArgs, CallerSdkTypeEnum } = require('firebase/data-connect');
 const { useDataConnectQuery, useDataConnectMutation, validateReactArgs } = require('@tanstack-query-firebase/react/data-connect');
 

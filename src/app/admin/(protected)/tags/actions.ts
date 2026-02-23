@@ -53,6 +53,36 @@ export async function deleteTagAction(tagId: string) {
   const id = z.string().uuid().parse(tagId);
   const { supabase, user } = await requireAdminAccess();
 
+  // Passo 1: Verificar projetos vinculados
+  const { count, error: countError } = await supabase
+    .from('portfolio_project_tags')
+    .select('tag_id', { count: 'exact' })
+    .eq('tag_id', id);
+
+  if (countError) {
+    await logAdminAudit(supabase, user, {
+      action: 'tag.delete_check_links',
+      resource: 'portfolio_tags',
+      resourceId: id,
+      status: 'error',
+      errorMessage: countError.message,
+    });
+    throw countError; // Ou um erro mais amigável
+  }
+
+  if (count && count > 0) {
+    const errorMessage = 'Não é possível deletar a tag: ela está vinculada a projetos.';
+    await logAdminAudit(supabase, user, {
+      action: 'tag.delete_prevented',
+      resource: 'portfolio_tags',
+      resourceId: id,
+      status: 'error',
+      errorMessage,
+    });
+    throw new Error(errorMessage);
+  }
+
+  // Passo 2: Prosseguir com a exclusão se não houver projetos vinculados
   const { error } = await supabase.from('portfolio_tags').delete().eq('id', id);
   if (error) {
     await logAdminAudit(supabase, user, {

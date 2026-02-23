@@ -6,6 +6,7 @@ import {
   Trash2,
 } from 'lucide-react';
 import Image from 'next/image';
+import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
 
 interface MediaInputProps {
   label: string;
@@ -79,11 +80,9 @@ export function MediaInput({
         <div className="relative rounded-xl overflow-hidden border border-white/10 group bg-black/20">
           {youtubeId ? (
             <div className="aspect-video w-full bg-black">
-              <iframe
-                src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1&mute=1&loop=1&playlist=${youtubeId}&controls=0&modestbranding=1&rel=0`}
-                title="YouTube preview"
+              <YouTubePlayer
+                videoId={youtubeId}
                 className="w-full h-full border-none"
-                allowFullScreen
               />
             </div>
           ) : type === 'image' ? (

@@ -8,7 +8,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { GHOST_EASE, viewportConfig } from '@/config/motion';
 import { applyImageFallback } from '@/lib/utils';
-import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 // ... (GHOST_SPRING, Category interface, etc.)
 const GHOST_SPRING = { damping: 30, stiffness: 200, mass: 1 } as const;
@@ -105,15 +105,7 @@ export function CategoryStripe({
                     playsInline
                     poster={DEFAULT_VIDEO_POSTER}
                     className="object-cover w-full h-full"
-                  >
-                    <track
-                      kind="captions"
-                      src={DEFAULT_CAPTIONS}
-                      srcLang="pt-BR"
-                      label="Português"
-                      default
-                    />
-                  </video>
+                  />
                 ) : (
                   <Image
                     src={category.thumbnail}

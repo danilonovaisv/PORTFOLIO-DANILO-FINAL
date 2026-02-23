@@ -1,4 +1,4 @@
-import { createUserRef, getProjectsByUserRef, createProjectRef, deleteProjectRef, connectorConfig } from '@/dataconnect-generated/esm/index.esm.js';
+import { createUserRef, getProjectsByUserRef, createProjectRef, deleteProjectRef, connectorConfig } from '../../esm/index.esm.js';
 import { validateArgs, CallerSdkTypeEnum } from 'firebase/data-connect';
 import { useDataConnectQuery, useDataConnectMutation, validateReactArgs } from '@tanstack-query-firebase/react/data-connect';
 

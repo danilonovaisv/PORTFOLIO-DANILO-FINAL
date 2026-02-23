@@ -10,7 +10,7 @@ import * as logger from 'firebase-functions/logger';
 
 setGlobalOptions({
   maxInstances: 10,
-  region: 'us-west1', // Sincronizado com o Hosting em firebase.json
+  region: 'us-central1', // Sincronizado com o Hosting em firebase.json
   memory: '256MiB', // Configuração eficiente para funções leves
 });
 

@@ -1,18 +1,1 @@
---- firebase.json.before
-+++ firebase.json.after
-@@ -53,6 +53,15 @@
-             "value": "public, max-age=3600, stale-while-revalidate=86400"
-           }
-         ]
-+      },
-+      {
-+        "source": "/api/**",
-+        "headers": [
-+          {
-+            "key": "Cache-Control",
-+            "value": "no-store"
-+          }
-+        ]
-       }
-     ]
-   },
+

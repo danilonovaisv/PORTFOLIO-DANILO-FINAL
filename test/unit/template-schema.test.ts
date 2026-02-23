@@ -24,7 +24,7 @@ describe('resolveSiteAssetUrl', () => {
         '/storage/v1/object/public/landing-pages/demo/video.mp4'
       )
     ).toBe(
-      'https://test.supabase.co/storage/v1/object/public/landing-pages/demo/video.mp4'
+      'https://test.supabase.co/storage/v1/object/public/site-assets/landing-pages/demo/video.mp4'
     );
   });
 

@@ -554,3 +554,34 @@ Corrigido falhas nos testes unitários:
 **Next Steps:**
 
 - User to insert real content blocks via Admin Dashboard.
+
+---
+
+## [2026-02-23T01:30] Loki Mode: Deep Clean Project
+
+**Context:** Executed `/deep-clean-project` under `/loki-execution-mode` (Autonomous) to scrub all build caches and repair potential package lock failures.
+
+**Changes Applied:**
+1. Purged transient build artifacts (`.next`, `out`, `dist`, `.firebase`).
+2. Ran complete PNPM Deep Repair (`node_modules`, `pnpm-lock.yaml`, store prune).
+3. Re-installed clean dependency tree (`pnpm install`).
+
+**Verification:**
+- ✅ `pnpm run build-check` (Lint & Typecheck) PASSED.
+- ✅ System is ready for the next operation.
+
+---
+
+## [2026-02-23T01:45] SEO Optimization Workflow
+
+**Context:** Executed `/seo-optimization` workflow to ensure high discoverability, precise structured data and semantic richness across the platform.
+
+**Changes Applied:**
+1. **Metadata API Validated:** Verified `generateMetadata` integration across dynamic routes (`/projects/[slug]`, `/portfolio`), which automatically handles parameterized queries and generates proper `OpenGraph`, `Twitter` cards, and titles.
+2. **Semantic Richness Enhanced:** Augmented existing `JsonLd` implementations. Created dynamic `BreadcrumbList` schemas directly within main entry points (`/`, `/sobre`, `/contato`, `/portfolio`, `/projects/[slug]`) mapping page taxonomy naturally to search engines.
+3. **Open Graph Static Generation:** Verified `/opengraph-image.tsx` configurations and forced static caching for faster unfurling and resolution on platforms like WhatsApp/Twitter.
+4. **Crawlers Configured:** Verified `sitemap.ts` automatically maps real-time Supabase projects and fallback items, alongside the fully compliant `robots.ts`.
+
+**Verification:**
+- ✅ Validated JSON-LD schemas mapping for Person, CreativeWork, Organization, ProfilePage, CollectionPage, and BreadcrumbList.
+- ✅ `pnpm run build-check` returned 0 errors.
