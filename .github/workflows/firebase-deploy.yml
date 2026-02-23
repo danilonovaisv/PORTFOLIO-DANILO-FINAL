@@ -50,7 +50,7 @@ jobs:
             echo "✅ Corrigido para 'file:../src/'"
           fi
           # Validar instalação das funções
-          cd functions && npm install
+          cd functions && pnpm install
 
       - name: Build Next.js application
         run: pnpm run build
