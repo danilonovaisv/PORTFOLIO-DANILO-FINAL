@@ -1,1 +1,668 @@
-{"name":"@jest/environment-jsdom-abstract","dist-tags":{"next":"30.0.0-rc.1","latest":"30.2.0"},"versions":{"30.0.0-alpha.3":{"name":"@jest/environment-jsdom-abstract","version":"30.0.0-alpha.3","dependencies":{"jest-mock":"30.0.0-alpha.3","jest-util":"30.0.0-alpha.3","@jest/types":"30.0.0-alpha.3","@types/node":"*","@types/jsdom":"^21.1.1","@jest/environment":"30.0.0-alpha.3","@jest/fake-timers":"30.0.0-alpha.3"},"devDependencies":{"jsdom":"^22.0.0"},"peerDependencies":{"jsdom":"*","canvas":"^2.5.0"},"dist":{"shasum":"658256920fe2e65ab16372c45d3be1d52de655a0","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-alpha.3.tgz","fileCount":5,"integrity":"sha512-pHKCxJD2ADZtugRBChxDSK/ZyykW60tCITE6wdv6EUjz2qZpzXZzfyohm/1HuIiiXO4qgpV0J19YfwoRuhvD8Q==","signatures":[{"sig":"MEUCIQCxkGeDzdDPGfWQg5TLTMmLBtes0R4zCNeEaF7rnwPYGgIgG75qx5gS0QT0vQONmykeIDZRORFhgp94KBV1RalX2lc=","keyid":"SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"}],"unpackedSize":9588},"engines":{"node":"^16.10.0 || ^18.12.0 || >=20.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.0.0-alpha.4":{"name":"@jest/environment-jsdom-abstract","version":"30.0.0-alpha.4","dependencies":{"jest-mock":"30.0.0-alpha.4","jest-util":"30.0.0-alpha.4","@jest/types":"30.0.0-alpha.4","@types/node":"*","@types/jsdom":"^21.1.1","@jest/environment":"30.0.0-alpha.4","@jest/fake-timers":"30.0.0-alpha.4"},"devDependencies":{"jsdom":"^22.0.0"},"peerDependencies":{"jsdom":"*","canvas":"^2.5.0"},"dist":{"shasum":"62bf4864ffb7e56afa3b3664becbaf2e14d2e5dd","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-alpha.4.tgz","fileCount":5,"integrity":"sha512-lmlZis5R8bT0PeiHWZuGyk10+vhDCZg6QPnovKeasOpVEiCMAPxKLq0QqUshbD7aN+GWFpt8I2e6ZfXRX3bjhw==","signatures":[{"sig":"MEYCIQCsR1o+DAccfaYULKwCUnQO3WUFB6vH6DacOXQ2a7fz1QIhAOBN2UKEEpHfcqi8uFKY2wJKgkabQBKMrs2bWhCBCnj9","keyid":"SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"}],"unpackedSize":9632},"engines":{"node":"^16.10.0 || ^18.12.0 || >=20.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.0.0-alpha.5":{"name":"@jest/environment-jsdom-abstract","version":"30.0.0-alpha.5","dependencies":{"jest-mock":"30.0.0-alpha.5","jest-util":"30.0.0-alpha.5","@jest/types":"30.0.0-alpha.5","@types/node":"*","@types/jsdom":"^21.1.1","@jest/environment":"30.0.0-alpha.5","@jest/fake-timers":"30.0.0-alpha.5"},"devDependencies":{"jsdom":"^22.0.0"},"peerDependencies":{"jsdom":"*","canvas":"^2.5.0"},"dist":{"shasum":"da38d0b85f80d41eeebac94dc461a47964c3c622","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-alpha.5.tgz","fileCount":5,"integrity":"sha512-ePokcJ39F2J9I7cpgF80AAM/GgFrHzyD+hU1DpbQJsWBlQtgjt8hYbRkZc+TgGPiNZP8CbwXVtTC9yGMiupY9g==","signatures":[{"sig":"MEUCIC5JCD77QngYGP4ZexLQZL1i+M9A4+UBr6qaZ/5oUMh1AiEAo7F5LWunX91yZgayG6MxJFLx30d6wYylHtSUCtAFXh8=","keyid":"SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"}],"unpackedSize":9632},"engines":{"node":"^16.10.0 || ^18.12.0 || >=20.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.0.0-alpha.6":{"name":"@jest/environment-jsdom-abstract","version":"30.0.0-alpha.6","dependencies":{"jest-mock":"30.0.0-alpha.6","jest-util":"30.0.0-alpha.6","@jest/types":"30.0.0-alpha.6","@types/node":"*","@types/jsdom":"^21.1.1","@jest/environment":"30.0.0-alpha.6","@jest/fake-timers":"30.0.0-alpha.6"},"devDependencies":{"jsdom":"^22.0.0"},"peerDependencies":{"jsdom":"*","canvas":"^2.5.0"},"dist":{"shasum":"e5d9a8c004385362045390c145f22e42a45a1b11","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-alpha.6.tgz","fileCount":5,"integrity":"sha512-FlyU7M31aKKHx2LWnWKrBOS2W5SoPf56TYLJEZMugSAV/8BdC5FFN8K0Qtys9FpFiG7950virQj3jNcaRaleoQ==","signatures":[{"sig":"MEQCIE4Gc8bEUOf1+WKeK1uwWS2bJz9HITy2iBuC1coQP8L0AiA0UI3LgLXKFuIKbUNOVtDStqgNXWYt3Ba/jla/AGaqvQ==","keyid":"SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"}],"unpackedSize":9600},"engines":{"node":"^16.10.0 || ^18.12.0 || >=20.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.0.0-alpha.7":{"name":"@jest/environment-jsdom-abstract","version":"30.0.0-alpha.7","dependencies":{"jest-mock":"30.0.0-alpha.7","jest-util":"30.0.0-alpha.7","@jest/types":"30.0.0-alpha.7","@types/node":"*","@types/jsdom":"^21.1.1","@jest/environment":"30.0.0-alpha.7","@jest/fake-timers":"30.0.0-alpha.7"},"devDependencies":{"jsdom":"^22.0.0"},"peerDependencies":{"jsdom":"*","canvas":"^2.5.0"},"dist":{"shasum":"caeee99179760185275a15fa7e51093bd0a9a627","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-alpha.7.tgz","fileCount":5,"integrity":"sha512-FHKsoBsyAs08KAgD0Iqvao3dd69JLaJnkoc7jLtb8LIUa9u0eDWoGftf4xb/a3nyJIE8Wv6qCqQxAmAWfOZ12g==","signatures":[{"sig":"MEYCIQDQIdRN0icAUdwC2XXKsu+Zmh+C5s8chQaJ0vS06qUUhgIhAPq0BpLH4Wfq5gxiNl/c7GbYjMK99YqRJ46A7QNPOd6L","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":9601},"engines":{"node":"^16.10.0 || ^18.12.0 || >=20.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.0.0-beta.2":{"name":"@jest/environment-jsdom-abstract","version":"30.0.0-beta.2","dependencies":{"jest-mock":"30.0.0-beta.1","jest-util":"30.0.0-beta.1","@jest/types":"30.0.0-beta.1","@types/node":"*","@types/jsdom":"^21.1.7","@jest/environment":"30.0.0-beta.2","@jest/fake-timers":"30.0.0-beta.2"},"devDependencies":{"jsdom":"^26.0.0"},"peerDependencies":{"jsdom":"*","canvas":"^3.0.0"},"dist":{"shasum":"ba5c8c6dd544ea0c4f22d264d99b3ab725ccc072","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-beta.2.tgz","fileCount":5,"integrity":"sha512-ROL6ml68mTnzyQ5WA4svlNclM8iXzJWrv5BXafw6Y2eZ0KnzuK2u3tdfno29dVxKt4lqAknYueoGCfVdSHNFQQ==","signatures":[{"sig":"MEYCIQDBlB9EsCzy/bfmLdbMBgI26ROWiL9yOYlXlXx9sU51PQIhAKpD3oCRHrb+OaGZswDalNNlWCSYXLiLnQ3uaSvz1BzS","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":9594},"engines":{"node":"^18.14.0 || ^20.0.0 || >=22.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.0.0-beta.3":{"name":"@jest/environment-jsdom-abstract","version":"30.0.0-beta.3","dependencies":{"jest-mock":"30.0.0-beta.3","jest-util":"30.0.0-beta.3","@jest/types":"30.0.0-beta.3","@types/node":"*","@types/jsdom":"^21.1.7","@jest/environment":"30.0.0-beta.3","@jest/fake-timers":"30.0.0-beta.3"},"devDependencies":{"jsdom":"^26.0.0"},"peerDependencies":{"jsdom":"*","canvas":"^3.0.0"},"dist":{"shasum":"7338b4abe5efb860b69a81ccc075a37eb4a2ea8a","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-beta.3.tgz","fileCount":5,"integrity":"sha512-+zbcQyBD2IhxWkv0koB1PnEpcsDRwlmTRQIz6/+mzdT3sit3nd15C8g4bH9kW2+EPA5WIthZ2GsXiV+dJO+igA==","signatures":[{"sig":"MEUCIF3hrTjzhi1D7UHoP35HubMNU7OLNuEUoRP3F8Gc0n/NAiEAtDro+BLY+QO0YfdE5hgZMFyly1X5M6xd+aT3RwgV0tc=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":9594},"engines":{"node":"^18.14.0 || ^20.0.0 || >=22.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.0.0-beta.4":{"name":"@jest/environment-jsdom-abstract","version":"30.0.0-beta.4","dependencies":{"jest-mock":"30.0.0-beta.3","jest-util":"30.0.0-beta.3","@jest/types":"30.0.0-beta.3","@types/node":"*","@types/jsdom":"^21.1.7","@jest/environment":"30.0.0-beta.4","@jest/fake-timers":"30.0.0-beta.4"},"devDependencies":{"jsdom":"^26.1.0"},"peerDependencies":{"jsdom":"*","canvas":"^3.0.0"},"dist":{"shasum":"f2365c761e4e3c5f36b9b9b556eee9128e6d08ac","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-beta.4.tgz","fileCount":5,"integrity":"sha512-m1LXRSLm7jBVNMqRrCZKQkiXyCgTCc5+Kvww8icrZ3gilpAXn7HHRE8NTuq4oUEqk1x8N8J46tPA/vQvLfGrQQ==","signatures":[{"sig":"MEYCIQDaZbD65cY/hmSzYxYFbSQSGyw82evI8pUYR/0c+3YNsgIhAOlBAt8WdLLS19LA5ht+GiagMcsVPxVOg0Bw01d0TFGi","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":9594},"engines":{"node":"^18.14.0 || ^20.0.0 || >=22.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.0.0-beta.5":{"name":"@jest/environment-jsdom-abstract","version":"30.0.0-beta.5","dependencies":{"jest-mock":"30.0.0-beta.3","jest-util":"30.0.0-beta.3","@jest/types":"30.0.0-beta.3","@types/node":"*","@types/jsdom":"^21.1.7","@jest/environment":"30.0.0-beta.5","@jest/fake-timers":"30.0.0-beta.5"},"devDependencies":{"jsdom":"^26.1.0"},"peerDependencies":{"jsdom":"*","canvas":"^3.0.0"},"dist":{"shasum":"b868d074d41470b279981043812c7f755ebc7830","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-beta.5.tgz","fileCount":5,"integrity":"sha512-SGgi7NT9JE9lyzFlozn4REKI12Gs20JTPcc0KjUb+xANGRbsOv89JooVwb3cEHeutyerBndJ6TP2UsyT0NmO3A==","signatures":[{"sig":"MEUCIG9h7PQbD/Op3JxP/5LcagzFFBmuLHzW0wYA/i6o6hHJAiEAzIivd4RmAVA6rPeBh6UB7uOA4kh4C2fcKcjtRCovbI8=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":9594},"engines":{"node":"^18.14.0 || ^20.0.0 || >=22.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.0.0-beta.6":{"name":"@jest/environment-jsdom-abstract","version":"30.0.0-beta.6","dependencies":{"jest-mock":"30.0.0-beta.6","jest-util":"30.0.0-beta.6","@jest/types":"30.0.0-beta.6","@types/node":"*","@types/jsdom":"^21.1.7","@jest/environment":"30.0.0-beta.6","@jest/fake-timers":"30.0.0-beta.6"},"devDependencies":{"jsdom":"^26.1.0"},"peerDependencies":{"jsdom":"*","canvas":"^3.0.0"},"dist":{"shasum":"32e985efd6ba0769ecf21d849db0d89e0b10ea35","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-beta.6.tgz","fileCount":5,"integrity":"sha512-RdbpdHhyY907cS9+7+Md1ZdePzc1XzCR8c01GrF0eMz9O81Wyc0o4vfTXyE8GbxKwbg/KRu1KzMzsjluCLWMFQ==","signatures":[{"sig":"MEUCIDVrSEIi+kWVkQuffkMeTjn6KIA7rHCdvK7MmnNertk1AiEAjKA8buDn7199g9JJLjDzJpYEH8FyZteQ/qMluqwrKz8=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":9605},"engines":{"node":"^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.0.0-beta.7":{"name":"@jest/environment-jsdom-abstract","version":"30.0.0-beta.7","dependencies":{"jest-mock":"30.0.0-beta.7","jest-util":"30.0.0-beta.7","@jest/types":"30.0.0-beta.7","@types/node":"*","@types/jsdom":"^21.1.7","@jest/environment":"30.0.0-beta.7","@jest/fake-timers":"30.0.0-beta.7"},"devDependencies":{"jsdom":"^26.1.0"},"peerDependencies":{"jsdom":"*","canvas":"^3.0.0"},"dist":{"shasum":"98310246f9415241ca0678d498ab35eab3266d69","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-beta.7.tgz","fileCount":5,"integrity":"sha512-oxWxOvy68zOhn9fZDvwD2q2VlhnzOtIA3/ZAnbuuzQCgyb3k7KpcIjil/vuB99M8Gxysnag6MyioU4Pu+/bsCQ==","signatures":[{"sig":"MEUCIQCf+mBwt9RlkXpqVESwxkXwlIOydXzlp6fc5xaC0j6EqgIgOLOYSblgkrxKBmZpCtsKor3qIB3v6rxeHFSQLH+NiMs=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":9605},"engines":{"node":"^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.0.0-beta.8":{"name":"@jest/environment-jsdom-abstract","version":"30.0.0-beta.8","dependencies":{"jest-mock":"30.0.0-beta.8","jest-util":"30.0.0-beta.8","@jest/types":"30.0.0-beta.8","@types/node":"*","@types/jsdom":"^21.1.7","@jest/environment":"30.0.0-beta.8","@jest/fake-timers":"30.0.0-beta.8"},"devDependencies":{"jsdom":"^26.1.0"},"peerDependencies":{"jsdom":"*","canvas":"^3.0.0"},"dist":{"shasum":"71520bb904400e573b9b355daec7eff07902c067","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-beta.8.tgz","fileCount":5,"integrity":"sha512-mk7KUU+ybOjGtcS16LlRM8Jt3j7IJVhtOcccE74omD9yQOYMsypOs7mV/W2fQpVI5A1k+2icwNzK/siURHHd6g==","signatures":[{"sig":"MEUCIQC9evOKe+lPz77sVVjtqpWgIuVKB7KCRvKJJzq3Gg1IWAIgMot5DtMioWoisKqJtjJKwlIWPxkABYSCtwcPLFd3FJM=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":9605},"engines":{"node":"^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.0.0-rc.1":{"name":"@jest/environment-jsdom-abstract","version":"30.0.0-rc.1","dependencies":{"jest-mock":"30.0.0-rc.1","jest-util":"30.0.0-rc.1","@jest/types":"30.0.0-beta.8","@types/node":"*","@types/jsdom":"^21.1.7","@jest/environment":"30.0.0-rc.1","@jest/fake-timers":"30.0.0-rc.1"},"devDependencies":{"jsdom":"^26.1.0"},"peerDependencies":{"jsdom":"*","canvas":"^3.0.0"},"dist":{"shasum":"37921ec3df25a47a475c42baf5f650e1b65b9579","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-rc.1.tgz","fileCount":5,"integrity":"sha512-Pms5Eo4neGNx14afNXhOaM0noUPNdJNpeJ+DTGJLn5ysMRfU4c4Vg9c/HmVeSKaD0RxFwGcf3Pac75Zne4iLHQ==","signatures":[{"sig":"MEUCIQDP58VxJ2x7wtk7bX4AiiaECQT/YjAIqc+gt8gjhGwCiAIgdn8QFy/vSPsSRqS1jtOayQCLpLLrXw3gaDFwHP2jJbc=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":9595},"engines":{"node":"^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.0.0":{"name":"@jest/environment-jsdom-abstract","version":"30.0.0","dependencies":{"jest-mock":"30.0.0","jest-util":"30.0.0","@jest/types":"30.0.0","@types/node":"*","@types/jsdom":"^21.1.7","@jest/environment":"30.0.0","@jest/fake-timers":"30.0.0"},"devDependencies":{"jsdom":"^26.1.0"},"peerDependencies":{"jsdom":"*","canvas":"^3.0.0"},"dist":{"shasum":"fec9bbbba3c302ed9a720521d771cda871a8498b","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0.tgz","fileCount":5,"integrity":"sha512-Fcn1eZbH1JK+bqwUVkUVprlQL3xWUrhvOe/4L0PfDkaJOiAz3HUI1m4s0bgmXBYyCyTVogBuUFZkRpAKMox5Dw==","signatures":[{"sig":"MEUCIQDsixYDzaKCW6YgGLyzPpKxpDICXydhbH2m2M92mR91WAIgLyq3U65iho7uxUauF481+RpHaJG5XaSxu6yCQoBNg3g=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":9563},"engines":{"node":"^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.0.1":{"name":"@jest/environment-jsdom-abstract","version":"30.0.1","dependencies":{"jest-mock":"30.0.1","jest-util":"30.0.1","@jest/types":"30.0.1","@types/node":"*","@types/jsdom":"^21.1.7","@jest/environment":"30.0.1","@jest/fake-timers":"30.0.1"},"devDependencies":{"jsdom":"^26.1.0"},"peerDependencies":{"jsdom":"*","canvas":"^3.0.0"},"dist":{"shasum":"8840c6beab1cb538a9445a7149da508b0ad2936a","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.1.tgz","fileCount":5,"integrity":"sha512-J67eu5nxk5vO0FmntjjRdCHVrJNIrAWB6Lbn8Z6tieseBjH5H26fWfCIwebPqDZZPQswyC8Ykdoe0zIluxW/dg==","signatures":[{"sig":"MEUCIQC5lZv7RjfxLI/psO8/B8exIYi6wwzDx5mg66GxkRF+wQIgC5mrA6ftyYo9ndRSZUm3cI93vNA2hx6L4jzLD5ziXWw=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":9563},"engines":{"node":"^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.0.2":{"name":"@jest/environment-jsdom-abstract","version":"30.0.2","dependencies":{"jest-mock":"30.0.2","jest-util":"30.0.2","@jest/types":"30.0.1","@types/node":"*","@types/jsdom":"^21.1.7","@jest/environment":"30.0.2","@jest/fake-timers":"30.0.2"},"devDependencies":{"jsdom":"^26.1.0"},"peerDependencies":{"jsdom":"*","canvas":"^3.0.0"},"dist":{"shasum":"3538bcc206704a4a37ee18afcb5b88ce55f02dc4","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.2.tgz","fileCount":5,"integrity":"sha512-8aMoEzGdUuJeQl71BUACkys1ZEX437AF376VBqdYXsGFd4l3F1SdTjFHmNq8vF0Rp+CYhUyxa0kRAzXbBaVzfQ==","signatures":[{"sig":"MEUCIFEnFCYChtQGBn9a2xZYsO+l/AzPkSP2YOpxKVaInnAQAiEA38avR2I7MSAzJ0VdSql0IqJZp0/nHPDJqZMMcG/XG9A=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":9563},"engines":{"node":"^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.0.4":{"name":"@jest/environment-jsdom-abstract","version":"30.0.4","dependencies":{"jest-mock":"30.0.2","jest-util":"30.0.2","@jest/types":"30.0.1","@types/node":"*","@types/jsdom":"^21.1.7","@jest/environment":"30.0.4","@jest/fake-timers":"30.0.4"},"devDependencies":{"jsdom":"^26.1.0"},"peerDependencies":{"jsdom":"*","canvas":"^3.0.0"},"dist":{"shasum":"8026e9776fc9e3ba00ecef7f32f40b90d8e859de","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.4.tgz","fileCount":6,"integrity":"sha512-pUKfqgr5Nki9kZ/3iV+ubDsvtPq0a0oNL6zqkKLM1tPQI8FBJeuWskvW1kzc5pOvqlgpzumYZveJ4bxhANY0hg==","signatures":[{"sig":"MEUCIQDVnh6NmjPRmF9BuLF9LSG8r6NYKoeRlTOs22w8idC4MQIgRp7nEYryfHT/ri9BeQdwNuXRYVkSZYB1HdtQoAU0syw=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":10649},"engines":{"node":"^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.0.5":{"name":"@jest/environment-jsdom-abstract","version":"30.0.5","dependencies":{"jest-mock":"30.0.5","jest-util":"30.0.5","@jest/types":"30.0.5","@types/node":"*","@types/jsdom":"^21.1.7","@jest/environment":"30.0.5","@jest/fake-timers":"30.0.5"},"devDependencies":{"jsdom":"^26.1.0"},"peerDependencies":{"jsdom":"*","canvas":"^3.0.0"},"dist":{"shasum":"7299cca59b3e84547ca3d1bbd4e7d36b4b44d426","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.5.tgz","fileCount":6,"integrity":"sha512-gpWwiVxZunkoglP8DCnT3As9x5O8H6gveAOpvaJd2ATAoSh7ZSSCWbr9LQtUMvr8WD3VjG9YnDhsmkCK5WN1rQ==","signatures":[{"sig":"MEUCIGh7zCKcd/GCR3Qt9GxJ5W1GKVqWOq3EiYYzdx1uo//+AiEA5MtyG4rQYsyg4FVxNwd72x4gD0Cl68FQ4EBK3ZDB91o=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":10649},"engines":{"node":"^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.1.0":{"name":"@jest/environment-jsdom-abstract","version":"30.1.0","dependencies":{"jest-mock":"30.0.5","jest-util":"30.0.5","@jest/types":"30.0.5","@types/node":"*","@types/jsdom":"^21.1.7","@jest/environment":"30.1.0","@jest/fake-timers":"30.1.0"},"devDependencies":{"jsdom":"^26.1.0"},"peerDependencies":{"jsdom":"*","canvas":"^3.0.0"},"dist":{"shasum":"70eeb3014284432712d049f27146c2d2542bcb66","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.1.0.tgz","fileCount":6,"integrity":"sha512-hZyUBiTwI3JrO7QNhL6ID0PZZ+ZtFGEm5cCrh8d3LrSkK0EbL9fhgX/Pqa/ZXOvukvu4XHpMMiA+4Qj9MyAZUQ==","signatures":[{"sig":"MEYCIQCUEQLF16AxZlt9NwUbj6GC/BpkIC0f/644vhevhLTsaQIhALz2i9aRY/j2glv1SZScOeG8GRZW/rYNY8RSBE7bIkW+","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":10649},"engines":{"node":"^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.1.1":{"name":"@jest/environment-jsdom-abstract","version":"30.1.1","dependencies":{"jest-mock":"30.0.5","jest-util":"30.0.5","@jest/types":"30.0.5","@types/node":"*","@types/jsdom":"^21.1.7","@jest/environment":"30.1.1","@jest/fake-timers":"30.1.1"},"devDependencies":{"jsdom":"^26.1.0"},"peerDependencies":{"jsdom":"*","canvas":"^3.0.0"},"dist":{"shasum":"1e481a96f307d0137f361eeed256a3f7f4643694","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.1.1.tgz","fileCount":6,"integrity":"sha512-d7pP9SeIOI6qnrNIS/ds1hlS9jpqh8EywHK0dALSLODZKo2QEGnDNvnPvhRKI0FHWDnE2EMl8CDTP0jM9lhlOA==","signatures":[{"sig":"MEUCIQCtjqfyhLJ2YCIAtK1zARKz6xa6SCFepCukeWq6buT08wIgE3LAZn/ZJ3jEB3hh6SbvT3WoCDi23lxEfqsfbXZ94ew=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":10649},"engines":{"node":"^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.1.2":{"name":"@jest/environment-jsdom-abstract","version":"30.1.2","dependencies":{"jest-mock":"30.0.5","jest-util":"30.0.5","@jest/types":"30.0.5","@types/node":"*","@types/jsdom":"^21.1.7","@jest/environment":"30.1.2","@jest/fake-timers":"30.1.2"},"devDependencies":{"jsdom":"^26.1.0"},"peerDependencies":{"jsdom":"*","canvas":"^3.0.0"},"dist":{"shasum":"4ede626bf27a52c21f11917608f4ab539363b16f","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.1.2.tgz","fileCount":6,"integrity":"sha512-u8kTh/ZBl97GOmnGJLYK/1GuwAruMC4hoP6xuk/kwltmVWsA9u/6fH1/CsPVGt2O+Wn2yEjs8n1B1zZJ62Cx0w==","signatures":[{"sig":"MEUCIDGGNwtHuYFUnRt5ByjIGAZK4YgfhnrexJVuP9AELRwrAiEA5GO5JQGQogPd0UxXfqlveqhn70B67OTx1UZI07Cnb9U=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":10649},"engines":{"node":"^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}},"30.2.0":{"name":"@jest/environment-jsdom-abstract","version":"30.2.0","dependencies":{"@jest/environment":"30.2.0","@jest/fake-timers":"30.2.0","@jest/types":"30.2.0","@types/jsdom":"^21.1.7","@types/node":"*","jest-mock":"30.2.0","jest-util":"30.2.0"},"devDependencies":{"@jest/test-utils":"30.2.0","jsdom":"^26.1.0"},"peerDependencies":{"canvas":"^3.0.0","jsdom":"*"},"dist":{"integrity":"sha512-kazxw2L9IPuZpQ0mEt9lu9Z98SqR74xcagANmMBU16X0lS23yPc0+S6hGLUz8kVRlomZEs/5S/Zlpqwf5yu6OQ==","shasum":"1313f9b3b509c31298c241203161b36622865181","tarball":"https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.2.0.tgz","fileCount":6,"unpackedSize":11175,"signatures":[{"keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U","sig":"MEQCIHOCCGNGzsGPbtfRqvMlL/jE9zkn4hE4J8YGB3MM4MP/AiBnTq+gcLyb24H+urqtmv2EUxYDgtqkgpntHoMoeN1hPw=="}]},"engines":{"node":"^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0"},"peerDependenciesMeta":{"canvas":{"optional":true}}}},"modified":"2025-09-28T07:32:51.994Z","cachedAt":1771797950799}
+{
+  "name": "@jest/environment-jsdom-abstract",
+  "dist-tags": { "next": "30.0.0-rc.1", "latest": "30.2.0" },
+  "versions": {
+    "30.0.0-alpha.3": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.0.0-alpha.3",
+      "dependencies": {
+        "jest-mock": "30.0.0-alpha.3",
+        "jest-util": "30.0.0-alpha.3",
+        "@jest/types": "30.0.0-alpha.3",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.1",
+        "@jest/environment": "30.0.0-alpha.3",
+        "@jest/fake-timers": "30.0.0-alpha.3"
+      },
+      "devDependencies": { "jsdom": "^22.0.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^2.5.0" },
+      "dist": {
+        "shasum": "658256920fe2e65ab16372c45d3be1d52de655a0",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-alpha.3.tgz",
+        "fileCount": 5,
+        "integrity": "sha512-pHKCxJD2ADZtugRBChxDSK/ZyykW60tCITE6wdv6EUjz2qZpzXZzfyohm/1HuIiiXO4qgpV0J19YfwoRuhvD8Q==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCxkGeDzdDPGfWQg5TLTMmLBtes0R4zCNeEaF7rnwPYGgIgG75qx5gS0QT0vQONmykeIDZRORFhgp94KBV1RalX2lc=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 9588
+      },
+      "engines": { "node": "^16.10.0 || ^18.12.0 || >=20.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.0.0-alpha.4": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.0.0-alpha.4",
+      "dependencies": {
+        "jest-mock": "30.0.0-alpha.4",
+        "jest-util": "30.0.0-alpha.4",
+        "@jest/types": "30.0.0-alpha.4",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.1",
+        "@jest/environment": "30.0.0-alpha.4",
+        "@jest/fake-timers": "30.0.0-alpha.4"
+      },
+      "devDependencies": { "jsdom": "^22.0.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^2.5.0" },
+      "dist": {
+        "shasum": "62bf4864ffb7e56afa3b3664becbaf2e14d2e5dd",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-alpha.4.tgz",
+        "fileCount": 5,
+        "integrity": "sha512-lmlZis5R8bT0PeiHWZuGyk10+vhDCZg6QPnovKeasOpVEiCMAPxKLq0QqUshbD7aN+GWFpt8I2e6ZfXRX3bjhw==",
+        "signatures": [
+          {
+            "sig": "MEYCIQCsR1o+DAccfaYULKwCUnQO3WUFB6vH6DacOXQ2a7fz1QIhAOBN2UKEEpHfcqi8uFKY2wJKgkabQBKMrs2bWhCBCnj9",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 9632
+      },
+      "engines": { "node": "^16.10.0 || ^18.12.0 || >=20.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.0.0-alpha.5": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.0.0-alpha.5",
+      "dependencies": {
+        "jest-mock": "30.0.0-alpha.5",
+        "jest-util": "30.0.0-alpha.5",
+        "@jest/types": "30.0.0-alpha.5",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.1",
+        "@jest/environment": "30.0.0-alpha.5",
+        "@jest/fake-timers": "30.0.0-alpha.5"
+      },
+      "devDependencies": { "jsdom": "^22.0.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^2.5.0" },
+      "dist": {
+        "shasum": "da38d0b85f80d41eeebac94dc461a47964c3c622",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-alpha.5.tgz",
+        "fileCount": 5,
+        "integrity": "sha512-ePokcJ39F2J9I7cpgF80AAM/GgFrHzyD+hU1DpbQJsWBlQtgjt8hYbRkZc+TgGPiNZP8CbwXVtTC9yGMiupY9g==",
+        "signatures": [
+          {
+            "sig": "MEUCIC5JCD77QngYGP4ZexLQZL1i+M9A4+UBr6qaZ/5oUMh1AiEAo7F5LWunX91yZgayG6MxJFLx30d6wYylHtSUCtAFXh8=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 9632
+      },
+      "engines": { "node": "^16.10.0 || ^18.12.0 || >=20.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.0.0-alpha.6": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.0.0-alpha.6",
+      "dependencies": {
+        "jest-mock": "30.0.0-alpha.6",
+        "jest-util": "30.0.0-alpha.6",
+        "@jest/types": "30.0.0-alpha.6",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.1",
+        "@jest/environment": "30.0.0-alpha.6",
+        "@jest/fake-timers": "30.0.0-alpha.6"
+      },
+      "devDependencies": { "jsdom": "^22.0.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^2.5.0" },
+      "dist": {
+        "shasum": "e5d9a8c004385362045390c145f22e42a45a1b11",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-alpha.6.tgz",
+        "fileCount": 5,
+        "integrity": "sha512-FlyU7M31aKKHx2LWnWKrBOS2W5SoPf56TYLJEZMugSAV/8BdC5FFN8K0Qtys9FpFiG7950virQj3jNcaRaleoQ==",
+        "signatures": [
+          {
+            "sig": "MEQCIE4Gc8bEUOf1+WKeK1uwWS2bJz9HITy2iBuC1coQP8L0AiA0UI3LgLXKFuIKbUNOVtDStqgNXWYt3Ba/jla/AGaqvQ==",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 9600
+      },
+      "engines": { "node": "^16.10.0 || ^18.12.0 || >=20.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.0.0-alpha.7": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.0.0-alpha.7",
+      "dependencies": {
+        "jest-mock": "30.0.0-alpha.7",
+        "jest-util": "30.0.0-alpha.7",
+        "@jest/types": "30.0.0-alpha.7",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.1",
+        "@jest/environment": "30.0.0-alpha.7",
+        "@jest/fake-timers": "30.0.0-alpha.7"
+      },
+      "devDependencies": { "jsdom": "^22.0.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^2.5.0" },
+      "dist": {
+        "shasum": "caeee99179760185275a15fa7e51093bd0a9a627",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-alpha.7.tgz",
+        "fileCount": 5,
+        "integrity": "sha512-FHKsoBsyAs08KAgD0Iqvao3dd69JLaJnkoc7jLtb8LIUa9u0eDWoGftf4xb/a3nyJIE8Wv6qCqQxAmAWfOZ12g==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDQIdRN0icAUdwC2XXKsu+Zmh+C5s8chQaJ0vS06qUUhgIhAPq0BpLH4Wfq5gxiNl/c7GbYjMK99YqRJ46A7QNPOd6L",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 9601
+      },
+      "engines": { "node": "^16.10.0 || ^18.12.0 || >=20.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.0.0-beta.2": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.0.0-beta.2",
+      "dependencies": {
+        "jest-mock": "30.0.0-beta.1",
+        "jest-util": "30.0.0-beta.1",
+        "@jest/types": "30.0.0-beta.1",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.7",
+        "@jest/environment": "30.0.0-beta.2",
+        "@jest/fake-timers": "30.0.0-beta.2"
+      },
+      "devDependencies": { "jsdom": "^26.0.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^3.0.0" },
+      "dist": {
+        "shasum": "ba5c8c6dd544ea0c4f22d264d99b3ab725ccc072",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-beta.2.tgz",
+        "fileCount": 5,
+        "integrity": "sha512-ROL6ml68mTnzyQ5WA4svlNclM8iXzJWrv5BXafw6Y2eZ0KnzuK2u3tdfno29dVxKt4lqAknYueoGCfVdSHNFQQ==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDBlB9EsCzy/bfmLdbMBgI26ROWiL9yOYlXlXx9sU51PQIhAKpD3oCRHrb+OaGZswDalNNlWCSYXLiLnQ3uaSvz1BzS",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 9594
+      },
+      "engines": { "node": "^18.14.0 || ^20.0.0 || >=22.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.0.0-beta.3": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.0.0-beta.3",
+      "dependencies": {
+        "jest-mock": "30.0.0-beta.3",
+        "jest-util": "30.0.0-beta.3",
+        "@jest/types": "30.0.0-beta.3",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.7",
+        "@jest/environment": "30.0.0-beta.3",
+        "@jest/fake-timers": "30.0.0-beta.3"
+      },
+      "devDependencies": { "jsdom": "^26.0.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^3.0.0" },
+      "dist": {
+        "shasum": "7338b4abe5efb860b69a81ccc075a37eb4a2ea8a",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-beta.3.tgz",
+        "fileCount": 5,
+        "integrity": "sha512-+zbcQyBD2IhxWkv0koB1PnEpcsDRwlmTRQIz6/+mzdT3sit3nd15C8g4bH9kW2+EPA5WIthZ2GsXiV+dJO+igA==",
+        "signatures": [
+          {
+            "sig": "MEUCIF3hrTjzhi1D7UHoP35HubMNU7OLNuEUoRP3F8Gc0n/NAiEAtDro+BLY+QO0YfdE5hgZMFyly1X5M6xd+aT3RwgV0tc=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 9594
+      },
+      "engines": { "node": "^18.14.0 || ^20.0.0 || >=22.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.0.0-beta.4": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.0.0-beta.4",
+      "dependencies": {
+        "jest-mock": "30.0.0-beta.3",
+        "jest-util": "30.0.0-beta.3",
+        "@jest/types": "30.0.0-beta.3",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.7",
+        "@jest/environment": "30.0.0-beta.4",
+        "@jest/fake-timers": "30.0.0-beta.4"
+      },
+      "devDependencies": { "jsdom": "^26.1.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^3.0.0" },
+      "dist": {
+        "shasum": "f2365c761e4e3c5f36b9b9b556eee9128e6d08ac",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-beta.4.tgz",
+        "fileCount": 5,
+        "integrity": "sha512-m1LXRSLm7jBVNMqRrCZKQkiXyCgTCc5+Kvww8icrZ3gilpAXn7HHRE8NTuq4oUEqk1x8N8J46tPA/vQvLfGrQQ==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDaZbD65cY/hmSzYxYFbSQSGyw82evI8pUYR/0c+3YNsgIhAOlBAt8WdLLS19LA5ht+GiagMcsVPxVOg0Bw01d0TFGi",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 9594
+      },
+      "engines": { "node": "^18.14.0 || ^20.0.0 || >=22.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.0.0-beta.5": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.0.0-beta.5",
+      "dependencies": {
+        "jest-mock": "30.0.0-beta.3",
+        "jest-util": "30.0.0-beta.3",
+        "@jest/types": "30.0.0-beta.3",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.7",
+        "@jest/environment": "30.0.0-beta.5",
+        "@jest/fake-timers": "30.0.0-beta.5"
+      },
+      "devDependencies": { "jsdom": "^26.1.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^3.0.0" },
+      "dist": {
+        "shasum": "b868d074d41470b279981043812c7f755ebc7830",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-beta.5.tgz",
+        "fileCount": 5,
+        "integrity": "sha512-SGgi7NT9JE9lyzFlozn4REKI12Gs20JTPcc0KjUb+xANGRbsOv89JooVwb3cEHeutyerBndJ6TP2UsyT0NmO3A==",
+        "signatures": [
+          {
+            "sig": "MEUCIG9h7PQbD/Op3JxP/5LcagzFFBmuLHzW0wYA/i6o6hHJAiEAzIivd4RmAVA6rPeBh6UB7uOA4kh4C2fcKcjtRCovbI8=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 9594
+      },
+      "engines": { "node": "^18.14.0 || ^20.0.0 || >=22.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.0.0-beta.6": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.0.0-beta.6",
+      "dependencies": {
+        "jest-mock": "30.0.0-beta.6",
+        "jest-util": "30.0.0-beta.6",
+        "@jest/types": "30.0.0-beta.6",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.7",
+        "@jest/environment": "30.0.0-beta.6",
+        "@jest/fake-timers": "30.0.0-beta.6"
+      },
+      "devDependencies": { "jsdom": "^26.1.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^3.0.0" },
+      "dist": {
+        "shasum": "32e985efd6ba0769ecf21d849db0d89e0b10ea35",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-beta.6.tgz",
+        "fileCount": 5,
+        "integrity": "sha512-RdbpdHhyY907cS9+7+Md1ZdePzc1XzCR8c01GrF0eMz9O81Wyc0o4vfTXyE8GbxKwbg/KRu1KzMzsjluCLWMFQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIDVrSEIi+kWVkQuffkMeTjn6KIA7rHCdvK7MmnNertk1AiEAjKA8buDn7199g9JJLjDzJpYEH8FyZteQ/qMluqwrKz8=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 9605
+      },
+      "engines": { "node": "^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.0.0-beta.7": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.0.0-beta.7",
+      "dependencies": {
+        "jest-mock": "30.0.0-beta.7",
+        "jest-util": "30.0.0-beta.7",
+        "@jest/types": "30.0.0-beta.7",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.7",
+        "@jest/environment": "30.0.0-beta.7",
+        "@jest/fake-timers": "30.0.0-beta.7"
+      },
+      "devDependencies": { "jsdom": "^26.1.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^3.0.0" },
+      "dist": {
+        "shasum": "98310246f9415241ca0678d498ab35eab3266d69",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-beta.7.tgz",
+        "fileCount": 5,
+        "integrity": "sha512-oxWxOvy68zOhn9fZDvwD2q2VlhnzOtIA3/ZAnbuuzQCgyb3k7KpcIjil/vuB99M8Gxysnag6MyioU4Pu+/bsCQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCf+mBwt9RlkXpqVESwxkXwlIOydXzlp6fc5xaC0j6EqgIgOLOYSblgkrxKBmZpCtsKor3qIB3v6rxeHFSQLH+NiMs=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 9605
+      },
+      "engines": { "node": "^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.0.0-beta.8": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.0.0-beta.8",
+      "dependencies": {
+        "jest-mock": "30.0.0-beta.8",
+        "jest-util": "30.0.0-beta.8",
+        "@jest/types": "30.0.0-beta.8",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.7",
+        "@jest/environment": "30.0.0-beta.8",
+        "@jest/fake-timers": "30.0.0-beta.8"
+      },
+      "devDependencies": { "jsdom": "^26.1.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^3.0.0" },
+      "dist": {
+        "shasum": "71520bb904400e573b9b355daec7eff07902c067",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-beta.8.tgz",
+        "fileCount": 5,
+        "integrity": "sha512-mk7KUU+ybOjGtcS16LlRM8Jt3j7IJVhtOcccE74omD9yQOYMsypOs7mV/W2fQpVI5A1k+2icwNzK/siURHHd6g==",
+        "signatures": [
+          {
+            "sig": "MEUCIQC9evOKe+lPz77sVVjtqpWgIuVKB7KCRvKJJzq3Gg1IWAIgMot5DtMioWoisKqJtjJKwlIWPxkABYSCtwcPLFd3FJM=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 9605
+      },
+      "engines": { "node": "^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.0.0-rc.1": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.0.0-rc.1",
+      "dependencies": {
+        "jest-mock": "30.0.0-rc.1",
+        "jest-util": "30.0.0-rc.1",
+        "@jest/types": "30.0.0-beta.8",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.7",
+        "@jest/environment": "30.0.0-rc.1",
+        "@jest/fake-timers": "30.0.0-rc.1"
+      },
+      "devDependencies": { "jsdom": "^26.1.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^3.0.0" },
+      "dist": {
+        "shasum": "37921ec3df25a47a475c42baf5f650e1b65b9579",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0-rc.1.tgz",
+        "fileCount": 5,
+        "integrity": "sha512-Pms5Eo4neGNx14afNXhOaM0noUPNdJNpeJ+DTGJLn5ysMRfU4c4Vg9c/HmVeSKaD0RxFwGcf3Pac75Zne4iLHQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDP58VxJ2x7wtk7bX4AiiaECQT/YjAIqc+gt8gjhGwCiAIgdn8QFy/vSPsSRqS1jtOayQCLpLLrXw3gaDFwHP2jJbc=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 9595
+      },
+      "engines": { "node": "^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.0.0": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.0.0",
+      "dependencies": {
+        "jest-mock": "30.0.0",
+        "jest-util": "30.0.0",
+        "@jest/types": "30.0.0",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.7",
+        "@jest/environment": "30.0.0",
+        "@jest/fake-timers": "30.0.0"
+      },
+      "devDependencies": { "jsdom": "^26.1.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^3.0.0" },
+      "dist": {
+        "shasum": "fec9bbbba3c302ed9a720521d771cda871a8498b",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.0.tgz",
+        "fileCount": 5,
+        "integrity": "sha512-Fcn1eZbH1JK+bqwUVkUVprlQL3xWUrhvOe/4L0PfDkaJOiAz3HUI1m4s0bgmXBYyCyTVogBuUFZkRpAKMox5Dw==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDsixYDzaKCW6YgGLyzPpKxpDICXydhbH2m2M92mR91WAIgLyq3U65iho7uxUauF481+RpHaJG5XaSxu6yCQoBNg3g=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 9563
+      },
+      "engines": { "node": "^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.0.1": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.0.1",
+      "dependencies": {
+        "jest-mock": "30.0.1",
+        "jest-util": "30.0.1",
+        "@jest/types": "30.0.1",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.7",
+        "@jest/environment": "30.0.1",
+        "@jest/fake-timers": "30.0.1"
+      },
+      "devDependencies": { "jsdom": "^26.1.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^3.0.0" },
+      "dist": {
+        "shasum": "8840c6beab1cb538a9445a7149da508b0ad2936a",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.1.tgz",
+        "fileCount": 5,
+        "integrity": "sha512-J67eu5nxk5vO0FmntjjRdCHVrJNIrAWB6Lbn8Z6tieseBjH5H26fWfCIwebPqDZZPQswyC8Ykdoe0zIluxW/dg==",
+        "signatures": [
+          {
+            "sig": "MEUCIQC5lZv7RjfxLI/psO8/B8exIYi6wwzDx5mg66GxkRF+wQIgC5mrA6ftyYo9ndRSZUm3cI93vNA2hx6L4jzLD5ziXWw=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 9563
+      },
+      "engines": { "node": "^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.0.2": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.0.2",
+      "dependencies": {
+        "jest-mock": "30.0.2",
+        "jest-util": "30.0.2",
+        "@jest/types": "30.0.1",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.7",
+        "@jest/environment": "30.0.2",
+        "@jest/fake-timers": "30.0.2"
+      },
+      "devDependencies": { "jsdom": "^26.1.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^3.0.0" },
+      "dist": {
+        "shasum": "3538bcc206704a4a37ee18afcb5b88ce55f02dc4",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.2.tgz",
+        "fileCount": 5,
+        "integrity": "sha512-8aMoEzGdUuJeQl71BUACkys1ZEX437AF376VBqdYXsGFd4l3F1SdTjFHmNq8vF0Rp+CYhUyxa0kRAzXbBaVzfQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIFEnFCYChtQGBn9a2xZYsO+l/AzPkSP2YOpxKVaInnAQAiEA38avR2I7MSAzJ0VdSql0IqJZp0/nHPDJqZMMcG/XG9A=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 9563
+      },
+      "engines": { "node": "^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.0.4": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.0.4",
+      "dependencies": {
+        "jest-mock": "30.0.2",
+        "jest-util": "30.0.2",
+        "@jest/types": "30.0.1",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.7",
+        "@jest/environment": "30.0.4",
+        "@jest/fake-timers": "30.0.4"
+      },
+      "devDependencies": { "jsdom": "^26.1.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^3.0.0" },
+      "dist": {
+        "shasum": "8026e9776fc9e3ba00ecef7f32f40b90d8e859de",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.4.tgz",
+        "fileCount": 6,
+        "integrity": "sha512-pUKfqgr5Nki9kZ/3iV+ubDsvtPq0a0oNL6zqkKLM1tPQI8FBJeuWskvW1kzc5pOvqlgpzumYZveJ4bxhANY0hg==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDVnh6NmjPRmF9BuLF9LSG8r6NYKoeRlTOs22w8idC4MQIgRp7nEYryfHT/ri9BeQdwNuXRYVkSZYB1HdtQoAU0syw=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 10649
+      },
+      "engines": { "node": "^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.0.5": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.0.5",
+      "dependencies": {
+        "jest-mock": "30.0.5",
+        "jest-util": "30.0.5",
+        "@jest/types": "30.0.5",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.7",
+        "@jest/environment": "30.0.5",
+        "@jest/fake-timers": "30.0.5"
+      },
+      "devDependencies": { "jsdom": "^26.1.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^3.0.0" },
+      "dist": {
+        "shasum": "7299cca59b3e84547ca3d1bbd4e7d36b4b44d426",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.0.5.tgz",
+        "fileCount": 6,
+        "integrity": "sha512-gpWwiVxZunkoglP8DCnT3As9x5O8H6gveAOpvaJd2ATAoSh7ZSSCWbr9LQtUMvr8WD3VjG9YnDhsmkCK5WN1rQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIGh7zCKcd/GCR3Qt9GxJ5W1GKVqWOq3EiYYzdx1uo//+AiEA5MtyG4rQYsyg4FVxNwd72x4gD0Cl68FQ4EBK3ZDB91o=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 10649
+      },
+      "engines": { "node": "^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.1.0": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.1.0",
+      "dependencies": {
+        "jest-mock": "30.0.5",
+        "jest-util": "30.0.5",
+        "@jest/types": "30.0.5",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.7",
+        "@jest/environment": "30.1.0",
+        "@jest/fake-timers": "30.1.0"
+      },
+      "devDependencies": { "jsdom": "^26.1.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^3.0.0" },
+      "dist": {
+        "shasum": "70eeb3014284432712d049f27146c2d2542bcb66",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.1.0.tgz",
+        "fileCount": 6,
+        "integrity": "sha512-hZyUBiTwI3JrO7QNhL6ID0PZZ+ZtFGEm5cCrh8d3LrSkK0EbL9fhgX/Pqa/ZXOvukvu4XHpMMiA+4Qj9MyAZUQ==",
+        "signatures": [
+          {
+            "sig": "MEYCIQCUEQLF16AxZlt9NwUbj6GC/BpkIC0f/644vhevhLTsaQIhALz2i9aRY/j2glv1SZScOeG8GRZW/rYNY8RSBE7bIkW+",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 10649
+      },
+      "engines": { "node": "^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.1.1": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.1.1",
+      "dependencies": {
+        "jest-mock": "30.0.5",
+        "jest-util": "30.0.5",
+        "@jest/types": "30.0.5",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.7",
+        "@jest/environment": "30.1.1",
+        "@jest/fake-timers": "30.1.1"
+      },
+      "devDependencies": { "jsdom": "^26.1.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^3.0.0" },
+      "dist": {
+        "shasum": "1e481a96f307d0137f361eeed256a3f7f4643694",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.1.1.tgz",
+        "fileCount": 6,
+        "integrity": "sha512-d7pP9SeIOI6qnrNIS/ds1hlS9jpqh8EywHK0dALSLODZKo2QEGnDNvnPvhRKI0FHWDnE2EMl8CDTP0jM9lhlOA==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCtjqfyhLJ2YCIAtK1zARKz6xa6SCFepCukeWq6buT08wIgE3LAZn/ZJ3jEB3hh6SbvT3WoCDi23lxEfqsfbXZ94ew=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 10649
+      },
+      "engines": { "node": "^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.1.2": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.1.2",
+      "dependencies": {
+        "jest-mock": "30.0.5",
+        "jest-util": "30.0.5",
+        "@jest/types": "30.0.5",
+        "@types/node": "*",
+        "@types/jsdom": "^21.1.7",
+        "@jest/environment": "30.1.2",
+        "@jest/fake-timers": "30.1.2"
+      },
+      "devDependencies": { "jsdom": "^26.1.0" },
+      "peerDependencies": { "jsdom": "*", "canvas": "^3.0.0" },
+      "dist": {
+        "shasum": "4ede626bf27a52c21f11917608f4ab539363b16f",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.1.2.tgz",
+        "fileCount": 6,
+        "integrity": "sha512-u8kTh/ZBl97GOmnGJLYK/1GuwAruMC4hoP6xuk/kwltmVWsA9u/6fH1/CsPVGt2O+Wn2yEjs8n1B1zZJ62Cx0w==",
+        "signatures": [
+          {
+            "sig": "MEUCIDGGNwtHuYFUnRt5ByjIGAZK4YgfhnrexJVuP9AELRwrAiEA5GO5JQGQogPd0UxXfqlveqhn70B67OTx1UZI07Cnb9U=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 10649
+      },
+      "engines": { "node": "^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    },
+    "30.2.0": {
+      "name": "@jest/environment-jsdom-abstract",
+      "version": "30.2.0",
+      "dependencies": {
+        "@jest/environment": "30.2.0",
+        "@jest/fake-timers": "30.2.0",
+        "@jest/types": "30.2.0",
+        "@types/jsdom": "^21.1.7",
+        "@types/node": "*",
+        "jest-mock": "30.2.0",
+        "jest-util": "30.2.0"
+      },
+      "devDependencies": { "@jest/test-utils": "30.2.0", "jsdom": "^26.1.0" },
+      "peerDependencies": { "canvas": "^3.0.0", "jsdom": "*" },
+      "dist": {
+        "integrity": "sha512-kazxw2L9IPuZpQ0mEt9lu9Z98SqR74xcagANmMBU16X0lS23yPc0+S6hGLUz8kVRlomZEs/5S/Zlpqwf5yu6OQ==",
+        "shasum": "1313f9b3b509c31298c241203161b36622865181",
+        "tarball": "https://registry.npmjs.org/@jest/environment-jsdom-abstract/-/environment-jsdom-abstract-30.2.0.tgz",
+        "fileCount": 6,
+        "unpackedSize": 11175,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEQCIHOCCGNGzsGPbtfRqvMlL/jE9zkn4hE4J8YGB3MM4MP/AiBnTq+gcLyb24H+urqtmv2EUxYDgtqkgpntHoMoeN1hPw=="
+          }
+        ]
+      },
+      "engines": { "node": "^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0" },
+      "peerDependenciesMeta": { "canvas": { "optional": true } }
+    }
+  },
+  "modified": "2025-09-28T07:32:51.994Z",
+  "cachedAt": 1771797950799
+}

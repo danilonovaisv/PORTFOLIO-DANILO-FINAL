@@ -94,12 +94,15 @@ const toPublicUrl = (item: DbAsset) => {
   const isExternal = item.file_path?.startsWith('http');
   if (isExternal) return item.file_path;
 
-  const generatedUrl = buildSupabaseStorageUrl(item.bucket || 'site-assets', item.file_path);
+  const generatedUrl = buildSupabaseStorageUrl(
+    item.bucket || 'site-assets',
+    item.file_path
+  );
   if (!generatedUrl) return null;
 
   // Add a cache buster parameter to avoid serving broken stale images during realtime upserts
   return `${generatedUrl}?t=${new Date(item.updated_at || Date.now()).getTime()}`;
-}
+};
 
 // Smart Polling Config
 const POLLING_CONFIG = {
@@ -240,9 +243,9 @@ export function useRealtimeAsset(assetKey: string) {
 
   const assetWithUrl = storeAsset
     ? {
-      ...storeAsset,
-      publicUrl: toPublicUrl(storeAsset) || '',
-    }
+        ...storeAsset,
+        publicUrl: toPublicUrl(storeAsset) || '',
+      }
     : null;
 
   return { asset: assetWithUrl, loading, error };

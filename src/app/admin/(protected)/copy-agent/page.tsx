@@ -14,6 +14,7 @@ const initialState = {
   success: false,
   content: '',
   error: '',
+  notice: '',
   fieldErrors: {} as Record<string, string | undefined>,
 };
 

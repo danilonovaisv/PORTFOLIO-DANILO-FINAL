@@ -108,8 +108,8 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
   // Desktop Ranges
   // Ajuste de sincronia (Acelerado):
   // Frases entram mais cedo para garantir visibilidade e rapidez.
-  const animationRange: [number, number] = isFirst ? [0.25, 0.45] : [0.20, 0.40];
-  const exitRange: [number, number] = [0.70, 0.85];
+  const animationRange: [number, number] = isFirst ? [0.25, 0.45] : [0.2, 0.4];
+  const exitRange: [number, number] = [0.7, 0.85];
 
   const desktopOpacity = useTransform(
     effectiveProgress,
@@ -136,7 +136,9 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
       {!isMobileTextLayer && (
         <Content
           style={
-            prefersReducedMotion ? undefined : { y: yScroll, opacity: desktopOpacity }
+            prefersReducedMotion
+              ? undefined
+              : { y: yScroll, opacity: desktopOpacity }
           }
           className="relative z-30 hidden md:flex w-full flex-col justify-center max-w-[38vw] lg:max-w-[34vw]"
           data-testid={index !== undefined ? `belief-line-${index}` : undefined}

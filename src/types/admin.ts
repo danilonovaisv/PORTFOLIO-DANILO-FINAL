@@ -17,10 +17,10 @@ export type DbProject = {
   featured_on_portfolio: boolean;
   featured_home_order: number | null;
   featured_portfolio_order: number | null;
-  preferred_size?: 'sm' | 'md' | 'lg' | 'wide' | null;
   is_published: boolean;
   landing_page_id: string | null;
-  landing_page_slug?: string | null;
+  destination: any | null; // Usando any aqui para simplificar o JSONB, mas pode ser tipado
+  case_body: string | null;
   created_at: string | null;
   updated_at: string | null;
 };

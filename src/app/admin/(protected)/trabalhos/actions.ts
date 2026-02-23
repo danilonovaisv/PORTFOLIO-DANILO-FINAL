@@ -7,24 +7,13 @@ import {
   type ProjectMutationInput,
 } from '@/lib/admin/schemas/project';
 
+import { validatePayload, errorResponse } from '@/lib/admin/validation';
+
 export async function upsertProjectAction(input: ProjectMutationInput) {
-  const result = projectMutationSchema.safeParse(input);
+  const validation = validatePayload(projectMutationSchema, input);
+  if (!validation.success) return validation.response;
 
-  if (!result.success) {
-    const issues = result.error.issues
-      .map((issue) => {
-        const path = issue.path.join('.');
-        return path ? `${path}: ${issue.message}` : issue.message;
-      })
-      .join('; ');
-
-    return {
-      ok: false,
-      error: `Dados inválidos: ${issues}`,
-    };
-  }
-
-  const { tags, ...projectData } = result.data;
+  const { tags, ...projectData } = validation.data;
 
   try {
     // Chama a função importada que já contém requireAdminAccess() e logAdminAudit()
@@ -41,15 +30,9 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
       revalidatePath(`/portfolio/${updatedProject.slug}`);
     }
 
-    return { ok: true, data: updatedProject };
+    return { ok: true as const, data: updatedProject };
   } catch (error: unknown) {
-    console.error('Erro ao salvar projeto:', error);
-    const message =
-      error instanceof Error ? error.message : 'Erro ao salvar projeto.';
-    return {
-      ok: false,
-      error: message,
-    };
+    return errorResponse('Erro ao salvar projeto.', error);
   }
 }
 

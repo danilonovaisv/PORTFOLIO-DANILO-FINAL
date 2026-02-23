@@ -111,9 +111,7 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
 
   return (
     <Container
-      style={
-        prefersReducedMotion ? undefined : { x, opacity, filter: blur }
-      }
+      style={prefersReducedMotion ? undefined : { x, opacity, filter: blur }}
       className="absolute bottom-[20vh] left-0 right-0 text-center pointer-events-none px-6"
     >
       {/* 🟣 [CONFIG VISUAL]: Define cor e tamanho do texto (Mobile: clamp 1.8rem-3rem) */}

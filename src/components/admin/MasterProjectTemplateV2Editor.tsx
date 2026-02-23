@@ -9,12 +9,23 @@ import {
   Video,
 } from 'lucide-react';
 import Image from 'next/image';
+import { YouTubePlayer } from '@/components/ui/YouTubePlayer';
 import type {
   MasterProjectAsset,
   MasterProjectTemplateV2Data,
   MasterProjectV2FeatureItem,
   MasterProjectV2GalleryItem,
 } from '@/types/project-template';
+
+const YOUTUBE_PATTERN =
+  /(youtu.be\/|youtube.com\/watch\?v=|youtube.com\/embed\/|youtube.com\/shorts\/)/i;
+
+const getYoutubeId = (url: string) => {
+  const match = url.match(
+    /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#&?]*).*/
+  );
+  return match && match[2].length === 11 ? match[2] : null;
+};
 
 export type MasterProjectV2AssetDraft = MasterProjectAsset & {
   file?: File | null;
@@ -209,13 +220,19 @@ function MediaField({
       {preview ? (
         <div className="relative h-56 w-full overflow-hidden rounded-xl border border-white/10 bg-black/40">
           {isVideo ? (
-            <video
-              src={preview}
-              className="h-56 w-full object-cover"
-              controls
-              muted
-              playsInline
-            />
+            getYoutubeId(preview) ? (
+              <YouTubePlayer
+                videoId={getYoutubeId(preview)!}
+                className="h-56 w-full border-0"
+              />
+            ) : (
+              <video
+                src={preview}
+                className="h-56 w-full object-cover"
+                controls
+                playsInline
+              />
+            )
           ) : (
             <Image
               src={preview}
@@ -622,7 +639,7 @@ export default function MasterProjectTemplateV2Editor({
             return (
               <div
                 key={item.id}
-                className="space-y-4 rounded-2xl border border-white/10 bg-slate-900/35 p-5"
+                className={`space-y-4 rounded-2xl border border-white/10 bg-slate-900/35 p-5 ${item.layout_type === 'grid_quote' ? 'flex flex-col items-center justify-center !ml-0 !mr-0 text-center' : ''}`}
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <p className="text-xs uppercase tracking-[0.14em] text-slate-300">
@@ -871,13 +888,19 @@ export default function MasterProjectTemplateV2Editor({
                 {preview ? (
                   <div className="relative h-48 w-full overflow-hidden rounded-xl border border-white/10 bg-black/50">
                     {item.kind === 'video' ? (
-                      <video
-                        src={preview}
-                        className="h-48 w-full object-cover"
-                        controls
-                        muted
-                        playsInline
-                      />
+                      getYoutubeId(preview) ? (
+                        <YouTubePlayer
+                          videoId={getYoutubeId(preview)!}
+                          className="h-48 w-full border-0"
+                        />
+                      ) : (
+                        <video
+                          src={preview}
+                          className="h-48 w-full object-cover"
+                          controls
+                          playsInline
+                        />
+                      )
                     ) : (
                       <Image
                         src={preview}

@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Checkout code
         # Utilizar a tag @v4 facilita a leitura, mas você pode manter o SHA se sua política de segurança exigir pinning estrito.
-        uses: actions/checkout@v4 
+        uses: actions/checkout@v4
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v3

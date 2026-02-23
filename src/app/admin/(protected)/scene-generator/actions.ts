@@ -74,17 +74,15 @@ export async function getSceneModelCapabilities() {
  * AD SCENE GENERATOR
  * Generates realistic advertising scenes using various AI models.
  */
+import { errorResponse, validatePayload } from '@/lib/admin/validation';
+
 export async function generateAdScenes(
   prevState: SceneGeneratorState,
   formData: FormData
 ): Promise<SceneGeneratorState> {
-  let supabase: Awaited<ReturnType<typeof requireAdminAccess>>['supabase'];
-  let user: Awaited<ReturnType<typeof requireAdminAccess>>['user'];
-  try {
-    const access = await requireAdminAccess();
-    supabase = access.supabase;
-    user = access.user;
-  } catch {
+  const access = await requireAdminAccess().catch(() => null);
+
+  if (!access) {
     return {
       success: false,
       error: 'Sessão administrativa inválida. Faça login novamente.',
@@ -92,6 +90,8 @@ export async function generateAdScenes(
       requestPayload: prevState.requestPayload,
     };
   }
+
+  const { supabase, user } = access;
 
   const modelOptions = resolveSceneModelCapabilities();
   const fallbackModel =

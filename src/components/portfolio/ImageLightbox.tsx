@@ -132,7 +132,6 @@ export function ImageLightbox({ isOpen, src, alt, onClose }: ImageLightboxProps)
                     src={DEFAULT_CAPTIONS}
                     srcLang="pt-BR"
                     label="Português"
-                    default
                   />
                 </video>
               ) : (

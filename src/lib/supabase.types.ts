@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 export type Json =
   | string
   | number
@@ -8,33 +7,124 @@ export type Json =
   | Json[];
 
 export type Database = {
-  graphql_public: {
-    Tables: {
-      [_ in never]: never;
-    };
-    Views: {
-      [_ in never]: never;
-    };
-    Functions: {
-      graphql: {
-        Args: {
-          extensions?: Json;
-          operationName?: string;
-          query?: string;
-          variables?: Json;
-        };
-        Returns: Json;
-      };
-    };
-    Enums: {
-      [_ in never]: never;
-    };
-    CompositeTypes: {
-      [_ in never]: never;
-    };
+  // Allows to automatically instantiate createClient with right options
+  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
+  __InternalSupabase: {
+    PostgrestVersion: '14.1';
   };
   public: {
     Tables: {
+      admin_users: {
+        Row: {
+          created_at: string;
+          role: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          role?: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          role?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
+      audit_log: {
+        Row: {
+          action: string;
+          actor_user_id: string | null;
+          created_at: string;
+          details: Json;
+          entity: string;
+          entity_id: string | null;
+          id: number;
+        };
+        Insert: {
+          action: string;
+          actor_user_id?: string | null;
+          created_at?: string;
+          details?: Json;
+          entity: string;
+          entity_id?: string | null;
+          id?: number;
+        };
+        Update: {
+          action?: string;
+          actor_user_id?: string | null;
+          created_at?: string;
+          details?: Json;
+          entity?: string;
+          entity_id?: string | null;
+          id?: number;
+        };
+        Relationships: [];
+      };
+      content_version: {
+        Row: {
+          id: boolean;
+          updated_at: string;
+          version: number;
+        };
+        Insert: {
+          id?: boolean;
+          updated_at?: string;
+          version?: number;
+        };
+        Update: {
+          id?: boolean;
+          updated_at?: string;
+          version?: number;
+        };
+        Relationships: [];
+      };
+      experiences: {
+        Row: {
+          company: string;
+          content: Json;
+          created_at: string;
+          description: string | null;
+          end_date: string | null;
+          id: string;
+          order: number;
+          role: string;
+          start_date: string | null;
+          status: string;
+          updated_at: string;
+          visibility: boolean;
+        };
+        Insert: {
+          company: string;
+          content?: Json;
+          created_at?: string;
+          description?: string | null;
+          end_date?: string | null;
+          id?: string;
+          order?: number;
+          role: string;
+          start_date?: string | null;
+          status?: string;
+          updated_at?: string;
+          visibility?: boolean;
+        };
+        Update: {
+          company?: string;
+          content?: Json;
+          created_at?: string;
+          description?: string | null;
+          end_date?: string | null;
+          id?: string;
+          order?: number;
+          role?: string;
+          start_date?: string | null;
+          status?: string;
+          updated_at?: string;
+          visibility?: boolean;
+        };
+        Relationships: [];
+      };
       landing_pages: {
         Row: {
           content: Json;
@@ -84,10 +174,24 @@ export type Database = {
             referencedColumns: ['id'];
           },
           {
+            foreignKeyName: 'portfolio_project_tags_project_id_fkey';
+            columns: ['project_id'];
+            isOneToOne: false;
+            referencedRelation: 'public_projects_view';
+            referencedColumns: ['id'];
+          },
+          {
             foreignKeyName: 'portfolio_project_tags_tag_id_fkey';
             columns: ['tag_id'];
             isOneToOne: false;
             referencedRelation: 'portfolio_tags';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'portfolio_project_tags_tag_id_fkey';
+            columns: ['tag_id'];
+            isOneToOne: false;
+            referencedRelation: 'public_tags_view';
             referencedColumns: ['id'];
           },
         ];
@@ -112,10 +216,12 @@ export type Database = {
           slug: string;
           thumbnail_path: string | null;
           title: string;
+          updated_at: string;
           url_landscape: string | null;
           url_square: string | null;
-          updated_at: string;
           year: number | null;
+          destination: Json;
+          case_body: string | null;
         };
         Insert: {
           brand_name?: string | null;
@@ -136,11 +242,14 @@ export type Database = {
           slug: string;
           thumbnail_path?: string | null;
           title: string;
+          updated_at?: string;
           url_landscape?: string | null;
           url_square?: string | null;
-          updated_at?: string;
           year?: number | null;
+          destination?: Json;
+          case_body?: string | null;
         };
+
         Update: {
           brand_name?: string | null;
           client_name?: string;
@@ -160,11 +269,14 @@ export type Database = {
           slug?: string;
           thumbnail_path?: string | null;
           title?: string;
+          updated_at?: string;
           url_landscape?: string | null;
           url_square?: string | null;
-          updated_at?: string;
           year?: number | null;
+          destination?: Json;
+          case_body?: string | null;
         };
+
         Relationships: [
           {
             foreignKeyName: 'portfolio_projects_landing_page_id_fkey';
@@ -205,6 +317,111 @@ export type Database = {
         };
         Relationships: [];
       };
+      project_config: {
+        Row: {
+          accessed_by: string | null;
+          api_keys: Json | null;
+          auth_providers: Json | null;
+          created_at: string | null;
+          created_by: string | null;
+          environment: string | null;
+          id: string;
+          is_active: boolean | null;
+          jwt_expiry: number | null;
+          last_accessed: string | null;
+          project_description: string | null;
+          project_domain: string | null;
+          project_name: string;
+          public_env_vars: Json | null;
+          storage_buckets: Json | null;
+          storage_permissions: Json | null;
+          updated_at: string | null;
+        };
+        Insert: {
+          accessed_by?: string | null;
+          api_keys?: Json | null;
+          auth_providers?: Json | null;
+          created_at?: string | null;
+          created_by?: string | null;
+          environment?: string | null;
+          id?: string;
+          is_active?: boolean | null;
+          jwt_expiry?: number | null;
+          last_accessed?: string | null;
+          project_description?: string | null;
+          project_domain?: string | null;
+          project_name: string;
+          public_env_vars?: Json | null;
+          storage_buckets?: Json | null;
+          storage_permissions?: Json | null;
+          updated_at?: string | null;
+        };
+        Update: {
+          accessed_by?: string | null;
+          api_keys?: Json | null;
+          auth_providers?: Json | null;
+          created_at?: string | null;
+          created_by?: string | null;
+          environment?: string | null;
+          id?: string;
+          is_active?: boolean | null;
+          jwt_expiry?: number | null;
+          last_accessed?: string | null;
+          project_description?: string | null;
+          project_domain?: string | null;
+          project_name?: string;
+          public_env_vars?: Json | null;
+          storage_buckets?: Json | null;
+          storage_permissions?: Json | null;
+          updated_at?: string | null;
+        };
+        Relationships: [];
+      };
+      projects: {
+        Row: {
+          content: Json;
+          cover_asset_id: string | null;
+          created_at: string;
+          featured: boolean;
+          id: string;
+          order: number;
+          slug: string;
+          status: string;
+          summary: string | null;
+          title: string;
+          updated_at: string;
+          visibility: boolean;
+        };
+        Insert: {
+          content?: Json;
+          cover_asset_id?: string | null;
+          created_at?: string;
+          featured?: boolean;
+          id?: string;
+          order?: number;
+          slug: string;
+          status?: string;
+          summary?: string | null;
+          title: string;
+          updated_at?: string;
+          visibility?: boolean;
+        };
+        Update: {
+          content?: Json;
+          cover_asset_id?: string | null;
+          created_at?: string;
+          featured?: boolean;
+          id?: string;
+          order?: number;
+          slug?: string;
+          status?: string;
+          summary?: string | null;
+          title?: string;
+          updated_at?: string;
+          visibility?: boolean;
+        };
+        Relationships: [];
+      };
       site_assets: {
         Row: {
           asset_type: string;
@@ -215,6 +432,7 @@ export type Database = {
           id: string;
           is_active: boolean;
           key: string;
+          metadata: Json | null;
           page: string | null;
           sort_order: number | null;
           updated_at: string;
@@ -228,6 +446,7 @@ export type Database = {
           id?: string;
           is_active?: boolean;
           key: string;
+          metadata?: Json | null;
           page?: string | null;
           sort_order?: number | null;
           updated_at?: string;
@@ -241,18 +460,148 @@ export type Database = {
           id?: string;
           is_active?: boolean;
           key?: string;
+          metadata?: Json | null;
           page?: string | null;
           sort_order?: number | null;
           updated_at?: string;
         };
         Relationships: [];
       };
+      site_settings: {
+        Row: {
+          key: string;
+          updated_at: string;
+          value: Json;
+        };
+        Insert: {
+          key: string;
+          updated_at?: string;
+          value: Json;
+        };
+        Update: {
+          key?: string;
+          updated_at?: string;
+          value?: Json;
+        };
+        Relationships: [];
+      };
     };
     Views: {
-      [_ in never]: never;
+      public_assets_view: {
+        Row: {
+          asset_type: string | null;
+          bucket: string | null;
+          created_at: string | null;
+          description: string | null;
+          file_path: string | null;
+          id: string | null;
+          is_active: boolean | null;
+          key: string | null;
+          metadata: Json | null;
+          page: string | null;
+          sort_order: number | null;
+          updated_at: string | null;
+        };
+        Insert: {
+          asset_type?: string | null;
+          bucket?: string | null;
+          created_at?: string | null;
+          description?: string | null;
+          file_path?: string | null;
+          id?: string | null;
+          is_active?: boolean | null;
+          key?: string | null;
+          metadata?: Json | null;
+          page?: string | null;
+          sort_order?: number | null;
+          updated_at?: string | null;
+        };
+        Update: {
+          asset_type?: string | null;
+          bucket?: string | null;
+          created_at?: string | null;
+          description?: string | null;
+          file_path?: string | null;
+          id?: string | null;
+          is_active?: boolean | null;
+          key?: string | null;
+          metadata?: Json | null;
+          page?: string | null;
+          sort_order?: number | null;
+          updated_at?: string | null;
+        };
+        Relationships: [];
+      };
+      public_projects_view: {
+        Row: {
+          brand_name: string | null;
+          client_name: string | null;
+          created_at: string | null;
+          description: string | null;
+          featured_home_order: number | null;
+          featured_on_home: boolean | null;
+          featured_on_portfolio: boolean | null;
+          featured_portfolio_order: number | null;
+          gallery: Json | null;
+          hero_image_path: string | null;
+          id: string | null;
+          is_published: boolean | null;
+          landing_page_id: string | null;
+          landing_page_slug: string | null;
+          project_type: string | null;
+          short_label: string | null;
+          slug: string | null;
+          thumbnail_path: string | null;
+          title: string | null;
+          updated_at: string | null;
+          url_landscape: string | null;
+          url_square: string | null;
+          year: number | null;
+          destination: Json | null;
+          case_body: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'portfolio_projects_landing_page_id_fkey';
+            columns: ['landing_page_id'];
+            isOneToOne: false;
+            referencedRelation: 'landing_pages';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      public_tags_view: {
+        Row: {
+          description: string | null;
+          id: string | null;
+          kind: string | null;
+          label: string | null;
+          slug: string | null;
+          sort_order: number | null;
+        };
+        Insert: {
+          description?: string | null;
+          id?: string | null;
+          kind?: string | null;
+          label?: string | null;
+          slug?: string | null;
+          sort_order?: number | null;
+        };
+        Update: {
+          description?: string | null;
+          id?: string | null;
+          kind?: string | null;
+          label?: string | null;
+          slug?: string | null;
+          sort_order?: number | null;
+        };
+        Relationships: [];
+      };
     };
     Functions: {
-      [_ in never]: never;
+      bump_content_version: { Args: never; Returns: undefined };
+      cleanup_old_data: { Args: never; Returns: undefined };
+      is_admin: { Args: never; Returns: boolean };
     };
     Enums: {
       [_ in never]: never;
@@ -263,12 +612,9 @@ export type Database = {
   };
 };
 
-type DatabaseWithoutInternals = Omit<Database, '__InternalSupabase'>;
+export type DatabaseWithoutInternals = Omit<Database, '__InternalSupabase'>;
 
-type DefaultSchema = DatabaseWithoutInternals[Extract<
-  keyof Database,
-  'public'
->];
+export type DefaultSchema = Database['public'];
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
@@ -384,9 +730,6 @@ export type CompositeTypes<
     : never;
 
 export const Constants = {
-  graphql_public: {
-    Enums: {},
-  },
   public: {
     Enums: {},
   },

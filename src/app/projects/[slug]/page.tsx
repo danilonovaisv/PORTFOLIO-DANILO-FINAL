@@ -142,8 +142,8 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   const parsedMaster =
     parsed.template === MASTER_PROJECT_TEMPLATE ||
-      parsed.template === MASTER_PROJECT_TEMPLATE_V2 ||
-      parsed.template === MASTER_PROJECT_TEMPLATE_V3
+    parsed.template === MASTER_PROJECT_TEMPLATE_V2 ||
+    parsed.template === MASTER_PROJECT_TEMPLATE_V3
       ? parsed.data
       : null;
 

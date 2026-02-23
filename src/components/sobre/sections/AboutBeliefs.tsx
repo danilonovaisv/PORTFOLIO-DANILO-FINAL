@@ -1,7 +1,12 @@
 'use client';
 
 import React, { useRef } from 'react';
-import { motion, useScroll, MotionValue, useReducedMotion } from 'framer-motion';
+import {
+  motion,
+  useScroll,
+  MotionValue,
+  useReducedMotion,
+} from 'framer-motion';
 import dynamic from 'next/dynamic';
 
 // Importações dos sub-componentes (Certifique-se que os caminhos estão corretos)
@@ -61,7 +66,9 @@ export function AboutBeliefs() {
     ? 'section'
     : motion.section;
   const MotionDiv: React.ElementType = prefersReduced ? 'div' : motion.div;
-  const MotionHeader: React.ElementType = prefersReduced ? 'header' : motion.header;
+  const MotionHeader: React.ElementType = prefersReduced
+    ? 'header'
+    : motion.header;
 
   return (
     <MotionSection

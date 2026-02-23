@@ -1,7 +1,9 @@
 import { createBrowserClient } from '@supabase/ssr';
 import { getSupabasePublicKey, getSupabasePublicUrl } from '@/lib/supabase/env';
+import type { Database } from '@/lib/supabase.types';
 
-let supabaseClient: ReturnType<typeof createBrowserClient> | null = null;
+let supabaseClient: ReturnType<typeof createBrowserClient<Database>> | null =
+  null;
 
 export function createClientComponentClient() {
   if (process.env.PLAYWRIGHT_TEST) {
@@ -46,7 +48,7 @@ export function createClientComponentClient() {
     );
   }
 
-  supabaseClient = createBrowserClient(supabaseUrl, supabaseKey, {
+  supabaseClient = createBrowserClient<Database>(supabaseUrl, supabaseKey, {
     // Firebase Hosting só encaminha o cookie "__session" para as Functions.
     // Forçamos o Supabase a usar esse nome para persistir a sessão.
     cookieOptions: {

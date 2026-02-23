@@ -7,7 +7,9 @@ export default async function Page() {
   const supabase = await createClient();
 
   try {
-    const { data: todos, error } = await supabase.from('todos').select('*');
+    const { data: todos, error } = await supabase
+      .from('portfolio_projects')
+      .select('*');
 
     if (error) {
       throw error;

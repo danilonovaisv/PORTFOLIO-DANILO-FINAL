@@ -29,13 +29,15 @@ export type ProjectCategory =
 export type ProjectDestinationType =
   | 'modal'
   | 'internal_landing'
-  | 'external_url';
+  | 'external_url'
+  | 'page'; // Novo: Para cases ricos
 
 export interface ProjectDestination {
   type: ProjectDestinationType;
   href?: string;
   landingSlug?: string;
   openInNewTab?: boolean;
+  url?: string; // Padronização sugerida
 }
 
 /**
@@ -94,6 +96,7 @@ export interface PortfolioProject {
   landingPageSlug?: string | null;
   link?: string;
   destination?: ProjectDestination;
+  caseBody?: string | null; // NOVO
 }
 
 /**

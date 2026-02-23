@@ -61,7 +61,8 @@ type MasterProjectTemplateV3EditorProps = {
 
 const inputClasses =
   'w-full rounded-sm border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white outline-none transition-all placeholder:text-slate-500 focus-visible:border-blue-500 focus-visible:ring-1 focus-visible:ring-blue-500';
-const labelClasses = 'mb-1.5 block text-[11px] font-medium uppercase tracking-[0.14em] text-slate-400';
+const labelClasses =
+  'mb-1.5 block text-[11px] font-medium uppercase tracking-[0.14em] text-slate-400';
 
 const splitTokenList = (value: string): string[] =>
   value
@@ -260,7 +261,6 @@ function MediaAssetField({
                 src={preview}
                 className="h-56 w-full object-cover"
                 controls
-                muted
                 playsInline
               />
             )
@@ -401,7 +401,6 @@ function BlockMediaField({
                 src={preview}
                 className="h-44 w-full object-cover"
                 controls
-                muted
                 playsInline
               />
             )
@@ -824,11 +823,18 @@ export default function MasterProjectTemplateV3Editor({
                   layout
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
+                  exit={{
+                    opacity: 0,
+                    scale: 0.95,
+                    transition: { duration: 0.2 },
+                  }}
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                   key={block.id}
-                  className={`space-y-4 rounded-sm border border-white/10 bg-slate-900/35 p-5 ${block.type === 'quote-band' ? 'text-center' : ''
-                    }`}
+                  className={`space-y-4 rounded-sm border border-white/10 bg-slate-900/35 p-5 ${
+                    block.type === 'quote-band'
+                      ? 'flex flex-col items-center justify-center text-center !ml-0 !mr-0'
+                      : ''
+                  }`}
                 >
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <p className="text-xs uppercase tracking-[0.14em] text-slate-300">
@@ -885,7 +891,7 @@ export default function MasterProjectTemplateV3Editor({
                   ) : null}
 
                   {block.type === 'quote-band' ? (
-                    <div className="max-w-3xl mx-auto w-full space-y-6">
+                    <div className="max-w-3xl mx-auto w-full space-y-6 flex flex-col items-center justify-center !ml-0 !mr-0">
                       <label className="space-y-1 w-full">
                         <span className={labelClasses}>Citação</span>
                         <textarea
@@ -1000,76 +1006,76 @@ export default function MasterProjectTemplateV3Editor({
                   {(block.type === 'image-text' ||
                     block.type === 'text-image' ||
                     block.type === 'video-text') && (
-                      <div className="grid gap-4 md:grid-cols-2">
-                        <BlockMediaField
-                          block={block}
-                          label={
-                            block.type === 'video-text'
-                              ? 'Mídia (Vídeo)'
-                              : 'Mídia (Imagem)'
-                          }
-                          mediaKey="media"
-                          altKey="alt"
-                          posterKey="poster"
-                          fileKey="file"
-                          previewKey="previewUrl"
-                          kind={block.type === 'video-text' ? 'video' : 'image'}
-                          onChange={updateCurrentBlock}
-                        />
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <BlockMediaField
+                        block={block}
+                        label={
+                          block.type === 'video-text'
+                            ? 'Mídia (Vídeo)'
+                            : 'Mídia (Imagem)'
+                        }
+                        mediaKey="media"
+                        altKey="alt"
+                        posterKey="poster"
+                        fileKey="file"
+                        previewKey="previewUrl"
+                        kind={block.type === 'video-text' ? 'video' : 'image'}
+                        onChange={updateCurrentBlock}
+                      />
 
-                        <label className="space-y-1">
-                          <span className={labelClasses}>Texto</span>
-                          <textarea
-                            className={`${inputClasses} min-h-40`}
-                            value={block.content.text || ''}
-                            onChange={(
-                              event: React.ChangeEvent<HTMLTextAreaElement>
-                            ) =>
-                              updateCurrentBlock({
-                                ...block,
-                                content: {
-                                  ...block.content,
-                                  text: event.target.value,
-                                },
-                              })
-                            }
-                          />
-                        </label>
-                      </div>
-                    )}
+                      <label className="space-y-1">
+                        <span className={labelClasses}>Texto</span>
+                        <textarea
+                          className={`${inputClasses} min-h-40`}
+                          value={block.content.text || ''}
+                          onChange={(
+                            event: React.ChangeEvent<HTMLTextAreaElement>
+                          ) =>
+                            updateCurrentBlock({
+                              ...block,
+                              content: {
+                                ...block.content,
+                                text: event.target.value,
+                              },
+                            })
+                          }
+                        />
+                      </label>
+                    </div>
+                  )}
 
                   {(block.type === 'image-image' ||
                     block.type === 'image-video') && (
-                      <div className="grid gap-4 md:grid-cols-2">
-                        <BlockMediaField
-                          block={block}
-                          label="Mídia 01"
-                          mediaKey="media"
-                          altKey="alt"
-                          posterKey="poster"
-                          fileKey="file"
-                          previewKey="previewUrl"
-                          kind="image"
-                          onChange={updateCurrentBlock}
-                        />
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <BlockMediaField
+                        block={block}
+                        label="Mídia 01"
+                        mediaKey="media"
+                        altKey="alt"
+                        posterKey="poster"
+                        fileKey="file"
+                        previewKey="previewUrl"
+                        kind="image"
+                        onChange={updateCurrentBlock}
+                      />
 
-                        <BlockMediaField
-                          block={block}
-                          label={
-                            block.type === 'image-video'
-                              ? 'Mídia 02 (Vídeo)'
-                              : 'Mídia 02'
-                          }
-                          mediaKey="media2"
-                          altKey="alt2"
-                          posterKey="poster2"
-                          fileKey="file2"
-                          previewKey="previewUrl2"
-                          kind={block.type === 'image-video' ? 'video' : 'image'}
-                          onChange={updateCurrentBlock}
-                        />
-                      </div>
-                    )}
+                      <BlockMediaField
+                        block={block}
+                        label={
+                          block.type === 'image-video'
+                            ? 'Mídia 02 (Vídeo)'
+                            : 'Mídia 02'
+                        }
+                        mediaKey="media2"
+                        altKey="alt2"
+                        posterKey="poster2"
+                        fileKey="file2"
+                        previewKey="previewUrl2"
+                        kind={block.type === 'image-video' ? 'video' : 'image'}
+                        onChange={updateCurrentBlock}
+                      />
+                    </div>
+                  )}
                 </motion.div>
               );
             })}

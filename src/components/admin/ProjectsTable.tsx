@@ -159,11 +159,11 @@ export default function ProjectsTable({ projects }: Props) {
                     </span>
                     <span className="text-slate-500 italic">
                       {project.landing_pages?.content &&
-                        typeof project.landing_pages.content === 'object' &&
-                        'template' in project.landing_pages.content
+                      typeof project.landing_pages.content === 'object' &&
+                      'template' in project.landing_pages.content
                         ? String(project.landing_pages.content.template)
-                          .replace('master-project-', 'V')
-                          .replace('-alpa', ' ALPA')
+                            .replace('master-project-', 'V')
+                            .replace('-alpa', ' ALPA')
                         : 'Custom'}
                     </span>
                   </div>
@@ -186,10 +186,11 @@ export default function ProjectsTable({ projects }: Props) {
                       />
                       <button
                         type="submit"
-                        className={`rounded px-2.5 py-1.5 min-h-[44px] min-w-[44px] text-[11px] font-semibold transition motion-reduce:transition-none ${project.featured_on_home
+                        className={`rounded px-2.5 py-1.5 min-h-[44px] min-w-[44px] text-[11px] font-semibold transition motion-reduce:transition-none ${
+                          project.featured_on_home
                             ? 'bg-blue-500/20 text-blue-200 border border-blue-500/30'
                             : 'bg-slate-700 text-slate-400 border border-white/5 hover:bg-slate-600'
-                          }`}
+                        }`}
                       >
                         {project.featured_on_home ? 'Ativo' : 'Off'}
                       </button>
@@ -206,10 +207,11 @@ export default function ProjectsTable({ projects }: Props) {
                       />
                       <button
                         type="submit"
-                        className={`rounded px-2.5 py-1.5 min-h-[44px] min-w-[44px] text-[11px] font-semibold transition motion-reduce:transition-none ${project.featured_on_portfolio
+                        className={`rounded px-2.5 py-1.5 min-h-[44px] min-w-[44px] text-[11px] font-semibold transition motion-reduce:transition-none ${
+                          project.featured_on_portfolio
                             ? 'bg-emerald-500/20 text-emerald-200 border border-emerald-500/30'
                             : 'bg-slate-700 text-slate-400 border border-white/5 hover:bg-slate-600'
-                          }`}
+                        }`}
                       >
                         {project.featured_on_portfolio ? 'Ativo' : 'Off'}
                       </button>
@@ -227,10 +229,11 @@ export default function ProjectsTable({ projects }: Props) {
                   />
                   <button
                     type="submit"
-                    className={`rounded px-3 py-2 min-h-[44px] text-xs font-semibold transition motion-reduce:transition-none ${project.is_published
+                    className={`rounded px-3 py-2 min-h-[44px] text-xs font-semibold transition motion-reduce:transition-none ${
+                      project.is_published
                         ? 'bg-green-500/20 text-green-300 border border-green-500/30'
                         : 'bg-slate-700 text-slate-200 border border-white/10'
-                      }`}
+                    }`}
                   >
                     {project.is_published ? 'Publicado' : 'Rascunho'}
                   </button>

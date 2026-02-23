@@ -179,9 +179,9 @@ export default function BlockRenderer({
             src={url}
             className="w-full h-auto"
             autoPlay={autoplay}
-            muted={true}
+            muted={autoplay}
             loop={autoplay}
-            controls={false}
+            controls={!autoplay}
             playsInline
             poster={DEFAULT_VIDEO_POSTER}
           >
@@ -190,7 +190,6 @@ export default function BlockRenderer({
               src={DEFAULT_CAPTIONS}
               srcLang="pt-BR"
               label="Português"
-              default
             />
           </video>
         </div>

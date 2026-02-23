@@ -89,14 +89,16 @@ export function AdminShell({ children, userEmail }: Props) {
             <nav className="flex-1 space-y-1 px-3 py-4">
               {navItems.map((item) => {
                 const active =
-                  pathname === item.href || pathname?.startsWith(item.href + '/');
+                  pathname === item.href ||
+                  pathname?.startsWith(item.href + '/');
                 const Icon = item.icon;
                 return (
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition motion-reduce:transition-none hover:bg-white/5 ${active ? 'bg-white/10 text-white' : 'text-slate-300'
-                      }`}
+                    className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition motion-reduce:transition-none hover:bg-white/5 ${
+                      active ? 'bg-white/10 text-white' : 'text-slate-300'
+                    }`}
                   >
                     <Icon size={18} />
                     {item.label}
@@ -113,7 +115,9 @@ export function AdminShell({ children, userEmail }: Props) {
             </nav>
             <div className="px-4 py-3 border-t border-white/10 text-xs text-slate-400">
               <div className="flex flex-col gap-2">
-                <span>{userEmail ? `Logado como ${userEmail}` : 'Usuário'}</span>
+                <span>
+                  {userEmail ? `Logado como ${userEmail}` : 'Usuário'}
+                </span>
                 <form action={signOut}>
                   <button
                     type="submit"
@@ -169,8 +173,11 @@ export function AdminShell({ children, userEmail }: Props) {
                             key={`mobile-${item.href}`}
                             href={item.href}
                             onClick={() => setMobileMenuOpen(false)}
-                            className={`flex min-h-12 items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-white/5 ${active ? 'bg-white/10 text-white' : 'text-slate-300'
-                              }`}
+                            className={`flex min-h-12 items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-white/5 ${
+                              active
+                                ? 'bg-white/10 text-white'
+                                : 'text-slate-300'
+                            }`}
                           >
                             <Icon size={18} />
                             {item.label}

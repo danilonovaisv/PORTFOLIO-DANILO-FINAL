@@ -1,1 +1,539 @@
-{"name":"rettime","dist-tags":{"latest":"0.10.1"},"versions":{"0.1.0":{"name":"rettime","version":"0.1.0","devDependencies":{"tsup":"^8.2.4","vitest":"^2.0.5","typescript":"^5.5.4","@ossjs/release":"^0.8.1"},"dist":{"shasum":"411fe2db26b0bf5ff343946c2f42be3250d742b2","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.1.0.tgz","fileCount":13,"integrity":"sha512-8TwNY4HMOYblQpai0IEBZ4JlvWefutfaySKMqLMFvFe3yCfV3GDfWPCHQGfMWOT9tqQC3z/xguH8huvA0qfitQ==","signatures":[{"sig":"MEQCIHIx1+NP5H+ui3c+3ab34WC2JsO4ClLBb7j4WM+iNFUXAiA6GrxU9mc5nbUmsNU1nBsBzSVOhZArdmPWAJ2hseG51A==","keyid":"SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"}],"unpackedSize":21360}},"0.1.1":{"name":"rettime","version":"0.1.1","devDependencies":{"tsup":"^8.2.4","vitest":"^2.0.5","typescript":"^5.5.4","@ossjs/release":"^0.8.1"},"dist":{"shasum":"cc0f5c756063bef00430ff0b29183179faa6ce21","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.1.1.tgz","fileCount":6,"integrity":"sha512-GBunkGXhsD+1PAhaz83KvwbZtVNZk8cFI8Y5J5gQstX2KZM4PLk38DVxXJjZI6ZtdgSe8zLGErlJ9EbS+1egCg==","signatures":[{"sig":"MEUCIQDRPd0Ul5BqSC2Mq704Idx/8auce84/VMAKnQjoc0+uTgIgYG4fs7qQPt0RpgKtMfrtTqnolMf77fOI+yUxndvVYUQ=","keyid":"SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"}],"unpackedSize":30789}},"0.1.2":{"name":"rettime","version":"0.1.2","devDependencies":{"tsup":"^8.2.4","vitest":"^2.0.5","typescript":"^5.5.4","@ossjs/release":"^0.8.1"},"dist":{"shasum":"be56bf31349451a9b801624504119fff13833c52","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.1.2.tgz","fileCount":6,"integrity":"sha512-RsMHoGcVQfDaXn2XawjJXB9/k9inT0eIwG7WkOpi5ZpmDsXob/zmzpFfd8r0npnT52TijotOcT9ISJ2kC6hW5Q==","signatures":[{"sig":"MEYCIQDT3MFDAXvyzmkfXqsK0zk9Jq0KJUbORQJIR6VNRd7AMgIhAIRANAuihJgCeVpUOk8flrySMEtGNqB/jTND1zhx25Wa","keyid":"SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"}],"unpackedSize":35013}},"0.2.0":{"name":"rettime","version":"0.2.0","devDependencies":{"tsup":"^8.2.4","vitest":"^2.0.5","typescript":"^5.5.4","@ossjs/release":"^0.8.1"},"dist":{"shasum":"ae4691ba13fb7a0e1c7b7a29635563eda001369c","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.2.0.tgz","fileCount":6,"integrity":"sha512-wpjT0uUZTu41YPIMLuzDQugF0D3hS8rFh5a7gFpiiZfKvj3PTiOKx8GlQ6+X+A1UquFsA8z8Pmxi7SnttU5MlQ==","signatures":[{"sig":"MEUCIGXkyIPLor/ZCIxGd3gH5d7ngzfP36TEZJU7UNr5Uv4xAiEA51fQf90hCtojUfoi2qGyudeKDLDw0lucx3GqqEmIg2M=","keyid":"SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"}],"unpackedSize":36220}},"0.3.0":{"name":"rettime","version":"0.3.0","devDependencies":{"tsup":"^8.2.4","vitest":"^2.0.5","typescript":"^5.5.4","@ossjs/release":"^0.8.1"},"dist":{"shasum":"9a34301c7a05124231c75974ad7df249bf9544b0","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.3.0.tgz","fileCount":6,"integrity":"sha512-0L6LskLD5IFtUeHCe/6OeFysRQOW755L7wLZyJEe0vx/qL7d5N52Vg0wPUj2hYN/HT8W8mJdtzhptEQm4fh//g==","signatures":[{"sig":"MEUCIQCgUtEgJ0QydoRpxAxxF0QeYCUblPdIr3BY/bJqFdNYSAIgfNrx+el9ZkvemzyprdHEcdSsb2pC5PxqT8LDGT/jJkc=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":45225}},"0.4.0":{"name":"rettime","version":"0.4.0","devDependencies":{"tsup":"^8.2.4","vitest":"^2.0.5","typescript":"^5.5.4","@ossjs/release":"^0.8.1"},"dist":{"shasum":"666c0c4bd0c801fcd2cf2f3e6880cf825d1b667c","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.4.0.tgz","fileCount":6,"integrity":"sha512-sZoFtn84HPpag4l1fREqD0+wiU4ZY2NJmWOYgXSF4xw78QwYby/FQbdNbugrBCIpPA1/imjxKHJT09z0W4Dy7A==","signatures":[{"sig":"MEUCIQDB9UcUQ7t/S5uvkXUuaJaQfj4Wi9zvmz/mxUJnl47uvQIgTZduUxtYorHI7EN3ZmL/dH8sYQdQ1PVKMc9gxiGlWwE=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":49904}},"0.4.1":{"name":"rettime","version":"0.4.1","devDependencies":{"tsup":"^8.2.4","vitest":"^2.0.5","typescript":"^5.5.4","@ossjs/release":"^0.8.1"},"dist":{"shasum":"b0689d5ba3399e49294018f25228b52e170ee90f","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.4.1.tgz","fileCount":6,"integrity":"sha512-IKUpJKi8Msb5HbqV6CUZ4lP+Xc+N4yZFEQ9aK5HS0eiIJtPMJiVXzs0DE3i34Glh0SwuLuPpcHPy1P/Jdqp0zQ==","signatures":[{"sig":"MEUCIFyxI6AOS9PiDMtPXSJf+k8vBG09PGRkk78L7ij4ub6FAiEA+zlVBndLD81WPglCPoT9UOaWSd9QbsCnVjjuBv7eElQ=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":50124}},"0.5.0":{"name":"rettime","version":"0.5.0","devDependencies":{"tsup":"^8.4.0","vitest":"^3.1.2","typescript":"^5.8.3","@ossjs/release":"^0.8.1"},"dist":{"shasum":"1d1f5353b0c12921066bf304753bbd7d0bc06450","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.5.0.tgz","fileCount":7,"integrity":"sha512-fKCxgxY0gepa5ZgCD3C6tmde2m9NLQPAYRWa2A4Quv4L+kMYG70BzK19NCp2zVCZkJ+itnhx9StkaLr8LCHJTQ==","signatures":[{"sig":"MEUCIQCtlzco72E5Z+MNogRqq1LPXkqFAB7QnctNgNxXFa6XwwIgUEUUVIOOM4ffSt9dhIfS691QTCTPQhfH8uQs97sfV2A=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":53631}},"0.5.1":{"name":"rettime","version":"0.5.1","devDependencies":{"tsup":"^8.4.0","vitest":"^3.1.2","typescript":"^5.8.3","@ossjs/release":"^0.8.1"},"dist":{"shasum":"a98565a0cd894f78014f05330a2b06f3a219788f","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.5.1.tgz","fileCount":7,"integrity":"sha512-7uRCcNUf3I1E6lmgrO1u/R03ra4I8U/Ifvd+J8uqLBiGXEU3eSf/jlD0sDNvHqf93fb0VL3lJLGz9qeNHJahEA==","signatures":[{"sig":"MEUCIAg/+Op+evngllHYH/8hLzsWqcnGP0MsXXMbvvq13tgMAiEAz6tbxcTozMffRnImQ7EmSa1Lq9taCNRfz5j0Vfn3QI4=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":53418}},"0.5.2":{"name":"rettime","version":"0.5.2","devDependencies":{"tsup":"^8.4.0","vitest":"^3.1.2","typescript":"^5.8.3","@ossjs/release":"^0.8.1"},"dist":{"shasum":"52a4578327af8d35b33b9a7d5acbd85d2619c400","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.5.2.tgz","fileCount":7,"integrity":"sha512-316jWRwO6ThC/o43hy1Td/vDb1REL45z/AiH5RgQf1ygGKwdh4JqiHodk1iuHQKvxLr4cYPcg2jFlZCf8GdaOQ==","signatures":[{"sig":"MEUCIQDaXGV6QBAJqMtvsVvyr+vskwc9EBj+3QfpK+xtLYMqTgIgG2XDFRPm93S1Z0wMK7L1GYyB0I9YucYvogtQMluSIck=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":53997}},"0.5.3":{"name":"rettime","version":"0.5.3","devDependencies":{"tsup":"^8.4.0","vitest":"^3.1.2","typescript":"^5.8.3","@ossjs/release":"^0.8.1"},"dist":{"shasum":"4d93a1db01a1a19127ba15beb7ff57a258352b35","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.5.3.tgz","fileCount":7,"integrity":"sha512-g+3WhRzKaLq4YD/Q3UtiF5r+u+e8VxDE8p1FmcZ0pjbU0cPZm0XA/KmqCXwwNc7/kN+fU8YppT/kMVm/ZQuU+Q==","signatures":[{"sig":"MEUCIGuSshGe2UPnklMfRYAhinKQxeSBoBg5ZWi1DQRYiS8XAiEA3Eo2z0VvbDGlTWtkkoBrVk1BQ1mCJDwsJB/A81R2aN8=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":65921}},"0.5.4":{"name":"rettime","version":"0.5.4","devDependencies":{"tsup":"^8.4.0","vitest":"^3.1.2","typescript":"^5.8.3","@ossjs/release":"^0.8.1"},"dist":{"shasum":"a73766a39ee69c78ed6abad0bd97778d9e812572","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.5.4.tgz","fileCount":7,"integrity":"sha512-coZO1PULmD+l6qPlSjAoNLEPNV0FXQ6aI44BkBdUN5M17CCG+1vH+stpIgAy7fpNMTu47kxMwiYLP/LBP49FxQ==","signatures":[{"sig":"MEQCIFMzOmxQZ73uxewqh0qP50MUOIPywfKZkYOQnW14OxJfAiA7YAGvRnYYPIWktDRlgtX66tj/LxrWCWi0WFQbNLpurA==","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":68176}},"0.6.0":{"name":"rettime","version":"0.6.0","devDependencies":{"tsup":"^8.4.0","vitest":"^3.1.2","typescript":"^5.8.3","@ossjs/release":"^0.8.1"},"dist":{"shasum":"9f158dbcafab9665de39d4928b64ba6945e63579","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.6.0.tgz","fileCount":7,"integrity":"sha512-8PCUFeUm2P7Ee8IeMGMzdM2vkYCymGk65WNxDiGyhmR0+H7KtsOAvFtayffAKdC5GhbctOgH9FNC3XEYAdfr1w==","signatures":[{"sig":"MEUCIQDqp5pkvG3WU0NZZxaYMmy5cscHjO7te5Xy7FQLN4SbdwIgAlcxTCVB+uNG0dMCRP+YvIwHSW/+7gR32VEmqwTndqw=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":63057}},"0.6.1":{"name":"rettime","version":"0.6.1","devDependencies":{"tsup":"^8.4.0","vitest":"^3.1.2","typescript":"^5.8.3","@ossjs/release":"^0.8.1"},"dist":{"shasum":"30ae4312d29e4107708ae795de3ec3059d75e19f","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.6.1.tgz","fileCount":7,"integrity":"sha512-AXtrVJJ/uQZA/b/k7C3cpmEq2QBHmdRPO6S9TXcynfXiV7nVpTZX2SzYwh36Y1DA7fE0k4kCTA1Y/K9P+nMVTQ==","signatures":[{"sig":"MEQCIAiVJaes6R2KfQMw8xoWX4rTOK9cs7Lt0FRmc/BcjySPAiANRnUNQ0lIOJlpDwlCfCgvBvMOd9NG0Ak031yXdHh++A==","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":63142}},"0.6.2":{"name":"rettime","version":"0.6.2","devDependencies":{"tsup":"^8.4.0","vitest":"^3.1.2","typescript":"^5.8.3","@ossjs/release":"^0.8.1"},"dist":{"shasum":"2ed441315e92fcf471b40a8dee0b6a0d2e09bb89","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.6.2.tgz","fileCount":7,"integrity":"sha512-0mHwLbBt6kLnt5UOiJWWcq0LiCSrBRpyANgIBP4CPE1pkbutGACXvLtdIjcltV4B0C3DffB7T1YN07gw2iEbag==","signatures":[{"sig":"MEQCIDtWbTKNQ+F9rmQaAuWl/ugogYu71mpdGlRt5DvNN+q+AiA8pSEcTaF5h06ZKPei2hLzxY+8R8iXU2CxzKvWogt8lw==","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":63170}},"0.6.3":{"name":"rettime","version":"0.6.3","devDependencies":{"tsup":"^8.4.0","vitest":"^3.1.2","typescript":"^5.8.3","@ossjs/release":"^0.8.1"},"dist":{"shasum":"687169913fa81a417685e41b66db5760acc3e962","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.6.3.tgz","fileCount":7,"integrity":"sha512-9JZQchSQ+jf2QMr/2R+xn7nP9o1+oMZWtAUDjmXVdy4nG30uDUjA3Dpb5Xf5XeJHExDwvkXw1CJYTN0sfDoBAA==","signatures":[{"sig":"MEUCIECio4+O59MKzdHt6rtonM3v+mUoaa5Hnu2q2mi5ZvVqAiEA/y6CcTyaAvCXT2jNRN3ZPFv2R4otgreLPhDvlJDBCOo=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":62645}},"0.7.0":{"name":"rettime","version":"0.7.0","devDependencies":{"tsup":"^8.4.0","vitest":"^3.1.2","typescript":"^5.8.3","@ossjs/release":"^0.8.1"},"dist":{"shasum":"c040f1a65e396eaa4b8346dd96ed937edc79d96f","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.7.0.tgz","fileCount":7,"integrity":"sha512-LPRKoHnLKd/r3dVxcwO7vhCW+orkOGj9ViueosEBK6ie89CijnfRlhaDhHq/3Hxu4CkWQtxwlBG0mzTQY6uQjw==","signatures":[{"sig":"MEQCIDZibcju7g7tdPMPthQ7Ds0+f2xy979ZaaODV2NayhSyAiBBTwUmCmBMBO9M2YyeLh7A15nWlEZ53zrt5Bt4F1IXgg==","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":56777}},"0.8.0":{"name":"rettime","version":"0.8.0","devDependencies":{"tsdown":"^0.19.0","vitest":"^3.2.4","typescript":"^5.9.2","@ossjs/release":"^0.10.0","@rolldown/binding-darwin-arm64":"1.0.0-beta.40"},"dist":{"shasum":"0e3c39aae7671904e168fb5419beaddf23b5b01b","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.8.0.tgz","fileCount":7,"integrity":"sha512-PAXVfnS6NSYNHf2m/LeYNgJa8jOQ/BpaUIMKwwqjjX7W2XOKDLstnfykOkpTPdmZPr2y3Ju0o6tWyyUeJ5phpA==","signatures":[{"sig":"MEQCIE8cCSBwPJdH3e4cH9bP4/9nIWeZK2HQNmkvXEgZr91dAiBFk7d9S1KsX3YkZy9u9/WbGxNDScbxXcKsfkqEjqVhgg==","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"attestations":{"url":"https://registry.npmjs.org/-/npm/v1/attestations/rettime@0.8.0","provenance":{"predicateType":"https://slsa.dev/provenance/v1"}},"unpackedSize":73782}},"0.9.0":{"name":"rettime","version":"0.9.0","devDependencies":{"tsdown":"^0.19.0","vitest":"^3.2.4","typescript":"^5.9.3","@ossjs/release":"^0.10.1","@rolldown/binding-darwin-arm64":"1.0.0-beta.40"},"dist":{"shasum":"8cee07b4b61ed17ff80071a9500abb2bf372dc90","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.9.0.tgz","fileCount":7,"integrity":"sha512-mj6hOrwD8UA+jFqyCiSBxm8MI+qhYeSqS0aNcGfPkVmmCyHNFRr3hoQUTTZ3iBgk1x4ZNXnvSzluFZM4kcx/gA==","signatures":[{"sig":"MEUCIDzwM39plN0UI/XwWX0sP/qIUExGPIxseRD0OCof8fjUAiEA2wfCZsTKmPy11XgPKrEoK5lNN3FJLEPgZhyN/dJkSls=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"attestations":{"url":"https://registry.npmjs.org/-/npm/v1/attestations/rettime@0.9.0","provenance":{"predicateType":"https://slsa.dev/provenance/v1"}},"unpackedSize":76082}},"0.9.1":{"name":"rettime","version":"0.9.1","devDependencies":{"tsdown":"^0.19.0","vitest":"^3.2.4","typescript":"^5.9.3","@ossjs/release":"^0.10.1","@rolldown/binding-darwin-arm64":"1.0.0-beta.40"},"dist":{"shasum":"b3ee2206abe6a75616ab0f25e46853ed3fb89e06","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.9.1.tgz","fileCount":7,"integrity":"sha512-UszoaHy8mQkQZCbEYjw+J21ZZ+VhiTAYK47Tl+wm8VSbTRronhJiheSNlRo0ED/6zUG9vbIY7gRu7ZfColdVnw==","signatures":[{"sig":"MEUCIQDVcK7CSB5v534Wbp0JcsdiwtJwiEc/I06ItzqXp5NDFgIgZzs1tH8tJsIkyjrEdp24bUYItDMUe1RTZoJr0IiAUzA=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"attestations":{"url":"https://registry.npmjs.org/-/npm/v1/attestations/rettime@0.9.1","provenance":{"predicateType":"https://slsa.dev/provenance/v1"}},"unpackedSize":76537}},"0.10.0":{"name":"rettime","version":"0.10.0","devDependencies":{"tsdown":"^0.19.0","vitest":"^3.2.4","typescript":"^5.9.3","@ossjs/release":"^0.10.1","@rolldown/binding-darwin-arm64":"1.0.0-beta.40"},"dist":{"shasum":"ad456807249c22d4a5d45056f701789575f36014","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.10.0.tgz","fileCount":11,"integrity":"sha512-C/Eiqz5Mm1QBMmeCOJrgLJrWxYH0hu0SrnnWMojEbyXOxIOXwNmRwdWB9lKZbUp2d09swibXxCmuUQcABGID6A==","signatures":[{"sig":"MEUCIQDlegDEz/zumDWzLc44ITVs9Y8XJby9vVteXugQwtHKBgIgRhZ/bHQjliqbnHKP5TVHTep1jQrvdjXrSSI9rIejVn4=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"attestations":{"url":"https://registry.npmjs.org/-/npm/v1/attestations/rettime@0.10.0","provenance":{"predicateType":"https://slsa.dev/provenance/v1"}},"unpackedSize":70685}},"0.10.1":{"name":"rettime","version":"0.10.1","devDependencies":{"@ossjs/release":"^0.10.1","@rolldown/binding-darwin-arm64":"1.0.0-beta.40","tsdown":"^0.19.0","typescript":"^5.9.3","vitest":"^3.2.4"},"dist":{"integrity":"sha512-uyDrIlUEH37cinabq0AX4QbgV4HbFZ/gqoiunWQ1UqBtRvTTytwhNYjE++pO/MjPTZL5KQCf2bEoJ/BJNVQ5Kw==","shasum":"cc8bb9870343f282b182e5a276899c08b94914be","tarball":"https://registry.npmjs.org/rettime/-/rettime-0.10.1.tgz","fileCount":11,"unpackedSize":71052,"attestations":{"url":"https://registry.npmjs.org/-/npm/v1/attestations/rettime@0.10.1","provenance":{"predicateType":"https://slsa.dev/provenance/v1"}},"signatures":[{"keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U","sig":"MEUCIQC0NdPn/0/X1XJ81W5n5IfOeFkaluyFaRJwL8kE87KvMQIgJdfoKB4IWohihPIJkN50fj2swkA4m5DV8YHFislSucE="}]}}},"modified":"2026-01-28T16:29:15.474Z","cachedAt":1771798201931}
+{
+  "name": "rettime",
+  "dist-tags": { "latest": "0.10.1" },
+  "versions": {
+    "0.1.0": {
+      "name": "rettime",
+      "version": "0.1.0",
+      "devDependencies": {
+        "tsup": "^8.2.4",
+        "vitest": "^2.0.5",
+        "typescript": "^5.5.4",
+        "@ossjs/release": "^0.8.1"
+      },
+      "dist": {
+        "shasum": "411fe2db26b0bf5ff343946c2f42be3250d742b2",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.1.0.tgz",
+        "fileCount": 13,
+        "integrity": "sha512-8TwNY4HMOYblQpai0IEBZ4JlvWefutfaySKMqLMFvFe3yCfV3GDfWPCHQGfMWOT9tqQC3z/xguH8huvA0qfitQ==",
+        "signatures": [
+          {
+            "sig": "MEQCIHIx1+NP5H+ui3c+3ab34WC2JsO4ClLBb7j4WM+iNFUXAiA6GrxU9mc5nbUmsNU1nBsBzSVOhZArdmPWAJ2hseG51A==",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 21360
+      }
+    },
+    "0.1.1": {
+      "name": "rettime",
+      "version": "0.1.1",
+      "devDependencies": {
+        "tsup": "^8.2.4",
+        "vitest": "^2.0.5",
+        "typescript": "^5.5.4",
+        "@ossjs/release": "^0.8.1"
+      },
+      "dist": {
+        "shasum": "cc0f5c756063bef00430ff0b29183179faa6ce21",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.1.1.tgz",
+        "fileCount": 6,
+        "integrity": "sha512-GBunkGXhsD+1PAhaz83KvwbZtVNZk8cFI8Y5J5gQstX2KZM4PLk38DVxXJjZI6ZtdgSe8zLGErlJ9EbS+1egCg==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDRPd0Ul5BqSC2Mq704Idx/8auce84/VMAKnQjoc0+uTgIgYG4fs7qQPt0RpgKtMfrtTqnolMf77fOI+yUxndvVYUQ=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 30789
+      }
+    },
+    "0.1.2": {
+      "name": "rettime",
+      "version": "0.1.2",
+      "devDependencies": {
+        "tsup": "^8.2.4",
+        "vitest": "^2.0.5",
+        "typescript": "^5.5.4",
+        "@ossjs/release": "^0.8.1"
+      },
+      "dist": {
+        "shasum": "be56bf31349451a9b801624504119fff13833c52",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.1.2.tgz",
+        "fileCount": 6,
+        "integrity": "sha512-RsMHoGcVQfDaXn2XawjJXB9/k9inT0eIwG7WkOpi5ZpmDsXob/zmzpFfd8r0npnT52TijotOcT9ISJ2kC6hW5Q==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDT3MFDAXvyzmkfXqsK0zk9Jq0KJUbORQJIR6VNRd7AMgIhAIRANAuihJgCeVpUOk8flrySMEtGNqB/jTND1zhx25Wa",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 35013
+      }
+    },
+    "0.2.0": {
+      "name": "rettime",
+      "version": "0.2.0",
+      "devDependencies": {
+        "tsup": "^8.2.4",
+        "vitest": "^2.0.5",
+        "typescript": "^5.5.4",
+        "@ossjs/release": "^0.8.1"
+      },
+      "dist": {
+        "shasum": "ae4691ba13fb7a0e1c7b7a29635563eda001369c",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.2.0.tgz",
+        "fileCount": 6,
+        "integrity": "sha512-wpjT0uUZTu41YPIMLuzDQugF0D3hS8rFh5a7gFpiiZfKvj3PTiOKx8GlQ6+X+A1UquFsA8z8Pmxi7SnttU5MlQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIGXkyIPLor/ZCIxGd3gH5d7ngzfP36TEZJU7UNr5Uv4xAiEA51fQf90hCtojUfoi2qGyudeKDLDw0lucx3GqqEmIg2M=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 36220
+      }
+    },
+    "0.3.0": {
+      "name": "rettime",
+      "version": "0.3.0",
+      "devDependencies": {
+        "tsup": "^8.2.4",
+        "vitest": "^2.0.5",
+        "typescript": "^5.5.4",
+        "@ossjs/release": "^0.8.1"
+      },
+      "dist": {
+        "shasum": "9a34301c7a05124231c75974ad7df249bf9544b0",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.3.0.tgz",
+        "fileCount": 6,
+        "integrity": "sha512-0L6LskLD5IFtUeHCe/6OeFysRQOW755L7wLZyJEe0vx/qL7d5N52Vg0wPUj2hYN/HT8W8mJdtzhptEQm4fh//g==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCgUtEgJ0QydoRpxAxxF0QeYCUblPdIr3BY/bJqFdNYSAIgfNrx+el9ZkvemzyprdHEcdSsb2pC5PxqT8LDGT/jJkc=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 45225
+      }
+    },
+    "0.4.0": {
+      "name": "rettime",
+      "version": "0.4.0",
+      "devDependencies": {
+        "tsup": "^8.2.4",
+        "vitest": "^2.0.5",
+        "typescript": "^5.5.4",
+        "@ossjs/release": "^0.8.1"
+      },
+      "dist": {
+        "shasum": "666c0c4bd0c801fcd2cf2f3e6880cf825d1b667c",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.4.0.tgz",
+        "fileCount": 6,
+        "integrity": "sha512-sZoFtn84HPpag4l1fREqD0+wiU4ZY2NJmWOYgXSF4xw78QwYby/FQbdNbugrBCIpPA1/imjxKHJT09z0W4Dy7A==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDB9UcUQ7t/S5uvkXUuaJaQfj4Wi9zvmz/mxUJnl47uvQIgTZduUxtYorHI7EN3ZmL/dH8sYQdQ1PVKMc9gxiGlWwE=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 49904
+      }
+    },
+    "0.4.1": {
+      "name": "rettime",
+      "version": "0.4.1",
+      "devDependencies": {
+        "tsup": "^8.2.4",
+        "vitest": "^2.0.5",
+        "typescript": "^5.5.4",
+        "@ossjs/release": "^0.8.1"
+      },
+      "dist": {
+        "shasum": "b0689d5ba3399e49294018f25228b52e170ee90f",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.4.1.tgz",
+        "fileCount": 6,
+        "integrity": "sha512-IKUpJKi8Msb5HbqV6CUZ4lP+Xc+N4yZFEQ9aK5HS0eiIJtPMJiVXzs0DE3i34Glh0SwuLuPpcHPy1P/Jdqp0zQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIFyxI6AOS9PiDMtPXSJf+k8vBG09PGRkk78L7ij4ub6FAiEA+zlVBndLD81WPglCPoT9UOaWSd9QbsCnVjjuBv7eElQ=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 50124
+      }
+    },
+    "0.5.0": {
+      "name": "rettime",
+      "version": "0.5.0",
+      "devDependencies": {
+        "tsup": "^8.4.0",
+        "vitest": "^3.1.2",
+        "typescript": "^5.8.3",
+        "@ossjs/release": "^0.8.1"
+      },
+      "dist": {
+        "shasum": "1d1f5353b0c12921066bf304753bbd7d0bc06450",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.5.0.tgz",
+        "fileCount": 7,
+        "integrity": "sha512-fKCxgxY0gepa5ZgCD3C6tmde2m9NLQPAYRWa2A4Quv4L+kMYG70BzK19NCp2zVCZkJ+itnhx9StkaLr8LCHJTQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCtlzco72E5Z+MNogRqq1LPXkqFAB7QnctNgNxXFa6XwwIgUEUUVIOOM4ffSt9dhIfS691QTCTPQhfH8uQs97sfV2A=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 53631
+      }
+    },
+    "0.5.1": {
+      "name": "rettime",
+      "version": "0.5.1",
+      "devDependencies": {
+        "tsup": "^8.4.0",
+        "vitest": "^3.1.2",
+        "typescript": "^5.8.3",
+        "@ossjs/release": "^0.8.1"
+      },
+      "dist": {
+        "shasum": "a98565a0cd894f78014f05330a2b06f3a219788f",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.5.1.tgz",
+        "fileCount": 7,
+        "integrity": "sha512-7uRCcNUf3I1E6lmgrO1u/R03ra4I8U/Ifvd+J8uqLBiGXEU3eSf/jlD0sDNvHqf93fb0VL3lJLGz9qeNHJahEA==",
+        "signatures": [
+          {
+            "sig": "MEUCIAg/+Op+evngllHYH/8hLzsWqcnGP0MsXXMbvvq13tgMAiEAz6tbxcTozMffRnImQ7EmSa1Lq9taCNRfz5j0Vfn3QI4=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 53418
+      }
+    },
+    "0.5.2": {
+      "name": "rettime",
+      "version": "0.5.2",
+      "devDependencies": {
+        "tsup": "^8.4.0",
+        "vitest": "^3.1.2",
+        "typescript": "^5.8.3",
+        "@ossjs/release": "^0.8.1"
+      },
+      "dist": {
+        "shasum": "52a4578327af8d35b33b9a7d5acbd85d2619c400",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.5.2.tgz",
+        "fileCount": 7,
+        "integrity": "sha512-316jWRwO6ThC/o43hy1Td/vDb1REL45z/AiH5RgQf1ygGKwdh4JqiHodk1iuHQKvxLr4cYPcg2jFlZCf8GdaOQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDaXGV6QBAJqMtvsVvyr+vskwc9EBj+3QfpK+xtLYMqTgIgG2XDFRPm93S1Z0wMK7L1GYyB0I9YucYvogtQMluSIck=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 53997
+      }
+    },
+    "0.5.3": {
+      "name": "rettime",
+      "version": "0.5.3",
+      "devDependencies": {
+        "tsup": "^8.4.0",
+        "vitest": "^3.1.2",
+        "typescript": "^5.8.3",
+        "@ossjs/release": "^0.8.1"
+      },
+      "dist": {
+        "shasum": "4d93a1db01a1a19127ba15beb7ff57a258352b35",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.5.3.tgz",
+        "fileCount": 7,
+        "integrity": "sha512-g+3WhRzKaLq4YD/Q3UtiF5r+u+e8VxDE8p1FmcZ0pjbU0cPZm0XA/KmqCXwwNc7/kN+fU8YppT/kMVm/ZQuU+Q==",
+        "signatures": [
+          {
+            "sig": "MEUCIGuSshGe2UPnklMfRYAhinKQxeSBoBg5ZWi1DQRYiS8XAiEA3Eo2z0VvbDGlTWtkkoBrVk1BQ1mCJDwsJB/A81R2aN8=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 65921
+      }
+    },
+    "0.5.4": {
+      "name": "rettime",
+      "version": "0.5.4",
+      "devDependencies": {
+        "tsup": "^8.4.0",
+        "vitest": "^3.1.2",
+        "typescript": "^5.8.3",
+        "@ossjs/release": "^0.8.1"
+      },
+      "dist": {
+        "shasum": "a73766a39ee69c78ed6abad0bd97778d9e812572",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.5.4.tgz",
+        "fileCount": 7,
+        "integrity": "sha512-coZO1PULmD+l6qPlSjAoNLEPNV0FXQ6aI44BkBdUN5M17CCG+1vH+stpIgAy7fpNMTu47kxMwiYLP/LBP49FxQ==",
+        "signatures": [
+          {
+            "sig": "MEQCIFMzOmxQZ73uxewqh0qP50MUOIPywfKZkYOQnW14OxJfAiA7YAGvRnYYPIWktDRlgtX66tj/LxrWCWi0WFQbNLpurA==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 68176
+      }
+    },
+    "0.6.0": {
+      "name": "rettime",
+      "version": "0.6.0",
+      "devDependencies": {
+        "tsup": "^8.4.0",
+        "vitest": "^3.1.2",
+        "typescript": "^5.8.3",
+        "@ossjs/release": "^0.8.1"
+      },
+      "dist": {
+        "shasum": "9f158dbcafab9665de39d4928b64ba6945e63579",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.6.0.tgz",
+        "fileCount": 7,
+        "integrity": "sha512-8PCUFeUm2P7Ee8IeMGMzdM2vkYCymGk65WNxDiGyhmR0+H7KtsOAvFtayffAKdC5GhbctOgH9FNC3XEYAdfr1w==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDqp5pkvG3WU0NZZxaYMmy5cscHjO7te5Xy7FQLN4SbdwIgAlcxTCVB+uNG0dMCRP+YvIwHSW/+7gR32VEmqwTndqw=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 63057
+      }
+    },
+    "0.6.1": {
+      "name": "rettime",
+      "version": "0.6.1",
+      "devDependencies": {
+        "tsup": "^8.4.0",
+        "vitest": "^3.1.2",
+        "typescript": "^5.8.3",
+        "@ossjs/release": "^0.8.1"
+      },
+      "dist": {
+        "shasum": "30ae4312d29e4107708ae795de3ec3059d75e19f",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.6.1.tgz",
+        "fileCount": 7,
+        "integrity": "sha512-AXtrVJJ/uQZA/b/k7C3cpmEq2QBHmdRPO6S9TXcynfXiV7nVpTZX2SzYwh36Y1DA7fE0k4kCTA1Y/K9P+nMVTQ==",
+        "signatures": [
+          {
+            "sig": "MEQCIAiVJaes6R2KfQMw8xoWX4rTOK9cs7Lt0FRmc/BcjySPAiANRnUNQ0lIOJlpDwlCfCgvBvMOd9NG0Ak031yXdHh++A==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 63142
+      }
+    },
+    "0.6.2": {
+      "name": "rettime",
+      "version": "0.6.2",
+      "devDependencies": {
+        "tsup": "^8.4.0",
+        "vitest": "^3.1.2",
+        "typescript": "^5.8.3",
+        "@ossjs/release": "^0.8.1"
+      },
+      "dist": {
+        "shasum": "2ed441315e92fcf471b40a8dee0b6a0d2e09bb89",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.6.2.tgz",
+        "fileCount": 7,
+        "integrity": "sha512-0mHwLbBt6kLnt5UOiJWWcq0LiCSrBRpyANgIBP4CPE1pkbutGACXvLtdIjcltV4B0C3DffB7T1YN07gw2iEbag==",
+        "signatures": [
+          {
+            "sig": "MEQCIDtWbTKNQ+F9rmQaAuWl/ugogYu71mpdGlRt5DvNN+q+AiA8pSEcTaF5h06ZKPei2hLzxY+8R8iXU2CxzKvWogt8lw==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 63170
+      }
+    },
+    "0.6.3": {
+      "name": "rettime",
+      "version": "0.6.3",
+      "devDependencies": {
+        "tsup": "^8.4.0",
+        "vitest": "^3.1.2",
+        "typescript": "^5.8.3",
+        "@ossjs/release": "^0.8.1"
+      },
+      "dist": {
+        "shasum": "687169913fa81a417685e41b66db5760acc3e962",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.6.3.tgz",
+        "fileCount": 7,
+        "integrity": "sha512-9JZQchSQ+jf2QMr/2R+xn7nP9o1+oMZWtAUDjmXVdy4nG30uDUjA3Dpb5Xf5XeJHExDwvkXw1CJYTN0sfDoBAA==",
+        "signatures": [
+          {
+            "sig": "MEUCIECio4+O59MKzdHt6rtonM3v+mUoaa5Hnu2q2mi5ZvVqAiEA/y6CcTyaAvCXT2jNRN3ZPFv2R4otgreLPhDvlJDBCOo=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 62645
+      }
+    },
+    "0.7.0": {
+      "name": "rettime",
+      "version": "0.7.0",
+      "devDependencies": {
+        "tsup": "^8.4.0",
+        "vitest": "^3.1.2",
+        "typescript": "^5.8.3",
+        "@ossjs/release": "^0.8.1"
+      },
+      "dist": {
+        "shasum": "c040f1a65e396eaa4b8346dd96ed937edc79d96f",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.7.0.tgz",
+        "fileCount": 7,
+        "integrity": "sha512-LPRKoHnLKd/r3dVxcwO7vhCW+orkOGj9ViueosEBK6ie89CijnfRlhaDhHq/3Hxu4CkWQtxwlBG0mzTQY6uQjw==",
+        "signatures": [
+          {
+            "sig": "MEQCIDZibcju7g7tdPMPthQ7Ds0+f2xy979ZaaODV2NayhSyAiBBTwUmCmBMBO9M2YyeLh7A15nWlEZ53zrt5Bt4F1IXgg==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 56777
+      }
+    },
+    "0.8.0": {
+      "name": "rettime",
+      "version": "0.8.0",
+      "devDependencies": {
+        "tsdown": "^0.19.0",
+        "vitest": "^3.2.4",
+        "typescript": "^5.9.2",
+        "@ossjs/release": "^0.10.0",
+        "@rolldown/binding-darwin-arm64": "1.0.0-beta.40"
+      },
+      "dist": {
+        "shasum": "0e3c39aae7671904e168fb5419beaddf23b5b01b",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.8.0.tgz",
+        "fileCount": 7,
+        "integrity": "sha512-PAXVfnS6NSYNHf2m/LeYNgJa8jOQ/BpaUIMKwwqjjX7W2XOKDLstnfykOkpTPdmZPr2y3Ju0o6tWyyUeJ5phpA==",
+        "signatures": [
+          {
+            "sig": "MEQCIE8cCSBwPJdH3e4cH9bP4/9nIWeZK2HQNmkvXEgZr91dAiBFk7d9S1KsX3YkZy9u9/WbGxNDScbxXcKsfkqEjqVhgg==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "attestations": {
+          "url": "https://registry.npmjs.org/-/npm/v1/attestations/rettime@0.8.0",
+          "provenance": { "predicateType": "https://slsa.dev/provenance/v1" }
+        },
+        "unpackedSize": 73782
+      }
+    },
+    "0.9.0": {
+      "name": "rettime",
+      "version": "0.9.0",
+      "devDependencies": {
+        "tsdown": "^0.19.0",
+        "vitest": "^3.2.4",
+        "typescript": "^5.9.3",
+        "@ossjs/release": "^0.10.1",
+        "@rolldown/binding-darwin-arm64": "1.0.0-beta.40"
+      },
+      "dist": {
+        "shasum": "8cee07b4b61ed17ff80071a9500abb2bf372dc90",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.9.0.tgz",
+        "fileCount": 7,
+        "integrity": "sha512-mj6hOrwD8UA+jFqyCiSBxm8MI+qhYeSqS0aNcGfPkVmmCyHNFRr3hoQUTTZ3iBgk1x4ZNXnvSzluFZM4kcx/gA==",
+        "signatures": [
+          {
+            "sig": "MEUCIDzwM39plN0UI/XwWX0sP/qIUExGPIxseRD0OCof8fjUAiEA2wfCZsTKmPy11XgPKrEoK5lNN3FJLEPgZhyN/dJkSls=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "attestations": {
+          "url": "https://registry.npmjs.org/-/npm/v1/attestations/rettime@0.9.0",
+          "provenance": { "predicateType": "https://slsa.dev/provenance/v1" }
+        },
+        "unpackedSize": 76082
+      }
+    },
+    "0.9.1": {
+      "name": "rettime",
+      "version": "0.9.1",
+      "devDependencies": {
+        "tsdown": "^0.19.0",
+        "vitest": "^3.2.4",
+        "typescript": "^5.9.3",
+        "@ossjs/release": "^0.10.1",
+        "@rolldown/binding-darwin-arm64": "1.0.0-beta.40"
+      },
+      "dist": {
+        "shasum": "b3ee2206abe6a75616ab0f25e46853ed3fb89e06",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.9.1.tgz",
+        "fileCount": 7,
+        "integrity": "sha512-UszoaHy8mQkQZCbEYjw+J21ZZ+VhiTAYK47Tl+wm8VSbTRronhJiheSNlRo0ED/6zUG9vbIY7gRu7ZfColdVnw==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDVcK7CSB5v534Wbp0JcsdiwtJwiEc/I06ItzqXp5NDFgIgZzs1tH8tJsIkyjrEdp24bUYItDMUe1RTZoJr0IiAUzA=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "attestations": {
+          "url": "https://registry.npmjs.org/-/npm/v1/attestations/rettime@0.9.1",
+          "provenance": { "predicateType": "https://slsa.dev/provenance/v1" }
+        },
+        "unpackedSize": 76537
+      }
+    },
+    "0.10.0": {
+      "name": "rettime",
+      "version": "0.10.0",
+      "devDependencies": {
+        "tsdown": "^0.19.0",
+        "vitest": "^3.2.4",
+        "typescript": "^5.9.3",
+        "@ossjs/release": "^0.10.1",
+        "@rolldown/binding-darwin-arm64": "1.0.0-beta.40"
+      },
+      "dist": {
+        "shasum": "ad456807249c22d4a5d45056f701789575f36014",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.10.0.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-C/Eiqz5Mm1QBMmeCOJrgLJrWxYH0hu0SrnnWMojEbyXOxIOXwNmRwdWB9lKZbUp2d09swibXxCmuUQcABGID6A==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDlegDEz/zumDWzLc44ITVs9Y8XJby9vVteXugQwtHKBgIgRhZ/bHQjliqbnHKP5TVHTep1jQrvdjXrSSI9rIejVn4=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "attestations": {
+          "url": "https://registry.npmjs.org/-/npm/v1/attestations/rettime@0.10.0",
+          "provenance": { "predicateType": "https://slsa.dev/provenance/v1" }
+        },
+        "unpackedSize": 70685
+      }
+    },
+    "0.10.1": {
+      "name": "rettime",
+      "version": "0.10.1",
+      "devDependencies": {
+        "@ossjs/release": "^0.10.1",
+        "@rolldown/binding-darwin-arm64": "1.0.0-beta.40",
+        "tsdown": "^0.19.0",
+        "typescript": "^5.9.3",
+        "vitest": "^3.2.4"
+      },
+      "dist": {
+        "integrity": "sha512-uyDrIlUEH37cinabq0AX4QbgV4HbFZ/gqoiunWQ1UqBtRvTTytwhNYjE++pO/MjPTZL5KQCf2bEoJ/BJNVQ5Kw==",
+        "shasum": "cc8bb9870343f282b182e5a276899c08b94914be",
+        "tarball": "https://registry.npmjs.org/rettime/-/rettime-0.10.1.tgz",
+        "fileCount": 11,
+        "unpackedSize": 71052,
+        "attestations": {
+          "url": "https://registry.npmjs.org/-/npm/v1/attestations/rettime@0.10.1",
+          "provenance": { "predicateType": "https://slsa.dev/provenance/v1" }
+        },
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQC0NdPn/0/X1XJ81W5n5IfOeFkaluyFaRJwL8kE87KvMQIgJdfoKB4IWohihPIJkN50fj2swkA4m5DV8YHFislSucE="
+          }
+        ]
+      }
+    }
+  },
+  "modified": "2026-01-28T16:29:15.474Z",
+  "cachedAt": 1771798201931
+}

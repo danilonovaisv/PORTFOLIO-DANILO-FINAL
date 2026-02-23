@@ -4,10 +4,7 @@ export default function NotFound() {
   return (
     <div className="relative flex min-h-screen flex-col items-center justify-center bg-background text-white overflow-hidden">
       {/* Ghost glow effect */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        aria-hidden="true"
-      >
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-bluePrimary/5 blur-[120px]" />
       </div>
 
@@ -21,8 +18,8 @@ export default function NotFound() {
           <span className="text-white">not found</span>
         </h1>
         <p className="text-base sm:text-lg leading-relaxed text-textSecondary max-w-md mx-auto">
-          A página que você procura desapareceu no éter digital.
-          Talvez ela nunca tenha existido — ou foi movida para outro lugar.
+          A página que você procura desapareceu no éter digital. Talvez ela
+          nunca tenha existido — ou foi movida para outro lugar.
         </p>
         <div className="flex flex-wrap justify-center gap-3 pt-2">
           <Link

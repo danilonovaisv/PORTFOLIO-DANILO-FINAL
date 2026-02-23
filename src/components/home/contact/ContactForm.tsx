@@ -104,7 +104,13 @@ const ContactForm: React.FC = () => {
 
       if (response.ok) {
         setSubmitSuccess(true);
-        setFormData({ name: '', email: '', phone: '', message: '', 'cf-turnstile-response': '' });
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          message: '',
+          'cf-turnstile-response': '',
+        });
         setTimeout(() => setSubmitSuccess(false), 5000);
       } else {
         const payload = (await response.json().catch(() => null)) as {
@@ -165,7 +171,10 @@ const ContactForm: React.FC = () => {
             method="POST"
             className="space-y-8"
           >
-            <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="afterInteractive" />
+            <Script
+              src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+              strategy="afterInteractive"
+            />
             <noscript>
               <p className="p-4 mb-4 text-sm text-amber-800 bg-amber-50 rounded-lg">
                 JavaScript está desativado. O formulário será enviado via
@@ -233,7 +242,10 @@ const ContactForm: React.FC = () => {
 
             <div
               className="cf-turnstile"
-              data-sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA'}
+              data-sitekey={
+                process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ||
+                '1x00000000000000000000AA'
+              }
               data-callback="onTurnstileSuccess"
             ></div>
 

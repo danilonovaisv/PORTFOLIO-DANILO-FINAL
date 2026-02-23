@@ -74,7 +74,6 @@ export default function AboutMethod() {
               src={DEFAULT_CAPTIONS}
               srcLang="pt-BR"
               label="Português"
-              default
             />
           </video>
         </motion.div>

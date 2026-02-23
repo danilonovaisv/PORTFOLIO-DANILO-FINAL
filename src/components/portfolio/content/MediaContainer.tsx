@@ -67,7 +67,6 @@ export const MediaContainer: FC<MediaContainerProps> = ({
                                 src={DEFAULT_CAPTIONS}
                                 srcLang="pt-BR"
                                 label="Português"
-                                default
                             />
                         </video>
                     ) : (
@@ -148,7 +147,6 @@ export const MediaContainer: FC<MediaContainerProps> = ({
                                                 src={DEFAULT_CAPTIONS}
                                                 srcLang="pt-BR"
                                                 label="Português"
-                                                default
                                             />
                                         </video>
                                         <div className="absolute inset-0 flex items-center justify-center bg-black/20">

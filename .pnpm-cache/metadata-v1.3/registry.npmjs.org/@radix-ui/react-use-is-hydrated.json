@@ -1,1 +1,113 @@
-{"name":"@radix-ui/react-use-is-hydrated","dist-tags":{"next":"0.1.0-rc.1745339201309","latest":"0.1.0"},"versions":{"0.0.0":{"name":"@radix-ui/react-use-is-hydrated","version":"0.0.0","dependencies":{"use-sync-external-store":"^1.4.0"},"devDependencies":{"react":"^19.0.0","eslint":"^9.18.0","react-dom":"^19.0.0","typescript":"^5.7.3","@types/react":"^19.0.7","@repo/builder":"0.0.0","@types/react-dom":"^19.0.3","@repo/eslint-config":"0.0.0","@repo/typescript-config":"0.0.0","@types/use-sync-external-store":"^0.0.6"},"peerDependencies":{"react":"^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc","@types/react":"*"},"dist":{"shasum":"3cd2debb1f6547e5ce3d98f2105298b91fd0d73c","tarball":"https://registry.npmjs.org/@radix-ui/react-use-is-hydrated/-/react-use-is-hydrated-0.0.0.tgz","fileCount":11,"integrity":"sha512-23RkSm7jSZ8+rtfdSJTi/2D+p9soPbtnoG/tPf08egYCDr6p8X83hrcmW77p7MJ8kJYWNXwruuPTPp1TwIIH4g==","signatures":[{"sig":"MEQCICvLbC9UvtjOK/9305oryGc3lb3kmZ4r8M/AH1o53O0PAiACVCsmH5GcjJBEYnMGpesmDw9XN+UYjCJ922cLFm8HGA==","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":6219},"peerDependenciesMeta":{"@types/react":{"optional":true}}},"0.1.0-rc.1745339201309":{"name":"@radix-ui/react-use-is-hydrated","version":"0.1.0-rc.1745339201309","dependencies":{"use-sync-external-store":"^1.5.0"},"devDependencies":{"react":"^19.1.0","eslint":"^9.18.0","react-dom":"^19.1.0","typescript":"^5.7.3","@types/react":"^19.0.7","@repo/builder":"0.0.0","@types/react-dom":"^19.0.3","@repo/eslint-config":"0.0.0","@repo/typescript-config":"0.0.0","@types/use-sync-external-store":"^0.0.6"},"peerDependencies":{"react":"^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc","@types/react":"*"},"dist":{"shasum":"7d0da6eb0ed33cb86f22ae8d2b968194704a1c39","tarball":"https://registry.npmjs.org/@radix-ui/react-use-is-hydrated/-/react-use-is-hydrated-0.1.0-rc.1745339201309.tgz","fileCount":11,"integrity":"sha512-vTxGt3ubIlLQu2XA18MQPCiOn+vq6HpiEtCY3vki+vjRgSFmxs9jq0yAWIOeCuS8Uy1C5J3e1sKwszv3xnJ1Fw==","signatures":[{"sig":"MEUCIQD6H9wQsuPYXMaOf441VktY04HF7z9y7N20eoiit79Z+wIgWURq2iseoUztdjgpF/9Fat/eJtLuSEIXvuGBBBqHUyQ=","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":6236},"peerDependenciesMeta":{"@types/react":{"optional":true}}},"0.1.0":{"name":"@radix-ui/react-use-is-hydrated","version":"0.1.0","dependencies":{"use-sync-external-store":"^1.5.0"},"devDependencies":{"react":"^19.1.0","eslint":"^9.18.0","react-dom":"^19.1.0","typescript":"^5.7.3","@types/react":"^19.0.7","@repo/builder":"0.0.0","@types/react-dom":"^19.0.3","@repo/eslint-config":"0.0.0","@repo/typescript-config":"0.0.0","@types/use-sync-external-store":"^0.0.6"},"peerDependencies":{"react":"^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc","@types/react":"*"},"dist":{"shasum":"544da73369517036c77659d7cdd019dc0f5ff9a0","tarball":"https://registry.npmjs.org/@radix-ui/react-use-is-hydrated/-/react-use-is-hydrated-0.1.0.tgz","fileCount":11,"integrity":"sha512-U+UORVEq+cTnRIaostJv9AGdV3G6Y+zbVd+12e18jQ5A3c0xL03IhnHuiU4UV69wolOQp5GfR58NW/EgdQhwOA==","signatures":[{"sig":"MEQCIFNiiGdnAI4GsXhtfvEvSNiVI3u7xhabCgwXYhlH4c7LAiA8EARYdI2Cd1kefRYlyCcbEa3lUi1sa2p/O304auEy+w==","keyid":"SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"}],"unpackedSize":6219},"peerDependenciesMeta":{"@types/react":{"optional":true}}}},"modified":"2025-12-24T01:25:14.295Z","cachedAt":1771797953307}
+{
+  "name": "@radix-ui/react-use-is-hydrated",
+  "dist-tags": { "next": "0.1.0-rc.1745339201309", "latest": "0.1.0" },
+  "versions": {
+    "0.0.0": {
+      "name": "@radix-ui/react-use-is-hydrated",
+      "version": "0.0.0",
+      "dependencies": { "use-sync-external-store": "^1.4.0" },
+      "devDependencies": {
+        "react": "^19.0.0",
+        "eslint": "^9.18.0",
+        "react-dom": "^19.0.0",
+        "typescript": "^5.7.3",
+        "@types/react": "^19.0.7",
+        "@repo/builder": "0.0.0",
+        "@types/react-dom": "^19.0.3",
+        "@repo/eslint-config": "0.0.0",
+        "@repo/typescript-config": "0.0.0",
+        "@types/use-sync-external-store": "^0.0.6"
+      },
+      "peerDependencies": {
+        "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc",
+        "@types/react": "*"
+      },
+      "dist": {
+        "shasum": "3cd2debb1f6547e5ce3d98f2105298b91fd0d73c",
+        "tarball": "https://registry.npmjs.org/@radix-ui/react-use-is-hydrated/-/react-use-is-hydrated-0.0.0.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-23RkSm7jSZ8+rtfdSJTi/2D+p9soPbtnoG/tPf08egYCDr6p8X83hrcmW77p7MJ8kJYWNXwruuPTPp1TwIIH4g==",
+        "signatures": [
+          {
+            "sig": "MEQCICvLbC9UvtjOK/9305oryGc3lb3kmZ4r8M/AH1o53O0PAiACVCsmH5GcjJBEYnMGpesmDw9XN+UYjCJ922cLFm8HGA==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 6219
+      },
+      "peerDependenciesMeta": { "@types/react": { "optional": true } }
+    },
+    "0.1.0-rc.1745339201309": {
+      "name": "@radix-ui/react-use-is-hydrated",
+      "version": "0.1.0-rc.1745339201309",
+      "dependencies": { "use-sync-external-store": "^1.5.0" },
+      "devDependencies": {
+        "react": "^19.1.0",
+        "eslint": "^9.18.0",
+        "react-dom": "^19.1.0",
+        "typescript": "^5.7.3",
+        "@types/react": "^19.0.7",
+        "@repo/builder": "0.0.0",
+        "@types/react-dom": "^19.0.3",
+        "@repo/eslint-config": "0.0.0",
+        "@repo/typescript-config": "0.0.0",
+        "@types/use-sync-external-store": "^0.0.6"
+      },
+      "peerDependencies": {
+        "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc",
+        "@types/react": "*"
+      },
+      "dist": {
+        "shasum": "7d0da6eb0ed33cb86f22ae8d2b968194704a1c39",
+        "tarball": "https://registry.npmjs.org/@radix-ui/react-use-is-hydrated/-/react-use-is-hydrated-0.1.0-rc.1745339201309.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-vTxGt3ubIlLQu2XA18MQPCiOn+vq6HpiEtCY3vki+vjRgSFmxs9jq0yAWIOeCuS8Uy1C5J3e1sKwszv3xnJ1Fw==",
+        "signatures": [
+          {
+            "sig": "MEUCIQD6H9wQsuPYXMaOf441VktY04HF7z9y7N20eoiit79Z+wIgWURq2iseoUztdjgpF/9Fat/eJtLuSEIXvuGBBBqHUyQ=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 6236
+      },
+      "peerDependenciesMeta": { "@types/react": { "optional": true } }
+    },
+    "0.1.0": {
+      "name": "@radix-ui/react-use-is-hydrated",
+      "version": "0.1.0",
+      "dependencies": { "use-sync-external-store": "^1.5.0" },
+      "devDependencies": {
+        "react": "^19.1.0",
+        "eslint": "^9.18.0",
+        "react-dom": "^19.1.0",
+        "typescript": "^5.7.3",
+        "@types/react": "^19.0.7",
+        "@repo/builder": "0.0.0",
+        "@types/react-dom": "^19.0.3",
+        "@repo/eslint-config": "0.0.0",
+        "@repo/typescript-config": "0.0.0",
+        "@types/use-sync-external-store": "^0.0.6"
+      },
+      "peerDependencies": {
+        "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc",
+        "@types/react": "*"
+      },
+      "dist": {
+        "shasum": "544da73369517036c77659d7cdd019dc0f5ff9a0",
+        "tarball": "https://registry.npmjs.org/@radix-ui/react-use-is-hydrated/-/react-use-is-hydrated-0.1.0.tgz",
+        "fileCount": 11,
+        "integrity": "sha512-U+UORVEq+cTnRIaostJv9AGdV3G6Y+zbVd+12e18jQ5A3c0xL03IhnHuiU4UV69wolOQp5GfR58NW/EgdQhwOA==",
+        "signatures": [
+          {
+            "sig": "MEQCIFNiiGdnAI4GsXhtfvEvSNiVI3u7xhabCgwXYhlH4c7LAiA8EARYdI2Cd1kefRYlyCcbEa3lUi1sa2p/O304auEy+w==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 6219
+      },
+      "peerDependenciesMeta": { "@types/react": { "optional": true } }
+    }
+  },
+  "modified": "2025-12-24T01:25:14.295Z",
+  "cachedAt": 1771797953307
+}

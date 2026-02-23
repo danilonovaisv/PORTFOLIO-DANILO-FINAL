@@ -57,6 +57,15 @@ const projectBaseFieldsSchema = z.object({
     .union([z.string().uuid('Landing page inválida.'), z.literal(''), z.null()])
     .optional(),
   tags: z.array(z.string().uuid('Tag inválida.')).optional(),
+  destination: z
+    .object({
+      type: z.enum(['modal', 'internal_landing', 'external_url', 'page']),
+      url: z.string().optional(),
+      landingSlug: z.string().optional(),
+      openInNewTab: z.boolean().optional(),
+    })
+    .optional(),
+  case_body: z.string().optional(),
 });
 
 const enforceFeaturedPublishedRule = (
@@ -98,6 +107,8 @@ export const projectMutationSchema = z
     hero_image_path: z.string().trim().nullable().optional(),
     url_landscape: z.string().trim().nullable().optional(),
     url_square: z.string().trim().nullable().optional(),
+    destination: z.any().nullable().optional(),
+    case_body: z.string().nullable().optional(),
     gallery: z
       .array(
         z.object({

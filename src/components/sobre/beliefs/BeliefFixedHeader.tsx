@@ -51,11 +51,7 @@ export const BeliefFixedHeader: React.FC<BeliefFixedHeaderProps> = ({
   // Fade IN: 0 -> 0.1
   // Visible: 0.1 -> 0.75
   // Fade OUT: 0.75 -> 0.9 (Changes to avoid overlap with Final Section)
-  const opacity = useTransform(
-    progress,
-    [0, 0.04, 0.75, 0.9],
-    [0, 1, 1, 0]
-  );
+  const opacity = useTransform(progress, [0, 0.04, 0.75, 0.9], [0, 1, 1, 0]);
 
   return (
     <Header

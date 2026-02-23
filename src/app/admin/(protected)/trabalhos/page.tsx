@@ -4,6 +4,7 @@ export const fetchCache = 'force-no-store';
 
 import Link from 'next/link';
 import { requireAdminAccess } from '@/lib/admin/server-access';
+import type { Database } from '@/lib/database.types';
 import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
 import ProjectsTable from '@/components/admin/ProjectsTable';
 

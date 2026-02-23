@@ -24,86 +24,77 @@ const tagMutationSchema = z.object({
 
 export type TagMutationInput = z.infer<typeof tagMutationSchema>;
 
+import { validatePayload, errorResponse } from '@/lib/admin/validation';
+
 export async function upsertTagAction(input: TagMutationInput) {
-  const parsed = tagMutationSchema.parse(input);
-  const { supabase, user } = await requireAdminAccess();
+  const validation = validatePayload(tagMutationSchema, input);
+  if (!validation.success) return validation.response;
 
-  const { data, error } = await supabase
-    .from('portfolio_tags')
-    .upsert(parsed, { onConflict: 'id' })
-    .select('id')
-    .single();
+  try {
+    const { supabase, user } = await requireAdminAccess();
 
-  if (error) throw error;
+    const { data, error } = await supabase
+      .from('portfolio_tags')
+      .upsert(validation.data, { onConflict: 'id' })
+      .select('id')
+      .single();
 
-  await logAdminAudit(supabase, user, {
-    action: parsed.id ? 'tag.update' : 'tag.create',
-    resource: 'portfolio_tags',
-    resourceId: data?.id ?? parsed.id ?? null,
-    status: 'success',
-  });
+    if (error) throw error;
 
-  revalidatePath('/admin/tags');
-  revalidatePath('/admin/trabalhos');
+    await logAdminAudit(supabase, user, {
+      action: validation.data.id ? 'tag.update' : 'tag.create',
+      resource: 'portfolio_tags',
+      resourceId: data?.id ?? validation.data.id ?? null,
+      status: 'success',
+    });
 
-  return { ok: true as const };
+    revalidatePath('/admin/tags');
+    revalidatePath('/admin/trabalhos');
+
+    return { ok: true as const, data };
+  } catch (error: unknown) {
+    return errorResponse('Erro ao salvar tag.', error);
+  }
 }
 
 export async function deleteTagAction(tagId: string) {
-  const id = z.string().uuid().parse(tagId);
-  const { supabase, user } = await requireAdminAccess();
+  try {
+    const id = z.string().uuid().parse(tagId);
+    const { supabase, user } = await requireAdminAccess();
 
-  // Passo 1: Verificar projetos vinculados
-  const { count, error: countError } = await supabase
-    .from('portfolio_project_tags')
-    .select('tag_id', { count: 'exact' })
-    .eq('tag_id', id);
+    // Passo 1: Verificar projetos vinculados
+    const { count, error: countError } = await supabase
+      .from('portfolio_project_tags')
+      .select('tag_id', { count: 'exact' })
+      .eq('tag_id', id);
 
-  if (countError) {
-    await logAdminAudit(supabase, user, {
-      action: 'tag.delete_check_links',
-      resource: 'portfolio_tags',
-      resourceId: id,
-      status: 'error',
-      errorMessage: countError.message,
-    });
-    throw countError; // Ou um erro mais amigável
-  }
+    if (countError) throw countError;
 
-  if (count && count > 0) {
-    const errorMessage = 'Não é possível deletar a tag: ela está vinculada a projetos.';
-    await logAdminAudit(supabase, user, {
-      action: 'tag.delete_prevented',
-      resource: 'portfolio_tags',
-      resourceId: id,
-      status: 'error',
-      errorMessage,
-    });
-    throw new Error(errorMessage);
-  }
+    if (count && count > 0) {
+      throw new Error(
+        'Não é possível deletar a tag: ela está vinculada a projetos.'
+      );
+    }
 
-  // Passo 2: Prosseguir com a exclusão se não houver projetos vinculados
-  const { error } = await supabase.from('portfolio_tags').delete().eq('id', id);
-  if (error) {
+    // Passo 2: Prosseguir com a exclusão se não houver projetos vinculados
+    const { error } = await supabase
+      .from('portfolio_tags')
+      .delete()
+      .eq('id', id);
+    if (error) throw error;
+
     await logAdminAudit(supabase, user, {
       action: 'tag.delete',
       resource: 'portfolio_tags',
       resourceId: id,
-      status: 'error',
-      errorMessage: error.message,
+      status: 'success',
     });
-    throw error;
+
+    revalidatePath('/admin/tags');
+    revalidatePath('/admin/trabalhos');
+
+    return { ok: true as const };
+  } catch (error: unknown) {
+    return errorResponse('Erro ao deletar tag.', error);
   }
-
-  await logAdminAudit(supabase, user, {
-    action: 'tag.delete',
-    resource: 'portfolio_tags',
-    resourceId: id,
-    status: 'success',
-  });
-
-  revalidatePath('/admin/tags');
-  revalidatePath('/admin/trabalhos');
-
-  return { ok: true as const };
 }

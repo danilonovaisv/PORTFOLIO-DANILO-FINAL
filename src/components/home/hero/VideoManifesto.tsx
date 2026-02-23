@@ -155,7 +155,6 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
                 src="/captions/ambient.vtt"
                 srcLang="pt-BR"
                 label="Português"
-                default
               />
             </motion.video>
 

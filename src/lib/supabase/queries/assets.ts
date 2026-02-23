@@ -28,9 +28,12 @@ export async function upsertAsset(payload: Partial<DbAsset>) {
       {
         ...payload,
         file_path: payload.file_path
-          ? normalizeStoragePath(payload.file_path, payload.bucket)
-          : payload.file_path,
-      },
+          ? normalizeStoragePath(
+              payload.file_path,
+              payload.bucket ?? 'site-assets'
+            )
+          : (payload.file_path as string),
+      } as any,
       { onConflict: 'id' }
     )
     .select()

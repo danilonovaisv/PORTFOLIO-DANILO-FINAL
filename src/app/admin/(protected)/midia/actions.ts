@@ -56,7 +56,7 @@ export async function upsertAsset(payload: AssetPayload) {
       bucket: payload.bucket ?? 'site-assets',
       is_active: true,
       file_path: filePath,
-    },
+    } as any,
     { onConflict: 'key' }
   );
   if (error) {
@@ -273,11 +273,17 @@ export async function healLandingPagesBucketAction() {
     .eq('bucket', 'landing-pages');
 
   if (fetchError) {
-    throw new Error(`Falha ao buscar assets corrompidos: ${fetchError.message}`);
+    throw new Error(
+      `Falha ao buscar assets corrompidos: ${fetchError.message}`
+    );
   }
 
   if (!corruptedAssets || corruptedAssets.length === 0) {
-    return { success: true, fixedCount: 0, message: 'Nenhum bucket landing-pages incorreto encontrado.' };
+    return {
+      success: true,
+      fixedCount: 0,
+      message: 'Nenhum bucket landing-pages incorreto encontrado.',
+    };
   }
 
   let fixedCount = 0;
@@ -294,7 +300,7 @@ export async function healLandingPagesBucketAction() {
       .from('site_assets')
       .update({
         bucket: 'site-assets',
-        file_path: newPath
+        file_path: newPath,
       })
       .eq('id', asset.id);
 
@@ -312,5 +318,9 @@ export async function healLandingPagesBucketAction() {
   });
 
   refreshAssetRoutes();
-  return { success: true, fixedCount, message: `${fixedCount} assets corrigidos com sucesso.` };
+  return {
+    success: true,
+    fixedCount,
+    message: `${fixedCount} assets corrigidos com sucesso.`,
+  };
 }

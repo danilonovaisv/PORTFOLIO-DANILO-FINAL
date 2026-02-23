@@ -19,9 +19,9 @@ export default async function MidiaPage() {
     .order('page', { ascending: true })
     .order('sort_order', { ascending: true, nullsFirst: false });
 
-  const normalizedAssets = normalizeAssetList(assets ?? [], {
+  const normalizedAssets = normalizeAssetList((assets ?? []) as any, {
     onlyActive: false,
-  }); // Mostrar todos para permitir edição
+  });
   const validAssets = normalizedAssets.filter((asset) => {
     // Filtrar assets com chaves inválidas
     return !(

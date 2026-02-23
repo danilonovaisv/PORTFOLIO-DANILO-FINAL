@@ -11,7 +11,7 @@ describe('global site links', () => {
     expect(hrefs).toContain('/');
     expect(hrefs).toContain('/sobre');
     expect(hrefs).toContain('/portfolio');
-    expect(hrefs).toContain('#contact');
+    expect(hrefs).toContain('/#contact');
   });
 
   it('exposes the expected footer links matching the config', () => {

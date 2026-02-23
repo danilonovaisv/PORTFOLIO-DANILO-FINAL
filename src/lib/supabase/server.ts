@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { getSupabasePublicKey, getSupabasePublicUrl } from '@/lib/supabase/env';
+import type { Database } from '@/lib/supabase.types';
 
 export async function createClient() {
   let cookieStore: Awaited<ReturnType<typeof cookies>> | undefined;
@@ -23,7 +24,7 @@ export async function createClient() {
     );
   }
 
-  return createServerClient(supabaseUrl, supabaseKey, {
+  return createServerClient<Database>(supabaseUrl, supabaseKey, {
     cookieOptions: {
       // Firebase Hosting (Functions/Frameworks) só encaminha "__session"
       name: '__session',

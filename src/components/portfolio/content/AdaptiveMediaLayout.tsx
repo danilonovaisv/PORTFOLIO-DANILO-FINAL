@@ -91,7 +91,6 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                     src={DEFAULT_CAPTIONS}
                                     srcLang="pt-BR"
                                     label="Português"
-                                    default
                                 />
                             </video>
                         ) : (

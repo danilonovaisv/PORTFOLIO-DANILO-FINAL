@@ -329,7 +329,7 @@ export function mapDbProjectToPortfolioProject(
   const landingSlugSource = project.landing_page_slug ?? relationLandingSlug;
   const normalizedLandingSlug = landingSlugSource?.replace(/_/g, '-');
   const type = determineProjectType(project);
-  const layout = buildLayout(type, index, project.preferred_size ?? undefined);
+  const layout = buildLayout(type, index);
   const category = getProjectCategory(project.project_type);
   const tags = toTagsList(project.tags);
   const gallery = createGallery(project);

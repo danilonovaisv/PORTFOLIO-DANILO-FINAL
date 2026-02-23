@@ -82,6 +82,8 @@ export function ProjectForm({
       is_published: project?.is_published ?? true,
       landing_page_id: project?.landing_page_id ?? '',
       tags: selectedTagIds,
+      destination: (project?.destination as any) ?? { type: 'modal' },
+      case_body: project?.case_body ?? '',
     },
   });
 
@@ -226,6 +228,8 @@ export function ProjectForm({
           url_landscape,
           url_square,
           gallery: galleryEntries,
+          destination: values.destination,
+          case_body: values.case_body,
         });
 
         if (!result.ok) {
@@ -403,6 +407,65 @@ export function ProjectForm({
             {...form.register('description')}
           />
         </label>
+
+        <div className="p-6 bg-indigo-500/5 border border-white/5 rounded-xl space-y-4 md:col-span-2">
+          <h3 className="text-sm font-bold uppercase tracking-widest text-indigo-400/80">
+            Estrutura do Case & Navegação
+          </h3>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <label className="flex flex-col gap-2">
+              <FieldTooltip
+                label="Tipo de Destino"
+                description="Define como o projeto será aberto ao ser clicado: modal padrão, landing page dinâmica ou link externo."
+                className="flex items-center gap-1 font-medium text-slate-200"
+              />
+              <select
+                className="rounded-md bg-slate-950 border border-white/10 px-3 py-2 text-sm text-white"
+                {...form.register('destination.type')}
+              >
+                <option value="modal">Modal (Padrão)</option>
+                <option value="internal_landing">Landing Page Interna</option>
+                <option value="external_url">URL Externa</option>
+                <option value="page">Página Direta</option>
+              </select>
+            </label>
+
+            {(form.watch('destination.type') === 'external_url' ||
+              form.watch('destination.type') === 'page') && (
+              <label className="flex flex-col gap-2">
+                <FieldTooltip
+                  label="URL de Destino"
+                  description="Link completo para o destino externo ou rota interna."
+                  className="flex items-center gap-1 font-medium text-slate-200"
+                />
+                <input
+                  className="rounded-md bg-slate-950 border border-white/10 px-3 py-2 text-sm"
+                  {...form.register('destination.url')}
+                  placeholder="https://... ou /rota"
+                />
+              </label>
+            )}
+          </div>
+
+          <label className="flex flex-col gap-2">
+            <FieldTooltip
+              label="Corpo do Case (Markdown)"
+              description="Texto longo e detalhado descrevendo o processo, desafios e resultados do projeto."
+              className="flex items-center gap-1 font-medium text-slate-200"
+            />
+            <textarea
+              rows={8}
+              className="rounded-md bg-slate-950 border border-white/10 px-3 py-2 text-sm font-mono"
+              {...form.register('case_body')}
+              placeholder="Escreva a narrativa do projeto usando Markdown..."
+            />
+            <p className="text-[10px] text-slate-500">
+              Dica: Use o Agent de Copy para gerar este conteúdo a partir das
+              informações do projeto.
+            </p>
+          </label>
+        </div>
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">

@@ -1,4 +1,5 @@
 import type { SupabaseClient, User } from '@supabase/supabase-js';
+import type { Database } from '@/lib/supabase.types';
 
 export type AdminAuditStatus = 'success' | 'denied' | 'error';
 
@@ -12,18 +13,12 @@ export type AdminAuditPayload = {
   errorMessage?: string | null;
 };
 
-type AdminAuditInsert = {
+type AuditLogInsert = {
   actor_user_id: string | null;
-  actor_email: string | null;
   action: string;
-  resource: string;
-  resource_id: string | null;
-  status: AdminAuditStatus;
-  ip_address: string | null;
-  user_agent: string | null;
-  metadata: Record<string, unknown>;
-  error_code: string | null;
-  error_message: string | null;
+  entity: string;
+  entity_id: string | null;
+  details: any;
 };
 
 function clampText(value: string | null | undefined, max = 500): string | null {
@@ -35,29 +30,28 @@ function clampText(value: string | null | undefined, max = 500): string | null {
 export function buildAdminAuditRecord(
   user: User | null,
   payload: AdminAuditPayload
-): AdminAuditInsert {
+): AuditLogInsert {
   return {
     actor_user_id: user?.id ?? null,
-    actor_email: user?.email ?? null,
     action: payload.action,
-    resource: payload.resource,
-    resource_id: payload.resourceId ?? null,
-    status: payload.status,
-    ip_address: null,
-    user_agent: null,
-    metadata: payload.metadata ?? {},
-    error_code: clampText(payload.errorCode, 120),
-    error_message: clampText(payload.errorMessage, 500),
+    entity: payload.resource,
+    entity_id: payload.resourceId ?? null,
+    details: {
+      status: payload.status,
+      error_code: clampText(payload.errorCode, 120),
+      error_message: clampText(payload.errorMessage, 500),
+      ...(payload.metadata ?? {}),
+    },
   };
 }
 
 export async function logAdminAudit(
-  supabase: SupabaseClient,
+  supabase: SupabaseClient<Database>,
   user: User | null,
   payload: AdminAuditPayload
 ) {
   const record = buildAdminAuditRecord(user, payload);
-  const { error } = await supabase.from('admin_audit_log').insert(record);
+  const { error } = await supabase.from('audit_log').insert(record);
   if (error) {
     // Never break admin flows due to audit insert failures.
     console.error('[Admin Audit] failed to persist audit record', {

@@ -1,45 +1,90 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fullstack Audit Report</title>
-  <style>
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 2rem; color: #101828; }
-    h1, h2 { margin-bottom: 0.4rem; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin: 1rem 0 1.5rem; }
-    .card { border: 1px solid #d0d5dd; border-radius: 8px; padding: 1rem; background: #fff; }
-    .score { font-size: 1.8rem; font-weight: 700; }
-    .ok { color: #027a48; }
-    .warn { color: #b54708; }
-    code { background: #f2f4f7; padding: 0.1rem 0.3rem; border-radius: 4px; }
-  </style>
-</head>
-<body>
-  <h1>Audit Fullstack Config</h1>
-  <p>Generated: <code>2026-02-23T06:51:31+00:00</code></p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fullstack Audit Report</title>
+    <style>
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          sans-serif;
+        margin: 2rem;
+        color: #101828;
+      }
+      h1,
+      h2 {
+        margin-bottom: 0.4rem;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+        margin: 1rem 0 1.5rem;
+      }
+      .card {
+        border: 1px solid #d0d5dd;
+        border-radius: 8px;
+        padding: 1rem;
+        background: #fff;
+      }
+      .score {
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+      .ok {
+        color: #027a48;
+      }
+      .warn {
+        color: #b54708;
+      }
+      code {
+        background: #f2f4f7;
+        padding: 0.1rem 0.3rem;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Audit Fullstack Config</h1>
+    <p>Generated: <code>2026-02-23T06:51:31+00:00</code></p>
 
-  <div class="grid">
-    <div class="card"><div>Global Score</div><div class="score">98</div></div>
-    <div class="card"><div>Security Score</div><div class="score">100</div></div>
-    <div class="card"><div>Performance Score</div><div class="score">96</div></div>
-    <div class="card"><div>Status</div><div class="score ok">OK</div></div>
-  </div>
+    <div class="grid">
+      <div class="card">
+        <div>Global Score</div>
+        <div class="score">98</div>
+      </div>
+      <div class="card">
+        <div>Security Score</div>
+        <div class="score">100</div>
+      </div>
+      <div class="card">
+        <div>Performance Score</div>
+        <div class="score">96</div>
+      </div>
+      <div class="card">
+        <div>Status</div>
+        <div class="score ok">OK</div>
+      </div>
+    </div>
 
-  <h2>Audit Summary</h2>
-  <ul>
-    <li>Supabase findings: <strong>1</strong></li>
-    <li>Firebase findings: <strong>0</strong></li>
-    <li>Auto-fix mode: <strong>False</strong></li>
-  </ul>
+    <h2>Audit Summary</h2>
+    <ul>
+      <li>Supabase findings: <strong>1</strong></li>
+      <li>Firebase findings: <strong>0</strong></li>
+      <li>Auto-fix mode: <strong>False</strong></li>
+    </ul>
 
-  <h2>Artifacts</h2>
-  <ul>
-    <li><code>reports/storage-audit.json</code></li>
-    <li><code>reports/hosting-audit.json</code></li>
-    <li><code>reports/master-audit.json</code></li>
-    <li><code>reports/security-score.json</code></li>
-    <li><code>reports/performance-score.json</code></li>
-  </ul>
-</body>
+    <h2>Artifacts</h2>
+    <ul>
+      <li><code>reports/storage-audit.json</code></li>
+      <li><code>reports/hosting-audit.json</code></li>
+      <li><code>reports/master-audit.json</code></li>
+      <li><code>reports/security-score.json</code></li>
+      <li><code>reports/performance-score.json</code></li>
+    </ul>
+  </body>
 </html>
