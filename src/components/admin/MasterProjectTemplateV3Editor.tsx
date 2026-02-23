@@ -2,16 +2,13 @@
 import {
   ArrowDown,
   ArrowUp,
-  Check,
   Columns2,
-  GripVertical,
   Image as ImageIcon,
   Plus,
   Quote,
   Trash2,
   Type,
   Video,
-  Youtube,
 } from 'lucide-react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';

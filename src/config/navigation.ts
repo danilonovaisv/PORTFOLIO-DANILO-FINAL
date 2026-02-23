@@ -13,7 +13,7 @@ export const NAVIGATION = {
     { label: 'home', href: '/' }, // ou #hero se estiver na home
     { label: 'sobre', href: '/sobre' },
     { label: 'portfólio', href: '/portfolio' },
-    { label: 'contato', href: '#contact' }, // Always anchor
+    { label: 'contato', href: '/#contact' }, // Always anchor
   ],
   footer: {
     copyright: '© 2025 Danilo Novais Vilela — todos os direitos reservados',

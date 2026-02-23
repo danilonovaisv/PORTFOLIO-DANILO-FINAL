@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useInView } from 'framer-motion';
-import { Volume2, VolumeX } from 'lucide-react';
+import { VolumeX } from 'lucide-react';
 
 interface YouTubePlayerProps {
     videoId: string;
@@ -164,6 +164,7 @@ export function YouTubePlayer({
 
 // Add TypeScript support for global YT object
 declare global {
+    // eslint-disable-next-line no-unused-vars
     interface Window {
         YT: any;
         onYouTubeIframeAPIReady: () => void;
