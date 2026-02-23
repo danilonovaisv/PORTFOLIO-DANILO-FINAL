@@ -6,8 +6,10 @@
 
 .track {
   width: 100%;
-  display: grid; /* Changed from flex to grid */
-  grid-template-columns: repeat(12, minmax(0, 1fr)); /* 12-column grid standard */
+  display: grid;
+  /* Changed from flex to grid */
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  /* 12-column grid standard */
   gap: 12px;
   padding: 0;
   will-change: transform;
@@ -38,13 +40,17 @@
   inset: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center vertically */
-  align-items: center; /* Center horizontally */
-  text-align: center; /* Center text */
+  justify-content: center;
+  /* Center vertically */
+  align-items: center;
+  /* Center horizontally */
+  text-align: center;
+  /* Center text */
   padding: 24px;
   opacity: 0;
   transition: opacity 0.25s ease, background 0.25s ease;
-  background: rgba(0, 72, 255, 0.85); /* #0048ff Brand Color */
+  background: rgba(0, 72, 255, 0.85);
+  /* #0048ff Brand Color */
 }
 
 .card:focus-visible .cardOverlay {
@@ -76,6 +82,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .card,
   .cardOverlay {
     transition: none;
@@ -162,50 +169,48 @@
   .track {
     position: relative;
     inset: auto;
-    display: block;
-    column-count: 2;
-    column-gap: 4px; /* Minimal gaps */
-    padding: 16px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    padding: 0;
+    gap: 0;
     will-change: auto;
   }
 
   .card {
+    position: relative;
     width: 100%;
-    margin-bottom: 4px; /* Minimal gaps */
-    break-inside: avoid;
-    display: inline-block; /* Crucial for masonry */
-    background: #040013;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    line-height: 0;
+    overflow: hidden;
+    break-inside: auto;
+    display: block;
   }
 
+  /* Reset aspect ratio on mobile so height is dictated by the image */
   .card[data-size='sm'],
-  .placeholder[data-size='sm'] {
-    aspect-ratio: 4 / 5;
-  }
-
+  .placeholder[data-size='sm'],
   .card[data-size='md'],
-  .placeholder[data-size='md'] {
-    aspect-ratio: 1 / 1;
-  }
-
+  .placeholder[data-size='md'],
   .card[data-size='lg'],
-  .placeholder[data-size='lg'] {
-    aspect-ratio: 4 / 3;
-  }
-
+  .placeholder[data-size='lg'],
   .card[data-size='wide'],
-  .placeholder[data-size='wide'] {
-    aspect-ratio: 16 / 9;
-  }
-
+  .placeholder[data-size='wide'],
   .card[data-size='tall'],
   .placeholder[data-size='tall'] {
-    aspect-ratio: 3 / 5;
+    aspect-ratio: auto;
   }
 
   /* Mobile: Overlay hidden by default, visible on active/tap */
   .cardOverlay {
     opacity: 0;
-    justify-content: center; /* Center content mobile */
+    justify-content: center;
+    /* Center content mobile */
     align-items: center;
     text-align: center;
     transition: opacity 0.2s ease;
@@ -216,10 +221,37 @@
   .card:focus .cardOverlay,
   .card[data-active='true'] .cardOverlay {
     opacity: 1;
-    background: rgba(0, 72, 255, 0.85); /* #0048ff */
+    background: rgba(0, 72, 255, 0.85);
+    /* #0048ff */
   }
 
   .placeholder {
     display: none;
+  }
+
+  /* 
+   * Image Overrides for Mobile 
+   * Since we use next/image with `fill` for desktop, we must override it
+   * here to behave responsively according to the image intrinsic aspect ratio.
+   */
+  .card .cardImageWrapper {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    padding-bottom: 0 !important;
+    display: block !important;
+    line-height: 0 !important;
+  }
+
+  .card .cardImageWrapper img,
+  .card .cardImageWrapper video {
+    position: static !important;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    display: block !important;
+    object-fit: cover !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 }

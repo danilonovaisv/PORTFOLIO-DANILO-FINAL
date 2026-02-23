@@ -68,7 +68,7 @@ jobs:
         # TEMP: Bypass type errors on deploy loops. Must fix in codebase later.
         continue-on-error: true
 
-      - name: Validate functions codebase
+      - name: Validate and Install functions
         run: |
           if grep -q '"link:' functions/package.json; then
             echo "⚠️  Detectado protocolo 'link:' em functions/package.json"
@@ -77,6 +77,9 @@ jobs:
           fi
           # Validar instalação das funções
           cd functions && pnpm install
+
+      - name: Build Cloud Functions
+        run: cd functions && pnpm run build
 
       - name: Build Next.js application
         run: pnpm run build
