@@ -13,10 +13,17 @@ export function errorResponse(
 ): ActionResponse {
   console.error(`[Admin Action Error] ${message}`, error);
 
+  let details = '';
+  if (error instanceof Error) {
+    details = error.message;
+  } else if (error && typeof error === 'object' && 'message' in error) {
+    details = String((error as any).message);
+  }
+
   // No futuro, podemos mapear erros específicos (ex: Supabase, OpenAI) aqui
   return {
     ok: false,
-    error: message,
+    error: details ? `${message} Detalhes: ${details}` : message,
   };
 }
 
@@ -41,9 +48,9 @@ export function validatePayload<T>(
 ):
   | { success: true; data: T }
   | {
-      success: false;
-      response: { ok: false; error: string; issues?: string[] };
-    } {
+    success: false;
+    response: { ok: false; error: string; issues?: string[] };
+  } {
   const result = schema.safeParse(payload);
   if (!result.success) {
     return {

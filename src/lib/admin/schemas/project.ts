@@ -46,6 +46,7 @@ const projectBaseFieldsSchema = z.object({
     .trim()
     .min(2, 'Cliente precisa ter ao menos 2 caracteres.')
     .max(120, 'Cliente deve ter no máximo 120 caracteres.'),
+  client_slug: slugSchema.optional(),
   brand_name: z.string().trim().max(120).optional(),
   year: optionalYearField,
   project_type: z.string().trim().min(2).max(80),
@@ -112,7 +113,9 @@ export const projectMutationSchema = z
     gallery: z
       .array(
         z.object({
-          path: z.string().trim().min(1, 'Path da galeria é obrigatório.'),
+          path: z.string().trim().optional(),
+          type: z.enum(['image', 'youtube', 'video']).default('image').optional(),
+          youtube_video_id: z.string().trim().optional(),
           caption: z.string().trim().max(240).optional(),
         })
       )

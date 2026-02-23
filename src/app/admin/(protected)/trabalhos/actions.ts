@@ -13,12 +13,22 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
   const validation = validatePayload(projectMutationSchema, input);
   if (!validation.success) return validation.response;
 
-  const { tags, ...projectData } = validation.data;
+  const { tags, client_slug: providedClientSlug, ...projectData } = validation.data;
+
+  const client_slug = providedClientSlug || projectData.client_name
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 120);
 
   try {
     // Chama a função importada que já contém requireAdminAccess() e logAdminAudit()
     const updatedProject = await upsertProject({
       ...projectData,
+      client_slug,
       tagIds: tags,
     });
 

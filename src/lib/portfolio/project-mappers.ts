@@ -221,10 +221,13 @@ function toTagsList(tags?: DbProjectWithTags['tags'] | string[]): string[] {
 function createGallery(project: DbProjectWithTags): string[] {
   const entries = project.gallery ?? [];
   const media = entries
-    .filter((entry): entry is { path: string; caption?: string } => !!entry)
-    .map((entry) => entry.path)
-    .filter((path): path is string => !!path)
-    .map((path) => resolveProjectMedia(path))
+    .filter((entry): entry is { path?: string; caption?: string; type?: 'image' | 'youtube' | 'video'; youtube_video_id?: string } => !!entry)
+    .map((entry) => {
+      if (entry.type === 'youtube' && entry.youtube_video_id) {
+        return `https://www.youtube.com/watch?v=${entry.youtube_video_id}`;
+      }
+      return resolveProjectMedia(entry.path);
+    })
     .filter((url): url is string => !!url);
 
   return uniqueStrings(media);

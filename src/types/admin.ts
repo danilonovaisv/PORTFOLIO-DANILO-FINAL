@@ -1,6 +1,7 @@
 export type DbProject = {
   id: string;
   slug: string;
+  client_slug: string;
   title: string;
   client_name: string;
   brand_name: string | null;
@@ -12,7 +13,7 @@ export type DbProject = {
   hero_image_path: string | null;
   url_landscape: string | null;
   url_square: string | null;
-  gallery: Array<{ path: string; caption?: string }> | null;
+  gallery: Array<{ path?: string; caption?: string; type?: 'image' | 'youtube' | 'video'; youtube_video_id?: string }> | null;
   featured_on_home: boolean;
   featured_on_portfolio: boolean;
   featured_home_order: number | null;

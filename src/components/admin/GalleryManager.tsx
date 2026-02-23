@@ -9,6 +9,8 @@ export type GalleryItem = {
   path?: string;
   file?: File;
   caption?: string;
+  type?: 'image' | 'video' | 'youtube';
+  youtube_video_id?: string;
 };
 
 interface GalleryManagerProps {
@@ -18,6 +20,24 @@ interface GalleryManagerProps {
 
 export function GalleryManager({ items, onChange }: GalleryManagerProps) {
   const [previewUrls, setPreviewUrls] = useState<Record<string, string>>({});
+  const [youtubeInput, setYoutubeInput] = useState('');
+
+  const extractYoutubeId = (url: string) => {
+    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^&?]+)/);
+    return match ? match[1] : null;
+  };
+
+  const handleAddYoutube = () => {
+    if (!youtubeInput) return;
+    const videoId = extractYoutubeId(youtubeInput);
+    if (!videoId) {
+      alert('URL do YouTube inválida.');
+      return;
+    }
+    const id = `new-yt-${Math.random().toString(36).substr(2, 9)}`;
+    onChange([...items, { id, type: 'youtube', youtube_video_id: videoId }]);
+    setYoutubeInput('');
+  };
 
   const handleAddFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
@@ -77,6 +97,22 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
           {items.length} peças na galeria
         </span>
       </div>
+      <div className="flex gap-2 items-center text-sm">
+        <input
+          type="text"
+          placeholder="URL do YouTube (opcional)"
+          value={youtubeInput}
+          onChange={(e) => setYoutubeInput(e.target.value)}
+          className="flex-1 bg-slate-900 border border-white/10 rounded px-3 py-2 text-slate-200"
+        />
+        <button
+          type="button"
+          onClick={handleAddYoutube}
+          className="px-4 py-2 bg-red-500/10 text-red-400 border border-red-500/20 rounded hover:bg-red-500/20 transition whitespace-nowrap"
+        >
+          Add YouTube
+        </button>
+      </div>
 
       <div className="space-y-2">
         {items.map((item, index) => {
@@ -109,8 +145,12 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
                 </button>
               </div>
 
-              <div className="w-20 h-20 relative bg-black/40 rounded overflow-hidden flex-shrink-0">
-                {isVid ? (
+              <div className="w-20 h-20 relative bg-black/40 rounded overflow-hidden flex-shrink-0 flex items-center justify-center">
+                {item.type === 'youtube' || item.youtube_video_id ? (
+                  <div className="text-xs text-red-500 font-bold px-2 text-center break-all">
+                    YT: <br />{item.youtube_video_id}
+                  </div>
+                ) : isVid ? (
                   <video
                     src={mediaSrc}
                     className="w-full h-full object-cover"
@@ -132,7 +172,7 @@ export function GalleryManager({ items, onChange }: GalleryManagerProps) {
 
               <div className="flex-1 flex flex-col gap-1 overflow-hidden">
                 <span className="text-xs text-slate-400 truncate">
-                  {item.file ? item.file.name : item.path}
+                  {item.type === 'youtube' ? 'YouTube Embed' : item.file ? item.file.name : item.path}
                 </span>
                 <input
                   type="text"

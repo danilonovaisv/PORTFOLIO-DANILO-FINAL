@@ -50,10 +50,12 @@ export function ProjectForm({
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>(() =>
     Array.isArray(project?.gallery)
       ? project.gallery.map((g, i) => ({
-          id: `existing-${i}`,
-          path: g.path,
-          caption: g.caption,
-        }))
+        id: `existing-${i}`,
+        path: g.path,
+        caption: g.caption,
+        type: g.type as 'image' | 'video' | 'youtube' | undefined,
+        youtube_video_id: g.youtube_video_id,
+      }))
       : []
   );
   const [availableTags, setAvailableTags] = useState<DbTag[]>(() =>
@@ -93,18 +95,18 @@ export function ProjectForm({
       landingPages.map((page) => {
         const template =
           page.content &&
-          typeof page.content === 'object' &&
-          'template' in page.content &&
-          ((page.content as { template?: string }).template ===
-            MASTER_PROJECT_TEMPLATE ||
-            (page.content as { template?: string }).template ===
+            typeof page.content === 'object' &&
+            'template' in page.content &&
+            ((page.content as { template?: string }).template ===
+              MASTER_PROJECT_TEMPLATE ||
+              (page.content as { template?: string }).template ===
               MASTER_PROJECT_TEMPLATE_V2 ||
-            (page.content as { template?: string }).template ===
+              (page.content as { template?: string }).template ===
               MASTER_PROJECT_TEMPLATE_V3)
             ? ((page.content as { template?: string }).template as
-                | typeof MASTER_PROJECT_TEMPLATE
-                | typeof MASTER_PROJECT_TEMPLATE_V2
-                | typeof MASTER_PROJECT_TEMPLATE_V3)
+              | typeof MASTER_PROJECT_TEMPLATE
+              | typeof MASTER_PROJECT_TEMPLATE_V2
+              | typeof MASTER_PROJECT_TEMPLATE_V3)
             : LEGACY_PROJECT_TEMPLATE;
 
         return {
@@ -145,7 +147,9 @@ export function ProjectForm({
         // const supabase = createClientComponentClient(); // Used ONLY for Storage uploads
         let url_landscape = project?.url_landscape ?? null;
         let url_square = project?.url_square ?? null;
-        const galleryEntries: Array<{ path: string; caption?: string }> = [];
+        const galleryEntries: Array<{ path?: string; caption?: string; type?: 'image' | 'youtube' | 'video'; youtube_video_id?: string }> = [];
+
+        const clientSlug = slugify(values.client_name);
 
         if (!landscapeVariant && !hasExistingLandscape) {
           setError('Envie a variante 16:9 antes de salvar o projeto.');
@@ -163,7 +167,7 @@ export function ProjectForm({
         if (landscapeVariant) {
           url_landscape = await uploadToBucket(
             'portfolio-media',
-            `projects/${values.slug}`,
+            `${clientSlug}/projects/${values.slug}`,
             'cover-16x9',
             landscapeVariant
           );
@@ -172,7 +176,7 @@ export function ProjectForm({
         if (squareVariant) {
           url_square = await uploadToBucket(
             'portfolio-media',
-            `projects/${values.slug}`,
+            `${clientSlug}/projects/${values.slug}`,
             'cover-1x1',
             squareVariant
           );
@@ -180,18 +184,28 @@ export function ProjectForm({
 
         if (galleryItems.length > 0) {
           for (const item of galleryItems) {
-            if (item.file) {
+            if (item.type === 'youtube' && item.youtube_video_id) {
+              galleryEntries.push({
+                type: 'youtube',
+                youtube_video_id: item.youtube_video_id,
+                caption: item.caption
+              });
+            } else if (item.file) {
               const path = await uploadToBucket(
                 'portfolio-media',
-                `projects/${values.slug}/gallery`,
+                `${clientSlug}/projects/${values.slug}/gallery`,
                 item.file.name.replace(/\W+/g, '-'),
                 item.file
               );
               if (path) {
-                galleryEntries.push({ path, caption: item.caption });
+                galleryEntries.push({ path, caption: item.caption, type: item.file.type.startsWith('video/') ? 'video' : 'image' });
               }
             } else if (item.path) {
-              galleryEntries.push({ path: item.path, caption: item.caption });
+              galleryEntries.push({
+                path: item.path,
+                caption: item.caption,
+                type: item.type || (item.path.match(/\.(mp4|webm|mov)(\?.*)?$/i) ? 'video' : 'image')
+              });
             }
           }
         }
@@ -433,19 +447,19 @@ export function ProjectForm({
 
             {(form.watch('destination.type') === 'external_url' ||
               form.watch('destination.type') === 'page') && (
-              <label className="flex flex-col gap-2">
-                <FieldTooltip
-                  label="URL de Destino"
-                  description="Link completo para o destino externo ou rota interna."
-                  className="flex items-center gap-1 font-medium text-slate-200"
-                />
-                <input
-                  className="rounded-md bg-slate-950 border border-white/10 px-3 py-2 text-sm"
-                  {...form.register('destination.url')}
-                  placeholder="https://... ou /rota"
-                />
-              </label>
-            )}
+                <label className="flex flex-col gap-2">
+                  <FieldTooltip
+                    label="URL de Destino"
+                    description="Link completo para o destino externo ou rota interna."
+                    className="flex items-center gap-1 font-medium text-slate-200"
+                  />
+                  <input
+                    className="rounded-md bg-slate-950 border border-white/10 px-3 py-2 text-sm"
+                    {...form.register('destination.url')}
+                    placeholder="https://... ou /rota"
+                  />
+                </label>
+              )}
           </div>
 
           <label className="flex flex-col gap-2">
