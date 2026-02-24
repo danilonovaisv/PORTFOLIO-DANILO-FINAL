@@ -16,10 +16,6 @@ import type {
   MasterProjectV2FeatureItem,
   MasterProjectV2GalleryItem,
 } from '@/types/project-template';
-
-const YOUTUBE_PATTERN =
-  /(youtu.be\/|youtube.com\/watch\?v=|youtube.com\/embed\/|youtube.com\/shorts\/)/i;
-
 const getYoutubeId = (url: string) => {
   const match = url.match(
     /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#&?]*).*/
