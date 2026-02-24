@@ -96,9 +96,8 @@ export function AdminShell({ children, userEmail }: Props) {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition motion-reduce:transition-none hover:bg-white/5 ${
-                      active ? 'bg-white/10 text-white' : 'text-slate-300'
-                    }`}
+                    className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition motion-reduce:transition-none hover:bg-white/5 ${active ? 'bg-white/10 text-white' : 'text-slate-300'
+                      }`}
                   >
                     <Icon size={18} />
                     {item.label}
@@ -134,9 +133,10 @@ export function AdminShell({ children, userEmail }: Props) {
             <header className="sticky top-0 z-20 flex items-center justify-between border-b border-white/10 bg-slate-950/90 px-4 py-3 backdrop-blur md:hidden">
               <Link
                 href={ADMIN_NAVIGATION.dashboard}
-                className="text-base font-semibold"
+                className="font-semibold text-white tracking-tight"
+                style={{ fontSize: 'clamp(20px, 6vw, 24px)' }}
               >
-                Admin
+                Portfólio Admin
               </Link>
               <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
                 <SheetTrigger asChild>
@@ -173,11 +173,10 @@ export function AdminShell({ children, userEmail }: Props) {
                             key={`mobile-${item.href}`}
                             href={item.href}
                             onClick={() => setMobileMenuOpen(false)}
-                            className={`flex min-h-12 items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-white/5 ${
-                              active
+                            className={`flex min-h-12 items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-white/5 ${active
                                 ? 'bg-white/10 text-white'
                                 : 'text-slate-300'
-                            }`}
+                              }`}
                           >
                             <Icon size={18} />
                             {item.label}

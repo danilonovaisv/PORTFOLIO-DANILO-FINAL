@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 
 @plugin 'tailwindcss-animate';
+
 @theme {
   /* Cores da marca */
   --color-bluePrimary: #0048ff;
@@ -112,11 +113,22 @@ body {
   padding-right: env(safe-area-inset-right, 0);
   padding-bottom: env(safe-area-inset-bottom, 0);
 
+  /* Padrão Global de Text-Wrap para evitar overflow horizontal em mobile */
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
+
   /* Prevent horizontal overflow on mobile */
   overflow-x: hidden;
 
   /* Optimize text rendering */
   text-rendering: optimizeLegibility;
+}
+
+/* Scaffold sistêmico de responsividade: Previne que filhos de flex quebrem o layout */
+.flex>*,
+.inline-flex>* {
+  min-width: 0;
 }
 
 /* Utilitários de Tipografia baseados nos Tokens */
@@ -278,14 +290,16 @@ html.admin-page body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 3rem; /* 48px */
+  width: 3rem;
+  /* 48px */
   height: 3rem;
   border-radius: 9999px;
   background-color: var(--color-bluePrimary);
   color: var(--color-text);
   box-shadow:
     0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  /* shadow-lg */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -371,20 +385,16 @@ html.admin-page body {
    Ghost Portfolio Hero Glows
    ======================================================================== */
 .portfolio-hero-glow-primary {
-  background: radial-gradient(
-    circle at 75% 55%,
-    oklch(from var(--color-primary) l c h / 0.12),
-    transparent 50%
-  );
+  background: radial-gradient(circle at 75% 55%,
+      oklch(from var(--color-primary) l c h / 0.12),
+      transparent 50%);
   filter: blur(40px);
 }
 
 .portfolio-hero-glow-accent {
-  background: radial-gradient(
-    circle at 25% 45%,
-    oklch(from var(--color-accent) l c h / 0.08),
-    transparent 45%
-  );
+  background: radial-gradient(circle at 25% 45%,
+      oklch(from var(--color-accent) l c h / 0.08),
+      transparent 45%);
   filter: blur(40px);
 }
 
@@ -467,6 +477,7 @@ html.admin-page body {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-(--color-background) text-(--color-text);
   }
@@ -480,9 +491,12 @@ html.admin-page body {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
 .no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 /* Stitch Text Glow */
@@ -491,6 +505,7 @@ html.admin-page body {
 }
 
 /* related resource: globals.css:2737:3 */
-.bg-transparent { /* the element was section.relative.w-full.group.overflow-hidden.bg-transparent */
+.bg-transparent {
+  /* the element was section.relative.w-full.group.overflow-hidden.bg-transparent */
   overflow: auto;
 }

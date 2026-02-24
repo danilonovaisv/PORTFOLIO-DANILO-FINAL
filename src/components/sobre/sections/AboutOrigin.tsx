@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useSiteAssetUrl } from '@/contexts/site-assets';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
 import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
@@ -15,11 +15,6 @@ function AboutOrigin() {
   const containerRef = useRef<HTMLDivElement>(null);
   const archRef = useRef<HTMLDivElement>(null);
   const archRightRef = useRef<HTMLDivElement>(null);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const resolveFallbackHost = (path: FallbackImage) =>
     buildSupabaseStorageUrl('site-assets', path) ?? undefined;
@@ -57,29 +52,11 @@ function AboutOrigin() {
   ];
 
   useOriginAnimations({
-    isClient,
+    isClient: true,
     archRef,
     archRightRef,
     contentCount: contentBlocks.length,
   });
-
-  if (!isClient) {
-    return (
-      <section
-        className="relative w-full transition-colors duration-1000"
-        aria-label="Origem Criativa"
-        aria-busy="true"
-      >
-        <div className="std-grid py-24">
-          <div className="mb-24 text-center select-none">
-            <h2 className="text-h1 font-bold leading-none text-bluePrimary tracking-[0.2em] uppercase">
-              LOADING...
-            </h2>
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section

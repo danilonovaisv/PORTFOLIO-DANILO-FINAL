@@ -1,7 +1,7 @@
 {
   "workflow": "audit-fullstack-config",
-  "timestamp_utc": "2026-02-24T00:55:38+00:00",
-  "auto_fix": true,
+  "timestamp_utc": "2026-02-24T00:52:20+00:00",
+  "auto_fix": false,
   "global_score": 91,
   "security_score": 88,
   "performance_score": 96,
