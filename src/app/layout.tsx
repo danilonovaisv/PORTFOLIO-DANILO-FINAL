@@ -31,7 +31,7 @@ export default function RootLayout({
   // Use default values from BRAND config for initial render
   setVar('--logo-light-url', BRAND.assets.logos.logoLight);
   setVar('--logo-dark-url', BRAND.assets.logos.logoDark);
-  setVar('--favicon-light-url', BRAND.assets.logos.favicon);
+  setVar('--favicon-light-url', BRAND.assets.logos.faviconLight);
   setVar('--favicon-dark-url', BRAND.assets.logos.favicon);
 
   // Ensure background and text colors are properly set as CSS variables

@@ -12,37 +12,37 @@ import { GHOST_EASE, viewportConfig } from '@/config/motion';
 
 const SERVICES = [
   {
-    id: '01',
+    id: '1',
     keyword: 'Direção',
     description: 'criativa que organiza o caos',
   },
   {
-    id: '02',
+    id: '2',
     keyword: 'Design',
     description: 'estratégico que guia decisões',
   },
   {
-    id: '03',
+    id: '3',
     keyword: 'Identidades',
     description: 'que permanecem na memória',
   },
   {
-    id: '04',
+    id: '4',
     keyword: 'Campanhas',
     description: 'multicanais com lógica e emoção',
   },
   {
-    id: '05',
+    id: '5',
     keyword: 'Branding',
     description: 'que não grita — mas marca',
   },
   {
-    id: '06',
+    id: '6',
     keyword: 'Inteligência Artificial',
     description: 'aplicada à criação',
   },
   {
-    id: '07',
+    id: '7',
     keyword: 'Liderança Criativa',
     description: 'com visão e método',
   },
@@ -127,6 +127,7 @@ export function AboutWhatIDo() {
             {SERVICES.map((service, index) => (
               <motion.article
                 key={service.id}
+                layout
                 initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
                 whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
                 viewport={viewportConfig}
@@ -135,7 +136,7 @@ export function AboutWhatIDo() {
                   delay: index * 0.06,
                   ease: GHOST_EASE as any,
                 }}
-                className="group flex min-h-[140px] min-w-[380px] items-center gap-5 rounded-2xl bg-bluePrimary p-6 shadow-[0_25px_50px_-12px_rgba(135,5,242,0.35)] transition-all duration-300 hover:shadow-[0_30px_64px_-12px_rgba(135,5,242,0.55)]"
+                className="group flex min-h-[140px] min-w-[420px] items-center gap-5 rounded-2xl bg-bluePrimary p-6 shadow-[0_25px_50px_-12px_rgba(135,5,242,0.35)] transition-all duration-300 hover:shadow-[0_30px_64px_-12px_rgba(135,5,242,0.55)]"
               >
                 {/* Number */}
                 <span

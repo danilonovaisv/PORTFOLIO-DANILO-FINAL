@@ -153,8 +153,8 @@ importers:
         specifier: 16.1.6
         version: 16.1.6(@babel/core@7.29.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.58.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       openai:
-        specifier: ^6.23.0
-        version: 6.23.0(ws@8.19.0)(zod@4.3.6)
+        specifier: ^6.24.0
+        version: 6.24.0(ws@8.19.0)(zod@4.3.6)
       postprocessing:
         specifier: ^6.38.3
         version: 6.38.3(three@0.183.1)
@@ -7398,8 +7398,8 @@ packages:
     resolution: {integrity: sha512-IFenVPgF70fSm1keSd2iDBIDIBZkroLeuffXq+wKTzTJlBpesFWojV9lb8mzOfaAzM1sr7HQHuO0vtV0zYekGg==}
     engines: {node: '>=8'}
 
-  openai@6.23.0:
-    resolution: {integrity: sha512-w6NJofZ12lUQLm5W8RJcqq0HhGE4gZuqVFrBA1q40qx0Uyn/kcrSbOY542C2WHtyTZLz9ucNr4WUO46m8r43YQ==}
+  openai@6.24.0:
+    resolution: {integrity: sha512-WLR+qki3S4c9ZHilR42GDTxEpTrMFeWfcFNg1RMELW0ZCCBJMDDlqVV+QQEM5KN2hjUyZu45QpgJmln/0ykFRg==}
     hasBin: true
     peerDependencies:
       ws: ^8.18.0
@@ -17864,7 +17864,7 @@ snapshots:
     dependencies:
       is-wsl: 1.1.0
 
-  openai@6.23.0(ws@8.19.0)(zod@4.3.6):
+  openai@6.24.0(ws@8.19.0)(zod@4.3.6):
     optionalDependencies:
       ws: 8.19.0
       zod: 4.3.6

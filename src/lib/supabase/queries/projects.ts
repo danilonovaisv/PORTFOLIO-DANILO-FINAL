@@ -110,13 +110,21 @@ export async function upsertProject(
     .single();
 
   if (error) {
+    const errorDetails = {
+      message: error.message,
+      code: (error as any).code,
+      details: (error as any).details,
+      hint: (error as any).hint,
+    };
+
     await logAdminAudit(supabase, user, {
       action: payload.id ? 'project.update' : 'project.create',
       resource: 'portfolio_projects',
       resourceId: payload.id ?? null,
       status: 'error',
-      errorMessage: error.message,
+      errorMessage: `${error.message}${errorDetails.code ? ` [${errorDetails.code}]` : ''}`,
     });
+    console.error('[Supabase Query Error] upsertProject failed:', errorDetails);
     throw error;
   }
 

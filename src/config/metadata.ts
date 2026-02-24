@@ -63,6 +63,12 @@ export const siteMetadata: Metadata = {
         height: 630,
         alt: `${BRAND.name} - Creative Developer`,
       },
+      {
+        url: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.logo_header_light.svg',
+        width: 800,
+        height: 400,
+        alt: `${BRAND.name} Logo`,
+      },
     ],
   },
 
@@ -87,15 +93,36 @@ export const siteMetadata: Metadata = {
   },
 
   icons: {
-    icon: BRAND.assets.logos.favicon,
+    icon: [
+      { url: BRAND.assets.logos.favicon, type: 'image/svg+xml' },
+      {
+        url: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.logo_header_light.svg',
+        type: 'image/svg+xml',
+      },
+    ],
     shortcut: BRAND.assets.logos.favicon,
-    apple: BRAND.assets.logos.favicon,
+    apple: [
+      { url: BRAND.assets.logos.favicon, type: 'image/svg+xml' },
+      {
+        url: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.logo_header_light.svg',
+        type: 'image/svg+xml',
+      },
+    ],
+    other: [
+      {
+        rel: 'logo',
+        url: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.logo_header_light.svg',
+      },
+    ],
   },
 
   manifest: '/manifest.json',
 
   alternates: {
     canonical: `https://${BRAND.domain}`,
+  },
+  other: {
+    logo: 'https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/global.logo_header_light.svg',
   },
 };
 

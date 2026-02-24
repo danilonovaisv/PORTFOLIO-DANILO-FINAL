@@ -24,20 +24,19 @@ export default function LoginForm() {
 
   // Check if already logged in on mount
   useEffect(() => {
-    // const checkSession = async () => {
-    //   const supabase = createClientComponentClient();
-    //   // Use getUser instead of getSession for better server consistency
-    //   const {
-    //     data: { user },
-    //   } = await supabase.auth.getUser();
-    //   if (user) {
-    //     setIsRedirecting(true);
-    //     // Ensure server sync before client navigation
-    //     router.refresh();
-    //     router.replace(ADMIN_NAVIGATION.dashboard);
-    //   }
-    // };
-    // checkSession();
+    const checkSession = async () => {
+      const supabase = createClientComponentClient();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (session?.user) {
+        setIsRedirecting(true);
+        router.push(ADMIN_NAVIGATION.dashboard);
+        router.refresh();
+      }
+    };
+    checkSession();
   }, [router]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

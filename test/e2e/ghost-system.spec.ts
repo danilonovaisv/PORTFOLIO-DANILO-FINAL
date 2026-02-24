@@ -60,13 +60,18 @@ test.describe('Ghost System Verification', () => {
     // Check if we are on home before proceeding
     await expect(page.getByTestId('home-hero')).toBeVisible({ timeout: 10000 });
 
+    // Wait for Ghost/3D/Hydration stability, similar to the test above
+    await page.waitForTimeout(1000);
+
+    // Verify and wait for navigation to be ready
+    const nav = page.getByTestId('site-navigation').filter({ visible: true });
+    await expect(nav).toBeVisible({ timeout: 10000 });
+
     // Click on "Sobre" link in header
-    // Ensure menu is fully interactive
-    const aboutLink = page
-      .getByRole('button', { name: /sobre/i })
-      .filter({ visible: true });
-    await expect(aboutLink).toBeVisible();
-    await aboutLink.click();
+    // Use a more targeted locator within the nav that already proved visible
+    const aboutButton = nav.getByRole('button', { name: /sobre/i });
+    await expect(aboutButton).toBeVisible();
+    await aboutButton.click();
 
     // Wait for navigation to complete (Next.js client-side routing)
     await page.waitForURL(/\/sobre/, { timeout: 30000 });

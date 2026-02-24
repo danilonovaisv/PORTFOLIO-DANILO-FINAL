@@ -195,11 +195,11 @@ export async function generateAdScenes(
   const referenceSummary =
     referenceImages.length > 0
       ? referenceImages
-        .map(
-          (file, index) =>
-            `${index + 1}. ${file.name} (${file.type}, ${(file.size / 1024 / 1024).toFixed(2)}MB)`
-        )
-        .join('\n')
+          .map(
+            (file, index) =>
+              `${index + 1}. ${file.name} (${file.type}, ${(file.size / 1024 / 1024).toFixed(2)}MB)`
+          )
+          .join('\n')
       : 'Nenhuma referência anexada.';
 
   const promptStyle =

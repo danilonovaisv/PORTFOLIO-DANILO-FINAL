@@ -5,7 +5,8 @@ export type ActionResponse<T = any> =
   | { ok: false; error: string; issues?: string[] };
 
 /**
- * Retorna uma resposta de erro padronizada sem expor detalhes sensíveis.
+ * Retorna uma resposta de erro padronizada sem expor detalhes sensíveis, 
+ * mas mantendo informações técnicas úteis para o Admin.
  */
 export function errorResponse(
   message: string,
@@ -14,16 +15,23 @@ export function errorResponse(
   console.error(`[Admin Action Error] ${message}`, error);
 
   let details = '';
-  if (error instanceof Error) {
+  let code = '';
+  let hint = '';
+
+  if (error && typeof error === 'object') {
+    details = (error as any).message || (error as any).details || '';
+    code = (error as any).code || '';
+    hint = (error as any).hint || '';
+  } else if (error instanceof Error) {
     details = error.message;
-  } else if (error && typeof error === 'object' && 'message' in error) {
-    details = String((error as any).message);
   }
 
-  // No futuro, podemos mapear erros específicos (ex: Supabase, OpenAI) aqui
+  const finalMessage = details ? `${message} Detalhes: ${details}` : message;
+  const fullError = code ? `[${code}] ${finalMessage}` : finalMessage;
+
   return {
     ok: false,
-    error: details ? `${message} Detalhes: ${details}` : message,
+    error: hint ? `${fullError} (Dica: ${hint})` : fullError,
   };
 }
 
@@ -48,9 +56,9 @@ export function validatePayload<T>(
 ):
   | { success: true; data: T }
   | {
-      success: false;
-      response: { ok: false; error: string; issues?: string[] };
-    } {
+    success: false;
+    response: { ok: false; error: string; issues?: string[] };
+  } {
   const result = schema.safeParse(payload);
   if (!result.success) {
     return {

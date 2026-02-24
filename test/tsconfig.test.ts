@@ -51,8 +51,8 @@ describe('tsconfig.json', () => {
   });
 
   it('should include test and source files', () => {
-    expect(tsconfig.include).toContain('**/*.ts');
-    expect(tsconfig.include).toContain('**/*.tsx');
+    expect(tsconfig.include).toContain('src/**/*.ts');
+    expect(tsconfig.include).toContain('src/**/*.tsx');
   });
 
   it('should exclude node_modules and unnecessary directories', () => {
