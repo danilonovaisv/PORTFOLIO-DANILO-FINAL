@@ -326,7 +326,7 @@ export function ProjectForm({
             className="flex items-center gap-1"
           />
           <input
-            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
             {...form.register('title')}
           />
         </label>
@@ -339,7 +339,7 @@ export function ProjectForm({
           <div className="flex flex-col gap-2">
             {availableTags.length > 0 && (
               <select
-                className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-slate-200"
+                className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm text-slate-200"
                 defaultValue=""
                 onChange={(event) => {
                   const selectedSlug = event.target.value;
@@ -357,7 +357,7 @@ export function ProjectForm({
               </select>
             )}
             <input
-              className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+              className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
               {...form.register('slug')}
             />
           </div>
@@ -369,7 +369,7 @@ export function ProjectForm({
             className="flex items-center gap-1"
           />
           <input
-            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
             {...form.register('client_name')}
           />
         </label>
@@ -380,7 +380,7 @@ export function ProjectForm({
             className="flex items-center gap-1"
           />
           <input
-            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
             {...form.register('brand_name')}
           />
         </label>
@@ -392,7 +392,7 @@ export function ProjectForm({
           />
           <input
             type="number"
-            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
             {...form.register('year')}
           />
         </label>
@@ -403,7 +403,7 @@ export function ProjectForm({
             className="flex items-center gap-1"
           />
           <select
-            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
             {...form.register('project_type')}
           >
             {PROJECT_TYPE_OPTIONS.map((option) => (
@@ -418,7 +418,7 @@ export function ProjectForm({
             className="flex items-center gap-1"
           />
           <input
-            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
             {...form.register('short_label')}
           />
         </label>
@@ -430,7 +430,7 @@ export function ProjectForm({
           />
           <textarea
             rows={4}
-            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="w-full rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
             {...form.register('description')}
           />
         </label>
@@ -448,7 +448,7 @@ export function ProjectForm({
                 className="flex items-center gap-1 font-medium text-slate-200"
               />
               <select
-                className="rounded-md bg-slate-950 border border-white/10 px-3 py-2 text-sm text-white"
+                className="w-full rounded-md bg-slate-950 border border-white/10 px-3 py-2 text-sm text-white"
                 {...form.register('destination.type')}
               >
                 <option value="modal">Modal (Padrão)</option>
@@ -467,7 +467,7 @@ export function ProjectForm({
                   className="flex items-center gap-1 font-medium text-slate-200"
                 />
                 <input
-                  className="rounded-md bg-slate-950 border border-white/10 px-3 py-2 text-sm"
+                  className="w-full rounded-md bg-slate-950 border border-white/10 px-3 py-2 text-sm"
                   {...form.register('destination.url')}
                   placeholder="https://... ou /rota"
                 />
@@ -483,7 +483,7 @@ export function ProjectForm({
             />
             <textarea
               rows={8}
-              className="rounded-md bg-slate-950 border border-white/10 px-3 py-2 text-sm font-mono"
+              className="w-full rounded-md bg-slate-950 border border-white/10 px-3 py-2 text-sm font-mono"
               {...form.register('case_body')}
               placeholder="Escreva a narrativa do projeto usando Markdown..."
             />
@@ -517,7 +517,7 @@ export function ProjectForm({
             className="flex items-center gap-1"
           />
           <select
-            className="rounded-md bg-slate-900 border border-white/10 px-3 py-2 text-sm text-white"
+            className="w-full rounded-md bg-slate-900 border border-white/10 px-3 py-2 text-sm text-white"
             {...form.register('landing_page_id')}
           >
             <option value="">Nenhuma (Default)</option>
@@ -550,6 +550,7 @@ export function ProjectForm({
           />
           <input
             type="file"
+            className="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
             accept="image/*,video/*"
             onChange={(e) => setLandscapeVariant(e.target.files?.[0] ?? null)}
           />
@@ -567,6 +568,7 @@ export function ProjectForm({
           />
           <input
             type="file"
+            className="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700"
             accept="image/*,video/*"
             onChange={(e) => setSquareVariant(e.target.files?.[0] ?? null)}
           />
@@ -598,7 +600,7 @@ export function ProjectForm({
             value={newTagLabel}
             onChange={(event) => setNewTagLabel(event.target.value)}
             placeholder="Criar nova tag"
-            className="rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
+            className="flex-1 min-w-0 rounded-md bg-slate-900/60 border border-white/10 px-3 py-2 text-sm"
           />
           <button
             type="button"

@@ -9,11 +9,7 @@ import {
   validateCopyReferenceImages,
 } from '@/lib/admin/schemas/copy-agent';
 import { validatePayload } from '@/lib/admin/validation';
-
-// Initialize OpenAI client
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || '',
-});
+import { getOpenAIKey } from '@/lib/admin/settings';
 
 export type CopyAgentState = {
   success: boolean;
@@ -43,27 +39,51 @@ Resultado orientado por direção, não por excesso. Um projeto desenhado para p
 const SYSTEM_PROMPT = `
 # SYSTEM PROMPT — PORTFOLIO ART DIRECTION COPY AGENT
 
-You are a specialized creative writing agent focused on crafting high-level textual presentations for Art Direction portfolio projects.
+You are a portfolio case copy agent specialized in Art Direction and Visual Design projects.
 
-Your role is to analyze visual materials provided by the user and generate written content needed for a project landing page, similar in quality to platforms such as Awwwards and Behance Curated.
+## Mission
+Generate winning, curated portfolio texts (modal posts and full landing pages) based on:
+1) the user's project info (brief + metadata),
+2) the visual materials provided (images/videos/mockups),
+3) the required output fields and formats.
 
-## CORE OBJECTIVE
-Create emotional, intentional and conceptually strong texts that elevate the visual work, positioning the user as a mature Art Director.
+## Non-negotiable output rule
+You MUST always output exactly the fields defined by the selected template (MODAL or LANDING PAGE).  
+Never omit fields. Never change field names. Never add extra sections outside the template.  
+If information is missing, infer carefully from visuals and write responsibly without inventing fake data (dates, metrics, awards, client approvals). Use "(não informado)" when needed.
 
-The text must never describe images literally. It must reveal intent, reasoning and creative direction behind the work.
+## Writing style
+- Language: Portuguese (pt-BR).
+- Tone: mature, strategic, authored; emotional with restraint.
+- Do NOT describe visuals literally (no "na imagem vemos...").
+- Focus on intent, concept, direction, decisions, system thinking, and impact.
+- Avoid empty adjectives (clean/modern/innovative) unless anchored in meaning.
+- Short paragraphs, scannable, confident.
 
-## YOUR WRITING PRINCIPLES
-- Write with clarity, restraint and confidence.
-- Avoid clichés, buzzwords and generic advertising language.
-- Prioritize intention over execution.
-- Assume the reader is a creative director, curator or senior client.
+## SEO & Metadata
+Always generate:
+- Slug (lowercase, hyphen-separated, no accents)
+- Tags (8–14, mix of craft + category + industry + deliverables)
+- SEO Title (max ~60 chars)
+- SEO Description (max ~155 chars)
+- SEO Keywords (10–16 keywords)
 
-## WHAT YOU MUST ALWAYS DELIVER
-1. Project Opening Text (Emotional)
-2. Concept & Creative Direction
-3. Visual System & Design Thinking
-4. Applications & Experience
-5. Closing Text
+## Visual analysis behavior
+When visuals are provided:
+- Identify: category (branding/campaign/packaging/event/digital/etc.), mood, key symbolisms, dominant palette cues, narrative tone, system applications, and intended audience.
+- Use these insights to support concept & direction.
+
+## Output templates (choose by user request)
+You support two templates:
+A) MODAL (Post simples)  
+B) LANDING PAGE (V3 ALPA)
+
+You must always ask yourself internally:
+- "Does this read like a senior portfolio case?"
+- "Is the concept defendable and consistent with the visuals?"
+- "Did I follow the exact fields and naming?"
+
+Deliver only the final formatted output in Markdown.
 `;
 
 export async function generateProjectCopy(
@@ -112,23 +132,27 @@ export async function generateProjectCopy(
     return { success: false, error: imageValidationError };
   }
 
-  if (!process.env.OPENAI_API_KEY) {
+  const openApiKey = await getOpenAIKey();
+  if (!openApiKey) {
     const fallbackContent = buildFallbackCopy(context);
     await logAdminAudit(supabase, user, {
       action: 'copy.generate',
       resource: 'admin_copy_agent',
       status: 'error',
       errorCode: 'missing_openai_key',
-      errorMessage: 'OPENAI_API_KEY ausente',
+      errorMessage:
+        'OPENAI_API_KEY ausente ou não configurada no banco de dados',
       metadata: { fallbackApplied: true },
     });
     return {
       success: true,
       content: fallbackContent,
       notice:
-        'IA indisponível no momento. Foi gerado um rascunho base editável.',
+        'IA indisponível no momento (Chave Ausente). Foi gerado um rascunho base editável.',
     };
   }
+
+  const openai = new OpenAI({ apiKey: openApiKey });
 
   try {
     const imageParts = await Promise.all(

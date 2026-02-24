@@ -25,5 +25,10 @@ export function createAdminClient() {
       persistSession: false,
       detectSessionInUrl: false,
     },
+    global: {
+      headers: {
+        Authorization: `Bearer ${serviceRoleKey}`,
+      },
+    },
   });
 }

@@ -2,6 +2,8 @@ export const runtime = 'nodejs';
 export const fetchCache = 'force-no-store';
 
 import { getSupabasePublicKey } from '@/lib/supabase/env';
+import { createClient } from '@/lib/supabase/server';
+import { SettingsForm } from './SettingsForm';
 
 const getSupabasePublicKeyStatus = () => {
   const key = getSupabasePublicKey();
@@ -9,6 +11,17 @@ const getSupabasePublicKeyStatus = () => {
 };
 
 export default async function SettingsPage() {
+  const supabase = await createClient({ admin: true });
+
+  const { data: dbKey } = await supabase
+    .from('site_settings')
+    .select('value')
+    .eq('key', 'openai_api_key')
+    .maybeSingle();
+
+  const hasOpenAIKeyEnv = Boolean(process.env.OPENAI_API_KEY);
+  const hasOpenAIKeyDb = Boolean(dbKey?.value);
+
   const credentialFields = [
     {
       name: 'Supabase URL',
@@ -24,7 +37,7 @@ export default async function SettingsPage() {
     },
     {
       name: 'OpenAI API Key',
-      status: process.env.OPENAI_API_KEY ? 'Configurado' : 'Ausente',
+      status: hasOpenAIKeyEnv || hasOpenAIKeyDb ? 'Configurado' : 'Ausente',
     },
   ] as const;
 
@@ -66,6 +79,16 @@ export default async function SettingsPage() {
             </div>
           ))}
         </div>
+      </section>
+
+      <section>
+        <h2 className="text-lg font-medium text-white mb-4">
+          Chaves do Sistema
+        </h2>
+        <SettingsForm
+          hasOpenAIKeyEnv={hasOpenAIKeyEnv}
+          hasOpenAIKeyDb={hasOpenAIKeyDb}
+        />
       </section>
     </div>
   );

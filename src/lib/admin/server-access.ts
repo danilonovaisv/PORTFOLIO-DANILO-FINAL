@@ -48,7 +48,7 @@ export async function requireAdminAccess(
   let privilegeLevel: AdminPrivilegeLevel = 'request_scoped';
 
   try {
-    supabase = createAdminClient();
+    supabase = await createClient({ admin: true });
     privilegeLevel = 'service_role';
   } catch (error) {
     console.warn(

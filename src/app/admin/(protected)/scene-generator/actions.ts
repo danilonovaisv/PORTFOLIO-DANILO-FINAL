@@ -18,9 +18,7 @@ import {
   normalizeAIModels,
 } from '@/app/admin/(protected)/scene-generator/types';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || '',
-});
+import { getOpenAIKey } from '@/lib/admin/settings';
 
 const SHOT_DIRECTIONS = [
   'Wide shot contextual',
@@ -39,8 +37,9 @@ const MODEL_PROMPT_STYLES: Record<AIModel, string> = {
   sora: 'Geração de vídeo não suportada neste modo.',
 };
 
-function resolveSceneModelCapabilities() {
-  const hasOpenAIKey = Boolean(process.env.OPENAI_API_KEY?.trim());
+async function resolveSceneModelCapabilities() {
+  const openApiKey = await getOpenAIKey();
+  const hasOpenAIKey = Boolean(openApiKey?.trim());
   const envEnabledModels = process.env.ADMIN_ENABLED_SCENE_MODELS?.split(',')
     .map((value) => value.trim())
     .filter(Boolean);
@@ -67,7 +66,7 @@ function resolveSceneModelCapabilities() {
 
 export async function getSceneModelCapabilities() {
   await requireAdminAccess();
-  return resolveSceneModelCapabilities();
+  return await resolveSceneModelCapabilities();
 }
 
 /**
@@ -92,7 +91,7 @@ export async function generateAdScenes(
 
   const { supabase, user } = access;
 
-  const modelOptions = resolveSceneModelCapabilities();
+  const modelOptions = await resolveSceneModelCapabilities();
   const fallbackModel =
     modelOptions.find((item) => item.id === 'dall-e-3' && item.available)?.id ??
     modelOptions.find((item) => item.available)?.id ??
@@ -146,13 +145,16 @@ export async function generateAdScenes(
     referenceCount: referenceImages.length,
   };
 
-  if (!process.env.OPENAI_API_KEY) {
+  const openApiKey = await getOpenAIKey();
+
+  if (!openApiKey) {
     await logAdminAudit(supabase, user, {
       action: 'scene.generate',
       resource: 'admin_scene_generator',
       status: 'error',
       errorCode: 'missing_openai_key',
-      errorMessage: 'OPENAI_API_KEY ausente',
+      errorMessage:
+        'OPENAI_API_KEY ausente ou não configurada no banco de dados',
       metadata: requestPayload,
     });
 
@@ -164,6 +166,8 @@ export async function generateAdScenes(
       requestPayload,
     };
   }
+
+  const openai = new OpenAI({ apiKey: openApiKey });
 
   const selectedModel = modelOptions.find((item) => item.id === model);
   if (!selectedModel) {

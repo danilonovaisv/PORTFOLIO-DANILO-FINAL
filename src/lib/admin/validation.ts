@@ -5,7 +5,7 @@ export type ActionResponse<T = any> =
   | { ok: false; error: string; issues?: string[] };
 
 /**
- * Retorna uma resposta de erro padronizada sem expor detalhes sensíveis, 
+ * Retorna uma resposta de erro padronizada sem expor detalhes sensíveis,
  * mas mantendo informações técnicas úteis para o Admin.
  */
 export function errorResponse(
@@ -56,9 +56,9 @@ export function validatePayload<T>(
 ):
   | { success: true; data: T }
   | {
-    success: false;
-    response: { ok: false; error: string; issues?: string[] };
-  } {
+      success: false;
+      response: { ok: false; error: string; issues?: string[] };
+    } {
   const result = schema.safeParse(payload);
   if (!result.success) {
     return {
