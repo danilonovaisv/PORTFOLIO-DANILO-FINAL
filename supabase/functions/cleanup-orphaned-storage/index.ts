@@ -133,7 +133,7 @@ Deno.serve(async (req) => {
     return new Response(
       JSON.stringify({
         error: 'Unhandled error',
-        detail: String(err),
+        message: 'An internal error occurred while processing the request.',
       }),
       {
         status: 500,
