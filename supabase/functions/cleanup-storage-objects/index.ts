@@ -135,7 +135,7 @@ Deno.serve(async (req) => {
     return new Response(
       JSON.stringify({
         error: 'Unhandled error',
-        detail: String(err),
+        detail: 'An unexpected error occurred. Please try again later.',
       }),
       {
         status: 500,
