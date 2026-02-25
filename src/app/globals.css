@@ -126,8 +126,8 @@ body {
 }
 
 /* Scaffold sistêmico de responsividade: Previne que filhos de flex quebrem o layout */
-.flex>*,
-.inline-flex>* {
+.flex > *,
+.inline-flex > * {
   min-width: 0;
 }
 
@@ -410,16 +410,20 @@ html.admin-page body {
    Ghost Portfolio Hero Glows
    ======================================================================== */
 .portfolio-hero-glow-primary {
-  background: radial-gradient(circle at 75% 55%,
-      oklch(from var(--color-primary) l c h / 0.12),
-      transparent 50%);
+  background: radial-gradient(
+    circle at 75% 55%,
+    oklch(from var(--color-primary) l c h / 0.12),
+    transparent 50%
+  );
   filter: blur(40px);
 }
 
 .portfolio-hero-glow-accent {
-  background: radial-gradient(circle at 25% 45%,
-      oklch(from var(--color-accent) l c h / 0.08),
-      transparent 45%);
+  background: radial-gradient(
+    circle at 25% 45%,
+    oklch(from var(--color-accent) l c h / 0.08),
+    transparent 45%
+  );
   filter: blur(40px);
 }
 

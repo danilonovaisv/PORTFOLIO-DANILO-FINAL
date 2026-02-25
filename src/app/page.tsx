@@ -9,6 +9,7 @@ import { BRAND } from '@/config/brand';
 import { listProjects } from '@/lib/supabase/queries/projects';
 import { mapDbProjectToPortfolioProject } from '@/lib/portfolio/project-mappers';
 import { createStaticClient } from '@/lib/supabase/static';
+import { stableShuffle } from '@/lib/utils/stable-shuffle';
 import type { PortfolioProject } from '@/types/project';
 import JsonLd from '@/components/ui/JsonLd';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
@@ -62,9 +63,15 @@ export default async function HomePage() {
   try {
     const supabase = createStaticClient();
     const dbProjects = await listProjects({ featuredOnHome: true }, supabase);
-    featuredProjects = dbProjects.map((project, index) =>
+    const mapped = dbProjects.map((project, index) =>
       mapDbProjectToPortfolioProject(project, index)
     );
+    // PROMPT 05: Stable daily shuffle — rotates featured project order once per day
+    // without "chaotic shuffle" on each render. Scope differentiates from /portfolio.
+    featuredProjects = stableShuffle(mapped, {
+      window: 'daily',
+      scope: 'home',
+    });
   } catch (error) {
     console.error('Error fetching projects:', error);
   }

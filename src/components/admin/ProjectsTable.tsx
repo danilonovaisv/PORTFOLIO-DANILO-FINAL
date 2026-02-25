@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { createClientComponentClient } from '@/lib/supabase/client';
 import { ADMIN_NAVIGATION } from '@/config/admin-navigation';
 import { buildSupabaseStorageUrl } from '@/lib/supabase/urls';
@@ -14,6 +14,7 @@ import {
   toggleFeaturedOnPortfolio,
   togglePublish,
 } from '@/lib/supabase/actions/project-toggles';
+import { deleteProjectAction } from '@/app/admin/(protected)/trabalhos/actions';
 
 type Project = {
   id: string;
@@ -250,12 +251,18 @@ export default function ProjectsTable({ projects }: Props) {
                 </form>
               </td>
               <td className="px-4 py-3 text-right whitespace-nowrap">
-                <Link
-                  href={ADMIN_NAVIGATION.trabalhos.detail(project.id)}
-                  className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded px-3 py-2 text-sm text-blue-300 hover:text-blue-200 hover:bg-white/5 transition motion-reduce:transition-none"
-                >
-                  Editar
-                </Link>
+                <div className="flex items-center justify-end gap-2">
+                  <Link
+                    href={ADMIN_NAVIGATION.trabalhos.detail(project.id)}
+                    className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded px-3 py-2 text-sm text-blue-300 hover:text-blue-200 hover:bg-white/5 transition motion-reduce:transition-none"
+                  >
+                    Editar
+                  </Link>
+                  <DeleteConfirmButton
+                    projectId={project.id}
+                    projectTitle={project.title}
+                  />
+                </div>
               </td>
             </tr>
           ))}
@@ -304,5 +311,84 @@ function AdminMediaThumb({ path, alt }: { path: string; alt: string }) {
       height={40}
       className="h-10 w-16 rounded border border-white/10 object-cover"
     />
+  );
+}
+
+function DeleteConfirmButton({
+  projectId,
+  projectTitle,
+}: {
+  projectId: string;
+  projectTitle: string;
+}) {
+  const [phase, setPhase] = useState<'idle' | 'confirming' | 'deleting'>(
+    'idle'
+  );
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const reset = useCallback(() => {
+    setPhase('idle');
+    if (timerRef.current) clearTimeout(timerRef.current);
+  }, []);
+
+  const handleClick = useCallback(async () => {
+    if (phase === 'idle') {
+      setPhase('confirming');
+      timerRef.current = setTimeout(reset, 3000);
+      return;
+    }
+
+    if (phase === 'confirming') {
+      if (timerRef.current) clearTimeout(timerRef.current);
+      setPhase('deleting');
+
+      try {
+        const result = await deleteProjectAction(projectId);
+        if (!result.ok) {
+          console.error(
+            `[DeleteProject] Falha ao apagar "${projectTitle}":`,
+            result.error
+          );
+          alert(`Erro ao apagar: ${result.error}`);
+        }
+      } catch (error) {
+        console.error(`[DeleteProject] Erro inesperado:`, error);
+        alert('Erro inesperado ao apagar o projeto.');
+      } finally {
+        reset();
+      }
+    }
+  }, [phase, projectId, projectTitle, reset]);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
+
+  const label =
+    phase === 'deleting'
+      ? 'Apagando...'
+      : phase === 'confirming'
+        ? 'Confirmar?'
+        : 'Apagar';
+
+  return (
+    <button
+      type="button"
+      disabled={phase === 'deleting'}
+      onClick={handleClick}
+      onBlur={phase === 'confirming' ? reset : undefined}
+      className={`inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded px-3 py-2 text-sm font-medium transition motion-reduce:transition-none ${
+        phase === 'confirming'
+          ? 'bg-red-500/20 text-red-300 border border-red-500/30 animate-pulse'
+          : phase === 'deleting'
+            ? 'bg-slate-700 text-slate-500 cursor-wait'
+            : 'text-red-400/70 hover:text-red-300 hover:bg-red-500/10'
+      }`}
+      aria-label={`Apagar projeto: ${projectTitle}`}
+    >
+      {label}
+    </button>
   );
 }

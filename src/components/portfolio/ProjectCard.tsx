@@ -148,7 +148,7 @@ export const ProjectCard = ({
           <p className="text-[11px] uppercase tracking-[0.18em] text-white/70 mb-2">
             {project.displayCategory}
           </p>
-          <h3 id={headingId} className="text-2xl md:text-3xl font-bold leading-tight mb-3">
+          <h3 id={headingId} className="text-2xl md:text-3xl font-bold leading-tight mb-3 text-balance">
             {project.title}
           </h3>
           <div className="flex flex-wrap items-center justify-center gap-2 text-xs text-white/80">

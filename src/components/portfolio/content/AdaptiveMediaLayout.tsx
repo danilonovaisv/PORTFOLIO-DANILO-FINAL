@@ -7,6 +7,7 @@ import { Play } from 'lucide-react';
 import type { PortfolioProject } from '@/types/project';
 import { isVideo, isYouTubeUrl, getYouTubeEmbedUrl, getYouTubeThumbnailUrl, applyImageFallback } from '@/lib/utils';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
+import { CaseBodyRenderer } from '@/components/portfolio/CaseBodyRenderer';
 import { ImageLightbox } from '@/components/portfolio/ImageLightbox';
 
 import { getContentVariants } from '@/components/portfolio/modal/variants';
@@ -198,13 +199,17 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                         </div>
 
                         <div className="max-w-3xl flex flex-col gap-10">
-                            {project.detail?.description && (
+                            {project.caseBody ? (
+                                <div className="prose prose-lg prose-invert max-w-none">
+                                    <CaseBodyRenderer content={project.caseBody} />
+                                </div>
+                            ) : project.detail?.description ? (
                                 <div className="prose prose-lg prose-invert max-w-none">
                                     <p className="text-xl md:text-2xl leading-relaxed text-gray-200 font-light">
                                         {project.detail.description}
                                     </p>
                                 </div>
-                            )}
+                            ) : null}
 
                             {/* Tags and Highlights */}
                             <div className="flex flex-col md:flex-row gap-10">

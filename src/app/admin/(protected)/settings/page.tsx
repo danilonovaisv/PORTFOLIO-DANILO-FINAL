@@ -22,7 +22,10 @@ export default async function SettingsPage() {
       .maybeSingle();
     dbKey = data;
   } catch (err) {
-    console.warn('[Settings] Falha ao consultar site_settings. Supabase Service Role config ausente?', err);
+    console.warn(
+      '[Settings] Falha ao consultar site_settings. Supabase Service Role config ausente?',
+      err
+    );
   }
 
   const hasOpenAIKeyEnv = Boolean(process.env.OPENAI_API_KEY);
@@ -74,10 +77,11 @@ export default async function SettingsPage() {
                 {field.name}
               </p>
               <p
-                className={`text-sm font-medium ${field.status === 'Configurado'
+                className={`text-sm font-medium ${
+                  field.status === 'Configurado'
                     ? 'text-emerald-400'
                     : 'text-rose-400'
-                  }`}
+                }`}
               >
                 {field.status}
               </p>

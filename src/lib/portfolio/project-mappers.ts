@@ -395,6 +395,7 @@ export function mapDbProjectToPortfolioProject(
     videoPreview,
     landingPageSlug: normalizedLandingSlug ?? landingSlugSource,
     destination,
+    caseBody: (project as DbProjectWithTags & { case_body?: string | null }).case_body ?? null,
   };
 }
 

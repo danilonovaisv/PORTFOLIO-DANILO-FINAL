@@ -1,6 +1,5 @@
 import type { SupabaseClient, User } from '@supabase/supabase-js';
 import { isAdminUser, shouldEnforceAdminRole } from '@/lib/admin/authz';
-import { createAdminClient } from '@/lib/supabase/admin';
 import { createClient } from '@/lib/supabase/server';
 import type { Database } from '@/lib/supabase.types';
 

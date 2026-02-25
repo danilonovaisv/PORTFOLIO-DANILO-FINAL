@@ -129,7 +129,7 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
     >
       <div
         ref={wrapperRef}
-        className="video-wrapper relative w-full aspect-video"
+        className="video-wrapper relative w-full aspect-[4/3] sm:aspect-video"
       >
         {shouldLoad ? (
           <>
@@ -163,7 +163,7 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
             {/* Toggle som */}
             <button
               type="button"
-              className="toggle-sound absolute top-3 right-3 h-12 w-12 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/70 transition-colors focus-visible:outline-2 focus-visible:outline-[#4fe6ff] focus-visible:outline-offset-2"
+              className="toggle-sound absolute top-3 right-3 h-14 w-14 sm:h-12 sm:w-12 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/70 transition-colors focus-visible:outline-2 focus-visible:outline-[#0048ff] focus-visible:outline-offset-2"
               onClick={() => setMuted((m: boolean) => !m)}
               aria-label={
                 muted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'

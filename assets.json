@@ -2,12 +2,20 @@
   {
     "export_json": [
       {
-        "id": "dd725688-063d-460f-b3a1-39b27f63c0ec",
-        "key": "landing-pages.hellmmas.master-v3-logo-aaead629-3fb0-4f1c-ad11-7a88afc55cd8",
+        "id": "0d2c734e-de01-45e1-9a2f-c896cd23524c",
+        "key": "landing-pages.key-vision.master-v3-cover-f9e392b8-ac85-4ce7-bac4-2ff3f721b904",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-logo-aaead629-3fb0-4f1c-ad11-7a88afc55cd8.png",
-        "file_path": "landing-pages/hellmmas/master-v3-logo-aaead629-3fb0-4f1c-ad11-7a88afc55cd8.png",
-        "updated_at": "2026-02-07 11:48:57.80906+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-cover-f9e392b8-ac85-4ce7-bac4-2ff3f721b904.png",
+        "file_path": "landing-pages/key-vision/master-v3-cover-f9e392b8-ac85-4ce7-bac4-2ff3f721b904.png",
+        "updated_at": "2026-02-23 19:24:49.935811+00"
+      },
+      {
+        "id": "d1d0e281-8856-42e3-a02c-1b16ae23f51e",
+        "key": "landing-pages.hellmmas.",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/.emptyFolderPlaceholder",
+        "file_path": "landing-pages/hellmmas/.emptyFolderPlaceholder",
+        "updated_at": "2026-02-22 08:32:14.162786+00"
       },
       {
         "id": "f0774555-65f9-4222-91c3-8d5f215a5313",
@@ -24,6 +32,14 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/section-4.webp",
         "file_path": "projects/key-visual/section-4.webp",
         "updated_at": "2026-01-21 23:01:50.008822+00"
+      },
+      {
+        "id": "ee6bc800-282b-4482-963a-71b269abc648",
+        "key": "landing-pages.key-vision.",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/.emptyFolderPlaceholder",
+        "file_path": "landing-pages/key-vision/.emptyFolderPlaceholder",
+        "updated_at": "2026-02-22 08:32:24.819935+00"
       },
       {
         "id": "5962a95d-3085-4a9f-8a3e-71e276a1a4f1",
@@ -226,20 +242,20 @@
         "updated_at": "2026-01-14 20:07:57.062582+00"
       },
       {
+        "id": "33640ebe-1261-4cac-9ea0-abc09fcea4e3",
+        "key": "landing-pages.hellmmas.master-v3-cover-34bede19-8db2-4617-a8f8-9f6c4f834c87",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-cover-34bede19-8db2-4617-a8f8-9f6c4f834c87.webp",
+        "file_path": "landing-pages/hellmmas/master-v3-cover-34bede19-8db2-4617-a8f8-9f6c4f834c87.webp",
+        "updated_at": "2026-02-22 10:50:23.39162+00"
+      },
+      {
         "id": "337cb647-e19d-4049-9680-83a34bdd2fe7",
         "key": "about.method.about.method.desktop_video",
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/method/about.method.desktop_video.mp4",
         "file_path": "about/method/about.method.desktop_video.mp4",
         "updated_at": "2026-01-21 18:15:34.284635+00"
-      },
-      {
-        "id": "26a70748-1c6b-40f2-8b50-106483079eee",
-        "key": "landing-pages.hellmmas.master-v3-block-image-image-2-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-2-media1.webp",
-        "file_path": "landing-pages/hellmmas/master-v3-block-image-image-2-media1.webp",
-        "updated_at": "2026-02-07 11:48:58.790005+00"
       },
       {
         "id": "81ba93a1-5915-4445-8fd5-9270a208c24f",
@@ -354,12 +370,12 @@
         "updated_at": "2026-01-14 20:07:57.204927+00"
       },
       {
-        "id": "62919438-4eb0-4b75-99f4-89293cc2decb",
-        "key": "landing-pages.hellmmas.master-v3-block-image-video-4-media1",
+        "id": "bddbc797-1380-4f66-82db-f7c69fea86e3",
+        "key": "landing-pages.key-vision.master-v3-logo-9fa94ba1-1c7f-4f45-ac8a-609a09d18573",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-video-4-media1.webp",
-        "file_path": "landing-pages/hellmmas/master-v3-block-image-video-4-media1.webp",
-        "updated_at": "2026-02-07 11:48:58.792307+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-logo-9fa94ba1-1c7f-4f45-ac8a-609a09d18573.png",
+        "file_path": "landing-pages/key-vision/master-v3-logo-9fa94ba1-1c7f-4f45-ac8a-609a09d18573.png",
+        "updated_at": "2026-02-23 19:24:50.678123+00"
       },
       {
         "id": "66510999-42ca-4a28-9fd1-1f3596316e5d",
@@ -378,20 +394,28 @@
         "updated_at": "2026-01-15 10:00:40.330246+00"
       },
       {
+        "id": "7e1403d9-7f7b-461b-99ab-29fcc7287245",
+        "key": "projects.brand_video.thumb",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/brand_video/thumb.mp4",
+        "file_path": "projects/brand_video/thumb.mp4",
+        "updated_at": "2026-02-10 22:17:22.263942+00"
+      },
+      {
+        "id": "d6ebb665-6e0c-47ed-a06f-b245798ac875",
+        "key": "landing-pages.key-vision.master-v3-block-image-10-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-10-media1.webp",
+        "file_path": "landing-pages/key-vision/master-v3-block-image-10-media1.webp",
+        "updated_at": "2026-02-23 19:24:51.546142+00"
+      },
+      {
         "id": "c3a6a4c3-9e82-43f0-b780-bbf21bea4e4f",
         "key": "projects.key-visual.thumb",
         "bucket": "portfolio-media",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-visual/thumb.webp",
         "file_path": "projects/key-visual/thumb.webp",
         "updated_at": "2026-01-16 23:49:52.054614+00"
-      },
-      {
-        "id": "2787bbc1-4766-424a-8599-47d354b72c2f",
-        "key": "landing-pages.key-vision.cover-fac40753-2172-4189-b719-e950fd23ce5d",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/cover-fac40753-2172-4189-b719-e950fd23ce5d.png",
-        "file_path": "landing-pages/key-vision/cover-fac40753-2172-4189-b719-e950fd23ce5d.png",
-        "updated_at": "2026-01-22 20:52:03.178087+00"
       },
       {
         "id": "01015ac5-bf06-4983-ba2f-031ee815be08",
@@ -402,20 +426,20 @@
         "updated_at": "2026-01-16 23:49:53.065414+00"
       },
       {
-        "id": "0be6faa7-5d68-46a4-8986-f1b172f424dc",
-        "key": "landing-pages.key-vision.block-aca551e6-5eaf-456b-a8dc-0717e93495b7-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/block-aca551e6-5eaf-456b-a8dc-0717e93495b7-media1.webp",
-        "file_path": "landing-pages/key-vision/block-aca551e6-5eaf-456b-a8dc-0717e93495b7-media1.webp",
-        "updated_at": "2026-01-22 20:52:04.133057+00"
-      },
-      {
         "id": "1efa824b-4034-48ac-8eaa-6ca367703d2d",
         "key": "projects.key-visual.hero",
         "bucket": "portfolio-media",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/key-visual/hero.png",
         "file_path": "projects/key-visual/hero.png",
         "updated_at": "2026-01-22 21:55:38.915809+00"
+      },
+      {
+        "id": "f4d3fa80-6068-42ee-ac1d-7a98a607f634",
+        "key": "projects.animation.thumb",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/animation/thumb.webp",
+        "file_path": "projects/animation/thumb.webp",
+        "updated_at": "2026-02-21 06:52:36.526967+00"
       },
       {
         "id": "6c396a65-5bea-46a3-b4bf-ac27f237db34",
@@ -434,14 +458,6 @@
         "updated_at": "2026-01-22 23:32:30.883718+00"
       },
       {
-        "id": "7e1403d9-7f7b-461b-99ab-29fcc7287245",
-        "key": "projects.brand_video.thumb",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/brand_video/thumb.mp4",
-        "file_path": "projects/brand_video/thumb.mp4",
-        "updated_at": "2026-02-05 11:26:59.988304+00"
-      },
-      {
         "id": "7fd65ba9-30f7-422f-8c0e-10142a18d678",
         "key": "projects.key_vision.thumb",
         "bucket": "portfolio-media",
@@ -450,12 +466,12 @@
         "updated_at": "2026-01-14 18:59:37.937398+00"
       },
       {
-        "id": "cbc63af1-0577-46c3-9539-ab5f7668f5b1",
-        "key": "landing-pages.hellmmas.master-v3-block-image-image-5-media2",
+        "id": "adcb8b4b-10b7-4a1f-b0b5-263ee6b71a47",
+        "key": "landing-pages.key-vision.master-v3-block-text-image-5-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-5-media2.jpeg",
-        "file_path": "landing-pages/hellmmas/master-v3-block-image-image-5-media2.jpeg",
-        "updated_at": "2026-02-07 11:48:58.848201+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-text-image-5-media1.webp",
+        "file_path": "landing-pages/key-vision/master-v3-block-text-image-5-media1.webp",
+        "updated_at": "2026-02-23 19:24:51.756515+00"
       },
       {
         "id": "b9138a46-110d-45a2-9a8b-24d106c53a28",
@@ -618,12 +634,12 @@
         "updated_at": "2026-01-14 20:50:16.759975+00"
       },
       {
-        "id": "ba264dee-4ce6-43f6-988e-003c9f10c2e4",
-        "key": "landing-pages.hellmmas.master-v3-block-image-image-7-media1",
+        "id": "ab293fce-2b3e-49a6-b2dd-43ebc0be22f1",
+        "key": "landing-pages.hellmmas.master-v3-logo-5ca7cae2-bdff-4c15-8cd2-cf5429724df7",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-7-media1.webp",
-        "file_path": "landing-pages/hellmmas/master-v3-block-image-image-7-media1.webp",
-        "updated_at": "2026-02-07 11:48:59.222859+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-logo-5ca7cae2-bdff-4c15-8cd2-cf5429724df7.png",
+        "file_path": "landing-pages/hellmmas/master-v3-logo-5ca7cae2-bdff-4c15-8cd2-cf5429724df7.png",
+        "updated_at": "2026-02-22 10:50:25.251761+00"
       },
       {
         "id": "a044494b-ccf0-48e6-a965-07dbebc12bc2",
@@ -632,14 +648,6 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/projects/key-visual/cover.webp",
         "file_path": "projects/key-visual/cover.webp",
         "updated_at": "2026-01-21 23:01:48.942503+00"
-      },
-      {
-        "id": "c80cf9e5-e5bc-493a-9f2e-7acb160e558b",
-        "key": "landing-pages.key-vision.block-6e9117d3-629f-4433-8555-187f3b82a646-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/block-6e9117d3-629f-4433-8555-187f3b82a646-media1.webp",
-        "file_path": "landing-pages/key-vision/block-6e9117d3-629f-4433-8555-187f3b82a646-media1.webp",
-        "updated_at": "2026-01-22 20:52:03.588345+00"
       },
       {
         "id": "b84701e4-aa3d-47ab-9c8c-f4c07dcd503b",
@@ -690,20 +698,36 @@
         "updated_at": "2026-01-21 23:01:50.211384+00"
       },
       {
-        "id": "22c5c865-a203-4625-a51a-fa3cf39d5b42",
-        "key": "landing-pages.key-vision.block-e313c22f-7631-4514-8cb5-74eaf73f0022-media1",
+        "id": "9aa417b4-630c-45f2-ab0e-fc0d10d88e76",
+        "key": "landing-pages.key-vision.master-v3-block-image-image-6-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/block-e313c22f-7631-4514-8cb5-74eaf73f0022-media1.webp",
-        "file_path": "landing-pages/key-vision/block-e313c22f-7631-4514-8cb5-74eaf73f0022-media1.webp",
-        "updated_at": "2026-01-22 20:52:04.227623+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-6-media1.jpeg",
+        "file_path": "landing-pages/key-vision/master-v3-block-image-image-6-media1.jpeg",
+        "updated_at": "2026-02-23 19:24:51.921857+00"
       },
       {
-        "id": "d755202e-b266-4abc-bbb4-0aff9b5c8747",
-        "key": "landing-pages.key-vision.block-58148f1c-69b4-40b5-badc-b3cb1b5deff7-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/block-58148f1c-69b4-40b5-badc-b3cb1b5deff7-media1.webp",
-        "file_path": "landing-pages/key-vision/block-58148f1c-69b4-40b5-badc-b3cb1b5deff7-media1.webp",
-        "updated_at": "2026-01-22 20:52:04.311087+00"
+        "id": "a4c86ba6-a326-4ccd-b7b1-d1d2c8506b88",
+        "key": "boticario.projects.creative-concept.cover-16x9",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/boticario/projects/creative-concept/cover-16x9.mp4",
+        "file_path": "boticario/projects/creative-concept/cover-16x9.mp4",
+        "updated_at": "2026-02-25 03:14:13.389862+00"
+      },
+      {
+        "id": "cd9b949c-00d6-44ea-8edf-ff82c7b8b086",
+        "key": "boticario.projects.creative-concept.cover-1x1",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/boticario/projects/creative-concept/cover-1x1.mp4",
+        "file_path": "boticario/projects/creative-concept/cover-1x1.mp4",
+        "updated_at": "2026-02-25 03:14:17.422072+00"
+      },
+      {
+        "id": "4537b8a6-f0a1-4762-a913-13e0f3786ff9",
+        "key": "boticario.projects.creative-concept.gallery.converted-webp",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/boticario/projects/creative-concept/gallery/converted-webp.webp",
+        "file_path": "boticario/projects/creative-concept/gallery/converted-webp.webp",
+        "updated_at": "2026-02-25 03:14:19.032818+00"
       },
       {
         "id": "e8550421-e338-4d4d-8cee-1b64597084db",
@@ -714,36 +738,12 @@
         "updated_at": "2026-01-21 22:59:19.991001+00"
       },
       {
-        "id": "5bc50067-059d-4817-8be9-3a08b3ee3a19",
-        "key": "landing-pages.key-vision.block-13b21736-61e4-4a65-86f5-4f3d5e556302-media1",
+        "id": "888edcce-413a-4bfb-ba21-3062012da3de",
+        "key": "landing-pages.hellmmas.master-v3-block-image-1-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/block-13b21736-61e4-4a65-86f5-4f3d5e556302-media1.webp",
-        "file_path": "landing-pages/key-vision/block-13b21736-61e4-4a65-86f5-4f3d5e556302-media1.webp",
-        "updated_at": "2026-01-22 20:52:04.591136+00"
-      },
-      {
-        "id": "3820ecd6-79bf-467d-a3ac-d76f4cd02ab8",
-        "key": "landing-pages.key-vision.block-cd76022d-bd19-4b4a-bda6-e5967ee82ac2-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/block-cd76022d-bd19-4b4a-bda6-e5967ee82ac2-media1.webp",
-        "file_path": "landing-pages/key-vision/block-cd76022d-bd19-4b4a-bda6-e5967ee82ac2-media1.webp",
-        "updated_at": "2026-01-22 20:52:04.59304+00"
-      },
-      {
-        "id": "11bbe634-3a19-406e-b723-258b3e7547ae",
-        "key": "landing-pages.key-vision.cover-a1fc7154-6142-4f02-81fd-378449837902",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/cover-a1fc7154-6142-4f02-81fd-378449837902.jpg",
-        "file_path": "landing-pages/key-vision/cover-a1fc7154-6142-4f02-81fd-378449837902.jpg",
-        "updated_at": "2026-01-22 21:07:29.651586+00"
-      },
-      {
-        "id": "fab6e2a7-f242-4bdc-9bc7-be29898c3f4c",
-        "key": "landing-pages.hellmmas.master-v3-block-image-6-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-6-media1.png",
-        "file_path": "landing-pages/hellmmas/master-v3-block-image-6-media1.png",
-        "updated_at": "2026-02-07 11:49:00.167663+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-1-media1.webp",
+        "file_path": "landing-pages/hellmmas/master-v3-block-image-1-media1.webp",
+        "updated_at": "2026-02-23 04:51:54.365455+00"
       },
       {
         "id": "f7b492e0-fe27-4bd9-8e85-c3a6924cf59e",
@@ -762,22 +762,6 @@
         "updated_at": "2026-01-21 23:01:50.186152+00"
       },
       {
-        "id": "debe88b9-b35d-4fa6-befc-f8f9affd6958",
-        "key": "landing-pages.key-vision.cover-ec01f72c-f0c6-47b9-8750-64e585796718",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/cover-ec01f72c-f0c6-47b9-8750-64e585796718.jpg",
-        "file_path": "landing-pages/key-vision/cover-ec01f72c-f0c6-47b9-8750-64e585796718.jpg",
-        "updated_at": "2026-01-22 21:12:38.325325+00"
-      },
-      {
-        "id": "66e79a3f-08e2-4eba-a0be-44aab015286b",
-        "key": "landing-pages.key-vision.cover-4b4a2125-9533-48a9-b2ef-6b967c2123c4",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/cover-4b4a2125-9533-48a9-b2ef-6b967c2123c4.webp",
-        "file_path": "landing-pages/key-vision/cover-4b4a2125-9533-48a9-b2ef-6b967c2123c4.webp",
-        "updated_at": "2026-01-22 21:18:51.580424+00"
-      },
-      {
         "id": "4303961a-16ba-4ade-85e2-b48b45579943",
         "key": "projects.key-visual.thumb",
         "bucket": "portfolio-media",
@@ -794,20 +778,28 @@
         "updated_at": "2026-01-21 23:01:49.979027+00"
       },
       {
-        "id": "e9125a79-99cc-4377-ba67-889cf51b9415",
-        "key": "landing-pages.hellmmas.master-v3-block-image-image-7-media2",
+        "id": "7fff13f5-fdae-434d-8073-d623f9d84da8",
+        "key": "landing-pages.key-vision.master-v3-block-image-3-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-7-media2.png",
-        "file_path": "landing-pages/hellmmas/master-v3-block-image-image-7-media2.png",
-        "updated_at": "2026-02-07 11:49:01.059038+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-3-media1.webp",
+        "file_path": "landing-pages/key-vision/master-v3-block-image-3-media1.webp",
+        "updated_at": "2026-02-23 19:24:51.93226+00"
       },
       {
-        "id": "67b17c72-e4b0-4abc-9507-2a7de7d9cb58",
-        "key": "landing-pages.key-vision.block-d914b3f3-0a6b-44b1-a5c4-fe0ce23ec888-media1",
+        "id": "47911ff3-3c1f-4257-880e-9a4f2b28f0b5",
+        "key": "landing-pages.key-vision.master-v3-block-image-image-8-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/block-d914b3f3-0a6b-44b1-a5c4-fe0ce23ec888-media1.webp",
-        "file_path": "landing-pages/key-vision/block-d914b3f3-0a6b-44b1-a5c4-fe0ce23ec888-media1.webp",
-        "updated_at": "2026-01-22 20:52:04.282007+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-8-media1.webp",
+        "file_path": "landing-pages/key-vision/master-v3-block-image-image-8-media1.webp",
+        "updated_at": "2026-02-23 19:24:52.065271+00"
+      },
+      {
+        "id": "c2b3ed10-2318-420f-b2a1-7b15241c4cbb",
+        "key": "landing-pages.brand-video.master-v3-logo-a7f28ccb-095f-400a-a996-aef56ba3e307",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-logo-a7f28ccb-095f-400a-a996-aef56ba3e307.png",
+        "file_path": "landing-pages/brand-video/master-v3-logo-a7f28ccb-095f-400a-a996-aef56ba3e307.png",
+        "updated_at": "2026-02-23 00:00:48.05427+00"
       },
       {
         "id": "baa864c0-1a6d-4cd6-86c3-34c50c70e1b0",
@@ -818,28 +810,12 @@
         "updated_at": "2026-01-21 22:59:20.060372+00"
       },
       {
-        "id": "59469f60-bf3e-4f71-b8b8-47509bc995a4",
-        "key": "landing-pages.key-vision.block-501fd6cc-8a6f-49ad-8904-9dff143a9185-media1",
+        "id": "233b3ec9-ee66-4340-8d12-6e1968e7471d",
+        "key": "landing-pages.brand-video.master-v3-block-image-image-5-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/block-501fd6cc-8a6f-49ad-8904-9dff143a9185-media1.webp",
-        "file_path": "landing-pages/key-vision/block-501fd6cc-8a6f-49ad-8904-9dff143a9185-media1.webp",
-        "updated_at": "2026-01-22 20:52:04.524605+00"
-      },
-      {
-        "id": "04341db5-d061-4f1b-b810-39230749264e",
-        "key": "landing-pages.key-vision.block-2a06568e-4018-4a9d-b86a-5a6a56b5da2e-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/block-2a06568e-4018-4a9d-b86a-5a6a56b5da2e-media1.webp",
-        "file_path": "landing-pages/key-vision/block-2a06568e-4018-4a9d-b86a-5a6a56b5da2e-media1.webp",
-        "updated_at": "2026-01-22 20:52:04.552117+00"
-      },
-      {
-        "id": "3cae8a93-9846-4f75-8510-31434d25f1a1",
-        "key": "landing-pages.key-vision.block-5bcc6b4b-3221-4521-9286-43f8452e9789-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/block-5bcc6b4b-3221-4521-9286-43f8452e9789-media1.webp",
-        "file_path": "landing-pages/key-vision/block-5bcc6b4b-3221-4521-9286-43f8452e9789-media1.webp",
-        "updated_at": "2026-01-22 20:52:04.679563+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-image-5-media1.webp",
+        "file_path": "landing-pages/brand-video/master-v3-block-image-image-5-media1.webp",
+        "updated_at": "2026-02-23 00:00:48.918394+00"
       },
       {
         "id": "2636df6a-b8d9-4f97-9d0b-d789c0641753",
@@ -850,12 +826,12 @@
         "updated_at": "2026-01-21 23:01:49.408415+00"
       },
       {
-        "id": "e5c427bf-bc2b-4446-9680-bf6073b207ac",
-        "key": "landing-pages.key-vision.cover-b43b60b2-fca1-435f-a78d-ea18a4b18152",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/cover-b43b60b2-fca1-435f-a78d-ea18a4b18152.webp",
-        "file_path": "landing-pages/key-vision/cover-b43b60b2-fca1-435f-a78d-ea18a4b18152.webp",
-        "updated_at": "2026-01-22 21:42:27.62219+00"
+        "id": "46ad61a5-5751-49b7-8d82-e74cdffc65e6",
+        "key": "projects.brand_video.hero",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/brand_video/hero.mp4",
+        "file_path": "projects/brand_video/hero.mp4",
+        "updated_at": "2026-02-10 22:17:23.071622+00"
       },
       {
         "id": "ce927d67-a0ef-4470-a5c2-9d1c08644d32",
@@ -882,20 +858,60 @@
         "updated_at": "2026-01-23 03:30:52.918676+00"
       },
       {
-        "id": "33a55da2-b177-4f90-9e3b-bd81f76cc37f",
-        "key": "landing-pages.brand-video.cover-444dd84f-1427-4dd8-8c8f-969f40c9b8ef",
+        "id": "f240c020-8497-4f7b-beb0-f81021bad490",
+        "key": "landing-pages.brand-video.master-v3-cover-90a2e0a5-e437-443c-9617-7104cccc2d56",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/cover-444dd84f-1427-4dd8-8c8f-969f40c9b8ef.webp",
-        "file_path": "landing-pages/brand-video/cover-444dd84f-1427-4dd8-8c8f-969f40c9b8ef.webp",
-        "updated_at": "2026-01-23 04:07:57.127035+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-cover-90a2e0a5-e437-443c-9617-7104cccc2d56.png",
+        "file_path": "landing-pages/brand-video/master-v3-cover-90a2e0a5-e437-443c-9617-7104cccc2d56.png",
+        "updated_at": "2026-02-23 00:00:47.198812+00"
       },
       {
-        "id": "a0f4bb0e-305d-4a53-9e82-16e35c4beeb3",
-        "key": "landing-pages.brand-video.block-15fc098d-fd18-484e-a42f-a582686a1651-media1",
+        "id": "86c521eb-c5d0-4dea-9020-6fef7a099123",
+        "key": "landing-pages.brand-video.master-v3-block-image-image-3-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/block-15fc098d-fd18-484e-a42f-a582686a1651-media1.webp",
-        "file_path": "landing-pages/brand-video/block-15fc098d-fd18-484e-a42f-a582686a1651-media1.webp",
-        "updated_at": "2026-01-23 04:11:47.889018+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-image-3-media1.jpeg",
+        "file_path": "landing-pages/brand-video/master-v3-block-image-image-3-media1.jpeg",
+        "updated_at": "2026-02-23 00:00:49.255829+00"
+      },
+      {
+        "id": "41b1a5a0-dd9f-4d6a-b7be-6df5f04eacac",
+        "key": "landing-pages.brand-video.master-v3-block-image-4-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-4-media1.webp",
+        "file_path": "landing-pages/brand-video/master-v3-block-image-4-media1.webp",
+        "updated_at": "2026-02-23 00:00:49.375245+00"
+      },
+      {
+        "id": "9b8b8318-95cb-4a07-8b3e-2173afc0acea",
+        "key": "landing-pages.brand-video.master-v3-block-image-image-5-media2",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-image-5-media2.jpeg",
+        "file_path": "landing-pages/brand-video/master-v3-block-image-image-5-media2.jpeg",
+        "updated_at": "2026-02-23 00:00:49.896805+00"
+      },
+      {
+        "id": "cb5a43e3-95ce-4878-9714-e59fd4544042",
+        "key": "landing-pages.brand-video.master-v3-block-image-image-3-media2",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-image-3-media2.webp",
+        "file_path": "landing-pages/brand-video/master-v3-block-image-image-3-media2.webp",
+        "updated_at": "2026-02-23 00:00:50.017036+00"
+      },
+      {
+        "id": "c0307692-5e45-4aed-8d0c-e65ba801f3bf",
+        "key": "projects.animation.cover-1x1",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/animation/cover-1x1.mp4",
+        "file_path": "projects/animation/cover-1x1.mp4",
+        "updated_at": "2026-02-23 20:30:57.842594+00"
+      },
+      {
+        "id": "ec59684f-4345-422a-a329-805f8b66d3ba",
+        "key": "projects.animation.hero",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/animation/hero.mp4",
+        "file_path": "projects/animation/hero.mp4",
+        "updated_at": "2026-02-21 06:52:38.921859+00"
       },
       {
         "id": "d996ea5d-7b04-4dd4-af8b-c4c9be7b5fa6",
@@ -906,12 +922,36 @@
         "updated_at": "2026-02-07 12:01:20.852865+00"
       },
       {
+        "id": "ec57131f-fb17-4564-b9e1-deea383a1673",
+        "key": "projects.animation.gallery.VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/animation/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.mp4",
+        "file_path": "projects/animation/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.mp4",
+        "updated_at": "2026-02-23 04:58:39.166363+00"
+      },
+      {
+        "id": "b1f75628-5a7d-46e4-8b7c-bcc5b85d43e5",
+        "key": "projects.animation.gallery.VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/animation/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.mp4",
+        "file_path": "projects/animation/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.mp4",
+        "updated_at": "2026-02-23 04:58:59.480694+00"
+      },
+      {
         "id": "759f8f06-27ca-49ef-abfa-2bc1a33bf897",
         "key": "projects.campaign.hero",
         "bucket": "portfolio-media",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/campaign/hero.jpeg",
         "file_path": "projects/campaign/hero.jpeg",
         "updated_at": "2026-02-07 12:01:21.41171+00"
+      },
+      {
+        "id": "026f8dea-3408-47c7-bc71-4026f4d19bea",
+        "key": "landing-pages.key-vision.master-v3-block-image-image-11-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-11-media1.webp",
+        "file_path": "landing-pages/key-vision/master-v3-block-image-image-11-media1.webp",
+        "updated_at": "2026-02-23 19:24:52.332087+00"
       },
       {
         "id": "bb431085-63e9-48cf-aca5-3b11ba565a9f",
@@ -930,28 +970,44 @@
         "updated_at": "2026-02-07 12:01:22.547047+00"
       },
       {
-        "id": "e3d2ec45-c625-4e5b-9e44-01b425998e60",
-        "key": "landing-pages.brand-video.block-d1a9beb0-a443-4ec9-88db-aaac90426941-media1",
+        "id": "a257cfef-9011-4917-846d-88b8c763f30f",
+        "key": "landing-pages.key-vision.master-v3-block-image-7-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/block-d1a9beb0-a443-4ec9-88db-aaac90426941-media1.png",
-        "file_path": "landing-pages/brand-video/block-d1a9beb0-a443-4ec9-88db-aaac90426941-media1.png",
-        "updated_at": "2026-01-23 04:11:47.889621+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-7-media1.webp",
+        "file_path": "landing-pages/key-vision/master-v3-block-image-7-media1.webp",
+        "updated_at": "2026-02-23 19:24:52.360948+00"
       },
       {
-        "id": "9fcf5207-5c1a-437e-8a24-535c9df05cff",
-        "key": "landing-pages.brand-video.block-57cdc854-3773-4a85-be06-991cbb1fd944-media1",
+        "id": "445c37a5-8d71-432a-b96c-bb4499a46c46",
+        "key": "landing-pages.key-vision.master-v3-block-image-image-9-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/block-57cdc854-3773-4a85-be06-991cbb1fd944-media1.webp",
-        "file_path": "landing-pages/brand-video/block-57cdc854-3773-4a85-be06-991cbb1fd944-media1.webp",
-        "updated_at": "2026-01-23 04:11:47.902292+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-9-media1.webp",
+        "file_path": "landing-pages/key-vision/master-v3-block-image-image-9-media1.webp",
+        "updated_at": "2026-02-23 19:24:52.383124+00"
       },
       {
-        "id": "cae58532-f312-4e59-bc7f-2ea4fb33740d",
-        "key": "landing-pages.brand-video.block-8daaccdb-938f-41f6-bbd0-30e83786277a-media1",
+        "id": "71d30787-397b-41b5-8824-33930247a8d1",
+        "key": "projects.animation.cover-16x9",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/animation/cover-16x9.mp4",
+        "file_path": "projects/animation/cover-16x9.mp4",
+        "updated_at": "2026-02-23 20:30:54.018645+00"
+      },
+      {
+        "id": "d8e52542-b564-421a-bc58-e6b8f0edbcec",
+        "key": "landing-pages.hellmmas.master-v3-cover-5531cec7-cb45-45f9-9924-3191120520b4",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/block-8daaccdb-938f-41f6-bbd0-30e83786277a-media1.webp",
-        "file_path": "landing-pages/brand-video/block-8daaccdb-938f-41f6-bbd0-30e83786277a-media1.webp",
-        "updated_at": "2026-01-23 04:11:48.081802+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-cover-5531cec7-cb45-45f9-9924-3191120520b4.png",
+        "file_path": "landing-pages/hellmmas/master-v3-cover-5531cec7-cb45-45f9-9924-3191120520b4.png",
+        "updated_at": "2026-02-23 01:29:16.641993+00"
+      },
+      {
+        "id": "df5517b1-93aa-4d6d-90db-9d17259fba7d",
+        "key": "landing-pages.hellmmas.master-v3-logo-e3fca1a1-b086-49f7-a078-6dde32f2b662",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-logo-e3fca1a1-b086-49f7-a078-6dde32f2b662.png",
+        "file_path": "landing-pages/hellmmas/master-v3-logo-e3fca1a1-b086-49f7-a078-6dde32f2b662.png",
+        "updated_at": "2026-02-23 01:29:17.622997+00"
       },
       {
         "id": "0d32daf1-ae05-4146-acbc-f8bfc18d7587",
@@ -968,6 +1024,14 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/brand_video/gallery/THUMB-GLAD-mp4.mp4",
         "file_path": "projects/brand_video/gallery/THUMB-GLAD-mp4.mp4",
         "updated_at": "2026-01-23 04:55:05.418301+00"
+      },
+      {
+        "id": "d9415176-9126-4541-9864-12a2c1d4d400",
+        "key": "landing-pages.key-vision.master-v3-block-image-image-6-media2",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-6-media2.jpeg",
+        "file_path": "landing-pages/key-vision/master-v3-block-image-image-6-media2.jpeg",
+        "updated_at": "2026-02-23 19:24:53.011233+00"
       },
       {
         "id": "21f433fe-1616-4539-a522-6cc3e74cdd1e",
@@ -1018,6 +1082,14 @@
         "updated_at": "2026-02-07 14:25:22.948804+00"
       },
       {
+        "id": "3a859c82-5afd-4d56-9f24-d6c3160f4d86",
+        "key": "landing-pages.hellmmas.master-v3-block-image-image-2-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-2-media1.webp",
+        "file_path": "landing-pages/hellmmas/master-v3-block-image-image-2-media1.webp",
+        "updated_at": "2026-02-23 04:51:53.8374+00"
+      },
+      {
         "id": "ffbb444c-7474-49fe-97aa-9d8199509dce",
         "key": "projects.brand-campaigns.thumb",
         "bucket": "portfolio-media",
@@ -1058,6 +1130,14 @@
         "updated_at": "2026-01-23 19:10:19.611757+00"
       },
       {
+        "id": "d8875c4d-becb-49c2-b6ef-c0e571599044",
+        "key": "landing-pages.hellmmas.master-v3-block-image-image-2-media2",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-2-media2.webp",
+        "file_path": "landing-pages/hellmmas/master-v3-block-image-image-2-media2.webp",
+        "updated_at": "2026-02-23 04:51:54.917249+00"
+      },
+      {
         "id": "6d309797-fc89-4132-8d61-d0e7c394024c",
         "key": "projects.rebranding.gallery.converted-6-webp",
         "bucket": "portfolio-media",
@@ -1074,12 +1154,28 @@
         "updated_at": "2026-01-23 19:10:21.258878+00"
       },
       {
+        "id": "f4dbe198-952e-47d1-9efc-80fd039f617b",
+        "key": "assets-prop.HEADER-FOLHA-TIMBRADA",
+        "bucket": "portfolio-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-assets/assets-prop/HEADER-FOLHA-TIMBRADA.png",
+        "file_path": "assets-prop/HEADER-FOLHA-TIMBRADA.png",
+        "updated_at": "2026-02-20 16:26:29.017094+00"
+      },
+      {
         "id": "adc85fcb-1686-4973-aafa-783f918c8454",
         "key": "projects.brand-campaigns.cover-1x1",
         "bucket": "portfolio-media",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/brand-campaigns/cover-1x1.JPG",
         "file_path": "projects/brand-campaigns/cover-1x1.JPG",
         "updated_at": "2026-02-07 14:25:23.287758+00"
+      },
+      {
+        "id": "af19ecf6-a78e-4a94-9874-e6ce3dbac86b",
+        "key": "assets-prop.FOOTER-FOLHA-TIMBRADA",
+        "bucket": "portfolio-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-assets/assets-prop/FOOTER-FOLHA-TIMBRADA.jpg",
+        "file_path": "assets-prop/FOOTER-FOLHA-TIMBRADA.jpg",
+        "updated_at": "2026-02-20 16:26:29.039781+00"
       },
       {
         "id": "c735f86a-32ae-4fd6-94ef-fd5175f17c5a",
@@ -1090,12 +1186,44 @@
         "updated_at": "2026-02-07 14:25:24.327888+00"
       },
       {
+        "id": "e0ca15e6-f8de-4e5f-9447-775f1f301f16",
+        "key": "landing-pages.key-vision.master-v3-block-image-image-8-media2",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-8-media2.webp",
+        "file_path": "landing-pages/key-vision/master-v3-block-image-image-8-media2.webp",
+        "updated_at": "2026-02-23 19:24:53.046057+00"
+      },
+      {
+        "id": "c5eaf647-1ba4-4b1b-978d-62a2742d38fa",
+        "key": "projects.video.cover-1x1",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/video/cover-1x1.mp4",
+        "file_path": "projects/video/cover-1x1.mp4",
+        "updated_at": "2026-02-23 20:42:31.685069+00"
+      },
+      {
+        "id": "f3ca81a8-1f9c-4603-921a-845639f32fca",
+        "key": "projects.video.cover-16x9",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/video/cover-16x9.mp4",
+        "file_path": "projects/video/cover-16x9.mp4",
+        "updated_at": "2026-02-23 20:42:27.752983+00"
+      },
+      {
         "id": "0bce0960-cd21-4e82-b003-da1b81272a64",
         "key": "about.beliefs.VIDEO-SKILLS-MOBILE-FINAL",
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4",
         "file_path": "about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4",
         "updated_at": "2026-01-24 07:46:47.47816+00"
+      },
+      {
+        "id": "adc9d3da-eae7-49c1-b946-93b4965ec781",
+        "key": "landing-pages.key-vision.master-v3-block-image-image-11-media2",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-11-media2.webp",
+        "file_path": "landing-pages/key-vision/master-v3-block-image-image-11-media2.webp",
+        "updated_at": "2026-02-23 19:24:53.204717+00"
       },
       {
         "id": "763576cb-b964-4546-b032-a0bffb4336ce",
@@ -1114,6 +1242,14 @@
         "updated_at": "2026-02-07 18:51:55.968482+00"
       },
       {
+        "id": "2907d9a8-1332-4ade-8363-669a77af3927",
+        "key": "landing-pages.hellmmas.master-v3-cover-5e1c0663-a3bf-4c2b-93d7-0c7439c78945",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-cover-5e1c0663-a3bf-4c2b-93d7-0c7439c78945.svg",
+        "file_path": "landing-pages/hellmmas/master-v3-cover-5e1c0663-a3bf-4c2b-93d7-0c7439c78945.svg",
+        "updated_at": "2026-02-23 04:51:51.465278+00"
+      },
+      {
         "id": "169d9d60-0dd8-461a-bcf3-3298dbf86e78",
         "key": "projects.print-design.hero",
         "bucket": "portfolio-media",
@@ -1127,15 +1263,15 @@
         "bucket": "portfolio-media",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/print-design/cover-16x9.mp4",
         "file_path": "projects/print-design/cover-16x9.mp4",
-        "updated_at": "2026-02-07 18:51:57.322913+00"
+        "updated_at": "2026-02-23 06:52:56.787373+00"
       },
       {
-        "id": "b847d6b2-9696-4e31-ad95-f4ceb01747f0",
-        "key": "projects.print-design.cover-1x1",
-        "bucket": "portfolio-media",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/print-design/cover-1x1.mp4",
-        "file_path": "projects/print-design/cover-1x1.mp4",
-        "updated_at": "2026-02-07 18:51:58.280753+00"
+        "id": "a4e8188a-5af5-4596-8e3b-ef7fac8f548d",
+        "key": "landing-pages.hellmmas.master-v3-logo-c21e734d-144b-4151-8b3c-8ae272753e55",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-logo-c21e734d-144b-4151-8b3c-8ae272753e55.svg",
+        "file_path": "landing-pages/hellmmas/master-v3-logo-c21e734d-144b-4151-8b3c-8ae272753e55.svg",
+        "updated_at": "2026-02-23 04:51:52.777634+00"
       },
       {
         "id": "64109b8b-fefe-476e-a559-0a889022f8dc",
@@ -1146,12 +1282,52 @@
         "updated_at": "2026-02-07 18:51:59.147343+00"
       },
       {
+        "id": "e6f0c87d-2a66-423b-94b3-d941a2924986",
+        "key": "landing-pages.hellmmas.master-v3-block-image-video-4-media1",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-video-4-media1.webp",
+        "file_path": "landing-pages/hellmmas/master-v3-block-image-video-4-media1.webp",
+        "updated_at": "2026-02-23 04:51:53.604993+00"
+      },
+      {
+        "id": "b847d6b2-9696-4e31-ad95-f4ceb01747f0",
+        "key": "projects.print-design.cover-1x1",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/print-design/cover-1x1.mp4",
+        "file_path": "projects/print-design/cover-1x1.mp4",
+        "updated_at": "2026-02-23 06:53:04.769528+00"
+      },
+      {
+        "id": "9203f7cc-1510-43c9-8136-05f62ebff6ff",
+        "key": "landing-pages.key-vision.master-v3-block-image-image-9-media2",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/key-vision/master-v3-block-image-image-9-media2.webp",
+        "file_path": "landing-pages/key-vision/master-v3-block-image-image-9-media2.webp",
+        "updated_at": "2026-02-23 19:24:53.510465+00"
+      },
+      {
+        "id": "d60ec189-a970-4a54-8d3d-6b09bd291680",
+        "key": "landing-pages.hellmmas.master-v3-cover-f3eec3a6-0916-41c1-8489-49000474b402",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-cover-f3eec3a6-0916-41c1-8489-49000474b402.png",
+        "file_path": "landing-pages/hellmmas/master-v3-cover-f3eec3a6-0916-41c1-8489-49000474b402.png",
+        "updated_at": "2026-02-23 19:32:08.783923+00"
+      },
+      {
         "id": "82ee345b-1abe-4827-97ef-6f8c226a226d",
         "key": "clients.clients.strip.9",
         "bucket": "site-assets",
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/clients/clients.strip.9.svg",
         "file_path": "clients/clients.strip.9.svg",
         "updated_at": "2026-01-25 04:48:34.259739+00"
+      },
+      {
+        "id": "f630f333-4bee-4baa-8083-670a21b3b0a7",
+        "key": "landing-pages.hellmmas.master-v3-logo-968e82db-f6f6-412e-ada6-97b7199d982d",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-logo-968e82db-f6f6-412e-ada6-97b7199d982d.png",
+        "file_path": "landing-pages/hellmmas/master-v3-logo-968e82db-f6f6-412e-ada6-97b7199d982d.png",
+        "updated_at": "2026-02-23 19:32:10.268801+00"
       },
       {
         "id": "39f798aa-2e6b-4d5b-96a8-bd55e8f601a7",
@@ -1162,76 +1338,172 @@
         "updated_at": "2026-01-28 06:46:01.058864+00"
       },
       {
-        "id": "db590de7-d010-4ede-8a83-2a13becc8e69",
-        "key": "landing-pages.brand-video.master-v3-block-image-image-3-media1",
+        "id": "272d2324-3c58-4741-b896-ac8813b18bda",
+        "key": "landing-pages.hellmmas.master-v3-block-image-image-5-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-image-3-media1.jpeg",
-        "file_path": "landing-pages/brand-video/master-v3-block-image-image-3-media1.jpeg",
-        "updated_at": "2026-02-09 13:24:02.081804+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-5-media1.jpeg",
+        "file_path": "landing-pages/hellmmas/master-v3-block-image-image-5-media1.jpeg",
+        "updated_at": "2026-02-23 04:51:54.80151+00"
       },
       {
-        "id": "f8717a76-0e35-42e3-9ce3-fb48ce9ef9f5",
-        "key": "landing-pages.brand-video.master-v3-block-image-4-media1",
+        "id": "ad85e9ef-764a-4105-bf90-0bae38b0d055",
+        "key": "landing-pages.hellmmas.master-v3-block-image-image-7-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-4-media1.webp",
-        "file_path": "landing-pages/brand-video/master-v3-block-image-4-media1.webp",
-        "updated_at": "2026-02-09 13:24:02.155922+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-7-media1.webp",
+        "file_path": "landing-pages/hellmmas/master-v3-block-image-image-7-media1.webp",
+        "updated_at": "2026-02-23 04:51:55.020026+00"
       },
       {
-        "id": "2d7a33d8-8f68-449e-9ee7-b8cdf77c558d",
-        "key": "landing-pages.brand-video.master-v3-block-image-image-5-media1",
+        "id": "1ba9b89e-cf12-4768-997e-b318fb6f10cf",
+        "key": "landing-pages.hellmmas.master-v3-block-image-image-5-media2",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-image-5-media1.webp",
-        "file_path": "landing-pages/brand-video/master-v3-block-image-image-5-media1.webp",
-        "updated_at": "2026-02-09 13:24:02.350732+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-5-media2.webp",
+        "file_path": "landing-pages/hellmmas/master-v3-block-image-image-5-media2.webp",
+        "updated_at": "2026-02-23 04:51:55.629256+00"
       },
       {
-        "id": "e3b231f4-211b-4b29-b19f-d9019d12d325",
-        "key": "landing-pages.brand-video.master-v3-block-image-image-3-media2",
+        "id": "ff29213e-2092-404e-a2c5-beebd4aefb45",
+        "key": "landing-pages.hellmmas.master-v3-block-image-image-9-media2",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-image-3-media2.webp",
-        "file_path": "landing-pages/brand-video/master-v3-block-image-image-3-media2.webp",
-        "updated_at": "2026-02-09 13:24:02.688795+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-9-media2.webp",
+        "file_path": "landing-pages/hellmmas/master-v3-block-image-image-9-media2.webp",
+        "updated_at": "2026-02-23 04:51:56.134648+00"
       },
       {
-        "id": "309cab8d-eb33-4c3e-b31d-729db2511dee",
-        "key": "landing-pages.brand-video.master-v3-block-image-image-5-media2",
+        "id": "3d6d5e0f-eb72-4607-a238-bf1f8ae97253",
+        "key": "landing-pages.hellmmas.master-v3-block-image-image-7-media2",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-block-image-image-5-media2.jpeg",
-        "file_path": "landing-pages/brand-video/master-v3-block-image-image-5-media2.jpeg",
-        "updated_at": "2026-02-09 13:24:03.102634+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-7-media2.webp",
+        "file_path": "landing-pages/hellmmas/master-v3-block-image-image-7-media2.webp",
+        "updated_at": "2026-02-23 04:51:56.960042+00"
       },
       {
-        "id": "0a563737-ad06-4297-8547-206a9f7f734d",
-        "key": "landing-pages.brand-video.master-v3-logo-c873b8e9-d80d-45b6-856e-243c42a85019",
+        "id": "c2629336-acdf-4fd3-b70a-26462b65ad27",
+        "key": "landing-pages.hellmmas.master-v3-block-image-video-4-media2",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v3-logo-c873b8e9-d80d-45b6-856e-243c42a85019.png",
-        "file_path": "landing-pages/brand-video/master-v3-logo-c873b8e9-d80d-45b6-856e-243c42a85019.png",
-        "updated_at": "2026-02-09 13:26:07.820117+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-video-4-media2.mp4",
+        "file_path": "landing-pages/hellmmas/master-v3-block-image-video-4-media2.mp4",
+        "updated_at": "2026-02-23 04:52:03.975112+00"
       },
       {
-        "id": "65b5aaa3-6090-4a09-9ca8-d2a527182ea8",
-        "key": "about.beliefs.ghost-transformed",
+        "id": "a98183ce-2201-4fe2-9570-059c6072c9b7",
+        "key": "landing-pages.hellmmas.master-v3-block-image-6-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost-transformed.glb",
-        "file_path": "about/beliefs/ghost-transformed.glb",
-        "updated_at": "2026-02-04 21:12:31.645073+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-6-media1.png",
+        "file_path": "landing-pages/hellmmas/master-v3-block-image-6-media1.png",
+        "updated_at": "2026-02-23 04:52:13.17403+00"
       },
       {
-        "id": "260088c0-84cd-4528-804f-c5ec2e0b87d0",
-        "key": "landing-pages.brand-video.master-hero-b108ae82-aa39-4444-afe4-d41c9091ca6e",
+        "id": "e8a98b71-ca7a-4ad1-9d5b-8b0ed7dbbebe",
+        "key": "landing-pages.hellmmas.master-v3-block-image-9-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-hero-b108ae82-aa39-4444-afe4-d41c9091ca6e.png",
-        "file_path": "landing-pages/brand-video/master-hero-b108ae82-aa39-4444-afe4-d41c9091ca6e.png",
-        "updated_at": "2026-02-05 11:23:14.173714+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-9-media1.webp",
+        "file_path": "landing-pages/hellmmas/master-v3-block-image-9-media1.webp",
+        "updated_at": "2026-02-23 04:51:54.428685+00"
       },
       {
-        "id": "786f12f8-beaa-4350-8a94-bd02cf027ba8",
-        "key": "landing-pages.brand-video.master-grid-grid-item-2",
+        "id": "44b88ea1-5284-4621-965f-c55b0cb19d45",
+        "key": "projects.video.gallery.VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.mp4",
+        "file_path": "projects/video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.mp4",
+        "updated_at": "2026-02-21 06:59:22.012752+00"
+      },
+      {
+        "id": "5a55c68f-f56a-4c5e-87c9-69eafede1c45",
+        "key": "landing-pages.hellmmas.master-v3-block-image-image-9-media1",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-grid-grid-item-2.webp",
-        "file_path": "landing-pages/brand-video/master-grid-grid-item-2.webp",
-        "updated_at": "2026-02-05 11:23:14.674122+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-9-media1.webp",
+        "file_path": "landing-pages/hellmmas/master-v3-block-image-image-9-media1.webp",
+        "updated_at": "2026-02-23 04:51:54.659094+00"
+      },
+      {
+        "id": "6ccb74fb-d4b3-4757-9873-4a55499f0a8b",
+        "key": "projects.brand_video.cover-16x9",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/brand_video/cover-16x9.mp4",
+        "file_path": "projects/brand_video/cover-16x9.mp4",
+        "updated_at": "2026-02-10 22:17:23.866925+00"
+      },
+      {
+        "id": "38b762fe-8c92-4a6c-81d5-e7eab1374f09",
+        "key": "projects.video.gallery.converted-2-png",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/video/gallery/converted-2-png.png",
+        "file_path": "projects/video/gallery/converted-2-png.png",
+        "updated_at": "2026-02-23 20:26:57.957388+00"
+      },
+      {
+        "id": "9b44f0c7-b09c-4d81-92ee-ec026d134a5d",
+        "key": "projects.brand_video.cover-1x1",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/brand_video/cover-1x1.mp4",
+        "file_path": "projects/brand_video/cover-1x1.mp4",
+        "updated_at": "2026-02-10 22:17:24.691178+00"
+      },
+      {
+        "id": "2e212b67-de49-403d-8ed7-bcc83cfec6d9",
+        "key": "projects.campaign.cover-16x9",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/campaign/cover-16x9.mp4",
+        "file_path": "projects/campaign/cover-16x9.mp4",
+        "updated_at": "2026-02-23 20:28:10.663612+00"
+      },
+      {
+        "id": "00a5e7d4-fecb-457b-bfac-ea4ab1e3a729",
+        "key": "projects.campaign.cover-1x1",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/campaign/cover-1x1.mp4",
+        "file_path": "projects/campaign/cover-1x1.mp4",
+        "updated_at": "2026-02-23 20:28:14.870727+00"
+      },
+      {
+        "id": "20bdbfee-8ee8-4887-8696-caa82bef08a8",
+        "key": "projects.video.gallery.VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.mp4",
+        "file_path": "projects/video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.mp4",
+        "updated_at": "2026-02-21 06:59:02.910911+00"
+      },
+      {
+        "id": "6a2572e9-16fa-410f-ab87-ff406923f077",
+        "key": "projects.campaign.gallery.converted-2-png",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/campaign/gallery/converted-2-png.png",
+        "file_path": "projects/campaign/gallery/converted-2-png.png",
+        "updated_at": "2026-02-23 20:28:16.593845+00"
+      },
+      {
+        "id": "e91e5184-2cac-41f1-9317-e33df90796bf",
+        "key": "projects.animation.gallery.converted-2-png",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/animation/gallery/converted-2-png.png",
+        "file_path": "projects/animation/gallery/converted-2-png.png",
+        "updated_at": "2026-02-23 20:30:59.675627+00"
+      },
+      {
+        "id": "22922175-c024-4542-ad56-74ca02a6dcf6",
+        "key": "home.VIDEO-MANIFESTO-MOBILE",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/home/VIDEO-MANIFESTO-MOBILE.mp4",
+        "file_path": "home/VIDEO-MANIFESTO-MOBILE.mp4",
+        "updated_at": "2026-02-25 07:54:57.032276+00"
+      },
+      {
+        "id": "d072df50-63f0-48ca-a161-d84b52a8e9cd",
+        "key": "projects.AI video.cover-16x9",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/AI video/cover-16x9.mp4",
+        "file_path": "projects/AI video/cover-16x9.mp4",
+        "updated_at": "2026-02-10 04:50:34.031925+00"
+      },
+      {
+        "id": "08800572-1212-4ffd-8d9e-9b4dece65161",
+        "key": "projects.video.gallery.KV-Eudora-v2-png",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/video/gallery/KV-Eudora-v2-png.png",
+        "file_path": "projects/video/gallery/KV-Eudora-v2-png.png",
+        "updated_at": "2026-02-23 20:42:46.924283+00"
       },
       {
         "id": "292b505a-7355-4c6e-90a4-2dd62b98a9d9",
@@ -1240,6 +1512,22 @@
         "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/brand_video/hero.webp",
         "file_path": "projects/brand_video/hero.webp",
         "updated_at": "2026-02-05 11:27:00.516262+00"
+      },
+      {
+        "id": "fe136944-b78a-4701-b7fa-8d75ce2602ad",
+        "key": "projects.AI video.cover-1x1",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/AI video/cover-1x1.mp4",
+        "file_path": "projects/AI video/cover-1x1.mp4",
+        "updated_at": "2026-02-10 04:50:34.668403+00"
+      },
+      {
+        "id": "65b5aaa3-6090-4a09-9ca8-d2a527182ea8",
+        "key": "about.beliefs.ghost",
+        "bucket": "site-assets",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/about/beliefs/ghost.glb",
+        "file_path": "about/beliefs/ghost.glb",
+        "updated_at": "2026-02-20 05:28:27.214163+00"
       },
       {
         "id": "73325a91-e955-41e9-bf78-7675d51427d3",
@@ -1274,140 +1562,68 @@
         "updated_at": "2026-02-05 12:08:38.362103+00"
       },
       {
-        "id": "744a5336-03d7-4d8a-9532-de5fadb5d70c",
-        "key": "landing-pages.brand-video.master-v2-hero-40404ccf-dd98-432f-bb0f-8e0cbce0f9c3",
+        "id": "2d583cfb-d136-4ae6-ab38-64239986ff7d",
+        "key": "global.logos.FAVICON-DANILO-APPLE",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v2-hero-40404ccf-dd98-432f-bb0f-8e0cbce0f9c3.mp4",
-        "file_path": "landing-pages/brand-video/master-v2-hero-40404ccf-dd98-432f-bb0f-8e0cbce0f9c3.mp4",
-        "updated_at": "2026-02-06 03:22:25.505916+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/global/logos/FAVICON-DANILO-APPLE.png",
+        "file_path": "global/logos/FAVICON-DANILO-APPLE.png",
+        "updated_at": "2026-02-24 07:47:59.632313+00"
       },
       {
-        "id": "48251ac8-f675-478e-bddb-8de5227435e0",
-        "key": "landing-pages.brand-video.master-v2-logo-546c085f-0030-40a5-8ee5-de8b902da7eb",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v2-logo-546c085f-0030-40a5-8ee5-de8b902da7eb.png",
-        "file_path": "landing-pages/brand-video/master-v2-logo-546c085f-0030-40a5-8ee5-de8b902da7eb.png",
-        "updated_at": "2026-02-06 03:22:25.903544+00"
+        "id": "d7a48626-5fc7-4c3a-8cbc-66b0ed80365a",
+        "key": "projects.AI video.gallery.VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/AI video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.mp4",
+        "file_path": "projects/AI video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.mp4",
+        "updated_at": "2026-02-10 04:50:35.804759+00"
       },
       {
-        "id": "ab74535a-976f-43b7-b062-56273cac6edd",
-        "key": "landing-pages.brand-video.master-v2-grid-grid-item-2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v2-grid-grid-item-2.webp",
-        "file_path": "landing-pages/brand-video/master-v2-grid-grid-item-2.webp",
-        "updated_at": "2026-02-06 03:22:26.312325+00"
+        "id": "df0d73af-2037-4fb1-bb7f-92f8d8025132",
+        "key": "projects.AI video.gallery.VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/projects/AI video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.mp4",
+        "file_path": "projects/AI video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.mp4",
+        "updated_at": "2026-02-10 04:50:37.087474+00"
       },
       {
-        "id": "6ccb7e83-b712-4663-84a2-e51b3269cd83",
-        "key": "landing-pages.brand-video.master-v2-grid-grid-item-4",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v2-grid-grid-item-4.jpeg",
-        "file_path": "landing-pages/brand-video/master-v2-grid-grid-item-4.jpeg",
-        "updated_at": "2026-02-06 03:22:26.913277+00"
+        "id": "58b4ec44-7b04-4e0c-a3bc-75aa450a4f41",
+        "key": "mercado-pago.projects.ai-video.cover-16x9",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/mercado-pago/projects/ai-video/cover-16x9.mp4",
+        "file_path": "mercado-pago/projects/ai-video/cover-16x9.mp4",
+        "updated_at": "2026-02-25 02:07:52.812521+00"
       },
       {
-        "id": "50d1d2d3-1c48-4df7-b650-cc2457e60eec",
-        "key": "landing-pages.brand-video.master-v2-grid-grid-item-3",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v2-grid-grid-item-3.jpeg",
-        "file_path": "landing-pages/brand-video/master-v2-grid-grid-item-3.jpeg",
-        "updated_at": "2026-02-06 03:22:26.949868+00"
+        "id": "b99c820b-fc45-4bad-aa3d-226c80f61fa1",
+        "key": "mercado-pago.projects.ai-video.cover-1x1",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/mercado-pago/projects/ai-video/cover-1x1.mp4",
+        "file_path": "mercado-pago/projects/ai-video/cover-1x1.mp4",
+        "updated_at": "2026-02-25 02:07:55.404462+00"
       },
       {
-        "id": "bb1164e1-5d44-44b8-aa12-be8d8afa0017",
-        "key": "landing-pages.brand-video.master-v2-grid-grid-item-5",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/master-v2-grid-grid-item-5.webp",
-        "file_path": "landing-pages/brand-video/master-v2-grid-grid-item-5.webp",
-        "updated_at": "2026-02-06 03:22:27.100793+00"
+        "id": "53809894-5d5f-482b-ad93-94be521fa886",
+        "key": "mercado-pago.projects.ai-video.gallery.VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/mercado-pago/projects/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.mp4",
+        "file_path": "mercado-pago/projects/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.mp4",
+        "updated_at": "2026-02-25 02:08:27.781578+00"
       },
       {
-        "id": "2771f581-a103-462b-96a4-6fcf33012b71",
-        "key": "landing-pages.hellmmas.master-v3-logo-a64cf97b-ee1d-4236-be5b-304e85dd5968",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-logo-a64cf97b-ee1d-4236-be5b-304e85dd5968.png",
-        "file_path": "landing-pages/hellmmas/master-v3-logo-a64cf97b-ee1d-4236-be5b-304e85dd5968.png",
-        "updated_at": "2026-02-06 10:43:29.230694+00"
+        "id": "9011ec13-28ff-48fc-b9f2-a1faa5caea5d",
+        "key": "mercado-pago.projects.ai-video.gallery.VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4",
+        "bucket": "portfolio-media",
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/portfolio-media/mercado-pago/projects/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.mp4",
+        "file_path": "mercado-pago/projects/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.mp4",
+        "updated_at": "2026-02-25 02:08:48.662377+00"
       },
       {
-        "id": "40e7bcd5-2e04-468d-a2b2-13f058700722",
-        "key": "landing-pages.hellmmas.master-v3-block-image-image-5-media1",
+        "id": "e1ed0956-a7c7-4d89-823b-ceb955a1da52",
+        "key": "landing-pages.brand-video.",
         "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-5-media1.webp",
-        "file_path": "landing-pages/hellmmas/master-v3-block-image-image-5-media1.webp",
-        "updated_at": "2026-02-07 11:48:58.216232+00"
-      },
-      {
-        "id": "53d2dc28-2db9-4602-aa56-944255575f8b",
-        "key": "landing-pages.hellmmas.master-v3-block-image-1-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-1-media1.jpeg",
-        "file_path": "landing-pages/hellmmas/master-v3-block-image-1-media1.jpeg",
-        "updated_at": "2026-02-07 11:48:59.013812+00"
-      },
-      {
-        "id": "165f252f-a6b8-4ed8-8c2a-df20a955c055",
-        "key": "landing-pages.hellmmas.master-v3-block-image-6-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-6-media1.webp",
-        "file_path": "landing-pages/hellmmas/master-v3-block-image-6-media1.webp",
-        "updated_at": "2026-02-06 10:43:30.244999+00"
-      },
-      {
-        "id": "10397f3c-13fb-4a0f-b233-8da88e4e2926",
-        "key": "landing-pages.hellmmas.master-v3-block-image-video-4-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-video-4-media1.jpeg",
-        "file_path": "landing-pages/hellmmas/master-v3-block-image-video-4-media1.jpeg",
-        "updated_at": "2026-02-06 10:43:30.416886+00"
-      },
-      {
-        "id": "940dd7b6-6f06-48b0-a865-9967741db1bd",
-        "key": "landing-pages.hellmmas.master-v3-block-image-image-5-media2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-5-media2.png",
-        "file_path": "landing-pages/hellmmas/master-v3-block-image-image-5-media2.png",
-        "updated_at": "2026-02-06 10:43:31.539431+00"
-      },
-      {
-        "id": "1c626709-b4b0-43d1-a149-5af8532b80c2",
-        "key": "landing-pages.hellmmas.master-v3-block-image-image-2-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-2-media1.png",
-        "file_path": "landing-pages/hellmmas/master-v3-block-image-image-2-media1.png",
-        "updated_at": "2026-02-06 10:43:31.675918+00"
-      },
-      {
-        "id": "8f28eb02-8857-4971-9fe4-b3aa1d8dfcb9",
-        "key": "landing-pages.hellmmas.master-v3-block-image-image-7-media1",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-7-media1.png",
-        "file_path": "landing-pages/hellmmas/master-v3-block-image-image-7-media1.png",
-        "updated_at": "2026-02-06 10:43:31.753882+00"
-      },
-      {
-        "id": "fdccda4d-5694-4eb5-8f09-e35ecec229a2",
-        "key": "landing-pages.hellmmas.master-v3-block-image-image-2-media2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-2-media2.webp",
-        "file_path": "landing-pages/hellmmas/master-v3-block-image-image-2-media2.webp",
-        "updated_at": "2026-02-07 11:48:59.228672+00"
-      },
-      {
-        "id": "64bab681-40be-40dd-a6bd-51b3e234eebf",
-        "key": "landing-pages.hellmmas.master-v3-block-image-image-7-media2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-image-7-media2.webp",
-        "file_path": "landing-pages/hellmmas/master-v3-block-image-image-7-media2.webp",
-        "updated_at": "2026-02-06 10:43:32.127417+00"
-      },
-      {
-        "id": "f47a0d8d-ae3b-44f6-81d7-8337b3f1c740",
-        "key": "landing-pages.hellmmas.master-v3-block-image-video-4-media2",
-        "bucket": "site-assets",
-        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/hellmmas/master-v3-block-image-video-4-media2.mp4",
-        "file_path": "landing-pages/hellmmas/master-v3-block-image-video-4-media2.mp4",
-        "updated_at": "2026-02-07 11:49:00.970095+00"
+        "file_url": "https://umkmwbkwvulxtdodzmzf.supabase.co/storage/v1/object/public/site-assets/landing-pages/brand-video/.emptyFolderPlaceholder",
+        "file_path": "landing-pages/brand-video/.emptyFolderPlaceholder",
+        "updated_at": "2026-02-22 08:31:59.184991+00"
       }
     ]
   }

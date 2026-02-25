@@ -30,7 +30,11 @@ export default function HeroCopy({
     if (!prefersReducedMotion && isLoaded && scope.current) {
       animate(
         '.hero-line',
-        { y: [MOTION_TOKENS.offset.standard, 0], opacity: [0, 1], filter: ['blur(10px)', 'blur(0px)'] },
+        {
+          y: [MOTION_TOKENS.offset.standard, 0],
+          opacity: [0, 1],
+          filter: ['blur(10px)', 'blur(0px)'],
+        },
         {
           delay: stagger(MOTION_TOKENS.stagger.normal as number),
           duration: 1.2,
@@ -41,13 +45,19 @@ export default function HeroCopy({
       animate(
         '.hero-subtitle',
         { y: [MOTION_TOKENS.offset.standard, 0], opacity: [0, 1] },
-        { delay: 0.4, duration: MOTION_TOKENS.duration.normal as number, ease: GHOST_EASE as [number, number, number, number] }
+        {
+          delay: 0.4,
+          duration: MOTION_TOKENS.duration.normal as number,
+          ease: GHOST_EASE as [number, number, number, number],
+        }
       );
     }
   }, [prefersReducedMotion, isLoaded, animate, scope]);
 
   // Initial states for SSR and static render
-  const initialStyles = prefersReducedMotion ? {} : { opacity: 0, translateY: MOTION_TOKENS.offset.standard };
+  const initialStyles = prefersReducedMotion
+    ? {}
+    : { opacity: 0, translateY: MOTION_TOKENS.offset.standard };
 
   // Estrutura de conteúdo idêntica para ambas as camadas para garantir alinhamento perfeito
   const renderTextContent = (isMask: boolean) => (
@@ -130,4 +140,3 @@ export default function HeroCopy({
     </div>
   );
 }
-

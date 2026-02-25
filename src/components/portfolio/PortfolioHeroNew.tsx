@@ -23,7 +23,7 @@ const HERO_POSTER = `data:image/svg+xml;utf8,${encodeURIComponent(
       </linearGradient>
     </defs>
     <rect width="1600" height="900" fill="url(#g)"/>
-    <text x="50%" y="50%" fill="#4fe6ff" font-size="48" font-family="Arial, sans-serif" text-anchor="middle" dominant-baseline="middle" opacity="0.6">portfolio showcase</text>
+    <text x="50%" y="50%" fill="#0048ff" font-size="48" font-family="Arial, sans-serif" text-anchor="middle" dominant-baseline="middle" opacity="0.6">portfolio showcase</text>
   </svg>`
 )}`;
 
@@ -91,7 +91,7 @@ export default function PortfolioHeroNew() {
             className="text-4xl sm:text-6xl md:text-8xl tracking-tighter leading-none font-bold text-center flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 [text-shadow:0_12px_34px_rgba(0,0,0,0.55)]"
           >
             <div className="flex items-center">
-              <span className="text-[#4fe6ff] italic font-light mr-3 md:mr-6">portfólio</span>
+              <span className="text-[#0048ff] italic font-light mr-3 md:mr-6">portfólio</span>
               <span className="text-white font-bold">showcase</span>
             </div>
 
