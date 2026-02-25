@@ -24,6 +24,11 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
   const [muted, setMuted] = useState(true);
   const [videoQuality, setVideoQuality] = useState<'hd' | 'sd'>('hd');
   const shouldReduceMotion = useMotionGate();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const sectionRef = useRef<HTMLElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -74,7 +79,7 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
     videoRef.current.muted = muted;
   }, [muted]);
 
-  const baseSrc = isLikelyVideoUrl(asset?.publicUrl)
+  const baseSrc = mounted && isLikelyVideoUrl(asset?.publicUrl)
     ? (asset?.publicUrl as string)
     : src;
   const [currentSrc, setCurrentSrc] = useState(baseSrc);
@@ -88,7 +93,7 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
     asset?.metadata as { variants?: { sd?: string } } | undefined
   )?.variants?.sd;
   const variantSrc =
-    videoQuality === 'sd' && isLikelyVideoUrl(sdVariant)
+    (mounted && videoQuality === 'sd') && isLikelyVideoUrl(sdVariant)
       ? (sdVariant as string)
       : currentSrc;
   const videoSrc = variantSrc;

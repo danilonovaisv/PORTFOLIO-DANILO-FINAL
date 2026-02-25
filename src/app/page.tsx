@@ -72,8 +72,8 @@ export default async function HomePage() {
       window: 'daily',
       scope: 'home',
     });
-  } catch (error) {
-    console.error('Error fetching projects:', error);
+  } catch (error: any) {
+    console.error('Error fetching projects:', error?.message || error);
   }
 
   return (

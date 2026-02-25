@@ -190,7 +190,7 @@
     display: block;
   }
 
-  /* Reset aspect ratio on mobile so height is dictated by the image */
+  /* Reset to uniform aspect ratio on mobile so cards look standard */
   .card[data-size='sm'],
   .placeholder[data-size='sm'],
   .card[data-size='md'],
@@ -201,7 +201,8 @@
   .placeholder[data-size='wide'],
   .card[data-size='tall'],
   .placeholder[data-size='tall'] {
-    aspect-ratio: auto;
+    aspect-ratio: 4 / 5;
+    width: 100%;
   }
 
   /* Mobile: Overlay hidden by default, visible on active/tap */
@@ -227,29 +228,4 @@
     display: none;
   }
 
-  /* 
-   * Image Overrides for Mobile 
-   * Since we use next/image with `fill` for desktop, we must override it
-   * here to behave responsively according to the image intrinsic aspect ratio.
-   */
-  .card .cardImageWrapper {
-    position: relative !important;
-    width: 100% !important;
-    height: auto !important;
-    padding-bottom: 0 !important;
-    display: block !important;
-    line-height: 0 !important;
-  }
-
-  .card .cardImageWrapper img,
-  .card .cardImageWrapper video {
-    position: static !important;
-    width: 100% !important;
-    height: auto !important;
-    max-width: 100% !important;
-    display: block !important;
-    object-fit: contain !important; /* Prevent heavy clipping on mobile */
-    margin: 0 !important;
-    padding: 0 !important;
-  }
 }
