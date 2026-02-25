@@ -61,11 +61,12 @@
 /* Oversized Typography for Hero (Matched to HERO.jpg) */
 /* Mobile-First: Começa menor, escala para desktop */
 .heroTitle {
-  font-size: clamp(3rem, 12vw, 10rem) !important;
+  font-size: clamp(3rem, 11vw, 8rem) !important;
   font-weight: 900 !important;
   line-height: 0.95 !important;
   letter-spacing: -0.04em !important;
   text-transform: none !important;
+  white-space: nowrap !important;
   /* Safe area padding para notch/dynamic island */
   padding-left: env(safe-area-inset-left, 0);
   padding-right: env(safe-area-inset-right, 0);
@@ -73,7 +74,7 @@
 
 @media (min-width: 768px) {
   .heroTitle {
-    font-size: clamp(4.5rem, 15vw, 10rem) !important;
+    font-size: clamp(4.5rem, 9.5vw, 10rem) !important;
     line-height: 0.9 !important;
     letter-spacing: -0.07em !important;
   }

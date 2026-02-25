@@ -96,6 +96,9 @@ export function GlassPlane({ accentColor }: { accentColor: string }) {
       targetX,
       0.08 // Damping factor (lower = heavier/smoother)
     );
+
+    // Request re-render in demand mode
+    state.invalidate();
   });
 
   return (
@@ -124,7 +127,7 @@ const HeaderGlassCanvas = memo(function HeaderGlassCanvas({
     <Canvas
       dpr={[1, 2]}
       gl={{ antialias: false, alpha: true, premultipliedAlpha: true }}
-      frameloop="always"
+      frameloop="demand"
       orthographic
       camera={{ position: [0, 0, 1], zoom: 1 }}
     >

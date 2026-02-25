@@ -22,31 +22,12 @@ const isLikelyVideoUrl = (url?: string | null) => {
 export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
   const { asset } = useRealtimeAsset(assetKey || '');
   const [muted, setMuted] = useState(true);
-  const [shouldLoad, setShouldLoad] = useState(false);
   const [videoQuality, setVideoQuality] = useState<'hd' | 'sd'>('hd');
   const shouldReduceMotion = useMotionGate();
 
   const sectionRef = useRef<HTMLElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Lazy loading
-  useEffect(() => {
-    if (!wrapperRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldLoad(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '200px' }
-    );
-
-    observer.observe(wrapperRef.current);
-    return () => observer.disconnect();
-  }, []);
 
   // Mutar sempre por padrão; som só habilita via ação explícita do usuário (botão)
   useEffect(() => {
@@ -129,88 +110,79 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
     >
       <div
         ref={wrapperRef}
-        className="video-wrapper relative w-full aspect-[4/3] sm:aspect-video"
+        // Change aspect ratio handling to allow natural height on mobile without cutting
+        className="video-wrapper relative w-full bg-black/5"
       >
-        {shouldLoad ? (
-          <>
-            <motion.video
-              ref={videoRef}
-              className="w-full h-full object-cover"
-              src={videoSrc}
-              poster={posterSrc}
-              autoPlay={!shouldReduceMotion}
-              loop={!shouldReduceMotion}
-              muted={muted}
-              playsInline
-              preload="metadata"
-              onError={() => {
-                if (videoSrc !== src) {
-                  setCurrentSrc(src);
-                }
-              }}
-              aria-label="Vídeo showreel demonstrando projetos de design gráfico"
+        <video
+          ref={videoRef}
+          className="w-full h-auto sm:aspect-video sm:object-cover block"
+          src={videoSrc}
+          poster={posterSrc}
+          autoPlay={!shouldReduceMotion}
+          loop={!shouldReduceMotion}
+          muted={muted}
+          playsInline
+          // Let the browser handle preloading metadata
+          preload="metadata"
+          onError={() => {
+            if (videoSrc !== src) {
+              setCurrentSrc(src);
+            }
+          }}
+          aria-label="Vídeo showreel demonstrando projetos de design gráfico"
+        >
+          <track
+            kind="captions"
+            src="/captions/ambient.vtt"
+            srcLang="pt-BR"
+            label="Português"
+          />
+        </video>
+
+        {/* Toggle som */}
+        <button
+          type="button"
+          className="toggle-sound absolute top-3 right-3 h-14 w-14 sm:h-12 sm:w-12 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/70 transition-colors focus-visible:outline-2 focus-visible:outline-[#0048ff] focus-visible:outline-offset-2"
+          onClick={() => setMuted((m: boolean) => !m)}
+          aria-label={muted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'}
+          aria-pressed={muted ? false : true}
+        >
+          {muted ? (
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              <track
-                kind="captions"
-                src="/captions/ambient.vtt"
-                srcLang="pt-BR"
-                label="Português"
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
               />
-            </motion.video>
-
-            {/* Metadados */}
-
-            {/* Toggle som */}
-            <button
-              type="button"
-              className="toggle-sound absolute top-3 right-3 h-14 w-14 sm:h-12 sm:w-12 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/70 transition-colors focus-visible:outline-2 focus-visible:outline-[#0048ff] focus-visible:outline-offset-2"
-              onClick={() => setMuted((m: boolean) => !m)}
-              aria-label={
-                muted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'
-              }
-              aria-pressed={!muted}
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"
+              />
+            </svg>
+          ) : (
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
             >
-              {muted ? (
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
-                  />
-                </svg>
-              )}
-            </button>
-          </>
-        ) : (
-          // Placeholder
-          <div className="w-full h-full bg-linear-to-br from-neutral-900 to-neutral-800 animate-pulse" />
-        )}
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"
+              />
+            </svg>
+          )}
+        </button>
       </div>
     </motion.section>
   );

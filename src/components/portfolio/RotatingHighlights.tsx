@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { GHOST_EASE } from '@/config/motion';
+import { stableShuffle } from '@/lib/utils/stable-shuffle';
 
 type RotatingHighlightsProps = {
   items: string[];
@@ -11,15 +12,6 @@ type RotatingHighlightsProps = {
   intervalMs?: number;
   className?: string;
 };
-
-function shuffle(values: string[]) {
-  const next = [...values];
-  for (let i = next.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [next[i], next[j]] = [next[j], next[i]];
-  }
-  return next;
-}
 
 function getWindow(values: string[], offset: number, size: number) {
   if (!values.length) return [];
@@ -36,25 +28,22 @@ export default function RotatingHighlights({
   className,
 }: RotatingHighlightsProps) {
   const reduceMotion = useMotionGate();
-  const normalized = useMemo(
-    () =>
-      Array.from(
-        new Set(
-          items
-            .map((item) => item.trim())
-            .filter(Boolean)
-        )
-      ),
-    [items]
-  );
-  const [ordered, setOrdered] = useState<string[]>(normalized);
+
+  // Create deterministic shuffled array initially.
+  // Memoized to prevent recalculation.
+  const ordered = useMemo(() => {
+    const normalized = Array.from(
+      new Set(
+        items.map((item) => item.trim()).filter(Boolean)
+      )
+    );
+    return stableShuffle(normalized, { window: 'hourly', scope: 'highlights' });
+  }, [items]);
+
   const windowSize = Math.min(maxVisible, ordered.length);
   const [offset, setOffset] = useState(0);
 
-  useEffect(() => {
-    setOrdered(shuffle(normalized));
-  }, [normalized]);
-
+  // Still reset offset when items change
   useEffect(() => {
     setOffset(0);
   }, [ordered]);

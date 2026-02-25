@@ -86,7 +86,7 @@ export function ImageLightbox({ isOpen, src, alt, onClose }: ImageLightboxProps)
           onClick={onClose}
         >
           <motion.div
-            className="relative h-full w-full max-w-6xl"
+            className="relative flex max-h-[90vh] max-w-6xl flex-col items-center justify-center p-2"
             initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 14, filter: 'blur(6px)' }}
             animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, filter: 'blur(0px)' }}
             exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 14, filter: 'blur(6px)' }}
@@ -103,7 +103,7 @@ export function ImageLightbox({ isOpen, src, alt, onClose }: ImageLightboxProps)
               <X size={18} />
             </button>
 
-            <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-black/60">
+            <div className="relative flex max-h-full max-w-full items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-black/60 shadow-2xl">
               {youtubeEmbedUrl ? (
                 <iframe
                   src={youtubeEmbedUrl}
@@ -139,9 +139,10 @@ export function ImageLightbox({ isOpen, src, alt, onClose }: ImageLightboxProps)
                 <Image
                   src={src}
                   alt={alt}
-                  fill
+                  width={1920}
+                  height={1080}
                   sizes="90vw"
-                  className="object-contain" // h-full w-full is implied by fill
+                  className="max-h-[85vh] w-auto max-w-full object-contain"
                   priority
                 />
               )}

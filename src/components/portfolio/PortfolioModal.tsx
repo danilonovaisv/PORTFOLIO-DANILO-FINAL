@@ -103,23 +103,23 @@ export const PortfolioModal = ({
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="fixed inset-0 z-[1210] flex flex-col font-display selection:bg-[#4fe6ff] selection:text-black overflow-auto h-[100dvh] w-screen"
+            className="fixed inset-0 z-[1210] flex flex-col font-display selection:bg-[#4fe6ff] selection:text-black overflow-x-hidden overflow-y-auto h-[100dvh] w-screen"
           >
             {/* Ambient Background Gradient inside modal */}
             <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#0b0d3a] via-[#040013] to-[#040013] opacity-80"></div>
 
-            <div className="fixed top-8 right-6 md:right-10 z-[1220]">
+            <div className="fixed top-4 right-4 md:top-8 md:right-8 z-[1220]">
               <button
                 ref={closeRef}
                 onClick={onClose}
                 aria-label="Fechar modal"
-                className="flex items-center justify-center w-[56px] h-[56px] md:w-[68px] md:h-[68px] rounded-full bg-black/40 hover:bg-white/10 border border-white/10 backdrop-blur-md transition-all duration-300 group shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff]"
+                className="flex items-center justify-center w-[48px] h-[48px] md:w-[68px] md:h-[68px] rounded-full bg-black/40 hover:bg-white/10 border border-white/10 backdrop-blur-md transition-all duration-300 group shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#4fe6ff]"
               >
-                <X className="text-white/70 group-hover:text-white transition-colors" size={32} strokeWidth={1.5} />
+                <X className="text-white/70 group-hover:text-white transition-colors" size={28} strokeWidth={1.5} />
               </button>
             </div>
 
-            <main className="flex-1 overflow-y-auto overscroll-contain relative z-10 w-full pt-16 md:pt-0">
+            <main className="flex-1 relative z-10 w-full pt-16 md:pt-0 min-h-full">
               {titleId ? (
                 <h2 id={titleId} className="sr-only">
                   {project.title}

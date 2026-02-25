@@ -35,17 +35,17 @@ function djb2Hash(str: string): number {
  */
 function getTimeSeed(window: TimeWindow): string {
   const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth();
-  const day = now.getDate();
-  const hour = now.getHours();
+  const year = now.getUTCFullYear();
+  const month = now.getUTCMonth();
+  const day = now.getUTCDate();
+  const hour = now.getUTCHours();
 
   switch (window) {
     case 'hourly':
       return `${year}-${month}-${day}-${hour}`;
     case 'weekly': {
       // ISO week number
-      const startOfYear = new Date(year, 0, 1);
+      const startOfYear = new Date(Date.UTC(year, 0, 1));
       const diff = now.getTime() - startOfYear.getTime();
       const oneWeek = 7 * 24 * 60 * 60 * 1000;
       const weekNumber = Math.floor(diff / oneWeek);

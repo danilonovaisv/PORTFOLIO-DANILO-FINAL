@@ -88,6 +88,26 @@ export const ProjectsGallery = ({
   // Initialize LERP Scroll
   const { scrollState } = useLERPScroll(trackRef, galleryWrapperRef, useLerp);
 
+  // PAGINATION LOGIC
+  const ITEMS_PER_PAGE = 15;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Sync activeFilter changes with page reset
+  const handleFilterChange = useCallback((newFilter: string) => {
+    setActiveFilter(newFilter);
+    setCurrentPage(1);
+
+    // Smooth scroll to top of gallery on filter change
+    if (galleryWrapperRef.current) {
+      galleryWrapperRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, []);
+
+  const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
+  const paginatedProjects = useMemo(() => {
+    return filteredProjects.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+  }, [filteredProjects, currentPage]);
+
   const sizePattern = useMemo<ProjectCardSize[]>(
     () => ['lg', 'sm', 'sm', 'sm', 'lg', 'sm', 'sm', 'sm', 'wide'],
     []
@@ -95,11 +115,11 @@ export const ProjectsGallery = ({
 
   const items = useMemo(
     () =>
-      filteredProjects.map((project, index) => ({
+      paginatedProjects.map((project, index) => ({
         project,
         size: project.layout?.size ?? sizePattern[index % sizePattern.length],
       })),
-    [filteredProjects, sizePattern]
+    [paginatedProjects, sizePattern]
   );
 
   const activeFilterIndex = useMemo(
@@ -137,10 +157,10 @@ export const ProjectsGallery = ({
       }
 
       const nextFilter = CATEGORY_PILLARS[nextIndex];
-      setActiveFilter(nextFilter.id);
+      handleFilterChange(nextFilter.id);
       filterRefs.current[nextIndex]?.focus();
     },
-    []
+    [handleFilterChange]
   );
 
   // Determine track classes based on scroll state
@@ -186,9 +206,9 @@ export const ProjectsGallery = ({
                 type="button"
                 role="tab"
                 aria-controls="portfolio-filter-panel"
-                aria-selected={activeFilter === pillar.id}
+                aria-selected={activeFilter === pillar.id ? true : false}
                 tabIndex={activeFilter === pillar.id ? 0 : -1}
-                onClick={() => setActiveFilter(pillar.id)}
+                onClick={() => handleFilterChange(pillar.id)}
                 onKeyDown={(event) =>
                   handleFilterKeyDown(event, index)
                 }
@@ -246,6 +266,45 @@ export const ProjectsGallery = ({
                   />
                 ))}
               </AnimatePresence>
+
+              {/* Pagination Controls */}
+              {totalPages > 1 && (
+                <div className="col-span-full mt-16 mb-8 flex justify-center items-center gap-6">
+                  <button
+                    onClick={() => {
+                      setCurrentPage(p => Math.max(1, p - 1));
+                      galleryWrapperRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }}
+                    disabled={currentPage === 1}
+                    className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:text-[#4fe6ff]"
+                  >
+                    <span className="relative z-10 flex items-center gap-2">
+                      <svg className="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                      Voltar
+                    </span>
+                  </button>
+                  <span className="text-white/40 font-mono text-sm tracking-widest">
+                    {currentPage} / {totalPages}
+                  </span>
+                  <button
+                    onClick={() => {
+                      setCurrentPage(p => Math.min(totalPages, p + 1));
+                      galleryWrapperRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }}
+                    disabled={currentPage === totalPages}
+                    className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:text-[#4fe6ff]"
+                  >
+                    <span className="relative z-10 flex items-center gap-2">
+                      Avançar
+                      <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </StandardGrid>

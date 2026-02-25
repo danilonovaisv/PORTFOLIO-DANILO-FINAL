@@ -40,6 +40,7 @@ export default function GhostScene() {
       life: number;
       decay: number;
       rotationSpeed: { x: number; y: number; z: number };
+      randomScale: number; // Pre-computed to avoid Math.random() in hot loop
     }
     const _particleData: ParticleData[] = [];
 
@@ -548,6 +549,7 @@ export default function GhostScene() {
         life: 0,
         decay: 0,
         rotationSpeed: { x: 0, y: 0, z: 0 },
+        randomScale: 0,
       };
     }
 
@@ -555,6 +557,7 @@ export default function GhostScene() {
       const data = _particleData[index];
       data.life = 1.0;
       data.decay = Math.random() * 0.003 + params.particleDecayRate;
+      data.randomScale = 0.6 + Math.random() * 0.7; // Pre-compute scale (was in hot loop)
 
       // Posição Inicial baseada no Ghost
       _vector.copy(ghostGroup.position);
@@ -574,9 +577,6 @@ export default function GhostScene() {
         (Math.random() - 0.5) * 0.012 - 0.002,
         (Math.random() - 0.5) * 0.012 - 0.006
       );
-
-      // Cor das partículas (simulada mudando a cor do material não funciona com instância única sem attribute color)
-      // Compromisso: Todas tem a mesma cor base (branco/violeta)
     }
 
     // --- DETECÇÃO DE DISPOSITIVO TOUCH/MOBILE ---
@@ -772,7 +772,7 @@ export default function GhostScene() {
 
           _dummy.position.copy(pos);
 
-          const s = (0.6 + Math.random() * 0.7) * (Math.max(0, p.life) * 0.85);
+          const s = p.randomScale * (Math.max(0, p.life) * 0.85);
           _dummy.scale.set(s, s, s);
 
           _dummy.rotation.x += p.rotationSpeed.x;

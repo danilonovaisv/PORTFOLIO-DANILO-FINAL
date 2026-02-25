@@ -14,7 +14,6 @@ import {
 } from '@/lib/utils';
 import styles from '@/components/portfolio/ProjectsGallery.module.css';
 import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
 
 export type ProjectCardSize = 'sm' | 'md' | 'lg' | 'wide' | 'tall';
 
@@ -40,8 +39,6 @@ export const ProjectCard = ({
   size = 'md',
 }: ProjectCardProps) => {
   const reduceMotion = useMotionGate();
-  const isMobile = useMediaQuery('(max-width: 768px)');
-  const shouldUseSquare = !isMobile && ['sm', 'md', 'tall'].includes(size);
 
   // Adjusted for Ghost Era - No Scale on Hover, just clean slide up
   const motionProps = reduceMotion
@@ -62,14 +59,26 @@ export const ProjectCard = ({
       },
     };
 
-  const preferredImage = shouldUseSquare
-    ? project.imageSquare ?? project.imageLandscape ?? project.image
-    : project.imageLandscape ?? project.imageSquare ?? project.image;
-  const imageSrc =
+  // Pre-calculate images to decouple desktop vs mobile
+  const prefersSquareOnDesktop = ['sm', 'md', 'tall'].includes(size);
+
+  const desktopImage =
     project.thumbnailMedia ??
     project.videoPreview ??
-    preferredImage ??
+    (prefersSquareOnDesktop
+      ? (project.imageSquare ?? project.imageLandscape ?? project.image)
+      : (project.imageLandscape ?? project.imageSquare ?? project.image)) ??
     ASSET_PLACEHOLDER;
+
+  const mobileImage =
+    project.thumbnailMedia ??
+    project.videoPreview ??
+    (project.imageLandscape ?? project.imageSquare ?? project.image) ??
+    ASSET_PLACEHOLDER;
+
+  const isVideoPreview = isVideo(desktopImage);
+  const imagesDiffer = desktopImage !== mobileImage && !isVideoPreview;
+
   const objectPosition = project.layout?.objectPosition ?? 'center';
   const sizes =
     project.layout?.sizes ??
@@ -112,9 +121,9 @@ export const ProjectCard = ({
       {...motionProps}
     >
       <div className={styles.cardImageWrapper}>
-        {isVideo(imageSrc) ? (
+        {isVideoPreview ? (
           <video
-            src={imageSrc}
+            src={desktopImage}
             autoPlay
             muted
             loop
@@ -127,19 +136,52 @@ export const ProjectCard = ({
             style={{ objectPosition }}
           />
         ) : (
-          <Image
-            src={imageSrc}
-            alt={project.title}
-            fill
-            className={cn(
-              'object-cover object-center transition-opacity duration-500 group-hover:opacity-95'
+          <>
+            {imagesDiffer ? (
+              <>
+                <Image
+                  src={desktopImage}
+                  alt={project.title}
+                  fill
+                  className={cn(
+                    'hidden md:block object-cover object-center transition-opacity duration-500 group-hover:opacity-95'
+                  )}
+                  style={{ objectPosition }}
+                  sizes={sizes}
+                  loading={priority ? 'eager' : 'lazy'}
+                  priority={priority}
+                  onError={applyImageFallback}
+                />
+                <Image
+                  src={mobileImage}
+                  alt={project.title}
+                  fill
+                  className={cn(
+                    'block md:hidden object-cover object-center transition-opacity duration-500 group-hover:opacity-95'
+                  )}
+                  style={{ objectPosition }}
+                  sizes={sizes}
+                  loading={priority ? 'eager' : 'lazy'}
+                  priority={priority}
+                  onError={applyImageFallback}
+                />
+              </>
+            ) : (
+              <Image
+                src={desktopImage}
+                alt={project.title}
+                fill
+                className={cn(
+                  'object-cover object-center transition-opacity duration-500 group-hover:opacity-95'
+                )}
+                style={{ objectPosition }}
+                sizes={sizes}
+                loading={priority ? 'eager' : 'lazy'}
+                priority={priority}
+                onError={applyImageFallback}
+              />
             )}
-            style={{ objectPosition }}
-            sizes={sizes}
-            loading={priority ? 'eager' : 'lazy'}
-            priority={priority}
-            onError={applyImageFallback}
-          />
+          </>
         )}
       </div>
 
@@ -156,18 +198,6 @@ export const ProjectCard = ({
             {project.client && project.year ? <span aria-hidden="true">•</span> : null}
             {project.year ? <span>{project.year}</span> : null}
           </div>
-          {project.tags?.length ? (
-            <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-[11px] text-white/70">
-              {project.tags.map((tag, tagIndex) => (
-                <span
-                  key={`${project.id}-${tag}-${tagIndex}`}
-                  className="rounded-[2px] border border-white/20 px-2 py-0.5"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          ) : null}
         </div>
       </div>
     </motion.button>

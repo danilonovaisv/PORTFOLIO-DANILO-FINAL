@@ -6,6 +6,9 @@ import * as THREE from 'three';
 import vertexShader from '@/components/canvas/shaders/shaders/vertex.glsl';
 import fragmentShader from '@/components/canvas/shaders/shaders/fragment.glsl';
 
+// Reusable target vector — avoids allocation inside useFrame (GC fix)
+const _mouseTarget = new THREE.Vector2();
+
 interface HeroParticlesProps {
   count?: number;
   baseColor?: string;
@@ -63,10 +66,8 @@ export function HeroParticles({
     const targetX = state.mouse.x;
     const targetY = state.mouse.y;
 
-    materialRef.current.uniforms.uMouse.value.lerp(
-      new THREE.Vector2(targetX, targetY),
-      0.1
-    );
+    _mouseTarget.set(targetX, targetY);
+    materialRef.current.uniforms.uMouse.value.lerp(_mouseTarget, 0.1);
 
     // Hover Intensity (Simple logic: always 1 if mouse is active, or based on velocity)
     // For now, let's keep it 1.0 to always show effect near mouse

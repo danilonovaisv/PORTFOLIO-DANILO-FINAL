@@ -29,18 +29,24 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
     // Combine hero media + gallery
     const allMedia = useMemo(() => {
         const list: string[] = [];
-        if (heroMedia) list.push(heroMedia);
+        if (heroMedia && heroMedia.trim() !== '') list.push(heroMedia);
         if (project.detail?.gallery) {
             project.detail.gallery.forEach(m => {
-                if (!list.includes(m)) list.push(m);
+                if (m && typeof m === 'string' && m.trim() !== '' && !list.includes(m)) {
+                    list.push(m);
+                }
             });
         }
         return list;
     }, [heroMedia, project.detail?.gallery]);
 
     useEffect(() => {
-        setActiveMedia(heroMedia);
-    }, [heroMedia]);
+        if (heroMedia && heroMedia.trim() !== '') {
+            setActiveMedia(heroMedia);
+        } else if (allMedia.length > 0) {
+            setActiveMedia(allMedia[0]);
+        }
+    }, [heroMedia, allMedia]);
 
     const contentVariants = getContentVariants(shouldReduce);
     const isMotion = project.category === 'motion';
@@ -151,8 +157,8 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                                 </div>
                                             ) : isThumbVid ? (
                                                 <div className="relative w-full h-full">
-                                                    <video src={media} className="w-full h-full object-cover" muted playsInline preload="metadata" />
-                                                    <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                                                    <video src={`${media}#t=0.001`} className="w-full h-full object-cover bg-black/5" muted playsInline preload="metadata" />
+                                                    <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors">
                                                         <Play className="w-6 h-6 text-white fill-current opacity-80" />
                                                     </div>
                                                 </div>
@@ -199,15 +205,9 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                         </div>
 
                         <div className="max-w-3xl flex flex-col gap-10">
-                            {project.caseBody ? (
+                            {(project.caseBody || project.detail?.description) ? (
                                 <div className="prose prose-lg prose-invert max-w-none">
-                                    <CaseBodyRenderer content={project.caseBody} />
-                                </div>
-                            ) : project.detail?.description ? (
-                                <div className="prose prose-lg prose-invert max-w-none">
-                                    <p className="text-xl md:text-2xl leading-relaxed text-gray-200 font-light">
-                                        {project.detail.description}
-                                    </p>
+                                    <CaseBodyRenderer content={(project.caseBody || project.detail?.description) as string} />
                                 </div>
                             ) : null}
 

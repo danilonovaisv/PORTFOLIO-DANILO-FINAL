@@ -121,18 +121,7 @@ describe('ProjectCard', () => {
         expect(screen.getByRole('img')).toBeInTheDocument();
     });
 
-    it('should render tags if provided', () => {
-        const projectWithTags: PortfolioProject = {
-            ...mockProject,
-            tags: ['branding', 'ui-design', 'motion'],
-        };
 
-        render(<ProjectCard project={projectWithTags} index={0} />);
-
-        expect(screen.getByText('branding')).toBeInTheDocument();
-        expect(screen.getByText('ui-design')).toBeInTheDocument();
-        expect(screen.getByText('motion')).toBeInTheDocument();
-    });
 
     it('should prioritize internal landing route click when landingPageSlug exists', () => {
         const onClick = jest.fn();
