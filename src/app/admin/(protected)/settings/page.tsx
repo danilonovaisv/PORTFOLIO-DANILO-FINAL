@@ -11,13 +11,19 @@ const getSupabasePublicKeyStatus = () => {
 };
 
 export default async function SettingsPage() {
-  const supabase = await createClient({ admin: true });
+  let dbKey = null;
 
-  const { data: dbKey } = await supabase
-    .from('site_settings')
-    .select('value')
-    .eq('key', 'openai_api_key')
-    .maybeSingle();
+  try {
+    const supabase = await createClient({ admin: true });
+    const { data } = await supabase
+      .from('site_settings')
+      .select('value')
+      .eq('key', 'openai_api_key')
+      .maybeSingle();
+    dbKey = data;
+  } catch (err) {
+    console.warn('[Settings] Falha ao consultar site_settings. Supabase Service Role config ausente?', err);
+  }
 
   const hasOpenAIKeyEnv = Boolean(process.env.OPENAI_API_KEY);
   const hasOpenAIKeyDb = Boolean(dbKey?.value);
@@ -68,11 +74,10 @@ export default async function SettingsPage() {
                 {field.name}
               </p>
               <p
-                className={`text-sm font-medium ${
-                  field.status === 'Configurado'
+                className={`text-sm font-medium ${field.status === 'Configurado'
                     ? 'text-emerald-400'
                     : 'text-rose-400'
-                }`}
+                  }`}
               >
                 {field.status}
               </p>

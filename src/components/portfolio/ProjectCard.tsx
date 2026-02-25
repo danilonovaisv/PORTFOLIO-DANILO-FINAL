@@ -42,6 +42,8 @@ export const ProjectCard = ({
   const reduceMotion = useMotionGate();
   const isMobile = useMediaQuery('(max-width: 768px)');
   const shouldUseSquare = !isMobile && ['sm', 'md', 'tall'].includes(size);
+
+  // Adjusted for Ghost Era - No Scale on Hover, just clean slide up
   const motionProps = reduceMotion
     ? {
       initial: { opacity: 0 },
@@ -76,8 +78,6 @@ export const ProjectCard = ({
   const cardAnchorId = `portfolio-card-${project.slug
     .toLowerCase()
     .replace(/[^a-z0-9-]/g, '-')}-${index}`;
-
-  // ... (imports)
 
   const destination = project.destination ??
     (project.landingPageSlug
@@ -153,7 +153,7 @@ export const ProjectCard = ({
           </h3>
           <div className="flex flex-wrap items-center justify-center gap-2 text-xs text-white/80">
             {project.client ? <span>{project.client}</span> : null}
-            {project.client && project.year ? <span aria-hidden>•</span> : null}
+            {project.client && project.year ? <span aria-hidden="true">•</span> : null}
             {project.year ? <span>{project.year}</span> : null}
           </div>
           {project.tags?.length ? (
@@ -161,7 +161,7 @@ export const ProjectCard = ({
               {project.tags.map((tag, tagIndex) => (
                 <span
                   key={`${project.id}-${tag}-${tagIndex}`}
-                  className="rounded-full border border-white/20 px-2 py-0.5"
+                  className="rounded-[2px] border border-white/20 px-2 py-0.5"
                 >
                   {tag}
                 </span>
@@ -173,3 +173,4 @@ export const ProjectCard = ({
     </motion.button>
   );
 };
+

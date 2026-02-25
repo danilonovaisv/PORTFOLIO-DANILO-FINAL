@@ -7,9 +7,7 @@
 .track {
   width: 100%;
   display: grid;
-  /* Changed from flex to grid */
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  /* 12-column grid standard */
   gap: 12px;
   padding: 0;
   will-change: transform;
@@ -66,8 +64,8 @@
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.34);
-    filter: saturate(1.12);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+    filter: brightness(1.05);
   }
 
   .card:hover .cardOverlay {
@@ -250,7 +248,7 @@
     height: auto !important;
     max-width: 100% !important;
     display: block !important;
-    object-fit: cover !important;
+    object-fit: contain !important; /* Prevent heavy clipping on mobile */
     margin: 0 !important;
     padding: 0 !important;
   }

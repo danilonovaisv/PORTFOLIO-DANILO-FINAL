@@ -114,11 +114,11 @@ body {
   padding-bottom: env(safe-area-inset-bottom, 0);
 
   /* Padrão Global de Text-Wrap para evitar overflow horizontal em mobile */
-  overflow-wrap: anywhere;
-  word-break: break-word;
-  hyphens: auto;
+  overflow-wrap: break-word;
+  /* Safer wrap */
+  word-break: normal;
 
-  /* Prevent horizontal overflow on mobile */
+  /* Prevent horizontal overflow on mobile & keep 100vw exact */
   overflow-x: hidden;
 
   /* Optimize text rendering */
@@ -126,9 +126,29 @@ body {
 }
 
 /* Scaffold sistêmico de responsividade: Previne que filhos de flex quebrem o layout */
-.flex > *,
-.inline-flex > * {
+.flex>*,
+.inline-flex>* {
   min-width: 0;
+}
+
+/* ========================================================================
+   Utilitários de Text Wrapping Inteligente (Ghost System V3)
+   ======================================================================== */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+.no-hyphens {
+  hyphens: none !important;
+}
+
+.break-anywhere {
+  overflow-wrap: anywhere;
+  word-break: break-all;
 }
 
 /* Utilitários de Tipografia baseados nos Tokens */
@@ -144,6 +164,8 @@ body {
   font-weight: 700;
   /* Bold */
   line-height: 1.1;
+  text-wrap: balance;
+  /* Native protection against orphans */
 }
 
 .text-h2 {
@@ -151,6 +173,7 @@ body {
   font-weight: 700;
   /* Bold */
   line-height: 1.15;
+  text-wrap: balance;
 }
 
 .text-h3 {
@@ -165,6 +188,7 @@ body {
   font-weight: 500;
   /* Medium - Better readability on mobile */
   line-height: 1.5;
+  text-wrap: pretty;
 }
 
 .text-body {
@@ -172,6 +196,7 @@ body {
   font-weight: 400;
   /* Regular */
   line-height: 1.5;
+  text-wrap: pretty;
 }
 
 @media (max-width: 767px) {
@@ -385,20 +410,16 @@ html.admin-page body {
    Ghost Portfolio Hero Glows
    ======================================================================== */
 .portfolio-hero-glow-primary {
-  background: radial-gradient(
-    circle at 75% 55%,
-    oklch(from var(--color-primary) l c h / 0.12),
-    transparent 50%
-  );
+  background: radial-gradient(circle at 75% 55%,
+      oklch(from var(--color-primary) l c h / 0.12),
+      transparent 50%);
   filter: blur(40px);
 }
 
 .portfolio-hero-glow-accent {
-  background: radial-gradient(
-    circle at 25% 45%,
-    oklch(from var(--color-accent) l c h / 0.08),
-    transparent 45%
-  );
+  background: radial-gradient(circle at 25% 45%,
+      oklch(from var(--color-accent) l c h / 0.08),
+      transparent 45%);
   filter: blur(40px);
 }
 

@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useRef } from 'react';
-import { motion, Variants } from 'framer-motion';
+import React, { useRef, useEffect } from 'react';
+import { useAnimate, stagger } from 'framer-motion';
 import type { Group } from 'three';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 
@@ -12,40 +12,6 @@ import { Container } from '@/components/layout/Container';
 
 import styles from '@/components/home/hero/HeroCopy.module.css';
 
-// noinspection JSDeprecatedSymbols
-/**
- * Animation: Page Load Entry
- */
-const textContainerAnimation: Variants = {
-  initial: {
-    opacity: 0,
-    y: MOTION_TOKENS.offset.standard,
-    filter: 'blur(10px)',
-  },
-  animate: {
-    opacity: 1,
-    y: 0,
-    filter: 'blur(0px)',
-    transition: {
-      duration: 1.2,
-      ease: GHOST_EASE,
-      staggerChildren: MOTION_TOKENS.stagger.normal,
-    },
-  },
-};
-
-const itemAnimation: Variants = {
-  initial: { opacity: 0, y: MOTION_TOKENS.offset.standard },
-  animate: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: MOTION_TOKENS.duration.normal,
-      ease: GHOST_EASE,
-    },
-  },
-};
-
 export default function HeroCopy({
   ghostRef,
   isLoaded = true,
@@ -55,36 +21,52 @@ export default function HeroCopy({
 }) {
   const revealRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  const [scope, animate] = useAnimate();
 
   // Sincroniza a posição do overlay 2D com o Ghost 3D
   useGhostReveal(ghostRef, revealRef, isLoaded && !prefersReducedMotion);
 
-  const motionProps = prefersReducedMotion
-    ? {}
-    : {
-        initial: 'initial' as const,
-        animate: 'animate' as const,
-        variants: textContainerAnimation,
-      };
+  useEffect(() => {
+    if (!prefersReducedMotion && isLoaded && scope.current) {
+      animate(
+        '.hero-line',
+        { y: [MOTION_TOKENS.offset.standard, 0], opacity: [0, 1], filter: ['blur(10px)', 'blur(0px)'] },
+        {
+          delay: stagger(MOTION_TOKENS.stagger.normal as number),
+          duration: 1.2,
+          ease: GHOST_EASE as [number, number, number, number],
+        }
+      );
+
+      animate(
+        '.hero-subtitle',
+        { y: [MOTION_TOKENS.offset.standard, 0], opacity: [0, 1] },
+        { delay: 0.4, duration: MOTION_TOKENS.duration.normal as number, ease: GHOST_EASE as [number, number, number, number] }
+      );
+    }
+  }, [prefersReducedMotion, isLoaded, animate, scope]);
+
+  // Initial states for SSR and static render
+  const initialStyles = prefersReducedMotion ? {} : { opacity: 0, translateY: MOTION_TOKENS.offset.standard };
 
   // Estrutura de conteúdo idêntica para ambas as camadas para garantir alinhamento perfeito
   const renderTextContent = (isMask: boolean) => (
     <Container className={isMask ? styles.maskText : styles.baseText}>
       <div className="flex flex-col items-center">
-        {/* Tag decorativa */}
-
-        {/* Headline - Desktop (2 linhas) */}
-        {/* Headline - Desktop (2 linhas) */}
         {/* Headline - Desktop (Visual Only) */}
         <div
           aria-hidden="true"
           className={`hidden lg:block mb-20 font-display ${styles.heroTitle}`}
         >
           {HOME_CONTENT.hero.titleDesktop.map((line, i) => (
-            <React.Fragment key={i}>
+            <span
+              key={i}
+              className={`hero-line inline-block`}
+              style={initialStyles}
+            >
               {line}
               {i < HOME_CONTENT.hero.titleDesktop.length - 1 && <br />}
-            </React.Fragment>
+            </span>
           ))}
         </div>
 
@@ -94,16 +76,21 @@ export default function HeroCopy({
           className={`lg:hidden mb-12 font-display ${styles.heroTitle}`}
         >
           {HOME_CONTENT.hero.titleMobile.map((line, i) => (
-            <React.Fragment key={i}>
+            <span
+              key={i}
+              className={`hero-line inline-block`}
+              style={initialStyles}
+            >
               {line}
               {i < HOME_CONTENT.hero.titleMobile.length - 1 && <br />}
-            </React.Fragment>
+            </span>
           ))}
         </div>
 
         {/* Subheading */}
         <p
-          className={`font-h2 type-h2 mt-6 lg:mt-9 text-textSecondary ${isMask ? '' : 'opacity-80'} ${styles.heroSubtitle}`}
+          className={`hero-subtitle font-h2 type-h2 mt-6 lg:mt-9 text-textSecondary ${isMask ? '' : 'opacity-80'} ${styles.heroSubtitle}`}
+          style={initialStyles}
         >
           {HOME_CONTENT.hero.subtitle}
         </p>
@@ -112,28 +99,25 @@ export default function HeroCopy({
   );
 
   return (
-    <motion.div
-      {...motionProps}
-      className={`relative flex flex-col items-center justify-center text-center w-full pointer-events-auto ${styles.root}`}
+    <div
+      ref={scope}
+      // Ajuste de z-index do Hero garantindo contexto visual / stacking sobre o webGL (#ajustes-orquestrados)
+      className={`relative z-10 flex flex-col items-center justify-center text-center w-full pointer-events-auto ${styles.root}`}
     >
       <h1 className="sr-only">
         {HOME_CONTENT.hero.title.join(' ')} {HOME_CONTENT.hero.subtitle}
       </h1>
+
       {/* Camada 1: Texto Base (Low Opacity) */}
-      <motion.div
-        variants={itemAnimation}
-        className="w-full flex flex-col items-center"
-      >
+      <div className="w-full flex flex-col items-center">
         {renderTextContent(false)}
-      </motion.div>
+      </div>
 
       {/* Camada 2: Texto Revelado (Masked / Bright / Glow) */}
       {!prefersReducedMotion && (
         <div className={styles.maskLayer} aria-hidden="true">
           <div className="w-full flex flex-col items-center text-center">
-            <motion.div variants={itemAnimation}>
-              {renderTextContent(true)}
-            </motion.div>
+            {renderTextContent(true)}
           </div>
         </div>
       )}
@@ -143,6 +127,7 @@ export default function HeroCopy({
         ref={revealRef}
         className={`${styles.ghostAura} ${isLoaded ? styles.isLoaded : ''}`}
       />
-    </motion.div>
+    </div>
   );
 }
+
