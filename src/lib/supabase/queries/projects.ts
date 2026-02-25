@@ -34,10 +34,6 @@ export async function listProjects(
 
   let query = supabase.from('public_projects_view').select(selectQuery);
 
-  // Exclude soft-deleted items to guarantee correctness (in case view misses it)
-  // Using is null rather than eq null
-  query = query.is('deleted_at', null);
-
   if (filters.tagSlug) {
     query = query.eq('tags.tag.slug', filters.tagSlug);
   }

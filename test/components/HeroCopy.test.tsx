@@ -77,15 +77,15 @@ describe('HeroCopy Component Responsiveness', () => {
     expect(srH1).toBeInTheDocument();
     expect(srH1).toHaveTextContent('Você não vê o design. Mas ele vê você.');
 
-    // Find the Desktop Visual Block (div.hidden.lg:block)
-    // Note: We search for the div that has both 'hidden' and 'lg:block' classes
-    const desktopVisual = container.querySelector('div.hidden.lg\\:block');
+    // Find the Desktop Visual Block (div.hidden.md:block)
+    // Note: We search for the div that has both 'hidden' and 'md:block' classes
+    const desktopVisual = container.querySelector('div.hidden.md\\:block');
     expect(desktopVisual).toBeInTheDocument();
     expect(desktopVisual).toHaveTextContent('Você não vê');
     expect(desktopVisual).toHaveTextContent('o design.');
 
-    // Find the Mobile Visual Block (div.lg:hidden)
-    const mobileVisual = container.querySelector('div.lg\\:hidden');
+    // Find the Mobile Visual Block (div.md:hidden)
+    const mobileVisual = container.querySelector('div.md\\:hidden');
     expect(mobileVisual).toBeInTheDocument();
     expect(mobileVisual).toHaveTextContent('Você não');
     expect(mobileVisual).toHaveTextContent('vê o');

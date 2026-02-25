@@ -29,15 +29,25 @@ export const PortfolioModal = ({
   const [mounted, setMounted] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   useBodyLock(isOpen);
 
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
-    if (!isOpen) return;
+    if (isOpen) {
+      previousFocusRef.current = document.activeElement as HTMLElement;
+      // Permitir uma renderização curta para o foco
+      setTimeout(() => closeRef.current?.focus(), 50);
+    } else {
+      if (previousFocusRef.current) {
+        previousFocusRef.current.focus();
+        previousFocusRef.current = null;
+      }
+    }
 
-    closeRef.current?.focus();
+    if (!isOpen) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {

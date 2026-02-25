@@ -91,7 +91,7 @@ export default function PortfolioHeroNew() {
             className="text-4xl sm:text-6xl md:text-8xl tracking-tighter leading-none font-bold text-center flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 [text-shadow:0_12px_34px_rgba(0,0,0,0.55)]"
           >
             <div className="flex items-center">
-              <span className="text-[#0048ff] italic font-light mr-3 md:mr-6">portfólio</span>
+              <span className="text-bluePrimary italic font-light mr-3 md:mr-6">portfólio</span>
               <span className="text-white font-bold">showcase</span>
             </div>
 

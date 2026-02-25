@@ -67,8 +67,8 @@ export default function HomeHero() {
           )}
         </AnimatePresence>
 
-        {/* Camada: Texto Editorial (Z-20) */}
-        <div className="absolute inset-0 z-20 pointer-events-none">
+        {/* Camada: Texto Editorial (Z-50 — acima do WebGL) */}
+        <div className="absolute inset-0 z-50 pointer-events-none">
           <div className="flex items-center justify-center w-full h-[100svh] md:h-screen md:sticky md:top-0">
             <div className="w-full pointer-events-auto pb-32 md:pb-0">
               {/* isLoaded agora é true muito mais rápido */}
@@ -77,8 +77,8 @@ export default function HomeHero() {
           </div>
         </div>
 
-        {/* Camada: Ghost WebGL (Z-50 — acima do texto) */}
-        <div className="absolute inset-0 z-50 pointer-events-none overflow-hidden">
+        {/* Camada: Ghost WebGL (Z-20 — logo em cima do background, abaixo do texto) */}
+        <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
           <div className="sticky top-0 h-[100svh] md:h-screen w-full">
             {shouldRenderWebGL ? (
               <GhostSceneWrapper />
@@ -91,7 +91,7 @@ export default function HomeHero() {
           </div>
         </div>
 
-        {/* Camada: CTA (Z-60 — acima do Ghost, clicável) */}
+        {/* Camada: CTA (Z-60 — cima do Ghost e do Texto, clicável) */}
         <div className="absolute inset-0 z-60 pointer-events-none">
           <div className="relative h-full w-full flex items-end justify-center pb-[5%]">
             <div className="pointer-events-auto">{isLoaded && <HeroCTA />}</div>

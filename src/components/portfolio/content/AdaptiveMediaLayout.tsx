@@ -27,9 +27,14 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
     const [lightboxSource, setLightboxSource] = useState<string | null>(null);
 
     // Combine hero media + gallery
-    const allMedia = useMemo(() => {
+    const galleryMedia = useMemo(() => {
         const list: string[] = [];
-        if (heroMedia && heroMedia.trim() !== '') list.push(heroMedia);
+
+        // Ensure heroMedia is always available in the thumbnails
+        if (heroMedia && heroMedia.trim() !== '') {
+            list.push(heroMedia);
+        }
+
         if (project.detail?.gallery) {
             project.detail.gallery.forEach(m => {
                 if (m && typeof m === 'string' && m.trim() !== '' && !list.includes(m)) {
@@ -38,15 +43,22 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
             });
         }
         return list;
-    }, [heroMedia, project.detail?.gallery]);
+    }, [project.detail?.gallery, heroMedia]);
+
+    useEffect(() => {
+        if (galleryMedia.length > 0 && !galleryMedia.includes(activeMedia)) {
+            // Keep the heroMedia active originally, but if they click gallery they change it.
+            // When opening, if heroMedia is valid, it stays active.
+        }
+    }, [galleryMedia]);
 
     useEffect(() => {
         if (heroMedia && heroMedia.trim() !== '') {
             setActiveMedia(heroMedia);
-        } else if (allMedia.length > 0) {
-            setActiveMedia(allMedia[0]);
+        } else if (galleryMedia.length > 0) {
+            setActiveMedia(galleryMedia[0]);
         }
-    }, [heroMedia, allMedia]);
+    }, [heroMedia, galleryMedia]);
 
     const contentVariants = getContentVariants(shouldReduce);
     const isMotion = project.category === 'motion';
@@ -131,9 +143,9 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
 
                     {/* THUMBNAILS CAROUSEL */}
                     <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-30 mt-6 md:mt-8 mb-12">
-                        {allMedia.length > 1 && (
+                        {galleryMedia.length > 0 && (
                             <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
-                                {allMedia.map((media, idx) => {
+                                {galleryMedia.map((media, idx) => {
                                     const isActive = activeMedia === media;
                                     const isThumbVid = isVideo(media);
                                     const youtubeThumb = isYouTubeUrl(media)
@@ -206,43 +218,11 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
 
                         <div className="max-w-3xl flex flex-col gap-10">
                             {(project.caseBody || project.detail?.description) ? (
-                                <div className="prose prose-lg prose-invert max-w-none">
+                                <div>
                                     <CaseBodyRenderer content={(project.caseBody || project.detail?.description) as string} />
                                 </div>
                             ) : null}
-
-                            {/* Tags and Highlights */}
-                            <div className="flex flex-col md:flex-row gap-10">
-                                {project.detail?.highlights && (
-                                    <div className="flex-1 flex flex-col gap-4">
-                                        <h3 className="text-sm font-semibold uppercase tracking-wider text-white/60">Destaques</h3>
-                                        <ul className="flex flex-col gap-3 list-none p-0 m-0">
-                                            {project.detail.highlights.map((highlight, i) => (
-                                                <li key={i} className="flex items-start gap-3 text-sm md:text-base text-white/80">
-                                                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#4fe6ff] shrink-0 shadow-[0_0_8px_rgba(79,230,255,0.8)]" aria-hidden="true" />
-                                                    {highlight}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                )}
-
-                                {project.tags && (
-                                    <div className="flex-1 flex flex-col gap-4">
-                                        <h3 className="text-sm font-semibold uppercase tracking-wider text-white/60">Tecnologias</h3>
-                                        <div className="flex flex-wrap gap-2">
-                                            {project.tags.map((tag, tagIndex) => (
-                                                <span
-                                                    key={`${project.id}-${tag}-${tagIndex}`}
-                                                    className="inline-flex items-center justify-center rounded-sm border border-white/10 bg-white/5 hover:bg-white/10 transition-colors px-3 py-1.5 text-xs text-center uppercase tracking-wider text-white"
-                                                >
-                                                    {tag}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
+                            {/* Tags were conceptually removed from Modal primary view per audit */}
 
                             {/* External link / CTA */}
                             {project.detail?.externalUrl && (

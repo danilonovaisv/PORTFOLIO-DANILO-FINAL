@@ -79,9 +79,10 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
     videoRef.current.muted = muted;
   }, [muted]);
 
-  const baseSrc = mounted && isLikelyVideoUrl(asset?.publicUrl)
-    ? (asset?.publicUrl as string)
-    : src;
+  const baseSrc =
+    mounted && isLikelyVideoUrl(asset?.publicUrl)
+      ? (asset?.publicUrl as string)
+      : src;
   const [currentSrc, setCurrentSrc] = useState(baseSrc);
 
   useEffect(() => {
@@ -93,7 +94,7 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
     asset?.metadata as { variants?: { sd?: string } } | undefined
   )?.variants?.sd;
   const variantSrc =
-    (mounted && videoQuality === 'sd') && isLikelyVideoUrl(sdVariant)
+    mounted && videoQuality === 'sd' && isLikelyVideoUrl(sdVariant)
       ? (sdVariant as string)
       : currentSrc;
   const videoSrc = variantSrc;
@@ -143,6 +144,12 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
             label="Português"
           />
         </video>
+
+        {/* Overlay Ghost System */}
+        <div
+          className="absolute inset-0 bg-background/80 pointer-events-none"
+          aria-hidden="true"
+        />
 
         {/* Toggle som */}
         <button

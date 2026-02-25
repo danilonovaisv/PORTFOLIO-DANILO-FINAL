@@ -63,37 +63,33 @@ export default function HeroCopy({
   const renderTextContent = (isMask: boolean) => (
     <Container className={isMask ? styles.maskText : styles.baseText}>
       <div className="flex flex-col items-center">
-        {/* Headline - Desktop (Visual Only) */}
+        {/* Headline - Desktop & Tablet (Visual Only) -> md:block */}
         <div
           aria-hidden="true"
-          className={`hidden lg:block mb-20 font-display ${styles.heroTitle}`}
+          className={`hidden md:block mb-20 font-display ${styles.heroTitle}`}
         >
           {HOME_CONTENT.hero.titleDesktop.map((line, i) => (
-            <span
-              key={i}
-              className={`hero-line inline-block`}
-              style={initialStyles}
-            >
-              {line}
+            <React.Fragment key={`desktop-${i}`}>
+              <span className={`hero-line inline-block`} style={initialStyles}>
+                {line}
+              </span>
               {i < HOME_CONTENT.hero.titleDesktop.length - 1 && <br />}
-            </span>
+            </React.Fragment>
           ))}
         </div>
 
-        {/* Headline - Mobile & Tablet (Visual Only) */}
+        {/* Headline - Mobile Only (Visual Only) -> md:hidden */}
         <div
           aria-hidden="true"
-          className={`lg:hidden mb-12 font-display ${styles.heroTitle}`}
+          className={`md:hidden mb-12 font-display ${styles.heroTitle}`}
         >
           {HOME_CONTENT.hero.titleMobile.map((line, i) => (
-            <span
-              key={i}
-              className={`hero-line inline-block`}
-              style={initialStyles}
-            >
-              {line}
+            <React.Fragment key={`mobile-${i}`}>
+              <span className={`hero-line inline-block`} style={initialStyles}>
+                {line}
+              </span>
               {i < HOME_CONTENT.hero.titleMobile.length - 1 && <br />}
-            </span>
+            </React.Fragment>
           ))}
         </div>
 

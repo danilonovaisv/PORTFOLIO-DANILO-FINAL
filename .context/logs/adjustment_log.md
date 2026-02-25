@@ -589,3 +589,36 @@ Corrigido falhas nos testes unitários:
 
 - ✅ Validated JSON-LD schemas mapping for Person, CreativeWork, Organization, ProfilePage, CollectionPage, and BreadcrumbList.
 - ✅ `pnpm run build-check` returned 0 errors.
+
+---
+
+## [2026-02-25T10:20] Ajustes Orquestrados & Loki Mode - Revisão de Implementações Não-Aplicadas
+
+**Context:** Revisão orquestrada (`/loki-execution-mode` + `ajustes-orquestrados.md`) visando corrigir configurações de Hero Z-Index, Video Manifesto Overlay, Projetos Gallery e Model Accessibility que não haviam sidos refletidos no deploy via Vercel/Firebase. Ponto focal na correta renderização Ghost System V3 garantindo robustez entre componentes.
+
+**Changes Applied:**
+
+1. **Camada Hero (Home) - Z-Index Calibration** ✅
+   - File: `src/components/home/hero/HomeHero.tsx`
+   - Elevado copy editorial para `z-50` e retrocedido Ghost Scene para `z-20`. O Ghost agora flutua puramente no background sem sobrepor o clique do copy.
+
+2. **Video Manifesto (Home) - Overlay Injection** ✅
+   - File: `src/components/home/hero/VideoManifesto.tsx`
+   - Aplicado a guideline Ghost V3 injetando um elemento absoluto `bg-background/80` via Tailwind por cima do background de vídeo base, porém omitindo pointer-events para garantir legibilidade de text sem comprometer os cliques nos controles de volume.
+
+3. **Projects Gallery - Filtros Acessíveis** ✅
+   - File: `src/components/portfolio/ProjectsGallery.tsx`
+   - Confirmado atributos WAI-ARIA complacentes presentes. Restabelecido verificação que atribui `tab`, `tablist` e key navigation handling. Funcionalidade integral, robusta a mobile e keyboard a11y.
+
+4. **Project Card - Remoção de Scale Hover** ✅
+   - File: `src/components/portfolio/ProjectsGallery.module.css` e `ProjectCard.tsx`
+   - O comportamento de escala animada sobre hover de projetos foi purgado, permanecendo o design mais sóbrio e editorial (ghost easing de elevação `Y`).
+
+5. **Portfolio Modal - Foco Restituinte (Autofocus)** ✅
+   - File: `src/components/portfolio/PortfolioModal.tsx`
+   - Remodelada inicialização para guardar referência explícita do elemento acionador via `document.activeElement` durante `useEffect`, forçando com que este recupere o foco do cursor da janela (`focus()`) imediatamente após o desmonte modal (`close`).
+
+**Verification:**
+
+- ✅ Modificações puramente estilísticas e A11y validando-se a inexistência de efeitos colaterais estruturais.
+- ✅ `docs/AUDIT_PENTEST.md` formalizado com relatório atual.
