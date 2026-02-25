@@ -76,6 +76,11 @@ export const ProjectCard = ({
     (project.imageLandscape ?? project.imageSquare ?? project.image) ??
     ASSET_PLACEHOLDER;
 
+  // Determine mobile aspect ratio based on the source image used
+  const mobileAspectRatio =
+    project.layout?.aspectRatio ??
+    (mobileImage === project.imageSquare ? '1 / 1' : '16 / 9');
+
   const isVideoPreview = isVideo(desktopImage);
   const imagesDiffer = desktopImage !== mobileImage && !isVideoPreview;
 
@@ -118,6 +123,10 @@ export const ProjectCard = ({
         'group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
         className
       )}
+      style={{
+        // @ts-ignore - Custom property
+        '--mobile-aspect-ratio': mobileAspectRatio,
+      }}
       {...motionProps}
     >
       <div className={styles.cardImageWrapper}>

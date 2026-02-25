@@ -8,6 +8,7 @@ import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
 
 interface VideoManifestoProps {
   src: string;
+  mobileSrc?: string;
   assetKey?: string;
 }
 
@@ -19,7 +20,11 @@ const isLikelyVideoUrl = (url?: string | null) => {
   return VIDEO_EXTENSIONS_REGEX.test(url);
 };
 
-export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
+export function VideoManifesto({
+  src,
+  mobileSrc,
+  assetKey,
+}: VideoManifestoProps) {
   const { asset } = useRealtimeAsset(assetKey || '');
   const [muted, setMuted] = useState(true);
   const [videoQuality, setVideoQuality] = useState<'hd' | 'sd'>('hd');
@@ -114,9 +119,9 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
         className="video-wrapper relative w-full bg-black/5"
       >
         <video
+          key={videoSrc} // Force reload if src changes
           ref={videoRef}
           className="w-full h-auto sm:aspect-video sm:object-cover block"
-          src={videoSrc}
           poster={posterSrc}
           autoPlay={!shouldReduceMotion}
           loop={!shouldReduceMotion}
@@ -131,6 +136,8 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
           }}
           aria-label="Vídeo showreel demonstrando projetos de design gráfico"
         >
+          {mobileSrc && <source media="(max-width: 640px)" src={mobileSrc} />}
+          <source src={videoSrc} />
           <track
             kind="captions"
             src="/captions/ambient.vtt"

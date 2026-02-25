@@ -85,6 +85,7 @@ export default async function HomePage() {
       <HomeHero />
       <VideoManifesto
         src={BRAND.assets.video.manifesto}
+        mobileSrc={BRAND.assets.video.manifestoMobile}
         assetKey={SITE_ASSET_KEYS.heroVideos.homeManifesto}
       />
       <PortfolioShowcase />

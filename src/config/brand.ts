@@ -47,6 +47,7 @@ export const BRAND = {
     },
     video: {
       manifesto: asset('site-assets/home/home.manifesto_video.mp4'),
+      manifestoMobile: asset('site-assets/home/VIDEO-MANIFESTO-MOBILE.mp4'),
     },
     fonts: {
       primary: 'TT Norms Pro',

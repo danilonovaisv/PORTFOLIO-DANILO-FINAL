@@ -269,7 +269,7 @@ export const ProjectsGallery = ({
 
               {/* Pagination Controls */}
               {totalPages > 1 && (
-                <div className="col-span-full mt-16 mb-8 flex justify-center items-center gap-6">
+                <div className="col-span-full mt-16 mb-8 flex justify-between items-center w-full px-4 md:px-0">
                   <button
                     onClick={() => {
                       setCurrentPage(p => Math.max(1, p - 1));
@@ -285,9 +285,11 @@ export const ProjectsGallery = ({
                       Voltar
                     </span>
                   </button>
-                  <span className="text-white/40 font-mono text-sm tracking-widest">
+
+                  <span className="text-white/40 font-mono text-sm tracking-widest hidden sm:block">
                     {currentPage} / {totalPages}
                   </span>
+
                   <button
                     onClick={() => {
                       setCurrentPage(p => Math.min(totalPages, p + 1));
@@ -297,7 +299,7 @@ export const ProjectsGallery = ({
                     className="relative group px-6 py-3 font-display font-medium text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:text-[#4fe6ff]"
                   >
                     <span className="relative z-10 flex items-center gap-2">
-                      Avançar
+                      Próxima
                       <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>

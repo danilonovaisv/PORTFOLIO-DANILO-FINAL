@@ -78,11 +78,11 @@ export default function FeaturedProjectsRealtime({
         return;
       }
 
-      // Optimization: Only update state if projects have changed
+      // Optimization: Compare JSON representation to catch deep changes
       setProjects((current) => {
         const isSame =
-          current.length === nextProjects.length &&
-          current.every((p, i) => p.slug === nextProjects[i].slug); // Basic check, can be deeper if needed
+          JSON.stringify(current.map(p => ({ ...p, isAnimating: undefined }))) ===
+          JSON.stringify(nextProjects.map(p => ({ ...p, isAnimating: undefined })));
 
         if (isSame) return current;
         return nextProjects;
