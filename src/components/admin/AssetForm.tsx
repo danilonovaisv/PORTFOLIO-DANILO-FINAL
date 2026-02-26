@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { upsertAsset } from '@/app/admin/(protected)/midia/actions';
@@ -28,6 +28,7 @@ export function AssetForm({ preset }: AssetFormProps) {
   const [file, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,6 +59,9 @@ export function AssetForm({ preset }: AssetFormProps) {
         router.refresh();
         // reset only file
         setFile(null);
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
+        }
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Falha ao salvar');
       }
@@ -145,6 +149,7 @@ export function AssetForm({ preset }: AssetFormProps) {
       <label className="flex flex-col gap-1">
         <span className="text-sm text-slate-300">Arquivo (opcional)</span>
         <input
+          ref={fileInputRef}
           type="file"
           accept="image/*,video/*,.ttf,.otf,.woff,.woff2,.pdf,.doc,.docx"
           onChange={(e) => setFile(e.target.files?.[0] ?? null)}

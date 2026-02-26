@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useTransition } from 'react';
+import { useState, useTransition, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { uploadSiteAssetFirebase } from '@/lib/firebase/storage-client';
 import { upsertAsset } from '@/app/admin/(protected)/midia/actions';
@@ -40,6 +40,7 @@ export function AssetFormWithMetadata({ preset }: AssetFormWithMetadataProps) {
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const [uploadProgress, setUploadProgress] = useState<string>('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -81,6 +82,9 @@ export function AssetFormWithMetadata({ preset }: AssetFormWithMetadataProps) {
         setUploadProgress('');
         router.refresh();
         setFile(null);
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
+        }
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to save');
         setUploadProgress('');
@@ -269,6 +273,7 @@ export function AssetFormWithMetadata({ preset }: AssetFormWithMetadataProps) {
       <label className="flex flex-col gap-1">
         <span className="text-sm text-slate-300">Arquivo (opcional)</span>
         <input
+          ref={fileInputRef}
           type="file"
           accept="image/*,video/*,.ttf,.otf,.woff,.woff2,.pdf,.doc,.docx,.glb,.gltf"
           onChange={(e) => setFile(e.target.files?.[0] ?? null)}

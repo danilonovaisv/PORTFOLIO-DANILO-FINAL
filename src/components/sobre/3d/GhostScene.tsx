@@ -6,7 +6,13 @@ import { Canvas } from '@react-three/fiber';
 import { ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
 import GhostModel from '@/components/sobre/3d/GhostModel'; // Caminho relativo para GhostModel
-import { MotionValue, motion, useTransform, cubicBezier, useInView } from 'framer-motion';
+import {
+  MotionValue,
+  motion,
+  useTransform,
+  cubicBezier,
+  useInView,
+} from 'framer-motion';
 // Importar o hook do BeliefSection.tsx
 import { useIsMobile } from '@/components/sobre/beliefs/BeliefSection';
 

@@ -1,96 +1,95 @@
 'use client';
 
-import { useDeferredValue, useMemo, useState, useEffect } from 'react';
+import { useEffect, useState, useCallback, useTransition } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import type { NormalizedSiteAsset } from '@/lib/supabase/site-asset-utils';
 import { AssetCard } from '@/components/admin/AssetCard';
 
 type AssetGalleryProps = {
-  assets: NormalizedSiteAsset[];
+  pageItems: NormalizedSiteAsset[];
+  pageOptions: string[];
+  typeOptions: string[];
+  totalFiltered: number;
+  totalValid: number;
+  totalPages: number;
+  currentPage: number;
+  currentQuery: string;
+  currentPageFilter: string;
+  currentTypeFilter: string;
+  currentShowInactive: boolean;
 };
 
-const PAGE_SIZE = 24;
+export function AssetGallery({
+  pageItems,
+  pageOptions,
+  typeOptions,
+  totalFiltered,
+  totalValid,
+  totalPages,
+  currentPage,
+  currentQuery,
+  currentPageFilter,
+  currentTypeFilter,
+  currentShowInactive,
+}: AssetGalleryProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
 
-export function AssetGallery({ assets }: AssetGalleryProps) {
-  const [query, setQuery] = useState('');
-  const [pageFilter, setPageFilter] = useState<string>('all');
-  const [typeFilter, setTypeFilter] = useState<string>('all');
-  const [showInactive, setShowInactive] = useState(false);
-  const [page, setPage] = useState(1);
+  const [localQuery, setLocalQuery] = useState(currentQuery);
 
-  const deferredQuery = useDeferredValue(query);
+  const updateFilters = useCallback(
+    (params: Record<string, string | null>) => {
+      startTransition(() => {
+        const current = new URLSearchParams(Array.from(searchParams.entries()));
+        for (const [key, value] of Object.entries(params)) {
+          if (value === null) {
+            current.delete(key);
+          } else {
+            current.set(key, value);
+          }
+        }
+        router.push(`?${current.toString()}`);
+      });
+    },
+    [router, searchParams]
+  );
 
-  // Filtrar assets válidos e extrair opções únicas
-  const validAssets = useMemo(() => {
-    return assets.filter((asset) => {
-      // Filtrar assets com chaves ou caminhos inválidos
-      if (
-        !asset.key ||
-        asset.key.startsWith('updated_at:') ||
-        asset.key.startsWith('key:')
-      ) {
-        return false;
-      }
-      return true;
-    });
-  }, [assets]);
-
-  const pageOptions = useMemo(() => {
-    const set = new Set<string>();
-    validAssets.forEach((asset) =>
-      set.add(asset.page ?? asset.resolvedPage ?? '')
-    );
-    return Array.from(set).filter(Boolean).sort();
-  }, [validAssets]);
-
-  const typeOptions = useMemo(() => {
-    const set = new Set<string>();
-    validAssets.forEach(
-      (asset) => asset.asset_type && set.add(asset.asset_type)
-    );
-    return Array.from(set).filter(Boolean).sort();
-  }, [validAssets]);
-
+  // Debounce query
   useEffect(() => {
-    setPage(1);
-  }, [pageFilter, typeFilter, showInactive, deferredQuery]);
-
-  const filtered = useMemo(() => {
-    const term = deferredQuery.trim().toLowerCase();
-    return validAssets.filter((asset) => {
-      if (!showInactive && !asset.is_active) return false;
-      const resolvedPage = asset.page ?? asset.resolvedPage ?? '';
-      if (pageFilter !== 'all' && resolvedPage !== pageFilter) return false;
-      if (typeFilter !== 'all' && asset.asset_type !== typeFilter) {
-        return false;
+    const handler = setTimeout(() => {
+      if (localQuery !== currentQuery) {
+        updateFilters({ query: localQuery || null, page: '1' });
       }
-      if (term) {
-        const haystack = `${asset.key} ${asset.description ?? ''} ${
-          asset.file_path
-        } ${resolvedPage}`.toLowerCase();
-        if (!haystack.includes(term)) return false;
-      }
-      return true;
-    });
-  }, [validAssets, deferredQuery, pageFilter, typeFilter, showInactive]);
+    }, 500);
+    return () => clearTimeout(handler);
+  }, [localQuery, currentQuery, updateFilters]);
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
-  const safePage = Math.min(page, totalPages);
-  const startIndex = (safePage - 1) * PAGE_SIZE;
-  const pageItems = filtered.slice(startIndex, startIndex + PAGE_SIZE);
+  // Sync local if current changes via external (e.g. back button)
+  useEffect(() => {
+    setLocalQuery(currentQuery);
+  }, [currentQuery]);
 
   return (
-    <div className="rounded-xl border border-white/10 bg-slate-900/60 p-4 space-y-4">
+    <div
+      className={`rounded-xl border border-white/10 bg-slate-900/60 p-4 space-y-4 transition ${isPending ? 'opacity-70' : ''}`}
+    >
       <div className="flex flex-wrap items-center gap-3">
         <input
           type="search"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          value={localQuery}
+          onChange={(e) => setLocalQuery(e.target.value)}
           placeholder="Buscar por key, página ou caminho"
           className="w-full md:w-72 rounded-md border border-white/10 bg-slate-900/70 px-3 py-2 text-sm text-white placeholder:text-slate-500 focus:border-blue-400 focus:outline-none"
         />
         <select
-          value={pageFilter}
-          onChange={(e) => setPageFilter(e.target.value)}
+          value={currentPageFilter}
+          onChange={(e) =>
+            updateFilters({
+              pageFilter: e.target.value === 'all' ? null : e.target.value,
+              page: '1',
+            })
+          }
           className="rounded-md border border-white/10 bg-slate-900/70 px-3 py-2 text-sm text-white focus:border-blue-400 focus:outline-none"
         >
           <option value="all">Todas as páginas</option>
@@ -101,8 +100,13 @@ export function AssetGallery({ assets }: AssetGalleryProps) {
           ))}
         </select>
         <select
-          value={typeFilter}
-          onChange={(e) => setTypeFilter(e.target.value)}
+          value={currentTypeFilter}
+          onChange={(e) =>
+            updateFilters({
+              typeFilter: e.target.value === 'all' ? null : e.target.value,
+              page: '1',
+            })
+          }
           className="rounded-md border border-white/10 bg-slate-900/70 px-3 py-2 text-sm text-white focus:border-blue-400 focus:outline-none"
         >
           <option value="all">Todos os tipos</option>
@@ -116,13 +120,18 @@ export function AssetGallery({ assets }: AssetGalleryProps) {
           <input
             type="checkbox"
             className="h-4 w-4 rounded border-white/20 bg-slate-900/80"
-            checked={showInactive}
-            onChange={(e) => setShowInactive(e.target.checked)}
+            checked={currentShowInactive}
+            onChange={(e) =>
+              updateFilters({
+                showInactive: e.target.checked ? 'true' : null,
+                page: '1',
+              })
+            }
           />
           Mostrar inativos
         </label>
         <div className="ml-auto text-xs text-slate-400">
-          {filtered.length} de {validAssets.length} assets válidos
+          {totalFiltered} de {totalValid} assets válidos
         </div>
       </div>
 
@@ -140,24 +149,24 @@ export function AssetGallery({ assets }: AssetGalleryProps) {
 
       <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-slate-300">
         <div>
-          Mostrando {pageItems.length} de {filtered.length} filtrados
+          Mostrando {pageItems.length} de {totalFiltered} filtrados
         </div>
         <div className="flex items-center gap-2">
           <button
             type="button"
-            onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-            disabled={safePage === 1}
+            onClick={() => updateFilters({ page: String(currentPage - 1) })}
+            disabled={currentPage <= 1 || isPending}
             className="rounded-md border border-white/10 bg-slate-900/70 px-3 py-1 text-xs text-white transition hover:border-blue-400 hover:bg-blue-500/10 disabled:cursor-not-allowed disabled:opacity-40"
           >
             Anterior
           </button>
           <span className="text-xs text-slate-400">
-            Página {safePage} / {totalPages}
+            Página {currentPage} / {totalPages}
           </span>
           <button
             type="button"
-            onClick={() => setPage((prev) => Math.min(totalPages, prev + 1))}
-            disabled={safePage >= totalPages}
+            onClick={() => updateFilters({ page: String(currentPage + 1) })}
+            disabled={currentPage >= totalPages || isPending}
             className="rounded-md border border-white/10 bg-slate-900/70 px-3 py-1 text-xs text-white transition hover:border-blue-400 hover:bg-blue-500/10 disabled:cursor-not-allowed disabled:opacity-40"
           >
             Próxima

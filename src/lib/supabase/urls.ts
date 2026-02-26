@@ -138,7 +138,10 @@ export function buildSupabaseStorageUrl(
   const isVideo = /\.(mp4|webm|mov|m4v|ogg)$/i.test(normalizedPath);
 
   // Decide entre endpoint de renderização configurado ou objeto direto
-  const endpoint = (!isVideo && options) ? '/storage/v1/render/image/public/' : '/storage/v1/object/public/';
+  const endpoint =
+    !isVideo && options
+      ? '/storage/v1/render/image/public/'
+      : '/storage/v1/object/public/';
   let finalUrl = `${baseOrigin}${endpoint}${cleanBucket}/${normalizedPath}`;
 
   if (!isVideo && options) {
@@ -173,11 +176,16 @@ export function injectSupabaseProxy(
   try {
     const parsed = new URL(url);
     if (parsed.pathname.includes('/object/public/')) {
-      parsed.pathname = parsed.pathname.replace('/object/public/', '/render/image/public/');
+      parsed.pathname = parsed.pathname.replace(
+        '/object/public/',
+        '/render/image/public/'
+      );
     }
 
-    if (options.width) parsed.searchParams.set('width', options.width.toString());
-    if (options.quality) parsed.searchParams.set('quality', options.quality.toString());
+    if (options.width)
+      parsed.searchParams.set('width', options.width.toString());
+    if (options.quality)
+      parsed.searchParams.set('quality', options.quality.toString());
     if (options.format) parsed.searchParams.set('format', options.format);
     if (options.resize) parsed.searchParams.set('resize', options.resize);
 

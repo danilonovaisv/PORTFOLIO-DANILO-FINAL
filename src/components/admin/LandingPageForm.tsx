@@ -35,9 +35,6 @@ import {
   MASTER_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE_V2,
   MASTER_PROJECT_TEMPLATE_V3,
-  type MasterProjectTemplateData,
-  type MasterProjectTemplateV2Data,
-  type MasterProjectTemplateV3Data,
   type ProjectTemplateId,
 } from '@/types/project-template';
 import {
@@ -57,6 +54,28 @@ import MasterProjectTemplateV3Editor, {
   type MasterProjectTemplateV3Draft,
 } from '@/components/admin/MasterProjectTemplateV3Editor';
 import { saveLandingPageAction } from '@/app/admin/(protected)/landing-pages/actions';
+import { useToast } from '@/hooks/use-toast';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
+import {
+  toStoragePath,
+  toMasterDraft,
+  stripMasterDraft,
+  toMasterV2Draft,
+  stripMasterV2Draft,
+  toMasterV3Draft,
+  stripMasterV3Draft,
+  VIDEO_FILE_PATTERN,
+  YOUTUBE_URL_PATTERN,
+} from '@/lib/admin/transformers/landing-page';
 
 interface LandingPageFormProps {
   initialData?: {
@@ -67,196 +86,6 @@ interface LandingPageFormProps {
     content: unknown;
   };
 }
-
-const storageMarker = '/site-assets/';
-const VIDEO_FILE_PATTERN = /\.(mp4|webm|ogg|mov)$/i;
-const YOUTUBE_URL_PATTERN =
-  /(youtu\.be\/|youtube\.com\/watch\?v=|youtube\.com\/embed\/|youtube\.com\/shorts\/)/i;
-
-const toStoragePath = (value?: string): string => {
-  if (!value) return '';
-
-  if (value.includes(storageMarker)) {
-    return value.split(storageMarker).pop() || '';
-  }
-
-  return value
-    .replace(/^\/?storage\/v1\/object\/public\/site-assets\//, '')
-    .replace(/^\/?site-assets\//, '')
-    .replace(/^\//, '');
-};
-
-const toMasterDraft = (
-  value: MasterProjectTemplateData
-): MasterProjectTemplateDraft => ({
-  ...value,
-  hero_cover_image: {
-    ...value.hero_cover_image,
-    file: null,
-    previewUrl: '',
-  },
-  hero_logo_image: value.hero_logo_image
-    ? {
-        ...value.hero_logo_image,
-        file: null,
-        previewUrl: '',
-      }
-    : undefined,
-  gallery_grid: value.gallery_grid.map((item) => ({
-    ...item,
-    file: null,
-    previewUrl: '',
-  })),
-});
-
-const stripMasterDraft = (
-  value: MasterProjectTemplateDraft
-): MasterProjectTemplateData => ({
-  ...value,
-  hero_cover_image: {
-    src: value.hero_cover_image.src,
-    alt: value.hero_cover_image.alt,
-    kind: value.hero_cover_image.kind,
-    poster: value.hero_cover_image.poster,
-  },
-  hero_logo_image: value.hero_logo_image
-    ? {
-        src: value.hero_logo_image.src,
-        alt: value.hero_logo_image.alt,
-        kind: value.hero_logo_image.kind,
-        poster: value.hero_logo_image.poster,
-      }
-    : undefined,
-  gallery_grid: value.gallery_grid.map((item) => ({
-    id: item.id,
-    src: item.src,
-    alt: item.alt,
-    kind: item.kind,
-    layout: item.layout,
-    poster: item.poster,
-    title: item.title,
-    eyebrow: item.eyebrow,
-    description: item.description,
-    quote: item.quote,
-  })),
-});
-
-const toMasterV2Draft = (
-  value: MasterProjectTemplateV2Data
-): MasterProjectTemplateV2Draft => ({
-  ...value,
-  hero_cover_image: {
-    ...value.hero_cover_image,
-    file: null,
-    previewUrl: '',
-  },
-  hero_logo_image: value.hero_logo_image
-    ? {
-        ...value.hero_logo_image,
-        file: null,
-        previewUrl: '',
-      }
-    : undefined,
-  gallery_grid: value.gallery_grid.map((item) => ({
-    ...item,
-    file: null,
-    previewUrl: '',
-  })),
-});
-
-const stripMasterV2Draft = (
-  value: MasterProjectTemplateV2Draft
-): MasterProjectTemplateV2Data => ({
-  ...value,
-  hero_cover_image: {
-    src: value.hero_cover_image.src,
-    alt: value.hero_cover_image.alt,
-    kind: value.hero_cover_image.kind,
-    poster: value.hero_cover_image.poster,
-  },
-  hero_logo_image: value.hero_logo_image
-    ? {
-        src: value.hero_logo_image.src,
-        alt: value.hero_logo_image.alt,
-        kind: value.hero_logo_image.kind,
-        poster: value.hero_logo_image.poster,
-      }
-    : undefined,
-  gallery_grid: value.gallery_grid.map((item) => ({
-    id: item.id,
-    src: item.src,
-    alt: item.alt,
-    kind: item.kind,
-    layout_type: item.layout_type,
-    poster: item.poster,
-    title: item.title,
-    eyebrow: item.eyebrow,
-    description: item.description,
-    quote: item.quote,
-    media_align: item.media_align,
-    features: item.features?.map((feature, index) => ({
-      id: feature.id || `${item.id}-feature-${index + 1}`,
-      title: feature.title,
-      description: feature.description,
-    })),
-  })),
-});
-
-const toMasterV3Draft = (
-  value: MasterProjectTemplateV3Data
-): MasterProjectTemplateV3Draft => ({
-  ...value,
-  hero_cover_image: value.hero_cover_image
-    ? {
-        ...value.hero_cover_image,
-        file: null,
-        previewUrl: '',
-      }
-    : undefined,
-  hero_logo_image: value.hero_logo_image
-    ? {
-        ...value.hero_logo_image,
-        file: null,
-        previewUrl: '',
-      }
-    : undefined,
-  gallery_grid: value.gallery_grid.map((block) => ({
-    ...block,
-    file: null,
-    file2: null,
-    previewUrl: '',
-    previewUrl2: '',
-  })),
-});
-
-const stripMasterV3Draft = (
-  value: MasterProjectTemplateV3Draft
-): MasterProjectTemplateV3Data => ({
-  ...value,
-  hero_cover_image: value.hero_cover_image
-    ? {
-        src: value.hero_cover_image.src,
-        alt: value.hero_cover_image.alt,
-        kind: value.hero_cover_image.kind,
-        poster: value.hero_cover_image.poster,
-      }
-    : undefined,
-  hero_logo_image: value.hero_logo_image
-    ? {
-        src: value.hero_logo_image.src,
-        alt: value.hero_logo_image.alt,
-        kind: value.hero_logo_image.kind,
-        poster: value.hero_logo_image.poster,
-      }
-    : undefined,
-  gallery_grid: value.gallery_grid.map((block) => ({
-    id: block.id,
-    type: block.type,
-    content: {
-      ...block.content,
-    },
-  })),
-});
 
 export default function LandingPageForm({ initialData }: LandingPageFormProps) {
   const router = useRouter();
@@ -346,6 +175,8 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
     );
 
   const [loading, setLoading] = useState(false);
+  const [sectionToRemove, setSectionToRemove] = useState<string | null>(null);
+  const { toast } = useToast();
 
   const handleAddBlock = (type: BlockType) => {
     setSections([
@@ -361,8 +192,13 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
   };
 
   const handleRemoveSection = (id: string) => {
-    if (confirm('Tem certeza que deseja remover este bloco?')) {
-      setSections(sections.filter((s) => s.id !== id));
+    setSectionToRemove(id);
+  };
+
+  const confirmRemoveSection = () => {
+    if (sectionToRemove) {
+      setSections(sections.filter((s) => s.id !== sectionToRemove));
+      setSectionToRemove(null);
     }
   };
 
@@ -792,7 +628,11 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
 
   const handleSave = async () => {
     if (!title || !slug) {
-      alert('Título e Slug são obrigatórios.');
+      toast({
+        title: 'Erro de validação',
+        description: 'Título e Slug são obrigatórios.',
+        variant: 'destructive',
+      });
       return;
     }
 
@@ -820,13 +660,18 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
         ...payload,
       });
 
+      toast({ title: 'Sucesso', description: 'Página salva com sucesso.' });
       router.push('/admin/landing-pages');
       router.refresh();
     } catch (err: unknown) {
       const errorMessage =
         err instanceof Error ? err.message : 'Erro desconhecido';
       console.error(err);
-      alert(`Erro ao salvar página: ${errorMessage}`);
+      toast({
+        title: 'Erro ao salvar página',
+        description: errorMessage,
+        variant: 'destructive',
+      });
     } finally {
       setLoading(false);
     }
@@ -885,6 +730,7 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
                 Tipo de Template
               </label>
               <select
+                aria-label="Tipo de Template"
                 className="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-sm outline-none focus:border-blue-500"
                 value={template}
                 onChange={(event) =>
@@ -1219,6 +1065,29 @@ export default function LandingPageForm({ initialData }: LandingPageFormProps) {
           )}
         </div>
       </div>
+      <AlertDialog
+        open={!!sectionToRemove}
+        onOpenChange={(open) => !open && setSectionToRemove(null)}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Remover bloco?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Tem certeza que deseja remover este bloco? Esta ação não pode ser
+              desfeita.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={confirmRemoveSection}
+              className="bg-red-600 hover:bg-red-700"
+            >
+              Remover
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

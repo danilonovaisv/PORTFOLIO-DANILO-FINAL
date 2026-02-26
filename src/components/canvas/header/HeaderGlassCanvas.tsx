@@ -101,7 +101,8 @@ export function GlassPlane({ accentColor }: { accentColor: string }) {
     const distanceToTarget = Math.abs(meshRef.current.position.x - targetX);
 
     // Keep animating for 1.5s after mouse stops, and until spring physics settle
-    const isRecentlyActive = state.clock.elapsedTime - lastActiveTime.current < 1.5;
+    const isRecentlyActive =
+      state.clock.elapsedTime - lastActiveTime.current < 1.5;
     const isSpringMoving = distanceToTarget > 0.001;
 
     if (isRecentlyActive || isSpringMoving) {

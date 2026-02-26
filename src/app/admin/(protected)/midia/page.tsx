@@ -9,7 +9,22 @@ import { PresetButtons } from '@/app/admin/(protected)/midia/preset-buttons';
 import { normalizeAssetList } from '@/lib/supabase/site-asset-utils';
 import { AssetGallery } from '@/components/admin/AssetGallery';
 
-export default async function MidiaPage() {
+export default async function MidiaPage(props: {
+  searchParams?: Promise<{
+    query?: string;
+    pageFilter?: string;
+    typeFilter?: string;
+    showInactive?: string;
+    page?: string;
+  }>;
+}) {
+  const searchParams = await props.searchParams;
+  const currentQuery = searchParams?.query ?? '';
+  const currentPageFilter = searchParams?.pageFilter ?? 'all';
+  const currentTypeFilter = searchParams?.typeFilter ?? 'all';
+  const currentShowInactive = searchParams?.showInactive === 'true';
+  const currentPageParams = Number(searchParams?.page) || 1;
+
   const supabase = await createClient();
   const { data: assets } = await supabase
     .from('site_assets')
@@ -29,6 +44,39 @@ export default async function MidiaPage() {
     );
   });
   const activeCount = validAssets.filter((asset) => asset.is_active).length;
+
+  const pageOptions = Array.from(
+    new Set(validAssets.map((a) => a.page ?? a.resolvedPage ?? ''))
+  )
+    .filter(Boolean)
+    .sort();
+  const typeOptions = Array.from(new Set(validAssets.map((a) => a.asset_type)))
+    .filter(Boolean)
+    .sort();
+
+  const filtered = validAssets.filter((asset) => {
+    if (!currentShowInactive && !asset.is_active) return false;
+    const resolvedPage = asset.page ?? asset.resolvedPage ?? '';
+    if (currentPageFilter !== 'all' && resolvedPage !== currentPageFilter)
+      return false;
+    if (currentTypeFilter !== 'all' && asset.asset_type !== currentTypeFilter) {
+      return false;
+    }
+    if (currentQuery) {
+      const term = currentQuery.trim().toLowerCase();
+      const haystack = `${asset.key} ${asset.description ?? ''} ${
+        asset.file_path
+      } ${resolvedPage}`.toLowerCase();
+      if (!haystack.includes(term)) return false;
+    }
+    return true;
+  });
+
+  const PAGE_SIZE = 24;
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const safePage = Math.max(1, Math.min(currentPageParams, totalPages));
+  const startIndex = (safePage - 1) * PAGE_SIZE;
+  const pageItems = filtered.slice(startIndex, startIndex + PAGE_SIZE);
 
   return (
     <div className="space-y-6">
@@ -57,7 +105,19 @@ export default async function MidiaPage() {
         </div>
       </div>
 
-      <AssetGallery assets={validAssets} />
+      <AssetGallery
+        pageItems={pageItems}
+        pageOptions={pageOptions}
+        typeOptions={typeOptions}
+        totalFiltered={filtered.length}
+        totalValid={validAssets.length}
+        totalPages={totalPages}
+        currentPage={safePage}
+        currentQuery={currentQuery}
+        currentPageFilter={currentPageFilter}
+        currentTypeFilter={currentTypeFilter}
+        currentShowInactive={currentShowInactive}
+      />
     </div>
   );
 }
