@@ -248,9 +248,9 @@ export function useRealtimeAsset(assetKey: string) {
 
   const assetWithUrl = storeAsset
     ? {
-      ...storeAsset,
-      publicUrl: toPublicUrl(storeAsset) || '',
-    }
+        ...storeAsset,
+        publicUrl: toPublicUrl(storeAsset) || '',
+      }
     : null;
 
   return { asset: assetWithUrl, loading, error };

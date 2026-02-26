@@ -16,9 +16,9 @@ function walk(dir: string, filelist: string[] = []): string[] {
             filelist.push(filepath);
           }
         }
-      } catch (e) { }
+      } catch (e) {}
     }
-  } catch (e) { }
+  } catch (e) {}
   return filelist;
 }
 
@@ -37,7 +37,9 @@ for (const file of files) {
     content.includes("'v3/") ||
     content.includes('"v3/')
   ) {
-    console.error(`[Lint Error] Legacy v1/, v2/ or v3/ path ref found in ${file}`);
+    console.error(
+      `[Lint Error] Legacy v1/, v2/ or v3/ path ref found in ${file}`
+    );
     hasError = true;
   }
 

@@ -43,13 +43,11 @@ async function listAllObjects(bucket, prefix = '') {
   const all = [];
   let offset = 0;
   while (true) {
-    const { data, error } = await supabase.storage
-      .from(bucket)
-      .list(prefix, {
-        limit: LIST_LIMIT,
-        offset,
-        sortBy: { column: 'name', order: 'asc' },
-      });
+    const { data, error } = await supabase.storage.from(bucket).list(prefix, {
+      limit: LIST_LIMIT,
+      offset,
+      sortBy: { column: 'name', order: 'asc' },
+    });
 
     if (error) throw error;
     if (!data || data.length === 0) break;

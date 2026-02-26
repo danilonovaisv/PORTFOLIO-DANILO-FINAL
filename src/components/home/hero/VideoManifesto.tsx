@@ -101,7 +101,13 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
       : currentSrc;
   const videoSrc = variantSrc;
 
-  const explicitPoster = (asset?.metadata as { variants?: { poster?: string }, poster?: string } | undefined)?.variants?.poster || (asset?.metadata as { poster?: string } | undefined)?.poster;
+  const explicitPoster =
+    (
+      asset?.metadata as
+        | { variants?: { poster?: string }; poster?: string }
+        | undefined
+    )?.variants?.poster ||
+    (asset?.metadata as { poster?: string } | undefined)?.poster;
   const posterSrc = explicitPoster || DEFAULT_VIDEO_POSTER;
 
   return (
