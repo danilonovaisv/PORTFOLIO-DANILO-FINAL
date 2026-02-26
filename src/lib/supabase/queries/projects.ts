@@ -132,7 +132,7 @@ export async function upsertProject(
       .delete()
       .eq('project_id', data.id);
     if (tagIds.length > 0) {
-      const relations = tagIds.map((tagId) => ({
+      const relations = tagIds.map((tagId: string) => ({
         project_id: data.id,
         tag_id: tagId,
       }));

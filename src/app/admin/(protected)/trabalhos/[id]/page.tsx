@@ -42,22 +42,22 @@ export default async function EditProjectPage(props: Props) {
 
   const normalizedGallery = Array.isArray(project.gallery)
     ? project.gallery
-        .filter(
-          (
-            item
-          ): item is {
-            path: string;
-            caption?: string;
-          } =>
-            typeof item === 'object' &&
-            item !== null &&
-            'path' in item &&
-            typeof (item as { path?: unknown }).path === 'string'
-        )
-        .map((item) => ({
-          path: item.path,
-          caption: typeof item.caption === 'string' ? item.caption : undefined,
-        }))
+      .filter(
+        (
+          item: any
+        ): item is {
+          path: string;
+          caption?: string;
+        } =>
+          typeof item === 'object' &&
+          item !== null &&
+          'path' in item &&
+          typeof (item as { path?: unknown }).path === 'string'
+      )
+      .map((item: any) => ({
+        path: item.path,
+        caption: typeof item.caption === 'string' ? item.caption : undefined,
+      }))
     : null;
 
   const normalizedProject = {
