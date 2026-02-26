@@ -104,6 +104,17 @@ export const ProjectCard = ({
     onClick?.(project);
   };
 
+  const hasHoverRef = React.useRef(false);
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  // Deriva o WEBP do MP4 para o grid
+  const getPoster = (src: string) => {
+    if (src.endsWith('.mp4') || src.endsWith('.webm')) {
+      return src.replace(/\.(mp4|webm)$/i, '.webp');
+    }
+    return DEFAULT_VIDEO_POSTER;
+  };
+
   return (
     <motion.button
       type="button"
@@ -118,23 +129,58 @@ export const ProjectCard = ({
         'group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background',
         className
       )}
+      onMouseEnter={() => { hasHoverRef.current = true; setIsHovered(true); }}
+      onMouseLeave={() => setIsHovered(false)}
       {...motionProps}
     >
       <div className={styles.cardImageWrapper}>
         {isVideoPreview ? (
-          <video
-            src={desktopImage}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload={priority ? 'auto' : 'metadata'}
-            poster={DEFAULT_VIDEO_POSTER}
-            className={cn(
-              "absolute inset-0 h-full w-full object-cover"
+          <>
+            <Image
+              src={getPoster(desktopImage)}
+              alt={project.title}
+              fill
+              className={cn(
+                'hidden md:block object-cover object-center transition-opacity duration-500 md:group-hover:opacity-100',
+                isHovered ? 'opacity-0' : 'opacity-95'
+              )}
+              style={{ objectPosition }}
+              sizes={sizes}
+              loading={priority ? 'eager' : 'lazy'}
+              priority={priority}
+              onError={applyImageFallback}
+            />
+            <Image
+              src={getPoster(mobileImage)}
+              alt={project.title}
+              fill
+              className={cn(
+                'block md:hidden object-cover object-center transition-opacity duration-500 md:group-hover:opacity-100',
+                isHovered ? 'opacity-0' : 'opacity-95'
+              )}
+              style={{ objectPosition }}
+              sizes={sizes}
+              loading={priority ? 'eager' : 'lazy'}
+              priority={priority}
+              onError={applyImageFallback}
+            />
+            {hasHoverRef.current && (
+              <video
+                src={desktopImage}
+                autoPlay={isHovered}
+                muted
+                loop
+                playsInline
+                preload="none"
+                poster={getPoster(desktopImage)}
+                className={cn(
+                  "absolute inset-0 h-full w-full object-cover transition-opacity duration-500",
+                  isHovered ? 'opacity-100' : 'opacity-0'
+                )}
+                style={{ objectPosition }}
+              />
             )}
-            style={{ objectPosition }}
-          />
+          </>
         ) : (
           <>
             {imagesDiffer ? (

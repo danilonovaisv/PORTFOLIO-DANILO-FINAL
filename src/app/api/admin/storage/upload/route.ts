@@ -11,6 +11,12 @@ const ALLOWED_BUCKETS = new Set<UploadBucket>([
   'site-assets',
 ]);
 
+import {
+  buildV3Path,
+  hashContent,
+  CACHE_CONTROL_IMMUTABLE,
+} from '@/lib/assets/storagePath';
+
 function normalizePath(rawPath: string) {
   return rawPath
     .trim()
@@ -32,25 +38,15 @@ export async function POST(request: Request) {
     const bucket = formData.get('bucket');
     const rawPath = formData.get('path');
     const file = formData.get('file');
+    const brand = formData.get('brand');
+    const project = formData.get('project');
+    const kind = formData.get('kind');
 
     if (
       typeof bucket !== 'string' ||
       !ALLOWED_BUCKETS.has(bucket as UploadBucket)
     ) {
       return NextResponse.json({ error: 'Bucket inválido.' }, { status: 400 });
-    }
-
-    if (typeof rawPath !== 'string') {
-      return NextResponse.json({ error: 'Path inválido.' }, { status: 400 });
-    }
-
-    const path = normalizePath(rawPath);
-
-    if (invalidPath(path)) {
-      return NextResponse.json(
-        { error: 'Path inválido para upload.' },
-        { status: 400 }
-      );
     }
 
     if (!(file instanceof File)) {
@@ -63,12 +59,52 @@ export async function POST(request: Request) {
     const bytes = await file.arrayBuffer();
     const payload = Buffer.from(bytes);
 
+    let path = '';
+    let cacheControl = '3600';
+    let upsert = true;
+
+    if (bucket === 'portfolio-media') {
+      const hash = hashContent(payload);
+
+      if (!brand || !project) {
+        return NextResponse.json(
+          {
+            error:
+              'Marca (brand) e Projeto (project) são obrigatórios para portfolio-media.',
+          },
+          { status: 400 }
+        );
+      }
+
+      path = buildV3Path({
+        brand: brand as string,
+        project: project as string,
+        kind: (kind as string) || undefined,
+        filename: file.name,
+        ext: file.name.split('.').pop() || 'bin',
+        hash,
+      });
+      cacheControl = CACHE_CONTROL_IMMUTABLE;
+      upsert = false; // Hashes make it unique, upsert is unnecessary and prevents mutability bugs
+    } else {
+      if (typeof rawPath !== 'string') {
+        return NextResponse.json({ error: 'Path inválido.' }, { status: 400 });
+      }
+      path = normalizePath(rawPath);
+      if (invalidPath(path)) {
+        return NextResponse.json(
+          { error: 'Path inválido para upload.' },
+          { status: 400 }
+        );
+      }
+    }
+
     const { data, error } = await supabase.storage
       .from(bucket)
       .upload(path, payload, {
         contentType: file.type || undefined,
-        cacheControl: '3600',
-        upsert: true,
+        cacheControl,
+        upsert,
       });
 
     if (error) {

@@ -59,6 +59,8 @@
     "test": "pnpm run lint && pnpm run typecheck && jest",
     "test:watch": "jest --watch",
     "test:e2e": "playwright test",
+    "audit:v3": "npx tsx scripts/audit-v3-migration.ts",
+    "audit:v3:storage": "npx tsx scripts/audit-supabase-storage.ts",
     "audit:supabase-storage": "python3 scripts/antigravity/agent_supabase_audit.py",
     "audit:firebase-hosting": "python3 scripts/antigravity/agent_firebase_audit.py",
     "audit:fullstack-config": "python3 scripts/antigravity/agent_orchestrator_audit.py",
@@ -108,7 +110,7 @@
     "@react-three/fiber": "^9.5.0",
     "@react-three/postprocessing": "^3.0.4",
     "@supabase/ssr": "^0.8.0",
-    "@supabase/supabase-js": "^2.97.0",
+    "@supabase/supabase-js": "^2.98.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",
@@ -130,7 +132,7 @@
     "openai": "^6.25.0",
     "postprocessing": "^6.38.3",
     "react": "^19.2.4",
-    "react-day-picker": "^9.13.2",
+    "react-day-picker": "^9.14.0",
     "react-dom": "^19.2.4",
     "react-hook-form": "^7.71.2",
     "react-markdown": "^10.1.0",
@@ -204,5 +206,5 @@
       "react-dom": "$react-dom"
     }
   },
-  "packageManager": "pnpm@10.30.2"
+  "packageManager": "pnpm@10.30.3"
 }

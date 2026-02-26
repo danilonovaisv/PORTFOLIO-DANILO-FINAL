@@ -1,0 +1,220 @@
+[
+  {
+    "mimetype": "video/mp4",
+    "size_bytes": 19900886,
+    "copies": 3,
+    "examples": [
+      "v3/danilo/advertising-video/gallery/VIDEOMANIFESTOGLAD-mp4.39cc97c71f34486e.mp4",
+      "v3/danilo/advertising-video/gallery/VIDEOMANIFESTOGLAD_2_compressed_compressed-mp4.39cc97c71f34486e.mp4",
+      "v3/glad/brand-video/gallery/VIDEOMANIFESTOGLAD-mp4.39cc97c71f34486e.mp4"
+    ]
+  },
+  {
+    "mimetype": "video/mp4",
+    "size_bytes": 7905415,
+    "copies": 5,
+    "examples": [
+      "v3/mercado-pago/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4",
+      "v3/danilo/advertising-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4",
+      "v3/danilo/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4",
+      "v3/danilo/animation/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4",
+      "v3/danilo/video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4"
+    ]
+  },
+  {
+    "mimetype": "video/mp4",
+    "size_bytes": 4965525,
+    "copies": 5,
+    "examples": [
+      "v3/mercado-pago/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4",
+      "v3/danilo/advertising-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4",
+      "v3/danilo/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4",
+      "v3/danilo/animation/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4",
+      "v3/danilo/video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4"
+    ]
+  },
+  {
+    "mimetype": "video/mp4",
+    "size_bytes": 2370733,
+    "copies": 5,
+    "examples": [
+      "v3/danilo/brand-campaigns/thumb.81d4b78c214f8718.mp4",
+      "v3/danilo/brand-campaigns/gallery/thumb-LOGO-full_compressed-mp4.81d4b78c214f8718.mp4",
+      "v3/danilo/campaign/thumb.81d4b78c214f8718.mp4",
+      "v3/danilo/print-design/cover-16x9.81d4b78c214f8718.mp4",
+      "v3/danilo/print-design/thumb.81d4b78c214f8718.mp4"
+    ]
+  },
+  {
+    "mimetype": "video/mp4",
+    "size_bytes": 2328361,
+    "copies": 3,
+    "examples": [
+      "v3/mercado-pago/ai-video/cover-16x9.a2fa202ae9c8106d.mp4",
+      "v3/danilo/advertising-video/thumb.a2fa202ae9c8106d.mp4",
+      "v3/danilo/ai-video/cover-16x9.a2fa202ae9c8106d.mp4"
+    ]
+  },
+  {
+    "mimetype": "image/png",
+    "size_bytes": 1646269,
+    "copies": 3,
+    "examples": [
+      "v3/danilo/brand-campaigns/hero.debd87ffc2ad43ec.png",
+      "v3/danilo/brand-campaigns/cover-16x9.debd87ffc2ad43ec.png",
+      "v3/danilo/campaign/cover-16x9.debd87ffc2ad43ec.png"
+    ]
+  },
+  {
+    "mimetype": "image/png",
+    "size_bytes": 1369874,
+    "copies": 4,
+    "examples": [
+      "v3/danilo/advertising-video/hero.a77cb07522535008.png",
+      "v3/danilo/advertising-video/thumb.a77cb07522535008.png",
+      "v3/danilo/video-manifesto/hero.a77cb07522535008.png",
+      "v3/danilo/video-manifesto/thumb.a77cb07522535008.png"
+    ]
+  },
+  {
+    "mimetype": "video/mp4",
+    "size_bytes": 960548,
+    "copies": 4,
+    "examples": [
+      "v3/danilo/video/cover-16x9.7b1a4d235a211a41.mp4",
+      "v3/boticario/creative-concept/cover-16x9.7b1a4d235a211a41.mp4",
+      "v3/danilo/animation/cover-16x9.7b1a4d235a211a41.mp4",
+      "v3/danilo/campaign/cover-16x9.7b1a4d235a211a41.mp4"
+    ]
+  },
+  {
+    "mimetype": "video/mp4",
+    "size_bytes": 825269,
+    "copies": 4,
+    "examples": [
+      "v3/danilo/video/cover-1x1.bb4558569b67cba4.mp4",
+      "v3/boticario/creative-concept/cover-1x1.bb4558569b67cba4.mp4",
+      "v3/danilo/animation/cover-1x1.bb4558569b67cba4.mp4",
+      "v3/danilo/campaign/cover-1x1.bb4558569b67cba4.mp4"
+    ]
+  },
+  {
+    "mimetype": "video/mp4",
+    "size_bytes": 436546,
+    "copies": 3,
+    "examples": [
+      "v3/mercado-pago/ai-video/cover-1x1.7f72aca040cd0495.mp4",
+      "v3/danilo/ai-video/cover-1x1.7f72aca040cd0495.mp4",
+      "v3/danilo/animation/hero.7f72aca040cd0495.mp4"
+    ]
+  },
+  {
+    "mimetype": "video/mp4",
+    "size_bytes": 379353,
+    "copies": 6,
+    "examples": [
+      "v3/glad/brand-video/cover-16x9.93561b517db309a9.mp4",
+      "v3/glad/brand-video/cover-1x1.93561b517db309a9.mp4",
+      "v3/glad/brand-video/gallery/THUMB-GLAD-mp4.93561b517db309a9.mp4",
+      "v3/glad/brand-video/gallery/THUMB-GLAD_compressed-mp4.93561b517db309a9.mp4",
+      "v3/glad/brand-video/hero.93561b517db309a9.mp4",
+      "v3/glad/brand-video/thumb.93561b517db309a9.mp4"
+    ]
+  },
+  {
+    "mimetype": "video/mp4",
+    "size_bytes": 295346,
+    "copies": 2,
+    "examples": [
+      "v3/danilo/key-visual/gallery/THUMB_LOGO_ANIMADA-mp4.ca57b64bb4580ecb.mp4",
+      "v3/danilo/key-visual/thumb.ca57b64bb4580ecb.mp4"
+    ]
+  },
+  {
+    "mimetype": "image/png",
+    "size_bytes": 241844,
+    "copies": 3,
+    "examples": [
+      "v3/danilo/animation/gallery/converted-2-png.f48657bf2f860eb0.png",
+      "v3/danilo/campaign/gallery/converted-2-png.f48657bf2f860eb0.png",
+      "v3/danilo/video/gallery/converted-2-png.f48657bf2f860eb0.png"
+    ]
+  },
+  {
+    "mimetype": "image/png",
+    "size_bytes": 142840,
+    "copies": 2,
+    "examples": [
+      "v3/danilo/key-visual/hero.2b456e3c1412658d.png",
+      "v3/danilo/key-visual/thumb.2b456e3c1412658d.png"
+    ]
+  },
+  {
+    "mimetype": "image/webp",
+    "size_bytes": 103128,
+    "copies": 3,
+    "examples": [
+      "v3/danilo/campaign/gallery/converted-9-webp.dfc4a3b67f9c2592.webp",
+      "v3/danilo/campaign/hero.dfc4a3b67f9c2592.webp",
+      "v3/danilo/campaign/thumb.dfc4a3b67f9c2592.webp"
+    ]
+  },
+  {
+    "mimetype": "image/webp",
+    "size_bytes": 59956,
+    "copies": 3,
+    "examples": [
+      "v3/danilo/key-visual/gallery/converted-10-webp.3f06afff19c13c8a.webp",
+      "v3/danilo/key-visual/hero.3f06afff19c13c8a.webp",
+      "v3/danilo/key-visual/thumb.3f06afff19c13c8a.webp"
+    ]
+  },
+  {
+    "mimetype": "image/webp",
+    "size_bytes": 59462,
+    "copies": 2,
+    "examples": [
+      "v3/danilo/advertising-video/hero.4fa5572945d226cc.webp",
+      "v3/danilo/animation/thumb.4fa5572945d226cc.webp"
+    ]
+  },
+  {
+    "mimetype": "image/webp",
+    "size_bytes": 55842,
+    "copies": 3,
+    "examples": [
+      "v3/danilo/creative-direction/gallery/converted-webp.74188a632382b090.webp",
+      "v3/danilo/creative-direction/hero.74188a632382b090.webp",
+      "v3/danilo/creative-direction/thumb.74188a632382b090.webp"
+    ]
+  },
+  {
+    "mimetype": "image/webp",
+    "size_bytes": 42086,
+    "copies": 3,
+    "examples": [
+      "v3/danilo/key-vision/gallery/nescau-webp.f9af649bc7c0c1b1.webp",
+      "v3/danilo/key-vision/hero.f9af649bc7c0c1b1.webp",
+      "v3/danilo/key-vision/thumb.f9af649bc7c0c1b1.webp"
+    ]
+  },
+  {
+    "mimetype": "image/jpeg",
+    "size_bytes": 35365,
+    "copies": 2,
+    "examples": [
+      "v3/danilo/brand-campaigns/cover-1x1.bbec01bc44be7a9e.JPG",
+      "v3/danilo/campaign/cover-1x1.bbec01bc44be7a9e.JPG"
+    ]
+  },
+  {
+    "mimetype": "image/webp",
+    "size_bytes": 32230,
+    "copies": 3,
+    "examples": [
+      "v3/danilo/key-vision/gallery/converted-5-webp.33b1bd9ad12b453a.webp",
+      "v3/danilo/key-vision/hero.33b1bd9ad12b453a.webp",
+      "v3/danilo/key-vision/thumb.33b1bd9ad12b453a.webp"
+    ]
+  }
+]

@@ -89,7 +89,7 @@ const unsubscribeFromAssets = () => {
   }
 };
 
-// Helper to format URL (com quebra de cache opcional para invalidar imagens zumbis carregadas no browser)
+// Helper to format URL
 const toPublicUrl = (item: DbAsset) => {
   const isExternal = item.file_path?.startsWith('http');
   if (isExternal) return item.file_path;
@@ -100,7 +100,12 @@ const toPublicUrl = (item: DbAsset) => {
   );
   if (!generatedUrl) return null;
 
-  // Add a cache buster parameter to avoid serving broken stale images during realtime upserts
+  // v3 paths use hashes in the filename and are immutable. No cache buster needed.
+  if (item.file_path?.startsWith('v3/')) {
+    return generatedUrl;
+  }
+
+  // Legacy paths or site-assets without hash still need cache busting for upserts
   return `${generatedUrl}?t=${new Date(item.updated_at || Date.now()).getTime()}`;
 };
 

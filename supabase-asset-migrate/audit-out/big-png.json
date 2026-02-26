@@ -1,0 +1,42 @@
+[
+  {
+    "name": "v3/danilo/brand-campaigns/hero.debd87ffc2ad43ec.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 1607.7
+  },
+  {
+    "name": "v3/danilo/advertising-video/hero.a77cb07522535008.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 1337.8
+  },
+  {
+    "name": "v3/danilo/advertising-video/thumb.a77cb07522535008.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 1337.8
+  },
+  {
+    "name": "v3/danilo/brand-campaigns/cover-16x9.debd87ffc2ad43ec.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 1607.7
+  },
+  {
+    "name": "v3/danilo/campaign/cover-16x9.debd87ffc2ad43ec.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 1607.7
+  },
+  {
+    "name": "v3/danilo/video/gallery/KV-Eudora-v2-png.8a908efe974740a4.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 3586.9
+  },
+  {
+    "name": "v3/danilo/video-manifesto/hero.a77cb07522535008.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 1337.8
+  },
+  {
+    "name": "v3/danilo/video-manifesto/thumb.a77cb07522535008.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 1337.8
+  }
+]

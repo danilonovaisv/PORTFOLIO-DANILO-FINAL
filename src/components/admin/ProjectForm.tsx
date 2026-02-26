@@ -174,7 +174,12 @@ export function ProjectForm({
             'portfolio-media',
             `${clientSlug}/projects/${values.slug}`,
             'cover-16x9',
-            landscapeVariant
+            landscapeVariant,
+            {
+              brand: values.brand_name || values.client_name,
+              project: values.slug,
+              kind: 'cover-16x9',
+            }
           );
         }
 
@@ -183,7 +188,12 @@ export function ProjectForm({
             'portfolio-media',
             `${clientSlug}/projects/${values.slug}`,
             'cover-1x1',
-            squareVariant
+            squareVariant,
+            {
+              brand: values.brand_name || values.client_name,
+              project: values.slug,
+              kind: 'cover-1x1',
+            }
           );
         }
 
@@ -200,7 +210,12 @@ export function ProjectForm({
                 'portfolio-media',
                 `${clientSlug}/projects/${values.slug}/gallery`,
                 item.file.name.replace(/\W+/g, '-'),
-                item.file
+                item.file,
+                {
+                  brand: values.brand_name || values.client_name,
+                  project: values.slug,
+                  kind: 'gallery',
+                }
               );
               if (path) {
                 galleryEntries.push({

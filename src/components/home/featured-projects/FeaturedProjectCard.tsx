@@ -43,8 +43,25 @@ export default function FeaturedProjectCard({
     .toLowerCase()
     .replace(/[^a-z0-9-]/g, '-')}-title`;
 
+  const hasHoverRef = React.useRef(false);
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  // Deriva o WEBP do MP4 para o grid
+  const getPoster = (src: string) => {
+    if (src.endsWith('.mp4') || src.endsWith('.webm')) {
+      return src.replace(/\.(mp4|webm)$/i, '.webp');
+    }
+    return DEFAULT_VIDEO_POSTER;
+  };
+
   const CardContent = () => (
-    <>
+    <div
+      onMouseEnter={() => {
+        hasHoverRef.current = true;
+        setIsHovered(true);
+      }}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div
         className={`card-shell relative overflow-hidden rounded-md w-full aspect-[4/3] sm:aspect-video lg:aspect-auto flex-1 min-h-[300px] bg-white/5 transition-all duration-500 ${
           reducedMotion
@@ -56,16 +73,30 @@ export default function FeaturedProjectCard({
         <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
         {isVideo(mediaSource) ? (
-          <video
-            src={mediaSource}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload={priority ? 'auto' : 'metadata'}
-            poster={DEFAULT_VIDEO_POSTER}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 opacity-90 md:group-hover:opacity-100"
-          />
+          <>
+            <Image
+              src={getPoster(mediaSource)}
+              alt={project.title}
+              fill
+              sizes={project.layout.sizes ?? '100vw'}
+              className={`object-cover transition-opacity duration-700 md:group-hover:opacity-100 ${isHovered ? 'opacity-0' : 'opacity-90'}`}
+              loading={priority ? 'eager' : 'lazy'}
+              priority={priority}
+              onError={applyImageFallback}
+            />
+            {hasHoverRef.current && (
+              <video
+                src={mediaSource}
+                autoPlay={isHovered}
+                muted
+                loop
+                playsInline
+                preload="none"
+                poster={getPoster(mediaSource)}
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 md:group-hover:opacity-100 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+              />
+            )}
+          </>
         ) : (
           <Image
             src={mediaSource}
@@ -112,7 +143,7 @@ export default function FeaturedProjectCard({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 
   const commonClasses =

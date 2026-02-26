@@ -1,0 +1,625 @@
+[
+  {
+    "name": "v3/danilo/video/cover-16x9.7b1a4d235a211a41.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 938
+  },
+  {
+    "name": "v3/danilo/video/cover-1x1.bb4558569b67cba4.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 805.9
+  },
+  {
+    "name": "v3/danilo/brand-campaigns/hero.debd87ffc2ad43ec.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/png",
+    "size_kb": 1607.7
+  },
+  {
+    "name": "v3/danilo/brand-campaigns/thumb.81d4b78c214f8718.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 2315.2
+  },
+  {
+    "name": "v3/boticario/creative-concept/cover-16x9.7b1a4d235a211a41.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 938
+  },
+  {
+    "name": "v3/boticario/creative-concept/cover-1x1.bb4558569b67cba4.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 805.9
+  },
+  {
+    "name": "v3/boticario/creative-concept/gallery/converted-webp.f48657bf2f860eb0.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 236.2
+  },
+  {
+    "name": "v3/mercado-pago/ai-video/cover-16x9.a2fa202ae9c8106d.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 2273.8
+  },
+  {
+    "name": "v3/mercado-pago/ai-video/cover-1x1.7f72aca040cd0495.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 426.3
+  },
+  {
+    "name": "v3/glad/brand-video/cover-16x9.93561b517db309a9.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 370.5
+  },
+  {
+    "name": "v3/mercado-pago/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 4849.1
+  },
+  {
+    "name": "v3/mercado-pago/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 7720.1
+  },
+  {
+    "name": "v3/danilo/advertising-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 4849.1
+  },
+  {
+    "name": "v3/danilo/advertising-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 7720.1
+  },
+  {
+    "name": "v3/danilo/advertising-video/gallery/VIDEOMANIFESTOGLAD-mp4.39cc97c71f34486e.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 19434.5
+  },
+  {
+    "name": "v3/danilo/advertising-video/gallery/VIDEOMANIFESTOGLAD_2_compressed_compressed-mp4.39cc97c71f34486e.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 19434.5
+  },
+  {
+    "name": "v3/danilo/advertising-video/hero.a77cb07522535008.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/png",
+    "size_kb": 1337.8
+  },
+  {
+    "name": "v3/danilo/advertising-video/hero.4fa5572945d226cc.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 58.1
+  },
+  {
+    "name": "v3/danilo/advertising-video/thumb.a2fa202ae9c8106d.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 2273.8
+  },
+  {
+    "name": "v3/danilo/advertising-video/thumb.a77cb07522535008.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/png",
+    "size_kb": 1337.8
+  },
+  {
+    "name": "v3/danilo/ai-video/cover-16x9.a2fa202ae9c8106d.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 2273.8
+  },
+  {
+    "name": "v3/danilo/ai-video/cover-1x1.7f72aca040cd0495.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 426.3
+  },
+  {
+    "name": "v3/danilo/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 4849.1
+  },
+  {
+    "name": "v3/danilo/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 7720.1
+  },
+  {
+    "name": "v3/danilo/animation/cover-16x9.7b1a4d235a211a41.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 938
+  },
+  {
+    "name": "v3/danilo/animation/cover-1x1.bb4558569b67cba4.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 805.9
+  },
+  {
+    "name": "v3/danilo/animation/gallery/converted-2-png.f48657bf2f860eb0.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/png",
+    "size_kb": 236.2
+  },
+  {
+    "name": "v3/danilo/animation/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 4849.1
+  },
+  {
+    "name": "v3/danilo/animation/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 7720.1
+  },
+  {
+    "name": "v3/danilo/animation/hero.7f72aca040cd0495.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 426.3
+  },
+  {
+    "name": "v3/danilo/animation/thumb.4fa5572945d226cc.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 58.1
+  },
+  {
+    "name": "v3/danilo/brand-campaigns/cover-16x9.debd87ffc2ad43ec.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/png",
+    "size_kb": 1607.7
+  },
+  {
+    "name": "v3/danilo/brand-campaigns/cover-1x1.bbec01bc44be7a9e.JPG",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/jpeg",
+    "size_kb": 34.5
+  },
+  {
+    "name": "v3/danilo/brand-campaigns/gallery/thumb-LOGO-full_compressed-mp4.81d4b78c214f8718.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 2315.2
+  },
+  {
+    "name": "v3/glad/brand-video/cover-1x1.93561b517db309a9.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 370.5
+  },
+  {
+    "name": "v3/glad/brand-video/gallery/THUMB-GLAD-mp4.93561b517db309a9.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 370.5
+  },
+  {
+    "name": "v3/glad/brand-video/gallery/THUMB-GLAD_compressed-mp4.93561b517db309a9.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 370.5
+  },
+  {
+    "name": "v3/glad/brand-video/gallery/VIDEOMANIFESTOGLAD-mp4.39cc97c71f34486e.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 19434.5
+  },
+  {
+    "name": "v3/glad/brand-video/hero.93561b517db309a9.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 370.5
+  },
+  {
+    "name": "v3/glad/brand-video/hero.b8d016a916cdbef3.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/png",
+    "size_kb": 48.8
+  },
+  {
+    "name": "v3/glad/brand-video/hero.3605e6bd44e405cb.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 26.7
+  },
+  {
+    "name": "v3/glad/brand-video/thumb.93561b517db309a9.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 370.5
+  },
+  {
+    "name": "v3/danilo/campaign/cover-16x9.7b1a4d235a211a41.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 938
+  },
+  {
+    "name": "v3/danilo/campaign/cover-16x9.debd87ffc2ad43ec.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/png",
+    "size_kb": 1607.7
+  },
+  {
+    "name": "v3/danilo/campaign/cover-1x1.bbec01bc44be7a9e.JPG",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/jpeg",
+    "size_kb": 34.5
+  },
+  {
+    "name": "v3/danilo/campaign/cover-1x1.bb4558569b67cba4.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 805.9
+  },
+  {
+    "name": "v3/danilo/campaign/gallery/converted-2-png.f48657bf2f860eb0.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/png",
+    "size_kb": 236.2
+  },
+  {
+    "name": "v3/danilo/campaign/gallery/converted-9-webp.dfc4a3b67f9c2592.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 100.7
+  },
+  {
+    "name": "v3/danilo/campaign/hero.7dd40fbe0d6c6892.jpeg",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/jpeg",
+    "size_kb": 119.1
+  },
+  {
+    "name": "v3/danilo/campaign/hero.dfc4a3b67f9c2592.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 100.7
+  },
+  {
+    "name": "v3/danilo/campaign/thumb.81d4b78c214f8718.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 2315.2
+  },
+  {
+    "name": "v3/danilo/campaign/thumb.dfc4a3b67f9c2592.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 100.7
+  },
+  {
+    "name": "v3/danilo/creative-direction/gallery/converted-webp.74188a632382b090.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 54.5
+  },
+  {
+    "name": "v3/danilo/creative-direction/hero.74188a632382b090.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 54.5
+  },
+  {
+    "name": "v3/danilo/creative-direction/thumb.74188a632382b090.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 54.5
+  },
+  {
+    "name": "v3/danilo/key-vision/gallery/converted-5-webp.33b1bd9ad12b453a.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 31.5
+  },
+  {
+    "name": "v3/danilo/key-vision/hero.33b1bd9ad12b453a.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 31.5
+  },
+  {
+    "name": "v3/danilo/key-vision/thumb.33b1bd9ad12b453a.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 31.5
+  },
+  {
+    "name": "v3/danilo/key-visual/gallery/converted-10-webp.3f06afff19c13c8a.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 58.6
+  },
+  {
+    "name": "v3/danilo/key-visual/gallery/THUMB_LOGO_ANIMADA-mp4.ca57b64bb4580ecb.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 288.4
+  },
+  {
+    "name": "v3/danilo/key-visual/hero.2b456e3c1412658d.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/png",
+    "size_kb": 139.5
+  },
+  {
+    "name": "v3/danilo/key-visual/hero.3f06afff19c13c8a.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 58.6
+  },
+  {
+    "name": "v3/danilo/key-visual/thumb.ca57b64bb4580ecb.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 288.4
+  },
+  {
+    "name": "v3/danilo/key-visual/thumb.2b456e3c1412658d.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/png",
+    "size_kb": 139.5
+  },
+  {
+    "name": "v3/danilo/key-visual/thumb.3f06afff19c13c8a.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 58.6
+  },
+  {
+    "name": "v3/danilo/key-vision/gallery/nescau-webp.f9af649bc7c0c1b1.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 41.1
+  },
+  {
+    "name": "v3/danilo/key-vision/hero.f9af649bc7c0c1b1.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 41.1
+  },
+  {
+    "name": "v3/danilo/key-vision/thumb.f9af649bc7c0c1b1.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 41.1
+  },
+  {
+    "name": "v3/danilo/print-design/cover-16x9.81d4b78c214f8718.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 2315.2
+  },
+  {
+    "name": "v3/danilo/print-design/cover-1x1.fad4ddd45ba37abf.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 1318.6
+  },
+  {
+    "name": "v3/danilo/print-design/gallery/converted-1-webp.0da18266f1533b51.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 74.5
+  },
+  {
+    "name": "v3/danilo/print-design/hero.26f49c2ed15cd1dc.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 63.6
+  },
+  {
+    "name": "v3/danilo/print-design/thumb.81d4b78c214f8718.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 2315.2
+  },
+  {
+    "name": "v3/danilo/rebranding/gallery/converted-2-webp.e601291b613a6d43.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 772.4
+  },
+  {
+    "name": "v3/danilo/rebranding/gallery/converted-3-webp.09543d0eb71b05d2.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 637.3
+  },
+  {
+    "name": "v3/danilo/rebranding/gallery/converted-4-webp.6420ca71ec1c70dd.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 95.1
+  },
+  {
+    "name": "v3/danilo/rebranding/gallery/converted-5-webp.3529b2ba0b7588bb.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 254.2
+  },
+  {
+    "name": "v3/danilo/rebranding/gallery/converted-6-webp.c0a0dd6ca0744fed.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 13.1
+  },
+  {
+    "name": "v3/danilo/rebranding/gallery/converted-7-webp.6a2ba92d469b609d.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 327.7
+  },
+  {
+    "name": "v3/danilo/rebranding/gallery/converted-8-webp.319717e9bd68eab7.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 32
+  },
+  {
+    "name": "v3/danilo/rebranding/gallery/converted-webp.1d7906cba60b8a7f.webp",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/webp",
+    "size_kb": 94.7
+  },
+  {
+    "name": "v3/danilo/rebranding/hero.5c9c78d1babcf61f.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/png",
+    "size_kb": 10.3
+  },
+  {
+    "name": "v3/danilo/rebranding/thumb.616ba718923fee64.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 3275.2
+  },
+  {
+    "name": "v3/danilo/video/gallery/converted-2-png.f48657bf2f860eb0.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/png",
+    "size_kb": 236.2
+  },
+  {
+    "name": "v3/danilo/video/gallery/KV-Eudora-v2-png.8a908efe974740a4.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/png",
+    "size_kb": 3586.9
+  },
+  {
+    "name": "v3/danilo/video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 4849.1
+  },
+  {
+    "name": "v3/danilo/video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "video/mp4",
+    "size_kb": 7720.1
+  },
+  {
+    "name": "v3/danilo/video-manifesto/hero.a77cb07522535008.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/png",
+    "size_kb": 1337.8
+  },
+  {
+    "name": "v3/danilo/video-manifesto/thumb.a77cb07522535008.png",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "expected": "public, max-age=31536000, immutable",
+    "mimetype": "image/png",
+    "size_kb": 1337.8
+  }
+]

@@ -7,15 +7,24 @@ async function uploadThroughAdminRoute({
   bucket,
   path,
   file,
+  brand,
+  project,
+  kind,
 }: {
   bucket: UploadBucket;
-  path: string;
+  path?: string;
   file: File;
+  brand?: string;
+  project?: string;
+  kind?: string;
 }) {
   const formData = new FormData();
   formData.set('bucket', bucket);
-  formData.set('path', path);
+  if (path) formData.set('path', path);
   formData.set('file', file);
+  if (brand) formData.set('brand', brand);
+  if (project) formData.set('project', project);
+  if (kind) formData.set('kind', kind);
 
   const response = await fetch('/api/admin/storage/upload', {
     method: 'POST',
@@ -44,8 +53,20 @@ export async function uploadToBucket(
   bucket: UploadBucket,
   basePath: string,
   identifier: string,
-  file: File
+  file: File,
+  metadata?: { brand: string; project: string; kind?: string }
 ) {
+  if (bucket === 'portfolio-media' && metadata) {
+    const uploadedPath = await uploadThroughAdminRoute({
+      bucket,
+      file,
+      brand: metadata.brand,
+      project: metadata.project,
+      kind: metadata.kind || identifier,
+    });
+    return normalizeStoragePath(uploadedPath, bucket);
+  }
+
   const ext = file.name.split('.').pop();
   const name = ext ? `${identifier}.${ext}` : identifier;
   const path = buildPath(basePath, name);
