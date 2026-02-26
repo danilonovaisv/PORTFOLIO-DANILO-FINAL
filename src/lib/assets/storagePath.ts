@@ -22,7 +22,7 @@ export function hashContent(buffer: ArrayBuffer | Buffer): string {
   return hash.digest('hex').slice(0, 16);
 }
 
-export interface BuildV3PathParams {
+export interface BuildV4PathParams {
   brand: string;
   project: string;
   kind?: string; // Optional subfolder like 'thumbs', 'posters', etc.
@@ -31,14 +31,14 @@ export interface BuildV3PathParams {
   hash: string;
 }
 
-export function buildV3Path({
+export function buildV4Path({
   brand,
   project,
   kind,
   filename,
   ext,
   hash,
-}: BuildV3PathParams): string {
+}: BuildV4PathParams): string {
   const normalizedBrand = normalizeBrand(brand);
   const normalizedProject = normalizeProject(project);
 
@@ -52,7 +52,7 @@ export function buildV3Path({
       .replace(/^-+|-+$/g, '') || 'file';
   const normalizedExt = ext.replace(/^\./, '').toLowerCase().trim();
 
-  const parts = ['v3', normalizedBrand, normalizedProject];
+  const parts = ['v4', normalizedBrand, normalizedProject];
   if (kind) {
     const normalizedKind = kind
       .toLowerCase()

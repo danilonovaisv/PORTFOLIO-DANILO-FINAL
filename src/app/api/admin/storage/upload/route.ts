@@ -12,7 +12,7 @@ const ALLOWED_BUCKETS = new Set<UploadBucket>([
 ]);
 
 import {
-  buildV3Path,
+  buildV4Path,
   hashContent,
   CACHE_CONTROL_IMMUTABLE,
 } from '@/lib/assets/storagePath';
@@ -76,7 +76,7 @@ export async function POST(request: Request) {
         );
       }
 
-      path = buildV3Path({
+      path = buildV4Path({
         brand: brand as string,
         project: project as string,
         kind: (kind as string) || undefined,

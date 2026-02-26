@@ -100,8 +100,8 @@ const toPublicUrl = (item: DbAsset) => {
   );
   if (!generatedUrl) return null;
 
-  // v3 paths use hashes in the filename and are immutable. No cache buster needed.
-  if (item.file_path?.startsWith('v3/')) {
+  // v4 paths use hashes in the filename and are immutable. No cache buster needed.
+  if (item.file_path?.startsWith('v4/')) {
     return generatedUrl;
   }
 
@@ -248,9 +248,9 @@ export function useRealtimeAsset(assetKey: string) {
 
   const assetWithUrl = storeAsset
     ? {
-        ...storeAsset,
-        publicUrl: toPublicUrl(storeAsset) || '',
-      }
+      ...storeAsset,
+      publicUrl: toPublicUrl(storeAsset) || '',
+    }
     : null;
 
   return { asset: assetWithUrl, loading, error };

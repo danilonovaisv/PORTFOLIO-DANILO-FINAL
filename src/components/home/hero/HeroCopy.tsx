@@ -63,6 +63,17 @@ export default function HeroCopy({
   const renderTextContent = (isMask: boolean) => (
     <Container className={isMask ? styles.maskText : styles.baseText}>
       <div className="flex flex-col items-center">
+        {/* Editoral Tag */}
+        {HOME_CONTENT.hero.tag && (
+          <span
+            className={`hero-line mb-4 md:mb-6 block ${styles.tag}`}
+            style={initialStyles}
+            aria-hidden="true"
+          >
+            {HOME_CONTENT.hero.tag}
+          </span>
+        )}
+
         {/* Headline - Desktop & Tablet (Visual Only) -> md:block */}
         <div
           aria-hidden="true"
@@ -111,6 +122,7 @@ export default function HeroCopy({
       className={`relative z-10 flex flex-col items-center justify-center text-center w-full pointer-events-auto ${styles.root}`}
     >
       <h1 className="sr-only">
+        {HOME_CONTENT.hero.tag ? `${HOME_CONTENT.hero.tag} ` : ''}
         {HOME_CONTENT.hero.title.join(' ')} {HOME_CONTENT.hero.subtitle}
       </h1>
 

@@ -6,6 +6,8 @@ import { GHOST_EASE, viewportConfig } from '@/config/motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import { useRealtimeAsset } from '@/hooks/useRealtimeAssets';
 
+import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
+
 interface VideoManifestoProps {
   src: string;
   assetKey?: string;
@@ -99,7 +101,8 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
       : currentSrc;
   const videoSrc = variantSrc;
 
-  const posterSrc = videoSrc.replace('.mp4', '-poster.jpg');
+  const explicitPoster = (asset?.metadata as { variants?: { poster?: string }, poster?: string } | undefined)?.variants?.poster || (asset?.metadata as { poster?: string } | undefined)?.poster;
+  const posterSrc = explicitPoster || DEFAULT_VIDEO_POSTER;
 
   return (
     <motion.section
@@ -147,7 +150,7 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
 
         {/* Overlay Ghost System */}
         <div
-          className="absolute inset-0 bg-background/80 pointer-events-none"
+          className="absolute inset-0 bg-background/15 pointer-events-none"
           aria-hidden="true"
         />
 

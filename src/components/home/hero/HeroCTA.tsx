@@ -5,6 +5,8 @@ import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { HOME_CONTENT } from '@/config/content';
 import { GHOST_EASE, MOTION_TOKENS } from '@/config/motion';
 
+import { useMotionGate } from '@/hooks/useMotionGate';
+
 const itemAnimation: Variants = {
   initial: { opacity: 0, y: MOTION_TOKENS.offset.standard },
   animate: {
@@ -19,13 +21,15 @@ const itemAnimation: Variants = {
 };
 
 export default function HeroCTA() {
+  const shouldReduceMotion = useMotionGate();
+
   // isLoaded check removed for immediate LCP
   // if (!isLoaded) return null;
 
   return (
     <motion.div
-      initial="initial"
-      animate="animate"
+      initial={shouldReduceMotion ? { opacity: 1, y: 0 } : 'initial'}
+      animate={shouldReduceMotion ? { opacity: 1, y: 0 } : 'animate'}
       variants={itemAnimation}
       className="flex justify-center pointer-events-auto"
     >
