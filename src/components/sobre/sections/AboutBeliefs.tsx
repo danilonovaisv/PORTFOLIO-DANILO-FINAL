@@ -82,8 +82,8 @@ export function AboutBeliefs() {
         MotionHeader={MotionHeader}
         prefersReducedMotion={prefersReduced}
       />
-      {/* LAYER 1: Seções de Conteúdo (Texto Scrollável) */}
-      <MotionDiv className="relative z-20">
+      {/* LAYER 1: Seções de Conteúdo (Texto Scrollável) - Background */}
+      <MotionDiv className="relative z-0">
         {/* Adicionei verificações para evitar erro se PHRASES/COLORS estiverem vazios */}
         {PHRASES.map((phrase, index) => (
           <BeliefSection
@@ -114,17 +114,17 @@ export function AboutBeliefs() {
         prefersReducedMotion={prefersReduced}
       />
 
-      {/* LAYER 4: Final Text Overlay (Z-40) - Background for Ghost */}
-      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-40">
+      {/* LAYER 4: Final Text Overlay (Z-10) - Overlay */}
+      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-10">
         <BeliefFinalSectionOverlay
           MotionDiv={MotionDiv}
           prefersReducedMotion={prefersReduced}
         />
       </div>
 
-      {/* LAYER 3: Canvas 3D (sem captura de eventos) */}
+      {/* LAYER 3: Canvas 3D (sem captura de eventos) - Overlay */}
       <div
-        className="absolute inset-0 z-60 w-full h-full pointer-events-none"
+        className="absolute inset-0 z-10 w-full h-full pointer-events-none"
         aria-hidden
       >
         <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-none flex md:items-center md:justify-center items-end justify-start">

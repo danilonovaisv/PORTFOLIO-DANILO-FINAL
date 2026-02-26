@@ -65,9 +65,17 @@ export function normalizeStoragePath(
   return normalized;
 }
 
+export interface StorageUrlOptions {
+  width?: number;
+  quality?: number;
+  format?: 'origin' | 'webp' | 'avif';
+  resize?: 'cover' | 'contain' | 'fill';
+}
+
 export function buildSupabaseStorageUrl(
   bucket: string,
-  filePath?: string | null
+  filePath?: string | null,
+  options?: StorageUrlOptions
 ): string | null {
   if (!filePath) return null;
 
@@ -85,7 +93,6 @@ export function buildSupabaseStorageUrl(
         console.warn(`Protocolo inseguro detectado: ${filePath}`);
         return null;
       }
-      // Aqui poderíamos adicionar validação de domínio se necessário
       return filePath;
     } catch {
       console.error(`URL inválida: ${filePath}`);
@@ -109,25 +116,75 @@ export function buildSupabaseStorageUrl(
     return finalFilePath.startsWith('http') ? finalFilePath : null;
   }
 
+  const baseUrl = getSupabaseBaseUrl();
+  let baseOrigin = baseUrl;
+
   // Preserva a origem caso o caminho já seja uma URL completa de outro projeto Supabase
   if (isHttp && isSupabaseUrl) {
     try {
       const url = new URL(finalFilePath);
-      const baseOrigin = `${url.protocol}//${url.host}`;
-      return `${baseOrigin}/storage/v1/object/public/${cleanBucket}/${normalizedPath}`;
+      baseOrigin = `${url.protocol}//${url.host}`;
     } catch {
-      // se falhar, segue fluxo padrão
+      // se falhar, segue origin padrão
+      if (!baseOrigin) {
+        return finalFilePath.startsWith('http') ? finalFilePath : null;
+      }
     }
-  }
-
-  const baseUrl = getSupabaseBaseUrl();
-  if (!baseUrl) {
+  } else if (!baseOrigin) {
     return finalFilePath.startsWith('http') ? finalFilePath : null;
   }
 
-  const finalUrl = `${baseUrl}/storage/v1/object/public/${cleanBucket}/${normalizedPath}`;
+  // Verifica se é um arquivo de vídeo (vídeos não suportam proxy de renderização de imagem)
+  const isVideo = /\.(mp4|webm|mov|m4v|ogg)$/i.test(normalizedPath);
+
+  // Decide entre endpoint de renderização configurado ou objeto direto
+  const endpoint = (!isVideo && options) ? '/storage/v1/render/image/public/' : '/storage/v1/object/public/';
+  let finalUrl = `${baseOrigin}${endpoint}${cleanBucket}/${normalizedPath}`;
+
+  if (!isVideo && options) {
+    const params = new URLSearchParams();
+    if (options.width) params.set('width', options.width.toString());
+    if (options.quality) params.set('quality', options.quality.toString());
+    if (options.format) params.set('format', options.format);
+    if (options.resize) params.set('resize', options.resize);
+
+    const queryString = params.toString();
+    if (queryString) {
+      finalUrl += `?${queryString}`;
+    }
+  }
+
   debugUrl(finalUrl);
   return finalUrl;
+}
+
+/**
+ * Helper to inject image proxy optimization params into an existing Supabase public URL.
+ */
+export function injectSupabaseProxy(
+  url: string,
+  options: StorageUrlOptions
+): string {
+  if (!url || !url.includes('/storage/v1/')) return url;
+
+  const isVideo = /\.(mp4|webm|mov|m4v|ogg)(#.*|\?.*)?$/i.test(url);
+  if (isVideo) return url;
+
+  try {
+    const parsed = new URL(url);
+    if (parsed.pathname.includes('/object/public/')) {
+      parsed.pathname = parsed.pathname.replace('/object/public/', '/render/image/public/');
+    }
+
+    if (options.width) parsed.searchParams.set('width', options.width.toString());
+    if (options.quality) parsed.searchParams.set('quality', options.quality.toString());
+    if (options.format) parsed.searchParams.set('format', options.format);
+    if (options.resize) parsed.searchParams.set('resize', options.resize);
+
+    return parsed.toString();
+  } catch {
+    return url;
+  }
 }
 
 // Função adicional para validar e construir URLs de links externos

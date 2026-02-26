@@ -11,8 +11,23 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      //As cores e fontes principais estão definidas em @theme no globals.css
-      // Esta extensão serve principalmente para outros elementos do tema
+      // Cores mapeadas via CSS (globals.css v4 compatibility)
+      colors: {
+        bluePrimary: 'var(--color-bluePrimary)',
+        blueAccent: 'var(--color-blueAccent)',
+        purpleDetails: 'var(--color-purpleDetails)',
+        pinkDetails: 'var(--color-pinkDetails)',
+        background: 'var(--color-background)',
+        backgroundLight: 'var(--color-backgroundLight)',
+        text: 'var(--color-text)',
+        textInverse: 'var(--color-textInverse)',
+        textEmphasis: 'var(--color-textEmphasis)',
+        textHighlight: 'var(--color-textHighlight)',
+        textSecondary: 'var(--color-textSecondary)',
+        neutral: 'var(--color-neutral)',
+        neutralLight: 'var(--color-neutralLight)',
+      },
+      // Restante da extensão de tema
       minWidth: {
         'cta-mobile': '180px',
         'cta-tablet': '200px',

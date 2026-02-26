@@ -67,6 +67,7 @@ export function FluidGlass({
         }}
         frameloop={reducedMotion ? 'demand' : 'always'}
         className="absolute inset-0 z-40 pill-canvas"
+        aria-hidden="true"
       >
         <OrthographicCamera makeDefault position={[0, 0, 10]} zoom={90} />
         <Suspense fallback={null}>

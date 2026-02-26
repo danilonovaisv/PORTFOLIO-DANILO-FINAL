@@ -26,6 +26,20 @@ This is a Headless CMS Admin Panel built with Next.js App Router, Supabase, and 
 - **Pagination**: Implement server-side pagination for posts and media if the datasets grow large.
 - **Analytics Integration**: Add Vercel Analytics or Google Analytics charts to the dashboard.
 
+## Cache & Egress Management
+
+To prevent Supabase Storage egress limits from being exceeded by orphaned assets (like old images that are no longer referenced in the database), there is an automated PostgreSQL cron job.
+
+- **Cron Job**: `cleanup-cached-egress-job` runs every Sunday at midnight.
+- **Function**: `public.clear_cached_egress()` scans `.site_assets`, `.portfolio_projects`, and `.landing_pages` to discover any abandoned object over 14 days old in Storage and deletes them.
+- **Monitoring**: You can check the execution status and see how many files/bytes were deleted using the following SQL command in the Supabase SQL Editor:
+
+  ```sql
+  SELECT * FROM cron.job_run_details 
+  WHERE jobname = 'cleanup-cached-egress-job' 
+  ORDER BY start_time DESC;
+  ```
+
 ## File Structure
 
 - `/app/admin`: Admin routes (Login, Dashboard, Posts, Media).

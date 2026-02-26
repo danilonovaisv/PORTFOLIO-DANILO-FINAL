@@ -56,7 +56,7 @@ export function GhostModel({
   });
 
   return (
-    <group ref={meshRef} {...props}>
+    <group ref={meshRef} {...props} dispose={null}>
       <primitive object={gltf.scene} />
     </group>
   );

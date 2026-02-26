@@ -68,7 +68,7 @@ export function AboutClosing() {
             <video
               className="hidden md:block w-full h-full object-cover"
               src={desktopVideo ?? ''}
-              autoPlay
+              autoPlay={!prefersReducedMotion}
               loop
               muted
               playsInline
@@ -87,7 +87,7 @@ export function AboutClosing() {
             <video
               className="md:hidden w-full h-full object-cover"
               src={mobileVideo ?? desktopVideo ?? ''}
-              autoPlay
+              autoPlay={!prefersReducedMotion}
               loop
               muted
               playsInline

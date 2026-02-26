@@ -10,6 +10,7 @@ import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 import { CaseBodyRenderer } from '@/components/portfolio/CaseBodyRenderer';
 import { ImageLightbox } from '@/components/portfolio/ImageLightbox';
 
+import { injectSupabaseProxy } from '@/lib/supabase/urls';
 import { getContentVariants } from '@/components/portfolio/modal/variants';
 
 interface AdaptiveMediaLayoutProps {
@@ -115,12 +116,13 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                         ) : (
                             <div className="absolute inset-0 w-full h-full z-0 cursor-pointer" onClick={() => setLightboxSource(activeMedia)}>
                                 <Image
-                                    src={activeMedia}
+                                    src={injectSupabaseProxy(activeMedia, { width: 1920, quality: 80, format: 'webp' })}
                                     alt={project.title}
                                     fill
                                     className="object-cover opacity-90 transition-transform duration-700 group-hover:scale-[1.02]"
                                     sizes="100vw"
                                     priority
+                                    unoptimized
                                     onError={applyImageFallback}
                                 />
                             </div>
@@ -175,7 +177,14 @@ export const AdaptiveMediaLayout: FC<AdaptiveMediaLayoutProps> = ({
                                                     </div>
                                                 </div>
                                             ) : (
-                                                <Image src={media} alt={`Thumbnail ${idx}`} fill className="object-cover" sizes="200px" />
+                                                <Image
+                                                    src={injectSupabaseProxy(media, { width: 400, quality: 70, format: 'webp' })}
+                                                    alt={`Thumbnail ${idx}`}
+                                                    fill
+                                                    className="object-cover"
+                                                    sizes="200px"
+                                                    unoptimized
+                                                />
                                             )}
                                         </button>
                                     );

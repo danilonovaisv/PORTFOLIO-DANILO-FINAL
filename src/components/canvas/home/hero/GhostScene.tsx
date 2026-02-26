@@ -642,6 +642,18 @@ export default function GhostScene() {
     let animationId: number;
     let lastParticleTime = 0;
 
+    // --- Intersection Observer para Performance (TBT) ---
+    let isInView = true;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isInView = entry.isIntersecting;
+        });
+      },
+      { rootMargin: '200px' }
+    );
+    observer.observe(mountElement);
+
     // Ref para posição anterior pra calcular delta sem alocar
     const _prevGhostPos = new THREE.Vector3();
 
@@ -657,7 +669,7 @@ export default function GhostScene() {
 
     const animate = (timestamp: number) => {
       animationId = requestAnimationFrame(animate);
-      if (!isInitialized) return;
+      if (!isInitialized || !isInView) return;
 
       const deltaTime = timestamp - lastFrameTime;
       lastFrameTime = timestamp;
@@ -833,6 +845,7 @@ export default function GhostScene() {
     // --- FUNÇÃO DE LIMPEZA (MEMORY LEAK FIX) ---
     return () => {
       cancelAnimationFrame(animationId);
+      observer.disconnect();
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('touchstart', onTouchMove);
       window.removeEventListener('touchmove', onTouchMove);

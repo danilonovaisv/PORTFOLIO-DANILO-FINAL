@@ -32,7 +32,7 @@ export const BeliefMobileTextLayer: React.FC<MobileTextLayerProps> = ({
   const Container = MotionDiv ?? motion.div;
 
   return (
-    <div className="fixed inset-0 z-70 pointer-events-none md:hidden">
+    <div className="fixed inset-0 z-20 pointer-events-none md:hidden">
       {phrases.map((phrase, index) => (
         <MobilePhrase
           key={index}
@@ -86,7 +86,7 @@ const MobilePhrase: React.FC<MobilePhraseProps> = ({
   const x = useTransform(
     scrollYProgress,
     [entryStart, entryEnd, exitStart, exitEnd],
-    ['-24px', '0px', '0px', '24px'],
+    ['-100vw', '0vw', '0vw', '100vw'],
     { ease: ghostEase }
   );
 

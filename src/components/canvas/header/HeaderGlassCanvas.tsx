@@ -81,24 +81,43 @@ export function GlassPlane({ accentColor }: { accentColor: string }) {
     return () => material.dispose();
   }, [material]);
 
+  const lastActiveTime = useRef(0);
+  const pointerActivity = useRef({ x: 0, y: 0 });
+
   useFrame((state) => {
     if (!meshRef.current) return;
 
-    // Update time
-    material.uniforms.uTime.value = state.clock.elapsedTime;
+    // Track pointer movement to determine if active
+    if (
+      pointerActivity.current.x !== state.pointer.x ||
+      pointerActivity.current.y !== state.pointer.y
+    ) {
+      pointerActivity.current.x = state.pointer.x;
+      pointerActivity.current.y = state.pointer.y;
+      lastActiveTime.current = state.clock.elapsedTime;
+    }
 
-    // "Spring" physics (Lerp) for X-axis follow
-    // Mouse x is -1 to 1. We want a small movement, e.g. 0.05
     const targetX = state.pointer.x * 0.15;
+    const distanceToTarget = Math.abs(meshRef.current.position.x - targetX);
 
-    meshRef.current.position.x = THREE.MathUtils.lerp(
-      meshRef.current.position.x,
-      targetX,
-      0.08 // Damping factor (lower = heavier/smoother)
-    );
+    // Keep animating for 1.5s after mouse stops, and until spring physics settle
+    const isRecentlyActive = state.clock.elapsedTime - lastActiveTime.current < 1.5;
+    const isSpringMoving = distanceToTarget > 0.001;
 
-    // Request re-render in demand mode
-    state.invalidate();
+    if (isRecentlyActive || isSpringMoving) {
+      // Update time for the noise shader
+      material.uniforms.uTime.value = state.clock.elapsedTime;
+
+      // "Spring" physics (Lerp) for X-axis follow
+      meshRef.current.position.x = THREE.MathUtils.lerp(
+        meshRef.current.position.x,
+        targetX,
+        0.08 // Damping factor
+      );
+
+      // Request re-render in demand mode
+      state.invalidate();
+    }
   });
 
   return (
@@ -130,6 +149,7 @@ const HeaderGlassCanvas = memo(function HeaderGlassCanvas({
       frameloop="demand"
       orthographic
       camera={{ position: [0, 0, 1], zoom: 1 }}
+      aria-hidden="true"
     >
       <GlassPlane accentColor={accentColor} />
     </Canvas>

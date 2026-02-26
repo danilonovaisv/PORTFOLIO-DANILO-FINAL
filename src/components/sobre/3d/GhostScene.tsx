@@ -6,7 +6,7 @@ import { Canvas } from '@react-three/fiber';
 import { ContactShadows } from '@react-three/drei';
 import * as THREE from 'three';
 import GhostModel from '@/components/sobre/3d/GhostModel'; // Caminho relativo para GhostModel
-import { MotionValue, motion, useTransform, cubicBezier } from 'framer-motion';
+import { MotionValue, motion, useTransform, cubicBezier, useInView } from 'framer-motion';
 // Importar o hook do BeliefSection.tsx
 import { useIsMobile } from '@/components/sobre/beliefs/BeliefSection';
 
@@ -17,6 +17,7 @@ interface GhostSceneProps {
 const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
   const isMobile = useIsMobile();
   const containerRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(containerRef, { margin: '200px' });
   const is3DDisabled = process.env.NEXT_PUBLIC_DISABLE_3D === 'true';
 
   // Easing Ghost Padrão
@@ -57,6 +58,8 @@ const GhostScene: React.FC<GhostSceneProps> = ({ scrollProgress }) => {
         gl={{ antialias: true, alpha: true }}
         // 🟣 [CONFIG VISUAL]: Câmera - Posição Z=6 define o quão perto/longe o objeto parece estar. FOV=35 define a distorção da perspectiva.
         camera={{ position: [0, 0, 6], fov: 35 }}
+        frameloop={isInView ? 'always' : 'demand'}
+        aria-hidden="true"
       >
         {/* Low Ambient for higher contrast shadows */}
         <ambientLight intensity={1.2} />

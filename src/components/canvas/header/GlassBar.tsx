@@ -145,6 +145,7 @@ const ModeWrapper = memo(function ModeWrapper({
         geometry={
           (nodes[geometryKey] as THREE.Mesh<THREE.BufferGeometry>)?.geometry
         }
+        dispose={null}
         {...props}
       >
         <MeshTransmissionMaterial

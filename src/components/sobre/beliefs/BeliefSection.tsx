@@ -140,7 +140,7 @@ export const BeliefSection: React.FC<BeliefSectionProps> = ({
               ? undefined
               : { y: yScroll, opacity: desktopOpacity }
           }
-          className="relative z-30 hidden md:flex w-full flex-col justify-center max-w-[38vw] lg:max-w-[34vw]"
+          className="relative z-20 hidden md:flex w-full flex-col justify-center max-w-[38vw] lg:max-w-[34vw]"
           data-testid={index !== undefined ? `belief-line-${index}` : undefined}
         >
           {lines.map((line, i) => (
