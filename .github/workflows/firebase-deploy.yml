@@ -98,6 +98,14 @@ jobs:
       - name: Prepare hosting files
         run: bash scripts/prepare-hosting.sh
 
+      - name: Validate Firebase Auth Secret
+        run: |
+          if [ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}" ]; then
+            echo "❌ ERRO: FIREBASE_SERVICE_ACCOUNT_JSON não configurado no GitHub Secrets."
+            echo "Vá em Settings > Secrets and variables > Actions e adicione o JSON da conta de serviço."
+            exit 1
+          fi
+
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
