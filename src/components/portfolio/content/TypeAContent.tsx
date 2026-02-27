@@ -19,11 +19,11 @@ const TypeAContent: FC<TypeAContentProps> = ({ project }) => {
 
   // [BUG FIX #9]: Prioritize video for motion projects
   const heroMedia = useMemo(() => {
-    if (project.thumbnailMedia) {
-      return project.thumbnailMedia;
-    }
     if (project.category === 'motion' && project.videoPreview) {
       return project.videoPreview;
+    }
+    if (project.thumbnailMedia) {
+      return project.thumbnailMedia;
     }
     return project.imageLandscape ?? project.imageSquare ?? project.image;
   }, [

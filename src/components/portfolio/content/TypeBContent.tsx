@@ -19,11 +19,11 @@ const TypeBContent: FC<TypeBContentProps> = ({ project }) => {
 
   // [BUG FIX #9]: Prioritize video for motion projects
   const primaryMedia = useMemo(() => {
-    if (project.thumbnailMedia) {
-      return project.thumbnailMedia;
-    }
     if (project.category === 'motion' && project.videoPreview) {
       return project.videoPreview;
+    }
+    if (project.thumbnailMedia) {
+      return project.thumbnailMedia;
     }
     return project.imageLandscape ?? project.imageSquare ?? project.image;
   }, [
