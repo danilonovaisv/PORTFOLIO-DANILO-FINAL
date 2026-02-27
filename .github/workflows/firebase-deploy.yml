@@ -107,9 +107,12 @@ jobs:
           fi
 
       - name: Authenticate to Google Cloud
+        id: auth
         uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+          create_credentials_file: true
+          export_environment_variables: true
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
@@ -117,7 +120,11 @@ jobs:
       - name: Deploy to Firebase
         run: |
           firebase experiments:enable webframeworks
+          # O erro 403 nas extensões ocorre se o Service Account não tiver a role 'Firebase Admin' 
+          # ou se a API de extensões estiver desativada no projeto.
           firebase deploy --only hosting,functions --project portfolio-danilo-novais --force --non-interactive
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
 
       - name: Notify success
         if: success()
