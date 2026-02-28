@@ -1,4 +1,0 @@
-store-dir=~/.local/share/pnpm/store
-cache-dir=~/.cache/pnpm
-link-workspace-packages=true
-frozen-lockfile=false

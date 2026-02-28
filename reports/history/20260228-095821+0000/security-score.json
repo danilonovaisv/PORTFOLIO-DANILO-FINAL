@@ -1,8 +1,0 @@
-{
-  "timestamp_utc": "2026-02-28T09:58:21+00:00",
-  "score": 75,
-  "components": {
-    "supabase_storage_security": 50,
-    "firebase_hosting_security": 100
-  }
-}

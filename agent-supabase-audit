@@ -1,4 +1,0 @@
-name: agent-supabase-audit
-kind: antigravity-agent
-entry: .agent/agents/agent-supabase-audit.md
-contract: .agent/contracts/audit-agent-contract.yaml
