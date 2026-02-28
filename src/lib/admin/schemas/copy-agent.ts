@@ -20,6 +20,7 @@ export const COPY_FIELD_LIMITS = {
   keyChallenges: { min: 12, max: 600 },
   deliverables: { max: 300 },
   toneOfVoice: { max: 180 },
+  youtubeUrl: { max: 500 },
 } as const;
 
 export const copyInputSchema = z.object({
@@ -88,6 +89,15 @@ export const copyInputSchema = z.object({
       `Use no máximo ${COPY_FIELD_LIMITS.toneOfVoice.max} caracteres.`
     )
     .optional(),
+  outputType: z.enum(['landing', 'modal']),
+  youtubeUrl: z
+    .string()
+    .refine(
+      (val) => !val || val.includes('youtube.com') || val.includes('youtu.be'),
+      'URL deve ser um link válido do YouTube'
+    )
+    .optional()
+    .or(z.literal('')),
 });
 
 export type CopyInput = z.infer<typeof copyInputSchema>;

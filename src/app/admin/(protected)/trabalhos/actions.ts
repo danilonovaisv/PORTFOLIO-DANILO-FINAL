@@ -36,6 +36,17 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
   try {
     const { supabase } = await requireAdminAccess({ requireServiceRole: true });
 
+    // Validate uniqueness of the slug manually to return a friendly error
+    const { data: existing } = await supabase
+      .from('portfolio_projects')
+      .select('id')
+      .eq('slug', newSlug)
+      .maybeSingle();
+
+    if (existing && existing.id !== input.id) {
+      return errorResponse('Já existe um projeto com este slug/nome. Por favor, mude o slug do projeto.');
+    }
+
     // Check for rename to move storage
     if (input.id) {
       const { data: oldProject } = await supabase
@@ -50,11 +61,14 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
         const newFolderV4 = `v4/${client_slug}/${newSlug}`;
         const oldFolderNew = `${oldProject.client_slug}/${oldProject.slug}/assets-do-projeto`;
         const newFolderNew = `${client_slug}/${newSlug}/assets-do-projeto`;
+        const oldFolderProjects = `${oldProject.client_slug}/projects/${oldProject.slug}`;
+        const newFolderProjects = `${client_slug}/projects/${newSlug}`;
 
         const replacePath = (p?: string | null) => {
           if (!p) return undefined;
           let replaced = p.replace(oldFolderV4, newFolderV4);
           replaced = replaced.replace(oldFolderNew, newFolderNew);
+          replaced = replaced.replace(oldFolderProjects, newFolderProjects);
           return replaced || undefined;
         };
 
@@ -63,6 +77,9 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
         }
         if (oldFolderNew !== newFolderNew) {
           await moveProjectFolder(supabase, 'portfolio-media', oldFolderNew, newFolderNew);
+        }
+        if (oldFolderProjects !== newFolderProjects) {
+          await moveProjectFolder(supabase, 'portfolio-media', oldFolderProjects, newFolderProjects);
         }
 
         finalUrlLandscape = replacePath(finalUrlLandscape) ?? null;
@@ -117,9 +134,11 @@ export async function deleteProjectAction(id: string) {
     if (oldProject) {
       const folderV4 = `v4/${oldProject.client_slug}/${oldProject.slug}`;
       const folderNew = `${oldProject.client_slug}/${oldProject.slug}/assets-do-projeto`;
+      const folderProjects = `${oldProject.client_slug}/projects/${oldProject.slug}`;
       try {
         await deleteProjectFolder(supabase, 'portfolio-media', folderV4);
         await deleteProjectFolder(supabase, 'portfolio-media', folderNew);
+        await deleteProjectFolder(supabase, 'portfolio-media', folderProjects);
       } catch (err) {
         console.error('Falha ao remover objetos do storage:', err);
       }

@@ -36,16 +36,13 @@ Na execução, os principais desafios foram ${context.keyChallenges}. Os entreg�
 Resultado orientado por direção, não por excesso. Um projeto desenhado para permanecer relevante com consistência editorial e intenção clara.${context.toneOfVoice ? `\n\n_Tom aplicado: ${context.toneOfVoice}_` : ''}`;
 }
 
-const SYSTEM_PROMPT = `
-# SYSTEM PROMPT — PORTFOLIO ART DIRECTION COPY AGENT
-
-You are a portfolio case copy agent specialized in Art Direction and Visual Design projects.
+const SYSTEM_PROMPT = `You are a portfolio case copy agent specialized in Art Direction and Visual Design projects.
 
 ## Mission
 Generate winning, curated portfolio texts (modal posts and full landing pages) based on:
-1) the user's project info (brief + metadata),
-2) the visual materials provided (images/videos/mockups),
-3) the required output fields and formats.
+1. the user's project info (brief + metadata),
+2. the visual materials provided (images/videos/mockups),
+3. the required output fields and formats.
 
 ## Non-negotiable output rule
 You MUST always output exactly the fields defined by the selected template (MODAL or LANDING PAGE).  
@@ -72,11 +69,6 @@ Always generate:
 When visuals are provided:
 - Identify: category (branding/campaign/packaging/event/digital/etc.), mood, key symbolisms, dominant palette cues, narrative tone, system applications, and intended audience.
 - Use these insights to support concept & direction.
-
-## Output templates (choose by user request)
-You support two templates:
-A) MODAL (Post simples)  
-B) LANDING PAGE (V3 ALPA)
 
 You must always ask yourself internally:
 - "Does this read like a senior portfolio case?"
@@ -111,6 +103,8 @@ export async function generateProjectCopy(
       (formData.get('keyChallenges') as string | null)?.trim() || '',
     deliverables: (formData.get('deliverables') as string | null)?.trim() || '',
     toneOfVoice: (formData.get('toneOfVoice') as string | null)?.trim() || '',
+    outputType: formData.get('outputType') === 'modal' ? 'modal' : 'landing',
+    youtubeUrl: (formData.get('youtubeUrl') as string | null)?.trim() || '',
   };
 
   const validation = validatePayload(copyInputSchema, rawInput);
@@ -169,12 +163,75 @@ export async function generateProjectCopy(
       })
     );
 
+    let youtubeContext = '';
+    if (context.youtubeUrl) {
+      youtubeContext = `\nURL DO VÍDEO YOUTUBE DE REFERÊNCIA (Para contexto geral):\n${context.youtubeUrl}\n`;
+    }
+
+    const outputFormat = context.outputType === 'landing' ? `
+### OUTPUT OBRIGATÓRIO (não mude os nomes)
+Gere os campos abaixo:
+
+SLUG:
+TAGS:
+SEO TITLE:
+SEO DESCRIPTION:
+SEO KEYWORDS:
+
+TÍTULO DO PROJETO:
+SUBTÍTULO:
+RESUMO:
+HEADLINE DA INTRODUÇÃO:
+PARÁGRAFOS DA INTRODUÇÃO:
+
+BLOCO 2 · TEXTO PURO (Markdown):
+
+BLOCO 4 · FAIXA DE CITAÇÃO:
+CITAÇÃO:
+TEXTO DE APOIO:
+
+BLOCOS 6 OU 7 · TEXTO + IMAGEM:
+TEXTO:
+
+TEXTO DO CTA FINAL:
+` : `
+### OUTPUT OBRIGATÓRIO (não mude os nomes)
+Gere os campos abaixo:
+
+SLUG:
+TAGS:
+SEO TITLE:
+SEO DESCRIPTION:
+SEO KEYWORDS:
+
+TÍTULO:
+SHORT LABEL:
+DESCRIÇÃO:
+CORPO DO CASE (Markdown):
+CAPTION DAS IMAGENS E VIDEOS QUE SERÃO POSTADOS:
+`;
+
     const userContent: any[] = [
       {
         type: 'text',
         text: [
-          'CONTEXTO ESTRUTURADO DO PROJETO (JSON):',
-          JSON.stringify(context, null, 2),
+          `TIPO DE SAÍDA: ${context.outputType === 'landing' ? 'LANDING PAGE (V3 ALPA)' : 'MODAL'}`,
+          '',
+          'INFORMAÇÕES BÁSICAS (JSON):',
+          JSON.stringify({
+            'Projeto (nome)': context.projectName,
+            'Cliente / Marca': context.clientName,
+            'Objetivo do projeto': context.objective,
+            'Público-alvo': context.targetAudience,
+            'Conceito Visual': context.visualConcept,
+            'Desafios': context.keyChallenges,
+            'Entregas': context.deliverables,
+            'Tom desejado': context.toneOfVoice,
+          }, null, 2),
+          '',
+          youtubeContext,
+          '',
+          outputFormat,
           '',
           `IMAGENS ANEXADAS: ${referenceImages.length}.`,
           'Gere o texto final em português (pt-BR).',

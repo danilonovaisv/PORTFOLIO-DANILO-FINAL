@@ -8,6 +8,7 @@ import { FieldTooltip } from '@/components/admin/FieldTooltip';
 import {
   COPY_FIELD_LIMITS,
   MAX_REFERENCE_IMAGES,
+  type CopyInput,
 } from '@/lib/admin/schemas/copy-agent';
 
 const initialState = {
@@ -25,12 +26,12 @@ export default function CopyAgentPage() {
   );
   const [copied, setCopied] = useState(false);
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
+  const [outputType, setOutputType] = useState<CopyInput['outputType']>('landing');
   const fieldErrors = state.fieldErrors ?? {};
   const inputClass = (hasError: boolean) =>
-    `w-full rounded-lg border px-4 py-2.5 text-sm text-slate-200 placeholder:text-slate-600 outline-none transition-all ${
-      hasError
-        ? 'border-red-400/70 bg-red-500/5 focus:border-red-400 focus:ring-1 focus:ring-red-400'
-        : 'border-white/10 bg-slate-950 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500'
+    `w-full rounded-lg border px-4 py-2.5 text-sm text-slate-200 placeholder:text-slate-600 outline-none transition-all ${hasError
+      ? 'border-red-400/70 bg-red-500/5 focus:border-red-400 focus:ring-1 focus:ring-red-400'
+      : 'border-white/10 bg-slate-950 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500'
     }`;
 
   const handleImagesChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -77,6 +78,48 @@ export default function CopyAgentPage() {
                 encType="multipart/form-data"
               >
                 <div className="grid grid-cols-1 gap-4">
+                  <div className="space-y-2">
+                    <FieldTooltip
+                      label="Tipo de Saída"
+                      description="Escolha entre Landing Page completa (V3 ALPA) ou um Post/Pop-up resumido (Modal)."
+                      className="flex items-center gap-1"
+                    />
+                    <div className="grid grid-cols-2 gap-3">
+                      <label
+                        className={`cursor-pointer rounded-lg border px-4 py-3 text-sm font-medium transition-colors ${outputType === 'landing'
+                          ? 'border-indigo-500 bg-indigo-500/10 text-indigo-300'
+                          : 'border-white/10 bg-slate-950 text-slate-300 hover:bg-white/5'
+                          }`}
+                      >
+                        <input
+                          type="radio"
+                          name="outputType"
+                          value="landing"
+                          className="sr-only"
+                          checked={outputType === 'landing'}
+                          onChange={() => setOutputType('landing')}
+                        />
+                        Landing Page Completa
+                      </label>
+                      <label
+                        className={`cursor-pointer rounded-lg border px-4 py-3 text-sm font-medium transition-colors ${outputType === 'modal'
+                          ? 'border-indigo-500 bg-indigo-500/10 text-indigo-300'
+                          : 'border-white/10 bg-slate-950 text-slate-300 hover:bg-white/5'
+                          }`}
+                      >
+                        <input
+                          type="radio"
+                          name="outputType"
+                          value="modal"
+                          className="sr-only"
+                          checked={outputType === 'modal'}
+                          onChange={() => setOutputType('modal')}
+                        />
+                        Post Simples (Modal)
+                      </label>
+                    </div>
+                  </div>
+
                   <div className="space-y-2">
                     <FieldTooltip
                       label="Nome do Projeto"
@@ -253,6 +296,27 @@ export default function CopyAgentPage() {
                       </p>
                     )}
                   </div>
+
+                  <div className="space-y-2">
+                    <FieldTooltip
+                      label="Link do YouTube (opcional)"
+                      description="Se o projeto possui um vídeo principal, o agent irá tentar ler as legendas para gerar contexto extra."
+                      className="flex items-center gap-1"
+                    />
+                    <input
+                      id="youtubeUrl"
+                      name="youtubeUrl"
+                      type="url"
+                      maxLength={COPY_FIELD_LIMITS.youtubeUrl.max}
+                      className={inputClass(Boolean(fieldErrors.youtubeUrl))}
+                      placeholder="Ex: https://youtube.com/watch?v=..."
+                    />
+                    {fieldErrors.youtubeUrl && (
+                      <p className="text-xs text-red-300">
+                        {fieldErrors.youtubeUrl}
+                      </p>
+                    )}
+                  </div>
                 </div>
 
                 <div className="space-y-2">
@@ -264,6 +328,7 @@ export default function CopyAgentPage() {
                   <input
                     id="referenceImages"
                     name="referenceImages"
+                    title="Upload imagens de referência"
                     type="file"
                     accept="image/png,image/jpeg,image/webp,image/gif"
                     multiple

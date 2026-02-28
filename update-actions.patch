@@ -1,0 +1,114 @@
+--- src/app/admin/(protected)/trabalhos/actions.ts
++++ src/app/admin/(protected)/trabalhos/actions.ts
+@@ -1,13 +1,18 @@
+ 'use server';
+ 
+ import { revalidatePath } from 'next/cache';
+ import { upsertProject, deleteProject } from '@/lib/supabase/queries/projects';
+ import {
+   projectMutationSchema,
+   type ProjectMutationInput,
+ } from '@/lib/admin/schemas/project';
+ 
+ import { validatePayload, errorResponse } from '@/lib/admin/validation';
++import { createClient } from '@/lib/supabase/server';
++import { requireAdminAccess } from '@/lib/admin/server-access';
++import { moveProjectFolder, deleteProjectFolder } from '@/lib/supabase/storage-utils';
++import { normalizeBrand, normalizeProject } from '@/lib/assets/storagePath';
+ 
+ export async function upsertProjectAction(input: ProjectMutationInput) {
+   const validation = validatePayload(projectMutationSchema, input);
+   if (!validation.success) return validation.response;
+ 
+   const {
+@@ -19,16 +24,51 @@
+   const client_slug =
+     providedClientSlug ||
+-    projectData.client_name
+-      .normalize('NFD')
+-      .replace(/[\u0300-\u036f]/g, '')
+-      .toLowerCase()
+-      .trim()
+-      .replace(/[^a-z0-9]+/g, '-')
+-      .replace(/^-+|-+$/g, '')
+-      .slice(0, 120);
++    normalizeBrand(projectData.client_name).slice(0, 120);
++    
++  const newSlug = normalizeProject(projectData.slug);
++  
++  // Normalize gallery paths in case they were modified
++  let finalUrlLandscape = projectData.url_landscape;
++  let finalUrlSquare = projectData.url_square;
++  let finalGallery = projectData.gallery;
+ 
+   try {
++    const { supabase } = await requireAdminAccess({ requireServiceRole: true });
++    
++    // Check for rename to move storage
++    if (input.id) {
++      const { data: oldProject } = await supabase
++        .from('portfolio_projects')
++        .select('slug, client_slug')
++        .eq('id', input.id)
++        .single();
++        
++      if (oldProject) {
++        const oldFolder = `v4/${oldProject.client_slug}/${oldProject.slug}`;
++        const newFolder = `v4/${client_slug}/${newSlug}`;
++        
++        if (oldFolder !== newFolder) {
++          await moveProjectFolder(supabase, 'portfolio-media', oldFolder, newFolder);
++          
++          // Replace references in the payload
++          const replacePath = (p?: string | null) => p ? p.replace(oldFolder, newFolder) : p;
++          
++          finalUrlLandscape = replacePath(finalUrlLandscape) ?? null;
++          finalUrlSquare = replacePath(finalUrlSquare) ?? null;
++          
++          if (finalGallery && Array.isArray(finalGallery)) {
++            finalGallery = finalGallery.map(item => ({
++              ...item,
++              path: item.path ? replacePath(item.path) : undefined
++            }));
++          }
++        }
++      }
++    }
++
+     // Chama a função importada que já contém requireAdminAccess() e logAdminAudit()
+     const updatedProject = await upsertProject({
+       ...projectData,
+       client_slug,
++      slug: newSlug,
++      url_landscape: finalUrlLandscape,
++      url_square: finalUrlSquare,
++      gallery: finalGallery,
+       tagIds: tags,
+     });
+ 
+@@ -48,10 +88,27 @@
+ 
+ export async function deleteProjectAction(id: string) {
+   try {
++    const { supabase } = await requireAdminAccess({ requireServiceRole: true });
++    
++    const { data: oldProject } = await supabase
++      .from('portfolio_projects')
++      .select('slug, client_slug')
++      .eq('id', id)
++      .single();
++      
+     await deleteProject(id);
++    
++    if (oldProject) {
++      const folder = `v4/${oldProject.client_slug}/${oldProject.slug}`;
++      try {
++        await deleteProjectFolder(supabase, 'portfolio-media', folder);
++      } catch (err) {
++        console.error('Falha ao remover objetos do storage:', err);
++      }
++    }
++    
+     revalidatePath('/admin/trabalhos');
+     revalidatePath('/portfolio');
+     revalidatePath('/');

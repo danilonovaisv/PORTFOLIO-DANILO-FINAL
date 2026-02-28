@@ -16,6 +16,7 @@ import {
   AI_MODELS,
   OUTPUT_RATIO_PRESETS,
   normalizeAIModels,
+  SCENE_CATEGORIES,
   type OutputRatio,
 } from '@/app/admin/(protected)/scene-generator/types';
 import { MAX_REFERENCE_IMAGES } from '@/lib/admin/schemas/scene-generator';
@@ -145,11 +146,10 @@ export default function SceneGeneratorPage() {
                       modelOptions.map((model) => (
                         <label
                           key={model.id}
-                          className={`relative flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${
-                            model.available
-                              ? 'border-white/10 hover:border-emerald-500/50 hover:bg-white/5'
-                              : 'cursor-not-allowed border-white/5 opacity-50'
-                          }`}
+                          className={`relative flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${model.available
+                            ? 'border-white/10 hover:border-emerald-500/50 hover:bg-white/5'
+                            : 'cursor-not-allowed border-white/5 opacity-50'
+                            }`}
                         >
                           <input
                             type="radio"
@@ -214,6 +214,7 @@ export default function SceneGeneratorPage() {
                     </p>
                     <input
                       ref={fileInputRef}
+                      title="Upload imagens de referência"
                       id="referenceImages"
                       name="referenceImages"
                       type="file"
@@ -243,6 +244,7 @@ export default function SceneGeneratorPage() {
                   />
                   <input
                     type="range"
+                    title="Quantidade de variações (Batch size)"
                     min={1}
                     max={4}
                     name="batchSize"
@@ -267,11 +269,10 @@ export default function SceneGeneratorPage() {
                     {OUTPUT_RATIO_PRESETS.map((ratio) => (
                       <label
                         key={ratio.id}
-                        className={`cursor-pointer rounded-lg border px-3 py-2 text-left text-xs transition-colors ${
-                          outputRatio === ratio.id
-                            ? 'border-emerald-500 bg-emerald-500/10 text-emerald-300'
-                            : 'border-white/10 text-slate-300 hover:bg-white/5'
-                        }`}
+                        className={`cursor-pointer rounded-lg border px-3 py-2 text-left text-xs transition-colors ${outputRatio === ratio.id
+                          ? 'border-emerald-500 bg-emerald-500/10 text-emerald-300'
+                          : 'border-white/10 text-slate-300 hover:bg-white/5'
+                          }`}
                       >
                         <input
                           type="radio"
@@ -299,22 +300,18 @@ export default function SceneGeneratorPage() {
                   <select
                     id="pieceType"
                     name="pieceType"
+                    title="Tipo de embalagem ou suporte para cena"
                     className="w-full rounded-lg border border-white/10 bg-slate-950 px-4 py-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                   >
-                    <option value="Instagram Post">
-                      Instagram Post (Social)
-                    </option>
-                    <option value="Outdoor Billboard">
-                      Outdoor / Painel Urbano
-                    </option>
-                    <option value="Business Card">Cartão de Visita</option>
-                    <option value="Poster">Cartaz / Poster</option>
-                    <option value="Product Packaging">
-                      Embalagem de Produto
-                    </option>
-                    <option value="Website Interface">
-                      Interface Web (Monitor)
-                    </option>
+                    {SCENE_CATEGORIES.map((category) => (
+                      <optgroup key={category.value} label={category.label}>
+                        {category.sub_options.map((option) => (
+                          <option key={option.value} value={option.label}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </optgroup>
+                    ))}
                   </select>
                 </div>
 

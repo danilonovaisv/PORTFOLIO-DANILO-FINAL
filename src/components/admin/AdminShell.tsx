@@ -28,6 +28,7 @@ import {
 type Props = {
   children: ReactNode;
   userEmail?: string;
+  missingServiceRole?: boolean;
 };
 
 const navItems = [
@@ -61,7 +62,7 @@ const navItems = [
   },
 ];
 
-export function AdminShell({ children, userEmail }: Props) {
+export function AdminShell({ children, userEmail, missingServiceRole }: Props) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -96,9 +97,8 @@ export function AdminShell({ children, userEmail }: Props) {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition motion-reduce:transition-none hover:bg-white/5 ${
-                      active ? 'bg-white/10 text-white' : 'text-slate-300'
-                    }`}
+                    className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition motion-reduce:transition-none hover:bg-white/5 ${active ? 'bg-white/10 text-white' : 'text-slate-300'
+                      }`}
                   >
                     <Icon size={18} />
                     {item.label}
@@ -174,11 +174,10 @@ export function AdminShell({ children, userEmail }: Props) {
                             key={`mobile-${item.href}`}
                             href={item.href}
                             onClick={() => setMobileMenuOpen(false)}
-                            className={`flex min-h-12 items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-white/5 ${
-                              active
+                            className={`flex min-h-12 items-center gap-3 rounded-lg px-3 py-2 text-sm transition hover:bg-white/5 ${active
                                 ? 'bg-white/10 text-white'
                                 : 'text-slate-300'
-                            }`}
+                              }`}
                           >
                             <Icon size={18} />
                             {item.label}
@@ -210,7 +209,24 @@ export function AdminShell({ children, userEmail }: Props) {
                 </SheetContent>
               </Sheet>
             </header>
-            <div className="px-4 md:px-10 py-6 md:py-10">{children}</div>
+            <div className="px-4 md:px-10 py-6 md:py-10">
+              {missingServiceRole && (
+                <div className="mb-6 rounded-md bg-rose-500/10 border border-rose-500/20 p-4">
+                  <div className="flex">
+                    <div className="flex-shrink-0">
+                      <svg className="h-5 w-5 text-rose-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <div className="ml-3 text-sm text-rose-400">
+                      <p className="font-medium">Atenção: Servidor não configurado com Chave de Serviço (Service Role Key).</p>
+                      <p className="mt-1">Algumas ações administrativas como gerenciar usuários, atualizar configurações ou limpar arquivos críticos podem falhar. Verifique as variáveis de ambiente do seu deploy.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              {children}
+            </div>
           </main>
         </div>
       </div>

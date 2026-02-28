@@ -1,241 +1,367 @@
-# AUDITORIA — HOME PAGE (Hero • Manifesto • Featured Projects)
+Você é o ORCHESTRATOR do Antigravity, responsável por orquestrar agentes especialistas para diagnosticar, corrigir, testar e documentar problemas no ADMIN e na integração com Supabase (DB/Storage), além de Settings/Secrets (Firebase).
 
-## 1. Resumo Executivo
-From the visual evidence, I observe divergências claras entre as referências oficiais e a implementação em produção, principalmente no Vídeo Manifesto (mídia quase invisível) e na hierarquia do Hero (tag ausente + subtítulo abaixo do mínimo de legibilidade mobile).
-1. Vídeo Manifesto está escurecido por overlay + poster inexistente, o que gera um bloco praticamente “vazio” em produção.
-2. Hero não renderiza a tag `[BRAND AWARENESS]` prevista no doc e nas referências visuais.
-3. Subtítulo do Hero cai para ~14.4px no mobile, abaixo do mínimo de legibilidade do Ghost DS.
-4. `prefers-reduced-motion` não é aplicado no Hero CTA (animação sempre ativa) e há easing fora do Ghost em `.btn-icon-circle`.
-5. Featured Projects carece de `h2` semântico e o CTA “Like what you see?” é lido sem espaço por leitores de tela.
+OBJETIVO GERAL
+- Corrigir bugs de sincronia ADMIN ↔ Supabase (DB + Storage), erros dos apps “Scene Generator Pro” e “Copy Agent”, falhas em Settings (tokens/users), e issues de segurança apontadas pelo Security Advisor.
+- Garantir que toda correção tenha: (1) causa raiz, (2) patch de código/migração/política, (3) testes automatizados e/ou roteiros de teste, (4) validação manual guiada, (5) documentação atualizada.
+- Ao FINAL DE CADA TAREFA: atualizar/criar documentação na pasta:
+  "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/"
+  com as novas configurações/decisões, incluindo antes/depois, e checklist de verificação.
+- PARA EXECUSSÃO CONFERIR O DOCUMENTO "/docs/AUDIT-ADMIN-TASKS.json";
 
-**Ambiente e evidências**
-- Produção: https://portfoliodanilo.com
-- Branch/commit analisado (local): `main` @ `b2b6f8cdfd998838300a6a99c970a4f56dedef27`
-- Docs referência: `.context/DOCS-PORTFOLIO-PAGES/01-HOME/*`
-- Captura visual (Chromium headless, 2026-02-26 19:15 -03): `.../reports/home-audit/*`
-- Limitação: WebGL não disponível em headless, então o Ghost 3D não pôde ser validado visualmente (canvas ausente). Isso é registrado como **limitação de ambiente**, não como bug.
+REGRAS DE EXECUÇÃO
+1) Cada item do backlog (1–8) deve virar UMA TASK separada, com:
+   - Diagnóstico: evidências, logs, reprodução, hipótese, causa raiz.
+   - Correção: mudanças (código/migração/policies/edge functions), rollback plan.
+   - Testes: unit/integration/e2e + smoke test manual.
+   - Critérios de aceite: objetivos verificáveis.
+   - Documentação: atualizar sessão correspondente no ADMIN (path acima).
+2) Nunca “chutar” configuração. Use os anexos como fonte de verdade:
+   - Menus/Opções do Scene Generator: “TIPOS DE CENA.json” e “listas peças.json”.
+   - Prompt/Comportamento do gerador: “System Prompt CENAS PUBLICITÁRIAS.md”.
+   - Template/Comportamento do Copy Agent: “SUPER-TEMPLATE-COPY.md”.
+   - Auditoria de segurança: “Security Advisor - erros.csv” e “Security Advisor-infos.csv”.
+   - Auditoria de assets/storage: “assets-site.json”.
+3) Manter consistência de Storage:
+   - Nenhum rename/delete pode criar “pastas fantasmas” ou duplicar diretórios.
+   - Mudança de nome do projeto deve fazer “move/rename” dos assets (ou estratégia equivalente), NÃO criar um novo conjunto.
+4) Sempre que mexer em Supabase:
+   - Validar RLS/policies, permissões de Storage, triggers, funções.
+   - Checar impactos em Edge Functions e no cliente.
+5) Entregáveis por task:
+   - PR/patch com mudanças e testes.
+   - Um arquivo de doc (ou update) em "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/".
+   - Checklist de verificação pós-deploy.
 
-## 2. Score Geral (0–100)
-**Score total: 60/100 (Fail)**
-- Estrutura: 13/20
-- UI/Visual: 14/25
-- Mobile: 9/15
-- Motion: 8/15
-- Performance: 10/15
-- A11y/SEO: 6/10
+AGENTES (papéis)
+- Lead Engineer (Supabase/DB): schema, RLS, triggers, storage policies, migrations.
+- Admin App Engineer (Frontend/Backend): fluxos do ADMIN, validações, UI, integrações.
+- QA Engineer: e2e (Playwright), roteiros de reprodução, regressão.
+- Security Engineer: Security Advisor, hardening, secrets, políticas.
+- Docs Steward: atualiza docs na pasta indicada ao final de cada task.
 
-**Score por seção**
-- Hero: 62
-- Vídeo Manifesto: 38
-- Featured Projects: 68
+SKILLS (habilidades obrigatórias)
+- Supabase: Postgres, RLS, Storage, Policies, Triggers, Functions, Edge Functions, Realtime (se houver).
+- Debug: logs estruturados, correlação de eventos, auditoria de storage.
+- Testes: unit/integration/e2e; Playwright + mocks; testes para uploads e deletes.
+- Infra/secrets: Firebase Secrets Manager (ou equivalente), env vars, rotação, validação.
+- Documentação: changelog e runbook.
 
-## 3. Top 5 Problemas Críticos
+MCPs (ferramentas que DEVEM ser usadas quando disponíveis)
+- supabase-mcp: introspecção de DB, policies, storage buckets/objects, logs.
+- postgres-mcp: queries, explain analyze, constraints/indices.
+- storage-mcp: list/move/delete objects, checar paths e duplicações.
+- git-mcp: criar branch/commits/PR, revisar diffs.
+- ci-mcp: rodar pipelines, testes, lint.
+- playwright-mcp: e2e no ADMIN.
+- firebase-mcp: secrets, validação de sync e permissões.
 
-1) **Vídeo Manifesto praticamente invisível (overlay + poster inexistente)**
-- **Expected (Doc):** vídeo sem overlay, full-visibility, poster válido.
-- **Observed (Impl):** overlay `bg-background/80` (opacidade efetiva 1 com alpha 0.8) + poster derivado `-poster.jpg` retornando 404.
-- **Impacto:** queda de percepção visual e valor criativo; seção vira “vazio” escuro.
-- **Evidência:** `.../reports/home-audit/desktop-manifesto.png`, `.../reports/home-audit/mobile-manifesto.png`, `.../reports/home-audit/video-manifesto-inspect.json`, `.../reports/home-audit/video-poster-check.txt`
-- **Arquivos:** `src/components/home/hero/VideoManifesto.tsx`
+FORMATO DE SAÍDA POR TASK
+- Título + Contexto
+- Como reproduzir
+- Causa raiz
+- Plano de correção (passos)
+- Implementação (arquivos/locais a alterar)
+- Testes (automatizados + manual)
+- Critérios de aceite
+- Atualização de documentação (arquivo(s) e conteúdo mínimo)
 
-2) **Hero sem tag editorial `[BRAND AWARENESS]`**
-- **Expected (Doc/Imagem):** tag acima do H1 em desktop e mobile.
-- **Observed (Impl):** tag existe em `HOME_CONTENT.hero.tag`, mas não é renderizada.
-- **Impacto:** perda de sinal editorial e hierarquia do manifesto.
-- **Evidência:** `.../01-HOME/02-HERO-HOME/02-HERO-HOME-DESKTOP.jpg` vs `.../reports/home-audit/desktop-hero.png`
-- **Arquivos:** `src/components/home/hero/HeroCopy.tsx`, `src/config/content.ts`
+Agora execute as tasks 1 a 8 separadamente, seguindo os prompts de task abaixo (cada uma em um card/task independente).
 
-3) **Subtítulo do Hero abaixo do mínimo de legibilidade mobile (14.4px)**
-- **Expected (Ghost DS):** `--font-body-mobile` 20–22px.
-- **Observed (Impl):** 14.4px (mobile 360px).
-- **Impacto:** legibilidade reduzida e quebra de regra AA (especialmente em contraste/visão reduzida).
-- **Evidência:** `.../reports/home-audit/measurements.json` + `.../reports/home-audit/mobile-hero.png`
-- **Arquivos:** `src/components/home/hero/HeroCopy.module.css`, `.context/DOCS-PORTFOLIO-PAGES/GHOST-DESIGN-SYSTEM.md`
 
-4) **`prefers-reduced-motion` não aplicado no Hero CTA**
-- **Expected (Ghost rules):** reduzir animações no modo reduce.
-- **Observed (Impl):** `HeroCTA` sempre anima (`motion.div` sem gate).
-- **Impacto:** violação de acessibilidade cognitiva; reduz conformidade.
-- **Evidência:** código em `src/components/home/hero/HeroCTA.tsx` + testes `mobile-reduced`
-- **Arquivos:** `src/components/home/hero/HeroCTA.tsx`
+⸻
 
-5) **Featured Projects sem `h2` e CTA “Like what you see?” lido sem espaço**
-- **Expected (Doc/a11y):** `h2` na seção; texto lido corretamente.
-- **Observed (Impl):** não há `h2` e o `h3` do CTA é lido como “Like whatyou see?”.
-- **Impacto:** semântica e SEO degradados; screen readers perdem estrutura.
-- **Evidência:** headings dump (2026-02-26)
-- **Arquivos:** `src/components/home/featured-projects/FeaturedProjectsSection.tsx`, `src/components/home/featured-projects/CTAProjectCard.tsx`
+TASK 1 — Sincronia ADMIN ↔ Supabase Storage (delete/update/create cria pasta nova e não exclui)
 
-## 4. Análise por Seção
+TASK 1 — Corrigir sincronia ADMIN ↔ Supabase (CRUD de “trabalhos”): ao deletar/alterar/incluir, o sistema cria nova pasta/novos arquivos no Storage e não remove projetos excluídos; garantir sincronização total com Storage.
 
-### 4.1 Hero
-- **Intenção (Doc):** hero editorial com tag `[BRAND AWARENESS]`, ghost 3D, H1 dominante, CTA central, subtítulo legível.
-- **Estado Atual (Impl):** H1 sr-only OK, título renderizado, CTA aparece, tag editorial ausente, subtítulo pequeno em mobile.
-- **Divergências (com evidência):**
-  - Tag `[BRAND AWARENESS]` não renderizada.
-  - Subtítulo mobile 14.4px vs mínimo 20px.
-  - WebGL/ghost não validável em headless.
-- **Impacto:** perda de hierarquia editorial, legibilidade fraca em mobile, risco de desalinhamento com Ghost DS.
-- **Recomendações:**
-  1. Renderizar `HOME_CONTENT.hero.tag` acima do headline.
-  2. Ajustar `heroSubtitle` para `min 20px` no mobile.
-  3. Aplicar `useMotionGate` também no `HeroCTA`.
+INPUT/CONTEXTO
+- Bug: operações no ADMIN geram duplicação no Storage (cria nova pasta com novos arquivos) e deletes no ADMIN não refletem no Supabase/Storage.
+- Resultado esperado: CRUD idempotente e consistente (DB + Storage), sem “pastas órfãs”.
 
-**Visual Diff (tokens)**
-| Item | Expected (Doc/DS) | Observed (Impl) | Delta | Evidência |
-|---|---|---|---|---|
-| Tag editorial | Presente | Ausente | Missing | `.../02-HERO-HOME-DESKTOP.jpg`, `.../reports/home-audit/desktop-hero.png` |
-| Subtítulo mobile | 20–22px | 14.4px | -5.6px | `.../reports/home-audit/measurements.json` |
-| CTA min-width | Token `min-w-cta-*` | `w-[220px]/[280px]/[340px]` | Token mismatch | `src/components/ui/AntigravityCTA.tsx` |
+SKILLS
+- Supabase Storage + Postgres triggers + RLS/policies + transações e idempotência.
+- Observabilidade (logs), auditoria de objetos, correlação por project_id.
 
-### 4.2 Vídeo Manifesto
-- **Intenção (Doc):** vídeo full-width com alta legibilidade, sem overlay, poster válido.
-- **Estado Atual (Impl):** vídeo carregado, overlay `bg-background/80`, poster derivado inexistente.
-- **Divergências (com evidência):**
-  - Overlay escurece 80% do vídeo (contrário ao doc).
-  - Poster 404 (derivado `-poster.jpg`).
-- **Impacto:** percepção de valor criativo reduzida; seção aparenta “vazio”.
-- **Recomendações:**
-  1. Remover ou reduzir drasticamente o overlay.
-  2. Amarrar poster real via metadata do asset.
-  3. Garantir fallback visual quando poster/stream falhar.
+MCPs
+- supabase-mcp, postgres-mcp, storage-mcp, git-mcp, ci-mcp, playwright-mcp.
 
-**Visual Diff (tokens)**
-| Item | Expected (Doc) | Observed (Impl) | Delta | Evidência |
-|---|---|---|---|---|
-| Overlay | Nenhum | `bg-background/80` | +80% escurecimento | `.../reports/home-audit/video-manifesto-inspect.json` |
-| Poster | Existente | 404 | Missing | `.../reports/home-audit/video-poster-check.txt` |
+PASSOS (obrigatório)
+1) Reproduzir:
+   - Criar trabalho no ADMIN com upload de peças/assets.
+   - Editar (alterar nome, trocar peças, incluir e excluir peças).
+   - Deletar trabalho.
+   - Inspecionar DB e Storage: confirmar duplicações e órfãos.
+2) Diagnóstico:
+   - Mapear “source of truth”: DB (tabelas de projetos/assets) vs Storage (objects).
+   - Checar se o path é derivado de slug/nome mutável em vez de um ID estável.
+   - Checar fluxo de update: está fazendo “create new + keep old”?
+   - Checar deleção: falta cascade? falta job de cleanup? falha de permissão policy?
+3) Correção (arquitetura recomendada):
+   - Tornar o path estável: usar project_id (UUID) como raiz interna e manter “alias” por slug apenas para exibição; OU implementar rename/move transacional e cleanup garantido.
+   - Garantir “delete cascade” lógico: ao excluir projeto, excluir assets no DB e agendar remoção do Storage (edge function/queue) com retry.
+   - Implementar idempotency keys nas operações de upload/update (evitar duplicação em retries).
+4) Implementação:
+   - Ajustar serviços do ADMIN (upload/update/delete).
+   - Criar/ajustar tabelas: assets com project_id, storage_path, checksum/hash, status.
+   - Criar trigger/função (ou edge function) para cleanup e move/rename seguro.
+   - Revisar policies do bucket: permitir delete/move apenas por roles certas.
+5) Testes:
+   - Unit: geração de path (sempre determinística), update não duplica.
+   - Integration: criar→editar→deletar garante que Storage e DB convergem.
+   - E2E (Playwright): fluxo completo com asserts em listagem de objetos.
+6) Critérios de aceite:
+   - Nenhuma alteração cria uma nova pasta indevida.
+   - Delete remove o projeto do DB e remove (ou agenda + confirma) remoção no Storage.
+   - Repetir request (retry) não duplica arquivos.
+7) Documentação (obrigatório):
+   - Atualizar "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/" na sessão “Trabalhos / Projetos — Storage Sync”.
+   - Incluir: regra de path, estratégia de rename/delete, e runbook de verificação.
 
-### 4.3 Featured Projects
-- **Intenção (Doc):** grid bento 12 col, cards com altura igual por linha, CTA “Like what you see?” com botão.
-- **Estado Atual (Impl):** grid bento implementado e alturas iguais (480px desktop, 250px mobile).
-- **Divergências (com evidência):**
-  - Ausência de `h2` na seção.
-  - CTA h3 sem espaço (screen reader lê “whatyou”).
-  - CTA card background não segue spec `#0d003b` (usa `bg-background`).
-- **Impacto:** SEO/a11y e desalinhamento visual.
-- **Recomendações:**
-  1. Adicionar `h2` visível ou `sr-only` para a seção.
-  2. Corrigir string acessível do CTA sem alterar copy.
-  3. Ajustar fundo do CTA card conforme spec.
 
-**Visual Diff (tokens)**
-| Item | Expected (Doc) | Observed (Impl) | Delta | Evidência |
-|---|---|---|---|---|
-| `h2` seção | Presente | Ausente | Missing | headings dump + `.../05-FEATURED-PROJECTS.md` |
-| CTA card bg | `#0d003b` | `#040013` | Color mismatch | `src/components/home/featured-projects/CTAProjectCard.tsx` |
-| Card heights | Iguais por linha | Iguais (480px) | OK | `.../reports/home-audit/measurements.json` |
+⸻
 
-## 5. Matriz de Conformidade
-| Critério | Referência (Doc) | Observado (Impl) | Status | Severidade | Impacto | Evidência |
-|---|---|---|---|---|---|---|
-| Hero tag `[BRAND AWARENESS]` | 02-HERO-HOME images | Ausente | ❌ | Alto | Clareza | `.../02-HERO-HOME-DESKTOP.jpg`, `.../reports/home-audit/desktop-hero.png` |
-| Hero subtitle legibilidade mobile | Ghost DS 20–22px | 14.4px | ❌ | Alto | A11y | `.../reports/home-audit/measurements.json` |
-| Hero CTA reduz motion | Ghost rules | Anima sempre | ⚠️ | Médio | A11y | `src/components/home/hero/HeroCTA.tsx` |
-| Manifesto sem overlay | 03-VIDEO-MANIFESTO.md | Overlay 80% | ❌ | Crítico | Clareza | `.../reports/home-audit/video-manifesto-inspect.json` |
-| Manifesto poster válido | Doc/Spec | 404 | ❌ | Alto | Performance | `.../reports/home-audit/video-poster-check.txt` |
-| Featured grid bento | 05-FEATURED-PROJECTS.md | OK | ✅ | — | Consistência | `.../reports/home-audit/desktop-featured.png` |
-| Featured `h2` | 05-FEATURED-PROJECTS.md | Ausente | ❌ | Médio | SEO/A11y | headings dump |
-| CTA h3 spacing | A11y | “whatyou” | ⚠️ | Baixo | A11y | headings dump |
+TASK 2 — Sincronia ADMIN ↔ Supabase (não aceita ajustar trabalho existente; “projeto já existente”)
 
-## 6. Recomendações Estratégicas
-1. **Manifesto como prova visual:** remover overlay pesado e garantir poster real. Sem isso, a seção quebra o argumento visual do manifesto.
-2. **Ritmo editorial do Hero:** reintroduzir tag `[BRAND AWARENESS]` e aumentar subtítulo no mobile para manter o ritmo tipográfico Ghost.
-3. **Motion governance unificada:** aplicar `useMotionGate` no Hero CTA e alinhar easing da `.btn-icon-circle` ao Ghost Ease.
-4. **A11y/SEO mínimo:** adicionar `h2` para Featured Projects e corrigir a string do CTA para leitura correta.
-5. **Documentação sincronizada:** doc do Hero afirma CTA “não montado”, mas já está ativo; precisa alinhamento.
+TASK 2 — Corrigir edição de trabalho existente: ADMIN acusa “projeto já existente” ao ajustar um trabalho já criado.
 
-## 7. Roadmap de Correção (P0/P1/P2)
-**P0 (Imediato)**
-1. Remover/reduzir overlay do manifesto e validar poster real.
-2. Fix do poster (metadata explícita no asset).
+SKILLS
+- Validações (unique constraints), lógica de upsert, diferenciação create vs update, slug.
+MCPs
+- postgres-mcp, supabase-mcp, git-mcp, ci-mcp, playwright-mcp.
 
-**P1 (Alta)**
-1. Renderizar tag `[BRAND AWARENESS]` no Hero.
-2. Ajustar subtítulo mobile para 20–22px.
-3. Aplicar `useMotionGate` no `HeroCTA`.
-4. Adicionar `h2` para Featured Projects + corrigir “Like what you see?” para leitura acessível.
+PASSOS
+1) Reproduzir:
+   - Criar um trabalho; em seguida editar (mesmo nome ou slug).
+   - Identificar ponto exato do erro (UI, API, DB constraint).
+2) Diagnóstico:
+   - Verificar constraints únicas (nome/slug/marca) e se o update está tentando inserir (insert) ao invés de update/upsert.
+   - Verificar se o slug é recalculado e colide com outro registro por regra errada.
+3) Correção:
+   - Ajustar API para usar UPDATE por id e validar unicidade excluindo o próprio registro.
+   - Se houver “slug unique”: gerar slug estável + sufixo apenas quando colidir com OUTRO id.
+   - Ajustar mensagens de erro para guiar o usuário.
+4) Testes:
+   - Unit: validação de unicidade “self-excluded”.
+   - Integration: update por id não dispara unique violation.
+   - E2E: editar trabalho e salvar com sucesso.
+5) Critérios de aceite:
+   - Editar e salvar um trabalho existente nunca falha por “já existente” (a menos que conflite com outro registro real).
+6) Documentação:
+   - Atualizar doc em "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/" na sessão “Trabalhos — Regras de Nome/Slug”.
 
-**P2 (Média)**
-1. Alinhar easing de `.btn-icon-circle` com Ghost Ease.
-2. Ajustar background do CTA card ao spec `#0d003b`.
-3. Atualizar doc do Hero (CTA mount status).
 
-## 8. Prompts Atômicos para Execução
+⸻
 
-### 🛠️ Prompt #01 — Manifesto: remover overlay e corrigir poster
-**Objetivo:** Tornar o vídeo manifesto visível e garantir poster válido.
-**Arquivos:** `src/components/home/hero/VideoManifesto.tsx`, `src/lib/video.ts`, `src/config/site-assets.ts`
-**Contexto:** Doc exige vídeo sem overlay e com poster válido. Evidência do 404 em `.../reports/home-audit/video-poster-check.txt`.
-**Ações:**
-1. Remover ou reduzir `bg-background/80` para no máximo 0.15 de alpha.
-2. Trocar derivação `-poster.jpg` por poster explícito (metadata do asset).
-3. Garantir fallback visual caso poster/stream falhe.
-**Regras:** Tailwind, mobile-first, não alterar copy, respeitar tokens, reduzir motion quando necessário.
-**Critérios de Aceite:**
-- [ ] Vídeo visível em 360/1440 sem escurecimento excessivo.
-- [ ] Poster não retorna 404.
-- [ ] Overlay reduzido ou removido conforme doc.
-**Risco/Trade-off:** aumento leve de contraste visual; validar legibilidade do botão de som.
+TASK 3 — Scene Generator Pro sempre falha (SCN-GENERATION-ERROR)
 
-### 🛠️ Prompt #02 — Hero: renderizar tag editorial
-**Objetivo:** Reintroduzir `[BRAND AWARENESS]` conforme doc.
-**Arquivos:** `src/components/home/hero/HeroCopy.tsx`, `src/config/content.ts`
-**Contexto:** Tag existe no conteúdo mas não é renderizada.
-**Ações:**
-1. Inserir tag acima do headline (desktop e mobile).
-2. Estilizar com token de tag já existente no CSS.
-**Regras:** não alterar copy, respeitar tokens, manter hierarquia.
-**Critérios de Aceite:**
-- [ ] Tag aparece em 360/1440.
-- [ ] Não quebra layout do título.
-**Risco/Trade-off:** potencial ajuste de espaçamento vertical.
+TASK 3 — Corrigir “Scene Generator Pro - Multi-upload…” que sempre retorna:
+“Falha temporária ao gerar imagens… SCN-GENERATION-ERROR…”
 
-### 🛠️ Prompt #03 — Hero: aumentar subtítulo mobile
-**Objetivo:** Subtítulo mobile ≥ 20px (Ghost DS).
-**Arquivos:** `src/components/home/hero/HeroCopy.module.css`
-**Contexto:** Medição atual 14.4px em 360px.
-**Ações:**
-1. Ajustar `clamp` do `.heroSubtitle` para mínimo 1.25rem.
-2. Revalidar line-height (mínimo 1.4).
-**Regras:** mobile-first, sem alterar copy.
-**Critérios de Aceite:**
-- [ ] 360px ≥ 20px.
-- [ ] Não estoura largura.
-**Risco/Trade-off:** aumento de altura total do hero.
+SKILLS
+- Integração com provedor de imagem (timeouts, quotas, payload), filas/retries, observabilidade.
+MCPs
+- git-mcp, ci-mcp, supabase-mcp (logs/edge functions), playwright-mcp.
 
-### 🛠️ Prompt #04 — Motion: respeitar reduce no Hero CTA
-**Objetivo:** Desligar animação do CTA quando `prefers-reduced-motion`.
-**Arquivos:** `src/components/home/hero/HeroCTA.tsx`
-**Contexto:** `HeroCTA` sempre anima.
-**Ações:**
-1. Aplicar `useMotionGate` e zerar animação no reduce.
-2. Garantir estados estáticos em reduce.
-**Regras:** Ghost motion, sem scale.
-**Critérios de Aceite:**
-- [ ] Reduced motion sem y/opacity animation.
-**Risco/Trade-off:** nenhum.
+PASSOS
+1) Reproduzir e coletar evidências:
+   - Tentar gerar com inputs mínimos e com multi-upload.
+   - Capturar logs (frontend + backend/edge) e request payload (sem vazar secrets).
+2) Diagnóstico:
+   - Identificar onde o erro nasce: frontend, API, edge function, provedor externo.
+   - Checar: tokens faltando, modelo inválido, payload grande (413), timeout, CORS, policy de Storage, rate limit.
+   - Verificar fluxo de “15s retry”: está mascarando erro permanente como temporário?
+3) Correção:
+   - Melhorar classificação de erros (permanente vs transitório).
+   - Implementar retries com backoff apenas para transitórios.
+   - Validar configuração de tokens em Settings e uso correto.
+   - Garantir upload de arte_original e geração estejam encadeados corretamente.
+4) Testes:
+   - Unit: mapeamento de erro por códigos.
+   - Integration: simular timeout e rate limit; garantir retry/backoff.
+   - E2E: gerar 3 cenas com sucesso.
+5) Critérios de aceite:
+   - Geração funciona em condições normais; erros reais exibem mensagem correta.
+   - Log inclui correlation_id por tentativa.
+6) Documentação:
+   - Atualizar doc de “Scene Generator Pro — Diagnóstico e Configuração” em "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/".
 
-### 🛠️ Prompt #05 — Featured: `h2` semântico + CTA legível por SR
-**Objetivo:** Melhorar semântica e leitura de screen reader.
-**Arquivos:** `src/components/home/featured-projects/FeaturedProjectsSection.tsx`, `src/components/home/featured-projects/CTAProjectCard.tsx`
-**Contexto:** seção sem `h2` e CTA lido como “whatyou”.
-**Ações:**
-1. Adicionar `h2` (visível ou `sr-only`) com título da seção.
-2. Ajustar string do CTA com espaço sem alterar copy.
-**Regras:** não alterar copy, manter layout.
-**Critérios de Aceite:**
-- [ ] `h2` presente na seção.
-- [ ] Screen reader lê “Like what you see?” corretamente.
-**Risco/Trade-off:** mínimo.
 
-### 🛠️ Prompt #06 — Tokens: easing Ghost no círculo CTA
-**Objetivo:** alinhar `.btn-icon-circle` ao easing Ghost.
-**Arquivos:** `src/app/globals.css`
-**Contexto:** hoje usa `cubic-bezier(0.4,0,0.2,1)`.
-**Ações:**
-1. Trocar easing por `cubic-bezier(0.22, 1, 0.36, 1)`.
-**Regras:** evitar scale/bounce/rotate.
-**Critérios de Aceite:**
-- [ ] Transição usa easing Ghost.
-**Risco/Trade-off:** alteração sutil de feel.
+⸻
+
+TASK 4 — Scene Generator Pro: menus/submenus + confirmar prompt do agente
+
+TASK 4 — Garantir que o “Scene Generator Pro” contenha menus/submenus conforme:
+- “TIPOS DE CENA.json” (fonte de verdade) 
+- “listas peças.json” (fonte de verdade) 
+E confirmar que o gerador segue o agente descrito em:
+- “System Prompt CENAS PUBLICITÁRIAS.md”  [oai_citation:5‡TIPOS DE CENA.json](sediment://file_00000000554471f59bb50766eb940019)
+
+SKILLS
+- UI schema-driven menus; validação de payload; prompt assembly para geração de imagem.
+MCPs
+- git-mcp, ci-mcp, playwright-mcp.
+
+PASSOS
+1) Implementar menus orientados por schema:
+   - Ler e carregar os JSONs (versões e estruturas).
+   - Renderizar menus e submenus exatamente como nos arquivos.
+   - Garantir que o payload enviado inclua: TIPO_DE_PECA + TIPO_DE_CENA + DESCRICAO_DA_CENA + ARTE_ORIGINAL.
+2) Confirmar prompt:
+   - O prompt do gerador deve respeitar as regras do “System Prompt CENAS PUBLICITÁRIAS.md”:
+     - NÃO editar ARTE_ORIGINAL; criar 3 cenas novas; aplicar a arte como textura; etc.  [oai_citation:6‡TIPOS DE CENA.json](sediment://file_00000000554471f59bb50766eb940019)
+3) Testes:
+   - Unit: parse dos JSONs e geração de lista de opções.
+   - E2E: selecionar opções e validar request payload.
+4) Critérios de aceite:
+   - Menus 100% compatíveis com os JSONs anexos.
+   - Prompt final montado segue as regras do documento do agente.
+5) Documentação:
+   - Atualizar “Scene Generator Pro — Menus, Payload e Prompt” em "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/".
+
+
+⸻
+
+TASK 5 — Copy Agent falha + YouTube + escolha Landing vs Modal + seguir template
+
+TASK 5 — Corrigir “Copy Agent” que sempre cai em:
+“A geração com IA falhou… Entregamos um rascunho base.”
+E implementar:
+- opção de enviar link do YouTube para criar textos,
+- menu inicial: “Landing Page” ou “Post Modal”,
+- garantir que segue “SUPER-TEMPLATE-COPY.md”  [oai_citation:7‡listas peças.json](sediment://file_00000000c244720e9eaeebcc2a8f8e05)
+
+SKILLS
+- Prompting determinístico por template; extração de conteúdo (YouTube transcript quando aplicável); UX.
+MCPs
+- git-mcp, ci-mcp, playwright-mcp, (se existir) youtube/transcript-mcp; supabase-mcp (logs).
+
+PASSOS
+1) Diagnóstico:
+   - Identificar por que sempre falha (token ausente? prompt inválido? timeout?).
+   - Garantir fallback só em erros reais, com log do motivo.
+2) Implementar UX:
+   - Tela inicial: escolher tipo de saída (MODAL vs LANDING PAGE).
+   - Campo opcional: link do YouTube + validação.
+3) Implementar engine:
+   - Montar prompt e saída EXATAMENTE nos campos do template escolhido.
+   - Regras do doc: nunca mudar nomes dos campos; nunca omitir campos; usar “(não informado)” quando necessário.  [oai_citation:8‡listas peças.json](sediment://file_00000000c244720e9eaeebcc2a8f8e05)
+   - Se YouTube: obter transcript e alimentar como contexto (sem inventar).
+4) Testes:
+   - Unit: parser de YouTube URL; seleção de template; validador de “campos obrigatórios”.
+   - E2E: gerar MODAL e LANDING com e sem YouTube.
+5) Critérios de aceite:
+   - A geração funciona; e quando falha, a mensagem é precisa e logs têm causa.
+   - Saída sempre respeita o template do doc.
+6) Documentação:
+   - Atualizar “Copy Agent — Templates, YouTube e Campos Obrigatórios” em "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/".
+
+
+⸻
+
+TASK 6 — SETTINGS: salvar tokens + login/cadastro usuários + sync Supabase Storage e Firebase Secrets
+
+TASK 6 — Corrigir “SETTINGS - Configurações do Sistema” no ADMIN:
+- salvar tokens de ferramentas (imagem e texto),
+- adicionar/alterar login e cadastro de usuários,
+- garantir sincronização com Supabase (onde aplicável) e Firebase Secrets Manager.
+
+SKILLS
+- Gestão segura de secrets; RBAC; UI + backend; criptografia/mascaramento; auditoria.
+MCPs
+- firebase-mcp (secrets), supabase-mcp (auth/roles/db), git-mcp, ci-mcp, playwright-mcp.
+
+PASSOS
+1) Diagnóstico:
+   - Identificar onde os tokens deveriam estar: secrets manager vs DB (não salvar token em texto puro).
+   - Verificar permissões e fluxos de autenticação/usuários.
+2) Correção:
+   - Implementar armazenamento seguro: tokens no Firebase Secrets (ou equivalente) e apenas referências no DB.
+   - UI: campos com mask/preview parcial; botão “testar token”.
+   - CRUD de usuários: criar/editar/desativar; papéis.
+3) Sincronização:
+   - Definir fonte de verdade e rotina de sync (ex.: ao salvar no ADMIN, escreve no Secrets e valida).
+4) Testes:
+   - Unit: validação e máscara; permissões por role.
+   - Integration: leitura/escrita no secrets manager.
+   - E2E: salvar token, reiniciar sessão, token persiste e funciona.
+5) Critérios de aceite:
+   - Tokens persistem com segurança e são usados pelos apps (Scene/Copy).
+   - Gestão de usuários funciona com permissões corretas.
+6) Documentação:
+   - Atualizar “Settings — Tokens, Users e Secrets Sync” em "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/".
+
+
+⸻
+
+TASK 7 — Corrigir issues do Supabase apontadas pelos CSVs do Security Advisor
+
+TASK 7 — Analisar e corrigir erros/alertas de segurança no Supabase conforme:
+- “Security Advisor - erros.csv”  [oai_citation:9‡SUPER-TEMPLATE-COPY.md](sediment://file_000000005c7071f5bd7a9ac89194a439)
+- “Security Advisor-infos.csv”  [oai_citation:10‡ System Prompt CENAS PUBLICITÁRIAS.md](sediment://file_00000000428c71f5a3cef52cb0f3c94a)
+
+SKILLS
+- Hardening Supabase: RLS, policies, exposed tables/views, functions security definer, storage policy, auth.
+MCPs
+- supabase-mcp, postgres-mcp, git-mcp, ci-mcp.
+
+PASSOS
+1) Parse dos CSVs:
+   - Listar findings por severidade/impacto.
+   - Para cada finding: evidência, objeto afetado (tabela/policy/função), recomendação.
+2) Correções típicas (aplicar conforme CSV):
+   - Habilitar RLS onde faltar; criar policies mínimas.
+   - Remover permissões públicas indevidas.
+   - Revisar funções SECURITY DEFINER e search_path.
+   - Ajustar storage buckets (public/private) e políticas.
+3) Testes:
+   - SQL tests: checar acesso anon/auth.
+   - Reexecutar (ou simular) checks do advisor.
+4) Critérios de aceite:
+   - Todos os “erros” do CSV resolvidos ou justificados com mitigação documentada.
+5) Documentação:
+   - Criar/atualizar “Security — Advisor Findings e Mitigações” em "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/".
+
+
+⸻
+
+TASK 8 — Assets no Storage: garantir path /MARCA/NOME-DO-PROJETO/ASSETS… + rename/update sem duplicar
+
+TASK 8 — Auditar e corrigir salvamento de assets no Supabase Storage com base em:
+- “assets-site.json”  [oai_citation:11‡assets-site.json](sediment://file_00000000971871f5b8d9301db399ffba)
+
+Requisitos:
+- Assets do projeto devem seguir:
+  "/MARCA/NOME-DO-PROJETO/ASSETS-DO-PROJETO"
+- Se houver landing page:
+  "/MARCA/NOME-DO-PROJETO/ASSETS-DO-PROJETO/LANDIN-PAGE"
+- Se mudar nome do projeto ou alterar algo em projeto existente:
+  deve atualizar/mover no Storage, NÃO criar novo conjunto/pasta.
+
+SKILLS
+- Storage path design; migração de objetos; estratégia de rename; compatibilidade retroativa.
+MCPs
+- storage-mcp, supabase-mcp, postgres-mcp, git-mcp, ci-mcp, playwright-mcp.
+
+PASSOS
+1) Auditoria:
+   - Usar assets-site.json para mapear padrões atuais de paths e buckets.
+   - Identificar inconsistências (ex.: paths genéricos “landing-pages/...”, duplicações, placeholders).
+2) Definir estratégia:
+   - Decidir se o path será por slug ou por ID estável + alias (recomendado p/ evitar renames frequentes).
+   - Se slug/nome mudar: executar “move” dos objetos e atualizar referências no DB.
+3) Implementar:
+   - Função/serviço de “rename project” que:
+     - move objetos no Storage,
+     - atualiza rows de assets (storage_path),
+     - mantém redirecionamento/compat por um período (se necessário).
+   - Garantir delete de assets órfãos.
+4) Testes:
+   - Integration: rename project move objetos; links funcionam; sem duplicar.
+   - E2E: editar projeto e ver assets refletidos corretamente.
+5) Critérios de aceite:
+   - Salvamento e organização obedecem exatamente o padrão requerido.
+   - Rename não duplica; apenas move/atualiza.
+6) Documentação:
+   - Atualizar “Assets — Estrutura de Pastas e Regras de Rename” em "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/".
+
+

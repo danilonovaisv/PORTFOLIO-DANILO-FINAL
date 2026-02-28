@@ -199,31 +199,58 @@ export async function generateAdScenes(
   const referenceSummary =
     referenceImages.length > 0
       ? referenceImages
-          .map(
-            (file, index) =>
-              `${index + 1}. ${file.name} (${file.type}, ${(file.size / 1024 / 1024).toFixed(2)}MB)`
-          )
-          .join('\n')
+        .map(
+          (file, index) =>
+            `${index + 1}. ${file.name} (${file.type}, ${(file.size / 1024 / 1024).toFixed(2)}MB)`
+        )
+        .join('\n')
       : 'Nenhuma referência anexada.';
 
   const promptStyle =
     MODEL_PROMPT_STYLES[model] || MODEL_PROMPT_STYLES['dall-e-3'];
 
-  const promptBase = [
-    promptStyle,
-    'Regras obrigatórias:',
-    "- Sem textos ilegíveis ou marcas d'água.",
-    '- Composição editorial limpa e iluminação cinematográfica.',
-    '- Entregar cena completa (sem cortes).',
-    '',
-    'Payload estruturado:',
-    JSON.stringify(requestPayload, null, 2),
-    '',
-    `Referências anexadas:\n${referenceSummary}`,
-    '',
-    `Tipo de peça: ${pieceType}`,
-    `Descrição base: ${description}`,
-  ].join('\n');
+  const promptBase = `Você é um modelo de geração de imagens especializado em criar CENAS PUBLICITÁRIAS REALISTAS.
+
+IMPORTANTE – CONCEITO CENTRAL
+--------------------------------
+Você NÃO deve transformar, editar ou continuar a imagem enviada.
+
+Em vez disso, você deve:
+
+1. Criar cenas COMPLETAMENTE NOVAS, independentes da imagem enviada.
+   - Cenas de cotidiano, lifestyle, ambientes reais (ex.: mesa de escritório, café, rua, metrô, loja, etc.).
+   - Essas cenas são geradas do zero: cenário, objetos, luz, pessoas (se fizer sentido) e composição são criados por você.
+
+2. Apenas PEGAR a imagem enviada como arquivo (a peça publicitária pronta) e APLICÁ-LA dentro dessas cenas:
+   - como se fosse um post aberto na tela de um celular ou computador;
+   - como um pôster na parede;
+   - como um outdoor na rua;
+   - como um cartão de visita sobre a mesa;
+   - como uma embalagem em uma prateleira;
+   - ou outro suporte publicitário adequado.
+
+3. A imagem enviada é chamada de **ARTE_ORIGINAL**.
+   - A ARTE_ORIGINAL é uma peça publicitária finalizada.
+   - Ela NÃO PODE SER ALTERADA de forma alguma:
+     - não mude textos,
+     - não mude logos,
+     - não mude cores,
+     - não mude layout,
+     - não redesenhe nada.
+   - Use a ARTE_ORIGINAL apenas como uma imagem pronta aplicada em um objeto da cena (tela de celular, monitor, papel, painel, embalagem, papelaria etc.).
+
+OBJETIVO
+---------
+Criar cenas do cotidiano, totalmente independentes da ARTE_ORIGINAL, aplicando a arte dentro dessas cenas sem alterar o conteúdo da arte.
+
+DADOS DESTA GERAÇÃO:
+- Tipo de Peça: ${pieceType}
+- Descrição da Cena: ${description}
+- Imagens de Referência: ${referenceSummary}
+- Estilo e Payload Adicionais:
+  Estilo de Modelo: ${promptStyle}
+  Configuração: ${JSON.stringify(requestPayload, null, 2)}
+`;
 
   try {
     const supportedModels = new Set<AIModel>([
@@ -234,21 +261,34 @@ export async function generateAdScenes(
     ]);
 
     if (supportedModels.has(model)) {
-      const results = await Promise.all(
-        Array.from({ length: batchSize }, (_, index) => {
-          const shot = SHOT_DIRECTIONS[index] ?? SHOT_DIRECTIONS[0];
-          return openai.images.generate({
+      const results: OpenAI.Images.ImagesResponse[] = [];
+
+      // Gerar sequencialmente para evitar Rate Limits (429) do OpenAI para DALL-E 3
+      for (let index = 0; index < batchSize; index++) {
+        const shot = SHOT_DIRECTIONS[index] ?? SHOT_DIRECTIONS[0];
+        try {
+          const res = await openai.images.generate({
             model: 'dall-e-3',
-            prompt: `${promptBase}\n\nVariação ${index + 1}: ${shot}.`,
+            prompt: `${promptBase}\n\nVariação ${index + 1}: ${shot}.`.substring(0, 4000), // OpenAI max prompt length
             n: 1,
             size: outputSize,
           });
-        })
-      );
+          results.push(res);
+        } catch (err: unknown) {
+          console.warn(`[Admin Scene Generator] Falha na variação ${index + 1}:`, err);
+          // Se falhar na primeira imagem, aborta. Se falhar nas subsequentes, retorna as que deram certo.
+          if (index === 0) throw err;
+          break;
+        }
+      }
 
       const images = results
-        .map((res: OpenAI.Images.ImagesResponse) => res.data?.[0]?.url)
-        .filter((url: string | undefined): url is string => !!url);
+        .map((res) => res.data?.[0]?.url)
+        .filter((url): url is string => !!url);
+
+      if (images.length === 0) {
+        throw new Error('Nenhuma imagem foi retornada pela API.');
+      }
 
       await logAdminAudit(supabase, user, {
         action: 'scene.generate',
@@ -280,8 +320,39 @@ export async function generateAdScenes(
       requestPayload,
     };
   } catch (error: unknown) {
+    let isTransient = true;
+    let errorMessage = 'Falha temporária ao gerar imagens. Aguarde alguns segundos e tente novamente.';
+    let supportCode = 'SCN-GENERATION-ERROR';
+
+    if (error instanceof OpenAI.APIError) {
+      if (error.status === 400) {
+        isTransient = false;
+        errorMessage = 'Solicitação rejeitada. Verifique se a descrição não viola as políticas de conteúdo.';
+        supportCode = 'SCN-POLICY-VIOLATION';
+      } else if (error.status === 401 || error.status === 403) {
+        isTransient = false;
+        errorMessage = 'Erro de autenticação da IA. Verifique sua OPENAI_API_KEY nas configurações.';
+        supportCode = 'SCN-AUTH-ERROR';
+      } else if (error.status === 429) {
+        isTransient = true;
+        errorMessage = 'Limite de uso excedido (Rate Limit) no provedor de IA. Tente novamente em alguns instantes.';
+        supportCode = 'SCN-RATE-LIMIT';
+      } else {
+        errorMessage = `Erro do provedor de IA (${error.status}): ${error.message}`;
+      }
+    } else if (error instanceof Error) {
+      if (error.message.toLowerCase().includes('timeout') || error.message.toLowerCase().includes('fetch')) {
+        isTransient = true;
+        errorMessage = 'Tempo limite de conexão excedido. O servidor da IA demorou muito para responder.';
+        supportCode = 'SCN-TIMEOUT';
+      } else {
+        errorMessage = error.message;
+      }
+    }
+
     console.error('[Admin Scene Generator] AI Image Generation Error', {
       error: error instanceof Error ? error.message : 'unknown',
+      status: error instanceof OpenAI.APIError ? error.status : undefined,
       requestPayload,
     });
 
@@ -289,20 +360,16 @@ export async function generateAdScenes(
       action: 'scene.generate',
       resource: 'admin_scene_generator',
       status: 'error',
-      errorCode: 'generation_error',
-      errorMessage:
-        error instanceof Error
-          ? error.message
-          : 'Erro desconhecido ao gerar cenas',
+      errorCode: isTransient ? 'generation_error_transient' : 'generation_error_fatal',
+      errorMessage,
       metadata: requestPayload,
     });
 
     return {
       success: false,
-      error:
-        'Falha temporária ao gerar imagens. Aguarde alguns segundos e tente novamente.',
-      supportCode: 'SCN-GENERATION-ERROR',
-      retryAfterSeconds: 15,
+      error: errorMessage,
+      supportCode,
+      retryAfterSeconds: isTransient ? 15 : undefined,
       requestPayload,
     };
   }

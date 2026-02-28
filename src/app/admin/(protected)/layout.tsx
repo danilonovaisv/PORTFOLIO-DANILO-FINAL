@@ -57,8 +57,10 @@ export default async function ProtectedLayout({
       redirect('/');
     }
 
+    const missingServiceRole = !process.env.SUPABASE_SERVICE_ROLE_KEY;
+
     return (
-      <AdminShellNoSSR userEmail={user.email ?? undefined}>
+      <AdminShellNoSSR userEmail={user.email ?? undefined} missingServiceRole={missingServiceRole}>
         {children}
       </AdminShellNoSSR>
     );
