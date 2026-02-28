@@ -50,8 +50,9 @@ export default function HomeHero() {
         {/* Fallback Mobile Background Gradient (Ghost Atmosphere) - Também usado para Reduced Motion */}
         {(!isDesktop || shouldReduceMotion) && (
           <div
-            className={`absolute inset-0 z-[var(--z-layer-base)] opacity-60 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)] ${shouldReduceMotion ? '' : 'animate-pulse'
-              }`}
+            className={`absolute inset-0 z-[var(--z-layer-base)] opacity-60 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)] ${
+              shouldReduceMotion ? '' : 'animate-pulse'
+            }`}
           />
         )}
 

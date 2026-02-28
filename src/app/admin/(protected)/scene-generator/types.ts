@@ -16,35 +16,38 @@ const AI_MODEL_IDS = new Set<AIModel>([
   'whisky',
 ]);
 
+// All image models below use DALL-E 3 as the backend.
+// The difference between them is the prompt style (aesthetic direction),
+// not a distinct AI engine. This is reflected in the descriptions.
 export const AI_MODELS: AIModelOption[] = [
   {
     id: 'dall-e-3',
-    name: 'DALL-E 3',
-    description: 'OpenAI - Alta qualidade, fotorrealismo',
+    name: 'DALL-E 3 — Padrão',
+    description: 'DALL-E 3 · Fotorrealismo premium',
     available: true,
   },
   {
     id: 'nano-banana',
     name: 'Nano Banana',
-    description: 'Custom - Estilizado, artístico',
+    description: 'DALL-E 3 · Estilo artístico e estilizado',
     available: true,
   },
   {
     id: 'sora',
     name: 'Sora',
-    description: 'OpenAI - Geração de vídeo (Beta)',
+    description: 'OpenAI · Geração de vídeo (indisponível)',
     available: false,
   },
   {
     id: 'flow',
     name: 'Flow',
-    description: 'Custom - Fluxo criativo dinâmico',
+    description: 'DALL-E 3 · Linhas orgânicas, energia e leveza',
     available: true,
   },
   {
     id: 'whisky',
     name: 'Whisky',
-    description: 'Custom - Estética cinematográfica',
+    description: 'DALL-E 3 · Estética cinematográfica sofisticada',
     available: true,
   },
 ];
@@ -97,7 +100,7 @@ export const OUTPUT_RATIO_PRESETS: Array<{
   {
     id: '4:5',
     label: 'Retrato',
-    description: 'Social ads e posters verticais',
+    description: 'Social ads e posters (gerado em 9:16)',
   },
 ];
 

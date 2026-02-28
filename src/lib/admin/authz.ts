@@ -1,6 +1,9 @@
 import type { User } from '@supabase/supabase-js';
 
-const ADMIN_ROLES = new Set(['admin', 'owner', 'super_admin']);
+// Roles that grant access to the admin panel.
+// Must match the is_admin() DB function (see migration 20260228000001).
+// 'editor' maps to the 'editor' role in the admin_users table.
+const ADMIN_ROLES = new Set(['admin', 'owner', 'super_admin', 'editor']);
 
 function parseAllowedEmails(): Set<string> {
   const raw = process.env.ADMIN_ALLOWED_EMAILS ?? '';

@@ -8,7 +8,6 @@ import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
 import type { PortfolioProject } from '@/types/project';
 import { applyImageFallback, isVideo } from '@/lib/utils';
-import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 interface FeaturedProjectCardProps {
   project: PortfolioProject;
@@ -23,12 +22,27 @@ export default function FeaturedProjectCard({
 }: FeaturedProjectCardProps) {
   const reducedMotion = useMotionGate();
   const isModalMode = typeof onOpen === 'function';
-  const mediaSource =
-    project.thumbnailMedia ??
-    project.videoPreview ??
-    project.imageLandscape ??
-    project.imageSquare ??
-    project.image;
+
+  // Resolve the best static image for the card (never a video)
+  const staticImageCandidates = [
+    project.imageLandscape,
+    project.imageSquare,
+    project.image,
+  ].filter((url): url is string => !!url && !isVideo(url));
+  const staticImage = staticImageCandidates[0];
+
+  // Resolve the video source (only if thumbnailMedia or videoPreview is a video)
+  const videoSource = isVideo(project.thumbnailMedia)
+    ? project.thumbnailMedia
+    : isVideo(project.videoPreview)
+      ? project.videoPreview
+      : undefined;
+
+  // Whether this card should show a video on hover
+  const hasVideo = !!videoSource;
+
+  // The media source for the static poster/image — always an image, never a video
+  const mediaSource = staticImage;
 
   const handleClick = () => {
     if (onOpen) {
@@ -45,14 +59,6 @@ export default function FeaturedProjectCard({
 
   const hasHoverRef = React.useRef(false);
   const [isHovered, setIsHovered] = React.useState(false);
-
-  // Deriva o WEBP do MP4 para o grid
-  const getPoster = (src: string) => {
-    if (src.endsWith('.mp4') || src.endsWith('.webm')) {
-      return src.replace(/\.(mp4|webm)$/i, '.webp');
-    }
-    return DEFAULT_VIDEO_POSTER;
-  };
 
   const CardContent = () => (
     <div
@@ -72,41 +78,41 @@ export default function FeaturedProjectCard({
         {/* Subtle Noise Overlay */}
         <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
 
-        {isVideo(mediaSource) ? (
-          <>
-            <Image
-              src={getPoster(mediaSource)}
-              alt={project.title}
-              fill
-              sizes={project.layout.sizes ?? '100vw'}
-              className={`object-cover transition-opacity duration-700 md:group-hover:opacity-100 ${isHovered ? 'opacity-0' : 'opacity-90'}`}
-              loading={priority ? 'eager' : 'lazy'}
-              priority={priority}
-              onError={applyImageFallback}
-            />
-            {hasHoverRef.current && (
-              <video
-                src={mediaSource}
-                autoPlay={isHovered}
-                muted
-                loop
-                playsInline
-                preload="none"
-                poster={getPoster(mediaSource)}
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 md:group-hover:opacity-100 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-              />
-            )}
-          </>
-        ) : (
+        {/* Static image — always visible by default */}
+        {mediaSource ? (
           <Image
             src={mediaSource}
-            alt={`Logo da marca ${project.client} para ${project.category} - ${project.title}`}
+            alt={`${project.client} — ${project.title}`}
             fill
             sizes={project.layout.sizes ?? '100vw'}
-            className="object-cover transition-opacity duration-700 opacity-90 md:group-hover:opacity-100"
+            className={`object-cover transition-opacity duration-700 ${
+              hasVideo && isHovered
+                ? 'opacity-0'
+                : 'opacity-90 md:group-hover:opacity-100'
+            }`}
             loading={priority ? 'eager' : 'lazy'}
             priority={priority}
             onError={applyImageFallback}
+          />
+        ) : (
+          /* Styled fallback when no image is available */
+          <div className="absolute inset-0 bg-gradient-to-br from-[#040013] via-[#0b0d3a] to-[#040013] flex items-center justify-center">
+            <span className="text-bluePrimary/40 text-lg font-mono uppercase tracking-widest">
+              {project.category}
+            </span>
+          </div>
+        )}
+
+        {/* Video — only loads on first hover, opacity toggles */}
+        {hasVideo && hasHoverRef.current && (
+          <video
+            src={videoSource}
+            autoPlay={isHovered}
+            muted
+            loop
+            playsInline
+            preload="none"
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
           />
         )}
       </div>
@@ -129,7 +135,7 @@ export default function FeaturedProjectCard({
           {/* Title */}
           <h3
             id={headingId}
-            className="text-xl md:text-2xl lg:text-3xl font-medium tracking-tight text-white leading-[1.2] transition-colors duration-500 md:group-hover:text-primary"
+            className="text-xl md:text-2xl lg:text-3xl font-medium tracking-tight text-white leading-[1.2] transition-colors duration-500 md:group-hover:text-bluePrimary"
           >
             {project.title}
           </h3>
@@ -147,7 +153,7 @@ export default function FeaturedProjectCard({
   );
 
   const commonClasses =
-    'group block h-full min-h-[48px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-md text-center md:text-left';
+    'group block h-full min-h-[48px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluePrimary rounded-md text-center md:text-left';
 
   if (isModalMode) {
     return (

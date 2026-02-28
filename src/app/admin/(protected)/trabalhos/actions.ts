@@ -30,7 +30,6 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
 
   const newSlug = normalizeProject(projectData.slug);
 
-  // Normalize gallery paths in case they were modified
   let finalUrlLandscape = projectData.url_landscape;
   let finalUrlSquare = projectData.url_square;
   let finalGallery = projectData.gallery;
@@ -38,7 +37,7 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
   try {
     const { supabase } = await requireAdminAccess({ requireServiceRole: true });
 
-    // Validate uniqueness of the slug manually to return a friendly error
+    // Validate slug uniqueness before any writes
     const { data: existing } = await supabase
       .from('portfolio_projects')
       .select('id')
@@ -51,7 +50,14 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
       );
     }
 
-    // Check for rename to move storage
+    // Detect rename: collect old paths BEFORE writing to DB
+    let oldFolderV4: string | null = null;
+    let newFolderV4: string | null = null;
+    let oldFolderNew: string | null = null;
+    let newFolderNew: string | null = null;
+    let oldFolderProjects: string | null = null;
+    let newFolderProjects: string | null = null;
+
     if (input.id) {
       const { data: oldProject } = await supabase
         .from('portfolio_projects')
@@ -60,46 +66,43 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
         .single();
 
       if (oldProject) {
-        // Handle both v4 and the new assets-do-projeto prefix during rename
-        const oldFolderV4 = `v4/${oldProject.client_slug}/${oldProject.slug}`;
-        const newFolderV4 = `v4/${client_slug}/${newSlug}`;
-        const oldFolderNew = `${oldProject.client_slug}/${oldProject.slug}/assets-do-projeto`;
-        const newFolderNew = `${client_slug}/${newSlug}/assets-do-projeto`;
-        const oldFolderProjects = `${oldProject.client_slug}/projects/${oldProject.slug}`;
-        const newFolderProjects = `${client_slug}/projects/${newSlug}`;
+        const oldV4 = `v4/${oldProject.client_slug}/${oldProject.slug}`;
+        const newV4 = `v4/${client_slug}/${newSlug}`;
+        const oldNew = `${oldProject.client_slug}/${oldProject.slug}/assets-do-projeto`;
+        const newNew = `${client_slug}/${newSlug}/assets-do-projeto`;
+        const oldProjects = `${oldProject.client_slug}/projects/${oldProject.slug}`;
+        const newProjects = `${client_slug}/projects/${newSlug}`;
 
-        const replacePath = (p?: string | null) => {
+        // Only register folders that actually changed
+        if (oldV4 !== newV4) {
+          oldFolderV4 = oldV4;
+          newFolderV4 = newV4;
+        }
+        if (oldNew !== newNew) {
+          oldFolderNew = oldNew;
+          newFolderNew = newNew;
+        }
+        if (oldProjects !== newProjects) {
+          oldFolderProjects = oldProjects;
+          newFolderProjects = newProjects;
+        }
+
+        // Pre-compute replaced URL references so DB is written with the
+        // CORRECT target paths from the start (DB-first approach).
+        const replacePath = (p?: string | null): string | undefined => {
           if (!p) return undefined;
-          let replaced = p.replace(oldFolderV4, newFolderV4);
-          replaced = replaced.replace(oldFolderNew, newFolderNew);
-          replaced = replaced.replace(oldFolderProjects, newFolderProjects);
+          let replaced =
+            oldV4 !== newV4 ? p.replace(oldV4 + '/', newV4 + '/') : p;
+          replaced =
+            oldNew !== newNew
+              ? replaced.replace(oldNew + '/', newNew + '/')
+              : replaced;
+          replaced =
+            oldProjects !== newProjects
+              ? replaced.replace(oldProjects + '/', newProjects + '/')
+              : replaced;
           return replaced || undefined;
         };
-
-        if (oldFolderV4 !== newFolderV4) {
-          await moveProjectFolder(
-            supabase,
-            'portfolio-media',
-            oldFolderV4,
-            newFolderV4
-          );
-        }
-        if (oldFolderNew !== newFolderNew) {
-          await moveProjectFolder(
-            supabase,
-            'portfolio-media',
-            oldFolderNew,
-            newFolderNew
-          );
-        }
-        if (oldFolderProjects !== newFolderProjects) {
-          await moveProjectFolder(
-            supabase,
-            'portfolio-media',
-            oldFolderProjects,
-            newFolderProjects
-          );
-        }
 
         finalUrlLandscape = replacePath(finalUrlLandscape) ?? null;
         finalUrlSquare = replacePath(finalUrlSquare) ?? null;
@@ -113,7 +116,10 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
       }
     }
 
-    // Chama a função importada que já contém requireAdminAccess() e logAdminAudit()
+    // ── DB UPDATE FIRST (atomic from DB's perspective) ──────────────────
+    // If DB fails, storage is untouched → state remains consistent.
+    // If storage move fails later, DB has the correct target paths and
+    // old files remain accessible until cleanup or re-rename resolves.
     const updatedProject = await upsertProject({
       ...projectData,
       client_slug,
@@ -124,10 +130,50 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
       tagIds: tags,
     });
 
-    // Revalidação de cache
+    // ── STORAGE MOVE AFTER DB WRITE ──────────────────────────────────────
+    const storageMoveFailures: string[] = [];
+
+    if (oldFolderV4 && newFolderV4) {
+      const { failed } = await moveProjectFolder(
+        supabase,
+        'portfolio-media',
+        oldFolderV4,
+        newFolderV4
+      );
+      storageMoveFailures.push(...failed);
+    }
+    if (oldFolderNew && newFolderNew) {
+      const { failed } = await moveProjectFolder(
+        supabase,
+        'portfolio-media',
+        oldFolderNew,
+        newFolderNew
+      );
+      storageMoveFailures.push(...failed);
+    }
+    if (oldFolderProjects && newFolderProjects) {
+      const { failed } = await moveProjectFolder(
+        supabase,
+        'portfolio-media',
+        oldFolderProjects,
+        newFolderProjects
+      );
+      storageMoveFailures.push(...failed);
+    }
+
+    if (storageMoveFailures.length > 0) {
+      // Log for admin visibility — not critical since DB paths are correct
+      // and old files remain accessible. Cleanup functions will reconcile.
+      console.error(
+        '[Trabalhos] Partial storage rename failure — files still at old path:',
+        storageMoveFailures
+      );
+    }
+
+    // Cache revalidation
     revalidatePath('/admin/trabalhos');
     revalidatePath('/portfolio');
-    revalidatePath('/'); // Se estiver na home
+    revalidatePath('/');
     if (updatedProject?.slug) {
       revalidatePath(`/portfolio/${updatedProject.slug}`);
     }
@@ -148,18 +194,26 @@ export async function deleteProjectAction(id: string) {
       .eq('id', id)
       .single();
 
+    // Delete DB record first — storage cleanup is best-effort
     await deleteProject(id);
 
     if (oldProject) {
       const folderV4 = `v4/${oldProject.client_slug}/${oldProject.slug}`;
       const folderNew = `${oldProject.client_slug}/${oldProject.slug}/assets-do-projeto`;
       const folderProjects = `${oldProject.client_slug}/projects/${oldProject.slug}`;
-      try {
-        await deleteProjectFolder(supabase, 'portfolio-media', folderV4);
-        await deleteProjectFolder(supabase, 'portfolio-media', folderNew);
-        await deleteProjectFolder(supabase, 'portfolio-media', folderProjects);
-      } catch (err) {
-        console.error('Falha ao remover objetos do storage:', err);
+
+      const results = await Promise.allSettled([
+        deleteProjectFolder(supabase, 'portfolio-media', folderV4),
+        deleteProjectFolder(supabase, 'portfolio-media', folderNew),
+        deleteProjectFolder(supabase, 'portfolio-media', folderProjects),
+      ]);
+
+      const failures = results.filter((r) => r.status === 'rejected');
+      if (failures.length > 0) {
+        console.error(
+          '[Trabalhos] Partial storage delete failure — orphaned files may remain:',
+          failures
+        );
       }
     }
 

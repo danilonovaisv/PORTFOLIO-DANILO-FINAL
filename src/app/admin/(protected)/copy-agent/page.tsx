@@ -14,6 +14,8 @@ import {
 const initialState = {
   success: false,
   content: '',
+  fallbackContent: '',
+  aiGenerated: undefined as boolean | undefined,
   error: '',
   notice: '',
   fieldErrors: {} as Record<string, string | undefined>,
@@ -41,9 +43,11 @@ export default function CopyAgentPage() {
     setSelectedImages(files);
   };
 
+  const displayContent = state.content || state.fallbackContent || '';
+
   const handleCopy = () => {
-    if (state.content) {
-      navigator.clipboard.writeText(state.content);
+    if (displayContent) {
+      navigator.clipboard.writeText(displayContent);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
@@ -384,6 +388,7 @@ export default function CopyAgentPage() {
 
               {state.notice && (
                 <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm">
+                  <span className="font-semibold">Atenção: </span>
                   {state.notice}
                 </div>
               )}
@@ -395,21 +400,28 @@ export default function CopyAgentPage() {
                 <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Resultado
                 </span>
-                {state.content && (
-                  <button
-                    onClick={handleCopy}
-                    className="text-slate-400 hover:text-white transition-colors"
-                    title="Copiar Markdown"
-                  >
-                    {copied ? <Check size={16} /> : <Copy size={16} />}
-                  </button>
+                {displayContent && (
+                  <div className="flex items-center gap-3">
+                    {state.aiGenerated === false && (
+                      <span className="text-[10px] font-medium uppercase tracking-wider text-amber-400 border border-amber-400/30 rounded px-2 py-0.5">
+                        Rascunho base
+                      </span>
+                    )}
+                    <button
+                      onClick={handleCopy}
+                      className="text-slate-400 hover:text-white transition-colors"
+                      title="Copiar Markdown"
+                    >
+                      {copied ? <Check size={16} /> : <Copy size={16} />}
+                    </button>
+                  </div>
                 )}
               </div>
 
               <div className="flex-1 p-6 overflow-y-auto max-h-[700px] scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-                {state.content ? (
+                {displayContent ? (
                   <div className="prose prose-invert prose-sm max-w-none prose-headings:text-indigo-300 prose-a:text-indigo-400">
-                    <ReactMarkdown>{state.content}</ReactMarkdown>
+                    <ReactMarkdown>{displayContent}</ReactMarkdown>
                   </div>
                 ) : (
                   <div className="h-full flex flex-col items-center justify-center text-slate-600 space-y-3">

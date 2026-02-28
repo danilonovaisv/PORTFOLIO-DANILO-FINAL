@@ -1,367 +1,509 @@
-Você é o ORCHESTRATOR do Antigravity, responsável por orquestrar agentes especialistas para diagnosticar, corrigir, testar e documentar problemas no ADMIN e na integração com Supabase (DB/Storage), além de Settings/Secrets (Firebase).
+  RELATÓRIO DE AUDITORIA TÉCNICA — ADMIN + SUPABASE                                                                
+                                                                                                                        
+  Data: 2026-02-28                                                                                                    
+  Auditor: Análise estática + inspeção de schema/migrations/código-fonte                              
+  Nota: Os arquivos /mnt/data/ (assets-site.json, CSVs do Security Advisor, TIPOS DE CENA.json, listas peças.json,
+  SUPER-TEMPLATE-COPY.md, System Prompt CENAS PUBLICITÁRIAS.md) não estão acessíveis neste ambiente. Foram marcados como
+   INDETERMINADO nos pontos que dependem exclusivamente deles.                                                          
+                                                                                                                        
+  ---
+  1. RESUMO EXECUTIVO
+                                                                                                                        
+  - [P0] site_settings sem RLS e com GRANT ALL TO anon — a OpenAI API Key armazenada em texto puro (JSONB) está exposta 
+  publicamente via REST API do Supabase.                                                                                
+  - [P0] admin_users exposta publicamente — policy "Enable read access for all users" USING (true) permite que qualquer
+  pessoa (anonymous) leia user_ids e roles de administradores.
+  - [P0] Políticas conflitantes em portfolio_projects — três policies sobrepostas criam brechas: qualquer usuário
+  autenticado (não apenas admins) pode escrever/deletar projetos.
+  - [P0] experiences, content_version, projects (legacy) com RLS ativo mas sem policies — acesso totalmente bloqueado
+  para todas as roles não-superuser; gatilhos de versão quebram silenciosamente.
+  - [P1] Dois registros de auditoria paralelos e incompatíveis — código grava em audit_log (legacy); migration criou
+  admin_audit_log (novo, nunca usado).
+  - [P1] Rename de projeto sem atomicidade — storage move + DB update não são transacionais; falha parcial corrompem
+  dados sem rollback.
+  - [P1] Modelos nano-banana, flow, whisky são aliases de DALL-E 3 — UI os apresenta como motores distintos, mas todos
+  chamam model: 'dall-e-3'. Erro de expectativa do usuário.
+  - [P1] Copy Agent: YouTube URL passa como texto para o LLM sem extração de transcript — o modelo não acessa URLs;
+  transcript não é obtido. Feature documentada não funciona como esperado.
+  - [P1] Copy Agent: fallback silencioso retorna success: true mesmo quando IA falhou — oculta falha real do usuário.
+  - [P2] 4:5 mapeado para 1024x1024 (quadrado) — aspect ratio 4:5 portrait deveria gerar imagem portrait, não quadrada.
 
-OBJETIVO GERAL
-- Corrigir bugs de sincronia ADMIN ↔ Supabase (DB + Storage), erros dos apps “Scene Generator Pro” e “Copy Agent”, falhas em Settings (tokens/users), e issues de segurança apontadas pelo Security Advisor.
-- Garantir que toda correção tenha: (1) causa raiz, (2) patch de código/migração/política, (3) testes automatizados e/ou roteiros de teste, (4) validação manual guiada, (5) documentação atualizada.
-- Ao FINAL DE CADA TAREFA: atualizar/criar documentação na pasta:
-  "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/"
-  com as novas configurações/decisões, incluindo antes/depois, e checklist de verificação.
-- PARA EXECUSSÃO CONFERIR O DOCUMENTO "/docs/AUDIT-ADMIN-TASKS.json";
+  ---
+  2. MATRIZ DE PROBLEMAS
 
-REGRAS DE EXECUÇÃO
-1) Cada item do backlog (1–8) deve virar UMA TASK separada, com:
-   - Diagnóstico: evidências, logs, reprodução, hipótese, causa raiz.
-   - Correção: mudanças (código/migração/policies/edge functions), rollback plan.
-   - Testes: unit/integration/e2e + smoke test manual.
-   - Critérios de aceite: objetivos verificáveis.
-   - Documentação: atualizar sessão correspondente no ADMIN (path acima).
-2) Nunca “chutar” configuração. Use os anexos como fonte de verdade:
-   - Menus/Opções do Scene Generator: “TIPOS DE CENA.json” e “listas peças.json”.
-   - Prompt/Comportamento do gerador: “System Prompt CENAS PUBLICITÁRIAS.md”.
-   - Template/Comportamento do Copy Agent: “SUPER-TEMPLATE-COPY.md”.
-   - Auditoria de segurança: “Security Advisor - erros.csv” e “Security Advisor-infos.csv”.
-   - Auditoria de assets/storage: “assets-site.json”.
-3) Manter consistência de Storage:
-   - Nenhum rename/delete pode criar “pastas fantasmas” ou duplicar diretórios.
-   - Mudança de nome do projeto deve fazer “move/rename” dos assets (ou estratégia equivalente), NÃO criar um novo conjunto.
-4) Sempre que mexer em Supabase:
-   - Validar RLS/policies, permissões de Storage, triggers, funções.
-   - Checar impactos em Edge Functions e no cliente.
-5) Entregáveis por task:
-   - PR/patch com mudanças e testes.
-   - Um arquivo de doc (ou update) em "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/".
-   - Checklist de verificação pós-deploy.
+  ID: SEC-01
+  Área: DB/RLS/Security
+  Sintoma: OpenAI key legível publicamente via REST
+  Evidência: GRANT ALL TO anon em site_settings; sem ENABLE ROW LEVEL SECURITY; key em JSONB puro
+  Causa Provável: RLS nunca habilitado na tabela; supabase_vault instalado mas não usado
+  Severidade: P0
+  Correção Sugerida: Habilitar RLS + policy admin-only + migrar key para vault.secrets
+  ────────────────────────────────────────
+  ID: SEC-02
+  Área: DB/RLS
+  Sintoma: admin_users leitura pública
+  Evidência: CREATE POLICY "Enable read access for all users" ... USING (true) em schema.sql:830
+  Causa Provável: Policy placeholder sem restrição de role
+  Severidade: P0
+  Correção Sugerida: Trocar por policy is_admin() ou apenas authenticated
+  ────────────────────────────────────────
+  ID: SEC-03
+  Área: DB/RLS
+  Sintoma: Qualquer autenticado pode escrever projetos
+  Evidência: 3 policies sobrepostas: "Auth manage projects" (any auth), "authenticated_admin_full_access" (ALL com
+    USING(true)), "Admin manage projects" (admin check)
+  Causa Provável: Migration 20260224 adicionou policy permissiva sem remover legadas
+  Severidade: P0
+  Correção Sugerida: Remover "Auth manage projects" e "authenticated_admin_full_access"; manter apenas "Admin manage
+    projects"
+  ────────────────────────────────────────
+  ID: SEC-04
+  Área: DB/RLS
+  Sintoma: experiences, content_version, projects bloqueados para todos
+  Evidência: RLS ativo + zero policies visíveis no schema.sql para essas tabelas
+  Causa Provável: Tabelas criadas/migradas sem policies
+  Severidade: P0
+  Correção Sugerida: Criar policies admin-write + public-read seletivo ou desabilitar RLS nas tabelas não sensíveis
+  ────────────────────────────────────────
+  ID: SEC-05
+  Área: Storage
+  Sintoma: portfolio-media e site-assets públicos (SELECT anon)
+  Evidência: legacy_buckets_select em migration 20260208000002 e Auth manage legado
+  Causa Provável: Decisão de design mas precisa ser explícita
+  Severidade: P1
+  Correção Sugerida: Confirmar intenção; documentar que são CDN público intencionalmente
+  ────────────────────────────────────────
+  ID: ADM-01
+  Área: ADMIN/DB
+  Sintoma: Dois sistemas de audit paralelos
+  Evidência: audit_log (schema.sql, usado pelo código); admin_audit_log (migration 20260207201000, não usado)
+  Causa Provável: Migration criou nova tabela sem migrar código
+  Severidade: P1
+  Correção Sugerida: Unificar: ou migrar código para admin_audit_log ou remover a tabela órfã
+  ────────────────────────────────────────
+  ID: ADM-02
+  Área: ADMIN/Storage
+  Sintoma: Rename não é atômico
+  Evidência: actions.ts:79-113 move storage ANTES de salvar no DB; sem rollback
+  Causa Provável: Supabase storage não tem transações DB
+  Severidade: P1
+  Correção Sugerida: Inverter ordem (salvar DB primeiro, depois mover storage) ou usar compensação explícita
+  ────────────────────────────────────────
+  ID: ADM-03
+  Área: ADMIN/Storage
+  Sintoma: String.replace sem anchoring pode substituir path errado
+  Evidência: storage-utils.ts:41 usa file.replace(oldPrefix, newPrefix) sem regex ^
+  Causa Provável: JS replace substitui primeira ocorrência em qualquer posição
+  Severidade: P1
+  Correção Sugerida: Usar file.startsWith(oldPrefix) + newPrefix + file.slice(oldPrefix.length)
+  ────────────────────────────────────────
+  ID: ADM-04
+  Área: ADMIN/Storage
+  Sintoma: Delete não tenta todos os 3 path schemes com erro silenciado
+  Evidência: actions.ts:157-163 tem try/catch que swallows erros de delete
+  Causa Provável: Erro logado mas não propagado; arquivos órfãos residuais
+  Severidade: P2
+  Correção Sugerida: Logar detalhes do erro por path + retornar lista de falhas parciais ao admin
+  ────────────────────────────────────────
+  ID: SCN-01
+  Área: ADMIN/Scene
+  Sintoma: nano-banana, flow, whisky chamam dall-e-3 silenciosamente
+  Evidência: actions.ts:271 model: 'dall-e-3' hardcoded para todos modelos
+  Causa Provável: Modelos custom não implementados; apenas prompt style difere
+  Severidade: P1
+  Correção Sugerida: Tornar explícito na UI que são variações de prompt do DALL-E 3, ou renomear para refletir realidade
+  ────────────────────────────────────────
+  ID: SCN-02
+  Área: ADMIN/Scene
+  Sintoma: Ratio 4:5 gera imagem quadrada 1024x1024
+  Evidência: schema/scene-generator.ts:37 '4:5': '1024x1024'
+  Causa Provável: DALL-E 3 não suporta 4:5 nativo; fallback para quadrado sem aviso
+  Severidade: P2
+  Correção Sugerida: Mapear para 1024x1792 (portrait mais próximo) ou remover opção 4:5
+  ────────────────────────────────────────
+  ID: SCN-03
+  Área: ADMIN/Scene
+  Sintoma: pieceType sem validação enum server-side
+  Evidência: sceneInputSchema aceita qualquer string; só tem min/max
+  Causa Provável: Select com opções no frontend mas bypass via fetch direto
+  Severidade: P2
+  Correção Sugerida: Adicionar .refine() com conjunto de valores válidos do SCENE_CATEGORIES
+  ────────────────────────────────────────
+  ID: SCN-04
+  Área: ADMIN/Scene
+  Sintoma: TIPOS DE CENA.json vs SCENE_CATEGORIES — conformidade não verificável
+  Evidência: /mnt/data/TIPOS DE CENA.json inacessível
+  Causa Provável: INDETERMINADO
+  Severidade: INDETERMINADO
+  Correção Sugerida: Comparar manualmente SCENE_CATEGORIES com TIPOS DE CENA.json
+  ────────────────────────────────────────
+  ID: CPY-01
+  Área: ADMIN/Copy
+  Sintoma: YouTube URL não gera transcript; LLM não acessa URLs
+  Evidência: actions.ts:166-169 apenas insere URL como texto no prompt
+  Causa Provável: LLM não tem acesso a internet; transcript não é extraído
+  Severidade: P1
+  Correção Sugerida: Integrar YouTube Transcript API ou avisar usuário que o link é apenas referência textual
+  ────────────────────────────────────────
+  ID: CPY-02
+  Área: ADMIN/Copy
+  Sintoma: Fallback retorna success: true quando IA falhou
+  Evidência: actions.ts:279-284 retorna success: true, content: buildFallbackCopy(...)
+  Causa Provável: Intenção de não bloquear usuário, mas oculta falha real
+  Severidade: P1
+  Correção Sugerida: Retornar success: false com fallbackContent em campo separado, ou manter flag aiUsed: false
+  ────────────────────────────────────────
+  ID: CPY-03
+  Área: ADMIN/Copy
+  Sintoma: youtubeUrl validação fraca
+  Evidência: copyInputSchema: apenas includes('youtube.com')
+  Causa Provável: https://evil.com?youtube.com passa
+  Severidade: P2
+  Correção Sugerida: Usar regex de URL completa do YouTube
+  ────────────────────────────────────────
+  ID: CPY-04
+  Área: ADMIN/Copy
+  Sintoma: SUPER-TEMPLATE-COPY.md vs output format — conformidade não verificável
+  Evidência: /mnt/data/SUPER-TEMPLATE-COPY.md inacessível
+  Causa Provável: INDETERMINADO
+  Severidade: INDETERMINADO
+  Correção Sugerida: Comparar campos hardcoded no outputFormat com SUPER-TEMPLATE-COPY.md
+  ────────────────────────────────────────
+  ID: SET-01
+  Área: ADMIN/Settings
+  Sintoma: OpenAI key salva como JSONB puro, sem criptografia
+  Evidência: settings.ts:18-27 lê de site_settings.value como string
+  Causa Provável: supabase_vault disponível mas não usado
+  Severidade: P0 (via SEC-01)
+  Correção Sugerida: Migrar para vault.create_secret() / vault.read_secret()
+  ────────────────────────────────────────
+  ID: SET-02
+  Área: ADMIN/Settings
+  Sintoma: admin_users roles ('editor','viewer') não reconhecidos por is_admin()
+  Evidência: admin_users.role CHECK IN ('owner','editor','viewer') vs is_admin() verifica 'admin','owner','super_admin'
+  Causa Provável: Schemas divergentes entre tabela e função
+  Severidade: P1
+  Correção Sugerida: Alinhar roles: adicionar 'admin' ao CHECK ou ajustar is_admin()
+  ────────────────────────────────────────
+  ID: SEC-06
+  Área: Security
+  Sintoma: Policy placeholder não renomeada
+  Evidência: CREATE POLICY "replace_with_policy_name" ON "public"."admin_users"
+  Causa Provável: Policy criada sem nome real
+  Severidade: P2
+  Correção Sugerida: Renomear para nome descritivo
+  ────────────────────────────────────────
+  ID: STR-01
+  Área: Storage
+  Sintoma: Estrutura v4/MARCA/PROJETO legada coexiste com nova estrutura MARCA/PROJETO/assets-do-projeto
+  Evidência: actions.ts:64-100 lida com 3 path schemes simultaneamente
+  Causa Provável: Migração de storage incompleta
+  Severidade: P1
+  Correção Sugerida: Executar migração completa para novo esquema + remover lógica de compatibilidade após validação
 
-AGENTES (papéis)
-- Lead Engineer (Supabase/DB): schema, RLS, triggers, storage policies, migrations.
-- Admin App Engineer (Frontend/Backend): fluxos do ADMIN, validações, UI, integrações.
-- QA Engineer: e2e (Playwright), roteiros de reprodução, regressão.
-- Security Engineer: Security Advisor, hardening, secrets, políticas.
-- Docs Steward: atualiza docs na pasta indicada ao final de cada task.
+  ---
+  3. ACHADOS DETALHADOS
 
-SKILLS (habilidades obrigatórias)
-- Supabase: Postgres, RLS, Storage, Policies, Triggers, Functions, Edge Functions, Realtime (se houver).
-- Debug: logs estruturados, correlação de eventos, auditoria de storage.
-- Testes: unit/integration/e2e; Playwright + mocks; testes para uploads e deletes.
-- Infra/secrets: Firebase Secrets Manager (ou equivalente), env vars, rotação, validação.
-- Documentação: changelog e runbook.
+  ---
+  SEC-01 — site_settings sem RLS, OpenAI key exposta publicamente
 
-MCPs (ferramentas que DEVEM ser usadas quando disponíveis)
-- supabase-mcp: introspecção de DB, policies, storage buckets/objects, logs.
-- postgres-mcp: queries, explain analyze, constraints/indices.
-- storage-mcp: list/move/delete objects, checar paths e duplicações.
-- git-mcp: criar branch/commits/PR, revisar diffs.
-- ci-mcp: rodar pipelines, testes, lint.
-- playwright-mcp: e2e no ADMIN.
-- firebase-mcp: secrets, validação de sync e permissões.
+  Como reproduzir:
+  curl "https://<SUPABASE_URL>/rest/v1/site_settings?key=eq.openai_api_key" \
+    -H "apikey: <ANON_KEY>"
+  # Retorna: {"key":"openai_api_key","value":"sk-..."}
 
-FORMATO DE SAÍDA POR TASK
-- Título + Contexto
-- Como reproduzir
-- Causa raiz
-- Plano de correção (passos)
-- Implementação (arquivos/locais a alterar)
-- Testes (automatizados + manual)
-- Critérios de aceite
-- Atualização de documentação (arquivo(s) e conteúdo mínimo)
+  Evidências:
+  - supabase/schema.sql: GRANT ALL ON TABLE "public"."site_settings" TO "anon"
+  - site_settings NÃO aparece na lista de tabelas com ENABLE ROW LEVEL SECURITY
+  - settings.ts:18-27 lê value diretamente de JSONB (texto puro)
+  - supabase_vault instalado (schema.sql:61) mas não utilizado
 
-Agora execute as tasks 1 a 8 separadamente, seguindo os prompts de task abaixo (cada uma em um card/task independente).
+  Causa raiz: A tabela site_settings foi criada sem RLS habilitado. O grant TO anon combinado com ausência de RLS
+  permite leitura anônima completa via PostgREST.
 
+  Correção proposta:
 
-⸻
+  -- 1. Habilitar RLS
+  ALTER TABLE public.site_settings ENABLE ROW LEVEL SECURITY;
 
-TASK 1 — Sincronia ADMIN ↔ Supabase Storage (delete/update/create cria pasta nova e não exclui)
+  -- 2. Revogar grants excessivos
+  REVOKE ALL ON TABLE public.site_settings FROM anon;
 
-TASK 1 — Corrigir sincronia ADMIN ↔ Supabase (CRUD de “trabalhos”): ao deletar/alterar/incluir, o sistema cria nova pasta/novos arquivos no Storage e não remove projetos excluídos; garantir sincronização total com Storage.
+  -- 3. Policy: apenas service_role/admin lê e escreve
+  CREATE POLICY "Admin manage site_settings"
+    ON public.site_settings
+    FOR ALL
+    USING (public.is_admin())
+    WITH CHECK (public.is_admin());
 
-INPUT/CONTEXTO
-- Bug: operações no ADMIN geram duplicação no Storage (cria nova pasta com novos arquivos) e deletes no ADMIN não refletem no Supabase/Storage.
-- Resultado esperado: CRUD idempotente e consistente (DB + Storage), sem “pastas órfãs”.
+  -- 4. Migrar chave para vault (opcional mas recomendado)
+  SELECT vault.create_secret('sk-...', 'openai_api_key');
+  -- Depois acessar com: SELECT vault.read_secret('openai_api_key')
 
-SKILLS
-- Supabase Storage + Postgres triggers + RLS/policies + transações e idempotência.
-- Observabilidade (logs), auditoria de objetos, correlação por project_id.
+  Testes necessários:
+  - Query anon via curl deve retornar 0 rows ou 403
+  - Admin autenticado consegue ler/escrever
+  - getOpenAIKey() continua funcionando (requer service_role)
 
-MCPs
-- supabase-mcp, postgres-mcp, storage-mcp, git-mcp, ci-mcp, playwright-mcp.
+  ---
+  SEC-02 — admin_users leitura anônima
 
-PASSOS (obrigatório)
-1) Reproduzir:
-   - Criar trabalho no ADMIN com upload de peças/assets.
-   - Editar (alterar nome, trocar peças, incluir e excluir peças).
-   - Deletar trabalho.
-   - Inspecionar DB e Storage: confirmar duplicações e órfãos.
-2) Diagnóstico:
-   - Mapear “source of truth”: DB (tabelas de projetos/assets) vs Storage (objects).
-   - Checar se o path é derivado de slug/nome mutável em vez de um ID estável.
-   - Checar fluxo de update: está fazendo “create new + keep old”?
-   - Checar deleção: falta cascade? falta job de cleanup? falha de permissão policy?
-3) Correção (arquitetura recomendada):
-   - Tornar o path estável: usar project_id (UUID) como raiz interna e manter “alias” por slug apenas para exibição; OU implementar rename/move transacional e cleanup garantido.
-   - Garantir “delete cascade” lógico: ao excluir projeto, excluir assets no DB e agendar remoção do Storage (edge function/queue) com retry.
-   - Implementar idempotency keys nas operações de upload/update (evitar duplicação em retries).
-4) Implementação:
-   - Ajustar serviços do ADMIN (upload/update/delete).
-   - Criar/ajustar tabelas: assets com project_id, storage_path, checksum/hash, status.
-   - Criar trigger/função (ou edge function) para cleanup e move/rename seguro.
-   - Revisar policies do bucket: permitir delete/move apenas por roles certas.
-5) Testes:
-   - Unit: geração de path (sempre determinística), update não duplica.
-   - Integration: criar→editar→deletar garante que Storage e DB convergem.
-   - E2E (Playwright): fluxo completo com asserts em listagem de objetos.
-6) Critérios de aceite:
-   - Nenhuma alteração cria uma nova pasta indevida.
-   - Delete remove o projeto do DB e remove (ou agenda + confirma) remoção no Storage.
-   - Repetir request (retry) não duplica arquivos.
-7) Documentação (obrigatório):
-   - Atualizar "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/" na sessão “Trabalhos / Projetos — Storage Sync”.
-   - Incluir: regra de path, estratégia de rename/delete, e runbook de verificação.
+  Evidências:
+  - schema.sql:830 CREATE POLICY "Enable read access for all users" ON "public"."admin_users" FOR SELECT USING (true)
+  - Expõe user_id (UUID) e role de todos os administradores
 
+  Correção proposta:
 
-⸻
+  DROP POLICY IF EXISTS "Enable read access for all users" ON public.admin_users;
+  -- Manter apenas:
+  -- CREATE POLICY "Admin read admin_users" ON public.admin_users FOR SELECT USING (public.is_admin());
 
-TASK 2 — Sincronia ADMIN ↔ Supabase (não aceita ajustar trabalho existente; “projeto já existente”)
+  ---
+  SEC-03 — Políticas conflitantes em portfolio_projects
 
-TASK 2 — Corrigir edição de trabalho existente: ADMIN acusa “projeto já existente” ao ajustar um trabalho já criado.
+  Evidências:
+  - schema.sql:810 "Auth manage projects" USING (auth.role() = 'authenticated') — nunca foi removida
+  - migration 20260224 adicionou "authenticated_admin_full_access" FOR ALL ... USING(true) WITH CHECK(true) —
+  efetivamente abre escrita para qualquer usuário autenticado
+  - migration 20260207183000 criou "Admin manage projects" com check de role correto
 
-SKILLS
-- Validações (unique constraints), lógica de upsert, diferenciação create vs update, slug.
-MCPs
-- postgres-mcp, supabase-mcp, git-mcp, ci-mcp, playwright-mcp.
+  Comportamento real: Em PostgreSQL com RLS, políticas são combinadas com OR para SELECT e AND para
+  INSERT/UPDATE/DELETE. Para operações de escrita, como há 3 policies FOR ALL, qualquer uma que passar (incluindo
+  USING(true)) permite a operação. Qualquer usuário autenticado pode criar/editar/deletar projetos.
 
-PASSOS
-1) Reproduzir:
-   - Criar um trabalho; em seguida editar (mesmo nome ou slug).
-   - Identificar ponto exato do erro (UI, API, DB constraint).
-2) Diagnóstico:
-   - Verificar constraints únicas (nome/slug/marca) e se o update está tentando inserir (insert) ao invés de update/upsert.
-   - Verificar se o slug é recalculado e colide com outro registro por regra errada.
-3) Correção:
-   - Ajustar API para usar UPDATE por id e validar unicidade excluindo o próprio registro.
-   - Se houver “slug unique”: gerar slug estável + sufixo apenas quando colidir com OUTRO id.
-   - Ajustar mensagens de erro para guiar o usuário.
-4) Testes:
-   - Unit: validação de unicidade “self-excluded”.
-   - Integration: update por id não dispara unique violation.
-   - E2E: editar trabalho e salvar com sucesso.
-5) Critérios de aceite:
-   - Editar e salvar um trabalho existente nunca falha por “já existente” (a menos que conflite com outro registro real).
-6) Documentação:
-   - Atualizar doc em "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/" na sessão “Trabalhos — Regras de Nome/Slug”.
+  Correção proposta:
 
+  -- Remover as policies permissivas
+  DROP POLICY IF EXISTS "Auth manage projects" ON public.portfolio_projects;
+  DROP POLICY IF EXISTS "authenticated_admin_full_access" ON public.portfolio_projects;
+  -- Manter apenas "Admin manage projects" (da migration 20260207183000)
 
-⸻
+  ---
+  SEC-04 — experiences, content_version, projects com RLS sem policies
 
-TASK 3 — Scene Generator Pro sempre falha (SCN-GENERATION-ERROR)
+  Evidências:
+  - schema.sql: Todas as 3 tabelas têm ENABLE ROW LEVEL SECURITY mas nenhuma CREATE POLICY referenciando-as
+  - Trigger bump_on_publish_impact em content_version escrita via SECURITY DEFINER (funciona)
+  - Mas leituras/escritas diretas de admin para experiences e projects (legacy) estão bloqueadas
 
-TASK 3 — Corrigir “Scene Generator Pro - Multi-upload…” que sempre retorna:
-“Falha temporária ao gerar imagens… SCN-GENERATION-ERROR…”
+  Impacto real:
+  - Admin não consegue gerenciar experiences (seção "Sobre")
+  - Tabela projects (legacy) completamente inacessível
+  - content_version escrita apenas via trigger (SECURITY DEFINER bypassa RLS)
 
-SKILLS
-- Integração com provedor de imagem (timeouts, quotas, payload), filas/retries, observabilidade.
-MCPs
-- git-mcp, ci-mcp, supabase-mcp (logs/edge functions), playwright-mcp.
+  Correção proposta:
 
-PASSOS
-1) Reproduzir e coletar evidências:
-   - Tentar gerar com inputs mínimos e com multi-upload.
-   - Capturar logs (frontend + backend/edge) e request payload (sem vazar secrets).
-2) Diagnóstico:
-   - Identificar onde o erro nasce: frontend, API, edge function, provedor externo.
-   - Checar: tokens faltando, modelo inválido, payload grande (413), timeout, CORS, policy de Storage, rate limit.
-   - Verificar fluxo de “15s retry”: está mascarando erro permanente como temporário?
-3) Correção:
-   - Melhorar classificação de erros (permanente vs transitório).
-   - Implementar retries com backoff apenas para transitórios.
-   - Validar configuração de tokens em Settings e uso correto.
-   - Garantir upload de arte_original e geração estejam encadeados corretamente.
-4) Testes:
-   - Unit: mapeamento de erro por códigos.
-   - Integration: simular timeout e rate limit; garantir retry/backoff.
-   - E2E: gerar 3 cenas com sucesso.
-5) Critérios de aceite:
-   - Geração funciona em condições normais; erros reais exibem mensagem correta.
-   - Log inclui correlation_id por tentativa.
-6) Documentação:
-   - Atualizar doc de “Scene Generator Pro — Diagnóstico e Configuração” em "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/".
+  -- experiences: admin escreve, público lê publicadas
+  CREATE POLICY "Admin manage experiences" ON public.experiences
+    FOR ALL USING (public.is_admin()) WITH CHECK (public.is_admin());
+  CREATE POLICY "Public read published experiences" ON public.experiences
+    FOR SELECT USING (status = 'published');
 
+  -- content_version: apenas service_role/sistema modifica
+  CREATE POLICY "System manage content_version" ON public.content_version
+    FOR ALL USING (public.is_admin());
+  CREATE POLICY "Public read content_version" ON public.content_version
+    FOR SELECT USING (true);
 
-⸻
+  -- projects (legacy): se não for mais usado, desabilitar RLS ou criar política minimal
 
-TASK 4 — Scene Generator Pro: menus/submenus + confirmar prompt do agente
+  ---
+  ADM-01 — Dois sistemas de auditoria paralelos
 
-TASK 4 — Garantir que o “Scene Generator Pro” contenha menus/submenus conforme:
-- “TIPOS DE CENA.json” (fonte de verdade) 
-- “listas peças.json” (fonte de verdade) 
-E confirmar que o gerador segue o agente descrito em:
-- “System Prompt CENAS PUBLICITÁRIAS.md”  [oai_citation:5‡TIPOS DE CENA.json](sediment://file_00000000554471f59bb50766eb940019)
+  Evidências:
+  - audit.ts:53 grava em audit_log (campos: entity, entity_id, details)
+  - migration 20260207201000 cria admin_audit_log (campos: resource, resource_id, status, error_code, etc.) — mais
+  completo, nunca usado
+  - audit_log não tem policy de RLS configurada apesar de ENABLE ROW LEVEL SECURITY
 
-SKILLS
-- UI schema-driven menus; validação de payload; prompt assembly para geração de imagem.
-MCPs
-- git-mcp, ci-mcp, playwright-mcp.
+  Causa raiz: Nova tabela criada em migration sem atualizar o código de audit.ts.
 
-PASSOS
-1) Implementar menus orientados por schema:
-   - Ler e carregar os JSONs (versões e estruturas).
-   - Renderizar menus e submenus exatamente como nos arquivos.
-   - Garantir que o payload enviado inclua: TIPO_DE_PECA + TIPO_DE_CENA + DESCRICAO_DA_CENA + ARTE_ORIGINAL.
-2) Confirmar prompt:
-   - O prompt do gerador deve respeitar as regras do “System Prompt CENAS PUBLICITÁRIAS.md”:
-     - NÃO editar ARTE_ORIGINAL; criar 3 cenas novas; aplicar a arte como textura; etc.  [oai_citation:6‡TIPOS DE CENA.json](sediment://file_00000000554471f59bb50766eb940019)
-3) Testes:
-   - Unit: parse dos JSONs e geração de lista de opções.
-   - E2E: selecionar opções e validar request payload.
-4) Critérios de aceite:
-   - Menus 100% compatíveis com os JSONs anexos.
-   - Prompt final montado segue as regras do documento do agente.
-5) Documentação:
-   - Atualizar “Scene Generator Pro — Menus, Payload e Prompt” em "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/".
+  Correção proposta: Migrar audit.ts para usar admin_audit_log (que já tem RLS com policy Admin read audit log). Após
+  migração, deprecar audit_log.
 
+  ---
+  ADM-02/ADM-03 — Rename de projeto sem atomicidade + replace sem anchoring
 
-⸻
+  Evidências:
+  - trabalhos/actions.ts:79-113: move storage → atualiza DB (nesta ordem)
+  - Se storage move OK mas DB update falha: arquivos em novo path, DB apontando para path antigo
+  - storage-utils.ts:41: file.replace(oldPrefix, newPrefix) — sem ^ anchoring
 
-TASK 5 — Copy Agent falha + YouTube + escolha Landing vs Modal + seguir template
+  Exemplo de falha de replace: Se oldPrefix = "client/proj-abc" e um arquivo tem path "client/proj-abc-v2/image.jpg", o
+  replace incorretamente muda para "client/proj-novo-v2/image.jpg".
 
-TASK 5 — Corrigir “Copy Agent” que sempre cai em:
-“A geração com IA falhou… Entregamos um rascunho base.”
-E implementar:
-- opção de enviar link do YouTube para criar textos,
-- menu inicial: “Landing Page” ou “Post Modal”,
-- garantir que segue “SUPER-TEMPLATE-COPY.md”  [oai_citation:7‡listas peças.json](sediment://file_00000000c244720e9eaeebcc2a8f8e05)
+  Correção proposta:
+  // storage-utils.ts - replace com anchoring correto
+  const newFilePath = file.startsWith(oldPrefix + '/')
+    ? newPrefix + file.slice(oldPrefix.length)
+    : file; // não mover se não for prefixo exato
 
-SKILLS
-- Prompting determinístico por template; extração de conteúdo (YouTube transcript quando aplicável); UX.
-MCPs
-- git-mcp, ci-mcp, playwright-mcp, (se existir) youtube/transcript-mcp; supabase-mcp (logs).
+  Para atomicidade: salvar no DB primeiro; se falhar, não mexer no storage. Se storage falhar após DB salvo, implementar
+   tarefa de reconciliação assíncrona.
 
-PASSOS
-1) Diagnóstico:
-   - Identificar por que sempre falha (token ausente? prompt inválido? timeout?).
-   - Garantir fallback só em erros reais, com log do motivo.
-2) Implementar UX:
-   - Tela inicial: escolher tipo de saída (MODAL vs LANDING PAGE).
-   - Campo opcional: link do YouTube + validação.
-3) Implementar engine:
-   - Montar prompt e saída EXATAMENTE nos campos do template escolhido.
-   - Regras do doc: nunca mudar nomes dos campos; nunca omitir campos; usar “(não informado)” quando necessário.  [oai_citation:8‡listas peças.json](sediment://file_00000000c244720e9eaeebcc2a8f8e05)
-   - Se YouTube: obter transcript e alimentar como contexto (sem inventar).
-4) Testes:
-   - Unit: parser de YouTube URL; seleção de template; validador de “campos obrigatórios”.
-   - E2E: gerar MODAL e LANDING com e sem YouTube.
-5) Critérios de aceite:
-   - A geração funciona; e quando falha, a mensagem é precisa e logs têm causa.
-   - Saída sempre respeita o template do doc.
-6) Documentação:
-   - Atualizar “Copy Agent — Templates, YouTube e Campos Obrigatórios” em "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/".
+  ---
+  SCN-01 — Modelos custom são aliases de DALL-E 3
 
+  Evidências:
+  - actions.ts:257-260: supportedModels = new Set(['dall-e-3', 'nano-banana', 'flow', 'whisky'])
+  - actions.ts:271: model: 'dall-e-3' hardcoded independentemente do modelo escolhido
+  - A única diferença é o promptStyle (texto do prompt)
 
-⸻
+  Impacto: Usuário seleciona "Whisky (cinematográfico)" esperando motor diferente, recebe DALL-E 3 com prompt diferente.
+   A diferença real é real (o estilo de prompt influencia o resultado), mas a apresentação é enganosa.
 
-TASK 6 — SETTINGS: salvar tokens + login/cadastro usuários + sync Supabase Storage e Firebase Secrets
+  Correção proposta: Ajustar UI para apresentar como "Estilos DALL-E 3" e não "modelos" distintos. Ou implementar
+  backends reais quando disponíveis.
 
-TASK 6 — Corrigir “SETTINGS - Configurações do Sistema” no ADMIN:
-- salvar tokens de ferramentas (imagem e texto),
-- adicionar/alterar login e cadastro de usuários,
-- garantir sincronização com Supabase (onde aplicável) e Firebase Secrets Manager.
+  ---
+  CPY-01 — YouTube: URL sem extração de transcript
 
-SKILLS
-- Gestão segura de secrets; RBAC; UI + backend; criptografia/mascaramento; auditoria.
-MCPs
-- firebase-mcp (secrets), supabase-mcp (auth/roles/db), git-mcp, ci-mcp, playwright-mcp.
+  Evidências:
+  - actions.ts:166-169: apenas concatena a URL como texto no prompt
+  - model: 'gpt-4o' não acessa URLs
+  - Sem chamada a YouTube Data API v3 ou serviço de transcript
 
-PASSOS
-1) Diagnóstico:
-   - Identificar onde os tokens deveriam estar: secrets manager vs DB (não salvar token em texto puro).
-   - Verificar permissões e fluxos de autenticação/usuários.
-2) Correção:
-   - Implementar armazenamento seguro: tokens no Firebase Secrets (ou equivalente) e apenas referências no DB.
-   - UI: campos com mask/preview parcial; botão “testar token”.
-   - CRUD de usuários: criar/editar/desativar; papéis.
-3) Sincronização:
-   - Definir fonte de verdade e rotina de sync (ex.: ao salvar no ADMIN, escreve no Secrets e valida).
-4) Testes:
-   - Unit: validação e máscara; permissões por role.
-   - Integration: leitura/escrita no secrets manager.
-   - E2E: salvar token, reiniciar sessão, token persiste e funciona.
-5) Critérios de aceite:
-   - Tokens persistem com segurança e são usados pelos apps (Scene/Copy).
-   - Gestão de usuários funciona com permissões corretas.
-6) Documentação:
-   - Atualizar “Settings — Tokens, Users e Secrets Sync” em "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/".
+  Impacto: Usuário espera que o conteúdo do vídeo informe a copy; na realidade o LLM apenas vê a URL como string, sem
+  conteúdo real.
 
+  Correções possíveis (por ordem de custo):
+  1. Adicionar campo de texto livre "Transcrição/roteiro" para o usuário colar manualmente
+  2. Integrar youtube-transcript npm para extrair transcript quando disponível
+  3. Usar YouTube Data API v3 para metadata (título, descrição, tags)
 
-⸻
+  ---
+  CPY-02 — Fallback silencioso com success: true
 
-TASK 7 — Corrigir issues do Supabase apontadas pelos CSVs do Security Advisor
+  Evidências:
+  - actions.ts:278-284: catch retorna success: true, content: buildFallbackCopy(), notice: '...'
+  - O notice é mostrado ao usuário mas o resultado tem aparência de sucesso
 
-TASK 7 — Analisar e corrigir erros/alertas de segurança no Supabase conforme:
-- “Security Advisor - erros.csv”  [oai_citation:9‡SUPER-TEMPLATE-COPY.md](sediment://file_000000005c7071f5bd7a9ac89194a439)
-- “Security Advisor-infos.csv”  [oai_citation:10‡ System Prompt CENAS PUBLICITÁRIAS.md](sediment://file_00000000428c71f5a3cef52cb0f3c94a)
+  Impacto: Admin pode não perceber que está recebendo um rascunho genérico (sem análise visual, sem SEO tags, sem campos
+   obrigatórios do template SUPER-TEMPLATE-COPY.md) em vez de copy gerado por IA.
 
-SKILLS
-- Hardening Supabase: RLS, policies, exposed tables/views, functions security definer, storage policy, auth.
-MCPs
-- supabase-mcp, postgres-mcp, git-mcp, ci-mcp.
+  Correção proposta:
+  return {
+    success: false, // ou usar `aiSuccess: false`
+    fallbackContent: buildFallbackCopy(context),
+    error: 'A geração com IA falhou. Rascunho base disponível abaixo.',
+  };
 
-PASSOS
-1) Parse dos CSVs:
-   - Listar findings por severidade/impacto.
-   - Para cada finding: evidência, objeto afetado (tabela/policy/função), recomendação.
-2) Correções típicas (aplicar conforme CSV):
-   - Habilitar RLS onde faltar; criar policies mínimas.
-   - Remover permissões públicas indevidas.
-   - Revisar funções SECURITY DEFINER e search_path.
-   - Ajustar storage buckets (public/private) e políticas.
-3) Testes:
-   - SQL tests: checar acesso anon/auth.
-   - Reexecutar (ou simular) checks do advisor.
-4) Critérios de aceite:
-   - Todos os “erros” do CSV resolvidos ou justificados com mitigação documentada.
-5) Documentação:
-   - Criar/atualizar “Security — Advisor Findings e Mitigações” em "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/".
+  ---
+  SET-02 — Divergência de roles entre admin_users e is_admin()
 
+  Evidências:
+  - admin_users.role CHECK IN ('owner', 'editor', 'viewer')
+  - is_admin() verifica: 'admin', 'owner', 'super_admin'
+  - Resultado: um usuário com role 'editor' em admin_users não é reconhecido como admin pela função is_admin(); pode
+  logar mas não consegue executar operações que exigem service_role
 
-⸻
+  Correção proposta: Alinhar os conjuntos de roles. Opções:
+  - A) Adicionar 'admin' e 'editor' ao CHECK de admin_users E ao is_admin()
+  - B) Usar a tabela admin_users diretamente no is_admin() (JOIN com auth.users)
 
-TASK 8 — Assets no Storage: garantir path /MARCA/NOME-DO-PROJETO/ASSETS… + rename/update sem duplicar
+  ---
+  4. PLANO DE AJUSTE (ROADMAP)
 
-TASK 8 — Auditar e corrigir salvamento de assets no Supabase Storage com base em:
-- “assets-site.json”  [oai_citation:11‡assets-site.json](sediment://file_00000000971871f5b8d9301db399ffba)
+  P0 — Segurança crítica (executar primeiro, em sequência)
 
-Requisitos:
-- Assets do projeto devem seguir:
-  "/MARCA/NOME-DO-PROJETO/ASSETS-DO-PROJETO"
-- Se houver landing page:
-  "/MARCA/NOME-DO-PROJETO/ASSETS-DO-PROJETO/LANDIN-PAGE"
-- Se mudar nome do projeto ou alterar algo em projeto existente:
-  deve atualizar/mover no Storage, NÃO criar novo conjunto/pasta.
+  P0.1 → Habilitar RLS em site_settings + revogar GRANT anon → migrar key para vault.secrets
+  P0.2 → Remover policy "Enable read access for all users" de admin_users
+  P0.3 → Resolver conflito de policies em portfolio_projects (remover Auth manage e authenticated_admin_full_access)
+  P0.4 → Criar policies para experiences, content_version, projects (legacy)
 
-SKILLS
-- Storage path design; migração de objetos; estratégia de rename; compatibilidade retroativa.
-MCPs
-- storage-mcp, supabase-mcp, postgres-mcp, git-mcp, ci-mcp, playwright-mcp.
+  Dependências: P0.1 depende de testar que getOpenAIKey() ainda funciona via service_role após RLS habilitado. P0.3 deve
+   ser testado com login de usuário não-admin para garantir bloqueio correto.
 
-PASSOS
-1) Auditoria:
-   - Usar assets-site.json para mapear padrões atuais de paths e buckets.
-   - Identificar inconsistências (ex.: paths genéricos “landing-pages/...”, duplicações, placeholders).
-2) Definir estratégia:
-   - Decidir se o path será por slug ou por ID estável + alias (recomendado p/ evitar renames frequentes).
-   - Se slug/nome mudar: executar “move” dos objetos e atualizar referências no DB.
-3) Implementar:
-   - Função/serviço de “rename project” que:
-     - move objetos no Storage,
-     - atualiza rows de assets (storage_path),
-     - mantém redirecionamento/compat por um período (se necessário).
-   - Garantir delete de assets órfãos.
-4) Testes:
-   - Integration: rename project move objetos; links funcionam; sem duplicar.
-   - E2E: editar projeto e ver assets refletidos corretamente.
-5) Critérios de aceite:
-   - Salvamento e organização obedecem exatamente o padrão requerido.
-   - Rename não duplica; apenas move/atualiza.
-6) Documentação:
-   - Atualizar “Assets — Estrutura de Pastas e Regras de Rename” em "/.context/DOCS-PORTFOLIO-PAGES/ADMIN/".
+  Riscos:
+  - P0.1 pode quebrar qualquer acesso público existente a site_settings (verificar se frontend usa)
+  - P0.4 pode re-habilitar acesso à tabela projects legada que estava efetivamente inativa
 
+  Rollback: Backup das policies atuais antes de qualquer DROP (executar pg_dump --schema-only).
 
+  ---
+  P1 — Alto impacto (após P0)
+
+  P1.1 → Unificar sistemas de audit: migrar audit.ts para admin_audit_log
+  P1.2 → Corrigir rename atômico: inverter ordem (DB first, storage second) + fix de anchoring no replace
+  P1.3 → YouTube Copy Agent: adicionar aviso explícito ou campo de transcrição manual
+  P1.4 → Copy Agent fallback: retornar success:false com fallbackContent separado
+  P1.5 → SCN-01: ajustar UI do Scene Generator para apresentar modelos como "estilos" não backends distintos
+  P1.6 → Alinhar roles de admin_users com is_admin()
+  P1.7 → Executar migração de storage do esquema v4/ para novo esquema (após P1.2)
+
+  ---
+  P2 — Melhorias (após P1)
+
+  P2.1 → SCN-02: corrigir mapeamento 4:5 → portrait (1024x1792) ou remover opção
+  P2.2 → Adicionar enum validation em pieceType no server action
+  P2.3 → Fortalecer validação de youtubeUrl (regex completa)
+  P2.4 → Renomear policy "replace_with_policy_name" com nome descritivo
+  P2.5 → Adicionar hash ao 3D asset ghost.glb para cache imutável
+  P2.6 → Avaliar autenticação nos endpoints das edge functions de limpeza
+  P2.7 → Confirmar conformidade de SCENE_CATEGORIES com TIPOS DE CENA.json [INDETERMINADO - requer arquivo]
+  P2.8 → Confirmar campos do outputFormat do Copy Agent com SUPER-TEMPLATE-COPY.md [INDETERMINADO - requer arquivo]
+
+  ---
+  5. CHECKLIST PÓS-CORREÇÃO
+
+  Banco de Dados
+
+  - site_settings: \d+ public.site_settings mostra row_security = on
+  - SELECT * FROM site_settings via anon key retorna 0 rows (403/empty)
+  - experiences: admin consegue INSERT/UPDATE via dashboard
+  - content_version: trigger bump_on_publish_impact executa sem erro após publicar projeto
+  - portfolio_projects: usuário autenticado sem role 'admin' recebe erro 42501 ao tentar INSERT
+  - admin_users: SELECT anon retorna 0 rows
+
+  Storage
+
+  - Renomear projeto de "brand-a/proj-old" para "brand-a/proj-new": todos os arquivos movidos corretamente, nenhum
+  arquivo duplicado
+  - Deletar projeto: storage limpo nos 3 path schemes
+  - Arquivo com nome "proj-abc-v2" não é afetado por rename de "proj-abc"
+  - buildV4Path(kind:'landing-page') gera path com landin-page (não landing-page)
+
+  Admin UI
+
+  - Settings: salvar OpenAI key → getOpenAIKey() retorna valor correto
+  - CRUD completo de projeto (criar, editar, renomear, incluir/remover peça, deletar)
+  - Scene Generator: geração com DALL-E 3 funciona; erro 429 retorna SCN-RATE-LIMIT
+  - Scene Generator: UI deixa claro que nano-banana/flow/whisky são estilos de prompt
+  - Copy Agent: falha de IA retorna estado não-sucesso com rascunho separado identificado
+  - Copy Agent: YouTube URL com domínio estranho é rejeitada na validação
+
+  Geração / Tokens
+
+  - openai_api_key não aparece em nenhum log de console (sanitizado)
+  - SUPABASE_SERVICE_ROLE_KEY não aparece em respostas HTTP ou payloads do cliente
+  - audit_log (ou admin_audit_log após unificação) registra todas as ações scene.generate e copy.generate
+
+  Segurança
+
+  - curl /rest/v1/site_settings com anon key: vazio ou 403
+  - curl /rest/v1/admin_users com anon key: vazio ou 403
+  - Nenhuma das policies usa placeholder replace_with_policy_name
+  - is_admin() retorna true para roles esperados; false para 'editor' se não mapeado
+
+  ---
+  ITENS INDETERMINADOS (requerem arquivos externos)
+
+  Item: SCN-04
+  Arquivo necessário: TIPOS DE CENA.json
+  O que verificar: Comparar categorias/subcategorias com SCENE_CATEGORIES em types.ts
+  ────────────────────────────────────────
+  Item: CPY-04
+  Arquivo necessário: SUPER-TEMPLATE-COPY.md
+  O que verificar: Comparar campos do outputFormat hardcoded em actions.ts com template oficial
+  ────────────────────────────────────────
+  Item: SCN-05
+  Arquivo necessário: System Prompt CENAS PUBLICITÁRIAS.md
+  O que verificar: Comparar promptBase em actions.ts com system prompt oficial
+  ────────────────────────────────────────
+  Item: STR-02
+  Arquivo necessário: assets-site.json
+  O que verificar: Verificar se paths de assets do site seguem convenção correta
+  ────────────────────────────────────────
+  Item: SCN-ADV
+  Arquivo necessário: listas peças.json
+  O que verificar: Confirmar se lista de peças no UI cobre todos os itens do JSON de referência

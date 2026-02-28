@@ -13,7 +13,6 @@ import {
   isVideo,
 } from '@/lib/utils';
 import styles from '@/components/portfolio/ProjectsGallery.module.css';
-import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 export type ProjectCardSize = 'sm' | 'md' | 'lg' | 'wide' | 'tall';
 
@@ -27,8 +26,9 @@ interface ProjectCardProps {
 }
 
 /**
- * ProjectCard - Ghost Era v2.0
- * Card editorial com efeito parallax interno e hover states refinados
+ * ProjectCard - Ghost Era v2.1
+ * Card editorial com hover states refinados.
+ * Sempre mostra imagem estática por padrão; vídeo aparece no hover se disponível.
  */
 export const ProjectCard = ({
   project,
@@ -40,7 +40,6 @@ export const ProjectCard = ({
 }: ProjectCardProps) => {
   const reduceMotion = useMotionGate();
 
-  // Adjusted for Ghost Era - No Scale on Hover, just clean slide up
   const motionProps = reduceMotion
     ? {
       initial: { opacity: 0 },
@@ -59,25 +58,36 @@ export const ProjectCard = ({
       },
     };
 
-  // Pre-calculate images to decouple desktop vs mobile
+  // Resolve best static image (never a video)
   const prefersSquareOnDesktop = ['sm', 'md', 'tall'].includes(size);
 
-  const desktopImage =
-    project.thumbnailMedia ??
-    project.videoPreview ??
-    (prefersSquareOnDesktop
+  // Build the static image: prefer non-video thumbnailMedia, then layout-appropriate images
+  const staticImageCandidates = [
+    !isVideo(project.thumbnailMedia) ? project.thumbnailMedia : undefined,
+    prefersSquareOnDesktop
       ? (project.imageSquare ?? project.imageLandscape ?? project.image)
-      : (project.imageLandscape ?? project.imageSquare ?? project.image)) ??
-    ASSET_PLACEHOLDER;
+      : (project.imageLandscape ?? project.imageSquare ?? project.image),
+  ].filter(Boolean) as string[];
 
-  const mobileImage =
-    project.thumbnailMedia ??
-    project.videoPreview ??
-    (project.imageLandscape ?? project.imageSquare ?? project.image) ??
-    ASSET_PLACEHOLDER;
+  const desktopImage = staticImageCandidates[0] || ASSET_PLACEHOLDER;
 
-  const isVideoPreview = isVideo(desktopImage);
-  const imagesDiffer = desktopImage !== mobileImage && !isVideoPreview;
+  // Mobile image — prefer landscape
+  const mobileImageCandidates = [
+    !isVideo(project.thumbnailMedia) ? project.thumbnailMedia : undefined,
+    project.imageLandscape ?? project.imageSquare ?? project.image,
+  ].filter(Boolean) as string[];
+
+  const mobileImage = mobileImageCandidates[0] || ASSET_PLACEHOLDER;
+
+  // Video source for hover — from thumbnailMedia or videoPreview (only if it's actually a video)
+  const videoSource = isVideo(project.thumbnailMedia)
+    ? project.thumbnailMedia
+    : isVideo(project.videoPreview)
+      ? project.videoPreview
+      : undefined;
+
+  const hasVideo = !!videoSource;
+  const imagesDiffer = desktopImage !== mobileImage && !hasVideo;
 
   const objectPosition = project.layout?.objectPosition ?? 'center';
   const sizes =
@@ -107,14 +117,6 @@ export const ProjectCard = ({
   const hasHoverRef = React.useRef(false);
   const [isHovered, setIsHovered] = React.useState(false);
 
-  // Deriva o WEBP do MP4 para o grid
-  const getPoster = (src: string) => {
-    if (src.endsWith('.mp4') || src.endsWith('.webm')) {
-      return src.replace(/\.(mp4|webm)$/i, '.webp');
-    }
-    return DEFAULT_VIDEO_POSTER;
-  };
-
   return (
     <motion.button
       type="button"
@@ -134,15 +136,16 @@ export const ProjectCard = ({
       {...motionProps}
     >
       <div className={styles.cardImageWrapper}>
-        {isVideoPreview ? (
+        {/* Static image — always visible by default */}
+        {imagesDiffer ? (
           <>
             <Image
-              src={getPoster(desktopImage)}
+              src={desktopImage}
               alt={project.title}
               fill
               className={cn(
-                'hidden md:block object-cover object-center transition-opacity duration-500 md:group-hover:opacity-100',
-                isHovered ? 'opacity-0' : 'opacity-95'
+                'hidden md:block object-cover object-center transition-opacity duration-500',
+                hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
               )}
               style={{ objectPosition }}
               sizes={sizes}
@@ -151,12 +154,12 @@ export const ProjectCard = ({
               onError={applyImageFallback}
             />
             <Image
-              src={getPoster(mobileImage)}
+              src={mobileImage}
               alt={project.title}
               fill
               className={cn(
-                'block md:hidden object-cover object-center transition-opacity duration-500 md:group-hover:opacity-100',
-                isHovered ? 'opacity-0' : 'opacity-95'
+                'block md:hidden object-cover object-center transition-opacity duration-500',
+                hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
               )}
               style={{ objectPosition }}
               sizes={sizes}
@@ -164,70 +167,39 @@ export const ProjectCard = ({
               priority={priority}
               onError={applyImageFallback}
             />
-            {hasHoverRef.current && (
-              <video
-                src={desktopImage}
-                autoPlay={isHovered}
-                muted
-                loop
-                playsInline
-                preload="none"
-                poster={getPoster(desktopImage)}
-                className={cn(
-                  "absolute inset-0 h-full w-full object-cover transition-opacity duration-500",
-                  isHovered ? 'opacity-100' : 'opacity-0'
-                )}
-                style={{ objectPosition }}
-              />
-            )}
           </>
         ) : (
-          <>
-            {imagesDiffer ? (
-              <>
-                <Image
-                  src={desktopImage}
-                  alt={project.title}
-                  fill
-                  className={cn(
-                    'hidden md:block object-cover object-center transition-opacity duration-500 group-hover:opacity-95'
-                  )}
-                  style={{ objectPosition }}
-                  sizes={sizes}
-                  loading={priority ? 'eager' : 'lazy'}
-                  priority={priority}
-                  onError={applyImageFallback}
-                />
-                <Image
-                  src={mobileImage}
-                  alt={project.title}
-                  fill
-                  className={cn(
-                    'block md:hidden object-cover object-center transition-opacity duration-500 group-hover:opacity-95'
-                  )}
-                  style={{ objectPosition }}
-                  sizes={sizes}
-                  loading={priority ? 'eager' : 'lazy'}
-                  priority={priority}
-                  onError={applyImageFallback}
-                />
-              </>
-            ) : (
-              <Image
-                src={desktopImage}
-                alt={project.title}
-                fill
-                className={cn(
-                  'object-cover object-center transition-opacity duration-500 group-hover:opacity-95'
-                )}
-                style={{ objectPosition }}
-                sizes={sizes}
-                loading={priority ? 'eager' : 'lazy'}
-                priority={priority}
-                onError={applyImageFallback}
-              />
+          <Image
+            src={desktopImage}
+            alt={project.title}
+            fill
+            className={cn(
+              'object-cover object-center transition-opacity duration-500',
+              hasVideo && isHovered ? 'opacity-0' : 'opacity-95 group-hover:opacity-100'
             )}
-          </>
+            style={{ objectPosition }}
+            sizes={sizes}
+            loading={priority ? 'eager' : 'lazy'}
+            priority={priority}
+            onError={applyImageFallback}
+          />
+        )}
+
+        {/* Video — lazy-loaded on first hover */}
+        {hasVideo && hasHoverRef.current && (
+          <video
+            src={videoSource}
+            autoPlay={isHovered}
+            muted
+            loop
+            playsInline
+            preload="none"
+            className={cn(
+              'absolute inset-0 h-full w-full object-cover transition-opacity duration-500',
+              isHovered ? 'opacity-100' : 'opacity-0'
+            )}
+            style={{ objectPosition }}
+          />
         )}
       </div>
 
@@ -249,4 +221,3 @@ export const ProjectCard = ({
     </motion.button>
   );
 };
-

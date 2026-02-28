@@ -60,13 +60,12 @@ export default function PortfolioHeroNew() {
         ) : (
           <Image
             src={HERO_POSTER}
-            alt=""
+            alt="Fundo decorativo principal do portfólio"
             fill
             priority
             unoptimized
             sizes="100vw"
             className="object-cover"
-            aria-hidden="true"
           />
         )}
       </div>

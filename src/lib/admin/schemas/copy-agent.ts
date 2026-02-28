@@ -23,6 +23,22 @@ export const COPY_FIELD_LIMITS = {
   youtubeUrl: { max: 500 },
 } as const;
 
+/** Validates that a YouTube URL belongs to a known YouTube hostname. */
+function isValidYouTubeUrl(val: string): boolean {
+  try {
+    const url = new URL(val);
+    const validHostnames = new Set([
+      'www.youtube.com',
+      'youtube.com',
+      'm.youtube.com',
+      'youtu.be',
+    ]);
+    return validHostnames.has(url.hostname);
+  } catch {
+    return false;
+  }
+}
+
 export const copyInputSchema = z.object({
   projectName: z
     .string()
@@ -92,9 +108,13 @@ export const copyInputSchema = z.object({
   outputType: z.enum(['landing', 'modal']),
   youtubeUrl: z
     .string()
+    .max(
+      COPY_FIELD_LIMITS.youtubeUrl.max,
+      `Use no máximo ${COPY_FIELD_LIMITS.youtubeUrl.max} caracteres.`
+    )
     .refine(
-      (val) => !val || val.includes('youtube.com') || val.includes('youtu.be'),
-      'URL deve ser um link válido do YouTube'
+      (val) => !val || isValidYouTubeUrl(val),
+      'URL deve ser um link válido do YouTube (ex: https://youtube.com/watch?v=...)'
     )
     .optional()
     .or(z.literal('')),
