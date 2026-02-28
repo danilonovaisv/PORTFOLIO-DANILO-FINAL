@@ -100,8 +100,8 @@ jobs:
 
       - name: Validate Firebase Auth Secret
         run: |
-          if [ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}" ]; then
-            echo "❌ ERRO: FIREBASE_SERVICE_ACCOUNT_JSON não configurado no GitHub Secrets."
+          if [ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS }}" ]; then
+            echo "❌ ERRO: FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS não configurado no GitHub Secrets."
             echo "Vá em Settings > Secrets and variables > Actions e adicione o JSON da conta de serviço."
             exit 1
           fi
@@ -110,7 +110,7 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS }}
           create_credentials_file: true
           export_environment_variables: true
 
