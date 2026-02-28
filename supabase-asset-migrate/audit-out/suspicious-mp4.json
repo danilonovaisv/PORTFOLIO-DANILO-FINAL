@@ -1,0 +1,147 @@
+[
+  {
+    "name": "v3/danilo/video/cover-16x9.7b1a4d235a211a41.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 938
+  },
+  {
+    "name": "v3/danilo/video/cover-1x1.bb4558569b67cba4.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 805.9
+  },
+  {
+    "name": "v3/danilo/brand-campaigns/thumb.81d4b78c214f8718.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 2315.2
+  },
+  {
+    "name": "v3/boticario/creative-concept/cover-16x9.7b1a4d235a211a41.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 938
+  },
+  {
+    "name": "v3/boticario/creative-concept/cover-1x1.bb4558569b67cba4.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 805.9
+  },
+  {
+    "name": "v3/mercado-pago/ai-video/cover-16x9.a2fa202ae9c8106d.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 2273.8
+  },
+  {
+    "name": "v3/mercado-pago/ai-video/cover-1x1.7f72aca040cd0495.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 426.3
+  },
+  {
+    "name": "v3/glad/brand-video/cover-16x9.93561b517db309a9.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 370.5
+  },
+  {
+    "name": "v3/danilo/advertising-video/thumb.a2fa202ae9c8106d.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 2273.8
+  },
+  {
+    "name": "v3/danilo/ai-video/cover-16x9.a2fa202ae9c8106d.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 2273.8
+  },
+  {
+    "name": "v3/danilo/ai-video/cover-1x1.7f72aca040cd0495.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 426.3
+  },
+  {
+    "name": "v3/danilo/animation/cover-16x9.7b1a4d235a211a41.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 938
+  },
+  {
+    "name": "v3/danilo/animation/cover-1x1.bb4558569b67cba4.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 805.9
+  },
+  {
+    "name": "v3/danilo/animation/hero.7f72aca040cd0495.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 426.3
+  },
+  {
+    "name": "v3/danilo/brand-campaigns/gallery/thumb-LOGO-full_compressed-mp4.81d4b78c214f8718.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 2315.2
+  },
+  {
+    "name": "v3/glad/brand-video/cover-1x1.93561b517db309a9.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 370.5
+  },
+  {
+    "name": "v3/glad/brand-video/gallery/THUMB-GLAD-mp4.93561b517db309a9.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 370.5
+  },
+  {
+    "name": "v3/glad/brand-video/gallery/THUMB-GLAD_compressed-mp4.93561b517db309a9.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 370.5
+  },
+  {
+    "name": "v3/glad/brand-video/hero.93561b517db309a9.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 370.5
+  },
+  {
+    "name": "v3/glad/brand-video/thumb.93561b517db309a9.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 370.5
+  },
+  {
+    "name": "v3/danilo/campaign/cover-16x9.7b1a4d235a211a41.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 938
+  },
+  {
+    "name": "v3/danilo/campaign/cover-1x1.bb4558569b67cba4.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 805.9
+  },
+  {
+    "name": "v3/danilo/campaign/thumb.81d4b78c214f8718.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 2315.2
+  },
+  {
+    "name": "v3/danilo/key-visual/gallery/THUMB_LOGO_ANIMADA-mp4.ca57b64bb4580ecb.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 288.4
+  },
+  {
+    "name": "v3/danilo/key-visual/thumb.ca57b64bb4580ecb.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 288.4
+  },
+  {
+    "name": "v3/danilo/print-design/cover-16x9.81d4b78c214f8718.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 2315.2
+  },
+  {
+    "name": "v3/danilo/print-design/cover-1x1.fad4ddd45ba37abf.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 1318.6
+  },
+  {
+    "name": "v3/danilo/print-design/thumb.81d4b78c214f8718.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 2315.2
+  },
+  {
+    "name": "v3/danilo/rebranding/thumb.616ba718923fee64.mp4",
+    "cache": "max-age=public, max-age=31536000, immutable",
+    "size_kb": 3275.2
+  }
+]

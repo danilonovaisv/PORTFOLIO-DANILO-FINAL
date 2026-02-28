@@ -1,0 +1,155 @@
+.
+├── 01-HOME
+│   ├── 01-HEADER
+│   │   ├── 01-HEADER-DESKTOP.jpg
+│   │   ├── 01-HEADER-MOBILE.jpg
+│   │   └── 01-HEADER.md
+│   ├── 02-HERO-HOME
+│   │   ├── 02-HERO-HOME-DESKTOP.jpg
+│   │   ├── 02-HERO-HOME-MOBILE.jpg
+│   │   ├── 02-HERO.md
+│   │   └── ghost.mp4
+│   ├── 03-VIDEO-MANIFESTO
+│   │   ├── 03-VIDEO-MANIFESTO-DESKTOP.jpg
+│   │   ├── 03-VIDEO-MANIFESTO-MOBILE.jpg
+│   │   └── 03-VIDEO-MANIFESTO.md
+│   ├── 04-PORTFOLIO-SHOWCASE
+│   │   ├── 04-PORTFOLIO-SHOWCASE-DESKTOP.jpg
+│   │   ├── 04-PORTFOLIO-SHOWCASE.md
+│   │   └── 04-PORTFOLIO-SHOWCASEMOBILE.jpg
+│   ├── 05-FEATURED-PROJECTS
+│   │   ├── 05-FEATURED-PROJECTS-DESKTOP.jpg
+│   │   ├── 05-FEATURED-PROJECTS-MOBILE.jpg
+│   │   └── 05-FEATURED-PROJECTS.md
+│   ├── 06-CLIENTS-BRANDS
+│   │   ├── 06-CLIENTS-BRANDS-DESKTOP.jpg
+│   │   ├── 06-CLIENTS-BRANDS-MOBILE.jpg
+│   │   └── 06-CLIENTS-BRANDS.md
+│   ├── 07-CONTACT
+│   │   ├── 07-CONTACT-DESKTOP.jpg
+│   │   ├── 07-CONTACT-MOBILE.jpg
+│   │   └── 07-CONTACT.md
+│   ├── 08-FOOTER
+│   │   ├── 08-FOOTER-DESKTOP.jpg
+│   │   ├── 08-FOOTER-MOBILE.jpg
+│   │   └── 08-FOOTER.md
+│   ├── 09-MODAL-ROOT.md
+│   ├── HOME - PROTOTIPO INTERATIVO.md
+│   ├── HOME-DESKTOP.jpg
+│   └── HOME-MOBILE.jpg
+├── 02-SOBRE
+│   ├── 01-HEADER
+│   │   ├── 01-HEADER-DESKTOP.jpg
+│   │   ├── 01-HEADER-MOBILE.jpg
+│   │   └── 01-HEADER.md
+│   ├── 02-HERO-SOBRE
+│   │   ├── 02-HERO-MANIFESTO.md
+│   │   ├── 02-HERO-SOBRE-DESKTOP.jpg
+│   │   └── 02-HERO-SOBRE-MOBILE.jpg
+│   ├── 03-ORIGEM-CRIATIVA
+│   │   ├── 03-ORIGEM-CRIATIVA-DESKTOP.jpg
+│   │   ├── 03-ORIGEM-CRIATIVA-MOBILE.jpg
+│   │   └── 03-ORIGEM-CRIATIVA.md
+│   ├── 04-O-QUE-EU-FACO
+│   │   ├── 04-O-QUE-EU-FACO-DESKTOP.jpg
+│   │   ├── 04-O-QUE-EU-FACO-MOBILE.jpg
+│   │   └── 04-O-QUE-EU-FACO.md
+│   ├── 05-COMO-EU-TRABALHO
+│   │   ├── 05-COMO-EU-TRABALHO-DESKTOP.jpg
+│   │   ├── 05-COMO-EU-TRABALHO-MOBILE.jpg
+│   │   └── 05-COMO-EU-TRABALHO.md
+│   ├── 06-O-QUE-ME-MOVE
+│   │   ├── 06-O-QUE-ME-MOVE-DESKTOP-FINAL.jpg
+│   │   ├── 06-O-QUE-ME-MOVE-DESKTOP-INICIAL.jpg
+│   │   ├── 06-O-QUE-ME-MOVE-DESKTOP.jpg
+│   │   ├── 06-O-QUE-ME-MOVE-MOBILE-FINAL.png
+│   │   ├── 06-O-QUE-ME-MOVE-MOBILE-INICIAL.png
+│   │   └── 06-O-QUE-ME-MOVE.md
+│   ├── 07-FECHAMENTO-CONFIRMACAO
+│   │   ├── 07-FECHAMENTO-CONFIRMACAO-DESKTOP.jpg
+│   │   ├── 07-FECHAMENTO-CONFIRMACAO-MOBILE.jpg
+│   │   └── 07-FECHAMENTO-CONFIRMACAO.md
+│   ├── 08-CLIENTS-BRANDS
+│   │   ├── 08-CLIENTS-BRANDS-DESKTOP.jpg
+│   │   ├── 08-CLIENTS-BRANDS-MOBILE.jpg
+│   │   └── 08-CLIENTS-BRANDS.md
+│   ├── 09-CONTACT
+│   │   ├── 09-CONTACT-DESKTOP.jpg
+│   │   ├── 09-CONTACT-MOBILE.jpg
+│   │   └── 09-CONTACT.md
+│   ├── 10-FOOTER
+│   │   ├── 10-FOOTER-DESKTOP.jpg
+│   │   ├── 10-FOOTER-MOBILE.jpg
+│   │   └── 10-FOOTER.md
+│   ├── ANALISE-GLOBAL-DA-SOBRE.md
+│   ├── SOBRE-DESCKTOP-INICIAL.jpg
+│   ├── SOBRE-DESKTOP-FINAL.jpg
+│   ├── SOBRE-MOBILE-FINAL.jpg
+│   ├── SOBRE-MOBILE-INICIAL.jpg
+│   └── SOBRE-PROTOTIPO-INTERATIVO.md
+├── 03-PORTFOLIO
+│   ├── 01-HEADER
+│   │   ├── 01-HEADER-DESKTOP.jpg
+│   │   ├── 01-HEADER-MOBILE.jpg
+│   │   └── 01-HEADER.md
+│   ├── 02-HERO
+│   │   ├── 02-HERO-DESKTOP.jpg
+│   │   ├── 02-HERO-MOBILE.jpg
+│   │   └── 02-HERO.md
+│   ├── 03-GALLERY
+│   │   ├── 03-GALLERY-DESKTOP.jpg
+│   │   ├── 03-GALLERY-MOBILE.jpg
+│   │   └── 03-GALLERY.md
+│   ├── 04-PROJECT-CARDS
+│   │   ├── 04-PROJECT-CARDS-DESKTOP.jpg
+│   │   ├── 04-PROJECT-CARDS-MOBILE.jpg
+│   │   └── 04-PROJECT-CARDS.md
+│   ├── 05-MODAL
+│   │   └── 05-MODAL.md
+│   ├── 06-PROJETO-SLUG
+│   │   ├── 06-PROJETO-SLUG.md
+│   │   ├── LANDING-PAGE-DESKTOP.jpg
+│   │   └── LANDING-PAGE-MOBILE.jpg
+│   ├── 07-CLIENTS-BRANDS
+│   │   ├── 07-CLIENTS-BRANDS-DESKTOP.jpg
+│   │   ├── 07-CLIENTS-BRANDS-MOBILE.jpg
+│   │   └── 07-CLIENTS-BRANDS.md
+│   ├── 08-CONTACT
+│   │   ├── 08-CONTACT-DESKTOP.jpg
+│   │   ├── 08-CONTACT-MOBILE.jpg
+│   │   └── 08-CONTACT.md
+│   ├── 09-FOOTER
+│   │   ├── 09-FOOTER-DESKTOP.jpg
+│   │   ├── 09-FOOTER-MOBILE.jpg
+│   │   └── 09-FOOTER.md
+│   ├── 10-ANALISE-GLOBAL-DA-PORTFOLIO.md
+│   ├── 11-INDEX-DOCUMENTACAO-PORTFOLIO.md
+│   ├── 12-REFERENCIAS-CONTEXT7.md
+│   ├── PORTFOLIO-LAYOUYT.jpg
+│   ├── PORTFOLIO-MOBILE.jpg
+│   └── PORTFOLIO-PROTOTIPO-INTERATIVO.md
+├── 04-ADMIN
+│   ├── 01-AUTH-LOGIN.md
+│   ├── 02-PROTECTED-LAYOUT-SHELL.md
+│   ├── 03-DASHBOARD.md
+│   ├── 04-TRABALHOS.md
+│   ├── 05-TAGS.md
+│   ├── 06-MIDIA.md
+│   ├── 07-LANDING-PAGES.md
+│   ├── 08-SETTINGS-CONFIG.md
+│   ├── 09-COPY-AGENT.md
+│   ├── 10-SCENE-GENERATOR.md
+│   ├── 12-INDEX-DOCUMENTACAO-ADMIN.md
+│   ├── 13-REFERENCIAS-CONTEXT7.md
+│   ├── ADMIN - PROTOTIPO INTERATIVO.md
+│   ├── IMAGENS
+│   ├── LANDING-PAGE-DESKTOP.jpg
+│   ├── LANDING-PAGE-MOBILE.jpg
+│   ├── POP-UP DE PROJETO (SEM LANDING PAGE).md
+│   ├── PROTOTIPO INTERATIVO DA LANDING PAGE.md
+│   └── REFERENCIAS
+├── Antigravity Documentation & Prompt Engine — Workspace Template.md
+├── GHOST-DESIGN-SYSTEM.md
+└── estrutura.txt
+
+34 directories, 119 files

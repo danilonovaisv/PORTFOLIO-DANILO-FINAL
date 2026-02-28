@@ -1,0 +1,107 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { useMotionGate } from '@/hooks/useMotionGate';
+import { HOME_CONTENT } from '@/config/content';
+import { GHOST_EASE, viewportConfig } from '@/config/motion';
+
+/**
+ * ClientsBrandsSection - Exibe logotipos das marcas/clientes
+ * Segue o Ghost System v3.0 com animações sutis e responsividade
+ */
+import { DynamicAssetImage } from '@/components/ui/shared/DynamicAssetImage';
+import { SITE_ASSET_KEYS } from '@/config/site-assets';
+
+/**
+ * ClientsBrandsSection - Exibe logotipos das marcas/clientes
+ * Segue o Ghost System v3.0 com animações sutis e responsividade
+ */
+export default function ClientsBrandsSection() {
+  const reducedMotion = useMotionGate();
+  const logos = HOME_CONTENT.clients.logos.slice(0, 12);
+
+  return (
+    <section
+      id="clients"
+      className="bg-bluePrimary py-16 md:py-20 lg:py-24 relative z-10 overflow-hidden"
+      aria-labelledby="clients-heading"
+    >
+      {/* Container usando std-grid padrão do projeto */}
+      <div className="std-grid">
+        {/* Título da seção */}
+        <motion.div
+          initial={reducedMotion ? { opacity: 1 } : { opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewportConfig}
+          transition={{
+            duration: 0.6,
+            ease: GHOST_EASE as [number, number, number, number],
+          }}
+          className="mb-10 md:mb-16 lg:mb-20"
+        >
+          <h2
+            id="clients-heading"
+            className="text-white text-[1.5rem] md:text-[2rem] font-bold text-center tracking-tight leading-tight lowercase"
+          >
+            {HOME_CONTENT.clients.title}
+          </h2>
+        </motion.div>
+
+        {/* Grid de Logos com acessibilidade */}
+        <motion.ul
+          role="list"
+          aria-label="Logotipos das marcas parceiras"
+          initial="hidden"
+          whileInView="show"
+          viewport={viewportConfig}
+          variants={{
+            hidden: {},
+            show: {
+              transition: {
+                staggerChildren: 0.08,
+                delayChildren: 0.1,
+              },
+            },
+          }}
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-center justify-items-center w-full"
+        >
+          {logos.map((logo, index) => {
+            // const shouldEagerLoad = logo.id <= 3; // Removed unused var
+            const assetKey = SITE_ASSET_KEYS.clients.strips[index];
+
+            return (
+              <motion.li
+                key={logo.id}
+                role="listitem"
+                variants={{
+                  hidden: { opacity: 0, y: 20, filter: 'blur(4px)' },
+                  show: {
+                    opacity: 1,
+                    y: 0,
+                    filter: 'blur(0px)',
+                    transition: {
+                      duration: 0.8,
+                      ease: GHOST_EASE,
+                    },
+                  },
+                }}
+              >
+                <div className="group relative w-32 h-16 sm:w-40 sm:h-20 md:w-48 md:h-24 flex items-center justify-center transition-transform duration-500 will-change-transform group-hover:-translate-y-0.5 p-2">
+                  <DynamicAssetImage
+                    assetKey={assetKey}
+                    alt={logo.alt}
+                    fallbackUrl={logo.src || ''}
+                    priority={false}
+                    objectFit="contain"
+                    sizes="(max-width: 640px) 128px, (max-width: 768px) 160px, 192px"
+                    className="w-full h-full filter brightness-0 invert opacity-60 transition-all duration-500 group-hover:opacity-100"
+                  />
+                </div>
+              </motion.li>
+            );
+          })}
+        </motion.ul>
+      </div>
+    </section>
+  );
+}

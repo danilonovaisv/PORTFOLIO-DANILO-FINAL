@@ -1,0 +1,33 @@
+{
+  "workflow": "audit-fullstack-config",
+  "timestamp_utc": "2026-02-14T12:02:52+00:00",
+  "auto_fix": false,
+  "global_score": 73,
+  "security_score": 64,
+  "performance_score": 86,
+  "status": "REQUIRES_ACTION",
+  "audits": {
+    "supabase_storage": {
+      "score": 52,
+      "summary": {
+        "total_findings": 4,
+        "critical": 1,
+        "high": 1,
+        "medium": 2,
+        "low": 0,
+        "info": 0
+      }
+    },
+    "firebase_hosting": {
+      "score": 77,
+      "summary": {
+        "total_findings": 5,
+        "critical": 0,
+        "high": 1,
+        "medium": 3,
+        "low": 1,
+        "info": 0
+      }
+    }
+  }
+}

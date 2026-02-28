@@ -1,0 +1,1249 @@
+"""
+✨ `Image_KeyOutput` returns the primary key fields of table type `Image`.
+
+It has the same format as `Image_Key`, but is only used as mutation return value.
+"""
+scalar Image_KeyOutput
+"""
+✨ `Project_KeyOutput` returns the primary key fields of table type `Project`.
+
+It has the same format as `Project_Key`, but is only used as mutation return value.
+"""
+scalar Project_KeyOutput
+"""
+✨ `ProjectSkill_KeyOutput` returns the primary key fields of table type `ProjectSkill`.
+
+It has the same format as `ProjectSkill_Key`, but is only used as mutation return value.
+"""
+scalar ProjectSkill_KeyOutput
+"""
+✨ `Skill_KeyOutput` returns the primary key fields of table type `Skill`.
+
+It has the same format as `Skill_Key`, but is only used as mutation return value.
+"""
+scalar Skill_KeyOutput
+"""
+✨ `User_KeyOutput` returns the primary key fields of table type `User`.
+
+It has the same format as `User_Key`, but is only used as mutation return value.
+"""
+scalar User_KeyOutput
+"""
+✨ Generated data input type for table 'Image'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Image_Data {
+  """
+  ✨ Generated from Field `Image`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Image`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Image`.`projectId` of type `UUID`
+  """
+  projectId: UUID
+  """
+  ✨ `_expr` server value variant of `projectId` (✨ Generated from Field `Image`.`projectId` of type `UUID`)
+  """
+  projectId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Image`.`project` of type `Project`
+  """
+  project: Project_Key
+  """
+  ✨ Generated from Field `Image`.`altText` of type `String!`
+  """
+  altText: String
+  """
+  ✨ `_expr` server value variant of `altText` (✨ Generated from Field `Image`.`altText` of type `String!`)
+  """
+  altText_expr: String_Expr
+  """
+  ✨ Generated from Field `Image`.`url` of type `String!`
+  """
+  url: String
+  """
+  ✨ `_expr` server value variant of `url` (✨ Generated from Field `Image`.`url` of type `String!`)
+  """
+  url_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'Image'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Image_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Image_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Image_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Image_Filter!]
+  """
+  ✨ Generated from Field `Image`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Image`.`projectId` of type `UUID`
+  """
+  projectId: UUID_Filter
+  """
+  ✨ Generated from Field `Image`.`project` of type `Project`
+  """
+  project: Project_Filter
+  """
+  ✨ Generated from Field `Image`.`altText` of type `String!`
+  """
+  altText: String_Filter
+  """
+  ✨ Generated from Field `Image`.`url` of type `String!`
+  """
+  url: String_Filter
+}
+"""
+✨ Generated first-row input type for table 'Image'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Image_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Image_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Image_Filter
+}
+"""
+✨ Generated having input type for table 'Image'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Image_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [Image_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: Image_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [Image_Having!]
+  """
+  ✨ Generated from Field `Image`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `Image`.`altText_count` of type `Int!`
+  """
+  altText_count: Int_Filter
+  """
+  ✨ Generated from Field `Image`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `Image`.`projectId_count` of type `Int!`
+  """
+  projectId_count: Int_Filter
+  """
+  ✨ Generated from Field `Image`.`url_count` of type `Int!`
+  """
+  url_count: Int_Filter
+}
+"""
+✨ Generated key input type for table 'Image'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Image_Key {
+  """
+  ✨ Generated from Field `Image`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Image`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Image'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Image_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Image_Filter
+}
+"""
+✨ Generated order input type for table 'Image'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Image_Order {
+  """
+  ✨ Generated from Field `Image`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Image`.`projectId` of type `UUID`
+  """
+  projectId: OrderDirection
+  """
+  ✨ Generated from Field `Image`.`project` of type `Project`
+  """
+  project: Project_Order
+  """
+  ✨ Generated from Field `Image`.`altText` of type `String!`
+  """
+  altText: OrderDirection
+  """
+  ✨ Generated from Field `Image`.`url` of type `String!`
+  """
+  url: OrderDirection
+  """
+  ✨ Generated from Field `Image`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `Image`.`altText_count` of type `Int!`
+  """
+  altText_count: OrderDirection
+  """
+  ✨ Generated from Field `Image`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `Image`.`projectId_count` of type `Int!`
+  """
+  projectId_count: OrderDirection
+  """
+  ✨ Generated from Field `Image`.`url_count` of type `Int!`
+  """
+  url_count: OrderDirection
+}
+"""
+✨ Generated data input type for table 'Project'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Project_Data {
+  """
+  ✨ Generated from Field `Project`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Project`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Project`.`userId` of type `UUID`
+  """
+  userId: UUID
+  """
+  ✨ `_expr` server value variant of `userId` (✨ Generated from Field `Project`.`userId` of type `UUID`)
+  """
+  userId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Project`.`user` of type `User`
+  """
+  user: User_Key
+  """
+  ✨ Generated from Field `Project`.`client` of type `String`
+  """
+  client: String
+  """
+  ✨ `_expr` server value variant of `client` (✨ Generated from Field `Project`.`client` of type `String`)
+  """
+  client_expr: String_Expr
+  """
+  ✨ Generated from Field `Project`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createdAt` (✨ Generated from Field `Project`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createdAt` (✨ Generated from Field `Project`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `createdAt` (✨ Generated from Field `Project`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_update: [Timestamp_Update!]
+  """
+  ✨ Generated from Field `Project`.`description` of type `String!`
+  """
+  description: String
+  """
+  ✨ `_expr` server value variant of `description` (✨ Generated from Field `Project`.`description` of type `String!`)
+  """
+  description_expr: String_Expr
+  """
+  ✨ Generated from Field `Project`.`link` of type `String`
+  """
+  link: String
+  """
+  ✨ `_expr` server value variant of `link` (✨ Generated from Field `Project`.`link` of type `String`)
+  """
+  link_expr: String_Expr
+  """
+  ✨ Generated from Field `Project`.`role` of type `String`
+  """
+  role: String
+  """
+  ✨ `_expr` server value variant of `role` (✨ Generated from Field `Project`.`role` of type `String`)
+  """
+  role_expr: String_Expr
+  """
+  ✨ Generated from Field `Project`.`title` of type `String!`
+  """
+  title: String
+  """
+  ✨ `_expr` server value variant of `title` (✨ Generated from Field `Project`.`title` of type `String!`)
+  """
+  title_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'Project'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Project_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Project_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Project_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Project_Filter!]
+  """
+  ✨ Generated from Field `Project`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Project`.`userId` of type `UUID`
+  """
+  userId: UUID_Filter
+  """
+  ✨ Generated from Field `Project`.`user` of type `User`
+  """
+  user: User_Filter
+  """
+  ✨ Generated from Field `Project`.`client` of type `String`
+  """
+  client: String_Filter
+  """
+  ✨ Generated from Field `Project`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `Project`.`description` of type `String!`
+  """
+  description: String_Filter
+  """
+  ✨ Generated from Field `Project`.`link` of type `String`
+  """
+  link: String_Filter
+  """
+  ✨ Generated from Field `Project`.`role` of type `String`
+  """
+  role: String_Filter
+  """
+  ✨ Generated from Field `Project`.`title` of type `String!`
+  """
+  title: String_Filter
+  """
+  ✨ Generated from Field `Project`.`images_on_project` of type `[Image!]!`
+  """
+  images_on_project: Image_ListFilter
+  """
+  ✨ Generated from Field `Project`.`projectSkills_on_project` of type `[ProjectSkill!]!`
+  """
+  projectSkills_on_project: ProjectSkill_ListFilter
+  """
+  ✨ Generated from Field `Project`.`skills_via_ProjectSkill` of type `[Skill!]!`
+  """
+  skills_via_ProjectSkill: Skill_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'Project'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Project_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Project_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Project_Filter
+}
+"""
+✨ Generated having input type for table 'Project'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Project_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [Project_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: Project_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [Project_Having!]
+  """
+  ✨ Generated from Field `Project`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `Project`.`client_count` of type `Int!`
+  """
+  client_count: Int_Filter
+  """
+  ✨ Generated from Field `Project`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: Int_Filter
+  """
+  ✨ Generated from Field `Project`.`description_count` of type `Int!`
+  """
+  description_count: Int_Filter
+  """
+  ✨ Generated from Field `Project`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `Project`.`link_count` of type `Int!`
+  """
+  link_count: Int_Filter
+  """
+  ✨ Generated from Field `Project`.`role_count` of type `Int!`
+  """
+  role_count: Int_Filter
+  """
+  ✨ Generated from Field `Project`.`title_count` of type `Int!`
+  """
+  title_count: Int_Filter
+  """
+  ✨ Generated from Field `Project`.`userId_count` of type `Int!`
+  """
+  userId_count: Int_Filter
+  """
+  ✨ Generated from Field `Project`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `Project`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: Timestamp_Filter
+}
+"""
+✨ Generated key input type for table 'Project'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Project_Key {
+  """
+  ✨ Generated from Field `Project`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Project`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Project'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Project_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Project_Filter
+}
+"""
+✨ Generated order input type for table 'Project'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Project_Order {
+  """
+  ✨ Generated from Field `Project`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`userId` of type `UUID`
+  """
+  userId: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`user` of type `User`
+  """
+  user: User_Order
+  """
+  ✨ Generated from Field `Project`.`client` of type `String`
+  """
+  client: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`description` of type `String!`
+  """
+  description: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`link` of type `String`
+  """
+  link: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`role` of type `String`
+  """
+  role: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`title` of type `String!`
+  """
+  title: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`client_count` of type `Int!`
+  """
+  client_count: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`description_count` of type `Int!`
+  """
+  description_count: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`link_count` of type `Int!`
+  """
+  link_count: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`role_count` of type `Int!`
+  """
+  role_count: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`title_count` of type `Int!`
+  """
+  title_count: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`userId_count` of type `Int!`
+  """
+  userId_count: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: OrderDirection
+  """
+  ✨ Generated from Field `Project`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: OrderDirection
+}
+"""
+✨ Generated data input type for table 'ProjectSkill'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input ProjectSkill_Data {
+  """
+  ✨ Generated from Field `ProjectSkill`.`projectId` of type `UUID!`
+  """
+  projectId: UUID
+  """
+  ✨ `_expr` server value variant of `projectId` (✨ Generated from Field `ProjectSkill`.`projectId` of type `UUID!`)
+  """
+  projectId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `ProjectSkill`.`skillId` of type `UUID!`
+  """
+  skillId: UUID
+  """
+  ✨ `_expr` server value variant of `skillId` (✨ Generated from Field `ProjectSkill`.`skillId` of type `UUID!`)
+  """
+  skillId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `ProjectSkill`.`project` of type `Project!`
+  """
+  project: Project_Key
+  """
+  ✨ Generated from Field `ProjectSkill`.`skill` of type `Skill!`
+  """
+  skill: Skill_Key
+}
+"""
+✨ Generated filter input type for table 'ProjectSkill'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input ProjectSkill_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [ProjectSkill_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: ProjectSkill_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [ProjectSkill_Filter!]
+  """
+  ✨ Generated from Field `ProjectSkill`.`projectId` of type `UUID!`
+  """
+  projectId: UUID_Filter
+  """
+  ✨ Generated from Field `ProjectSkill`.`skillId` of type `UUID!`
+  """
+  skillId: UUID_Filter
+  """
+  ✨ Generated from Field `ProjectSkill`.`project` of type `Project!`
+  """
+  project: Project_Filter
+  """
+  ✨ Generated from Field `ProjectSkill`.`skill` of type `Skill!`
+  """
+  skill: Skill_Filter
+}
+"""
+✨ Generated first-row input type for table 'ProjectSkill'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input ProjectSkill_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [ProjectSkill_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: ProjectSkill_Filter
+}
+"""
+✨ Generated having input type for table 'ProjectSkill'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input ProjectSkill_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [ProjectSkill_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: ProjectSkill_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [ProjectSkill_Having!]
+  """
+  ✨ Generated from Field `ProjectSkill`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `ProjectSkill`.`projectId_count` of type `Int!`
+  """
+  projectId_count: Int_Filter
+  """
+  ✨ Generated from Field `ProjectSkill`.`skillId_count` of type `Int!`
+  """
+  skillId_count: Int_Filter
+}
+"""
+✨ Generated key input type for table 'ProjectSkill'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input ProjectSkill_Key {
+  """
+  ✨ Generated from Field `ProjectSkill`.`projectId` of type `UUID!`
+  """
+  projectId: UUID
+  """
+  ✨ `_expr` server value variant of `projectId` (✨ Generated from Field `ProjectSkill`.`projectId` of type `UUID!`)
+  """
+  projectId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `ProjectSkill`.`skillId` of type `UUID!`
+  """
+  skillId: UUID
+  """
+  ✨ `_expr` server value variant of `skillId` (✨ Generated from Field `ProjectSkill`.`skillId` of type `UUID!`)
+  """
+  skillId_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'ProjectSkill'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input ProjectSkill_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: ProjectSkill_Filter
+}
+"""
+✨ Generated order input type for table 'ProjectSkill'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input ProjectSkill_Order {
+  """
+  ✨ Generated from Field `ProjectSkill`.`projectId` of type `UUID!`
+  """
+  projectId: OrderDirection
+  """
+  ✨ Generated from Field `ProjectSkill`.`skillId` of type `UUID!`
+  """
+  skillId: OrderDirection
+  """
+  ✨ Generated from Field `ProjectSkill`.`project` of type `Project!`
+  """
+  project: Project_Order
+  """
+  ✨ Generated from Field `ProjectSkill`.`skill` of type `Skill!`
+  """
+  skill: Skill_Order
+  """
+  ✨ Generated from Field `ProjectSkill`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `ProjectSkill`.`projectId_count` of type `Int!`
+  """
+  projectId_count: OrderDirection
+  """
+  ✨ Generated from Field `ProjectSkill`.`skillId_count` of type `Int!`
+  """
+  skillId_count: OrderDirection
+}
+"""
+✨ Generated data input type for table 'Skill'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input Skill_Data {
+  """
+  ✨ Generated from Field `Skill`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Skill`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Skill`.`userId` of type `UUID`
+  """
+  userId: UUID
+  """
+  ✨ `_expr` server value variant of `userId` (✨ Generated from Field `Skill`.`userId` of type `UUID`)
+  """
+  userId_expr: UUID_Expr
+  """
+  ✨ Generated from Field `Skill`.`user` of type `User`
+  """
+  user: User_Key
+  """
+  ✨ Generated from Field `Skill`.`name` of type `String!`
+  """
+  name: String
+  """
+  ✨ `_expr` server value variant of `name` (✨ Generated from Field `Skill`.`name` of type `String!`)
+  """
+  name_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'Skill'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Skill_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [Skill_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: Skill_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [Skill_Filter!]
+  """
+  ✨ Generated from Field `Skill`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `Skill`.`userId` of type `UUID`
+  """
+  userId: UUID_Filter
+  """
+  ✨ Generated from Field `Skill`.`user` of type `User`
+  """
+  user: User_Filter
+  """
+  ✨ Generated from Field `Skill`.`name` of type `String!`
+  """
+  name: String_Filter
+  """
+  ✨ Generated from Field `Skill`.`projectSkills_on_skill` of type `[ProjectSkill!]!`
+  """
+  projectSkills_on_skill: ProjectSkill_ListFilter
+  """
+  ✨ Generated from Field `Skill`.`projects_via_ProjectSkill` of type `[Project!]!`
+  """
+  projects_via_ProjectSkill: Project_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'Skill'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input Skill_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [Skill_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: Skill_Filter
+}
+"""
+✨ Generated having input type for table 'Skill'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input Skill_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [Skill_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: Skill_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [Skill_Having!]
+  """
+  ✨ Generated from Field `Skill`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `Skill`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `Skill`.`name_count` of type `Int!`
+  """
+  name_count: Int_Filter
+  """
+  ✨ Generated from Field `Skill`.`userId_count` of type `Int!`
+  """
+  userId_count: Int_Filter
+}
+"""
+✨ Generated key input type for table 'Skill'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input Skill_Key {
+  """
+  ✨ Generated from Field `Skill`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `Skill`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'Skill'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input Skill_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: Skill_Filter
+}
+"""
+✨ Generated order input type for table 'Skill'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input Skill_Order {
+  """
+  ✨ Generated from Field `Skill`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `Skill`.`userId` of type `UUID`
+  """
+  userId: OrderDirection
+  """
+  ✨ Generated from Field `Skill`.`user` of type `User`
+  """
+  user: User_Order
+  """
+  ✨ Generated from Field `Skill`.`name` of type `String!`
+  """
+  name: OrderDirection
+  """
+  ✨ Generated from Field `Skill`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `Skill`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `Skill`.`name_count` of type `Int!`
+  """
+  name_count: OrderDirection
+  """
+  ✨ Generated from Field `Skill`.`userId_count` of type `Int!`
+  """
+  userId_count: OrderDirection
+}
+"""
+✨ Generated data input type for table 'User'. It includes all necessary fields for creating or upserting rows into table.
+"""
+input User_Data {
+  """
+  ✨ Generated from Field `User`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `User`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+  """
+  ✨ Generated from Field `User`.`bio` of type `String`
+  """
+  bio: String
+  """
+  ✨ `_expr` server value variant of `bio` (✨ Generated from Field `User`.`bio` of type `String`)
+  """
+  bio_expr: String_Expr
+  """
+  ✨ Generated from Field `User`.`contactInfo` of type `String`
+  """
+  contactInfo: String
+  """
+  ✨ `_expr` server value variant of `contactInfo` (✨ Generated from Field `User`.`contactInfo` of type `String`)
+  """
+  contactInfo_expr: String_Expr
+  """
+  ✨ Generated from Field `User`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp
+  """
+  ✨ `_expr` server value variant of `createdAt` (✨ Generated from Field `User`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_expr: Timestamp_Expr
+  """
+  ✨ `_time` server value variant of `createdAt` (✨ Generated from Field `User`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_time: Timestamp_Relative
+  """
+  ✨ `_update` server value variant of `createdAt` (✨ Generated from Field `User`.`createdAt` of type `Timestamp!`)
+  """
+  createdAt_update: [Timestamp_Update!]
+  """
+  ✨ Generated from Field `User`.`email` of type `String!`
+  """
+  email: String
+  """
+  ✨ `_expr` server value variant of `email` (✨ Generated from Field `User`.`email` of type `String!`)
+  """
+  email_expr: String_Expr
+  """
+  ✨ Generated from Field `User`.`name` of type `String!`
+  """
+  name: String
+  """
+  ✨ `_expr` server value variant of `name` (✨ Generated from Field `User`.`name` of type `String!`)
+  """
+  name_expr: String_Expr
+  """
+  ✨ Generated from Field `User`.`password` of type `String!`
+  """
+  password: String
+  """
+  ✨ `_expr` server value variant of `password` (✨ Generated from Field `User`.`password` of type `String!`)
+  """
+  password_expr: String_Expr
+  """
+  ✨ Generated from Field `User`.`profilePicture` of type `String`
+  """
+  profilePicture: String
+  """
+  ✨ `_expr` server value variant of `profilePicture` (✨ Generated from Field `User`.`profilePicture` of type `String`)
+  """
+  profilePicture_expr: String_Expr
+}
+"""
+✨ Generated filter input type for table 'User'. This input allows filtering objects using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input User_Filter {
+  """
+  Apply multiple filter conditions using `AND` logic.
+  """
+  _and: [User_Filter!]
+  """
+  Negate the result of the provided filter condition.
+  """
+  _not: User_Filter
+  """
+  Apply multiple filter conditions using `OR` logic.
+  """
+  _or: [User_Filter!]
+  """
+  ✨ Generated from Field `User`.`id` of type `UUID!`
+  """
+  id: UUID_Filter
+  """
+  ✨ Generated from Field `User`.`bio` of type `String`
+  """
+  bio: String_Filter
+  """
+  ✨ Generated from Field `User`.`contactInfo` of type `String`
+  """
+  contactInfo: String_Filter
+  """
+  ✨ Generated from Field `User`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: Timestamp_Filter
+  """
+  ✨ Generated from Field `User`.`email` of type `String!`
+  """
+  email: String_Filter
+  """
+  ✨ Generated from Field `User`.`name` of type `String!`
+  """
+  name: String_Filter
+  """
+  ✨ Generated from Field `User`.`password` of type `String!`
+  """
+  password: String_Filter
+  """
+  ✨ Generated from Field `User`.`profilePicture` of type `String`
+  """
+  profilePicture: String_Filter
+  """
+  ✨ Generated from Field `User`.`projects_on_user` of type `[Project!]!`
+  """
+  projects_on_user: Project_ListFilter
+  """
+  ✨ Generated from Field `User`.`skills_on_user` of type `[Skill!]!`
+  """
+  skills_on_user: Skill_ListFilter
+}
+"""
+✨ Generated first-row input type for table 'User'. This input selects the first row matching the filter criteria, ordered according to the specified conditions.
+"""
+input User_FirstRow {
+  """
+  Order the result by the specified fields.
+  """
+  orderBy: [User_Order!]
+  """
+  Filters rows based on the specified conditions.
+  """
+  where: User_Filter
+}
+"""
+✨ Generated having input type for table 'User'. This input allows you to filter groups during aggregate queries using various conditions. Use `_or`, `_and`, and `_not` to compose complex filters.
+"""
+input User_Having {
+  """
+  Apply multiple Having conditions using `AND` logic.
+  """
+  _and: [User_Having!]
+  """
+  Whether to apply DISTINCT to the aggregate function.
+  """
+  _distinct: Boolean
+  """
+  Negate the result of the provided Having condition.
+  """
+  _not: User_Having
+  """
+  Apply multiple Having conditions using `OR` logic.
+  """
+  _or: [User_Having!]
+  """
+  ✨ Generated from Field `User`.`_count` of type `Int!`
+  """
+  _count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`bio_count` of type `Int!`
+  """
+  bio_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`contactInfo_count` of type `Int!`
+  """
+  contactInfo_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`email_count` of type `Int!`
+  """
+  email_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`id_count` of type `Int!`
+  """
+  id_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`name_count` of type `Int!`
+  """
+  name_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`password_count` of type `Int!`
+  """
+  password_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`profilePicture_count` of type `Int!`
+  """
+  profilePicture_count: Int_Filter
+  """
+  ✨ Generated from Field `User`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: Timestamp_Filter
+  """
+  ✨ Generated from Field `User`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: Timestamp_Filter
+}
+"""
+✨ Generated key input type for table 'User'. It represents the primary key fields used to uniquely identify a row in the table.
+"""
+input User_Key {
+  """
+  ✨ Generated from Field `User`.`id` of type `UUID!`
+  """
+  id: UUID
+  """
+  ✨ `_expr` server value variant of `id` (✨ Generated from Field `User`.`id` of type `UUID!`)
+  """
+  id_expr: UUID_Expr
+}
+"""
+✨ Generated list filter input type for table 'User'. This input applies filtering logic based on the count or existence of related objects that matches certain criteria.
+"""
+input User_ListFilter {
+  """
+  The desired number of objects that match the condition (defaults to at least one).
+  """
+  count: Int_Filter = {gt:0}
+  """
+  Condition of the related objects to filter for.
+  """
+  exist: User_Filter
+}
+"""
+✨ Generated order input type for table 'User'. This input defines the sorting order of rows in query results based on one or more fields.
+"""
+input User_Order {
+  """
+  ✨ Generated from Field `User`.`id` of type `UUID!`
+  """
+  id: OrderDirection
+  """
+  ✨ Generated from Field `User`.`bio` of type `String`
+  """
+  bio: OrderDirection
+  """
+  ✨ Generated from Field `User`.`contactInfo` of type `String`
+  """
+  contactInfo: OrderDirection
+  """
+  ✨ Generated from Field `User`.`createdAt` of type `Timestamp!`
+  """
+  createdAt: OrderDirection
+  """
+  ✨ Generated from Field `User`.`email` of type `String!`
+  """
+  email: OrderDirection
+  """
+  ✨ Generated from Field `User`.`name` of type `String!`
+  """
+  name: OrderDirection
+  """
+  ✨ Generated from Field `User`.`password` of type `String!`
+  """
+  password: OrderDirection
+  """
+  ✨ Generated from Field `User`.`profilePicture` of type `String`
+  """
+  profilePicture: OrderDirection
+  """
+  ✨ Generated from Field `User`.`_count` of type `Int!`
+  """
+  _count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`bio_count` of type `Int!`
+  """
+  bio_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`contactInfo_count` of type `Int!`
+  """
+  contactInfo_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`createdAt_count` of type `Int!`
+  """
+  createdAt_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`email_count` of type `Int!`
+  """
+  email_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`id_count` of type `Int!`
+  """
+  id_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`name_count` of type `Int!`
+  """
+  name_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`password_count` of type `Int!`
+  """
+  password_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`profilePicture_count` of type `Int!`
+  """
+  profilePicture_count: OrderDirection
+  """
+  ✨ Generated from Field `User`.`createdAt_min` of type `Timestamp`
+  """
+  createdAt_min: OrderDirection
+  """
+  ✨ Generated from Field `User`.`createdAt_max` of type `Timestamp`
+  """
+  createdAt_max: OrderDirection
+}

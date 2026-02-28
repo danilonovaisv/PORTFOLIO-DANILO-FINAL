@@ -1,0 +1,98 @@
+# AI Self-Healing Agent Workflow
+# Automatically analyzes deployment failures and suggests fixes
+# Triggered when Firebase deploy workflows fail
+#
+# HOW TO USE:
+# - This workflow runs automatically when a deploy fails
+# - You can also trigger it manually via workflow_dispatch
+# - Creates a GitHub issue with AI-generated fix suggestions
+
+name: 🛡️ AI Self-Healing Agent
+
+on:
+  workflow_run:
+    workflows:
+      - Firebase Hosting Merge
+      - Firebase Hosting PR Preview
+    types:
+      - completed
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'Workflow run ID to analyze'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  analyze-and-fix:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'failure' }}
+
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🔍 Get error logs
+        id: get_logs
+        run: |
+          RUN_ID="${{ github.event.inputs.run_id || github.event.workflow_run.id }}"
+          if [ -n "$RUN_ID" ]; then
+            gh run view "$RUN_ID" --log-failed > error_logs.txt || echo "No failed logs found" > error_logs.txt
+          else
+            echo "No workflow run ID available" > error_logs.txt
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: 🧾 Build Gemini prompt
+        id: build_prompt
+        run: |
+          {
+            echo "prompt<<'EOF'"
+            echo "Analyze these failed workflow logs from a Next.js project with Firebase Hosting."
+            echo
+            cat error_logs.txt
+            echo
+            echo "The error occurred during deploy workflows."
+            echo "Check next.config.mjs and firebase.json when relevant."
+            echo "Explain root cause and provide corrected code snippets."
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: 🤖 Gemini AI Analysis
+        id: gemini_analysis
+        if: ${{ env.GEMINI_API_KEY != '' }}
+        uses: google-github-actions/run-gemini-cli@v0.1.18
+        with:
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          prompt: ${{ steps.build_prompt.outputs.prompt }}
+
+      - name: 🛠️ Create fix suggestion issue
+        if: always()
+        run: |
+          if [ -z "${{ env.GEMINI_API_KEY }}" ]; then
+            RESPONSE="Gemini analysis skipped: GEMINI_API_KEY secret is not configured."
+          else
+            RESPONSE="${GEMINI_RESPONSE}"
+          fi
+
+          {
+            echo "AI analyzed the logs and suggests the following changes:"
+            echo
+            echo "$RESPONSE"
+          } > issue_body.md
+
+          gh issue create \
+            --title "🤖 Auto-fix Suggestion: Deploy Failure" \
+            --body-file issue_body.md
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GEMINI_RESPONSE: ${{ steps.gemini_analysis.outputs.gemini_response }}

@@ -1,0 +1,13 @@
+{
+  "bluePrimary": "#0048ff",
+  "blueAccent": "#4fe6ff",
+  "background": "#040013",
+  "text": "#fcffff",
+  "textSecondary": "#a1a3a3",
+  "surface": "#0b0d3a",
+  "error": "#ff3366",
+  "fontDisplay": "clamp(2.5rem, 5vw + 1rem, 5.5rem)",
+  "fontH1": "clamp(2rem, 4vw + 1rem, 3.5rem)",
+  "fontBody": "clamp(1rem, 0.5vw + 0.8rem, 1.125rem)",
+  "easing": "cubic-bezier(0.22, 1, 0.36, 1)"
+}

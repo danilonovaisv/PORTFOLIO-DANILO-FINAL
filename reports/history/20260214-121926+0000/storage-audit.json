@@ -1,0 +1,30 @@
+{
+  "agent": "agent-supabase-audit",
+  "timestamp_utc": "2026-02-14T12:19:26+00:00",
+  "auto_fix": false,
+  "storage_security_score": 100,
+  "storage_performance_score": 100,
+  "summary": {
+    "total_findings": 0,
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "info": 0
+  },
+  "findings": [],
+  "applied_fixes": [],
+  "meta": {
+    "public_buckets_detected": ["portfolio-media", "site-assets"],
+    "unexpected_public_buckets": [],
+    "storage_policy_operations": [
+      "all",
+      "delete",
+      "insert",
+      "select",
+      "update"
+    ],
+    "missing_storage_policy_operations": [],
+    "tracked_files_scanned": 12677
+  }
+}

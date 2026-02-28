@@ -1,0 +1,5 @@
+name: agent-orchestrator-audit
+kind: antigravity-agent
+entry: .agent/agents/agent-orchestrator-audit.md
+contract: .agent/contracts/audit-agent-contract.yaml
+workflow: .agent/workflows/audit-fullstack-config.yaml

@@ -1,0 +1,46 @@
+mutation CreateUser($email: String!, $name: String!, $password: String!)
+@auth(
+  level: PUBLIC
+  insecureReason: "This operation is safe to expose to the public"
+) {
+  user_insert(
+    data: {
+      email: $email
+      name: $name
+      password: $password
+      createdAt_expr: "request.time"
+    }
+  )
+}
+
+query GetProjectsByUser($userId: UUID!) @auth(level: USER) {
+  projects(where: { userId: { eq: $userId } }) {
+    id
+    title
+    description
+  }
+}
+
+mutation CreateProject(
+  $title: String!
+  $description: String!
+  $client: String
+  $link: String
+  $role: String
+) @auth(level: USER) {
+  project_insert(
+    data: {
+      userId_expr: "auth.uid"
+      title: $title
+      description: $description
+      client: $client
+      link: $link
+      role: $role
+      createdAt_expr: "request.time"
+    }
+  )
+}
+
+mutation DeleteProject($id: UUID!) @auth(level: USER) {
+  project_delete(key: { id: $id })
+}

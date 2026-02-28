@@ -1,0 +1,552 @@
+extend type Mutation {
+  """
+  ✨ Insert a single `Image` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  image_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Image_Data!
+  ): Image_KeyOutput! @fdc_generated(from: "Image", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Project` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  project_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Project_Data!
+  ): Project_KeyOutput! @fdc_generated(from: "Project", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `ProjectSkill` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  projectSkill_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: ProjectSkill_Data!
+  ): ProjectSkill_KeyOutput! @fdc_generated(from: "ProjectSkill", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `Skill` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  skill_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: Skill_Data!
+  ): Skill_KeyOutput! @fdc_generated(from: "Skill", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert a single `User` into the table and return its key. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  user_insert(
+    """
+    Data object to insert into the table.
+    """
+    data: User_Data!
+  ): User_KeyOutput! @fdc_generated(from: "User", purpose: INSERT_SINGLE)
+  """
+  ✨ Insert `Image` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  image_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Image_Data!]!
+  ): [Image_KeyOutput!]! @fdc_generated(from: "Image", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Project` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  project_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Project_Data!]!
+  ): [Project_KeyOutput!]! @fdc_generated(from: "Project", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `ProjectSkill` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  projectSkill_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [ProjectSkill_Data!]!
+  ): [ProjectSkill_KeyOutput!]! @fdc_generated(from: "ProjectSkill", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `Skill` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  skill_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [Skill_Data!]!
+  ): [Skill_KeyOutput!]! @fdc_generated(from: "Skill", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert `User` objects into the table and return their keys. Columns not specified in `data` will receive defaults (e.g. `null`).
+  """
+  user_insertMany(
+    """
+    List of data objects to insert into the table.
+    """
+    data: [User_Data!]!
+  ): [User_KeyOutput!]! @fdc_generated(from: "User", purpose: INSERT_MULTIPLE)
+  """
+  ✨ Insert or update a single `Image` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Image`.
+  """
+  image_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Image_Data!
+  ): Image_KeyOutput! @fdc_generated(from: "Image", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Project` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Project`.
+  """
+  project_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Project_Data!
+  ): Project_KeyOutput! @fdc_generated(from: "Project", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `ProjectSkill` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ProjectSkill`.
+  """
+  projectSkill_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: ProjectSkill_Data!
+  ): ProjectSkill_KeyOutput! @fdc_generated(from: "ProjectSkill", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `Skill` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Skill`.
+  """
+  skill_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: Skill_Data!
+  ): Skill_KeyOutput! @fdc_generated(from: "Skill", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update a single `User` into the table, based on the primary key. Returns the key of the newly inserted or existing updated `User`.
+  """
+  user_upsert(
+    """
+    Data object to insert or update if it already exists.
+    """
+    data: User_Data!
+  ): User_KeyOutput! @fdc_generated(from: "User", purpose: UPSERT_SINGLE)
+  """
+  ✨ Insert or update `Image` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Image`.
+  """
+  image_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Image_Data!]!
+  ): [Image_KeyOutput!]! @fdc_generated(from: "Image", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Project` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Project`.
+  """
+  project_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Project_Data!]!
+  ): [Project_KeyOutput!]! @fdc_generated(from: "Project", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `ProjectSkill` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `ProjectSkill`.
+  """
+  projectSkill_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [ProjectSkill_Data!]!
+  ): [ProjectSkill_KeyOutput!]! @fdc_generated(from: "ProjectSkill", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `Skill` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `Skill`.
+  """
+  skill_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [Skill_Data!]!
+  ): [Skill_KeyOutput!]! @fdc_generated(from: "Skill", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Insert or update `User` objects into the table, based on the primary key. Returns the key of the newly inserted or existing updated `User`.
+  """
+  user_upsertMany(
+    """
+    List of data objects to insert or update if it already exists.
+    """
+    data: [User_Data!]!
+  ): [User_KeyOutput!]! @fdc_generated(from: "User", purpose: UPSERT_MULTIPLE)
+  """
+  ✨ Update a single `Image` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Image` or `null` if not found.
+  """
+  image_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Image_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Image_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Image_Data!
+  ): Image_KeyOutput @fdc_generated(from: "Image", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Project` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Project` or `null` if not found.
+  """
+  project_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Project_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Project_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Project_Data!
+  ): Project_KeyOutput @fdc_generated(from: "Project", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `ProjectSkill` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `ProjectSkill` or `null` if not found.
+  """
+  projectSkill_update(
+    """
+    The key used to identify the object.
+    """
+    key: ProjectSkill_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ProjectSkill_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: ProjectSkill_Data!
+  ): ProjectSkill_KeyOutput @fdc_generated(from: "ProjectSkill", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `Skill` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `Skill` or `null` if not found.
+  """
+  skill_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Skill_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Skill_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: Skill_Data!
+  ): Skill_KeyOutput @fdc_generated(from: "Skill", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update a single `User` based on `id`, `key` or `first`, setting columns specified in `data`. Returns the key of the updated `User` or `null` if not found.
+  """
+  user_update(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+
+    """
+    Data object containing fields to be updated.
+    """
+    data: User_Data!
+  ): User_KeyOutput @fdc_generated(from: "User", purpose: UPDATE_SINGLE)
+  """
+  ✨ Update `Image` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  image_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Image_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Image_Data!
+  ): Int! @fdc_generated(from: "Image", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Project` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  project_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Project_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Project_Data!
+  ): Int! @fdc_generated(from: "Project", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `ProjectSkill` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  projectSkill_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: ProjectSkill_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: ProjectSkill_Data!
+  ): Int! @fdc_generated(from: "ProjectSkill", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `Skill` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  skill_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: Skill_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: Skill_Data!
+  ): Int! @fdc_generated(from: "Skill", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Update `User` objects matching `where` conditions (or `all`, if true) according to `data`. Returns the number of rows updated.
+  """
+  user_updateMany(
+    """
+    Filter condition to specify which rows to update.
+    """
+    where: User_Filter
+
+    """
+    Set to true to update all rows.
+    """
+    all: Boolean = false
+
+    """
+    Data object containing fields to update.
+    """
+    data: User_Data!
+  ): Int! @fdc_generated(from: "User", purpose: UPDATE_MULTIPLE)
+  """
+  ✨ Delete a single `Image` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  image_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Image_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Image_FirstRow
+  ): Image_KeyOutput @fdc_generated(from: "Image", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Project` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  project_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Project_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Project_FirstRow
+  ): Project_KeyOutput @fdc_generated(from: "Project", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `ProjectSkill` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  projectSkill_delete(
+    """
+    The key used to identify the object.
+    """
+    key: ProjectSkill_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ProjectSkill_FirstRow
+  ): ProjectSkill_KeyOutput @fdc_generated(from: "ProjectSkill", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `Skill` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  skill_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Skill_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Skill_FirstRow
+  ): Skill_KeyOutput @fdc_generated(from: "Skill", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete a single `User` based on `id`, `key` or `first` and return its key (or `null` if not found).
+  """
+  user_delete(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+  ): User_KeyOutput @fdc_generated(from: "User", purpose: DELETE_SINGLE)
+  """
+  ✨ Delete `Image` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  image_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Image_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Image", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Project` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  project_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Project_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Project", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `ProjectSkill` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  projectSkill_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: ProjectSkill_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "ProjectSkill", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `Skill` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  skill_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: Skill_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "Skill", purpose: DELETE_MULTIPLE)
+  """
+  ✨ Delete `User` objects matching `where` conditions (or `all`, if true). Returns the number of rows deleted.
+  """
+  user_deleteMany(
+    """
+    Filter condition to specify which rows to delete.
+    """
+    where: User_Filter
+
+    """
+    Set to true to delete all rows.
+    """
+    all: Boolean = false
+  ): Int! @fdc_generated(from: "User", purpose: DELETE_MULTIPLE)
+}

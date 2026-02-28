@@ -1,0 +1,422 @@
+[
+  {
+    "label": "mobile",
+    "reducedMotion": false,
+    "measurements": {
+      "hero": {
+        "x": 0,
+        "y": -2257,
+        "width": 360,
+        "height": 800,
+        "top": -2257,
+        "right": 360,
+        "bottom": -1457,
+        "left": 0
+      },
+      "manifesto": {
+        "x": 0,
+        "y": -1457,
+        "width": 360,
+        "height": 202.5,
+        "top": -1457,
+        "right": 360,
+        "bottom": -1254.5,
+        "left": 0
+      },
+      "featured": {
+        "x": 0,
+        "y": -498.5,
+        "width": 360,
+        "height": 1797.96875,
+        "top": -498.5,
+        "right": 360,
+        "bottom": 1299.46875,
+        "left": 0
+      },
+      "heroLineStyles": [
+        {
+          "fontSize": "48px",
+          "fontWeight": "900",
+          "lineHeight": "45.6px",
+          "letterSpacing": "-1.92px"
+        },
+        {
+          "fontSize": "48px",
+          "fontWeight": "900",
+          "lineHeight": "45.6px",
+          "letterSpacing": "-1.92px"
+        }
+      ],
+      "heroSubtitleStyle": {
+        "fontSize": "14.4px",
+        "fontWeight": "500",
+        "lineHeight": "18.72px",
+        "letterSpacing": "0.288px",
+        "opacity": "0.6"
+      },
+      "heroCTAStyle": {
+        "minWidth": "0px",
+        "height": "48px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px"
+      },
+      "cardHeights": [250, 250, 250, 250, 250]
+    },
+    "screens": {
+      "full": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/mobile-full.png",
+      "hero": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/mobile-hero.png",
+      "manifesto": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/mobile-manifesto.png",
+      "featured": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/mobile-featured.png"
+    }
+  },
+  {
+    "label": "tablet",
+    "reducedMotion": false,
+    "measurements": {
+      "hero": {
+        "x": 0,
+        "y": -2685,
+        "width": 768,
+        "height": 1024,
+        "top": -2685,
+        "right": 768,
+        "bottom": -1661,
+        "left": 0
+      },
+      "manifesto": {
+        "x": 0,
+        "y": -1661,
+        "width": 768,
+        "height": 432,
+        "top": -1661,
+        "right": 768,
+        "bottom": -1229,
+        "left": 0
+      },
+      "featured": {
+        "x": 0,
+        "y": -489,
+        "width": 768,
+        "height": 2001.28125,
+        "top": -489,
+        "right": 768,
+        "bottom": 1512.28125,
+        "left": 0
+      },
+      "heroLineStyles": [
+        {
+          "fontSize": "72.96px",
+          "fontWeight": "900",
+          "lineHeight": "65.664px",
+          "letterSpacing": "-5.1072px"
+        },
+        {
+          "fontSize": "72.96px",
+          "fontWeight": "900",
+          "lineHeight": "65.664px",
+          "letterSpacing": "-5.1072px"
+        }
+      ],
+      "heroSubtitleStyle": {
+        "fontSize": "23.04px",
+        "fontWeight": "500",
+        "lineHeight": "27.648px",
+        "letterSpacing": "0.6912px",
+        "opacity": "0.6"
+      },
+      "heroCTAStyle": {
+        "minWidth": "0px",
+        "height": "56px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px"
+      },
+      "cardHeights": [480, 480, 480, 480, 480]
+    },
+    "screens": {
+      "full": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/tablet-full.png",
+      "hero": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/tablet-hero.png",
+      "manifesto": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/tablet-manifesto.png",
+      "featured": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/tablet-featured.png"
+    }
+  },
+  {
+    "label": "desktop",
+    "reducedMotion": false,
+    "measurements": {
+      "hero": {
+        "x": 0,
+        "y": -3492,
+        "width": 1440,
+        "height": 900,
+        "top": -3492,
+        "right": 1440,
+        "bottom": -2592,
+        "left": 0
+      },
+      "manifesto": {
+        "x": 0,
+        "y": -2592,
+        "width": 1440,
+        "height": 810,
+        "top": -2592,
+        "right": 1440,
+        "bottom": -1782,
+        "left": 0
+      },
+      "featured": {
+        "x": 0,
+        "y": -536,
+        "width": 1440,
+        "height": 1972.5,
+        "top": -536,
+        "right": 1440,
+        "bottom": 1436.5,
+        "left": 0
+      },
+      "heroLineStyles": [
+        {
+          "fontSize": "136.8px",
+          "fontWeight": "900",
+          "lineHeight": "123.12px",
+          "letterSpacing": "-9.576px"
+        },
+        {
+          "fontSize": "136.8px",
+          "fontWeight": "900",
+          "lineHeight": "123.12px",
+          "letterSpacing": "-9.576px"
+        }
+      ],
+      "heroSubtitleStyle": {
+        "fontSize": "40px",
+        "fontWeight": "500",
+        "lineHeight": "48px",
+        "letterSpacing": "1.2px",
+        "opacity": "0.6"
+      },
+      "heroCTAStyle": {
+        "minWidth": "0px",
+        "height": "68px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px"
+      },
+      "cardHeights": [480, 480, 480, 480, 480]
+    },
+    "screens": {
+      "full": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/desktop-full.png",
+      "hero": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/desktop-hero.png",
+      "manifesto": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/desktop-manifesto.png",
+      "featured": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/desktop-featured.png"
+    }
+  },
+  {
+    "label": "wide",
+    "reducedMotion": false,
+    "measurements": {
+      "hero": {
+        "x": 0,
+        "y": -3852,
+        "width": 1920,
+        "height": 1080,
+        "top": -3852,
+        "right": 1920,
+        "bottom": -2772,
+        "left": 0
+      },
+      "manifesto": {
+        "x": 0,
+        "y": -2772,
+        "width": 1920,
+        "height": 1080,
+        "top": -2772,
+        "right": 1920,
+        "bottom": -1692,
+        "left": 0
+      },
+      "featured": {
+        "x": 0,
+        "y": -446,
+        "width": 1920,
+        "height": 1972.5,
+        "top": -446,
+        "right": 1920,
+        "bottom": 1526.5,
+        "left": 0
+      },
+      "heroLineStyles": [
+        {
+          "fontSize": "160px",
+          "fontWeight": "900",
+          "lineHeight": "144px",
+          "letterSpacing": "-11.2px"
+        },
+        {
+          "fontSize": "160px",
+          "fontWeight": "900",
+          "lineHeight": "144px",
+          "letterSpacing": "-11.2px"
+        }
+      ],
+      "heroSubtitleStyle": {
+        "fontSize": "40px",
+        "fontWeight": "500",
+        "lineHeight": "48px",
+        "letterSpacing": "1.2px",
+        "opacity": "0.6"
+      },
+      "heroCTAStyle": {
+        "minWidth": "0px",
+        "height": "68px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px"
+      },
+      "cardHeights": [480, 480, 480, 480, 480]
+    },
+    "screens": {
+      "full": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/wide-full.png",
+      "hero": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/wide-hero.png",
+      "manifesto": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/wide-manifesto.png",
+      "featured": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/wide-featured.png"
+    }
+  },
+  {
+    "label": "mobile-reduced",
+    "reducedMotion": true,
+    "measurements": {
+      "hero": {
+        "x": 0,
+        "y": -2205,
+        "width": 360,
+        "height": 800,
+        "top": -2205,
+        "right": 360,
+        "bottom": -1405,
+        "left": 0
+      },
+      "manifesto": {
+        "x": 0,
+        "y": -1387,
+        "width": 360,
+        "height": 150,
+        "top": -1387,
+        "right": 360,
+        "bottom": -1237,
+        "left": 0
+      },
+      "featured": {
+        "x": 0,
+        "y": -499,
+        "width": 360,
+        "height": 1797.96875,
+        "top": -499,
+        "right": 360,
+        "bottom": 1298.96875,
+        "left": 0
+      },
+      "heroLineStyles": [
+        {
+          "fontSize": "48px",
+          "fontWeight": "900",
+          "lineHeight": "45.6px",
+          "letterSpacing": "-1.92px"
+        },
+        {
+          "fontSize": "48px",
+          "fontWeight": "900",
+          "lineHeight": "45.6px",
+          "letterSpacing": "-1.92px"
+        }
+      ],
+      "heroSubtitleStyle": {
+        "fontSize": "14.4px",
+        "fontWeight": "500",
+        "lineHeight": "18.72px",
+        "letterSpacing": "0.288px",
+        "opacity": "0.6"
+      },
+      "heroCTAStyle": {
+        "minWidth": "0px",
+        "height": "48px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px"
+      },
+      "cardHeights": [250, 250, 250, 250, 250]
+    },
+    "screens": {
+      "full": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/mobile-reduced-full.png",
+      "hero": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/mobile-reduced-hero.png",
+      "manifesto": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/mobile-reduced-manifesto.png",
+      "featured": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/mobile-reduced-featured.png"
+    }
+  },
+  {
+    "label": "desktop-reduced",
+    "reducedMotion": true,
+    "measurements": {
+      "hero": {
+        "x": 0,
+        "y": -3492,
+        "width": 1440,
+        "height": 900,
+        "top": -3492,
+        "right": 1440,
+        "bottom": -2592,
+        "left": 0
+      },
+      "manifesto": {
+        "x": 0,
+        "y": -2574,
+        "width": 1440,
+        "height": 810,
+        "top": -2574,
+        "right": 1440,
+        "bottom": -1764,
+        "left": 0
+      },
+      "featured": {
+        "x": 0,
+        "y": -536,
+        "width": 1440,
+        "height": 1972.5,
+        "top": -536,
+        "right": 1440,
+        "bottom": 1436.5,
+        "left": 0
+      },
+      "heroLineStyles": [
+        {
+          "fontSize": "136.8px",
+          "fontWeight": "900",
+          "lineHeight": "123.12px",
+          "letterSpacing": "-9.576px"
+        },
+        {
+          "fontSize": "136.8px",
+          "fontWeight": "900",
+          "lineHeight": "123.12px",
+          "letterSpacing": "-9.576px"
+        }
+      ],
+      "heroSubtitleStyle": {
+        "fontSize": "40px",
+        "fontWeight": "500",
+        "lineHeight": "48px",
+        "letterSpacing": "1.2px",
+        "opacity": "0.6"
+      },
+      "heroCTAStyle": {
+        "minWidth": "0px",
+        "height": "68px",
+        "paddingLeft": "0px",
+        "paddingRight": "0px"
+      },
+      "cardHeights": [480, 480, 480, 480, 480]
+    },
+    "screens": {
+      "full": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/desktop-reduced-full.png",
+      "hero": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/desktop-reduced-hero.png",
+      "manifesto": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/desktop-reduced-manifesto.png",
+      "featured": "/Users/danilonovais/PORTFOLIO-DANILO-FINAL/reports/home-audit/desktop-reduced-featured.png"
+    }
+  }
+]

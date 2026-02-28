@@ -1,0 +1,60 @@
+{
+  "name": "exit-x",
+  "dist-tags": { "latest": "0.2.2" },
+  "versions": {
+    "0.2.1": {
+      "name": "exit-x",
+      "version": "0.2.1",
+      "devDependencies": {
+        "grunt": "~0.4.1",
+        "which": "~1.0.5",
+        "grunt-cli": "^1.5.0",
+        "grunt-contrib-watch": "~0.5.3",
+        "grunt-contrib-jshint": "~0.6.4",
+        "grunt-contrib-nodeunit": "~0.2.0"
+      },
+      "dist": {
+        "shasum": "271c2c176ca482073fbb12648611412c1c159430",
+        "tarball": "https://registry.npmjs.org/exit-x/-/exit-x-0.2.1.tgz",
+        "fileCount": 20,
+        "integrity": "sha512-MNUFK069jLtwkmyHiWptU6H95D1I4wHKNPHs+Y6NDu6RzIGYRBfllRwvI6oA1xbfXT2pWspZqjeIeNjh6tIOog==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDFhwrDir9AEh2jjx60z030+tOW8DYwGp06tDp/mxrnAgIhALgK/7PkpXrP0fKjLSwhWqrGB4Jo5bDsWyarjwwtazO8",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 60484
+      },
+      "engines": { "node": ">= 0.8.0" }
+    },
+    "0.2.2": {
+      "name": "exit-x",
+      "version": "0.2.2",
+      "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-cli": "^1.5.0",
+        "grunt-contrib-jshint": "~0.6.4",
+        "grunt-contrib-nodeunit": "~0.2.0",
+        "grunt-contrib-watch": "~0.5.3",
+        "which": "~1.0.5"
+      },
+      "dist": {
+        "integrity": "sha512-+I6B/IkJc1o/2tiURyz/ivu/O0nKNEArIUB5O7zBrlDVJr22SCLH3xTeEry428LvFhRzIA1g8izguxJ/gbNcVQ==",
+        "shasum": "1f9052de3b8d99a696b10dad5bced9bdd5c3aa64",
+        "tarball": "https://registry.npmjs.org/exit-x/-/exit-x-0.2.2.tgz",
+        "fileCount": 21,
+        "unpackedSize": 60764,
+        "signatures": [
+          {
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+            "sig": "MEUCIQCN92J5WnGyIQugyYPPjQ2mtymXatvBOq9jH3eoFW+eIgIgEsRGgx5qz3QtVjh306R5JLsBjlMPX7EnFRFLjLO8RrA="
+          }
+        ]
+      },
+      "engines": { "node": ">= 0.8.0" }
+    }
+  },
+  "modified": "2024-12-04T14:22:56.080Z",
+  "cachedAt": 1771798200031
+}

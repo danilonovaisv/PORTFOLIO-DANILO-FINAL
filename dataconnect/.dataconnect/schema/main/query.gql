@@ -1,0 +1,262 @@
+extend type Query {
+  """
+  ✨ Look up a single `Image` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  image(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Image_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Image_FirstRow
+  ): Image @fdc_generated(from: "Image", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Project` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  project(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Project_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Project_FirstRow
+  ): Project @fdc_generated(from: "Project", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `ProjectSkill` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  projectSkill(
+    """
+    The key used to identify the object.
+    """
+    key: ProjectSkill_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: ProjectSkill_FirstRow
+  ): ProjectSkill @fdc_generated(from: "ProjectSkill", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `Skill` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  skill(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: Skill_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: Skill_FirstRow
+  ): Skill @fdc_generated(from: "Skill", purpose: QUERY_SINGLE)
+  """
+  ✨ Look up a single `User` based on `id`, `key` or `first` and return selected fields (or `null` if not found).
+  """
+  user(
+    """
+    The unique ID of the object.
+    """
+    id: UUID
+
+    """
+    The key used to identify the object.
+    """
+    key: User_Key
+
+    """
+    Fetch the first row based on the filters and ordering.
+    """
+    first: User_FirstRow
+  ): User @fdc_generated(from: "User", purpose: QUERY_SINGLE)
+  """
+  ✨ List `Image` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  images(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Image_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Image_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Image_Having
+  ): [Image!]! @fdc_generated(from: "Image", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Project` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  projects(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Project_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Project_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Project_Having
+  ): [Project!]! @fdc_generated(from: "Project", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `ProjectSkill` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  projectSkills(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: ProjectSkill_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [ProjectSkill_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: ProjectSkill_Having
+  ): [ProjectSkill!]! @fdc_generated(from: "ProjectSkill", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `Skill` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  skills(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: Skill_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [Skill_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: Skill_Having
+  ): [Skill!]! @fdc_generated(from: "Skill", purpose: QUERY_MULTIPLE)
+  """
+  ✨ List `User` objects in the table and return selected fields, optionally filtered by `where` conditions
+  """
+  users(
+    """
+    Filter condition to narrow down the query results.
+    """
+    where: User_Filter
+
+    """
+    Order the query results by specific fields.
+    """
+    orderBy: [User_Order!]
+
+    """
+    Number of rows to skip before starting to return the results.
+    """
+    offset: Int
+
+    """
+    Maximum number of rows to return (defaults to 100 rows).
+    """
+    limit: Int = 100
+
+    """
+    Set to true to return distinct results.
+    """
+    distinct: Boolean = false
+
+    """
+    Filter condition to apply to the groups of aggregate queries.
+    """
+    having: User_Having
+  ): [User!]! @fdc_generated(from: "User", purpose: QUERY_MULTIPLE)
+}

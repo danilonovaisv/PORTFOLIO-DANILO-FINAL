@@ -1,0 +1,57 @@
+import type { Metadata } from 'next';
+import ClientsBrandsSection from '@/components/home/clients/ClientsBrandsSection';
+import ContactSection from '@/components/home/contact/ContactSection';
+import SiteFooter from '@/components/layout/SiteFooter';
+import { BRAND } from '@/config/brand';
+import JsonLd from '@/components/ui/JsonLd';
+
+export const metadata: Metadata = {
+  title: 'Contato | Vamos Conversar',
+  description:
+    'Fale com Danilo Novais para projetos de branding, motion e experiências digitais. Formulário direto, e-mail e redes para iniciar a conversa.',
+  openGraph: {
+    title: 'Contato | Danilo Novais',
+    description:
+      'Entre em contato para projetos de branding, motion e experiências digitais. Resposta rápida e foco em soluções sob medida.',
+    url: `https://${BRAND.domain}/contato`,
+    siteName: BRAND.name,
+    images: [
+      {
+        url: '/contato/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'Contato | Danilo Novais',
+      },
+    ],
+    locale: 'pt_BR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contato | Danilo Novais',
+    description:
+      'Entre em contato para projetos de branding, motion e experiências digitais.',
+    images: ['/contato/opengraph-image'],
+  },
+  alternates: {
+    canonical: `https://${BRAND.domain}/contato`,
+  },
+};
+
+export default function ContactPage() {
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      <JsonLd
+        pageType="contact"
+        breadcrumbs={[
+          { name: 'Home', url: `https://${BRAND.domain}` },
+          { name: 'Contato', url: `https://${BRAND.domain}/contato` },
+        ]}
+      />
+      <h1 className="sr-only">Contato com Danilo Novais</h1>
+      <ClientsBrandsSection />
+      <ContactSection />
+      <SiteFooter />
+    </div>
+  );
+}

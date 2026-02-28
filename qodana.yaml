@@ -1,0 +1,64 @@
+####################################################################################################################
+# WARNING: Do not store sensitive information in this file, as its contents will be included in the Qodana report. #
+####################################################################################################################
+version: '1.0'
+linter: jetbrains/qodana-jvm:2025.2
+profile:
+  name: qodana.recommended
+include:
+  - name: CheckDependencyLicenses
+exclude:
+  - name: All
+    paths:
+      - .antigravity
+      - .antigravity/workflows
+      - .antigravity/workflows/webgl-budget.ts
+      - functions
+      - functions/src
+      - functions/src/dataconnect-admin-generated
+      - functions/src/dataconnect-admin-generated/esm
+      - functions/src/dataconnect-admin-generated/esm/index.esm.js
+      - functions/src/dataconnect-admin-generated/index.cjs.js
+      - functions/src/dataconnect-admin-generated/index.d.ts
+      - functions/src/genkit-sample.ts
+      - public
+      - public/index.html
+      - scripts
+      - scripts/check-unused-assets.cjs
+      - src
+      - src/app
+      - src/app/layout.tsx
+      - src/components
+      - src/components/header
+      - src/components/header/webgl
+      - src/components/header/webgl/FluidGlass.tsx
+      - src/components/home
+      - src/components/home/contact
+      - src/components/home/contact/ContactDetails.tsx
+      - src/components/home/contact/ContactForm.tsx
+      - src/components/home/portfolio-showcase
+      - src/components/home/portfolio-showcase/category-stripe
+      - src/components/home/portfolio-showcase/category-stripe/CategoryExpanded.tsx
+      - src/components/home/webgl
+      - src/components/home/webgl/Ghost.tsx
+      - src/components/home/CategoryStripe.tsx
+      - src/components/home/ContactSection.tsx
+      - src/components/ui
+      - src/components/ui/GlassSurface.tsx
+      - src/components/webgl
+      - src/components/webgl/header
+      - src/components/webgl/header/HeaderGlassCanvas.tsx
+      - src/config
+      - src/config/navigation.tsx
+      - src/dataconnect-admin-generated
+      - src/dataconnect-admin-generated/esm
+      - src/dataconnect-admin-generated/esm/index.esm.js
+      - src/dataconnect-admin-generated/index.cjs.js
+      - src/dataconnect-admin-generated/index.d.ts
+      - src/dataconnect-generated
+      - src/dataconnect-generated/react
+      - src/dataconnect-generated/react/index.d.ts
+      - src/lib
+      - src/lib/constants.tsx
+      - src/types
+      - src/types/motion.d.ts

@@ -1,0 +1,37 @@
+name: audit-fullstack-config
+version: 1.0.0
+trigger:
+  type: cli
+
+policy:
+  contract: .agent/contracts/audit-agent-contract.yaml
+  retry:
+    attempts: 3
+    backoff: exponential
+    initial_delay_ms: 500
+    max_delay_ms: 5000
+  guardrails:
+    - never_expose_service_role_key
+    - never_mutate_bucket_without_backup
+    - never_change_firebase_json_without_diff_preview
+    - always_revalidate_after_fix
+
+inputs:
+  auto_fix:
+    type: boolean
+    default: false
+
+steps:
+  - id: execute-full-audit
+    agent: agent-orchestrator-audit
+    action: run_orchestrator_script
+    description: "Orchestrator script validates project, invokes sub-agent modules (Supabase & Firebase), generates reports, and handles optional auto-fixes."
+    command: "python3 scripts/antigravity/agent_orchestrator_audit.py"
+
+outputs:
+  - reports/storage-audit.json
+  - reports/hosting-audit.json
+  - reports/master-audit.json
+  - reports/security-score.json
+  - reports/performance-score.json
+  - reports/final-report.html

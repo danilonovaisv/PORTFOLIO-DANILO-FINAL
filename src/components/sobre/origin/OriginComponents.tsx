@@ -1,0 +1,158 @@
+'use client';
+
+import { RefObject } from 'react';
+import { motion } from 'framer-motion';
+import type { OriginBlock } from '@/components/sobre/origin/data';
+import { DynamicAssetImage } from '@/components/ui/shared/DynamicAssetImage';
+import { GHOST_EASE, viewportConfig } from '@/config/motion';
+
+interface OriginInfoBlockProps {
+  block: OriginBlock & { img?: string };
+}
+
+/**
+ * Individual content block with subtitle marker, title, text, and mobile image
+ * Mobile: Layout intercalado (texto → imagem) com ordem via CSS
+ * Desktop: Static content acts as scroll anchor for GSAP
+ */
+export function OriginInfoBlock({ block }: OriginInfoBlockProps) {
+  const isRightAligned = block.textAlign === 'right';
+
+  return (
+    <div
+      className={`min-h-screen flex flex-col justify-start pt-[20vh] pb-[20vh] lg:min-h-screen lg:justify-end lg:items-end lg:text-right ${
+        isRightAligned
+          ? 'lg:items-end lg:justify-start lg:text-right'
+          : 'lg:items-end lg:justify-start lg:text-left'
+      }`}
+      data-origin-block={block.id}
+    >
+      {/* Mobile: Stack vertical intercalado - Texto primeiro, depois Imagem */}
+      <div className="space-y-6 lg:hidden">
+        {/* Text Content - Mobile */}
+        <div className="text-center px-4">
+          <motion.h2
+            initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            viewport={viewportConfig}
+            transition={{
+              duration: 0.6,
+              delay: 0.24,
+              ease: GHOST_EASE as any,
+            }}
+            className="text-h2 font-bold text-bluePrimary mb-4"
+          >
+            {block.title}
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 16, filter: 'blur(8px)' }}
+            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            viewport={viewportConfig}
+            transition={{
+              duration: 0.6,
+              delay: 0.32,
+              ease: GHOST_EASE as any,
+            }}
+            className="text-h3 font-medium text-white/88 leading-relaxed whitespace-pre-line text-pretty"
+          >
+            {block.paragraph}
+          </motion.p>
+        </div>
+
+        {/* Image - Mobile (400px dimensions per spec) */}
+        <motion.div
+          initial={{ clipPath: 'inset(100% 0% 0% 0%)', opacity: 0.85 }}
+          whileInView={{ clipPath: 'inset(0% 0% 0% 0%)', opacity: 1 }}
+          viewport={viewportConfig}
+          transition={{
+            duration: 0.72,
+            delay: 0.08,
+            ease: GHOST_EASE as any,
+          }}
+          className="relative w-full aspect-square min-h-[240px] rounded-[1.5rem] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] lg:hidden"
+        >
+          <DynamicAssetImage
+            assetKey={block.assetKey}
+            alt={block.title}
+            fallbackUrl={block.img}
+            className="w-full h-full"
+            priority={block.id === 1}
+          />
+        </motion.div>
+      </div>
+
+      {/* Desktop: Text Content Only (controlled by native scroll) */}
+      <div className="hidden lg:block lg:max-w-md relative z-10 transition-opacity duration-500">
+        <h2
+          data-origin-title
+          className="text-h2 font-bold text-bluePrimary mb-6 tracking-wide translate-y-0 opacity-100"
+        >
+          {block.title}
+        </h2>
+
+        <p
+          data-origin-copy
+          className="text-body font-normal text-white/88 leading-relaxed whitespace-pre-line text-pretty translate-y-0 opacity-100"
+        >
+          {block.paragraph}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+interface OriginStickyGalleryProps {
+  blocks: (OriginBlock & { img?: string })[];
+  archRightRef: RefObject<HTMLDivElement | null>;
+}
+
+/**
+ * Sticky gallery that displays images on desktop
+ * Pinned à direita com transição de imagens conforme scroll do texto
+ *
+ * Specs:
+ * - 4 imagens (500px altura, auto largura)
+ * - Z-index: 4 → 1 (sequencial)
+ * - object-fit: cover
+ * - border-radius: 24px
+ * - blur(4px) inicial → blur(0)
+ * - opacity: 0.85 → 1
+ */
+export function OriginStickyGallery({
+  blocks,
+  archRightRef,
+}: OriginStickyGalleryProps) {
+  return (
+    <div
+      className="hidden lg:flex lg:col-span-6 lg:h-screen lg:sticky lg:top-0 lg:items-center lg:justify-center pointer-events-none"
+      ref={archRightRef}
+      data-testid="origin-sticky-gallery"
+    >
+      {/* Gallery container - 500px height per spec */}
+      <div className="origin-gallery-container relative w-full max-w-lg h-[500px]">
+        {/* Glow effect behind images */}
+        <div className="origin-glow" />
+
+        {blocks.map((block, index) => (
+          <div
+            key={block.id}
+            className="origin-img absolute inset-0 w-full h-full rounded-[1.5rem] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,1)] bg-background"
+            data-img-index={index}
+            data-z-index={index + 1}
+          >
+            <DynamicAssetImage
+              assetKey={block.assetKey}
+              alt={block.title}
+              fallbackUrl={block.img}
+              className="w-full h-full rounded-3xl overflow-hidden"
+              priority={index === 0}
+            />
+            {/* Mask overlay for reveal effect */}
+            <div className="origin-mask absolute inset-0 bg-void z-10 origin-top" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,77 @@
+{
+  "agent": "agent-supabase-audit",
+  "timestamp_utc": "2026-02-14T12:17:03+00:00",
+  "auto_fix": false,
+  "storage_security_score": 60,
+  "storage_performance_score": 92,
+  "summary": {
+    "total_findings": 3,
+    "critical": 1,
+    "high": 1,
+    "medium": 1,
+    "low": 0,
+    "info": 0
+  },
+  "findings": [
+    {
+      "finding_id": "supabase-secret-literal-a3046da0d15a",
+      "domain": "supabase",
+      "severity": "critical",
+      "category": "credentials",
+      "title": "Hardcoded Supabase service role token pattern detected",
+      "recommendation": "Remove hardcoded token and load it only from secure server-side environment.",
+      "auto_fixable": false,
+      "evidence": {
+        "files": [".env.example"],
+        "snippets": ["sb_service_role_***"]
+      }
+    },
+    {
+      "finding_id": "supabase-unexpected-public-buckets-6a86d55cc597",
+      "domain": "supabase",
+      "severity": "high",
+      "category": "bucket_visibility",
+      "title": "Unexpected public buckets detected",
+      "recommendation": "Migrate these buckets to private access with signed URLs.",
+      "auto_fixable": false,
+      "evidence": {
+        "files": ["supabase/**/*.sql"],
+        "snippets": ["portfolio-assets"]
+      }
+    },
+    {
+      "finding_id": "supabase-3d-versioning-d4735e3a265e",
+      "domain": "supabase",
+      "severity": "medium",
+      "category": "performance",
+      "title": "3D assets without explicit version/hash naming",
+      "recommendation": "Adopt hashed or versioned filenames for immutable cache safety.",
+      "auto_fixable": false,
+      "evidence": {
+        "files": [
+          "public/site.assets/3d/bar.glb",
+          "public/site.assets/3d/ghost-transformed.glb"
+        ],
+        "snippets": ["count=2"]
+      }
+    }
+  ],
+  "applied_fixes": [],
+  "meta": {
+    "public_buckets_detected": [
+      "portfolio-assets",
+      "portfolio-media",
+      "site-assets"
+    ],
+    "unexpected_public_buckets": ["portfolio-assets"],
+    "storage_policy_operations": [
+      "all",
+      "delete",
+      "insert",
+      "select",
+      "update"
+    ],
+    "missing_storage_policy_operations": [],
+    "tracked_files_scanned": 12668
+  }
+}

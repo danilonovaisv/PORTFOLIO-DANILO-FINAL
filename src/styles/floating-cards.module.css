@@ -1,0 +1,28 @@
+/* GSAP & 3D Transitions */
+.floating-cards-container {
+  perspective: 1000px;
+}
+
+.card-3d-wrapper {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.card-glass {
+  background: rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.purple-glow-text {
+  text-shadow: 0 0 10px rgba(147, 51, 234, 0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-3d-wrapper {
+    animation: none !important;
+    transform: none !important;
+  }
+}

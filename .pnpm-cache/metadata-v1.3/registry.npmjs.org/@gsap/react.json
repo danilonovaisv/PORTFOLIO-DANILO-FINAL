@@ -1,0 +1,177 @@
+{
+  "name": "@gsap/react",
+  "dist-tags": { "latest": "2.1.2" },
+  "versions": {
+    "1.0.0": {
+      "name": "@gsap/react",
+      "version": "1.0.0",
+      "devDependencies": {
+        "gsap": "^3.12.2",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+      },
+      "peerDependencies": { "react": ">=16" },
+      "dist": {
+        "shasum": "20477186c59e2b4ee211a5cece43cd9ace88f094",
+        "tarball": "https://registry.npmjs.org/@gsap/react/-/react-1.0.0.tgz",
+        "fileCount": 4,
+        "integrity": "sha512-PsvIfk2KM2WZAPUcvKmfLmtYlY2QGpx+rsn3ArlJJTebUEieWK0i0XJOZdPEjtFfuvC3eyoajUS4hz+BWhQA0g==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDYNSxl5JBsz5FymCynTzsIfjKIKIpU3odRCRYUvSj33QIgD0HCcs6+zXJ+UYN/3qCKaM4JIVKQgAbHPHb5Ffz9H+U=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 9353
+      }
+    },
+    "1.0.1": {
+      "name": "@gsap/react",
+      "version": "1.0.1",
+      "devDependencies": {
+        "gsap": "^3.12.3",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+      },
+      "peerDependencies": { "react": ">=16" },
+      "dist": {
+        "shasum": "39be223dbe541843b77500b2bfedf36b5c8b3d73",
+        "tarball": "https://registry.npmjs.org/@gsap/react/-/react-1.0.1.tgz",
+        "fileCount": 4,
+        "integrity": "sha512-4pYrKhSt1ym/NTeegj6jKZKYjKei1BIcgXgTmzTT2Kbz3/wf2PMZtHJ1mEnz7foOPgG3IDRw8o+ZskEw2pEW+g==",
+        "signatures": [
+          {
+            "sig": "MEYCIQC3sHhZmz7jVLzCLYMfM9NKALi5vDoGu9Wy7HfcFjgkgAIhAP9Solr+5W39BY4K31/LwQXfyqONcTQy0uOAPvlcWVSX",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 11349
+      }
+    },
+    "2.0.0": {
+      "name": "@gsap/react",
+      "version": "2.0.0",
+      "devDependencies": {
+        "gsap": "^3.12.3",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+      },
+      "peerDependencies": { "react": ">=16" },
+      "dist": {
+        "shasum": "4ca4363d9b7a320a858a417b7d2386779be6d30a",
+        "tarball": "https://registry.npmjs.org/@gsap/react/-/react-2.0.0.tgz",
+        "fileCount": 4,
+        "integrity": "sha512-uHp2TLcJKR0jgXHIVoJOkXCzPWi32/u77iE52w1rruwr1MTt3lbUigWSpbAFDEz5fTdGn6RdcgSapiI+d+9Xdg==",
+        "signatures": [
+          {
+            "sig": "MEYCIQClTVPnNqvT+E84+Ayg4UmJcmeZN8n3yBih6TPCjF3mSgIhAMpZSKWlrUYs4+PSs1UfMsL2pn1bWRzc9zsf3Ltn5GaT",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 14352
+      }
+    },
+    "2.0.1": {
+      "name": "@gsap/react",
+      "version": "2.0.1",
+      "devDependencies": {
+        "gsap": "^3.12.3",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+      },
+      "peerDependencies": { "react": ">=16" },
+      "dist": {
+        "shasum": "3a8dc9b72538ee682940e39806bcba11ad18f24f",
+        "tarball": "https://registry.npmjs.org/@gsap/react/-/react-2.0.1.tgz",
+        "fileCount": 6,
+        "integrity": "sha512-4omZ2nQ60j0Tr5Uajn5bxz6XWlFje/5oZkkCgREe99g8DI1ZRd4Owlf+41bklp7ujt3yOsWT4/AMZHngvDwhig==",
+        "signatures": [
+          {
+            "sig": "MEUCIEn7xa2mjE8ybcffV4ddXmgZbuH80wMC/Qu+KUeR+TySAiEAykuTP+RcxOudvUtXKk0U5X9zulqapoRyDc44W1d2LII=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 18265
+      }
+    },
+    "2.0.2": {
+      "name": "@gsap/react",
+      "version": "2.0.2",
+      "devDependencies": {
+        "gsap": "^3.12.3",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+      },
+      "peerDependencies": { "react": ">=16" },
+      "dist": {
+        "shasum": "ec9fa2b9c25e10e3b2928c1f472d5f1e327ad383",
+        "tarball": "https://registry.npmjs.org/@gsap/react/-/react-2.0.2.tgz",
+        "fileCount": 6,
+        "integrity": "sha512-Uo2lOBlGcwmkIE9EcPdsyDfg+DRAoboVvuWgvVIrsJ2tIZHcpFab82YNV0iWj9CNfTzIqGP44ziXqsCMkc8OEw==",
+        "signatures": [
+          {
+            "sig": "MEUCIQC0gjeWk/IRLrO7s2YOkAOZd+NFxXfLEt77wxKNGGpshgIgGDBGj+sZvNGrglySfrIDzdXnfUELro2GHeiMmeaW/yA=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 18375
+      }
+    },
+    "2.1.0": {
+      "name": "@gsap/react",
+      "version": "2.1.0",
+      "dependencies": { "gsap": "^3.12.4", "react": ">=16" },
+      "dist": {
+        "shasum": "fe65901d64c00d2eea4e3e8b571ae293d781622f",
+        "tarball": "https://registry.npmjs.org/@gsap/react/-/react-2.1.0.tgz",
+        "fileCount": 6,
+        "integrity": "sha512-pwdFXvOM5IsRZXpWTKkQoEjb3/iUjDCU1BCJDlE6pHgVjG+7Ep/7+sszUgqVZ2Jc0mR8gnhtDWyx5cQAT4kwQw==",
+        "signatures": [
+          {
+            "sig": "MEUCIG13jwpWK1+YEo3fb6hwjIjoqTi9MnZYFPmzEKldVyy3AiEAloryZuAem9cDpg+XsA4gY/10F+yjcV/9fNHBKIS9Zzs=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 18654
+      }
+    },
+    "2.1.1": {
+      "name": "@gsap/react",
+      "version": "2.1.1",
+      "dependencies": { "gsap": "^3.12.5", "react": ">=16" },
+      "dist": {
+        "shasum": "219a81c84f93a2631c8aa324c0f5cce03cdf2ed9",
+        "tarball": "https://registry.npmjs.org/@gsap/react/-/react-2.1.1.tgz",
+        "fileCount": 6,
+        "integrity": "sha512-apGPRrmpqxvl1T6Io1KgT8tFU+IuACI6z4zmT7t8+PASserJeLVRFJdSNUFA2Xb/eVkZI1noE8LIrY/w/oJECw==",
+        "signatures": [
+          {
+            "sig": "MEQCIHSmhdjvW448nnBqtvDhsuvrxSVRbzH6Tyk/usuZcr9cAiBGg+1FhPEoCINN64Vfio8qGdRt630U01GJN3Ds+74oLw==",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 18880
+      }
+    },
+    "2.1.2": {
+      "name": "@gsap/react",
+      "version": "2.1.2",
+      "peerDependencies": { "gsap": "^3.12.5", "react": ">=17" },
+      "dist": {
+        "integrity": "sha512-JqliybO1837UcgH2hVOM4VO+38APk3ECNrsuSM4MuXp+rbf+/2IG2K1YJiqfTcXQHH7XlA0m3ykniFYstfq0Iw==",
+        "shasum": "bfc055a41b402e8d1dc56839e9d077407027b0a0",
+        "tarball": "https://registry.npmjs.org/@gsap/react/-/react-2.1.2.tgz",
+        "fileCount": 6,
+        "unpackedSize": 19128,
+        "signatures": [
+          {
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+            "sig": "MEQCIGdrnrnJvHf3uAHeWVm+/89L1v1qHydGnN7eVjf+bRqcAiB9JcZIS/KG4F4rjn8eVNbAAu6ncAXfXiMX7YWLA0cCSQ=="
+          }
+        ]
+      }
+    }
+  },
+  "modified": "2025-01-15T22:32:19.504Z",
+  "cachedAt": 1771798189031
+}

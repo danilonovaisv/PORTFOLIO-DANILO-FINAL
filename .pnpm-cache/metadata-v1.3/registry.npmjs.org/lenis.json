@@ -1,0 +1,3458 @@
+{
+  "name": "lenis",
+  "dist-tags": {
+    "framer": "1.3.17-framer",
+    "dev": "1.3.17-dev.0",
+    "latest": "1.3.17"
+  },
+  "versions": {
+    "0.0.0": {
+      "name": "lenis",
+      "version": "0.0.0",
+      "dist": {
+        "shasum": "8fdc21021385f5a3fa4f223246f5a0e577c5a44a",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-0.0.0.tgz",
+        "fileCount": 2,
+        "integrity": "sha512-ArnfD45dnHjhl977jHvVtbzNNZcKnmQH4UloigGq7oP1LMw1u++U6tmWEU0fpL9l70x/DZp7WAYMEC54w4t5mA==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDZLOmhjLqwCsHBEiWVKWP4EkqklzRqerep9ZK7IHNNjAIgKkINBbkSukJAqeaFC7Fnh+505uecyKH8SQyA61l7lNg=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 423,
+        "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v4.10.10\r\nComment: https://openpgpjs.org\r\n\r\nwsFzBAEBCAAGBQJkKxI4ACEJED1NWxICdlZqFiEECWMYAoorWMhJKdjhPU1b\r\nEgJ2Vmq8Cg//YTGt1x1WC4hSbXF2YKYQSzpkj4xB4s2bUl0YqKREDqtKn+jt\r\nQH65GuI8eB2IisAG6ya1OfKe99YWUdcsNVVDxrFbbQuMUpM7k4U+0z/ocjgU\r\njRUK9HDh5uvtJ+qMq4PsyLIDX2PcCwjMBh82FnW8RG2qTZcCriEYqHI58tnn\r\nYyUBZLdNRiMiX2rJhJ+ORnIAVJ4av/oyC5GGvkciXVquKMFSYtqTV59IBgDY\r\nmsUhmP37wtVvfpsFmkAQ1m9npbUwF5sJ+hhQjsK+CQ87sGe4SWM98eAl9wbf\r\nfk3mtKArAHKpE3X/KBBTzIrit8JYJ4YipTImaShazlcbtTQhz1cNVKetTGhA\r\n8r8XLbB4ybr8Qn37f+nxPoK18Q/6kOWa9ejyiqqV784mjRrxVHxt/VEu+EZX\r\nexIdeVNKALi6dUYYInQQDyJQfnxyKQYmjDMuCWN6F8v8ZbkzuB70doreU97p\r\nCv8ipXCI03HXpiSp5Ax+h7ZHEvXy10/xj/o8iAZrFEbOKg+zVzL/hgsnE2Fc\r\n2R+KkI2Ze0/oXIa2bDMKmvEPPocY1jNRi5iRZ27B8657zgTRh5kU2ypriwer\r\n4WpJjrEoZrZuETKOJxy9Wfh0igT0skqWXAxfdcm+jCAnKPBvx4nQrFSeCtGF\r\nq8vamq0LzpM651BfcOa/ZNQ1lcBZFmQFpFs=\r\n=XP/9\r\n-----END PGP SIGNATURE-----\r\n"
+      }
+    },
+    "0.0.2": {
+      "name": "lenis",
+      "version": "0.0.2",
+      "dist": {
+        "shasum": "85f8c200fb60383570fef79fa2542f752999f763",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-0.0.2.tgz",
+        "fileCount": 2,
+        "integrity": "sha512-lQBkSrQt0VATcXvG5L5yU9Bn3un4fijTfb7g+d3GkkuAzB4b3LtKVUeN0heOgPkl/SzQ/FQDXj+w8eXjfdxSiQ==",
+        "signatures": [
+          {
+            "sig": "MEYCIQCvZ6Adl57OXwWYd8Gv0ekTXENi1QnGaRjKiCUTvAtMVAIhAMOSOojnxgYj7g4S6IhBN9aWbkEv7BV+4apGgb4nUui+",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 405,
+        "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v4.10.10\r\nComment: https://openpgpjs.org\r\n\r\nwsFzBAEBCAAGBQJkKxKIACEJED1NWxICdlZqFiEECWMYAoorWMhJKdjhPU1b\r\nEgJ2VmrQmg//X0XW2fMdUS7n/esxVo1Q5owbGZS0pcfcjcxRUFcgA7NRstos\r\nyo8cUN5rMxCDobXuY2Ki1voPDzZYruVs+uI9hRRAj9NyH9QYjTWCQQJLNAyt\r\nowYTASx2JgESEZM4ukDxclvoxosgNuUCLAT22NCbBYAAruvd2nunPJdpOOnZ\r\nU0YAbEWLI1PDxxZbn3HzeX+trMWWURC1YhF9WRvy1KDob68WdZkWjE5Cdzc6\r\n7/T+wWkQM+T1jBJAsWSsX9eUEKskHovbxREOsv05bIeCuZewZ74yGBxQly59\r\nd8CvUzsnj7RcT6gDQ27vm3bxdtbeYniHtGkMzveYchTl+Jzl2EBnxHh1LwRW\r\nEsADsQsK/JNDamGegZZ4k1mMsfO7iR2iQJenZBphLOvLF4xwoojmlCPNHwJ5\r\n+ZZCR5EuKGZCq4JjQ442M7q8HQApLrABv5xMGhg60OwjV7ZXiIhsvbWaBk8V\r\nZRe3N+pRw6rodJspvioHUva50aLvwmFfl6XvoxOOfBarisuSJMhUgrZqmJgM\r\n0z17Kpllpdp6hoinNs8qwkHMzA1yXILd/8fVZyicHVK6dUUgAbnTI6+FMnbM\r\n0vjrqU+rCZNhb6GULZSeaOZ6Oxsrd5hUdNqE6NglIq7qNjdYutMtWOMa4IHY\r\n6WsKG4zNxS+7R+DyBje9MPSmC4Fl8NT6K+s=\r\n=UYPp\r\n-----END PGP SIGNATURE-----\r\n"
+      }
+    },
+    "1.0.43-dev.0": {
+      "name": "lenis",
+      "version": "1.0.43-dev.0",
+      "dependencies": {
+        "clsx": "^2.1.0",
+        "zustand": "^4.5.2",
+        "@darkroom.engineering/hamo": "^0.6.35"
+      },
+      "devDependencies": {
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rimraf": "^5.0.5",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "move-file-cli": "^3.0.0",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "099b0786d4aef03e8be71534fa7e738209692e85",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.0.43-dev.0.tgz",
+        "fileCount": 13,
+        "integrity": "sha512-9az7MDEy7aAGrvI+6YXz0VMF7I/TVjq2Ap0jsWyhMPO4l5S1GozuDL9v1YM5zxfV+mc6kwLHmE5gobZzP/DuGA==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDbS1xgsFOYc9sHzWnML8uu3q4Hv3E4nFEJYXMPynps8gIhAK8a06pksWx/0765ApxKMR5kwOQeZ66435wgDeYPAsPs",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 306321
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.0.43": {
+      "name": "lenis",
+      "version": "1.0.43",
+      "dependencies": {
+        "clsx": "^2.1.0",
+        "zustand": "^4.5.2",
+        "@darkroom.engineering/hamo": "^0.6.35"
+      },
+      "devDependencies": {
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rimraf": "^5.0.5",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "move-file-cli": "^3.0.0",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "64a6ef44c376bc256198eed63a77133ac7819fe4",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.0.43.tgz",
+        "fileCount": 13,
+        "integrity": "sha512-AOcMmJ135UIdbjUdkpMv8D8Ry7bc2ksm6QdUYNwleDq553zUPMfDTMUIBGjVpEjcRQ3JQEPAwXZaNn4/EyVKvg==",
+        "signatures": [
+          {
+            "sig": "MEQCIEVwjZ6Kr6ExpYBNqH53XBmFRL4gin9hIOCZWUjue2qcAiBNcrccv4zsNDVltAfTRAZ/KYD5jxdmoJSEoxdZ5isicw==",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 306298
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.0.44": {
+      "name": "lenis",
+      "version": "1.0.44",
+      "dependencies": {
+        "clsx": "^2.1.0",
+        "zustand": "^4.5.2",
+        "@darkroom.engineering/hamo": "^0.6.35"
+      },
+      "devDependencies": {
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rimraf": "^5.0.5",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "move-file-cli": "^3.0.0",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "f5101464b89330070b338081bb64c4751d2bf7f1",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.0.44.tgz",
+        "fileCount": 13,
+        "integrity": "sha512-HlH0r9APjf8eveGrUsLX5JavOFui7wfeaZauf2d8Ovphim9L4M+owlJgjmd4XN0wnl8xoeydKIzIyKOrSFk13g==",
+        "signatures": [
+          {
+            "sig": "MEQCIBa1WmAG1FC0dnNPhWi6/zjAY8/52lpWJ3n/MpVl7QJGAiApqywFcBUFdnShbDC3H2zZXvqCBVh0QuY9uEgwUHKvtw==",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 306297
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.0.45-dev.0": {
+      "name": "lenis",
+      "version": "1.0.45-dev.0",
+      "dependencies": {
+        "clsx": "^2.1.0",
+        "zustand": "^4.5.2",
+        "@darkroom.engineering/tempus": "^0.0.46"
+      },
+      "devDependencies": {
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rimraf": "^5.0.5",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "move-file-cli": "^3.0.0",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "adbc9e7a4d896110690a7413c74f76a227957a8a",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.0.45-dev.0.tgz",
+        "fileCount": 13,
+        "integrity": "sha512-nbRqUgI05tuOfYLBQ2SaolYxgapHz66YB27RT3ngQapusR6lStTOw1AIkJHps7iCcYHbkaWXtM/gr/lowzIbLA==",
+        "signatures": [
+          {
+            "sig": "MEQCIHhUQ/EAmTfkBaZMLFW+j30OdruJLsQE7gAgcrSMcZ4gAiAbgHqfcw7IXIyc1sd+W+Ej1Fw7RCpR/Ed4Vyh3DChoQw==",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 300726
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.0.45-dev.1": {
+      "name": "lenis",
+      "version": "1.0.45-dev.1",
+      "dependencies": {
+        "clsx": "^2.1.0",
+        "@darkroom.engineering/tempus": "^0.0.46"
+      },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rimraf": "^5.0.5",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "move-file-cli": "^3.0.0",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "cc40f497f26782fad1daa25d51aeeab9b78637c6",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.0.45-dev.1.tgz",
+        "fileCount": 13,
+        "integrity": "sha512-t+poQMxlV7rgtuaEUZ3xElxBsicymA3hagexh3+jETviFwCSXJkgC7SjVoHcGSuahL2aSjKHnV4CuHJP6M9tPQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIGy/dx4Eutf9JALXCLMzPu4JoGxSBWPTnD5//+SnoLhcAiEA651qqvVD4/OcyC1ooM3/INEoUSxgegQCY66YpQg07kQ=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 308926
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.0.45": {
+      "name": "lenis",
+      "version": "1.0.45",
+      "dependencies": {
+        "clsx": "^2.1.0",
+        "@darkroom.engineering/tempus": "^0.0.46"
+      },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rimraf": "^5.0.5",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "move-file-cli": "^3.0.0",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "5e34437527f30e10c87ada3c3c756c7c0caf8475",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.0.45.tgz",
+        "fileCount": 13,
+        "integrity": "sha512-wiaYRxr7rK1rY+dhGdMLowV0rkjg+1B2nI50Igyu5USkjDY6lkBNCJi0mVaSL/X3ECyAm/oA0nsihq8ic3p9wg==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDRfujf2jlGzJqyc6PBUhIT9MbtnsL8Aj14fwCnOnn+ogIgdlcKErKOByNIpJjU00NyJ2ftYBfss4ZS5vKcwMr7mVM=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 308900
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.0.46-dev.0": {
+      "name": "lenis",
+      "version": "1.0.46-dev.0",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rimraf": "^5.0.5",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "fc3e1591f8fd750d3acdc0d90e180028b7a2b010",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.0.46-dev.0.tgz",
+        "fileCount": 20,
+        "integrity": "sha512-RiXlv+CCls5d7zbhJxmY5nG9ekVtnLa8r17EBoSMrRrvZd0T5tCzfbsTyAS8Evam4XWKw9bxm/fcW7TlLn+1Jg==",
+        "signatures": [
+          {
+            "sig": "MEYCIQC426AsLM3aus4YmAMVgyZK8fnr+Hn3OIVBKbhpsKo7BgIhAKwkKP+nzjTsvUijMLShI2swv8hPbxXxo6LT1heBkETA",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 315194
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.0": {
+      "name": "lenis",
+      "version": "1.1.0",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rimraf": "^5.0.5",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "53191ea217ee86db897e3733a0c5836852ca9148",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.0.tgz",
+        "fileCount": 20,
+        "integrity": "sha512-katl22OfUAMtgFlKfvCSZqWT0xE1LtN/u7zRHDnlXczrYCIR5+6R9hY5iRHKgjMp88S3y3zBwb8jd6oQpbATbg==",
+        "signatures": [
+          {
+            "sig": "MEQCIGFLhrxjMF72jirAs8Bdx5WXD5Vy9b0gO1w9889DcTn9AiBdt+XjTPB6oOdoe0XK8rElfzo+OOLMdHkfuyZCzLopHA==",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 317170
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.1": {
+      "name": "lenis",
+      "version": "1.1.1",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rimraf": "^5.0.5",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "92b6d480571e75085a398cdc92c900feda22d768",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.1.tgz",
+        "fileCount": 20,
+        "integrity": "sha512-rRwkB+sYKiISc7Ttom4YX+lH+YD92y6ZsIdOjwQNDxWm/kMwp/e9cMprVeWSvsgeXyJ+zjjvhqQPcTvn9cBo5w==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDm7fIlwM0nyQUikjTUGpj5h3tEuMEOBQuU2gVKNdYswQIhAM/zfh/VJhwLjBV39g+1DvCAaP3newN1+C8cknk15Qs/",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 320746
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.2": {
+      "name": "lenis",
+      "version": "1.1.2",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "f92d16c84b331f1a2fc73f031d93471dd3efbf67",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.2.tgz",
+        "fileCount": 30,
+        "integrity": "sha512-3DEFkKyWJeVOzK1hLm4uQTp4tdGJEOT1LUbszGhz05MRXy3Hh/XRR2mupigW2M4WhZaImg45tJrtDMomCjCM4A==",
+        "signatures": [
+          {
+            "sig": "MEQCIBDxJVNIPC6IVZ6LhFUekgmszjEeT3MxzO9PXik+qBv/AiBZcLHvh42LlIZy3bofFHXf8fdPZlmAIV7+gQlN6fe8WA==",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 336553
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.3-dev.0": {
+      "name": "lenis",
+      "version": "1.1.3-dev.0",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "46edb75b5c2fc0146e42c1ccdce515cf07a46aa1",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.3-dev.0.tgz",
+        "fileCount": 30,
+        "integrity": "sha512-+t0edlNqXH8w0hbiZM5sXoOrcgcmiij90FFr090LOjmLHtJC1Pu+Z61BPGJj3yxHR1JjZCU7KASju9PkFrBjMA==",
+        "signatures": [
+          {
+            "sig": "MEUCIDdnpAmQbB6pUOiCL7jTZpQLzFd5ms1b1jrhSneALnUZAiEArR8vqUQZh5AkvmaPTNfJ910Ozv482h0OCGWIsMKOrtw=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 334792
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.3": {
+      "name": "lenis",
+      "version": "1.1.3",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "85bfe2f6748b8f1635e084f8f888b641e39eb60f",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.3.tgz",
+        "fileCount": 30,
+        "integrity": "sha512-Ny62QbNKFdnYPutULPMCgXU6YADKgkICBke41snSXDH1p9iIA1w1+RiHSfJEoMaRCa1SXer4Rzv0f4txCQcQpg==",
+        "signatures": [
+          {
+            "sig": "MEQCIHECY2qMG4uiEI+JTqutcoERMnHEvbxTJHyarZqtIIceAiA1RYFjGz+8NgIheK0RAMXHHzIFc/zVyvz9oTzY/O7W0A==",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 335041
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.4": {
+      "name": "lenis",
+      "version": "1.1.4",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "9aec41e07b477b4a6897e2be1532bbeee8a0eab9",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.4.tgz",
+        "fileCount": 30,
+        "integrity": "sha512-VNbsie0YaP6946QpYw/n5zxyPyLKuqPO28T8FK7YBzIkG3FyfwEZkpPKqt6eQZJ9ofjxkfUM+A8YtPfNlTbSlQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIQD3OsVtY6v+WdS/gIMy6CDg7Y3yGTOLzVkx11owAf0rUwIgGcx1PDTbq0TCdp+UIInQ2QGbQf9r3f51WcJO3h4Hj6M=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 338034
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.5": {
+      "name": "lenis",
+      "version": "1.1.5",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "6579f725567dc0d6df64702a071e073a24007d86",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.5.tgz",
+        "fileCount": 30,
+        "integrity": "sha512-RNpGFoOVFGboCdJ7EUcMTUNZC7d/AJV1ad8eBTYBdL2TuwdWJ11Mb5jx4dLreHadH8Mg2o+3uVHQHTd4txasaw==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDfzUdA7WFR6AR8+d4hooid3uPlykLXEJqm2/fxRb+0twIhAIDwMXBNGpu4/4Rc8gCSD1TWWdIeUYkeSt5gPvH7Xixg",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 337939
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.6-dev.0": {
+      "name": "lenis",
+      "version": "1.1.6-dev.0",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "c6ab2d684508031e457e725cf6a16614523c38cb",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.6-dev.0.tgz",
+        "fileCount": 20,
+        "integrity": "sha512-9I347wR4pW8gdBPM0qhVnstz3VUoBVj/0Psj080Eg4XVix3rCPzcmU+siAOks6ImUFHXC1SoVqkM7NGNd4ynXQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIQD7tG4OyOmxoJRY9iUuxtHfbsKwAjqPPgfovWj4Nsv8+QIgdDwbpjP9K0QQ8ARu3nQ+CT9dQiGJuY7yZsWdjMedhpw=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 359168
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.6": {
+      "name": "lenis",
+      "version": "1.1.6",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "8610197658604319d2a20c388c206b928eb32036",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.6.tgz",
+        "fileCount": 20,
+        "integrity": "sha512-MQE2Pz49inEsT/H6enEfYeMysH/Yl6s9Z91th1KAm3RxMDzN0YOEncZzR3o6uvJH44yCCUDnr8ILMvT8o689RA==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDTQrg+T3jSwgLuU/t522DZ7CaXnnWLHHiQChES0Q+VXgIhAPbR78/j5uFxjgA+CcNdCLpExuPVZcQ7W875/dHAw1fa",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 359750
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.7": {
+      "name": "lenis",
+      "version": "1.1.7",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "c0f1e9fd42fdfdb68c823bc6140c63b4bd7b0675",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.7.tgz",
+        "fileCount": 21,
+        "integrity": "sha512-spcPpTmRHMHmQt4gra2aVNiPktVwi4YYjAWd8T9xspqPW7eVJTz4yPAJvNwrrPjhYP3Uo5vtSKjnyboKHePXNQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDHrUaoiQd0EmVELfm4x4WCFGOiRRMtOfOHBqdZAjQyyAIgSyFelGQKplE4KCt0FVkXfoUdYXyTM9x2Prja0YkaX7A=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 360278
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.8": {
+      "name": "lenis",
+      "version": "1.1.8",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "d4ee3e83a33f6e3799742b482e8e2a1173e6f261",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.8.tgz",
+        "fileCount": 21,
+        "integrity": "sha512-oGqnhuc+yqkNb2Hr8rVmmRsElHHwsqYlukxuaQtRMZLIDhsnDI0gZZIuEwVwMPel5fG3t+kd6mk0K3O/Phj6rw==",
+        "signatures": [
+          {
+            "sig": "MEUCIBdfY2Ln5xss1iIWcHOk5wlIyaSJq+Tc228K9BEs9Hd6AiEA3joqNIo73tUwIKk4M82L5AxT7jDCktPz/bCK0aNVjUg=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 360278
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.9": {
+      "name": "lenis",
+      "version": "1.1.9",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "27d61daf614f8456a95d8b62d65fe61a7e625119",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.9.tgz",
+        "fileCount": 21,
+        "integrity": "sha512-xU2UU1J8mJCiWBSfiMWsC/kPbQMIadSsJiEu3mVqptXGnwo/FUnfp8xCyiOJEvBwzqx4XDdB6TKYFn83y871vA==",
+        "signatures": [
+          {
+            "sig": "MEUCIBEsOVJ0HkSDkSQ7dXlz3B63+rGwWb3FwVdTMEuWXoLhAiEAkoZsWycYuXxp52jUoBA2lI6kkzR2TwS3O530zb7cABk=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 360307
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.10-dev.0": {
+      "name": "lenis",
+      "version": "1.1.10-dev.0",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "04eb8241277e33788b028963ec49a3f07c4668e6",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.10-dev.0.tgz",
+        "fileCount": 21,
+        "integrity": "sha512-Dls4RBiTkhQ33mrA807otVQjZN+A+XDpKUH0BkJOhvRL1ynzx3LvbM5kvNc7z4GTiR7NtphV4kceRVbnmjOP3w==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDbiwJfBXrD8O3o4Q2Z2te+TIjgkIF/WZq16kwmhesJOwIhAPX/H0Z4bK6UM4iq1rOcLglIodLQlf969RqKll8kLwgP",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 438656
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.10": {
+      "name": "lenis",
+      "version": "1.1.10",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "c77b004e84b38979c3156f4dfa07b44971745a74",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.10.tgz",
+        "fileCount": 21,
+        "integrity": "sha512-G3uM/qMYM953kwyIxVKhlUZdz/3C5X6W3oyKxhjtemAdWq3eYCc0gKNMRCN5HQk7u+notpQP6mFwtMEjU62odg==",
+        "signatures": [
+          {
+            "sig": "MEYCIQCsFvqF3XcCn0NRbKlsv84UxolIxog9o5ghAPYyY/Ba8gIhAMJryglCBGnXGI/xJcxp+/BSXWoalOEOYhYQyIfYRa4S",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 438663
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.11": {
+      "name": "lenis",
+      "version": "1.1.11",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "a7e8d93b49d58feaf7f5ba5144636d329621aa7b",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.11.tgz",
+        "fileCount": 21,
+        "integrity": "sha512-ykl6sYWhECtD/9N1JiKhKCY10LEYnGaxgQzo5tFQcHlkD9zZx2ZSUydqk1Xtk/w13+ZGv9qMyhcG7d8s159ONQ==",
+        "signatures": [
+          {
+            "sig": "MEQCICmaNiP4eSZzSDaqxfVf/cGza0YfQ6iXcOm05ulI0/OyAiBtmbOOynVUNKnChl6hFTn+xMekMnfO79PGq1wxFgPGXQ==",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 440148
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.12": {
+      "name": "lenis",
+      "version": "1.1.12",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "ad92a2d361d86ba134789e2e7ec38f65a8c784ce",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.12.tgz",
+        "fileCount": 21,
+        "integrity": "sha512-NvCOqZTNgDoeT2ynUfYyfr7Zict76ernpx5nqC3Z4CJKspvP1efziu8ENXJChVSTqZ8BufFmOOPNW9Cpxt6Zyw==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCjgFB1MUe9fAnUW8Ve6dR+ktl+GRK4O3cmXs9XqupIjQIgYdSeLGEOsf+iNpuEF5A+KLMOyOjIP2kbd1xJDAcWptw=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 439786
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.13": {
+      "name": "lenis",
+      "version": "1.1.13",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": {
+        "shx": "^0.3.4",
+        "react": "^18.2.0",
+        "tslib": "^2.6.2",
+        "rollup": "^4.14.2",
+        "react-dom": "^18.2.0",
+        "typescript": "^5.4.5",
+        "npm-run-all": "^4.1.5",
+        "@types/react": "^18.2.77",
+        "rollup-plugin-dts": "^6.1.0",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@rollup/plugin-node-resolve": "^15.2.3"
+      },
+      "peerDependencies": { "react": ">=17.0.0", "react-dom": ">=17.0.0" },
+      "dist": {
+        "shasum": "4234c4ba302c211ddf0f0a21d73de99d5a78528b",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.13.tgz",
+        "fileCount": 21,
+        "integrity": "sha512-iny+vWwUHcZGbJz+p2I75H1muLBRZqSG7t04jnhA+CWOQDFL1vt9bsZDwPPtYEmYVVvqAdo5MbXVFzNOlbgUkQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDRXIKfs39GY7MFuO++qf+lJfCEYnl/hMWc4vnkWOCTAwIgJ1Ie1RcB7D6znbNYJvvFpGl+I7HZgw4hV7YqDMI8Pos=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 372868
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "react-dom": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.14-dev.0": {
+      "name": "lenis",
+      "version": "1.1.14-dev.0",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": { "tsup": "^8.2.4", "typescript": "^5.4.5" },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "f36dd62dbfb005401482b653783e122279554e94",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.14-dev.0.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-s0s68+Jr31eOV1FNLrlXRkZAELqhVfo3eR6RqpzGvCzoGg4MMvr646hfUpWiA1FQsSzgje5y6/GE2DhjnguiRA==",
+        "signatures": [
+          {
+            "sig": "MEYCIQC0scpM+CkVgeazGBnncq8LZ5pqImM2PgjkCdaIa4rSuQIhAKrFMv1MsF50BUZbJArElNx4y+ZujvQr0q0eNB0zagIi",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 381104
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.14-dev.3": {
+      "name": "lenis",
+      "version": "1.1.14-dev.3",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": { "tsup": "^8.2.4", "typescript": "^5.4.5" },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "1a9cbf82a4d4626fb348570b482fa2db08a779ae",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.14-dev.3.tgz",
+        "fileCount": 9,
+        "integrity": "sha512-qKr/1o+3quDex0grnh0n/XmpGSXnHZzr7hHzO7OTiNdpRKMxQsALyQdqqjp2d1nABB1yyR0+URfhYqeRKak9Rg==",
+        "signatures": [
+          {
+            "sig": "MEUCIBmS5Jl22SYkrCWhcSVFf7QfA3HPacfrz7AfSTpjFrY2AiEA00fTFtB2z/DgbpU9X8NB80XcKCD6J3SBow3niQ9S0+M=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 129244
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.14-dev.5": {
+      "name": "lenis",
+      "version": "1.1.14-dev.5",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": { "tsup": "^8.2.4", "typescript": "^5.4.5" },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "4cb46130bd34d251ab608f8e542f0afd146f4e0e",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.14-dev.5.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-DQUWx3sBHD5WRC9RS7kCnx8lAUaVFCPOG52C80EjO4o1FkOjdJc6tadZ3FytPheh+4o926+O4qxRIgBAxTqs2Q==",
+        "signatures": [
+          {
+            "sig": "MEQCIHd4r0Ht+XQijptqZuf8ivJev+GA6c2fF3SZYSRmgJTKAiBFWfDDcK22SctRV2zDA8vGhljY5GYzD1JjJaes7ue6Fg==",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 381735
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.14-dev.1": {
+      "name": "lenis",
+      "version": "1.1.14-dev.1",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": { "tsup": "^8.2.4", "typescript": "^5.4.5" },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "d18d1956b010f866e8d07d0bf031d6ffe909fc71",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.14-dev.1.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-1qcGuhCBS3iveykGTwf8KT2r8CDdExeGyieR3HkMdM7Y8iIMXC2Jket5tdEqcj1pNQpXa99clQrUEJgoR8E8BQ==",
+        "signatures": [
+          {
+            "sig": "MEQCICYAeV/bDY0Ym81X/ZrsCXQkBDEPc3lzYguODl1APz7JAiAY3LEOVMzP4NVH+1mN/6DVTFPb6RrRYd5aBWxffYuxjA==",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 385030
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.14-dev.2": {
+      "name": "lenis",
+      "version": "1.1.14-dev.2",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": { "tsup": "^8.2.4", "typescript": "^5.4.5" },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "de1355d934bbf09aa5e76aeec3126d4a978bf3b7",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.14-dev.2.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-3FGhK+AJMKRchtujRA8PGWCNAXWnm7sGCJD+IwcTsNIgz8wgOj2tt8MmPl62swf9Rh4q168eiB6VMppcGbuyWg==",
+        "signatures": [
+          {
+            "sig": "MEQCIDHGZxO+072SNRlu7yaLcat1zoaxEABbcaR2POGNcQteAiALfAp0caAdyjvjK3wLEk8sMBJM7Lp9CIpFTY2Z9aqnhQ==",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 384230
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.14": {
+      "name": "lenis",
+      "version": "1.1.14",
+      "dependencies": { "@darkroom.engineering/tempus": "^0.0.46" },
+      "devDependencies": { "tsup": "^8.2.4", "typescript": "^5.4.5" },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "209d6f1e9461f8c9e98c3300e4fd27691aa14f2d",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.14.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-dzIeiOCdBL/7Tjh6jU8iN5j1uu5R3PIQwRYipS4C8POPyTH1pHyux3HDyvcGuLqNNsEztZjkmwfPii2cPLXBbg==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDqXKrc5yUlGHsMBo/RBVuHwVzRHwSjU6cj2p+lrWeqiQIhAP32108iDFZyCLKSeTaB6oPdQ7+khrO4vS2/D2H/9Jzg",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 385794
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.15": {
+      "name": "lenis",
+      "version": "1.1.15",
+      "devDependencies": { "tsup": "^8.2.4", "typescript": "^5.4.5" },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "6215c2e90ac409464875313c929dd7070c82c545",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.15.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-pLClqLe3j+ky+HXDMoJPo3+qoP5sQCwOjv/znAnOLY+tQoCGGnZz5TF7dZ4n868bis26RzRpHoJnr4/eJEDs4Q==",
+        "signatures": [
+          {
+            "sig": "MEUCIAcumyBXldBY9dTWKBCzDGSNaiGVy+SbNJx++IBOR6tAAiEAi2ZOV6n6fvCV1Ts2PKqibGqV3X/UO5O5I3TwzdYLoP4=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 387284
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.16": {
+      "name": "lenis",
+      "version": "1.1.16",
+      "devDependencies": { "tsup": "^8.2.4", "typescript": "^5.4.5" },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "af78e09ebd025f659a8df77f9c68c900da38fed9",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.16.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-bGS8IxJW3x310gTwFylgYU6bGzeVnTALmgyLP8RZ9DFSYC/hN3fi+urCWspr5otljbDAGF4ND2GKCFtemAd45Q==",
+        "signatures": [
+          {
+            "sig": "MEQCIGcpPxLuK0kBKKZu7rxszDi2vgzFizlFCNXWNqVV37GEAiA8Xb4zaecMtWM8LiAPuzlpflDlS22sVDZa+BytP4yxdA==",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 386245
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.17": {
+      "name": "lenis",
+      "version": "1.1.17",
+      "devDependencies": { "tsup": "^8.2.4", "typescript": "^5.4.5" },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "c6aa21763fe0318371bae8bd9b1580bc8b3a9b34",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.17.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-22XhWvjoJynQdfguMp1V+5ZbGUdGkJ4rtQy8x+w52NKxYb+OIZhGXC9Fo2PQTWzKDbYNDUb/O1CIbeEQHkZbag==",
+        "signatures": [
+          {
+            "sig": "MEQCIGQJ2E5rO0fRA6zpn801m9mhUbHsufCPrR1TsHfkO0tOAiBfXdaABTqUsmCgcTW7ZcUZlGPCdX3EKsb0CJwcxPSgNQ==",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 386363
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.18": {
+      "name": "lenis",
+      "version": "1.1.18",
+      "devDependencies": { "tsup": "^8.2.4", "typescript": "^5.4.5" },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "adc7c6977976db3d9ca9afb092c4cd30ce5bc560",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.18.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-hBJVN0o7ZWt6DqyLoCkYKLffgCqywX0Gf/ZWhWC8Ths1zN/lZHoAMC3faFjaTxnOEKokeV0q1Mlyu1aUr18xFQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIHGNiPWnKxC9vq0+Ynk9ASqcGqwur4fnI56o45gpHwKOAiEArhG7TnLWkKH5gR+SzFPA9XSgWSoHvzxab3dmFGtYNtY=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 385344
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.19-dev.0": {
+      "name": "lenis",
+      "version": "1.1.19-dev.0",
+      "devDependencies": { "tsup": "^8.2.4", "typescript": "^5.4.5" },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "fab7eee6bf18d46e977e22379fb0eb215da454d7",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.19-dev.0.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-VxABiFh929BEDDmZPVVld6eTl95i4YOm5WxLzUQgVlwBpv4mWB/hOdduCnk8WvPpIxbU120KMB24wz+x6aNM8A==",
+        "signatures": [
+          {
+            "sig": "MEUCIG12mYPo0aD3Et+kT+3GGx0yuHZEqowV1j3Lv7rklyvuAiEAn2BvpYCC4ShE+7f1R7HNAi/a2KbxlExYtPgwm1VOUJs=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 387304
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.19-dev.1": {
+      "name": "lenis",
+      "version": "1.1.19-dev.1",
+      "devDependencies": { "tsup": "^8.2.4", "typescript": "^5.4.5" },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "eab5132c0ad904cb61a2fc2bc334e459fad729d5",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.19-dev.1.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-Ppg6JHFT7xtcoW+1A8j4ubTAmPZRoULQimnDF8m/jwHVW95Z0lDTvTGVPZ5Xvfkx3K8NZ7VGIQyj0L36Kg/eUw==",
+        "signatures": [
+          {
+            "sig": "MEYCIQCEEc5F6nW3bS9lqGUUqqZzRw+YDA4olWtasga9ILklHgIhAPayJELH0BbMQCnQ4rqi2KuowLNYR7Mb3LgdxgExoL5u",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 395109
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.19-dev.2": {
+      "name": "lenis",
+      "version": "1.1.19-dev.2",
+      "devDependencies": { "tsup": "^8.2.4", "typescript": "^5.4.5" },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "bc143118ec4b54055073ef18f4ccabbd6b61a744",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.19-dev.2.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-SqLDKWKBH9cIEZmJVatnVAUPAFc4hQ6eP0mF63rbRixgqSjNnBUhRL79IWmuBNCZv+7vAAmUD2JukY65uuyTEA==",
+        "signatures": [
+          {
+            "sig": "MEQCIEGjJfKiueaSw1LWdNdEIqHXjMQpE5nskMXqhHUzxwYbAiAZcI2Vy/fhsyN3f0SAkyEGzmcxyIWpqe4NmeDlWHnIIQ==",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 399049
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.19-dev.3": {
+      "name": "lenis",
+      "version": "1.1.19-dev.3",
+      "devDependencies": { "tsup": "^8.2.4", "typescript": "^5.4.5" },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "1210985a9aa70e61bb6118b0b964ab19057e796b",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.19-dev.3.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-GezqBOT+a2jS9XA0aa1rTyTeEeFkIYa7n36wbBeXWenvQDWYdR7vXcGMw2i3WfSxt/WgTYHMe46vEtIqQDrpxw==",
+        "signatures": [
+          {
+            "sig": "MEQCIDNfIqKkYxMwewzEdsAEXEkokiXCsrzNIJXtiXNVVpp+AiBI/jY2afRwHbAjNGXVQetf8Rc3co5QVKny/rgHuOmG4w==",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 399555
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.19-dev.4": {
+      "name": "lenis",
+      "version": "1.1.19-dev.4",
+      "devDependencies": { "tsup": "^8.2.4", "typescript": "^5.4.5" },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "48ccbcfa2b307c6e82ba3a01090589276be30f9a",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.19-dev.4.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-7ztMOzXPi8TNxQ7IZ1owyIRCkWPXOzIYahFts+nXfO43QSDzBlreyY+zSxqP1ADHLUiIafii4N0o/sQnB4hUCg==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCj3scULJHF8dFuiBedq0CKMZPWdCAapIkli1/e8luZ8gIgMQ2NRuJ/f3FjUGbZvv3pV3h32IMSq/fyXYWicePrP3w=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 400831
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.19-dev.5": {
+      "name": "lenis",
+      "version": "1.1.19-dev.5",
+      "devDependencies": {
+        "tsup": "^8.2.4",
+        "terser": "^5.37.0",
+        "typescript": "^5.4.5"
+      },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "38c8d7f3bcc65ecaf0db0726d4c767e7845cd831",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.19-dev.5.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-OAejgbQcZuPtVr0IB0R14/lFyJfBV4jCpNOhV3qlMkbSP5bSZTaDIMIGSd1GbB7viFGWwHWYs59FacUpm0h1jA==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCzRo+wxRZvaasDhznl6YbnFIR5/fp4U4Ss+Z0A5cyGJQIgRqgEo2YmGWhT34Yab+xtN7cfrw2ZyQhHUOm//HlLJNg=",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 403056
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.19-dev.6": {
+      "name": "lenis",
+      "version": "1.1.19-dev.6",
+      "devDependencies": {
+        "tsup": "^8.2.4",
+        "terser": "^5.37.0",
+        "typescript": "^5.4.5",
+        "@biomejs/biome": "1.9.4"
+      },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "e79b8f3dfa6464a9c8625c6f634c18d24de8cde1",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.19-dev.6.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-fiogtTIluM9Tl1b3oIMCcUrvq1ztAu3UP+aTO2MGxbgsk0CgX6b0mWbXFOegZx8xn1P9OSRHHRLc7ehaoA3PCA==",
+        "signatures": [
+          {
+            "sig": "MEYCIQCYt8lV5iF8mQf4Ajgz7tkmpx1UNnwU5sfUlsi2zWQJxwIhAORsjXFReABNSrxC9nbJEig8nAhehdkUgJ+DAs9JIVbp",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 403753
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.19": {
+      "name": "lenis",
+      "version": "1.1.19",
+      "devDependencies": {
+        "tsup": "^8.2.4",
+        "terser": "^5.37.0",
+        "typescript": "^5.4.5"
+      },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "8c6d2d00832360714a8523f2d9aca800aba3b3bc",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.19.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-EWRYEqMMcnsQgFtr67jEKaVx1mn9Dgw1rM5iT4VxxUV6ln++Cq2nahglBko2aEiD4Lik357wkLBjOjdIwjnmdQ==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDvbZKDgH6TkLK5bswsSgS7vRmtX5v+u0myXgZ2hnq4lgIhAJFiDeAOv70+IbDtJGaCGe1F48IGubp7qXWX5J/pnpcI",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 403328
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.20-dev.0": {
+      "name": "lenis",
+      "version": "1.1.20-dev.0",
+      "devDependencies": {
+        "tsup": "^8.2.4",
+        "terser": "^5.37.0",
+        "typescript": "^5.4.5"
+      },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "25bc63b105cde343cb8ebdc9d480ba3aa11d2ec7",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.20-dev.0.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-bZgYktE74nT4LOsVc0oY5xTRGNVCaWXWCMahtY5LNa/COsv1T02ZPDYffFKBUCleasUuBCRFBFvkUqHshhbpng==",
+        "signatures": [
+          {
+            "sig": "MEQCIEX46pM0T+T7liGWXD/NuKVboJ+AFPXjyMbUletBD/APAiBFyd/EvEA++18PWl2C1J5+QLmN2tkp+LPaO05cOzp19Q==",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 403602
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.20": {
+      "name": "lenis",
+      "version": "1.1.20",
+      "devDependencies": {
+        "tsup": "^8.2.4",
+        "terser": "^5.37.0",
+        "typescript": "^5.4.5"
+      },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "24c35199539b3c0064f50b9d26f85355171194aa",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.20.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-UE64mlJEN4W8DWP2tfHzPzygk94Q2BhjzeG/YHWoyeMJ2Fd6XziBCNN+IvHwmB4GkmKIYxgr0+TvRYTSAMTMFA==",
+        "signatures": [
+          {
+            "sig": "MEQCIAhBF/lorpidaSSnVKxP9mg5rr4TiBYGhPSz+RxUNYBKAiAZBYvYRGSprbtsZKm0jipHDeitafYNGbHvwzv4/TOoXg==",
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA"
+          }
+        ],
+        "unpackedSize": 403560
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.21-dev.0": {
+      "name": "lenis",
+      "version": "1.1.21-dev.0",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "68fc26fcba6f6159c3e6bb5a21b197c972efea79",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.21-dev.0.tgz",
+        "fileCount": 24,
+        "integrity": "sha512-ObHhiUwhYuZRM07B+MDt9CrR1kFG8X0p3SjzfytP79qcS10Ab+5teUKmtGgcSJJG+vCwduyKYsNmAWKh1DHfWw==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDBCJc6g1jT3Qv7Uo4JWnoH12yDlgDkqw7RJsSMULpMFQIgYjzQnVvSL69RoUVo+vg3tQeBHaiX4Zg96E1koT0CioM=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 404693
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.21": {
+      "name": "lenis",
+      "version": "1.1.21",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": { "vue": ">=3.0.0", "react": ">=17.0.0" },
+      "dist": {
+        "shasum": "a0eed02a47b97e1fa0ce0e3a5a9ca31c4456944b",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.21.tgz",
+        "fileCount": 25,
+        "integrity": "sha512-t3QIs6NsBiZr9HPFRndT0hKGq6uII3XpZrbJHhxnG5X0ep7t8+PXpQO7fFhEYh2zN0oc23VsvjN6a8Jq1geF4g==",
+        "signatures": [
+          {
+            "sig": "MEYCIQC9G+XU/Tli4idRjEAeB3ouG0udCNzeve2vL0tMgftjjwIhAO74BE+B6JAabk4HmjWh+N10CkORz8dXyfOgPFKzsaAP",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 391122
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.22-dev.0": {
+      "name": "lenis",
+      "version": "1.1.22-dev.0",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "4cd1c713ecb473eb3bf96b6f20e8089469e2c7ec",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.22-dev.0.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-xapoW7a2ZNcvxUrrP4sbG26VCWdz1eCF6ae+84Kwnb3desUNZn3czhbzb+2JBDg22gHdDvtI8KV+1nZ24u/bdw==",
+        "signatures": [
+          {
+            "sig": "MEUCIQD7DDZ2R1ZDr0Ttm62sc/p5D2AT8lSl4Csrpv6XuWPzIAIgT++8GeMCGMneCRU8O4Yr8sLIsEOt69xy6g6QrNFfDG8=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 392396
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.1.22": {
+      "name": "lenis",
+      "version": "1.1.22",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "cc81241c5ddf89e07cec9a48caf31748a5cf8d99",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.1.22.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-mHNfRSKixzy/QWfo0viB7qfTOqfm5IRTa0e3A1upcsAYFJdVTqUSqifAJccNx5Vtv0FZ5xgqD2MW0VdCjBuiig==",
+        "signatures": [
+          {
+            "sig": "MEUCIAyoDHjL+JRnGFTeu37ecevs6b04omV11FgasizK3zc6AiEArYW0Fgkwm1VZOgxOgsPshH9wgakL8kxfgzOWtrbN9TI=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 392354
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.2.0": {
+      "name": "lenis",
+      "version": "1.2.0",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "33bab35b627f5c7c8747d06fc0e980b23f5fe301",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.2.0.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-nZM/Ica4lznxXUk7L64BK32PNcYxHEwBYctAUvOgm4T6eewnv+hrzBpbanM24AAjEz37Fevmv/vbKP50pnug/w==",
+        "signatures": [
+          {
+            "sig": "MEUCIFi6MyF87R0pdk1Tuzfmg+n1Krevdm9Lz9H/+iqnUQgQAiEAn00R7FHDVu+tUKe1zNnt5SS0+NIQTi47+3cQ5+BUT58=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 398306
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.2.1": {
+      "name": "lenis",
+      "version": "1.2.1",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "2480a22dfb0bf8a3df4d37cba8f7fef5fa7f06f5",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.2.1.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-JhlMTYFMoRbBv20dzYa/xCMfczhZ7gpRiJl7CuVaUAP6x4v/EaQvQvdYgIXO5TERuPfjQcuhE1iBJ473zU6UVQ==",
+        "signatures": [
+          {
+            "sig": "MEQCIBzgUhSswViLoiFkqb9MsepgzErjVtbcva261AMUpJmjAiBiPr49gFsV3IujtlEgnbh2SKZJWl6A0EpgwHP+qtq9PQ==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 399085
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.2.2": {
+      "name": "lenis",
+      "version": "1.2.2",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "c890e8c5604ab3fc32f91888bcd3118ac19e5509",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.2.2.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-7ORv1iC8ibPEHJAEwR88ypn27erdWn0A2bqWv3jShe3zpKoIlNOW1FIEz3zQYbuMUqBfbKU+KLF5VMFte53m0g==",
+        "signatures": [
+          {
+            "sig": "MEQCIATXm7ISpmob1Xk7DrNW9vSHy1/T7tCWpSXlgf3/pG+XAiBa1pfq5KZiXhz9DBPk9Lfw53wkLqjZxJEk9PluinZjvQ==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 399936
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.2.3": {
+      "name": "lenis",
+      "version": "1.2.3",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "7fa22af6e58ba1aa3229712214b63e640a2444f1",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.2.3.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-H3VUn62jvQPfyxGW2F0STJPhP1VzX5r05KtiZ0uxHYD9xtbfTvj2eX/Km26+x13zlaKfHacEe1DTC3ouFrxw+g==",
+        "signatures": [
+          {
+            "sig": "MEUCIDR1Ius7avuHcNF+iQy3vYNqThsjzxEILYOCpmYZ8tHmAiEAjC7KD7Z7dqc9EGudH9xJI07fDfvvGeMdZkhlzMa664Q=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 400161
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.2.4-dev.0": {
+      "name": "lenis",
+      "version": "1.2.4-dev.0",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "02a0624242a518c82909b045274e29fd220f029b",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.2.4-dev.0.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-rL3qbxW6scrhQoxkv2jbxx6SiUXcT+Rw3wGg/EFrYcZ5Uu1DWG4JM78ehVozS6fGUTnUl+LaoYNP/BJnWpbFKA==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDjcigWZfzjZf6cp9TaZt7oV2xfd9D7t8zJ0Ahl3jeznAIhAOtgLb+rW96fWhYwy0inDyGpbXYqL04qs5CN9h4il2S5",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 410022
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.2.4-dev.1": {
+      "name": "lenis",
+      "version": "1.2.4-dev.1",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "471cb21f3407ff352587775decd2cf20dddb2201",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.2.4-dev.1.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-PRsjvAFgogoUo7HWCnr4WIoykTB7iPtAvTMr6pUY19SuSp3RqRlEs/hwsrFr9i/M2IOOrWSiNCcKFIgQsn1zLA==",
+        "signatures": [
+          {
+            "sig": "MEQCIBfcmOcnO+dUbfJt6SjsUTzWh8Dss/pnE2f/PIaA6IdNAiAmFS5Iya4/yvBwPFJRCiUno0matDulH31dLCL82YnN5w==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 406396
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.2.4-dev.2": {
+      "name": "lenis",
+      "version": "1.2.4-dev.2",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "5451b5d876753e77aea28198a097acf089c7c195",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.2.4-dev.2.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-O/1yagQbpERfprRUE6uwTjmK1S53LLNDBFOPKAHuI1ASZjoIg/4Cbqb/AEAca98pct4FIGJHdRmMtKhQVTk+8Q==",
+        "signatures": [
+          {
+            "sig": "MEQCIEu7VkoBx/ZL6eb0W5CJ0ZNCMnJB+lc/cPXXm6PGCRMBAiA6mun2ve8wdyQx1AgoujideGxztabz6u5zu5D/TK75rA==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 427825
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.2.4-dev.3": {
+      "name": "lenis",
+      "version": "1.2.4-dev.3",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "824016815f1f62e02b307a9fdc0a44c14066b9e3",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.2.4-dev.3.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-zQLVoDpTZs0sYtPAK0aiGVgnaipwo17YZ8V+KIShW4HbWi5iBYsQ/sJ+ltvxUjp22eYlduhy+bRdUIz19zi8Iw==",
+        "signatures": [
+          {
+            "sig": "MEUCIF0OzTzLnlL13A5js22Pz3idXJm40mUrnZ/xqak1KL8uAiEAxJ0MWLfcxwL63NiF0/QYzTFA/6oQYeIIzeMBA4JgMm0=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 428608
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.2.4-dev.4": {
+      "name": "lenis",
+      "version": "1.2.4-dev.4",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "95c07352abf23d239ee2b503273297d7d903fb9d",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.2.4-dev.4.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-F+I2J7+LmtPS+H5xUF9NSXxH/7hos79jizVWmwVqUBhHHTinszoYX6pYQ433aEj0Ud2vBGxy/b8osPlOb+EU5A==",
+        "signatures": [
+          {
+            "sig": "MEQCIBuWf/SbIvUD1XPxmxxUKtOXT1PcruVBfgZPzkuP448QAiANolVXehUcR+IJbKjZv3BzVTELqSbMdPSGqkFYVgVWVA==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 432377
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.2.4-dev.5": {
+      "name": "lenis",
+      "version": "1.2.4-dev.5",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "1b55a7bdb0323f8c17a4ff80f8a8e500d1061113",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.2.4-dev.5.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-mOrvJ8wveGGbVpVwzbUfl7t2Hmxso8Lobfm+pWhNtcsIY3eqeV8caH0q4wZIETDjHC5gBoQdmTTLmHEI+oeFwA==",
+        "signatures": [
+          {
+            "sig": "MEUCIC3gm7e31CsSpSqlaaKyha5hRSKaYnQW8rHvbDmGKU7iAiEAzfxKLKVGo+0xwL7w0Q/EKQyF8YDExB+qLgaM0/rtVGE=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 433594
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.2.4-dev.6": {
+      "name": "lenis",
+      "version": "1.2.4-dev.6",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "c8afdd02a0950ae8c70b98f7a253ae7b20496cb2",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.2.4-dev.6.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-scMcCcu44m417SGxyGjc97JAlnjCqs0V5AnxJwYu5ki/4f57jigXmBAAJykn15Dv3ShvCdgvV4a8GMNx1/UCjg==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDW4wFZtJ3QLQ5k2KekMGdn8QeQ+d0krk+6GH6gKBkoSQIgboYpa7GxLmMplp1rMsk/9/9S9D4aCJplGTrkh4BOcXw=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 434166
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.0": {
+      "name": "lenis",
+      "version": "1.3.0",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "9dbb3d677d76c0d66d6f1eb5c27c5cb42a2818e0",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.0.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-JR6YFcYpHdTbOTvZ08CZ0QGKD/qrsMIkLfcKZCF6qJ6Yf/XjB3MotWiNt5onSgcp9DaAlxEKkrCu2GTDeNYuFQ==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDGQNcN0/sLP0KVt6pdnYV5rSyhV1Iyj7QmsXUL4qVKTwIhAOHErL2wRYzGALtsKkfaKW3x3TmO+ceZjLv5BQbayoLX",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 434124
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.1": {
+      "name": "lenis",
+      "version": "1.3.1",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "c6a9cc4ab346ca84998670255f950e82bb4ecf19",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.1.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-OGRlQk7EkGUtjDdnH+U49Mp26G/wGJFHuyYJ8ZwATllwHQZOKYbeuVaPWYQ4lK0gHfAnk2m0u8qN8Y4dtrHaHw==",
+        "signatures": [
+          {
+            "sig": "MEQCIAy2vBmsFmbOR15WaLkcV2lOmGSTSht577eZM4xdUW6xAiAOfN8If7rncxFdWsaRklsKi4j0Ajr3+Q/hl/zNw4PwuA==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 436308
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.2": {
+      "name": "lenis",
+      "version": "1.3.2",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "f4e5d1abf2e9a9a35ba0428276b19487c0a23135",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.2.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-CR/EiMWcofHFnG29EhBvWtuWiWfIDe+u1+0hfvM+kcHfqhftsgMuNm7kIX/Ioycpl78/pDNDPlC2JgRB5jkXdA==",
+        "signatures": [
+          {
+            "sig": "MEUCIQD+JnIhy9V8ucpP+G0cR7SUB0B1A4KIaJ9q6UR3xjxaHAIgV582Zi2jpeo5/q19A3Oa4fgJTB7KRH3TP083I+UtHxA=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 436409
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.3": {
+      "name": "lenis",
+      "version": "1.3.3",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "1730c85372c90f0a616f56373923b301d97fed0d",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.3.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-DOopj/UKHS54E9l2g4BOpDUvsyvkd1zkv+ECtHxQ9Fto8ozzKSz7MccqT+KOyG0ABA/OHXZ7l9INx0peUoQ8rQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIFApMojbEdKfKhLlURC+lI2Yug7T0bf4FybeT2AS6MH/AiEArRMO/BH5AzNia4UaNvq5IVzCSFqix4e8C+MaZ/bOGCU=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 440392
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.4-dev.0": {
+      "name": "lenis",
+      "version": "1.3.4-dev.0",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "6b532b03c74693781ef81debcfb3ee240c0ee826",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.4-dev.0.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-hrBK1eVsuVLMw6B0FFG057ir+SiiHJjwIdILjZyZefwpns2EfJZnpYpJsrNdUkuo3txCNKtYUQgIFIXniexGFw==",
+        "signatures": [
+          {
+            "sig": "MEQCIAKaY69OnIJupyAwmMiZZUNNcodRw+Od76tqRR5xNWAtAiBO0JkMwl/b/jBD+Jn+sNMCBJKvdrwe9lMmTuqI1IXXgQ==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 440645
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.4-dev.1": {
+      "name": "lenis",
+      "version": "1.3.4-dev.1",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "4003650ff3e012a1ca04a1751a047d06663a046d",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.4-dev.1.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-Goj8ChwKl7GiUNfNbzFvwzTcPQj8m6c+zx2tEUkLevSQrMflS8s+IWO5C8EsAANZLCwb8hVUXiSuGTbsZua+HA==",
+        "signatures": [
+          {
+            "sig": "MEUCID5y4vq0/ISydNo/ZgHWb4Mp0igbnjm4LWRQnudp3KKqAiEA7X9rYtmRQmLxoVDNDRTA15RW2VQ0uQwYXJKXx5YE7M0=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 441427
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.4-dev.2": {
+      "name": "lenis",
+      "version": "1.3.4-dev.2",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "5100e1ba2947b4afb49ab6b59b9aed4b97e048e8",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.4-dev.2.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-TC/yXXlQZTyZk/bNR0tuSXc5AXeKFaFPC8kKSvuGlNJd7WxZNDyFgLa0d/VnNn2iItEr1ZqODB9oQ8lDnzqe+w==",
+        "signatures": [
+          {
+            "sig": "MEQCICEJ8b1TZmo4ZhaXsQvhMhf+KfhHN3QwKIFq0AAJFFWwAiA93Ce0tXqZqInDJt6TiX6T+l0N0kXudF8cdEliOYyetA==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 440858
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.4": {
+      "name": "lenis",
+      "version": "1.3.4",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "42435739bdd322f40123c1b75cdb90999810b323",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.4.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-WIGk8wiV2ABm/T7M+NC+tAV8fjzNJD1J4z11aZ3mTtx7WAZX/4QdCNhBO0g/TqXISA+/3hTbzrPC4FW1nhoNMQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCvRC1NmMFoWShX1kNTWjRQrsfh3AKlIeFnHP7cfxItQAIgb51t3aEc/B/2m3N0p7zAF+4SocPgVR0Xk6vHIGnPvGg=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 436006
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.5": {
+      "name": "lenis",
+      "version": "1.3.5",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "9f82396e20c8eeed0faae855dedbdb1f68295e7f",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.5.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-AJfG3HqkMPSXXR0rBfgQHzb3M3qB8aMwtCWFy9Ly1NwbvaU1CenGtcDVQ3sPucIbu02gOjwKXMmzoTVlUYxUaw==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCZvdtX5T1lJ9zU0NzOWgAcEzS/3Hsqfuv3LfY19KkTeQIgTYqz2J0Zj3kvHSvNeUwUOx7qL0Ehz9yyES8NGPCcJXI=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 445573
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.6": {
+      "name": "lenis",
+      "version": "1.3.6",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "63ce396f1e68c7ebddb412710830a5d1cb5b667f",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.6.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-WAITXqQ63693q0Bbjd0XBVaTg1ro+aOuVU67ZWKx83cudeh9c9gDC+238rHhgRWj+DRwC9o/hETkjQ/Zydc/7Q==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDj/QEtAubh0I1QemDtUPwOH7y4HC0LEdu82AhP7NGz5AIhAMfElEt9Vv32ppwbkcmWmQ7RED+ukXiBLCuKsbBas7+S",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 446831
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.7": {
+      "name": "lenis",
+      "version": "1.3.7",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "18efef023d0dee6b9d6d910f2846bac5faeda8ca",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.7.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-fKwUtSmdGMVrF7DFbSYmbhHb4+FAilk0Y8TxeK6rKhfZteRVCLLxgeW1RjGhwmHQBUny/K4B1szcswWx+nvuOg==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDljrDi42V/e4DUvg8CyZIQ0CzXLj3JxiF+M5DlllsCfQIgb4tT9uBXNnDE/t4QXMsQIEM65hkgAhqIiaDrLWBL58w=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 446848
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.8": {
+      "name": "lenis",
+      "version": "1.3.8",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "2fd9b881a0d5dc291e42e191fcdf6e5cad7dd0b8",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.8.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-LVeoMs6jZE1eu3gPsexndm+vk01pLFeq7P00vjIpI17saD52IYu8nPA4gX43elz8tp/TTCXcX6Em1MEjDl9NTw==",
+        "signatures": [
+          {
+            "sig": "MEYCIQCAWE/ewgktGmDh33n/75Q/SVrRhOq10SfpSdn//6mNdwIhAI3fsLOPRsxUpTvayjfdUq0XDv7PGxxJN59DfNax4DCD",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 447141
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.9-dev.0": {
+      "name": "lenis",
+      "version": "1.3.9-dev.0",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "4ba4efa026035f0c2f81ec22eb39cc220c96899a",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.9-dev.0.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-hp0VzQ7QEvcLMNmy0FNFDzR/jDiQ6paELoJTsqJjaaLr23kOCILmHZkSyvCPd4WL6yAg6qR1vOjzOU1ClgKn/g==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCje/y/6i1D69IsjFRJRFGOi566FMGSJ6xR8wHom1dp+gIgPhf/A5tBjADbB46AcZ6CyXD9NKtWBOcFqHbTy6A3Xak=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 447197
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.9-dev.1": {
+      "name": "lenis",
+      "version": "1.3.9-dev.1",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "4750be67cf11f5710213bb405228aba0e84a5cd8",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.9-dev.1.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-odRW+BDy34dnkoV1+F5IgDVOBsllsZfLulbFhNUyp5Z9WMRtsWQj4TMGKL0TZW/EBSupH4LsR03SbCin+F5Guw==",
+        "signatures": [
+          {
+            "sig": "MEQCICq8xmzEQCp5VNjbQXytpySSy/djKCUZ1soZYYuPehuuAiAURLcTKyFQ7qfhP9kNRbeiCuNtT/cNlPx+tGy4d4GpEw==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 447603
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.9-dev.2": {
+      "name": "lenis",
+      "version": "1.3.9-dev.2",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "aac4d4d8035983b6eb01f942399b70bccf36c329",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.9-dev.2.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-MSysrZPh/x6C/8QvRFzMl2kzfavWAl/OiMKuywrtRgksaaGL1M7jSyGiQp8Zh6JItFKOVQJkQR+yl4Qw4CqDDw==",
+        "signatures": [
+          {
+            "sig": "MEUCIB0XXuyjaEESXBEHOlf3zVFUdZCFs5ldDSPsFN8VquNnAiEAmPycKEgP3AH9kZDHbnYkol2NFFxaOZlGq4N5mSWQZjc=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 447223
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.9": {
+      "name": "lenis",
+      "version": "1.3.9",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "362dce90d0774a007f61a84827dec8ed649c9580",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.9.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-Qwb3m4a9527UzqC5tqIrSnbuSZ/W/PsV8U/82x7zc7lOXn+X/ZNDVVXF1OwDo1EJ25lUCvfyR2sdiohBJY+u6Q==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCXrimRqA5ZTVCLbApcjcWVK6jUkVhQhSd9nrOHX+mt6gIgSYJeZqAg6a0pSpQaGG6wOuY694fvdFTleJRpbV3N1fE=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 447181
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.10": {
+      "name": "lenis",
+      "version": "1.3.10",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "598ba19beae28c4812d3ad19e1c26c69daf3d859",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.10.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-13puH1tP1XOIaGjLvT1QD8+SnDX2J51siUXL2jg74pPy030C7PmuphK96kdJjvquDIK5A2u7aosyO6k8ZHqR9w==",
+        "signatures": [
+          {
+            "sig": "MEQCIErZMWwMaI0t/ChqxMlEPmrDBuwf1TKNy0pwVf2h6Hp0AiA5iDVOCY1cC9IvyMm/dAs3hOHqLXLjVDpf92UTdsZoTQ==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 445751
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.11": {
+      "name": "lenis",
+      "version": "1.3.11",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "96af40dea00747c215b48a1f5991df4ab4573570",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.11.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-lkyBnNTVwJzlupp+VL6LTn62WeT8WponuLpmTU0Z20cMwMsLLjqbSqwuA7I1yKSVWCBj/awo4jnFzOMOVCB8OQ==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDydogVZRkZZuSRA3CiSb3Z+EydcI5wyF53i1MIfx5gegIhAJRy+HZS10whk8u+qg6/Aalms0YYMC+ge0utzP3IoRUh",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 447698
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.12-dev.0": {
+      "name": "lenis",
+      "version": "1.3.12-dev.0",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "1b25992e750a31d3828bd79a6af052fd76d376c0",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.12-dev.0.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-O8UVpHI6OykRHW+xvYtKUHTuz3HeAwo5WeKtQHZEATotHuzahA3qTFntvAKjk5FPWsyA1TpvoqbmpLrpiCzs8w==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCtk+alWO0Dp4tuYh9tPOiXn6sLAy0s9jHlw3RpH89U4AIgKJUz73yn/I1aCwOIojEFhrA2/vbcXCXiZavTmMFR06M=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 452835
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.12-dev.1": {
+      "name": "lenis",
+      "version": "1.3.12-dev.1",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "506b0b31334f440217bd92fa91728d3a0c14494c",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.12-dev.1.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-bYtf+JMMpV5fNJ8Vio7eOswWybhdT7AmKll7JU53mmuOd8Rxpch2olNHRDLvlPnS+u9ZgU/NftamcrL7IkqI+Q==",
+        "signatures": [
+          {
+            "sig": "MEUCIQCkBXn9x7GzGpzJ9OAEJui4Q1PvcJF7SXh/xeMckbtgSwIgJTytiYx33oVgvG7ZhOwaSVd7kee8zgC850Egen8YTs8=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 458802
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.12-dev.2": {
+      "name": "lenis",
+      "version": "1.3.12-dev.2",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "52803a644ecab10c57c33c3deb9aee114ce4df6b",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.12-dev.2.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-GwUu5/E+/AyU0+U501zW+BTXjYVKKdfGNq4+A0AcVrZdaytlRutMKwffrE4eNE4OKmnhLReoadb1iEirms2g0Q==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDBgU6X2jb/C5DrWUfAt7P17LDnv/Z4cqFn70lbnDc8AAIhAIi5Uh10ZwI5JZALwQIj6pqh1O/BBp2Y7l4RPqKqs5P3",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 461230
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.12-dev.3": {
+      "name": "lenis",
+      "version": "1.3.12-dev.3",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "05b6d39da71a223219b0f426f20ea91671dbc873",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.12-dev.3.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-e6TU/3Otw/mZP5kQtkPDBEJl0WyXS9P4Dn1YH0tXas0jaMKSBLwWYxF80xkRUbzfRWP+C/xzK6vakQJwgsjCMg==",
+        "signatures": [
+          {
+            "sig": "MEUCIHpgqJhWzuJs8AVvsru+yeuj3/xjwUqckvomL3IMWqyRAiEA6jnq7MnCj2uZi/BG0fXX3oJA9NAaY9rMdQJeAg5p4uY=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 458121
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.12-dev.4": {
+      "name": "lenis",
+      "version": "1.3.12-dev.4",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "413d91ac6656266ae620a3fb74688302d4397972",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.12-dev.4.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-/hcKM9QABoOf0Iv0cgIQP3Tt8GvJzQTgtqFZBOQ7W/tGcAwzeY+5gqyS4dv3lIw8XvHjPi5bKQ/ZSShTobiPrg==",
+        "signatures": [
+          {
+            "sig": "MEQCIG+1oRxMBPy8mPGrsU3cbDuL45rCs30hAJJwGaLxQ/STAiBtuXUHt3uh2JO5kbApCCwkhbs5X+QTnOYUWry1+liiWA==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 457612
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.12-dev.5": {
+      "name": "lenis",
+      "version": "1.3.12-dev.5",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "d677e6b19d05168964afde896f20df34306bb209",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.12-dev.5.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-DRudDa0CKm3L+db6SbF82Y/uSoxZTAtDP/d9cIqoI8mPr+WWWCGX3krPKrtd4v1VMo+q/YGwZqH0+8LH7E4KzA==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDKEeeZ/m5cyUREij7zBr6fNCT8oylivXnLwr2kXcv8ewIhAJ63l+YTSJUYdua3WwBXxhHmNFJ2DCbr5jL6lq9P5TQ0",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 458645
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.12": {
+      "name": "lenis",
+      "version": "1.3.12",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "d8f62ef259c173466014994ebdbf3b2a330a0897",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.12.tgz",
+        "fileCount": 26,
+        "integrity": "sha512-MKSKgGZzUkN34zpe7MCnfG+ipNTYTT539M2aYoeDkQ2LLmoKCq5s4U3XTBs+sA2zIzvZBUgeFnKQPaycNqW4AQ==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDYdVNhl8VfPrQ2c8q3mFNBTSRI6YguHuhWE31etj+7tAIhANGv5bW7CFDzPb+eR1XguHcx4AgzMTrNvPJqLAmD3SoB",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 458252
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.13": {
+      "name": "lenis",
+      "version": "1.3.13",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "07fa05f7ef13a256d787aafb56c1a213ffdb817a",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.13.tgz",
+        "fileCount": 27,
+        "integrity": "sha512-9FTVlAm2PA82JHnFKWgzJkuxlG7orJneVHqUDhZvVPAQDduEVxlVtXRTNgdhERVR5MUX1iDrRaklBvHbVhxQpg==",
+        "signatures": [
+          {
+            "sig": "MEUCIBgg53u9o3wq8Zv1W/C+UjkLTcUuzHu8aQM97jJ+VJ1kAiEA7A85ct+EiGtsLm8SOYrKaSfTyY1wrNBPCknu1FLO3Sw=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 458345
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.14": {
+      "name": "lenis",
+      "version": "1.3.14",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "249c7f6e1f0c2872c6726c6aee5c15140d229339",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.14.tgz",
+        "fileCount": 27,
+        "integrity": "sha512-XtJel1HnrQjIR4hgGveRC07IyUCe0S2x3Bt4rLCv2o1zbFtWOJ8h42Gy2JR+B6HRrwMtJj5DfMNYKlUyrO9NJg==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDi663VxhClDf+DMdA4p15+c5tvfpotakFUTwOXNKoB5AIhANLZnYXNtiTxgdXccWqvMhRdtuGKkhf0eHpEUMiGU83d",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 458497
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.15": {
+      "name": "lenis",
+      "version": "1.3.15",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "676fe29ff62c3165436d98a94009064475da5775",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.15.tgz",
+        "fileCount": 27,
+        "integrity": "sha512-zSYOFs0ydafX70uygFoipaHHQouPeE4DpZZhdOUyLJxVf2ZVvBCBBaolDDaQztTRsa6+stBlxq2GmFGJPAVryQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIH5Dii/iy5vGvMO6YtV0BVEXBOIbiIZA9TRDg+4vhgU1AiEA6IBHPBj/FyvRVqEl2xqOVaaqYZJQtlc2HIJwTQLrxo4=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 457226
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.15-framer": {
+      "name": "lenis",
+      "version": "1.3.15-framer",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "3e2c6c3dc610d00736e4c89e81efb549d4f7e24b",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.15-framer.tgz",
+        "fileCount": 27,
+        "integrity": "sha512-NMevKaeqwP0OpvWqGLVMyL2PuiXbwnkBtkP4AZnrPjMo8opp6gCtnZACbq824Rr6q2IM7eMc3ViVwR+wSa8PkA==",
+        "signatures": [
+          {
+            "sig": "MEYCIQDtkECPLEF1hZnE6mKjhXEQgilP4ka5bz4Kbf+hcYMcLwIhAPHJzFW9FxFxLnseWAQCP//EWWrpUBdDbturzO/QC7jA",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 457686
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.15-framer.0": {
+      "name": "lenis",
+      "version": "1.3.15-framer.0",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "99dc54f48b70407c35ade59128d4da272d77e4b6",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.15-framer.0.tgz",
+        "fileCount": 27,
+        "integrity": "sha512-fjQFtUj8aybq06AaQNFc0ZKIA0Hyobzt4XGI66hj4R6i/OVHuVPTxY5QkhtCiW0k2DN1pSFaQQlpPhjfbSxEag==",
+        "signatures": [
+          {
+            "sig": "MEUCIDeaPnzWdNidGJ+9twKnQ+96STHtjyhHeUuCVz/H+tznAiEAtzqiuRbkcTTAcnZEA9CQKUBSSv4z5xM6VcdTqH+s0lg=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 457845
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.16": {
+      "name": "lenis",
+      "version": "1.3.16",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "086d3db882813f2f44734f737e96e1be1d563f21",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.16.tgz",
+        "fileCount": 27,
+        "integrity": "sha512-KULpna+5TgRCDMSPx4SzJwtsjlz7EeoFCp4IDCXrlM73rLBAj34Egcl7GCLz/6+hXFOYt3DTBeTtJvTu45dJNA==",
+        "signatures": [
+          {
+            "sig": "MEQCIFiKyzqcM9ISjZepyOuwe75xsRxSlMToOMddOPu2PY2ZAiAh1YSv0ftCCgSMxVTd0F3kCxUHnNFIHdDOQohr0oAGbA==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 458579
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.16-framer": {
+      "name": "lenis",
+      "version": "1.3.16-framer",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "58455cec47ddb674c2d7ef99ba37766a25cb222d",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.16-framer.tgz",
+        "fileCount": 27,
+        "integrity": "sha512-dUhDgPk5Wy1O56oiLAIaGfgmyLXckFRdhtUzcxhNYvc3g+3Bt45ufXN4xWmGWxqga3hdCHZ4DwH1fw+7TLaPgQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIF6jOWmcGLFpNVXhxRkeqnSnBcwfs/sR2bMJ3N2PigO4AiEAxmbiWKYpo50YgtcPeUnTyFga38tlP3Rgu94fUHWDKiI=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 458586
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.17-dev.0": {
+      "name": "lenis",
+      "version": "1.3.17-dev.0",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "3e7d503a94028256e378eb2a22e922570122ed4d",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.17-dev.0.tgz",
+        "fileCount": 27,
+        "integrity": "sha512-Bc/bnO3blJI+KpnnMBr+HaGzRAzDW46qNONIjq7yulOWLAF+DUiCCN9uOIYaasjbm8eQ8X4KTpQGGhkwTNL0LQ==",
+        "signatures": [
+          {
+            "sig": "MEUCIQDuZcGuc4zAVPNnYWe+KD1GtTGS5zgi8y0a1Ak1nnKoWgIgOJsSHkBkBfKeUyC4UdXw+rE1s0MU0nNVv9YNz05pALM=",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 463712
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.17": {
+      "name": "lenis",
+      "version": "1.3.17",
+      "devDependencies": {
+        "tsup": "^8.3.5",
+        "terser": "^5.37.0",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "vue": ">=3.0.0",
+        "react": ">=17.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "shasum": "5a8c486e6001703b7d50d412fff3348102f302e9",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.17.tgz",
+        "fileCount": 27,
+        "integrity": "sha512-k9T9rgcxne49ggJOvXCraWn5dt7u2mO+BNkhyu6yxuEnm9c092kAW5Bus5SO211zUvx7aCCEtzy9UWr0RB+oJw==",
+        "signatures": [
+          {
+            "sig": "MEQCIACKpcI2oDy+Z/w3hPLgPrtLTavIo3JXCicuFhSPZNyHAiAyWMPtubqDSoQXyOLkV7calsUCzSRnvg1w0AdhhFjing==",
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+          }
+        ],
+        "unpackedSize": 463916
+      },
+      "peerDependenciesMeta": {
+        "vue": { "optional": true },
+        "react": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "url": "https://github.com/sponsors/darkroomengineering",
+        "type": "github"
+      }
+    },
+    "1.3.17-framer": {
+      "name": "lenis",
+      "version": "1.3.17-framer",
+      "devDependencies": {
+        "terser": "^5.37.0",
+        "tsup": "^8.3.5",
+        "typescript": "^5.7.3"
+      },
+      "peerDependencies": {
+        "react": ">=17.0.0",
+        "vue": ">=3.0.0",
+        "@nuxt/kit": ">=3.0.0"
+      },
+      "dist": {
+        "integrity": "sha512-A2PnJ4TPpBefL/Gc0RRi/RRTN0Ef1G1yfjxLVLadsEksKEv8MnfDPzegC4PgDBaTpJYtZlU+2DDXI/5gdezkBA==",
+        "shasum": "61084f10bb8683777e79c5b55b67ab21ce71d0f9",
+        "tarball": "https://registry.npmjs.org/lenis/-/lenis-1.3.17-framer.tgz",
+        "fileCount": 27,
+        "unpackedSize": 463965,
+        "signatures": [
+          {
+            "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U",
+            "sig": "MEUCIQDfBNpMsaBbVkB8/893ODiZvWJm128g3nnjy6IIGAV7bQIgHP7KzQorOLrB34riO1H3YqGj5D4I1rqTDAFvGIrA70k="
+          }
+        ]
+      },
+      "peerDependenciesMeta": {
+        "react": { "optional": true },
+        "vue": { "optional": true },
+        "@nuxt/kit": { "optional": true }
+      },
+      "funding": {
+        "type": "github",
+        "url": "https://github.com/sponsors/darkroomengineering"
+      }
+    }
+  },
+  "modified": "2025-12-28T17:47:36.313Z",
+  "cachedAt": 1771798189879
+}

@@ -1,0 +1,311 @@
+{
+  "name": "uri-templates",
+  "dist-tags": { "latest": "0.2.0" },
+  "versions": {
+    "0.1.0": {
+      "name": "uri-templates",
+      "version": "0.1.0",
+      "dist": {
+        "shasum": "7bd9654024b2b2e8b343ae5ebeab862c11abbabb",
+        "tarball": "https://registry.npmjs.org/uri-templates/-/uri-templates-0.1.0.tgz",
+        "integrity": "sha512-lzpNjrREzA4tIDuWcivnwX2tBxGHM8zZpoyOLdYkXnWu1F3J5cgkEkXHuSUlyoo98sjlSM7Ue4R7hOfAcTs3xA==",
+        "signatures": [
+          {
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+            "sig": "MEUCIHMJbOLcHJwWi25kvP7sbz6Q+iPZM3xD7fdP0oq/gg2KAiEA1hL1A1hJxFXmFYHmUn4wIkfLztvMLDtl0n4KBb0sgvc="
+          }
+        ]
+      }
+    },
+    "0.1.1": {
+      "name": "uri-templates",
+      "version": "0.1.1",
+      "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-clean": "~0.4.1",
+        "grunt-contrib-jshint": "~0.6.0",
+        "mocha": "~1.11.0",
+        "grunt-mocha": "~0.3.4",
+        "grunt-mocha-test": "~0.5.0",
+        "grunt-cli": "~0.1.9",
+        "grunt-contrib-uglify": "~0.2.2",
+        "grunt-contrib-copy": "~0.4.1",
+        "proclaim": "1.4",
+        "mocha-unfunk-reporter": "~0.2",
+        "jshint-path-reporter": "~0.1",
+        "grunt-concat-sourcemap": "~0.2",
+        "source-map-support": "~0.1",
+        "grunt-markdown": "~0.3.0"
+      },
+      "dist": {
+        "shasum": "8ed03a024cf8f8415284375868c8b3646d2d41d0",
+        "tarball": "https://registry.npmjs.org/uri-templates/-/uri-templates-0.1.1.tgz",
+        "integrity": "sha512-92PUNiiddtg0GTOtUbTSpBmnuwPLOzU8L0RG4u436+7av4T5y7yZ12isctbP4SeVvr37g+FzeFPXv8FM8W9oYg==",
+        "signatures": [
+          {
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+            "sig": "MEYCIQDjW6B7P0fv6h4LbGMt94WJno7prAqVU23qq7SrD6PCyAIhAPpH97xOnfBTaQbABlFNCBSlaiSxE4z4De89kCacrBt2"
+          }
+        ]
+      }
+    },
+    "0.1.2": {
+      "name": "uri-templates",
+      "version": "0.1.2",
+      "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-clean": "~0.4.1",
+        "grunt-contrib-jshint": "~0.6.0",
+        "mocha": "~1.11.0",
+        "grunt-mocha": "~0.3.4",
+        "grunt-mocha-test": "~0.5.0",
+        "grunt-cli": "~0.1.9",
+        "grunt-contrib-uglify": "~0.2.2",
+        "grunt-contrib-copy": "~0.4.1",
+        "proclaim": "1.4",
+        "mocha-unfunk-reporter": "~0.2",
+        "jshint-path-reporter": "~0.1",
+        "grunt-concat-sourcemap": "~0.2",
+        "source-map-support": "~0.1",
+        "grunt-markdown": "~0.3.0"
+      },
+      "dist": {
+        "shasum": "7f72ec3edd47de0e9fd8e831c7d780021a339b92",
+        "tarball": "https://registry.npmjs.org/uri-templates/-/uri-templates-0.1.2.tgz",
+        "integrity": "sha512-z9upSmMI1WujaT5kATFM7U9wNhW3pJsBKwIlOhfFAsQYlL+SIrLSqGczWuB7JH2b9AlTnVjKl0Njyb08JWQXHw==",
+        "signatures": [
+          {
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+            "sig": "MEUCIEuZyWgd9ZHrejfQXtyMzGvyLeZ8TdxU32jJGe/kQrwPAiEAjKqNgJ9uIeF04xL2gLnqf03uMYwhgrDMk0CPIVjBptQ="
+          }
+        ]
+      }
+    },
+    "0.1.4": {
+      "name": "uri-templates",
+      "version": "0.1.4",
+      "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-clean": "~0.4.1",
+        "grunt-contrib-jshint": "~0.6.0",
+        "mocha": "~1.11.0",
+        "grunt-mocha": "~0.3.4",
+        "grunt-mocha-test": "~0.5.0",
+        "grunt-cli": "~0.1.9",
+        "grunt-contrib-uglify": "~0.2.2",
+        "grunt-contrib-copy": "~0.4.1",
+        "proclaim": "1.4",
+        "mocha-unfunk-reporter": "~0.2",
+        "jshint-path-reporter": "~0.1",
+        "grunt-concat-sourcemap": "~0.2",
+        "source-map-support": "~0.1",
+        "grunt-markdown": "~0.3.0"
+      },
+      "dist": {
+        "shasum": "930de2cbf65546b7cc969e68a00797caf1f4acc8",
+        "tarball": "https://registry.npmjs.org/uri-templates/-/uri-templates-0.1.4.tgz",
+        "integrity": "sha512-rYAEDyxQSH4sXfihmCG/e+o/mDx40C4Thwlt+RU6lPVv12WIYeMXHPAteM0c8jTZjnabxgbe/DAMPw1Mauy3zw==",
+        "signatures": [
+          {
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+            "sig": "MEYCIQCBw+aiypu889+jSqIv9UKrAcNlNm/ykfBXviRTV30DvQIhAOqCrIWwiG11rqGBcPwTwLSzt9acmUM7Yt5p0HcO3osx"
+          }
+        ]
+      }
+    },
+    "0.1.5": {
+      "name": "uri-templates",
+      "version": "0.1.5",
+      "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-clean": "~0.4.1",
+        "grunt-contrib-jshint": "~0.6.0",
+        "mocha": "~1.11.0",
+        "grunt-mocha": "~0.3.4",
+        "grunt-mocha-test": "~0.5.0",
+        "grunt-cli": "~0.1.9",
+        "grunt-contrib-uglify": "~0.2.2",
+        "grunt-contrib-copy": "~0.4.1",
+        "proclaim": "1.4",
+        "mocha-unfunk-reporter": "~0.2",
+        "jshint-path-reporter": "~0.1",
+        "grunt-concat-sourcemap": "~0.2",
+        "source-map-support": "~0.1",
+        "grunt-markdown": "~0.3.0"
+      },
+      "dist": {
+        "shasum": "4d3a73fe6f0c4de113f2c90b9d7a3cc323b770ae",
+        "tarball": "https://registry.npmjs.org/uri-templates/-/uri-templates-0.1.5.tgz",
+        "integrity": "sha512-N+12Oujx18RBE7BxPNntLGSRBS7aamWo5fDY7Os495Et0eD8WKg6PfvrYY0/96I7Vv8tced9okAazAenEy9tXw==",
+        "signatures": [
+          {
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+            "sig": "MEUCIQDDnVFH+WcayOHWpk+yYLOgQk/1HsGjIIs9K4jpdbpIewIgUZuru2ZfUtO4IEtSBAFIeEYB0sIyVVG/PShCMpxRydE="
+          }
+        ]
+      }
+    },
+    "0.1.6": {
+      "name": "uri-templates",
+      "version": "0.1.6",
+      "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-clean": "~0.4.1",
+        "grunt-contrib-jshint": "~0.6.0",
+        "mocha": "~1.11.0",
+        "grunt-mocha": "~0.3.4",
+        "grunt-mocha-test": "~0.5.0",
+        "grunt-cli": "~0.1.9",
+        "grunt-contrib-uglify": "~0.2.2",
+        "grunt-contrib-copy": "~0.4.1",
+        "proclaim": "1.4",
+        "mocha-unfunk-reporter": "~0.2",
+        "jshint-path-reporter": "~0.1",
+        "grunt-concat-sourcemap": "~0.2",
+        "source-map-support": "~0.1",
+        "grunt-markdown": "~0.3.0"
+      },
+      "dist": {
+        "shasum": "727b72b09ebf8564734b16cf1efd5a534e5d9bdf",
+        "tarball": "https://registry.npmjs.org/uri-templates/-/uri-templates-0.1.6.tgz",
+        "integrity": "sha512-Z4UrWQzras0/sqH0vhkDA43KH7aIZhDsHqJiAahrO+6h/vWC5GFq2TdRzEcYpDcFhGQEiY72GsoiiOp2B1FOyw==",
+        "signatures": [
+          {
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+            "sig": "MEYCIQCYJyoNUa6Jx1+SfGF5sy62M4wE4zVSc8w35AOkP3mhfQIhANnbICo5N8zbUx2xRhOuwdXvdgiZFDvrixnX1v5fy7Fv"
+          }
+        ]
+      }
+    },
+    "0.1.7": {
+      "name": "uri-templates",
+      "version": "0.1.7",
+      "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-clean": "~0.4.1",
+        "grunt-contrib-jshint": "~0.6.0",
+        "mocha": "~1.11.0",
+        "grunt-mocha": "~0.3.4",
+        "grunt-mocha-test": "~0.5.0",
+        "grunt-cli": "~0.1.9",
+        "grunt-contrib-uglify": "~0.2.2",
+        "grunt-contrib-copy": "~0.4.1",
+        "proclaim": "1.4",
+        "mocha-unfunk-reporter": "~0.2",
+        "jshint-path-reporter": "~0.1",
+        "grunt-concat-sourcemap": "~0.2",
+        "source-map-support": "~0.1",
+        "grunt-markdown": "~0.3.0"
+      },
+      "dist": {
+        "shasum": "d55be3bd4cc7773b9a909304c87cfd0b3cd9e5af",
+        "tarball": "https://registry.npmjs.org/uri-templates/-/uri-templates-0.1.7.tgz",
+        "integrity": "sha512-H8SUbVVKYJZQYf6xcOPTt3byijqQ5fiTF8nuQ9cEAcU9/kVw2O5AeDtgn1Fg9hvvsYeWGGBNE8xIZ4dPhw3n8A==",
+        "signatures": [
+          {
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+            "sig": "MEUCIFPWfMx7MjOXHe4CEdIIKjRQl7fggWJqVeqc6MBIfTAsAiEAsA71S0BETWX4dNx+oq+ja8WqroOXT7jGczLjB2jopg0="
+          }
+        ]
+      }
+    },
+    "0.1.8": {
+      "name": "uri-templates",
+      "version": "0.1.8",
+      "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-clean": "~0.4.1",
+        "grunt-contrib-jshint": "~0.6.0",
+        "mocha": "~1.11.0",
+        "grunt-mocha": "~0.3.4",
+        "grunt-mocha-test": "~0.5.0",
+        "grunt-cli": "~0.1.9",
+        "grunt-contrib-uglify": "~0.2.2",
+        "grunt-contrib-copy": "~0.4.1",
+        "proclaim": "1.4",
+        "mocha-unfunk-reporter": "~0.2",
+        "jshint-path-reporter": "~0.1",
+        "grunt-concat-sourcemap": "~0.2",
+        "source-map-support": "~0.1",
+        "grunt-markdown": "~0.3.0"
+      },
+      "dist": {
+        "shasum": "a243b0ec4cfc124adf941d36656952c3b4861b0d",
+        "tarball": "https://registry.npmjs.org/uri-templates/-/uri-templates-0.1.8.tgz",
+        "integrity": "sha512-qLC6e1oQfz/p8HRsPs3bvan+2SGHB2es+DsWlvpK09zAg0di9w/rYJGfZGhNxmd/RrWdLAtSz9EsYk5BYv5ahQ==",
+        "signatures": [
+          {
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+            "sig": "MEUCIQCMSkcweNIWrSryS8BM+4AzUBbSBVqKfqhhV6kKlE1wQAIgFiBVHVBoiXrZIbqJLQSy7i8c8lzZXFfDreAal1kvCyQ="
+          }
+        ]
+      }
+    },
+    "0.1.9": {
+      "name": "uri-templates",
+      "version": "0.1.9",
+      "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-clean": "~0.4.1",
+        "grunt-contrib-jshint": "~0.6.0",
+        "mocha": "~1.11.0",
+        "grunt-mocha": "~0.3.4",
+        "grunt-mocha-test": "~0.5.0",
+        "grunt-cli": "~0.1.9",
+        "grunt-contrib-uglify": "~0.2.2",
+        "grunt-contrib-copy": "~0.4.1",
+        "proclaim": "1.4",
+        "mocha-unfunk-reporter": "~0.2",
+        "jshint-path-reporter": "~0.1",
+        "grunt-concat-sourcemap": "~0.2",
+        "source-map-support": "~0.1",
+        "grunt-markdown": "~0.3.0"
+      },
+      "dist": {
+        "shasum": "c56f7a5731b3a310226695f6e5639180fd1aa249",
+        "tarball": "https://registry.npmjs.org/uri-templates/-/uri-templates-0.1.9.tgz",
+        "integrity": "sha512-GjiseptJZUJEAXhnfX5N9kLrvwLtHmc/UBPlZ1R+QcY2m7fBMVhSbrUnC/WXlMN8nI3ficjE1f3ZOzRt3soc6g==",
+        "signatures": [
+          {
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+            "sig": "MEUCIB8xmQoNk/B6diYnTYZZmBiLmKzq9m5Iis1+PVO2CWe7AiEAkkAjzlm0BqCRCbsR4i1OpmxXHAGMIghQxxw51QssLuk="
+          }
+        ]
+      }
+    },
+    "0.2.0": {
+      "name": "uri-templates",
+      "version": "0.2.0",
+      "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-clean": "~0.4.1",
+        "grunt-contrib-jshint": "~0.6.0",
+        "mocha": "~1.11.0",
+        "grunt-mocha": "~0.3.4",
+        "grunt-mocha-test": "~0.5.0",
+        "grunt-cli": "~0.1.9",
+        "grunt-contrib-uglify": "~0.2.2",
+        "grunt-contrib-copy": "~0.4.1",
+        "proclaim": "1.4",
+        "mocha-unfunk-reporter": "~0.2",
+        "jshint-path-reporter": "~0.1",
+        "grunt-concat-sourcemap": "~0.2",
+        "source-map-support": "~0.1",
+        "grunt-markdown": "~0.3.0"
+      },
+      "dist": {
+        "shasum": "2b5784511cc909868731e9233c268097d10b499f",
+        "tarball": "https://registry.npmjs.org/uri-templates/-/uri-templates-0.2.0.tgz",
+        "integrity": "sha512-EWkjYEN0L6KOfEoOH6Wj4ghQqU7eBZMJqRHQnxQAq+dSEzRPClkWjf8557HkWQXF6BrAUoLSAyy9i3RVTliaNg==",
+        "signatures": [
+          {
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+            "sig": "MEQCIC7hpAzxN8Edh3hD3ERttAf/LxRikQZnt7NpRItjU90YAiA/aDRG5oAgmvw99Z5ZUOQvjinJ/XXwyK6Vrt45z5J2Zw=="
+          }
+        ]
+      }
+    }
+  },
+  "modified": "2022-06-28T06:09:10.149Z",
+  "cachedAt": 1771798211426
+}

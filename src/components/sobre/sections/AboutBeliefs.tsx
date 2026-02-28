@@ -1,0 +1,142 @@
+'use client';
+
+import React, { useRef } from 'react';
+import {
+  motion,
+  useScroll,
+  MotionValue,
+  useReducedMotion,
+} from 'framer-motion';
+import dynamic from 'next/dynamic';
+
+// Importações dos sub-componentes (Certifique-se que os caminhos estão corretos)
+import {
+  BeliefSection,
+  BeliefMobileTextLayer,
+  BeliefFinalSection,
+  BeliefFinalSectionOverlay,
+  BeliefFixedHeader,
+} from '@/components/sobre/beliefs';
+import { BRAND } from '@/config/brand';
+
+// [CORREÇÃO CRÍTICA]: Tratamento robusto para importação dinâmica.
+// Isso garante que pega o componente correto, seja export default ou export nomeado.
+const GhostScene = dynamic<{ scrollProgress: MotionValue<number> }>(
+  () =>
+    import('../3d/GhostScene').then((mod: any) => {
+      // Retorna a exportação nomeada 'GhostScene' OU a 'default'
+      return mod.GhostScene || mod.default;
+    }),
+  {
+    ssr: false,
+    loading: () => <div className="w-full h-full bg-transparent" />, // Placeholder invisível
+  }
+);
+
+const PHRASES = [
+  'Um\nvídeo\nque\nrespira.',
+  'Uma\nmarca\nque se\nreconhece.',
+  'Um\ndetalhe\nque\nfica.',
+  'Crio\npara\ngerar\npresença.',
+  'Mesmo\nquando\nnão\nestou\nali.',
+  'Mesmo\nquando\nninguém\npercebe\no esforço.',
+];
+
+const COLORS = [
+  BRAND.colors.bluePrimary,
+  BRAND.colors.purpleDetails,
+  BRAND.colors.pinkDetails,
+  BRAND.colors.bluePrimary,
+  BRAND.colors.purpleDetails,
+  BRAND.colors.pinkDetails,
+];
+
+export function AboutBeliefs() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const prefersReduced = !!prefersReducedMotion;
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start end', 'end end'],
+  });
+
+  // Gate framer-motion features for reduced motion to avoid runtime errors
+  // and to honor user preference.
+  const MotionSection: React.ElementType = prefersReduced
+    ? 'section'
+    : motion.section;
+  const MotionDiv: React.ElementType = prefersReduced ? 'div' : motion.div;
+  const MotionHeader: React.ElementType = prefersReduced
+    ? 'header'
+    : motion.header;
+
+  return (
+    <MotionSection
+      ref={containerRef}
+      className="relative w-full isolate z-[var(--z-layer-base)]"
+      data-testid="about-beliefs-section"
+      style={{ minHeight: `${(PHRASES.length + 2) * 100}vh` }} // Garante altura baseada no conteúdo
+    >
+      <BeliefFixedHeader
+        scrollProgress={prefersReduced ? (undefined as any) : scrollYProgress}
+        MotionHeader={MotionHeader}
+        prefersReducedMotion={prefersReduced}
+      />
+      {/* LAYER 1: Seções de Conteúdo (Texto Scrollável) - Background */}
+      <MotionDiv className="relative z-[var(--z-layer-content)]">
+        {/* Adicionei verificações para evitar erro se PHRASES/COLORS estiverem vazios */}
+        {PHRASES.map((phrase, index) => (
+          <BeliefSection
+            key={index}
+            index={index}
+            text={phrase}
+            bgColor={COLORS[index] || COLORS[0]}
+            isFirst={index === 0}
+            MotionSection={MotionSection}
+            MotionDiv={MotionDiv}
+            prefersReducedMotion={prefersReduced}
+          />
+        ))}
+
+        <BeliefFinalSection
+          scrollProgress={prefersReduced ? undefined : scrollYProgress}
+          bgColor={BRAND.colors.bluePrimary}
+          MotionDiv={MotionDiv}
+          prefersReducedMotion={prefersReduced}
+        />
+      </MotionDiv>
+
+      {/* LAYER 2: Texto Mobile Fixed no Footer */}
+      <div className="relative z-[var(--z-layer-content)]">
+        <BeliefMobileTextLayer
+          phrases={PHRASES}
+          scrollYProgress={prefersReduced ? undefined : scrollYProgress}
+          MotionDiv={MotionDiv}
+          prefersReducedMotion={prefersReduced}
+        />
+      </div>
+
+      {/* LAYER 4: Final Text Overlay (Z-10) - Overlay */}
+      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-[var(--z-layer-content)]">
+        <BeliefFinalSectionOverlay
+          MotionDiv={MotionDiv}
+          prefersReducedMotion={prefersReduced}
+        />
+      </div>
+
+      {/* LAYER 3: Canvas 3D (sem captura de eventos) - Overlay */}
+      <div
+        className="absolute inset-0 z-[var(--z-layer-3d)] w-full h-full pointer-events-none"
+        aria-hidden
+      >
+        <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-none flex md:items-center md:justify-center items-end justify-start">
+          <div className="w-full h-full md:absolute md:inset-0 relative">
+            {!prefersReducedMotion ? (
+              <GhostScene scrollProgress={scrollYProgress} />
+            ) : null}
+          </div>
+        </div>
+      </div>
+    </MotionSection>
+  );
+}

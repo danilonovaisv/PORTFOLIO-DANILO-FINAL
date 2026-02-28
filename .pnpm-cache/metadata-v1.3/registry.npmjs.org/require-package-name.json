@@ -1,0 +1,56 @@
+{
+  "name": "require-package-name",
+  "dist-tags": { "latest": "2.0.1" },
+  "versions": {
+    "1.0.0": {
+      "name": "require-package-name",
+      "version": "1.0.0",
+      "devDependencies": { "tape": "^4.0.0" },
+      "dist": {
+        "shasum": "2c76d1dc486a8e22f0d6d1d5d22d4e6f0e4ad034",
+        "tarball": "https://registry.npmjs.org/require-package-name/-/require-package-name-1.0.0.tgz",
+        "integrity": "sha512-oUFAE3Yv0WicWhnUF45+5AiA8bYum79uTV7MH7em5oEKtAPgbAxJQwpLGcA8D9znuyj6uq76MsUMm+cjpD1TSA==",
+        "signatures": [
+          {
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+            "sig": "MEYCIQCDBS3dJcl+JnwNZVfgP7v2ZYAM2yWG+2lXs0uKw2HmrAIhAO7mXf6D88vTORJknHuNTu3lPtQJs440/poEbLskpEMI"
+          }
+        ]
+      }
+    },
+    "2.0.0": {
+      "name": "require-package-name",
+      "version": "2.0.0",
+      "devDependencies": { "tape": "^4.0.0" },
+      "dist": {
+        "shasum": "9483fc27d85788d6f91638cb1ceddb73de469e80",
+        "tarball": "https://registry.npmjs.org/require-package-name/-/require-package-name-2.0.0.tgz",
+        "integrity": "sha512-LU7SPj9UIZtVZe7BplnzCQxXWgaxk2Fw0rUaEEuM2+haTSTXmS6FWjyA3OH9gIn68vRpKnO31yCh0Ho1Nnb4/Q==",
+        "signatures": [
+          {
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+            "sig": "MEQCIEJxI0ZS19pl0b5oDZCCsKEjHvdOXaEuVOgFiwtrUPQuAiBfUL7yo0ZldEZZp06xwsu7aZt6BFTOCPzmno2EFlU/nQ=="
+          }
+        ]
+      }
+    },
+    "2.0.1": {
+      "name": "require-package-name",
+      "version": "2.0.1",
+      "devDependencies": { "tape": "^4.0.0" },
+      "dist": {
+        "shasum": "c11e97276b65b8e2923f75dabf5fb2ef0c3841b9",
+        "tarball": "https://registry.npmjs.org/require-package-name/-/require-package-name-2.0.1.tgz",
+        "integrity": "sha512-uuoJ1hU/k6M0779t3VMVIYpb2VMJk05cehCaABFhXaibcbvfgR8wKiozLjVFSzJPmQMRqIcO0HMyTFqfV09V6Q==",
+        "signatures": [
+          {
+            "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+            "sig": "MEUCIQC0C84T0TUZvrtqlG9ELywulpEUIfVQEOpmEqcKYjtmqQIgQQ75jGqDNPID6+3zPyF+82j+R/xb5t+4ygOji8LGvJA="
+          }
+        ]
+      }
+    }
+  },
+  "modified": "2022-06-26T11:39:25.346Z",
+  "cachedAt": 1771798192859
+}

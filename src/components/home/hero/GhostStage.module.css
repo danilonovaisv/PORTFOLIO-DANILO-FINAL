@@ -1,0 +1,114 @@
+.fallbackContainer {
+  background-color: transparent;
+}
+
+.fallbackBase {
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 45%,
+    rgba(11, 13, 58, 0.55) 0%,
+    rgba(5, 5, 17, 0) 70%
+  );
+}
+
+/* Glow mais intenso para simular o Ghost - Inspirado no CodePen */
+.fallbackGlow {
+  background: radial-gradient(
+    circle 40vw at 50% 48%,
+    rgba(0, 87, 255, 0.25) 0%,
+    rgba(0, 240, 255, 0.1) 40%,
+    transparent 70%
+  );
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* Accent flare com animação sutil */
+.fallbackFlare {
+  background: radial-gradient(
+    circle 25vw at 52% 46%,
+    rgba(79, 230, 255, 0.15) 0%,
+    transparent 70%
+  );
+  animation: flarePulse 6s ease-in-out infinite;
+}
+
+@keyframes flarePulse {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Vignette mais suave */
+.fallbackVignette {
+  background: radial-gradient(
+    ellipse 100% 100% at 50% 50%,
+    transparent 35%,
+    rgba(5, 5, 17, 0.6) 100%
+  );
+}
+
+/* Ghost silhouette central para mobile */
+.fallbackGhost {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30vw;
+  height: 30vw;
+  max-width: 200px;
+  max-height: 200px;
+  background: radial-gradient(
+    circle at 50% 40%,
+    rgba(0, 87, 255, 0.4) 0%,
+    rgba(0, 87, 255, 0.2) 40%,
+    transparent 70%
+  );
+  border-radius: 50% 50% 45% 45%;
+  filter: blur(20px);
+  animation: ghostFloat 5s ease-in-out infinite;
+}
+
+@keyframes ghostFloat {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) translateY(0);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-10px);
+  }
+}
+
+/* Legacy gradient (mantido para compatibilidade) */
+.fallbackGradient {
+  background-image:
+    radial-gradient(
+      circle at 30% 52%,
+      rgba(0, 225, 255, 0.85) 0%,
+      rgba(0, 119, 255, 0.6) 18%,
+      rgba(22, 28, 67, 0.45) 36%,
+      rgba(6, 7, 31, 0.82) 58%,
+      #c600ff 52%
+    ),
+    radial-gradient(
+      circle at 22% 52%,
+      rgba(38, 159, 255, 0.35) 0%,
+      rgba(8, 13, 46, 0.4) 32%,
+      rgba(3, 4, 17, 0.75) 60%,
+      #030414 88%
+    );
+}

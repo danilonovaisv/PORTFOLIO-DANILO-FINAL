@@ -1,0 +1,803 @@
+[
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "boticario/projects/creative-concept/cover-16x9.mp4",
+    "destPath": "v2/boticario/projects/creative-concept/cover-16x9.7b1a4d235a211a41.mp4",
+    "contentType": "video/mp4",
+    "bytes": 960548,
+    "v3Path": "v3/boticario/creative-concept/cover-16x9.7b1a4d235a211a41.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "boticario/projects/creative-concept/cover-1x1.mp4",
+    "destPath": "v2/boticario/projects/creative-concept/cover-1x1.bb4558569b67cba4.mp4",
+    "contentType": "video/mp4",
+    "bytes": 825269,
+    "v3Path": "v3/boticario/creative-concept/cover-1x1.bb4558569b67cba4.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "boticario/projects/creative-concept/gallery/converted-webp.webp",
+    "destPath": "v2/boticario/projects/creative-concept/gallery/converted-webp.f48657bf2f860eb0.webp",
+    "contentType": "image/webp",
+    "bytes": 241844,
+    "v3Path": "v3/boticario/creative-concept/gallery/converted-webp.f48657bf2f860eb0.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "mercado-pago/projects/ai-video/cover-16x9.mp4",
+    "destPath": "v2/mercado-pago/projects/ai-video/cover-16x9.a2fa202ae9c8106d.mp4",
+    "contentType": "video/mp4",
+    "bytes": 2328361,
+    "v3Path": "v3/mercado-pago/ai-video/cover-16x9.a2fa202ae9c8106d.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "mercado-pago/projects/ai-video/cover-1x1.mp4",
+    "destPath": "v2/mercado-pago/projects/ai-video/cover-1x1.7f72aca040cd0495.mp4",
+    "contentType": "video/mp4",
+    "bytes": 436546,
+    "v3Path": "v3/mercado-pago/ai-video/cover-1x1.7f72aca040cd0495.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "mercado-pago/projects/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.mp4",
+    "destPath": "v2/mercado-pago/projects/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4",
+    "contentType": "video/mp4",
+    "bytes": 4965525,
+    "v3Path": "v3/mercado-pago/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "mercado-pago/projects/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.mp4",
+    "destPath": "v2/mercado-pago/projects/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4",
+    "contentType": "video/mp4",
+    "bytes": 7905415,
+    "v3Path": "v3/mercado-pago/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/advertising_video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.mp4",
+    "destPath": "v2/projects/advertising_video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4",
+    "contentType": "video/mp4",
+    "bytes": 4965525,
+    "v3Path": "v3/danilo/advertising-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/advertising_video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.mp4",
+    "destPath": "v2/projects/advertising_video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4",
+    "contentType": "video/mp4",
+    "bytes": 7905415,
+    "v3Path": "v3/danilo/advertising-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/advertising_video/gallery/VIDEOMANIFESTOGLAD-mp4.mp4",
+    "destPath": "v2/projects/advertising_video/gallery/VIDEOMANIFESTOGLAD-mp4.39cc97c71f34486e.mp4",
+    "contentType": "video/mp4",
+    "bytes": 19900886,
+    "v3Path": "v3/danilo/advertising-video/gallery/VIDEOMANIFESTOGLAD-mp4.39cc97c71f34486e.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/advertising_video/gallery/VIDEOMANIFESTOGLAD_2_compressed_compressed-mp4.mp4",
+    "destPath": "v2/projects/advertising_video/gallery/VIDEOMANIFESTOGLAD_2_compressed_compressed-mp4.39cc97c71f34486e.mp4",
+    "contentType": "video/mp4",
+    "bytes": 19900886,
+    "v3Path": "v3/danilo/advertising-video/gallery/VIDEOMANIFESTOGLAD_2_compressed_compressed-mp4.39cc97c71f34486e.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/advertising_video/hero.png",
+    "destPath": "v2/projects/advertising_video/hero.a77cb07522535008.png",
+    "contentType": "image/png",
+    "bytes": 1369874,
+    "v3Path": "v3/danilo/advertising-video/hero.a77cb07522535008.png",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/advertising_video/hero.webp",
+    "destPath": "v2/projects/advertising_video/hero.4fa5572945d226cc.webp",
+    "contentType": "image/webp",
+    "bytes": 59462,
+    "v3Path": "v3/danilo/advertising-video/hero.4fa5572945d226cc.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/advertising_video/thumb.mp4",
+    "destPath": "v2/projects/advertising_video/thumb.a2fa202ae9c8106d.mp4",
+    "contentType": "video/mp4",
+    "bytes": 2328361,
+    "v3Path": "v3/danilo/advertising-video/thumb.a2fa202ae9c8106d.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/advertising_video/thumb.png",
+    "destPath": "v2/projects/advertising_video/thumb.a77cb07522535008.png",
+    "contentType": "image/png",
+    "bytes": 1369874,
+    "v3Path": "v3/danilo/advertising-video/thumb.a77cb07522535008.png",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/AI video/cover-16x9.mp4",
+    "destPath": "v2/projects/AI video/cover-16x9.a2fa202ae9c8106d.mp4",
+    "contentType": "video/mp4",
+    "bytes": 2328361,
+    "v3Path": "v3/danilo/ai-video/cover-16x9.a2fa202ae9c8106d.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/AI video/cover-1x1.mp4",
+    "destPath": "v2/projects/AI video/cover-1x1.7f72aca040cd0495.mp4",
+    "contentType": "video/mp4",
+    "bytes": 436546,
+    "v3Path": "v3/danilo/ai-video/cover-1x1.7f72aca040cd0495.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/AI video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.mp4",
+    "destPath": "v2/projects/AI video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4",
+    "contentType": "video/mp4",
+    "bytes": 4965525,
+    "v3Path": "v3/danilo/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/AI video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.mp4",
+    "destPath": "v2/projects/AI video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4",
+    "contentType": "video/mp4",
+    "bytes": 7905415,
+    "v3Path": "v3/danilo/ai-video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/animation/cover-16x9.mp4",
+    "destPath": "v2/projects/animation/cover-16x9.7b1a4d235a211a41.mp4",
+    "contentType": "video/mp4",
+    "bytes": 960548,
+    "v3Path": "v3/danilo/animation/cover-16x9.7b1a4d235a211a41.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/animation/cover-1x1.mp4",
+    "destPath": "v2/projects/animation/cover-1x1.bb4558569b67cba4.mp4",
+    "contentType": "video/mp4",
+    "bytes": 825269,
+    "v3Path": "v3/danilo/animation/cover-1x1.bb4558569b67cba4.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/animation/gallery/converted-2-png.png",
+    "destPath": "v2/projects/animation/gallery/converted-2-png.f48657bf2f860eb0.png",
+    "contentType": "image/png",
+    "bytes": 241844,
+    "v3Path": "v3/danilo/animation/gallery/converted-2-png.f48657bf2f860eb0.png",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/animation/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.mp4",
+    "destPath": "v2/projects/animation/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4",
+    "contentType": "video/mp4",
+    "bytes": 4965525,
+    "v3Path": "v3/danilo/animation/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/animation/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.mp4",
+    "destPath": "v2/projects/animation/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4",
+    "contentType": "video/mp4",
+    "bytes": 7905415,
+    "v3Path": "v3/danilo/animation/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/animation/hero.mp4",
+    "destPath": "v2/projects/animation/hero.7f72aca040cd0495.mp4",
+    "contentType": "video/mp4",
+    "bytes": 436546,
+    "v3Path": "v3/danilo/animation/hero.7f72aca040cd0495.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/animation/thumb.webp",
+    "destPath": "v2/projects/animation/thumb.4fa5572945d226cc.webp",
+    "contentType": "image/webp",
+    "bytes": 59462,
+    "v3Path": "v3/danilo/animation/thumb.4fa5572945d226cc.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/brand-campaigns/cover-16x9.png",
+    "destPath": "v2/projects/brand-campaigns/cover-16x9.debd87ffc2ad43ec.png",
+    "contentType": "image/png",
+    "bytes": 1646269,
+    "v3Path": "v3/danilo/brand-campaigns/cover-16x9.debd87ffc2ad43ec.png",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/brand-campaigns/cover-1x1.JPG",
+    "destPath": "v2/projects/brand-campaigns/cover-1x1.bbec01bc44be7a9e.JPG",
+    "contentType": "image/jpeg",
+    "bytes": 35365,
+    "v3Path": "v3/danilo/brand-campaigns/cover-1x1.bbec01bc44be7a9e.JPG",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/brand-campaigns/gallery/thumb-LOGO-full_compressed-mp4.mp4",
+    "destPath": "v2/projects/brand-campaigns/gallery/thumb-LOGO-full_compressed-mp4.81d4b78c214f8718.mp4",
+    "contentType": "video/mp4",
+    "bytes": 2370733,
+    "v3Path": "v3/danilo/brand-campaigns/gallery/thumb-LOGO-full_compressed-mp4.81d4b78c214f8718.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/brand-campaigns/hero.png",
+    "destPath": "v2/projects/brand-campaigns/hero.debd87ffc2ad43ec.png",
+    "contentType": "image/png",
+    "bytes": 1646269,
+    "v3Path": "v3/danilo/brand-campaigns/hero.debd87ffc2ad43ec.png",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/brand-campaigns/thumb.mp4",
+    "destPath": "v2/projects/brand-campaigns/thumb.81d4b78c214f8718.mp4",
+    "contentType": "video/mp4",
+    "bytes": 2370733,
+    "v3Path": "v3/danilo/brand-campaigns/thumb.81d4b78c214f8718.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/brand_video/cover-16x9.mp4",
+    "destPath": "v2/projects/brand_video/cover-16x9.93561b517db309a9.mp4",
+    "contentType": "video/mp4",
+    "bytes": 379353,
+    "v3Path": "v3/glad/brand-video/cover-16x9.93561b517db309a9.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/brand_video/cover-1x1.mp4",
+    "destPath": "v2/projects/brand_video/cover-1x1.93561b517db309a9.mp4",
+    "contentType": "video/mp4",
+    "bytes": 379353,
+    "v3Path": "v3/glad/brand-video/cover-1x1.93561b517db309a9.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/brand_video/gallery/THUMB-GLAD-mp4.mp4",
+    "destPath": "v2/projects/brand_video/gallery/THUMB-GLAD-mp4.93561b517db309a9.mp4",
+    "contentType": "video/mp4",
+    "bytes": 379353,
+    "v3Path": "v3/glad/brand-video/gallery/THUMB-GLAD-mp4.93561b517db309a9.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/brand_video/gallery/THUMB-GLAD_compressed-mp4.mp4",
+    "destPath": "v2/projects/brand_video/gallery/THUMB-GLAD_compressed-mp4.93561b517db309a9.mp4",
+    "contentType": "video/mp4",
+    "bytes": 379353,
+    "v3Path": "v3/glad/brand-video/gallery/THUMB-GLAD_compressed-mp4.93561b517db309a9.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/brand_video/gallery/VIDEOMANIFESTOGLAD-mp4.mp4",
+    "destPath": "v2/projects/brand_video/gallery/VIDEOMANIFESTOGLAD-mp4.39cc97c71f34486e.mp4",
+    "contentType": "video/mp4",
+    "bytes": 19900886,
+    "v3Path": "v3/glad/brand-video/gallery/VIDEOMANIFESTOGLAD-mp4.39cc97c71f34486e.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/brand_video/hero.mp4",
+    "destPath": "v2/projects/brand_video/hero.93561b517db309a9.mp4",
+    "contentType": "video/mp4",
+    "bytes": 379353,
+    "v3Path": "v3/glad/brand-video/hero.93561b517db309a9.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/brand_video/hero.png",
+    "destPath": "v2/projects/brand_video/hero.b8d016a916cdbef3.png",
+    "contentType": "image/png",
+    "bytes": 49995,
+    "v3Path": "v3/glad/brand-video/hero.b8d016a916cdbef3.png",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/brand_video/hero.webp",
+    "destPath": "v2/projects/brand_video/hero.3605e6bd44e405cb.webp",
+    "contentType": "image/webp",
+    "bytes": 27330,
+    "v3Path": "v3/glad/brand-video/hero.3605e6bd44e405cb.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/brand_video/thumb.mp4",
+    "destPath": "v2/projects/brand_video/thumb.93561b517db309a9.mp4",
+    "contentType": "video/mp4",
+    "bytes": 379353,
+    "v3Path": "v3/glad/brand-video/thumb.93561b517db309a9.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/campaign/cover-16x9.mp4",
+    "destPath": "v2/projects/campaign/cover-16x9.7b1a4d235a211a41.mp4",
+    "contentType": "video/mp4",
+    "bytes": 960548,
+    "v3Path": "v3/danilo/campaign/cover-16x9.7b1a4d235a211a41.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/campaign/cover-16x9.png",
+    "destPath": "v2/projects/campaign/cover-16x9.debd87ffc2ad43ec.png",
+    "contentType": "image/png",
+    "bytes": 1646269,
+    "v3Path": "v3/danilo/campaign/cover-16x9.debd87ffc2ad43ec.png",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/campaign/cover-1x1.JPG",
+    "destPath": "v2/projects/campaign/cover-1x1.bbec01bc44be7a9e.JPG",
+    "contentType": "image/jpeg",
+    "bytes": 35365,
+    "v3Path": "v3/danilo/campaign/cover-1x1.bbec01bc44be7a9e.JPG",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/campaign/cover-1x1.mp4",
+    "destPath": "v2/projects/campaign/cover-1x1.bb4558569b67cba4.mp4",
+    "contentType": "video/mp4",
+    "bytes": 825269,
+    "v3Path": "v3/danilo/campaign/cover-1x1.bb4558569b67cba4.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/campaign/gallery/converted-2-png.png",
+    "destPath": "v2/projects/campaign/gallery/converted-2-png.f48657bf2f860eb0.png",
+    "contentType": "image/png",
+    "bytes": 241844,
+    "v3Path": "v3/danilo/campaign/gallery/converted-2-png.f48657bf2f860eb0.png",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/campaign/gallery/converted-9-webp.webp",
+    "destPath": "v2/projects/campaign/gallery/converted-9-webp.dfc4a3b67f9c2592.webp",
+    "contentType": "image/webp",
+    "bytes": 103128,
+    "v3Path": "v3/danilo/campaign/gallery/converted-9-webp.dfc4a3b67f9c2592.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/campaign/hero.jpeg",
+    "destPath": "v2/projects/campaign/hero.7dd40fbe0d6c6892.jpeg",
+    "contentType": "image/jpeg",
+    "bytes": 122002,
+    "v3Path": "v3/danilo/campaign/hero.7dd40fbe0d6c6892.jpeg",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/campaign/hero.webp",
+    "destPath": "v2/projects/campaign/hero.dfc4a3b67f9c2592.webp",
+    "contentType": "image/webp",
+    "bytes": 103128,
+    "v3Path": "v3/danilo/campaign/hero.dfc4a3b67f9c2592.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/campaign/thumb.mp4",
+    "destPath": "v2/projects/campaign/thumb.81d4b78c214f8718.mp4",
+    "contentType": "video/mp4",
+    "bytes": 2370733,
+    "v3Path": "v3/danilo/campaign/thumb.81d4b78c214f8718.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/campaign/thumb.webp",
+    "destPath": "v2/projects/campaign/thumb.dfc4a3b67f9c2592.webp",
+    "contentType": "image/webp",
+    "bytes": 103128,
+    "v3Path": "v3/danilo/campaign/thumb.dfc4a3b67f9c2592.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/creative-direction/gallery/converted-webp.webp",
+    "destPath": "v2/projects/creative-direction/gallery/converted-webp.74188a632382b090.webp",
+    "contentType": "image/webp",
+    "bytes": 55842,
+    "v3Path": "v3/danilo/creative-direction/gallery/converted-webp.74188a632382b090.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/creative-direction/hero.webp",
+    "destPath": "v2/projects/creative-direction/hero.74188a632382b090.webp",
+    "contentType": "image/webp",
+    "bytes": 55842,
+    "v3Path": "v3/danilo/creative-direction/hero.74188a632382b090.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/creative-direction/thumb.webp",
+    "destPath": "v2/projects/creative-direction/thumb.74188a632382b090.webp",
+    "contentType": "image/webp",
+    "bytes": 55842,
+    "v3Path": "v3/danilo/creative-direction/thumb.74188a632382b090.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/key-vision/gallery/converted-5-webp.webp",
+    "destPath": "v2/projects/key-vision/gallery/converted-5-webp.33b1bd9ad12b453a.webp",
+    "contentType": "image/webp",
+    "bytes": 32230,
+    "v3Path": "v3/danilo/key-vision/gallery/converted-5-webp.33b1bd9ad12b453a.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/key-vision/hero.webp",
+    "destPath": "v2/projects/key-vision/hero.33b1bd9ad12b453a.webp",
+    "contentType": "image/webp",
+    "bytes": 32230,
+    "v3Path": "v3/danilo/key-vision/hero.33b1bd9ad12b453a.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/key-vision/thumb.webp",
+    "destPath": "v2/projects/key-vision/thumb.33b1bd9ad12b453a.webp",
+    "contentType": "image/webp",
+    "bytes": 32230,
+    "v3Path": "v3/danilo/key-vision/thumb.33b1bd9ad12b453a.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/key-visual/gallery/converted-10-webp.webp",
+    "destPath": "v2/projects/key-visual/gallery/converted-10-webp.3f06afff19c13c8a.webp",
+    "contentType": "image/webp",
+    "bytes": 59956,
+    "v3Path": "v3/danilo/key-visual/gallery/converted-10-webp.3f06afff19c13c8a.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/key-visual/gallery/THUMB_LOGO_ANIMADA-mp4.mp4",
+    "destPath": "v2/projects/key-visual/gallery/THUMB_LOGO_ANIMADA-mp4.ca57b64bb4580ecb.mp4",
+    "contentType": "video/mp4",
+    "bytes": 295346,
+    "v3Path": "v3/danilo/key-visual/gallery/THUMB_LOGO_ANIMADA-mp4.ca57b64bb4580ecb.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/key-visual/hero.png",
+    "destPath": "v2/projects/key-visual/hero.2b456e3c1412658d.png",
+    "contentType": "image/png",
+    "bytes": 142840,
+    "v3Path": "v3/danilo/key-visual/hero.2b456e3c1412658d.png",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/key-visual/hero.webp",
+    "destPath": "v2/projects/key-visual/hero.3f06afff19c13c8a.webp",
+    "contentType": "image/webp",
+    "bytes": 59956,
+    "v3Path": "v3/danilo/key-visual/hero.3f06afff19c13c8a.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/key-visual/thumb.mp4",
+    "destPath": "v2/projects/key-visual/thumb.ca57b64bb4580ecb.mp4",
+    "contentType": "video/mp4",
+    "bytes": 295346,
+    "v3Path": "v3/danilo/key-visual/thumb.ca57b64bb4580ecb.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/key-visual/thumb.png",
+    "destPath": "v2/projects/key-visual/thumb.2b456e3c1412658d.png",
+    "contentType": "image/png",
+    "bytes": 142840,
+    "v3Path": "v3/danilo/key-visual/thumb.2b456e3c1412658d.png",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/key-visual/thumb.webp",
+    "destPath": "v2/projects/key-visual/thumb.3f06afff19c13c8a.webp",
+    "contentType": "image/webp",
+    "bytes": 59956,
+    "v3Path": "v3/danilo/key-visual/thumb.3f06afff19c13c8a.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/key_vision/gallery/nescau-webp.webp",
+    "destPath": "v2/projects/key_vision/gallery/nescau-webp.f9af649bc7c0c1b1.webp",
+    "contentType": "image/webp",
+    "bytes": 42086,
+    "v3Path": "v3/danilo/key-vision/gallery/nescau-webp.f9af649bc7c0c1b1.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/key_vision/hero.webp",
+    "destPath": "v2/projects/key_vision/hero.f9af649bc7c0c1b1.webp",
+    "contentType": "image/webp",
+    "bytes": 42086,
+    "v3Path": "v3/danilo/key-vision/hero.f9af649bc7c0c1b1.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/key_vision/thumb.webp",
+    "destPath": "v2/projects/key_vision/thumb.f9af649bc7c0c1b1.webp",
+    "contentType": "image/webp",
+    "bytes": 42086,
+    "v3Path": "v3/danilo/key-vision/thumb.f9af649bc7c0c1b1.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/print-design/cover-16x9.mp4",
+    "destPath": "v2/projects/print-design/cover-16x9.81d4b78c214f8718.mp4",
+    "contentType": "video/mp4",
+    "bytes": 2370733,
+    "v3Path": "v3/danilo/print-design/cover-16x9.81d4b78c214f8718.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/print-design/cover-1x1.mp4",
+    "destPath": "v2/projects/print-design/cover-1x1.fad4ddd45ba37abf.mp4",
+    "contentType": "video/mp4",
+    "bytes": 1350237,
+    "v3Path": "v3/danilo/print-design/cover-1x1.fad4ddd45ba37abf.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/print-design/gallery/converted-1-webp.webp",
+    "destPath": "v2/projects/print-design/gallery/converted-1-webp.0da18266f1533b51.webp",
+    "contentType": "image/webp",
+    "bytes": 76276,
+    "v3Path": "v3/danilo/print-design/gallery/converted-1-webp.0da18266f1533b51.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/print-design/hero.webp",
+    "destPath": "v2/projects/print-design/hero.26f49c2ed15cd1dc.webp",
+    "contentType": "image/webp",
+    "bytes": 65138,
+    "v3Path": "v3/danilo/print-design/hero.26f49c2ed15cd1dc.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/print-design/thumb.mp4",
+    "destPath": "v2/projects/print-design/thumb.81d4b78c214f8718.mp4",
+    "contentType": "video/mp4",
+    "bytes": 2370733,
+    "v3Path": "v3/danilo/print-design/thumb.81d4b78c214f8718.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/rebranding/gallery/converted-2-webp.webp",
+    "destPath": "v2/projects/rebranding/gallery/converted-2-webp.e601291b613a6d43.webp",
+    "contentType": "image/webp",
+    "bytes": 790966,
+    "v3Path": "v3/danilo/rebranding/gallery/converted-2-webp.e601291b613a6d43.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/rebranding/gallery/converted-3-webp.webp",
+    "destPath": "v2/projects/rebranding/gallery/converted-3-webp.09543d0eb71b05d2.webp",
+    "contentType": "image/webp",
+    "bytes": 652576,
+    "v3Path": "v3/danilo/rebranding/gallery/converted-3-webp.09543d0eb71b05d2.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/rebranding/gallery/converted-4-webp.webp",
+    "destPath": "v2/projects/rebranding/gallery/converted-4-webp.6420ca71ec1c70dd.webp",
+    "contentType": "image/webp",
+    "bytes": 97378,
+    "v3Path": "v3/danilo/rebranding/gallery/converted-4-webp.6420ca71ec1c70dd.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/rebranding/gallery/converted-5-webp.webp",
+    "destPath": "v2/projects/rebranding/gallery/converted-5-webp.3529b2ba0b7588bb.webp",
+    "contentType": "image/webp",
+    "bytes": 260348,
+    "v3Path": "v3/danilo/rebranding/gallery/converted-5-webp.3529b2ba0b7588bb.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/rebranding/gallery/converted-6-webp.webp",
+    "destPath": "v2/projects/rebranding/gallery/converted-6-webp.c0a0dd6ca0744fed.webp",
+    "contentType": "image/webp",
+    "bytes": 13440,
+    "v3Path": "v3/danilo/rebranding/gallery/converted-6-webp.c0a0dd6ca0744fed.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/rebranding/gallery/converted-7-webp.webp",
+    "destPath": "v2/projects/rebranding/gallery/converted-7-webp.6a2ba92d469b609d.webp",
+    "contentType": "image/webp",
+    "bytes": 335556,
+    "v3Path": "v3/danilo/rebranding/gallery/converted-7-webp.6a2ba92d469b609d.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/rebranding/gallery/converted-8-webp.webp",
+    "destPath": "v2/projects/rebranding/gallery/converted-8-webp.319717e9bd68eab7.webp",
+    "contentType": "image/webp",
+    "bytes": 32782,
+    "v3Path": "v3/danilo/rebranding/gallery/converted-8-webp.319717e9bd68eab7.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/rebranding/gallery/converted-webp.webp",
+    "destPath": "v2/projects/rebranding/gallery/converted-webp.1d7906cba60b8a7f.webp",
+    "contentType": "image/webp",
+    "bytes": 97012,
+    "v3Path": "v3/danilo/rebranding/gallery/converted-webp.1d7906cba60b8a7f.webp",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/rebranding/hero.png",
+    "destPath": "v2/projects/rebranding/hero.5c9c78d1babcf61f.png",
+    "contentType": "image/png",
+    "bytes": 10563,
+    "v3Path": "v3/danilo/rebranding/hero.5c9c78d1babcf61f.png",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/rebranding/thumb.mp4",
+    "destPath": "v2/projects/rebranding/thumb.616ba718923fee64.mp4",
+    "contentType": "video/mp4",
+    "bytes": 3353821,
+    "v3Path": "v3/danilo/rebranding/thumb.616ba718923fee64.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/video/cover-16x9.mp4",
+    "destPath": "v2/projects/video/cover-16x9.7b1a4d235a211a41.mp4",
+    "contentType": "video/mp4",
+    "bytes": 960548,
+    "v3Path": "v3/danilo/video/cover-16x9.7b1a4d235a211a41.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/video/cover-1x1.mp4",
+    "destPath": "v2/projects/video/cover-1x1.bb4558569b67cba4.mp4",
+    "contentType": "video/mp4",
+    "bytes": 825269,
+    "v3Path": "v3/danilo/video/cover-1x1.bb4558569b67cba4.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/video/gallery/converted-2-png.png",
+    "destPath": "v2/projects/video/gallery/converted-2-png.f48657bf2f860eb0.png",
+    "contentType": "image/png",
+    "bytes": 241844,
+    "v3Path": "v3/danilo/video/gallery/converted-2-png.f48657bf2f860eb0.png",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/video/gallery/KV-Eudora-v2-png.png",
+    "destPath": "v2/projects/video/gallery/KV-Eudora-v2-png.8a908efe974740a4.png",
+    "contentType": "image/png",
+    "bytes": 3672937,
+    "v3Path": "v3/danilo/video/gallery/KV-Eudora-v2-png.8a908efe974740a4.png",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.mp4",
+    "destPath": "v2/projects/video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4",
+    "contentType": "video/mp4",
+    "bytes": 4965525,
+    "v3Path": "v3/danilo/video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1080x1080px_compressed-mp4.4cbc248d4d4a3476.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.mp4",
+    "destPath": "v2/projects/video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4",
+    "contentType": "video/mp4",
+    "bytes": 7905415,
+    "v3Path": "v3/danilo/video/gallery/VIDEO-COMERCIO-LOJA-MERCADO-PAGO-1920x1080px_compressed-mp4.d46ff7d8b0070082.mp4",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/video_manifesto/hero.png",
+    "destPath": "v2/projects/video_manifesto/hero.a77cb07522535008.png",
+    "contentType": "image/png",
+    "bytes": 1369874,
+    "v3Path": "v3/danilo/video-manifesto/hero.a77cb07522535008.png",
+    "status": "copied"
+  },
+  {
+    "bucket": "portfolio-media",
+    "oldPath": "projects/video_manifesto/thumb.png",
+    "destPath": "v2/projects/video_manifesto/thumb.a77cb07522535008.png",
+    "contentType": "image/png",
+    "bytes": 1369874,
+    "v3Path": "v3/danilo/video-manifesto/thumb.a77cb07522535008.png",
+    "status": "copied"
+  }
+]
