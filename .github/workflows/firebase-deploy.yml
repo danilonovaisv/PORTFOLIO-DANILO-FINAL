@@ -117,14 +117,10 @@ jobs:
       - name: Resolve Firebase project id
         id: firebase_project
         env:
-          SECRET_FB_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
           SECRET_FB_PROJECT: ${{ secrets.FIREBASE_PROJECT }}
         run: |
-          # Try multiple secret names — repo has FIREBASE_PROJECT but not FIREBASE_PROJECT_ID
-          if [ -n "$SECRET_FB_PROJECT_ID" ]; then
-            PROJECT_ID="$SECRET_FB_PROJECT_ID"
-            SOURCE="GitHub Secret FIREBASE_PROJECT_ID"
-          elif [ -n "$SECRET_FB_PROJECT" ]; then
+          # Use available project secrets or auth outputs
+          if [ -n "$SECRET_FB_PROJECT" ]; then
             PROJECT_ID="$SECRET_FB_PROJECT"
             SOURCE="GitHub Secret FIREBASE_PROJECT"
           elif [ -n "${{ steps.auth.outputs.project_id }}" ]; then
