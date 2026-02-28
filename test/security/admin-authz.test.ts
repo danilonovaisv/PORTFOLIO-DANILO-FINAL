@@ -43,7 +43,7 @@ describe('admin authz helpers', () => {
   it('rejects non-admin users', () => {
     process.env.ADMIN_ALLOWED_EMAILS = 'admin@domain.com';
     const user = {
-      app_metadata: { role: 'editor' },
+      app_metadata: { role: 'viewer' },
       user_metadata: {},
       email: 'viewer@domain.com',
     } as any;

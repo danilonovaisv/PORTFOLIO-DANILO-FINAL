@@ -96,7 +96,7 @@ describe('isAdminUser', () => {
   });
 
   it('should return false for user with random role', () => {
-    const user = createUser({ role: 'editor' }, { role: 'editor' });
+    const user = createUser({ role: 'random' }, { role: 'random' });
     expect(isAdminUser(user)).toBe(false);
   });
 });
