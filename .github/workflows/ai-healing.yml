@@ -59,7 +59,7 @@ jobs:
         id: build_prompt
         run: |
           {
-            echo "prompt<<'EOF'"
+            echo "prompt<<EOF_MARKER"
             echo "Analyze these failed workflow logs from a Next.js 16 project deployed to Firebase Hosting."
             echo "Tech stack: Next.js 16 (App Router), pnpm, Firebase Hosting with webframeworks, Supabase."
             echo
@@ -72,7 +72,7 @@ jobs:
             echo "1. Root cause (1-2 sentences)"
             echo "2. Corrected code snippet if applicable"
             echo "3. Any config changes needed in firebase.json, next.config.mjs, or GitHub Secrets"
-            echo "EOF"
+            echo "EOF_MARKER"
           } >> "$GITHUB_OUTPUT"
 
       - name: 🤖 Gemini AI Analysis
