@@ -25,20 +25,21 @@ jobs:
       fail-fast: false
       matrix:
         language:
-          - actions
           - javascript-typescript
-          - python
+        # NOTE: 'python' removed — project has no significant Python source code.
+        # NOTE: 'actions' removed — conflicts with GitHub's Default Setup when enabled.
+        #       If you do NOT use Default Setup, you can re-add 'actions' here.
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        uses: actions/checkout@v4
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@33119e582d3ab4ed79c2610af108cb08ff983917
+        uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
           build-mode: none
           config-file: ./.github/codeql/codeql-config.yml
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@33119e582d3ab4ed79c2610af108cb08ff983917
+        uses: github/codeql-action/analyze@v3
