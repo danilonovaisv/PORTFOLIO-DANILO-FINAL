@@ -114,15 +114,43 @@ jobs:
           create_credentials_file: true
           export_environment_variables: true
 
+      - name: Resolve Firebase project id
+        id: firebase_project
+        run: |
+          if [ -n "${{ secrets.FIREBASE_PROJECT_ID }}" ]; then
+            PROJECT_ID="${{ secrets.FIREBASE_PROJECT_ID }}"
+            SOURCE="GitHub Secret FIREBASE_PROJECT_ID"
+          elif [ -n "${{ steps.auth.outputs.project_id }}" ]; then
+            PROJECT_ID="${{ steps.auth.outputs.project_id }}"
+            SOURCE="Service Account project_id"
+          elif [ -f .firebaserc ]; then
+            PROJECT_ID=$(node -e "const fs=require('fs');const rc=JSON.parse(fs.readFileSync('.firebaserc','utf8'));process.stdout.write(rc?.projects?.default||'')")
+            SOURCE=".firebaserc (projects.default)"
+          fi
+
+          if [ -z "$PROJECT_ID" ]; then
+            echo "❌ ERRO: Não foi possível resolver o Firebase Project ID."
+            echo "Defina FIREBASE_PROJECT_ID no GitHub Secrets ou configure .firebaserc/projects.default"
+            exit 1
+          fi
+
+          echo "project_id=$PROJECT_ID" >> "$GITHUB_OUTPUT"
+          echo "✅ Projeto Firebase resolvido: $PROJECT_ID ($SOURCE)"
+
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
+
+      - name: Validate Firebase project access
+        run: |
+          firebase projects:list --json > firebase-projects.json
+          node -e "const fs=require('fs');const data=JSON.parse(fs.readFileSync('firebase-projects.json','utf8'));const p=(data.results||[]).some((x)=>x.projectId==='${{ steps.firebase_project.outputs.project_id }}');if(!p){console.error('❌ ERRO: Service Account autenticada não possui acesso ao projeto ${{ steps.firebase_project.outputs.project_id }}.');process.exit(1)};console.log('✅ Acesso ao projeto validado para ${{ steps.firebase_project.outputs.project_id }}')"
 
       - name: Deploy to Firebase
         run: |
           firebase experiments:enable webframeworks
           # O erro 403 nas extensões ocorre se o Service Account não tiver a role 'Firebase Admin' 
           # ou se a API de extensões estiver desativada no projeto.
-          firebase deploy --only hosting,functions --project portfolio-danilo-novais --force --non-interactive
+          firebase deploy --only hosting,functions --project "${{ steps.firebase_project.outputs.project_id }}" --force --non-interactive
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
 
@@ -130,7 +158,7 @@ jobs:
         if: success()
         run: |
           echo "✅ Deploy completed successfully!"
-          echo "🌐 Site: https://portfolio-danilo-novais.web.app"
+          echo "🌐 Site: https://${{ steps.firebase_project.outputs.project_id }}.web.app"
           echo "### Deploy Finalizado com Sucesso 🚀" >> $GITHUB_STEP_SUMMARY
           echo "Ambiente buildado com sucesso injetando variáveis seguras." >> $GITHUB_STEP_SUMMARY
 
