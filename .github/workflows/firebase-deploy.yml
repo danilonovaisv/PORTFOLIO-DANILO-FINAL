@@ -178,6 +178,18 @@ jobs:
             }
           "
 
+      - name: Switch to NPM for reliable Firebase Cloud Build
+        run: |
+          echo "Removing pnpm lock and node_modules to avoid npm ci mismatch in Cloud Functions"
+          rm -f pnpm-lock.yaml
+          rm -rf node_modules
+          if [[ "$OSTYPE" == "darwin"* ]]; then
+            sed -i '' '/"packageManager":/d' package.json
+          else
+            sed -i '/"packageManager":/d' package.json
+          fi
+          npm install --legacy-peer-deps
+
       - name: Deploy to Firebase
         run: |
           firebase experiments:enable webframeworks
@@ -186,6 +198,7 @@ jobs:
           firebase deploy --only hosting,functions --project "${{ steps.firebase_project.outputs.project_id }}" --debug --non-interactive
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
+
 
       - name: Notify success
         if: success()
