@@ -50,12 +50,12 @@ export function ProjectForm({
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>(() =>
     Array.isArray(project?.gallery)
       ? project.gallery.map((g, i) => ({
-        id: `existing-${i}`,
-        path: g.path,
-        caption: g.caption,
-        type: g.type as 'image' | 'video' | 'youtube' | undefined,
-        youtube_video_id: g.youtube_video_id,
-      }))
+          id: `existing-${i}`,
+          path: g.path,
+          caption: g.caption,
+          type: g.type as 'image' | 'video' | 'youtube' | undefined,
+          youtube_video_id: g.youtube_video_id,
+        }))
       : []
   );
   const [availableTags, setAvailableTags] = useState<DbTag[]>(() =>
@@ -95,18 +95,18 @@ export function ProjectForm({
       landingPages.map((page) => {
         const template =
           page.content &&
-            typeof page.content === 'object' &&
-            'template' in page.content &&
-            ((page.content as { template?: string }).template ===
-              MASTER_PROJECT_TEMPLATE ||
-              (page.content as { template?: string }).template ===
+          typeof page.content === 'object' &&
+          'template' in page.content &&
+          ((page.content as { template?: string }).template ===
+            MASTER_PROJECT_TEMPLATE ||
+            (page.content as { template?: string }).template ===
               MASTER_PROJECT_TEMPLATE_V2 ||
-              (page.content as { template?: string }).template ===
+            (page.content as { template?: string }).template ===
               MASTER_PROJECT_TEMPLATE_V3)
             ? ((page.content as { template?: string }).template as
-              | typeof MASTER_PROJECT_TEMPLATE
-              | typeof MASTER_PROJECT_TEMPLATE_V2
-              | typeof MASTER_PROJECT_TEMPLATE_V3)
+                | typeof MASTER_PROJECT_TEMPLATE
+                | typeof MASTER_PROJECT_TEMPLATE_V2
+                | typeof MASTER_PROJECT_TEMPLATE_V3)
             : LEGACY_PROJECT_TEMPLATE;
 
         return {
@@ -475,19 +475,19 @@ export function ProjectForm({
 
             {(form.watch('destination.type') === 'external_url' ||
               form.watch('destination.type') === 'page') && (
-                <label className="flex flex-col gap-2">
-                  <FieldTooltip
-                    label="URL de Destino"
-                    description="Link completo para o destino externo ou rota interna."
-                    className="flex items-center gap-1 font-medium text-slate-200"
-                  />
-                  <input
-                    className="w-full rounded-md bg-slate-950 border border-white/10 px-3 py-2 text-sm"
-                    {...form.register('destination.url')}
-                    placeholder="https://... ou /rota"
-                  />
-                </label>
-              )}
+              <label className="flex flex-col gap-2">
+                <FieldTooltip
+                  label="URL de Destino"
+                  description="Link completo para o destino externo ou rota interna."
+                  className="flex items-center gap-1 font-medium text-slate-200"
+                />
+                <input
+                  className="w-full rounded-md bg-slate-950 border border-white/10 px-3 py-2 text-sm"
+                  {...form.register('destination.url')}
+                  placeholder="https://... ou /rota"
+                />
+              </label>
+            )}
           </div>
 
           <label className="flex flex-col gap-2">

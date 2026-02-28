@@ -168,7 +168,9 @@ export async function generateProjectCopy(
       youtubeContext = `\nURL DO VÍDEO YOUTUBE DE REFERÊNCIA (Para contexto geral):\n${context.youtubeUrl}\n`;
     }
 
-    const outputFormat = context.outputType === 'landing' ? `
+    const outputFormat =
+      context.outputType === 'landing'
+        ? `
 ### OUTPUT OBRIGATÓRIO (não mude os nomes)
 Gere os campos abaixo:
 
@@ -194,7 +196,8 @@ BLOCOS 6 OU 7 · TEXTO + IMAGEM:
 TEXTO:
 
 TEXTO DO CTA FINAL:
-` : `
+`
+        : `
 ### OUTPUT OBRIGATÓRIO (não mude os nomes)
 Gere os campos abaixo:
 
@@ -218,16 +221,20 @@ CAPTION DAS IMAGENS E VIDEOS QUE SERÃO POSTADOS:
           `TIPO DE SAÍDA: ${context.outputType === 'landing' ? 'LANDING PAGE (V3 ALPA)' : 'MODAL'}`,
           '',
           'INFORMAÇÕES BÁSICAS (JSON):',
-          JSON.stringify({
-            'Projeto (nome)': context.projectName,
-            'Cliente / Marca': context.clientName,
-            'Objetivo do projeto': context.objective,
-            'Público-alvo': context.targetAudience,
-            'Conceito Visual': context.visualConcept,
-            'Desafios': context.keyChallenges,
-            'Entregas': context.deliverables,
-            'Tom desejado': context.toneOfVoice,
-          }, null, 2),
+          JSON.stringify(
+            {
+              'Projeto (nome)': context.projectName,
+              'Cliente / Marca': context.clientName,
+              'Objetivo do projeto': context.objective,
+              'Público-alvo': context.targetAudience,
+              'Conceito Visual': context.visualConcept,
+              Desafios: context.keyChallenges,
+              Entregas: context.deliverables,
+              'Tom desejado': context.toneOfVoice,
+            },
+            null,
+            2
+          ),
           '',
           youtubeContext,
           '',

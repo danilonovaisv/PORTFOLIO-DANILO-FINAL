@@ -60,7 +60,10 @@ export default async function ProtectedLayout({
     const missingServiceRole = !process.env.SUPABASE_SERVICE_ROLE_KEY;
 
     return (
-      <AdminShellNoSSR userEmail={user.email ?? undefined} missingServiceRole={missingServiceRole}>
+      <AdminShellNoSSR
+        userEmail={user.email ?? undefined}
+        missingServiceRole={missingServiceRole}
+      >
         {children}
       </AdminShellNoSSR>
     );

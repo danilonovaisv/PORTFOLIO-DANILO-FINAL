@@ -26,12 +26,14 @@ export default function CopyAgentPage() {
   );
   const [copied, setCopied] = useState(false);
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
-  const [outputType, setOutputType] = useState<CopyInput['outputType']>('landing');
+  const [outputType, setOutputType] =
+    useState<CopyInput['outputType']>('landing');
   const fieldErrors = state.fieldErrors ?? {};
   const inputClass = (hasError: boolean) =>
-    `w-full rounded-lg border px-4 py-2.5 text-sm text-slate-200 placeholder:text-slate-600 outline-none transition-all ${hasError
-      ? 'border-red-400/70 bg-red-500/5 focus:border-red-400 focus:ring-1 focus:ring-red-400'
-      : 'border-white/10 bg-slate-950 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500'
+    `w-full rounded-lg border px-4 py-2.5 text-sm text-slate-200 placeholder:text-slate-600 outline-none transition-all ${
+      hasError
+        ? 'border-red-400/70 bg-red-500/5 focus:border-red-400 focus:ring-1 focus:ring-red-400'
+        : 'border-white/10 bg-slate-950 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500'
     }`;
 
   const handleImagesChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -86,10 +88,11 @@ export default function CopyAgentPage() {
                     />
                     <div className="grid grid-cols-2 gap-3">
                       <label
-                        className={`cursor-pointer rounded-lg border px-4 py-3 text-sm font-medium transition-colors ${outputType === 'landing'
-                          ? 'border-indigo-500 bg-indigo-500/10 text-indigo-300'
-                          : 'border-white/10 bg-slate-950 text-slate-300 hover:bg-white/5'
-                          }`}
+                        className={`cursor-pointer rounded-lg border px-4 py-3 text-sm font-medium transition-colors ${
+                          outputType === 'landing'
+                            ? 'border-indigo-500 bg-indigo-500/10 text-indigo-300'
+                            : 'border-white/10 bg-slate-950 text-slate-300 hover:bg-white/5'
+                        }`}
                       >
                         <input
                           type="radio"
@@ -102,10 +105,11 @@ export default function CopyAgentPage() {
                         Landing Page Completa
                       </label>
                       <label
-                        className={`cursor-pointer rounded-lg border px-4 py-3 text-sm font-medium transition-colors ${outputType === 'modal'
-                          ? 'border-indigo-500 bg-indigo-500/10 text-indigo-300'
-                          : 'border-white/10 bg-slate-950 text-slate-300 hover:bg-white/5'
-                          }`}
+                        className={`cursor-pointer rounded-lg border px-4 py-3 text-sm font-medium transition-colors ${
+                          outputType === 'modal'
+                            ? 'border-indigo-500 bg-indigo-500/10 text-indigo-300'
+                            : 'border-white/10 bg-slate-950 text-slate-300 hover:bg-white/5'
+                        }`}
                       >
                         <input
                           type="radio"

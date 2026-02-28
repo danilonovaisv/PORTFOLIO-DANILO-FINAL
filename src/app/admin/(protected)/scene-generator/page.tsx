@@ -146,10 +146,11 @@ export default function SceneGeneratorPage() {
                       modelOptions.map((model) => (
                         <label
                           key={model.id}
-                          className={`relative flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${model.available
-                            ? 'border-white/10 hover:border-emerald-500/50 hover:bg-white/5'
-                            : 'cursor-not-allowed border-white/5 opacity-50'
-                            }`}
+                          className={`relative flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-all ${
+                            model.available
+                              ? 'border-white/10 hover:border-emerald-500/50 hover:bg-white/5'
+                              : 'cursor-not-allowed border-white/5 opacity-50'
+                          }`}
                         >
                           <input
                             type="radio"
@@ -269,10 +270,11 @@ export default function SceneGeneratorPage() {
                     {OUTPUT_RATIO_PRESETS.map((ratio) => (
                       <label
                         key={ratio.id}
-                        className={`cursor-pointer rounded-lg border px-3 py-2 text-left text-xs transition-colors ${outputRatio === ratio.id
-                          ? 'border-emerald-500 bg-emerald-500/10 text-emerald-300'
-                          : 'border-white/10 text-slate-300 hover:bg-white/5'
-                          }`}
+                        className={`cursor-pointer rounded-lg border px-3 py-2 text-left text-xs transition-colors ${
+                          outputRatio === ratio.id
+                            ? 'border-emerald-500 bg-emerald-500/10 text-emerald-300'
+                            : 'border-white/10 text-slate-300 hover:bg-white/5'
+                        }`}
                       >
                         <input
                           type="radio"

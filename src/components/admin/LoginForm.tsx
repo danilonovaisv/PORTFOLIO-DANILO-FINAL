@@ -166,7 +166,11 @@ export default function LoginForm() {
         </label>
 
         {successMsg && (
-          <div className="text-sm text-emerald-400" role="alert" aria-live="polite">
+          <div
+            className="text-sm text-emerald-400"
+            role="alert"
+            aria-live="polite"
+          >
             {successMsg}
           </div>
         )}
@@ -184,8 +188,12 @@ export default function LoginForm() {
           {isRedirecting
             ? 'Redirecionando...'
             : isPending
-              ? mode === 'login' ? 'Entrando...' : 'Cadastrando...'
-              : mode === 'login' ? 'Entrar' : 'Cadastrar'}
+              ? mode === 'login'
+                ? 'Entrando...'
+                : 'Cadastrando...'
+              : mode === 'login'
+                ? 'Entrar'
+                : 'Cadastrar'}
         </button>
       </form>
     </div>

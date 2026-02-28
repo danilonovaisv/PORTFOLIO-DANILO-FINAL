@@ -94,7 +94,9 @@ describe('storagePath generator', () => {
         hash: '0000000000000000',
       });
 
-      expect(path).toBe('a/b/assets-do-projeto/my-epic-file-tar.0000000000000000.gz');
+      expect(path).toBe(
+        'a/b/assets-do-projeto/my-epic-file-tar.0000000000000000.gz'
+      );
     });
 
     it('defaults to file if filename is scrubbed completely', () => {
@@ -106,7 +108,9 @@ describe('storagePath generator', () => {
         hash: '1111111111111111',
       });
 
-      expect(path).toBe('brand/project/assets-do-projeto/file.1111111111111111.png');
+      expect(path).toBe(
+        'brand/project/assets-do-projeto/file.1111111111111111.png'
+      );
     });
   });
 });

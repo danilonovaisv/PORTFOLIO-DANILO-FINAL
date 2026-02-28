@@ -9,7 +9,10 @@ import {
 
 import { validatePayload, errorResponse } from '@/lib/admin/validation';
 import { requireAdminAccess } from '@/lib/admin/server-access';
-import { moveProjectFolder, deleteProjectFolder } from '@/lib/supabase/storage-utils';
+import {
+  moveProjectFolder,
+  deleteProjectFolder,
+} from '@/lib/supabase/storage-utils';
 import { normalizeBrand, normalizeProject } from '@/lib/assets/storagePath';
 
 export async function upsertProjectAction(input: ProjectMutationInput) {
@@ -23,8 +26,7 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
   } = validation.data;
 
   const client_slug =
-    providedClientSlug ||
-    normalizeBrand(projectData.client_name).slice(0, 120);
+    providedClientSlug || normalizeBrand(projectData.client_name).slice(0, 120);
 
   const newSlug = normalizeProject(projectData.slug);
 
@@ -44,7 +46,9 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
       .maybeSingle();
 
     if (existing && existing.id !== input.id) {
-      return errorResponse('Já existe um projeto com este slug/nome. Por favor, mude o slug do projeto.');
+      return errorResponse(
+        'Já existe um projeto com este slug/nome. Por favor, mude o slug do projeto.'
+      );
     }
 
     // Check for rename to move storage
@@ -73,22 +77,37 @@ export async function upsertProjectAction(input: ProjectMutationInput) {
         };
 
         if (oldFolderV4 !== newFolderV4) {
-          await moveProjectFolder(supabase, 'portfolio-media', oldFolderV4, newFolderV4);
+          await moveProjectFolder(
+            supabase,
+            'portfolio-media',
+            oldFolderV4,
+            newFolderV4
+          );
         }
         if (oldFolderNew !== newFolderNew) {
-          await moveProjectFolder(supabase, 'portfolio-media', oldFolderNew, newFolderNew);
+          await moveProjectFolder(
+            supabase,
+            'portfolio-media',
+            oldFolderNew,
+            newFolderNew
+          );
         }
         if (oldFolderProjects !== newFolderProjects) {
-          await moveProjectFolder(supabase, 'portfolio-media', oldFolderProjects, newFolderProjects);
+          await moveProjectFolder(
+            supabase,
+            'portfolio-media',
+            oldFolderProjects,
+            newFolderProjects
+          );
         }
 
         finalUrlLandscape = replacePath(finalUrlLandscape) ?? null;
         finalUrlSquare = replacePath(finalUrlSquare) ?? null;
 
         if (finalGallery && Array.isArray(finalGallery)) {
-          finalGallery = finalGallery.map(item => ({
+          finalGallery = finalGallery.map((item) => ({
             ...item,
-            path: item.path ? (replacePath(item.path) || undefined) : undefined
+            path: item.path ? replacePath(item.path) || undefined : undefined,
           }));
         }
       }

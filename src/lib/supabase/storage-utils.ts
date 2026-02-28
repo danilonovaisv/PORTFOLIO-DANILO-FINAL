@@ -6,11 +6,13 @@ export async function listAllFiles(
   prefix: string
 ): Promise<string[]> {
   const files: string[] = [];
-  
+
   async function scan(currentPrefix: string) {
-    const { data, error } = await supabase.storage.from(bucket).list(currentPrefix);
+    const { data, error } = await supabase.storage
+      .from(bucket)
+      .list(currentPrefix);
     if (error || !data) return;
-    
+
     for (const item of data) {
       if (item.id === null) {
         // It's a folder (Supabase lists folders with id = null)
@@ -20,7 +22,7 @@ export async function listAllFiles(
       }
     }
   }
-  
+
   await scan(prefix);
   return files;
 }
@@ -37,7 +39,9 @@ export async function moveProjectFolder(
   for (const file of files) {
     // Determine the new file path by replacing oldPrefix with newPrefix
     const newFilePath = file.replace(oldPrefix, newPrefix);
-    const { error } = await supabase.storage.from(bucket).move(file, newFilePath);
+    const { error } = await supabase.storage
+      .from(bucket)
+      .move(file, newFilePath);
     if (error) {
       console.error(`Error moving ${file} to ${newFilePath}`, error);
     }
@@ -51,7 +55,7 @@ export async function deleteProjectFolder(
 ) {
   const files = await listAllFiles(supabase, bucket, prefix);
   if (files.length === 0) return;
-  
+
   // Storage API allows deleting multiple files at once
   // Batch in chunks of 100 just in case
   for (let i = 0; i < files.length; i += 100) {

@@ -199,11 +199,11 @@ export async function generateAdScenes(
   const referenceSummary =
     referenceImages.length > 0
       ? referenceImages
-        .map(
-          (file, index) =>
-            `${index + 1}. ${file.name} (${file.type}, ${(file.size / 1024 / 1024).toFixed(2)}MB)`
-        )
-        .join('\n')
+          .map(
+            (file, index) =>
+              `${index + 1}. ${file.name} (${file.type}, ${(file.size / 1024 / 1024).toFixed(2)}MB)`
+          )
+          .join('\n')
       : 'Nenhuma referência anexada.';
 
   const promptStyle =
@@ -269,13 +269,20 @@ DADOS DESTA GERAÇÃO:
         try {
           const res = await openai.images.generate({
             model: 'dall-e-3',
-            prompt: `${promptBase}\n\nVariação ${index + 1}: ${shot}.`.substring(0, 4000), // OpenAI max prompt length
+            prompt:
+              `${promptBase}\n\nVariação ${index + 1}: ${shot}.`.substring(
+                0,
+                4000
+              ), // OpenAI max prompt length
             n: 1,
             size: outputSize,
           });
           results.push(res);
         } catch (err: unknown) {
-          console.warn(`[Admin Scene Generator] Falha na variação ${index + 1}:`, err);
+          console.warn(
+            `[Admin Scene Generator] Falha na variação ${index + 1}:`,
+            err
+          );
           // Se falhar na primeira imagem, aborta. Se falhar nas subsequentes, retorna as que deram certo.
           if (index === 0) throw err;
           break;
@@ -321,29 +328,37 @@ DADOS DESTA GERAÇÃO:
     };
   } catch (error: unknown) {
     let isTransient = true;
-    let errorMessage = 'Falha temporária ao gerar imagens. Aguarde alguns segundos e tente novamente.';
+    let errorMessage =
+      'Falha temporária ao gerar imagens. Aguarde alguns segundos e tente novamente.';
     let supportCode = 'SCN-GENERATION-ERROR';
 
     if (error instanceof OpenAI.APIError) {
       if (error.status === 400) {
         isTransient = false;
-        errorMessage = 'Solicitação rejeitada. Verifique se a descrição não viola as políticas de conteúdo.';
+        errorMessage =
+          'Solicitação rejeitada. Verifique se a descrição não viola as políticas de conteúdo.';
         supportCode = 'SCN-POLICY-VIOLATION';
       } else if (error.status === 401 || error.status === 403) {
         isTransient = false;
-        errorMessage = 'Erro de autenticação da IA. Verifique sua OPENAI_API_KEY nas configurações.';
+        errorMessage =
+          'Erro de autenticação da IA. Verifique sua OPENAI_API_KEY nas configurações.';
         supportCode = 'SCN-AUTH-ERROR';
       } else if (error.status === 429) {
         isTransient = true;
-        errorMessage = 'Limite de uso excedido (Rate Limit) no provedor de IA. Tente novamente em alguns instantes.';
+        errorMessage =
+          'Limite de uso excedido (Rate Limit) no provedor de IA. Tente novamente em alguns instantes.';
         supportCode = 'SCN-RATE-LIMIT';
       } else {
         errorMessage = `Erro do provedor de IA (${error.status}): ${error.message}`;
       }
     } else if (error instanceof Error) {
-      if (error.message.toLowerCase().includes('timeout') || error.message.toLowerCase().includes('fetch')) {
+      if (
+        error.message.toLowerCase().includes('timeout') ||
+        error.message.toLowerCase().includes('fetch')
+      ) {
         isTransient = true;
-        errorMessage = 'Tempo limite de conexão excedido. O servidor da IA demorou muito para responder.';
+        errorMessage =
+          'Tempo limite de conexão excedido. O servidor da IA demorou muito para responder.';
         supportCode = 'SCN-TIMEOUT';
       } else {
         errorMessage = error.message;
@@ -360,7 +375,9 @@ DADOS DESTA GERAÇÃO:
       action: 'scene.generate',
       resource: 'admin_scene_generator',
       status: 'error',
-      errorCode: isTransient ? 'generation_error_transient' : 'generation_error_fatal',
+      errorCode: isTransient
+        ? 'generation_error_transient'
+        : 'generation_error_fatal',
       errorMessage,
       metadata: requestPayload,
     });
