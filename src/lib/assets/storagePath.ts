@@ -52,13 +52,19 @@ export function buildV4Path({
       .replace(/^-+|-+$/g, '') || 'file';
   const normalizedExt = ext.replace(/^\./, '').toLowerCase().trim();
 
-  const parts = ['v4', normalizedBrand, normalizedProject];
+  const parts = [normalizedBrand, normalizedProject, 'assets-do-projeto'];
   if (kind) {
-    const normalizedKind = kind
+    let normalizedKind = kind
       .toLowerCase()
       .trim()
       .replace(/[^a-z0-9\-]+/g, '-')
       .replace(/^-+|-+$/g, '');
+
+    // Requisito estrito TASK-08: landing page assets vão para o subpath LANDIN-PAGE
+    if (normalizedKind === 'landing-page' || normalizedKind === 'landing') {
+      normalizedKind = 'landin-page';
+    }
+
     if (normalizedKind) {
       parts.push(normalizedKind);
     }
