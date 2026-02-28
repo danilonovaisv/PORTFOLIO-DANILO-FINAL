@@ -16,18 +16,18 @@ import AntigravityCTA from '@/components/ui/AntigravityCTA';
  */
 export default function CTAProjectCard() {
   return (
-    <div className="card-shell group relative flex flex-col items-center justify-center h-full bg-[#0d003b] p-6 md:p-12 md:overflow-hidden md:rounded-md border-none shadow-none md:transition-none">
+    <div className="group relative flex flex-col items-center justify-center h-full bg-transparent p-6 md:p-12 isolate">
       {/* Ghost Atmosphere Glow - Desktop Only */}
-      <div className="absolute inset-0 opacity-40 hidden md:block bg-[radial-gradient(circle_at_50%_50%,oklch(from_var(--color-primary)_l_c_h_/_0.12),transparent_70%)]" />
+      <div className="absolute inset-0 opacity-40 hidden md:block bg-[radial-gradient(circle_at_50%_50%,oklch(from_var(--color-primary)_l_c_h_/_0.12),transparent_70%)] z-[var(--z-layer-base)]" />
 
       {/* Headline - Centered on all breakpoints */}
-      <h3 className="relative z-10 text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-normal text-center mb-6 md:mb-12 tracking-tight leading-[1.1] text-white transition-colors duration-300 md:group-hover:text-bluePrimary">
+      <h3 className="relative z-[var(--z-layer-content)] text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-normal text-center mb-6 md:mb-12 tracking-tight leading-[1.1] text-white transition-colors duration-300 md:group-hover:text-bluePrimary">
         Like what <br aria-hidden="true" />
         you see?
       </h3>
 
       {/* CTA Button - Centered on all breakpoints */}
-      <div className="relative z-10 w-full flex justify-center">
+      <div className="relative z-[var(--z-layer-cta)] w-full flex justify-center">
         <AntigravityCTA
           href="/portfolio"
           text="view projects"

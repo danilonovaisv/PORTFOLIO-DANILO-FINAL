@@ -32,6 +32,14 @@
   --size-cta-mobile: 181px;
   --size-cta-tablet: 201px;
   --size-cta-desktop: 241px;
+
+  /* Stacking Context / Layer Governance */
+  --z-layer-base: 0;
+  --z-layer-content: 10;
+  --z-layer-3d: 20;
+  --z-layer-cta: 30;
+  --z-layer-header: 40;
+  --z-layer-overlay: 50;
 }
 
 @import '../styles/fonts.css';

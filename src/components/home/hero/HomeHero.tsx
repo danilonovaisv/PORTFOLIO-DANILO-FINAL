@@ -44,15 +44,14 @@ export default function HomeHero() {
         id="hero"
         data-testid="home-hero"
         ref={heroRef}
-        className="relative w-full min-h-[100svh] bg-background overflow-hidden z-0"
+        className="relative w-full min-h-[100svh] bg-background overflow-hidden isolate z-[var(--z-layer-base)]"
         aria-label="Portfolio Hero Section"
       >
         {/* Fallback Mobile Background Gradient (Ghost Atmosphere) - Também usado para Reduced Motion */}
         {(!isDesktop || shouldReduceMotion) && (
           <div
-            className={`absolute inset-0 z-0 opacity-60 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)] ${
-              shouldReduceMotion ? '' : 'animate-pulse'
-            }`}
+            className={`absolute inset-0 z-[var(--z-layer-base)] opacity-60 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)] ${shouldReduceMotion ? '' : 'animate-pulse'
+              }`}
           />
         )}
 
@@ -67,8 +66,8 @@ export default function HomeHero() {
           )}
         </AnimatePresence>
 
-        {/* Camada: Texto Editorial (Z-50 — acima do WebGL) */}
-        <div className="absolute inset-0 z-50 pointer-events-none">
+        {/* Camada: Texto Editorial (z-layer-content — abaixo do WebGL) */}
+        <div className="absolute inset-0 z-[var(--z-layer-content)] pointer-events-none">
           <div className="flex items-center justify-center w-full h-[100svh] md:h-screen md:sticky md:top-0">
             <div className="w-full pointer-events-auto pb-32 md:pb-0">
               {/* isLoaded agora é true muito mais rápido */}
@@ -77,22 +76,23 @@ export default function HomeHero() {
           </div>
         </div>
 
-        {/* Camada: Ghost WebGL (Z-20 — logo em cima do background, abaixo do texto) */}
-        <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
+        {/* Camada: Ghost WebGL (z-layer-3d — acima do texto) */}
+        {/* pointer-events gerenciado com cuidado se hover 3D ativo (pointer-events-none no wrapper e deixa canvas lidar) */}
+        <div className="absolute inset-0 z-[var(--z-layer-3d)] pointer-events-none overflow-hidden">
           <div className="sticky top-0 h-[100svh] md:h-screen w-full">
             {shouldRenderWebGL ? (
               <GhostSceneWrapper />
             ) : (
               <div
-                className="absolute inset-0 z-0 opacity-20 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)]"
+                className="absolute inset-0 z-[var(--z-layer-base)] opacity-20 bg-[radial-gradient(circle_at_50%_50%,#0a0029_0%,#040013_70%)]"
                 aria-hidden="true"
               />
             )}
           </div>
         </div>
 
-        {/* Camada: CTA (Z-60 — cima do Ghost e do Texto, clicável) */}
-        <div className="absolute inset-0 z-60 pointer-events-none">
+        {/* Camada: CTA (z-layer-cta — acima de TODOS) */}
+        <div className="absolute inset-0 z-[var(--z-layer-cta)] pointer-events-none">
           <div className="relative h-full w-full flex items-end justify-center pb-[5%]">
             <div className="pointer-events-auto">{isLoaded && <HeroCTA />}</div>
           </div>
