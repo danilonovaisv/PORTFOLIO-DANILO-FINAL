@@ -43,5 +43,16 @@ pnpm run build
 # Consolida estáticos
 bash "$SCRIPT_DIR/prepare-hosting.sh"
 
-# Deploy hosting + função SSR (codebase modern_ssr)
-firebase deploy --only hosting,functions:modern_ssr:ssr_modern --project portfolio-danilo-novais
+# Remover o "packageManager" field do package.json para evitar falhas no Cloud Build (PNPM incompatibilidade com a build do Firebase)
+TMP_PKG_JSON=$(mktemp)
+cp package.json "$TMP_PKG_JSON"
+node -e "const fs = require('fs'); const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8')); delete pkg.packageManager; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));"
+
+# Function to restore package.json on exit
+restore_package_json() {
+  mv "$TMP_PKG_JSON" package.json
+}
+trap restore_package_json EXIT
+
+# Deploy hosting + função SSR (Web Frameworks & functions configuradas)
+firebase deploy --only hosting,functions --project portfolio-danilo-novais
