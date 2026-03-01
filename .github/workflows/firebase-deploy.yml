@@ -139,7 +139,7 @@ jobs:
           echo "✅ Projeto Firebase resolvido: $PROJECT_ID ($SOURCE)"
 
       - name: Install Firebase CLI
-        run: npm install -g firebase-tools
+        run: npm install -g firebase-tools@latest --legacy-peer-deps
 
       - name: Validate Firebase project access
         continue-on-error: true
