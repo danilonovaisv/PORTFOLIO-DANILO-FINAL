@@ -75,8 +75,6 @@ jobs:
             sed -i 's/"link:src\//"file:..\/src\//g' functions/package.json
             echo "✅ Corrigido para 'file:../src/'"
           fi
-          # Validar instalação das funções
-          cd functions && pnpm install
 
       - name: Build Cloud Functions
         run: cd functions && pnpm run build
