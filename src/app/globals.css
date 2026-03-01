@@ -339,6 +339,9 @@ html.admin-page body {
 /* Group hover effect for cards */
 .group:hover .btn-icon-circle {
   background-color: var(--color-purpleDetails);
+  box-shadow:
+    0 0 0 1px rgba(135, 5, 242, 0.18),
+    0 0 26px rgba(135, 5, 242, 0.45);
 }
 
 /* Touch Target - Minimum 48px for accessibility (WCAG 2.5.5) */

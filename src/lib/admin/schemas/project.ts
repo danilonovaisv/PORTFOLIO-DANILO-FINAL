@@ -1,5 +1,10 @@
 import { z } from 'zod';
 
+import {
+  DEFAULT_HOME_FEATURED_CARD_STYLE,
+  HOME_FEATURED_CARD_STYLE_OPTIONS,
+} from '@/lib/portfolio/home-featured';
+
 export const PROJECT_TYPE_OPTIONS = [
   'Brand & Campaigns',
   'Videos & Motions',
@@ -53,6 +58,15 @@ const projectBaseFieldsSchema = z.object({
   short_label: z.string().trim().max(120).optional(),
   description: z.string().trim().max(4000).optional(),
   featured_on_home: z.boolean().optional(),
+  home_featured: z
+    .object({
+      enabled: z.boolean().optional(),
+      cardStyle: z
+        .enum(HOME_FEATURED_CARD_STYLE_OPTIONS)
+        .default(DEFAULT_HOME_FEATURED_CARD_STYLE),
+      logoPath: z.string().trim().nullable().optional(),
+    })
+    .optional(),
   is_published: z.boolean().optional(),
   landing_page_id: z
     .union([z.string().uuid('Landing page inválida.'), z.literal(''), z.null()])
@@ -99,6 +113,16 @@ export const projectMutationSchema = z
     brand_name: z.string().trim().max(120).nullable().optional(),
     short_label: z.string().trim().max(120).nullable().optional(),
     description: z.string().trim().max(4000).nullable().optional(),
+    home_featured: z
+      .object({
+        enabled: z.boolean().optional(),
+        cardStyle: z
+          .enum(HOME_FEATURED_CARD_STYLE_OPTIONS)
+          .default(DEFAULT_HOME_FEATURED_CARD_STYLE),
+        logoPath: z.string().trim().nullable().optional(),
+      })
+      .nullable()
+      .optional(),
     landing_page_id: z.preprocess(
       (value) => (value === '' ? null : value),
       z.string().uuid('Landing page inválida.').nullable().optional()

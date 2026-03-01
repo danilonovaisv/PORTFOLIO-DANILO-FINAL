@@ -9,6 +9,7 @@ import {
   buildSupabaseStorageUrl,
   normalizeStoragePath,
 } from '@/lib/supabase/urls';
+import { normalizeHomeFeaturedConfig } from '@/lib/portfolio/home-featured';
 import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
 import { isVideo, isYouTubeUrl } from '@/lib/utils';
 
@@ -25,6 +26,11 @@ type StaticProject = {
   description?: string;
   link?: string;
   landingPageSlug?: string | null;
+  homeFeatured?: {
+    enabled?: boolean;
+    cardStyle?: 'ANIMATED_BG_INVERTED_LOGO' | 'ANIMATED_BG_THUMB_OVERLAY_50';
+    logoPath?: string | null;
+  };
   layout: {
     h: string;
     cols: string;
@@ -399,6 +405,10 @@ export function mapDbProjectToPortfolioProject(
     isFeatured: project.featured_on_home || project.featured_on_portfolio,
     featuredOnHome: project.featured_on_home,
     featuredOnPortfolio: project.featured_on_portfolio,
+    homeFeatured: normalizeHomeFeaturedConfig(
+      (project as DbProjectWithTags & { home_featured?: unknown }).home_featured,
+      project.featured_on_home
+    ),
     videoPreview,
     landingPageSlug: normalizedLandingSlug ?? landingSlugSource,
     destination,
@@ -448,6 +458,7 @@ export function mapStaticProjectToPortfolioProject(
     isFeatured: true,
     featuredOnHome: true,
     featuredOnPortfolio: true,
+    homeFeatured: normalizeHomeFeaturedConfig(project.homeFeatured, true),
     videoPreview: undefined,
     landingPageSlug: normalizedLandingSlug ?? project.landingPageSlug,
     link: project.link,

@@ -174,22 +174,15 @@ jobs:
 
       - name: Switch to NPM for reliable Firebase Cloud Build
         run: |
-          echo "Preparing npm environment for Firebase Cloud Build..."
-          # NB: do NOT delete pnpm-lock.yaml - it is versioned and needed locally
+          echo "Removing pnpm lock and node_modules to avoid npm ci mismatch in Cloud Functions"
+          rm -f pnpm-lock.yaml
           rm -rf node_modules
-          # Remove packageManager field: Firebase Cloud Build uses npm internally
-          sed -i '/"packageManager":/d' package.json
-          echo "Installing dependencies via npm..."
+          if [[ "$OSTYPE" == "darwin"* ]]; then
+            sed -i '' '/"packageManager":/d' package.json
+          else
+            sed -i '/"packageManager":/d' package.json
+          fi
           npm install --legacy-peer-deps
-          echo "npm install done"
-          # FIX: Regenerate package-lock.json to avoid sharp version mismatch in Cloud Build.
-          # Firebase Cloud Build runs npm ci using the packaged package-lock.json.
-          # If it has sharp@0.33.x but next@16.1.6 requires sharp@^0.34.4, it fails.
-          echo "Generating fresh package-lock.json for Cloud Build..."
-          npm install --legacy-peer-deps --package-lock-only --ignore-scripts \
-            || npm install --legacy-peer-deps --package-lock-only --ignore-scripts --force \
-            || echo "Warning: could not regenerate package-lock.json"
-          echo "package-lock.json ready"
 
       - name: Deploy to Firebase
         run: |

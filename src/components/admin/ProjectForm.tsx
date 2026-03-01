@@ -20,6 +20,10 @@ import {
   type ProjectFormValues,
 } from '@/lib/admin/schemas/project';
 import {
+  DEFAULT_HOME_FEATURED_CARD_STYLE,
+  HOME_FEATURED_CARD_STYLE_OPTIONS,
+} from '@/lib/portfolio/home-featured';
+import {
   LEGACY_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE,
   MASTER_PROJECT_TEMPLATE_V2,
@@ -47,6 +51,8 @@ export function ProjectForm({
   );
   const [landscapeVariant, setLandscapeVariant] = useState<File | null>(null);
   const [squareVariant, setSquareVariant] = useState<File | null>(null);
+  const [homeFeaturedLogoVariant, setHomeFeaturedLogoVariant] =
+    useState<File | null>(null);
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>(() =>
     Array.isArray(project?.gallery)
       ? project.gallery.map((g, i) => ({
@@ -81,6 +87,12 @@ export function ProjectForm({
       short_label: project?.short_label ?? '',
       description: project?.description ?? '',
       featured_on_home: project?.featured_on_home ?? false,
+      home_featured: {
+        cardStyle:
+          project?.home_featured?.cardStyle ??
+          DEFAULT_HOME_FEATURED_CARD_STYLE,
+        logoPath: project?.home_featured?.logoPath ?? null,
+      },
       is_published: project?.is_published ?? true,
       landing_page_id: project?.landing_page_id ?? '',
       tags: selectedTagIds,
@@ -90,6 +102,9 @@ export function ProjectForm({
   });
 
   const selectedTags = form.watch('tags') || [];
+  const featuredOnHome = form.watch('featured_on_home') ?? false;
+  const homeFeaturedCardStyle =
+    form.watch('home_featured.cardStyle') ?? DEFAULT_HOME_FEATURED_CARD_STYLE;
   const landingPagesWithTemplate = useMemo(
     () =>
       landingPages.map((page) => {
@@ -166,6 +181,11 @@ export function ProjectForm({
           return;
         }
 
+        let homeFeaturedLogoPath =
+          project?.home_featured?.logoPath ??
+          values.home_featured?.logoPath ??
+          null;
+
         // Upload Logic (Client-Side)
         // Thumbnail and Hero no longer sent from UI
 
@@ -195,6 +215,34 @@ export function ProjectForm({
               kind: 'cover-1x1',
             }
           );
+        }
+
+        if (homeFeaturedLogoVariant) {
+          homeFeaturedLogoPath = await uploadToBucket(
+            'portfolio-media',
+            `${clientSlug}/${values.slug}/assets-do-projeto/home-featured`,
+            'logo-inverted',
+            homeFeaturedLogoVariant,
+            {
+              brand: values.brand_name || values.client_name,
+              project: values.slug,
+              kind: 'home-featured-logo',
+            }
+          );
+        }
+
+        const homeFeaturedCardStyle =
+          values.home_featured?.cardStyle ?? DEFAULT_HOME_FEATURED_CARD_STYLE;
+
+        if (
+          values.featured_on_home &&
+          homeFeaturedCardStyle === 'ANIMATED_BG_INVERTED_LOGO' &&
+          !homeFeaturedLogoPath
+        ) {
+          setError(
+            'Envie o logo invertido para usar o layout "Background animado + logos invertidos".'
+          );
+          return;
         }
 
         if (galleryItems.length > 0) {
@@ -262,6 +310,11 @@ export function ProjectForm({
           short_label: values.short_label || null,
           description: values.description || null,
           featured_on_home: values.featured_on_home ?? false,
+          home_featured: {
+            enabled: values.featured_on_home ?? false,
+            cardStyle: homeFeaturedCardStyle,
+            logoPath: homeFeaturedLogoPath,
+          },
           is_published: values.is_published ?? true,
           landing_page_id: landingPageId,
           tags: selectedTagIds,
@@ -512,13 +565,81 @@ export function ProjectForm({
 
       <div className="grid gap-4 md:grid-cols-3">
         <label className="flex items-center gap-2 text-sm text-slate-300">
-          <input type="checkbox" {...form.register('featured_on_home')} />
-          Destaque Home
-        </label>
-        <label className="flex items-center gap-2 text-sm text-slate-300">
           <input type="checkbox" {...form.register('is_published')} />
           Publicado
         </label>
+      </div>
+
+      <div className="rounded-xl border border-purple-500/20 bg-purple-500/[0.06] p-6 space-y-5">
+        <div className="space-y-1">
+          <p className="text-sm font-bold uppercase tracking-[0.25em] text-purple-300">
+            Destaques HOME
+          </p>
+          <p className="text-sm text-slate-400">
+            Configuração exclusiva dos cards da seção Featured Projects da Home.
+            O background animado é sempre dinâmico e não fica salvo no post.
+          </p>
+        </div>
+
+        <label className="flex items-center gap-2 text-sm text-slate-200">
+          <input type="checkbox" {...form.register('featured_on_home')} />
+          Exibir este trabalho como destaque na Home
+        </label>
+
+        <div className="grid gap-4 md:grid-cols-2">
+          <label className="flex flex-col gap-2">
+            <FieldTooltip
+              label="Estilo do card destaque"
+              description="Escolhe apenas o layout do card. O background animado é sorteado dinamicamente na Home."
+              className="flex items-center gap-1"
+            />
+            <select
+              className="w-full rounded-md bg-slate-950 border border-white/10 px-3 py-2 text-sm text-white"
+              {...form.register('home_featured.cardStyle')}
+              disabled={!featuredOnHome}
+            >
+              {HOME_FEATURED_CARD_STYLE_OPTIONS.map((option) => (
+                <option key={option} value={option}>
+                  {option === 'ANIMATED_BG_INVERTED_LOGO'
+                    ? 'Background animado + logos invertidos'
+                    : 'Background animado + thumb com overlay 50%'}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label className="flex flex-col gap-2">
+            <FieldTooltip
+              label="Logo invertido"
+              description="Obrigatório apenas para o modo de logo invertido. PNG, SVG ou WebP com fundo transparente."
+              className="flex items-center gap-1"
+            />
+            <input
+              type="file"
+              className="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-500 disabled:opacity-60"
+              accept="image/png,image/svg+xml,image/webp"
+              disabled={!featuredOnHome}
+              onChange={(event) =>
+                setHomeFeaturedLogoVariant(event.target.files?.[0] ?? null)
+              }
+            />
+            {project?.home_featured?.logoPath ? (
+              <span className="text-xs text-slate-400 break-all">
+                Atual: {project.home_featured.logoPath}
+              </span>
+            ) : null}
+            {homeFeaturedCardStyle === 'ANIMATED_BG_INVERTED_LOGO' ? (
+              <p className="text-[11px] text-slate-500">
+                O logo fica fixo no centro do card, sem depender do hover.
+              </p>
+            ) : (
+              <p className="text-[11px] text-slate-500">
+                No modo thumb overlay, o card usa a capa do projeto com overlay
+                de 50% sobre o background animado.
+              </p>
+            )}
+          </label>
+        </div>
       </div>
 
       <div className="p-6 bg-blue-600/5 border border-blue-600/10 rounded-xl space-y-4">

@@ -1,24 +1,27 @@
 'use client';
 
-import Image from 'next/image';
 import React from 'react';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
 import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
+import FeaturedProjectCardFrame from '@/components/home/featured-projects/FeaturedProjectCardFrame';
+import type { FeaturedProjectBackgroundVariant } from '@/components/home/featured-projects/animated-backgrounds';
 import type { PortfolioProject } from '@/types/project';
-import { applyImageFallback, isVideo } from '@/lib/utils';
+import { isVideo } from '@/lib/utils';
 
 interface FeaturedProjectCardProps {
   project: PortfolioProject;
   onOpen?: (_project: PortfolioProject) => void;
   priority?: boolean;
+  backgroundVariant: FeaturedProjectBackgroundVariant;
 }
 
 export default function FeaturedProjectCard({
   project,
   onOpen,
   priority = false,
+  backgroundVariant,
 }: FeaturedProjectCardProps) {
   const reducedMotion = useMotionGate();
   const isModalMode = typeof onOpen === 'function';
@@ -30,16 +33,6 @@ export default function FeaturedProjectCard({
     project.image,
   ].filter((url): url is string => !!url && !isVideo(url));
   const staticImage = staticImageCandidates[0];
-
-  // Resolve the video source (only if thumbnailMedia or videoPreview is a video)
-  const videoSource = isVideo(project.thumbnailMedia)
-    ? project.thumbnailMedia
-    : isVideo(project.videoPreview)
-      ? project.videoPreview
-      : undefined;
-
-  // Whether this card should show a video on hover
-  const hasVideo = !!videoSource;
 
   // The media source for the static poster/image — always an image, never a video
   const mediaSource = staticImage;
@@ -57,64 +50,18 @@ export default function FeaturedProjectCard({
     .toLowerCase()
     .replace(/[^a-z0-9-]/g, '-')}-title`;
 
-  const hasHoverRef = React.useRef(false);
-  const [isHovered, setIsHovered] = React.useState(false);
-
   const CardContent = () => (
-    <div
-      onMouseEnter={() => {
-        hasHoverRef.current = true;
-        setIsHovered(true);
-      }}
-      onMouseLeave={() => setIsHovered(false)}
-    >
+    <div>
       <div
-        className={`card-shell relative overflow-hidden rounded-md w-full aspect-[4/3] sm:aspect-video lg:aspect-auto flex-1 min-h-[300px] bg-white/5 transition-all duration-500 ${
-          reducedMotion
-            ? ''
-            : 'md:group-hover:shadow-[0_22px_54px_-12px_rgba(0,72,255,0.15)] md:group-hover:-translate-y-1'
-        }`}
+        className="flex-1 min-h-[300px]"
       >
-        {/* Subtle Noise Overlay */}
-        <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-
-        {/* Static image — always visible by default */}
-        {mediaSource ? (
-          <Image
-            src={mediaSource}
-            alt={`${project.client} — ${project.title}`}
-            fill
-            sizes={project.layout.sizes ?? '100vw'}
-            className={`object-cover transition-opacity duration-700 ${
-              hasVideo && isHovered
-                ? 'opacity-0'
-                : 'opacity-90 md:group-hover:opacity-100'
-            }`}
-            loading={priority ? 'eager' : 'lazy'}
-            priority={priority}
-            onError={applyImageFallback}
-          />
-        ) : (
-          /* Styled fallback when no image is available */
-          <div className="absolute inset-0 bg-gradient-to-br from-[#040013] via-[#0b0d3a] to-[#040013] flex items-center justify-center">
-            <span className="text-bluePrimary/40 text-lg font-mono uppercase tracking-widest">
-              {project.category}
-            </span>
-          </div>
-        )}
-
-        {/* Video — only loads on first hover, opacity toggles */}
-        {hasVideo && hasHoverRef.current && (
-          <video
-            src={videoSource}
-            autoPlay={isHovered}
-            muted
-            loop
-            playsInline
-            preload="none"
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-          />
-        )}
+        <FeaturedProjectCardFrame
+          project={project}
+          backgroundVariant={backgroundVariant}
+          mediaSource={mediaSource}
+          priority={priority}
+          reducedMotion={reducedMotion}
+        />
       </div>
 
       {/* Metadata - Mobile: text left, arrow right | Desktop: left-aligned */}
@@ -144,7 +91,7 @@ export default function FeaturedProjectCard({
         {/* Arrow Icon Circle - Blue default, Purple on hover */}
         {/* Small CTA (Design Token) */}
         <div className="shrink-0">
-          <div className="btn-icon-circle">
+          <div className="btn-icon-circle shadow-[0_0_0_rgba(135,5,242,0)] transition-[background-color,box-shadow,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:shadow-[0_0_28px_rgba(135,5,242,0.5)]">
             <ArrowUpRight className="w-6 h-6" />
           </div>
         </div>

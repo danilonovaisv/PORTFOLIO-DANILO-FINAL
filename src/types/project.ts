@@ -32,6 +32,16 @@ export type ProjectDestinationType =
   | 'external_url'
   | 'page'; // Novo: Para cases ricos
 
+export type HomeFeaturedCardStyle =
+  | 'ANIMATED_BG_INVERTED_LOGO'
+  | 'ANIMATED_BG_THUMB_OVERLAY_50';
+
+export interface HomeFeaturedConfig {
+  enabled: boolean;
+  cardStyle: HomeFeaturedCardStyle;
+  logoPath?: string | null;
+}
+
 export interface ProjectDestination {
   type: ProjectDestinationType;
   href?: string;
@@ -93,6 +103,7 @@ export interface PortfolioProject {
   isFeatured?: boolean;
   featuredOnHome?: boolean;
   featuredOnPortfolio?: boolean;
+  homeFeatured?: HomeFeaturedConfig;
   landingPageSlug?: string | null;
   link?: string;
   destination?: ProjectDestination;

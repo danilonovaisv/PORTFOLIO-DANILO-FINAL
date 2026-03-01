@@ -70,6 +70,11 @@ export function buildFallbackProjects(): PortfolioProject[] {
                 category === 'branding'
                     ? '#0057ff'
                     : undefined,
+            featuredOnHome: true,
+            homeFeatured: {
+                enabled: true,
+                cardStyle: 'ANIMATED_BG_THUMB_OVERLAY_50',
+            },
             featuredOnPortfolio: true,
         };
     });

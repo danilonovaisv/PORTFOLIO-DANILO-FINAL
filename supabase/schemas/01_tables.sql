@@ -20,6 +20,7 @@ create table if not exists public.portfolio_projects (
   featured_on_portfolio boolean not null default false,
   featured_home_order int,
   featured_portfolio_order int,
+  home_featured jsonb not null default '{}'::jsonb,
   is_published boolean not null default true,
   created_at timestamptz not null default timezone('utc', now()),
   updated_at timestamptz not null default timezone('utc', now())

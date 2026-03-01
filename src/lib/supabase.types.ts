@@ -209,6 +209,7 @@ export type Database = {
           featured_portfolio_order: number | null;
           gallery: Json;
           hero_image_path: string | null;
+          home_featured: Json;
           id: string;
           is_published: boolean;
           landing_page_id: string | null;
@@ -236,6 +237,7 @@ export type Database = {
           featured_portfolio_order?: number | null;
           gallery?: Json;
           hero_image_path?: string | null;
+          home_featured?: Json;
           id?: string;
           is_published?: boolean;
           landing_page_id?: string | null;
@@ -264,6 +266,7 @@ export type Database = {
           featured_portfolio_order?: number | null;
           gallery?: Json;
           hero_image_path?: string | null;
+          home_featured?: Json;
           id?: string;
           is_published?: boolean;
           landing_page_id?: string | null;
@@ -548,6 +551,7 @@ export type Database = {
           featured_portfolio_order: number | null;
           gallery: Json | null;
           hero_image_path: string | null;
+          home_featured: Json | null;
           id: string | null;
           is_published: boolean | null;
           landing_page_id: string | null;
