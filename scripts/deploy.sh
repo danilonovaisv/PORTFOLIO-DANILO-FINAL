@@ -2,20 +2,19 @@
 set -euo pipefail
 
 # Deploy canônico: build + preparar hosting + deploy Firebase (hosting + função SSR)
-# Requer: nvm com Node 22, pnpm, firebase-cli autenticado
+# Requer: Node 20 (via nvm), pnpm, firebase-cli autenticado
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 cd "$PROJECT_ROOT"
 
-# Usa Node 20 via nvm
 # Fix for "nvm is not compatible with the npm_config_prefix environment variable"
 unset npm_config_prefix
 
 export NVM_DIR="$HOME/.nvm"
 if [ -s "$NVM_DIR/nvm.sh" ]; then
   . "$NVM_DIR/nvm.sh"
-  nvm use 20 >/dev/null
+  nvm use 20 > /dev/null
 fi
 
 export PATH="$PROJECT_ROOT/node_modules/.bin:$PATH"
@@ -28,31 +27,69 @@ if [ "${FIREBASE_USE_LOCAL_CONFIG:-0}" = "1" ]; then
   mkdir -p "$XDG_CONFIG_HOME"
 fi
 
-# Bypass .env EPERM issue
+# Bypass .env EPERM issue (agent environment)
 export VALIDATE_ENV_WARN_ONLY=1
 
 echo "Node: $(node --version)"
 echo "pnpm: $(pnpm --version)"
 echo "firebase: $(firebase --version)"
 
-# Build explicitamente com webpack para evitar conflito com Turbopack
-# quando existe configuração custom em next.config.mjs.
-# Build via script in package.json (ensures prebuild/validate-env run)
+# Build via pnpm (garante prebuild/validate-env)
 pnpm run build
 
-# Consolida estáticos
+# Consolida estáticos para hosting
 bash "$SCRIPT_DIR/prepare-hosting.sh"
 
-# Remover o "packageManager" field do package.json para evitar falhas no Cloud Build (PNPM incompatibilidade com a build do Firebase)
+# ── FIX: sharp version mismatch in Firebase Cloud Build ──────────────────────
+# Problema: Firebase Frameworks gera um package.json interno para a Cloud Function SSR.
+# O Cloud Build roda `npm ci` usando o package-lock.json do cache local/anterior.
+# Se esse cache tiver um package-lock.json com sharp@0.33.x mas o atual é 0.34.x,
+# o npm ci falha com "lock file's sharp@0.34.5 does not satisfy sharp@0.33.5".
+#
+# Solução:
+# 1. Limpar cache .firebase/functions para forçar repackaging limpo.
+# 2. Gerar package-lock.json fresco antes do deploy com as versões atuais.
+
+# 1. Limpar cache Firebase functions (força repackaging limpo)
+FIREBASE_CACHE_DIR=".firebase/portfolio-danilo-novais/functions"
+if [ -d "$FIREBASE_CACHE_DIR" ]; then
+  echo "🧹 Limpando cache Firebase functions (evita mismatch de package-lock)..."
+  rm -rf "$FIREBASE_CACHE_DIR"
+  echo "✅ Cache limpo."
+fi
+
+# 2. Remover o "packageManager" field do package.json:
+#    O Firebase Cloud Build usa npm internamente e falha se pnpm for o packageManager.
 TMP_PKG_JSON=$(mktemp)
 cp package.json "$TMP_PKG_JSON"
-node -e "const fs = require('fs'); const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8')); delete pkg.packageManager; fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));"
+node -e "
+  const fs = require('fs');
+  const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+  delete pkg.packageManager;
+  fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2));
+"
+echo "✅ Campo packageManager removido temporariamente do package.json"
 
-# Function to restore package.json on exit
-restore_package_json() {
+# 3. Gerar package-lock.json fresco alinhado com as dependências atuais.
+#    --package-lock-only: não instala módulos, apenas gera/atualiza o lock file.
+#    Firebase Cloud Build usa este lock para `npm ci` dentro da Cloud Function.
+echo "📦 Gerando package-lock.json consistente para Cloud Build..."
+npm install --legacy-peer-deps --package-lock-only --ignore-scripts 2>/dev/null || \
+  npm install --legacy-peer-deps --package-lock-only --ignore-scripts --force 2>/dev/null || \
+  echo "⚠️  AVISO: Não foi possível gerar package-lock.json (deploy continua)"
+echo "✅ package-lock.json gerado"
+
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Restaurar package.json e limpar arquivos temporários ao sair (sucesso ou falha)
+restore_on_exit() {
+  echo "🔄 Restaurando package.json original..."
   mv "$TMP_PKG_JSON" package.json
+  # Remover package-lock.json gerado: projeto usa pnpm, nunca deve versionar npm lock
+  rm -f package-lock.json
+  echo "✅ Limpeza concluída."
 }
-trap restore_package_json EXIT
+trap restore_on_exit EXIT
 
-# Deploy hosting + função SSR (Web Frameworks & functions configuradas)
+# Deploy hosting + função SSR
 firebase deploy --only hosting,functions --project portfolio-danilo-novais
