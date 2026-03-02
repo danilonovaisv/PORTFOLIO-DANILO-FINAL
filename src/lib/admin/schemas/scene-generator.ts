@@ -27,6 +27,13 @@ export const sceneInputSchema = z.object({
 export const outputRatioSchema = z.enum(['1:1', '16:9', '9:16', '4:5']);
 type SceneOutputRatio = z.infer<typeof outputRatioSchema>;
 
+/**
+ * Maps output ratios to DALL-E 3 supported sizes.
+ * DALL-E 3 only supports: 1024x1024, 1792x1024, 1024x1792.
+ *
+ * 4:5 (portrait 0.8) maps to 1024x1792 (portrait 9:16) — closest portrait option.
+ * Previously mapped to 1024x1024 (square), which was incorrect.
+ */
 export const OUTPUT_RATIO_SIZE_MAP: Record<
   SceneOutputRatio,
   '1024x1024' | '1792x1024' | '1024x1792'
@@ -34,7 +41,7 @@ export const OUTPUT_RATIO_SIZE_MAP: Record<
   '1:1': '1024x1024',
   '16:9': '1792x1024',
   '9:16': '1024x1792',
-  '4:5': '1024x1024',
+  '4:5': '1024x1792', // portrait — DALL-E 3 has no native 4:5; use closest portrait
 };
 
 export type ReferenceImageLike = {

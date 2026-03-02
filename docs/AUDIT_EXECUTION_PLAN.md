@@ -1,241 +1,509 @@
-# AUDITORIA — HOME PAGE (Hero • Manifesto • Featured Projects)
+  RELATÓRIO DE AUDITORIA TÉCNICA — ADMIN + SUPABASE                                                                
+                                                                                                                        
+  Data: 2026-02-28                                                                                                    
+  Auditor: Análise estática + inspeção de schema/migrations/código-fonte                              
+  Nota: Os arquivos /mnt/data/ (assets-site.json, CSVs do Security Advisor, TIPOS DE CENA.json, listas peças.json,
+  SUPER-TEMPLATE-COPY.md, System Prompt CENAS PUBLICITÁRIAS.md) não estão acessíveis neste ambiente. Foram marcados como
+   INDETERMINADO nos pontos que dependem exclusivamente deles.                                                          
+                                                                                                                        
+  ---
+  1. RESUMO EXECUTIVO
+                                                                                                                        
+  - [P0] site_settings sem RLS e com GRANT ALL TO anon — a OpenAI API Key armazenada em texto puro (JSONB) está exposta 
+  publicamente via REST API do Supabase.                                                                                
+  - [P0] admin_users exposta publicamente — policy "Enable read access for all users" USING (true) permite que qualquer
+  pessoa (anonymous) leia user_ids e roles de administradores.
+  - [P0] Políticas conflitantes em portfolio_projects — três policies sobrepostas criam brechas: qualquer usuário
+  autenticado (não apenas admins) pode escrever/deletar projetos.
+  - [P0] experiences, content_version, projects (legacy) com RLS ativo mas sem policies — acesso totalmente bloqueado
+  para todas as roles não-superuser; gatilhos de versão quebram silenciosamente.
+  - [P1] Dois registros de auditoria paralelos e incompatíveis — código grava em audit_log (legacy); migration criou
+  admin_audit_log (novo, nunca usado).
+  - [P1] Rename de projeto sem atomicidade — storage move + DB update não são transacionais; falha parcial corrompem
+  dados sem rollback.
+  - [P1] Modelos nano-banana, flow, whisky são aliases de DALL-E 3 — UI os apresenta como motores distintos, mas todos
+  chamam model: 'dall-e-3'. Erro de expectativa do usuário.
+  - [P1] Copy Agent: YouTube URL passa como texto para o LLM sem extração de transcript — o modelo não acessa URLs;
+  transcript não é obtido. Feature documentada não funciona como esperado.
+  - [P1] Copy Agent: fallback silencioso retorna success: true mesmo quando IA falhou — oculta falha real do usuário.
+  - [P2] 4:5 mapeado para 1024x1024 (quadrado) — aspect ratio 4:5 portrait deveria gerar imagem portrait, não quadrada.
 
-## 1. Resumo Executivo
-From the visual evidence, I observe divergências claras entre as referências oficiais e a implementação em produção, principalmente no Vídeo Manifesto (mídia quase invisível) e na hierarquia do Hero (tag ausente + subtítulo abaixo do mínimo de legibilidade mobile).
-1. Vídeo Manifesto está escurecido por overlay + poster inexistente, o que gera um bloco praticamente “vazio” em produção.
-2. Hero não renderiza a tag `[BRAND AWARENESS]` prevista no doc e nas referências visuais.
-3. Subtítulo do Hero cai para ~14.4px no mobile, abaixo do mínimo de legibilidade do Ghost DS.
-4. `prefers-reduced-motion` não é aplicado no Hero CTA (animação sempre ativa) e há easing fora do Ghost em `.btn-icon-circle`.
-5. Featured Projects carece de `h2` semântico e o CTA “Like what you see?” é lido sem espaço por leitores de tela.
+  ---
+  2. MATRIZ DE PROBLEMAS
 
-**Ambiente e evidências**
-- Produção: https://portfoliodanilo.com
-- Branch/commit analisado (local): `main` @ `b2b6f8cdfd998838300a6a99c970a4f56dedef27`
-- Docs referência: `.context/DOCS-PORTFOLIO-PAGES/01-HOME/*`
-- Captura visual (Chromium headless, 2026-02-26 19:15 -03): `.../reports/home-audit/*`
-- Limitação: WebGL não disponível em headless, então o Ghost 3D não pôde ser validado visualmente (canvas ausente). Isso é registrado como **limitação de ambiente**, não como bug.
+  ID: SEC-01
+  Área: DB/RLS/Security
+  Sintoma: OpenAI key legível publicamente via REST
+  Evidência: GRANT ALL TO anon em site_settings; sem ENABLE ROW LEVEL SECURITY; key em JSONB puro
+  Causa Provável: RLS nunca habilitado na tabela; supabase_vault instalado mas não usado
+  Severidade: P0
+  Correção Sugerida: Habilitar RLS + policy admin-only + migrar key para vault.secrets
+  ────────────────────────────────────────
+  ID: SEC-02
+  Área: DB/RLS
+  Sintoma: admin_users leitura pública
+  Evidência: CREATE POLICY "Enable read access for all users" ... USING (true) em schema.sql:830
+  Causa Provável: Policy placeholder sem restrição de role
+  Severidade: P0
+  Correção Sugerida: Trocar por policy is_admin() ou apenas authenticated
+  ────────────────────────────────────────
+  ID: SEC-03
+  Área: DB/RLS
+  Sintoma: Qualquer autenticado pode escrever projetos
+  Evidência: 3 policies sobrepostas: "Auth manage projects" (any auth), "authenticated_admin_full_access" (ALL com
+    USING(true)), "Admin manage projects" (admin check)
+  Causa Provável: Migration 20260224 adicionou policy permissiva sem remover legadas
+  Severidade: P0
+  Correção Sugerida: Remover "Auth manage projects" e "authenticated_admin_full_access"; manter apenas "Admin manage
+    projects"
+  ────────────────────────────────────────
+  ID: SEC-04
+  Área: DB/RLS
+  Sintoma: experiences, content_version, projects bloqueados para todos
+  Evidência: RLS ativo + zero policies visíveis no schema.sql para essas tabelas
+  Causa Provável: Tabelas criadas/migradas sem policies
+  Severidade: P0
+  Correção Sugerida: Criar policies admin-write + public-read seletivo ou desabilitar RLS nas tabelas não sensíveis
+  ────────────────────────────────────────
+  ID: SEC-05
+  Área: Storage
+  Sintoma: portfolio-media e site-assets públicos (SELECT anon)
+  Evidência: legacy_buckets_select em migration 20260208000002 e Auth manage legado
+  Causa Provável: Decisão de design mas precisa ser explícita
+  Severidade: P1
+  Correção Sugerida: Confirmar intenção; documentar que são CDN público intencionalmente
+  ────────────────────────────────────────
+  ID: ADM-01
+  Área: ADMIN/DB
+  Sintoma: Dois sistemas de audit paralelos
+  Evidência: audit_log (schema.sql, usado pelo código); admin_audit_log (migration 20260207201000, não usado)
+  Causa Provável: Migration criou nova tabela sem migrar código
+  Severidade: P1
+  Correção Sugerida: Unificar: ou migrar código para admin_audit_log ou remover a tabela órfã
+  ────────────────────────────────────────
+  ID: ADM-02
+  Área: ADMIN/Storage
+  Sintoma: Rename não é atômico
+  Evidência: actions.ts:79-113 move storage ANTES de salvar no DB; sem rollback
+  Causa Provável: Supabase storage não tem transações DB
+  Severidade: P1
+  Correção Sugerida: Inverter ordem (salvar DB primeiro, depois mover storage) ou usar compensação explícita
+  ────────────────────────────────────────
+  ID: ADM-03
+  Área: ADMIN/Storage
+  Sintoma: String.replace sem anchoring pode substituir path errado
+  Evidência: storage-utils.ts:41 usa file.replace(oldPrefix, newPrefix) sem regex ^
+  Causa Provável: JS replace substitui primeira ocorrência em qualquer posição
+  Severidade: P1
+  Correção Sugerida: Usar file.startsWith(oldPrefix) + newPrefix + file.slice(oldPrefix.length)
+  ────────────────────────────────────────
+  ID: ADM-04
+  Área: ADMIN/Storage
+  Sintoma: Delete não tenta todos os 3 path schemes com erro silenciado
+  Evidência: actions.ts:157-163 tem try/catch que swallows erros de delete
+  Causa Provável: Erro logado mas não propagado; arquivos órfãos residuais
+  Severidade: P2
+  Correção Sugerida: Logar detalhes do erro por path + retornar lista de falhas parciais ao admin
+  ────────────────────────────────────────
+  ID: SCN-01
+  Área: ADMIN/Scene
+  Sintoma: nano-banana, flow, whisky chamam dall-e-3 silenciosamente
+  Evidência: actions.ts:271 model: 'dall-e-3' hardcoded para todos modelos
+  Causa Provável: Modelos custom não implementados; apenas prompt style difere
+  Severidade: P1
+  Correção Sugerida: Tornar explícito na UI que são variações de prompt do DALL-E 3, ou renomear para refletir realidade
+  ────────────────────────────────────────
+  ID: SCN-02
+  Área: ADMIN/Scene
+  Sintoma: Ratio 4:5 gera imagem quadrada 1024x1024
+  Evidência: schema/scene-generator.ts:37 '4:5': '1024x1024'
+  Causa Provável: DALL-E 3 não suporta 4:5 nativo; fallback para quadrado sem aviso
+  Severidade: P2
+  Correção Sugerida: Mapear para 1024x1792 (portrait mais próximo) ou remover opção 4:5
+  ────────────────────────────────────────
+  ID: SCN-03
+  Área: ADMIN/Scene
+  Sintoma: pieceType sem validação enum server-side
+  Evidência: sceneInputSchema aceita qualquer string; só tem min/max
+  Causa Provável: Select com opções no frontend mas bypass via fetch direto
+  Severidade: P2
+  Correção Sugerida: Adicionar .refine() com conjunto de valores válidos do SCENE_CATEGORIES
+  ────────────────────────────────────────
+  ID: SCN-04
+  Área: ADMIN/Scene
+  Sintoma: TIPOS DE CENA.json vs SCENE_CATEGORIES — conformidade não verificável
+  Evidência: /mnt/data/TIPOS DE CENA.json inacessível
+  Causa Provável: INDETERMINADO
+  Severidade: INDETERMINADO
+  Correção Sugerida: Comparar manualmente SCENE_CATEGORIES com TIPOS DE CENA.json
+  ────────────────────────────────────────
+  ID: CPY-01
+  Área: ADMIN/Copy
+  Sintoma: YouTube URL não gera transcript; LLM não acessa URLs
+  Evidência: actions.ts:166-169 apenas insere URL como texto no prompt
+  Causa Provável: LLM não tem acesso a internet; transcript não é extraído
+  Severidade: P1
+  Correção Sugerida: Integrar YouTube Transcript API ou avisar usuário que o link é apenas referência textual
+  ────────────────────────────────────────
+  ID: CPY-02
+  Área: ADMIN/Copy
+  Sintoma: Fallback retorna success: true quando IA falhou
+  Evidência: actions.ts:279-284 retorna success: true, content: buildFallbackCopy(...)
+  Causa Provável: Intenção de não bloquear usuário, mas oculta falha real
+  Severidade: P1
+  Correção Sugerida: Retornar success: false com fallbackContent em campo separado, ou manter flag aiUsed: false
+  ────────────────────────────────────────
+  ID: CPY-03
+  Área: ADMIN/Copy
+  Sintoma: youtubeUrl validação fraca
+  Evidência: copyInputSchema: apenas includes('youtube.com')
+  Causa Provável: https://evil.com?youtube.com passa
+  Severidade: P2
+  Correção Sugerida: Usar regex de URL completa do YouTube
+  ────────────────────────────────────────
+  ID: CPY-04
+  Área: ADMIN/Copy
+  Sintoma: SUPER-TEMPLATE-COPY.md vs output format — conformidade não verificável
+  Evidência: /mnt/data/SUPER-TEMPLATE-COPY.md inacessível
+  Causa Provável: INDETERMINADO
+  Severidade: INDETERMINADO
+  Correção Sugerida: Comparar campos hardcoded no outputFormat com SUPER-TEMPLATE-COPY.md
+  ────────────────────────────────────────
+  ID: SET-01
+  Área: ADMIN/Settings
+  Sintoma: OpenAI key salva como JSONB puro, sem criptografia
+  Evidência: settings.ts:18-27 lê de site_settings.value como string
+  Causa Provável: supabase_vault disponível mas não usado
+  Severidade: P0 (via SEC-01)
+  Correção Sugerida: Migrar para vault.create_secret() / vault.read_secret()
+  ────────────────────────────────────────
+  ID: SET-02
+  Área: ADMIN/Settings
+  Sintoma: admin_users roles ('editor','viewer') não reconhecidos por is_admin()
+  Evidência: admin_users.role CHECK IN ('owner','editor','viewer') vs is_admin() verifica 'admin','owner','super_admin'
+  Causa Provável: Schemas divergentes entre tabela e função
+  Severidade: P1
+  Correção Sugerida: Alinhar roles: adicionar 'admin' ao CHECK ou ajustar is_admin()
+  ────────────────────────────────────────
+  ID: SEC-06
+  Área: Security
+  Sintoma: Policy placeholder não renomeada
+  Evidência: CREATE POLICY "replace_with_policy_name" ON "public"."admin_users"
+  Causa Provável: Policy criada sem nome real
+  Severidade: P2
+  Correção Sugerida: Renomear para nome descritivo
+  ────────────────────────────────────────
+  ID: STR-01
+  Área: Storage
+  Sintoma: Estrutura v4/MARCA/PROJETO legada coexiste com nova estrutura MARCA/PROJETO/assets-do-projeto
+  Evidência: actions.ts:64-100 lida com 3 path schemes simultaneamente
+  Causa Provável: Migração de storage incompleta
+  Severidade: P1
+  Correção Sugerida: Executar migração completa para novo esquema + remover lógica de compatibilidade após validação
 
-## 2. Score Geral (0–100)
-**Score total: 60/100 (Fail)**
-- Estrutura: 13/20
-- UI/Visual: 14/25
-- Mobile: 9/15
-- Motion: 8/15
-- Performance: 10/15
-- A11y/SEO: 6/10
+  ---
+  3. ACHADOS DETALHADOS
 
-**Score por seção**
-- Hero: 62
-- Vídeo Manifesto: 38
-- Featured Projects: 68
+  ---
+  SEC-01 — site_settings sem RLS, OpenAI key exposta publicamente
 
-## 3. Top 5 Problemas Críticos
+  Como reproduzir:
+  curl "https://<SUPABASE_URL>/rest/v1/site_settings?key=eq.openai_api_key" \
+    -H "apikey: <ANON_KEY>"
+  # Retorna: {"key":"openai_api_key","value":"sk-..."}
 
-1) **Vídeo Manifesto praticamente invisível (overlay + poster inexistente)**
-- **Expected (Doc):** vídeo sem overlay, full-visibility, poster válido.
-- **Observed (Impl):** overlay `bg-background/80` (opacidade efetiva 1 com alpha 0.8) + poster derivado `-poster.jpg` retornando 404.
-- **Impacto:** queda de percepção visual e valor criativo; seção vira “vazio” escuro.
-- **Evidência:** `.../reports/home-audit/desktop-manifesto.png`, `.../reports/home-audit/mobile-manifesto.png`, `.../reports/home-audit/video-manifesto-inspect.json`, `.../reports/home-audit/video-poster-check.txt`
-- **Arquivos:** `src/components/home/hero/VideoManifesto.tsx`
+  Evidências:
+  - supabase/schema.sql: GRANT ALL ON TABLE "public"."site_settings" TO "anon"
+  - site_settings NÃO aparece na lista de tabelas com ENABLE ROW LEVEL SECURITY
+  - settings.ts:18-27 lê value diretamente de JSONB (texto puro)
+  - supabase_vault instalado (schema.sql:61) mas não utilizado
 
-2) **Hero sem tag editorial `[BRAND AWARENESS]`**
-- **Expected (Doc/Imagem):** tag acima do H1 em desktop e mobile.
-- **Observed (Impl):** tag existe em `HOME_CONTENT.hero.tag`, mas não é renderizada.
-- **Impacto:** perda de sinal editorial e hierarquia do manifesto.
-- **Evidência:** `.../01-HOME/02-HERO-HOME/02-HERO-HOME-DESKTOP.jpg` vs `.../reports/home-audit/desktop-hero.png`
-- **Arquivos:** `src/components/home/hero/HeroCopy.tsx`, `src/config/content.ts`
+  Causa raiz: A tabela site_settings foi criada sem RLS habilitado. O grant TO anon combinado com ausência de RLS
+  permite leitura anônima completa via PostgREST.
 
-3) **Subtítulo do Hero abaixo do mínimo de legibilidade mobile (14.4px)**
-- **Expected (Ghost DS):** `--font-body-mobile` 20–22px.
-- **Observed (Impl):** 14.4px (mobile 360px).
-- **Impacto:** legibilidade reduzida e quebra de regra AA (especialmente em contraste/visão reduzida).
-- **Evidência:** `.../reports/home-audit/measurements.json` + `.../reports/home-audit/mobile-hero.png`
-- **Arquivos:** `src/components/home/hero/HeroCopy.module.css`, `.context/DOCS-PORTFOLIO-PAGES/GHOST-DESIGN-SYSTEM.md`
+  Correção proposta:
 
-4) **`prefers-reduced-motion` não aplicado no Hero CTA**
-- **Expected (Ghost rules):** reduzir animações no modo reduce.
-- **Observed (Impl):** `HeroCTA` sempre anima (`motion.div` sem gate).
-- **Impacto:** violação de acessibilidade cognitiva; reduz conformidade.
-- **Evidência:** código em `src/components/home/hero/HeroCTA.tsx` + testes `mobile-reduced`
-- **Arquivos:** `src/components/home/hero/HeroCTA.tsx`
+  -- 1. Habilitar RLS
+  ALTER TABLE public.site_settings ENABLE ROW LEVEL SECURITY;
 
-5) **Featured Projects sem `h2` e CTA “Like what you see?” lido sem espaço**
-- **Expected (Doc/a11y):** `h2` na seção; texto lido corretamente.
-- **Observed (Impl):** não há `h2` e o `h3` do CTA é lido como “Like whatyou see?”.
-- **Impacto:** semântica e SEO degradados; screen readers perdem estrutura.
-- **Evidência:** headings dump (2026-02-26)
-- **Arquivos:** `src/components/home/featured-projects/FeaturedProjectsSection.tsx`, `src/components/home/featured-projects/CTAProjectCard.tsx`
+  -- 2. Revogar grants excessivos
+  REVOKE ALL ON TABLE public.site_settings FROM anon;
 
-## 4. Análise por Seção
+  -- 3. Policy: apenas service_role/admin lê e escreve
+  CREATE POLICY "Admin manage site_settings"
+    ON public.site_settings
+    FOR ALL
+    USING (public.is_admin())
+    WITH CHECK (public.is_admin());
 
-### 4.1 Hero
-- **Intenção (Doc):** hero editorial com tag `[BRAND AWARENESS]`, ghost 3D, H1 dominante, CTA central, subtítulo legível.
-- **Estado Atual (Impl):** H1 sr-only OK, título renderizado, CTA aparece, tag editorial ausente, subtítulo pequeno em mobile.
-- **Divergências (com evidência):**
-  - Tag `[BRAND AWARENESS]` não renderizada.
-  - Subtítulo mobile 14.4px vs mínimo 20px.
-  - WebGL/ghost não validável em headless.
-- **Impacto:** perda de hierarquia editorial, legibilidade fraca em mobile, risco de desalinhamento com Ghost DS.
-- **Recomendações:**
-  1. Renderizar `HOME_CONTENT.hero.tag` acima do headline.
-  2. Ajustar `heroSubtitle` para `min 20px` no mobile.
-  3. Aplicar `useMotionGate` também no `HeroCTA`.
+  -- 4. Migrar chave para vault (opcional mas recomendado)
+  SELECT vault.create_secret('sk-...', 'openai_api_key');
+  -- Depois acessar com: SELECT vault.read_secret('openai_api_key')
 
-**Visual Diff (tokens)**
-| Item | Expected (Doc/DS) | Observed (Impl) | Delta | Evidência |
-|---|---|---|---|---|
-| Tag editorial | Presente | Ausente | Missing | `.../02-HERO-HOME-DESKTOP.jpg`, `.../reports/home-audit/desktop-hero.png` |
-| Subtítulo mobile | 20–22px | 14.4px | -5.6px | `.../reports/home-audit/measurements.json` |
-| CTA min-width | Token `min-w-cta-*` | `w-[220px]/[280px]/[340px]` | Token mismatch | `src/components/ui/AntigravityCTA.tsx` |
+  Testes necessários:
+  - Query anon via curl deve retornar 0 rows ou 403
+  - Admin autenticado consegue ler/escrever
+  - getOpenAIKey() continua funcionando (requer service_role)
 
-### 4.2 Vídeo Manifesto
-- **Intenção (Doc):** vídeo full-width com alta legibilidade, sem overlay, poster válido.
-- **Estado Atual (Impl):** vídeo carregado, overlay `bg-background/80`, poster derivado inexistente.
-- **Divergências (com evidência):**
-  - Overlay escurece 80% do vídeo (contrário ao doc).
-  - Poster 404 (derivado `-poster.jpg`).
-- **Impacto:** percepção de valor criativo reduzida; seção aparenta “vazio”.
-- **Recomendações:**
-  1. Remover ou reduzir drasticamente o overlay.
-  2. Amarrar poster real via metadata do asset.
-  3. Garantir fallback visual quando poster/stream falhar.
+  ---
+  SEC-02 — admin_users leitura anônima
 
-**Visual Diff (tokens)**
-| Item | Expected (Doc) | Observed (Impl) | Delta | Evidência |
-|---|---|---|---|---|
-| Overlay | Nenhum | `bg-background/80` | +80% escurecimento | `.../reports/home-audit/video-manifesto-inspect.json` |
-| Poster | Existente | 404 | Missing | `.../reports/home-audit/video-poster-check.txt` |
+  Evidências:
+  - schema.sql:830 CREATE POLICY "Enable read access for all users" ON "public"."admin_users" FOR SELECT USING (true)
+  - Expõe user_id (UUID) e role de todos os administradores
 
-### 4.3 Featured Projects
-- **Intenção (Doc):** grid bento 12 col, cards com altura igual por linha, CTA “Like what you see?” com botão.
-- **Estado Atual (Impl):** grid bento implementado e alturas iguais (480px desktop, 250px mobile).
-- **Divergências (com evidência):**
-  - Ausência de `h2` na seção.
-  - CTA h3 sem espaço (screen reader lê “whatyou”).
-  - CTA card background não segue spec `#0d003b` (usa `bg-background`).
-- **Impacto:** SEO/a11y e desalinhamento visual.
-- **Recomendações:**
-  1. Adicionar `h2` visível ou `sr-only` para a seção.
-  2. Corrigir string acessível do CTA sem alterar copy.
-  3. Ajustar fundo do CTA card conforme spec.
+  Correção proposta:
 
-**Visual Diff (tokens)**
-| Item | Expected (Doc) | Observed (Impl) | Delta | Evidência |
-|---|---|---|---|---|
-| `h2` seção | Presente | Ausente | Missing | headings dump + `.../05-FEATURED-PROJECTS.md` |
-| CTA card bg | `#0d003b` | `#040013` | Color mismatch | `src/components/home/featured-projects/CTAProjectCard.tsx` |
-| Card heights | Iguais por linha | Iguais (480px) | OK | `.../reports/home-audit/measurements.json` |
+  DROP POLICY IF EXISTS "Enable read access for all users" ON public.admin_users;
+  -- Manter apenas:
+  -- CREATE POLICY "Admin read admin_users" ON public.admin_users FOR SELECT USING (public.is_admin());
 
-## 5. Matriz de Conformidade
-| Critério | Referência (Doc) | Observado (Impl) | Status | Severidade | Impacto | Evidência |
-|---|---|---|---|---|---|---|
-| Hero tag `[BRAND AWARENESS]` | 02-HERO-HOME images | Ausente | ❌ | Alto | Clareza | `.../02-HERO-HOME-DESKTOP.jpg`, `.../reports/home-audit/desktop-hero.png` |
-| Hero subtitle legibilidade mobile | Ghost DS 20–22px | 14.4px | ❌ | Alto | A11y | `.../reports/home-audit/measurements.json` |
-| Hero CTA reduz motion | Ghost rules | Anima sempre | ⚠️ | Médio | A11y | `src/components/home/hero/HeroCTA.tsx` |
-| Manifesto sem overlay | 03-VIDEO-MANIFESTO.md | Overlay 80% | ❌ | Crítico | Clareza | `.../reports/home-audit/video-manifesto-inspect.json` |
-| Manifesto poster válido | Doc/Spec | 404 | ❌ | Alto | Performance | `.../reports/home-audit/video-poster-check.txt` |
-| Featured grid bento | 05-FEATURED-PROJECTS.md | OK | ✅ | — | Consistência | `.../reports/home-audit/desktop-featured.png` |
-| Featured `h2` | 05-FEATURED-PROJECTS.md | Ausente | ❌ | Médio | SEO/A11y | headings dump |
-| CTA h3 spacing | A11y | “whatyou” | ⚠️ | Baixo | A11y | headings dump |
+  ---
+  SEC-03 — Políticas conflitantes em portfolio_projects
 
-## 6. Recomendações Estratégicas
-1. **Manifesto como prova visual:** remover overlay pesado e garantir poster real. Sem isso, a seção quebra o argumento visual do manifesto.
-2. **Ritmo editorial do Hero:** reintroduzir tag `[BRAND AWARENESS]` e aumentar subtítulo no mobile para manter o ritmo tipográfico Ghost.
-3. **Motion governance unificada:** aplicar `useMotionGate` no Hero CTA e alinhar easing da `.btn-icon-circle` ao Ghost Ease.
-4. **A11y/SEO mínimo:** adicionar `h2` para Featured Projects e corrigir a string do CTA para leitura correta.
-5. **Documentação sincronizada:** doc do Hero afirma CTA “não montado”, mas já está ativo; precisa alinhamento.
+  Evidências:
+  - schema.sql:810 "Auth manage projects" USING (auth.role() = 'authenticated') — nunca foi removida
+  - migration 20260224 adicionou "authenticated_admin_full_access" FOR ALL ... USING(true) WITH CHECK(true) —
+  efetivamente abre escrita para qualquer usuário autenticado
+  - migration 20260207183000 criou "Admin manage projects" com check de role correto
 
-## 7. Roadmap de Correção (P0/P1/P2)
-**P0 (Imediato)**
-1. Remover/reduzir overlay do manifesto e validar poster real.
-2. Fix do poster (metadata explícita no asset).
+  Comportamento real: Em PostgreSQL com RLS, políticas são combinadas com OR para SELECT e AND para
+  INSERT/UPDATE/DELETE. Para operações de escrita, como há 3 policies FOR ALL, qualquer uma que passar (incluindo
+  USING(true)) permite a operação. Qualquer usuário autenticado pode criar/editar/deletar projetos.
 
-**P1 (Alta)**
-1. Renderizar tag `[BRAND AWARENESS]` no Hero.
-2. Ajustar subtítulo mobile para 20–22px.
-3. Aplicar `useMotionGate` no `HeroCTA`.
-4. Adicionar `h2` para Featured Projects + corrigir “Like what you see?” para leitura acessível.
+  Correção proposta:
 
-**P2 (Média)**
-1. Alinhar easing de `.btn-icon-circle` com Ghost Ease.
-2. Ajustar background do CTA card ao spec `#0d003b`.
-3. Atualizar doc do Hero (CTA mount status).
+  -- Remover as policies permissivas
+  DROP POLICY IF EXISTS "Auth manage projects" ON public.portfolio_projects;
+  DROP POLICY IF EXISTS "authenticated_admin_full_access" ON public.portfolio_projects;
+  -- Manter apenas "Admin manage projects" (da migration 20260207183000)
 
-## 8. Prompts Atômicos para Execução
+  ---
+  SEC-04 — experiences, content_version, projects com RLS sem policies
 
-### 🛠️ Prompt #01 — Manifesto: remover overlay e corrigir poster
-**Objetivo:** Tornar o vídeo manifesto visível e garantir poster válido.
-**Arquivos:** `src/components/home/hero/VideoManifesto.tsx`, `src/lib/video.ts`, `src/config/site-assets.ts`
-**Contexto:** Doc exige vídeo sem overlay e com poster válido. Evidência do 404 em `.../reports/home-audit/video-poster-check.txt`.
-**Ações:**
-1. Remover ou reduzir `bg-background/80` para no máximo 0.15 de alpha.
-2. Trocar derivação `-poster.jpg` por poster explícito (metadata do asset).
-3. Garantir fallback visual caso poster/stream falhe.
-**Regras:** Tailwind, mobile-first, não alterar copy, respeitar tokens, reduzir motion quando necessário.
-**Critérios de Aceite:**
-- [ ] Vídeo visível em 360/1440 sem escurecimento excessivo.
-- [ ] Poster não retorna 404.
-- [ ] Overlay reduzido ou removido conforme doc.
-**Risco/Trade-off:** aumento leve de contraste visual; validar legibilidade do botão de som.
+  Evidências:
+  - schema.sql: Todas as 3 tabelas têm ENABLE ROW LEVEL SECURITY mas nenhuma CREATE POLICY referenciando-as
+  - Trigger bump_on_publish_impact em content_version escrita via SECURITY DEFINER (funciona)
+  - Mas leituras/escritas diretas de admin para experiences e projects (legacy) estão bloqueadas
 
-### 🛠️ Prompt #02 — Hero: renderizar tag editorial
-**Objetivo:** Reintroduzir `[BRAND AWARENESS]` conforme doc.
-**Arquivos:** `src/components/home/hero/HeroCopy.tsx`, `src/config/content.ts`
-**Contexto:** Tag existe no conteúdo mas não é renderizada.
-**Ações:**
-1. Inserir tag acima do headline (desktop e mobile).
-2. Estilizar com token de tag já existente no CSS.
-**Regras:** não alterar copy, respeitar tokens, manter hierarquia.
-**Critérios de Aceite:**
-- [ ] Tag aparece em 360/1440.
-- [ ] Não quebra layout do título.
-**Risco/Trade-off:** potencial ajuste de espaçamento vertical.
+  Impacto real:
+  - Admin não consegue gerenciar experiences (seção "Sobre")
+  - Tabela projects (legacy) completamente inacessível
+  - content_version escrita apenas via trigger (SECURITY DEFINER bypassa RLS)
 
-### 🛠️ Prompt #03 — Hero: aumentar subtítulo mobile
-**Objetivo:** Subtítulo mobile ≥ 20px (Ghost DS).
-**Arquivos:** `src/components/home/hero/HeroCopy.module.css`
-**Contexto:** Medição atual 14.4px em 360px.
-**Ações:**
-1. Ajustar `clamp` do `.heroSubtitle` para mínimo 1.25rem.
-2. Revalidar line-height (mínimo 1.4).
-**Regras:** mobile-first, sem alterar copy.
-**Critérios de Aceite:**
-- [ ] 360px ≥ 20px.
-- [ ] Não estoura largura.
-**Risco/Trade-off:** aumento de altura total do hero.
+  Correção proposta:
 
-### 🛠️ Prompt #04 — Motion: respeitar reduce no Hero CTA
-**Objetivo:** Desligar animação do CTA quando `prefers-reduced-motion`.
-**Arquivos:** `src/components/home/hero/HeroCTA.tsx`
-**Contexto:** `HeroCTA` sempre anima.
-**Ações:**
-1. Aplicar `useMotionGate` e zerar animação no reduce.
-2. Garantir estados estáticos em reduce.
-**Regras:** Ghost motion, sem scale.
-**Critérios de Aceite:**
-- [ ] Reduced motion sem y/opacity animation.
-**Risco/Trade-off:** nenhum.
+  -- experiences: admin escreve, público lê publicadas
+  CREATE POLICY "Admin manage experiences" ON public.experiences
+    FOR ALL USING (public.is_admin()) WITH CHECK (public.is_admin());
+  CREATE POLICY "Public read published experiences" ON public.experiences
+    FOR SELECT USING (status = 'published');
 
-### 🛠️ Prompt #05 — Featured: `h2` semântico + CTA legível por SR
-**Objetivo:** Melhorar semântica e leitura de screen reader.
-**Arquivos:** `src/components/home/featured-projects/FeaturedProjectsSection.tsx`, `src/components/home/featured-projects/CTAProjectCard.tsx`
-**Contexto:** seção sem `h2` e CTA lido como “whatyou”.
-**Ações:**
-1. Adicionar `h2` (visível ou `sr-only`) com título da seção.
-2. Ajustar string do CTA com espaço sem alterar copy.
-**Regras:** não alterar copy, manter layout.
-**Critérios de Aceite:**
-- [ ] `h2` presente na seção.
-- [ ] Screen reader lê “Like what you see?” corretamente.
-**Risco/Trade-off:** mínimo.
+  -- content_version: apenas service_role/sistema modifica
+  CREATE POLICY "System manage content_version" ON public.content_version
+    FOR ALL USING (public.is_admin());
+  CREATE POLICY "Public read content_version" ON public.content_version
+    FOR SELECT USING (true);
 
-### 🛠️ Prompt #06 — Tokens: easing Ghost no círculo CTA
-**Objetivo:** alinhar `.btn-icon-circle` ao easing Ghost.
-**Arquivos:** `src/app/globals.css`
-**Contexto:** hoje usa `cubic-bezier(0.4,0,0.2,1)`.
-**Ações:**
-1. Trocar easing por `cubic-bezier(0.22, 1, 0.36, 1)`.
-**Regras:** evitar scale/bounce/rotate.
-**Critérios de Aceite:**
-- [ ] Transição usa easing Ghost.
-**Risco/Trade-off:** alteração sutil de feel.
+  -- projects (legacy): se não for mais usado, desabilitar RLS ou criar política minimal
+
+  ---
+  ADM-01 — Dois sistemas de auditoria paralelos
+
+  Evidências:
+  - audit.ts:53 grava em audit_log (campos: entity, entity_id, details)
+  - migration 20260207201000 cria admin_audit_log (campos: resource, resource_id, status, error_code, etc.) — mais
+  completo, nunca usado
+  - audit_log não tem policy de RLS configurada apesar de ENABLE ROW LEVEL SECURITY
+
+  Causa raiz: Nova tabela criada em migration sem atualizar o código de audit.ts.
+
+  Correção proposta: Migrar audit.ts para usar admin_audit_log (que já tem RLS com policy Admin read audit log). Após
+  migração, deprecar audit_log.
+
+  ---
+  ADM-02/ADM-03 — Rename de projeto sem atomicidade + replace sem anchoring
+
+  Evidências:
+  - trabalhos/actions.ts:79-113: move storage → atualiza DB (nesta ordem)
+  - Se storage move OK mas DB update falha: arquivos em novo path, DB apontando para path antigo
+  - storage-utils.ts:41: file.replace(oldPrefix, newPrefix) — sem ^ anchoring
+
+  Exemplo de falha de replace: Se oldPrefix = "client/proj-abc" e um arquivo tem path "client/proj-abc-v2/image.jpg", o
+  replace incorretamente muda para "client/proj-novo-v2/image.jpg".
+
+  Correção proposta:
+  // storage-utils.ts - replace com anchoring correto
+  const newFilePath = file.startsWith(oldPrefix + '/')
+    ? newPrefix + file.slice(oldPrefix.length)
+    : file; // não mover se não for prefixo exato
+
+  Para atomicidade: salvar no DB primeiro; se falhar, não mexer no storage. Se storage falhar após DB salvo, implementar
+   tarefa de reconciliação assíncrona.
+
+  ---
+  SCN-01 — Modelos custom são aliases de DALL-E 3
+
+  Evidências:
+  - actions.ts:257-260: supportedModels = new Set(['dall-e-3', 'nano-banana', 'flow', 'whisky'])
+  - actions.ts:271: model: 'dall-e-3' hardcoded independentemente do modelo escolhido
+  - A única diferença é o promptStyle (texto do prompt)
+
+  Impacto: Usuário seleciona "Whisky (cinematográfico)" esperando motor diferente, recebe DALL-E 3 com prompt diferente.
+   A diferença real é real (o estilo de prompt influencia o resultado), mas a apresentação é enganosa.
+
+  Correção proposta: Ajustar UI para apresentar como "Estilos DALL-E 3" e não "modelos" distintos. Ou implementar
+  backends reais quando disponíveis.
+
+  ---
+  CPY-01 — YouTube: URL sem extração de transcript
+
+  Evidências:
+  - actions.ts:166-169: apenas concatena a URL como texto no prompt
+  - model: 'gpt-4o' não acessa URLs
+  - Sem chamada a YouTube Data API v3 ou serviço de transcript
+
+  Impacto: Usuário espera que o conteúdo do vídeo informe a copy; na realidade o LLM apenas vê a URL como string, sem
+  conteúdo real.
+
+  Correções possíveis (por ordem de custo):
+  1. Adicionar campo de texto livre "Transcrição/roteiro" para o usuário colar manualmente
+  2. Integrar youtube-transcript npm para extrair transcript quando disponível
+  3. Usar YouTube Data API v3 para metadata (título, descrição, tags)
+
+  ---
+  CPY-02 — Fallback silencioso com success: true
+
+  Evidências:
+  - actions.ts:278-284: catch retorna success: true, content: buildFallbackCopy(), notice: '...'
+  - O notice é mostrado ao usuário mas o resultado tem aparência de sucesso
+
+  Impacto: Admin pode não perceber que está recebendo um rascunho genérico (sem análise visual, sem SEO tags, sem campos
+   obrigatórios do template SUPER-TEMPLATE-COPY.md) em vez de copy gerado por IA.
+
+  Correção proposta:
+  return {
+    success: false, // ou usar `aiSuccess: false`
+    fallbackContent: buildFallbackCopy(context),
+    error: 'A geração com IA falhou. Rascunho base disponível abaixo.',
+  };
+
+  ---
+  SET-02 — Divergência de roles entre admin_users e is_admin()
+
+  Evidências:
+  - admin_users.role CHECK IN ('owner', 'editor', 'viewer')
+  - is_admin() verifica: 'admin', 'owner', 'super_admin'
+  - Resultado: um usuário com role 'editor' em admin_users não é reconhecido como admin pela função is_admin(); pode
+  logar mas não consegue executar operações que exigem service_role
+
+  Correção proposta: Alinhar os conjuntos de roles. Opções:
+  - A) Adicionar 'admin' e 'editor' ao CHECK de admin_users E ao is_admin()
+  - B) Usar a tabela admin_users diretamente no is_admin() (JOIN com auth.users)
+
+  ---
+  4. PLANO DE AJUSTE (ROADMAP)
+
+  P0 — Segurança crítica (executar primeiro, em sequência)
+
+  P0.1 → Habilitar RLS em site_settings + revogar GRANT anon → migrar key para vault.secrets
+  P0.2 → Remover policy "Enable read access for all users" de admin_users
+  P0.3 → Resolver conflito de policies em portfolio_projects (remover Auth manage e authenticated_admin_full_access)
+  P0.4 → Criar policies para experiences, content_version, projects (legacy)
+
+  Dependências: P0.1 depende de testar que getOpenAIKey() ainda funciona via service_role após RLS habilitado. P0.3 deve
+   ser testado com login de usuário não-admin para garantir bloqueio correto.
+
+  Riscos:
+  - P0.1 pode quebrar qualquer acesso público existente a site_settings (verificar se frontend usa)
+  - P0.4 pode re-habilitar acesso à tabela projects legada que estava efetivamente inativa
+
+  Rollback: Backup das policies atuais antes de qualquer DROP (executar pg_dump --schema-only).
+
+  ---
+  P1 — Alto impacto (após P0)
+
+  P1.1 → Unificar sistemas de audit: migrar audit.ts para admin_audit_log
+  P1.2 → Corrigir rename atômico: inverter ordem (DB first, storage second) + fix de anchoring no replace
+  P1.3 → YouTube Copy Agent: adicionar aviso explícito ou campo de transcrição manual
+  P1.4 → Copy Agent fallback: retornar success:false com fallbackContent separado
+  P1.5 → SCN-01: ajustar UI do Scene Generator para apresentar modelos como "estilos" não backends distintos
+  P1.6 → Alinhar roles de admin_users com is_admin()
+  P1.7 → Executar migração de storage do esquema v4/ para novo esquema (após P1.2)
+
+  ---
+  P2 — Melhorias (após P1)
+
+  P2.1 → SCN-02: corrigir mapeamento 4:5 → portrait (1024x1792) ou remover opção
+  P2.2 → Adicionar enum validation em pieceType no server action
+  P2.3 → Fortalecer validação de youtubeUrl (regex completa)
+  P2.4 → Renomear policy "replace_with_policy_name" com nome descritivo
+  P2.5 → Adicionar hash ao 3D asset ghost.glb para cache imutável
+  P2.6 → Avaliar autenticação nos endpoints das edge functions de limpeza
+  P2.7 → Confirmar conformidade de SCENE_CATEGORIES com TIPOS DE CENA.json [INDETERMINADO - requer arquivo]
+  P2.8 → Confirmar campos do outputFormat do Copy Agent com SUPER-TEMPLATE-COPY.md [INDETERMINADO - requer arquivo]
+
+  ---
+  5. CHECKLIST PÓS-CORREÇÃO
+
+  Banco de Dados
+
+  - site_settings: \d+ public.site_settings mostra row_security = on
+  - SELECT * FROM site_settings via anon key retorna 0 rows (403/empty)
+  - experiences: admin consegue INSERT/UPDATE via dashboard
+  - content_version: trigger bump_on_publish_impact executa sem erro após publicar projeto
+  - portfolio_projects: usuário autenticado sem role 'admin' recebe erro 42501 ao tentar INSERT
+  - admin_users: SELECT anon retorna 0 rows
+
+  Storage
+
+  - Renomear projeto de "brand-a/proj-old" para "brand-a/proj-new": todos os arquivos movidos corretamente, nenhum
+  arquivo duplicado
+  - Deletar projeto: storage limpo nos 3 path schemes
+  - Arquivo com nome "proj-abc-v2" não é afetado por rename de "proj-abc"
+  - buildV4Path(kind:'landing-page') gera path com landin-page (não landing-page)
+
+  Admin UI
+
+  - Settings: salvar OpenAI key → getOpenAIKey() retorna valor correto
+  - CRUD completo de projeto (criar, editar, renomear, incluir/remover peça, deletar)
+  - Scene Generator: geração com DALL-E 3 funciona; erro 429 retorna SCN-RATE-LIMIT
+  - Scene Generator: UI deixa claro que nano-banana/flow/whisky são estilos de prompt
+  - Copy Agent: falha de IA retorna estado não-sucesso com rascunho separado identificado
+  - Copy Agent: YouTube URL com domínio estranho é rejeitada na validação
+
+  Geração / Tokens
+
+  - openai_api_key não aparece em nenhum log de console (sanitizado)
+  - SUPABASE_SERVICE_ROLE_KEY não aparece em respostas HTTP ou payloads do cliente
+  - audit_log (ou admin_audit_log após unificação) registra todas as ações scene.generate e copy.generate
+
+  Segurança
+
+  - curl /rest/v1/site_settings com anon key: vazio ou 403
+  - curl /rest/v1/admin_users com anon key: vazio ou 403
+  - Nenhuma das policies usa placeholder replace_with_policy_name
+  - is_admin() retorna true para roles esperados; false para 'editor' se não mapeado
+
+  ---
+  ITENS INDETERMINADOS (requerem arquivos externos)
+
+  Item: SCN-04
+  Arquivo necessário: TIPOS DE CENA.json
+  O que verificar: Comparar categorias/subcategorias com SCENE_CATEGORIES em types.ts
+  ────────────────────────────────────────
+  Item: CPY-04
+  Arquivo necessário: SUPER-TEMPLATE-COPY.md
+  O que verificar: Comparar campos do outputFormat hardcoded em actions.ts com template oficial
+  ────────────────────────────────────────
+  Item: SCN-05
+  Arquivo necessário: System Prompt CENAS PUBLICITÁRIAS.md
+  O que verificar: Comparar promptBase em actions.ts com system prompt oficial
+  ────────────────────────────────────────
+  Item: STR-02
+  Arquivo necessário: assets-site.json
+  O que verificar: Verificar se paths de assets do site seguem convenção correta
+  ────────────────────────────────────────
+  Item: SCN-ADV
+  Arquivo necessário: listas peças.json
+  O que verificar: Confirmar se lista de peças no UI cobre todos os itens do JSON de referência

@@ -20,8 +20,10 @@ const baseConfig = {
   },
   transformIgnorePatterns: ['node_modules/(?!(framer-motion)/)'],
   modulePathIgnorePatterns: [
+    '<rootDir>/.agent/',
     '<rootDir>/functions/',
     '<rootDir>/.firebase/',
+    '<rootDir>/.next/',
     '<rootDir>/portfoliodan/',
     '<rootDir>/ssr_function/',
   ],

@@ -379,6 +379,7 @@ CREATE TABLE IF NOT EXISTS "public"."portfolio_projects" (
     "featured_on_portfolio" boolean DEFAULT false NOT NULL,
     "featured_home_order" integer,
     "featured_portfolio_order" integer,
+    "home_featured" "jsonb" DEFAULT '{}'::"jsonb" NOT NULL,
     "is_published" boolean DEFAULT true NOT NULL,
     "created_at" timestamp with time zone DEFAULT "timezone"('utc'::"text", "now"()) NOT NULL,
     "updated_at" timestamp with time zone DEFAULT "timezone"('utc'::"text", "now"()) NOT NULL,
@@ -520,6 +521,7 @@ CREATE OR REPLACE VIEW "public"."public_projects_view" WITH ("security_invoker"=
     "p"."featured_on_portfolio",
     "p"."featured_home_order",
     "p"."featured_portfolio_order",
+    "p"."home_featured",
     "p"."is_published",
     "p"."created_at",
     "p"."updated_at",
@@ -1470,7 +1472,6 @@ ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON TAB
 ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON TABLES TO "anon";
 ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON TABLES TO "authenticated";
 ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON TABLES TO "service_role";
-
 
 
 

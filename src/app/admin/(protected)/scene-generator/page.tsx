@@ -16,6 +16,7 @@ import {
   AI_MODELS,
   OUTPUT_RATIO_PRESETS,
   normalizeAIModels,
+  SCENE_CATEGORIES,
   type OutputRatio,
 } from '@/app/admin/(protected)/scene-generator/types';
 import { MAX_REFERENCE_IMAGES } from '@/lib/admin/schemas/scene-generator';
@@ -214,6 +215,7 @@ export default function SceneGeneratorPage() {
                     </p>
                     <input
                       ref={fileInputRef}
+                      title="Upload imagens de referência"
                       id="referenceImages"
                       name="referenceImages"
                       type="file"
@@ -243,6 +245,7 @@ export default function SceneGeneratorPage() {
                   />
                   <input
                     type="range"
+                    title="Quantidade de variações (Batch size)"
                     min={1}
                     max={4}
                     name="batchSize"
@@ -299,22 +302,18 @@ export default function SceneGeneratorPage() {
                   <select
                     id="pieceType"
                     name="pieceType"
+                    title="Tipo de embalagem ou suporte para cena"
                     className="w-full rounded-lg border border-white/10 bg-slate-950 px-4 py-2.5 text-sm text-slate-200 outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                   >
-                    <option value="Instagram Post">
-                      Instagram Post (Social)
-                    </option>
-                    <option value="Outdoor Billboard">
-                      Outdoor / Painel Urbano
-                    </option>
-                    <option value="Business Card">Cartão de Visita</option>
-                    <option value="Poster">Cartaz / Poster</option>
-                    <option value="Product Packaging">
-                      Embalagem de Produto
-                    </option>
-                    <option value="Website Interface">
-                      Interface Web (Monitor)
-                    </option>
+                    {SCENE_CATEGORIES.map((category) => (
+                      <optgroup key={category.value} label={category.label}>
+                        {category.sub_options.map((option) => (
+                          <option key={option.value} value={option.label}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </optgroup>
+                    ))}
                   </select>
                 </div>
 

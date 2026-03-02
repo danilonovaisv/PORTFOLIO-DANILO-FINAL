@@ -51,7 +51,7 @@ describe('storagePath generator', () => {
       });
 
       expect(path).toBe(
-        'v4/o-botic-rio/boti-sun/video-final-01.abcdef1234567890.mp4'
+        'o-botic-rio/boti-sun/assets-do-projeto/video-final-01.abcdef1234567890.mp4'
       );
     });
 
@@ -66,7 +66,22 @@ describe('storagePath generator', () => {
       });
 
       expect(path).toBe(
-        'v4/danilo/rebranding/cover-16x9/imagem.1234567890abcdef.png'
+        'danilo/rebranding/assets-do-projeto/cover-16x9/imagem.1234567890abcdef.png'
+      );
+    });
+
+    it('builds a correct path with landing-page kind strictly', () => {
+      const path = buildV4Path({
+        brand: 'Danilo',
+        project: 'Rebranding',
+        kind: 'landing-page',
+        filename: 'imagem.png',
+        ext: 'png',
+        hash: '1234567890abcdef',
+      });
+
+      expect(path).toBe(
+        'danilo/rebranding/assets-do-projeto/landin-page/imagem.1234567890abcdef.png'
       );
     });
 
@@ -79,7 +94,9 @@ describe('storagePath generator', () => {
         hash: '0000000000000000',
       });
 
-      expect(path).toBe('v4/a/b/my-epic-file-tar.0000000000000000.gz');
+      expect(path).toBe(
+        'a/b/assets-do-projeto/my-epic-file-tar.0000000000000000.gz'
+      );
     });
 
     it('defaults to file if filename is scrubbed completely', () => {
@@ -91,7 +108,9 @@ describe('storagePath generator', () => {
         hash: '1111111111111111',
       });
 
-      expect(path).toBe('v4/brand/project/file.1111111111111111.png');
+      expect(path).toBe(
+        'brand/project/assets-do-projeto/file.1111111111111111.png'
+      );
     });
   });
 });

@@ -8,11 +8,14 @@ import { FieldTooltip } from '@/components/admin/FieldTooltip';
 import {
   COPY_FIELD_LIMITS,
   MAX_REFERENCE_IMAGES,
+  type CopyInput,
 } from '@/lib/admin/schemas/copy-agent';
 
 const initialState = {
   success: false,
   content: '',
+  fallbackContent: '',
+  aiGenerated: undefined as boolean | undefined,
   error: '',
   notice: '',
   fieldErrors: {} as Record<string, string | undefined>,
@@ -25,6 +28,8 @@ export default function CopyAgentPage() {
   );
   const [copied, setCopied] = useState(false);
   const [selectedImages, setSelectedImages] = useState<File[]>([]);
+  const [outputType, setOutputType] =
+    useState<CopyInput['outputType']>('landing');
   const fieldErrors = state.fieldErrors ?? {};
   const inputClass = (hasError: boolean) =>
     `w-full rounded-lg border px-4 py-2.5 text-sm text-slate-200 placeholder:text-slate-600 outline-none transition-all ${
@@ -38,9 +43,11 @@ export default function CopyAgentPage() {
     setSelectedImages(files);
   };
 
+  const displayContent = state.content || state.fallbackContent || '';
+
   const handleCopy = () => {
-    if (state.content) {
-      navigator.clipboard.writeText(state.content);
+    if (displayContent) {
+      navigator.clipboard.writeText(displayContent);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
@@ -77,6 +84,50 @@ export default function CopyAgentPage() {
                 encType="multipart/form-data"
               >
                 <div className="grid grid-cols-1 gap-4">
+                  <div className="space-y-2">
+                    <FieldTooltip
+                      label="Tipo de Saída"
+                      description="Escolha entre Landing Page completa (V3 ALPA) ou um Post/Pop-up resumido (Modal)."
+                      className="flex items-center gap-1"
+                    />
+                    <div className="grid grid-cols-2 gap-3">
+                      <label
+                        className={`cursor-pointer rounded-lg border px-4 py-3 text-sm font-medium transition-colors ${
+                          outputType === 'landing'
+                            ? 'border-indigo-500 bg-indigo-500/10 text-indigo-300'
+                            : 'border-white/10 bg-slate-950 text-slate-300 hover:bg-white/5'
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="outputType"
+                          value="landing"
+                          className="sr-only"
+                          checked={outputType === 'landing'}
+                          onChange={() => setOutputType('landing')}
+                        />
+                        Landing Page Completa
+                      </label>
+                      <label
+                        className={`cursor-pointer rounded-lg border px-4 py-3 text-sm font-medium transition-colors ${
+                          outputType === 'modal'
+                            ? 'border-indigo-500 bg-indigo-500/10 text-indigo-300'
+                            : 'border-white/10 bg-slate-950 text-slate-300 hover:bg-white/5'
+                        }`}
+                      >
+                        <input
+                          type="radio"
+                          name="outputType"
+                          value="modal"
+                          className="sr-only"
+                          checked={outputType === 'modal'}
+                          onChange={() => setOutputType('modal')}
+                        />
+                        Post Simples (Modal)
+                      </label>
+                    </div>
+                  </div>
+
                   <div className="space-y-2">
                     <FieldTooltip
                       label="Nome do Projeto"
@@ -253,6 +304,27 @@ export default function CopyAgentPage() {
                       </p>
                     )}
                   </div>
+
+                  <div className="space-y-2">
+                    <FieldTooltip
+                      label="Link do YouTube (opcional)"
+                      description="Se o projeto possui um vídeo principal, o agent irá tentar ler as legendas para gerar contexto extra."
+                      className="flex items-center gap-1"
+                    />
+                    <input
+                      id="youtubeUrl"
+                      name="youtubeUrl"
+                      type="url"
+                      maxLength={COPY_FIELD_LIMITS.youtubeUrl.max}
+                      className={inputClass(Boolean(fieldErrors.youtubeUrl))}
+                      placeholder="Ex: https://youtube.com/watch?v=..."
+                    />
+                    {fieldErrors.youtubeUrl && (
+                      <p className="text-xs text-red-300">
+                        {fieldErrors.youtubeUrl}
+                      </p>
+                    )}
+                  </div>
                 </div>
 
                 <div className="space-y-2">
@@ -264,6 +336,7 @@ export default function CopyAgentPage() {
                   <input
                     id="referenceImages"
                     name="referenceImages"
+                    title="Upload imagens de referência"
                     type="file"
                     accept="image/png,image/jpeg,image/webp,image/gif"
                     multiple
@@ -315,6 +388,7 @@ export default function CopyAgentPage() {
 
               {state.notice && (
                 <div className="p-4 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 text-sm">
+                  <span className="font-semibold">Atenção: </span>
                   {state.notice}
                 </div>
               )}
@@ -326,21 +400,28 @@ export default function CopyAgentPage() {
                 <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">
                   Resultado
                 </span>
-                {state.content && (
-                  <button
-                    onClick={handleCopy}
-                    className="text-slate-400 hover:text-white transition-colors"
-                    title="Copiar Markdown"
-                  >
-                    {copied ? <Check size={16} /> : <Copy size={16} />}
-                  </button>
+                {displayContent && (
+                  <div className="flex items-center gap-3">
+                    {state.aiGenerated === false && (
+                      <span className="text-[10px] font-medium uppercase tracking-wider text-amber-400 border border-amber-400/30 rounded px-2 py-0.5">
+                        Rascunho base
+                      </span>
+                    )}
+                    <button
+                      onClick={handleCopy}
+                      className="text-slate-400 hover:text-white transition-colors"
+                      title="Copiar Markdown"
+                    >
+                      {copied ? <Check size={16} /> : <Copy size={16} />}
+                    </button>
+                  </div>
                 )}
               </div>
 
               <div className="flex-1 p-6 overflow-y-auto max-h-[700px] scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-                {state.content ? (
+                {displayContent ? (
                   <div className="prose prose-invert prose-sm max-w-none prose-headings:text-indigo-300 prose-a:text-indigo-400">
-                    <ReactMarkdown>{state.content}</ReactMarkdown>
+                    <ReactMarkdown>{displayContent}</ReactMarkdown>
                   </div>
                 ) : (
                   <div className="h-full flex flex-col items-center justify-center text-slate-600 space-y-3">

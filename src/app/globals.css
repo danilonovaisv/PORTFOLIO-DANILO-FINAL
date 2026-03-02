@@ -32,6 +32,14 @@
   --size-cta-mobile: 181px;
   --size-cta-tablet: 201px;
   --size-cta-desktop: 241px;
+
+  /* Stacking Context / Layer Governance */
+  --z-layer-base: 0;
+  --z-layer-content: 10;
+  --z-layer-3d: 20;
+  --z-layer-cta: 30;
+  --z-layer-header: 40;
+  --z-layer-overlay: 50;
 }
 
 @import '../styles/fonts.css';
@@ -331,6 +339,9 @@ html.admin-page body {
 /* Group hover effect for cards */
 .group:hover .btn-icon-circle {
   background-color: var(--color-purpleDetails);
+  box-shadow:
+    0 0 0 1px rgba(135, 5, 242, 0.18),
+    0 0 26px rgba(135, 5, 242, 0.45);
 }
 
 /* Touch Target - Minimum 48px for accessibility (WCAG 2.5.5) */

@@ -9,6 +9,7 @@ import {
   buildSupabaseStorageUrl,
   normalizeStoragePath,
 } from '@/lib/supabase/urls';
+import { normalizeHomeFeaturedConfig } from '@/lib/portfolio/home-featured';
 import type { DbProjectWithTags } from '@/lib/supabase/queries/projects';
 import { isVideo, isYouTubeUrl } from '@/lib/utils';
 
@@ -25,6 +26,11 @@ type StaticProject = {
   description?: string;
   link?: string;
   landingPageSlug?: string | null;
+  homeFeatured?: {
+    enabled?: boolean;
+    cardStyle?: 'ANIMATED_BG_INVERTED_LOGO' | 'ANIMATED_BG_THUMB_OVERLAY_50';
+    logoPath?: string | null;
+  };
   layout: {
     h: string;
     cols: string;
@@ -314,9 +320,11 @@ function resolveProjectMedia(path?: string | null): string | undefined {
   }
 
   const normalizedPath = normalizeStoragePath(noLeadingSlash) ?? noLeadingSlash;
-  const inferredBucket = normalizedPath.startsWith('projects/')
-    ? 'portfolio-media'
-    : 'site-assets';
+  // Known site-level prefixes that belong in the site-assets bucket.
+  // Everything else (brand folders, project folders, etc.) goes to portfolio-media.
+  const SITE_ASSET_PREFIXES = ['about/', 'clients/', 'global/', 'home/', 'landing-pages/'];
+  const isSiteAsset = SITE_ASSET_PREFIXES.some((prefix) => normalizedPath.startsWith(prefix));
+  const inferredBucket = isSiteAsset ? 'site-assets' : 'portfolio-media';
 
   return buildSupabaseStorageUrl(inferredBucket, normalizedPath) ?? undefined;
 }
@@ -348,12 +356,17 @@ export function mapDbProjectToPortfolioProject(
     resolveProjectMedia(project.thumbnail_path) ||
     resolveProjectMedia(project.hero_image_path);
   const thumbnailIsVideo = isVideo(thumbnailMedia);
+  // Dedicated static hero fallback (never a video)
+  const heroImageUrl = !isVideo(project.hero_image_path)
+    ? resolveProjectMedia(project.hero_image_path)
+    : undefined;
   const primaryImageCandidates = [
     !thumbnailIsVideo ? thumbnailMedia : undefined,
     landscapeUrl,
     squareUrl,
-    thumbnailMedia,
-    gallery[0],
+    heroImageUrl,
+    // Filter gallery to only include non-video entries
+    ...gallery.filter((url) => !isVideo(url)),
   ].filter(Boolean) as string[];
 
   const primaryImage = primaryImageCandidates[0] || '';
@@ -392,6 +405,10 @@ export function mapDbProjectToPortfolioProject(
     isFeatured: project.featured_on_home || project.featured_on_portfolio,
     featuredOnHome: project.featured_on_home,
     featuredOnPortfolio: project.featured_on_portfolio,
+    homeFeatured: normalizeHomeFeaturedConfig(
+      (project as DbProjectWithTags & { home_featured?: unknown }).home_featured,
+      project.featured_on_home
+    ),
     videoPreview,
     landingPageSlug: normalizedLandingSlug ?? landingSlugSource,
     destination,
@@ -441,6 +458,7 @@ export function mapStaticProjectToPortfolioProject(
     isFeatured: true,
     featuredOnHome: true,
     featuredOnPortfolio: true,
+    homeFeatured: normalizeHomeFeaturedConfig(project.homeFeatured, true),
     videoPreview: undefined,
     landingPageSlug: normalizedLandingSlug ?? project.landingPageSlug,
     link: project.link,

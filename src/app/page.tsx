@@ -56,6 +56,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `https://${BRAND.domain}`,
   },
+  formatDetection: {
+    telephone: false,
+    date: false,
+    email: false,
+    address: false,
+  },
 };
 
 export default async function HomePage() {

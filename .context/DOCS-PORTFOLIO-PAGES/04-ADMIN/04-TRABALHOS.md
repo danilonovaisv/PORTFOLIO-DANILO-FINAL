@@ -39,3 +39,25 @@ CRUD completo de projetos com filtros, publicação e destaques para Home/Portfo
 - Mutações de projetos (`upsert/delete`) passaram a exigir `service_role` no servidor para evitar falha de RLS em ambientes com claims inconsistentes.
 - Upload de mídia no admin foi centralizado em endpoint server-side (`/api/admin/storage/upload`) para remover dependência de policy de upload no client.
 - Schema de projeto refatorado para separar campos base e refinements, eliminando o conflito de runtime entre `extend()` e schema refinado.
+
+## 7. Trabalhos / Projetos — Storage Sync (Auditoria)
+
+**Sincronia Storage**
+Para evitar criação de múltiplos diretórios órfãos:
+
+- Ao editar o título ou slug de um trabalho, em vez de criar um novo armazenamento, existe uma rotina em `actions.ts` (`moveProjectFolder`) que move e atualiza os assets já hospedados da pasta antiga para a nova pasta com o **novo slug** sem perder cache.
+- O ato de Deletar um trabalho exclui definitivamente suas pastas de variações de mídia (inclusive a legacy `projects/` folder) para manter o bucket de storage limpo.
+
+## 8. Trabalhos — Regras de Nome/Slug (Auditoria)
+
+**Tratamento de Colisões (Duplicate Keys)**
+
+- O sistema antes acusava uma mensagem genérica de `Erro ao salvar projeto` enviada como retorno caso uma colisão de chaves exclusivas de Postgres (`portfolio_projects_slug_key`) fosse detectada.
+- Em `actions.ts`, foi implementada uma validação manual de unicidade **excluindo o próprio registro**. Se o `slug` escolhido já existir em outro trabalho, um log claro de `Já existe um projeto com este slug/nome. Por favor, mude o slug do projeto.` é retornado em tela para orientar o Editor.
+
+## 9. Assets — Estrutura de Pastas e Regras de Rename (Auditoria)
+
+- **Padronização Pós-V4:** A estrutura unifica qualquer inserção nova feita via Admin para a trilha sem gerar pathings dispersos:
+  - Projetos: `/{MARCA}/{NOME-DO-PROJETO}/assets-do-projeto/`
+  - Arquivos soltos da galeria (se houver): `/{MARCA}/{NOME-DO-PROJETO}/assets-do-projeto/gallery/`
+- Foram corrigidas as declarações do cliente visual em `ProjectForm.tsx` para assegurar que toda submissão (16:9, 1:1, galerias dinâmicas) utilizem este caminho, consolidando arquivos por sessão sem espalhamento na raiz do bucket.

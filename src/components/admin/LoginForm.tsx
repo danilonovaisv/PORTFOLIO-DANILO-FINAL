@@ -11,14 +11,20 @@ export default function LoginForm() {
   const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const [isRedirecting, setIsRedirecting] = useState(false);
+  const [mode, setMode] = useState<'login' | 'signup'>('login');
+  const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
 
   // Check for auth errors from callback
   useEffect(() => {
     const authError = searchParams.get('error');
+    const authMsg = searchParams.get('message');
     if (authError) {
       setError('Erro na autenticação. Por favor, tente novamente.');
+    }
+    if (authMsg) {
+      setSuccessMsg(authMsg);
     }
   }, [searchParams]);
 
@@ -42,11 +48,40 @@ export default function LoginForm() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
+    setSuccessMsg(null);
 
     startTransition(async () => {
       try {
         const supabase = createClientComponentClient();
 
+        if (mode === 'signup') {
+          const { data, error: signUpError } = await supabase.auth.signUp({
+            email,
+            password,
+          });
+
+          if (signUpError) {
+            console.error('SignUp error:', signUpError);
+            setError(signUpError.message);
+            return;
+          }
+
+          if (data.session) {
+            setIsRedirecting(true);
+            router.refresh();
+            setTimeout(() => {
+              window.location.href = ADMIN_NAVIGATION.dashboard;
+            }, 500);
+          } else {
+            setSuccessMsg(
+              'Cadastro realizado. Se necessário, confirme seu email.'
+            );
+            setMode('login');
+          }
+          return;
+        }
+
+        // Login Mode
         const { data, error: signInError } =
           await supabase.auth.signInWithPassword({
             email,
@@ -61,11 +96,7 @@ export default function LoginForm() {
 
         if (data.session) {
           setIsRedirecting(true);
-          // Important: Refresh ensures Next.js Server Components see the new cookies
           router.refresh();
-
-          // Use a small delay and window.location.href for a full reload
-          // This ensures cookies are properly picked up by the server on next load
           setTimeout(() => {
             window.location.href = ADMIN_NAVIGATION.dashboard;
           }, 500);
@@ -73,7 +104,7 @@ export default function LoginForm() {
           setError('Falha ao estabelecer sessão. Tente novamente.');
         }
       } catch (err) {
-        console.error('Login exception:', err);
+        console.error('Auth exception:', err);
         setError('Ocorreu um erro inesperado.');
       }
     });
@@ -81,14 +112,31 @@ export default function LoginForm() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <p className="text-sm uppercase tracking-[0.25em] text-slate-400">
-          Admin
-        </p>
-        <h1 className="text-2xl font-semibold mt-2">Entrar no painel</h1>
-        <p className="text-sm text-slate-400 mt-1">
-          Use seu email e senha do Supabase Auth.
-        </p>
+      <div className="flex justify-between items-end">
+        <div>
+          <p className="text-sm uppercase tracking-[0.25em] text-slate-400">
+            Admin
+          </p>
+          <h1 className="text-2xl font-semibold mt-2">
+            {mode === 'login' ? 'Entrar no painel' : 'Criar nova conta'}
+          </h1>
+          <p className="text-sm text-slate-400 mt-1">
+            {mode === 'login'
+              ? 'Use seu email e senha do Supabase Auth.'
+              : 'Registre-se (sujeito a validação de acesso).'}
+          </p>
+        </div>
+        <button
+          className="text-sm text-blue-400 hover:text-blue-300 underline underline-offset-4"
+          onClick={() => {
+            setMode(mode === 'login' ? 'signup' : 'login');
+            setError(null);
+            setSuccessMsg(null);
+          }}
+          type="button"
+        >
+          {mode === 'login' ? 'Fazer Cadastro' : 'Já tenho conta'}
+        </button>
       </div>
 
       <form className="space-y-4" onSubmit={handleSubmit}>
@@ -117,6 +165,15 @@ export default function LoginForm() {
           />
         </label>
 
+        {successMsg && (
+          <div
+            className="text-sm text-emerald-400"
+            role="alert"
+            aria-live="polite"
+          >
+            {successMsg}
+          </div>
+        )}
         {error && (
           <div className="text-sm text-red-400" role="alert" aria-live="polite">
             {error}
@@ -131,8 +188,12 @@ export default function LoginForm() {
           {isRedirecting
             ? 'Redirecionando...'
             : isPending
-              ? 'Entrando...'
-              : 'Entrar'}
+              ? mode === 'login'
+                ? 'Entrando...'
+                : 'Cadastrando...'
+              : mode === 'login'
+                ? 'Entrar'
+                : 'Cadastrar'}
         </button>
       </form>
     </div>

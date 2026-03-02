@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 import {
@@ -10,6 +10,7 @@ import {
 } from '@/config/motion';
 import FeaturedProjectCard from '@/components/home/featured-projects/FeaturedProjectCard';
 import CTAProjectCard from '@/components/home/featured-projects/CTAProjectCard';
+import { buildFeaturedProjectBackgroundAssignment } from '@/components/home/featured-projects/animated-backgrounds';
 import type { PortfolioProject } from '@/types/project';
 import { Container } from '@/components/layout/Container';
 
@@ -39,12 +40,20 @@ export default function FeaturedProjectsSection({
   onProjectOpen,
 }: FeaturedProjectsSectionProps) {
   const reducedMotion = useMotionGate();
+  const [backgroundSeed] = useState(() =>
+    Math.floor(Math.random() * 2147483647)
+  );
   const featuredProjects = useMemo(() => {
     const source = projects.filter(
       (project) => project.featuredOnHome ?? project.isFeatured
     );
     return source;
   }, [projects]);
+  const backgroundVariants = useMemo(
+    () =>
+      buildFeaturedProjectBackgroundAssignment(featuredProjects, backgroundSeed),
+    [featuredProjects, backgroundSeed]
+  );
 
   // Card variants sem scale (Ghost Design System proíbe scale em elementos principais)
   const cardVariants = {
@@ -95,6 +104,9 @@ export default function FeaturedProjectsSection({
                   project={project}
                   onOpen={onProjectOpen}
                   priority={index < 3}
+                  backgroundVariant={
+                    backgroundVariants[index] ?? backgroundVariants[0] ?? 'grainient'
+                  }
                 />
               </motion.div>
             );

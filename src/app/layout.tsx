@@ -73,6 +73,10 @@ export default function RootLayout({
         />
         {/* DNS Prefetch for external resources */}
         <link rel="dns-prefetch" href="https://assets.codepen.io" />
+        <link
+          rel="dns-prefetch"
+          href={getSupabaseBaseUrl().replace(/\/+$/, '')}
+        />
         {/* Preconnect to Supabase storage for faster LCP image delivery */}
         <link
           rel="preconnect"

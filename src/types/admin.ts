@@ -23,6 +23,13 @@ export type DbProject = {
   featured_on_portfolio: boolean;
   featured_home_order: number | null;
   featured_portfolio_order: number | null;
+  home_featured:
+    | {
+        enabled?: boolean;
+        cardStyle?: 'ANIMATED_BG_INVERTED_LOGO' | 'ANIMATED_BG_THUMB_OVERLAY_50';
+        logoPath?: string | null;
+      }
+    | null;
   is_published: boolean;
   landing_page_id: string | null;
   destination: any | null; // Usando any aqui para simplificar o JSONB, mas pode ser tipado

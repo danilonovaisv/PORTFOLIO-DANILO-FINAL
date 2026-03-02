@@ -73,7 +73,7 @@ export function AboutBeliefs() {
   return (
     <MotionSection
       ref={containerRef}
-      className="relative w-full"
+      className="relative w-full isolate z-[var(--z-layer-base)]"
       data-testid="about-beliefs-section"
       style={{ minHeight: `${(PHRASES.length + 2) * 100}vh` }} // Garante altura baseada no conteúdo
     >
@@ -83,7 +83,7 @@ export function AboutBeliefs() {
         prefersReducedMotion={prefersReduced}
       />
       {/* LAYER 1: Seções de Conteúdo (Texto Scrollável) - Background */}
-      <MotionDiv className="relative z-0">
+      <MotionDiv className="relative z-[var(--z-layer-content)]">
         {/* Adicionei verificações para evitar erro se PHRASES/COLORS estiverem vazios */}
         {PHRASES.map((phrase, index) => (
           <BeliefSection
@@ -107,15 +107,17 @@ export function AboutBeliefs() {
       </MotionDiv>
 
       {/* LAYER 2: Texto Mobile Fixed no Footer */}
-      <BeliefMobileTextLayer
-        phrases={PHRASES}
-        scrollYProgress={prefersReduced ? undefined : scrollYProgress}
-        MotionDiv={MotionDiv}
-        prefersReducedMotion={prefersReduced}
-      />
+      <div className="relative z-[var(--z-layer-content)]">
+        <BeliefMobileTextLayer
+          phrases={PHRASES}
+          scrollYProgress={prefersReduced ? undefined : scrollYProgress}
+          MotionDiv={MotionDiv}
+          prefersReducedMotion={prefersReduced}
+        />
+      </div>
 
       {/* LAYER 4: Final Text Overlay (Z-10) - Overlay */}
-      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-10">
+      <div className="absolute bottom-0 left-0 w-full h-screen pointer-events-none z-[var(--z-layer-content)]">
         <BeliefFinalSectionOverlay
           MotionDiv={MotionDiv}
           prefersReducedMotion={prefersReduced}
@@ -124,7 +126,7 @@ export function AboutBeliefs() {
 
       {/* LAYER 3: Canvas 3D (sem captura de eventos) - Overlay */}
       <div
-        className="absolute inset-0 z-10 w-full h-full pointer-events-none"
+        className="absolute inset-0 z-[var(--z-layer-3d)] w-full h-full pointer-events-none"
         aria-hidden
       >
         <div className="sticky top-0 w-full h-screen overflow-hidden pointer-events-none flex md:items-center md:justify-center items-end justify-start">

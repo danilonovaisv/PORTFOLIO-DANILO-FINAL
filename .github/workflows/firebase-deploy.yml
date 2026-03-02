@@ -75,8 +75,6 @@ jobs:
             sed -i 's/"link:src\//"file:..\/src\//g' functions/package.json
             echo "✅ Corrigido para 'file:../src/'"
           fi
-          # Validar instalação das funções
-          cd functions && pnpm install
 
       - name: Build Cloud Functions
         run: cd functions && pnpm run build
@@ -100,8 +98,8 @@ jobs:
 
       - name: Validate Firebase Auth Secret
         run: |
-          if [ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}" ]; then
-            echo "❌ ERRO: FIREBASE_SERVICE_ACCOUNT_JSON não configurado no GitHub Secrets."
+          if [ -z "${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS }}" ]; then
+            echo "❌ ERRO: FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS não configurado no GitHub Secrets."
             echo "Vá em Settings > Secrets and variables > Actions e adicione o JSON da conta de serviço."
             exit 1
           fi
@@ -110,19 +108,104 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PORTFOLIO_DANILO_NOVAIS }}
           create_credentials_file: true
           export_environment_variables: true
 
+      - name: Resolve Firebase project id
+        id: firebase_project
+        env:
+          SECRET_FB_PROJECT: ${{ secrets.FIREBASE_PROJECT }}
+        run: |
+          # Use available project secrets or auth outputs
+          if [ -n "$SECRET_FB_PROJECT" ]; then
+            PROJECT_ID="$SECRET_FB_PROJECT"
+            SOURCE="GitHub Secret FIREBASE_PROJECT"
+          elif [ -n "${{ steps.auth.outputs.project_id }}" ]; then
+            PROJECT_ID="${{ steps.auth.outputs.project_id }}"
+            SOURCE="Service Account project_id"
+          elif [ -f .firebaserc ]; then
+            PROJECT_ID=$(node -e "const fs=require('fs');const rc=JSON.parse(fs.readFileSync('.firebaserc','utf8'));process.stdout.write(rc?.projects?.default||'')")
+            SOURCE=".firebaserc (projects.default)"
+          fi
+
+          if [ -z "$PROJECT_ID" ]; then
+            echo "❌ ERRO: Não foi possível resolver o Firebase Project ID."
+            echo "Defina FIREBASE_PROJECT_ID no GitHub Secrets ou configure .firebaserc/projects.default"
+            exit 1
+          fi
+
+          echo "project_id=$PROJECT_ID" >> "$GITHUB_OUTPUT"
+          echo "✅ Projeto Firebase resolvido: $PROJECT_ID ($SOURCE)"
+
       - name: Install Firebase CLI
-        run: npm install -g firebase-tools
+        run: npm install -g firebase-tools@latest --legacy-peer-deps
+
+      - name: Validate Firebase project access
+        continue-on-error: true
+        run: |
+          TARGET_PROJECT="${{ steps.firebase_project.outputs.project_id }}"
+          firebase projects:list --json 2>/dev/null > firebase-projects.json || true
+
+          node -e "
+            const fs = require('fs');
+            const raw = fs.readFileSync('firebase-projects.json', 'utf8');
+            let data;
+            try { data = JSON.parse(raw); } catch {
+              console.log('⚠️ Could not parse firebase projects JSON — skipping validation.');
+              console.log('   Raw output (first 300 chars):', raw.substring(0, 300));
+              process.exit(0);
+            }
+
+            // Firebase CLI may return { results: [...] }, { result: [...] }, or just [...]
+            const projects = Array.isArray(data) ? data : (data.results || data.result || []);
+            const ids = projects.map(p => p.projectId || p.projectid || p.id).filter(Boolean);
+
+            console.log('📋 Projects accessible by this Service Account:', ids.join(', ') || '(none)');
+
+            if (ids.includes('${TARGET_PROJECT}')) {
+              console.log('✅ Acesso ao projeto validado para ${TARGET_PROJECT}');
+            } else {
+              console.log('⚠️ Projeto ${TARGET_PROJECT} não aparece em firebase projects:list.');
+              console.log('   Isso pode ser normal se a SA tem acesso via IAM mas não é membro Firebase.');
+              console.log('   O deploy vai tentar de qualquer forma — Firebase CLI dará o veredito final.');
+            }
+          "
+
+      - name: Switch to NPM for reliable Firebase Cloud Build
+        run: |
+          echo "🔄 Preparando ambiente NPM para Firebase Cloud Build..."
+
+          # Remove node_modules (instalados via pnpm) para reinstalar via npm
+          # NÃO deletar pnpm-lock.yaml: precisamos manter para sincronização local
+          rm -rf node_modules
+
+          # Remove o campo 'packageManager' do package.json:
+          # O Firebase Cloud Build usa npm internamente e falha se pnpm for o packageManager.
+          sed -i '/"packageManager":/d' package.json
+          echo "✅ Campo packageManager removido do package.json"
+
+          # Instala dependências via npm (necessário para o Cloud Build)
+          npm install --legacy-peer-deps
+          echo "✅ npm install concluído"
+
+          # ── FIX: sharp version mismatch ───────────────────────────────────────
+          # O Firebase Cloud Build gera um package.json interno para a Cloud Function SSR
+          # e roda `npm ci` com o package-lock.json fornecido. Se esse lock tiver versões
+          # antigas (ex: sharp@0.33.x), o build falha com EUSAGE.
+          # Solução: gerar um package-lock.json atualizado com as versões atuais.
+          echo "📦 Gerando package-lock.json alinhado para Cloud Build..."
+          npm install --legacy-peer-deps --package-lock-only --ignore-scripts \
+            || npm install --legacy-peer-deps --package-lock-only --ignore-scripts --force \
+            || echo "⚠️ Aviso: não foi possível gerar package-lock.json fresco"
+          echo "✅ package-lock.json gerado"
 
       - name: Deploy to Firebase
         run: |
           firebase experiments:enable webframeworks
           # O erro 403 nas extensões ocorre se o Service Account não tiver a role 'Firebase Admin' 
           # ou se a API de extensões estiver desativada no projeto.
-          firebase deploy --only hosting,functions --project portfolio-danilo-novais --force --non-interactive
+          firebase deploy --only hosting,functions --project "${{ steps.firebase_project.outputs.project_id }}" --debug --non-interactive
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
 
@@ -130,7 +213,7 @@ jobs:
         if: success()
         run: |
           echo "✅ Deploy completed successfully!"
-          echo "🌐 Site: https://portfolio-danilo-novais.web.app"
+          echo "🌐 Site: https://${{ steps.firebase_project.outputs.project_id }}.web.app"
           echo "### Deploy Finalizado com Sucesso 🚀" >> $GITHUB_STEP_SUMMARY
           echo "Ambiente buildado com sucesso injetando variáveis seguras." >> $GITHUB_STEP_SUMMARY
 

@@ -1,179 +1,202 @@
 # 05-FEATURED-PROJECTS
 
-## 0. Estrutura de arquivos da sessão
+## 0. O que mudou
 
-- Arquivos principais:
+- A HOME agora usa o sistema `BACKGROUND ANIMADO THUMBS HOME` nos cards da seção Featured Projects.
+- Cada card recebe uma camada visual dinâmica com um background ReactBits:
+  - `grainient`
+  - `ghost`
+  - `aurora`
+- O background não é persistido no projeto/post. Apenas o layout do card destaque é salvo no projeto via `home_featured`.
+- O admin ganhou uma área exclusiva `Destaques HOME` para controlar:
+  - se o projeto entra na Home
+  - qual layout do card destaque deve ser usado
+  - qual logo invertido será usado quando o layout exigir branding central
+
+## 1. Arquivos envolvidos
+
+- HOME / Featured Projects
   - `src/components/home/featured-projects/FeaturedProjectsRealtime.tsx`
   - `src/components/home/featured-projects/FeaturedProjectsSection.tsx`
   - `src/components/home/featured-projects/FeaturedProjectCard.tsx`
-  - `src/components/home/featured-projects/CTAProjectCard.tsx`
-  - `src/components/portfolio/PortfolioModal.tsx`
-  - `src/lib/supabase/client.ts`
+  - `src/components/home/featured-projects/FeaturedProjectCardFrame.tsx`
+  - `src/components/home/featured-projects/FeaturedProjectAnimatedBackground.tsx`
+  - `src/components/home/featured-projects/animated-backgrounds.ts`
+- ReactBits gerados via shadcn
+  - `src/components/Grainient.tsx`
+  - `src/components/GhostCursor.tsx`
+  - `src/components/Aurora.tsx`
+- Tipos / schemas / mapeamento
+  - `src/types/project.ts`
+  - `src/types/admin.ts`
+  - `src/lib/portfolio/home-featured.ts`
   - `src/lib/portfolio/project-mappers.ts`
-- Dependências:
-  - Supabase client/realtime + polling fallback
-  - Framer Motion
-  - Next Image/Link
-- Padrão arquitetural:
-  - Camada de dados em tempo real + camada de apresentação em grid bento.
-- Observações sobre coesão e acoplamento:
-  - Coesão alta por domínio.
-  - Acoplamento médio com schema de dados e modal global de projeto.
+  - `src/lib/admin/schemas/project.ts`
+  - `src/lib/supabase.types.ts`
+- Admin
+  - `src/components/admin/ProjectForm.tsx`
+  - `src/app/admin/(protected)/trabalhos/actions.ts`
+- Banco / view pública
+  - `supabase/migrations/20260301011000_home_featured_animated_cards.sql`
 
-## 1. Objetivo da Página/Sessão
+## 2. Alternância aleatória dos backgrounds
 
-Exibir projetos em destaque da HOME com atualização dinâmica e permitir exploração via landing page ou modal contextual.
+- Pool fixo:
+  - `['grainient', 'ghost', 'aurora']`
+- A distribuição acontece no client dentro de `FeaturedProjectsSection`.
+- A função `buildFeaturedProjectBackgroundAssignment()`:
+  - cria uma lista distribuída reaproveitando o pool inteiro antes de repetir
+  - aplica shuffle determinístico com seed de montagem
+  - mantém consistência durante a mesma renderização/mount da seção
+- O projeto não salva qual background recebeu.
+- Um refresh ou nova navegação pode resultar em outra combinação, mas sempre com distribuição equilibrada entre os cards carregados.
 
-## 2. Estrutura de Conteúdo
+## 3. Layouts persistidos no admin
 
-- Headings:
-  - Cards usam `h3` por projeto.
-  - A seção não possui heading visível (`h2`) próprio.
-- Hierarquia semântica:
-  - `section` com `aria-label`, grid de cards e CTA final.
-- Textos principais:
-  - Categoria, cliente/ano, título do projeto.
-- CTA’s:
-  - CTA card “Like what you see?”
-  - Abertura modal ou navegação para case.
-- Fonts utilizadas:
-  - Fontes globais; títulos em escalas grandes.
-- Peso das fontes:
-  - `font-medium` e `font-normal` predominantes.
-- Tokens aplicados:
-  - Blue/purple no ícone circular e hover.
-- Densidade de informação:
-  - Média/alta (4 cards + CTA em layout bento).
+Persistência nova no projeto:
 
-## 3. Identidade Visual
+- Coluna: `portfolio_projects.home_featured jsonb`
+- Shape esperado:
 
-- Cores aplicadas:
-  - Fundo dark e cartões com superfícies translúcidas.
-- Gradientes:
-  - Glow radial no CTA card.
-- Backgrounds:
-  - Mídia (imagem/vídeo) ocupa card shell com overlay sutil.
-- Consistência com GHOST-DESIGN-SYSTEM:
-  - Visual alinhado.
-- Uso de contraste:
-  - Bom em metadados e títulos, com atenção a opacidades baixas.
-- Coerência tipográfica:
-  - Consistente com padrão editorial.
+```json
+{
+  "enabled": true,
+  "cardStyle": "ANIMATED_BG_INVERTED_LOGO",
+  "logoPath": "portfolio-media/cliente/projeto/assets-do-projeto/home-featured/logo-inverted.png"
+}
+```
 
-## 4. Interatividade & Animações
+Layouts disponíveis:
 
-- Uso de Framer Motion:
-  - Stagger de cards + reveal.
-- Variants:
-  - `opacity + y + blur`.
-- Scroll animations:
-  - While-in-view do container.
-- Microinterações:
-  - Elevação no hover e círculo com seta.
-- Riscos de layout shift:
-  - Baixo se mídias tiverem proporções consistentes.
-- Impacto em performance:
-  - Médio por vídeos autoplay + atualização realtime/polling.
+- `ANIMATED_BG_INVERTED_LOGO`
+  - background animado + logo invertido central fixo
+  - exige `logoPath`
+  - se não houver logo, o render cai automaticamente para o layout de thumb overlay
+- `ANIMATED_BG_THUMB_OVERLAY_50`
+  - background animado + thumb do projeto com overlay escuro de 50%
+  - usa as capas já existentes (`url_landscape`, `url_square` ou fallback estático)
 
-## 5. Responsividade
+Importante:
 
-- Desktop:
-  - Grid bento 12 colunas bem definido.
-- Tablet:
-  - Ajuste para 8 colunas.
-- Mobile:
-  - Coluna única (`col-span-4`).
-- Breakpoints:
-  - `md`/`lg` com spans fixos.
-- Grid/Flex:
-  - Grid consistente com shell de altura padronizada.
-- Overflow:
-  - Controlado por `card-shell`.
-- CLS potencial:
-  - Baixo, desde que a mídia mantenha aspect ratio esperado.
+- `featured_on_home` continua sendo a flag principal de destaque.
+- `home_featured.enabled` acompanha esse estado para manter o agrupamento sem duplicar a regra de publicação.
+- Não existe campo de escolha do background animado. Isso é sempre dinâmico na HOME.
 
-## 6. Acessibilidade & SEO
+## 4. Regras de render dos cards
 
-- Estrutura semântica:
-  - `section` presente, mas ausência de heading próprio reduz legibilidade semântica.
-- ARIA:
-  - Cards associados por `aria-labelledby`.
-- Alt em imagens:
-  - Presentes e contextualizadas por projeto.
-- Navegação por teclado:
-  - Links e botões com foco visível.
-- Contraste (WCAG):
-  - Geralmente adequado.
-- Heading structure:
-  - Gap: sem `h2` da seção.
-- Meta tags:
-  - Não aplicável direto.
-- SEO técnico:
-  - Links internos para cases favorecem crawling.
+- O background animado é sempre a camada mais baixa do card.
+- O overlay de branding fica acima:
+  - logo invertido central
+  - ou thumb com overlay 50%
+- O conteúdo editorial do card permanece igual:
+  - categoria / cliente / ano
+  - título
+  - CTA small com seta
+  - rota/link/modal existente
 
-## 7. Integrações ou Recursos Especiais
+Hover aplicado:
 
-- Firebase:
-  - Não utilizado diretamente.
-- Supabase:
-  - Query em `public_projects_view`, realtime channel + polling fallback (15s).
-- APIs externas:
-  - Não aplicável.
+- zoom leve do shell
+- translate sutil do card
+- parallax de mouse na camada visual
+- glow roxo `#8705f2` no shell
+- glow roxo no `btn-icon-circle`
+- CTA small muda de azul para roxo no hover
+
+## 5. Performance e acessibilidade
+
+Regras obrigatórias implementadas:
+
+- `pointer-events: none` em toda a camada de background animado
+- fallback estático quando:
+  - `prefers-reduced-motion`
+  - sem suporte WebGL
+  - card fora da viewport
+- pausa/offscreen:
+  - `FeaturedProjectAnimatedBackground` usa `IntersectionObserver`
+  - quando o card sai da viewport, a versão animada desmonta e sobra só a superfície estática
+- pausa por aba oculta:
+  - `document.visibilitychange`
+- budget de DPR:
+  - `GhostCursor`: `maxDevicePixelRatio=0.65` + `targetPixels=180000`
+  - `Grainient`: limite de DPR reduzido
+  - `Aurora`: limite de DPR reduzido
 - SSR/CSR:
-  - Híbrido: dados iniciais SSR em `page.tsx` + atualização client.
-- Lazy loading:
-  - Imagens lazy e vídeo com preload condicional.
-- Suspense:
-  - Não aplicado diretamente.
+  - wrappers via `dynamic(..., { ssr: false })`
+  - durante SSR/hidratação inicial, o card renderiza só a superfície estática
 
-## 8. Considerações Técnicas
+Legibilidade:
 
-- Performance:
-  - Polling periódico + realtime pode aumentar consumo em background.
-- Bundle size:
-  - Moderado.
-- Code splitting:
-  - Não crítico na seção.
-- Reusabilidade:
-  - Boa divisão entre seção, card e CTA card.
-- Testabilidade:
-  - Requer testes de integração para estados realtime/polling.
-- Escalabilidade:
-  - Boa para mais cards, com layout já parametrizado.
-- Débito técnico:
-  - Falta heading da seção.
-  - Possível duplicidade de custo de atualização (polling + realtime simultâneo em cenários de erro/intermitência).
-- Recomendações arquiteturais:
-  - Adicionar `h2` semântico para seção.
-  - Refinar estratégia de reconexão para reduzir custo em redes instáveis.
+- sobreposição escura fixa no shell
+- thumb overlay com 50%
+- logo central tratado como decorativo para não duplicar leitura com o texto do card
 
----
+## 6. Manutenção
 
-## 9. Componentes Interativos
+Se quiser trocar o comportamento visual:
 
-🎨 **Biblioteca de Componentes:**
-| Componente | Descrição | Estados | Interações | Status |
-|------------|-----------|---------|------------|--------|
-| Botão CTA | CTA de continuidade para contato/portfólio | Default, Hover, Focus, Active | Navegação/anchor | Implementado |
-| Modal | Detalhe de projeto em overlay com foco preso | Closed, Opening, Open, Closing | Abrir por card, fechar por Esc/backdrop | Implementado |
-| Formulário | Não aplicável nesta sessão | N/A | N/A | Não se aplica |
-| Slider | Não há slider clássico; há grid editorial responsivo | N/A | N/A | Não se aplica |
-| Menu Mobile | Global via header | Closed/Open | Navegação global | Implementado (global) |
+- ajuste o pool e o algoritmo:
+  - `src/components/home/featured-projects/animated-backgrounds.ts`
+- ajuste props/performance de cada background:
+  - `src/components/home/featured-projects/FeaturedProjectAnimatedBackground.tsx`
+- ajuste o shell visual e o parallax:
+  - `src/components/home/featured-projects/FeaturedProjectCardFrame.tsx`
+- ajuste regras persistidas do admin:
+  - `src/lib/portfolio/home-featured.ts`
+  - `src/lib/admin/schemas/project.ts`
+  - `src/components/admin/ProjectForm.tsx`
 
-🔄 **Estados e Transições:**
+Se adicionar um quarto background:
 
-- Hover: Cards destacam metadados e affordance de clique.
-- Focus: Acesso por teclado em cards e CTA com foco visível.
-- Loading: Skeleton/carregamento progressivo durante fetch de projetos.
-- Error: Fallback de estado quando consulta falha.
-- Success: Modal/roteamento de projeto inicia fluxo de exploração sem recarregar a página.
+1. registrar no pool `FEATURED_PROJECT_BACKGROUND_POOL`
+2. criar fallback estático correspondente
+3. adicionar o render no resolver `FeaturedProjectAnimatedBackground`
+4. validar custo de GPU no mobile
 
-## 10. Estrutura de Páginas e Navegação
+## 7. Retrocompatibilidade
 
-- Nó de navegação para detalhes de projetos em `/portfolio/[slug]` e modal contextual.
-- Inclui CTA final para conversão no fluxo principal.
+- Projetos antigos destacados na Home continuam renderizando.
+- Quando `home_featured` não existe:
+  - o mapper assume `ANIMATED_BG_THUMB_OVERLAY_50`
+- Quando o estilo salvo é `ANIMATED_BG_INVERTED_LOGO`, mas não há `logoPath`:
+  - o resolver degrada automaticamente para o layout de thumb overlay
+- Quando não houver thumb válida:
+  - o frame mostra fallback textual com a categoria do projeto
 
-## 11. Informações Relevantes para Compreensão da Sessão
+## 8. Checklist de QA manual
 
-- Fonte dinâmica de dados com Supabase + fallback de polling para resiliência.
-- A sessão é crítica para engajamento e deve manter INP sob controle em grids com animação.
+- HOME:
+  - abrir `/` e confirmar que os 4 cards de destaque mostram backgrounds animados
+  - validar que os 3 tipos aparecem distribuídos entre os cards
+  - dar refresh e confirmar que a combinação pode mudar
+  - confirmar que o texto do card continua legível
+- Hover:
+  - mover o mouse sobre cada card
+  - verificar zoom leve + parallax sutil
+  - verificar glow roxo no card
+  - verificar mudança de cor e glow do CTA small
+- Reduced motion:
+  - ativar `prefers-reduced-motion`
+  - confirmar que os cards mostram apenas superfícies estáticas
+- Offscreen:
+  - inspecionar cards fora da viewport e confirmar desmontagem/pausa da camada animada
+- Admin:
+  - editar um projeto
+  - marcar `Exibir este trabalho como destaque na Home`
+  - alternar entre os dois layouts
+  - tentar salvar modo logo invertido sem logo e confirmar validação
+  - subir logo invertido e salvar com sucesso
+- Retrocompatibilidade:
+  - abrir um projeto antigo destacado sem `home_featured`
+  - confirmar fallback para thumb overlay sem erro de render
+- Build:
+  - rodar lint, typecheck e build
+
+## 9. Dependências
+
+- `ogl`
+- `three`
+- Componentes ReactBits adicionados via `shadcn add`:
+  - `@react-bits/Grainient-TS-TW`
+  - `@react-bits/GhostCursor-TS-TW`
+  - `@react-bits/Aurora-TS-TW`

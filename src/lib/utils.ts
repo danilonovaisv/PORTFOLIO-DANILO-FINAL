@@ -57,6 +57,7 @@ export function applyImageFallback(
   if (target.dataset.fallbackApplied) return;
   target.dataset.fallbackApplied = 'true';
   target.src = ASSET_PLACEHOLDER;
+  target.srcset = '';
 }
 
 export const getGhostAssetUrl = (path?: string | null): string => {

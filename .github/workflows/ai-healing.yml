@@ -12,8 +12,8 @@ name: 🛡️ AI Self-Healing Agent
 on:
   workflow_run:
     workflows:
-      - Firebase Hosting Merge
-      - Firebase Hosting PR Preview
+      - Firebase Deploy
+      - Deploy to Firebase Hosting on PR
     types:
       - completed
   workflow_dispatch:
@@ -45,32 +45,41 @@ jobs:
         run: |
           RUN_ID="${{ github.event.inputs.run_id || github.event.workflow_run.id }}"
           if [ -n "$RUN_ID" ]; then
-            gh run view "$RUN_ID" --log-failed > error_logs.txt || echo "No failed logs found" > error_logs.txt
+            gh run view "$RUN_ID" --log-failed > error_logs.txt 2>&1 || echo "No failed logs found" > error_logs.txt
           else
             echo "No workflow run ID available" > error_logs.txt
           fi
+          # Truncate to avoid exceeding prompt limits
+          head -c 8000 error_logs.txt > error_logs_truncated.txt
+          mv error_logs_truncated.txt error_logs.txt
         env:
           GH_TOKEN: ${{ github.token }}
 
-      - name: 🧾 Build Gemini prompt
+      - name: 🧾 Build analysis prompt
         id: build_prompt
         run: |
           {
-            echo "prompt<<'EOF'"
-            echo "Analyze these failed workflow logs from a Next.js project with Firebase Hosting."
+            echo "prompt<<EOF_MARKER"
+            echo "Analyze these failed workflow logs from a Next.js 16 project deployed to Firebase Hosting."
+            echo "Tech stack: Next.js 16 (App Router), pnpm, Firebase Hosting with webframeworks, Supabase."
             echo
+            echo "--- ERROR LOGS ---"
             cat error_logs.txt
             echo
-            echo "The error occurred during deploy workflows."
-            echo "Check next.config.mjs and firebase.json when relevant."
-            echo "Explain root cause and provide corrected code snippets."
-            echo "EOF"
+            echo "--- END LOGS ---"
+            echo
+            echo "Provide:"
+            echo "1. Root cause (1-2 sentences)"
+            echo "2. Corrected code snippet if applicable"
+            echo "3. Any config changes needed in firebase.json, next.config.mjs, or GitHub Secrets"
+            echo "EOF_MARKER"
           } >> "$GITHUB_OUTPUT"
 
       - name: 🤖 Gemini AI Analysis
         id: gemini_analysis
         if: ${{ env.GEMINI_API_KEY != '' }}
-        uses: google-github-actions/run-gemini-cli@v0.1.18
+        continue-on-error: true
+        uses: google-github-actions/run-gemini-cli@v0
         with:
           gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
           prompt: ${{ steps.build_prompt.outputs.prompt }}
@@ -78,21 +87,38 @@ jobs:
       - name: 🛠️ Create fix suggestion issue
         if: always()
         run: |
-          if [ -z "${{ env.GEMINI_API_KEY }}" ]; then
-            RESPONSE="Gemini analysis skipped: GEMINI_API_KEY secret is not configured."
+          if [ -z "$GEMINI_API_KEY" ]; then
+            RESPONSE="⚠️ Gemini analysis skipped: GEMINI_API_KEY secret is not configured."
+          elif [ -z "$GEMINI_RESPONSE" ]; then
+            RESPONSE="⚠️ Gemini analysis returned empty or failed. Check error_logs.txt manually."
           else
             RESPONSE="${GEMINI_RESPONSE}"
           fi
 
           {
-            echo "AI analyzed the logs and suggests the following changes:"
+            echo "## 🤖 AI Self-Healing Report"
+            echo
+            echo "**Trigger:** ${{ github.event.workflow_run.name || 'Manual dispatch' }}"
+            echo "**Run ID:** ${{ github.event.inputs.run_id || github.event.workflow_run.id || 'N/A' }}"
+            echo "**Timestamp:** $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+            echo
+            echo "### Analysis"
             echo
             echo "$RESPONSE"
           } > issue_body.md
 
-          gh issue create \
-            --title "🤖 Auto-fix Suggestion: Deploy Failure" \
-            --body-file issue_body.md
+          # Check for duplicate open issues to avoid spam
+          EXISTING=$(gh issue list --state open --label "ai-healing" --limit 1 --json number -q '.[0].number' || echo "")
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --body-file issue_body.md
+            echo "📝 Added comment to existing issue #$EXISTING"
+          else
+            gh issue create \
+              --title "🤖 Auto-fix Suggestion: Deploy Failure ($(date -u '+%Y-%m-%d'))" \
+              --body-file issue_body.md \
+              --label "ai-healing"
+          fi
         env:
           GH_TOKEN: ${{ github.token }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_RESPONSE: ${{ steps.gemini_analysis.outputs.gemini_response }}

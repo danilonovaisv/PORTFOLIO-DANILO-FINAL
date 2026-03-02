@@ -1,13 +1,7 @@
 {
   "projects": {
-    "default": "portfolio-danilo-novais",
-    "portfoliodanilo.com": "portfolio-danilo-novais",
-    "aget-dan-staging": "agent-dan-desgn"
+    "default": "portfolio-danilo-novais"
   },
   "targets": {},
-  "etags": {
-    "portfolio-danilo-novais": {
-      "extensionInstances": {}
-    }
-  }
+  "etags": {}
 }
