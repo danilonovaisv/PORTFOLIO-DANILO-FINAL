@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useMotionGate } from '@/hooks/useMotionGate';
 
@@ -7,26 +8,67 @@ import AntigravityCTA from '@/components/ui/AntigravityCTA';
 import { ABOUT_CONTENT } from '@/config/content';
 import { useSiteAssetUrl } from '@/contexts/site-assets';
 import { SITE_ASSET_KEYS } from '@/config/site-assets';
+import { BRAND } from '@/config/brand';
 
 import { motionTokens } from '@/config/about-motion';
 import { DEFAULT_CAPTIONS, DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
-import { getSupabaseStorageUrl } from '@/lib/supabase/storage-url';
+/** SSR-safe breakpoint hook — returns true when viewport is ≤ 767px (mobile) */
+function useIsMobile(): boolean {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 767px)');
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    setIsMobile(mql.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
+
+  return isMobile;
+}
 
 export function AboutClosing() {
   const prefersReducedMotion = useMotionGate();
-  const desktopVideo = useSiteAssetUrl(
-    SITE_ASSET_KEYS.about.beliefs.skillsVideo,
-    getSupabaseStorageUrl(
-      'site-assets/about/beliefs/VIDEO-SKILLS-FINAL_compressed.mp4'
-    )
+  const isMobile = useIsMobile();
+
+  // Manifesto Assets (Home Shared)
+  const manifestoVideoDesk = useSiteAssetUrl(
+    SITE_ASSET_KEYS.heroVideos.homeManifesto,
+    BRAND.assets.video.manifesto
   );
-  const mobileVideo = useSiteAssetUrl(
-    SITE_ASSET_KEYS.about.beliefs.skillsVideoMobile,
-    getSupabaseStorageUrl(
-      'site-assets/about/beliefs/VIDEO-SKILLS-MOBILE-FINAL.mp4'
-    )
+  const manifestoVideoMobile = useSiteAssetUrl(
+    SITE_ASSET_KEYS.heroVideos.homeManifestoMobile,
+    BRAND.assets.video.manifestoMobile
   );
+  const posterDesk = useSiteAssetUrl(
+    SITE_ASSET_KEYS.heroVideos.homeManifestoPosterDesk,
+    BRAND.assets.video.manifestoPosterDesk
+  );
+  const posterMobile = useSiteAssetUrl(
+    SITE_ASSET_KEYS.heroVideos.homeManifestoPosterMobile,
+    BRAND.assets.video.manifestoPosterMobile
+  );
+
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Resume play if source changes and not reduced motion
+  useEffect(() => {
+    if (videoRef.current && !prefersReducedMotion) {
+      videoRef.current.load();
+      videoRef.current.play().catch(() => {
+        // Safe to ignore autoplay errors (usually permissions)
+      });
+    }
+  }, [isMobile, prefersReducedMotion]);
+
+  const activeVideo = isMobile
+    ? (manifestoVideoMobile || manifestoVideoDesk)
+    : manifestoVideoDesk;
+
+  const activePoster = isMobile
+    ? (posterMobile || posterDesk || DEFAULT_VIDEO_POSTER)
+    : (posterDesk || DEFAULT_VIDEO_POSTER);
 
   return (
     <section
@@ -61,39 +103,21 @@ export function AboutClosing() {
             todos os canais.
           </p>
 
-          {/* Vídeo em Loop - alinhado ao grid, com overlay para contraste */}
+          {/* Vídeo em Loop - Ghost Orchestration Logic */}
           <div className="mt-12 md:mt-11 w-full max-w-[1680px] mx-auto overflow-hidden rounded-lg bg-black/30 relative">
             <div className="absolute inset-0 bg-linear-to-t from-black/30 via-black/15 to-transparent pointer-events-none" />
-            {/* Desktop Video */}
+
             <video
-              className="hidden md:block w-full h-full object-cover"
-              src={desktopVideo ?? ''}
+              ref={videoRef}
+              className="w-full h-full object-cover"
+              src={activeVideo ?? ''}
               autoPlay={!prefersReducedMotion}
               loop
               muted
               playsInline
-              preload="auto"
+              preload="metadata"
               aria-label="Demonstração visual de experiências"
-              poster={DEFAULT_VIDEO_POSTER}
-            >
-              <track
-                kind="captions"
-                src={DEFAULT_CAPTIONS}
-                srcLang="pt-BR"
-                label="Português"
-              />
-            </video>
-            {/* Mobile Video */}
-            <video
-              className="md:hidden w-full h-full object-cover"
-              src={mobileVideo ?? desktopVideo ?? ''}
-              autoPlay={!prefersReducedMotion}
-              loop
-              muted
-              playsInline
-              preload="auto"
-              aria-label="Demonstração visual de experiências"
-              poster={DEFAULT_VIDEO_POSTER}
+              poster={activePoster}
             >
               <track
                 kind="captions"

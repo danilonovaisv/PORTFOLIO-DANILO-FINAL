@@ -23,6 +23,9 @@ export const SITE_ASSET_KEYS = {
   },
   heroVideos: {
     homeManifesto: 'home.manifesto_video',
+    homeManifestoMobile: 'home.manifesto_video_mobile',
+    homeManifestoPosterDesk: 'home.manifesto_poster_desk',
+    homeManifestoPosterMobile: 'home.manifesto_poster_mobile',
     aboutDesktop: 'about.hero.desktop_video.mp4',
     aboutMobile: 'about.hero.mobile_video.mp4',
     portfolioDesktop: 'portfolio.hero_desktop_video',
@@ -134,9 +137,27 @@ export const SITE_ASSET_DEFINITIONS: SiteAssetDefinition[] = [
   ...fontDefinitions,
   {
     key: SITE_ASSET_KEYS.heroVideos.homeManifesto,
-    label: 'Vídeo manifesto',
+    label: 'Vídeo manifesto (desktop)',
     page: 'home',
     category: 'video',
+  },
+  {
+    key: SITE_ASSET_KEYS.heroVideos.homeManifestoMobile,
+    label: 'Vídeo manifesto (mobile)',
+    page: 'home',
+    category: 'video',
+  },
+  {
+    key: SITE_ASSET_KEYS.heroVideos.homeManifestoPosterDesk,
+    label: 'Poster vídeo manifesto (desktop)',
+    page: 'home',
+    category: 'image',
+  },
+  {
+    key: SITE_ASSET_KEYS.heroVideos.homeManifestoPosterMobile,
+    label: 'Poster vídeo manifesto (mobile)',
+    page: 'home',
+    category: 'image',
   },
   {
     key: SITE_ASSET_KEYS.heroVideos.aboutDesktop,

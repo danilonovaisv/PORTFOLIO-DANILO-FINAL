@@ -47,6 +47,9 @@ export const BRAND = {
     },
     video: {
       manifesto: asset('site-assets/home/home.manifesto_video.mp4'),
+      manifestoMobile: asset('site-assets/home/home.manifesto_video_mobile.mp4'),
+      manifestoPosterDesk: asset('site-assets/home/video.manifesto.desk.webp'),
+      manifestoPosterMobile: asset('site-assets/home/video.manifesto.mobile.webp'),
     },
     fonts: {
       primary: 'TT Norms Pro',
@@ -55,6 +58,9 @@ export const BRAND = {
   },
   video: {
     manifesto: asset('site-assets/home/home.manifesto_video.mp4'),
+    manifestoMobile: asset('site-assets/home/home.manifesto_video_mobile.mp4'),
+    manifestoPosterDesk: asset('site-assets/home/video.manifesto.desk.webp'),
+    manifestoPosterMobile: asset('site-assets/home/video.manifesto.mobile.webp'),
   },
 
   // Leis de Layout (Absolute Laws)

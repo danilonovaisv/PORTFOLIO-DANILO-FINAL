@@ -10,7 +10,11 @@ import { DEFAULT_VIDEO_POSTER } from '@/lib/video';
 
 interface VideoManifestoProps {
   src: string;
+  srcMobile?: string;
+  posterDesk?: string;
+  posterMobile?: string;
   assetKey?: string;
+  assetKeyMobile?: string;
 }
 
 const VIDEO_EXTENSIONS_REGEX = /\.(mp4|webm|mov|m4v)(?:[?#].*)?$/i;
@@ -21,12 +25,36 @@ const isLikelyVideoUrl = (url?: string | null) => {
   return VIDEO_EXTENSIONS_REGEX.test(url);
 };
 
-export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
+/** SSR-safe breakpoint hook — returns true when viewport is ≤ 767px (mobile) */
+function useIsMobile(): boolean {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 767px)');
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    setIsMobile(mql.matches);
+    mql.addEventListener('change', handler);
+    return () => mql.removeEventListener('change', handler);
+  }, []);
+
+  return isMobile;
+}
+
+export function VideoManifesto({
+  src,
+  srcMobile,
+  posterDesk,
+  posterMobile,
+  assetKey,
+  assetKeyMobile,
+}: VideoManifestoProps) {
   const { asset } = useRealtimeAsset(assetKey || '');
+  const { asset: assetMobile } = useRealtimeAsset(assetKeyMobile || '');
   const [muted, setMuted] = useState(true);
   const [videoQuality, setVideoQuality] = useState<'hd' | 'sd'>('hd');
   const shouldReduceMotion = useMotionGate();
   const [mounted, setMounted] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     setMounted(true);
@@ -81,15 +109,25 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
     videoRef.current.muted = muted;
   }, [muted]);
 
-  const baseSrc =
+  // ── Resolução da fonte de vídeo (desktop) ──────────────────────────────────
+  const baseSrcDesk =
     mounted && isLikelyVideoUrl(asset?.publicUrl)
       ? (asset?.publicUrl as string)
       : src;
-  const [currentSrc, setCurrentSrc] = useState(baseSrc);
+
+  // ── Resolução da fonte de vídeo (mobile) ──────────────────────────────────
+  const baseSrcMobile =
+    mounted && isLikelyVideoUrl(assetMobile?.publicUrl)
+      ? (assetMobile?.publicUrl as string)
+      : srcMobile ?? src;
+
+  // Escolhe a fonte correta para o dispositivo atual
+  const activeSrc = isMobile ? baseSrcMobile : baseSrcDesk;
+  const [currentSrc, setCurrentSrc] = useState(activeSrc);
 
   useEffect(() => {
-    setCurrentSrc(baseSrc);
-  }, [baseSrc]);
+    setCurrentSrc(activeSrc);
+  }, [activeSrc]);
 
   // Usa SD somente se existir um variant explícito em metadata; evita 404 silencioso.
   const sdVariant = (
@@ -101,14 +139,11 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
       : currentSrc;
   const videoSrc = variantSrc;
 
-  const explicitPoster =
-    (
-      asset?.metadata as
-        | { variants?: { poster?: string }; poster?: string }
-        | undefined
-    )?.variants?.poster ||
-    (asset?.metadata as { poster?: string } | undefined)?.poster;
-  const posterSrc = explicitPoster || DEFAULT_VIDEO_POSTER;
+  // ── Posters responsivos ────────────────────────────────────────────────────
+  // Prioridade: poster explícito via props > DEFAULT_VIDEO_POSTER
+  const activePoster = isMobile
+    ? (posterMobile ?? posterDesk ?? DEFAULT_VIDEO_POSTER)
+    : (posterDesk ?? DEFAULT_VIDEO_POSTER);
 
   return (
     <motion.section
@@ -132,7 +167,7 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
           ref={videoRef}
           className="w-full h-auto sm:aspect-video sm:object-cover block"
           src={videoSrc}
-          poster={posterSrc}
+          poster={activePoster}
           autoPlay={!shouldReduceMotion}
           loop={!shouldReduceMotion}
           muted={muted}
@@ -166,7 +201,7 @@ export function VideoManifesto({ src, assetKey }: VideoManifestoProps) {
           className="toggle-sound absolute top-3 right-3 h-14 w-14 sm:h-12 sm:w-12 rounded-full bg-black/50 backdrop-blur-sm text-white flex items-center justify-center hover:bg-black/70 transition-colors focus-visible:outline-2 focus-visible:outline-[#0048ff] focus-visible:outline-offset-2"
           onClick={() => setMuted((m: boolean) => !m)}
           aria-label={muted ? 'Ativar som do vídeo' : 'Desativar som do vídeo'}
-          aria-pressed={muted ? false : true}
+          aria-pressed={!muted}
         >
           {muted ? (
             <svg
