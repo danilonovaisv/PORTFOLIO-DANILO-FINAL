@@ -120,5 +120,3 @@ jobs:
         if: failure()
         run: echo "❌ Pipeline de deploy falhou."
         shell: bash
-
-
