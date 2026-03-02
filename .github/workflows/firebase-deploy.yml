@@ -1,4 +1,7 @@
-name: Test and Deploy
+- name: Setup Firebase CLI     
+ uses: firebase-actions/setup-bundled-cli@v2
+  with:
+    version: latest
 
 on:
   push:
