@@ -150,6 +150,7 @@ Showcase curado de trabalhos de alta qualidade em layout editorial estilo revist
 
 - **Imagem/Vídeo:** cobre o card, `object-fit: cover`
 - **Pills (tags):** absoluto, top-right, bg `#E6EFEF` 70% opacity
+  - Implementado em `FeaturedProjectCardFrame` com render das 2 primeiras tags disponíveis do projeto
 - **Info Block:**
   - Título (H3, medium weight)
   - Meta: `Cliente • Ano` (`#6B7280`, small)
