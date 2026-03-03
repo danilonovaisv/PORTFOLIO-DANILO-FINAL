@@ -1,5 +1,40 @@
 # Adjustment Log
 
+## [2026-03-03T08:10] GitHub Actions Firebase Deploy Workaround Hardening
+
+**Context:** The latest failed GitHub Actions run (`Firebase Deploy`, run `22621501095`, commit `41d63605372cda52058f81085cc4aced5857b854`) no longer failed in install, lint, typecheck, or app build. The only failing step was `Deploy to Firebase`, where Firebase Hosting with Web Frameworks invoked npm internally and failed on the peer conflict between `firebase-frameworks@0.11.8` and `sharp@0.34.5` during packaging.
+
+**Changes Applied:**
+
+1. **Hardened the deploy step with an ephemeral npm-compatible manifest** ✅
+   - File: `.github/workflows/firebase-deploy.yml`
+   - The workflow now snapshots `package.json`, temporarily removes `packageManager`, and restores the original manifest on exit.
+   - Impact: avoids npm/Firebase CLI friction against the pnpm-oriented root manifest during framework packaging.
+
+2. **Generated a temporary lockfile only for the Firebase packaging phase** ✅
+   - File: `.github/workflows/firebase-deploy.yml`
+   - Added `npm install --legacy-peer-deps --package-lock-only --ignore-scripts` immediately before `firebase deploy`.
+   - Impact: supplies the package metadata expected by the framework packaging path without persisting `package-lock.json` in the repository.
+
+3. **Cleared stale framework packaging output before deploy** ✅
+   - File: `.github/workflows/firebase-deploy.yml`
+   - Added cleanup for `.firebase/<project>/functions`.
+   - Impact: avoids reusing a previously generated backend bundle with incompatible metadata.
+
+4. **Aligned npm behavior with the Firebase CLI packaging path** ✅
+   - File: `.github/workflows/firebase-deploy.yml`
+   - Added `NPM_CONFIG_LEGACY_PEER_DEPS=true` to the deploy step environment.
+   - Impact: keeps peer-resolution behavior consistent with the temporary lockfile generation used as the workaround.
+
+**Verification:**
+
+- ✅ Workflow YAML parse succeeded for `.github/workflows/firebase-deploy.yml`.
+- ✅ `pnpm run lint`
+- ✅ `pnpm run typecheck`
+- ⚠️ A full local simulation of the packaging workaround was not used as final evidence because npm stalled on a remote tarball fetch unrelated to the workflow syntax or the original GitHub failure.
+
+---
+
 ## [2026-03-03T08:20] GitHub Workflow Secret Fallback Hardening
 
 **Context:** A follow-up review of the GitHub deploy workflow showed that the reported “missing secrets” issue did not match the actual repository state. The GitHub repository already had the required Supabase and Firebase secrets, but the workflow was too strict about secret naming and was mapping Supabase public env vars with a single hardcoded source.

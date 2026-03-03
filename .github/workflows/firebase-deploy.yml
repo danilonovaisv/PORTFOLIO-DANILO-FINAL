@@ -213,12 +213,37 @@ jobs:
 
       - name: Deploy to Firebase
         run: |
+          TMP_PKG_JSON=$(mktemp)
+          cp package.json "$TMP_PKG_JSON"
+
+          restore_on_exit() {
+            mv "$TMP_PKG_JSON" package.json
+            rm -f package-lock.json
+          }
+
+          trap restore_on_exit EXIT
+
+          echo "🧹 Limpando cache do frameworks backend..."
+          rm -rf ".firebase/${{ steps.firebase_project.outputs.project_id }}/functions"
+
+          echo "🩹 Gerando manifest temporário compatível com npm para o frameworks backend..."
+          node -e "
+            const fs = require('fs');
+            const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+            delete pkg.packageManager;
+            fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+
+          echo "📦 Gerando package-lock.json temporário com legacy peer deps..."
+          npm install --legacy-peer-deps --package-lock-only --ignore-scripts
+
           firebase experiments:enable webframeworks
           firebase deploy --only hosting,functions \
             --project "${{ steps.firebase_project.outputs.project_id }}" \
             --debug --non-interactive
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ steps.auth.outputs.credentials_file_path }}
+          NPM_CONFIG_LEGACY_PEER_DEPS: 'true'
 
       # ── 16. Notifications ──────────────────────────────────────────────────────
       - name: Notify success
