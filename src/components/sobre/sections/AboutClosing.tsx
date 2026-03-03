@@ -32,14 +32,12 @@ export function AboutClosing() {
   const prefersReducedMotion = useMotionGate();
   const isMobile = useIsMobile();
 
-  // Manifesto Assets (Home Shared)
-  const manifestoVideoDesk = useSiteAssetUrl(
-    SITE_ASSET_KEYS.heroVideos.homeManifesto,
-    BRAND.assets.video.manifesto
+  // Closing Assets
+  const closingVideoDesk = useSiteAssetUrl(
+    SITE_ASSET_KEYS.about.closingDesktop
   );
-  const manifestoVideoMobile = useSiteAssetUrl(
-    SITE_ASSET_KEYS.heroVideos.homeManifestoMobile,
-    BRAND.assets.video.manifestoMobile
+  const closingVideoMobile = useSiteAssetUrl(
+    SITE_ASSET_KEYS.about.closingMobile
   );
   const posterDesk = useSiteAssetUrl(
     SITE_ASSET_KEYS.heroVideos.homeManifestoPosterDesk,
@@ -63,8 +61,8 @@ export function AboutClosing() {
   }, [isMobile, prefersReducedMotion]);
 
   const activeVideo = isMobile
-    ? (manifestoVideoMobile || manifestoVideoDesk)
-    : manifestoVideoDesk;
+    ? (closingVideoMobile || closingVideoDesk)
+    : closingVideoDesk;
 
   const activePoster = isMobile
     ? (posterMobile || posterDesk || DEFAULT_VIDEO_POSTER)

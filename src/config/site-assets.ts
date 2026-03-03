@@ -46,6 +46,8 @@ export const SITE_ASSET_KEYS = {
       skillsVideo: 'about.beliefs.VIDEO-SKILLS-FINAL_compressed.mp4',
       skillsVideoMobile: 'about.beliefs.VIDEO-SKILLS-MOBILE-FINAL.mp4',
     },
+    closingDesktop: 'about.closing_video',
+    closingMobile: 'about.closing_video_mobile',
   },
   projects: {
     campaign: {
@@ -174,6 +176,18 @@ export const SITE_ASSET_DEFINITIONS: SiteAssetDefinition[] = [
   {
     key: SITE_ASSET_KEYS.heroVideos.method,
     label: 'Vídeo método',
+    page: 'about',
+    category: 'video',
+  },
+  {
+    key: SITE_ASSET_KEYS.about.closingDesktop,
+    label: 'Vídeo fechamento Sobre (desktop)',
+    page: 'about',
+    category: 'video',
+  },
+  {
+    key: SITE_ASSET_KEYS.about.closingMobile,
+    label: 'Vídeo fechamento Sobre (mobile)',
     page: 'about',
     category: 'video',
   },
