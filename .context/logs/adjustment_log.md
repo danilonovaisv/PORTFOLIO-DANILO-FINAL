@@ -1,5 +1,30 @@
 # Adjustment Log
 
+## [2026-03-03T07:55] PNPM Lockfile Config Normalization
+
+**Context:** A deploy log under `docs/logs_59149535611` showed the pipeline aborting in `pnpm install --frozen-lockfile` after a manifest/lock drift involving `sharp`. During local reproduction, the workspace also exposed ambiguous lockfile behavior because lockfile policy was partially declared in `pnpm-workspace.yaml` instead of pnpm's main config surface.
+
+**Changes Applied:**
+
+1. **Centralized lockfile policy in `.npmrc`** ✅
+   - File: `.npmrc`
+   - Added `lockfile=true` and `shared-workspace-lockfile=true`.
+   - Impact: makes the root workspace behavior explicit for deterministic installs and CI parity.
+
+2. **Removed misplaced workspace-level lockfile declaration** ✅
+   - File: `pnpm-workspace.yaml`
+   - Removed `lockfile: true`.
+   - Impact: keeps `pnpm-workspace.yaml` limited to workspace package discovery and overrides, avoiding config ambiguity.
+
+**Verification:**
+
+- ✅ `pnpm install --frozen-lockfile --ignore-scripts`
+- ✅ `pnpm --dir functions install --frozen-lockfile --ignore-scripts`
+- ✅ `pnpm run lint`
+- ✅ `pnpm run typecheck`
+- ✅ `pnpm --dir functions run build`
+- ✅ `pnpm run build`
+
 ## [2026-03-03T07:05] Firebase Deploy Dependency Conflict Remediation
 
 **Context:** Firebase Hosting with Web Frameworks was failing during `prepareFrameworks()` because `firebase-tools` copies the root `package.json` into the generated functions directory and runs `npm i --omit dev --no-audit`. The project declared `firebase-frameworks@0.11.8`, which still peers on `sharp ^0.32 || ^0.33`, while the app stack is on `next@16.1.6` and `sharp@0.34.5`.

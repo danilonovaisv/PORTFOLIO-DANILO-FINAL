@@ -12,8 +12,6 @@ ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
 
-lockfile: true
-
 overrides:
   '@dataconnect/admin-generated': link:src/dataconnect-admin-generated
   '@dataconnect/generated': link:src/dataconnect-generated
